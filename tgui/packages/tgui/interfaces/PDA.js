@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Box, Section, Flex, Icon } from '../components';
+import { Button, Box, Section, Stack, Icon } from '../components';
 import { Window } from '../layouts';
 
 /* This is all basically stolen from routes.js. */
@@ -29,7 +29,7 @@ export const PDA = (props, context) => {
   const { app, owner } = data;
   if (!owner) {
     return (
-      <Window>
+      <Window width={350} height={105}>
         <Window.Content scrollable>
           <Section title="Error">
             No user data found. Please swipe an ID card.
@@ -42,24 +42,32 @@ export const PDA = (props, context) => {
   const App = GetApp(app.template);
 
   return (
-    <Window>
+    <Window width={600} height={650}>
       <Window.Content scrollable>
-        <PDAHeader />
-
-        <Section
-          title={
-            <Box>
-              <Icon name={app.icon} mr={1} />
-              {app.name}
-            </Box>
-          }
-          p={1}
-        >
-          <App />
-        </Section>
-
-        <Box mb={8} />
-        <PDAFooter />
+        <Stack fill vertical>
+          <Stack.Item>
+            <PDAHeader />
+          </Stack.Item>
+          <Stack.Item grow>
+            <Section
+              fill
+              scrollable
+              p={1}
+              pb={0}
+              title={
+                <Box>
+                  <Icon name={app.icon} mr={1} />
+                  {app.name}
+                </Box>
+              }
+            >
+              <App />
+            </Section>
+          </Stack.Item>
+          <Stack.Item mt={7.5}>
+            <PDAFooter />
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -70,43 +78,31 @@ const PDAHeader = (props, context) => {
   const { idInserted, idLink, stationTime, cartridge_name } = data;
 
   return (
-    <Box mb={1}>
-      <Flex align="center" justify="space-between">
-        {idInserted ? (
-          <Flex.Item>
-            <Button
-              icon="id-card"
-              color="transparent"
-              onClick={() => act('Authenticate')}
-              content={idLink}
-            />
-          </Flex.Item>
-        ) : (
-          <Flex.Item m={1} color="grey">
-            No ID Inserted
-          </Flex.Item>
-        )}
-
-        {cartridge_name ? (
-          <Flex.Item>
-            <Button
-              icon="sd-card"
-              color="transparent"
-              onClick={() => act('Eject')}
-              content={'Eject ' + cartridge_name}
-            />
-          </Flex.Item>
-        ) : (
-          <Flex.Item m={1} color="grey">
-            No Cartridge Inserted
-          </Flex.Item>
-        )}
-
-        <Flex.Item grow={1} textAlign="right" bold m={1}>
-          {stationTime}
-        </Flex.Item>
-      </Flex>
-    </Box>
+    <Stack fill>
+      <Stack.Item ml={0.5}>
+        <Button
+          icon="id-card"
+          color="transparent"
+          onClick={() => act('Authenticate')}
+          content={idInserted ? idLink : 'No ID Inserted'}
+        />
+      </Stack.Item>
+      <Stack.Item>
+        <Button
+          icon="sd-card"
+          color="transparent"
+          onClick={() => act('Eject')}
+          content={
+            cartridge_name
+              ? ['Eject ' + cartridge_name]
+              : 'No Cartridge Inserted'
+          }
+        />
+      </Stack.Item>
+      <Stack.Item grow textAlign="right" bold mr={1} mt={0.5}>
+        {stationTime}
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -116,19 +112,21 @@ const PDAFooter = (props, context) => {
   const { app } = data;
 
   return (
-    <Box className="PDA__footer" backgroundColor="#1b1b1b">
-      <Flex>
-        <Flex.Item basis="33%">
-          <Button
-            fluid
-            className="PDA__footer__button"
-            color="transparent"
-            iconColor={app.has_back ? 'white' : 'disabled'}
-            icon="arrow-alt-circle-left-o"
-            onClick={() => act('Back')}
-          />
-        </Flex.Item>
-        <Flex.Item basis="33%">
+    <Box height="45px" className="PDA__footer" backgroundColor="#1b1b1b">
+      <Stack fill>
+        {!!app.has_back && (
+          <Stack.Item basis="33%" mr={-0.5}>
+            <Button
+              fluid
+              className="PDA__footer__button"
+              color="transparent"
+              iconColor={app.has_back ? 'white' : 'disabled'}
+              icon="arrow-alt-circle-left-o"
+              onClick={() => act('Back')}
+            />
+          </Stack.Item>
+        )}
+        <Stack.Item basis={app.has_back ? '33%' : '100%'}>
           <Button
             fluid
             className="PDA__footer__button"
@@ -139,8 +137,8 @@ const PDAFooter = (props, context) => {
               act('Home');
             }}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };

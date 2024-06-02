@@ -6,6 +6,11 @@
 #define WANTED_NOTICE_DESC_MAX_LENGTH 512
 #define STORIES_PER_LOAD 9999 // TODO during QP...
 
+/// The feed network singleton. Contains all channels (which contain all stories).
+GLOBAL_DATUM_INIT(news_network, /datum/feed_network, new)
+/// Global list that contains all existing newscasters in the world.
+GLOBAL_LIST_EMPTY(allNewscasters)
+
 /**
   * # Newscaster
   *
@@ -84,6 +89,10 @@
 			/datum/job/assistant,
 			/datum/job/syndicateofficer
 		)
+
+/obj/machinery/newscaster/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
 
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src
@@ -187,12 +196,15 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/newscaster/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/newscaster/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/newscaster/ui_interact(mob/user, datum/tgui/ui = null)
 	if(can_scan(user))
 		scanned_user = get_scanned_user(user)["name"]
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Newscaster", name, 800, 600)
+		ui = new(user, src, "Newscaster", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -239,7 +251,7 @@
 				for(var/m in stories)
 					if(now >= m["publish_time"])
 						var/datum/feed_message/FM = locateUID(m["uid"])
-						if(FM && !(FM.censor_flags & CENSOR_STORY))
+						if(FM && !(FM.censor_flags & NEWSCASTER_CENSOR_STORY))
 							if(isliving(user))
 								FM.view_count++
 							m["view_count"] = FM.view_count
@@ -327,14 +339,14 @@
   * * M - Optional. The user to send the story's photo to if it exists
   */
 /obj/machinery/newscaster/proc/get_message_data(datum/feed_message/FM, mob/M)
-	if(!(FM.censor_flags & CENSOR_STORY) && M && FM.img)
+	if(!(FM.censor_flags & NEWSCASTER_CENSOR_STORY) && M && FM.img)
 		M << browse_rsc(FM.img, "story_photo_[FM.UID()].png")
 	return list(list(
 		uid = FM.UID(),
-		author = (FM.censor_flags & CENSOR_AUTHOR) ? "" : FM.author,
+		author = (FM.censor_flags & NEWSCASTER_CENSOR_AUTHOR) ? "" : FM.author,
 		author_ckey = (is_admin(M) ? FM.author_ckey : "N/A"),
-		title = (FM.censor_flags & CENSOR_STORY) ? "" : FM.title,
-		body = (FM.censor_flags & CENSOR_STORY) ? "" : FM.body,
+		title = (FM.censor_flags & NEWSCASTER_CENSOR_STORY) ? "" : FM.title,
+		body = (FM.censor_flags & NEWSCASTER_CENSOR_STORY) ? "" : FM.body,
 		admin_locked = FM.admin_locked,
 		censor_flags = FM.censor_flags,
 		view_count = FM.view_count,
@@ -416,9 +428,9 @@
 				set_temp("This story has been locked by CentComm and thus cannot be censored in any way.", "danger")
 				return
 			if(action == "censor_author")
-				FM.censor_flags = (FM.censor_flags & CENSOR_AUTHOR) ? (FM.censor_flags & ~CENSOR_AUTHOR) : (FM.censor_flags|CENSOR_AUTHOR)
+				FM.censor_flags = (FM.censor_flags & NEWSCASTER_CENSOR_AUTHOR) ? (FM.censor_flags & ~NEWSCASTER_CENSOR_AUTHOR) : (FM.censor_flags|NEWSCASTER_CENSOR_AUTHOR)
 			else if(action == "censor_story")
-				FM.censor_flags = (FM.censor_flags & CENSOR_STORY) ? (FM.censor_flags & ~CENSOR_STORY) : (FM.censor_flags|CENSOR_STORY)
+				FM.censor_flags = (FM.censor_flags & NEWSCASTER_CENSOR_STORY) ? (FM.censor_flags & ~NEWSCASTER_CENSOR_STORY) : (FM.censor_flags|NEWSCASTER_CENSOR_STORY)
 			else
 				return FALSE
 		if("clear_wanted_notice")
@@ -510,7 +522,7 @@
 						// Redirect
 						screen = NEWSCASTER_CHANNEL
 						viewing_channel = FC
-					else if (id == "manage_channel") // Channel management
+					else if(id == "manage_channel") // Channel management
 						FC = locateUID(arguments["uid"])
 						if(!FC || !FC.can_modify(usr, get_scanned_user(usr)["name"]))
 							return
@@ -723,15 +735,10 @@
 /**
   * Ejects the currently loaded photo if there is one.
   */
-/obj/machinery/newscaster/verb/eject_photo_verb()
-	set name = "Eject Photo"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/newscaster/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-
-	eject_photo(usr)
+	eject_photo(user)
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

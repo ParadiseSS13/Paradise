@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	chemical_cost = 10
 	dna_cost = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_UTILITY
+	category = /datum/changeling_power_category/utility
 
 /datum/action/changeling/hivemind_pick/on_purchase(mob/user, datum/antagonist/changeling/C)
 	if(!..())
@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	to_chat(user, "<span class='notice'>We feel our consciousness become capable of communion with the hivemind.</span>")
 
 /datum/action/changeling/hivemind_pick/sting_action(mob/user)
-	var/channel_pick = alert("Upload or Absorb DNA?", "Channel Select", "Upload", "Absorb")
+	var/channel_pick = tgui_alert(user, "Upload or Absorb DNA?", "Channel Select", list("Upload", "Absorb"))
 
 	if(channel_pick == "Upload")
 		dna_upload(user)
@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		to_chat(user, "<span class='notice'>There's no new DNA to absorb from the air.</span>")
 		return
 
-	var/S = input("Select a DNA absorb from the air: ", "Absorb DNA", null) as null|anything in names
+	var/S = tgui_input_list(user, "Select a DNA absorb from the air", "Absorb DNA", names)
 	if(!S)
 		return
 

@@ -352,7 +352,7 @@
 	// We don't want to send the whole payload (song included) just for volume
 	var/datum/tgui/ui = SStgui.get_open_ui(usr, parent, "main")
 	if(ui)
-		ui.push_data(list("volume" = volume), force = TRUE)
+		ui.send_update(list("volume" = volume), TRUE)
 
 /**
   * Setter for setting how low the volume has to get before a note is considered "dead" and dropped

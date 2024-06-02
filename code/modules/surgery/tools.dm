@@ -1,6 +1,6 @@
 /obj/item/retractor
 	name = "retractor"
-	desc = "Retracts stuff."
+	desc = "A sterilized tissue retractor used for holding open incisions."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "retractor"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -22,7 +22,7 @@
 
 /obj/item/hemostat
 	name = "hemostat"
-	desc = "You think you have seen this before."
+	desc = "A sterilized steel surgical clamp for sealing exposed blood vessels during surgery."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -44,7 +44,7 @@
 
 /obj/item/cautery
 	name = "cautery"
-	desc = "This stops bleeding."
+	desc = "A unipolar electrocauter used to sear surgical incisions shut."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "cautery"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -66,7 +66,7 @@
 
 /obj/item/surgicaldrill
 	name = "surgical drill"
-	desc = "You can drill using this item. You dig?"
+	desc = "A sterilized drill used to create holes in bone and teeth."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "drill"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -86,8 +86,8 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/surgicaldrill/suicide_act(mob/user)
-	to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to [user.p_their()] temple and activating it! It looks like [user.p_theyre()] trying to commit suicide.</span>",
-						"<span class='suicide'>[user] is pressing [src] to [user.p_their()] chest and activating it! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
+	to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to [user.p_their()] temple and activating it! It looks like [user.p_theyre()] trying to commit suicide!</span>",
+						"<span class='suicide'>[user] is pressing [src] to [user.p_their()] chest and activating it! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
 	return BRUTELOSS
 
 /obj/item/surgicaldrill/augment
@@ -99,7 +99,7 @@
 
 /obj/item/scalpel
 	name = "scalpel"
-	desc = "Cut, cut, and once more cut."
+	desc = "A sterilized stainless steel cutting implement for making precise surgical incisions."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
 	item_state = "scalpel"
@@ -125,9 +125,9 @@
 
 
 /obj/item/scalpel/suicide_act(mob/user)
-	to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
-						"<span class='suicide'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
-						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
+	to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
+						"<span class='suicide'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
+						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>"))
 	return BRUTELOSS
 
 
@@ -138,32 +138,35 @@
 /*
  * Researchable Scalpels
  */
-/obj/item/scalpel/laser //parent type
+/// parent type
+/obj/item/scalpel/laser
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser."
+	desc = "A low-power laser emitter for creating and cauterizing precise surgical incisions."
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
 
-/obj/item/scalpel/laser/laser1 //lasers also count as catuarys
+/// lasers also count as catuarys
+/obj/item/scalpel/laser/laser1
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser.  This one looks basic and could be improved."
+	desc = "A basic low-power laser emitter for creating and cauterizing precise surgical incisions."
 	icon_state = "scalpel_laser1_on"
 	toolspeed = 0.8
 
 /obj/item/scalpel/laser/laser2
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser. This one looks somewhat advanced."
+	desc = "An improved laser emitter for rapidly creating and cauterizing precise surgical incisions."
 	icon_state = "scalpel_laser2_on"
 	toolspeed = 0.6
 
 /obj/item/scalpel/laser/laser3
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser.  This one looks to be the pinnacle of precision energy cutlery!"
+	desc = "An advanced laser emitter for creating and cauterizing precise surgical incisions with extreme speed."
 	icon_state = "scalpel_laser3_on"
 	toolspeed = 0.4
 
-/obj/item/scalpel/laser/manager //super tool! Retractor/hemostat
+/// super tool! Retractor/hemostat
+/obj/item/scalpel/laser/manager
 	name = "incision management system"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager_on"
@@ -176,7 +179,7 @@
 
 /obj/item/circular_saw
 	name = "circular saw"
-	desc = "For heavy duty cutting."
+	desc = "A sterilized medical saw for use in cutting through bone."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "saw"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -208,6 +211,7 @@
 //misc, formerly from code/defines/weapons.dm
 /obj/item/bonegel
 	name = "bone gel"
+	desc = "A large bottle of fast-setting medical adhesive. There's more than enough inside to last the shift."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone-gel"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -227,6 +231,7 @@
 
 /obj/item/FixOVein
 	name = "FixOVein"
+	desc = "An advanced medical device which uses an array of manipulators to reconnect and repair ruptured blood vessels."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "fixovein"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -246,6 +251,7 @@
 
 /obj/item/bonesetter
 	name = "bone setter"
+	desc = "A stainless steel medical clamp used to reconnect fractured bones."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bonesetter"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -268,7 +274,7 @@
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"
-	desc = "Nanotrasen brand surgical drapes provide optimal safety and infection control."
+	desc = "Apearature brand surgical drapes providing privacy and infection control."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "surgical_drapes"
 	w_class = WEIGHT_CLASS_SMALL

@@ -1,9 +1,8 @@
 // code\game\machinery\doors\airlock_electronics.dm
 import { useBackend } from '../backend';
-import { Button, Divider, Flex, Grid, Section } from '../components';
+import { Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
-import { Fragment } from 'inferno';
 
 const NORTH = 1;
 const SOUTH = 2;
@@ -12,10 +11,13 @@ const WEST = 8;
 
 export const AirlockElectronics = (props, context) => {
   return (
-    <Window resizable>
-      <UnrestrictedAccess />
-      <Divider />
-      <ChooseAccess />
+    <Window width={450} height={565}>
+      <Window.Content>
+        <Stack fill vertical>
+          <UnrestrictedAccess />
+          <ChooseAccess />
+        </Stack>
+      </Window.Content>
     </Window>
   );
 };
@@ -25,40 +27,12 @@ const UnrestrictedAccess = (props, context) => {
   const { unrestricted_dir } = data;
   return (
     <Section title="Access Control">
-      <Flex direction="column">
-        <Flex.Item bold mb={1}>
+      <Stack fill vertical>
+        <Stack.Item bold mb={1}>
           Unrestricted Access From:
-        </Flex.Item>
-        <Grid>
-          <Grid.Column>
-            <Button
-              fluid
-              textAlign="center"
-              icon="arrow-down"
-              content="North"
-              selected={unrestricted_dir & NORTH ? 'selected' : null}
-              onClick={() =>
-                act('unrestricted_access', {
-                  unres_dir: NORTH,
-                })
-              }
-            />
-          </Grid.Column>
-          <Grid.Column>
-            <Button
-              fluid
-              textAlign="center"
-              icon="arrow-up"
-              content="South"
-              selected={unrestricted_dir & SOUTH ? 'selected' : null}
-              onClick={() =>
-                act('unrestricted_access', {
-                  unres_dir: SOUTH,
-                })
-              }
-            />
-          </Grid.Column>
-          <Grid.Column>
+        </Stack.Item>
+        <Stack fill>
+          <Stack.Item grow>
             <Button
               fluid
               textAlign="center"
@@ -71,8 +45,23 @@ const UnrestrictedAccess = (props, context) => {
                 })
               }
             />
-          </Grid.Column>
-          <Grid.Column>
+          </Stack.Item>
+
+          <Stack.Item grow>
+            <Button
+              fluid
+              textAlign="center"
+              icon="arrow-up"
+              content="South"
+              selected={unrestricted_dir & SOUTH ? 'selected' : null}
+              onClick={() =>
+                act('unrestricted_access', {
+                  unres_dir: SOUTH,
+                })
+              }
+            />
+          </Stack.Item>
+          <Stack.Item grow>
             <Button
               fluid
               textAlign="center"
@@ -85,9 +74,23 @@ const UnrestrictedAccess = (props, context) => {
                 })
               }
             />
-          </Grid.Column>
-        </Grid>
-      </Flex>
+          </Stack.Item>
+          <Stack.Item grow>
+            <Button
+              fluid
+              textAlign="center"
+              icon="arrow-down"
+              content="North"
+              selected={unrestricted_dir & NORTH ? 'selected' : null}
+              onClick={() =>
+                act('unrestricted_access', {
+                  unres_dir: NORTH,
+                })
+              }
+            />
+          </Stack.Item>
+        </Stack>
+      </Stack>
     </Section>
   );
 };
@@ -99,7 +102,7 @@ const ChooseAccess = (props, context) => {
     <AccessList
       usedByRcd={1}
       rcdButtons={
-        <Fragment>
+        <>
           <Button.Checkbox
             checked={one_access}
             content="One"
@@ -118,7 +121,7 @@ const ChooseAccess = (props, context) => {
               })
             }
           />
-        </Fragment>
+        </>
       }
       accesses={regions}
       selectedList={selected_accesses}

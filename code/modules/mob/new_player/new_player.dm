@@ -24,17 +24,14 @@
 		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
 	return ..()
 
-/mob/new_player/verb/new_player_panel()
-	set src = usr
-
+/mob/new_player/proc/new_player_panel()
 	if(client.tos_consent || GLOB.configuration.system.external_tos_handler)
 		new_player_panel_proc()
 	else
 		privacy_consent()
 
-
 /mob/new_player/proc/privacy_consent()
-	var/output = GLOB.join_tos
+	var/output = "<!DOCTYPE html>[GLOB.join_tos]"
 	// Dont blank out the other window. This one is read only.
 	if(!GLOB.configuration.system.external_tos_handler)
 		src << browse(null, "window=playersetup")
@@ -49,7 +46,6 @@
 	popup.open(0)
 	return
 
-
 /mob/new_player/proc/new_player_panel_proc()
 	set waitfor = FALSE
 	var/real_name = client.prefs.active_character.real_name
@@ -58,16 +54,20 @@
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
-		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
-		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+		if(!ready)
+			output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
+		else
+			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
 
 	var/list/antags = client.prefs.be_special
-	if(antags && antags.len)
-		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
-		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
+	if(length(antags))
+		if(!client.skip_antag)
+			output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
+		else
+			output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
@@ -86,32 +86,25 @@
 	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 340)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
-	popup.open(0)
-	return
+	popup.open(FALSE)
 
-/mob/new_player/Stat()
-	..()
-	if(statpanel("Status") && SSticker)
+/mob/new_player/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(SSticker)
 		if(!SSticker.hide_mode)
-			stat("Game Mode: [GLOB.master_mode]")
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "[GLOB.master_mode]")
 		else
-			stat("Game Mode: Secret")
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "Secret")
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
-			if(SSticker.ticker_going)
-				stat("Time To Start: [round(SSticker.pregame_timeleft/10)]")
-			else
-				stat("Time To Start:", "DELAYED")
-
-			stat("Players: [totalPlayers]")
+			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED")
 			if(check_rights(R_ADMIN, 0, src))
-				stat("Players Ready: [totalPlayersReady]")
-			totalPlayers = 0
+				status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(check_rights(R_ADMIN, 0, src))
-					stat("[player.key] [(player.ready) ? ("(Playing)") : (null)]")
-				totalPlayers++
+					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
 				if(player.ready)
 					totalPlayersReady++
 
@@ -128,8 +121,6 @@
 		qdel(query)
 		src << browse(null, "window=privacy_consent")
 		client.tos_consent = TRUE
-		// Now they have accepted TOS, we can log data
-		client.chatOutput.sendClientData()
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
@@ -179,20 +170,29 @@
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
 
-		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
+		if(alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", "Yes", "No") == "Yes")
 			if(!client)
-				return 1
+				return TRUE
 			var/mob/dead/observer/observer = new(src)
 			src << browse(null, "window=playersetup")
 			spawning = TRUE
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)
-
-
+			if(ROUND_TIME <= (GLOB.configuration.general.roundstart_observer_period MINUTES))
+				GLOB.roundstart_observer_keys |= ckey
+				var/period_human_readable = "within [GLOB.configuration.general.roundstart_observer_period] minute\s"
+				if(GLOB.configuration.general.roundstart_observer_period == 0)
+					period_human_readable = "before the round started"
+				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability.</span>")
 			observer.started_as_observer = 1
 			close_spawn_windows()
-			var/obj/O = locate("landmark*Observer-Start")
+			var/obj/spawn_point
+			if(SSticker.current_state < GAME_STATE_PLAYING)
+				spawn_point = pick(GLOB.roundstart_observer_start)
+			else
+				spawn_point = locate("landmark*Observer-Start")
+
 			to_chat(src, "<span class='notice'>Now teleporting.</span>")
-			observer.forceMove(O.loc)
+			observer.forceMove(get_turf(spawn_point))
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.active_character.update_preview_icon(1)
 			observer.icon = client.prefs.active_character.preview_icon
@@ -394,7 +394,7 @@
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 			if(A.announce_arrivals)
 				ailist += A
-		if(ailist.len)
+		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
@@ -426,7 +426,7 @@
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 			ailist += A
-		if(ailist.len)
+		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
@@ -444,7 +444,7 @@
 	var/mins = (mills % 36000) / 600
 	var/hours = mills / 36000
 
-	var/dat = "<html><body><center>"
+	var/dat = "<html><meta charset='utf-8'><body><center>"
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
 	dat += "<b>The station alert level is: [SSsecurity_level.get_colored_current_security_level_name()]</b><br>"
 
@@ -540,22 +540,28 @@
 	check_prefs_are_sane()
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
-
-	if(SSticker.random_players)
-		client.prefs.active_character.randomise()
-		client.prefs.active_character.real_name = random_name(client.prefs.active_character.gender)
 	client.prefs.active_character.copy_to(new_character)
-
+	if(SSticker.random_players)
+		var/mob/living/carbon/human/H = new_character
+		scramble(1, H, 100)
+		H.real_name = random_name(H.gender, H.dna.species.name)
+		H.sync_organ_dna(assimilate = 1)
+		H.update_body()
+		H.reset_hair()
+		H.reset_markings()
+		H.dna.ResetUIFrom(H)
+		H.flavor_text = ""
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 
 	if(mind)
 		mind.active = FALSE					//we wish to transfer the key manually
-		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
-			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
+		// Clowns and mimes get appropriate default names, and the chance to pick a custom one.
+		if(mind.assigned_role == "Clown")
+			new_character.rename_character(new_character.real_name, pick(GLOB.clown_names))
 			new_character.rename_self("clown")
 		else if(mind.assigned_role == "Mime")
-			new_character.real_name = pick(GLOB.mime_names)
+			new_character.rename_character(new_character.real_name, pick(GLOB.mime_names))
 			new_character.rename_self("mime")
 		mind.set_original_mob(new_character)
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
@@ -583,7 +589,7 @@
 		client.prefs.active_character.language = "None"
 
 /mob/new_player/proc/ViewManifest()
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 /mob/new_player/Move()
 	return 0

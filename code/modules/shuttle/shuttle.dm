@@ -162,9 +162,9 @@
 
 // Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
 /obj/docking_port/stationary/whiteship
-	dwidth = 10
-	height = 35
-	width = 21
+	dwidth = 6
+	height = 19
+	width = 12
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
@@ -173,9 +173,9 @@
 
 	SSshuttle.stationary += src
 	if(!id)
-		id = "[SSshuttle.stationary.len]"
+		id = "[length(SSshuttle.stationary)]"
 	if(name == "dock")
-		name = "dock[SSshuttle.stationary.len]"
+		name = "dock[length(SSshuttle.stationary)]"
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")
@@ -185,12 +185,6 @@
 //returns first-found touching shuttleport
 /obj/docking_port/stationary/get_docked()
 	return locate(/obj/docking_port/mobile) in loc
-	/*
-	for(var/turf/T in return_ordered_turfs())
-		. = locate(/obj/docking_port/mobile) in loc
-		if(.)
-			return .
-	*/
 
 /obj/docking_port/stationary/transit
 	name = "In transit"
@@ -223,6 +217,9 @@
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
 
+	/// The speed factor for this shuttle. Higher means faster.
+	var/shuttle_speed_factor = 1
+
 	var/mob/last_caller				// Who called the shuttle the last time
 
 	var/obj/docking_port/stationary/destination
@@ -231,6 +228,8 @@
 	var/uses_lockdown = FALSE
 	/// If this variable is true, shuttle is on lockdown, and other requests can not be processed
 	var/lockeddown = FALSE
+	/// Is this a shuttle that completely destroys whatever dares to get in it's way?
+	var/lance_docking = FALSE
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
@@ -251,7 +250,7 @@
 		register()
 	shuttle_areas = list()
 	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
-	for(var/i in 1 to all_turfs.len)
+	for(var/i in 1 to length(all_turfs))
 		var/turf/curT = all_turfs[i]
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
@@ -264,9 +263,9 @@
 	SSshuttle.mobile += src
 
 	if(!id)
-		id = "[SSshuttle.mobile.len]"
+		id = "[length(SSshuttle.mobile)]"
 	if(name == "shuttle")
-		name = "shuttle[SSshuttle.mobile.len]"
+		name = "shuttle[length(SSshuttle.mobile)]"
 
 	return 1
 
@@ -281,7 +280,7 @@
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
-	return 0	//0 means we can move
+	return TRUE // TRUE means we can move. Why would it ever be otherwise?
 
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
@@ -366,7 +365,7 @@
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/obj/docking_port/stationary/S1 = findTransitDock()
 	if(S1)
-		if(dock(S1, , TRUE))
+		if(dock(S1, null, TRUE))
 			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
@@ -390,7 +389,7 @@
 	var/list/L0 = return_ordered_turfs(x, y, z, dir, areaInstance)
 
 	//remove area surrounding docking port
-	if(areaInstance.contents.len)
+	if(length(areaInstance.contents))
 		var/area/A0 = locate("[area_type]")
 		if(!A0)
 			A0 = new area_type(null)
@@ -411,7 +410,7 @@
 		ripples += new /obj/effect/temp_visual/ripple(i)
 
 /obj/docking_port/mobile/proc/remove_ripples()
-	if(ripples.len)
+	if(length(ripples))
 		for(var/i in ripples)
 			qdel(i)
 		ripples.Cut()
@@ -423,7 +422,7 @@
 
 	var/list/ripple_turfs = list()
 
-	for(var/i in 1 to L0.len)
+	for(var/i in 1 to length(L0))
 		var/turf/T0 = L0[i]
 		if(!T0)
 			continue
@@ -447,7 +446,7 @@
 		if(!check_dock(S1))
 			return -1
 
-		if(canMove())
+		if(!canMove())
 			return -1
 
 	var/obj/docking_port/stationary/S0 = get_docked()
@@ -471,7 +470,7 @@
 	rotation = SIMPLIFY_DEGREES(rotation)
 
 	//remove area surrounding docking port
-	if(areaInstance.contents.len)
+	if(length(areaInstance.contents))
 		var/area/A0 = locate("[area_type]")
 		if(!A0)
 			A0 = new area_type(null)
@@ -482,9 +481,21 @@
 	remove_ripples()
 
 	//move or squish anything in the way ship at destination
+	if(lance_docking && is_station_level(S1.z))
+		var/list/L2 = list()
+		switch(S1.dir)
+			if(NORTH)
+				L2 = block(locate(S1.x-9, S1.y+36, S1.z), locate(S1.x+9, 255, S1.z))
+			if(SOUTH)
+				L2 = block(locate(S1.x-9, 1, S1.z), locate(S1.x+9, S1.y-36, S1.z))
+			if(EAST)
+				L2 = block(locate(S1.x+36, S1.y-9, S1.z), locate(255, S1.y+9, S1.z))
+			if(WEST)
+				L2 = block(locate(1, S1.y-9, S1.z), locate(S1.x-36, S1.y+9, S1.z))
+		shuttle_smash(L2, S1)
 	roadkill(L0, L1, S1.dir)
 
-	for(var/i in 1 to L0.len)
+	for(var/i in 1 to length(L0))
 		var/turf/T0 = L0[i]
 		if(!T0)
 			continue
@@ -505,6 +516,8 @@
 
 			//move mobile to new location
 			for(var/atom/movable/AM in T0)
+				if(AM.loc != T0) //fix for multi-tile objects
+					continue
 				AM.onShuttleMove(T0, T1, rotation, last_caller)
 
 			if(rotation)
@@ -547,7 +560,7 @@
 	unlockPortDoors(S1)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
-	var/static/list/blacklisted_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava, /turf/simulated/floor/plating/asteroid))
+	var/static/list/blacklisted_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/lava, /turf/simulated/floor/plating/asteroid))
 	return is_type_in_typecache(T, blacklisted_turf_types)
 
 
@@ -605,7 +618,7 @@
 					A.unlock()
 
 /obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
-	for(var/i in 1 to L0.len)
+	for(var/i in 1 to length(L0))
 		var/turf/T0 = L0[i]
 		var/turf/T1 = L1[i]
 		if(!T0 || !T1)
@@ -615,6 +628,9 @@
 			if(AM.pulledby)
 				AM.pulledby.stop_pulling()
 			if(AM.flags_2 & IMMUNE_TO_SHUTTLECRUSH_2)
+				if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
+					var/obj/machinery/atmospherics/supermatter_crystal/bakoom = AM
+					addtimer(CALLBACK(bakoom, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, explode), bakoom.combined_gas, bakoom.power, bakoom.gasmix_power_ratio), 1 SECONDS)
 				continue
 			if(ismob(AM))
 				var/mob/M = AM
@@ -628,6 +644,18 @@
 									"<span class='userdanger'>You feel an immense \
 									crushing pressure as the space around you ripples.</span>")
 					L.gib()
+			else if(lance_docking) //corrupt the child, destroy them all
+				if(!AM.simulated)
+					continue
+				if(istype(AM, /mob/dead))
+					continue
+				if(istype(AM, /obj/item/organ))
+					continue
+				if(istype(AM, /obj/effect/landmark))
+					continue
+				if(istype(AM, /obj/docking_port))
+					continue
+				qdel(AM, force = TRUE)
 
 			// Move unanchored atoms
 			if(!AM.anchored && !ismob(AM))
@@ -635,6 +663,21 @@
 			else
 				if(AM.simulated) // Don't qdel lighting overlays, they are static
 					qdel(AM)
+
+/obj/docking_port/mobile/proc/shuttle_smash(list/L2, obj/docking_port/stationary/S1)
+	var/loud_crash_sound = sound('sound/effects/explosioncreak1.ogg')
+	for(var/player in GLOB.player_list)
+		var/mob/M = player
+		var/turf/mob_turf = get_turf(M)
+		if(atoms_share_level(S1, mob_turf))
+			SEND_SOUND(M, loud_crash_sound)
+	for(var/turf/T in L2)
+		for(var/atom/movable/A in T.contents)
+			A.ex_act(1)
+			if(istype(A, /obj/machinery/atmospherics/supermatter_crystal))
+				var/obj/machinery/atmospherics/supermatter_crystal/bakoom = A
+				addtimer(CALLBACK(bakoom, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, explode), bakoom.combined_gas, bakoom.power, bakoom.gasmix_power_ratio), 1 SECONDS)
+		T.ChangeTurf(T.baseturf) //I don't want to deal with turf decals
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
@@ -662,7 +705,7 @@
 		destination = null
 
 /obj/docking_port/mobile/proc/check_effects()
-	if(!ripples.len)
+	if(!length(ripples))
 		if((mode == SHUTTLE_CALL) || (mode == SHUTTLE_RECALL))
 			var/tl = timeLeft(1)
 			if(tl <= SHUTTLE_RIPPLE_TIME)
@@ -694,8 +737,8 @@
 	if(divisor <= 0)
 		divisor = 10
 	if(!timer)
-		return round(callTime/divisor, 1)
-	return max( round((timer+callTime-world.time)/divisor,1), 0 )
+		return round((callTime / shuttle_speed_factor) / divisor, 1)
+	return max(round(((timer + callTime - world.time) / divisor) / shuttle_speed_factor, 1), 0)
 
 // returns 3-letter mode string, used by status screens and mob status panel
 /obj/docking_port/mobile/proc/getModeStr()
@@ -806,10 +849,13 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/shuttle/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/shuttle/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 150, master_ui, state)
+		ui = new(user, src, "ShuttleConsole", name)
 		ui.open()
 
 /obj/machinery/computer/shuttle/ui_data(mob/user)
@@ -827,7 +873,7 @@
 			if(!M.check_dock(S))
 				continue
 			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
-		data["docking_ports_len"] = docking_ports.len
+		data["docking_ports_len"] = length(docking_ports)
 		data["admin_controlled"] = admin_controlled
 	return data
 
@@ -843,7 +889,7 @@
 	if(action == "move")
 		var/destination = params["move"]
 		if(!options.Find(destination))//figure out if this translation works
-			message_admins("<span class='boldannounce'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
+			message_admins("<span class='boldannounceooc'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
 			if(0)
@@ -866,6 +912,7 @@
 		src.req_access = list()
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+		return TRUE
 
 //for restricting when the computer can be used, needed for some console subtypes.
 /obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)
@@ -895,13 +942,13 @@
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
 		to_chat(usr, "<span class='notice'>Your request has been received by Centcom.</span>")
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
-		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
+		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A href='byond://?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
 
 
 /obj/machinery/computer/shuttle/white_ship
-	name = "White Ship Console"
-	desc = "Used to control the White Ship."
+	name = "Navigation console"
+	desc = "Used to control the NEV Limulus expeditionary vessel."
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = null // Set at runtime
@@ -980,11 +1027,11 @@
 /turf/proc/copyTurf(turf/T)
 	if(T.type != type)
 		var/obj/O
-		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
+		if(length(underlays))	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
 			O.underlays.Add(T)
 		T.ChangeTurf(type, keep_icon = FALSE)
-		if(underlays.len)
+		if(length(underlays))
 			T.underlays = O.underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state

@@ -4,17 +4,23 @@ import {
   Box,
   Button,
   Divider,
-  Flex,
   Icon,
   Input,
   Section,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
+import { classes } from '../../common/react';
 
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
 
 const searchFor = (searchText) =>
-  createSearch(searchText, (thing) => thing.name);
+  createSearch(
+    searchText,
+    (thing) =>
+      thing.name +
+      (thing.assigned_role !== null ? '|' + thing.assigned_role : '')
+  );
 
 const compareString = (a, b) => (a < b ? -1 : a > b);
 
@@ -69,6 +75,24 @@ const OrbitedButton = (props, context) => {
   return (
     <Button
       color={color}
+      tooltip={
+        thing.assigned_role ? (
+          <Stack>
+            <Box
+              as="img"
+              mr="0.5em"
+              className={classes([
+                'orbit_job16x16',
+                thing.assigned_role_sprite,
+              ])}
+            />{' '}
+            {thing.assigned_role}
+          </Stack>
+        ) : (
+          ''
+        )
+      }
+      tooltipPosition="bottom"
       onClick={() =>
         act('orbit', {
           ref: thing.ref,
@@ -137,14 +161,14 @@ export const Orbit = (props, context) => {
   };
 
   return (
-    <Window resizable>
+    <Window width={700} height={500}>
       <Window.Content scrollable>
         <Section>
-          <Flex>
-            <Flex.Item>
-              <Icon name="search" mr={1} />
-            </Flex.Item>
-            <Flex.Item grow={1}>
+          <Stack>
+            <Stack.Item>
+              <Icon name="search" />
+            </Stack.Item>
+            <Stack.Item grow>
               <Input
                 placeholder="Search..."
                 autoFocus
@@ -153,21 +177,21 @@ export const Orbit = (props, context) => {
                 onInput={(_, value) => setSearchText(value)}
                 onEnter={(_, value) => orbitMostRelevant(value)}
               />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Divider vertical />
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 inline
                 color="transparent"
                 tooltip="Refresh"
-                tooltipPosition="bottom-left"
+                tooltipPosition="bottom-start"
                 icon="sync-alt"
                 onClick={() => act('refresh')}
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Section>
         {antagonists.length > 0 && (
           <Section title="Antagonists">

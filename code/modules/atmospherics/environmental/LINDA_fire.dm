@@ -188,7 +188,8 @@
 /obj/effect/hotspot/singularity_pull()
 	return
 
-/obj/effect/hotspot/fake // Largely for the fireflash procs below
+/// Largely for the fireflash procs below
+/obj/effect/hotspot/fake
 	fake = TRUE
 	burn_time = 30
 
@@ -246,7 +247,7 @@
 	if(falloff)
 		max_dist = min((temp - (T0C + 60)) / falloff, radius)
 	open[Ce] = 0
-	while(open.len)
+	while(length(open))
 		var/turf/T = open[1]
 		var/dist = open[T]
 		open -= T
@@ -311,7 +312,7 @@
 
 		for(var/dir in GLOB.cardinal)
 			var/turf/link = get_step(T, dir)
-			if (!link)
+			if(!link)
 				continue
 			// Check if it wasn't already visited and if you can get to that turf
 			if(!closed[link] && T.CanAtmosPass(link))

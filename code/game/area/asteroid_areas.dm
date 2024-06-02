@@ -1,6 +1,7 @@
 // Asteroids
 
-/area/asteroid					// -- TLE
+/// -- TLE
+/area/asteroid
 	name = "\improper Asteroid"
 	icon_state = "asteroid"
 	requires_power = FALSE
@@ -11,7 +12,8 @@
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
 
-/area/asteroid/cave				// -- TLE
+/// -- TLE
+/area/asteroid/cave
 	name = "\improper Asteroid - Underground"
 	icon_state = "cave"
 	requires_power = FALSE
@@ -20,12 +22,3 @@
 /area/asteroid/artifactroom
 	name = "\improper Asteroid - Artifact"
 	icon_state = "cave"
-
-//Labor camp
-/area/mine/laborcamp
-	name = "Labor Camp"
-	icon_state = "brig"
-
-/area/mine/laborcamp/security
-	name = "Labor Camp Security"
-	icon_state = "security"

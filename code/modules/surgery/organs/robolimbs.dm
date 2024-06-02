@@ -1,5 +1,4 @@
 GLOBAL_LIST_EMPTY(all_robolimbs)
-GLOBAL_LIST_EMPTY(chargen_robolimbs)
 GLOBAL_LIST_EMPTY(selectable_robolimbs)
 GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 
@@ -124,7 +123,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 
 /datum/robolimb/shellguard
 	company = "Shellguard Munitions Standard Series"
-	desc = "This limb features exposed robust steel and paint to match Shellguards motifs"
+	desc = "This limb features exposed robust steel and paint to match Shellguards motifs."
 	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_main.dmi'
 	has_subtypes = 1
 

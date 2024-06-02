@@ -3,7 +3,7 @@
 	/// If the blood cost should be handled by this handler. Or if the spell will handle it itself
 	var/deduct_blood_on_cast = TRUE
 
-/datum/spell_handler/vampire/can_cast(mob/user, charge_check, show_message, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/vampire/can_cast(mob/user, charge_check, show_message, datum/spell/spell)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 
 	if(!vampire)
@@ -31,20 +31,20 @@
 		return FALSE
 	return TRUE
 
-/datum/spell_handler/vampire/spend_spell_cost(mob/user, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/vampire/spend_spell_cost(mob/user, datum/spell/spell)
 	if(!required_blood || !deduct_blood_on_cast) //don't take the blood yet if this is false!
 		return
 
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-
-	vampire.bloodusable -= calculate_blood_cost(vampire)
+	var/blood_cost = calculate_blood_cost(vampire)
+	vampire.subtract_usable_blood(blood_cost)
 
 /datum/spell_handler/vampire/proc/calculate_blood_cost(datum/antagonist/vampire/vampire)
 	var/blood_cost_modifier = 1 + vampire.nullified / 100
 	var/blood_cost = round(required_blood * blood_cost_modifier)
 	return blood_cost
 
-/datum/spell_handler/vampire/after_cast(list/targets, mob/user, obj/effect/proc_holder/spell/spell)
+/datum/spell_handler/vampire/after_cast(list/targets, mob/user, datum/spell/spell)
 	if(!spell.should_recharge_after_cast)
 		return
 	if(!required_blood)

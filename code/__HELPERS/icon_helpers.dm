@@ -17,7 +17,7 @@
 				SELF_ICON.Blend(A.color,ICON_MULTIPLY)} \
 		} \
 		##SETVAR=SELF_ICON;\
-		} while (0)
+		} while(0)
 	#define INDEX_X_LOW 1
 	#define INDEX_X_HIGH 2
 	#define INDEX_Y_LOW 3
@@ -86,7 +86,7 @@
 
 	var/curblend = A.blend_mode || defblend
 
-	if(A.overlays.len || A.underlays.len)
+	if(length(A.overlays) || length(A.underlays))
 		var/icon/flat = BLANK
 		// Layers will be a sorted list of icons/overlays, based on the order in which they are displayed
 		var/list/layers = list()
@@ -102,7 +102,7 @@
 		// Loop through the underlays, then overlays, sorting them into the layers list
 		for(var/process_set in 0 to 1)
 			var/list/process = process_set? A.overlays : A.underlays
-			for(var/i in 1 to process.len)
+			for(var/i in 1 to length(process))
 				var/image/current = process[i]
 				if(!current)
 					continue
@@ -114,7 +114,7 @@
 						return flat
 					current_layer = process_set + A.layer + current_layer / 1000
 
-				for(var/p in 1 to layers.len)
+				for(var/p in 1 to length(layers))
 					var/image/cmp = layers[p]
 					if(current_layer < layers[cmp])
 						layers.Insert(p, current)

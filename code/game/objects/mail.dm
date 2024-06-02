@@ -15,6 +15,8 @@
 	var/list/job_list = list()
 	/// The real name required to open the letter
 	var/recipient
+	/// The job of the recipient
+	var/recipient_job
 	var/has_been_scanned = FALSE
 
 /obj/item/envelope/suicide_act(mob/user)
@@ -49,19 +51,25 @@
 		if(mail_attracted_people.assigned_role in job_list)
 			recipient = mail_attracted_people.current.real_name
 			name = "letter to [recipient]"
+			recipient_job = lowertext(mail_attracted_people.assigned_role)
 			return
 	if(!admin_spawned)
 		log_debug("Failed to find a new name to assign to [src]!")
 		qdel(src)
 
+/obj/item/envelope/examine(mob/user)
+	. = ..()
+	. += "This letter is addressed to [recipient], the [recipient_job]."
+
 /obj/item/envelope/security
 	icon_state = "mail_sec"
-	possible_contents = list(/obj/item/reagent_containers/food/snacks/donut/sprinkles,
+	possible_contents = list(/obj/item/food/snacks/donut/sprinkles,
 							/obj/item/megaphone,
+							/obj/item/clothing/mask/whistle,
 							/obj/item/poster/random_official,
 							/obj/item/restraints/handcuffs/pinkcuffs,
 							/obj/item/restraints/legcuffs/bola/energy,
-							/obj/item/reagent_containers/food/drinks/coffee,
+							/obj/item/reagent_containers/drinks/coffee,
 							/obj/item/stock_parts/cell/super,
 							/obj/item/grenade/barrier/dropwall,
 							/obj/item/toy/figure/crew/detective,
@@ -91,7 +99,7 @@
 /obj/item/envelope/supply
 	icon_state = "mail_sup"
 	possible_contents = list(/obj/item/reagent_containers/hypospray/autoinjector/survival,
-							/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
+							/obj/item/reagent_containers/drinks/bottle/absinthe/premium,
 							/obj/item/clothing/glasses/meson/gar,
 							/obj/item/stack/marker_beacon/ten,
 							/obj/item/stack/medical/splint,
@@ -112,7 +120,7 @@
 							/obj/item/reagent_containers/applicator/brute,
 							/obj/item/reagent_containers/applicator/burn,
 							/obj/item/clothing/glasses/sunglasses,
-							/obj/item/reagent_containers/food/snacks/fortunecookie,
+							/obj/item/food/snacks/fortunecookie,
 							/obj/item/scalpel/laser/laser1,
 							/obj/item/toy/figure/crew/cmo,
 							/obj/item/toy/figure/crew/chemist,
@@ -125,8 +133,8 @@
 /obj/item/envelope/engineering
 	icon_state = "mail_eng"
 	possible_contents = list(/obj/item/airlock_electronics,
-							/obj/item/reagent_containers/food/drinks/cans/beer,
-							/obj/item/reagent_containers/food/snacks/candy/confectionery/nougat,
+							/obj/item/reagent_containers/drinks/cans/beer,
+							/obj/item/food/snacks/candy/confectionery/nougat,
 							/obj/item/mod/module/storage/large_capacity,
 							/obj/item/weldingtool/hugetank,
 							/obj/item/geiger_counter,
@@ -142,7 +150,7 @@
 	icon_state = "mail_serv"
 	possible_contents = list(/obj/item/painter,
 							/obj/item/gun/energy/floragun,
-							/obj/item/reagent_containers/food/drinks/bottle/fernet,
+							/obj/item/reagent_containers/drinks/bottle/fernet,
 							/obj/item/whetstone,
 							/obj/item/soap/deluxe,
 							/obj/item/stack/tile/disco_light/thirty,
@@ -154,14 +162,14 @@
 							/obj/item/toy/figure/crew/janitor,
 							/obj/item/toy/figure/crew/librarian,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Bartender", "Chef", "Botanist", "Janitor", "Barber", "Librarian", "Barber")
+	job_list = list("Bartender", "Chef", "Botanist", "Janitor", "Librarian")
 
 /obj/item/envelope/circuses
 	icon_state = "mail_serv"
 	possible_contents = list(/obj/item/painter,
 							/obj/item/stack/sheet/mineral/tranquillite/ten,
 							/obj/item/stack/sheet/mineral/bananium/ten,
-							/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
+							/obj/item/reagent_containers/drinks/bottle/bottleofnothing,
 							/obj/item/gun/throw/piecannon,
 							/obj/item/ammo_box/shotgun/confetti,
 							/obj/item/book/manual/wiki/sop_security, // They'll need this.
@@ -180,9 +188,9 @@
 							/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 							/obj/item/poster/random_official,
 							/obj/item/book/manual/wiki/sop_command,
-							/obj/item/reagent_containers/food/pill/patch/synthflesh,
+							/obj/item/reagent_containers/patch/synthflesh,
 							/obj/item/paper_bin/nanotrasen,
-							/obj/item/reagent_containers/food/snacks/spesslaw,
+							/obj/item/food/snacks/spesslaw,
 							/obj/item/clothing/head/collectable/petehat,
 							/obj/item/toy/figure/crew/captain,
 							/obj/item/toy/figure/crew/lawyer,
@@ -234,6 +242,8 @@
 	origin_tech = "magnets=1"
 	/// The reference to the envelope that is currently stored in the mail scanner. It will be cleared upon confirming a correct delivery
 	var/obj/item/envelope/saved
+	/// How far away can the scanner scan mail or people
+	var/scanner_range = 7
 
 /obj/item/mail_scanner/examine(mob/user)
 	. = ..()
@@ -243,6 +253,9 @@
 	return
 
 /obj/item/mail_scanner/afterattack(atom/A, mob/user)
+	if(get_dist(A, user) > scanner_range)
+		to_chat(user, "<span class='warning'>The scanner doesn't reach that far!</span>")
+		return
 	if(istype(A, /obj/item/envelope))
 		var/obj/item/envelope/envelope = A
 		if(envelope.has_been_scanned)

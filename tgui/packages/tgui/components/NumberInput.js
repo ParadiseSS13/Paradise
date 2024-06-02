@@ -1,9 +1,16 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { clamp } from 'common/math';
 import { classes, pureComponentHooks } from 'common/react';
 import { Component, createRef } from 'inferno';
-import { IS_IE8 } from '../byond';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box } from './Box';
+
+const DEFAULT_UPDATE_RATE = 400;
 
 export class NumberInput extends Component {
   constructor(props) {
@@ -63,7 +70,7 @@ export class NumberInput extends Component {
         if (dragging && onDrag) {
           onDrag(e, value);
         }
-      }, 500);
+      }, this.props.updateRate || DEFAULT_UPDATE_RATE);
       document.addEventListener('mousemove', this.handleDragMove);
       document.addEventListener('mouseup', this.handleDragEnd);
     };
@@ -157,19 +164,21 @@ export class NumberInput extends Component {
     if (dragging || suppressingFlicker) {
       displayValue = intermediateValue;
     }
-    // IE8: Use an "unselectable" prop because "user-select" doesn't work.
-    const renderContentElement = (value) => (
-      <div className="NumberInput__content" unselectable={IS_IE8}>
-        {value + (unit ? ' ' + unit : '')}
+
+    const contentElement = (
+      <div className="NumberInput__content">
+        {animated && !dragging && !suppressingFlicker ? (
+          <AnimatedNumber value={displayValue} format={format} />
+        ) : format ? (
+          format(displayValue)
+        ) : (
+          displayValue
+        )}
+
+        {unit ? ' ' + unit : ''}
       </div>
     );
-    const contentElement =
-      (animated && !dragging && !suppressingFlicker && (
-        <AnimatedNumber value={displayValue} format={format}>
-          {renderContentElement}
-        </AnimatedNumber>
-      )) ||
-      renderContentElement(format ? format(displayValue) : displayValue);
+
     return (
       <Box
         className={classes([
@@ -210,7 +219,13 @@ export class NumberInput extends Component {
             if (!editing) {
               return;
             }
-            const value = clamp(e.target.value, minValue, maxValue);
+            const value = clamp(parseFloat(e.target.value), minValue, maxValue);
+            if (Number.isNaN(value)) {
+              this.setState({
+                editing: false,
+              });
+              return;
+            }
             this.setState({
               editing: false,
               value,
@@ -225,7 +240,17 @@ export class NumberInput extends Component {
           }}
           onKeyDown={(e) => {
             if (e.keyCode === 13) {
-              const value = clamp(e.target.value, minValue, maxValue);
+              const value = clamp(
+                parseFloat(e.target.value),
+                minValue,
+                maxValue
+              );
+              if (Number.isNaN(value)) {
+                this.setState({
+                  editing: false,
+                });
+                return;
+              }
               this.setState({
                 editing: false,
                 value,

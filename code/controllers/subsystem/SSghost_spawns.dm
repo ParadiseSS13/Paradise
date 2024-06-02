@@ -43,7 +43,7 @@ SUBSYSTEM_DEF(ghost_spawns)
   * * source - The atom, atom prototype, icon or mutable appearance to display as an icon in the alert
   * * role_cleanname - The name override to display to clients
   */
-/datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source, role_cleanname)
+/datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
 	log_debug("Polling candidates [role ? "for [role_cleanname || get_roletext(role)]" : "\"[question]\""] for [poll_time / 10] seconds")
 
 	// Start firing
@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	var/category = "[P.hash]_notify_action"
 
-	var/notice_sound = sound('sound/misc/notice2.ogg')
+	var/notice_sound = sound('sound/effects/ghost_ping.ogg')
 	for(var/mob/M in (GLOB.player_list))
 		if(!is_eligible(M, role, antag_age_check, role, min_hours, check_antaghud))
 			continue
@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 		// If we somehow send two polls for the same mob type, but with a duration on the second one shorter than the time left on the first one,
 		// we need to keep the first one's timeout rather than use the shorter one
-		var/obj/screen/alert/notify_action/current_alert = LAZYACCESS(M.alerts, category)
+		var/atom/movable/screen/alert/notify_action/current_alert = LAZYACCESS(M.alerts, category)
 		var/alert_time = poll_time
 		var/alert_poll = P
 		if(current_alert && current_alert.timeout > (world.time + poll_time - world.tick_lag))
@@ -78,7 +78,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 			alert_poll = current_alert.poll
 
 		// Send them an on-screen alert
-		var/obj/screen/alert/notify_action/A = M.throw_alert(category, /obj/screen/alert/notify_action, timeout_override = alert_time, no_anim = TRUE)
+		var/atom/movable/screen/alert/notify_action/A = M.throw_alert(category, /atom/movable/screen/alert/notify_action, timeout_override = alert_time, no_anim = TRUE)
 		if(!A)
 			continue
 
@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(P != P2 && P.hash == P2.hash)
 				// If there's already a poll for an identical mob type ongoing and the client is signed up for it, sign them up for this one
 				if(!inherited_sign_up && (M in P2.signed_up) && P.sign_up(M, TRUE))
-					A.update_signed_up_alert()
+					A.update_signed_up_alert(M)
 					inherited_sign_up = TRUE
 				// This number is used to display the number of polls the alert regroups
 				num_stack++
@@ -130,9 +130,9 @@ SUBSYSTEM_DEF(ghost_spawns)
 		// Chat message
 		var/act_jump = ""
 		if(isatom(source))
-			act_jump = "<a href='?src=[M.UID()];jump=\ref[source]'>\[Teleport]</a>"
-		var/act_signup = "<a href='?src=[A.UID()];signup=1'>\[Sign Up]</a>"
-		to_chat(M, "<big><span class='boldnotice'>Now looking for candidates [role ? "to play as \an [role_cleanname || get_roletext(role)]" : "\"[question]\""]. [act_jump] [act_signup]</span></big>")
+			act_jump = "<a href='byond://?src=[M.UID()];jump=\ref[source]'>\[Teleport]</a>"
+		var/act_signup = "<a href='byond://?src=[A.UID()];signup=1'>\[Sign Up]</a>"
+		to_chat(M, "<big><span class='boldnotice'>Now looking for candidates [role ? "to play as \an [role_cleanname || get_roletext(role)]" : "\"[question]\""]. [act_jump] [act_signup] [reason ? "<i>\nReason: [sanitize(reason)]</i>" : ""]</span></big>")
 
 		// Start processing it so it updates visually the timer
 		START_PROCESSING(SSprocessing, A)
@@ -178,8 +178,10 @@ SUBSYSTEM_DEF(ghost_spawns)
 	if(GLOB.configuration.jobs.enable_exp_restrictions && min_hours)
 		if(M.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
 			return
-	if(check_antaghud && cannotPossess(M))
-		return
+	if(check_antaghud && isobserver(M))
+		var/mob/dead/observer/O = M
+		if(!O.check_ahud_rejoin_eligibility())
+			return
 
 	return TRUE
 

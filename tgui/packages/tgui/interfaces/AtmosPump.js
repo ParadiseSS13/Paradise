@@ -7,7 +7,7 @@ export const AtmosPump = (props, context) => {
   const { on, rate, max_rate, gas_unit, step } = data;
 
   return (
-    <Window>
+    <Window width={330} height={110}>
       <Window.Content>
         <Section>
           <LabeledList>

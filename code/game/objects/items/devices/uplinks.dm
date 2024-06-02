@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/uplink_items
 
 	var/purchase_log = ""
-	var/uplink_owner = null//text-only
+	var/uplink_owner = null //text-only
 	var/used_TC = 0
 
 	var/job = null
@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink/New()
 	..()
-	uses = SSticker.mode.uplink_uses
+	uses = 100
 	uplink_items = get_uplink_items(src)
 
 	GLOB.world_uplinks += src
@@ -64,13 +64,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	for(var/category in uplink_items)
 		cats[++cats.len] = list("cat" = category, "items" = list())
 		for(var/datum/uplink_item/I in uplink_items[category])
-			if(I.job && I.job.len)
+			if(I.job && length(I.job))
 				if(!(I.job.Find(job)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
 			if(length(I.species))
 				if(!(I.species.Find(species)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
-			cats[cats.len]["items"] += list(list(
+			cats[length(cats)]["items"] += list(list(
 				"name" = sanitize(I.name),
 				"desc" = sanitize(I.description()),
 				"cost" = I.cost,
@@ -88,10 +88,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	var/list/random_items = list()
 
-	for(var/IR in uplink_items)
-		var/datum/uplink_item/UI = uplink_items[IR]
-		if(UI.cost <= uses && UI.limited_stock != 0)
-			random_items += UI
+	for(var/uplink_section in uplink_items)
+		for(var/datum/uplink_item/UI in uplink_items[uplink_section])
+			if(UI.cost <= uses && UI.limited_stock != 0)
+				random_items += UI
 
 	return pick(random_items)
 
@@ -195,10 +195,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		return TRUE
 	return FALSE
 
-/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/uplink/hidden/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/uplink/hidden/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Uplink", name, 900, 600, master_ui, state)
+		ui = new(user, src, "Uplink", name)
 		ui.open()
 
 /obj/item/uplink/hidden/ui_data(mob/user)

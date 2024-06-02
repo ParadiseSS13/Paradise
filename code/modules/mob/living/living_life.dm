@@ -11,7 +11,7 @@
 			message_admins("[src] [ADMIN_FLW(src, "FLW")] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z]. If you could ask them how that happened and notify the coders, it would be appreciated.")
 			log_game("Z-TRACKING: [src] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z].")
 			update_z(T.z)
-		else if (!client && registered_z)
+		else if(!client && registered_z)
 			log_game("Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 			update_z(null)
 
@@ -75,15 +75,18 @@
 		handle_status_effects() //all special effects, stunned, weakened, jitteryness, hallucination, sleeping, etc
 
 	if(stat != DEAD)
+		if(forced_look && !isnum(forced_look))
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				var/view = client ? client.maxview() : world.view
+				if(get_dist(src, A) > view || !(src in viewers(view, A)))
+					clear_forced_look(TRUE)
+					to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+			else
+				clear_forced_look(TRUE)
+				to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+		// Make sure it didn't get cleared
 		if(forced_look)
-			if(!isnum(forced_look))
-				var/atom/A = locateUID(forced_look)
-				if(istype(A))
-					var/view = client ? client.maxview() : world.view
-					if(get_dist(src, A) > view || !(src in viewers(view, A)))
-						forced_look = null
-						to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
-						return
 			setDir()
 
 	if(machine)
@@ -170,6 +173,38 @@
 				healths.icon_state = "health7"
 				severity = 6
 		if(severity > 0)
-			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/stretch/brute, severity)
 		else
 			clear_fullscreen("brute")
+		if(health <= HEALTH_THRESHOLD_CRIT)
+			throw_alert("succumb", /atom/movable/screen/alert/succumb)
+		else
+			clear_alert("succumb")
+
+/mob/living/proc/perceived_stamina()
+	return staminaloss
+
+/mob/living/update_stamina_hud()
+	if(!client || !staminas)
+		return
+
+	var/perceived_stamina = perceived_stamina()
+
+	switch(perceived_stamina)
+		if(100 to INFINITY)
+			staminas.icon_state = "stamina6"
+		if(80 to 100)
+			staminas.icon_state = "stamina5"
+		if(60 to 80)
+			staminas.icon_state = "stamina4"
+		if(40 to 60)
+			staminas.icon_state = "stamina3"
+		if(20 to 40)
+			staminas.icon_state = "stamina2"
+		if(1 to 20)
+			staminas.icon_state = "stamina1"
+		else
+			staminas.icon_state = null
+/*		else // The 100% stamina is currently disabled, to reduce clutter on your screen
+			staminas.icon_state = "stamina0"
+ */

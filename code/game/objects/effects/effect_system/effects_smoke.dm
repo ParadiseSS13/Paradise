@@ -12,6 +12,9 @@
 	pixel_y = -32
 	opacity = TRUE
 	anchored = FALSE
+	plane = SMOKE_PLANE
+	layer = FLY_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/steps = 0
 	var/lifetime = 5
 	var/direction
@@ -171,7 +174,7 @@
 		for(var/obj/item/Item in T)
 			Item.extinguish()
 
-/datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, blasting = 0)
+/datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, blasting = FALSE)
 	..()
 	blast = blasting
 

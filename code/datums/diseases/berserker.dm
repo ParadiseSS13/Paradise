@@ -10,7 +10,7 @@
 	cure_chance = 10
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "Swearing, shouting, attacking nearby crew members uncontrollably."
-	severity = DANGEROUS
+	severity = BIOHAZARD
 	disease_flags = CURABLE
 
 /datum/disease/berserker/stage_act()

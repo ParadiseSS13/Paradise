@@ -50,6 +50,7 @@
 	for(var/t in trophies)
 		var/obj/item/crusher_trophy/T = t
 		. += "<span class='notice'>It has \a [T] attached, which causes [T.effect_desc()].</span>"
+		. += "<span class='notice'>You can use a crowbar on it to remove it's attached trophies.</span>"
 
 /obj/item/kinetic_crusher/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/crusher_trophy))
@@ -185,7 +186,7 @@
 	spawn(1)
 		for(var/X in actions)
 			var/datum/action/A = X
-			A.UpdateButtonIcon()
+			A.UpdateButtons()
 
 //destablizing force
 /obj/item/projectile/destabilizer
@@ -269,12 +270,16 @@
 	return ..()
 
 /obj/item/crusher_trophy/proc/on_melee_hit(mob/living/target, mob/living/user) //the target and the user
+	return
 
 /obj/item/crusher_trophy/proc/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
+	return
 
 /obj/item/crusher_trophy/proc/on_mark_application(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark) //the target, the mark applied, and if the target had a mark before
+	return
 
 /obj/item/crusher_trophy/proc/on_mark_detonation(mob/living/target, mob/living/user) //the target and the user
+	return
 
 //goliath
 /obj/item/crusher_trophy/goliath_tentacle

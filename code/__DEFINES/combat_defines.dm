@@ -1,7 +1,5 @@
 //Damage things	//TODO: merge these down to reduce on defines
 //Way to waste perfectly good damagetype names (BRUTE) on this... If you were really worried about case sensitivity, you could have just used lowertext(damagetype) in the proc...
-#define CUT 		"cut"
-#define BRUISE		"bruise"
 #define BRUTE		"brute"
 #define BURN		"fire"
 #define TOX			"tox"
@@ -36,23 +34,25 @@
 #define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
-#define BRUTELOSS 1
-#define FIRELOSS 2
-#define TOXLOSS 4
-#define OXYLOSS 8
-#define SHAME 16
-#define OBLITERATION 32
+#define BRUTELOSS		(1<<0)
+#define FIRELOSS		(1<<1)
+#define TOXLOSS			(1<<2)
+#define OXYLOSS			(1<<3)
+/// Stam crits the effected mob, as well as ensures they dont die from suicide
+#define SHAME 			(1<<4)
+#define OBLITERATION 	(1<<5)
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN			1
-#define CANWEAKEN		2
-#define CANPARALYSE		4
-#define CANPUSH			8
-#define PASSEMOTES		16 //Mob has holders inside of it that need to see emotes.
-#define GODMODE			32
+#define CANSTUN			(1<<0)
+#define CANWEAKEN		(1<<1)
+#define CANPARALYSE		(1<<2)
+#define CANPUSH			(1<<3)
+#define PASSEMOTES		(1<<4) //Mob has holders inside of it that need to see emotes.
+#define GODMODE			(1<<5)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
+#define HEALTH_THRESHOLD_KNOCKOUT -50
 #define HEALTH_THRESHOLD_DEAD -100
 
 //Grab levels
@@ -129,16 +129,16 @@
 #define WEAPON_MEDIUM 2
 #define WEAPON_HEAVY 3
 
-//His Grace.
-#define HIS_GRACE_SATIATED 0 //He hungers not. If bloodthirst is set to this, His Grace is asleep.
-#define HIS_GRACE_PECKISH 20 //Slightly hungry.
-#define HIS_GRACE_HUNGRY 60 //Getting closer. Increases damage up to a minimum of 20.
-#define HIS_GRACE_FAMISHED 100 //Dangerous. Increases damage up to a minimum of 25 and cannot be dropped.
-#define HIS_GRACE_STARVING 120 //Incredibly close to breaking loose. Increases damage up to a minimum of 30.
-#define HIS_GRACE_CONSUME_OWNER 140 //His Grace consumes His owner at this point and becomes aggressive.
-#define HIS_GRACE_FALL_ASLEEP 160 //If it reaches this point, He falls asleep and resets.
+#define HIS_GRACE_SATIATED 		0 		// He hungers not. If bloodthirst is set to this, His Grace is asleep.
+#define HIS_GRACE_PECKISH 		20 		// Slightly hungry.
+#define HIS_GRACE_HUNGRY 		60 		// Getting closer.
+#define HIS_GRACE_FAMISHED 		100 	// Dangerously close.
+#define HIS_GRACE_STARVING 		120 	// Incredibly close to breaking loose.
+#define HIS_GRACE_CONSUME_OWNER 140 	// His Grace consumes His owner at this point and becomes aggressive.
+#define HIS_GRACE_FALL_ASLEEP 	160 	// If it reaches this point, He falls asleep and resets.
 
-#define HIS_GRACE_FORCE_BONUS 4 //How much force is gained per kill.
+#define HIS_GRACE_FORCE_BONUS 	5 		// How much force is gained per kill.
+#define ASCEND_BONUS			20		// How much force we get on ascend per kill
 
 #define EXPLODE_NONE 0				//Don't even ask me why we need this.
 #define EXPLODE_DEVASTATE 1
@@ -155,3 +155,10 @@
 #define STATUS_EFFECT_CONSTANT * 20
 
 #define IS_HORIZONTAL(x) x.body_position
+
+/// Compatible firemode is in the gun. Wait until it's held in the user hands.
+#define AUTOFIRE_STAT_IDLE (1<<0)
+/// Gun is active and in the user hands. Wait until user does a valid click.
+#define AUTOFIRE_STAT_ALERT	(1<<1)
+/// Gun is shooting.
+#define AUTOFIRE_STAT_FIRING (1<<2)

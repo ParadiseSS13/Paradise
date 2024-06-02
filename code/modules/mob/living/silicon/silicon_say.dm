@@ -58,15 +58,15 @@
 
 /mob/living/silicon/say_understands(other, datum/language/speaking = null)
 	//These only pertain to common. Languages are handled by mob/say_understands()
-	if(!speaking)
+	if(!speaking && ismob(other))
 		if(iscarbon(other))
-			return 1
+			return TRUE
 		if(issilicon(other))
-			return 1
+			return TRUE
 		if(isbot(other))
-			return 1
+			return TRUE
 		if(isbrain(other))
-			return 1
+			return TRUE
 	return ..()
 
 //For holopads only. Usable by AI.
@@ -76,7 +76,7 @@
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])
 		var/obj/effect/overlay/holo_pad_hologram/H = T.masters[src]
-		if ((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
+		if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 			var/message = combine_message(message_pieces, null, src)
 			create_chat_message(H, message)
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
@@ -99,7 +99,7 @@
 		to_chat(src, "<i><span class='game say'>Holopad action relayed, <span class='name'>[real_name]</span> <span class='message'>[message]</span></span></i>")
 
 		for(var/mob/M in viewers(T.loc))
-			M.show_message(rendered, EMOTE_VISIBLE)
+			M.show_message(rendered, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		log_emote("(HPAD) [message]", src)
 	else //This shouldn't occur, but better safe then sorry.

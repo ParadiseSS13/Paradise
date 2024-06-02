@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Box, Button, NoticeBox } from '../../components';
+import { Button, NoticeBox, Stack } from '../../components';
 
 /**
  * Displays a notice box displaying the current login state.
@@ -16,25 +16,26 @@ export const LoginInfo = (_properties, context) => {
   }
   return (
     <NoticeBox info>
-      <Box display="inline-block" verticalAlign="middle">
-        Logged in as: {loginState.name} ({loginState.rank})
-      </Box>
-      <Button
-        icon="sign-out-alt"
-        content="Logout"
-        color="good"
-        float="right"
-        onClick={() => act('login_logout')}
-      />
-      <Button
-        icon="sign-out-alt"
-        disabled={!loginState.id}
-        content="Eject ID"
-        color="good"
-        float="right"
-        onClick={() => act('login_eject')}
-      />
-      <Box clear="both" />
+      <Stack>
+        <Stack.Item grow mt={0.5}>
+          Logged in as: {loginState.name} ({loginState.rank})
+        </Stack.Item>
+        <Stack.Item>
+          <Button
+            icon="eject"
+            disabled={!loginState.id}
+            content="Eject ID"
+            color="good"
+            onClick={() => act('login_eject')}
+          />
+          <Button
+            icon="sign-out-alt"
+            content="Logout"
+            color="good"
+            onClick={() => act('login_logout')}
+          />
+        </Stack.Item>
+      </Stack>
     </NoticeBox>
   );
 };

@@ -12,7 +12,7 @@ import { Window } from '../layouts';
 export const ThermoMachine = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window>
+    <Window width={300} height={225}>
       <Window.Content>
         <Section title="Status">
           <LabeledList>
@@ -44,8 +44,9 @@ export const ThermoMachine = (props, context) => {
           }
         >
           <LabeledList>
-            <LabeledList.Item label="Setting">
+            <LabeledList.Item label="Setting" textAlign="center">
               <Button
+                fluid
                 icon={data.cooling ? 'temperature-low' : 'temperature-high'}
                 content={data.cooling ? 'Cooling' : 'Heating'}
                 selected={data.cooling}
@@ -53,23 +54,6 @@ export const ThermoMachine = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Target Temperature">
-              <NumberInput
-                animated
-                value={Math.round(data.target)}
-                unit="K"
-                width="62px"
-                minValue={Math.round(data.min)}
-                maxValue={Math.round(data.max)}
-                step={5}
-                stepPixelSize={3}
-                onDrag={(e, value) =>
-                  act('target', {
-                    target: value,
-                  })
-                }
-              />
-            </LabeledList.Item>
-            <LabeledList.Item label="Presets">
               <Button
                 icon="fast-backward"
                 disabled={data.target === data.min}
@@ -80,13 +64,19 @@ export const ThermoMachine = (props, context) => {
                   })
                 }
               />
-              <Button
-                icon="sync"
-                disabled={data.target === data.initial}
-                title="Room Temperature"
-                onClick={() =>
+              <NumberInput
+                animated
+                value={Math.round(data.target)}
+                unit="K"
+                width={5.4}
+                lineHeight={1.4}
+                minValue={Math.round(data.min)}
+                maxValue={Math.round(data.max)}
+                step={5}
+                stepPixelSize={3}
+                onDrag={(e, value) =>
                   act('target', {
-                    target: data.initial,
+                    target: value,
                   })
                 }
               />
@@ -97,6 +87,16 @@ export const ThermoMachine = (props, context) => {
                 onClick={() =>
                   act('target', {
                     target: data.max,
+                  })
+                }
+              />
+              <Button
+                icon="sync"
+                disabled={data.target === data.initial}
+                title="Room Temperature"
+                onClick={() =>
+                  act('target', {
+                    target: data.initial,
                   })
                 }
               />

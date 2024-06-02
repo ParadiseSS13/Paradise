@@ -45,7 +45,7 @@
 	. = ..()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	if(!up)
@@ -273,3 +273,9 @@
 	desc = "A plasmaman envirohelm designed for the common, maint-dwelling masses."
 	icon_state = "assistant_envirohelm"
 	item_state = "assistant_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/coke
+	name = "coke envirosuit helmet"
+	desc = "A plasmaman envirohelm designed by Space Cola Co for the plasmamen."
+	icon_state = "coke_envirohelm"
+	item_state = "coke_envirohelm"

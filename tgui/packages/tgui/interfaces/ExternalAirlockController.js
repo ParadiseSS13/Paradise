@@ -33,7 +33,7 @@ export const ExternalAirlockController = (props, context) => {
   const { chamber_pressure, exterior_status, interior_status, processing } =
     data;
   return (
-    <Window>
+    <Window width={330} height={205}>
       <Window.Content>
         <Section title="Information">
           <LabeledList>
@@ -49,15 +49,28 @@ export const ExternalAirlockController = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title="Actions">
+        <Section
+          title="Actions"
+          buttons={
+            <Button
+              content={'Abort'}
+              icon={'ban'}
+              color={'red'}
+              disabled={!processing}
+              onClick={() => act('abort')}
+            />
+          }
+        >
           <Box>
             <Button
+              width="49%"
               content={'Cycle to Exterior'}
               icon={'arrow-circle-left'}
               disabled={processing}
               onClick={() => act('cycle_ext')}
             />
             <Button
+              width="50%"
               content={'Cycle to Interior'}
               icon={'arrow-circle-right'}
               disabled={processing}
@@ -66,37 +79,30 @@ export const ExternalAirlockController = (props, context) => {
           </Box>
           <Box>
             <Button
+              width="49%"
               content={'Force Exterior Door'}
               icon={'exclamation-triangle'}
               color={
                 interior_status === 'open'
                   ? 'red'
                   : processing
-                  ? 'yellow'
-                  : null
+                    ? 'yellow'
+                    : null
               }
               onClick={() => act('force_ext')}
             />
             <Button
+              width="50%"
               content={'Force Interior Door'}
               icon={'exclamation-triangle'}
               color={
                 interior_status === 'open'
                   ? 'red'
                   : processing
-                  ? 'yellow'
-                  : null
+                    ? 'yellow'
+                    : null
               }
               onClick={() => act('force_int')}
-            />
-          </Box>
-          <Box>
-            <Button
-              content={'Abort'}
-              icon={'ban'}
-              color={'red'}
-              disabled={!processing}
-              onClick={() => act('abort')}
             />
           </Box>
         </Section>

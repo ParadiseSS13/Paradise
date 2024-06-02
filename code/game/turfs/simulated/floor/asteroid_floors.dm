@@ -110,8 +110,9 @@
 	floor_variance = 15
 	digResult = /obj/item/stack/ore/glass/basalt
 
-/turf/simulated/floor/plating/asteroid/basalt/lava //lava underneath
-	baseturf = /turf/simulated/floor/plating/lava/smooth
+/// lava underneath
+/turf/simulated/floor/plating/asteroid/basalt/lava
+	baseturf = /turf/simulated/floor/lava
 
 /turf/simulated/floor/plating/asteroid/basalt/airless
 	temperature = TCMB
@@ -145,11 +146,19 @@
 ///////Surface. The surface is warm, but survivable without a suit. Internals are required. The floors break to chasms, which drop you into the underground.
 
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
+
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	planetary_atmos = TRUE
+	color = COLOR_FLOOR_HARD_ROCK
+	baseturf = /turf/simulated/floor/lava/lava_land_surface
 
 /turf/simulated/floor/plating/asteroid/airless
 	temperature = TCMB
@@ -177,7 +186,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	var/data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
-/turf/simulated/floor/plating/asteroid/airless/cave/has_data //subtype for producing a tunnel with given data
+/// subtype for producing a tunnel with given data
+/turf/simulated/floor/plating/asteroid/airless/cave/has_data
 	has_data = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic
@@ -189,19 +199,20 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 
 	data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
 
-/turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data //subtype for producing a tunnel with given data
+/// subtype for producing a tunnel with given data
+/turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data
 	has_data = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/Initialize(mapload)
-	if (!mob_spawn_list)
+	if(!mob_spawn_list)
 		mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goldgrub = 1, /mob/living/simple_animal/hostile/asteroid/goliath = 5, /mob/living/simple_animal/hostile/asteroid/basilisk = 4, /mob/living/simple_animal/hostile/asteroid/hivelord = 3)
-	if (!megafauna_spawn_list)
+	if(!megafauna_spawn_list)
 		megafauna_spawn_list = GLOB.megafauna_spawn_list
-	if (!flora_spawn_list)
+	if(!flora_spawn_list)
 		flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2, /obj/structure/flora/ash/cap_shroom = 2, /obj/structure/flora/ash/stem_shroom = 2, /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2, /obj/structure/flora/ash/rock/style_random = 1)
 		if(SSmapping.cave_theme == BLOCKED_BURROWS)
 			flora_spawn_list += list(/obj/structure/flora/ash/rock/style_random = 3) //Let us see how this goes
@@ -268,7 +279,9 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		// Move our tunnel forward
 		tunnel = get_step(tunnel, dir)
 
-		if(istype(tunnel))
+		// Separate ruin area check here because of the raw ChangeTurf call that
+		// doesn't go through SpawnFloor/Flora/Monster.
+		if(istype(tunnel) && !istype(tunnel.loc, /area/ruin))
 			// Small chance to have forks in our tunnel; otherwise dig our tunnel.
 			var/caveprob = 20
 			switch(SSmapping.cave_theme)
@@ -307,7 +320,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 						SpawnFloor(NT, 50) //Room has higher probabilty.
 			if(prob(25))
 				tempradius = round(tempradius / 3)
-				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water/lavaland_air = 1, /turf/simulated/floor/plating/asteroid = 1))
+				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/lava/lava_land_surface = 4, /turf/simulated/floor/lava/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/lava/mapping_lava = 6, /turf/simulated/floor/beach/away/water/lavaland_air = 1, /turf/simulated/floor/plating/asteroid = 1))
 				if(oasis_lake == /turf/simulated/floor/plating/asteroid)
 					new /obj/effect/spawner/oasisrock(T, tempradius)
 				for(var/turf/oasis in circlerangeturfs(T, tempradius))
@@ -331,6 +344,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 /obj/effect/spawner/oasisrock/proc/make_rock(radius)
 	var/our_turf = get_turf(src)
 	for(var/turf/oasis in circlerangeturfs(our_turf, radius))
+		if(istype(oasis.loc, /area/ruin))
+			continue
 		oasis.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic, ignore_air = TRUE)
 	var/list/valid_turfs = circlerangeturfs(our_turf, radius + 1)
 	valid_turfs -= circlerangeturfs(our_turf, radius)
@@ -341,6 +356,9 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	qdel(src)
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFloor(turf/T, monsterprob = 30)
+	if(istype(T.loc, /area/ruin))
+		return
+
 	for(var/S in RANGE_TURFS(1, src))
 		var/turf/NT = S
 		if(!NT || isspaceturf(NT) || istype(NT.loc, /area/mine/explored) || istype(NT.loc, /area/lavaland/surface/outdoors/explored))
@@ -354,6 +372,9 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	T.ChangeTurf(turf_type, FALSE, FALSE, TRUE)
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnMonster(turf/T, monsterprob = 30)
+	if(istype(T.loc, /area/ruin))
+		return
+
 	if(prob(monsterprob))
 		if(istype(loc, /area/mine/explored) || !istype(loc, /area/lavaland/surface/outdoors/unexplored))
 			return
@@ -395,6 +416,9 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 #undef RECURSION_MAX
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFlora(turf/T)
+	if(istype(T.loc, /area/ruin))
+		return
+
 	var/floraprob = 12
 	switch(SSmapping.cave_theme)
 		if(BLOCKED_BURROWS)
@@ -422,7 +446,6 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	slowdown = 2
 	environment_type = "snow"
 	planetary_atmos = TRUE
-	burnt_states = list("snow_dug")
 	digResult = /obj/item/stack/sheet/mineral/snow
 
 /turf/simulated/floor/plating/asteroid/snow/burn_tile()
@@ -433,6 +456,9 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		icon_state = "snow_dug"
 		return TRUE
 	return FALSE
+
+/turf/simulated/floor/plating/asteroid/snow/get_burnt_states()
+	return list("snow_dug")
 
 /turf/simulated/floor/plating/asteroid/snow/airless
 	temperature = TCMB

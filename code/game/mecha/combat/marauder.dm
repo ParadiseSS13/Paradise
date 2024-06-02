@@ -45,6 +45,9 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
 
+/obj/mecha/combat/marauder/add_cell()
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
+
 /obj/mecha/combat/marauder/ares
 	name = "Ares"
 	desc = "Heavy-duty, combat exosuit, adapted from rejected early versions of the Marauder to serve as a biohazard containment exosuit. This model, albeit rare, can be found among civilian populations."
@@ -52,7 +55,8 @@
 	initial_icon = "ares"
 	operation_req_access = list(ACCESS_SECURITY)
 	max_integrity = 450
-	armor = list(melee = 50, bullet = 40, laser = 20, energy = 20, bomb = 20, rad = 60, fire = 100, acid = 100)
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	armor = list(melee = 50, bullet = 40, laser = 20, energy = 20, bomb = 20, rad = 60, fire = 100, acid = 75)
 	max_temperature = 40000
 	wreckage = /obj/structure/mecha_wreckage/ares
 	max_equip = 5
@@ -84,13 +88,10 @@
 	force = 80
 	max_equip = 8
 
-/obj/mecha/combat/marauder/seraph/add_cell()
-	cell = new /obj/item/stock_parts/cell/bluespace(src)
-
 /obj/mecha/combat/marauder/seraph/loaded/Initialize(mapload)
 	. = ..()  //Let it equip whatever is needed.
 	var/obj/item/mecha_parts/mecha_equipment/ME
-	if(equipment.len)//Now to remove it and equip anew.
+	if(length(equipment))//Now to remove it and equip anew.
 		for(ME in equipment)
 			equipment -= ME
 			qdel(ME)
@@ -119,13 +120,16 @@
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 	emag_proof = FALSE //The crew can steal a syndicate mech. As a treat.
 
+/obj/mecha/combat/marauder/mauler/trader
+	operation_req_access = list() //Jailbroken mech
+
 /obj/mecha/combat/marauder/mauler/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot(src)
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)

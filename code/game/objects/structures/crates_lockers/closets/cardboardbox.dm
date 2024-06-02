@@ -78,10 +78,10 @@
 			qdel(src)
 			return
 		if(is_pen(W))
-			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield", "Captain",
+			var/decalselection = tgui_input_list(user, "Please select a decal", "Paint Box", list("Atmospherics", "Bartender", "Barber", "Blueshield", "Captain",
 			"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Assistant", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
 			"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Medical", "Mime", "Mining", "NT Representative", "Paramedic",
-			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology")
+			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology"))
 			if(!decalselection)
 				return
 			if(user.incapacitated())
@@ -90,7 +90,7 @@
 			if(W != user.get_active_hand())
 				to_chat(user, "You must be holding the pen to perform this action.")
 				return
-			if(! Adjacent(user))
+			if(!Adjacent(user))
 				to_chat(user, "You have moved too far away from the cardboard box.")
 				return
 			decalselection = replacetext(decalselection, " ", "_")

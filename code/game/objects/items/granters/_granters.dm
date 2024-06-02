@@ -108,7 +108,7 @@
 // Generic action giver
 /obj/item/book/granter/spell
 	/// The typepath of spell that is given
-	var/obj/effect/proc_holder/spell/granted_spell
+	var/datum/spell/granted_spell
 	/// The name of the spell, formatted in a more text-friendly way
 	var/spell_name = ""
 

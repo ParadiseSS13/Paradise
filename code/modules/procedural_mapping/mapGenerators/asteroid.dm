@@ -12,7 +12,7 @@
 
 //Random walls
 /datum/mapGeneratorModule/splatterLayer/asteroidWalls
-	clusterCheckFlags = CLUSTER_CHECK_NONE
+	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_NONE
 	spawnableAtoms = list()
 	spawnableTurfs = list(/turf/simulated/mineral = 30)
 

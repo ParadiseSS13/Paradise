@@ -22,17 +22,17 @@
 		global proc:
 			GLOBAL_PROC_REF(procname)
 			Example:
-				CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(some_proc_here))
+				CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(some_proc_here), args)
 
 		proc defined on current(src) object:
 			PROC_REF(procname)
 			Example:
-				CALLBACK(src, PROC_REF(some_proc_here))
+				CALLBACK(src, PROC_REF(some_proc_here), args)
 
 		proc defined on some other type:
 			TYPE_PROC_REF(some_type, procname)
 			Example:
-				CALLBACK(other_atom, TYPE_PROC_REF(other_atom_type, procname)
+				CALLBACK(other_atom, TYPE_PROC_REF(other_atom_type, procname), args)
 
 */
 

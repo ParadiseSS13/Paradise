@@ -1,5 +1,4 @@
 import { round } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -10,16 +9,19 @@ import {
   Modal,
   Section,
   Slider,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 export const Instrument = (properties, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window>
+    <Window width={600} height={505}>
       <InstrumentHelp />
-      <Window.Content scrollable>
-        <InstrumentStatus />
-        <InstrumentEditor />
+      <Window.Content>
+        <Stack fill vertical>
+          <InstrumentStatus />
+          <InstrumentEditor />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -330,7 +332,7 @@ const InstrumentStatus = (properties, context) => {
     <Section
       title="Instrument"
       buttons={
-        <Fragment>
+        <>
           <Button icon="info" content="Help" onClick={() => act('help')} />
           <Button icon="file" content="New" onClick={() => act('newsong')} />
           <Button
@@ -338,7 +340,7 @@ const InstrumentStatus = (properties, context) => {
             content="Import"
             onClick={() => act('import')}
           />
-        </Fragment>
+        </>
       }
     >
       <LabeledList>
@@ -360,10 +362,10 @@ const InstrumentStatus = (properties, context) => {
         <LabeledList.Item label="Repeat">
           <Slider
             animated
-            minValue="0"
+            minValue={0}
             maxValue={maxRepeats}
             value={repeat}
-            stepPixelSize="59"
+            stepPixelSize={59}
             onChange={(_e, v) =>
               act('repeat', {
                 new: v,
@@ -404,7 +406,7 @@ const InstrumentStatus = (properties, context) => {
             minValue={minVolume}
             maxValue={maxVolume}
             value={volume}
-            stepPixelSize="6"
+            stepPixelSize={6}
             onDrag={(_e, v) =>
               act('setvolume', {
                 new: v,
@@ -447,11 +449,11 @@ const InstrumentStatusAdvanced = (properties, context) => {
     smt = 'Linear';
     modebody = (
       <Slider
-        minValue="0.1"
-        maxValue="5"
+        minValue={0.1}
+        maxValue={5}
         value={sustainLinearDuration}
-        step="0.5"
-        stepPixelSize="85"
+        step={0.5}
+        stepPixelSize={85}
         format={(v) => round(v * 100) / 100 + ' seconds'}
         onChange={(_e, v) =>
           act('setlinearfalloff', {
@@ -464,10 +466,10 @@ const InstrumentStatusAdvanced = (properties, context) => {
     smt = 'Exponential';
     modebody = (
       <Slider
-        minValue="1.025"
-        maxValue="10"
+        minValue={1.025}
+        maxValue={10}
         value={sustainExponentialDropoff}
-        step="0.01"
+        step={0.01}
         format={(v) => round(v * 1000) / 1000 + '% per decisecond'}
         onChange={(_e, v) =>
           act('setexpfalloff', {
@@ -491,7 +493,7 @@ const InstrumentStatusAdvanced = (properties, context) => {
                 <Dropdown
                   options={allowedInstrumentNames}
                   selected={instrument}
-                  width="40%"
+                  width="50%"
                   onSelected={(v) =>
                     act('switchinstrument', {
                       name: v,
@@ -503,13 +505,13 @@ const InstrumentStatusAdvanced = (properties, context) => {
               )}
             </LabeledList.Item>
             {!!(!legacy && canNoteShift) && (
-              <Fragment>
+              <>
                 <LabeledList.Item label="Note Shift/Note Transpose">
                   <Slider
                     minValue={noteShiftMin}
                     maxValue={noteShiftMax}
                     value={noteShift}
-                    stepPixelSize="2"
+                    stepPixelSize={2}
                     format={(v) =>
                       v + ' keys / ' + round((v / 12) * 100) / 100 + ' octaves'
                     }
@@ -535,10 +537,10 @@ const InstrumentStatusAdvanced = (properties, context) => {
                 <LabeledList.Item label="Volume Dropoff Threshold">
                   <Slider
                     animated
-                    minValue="0.01"
-                    maxValue="100"
+                    minValue={0.01}
+                    maxValue={100}
                     value={sustainDropoffVolume}
-                    stepPixelSize="6"
+                    stepPixelSize={6}
                     onChange={(_e, v) =>
                       act('setdropoffvolume', {
                         new: v,
@@ -554,7 +556,7 @@ const InstrumentStatusAdvanced = (properties, context) => {
                     onClick={() => act('togglesustainhold')}
                   />
                 </LabeledList.Item>
-              </Fragment>
+              </>
             )}
           </LabeledList>
           <Button
@@ -574,9 +576,11 @@ const InstrumentEditor = (properties, context) => {
   const { playing, lines, editing } = data;
   return (
     <Section
+      fill
+      scrollable
       title="Editor"
       buttons={
-        <Fragment>
+        <>
           <Button
             disabled={!editing || playing}
             icon="plus"
@@ -592,7 +596,7 @@ const InstrumentEditor = (properties, context) => {
             icon={editing ? 'chevron-up' : 'chevron-down'}
             onClick={() => act('edit')}
           />
-        </Fragment>
+        </>
       }
     >
       {!!editing &&
@@ -603,7 +607,7 @@ const InstrumentEditor = (properties, context) => {
                 key={i}
                 label={i + 1}
                 buttons={
-                  <Fragment>
+                  <>
                     <Button
                       disabled={playing}
                       icon="pen"
@@ -622,7 +626,7 @@ const InstrumentEditor = (properties, context) => {
                         })
                       }
                     />
-                  </Fragment>
+                  </>
                 }
               >
                 {l}

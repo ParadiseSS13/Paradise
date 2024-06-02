@@ -10,14 +10,14 @@
 	req_admin_notify = 1
 	minimal_player_age = 30
 	exp_map = list(EXP_TYPE_SILICON = 300)
+	has_bank_account = FALSE
 
 /datum/job/ai/equip(mob/living/carbon/human/H)
 	if(!H)
-		return 0
+		return FALSE
 
 /datum/job/ai/is_position_available()
-	return (GLOB.empty_playable_ai_cores.len != 0)
-
+	return (length(GLOB.empty_playable_ai_cores) != 0)
 
 /datum/job/cyborg
 	title = "Cyborg"
@@ -31,8 +31,9 @@
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_CREW = 300)
 	alt_titles = list("Robot")
+	has_bank_account = FALSE
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H)
 	if(!H)
-		return 0
+		return FALSE
 	return H.Robotize()

@@ -122,9 +122,7 @@
 /turf/space,
 /area/space)
 "O" = (
-/obj/machinery/power/apc/worn_out{
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/space)

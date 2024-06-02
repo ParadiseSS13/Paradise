@@ -40,7 +40,7 @@ GLOBAL_PROTECT(log_end)
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
-			to_chat(C, "<span class='debug'>DEBUG: [text]</span>")
+			to_chat(C, "<span class='debug'>DEBUG: [text]</span>", MESSAGE_TYPE_DEBUG, confidential = TRUE)
 
 /proc/log_game(text)
 	if(GLOB.configuration.logging.game_logging)
@@ -149,8 +149,19 @@ GLOBAL_PROTECT(log_end)
 /proc/log_runtime_summary(text)
 	rustg_log_write(GLOB.runtime_summary_log, "[text][GLOB.log_end]")
 
-/proc/log_tgui(text)
-	rustg_log_write(GLOB.tgui_log, "[text][GLOB.log_end]")
+/proc/log_tgui(user_or_client, text)
+	var/list/messages = list()
+	if(!user_or_client)
+		messages.Add("no user")
+	else if(ismob(user_or_client))
+		var/mob/user = user_or_client
+		messages.Add("[user.ckey] (as [user])")
+	else if(isclient(user_or_client))
+		var/client/client = user_or_client
+		messages.Add("[client.ckey]")
+	messages.Add(": [text]")
+	messages.Add("[GLOB.log_end]")
+	rustg_log_write(GLOB.tgui_log, messages.Join())
 
 #ifdef REFERENCE_TRACKING
 /proc/log_gc(text)

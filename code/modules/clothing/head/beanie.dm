@@ -3,7 +3,8 @@
 
 //Plus a bobble hat, lets be inclusive!!
 
-/obj/item/clothing/head/beanie //Default is white, this is meant to be seen
+/// Default is white, this is meant to be seen
+/obj/item/clothing/head/beanie
 	name = "white beanie"
 	desc = "A stylish beanie. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their heads."
 	icon_state = "beanie" //Default white

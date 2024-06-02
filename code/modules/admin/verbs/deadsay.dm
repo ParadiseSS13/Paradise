@@ -31,7 +31,7 @@
 	if(check_rights(R_ADMIN, 0))
 		stafftype = "ADMIN"
 
-	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
+	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	log_admin("[key_name(src)] : [msg]")
 
 	if(!msg)

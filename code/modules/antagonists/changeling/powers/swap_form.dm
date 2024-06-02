@@ -7,7 +7,7 @@
 	dna_cost = 2
 	req_human = TRUE //Monkeys can't grab
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_ATTACK
+	category = /datum/changeling_power_category/offence
 
 /datum/action/changeling/swap_form/can_sting(mob/living/carbon/user)
 	if(!..())
@@ -23,7 +23,7 @@
 	if(!istype(target) || !target.mind || issmall(target) || HAS_TRAIT(target, TRAIT_GENELESS))
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return FALSE
-	if(ischangeling(target))
+	if(IS_CHANGELING(target))
 		to_chat(user, "<span class='warning'>We are unable to swap forms with another changeling!</span>")
 		return FALSE
 	return TRUE

@@ -57,8 +57,9 @@
 			break
 
 // Fix for #383 - C4 deleting fridges with corpses
-/obj/structure/closet/Destroy()
-	dump_contents()
+/obj/structure/closet/Destroy(force)
+	if(!force)
+		dump_contents()
 	return ..()
 
 /obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0)
@@ -190,6 +191,9 @@
 		if(!user.drop_item()) //couldn't drop the item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
 			return
+		if(W.loc != user.loc)
+			// It went somewhere else, don't teleport it back.
+			return
 		if(W)
 			W.forceMove(loc)
 			return TRUE // It's resolved. No afterattack needed. Stops you from emagging lockers when putting in an emag
@@ -233,13 +237,13 @@
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
 	..()
-	if(istype(O, /obj/screen))	//fix for HUD elements making their way into the world	-Pete
+	if(is_screen_atom(O))	//fix for HUD elements making their way into the world	-Pete
 		return
 	if(O.loc == user)
 		return
 	if(user.restrained() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
+	if((!istype(O, /atom/movable) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts, you cannot shove people into fucking lockers
 		return
@@ -278,6 +282,24 @@
 	add_fingerprint(user)
 	toggle(user)
 
+/obj/structure/closet/attack_animal(mob/living/user)
+	if(user.a_intent == INTENT_HARM || welded || locked)
+		return ..()
+	if(!user.mind) // Stops mindless mobs from opening lockers + endlessly opening/closing crates instead of attacking
+		return ..()
+	if(user.mob_size < MOB_SIZE_HUMAN)
+		return ..()
+	add_fingerprint(user)
+	toggle(user)
+
+/obj/structure/closet/attack_alien(mob/user)
+	if(user.a_intent == INTENT_HARM || welded || locked)
+		return ..()
+	if(!user.mind)
+		return ..()
+	add_fingerprint(user)
+	toggle(user)
+
 /obj/structure/closet/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		toggle(user)
@@ -286,20 +308,6 @@
 /obj/structure/closet/attack_self_tk(mob/user)
 	add_fingerprint(user)
 	toggle(user)
-
-/obj/structure/closet/verb/verb_toggleopen()
-	set src in oview(1)
-	set category = null
-	set name = "Toggle Open"
-
-	if(usr.incapacitated())
-		return
-
-	if(ishuman(usr) || isrobot(usr))
-		add_fingerprint(usr)
-		toggle(usr)
-		return
-	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
 /obj/structure/closet/update_icon_state()
 	if(!opened)
@@ -367,7 +375,7 @@
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/stretch/impaired, 1)
 
 /obj/structure/closet/ex_act(severity)
 	for(var/atom/A in contents)
@@ -401,6 +409,7 @@
 		return TRUE
 
 	return ..()
+
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"

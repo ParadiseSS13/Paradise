@@ -223,7 +223,7 @@
 		sleep(30)
 
 /obj/machinery/transformer/xray/proc/scan_rec(obj/item/I)
-	if(istype(I, /obj/item/gun))
+	if(isgun(I))
 		return TRUE
 	if(istype(I, /obj/item/transfer_valve))
 		return TRUE
@@ -253,7 +253,7 @@
 
 	if(prestrip)
 		for(var/obj/item/I in H)
-			if(istype(I, /obj/item/implant))
+			if(istype(I, /obj/item/bio_chip))
 				continue
 			qdel(I)
 

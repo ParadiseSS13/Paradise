@@ -2,8 +2,6 @@
 	randomize = TRUE
 	holder_type = /mob/living/silicon/robot
 	wire_count = 5
-	window_x = 340
-	window_y = 106
 	proper_name = "Cyborg"
 
 /datum/wires/robot/New(atom/_holder)

@@ -114,7 +114,7 @@
 /obj/item/painter/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(src, usesound, 50, TRUE)
-	var/obj/item/organ/internal/lungs/L = user.get_organ_slot("lungs")
+	var/obj/item/organ/internal/lungs/L = user.get_organ_slot("lungs") // not going to use an organ datum here, would be too easy for slime people to throw up their brains
 	var/turf/T = get_turf(user)
 	if(!do_mob(user, user, 3 SECONDS) || !L)
 		return SHAME

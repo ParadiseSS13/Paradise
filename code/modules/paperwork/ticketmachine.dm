@@ -43,6 +43,7 @@
 		qdel(ticket)
 	tickets.Cut()
 	update_icon()
+	return TRUE
 
 /obj/machinery/ticket_machine/Initialize(mapload)
 	. = ..()
@@ -214,7 +215,7 @@
 
 /obj/item/ticket_machine_ticket/attackby(obj/item/P, mob/living/carbon/human/user, params) //Stolen from papercode
 	..()
-	if(is_hot(P))
+	if(P.get_heat())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")

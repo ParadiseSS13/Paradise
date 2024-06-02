@@ -2,8 +2,6 @@
 	holder_type = /obj/machinery/suit_storage_unit
 	wire_count = 8
 	proper_name = "Suit storage unit"
-	window_x = 350
-	window_y = 85
 
 /datum/wires/suitstorage/New(atom/_holder)
 	wires = list(WIRE_IDSCAN, WIRE_ELECTRIFY, WIRE_SAFETY, WIRE_SSU_UV)

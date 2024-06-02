@@ -24,6 +24,10 @@
 		dir = direction
 	update()
 
+/obj/structure/disposalconstruct/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b></span>"
+
 	// update iconstate and dpdir due to dir and type
 /obj/structure/disposalconstruct/proc/update()
 	base_state = get_pipe_icon(ptype)
@@ -72,40 +76,27 @@
 	invisibility = (intact && level == 1) ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
 	update()
 
-
-// flip and rotate verbs
-/obj/structure/disposalconstruct/verb/rotate()
-	set name = "Rotate Pipe"
-	set category = "Object"
-	set src in view(1)
-
-	if(usr.stat)
+/obj/structure/disposalconstruct/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
+	rotate(user)
 
+/obj/structure/disposalconstruct/proc/rotate(mob/user)
 	if(anchored)
-		to_chat(usr, "You must unfasten the pipe before rotating it.")
+		to_chat(user, "<span class='notice'>You must unfasten the pipe before rotating it.</span>")
 		return
 
 	dir = turn(dir, -90)
 	update()
 
-/obj/structure/disposalconstruct/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+/obj/structure/disposalconstruct/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(!Adjacent(user))
-		return
-	rotate()
+	flip(user)
 
-/obj/structure/disposalconstruct/verb/flip()
-	set name = "Flip Pipe"
-	set category = "Object"
-	set src in view(1)
-	if(usr.stat)
-		return
-
+/obj/structure/disposalconstruct/proc/flip(mob/user)
 	if(anchored)
-		to_chat(usr, "You must unfasten the pipe before flipping it.")
+		to_chat(user, "<span class='notice'>You must unfasten the pipe before flipping it.</span>")
 		return
 
 	dir = turn(dir, 180)
@@ -258,9 +249,9 @@
 /obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	. = TRUE
 	if(our_rpd.mode == RPD_ROTATE_MODE)
-		rotate()
+		rotate(user)
 	else if(our_rpd.mode == RPD_FLIP_MODE)
-		flip()
+		flip(user)
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_single_pipe(user, src)
 	else

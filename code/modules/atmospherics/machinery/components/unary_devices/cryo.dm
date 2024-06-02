@@ -26,21 +26,21 @@
 	var/last_injection
 	var/injection_cooldown = 34 SECONDS
 	var/efficiency
+	/// Timer that we use to remove people that are in us for too long
+	var/removal_timer
 
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
 	. = ..()
 	if(occupant)
-		if(occupant.is_dead())
+		if(occupant.stat == DEAD)
 			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
 		else
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
 	. += "<span class='notice'>The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.</span>"
 	. += "<span class='notice'>Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.</span>"
-	. += "<span class='notice'><b>Click-drag</b> someone to a cell to place them in it, use the 'Eject occupant' verb to remove them.</span>"
-	if(user.loc == src)
-		. += "<span class='notice'>You can use the 'Eject occupant' verb to eject yourself. This will take roughly 2 minutes.</span>"
+	. += "<span class='info'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
@@ -49,8 +49,8 @@
 	else
 		set_light(0)
 
-/obj/machinery/atmospherics/unary/cryo_cell/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
@@ -62,8 +62,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -156,6 +156,7 @@
 			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
+			QDEL_LIST_CONTENTS(L.grabbed_by)
 		SStgui.update_uis(src)
 	return TRUE
 
@@ -212,10 +213,13 @@
 
 	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/unary/cryo_cell/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Cryo", "Cryo Cell", 520, 500)
+		ui = new(user, src, "Cryo", "Cryo Cell")
 		ui.open()
 
 /obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user)
@@ -249,7 +253,7 @@
 	data["beakerVolume"] = 0
 	if(beaker)
 		data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
-		if(beaker.reagents && beaker.reagents.reagent_list.len)
+		if(beaker.reagents && length(beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 	data["cooldownProgress"] = round(clamp((world.time - last_injection) / injection_cooldown, 0, 1) * 100)
@@ -409,11 +413,12 @@
 
 	occupant.forceMove(get_step(loc, SOUTH)) // Doesn't account for walls
 
-	if(occupant.bodytemperature < occupant.dna.species.cold_level_1) // Hacky fix for people taking burn damage after being ejected
+	if(ishuman(occupant) && occupant.bodytemperature < occupant.dna.species.cold_level_1) // Hacky fix for people taking burn damage after being ejected. Xenos also fit in these and they don't have dna
 		occupant.bodytemperature = occupant.dna.species.cold_level_1
 
 	occupant = null
 	update_icon(UPDATE_OVERLAYS)
+	deltimer(removal_timer)
 
 /obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant(mob/target)
 	go_out()
@@ -451,56 +456,21 @@
 	add_fingerprint(usr)
 	update_icon(UPDATE_OVERLAYS)
 	M.ExtinguishMob()
+	removal_timer = addtimer(CALLBACK(src, PROC_REF(auto_eject)), 1 MINUTES, TIMER_STOPPABLE)
 	return TRUE
 
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
-	set name = "Eject occupant"
-	set category = "Object"
-	set src in oview(1)
+/obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
-	if(usr == occupant)//If the user is inside the tube...
-		if(usr.stat == DEAD)
-			return
-		to_chat(usr, "<span class='notice'>Release sequence activated. This will take one minute.</span>")
-		sleep(600)
-		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
-			return
-		go_out()//and release him from the eternal prison.
-	else
-		if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
-			return
-		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
-			return
-		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
-		go_out()
-	add_fingerprint(usr)
-	return
+	go_out()
+	add_fingerprint(user)
 
 /obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	color = "red"//force the icon to red
 	light_color = LIGHT_COLOR_RED
-
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
-	set name = "Move Inside"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
-		return
-
-	if(stat & (NOPOWER | BROKEN))
-		return
-
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-
-	put_mob(usr)
-	return
-
-
 
 /datum/data/function/proc/reset()
 	return
@@ -512,7 +482,7 @@
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
-	user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/stretch/impaired, 1)
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_remote_sight(mob/living/user)
 	return //we don't see the pipe network while inside cryo.

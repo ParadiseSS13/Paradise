@@ -75,7 +75,8 @@
 	name = "mend internal bleeding"
 	allowed_tools = list(
 		TOOL_FIXOVEIN = 100,
-		/obj/item/stack/cable_coil = 90
+		/obj/item/stack/cable_coil = 90,
+		/obj/item/stack/sheet/sinew = 90
 	)
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
@@ -90,9 +91,10 @@
 
 	user.visible_message(
 		"[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool].",
-		"You start patching the damaged vein in [target]'s [affected.name] with \the [tool]."
+		"You start patching the damaged vein in [target]'s [affected.name] with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("The pain in your [affected.name] is unbearable!")
+	affected.custom_pain("The pain in your [affected.name] is unbearable!")
 	return ..()
 
 
@@ -100,7 +102,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>"
+		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	affected.fix_internal_bleeding()
@@ -114,7 +117,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='warning'>[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>",
-		"<span class='warning'>Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>"
+		"<span class='warning'>Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(5, 0)
 
@@ -139,9 +143,10 @@
 
 	user.visible_message(
 		"[user] starts to treat the scorched tissue in [target]'s [affected.name] with [tool].",
-		"You start to treat the scorched tissue in [target]'s [affected.name] with [tool]."
+		"You start to treat the scorched tissue in [target]'s [affected.name] with [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("Your [affected.name] flares with agony as its burn is touched!")
+	affected.custom_pain("Your [affected.name] flares with agony as its burn is touched!")
 
 	return ..()
 
@@ -156,7 +161,8 @@
 
 	user.visible_message(
 		"<span class='notice'>[user] finishes treating affected tissue in [target]'s [affected.name].</span>",
-		"<span class='notice'>You finish treating affected tissue in [target]'s [affected.name] with [tool].</span>"
+		"<span class='notice'>You finish treating affected tissue in [target]'s [affected.name] with [tool].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	return SURGERY_STEP_CONTINUE
@@ -169,11 +175,13 @@
 
 	user.visible_message(
 		"<span class='warning'>[user]'s hand slips, applying [tool] in the wrong place on [target]'s [affected.name]!</span>",
-		"<span class='warning'>Your hand slips, applying [tool] in the wrong place on [target]'s [affected.name]!</span>"
+		"<span class='warning'>Your hand slips, applying [tool] in the wrong place on [target]'s [affected.name]!</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	return SURGERY_STEP_RETRY
-/datum/surgery_step/fix_dead_tissue		//Debridement
+/// Debridement
+/datum/surgery_step/fix_dead_tissue
 	name = "remove dead tissue"
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
@@ -190,16 +198,18 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"[user] starts cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].",
-		"You start cutting away necrotic tissue in [target]'s [affected.name] with \the [tool]."
+		"You start cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("The pain in [affected.name] is unbearable!")
+	affected.custom_pain("The pain in [affected.name] is unbearable!")
 	return ..()
 
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='notice'> [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>"
+		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_OPEN
 
@@ -209,7 +219,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"<span class='warning'>[user]'s hand slips, slicing an artery inside [target]'s [affected.name] with [tool]!</span>",
-		"<span class='warning'>Your hand slips, slicing an artery inside [target]'s [affected.name] with [tool]!</span>"
+		"<span class='warning'>Your hand slips, slicing an artery inside [target]'s [affected.name] with [tool]!</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(20)
 
@@ -220,8 +231,8 @@
 	allowed_tools = list(
 		/obj/item/reagent_containers/dropper = 100,
 		/obj/item/reagent_containers/glass/bottle = 90,
-		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
-		/obj/item/reagent_containers/food/drinks/bottle = 80,
+		/obj/item/reagent_containers/drinks/drinkingglass = 85,
+		/obj/item/reagent_containers/drinks/bottle = 80,
 		/obj/item/reagent_containers/glass/beaker = 75,
 		/obj/item/reagent_containers/spray = 60,
 		/obj/item/reagent_containers/glass/bucket = 50
@@ -239,7 +250,9 @@
 	if(!container.reagents.has_reagent("mitocholide"))
 		user.visible_message(
 			"[user] looks at \the [tool] and ponders.",
-			"You are not sure if \the [tool] contains the mitocholide necessary to treat the necrosis.")
+			"You are not sure if \the [tool] contains the mitocholide necessary to treat the necrosis.",
+			chat_message_type = MESSAGE_TYPE_COMBAT
+		)
 		return FALSE
 
 /datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -252,9 +265,10 @@
 
 	user.visible_message(
 		"[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].",
-		"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]."
+		"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
+	affected.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
 	return ..()
 
 /datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -278,7 +292,8 @@
 
 		user.visible_message(
 			"<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>",
-			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>"
+			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>",
+			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 
 	return SURGERY_STEP_CONTINUE
@@ -296,7 +311,8 @@
 
 	user.visible_message(
 		"<span class='warning'>[user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>",
-		"<span class='warning'>Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>"
+		"<span class='warning'>Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	//no damage or anything, just wastes medicine

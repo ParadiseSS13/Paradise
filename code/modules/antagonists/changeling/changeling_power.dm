@@ -1,11 +1,4 @@
 
-// Defines below to be used with the `power_type` var.
-/// Denotes that this power is free and should be given to all changelings by default.
-#define CHANGELING_INNATE_POWER			1
-/// Denotes that this power can only be obtained by purchasing it.
-#define CHANGELING_PURCHASABLE_POWER	2
-/// Denotes that this power can not be obtained normally. Primarily used for base types such as [/datum/action/changeling/weapon].
-#define CHANGELING_UNOBTAINABLE_POWER	3
 
 /datum/action/changeling
 	name = "Prototype Sting"
@@ -13,6 +6,8 @@
 	background_icon_state = "bg_changeling"
 	/// A reference to the changeling's changeling antag datum.
 	var/datum/antagonist/changeling/cling
+	/// Datum path used to determine the location and name of the power in changeling evolution menu UI
+	var/datum/changeling_power_category/category
 	/// Determines whether the power is always given to the changeling or if it must be purchased.
 	var/power_type = CHANGELING_UNOBTAINABLE_POWER
 	/// A description of what the power does.
@@ -31,8 +26,6 @@
 	var/active = FALSE
 	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
 	var/bypass_fake_death = FALSE
-	/// Where this ability should be stored in the changeling menu
-	var/menu_location
 
 /*
  * Changeling code relies on on_purchase to grant powers.
@@ -94,9 +87,12 @@
 
 // Transform the target to the chosen dna. Used in transform.dm and tiny_prick.dm (handy for changes since it's the same thing done twice)
 /datum/action/changeling/proc/transform_dna(mob/living/carbon/human/H, datum/dna/D)
+	var/internals_on = H.internal
 	if(!D)
 		return
 	var/changes_species = TRUE
 	if(H.dna.species.name == D.species.name)
 		changes_species = FALSE
 	H.change_dna(D, changes_species)
+	if(internals_on)
+		H.internal = internals_on

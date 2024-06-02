@@ -1,17 +1,6 @@
 import { Window } from '../layouts';
-import {
-  TimeDisplay,
-  Box,
-  Button,
-  Flex,
-  Icon,
-  Input,
-  LabeledList,
-  Section,
-  Table,
-  Tabs,
-} from '../components';
-import { useBackend, useLocalState } from '../backend';
+import { TimeDisplay, Button, Section, Stack, Table } from '../components';
+import { useBackend } from '../backend';
 
 const BrigCellsTableRow = (properties, context) => {
   const { cell } = properties;
@@ -78,13 +67,13 @@ export const BrigCells = (properties, context) => {
   const { cells } = data;
 
   return (
-    <Window theme="security" resizable>
-      <Window.Content scrollable className="Layout__content--flexColumn">
-        <Flex direction="column" height="100%">
-          <Section height="100%" flexGrow="1">
+    <Window theme="security" width={800} height={400}>
+      <Window.Content>
+        <Stack fill vertical>
+          <Section fill scrollable>
             <BrigCellsTable cells={cells} />
           </Section>
-        </Flex>
+        </Stack>
       </Window.Content>
     </Window>
   );

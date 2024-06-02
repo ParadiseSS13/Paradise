@@ -172,6 +172,16 @@
 	build_path = /obj/item/circuitboard/clonescanner
 	category = list("Medical Machinery")
 
+/datum/design/dna_scanner
+	name = "Machine Board (DNA Modifier)"
+	desc = "Allows for the construction of circuit boards used to build a DNA Modifier."
+	id = "dna_scanner"
+	req_tech = list("programming" = 4, "biotech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/dna_scanner
+	category = list("Medical Machinery")
+
 /datum/design/cryotube
 	name = "Machine Board (Cryotube Board)"
 	desc = "Allows for the construction of circuit boards used to build a Cryotube."

@@ -36,7 +36,7 @@
 	var/alt_click = pa.Find("alt")
 
 	if(left_click && alt_click)
-		if (isturf(object) || isobj(object) || ismob(object))
+		if(isturf(object) || isobj(object) || ismob(object))
 			objholder = object.type
 			to_chat(user, "<span class='notice'>[initial(object.name)] ([object.type]) selected.</span>")
 		else

@@ -341,7 +341,7 @@
 /area/shuttle/escape)
 "bd" = (
 /obj/item/storage/box/drinkingglasses,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /obj/structure/table/wood,
 /obj/machinery/light{
 	dir = 4

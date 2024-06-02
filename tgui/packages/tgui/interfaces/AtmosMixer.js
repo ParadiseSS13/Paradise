@@ -13,7 +13,7 @@ export const AtmosMixer = (props, context) => {
   } = data;
 
   return (
-    <Window>
+    <Window width={330} height={165}>
       <Window.Content>
         <Section>
           <LabeledList>

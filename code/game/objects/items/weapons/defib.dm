@@ -59,7 +59,7 @@
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to remove the paddles from the defibrillator.</span>"
 
 /obj/item/defibrillator/proc/update_power()
 	if(cell)
@@ -90,12 +90,12 @@
 	cell = locate(/obj/item/stock_parts/cell) in contents
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/defibrillator/ui_action_click()
-	toggle_paddles()
+/obj/item/defibrillator/ui_action_click(mob/user)
+	toggle_paddles(user)
 
-/obj/item/defibrillator/CtrlClick()
-	if(ishuman(usr) && Adjacent(usr))
-		toggle_paddles()
+/obj/item/defibrillator/AltClick(mob/user)
+	if(ishuman(user) && Adjacent(user))
+		toggle_paddles(user)
 
 /obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
@@ -106,13 +106,14 @@
 			if(C.maxcharge < paddles.revivecost)
 				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
 				return
-			user.drop_item()
-			W.loc = src
-			cell = W
-			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+			if(user.drop_item(C))
+				W.forceMove(src)
+				cell = C
+				to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+	if(W == paddles)
+		toggle_paddles(user)
 
 	update_icon(UPDATE_OVERLAYS)
-	return
 
 /obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
@@ -137,22 +138,19 @@
 	safety = !safety
 	..()
 	update_icon(UPDATE_OVERLAYS)
+	return TRUE
 
-/obj/item/defibrillator/verb/toggle_paddles()
-	set name = "Toggle Paddles"
-	set category = "Object"
-
-	var/mob/living/carbon/human/user = usr
+/obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
 	if(paddles_on_defib)
 		//Detach the paddles into the user's hands
-		if(usr.incapacitated()) return
-
-		if(!usr.put_in_hands(paddles))
+		if(!user.put_in_hands(paddles))
 			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
 			update_icon(UPDATE_OVERLAYS)
 			return
-		paddles.loc = user
+		paddles.forceMove(user)
 		paddles_on_defib = FALSE
 	else if(user.is_in_active_hand(paddles))
 		//Remove from their hands and back onto the defib unit
@@ -161,7 +159,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/defibrillator/equipped(mob/user, slot)
 	..()
@@ -252,11 +250,6 @@
 
 /obj/item/defibrillator/compact/advanced/screwdriver_act(mob/living/user, obj/item/I)
 	return // The cell is too strong roundstart and we dont want the adv defib to become useless
-
-/obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
-	if(W == paddles)
-		toggle_paddles()
-		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)
 	. = ..()
@@ -350,7 +343,7 @@
 		icon_state = "[base_icon_state][wielded]_cooldown"
 
 /obj/item/shockpaddles/suicide_act(mob/user)
-	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	return OXYLOSS
@@ -366,6 +359,12 @@
 
 /obj/item/shockpaddles/on_mob_move(dir, mob/user)
 	if(defib)
+		if(!isturf(user.loc))
+			// You went inside something. It blocks the cable.
+			// (This also means we don't have to listen for the
+			//  surrounding object's movements.)
+			defib.remove_paddles(user)
+
 		var/turf/t = get_turf(defib)
 		if(!t.Adjacent(user))
 			defib.remove_paddles(user)

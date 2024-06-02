@@ -7,4 +7,4 @@
 GLOBAL_DATUM_INIT(viewer_state, /datum/ui_state/viewer_state, new)
 
 /datum/ui_state/viewer_state/can_use_topic(src_object, mob/user)
-	return STATUS_UPDATE
+	return UI_UPDATE

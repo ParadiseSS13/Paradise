@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Button,
@@ -8,13 +7,12 @@ import {
   Table,
   ProgressBar,
 } from '../components';
-import { LabeledListItem } from '../components/LabeledList';
 import { Window } from '../layouts';
 
 export const SyndicateComputerSimple = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window theme="syndicate">
+    <Window theme="syndicate" width={400} height={400}>
       <Window.Content>
         {data.rows.map((record) => (
           <Section

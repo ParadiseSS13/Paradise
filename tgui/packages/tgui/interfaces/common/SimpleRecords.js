@@ -50,6 +50,7 @@ const SelectionView = (props, context) => {
       {formattedRecords.map((r) => (
         <Box key={r}>
           <Button
+            mb={0.5}
             content={r.Name}
             icon="user"
             onClick={() => act('Records', { target: r.uid })}
@@ -100,7 +101,7 @@ const RecordView = (props, context) => {
               <LabeledList.Item label="Details">
                 {medical.cdi_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Important Notes">
+              <LabeledList.Item label="Important Notes" preserveWhitespace>
                 {medical.notes}
               </LabeledList.Item>
             </LabeledList>
@@ -132,7 +133,7 @@ const RecordView = (props, context) => {
               <LabeledList.Item label="Details">
                 {security.ma_crim_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Important Notes">
+              <LabeledList.Item label="Important Notes" preserveWhitespace>
                 {security.notes}
               </LabeledList.Item>
             </LabeledList>
@@ -148,8 +149,7 @@ const RecordView = (props, context) => {
 
   return (
     <Box>
-      <Button content="Back" icon="arrow-left" onClick={() => act('Back')} />
-      <Section level={2} title="General Data">
+      <Section title="General Data">
         {general ? (
           <LabeledList>
             <LabeledList.Item label="Name">{general.name}</LabeledList.Item>

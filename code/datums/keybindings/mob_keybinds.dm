@@ -42,6 +42,22 @@
 	. = ..()
 	C.mob.swap_hand()
 
+/datum/keybinding/mob/hand_right
+	name = "Swap to/Activate Right Hand"
+
+/datum/keybinding/mob/hand_right/down(client/C)
+	. = ..()
+	if(!C.mob.activate_hand(HAND_BOOL_RIGHT))
+		C.mob.mode()
+
+/datum/keybinding/mob/hand_left
+	name = "Swap to/Activate Left Hand"
+
+/datum/keybinding/mob/hand_left/down(client/C)
+	. = ..()
+	if(!C.mob.activate_hand(HAND_BOOL_LEFT))
+		C.mob.mode()
+
 // Intents
 /datum/keybinding/mob/prev_intent
 	name = "Previous Intent"
@@ -168,7 +184,7 @@
 	if(!C.check_has_body_select())
 		return
 
-	var/obj/screen/zone_sel/selector = C.mob.hud_used.zone_select
+	var/atom/movable/screen/zone_sel/selector = C.mob.hud_used.zone_select
 	selector.set_selected_zone(body_part, C.mob)
 
 /datum/keybinding/mob/target/head
@@ -224,3 +240,14 @@
 /datum/keybinding/mob/target/l_foot
 	name = "Target Left Foot"
 	body_part = BODY_ZONE_PRECISE_L_FOOT
+
+/// Don't add a name to this, shouldn't show up in the prefs menu
+/datum/keybinding/mob/trigger_action_button
+	var/datum/action/linked_action
+	var/binded_to // these are expected to actually get deleted at some point, to prevent hard deletes we need to know where to remove them from the clients list
+
+/datum/keybinding/mob/trigger_action_button/down(client/C)
+	. = ..()
+	if(C.mob.next_click > world.time)
+		return
+	linked_action.Trigger()

@@ -1,19 +1,8 @@
-/turf
-	var/dynamic_lighting = TRUE
-	luminosity           = 1
-
-	var/tmp/lighting_corners_initialised = FALSE
-
-	var/tmp/list/datum/light_source/affecting_lights       // List of light sources affecting this turf.
-	var/tmp/atom/movable/lighting_object/lighting_object // Our lighting object.
-	var/tmp/list/datum/lighting_corner/corners
-	var/tmp/has_opaque_atom = FALSE // Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
-
 // Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
 /turf/proc/reconsider_lights()
 	var/datum/light_source/L
 	var/thing
-	for (thing in affecting_lights)
+	for(thing in affecting_lights)
 		L = thing
 		L.vis_update()
 
@@ -23,7 +12,7 @@
 
 	var/datum/lighting_corner/C
 	var/thing
-	for (thing in corners)
+	for(thing in corners)
 		if(!thing)
 			continue
 		C = thing
@@ -46,12 +35,12 @@
 	var/thing
 	var/datum/lighting_corner/C
 	var/datum/light_source/S
-	for (thing in corners)
+	for(thing in corners)
 		if(!thing)
 			continue
 		C = thing
 		if(!C.active) // We would activate the corner, calculate the lighting for it.
-			for (thing in C.affecting)
+			for(thing in C.affecting)
 				S = thing
 				S.recalc_corner(C)
 			C.active = TRUE
@@ -64,7 +53,7 @@
 	var/totallums = 0
 	var/thing
 	var/datum/lighting_corner/L
-	for (thing in corners)
+	for(thing in corners)
 		if(!thing)
 			continue
 		L = thing
@@ -90,7 +79,7 @@
 /turf/proc/recalc_atom_opacity()
 	has_opaque_atom = opacity
 	if(!has_opaque_atom)
-		for (var/atom/A in src.contents) // Loop through every movable atom on our tile PLUS ourselves (we matter too...)
+		for(var/atom/A in src.contents) // Loop through every movable atom on our tile PLUS ourselves (we matter too...)
 			if(A.opacity)
 				has_opaque_atom = TRUE
 				break
@@ -117,7 +106,7 @@
 	if(!corners)
 		corners = list(null, null, null, null)
 
-	for (var/i = 1 to 4)
+	for(var/i = 1 to 4)
 		if(corners[i]) // Already have a corner on this direction.
 			continue
 

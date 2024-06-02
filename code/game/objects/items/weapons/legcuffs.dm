@@ -2,7 +2,6 @@
 	name = "leg cuffs"
 	desc = "Use this to keep prisoners in line."
 	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
 	cuffed_state = "legcuff"
 	flags = CONDUCT
@@ -36,7 +35,7 @@
 	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is sticking [user.p_their()] head in [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is sticking [user.p_their()] head in [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return BRUTELOSS
 
@@ -154,7 +153,7 @@
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"
 	armed = TRUE
-	icon_state = "e_snare"
+	icon_state = "e_snare1"
 	trap_damage = 0
 	flags = DROPDEL
 	breakouttime = 6 SECONDS
@@ -274,7 +273,8 @@
 		if(!reuseable)
 			flags |= DROPDEL
 
-/obj/item/restraints/legcuffs/bola/tactical //traitor variant
+/// traitor variant
+/obj/item/restraints/legcuffs/bola/tactical
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
@@ -283,7 +283,8 @@
 	origin_tech = "engineering=4;combat=3"
 	knockdown_duration = 2 SECONDS
 
-/obj/item/restraints/legcuffs/bola/energy //For Security
+/// For Security
+/obj/item/restraints/legcuffs/bola/energy
 	name = "energy bola"
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"

@@ -18,7 +18,6 @@
 #define ROLE_PAI				"pAI"
 #define ROLE_CULTIST			"cultist"
 #define ROLE_BLOB				"blob"
-#define ROLE_NINJA				"space ninja"
 #define ROLE_MONKEY				"monkey"
 #define ROLE_GANG				"gangster"
 #define ROLE_ABDUCTOR			"abductor"
@@ -30,12 +29,10 @@
 // Role tags for EVERYONE!
 #define ROLE_DEMON				"demon"
 #define ROLE_SENTIENT			"sentient animal"
-#define ROLE_POSIBRAIN			"positronic brain"
 #define ROLE_GUARDIAN			"guardian"
 #define ROLE_MORPH				"morph"
 #define ROLE_ERT				"emergency response team"
 #define ROLE_NYMPH				"Dionaea"
-#define ROLE_GSPIDER			"giant spider"
 #define ROLE_TSPIDER			"terror spider"
 #define ROLE_DRONE				"drone"
 #define ROLE_DEATHSQUAD			"deathsquad"
@@ -55,18 +52,15 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_BLOB, 											// Blob
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
-	ROLE_GSPIDER, 										// Giant spider
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_MORPH, 										// Morph
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
 	ROLE_PAI, 											// PAI
-	ROLE_POSIBRAIN, 									// Positronic brain
 	ROLE_REVENANT, 										// Revenant
 	ROLE_REV = /datum/game_mode/revolution, 			// Revolutionary
 	ROLE_SENTIENT, 										// Sentient animal
 	ROLE_DEMON, 										// Slaguther demon
 	ROLE_ELITE,											// Lavaland Elite
-	ROLE_NINJA, 										// Space ninja
 	ROLE_TRADER, 										// Trader
 	ROLE_TRAITOR = /datum/game_mode/traitor, 			// Traitor
 	ROLE_VAMPIRE = /datum/game_mode/vampire, 			// Vampire

@@ -142,7 +142,7 @@
 			return FALSE
 
 		if(4) // Grille in place
-			if(istype(W, /obj/item/crowbar))
+			if(W.tool_behaviour == TOOL_CROWBAR)
 				to_chat(user, "You begin to pry off the grille from \the [src]...")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 30 * W.toolspeed, target = src) && (build == 4))
@@ -192,12 +192,8 @@
 			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 			build = 1
 
-/obj/machinery/mass_driver_frame/verb/rotate()
-	set category = "Object"
-	set name = "Rotate Frame"
-	set src in view(1)
-
-	if(usr.stat || usr.restrained()  || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
+/obj/machinery/mass_driver_frame/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	dir = turn(dir, -90)

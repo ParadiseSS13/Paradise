@@ -15,7 +15,7 @@
 	if(issmall(H))
 		return
 	for(var/obj/item/W in H)
-		if(istype(W, /obj/item/implant))
+		if(istype(W, /obj/item/bio_chip))
 			continue
 		H.unEquip(W)
 
@@ -29,17 +29,16 @@
 		H.set_species(has_primitive_form, keep_missing_bodyparts = TRUE)
 
 	new /obj/effect/temp_visual/monkeyify(H.loc)
-	sleep(22)
+	addtimer(CALLBACK(src, PROC_REF(finish_monkeyize), H, !has_primitive_form), 2.2 SECONDS)
 
+/datum/mutation/monkey/proc/finish_monkeyize(mob/living/carbon/human/H, should_gib)
 	H.invisibility = initial(H.invisibility)
 
-	if(!has_primitive_form) //If the pre-change mob in question has no primitive set, this is going to be messy.
+	if(should_gib) //If the pre-change mob in question has no primitive set, this is going to be messy.
 		H.gib()
 		return
 	REMOVE_TRAITS_IN(H, TRANSFORMING_TRAIT)
 	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
-
-	return H
 
 /datum/mutation/monkey/deactivate(mob/living/carbon/human/H)
 	..()
@@ -50,7 +49,7 @@
 	for(var/obj/item/W in H)
 		if(W == H.w_uniform) // will be torn
 			continue
-		if(istype(W, /obj/item/implant))
+		if(istype(W, /obj/item/bio_chip))
 			continue
 		H.unEquip(W)
 	H.regenerate_icons()
@@ -63,11 +62,13 @@
 		H.set_species(has_greater_form, keep_missing_bodyparts = TRUE)
 
 	new /obj/effect/temp_visual/monkeyify/humanify(H.loc)
-	sleep(22)
+	addtimer(CALLBACK(src, PROC_REF(finish_unmonkeyize), H, !has_greater_form), 2.2 SECONDS)
+
+/datum/mutation/monkey/proc/finish_unmonkeyize(mob/living/carbon/human/H, should_gib)
 	REMOVE_TRAITS_IN(H, TRANSFORMING_TRAIT)
 	H.invisibility = initial(H.invisibility)
 
-	if(!has_greater_form) //If the pre-change mob in question has no primitive set, this is going to be messy.
+	if(should_gib) //If the pre-change mob in question has no primitive set, this is going to be messy.
 		H.gib()
 		return
 
@@ -76,4 +77,3 @@
 
 	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
 
-	return H

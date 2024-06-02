@@ -10,12 +10,10 @@
 #define EMOTE_VISIBLE (1<<0)
 /// Emote is audible (in character).
 #define EMOTE_AUDIBLE (1<<1)
-/// Emote makes a sound. These emotes will specifically not be runechatted.
-#define EMOTE_SOUND (1<<2)
 /// Regardless of its existing flags, an emote with this flag will not be sent to runechat.
-#define EMOTE_FORCE_NO_RUNECHAT (1<<3)
+#define EMOTE_FORCE_NO_RUNECHAT (1<<2)
 /// This emote uses the mouth, and so should be blocked if the user is muzzled or can't breathe (for humans).
-#define EMOTE_MOUTH (1<<4)
+#define EMOTE_MOUTH (1<<3)
 
 // User audio cooldown system.
 // This is a value stored on the user and represents their current ability to perform audio emotes.
@@ -59,6 +57,8 @@
 #define EMOTE_TARGET_BHVR_RAW 4
 /// The emote target should be just a number. Anything else will be rejected.
 #define EMOTE_TARGET_BHVR_NUM 5
+/// The emote target is used elsewhere, and processing should be skipped.
+#define EMOTE_TARGET_BHVR_IGNORE 6
 
 // This set determines the type of target that we want to check for.
 
@@ -77,3 +77,12 @@
 
 /// List of emotes useable by ghosties
 #define USABLE_DEAD_EMOTES list("*flip", "*spin")
+
+// Strings used for the rock paper scissors emote and status effect
+#define RPS_EMOTE_ROCK 		"rock"
+#define RPS_EMOTE_PAPER 	"paper"
+#define RPS_EMOTE_SCISSORS 	"scissors"
+
+#define RPS_EMOTE_THEY_WIN		"aww"
+#define RPS_EMOTE_WE_WIN		"yay"
+#define RPS_EMOTE_TIE			"tie"

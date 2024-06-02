@@ -96,13 +96,13 @@
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
 	..()
 	if(!on)
-		return 0
+		return FALSE
 
 	var/output_starting_pressure = air3.return_pressure()
 
-	if(output_starting_pressure >= target_pressure || air2.return_pressure() >= target_pressure )
+	if(output_starting_pressure >= target_pressure || (filter_type != FILTER_NOTHING && air2.return_pressure() >= target_pressure))
 		//No need to mix if target is already full!
-		return 1
+		return TRUE
 
 	//Calculate necessary moles to transfer using PV=nRT
 
@@ -158,7 +158,7 @@
 
 	parent1.update = 1
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user)
 	ui_interact(user)
@@ -174,10 +174,13 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/trinary/filter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/trinary/filter/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/atmospherics/trinary/filter/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AtmosFilter", name, 380, 140, master_ui, state)
+		ui = new(user, src, "AtmosFilter", name)
 		ui.open()
 
 /obj/machinery/atmospherics/trinary/filter/ui_data(mob/user)

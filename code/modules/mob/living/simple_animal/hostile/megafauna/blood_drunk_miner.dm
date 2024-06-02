@@ -110,7 +110,8 @@ Difficulty: Medium
 		shoot_ka()
 	transform_weapon()
 
-/obj/item/melee/energy/cleaving_saw/miner //nerfed saw because it is very murdery
+/// nerfed saw because it is very murdery
+/obj/item/melee/energy/cleaving_saw/miner
 	force = 6
 	force_on = 10
 

@@ -197,18 +197,18 @@
 
 	for(var/obj/machinery/camera/netcam in L)
 		var/list/tempnetwork = netcam.network&origin.networks
-		if(tempnetwork.len)
+		if(length(tempnetwork))
 			T[text("[][]", netcam.c_tag, (netcam.can_use() ? null : " (Deactivated)"))] = netcam
 
 
 	playsound(origin, 'sound/machines/terminal_prompt.ogg', 25, 0)
-	var/camera = input("Choose which camera you want to view", "Cameras") as null|anything in T
+	var/camera = tgui_input_list(target, "Choose which camera you want to view", "Cameras", T)
 	var/obj/machinery/camera/final = T[camera]
 	playsound(origin, "terminal_type", 25, 0)
 	if(final)
-		playsound(origin, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
+		playsound(origin, 'sound/machines/terminal_prompt_confirm.ogg', 25, FALSE)
 		remote_eye.setLoc(get_turf(final))
-		C.overlay_fullscreen("flash", /obj/screen/fullscreen/flash/noise)
+		C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/stretch/flash/noise)
 		C.clear_fullscreen("flash", 3) //Shorter flash than normal since it's an ~~advanced~~ console!
 	else
-		playsound(origin, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
+		playsound(origin, 'sound/machines/terminal_prompt_deny.ogg', 25, FALSE)

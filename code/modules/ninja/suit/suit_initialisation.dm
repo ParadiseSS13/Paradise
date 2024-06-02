@@ -13,7 +13,7 @@
 
 		suitBusy = 1
 
-		if(suitActive && (alert("Confirm suit systems shutdown? This cannot be halted once it has started.", "Confirm Shutdown", "Yes", "No") == "Yes"))
+		if(suitActive && (tgui_alert(usr, "Confirm suit systems shutdown? This cannot be halted once it has started.", "Confirm Shutdown", list("Yes", "No")) == "Yes"))
 			to_chat(usr, "<span class='darkmblue'>Now de-initializing...</span>")
 
 			sleep(15)

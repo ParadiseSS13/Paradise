@@ -8,7 +8,7 @@
 	RS.lightsoutAmount = pick(2,2,3)
 	RS.start()
 	RS.kill()
-	for(var/area/A)
+	for(var/area/A in GLOB.all_areas)
 		if(!is_station_level(A.z)) continue //Spook on main station only.
 		if(A.luminosity) continue
 //			if(A.lighting_space) continue
@@ -25,9 +25,9 @@
 			if(okay)
 				turflist += T
 
-		if(!turflist.len) continue
-		var/turfs = round(turflist.len * spawn_prob/100,1)
-		while(turfs > 0 && turflist.len) // safety
+		if(!length(turflist)) continue
+		var/turfs = round(length(turflist) * spawn_prob/100,1)
+		while(turfs > 0 && length(turflist)) // safety
 			turfs--
 			var/turf/T = pick_n_take(turflist)
 			var/undeadtype = pick(/mob/living/simple_animal/hostile/retaliate/skeleton,

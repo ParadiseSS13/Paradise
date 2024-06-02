@@ -41,7 +41,7 @@
 #define TRANSMISSION_WIRE	0
 #define TRANSMISSION_RADIO	1
 
-//This filter is special because devices belonging to default also recieve signals sent to any other filter.
+//This filter is special because devices belonging to default also receive signals sent to any other filter.
 #define RADIO_DEFAULT "radio_default"
 #define RADIO_TO_AIRALARM "radio_airalarm" //air alarms
 #define RADIO_FROM_AIRALARM "radio_airalarm_rcvr" //devices interested in recieving signals from air alarms
@@ -59,8 +59,8 @@
 #define RADIO_LOGIC "radio_logic"
 
 // Signal types
-#define SIGNALTYPE_NORMAL 0
-#define SIGNALTYPE_INTERCOM 1 // Will only broadcast to intercoms
-#define SIGNALTYPE_INTERCOM_SBR 2 // Will only broadcast to intercoms and station-bounced radios
-#define SIGNALTYPE_AINOTRACK 4 // AI can't track down this person. Useful for imitation broadcasts where you can't find the actual mob
+#define SIGNALTYPE_NORMAL       0
+#define SIGNALTYPE_INTERCOM     (1<<0) // Will only broadcast to intercoms
+#define SIGNALTYPE_INTERCOM_SBR (1<<1) // Will only broadcast to intercoms and station-bounced radios
+#define SIGNALTYPE_AINOTRACK    (1<<2) // AI can't track down this person. Useful for imitation broadcasts where you can't find the actual mob
 

@@ -2,7 +2,7 @@
   * # local_powernet
   *
   * Manages all power related mechanics for a single /area
-  * Machines in areas will directly register to this datum in order to recieve power
+  * Machines in areas will directly register to this datum in order to receive power
   *
   * Machine/Turf/Item -> Local Powernet -> APC -> Terminal -> Wirenet
   *
@@ -176,13 +176,3 @@
 	if(prob(MACHINE_FLICKER_CHANCE))
 		powernet_apc?.flicker()
 
-	// lights don't have their own processing loop, so local powernets will be the father they never had. 3x as likely to cause a light flicker in a particular area, pick a light to flicker at random
-	if(prob(MACHINE_FLICKER_CHANCE * 3))
-		var/list/lights = list()
-		for(var/obj/machinery/light/L in powernet_area)
-			lights += L
-
-		if(length(lights))
-			var/obj/machinery/light/picked_light = pick(lights)
-			ASSERT(istype(picked_light))
-			picked_light.flicker()

@@ -9,7 +9,7 @@
 	speak_chance = 80
 	maxHealth = 220
 	health = 220
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/gorilla = 4)
+	butcher_results = list(/obj/item/food/snacks/meat/slab/gorilla = 4)
 	response_help = "prods"
 	response_disarm = "challenges"
 	response_harm = "thumps"
@@ -141,7 +141,7 @@
 			living_target.throw_at(get_edge_target_turf(living_target, dir), rand(1, 2), 7, src)
 			return
 
-		living_target.adjustStaminaLoss(stamina_damage)
+		living_target.apply_damage(stamina_damage, STAMINA)
 		visible_message("<span class='warning'>[src] knocks [living_target] down!</span>")
 
 /mob/living/simple_animal/hostile/gorilla/update_icon_state()

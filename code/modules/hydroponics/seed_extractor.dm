@@ -3,45 +3,45 @@
 ///Max Cap of the amount of seed we let players dispense at once
 #define MAX_DISPENSE_SEEDS 25
 
-///This proc could probably be scoped better, also it's logic is cursed and hard to understand
-/proc/seedify(obj/item/O, t_max, obj/machinery/seed_extractor/extractor, mob/living/user)
-	var/t_amount = 0
-	if(t_max == -1)
-		if(extractor)
-			t_max = rand(1,4) * extractor.seed_multiplier
-		else
-			t_max = rand(1,4)
-
-	var/seedloc = O.loc
+/// Convert a grown object into seeds.
+/proc/seedify(obj/item/source_item, seed_count, obj/machinery/seed_extractor/extractor, mob/living/user)
+	var/output_loc = source_item.loc
 	if(extractor)
-		seedloc = extractor.loc
+		output_loc = extractor.loc
 
-	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/))
-		var/obj/item/reagent_containers/food/snacks/grown/F = O
-		if(F.seed)
-			if(user && !user.drop_item()) //couldn't drop the item
-				return
-			while(t_amount < t_max)
-				var/obj/item/seeds/t_prod = F.seed.Copy()
-				t_prod.forceMove(seedloc)
-				t_amount++
-			qdel(O)
-			return TRUE
+	var/original_seed = null
+	if(istype(source_item, /obj/item/food/snacks/grown))
+		var/obj/item/food/snacks/grown/F = source_item
+		original_seed = F.unsorted_seed || F.seed
+	else if(istype(source_item, /obj/item/grown))
+		var/obj/item/grown/F = source_item
+		original_seed = F.unsorted_seed || F.seed
 
-	else if(istype(O, /obj/item/grown))
-		var/obj/item/grown/F = O //someone should really abstract this into its own proc
-		if(F.seed)
-			if(user && !user.drop_item())
-				return
-			while(t_amount < t_max)
-				var/obj/item/seeds/t_prod = F.seed.Copy()
-				t_prod.forceMove(seedloc)
-				t_amount++
-			qdel(O)
-		return TRUE
+	if(!original_seed)
+		return FALSE
 
-	return FALSE
+	if(user && !user.unEquip(source_item, silent = TRUE)) //couldn't drop the item
+		return FALSE
 
+	if(seed_count == -1)
+		if(istype(original_seed, /obj/item/unsorted_seeds))
+			seed_count = 1
+		else
+			seed_count = rand(1,4)
+		if(extractor)
+			seed_count *= extractor.seed_multiplier
+
+	for(var/i in 1 to seed_count)
+		var/obj/item/new_seed
+		if(istype(original_seed, /obj/item/seeds))
+			var/obj/item/seeds/S = original_seed
+			new_seed = S.Copy()
+		else if(istype(original_seed, /obj/item/unsorted_seeds))
+			var/obj/item/unsorted_seeds/S = original_seed
+			new_seed = S.Copy()
+		new_seed.forceMove(output_loc)
+	qdel(source_item)
+	return TRUE
 
 /obj/machinery/seed_extractor
 	name = "seed extractor"
@@ -88,30 +88,45 @@
 	if(istype(O, /obj/item/storage/bag/plants))
 		var/obj/item/storage/P = O
 		var/loaded = 0
-		for(var/obj/item/seeds/G in P.contents)
+		for(var/obj/item/seeds/G in P)
 			if(length(contents) >= max_seeds)
 				break
 			loaded++
 			add_seed(G, user)
 
-		if (loaded)
+		if(loaded)
 			to_chat(user, "<span class='notice'>You transfer [loaded] seeds from [O] into [src].</span>")
+			SStgui.update_uis(src)
 		else
-			to_chat(user, "<span class='notice'>There are no seeds in [O].</span>")
+			var/seedable = 0
+			for(var/obj/item/food/snacks/grown/ignored in P)
+				seedable++
+			for(var/obj/item/grown/ignored in P)
+				seedable++
+			if(!seedable)
+				to_chat(user, "<span class='notice'>There are no seeds or plants in [O].</span>")
+				return
+			to_chat(user, "<span class='notice'>You dump the plants in [O] into [src].</span>")
+			if(!O.use_tool(src, user, min(5, seedable/2) SECONDS))
+				return
+			for(var/thing in P)
+				seedify(thing,-1, src, user)
 		return
 
+	else if(istype(O, /obj/item/unsorted_seeds))
+		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
+		return ..()
+	else if(istype(O, /obj/item/seeds))
+		add_seed(O, user)
+		to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
+		SStgui.update_uis(src)
+		return
 	else if(seedify(O,-1, src, user))
 		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
 		return
-	else if (istype(O,/obj/item/seeds))
-		if(add_seed(O, user))
-			to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
-			updateUsrDialog()
-		return
 	else if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
-	else
-		return ..()
+	return ..()
 
 /obj/machinery/seed_extractor/attack_ai(mob/user)
 	ui_interact(user)
@@ -122,19 +137,30 @@
 /obj/machinery/seed_extractor/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/seed_extractor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/seed_extractor/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/seed_extractor/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SeedExtractor", name, 800, 400, master_ui, state)
+		ui = new(user, src, "SeedExtractor", name)
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /obj/machinery/seed_extractor/ui_data(mob/user)
 	var/list/data = list()
 
+	data["icons"] = list()
+	data["seeds"] = list()
 	for(var/datum/seed_pile/O in piles)
 		var/obj/item/I = O.path
+		var/icon/base64icon = GLOB.seeds_cached_base64_icons["[initial(I.icon)][initial(I.icon_state)]"]
+		if(!base64icon)
+			base64icon = icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))
+			GLOB.seeds_cached_base64_icons["[initial(I.icon)][initial(I.icon_state)]"] = base64icon
+		data["icons"]["[initial(I.icon)][initial(I.icon_state)]"] = base64icon
 		var/list/seed_info = list(
-			"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]",
+			"image" = "[initial(I.icon)][initial(I.icon_state)]",
 			"id" = O.id,
 			"name" = O.name,
 			"variant" = O.variant,
@@ -146,26 +172,21 @@
 			"potency" = O.potency,
 			"amount" = O.amount,
 		)
-		data["stored_seeds"] += list(seed_info)
+		data["seeds"] += list(seed_info)
 
-	data["vend_amount"] = vend_amount
 	return data
 
 /obj/machinery/seed_extractor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	. = FALSE
+	. = TRUE
 	switch(action)
 		if("vend")
-			vend_seed(text2num(params["seedid"]), params["seedvariant"], vend_amount)
+			vend_seed(params["seed_id"], params["seed_variant"], params["vend_amount"])
 			add_fingerprint(usr)
-			. = TRUE
 		if("set_vend_amount")
-			if(!length(params["vend_amount"]))
-				return
-			vend_amount = clamp(text2num(params["vend_amount"]), 1, MAX_DISPENSE_SEEDS)
+			vend_amount = clamp(params["vend_amount"], 1, MAX_DISPENSE_SEEDS)
 			add_fingerprint(usr)
-			. = TRUE
 
 /obj/machinery/seed_extractor/proc/vend_seed(seed_id, seed_variant, amount)
 	if(!seed_id)
@@ -209,7 +230,7 @@
 		S.remove_from_storage(O, src)
 
 	for(var/datum/seed_pile/N in piles) //this for loop physically hurts me
-		if (O.plantname == N.name && O.variant == N.variant && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
+		if(O.plantname == N.name && O.variant == N.variant && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
 			N.amount++
 			O.forceMove(src)
 			return
@@ -218,7 +239,6 @@
 	pile_count++
 	piles += new_pile
 	O.forceMove(src)
-	return
 
 /datum/seed_pile
 	var/path
@@ -245,3 +265,6 @@
 	src.yield = yield
 	src.potency = potency
 	src.amount = amount
+
+#undef BASE_MAX_SEEDS
+#undef MAX_DISPENSE_SEEDS

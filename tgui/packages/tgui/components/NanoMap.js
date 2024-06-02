@@ -3,6 +3,7 @@ import { Box, Icon, Tooltip } from '.';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
+import { resolveAsset } from '../assets';
 
 const pauseEvent = (e) => {
   if (e.stopPropagation) {
@@ -117,13 +118,14 @@ export class NanoMap extends Component {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      '-ms-interpolation-mode': 'nearest-neighbor',
+      '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+      'image-rendering': 'pixelated',
     };
 
     return (
       <Box className="NanoMap__container">
         <Box style={newStyle} onMouseDown={this.handleDragStart}>
-          <img src={mapUrl} style={mapStyle} />
+          <img src={resolveAsset(mapUrl)} style={mapStyle} />
           <Box>{children}</Box>
         </Box>
         <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} />
@@ -138,16 +140,17 @@ const NanoMapMarker = (props, context) => {
   const ry = y * 2 * zoom - zoom - 3;
   return (
     <div>
-      <Box
-        position="absolute"
-        className="NanoMap__marker"
-        lineHeight="0"
-        bottom={ry + 'px'}
-        left={rx + 'px'}
-      >
-        <Icon name={icon} color={color} fontSize="6px" />
-        <Tooltip content={tooltip} />
-      </Box>
+      <Tooltip content={tooltip}>
+        <Box
+          position="absolute"
+          className="NanoMap__marker"
+          lineHeight="0"
+          bottom={ry + 'px'}
+          left={rx + 'px'}
+        >
+          <Icon name={icon} color={color} fontSize="6px" />
+        </Box>
+      </Tooltip>
     </div>
   );
 };
@@ -160,9 +163,9 @@ const NanoMapZoomer = (props, context) => {
       <LabeledList>
         <LabeledList.Item label="Zoom">
           <Slider
-            minValue="1"
-            maxValue="8"
-            stepPixelSize="10"
+            minValue={1}
+            maxValue={8}
+            stepPixelSize={10}
             format={(v) => v + 'x'}
             value={props.zoom}
             onDrag={(e, v) => props.onZoom(e, v)}

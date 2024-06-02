@@ -41,7 +41,7 @@
 	icon_state = "healthhud"
 	origin_tech = "magnets=3;biotech=2"
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -105,7 +105,7 @@
 	origin_tech = "magnets=3;combat=2"
 	var/global/list/jobs[0]
 	hud_types = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -130,9 +130,6 @@
 	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
-
-/obj/item/clothing/glasses/hud/security/sunglasses/read_only
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "HUDSunglasses"
@@ -175,41 +172,6 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-/obj/item/clothing/glasses/hud/security/tajblind
-	name = "sleek veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an in-built security HUD."
-	icon_state = "tajblind_sec"
-	item_state = "tajblind_sec"
-	flash_protect = FLASH_PROTECTION_FLASH
-	flags_cover = GLASSESCOVERSEYES
-	actions_types = list(/datum/action/item_action/toggle)
-	up = FALSE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/hud/security/tajblind/attack_self()
-	toggle_veil()
-
-/obj/item/clothing/glasses/hud/health/tajblind
-	name = "lightweight veil"
-	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed medical HUD."
-	icon_state = "tajblind_med"
-	item_state = "tajblind_med"
-	flags_cover = GLASSESCOVERSEYES
-	actions_types = list(/datum/action/item_action/toggle)
-	up = FALSE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi'
-		)
-
-/obj/item/clothing/glasses/hud/health/tajblind/attack_self()
-	toggle_veil()
-
 /obj/item/clothing/glasses/hud/skills
 	name = "skills HUD"
 	desc = "A heads-up display capable of showing the employment history records of NT crew members."
@@ -238,3 +200,32 @@
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 	)
+
+/obj/item/clothing/glasses/hud/janitor
+	name = "janitor HUD"
+	desc = "A heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
+	icon_state = "janihud"
+	hud_types = DATA_HUD_JANITOR
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+	)
+
+/obj/item/clothing/glasses/hud/janitor/sunglasses
+	name = "janitor HUD sunglasses"
+	desc = "Sunglasses with a build-in filth scanner, scans for messes and alerts the user."
+	icon_state = "sunhudjani"
+	see_in_dark = 1
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint = FLASH_PROTECTION_FLASH
+
+/obj/item/clothing/glasses/hud/janitor/night
+	name = "night vision janitor HUD"
+	desc = "A janitorial filth scanner fitted with a light amplifier."
+	icon_state = "nvjanihud"
+	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE

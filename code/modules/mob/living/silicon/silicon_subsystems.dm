@@ -1,49 +1,3 @@
-/mob/living/silicon
-	var/register_alarms = TRUE
-	var/datum/ui_module/atmos_control/atmos_control
-	var/datum/ui_module/crew_monitor/crew_monitor
-	var/datum/ui_module/law_manager/law_manager
-	var/datum/ui_module/power_monitor/digital/power_monitor
-
-/mob/living/silicon
-	var/list/silicon_subsystems = list(
-		/mob/living/silicon/proc/subsystem_law_manager
-	)
-
-/mob/living/silicon/ai
-	silicon_subsystems = list(
-		/mob/living/silicon/proc/subsystem_atmos_control,
-		/mob/living/silicon/proc/subsystem_crew_monitor,
-		/mob/living/silicon/proc/subsystem_law_manager,
-		/mob/living/silicon/proc/subsystem_power_monitor
-	)
-
-/mob/living/silicon/robot
-	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
-	var/datum/ui_module/destination_tagger/mail_setter
-	silicon_subsystems = list(
-		/mob/living/silicon/robot/proc/self_diagnosis,
-		/mob/living/silicon/proc/subsystem_law_manager
-	)
-
-/mob/living/silicon/robot/drone
-	silicon_subsystems = list(
-		/mob/living/silicon/robot/proc/set_mail_tag,
-		/mob/living/silicon/robot/proc/self_diagnosis,
-		/mob/living/silicon/proc/subsystem_law_manager,
-		/mob/living/silicon/proc/subsystem_power_monitor
-	)
-
-/mob/living/silicon/robot/syndicate
-	register_alarms = 0
-
-/mob/living/silicon/robot/syndicate/saboteur
-	silicon_subsystems = list(
-		/mob/living/silicon/robot/proc/set_mail_tag,
-		/mob/living/silicon/robot/proc/self_diagnosis,
-		/mob/living/silicon/proc/subsystem_law_manager
-	)
-
 /mob/living/silicon/proc/init_subsystems()
 	atmos_control 	= new(src)
 	crew_monitor 	= new(src)
@@ -62,7 +16,7 @@
 	set category = "Subsystems"
 	set name = "Atmospherics Control"
 
-	atmos_control.ui_interact(usr, state = GLOB.self_state)
+	atmos_control.ui_interact(usr)
 
 /********************
 *	Crew Monitor	*
@@ -70,7 +24,7 @@
 /mob/living/silicon/proc/subsystem_crew_monitor()
 	set category = "Subsystems"
 	set name = "Crew Monitor"
-	crew_monitor.ui_interact(usr, state = GLOB.self_state)
+	crew_monitor.ui_interact(usr)
 
 /****************
 *	Law Manager	*
@@ -79,7 +33,7 @@
 	set name = "Law Manager"
 	set category = "Subsystems"
 
-	law_manager.ui_interact(usr, state = GLOB.conscious_state)
+	law_manager.ui_interact(usr)
 
 /********************
 *	Power Monitor	*
@@ -88,7 +42,7 @@
 	set category = "Subsystems"
 	set name = "Power Monitor"
 
-	power_monitor.ui_interact(usr, state = GLOB.self_state)
+	power_monitor.ui_interact(usr)
 
 /mob/living/silicon/robot/proc/self_diagnosis()
 	set category = "Robot Commands"

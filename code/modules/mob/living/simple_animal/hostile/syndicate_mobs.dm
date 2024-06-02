@@ -51,7 +51,7 @@
 	user.do_attack_animation(src)
 	if(O.force)
 		if(prob(melee_block_chance))
-			visible_message("<span class='boldwarning'>[src] blocks [O] with its shield! </span>")
+			visible_message("<span class='boldwarning'>[src] blocks [O] with its shield!</span>")
 		else
 			var/damage = O.force
 			if(O.damtype == STAMINA)
@@ -60,11 +60,11 @@
 				visible_message("<span class='boldwarning'>[src] is unharmed by [O]!</span>")
 				return
 			adjustHealth(damage)
-			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user]. </span>")
+			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user].</span>")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
 		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-		visible_message("<span class='warning'>[user] gently taps [src] with [O]. </span>")
+		visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>")
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
@@ -73,7 +73,7 @@
 	if(prob(ranged_block_chance))
 		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
 	else
-		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		if(Proj.damage_type == BRUTE || Proj.damage_type == BURN)
 			adjustHealth(Proj.damage)
 	return 0
 
@@ -126,7 +126,7 @@
 			if(!ranged)
 				playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
 			if(alert_on_shield_breach)
-				if(depotarea.shield_list.len)
+				if(length(depotarea.shield_list))
 					raise_alert("[name] reports that [target] is trying to breach the armory shield!")
 					alert_on_shield_breach = FALSE
 					raised_alert = FALSE
@@ -282,7 +282,7 @@
 		var/list/key_candidates = list()
 		for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O in GLOB.alive_mob_list)
 			key_candidates += O
-		if(key_candidates.len)
+		if(length(key_candidates))
 			var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O = pick(key_candidates)
 			O.shield_key = TRUE
 			depotarea.shields_up()

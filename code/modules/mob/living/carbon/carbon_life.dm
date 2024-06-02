@@ -50,8 +50,6 @@
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe()
-	if(reagents.has_reagent("lexorin"))
-		return
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return
 
@@ -100,19 +98,19 @@
 		if(ishuman(src) && !internal && environment.temperature < 273 && environment.return_pressure() > 20) //foggy breath :^)
 			new /obj/effect/frosty_breath(loc, src)
 
-//Third link in a breath chain, calls handle_breath_temperature()
+//Third and last link in a breath chain
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
 		return FALSE
 
-	var/lungs = get_organ_slot("lungs")
+	var/lungs = get_int_organ_datum(ORGAN_DATUM_LUNGS)
 	if(!lungs)
 		adjustOxyLoss(2)
 
 	//CRIT
 	if(!breath || (breath.total_moles() == 0) || !lungs)
 		adjustOxyLoss(1)
-		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		return FALSE
 
 	var/safe_oxy_min = 16
@@ -138,7 +136,7 @@
 			oxygen_used = breath.oxygen*ratio
 		else
 			adjustOxyLoss(3)
-		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		adjustOxyLoss(-5)
@@ -167,7 +165,7 @@
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (breath.toxins/safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
+		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 
@@ -181,14 +179,7 @@
 			if(prob(20))
 				emote(pick("giggle","laugh"))
 
-	//BREATH TEMPERATURE
-	handle_breath_temperature(breath)
-
 	return TRUE
-
-//Fourth and final link in a breath chain
-/mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
-	return
 
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
 	if(internal)
@@ -208,6 +199,9 @@
 	for(var/thing in internal_organs)
 		var/obj/item/organ/internal/O = thing
 		O.on_life()
+	for(var/organ_tag in internal_organ_datums)
+		var/datum/organ/datum_organ_var_name_idk = internal_organ_datums[organ_tag]
+		datum_organ_var_name_idk.on_life()
 
 /mob/living/carbon/handle_diseases()
 	for(var/thing in viruses)
@@ -258,6 +252,8 @@
 			update_stamina()
 		if(staminaloss)
 			setStaminaLoss(0, FALSE)
+			SEND_SIGNAL(src, COMSIG_CARBON_STAMINA_REGENERATED)
+			update_stamina_hud()
 			update_health_hud()
 
 	// Keep SSD people asleep
@@ -290,11 +286,16 @@
 		else
 			healths.icon_state = "health7"
 
+
+
+/mob/living/carbon/perceived_stamina()
+	return staminaloss - shock_reduction()
+
 /mob/living/carbon/update_damage_hud()
 	if(!client)
 		return
 	var/shock_reduction = shock_reduction()
-	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
+	if(health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0
 			switch(health - shock_reduction)
@@ -318,7 +319,7 @@
 					severity = 9
 				if(-INFINITY to -95)
 					severity = 10
-			overlay_fullscreen("crit", /obj/screen/fullscreen/crit, severity)
+			overlay_fullscreen("crit", /atom/movable/screen/fullscreen/stretch/crit, severity)
 	else if(stat == CONSCIOUS)
 		if(check_death_method())
 			clear_fullscreen("crit")
@@ -339,7 +340,7 @@
 						severity = 6
 					if(45 to INFINITY)
 						severity = 7
-				overlay_fullscreen("oxy", /obj/screen/fullscreen/oxy, severity)
+				overlay_fullscreen("oxy", /atom/movable/screen/fullscreen/stretch/oxy, severity)
 			else
 				clear_fullscreen("oxy")
 
@@ -355,16 +356,16 @@
 				if(45 to 70) severity = 4
 				if(70 to 85) severity = 5
 				if(85 to INFINITY) severity = 6
-			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/stretch/brute, severity)
 		else
 			clear_fullscreen("brute")
 
 /mob/living/carbon/proc/handle_patches()
-	var/multiple_patch_multiplier = processing_patches.len > 1 ? (processing_patches.len * 1.5) : 1
+	var/multiple_patch_multiplier = length(processing_patches) > 1 ? (length(processing_patches) * 1.5) : 1
 	var/applied_amount = 0.35 * multiple_patch_multiplier
 
 	for(var/patch in processing_patches)
-		var/obj/item/reagent_containers/food/pill/patch/P = patch
+		var/obj/item/reagent_containers/patch/P = patch
 
 		if(P.reagents && P.reagents.total_volume)
 			var/fractional_applied_amount = applied_amount  / P.reagents.total_volume

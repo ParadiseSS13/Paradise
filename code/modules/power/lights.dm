@@ -164,10 +164,9 @@
   */
 /obj/machinery/light
 	name = "light fixture"
+	desc = "Industrial-grade light fixture for brightening up dark corners of the station."
 	icon = 'icons/obj/lighting.dmi'
-	var/base_state = "tube" // Base description and icon_state
 	icon_state = "tube1"
-	desc = "A lighting fixture."
 	anchored = TRUE
 	layer = 5
 	max_integrity = 100
@@ -175,6 +174,7 @@
 	idle_power_consumption = 2  //when in low power mode
 	active_power_consumption = 20 //when in full power mode
 	power_channel = PW_CHANNEL_LIGHTING //Lights are calc'd via area so they dont need to be in the machine list
+	var/base_state = "tube" // Base description and icon_state
 	/// Is the light on or off?
 	var/on = FALSE
 	/// Is the light currently turning on?
@@ -231,12 +231,12 @@
   */
 /obj/machinery/light/small
 	icon_state = "bulb1"
-	base_state = "bulb"
+	desc = "A compact and cheap light fixture, perfect for keeping maintenance tunnels appropriately spooky."
 	fitting = "bulb"
+	base_state = "bulb"
 	brightness_range = 4
 	brightness_color = "#a0a080"
 	nightshift_light_range = 4
-	desc = "A small lighting fixture."
 	light_type = /obj/item/light/bulb
 
 /obj/machinery/light/spot
@@ -292,7 +292,7 @@
 /obj/machinery/light/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
 	SIGNAL_HANDLER
 
-	if(status != LIGHT_OK)
+	if(status != LIGHT_OK || !has_power())
 		return
 
 	if(new_level_number >= SEC_LEVEL_EPSILON)
@@ -470,6 +470,24 @@
 		LR.ReplaceLight(src, user)
 		return
 
+	// Attack with Spray Can! Coloring time.
+	if(istype(W, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/spraycan = W
+
+		// quick check to disable capped spraypainting, aesthetic reasons
+		if(spraycan.capped)
+			to_chat(user, "<span class='notice'>You can't spraypaint [src] with the cap still on!</span>")
+			return
+		var/list/hsl = rgb2hsl(hex2num(copytext(spraycan.colour, 2, 4)), hex2num(copytext(spraycan.colour, 4, 6)), hex2num(copytext(spraycan.colour, 6, 8)))
+		hsl[3] = max(hsl[3], 0.4)
+		var/list/rgb = hsl2rgb(arglist(hsl))
+		var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+		color = new_color
+		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
+		brightness_color = new_color
+		update(TRUE, TRUE, FALSE)
+		return
+
 	// attempt to insert light
 	if(istype(W, /obj/item/light))
 		if(status != LIGHT_EMPTY)
@@ -632,7 +650,10 @@
 	if(current_apc)
 		RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
-/obj/machinery/light/flicker(amount = rand(20, 30))
+/obj/machinery/light/get_spooked()
+	return forced_flicker()
+
+/obj/machinery/light/proc/forced_flicker(amount = rand(20, 30))
 	if(flickering)
 		return FALSE
 

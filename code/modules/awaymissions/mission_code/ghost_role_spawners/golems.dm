@@ -69,6 +69,7 @@
 	move_resist = MOVE_FORCE_NORMAL
 	density = FALSE
 	death_cooldown = 300 SECONDS
+	STATIC_COOLDOWN_DECLARE(ghost_flash_cooldown)
 	var/has_owner = FALSE
 	var/can_transfer = TRUE //if golems can switch bodies to this new shell
 	var/mob/living/owner = null //golem's owner if it has one
@@ -85,7 +86,11 @@
 	. = ..()
 	var/area/A = get_area(src)
 	if(!mapload && A)
-		notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in [A.name].", source = src)
+		if(COOLDOWN_FINISHED(src, ghost_flash_cooldown))
+			notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in [A.name].", source = src)
+			COOLDOWN_START(src, ghost_flash_cooldown, 20 MINUTES)
+		else
+			notify_ghosts("\A [initial(species.prefix)] golem shell has been completed in [A.name].", source = src, flashwindow = FALSE)
 	if(has_owner && creator)
 		important_info = "Serve your creator, even if they are an antag."
 		flavour_text = "You are a golem created to serve your creator."
@@ -130,8 +135,8 @@
 		else
 			H.rename_character(null, name)
 		if(is_species(H, /datum/species/golem/tranquillite) && H.mind)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
+			H.mind.AddSpell(new /datum/spell/aoe/conjure/build/mime_wall(null))
+			H.mind.AddSpell(new /datum/spell/mime/speak(null))
 			H.mind.miming = TRUE
 
 	if(has_owner)
@@ -151,7 +156,7 @@
 		else
 			has_owner = FALSE
 			owner = null
-		var/transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
+		var/transfer_choice = tgui_alert(user, "Transfer your soul to [src]? (Warning, your old body will die!)", "Respawn", list("Yes","No"))
 		if(transfer_choice != "Yes")
 			return
 		if(QDELETED(src) || uses <= 0)
@@ -160,13 +165,12 @@
 		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()
-		return
 
 /obj/effect/mob_spawn/human/alive/golem/attackby(obj/item/I, mob/living/carbon/user, params)
 	if(!istype(I, /obj/item/slimepotion/transference))
 		return ..()
 	if(iscarbon(user) && can_transfer)
-		var/human_transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)", null, "Yes", "No")
+		var/human_transfer_choice = tgui_alert(user, "Transfer your soul to [src]? (Warning, your old body will die!)", "Respawn", list("Yes", "No"))
 		if(human_transfer_choice != "Yes")
 			return
 		if(QDELETED(src) || uses <= 0 || user.stat >= 1 || QDELETED(I))

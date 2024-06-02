@@ -5,7 +5,7 @@
 	chemical_cost = 25
 	dna_cost = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_UTILITY
+	category = /datum/changeling_power_category/utility
 
 /datum/action/changeling/contort_body/Remove(mob/M)
 	REMOVE_TRAIT(M, TRAIT_CONTORTED_BODY, CHANGELING_TRAIT)

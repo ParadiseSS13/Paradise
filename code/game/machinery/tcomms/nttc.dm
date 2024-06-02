@@ -112,7 +112,6 @@
 		"Shaft Miner" = "supradio",
 		"Spelunker" = "supradio",
 		// Service
-		"Barber" = "srvradio",
 		"Bartender" = "srvradio",
 		"Beautician" = "srvradio",
 		"Botanical Researcher" = "srvradio",
@@ -255,7 +254,7 @@
 		var/job = tcm.sender_job
 		var/rank = tcm.sender_rank
 		//if the job title is not custom, just use that to decide the rules of formatting
-		if (job in all_jobs)
+		if(job in all_jobs)
 			job_class = all_jobs[job]
 		else
 			job_class = all_jobs[rank]
@@ -273,25 +272,24 @@
 			job = "ERT"
 		if(toggle_job_color)
 			switch(job_indicator_type)
-				// These must have trailing spaces. No exceptions.
 				if(JOB_STYLE_1)
-					new_name = "[tcm.sender_name] <span class=\"[job_class]\">([job])</span> "
+					new_name = "[tcm.sender_name] <span class=\"[job_class]\">([job])</span>"
 				if(JOB_STYLE_2)
-					new_name = "[tcm.sender_name] - <span class=\"[job_class]\">[job]</span> "
+					new_name = "[tcm.sender_name] - <span class=\"[job_class]\">[job]</span>"
 				if(JOB_STYLE_3)
-					new_name = "<span class=\"[job_class]\"><small>\[[job]\]</small></span> [tcm.sender_name] "
+					new_name = "<span class=\"[job_class]\"><small>\[[job]\]</small></span> [tcm.sender_name]"
 				if(JOB_STYLE_4)
-					new_name = "<span class=[job_class]>([job])</span> [tcm.sender_name] "
+					new_name = "<span class=[job_class]>([job])</span> [tcm.sender_name]"
 		else
 			switch(job_indicator_type)
 				if(JOB_STYLE_1)
-					new_name = "[tcm.sender_name] ([job]) "
+					new_name = "[tcm.sender_name] ([job])"
 				if(JOB_STYLE_2)
-					new_name = "[tcm.sender_name] - [job] "
+					new_name = "[tcm.sender_name] - [job]"
 				if(JOB_STYLE_3)
-					new_name = "<small>\[[job]\]</small> [tcm.sender_name] "
+					new_name = "<small>\[[job]\]</small> [tcm.sender_name]"
 				if(JOB_STYLE_4)
-					new_name = "([job]) [tcm.sender_name] "
+					new_name = "([job]) [tcm.sender_name]"
 
 		// Only change the name if they have a job tag set, otherwise everyone becomes unknown, and thats bad
 		if(new_name != "")

@@ -1,5 +1,6 @@
 /obj/machinery/chem_heater
 	name = "chemical heater"
+	desc = "A simple machine that uses a heat exchanger to adjust the temperature of a mixture. Despite the name, it's also capable of cooling. This feature is unpopular with hipsters, as they preferred the chemicals before they were cool."
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -129,13 +130,16 @@
 			return FALSE
 	add_fingerprint(usr)
 
-/obj/machinery/chem_heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/chem_heater/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/chem_heater/ui_interact(mob/user, datum/tgui/ui = null)
 	if(user.stat || user.restrained())
 		return
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemHeater", "Chemical Heater", 350, 270, master_ui, state)
+		ui = new(user, src, "ChemHeater", "Chemical Heater")
 		ui.open()
 
 /obj/machinery/chem_heater/ui_data(mob/user)

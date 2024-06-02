@@ -1,4 +1,5 @@
-/obj/structure/closet/statue //this type path is a crime, ponies what the fuck
+/// this type path is a crime, ponies what the fuck
+/obj/structure/closet/statue
 	name = "statue"
 	desc = "An incredibly lifelike marble carving"
 	icon = 'icons/obj/statue.dmi'
@@ -19,6 +20,7 @@
 			L.unbuckle_mob()
 		L.forceMove(src)
 		ADD_TRAIT(L, TRAIT_MUTE, STATUE_MUTE)
+		ADD_TRAIT(L, TRAIT_EMOTE_MUTE, STATUE_MUTE)
 		max_integrity = max(L.health + 100, 100) //stoning damaged mobs will result in easier to shatter statues
 		intialTox = L.getToxLoss()
 		intialFire = L.getFireLoss()
@@ -49,6 +51,7 @@
 		M.adjustFireLoss(intialFire - M.getFireLoss())
 		M.adjustBruteLoss(intialBrute - M.getBruteLoss())
 		M.setOxyLoss(intialOxy)
+		M.Stun(2.5 SECONDS) // No using items inside a statue
 	if(timer <= 0)
 		dump_contents()
 		STOP_PROCESSING(SSobj, src)
@@ -68,10 +71,11 @@
 	for(var/mob/living/M in src)
 		M.forceMove(loc)
 		REMOVE_TRAIT(M, TRAIT_MUTE, STATUE_MUTE)
+		REMOVE_TRAIT(M, TRAIT_EMOTE_MUTE, STATUE_MUTE)
 		M.take_overall_damage((M.health - obj_integrity - 100),0) //any new damage the statue incurred is transfered to the mob
 
 	..()
-	
+
 /obj/structure/closet/statue/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE
 
@@ -105,9 +109,6 @@
 /obj/structure/closet/statue/attack_hand()
 	return
 
-/obj/structure/closet/statue/verb_toggleopen()
-	return
-
 /obj/structure/closet/statue/update_icon_state()
 	return
 
@@ -118,4 +119,18 @@
 	if(user)
 		user.dust()
 	dump_contents()
-	visible_message("<span class='warning'>[src] shatters!. </span>")
+	visible_message("<span class='warning'>[src] shatters!</span>")
+
+/obj/structure/closet/statue/indestructible
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	timer = 120 SECONDS_TO_LIFE_CYCLES
+
+/obj/structure/closet/statue/indestructible/ex_act(severity)
+	return //No delimbing them
+
+/obj/structure/closet/statue/indestructible/shatter(mob/user)
+	return //No. Failsafe.
+
+/obj/structure/closet/statue/indestructible/singularity_act()
+	return //I mean maybe but no.
+

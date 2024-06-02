@@ -64,15 +64,15 @@
 	for(var/i in list(IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD))
 		holder2 = hud_list[i]
 		holder2.icon_state = null
-	for(var/obj/item/implant/I in H)
+	for(var/obj/item/bio_chip/I in H)
 		if(I.implanted)
-			if(istype(I, /obj/item/implant/tracking))
+			if(istype(I, /obj/item/bio_chip/tracking))
 				holder2 = hud_list[IMPTRACK_HUD]
 				holder2.icon_state = "hud_imp_tracking"
-			else if(istype(I, /obj/item/implant/mindshield))
+			else if(istype(I, /obj/item/bio_chip/mindshield))
 				holder2 = hud_list[IMPMINDSHIELD_HUD]
 				holder2.icon_state = "hud_imp_loyal"
-			else if(istype(I, /obj/item/implant/chem))
+			else if(istype(I, /obj/item/bio_chip/chem))
 				holder2 = hud_list[IMPCHEM_HUD]
 				holder2.icon_state = "hud_imp_chem"
 	var/image/holder3 = hud_list[WANTED_HUD]

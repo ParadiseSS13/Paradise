@@ -1,7 +1,7 @@
 /**
   * # Contractor Extraction Flare
   *
-  * Used to designate where the [/obj/effect/portal/redspace/contractor] should spawn during the extraction process.
+  * Used to designate where the [/obj/effect/portal/advanced/contractor] should spawn during the extraction process.
   */
 /obj/effect/contractor_flare
 	name = "contractor extraction flare"
@@ -22,7 +22,7 @@
   *
   * Used to extract contract targets and send them to the Syndicate jail for a few minutes.
   */
-/obj/effect/portal/redspace/contractor
+/obj/effect/portal/advanced/contractor
 	name = "suspicious portal"
 	icon_state = "portal-syndicate"
 	/// The contract associated with this portal.
@@ -32,7 +32,7 @@
 	/// The mind of the kidnapping target. Prevents non-targets from taking the portal.
 	var/datum/mind/target_mind = null
 
-/obj/effect/portal/redspace/contractor/can_teleport(atom/movable/A)
+/obj/effect/portal/advanced/contractor/can_teleport(atom/movable/A)
 	var/mob/living/M = A
 	if(!istype(M))
 		return FALSE
@@ -49,7 +49,7 @@
 		return FALSE
 	return ..()
 
-/obj/effect/portal/redspace/contractor/teleport(atom/movable/M)
+/obj/effect/portal/advanced/contractor/teleport(atom/movable/M)
 	. = ..()
 	if(.)
 		contract.target_received(M, src)

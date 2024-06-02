@@ -254,7 +254,7 @@
 		return
 	if(!istype(src, /obj/item/storage/toolbox))
 		return
-	if(contents.len >= 1)
+	if(length(contents) >= 1)
 		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside.</span>")
 		return
 	if(T.use(10))
@@ -332,7 +332,7 @@
 		robot_arm = I.type
 
 	//Making a medibot!
-	if(contents.len)
+	if(length(contents))
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
 		return
 
@@ -566,7 +566,7 @@
 
 /obj/item/griefsky_assembly/attackby(obj/item/I, mob/user, params)
 	..()
-	if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3 ))
+	if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3))
 		if(!user.unEquip(I))
 			return
 		build_step++
@@ -581,7 +581,7 @@
 		qdel(I)
 		qdel(src)
 
-	else if((istype(I, /obj/item/toy/sword)) && (toy_step < 3 ))
+	else if((istype(I, /obj/item/toy/sword)) && (toy_step < 3))
 		if(!user.unEquip(I))
 			return
 		toy_step++
@@ -618,7 +618,7 @@
 	else
 		robot_arm = W.type
 
-	if(contents.len)
+	if(length(contents))
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
 		return
 

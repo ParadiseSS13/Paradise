@@ -22,7 +22,7 @@
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/bsa/full/B)
+	for(var/obj/machinery/bsa/full/B in GLOB.machines)
 		if(B && !B.stat && is_station_contact(B.z))
 			return TRUE
 	return FALSE
@@ -327,10 +327,13 @@
 		return 1
 	ui_interact(user)
 
-/obj/machinery/computer/bsa_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/bsa_control/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/bsa_control/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BlueSpaceArtilleryControl", name, 400, 155, master_ui, state)
+		ui = new(user, src, "BlueSpaceArtilleryControl", name)
 		ui.open()
 
 /obj/machinery/computer/bsa_control/ui_data(mob/user)
@@ -373,8 +376,10 @@
 	var/list/options = gps_locators
 	if(area_aim)
 		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
-	var/V = input(user,"Select target", "Select target",null) in options|null
-	target = options[V]
+	var/choose = tgui_input_list(user, "Select target", "Target",  options)
+	if(!choose)
+		return
+	target = options[choose]
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
 	if(isarea(target))

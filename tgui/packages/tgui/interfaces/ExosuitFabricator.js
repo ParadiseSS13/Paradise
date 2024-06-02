@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { classes } from '../../common/react';
 import { createSearch } from '../../common/string';
 import { useBackend, useLocalState } from '../backend';
@@ -7,11 +6,11 @@ import {
   Button,
   Divider,
   Dropdown,
-  Flex,
   Icon,
   Input,
   ProgressBar,
   Section,
+  Stack,
 } from '../components';
 import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
@@ -28,32 +27,32 @@ export const ExosuitFabricator = (properties, context) => {
   const { act, data } = useBackend(context);
   const { building } = data;
   return (
-    <Window>
+    <Window width={950} height={625}>
       <Window.Content className="Exofab">
-        <Flex width="100%" height="100%">
-          <Flex.Item grow="1" mr="0.5rem" width="70%">
-            <Flex direction="column" height="100%">
-              <Flex.Item grow="1" basis="100%">
+        <Stack fill>
+          <Stack.Item grow>
+            <Stack fill vertical>
+              <Stack.Item grow>
                 <Designs />
-              </Flex.Item>
+              </Stack.Item>
               {building && (
-                <Flex.Item basis="content" mt="0.5rem">
+                <Stack.Item>
                   <Building />
-                </Flex.Item>
+                </Stack.Item>
               )}
-            </Flex>
-          </Flex.Item>
-          <Flex.Item width="30%">
-            <Flex direction="column" height="100%">
-              <Flex.Item grow="1" basis="50%">
+            </Stack>
+          </Stack.Item>
+          <Stack.Item width="30%">
+            <Stack fill vertical>
+              <Stack.Item grow>
                 <Materials />
-              </Flex.Item>
-              <Flex.Item grow="1" basis="50%" mt="0.5rem">
+              </Stack.Item>
+              <Stack.Item grow>
                 <Queue />
-              </Flex.Item>
-            </Flex>
-          </Flex.Item>
-        </Flex>
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -65,6 +64,8 @@ const Materials = (properties, context) => {
   const totalMats = Object.values(materials).reduce((a, b) => a + b, 0);
   return (
     <Section
+      fill
+      scrollable
       title="Materials"
       className="Exofab__materials"
       buttons={
@@ -74,23 +75,24 @@ const Materials = (properties, context) => {
       }
     >
       {[
-        '$metal',
-        '$glass',
-        '$silver',
-        '$gold',
-        '$uranium',
-        '$titanium',
-        '$plasma',
-        '$diamond',
-        '$bluespace',
-        '$bananium',
-        '$tranquillite',
-        '$plastic',
+        'metal',
+        'glass',
+        'silver',
+        'gold',
+        'uranium',
+        'titanium',
+        'plasma',
+        'diamond',
+        'bluespace',
+        'bananium',
+        'tranquillite',
+        'plastic',
       ].map((name) => (
         <MaterialCount
+          mt={-2}
           key={name}
           id={name}
-          bold={name === '$metal' || name === '$glass'}
+          bold={name === 'metal' || name === 'glass'}
           onClick={() =>
             act('withdraw', {
               id: name,
@@ -112,9 +114,12 @@ const Designs = (properties, context) => {
   const filteredDesigns = designs.filter(searcher);
   return (
     <Section
+      fill
+      scrollable
       className="Exofab__designs"
       title={
         <Dropdown
+          className="Exofab__dropdown"
           selected={curCategory}
           options={categories}
           onSelected={(cat) =>
@@ -122,12 +127,10 @@ const Designs = (properties, context) => {
               cat: cat,
             })
           }
-          width="150px"
         />
       }
-      height="100%"
       buttons={
-        <Box mt="-18px">
+        <Box mt="2px">
           <Button
             icon="plus"
             content="Queue all"
@@ -170,19 +173,22 @@ const Building = (properties, context) => {
         start={buildStart}
         current={worldTime}
         end={buildEnd}
-        bold
       >
-        <Box float="left">
-          <Icon name="cog" spin />
-        </Box>
-        Building {building}
-        &nbsp;(
-        <Countdown
-          current={worldTime}
-          timeLeft={buildEnd - worldTime}
-          format={(v, f) => f.substr(3)}
-        />
-        )
+        <Stack>
+          <Stack.Item>
+            <Icon name="cog" spin />
+          </Stack.Item>
+          <Stack.Item>
+            Building {building}
+            &nbsp;(
+            <Countdown
+              current={worldTime}
+              timeLeft={buildEnd - worldTime}
+              format={(v, f) => f.substr(3)}
+            />
+            )
+          </Stack.Item>
+        </Stack>
       </ProgressBar.Countdown>
     </Section>
   );
@@ -197,6 +203,8 @@ const Queue = (properties, context) => {
   const queueTime = queue.reduce((a, b) => a + b.time, 0);
   return (
     <Section
+      fill
+      scrollable
       className="Exofab__queue"
       title="Queue"
       buttons={
@@ -216,16 +224,12 @@ const Queue = (properties, context) => {
         </Box>
       }
     >
-      <Flex height="100%" direction="column">
+      <Stack fill vertical>
         {queue.length === 0 ? (
           <Box color="label">The queue is empty.</Box>
         ) : (
-          <Fragment>
-            <Flex.Item
-              className="Exofab__queue--queue"
-              grow="1"
-              overflow="auto"
-            >
+          <>
+            <Stack.Item className="Exofab__queue--queue" grow overflow="auto">
               {queue.map((line, index) => (
                 <Box key={index} color={line.notEnough && 'bad'}>
                   {index + 1}. {line.name}
@@ -262,29 +266,21 @@ const Queue = (properties, context) => {
                   />
                 </Box>
               ))}
-            </Flex.Item>
+            </Stack.Item>
             {queueTime > 0 && (
-              <Flex.Item
-                className="Exofab__queue--time"
-                basis="content"
-                shrink="0"
-              >
+              <Stack.Item className="Exofab__queue--time">
                 <Divider />
                 Processing time:
                 <Icon name="clock" mx="0.5rem" />
-                <Box display="inline" bold>
+                <Box inline bold>
                   {new Date((queueTime / 10) * 1000)
                     .toISOString()
                     .substr(14, 5)}
                 </Box>
-              </Flex.Item>
+              </Stack.Item>
             )}
             {Object.keys(queueDeficit).length > 0 && (
-              <Flex.Item
-                className="Exofab__queue--deficit"
-                basis="content"
-                shrink="0"
-              >
+              <Stack.Item className="Exofab__queue--deficit" shrink="0">
                 <Divider />
                 Lacking materials to complete:
                 {queueDeficit.map((kv) => (
@@ -292,11 +288,11 @@ const Queue = (properties, context) => {
                     <MaterialCount id={kv[0]} amount={-kv[1]} lineDisplay />
                   </Box>
                 ))}
-              </Flex.Item>
+              </Stack.Item>
             )}
-          </Fragment>
+          </>
         )}
-      </Flex>
+      </Stack>
     </Section>
   );
 };
@@ -304,49 +300,51 @@ const Queue = (properties, context) => {
 const MaterialCount = (properties, context) => {
   const { act, data } = useBackend(context);
   const { id, amount, lineDisplay, onClick, ...rest } = properties;
-  const cleanId = id.replace('$', '');
   const storedAmount = data.materials[id] || 0;
   const curAmount = amount || storedAmount;
-  if (curAmount <= 0 && !(cleanId === 'metal' || cleanId === 'glass')) {
+  if (curAmount <= 0 && !(id === 'metal' || id === 'glass')) {
     return;
   }
   const insufficient = amount && amount > storedAmount;
   return (
-    <Flex
+    <Stack
+      align="center"
       className={classes([
         'Exofab__material',
         lineDisplay && 'Exofab__material--line',
       ])}
       {...rest}
     >
-      <Flex.Item basis="content">
-        <Button onClick={onClick}>
-          <Box
-            as="img"
-            src={'sheet-' + (iconNameOverrides[cleanId] || cleanId) + '.png'}
-          />
-        </Button>
-      </Flex.Item>
-      <Flex.Item grow="1">
-        {!lineDisplay ? (
-          <Fragment>
-            <Box className="Exofab__material--name">{cleanId}</Box>
+      {!lineDisplay ? (
+        <>
+          <Stack.Item basis="content">
+            <Button width="85%" color="transparent" onClick={onClick}>
+              <Box mt={1} className={classes(['materials32x32', id])} />
+            </Button>
+          </Stack.Item>
+          <Stack.Item grow="1">
+            <Box className="Exofab__material--name">{id}</Box>
             <Box className="Exofab__material--amount">
               {curAmount.toLocaleString('en-US')} cm³ (
               {Math.round((curAmount / MINERAL_MATERIAL_AMOUNT) * 10) / 10}{' '}
               sheets)
             </Box>
-          </Fragment>
-        ) : (
-          <Box
+          </Stack.Item>
+        </>
+      ) : (
+        <>
+          <Stack.Item className={classes(['materials32x32', id])} />
+          <Stack.Item
             className="Exofab__material--amount"
             color={insufficient && 'bad'}
+            ml={0}
+            mr={1}
           >
             {curAmount.toLocaleString('en-US')}
-          </Box>
-        )}
-      </Flex.Item>
-    </Flex>
+          </Stack.Item>
+        </>
+      )}
+    </Stack>
   );
 };
 
@@ -380,14 +378,12 @@ const Design = (properties, context) => {
           </Box>
         ))}
       </Box>
-      <Box className="Exofab__design--time">
-        <Icon name="clock" />
-        {design.time > 0 ? (
-          <Fragment>{design.time / 10} seconds</Fragment>
-        ) : (
-          'Instant'
-        )}
-      </Box>
+      <Stack className="Exofab__design--time">
+        <Stack.Item>
+          <Icon name="clock" />
+          {design.time > 0 ? <>{design.time / 10} seconds</> : 'Instant'}
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };

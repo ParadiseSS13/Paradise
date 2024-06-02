@@ -10,7 +10,7 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/gloves/fingerless(src)
-	new /obj/item/clothing/head/soft(src)
+	new /obj/item/clothing/head/soft/cargo(src)
 	new /obj/item/storage/bag/mail(src)
 
 /obj/structure/closet/secure_closet/quartermaster
@@ -27,12 +27,14 @@
 	new /obj/item/clothing/accessory/medal/supply(src)
 	new /obj/item/rcs(src)
 	new /obj/item/destTagger(src)
-	new /obj/item/reagent_containers/food/drinks/mug/qm(src)
+	new /obj/item/reagent_containers/drinks/mug/qm(src)
 	new /obj/item/flash(src)
 	new /obj/item/cartridge/qm(src)
 	new /obj/item/storage/bag/mail(src)
+	new /obj/item/melee/knuckleduster/nanotrasen(src)
 
-/obj/structure/closet/secure_closet/quartermaster/lavaland //used in mining outpost
+/// used in mining outpost
+/obj/structure/closet/secure_closet/quartermaster/lavaland
 	name = "quartermaster's secondary locker"
 
 /obj/structure/closet/secure_closet/quartermaster/lavaland/populate_contents()

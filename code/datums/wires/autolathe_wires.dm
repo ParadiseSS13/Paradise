@@ -2,8 +2,6 @@
 	holder_type = /obj/machinery/autolathe
 	wire_count = 10
 	proper_name = "Autolathe"
-	window_x = 340
-	window_y = 55
 
 /datum/wires/autolathe/New(atom/_holder)
 	wires = list(WIRE_AUTOLATHE_HACK, WIRE_ELECTRIFY, WIRE_AUTOLATHE_DISABLE)

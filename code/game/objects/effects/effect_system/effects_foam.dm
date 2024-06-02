@@ -13,14 +13,14 @@
 	var/expand = 1
 	var/metal = 0
 
-/obj/effect/particle_effect/foam/New(loc, ismetal=0)
+/obj/effect/particle_effect/foam/New(loc, ismetal = FALSE)
 	..(loc)
 	icon_state = "[ismetal ? "m":""]foam"
 	if(!ismetal && reagents)
 		color = mix_color_from_reagents(reagents.reagent_list)
 	metal = ismetal
-	playsound(src, 'sound/effects/bubbles2.ogg', 80, 1, -3)
-	spawn(3 + metal*3)
+	playsound(src, 'sound/effects/bubbles2.ogg', 80, TRUE, -3)
+	spawn(3 + metal * 3)
 		process()
 	spawn(120)
 		STOP_PROCESSING(SSobj, src)

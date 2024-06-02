@@ -1,0 +1,2 @@
+/obj/item/reagent_containers/food/pill/patch : /obj/item/reagent_containers/patch/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/pill : /obj/item/reagent_containers/pill/@SUBTYPES{@OLD}

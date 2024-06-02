@@ -96,7 +96,7 @@
 /datum/tilt_crit/vendor/embed/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim, incoming_damage)
 	victim.visible_message(
 		"<span class='danger'>[machine]'s panel shatters against [victim]!</span>",
-		"<span class='userdanger>[machine] lands on you, its panel shattering!</span>"
+		"<span class='userdanger'>[machine] lands on you, its panel shattering!</span>"
 	)
 
 	for(var/i in 1 to machine.num_shards)

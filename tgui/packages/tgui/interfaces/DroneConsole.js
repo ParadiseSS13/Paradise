@@ -11,12 +11,13 @@ import {
   NoticeBox,
   ProgressBar,
   Section,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 
 export const DroneConsole = (props, context) => {
   return (
-    <Window>
+    <Window width={420} height={500}>
       <Window.Content scrollable>
         <Fabricator />
         <DroneList />
@@ -154,29 +155,39 @@ const DroneList = (props, context) => {
           key={drone.name}
           title={toTitleCase(drone.name)}
           buttons={
-            <Flex>
-              <Button
-                icon="sync"
-                content="Resync"
-                disabled={drone.stat === 2 || drone.sync_cd}
-                onClick={() =>
-                  act('resync', {
-                    uid: drone.uid,
-                  })
-                }
-              />
-              <Button.Confirm
-                icon="power-off"
-                content="Shutdown"
-                disabled={drone.stat === 2}
-                color="bad"
-                onClick={() =>
-                  act('shutdown', {
-                    uid: drone.uid,
-                  })
-                }
-              />
-            </Flex>
+            <Stack>
+              <Stack.Item>
+                <Button
+                  icon="sync"
+                  content="Resync"
+                  disabled={drone.stat === 2 || drone.sync_cd}
+                  onClick={() =>
+                    act('resync', {
+                      uid: drone.uid,
+                    })
+                  }
+                />
+              </Stack.Item>
+              <Stack.Item>
+                <Button.Confirm
+                  icon="power-off"
+                  content="Recall"
+                  disabled={drone.stat === 2 || drone.pathfinding}
+                  tooltip={
+                    drone.pathfinding
+                      ? 'This drone is currently pathfinding, please wait.'
+                      : null
+                  }
+                  tooltipPosition="left"
+                  color="bad"
+                  onClick={() =>
+                    act('recall', {
+                      uid: drone.uid,
+                    })
+                  }
+                />
+              </Stack.Item>
+            </Stack>
           }
         >
           <LabeledList>

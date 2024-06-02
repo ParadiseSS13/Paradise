@@ -25,6 +25,7 @@
 #define POWERLOSS_INHIBITION_MOLE_THRESHOLD 20        //Higher == More moles of the gas are needed before the charge inertia chain reaction effect starts.        //Scales powerloss inhibition down until this amount of moles is reached
 #define POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD 500  //bonus powerloss inhibition boost if this amount of moles is reached
 
+#define MOLE_CRUNCH_THRESHOLD 1700           //Above this value we can get lord singulo and
 #define MOLE_PENALTY_THRESHOLD 1800           //Above this value we can get lord singulo and independent mol damage, below it we can heal damage
 #define MOLE_HEAT_PENALTY 350                 //Heat damage scales around this. Too hot setups with this amount of moles do regular damage, anything above and below is scaled
 //Along with damage_penalty_point, makes flux anomalies.
@@ -33,7 +34,6 @@
 #define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of cryo anomalies, +2 bolts of electricity
 #define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of cryo anomalies
 #define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
-#define HEAT_PENALTY_THRESHOLD 40             //Higher == Crystal safe operational temperature is higher.
 #define DAMAGE_HARDCAP 0.002
 #define DAMAGE_INCREASE_MULTIPLIER 0.25
 
@@ -58,7 +58,7 @@
 
 #define GRAVITATIONAL_ANOMALY "gravitational_anomaly"
 #define FLUX_ANOMALY "flux_anomaly"
-#define CRYO_ANOMALY "cryo_anomaly"
+#define BLUESPACE_ANOMALY "bluespace_anomaly"
 
 //If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define SUPERMATTER_DELAM_PERCENT 5
@@ -156,7 +156,7 @@
 	///Uses powerloss_dynamic_scaling and combined_gas to lessen the effects of our powerloss functions
 	var/powerloss_inhibitor = 1
 	///value plus T0C = temp at which the SM starts to take damage. Variable for event usage
-	var/heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
+	var/heat_penalty_threshold = SUPERMATTER_HEAT_PENALTY_THRESHOLD
 	///Based on co2 percentage, slowly moves between 0 and 1. We use it to calc the powerloss_inhibitor
 	var/powerloss_dynamic_scaling= 0
 	///Affects the amount of radiation the sm makes. We multiply this with power to find the rads.
@@ -323,12 +323,12 @@
 	var/image/causality_field = image(icon, null, "causality_field")
 	add_overlay(causality_field)
 
-	var/speaking = "[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated."
+	var/speaking = "<span class='reallybig'>[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated.</span>"
 	for(var/mob/M in GLOB.player_list) // for all players
 		var/turf/T = get_turf(M)
 		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
 			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
-	radio.autosay(speaking, name, null, list(z))
+	radio.autosay(speaking, name, null)
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(!processes) // Stop exploding if you're frozen by an admin, damn you
 			cut_overlay(causality_field, TRUE)
@@ -336,7 +336,7 @@
 			damage = explosion_point - 1 // One point below exploding, so it will re-start the countdown once unfrozen
 			return
 		if(damage < explosion_point) // Cutting it a bit close there engineers
-			radio.autosay("[safe_alert] Failsafe has been disengaged.", name, null, list(z))
+			radio.autosay("<span class='big'>[safe_alert] Failsafe has been disengaged.</span>", name, null)
 			cut_overlay(causality_field, TRUE)
 			final_countdown = FALSE
 			remove_filter(list("outline", "icon"))
@@ -345,15 +345,15 @@
 			sleep(10)
 			continue
 		else if(i > 50)
-			speaking = "[DisplayTimeText(i, TRUE)] remain before causality stabilization."
+			speaking = "<b>[DisplayTimeText(i, TRUE)] remain before causality stabilization.</b>"
 		else
-			speaking = "[i*0.1]..."
-		radio.autosay(speaking, name, null, list(z))
+			speaking = "<span class='reallybig'>[i * 0.1]...</span>"
+		radio.autosay(speaking, name, null)
 		sleep(10)
 
 	explode()
 
-/obj/machinery/atmospherics/supermatter_crystal/proc/explode()
+/obj/machinery/atmospherics/supermatter_crystal/proc/explode(forced_combined_gas = 0, forced_power = 0, forced_gasmix_power_ratio = 0)
 	SSblackbox.record_feedback("amount", "supermatter_delaminations", 1)
 	for(var/mob in GLOB.alive_mob_list)
 		var/mob/living/L = mob
@@ -375,18 +375,18 @@
 			SEND_SOUND(M, super_matter_charge_sound)
 
 			if(atoms_share_level(M, src))
-				to_chat(M, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
+				to_chat(M, "<span class='boldannounceic'>You feel reality distort for a moment...</span>")
 			else
-				to_chat(M, "<span class='boldannounce'>You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe.</span>")
+				to_chat(M, "<span class='boldannounceic'>You hold onto \the [M.loc] as hard as you can, as reality distorts around you. You feel safe.</span>")
 
-	if(combined_gas > MOLE_PENALTY_THRESHOLD)
+	if(max(combined_gas, forced_combined_gas) > MOLE_CRUNCH_THRESHOLD)
 		investigate_log("has collapsed into a singularity.", "supermatter")
 		if(T)
 			var/obj/singularity/S = new(T)
 			S.energy = 800
 			S.consume(src)
 			return //No boom for me sir
-	else if(power > POWER_PENALTY_THRESHOLD)
+	else if(max(power, forced_power) > POWER_PENALTY_THRESHOLD)
 		investigate_log("has spawned additional energy balls.", "supermatter")
 		if(T)
 			var/obj/singularity/energy_ball/E = new(T)
@@ -396,6 +396,8 @@
 //		crystals.runEvent()
 //		return //No boom for me sir
 	//Dear mappers, balance the sm max explosion radius to 17.5, 37, 39, 41
+	if(forced_gasmix_power_ratio)
+		gasmix_power_ratio = forced_gasmix_power_ratio
 	explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
 	qdel(src)
 
@@ -545,8 +547,10 @@
 			power = max((removed.temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
 		if(prob(50))
-
-			radiation_pulse(src, power * max(0, (1 + (power_transmission_bonus / 10))))
+			var/mole_crunch_bonus = 0
+			if(combined_gas > MOLE_CRUNCH_THRESHOLD)
+				mole_crunch_bonus = 7000 //This adds 7000 EER worth of power to the SM. This should make mole crunch potentially worthy as a SM setup, if not risky. More stable than the anomalies, but very easy to push over the edge. Don't forget, a high EER setup can harvest power through zaps
+			radiation_pulse(src, power * max(0, (1 + (power_transmission_bonus / 10))) + mole_crunch_bonus)
 
 		//Power * 0.55 * a value between 1 and 0.8
 		var/device_energy = power * REACTION_POWER_MODIFIER
@@ -632,7 +636,7 @@
 		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
 			supermatter_anomaly_gen(src, GRAVITATIONAL_ANOMALY, rand(5, 10))
 		if((power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD))
-			supermatter_anomaly_gen(src, CRYO_ANOMALY, rand(5, 10))
+			supermatter_anomaly_gen(src, BLUESPACE_ANOMALY, rand(5, 10))
 
 	if(prob(15))
 		supermatter_pull(loc, min(power / 850, 3)) //850, 1700, 2550
@@ -646,27 +650,27 @@
 
 			//Oh shit it's bad, time to freak out
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Integrity: [get_integrity()]%", name, null, list(z))
+				radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
 				lastwarning = REALTIMEOFDAY
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", "supermatter")
 					message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
 					has_reached_emergency = TRUE
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Integrity: [get_integrity()]%", name, "Engineering", list(z))
+				radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
 				lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 
 			else                                                 // Phew, we're safe
-				radio.autosay("[safe_alert] Integrity: [get_integrity()]%", name, "Engineering", list(z))
+				radio.autosay("<b>[safe_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
 				lastwarning = REALTIMEOFDAY
 
 			if(power > POWER_PENALTY_THRESHOLD)
-				radio.autosay("Warning: Hyperstructure has reached dangerous power level.", name, "Engineering", list(z))
+				radio.autosay("<b>Warning: Hyperstructure has reached dangerous power level.</b>", name, "Engineering")
 				if(powerloss_inhibitor < 0.5)
-					radio.autosay("DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.", name, "Engineering", list(z))
+					radio.autosay("<b>DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.</b>", name, "Engineering")
 
-			if(combined_gas > MOLE_PENALTY_THRESHOLD)
-				radio.autosay("Warning: Critical coolant mass reached.", name, "Engineering", list(z))
+			if(combined_gas > MOLE_CRUNCH_THRESHOLD)
+				radio.autosay("<b>Warning: Critical coolant mass reached.</b>", name, "Engineering")
 		//Boom (Mind blown)
 		if(damage > explosion_point)
 			countdown()
@@ -696,7 +700,7 @@
 	for(var/M in GLOB.player_list)
 		if(atoms_share_level(M, src))
 			SEND_SOUND(M, supermatter_sound) //everyone goan know bout this
-			to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
+			to_chat(M, "<span class='boldannounceic'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
 	qdel(src)
 	return gain
 
@@ -851,7 +855,7 @@
 		user.dust()
 		if(power_changes)
 			matter_power += 200
-	else if(istype(AM, /obj/singularity))
+	else if(istype(AM, /obj/singularity) || istype(AM, /obj/machinery/field/containment))
 		return
 	else if(isobj(AM))
 		if(!iseffect(AM))
@@ -902,7 +906,7 @@
 		else
 			remove_filter("icon")
 
-	if(combined_gas > MOLE_PENALTY_THRESHOLD)
+	if(combined_gas > MOLE_CRUNCH_THRESHOLD)
 		ray_filter_helper(1, power ? clamp((damage/100) * power, 50, 125) : 1, SUPERMATTER_SINGULARITY_RAYS_COLOUR, clamp(damage / 300, 1, 30), clamp(damage / 5, 12, 300))
 
 		add_filter(name = "outline", priority = 2, params = list(
@@ -955,13 +959,13 @@
 			l_power = 3,
 			l_color = SUPERMATTER_TESLA_COLOUR,
 		)
-	if(combined_gas > MOLE_PENALTY_THRESHOLD && get_integrity() > SUPERMATTER_DANGER_PERCENT)
+	if(combined_gas > MOLE_CRUNCH_THRESHOLD && get_integrity() > SUPERMATTER_DANGER_PERCENT)
 		set_light(
 			l_range = 4 + clamp((450 - damage) / 10, 1, 50),
 			l_power = 3,
 			l_color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR,
 		)
-	if(!combined_gas > MOLE_PENALTY_THRESHOLD || !get_integrity() < SUPERMATTER_DANGER_PERCENT)
+	if(combined_gas <= MOLE_CRUNCH_THRESHOLD || get_integrity() >= SUPERMATTER_DANGER_PERCENT)
 		for(var/obj/D in darkness_effects)
 			qdel(D)
 		return
@@ -972,7 +976,7 @@
 		l_range = 4 + darkness_aoe,
 		l_power = -1 - darkness_strength,
 		l_color = "#ddd6cf")
-	if(!length(darkness_effects) && moveable) //Don't do this on movable sms oh god. Ideally don't do this at all, but hey, that's lightning for you
+	if(!length(darkness_effects) && !moveable) //Don't do this on movable sms oh god. Ideally don't do this at all, but hey, that's lightning for you
 		darkness_effects += new /obj/effect/abstract(locate(x-3,y+3,z))
 		darkness_effects += new /obj/effect/abstract(locate(x+3,y+3,z))
 		darkness_effects += new /obj/effect/abstract(locate(x-3,y-3,z))
@@ -1023,7 +1027,8 @@
 	moveable = FALSE
 	anchored = TRUE
 
-/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox/fakecrystal //Hugbox shard with crystal visuals, used in the Supermatter/Hyperfractal shuttle
+/// Hugbox shard with crystal visuals, used in the Supermatter/Hyperfractal shuttle
+/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox/fakecrystal
 	name = "supermatter crystal"
 	base_icon_state = "darkmatter"
 	icon_state = "darkmatter"
@@ -1053,12 +1058,12 @@
 	if(L)
 		switch(type)
 			if(FLUX_ANOMALY)
-				var/obj/effect/anomaly/flux/A = new(L, 300, FALSE)
+				var/obj/effect/anomaly/flux/A = new(L, 30 SECONDS, FALSE)
 				A.explosive = FALSE
 			if(GRAVITATIONAL_ANOMALY)
-				new /obj/effect/anomaly/grav(L, 250, FALSE, FALSE)
-			if(CRYO_ANOMALY)
-				new /obj/effect/anomaly/cryo(L, 200, FALSE)
+				new /obj/effect/anomaly/grav(L, 25 SECONDS, FALSE, FALSE)
+			if(BLUESPACE_ANOMALY)
+				new /obj/effect/anomaly/bluespace(L, 24 SECONDS, FALSE, FALSE, TRUE)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/supermatter_zap(atom/zapstart = src, range = 5, zap_str = 4000, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list())
 	if(QDELETED(zapstart))
@@ -1148,6 +1153,7 @@
 		if(prob(80))
 			zap_flags &= ~ZAP_MACHINE_EXPLOSIVE
 		if(target_type == COIL)
+			zap_flags += ZAP_GENERATES_POWER
 			//In the best situation we can expect this to grow up to 2120kw before a delam/IT'S GONE TOO FAR FRED SHUT IT DOWN
 			//The formula for power gen is zap_str * zap_mod / 2 * capacitor rating, between 1 and 4
 			var/multi = 10
@@ -1158,6 +1164,7 @@
 					multi = 40
 			target.zap_act(zap_str * multi, zap_flags)
 			zap_str /= 3 //Coils should take a lot out of the power of the zap
+			zap_flags &= ~ZAP_GENERATES_POWER
 
 		else if(isliving(target))//If we got a fleshbag on our hands
 			var/mob/living/creature = target
@@ -1207,7 +1214,7 @@
 	next_event_time = fake_time + world.time
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
-	if(has_been_powered == FALSE)
+	if(!has_been_powered)
 		return
 	if(!next_event_time) // for when the SM starts
 		make_next_event_time()
@@ -1223,7 +1230,7 @@
 								/datum/supermatter_event/sierra_tier = 1)
 
 	var/datum/supermatter_event/event = pick(subtypesof(pickweight(events)))
-	if(istype(event, /datum/supermatter_event/sierra_tier) && has_run_sclass)
+	if(ispath(event, /datum/supermatter_event/sierra_tier) && has_run_sclass)
 		make_next_event_time()
 		return // We're only gonna have one s-class per round, take a break engineers
 	run_event(event)
@@ -1246,10 +1253,54 @@
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
 #undef FLUX_ANOMALY
-#undef CRYO_ANOMALY
+#undef BLUESPACE_ANOMALY
 #undef COIL
 #undef ROD
 #undef LIVING
 #undef MACHINERY
 #undef OBJECT
 #undef LOWEST
+
+#undef PLASMA_HEAT_PENALTY
+#undef OXYGEN_HEAT_PENALTY
+#undef CO2_HEAT_PENALTY
+#undef NITROGEN_HEAT_PENALTY
+#undef OXYGEN_TRANSMIT_MODIFIER
+#undef PLASMA_TRANSMIT_MODIFIER
+#undef N2O_HEAT_RESISTANCE
+#undef POWERLOSS_INHIBITION_GAS_THRESHOLD
+#undef POWERLOSS_INHIBITION_MOLE_THRESHOLD
+#undef POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD
+#undef MOLE_CRUNCH_THRESHOLD
+#undef MOLE_PENALTY_THRESHOLD
+#undef MOLE_HEAT_PENALTY
+#undef EVENT_POWER_PENALTY_THRESHOLD
+#undef POWER_PENALTY_THRESHOLD
+#undef SEVERE_POWER_PENALTY_THRESHOLD
+#undef CRITICAL_POWER_PENALTY_THRESHOLD
+#undef DAMAGE_HARDCAP
+#undef DAMAGE_INCREASE_MULTIPLIER
+#undef THERMAL_RELEASE_MODIFIER
+#undef PLASMA_RELEASE_MODIFIER
+#undef OXYGEN_RELEASE_MODIFIER
+#undef REACTION_POWER_MODIFIER
+#undef MATTER_POWER_CONVERSION
+#undef DETONATION_RADS
+#undef DETONATION_HALLUCINATION
+#undef WARNING_DELAY
+#undef SUPERMATTER_DELAM_PERCENT
+#undef SUPERMATTER_EMERGENCY_PERCENT
+#undef SUPERMATTER_DANGER_PERCENT
+#undef SUPERMATTER_WARNING_PERCENT
+#undef CRITICAL_TEMPERATURE
+#undef SUPERMATTER_COUNTDOWN_TIME
+#undef SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN
+#undef DEFAULT_ZAP_ICON_STATE
+#undef SLIGHTLY_CHARGED_ZAP_ICON_STATE
+#undef OVER_9000_ZAP_ICON_STATE
+#undef MAX_SPACE_EXPOSURE_DAMAGE
+#undef SUPERMATTER_COLOUR
+#undef SUPERMATTER_RED
+#undef SUPERMATTER_TESLA_COLOUR
+#undef SUPERMATTER_SINGULARITY_RAYS_COLOUR
+#undef SUPERMATTER_SINGULARITY_LIGHT_COLOUR

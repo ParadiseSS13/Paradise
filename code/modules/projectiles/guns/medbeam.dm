@@ -105,9 +105,6 @@
 	qdel(dummy)
 	return TRUE
 
-/obj/item/gun/medbeam/proc/on_beam_hit(mob/living/target)
-	return
-
 /obj/item/gun/medbeam/proc/on_beam_tick(mob/living/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
@@ -116,6 +113,8 @@
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(prob(10))
 				E.mend_fracture()
+				E.fix_internal_bleeding()
+				E.fix_burn_wound()
 	else
 		target.adjustBruteLoss(-4)
 		target.adjustFireLoss(-4)

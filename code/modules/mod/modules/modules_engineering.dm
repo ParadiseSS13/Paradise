@@ -57,17 +57,17 @@
 	. = ..()
 	if(!.)
 		return
-	mod.boots.flags |= NOSLIP
+	ADD_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 	mod.slowdown += slowdown_active
-	mod.boots.magbooted = TRUE
+	ADD_TRAIT(mod.wearer, TRAIT_MAGPULSE, "magbooted")
 
 /obj/item/mod/module/magboot/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
 	if(!.)
 		return
-	mod.boots.flags ^= NOSLIP
+	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIP, UID())
 	mod.slowdown -= slowdown_active
-	mod.boots.magbooted = FALSE
+	REMOVE_TRAIT(mod.wearer, TRAIT_MAGPULSE, "magbooted")
 
 /obj/item/mod/module/magboot/advanced
 	name = "MOD advanced magnetic stability module"
@@ -145,7 +145,7 @@
 	if(firer && isliving(firer))
 		var/mob/living/L = firer
 		L.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
-		L.throw_at(target, 15, 1, L, FALSE, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE))
+		L.throw_at(target, 15, 1, L, FALSE, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE), block_movement = FALSE)
 
 /obj/item/projectile/tether/Destroy()
 	QDEL_NULL(chain)
@@ -174,7 +174,6 @@
 	item_state = "nozzleatmos"
 	safety = 0
 	max_water = 500
-	power = 8
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE

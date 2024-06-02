@@ -1,18 +1,3 @@
-/obj/mecha
-	//Action datums
-	var/datum/action/innate/mecha/mech_eject/eject_action = new
-	var/datum/action/innate/mecha/mech_toggle_internals/internals_action = new
-	var/datum/action/innate/mecha/mech_toggle_lights/lights_action = new
-	var/datum/action/innate/mecha/mech_view_stats/stats_action = new
-	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
-	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
-	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
-	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
-	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
-	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
-	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
-	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
-
 /obj/mecha/proc/GrantActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
 		eject_action.Grant(user, src)
@@ -66,7 +51,7 @@
 	button_icon_state = "mech_internals_[chassis.use_internal_tank ? "on" : "off"]"
 	chassis.occupant_message("Now taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"].")
 	chassis.log_message("Now taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"].")
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/innate/mecha/mech_toggle_lights
 	name = "Toggle Lights"
@@ -84,7 +69,7 @@
 		button_icon_state = "mech_lights_off"
 	chassis.occupant_message("Toggled lights [chassis.lights ? "on" : "off"].")
 	chassis.log_message("Toggled lights [chassis.lights ? "on" : "off"].")
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/innate/mecha/mech_view_stats
 	name = "View Stats"
@@ -114,7 +99,7 @@
 		chassis.deflect_chance = initial(chassis.deflect_chance)
 		chassis.occupant_message("<span class='danger'>You disable [chassis] defence mode.</span>")
 	chassis.log_message("Toggled defence mode.")
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/innate/mecha/mech_overload_mode
 	name = "Toggle leg actuators overload"
@@ -144,7 +129,7 @@
 		chassis.step_in = initial(chassis.step_in)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
 		chassis.occupant_message("<span class='notice'>You disable leg actuators overload.</span>")
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/innate/mecha/mech_toggle_thrusters
 	name = "Toggle Thrusters"
@@ -194,7 +179,7 @@
 			SEND_SOUND(owner, sound(chassis.zoomsound, volume = 50))
 		else
 			owner.client.RemoveViewMod("mecha")
-		UpdateButtonIcon()
+		UpdateButtons()
 
 /datum/action/innate/mecha/mech_toggle_phasing
 	name = "Toggle Phasing"
@@ -206,7 +191,7 @@
 	chassis.phasing = !chassis.phasing
 	button_icon_state = "mech_phasing_[chassis.phasing ? "on" : "off"]"
 	chassis.occupant_message("<font color=\"[chassis.phasing?"#00f\">En":"#f00\">Dis"]abled phasing.</font>")
-	UpdateButtonIcon()
+	UpdateButtons()
 
 
 /datum/action/innate/mecha/mech_switch_damtype
@@ -230,4 +215,4 @@
 	chassis.damtype = new_damtype
 	button_icon_state = "mech_damtype_[new_damtype]"
 	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
-	UpdateButtonIcon()
+	UpdateButtons()

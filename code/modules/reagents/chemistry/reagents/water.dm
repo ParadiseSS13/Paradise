@@ -118,7 +118,7 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.mind?.has_antag_datum(/datum/antagonist/vampire))
+		if(C.mind?.has_antag_datum(/datum/antagonist/vampire) && data["blood_type"] != BLOOD_TYPE_FAKE_BLOOD)
 			C.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, C.nutrition + 10))
 			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 	..()
@@ -260,7 +260,7 @@
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(8 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
 		M.Dizzy(10 SECONDS)
-		if(iscultist(M))
+		if(IS_CULTIST(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
@@ -278,14 +278,18 @@
 		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
+
 			holder.remove_reagent(id, volume)
 			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
-		if(iscultist(M))
-			SSticker.mode.remove_cultist(M.mind, TRUE, TRUE)
+		if(IS_CULTIST(M))
+			var/datum/antagonist/cultist/cultist = IS_CULTIST(M)
+			cultist.remove_gear_on_removal = TRUE
+			M.mind.remove_antag_datum(/datum/antagonist/cultist)
+
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
 			M.SetStuttering(0)
@@ -363,7 +367,8 @@
 			qdel(R)
 	T.Bless()
 
-/datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
+/// if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
+/datum/reagent/fuel/unholywater
 	name = "Unholy Water"
 	id = "unholywater"
 	description = "Something that shouldn't exist on this plane of existence."
@@ -373,7 +378,7 @@
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(iscultist(M))
+	if(IS_CULTIST(M))
 		M.AdjustDrowsy(-10 SECONDS)
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-4 SECONDS)

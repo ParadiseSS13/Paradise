@@ -6,7 +6,7 @@ export const GhostHudPanel = (props, context) => {
   const { data } = useBackend(context);
   const { security, medical, diagnostic, radioactivity, ahud } = data;
   return (
-    <Window theme="nologo">
+    <Window width={250} height={207} theme="nologo">
       <Window.Content>
         <Section>
           <HudEntry label="Medical" type="medical" is_active={medical} />

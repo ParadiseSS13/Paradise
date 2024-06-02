@@ -24,6 +24,19 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 			pixel_x = oldPY
 			pixel_y = (oldPX*(-1))
 
+
+/atom/movable/shuttleRotate(rotation, params)
+	. = ..()
+	//rotate the physical bounds and offsets for multitile atoms too. Override base "rotate the pixel offsets" for multitile atoms.
+	//Override non zero bound_x, bound_y, pixel_x, pixel_y to zero.
+	//Dont take in account starting bound_x, bound_y, pixel_x, pixel_y.
+	//So it can unintentionally shift physical bounds of things that starts with non zero bound_x, bound_y.
+	if((bound_height != world.icon_size || bound_width != world.icon_size) && (bound_x == 0) && (bound_y == 0)) //Dont shift things that have non zero bound_x and bound_y, or it move somewhere.
+		pixel_x = dir & (NORTH|EAST) ? (world.icon_size - bound_width) : 0
+		pixel_y = dir & (NORTH|WEST) ? (world.icon_size - bound_width) : 0
+		bound_x = pixel_x
+		bound_y = pixel_y
+
 /************************************Turf rotate procs************************************/
 
 /************************************Mob rotate procs************************************/
@@ -55,9 +68,6 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 		d1 = d2
 		d2 = temp
 	update_icon(UPDATE_ICON_STATE)
-
-/obj/structure/shuttle/engine/shuttleRotate(rotation, params)
-	setDir(angle2dir(rotation+dir2angle(dir)))
 
 //Fixes dpdir on shuttle rotation
 /obj/structure/disposalpipe/shuttleRotate(rotation, params)

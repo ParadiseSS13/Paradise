@@ -32,6 +32,37 @@
 	var/pose //Yes, now AIs can pose too.
 	var/death_sound = 'sound/voice/borg_deathsound.ogg'
 
+	var/static/list/restricted_hats = list(
+		/obj/item/clothing/head/helmet,
+		/obj/item/clothing/head/welding,
+		/obj/item/clothing/head/snowman,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bomb_hood,
+		/obj/item/clothing/head/blob,
+		/obj/item/clothing/head/chicken,
+		/obj/item/clothing/head/corgi,
+		/obj/item/clothing/head/cueball,
+		/obj/item/clothing/head/hardhat/pumpkinhead,
+		/obj/item/clothing/head/radiation,
+		/obj/item/clothing/head/papersack,
+		/obj/item/clothing/head/human_head,
+		/obj/item/clothing/head/kitty,
+		/obj/item/clothing/head/hardhat/reindeer,
+		/obj/item/clothing/head/cardborg
+	)
+
+	var/obj/item/silicon_hat
+	var/hat_offset_y = -3
+	/// For cyborgs with wide "heads", when false causes the hat icon to be stretched.
+	var/is_centered = FALSE
+	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
+	var/hat_icon_state
+	var/hat_alpha
+	var/hat_color
+
+	var/can_be_hatted = FALSE
+	var/can_wear_restricted_hats = FALSE
+
 	//var/sensor_mode = 0 //Determines the current HUD.
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
@@ -40,6 +71,14 @@
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_BASIC //There is only one kind of diag hud
+	var/jani_hud = DATA_HUD_JANITOR
+	var/datum/ui_module/atmos_control/atmos_control
+	var/datum/ui_module/crew_monitor/crew_monitor
+	var/datum/ui_module/law_manager/law_manager
+	var/datum/ui_module/power_monitor/digital/power_monitor
+	var/list/silicon_subsystems = list(/mob/living/silicon/proc/subsystem_law_manager)
+	var/datum/ai_laws/laws = null
+	var/list/additional_law_channels = list("State" = "")
 
 /mob/living/silicon/New()
 	GLOB.silicon_mob_list |= src
@@ -61,6 +100,7 @@
 		armor = getArmor()
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+	regenerate_icons()
 
 
 /mob/living/silicon/med_hud_set_health()
@@ -93,7 +133,7 @@
 	return
 
 /mob/living/silicon/proc/queueAlarm(message, type, incoming = TRUE)
-	var/in_cooldown = (alarms_to_show.len > 0 || alarms_to_clear.len > 0)
+	var/in_cooldown = (length(alarms_to_show) > 0 || length(alarms_to_clear) > 0)
 	if(incoming)
 		alarms_to_show += message
 		alarm_types_show[type] += 1
@@ -107,7 +147,7 @@
 	addtimer(CALLBACK(src, PROC_REF(show_alarms)), 3 SECONDS)
 
 /mob/living/silicon/proc/show_alarms()
-	if(alarms_to_show.len < 5)
+	if(length(alarms_to_show) < 5)
 		for(var/msg in alarms_to_show)
 			to_chat(src, msg)
 	else if(length(alarms_to_show))
@@ -129,15 +169,15 @@
 		if(alarm_types_show["Power"])
 			msg += "POWER: [alarm_types_show["Power"]] alarms detected. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<A href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
 
-	if(alarms_to_clear.len < 3)
+	if(length(alarms_to_clear) < 3)
 		for(var/msg in alarms_to_clear)
 			to_chat(src, msg)
 
-	else if(alarms_to_clear.len)
+	else if(length(alarms_to_clear))
 		var/list/msg = list("--- ")
 
 		if(alarm_types_clear["Motion"])
@@ -152,7 +192,7 @@
 		if(alarm_types_clear["Power"])
 			msg += "POWER: [alarm_types_clear["Power"]] alarms cleared. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<A href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
@@ -166,13 +206,15 @@
 		alarm_types_clear[key] = 0
 
 /mob/living/silicon/rename_character(oldname, newname)
-	// we actually don't want it changing minds and stuff
 	if(!newname)
-		return 0
+		return FALSE
 
 	real_name = newname
 	name = real_name
-	return 1
+	if(mind?.is_original_mob(src))
+		mind.set_original_mob(src) // update our original mind name, since this is our original mob.
+		mind.name = newname
+	return TRUE
 
 /mob/living/silicon/proc/show_laws()
 	return
@@ -241,6 +283,9 @@
 	return 2
 
 /mob/living/silicon/attacked_by(obj/item/I, mob/living/user, def_zone)
+	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
+		place_on_head(user.get_active_hand(), user)
+		return TRUE
 	send_item_attack_message(I, user)
 	if(I.force)
 		var/bonus_damage = 0
@@ -274,18 +319,14 @@
 
 // this function shows the health of the pAI in the Status panel
 /mob/living/silicon/proc/show_system_integrity()
-	if(!src.stat)
-		stat(null, text("System integrity: [round((health/maxHealth)*100)]%"))
-	else
-		stat(null, text("Systems nonfunctional"))
+	return list("System integrity:", stat ? "Nonfunctional" : "[round((health / maxHealth) * 100)]%")
 
 
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
-/mob/living/silicon/Stat()
-	..()
-	if(statpanel("Status"))
-		show_stat_emergency_shuttle_eta()
-		show_system_integrity()
+/mob/living/silicon/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = show_system_integrity()
 
 //Silicon mob language procs
 
@@ -324,7 +365,7 @@
 
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.not_incapacitated_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 /mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
 	return -10
@@ -334,7 +375,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose =  sanitize(copytext(input(usr, "This is [src]. It is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose = tgui_input_text(usr, "This is [src]. It...", "Pose", pose)
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Set Flavour Text"
@@ -350,9 +391,11 @@
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
+	var/datum/atom_hud/janisensor = GLOB.huds[jani_hud]
 	secsensor.remove_hud_from(src)
 	medsensor.remove_hud_from(src)
 	diagsensor.remove_hud_from(src)
+	janisensor.remove_hud_from(src)
 
 
 /mob/living/silicon/proc/add_sec_hud()
@@ -367,20 +410,18 @@
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
 	diagsensor.add_hud_to(src)
 
+/mob/living/silicon/proc/add_jani_hud()
+	var/datum/atom_hud/janisensor = GLOB.huds[jani_hud]
+	janisensor.add_hud_to(src)
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	to_chat(src, "<span class='notice'>Please select sensor type.</span>")
 	var/static/list/sensor_choices = list("Security" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "securityhud"),
 							"Medical" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "healthhud"),
 							"Diagnostic" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "diagnostichud"),
+							"Janitor" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "janihud"),
 							"None" = image(icon = 'icons/mob/screen_gen.dmi', icon_state = "x"))
-	var/user_loc
-	if(isAI(src))
-		var/mob/living/silicon/ai/eyeloc = src
-		user_loc = eyeloc.eyeobj
-	else
-		user_loc = src
-	var/sensor_type = show_radial_menu(src, user_loc, sensor_choices)
+	var/sensor_type = show_radial_menu(src, src, sensor_choices)
 	if(!sensor_type)
 		return
 	remove_med_sec_hud()
@@ -394,6 +435,9 @@
 		if("Diagnostic")
 			add_diag_hud()
 			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+		if("Janitor")
+			add_jani_hud()
+			to_chat(src, "<span class='notice'>Janitorial filth overlay enabled.</span>")
 		if("None")
 			to_chat(src, "Sensor augmentations disabled.")
 
@@ -403,7 +447,7 @@
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
 
-/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash/noise)
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/stretch/flash/noise)
 	if(affect_silicon)
 		return ..()
 
@@ -428,3 +472,132 @@
 
 /mob/living/silicon/on_standing_up()
 	return // Silicons are always standing by default.
+
+/mob/living/silicon/throw_impact(atom/hit_atom, throwingdatum, speed = 1)
+	. = ..()
+	var/damage = 10 + 1.5 * speed
+	hit_atom.hit_by_thrown_mob(src, throwingdatum, damage, FALSE, FALSE)
+
+/mob/living/silicon/proc/update_hat_icons()
+	if(!silicon_hat)
+		return
+	var/image/head_icon
+
+	if(silicon_hat.icon_override)
+		hat_icon_file = silicon_hat.icon_override
+	if(!hat_icon_state)
+		hat_icon_state = silicon_hat.icon_state
+	if(isnull(hat_alpha))
+		hat_alpha = silicon_hat.alpha
+	if(!hat_color)
+		hat_color = silicon_hat.color
+
+	head_icon = get_hat_overlay()
+
+	add_overlay(head_icon)
+
+/mob/living/silicon/proc/get_hat_overlay()
+	if(!(hat_icon_file || hat_icon_state))
+		return
+	var/image/borgI = image(hat_icon_file, hat_icon_state)
+	borgI.alpha = hat_alpha
+	borgI.color = hat_color
+	borgI.pixel_y = hat_offset_y
+	if(!is_centered)
+		borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
+	return borgI
+
+/**
+  * Attempts to put an item on a silicon's head.
+  *
+  * Arguments:
+  * * item_to_add - The item we're attempting to place on a silicon.
+  * * user - Mob trying to put a hat on a silicon.
+  * Returns boolean reflecting if a hat was succesfully placed on the silicon.
+  */
+/mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
+	if(flags_2 & HOLOGRAM_2)
+		return FALSE
+
+	if(!item_to_add)
+		user.visible_message(
+			"<span class='notice'>[user] pats [src] on the head.</span>",
+			"<span class='notice'>You pat [src] on the head.</span>")
+		return FALSE
+
+	if(!istype(item_to_add, /obj/item/clothing/head))
+		to_chat(user, "<span class='warning'>[item_to_add] cannot be worn on the head by [src]!</span>")
+		return FALSE
+
+	if(!can_be_hatted)
+		to_chat(user, "<span class='notice'>No matter how hard you try you don't seem to be able to put a hat on [src]!</span>")
+		return FALSE
+
+	if(silicon_hat)
+		to_chat(user, "<span class='warning'>[src] can't wear more than one hat!</span>")
+		return FALSE
+
+	if(!can_wear_restricted_hats && is_type_in_list(item_to_add, restricted_hats))
+		to_chat(user, "<span class='warning'>[item_to_add] does not fit on the head of [src]!</span>")
+		return FALSE
+
+	if(!user.unEquip(item_to_add))
+		to_chat(user, "<span class='warning'>[item_to_add] is stuck to your hand, you cannot put it on [src]!</span>")
+		return FALSE
+
+	user.visible_message(
+		"<span class='notice'>[user] puts [item_to_add] on [real_name].</span>",
+		"<span class='notice'>You put [item_to_add] on [real_name].</span>"
+	)
+	item_to_add.forceMove(src)
+	silicon_hat = item_to_add
+	update_icons()
+
+	return TRUE
+
+/**
+  * Attempts to remove any hats a silicon is wearing.
+  *
+  * Arguments:
+  * * user - Mob trying to remove a silicon's hat.
+  * Returns boolean reflecting if a hat was successfully removed from the silicon.
+  */
+/mob/living/silicon/proc/remove_from_head(mob/user)
+	if(!silicon_hat)
+		to_chat(user, "<span class='warning'>[src] isn't wearing anything on their head!</span>")
+		return FALSE
+	if(silicon_hat.flags & NODROP)
+		to_chat(user, "<span class='warning'>[silicon_hat.name] is stuck on [src]'s head, it is impossible to remove!</span>")
+		return FALSE
+
+	to_chat(user, "<span class='warning'>You remove [silicon_hat.name] from [src]'s head.</span>")
+	user.put_in_hands(silicon_hat)
+
+	null_hat()
+	update_icons()
+
+	return TRUE
+
+/mob/living/silicon/proc/drop_hat()
+	if(silicon_hat)
+		unEquip(silicon_hat)
+		null_hat()
+		update_icons()
+		return TRUE
+
+/mob/living/silicon/proc/null_hat()
+	silicon_hat = null
+	hat_icon_state = null
+	hat_alpha = null
+	hat_color = null
+
+/mob/living/silicon/death(gibbed)
+	if(gibbed)
+		drop_hat()
+	. = ..()
+
+/mob/living/silicon/examine(mob/user)
+	. = ..()
+	if(silicon_hat)
+		. += "<span class='notice'>They are wearing a [bicon(silicon_hat)] [silicon_hat.name].<span>"
+		. += "<span class='notice'>Use an empty hand on [src] on grab mode to remove [silicon_hat].<span>"

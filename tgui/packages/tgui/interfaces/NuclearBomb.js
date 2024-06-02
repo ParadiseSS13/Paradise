@@ -7,10 +7,11 @@ export const NuclearBomb = (props, context) => {
 
   if (!data.extended) {
     return (
-      <Window>
+      <Window width={350} height={115}>
         <Window.Content>
           <Section title="Deployment">
             <Button
+              fluid
               icon="exclamation-triangle"
               content="Deploy Nuclear Device (will bolt device to floor)"
               onClick={() => act('deploy')}
@@ -22,7 +23,7 @@ export const NuclearBomb = (props, context) => {
   }
 
   return (
-    <Window>
+    <Window width={350} height={290}>
       <Window.Content>
         <Section title="Authorization">
           <LabeledList>
@@ -57,24 +58,15 @@ export const NuclearBomb = (props, context) => {
                 onClick={() => act('toggle_anchor')}
               />
             </LabeledList.Item>
-            {(data.authfull && (
-              <LabeledList.Item label="Time Left">
-                <Button
-                  icon="stopwatch"
-                  content={data.time}
-                  disabled={!data.authfull}
-                  tooltip="Set Timer"
-                  onClick={() => act('set_time')}
-                />
-              </LabeledList.Item>
-            )) || (
-              <LabeledList.Item
-                label="Time Left"
-                color={data.timer ? 'red' : ''}
-              >
-                {data.time + 's'}
-              </LabeledList.Item>
-            )}
+            <LabeledList.Item label="Time Left">
+              <Button
+                icon="stopwatch"
+                content={data.time}
+                disabled={!data.authfull}
+                tooltip="Set Timer"
+                onClick={() => act('set_time')}
+              />
+            </LabeledList.Item>
             <LabeledList.Item label="Safety">
               <Button
                 icon={data.safety ? 'check' : 'times'}

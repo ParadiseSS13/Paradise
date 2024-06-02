@@ -44,7 +44,7 @@
 			var/datum/reagent/R = X
 			if(R.id in required_reagents)
 				continue
-			if(R in GLOB.blocked_chems)
+			if(R.id in GLOB.blocked_chems)
 				continue
 			beeagents += R
 		var/bee_amount = round(created_volume * 0.2)
@@ -225,7 +225,8 @@
 	result_amount = 2
 	mix_message = "The substance becomes a pile of burning dust."
 
-/datum/chemical_reaction/phlogiston_fire //This MUST be above the smoke recipe.
+/// This MUST be above the smoke recipe.
+/datum/chemical_reaction/phlogiston_fire
 	name = "Phlogiston Fire"
 	id = "phlogiston_fire"
 	result = "phlogiston"

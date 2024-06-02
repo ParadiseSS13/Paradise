@@ -13,6 +13,8 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	var/rad_cache_update_interval = 5 SECONDS
 	var/list/turf_rad_cache = list()
 	var/list/prev_rad_cache = list()
+	/// Lazy list of all radioactive components
+	var/list/all_radiations
 
 
 /datum/controller/subsystem/processing/radiation/proc/warn(datum/component/radioactive/contamination)
@@ -34,7 +36,7 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	. = ..()
 
 /datum/controller/subsystem/processing/radiation/proc/get_turf_radiation(turf/place)
-	if (prev_rad_cache[place])
+	if(prev_rad_cache[place])
 		return prev_rad_cache[place]
 	else
 		return 0

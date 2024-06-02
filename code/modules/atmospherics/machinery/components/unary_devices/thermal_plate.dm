@@ -76,3 +76,5 @@
 	parent.update = 1
 
 	return 1
+
+#undef RADIATION_CAPACITY

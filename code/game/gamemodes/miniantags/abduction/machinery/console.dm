@@ -65,21 +65,22 @@
 		dat += "Collected Samples : [points] <br>"
 		dat += "Gear Credits: [credits] <br>"
 		dat += "<b>Transfer data in exchange for supplies:</b><br>"
-		dat += "<a href='?src=[UID()];dispense=baton'>Advanced Baton</A><br>"
-		dat += "<a href='?src=[UID()];dispense=helmet'>Agent Helmet</A><br>"
-		dat += "<a href='?src=[UID()];dispense=vest'>Agent Vest</A><br>"
-		dat += "<a href='?src=[UID()];dispense=silencer'>Radio Silencer</A><br>"
-		dat += "<a href='?src=[UID()];dispense=tool'>Science Tool</A><br>"
-		dat += "<a href='?src=[UID()];dispense=mind_device'>Mental Interface Device</A><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=baton'>Advanced Baton (2)</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=helmet'>Agent Helmet</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=vest'>Agent Vest</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=silencer'>Radio Silencer</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=tool'>Science Tool</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=mind_device'>Mental Interface Device (2)</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=organ_extractor'>Organ Extractor (2)</a><br>"
 	else
 		dat += "<span class='bad'>NO EXPERIMENT MACHINE DETECTED</span> <br>"
 
 	if(pad)
 		dat += "<span class='bad'>Emergency Teleporter System.</span>"
 		dat += "<span class='bad'>Consider using primary observation console first.</span>"
-		dat += "<a href='?src=[UID()];teleporter_send=1'>Activate Teleporter</A><br>"
+		dat += "<a href='byond://?src=[UID()];teleporter_send=1'>Activate Teleporter</A><br>"
 		if(gizmo && gizmo.marked)
-			dat += "<a href='?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</A><br>"
+			dat += "<a href='byond://?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</A><br>"
 		else
 			dat += "<span class='linkOff'>Retrieve Mark</span><br>"
 	else
@@ -88,21 +89,20 @@
 	if(vest)
 		dat += "<h4> Agent Vest Mode </h4><br>"
 		var/mode = vest.mode
-		if(mode == VEST_STEALTH)
-			dat += "<a href='?src=[UID()];flip_vest=1'>Combat</A>"
+		if(mode == ABDUCTOR_VEST_STEALTH)
+			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Combat</A>"
 			dat += "<span class='linkOff'>Stealth</span>"
 		else
 			dat += "<span class='linkOff'>Combat</span>"
-			dat += "<a href='?src=[UID()];flip_vest=1'>Stealth</A>"
+			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Stealth</A>"
 
 		dat+="<br>"
-		dat += "<a href='?src=[UID()];select_disguise=1'>Select Agent Vest Disguise</a><br>"
-		dat += "<a href='?src=[UID()];toggle_vest=1'>[vest.flags & NODROP ? "Unlock" : "Lock"] Vest</a><br>"
+		dat += "<a href='byond://?src=[UID()];select_disguise=1'>Select Agent Vest Disguise</a><br>"
+		dat += "<a href='byond://?src=[UID()];toggle_vest=1'>[vest.flags & NODROP ? "Unlock" : "Lock"] Vest</a><br>"
 	else
 		dat += "<span class='bad'>NO AGENT VEST DETECTED</span>"
 	var/datum/browser/popup = new(user, "computer", "Abductor Console", 400, 500)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/abductor/console/Topic(href, href_list)
@@ -120,7 +120,7 @@
 		if(vest)
 			vest.toggle_nodrop()
 	else if(href_list["select_disguise"])
-		SelectDisguise()
+		SelectDisguise(FALSE, usr)
 	else if(href_list["dispense"])
 		switch(href_list["dispense"])
 			if("baton")
@@ -135,12 +135,14 @@
 				Dispense(/obj/item/clothing/suit/armor/abductor/vest)
 			if("mind_device")
 				Dispense(/obj/item/abductor/mind_device, cost = 2)
+			if("organ_extractor")
+				Dispense(/obj/item/organ_extractor/abductor, cost = 2)
 	updateUsrDialog()
 
 
 /obj/machinery/abductor/console/proc/TeleporterRetrieve()
 	if(pad && gizmo && gizmo.marked)
-		pad.Retrieve(gizmo.marked)
+		return pad.Retrieve(gizmo.marked)
 
 /obj/machinery/abductor/console/proc/TeleporterSend()
 	if(pad)
@@ -150,10 +152,10 @@
 	if(vest)
 		vest.flip_mode()
 
-/obj/machinery/abductor/console/proc/SelectDisguise(remote = 0)
-	var/entry_name = input( "Choose Disguise", "Disguise") as null|anything in disguises
+/obj/machinery/abductor/console/proc/SelectDisguise(remote, mob/user)
+	var/entry_name = tgui_input_list(user, "Choose Disguise", "Abductor Disguises", disguises)
 	var/datum/icon_snapshot/chosen = disguises[entry_name]
-	if(chosen && (remote || in_range(usr,src)))
+	if(chosen && (remote || in_range(user, src)))
 		vest.SetDisguise(chosen)
 
 /obj/machinery/abductor/console/proc/SetDroppoint(turf/location,user)
@@ -165,9 +167,7 @@
 		pad.teleport_target = location
 		to_chat(user, "<span class='notice'>Location marked as test subject release point.</span>")
 
-
 /obj/machinery/abductor/console/proc/Link_Abduction_Equipment() // these must all be explicitly `in machines` or they will not properly link.
-
 	for(var/obj/machinery/abductor/pad/p in GLOB.abductor_equipment)
 		if(p.team == team)
 			pad = p

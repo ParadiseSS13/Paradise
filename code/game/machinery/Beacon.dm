@@ -81,7 +81,8 @@
 		mycomputer.mybeacon = null
 	return ..()
 
-/obj/machinery/bluespace_beacon/syndicate/infiltrator //beacon guaranteed offline at roundstart for infiltrator base
+/// beacon guaranteed offline at roundstart for infiltrator base
+/obj/machinery/bluespace_beacon/syndicate/infiltrator
 	cc_beacon = TRUE
 
 /obj/machinery/bluespace_beacon/syndicate/infiltrator/Initialize(mapload)

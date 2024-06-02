@@ -2,8 +2,6 @@
 /datum/wires/alarm
 	holder_type = /obj/machinery/alarm
 	wire_count = 5
-	window_x = 385
-	window_y = 90
 	proper_name = "Air alarm"
 
 /datum/wires/alarm/New(atom/_holder)

@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/antagonist/changeling)
+
 /datum/antagonist/changeling
 	name = "Changeling"
 	roundend_category = "changelings"
@@ -48,7 +50,8 @@
 	var/datum/action/changeling/sting/chosen_sting
 	/// If the changeling is in the process of regenerating from their fake death.
 	var/regenerating = FALSE
-
+	blurb_text_color = COLOR_PURPLE
+	blurb_text_outline_width = 1
 
 /datum/antagonist/changeling/New()
 	..()
@@ -86,7 +89,7 @@
 /datum/antagonist/changeling/greet()
 	. = ..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
-	return . += "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
+	. += "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
 
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
@@ -240,12 +243,24 @@
  * * power_type - should be a define related to [/datum/action/changeling/var/power_type].
  */
 /datum/antagonist/changeling/proc/get_powers_of_type(power_type)
+	var/list/station_trait_restrictions = list(
+		// "Station trait" = Replace 1st with 2nd when trait active
+		STATION_TRAIT_CYBERNETIC_REVOLUTION = list(/datum/action/changeling/dissonant_shriek, /datum/action/changeling/dissonant_shriek/cyberrev)
+	)
+
 	var/list/powers = list()
 	for(var/power_path in subtypesof(/datum/action/changeling))
 		var/datum/action/changeling/power = power_path
 		if(initial(power.power_type) != power_type)
 			continue
 		powers += power_path
+
+	for(var/trait in station_trait_restrictions)
+		if(HAS_TRAIT(SSstation, trait))
+			powers -= station_trait_restrictions[trait][1]
+		else
+			powers -= station_trait_restrictions[trait][2]
+
 	return powers
 
 /**
@@ -347,7 +362,7 @@
 			continue
 		names[DNA.real_name] = DNA
 
-	var/chosen_name = input(message, title, null) as null|anything in names
+	var/chosen_name = tgui_input_list(owner.current, message, title, names)
 	if(!chosen_name)
 		return
 
@@ -427,5 +442,5 @@
 	else
 		to_chat(L, "<span class='notice'>While our current form may be lifeless, this is not the end for us as we can still regenerate!</span>")
 
-/proc/ischangeling(mob/M)
-	return M.mind?.has_antag_datum(/datum/antagonist/changeling)
+/datum/antagonist/changeling/custom_blurb()
+	return "We awaken on the [station_name()], [get_area_name(owner.current, TRUE)]...\nWe have our tasks to attend to..."

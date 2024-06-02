@@ -1,51 +1,49 @@
 ///////SMELTABLE ALLOYS///////
 
-/datum/design/plasteel_alloy
+/datum/design/smelter
+	build_type = SMELTER
+
+/datum/design/smelter/plasteel_alloy
 	name = "Plasteel"
 	desc = "Plasma + Iron"
 	id = "plasteel"
-	build_type = SMELTER
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/plasteel
 	category = list("initial")
 
-/datum/design/plastitanium_alloy
+/datum/design/smelter/plastitanium_alloy
 	name = "Plastitanium"
 	desc = "Plasma + Titanium"
 	id = "plastitanium"
-	build_type = SMELTER
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/mineral/plastitanium
 	category = list("initial")
 
-/datum/design/plaglass_alloy
+/datum/design/smelter/plaglass_alloy
 	name = "Plasma Glass"
 	desc = "Plasma + Glass"
 	id = "plasmaglass"
-	build_type = SMELTER
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/plasmaglass
 	category = list("initial")
 
-/datum/design/titaniumglass_alloy
+/datum/design/smelter/titaniumglass_alloy
 	name = "Titanium Glass"
 	desc = "Titanium + Glass"
 	id = "titaniumglass"
-	build_type = SMELTER
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/titaniumglass
 	category = list("initial")
 
-/datum/design/plastitaniumglass_alloy
+/datum/design/smelter/plastitaniumglass_alloy
 	name = "Plastitanium Glass"
 	desc = "Plasma + Titanium + Glass"
 	id = "plastitaniumglass"
-	build_type = SMELTER
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT, MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/plastitaniumglass
 	category = list("initial")
 
-/datum/design/alienalloy
+/datum/design/smelter/alienalloy
 	name = "Alien Alloy"
 	desc = "A sheet of reverse-engineered alien alloy."
 	id = "alienalloy"

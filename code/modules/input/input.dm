@@ -10,9 +10,6 @@
 /client/key_loop()
 	mob.input_focus?.key_loop(src)
 
-/client
-	var/list/macro_sets
-
 /// This proc sets the built in BYOND macros for keypresses to pass inputs on to the rebindable input system or the legacy system
 /// If you plan on ripping out the legacy system, see the set_macros() proc at the following commit: https://github.com/S34NW/Paradise/commit/83a0a0b0c633807cc5a88a630f623cec24e16027
 /client/proc/set_macros()
@@ -24,11 +21,11 @@
 			"default" = list(
 				"Any" = "\"Key_Down \[\[*\]\]\"", // Passes any key down to the rebindable input system
 				"Any+UP" = "\"Key_Up \[\[*\]\]\"", // Passes any key up to the rebindable input system
-				"Tab" = "\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"", // Swaps us to legacy mode, forces input to the input bar, sets the input bar colour to salmon pink
+				"Tab" = "\".winset \\\"mainwindow.macro=legacy input.focus=true input.border=sunken\\\"\"", // Swaps us to legacy mode, forces input to the input bar, sets the input bar colour to salmon pink
 				"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"" // This makes it so backspace can remove default inputs
 			),
 			"legacy" = list(
-				"Tab" = "\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"", // Swaps us to rebind mode, moves input away from input bar, sets input bar to white
+				"Tab" = "\".winset \\\"mainwindow.macro=default map.focus=true input.border=line\\\"\"", // Swaps us to rebind mode, moves input away from input bar, sets input bar to white
 				"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"" // This makes it so backspace can remove default inputs
 			),
 		)
@@ -63,7 +60,8 @@
 			var/command = macro_set[key]
 			winset(src, "[setname]-[key]", "parent=[setname];name=[key];command=[command]")
 
-	winset(src, null, "input.background-color=[COLOR_INPUT_DISABLED]") //screw you, we start in hotkey mode now
+	winset(src, null, "input.border=line") //screw you, we start in hotkey mode now
+
 	macro_sets = null //not needed anymore, bye have a great time
 
 /client/verb/Key_Down(_key as text)

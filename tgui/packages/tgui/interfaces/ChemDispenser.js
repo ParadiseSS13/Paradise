@@ -1,9 +1,8 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
+  Stack,
   LabeledList,
   ProgressBar,
   Section,
@@ -15,12 +14,16 @@ const dispenseAmounts = [1, 5, 10, 20, 30, 50];
 const removeAmounts = [1, 5, 10];
 
 export const ChemDispenser = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { chemicals } = data;
   return (
-    <Window resizable>
-      <Window.Content className="Layout__content--flexColumn">
-        <ChemDispenserSettings />
-        <ChemDispenserChemicals />
-        <ChemDispenserBeaker />
+    <Window width={400} height={400 + chemicals.length * 8}>
+      <Window.Content>
+        <Stack fill vertical>
+          <ChemDispenserSettings />
+          <ChemDispenserChemicals />
+          <ChemDispenserBeaker />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -30,44 +33,45 @@ const ChemDispenserSettings = (properties, context) => {
   const { act, data } = useBackend(context);
   const { amount, energy, maxEnergy } = data;
   return (
-    <Section title="Settings" flex="content">
-      <LabeledList>
-        <LabeledList.Item label="Energy">
-          <ProgressBar
-            value={energy}
-            minValue={0}
-            maxValue={maxEnergy}
-            ranges={{
-              good: [maxEnergy * 0.5, Infinity],
-              average: [maxEnergy * 0.25, maxEnergy * 0.5],
-              bad: [-Infinity, maxEnergy * 0.25],
-            }}
-          >
-            {energy} / {maxEnergy} Units
-          </ProgressBar>
-        </LabeledList.Item>
-        <LabeledList.Item label="Dispense" verticalAlign="middle">
-          <Flex direction="row" spacing="1">
-            {dispenseAmounts.map((a, i) => (
-              <Flex.Item key={i} grow="1" width="14%" display="inline-block">
-                <Button
-                  icon="cog"
-                  selected={amount === a}
-                  content={a}
-                  m="0"
-                  width="100%"
-                  onClick={() =>
-                    act('amount', {
-                      amount: a,
-                    })
-                  }
-                />
-              </Flex.Item>
-            ))}
-          </Flex>
-        </LabeledList.Item>
-      </LabeledList>
-    </Section>
+    <Stack.Item>
+      <Section title="Settings">
+        <LabeledList>
+          <LabeledList.Item label="Energy">
+            <ProgressBar
+              value={energy}
+              minValue={0}
+              maxValue={maxEnergy}
+              ranges={{
+                good: [maxEnergy * 0.5, Infinity],
+                average: [maxEnergy * 0.25, maxEnergy * 0.5],
+                bad: [-Infinity, maxEnergy * 0.25],
+              }}
+            >
+              {energy} / {maxEnergy} Units
+            </ProgressBar>
+          </LabeledList.Item>
+          <LabeledList.Item label="Dispense" verticalAlign="middle">
+            <Stack>
+              {dispenseAmounts.map((a, i) => (
+                <Stack.Item key={i} grow width="15%">
+                  <Button
+                    fluid
+                    icon="cog"
+                    selected={amount === a}
+                    content={a}
+                    onClick={() =>
+                      act('amount', {
+                        amount: a,
+                      })
+                    }
+                  />
+                </Stack.Item>
+              ))}
+            </Stack>
+          </LabeledList.Item>
+        </LabeledList>
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -79,48 +83,34 @@ const ChemDispenserChemicals = (properties, context) => {
     flexFillers.push(true);
   }
   return (
-    <Section
-      title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}
-      flexGrow="1"
-    >
-      <Flex
-        direction="row"
-        wrap="wrap"
-        height="100%"
-        spacingPrecise="2"
-        align="flex-start"
-        alignContent="flex-start"
+    <Stack.Item grow>
+      <Section
+        fill
+        scrollable
+        title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}
       >
         {chemicals.map((c, i) => (
-          <Flex.Item
+          <Button
+            m={0.1}
             key={i}
-            grow="1"
-            basis="25%"
-            height="20px"
-            width="30%"
-            display="inline-block"
-          >
-            <Button
-              icon="arrow-circle-down"
-              overflow="hidden"
-              textOverflow="ellipsis"
-              width="100%"
-              height="100%"
-              align="flex-start"
-              content={c.title}
-              onClick={() =>
-                act('dispense', {
-                  reagent: c.id,
-                })
-              }
-            />
-          </Flex.Item>
+            width="32.5%"
+            icon="arrow-circle-down"
+            overflow="hidden"
+            textOverflow="ellipsis"
+            content={c.title}
+            style={{ 'margin-left': '2px' }}
+            onClick={() =>
+              act('dispense', {
+                reagent: c.id,
+              })
+            }
+          />
         ))}
         {flexFillers.map((_, i) => (
-          <Flex.Item key={i} grow="1" basis="25%" height="20px" />
+          <Stack.Item key={i} grow basis="25%" />
         ))}
-      </Flex>
-    </Section>
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -133,65 +123,67 @@ const ChemDispenserBeaker = (properties, context) => {
     beakerContents = [],
   } = data;
   return (
-    <Section
-      title={data.glass ? 'Glass' : 'Beaker'}
-      flex="content"
-      minHeight="25%"
-      buttons={
-        <Box>
-          {!!isBeakerLoaded && (
-            <Box inline color="label" mr={2}>
-              {beakerCurrentVolume} / {beakerMaxVolume} units
-            </Box>
-          )}
-          <Button
-            icon="eject"
-            content="Eject"
-            disabled={!isBeakerLoaded}
-            onClick={() => act('ejectBeaker')}
-          />
-        </Box>
-      }
-    >
-      <BeakerContents
-        beakerLoaded={isBeakerLoaded}
-        beakerContents={beakerContents}
-        buttons={(chemical) => (
-          <Fragment>
+    <Stack.Item height={16}>
+      <Section
+        title={data.glass ? 'Glass' : 'Beaker'}
+        fill
+        scrollable
+        buttons={
+          <Box>
+            {!!isBeakerLoaded && (
+              <Box inline color="label" mr={2}>
+                {beakerCurrentVolume} / {beakerMaxVolume} units
+              </Box>
+            )}
             <Button
-              content="Isolate"
-              icon="compress-arrows-alt"
-              onClick={() =>
-                act('remove', {
-                  reagent: chemical.id,
-                  amount: -1,
-                })
-              }
+              icon="eject"
+              content="Eject"
+              disabled={!isBeakerLoaded}
+              onClick={() => act('ejectBeaker')}
             />
-            {removeAmounts.map((a, i) => (
+          </Box>
+        }
+      >
+        <BeakerContents
+          beakerLoaded={isBeakerLoaded}
+          beakerContents={beakerContents}
+          buttons={(chemical) => (
+            <>
               <Button
-                key={i}
-                content={a}
+                content="Isolate"
+                icon="compress-arrows-alt"
                 onClick={() =>
                   act('remove', {
                     reagent: chemical.id,
-                    amount: a,
+                    amount: -1,
                   })
                 }
               />
-            ))}
-            <Button
-              content="ALL"
-              onClick={() =>
-                act('remove', {
-                  reagent: chemical.id,
-                  amount: chemical.volume,
-                })
-              }
-            />
-          </Fragment>
-        )}
-      />
-    </Section>
+              {removeAmounts.map((a, i) => (
+                <Button
+                  key={i}
+                  content={a}
+                  onClick={() =>
+                    act('remove', {
+                      reagent: chemical.id,
+                      amount: a,
+                    })
+                  }
+                />
+              ))}
+              <Button
+                content="ALL"
+                onClick={() =>
+                  act('remove', {
+                    reagent: chemical.id,
+                    amount: chemical.volume,
+                  })
+                }
+              />
+            </>
+          )}
+        />
+      </Section>
+    </Stack.Item>
   );
 };

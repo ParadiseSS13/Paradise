@@ -1,16 +1,16 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
-import { IS_IE8 } from '../byond';
 import { computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 import { NumberInput } from './NumberInput';
 
 export const Knob = (props) => {
-  // IE8: I don't want to support a yet another component on IE8.
-  // IE8: It also can't handle SVG.
-  if (IS_IE8) {
-    return <NumberInput {...props} />;
-  }
   const {
     // Draggable props (passthrough)
     animated,
@@ -30,7 +30,7 @@ export const Knob = (props) => {
     fillValue,
     color,
     ranges = {},
-    size,
+    size = 1,
     bipolar,
     children,
     popUpPosition,
@@ -83,7 +83,7 @@ export const Knob = (props) => {
             ])}
             {...computeBoxProps({
               style: {
-                'font-size': size + 'rem',
+                'font-size': size + 'em',
                 ...style,
               },
               ...rest,

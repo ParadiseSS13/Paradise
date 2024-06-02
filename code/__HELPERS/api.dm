@@ -20,7 +20,7 @@
 
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
-		to_chat(usr, "<span class='boldannounce'>API interaction blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>API interaction blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to interact with the internal API via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to interact with the internal API via advanced proc-call")
 		return

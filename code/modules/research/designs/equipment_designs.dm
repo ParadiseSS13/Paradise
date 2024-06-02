@@ -21,16 +21,6 @@
 	build_path = /obj/item/clothing/glasses/hud/health
 	category = list("Equipment")
 
-/datum/design/health_hud_night
-	name = "Night Vision Health Scanner HUD"
-	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
-	id = "health_hud_night"
-	req_tech = list("biotech" = 4, "magnets" = 5, "plasmatech" = 4, "engineering" = 6)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_URANIUM = 1000, MAT_SILVER = 350)
-	build_path = /obj/item/clothing/glasses/hud/health/night
-	category = list("Equipment")
-
 /datum/design/magboots
 	name = "Magnetic Boots"
 	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
@@ -61,16 +51,6 @@
 	build_path = /obj/item/clothing/glasses/hud/security
 	category = list("Equipment")
 
-/datum/design/security_hud_night
-	name = "Night Vision Security HUD"
-	desc = "A heads-up display which provides id data and vision in complete darkness."
-	id = "security_hud_night"
-	req_tech = list("combat" = 4, "magnets" = 5, "plasmatech" = 4, "engineering" = 6)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_URANIUM = 1000, MAT_GOLD = 350)
-	build_path = /obj/item/clothing/glasses/hud/security/night
-	category = list("Equipment")
-
 /datum/design/skills_hud
 	name = "Skills HUD"
 	desc = "A heads-up display that scans the humans in view and shows a summary of their NT employment history."
@@ -80,6 +60,16 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/glasses/hud/skills
 	category = list("Equipment")
+
+/datum/design/jani_hud
+	name = "Janitor HUD"
+	desc = "A heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
+	id = "jani_hud"
+	req_tech = list("biotech" = 2, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/clothing/glasses/hud/janitor
+	category = list("Equipment", "Janitorial")
 
 /datum/design/mesons
 	name = "Optical Meson Scanners"
@@ -172,16 +162,6 @@
 	build_path = /obj/item/clothing/glasses/science
 	category = list("Equipment")
 
-/datum/design/nv_sci_goggles
-	name = "Night Vision Science Goggles"
-	desc = "Like Science Goggles, but works in darkness."
-	id = "nvscigoggles"
-	req_tech = list("magnets" = 5, "plasmatech" = 4, "engineering" = 6)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 250, MAT_GLASS = 300, MAT_PLASMA = 250, MAT_URANIUM = 1000)
-	build_path = /obj/item/clothing/glasses/science/night
-	category = list("Equipment")
-
 /datum/design/diagnostic_hud
 	name = "Diagnostic HUD"
 	desc = "A HUD used to analyze and determine faults within robotic machinery."
@@ -192,16 +172,6 @@
 	build_path = /obj/item/clothing/glasses/hud/diagnostic
 	category = list("Equipment")
 
-/datum/design/diagnostic_hud_night
-	name = "Night Vision Diagnostic HUD"
-	desc = "Upgraded version of the diagnostic HUD designed to function during a power failure."
-	id = "dianostic_hud_night"
-	req_tech = list("magnets" = 5, "plasmatech" = 4, "engineering" = 6, "powerstorage" = 4)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_URANIUM = 1000, MAT_PLASMA = 300)
-	build_path = /obj/item/clothing/glasses/hud/diagnostic/night
-	category = list("Equipment")
-
 /datum/design/hydroponic_hud
 	name = "Hydroponic HUD"
 	desc = "A HUD used to analyze the health and status of plants growing in hydro trays and soil."
@@ -210,16 +180,6 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/glasses/hud/hydroponic
-	category = list("Equipment")
-
-/datum/design/hydroponic_hud_night
-	name = "Night Vision Hydroponic HUD"
-	desc = "A HUD used to analyze the health and status of plants growing in low-light environments."
-	id = "hydroponic_hud_night"
-	req_tech = list("biotech" = 4, "magnets" = 5, "plasmatech" = 4, "engineering" = 6)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_URANIUM = 1000, MAT_PLASMA = 200)
-	build_path = /obj/item/clothing/glasses/hud/hydroponic/night
 	category = list("Equipment")
 
 /datum/design/handdrill
@@ -329,4 +289,14 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_SILVER = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 4000, MAT_PLASMA = 4000)
 	build_path = /obj/item/clothing/shoes/magboots/gravity
+	category = list("Equipment")
+
+/datum/design/bolterwrench
+	name = "Door Bolt Wrench"
+	desc = "A large wrench designed to interlock with an airlock's bolting mechanisms, allowing it to lift the bolts regardless of power."
+	id = "bolter_wrench"
+	req_tech = list("materials" = 6, "engineering" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_TITANIUM = 3000)
+	build_path = /obj/item/wrench/bolter
 	category = list("Equipment")

@@ -184,8 +184,8 @@
 	allowed_roles = list("Quartermaster","Cargo Technician")
 
 /datum/gear/uniform/skirt/job/qm
-	display_name = "Skirt, QM"
-	path = /obj/item/clothing/under/rank/cargo/quartermaster/skirt
+	display_name = "Skirt, quartermaster"
+	path = /obj/item/clothing/under/rank/cargo/qm/skirt
 	allowed_roles = list("Quartermaster")
 
 /datum/gear/uniform/skirt/job/warden
@@ -202,6 +202,26 @@
 	display_name = "Skirt, hos"
 	path = /obj/item/clothing/under/rank/security/head_of_security/skirt
 	allowed_roles = list("Head of Security")
+
+/datum/gear/uniform/skirt/job/clown
+	display_name = "Skirt, clown"
+	path = /obj/item/clothing/under/rank/civilian/clown/skirt
+	allowed_roles = list("Clown")
+
+/datum/gear/uniform/skirt/job/mime
+	display_name = "Skirt, mime"
+	path = /obj/item/clothing/under/rank/civilian/mime/skirt
+	allowed_roles = list("Mime")
+
+/datum/gear/uniform/skirt/job/janitor
+	display_name = "Skirt, janitor"
+	path = /obj/item/clothing/under/rank/civilian/janitor/skirt
+	allowed_roles = list("Janitor")
+
+/datum/gear/uniform/skirt/job/head_of_personnel
+	display_name = "Skirt, hop"
+	path = /obj/item/clothing/under/rank/civilian/hop/skirt
+	allowed_roles = list("Head of Personnel")
 
 /datum/gear/uniform/skirt/job/magistrate
 	display_name = "Skirt, magistrate"

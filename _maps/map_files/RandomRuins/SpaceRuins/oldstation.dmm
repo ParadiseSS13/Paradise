@@ -94,27 +94,18 @@
 /area/ruin/ancientstation/comm)
 "au" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "av" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /obj/item/paper/fluff/ruins/oldstation/damagereport,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "aw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /obj/item/paper/fluff/ruins/oldstation/report,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
@@ -164,11 +155,7 @@
 /area/ruin/ancientstation/hivebot)
 "aE" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 4;
-	name = "Beta Engineering APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
@@ -272,7 +259,7 @@
 /obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/coin,
+/obj/item/coin/gold,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/comm)
 "aU" = (
@@ -372,10 +359,7 @@
 /area/ruin/ancientstation/comm)
 "bi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -383,10 +367,7 @@
 /area/ruin/ancientstation/comm)
 "bj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -524,9 +505,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -566,9 +545,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "bK" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -813,9 +790,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ct" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1020,16 +995,11 @@
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 1;
-	name = "Theta Prototype Lab APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "cW" = (
-/obj/machinery/alarm/all_access{
-	pixel_y = 24;
+/obj/machinery/alarm/all_access/directional/north{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1076,21 +1046,13 @@
 /area/ruin/ancientstation/comm)
 "dd" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 4;
-	name = "Charlie Main Corridor APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /obj/structure/closet/crate,
 /obj/item/storage/backpack/old,
 /obj/item/storage/backpack/old,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
-"de" = (
-/obj/structure/transit_tube/crossing/horizontal,
-/turf/template_noop,
-/area/space/nearstation)
 "df" = (
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating/airless,
@@ -1223,10 +1185,7 @@
 	},
 /area/ruin/ancientstation/comm)
 "dy" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
@@ -1242,9 +1201,7 @@
 /turf/simulated/wall,
 /area/ruin/ancientstation/sec)
 "dB" = (
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1300,9 +1257,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot/strong,
@@ -1375,6 +1330,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/bag/plants/seed_sorting_tray,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/hydroponics)
 "dT" = (
@@ -1416,11 +1372,7 @@
 	pixel_y = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 4;
-	name = "Charlie Command APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/comm)
 "dY" = (
@@ -1428,10 +1380,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "dZ" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1538,9 +1487,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1707,9 +1654,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -1755,9 +1700,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -1936,9 +1879,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/alarm/all_access{
-	dir = 4;
-	pixel_x = -24;
+/obj/machinery/alarm/all_access/directional/west{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2250,9 +2191,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /turf/simulated/floor/plasteel,
@@ -2281,9 +2220,7 @@
 "fP" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/nasavoid/old,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2491,11 +2428,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 8;
-	name = "Charlie Security APC";
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2612,7 +2545,7 @@
 /area/ruin/ancientstation/kitchen)
 "gu" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/item/reagent_containers/drinks/cans/cola,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
@@ -2715,9 +2648,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/alarm/all_access{
-	dir = 4;
-	pixel_x = -24;
+/obj/machinery/alarm/all_access/directional/west{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2840,10 +2771,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "gX" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /obj/item/card/id/away/old/apc,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2933,9 +2861,7 @@
 "hj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /mob/living/simple_animal/hostile/hivebot,
@@ -3366,11 +3292,11 @@
 /area/ruin/ancientstation/kitchen)
 "ia" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 5;
 	pixel_y = -2
 	},
@@ -3406,11 +3332,7 @@
 	pixel_y = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 1;
-	name = "Theta Main Corridor APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "ie" = (
@@ -3781,11 +3703,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 1;
-	name = "Charlie Hydroponics APC";
-	pixel_y = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/hydroponics)
@@ -3831,9 +3749,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jd" = (
@@ -3858,9 +3774,7 @@
 /area/ruin/ancientstation)
 "jg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jh" = (
@@ -3871,9 +3785,7 @@
 	tag = "90Curve"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ji" = (
@@ -3928,9 +3840,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "jo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants{
-	icon_state = "plant-dead"
-	},
+/obj/item/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "jp" = (
@@ -4066,10 +3976,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station/empty_charge{
-	name = "Charlie Kitchen APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/kitchen)
@@ -4095,11 +4002,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 4;
-	name = "Theta RnD APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
@@ -4281,10 +4184,7 @@
 /area/ruin/ancientstation)
 "kf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/powered)
 "kg" = (
@@ -4293,6 +4193,7 @@
 /obj/item/reagent_containers/spray/weedspray,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/glass/bottle/nutrient/mut,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "kh" = (
@@ -4326,9 +4227,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "kk" = (
@@ -4436,8 +4335,7 @@
 /area/ruin/ancientstation/atmo)
 "kx" = (
 /obj/effect/decal/cleanable/egg_smudge,
-/obj/machinery/alarm/all_access{
-	pixel_y = 24;
+/obj/machinery/alarm/all_access/directional/north{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4460,10 +4358,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "kA" = (
-/obj/machinery/computer{
-	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
-	},
+/obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
@@ -4654,9 +4549,7 @@
 "lb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /turf/simulated/floor/plasteel,
@@ -4665,11 +4558,7 @@
 /obj/structure/rack,
 /obj/item/stack/cable_coil,
 /obj/structure/cable,
-/obj/machinery/power/apc/off_station/empty_charge{
-	dir = 4;
-	name = "Charlie Engineering APC";
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -4730,12 +4619,8 @@
 	},
 /area/ruin/ancientstation/hydroponics)
 "lj" = (
-/obj/machinery/alarm{
-	dir = 1;
-	name = "custom placement";
-	pixel_y = -22
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "greencorner"
@@ -4923,9 +4808,7 @@
 	},
 /area/ruin/ancientstation/engi)
 "lA" = (
-/obj/machinery/alarm/all_access{
-	dir = 4;
-	pixel_x = -24;
+/obj/machinery/alarm/all_access/directional/west{
 	report_danger_level = 0
 	},
 /obj/structure/rack,
@@ -4965,9 +4848,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/alarm/all_access{
-	dir = 4;
-	pixel_x = -24;
+/obj/machinery/alarm/all_access/directional/west{
 	report_danger_level = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5020,9 +4901,7 @@
 /area/ruin/ancientstation/atmo)
 "lK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /mob/living/simple_animal/hostile/hivebot,
@@ -5047,9 +4926,7 @@
 /area/ruin/ancientstation/sec)
 "lN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm/all_access{
-	dir = 8;
-	pixel_x = 24;
+/obj/machinery/alarm/all_access/directional/east{
 	report_danger_level = 0
 	},
 /turf/simulated/floor/plasteel,
@@ -5083,10 +4960,6 @@
 /obj/machinery/power/tesla_coil,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
-"Db" = (
-/obj/structure/transit_tube/crossing,
-/turf/template_noop,
-/area/space/nearstation)
 "Lu" = (
 /obj/structure/transit_tube/horizontal{
 	dir = 4
@@ -5901,7 +5774,7 @@ aa
 aa
 aa
 aa
-de
+VT
 aa
 uQ
 ck
@@ -7534,7 +7407,7 @@ aa
 aa
 aa
 dk
-Db
+cX
 aa
 dg
 dg
@@ -7597,7 +7470,7 @@ aa
 aa
 aa
 aa
-de
+VT
 aa
 aa
 aa

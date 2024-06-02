@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 
 
 /obj/item/stack/rods/cyborg
-	energy_type = /datum/robot_energy_storage/rods
+	energy_type = /datum/robot_storage/energy/rods
 	is_cyborg = TRUE
 	materials = list()
 

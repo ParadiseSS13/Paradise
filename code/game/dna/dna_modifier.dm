@@ -1,10 +1,5 @@
 #define DNA_BLOCK_SIZE 3
 
-// Buffer datatype flags.
-#define DNA2_BUF_UI 1
-#define DNA2_BUF_UE 2
-#define DNA2_BUF_SE 4
-
 #define NEGATE_MUTATION_THRESHOLD 30 // Occupants with over ## percent radiation threshold will not gain mutations
 
 #define PAGE_UI "ui"
@@ -72,10 +67,15 @@
 	var/scan_level
 	var/precision_coeff
 
+/obj/machinery/dna_scannernew/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to eject its occupant.</span>"
+	. += "<span class='info'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
+
 /obj/machinery/dna_scannernew/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/clonescanner(null)
+	component_parts += new /obj/item/circuitboard/dna_scanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -87,7 +87,7 @@
 /obj/machinery/dna_scannernew/upgraded/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/clonescanner(null)
+	component_parts += new /obj/item/circuitboard/dna_scanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
@@ -115,15 +115,11 @@
 		return
 	go_out()
 
-/obj/machinery/dna_scannernew/verb/eject()
-	set src in oview(1)
-	set category = null
-	set name = "Eject DNA Scanner"
-
-	if(usr.incapacitated())
+/obj/machinery/dna_scannernew/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	eject_occupant(usr)
-	add_fingerprint(usr)
+	eject_occupant(user)
+	add_fingerprint(user)
 
 /obj/machinery/dna_scannernew/Destroy()
 	eject_occupant(null, TRUE)
@@ -140,32 +136,6 @@
 	if(!occupant)
 		for(var/mob/M in src)//Failsafe so you can get mobs out
 			M.forceMove(get_turf(src))
-
-/obj/machinery/dna_scannernew/verb/move_inside()
-	set src in oview(1)
-	set category = null
-	set name = "Enter DNA Scanner"
-
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-	if(!ishuman(usr)) //Make sure they're a mob that has dna
-		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into [src].</span>")
-		return
-	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>[src] is already occupied!</span>")
-		return
-	if(usr.abiotic())
-		to_chat(usr, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
-		return
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
-		return
-	usr.stop_pulling()
-	usr.forceMove(src)
-	occupant = usr
-	icon_state = "scanner_occupied"
-	add_fingerprint(usr)
-	SStgui.update_uis(src)
 
 /obj/machinery/dna_scannernew/update_icon_state()
 	if(occupant)
@@ -211,6 +181,7 @@
 	put_in(L)
 	if(user.pulling == L)
 		user.stop_pulling()
+	QDEL_LIST_CONTENTS(L.grabbed_by)
 	return TRUE
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
@@ -281,14 +252,6 @@
 	occupant = M
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
-
-	// search for ghosts, if the corpse is empty and the scanner is connected to a cloner
-	if(locate(/obj/machinery/computer/cloning, get_step(src, NORTH)) \
-		|| locate(/obj/machinery/computer/cloning, get_step(src, SOUTH)) \
-		|| locate(/obj/machinery/computer/cloning, get_step(src, EAST)) \
-		|| locate(/obj/machinery/computer/cloning, get_step(src, WEST)))
-
-		occupant.notify_ghost_cloning(source = src)
 
 /obj/machinery/dna_scannernew/proc/go_out(mob/user, force)
 	if(!occupant)
@@ -388,7 +351,7 @@
 
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(list/buffer)
 	var/list/arr = list()
-	for(var/i = 1, i <= buffer.len, i++)
+	for(var/i = 1, i <= length(buffer), i++)
 		arr += "[i]:[EncodeDNABlock(buffer[i])]"
 	return arr
 
@@ -423,13 +386,16 @@
 
 		ui_interact(user)
 
-/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/scan_consolenew/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, datum/tgui/ui = null)
 	if(user == connected.occupant)
 		return
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "DNAModifier", name, 660, 700, master_ui, state)
+		ui = new(user, src, "DNAModifier", name)
 		ui.open()
 
 /obj/machinery/computer/scan_consolenew/ui_data(mob/user)
@@ -502,7 +468,7 @@
 	data["beakerVolume"] = 0
 	if(connected.beaker)
 		data["beakerLabel"] = connected.beaker.label_text ? connected.beaker.label_text : null
-		if(connected.beaker.reagents && connected.beaker.reagents.reagent_list.len)
+		if(length(connected.beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in connected.beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 
@@ -757,8 +723,8 @@
 
 					var/datum/dna2/record/buf = buffers[bufferId]
 
-					if((buf.types & DNA2_BUF_UI))
-						if((buf.types & DNA2_BUF_UE))
+					if(buf.types & DNA2_BUF_UI)
+						if(buf.types & DNA2_BUF_UE)
 							connected.occupant.real_name = buf.dna.real_name
 							connected.occupant.name = buf.dna.real_name
 						connected.occupant.UpdateAppearance(buf.dna.UI.Copy())
@@ -807,7 +773,7 @@
 
 	// Cooldown
 	injector_ready = FALSE
-	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), 10 SECONDS)
 
 	// Create it
 	var/datum/dna2/record/buf = buffers[buffer_id]
@@ -865,5 +831,5 @@
 #undef PAGE_SE
 #undef PAGE_BUFFER
 #undef PAGE_REJUVENATORS
-
-/////////////////////////// DNA MACHINES
+#undef DNA_BLOCK_SIZE
+#undef NEGATE_MUTATION_THRESHOLD

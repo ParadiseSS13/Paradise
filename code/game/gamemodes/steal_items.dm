@@ -66,18 +66,6 @@
 	protected_jobs = list("Captain", "Research Director", "Chief Engineer")
 	location_override = "Teleporter"
 
-/datum/theft_objective/ai
-	name = "a functional AI"
-	typepath = /obj/item/aicard
-	location_override = "AI Satellite. An intellicard for transportation can be found in Tech Storage, Science Department or manufactured"
-
-/datum/theft_objective/ai/check_special_completion(obj/item/aicard/C)
-	if(..())
-		for(var/mob/living/silicon/ai/A in C)
-			if(isAI(A) && A.stat != 2) //See if any AI's are alive inside that card.
-				return 1
-	return 0
-
 /datum/theft_objective/defib
 	name = "the chief medical officer's advanced compact defibrillator"
 	typepath = /obj/item/defibrillator/compact/advanced
@@ -117,6 +105,11 @@
 	typepath = /obj/item/disk/nuclear
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
+
+/datum/theft_objective/nukedisc/check_special_completion(obj/item/I)
+	if(istype(I, /obj/item/disk/nuclear/training)) //Haha no
+		return FALSE
+	return TRUE
 
 /datum/theft_objective/reactive
 	name = "any type of reactive armor"
@@ -162,6 +155,12 @@
 	protected_jobs = list("Quartermaster")
 	job_possession = FALSE
 
+/datum/theft_objective/engraved_dusters
+	name = "the quartermaster's engraved knuckledusters"
+	typepath = /obj/item/melee/knuckleduster/nanotrasen
+	protected_jobs = list("Quartermaster")
+	location_override = "the Quartermaster's Cargo Office"
+
 /datum/theft_objective/number
 	var/min=0
 	var/max=0
@@ -205,3 +204,6 @@
 	name = "the \"Blue\" secret documents"
 	typepath = /obj/item/documents/syndicate/blue
 	location_override = "a Syndicate agent's possession"
+
+#undef THEFT_FLAG_SPECIAL
+#undef THEFT_FLAG_UNIQUE

@@ -4,10 +4,8 @@
 #define RAD_COLLECTOR_STORED_OUT 0.04	// (this * 100)% of stored power outputted per tick. Doesn't actualy change output total, lower numbers just means collectors output for longer in absence of a source
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy * RAD_COLLECTOR_STORED_OUT) + 1000) //Produces at least 1000 watts if it has more than that stored
 
-GLOBAL_LIST_EMPTY(rad_collectors)
-
 /obj/machinery/power/rad_collector
-	name = "\improper radiation collector array"
+	name = "radiation collector array"
 	desc = "A device which uses Hawking Radiation and plasma to produce power."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "ca"
@@ -23,14 +21,6 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	var/locked = FALSE
 	var/drainratio = 1
 	var/powerproduction_drain = 0.001
-
-/obj/machinery/power/rad_collector/Initialize(mapload)
-	. = ..()
-	GLOB.rad_collectors += src
-
-/obj/machinery/power/rad_collector/Destroy()
-	GLOB.rad_collectors -= src
-	return ..()
 
 /obj/machinery/power/rad_collector/process()
 	if(!loaded_tank)
@@ -59,9 +49,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 
 /obj/machinery/power/rad_collector/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/analyzer) && loaded_tank)
-		atmosanalyzer_scan(loaded_tank.air_contents, user)
-	else if(istype(I, /obj/item/tank/internals/plasma))
+	if(istype(I, /obj/item/tank/internals/plasma))
 		if(!anchored)
 			to_chat(user, "<span class='warning'>[src] needs to be secured to the floor first.</span>")
 			return TRUE
@@ -72,7 +60,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			loaded_tank = I
 			I.forceMove(src)
 			update_icons()
-	else if(iscrowbar(I))
+	else if(I.tool_behaviour == TOOL_CROWBAR)
 		if(loaded_tank && !locked)
 			eject()
 			return TRUE
@@ -105,6 +93,11 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			return TRUE
 	else
 		return ..()
+
+/obj/machinery/power/rad_collector/return_analyzable_air()
+	if(loaded_tank)
+		return loaded_tank.return_analyzable_air()
+	return null
 
 /obj/machinery/power/rad_collector/examine(mob/user)
 	. = ..()

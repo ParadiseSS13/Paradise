@@ -4,7 +4,7 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	cant_discount = TRUE
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //Clown
@@ -77,6 +77,7 @@
 	cost = 25 //A chef can get a knife that sharp easily, though it won't block. While you can get endless boomerang, they are less deadly than a stech, and slower / more predictable.
 	job = list("Mime", "Chef")
 
+// Shaft miner
 /datum/uplink_item/jobspecific/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
@@ -86,12 +87,21 @@
 	job = list("Shaft Miner")
 	surplus = 0 // Requires a KA to even be used.
 
+/datum/uplink_item/jobspecific/mining_charge_hacker
+	name = "Mining Charge Hacker"
+	desc = "Looks and functions like an advanced mining scanner, but allows mining charges to be placed anywhere and destroy more than rocks. \
+	Use it on a mining charge to override its safeties. Reduces explosive power of mining charges due to the modification of their internals."
+	reference = "MCH"
+	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
+	cost = 25
+	job = list("Shaft Miner")
+
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
 	name = "Chef Excellence's Special Sauce"
 	desc = "A custom sauce made from the highly poisonous fly amanita mushrooms. Anyone who ingests it will take variable toxin damage depending on how long it has been in their system, with a higher dosage taking longer to metabolize."
 	reference = "CESS"
-	item = /obj/item/reagent_containers/food/condiment/syndisauce
+	item = /obj/item/reagent_containers/condiment/syndisauce
 	cost = 10
 	job = list("Chef")
 	surplus = 0 // Far too specific in its use.
@@ -194,18 +204,7 @@
 	cost = 10
 	job = list("Bartender")
 
-//Barber
-
-/datum/uplink_item/jobspecific/safety_scissors //Hue
-	name = "Safety Scissors"
-	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
-	reference = "CTS"
-	item = /obj/item/scissors/safety
-	cost = 15
-	job = list("Barber")
-
 //Botanist
-
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
 	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s), WARNING: exotic blood types such as slime jelly do not work. It also wirelessly taps into station intercomms to broadcast a message of TERROR."
@@ -217,12 +216,12 @@
 //Engineer
 
 /datum/uplink_item/jobspecific/powergloves
-	name = "Power Gloves"
-	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. \
+	name = "Power Bio-Chip"
+	desc = "A Bio-Chip that can utilize the power of the station to deliver a short arc of electricity at a target. \
 			Must be standing on a powered cable to use. \
-			Activated by alt-clicking, or pressing the middle mouse button. Disarm intent will deal stamina damage and cause jittering, while harm intent will deal damage based on the power of the cable you're standing on."
+			Activated by alt-clicking, or pressing the middle mouse button. Disarm intent will deal stamina damage and cause jittering, while harm intent will deal damage based on the power of the cable you're standing on. Can be toggled on / off via the action button."
 	reference = "PG"
-	item = /obj/item/clothing/gloves/color/yellow/power
+	item = /obj/item/bio_chip_implanter/shock
 	cost = 50
 	job = list("Station Engineer", "Chief Engineer")
 
@@ -255,6 +254,7 @@
 	item = /obj/item/dice/d20/e20
 	cost = 15
 	job = list("Librarian")
+	surplus = 0
 
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus
@@ -300,7 +300,7 @@
 	desc = "A single-use bio-chip which contains an experimental serum that causes rapid muscular growth in Hominidae. \
 			Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
 	reference = "MAG"
-	item = /obj/item/implanter/gorilla_rampage
+	item = /obj/item/bio_chip_implanter/gorilla_rampage
 	cost = 25
 	job = list("Research Director", "Geneticist")
 
@@ -315,6 +315,17 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian", "Coroner", "Psychiatrist", "Virologist")
 
+// Tarot card generator, librarian and Chaplain.
+
+/datum/uplink_item/jobspecific/tarot_generator
+	name = "Enchanted Tarot Card Deck"
+	desc = "A magic tarot card deck \"borrowed\" from a Wizard federation storage unit. \
+	Capable of producing magic tarot cards of the 22 major arcana, and their reversed versions. Each card has a different effect. \
+	Throw the card at someone to use it on them, or use it in hand to apply it to yourself. Unlimited uses, 25 second cooldown, can have up to 3 cards in the world."
+	reference = "tarot"
+	item = /obj/item/tarot_generator
+	cost = 55 //This can do a lot of stuff, but is quite random. As such, higher price.
+	job = list("Chaplain", "Librarian")
 
 //--------------------------//
 // Species Restricted Gear //
@@ -322,7 +333,7 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	cant_discount = TRUE
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //skrell
@@ -350,7 +361,7 @@
 	name = "Synthetic Supercharge Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has the effect of removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "SSI"
-	item = /obj/item/implanter/supercharge
+	item = /obj/item/bio_chip_implanter/supercharge
 	cost = 40
 	species = list("Machine")
 	surplus = 0
@@ -374,6 +385,16 @@
 	item = /obj/item/clothing/mask/holo_cigar
 	cost = 10
 	species = list("Human")
+
+//Gr(e)(a)y
+/datum/uplink_item/species_restricted/prescan
+	name = "Technocracy Advanced Cloning System"
+	desc = "This kit will give you the parts to build an advanced automatic cloning system, to clone whoever has the linked implant installed on death. \
+	Power intensive, implant must be recovered for reuse, and implanter must be linked to cloner."
+	reference = "TACS"
+	item = /obj/item/storage/box/syndie_kit/prescan
+	cost = 25 /// A fresh start, but a start with nothing. Hard to use as well
+	species = list("Grey")
 
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
@@ -399,7 +420,7 @@
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
 	surplus = 0 // This being refundable makes this a big no no in my mind.
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -410,7 +431,17 @@
 	item = /obj/item/sleeping_carp_scroll
 	cost = 65
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	cant_discount = TRUE
+	can_discount = FALSE
+
+/datum/uplink_item/stealthy_weapons/bearserk
+	name = "Bearserker Pelt"
+	desc = "A bear pelt that infuses the wearer with bear spirits and knowledge on an occultic martial art known as Rage of the Space Bear. \
+			The pelt itself is also armored, providing the wearer great longevity. \
+			Made with love, lots of spirits and lots of the other kind of spirits by the Sydnicate-affiliated cult, Children of Ursa Major."
+	reference = "BSP"
+	item = /obj/item/clothing/head/bearpelt/bearserk
+	cost = 60
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Traitor's Toolbelt"
@@ -437,7 +468,16 @@
 			While the mask is active, your voice will sound unrecognizable to others."
 	reference = "CVMM"
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
-	cost = 8
+	cost = 5
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/stealthy_tools/voice_changer
+	name = "Chameleon Voice Changer Mask"
+	desc = "A syndicate gas mask equipped with chameleon technology and a voice changer for disguising your voice. \
+			Use it to impersonate or obfuscate your identity when talking and make nobody the wiser!"
+	reference = "CVCM"
+	item = /obj/item/clothing/mask/chameleon/voice_change
+	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/silicon_cham_suit
@@ -466,7 +506,8 @@
 	surplus = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/stealthy_weapons/combat_minus // Nukies get combat gloves plus instead
+/// Nukies get combat gloves plus instead
+/datum/uplink_item/stealthy_weapons/combat_minus
 	name = "Experimental Krav Gloves"
 	desc = "Experimental gloves with installed nanochips that teach you Krav Maga when worn, great as a cheap backup weapon. Warning, the nanochips will override any other fighting styles such as CQC. Do not look as fly as the Warden's"
 	reference = "CGM"
@@ -474,7 +515,8 @@
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/device_tools/thermal_drill // Nukies get Diamond Tipped Thermal Safe Drill instead
+/// Nukies get Diamond Tipped Thermal Safe Drill instead
+/datum/uplink_item/device_tools/thermal_drill
 	name = "Amplifying Thermal Safe Drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Comes with built in security detection and nanite system, to keep you up if security comes a-knocking."
 	reference = "DRL"
@@ -488,10 +530,10 @@
 	desc = "The feared MODsuit of a syndicate nuclear agent. Features armor and a eva mode \
 			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
-			Comes packaged with internals. \
+			Comes containing internals. \
 			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
-	item = /obj/item/storage/box/syndie_kit/modsuit
+	item = /obj/item/mod/control/pre_equipped/traitor
 	cost = 30
 	surplus = 60 //I have upped the chance of modsuits from 40, as I do feel they are much more worthwhile with the base modsuit no longer being 8 tc, and the high armor values of the elite.
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -501,20 +543,33 @@
 	desc = "An advanced MODsuit with superior armor to the standard Syndicate MODsuit. \
 	Nanotrasen crew who spot these suits are known to *really* panic."
 	reference = "MSE"
-	item = /obj/item/storage/box/syndie_kit/modsuit/elite
+	item = /obj/item/mod/control/pre_equipped/traitor_elite
 	cost = 45 //45 to start, no holopara / ebow.
 	surplus = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/implants/uplink // Nukies get Nuclear Uplink Bio-chip instead
+/// Nukies get Nuclear Uplink Bio-chip instead
+/datum/uplink_item/bio_chips/uplink
 	name = "Uplink Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to open an uplink with 50 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
-	item = /obj/item/implanter/uplink
+	item = /obj/item/bio_chip_implanter/uplink
 	cost = 70
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
+
+/datum/uplink_item/cyber_implants/sensory_enhancer
+	name = "Qani-Laaca Sensory Computer Autoimplanter"
+	desc = "Epilepsy Warning: Drug has vibrant visual effects! \
+	This spinal implant will inject mephedrone into your system, a powerful stimulant that causes slight heart damage.\
+	This stimulant will provide faster movement speed, slight pain resistance, immunity to crawling slowdown, and faster attack speed, though no antistun.\
+	Overdosing will cause massive heart damage, but will allow the user to dodge bullets for a minute and attack even faster.\
+	Two minute normal uptime, 5 minute cooldown, unlimited uses. Incompatible with the Binyat Wireless Hacking System."
+	reference = "QLSC"
+	item = /obj/item/autosurgeon/organ/syndicate/sensory_enhancer
+	cost = 40
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) //No, nukies do not get to dodge bullets.
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
@@ -551,7 +606,7 @@
 	else if(!AT)
 		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials not found.</span>")
 		return
-	else if(ischangeling(usr) || mind.has_antag_datum(/datum/antagonist/vampire))
+	else if(IS_CHANGELING(usr) || mind.has_antag_datum(/datum/antagonist/vampire))
 		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
 		return
 
@@ -568,9 +623,9 @@
 
 /datum/uplink_item/bundles_TC/badass
 	name = "Syndicate Bundle"
-	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals, but you do not know which specialisation you will receive."
+	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals. You can select one out of three specialisations after purchase."
 	reference = "SYB"
-	item = /obj/item/storage/box/syndie_kit/bundle
+	item = /obj/item/radio/beacon/syndicate/bundle
 	cost = 100
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -583,13 +638,6 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 250
 	uses_special_spawn = TRUE
-
-/datum/uplink_item/bundles_TC/surplus_crate/super
-	name = "Syndicate Super Surplus Crate"
-	desc = "A crate containing 625 telecrystals worth of random syndicate leftovers."
-	reference = "SYSS"
-	cost = 200
-	crate_value = 625
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	if(..() != UPLINK_SPECIAL_SPAWNING)
@@ -620,7 +668,7 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 	hijack_only = TRUE
 
 /datum/uplink_item/explosives/emp_bomb
@@ -632,7 +680,12 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
+
+/datum/uplink_item/explosives/emp_bomb/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 1.25 //ok this thing is already very expencive it doesnt need much more
 
 /datum/uplink_item/explosives/atmosfiregrenades
 	name = "Plasma Fire Grenades"
@@ -643,15 +696,15 @@
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_tools/chameleon
 	name = "Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
-			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp."
+			Due to budget cuts, the shoes don't provide protection against slipping."
 	reference = "CHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon
-	cost = 20
+	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes
@@ -665,7 +718,7 @@
 
 /datum/uplink_item/explosives/detomatix
 	name = "Detomatix PDA Cartridge"
-	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA."
+	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer."
 	reference = "DEPC"
 	item = /obj/item/cartridge/syndicate
 	cost = 30

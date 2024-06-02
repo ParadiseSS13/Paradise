@@ -7,6 +7,7 @@
 	move_resist = MOVE_FORCE_STRONG
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
+	death_sound = 'sound/shadowdemon/shadowdeath.ogg'
 	var/thrown_alert = FALSE
 	var/wrapping = FALSE
 
@@ -35,6 +36,8 @@
 		adjustBruteLoss(-20)
 
 /mob/living/simple_animal/demon/shadow/UnarmedAttack(atom/A)
+	// Pick a random attack sound for each attack
+	attack_sound = pick('sound/shadowdemon/shadowattack2.ogg', 'sound/shadowdemon/shadowattack3.ogg', 'sound/shadowdemon/shadowattack4.ogg')
 	if(!ishuman(A))
 		if(isitem(A))
 			A.extinguish_light()
@@ -79,6 +82,7 @@
 
 /obj/structure/shadowcocoon/Initialize(mapload)
 	. = ..()
+	playsound(loc, 'sound/shadowdemon/shadownode.ogg', 5, TRUE, -1)
 	START_PROCESSING(SSobj, src)
 
 
@@ -107,9 +111,11 @@
 			flare_to_darken.visible_message("<span class='notice'>[flare_to_darken] suddenly dims.</span>")
 		to_darken.extinguish_light()
 	if(!silent && time_since_last_hallucination >= rand(8, 12))
-		playsound(src, pick('sound/items/deconstruct.ogg', 'sound/weapons/handcuffs.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/effects/eleczap.ogg', get_sfx("bodyfall"), get_sfx("gunshot"), 'sound/weapons/egloves.ogg'), 50)
+		playsound(src, pick('sound/shadowdemon/shadowhalluc1.ogg', 'sound/shadowdemon/shadowhalluc2.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/shadowdemon/shadowhalluc3.ogg', get_sfx("bodyfall"), 'sound/weapons/egloves.ogg'), 50)
 		time_since_last_hallucination = 0
 
+
+// Allows you to turn on cocoons making hallucination sounds or not
 /obj/structure/shadowcocoon/AltClick(mob/user)
 	if(!isdemon(user))
 		return ..()
@@ -141,8 +147,8 @@
 
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
-	var/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/S = new
+	AddSpell(new /datum/spell/fireball/shadow_grapple)
+	var/datum/spell/bloodcrawl/shadow_crawl/S = new
 	AddSpell(S)
 	whisper_action.button_icon_state = "shadow_whisper"
 	whisper_action.background_icon_state = "shadow_demon_bg"
@@ -158,7 +164,7 @@
 	if(lum_count > 0.2)
 		if(!thrown_alert)
 			thrown_alert = TRUE
-			throw_alert("light", /obj/screen/alert/lightexposure)
+			throw_alert("light", /atom/movable/screen/alert/lightexposure)
 		alpha = 255
 		speed = initial(speed)
 	else
@@ -170,7 +176,7 @@
 	return lum_count
 
 
-/obj/effect/proc_holder/spell/fireball/shadow_grapple
+/datum/spell/fireball/shadow_grapple
 	name = "Shadow Grapple"
 	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure. Any light source hit with this will be disabled in a two tile radius."
 	base_cooldown = 10 SECONDS
@@ -181,19 +187,18 @@
 
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_grapple"
-	panel = "Demon"
-
 	sound = null
 	invocation_type = "none"
 	invocation = null
 
-/obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
+/datum/spell/fireball/shadow_grapple/update_spell_icon()
 	return
 
 /obj/item/projectile/magic/shadow_hand
 	name = "shadow hand"
 	icon_state = "shadow_hand"
 	plane = FLOOR_PLANE
+	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
 	var/hit = FALSE
 
 /obj/item/projectile/magic/shadow_hand/fire(setAngle)
@@ -232,9 +237,9 @@
 /obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
-		M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
+		M.mind.AddSpell(new /datum/spell/fireball/shadow_grapple)
 
 /obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
-		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/fireball/shadow_grapple)
+		M.mind.RemoveSpell(/datum/spell/fireball/shadow_grapple)

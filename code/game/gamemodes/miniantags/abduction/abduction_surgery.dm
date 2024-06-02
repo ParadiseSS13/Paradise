@@ -14,12 +14,41 @@
 	requires_organic_bodypart = TRUE
 	requires_bodypart = TRUE
 
-/datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/carbon/human/H = user
 	// You must either: Be of the abductor species, or contain an abductor implant
-	if((isabductor(H) || (locate(/obj/item/implant/abductor) in H)))
-		return TRUE
-	return FALSE
+	if(!isabductor(H) && !(locate(/obj/item/bio_chip/abductor) in H))
+		return FALSE
+
+	if(HAS_TRAIT(target, TRAIT_NO_BONES))
+		return FALSE
+
+	return TRUE
+
+/datum/surgery/organ_extraction_boneless
+	name = "Experimental Dissection"
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/internal/extract_organ,
+		/datum/surgery_step/internal/gland_insert,
+		/datum/surgery_step/generic/cauterize
+	)
+	possible_locs = list(BODY_ZONE_CHEST)
+	requires_organic_bodypart = TRUE
+	requires_bodypart = TRUE
+
+/datum/surgery/organ_extraction_boneless/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/mob/living/carbon/human/H = user
+
+	if(!isabductor(H) && !(locate(/obj/item/bio_chip/abductor) in H))
+		return FALSE
+
+	if(!HAS_TRAIT(target, TRAIT_NO_BONES))
+		return FALSE
+
+	return TRUE
 
 /datum/surgery_step/internal/extract_organ
 	name = "remove heart"
@@ -29,7 +58,7 @@
 
 /datum/surgery_step/internal/extract_organ/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	for(var/obj/item/I in target.internal_organs)
-		// Allows for multiple subtypes of heart.
+		// Allows for multiple subtypes of heart. Doesn't use the organ datum so that slimes dont get their brains pulled out of their head
 		if(istype(I, /obj/item/organ/internal/heart))
 			IC = I
 			break

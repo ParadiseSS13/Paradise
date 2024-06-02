@@ -52,6 +52,9 @@
 #define PRINTER_FONT "Times New Roman"
 #define SIGNFONT "Times New Roman"
 
+/// Emoji icon set
+#define EMOJI_SET 'icons/ui_icons/emoji.dmi'
+
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
 
@@ -138,6 +141,9 @@
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
+/// Grabs the area of a supplied object. Passing an area in to this will result in an error
+#define get_area(T) ((get_step(T, 0)?.loc))
+
 //check_target_facings() return defines
 #define FACING_FAILED											0
 #define FACING_SAME_DIR											1
@@ -171,8 +177,8 @@
 #define MUTANTRACE_LAYER		39
 #define TAIL_UNDERLIMBS_LAYER	38	//Tail split-rendering.
 #define LIMBS_LAYER				37
-#define INTORGAN_LAYER			36
-#define MARKINGS_LAYER			35
+#define MARKINGS_LAYER			36
+#define INTORGAN_LAYER			35
 #define UNDERWEAR_LAYER			34
 #define MUTATIONS_LAYER			33
 #define H_DAMAGE_LAYER			32
@@ -182,8 +188,8 @@
 #define SHOES_LAYER				28
 #define GLOVES_LAYER			27
 #define EARS_LAYER				26
-#define SUIT_LAYER				25
-#define BELT_LAYER				24	//Possible make this an overlay of somethign required to wear a belt?
+#define BELT_LAYER				25	//Possible make this an overlay of something required to wear a belt?
+#define SUIT_LAYER				24
 #define SUIT_STORE_LAYER		23
 #define BACK_LAYER				22
 #define HEAD_ACCESSORY_LAYER	21
@@ -243,6 +249,10 @@
 #define MATRIX_TAJ_CBLIND list(0.4,0.2,0.4,\
 							0.4,0.6,0.0,\
 							0.2,0.2,0.6)
+
+#define MATRIX_STANDARD list(1.0,0.0,0.0,\
+							0.0,1.0,0.0,\
+							0.0,0.0,1.0)
 
 /*
 	Used for wire name appearances. Replaces the color name on the left with the one on the right.
@@ -313,6 +323,23 @@
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
 
+// These comments mirror the below define in the order of operations to help you understand what it is doing
+		// Check if datum I is a mob
+		// If I is a mob, return the client of mob I
+		// Else, check to see if I is a client
+			// If I is a client, return I
+			// Else, check to see if I is a mind
+				// If I is a mind, try and return the mind's current mob's client
+
+/// Return a Client
+#define CLIENT_FROM_VAR(I) (ismob(I)			\
+		? I:client								\
+		: istype(I, /client)					\
+				? I								\
+				: istype(I, /datum/mind			\
+						? I:current?:client		\
+						: null))
+
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)
 
@@ -373,14 +400,15 @@
 #define INVESTIGATE_RENAME "renames"
 
 #define INVESTIGATE_BOMB "bombs"
+#define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 53
+#define SQL_VERSION 56
 
 // Vending machine stuff
-#define CAT_NORMAL 1
-#define CAT_HIDDEN 2
-#define CAT_COIN   4
+#define CAT_NORMAL (1<<0)
+#define CAT_HIDDEN (1<<1)
+#define CAT_COIN   (1<<2)
 
 // Jobs
 // used for alternate_option
@@ -394,11 +422,6 @@
 // Area selection defines
 #define AREASELECT_CORNERA "corner A"
 #define AREASELECT_CORNERB "corner B"
-
-//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
-#define MOUSE_OPACITY_TRANSPARENT 0
-#define MOUSE_OPACITY_ICON 1
-#define MOUSE_OPACITY_OPAQUE 2
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
@@ -464,9 +487,10 @@
 #define COLD_WATER_TEMPERATURE 283.15 // 10 degrees celsius
 
 // Parallax
+/// About 0.05 Seconds of delay
 #define PARALLAX_DELAY_DEFAULT	world.tick_lag
-#define PARALLAX_DELAY_MED		1
-#define PARALLAX_DELAY_LOW		2
+#define PARALLAX_DELAY_MED		0.1 SECONDS
+#define PARALLAX_DELAY_LOW		0.2 SECONDS
 #define PARALLAX_LOOP_TIME		25
 
 // Engine types
@@ -481,16 +505,16 @@
 #define SYMPTOM_ACTIVATION_PROB 3
 
 // Atmos stuff that fucking terrifies me
-#define LINDA_SPAWN_HEAT 1
-#define LINDA_SPAWN_20C 2
-#define LINDA_SPAWN_TOXINS 4
-#define LINDA_SPAWN_OXYGEN 8
-#define LINDA_SPAWN_CO2 16
-#define LINDA_SPAWN_NITROGEN 32
-#define LINDA_SPAWN_N2O 64
-#define LINDA_SPAWN_AGENT_B 128
-#define LINDA_SPAWN_AIR 256
-#define LINDA_SPAWN_COLD 512
+#define LINDA_SPAWN_HEAT 		(1<<0)
+#define LINDA_SPAWN_20C 		(1<<1)
+#define LINDA_SPAWN_TOXINS 		(1<<2)
+#define LINDA_SPAWN_OXYGEN 		(1<<3)
+#define LINDA_SPAWN_CO2 		(1<<4)
+#define LINDA_SPAWN_NITROGEN 	(1<<5)
+#define LINDA_SPAWN_N2O 		(1<<6)
+#define LINDA_SPAWN_AGENT_B 	(1<<7)
+#define LINDA_SPAWN_AIR 		(1<<8)
+#define LINDA_SPAWN_COLD 		(1<<9)
 
 // Throwing these defines here for the TM to minimise conflicts
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
@@ -514,6 +538,7 @@
 
 // Runechat symbol types
 #define RUNECHAT_SYMBOL_EMOTE 1
+#define RUNECHAT_SYMBOL_LOOC 2
 
 /// Waits at a line of code until X is true
 #define UNTIL(X) while(!(X)) sleep(world.tick_lag)
@@ -577,3 +602,104 @@
 /// It will only work for datums mind, for datum reasons
 /// : because of the embedded typecheck
 #define text_ref(datum) (isdatum(datum) ? (datum:cached_ref ||= "\ref[datum]") : ("\ref[datum]"))
+
+#define ROUND_END_NUCLEAR 1
+#define ROUND_END_CREW_TRANSFER 2
+#define ROUND_END_FORCED 3
+
+#define TS_INFESTATION_GREEN_SPIDER 1
+#define TS_INFESTATION_PRINCE_SPIDER 2
+#define TS_INFESTATION_WHITE_SPIDER 3
+#define TS_INFESTATION_PRINCESS_SPIDER 4
+#define TS_INFESTATION_QUEEN_SPIDER 5
+
+#define MAX_ALLOWED_TELEPORTS_PER_PROCESS 20
+
+#define CONSTRUCTION_PATH_FORWARDS -1
+#define CONSTRUCTION_PATH_BACKWARDS 1
+#define CONSTRUCTION_TOOL_BEHAVIOURS list(TOOL_CROWBAR, TOOL_SCREWDRIVER, TOOL_WELDER, TOOL_WRENCH)
+
+#define WEATHER_STARTUP_STAGE 1
+#define WEATHER_MAIN_STAGE 2
+#define WEATHER_WIND_DOWN_STAGE 3
+#define WEATHER_END_STAGE 4
+
+/**
+ * I dont recommend touching these map generator defines unless you know what you're doing with maze generators.
+ */
+#define LOG_MAZE_PROGRESS(proc2run, opname) \
+do { \
+	var/timer = start_watch(); \
+	proc2run ;\
+	log_debug("\[MAZE] Operation '[opname]' on maze at [x],[y],[z] took [stop_watch(timer)]s"); \
+} while(FALSE)
+
+//clusterCheckFlags defines
+//All based on clusterMin and clusterMax as guides
+
+//Individual defines
+#define MAP_GENERATOR_CLUSTER_CHECK_NONE				0  //No checks are done, cluster as much as possible
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS	(1<<1)  //Don't let turfs of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS	(1<<2)  //Don't let atoms of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS		(1<<3)  //Don't let turfs of the SAME type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS		(1<<4) //Don't let atoms of the SAME type cluster
+
+//Combined defines
+#define MAP_GENERATOR_CLUSTER_CHECK_SAMES				(MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let any of the same type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS		(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS) //Don't let any of different types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS) //Don't let ANY turfs cluster same and different types
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let ANY atoms cluster same and different types
+
+//All
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL				((1<<4) - 2) //Don't let anything cluster, like, at all.  -2 because we skipped <<1 for some odd reason.
+
+// Buffer datatype flags.
+#define DNA2_BUF_UI (1<<0)
+#define DNA2_BUF_UE (1<<1)
+#define DNA2_BUF_SE (1<<2)
+
+#define CLONER_BIOMASS_REQUIRED 150
+
+#define SOLAR_MACHINERY_MAX_DIST 40
+
+#define AMMO_BOX_MULTI_SPRITE_STEP_NONE null
+#define AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF -1
+
+/// Detective's mode on pinpointers
+#define PINPOINTER_MODE_DET 7
+
+/// How frequently disposals can make sounds, to prevent huge sound stacking
+#define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
+
+/// The different kinds of voting
+#define VOTE_RESULT_TYPE_MAJORITY "Majority"
+
+#define HOLOPAD_MAX_DIAL_TIME 200
+
+#define PROJECTILE_IMPACT_WALL_DENT_HIT 1
+#define PROJECTILE_IMPACT_WALL_DENT_SHOT 2
+
+#define ASSEMBLY_WIRE_RECEIVE		(1<<0)	//Allows pulse(0) to call Activate()
+#define ASSEMBLY_WIRE_PULSE			(1<<1)	//Allows pulse(0) to act on the holder
+#define ASSEMBLY_WIRE_PULSE_SPECIAL	(1<<2)	//Allows pulse(0) to act on the holders special assembly
+#define ASSEMBLY_WIRE_RADIO_RECEIVE	(1<<3)	//Allows pulse(1) to call Activate()
+#define ASSEMBLY_WIRE_RADIO_PULSE	(1<<4)	//Allows pulse(1) to send a radio message
+
+
+//Types of usual spacevine mutations mutations
+#define	SPACEVINE_MUTATION_POSITIVE 			1
+#define	SPACEVINE_MUTATION_NEGATIVE			2
+#define	SPACEVINE_MUTATION_MINOR_NEGATIVE		3
+
+#define RETURN_PRECISE_POSITION(A) new /datum/position(A)
+#define RETURN_PRECISE_POINT(A) new /datum/point_precise(A)
+
+#define RETURN_POINT_VECTOR(ATOM, ANGLE, SPEED) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED))
+#define RETURN_POINT_VECTOR_INCREMENT(ATOM, ANGLE, SPEED, AMT) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED, AMT))
+
+#define TEAM_ADMIN_ADD_OBJ_SUCCESS				(1<<0)
+#define TEAM_ADMIN_ADD_OBJ_CANCEL_LOG 			(1<<1)
+#define TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL 	(1<<2)
+
+/// A helper used by `restrict_file_types.py` to identify types to restrict in a file. Not used by byond at all.
+#define RESTRICT_TYPE(type) // do nothing

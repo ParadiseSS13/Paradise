@@ -38,7 +38,7 @@
 		A.remove_hud_from(H)
 		builtin_hud_user = 0
 	else if((isbrain(occupant) || pilot_is_mmi()) && builtin_hud_user)
-		var/mob/living/carbon/brain/H = occupant
+		var/mob/living/brain/H = occupant
 		var/datum/atom_hud/A = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 		A.remove_hud_from(H)
 		builtin_hud_user = 0

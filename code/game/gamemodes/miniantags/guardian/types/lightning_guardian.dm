@@ -35,7 +35,7 @@
 			var/datum/beam/B = chain
 			if(B.target == target)
 				return //oh this guy already HAS a chain, let's not chain again
-		if(enemychains.len > 2)
+		if(length(enemychains) > 2)
 			var/datum/beam/C = pick(enemychains)
 			qdel(C)
 			enemychains -= C
@@ -64,7 +64,7 @@
 /mob/living/simple_animal/hostile/guardian/beam/proc/cleardeletedchains()
 	if(summonerchain && QDELETED(summonerchain))
 		summonerchain = null
-	if(enemychains.len)
+	if(length(enemychains))
 		for(var/chain in enemychains)
 			var/datum/cd = chain
 			if(!chain || QDELETED(cd))
@@ -77,14 +77,14 @@
 		if(!summonerchain)
 			summonerchain = Beam(summoner, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam/chain)
 		. += chainshock(summonerchain)
-	if(enemychains.len)
+	if(length(enemychains))
 		for(var/chain in enemychains)
 			. += chainshock(chain)
 
 /mob/living/simple_animal/hostile/guardian/beam/proc/removechains()
 	if(summonerchain)
 		QDEL_NULL(summonerchain)
-	if(enemychains.len)
+	if(length(enemychains))
 		for(var/chain in enemychains)
 			qdel(chain)
 		enemychains = list()

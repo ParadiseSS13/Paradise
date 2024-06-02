@@ -1,3 +1,5 @@
+#define GET_DIST_REAL(turf_a, turf_b) sqrt((turf_a.x - turf_b.x) ** 2 + (turf_a.y - turf_b.y) ** 2)
+
 /**
  * This file contains the stuff you need for using JPS (Jump Point Search) pathing, an alternative to A* that skips
  * over large numbers of uninteresting tiles resulting in much quicker pathfinding solutions.
@@ -65,18 +67,21 @@
 	var/jumps
 	/// Nodes store the endgoal so they can process their heuristic without a reference to the pathfind datum
 	var/turf/node_goal
+	/// Multiplier for making diagonals more expensive
+	var/diagonal_move_mult = 1
 
-/datum/jps_node/New(turf/our_tile, datum/jps_node/incoming_previous_node, jumps_taken, turf/incoming_goal)
+/datum/jps_node/New(turf/our_tile, datum/jps_node/incoming_previous_node, jumps_taken, turf/incoming_goal, is_diagonal)
 	tile = our_tile
 	jumps = jumps_taken
+	diagonal_move_mult = (is_diagonal ? SQRT_2 : 1)
 	if(incoming_goal) // if we have the goal argument, this must be the first/starting node
 		node_goal = incoming_goal
 	else if(incoming_previous_node) // if we have the parent, this is from a direct lateral/diagonal scan, we can fill it all out now
 		previous_node = incoming_previous_node
 		number_tiles = previous_node.number_tiles + jumps
 		node_goal = previous_node.node_goal
-		heuristic = get_dist(tile, node_goal)
-		f_value = number_tiles + heuristic
+		heuristic = GET_DIST_REAL(tile, node_goal)
+		f_value = heuristic + previous_node.number_tiles + (jumps * diagonal_move_mult)
 	// otherwise, no parent node means this is from a subscan lateral scan, so we just need the tile for now until we call [datum/jps/proc/update_parent] on it
 
 /datum/jps_node/Destroy(force, ...)
@@ -86,10 +91,10 @@
 /datum/jps_node/proc/update_parent(datum/jps_node/new_parent)
 	previous_node = new_parent
 	node_goal = previous_node.node_goal
-	jumps = get_dist(tile, previous_node.tile)
+	jumps = GET_DIST_REAL(tile, previous_node.tile)
 	number_tiles = previous_node.number_tiles + jumps
-	heuristic = get_dist(tile, node_goal)
-	f_value = number_tiles + heuristic
+	heuristic = GET_DIST_REAL(tile, node_goal)
+	f_value = heuristic + previous_node.number_tiles + (jumps * diagonal_move_mult)
 
 /// TODO: Macro this to reduce proc overhead
 /proc/HeapPathWeightCompare(datum/jps_node/a, datum/jps_node/b)
@@ -149,7 +154,7 @@
 		return
 	if(start.z != end.z || start == end) //no pathfinding between z levels
 		return
-	if(max_distance && (max_distance < get_dist(start, end))) //if start turf is farther than max_distance from end turf, no need to do anything
+	if(max_distance && (max_distance < GET_DIST_REAL(start, end))) //if start turf is farther than max_distance from end turf, no need to do anything
 		return
 
 	//initialization
@@ -260,7 +265,7 @@
 		if(!CAN_STEP(lag_turf, current_turf))
 			return
 
-		if(current_turf == end || (mintargetdist && (get_dist(current_turf, end) <= mintargetdist)))
+		if(current_turf == end || (mintargetdist && (GET_DIST_REAL(current_turf, end) <= mintargetdist)))
 			var/datum/jps_node/final_node = new(current_turf, parent_node, steps_taken)
 			sources[current_turf] = original_turf
 			if(parent_node) // if this is a direct lateral scan we can wrap up, if it's a subscan from a diag, we need to let the diag make their node first, then finish
@@ -321,8 +326,8 @@
 		if(!CAN_STEP(lag_turf, current_turf))
 			return
 
-		if(current_turf == end || (mintargetdist && (get_dist(current_turf, end) <= mintargetdist)))
-			var/datum/jps_node/final_node = new(current_turf, parent_node, steps_taken)
+		if(current_turf == end || (mintargetdist && (GET_DIST_REAL(current_turf, end) <= mintargetdist)))
+			var/datum/jps_node/final_node = new(current_turf, parent_node, steps_taken, is_diagonal = TRUE)
 			sources[current_turf] = original_turf
 			unwind_path(final_node)
 			return
@@ -360,12 +365,12 @@
 					possible_child_node = (lateral_scan_spec(current_turf, SOUTH) || lateral_scan_spec(current_turf, EAST))
 
 		if(interesting || possible_child_node)
-			var/datum/jps_node/newnode = new(current_turf, parent_node, steps_taken)
+			var/datum/jps_node/newnode = new(current_turf, parent_node, steps_taken, is_diagonal = TRUE)
 			open.Insert(newnode)
 			if(possible_child_node)
 				possible_child_node.update_parent(newnode)
 				open.Insert(possible_child_node)
-				if(possible_child_node.tile == end || (mintargetdist && (get_dist(possible_child_node.tile, end) <= mintargetdist)))
+				if(possible_child_node.tile == end || (mintargetdist && (GET_DIST_REAL(possible_child_node.tile, end) <= mintargetdist)))
 					unwind_path(possible_child_node)
 			return
 
@@ -437,3 +442,4 @@
 
 #undef CAN_STEP
 #undef STEP_NOT_HERE_BUT_THERE
+#undef GET_DIST_REAL

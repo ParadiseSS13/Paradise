@@ -5,7 +5,7 @@
 #define MODE_SHIP 4
 #define MODE_OPERATIVE 5
 #define MODE_CREW 6
-#define MODE_DET 7
+// #define PINPOINTER_MODE_DET 7 // This mode is not defined here because it is used across multiple files, but it still exists.
 #define MODE_TENDRIL 8
 #define SETTING_DISK 0
 #define SETTING_LOCATION 1
@@ -56,7 +56,7 @@
 		workbomb()
 
 /obj/item/pinpointer/attack_self(mob/user)
-	if(mode == MODE_DET)
+	if(mode == PINPOINTER_MODE_DET)
 		return
 	cycle(user)
 
@@ -96,15 +96,15 @@
 
 /obj/item/pinpointer/proc/scandisk()
 	if(!the_disk)
-		the_disk = locate()
+		the_disk = locate() in GLOB.nad_list
 
 /obj/item/pinpointer/proc/scanbomb()
 	if(!syndicate)
 		if(!the_bomb)
-			the_bomb = locate()
+			the_bomb = locate() in GLOB.nuke_list
 	else
 		if(!the_s_bomb)
-			the_s_bomb = locate()
+			the_s_bomb = locate() in GLOB.syndi_nuke_list
 
 /obj/item/pinpointer/proc/point_at_target(atom/target)
 	if(!target)
@@ -173,39 +173,35 @@
 /obj/item/pinpointer/advpinpointer/AltClick(mob/user)
 	if(!isliving(user) || !Adjacent(user))
 		return ..()
-	toggle_mode()
+	toggle_mode(user)
 
-/obj/item/pinpointer/advpinpointer/verb/toggle_mode()
-	set category = "Object"
-	set name = "Toggle Pinpointer Mode"
-	set src in usr
-
-	if(usr.stat || usr.restrained())
+/obj/item/pinpointer/advpinpointer/proc/toggle_mode(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(modelocked)
-		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
+		to_chat(user, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
 	target = null
 	location = null
 
-	switch(alert("Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", "Location", "Disk Recovery", "Other Signature"))
+	switch(tgui_alert(user, "Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", list("Location", "Disk Recovery", "Other Signature")))
 		if("Location")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(usr, "Please input the x coordinate to search for.", "Location?" , "") as num
-			if(!locationx || !(usr in view(1,src)))
+			var/locationx = input(user, "Please input the x coordinate to search for.", "Location?" , "") as num
+			if(!locationx || !(user in view(1,src)))
 				return
-			var/locationy = input(usr, "Please input the y coordinate to search for.", "Location?" , "") as num
-			if(!locationy || !(usr in view(1,src)))
+			var/locationy = input(user, "Please input the y coordinate to search for.", "Location?" , "") as num
+			if(!locationy || !(user in view(1,src)))
 				return
 
 			var/turf/Z = get_turf(src)
 
 			location = locate(locationx,locationy,Z.z)
 
-			to_chat(usr, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
+			to_chat(user, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
 
 			toggle_on()
 
@@ -215,7 +211,7 @@
 
 		if("Other Signature")
 			setting = SETTING_OBJECT
-			switch(alert("Search for item signature or DNA fragment?" , "Signature Mode Select" , "Item" , "DNA"))
+			switch(tgui_alert(user, "Search for item signature or DNA fragment?", "Signature Mode Select", list("Item", "DNA")))
 				if("Item")
 					var/list/item_names[0]
 					var/list/item_paths[0]
@@ -224,7 +220,7 @@
 						var/name = initial(T.name)
 						item_names += name
 						item_paths[name] = initial(T.typepath)
-					var/targetitem = input("Select item to search for.", "Item Mode Select","") as null|anything in item_names
+					var/targetitem = tgui_input_list(user, "Select item to search for", "Select Item", item_names)
 					if(!targetitem)
 						return
 
@@ -235,12 +231,12 @@
 						var/cand_z = (get_turf(candidate)).z
 						if(is_admin_level(cand_z))
 							continue
-						if(usr.z != cand_z)
+						if(user.z != cand_z)
 							if(!backup)
 								backup = candidate
 							continue
 						// no candidate set yet, or check if there is a closer one
-						if(!priority || (get_dist(usr, candidate) < get_dist(usr, priority)))
+						if(!priority || (get_dist(user, candidate) < get_dist(user, priority)))
 							priority = candidate
 
 					if(priority)
@@ -248,13 +244,13 @@
 					else
 						target = backup
 						if(target)
-							to_chat(usr, "<span class='notice'>Unable to find [targetitem] in this sector, falling back to off-sector tracking.</span>")
+							to_chat(user, "<span class='notice'>Unable to find [targetitem] in this sector, falling back to off-sector tracking.</span>")
 
 					if(!target)
-						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
+						to_chat(user, "<span class='warning'>Failed to locate [targetitem]!</span>")
 						return
 
-					to_chat(usr, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
+					to_chat(user, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
 
 				if("DNA")
 					var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")
@@ -432,7 +428,7 @@
 	var/target_UID = D.tracking_target_UID
 	target = locateUID(target_UID)
 	target_set = TRUE
-	mode = MODE_DET
+	mode = PINPOINTER_MODE_DET
 	visible_message("<span class='notice'>The pinpointer flickers as it begins tracking a target relayed from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer flickering.</span>")
 	addtimer(CALLBACK(src, PROC_REF(stop_tracking)), 1 MINUTES, TIMER_UNIQUE)
 	START_PROCESSING(SSfastprocess, src)
@@ -446,7 +442,7 @@
 	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
-	if(mode == MODE_DET) // Sensors? Where we're going, we dont need sensors!
+	if(mode == PINPOINTER_MODE_DET) // Sensors? Where we're going, we dont need sensors!
 		var/turf/here = get_turf(src)
 		var/turf/there = get_turf(H)
 		return istype(there) && istype(here) && there.z == here.z
@@ -492,11 +488,11 @@
 		names[name] = H
 		name_counts[name] = 1
 
-	if(!names.len)
+	if(!length(names))
 		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
 		return
 
-	var/A = input(user, "Person to track", "Pinpoint") in names
+	var/A = tgui_input_list(user, "Person to track", "Pinpoint", names)
 	if(!src || !user || (user.get_active_hand() != src) || user.incapacitated() || !A)
 		return
 

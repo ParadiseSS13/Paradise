@@ -1,11 +1,9 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Dimmer,
-  Divider,
-  Flex,
+  Stack,
   Icon,
   LabeledList,
   Section,
@@ -16,21 +14,23 @@ export const SuitStorage = (props, context) => {
   const { data } = useBackend(context);
   const { uv } = data;
   return (
-    <Window resizable>
-      <Window.Content display="flex" className="Layout__content--flexColumn">
-        {!!uv && (
-          <Dimmer backgroundColor="black" opacity={0.85}>
-            <Flex>
-              <Flex.Item bold textAlign="center" mb={2}>
-                <Icon name="spinner" spin={1} size={4} mb={4} />
-                <br />
-                Disinfection of contents in progress...
-              </Flex.Item>
-            </Flex>
-          </Dimmer>
-        )}
-        <StoredItems />
-        <OpenToggle />
+    <Window width={400} height={260}>
+      <Window.Content>
+        <Stack fill vertical>
+          {!!uv && (
+            <Dimmer backgroundColor="black" opacity={0.85}>
+              <Stack>
+                <Stack.Item bold textAlign="center" mb={1}>
+                  <Icon name="spinner" spin={1} size={4} mb={4} />
+                  <br />
+                  Disinfection of contents in progress...
+                </Stack.Item>
+              </Stack>
+            </Dimmer>
+          )}
+          <StoredItems />
+          <OpenToggle />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -41,10 +41,10 @@ const StoredItems = (props, context) => {
   const { helmet, suit, magboots, mask, storage, open, locked } = data;
   return (
     <Section
+      fill
       title="Stored Items"
-      flexGrow="1"
       buttons={
-        <Fragment>
+        <>
           <Button
             content="Start Disinfection Cycle"
             icon="radiation"
@@ -57,7 +57,7 @@ const StoredItems = (props, context) => {
             disabled={open}
             onClick={() => act('toggle_lock')}
           />
-        </Fragment>
+        </>
       }
     >
       {open && !locked ? (
@@ -94,8 +94,8 @@ const StoredItems = (props, context) => {
           />
         </LabeledList>
       ) : (
-        <Flex height="100%">
-          <Flex.Item
+        <Stack fill>
+          <Stack.Item
             bold
             grow="1"
             textAlign="center"
@@ -109,8 +109,8 @@ const StoredItems = (props, context) => {
             />
             <br />
             {locked ? 'The unit is locked.' : 'The unit is closed.'}
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       )}
     </Section>
   );

@@ -10,7 +10,6 @@
  *		Toy Nuke
  *		Card Deck
  *		Therapy dolls
- *		Toddler doll
  *		Inflatable duck
  *		Foam armblade
  *		Mini Gibber
@@ -68,7 +67,7 @@
 	return
 
 /obj/item/toy/balloon/attackby(obj/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/food/drinks/drinkingglass))
+	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/drinks/drinkingglass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
 				to_chat(user, "[O] is empty.")
@@ -176,6 +175,7 @@
 /obj/item/toy/sword
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sword0"
@@ -224,6 +224,18 @@
 			qdel(W)
 			qdel(src)
 
+/obj/item/toy/sword/chaosprank
+	name = "energy sword"
+	/// Sets to TRUE once the character using it hits something and realises it's not a real energy sword
+	var/pranked = FALSE
+
+/obj/item/toy/sword/chaosprank/afterattack(mob/living/target, mob/living/user, proximity)
+	..()
+	if(!pranked)
+		to_chat(user, "<span class='chaosverybad'>Oh... it's a fake.</span>")
+		name = "toy sword"
+		pranked = TRUE
+
 /*
  * Subtype of Double-Bladed Energy Swords
  */
@@ -255,6 +267,7 @@
 	desc = "Woefully underpowered in D20."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
@@ -268,7 +281,7 @@
 
 /obj/item/toy/katana/suicide_act(mob/user)
 	var/dmsg = pick("[user] tries to stab \the [src] into [user.p_their()] abdomen, but it shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to stab \the [src] into [user.p_their()] abdomen, but \the [src] bends and breaks in half! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to slice [user.p_their()] own throat, but the plastic blade has no sharpness, causing [user.p_them()] to lose [user.p_their()] balance, slip over, and break [user.p_their()] neck with a loud snap!")
-	user.visible_message("<span class='suicide'>[dmsg] It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[dmsg] It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
 
@@ -423,14 +436,6 @@
 /obj/item/toy/therapy/green
 	item_state = "egg3" // It's the green egg in items_left/righthand
 	item_color = "green"
-
-/obj/item/toddler
-	icon_state = "toddler"
-	name = "toddler"
-	desc = "This baby looks almost real. Wait, did it just burp?"
-	force = 5
-	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
 
 
 //This should really be somewhere else but I don't know where. w/e
@@ -780,9 +785,9 @@
 	item_state = "plushie_ipc"
 
 /obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
-	if(istype(B, /obj/item/reagent_containers/food/snacks/breadslice))
-		new /obj/item/reagent_containers/food/snacks/toast(get_turf(loc))
-		to_chat(user, "<span class='notice'> You insert bread into the toaster. </span>")
+	if(istype(B, /obj/item/food/snacks/breadslice))
+		new /obj/item/food/snacks/toast(get_turf(loc))
+		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		qdel(B)
 	else
@@ -1033,22 +1038,8 @@
 	name = "Lich Miniature"
 	desc = "Murderboner extraordinaire."
 	icon_state = "lichcharacter"
-/obj/item/storage/box/characters
-	name = "Box of Miniatures"
-	desc = "The nerd's best friends."
-	icon_state = "box"
-/obj/item/storage/box/characters/populate_contents()
-	new /obj/item/toy/character/alien(src)
-	new /obj/item/toy/character/cleric(src)
-	new /obj/item/toy/character/warrior(src)
-	new /obj/item/toy/character/thief(src)
-	new /obj/item/toy/character/wizard(src)
-	new /obj/item/toy/character/cthulhu(src)
-	new /obj/item/toy/character/lich(src)
 
-
-//Pet Rocks, just like from the 70's!
-
+// Pet Rocks, just like from the 70's!
 /obj/item/toy/pet_rock
 	name = "pet rock"
 	desc = "The perfect pet!"
@@ -1070,8 +1061,7 @@
 	desc = "Roxie, the bestest girl pet in the whole wide universe!"
 	icon_state = "roxie"
 
-//minigibber, so cute
-
+// Minigibber, so cute
 /obj/item/toy/minigibber
 	name = "miniature gibber"
 	desc = "A miniature recreation of Nanotrasen's famous meat grinder."
@@ -1133,7 +1123,7 @@
 	var/max_shots = 6
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 	return BRUTELOSS
 
@@ -1207,23 +1197,18 @@
 	. += "Has [fake_bullets] round\s remaining."
 	. += "<span class='info'>Use in hand to empty the gun's ammo reserves.</span>"
 	. += "[fake_bullets] of those are live rounds."
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to spin it's barrel.</span>"
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
 	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
 
-/obj/item/toy/russian_revolver/trick_revolver/verb/trick_spin()
-	set name = "Spin Chamber"
-	set category = "Object"
-	set desc = "Click to spin your revolver's chamber."
-
-	var/mob/M = usr
-
-	if(M.stat || !in_range(M, src))
+/obj/item/toy/russian_revolver/trick_revolver/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	to_chat(M, "<span class='warning'>You go to spin the chamber... and it goes off in your face!</span>")
-	shoot_gun(M)
+	to_chat(user, "<span class='warning'>You go to spin the chamber... and it goes off in your face!</span>")
+	shoot_gun(user)
 
 /obj/item/toy/russian_revolver/trick_revolver/attack_self(mob/user)
 	if(!bullets_left) //You can re-arm the trap...
@@ -1245,6 +1230,13 @@
 		shoot_gun(user)
 	return ..()
 
+/obj/item/toy/russian_revolver/trick_revolver/run_pointed_on_item(mob/pointer_mob, atom/target_atom)
+	if(target_atom != src)
+		pointer_mob.visible_message("<span class='danger'>[pointer_mob] points [src] at- and [src] goes off in their hand!</span>")
+		shoot_gun(pointer_mob)
+		return TRUE
+	return ..()
+
 /*
  * Rubber Chainsaw
  */
@@ -1253,6 +1245,7 @@
 	desc = "A toy chainsaw with a rubber edge. Ages 8 and up."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "chainsaw0"
 	base_icon_state = "chainsaw"
 	force = 0

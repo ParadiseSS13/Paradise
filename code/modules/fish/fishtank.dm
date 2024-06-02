@@ -84,25 +84,17 @@
 //		VERBS & PROCS		//
 //////////////////////////////
 
-/obj/machinery/fishtank/verb/toggle_lid_verb()
-	set name = "Toggle Tank Lid"
-	set category = "Object"
-	set src in view(1)
+/obj/machinery/fishtank/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
-	toggle_lid()
-
-/obj/machinery/fishtank/proc/toggle_lid()
 	lid_switch = !lid_switch
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/fishtank/verb/toggle_light_verb()
-	set name = "Toggle Tank Light"
-	set category = "Object"
-	set src in view(1)
+/obj/machinery/fishtank/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
-	toggle_light()
-
-/obj/machinery/fishtank/proc/toggle_light()
 	light_switch = !light_switch
 	if(light_switch)
 		set_light(2, 2, "#a0a080")
@@ -112,12 +104,6 @@
 //////////////////////////////
 //		NEW() PROCS			//
 //////////////////////////////
-
-/obj/machinery/fishtank/Initialize(mapload)
-	. = ..()
-	if(!has_lid)				//Tank doesn't have a lid/light, remove the verbs for then
-		verbs -= /obj/machinery/fishtank/verb/toggle_lid_verb
-		verbs -= /obj/machinery/fishtank/verb/toggle_light_verb
 
 /obj/machinery/fishtank/tank/Initialize(mapload)
 	. = ..()
@@ -310,7 +296,7 @@
 		if(egg != /obj/item/fish_eggs) 				// Don't harvest duds
 			egg = new egg(get_turf(user))			//Spawn the egg at the user's feet
 			if(fish_bag?.can_be_inserted(egg))
-				fish_bag.handle_item_insertion(egg)
+				fish_bag.handle_item_insertion(egg, user)
 		else
 			duds++
 		egg_list.Remove(egg)						//Remove the egg from the egg_list
@@ -333,7 +319,7 @@
 		var/count = length(fish_types[key])
 		var/fish_description = "[initial(fish_type.fish_name)][count > 1 ? " (x[count])" : ""]"
 		fish_types_input[fish_description] = fish_type
-	var/caught_fish = input("Select a fish to catch.", "Fishing") as null|anything in fish_types_input		//Select a fish from the tank
+	var/caught_fish = tgui_input_list(user, "Select a fish to catch.", "Fishing", fish_types_input)		//Select a fish from the tank
 	if(!caught_fish)
 		return
 	if(!Adjacent(user))
@@ -364,7 +350,7 @@
 	if(fish_item)
 		var/obj/item/I = new fish_item(get_turf(user))
 		if(fish_bag?.can_be_inserted(I))
-			fish_bag.handle_item_insertion(I)
+			fish_bag.handle_item_insertion(I, user)
 	user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
 	kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
 
@@ -533,6 +519,8 @@
 
 	//Finally, report the full examine_message constructed from the above reports
 	. += "<span class='notice'>[examine_message]</span>"
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to open/close its lid.</span>"
+	. += "<span class='info'>You can <b>Alt-Shift-Click</b> [src] to enable/disable its light.</span>"
 
 //////////////////////////////
 //		ATTACK PROCS		//

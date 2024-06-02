@@ -110,10 +110,6 @@
 	for(var/limb_type in typesof(/datum/robolimb))
 		var/datum/robolimb/R = new limb_type()
 		GLOB.all_robolimbs[R.company] = R
-		if(!R.unavailable_at_chargen)
-			if(R != "head" && R != "chest" && R != "groin" ) //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
-				if(R.has_subtypes) //Ensures solos get added to the list as well be incorporating has_subtypes == 1 and has_subtypes == 2.
-					GLOB.chargen_robolimbs[R.company] = R //List only main brands and solo parts.
 		if(R.selectable)
 			GLOB.selectable_robolimbs[R.company] = R
 
@@ -142,6 +138,11 @@
 		var/datum/keybinding/D = path
 		if(initial(D.name))
 			GLOB.keybindings += new path()
+
+	for(var/path in subtypesof(/datum/preference_toggle))
+		var/datum/preference_toggle/pref_toggle = path
+		if(initial(pref_toggle.name))
+			GLOB.preference_toggles += new path()
 
 	for(var/path in subtypesof(/datum/objective))
 		var/datum/objective/O = path

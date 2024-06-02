@@ -1,19 +1,9 @@
-/atom/movable
-	var/can_buckle = FALSE
-	var/buckle_lying = -1 //bed-like behaviour, forces mob.lying = buckle_lying if != -1
-	var/buckle_requires_restraints = 0 //require people to be handcuffed before being able to buckle. eg: pipes
-	var/list/buckled_mobs = null //list()
-	var/buckle_offset = 0
-	var/max_buckled_mobs = 1
-	var/buckle_prevents_pull = FALSE
-	var/can_be_unanchored = FALSE
-
 //Interaction
 /atom/movable/attack_hand(mob/living/user)
 	. = ..()
 	if(can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
+			var/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle Who?", buckled_mobs)
 			if(user_unbuckle_mob(unbuckled,user))
 				return TRUE
 		else
@@ -23,8 +13,8 @@
 /atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
 	if(can_buckle && istype(M) && istype(user))
-		if(user_buckle_mob(M, user))
-			return TRUE
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, user_buckle_mob), M, user)
+		return TRUE
 
 /atom/movable/proc/has_buckled_mobs()
 	return length(buckled_mobs)
@@ -33,8 +23,8 @@
 	. = ..()
 	if(can_buckle && has_buckled_mobs() && Adjacent(user)) // attack_robot is called on all ranges, so the Adjacent check is needed
 		if(length(buckled_mobs) > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
-			if(user_unbuckle_mob(unbuckled,user))
+			var/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle Who?", buckled_mobs)
+			if(user_unbuckle_mob(unbuckled, user))
 				return TRUE
 		else
 			if(user_unbuckle_mob(buckled_mobs[1], user))
@@ -49,7 +39,10 @@
 	if(!istype(M))
 		return FALSE
 
-	if(check_loc && M.loc != loc)
+	if(check_loc && !M.Adjacent(src))
+		return FALSE
+
+	if(check_loc && M.loc != loc && !M.Move(loc))
 		return FALSE
 
 	if((!can_buckle && !force) || M.buckled || (length(buckled_mobs) >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
@@ -72,7 +65,7 @@
 		qdel(G)
 
 	if(!check_loc && M.loc != loc)
-		M.forceMove(loc)
+		M.Move(loc) || M.forceMove(loc)
 
 	if(!buckle_lying)
 		M.set_body_position(STANDING_UP)
@@ -87,7 +80,7 @@
 	M.setDir(dir)
 	buckled_mobs |= M
 	ADD_TRAIT(M, TRAIT_IMMOBILIZED, BUCKLING_TRAIT)
-	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
+	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
 	post_buckle_mob(M)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE
@@ -135,9 +128,12 @@
 	if(!in_range(user, src) || !isturf(user.loc) || user.incapacitated() || M.anchored)
 		return FALSE
 
-	if (isguardian(user))
-		if (M.loc == user.loc || user.alpha == 60) //Alpha is for detecting ranged guardians in scout mode
-			return  //unmanifested guardians shouldn't be able to buckle mobs
+	if(isguardian(user) && (M.loc == user.loc || user.alpha == 60)) //Alpha is for detecting ranged guardians in scout mode
+		return  //unmanifested guardians shouldn't be able to buckle mobs
+
+	// TRAIT_HANDS_BLOCKED check is necessary to prevent delay when incapacitated, but still keep a delay in combat
+	if(M != user && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
+		return FALSE
 
 	add_fingerprint(user)
 	. = buckle_mob(M, check_loc = check_loc)

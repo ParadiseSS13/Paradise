@@ -10,7 +10,7 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/save/change_settings(mob/user)
-	use_json = (alert("Would you like to use json (Default is \"Yes\")?",,"Yes","No") == "Yes")
+	use_json = (alert("Would you like to use json (Default is \"Yes\")?", null,"Yes","No") == "Yes")
 
 /datum/buildmode_mode/save/handle_selected_region(mob/user, params)
 	var/list/pa = params2list(params)

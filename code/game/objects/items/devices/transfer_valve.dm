@@ -88,10 +88,13 @@
 /obj/item/transfer_valve/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/transfer_valve/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/transfer_valve/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/transfer_valve/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TransferValve",  name, 460, 320, master_ui, state)
+		ui = new(user, src, "TransferValve",  name)
 		ui.open()
 
 /obj/item/transfer_valve/ui_data(mob/user)
@@ -157,7 +160,7 @@
 		icon_state = "valve_1"
 	else
 		icon_state = "valve"
-	
+
 /obj/item/transfer_valve/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -207,7 +210,7 @@
 		var/mob/mob = get_mob_by_key(src.fingerprintslast)
 
 		investigate_log("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", INVESTIGATE_BOMB)
-		message_admins("Bomb valve opened at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
+		message_admins("Bomb valve opened at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
 		log_game("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]")
 		if(user)
 			add_attack_logs(user, src, "Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", ATKLOG_FEW)

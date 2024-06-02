@@ -15,7 +15,7 @@ export const TempGun = (props, context) => {
   const { target_temperature, temperature, max_temp, min_temp } = data;
 
   return (
-    <Window>
+    <Window width={250} height={121}>
       <Window.Content>
         <Section>
           <LabeledList>

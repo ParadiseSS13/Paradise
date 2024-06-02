@@ -891,7 +891,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/drinks/mug/med,
+/obj/item/reagent_containers/drinks/mug/med,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -1013,7 +1013,7 @@ aO
 aH
 aH
 aH
-bj
+ac
 bg
 ba
 ba

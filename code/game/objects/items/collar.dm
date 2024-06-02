@@ -14,7 +14,7 @@
 /obj/item/petcollar/attack_self(mob/user)
 	var/option = "Change Name"
 	if(access_id)
-		option = input(user, "What do you want to do?", "[src]", option) as null|anything in list("Change Name", "Remove ID")
+		option = tgui_input_list(user, "What do you want to do?", "[src]", list("Change Name", "Remove ID"))
 		if(QDELETED(src) || !Adjacent(user))
 			return
 	switch(option)

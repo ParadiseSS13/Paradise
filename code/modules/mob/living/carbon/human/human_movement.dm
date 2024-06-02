@@ -33,7 +33,7 @@
 			. = 1
 
 /mob/living/carbon/human/mob_negates_gravity()
-	return shoes && shoes.negates_gravity()
+	return HAS_TRAIT(src, TRAIT_MAGPULSE)
 
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()

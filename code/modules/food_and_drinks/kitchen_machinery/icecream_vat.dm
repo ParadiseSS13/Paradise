@@ -40,7 +40,7 @@
 		to_chat(user, "<span class='notice'>You add [I] to [src]</span>")
 		updateUsrDialog()
 		return
-	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
+	if(istype(I, /obj/item/food/snacks/frozen/icecream))
 		if(!I.reagents.has_reagent("sprinkles"))
 			if(I.reagents.total_volume > 29)
 				I.reagents.remove_any(1)
@@ -147,7 +147,7 @@
 	else if(href_list["createchoco"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Chocolate Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C = new(loc)
+		var/obj/item/food/snacks/frozen/icecream/icecreamcup/C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -159,7 +159,7 @@
 	else if(href_list["createcone"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C = new(loc)
+		var/obj/item/food/snacks/frozen/icecream/icecreamcone/C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -171,7 +171,7 @@
 	else if(href_list["createwaffle"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Waffle Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/wafflecone/C = new(loc)
+		var/obj/item/food/snacks/frozen/icecream/wafflecone/C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -191,15 +191,15 @@
 	if(reagents.total_volume <= 500)
 		dat += "<HR>"
 		dat += "<strong>Add fillings:</strong><BR>"
-		dat += "<A href='?src=[UID()];synthcond=1;type=2'>Soda</A><BR>"
-		dat += "<A href='?src=[UID()];synthcond=1;type=3'>Alcohol</A><BR>"
+		dat += "<A href='byond://?src=[UID()];synthcond=1;type=2'>Soda</A><BR>"
+		dat += "<A href='byond://?src=[UID()];synthcond=1;type=3'>Alcohol</A><BR>"
 		dat += "<strong>Finish With:</strong><BR>"
-		dat += "<A href='?src=[UID()];synthcond=1;type=4'>Cream</A><BR>"
-		dat += "<A href='?src=[UID()];synthcond=1;type=5'>Vanilla</A><BR>"
+		dat += "<A href='byond://?src=[UID()];synthcond=1;type=4'>Cream</A><BR>"
+		dat += "<A href='byond://?src=[UID()];synthcond=1;type=5'>Vanilla</A><BR>"
 		dat += "<strong>Dispense in:</strong><BR>"
-		dat += "<A href='?src=[UID()];createchoco=1'>Chocolate Cone</A><BR>"
-		dat += "<A href='?src=[UID()];createcone=1'>Cone</A><BR>"
-		dat += "<A href='?src=[UID()];createwaffle=1'>Waffle Cone</A><BR>"
+		dat += "<A href='byond://?src=[UID()];createchoco=1'>Chocolate Cone</A><BR>"
+		dat += "<A href='byond://?src=[UID()];createcone=1'>Cone</A><BR>"
+		dat += "<A href='byond://?src=[UID()];createwaffle=1'>Waffle Cone</A><BR>"
 	dat += "</center>"
 	return dat
 
@@ -213,20 +213,20 @@
 		dat += "The container has:<BR>"
 		for(var/datum/reagent/G in R.reagent_list)
 			dat += "[G.volume] unit(s) of [G.name] | "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=5'>(5)</A> "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=10'>(10)</A> "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=15'>(15)</A> "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=[G.volume]'>(All)</A>"
+			dat += "<A href='byond://?src=[UID()];add=[G.id];amount=5'>(5)</A> "
+			dat += "<A href='byond://?src=[UID()];add=[G.id];amount=10'>(10)</A> "
+			dat += "<A href='byond://?src=[UID()];add=[G.id];amount=15'>(15)</A> "
+			dat += "<A href='byond://?src=[UID()];add=[G.id];amount=[G.volume]'>(All)</A>"
 			dat += "<BR>"
 	else if(container == 2)
 		dat += "<BR>The Cream-Master has:<BR>"
 		if(reagents.total_volume)
 			for(var/datum/reagent/N in reagents.reagent_list)
 				dat += "[N.volume] unit(s) of [N.name] | "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=5'>(5)</A> "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=10'>(10)</A> "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=15'>(15)</A> "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=[N.volume]'>(All)</A>"
+				dat += "<A href='byond://?src=[UID()];remove=[N.id];amount=5'>(5)</A> "
+				dat += "<A href='byond://?src=[UID()];remove=[N.id];amount=10'>(10)</A> "
+				dat += "<A href='byond://?src=[UID()];remove=[N.id];amount=15'>(15)</A> "
+				dat += "<A href='byond://?src=[UID()];remove=[N.id];amount=[N.volume]'>(All)</A>"
 				dat += "<BR>"
 	else
 		dat += "<BR>SOMEONE ENTERED AN INVALID REAGENT CONTAINER; QUICK, BUG REPORT!<BR>"
@@ -241,11 +241,11 @@
 		dat += "No container is loaded into the machine, external transfer offline.<BR>"
 		dat += show_reagents(2)
 		dat += show_toppings()
-		dat += "<A href='?src=[UID()];close=1'>Close</A>"
+		dat += "<A href='byond://?src=[UID()];close=1'>Close</A>"
 	else
 		var/obj/item/reagent_containers/glass/A = beaker
 		var/datum/reagents/R = A.reagents
-		dat += "<A href='?src=[UID()];eject=1'>Eject container and end transfer.</A><BR>"
+		dat += "<A href='byond://?src=[UID()];eject=1'>Eject container and end transfer.</A><BR>"
 		if(!R.total_volume)
 			dat += "Container is empty.<BR><HR>"
 		else
@@ -263,7 +263,5 @@
 
 /obj/machinery/icemachine/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
 	default_unfasten_wrench(user, I, 30)
 

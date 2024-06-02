@@ -13,7 +13,7 @@
 
 /obj/effect/waterfall/New()
 	. = ..()
-	water_timer = addtimer(CALLBACK(src, PROC_REF(drip)), water_frequency, TIMER_STOPPABLE)
+	water_timer = addtimer(CALLBACK(src, PROC_REF(drip)), water_frequency, TIMER_STOPPABLE | TIMER_LOOP)
 
 /obj/effect/waterfall/Destroy()
 	if(water_timer)
@@ -26,7 +26,6 @@
 	W.dir = dir
 	spawn(1)
 		W.loc = get_step(W, dir)
-	water_timer = addtimer(CALLBACK(src, PROC_REF(drip)), water_frequency, TIMER_STOPPABLE)
 
 /turf/simulated/floor/beach/away
 	name = "Beach"
@@ -56,7 +55,8 @@
 	. = ..()			//adds some aesthetic randomness to the beach sand
 	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
 
-/turf/simulated/floor/beach/away/sand/dense //for boundary "walls"
+/// for boundary "walls"
+/turf/simulated/floor/beach/away/sand/dense
 	density = TRUE
 	baseturf = /turf/simulated/floor/beach/away/sand/dense
 
@@ -72,7 +72,8 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 
-/turf/simulated/floor/beach/away/coastline/dense		//for boundary "walls"
+/// for boundary "walls"
+/turf/simulated/floor/beach/away/coastline/dense
 	density = TRUE
 	baseturf = /turf/simulated/floor/beach/away/coastline/dense
 
@@ -113,12 +114,13 @@
 		linkedcontroller.decalinpool += A
 
 /turf/simulated/floor/beach/away/water/lavaland_air
-	nitrogen = 23
-	oxygen = 14
-	temperature = 300
+	nitrogen = LAVALAND_NITROGEN
+	oxygen = LAVALAND_OXYGEN
+	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
 
-/turf/simulated/floor/beach/away/water/dense			//for boundary "walls"
+/// for boundary "walls"
+/turf/simulated/floor/beach/away/water/dense
 	density = TRUE
 	baseturf = /turf/simulated/floor/beach/away/water/dense
 

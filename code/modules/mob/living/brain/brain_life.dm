@@ -1,0 +1,5 @@
+/mob/living/brain/Life()
+	. = ..()
+	if(.)
+		if(!container && (world.time - timeofhostdeath) > GLOB.configuration.general.revival_brain_life)
+			death()

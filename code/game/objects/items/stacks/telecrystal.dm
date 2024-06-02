@@ -13,7 +13,7 @@
 
 /obj/item/stack/telecrystal/attack(mob/target, mob/user)
 	if(target == user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
-		for(var/obj/item/implant/uplink/I in target)
+		for(var/obj/item/bio_chip/uplink/I in target)
 			if(I && I.imp_in)
 				I.hidden_uplink.uses += amount
 				use(amount)

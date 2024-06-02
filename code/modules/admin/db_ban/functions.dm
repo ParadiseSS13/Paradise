@@ -5,7 +5,7 @@
 	if(!check_rights(R_BAN))	return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to make DB ban. Please freeze them and write their ckey in notepad, so they can be banned when the DB returns.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Database connection failure when attempting to make DB ban. Please freeze them and write their ckey in notepad, so they can be banned when the DB returns.</span>")
 		return
 
 	var/serverip = "[world.internet_address]:[world.port]"
@@ -53,9 +53,9 @@
 			blockselfban = 1
 			kickbannedckey = 1
 
-	if( !bantype_pass ) return
-	if( !istext(reason) ) return
-	if( !isnum(duration) ) return
+	if(!bantype_pass) return
+	if(!istext(reason)) return
+	if(!isnum(duration)) return
 
 	var/ckey
 	var/computerid
@@ -160,10 +160,10 @@
 		"rounds" = (rounds ? "[rounds]" : "0"), // And here
 		"ckey" = ckey,
 		"computerid" = computerid,
-		"ip" = ip,
+		"ip" = "[ip ? ip : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
 		"a_ckey" = a_ckey,
 		"a_computerid" = a_computerid,
-		"a_ip" = a_ip,
+		"a_ip" = "[a_ip ? a_ip : ""]",
 		"who" = who,
 		"adminwho" = adminwho,
 		"roundid" = GLOB.round_id,
@@ -198,7 +198,7 @@
 	if(!check_rights(R_BAN))	return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
 		return
 
 	var/bantype_str
@@ -229,7 +229,7 @@
 			if(BANTYPE_ANY_FULLBAN)
 				bantype_str = "ANY"
 				bantype_pass = 1
-		if( !bantype_pass ) return
+		if(!bantype_pass) return
 
 	var/bantype_sql
 	if(bantype_str == "ANY")
@@ -394,7 +394,7 @@
 		return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
+		to_chat(usr, "<span class='boldannounceooc'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
 		return
 
 	var/ban_number = 0 //failsafe
@@ -490,7 +490,7 @@
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in GLOB.other_roles)
 		output += "<option value='[j]'>[j]</option>"
-	for(var/j in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","supportdept","nonhumandept"))
+	for(var/j in list("commanddept","securitydept","engineeringdept","medicaldept","sciencedept","servicedept","nonhumandept"))
 		output += "<option value='[j]'>[j]</option>"
 	for(var/j in list("Syndicate") + GLOB.antag_roles)
 		output += "<option value='[j]'>[j]</option>"
@@ -702,3 +702,5 @@
 	adm_query.warn_execute()
 	qdel(adm_query)
 
+
+#undef MAX_ADMIN_BANS_PER_ADMIN

@@ -75,7 +75,7 @@
 	var/mutable_appearance/pointed_atom_appearance = new(pointed_atom.appearance)
 
 	var/hover_outline_index = pointed_atom.get_filter("hover_outline")
-	if (!isnull(hover_outline_index))
+	if(!isnull(hover_outline_index))
 		pointed_atom_appearance.filters.Cut(hover_outline_index, hover_outline_index + 1)
 
 	create_point_bubble(pointed_atom_appearance, include_arrow)
@@ -129,8 +129,7 @@
  */
 /mob/verb/pointed(atom/A as mob|obj|turf in view())
 	set name = "Point To"
-	set category = "Object"
-
+	set category = null
 	if(next_move >= world.time)
 		return
 

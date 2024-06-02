@@ -154,6 +154,12 @@
 
 		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
 
+		switch(dna.GetUIState(DNA_UI_BODY_TYPE))
+			if(DNA_GENDER_FEMALE)
+				H.change_body_type(FEMALE, FALSE)
+			if(DNA_GENDER_MALE)
+				H.change_body_type(MALE, FALSE)
+
 		switch(dna.GetUITriState(DNA_UI_GENDER))
 			if(DNA_GENDER_FEMALE)
 				H.change_gender(FEMALE, FALSE)
@@ -163,17 +169,27 @@
 				H.change_gender(PLURAL, FALSE)
 
 		//Head Markings
-		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, GLOB.marking_styles_list.len)
-		if((head_marks > 0) && (head_marks <= GLOB.marking_styles_list.len))
+		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, length(GLOB.marking_styles_list))
+		if((head_marks > 0) && (head_marks <= length(GLOB.marking_styles_list)))
 			H.m_styles["head"] = GLOB.marking_styles_list[head_marks]
 		//Body Markings
-		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, GLOB.marking_styles_list.len)
-		if((body_marks > 0) && (body_marks <= GLOB.marking_styles_list.len))
+		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, length(GLOB.marking_styles_list))
+		if((body_marks > 0) && (body_marks <= length(GLOB.marking_styles_list)))
 			H.m_styles["body"] = GLOB.marking_styles_list[body_marks]
 		//Tail Markings
-		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, GLOB.marking_styles_list.len)
-		if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))
+		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, length(GLOB.marking_styles_list))
+		if((tail_marks > 0) && (tail_marks <= length(GLOB.marking_styles_list)))
 			H.m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
+
+		// Physique (examine fluff)
+		var/new_physique = dna.GetUIValueRange(DNA_UI_PHYSIQUE, length(GLOB.character_physiques))
+		if(ISINDEXSAFE(GLOB.character_physiques, new_physique))
+			H.physique = GLOB.character_physiques[new_physique]
+
+		// Height (examine fluff)
+		var/new_height = dna.GetUIValueRange(DNA_UI_HEIGHT, length(GLOB.character_heights))
+		if(ISINDEXSAFE(GLOB.character_heights, new_height))
+			H.height = GLOB.character_heights[new_height]
 
 		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, length(GLOB.body_accessory_by_name))
 		if(bodyacc > 0 && bodyacc <= length(GLOB.body_accessory_by_name))
@@ -197,16 +213,24 @@
 /datum/dna/proc/write_head_attributes(obj/item/organ/external/head/head_organ)
 
 	//Hair
-	var/hair = GetUIValueRange(DNA_UI_HAIR_STYLE,GLOB.hair_styles_full_list.len)
-	if((hair > 0) && (hair <= GLOB.hair_styles_full_list.len))
+	var/hair = GetUIValueRange(DNA_UI_HAIR_STYLE,length(GLOB.hair_styles_full_list))
+	if((hair > 0) && (hair <= length(GLOB.hair_styles_full_list)))
 		head_organ.h_style = GLOB.hair_styles_full_list[hair]
 
 	head_organ.hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_B, 255))
 	head_organ.sec_hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_B, 255))
 
+	//Hair Gradient
+	var/gradient = GetUIValueRange(DNA_UI_HAIR_GRADIENT_STYLE, length(GLOB.hair_gradients_list))
+	if(ISINDEXSAFE(GLOB.hair_gradients_list, gradient))
+		head_organ.h_grad_style = GLOB.hair_gradients_list[gradient]
+		head_organ.h_grad_offset_x = GetUIValueRange(DNA_UI_HAIR_GRADIENT_X, 32) - 16
+		head_organ.h_grad_offset_y = GetUIValueRange(DNA_UI_HAIR_GRADIENT_Y, 32) - 16
+
+	head_organ.h_grad_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR_GRADIENT_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_GRADIENT_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_GRADIENT_B, 255))
 	//Facial Hair
-	var/beard = GetUIValueRange(DNA_UI_BEARD_STYLE,GLOB.facial_hair_styles_list.len)
-	if((beard > 0) && (beard <= GLOB.facial_hair_styles_list.len))
+	var/beard = GetUIValueRange(DNA_UI_BEARD_STYLE,length(GLOB.facial_hair_styles_list))
+	if((beard > 0) && (beard <= length(GLOB.facial_hair_styles_list)))
 		head_organ.f_style = GLOB.facial_hair_styles_list[beard]
 
 	head_organ.facial_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_BEARD_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD_B, 255))
@@ -255,6 +279,10 @@
 		head_organ.f_style = "Shaved"
 	var/beard	= GLOB.facial_hair_styles_list.Find(head_organ.f_style)
 
+	if(!head_organ.h_grad_style)
+		head_organ.h_grad_style = "None"
+	var/gradient = GLOB.hair_gradients_list.Find(head_organ.h_grad_style)
+
 	// Head Accessory
 	if(!head_organ.ha_style)
 		head_organ.ha_style = "None"
@@ -279,8 +307,16 @@
 	SetUIValueRange(DNA_UI_HACC_G,		color2G(head_organ.headacc_colour),		255,	 1)
 	SetUIValueRange(DNA_UI_HACC_B,		color2B(head_organ.headacc_colour),		255,	 1)
 
-	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		GLOB.hair_styles_full_list.len,		 1)
-	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		GLOB.facial_hair_styles_list.len,	 1)
+	SetUIValueRange(DNA_UI_HAIR_GRADIENT_R,		color2R(head_organ.h_grad_colour),		255,	 1)
+	SetUIValueRange(DNA_UI_HAIR_GRADIENT_G,		color2G(head_organ.h_grad_colour),		255,	 1)
+	SetUIValueRange(DNA_UI_HAIR_GRADIENT_B,		color2B(head_organ.h_grad_colour),		255,	 1)
+
+	SetUIValueRange(DNA_UI_HAIR_GRADIENT_X,		head_organ.h_grad_offset_x + 16,		32,	 1)
+	SetUIValueRange(DNA_UI_HAIR_GRADIENT_Y,		head_organ.h_grad_offset_y + 16,		32,	 1)
+
+	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		length(GLOB.hair_styles_full_list),		 1)
+	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		length(GLOB.facial_hair_styles_list),	 1)
+	SetUIValueRange(DNA_UI_HAIR_GRADIENT_STYLE,	gradient,		length(GLOB.hair_gradients_list),	 1)
 
 	var/list/available = character.generate_valid_head_accessories()
 	SetUIValueRange(DNA_UI_HACC_STYLE, available.Find(head_organ.ha_style), max(length(available), 1), 1)

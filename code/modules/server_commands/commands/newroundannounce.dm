@@ -8,7 +8,7 @@
 
 	var/startup_msg = "The server <code>[server_name] ([source])</code> is now starting up. The map is [map_fluff] ([map_name]). You can connect with the <code>Switch Server</code> verb."
 
-	to_chat(world, "<center><span class='boldannounce'><big>Attention</big></span></center><hr>[startup_msg]<hr>")
+	to_chat(world, "<center><span class='boldannounceooc'><big>Attention</big></span></center><hr>[startup_msg]<hr>")
 	SEND_SOUND(world, sound('sound/misc/notice2.ogg')) // Same as captains priority announce
 
 /datum/server_command/new_round_announce/custom_dispatch(sname, mname, mfluff)

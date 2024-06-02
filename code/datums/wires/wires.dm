@@ -2,6 +2,8 @@
 /datum/wires
 	/// TRUE if the wires will be different every time a new wire datum is created.
 	var/randomize = FALSE
+	/// TRUE if the wires are labelled for every user
+	var/labelled = FALSE
 	/// The atom the wires belong too. For example: an airlock.
 	var/atom/holder
 	/// The holder type; used to make sure that the holder is the correct type.
@@ -19,10 +21,6 @@
 	var/list/colors
 	/// An associative list of signalers attached to the wires. The wire color is the key, and the signaler object reference is the value.
 	var/list/assemblies
-	/// The width of the wire TGUI window.
-	var/window_x = 300
-	/// The height of the wire TGUI window. Will get longer as needed, based on the `wire_count`.
-	var/window_y = 100
 
 /datum/wires/New(atom/_holder)
 	..()
@@ -92,10 +90,13 @@
 /datum/wires/ui_host()
 	return holder
 
-/datum/wires/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/wires/ui_state(mob/user)
+	return GLOB.physical_state
+
+/datum/wires/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Wires", "[proper_name] wires", window_x, window_y + wire_count * 30, master_ui, state)
+		ui = new(user, src, "Wires", "[proper_name] wires")
 		ui.open()
 
 /datum/wires/ui_data(mob/user)
@@ -105,7 +106,8 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(eyes && HAS_TRAIT(H, TRAIT_COLORBLIND)) // Check if the human has colorblindness.
+		var/obj/item/clothing/glasses/glasses = H.get_item_by_slot(SLOT_HUD_GLASSES)
+		if(eyes && HAS_TRAIT(H, TRAIT_COLORBLIND) && (!glasses || !glasses.correct_wires)) // Check if the human has colorblindness.
 			replace_colors = eyes.replace_colours // Get the colorblind replacement colors list.
 
 	var/list/wires_list = list()
@@ -282,6 +284,8 @@
 	var/can_probably_see_wires = FALSE
 	var/obj/item/held_item = user.get_active_hand()
 	var/obj/item/offhand = user.get_inactive_hand()
+	if(labelled)
+		can_probably_see_wires = TRUE
 	if(istype(held_item) && HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO))
 		can_probably_see_wires = TRUE
 	if(istype(offhand) && HAS_TRAIT(offhand, TRAIT_SHOW_WIRE_INFO))

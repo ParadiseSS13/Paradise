@@ -25,7 +25,7 @@
 	var/internals_slot = null //ID of slot containing a gas tank
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
 	var/box // Internals box. Will be inserted at the start of backpack_contents
-	var/list/implants = list()
+	var/list/bio_chips = list()
 	var/list/cybernetic_implants = list()
 	var/list/accessories = list()
 
@@ -50,7 +50,20 @@
 
 /datum/outfit/proc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for toggling internals, id binding, access etc
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	if(visualsOnly)
+		return
+
+	if(H.mind)
+		on_mind_initialize(H)
+		return
+	RegisterSignal(H, COMSIG_MIND_INITIALIZE, PROC_REF(on_mind_initialize))
+
+// Guaranteed access to mind, will never be called if visualsOnly = TRUE
+/datum/outfit/proc/on_mind_initialize(mob/living/carbon/human/H)
+	SIGNAL_HANDLER // COMSIG_MIND_INITIALIZE
+	SHOULD_CALL_PARENT(TRUE)
+	UnregisterSignal(H, COMSIG_MIND_INITIALIZE) // prevent this call from being called multiple times on a human
 
 /datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	pre_equip(H, visualsOnly)
@@ -136,9 +149,9 @@
 			H.internal = H.get_item_by_slot(internals_slot)
 			H.update_action_buttons_icon()
 
-	if(implants)
-		for(var/implant_type in implants)
-			var/obj/item/implant/I = new implant_type(H)
+	if(bio_chips)
+		for(var/bio_chip_type in bio_chips)
+			var/obj/item/bio_chip/I = new bio_chip_type(H)
 			I.implant(H, null)
 
 	H.update_body()
@@ -232,12 +245,12 @@
 			backpack_contents[itype] = backpack[item]
 	box = text2path(outfit_data["box"])
 
-	var/list/impl = outfit_data["implants"]
-	implants = list()
+	var/list/impl = outfit_data["bio_chips"]
+	bio_chips = list()
 	for(var/I in impl)
 		var/imptype = text2path(I)
 		if(imptype)
-			implants += imptype
+			bio_chips += imptype
 
 	var/list/cybernetic_impl = outfit_data["cybernetic_implants"]
 	cybernetic_implants = list()
@@ -281,7 +294,7 @@
 	.["internals_slot"] = internals_slot
 	.["backpack_contents"] = backpack_contents
 	.["box"] = box
-	.["implants"] = implants
+	.["bio_chips"] = bio_chips
 	.["cybernetic_implants"] = cybernetic_implants
 	.["accessories"] = accessories
 

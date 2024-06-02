@@ -62,6 +62,8 @@
 	var/jitter = 0
 	/// Number of times an object can pass through an object. -1 is infinite
 	var/forcedodge = 0
+	/// Does the projectile increase fire stacks / immolate mobs on hit? Applies fire stacks equal to the number on hit.
+	var/immolate = 0
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/ricochets = 0
@@ -147,7 +149,7 @@
 		if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 
-		W.add_dent(WALL_DENT_SHOT, hitx, hity)
+		W.add_dent(PROJECTILE_IMPACT_WALL_DENT_SHOT, hitx, hity)
 		return 0
 	if(alwayslog)
 		add_attack_logs(firer, target, "Shot with a [type]")
@@ -198,6 +200,9 @@
 				playsound(loc, hitsound, volume, 1, -1)
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+		if(immolate)
+			L.adjust_fire_stacks(immolate)
+			L.IgniteMob()
 
 	var/additional_log_text
 	if(blocked)
@@ -259,7 +264,7 @@
 		if(get_dist(A, original) <= 1)
 			def_zone = ran_zone(def_zone, max(100 - (7 * distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 		else
-			def_zone = pick(list("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg")) // If we were aiming at one target but another one got hit, no accuracy is applied
+			def_zone = pick("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg") // If we were aiming at one target but another one got hit, no accuracy is applied
 
 	if(isturf(A) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
@@ -274,7 +279,10 @@
 
 	var/turf/target_turf = get_turf(A)
 	prehit(A)
-	var/permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
+	var/pre_permutation = A.atom_prehit(src)
+	var/permutation = -1
+	if(pre_permutation != ATOM_PREHIT_FAILURE)
+		permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		if(forcedodge)
 			forcedodge -= 1
@@ -287,7 +295,7 @@
 			var/list/mobs_list = list()
 			for(var/mob/living/L in target_turf)
 				mobs_list += L
-			if(mobs_list.len)
+			if(length(mobs_list))
 				var/mob/living/picked_mob = pick(mobs_list)
 				prehit(picked_mob)
 				picked_mob.bullet_act(src, def_zone)
@@ -521,7 +529,7 @@
 		thing.set_light(muzzle_flash_range, muzzle_flash_intensity, muzzle_flash_color_override? muzzle_flash_color_override : color)
 		QDEL_IN(thing, duration)
 	if(impacting && impact_type && duration > 0)
-		var/datum/point_precise/p = beam_segments[beam_segments[beam_segments.len]]
+		var/datum/point_precise/p = beam_segments[beam_segments[length(beam_segments)]]
 		var/atom/movable/thing = new impact_type
 		p.move_atom_to_src(thing)
 		var/matrix/matrix = new

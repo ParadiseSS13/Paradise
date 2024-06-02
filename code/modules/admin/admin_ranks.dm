@@ -56,7 +56,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	//clear the datums references
 	GLOB.admin_datums.Cut()
 	for(var/client/C in GLOB.admins)
-		C.remove_admin_verbs()
+		C.hide_verbs()
 		C.holder = null
 	GLOB.admins.Cut()
 

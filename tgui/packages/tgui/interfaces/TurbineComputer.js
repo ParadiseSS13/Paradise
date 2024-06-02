@@ -11,7 +11,7 @@ export const TurbineComputer = (props, context) => {
     compressor && !compressor_broken && turbine && !turbine_broken
   );
   return (
-    <Window>
+    <Window width={400} height={200}>
       <Window.Content>
         <Section
           title="Status"

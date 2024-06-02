@@ -68,7 +68,8 @@
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
 
-/obj/effect/clockwork/overlay/floor/bloodcult //this is used by BLOOD CULT, it shouldn't use such a path...
+/// this is used by BLOOD CULT, it shouldn't use such a path...
+/obj/effect/clockwork/overlay/floor/bloodcult
 	icon_state = "cult"
 
 // Wall gears
@@ -204,7 +205,8 @@
 	name = "gear bit"
 	desc = "A broken chunk of a gear. You want it."
 
-/obj/item/clockwork/alloy_shards/medium/gear_bit/large //gives more power
+/// gives more power
+/obj/item/clockwork/alloy_shards/medium/gear_bit/large
 
 /obj/item/clockwork/alloy_shards/medium/gear_bit/large/replace_name_desc()
 	..()

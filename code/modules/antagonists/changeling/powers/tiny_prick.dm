@@ -2,7 +2,7 @@
 	name = "Tiny Prick"
 	desc = "Stabby stabby"
 	power_type = CHANGELING_UNOBTAINABLE_POWER
-	menu_location = CLING_MENU_STINGS
+	category = /datum/changeling_power_category/stings
 	var/sting_icon = null
 	/// A middle click override used to intercept changeling stings performed on a target.
 	var/datum/middleClickOverride/callback_invoker/click_override
@@ -57,7 +57,7 @@
 	if(ismachineperson(target))
 		to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
 		return FALSE
-	if(ischangeling(target))
+	if(IS_CHANGELING(target))
 		sting_feedback(user, target)
 		take_chemical_cost()
 		return FALSE
@@ -67,7 +67,7 @@
 	if(!target)
 		return
 	to_chat(user, "<span class='notice'>We stealthily sting [target.name].</span>")
-	if(ischangeling(target))
+	if(IS_CHANGELING(target))
 		to_chat(target, "<span class='warning'>You feel a tiny prick.</span>")
 		add_attack_logs(user, target, "Unsuccessful sting (changeling)")
 	return TRUE
@@ -127,7 +127,8 @@
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
-/datum/action/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
+/// Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
+/datum/action/changeling/sting/cryo
 	name = "Cryogenic Sting"
 	desc = "We silently sting our victim with a cocktail of chemicals that freezes them from the inside. Costs 15 chemicals."
 	helptext = "Does not provide a warning to the victim, though they will likely realize they are suddenly freezing."
@@ -142,5 +143,22 @@
 	if(target.reagents)
 		target.reagents.add_reagent("frostoil", 30)
 		target.reagents.add_reagent("ice", 30)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
+	return TRUE
+
+/datum/action/changeling/sting/lethargic
+	name = "Lethargic Sting"
+	desc = "We silently sting our victim with a chemical that will gradually drain their stamina. Costs 50 chemicals."
+	helptext = "Does not provide a warning to the victim, though they will quickly realize they have been poisoned."
+	button_icon_state = "sting_lethargic"
+	sting_icon = "sting_lethargic"
+	chemical_cost = 50
+	dna_cost = 4
+	power_type = CHANGELING_PURCHASABLE_POWER
+
+/datum/action/changeling/sting/lethargic/sting_action(mob/user, mob/target)
+	add_attack_logs(user, target, "Lethargic sting (changeling)")
+	if(target.reagents)
+		target.reagents.add_reagent("tirizene", 10)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

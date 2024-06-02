@@ -16,7 +16,7 @@
 	/// Checks if changeling is already spawning a spider
 	var/is_operating = FALSE
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_UTILITY
+	category = /datum/changeling_power_category/utility
 
 /// Makes a spider. Good for setting traps and combat.
 /datum/action/changeling/spiders/sting_action(mob/user)
@@ -51,6 +51,7 @@
 	venom_per_bite = 3
 	speak_chance = 0
 	wander = 0
+	gold_core_spawnable = NO_SPAWN
 	/// To check and gib the spider when dead, then remove only one of the counter for the changeling owner
 	var/gibbed = FALSE
 

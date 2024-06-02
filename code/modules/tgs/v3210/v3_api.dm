@@ -44,14 +44,14 @@
 	return new /datum/tgs_version("3.2.1.3")
 
 /datum/tgs_api/v3210/proc/trim_left(text)
-	for (var/i = 1 to length(text))
-		if (text2ascii(text, i) > 32)
+	for(var/i = 1 to length(text))
+		if(text2ascii(text, i) > 32)
 			return copytext(text, i)
 	return ""
 
 /datum/tgs_api/v3210/proc/trim_right(text)
-	for (var/i = length(text), i > 0, i--)
-		if (text2ascii(text, i) > 32)
+	for(var/i = length(text), i > 0, i--)
+		if(text2ascii(text, i) > 32)
 			return copytext(text, 1, i + 1)
 	return ""
 
@@ -64,17 +64,17 @@
 		instance_name = "TG Station Server" //maybe just upgraded
 
 	var/list/logs = TGS_FILE2LIST(".git/logs/HEAD")
-	if(logs.len)
-		logs = splittext(logs[logs.len], " ")
-		if (logs.len >= 2)
+	if(length(logs))
+		logs = splittext(logs[length(logs)], " ")
+		if(length(logs) >= 2)
 			commit = logs[2]
 		else
 			TGS_ERROR_LOG("Error parsing commit logs")
 
 	logs = TGS_FILE2LIST(".git/logs/refs/remotes/origin/master")
-	if(logs.len)
-		logs = splittext(logs[logs.len], " ")
-		if (logs.len >= 2)
+	if(length(logs))
+		logs = splittext(logs[length(logs)], " ")
+		if(length(logs) >= 2)
 			originmastercommit = logs[2]
 		else
 			TGS_ERROR_LOG("Error parsing origin commmit logs")
@@ -99,7 +99,11 @@
 	if(skip_compat_check && !fexists(SERVICE_INTERFACE_DLL))
 		TGS_ERROR_LOG("Service parameter present but no interface DLL detected. This is symptomatic of running a service less than version 3.1! Please upgrade.")
 		return
-	CALL_EXT(SERVICE_INTERFACE_DLL, SERVICE_INTERFACE_FUNCTION)(instance_name, command) //trust no retval
+	#if DM_VERSION >= 515
+	call_ext(SERVICE_INTERFACE_DLL, SERVICE_INTERFACE_FUNCTION)(instance_name, command) //trust no retval
+	#else
+	call(SERVICE_INTERFACE_DLL, SERVICE_INTERFACE_FUNCTION)(instance_name, command) //trust no retval
+	#endif
 	return TRUE
 
 /datum/tgs_api/v3210/OnTopic(T)
@@ -175,7 +179,7 @@
 /datum/tgs_api/v3210/Revision()
 	if(!warned_revison)
 		var/datum/tgs_version/api_version = ApiVersion()
-		TGS_ERROR_LOG("Use of TgsRevision on [api_version.deprefixed_parameter] origin_commit only points to master!")
+		TGS_WARNING_LOG("Use of TgsRevision on [api_version.deprefixed_parameter] origin_commit only points to master!")
 		warned_revison = TRUE
 	var/datum/tgs_revision_information/ri = new
 	ri.commit = commit
@@ -189,16 +193,19 @@
 /datum/tgs_api/v3210/ChatChannelInfo()
 	return list() // :omegalul:
 
-/datum/tgs_api/v3210/ChatBroadcast(message, list/channels)
+/datum/tgs_api/v3210/ChatBroadcast(datum/tgs_message_content/message, list/channels)
 	if(channels)
 		return TGS_UNIMPLEMENTED
+	message = UpgradeDeprecatedChatMessage(message)
 	ChatTargetedBroadcast(message, TRUE)
 	ChatTargetedBroadcast(message, FALSE)
 
-/datum/tgs_api/v3210/ChatTargetedBroadcast(message, admin_only)
-	ExportService("[admin_only ? SERVICE_REQUEST_IRC_ADMIN_CHANNEL_MESSAGE : SERVICE_REQUEST_IRC_BROADCAST] [message]")
+/datum/tgs_api/v3210/ChatTargetedBroadcast(datum/tgs_message_content/message, admin_only)
+	message = UpgradeDeprecatedChatMessage(message)
+	ExportService("[admin_only ? SERVICE_REQUEST_IRC_ADMIN_CHANNEL_MESSAGE : SERVICE_REQUEST_IRC_BROADCAST] [message.text]")
 
 /datum/tgs_api/v3210/ChatPrivateMessage(message, datum/tgs_chat_user/user)
+	UpgradeDeprecatedChatMessage(message)
 	return TGS_UNIMPLEMENTED
 
 /datum/tgs_api/v3210/SecurityLevel()

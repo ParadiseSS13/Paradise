@@ -10,7 +10,6 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
 /client/proc/freeze(atom/movable/M)
 	set name = "\[Admin\] Freeze"
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -64,8 +63,6 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 	else
 		revive()
 
-/mob/living/simple_animal/var/admin_prev_health = null
-
 /mob/living/simple_animal/admin_Freeze(admin)
 	if(..()) // The result of the parent call here will be the value of the mob's `frozen` variable after they get (un)frozen.
 		admin_prev_health = health
@@ -96,12 +93,12 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 /obj/machinery/atmospherics/supermatter_crystal/admin_Freeze(client/admin)
 	var/obj/effect/overlay/adminoverlay/freeze_overlay = new
 	if(processes)
-		radio.autosay("Alert: Unknown intervention has frozen causality around the crystal. It is not progressing in local timespace.", name, "Engineering", list(z))
+		radio.autosay("Alert: Unknown intervention has frozen causality around the crystal. It is not progressing in local timespace.", name, "Engineering")
 		GLOB.frozen_atom_list += src
 		processes = FALSE
 		add_overlay(freeze_overlay)
 	else
-		radio.autosay("Alert: Unknown intervention has ceased around the crystal. It has returned to the regular flow of time.", name, "Engineering", list(z))
+		radio.autosay("Alert: Unknown intervention has ceased around the crystal. It has returned to the regular flow of time.", name, "Engineering")
 		GLOB.frozen_atom_list -= src
 		processes = TRUE
 		cut_overlay(freeze_overlay)

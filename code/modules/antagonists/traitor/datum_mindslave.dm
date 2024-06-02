@@ -1,3 +1,4 @@
+RESTRICT_TYPE(/datum/antagonist/mindslave)
 
 // For Mindslaves and Zealots
 /datum/antagonist/mindslave
@@ -27,8 +28,11 @@
 	if(owner.som)
 		owner.som.serv -= owner
 		owner.som.leave_serv_hud(owner)
-	// Remove the reference but turn this into a string so it can still be used in /datum/antagonist/mindslave/farewell().
-	master = "[master.current.real_name]"
+	// Remove the master reference but turn this into a string so it can still be used in /datum/antagonist/mindslave/farewell().
+	if(master.current)
+		master = "[master.current.real_name]"
+	else
+		master = "[master]"
 	return ..()
 
 /datum/antagonist/mindslave/on_gain()
@@ -84,7 +88,3 @@
 	slaved.serv -= owner
 	slaved.leave_serv_hud(owner)
 	owner.som = null
-
-// Helper proc that determines if a mob is a mindslave.
-/proc/ismindslave(mob/living/carbon/human/H)
-	return istype(H) && H.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE)

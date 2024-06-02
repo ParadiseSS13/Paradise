@@ -68,7 +68,7 @@
 	if(emagged) // Add an 'Unknown' entry at the end if it's emagged
 		L += "**Unknown**"
 
-	var/select = input("Please select a telepad.", "RCS") in L
+	var/select = tgui_input_list(user, "Please select a telepad.", "RCS", L)
 	if(select == "**Unknown**") // Randomise the teleport location
 		pad = random_coords()
 	else // Else choose the value of the selection
@@ -102,7 +102,7 @@
 		emagged = TRUE
 		do_sparks(3, TRUE, src)
 		to_chat(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
-		return
+		return TRUE
 
 
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)

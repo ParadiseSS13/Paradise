@@ -1,13 +1,12 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
 // Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
-#define UPLINK_SPECIAL_SPAWNING "ONE PINK CHAINSAW PLEASE"
 
 /proc/get_uplink_items(obj/item/uplink/U)
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
-	if(!uplink_items.len)
+	if(!length(uplink_items))
 
 		var/list/last = list()
 		for(var/path in GLOB.uplink_items)
@@ -27,7 +26,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
-			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 5)
+			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
 				sales_items += I
 
 		for(var/datum/uplink_item/I in last)
@@ -80,7 +79,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	/// This makes an item on the uplink only show up to the specified species
 	var/list/species = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
-	var/cant_discount = FALSE
+	var/can_discount = TRUE
 	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
 	var/hijack_only = FALSE //can this item be purchased only during hijackings?
 	var/refundable = FALSE
@@ -134,11 +133,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(limited_stock > 0)
 			limited_stock--
 			log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+			user.create_log(MISC_LOG, "Uplink purchase: [name] was discounted to [cost]tc")
 			if(!user.mind.special_role)
 				message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
 
 		else
 			log_game("[key_name(user)] purchased [name].")
+			user.create_log(MISC_LOG, "Uplink purchase: [name] for [cost]tc")
 			if(!user.mind.special_role)
 				message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
 
@@ -171,10 +172,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Highly Visible and Dangerous Weapons"
 
 /datum/uplink_item/dangerous/pistol
-	name = "FK-69 Pistol Kit"
+	name = "FK-69 Stechkin Pistol"
 	reference = "SPI"
-	desc = "A box containing a small, easily concealable handgun and two eight-round magazines chambered in 10mm auto rounds. Compatible with suppressors."
-	item = /obj/item/storage/box/syndie_kit/stechkin
+	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
+	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20
 
 /datum/uplink_item/dangerous/revolver
@@ -231,6 +232,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/batterer
 	cost = 25
 
+/datum/uplink_item/dangerous/porta_turret
+	name = "Portable Turret"
+	desc = "A pop-up syndicate turret, shoots anyone who didn't prime the grenade. The turret cannot be moved after it's deployed."
+	reference = "MIS"
+	item = /obj/item/grenade/turret
+	cost = 20
+
 // Ammunition
 
 /datum/uplink_item/ammo
@@ -258,7 +266,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
 	reference = "10MMFIRE"
 	item = /obj/item/ammo_box/magazine/m10mm/fire
-	cost = 6
+	cost = 9
 	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolhp
@@ -266,7 +274,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
 	reference = "10MMHP"
 	item = /obj/item/ammo_box/magazine/m10mm/hp
-	cost = 6
+	cost = 7
 	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/revolver
@@ -365,8 +373,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
 	item = /obj/item/toy/plushie/carpplushie/dehy_carp
-	cost = 5
+	cost = 4
 
+/datum/uplink_item/stealthy_weapons/knuckleduster
+	name = "Syndicate Knuckleduster"
+	desc = "A straightforward and fairly concealable melee weapon for bludgeoning someone to death in brutal fashion. This one is designed specifically to cause severe organ damage to the victim."
+	reference = "SKD"
+	item = /obj/item/melee/knuckleduster/syndie
+	cost = 10
+	can_discount = FALSE
 
 // GRENADES AND EXPLOSIVES
 
@@ -375,7 +390,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/plastic_explosives
 	name = "Composition C-4"
-	desc = "C-4 is plastic explosive of the common variety Composition C. Reliably destroys the object it's placed on, assuming it isn't bomb resistant. Does not stick to crewmembers. Will only destroy station floors if placed directly on it. It has a modifiable timer with a minimum setting of 10 seconds."
+	desc = "C-4 is plastic explosive of the common variety Composition C. Reliably destroys the object it's placed on, assuming it isn't bomb resistant. Remarkably good for disposing bodies, or tired crewmates. Will only destroy station floors if placed directly on it. It has a modifiable timer with a minimum setting of 10 seconds."
 	reference = "C4"
 	item = /obj/item/grenade/plastic/c4
 	cost = 5
@@ -430,6 +445,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "EMPK"
 	item = /obj/item/storage/box/syndie_kit/emp
 	cost = 10
+
+/datum/uplink_item/explosives/emp/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 3
 
 // STEALTHY TOOLS
 
@@ -520,6 +540,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	surplus = 30
 
+/datum/uplink_item/stealthy_tools/emplight/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 2.5
+
 /datum/uplink_item/stealthy_tools/cutouts
 	name = "Adaptive Cardboard Cutouts"
 	desc = "These cardboard cutouts are coated with a thin material that prevents discoloration and makes the images on them appear more lifelike. This pack contains three as well as a \
@@ -579,10 +604,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 
 /datum/uplink_item/device_tools/bonerepair
-	name = "Prototype Nanite Autoinjector Kit"
-	desc = "Stolen prototype full body repair nanites. Contains one prototype nanite autoinjector and guide."
+	name = "Prototype Nanite Autoinjector"
+	desc = "Stolen prototype full body repair nanites. On injection it will shut down body systems as it revitilizes limbs and organs. Heals organics organs, cybernetic organs, and limbs to fully operational conditions."
 	reference = "NCAI"
-	item = /obj/item/storage/box/syndie_kit/bonerepair
+	item = /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	cost = 10
 
 /datum/uplink_item/device_tools/syndicate_teleporter
@@ -596,7 +621,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 40
 
-
+/datum/uplink_item/device_tools/organ_extractor
+	name = "Organ Extractor"
+	desc = "A device that can remove organs or cybernetic implants from a target, and stores them inside. \
+	Stored organs can be implanted into the user, or into other targets. Synthesizes chemicals to keep the organs fresh."
+	reference = "OREX"
+	item = /obj/item/organ_extractor
+	cost = 20
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
@@ -636,6 +667,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/mod/module/plate_compression
 	cost = 10
 
+/datum/uplink_item/suits/chameleon_module
+	name = "MODsuit Chameleon Module"
+	desc = "A module using chameleon technology to disguise an undeployed modsuit as another object. Note: the disguise will not work once the modsuit is deployed, but can be toggled again when retracted."
+	reference = "MSCM"
+	item = /obj/item/mod/module/chameleon
+	cost = 10
+
 /datum/uplink_item/suits/noslip
 	name = "MODsuit Anti-Slip Module"
 	desc = "A MODsuit module preventing the user from slipping on water. Already installed in the uplink modsuits."
@@ -664,6 +702,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "HHM"
 	item = /obj/item/mod/module/holster/hidden
 	cost = 5
+	surplus = 10
+
+/datum/uplink_item/suits/smoke_grenade
+	name = "Smoke Grenade Module"
+	desc = "A module that dispenses primed smoke grenades to disperse crowds."
+	reference = "SGM"
+	item = /obj/item/mod/module/dispenser/smoke
+	cost = 10
 	surplus = 10
 
 /datum/uplink_item/device_tools/binary
@@ -707,7 +753,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/device_tools/advpinpointer
 	name = "Advanced Pinpointer"
@@ -733,57 +779,104 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 // IMPLANTS
 
-/datum/uplink_item/implants
-	category = "Implants"
+/datum/uplink_item/bio_chips
+	category = "Bio-chips"
 
-/datum/uplink_item/implants/freedom
+/datum/uplink_item/bio_chips/freedom
 	name = "Freedom Bio-chip"
 	desc = "A bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can be activated up to 4 times."
 	reference = "FI"
-	item = /obj/item/implanter/freedom
+	item = /obj/item/bio_chip_implanter/freedom
 	cost = 25
 
-/datum/uplink_item/implants/protofreedom
+/datum/uplink_item/bio_chips/protofreedom
 	name = "Prototype Freedom Bio-chip"
 	desc = "A prototype bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can only be activated a singular time."
 	reference = "PFI"
-	item = /obj/item/implanter/freedom/prototype
+	item = /obj/item/bio_chip_implanter/freedom/prototype
 	cost = 10
 
-/datum/uplink_item/implants/storage
+/datum/uplink_item/bio_chips/storage
 	name = "Storage Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated at the user's will. It will open a small subspace pocket capable of storing two items."
 	reference = "ESI"
-	item = /obj/item/implanter/storage
+	item = /obj/item/bio_chip_implanter/storage
 	cost = 40
 
-/datum/uplink_item/implants/mindslave
+/datum/uplink_item/bio_chips/mindslave
 	name = "Mindslave Bio-chip"
 	desc = "A box containing a bio-chip implanter filled with a mindslave bio-chip that when injected into another person makes them loyal to you and your cause, unless of course they're already implanted by someone else. Loyalty ends if the implant is no longer in their system."
 	reference = "MI"
-	item = /obj/item/implanter/traitor
+	item = /obj/item/bio_chip_implanter/traitor
 	cost = 50
 
-/datum/uplink_item/implants/adrenal
+/datum/uplink_item/bio_chips/proto_adrenal
+	name = "Proto-Adrenal Bio-chip"
+	desc = "A old prototype of the Adrenalin implant, that grants the user 4 seconds of antistun, getting them back on their feet instantly once, but nothing more. Speed and healing sold seperately."
+	reference = "PAI"
+	item = /obj/item/bio_chip_implanter/proto_adrenalin
+	cost = 18
+
+/datum/uplink_item/bio_chips/adrenal
 	name = "Adrenal Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has a mild healing effect along with removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "AI"
-	item = /obj/item/implanter/adrenalin
+	item = /obj/item/bio_chip_implanter/adrenalin
 	cost = 40
 
-/datum/uplink_item/implants/stealthimplant
+/datum/uplink_item/bio_chips/stealthimplant
 	name = "Stealth Bio-chip"
 	desc = "This one-of-a-kind implant will make you almost invisible if you play your cards right. \
 			On activation, it will conceal you inside a chameleon cardboard box that is only revealed once someone bumps into it."
 	reference = "SI"
-	item = /obj/item/implanter/stealth
+	item = /obj/item/bio_chip_implanter/stealth
 	cost = 45
+
+// CYBERNETICS
+
+/datum/uplink_item/cyber_implants
+	category = "Cybernetic Implants"
+
+/datum/uplink_item/cyber_implants/hackerman_deck
+	name = "Binyat Wireless Hacking System Autoimplanter"
+	desc = "This implant will allow you to wirelessly emag from a distance. However, it will slightly burn you \
+	on use, and will be quite visual as you are emaging the object. \
+	Will not show on unupgraded body scanners. Incompatible with the Qani-Laaca Sensory Computer."
+	reference = "HKR"
+	item = /obj/item/autosurgeon/organ/syndicate/hackerman_deck
+	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
+
+/datum/uplink_item/cyber_implants/razorwire
+	name = "Razorwire Spool Arm Implant Autoimplanter"
+	desc = "A long length of monomolecular filament, built into the back of your hand. \
+		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
+		even from a few steps away. However, results against anything more durable will heavily vary."
+	reference = "RZR"
+	item = /obj/item/autosurgeon/organ/syndicate/razorwire
+	cost = 20
+
+/datum/uplink_item/cyber_implants/scope_eyes
+	name = "Hardened Kaleido Optics Eyes Autoimplanter"
+	desc = "These cybernetic eye implants will let you zoom in on far away objects. \
+	Many users find it disorienting, and find it hard to interact with things near them when active. \
+	This pair has been hardened for special operations personnel."
+	reference = "KOE"
+	item = /obj/item/autosurgeon/organ/syndicate/scope_eyes
+	cost = 20
+
 
 // POINTLESS BADASSERY
 
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
 	surplus = 0
+
+/datum/uplink_item/badass/pen
+	name = "Syndicate Fountain Pen"
+	desc = "A slick Syndicate-branded pen, to show everyone at the meeting that you mean business."
+	reference = "PEN"
+	item = /obj/item/pen/multi/syndicate
+	cost = 1
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
@@ -806,7 +899,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "BABA"
 	item = /obj/item/toy/syndicateballoon
 	cost = 100
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/badass/bomber
 	name = "Syndicate Bomber Jacket"
@@ -825,7 +918,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC
 	category = "Bundles and Telecrystals"
 	surplus = 0
-	cant_discount = TRUE
+	can_discount = FALSE
 
 /datum/uplink_item/bundles_TC/telecrystal
 	name = "Raw Telecrystal"
