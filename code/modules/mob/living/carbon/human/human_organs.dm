@@ -25,7 +25,6 @@
 			if((E.status & ORGAN_BURNT) && !(E.status & ORGAN_SALVED))
 				E.custom_pain("You feel the skin sloughing off the burn on your [E.name]!")
 				if(!HAS_TRAIT(src, TRAIT_NOPAIN) && world.time >= next_pain_time) //No pain, no gain
-					message_admins("Sanity check for salved wounds")
 					if(prob(65)) //More likely for a non-audible emote to prevent spam
 						custom_emote(EMOTE_VISIBLE, "clutches the charred flesh on [p_their()] [E.name]!")
 					else
