@@ -475,6 +475,12 @@
 		if(length(SSticker.mode.eventmiscs))
 			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
 
+		if(length(SSticker.mode.zombies))
+			dat += check_role_table("Zombies", SSticker.mode.zombies)
+
+		if(length(SSticker.mode.zombie_infected))
+			dat += check_role_table_mob("Pre-zombie infected", SSticker.mode.zombie_infected)
+
 		if(length(GLOB.ts_spiderlist))
 			var/list/spider_minds = list()
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
@@ -533,4 +539,11 @@
 		"}
 
 	txt += "</tr>"
+	return txt
+
+/datum/admins/proc/check_role_table_mob(name, list/members, show_objectives=1)
+	var/txt = "<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>"
+	for(var/mob/M in members)
+		txt += check_role_table_row(M, show_objectives)
+	txt += "</table>"
 	return txt

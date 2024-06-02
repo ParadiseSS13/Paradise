@@ -36835,7 +36835,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "cai" = (
-/obj/item/flag/nt,
+/obj/machinery/suit_storage_unit/blueshield/secure,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "caj" = (

@@ -115,6 +115,7 @@
 				var/obj/item/organ/external/chest = owner.get_organ(BODY_ZONE_CHEST)
 				chest.fracture()
 				chest.droplimb()
+				chest.open = ORGAN_ORGANIC_VIOLENT_OPEN
 			else //If we are discovered mid-surgery
 				owner.adjustBruteLoss(40)
 			SSblackbox.record_feedback("tally", "alien_growth", 1, "hatched_eggs")

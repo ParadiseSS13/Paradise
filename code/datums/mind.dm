@@ -421,6 +421,16 @@
 
 	. += _memory_edit_role_enabled(ROLE_ABDUCTOR)
 
+/datum/mind/proc/memory_edit_zombie(mob/living/H)
+	. = _memory_edit_header("zombie", list())
+	if(has_antag_datum(/datum/antagonist/zombie))
+		. += "<a href='byond://?src=[UID()];zombie=clear'>no</a>|<b><font color='red'>ZOMBIE</font></b>"
+		return
+	if(current.HasDisease(/datum/disease/zombie))
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirusno'><font color='red'>dis-infect</font></a>"
+	else
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirus'>infect</a>"
+
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
 	if(src in SSticker.mode.eventmiscs)
@@ -550,6 +560,8 @@
 		sections["nuclear"] = memory_edit_nuclear(H)
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
+		/** Zombies **/
+		sections["zombie"] = memory_edit_zombie(H)
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
@@ -1176,6 +1188,45 @@
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
 				log_admin("[key_name(usr)] has eventantag'ed [current].")
 				current.create_log(MISC_LOG, "[current] was made into an event antagonist by [key_name_admin(usr)]")
+
+	else if(href_list["zombie"])
+		switch(href_list["zombie"])
+			if("clear")
+				if(!has_antag_datum(/datum/antagonist/zombie))
+					return
+				remove_antag_datum(/datum/antagonist/zombie)
+				for(var/datum/disease/zombie/D in current.viruses)
+					D.cure()
+				if(ishuman(current))
+					var/mob/living/carbon/human/human_current = current
+					for(var/obj/item/organ/limb as anything in human_current.bodyparts)
+						if(limb.status & ORGAN_DEAD && !limb.is_robotic())
+							limb.status &= ~ORGAN_DEAD
+					human_current.update_body()
+				message_admins("[key_name_admin(usr)] has de-zombied'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has de-zombied'ed [key_name(current)].")
+			if("zombie")
+				if(has_antag_datum(/datum/antagonist/zombie))
+					return
+				add_antag_datum(/datum/antagonist/zombie)
+				message_admins("[key_name_admin(usr)] has zombie'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has zombie'ed [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was made into an zombie by [key_name_admin(usr)]")
+			if("zombievirus")
+				if(has_antag_datum(/datum/antagonist/zombie) || !ishuman(current))
+					return
+				current.AddDisease(new /datum/disease/zombie)
+				message_admins("[key_name_admin(usr)] has given a zombie virus to [key_name(current)].")
+				log_admin("[key_name(usr)] has given a zombie virus to [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was admin-infected with a zombie virus by [key_name_admin(usr)]")
+			if("zombievirusno")
+				if(has_antag_datum(/datum/antagonist/zombie))
+					return
+				for(var/datum/disease/zombie/D in current.viruses)
+					D.cure()
+				message_admins("[key_name_admin(usr)] has removed the zombie virus from [key_name(current)].")
+				log_admin("[key_name(usr)] has removed the zombie virus from [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] had their zombie virus admin-removed by [key_name_admin(usr)]")
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
