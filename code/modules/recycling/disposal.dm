@@ -236,29 +236,29 @@
 	if(isanimal(user) && target != user)
 		return //animals cannot put mobs other than themselves into disposal
 	src.add_fingerprint(user)
-	for(var/mob/V in viewers(usr))
+	for(var/mob/V in viewers(user))
 		if(target == user && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
-			V.show_message("[usr] starts climbing into the disposal.", 3)
+			V.show_message("[user] starts climbing into the disposal.", 3)
 		if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 			if(target.anchored) return
-			V.show_message("[usr] starts stuffing [target.name] into the disposal.", 3)
+			V.show_message("[user] starts stuffing [target.name] into the disposal.", 3)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disposal, put_in), target, user)
 	return TRUE
 
 /obj/machinery/disposal/proc/put_in(mob/living/target, mob/living/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	var/msg
 	var/target_loc = target.loc
-	if(!do_after(usr, 20, target = target))
+	if(!do_after(user, 20, target = target))
 		return
 	if(QDELETED(src) || target_loc != target.loc)
 		return
 	if(target == user && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())	// if drop self, then climbed in
 											// must be awake, not stunned or whatever
-		msg = "[user.name] climbs into [src]."
-		to_chat(user, "You climb into [src].")
+		msg = "[user.name] climbs into the disposal unit."
+		to_chat(user, "You climb into the disposal unit.")
 	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
-		msg = "[user.name] stuffs [target.name] into [src]!"
-		to_chat(user, "You stuff [target.name] into [src]!")
+		msg = "[user.name] stuffs [target.name] into the disposal unit!"
+		to_chat(user, "You stuff [target.name] into the disposal unit!")
 		if(!iscarbon(user))
 			target.LAssailant = null
 		else
@@ -388,14 +388,14 @@
 	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	user.visible_message(
-		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
-		"<span class='notice'>You operate the manual ejection lever on [src].</span>",
+		"<span class='notice'>[user] tries to eject the contents of the disposal unit manually.</span>",
+		"<span class='notice'>You operate the manual ejection lever on the disposal unit.</span>",
 		"<span class='notice'>You hear a lever being pulled.</span>"
 	)
 	if(do_after(user, 5 SECONDS, target = src))
 		user.visible_message(
-			"<span class='notice'>[user] ejects the contents of [src].</span>",
-			"<span class='notice'>You eject the contents of [src].</span>",
+			"<span class='notice'>[user] ejects the contents of the disposal unit.</span>",
+			"<span class='notice'>You eject the contents of the disposal unit.</span>",
 			"<span class='notice'>You hear sudden gush of air and the clattering of objects.</span>"
 		)
 		eject()
