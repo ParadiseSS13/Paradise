@@ -245,7 +245,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			return
 		ghostize(TRUE)
 		return
-	if(isbrain(M))
+	if(isbrain(M) && isturf(M.loc))
 		// let a brain ghost out if they want to, but also let them freely re-enter their brain.
 		ghostize(TRUE)
 		log_admin("[key_name(M)] has ghosted as a brain-mob, and is keeping respawnability.")
