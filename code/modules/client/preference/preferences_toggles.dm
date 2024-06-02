@@ -219,7 +219,7 @@
 	. = ..()
 	usr.hud_used?.update_parallax_pref()
 
-/datum/preference_toggle/toggle_parallax_in_darkness
+/datum/preference_toggle/toggle_strip_tgui_size
 	name = "Toggle TGUI strip menu size"
 	description = "Toggles TGUI strip menu size between miniature and full-size."
 	preftoggle_bitflag = PREFTOGGLE_2_BIG_STRIP_MENU
