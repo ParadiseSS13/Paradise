@@ -6,5 +6,5 @@
 /datum/modpack/clothing/initialize()
 	. = ..()
 	GLOB.cloth_recipes += list(
-		new /datum/stack_recipe("полотенце", /obj/item/clothing/under/towel_long, 4, time = 1 SECONDS)
+		new /datum/stack_recipe("полотенце", /obj/item/clothing/under/towel/long, 4, time = 1 SECONDS)
 	)

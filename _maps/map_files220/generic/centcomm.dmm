@@ -21450,7 +21450,7 @@
 	req_access = null
 	},
 /obj/item/clothing/head/towel/orange,
-/obj/item/clothing/under/towel_long/orange,
+/obj/item/clothing/under/towel/long/orange,
 /obj/item/megaphone{
 	pixel_y = 5;
 	color = "#ffea2e"

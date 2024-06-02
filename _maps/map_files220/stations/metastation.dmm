@@ -17175,7 +17175,7 @@
 /obj/machinery/light_switch/east{
 	pixel_y = -6
 	},
-/obj/item/clothing/under/towel_long_alt/blue{
+/obj/item/clothing/under/towel/long/alt/blue{
 	pixel_y = -5
 	},
 /obj/item/clothing/head/towel/blue{
@@ -23169,11 +23169,11 @@
 "bEr" = (
 /obj/structure/dresser,
 /obj/structure/sign/poster/official/random/south,
-/obj/item/clothing/under/towel_long{
+/obj/item/clothing/under/towel/long{
 	pixel_x = -7;
 	pixel_y = -3
 	},
-/obj/item/clothing/under/towel_short{
+/obj/item/clothing/under/towel/short{
 	pixel_x = 8;
 	pixel_y = -5
 	},
@@ -57273,7 +57273,7 @@
 /obj/structure/dresser,
 /obj/machinery/light/small/directional/north,
 /obj/machinery/newscaster/directional/north,
-/obj/item/clothing/under/towel_long/green{
+/obj/item/clothing/under/towel/long/green{
 	pixel_y = -5
 	},
 /obj/item/clothing/head/towel/green{

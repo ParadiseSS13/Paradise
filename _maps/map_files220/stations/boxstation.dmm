@@ -53624,7 +53624,7 @@
 	pixel_x = -8;
 	id = "CMO_Bed"
 	},
-/obj/item/clothing/under/towel_long_alt/cyan{
+/obj/item/clothing/under/towel/long/alt/cyan{
 	pixel_y = -5;
 	pixel_x = -7
 	},
@@ -61173,18 +61173,18 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/clothing/under/towel_long_alt/red{
+/obj/item/clothing/under/towel/long/alt/red{
 	pixel_x = -8;
 	pixel_y = -5
 	},
-/obj/item/clothing/under/towel_long/red{
+/obj/item/clothing/under/towel/long/red{
 	pixel_x = -8
 	},
-/obj/item/clothing/under/towel_short_alt/red{
+/obj/item/clothing/under/towel/short/alt/red{
 	pixel_x = 8;
 	pixel_y = -8
 	},
-/obj/item/clothing/under/towel_short/red{
+/obj/item/clothing/under/towel/short/red{
 	pixel_x = 8;
 	pixel_y = -3
 	},
@@ -65122,7 +65122,7 @@
 	pixel_y = 14
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/item/clothing/under/towel_long/blue,
+/obj/item/clothing/under/towel/long/blue,
 /obj/item/clothing/head/towel/blue,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
@@ -69242,7 +69242,7 @@
 /obj/machinery/door_control/shutter/west{
 	id = "hos_secure_doors"
 	},
-/obj/item/clothing/under/towel_long_alt/red,
+/obj/item/clothing/under/towel/long/alt/red,
 /obj/item/clothing/head/towel/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -80297,7 +80297,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/item/clothing/under/towel_long_alt/blue{
+/obj/item/clothing/under/towel/long/alt/blue{
 	pixel_y = -5
 	},
 /obj/item/clothing/head/towel/blue{
@@ -92305,11 +92305,11 @@
 "uCJ" = (
 /obj/machinery/light/small/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/item/clothing/under/towel_short_alt{
+/obj/item/clothing/under/towel/short/alt{
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/clothing/under/towel_short{
+/obj/item/clothing/under/towel/short{
 	pixel_y = 10;
 	pixel_x = 5
 	},
@@ -97789,11 +97789,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "wEb" = (
-/obj/item/clothing/under/towel_long{
+/obj/item/clothing/under/towel/long{
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/obj/item/clothing/under/towel_long_alt{
+/obj/item/clothing/under/towel/long/alt{
 	pixel_y = 10;
 	pixel_x = -5
 	},
