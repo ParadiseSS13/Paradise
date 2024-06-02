@@ -321,6 +321,7 @@
 
 	// Make each item scatter a bit
 	for(var/obj/item/I in oldContents)
+		I.forceMove(M)
 		spawn()
 			for(var/i = 1, i <= rand(1,2), i++)
 				if(I)
