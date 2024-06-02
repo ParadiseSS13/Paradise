@@ -77,9 +77,9 @@
 	growthstages = 3
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list("psilocybin" = 0.04, "nutriment" = 0, "amanitin" = 0.3)
+	reagents_add = list("psilocybin" = 0.04, "nutriment" = 0, "nothing" = 0.2, "phalloidin" = 0.2)
 	rarity = 30
-	origin_tech = "biotech=5"
+	origin_tech = "biotech=6" // as useful as ambrosia gaia, and quicker to get - but you have to leave traitor tools lying around...
 
 /obj/item/food/snacks/grown/mushroom/angel
 	seed = /obj/item/seeds/angel

@@ -401,13 +401,15 @@
 	color = "#000000"
 	taste_description = "dust"
 	goal_difficulty = REAGENT_GOAL_EASY
+	unable_to_purge = TRUE
+
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(-1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
-			if(R != src)
+			if(R != src && !R.unable_to_purge) // should we make purging chemicals also immune to purges? I don't think anything bad would come of stacking calomel, charcoal, and pentetic
 				M.reagents.remove_reagent(R.id,1)
 	return ..() | update_flags
 
@@ -490,11 +492,13 @@
 	harmless = FALSE
 	taste_description = "a painful cleansing"
 	goal_difficulty = REAGENT_GOAL_EASY
+	unable_to_purge = TRUE
+
 
 /datum/reagent/medicine/calomel/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
+		if(R != src && !R.unable_to_purge)
 			M.reagents.remove_reagent(R.id,5)
 	if(M.health > 20)
 		update_flags |= M.adjustToxLoss(5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -524,11 +528,12 @@
 	harmless = FALSE
 	taste_description = "a purge"
 	goal_difficulty = REAGENT_GOAL_HARD
+	unable_to_purge = TRUE
 
 /datum/reagent/medicine/pen_acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
+		if(R != src && !R.unable_to_purge)
 			M.reagents.remove_reagent(R.id,4)
 	M.radiation = max(0, M.radiation-70)
 	if(prob(75))
@@ -1262,7 +1267,7 @@
 	color = "#FFDCFF"
 	taste_description = "stability"
 	harmless = FALSE
-	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc", "mephedrone")
+	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc", "mephedrone", "phalloidin")
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
@@ -1381,7 +1386,7 @@
 	if(prob(50))
 		M.AdjustConfused(-10 SECONDS)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
+		if(R != src && !R.unable_to_purge)
 			if(R.id == "ultralube" || R.id == "lube")
 				//Flushes lube and ultra-lube even faster than other chems
 				M.reagents.remove_reagent(R.id, 5)

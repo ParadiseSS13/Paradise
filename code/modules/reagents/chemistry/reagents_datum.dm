@@ -37,6 +37,8 @@
 	var/taste_description = "metaphorical salt"
 	/// how quickly the addiction threshold var decays
 	var/addiction_decay_rate = 0.01
+	var/invisible_to_scanners = FALSE // If TRUE, this cannot be detected inside a body with the advanced health scanner's reagent scan
+	var/unable_to_purge = FALSE // If TRUE, this cannot be purged with mercury, calomel, or charcoal
 
 	// Which department's (if any) reagent goals this is eligible for.
 	// Must match the values used by request consoles.

@@ -913,6 +913,20 @@
 	M.adjustToxLoss(current_cycle*rand(2,4))
 	..()
 
+/datum/reagent/phalloidin
+	name = "Phalloidin"
+	id = "phalloidin"
+	description = "A toxin produced by Destroying Angel mushrooms that breaks down into very deadly amanitoxins."
+	reagent_state = LIQUID
+	color = "#E7E7E7"
+	taste_mult = 0
+	invisible_to_scanners = TRUE
+	unable_to_purge = TRUE
+
+/datum/reagent/phalloidin/on_mob_delete(mob/living/M)
+    M.reagents.add_reagent("amanitin", current_cycle*rand(2,4))
+	..()
+
 /datum/reagent/lipolicide
 	name = "Lipolicide"
 	id = "lipolicide"
