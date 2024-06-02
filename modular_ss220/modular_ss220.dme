@@ -55,7 +55,6 @@
 #include "donor/_donor.dme"
 #include "emotes/_emotes.dme"
 #include "events/_events.dme"
-#include "fullscreen/_fullscreen.dme"
 #include "gunhud/_gunhud.dme"
 #include "jobs/_jobs.dme"
 #include "jukebox/_jukebox.dme"

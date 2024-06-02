@@ -106930,7 +106930,7 @@
 /turf/simulated/floor/plating,
 /area/station/medical/patients_rooms)
 "wuQ" = (
-/obj/item/flag/nt,
+/obj/machinery/suit_storage_unit/blueshield/secure,
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 1
 	},

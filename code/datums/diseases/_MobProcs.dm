@@ -8,7 +8,7 @@
 
 
 /mob/proc/CanContractDisease(datum/disease/D)
-	if(stat == DEAD)
+	if(stat == DEAD && !D.allow_dead)
 		return FALSE
 
 	if(D.GetDiseaseID() in resistances)
@@ -30,6 +30,7 @@
 	if(!CanContractDisease(D))
 		return 0
 	AddDisease(D)
+	return TRUE
 
 
 /mob/proc/AddDisease(datum/disease/D, respect_carrier = FALSE)
@@ -127,6 +128,7 @@
 
 	if(passed)
 		AddDisease(D)
+	return passed
 
 
 /**

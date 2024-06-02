@@ -29180,12 +29180,8 @@
 /turf/simulated/wall,
 /area/station/service/janitor)
 "cmT" = (
-/obj/item/reagent_containers/drinks/drinkingglass,
-/obj/item/reagent_containers/drinks/drinkingglass,
-/obj/item/reagent_containers/drinks/bottle/whiskey,
-/obj/item/reagent_containers/drinks/drinkingglass,
-/obj/structure/closet/cabinet,
 /obj/machinery/light/directional/east,
+/obj/machinery/suit_storage_unit/blueshield/secure,
 /turf/simulated/floor/wood/oak,
 /area/station/command/office/blueshield)
 "cmU" = (
@@ -29729,7 +29725,11 @@
 	},
 /area/station/medical/virology)
 "cpm" = (
-/obj/item/flag/nt,
+/obj/item/reagent_containers/drinks/drinkingglass,
+/obj/item/reagent_containers/drinks/drinkingglass,
+/obj/item/reagent_containers/drinks/bottle/whiskey,
+/obj/item/reagent_containers/drinks/drinkingglass,
+/obj/structure/closet/cabinet,
 /turf/simulated/floor/wood/oak,
 /area/station/command/office/blueshield)
 "cpn" = (
