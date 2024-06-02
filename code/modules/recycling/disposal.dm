@@ -1,10 +1,14 @@
-// Disposal bin
-// Holds items for disposal into pipe system
-// Draws air from turf, gradually charges internal reservoir
-// Once full (~1 atm), uses air resv to flush items into the pipes
-// Automatically recharges air (unless off), will flush when ready if pre-set
-// Can hold items and human size things, no other draggables
-// Toilets are a type of disposal bin for small objects only and work on magic. By magic, I mean torque rotation
+////////////////////////////////////////
+// MARK: Disposal unit
+////////////////////////////////////////
+/*
+* Holds items for disposal into pipe system
+* Draws air from turf, gradually charges internal reservoir
+* Once full (~1 atm), uses air resv to flush items into the pipes
+* Automatically recharges air (unless off), will flush when ready if pre-set
+* Can hold items and human size things, no other draggables
+* Toilets are a type of disposal bin for small objects only and work on magic. By magic, I mean torque rotation
+*/
 #define SEND_PRESSURE 0.05*ONE_ATMOSPHERE
 
 /obj/machinery/disposal
@@ -22,15 +26,23 @@
 	active_power_consumption = 600
 	idle_power_consumption = 100
 
-	var/datum/gas_mixture/air_contents	// internal reservoir
-	var/mode = 1	// item mode 0=off 1=charging 2=charged
-	var/flush = 0	// true if flush handle is pulled
-	var/obj/structure/disposalpipe/trunk/trunk = null // the attached pipe trunk
-	var/flushing = 0	// true if flushing in progress
-	var/flush_every_ticks = 30 //Every 30 ticks it will look whether it is ready to flush
-	var/flush_count = 0 //this var adds 1 once per tick. When it reaches flush_every_ticks it resets and tries to flush.
+	/// Internal gas reservoir.
+	var/datum/gas_mixture/air_contents
+	/// 0 = OFF, 1 = Recharging, 2 = Charged.
+	var/mode = 1
+	/// Has the flush handle been pulled?
+	var/flush = FALSE
+	/// The attached pipe trunk.
+	var/obj/structure/disposalpipe/trunk/trunk = null
+	/// Is the disposals bin flushing right now?
+	var/flushing = FALSE
+	/// After the specified number of ticks, the disposals bin will check if it is ready to flush.
+	var/flush_every_ticks = 30
+	/// Counter that increments by 1 per tick. Resets when it reaches the value of flush_every_ticks and attempts to perform a flush.
+	var/flush_count = 0
 	var/last_sound = 0
 	var/required_mode_to_deconstruct = -1
+	/// What does this drop when deconstructed?
 	var/deconstructs_to = PIPE_DISPOSALS_BIN
 
 /obj/machinery/disposal/proc/trunk_check()
@@ -103,32 +115,55 @@
 			return
 		if((S.allow_quick_empty || S.allow_quick_gather) && length(S.contents))
 			S.hide_from(user)
-			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
+			user.visible_message(
+				"<span class='notice'>[user] empties \the [S] into [src].</span>",
+				"<span class='notice'>You empty \the [S] into [src].</span>",
+				"<span class='notice'>You hear someone emptying something full of smaller objects out into \a [src].</span>"
+				)
 			for(var/obj/item/O in S.contents)
 				S.remove_from_storage(O, src)
 			S.update_icon() // For content-sensitive icons
 			update()
 			return
 
+	// Borg using their gripper to throw stuff away.
+	if(istype(I, /obj/item/gripper/))
+		var/obj/item/gripper/gripper = I
+		// Gripper is empty.
+		if(!gripper.gripped_item)
+			to_chat(user, "<span class='warning'>You're not holding anything!</span>")
+			return
+		gripper.gripped_item.forceMove(src)
+		user.visible_message(
+			"<span class='notice'>[user] places [gripper.gripped_item] into [src].</span>", 
+			"<span class='notice'>You place [gripper.gripped_item] into [src].</span>",
+			"<span class='notice'>You hear someone dropping something into \a [src].</span>"
+			)
+		return
+
 	var/obj/item/grab/G = I
 	if(istype(G))	// handle grabbed mob
 		if(ismob(G.affecting))
 			var/mob/GM = G.affecting
-			for(var/mob/V in viewers(usr))
-				V.show_message("[usr] starts putting [GM] into the disposal.", 3)
-			if(do_after(usr, 20, target = GM))
+			for(var/mob/V in viewers(user))
+				V.show_message("[user] starts putting [GM] into the disposal.", 3)
+			if(do_after(user, 20, target = GM))
 				GM.forceMove(src)
 				for(var/mob/C in viewers(src))
 					C.show_message("<span class='warning'>[GM] has been placed in [src] by [user].</span>", 3)
 				qdel(G)
-				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
+				add_attack_logs(user, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
 
 	if(!user.drop_item() || QDELETED(I))
 		return
 
 	I.forceMove(src)
-	user.visible_message("[user] places [I] into [src].", "You place [I] into [src].")
+	user.visible_message(
+		"<span class='notice'>[user] places [I] into [src].</span>",
+		"<span class='notice'>You place [I] into [src].</span>",
+		"<span class='notice'>You hear someone dropping something into \a [src].</span>"
+		)
 	update()
 
 
@@ -342,12 +377,14 @@
 		return
 	user.visible_message(
 		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
-		"<span class='notice'>You operate the manual ejection lever on [src].</span>"
+		"<span class='notice'>You operate the manual ejection lever on [src].</span>",
+		"<span class='notice'>You hear a lever being pulled.</span>"
 	)
 	if(do_after(user, 5 SECONDS, target = src))
 		user.visible_message(
 			"<span class='notice'>[user] ejects the contents of [src].</span>",
-			"<span class='notice'>You eject the contents of [src].</span>"
+			"<span class='notice'>You eject the contents of [src].</span>",
+			"<span class='notice'>You hear sudden gush of air and the clattering of objects.</span>"
 		)
 		eject()
 
@@ -720,7 +757,9 @@
 	air_update_turf()
 	return
 
-// Disposal pipes
+////////////////////////////////////////
+// MARK: Disposals pipes
+////////////////////////////////////////
 
 /obj/structure/disposalpipe
 	icon = 'icons/obj/pipes/disposal.dmi'
@@ -1013,7 +1052,9 @@
 /obj/structure/disposalpipe/segment/corner
 	icon_state = "pipe-c"
 
-//a three-way junction with dir being the dominant direction
+////////////////////////////////////////
+// MARK: Disposals junction
+////////////////////////////////////////
 /obj/structure/disposalpipe/junction
 	icon_state = "pipe-j1"
 
@@ -1062,7 +1103,9 @@
 		else
 			return mask & (~setbit)
 
-//a three-way junction that sorts objects
+////////////////////////////////////////
+// MARK: Sorting junction
+////////////////////////////////////////
 /obj/structure/disposalpipe/sortjunction
 	name = "disposal sort junction"
 	icon_state = "pipe-j1s"
@@ -1197,7 +1240,9 @@
 
 	return P
 
-
+////////////////////////////////////////
+// MARK: Wrap sort junction
+////////////////////////////////////////
 //a three-way junction that sorts objects destined for the mail office mail table (tomail = 1)
 /obj/structure/disposalpipe/wrapsortjunction
 	desc = "An underfloor disposal pipe which sorts wrapped and unwrapped objects."
@@ -1363,7 +1408,9 @@
 	else
 		return 0
 
-// a broken pipe
+////////////////////////////////////////
+// MARK: Broken pipe
+////////////////////////////////////////
 /obj/structure/disposalpipe/broken
 	icon_state = "pipe-b"
 	dpdir = 0		// broken pipes have dpdir=0 so they're not found as 'real' pipes
@@ -1382,8 +1429,9 @@
 		qdel(src)
 		return TRUE
 
-// the disposal outlet machine
-
+////////////////////////////////////////
+// MARK: Disposals outlet
+////////////////////////////////////////
 /obj/structure/disposaloutlet
 	name = "disposal outlet"
 	desc = "An outlet for the pneumatic disposal system."
