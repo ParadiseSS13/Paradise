@@ -3,7 +3,7 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	face_while_pulling = TRUE
-	flags_2 = RICOCHET_HARD
+	flags_ricochet = RICOCHET_HARD
 	receive_ricochet_chance_mod = 0.6
 	var/climbable
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.

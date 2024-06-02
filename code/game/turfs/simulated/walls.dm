@@ -23,7 +23,9 @@
 	blocks_air = TRUE
 	explosion_block = 1
 
-	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 | RICOCHET_HARD
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	flags_ricochet = RICOCHET_HARD
+
 	rad_insulation = RAD_MEDIUM_INSULATION
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT

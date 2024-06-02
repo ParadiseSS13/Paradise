@@ -504,10 +504,10 @@
 	return FALSE
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if((flag in list(ENERGY, LASER)) && (A.flags_2 & RICOCHET_SHINY))
+	if((flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 
-	if((flag in list(BOMB, BULLET)) && (A.flags_2 & RICOCHET_HARD))
+	if((flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
 		return TRUE
 
 	return FALSE

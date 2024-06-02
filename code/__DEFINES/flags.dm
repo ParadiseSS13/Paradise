@@ -58,27 +58,29 @@
 // LAVA_PROTECT used on the flags_2 variable for both SUIT and HEAD items, and stops lava damage. Must be present in both to stop lava damage.
 #define LAVA_PROTECT_2				(1<<11)
 #define OVERLAY_QUEUED_2			(1<<12)
-/// If the thing can reflect light (lasers/energy)
-#define RICOCHET_SHINY 				(1<<13)
-/// If the thing can reflect matter (bullets/bomb shrapnel)
-#define RICOCHET_HARD 				(1<<14)
 /// should the contents of this atom be acted upon
-#define RAD_PROTECT_CONTENTS_2		(1<<15)
+#define RAD_PROTECT_CONTENTS_2		(1<<13)
 /// should this object be allowed to be contaminated
-#define RAD_NO_CONTAMINATE_2		(1<<16)
+#define RAD_NO_CONTAMINATE_2		(1<<14)
 /// Prevents shuttles from deleting the item
-#define IMMUNE_TO_SHUTTLECRUSH_2 	(1<<17)
+#define IMMUNE_TO_SHUTTLECRUSH_2 	(1<<15)
 /// Prevents malf AI animate + overload ability
-#define NO_MALF_EFFECT_2			(1<<18)
+#define NO_MALF_EFFECT_2			(1<<16)
 /// Use when this shouldn't be obscured by large icons.
-#define CRITICAL_ATOM_2				(1<<19)
+#define CRITICAL_ATOM_2				(1<<17)
 /// Use this flag for items that can block randomly
-#define RANDOM_BLOCKER_2			(1<<20)
+#define RANDOM_BLOCKER_2			(1<<18)
 /// This flag allows for wearing of a belt item, even if you're not wearing a jumpsuit
-#define ALLOW_BELT_NO_JUMPSUIT_2	(1<<21)
+#define ALLOW_BELT_NO_JUMPSUIT_2	(1<<19)
+
+// /atom ricochet flags
+/// If the thing can reflect light (lasers/energy)
+#define RICOCHET_SHINY	(1<<0)
+/// If the thing can reflect matter (bullets/bomb shrapnel)
+#define RICOCHET_HARD 	(1<<1)
 
 //Reagent flags
-#define REAGENT_NOREACT			1
+#define REAGENT_NOREACT	(1<<0)
 
 //Species clothing flags
 #define HAS_UNDERWEAR	(1<<0)

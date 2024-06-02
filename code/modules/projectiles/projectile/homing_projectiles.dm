@@ -46,13 +46,15 @@
 
 /obj/item/projectile/homing/magic/toolbox/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
-	var/obj/item/storage/toolbox/T = new /obj/item/storage/toolbox(get_turf(src)) /// ===CHUGAFIX=== this is not the Way To Do This
+	var/obj/item/storage/toolbox/T = new /obj/item/storage/toolbox(get_turf(src))
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/E = pick(H.bodyparts)
+
 		T.embedding = list(embed_chance = 100, ignore_throwspeed_threshold = TRUE, impact_pain_mult = 1, pain_chance = 5)
 		T.update_embedding()
 		T.try_embed(target = E, forced = TRUE)
+		// make sure it doesn't stay a 100% embed chance toolbox after falling out
 		T.embedding = list()
 		T.update_embedding()
 

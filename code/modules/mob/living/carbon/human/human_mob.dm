@@ -2019,3 +2019,19 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		message += "\tI could make [result.gender == PLURAL ? "some" : "a"] [bicon(result)] <b>[result.name]</b> by using \a [possible_recipes[recipe]] with [english_list(ingredient_list)][length(required_reagents) ? ", along with [english_list(required_reagents)]" : ""]."
 		qdel(recipe)
 	to_chat(src, chat_box_examine(message.Join("<br>")))
+
+/mob/living/carbon/human/proc/remove_embedded_object(obj/item/embedded)
+	SEND_SIGNAL(src, COMSIG_CARBON_EMBED_REMOVAL, embedded)
+
+//Remove all embedded objects from all limbs on the human mob
+/mob/living/carbon/human/proc/remove_all_embedded_objects()
+	for(var/obj/item/organ/external/limb as anything in bodyparts) // ===CHUGAFIX=== make sure this anything cast doesn't cause ISSUES!
+		for(var/obj/item/embedded in limb.embedded_objects)
+			remove_embedded_object(embedded)
+
+/mob/living/carbon/human/proc/has_embedded_objects(include_harmless=FALSE)
+	for(var/obj/item/organ/external/limb as anything in bodyparts)
+		for(var/obj/item/embedded in limb.embedded_objects)
+			if(!include_harmless && embedded.is_embed_harmless())
+				continue
+			return TRUE

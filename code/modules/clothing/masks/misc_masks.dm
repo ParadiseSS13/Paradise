@@ -98,7 +98,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	mute = MUZZLE_MUTE_MUFFLE
 	resist_time = 30 SECONDS
-	strip_delay = 50
+	strip_delay = 5 SECONDS
 	///Dertermines whether the tape piece does damage when ripped off of someone.
 	var/harmful_strip = FALSE
 	///The ammount of damage dealt when the tape piece is ripped off of someone.
@@ -133,7 +133,7 @@
 
 	to_chat(victim, span_userdanger("[attacker] is attempting to tape your mouth closed!"))
 
-	if(!do_after(attacker, 5 SECONDS, target = victim)) // ===CHUGAFIX=== equip_delay_other = 50
+	if(!do_after(attacker, strip_delay, target = victim)) // ===CHUGAFIX=== equip_delay_other = 50
 		return
 
 	if(victim.wear_mask)

@@ -24,7 +24,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "magspear"
 	damage = 14
-	range = 20 // ===CHUGAFIX=== Contra's version had a range of 5 - might want to keep.
+	range = 20
 	dismemberment = 5
 	ricochets_max = 2
 	ricochet_chance = 70

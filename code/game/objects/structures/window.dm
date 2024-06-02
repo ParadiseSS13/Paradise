@@ -7,7 +7,8 @@
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE
 	flags = ON_BORDER
-	flags_2 = RAD_PROTECT_CONTENTS_2 | RICOCHET_HARD
+	flags_2 = RAD_PROTECT_CONTENTS_2
+	flags_ricochet = RICOCHET_HARD
 	can_be_unanchored = TRUE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
@@ -464,7 +465,6 @@
 	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
 		shattered = TRUE
 		var/obj/item/shard = new shardtype(loc)
-		// ===CHUGAFIX=== is this list access going to runtime ever?
 		shard.embedding["ignore_throwspeed_threshold"] = TRUE
 		shard.throw_impact(C)
 		shard.embedding["ignore_throwspeed_threshold"] = FALSE

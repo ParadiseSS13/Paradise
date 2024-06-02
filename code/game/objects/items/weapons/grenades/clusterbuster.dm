@@ -9,7 +9,6 @@
 	name = "clusterbang"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang"
-	//item_state = "flashbang" /// ===CHUGAFIX=== still needed? probably not!
 	/// Base icon_state of the entire
 	var/base_state = "clusterbang"
 	/// The payload type that's delivered by each segment

@@ -61,7 +61,7 @@
 	brute_resist = 0.5
 	explosion_block = 2
 	point_return = 9
-	flags_2 = RICOCHET_SHINY
+	flags_ricochet = RICOCHET_SHINY
 
 /obj/structure/blob/shield/reflective/handle_ricochet(obj/item/projectile/P)
 	var/turf/p_turf = get_turf(P)

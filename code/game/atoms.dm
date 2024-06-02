@@ -2,8 +2,12 @@
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	var/level = 2
+
 	var/flags = NONE
 	var/flags_2 = NONE
+	/// ricochet behavior flags
+	var/flags_ricochet = NONE
+
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null

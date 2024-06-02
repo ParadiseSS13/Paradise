@@ -267,7 +267,6 @@
 				hit_part = null //so the visible_message later on doesn't generate extra text.
 			else
 				target = hit_part.owner
-				// ===CHUGAFIX=== might be useful to aggregate and snowflake the wound roll here because IB and bonebreaks are going to be almost guaranteed for >2 pellets.
 
 		var/limb_hit_text = ""
 		if(hit_part)

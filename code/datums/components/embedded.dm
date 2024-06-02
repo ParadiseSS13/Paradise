@@ -28,7 +28,7 @@
 	var/obj/item/organ/external/limb
 	var/obj/item/weapon
 
-	// all of this stuff is explained in _DEFINES/combat.dm ===CHUGAFIX===
+	// all of this stuff is explained in _DEFINES/combat.dm
 	var/embed_chance // not like we really need it once we're already stuck in but hey
 	var/fall_chance
 	var/pain_chance

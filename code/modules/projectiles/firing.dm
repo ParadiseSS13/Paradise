@@ -26,7 +26,16 @@
 
 	return TRUE
 
-/// ===CHUGAFIX=== document this
+/**
+ * Transfers user and target data to projectile
+ *
+ * Arguments:
+ * - [target][/atom]: The thing that the projectile will be aimed at.
+ * - [user][/mob/living/user]: mob responsible for firing the ammo casing
+ * - quiet: chat message suppression flag
+ * - zone_override: (Optional) def_zone target override
+ * - [firer_source_atom][/atom]: the gun or object that is firing the projectile
+ */
 /obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/firer_source_atom)
 	if(!BB)
 		return
