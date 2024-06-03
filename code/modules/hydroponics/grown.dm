@@ -205,9 +205,7 @@
 
 	add_attack_logs(user, target, "[what_done] ([reagent_str] | [genes_str])")
 
-/obj/item/food/snacks/grown/extinguish_light(force = FALSE)
-	if(!force)
-		return
+/obj/item/food/snacks/grown/extinguish_light(force)
 	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
 		return
 	set_light(0)
@@ -232,3 +230,13 @@
 		return
 	if(user.plant_analyzer)
 		send_plant_details(user)
+
+/obj/item/food/snacks/grown/fire_act()
+	if(!..()) //Checks for if its unburnable
+		return
+	if(!reagents)
+		return
+	var/datum/effect_system/smoke_spread/bad/smoke = new()
+	var/smokes_to_make = clamp(round(reagents.total_volume / 10), 1, 10) //Each grown object can make up to 10 smokes each but the global limit stops it from getting too laggy
+	smoke.set_up(smokes_to_make, FALSE, src, null, reagents)
+	smoke.start()

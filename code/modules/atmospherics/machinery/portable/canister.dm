@@ -302,6 +302,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	return attack_hand(user)
 
 /obj/machinery/atmospherics/portable/canister/attack_ghost(mob/user)
+	if(..())
+		return
 	return ui_interact(user)
 
 /obj/machinery/atmospherics/portable/canister/attack_hand(mob/user)

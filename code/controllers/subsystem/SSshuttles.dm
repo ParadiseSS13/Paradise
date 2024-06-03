@@ -38,6 +38,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/custom_escape_shuttle_loading = FALSE
 	/// Whether or not a shuttle is currently being loaded at the template landmark, if it exists.
 	var/loading_shuttle_at_preview_template = FALSE
+	/// Have we locked in the emergency shuttle, to prevent people from breaking things / wasting player money?
+	var/emergency_locked_in = FALSE
 
 /datum/controller/subsystem/shuttle/Initialize()
 	if(!emergency)
@@ -316,6 +318,8 @@ SUBSYSTEM_DEF(shuttle)
 	if(loading_shuttle_at_preview_template)
 		CRASH("A shuttle was already loading at the preview template when another was loaded")
 
+	S.preload()
+
 	loading_shuttle_at_preview_template = TRUE
 	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import"))
 	S.load(landmark_turf, centered = TRUE)
@@ -377,6 +381,8 @@ SUBSYSTEM_DEF(shuttle)
 		timer = emergency.timer
 		mode = emergency.mode
 		dock = emergency.get_docked()
+		if(!dock) //lance moment
+			dock = getDock("emergency_away")
 	else
 		dock = loaded_shuttle.findRoundstartDock()
 

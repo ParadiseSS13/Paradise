@@ -37,6 +37,10 @@
 #define SLOT_HUD_COLLAR 23
 #define SLOT_HUD_AMOUNT 23
 
+// Boolean defines for hands
+#define HAND_BOOL_RIGHT 0
+#define HAND_BOOL_LEFT 1
+
 // accessory slots
 #define ACCESSORY_SLOT_DECOR 1
 #define ACCESSORY_SLOT_UTILITY 2

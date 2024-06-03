@@ -54,7 +54,7 @@
 /datum/reagent/space_drugs/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Druggy(30 SECONDS)
-	if(isturf(M.loc) && !isspaceturf(M.loc))
+	if(isturf(M.loc) && !isspaceturf(M.loc) && M.mob_has_gravity(M.loc))
 		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
@@ -190,7 +190,7 @@
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
 		M.emote(pick("laugh", "giggle"))
-	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+	if(prob(2.5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>You feel warm.</span>") // fever, gets worse with volume
 		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
 		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)) //let us see how this feels
@@ -398,7 +398,7 @@
 	update_flags |= M.adjustStaminaLoss(-30, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
-	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+	if(prob(7 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 		M.adjust_nutrition(-25)
 	return ..() | update_flags
@@ -453,7 +453,7 @@
 	taste_description = "WAAAAGH"
 	var/bonus_damage = 2
 	goal_department = "Science"
-	goal_difficulty = REAGENT_GOAL_HARD
+	goal_difficulty = REAGENT_GOAL_EXCESSIVE
 
 /datum/reagent/bath_salts/on_mob_add(mob/living/L)
 	if(ishuman(L))
@@ -596,8 +596,8 @@
 	// you can take 7 disabler shots (30 base * 0.5 stam mod = 15 stam damage each, 7 shots to 105 which is stamina crit. but you can heal 6 in 3 cycles) before going down.
 	// Strong combined with another drug, but frankly I could do meth crank hydro for a better mix. Will be interesting with batons?
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
-	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
-		update_flags |= M.adjustToxLoss(4, FALSE) //This does toxin damage. This kills any chem mixes, which could be considered a good thing, but it is a drug that MUST be combined with other drugs. I want to turn this down, but someone will just iv drip a certian bar drink
+	if(prob(3 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+		update_flags |= M.adjustToxLoss(4, FALSE) //This does toxin damage. This kills any chem mixes, which could be considered a good thing, but it is a drug that MUST be combined with other drugs.
 	if(prob(5))
 		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
 	if(prob(8))
@@ -828,8 +828,9 @@
 
 // Mephedrone.
 
-#define CONSTANT_DOSE_SAFE_LIMIT 60
-#define CONSTANT_DOSE_DEATH_LIMIT 600
+// These defines are in CYCLES
+#define CONSTANT_DOSE_SAFE_LIMIT 30
+#define CONSTANT_DOSE_DEATH_LIMIT 300
 
 #define MEPHEDRONE_SCREEN_FILTER "mephedrone_screen_filter"
 #define MEPHEDRONE_SCREEN_BLUR "mephedrone_screen_blur"
@@ -850,12 +851,10 @@
 	metabolization_rate = 0.375 * REAGENTS_METABOLISM
 	overdose_threshold = 15
 	addiction_chance = 3
-	addiction_threshold = 15
+	addiction_threshold = 20 //High chance so higher threshold
 	shock_reduction = 40 // Slight shock reduction to assist with damage / disablers
 	allowed_overdose_process = TRUE
 	process_flags = ORGANIC | SYNTHETIC
-	/// How much time has the drug been in them?
-	var/constant_dose_time = 0
 	/// Keeps track of how many chemicals we are delaying the changeling by.
 	var/changeling_chemical_tracker = 0
 	goal_department = "Science"
@@ -883,7 +882,7 @@
 
 	game_plane_master_controller.add_filter(MEPHEDRONE_SCREEN_BLUR, 1, list("type" = "radial_blur", "size" = 0.02))
 
-	if(!ischangeling(L) || HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED))
+	if(!IS_CHANGELING(L) || HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED))
 		return
 	var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 	cling.chem_recharge_slowdown += 1
@@ -901,33 +900,33 @@
 	if(overdosed)
 		UnregisterSignal(L, COMSIG_ATOM_PREHIT)
 
-	if(ischangeling(L))
+	if(IS_CHANGELING(L))
 		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		cling.chem_recharge_slowdown -= changeling_chemical_tracker
 		changeling_chemical_tracker = 0
 
-	if(constant_dose_time < CONSTANT_DOSE_SAFE_LIMIT) // Anything less than this and you'll come out fiiiine, aside from a big hit of stamina damage
+	if(current_cycle < CONSTANT_DOSE_SAFE_LIMIT) // Anything less than this and you'll come out fiiiine, aside from a big hit of stamina damage
 		L.visible_message(
 			"<span class='danger'>[L] suddenly slows from their inhuman speeds, coming back with a wicked nosebleed!</span>",
 			"<span class='danger'>You suddenly slow back to normal, a stream of blood gushing from your nose!</span>")
-		L.adjustStaminaLoss(constant_dose_time)
+		L.adjustStaminaLoss(current_cycle * 2)
 	else // Much longer than that however, and you're not gonna have a good day
 		L.visible_message(
 			"<span class='danger'>[L] suddenly snaps back from their inhumans speeds, coughing up a spray of blood!</span>",
 			"<span class='danger'>As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader.</span>")
 		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
 		L.bleed(25)
-		L.apply_damage(max(constant_dose_time / 3, 60), STAMINA)
-		L.KnockDown((constant_dose_time / 15) SECONDS) // a minute is a 4 second knockdown, 2 is 8, etc
-		if(!HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED) || constant_dose_time >= CONSTANT_DOSE_DEATH_LIMIT) //If you are going infinite with mito and you run out, you deserve this even with an implant
+		L.apply_damage(max(current_cycle * 2 / 3, 60), STAMINA)
+		L.KnockDown((current_cycle * 2 / 15) SECONDS) // a minute is a 4 second knockdown, 2 is 8, etc
+		if(!HAS_TRAIT(L, TRAIT_MEPHEDRONE_ADAPTED) || current_cycle >= CONSTANT_DOSE_DEATH_LIMIT) //If you are going infinite with mito and you run out, you deserve this even with an implant
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
 				var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
 				if(datum_heart)
 					var/obj/item/organ/internal/our_heart = datum_heart.linked_organ
-					our_heart.receive_damage(0.15 * constant_dose_time, TRUE) // Basically you might die. Especially if you are a slime.
+					our_heart.receive_damage(0.15 * current_cycle * 2, TRUE) // Basically you might die. Especially if you are a slime.
 				else
-					handle_heartless(L, 0.15 * constant_dose_time)
+					handle_heartless(L, 0.15 * current_cycle * 2)
 
 
 	if(!L.hud_used)
@@ -995,8 +994,6 @@
 /datum/reagent/mephedrone/on_mob_life(mob/living/carbon/L)
 	. = ..()
 
-	constant_dose_time += 2
-
 	if(ishuman(L))
 		var/heart_damage = 0.1
 		if(L.reagents.has_reagent("methamphetamine")) //We want people to use something other than meth, since meths downside is knockdowns / be orginal
@@ -1014,7 +1011,7 @@
 	RegisterSignal(L, COMSIG_ATOM_PREHIT, PROC_REF(dodge_bullets))
 
 	L.next_move_modifier -= 0.2 // Overdosing makes you a liiitle faster but you know has some really bad consequences
-	if(ischangeling(L))
+	if(IS_CHANGELING(L))
 		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		cling.chem_recharge_slowdown += 1
 		changeling_chemical_tracker += 1
@@ -1036,7 +1033,7 @@
 
 	L.next_move_modifier += 0.2
 
-	if(ischangeling(L))
+	if(IS_CHANGELING(L))
 		var/datum/antagonist/changeling/cling = L.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling_chemical_tracker > 0) //Just in case this gets called somehow after on_remove is done
 			cling.chem_recharge_slowdown -= 1
@@ -1083,17 +1080,17 @@
 	update_flags |= L.adjustToxLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-//This proc is for IPCS, skeletons, golems, and people with corazone. IPCS are treated lightly, power loss and brain damage.
-//IPC brain damage gets an increase with liquid solder, so it matters
+//This proc is for IPCS, skeletons, golems, and people with corazone. IPCS are treated lightly, power loss and brute on OD. Used to be brain damage but new brain damage is much deadlier and ipcs would fall asleep in the middle of using the drug
+//IPC brute damage scales over time. Endleslly running an OD on this will not work well. Theoretically they could run a low dose well, but over 10 minutes will make them explode on wear off.
 //Otherwise, the user hallucinates a bunch, and as well takes stamina damage. This will block passive stamina regen, and most likely require antistun drugs to use as well
 
 /datum/reagent/mephedrone/proc/handle_heartless(mob/living/carbon/L, damage_input)
 	if(ismachineperson(L))
-		L.adjust_nutrition(-damage_input * 7.5)
-		if(damage_input == 0.9) //This is the input from the OD
-			L.adjustBrainLoss(1.75)
-			if(L.reagents.has_reagent("liquid_solder"))
-				L.adjustBrainLoss(2.75)
+		if(damage_input >= 0.9) //This is the input from the OD
+			L.adjustBruteLoss((1 + (current_cycle * (damage_input + 0.1) / 100)), TRUE) //Yes, this means an IPC on this drug for 10+ minutes, that has it wear off, will instantly lego. That is funny.
+			L.adjust_nutrition(-damage_input * 3.75) // I don't think they should have to charge like twice in the middle of combat. Still will need to charge after however!
+		else
+			L.adjust_nutrition(-damage_input * 15)
 	else //Corazone or skeletons. We go hard on them.
 		L.Hallucinate(damage_input * 50 SECONDS)
 		L.apply_damage(damage_input * 3, STAMINA)
@@ -1163,7 +1160,7 @@
 	update_flags |= M.adjustStaminaLoss(-40, FALSE)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
-	if(prob(12 * DRAWBACK_CHANCE_MODIFIER(recent_consumption))) // slightly higher prob than meth due to the no nutrition thing
+	if(prob(6 * DRAWBACK_CHANCE_MODIFIER(recent_consumption))) // slightly higher prob than meth due to the no nutrition thing
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 
 	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
@@ -1230,7 +1227,7 @@
 		if(prob(10))
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
+	if(prob(2.5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
 		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
 		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2))

@@ -664,10 +664,6 @@ h2.alert {
   color: #7c4848;
 }
 
-.zombie {
-  color: #ff0000;
-}
-
 .soghun {
   color: #228b22;
 }
@@ -767,6 +763,16 @@ h2.alert {
   color: #960000;
   font-weight: bold;
   font-size: 200%;
+}
+
+.zombie {
+  color: #7c4848;
+}
+
+.zombielarge {
+  color: #7c4848;
+  font-weight: bold;
+  font-size: 120%;
 }
 
 .interface {
@@ -1079,4 +1085,30 @@ span.body .coderesponses {
 
 .boxed_message.thick_border {
   border-width: thick;
+}
+
+/* GASES */
+
+.oxygen {
+  color: #006adb;
+}
+
+.nitrogen {
+  color: #d00a06;
+}
+
+.carbon_dioxide {
+  color: #1f1f1f;
+}
+
+.plasma {
+  color: #853c00;
+}
+
+.sleeping_agent {
+  color: #e82f2c;
+}
+
+.agent_b {
+  color: #004d4d;
 }

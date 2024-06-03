@@ -8,6 +8,8 @@
 	var/creates_cover = FALSE
 	var/mob/living/climber
 	var/broken = FALSE
+	/// How long this takes to unbuckle yourself from.
+	var/unbuckle_time = 0 SECONDS
 
 /obj/structure/New()
 	..()

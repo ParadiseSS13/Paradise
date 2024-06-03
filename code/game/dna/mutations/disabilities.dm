@@ -232,7 +232,7 @@
 //////////////////
 
 ////////////////////////////////////////
-// Totally Crippling
+// MARK: Totally Crippling
 ////////////////////////////////////////
 
 // WAS: /datum/bioEffect/mute
@@ -252,7 +252,7 @@
 	return ""
 
 ////////////////////////////////////////
-// Harmful to others as well as self
+// MARK: Harmful to everyone
 ////////////////////////////////////////
 
 /datum/mutation/disability/radioactive
@@ -283,7 +283,7 @@
 	return "rads_s"
 
 ////////////////////////////////////////
-// Other disabilities
+// MARK: Other disabilities
 ////////////////////////////////////////
 
 // WAS: /datum/bioEffect/fat
@@ -447,7 +447,7 @@
 	return "[prefix][uppertext(jointext(rearranged," "))]!!"
 
 //////////////////
-// USELESS SHIT //
+// MARK: USELESS SHIT
 //////////////////
 
 // WAS: /datum/bioEffect/strong

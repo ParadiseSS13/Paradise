@@ -276,7 +276,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(.)
 		return
 	// If the target is a changeling, then it's an invalid target. Since changelings can not be debrained.
-	if(ischangeling(possible_target.current))
+	if(IS_CHANGELING(possible_target.current))
 		return TARGET_INVALID_CHANGELING
 
 /datum/objective/debrain/update_explanation_text()
@@ -813,5 +813,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/wizchaos
 	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
+	needs_target = FALSE
+	completed = TRUE
+
+/datum/objective/zombie
+	explanation_text = "Hunger grows within us, we need to feast on the brains of the uninfected. Scratch, bite, and spread the plague."
 	needs_target = FALSE
 	completed = TRUE

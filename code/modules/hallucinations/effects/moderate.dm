@@ -234,7 +234,7 @@
 /obj/effect/hallucination/delamination_alarm/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 	target.playsound_local(target, 'sound/machines/engine_alert2.ogg', 25, FALSE, 30, 30)
-	target.hear_radio(message_to_multilingual("Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(30, 50)]%"), vname = "supermatter crystal", part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
+	target.hear_radio(message_to_multilingual("<b>Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(30, 50)]%</b>"), vname = "supermatter crystal", part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 
 /**
   * # Hallucination - Plasma Flood

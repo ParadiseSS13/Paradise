@@ -56,6 +56,8 @@ SUBSYSTEM_DEF(economy)
 	var/credits_per_plasma = 10
 	/// credits gained per research design sold
 	var/credits_per_design = 20
+	/// points gained per salvage sold
+	var/credits_per_salvage = 100
 	/// credits gained per working mech sold
 	var/credits_per_mech = 100
 	/// credits gained for each secondary goal completed
@@ -68,6 +70,7 @@ SUBSYSTEM_DEF(economy)
 	var/credits_per_easy_food_goal = 300
 	var/credits_per_normal_food_goal = 450
 	var/credits_per_hard_food_goal = 600
+	var/credits_per_variety_food_goal = 450
 	var/credits_per_ripley_goal = 600
 	var/credits_per_kudzu_goal = 600
 	/// credits lost for sending unsecured cargo

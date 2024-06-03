@@ -478,8 +478,8 @@
 		emp_act(1)
 
 /turf/defile()
-	if(flags & NOJAUNT)
-		flags &= ~NOJAUNT
+	if(flags & BLESSED_TILE)
+		flags &= ~BLESSED_TILE
 		new /obj/effect/temp_visual/revenant(loc)
 
 /turf/simulated/wall/defile()
@@ -522,13 +522,13 @@
 		make_plating(1)
 
 /turf/simulated/floor/plating/defile()
-	if(flags & NOJAUNT)
-		flags &= ~NOJAUNT
+	if(flags & BLESSED_TILE)
+		flags &= ~BLESSED_TILE
 		new /obj/effect/temp_visual/revenant(loc)
 
 /turf/simulated/floor/engine/cult/defile()
-	if(flags & NOJAUNT)
-		flags &= ~NOJAUNT
+	if(flags & BLESSED_TILE)
+		flags &= ~BLESSED_TILE
 		new /obj/effect/temp_visual/revenant(loc)
 
 /obj/machinery/light/defile()

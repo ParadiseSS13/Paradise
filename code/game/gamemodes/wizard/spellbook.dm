@@ -65,8 +65,7 @@
 	return FALSE
 
 /datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user, obj/item/spellbook/book) //return point value or -1 for failure
-	var/area/wizard_station/A = locate()
-	if(!(user in A.contents))
+	if(!istype(get_area(user), /area/wizard_station))
 		to_chat(user, "<span class='warning'>You can only refund spells at the wizard lair.</span>")
 		return -1
 	if(!S) //This happens when the spell's source is from another spellbook, from loadouts, or adminery, this create a new template temporary spell
@@ -1152,7 +1151,7 @@
 
 /obj/item/spellbook/oneuse/random/initialize()
 	. = ..()
-	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall)
+	var/static/list/banned_spells = typesof(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/emp)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)
 	new real_type(loc)
 	qdel(src)

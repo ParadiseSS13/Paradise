@@ -62,7 +62,7 @@
 
 /mob/living/simple_animal/hostile/headslug/projectile_hit_check(obj/item/projectile/P)
 	return (stat || FALSE)
-	
+
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
@@ -95,7 +95,7 @@
 
 	if(origin && origin.current && (origin.current.stat == DEAD))
 		origin.transfer_to(M)
-		var/datum/antagonist/changeling/cling = M.mind.has_antag_datum(/datum/antagonist/changeling)
+		var/datum/antagonist/changeling/cling = IS_CHANGELING(M)
 		if(cling.can_absorb_dna(owner))
 			cling.absorb_dna(owner)
 

@@ -135,16 +135,23 @@
 		add_random_traits(1, 1)
 
 /obj/item/seeds/proc/mutate_stat(stat, level, mutation_size)
+	// 50% chance to do nothing to each stat even if mutation level is nonzero.
 	if(level <= 0 || prob(50))
 		return
 
 	var/mod = 0
+	// Roll for a bit of change every 10 mutation level.
 	while(level > 10)
 		mod += rand(0, mutation_size)
 		level -= 10
+	// And a partial chance if there's any mutation level left over.
 	if(level > 0 && prob(level * 10))
 		mod += rand(0, mutation_size)
 
+	// Ensure we change it at least a bit if we passed the initial prob(50).
+	mod = max(1, mod)
+
+	// 50% chance of going either way.
 	if(prob(50))
 		mod = -mod
 

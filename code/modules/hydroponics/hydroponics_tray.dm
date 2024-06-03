@@ -315,6 +315,11 @@
 
 	update_icon()
 
+/obj/machinery/hydroponics/extinguish_light(force)
+	if(!force)
+		return
+	set_light(0)
+
 /obj/machinery/hydroponics/update_overlays()
 	. = ..()
 	if(self_sustaining && !istype(src, /obj/machinery/hydroponics/soil))
