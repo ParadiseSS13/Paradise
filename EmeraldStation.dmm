@@ -23080,8 +23080,7 @@
 "oMY" = (
 /obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/plasteel/goonplaque/memorial{
-	desc = "\"The plaque Honor Ian, who Bravely saved the hop when they tripped a syndicate agent while attempting to solicit belly rubs from them./"
-	},
+	desc = "\"The plaque Honor Ian, who Bravely saved the hop when they tripped a syndicate agent while attempting to solicit belly rubs from them./"},
 /area/station/public/dorms)
 "oNl" = (
 /obj/effect/spawner/airlock/s_to_n/engineer{
@@ -84688,7 +84687,7 @@ tIC
 jJG
 jJG
 jJG
-jJG
+tMO
 cGe
 jJG
 bpp
