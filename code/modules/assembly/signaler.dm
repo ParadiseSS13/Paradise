@@ -64,11 +64,8 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 // Activation pre-runner, handles cooldown and calls signal(), invoked from ui_act()
 /obj/item/assembly/signaler/activate()
-	if(cooldown > 0)
+	if(!..())
 		return
-
-	cooldown = 2
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
 
 	signal()
 

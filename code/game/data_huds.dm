@@ -102,7 +102,7 @@
 
 //helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
-	if(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_FAKEDEATH)))
+	if(M.stat == DEAD || HAS_TRAIT(M, TRAIT_FAKEDEATH) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 		return "health-100-dead" //what's our health? it doesn't matter, we're dead, or faking
 
 	var/maxi_health = M.maxHealth
@@ -186,6 +186,10 @@
 	var/image/holder = hud_list[STATUS_HUD]
 	if(ismachineperson(src))
 		holder = hud_list[DIAG_STAT_HUD]
+
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+		holder.icon_state = "hudflatline"
+		return
 
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
@@ -339,8 +343,6 @@
 ~~~~~~~~~~~~~~~~~~~~~*/
 /obj/mecha/proc/diag_hud_set_mechhealth()
 	var/image/holder = hud_list[DIAG_MECH_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	holder.icon_state = "huddiag[RoundDiagBar(obj_integrity/max_integrity)]"
 
 /obj/mecha/proc/diag_hud_set_mechcell()
