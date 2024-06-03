@@ -589,7 +589,7 @@
 	name = "Bone Shard"
 	desc = "We evolve the ability to break off shards of our bone and shape them into throwing weapons which embed into our foes. Costs 15 chemicals."
 	helptext = "The shards of bone will dull upon hitting a target, rendering them unusable as weapons."
-	button_icon_state = "boneshard"
+	button_overlay_icon_state = "boneshard"
 	chemical_cost = 15
 	dna_cost = 3
 	req_human = TRUE
