@@ -391,6 +391,10 @@
 	name = "wolpin cube"
 	monkey_type = /datum/species/monkey/vulpkanin
 
+/obj/item/food/snacks/monkeycube/nian_wormecube
+	name = "nian worme cube"
+	monkey_type = /datum/species/monkey/nian_worme
+
 /obj/item/food/snacks/monkeycube/stokcube
 	name = "stok cube"
 	monkey_type = /datum/species/monkey/unathi

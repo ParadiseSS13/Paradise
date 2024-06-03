@@ -42,6 +42,8 @@
 		"eyes" =     /obj/item/organ/internal/eyes/nian
 	)
 
+	primitive_form = /datum/species/monkey/nian_worme
+
 	optional_body_accessory = FALSE
 
 	suicide_messages = list(
@@ -51,7 +53,6 @@
 		"is ripping their wings off!",
 		"is holding their breath!"
 	)
-
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()

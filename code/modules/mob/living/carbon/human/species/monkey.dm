@@ -1,3 +1,5 @@
+#define FLYSWATTER_DAMAGE_MULTIPLIER 14
+
 /datum/species/monkey
 	name = "Monkey"
 	name_plural = "Monkeys"
@@ -62,9 +64,10 @@
 
 /datum/species/monkey/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.real_name = "[lowertext(name)] ([rand(100,999)])"
+	H.real_name = get_random_name()
 	H.name = H.real_name
 	H.butcher_results = list(/obj/item/food/snacks/meat/monkey = 5)
+
 
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
@@ -167,3 +170,33 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/unathi
 		)
+/datum/species/monkey/nian_worme
+	name = "nian worme"
+	name_plural = "nian worme"
+	icobase = 'icons/mob/human_races/monkeys/r_worme.dmi'
+	tail = ""
+	total_health = 75
+	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
+	bodyflags = BALD | SHAVED
+	greater_form = /datum/species/moth
+	default_language = "Tkachi"
+	eyes = "blank_eyes"
+	butt_sprite = "nian"
+	reagent_tag = PROCESS_ORG
+	dietflags = DIET_HERB
+	tox_mod = 3 // Die. Terrible creatures. Die.
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart/nian,
+		"lungs" =    /obj/item/organ/internal/lungs/nian,
+		"liver" =    /obj/item/organ/internal/liver/nian,
+		"kidneys" =  /obj/item/organ/internal/kidneys/nian,
+		"brain" =    /obj/item/organ/internal/brain/nian,
+		"eyes" =     /obj/item/organ/internal/eyes/nian
+	)
+
+/datum/species/monkey/nian_worme/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
+	if(istype(I, /obj/item/melee/flyswatter) && I.force)
+		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) // making flyswatters do 15x damage to moff
+
+#undef FLYSWATTER_DAMAGE_MULTIPLIER
