@@ -323,7 +323,7 @@
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
 	if(!user.Adjacent(src))
-		to_chat(user, "<span class='warning'>You are too far away!</span>")
+		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
 	if(!isrobot(user) && (!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
