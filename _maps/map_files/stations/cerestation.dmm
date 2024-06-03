@@ -43643,11 +43643,11 @@
 	dir = 1
 	},
 /obj/machinery/alarm/directional/west,
-/obj/item/flag/nt,
 /obj/machinery/light_switch{
 	pixel_y = 24;
 	name = "north bump"
 	},
+/obj/item/flag/nt,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "gYT" = (
@@ -46772,6 +46772,8 @@
 	dir = 5
 	},
 /obj/machinery/hologram/holopad,
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
 "hYr" = (
@@ -49537,17 +49539,6 @@
 	icon_state = "dark"
 	},
 /area/station/service/library)
-"iPq" = (
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Blueshield";
-	departmentType = 5;
-	pixel_x = 30
-	},
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
-/turf/simulated/floor/wood,
-/area/station/command/office/blueshield)
 "iPU" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -52491,15 +52482,12 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "jHz" = (
-/obj/structure/closet/cabinet,
-/obj/item/reagent_containers/drinks/bottle/whiskey,
-/obj/item/reagent_containers/drinks/drinkingglass,
-/obj/item/reagent_containers/drinks/drinkingglass,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24;
 	name = "east bump"
 	},
+/obj/machinery/suit_storage_unit/blueshield/secure,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "jHB" = (
@@ -60275,6 +60263,26 @@
 	icon_state = "cafeteria"
 	},
 /area/station/command/office/rd)
+"lZX" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Blueshield";
+	departmentType = 5;
+	name = "Blueshield Requests Console";
+	pixel_x = 30
+	},
+/obj/structure/closet/cabinet,
+/obj/item/reagent_containers/drinks/drinkingglass,
+/obj/item/reagent_containers/drinks/drinkingglass,
+/obj/item/reagent_containers/drinks/bottle/whiskey,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Blueshield";
+	departmentType = 5;
+	pixel_x = 30
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/blueshield)
 "maa" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -136319,7 +136327,7 @@ pwc
 fXC
 hbZ
 hZq
-iPq
+lZX
 jHz
 gch
 sdN

@@ -159,6 +159,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/injector,
 		/obj/item/mod/module/defibrillator,
+		/obj/item/mod/module/monitor,
 	)
 	default_pins = list(
 		/obj/item/mod/module/defibrillator,
@@ -209,6 +210,18 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
+	)
+
+/obj/item/mod/control/pre_equipped/praetorian
+	theme = /datum/mod_theme/praetorian
+	applied_cell = /obj/item/stock_parts/cell/super
+	applied_modules = list(
+		/obj/item/mod/module/storage/large_capacity,
+		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/monitor,
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack,
 	)
 
 /obj/item/mod/control/pre_equipped/magnate
