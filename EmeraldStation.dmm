@@ -18239,7 +18239,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandoned_garden)
 "lKW" = (
-/turf/space,
+/obj/machinery/door/airlock/maintenance{
+	name = "Medbay Maintenance"
+	},
+/turf/simulated/floor/plating,
 /area/station/medical/surgery)
 "lLd" = (
 /obj/item/toy/plushie/deer{
@@ -30798,6 +30801,10 @@
 "tMK" = (
 /turf/simulated/wall,
 /area/station/security/permabrig)
+"tMO" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/medical/surgery)
 "tMW" = (
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
@@ -83655,7 +83662,7 @@ jJG
 jJG
 jJG
 cGe
-cGe
+jJG
 mXw
 gRv
 nWG
@@ -83911,8 +83918,8 @@ lFy
 jJG
 jJG
 jJG
-lKW
 cGe
+tMO
 ipF
 loN
 loN
@@ -84169,7 +84176,7 @@ jJG
 jJG
 jJG
 lKW
-tNp
+mXw
 mXw
 loN
 pBo
@@ -84425,8 +84432,8 @@ tIC
 jJG
 jJG
 jJG
-lKW
 cGe
+tMO
 obc
 loN
 pBo
@@ -84683,7 +84690,7 @@ jJG
 jJG
 jJG
 cGe
-cGe
+jJG
 bpp
 loN
 pBo
