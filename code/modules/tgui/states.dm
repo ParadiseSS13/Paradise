@@ -128,4 +128,6 @@
 /mob/living/carbon/human/shared_living_ui_distance(atom/movable/src_object, viewcheck)
 	if(HAS_TRAIT(src, TRAIT_TELEKINESIS) && (get_dist(src, src_object) <= 2))
 		return UI_INTERACTIVE
+	if(ismecha(loc) && get_dist(loc, src_object) <= 1)
+		return UI_INTERACTIVE
 	return ..()
