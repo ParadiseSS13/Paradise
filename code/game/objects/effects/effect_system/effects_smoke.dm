@@ -232,7 +232,7 @@
 		return
 
 	var/datum/antagonist/changeling/C = M.mind?.has_antag_datum(/datum/antagonist/changeling)
-	if (C && C.get_ability(/datum/action/changeling/miasmic_mist))
+	if(C && C.get_ability(/datum/action/changeling/miasmic_mist))
 		return
 
 	M.drop_item()
