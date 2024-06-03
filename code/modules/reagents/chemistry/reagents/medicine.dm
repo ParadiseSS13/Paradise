@@ -277,8 +277,9 @@
 	if(!iscarbon(M))
 		return ..()
 
-	if(ishuman(M) && volume >= 20 && method == REAGENT_TOUCH)
-		var/applied_volume = splash_human(M, volume)
+	if(ishuman(M) && volume > 20 && method == REAGENT_TOUCH)
+		heal_overall_damage(M, 20)
+		var/applied_volume = splash_human(M, volume - 20)
 		return ..(M, method, applied_volume, show_message)
 
 	if(method == REAGENT_TOUCH)
