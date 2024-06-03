@@ -296,6 +296,12 @@
 	taste_description = "blood"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
+/datum/reagent/medicine/heal_on_apply/synthflesh/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustBruteLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
+
 /datum/reagent/medicine/heal_on_apply/synthflesh/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
 	var/mob/living/carbon/human/H = M
 	if(ishuman(H) && HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD && H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT)
@@ -933,7 +939,7 @@
 						H.decaylevel = 0
 						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
 							// Per non-vital body part:
-							// 15% * H.decaylevel (1 to 4) 
+							// 15% * H.decaylevel (1 to 4)
 							// Min of 0%, Max of 60%
 							if(prob(necrosis_prob) && !O.is_robotic() && !O.vital)
 								// side effects may include: Organ failure
@@ -1564,8 +1570,11 @@
 						H.blood_volume += 10
 					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
+					for(var/datum/disease/zombie/zomb in H.viruses)
+						zomb.cure() // experimental B). Won't save you from the dead organs.
 					for(var/obj/item/organ/O as anything in (H.internal_organs + H.bodyparts))
 						O.germ_level = 0
+					update_flags |= M.adjustCloneLoss(-4 * REAGENTS_EFFECT_MULTIPLIER, FALSE) // 60 clone one-use heal for 10 TC seems fair
 				if(M.health < 40)
 					update_flags |= M.adjustOxyLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 					update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -1598,4 +1607,49 @@
 	update_flags |= M.adjustBruteLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustToxLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
+
+// First level, prevents scratches from infecting you and stops the advance of low-level zombie infections.
+/datum/reagent/zombie_cure
+	name = "Anti-Plague Sequence Alpha"
+	id = "zombiecure1"
+	description = "The first step towards a cure for zombies. Prevents simple infections from scratches."
+	reagent_state = LIQUID
+	metabolization_rate = 0.1
+	color = "#003602"
+	var/cure_level = 1
+
+// Cures low-level infections. Weakens zombies when in their system.
+/datum/reagent/zombie_cure/second
+	name = "Anti-Plague Sequence Beta"
+	id = "zombiecure2"
+	description = "Cures low-level infections. Weakens zombies when in their system."
+	color = "#006238"
+	cure_level = 2
+
+// Prevents zombies from reviving, but not from healing. Removes all zombie viruses except for the rotting stage.
+/datum/reagent/zombie_cure/third
+	name = "Anti-Plague Sequence Gamma"
+	id = "zombiecure3"
+	description = "Prevents zombies from reviving, but not from healing. Removes moderate infections."
+	color = "#029779"
+	cure_level = 3
+
+// Final cure, completely cures being a zombie. Revives all rotten limbs.
+/datum/reagent/zombie_cure/fourth
+	name = "Anti-Plague Sequence Omega"
+	id = "zombiecure4"
+	description = "Cures all cases of the Necrotizing Plague. Stops zombies from reviving."
+	color = "#001d4d"
+	cure_level = 4
+
+/datum/reagent/zombie_cure/fourth/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/mob/living/carbon/human/H = M
+	if(istype(H) && prob(20))
+		for(var/obj/item/organ/limb as anything in H.bodyparts)
+			if(limb.status & ORGAN_DEAD && !limb.is_robotic())
+				limb.status &= ~ORGAN_DEAD
+				H.update_body()
+				break
 	return ..() | update_flags
