@@ -729,7 +729,6 @@
 	build_path = /obj/item/flamethrower/full
 	category = list("hacked", "Security")
 
-
 /datum/design/electropack
 	name = "Electropack"
 	id = "electropack"
@@ -840,6 +839,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30000)
 	build_path = /obj/item/ammo_box/c9mm
+	category = list("hacked", "Security")
+
+/datum/design/c_foam_ammo
+	name = "C-Foam cartridge"
+	id = "c_foam"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
+	build_path = /obj/item/ammo_box/magazine/c_foam
 	category = list("hacked", "Security")
 
 /datum/design/cleaver

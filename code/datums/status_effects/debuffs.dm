@@ -1353,3 +1353,39 @@
 /obj/effect/bubblegum_warning/proc/slap_someone()
 	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(src), null, 10)
 	qdel(src)
+
+/datum/status_effect/c_foamed
+	id = "c_foamed up"
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 10 SECONDS
+	var/foam_level = 1
+	var/mutable_appearance/foam_overlay
+
+/datum/status_effect/c_foamed/on_apply()
+	. = ..()
+	foam_overlay = mutable_appearance('icons/mob/sprite_accessories/nucleation/nucleation_face.dmi', "betaburns_s")
+	owner.add_overlay(foam_overlay)
+	owner.next_move_modifier *= 1.5
+	owner.Slowed(10 SECONDS, 1.5)
+
+/datum/status_effect/c_foamed/Destroy()
+	if(owner)
+		owner.cut_overlay(foam_overlay)
+		owner.next_move_modifier /= 1.5
+
+	QDEL_NULL(foam_overlay)
+	return ..()
+
+/datum/status_effect/c_foamed/tick()
+	. = ..()
+	if(--foam_level <= 0)
+		qdel(src)
+
+/datum/status_effect/c_foamed/refresh()
+	. = ..()
+	// Our max slow is 50 seconds
+	foam_level = min(foam_level + 1, 5)
+	/* TODO: if sprites, add code here so the overlays will update depending on the foam level */
+	if(foam_level == 5)
+		owner.Paralyse(4 SECONDS)

@@ -52,7 +52,7 @@
 				if(!GR.broken)
 					grille += 1
 
-			else if(istype(O, /obj/machinery/door))
+			else if(isairlock(O))
 				door += 1
 
 			else if(istype(O, /obj/machinery))
