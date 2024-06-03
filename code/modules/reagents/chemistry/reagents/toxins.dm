@@ -920,11 +920,10 @@
 	reagent_state = LIQUID
 	color = "#E7E7E7"
 	taste_mult = 0
-	invisible_to_scanners = TRUE
 	unable_to_purge = TRUE
 
 /datum/reagent/phalloidin/on_mob_delete(mob/living/M)
-    M.reagents.add_reagent("amanitin", current_cycle*rand(2,4))
+	M.reagents.add_reagent("histamine", current_cycle)
 	..()
 
 /datum/reagent/lipolicide
