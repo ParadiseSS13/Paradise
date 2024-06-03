@@ -64417,6 +64417,7 @@
 "jrt" = (
 /obj/structure/rack,
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "jrI" = (
@@ -69410,6 +69411,7 @@
 	layer = 2.9
 	},
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /obj/machinery/light,
 /obj/item/storage/box/monkeycubes/farwacubes{
 	pixel_x = -6
@@ -77038,6 +77040,7 @@
 /obj/item/storage/box/monkeycubes/stokcubes,
 /obj/item/storage/box/monkeycubes/neaeracubes,
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /obj/item/storage/box/monkeycubes/farwacubes,
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
