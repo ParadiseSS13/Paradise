@@ -58,7 +58,7 @@
 
 /datum/action/innate/mecha/mech_toggle_lights
 	name = "Toggle Lights"
-	desc = "Toggles your mecha's lights"
+	desc = "Toggles your mecha's lights."
 	button_icon_state = "mech_lights_off"
 
 /datum/action/innate/mecha/mech_toggle_lights/Activate()
