@@ -733,6 +733,15 @@
 	for(var/I in 1 to 6)
 		new /obj/item/food/snacks/syndidonkpocket(src)
 
+/obj/item/storage/box/holy
+	name = "ammunition box (Holy Water darts)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "hshell_box"
+
+/obj/item/storage/box/holy/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/holy(src)
+
 ////////////////
 /* Misc Boxes */
 ////////////////
