@@ -55,7 +55,7 @@
 		smoke_mob(M)
 	return TRUE
 
-/obj/effect/particle_effect/smoke/proc/smoke_mob(datum/source, mob/living/carbon/breather)
+/obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/breather)
 	SIGNAL_HANDLER //COMSIG_MOVABLE_CROSSED and COMSIG_CROSSED_MOVABLE
 	if(!istype(breather))
 		return FALSE
