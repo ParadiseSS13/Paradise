@@ -6,6 +6,8 @@
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
 	GLOB.mob_living_list += src
+	if(advanced_bullet_dodge_chance)
+		RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
 
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
@@ -51,6 +53,7 @@
 	QDEL_NULL(middleClickOverride)
 	if(mind?.current == src)
 		mind.current = null
+	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
@@ -1071,6 +1074,9 @@
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+		if("advanced_bullet_dodge_chance")
+			UnregisterSignal(src, COMSIG_ATOM_PREHIT)
+			RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
 
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()

@@ -94,6 +94,8 @@
 /mob/proc/put_in_hand_check(obj/item/W, skip_blocked_hands_check)
 	if(!istype(W) || QDELETED(W))
 		return FALSE
+	if(HAS_TRAIT(src, TRAIT_ABSTRACT_HANDS) && !(W.flags & ABSTRACT))
+		return FALSE
 	return TRUE
 
 /mob/living/put_in_hand_check(obj/item/W, skip_blocked_hands_check)

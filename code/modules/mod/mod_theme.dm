@@ -792,6 +792,65 @@
 /obj/item/mod/armor/mod_theme_magnate
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = 450) //On one hand this is quite strong, on the other hand energy hole / antagonists need to steal, and thus by extention use this.
 
+/datum/mod_theme/praetorian
+	name = "praetorian"
+	desc = "A prototype of the Magnate-class suit issued to station Blueshields, still boasting exceptional protection worthy of an honor guard."
+	extended_desc = "A prototype of the Magnate-class suit issued for use with the station Blueshields, \
+		it boasts most of the exceptional protection of it's successor, while sacrificing some of the module capacity.\
+		Most of the protection of the Magnate, with none of the comfort! The visor uses blue-light to obscure \
+		the face of it's wearer, adding to it's imposing figure. Compared to the sleek and luxurious design \
+		that came after it, this suit does nothing to hide it's purpose, the reinforced plating layered \
+		over the insulated inner armor granting it protection against corrosive liquids, explosive blasts, \
+		fires, electrical shocks, and contempt from the rest of the crew."
+	default_skin = "praetorian"
+	armor_type_1 = /obj/item/mod/armor/praetorian
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
+	slowdown_inactive = 0.75
+	slowdown_active = 0.25
+	allowed_suit_storage = list(
+		/obj/item/gun,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/melee/baton,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flashlight,
+		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/kitchen/knife/combat
+	)
+	skins = list(
+		"praetorian" = list(
+			HELMET_FLAGS = list(
+				UNSEALED_LAYER = COLLAR_LAYER,
+				SEALED_CLOTHING = THICKMATERIAL | STOPSPRESSUREDMAGE | BLOCKHAIR,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK | HIDEEYES | HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH | HEADCOVERSEYES,
+			),
+			CHESTPLATE_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT | HIDETAIL,
+			),
+			GAUNTLETS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			BOOTS_FLAGS = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/obj/item/mod/armor/praetorian
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 25, RAD = 0, FIRE = 150, ACID = 150) //Equivalent armor to Security MODsuits
+
 /datum/mod_theme/cosmohonk
 	name = "cosmohonk"
 	desc = "A suit by Honk Ltd. Protects against low humor environments. Most of the tech went to lower the power cost."
