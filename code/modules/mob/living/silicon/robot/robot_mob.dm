@@ -887,21 +887,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(istype(W, /obj/item/robot_parts/robot_component) && opened)
 		for(var/V in components)
 			var/datum/robot_component/C = components[V]
-			if(C.is_missing() && istype(W, C.external_type))
-				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>[W] seems to be stuck in your hand!</span>")
-					return
-				C.install(W)
-				W.loc = null
-
-				var/obj/item/robot_parts/robot_component/WC = W
-				if(istype(WC))
-					C.brute_damage = WC.brute
-					C.electronics_damage = WC.burn
-
-				to_chat(usr, "<span class='notice'>You install [W].</span>")
-
+			if(!C.is_missing() || !istype(W, C.external_type))
+				continue
+			if(!user.drop_item())
+				to_chat(user, "<span class='warning'>[W] seems to be stuck in your hand!</span>")
 				return
+			var/obj/item/robot_parts/robot_component/WC = W
+			C.brute_damage = WC.brute
+			C.electronics_damage = WC.burn
+			C.install(WC)
+			to_chat(usr, "<span class='notice'>You install [W].</span>")
+			return
 
 	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || isdrone(src)))
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -926,12 +922,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "There is a power cell already installed.")
 		else
 			user.drop_item()
-			W.loc = src
 			to_chat(user, "You insert the power cell.")
 			C.install(W)
-			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
-			C.brute_damage = 0
-			C.electronics_damage = 0
 
 			var/been_hijacked = FALSE
 			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
@@ -1098,7 +1090,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		thing.burn = C.electronics_damage
 
 	C.uninstall()
-	thing.loc = loc
+	thing.forceMove(loc)
 
 
 

@@ -33,6 +33,8 @@
 /datum/robot_component/proc/install(obj/item/I, update_health = TRUE)
 	wrapped = I
 	installed = TRUE
+	I.forceMove(owner)
+	current_slowdown_factor = (brute_damage + electronics_damage) / 100
 	go_online()
 	if(update_health)
 		owner.updatehealth("component '[src]' installed")
@@ -122,6 +124,8 @@
 	return
 
 /datum/robot_component/proc/get_movement_delay()
+	if(is_missing())
+		return 0
 	return (is_destroyed() ? max_slowdown_factor : current_slowdown_factor)
 
 /datum/robot_component/armour
