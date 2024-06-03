@@ -6,6 +6,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	var/company = "Unbranded"                            // Shown when selecting the limb.
 	var/desc = "A generic unbranded robotic prosthesis." // Seen when examining a limb.
 	var/icon = 'icons/mob/human_races/robotic.dmi'       // Icon base to draw from.
+	var/list/sprite_sheets = null						 // Species specific icons to draw from. Path formats is... [icons/mob/human_races/{species}/cyberlimbs/{company}.dmi]
 	var/unavailable_at_chargen                           // If set, not available at chargen.
 	var/selectable = 1									 // If set, is it available for selection on attack_self with a robo limb?
 	var/is_monitor										 // If set, limb is a monitor and should be getting monitor styles.
@@ -125,6 +126,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Shellguard Munitions Standard Series"
 	desc = "This limb features exposed robust steel and paint to match Shellguards motifs."
 	icon = 'icons/mob/human_races/cyberlimbs/shellguard/shellguard_main.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/shellguard.dmi')
 	has_subtypes = 1
 
 /datum/robolimb/shellguard/alt1
