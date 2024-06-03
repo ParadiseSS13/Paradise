@@ -170,11 +170,8 @@
 		)
 	update()
 
-
-
-
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
-	if(mode> DISPOSALS_OFF) // It's on
+	if(mode != DISPOSALS_OFF) // It's on
 		to_chat(user, "<span class='warning'>You need to turn the disposal unit off first!</span>")
 		return
 
@@ -187,9 +184,9 @@
 		return
 	
 	if(mode == DISPOSALS_OFF) // It's off but still not unscrewed
-		mode= DISPOSALS_UNSCREWED
+		mode = DISPOSALS_UNSCREWED
 	else if(mode == DISPOSALS_UNSCREWED)
-		mode= DISPOSALS_OFF
+		mode = DISPOSALS_OFF
 	to_chat(user, "You [mode ? "unfasten": "fasten"] the screws around the power connection.")
 	update()
 
@@ -344,7 +341,7 @@
 		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside!</span>")
 		return
 
-	if(mode== DISPOSALS_UNSCREWED && action != "eject") // If the mode is DISPOSALS_UNSCREWED, only allow ejection
+	if(mode == DISPOSALS_UNSCREWED && action != "eject") // If the mode is DISPOSALS_UNSCREWED, only allow ejection
 		to_chat(usr, "<span class='warning'>The disposal unit's power is disabled!</span>")
 		return
 
