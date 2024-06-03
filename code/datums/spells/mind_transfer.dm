@@ -14,11 +14,12 @@
 	var/paralysis_amount_caster = 40 SECONDS //how much the caster is paralysed for after the spell
 	var/paralysis_amount_victim = 40 SECONDS //how much the victim is paralysed for after the spell
 	action_icon_state = "mindswap"
+	sound = 'sound/magic/mindswap.ogg'
 
 /datum/spell/mind_transfer/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living
-	T.range = 1
+	T.range = 3
 	T.click_radius = 0
 	return T
 
@@ -76,6 +77,8 @@ Also, you never added distance checking after target is selected. I've went ahea
 			add_verb(caster, V)
 	//MIND TRANSFER END
 
-	//Here we paralyze both mobs and knock them out for a time.
-	caster.Paralyse(paralysis_amount_caster)
-	victim.Paralyse(paralysis_amount_victim)
+	for(var/mob/new_or_formal_wizard in list(victim, caster))
+		for(var/mob/living/L in range(3, new_or_formal_wizard))
+			L.SetSilence(15 SECONDS)
+
+
