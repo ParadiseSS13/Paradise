@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(throwing)
 
 	currentrun = null
 
-/datum/controller/subsystem/throwing/proc/playsound_capped(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
+/datum/controller/subsystem/throwing/proc/playsound_capped(atom/source, soundin, vol, vary, extrarange, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
 	if(impact_sounds < impact_sounds_cap)
 		impact_sounds++
 		playsound(source, soundin, vol, vary, extrarange, falloff_exponent, frequency, channel, pressure_affected, ignore_walls, falloff_distance, use_reverb)
