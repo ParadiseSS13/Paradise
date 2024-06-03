@@ -32,7 +32,7 @@
 
 	/// Internal gas reservoir.
 	var/datum/gas_mixture/air_contents
-	/// -1 = Unscrewed, 0 = OFF, 1 = Recharging, 2 = Charged.
+	/// Can be one of: DISPOSALS_UNSCREWED (power off and panel unscrewed), DISPOSALS_OFF (power switched off), DISPOSALS_RECHARGING (active and charging), or DISPOSALS_CHARGED (active and ready to flush)
 	var/mode = DISPOSALS_RECHARGING
 	/// Has the flush handle been pulled?
 	var/flush = FALSE
@@ -145,23 +145,30 @@
 			)
 		return
 
+	// Someone has a mob in a grab.
 	var/obj/item/grab/G = I
-	if(istype(G))	// handle grabbed mob
-		if(ismob(G.affecting))
-			var/mob/GM = G.affecting
-			for(var/mob/V in viewers(user))
-				V.show_message("[user] starts putting [GM] into the disposal unit.", 3)
-			if(do_after(user, 20, target = GM))
-				GM.forceMove(src)
-				for(var/mob/C in viewers(src))
-					C.show_message("<span class='warning'>[GM] has been placed in the disposal unit by [user].</span>", 3)
-				qdel(G)
-				add_attack_logs(user, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
+	if(istype(G))
+		// If there's not actually a mob in the grab, stop it. Get some help.
+		if(!ismob(G.affecting))
+			return
+		var/mob/GM = G.affecting
+		for(var/mob/V in viewers(user))
+			V.show_message("[user] starts putting [GM] into the disposal unit.", 3)
+		// Abort if the target manages to scurry away.
+		if(!do_after(user, 20, target = GM))
+			return
+		GM.forceMove(src)
+		for(var/mob/C in viewers(src))
+			C.show_message("<span class='warning'>[GM] has been placed in the disposal unit by [user].</span>", 3)
+		qdel(G)
+		update()
+		add_attack_logs(user, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
 
 	if(!user.drop_item() || QDELETED(I))
 		return
 
+	// If we're here, it's an item without any special interactions, drop it in the bin without any further delay.
 	I.forceMove(src)
 	user.visible_message(
 		"<span class='notice'>[user] places [I] into the disposal unit.</span>",
