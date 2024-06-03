@@ -678,8 +678,5 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	var/turf/simulated/T = get_turf(src)
 	T.burn_tile()
 
-/obj/effect/landmark/battle_mob_point
-	name = "Nanomob Battle Avatar Spawn Point"
-
 /obj/effect/landmark/free_golem_spawn
 	name = "Free Golem Spawn Point"

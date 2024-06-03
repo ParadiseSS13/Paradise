@@ -113,7 +113,7 @@ jobs:
 
       - name: Rebuild TGUI
         run: |
-          if git diff-tree --name-only -r $(git rev-parse HEAD~2) | grep "tgui/public/"
+          if git diff-tree --name-only -r $(git rev-parse HEAD~2) | grep "tgui/public/" ; then
             bash tgui/bin/tgui
             git commit -m "Rebuild TGUI"
             git push origin

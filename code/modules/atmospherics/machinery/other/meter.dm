@@ -27,15 +27,6 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	return ..()
 
 /obj/machinery/atmospherics/meter/process_atmos()
-	if(!target || (stat & (BROKEN|NOPOWER)))
-		update_icon(UPDATE_ICON_STATE)
-		return
-
-	var/datum/gas_mixture/environment = target.return_air()
-	if(!environment)
-		update_icon(UPDATE_ICON_STATE)
-		return
-
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/meter/update_icon_state()

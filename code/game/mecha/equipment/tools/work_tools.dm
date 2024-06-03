@@ -254,7 +254,7 @@
 					qdel(target)
 					playsound(target, usesound, 50, 1)
 		if(MECH_RCD_MODE_WALL_OR_FLOOR)
-			if(isspaceturf(target))
+			if(isspaceturf(target) || ischasm(target))
 				var/turf/space/S = target
 				occupant_message("Building Floor...")
 				if(do_after_cooldown(S))
