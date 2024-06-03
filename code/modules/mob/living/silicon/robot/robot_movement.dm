@@ -5,7 +5,6 @@
 		return TRUE
 	return FALSE
 
- //No longer needed, but I'll leave it here incase we plan to re-use it.
 /mob/living/silicon/robot/movement_delay()
 	. = ..()
 	. += GLOB.configuration.movement.robot_delay
