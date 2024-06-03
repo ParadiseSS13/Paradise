@@ -300,10 +300,10 @@
 	switch(get_status())
 		if(SUPERMATTER_DELAMINATING)
 			playsound(src, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
-			GLOB.major_announcement.Announce("WARNING, REACTOR CORE IS IN CRITICAL CHARGE!", "SUPERMATTER: STATUS CRITICAL", 'modular_ss220/aesthetics_sounds/sound/supermatter/meltdown.ogg') //SS220 EDIT - ADDITION
+			GLOB.major_announcement.Announce("ВНИМАНИЕ, АКТИВНАЯ ЗОНА РЕАКТОРА НАХОДИТСЯ В КРИТИЧЕСКОМ СОСТОЯНИИ!", "РЕАКТОР СУПЕРМАТЕРИИ: СОСТОЯНИЕ КРИТИЧЕСКОЕ!", 'modular_ss220/aesthetics_sounds/sound/supermatter/meltdown.ogg') // SS220 EDIT - ADDITION
 		if(SUPERMATTER_EMERGENCY)
 			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
-			GLOB.major_announcement.Announce("WARNING, CORE OVERHEATTING. NUCLEAR KNOCKDOWN IMMINENT!", "SUPERMATTER: STATUS CRITICAL", 'modular_ss220/aesthetics_sounds/sound/supermatter/core_overheating.ogg') //SS220 EDIT - ADDITION
+			GLOB.major_announcement.Announce("ВНИМАНИЕ, АКТИВНАЯ ЗОНА РЕАКТОРА НАХОДИТСЯ В СОСТОЯНИИ КРИТИЧЕСКОГО ПЕРЕГРЕВА. ЯДЕРНАЯ КАТАСТРОФА НЕИЗБЕЖНА!", "РЕАКТОР СУПЕРМАТЕРИИ: СОСТОЯНИЕ КРИТИЧЕСКОЕ!", 'modular_ss220/aesthetics_sounds/sound/supermatter/core_overheating.ogg') // SS220 EDIT - ADDITION
 		if(SUPERMATTER_DANGER)
 			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_WARNING)

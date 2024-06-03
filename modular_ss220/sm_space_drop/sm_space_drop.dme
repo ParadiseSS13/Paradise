@@ -1,6 +1,6 @@
 #include "sm_space_drop.dm"
 
-#include "code/sm_button_NEW.dm"
-#include "code/sm_space_drop.dm"
-#include "code/sm_mass_driver.dm"
 #include "code/paper_sm_info.dm"
+#include "code/sm_drop_button.dm"
+#include "code/sm_mass_driver.dm"
+#include "code/sm_engine.dm"
