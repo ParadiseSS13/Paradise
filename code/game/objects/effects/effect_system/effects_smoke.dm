@@ -228,7 +228,7 @@
 	lifetime = 10
 
 /obj/effect/particle_effect/smoke/changeling/smoke_mob(mob/living/carbon/M)
-	if (!..())
+	if(!..())
 		return
 
 	var/datum/antagonist/changeling/C = M.mind?.has_antag_datum(/datum/antagonist/changeling)
