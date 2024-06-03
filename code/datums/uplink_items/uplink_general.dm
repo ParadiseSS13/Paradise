@@ -61,9 +61,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	/// Description of the item in the uplink
 	var/desc = "Item Description"
 	/// Used for discounts. Any unique string will do.
-	var/reference = null
+	var/reference
 	/// What is spawned when we purchase this?
-	var/item = null
+	var/item
 	/// How many TC does this cost?
 	var/cost = 0
 	/// Is what we're spawning abstract?
