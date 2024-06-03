@@ -41,7 +41,6 @@ GLOBAL_LIST_INIT(action_keybinds_groups, list(
 	"Abductor Actions" = AKB_CATEGORY_ABDUCTOR,
 	"Blob Actions" = AKB_CATEGORY_BLOB,
 	"Martial Arts Actions" = AKB_CATEGORY_MARTIAL_ART,
-	"Martial Arts Actions" = AKB_CATEGORY_MARTIAL_ART,
 	"Cyborg/Silicon Actions" = AKB_CATEGORY_CYBORG,
 	"AI Actions" = AKB_CATEGORY_AI,
 	"Mecha Actions" = AKB_CATEGORY_MECHA,
