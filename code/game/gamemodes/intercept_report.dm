@@ -93,7 +93,7 @@
 		if(!man.mind) continue
 		if(man.mind.assigned_role == man.mind.special_role) continue
 		dudes += man
-	if(dudes.len==0)
+	if(length(dudes)==0)
 		return null
 	return pick(dudes)
 
@@ -119,7 +119,7 @@
 			if(man.dna.species.name in SSticker.mode.protected_species)
 				return
 			dudes += man
-	for(var/i = 0, i < max(GLOB.player_list.len/10,2), i++)
+	for(var/i = 0, i < max(length(GLOB.player_list)/10,2), i++)
 		dudes += pick(GLOB.player_list)
 	return pick(dudes)
 

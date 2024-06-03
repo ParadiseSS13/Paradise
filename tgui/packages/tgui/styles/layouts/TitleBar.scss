@@ -18,7 +18,7 @@ $shadow-color: rgba(0, 0, 0, 0.1) !default;
   box-shadow: 0 2px 2px $shadow-color;
   box-shadow: 0 base.rem(2px) base.rem(2px) $shadow-color;
   user-select: none;
-  -ms-user-select: none;
+  -ms-user-select: none; // TODO: Remove with 516
 }
 
 .TitleBar__clickable {

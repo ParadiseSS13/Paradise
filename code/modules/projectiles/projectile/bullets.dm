@@ -93,7 +93,8 @@
 	if(!ishuman(target))
 		return
 	var/mob/living/carbon/human/H = target
-	if(H.getStaminaLoss() >= 60)
+	// initial range - range gives approximate tile distance from user
+	if(initial(range) - range <= 5 && H.getStaminaLoss() >= 60)
 		H.KnockDown(8 SECONDS)
 
 /obj/item/projectile/bullet/pellet/assassination
@@ -135,6 +136,11 @@
 	item_state = "peashooter_bullet"
 	icon_state = "peashooter_bullet"
 	damage = 25
+
+/obj/item/projectile/bullet/midbullet3/overgrown/prehit(atom/target)
+	if(HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
+		damage += 10
+	return ..()
 
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
@@ -256,6 +262,9 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
 
+/obj/item/projectile/bullet/dart/syringe/heavyduty
+	damage = 20
+
 /obj/item/projectile/bullet/dart/syringe/pierce_ignore
 	piercing = TRUE
 
@@ -264,6 +273,12 @@
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
 	..()
 	reagents.add_reagent("haloperidol", 15)
+
+/obj/item/projectile/bullet/dart/syringe/holy
+
+/obj/item/projectile/bullet/dart/syringe/holy/New()
+	..()
+	reagents.add_reagent("holywater", 10)
 
 /obj/item/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"

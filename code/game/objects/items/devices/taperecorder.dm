@@ -75,7 +75,7 @@
 /obj/item/taperecorder/attack_hand(mob/user)
 	if(loc == user)
 		if(mytape)
-			if(user.l_hand != src && user.r_hand != src)
+			if(!user.is_holding(src))
 				..()
 				return
 			eject(user)
@@ -231,7 +231,7 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/P = new /obj/item/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
-	for(var/i = 1, mytape.storedinfo.len >= i, i++)
+	for(var/i = 1, length(mytape.storedinfo) >= i, i++)
 		t1 += "[mytape.storedinfo[i]]<BR>"
 	P.info = t1
 	P.name = "paper- 'Transcript'"

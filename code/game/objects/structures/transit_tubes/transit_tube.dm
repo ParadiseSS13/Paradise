@@ -8,7 +8,7 @@
 	desc = "A pneumatic tube that brings you from here to there."
 	icon = 'icons/obj/pipes/transit_tube.dmi'
 	icon_state = "straight"
-	density = TRUE
+	density = FALSE
 	layer = 3.1
 	anchored = TRUE
 	var/list/tube_dirs = null
@@ -58,7 +58,7 @@
 			return
 
 // Called to check if a pod should stop upon entering this tube.
-/obj/structure/transit_tube/proc/should_stop_pod(pod, from_dir)
+/obj/structure/transit_tube/proc/should_stop_pod(obj/structure/transit_tube_pod/pod, from_dir)
 	return FALSE
 
 // Called when a pod stops in this tube section.
@@ -216,16 +216,6 @@
 /obj/structure/transit_tube/diagonal/topleft
 	dir = WEST
 
-/obj/structure/transit_tube/diagonal/crossing
-	density = FALSE
-	icon_state = "diagonal_crossing"
-	uninstalled_type = /obj/structure/transit_tube_construction/diagonal/crossing
-
-//mostly for mapping use
-/obj/structure/transit_tube/diagonal/crossing/topleft
-	dir = WEST
-
-
 /obj/structure/transit_tube/curved
 	icon_state = "curved0"
 	uninstalled_type = /obj/structure/transit_tube_construction/curved
@@ -284,27 +274,3 @@
 			tube_dirs = list(EAST, NORTHWEST, SOUTHWEST)
 		if(WEST)
 			tube_dirs = list(WEST, SOUTHEAST, NORTHEAST)
-
-
-/obj/structure/transit_tube/crossing
-	icon_state = "crossing"
-	uninstalled_type = /obj/structure/transit_tube_construction/straight/crossing
-	density = FALSE
-
-//mostly for mapping use
-/obj/structure/transit_tube/crossing/horizontal
-	dir = WEST
-
-// cosmetic "cap" for tubes. Note that tubes can't enter this.
-/obj/structure/transit_tube/cap
-	icon_state = "cap"
-
-/obj/structure/transit_tube/cap/init_tube_dirs()
-	tube_dirs = list(turn(dir, 180))  // back the way we came
-
-/obj/structure/transit_tube/cap/has_entrance(from_dir)
-	return FALSE
-
-/obj/structure/transit_tube/cap/create_tube_overlay()
-	// cap sprites already have overlays
-	return

@@ -48,6 +48,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock
 	name = "airlock"
+	desc = "An airlock door keeping you safe from the vacuum of space. Only works if closed."
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "closed"
 	anchored = TRUE
@@ -1267,7 +1268,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			return 0
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(forced)
-		playsound(loc, 'sound/machines/airlockforced.ogg', 30, 1)
+		playsound(loc, 'sound/machines/airlockforcedopen.ogg', 30, TRUE)
 	else
 		playsound(loc, doorOpen, 30, 1)
 	if(closeOther != null && istype(closeOther, /obj/machinery/door/airlock/) && !closeOther.density)
@@ -1316,7 +1317,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(forced)
-		playsound(loc, 'sound/machines/airlockforced.ogg', 30, 1)
+		playsound(loc, 'sound/machines/airlockforcedclose.ogg', 30, TRUE)
 	else
 		playsound(loc, doorClose, 30, 1)
 	var/obj/structure/window/killthis = (locate(/obj/structure/window) in get_turf(src))
@@ -1545,16 +1546,18 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(!electronics)
 			ae = new/obj/item/airlock_electronics(loc)
 			check_access()
-			if(req_access.len)
+			if(length(req_access))
 				ae.selected_accesses = req_access
-			else if(req_one_access.len)
+			else if(length(req_one_access))
 				ae.selected_accesses = req_one_access
 				ae.one_access = 1
 			ae.unres_access_from = unres_sides
+			ae.is_installed = FALSE
 		else
 			ae = electronics
 			electronics = null
 			ae.forceMove(loc)
+			ae.is_installed = FALSE
 	QDEL_LIST_CONTENTS(fillers)
 	qdel(src)
 

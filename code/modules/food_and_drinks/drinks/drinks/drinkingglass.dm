@@ -40,7 +40,7 @@
 
 /obj/item/reagent_containers/drinks/drinkingglass/on_reagent_change()
 	overlays.Cut()
-	if(reagents.reagent_list.len)
+	if(length(reagents.reagent_list))
 		var/datum/reagent/R = reagents.get_master_reagent()
 		name = R.drink_name
 		desc = R.drink_desc

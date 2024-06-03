@@ -12,7 +12,7 @@ img {
   margin: 0;
   padding: 0;
   line-height: 1;
-  -ms-interpolation-mode: nearest-neighbor;
+  -ms-interpolation-mode: nearest-neighbor; // TODO: Remove with 516
   image-rendering: pixelated;
 }
 
@@ -21,6 +21,10 @@ img.icon {
   min-height: 16px;
   width: auto;
   vertical-align: bottom;
+}
+
+.emoji16x16 {
+  vertical-align: middle;
 }
 
 a {
@@ -163,12 +167,6 @@ a.popt {
 
 .filterMessages div {
   padding: 2px 0;
-}
-
-.filterMessages input {
-}
-
-.filterMessages label {
 }
 
 .icon-stack {
@@ -657,10 +655,6 @@ h2.alert {
   color: #7c4848;
 }
 
-.zombie {
-  color: #ff0000;
-}
-
 .soghun {
   color: #228b22;
 }
@@ -760,6 +754,16 @@ h2.alert {
   color: #a60000;
   font-weight: bold;
   font-size: 200%;
+}
+
+.zombie {
+  color: #7c4848;
+}
+
+.zombielarge {
+  color: #7c4848;
+  font-weight: bold;
+  font-size: 120%;
 }
 
 .interface {
@@ -1063,4 +1067,30 @@ span.body .coderesponses {
 
 .boxed_message.thick_border {
   border-width: thick;
+}
+
+/* GASES */
+
+.oxygen {
+  color: #449dff;
+}
+
+.nitrogen {
+  color: #f94541;
+}
+
+.carbon_dioxide {
+  color: #cccccc;
+}
+
+.plasma {
+  color: #eb6b00;
+}
+
+.sleeping_agent {
+  color: #f28b89;
+}
+
+.agent_b {
+  color: teal;
 }

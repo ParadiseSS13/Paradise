@@ -10,6 +10,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/datum/radial_menu/parent
 
 /atom/movable/screen/radial/Destroy()
+	parent.current_user.screen -= src
 	parent = null
 	return ..()
 
@@ -90,9 +91,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		zone = 360 - starting_angle + ending_angle
 
 	max_elements = round(zone / min_angle)
-	var/paged = max_elements < choices.len
-	if(elements.len < max_elements)
-		var/elements_to_add = max_elements - elements.len
+	var/paged = max_elements < length(choices)
+	if(length(elements) < max_elements)
+		var/elements_to_add = max_elements - length(elements)
 		for(var/i in 1 to elements_to_add) //Create all elements
 			var/atom/movable/screen/radial/new_element = new /atom/movable/screen/radial/slice
 			new_element.parent = src
@@ -102,18 +103,18 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	page_data = list(null)
 	var/list/current = list()
 	var/list/choices_left = choices.Copy()
-	while(choices_left.len)
-		if(current.len == max_elements)
+	while(length(choices_left))
+		if(length(current) == max_elements)
 			page_data[page] = current
 			page++
 			page_data.len++
 			current = list()
-		if(paged && current.len == max_elements - 1)
+		if(paged && length(current) == max_elements - 1)
 			current += NEXT_PAGE_ID
 			continue
 		else
 			current += popleft(choices_left)
-	if(paged && current.len < max_elements)
+	if(paged && length(current) < max_elements)
 		current += NEXT_PAGE_ID
 
 	page_data[page] = current
@@ -123,14 +124,14 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 /datum/radial_menu/proc/update_screen_objects()
 	var/list/page_choices = page_data[current_page]
-	var/angle_per_element = round(zone / page_choices.len)
+	var/angle_per_element = round(zone / length(page_choices))
 	if(current_user.mob.z && anchor.z)
 		pixel_x_difference = ((world.icon_size * anchor.x) + anchor.step_x + anchor.pixel_x) - ((world.icon_size * current_user.mob.x) + current_user.mob.step_x + current_user.mob.pixel_x)
 		pixel_y_difference = ((world.icon_size * anchor.y) + anchor.step_y + anchor.pixel_y) - ((world.icon_size * current_user.mob.y) + current_user.mob.step_y + current_user.mob.pixel_y)
-	for(var/i in 1 to elements.len)
+	for(var/i in 1 to length(elements))
 		var/atom/movable/screen/radial/E = elements[i]
 		var/angle = WRAP(starting_angle + (i - 1) * angle_per_element, 0, 360)
-		if(i > page_choices.len)
+		if(i > length(page_choices))
 			HideElement(E)
 		else
 			SetElement(E,page_choices[i], angle)
@@ -187,10 +188,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	selected_choice = choices_values[choice_id]
 
 /datum/radial_menu/proc/get_next_id()
-	return "c_[choices.len]"
+	return "c_[length(choices)]"
 
 /datum/radial_menu/proc/set_choices(list/new_choices)
-	if(choices.len)
+	if(length(choices))
 		Reset()
 	for(var/E in new_choices)
 		var/id = get_next_id()
@@ -238,6 +239,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 				return
 			else
 				next_check = world.time + check_delay
+		// if you're wondering why your radial menus aren't clickable while debugging:
+		// it's probably the stoplag call here, try it again without any breakpoints
 		stoplag(1)
 
 /datum/radial_menu/Destroy()
@@ -245,7 +248,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	QDEL_LIST_CONTENTS(elements)
 	QDEL_NULL(close_button)
 	anchor = null
-	. = ..()
+	return ..()
 
 /*
 	Presents radial menu to user anchored to anchor (or user if the anchor is currently in users screen)
@@ -257,8 +260,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		return
 	if(!uniqueid)
 		uniqueid = "defmenu_[user.UID()]_[anchor.UID()]"
-
-	if(GLOB.radial_menus[uniqueid])
+	if(GLOB.radial_menus[uniqueid]) // Calls the close button an already existing radial menu.
+		var/datum/radial_menu/existing_menu = GLOB.radial_menus[uniqueid]
+		existing_menu.finished = TRUE
 		return
 
 	var/datum/radial_menu/menu = new

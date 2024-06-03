@@ -139,22 +139,10 @@
 	// Objects loop
 	if(!(flags & DMM_IGNORE_OBJS))
 		for(var/obj/O in model.contents)
-			if(O.dont_save || QDELETED(O))
+			if(QDELETED(O))
 				continue
 
 			obj_template += "[O.type][check_attributes(O,use_json=use_json)],"
-
-	// Mobs Loop
-	for(var/mob/M in model.contents)
-		if(M.dont_save || QDELETED(M))
-			continue
-
-		if(M.client)
-			if(!(flags & DMM_IGNORE_PLAYERS))
-				mob_template += "[M.type][check_attributes(M,use_json=use_json)],"
-		else
-			if(!(flags & DMM_IGNORE_NPCS))
-				mob_template += "[M.type][check_attributes(M,use_json=use_json)],"
 
 	// Area
 	if(!(flags & DMM_IGNORE_AREAS))

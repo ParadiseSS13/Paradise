@@ -68,20 +68,21 @@
 		..()
 
 /obj/structure/kitchenspike/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/crowbar))
-		if(!has_buckled_mobs())
-			playsound(loc, I.usesound, 100, 1)
-			if(do_after(user, 20 * I.toolspeed, target = src))
-				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
-				deconstruct(TRUE)
-		else
-			to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
-		return
-	else if(istype(I, /obj/item/grab))
+	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(G.affecting && isliving(G.affecting))
 			start_spike(G.affecting, user)
 	return ..()
+
+/obj/structure/kitchenspike/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(has_buckled_mobs())
+		to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
+		return
+	if(!I.use_tool(src, user, 2 SECONDS, I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
+	deconstruct(TRUE)
 
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
 	if(!user.Adjacent(src) || !user.Adjacent(victim) || isAI(user) || !ismob(victim))

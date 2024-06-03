@@ -41,13 +41,13 @@
 
 	// Its custom, lets ask
 	var/question = tgui_input_text(usr, "What is the vote for?", "Create Vote", encode = FALSE)
-	if(!question)
+	if(isnull(question))
 		return
 
 	var/list/choices = list()
 	for(var/i in 1 to 10)
 		var/option = tgui_input_text(usr, "Please enter an option or hit cancel to finish", "Create Vote", encode = FALSE)
-		if(!option || !usr.client)
+		if(isnull(option) || !usr.client)
 			break
 		choices |= option
 

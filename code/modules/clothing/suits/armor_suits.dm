@@ -476,7 +476,7 @@
 
 /obj/item/clothing/suit/armor/reactive/proc/reaction_check(hitby)
 	if(prob(hit_reaction_chance))
-		if(istype(hitby, /obj/item/projectile))
+		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			if(istype(P, /obj/item/projectile/ion))
 				return FALSE

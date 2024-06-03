@@ -16,27 +16,29 @@
 	var/list/blood_DNA
 	var/blood_color
 	var/pass_flags = 0
-	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
-	var/simulated = TRUE //filter for actions - used by lighting overlays
+	/// The higher the germ level, the more germ on the atom.
+	var/germ_level = GERM_LEVEL_AMBIENT
+	/// Filter for actions - used by lighting overlays
+	var/simulated = TRUE
 	var/atom_say_verb = "says"
-	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
-	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
+	/// What icon the mob uses for speechbubbles
+	var/bubble_icon = "default"
 
-	///Chemistry.
+	// Chemistry.
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
 
-	//This atom's HUD (med/sec, etc) images. Associative list.
+	/// This atom's HUD (med/sec, etc) images. Associative list.
 	var/list/image/hud_list
-	//HUD images that this atom can provide.
+	/// HUD images that this atom can provide.
 	var/list/hud_possible
 
-	//Value used to increment ex_act() if reactionary_explosions is on
+	/// Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
 
-	//Detective Work, used for the duplicate data points kept in the scanners
+	// Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
-	/// Materials scannable by detective
+	/// List of fibers that this atom has
 	var/list/suit_fibers
 
 	var/admin_spawned = FALSE	//was this spawned by an admin? used for stat tracking stuff.
@@ -288,6 +290,10 @@
 	else
 		return null
 
+///Return the air if we can analyze it
+/atom/proc/return_analyzable_air()
+	return null
+
 /atom/proc/check_eye(mob/user)
 	return
 
@@ -368,7 +374,7 @@
 				pass |= istype(A, type)
 			if(!pass)
 				continue
-		if(A.contents.len)
+		if(length(A.contents))
 			found += A.search_contents_for(path, filter_path)
 	return found
 
@@ -390,24 +396,53 @@
 
 /atom/proc/build_reagent_description(mob/user)
 	. = list()
-	if(reagents)
+	if(!reagents)
+		return
+	var/one_percent = reagents.total_volume / 100
+	var/blood_type = ""
+	if(user.advanced_reagent_vision())	// You can see absolute unit concentrations in transparent containers and % concentrations in opaque containers. You can also see blood types.
+		. += "<span class='notice'>It contains:</span>"
+		if(!length(reagents.reagent_list))
+			. += "<span class='notice'>Nothing.</span>"
+			return
 		if(container_type & TRANSPARENT)
-			. += "<span class='notice'>It contains:</span>"
-			if(reagents.reagent_list.len)
-				if(user.can_see_reagents()) //Show each individual reagent
-					for(var/I in reagents.reagent_list)
-						var/datum/reagent/R = I
-						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
-				else //Otherwise, just show the total volume
-					if(reagents && reagents.reagent_list.len)
-						. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
+			for(var/I in reagents.reagent_list)
+				var/datum/reagent/R = I
+				if(R.id != "blood")
+					. += "<span class='notice'>[R.volume] units of [R] ([round(R.volume / one_percent)]%)</span>"
+				else
+					blood_type = R.data["blood_type"]
+					. += "<span class='notice'>[R.volume] units of [R] ([blood_type ? "[blood_type]" : ""]) ([round(R.volume / one_percent)]%)</span>"
+			return
+		// Opaque containers
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.id != "blood")
+				. += "<span class='notice'>[R] ([round(R.volume / one_percent)]%)</span>"
 			else
-				. += "<span class='notice'>Nothing.</span>"
-		else if(container_type & AMOUNT_VISIBLE)
-			if(reagents.total_volume)
-				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
-			else
-				. += "<span class='danger'>It's empty.</span>"
+				blood_type = R.data["blood_type"]
+				. += "<span class='notice'>[R] ([blood_type ? "[blood_type]" : ""]) ([round(R.volume / one_percent)]%)</span>"
+		return
+
+	if(container_type & TRANSPARENT)
+		. += "<span class='notice'>It contains:</span>"
+		if(user.reagent_vision())	// You can see absolute unit quantities of reagents in transparent containers.
+			for(var/I in reagents.reagent_list)
+				var/datum/reagent/R = I
+				. += "<span class='notice'>[R.volume] units of [R] ([round(R.volume / one_percent)]%)</span>"
+			return
+
+		//Otherwise, just show the total volume
+		if(length(reagents?.reagent_list))
+			. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
+		else
+			. += "<span class='notice'>Nothing.</span>"
+		return
+
+	if(container_type & AMOUNT_VISIBLE)
+		if(reagents.total_volume)
+			. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
+		else
+			. += "<span class='danger'>It's empty.</span>"
 
 /atom/proc/examine(mob/user, infix = "", suffix = "")
 	. = build_base_description(infix, suffix)
@@ -503,6 +538,7 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
+/// If it returns TRUE, attack chain stops
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
 	switch(tool_type)
 		if(TOOL_CROWBAR)
@@ -845,9 +881,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/transfer_blood_dna(list/blood_dna)
 	if(!blood_DNA)
 		blood_DNA = list()
-	var/old_length = blood_DNA.len
+	var/old_length = length(blood_DNA)
 	blood_DNA |= blood_dna
-	if(blood_DNA.len > old_length)
+	if(length(blood_DNA) > old_length)
 		return TRUE//some new blood DNA was added
 
 //to add blood from a mob onto something, and transfer their dna info
@@ -1027,7 +1063,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/cur_x = null
 	var/cur_y = null
 	var/list/y_arr = null
-	for(cur_x in 1 to GLOB.global_map.len)
+	for(cur_x in 1 to length(GLOB.global_map))
 		y_arr = GLOB.global_map[cur_x]
 		cur_y = y_arr.Find(src.z)
 		if(cur_y)
@@ -1096,7 +1132,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!message)
 		return
 	var/list/speech_bubble_hearers = list()
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M as anything in get_mobs_in_view(7, src))
 		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
@@ -1128,6 +1164,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(curturf)
 		.["Jump to turf"] = "?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
 	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
+	.["Edit reagents"] = "?_src_=vars;editreagents=[UID()]"
 	.["Trigger explosion"] = "?_src_=vars;explode=[UID()]"
 	.["Trigger EM pulse"] = "?_src_=vars;emp=[UID()]"
 
@@ -1155,12 +1192,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	Adds an instance of colour_type to the atom's atom_colours list
 */
 /atom/proc/add_atom_colour(coloration, colour_priority)
-	if(!atom_colours || !atom_colours.len)
+	if(!atom_colours || !length(atom_colours))
 		atom_colours = list()
 		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
 	if(!coloration)
 		return
-	if(colour_priority > atom_colours.len)
+	if(colour_priority > length(atom_colours))
 		return
 	atom_colours[colour_priority] = coloration
 	update_atom_colour()
@@ -1172,7 +1209,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!atom_colours)
 		atom_colours = list()
 		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
-	if(colour_priority > atom_colours.len)
+	if(colour_priority > length(atom_colours))
 		return
 	if(coloration && atom_colours[colour_priority] != coloration)
 		return //if we don't have the expected color (for a specific priority) to remove, do nothing
@@ -1191,7 +1228,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	for(var/C in atom_colours)
 		if(islist(C))
 			var/list/L = C
-			if(L.len)
+			if(length(L))
 				color = L
 				return
 		else if(C)

@@ -147,7 +147,7 @@
 				continue
 			missing_limbs[initial(limb.name)] = l
 
-	if(!missing_limbs.len)
+	if(!length(missing_limbs))
 		to_chat(H, "<span class='warning'>You're not missing any limbs!</span>")
 		return
 

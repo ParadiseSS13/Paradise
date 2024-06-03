@@ -175,7 +175,7 @@ Difficulty: Hard
 				possibilities = list("chaser_swarm")
 			else
 				possibilities += "chaser_swarm"
-		if(possibilities.len)
+		if(length(possibilities))
 			switch(pick(possibilities))
 				if("blink_spam") //blink either once or multiple times.
 					blink_spam(blink_counter, target_slowness, cross_counter)
@@ -277,9 +277,9 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(6)
 	var/list/targets = ListTargets()
 	var/list/cardinal_copy = GLOB.cardinal.Copy()
-	while(targets.len && cardinal_copy.len)
+	while(length(targets) && length(cardinal_copy))
 		var/mob/living/pickedtarget = pick(targets)
-		if(targets.len >= cardinal_copy.len)
+		if(length(targets) >= length(cardinal_copy))
 			pickedtarget = pick_n_take(targets)
 		if(!istype(pickedtarget) || pickedtarget.stat == DEAD)
 			pickedtarget = target
@@ -605,7 +605,7 @@ Difficulty: Hard
 		return FALSE
 	if(mover == caster.pulledby)
 		return TRUE
-	if(istype(mover, /obj/item/projectile))
+	if(isprojectile(mover))
 		var/obj/item/projectile/P = mover
 		if(P.firer == caster)
 			return TRUE

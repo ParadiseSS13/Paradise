@@ -245,3 +245,9 @@
 
 /area/station/public/quantum/cargo
 	name = "Cargo Quantum Pad"
+
+/area/station/public/quantum/service
+	name = "Service Quantum Pad"
+
+/area/station/public/quantum/medbay
+	name = "Medbay Quantum Pad"

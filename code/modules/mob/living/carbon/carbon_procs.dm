@@ -194,18 +194,11 @@
 	SEND_SIGNAL(src, COMSIG_CARBON_SWAP_HANDS)
 
 
-/mob/living/carbon/activate_hand(selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
-
-	if(istext(selhand))
-		selhand = lowertext(selhand)
-
-		if(selhand == "right" || selhand == "r")
-			selhand = 0
-		if(selhand == "left" || selhand == "l")
-			selhand = 1
-
+/mob/living/carbon/activate_hand(selhand)
 	if(selhand != hand)
 		swap_hand()
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	if(health < HEALTH_THRESHOLD_CRIT)
@@ -360,7 +353,7 @@
 	if((E && (E.status & ORGAN_DEAD)) || !.)
 		return FALSE
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/flash)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 
@@ -500,10 +493,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 					"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
-	if(!do_after(src, 4.5 SECONDS, target = src))
-		return
-
+#ifdef UNIT_TESTS
+	var/ventcrawl_delay = 0 SECONDS
+#else
+	var/ventcrawl_delay = 4.5 SECONDS
 	if(!client)
+		return
+#endif
+	if(!do_after(src, ventcrawl_delay, target = src))
 		return
 
 	if(!vent_found.can_crawl_through())
@@ -545,7 +542,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!A.pipe_image)
 			A.update_pipe_image()
 		pipes_shown += A.pipe_image
-		client.images += A.pipe_image
+		if(client)
+			client.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
 	if(client)
@@ -750,84 +748,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(hud_used?.move_intent)
 			hud_used.move_intent.icon_state = "walking"
 
-/mob/living/carbon/show_inv(mob/user)
-	user.set_machine(src)
-
-	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
-
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_BACK]'>[(back && !(back.flags&ABSTRACT)) ? html_encode(back) : "<font color=grey>Empty</font>"]</A>"
-	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/tank))
-		dat += "&nbsp;<A href='?src=[UID()];internal=[SLOT_HUD_BACK]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
-
-	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
-
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_HEAD]'>[(head && !(head.flags&ABSTRACT)) ? html_encode(head) : "<font color=grey>Empty</font>"]</A></td></tr>"
-
-	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_WEAR_MASK]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? html_encode(wear_mask) : "<font color=grey>Empty</font>"]</A></td></tr>"
-
-	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
-		var/obj/item/clothing/mask/muzzle/M = wear_mask
-		if(M.security_lock)
-			dat += "&nbsp;<A href='?src=[M.UID()];locked=\ref[src]'>[M.locked ? "Disable Lock" : "Set Lock"]</A>"
-
-		dat += "</td></tr><tr><td>&nbsp;</td></tr>"
-
-	if(handcuffed)
-		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[SLOT_HUD_HANDCUFFED]'>Remove</A></td></tr>"
-	if(legcuffed)
-		dat += "<tr><td><A href='?src=[UID()];item=[SLOT_HUD_LEGCUFFED]'>Legcuffed</A></td></tr>"
-
-	dat += {"</table>
-	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
-	"}
-
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
-	popup.set_content(dat)
-	popup.open()
-
-/mob/living/carbon/Topic(href, href_list)
-	..()
-	//strip panel
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained() || !in_range(src, usr))
-		return
-	if(href_list["internal"])
-		var/slot = text2num(href_list["internal"])
-		var/obj/item/ITEM = get_item_by_slot(slot)
-		if(ITEM && istype(ITEM, /obj/item/tank))
-			visible_message("<span class='danger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>", \
-							"<span class='userdanger'>[usr] tries to [internal ? "close" : "open"] the valve on [src]'s [ITEM].</span>")
-
-			var/no_mask
-			if(!get_organ_slot("breathing_tube"))
-				if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-					if(!(head && head.flags & AIRTIGHT))
-						no_mask = 1
-			if(no_mask)
-				to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
-				return
-
-			if(do_mob(usr, src, POCKET_STRIP_DELAY))
-				if(internal)
-					internal = null
-					update_action_buttons_icon()
-				else
-					var/no_mask2
-					if(!get_organ_slot("breathing_tube"))
-						if(!(wear_mask && wear_mask.flags & AIRTIGHT))
-							if(!(head && head.flags & AIRTIGHT))
-								no_mask2 = 1
-					if(no_mask2)
-						to_chat(usr, "<span class='warning'>[src] is not wearing a suitable mask or helmet!</span>")
-						return
-					internal = ITEM
-					update_action_buttons_icon()
-
-				visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>", \
-								"<span class='userdanger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM].</span>")
-
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
 		if(SLOT_HUD_BACK)
@@ -883,7 +803,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
 	var/obj/item/I = get_restraining_item()
-	if(!I) // If there is nothing to restrain him then he is not restrained
+	var/time = 0
+	if(istype(I))
+		time = I.breakouttime
+	else if(isstructure(buckled))
+		var/obj/structure/struct = buckled
+		time = struct.unbuckle_time
+
+	if(time == 0)
 		buckled.user_unbuckle_mob(src, src)
 		return
 
@@ -891,7 +818,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='notice'>You are already trying to unbuckle!</span>")
 		return
 	apply_status_effect(STATUS_EFFECT_UNBUCKLE)
-	var/time = I.breakouttime
+
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
 				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
 	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check)))))
@@ -986,7 +913,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(I == handcuffed)
 				if(istype(I, /obj/item/restraints/handcuffs/twimsts))
 					playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
-					if(I.reagents && I.reagents.reagent_list.len)
+					if(I.reagents && length(I.reagents.reagent_list))
 						taste(I.reagents)
 						I.reagents.reaction(src, REAGENT_INGEST)
 						I.reagents.trans_to(src, I.reagents.total_volume)
@@ -1274,9 +1201,9 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/update_tint()
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/blind)
 	else if(tinttotal >= TINT_IMPAIR)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/impaired, 2)
 	else
 		clear_fullscreen("tint", 0)
 
@@ -1391,3 +1318,19 @@ so that different stomachs can handle things in different ways VB*/
 	for(var/obj/item/organ/internal/IO in internal_organs)
 		if(IO.dna?.real_name == oldname)
 			IO.dna.real_name = newname
+
+/// Returns TRUE if an air tank compatible mask or breathing tube is equipped.
+/mob/living/carbon/proc/can_breathe_internals()
+	return can_breathe_tube() || can_breathe_mask() || can_breathe_helmet()
+
+/// Returns TRUE if an air tank compatible helmet is equipped.
+/mob/living/carbon/proc/can_breathe_helmet()
+	return (isclothing(head) && (head.flags & AIRTIGHT))
+
+/// Returns TRUE if an air tank compatible mask is equipped.
+/mob/living/carbon/proc/can_breathe_mask()
+	return (isclothing(wear_mask) && (wear_mask.flags & AIRTIGHT))
+
+/// Returns TRUE if a breathing tube is equipped.
+/mob/living/carbon/proc/can_breathe_tube()
+	return get_organ_slot("breathing_tube")

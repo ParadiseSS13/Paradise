@@ -70,6 +70,11 @@ GLOBAL_LIST_EMPTY(blob_minions)
 /obj/structure/blob/blob_act(obj/structure/blob/B)
 	return
 
+/obj/structure/blob/bullet_act(obj/item/projectile/P)
+	if(istype(P, /obj/item/projectile/kinetic))
+		P.damage /= 2
+	return ..()
+
 /obj/structure/blob/proc/Life()
 	return
 
@@ -114,7 +119,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	var/list/dirs = list(1,2,4,8)
 	dirs.Remove(origin_dir)//Dont pulse the guy who pulsed us
 	for(var/i = 1 to 4)
-		if(!dirs.len)	break
+		if(!length(dirs))	break
 		var/dirn = pick(dirs)
 		dirs.Remove(dirn)
 		var/turf/T = get_step(src, dirn)

@@ -1,5 +1,5 @@
 /*
-	Station Airlocks Regular
+	MARK: Station Airlocks Regular
 */
 
 /obj/machinery/door/airlock/command
@@ -60,7 +60,7 @@
 
 //////////////////////////////////
 /*
-	Station Airlocks Glass
+	MARK: Station Airlocks Glass
 */
 
 /obj/machinery/door/airlock/glass
@@ -116,7 +116,7 @@
 
 //////////////////////////////////
 /*
-	Station Airlocks Mineral
+	MARK: Station Airlocks Mineral
 */
 
 /obj/machinery/door/airlock/gold
@@ -203,7 +203,7 @@
 
 /obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
 	if(C.get_heat() > 300)
-		message_admins("Plasma airlock ignited by [key_name_admin(user)] in ([x],[y],[z] - <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+		message_admins("Plasma airlock ignited by [key_name_admin(user)] in ([x],[y],[z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		log_game("Plasma airlock ignited by [key_name(user)] in ([x],[y],[z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 		ignite(C.get_heat())
@@ -273,7 +273,7 @@
 
 //////////////////////////////////
 /*
-	Station2 Airlocks
+	MARK: Station2 Airlocks
 */
 
 /obj/machinery/door/airlock/public
@@ -287,7 +287,7 @@
 
 //////////////////////////////////
 /*
-	External Airlocks
+	MARK: External Airlocks
 */
 
 /obj/machinery/door/airlock/external
@@ -317,7 +317,7 @@
 
 //////////////////////////////////
 /*
-	CentCom Airlocks
+	MARK: CentCom Airlocks
 */
 
 /obj/machinery/door/airlock/centcom
@@ -339,7 +339,7 @@
 
 //////////////////////////////////
 /*
-	Vault Airlocks
+	MARK: Vault Airlocks
 */
 
 /obj/machinery/door/airlock/vault
@@ -354,7 +354,7 @@
 
 //////////////////////////////////
 /*
-	Hatch Airlocks
+	MARK: Hatch Airlocks
 */
 
 /obj/machinery/door/airlock/hatch
@@ -400,7 +400,7 @@
 
 //////////////////////////////////
 /*
-	High Security Airlocks
+	MARK: High Security Airlocks
 */
 
 /obj/machinery/door/airlock/highsecurity
@@ -474,7 +474,7 @@
 
 //////////////////////////////////
 /*
-	Cult Airlocks
+	MARK: Cult Airlocks
 */
 
 /obj/machinery/door/airlock/cult
@@ -540,7 +540,7 @@
 	glass = stealth_glass
 	airlock_material = stealth_airlock_material
 	name = "airlock"
-	desc = "It opens and closes."
+	desc = "An airlock door keeping you safe from the vacuum of space. Only works if closed."
 	stealthy = TRUE
 	update_icon()
 
@@ -610,7 +610,7 @@
 
 //////////////////////////////////
 /*
-	Misc Airlocks
+	MARK: Misc Airlocks
 */
 
 //Terribly sorry for the code doubling, but things go derpy otherwise.

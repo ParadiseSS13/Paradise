@@ -22,7 +22,7 @@
 
 
 /obj/machinery/computer/arcade/proc/prizevend(score)
-	if(!contents.len)
+	if(!length(contents))
 		var/prize_amount
 		if(score)
 			prize_amount = score
@@ -354,7 +354,7 @@
 /obj/machinery/computer/arcade/orion_trail/attack_hand(mob/user)
 	if(..())
 		return
-	if(fuel <= 0 || food <=0 || settlers.len == 0)
+	if(fuel <= 0 || food <=0 || length(settlers) == 0)
 		gameover = 1
 		event = null
 	user.set_machine(src)
@@ -362,7 +362,7 @@
 	if(gameover)
 		dat = "<center><h1>Game Over</h1></center>"
 		dat += "Like many before you, your crew never made it to Orion, lost to space... <br><b>Forever</b>."
-		if(settlers.len == 0)
+		if(length(settlers) == 0)
 			dat += "<br>Your entire crew died, your ship joins the fleet of ghost-ships littering the galaxy."
 		else
 			if(food <= 0)
@@ -757,7 +757,7 @@
 
 		if(ORION_TRAIL_LING)
 			eventdat += "Strange reports warn of changelings infiltrating crews on trips to Orion..."
-			if(settlers.len <= 2)
+			if(length(settlers) <= 2)
 				eventdat += "<br>Your crew's chance of reaching Orion is so slim the changelings likely avoided your ship..."
 				eventdat += "<P ALIGN=Right><a href='byond://?src=[UID()];eventclose=1'>Continue</a></P>"
 				eventdat += "<P ALIGN=Right><a href='byond://?src=[UID()];close=1'>Close</a></P>"
@@ -924,7 +924,6 @@
 		alive++
 	return newcrew
 
-
 //Remove Random/Specific crewmember
 /obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(specific = "", dont_remove = "")
 	var/list/safe2remove = settlers
@@ -934,7 +933,7 @@
 	if(specific && specific != dont_remove)
 		safe2remove = list(specific)
 	else
-		if(safe2remove.len >= 1) //need to make sure we even have anyone to remove
+		if(length(safe2remove) >= 1) //need to make sure we even have anyone to remove
 			removed = pick(safe2remove)
 
 	if(removed)

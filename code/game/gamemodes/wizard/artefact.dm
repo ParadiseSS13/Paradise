@@ -677,7 +677,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	check_spooky()//clean out/refresh the list
 
-	if(spooky_scaries.len >= 3 && !unlimited)
+	if(length(spooky_scaries) >= 3 && !unlimited)
 		to_chat(user, "<span class='warning'>This artifact can only affect three undead at a time!</span>")
 		return
 	if(heresy)
@@ -691,7 +691,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	spooky_scaries |= M
 	to_chat(M, "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>")
 	to_chat(M, "<span class='userdanger'>[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>")
-	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
+	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [length(spooky_scaries)]/3 active thralls."]"
 
 /obj/item/necromantic_stone/proc/check_spooky()
 	if(unlimited) //no point, the list isn't used.

@@ -23,7 +23,7 @@
 	displayTo - a list of MOBS to show this appearance to
 */
 /datum/alternate_appearance/proc/display_to(list/displayTo)
-	if(!displayTo || !displayTo.len)
+	if(!displayTo || !length(displayTo))
 		return
 	for(var/m in displayTo)
 		var/mob/M = m
@@ -47,7 +47,7 @@
 		var/mob/M = m
 		if(M.client)
 			M.client.images -= img
-		if(M.viewing_alternate_appearances && M.viewing_alternate_appearances.len)
+		if(M.viewing_alternate_appearances && length(M.viewing_alternate_appearances))
 			M.viewing_alternate_appearances -= src
 		viewers -= M
 
@@ -94,7 +94,7 @@
 	if(alternate_appearances[key])
 		qdel(alternate_appearances[key])
 	alternate_appearances[key] = AA
-	if(displayTo && displayTo.len)
+	if(displayTo && length(displayTo))
 		display_alt_appearance(key, displayTo)
 
 

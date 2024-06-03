@@ -57,7 +57,7 @@
 	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)	//harmful temperature
 		attack_log_type = ATKLOG_MOST
 
-	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only create space cleaner logs if it's burning people from being too hot or cold
+	if(length(reagents.reagent_list) == 1 && reagents.has_reagent("cleaner")) // Only create space cleaner logs if it's burning people from being too hot or cold
 		if(attack_log_type == ATKLOG_ALMOSTALL)
 			return
 
@@ -98,9 +98,9 @@
 	. = ..()
 	if(get_dist(user, src) && user == loc)
 		. += "[round(reagents.total_volume)] units left."
-	. += "<span class='info'><b>Alt-Click</b> to empty it.</span>"
+	. += "<span class='info'><b>Alt-Shift-Click</b> to empty it.</span>"
 
-/obj/item/reagent_containers/spray/AltClick(mob/user)
+/obj/item/reagent_containers/spray/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(tgui_alert(user, "Are you sure you want to empty that?", "Empty Bottle", list("Yes", "No")) != "Yes")
@@ -245,7 +245,7 @@
 	var/turf/T2 = get_step(T,turn(direction, -90))
 	var/list/the_targets = list(T,T1,T2)
 
-	for(var/i=1, i<=Sprays.len, i++)
+	for(var/i=1, i<=length(Sprays), i++)
 		spawn()
 			var/obj/effect/decal/chempuff/D = Sprays[i]
 			if(!D) continue

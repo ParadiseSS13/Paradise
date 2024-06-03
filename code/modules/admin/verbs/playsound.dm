@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			uploaded_sound.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
 
 			var/this_uid = M.client.UID()
-			to_chat(M, "<span class='boldannounceic'>[ckey] played <code>[S]</code> (<a href='?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='?src=[this_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
+			to_chat(M, "<span class='boldannounceic'>[ckey] played <code>[S]</code> (<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
 			SEND_SOUND(M, uploaded_sound)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

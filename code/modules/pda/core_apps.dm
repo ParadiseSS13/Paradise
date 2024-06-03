@@ -74,7 +74,7 @@
 	switch(action)
 		if("Edit")
 			var/n = tgui_input_text(usr, "Please enter message", name, note, multiline = TRUE, encode = FALSE)
-			if(!n)
+			if(isnull(n))
 				return
 
 			if(pda.loc == usr)

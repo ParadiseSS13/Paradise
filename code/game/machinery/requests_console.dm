@@ -195,27 +195,25 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("writeInput")
 			if(reject_bad_text(params["write"]))
 				recipient = params["write"] //write contains the string of the receiving department's name
-
 				var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
-				if(new_message)
-					message = new_message
-					screen = RCS_MESSAUTH
-					switch(params["priority"])
-						if("1")
-							priority = RQ_NORMALPRIORITY
-						if("2")
-							priority = RQ_HIGHPRIORITY
-						else
-							priority = RQ_NONEW_MESSAGES
-				else
-					reset_message(TRUE)
+				if(isnull(new_message))
+					reset_message(FALSE)
+					return
+				message = new_message
+				screen = RCS_MESSAUTH
+				switch(params["priority"])
+					if("1")
+						priority = RQ_NORMALPRIORITY
+					if("2")
+						priority = RQ_HIGHPRIORITY
+					else
+						priority = RQ_NONEW_MESSAGES
 
 		if("writeAnnouncement")
 			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", message, multiline = TRUE, encode = FALSE)
-			if(new_message)
-				message = new_message
-			else
-				reset_message(TRUE)
+			if(isnull(new_message))
+				return
+			message = new_message
 
 		if("sendAnnouncement")
 			if(!announcementConsole)
@@ -227,6 +225,15 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			has_active_secondary_goal = check_for_active_secondary_goal(goalRequester)
 			if(has_active_secondary_goal || !secondaryGoalAuth)
 				return
+			var/found_message_server = FALSE
+			for(var/obj/machinery/message_server/MS as anything in GLOB.message_servers)
+				if(MS.active)
+					found_message_server = TRUE
+					break
+			if(!found_message_server)
+				screen = RCS_SENTFAIL
+				return
+
 			generate_secondary_goal(department, goalRequester, usr)
 			reset_message(FALSE)
 			view_messages()
@@ -237,7 +244,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				screen = RCS_SENTPASS
 			else
 				screen = RCS_SENTFAIL
-				atom_say("No server detected!")
 
 		//Handle screen switching
 		if("setScreen")
@@ -395,8 +401,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(!message)
 		return
 	var/found_message_server = FALSE
-	for(var/M in GLOB.message_servers)
-		var/obj/machinery/message_server/MS = M
+	for(var/obj/machinery/message_server/MS as anything in GLOB.message_servers)
 		if(!MS.active)
 			continue
 		MS.send_rc_message(ckey(recipient), sender, message, stamped, verified, priority)

@@ -35,7 +35,7 @@
 					continue
 			turfs += T
 
-		if(!turfs.len)
+		if(!length(turfs))
 			var/list/turfs_to_pick_from = list()
 			for(var/turf/T in orange(target,outer_tele_radius))
 				if(!(T in orange(target,inner_tele_radius)))

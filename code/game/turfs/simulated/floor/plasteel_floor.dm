@@ -1,12 +1,13 @@
 /turf/simulated/floor/plasteel
 	icon_state = "floor"
 	floor_tile = /obj/item/stack/tile/plasteel
-	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	burnt_states = list("floorscorched1", "floorscorched2")
 
 /turf/simulated/floor/plasteel/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
+
+/turf/simulated/floor/plasteel/get_broken_states()
+	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 
 /turf/simulated/floor/plasteel/airless
 	name = "airless floor"

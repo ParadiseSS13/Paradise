@@ -100,6 +100,8 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		var/mob/M = _I
 		if(is_station_level(M.z))
 			check_station_player(M)
+		else if(!M.loc)
+			stack_trace("[M] ended up without a location!")
 		else if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME && istype(get_area(M), SSshuttle.emergency.areaInstance))
 			check_shuttle_player(M)
 
@@ -241,7 +243,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 
 	// Generate the score panel
-	var/list/dat = list("<meta charset='UTF-8'><b>Round Statistics and Score</b><br><hr>")
+	var/list/dat = list("<!DOCTYPE html><meta charset='UTF-8'><b>Round Statistics and Score</b><br><hr>")
 	if(SSticker.mode)
 		dat += SSticker.mode.get_scoreboard_stats()
 
@@ -307,7 +309,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	for(var/mob/E in GLOB.player_list)
 		if(E.client)
 			to_chat(E, "<b>The crew's final score is:</b>")
-			to_chat(E, "<b><font size='4'><a href='?src=[E.UID()];scoreboard=1'>[crewscore]</a></font></b>")
+			to_chat(E, "<b><font size='4'><a href='byond://?src=[E.UID()];scoreboard=1'>[crewscore]</a></font></b>")
 			if(!E.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
 				E << browse(GLOB.scoreboard, "window=roundstats;size=500x600")
 

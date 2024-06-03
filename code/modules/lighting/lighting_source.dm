@@ -41,6 +41,10 @@
 
 	source_turf = top_atom
 	pixel_turf = get_turf_pixel(top_atom) || source_turf
+	if(!pixel_turf)
+		stack_trace("[src] had no pixel turf assigned to it")
+		qdel(src)
+		return // Get us out of here before we do unneded operations
 
 	light_power = source_atom.light_power
 	light_range = source_atom.light_range

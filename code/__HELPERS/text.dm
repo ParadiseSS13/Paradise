@@ -38,6 +38,10 @@
 /proc/sanitize(t, list/repl_chars = null)
 	return html_encode(sanitize_simple(t,repl_chars))
 
+/// sanitize() with a pre-set list of characters to remove from IC speech.
+/proc/sanitize_for_ic(t)
+	return sanitize(t, list("<" = "", ">" = "", "\[" = "", "]" = "", "{" = "", "}" = ""))
+
 // Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/paranoid_sanitize(t)
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
@@ -342,35 +346,23 @@
 		new_text += copytext(text, i, i+1)
 	return new_text
 
-//This proc strips html properly, but it's not lazy like the other procs.
-//This means that it doesn't just remove < and > and call it a day.
-//Also limit the size of the input, if specified.
-/proc/strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
+/// Strips HTML tags (and only tags) from the input.
+/// The result may still include HTML entities, like &#39; for '
+/proc/strip_html_tags(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
 	if(!input)
-		return
-	var/opentag = 1 //These store the position of < and > respectively.
-	var/closetag = 1
-	while(1)
-		opentag = findtext(input, "<")
-		closetag = findtext(input, ">")
-		if(closetag && opentag)
-			if(closetag < opentag)
-				input = copytext(input, (closetag + 1))
-			else
-				input = copytext(input, 1, opentag) + copytext(input, (closetag + 1))
-		else if(closetag || opentag)
-			if(opentag)
-				input = copytext(input, 1, opentag)
-			else
-				input = copytext(input, (closetag + 1))
-		else
-			break
+		return ""
+	var/static/regex/tags = regex("<\[^>]*>", "g")
+	if(!tags)
+		tags = regex("<\[^>]*>", "g")
+	input = tags.Replace(input, "")
 	if(max_length)
 		input = copytext_char(input, 1, max_length)
-	return sanitize(input, allow_lines ? list("\t" = " ") : list("\n" = " ", "\t" = " "))
+	if(allow_lines)
+		return sanitize_simple(input, list("\t" = " "))
+	return sanitize_simple(input, list("\n" = " ", "\t" = " "))
 
-/proc/trim_strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
-	return trim(strip_html_properly(input, max_length, allow_lines))
+/proc/trim_strip_html_tags(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
+	return trim(strip_html_tags(input, max_length, allow_lines))
 
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
@@ -464,6 +456,8 @@
 	text = replacetext(text, "\[/i\]",		"</I>")
 	text = replacetext(text, "\[u\]",		"<U>")
 	text = replacetext(text, "\[/u\]",		"</U>")
+	text = replacetext(text, "\[s\]",		"<S>")
+	text = replacetext(text, "\[/s\]",		"</S>")
 	if(findtext(text, "\[signfont\]") || findtext(text, "\[/signfont\]")) // Make sure the text is there before giving off an error
 		if(check_rights(R_EVENT))
 			text = replacetext(text, "\[signfont\]",		"<font face=\"[signfont]\"><i>")
@@ -547,9 +541,9 @@
 
 	if(tag == "img")
 		var/list/img_props = splittext(arg, ";")
-		if(img_props.len == 3)
+		if(length(img_props) == 3)
 			return "<img src='[img_props[1]]' width='[img_props[2]]' height='[img_props[3]]'>"
-		if(img_props.len == 2)
+		if(length(img_props) == 2)
 			return "<img src='[img_props[1]]' width='[img_props[2]]'>"
 		return "<img src='[arg]'>"
 
@@ -735,11 +729,6 @@
 		return "#e67e22" // Patreon orange
 	return null
 
-
-// Removes HTML tags, preserving text
-/proc/strip_html_tags(the_text)
-	var/static/regex/html_replacer = regex("<\[^>]*>", "g")
-	return html_replacer.Replace(the_text, "")
 
 /proc/starts_with_vowel(text)
 	var/start_char = copytext(text, 1, 2)

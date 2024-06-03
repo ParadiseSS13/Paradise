@@ -74,6 +74,8 @@
 	var/start_time
 	/// The lifespan of the text input, after which the window will close and delete itself.
 	var/timeout
+	/// The attached timer that handles this objects timeout deletion
+	var/deletion_timer
 	/// The title of the TGUI window
 	var/title
 	/// The TGUI UI state that will be returned in ui_state(). Default: always_state
@@ -91,11 +93,12 @@
 	if(timeout)
 		src.timeout = timeout
 		start_time = world.time
-		QDEL_IN(src, timeout)
+		deletion_timer = QDEL_IN(src, timeout)
 
 /datum/tgui_input_text/Destroy(force)
 	SStgui.close_uis(src)
 	state = null
+	deltimer(deletion_timer)
 	return ..()
 
 /**

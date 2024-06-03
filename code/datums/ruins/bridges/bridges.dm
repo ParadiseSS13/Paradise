@@ -62,7 +62,13 @@
 
 /obj/effect/spawner/bridge/Initialize(mapload)
 	. = ..()
+	SSlate_mapping.bridge_spawners += src
 
+/obj/effect/spawner/bridge/Destroy()
+	SSlate_mapping.bridge_spawners -= src
+	return ..()
+
+/obj/effect/spawner/bridge/proc/generate_bridge()
 	var/turf/east = locate(x + 3, y, z)
 	var/turf/west = locate(x - 3, y, z)
 	var/turf/north = locate(x, y + 3, z)
@@ -79,4 +85,3 @@
 	else if((ismineralturf(north) || istype(north, /turf/simulated/floor/plating/asteroid)) && (ismineralturf(south) || istype(south, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(e1) || istype(e1, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(w1) || istype(w1, /turf/simulated/floor/plating/asteroid)))
 		template = GLOB.bridge_vertical_templates[pick("lavaland_bridge_vertical_1.dmm", "lavaland_bridge_vertical_2.dmm", "lavaland_bridge_vertical_3.dmm", "lavaland_bridge_vertical_4.dmm", "lavaland_bridge_vertical_5.dmm", "lavaland_bridge_vertical_6.dmm")]
 		template.load(loc, centered = TRUE)
-	qdel(src) //Don't turn to hint qdel, it won't work well at all sadly.

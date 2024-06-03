@@ -47,6 +47,9 @@
 
 	speciesbox = /obj/item/storage/box/survival_plasmaman
 	flesh_color = "#8b3fba"
+	autohiss_basic_map = list(
+			"s" = list("ss", "sss", "ssss")
+		)
 
 /datum/species/plasmaman/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	var/current_job = J.title
@@ -84,6 +87,9 @@
 
 		if("Cargo Technician", "Quartermaster")
 			O = new /datum/outfit/plasmaman/cargo
+
+		if("Explorer")
+			O = new /datum/outfit/plasmaman/expedition
 
 		if("Shaft Miner")
 			O = new /datum/outfit/plasmaman/mining

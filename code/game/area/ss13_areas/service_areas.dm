@@ -59,9 +59,3 @@
 	name = "Hydroponics"
 	icon_state = "hydro"
 	sound_environment = SOUND_AREA_STANDARD_STATION
-
-/area/station/service/expedition
-	name = "\improper Expedition room"
-	icon_state = "expedition"
-	ambientsounds = ENGINEERING_SOUNDS
-	sound_environment = SOUND_AREA_STANDARD_STATION

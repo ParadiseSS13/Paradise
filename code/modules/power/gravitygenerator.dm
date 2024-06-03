@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		if(generators_in_level() == 0) // And there's no other gravity generators on this z level
 			alert = TRUE
 			investigate_log("was brought online and is now producing gravity for this level.", "gravity")
-			message_admins("The gravity generator was brought online. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
+			message_admins("The gravity generator was brought online. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 			for(var/area/A in world)
 				if(!is_station_level(A.z))
 					continue
@@ -300,7 +300,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	else if(generators_in_level() == 1) // Turned off, and there is only one gravity generator on the Z level
 		alert = TRUE
 		investigate_log("was brought offline and there is now no gravity for this level.", "gravity")
-		message_admins("The gravity generator was brought offline with no backup generator. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
+		message_admins("The gravity generator was brought offline with no backup generator. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 		for(var/area/A in world)
 			if(!is_station_level(A.z))
 				continue

@@ -42,7 +42,7 @@
 	var/turf/location = loc
 	if(ismob(location))
 		var/mob/M = location
-		if(M.l_hand == src || M.r_hand == src)
+		if(M.is_holding(src))
 			location = M.loc
 	if(isturf(location)) //start a fire if possible
 		igniter.flamethrower_process(location)
@@ -122,8 +122,6 @@
 		update_icon()
 		return
 
-	else if(istype(I, /obj/item/analyzer) && ptank)
-		atmosanalyzer_scan(ptank.air_contents, user)
 	else
 		return ..()
 
@@ -155,6 +153,11 @@
 	status = !status
 	to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
 	update_icon()
+
+/obj/item/flamethrower/return_analyzable_air()
+	if(ptank)
+		return ptank.return_analyzable_air()
+	return null
 
 /obj/item/flamethrower/attack_self(mob/user)
 	toggle_igniter(user)

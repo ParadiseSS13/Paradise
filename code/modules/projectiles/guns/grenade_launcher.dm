@@ -16,17 +16,17 @@
 /obj/item/gun/grenadelauncher/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
-		. += "<span class='notice'>[grenades.len] / [max_grenades] grenades.</span>"
+		. += "<span class='notice'>[length(grenades)] / [max_grenades] grenades.</span>"
 
 /obj/item/gun/grenadelauncher/attackby(obj/item/I as obj, mob/user as mob, params)
 	if((istype(I, /obj/item/grenade)))
-		if(grenades.len < max_grenades)
+		if(length(grenades) < max_grenades)
 			if(!user.unEquip(I))
 				return
 			I.loc = src
 			grenades += I
 			to_chat(user, "<span class='notice'>You put the grenade in [src].</span>")
-			to_chat(user, "<span class='notice'>[grenades.len] / [max_grenades] grenades.</span>")
+			to_chat(user, "<span class='notice'>[length(grenades)] / [max_grenades] grenades.</span>")
 		else
 			to_chat(user, "<span class='warning'>The grenade launcher cannot hold more grenades.</span>")
 	else
@@ -36,7 +36,7 @@
 	if(target == user)
 		return
 
-	if(grenades.len)
+	if(length(grenades))
 		fire_grenade(target,user)
 	else
 		to_chat(user, "<span class='danger'>The grenade launcher is empty.</span>")

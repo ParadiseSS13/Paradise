@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(throwing)
 	var/list/currentrun = src.currentrun
 
 	while(length(currentrun))
-		var/atom/movable/AM = currentrun[currentrun.len]
+		var/atom/movable/AM = currentrun[length(currentrun)]
 		var/datum/thrownthing/TT = currentrun[AM]
 		currentrun.len--
 		if(!AM || !TT)

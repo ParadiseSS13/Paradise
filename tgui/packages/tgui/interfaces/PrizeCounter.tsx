@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Stack, Input } from '../components';
+import { Button, Section, Stack, ImageButton, Input } from '../components';
 import { Window } from '../layouts';
 
 type Prize = {
@@ -59,41 +59,30 @@ export const PrizeCounter = (props, context) => {
               {filteredPrizes.map((prize) => {
                 const disabled = prize.cost > tickets;
                 return (
-                  <Stack key={prize.name} className="PrizeCounter__Item">
-                    <Stack.Item lineHeight="0" align="center">
-                      <div
-                        className={classes([
-                          'prize_counter64x64',
-                          prize.imageID,
-                        ])}
-                      />
-                    </Stack.Item>
-                    <Stack.Item width="100%">
-                      <Stack vertical textAlign="center">
-                        <Stack.Item bold mt={1}>
-                          {prize.name}
-                        </Stack.Item>
-                        <Stack.Divider />
-                        <Stack.Item mb={1}>{prize.desc}</Stack.Item>
-                      </Stack>
-                    </Stack.Item>
-                    <Stack.Item>
-                      <Button
-                        className={classes([
-                          'PrizeCounter__BuyButton',
-                          disabled && 'PrizeCounter__BuyButton--disabled',
-                        ])}
-                        icon="ticket"
-                        content={prize.cost}
-                        tooltip={disabled ? 'Not enough tickets.' : null}
-                        tooltipPosition="top-end"
-                        onClick={() =>
-                          !disabled &&
-                          act('purchase', { 'purchase': prize.itemID })
-                        }
-                      />
-                    </Stack.Item>
-                  </Stack>
+                  <ImageButton
+                    key={prize.name}
+                    asset
+                    imageAsset={'prize_counter64x64'}
+                    image={prize.imageID}
+                    title={prize.name}
+                    content={prize.desc}
+                  >
+                    <ImageButton.Item
+                      bold
+                      width={'64px'}
+                      fontSize={1.5}
+                      textColor={disabled && 'gray'}
+                      content={prize.cost}
+                      icon={'ticket'}
+                      iconSize={1.6}
+                      iconColor={disabled ? 'bad' : 'good'}
+                      tooltip={disabled && 'Not enough tickets'}
+                      disabled={disabled}
+                      onClick={() =>
+                        act('purchase', { 'purchase': prize.itemID })
+                      }
+                    />
+                  </ImageButton>
                 );
               })}
             </Section>

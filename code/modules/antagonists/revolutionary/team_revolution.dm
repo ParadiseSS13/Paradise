@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/team/revolution)
+
 /datum/team/revolution
 	name = "Revolution"
 	antag_datum_type = /datum/antagonist/rev
