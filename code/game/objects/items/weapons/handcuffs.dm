@@ -3,6 +3,7 @@
 	desc = "Should not exist. Report me to a(n) coder/admin!"
 	icon = 'icons/obj/restraints.dmi'
 	var/cuffed_state = "handcuff"
+
 //////////////////////////////
 // MARK: HANDCUFFS
 //////////////////////////////
