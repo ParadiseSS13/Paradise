@@ -69,6 +69,8 @@
 	update_icon()
 
 /obj/machinery/recharger/crowbar_act(mob/user, obj/item/I)
+	if(istype(src, /obj/machinery/recharger/wallcharger))	// Do not disassemble wall rechargers. Can still unscrew for basic RPED upgrading.
+		return FALSE
 	if(panel_open && !charging && default_deconstruction_crowbar(user, I))
 		return TRUE
 
@@ -91,6 +93,8 @@
 
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
+	if(istype(src, /obj/machinery/recharger/wallcharger))	// Unwrenching wall rechargers and dragging them off all kinds of cursed.
+		return
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
 		return
