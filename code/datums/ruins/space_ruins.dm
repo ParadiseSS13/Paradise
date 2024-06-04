@@ -194,6 +194,15 @@
 	cost = 5 // This is a chonky boy
 	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
 
+/datum/map_template/ruin/space/malftcommsat
+	id = "malftcommsat"
+	suffix = "telecomns_returns.dmm"
+	name = "D.V.O.R.A.K'S Telecommunications Satellite"
+	description = "Seems this telecomunications sat got overtaken by a malfunctioning AI long ago... Time to loot it, what could go wrong!"
+	cost = 5 // Huge. Large. In charge
+	allow_duplicates = FALSE // One sadistic malfunctioning AI is enough. Also unique apcs.
+	always_place = TRUE //TEMP HI REVIEWERS KILL ME WE DON'T ALWAYS NEED THIS
+
 /datum/map_template/ruin/space/clownmime
 	id = "clownmime"
 	suffix = "clownmime.dmm"

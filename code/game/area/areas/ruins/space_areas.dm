@@ -180,3 +180,28 @@
 	name = "Cybersun Mobile Exosuit Factory"
 	apc_starts_off = TRUE
 	there_can_be_many = FALSE
+
+//Telecomns: Alternative telecomns sat
+/area/ruin/space/telecomns
+	name = "\improper Telecommunications Sat"
+	icon_state = "tcomms"
+
+/area/ruin/space/telecomns/powercontrol
+	name = "\improper Telecommunications Power Control"
+	icon_state = "engine_smes"
+
+/area/ruin/space/telecomns/tele
+	name = "\improper Tel3coMMunic@tions-SS-S KILL_Welcoming Room" //If you teleport to it. With a name like that. Thats on you.
+	icon_state = "teleporter"
+
+/area/ruin/space/telecomns/foyer
+	name = "\improper Telecommunications Foyer"
+	icon_state = "entry"
+
+/area/ruin/space/telecomns/computer
+	name = "\improper Telecommunications Control Room"
+	icon_state = "bridge"
+
+/area/ruin/space/telecomns/chamber
+	name = "\improper Telecommunications Central Compartment"
+	icon_state = "ai_chamber"

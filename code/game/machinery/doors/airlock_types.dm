@@ -380,6 +380,20 @@
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
 	return
 
+/obj/machinery/door/airlock/hatch/syndicate/command/trapped
+	emergency = TRUE
+	hackProof = TRUE
+	aiControlDisabled = AICONTROLDISABLED_ON
+	safe = FALSE
+
+/obj/machinery/door/airlock/hatch/syndicate/command/trapped/process()
+	if(locate(/mob/living) in get_turf(src))
+		unlock(TRUE)
+		if(density)
+			open()
+		else
+			close()
+
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
 	req_access_txt = "151"
