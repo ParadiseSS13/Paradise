@@ -224,6 +224,10 @@
 //////////////////////////////
 /obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user as mob, params)
 	..()
+	// Don't allow borgs to send their their ziptie module to the shadow realm.
+	if(istype(src, /obj/item/restraints/handcuffs/cable/zipties/cyborg))
+		return
+
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(!R.use(1))
@@ -235,8 +239,6 @@
 			user.unEquip(src)
 		user.put_in_hands(W)
 		to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
-		if(istype(src, /obj/item/restraints/handcuffs/cable/zipties/cyborg))
-			return
 		qdel(src)
 		return
 
@@ -245,10 +247,10 @@
 		if(M.amount < 6)
 			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
 			return
+
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(do_after(user, 35 * M.toolspeed, target = src))
+		if(M.use(6) && do_after(user, 35 * M.toolspeed, target = src))
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
-			M.use(6)
 			user.put_in_hands(S)
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
 			if(!remove_item_from_storage(user))
