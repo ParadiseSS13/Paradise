@@ -39,7 +39,7 @@
 
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
-	name = "NTTV Charon (Bar)"
+	name = "NTV Charon (Bar)"
 	description = "A modification of the standard shuttle featuring a bathroom, quality lounge for the heads, and a \
 		small gambling table."
 
@@ -50,20 +50,20 @@
 
 /datum/map_template/shuttle/emergency/dept
 	suffix = "dept"
-	name = "NTTV Charon (Departmental)"
+	name = "NTV Charon (Departmental)"
 	description = "A modified Charon-class shuttle featuring areas for each department, and a small bar."
 	admin_notes = "Designed to reduce chaos. Each dept requires dept access."
 
 /datum/map_template/shuttle/emergency/military
 	suffix = "mil"
-	name = "NTTV Charon (Militarized)"
+	name = "NTV Charon (Militarized)"
 	description = "A militarized Charon-class shuttle hull featuring defense turrets and minimal crew comforts."
 	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
 
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
-	name = "NTCV Snappop(tm)"
+	name = "NCV Snappop(tm)"
 	description = "Hey kids and grownups! Are you bored of DULL and TEDIOUS \
 		shuttle journeys after you're evacuating for probably BORING reasons. \
 		Well then order the Snappop(tm) today! We've got fun activities for \
@@ -116,7 +116,7 @@
 
 /datum/map_template/shuttle/emergency/raven
 	suffix = "raven"
-	name = "NTSV Raven"
+	name = "NSV Raven"
 	description = "The NTSV Raven is a former high-risk salvage frigate, now repurposed into an emergency escape shuttle. \
 	Once first to the scene to pick through warzones for valuable remains, it now serves as an excellent escape option for stations under heavy fire from outside forces. \
 	This escape shuttle boasts shields and numerous anti-personnel turrets guarding its perimeter to fend off meteors and enemy boarding attempts."
@@ -124,13 +124,13 @@
 
 /datum/map_template/shuttle/emergency/shadow
 	suffix = "shadow"
-	name = "NTRTV Shadow"
+	name = "NRTV Shadow"
 	description = "Guaranteed to get you somewhere FAST. Featuring a supercharged plasma-injection burn drive, this bad boy will put more distance between you and certain death than any other!"
 	admin_notes = "The aft of the ship has a plasma tank that starts ignited. May get released by crew. The plasma windows next to the engine heaters will also erupt into flame, and also risk getting released by crew."
 
 /datum/map_template/shuttle/emergency/lance
 	suffix = "lance"
-	name = "NTAV Lance"
+	name = "NAV Lance"
 	description = "Based on a rejected design by an overager member of Nanotrasen Asset Protection, the NTAV Lance is designed to tactically slam into destroyed stations, \
 	dispatching threats and saving crew at the same time! \
 	Be careful to stay out of its path. Comes with a beacon to choose where it docks!"
@@ -184,17 +184,17 @@
 
 /datum/map_template/shuttle/admin/hospital
 	suffix = "hospital"
-	name = "NTHV Asclepius"
+	name = "NHV Asclepius"
 	description = "Nanostrasen Hospital ship, for medical assistance during disasters."
 
 /datum/map_template/shuttle/admin/admin
 	suffix = "admin"
-	name = "NTTV Argos"
+	name = "NTV Argos"
 	description = "Default Admin ship. An older ship used for special operations."
 
 /datum/map_template/shuttle/admin/armory
 	suffix = "armory"
-	name = "NTRV Sparta"
+	name = "NRV Sparta"
 	description = "Armory Shuttle, with plenty of guns to hand out and some general supplies."
 
 /datum/map_template/shuttle/admin/skipjack
