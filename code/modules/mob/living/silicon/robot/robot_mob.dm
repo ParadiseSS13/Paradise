@@ -1485,10 +1485,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	..()
 	adjustStaminaLoss((30 / severity)) //They also get flashed for an additional 30
 	switch(severity)
-		if(1)
-			disable_component("comms", 16 SECONDS)
-		if(2)
-			disable_component("comms", 6 SECONDS)
+		if(EMP_HEAVY)
+			disable_random_component(2, 20 SECONDS)
+		if(EMP_LIGHT)
+			disable_random_component(1, 10 SECONDS)
 
 /mob/living/silicon/robot/deathsquad
 	base_icon = "nano_bloodhound"

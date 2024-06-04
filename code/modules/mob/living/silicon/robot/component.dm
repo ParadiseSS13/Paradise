@@ -162,6 +162,9 @@
 	..()
 	owner.cell = null
 
+/datum/robot_component/cell/disable() //This can't be manually disabled, and shouldn't be accidentally disabled
+	return
+
 /datum/robot_component/radio
 	name = "radio"
 	external_type = /obj/item/robot_parts/robot_component/radio
@@ -204,6 +207,13 @@
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
 	var/datum/robot_component/C = components[module_name]
 	return C && C.installed && C.toggled && C.is_powered() && !C.component_disabled
+
+///Disables a random component for the duration, or until manually turned back on.
+/mob/living/silicon/robot/proc/disable_random_component(number_disabled, duration)
+	var/list/random_components = pick_multiple_unique(components, number_disabled)
+	for(var/component in random_components)
+		disable_component(component, duration)
+		log_debug("[component] disabled for [duration]")
 
 /mob/living/silicon/robot/proc/disable_component(module_name, duration)
 	var/datum/robot_component/D = get_component(module_name)
