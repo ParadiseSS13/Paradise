@@ -41,11 +41,18 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/item/reagent_containers/iv_bag/proc/on_target_hit(mob/target)
+	SIGNAL_HANDLER
+	visible_message("<span class='danger'>The IV bag's needle pops out of [injection_target]'s arm!</span>")
+	end_processing()
+
 /obj/item/reagent_containers/iv_bag/proc/begin_processing(mob/target)
 	injection_target = target
+	RegisterSignals(injection_target, list(COMSIG_ITEM_ATTACK, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HULK_ATTACK), PROC_REF(on_target_hit))
 	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/proc/end_processing()
+	UnregisterSignal(injection_target, list(COMSIG_ITEM_ATTACK, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HULK_ATTACK))
 	injection_target = null
 	STOP_PROCESSING(SSobj, src)
 
