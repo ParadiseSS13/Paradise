@@ -20,8 +20,6 @@ export type ButtonProps = BoxProps & {
   icon?: string;
   iconRotation?: number;
   iconSpin?: BooleanLike;
-  color?: string;
-  textColor?: string;
   disabled?: BooleanLike;
   selected?: BooleanLike;
   tooltip?: InfernoNode;
