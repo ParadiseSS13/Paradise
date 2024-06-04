@@ -17,6 +17,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Bishop Cybernetics"
 	desc = "This limb has a white polymer casing with blue holo-displays."
 	icon = 'icons/mob/human_races/cyberlimbs/bishop/bishop_main.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi')
 	has_subtypes = 1
 
 /datum/robolimb/bishop/alt1
@@ -61,6 +62,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Morpheus Cyberkinetics"
 	desc = "This limb is simple and functional; no effort has been made to make it look human."
 	icon = 'icons/mob/human_races/cyberlimbs/morpheus/morpheus_main.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi')
 	unavailable_at_chargen = 1
 	is_monitor = 1
 	has_subtypes = 1
@@ -79,6 +81,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Ward-Takahashi"
 	desc = "This limb features sleek black and white polymers."
 	icon = 'icons/mob/human_races/cyberlimbs/wardtakahashi/wardtakahashi_main.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi')
 	has_subtypes = 1
 
 /datum/robolimb/wardtakahashi/alt1
@@ -100,6 +103,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Xion Manufacturing Group"
 	desc = "This limb has a minimalist black and red casing."
 	icon = 'icons/mob/human_races/cyberlimbs/xion/xion_main.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi')
 	has_subtypes = 1
 
 /datum/robolimb/xion/alt1
@@ -121,6 +125,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Zeng-Hu Pharmaceuticals"
 	desc = "This limb has a rubbery fleshtone covering with visible seams."
 	icon = 'icons/mob/human_races/cyberlimbs/zenghu/zenghu_main.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi')
 	has_subtypes = 2
 
 /datum/robolimb/shellguard
