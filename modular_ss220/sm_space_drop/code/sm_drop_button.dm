@@ -50,6 +50,9 @@
 	if(active)
 		return
 
+	if(isAI(user))
+		return
+
 	add_fingerprint(user)
 	use_power(5)
 
