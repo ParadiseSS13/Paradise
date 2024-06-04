@@ -236,8 +236,10 @@ SLIME SCANNER
 		else if(!heart)
 			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font>"
 
+	// Stamina damage.
 	if(H.getStaminaLoss())
 		msgs += "<span class='info'>Subject appears to be suffering from fatigue.</span>"
+	// Clone damage.
 	if(H.getCloneLoss())
 		msgs += "<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>"
 
@@ -310,7 +312,7 @@ SLIME SCANNER
 		msgs += "<span class='notice'>Detected cybernetic modifications:</span>"
 		msgs += "<span class='notice'>[implant_detect]</span>"
 
-	// Clone damage.
+	// Do you have too many genetics superpowers?
 	if(H.gene_stability < 40)
 		msgs += "<span class='userdanger'>Subject's genes are quickly breaking down!</span>"
 	else if(H.gene_stability < 70)
