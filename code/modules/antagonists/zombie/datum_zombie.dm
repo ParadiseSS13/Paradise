@@ -60,7 +60,6 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.physiology.stamina_mod *= 0.5
-		H.physiology.stun_mod *= 0.5
 
 /datum/antagonist/zombie/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
@@ -77,7 +76,6 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.physiology.stamina_mod /= 0.5
-		H.physiology.stun_mod /= 0.5
 
 /datum/antagonist/zombie/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	if(!new_body.HasDisease(/datum/disease/zombie))
