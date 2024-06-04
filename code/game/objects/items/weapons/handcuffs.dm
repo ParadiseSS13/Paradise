@@ -227,7 +227,7 @@
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(!R.use(1))
-			to_chat(user, "<span class='warning'>You need one rod to make a wired rod!</span>")
+			to_chat(user, "<span class='warning'>[R.amount > 1 ? "These rods" : "This rod"] somehow can't be used for crafting!</span>")
 			return
 
 		var/obj/item/wirerod/W = new /obj/item/wirerod
