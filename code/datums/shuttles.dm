@@ -39,7 +39,7 @@
 
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
-	name = "NTTV Charon (B)"
+	name = "NTTV Charon (Bar)"
 	description = "A modification of the standard shuttle featuring a bathroom, quality lounge for the heads, and a \
 		small gambling table."
 
