@@ -215,7 +215,6 @@ SLIME SCANNER
 	if(advanced)
 		msgs.Add(get_chemscan_results(user, H))
 
-	// Diseases.
 	for(var/thing in H.viruses)
 		var/datum/disease/D = thing
 		if(D.visibility_flags & HIDDEN_SCANNER)
@@ -226,7 +225,6 @@ SLIME SCANNER
 			continue
 		msgs += "<span class='notice'><font color='red'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 
-	// Heart.
 	if(H.undergoing_cardiac_arrest())
 		var/datum/organ/heart/heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
 		if(heart && !(heart.linked_organ.status & ORGAN_DEAD))
@@ -236,10 +234,9 @@ SLIME SCANNER
 		else if(!heart)
 			msgs += "<span class='notice'><font color='red'><b>Subject has no heart.</b></font>"
 
-	// Stamina damage.
 	if(H.getStaminaLoss())
 		msgs += "<span class='info'>Subject appears to be suffering from fatigue.</span>"
-	// Clone damage.
+
 	if(H.getCloneLoss())
 		msgs += "<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>"
 
@@ -299,11 +296,9 @@ SLIME SCANNER
 		else
 			msgs += "<span class='info'>Blood level [blood_percent] %, [blood_volume] cl, type: [blood_type]</span>"
 
-	// Body temperature.
 	msgs += "<span class='notice'>Body Temperature: [round(H.bodytemperature-T0C, 0.01)]&deg;C ([round(H.bodytemperature*1.8-459.67, 0.01)]&deg;F)</span>"
 	msgs += "<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse()] bpm.</font></span>"
 
-	// Implants.
 	var/implant_detect
 	for(var/obj/item/organ/internal/O in H.internal_organs)
 		if(O.is_robotic() && !O.stealth_level)
@@ -320,11 +315,9 @@ SLIME SCANNER
 	else if(H.gene_stability < 85)
 		msgs += "<span class='warning'>Subject's genes are showing minor signs of instability.</span>"
 
-	// Husk.
 	if(HAS_TRAIT(H, TRAIT_HUSK))
 		msgs += "<span class='danger'>Subject is husked. Application of synthflesh is recommended.</span>"
 
-	// Radiation.
 	if(H.radiation > RAD_MOB_SAFE)
 		msgs += "<span class='danger'>Subject is irradiated.</span>"
 
