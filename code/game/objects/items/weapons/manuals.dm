@@ -504,7 +504,6 @@
 					<li>2 random chemicals from the list below, 1 unit of each (Unknown Random Recipe)
 						<ul>
 							<li>Yellow Vomit</li>
-							<li>Space fungus</li>
 							<li>Jenkem</li>
 							<li>Charcoal</li>
 							<li>Egg</li>

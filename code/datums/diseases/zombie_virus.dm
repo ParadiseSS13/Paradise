@@ -14,7 +14,7 @@
 	disease_flags = CAN_CARRY
 	virus_heal_resistant = TRUE
 	stage_prob = 1
-	cure_chance = 20
+	cure_chance = 80
 	/// How far this particular virus is in being cured (0-4)
 	var/cure_stage = 0
 
