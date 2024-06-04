@@ -187,7 +187,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/alert_admins_on_destroy()
 	SIGNAL_HANDLER
 	var/turf/turf_loc = get_turf(src)
-	message_admins("[src] has been destroyed at [ADMIN_COORDJMP(turf_loc)].")
+	message_admins("[src] has been destroyed in [get_area(turf_loc)] at [ADMIN_COORDJMP(turf_loc)].")
 	log_game("[src] has been destroyed at ([turf_loc.x],[turf_loc.y],[turf_loc.z]) in the location [loc].")
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
