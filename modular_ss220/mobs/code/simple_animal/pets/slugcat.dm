@@ -195,6 +195,7 @@
 		span_notice("[user] надевает [item_to_add].name на голову [real_name]."),
 		span_notice("Вы надеваете [item_to_add.name] на голову [real_name]."),
 		span_italics("Вы слышите как что-то нацепили."))
+	item_to_add.forceMove(src)
 	inventory_head = item_to_add
 	regenerate_icons()
 
