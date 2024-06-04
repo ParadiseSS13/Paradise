@@ -307,6 +307,10 @@
  * Tries to turn the sensors off. Returns TRUE if it succeeds
  */
 /obj/item/clothing/under/proc/turn_sensors_off()
+	if(!user.Adjacent(src))
+		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
+		return
+
 	if(has_sensor != SUIT_SENSOR_BINARY)
 		return FALSE
 	sensor_mode = SUIT_SENSOR_OFF
@@ -322,6 +326,7 @@
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
+	// If they walk away after the menu is already open.
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
