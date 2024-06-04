@@ -1217,9 +1217,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
-"EG" = (
-/turf/simulated/wall,
-/area/space)
 "EZ" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/spawner/random_spawners/dirt_maybe,
@@ -2365,7 +2362,7 @@ sO
 sO
 sO
 sO
-EG
+sO
 wg
 wg
 wg
@@ -2411,7 +2408,7 @@ Is
 Is
 BC
 Ws
-EG
+sO
 wg
 kx
 wg
