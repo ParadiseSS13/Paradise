@@ -558,6 +558,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(limb_flags & CANNOT_DISMEMBER || !owner)
 		return
 
+	if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS) && !clean)
+		fracture()
+		return
+
 	if(!disintegrate)
 		disintegrate = DROPLIMB_SHARP
 	if(disintegrate == DROPLIMB_BURN && istype(src, /obj/item/organ/external/head))
