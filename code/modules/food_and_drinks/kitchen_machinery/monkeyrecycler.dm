@@ -109,9 +109,8 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 					animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 					use_power(500)
 					grinded++
-					sleep(50)
-					pixel_x = initial(pixel_x)
 					to_chat(user, "<span class='notice'>The machine now has [grinded] monkey\s worth of material stored.</span>")
+					addtimer(VARSET_CALLBACK(src, pixel_x, initial(pixel_x)), 5 SECONDS)
 			else
 				to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
 		else

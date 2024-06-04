@@ -1875,7 +1875,6 @@
 #include "code\modules\food_and_drinks\kitchen_machinery\kitchen_machine.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\microwave.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\monkeyrecycler.dm"
-#include "code\modules\food_and_drinks\kitchen_machinery\oven.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\oven_new.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\processor.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\smartfridge.dm"

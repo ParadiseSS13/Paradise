@@ -106,7 +106,7 @@
 	if(speaker == src)
 		for(var/datum/multilingual_say_piece/SP in message_pieces)
 			if(SP.speaking && SP.speaking.flags & INNATE)
-				custom_emote(EMOTE_AUDIBLE, message_clean, TRUE)
+				emote("me", EMOTE_AUDIBLE, message_clean, TRUE)
 				return
 
 	if(!can_hear())
