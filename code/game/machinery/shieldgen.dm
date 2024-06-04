@@ -392,6 +392,7 @@
 /obj/machinery/shieldwallgen/proc/activate()
 	activated = TRUE
 	START_PROCESSING(SSmachines, src)
+	update_icon(UPDATE_ICON_STATE)
 	for(var/direction in GLOB.cardinal)
 		INVOKE_ASYNC(src, PROC_REF(try_link_generators), direction)
 

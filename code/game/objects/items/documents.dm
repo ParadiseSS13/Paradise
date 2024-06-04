@@ -19,6 +19,16 @@
 	desc = "\"Top Secret\" Nanotrasen documents printed on special copy-protected paper. It is filled with complex diagrams and lists of names, dates and coordinates."
 	icon_state = "docs_verified"
 
+/obj/item/documents/nanotrasen/dvorak_blackbox
+	name = "\improper D.V.O.R.A.K Blackbox Disk"
+	desc = "This disk contains all the information D.V.O.R.A.K likely listend to overtime, not to mention what may have went wrong. NT might be interested in this."
+	icon = 'icons/obj/module.dmi'
+	w_class = WEIGHT_CLASS_TINY
+	item_state = "card-id"
+	icon_state = "holodisk"
+	drop_sound = 'sound/items/handling/disk_drop.ogg'
+	pickup_sound = 'sound/items/handling/disk_pickup.ogg'
+
 /obj/item/documents/syndicate
 	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence."
 

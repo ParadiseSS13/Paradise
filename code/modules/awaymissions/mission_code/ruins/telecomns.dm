@@ -5,7 +5,7 @@
 
 /obj/effect/abstract/bot_trap/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(isliving(AM))
+	if(isrobot(AM) || ishuman(AM))
 		var/turf/T = get_turf(src)
 		for(var/mob/living/simple_animal/bot/B in range(30, get_turf(src)))
 			B.call_bot(null, T, FALSE)
@@ -32,6 +32,7 @@
 	anchored = TRUE
 
 /obj/machinery/shieldwallgen/telecomns
+	icon_state = "Shield_Gen +a" //should avoid missplacing with this
 	anchored = TRUE
 	activated = TRUE
 
@@ -43,7 +44,7 @@
 	faction = list("malf_drone")
 	bubble_icon = "swarmer"
 	name = "D.V.O.R.A.K"
-	desc = "Downloadable, Versatile, Operational and Reactive Ai Kernel."
+	desc = "A Downloadable and Versatile, fully Overclocked and Reactive Ai Kernel."
 	icon_state = "ai-triumvirate-malf"
 	death_sound = 'sound/voice/borg_deathsound.ogg' //something fucked up here
 	universal_speak = TRUE
@@ -52,10 +53,16 @@
 
 /mob/living/silicon/decoy/telecomns/death(gibbed)
 	if(!has_died)
+		has_died = TRUE
 		for(var/obj/structure/telecomns_doomsday_device/D in range(5, src))
-			has_died = TRUE
 			D.start_the_party()
 			break
+		new /obj/item/documents/nanotrasen/dvorak_blackbox(get_turf(src))
+		if(prob(50))
+			if(prob(80))
+				new /obj/item/surveillance_upgrade(get_turf(src))
+			else //10% chance
+				new /obj/item/malf_upgrade(get_turf(src))
 	. = ..()
 
 /obj/structure/telecomns_trap_tank
@@ -72,6 +79,8 @@
 	explode()
 
 /obj/structure/telecomns_trap_tank/proc/explode()
+	var/turf/our_turf = get_turf(src)
+	our_turf.ChangeTurf(/turf/space)
 	for(var/turf/simulated/floor/catwalk/T in range(4, get_turf(src)))
 		if(prob(50))
 			T.ChangeTurf(/turf/space)
@@ -104,9 +113,9 @@
 	qdel(src)
 
 /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn //They are going to spawn it on station anyway. I can feel it.
-	name = "\improper OH GOD A HUGE BOMB"
+	name = "\improper D.V.O.R.A.K's Doomsday Device"
 	icon_state = "death-bomb"
-	desc = "Perhaps running, over looking at this horrible thing, would be better"
+	desc = "Nice to see AI's are improvising on the standard doomsday device. Good to have variety. Also probably good to start running."
 	anchored = TRUE
 	payload = /obj/item/bombcore/telecomns_doomsday_please_dont_spawn
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -117,10 +126,8 @@
 /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn/ex_act(severity)
 	return //No.
 
-
 /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn/screwdriver_act(mob/user, obj/item/I)
 	to_chat(user, "<span class='danger'>[src] is welded shut! You can't get at the wires!</span>")
-
 
 /obj/item/bombcore/telecomns_doomsday_please_dont_spawn
 	name = "a supermatter charged bomb core"
@@ -137,14 +144,114 @@
 		loc.invisibility = 90
 	for(var/turf/simulated/wall/indestructible/riveted/R in range(25, get_turf(src)))
 		R.ChangeTurf(/turf/space)
-	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0)
+	explosion(get_turf(src), 30, 40, 50, 60, 1, 1, 65, 0)
 	sleep(3 SECONDS)
-	message_admins("pizza time")
 	var/obj/singularity/S = new/obj/singularity(get_turf(src))
-	S.energy = 9001
-	sleep(10 SECONDS)
+	S.consumedSupermatter = TRUE //woe large supermatter to eat the remains apon thee
+	S.energy = 4000
+	sleep(25 SECONDS)
 	S.visible_message("<span class='danger'>[S] collapses in on itself, vanishing as fast as it appeared!</span>")
 	qdel(S)
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
+
+/turf/simulated/floor/catwalk/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
+/obj/machinery/economy/vending/snack/trapped
+	aggressive = TRUE
+
+/obj/machinery/economy/vending/snack/trapped/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/proximity_monitor)
+
+/mob/living/simple_animal/hostile/hivebot/strong/malfborg
+	name = "Security cyborg"
+	desc = "Oh god they still have access to these"
+	icon = 'icons/mob/robots.dmi'
+	icon_state = "Noble-SEC"
+	health = 200
+	maxHealth = 200
+	faction = list("malf_drone")
+	ranged = TRUE
+	rapid = 2
+	speed = 0.5
+	projectiletype = /obj/item/projectile/beam/disabler/weak
+	projectilesound = 'sound/weapons/taser2.ogg'
+	gold_core_spawnable = NO_SPAWN //Could you imagine xenobio with this? lmao.
+	a_intent = INTENT_HARM
+	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
+
+/mob/living/simple_animal/hostile/hivebot/strong/malfborg/Initialize(mapload)
+	. = ..()
+	baton = new(src)
+
+/mob/living/simple_animal/hostile/hivebot/strong/malfborg/AttackingTarget()
+	if(QDELETED(target))
+		return
+	face_atom(target)
+	baton.melee_attack_chain(src, target)
+	return TRUE
+
+/mob/living/simple_animal/hostile/hivebot/strong/malfborg/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+	if(!used_item && !isturf(A))
+		used_item = baton
+	..()
+
+/obj/structure/displaycase/dvoraks_treat
+	alert = TRUE //Ooopsies you opened this after doomsday and the doors bolted, oh nooooo
+	req_access = list(ACCESS_CAPTAIN)
+
+/obj/structure/displaycase/dvoraks_treat/Initialize(mapload)
+	if(prob(50))
+		start_showpiece_type = /obj/item/remote_ai_upload
+	else if(prob(25)) //Can't use anomaly/random due to how this works
+		start_showpiece_type = pick(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/cryo, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
+	else
+		start_showpiece_type = pick(/obj/item/organ/internal/cyberimp/brain/sensory_enhancer, /obj/item/organ/internal/cyberimp/brain/hackerman_deck, /obj/item/storage/lockbox/experimental_weapon)
+	. = ..()
+
+/obj/item/remote_ai_upload //A 1 use AI upload. Potential D.V.O.R.A.K reward.
+	name = "remote AI upload"
+	desc = "A mobile AI upload. The bluespace relay will likely overload after one use. Make it count."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "dvorak_upload"
+	w_class	= WEIGHT_CLASS_TINY
+	item_state = "camera_bug"
+	throw_speed	= 4
+	throw_range	= 20
+	origin_tech = "syndicate=4;programming=6"
+	/// Integrated camera console to serve UI data
+	var/obj/machinery/computer/aiupload/dvorak/integrated_console
+
+/obj/machinery/computer/aiupload/dvorak
+	name = "internal ai upload"
+	desc = "How did this get here?! Please report this as a bug to github"
+	power_state = NO_POWER_USE
+	interact_offline = TRUE
+
+/obj/item/remote_ai_upload/Initialize(mapload)
+	. = ..()
+	integrated_console = new(src)
+
+/obj/item/remote_ai_upload/Destroy()
+	QDEL_NULL(integrated_console)
+	return ..()
+
+/obj/item/remote_ai_upload/attack_self(mob/user as mob)
+	integrated_console.attack_hand(user)
+
+/obj/item/remote_ai_upload/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/card/emag))
+		to_chat(user, "<span class='warning'>You are more likely to damage this with an emag, than achive something useful.</span>")
+		return
+	var/time_to_die = integrated_console.attackby(O, user, params)
+	if(time_to_die)
+		to_chat(user, "<span class='danger'>[src]'s relay begins to overheat...</span>")
+		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+		sleep(5 SECONDS)
+		explosion(loc, -1, -1, 2, 4, flame_range = 4)
+		qdel(src)

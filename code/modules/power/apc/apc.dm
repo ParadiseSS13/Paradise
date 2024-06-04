@@ -100,6 +100,9 @@
 	/// Being hijacked by a pulse demon?
 	var/being_hijacked = FALSE
 
+	/// Are we immune to EMPS?
+	var/emp_proof = FALSE
+
 	/*** APC Malf AI Vars ****/
 	var/malfhack = FALSE //New var for my changes to AI malf. --NeoFite
 	var/mob/living/silicon/ai/malfai = null //See above --NeoFite
@@ -947,6 +950,8 @@
 ///    *************
 
 /obj/machinery/power/apc/emp_act(severity)
+	if(emp_proof)
+		return
 	if(cell)
 		cell.emp_act(severity)
 	if(occupier)
