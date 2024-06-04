@@ -203,7 +203,7 @@ SLIME SCANNER
 		if(H.is_revivable() && !DNR)
 			msgs += "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>"
 		else
-			msgs += "<font color='red'>Subject died [DisplayTimeText(tdelta)] ago. <b>defibrillation is not possible!</b></font>"
+			msgs += "<font color='red'>Subject died [DisplayTimeText(tdelta)] ago. <b>Defibrillation is not possible!</b></font>"
 
 	if(mode == DETAILED_HEALTH_SCAN)
 		var/list/damaged = H.get_damaged_organs(1,1)
