@@ -901,8 +901,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return
 		apply_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
-		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [breakouttime / 10] seconds and you need to stand still.)</span>")
 		var/is_zombie = HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)
+		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [breakouttime / 10] seconds[is_zombie ? "" : " and you need to stand still"].)</span>")
 		if(do_after(src, breakouttime, 0, target = src, allow_moving = is_zombie, allow_moving_target = is_zombie))
 			remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 			if(I.loc != src || buckled)
