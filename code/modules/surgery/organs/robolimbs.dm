@@ -51,6 +51,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 /datum/robolimb/hesphiastos/monitor
 	company = "Hesphiastos Industries mtr."
 	icon = 'icons/mob/human_races/cyberlimbs/hesphiastos/hesphiastos_monitor.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/hesphiastos.dmi')
 	parts = list("head")
 	is_monitor = 1
 	selectable = 0
