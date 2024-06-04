@@ -916,14 +916,15 @@
 /datum/reagent/phalloidin
 	name = "Phalloidin"
 	id = "phalloidin"
-	description = "A toxin produced by Destroying Angel mushrooms that breaks down into very deadly amanitoxins."
+	description = "A toxin produced by Destroying Angel mushrooms. Deadly, stealthy, and impossible to purge."
 	reagent_state = LIQUID
 	color = "#E7E7E7"
 	taste_mult = 0
 	unable_to_purge = TRUE
+	invisible_to_scanners = TRUE
 
 /datum/reagent/phalloidin/on_mob_delete(mob/living/M)
-	M.reagents.add_reagent("histamine", current_cycle)
+	M.adjustToxLoss(current_cycle*rand(2,4))
 	..()
 
 /datum/reagent/lipolicide
