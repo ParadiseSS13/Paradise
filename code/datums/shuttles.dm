@@ -50,7 +50,7 @@
 
 /datum/map_template/shuttle/emergency/dept
 	suffix = "dept"
-	name = "NTTV Charon (D)"
+	name = "NTTV Charon (Departmental)"
 	description = "A modified Charon-class shuttle featuring areas for each department, and a small bar."
 	admin_notes = "Designed to reduce chaos. Each dept requires dept access."
 
