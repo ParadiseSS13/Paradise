@@ -8,7 +8,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	clown_gain_text = "B-Braaaaaains... Honk..."
 	clown_removal_text = "You feel funnier again."
 	var/list/old_languages = list() // someone make this better to prevent langs changing if species changes while zombie somehow
-	var/static/list/zombie_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_GOTTAGOSLOW, TRAIT_ABSTRACT_HANDS, TRAIT_SLOW_GRABBER)
+	var/static/list/zombie_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_GOTTAGOSLOW, TRAIT_ABSTRACT_HANDS)
 	var/datum/unarmed_attack/claws/claw_attack
 
 // possibly upgrades for the zombies after eating brains? Better vision (/datum/action/changeling/augmented_eyesight), better weapons (armblade), better infection, more inhereint armor (physiology)
@@ -60,6 +60,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.physiology.stamina_mod *= 0.5
+		H.physiology.stun_mod *= 0.5
 
 /datum/antagonist/zombie/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
@@ -76,6 +77,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.physiology.stamina_mod /= 0.5
+		H.physiology.stun_mod /= 0.5
 
 /datum/antagonist/zombie/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	if(!new_body.HasDisease(/datum/disease/zombie))
