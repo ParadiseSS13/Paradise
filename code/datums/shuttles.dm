@@ -63,7 +63,7 @@
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
-	name = "Snappop(tm)"
+	name = "NTCV Snappop(tm)"
 	description = "Hey kids and grownups! Are you bored of DULL and TEDIOUS \
 		shuttle journeys after you're evacuating for probably BORING reasons. \
 		Well then order the Snappop(tm) today! We've got fun activities for \
@@ -116,24 +116,24 @@
 
 /datum/map_template/shuttle/emergency/raven
 	suffix = "raven"
-	name = "CentCom Raven Cruiser"
-	description = "The CentCom Raven Cruiser is a former high-risk salvage vessel, now repurposed into an emergency escape shuttle. \
+	name = "NTSV Raven"
+	description = "The NTSV Raven is a former high-risk salvage frigate, now repurposed into an emergency escape shuttle. \
 	Once first to the scene to pick through warzones for valuable remains, it now serves as an excellent escape option for stations under heavy fire from outside forces. \
 	This escape shuttle boasts shields and numerous anti-personnel turrets guarding its perimeter to fend off meteors and enemy boarding attempts."
 	admin_notes = "Comes with turrets that will target simple mobs."
 
 /datum/map_template/shuttle/emergency/shadow
 	suffix = "shadow"
-	name = "The NTSS Shadow"
-	description = "Guaranteed to get you somewhere FAST. With a custom-built plasma engine, this bad boy will put more distance between you and certain danger than any other!"
+	name = "NTRTV Shadow"
+	description = "Guaranteed to get you somewhere FAST. Featuring a supercharged plasma-injection burn drive, this bad boy will put more distance between you and certain death than any other!"
 	admin_notes = "The aft of the ship has a plasma tank that starts ignited. May get released by crew. The plasma windows next to the engine heaters will also erupt into flame, and also risk getting released by crew."
 
 /datum/map_template/shuttle/emergency/lance
 	suffix = "lance"
-	name = "The Lance Crew Evacuation System"
-	description = "A brand new shuttle by Nanotrasen's finest in shuttle-engineering, it's designed to tactically slam into a destroyed station, \
+	name = "NTAV Lance"
+	description = "Based on a rejected design by an overager member of Nanotrasen Asset Protection, the NTAV Lance is designed to tactically slam into destroyed stations, \
 	dispatching threats and saving crew at the same time! \
-	Be careful to stay out of it's path. Comes with a beacon to choose where it docks!"
+	Be careful to stay out of its path. Comes with a beacon to choose where it docks!"
 	admin_notes = "WARNING: This shuttle is designed to crash into the station. It has turrets, similar to the raven. Place down the beacon please. Once the shuttle is loaded, it cannot be unloaded."
 
 /datum/map_template/shuttle/emergency/lance/preload()
@@ -184,17 +184,17 @@
 
 /datum/map_template/shuttle/admin/hospital
 	suffix = "hospital"
-	name = "NHV Asclepius"
+	name = "NTHV Asclepius"
 	description = "Nanostrasen Hospital ship, for medical assistance during disasters."
 
 /datum/map_template/shuttle/admin/admin
 	suffix = "admin"
-	name = "NTV Argos"
+	name = "NTTV Argos"
 	description = "Default Admin ship. An older ship used for special operations."
 
 /datum/map_template/shuttle/admin/armory
 	suffix = "armory"
-	name = "NRV Sparta"
+	name = "NTRV Sparta"
 	description = "Armory Shuttle, with plenty of guns to hand out and some general supplies."
 
 /datum/map_template/shuttle/admin/skipjack
