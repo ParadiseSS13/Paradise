@@ -423,6 +423,10 @@
 		to_chat(user, "<span class='warning'> [target] already has [I].</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
+	if(istype(tool, /obj/item/organ/internal/brain) && target.get_int_organ(/obj/item/organ/internal/brain))
+		to_chat(user, "<span class='warning'>[target] can't have two brains!</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
 	if(affected)
 		user.visible_message(
 			"[user] starts transplanting [tool] into [target]'s [affected.name].",
