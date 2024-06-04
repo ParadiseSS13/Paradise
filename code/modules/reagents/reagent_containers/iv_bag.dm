@@ -42,7 +42,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/proc/on_examine(datum/source, mob/examiner, list/examine_list)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
 	examine_list += "<span class='notice'>[source.p_they(TRUE)] [source.p_have()] an active IV bag.</span>"
 
 /obj/item/reagent_containers/iv_bag/proc/begin_processing(mob/target)
