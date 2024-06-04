@@ -307,16 +307,16 @@
  * Tries to turn the sensors off. Returns TRUE if it succeeds
  */
 /obj/item/clothing/under/proc/turn_sensors_off()
-	if(!user.Adjacent(src))
-		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
-		return
-
 	if(has_sensor != SUIT_SENSOR_BINARY)
 		return FALSE
 	sensor_mode = SUIT_SENSOR_OFF
 	return TRUE
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
+	if(!user.Adjacent(src))
+		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
+		return
+
 	if(has_sensor >= 2)
 		to_chat(user, "<span class='warning'>The controls are locked.</span>")
 		return
