@@ -56,7 +56,7 @@
 
 /datum/map_template/shuttle/emergency/military
 	suffix = "mil"
-	name = "NTTV Charon (M)"
+	name = "NTTV Charon (Militarized)"
 	description = "A militarized Charon-class shuttle hull featuring defense turrets and minimal crew comforts."
 	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
 
