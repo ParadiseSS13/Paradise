@@ -14,7 +14,7 @@
 	disease_flags = CAN_CARRY
 	virus_heal_resistant = TRUE
 	stage_prob = 100 // It isn't actually 100%, but is instead based on a timer
-	cure_chance = 20
+	cure_chance = 80
 	/// How far this particular virus is in being cured (0-4)
 	var/cure_stage = 0
 	/// Cooldown until the virus can advance to the next stage
@@ -33,9 +33,13 @@
 	if(!..())
 		return FALSE
 	if(HAS_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS) || affected_mob.mind?.has_antag_datum(/datum/antagonist/zombie))
+		SSticker.mode.zombie_infected -= affected_mob
+		if(affected_mob.reagents.has_reagent("zombiecure4"))
+			return
 		handle_rot()
 		stage = 7
 		return FALSE
+	SSticker.mode.zombie_infected |= affected_mob
 	switch(stage)
 		if(1) // cured by lvl 1 cure
 			if(prob(4))
