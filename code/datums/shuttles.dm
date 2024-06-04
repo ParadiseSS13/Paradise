@@ -39,8 +39,8 @@
 
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
-	name = "Emergency Escape Bar"
-	description = "Features include a bathroom, a quality lounge for the heads, and a \
+	name = "NTTV Charon (B)"
+	description = "A modification of the standard shuttle featuring a bathroom, quality lounge for the heads, and a \
 		small gambling table."
 
 
@@ -50,14 +50,14 @@
 
 /datum/map_template/shuttle/emergency/dept
 	suffix = "dept"
-	name = "Emergency shuttle (department)"
-	description = "Features include: areas for each department, and a small bar."
+	name = "NTTV Charon (D)"
+	description = "A modified Charon-class shuttle featuring areas for each department, and a small bar."
 	admin_notes = "Designed to reduce chaos. Each dept requires dept access."
 
 /datum/map_template/shuttle/emergency/military
 	suffix = "mil"
-	name = "Emergency shuttle (military)"
-	description = "Troop transport with point defense turrets."
+	name = "NTTV Charon (M)"
+	description = "A militarized Charon-class shuttle hull featuring defense turrets and minimal crew comforts."
 	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
 
 
