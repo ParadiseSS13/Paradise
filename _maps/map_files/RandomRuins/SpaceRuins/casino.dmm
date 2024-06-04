@@ -467,7 +467,7 @@
 /area/ruin/space/powered/casino/hall)
 "kH" = (
 /obj/machinery/door/airlock/external,
-/turf/simulated/wall,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "lj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -1576,7 +1576,6 @@
 	},
 /area/ruin/space/powered/casino/kitchen)
 "Rw" = (
-/obj/structure/lattice/catwalk,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/security)
 "RB" = (
@@ -1834,7 +1833,6 @@
 /area/ruin/space/powered/casino/kitchen)
 "VW" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/structure/lattice/catwalk,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/security)
 "We" = (
