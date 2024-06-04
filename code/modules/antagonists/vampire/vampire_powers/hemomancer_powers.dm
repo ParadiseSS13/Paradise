@@ -282,7 +282,7 @@
 /datum/spell/vampire/predator_senses/valid_target(mob/target, mob/user)
 	var/turf/target_turf = get_turf(target)
 	var/turf/user_turf = get_turf(user)
-	return target_turf.z == user_turf.z && target.mind
+	return target.mind && (target_turf.z == user_turf.z)
 
 /datum/spell/vampire/predator_senses/cast(list/targets, mob/user)
 	var/targets_by_name = list()
