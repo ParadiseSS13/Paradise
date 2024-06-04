@@ -24,8 +24,8 @@ _build_dependencies.sh @AffectedArc07
 
 # Executables that need to be security-cleared
 dreamchecker.exe @AffectedArc07
+milla.dll @AffectedArc07
 rust_g.dll @AffectedArc07
-librust_g.so @AffectedArc07
 
 ### S34NW
 

@@ -447,7 +447,7 @@
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
 
-/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/noise)
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/stretch/flash/noise)
 	if(affect_silicon)
 		return ..()
 

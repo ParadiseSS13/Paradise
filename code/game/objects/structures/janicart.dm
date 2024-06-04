@@ -90,7 +90,7 @@
 		else if(mybag)
 			mybag.attackby(I, user, params)
 	else
-		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
+		to_chat(usr, "<span class='warning'>You cannot interface your modules with [src]!</span>")
 
 /obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE

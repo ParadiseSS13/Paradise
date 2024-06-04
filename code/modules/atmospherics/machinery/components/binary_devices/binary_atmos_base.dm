@@ -153,7 +153,3 @@
 		to_release.merge(air2.remove(shared_loss))
 		T.assume_air(to_release)
 		air_update_turf(1)
-
-/obj/machinery/atmospherics/binary/process_atmos()
-	..()
-	return parent1 && parent2

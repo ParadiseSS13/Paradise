@@ -72,7 +72,7 @@
 		inv.update_icon()
 
 	if(wear_suit)
-		if(client && hud_used && hud_used.hud_shown)
+		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(hud_used.inventory_shown)					//if the inventory is open ...
 				wear_suit.screen_loc = ui_oclothing	//TODO	//...draw the item in the inventory screen
 			client.screen += wear_suit						//Either way, add the item to the HUD

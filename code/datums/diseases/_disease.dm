@@ -71,6 +71,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
+	/// Allow the virus to infect and process while the affected_mob is dead
+	var/allow_dead = FALSE
 
 /datum/disease/Destroy()
 	affected_mob = null
@@ -87,22 +89,23 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 	stage = min(stage, max_stages)
 
-	if(!cure)
-		if(prob(stage_prob))
-			stage = min(stage + 1,max_stages)
-			if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
-				discovered = TRUE
-				affected_mob.med_hud_set_status()
-	else
-		if(prob(cure_chance))
-			stage = max(stage - 1, 1)
+	if(!cure && prob(stage_prob))
+		stage = min(stage + 1, max_stages)
+		if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
+			discovered = TRUE
+			affected_mob.med_hud_set_status()
+
+	return handle_cure_testing(cure)
+
+/datum/disease/proc/handle_cure_testing(has_cure = FALSE)
+	if(has_cure && prob(cure_chance))
+		stage = max(stage - 1, 1)
 
 	if(disease_flags & CURABLE)
-		if(cure && prob(cure_chance))
+		if(has_cure && prob(cure_chance))
 			cure()
 			return FALSE
 	return TRUE
-
 
 /datum/disease/proc/has_cure()
 	if(!(disease_flags & CURABLE))

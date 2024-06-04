@@ -928,7 +928,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	to_chat(src, "<span class='info'>You can now right click to use inspect on browsers.</span>")
-	winset(src, "", "browser-options=find,devtools")
+	winset(src, "", "browser-options=byondstorage,find,devtools")
 
 /client/proc/visualise_active_turfs()
 	set category = "Debug"

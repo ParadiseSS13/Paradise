@@ -353,7 +353,7 @@
 	if((E && (E.status & ORGAN_DEAD)) || !.)
 		return FALSE
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/flash)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 
@@ -1201,9 +1201,9 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/update_tint()
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/blind)
 	else if(tinttotal >= TINT_IMPAIR)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/impaired, 2)
 	else
 		clear_fullscreen("tint", 0)
 

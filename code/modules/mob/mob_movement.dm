@@ -289,7 +289,7 @@
 			L.dir = direct
 		if(INCORPOREAL_MOVE_HOLY_BLOCK)
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
-			if(stepTurf.flags & NOJAUNT)
+			if(stepTurf.flags & BLESSED_TILE)
 				to_chat(L, "<span class='warning'>Holy energies block your path.</span>")
 				L.notransform = TRUE
 				spawn(2)
@@ -362,9 +362,11 @@
 		return
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))
 		return
-	var/target_turf = get_step(pulling, get_dir(pulling.loc, A))
-	if(!Adjacent(target_turf)) //Make sure the turf we are trying to pull to is adjacent to the user.
+	if(src in pulling.contents)
 		return
+	var/target_turf = get_step(pulling, get_dir(pulling.loc, A))
+	if(get_dist(target_turf, loc) > 1) // Make sure the turf we are trying to pull to is adjacent to the user.
+		return // We do not use Adjacent() here because it checks if there are dense objects in the way, making it impossible to move an object to the side if we're blocked on both sides.
 	if(ismob(pulling))
 		var/mob/M = pulling
 		var/atom/movable/t = M.pulling

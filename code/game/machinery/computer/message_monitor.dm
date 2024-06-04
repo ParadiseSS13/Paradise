@@ -396,8 +396,7 @@
 
 					//Select Your Name
 					if("Sender")
-						customsender 	= input("Please enter the sender's name.")
-						customsender	= trim_strip_html_properly(customsender)
+						customsender 	= clean_input("Please enter the sender's name.")
 
 					//Select Receiver
 					if("Recepient")
@@ -416,13 +415,11 @@
 
 					//Enter custom job
 					if("RecJob")
-						customjob	 	= input("Please enter the sender's job.")
-						customjob		= trim_strip_html_properly(customjob)
+						customjob	 	= clean_input("Please enter the sender's job.")
 
 					//Enter message
 					if("Message")
-						custommessage	= input("Please enter your message.")
-						custommessage	= trim_strip_html_properly(custommessage)
+						custommessage	= clean_input("Please enter your message.")
 
 					//Send message
 					if("Send")
