@@ -41,9 +41,9 @@
 	var/obj/item/card/id/access_card
 	var/list/prev_access = list()
 	var/on = TRUE
-	/// ID interface
-	var/open = FALSE
 	/// Maintenance panel
+	var/open = FALSE
+	/// ID interface
 	var/locked = TRUE
 	/// Used by secbots to know if their components can be disconnected with a multitool if the panel is open, or if they requires unwrenching first
 	var/wrenched = TRUE
