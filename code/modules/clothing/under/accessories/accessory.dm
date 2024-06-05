@@ -849,7 +849,7 @@
 		to_chat(user, "You decide not to change [src].")
 		return
 	var/pin_icon_state = flag_types[chosen_pin]
-	to_chat(user, "You change [src] to show [chosen_pin].")
+	to_chat(user, "<span class='notice'>You change [src] to show [chosen_pin].</span>")
 
 	icon_state = pin_icon_state
 	item_state = pin_icon_state
