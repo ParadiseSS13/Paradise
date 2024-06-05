@@ -835,7 +835,7 @@
 
 /obj/item/clothing/accessory/pride_pin/Initialize(mapload)
 	. = ..()
-	if(flag_icons.len) //Only generate it once
+	if(length(flag_icons)) //Only generate it once
 		return
 
 	for(var/current_pin in flag_types) //generate the flag icons
