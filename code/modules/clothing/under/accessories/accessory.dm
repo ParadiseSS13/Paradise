@@ -846,7 +846,7 @@
 	. = ..()
 	var/chosen_pin = show_radial_menu(user, src, flag_icons, require_near = TRUE)
 	if(!chosen_pin)
-		to_chat(user, "You decide not to change [src].")
+		to_chat(user, "<span class='notice'>You decide not to change [src].</span>")
 		return
 	var/pin_icon_state = flag_types[chosen_pin]
 	to_chat(user, "<span class='notice'>You change [src] to show [chosen_pin].</span>")
