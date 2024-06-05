@@ -50,6 +50,7 @@
 	for(var/t in trophies)
 		var/obj/item/crusher_trophy/T = t
 		. += "<span class='notice'>It has \a [T] attached, which causes [T.effect_desc()].</span>"
+		. += "<span class='notice'>You can use a crowbar on it to remove it's attached trophies.</span>"
 
 /obj/item/kinetic_crusher/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/crusher_trophy))

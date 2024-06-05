@@ -1,5 +1,5 @@
 /datum/event/anomaly/anomaly_bluespace
-	name = "Anomaly: Bluespace"
+	name = "Anomaly event"
 	startWhen = 3
 	announceWhen = 10
 	anomaly_path = /obj/effect/anomaly/bluespace

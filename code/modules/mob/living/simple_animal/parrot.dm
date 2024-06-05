@@ -186,6 +186,12 @@
 		drop_held_item(FALSE)
 	return
 
+/mob/living/simple_animal/parrot/grabbedby(mob/living/carbon/user, supress_message)
+	..()
+
+	if(held_item && !stat)
+		drop_held_item()
+
 /*
  * AI - Not really intelligent, but I'm calling it AI anyway.
  */
@@ -329,7 +335,7 @@
 	else if(parrot_state == (PARROT_SWOOP|PARROT_STEAL))
 		walk(src, 0)
 
-		if(!parrot_interest || held_item || !(parrot_interest in view(src)))
+		if(!parrot_interest || held_item || length(grabbed_by) || !(parrot_interest in view(src)))
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
@@ -491,14 +497,20 @@
 	set desc = "Grabs a nearby item."
 
 	if(stat)
-		return -1
+		return FALSE
+
+	if(length(grabbed_by))
+		to_chat(src, "<span class='warning'>You are being grabbed!</span>")
+		return FALSE
 
 	if(held_item)
 		to_chat(src, "<span class='warning'>You are already holding [held_item]</span>")
-		return 1
+		return TRUE
+
 	if(istype(loc, /obj/machinery/disposal) || istype(loc, /obj/structure/disposalholder))
 		to_chat(src, "<span class='warning'>You are inside a disposal chute!</span>")
-		return 1
+		return TRUE
+
 	for(var/obj/item/I in view(1, src))
 		//Make sure we're not already holding it and it's small enough
 		if(I.loc != src && I.w_class <= WEIGHT_CLASS_SMALL)
@@ -511,7 +523,7 @@
 			return held_item
 
 	to_chat(src, "<span class = 'warning'>There is nothing of interest to take.</span>")
-	return 0
+	return FALSE
 
 /mob/living/simple_animal/parrot/proc/steal_from_mob()
 	set name = "Steal from mob"
@@ -519,11 +531,15 @@
 	set desc = "Steals an item right out of a person's hand!"
 
 	if(stat)
-		return -1
+		return FALSE
+
+	if(length(grabbed_by))
+		to_chat(src, "<span class='warning'>You are being grabbed!</span>")
+		return FALSE
 
 	if(held_item)
 		to_chat(src, "<span class='warning'>You are already holding [held_item]</span>")
-		return 1
+		return TRUE
 
 	var/obj/item/stolen_item = null
 
@@ -540,7 +556,7 @@
 			return held_item
 
 	to_chat(src, "<span class='warning'>There is nothing of interest to take.</span>")
-	return 0
+	return FALSE
 
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
 	set name = "Drop held item"
@@ -559,11 +575,11 @@
 	set desc = "Drop the item you're holding."
 
 	if(stat)
-		return -1
+		return FALSE
 
 	if(!held_item)
 		to_chat(src, "<span class='warning'>You have nothing to drop!</span>")
-		return 0
+		return FALSE
 
 	if(!drop_gently)
 		if(istype(held_item, /obj/item/grenade))
@@ -573,14 +589,14 @@
 			to_chat(src, "You let go of [held_item]!")
 			held_item = null
 			update_held_icon()
-			return 1
+			return TRUE
 
 	to_chat(src, "You drop [held_item].")
 
 	held_item.forceMove(loc)
 	held_item = null
 	update_held_icon()
-	return 1
+	return TRUE
 
 /mob/living/simple_animal/parrot/proc/perch_player()
 	set name = "Sit"
@@ -606,10 +622,15 @@
   * * I - The item to try and pick up
   */
 /mob/living/simple_animal/parrot/proc/try_grab_item(obj/I)
+	if(length(grabbed_by))
+		return
+
 	if(!Adjacent(I))
 		return
+
 	if(held_item)
 		drop_held_item()
+
 	held_item = I
 	update_held_icon()
 	I.forceMove(src)
