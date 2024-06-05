@@ -16,14 +16,17 @@
 	desc = "A charging dock for energy based weaponry. Did it just-"
 	icon_state = "autolathe_trap"
 
-/obj/machinery/autolathe/trapped/attacked_by(obj/item/I, mob/living/user)
+/obj/machinery/autolathe/trapped/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, PROC_REF(material_container_shenanigins))
+
+/obj/machinery/autolathe/trapped/proc/material_container_shenanigins(datum/source, obj/item/attacker, mob/user)
 	if(icon_state == "autolathe_trap")
-		to_chat(user, "<span class='danger'>As you stick [I] into [src], it sparks and flashes blue. Wait a minute, this isn't a recharger!</span>")
+		to_chat(user, "<span class='danger'>As you stick [attacker] into the recharger, it sparks and flashes blue. Wait a minute, this isn't a recharger!</span>")
 		name = "modified autolathe"
 		desc = "An autolathe modified with holopad parts, to make it look like a harmless weapon recharger!"
 		do_sparks(3, 1, src)
-		//Note: icon changes itself after.
-	. = ..()
+		icon_state = "autolathe"
 
 /obj/machinery/shieldgen/telecomns
 	name = "overclocked shield generator"

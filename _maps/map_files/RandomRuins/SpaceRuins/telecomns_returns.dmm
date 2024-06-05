@@ -490,6 +490,10 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
+"iy" = (
+/obj/item/stamp,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomns/computer)
 "iD" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/space/nearstation)
@@ -1020,6 +1024,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"pV" = (
+/obj/item/paper/monitorkey,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomns/computer)
 "qe" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -1086,6 +1094,10 @@
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
+"rd" = (
+/obj/item/pen/gray,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomns/computer)
 "rD" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -1393,10 +1405,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
 "vK" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -1628,6 +1636,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/computer)
+"yr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomns)
 "yB" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
@@ -3402,6 +3416,9 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"YF" = (
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomns)
 "YN" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -7339,7 +7356,7 @@ tW
 EM
 Zu
 HX
-YN
+yr
 Xf
 PQ
 oG
@@ -7876,7 +7893,7 @@ ik
 ux
 Zd
 Pl
-Pl
+rd
 np
 Pl
 Zu
@@ -7967,7 +7984,7 @@ ik
 ik
 ux
 wW
-Pl
+pV
 Ta
 dR
 Pl
@@ -8060,7 +8077,7 @@ ik
 ux
 Ad
 tF
-Pl
+iy
 To
 mZ
 zM
@@ -8259,7 +8276,7 @@ yC
 rT
 Zu
 EO
-YN
+yr
 Xf
 PQ
 oW
@@ -8615,7 +8632,7 @@ Tv
 Pl
 Pl
 xL
-vd
+YF
 vd
 vd
 vd
