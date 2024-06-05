@@ -139,6 +139,7 @@ const MuleLoad = (props, context) => {
   return (
     <Section fill scrollable>
       {cargo_IMG !== undefined && (
+      {cargo_IMG !== undefined ? (
         <img
           src={`data:image/jpeg;base64,${cargo_IMG}`}
           style={{
@@ -150,6 +151,8 @@ const MuleLoad = (props, context) => {
             'image-rendering': 'pixelated',
           }}
         />
+      ) : (
+        <Box bold={1}>No Cargo</Box>
       )}
       <Section title="Delivery Settings">
         <Button
