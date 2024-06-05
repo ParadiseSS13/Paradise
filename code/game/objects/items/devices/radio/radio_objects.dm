@@ -107,9 +107,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	follow_target = null
 	return ..()
 
-
-/obj/item/radio/Initialize()
-	..()
+/obj/item/radio/Initialize(mapload)
+	. = ..()
 	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
 		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 	set_frequency(frequency)
@@ -132,11 +131,19 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	ui_interact(user)
 
 /obj/item/radio/AltClick(mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
+	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	ToggleBroadcast()
-	to_chat(user, "<span class='notice'>You <b>[broadcasting ? "enable" : "disable"]</b> [src]'s hotmic!</span>")
+	to_chat(user, "<span class='notice'>You <b>[broadcasting ? "enable" : "disable"]</b> [src]'s hotmic.</span>")
+	add_fingerprint(user)
+
+/obj/item/radio/CtrlShiftClick(mob/user)
+	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	ToggleReception()
+	to_chat(user, "<span class='notice'>You <b>[listening ? "enable" : "disable"]</b> [src]'s speaker.</span>")
 	add_fingerprint(user)
 
 /obj/item/radio/ui_state(mob/user)
@@ -542,14 +549,24 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	return null
 
+/obj/item/radio/proc/show_examine_hotkeys()
+	. = list()
+	. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic.</span>"
+	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to toggle [src]'s speaker.</span>"
+
 /obj/item/radio/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic!</span>"
+	. += show_examine_hotkeys()
+
 	if(in_range(src, user) || loc == user)
 		if(b_stat)
 			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
 		else
 			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
+
+/obj/item/radio/examine_more(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can transmit messages from [src] without the hotmic by using <b>:l</b> or <b>:r</b> whilst holding it in your left or right hand.</span>"
 
 /obj/item/radio/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

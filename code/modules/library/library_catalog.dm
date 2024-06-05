@@ -309,13 +309,13 @@
   * Arguments:
   * * datum/library_user_data/search_terms - datum with parameters for what we want to query our DB for
  */
-/datum/library_catalog/proc/get_total_books(datum/library_user_data/search_terms)
+/datum/library_catalog/proc/get_total_books(datum/library_user_data/search_terms, async = TRUE)
 	var/list/search_query = build_search_query(search_terms)
 	var/sql = "SELECT COUNT(id) FROM library" + search_query[1]
 	var/list/sql_params = search_query[2]
 
 	var/datum/db_query/count_query = SSdbcore.NewQuery(sql, sql_params)
-	if(!count_query.warn_execute())
+	if(!count_query.warn_execute(async))
 		qdel(count_query)
 		return
 

@@ -264,6 +264,7 @@
 	M.reagents.add_reagent("salglu_solution", 15)
 	M.reagents.add_reagent("salbutamol", 15)
 	M.reagents.add_reagent("methamphetamine", 15)
+	M.reagents.add_reagent("mannitol", 15)
 
 
 //////////////////////
@@ -283,6 +284,7 @@
 	name = "popcorn"
 	desc = "Now let's find some cinema."
 	icon_state = "popcorn"
+	gender = PLURAL
 	trash = /obj/item/trash/popcorn
 	var/unpopped = 0
 	filling_color = "#FFFAD4"

@@ -440,6 +440,19 @@
 	if(dat)
 		. += "It contains: <br>[dat]"
 
+	if(!HAS_MIND_TRAIT(user, TRAIT_KNOWS_COOKING_RECIPES))
+		return
+
+	if(locate(/obj/item/mixing_bowl) in contents)
+		. += "<span class='notice'>You can't see inside the mixing bowl, you're not sure what it would do.</span>"
+		return
+
+	var/list/recipes = choose_recipes()
+	if(length(recipes) == 1 && recipes[1][2] != RECIPE_FAIL)
+		var/datum/recipe/recipe = recipes[1][2]
+		var/obj/item/result = recipe.result
+		. += "<span class='notice'>Your expert chef knowledge tells you that this would make \a [initial(result.name)].</span>"
+
 /obj/machinery/kitchen_machine/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER) || panel_open || !anchored)
 		return

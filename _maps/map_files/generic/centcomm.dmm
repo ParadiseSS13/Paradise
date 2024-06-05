@@ -3279,6 +3279,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
+"lq" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/supply)
 "lr" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -4100,6 +4103,12 @@
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
+"nE" = (
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
 "nF" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -4462,7 +4471,7 @@
 /area/centcom/specops)
 "oQ" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
-	name = "Jupiter Station Central Access"
+	name = "Trading Satellite Central Access"
 	},
 /turf/simulated/floor/plating/airless,
 /area/trader_station/sol)
@@ -4485,6 +4494,15 @@
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
+"oV" = (
+/obj/effect/turf_decal{
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
 "oW" = (
 /obj/machinery/computer/shuttle/white_ship,
 /turf/simulated/floor/plasteel{
@@ -5873,7 +5891,7 @@
 	dwidth = 4;
 	height = 11;
 	id = "trade_sol_base";
-	name = "docking bay 2 at Jupiter Station";
+	name = "docking bay at Trading Satellite";
 	width = 9
 	},
 /obj/structure/fans/tiny,
@@ -6696,7 +6714,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "wK" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/supply)
 "wM" = (
 /obj/structure/closet/wardrobe/xenos,
@@ -6851,7 +6869,7 @@
 /area/admin)
 "xf" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -7600,7 +7618,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "AR" = (
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/supply)
 "AU" = (
 /obj/machinery/door/airlock/centcom{
@@ -7641,10 +7662,11 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Bd" = (
-/obj/machinery/light/spot{
-	dir = 1
+/obj/machinery/status_display{
+	name = "cargo display";
+	pixel_y = 32
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/catwalk,
 /area/shuttle/supply)
 "Be" = (
 /obj/machinery/door/airlock/centcom{
@@ -7823,15 +7845,12 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "BL" = (
-/obj/machinery/light/spot{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/supply)
-"BO" = (
-/obj/machinery/light/spot{
+/obj/effect/turf_decal{
 	dir = 4
 	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"BO" = (
 /obj/machinery/door_control/no_emag{
 	id = "QMLoaddoor2";
 	layer = 3;
@@ -7846,7 +7865,10 @@
 	pixel_x = 24;
 	pixel_y = -8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "BT" = (
 /obj/effect/landmark/spawner/tdomeobserve,
@@ -8722,8 +8744,7 @@
 	},
 /area/ghost_bar)
 "Fc" = (
-/obj/machinery/light/spot,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/catwalk,
 /area/shuttle/supply)
 "Fd" = (
 /obj/structure/table/reinforced,
@@ -9095,7 +9116,7 @@
 "Gs" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost")
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -10217,7 +10238,7 @@
 "Kd" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -10492,7 +10513,7 @@
 "Lb" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
@@ -11441,6 +11462,12 @@
 /obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
+"Oh" = (
+/obj/effect/turf_decal{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/supply)
 "Oi" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/fernybush,
@@ -12776,6 +12803,15 @@
 	icon_state = "browncorner"
 	},
 /area/shuttle/escape)
+"SS" = (
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
 "ST" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
@@ -12878,7 +12914,7 @@
 /area/shuttle/transport)
 "Tu" = (
 /obj/machinery/door/airlock/centcom/glass{
-	name = "Jupiter Station Central Access"
+	name = "Trading Satellite Central Access"
 	},
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
@@ -14305,7 +14341,7 @@
 "Yu" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -35226,16 +35262,16 @@ aN
 aN
 aN
 wK
-AR
-AR
-AR
-AR
+oV
 BL
-AR
-AR
-AR
-AR
-wK
+BL
+BL
+BL
+BL
+BL
+oV
+Oh
+lq
 GX
 aN
 Zr
@@ -35483,15 +35519,15 @@ aN
 aN
 aN
 wK
-AR
-AR
-AR
-AR
-AR
-AR
-AR
-AR
-AR
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
 Gf
 GY
 aN
@@ -35741,13 +35777,13 @@ aN
 Db
 wK
 Bd
-AR
-AR
-AR
-AR
-AR
-AR
-AR
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
 Fc
 Gf
 GY
@@ -35997,15 +36033,15 @@ aN
 aN
 aN
 wK
-AR
-AR
-AR
-AR
-AR
-AR
-AR
-AR
-AR
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
 Gf
 GY
 aN
@@ -36254,16 +36290,16 @@ aN
 aN
 aN
 wK
-AR
-AR
-AR
-AR
+SS
+nE
+nE
+nE
 BO
+nE
+nE
+SS
 AR
-AR
-AR
-AR
-wK
+lq
 Ha
 aN
 Zr

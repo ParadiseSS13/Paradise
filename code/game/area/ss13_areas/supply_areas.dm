@@ -37,3 +37,9 @@
 /area/station/supply/mechbay
 	name = "\improper Mech Bay"
 	icon_state = "yellow"
+
+/area/station/supply/expedition
+	name = "\improper Expedition Room"
+	icon_state = "expedition"
+	ambientsounds = list('sound/ambience/ambiexp.ogg')
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED

@@ -171,25 +171,26 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define EYES_OVERLAY_LAYER		42
-#define WING_LAYER				41
-#define WING_UNDERLIMBS_LAYER	40
-#define MUTANTRACE_LAYER		39
-#define TAIL_UNDERLIMBS_LAYER	38	//Tail split-rendering.
-#define LIMBS_LAYER				37
-#define MARKINGS_LAYER			36
-#define INTORGAN_LAYER			35
-#define UNDERWEAR_LAYER			34
-#define MUTATIONS_LAYER			33
-#define H_DAMAGE_LAYER			32
-#define UNIFORM_LAYER			31
-#define ID_LAYER				30
-#define HANDS_LAYER				29	//Exists to overlay hands over jumpsuits
-#define SHOES_LAYER				28
-#define GLOVES_LAYER			27
-#define EARS_LAYER				26
-#define BELT_LAYER				25	//Possible make this an overlay of something required to wear a belt?
-#define SUIT_LAYER				24
+#define EYES_OVERLAY_LAYER		43
+#define WING_LAYER				42
+#define WING_UNDERLIMBS_LAYER	41
+#define MUTANTRACE_LAYER		40
+#define TAIL_UNDERLIMBS_LAYER	39	//Tail split-rendering.
+#define LIMBS_LAYER				38
+#define MARKINGS_LAYER			37
+#define INTORGAN_LAYER			36
+#define UNDERWEAR_LAYER			35
+#define MUTATIONS_LAYER			34
+#define H_DAMAGE_LAYER			33
+#define UNIFORM_LAYER			32
+#define ID_LAYER				31
+#define HANDS_LAYER				30	//Exists to overlay hands over jumpsuits
+#define SHOES_LAYER				29
+#define GLOVES_LAYER			28
+#define EARS_LAYER				27
+#define BELT_LAYER				26	//Possible make this an overlay of something required to wear a belt?
+#define SUIT_LAYER				25
+#define SPECIAL_BELT_LAYER		24
 #define SUIT_STORE_LAYER		23
 #define BACK_LAYER				22
 #define HEAD_ACCESSORY_LAYER	21
@@ -213,7 +214,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			42
+#define TOTAL_LAYERS			43
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -703,3 +704,7 @@ do { \
 
 /// A helper used by `restrict_file_types.py` to identify types to restrict in a file. Not used by byond at all.
 #define RESTRICT_TYPE(type) // do nothing
+
+#define INGREDIENT_CHECK_EXACT 1
+#define INGREDIENT_CHECK_FAILURE 0
+#define INGREDIENT_CHECK_SURPLUS -1
