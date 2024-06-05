@@ -91,6 +91,7 @@
 
 /datum/surgery_step/limb/attach/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
+	var/obj/item/organ/external/E = tool
 	if(target.get_organ(E.limb_name))
 		// This catches attaching an arm to a missing hand while the arm is still there
 		to_chat(user, "<span class='warning'>[target] already has an [E.name]!</span>")
