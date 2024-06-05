@@ -112,7 +112,7 @@
 
 /datum/supply_packs/medical/vending
 	name = "Medical Vending Crate"
-	cost = 100
+	cost = 650
 	contains = list(/obj/item/vending_refill/medical,
 					/obj/item/vending_refill/wallmed)
 	containername = "medical vending crate"
