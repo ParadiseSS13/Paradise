@@ -57,11 +57,11 @@
 /obj/machinery/clonepod
 	anchored = TRUE
 	name = "cloning pod"
-	desc = "An electronically-lockable pod for growing organic tissue."
+	desc = "A pod for growing organic tissue."
 	density = TRUE
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_idle"
-
+	req_access = list(ACCESS_MEDICAL)
 	//So that chemicals can be loaded into the pod.
 	container_type = OPENCONTAINER
 	/// The linked cloning console.
@@ -80,9 +80,6 @@
 	var/desc_flavor = "It doesn't seem to be doing anything right now."
 	/// The countdown.
 	var/obj/effect/countdown/clonepod/countdown
-	/// Whether or not the interface is locked.
-	var/locked = TRUE
-	req_access = list(ACCESS_MEDICAL)
 
 	/// The speed at which we clone. Each processing cycle will advance clone_progress by this amount.
 	var/speed_modifier = 1
@@ -165,7 +162,6 @@
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[desc_flavor]</span>"
-	. += "<span class='notice'>[src] is currently [locked ? "locked" : "unlocked"], and can be [locked ? "unlocked" : "locked"] by swiping an ID with medical access on it.</span>"
 
 /obj/machinery/clonepod/RefreshParts()
 	speed_modifier = 0 //Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
@@ -571,11 +567,8 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
 
-		switch(tgui_alert(user, "Change access restrictions or perform an emergency ejection of [src]?", "Cloning pod", list("Change access", "Emergency ejection")))
-			if("Change access")
-				locked = !locked
-				to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
-			if("Emergency ejection")
+		switch(tgui_alert(user, "Perform an emergency ejection of [src]?", "Cloning pod", list("Yes", "No")))
+			if("Yes")
 				eject_clone(TRUE) // GET OUT
 				to_chat(user, "<span class='warning'>You force [src] to eject its clone!</span>")
 		return
@@ -643,12 +636,6 @@
 //TGUI
 /obj/machinery/clonepod/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(!allowed(user) && locked && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-		if(ui)
-			ui.close()
 		return
 
 	ui = SStgui.try_update_ui(user, src, ui)

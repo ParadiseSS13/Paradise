@@ -95,16 +95,6 @@
 
 	ui_interact(user)
 
-/obj/machinery/computer/cloning/emag_act(mob/user)
-	. = ..()
-	if(!emagged)
-		emagged = TRUE
-		to_chat(user, "<span class='notice'>You short out the ID scanner on [src].</span>")
-	else
-		to_chat(user, "<span class='warning'>[src]'s ID scanner is already broken!</span>")
-
-	return TRUE
-
 /obj/machinery/computer/cloning/proc/generate_healthy_data(datum/cloning_data/patient_data)
 	var/datum/cloning_data/desired_data = new
 
@@ -140,12 +130,6 @@
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-		if(ui)
-			ui.close()
 		return
 
 	var/datum/asset/simple/cloning/assets = get_asset_datum(/datum/asset/simple/cloning)
