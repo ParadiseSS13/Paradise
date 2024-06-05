@@ -314,12 +314,17 @@
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
 	if(!user.Adjacent(src))
-		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
+		to_chat(user, "<span class='warning'>You are too far away!</span>")
+		return
+
+	if(!isrobot(user) && (!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
 		return
 
 	if(has_sensor >= 2)
 		to_chat(user, "<span class='warning'>The controls are locked.</span>")
 		return
+
 	if(has_sensor <= SUIT_SENSOR_OFF)
 		to_chat(user, "<span class='warning'>This suit does not have any sensors.</span>")
 		return
@@ -330,6 +335,7 @@
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
+		// If your hands get lopped off or cuffed after the menu is open.
 	if(!isrobot(user) && (!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
 		return
