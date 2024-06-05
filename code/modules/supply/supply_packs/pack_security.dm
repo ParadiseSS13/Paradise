@@ -283,6 +283,13 @@
 	cost = 400
 	containername = "tranquilizer shell crate"
 
+/datum/supply_packs/security/armory/holyammo
+	name = "Holy Water Shell Crate"
+	contains = list(/obj/item/storage/box/holy,
+					/obj/item/storage/box/holy)
+	cost = 400
+	containername = "holy water shell crate"
+
 /datum/supply_packs/security/armory/disablersmg
 	name = "WT-450 Disabler SMG Crate"
 	contains = list(/obj/item/gun/energy/disabler/smg,
