@@ -91,7 +91,6 @@
 
 /datum/surgery_step/limb/attach/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-	var/obj/item/organ/external/E = tool
 	if(target.get_organ(E.limb_name))
 		// This catches attaching an arm to a missing hand while the arm is still there
 		to_chat(user, "<span class='warning'>[target] already has an [E.name]!</span>")
@@ -111,7 +110,7 @@
 	if(!target.bodyparts_by_name[E.parent_organ])
 		to_chat(user, "<span class='warning'>[target] doesn't have a [parse_zone(E.parent_organ)] to attach the [E.name] to!</span>")
 		return SURGERY_BEGINSTEP_ABORT
-	if(length(E.search_contents_for(/obj/item/organ/internal/brain)) && target.get_int_organ(/obj/item/organ/internal/brain))
+	if(length(E.search_contents_for(/obj/item/organ/internal/brain)) && (target.get_int_organ(/obj/item/organ/internal/brain) || IS_CHANGELING(target)))
 		to_chat(user, "<span class='warning'>Both [target] and [E.name] contain a brain, and [target] can't have two brains!</span>")
 		return SURGERY_BEGINSTEP_ABORT
 
