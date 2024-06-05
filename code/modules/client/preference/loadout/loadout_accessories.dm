@@ -175,6 +175,10 @@
 	display_name = "Corset, blue"
 	path = /obj/item/clothing/accessory/corset/blue
 
+/datum/gear/accessory/pride_pin
+	display_name = "Pride pin"
+	path = /obj/item/clothing/accessory/pride_pin
+
 /datum/gear/accessory/armband_red
 	display_name = "Armband"
 	path = /obj/item/clothing/accessory/armband
