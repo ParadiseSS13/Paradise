@@ -166,17 +166,21 @@
 
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
+
+	var/area/A = get_area(src)
+
+	if(A.powernet && !A.powernet.powernet_apc)
+		A.powernet.powernet_apc = src
+
 	if(!mapload)
 		return
+
 	electronics_state = APC_ELECTRONICS_SECURED
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
 		cell = new /obj/item/stock_parts/cell/upgraded(src)
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
 		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
-
-	var/area/A = get_area(src)
-
 
 	//if area isn't specified use current
 	if(keep_preset_name)

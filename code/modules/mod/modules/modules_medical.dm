@@ -115,3 +115,19 @@
 	toolspeed = 2
 	defib_cooldown = 2.5 SECONDS
 
+///Crew Monitor - Deploys or retracts a built-in handheld crew monitor
+/obj/item/mod/module/monitor
+	name = "MOD crew monitor module"
+	desc = "A module installed into the wrist of the suit, this presents a display of crew sensor data."
+	icon_state = "scanner"
+	module_type = MODULE_ACTIVE
+	complexity = 1
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
+	device = /obj/item/sensor_device/mod
+	incompatible_modules = list(/obj/item/mod/module/monitor)
+	cooldown_time = 0.5 SECONDS
+
+/obj/item/sensor_device/mod
+	name = "MOD crew monitor"
+	desc = "A miniature machine built into a modsuit that tracks suit sensors across the station."
+	flags = NODROP

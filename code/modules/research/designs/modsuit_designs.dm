@@ -261,6 +261,13 @@
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/injector
 
+/datum/design/module/mod_monitor
+	name = "Crew Monitor Module"
+	id = "mod_monitor"
+	req_tech = list("biotech" = 3, "materials" = 5, "magnets" = 4)
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 3000)
+	build_path = /obj/item/mod/module/monitor
+
 /datum/design/module/defibrillator
 	name = "Defibrillator Module"
 	id = "mod_defib"
