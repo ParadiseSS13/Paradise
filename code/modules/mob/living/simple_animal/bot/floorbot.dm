@@ -441,6 +441,25 @@
 	do_sparks(3, 1, src)
 	..()
 
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/floorbot/disassemble()
+	on = FALSE
+	var/turf/Tsec = get_turf(src)
+	var/obj/item/storage/toolbox/mechanical/N = new /obj/item/storage/toolbox/mechanical(Tsec)
+	N.contents = list()
+	new /obj/item/assembly/prox_sensor(Tsec)
+	drop_part(robot_arm, Tsec)
+	while(amount)// Dumps the tiles into the appropriate sized stacks
+		if(amount >= 16)
+			var/obj/item/stack/tile/plasteel/T = new (Tsec)
+			T.amount = 16
+			amount -= 16
+		else
+			var/obj/item/stack/tile/plasteel/T = new (Tsec)
+			T.amount = amount
+			amount = 0
+	qdel(src)
+
 /mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A)
 	if(isturf(A))
 		repair(A)

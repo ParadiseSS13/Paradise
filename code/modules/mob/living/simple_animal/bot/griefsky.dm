@@ -207,6 +207,26 @@
 
 //this section is blocking attack
 
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/secbot/griefsky/disassemble()
+	walk_to(src,0)
+	var/turf/Tsec = get_turf(src)
+	new /obj/item/assembly/prox_sensor(Tsec)
+	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	Sa.build_step = 1
+	Sa.overlays += "hs_hole"
+	Sa.created_name = name
+	new /obj/item/robot_parts/r_arm(Tsec)
+	new /obj/item/robot_parts/l_arm(Tsec)
+	if(weapon == /obj/item/melee/energy/sword/saber/)
+		log_and_message_admins("[key_name(usr)] has dismantled [src] containing energy sword(s)]!")
+	new weapon(Tsec)
+	new weapon(Tsec)
+	new weapon(Tsec)
+	new weapon(Tsec)
+	qdel(src)
+//this section is blocking attack
+
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on

@@ -418,6 +418,41 @@
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
 
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/ed209/disassemble()
+	walk_to(src,0)
+	var/turf/Tsec = get_turf(src)
+
+	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
+	Sa.build_step = 1
+	Sa.overlays += image('icons/obj/aibots.dmi', "hs_hole")
+	Sa.created_name = name
+	new /obj/item/assembly/prox_sensor(Tsec)
+
+	if(!lasercolor)
+		var/obj/item/gun/energy/disabler/G = new /obj/item/gun/energy/disabler(Tsec)
+		G.cell.charge = 0
+		G.update_icon()
+	else if(lasercolor == "b")
+		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(Tsec)
+		G.cell.charge = 0
+		G.update_icon()
+	else if(lasercolor == "r")
+		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(Tsec)
+		G.cell.charge = 0
+		G.update_icon()
+
+	new /obj/item/robot_parts/l_leg(Tsec)
+	new /obj/item/robot_parts/r_leg(Tsec)
+	new /obj/item/clothing/head/helmet(Tsec)
+	if(!lasercolor)
+		new /obj/item/clothing/suit/armor/vest(Tsec)
+	else if(lasercolor == "b")
+		new /obj/item/clothing/suit/bluetag(Tsec)
+	else if(lasercolor == "r")
+		new /obj/item/clothing/suit/redtag(Tsec)
+	qdel(src)
+
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged)

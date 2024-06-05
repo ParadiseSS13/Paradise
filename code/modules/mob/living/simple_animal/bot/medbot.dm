@@ -557,6 +557,47 @@
 	do_sparks(3, TRUE, src)
 	..()
 
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/medbot/disassemble()
+	on = FALSE
+	var/turf/Tsec = get_turf(src)
+
+	switch(skin)
+		if("ointment")
+			new /obj/item/storage/firstaid/fire/empty(Tsec)
+		if("tox")
+			new /obj/item/storage/firstaid/toxin/empty(Tsec)
+		if("o2")
+			new /obj/item/storage/firstaid/o2/empty(Tsec)
+		if("brute")
+			new /obj/item/storage/firstaid/brute/empty(Tsec)
+		if("adv")
+			new /obj/item/storage/firstaid/adv/empty(Tsec)
+		if("bezerk")
+			var/obj/item/storage/firstaid/tactical/empty/T = new(Tsec)
+			T.syndicate_aligned = syndicate_aligned //This is a special case since Syndicate medibots and the mysterious medibot look the same; we also dont' want crew building Syndicate medibots if the mysterious medibot blows up.
+		if("fish")
+			new /obj/item/storage/firstaid/aquatic_kit(Tsec)
+		if("machine")
+			new /obj/item/storage/firstaid/machine/empty(Tsec)
+		else
+			new /obj/item/storage/firstaid(Tsec)
+
+	new /obj/item/assembly/prox_sensor(Tsec)
+
+	new /obj/item/healthanalyzer(Tsec)
+
+	drop_part(robot_arm, Tsec)
+
+	if(reagent_glass)
+		reagent_glass.forceMove(Tsec)
+		reagent_glass = null
+
+	if(emagged && prob(25)) //Check what this is and if we leave it
+		playsound(loc, 'sound/voice/minsult.ogg', 50, FALSE)
+
+	qdel(src)
+
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)
 	if(declare_cooldown)
 		return

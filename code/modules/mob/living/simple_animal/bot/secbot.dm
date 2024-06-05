@@ -195,7 +195,7 @@
 	..()
 	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
 		return
-	if(W.force && !target && W.damtype != STAMINA)
+	if(!isscrewdriver(W) && !locked && (W.force) && (!target) && (W.damtype != STAMINA))//If the target is locked, they are recieving damage from the screwdriver
 		retaliate(user)
 
 /mob/living/simple_animal/bot/secbot/emag_act(mob/user)
@@ -448,6 +448,24 @@
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
+
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/secbot/disassemble()
+	walk_to(src,0)
+	var/turf/Tsec = get_turf(src)
+	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	Sa.build_step = 1
+	Sa.overlays += "hs_hole"
+	Sa.created_name = name
+	new /obj/item/assembly/prox_sensor(Tsec)
+	new /obj/item/melee/baton(Tsec)
+	drop_part(robot_arm, Tsec)
+	if((src) == /mob/living/simple_animal/bot/secbot/beepsky/)
+		new /obj/item/stock_parts/cell/potato(Tsec)
+		var/obj/item/reagent_containers/drinks/drinkingglass/S = new(Tsec)
+		S.reagents.add_reagent("whiskey", 15)
+		S.on_reagent_change()
+	qdel(src)
 
 /mob/living/simple_animal/bot/secbot/attack_alien(mob/living/carbon/alien/user as mob)
 	..()

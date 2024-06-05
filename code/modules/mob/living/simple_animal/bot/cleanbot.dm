@@ -207,6 +207,15 @@
 	do_sparks(3, 1, src)
 	..()
 
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/cleanbot/disassemble()
+	on = FALSE
+	var/turf/Tsec = get_turf(src)
+	new /obj/item/reagent_containers/glass/bucket(Tsec)
+	new /obj/item/assembly/prox_sensor(Tsec)
+	drop_part(robot_arm, Tsec)
+	qdel(src)
+
 //TGUI
 
 /mob/living/simple_animal/bot/cleanbot/show_controls(mob/user)
@@ -230,7 +239,7 @@
 /mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
 	if(..())
 		return
-	if(action != "area" && topic_denied(usr))
+	if(topic_denied(usr))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
 		return
 	add_fingerprint(usr)

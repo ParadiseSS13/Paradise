@@ -41,9 +41,12 @@
 	var/obj/item/card/id/access_card
 	var/list/prev_access = list()
 	var/on = TRUE
-	/// Maint panel
+	/// ID interface
 	var/open = FALSE
+	/// Maintenance panel
 	var/locked = TRUE
+	/// Used by secbots to know if their components can be disconnected with a multitool if the pannel is open, or if they requires unwrenching first
+	var/wrenched = TRUE
 	/// Used to differentiate between being hacked by silicons and emagged by humans.
 	var/hacked = FALSE
 	/// Is currently hijacked by a pulse demon?
@@ -404,7 +407,7 @@
 		if(emagged)
 			to_chat(user, "<span class='danger'>ERROR</span>")
 		if(open)
-			to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
+			to_chat(user, "<span class='warning'>Please close the maintenance panel before locking the interface.</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
@@ -447,7 +450,7 @@
 
 	if(istype(W, /obj/item/hemostat) && paicard)
 		if(open)
-			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
+			to_chat(user, "<span class='warning'>Close the maintenance panel before manipulating the personality slot!</span>")
 			return
 
 		to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
@@ -462,7 +465,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(locked)
-		to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
+		to_chat(user, "<span class='warning'>The interface is locked.</span>")
 		return TRUE // Must be true or we attempt to stab the bot
 
 	open = !open
@@ -470,6 +473,46 @@
 	to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
 	return TRUE
 
+/mob/living/simple_animal/bot/wrench_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return..()
+	if(locked) //ID-Lock
+		to_chat(user, "<span class='warning'>The interface is locked.</span>")
+		return TRUE // Must be true or we attempt to bash the bot
+	if(!open) //Screwdriver pannel
+		to_chat(user, "<span class='warning'>The maintenance pannel is screwed in place.</span>")
+		return TRUE // Must be true or we attempt to bash the bot
+	if((bot_type != SEC_BOT) && (bot_type != GRIEF_BOT)) //Should only affect security bots and griefsky
+		to_chat(user, "<span class='warning'>The internal components cannot be wrenched more securely.</span>")
+		return TRUE // Must be true or we attempt to bash the bot
+
+	I.play_tool_sound(src)
+	wrenched = !wrenched
+	to_chat(user, "<span class='notice'>The internal components are now [wrenched ? "wrenched" : "unwrenched"].</span>")
+	return TRUE
+
+// Override me please!
+/mob/living/simple_animal/bot/proc/disassemble()
+	qdel(src)
+
+/mob/living/simple_animal/bot/multitool_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return..()
+	if(locked) //ID-Lock
+		to_chat(user, "<span class='warning'>The interface is locked.</span>")
+		return TRUE // Must be true or we attempt to bash the bot
+	if(!open) //Screwdriver pannel
+		to_chat(user, "<span class='warning'>The maintenance pannel is screwed in place.</span>")
+		return TRUE // Must be true or we attempt to bash the bot
+	if((bot_type == SEC_BOT) || (bot_type == GRIEF_BOT)) //Should only affect security bots and griefsky
+		if(wrenched)
+			to_chat(user, "<span class='warning'>The internal components are wrenched in place.</span>")
+			return TRUE // Must be true or we attempt to bash the bot
+
+	I.play_tool_sound(src)
+	disassemble()
+	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	return TRUE
 
 /mob/living/simple_animal/bot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
@@ -1176,6 +1219,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	data["canhack"] = canhack(user)
 	data["emagged"] = emagged
 	data["remote_disabled"] = remote_disabled
+	data["wrenched"] = wrenched //Are the bot's components wrenched in place ? Used by secbots and griefsky
 	return data
 
 // AI bot access verb TGUI
