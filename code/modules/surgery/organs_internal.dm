@@ -423,7 +423,7 @@
 		to_chat(user, "<span class='warning'> [target] already has [I].</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
-	if(istype(tool, /obj/item/organ/internal/brain) && target.get_int_organ(/obj/item/organ/internal/brain))
+	if(istype(tool, /obj/item/organ/internal/brain) && (target.get_int_organ(/obj/item/organ/internal/brain) || IS_CHANGELING(target))
 		to_chat(user, "<span class='warning'>[target] can't have two brains!</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
