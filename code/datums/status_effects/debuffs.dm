@@ -239,11 +239,10 @@
 
 /datum/status_effect/cult_stun_mark/on_apply()
 	. = ..()
-	if(!ishuman(owner))
+	if(!isliving(owner))
 		return
 	overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
-	var/mob/living/carbon/human/H = owner
-	H.add_overlay(overlay)
+	owner.add_overlay(overlay)
 
 /datum/status_effect/cult_stun_mark/on_remove()
 	owner.cut_overlay(overlay)
