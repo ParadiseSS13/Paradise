@@ -8,7 +8,7 @@
 	var/brute_damage = 0
 	var/electronics_damage = 0
 	var/max_damage = 30
-	var/component_disabled = 0
+	var/component_disabled = FALSE
 	var/mob/living/silicon/robot/owner
 	var/external_type = null // The actual device object that has to be installed for this.
 	var/obj/item/wrapped = null // The wrapped device(e.g. radio), only set if external_type isn't null
@@ -101,12 +101,12 @@
 /datum/robot_component/proc/disable()
 	if(!component_disabled)
 		go_offline()
-	component_disabled++
+		component_disabled = TRUE
 
 /datum/robot_component/proc/enable()
-	component_disabled--
-	if(!component_disabled)
+	if(component_disabled)
 		go_online()
+		component_disabled = FALSE
 
 /datum/robot_component/proc/toggle()
 	toggled = !toggled
