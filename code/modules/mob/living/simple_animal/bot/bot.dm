@@ -479,8 +479,8 @@
 	if(locked) //ID-Lock
 		to_chat(user, "<span class='warning'>The interface is locked.</span>")
 		return TRUE // Must be true or we attempt to bash the bot
-	if(!open) //Screwdriver pannel
-		to_chat(user, "<span class='warning'>The maintenance pannel is screwed in place.</span>")
+	if(!open) //Screwdriver panel
+		to_chat(user, "<span class='warning'>The maintenance panel is screwed in place.</span>")
 		return TRUE // Must be true or we attempt to bash the bot
 	if((bot_type != SEC_BOT) && (bot_type != GRIEF_BOT)) //Should only affect security bots and griefsky
 		to_chat(user, "<span class='warning'>The internal components cannot be wrenched more securely.</span>")
@@ -501,8 +501,8 @@
 	if(locked) //ID-Lock
 		to_chat(user, "<span class='warning'>The interface is locked.</span>")
 		return TRUE // Must be true or we attempt to bash the bot
-	if(!open) //Screwdriver pannel
-		to_chat(user, "<span class='warning'>The maintenance pannel is screwed in place.</span>")
+	if(!open) //Screwdriver panel
+		to_chat(user, "<span class='warning'>The maintenance panel is screwed in place.</span>")
 		return TRUE // Must be true or we attempt to bash the bot
 	if((bot_type == SEC_BOT) || (bot_type == GRIEF_BOT)) //Should only affect security bots and griefsky
 		if(wrenched)
