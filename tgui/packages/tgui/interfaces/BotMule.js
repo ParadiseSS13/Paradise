@@ -138,7 +138,6 @@ const MuleLoad = (props, context) => {
   const { noaccess, mode, load, destination, cargo_IMG } = data;
   return (
     <Section fill scrollable>
-      {cargo_IMG !== undefined && (
       {cargo_IMG !== undefined ? (
         <img
           src={`data:image/jpeg;base64,${cargo_IMG}`}
