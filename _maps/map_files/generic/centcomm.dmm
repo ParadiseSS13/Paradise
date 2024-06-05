@@ -1332,9 +1332,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 32;
+/obj/machinery/economy/vending/wallmed/directional/north{
 	power_state = 0
 	},
 /obj/item/clipboard,
@@ -5723,10 +5721,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tt" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 30
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tv" = (
@@ -5735,9 +5730,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tw" = (
-/obj/machinery/economy/vending/wallmed/syndicate{
-	pixel_x = -30
-	},
+/obj/machinery/economy/vending/wallmed/syndicate/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tx" = (

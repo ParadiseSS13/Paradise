@@ -68932,11 +68932,7 @@
 	pixel_x = -4;
 	pixel_y = 5
 	},
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/camera{
 	c_tag = "Chemistry South";
 	network = list("Medical","SS13")
@@ -74833,10 +74829,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/station/engineering/atmos)
 "jHq" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -83303,11 +83296,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "oGw" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_y = -32
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -83950,11 +83939,7 @@
 	},
 /area/station/security/brig)
 "oXz" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/camera{
 	c_tag = "Medbay South Hallway";
 	dir = 9;
@@ -86892,10 +86877,7 @@
 /area/station/public/toilet/lockerroom)
 "qTl" = (
 /obj/machinery/disposal,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -88209,11 +88191,7 @@
 /obj/structure/chair/sofa/bench{
 	dir = 8
 	},
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/camera{
 	c_tag = "Medbay Entrance Hall";
 	dir = 8;
@@ -93159,11 +93137,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -98782,11 +98756,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "xFI" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
