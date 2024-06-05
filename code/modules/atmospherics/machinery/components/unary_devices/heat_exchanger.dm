@@ -29,7 +29,6 @@
 	..()
 
 /obj/machinery/atmospherics/unary/heat_exchanger/process_atmos()
-	..()
 	if(!partner)
 		return 0
 

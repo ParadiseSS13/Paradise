@@ -75,6 +75,15 @@
 /obj/machinery/suit_storage_unit/captain/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/blueshield
+	name = "blueshield's suit storage unit"
+	mask_type = /obj/item/clothing/mask/gas
+	suit_type = /obj/item/mod/control/pre_equipped/praetorian
+	req_access = list(ACCESS_BLUESHIELD)
+
+/obj/machinery/suit_storage_unit/blueshield/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/engine
 	name = "engineering suit storage unit"
 	icon_state = "industrial"
@@ -179,6 +188,11 @@
 	helmet_type = /obj/item/clothing/head/space/prisoner_gulag
 	mask_type = /obj/item/clothing/mask/breath
 
+/obj/machinery/suit_storage_unit/expedition
+	name = "explorer modsuit storage unit"
+	mask_type = /obj/item/clothing/mask/gas/explorer
+	suit_type = /obj/item/mod/control/pre_equipped/standard/explorer
+	req_access = list(ACCESS_EXPEDITION)
 /obj/machinery/suit_storage_unit/cmo
 	name = "chief medical officer's suit storage unit"
 	mask_type = /obj/item/clothing/mask/breath

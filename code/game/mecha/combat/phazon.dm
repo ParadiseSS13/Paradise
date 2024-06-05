@@ -1,5 +1,5 @@
 /obj/mecha/combat/phazon
-	desc = "An exosuit which can only be described as 'WTF?'."
+	desc = "An experimental, phase-shifting exosuit developed by Nanotrasen's research division"
 	name = "Phazon"
 	icon_state = "phazon"
 	initial_icon = "phazon"
@@ -47,3 +47,13 @@
 						"}
 	output += ..()
 	return output
+
+/obj/mecha/combat/phazon/examine_more(mob/user)
+	. = ..()
+	. += "<i>The Phazon is an experimental Nanotrasen combat design, using a Bluespace Anomaly Core as its heart. \
+	This odd crystal allows the mech to phase part way out of reality, allowing it to pass through walls, floors, and other structures as if they never existed in the first place. \
+	Designed by an NT research team, the design has recently been distributed to their science stations for testing and preliminary production.</i>"
+	. += ""
+	. += "<i>Due to the nature of finding Anomaly Cores, Phazons are exceedingly rare. \
+	It seems to hum with stored energy, the edges of its chassis blurry in the eyes of others, even at rest. \
+	Early test pilots report strange hallucinations and “visions” after extensive use of the phasing ability.</i>"
