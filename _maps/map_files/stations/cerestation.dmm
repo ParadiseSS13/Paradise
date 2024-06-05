@@ -6159,7 +6159,7 @@
 "aOn" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel,
-/area/station/medical/medbay)
+/area/station/hallway/primary/starboard/south)
 "aOu" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -125164,7 +125164,7 @@ njR
 ciG
 gPL
 pQN
-ftr
+pQN
 clq
 cGd
 xPU
@@ -145140,7 +145140,7 @@ rNa
 blC
 bmT
 aOn
-cKk
+vXn
 voS
 cKk
 jVQ
