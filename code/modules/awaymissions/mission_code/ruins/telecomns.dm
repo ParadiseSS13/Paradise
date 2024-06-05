@@ -105,7 +105,7 @@
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
 	for(var/obj/structure/telecomns_trap_tank/TTT in range(20, get_turf(src)))
 		TTT.explode()
-	flick_holder.layer = layer + 0.1
+	flick_holder.layer = kaboom.layer + 0.1
 	flick("popup", flick_holder)
 	sleep(10)
 	for(var/obj/machinery/shieldgen/telecomns/shield in range(20, get_turf(src)))
@@ -118,8 +118,9 @@
 /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn //They are going to spawn it on station anyway. I can feel it.
 	name = "\improper D.V.O.R.A.K's Doomsday Device"
 	icon_state = "death-bomb"
-	desc = "Nice to see AI's are improvising on the standard doomsday device. Good to have variety. Also probably good to start running."
+	desc = "Nice to see AI's are improvising on the standard doomsday device. Good to have variety. Also probably a good idea to start running."
 	anchored = TRUE
+	timer_set = 100
 	payload = /obj/item/bombcore/telecomns_doomsday_please_dont_spawn
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
@@ -206,7 +207,9 @@
 
 /obj/structure/displaycase/dvoraks_treat
 	alert = TRUE //Ooopsies you opened this after doomsday and the doors bolted, oh nooooo
+	force_alarm = TRUE
 	req_access = list(ACCESS_CAPTAIN)
+	trophy_message = "BEHOLD MY ONE SHINY THING TO LOOK AT. LOOK AT ITS VALUE. REALISE IT IS WORTH SO MUCH MORE THAN YOU PUNY ORGANICS."
 
 /obj/structure/displaycase/dvoraks_treat/Initialize(mapload)
 	if(prob(50))
@@ -222,10 +225,8 @@
 	desc = "A mobile AI upload. The bluespace relay will likely overload after one use. Make it count."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dvorak_upload"
-	w_class	= WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_TINY
 	item_state = "camera_bug"
-	throw_speed	= 4
-	throw_range	= 20
 	origin_tech = "syndicate=4;programming=6"
 	/// Integrated camera console to serve UI data
 	var/obj/machinery/computer/aiupload/dvorak/integrated_console
