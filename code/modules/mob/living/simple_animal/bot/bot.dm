@@ -1219,7 +1219,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 	data["canhack"] = canhack(user)
 	data["emagged"] = emagged
 	data["remote_disabled"] = remote_disabled
-	data["wrenched"] = wrenched //Are the bot's components wrenched in place ? Used by secbots and griefsky
 	return data
 
 // AI bot access verb TGUI
