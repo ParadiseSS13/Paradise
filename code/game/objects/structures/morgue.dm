@@ -477,7 +477,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 			visible_message("<span class='warning'>The crematorium fails to start, something big is blocking the pipes!</span>")
 			return
 
-
 	for(var/mob/M in viewers(src))
 		M.show_message("<span class='warning'>You hear a roar as the crematorium activates.</span>", EMOTE_VISIBLE)
 
