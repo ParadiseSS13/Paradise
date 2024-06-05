@@ -213,7 +213,6 @@
 	var/list/random_components = pick_multiple_unique(components, number_disabled)
 	for(var/component in random_components)
 		disable_component(component, duration)
-		log_debug("[component] disabled for [duration]")
 
 /mob/living/silicon/robot/proc/disable_component(module_name, duration)
 	var/datum/robot_component/D = get_component(module_name)
