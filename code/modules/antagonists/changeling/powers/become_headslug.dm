@@ -33,7 +33,7 @@
 	var/list/organs = user.get_organs_zone("head", 1)
 	if(istype(user.loc, /obj/machinery/gibber) || istype(user.loc, /obj/structure/crematorium))
 		var/obj/thing_to_break = user.loc
-		user.forceMove(get_turf(user))//Get them outside of it before it breaks, to prevent issues / so they burst out of it dramatically
+		user.forceMove(get_turf(user)) // Get them outside of it before it breaks, to prevent issues / so they burst out of it dramatically
 		thing_to_break.visible_message("<span class='danger'>[user] violently explodes out of [thing_to_break], breaking it!</span>")
 		thing_to_break.obj_break(BRUTE)
 
