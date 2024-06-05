@@ -44321,11 +44321,6 @@
 /area/station/maintenance/storage)
 "hkr" = (
 /obj/item/kirbyplants,
-/obj/machinery/requests_console{
-	department = "Chapel";
-	departmentType = 2;
-	pixel_y = 30
-	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
 "hkt" = (
@@ -78175,6 +78170,14 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/primary/starboard/north)
+"rOy" = (
+/obj/machinery/requests_console{
+	department = "Chapel";
+	departmentType = 2;
+	pixel_y = 30
+	},
+/turf/simulated/floor/carpet/black,
+/area/station/service/chapel)
 "rOM" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
@@ -112234,7 +112237,7 @@ aEe
 aEe
 vtY
 bZg
-nvU
+rOy
 xVY
 eZY
 nvU
