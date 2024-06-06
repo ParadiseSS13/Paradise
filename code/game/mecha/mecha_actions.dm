@@ -231,8 +231,8 @@
 	equipment = _equipment
 	icon_icon = equipment.icon
 	button_icon_state = equipment.icon_state
-	. = ..()
 	name = "Switch module to [equipment.name]"
+	return ..()
 
 /datum/action/innate/mecha/select_module/Activate()
 	if(!owner || !chassis || chassis.occupant != owner)
