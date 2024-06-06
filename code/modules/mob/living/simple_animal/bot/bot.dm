@@ -504,10 +504,9 @@
 	if(!open) //Screwdriver panel
 		to_chat(user, "<span class='warning'>The maintenance panel is screwed in place.</span>")
 		return TRUE // Must be true or we attempt to bash the bot
-	if((bot_type == SEC_BOT) || (bot_type == GRIEF_BOT)) //Should only affect security bots and griefsky
-		if(wrenched)
-			to_chat(user, "<span class='warning'>The internal components are wrenched in place.</span>")
-			return TRUE // Must be true or we attempt to bash the bot
+	if((bot_type == SEC_BOT) || (bot_type == GRIEF_BOT) && wrenched) //Should only affect security bots and griefsky
+		to_chat(user, "<span class='warning'>The internal components are wrenched in place.</span>")
+		return TRUE // Must be true or we attempt to bash the bot
 
 	I.play_tool_sound(src)
 	disassemble()

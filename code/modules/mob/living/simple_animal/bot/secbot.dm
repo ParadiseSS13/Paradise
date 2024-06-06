@@ -460,7 +460,7 @@
 	new /obj/item/assembly/prox_sensor(Tsec)
 	new /obj/item/melee/baton(Tsec)
 	drop_part(robot_arm, Tsec)
-	if((src) == /mob/living/simple_animal/bot/secbot/beepsky/)
+	if(istype(src, /mob/living/simple_animal/bot/secbot/beepsky)
 		new /obj/item/stock_parts/cell/potato(Tsec)
 		var/obj/item/reagent_containers/drinks/drinkingglass/S = new(Tsec)
 		S.reagents.add_reagent("whiskey", 15)
