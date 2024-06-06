@@ -12,6 +12,7 @@
  * Brass (clockwork cult)
  * Bones
  * Plastic
+ * Saltpetre Crystal
  */
 
 //////////////////////////////
@@ -210,6 +211,12 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	. += "It is used in the constuction of top-grade building and vehicle armour and some specialised tools and weapons. It is too heavy to make starships out of, \
 	although it is sometimes incorporated into the armour of critical areas. Its high density also makes it an excellent material for radiation shielding."
 
+/obj/item/stack/sheet/plasteel/five
+	amount = 5
+
+/obj/item/stack/sheet/plasteel/fifteen
+	amount = 15
+
 /obj/item/stack/sheet/plasteel/fifty
 	amount = 50
 
@@ -231,6 +238,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("rake", /obj/item/cultivator/rake, 5, time = 1 SECONDS),
 	new /datum/stack_recipe("wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS),
 	new /datum/stack_recipe("firebrand", /obj/item/match/firebrand, 2, time = 10 SECONDS),
+	new /datum/stack_recipe("notice board", /obj/item/mounted/noticeboard, 5, time = 5 SECONDS),
 	null,
 	new /datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20),
 	new /datum/stack_recipe_list("wood structures", list(
@@ -732,3 +740,16 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 
 /obj/item/stack/sheet/plastic/five
 	amount = 5
+
+/*
+ * Saltpetre crystal
+ */
+
+/obj/item/stack/sheet/saltpetre_crystal
+	name = "saltpetre crystal"
+	desc = "A bunch of saltpetre crystals. Can be ground to get liquid saltpetre that can be used to dope hydroponics trays and soil plots."
+	singular_name = "saltpetre crystal"
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-saltpetre"
+	item_state = "sheet-saltpetre"
+	origin_tech = "materials=1;biotech=1"
