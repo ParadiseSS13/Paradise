@@ -373,7 +373,7 @@
 	)
 
 	if(!isnull(surgery_start_sound))
-		playsound(src, surgery_start_sound, 50, TRUE, FALSE)
+		playsound(src, surgery_start_sound, 50, TRUE, 0)
 
 	playsound(src, surgery_start_sound)
 	if(!do_after_once(user, 3 SECONDS, TRUE, target))
@@ -385,7 +385,7 @@
 
 
 	if(!isnull(surgery_start_sound))
-		playsound(src, surgery_start_sound, 50, TRUE, FALSE)
+		playsound(src, surgery_start_sound, 50, TRUE, 0)
 
 	return TRUE
 
