@@ -6,6 +6,8 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "ci" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
@@ -91,7 +93,11 @@
 /area/ruin/space/powered)
 "ib" = (
 /obj/structure/table/wood,
-/obj/item/assembly/signaler,
+/obj/item/radio{
+	icon_state = "radio";
+	name = "old radio";
+	pixel_y = 10
+	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "iY" = (
