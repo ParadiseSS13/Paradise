@@ -88,9 +88,7 @@
 
 /// Checks if the target crate has already been dropped by another on_select_use call
 /obj/item/mod/module/clamp/proc/should_cancel_drop()
-	if(length(stored_crates))
-		return FALSE
-	return TRUE
+	return !length(stored_crates)
 
 /obj/item/mod/module/clamp/loader
 	name = "MOD loader hydraulic clamp module"
