@@ -385,7 +385,7 @@
 		// If there is no table, dump the contents of the tray at our feet like we're doing the service equivilent of a micdrop.
 		if(!found_table && isturf(dropspot))
 			spawn()
-				for(var/i = 1, i <= rand(1,2), i++)
+				for(var/i in 1 to rand(1, 2))
 					if(I)
 						step(I, pick(NORTH,SOUTH,EAST,WEST))
 						sleep(rand(2,4))
