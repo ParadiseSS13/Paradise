@@ -41,4 +41,3 @@
 
 /datum/job_objective/make_ripley/check_for_completion()
 	return completed
-
