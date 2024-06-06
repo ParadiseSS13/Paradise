@@ -5215,7 +5215,7 @@
 	name = "Nanotrasen Asset Protection Shutters";
 	pixel_x = -8;
 	pixel_y = 30;
-	req_access_txt = "114"
+	req_access_txt = "109"
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -14018,10 +14018,11 @@
 /area/centcom/specops)
 "Xo" = (
 /obj/machinery/door_control/no_emag/no_cyborg{
+	desc = "A remote control switch to connect the ready room to the rest of Centcom.";
+	id = "SPECOPS";
 	name = "Nanotrasen Asset Protection Shutters";
-	req_access_txt = "114";
 	pixel_y = -24;
-	id = "SPECOPS"
+	req_access_txt = "109"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
