@@ -991,7 +991,7 @@
 /mob/living/carbon/human/cuff_resist(obj/item/I)
 	if(HAS_TRAIT(src, TRAIT_HULK))
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		if(..(I, cuff_break = 1))
+		if(..(I, TRUE))
 			unEquip(I)
 	else
 		if(..())
