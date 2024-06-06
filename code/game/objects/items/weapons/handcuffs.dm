@@ -4,6 +4,12 @@
 	icon = 'icons/obj/restraints.dmi'
 	var/cuffed_state = "handcuff"
 
+/obj/item/restraints/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent) //you only want to break hand or legcuffs, not any type of restraint
+	. = ..()
+	if(break_cuffs)
+		qdel(src)
+		return TRUE
+
 /obj/item/restraints/handcuffs
 	name = "handcuffs"
 	desc = "Use this to keep prisoners in line."
@@ -229,3 +235,19 @@
 	throwforce = 0
 	breakouttime = 0
 	cuffsound = 'sound/weapons/cablecuff.ogg'
+
+/obj/item/restraints/handcuffs/twimsts/finish_resist_restraints(mob/living/carbon/user, break_cuffs)
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(!human_user.check_has_mouth()) //I have no mouth but I must eat twimsts
+			break_cuffs = TRUE
+			return ..()
+
+	visible_message("<span class='danger'>[user] manages to eat through [src]!</span>", "<span class='notice'>You successfully eat through [src].</span>")
+
+	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
+	if(reagents && length(reagents.reagent_list))
+		user.taste(reagents)
+		reagents.reaction(user, REAGENT_INGEST)
+		reagents.trans_to(user, reagents.total_volume)
+	qdel(src)
