@@ -245,7 +245,7 @@ Difficulty: Very Hard
 		telegraph(BLAST)
 		SLEEP_CHECK_DEATH(enraged ? 0.75 SECONDS : 1.5 SECONDS)
 
-	var/turf/target_turf = get_turf(target)
+	var/turf/target_turf = get_turf(target_atom)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))
 	var/angle_to_target = get_angle(src, target_turf)
