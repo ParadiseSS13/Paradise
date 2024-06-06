@@ -68,7 +68,6 @@
 	H.name = H.real_name
 	H.butcher_results = list(/obj/item/food/snacks/meat/monkey = 5)
 
-
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
 	if(!remove)
@@ -170,6 +169,7 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/unathi
 		)
+
 /datum/species/monkey/nian_worme
 	name = "nian worme"
 	name_plural = "nian worme"

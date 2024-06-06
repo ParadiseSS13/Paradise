@@ -39,7 +39,6 @@
 	// Xenobiology and cargo are the only ways to get the caterpillar.
 	gold_core_spawnable = FRIENDLY_SPAWN
 
-	// Attack damage #'s
 	melee_damage_lower = 5
 	melee_damage_upper = 8
 	attacktext = "bites"
@@ -48,9 +47,10 @@
 	holder_type = /obj/item/holder/nian_caterpillar
 	can_collar = TRUE
 
-	// Evolution
+	/// Evolution action.
 	var/datum/action/innate/nian_caterpillar_emerge/evolve_action = new()
-	var/nutrition_need = 500 // You need X amount of nutrition / plant matter to cocoon.
+	/// The amount of nutrition the nian caterpillar needs to evolve.
+	var/nutrition_need = 500
 
 /mob/living/simple_animal/nian_caterpillar/Initialize()
 	. = ..()
@@ -72,9 +72,9 @@
 	var/mob/living/carbon/human/nian_worme/adult = new(get_turf(loc))
 
 	if(istype(loc, /obj/item/holder/nian_caterpillar))
-		var/obj/item/holder/nian_caterpillar/L = loc
-		forceMove(L.loc)
-		qdel(L)
+		var/turf/cocoon_turf = get_turf(loc)
+		qdel(loc)
+		forceMove(cocoon_turf)
 
 	for(var/datum/language/L in languages)
 		adult.add_language(L.name)
@@ -116,13 +116,12 @@
 
 /mob/living/simple_animal/nian_caterpillar/attack_hand(mob/living/carbon/human/M)
 	// Let people pick the little buggers up.
-	if(M.a_intent == INTENT_HELP)
-		if(isrobot(M))
-			M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
-		else
-			get_scooped(M)
-	else
-		..()
+    if(M.a_intent != INTENT_HELP)
+        return ..()
+    if(isrobot(M))
+        M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
+    else
+        get_scooped(M)
 
 /mob/living/simple_animal/nian_caterpillar/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)

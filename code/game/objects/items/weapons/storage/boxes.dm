@@ -703,6 +703,15 @@
 	for(var/I in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
+/obj/item/storage/box/holy
+	name = "ammunition box (Holy Water darts)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "hshell_box"
+
+/obj/item/storage/box/holy/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/holy(src)
+
 ////////////////
 /* Donk Boxes */
 ////////////////
@@ -732,15 +741,6 @@
 /obj/item/storage/box/syndidonkpockets/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/food/snacks/syndidonkpocket(src)
-
-/obj/item/storage/box/holy
-	name = "ammunition box (Holy Water darts)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "hshell_box"
-
-/obj/item/storage/box/holy/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/holy(src)
 
 ////////////////
 /* Misc Boxes */
@@ -999,7 +999,6 @@
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
 	icon_state = "ert_box"
-	storage_slots = 8
 
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
@@ -1008,8 +1007,7 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 
 /obj/item/storage/box/deathsquad
 	name = "boxed death kit"
