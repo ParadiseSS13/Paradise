@@ -91,7 +91,7 @@
 
 	var/move_result = move_animation(current_move_anim_mode)
 	if(isnull(move_result))
-		if(isnull(current_tube) || (!(dir in current_tube.directions()) && !(reverse_direction(dir) in current_tube.directions())))
+		if(isnull(current_tube) || (!(dir in current_tube.directions()) && !(REVERSE_DIR(dir) in current_tube.directions())))
 			outside_tube()
 		return PROCESS_KILL
 

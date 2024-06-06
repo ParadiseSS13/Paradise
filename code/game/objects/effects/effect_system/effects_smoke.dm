@@ -55,7 +55,7 @@
 		smoke_mob(M)
 	return TRUE
 
-/obj/effect/particle_effect/smoke/proc/smoke_mob(datum/source, mob/living/carbon/breather)
+/obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/breather)
 	SIGNAL_HANDLER //COMSIG_MOVABLE_CROSSED and COMSIG_CROSSED_MOVABLE
 	if(!istype(breather))
 		return FALSE
@@ -177,7 +177,7 @@
 		for(var/obj/item/Item in T)
 			Item.extinguish()
 
-/datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, blasting = FALSE)
+/datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, datum/reagents/chemicals, blasting = FALSE)
 	..()
 	blast = blasting
 
