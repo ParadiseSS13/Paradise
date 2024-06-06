@@ -350,6 +350,7 @@
 	initial_access = list(ACCESS_SYNDICATE)
 	assignment = "Syndicate Researcher"
 	icon_state = "syndie"
+	untrackable = TRUE
 
 /obj/item/card/id/syndicate/New()
 	access = initial_access.Copy()
@@ -635,6 +636,29 @@
 	assignment = "Syndicate Overlord"
 	untrackable = TRUE
 	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
+
+// like /obj/item/card/id/syndicate, but you can only swipe access, not change your identity, its also trackable
+/obj/item/card/id/syndi_scan_only
+	name = "Syndicate Operative's ID card (Operative)"
+	rank = "Operative"
+	assignment = "Operative"
+	registered_name = "Syndicate Operative"
+	access = list(ACCESS_SYNDICATE)
+
+/obj/item/card/id/syndi_scan_only/examine(mob/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='notice'>Similar to an agent ID, this ID card can be used to copy accesses, but it lacks the customization and anti-tracking capabilities of an agent ID.</span>"
+
+/obj/item/card/id/syndi_scan_only/afterattack(obj/item/O, mob/user, proximity)
+	if(!proximity)
+		return
+	if(istype(O, /obj/item/card/id))
+		var/obj/item/card/id/I = O
+		if(isliving(user) && user.mind)
+			if(user.mind.special_role)
+				to_chat(user, "<span class='notice'>The card's microscanners activate as you pass it over [I], copying its access.</span>")
+				access |= I.access // Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
@@ -1034,7 +1058,7 @@
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
-	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME) //access to robots/mechs
+	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
 	var/registered = FALSE
 
 /obj/item/card/id/golem/attack_self(mob/user as mob)

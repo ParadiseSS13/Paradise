@@ -33,7 +33,7 @@
 			handle_enthrall(user, target)
 			var/datum/spell_handler/vampire/V = custom_handler
 			var/blood_cost = V.calculate_blood_cost(vampire)
-			vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
+			vampire.subtract_usable_blood(blood_cost) //we take the blood after enthralling, not before
 	else
 		revert_cast(user)
 		to_chat(user, "<span class='warning'>You or your target moved.</span>")

@@ -640,7 +640,7 @@
 /area/ruin/space/unpowered)
 "xW" = (
 /obj/structure/rack,
-/obj/item/clothing/under/syndicate,
+/obj/item/clothing/under/syndicate/silicon_cham,
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "yU" = (

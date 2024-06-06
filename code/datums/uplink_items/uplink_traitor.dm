@@ -84,7 +84,7 @@
 	reference = "KPM"
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 25 //you need two for full damage, so total of 50 for maximum damage
-	job = list("Shaft Miner")
+	job = list("Shaft Miner", "Explorer")
 	surplus = 0 // Requires a KA to even be used.
 
 /datum/uplink_item/jobspecific/mining_charge_hacker
@@ -468,7 +468,16 @@
 			While the mask is active, your voice will sound unrecognizable to others."
 	reference = "CVMM"
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
-	cost = 8
+	cost = 5
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/stealthy_tools/voice_changer
+	name = "Chameleon Voice Changer Mask"
+	desc = "A syndicate gas mask equipped with chameleon technology and a voice changer for disguising your voice. \
+			Use it to impersonate or obfuscate your identity when talking and make nobody the wiser!"
+	reference = "CVCM"
+	item = /obj/item/clothing/mask/chameleon/voice_change
+	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/silicon_cham_suit
@@ -692,10 +701,10 @@
 /datum/uplink_item/stealthy_tools/chameleon
 	name = "Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
-			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp."
+			Due to budget cuts, the shoes don't provide protection against slipping."
 	reference = "CHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon
-	cost = 20
+	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes

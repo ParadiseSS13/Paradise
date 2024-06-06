@@ -423,6 +423,161 @@
 				</html>
 				"})
 
+/obj/item/book/manual/zombie_manual
+	name = "Plague and You: Curing the Apocalypse"
+	desc = "A guide covering the basics of curing zombies."
+	icon_state = "bookCloning"
+	author = "Cleanses-The-Plague"
+	title = "Plague and You: Curing the Apocalypse"
+
+	pages = list({"<html><meta charset='utf-8'>
+				<head>
+				<style>
+				</style>
+				</head>
+				<body>
+
+				For years, we've seen "zombies" on the news and in movies, but have you ever thought how would would be cured?
+				Each strain of the "Advanced Resurection Virus" or simply "Necrotizing Plague" has its own unique bio-signature.
+				Therefore, each strain has a unique step of anti-virals, that each have progressively stronger effects on the plague.
+
+				<ol>
+					<li><a href='#1'>Preparation</a></li>
+					<li><a href='#2'>Containing a test subject</a></li>
+					<li><a href='#3'>Creating Cures</a></li>
+					<li><a href='#4'>Cure Effects</a></li>
+					<li><a href='#5'>Known Recipes</a></li>
+				</ol>
+
+				<a name='1' /><h4>Step 1: Preparation</h4>
+				First step is knowledge. The necrotizing plague can only be spread through direct fluid contact with an infected individual. \
+				Therefore, you should do your best to stay away from the claws and or teeth of zombies. Their claws are covered in a slimy fluid \
+				that has a chance of transmitting the disease. Their bites are much more dangerous however, guaranteeing an infection of the plague. \
+				Biohazard suits, riot gear, or other thick material are well suited for blocking these infectious attacks, but do not guaratee \
+				complete immunity. <br>
+
+				To begin, we will need to gather a blood sample from a zombifed individual. To do this, first make sure the \
+				zombie is dead and severely damaged. Damaged zombies will slowly heal, and re-awaken once they are healed. \
+				Then use a syringe to extract a blood sample, and return to your virology lab. <br>
+
+				<a name='2' /><h4>Step 2: Containing a test subject</h4>
+				With your new blood sample of the plague, place a monkey in a solitary pen, and infect it with the virus. This test subject \
+				will provide us with a steady source of plague blood to experiment with. Lower-sapience creatures are normally not advanced enough to \
+				actively seek out the flesh of living creatures, and are safe in captivity. Containing an active zombie is much harder and will require \
+				a cell of pure walls or doors. Otherwise, the zombie will be able to break out of it's cell using its claws.
+
+				<a name='3' /><h4>Step 3: Creating Cures</h4>
+				Now that a steady source of infected blood is available, we can begin making cures. There are 4 tiers of "cures" for the plague, \
+				these are referred to as "Anti-Plague Sequences". By combining chemicals with the plague and viral symptoms, more advanced sequences \
+				can be created. These sequences are M-RNA that alters protein synthesis of plague-infected individuals and alter B-lymphocytes to induce\
+				specific anti-bodies, countering the effects of the virus. \
+				There sequences are classified into 4 categories: Alpha, Beta, Gamma, and Omega. Alpha is the simplest, but weakest. \
+				Omega is the most difficult to make as it requires all previous sequences and advanced chemicals. <br>
+				Since each of zombie strains are unique, there is no known recipe for these, and will require experimentation. \
+				However, several researchers have compiled chemicals that are commonly found in these cures in the "Known Recipes" section below.
+
+				<a name='4' /><h4>Step 5: Cure Effects</h4>
+				Anti-Plague Sequence Alpha is the simplest anti-viral, but it still is the first step against the plague. \
+				This cure prevents infection from scratches while in system of the user, and can cure stage 1 infections. <br>
+
+				Anti-Plague Sequence Beta is the second anti-viral, and is more complex to make. This sequence has been shown to cure \
+				infections that are stage 3 or below. This sequence is sometimes able to cure bites from infected individuals. <br>
+
+				Anti-Plague Sequence Gamma is the third anti-viral. This sequence is difficult to manufacture, but is rewarding. \
+				It cures all infections that are stage 5 and below, and stops the effects of stage 6 infections, but will not cure \
+				stage 6 infections. This helps prevent the rotting of living people into the rotting and shambling corpses of zombies. <br>
+
+				Anti-Plague Sequence Omega is the full cure for the zombie plague. This advanced mix of viral symptoms and chemicals is \
+				the final cure for any Advanced Resurection Virus. This cure prevents zombies from reviving when in their system, and will \
+				slowly return their body to normal, non-infected state. <br>
+
+				<a name='5' /><h4>Step 6: Known Recipes</h4>
+				<b>Anti-Plague Sequence Alpha</b>
+				<ul>
+					<li>1 unit of blood containing any zombie plague</li>
+					<li>1 unit of Diphenhydramine</a></li>
+				</ul>
+
+				<b>Anti-Plague Sequence Beta</b>
+				<ul>
+					<li>1 unit of blood containing zombie plague cured by Anti-Plague Sequence Alpha</li>
+					<li>2 random chemicals from the list below, 1 unit of each (Unknown Random Recipe)
+						<ul>
+							<li>Yellow Vomit</li>
+							<li>Jenkem</li>
+							<li>Charcoal</li>
+							<li>Egg</li>
+							<li>Saline-Glucose Solution</li>
+							<li>Toxin</li>
+							<li>Atropine</li>
+							<li>Lye</li>
+							<li>Sulphuric acid</li>
+							<li>Fluorosulfuric Acid</li>
+							<li>Soda Water</li>
+							<li>Surge</li>
+							<li>Ultra-Lube</li>
+							<li>Happiness</li>
+							<li>Morphine</li>
+						</ul>
+					</li>
+				</ul>
+
+				<b>Anti-Plague Sequence Gamma</b>
+				<ul>
+					<li>1 unit of blood containing zombie plague cured by Anti-Plague Sequence Beta</li>
+					<li>1 unit of blood containing an advanced virus with the <b>"Necrotizing Fasciitis"</b> symptom</li>
+					<li>3 random chemicals from the list below, 1 unit of each (Unknown Random Recipe)
+						<ul>
+							<li>Colorful Reagent</li>
+							<li>Bacchus' Blessing</li>
+							<li>Pentetic Acid</li>
+							<li>Teporone</li>
+							<li>Glyphosate</li>
+							<li>Lazarus Reagent</li>
+							<li>Omnizine</li>
+							<li>Sarin</li>
+							<li>Mitocholide</li>
+							<li>Fliptonium</li>
+							<li>Ants</li>
+							<li>Chlorine Trifluoride</li>
+							<li>Sorium</li>
+							<li>"????" Reagent</li>
+							<li>Aranesp</li>
+						</ul>
+					</li>
+				</ul>
+
+				<b>Anti-Plague Sequence Omega</b>
+				<ul>
+					<li>1 unit of blood containing zombie plague cured by Anti-Plague Sequence Gamma</li>
+					<li>1 unit of blood containing an advanced virus with the <b>"Anti-Bodies Metabolism"</b> symptom</li>
+					<li>2 of the chemicals from the list below, 1 unit of each (Unknown Random Recipe)
+						<ul>
+							<li>Entropic Polypnium</li>
+							<li>Tinea Luxor</li>
+							<li>earthsblood</li>
+							<li>Bath Salts</li>
+							<li>Rezadone</li>
+							<li>Rotatium</li>
+							<li>Krokodil</li>
+							<li>Fliptonium</li>
+						</ul>
+					</li>
+				</ul>
+
+				<b>Anti-Plague Sequence Duplication</b>
+				<ul>
+					<li>1 unit of any Anti-Plague Sequence</li>
+					<li>1 unit of Sulfonal</li>
+					<li>1 unit of Sugar</li>
+				</ul>
+
+
+				<p>Congratulations! You are now qualitifed in creating Anti-Plague Sequences for combatting Class-C resurrecting un-dead beings. \
+				Please direct any further questions you have to your Chief Medical Officer.</p>
+				</body>
+				</html>"})
+
 /obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
 	desc = "A guide from a little-known corporation on how to operate a heavy lifter mech. It's filled with disclaimers and pre-signed waivers."

@@ -235,6 +235,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/spawner/nuke_code
 	name = "nukecode"
 
+/obj/effect/landmark/spawner/roundstart_observer
+	name = "Roundstart Observer"
+	icon_state = "spooky"
+
+/obj/effect/landmark/spawner/roundstart_observer/Initialize(mapload)
+	spawner_list = GLOB.roundstart_observer_start
+	return ..()
+	
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
 	..()
@@ -413,7 +421,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/start/warden
 	name = "Warden"
 	icon_state = "Warden"
-
 
 /obj/effect/landmark/start/set_tag()
 	tag = "start*[name]"
@@ -670,9 +677,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	. = ..()
 	var/turf/simulated/T = get_turf(src)
 	T.burn_tile()
-
-/obj/effect/landmark/battle_mob_point
-	name = "Nanomob Battle Avatar Spawn Point"
 
 /obj/effect/landmark/free_golem_spawn
 	name = "Free Golem Spawn Point"

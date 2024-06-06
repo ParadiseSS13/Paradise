@@ -112,11 +112,10 @@ SUBSYSTEM_DEF(statpanels)
 	/// Set the atoms we're meant to display
 	var/datum/object_window_info/obj_window = istype(target.obj_window) ? target.obj_window : new(target)
 	obj_window.atoms_to_show = atoms_to_display
-	START_PROCESSING(SSobj_tab_items, obj_window)
-	refresh_client_obj_view(target)
+	refresh_client_obj_view(target, obj_window.min_index, obj_window.max_index)
 
-/datum/controller/subsystem/statpanels/proc/refresh_client_obj_view(client/refresh)
-	var/list/turf_items = return_object_images(refresh)
+/datum/controller/subsystem/statpanels/proc/refresh_client_obj_view(client/refresh, min_index = 0, max_index = 30)
+	var/list/turf_items = return_object_images(refresh, min_index, max_index)
 	if(!length(turf_items) || !refresh.mob?.listed_turf)
 		return
 	refresh.stat_panel.send_message("update_listedturf", turf_items)
@@ -125,7 +124,7 @@ SUBSYSTEM_DEF(statpanels)
 
 /// Returns all our ready object tab images
 /// Returns a list in the form list(list(object_name, object_ref, loaded_image), ...)
-/datum/controller/subsystem/statpanels/proc/return_object_images(client/load_from)
+/datum/controller/subsystem/statpanels/proc/return_object_images(client/load_from, min_index, max_index)
 	// You might be inclined to think that this is a waste of cpu time, since we
 	// A: Double iterate over atoms in the build case, or
 	// B: Generate these lists over and over in the refresh case
@@ -137,10 +136,18 @@ SUBSYSTEM_DEF(statpanels)
 		return list()
 
 	var/datum/object_window_info/obj_window = load_from.obj_window
+	if(!obj_window)
+		return list()
 	var/list/already_seen = obj_window.atoms_to_images
 	var/list/to_make = obj_window.atoms_to_imagify
 	var/list/turf_items = list()
+	var/i = 0
 	for(var/atom/turf_item as anything in obj_window.atoms_to_show)
+		// Limit what we send to the client's rendered section.
+		i++
+		if(i <= min_index || i > max_index)
+			continue
+
 		// First, we fill up the list of refs to display
 		// If we already have one, just use that
 		var/existing_image = already_seen[turf_item]
@@ -148,12 +155,17 @@ SUBSYSTEM_DEF(statpanels)
 			continue
 		// We already have it. Success!
 		if(existing_image)
-			turf_items[++turf_items.len] = list("[turf_item.name]", turf_item.UID(), existing_image)
+			turf_items["[i]"] = list("[turf_item.name]", turf_item.UID(), SSassets.transport.get_asset_url(existing_image), existing_image)
 			continue
 		// Now, we're gonna queue image generation out of those refs
 		to_make += turf_item
 		already_seen[turf_item] = OBJ_IMAGE_LOADING
 		obj_window.RegisterSignal(turf_item, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/datum/object_window_info, viewing_atom_deleted), override = TRUE) // we reset cache if anything in it gets deleted
+	turf_items["total"] = i
+	obj_window.min_index = min_index
+	obj_window.max_index = max_index
+	if(length(to_make))
+		START_PROCESSING(SSobj_tab_items, obj_window)
 	return turf_items
 
 #undef OBJ_IMAGE_LOADING
@@ -219,6 +231,10 @@ SUBSYSTEM_DEF(statpanels)
 	var/client/parent
 	/// Are we currently tracking a turf?
 	var/actively_tracking = FALSE
+	/// The minimum index currently sent to the client.
+	var/min_index = 0
+	/// The maximum index currently sent to the client.
+	var/max_index = 30
 
 /datum/object_window_info/New(client/parent)
 	. = ..()
@@ -245,9 +261,9 @@ SUBSYSTEM_DEF(statpanels)
 
 		var/generated_string
 		if(ismob(thing) || length(thing.overlays) > 2)
-			generated_string = costly_icon2html(thing, parent, sourceonly=TRUE)
+			generated_string = costly_icon2asset(thing, parent)
 		else
-			generated_string = icon2html(thing, parent, sourceonly=TRUE)
+			generated_string = icon2asset(thing, parent)
 
 		newly_seen[thing] = generated_string
 		if(TICK_CHECK)
@@ -257,7 +273,7 @@ SUBSYSTEM_DEF(statpanels)
 	// If we've not cut yet, do it now
 	if(index)
 		to_make.Cut(1, index + 1)
-	SSstatpanels.refresh_client_obj_view(parent)
+	SSstatpanels.refresh_client_obj_view(parent, min_index, max_index)
 	if(!length(to_make))
 		return PROCESS_KILL
 
@@ -302,6 +318,9 @@ SUBSYSTEM_DEF(statpanels)
 	if(listed_turf)
 		client.stat_panel.send_message("create_listedturf", listed_turf.name)
 		client.obj_window.start_turf_tracking()
+		client.obj_window.min_index = 0
+		client.obj_window.max_index = 30
+		SSstatpanels.set_turf_examine_tab(client, src)
 	else
 		client.stat_panel.send_message("remove_listedturf")
 		client.obj_window.stop_turf_tracking()

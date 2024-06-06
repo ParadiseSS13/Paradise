@@ -27,6 +27,7 @@
 	. = ..()
 	initial_state = icon_state
 	air_update_turf(1)
+	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -20, 10)
 
 /obj/structure/mineral_door/Destroy()
 	density = FALSE
@@ -211,3 +212,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
+
+/obj/structure/mineral_door/wood/Initialize()
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)

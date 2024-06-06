@@ -13,10 +13,13 @@
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	fire_delay = 40
 	recoil = 2
-	zoomable = TRUE
-	zoom_amt = 7
 	var/missile_speed = 2
 	var/missile_range = 30
+
+
+/obj/item/gun/rocketlauncher/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/scope, range_modifier = 2)
 
 /obj/item/gun/rocketlauncher/examine(mob/user)
 	. = ..()

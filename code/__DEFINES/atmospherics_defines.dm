@@ -141,6 +141,9 @@
 
 //LAVALAND
 #define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //what pressure you have to be under to increase the effect of equipment meant for lavaland
+#define LAVALAND_TEMPERATURE 500
+#define LAVALAND_OXYGEN 8
+#define LAVALAND_NITROGEN 14
 
 // Reactions
 #define N2O_DECOMPOSITION_MIN_ENERGY		1400

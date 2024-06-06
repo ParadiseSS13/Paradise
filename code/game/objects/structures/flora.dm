@@ -237,7 +237,7 @@
 
 /obj/structure/flora/ausbushes/ppflowers/Initialize(mapload)
 	. = ..()
-	icon_state = "ppflowers_[rand(1, 4)]"
+	icon_state = "ppflowers_[rand(1, 3)]"
 
 /obj/structure/flora/ausbushes/sparsegrass
 	icon_state = "sparsegrass_1"

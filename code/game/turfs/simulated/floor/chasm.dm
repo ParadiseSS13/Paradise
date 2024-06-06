@@ -173,9 +173,9 @@
 	drop_z = z - 1
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	oxygen = 8
-	nitrogen = 14
-	temperature = 500
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
 	light_range = 2

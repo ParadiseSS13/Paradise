@@ -1,3 +1,17 @@
+/* CONTENTS:
+* 1. SABRE SMG
+* 2. C-20R SMG
+* 3. WT-550 PDW
+* 4. TYPE U3 UZI
+* 5. M-90GL CARBINE
+* 6. THOMPSON SMG
+* 7. M26A2 ASSAULT RIFLE
+* 8. AK-814 ASSAULT RIFLE
+* 9. AS-14 'BULLDOG' SHOTGUN
+* 10. IK-M2 LASER CARBINE
+* 11. IK-M1 LASER RIFLE
+*/
+
 /obj/item/gun/projectile/automatic
 	w_class = WEIGHT_CLASS_NORMAL
 	var/alarmed = 0
@@ -74,7 +88,9 @@
 		update_icon()
 		alarmed = 1
 
-//Saber SMG//
+//////////////////////////////
+// MARK: SABRE SMG
+//////////////////////////////
 /obj/item/gun/projectile/automatic/proto
 	name = "\improper NF10 'Sabre' SMG"
 	desc = "A rejected prototype three-round burst 9mm submachine gun, designated 'SABR'. Surplus of this model are bouncing around armories of Nanotrasen Space Stations. Has a threaded barrel for suppressors."
@@ -84,7 +100,9 @@
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 
-//C-20r SMG//
+//////////////////////////////
+// MARK: C-20R SMG
+//////////////////////////////
 /obj/item/gun/projectile/automatic/c20r
 	name = "\improper C-20R SMG"
 	desc = "A two-round burst .45 SMG, designated 'C-20R'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
@@ -110,9 +128,11 @@
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
 
-//WT550//
+//////////////////////////////
+// MARK: WT-550 PDW
+//////////////////////////////
 /obj/item/gun/projectile/automatic/wt550
-	name = "WT-550 PDW"
+	name = "\improper WT-550 PDW"
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "wt550"
@@ -133,7 +153,9 @@
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""]"
 	item_state = "wt550-[CEILING(get_ammo(0)/6.7, 1)]"
 
-//Type-U3 Uzi//
+//////////////////////////////
+// MARK: TYPE U3 UZI
+//////////////////////////////
 /obj/item/gun/projectile/automatic/mini_uzi
 	name = "\improper 'Type U3' Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
@@ -144,7 +166,9 @@
 	burst_size = 2
 	can_holster = TRUE // it's a mini-uzi after all
 
-//M-90gl Carbine//
+//////////////////////////////
+// MARK: M-90GL CARBINE
+//////////////////////////////
 /obj/item/gun/projectile/automatic/m90
 	name = "\improper M-90GL Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90GL'. Has an attached underbarrel grenade launcher which can be toggled on and off."
@@ -222,7 +246,9 @@
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 	update_icon()
 
-//Tommy Gun//
+//////////////////////////////
+// MARK: THOMPSON SMG
+//////////////////////////////
 /obj/item/gun/projectile/automatic/tommygun
 	name = "\improper Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
@@ -237,7 +263,9 @@
 	burst_size = 4
 	fire_delay = 1
 
-//M26 Assault Rifle//
+//////////////////////////////
+// MARK: M26A2 ASSAULT RIFLE
+//////////////////////////////
 /obj/item/gun/projectile/automatic/ar
 	name = "\improper M26A2 assault rifle"
 	desc = "A robust assault rifle used by Trans-Solar Federation forces. Chambered in 5.56mm."
@@ -253,7 +281,9 @@
 	burst_size = 3
 	fire_delay = 1
 
-//AK-814 Soviet Assault Rifle
+//////////////////////////////
+// MARK: AK-814 ASSAULT RIFLE
+//////////////////////////////
 /obj/item/gun/projectile/automatic/ak814
 	name = "\improper AK-814 assault rifle"
 	desc = "A modern AK assault rifle favored by elite Soviet soldiers. Chambered in 7.62x54mm."
@@ -271,7 +301,9 @@
 	burst_size = 2
 	fire_delay = 1
 
-// Bulldog shotgun //
+//////////////////////////////
+// MARK: AS-14 'BULLDOG' SHOTGUN
+//////////////////////////////
 /obj/item/gun/projectile/automatic/shotgun/bulldog
 	name = "\improper AS-14 'Bulldog' Shotgun"
 	desc = "A compact semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
@@ -320,10 +352,12 @@
 	..()
 	empty_alarm()
 
-//Laser carbine//
+//////////////////////////////
+// MARK: IK-M2 LASER CARBINE
+//////////////////////////////
 /obj/item/gun/projectile/automatic/lasercarbine
-	name = "\improper IK-60 laser carbine"
-	desc = "A compact, twin barrelled carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by the Nanotrasen Navy for combat operations."
+	name = "\improper IK-M2 laser carbine"
+	desc = "A compact Warp-Tac Industries fully automatic laser carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by Nanotrasen's response teams for combat operations."
 	icon_state = "lasercarbine"
 	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -332,17 +366,37 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	actions_types = list()
 	can_suppress = FALSE
-	burst_size = 2
+	burst_size = 1
 	execution_speed = 5 SECONDS
+	fire_delay = 0
+
+/obj/item/gun/projectile/automatic/lasercarbine/examine_more(mob/user)
+	..()
+	. = list()
+	. += "The IK-M2 is the premium version of the already well-regarded IK-M1. Whilst the two weapons are fairly similar, \
+	the IK-M2 is made from more advanced materials to achieve an even lighter and more ruggedized package, whilst also being slightly more compact."
+	. += ""
+	. += "The receiver is also modified, allowing it to continiously extract cartrages as long as the trigger is held, permitting fully automatic fire. \
+	It also comes with hardened magazines to protect the laser cartridges from EMP damage."
+	. += ""
+	. += "Warp-Tac bundles this weapon with a lifetime warranty. This weapon is favored by private military groups and mercenaries with money to throw around."
+
+/obj/item/gun/projectile/automatic/lasercarbine/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/automatic_fire, 0.15 SECONDS, allow_akimbo = FALSE)
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
 	item_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
 
+//////////////////////////////
+// MARK: IK-M1 LASER RIFLE
+//////////////////////////////
 /obj/item/gun/projectile/automatic/laserrifle
-	name = "security laser rifle"
-	desc = "A bulky, single barreled rifle that uses disposable laser cartridges rather than an internal power cell. Utilized by Nanotrasen's private security force."
+	name = "\improper IK-M1 laser rifle"
+	desc = "A sleek, Warp-Tac Industries laser rifle that uses disposable laser cartridges rather than an internal power cell. Sold to Nanotrasen's private security forces."
 	icon_state = "laserrifle"
 	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_BULKY
@@ -354,6 +408,23 @@
 	can_suppress = FALSE
 	burst_size = 1
 	actions_types = list()
+
+/obj/item/gun/projectile/automatic/laserrifle/examine_more(mob/user)
+	..()
+	. = list()
+	. += "A sleek, futuristic laser rifle, developed by the brightest minds of Warp-Tac Industries. The IK-series is unique for utilising a patented system of disposable energy cartridges. \
+	This unique system makes IK-pattern rifles handle more like a traditional firearm than a laser."
+	. += ""
+	. += "The IK-M1 marked Warp-Tec's investment into the realm of laser arms manufacturing, a bold move considering the industry's typical separation of ballistic and energy weapon production. \
+	Years of development went into the creation of the ammunition, culminating in a cheap, easy to produce single-use supercapacitor cartridge that discharges its energy into the rifle's laser cavity at the moment of firing. \
+	The cartridge is then ejected by an electronically-actuated plastitanum bolt powered by a small internal power cell. As the spent cell is extracted, it also carries with it a significant amount of heat directly \
+	from the internals of the rifle. This action is responsible for most of the cooling of the weapon, the remaining heat conducts to the barrel, which also functions as a passive heatsink. \
+	The lack of need for any further cooling hardware makes these rifles deceptively light and easy to handle."
+	. += ""
+	. += "Modern IK-pattern weapons remain expensive due to extremely stringent quality control measures at Warp-Tac's manufacturing plants - \
+	each one is individually inspected and tested to ensure proper operation up to Warp-Tac's standards. The end result, however, is an exceptionally reliable weapon."
+	. += ""
+	. += "Today, the latest generation of the IK-M1 competes with established laser brands like Shellguard Munitions, positioning itself as a premium choice in the laser weaponry market."
 
 /obj/item/gun/projectile/automatic/laserrifle/update_icon_state()
 	icon_state = "laserrifle[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"

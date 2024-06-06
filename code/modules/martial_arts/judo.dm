@@ -2,7 +2,7 @@
 	name = "Corporate Judo"
 	has_explaination_verb = TRUE
 	no_baton = TRUE
-	combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/wheelthrow)
+	combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/wheelthrow, /datum/martial_combo/judo/goldenblast)
 	weight = 5 //takes priority over boxing and drunkneness, less priority than krav or CQC/carp
 	no_baton_reason = "<span class='warning'>The baton feels off balance in your hand due to your judo training!</span>"
 	can_horizontally_grab = FALSE
