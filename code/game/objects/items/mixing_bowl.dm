@@ -63,9 +63,9 @@
 	if(dirty)
 		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
 	else
-		var/list/items_counts = new
-		var/list/items_measures = new
-		var/list/items_measures_p = new
+		var/list/items_counts = list()
+		var/list/items_measures = list()
+		var/list/items_measures_p = list()
 		for(var/obj/O in contents)
 			var/display_name = O.name
 			if(istype(O,/obj/item/food/snacks/egg))

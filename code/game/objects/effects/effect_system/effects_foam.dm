@@ -8,7 +8,7 @@
 	opacity = FALSE
 	density = FALSE
 	layer = OBJ_LAYER + 0.9
-	animate_movement = 0
+	animate_movement = NO_STEPS
 	var/amount = 3
 	var/expand = 1
 	var/metal = 0
@@ -177,7 +177,7 @@
 	var/metal = MFOAM_ALUMINUM
 
 /obj/structure/foamedmetal/Initialize()
-	..()
+	. = ..()
 	air_update_turf(1)
 
 /obj/structure/foamedmetal/Destroy()

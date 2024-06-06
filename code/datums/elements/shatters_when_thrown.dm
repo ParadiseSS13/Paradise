@@ -35,7 +35,7 @@
 
 /// Handles the actual shattering part, throwing shards of whatever is defined on the component everywhere
 /datum/element/shatters_when_thrown/proc/shatter(atom/movable/source, atom/hit_atom)
-	var/generator/scatter_gen = generator("circle", 0, 48, NORMAL_RAND)
+	var/generator/scatter_gen = generator(GEN_CIRCLE, 0, 48, NORMAL_RAND)
 	var/scatter_turf = get_turf(hit_atom)
 
 	for(var/obj/item/scattered_item as anything in source.contents)

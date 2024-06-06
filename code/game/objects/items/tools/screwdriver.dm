@@ -90,15 +90,6 @@
 
 	return BRUTELOSS
 
-/obj/item/screwdriver/abductor
-	name = "alien screwdriver"
-	desc = "An ultrasonic screwdriver."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "screwdriver"
-	usesound = 'sound/items/pshoom.ogg'
-	toolspeed = 0.1
-	random_color = FALSE
-
 /obj/item/screwdriver/power
 	name = "hand drill"
 	desc = "A simple hand drill with a screwdriver bit attached."

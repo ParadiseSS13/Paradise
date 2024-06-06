@@ -361,7 +361,7 @@
 
 /obj/item/book/random/Initialize()
 	..()
-	var/list/books = GLOB.library_catalog.get_random_book(amount)
+	var/list/books = GLOB.library_catalog.get_random_book(amount, FALSE)
 	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(loc, book, TRUE, FALSE)
 	return INITIALIZE_HINT_QDEL
