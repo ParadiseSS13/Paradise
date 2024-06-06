@@ -593,7 +593,7 @@
 		reagent_glass.forceMove(Tsec)
 		reagent_glass = null
 
-	if(emagged && prob(25)) //Check what this is and if we leave it
+	if(emagged) //Check what this is and if we leave it
 		playsound(loc, 'sound/voice/minsult.ogg', 50, FALSE)
 
 	qdel(src)
