@@ -814,7 +814,15 @@
 	item_state = "corset_blue"
 	item_color = "corset_blue"
 
-/obj/item/clothing/accessory/pride_pin
+//Pins
+/obj/item/clothing/accessory/pin
+	name = "nanotrasen pin"
+	desc = "It's a standard pin to wear so you can show your loyalty to Nanotrasen!"
+	icon_state = "nt_pin"
+	item_state = "nt_pin"
+	item_color = "nt_pin"
+
+/obj/item/clothing/accessory/pin/pride
 	name = "pride pin"
 	desc = "It's a standard pin, wear it with pride. You can change which flag is used from a button on the back."
 	icon_state = "pride_pin"
@@ -833,7 +841,7 @@
 	///List of all pride flags to icon image, for the radial
 	var/static/list/flag_icons = list()
 
-/obj/item/clothing/accessory/pride_pin/Initialize(mapload)
+/obj/item/clothing/accessory/pin/pride/Initialize(mapload)
 	. = ..()
 	if(length(flag_icons)) //Only generate it once
 		return
@@ -842,7 +850,7 @@
 		var/image/pin_icon = image(icon, icon_state = flag_types[current_pin])
 		flag_icons[current_pin] = pin_icon
 
-/obj/item/clothing/accessory/pride_pin/attack_self(mob/user)
+/obj/item/clothing/accessory/pin/pride/attack_self(mob/user)
 	. = ..()
 	var/chosen_pin = show_radial_menu(user, src, flag_icons, require_near = TRUE)
 	if(!chosen_pin)
