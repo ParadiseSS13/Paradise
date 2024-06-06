@@ -54,7 +54,8 @@
 
 /obj/item/salvage/ruin/nanotrasen/Initialize(mapload)
 	. = ..()
-	origin_tech = pick(list("combat=5", "materials=5", "engineering=5", "biotech=5", "power=5", "data=5"))
+	origin_tech = pick("combat=5", "materials=5", "engineering=5", "biotech=5", "powerstorage=5", "programming=5")
+
 /obj/item/salvage/ruin/carp
 	name = "carp scales"
 	desc = "A collection of scales shed from a corrupted space carp. Their culinary potential could mean untold riches for Nanotrasen."
