@@ -216,8 +216,7 @@
 	Sa.build_step = 1
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
-	new /obj/item/robot_parts/r_arm(Tsec)
-	new /obj/item/robot_parts/l_arm(Tsec)
+	drop_part(robot_arm, Tsec)
 	if(weapon == /obj/item/melee/energy/sword/saber/)
 		log_and_message_admins("[key_name(usr)] has dismantled [src] containing energy sword(s)]!")
 	new weapon(Tsec)
