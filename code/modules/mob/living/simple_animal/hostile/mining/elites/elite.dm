@@ -411,7 +411,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		text += "<span class='warning'>Do not attack the Mining Station or Labour Camp, unless the Shaft Miner you are actively fighting runs into the Station/Camp.</span>"
 		text += "<span class='warning'>After they are killed, you must withdraw. If you wish to continue attacking the Station, you MUST ahelp.</span>"
 		text += "<span class='warning'>If teleported to the Station by jaunter, you are allowed to attack people on Station, until you get killed.</span>"
-		to_chat(mychild, text.Join(""))
+		to_chat(mychild, text.Join(" "))
 
 	qdel(GetComponent(/datum/component/proximity_monitor))
 
