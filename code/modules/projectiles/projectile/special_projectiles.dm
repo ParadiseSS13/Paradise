@@ -303,6 +303,7 @@
 		else
 			do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.
 	add_attack_logs(firer, target, "Shot with a [type] [teleport_target ? "(Destination: [teleport_target])" : ""]")
+	return ..()
 
 /obj/item/projectile/snowball
 	name = "snowball"
