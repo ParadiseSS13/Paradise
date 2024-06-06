@@ -86,7 +86,7 @@
 	if(cell)
 		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
 		if(round(cell.percent() < 100))
-			. += "<span class='notice'>Can be recharged with a recharger</span>"
+			. += "<span class='notice'>Can be recharged with a recharger.</span>"
 	else
 		. += "<span class='notice'>The powercell has been removed!</span>"
 
