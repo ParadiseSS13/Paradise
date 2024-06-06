@@ -403,7 +403,7 @@
 		INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/mecha, take_damage), 100, "brute")
 
 /turf/proc/Bless()
-	flags |= NOJAUNT
+	flags |= BLESSED_TILE
 
 /turf/proc/clean(floor_only)
 	for(var/obj/effect/decal/cleanable/C in src)
@@ -428,7 +428,7 @@
 
 /// Returns the adjacent turfs. Can check for density or cardinal directions only instead of all 8, or just dense turfs entirely. dense_only takes precedence over open_only.
 /turf/proc/AdjacentTurfs(open_only = FALSE, cardinal_only = FALSE, dense_only = FALSE)
-	var/list/L = new()
+	var/list/L = list()
 	var/turf/T
 	var/list/directions = cardinal_only ? GLOB.cardinal : GLOB.alldirs
 	for(var/dir in directions)

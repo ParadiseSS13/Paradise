@@ -201,7 +201,6 @@
 	return 1
 
 /obj/docking_port/mobile
-	icon_state = "mobile"
 	name = "shuttle"
 	icon_state = "pinonclose"
 
@@ -638,6 +637,8 @@
 					M.buckled.unbuckle_mob(M, force = TRUE)
 				if(isliving(AM))
 					var/mob/living/L = AM
+					if(L.incorporeal_move || L.status_flags & GODMODE)
+						continue
 					L.stop_pulling()
 					L.visible_message("<span class='warning'>[L] is hit by \
 									a hyperspace ripple!</span>",

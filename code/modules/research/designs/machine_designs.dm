@@ -518,7 +518,7 @@
 	id = "ore_redemption"
 	req_tech = list("programming" = 2, "engineering" = 2, "plasmatech" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/ore_redemption
 	category = list ("Misc. Machinery")
 
@@ -528,8 +528,18 @@
 	id = "mining_equipment_vendor"
 	req_tech = list("engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mining_equipment_vendor
+	category = list ("Misc. Machinery")
+
+/datum/design/explorer_equipment_vendor
+	name = "Machine Design (Explorer Rewards Vendor Board)"
+	desc = "The circuit board for an Explorer Rewards Vendor."
+	id = "explorer_equipment_vendor"
+	req_tech = list("engineering" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mining_equipment_vendor/explorer
 	category = list ("Misc. Machinery")
 
 /datum/design/clawgame
@@ -538,7 +548,7 @@
 	id = "clawgame"
 	req_tech = list("programming" = 1)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/clawgame
 	category = list ("Misc. Machinery")
 
@@ -548,7 +558,7 @@
 	id = "prize_counter"
 	req_tech = list("programming" = 2, "materials" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/prize_counter
 	category = list("Misc. Machinery")
 
@@ -558,7 +568,7 @@
 	id = "gameboard"
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/gameboard
 	category = list("Misc. Machinery")
 
@@ -568,7 +578,7 @@
 	id = "plantgenes"
 	req_tech = list("programming" = 4, "biotech" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/plantgenes
 	category = list("Hydroponics Machinery")
 
@@ -578,7 +588,7 @@
 	id = "slotmachine"
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/slot_machine
 	category = list("Misc. Machinery")
 
@@ -588,6 +598,6 @@
 	id = "bottlers"
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/bottler
 	category = list("Misc. Machinery")

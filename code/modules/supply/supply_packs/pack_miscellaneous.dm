@@ -522,7 +522,8 @@
 /datum/supply_packs/misc/vending/clothingvendor/cargo
 	name = "Cargo Clothing Vendors Crate"
 	cost = 50
-	contains = list(/obj/item/vending_refill/cargodrobe)
+	contains = list(/obj/item/vending_refill/cargodrobe,
+					/obj/item/vending_refill/exploredrobe)
 	containername = "cargo clothing vendor crate"
 
 ///////////// Station Goals

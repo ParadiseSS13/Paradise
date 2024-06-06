@@ -11,6 +11,7 @@
  * Brass (clockwork cult)
  * Bones
  * Plastic
+ * Saltpetre Crystal
  */
 
 /*
@@ -193,6 +194,12 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	merge_type = /obj/item/stack/sheet/plasteel
 	point_value = 23
 	table_type = /obj/structure/table/reinforced
+
+/obj/item/stack/sheet/plasteel/five
+	amount = 5
+
+/obj/item/stack/sheet/plasteel/fifteen
+	amount = 15
 
 /obj/item/stack/sheet/plasteel/fifty
 	amount = 50
@@ -692,3 +699,16 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 
 /obj/item/stack/sheet/plastic/five
 	amount = 5
+
+/*
+ * Saltpetre crystal
+ */
+
+/obj/item/stack/sheet/saltpetre_crystal
+	name = "saltpetre crystal"
+	desc = "A bunch of saltpetre crystals. Can be ground to get liquid saltpetre that can be used to dope hydroponics trays and soil plots."
+	singular_name = "saltpetre crystal"
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-saltpetre"
+	item_state = "sheet-saltpetre"
+	origin_tech = "materials=1;biotech=1"

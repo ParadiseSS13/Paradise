@@ -14,8 +14,14 @@
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_FLAG_BELT
-	var/ignore_flags = FALSE
+	/// If TRUE, the hypospray can inject through most hardsuits/modsuits.
+	var/can_pierce_hardsuits = FALSE
+	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
+	var/ignore_hypospray_immunity = FALSE
+	/// If TRUE, the hypospray will reject any chemicals not on the safe_chem_list.
 	var/safety_hypo = FALSE
+	// List of SOSHA-approved medicines.
+	/// List of reagents that are allowed to go into a hypospray with active safeties.
 	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "salbutamol", "omnizine",
 									"weak_omnizine", "godblood", "potass_iodide", "oculine", "mannitol", "spaceacillin", "salglu_solution",
 									"sal_acid", "cryoxadone", "sugar", "hydrocodone", "mitocholide", "rezadone", "menthol",
@@ -29,7 +35,13 @@
 	if(!iscarbon(M))
 		return
 
-	if(reagents.total_volume && (ignore_flags || M.can_inject(user, TRUE))) // Ignore flag should be checked first or there will be an error message.
+	var/mob/living/carbon/human/H = M
+	if(H.wear_suit)
+		if(HAS_TRAIT(H.wear_suit, TRAIT_HYPOSPRAY_IMMUNE) && !ignore_hypospray_immunity)	// This check is here entirely to stop goobers injecting nukies with meme chems
+			to_chat(user, "<span class='warning'>[src] is unable to penetrate the armour of [M] or interface with any injection ports.</span>")
+			return
+
+	if(reagents.total_volume && (can_pierce_hardsuits || M.can_inject(user, TRUE))) // can_pierce_hardsuits should be checked first or there will be an error message.
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
 
@@ -87,10 +99,13 @@
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)
 		emagged = TRUE
-		ignore_flags = TRUE
+		can_pierce_hardsuits = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
 		return TRUE
 
+//////////////////////////////
+// MARK: HYPO VARIANTS
+//////////////////////////////
 /obj/item/reagent_containers/hypospray/safety
 	name = "medical hypospray"
 	desc = "A general use medical hypospray for quick injection of chemicals. There is a safety button by the trigger."
@@ -104,16 +119,17 @@
 
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
-	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
+	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. It has a proprietary adapter allowing it to inject through the ports of Syndicate-made hardsuits."
 	amount_per_transfer_from_this = 15
 	possible_transfer_amounts = null
 	icon_state = "combat_hypo"
 	volume = 90
-	ignore_flags = TRUE // So they can heal their comrades.
+	can_pierce_hardsuits = TRUE // So they can heal their comrades.
+	ignore_hypospray_immunity = TRUE
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
-	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing. It can interface with the injection ports on any type of hardsuit."
 	icon_state = "nanites_hypo"
 	volume = 100
 	list_reagents = list("nanites" = 100)
@@ -125,20 +141,23 @@
 	name = "advanced hypospray"
 	desc = "Nanotrasen's own, reverse-engineered and improved version of DeForest's hypospray."
 	list_reagents = list("omnizine" = 30)
+	volume = 100
+	can_pierce_hardsuits = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
-
 /obj/item/reagent_containers/hypospray/examine_more(mob/user)	// This is so undisginguished from the basic hypo, I hate it. It's laaaaaame!
 	. = ..()
 	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
 	. += ""
-	. += "This version is primarally distinguished from the original by the lack of safety features - it allows any chemical to be added to it, and it will not announce what those chemicals are during an injection."
+	. += "Nanotrasen's version sports a chemical reserviour over 3 times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armour, this \
+	pressurised jet is automatically adjusted to ensure no harm comes to patients with thinner or absent clothing. \
+	It is also able to interface with the autoinjector ports found on mordern hardsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
 	. += ""
-	. += "They are mostly kept under lock and key (with some being distributed to NT's CMOs on some stations), waiting for the exact moment that the patent protection on DeForest's design expires."
+	. += "These hyposprays are mostly kept under lock and key (with some being distributed to NT's CMOs on some stations), waiting for the exact moment that the patent protection on DeForest's design expires."
 
 //////////////////////////////
 // MARK: AUTOINJECTOR
@@ -152,7 +171,8 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 	volume = 10
-	ignore_flags = TRUE //so you can medipen through hardsuits
+	can_pierce_hardsuits = TRUE //so you can medipen through hardsuits
+	ignore_hypospray_immunity = TRUE
 	container_type = DRAWABLE
 	flags = null
 
