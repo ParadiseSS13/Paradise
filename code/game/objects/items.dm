@@ -931,7 +931,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/attempt_resist_restraints(mob/living/carbon/user, break_cuffs, effective_breakout_time, silent)
 	if(effective_breakout_time)
 		if(!silent)
-			user.visible_message("<span class='warning'>[src] attempts to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_cuffs ? "break" : "remove"] [src]...")
+			user.visible_message("<span class='warning'>[user] attempts to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_cuffs ? "break" : "remove"] [src]...")
 		to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
 
 	if(!do_after(user, effective_breakout_time, FALSE, user))
