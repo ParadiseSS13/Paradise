@@ -219,7 +219,7 @@
 // For mining borgs. Mostly for self-application of goliath armour.
 /obj/item/gripper/mining
 	name = "mining gripper"
-	desc = "A grasping tool for cyborgs. This version is ruggedized for better endurance in the harsh enviroments of Lavaland."
+	desc = "A grasping tool for cyborgs. This ruggedized version will let you add goliath plating to yourself and activate survival capsules. You could also use it to swing a pickaxe if you don't feel like using your drill."
 	can_hold = list(
 		/obj/item/pickaxe,	// Because the image of a mining borg ignoring its built-in drill and instead choosing to swing an old-fashioned pickaxe is funny.
 		/obj/item/stack/sheet/animalhide/goliath_hide,
