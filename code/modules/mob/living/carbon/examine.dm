@@ -115,6 +115,8 @@
 		skipeyes |= wear_mask.flags_inv & HIDEEYES
 
 	var/msg = "<span class='info'>This is "
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+		msg = "<span class='info'>This is the <span class='warning'>shambling corpse</span> of "
 
 	msg += "<em>[name]</em>"
 
