@@ -1143,25 +1143,6 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
 		return TRUE
 
-/proc/reverse_direction(dir)
-	switch(dir)
-		if(NORTH)
-			return SOUTH
-		if(NORTHEAST)
-			return SOUTHWEST
-		if(EAST)
-			return WEST
-		if(SOUTHEAST)
-			return NORTHWEST
-		if(SOUTH)
-			return NORTH
-		if(SOUTHWEST)
-			return NORTHEAST
-		if(WEST)
-			return EAST
-		if(NORTHWEST)
-			return SOUTHEAST
-
 /*
 Checks if that loc and dir has a item on the wall
 */
@@ -2082,3 +2063,18 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/is_color_dark(color, threshold = 25)
 	var/hsl = rgb2num(color, COLORSPACE_HSL)
 	return hsl[3] < threshold
+
+/**
+ * This proc takes a list of types, and returns them in the format below.
+ * [type] = amount of type in list.
+ * Useful for recipes.
+ */
+/proc/type_list_to_counted_assoc_list(list/origin_list)
+	var/list/return_list = list()
+	for(var/datum/path as anything in origin_list)
+		if(isdatum(path))
+			path = path.type
+		if(!return_list[path])
+			return_list[path] = 0
+		return_list[path] += 1
+	return return_list

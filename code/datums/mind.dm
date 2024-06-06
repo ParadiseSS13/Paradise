@@ -417,6 +417,16 @@
 
 	. += _memory_edit_role_enabled(ROLE_ABDUCTOR)
 
+/datum/mind/proc/memory_edit_zombie(mob/living/H)
+	. = _memory_edit_header("zombie", list())
+	if(has_antag_datum(/datum/antagonist/zombie))
+		. += "<a href='byond://?src=[UID()];zombie=clear'>no</a>|<b><font color='red'>ZOMBIE</font></b>"
+		return
+	if(current.HasDisease(/datum/disease/zombie))
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirusno'><font color='red'>dis-infect</font></a>"
+	else
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirus'>infect</a>"
+
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
 	if(src in SSticker.mode.eventmiscs)
@@ -515,7 +525,7 @@
 		alert("Not before round-start!", "Alert")
 		return
 
-	var/list/out = list("<meta charset='UTF-8'><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
+	var/list/out = list("<html><meta charset='UTF-8'><head><title>[name]</title></head><body><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
 	out.Add("Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]")
 	out.Add("Assigned role: [assigned_role]. <a href='byond://?src=[UID()];role_edit=1'>Edit</a>")
 	out.Add("Factions and special roles:")
@@ -546,6 +556,8 @@
 		sections["nuclear"] = memory_edit_nuclear(H)
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
+		/** Zombies **/
+		sections["zombie"] = memory_edit_zombie(H)
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
@@ -592,6 +604,7 @@
 	out.Add(gen_objective_text(admin = TRUE))
 	out.Add("<a href='byond://?src=[UID()];obj_add=1'>Add objective</a><br>")
 	out.Add("<a href='byond://?src=[UID()];obj_announce=1'>Announce objectives</a><br>")
+	out.Add("</body></html>")
 	usr << browse(out.Join("<br>"), "window=edit_memory[src];size=500x500")
 
 /datum/mind/Topic(href, href_list)
@@ -1168,6 +1181,45 @@
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
 				log_admin("[key_name(usr)] has eventantag'ed [current].")
 				current.create_log(MISC_LOG, "[current] was made into an event antagonist by [key_name_admin(usr)]")
+
+	else if(href_list["zombie"])
+		switch(href_list["zombie"])
+			if("clear")
+				if(!has_antag_datum(/datum/antagonist/zombie))
+					return
+				remove_antag_datum(/datum/antagonist/zombie)
+				for(var/datum/disease/zombie/D in current.viruses)
+					D.cure()
+				if(ishuman(current))
+					var/mob/living/carbon/human/human_current = current
+					for(var/obj/item/organ/limb as anything in human_current.bodyparts)
+						if(limb.status & ORGAN_DEAD && !limb.is_robotic())
+							limb.status &= ~ORGAN_DEAD
+					human_current.update_body()
+				message_admins("[key_name_admin(usr)] has de-zombied'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has de-zombied'ed [key_name(current)].")
+			if("zombie")
+				if(has_antag_datum(/datum/antagonist/zombie))
+					return
+				add_antag_datum(/datum/antagonist/zombie)
+				message_admins("[key_name_admin(usr)] has zombie'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has zombie'ed [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was made into an zombie by [key_name_admin(usr)]")
+			if("zombievirus")
+				if(has_antag_datum(/datum/antagonist/zombie) || !ishuman(current))
+					return
+				current.AddDisease(new /datum/disease/zombie)
+				message_admins("[key_name_admin(usr)] has given a zombie virus to [key_name(current)].")
+				log_admin("[key_name(usr)] has given a zombie virus to [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was admin-infected with a zombie virus by [key_name_admin(usr)]")
+			if("zombievirusno")
+				if(has_antag_datum(/datum/antagonist/zombie))
+					return
+				for(var/datum/disease/zombie/D in current.viruses)
+					D.cure()
+				message_admins("[key_name_admin(usr)] has removed the zombie virus from [key_name(current)].")
+				log_admin("[key_name(usr)] has removed the zombie virus from [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] had their zombie virus admin-removed by [key_name_admin(usr)]")
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
@@ -1786,6 +1838,7 @@
 
 //Initialisation procs
 /mob/proc/mind_initialize()
+	SHOULD_CALL_PARENT(TRUE)
 	if(mind)
 		mind.key = key
 	else
@@ -1797,6 +1850,7 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
+	SEND_SIGNAL(src, COMSIG_MIND_INITIALIZE)
 
 //HUMAN
 /mob/living/carbon/human/mind_initialize()

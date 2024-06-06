@@ -496,6 +496,8 @@
 					min_temp = chem_temp
 
 				if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && chem_temp <= max_temp && chem_temp >= min_temp)
+					if(!C.last_can_react_check(src))
+						continue
 					var/multiplier = min(multipliers)
 					var/preserved_data = null
 					for(var/B in C.required_reagents)
@@ -809,6 +811,15 @@
 
 /datum/reagents/proc/get_reagent(type)
 	. = locate(type) in reagent_list
+
+/datum/reagents/proc/get_reagent_by_id(id)
+	var/list/cached_reagents = reagent_list
+	for(var/A in cached_reagents)
+		var/datum/reagent/R = A
+		if(R.id == id)
+			return R
+
+	return 
 
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = FALSE, safety = TRUE) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount))

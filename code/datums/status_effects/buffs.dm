@@ -439,10 +439,9 @@
 				return
 
 /atom/movable/screen/alert/status_effect/regenerative_core
-	name = "Reinforcing Tendrils"
+	name = "Regenerative Core Tendrils"
 	desc = "You can move faster than your broken body could normally handle!"
 	icon_state = "regenerative_core"
-	name = "Regenerative Core Tendrils"
 
 /datum/status_effect/regenerative_core
 	id = "Regenerative Core"
@@ -596,12 +595,14 @@
 			H.physiology.brute_mod *= 0.8
 			H.physiology.burn_mod *= 0.8
 			H.physiology.stamina_mod *= 0.8
+		owner.status_flags &= ~CANPUSH
 		add_attack_logs(owner, owner, "gained chainsaw stun immunity", ATKLOG_ALL)
 		owner.add_stun_absorption("chainsaw", INFINITY, 4)
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
 
 /datum/status_effect/chainsaw_slaying/on_remove()
 	add_attack_logs(owner, owner, "lost chainsaw stun immunity", ATKLOG_ALL)
+	owner.status_flags |= CANPUSH
 	if(islist(owner.stun_absorption) && owner.stun_absorption["chainsaw"])
 		owner.remove_stun_absorption("chainsaw")
 	if(ishuman(owner))

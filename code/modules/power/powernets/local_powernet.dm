@@ -105,7 +105,9 @@
 		return FALSE
 	if(power_flags & PW_ALWAYS_POWERED) //if this powernet is always powered, we always return TRUE
 		return TRUE
-	if(powernet_apc?.stat & (BROKEN|MAINT)) //no working apc, no power
+	if(!powernet_apc)
+		return FALSE
+	if(powernet_apc.stat & (BROKEN|MAINT)) // no working apc, no power
 		return FALSE
 
 	switch(channel)

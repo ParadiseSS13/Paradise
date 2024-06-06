@@ -86,7 +86,8 @@
 					body += "<a href='byond://?src=[usr.UID()];priv_msg="+client_ckey+"'>PM</a> - "
 					body += "<a href='byond://?src=[UID()];subtlemessage="+mobUID+"'>SM</a> - "
 					body += "<a href='byond://?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a> - "
-					body += "<a href='byond://?src=[UID()];adminalert="+mobUID+"'>ALERT</a>"
+					body += "<a href='byond://?src=[UID()];adminalert="+mobUID+"'>ALERT</a> - "
+					body += "<a href='byond://?src=[UID()];adminobserve="+mobUID+"'>OBS</a>"
 					if(eyeUID)
 						body += "|<a href='byond://?src=[UID()];adminplayerobservefollow="+eyeUID+"'>EYE</a>"
 					body += "<br>"
@@ -224,6 +225,9 @@
 	var/i = 1
 	for(var/mob/M in mobs)
 		if(M.ckey)
+			if(M.client)
+				if(M.client?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE))		// normal admins can't see BB
+					continue
 
 			var/color = "#e6e6e6"
 			if(i%2 == 0)
@@ -466,6 +470,12 @@
 		if(length(SSticker.mode.eventmiscs))
 			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
 
+		if(length(SSticker.mode.zombies))
+			dat += check_role_table("Zombies", SSticker.mode.zombies)
+
+		if(length(SSticker.mode.zombie_infected))
+			dat += check_role_table_mob("Pre-zombie infected", SSticker.mode.zombie_infected)
+
 		if(length(GLOB.ts_spiderlist))
 			var/list/spider_minds = list()
 			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
@@ -524,4 +534,11 @@
 		"}
 
 	txt += "</tr>"
+	return txt
+
+/datum/admins/proc/check_role_table_mob(name, list/members, show_objectives=1)
+	var/txt = "<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>"
+	for(var/mob/M in members)
+		txt += check_role_table_row(M, show_objectives)
+	txt += "</table>"
 	return txt

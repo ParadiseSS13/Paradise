@@ -12,7 +12,7 @@
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
 
-#define ADMIN_CHECK(user) ((check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM) || user.can_admin_interact())
+#define ADMIN_CHECK(user) (check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && (authenticated >= COMM_AUTHENTICATION_CENTCOM || user.can_admin_interact()))
 
 // The communications computer
 /obj/machinery/computer/communications
@@ -56,10 +56,11 @@
 	. = ..()
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = 1)
-	if(user.can_admin_interact())
-		return COMM_AUTHENTICATION_AGHOST
-	if(ADMIN_CHECK(user))
-		return COMM_AUTHENTICATION_CENTCOM
+	if(check_rights_all(R_ADMIN|R_EVENT, FALSE, user))
+		if(user.can_admin_interact())
+			return COMM_AUTHENTICATION_AGHOST
+		if(authenticated == COMM_AUTHENTICATION_CENTCOM)
+			return COMM_AUTHENTICATION_CENTCOM
 	if(authenticated == COMM_AUTHENTICATION_CAPT)
 		return COMM_AUTHENTICATION_CAPT
 	if(authenticated)
@@ -300,20 +301,7 @@
 			emagged = FALSE
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
-		if("RestartNanoMob")
-			if(SSmob_hunt)
-				if(SSmob_hunt.manual_reboot())
-					var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
-										"Capturing all of them", "Fixing minor text issues", "Being the very best",
-										"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
-					to_chat(ui.user, "<span class='notice'>Restarting Nano-Mob Hunter GO! game server. [loading_msg]...</span>")
-				else
-					to_chat(ui.user, "<span class='warning'>Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting.</span>")
-			else
-				to_chat(ui.user, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
-
 		// ADMIN CENTCOMM ONLY STUFF
-
 		if("send_to_cc_announcement_page")
 			if(!ADMIN_CHECK(ui.user))
 				return

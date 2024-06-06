@@ -137,7 +137,7 @@
 			if(E.is_robotic())
 				msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(E.limb_name)] is open!</b>\n"
 			else
-				msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
+				msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] [E.open != ORGAN_ORGANIC_VIOLENT_OPEN ? "has an open incision" : "has been violently split open"]!</b>\n"
 
 		for(var/obj/item/I in E.embedded_objects)
 			// we cant just use \a here, as we want it to appear before the bicon
