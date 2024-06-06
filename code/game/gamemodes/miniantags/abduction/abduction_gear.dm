@@ -393,6 +393,7 @@ CONTENTS:
 	icon_state = "cablecuff" // Needs sprite
 	breakouttime = 450
 	origin_tech = "materials=4;magnets=5;abductor=2"
+	flags = DROPDEL
 
 /obj/item/restraints/handcuffs/energy/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
 	user.visible_message("<span class='danger'>[src] restraining [user] breaks in a discharge of energy!</span>", "<span class='userdanger'>[src] restraining [user] breaks in a discharge of energy!</span>")
