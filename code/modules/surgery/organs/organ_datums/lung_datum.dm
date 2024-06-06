@@ -361,10 +361,6 @@
 	cold_level_2_threshold = 220
 	cold_level_3_threshold = 140
 
-	heat_level_1_threshold = 505
-	heat_level_2_threshold = 540
-	heat_level_3_threshold = 600
-
 /datum/organ/lungs/slime
 	cold_level_1_threshold = 280
 	cold_level_2_threshold = 240
