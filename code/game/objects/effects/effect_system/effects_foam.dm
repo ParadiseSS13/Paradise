@@ -2,7 +2,6 @@
 // Similar to smoke, but spreads out more
 // metal foams leave behind a foamed metal wall
 
-
 /obj/effect/particle_effect/foam
 	name = "foam"
 	icon_state = "foam"
@@ -10,7 +9,7 @@
 	density = FALSE
 	gender = PLURAL
 	layer = OBJ_LAYER + 0.9
-	animate_movement = 0
+	animate_movement = NO_STEPS
 	/// How many times this one bit of foam can spread around itself
 	var/spread_amount = 3
 	/// How long it takes this to initially start spreading after being dispersed
@@ -31,7 +30,6 @@
 	create_reagents(25)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, TRUE, -3)
 	addtimer(CALLBACK(src, PROC_REF(initial_process)), spread_time)
-
 
 /obj/effect/particle_effect/foam/proc/disperse_reagents()
 	if(!reagents)
@@ -106,7 +104,6 @@
 	color = mix_color_from_reagents(reagents.reagent_list)
 
 /obj/effect/particle_effect/foam/process()
-
 	if(react_mode & FOAM_REACT_DURING_SPREAD)
 		disperse_reagents()
 
@@ -114,7 +111,6 @@
 		return
 
 	spread()
-
 
 // foam disolves when heated
 // except metal foams
@@ -169,10 +165,10 @@
 	var/list/carried_reagents
 	/// the temperature that the reagents in the foam will be set to
 	var/temperature = T0C
-	/// the reagents that we don't want in smoke
+	/// the reagents that we don't want in foam
 	var/list/banned_reagents = list("smoke_powder", "fluorosurfactant", "stimulants")
 
-/datum/effect_system/foam_spread/set_up(amt = 5, where, datum/reagents/carry = null)
+/datum/effect_system/foam_spread/set_up(amt = 5, where, datum/reagents/carry)
 	spread_size = min(round(amt / 5, 1), 7)
 	if(isturf(where))
 		location = where

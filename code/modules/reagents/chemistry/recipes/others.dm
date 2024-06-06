@@ -40,7 +40,6 @@
 	s.set_up(created_volume, location, holder, METAL_FOAM_ALUMINUM)
 	s.start()
 
-
 /datum/chemical_reaction/ironfoam
 	name = "Iron Foam"
 	id = "ironlfoam"
@@ -56,7 +55,6 @@
 	var/datum/effect_system/foam_spread/metal/s = new()
 	s.set_up(created_volume, location, holder, METAL_FOAM_IRON)
 	s.start()
-
 
 	// Synthesizing these three chemicals is pretty complex in real life, but fuck it, it's just a game!
 /datum/chemical_reaction/ammonia
