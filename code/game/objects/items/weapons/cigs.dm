@@ -118,7 +118,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			if(target == user)
 				light("<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [name] with [I]. Damn [user.p_theyre()] cool.</span>")
 			else
-				light("<span class='rose'>[user] whips [I] out and holds it for [target]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] lights \the [name] with. Damn [user.p_theyre()] cool.</span>")
+				light("<span class='rose'>[user] whips [I] out and holds it for [target]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] lights [src] with. Damn [user.p_theyre()] cool.</span>")
 			return TRUE
 		return failed_to_light(I, user)
 
@@ -143,7 +143,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			if(target == user)
 				light("<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [name] with [I].</span>")
 			else
-				light("<span class='notice'>After some fiddling, [user] manages to light \the [name] with [I] for [target].</span>")
+				light("<span class='notice'>After some fiddling, [user] manages to light [src] with [I] for [target].</span>")
 			return TRUE
 		return failed_to_light(I, user)
 
@@ -156,7 +156,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				if(prob(50))
 					light("<span class='rose'>[user] spits fire at [target], lighting [name] and nearly burning [target.p_their()] face!</span>")
 				else
-					light("<span class='rose'>[user] spits fire at [target], burning [target.p_their()] face and lighting \the [name] in the process!</span>")
+					light("<span class='rose'>[user] spits fire at [target], burning [target.p_their()] face and lighting [src] in the process!</span>")
 					var/obj/item/organ/external/head/affecting = target.get_organ("head")
 					affecting.receive_damage(0, 5)
 					target.UpdateDamageIcon()
@@ -169,7 +169,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/weldingtool/welder = I
 		if(welder.tool_enabled)
 			if(target == user)
-				light("<span class='notice'>[user] casually lights [name] with [I], what a badass.</span>")
+				light("<span class='notice'>[user] casually lights [src] with [I], what a badass.</span>")
 			else
 				light("<span class='notice'>[user] holds out [I] out for [target], and casually lights [name]. What a badass.</span>")
 			return TRUE
@@ -177,9 +177,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(istype(I, /obj/item/assembly/igniter))
 		if(target == user)
-			light("<span class='notice'>[user] presses [I] against \the [name], and activates it, lighting [user.p_their()] [name] in a shower of sparks!</span>")
+			light("<span class='notice'>[user] presses [I] against [src], and activates it, lighting [user.p_their()] [name] in a shower of sparks!</span>")
 		else
-			light("<span class='notice'>[user] presses [I] against \the [name] in the mouth of [target], and activates it, lighting [target.p_their()] [name] in a shower of sparks!</span>")
+			light("<span class='notice'>[user] presses [I] against [src] in the mouth of [target], and activates it, lighting [target.p_their()] [name] in a shower of sparks!</span>")
 		I.attack_self()	// Make sparks fly!
 		return TRUE
 
@@ -199,7 +199,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				[user.p_they(TRUE)] lights [user.p_their()] [name] with [I] in the process.</span>")
 			else
 				light("<span class='warning'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes. \
-				[user.p_they(TRUE)] lights \the [name] in the mouth of [target] with [I] in the process.</span>")
+				[user.p_they(TRUE)] lights [src] in the mouth of [target] with [I] in the process.</span>")
 			return TRUE
 		return failed_to_light(I, user)
 
@@ -231,10 +231,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 				if(target == user)
 					light("<span class='warning'>Holy shit! Did [user] just manage to light [user.p_their()] [name] with [I], with only moderate eyebrow singing!?</span>")
 				else
-					light("<span class='warning'>Holy shit! Did [user] just manage to light \the [name] in the mouth of [target] with [I], only moderately singing [target.p_their()] eyebrows!?</span>")
+					light("<span class='warning'>Holy shit! Did [user] just manage to light [src] in the mouth of [target] with [I], only moderately singing [target.p_their()] eyebrows!?</span>")
 				return TRUE
 
-			user.visible_message("<span class='danger'>Unsure which end of [I] is which, [user] fails to light \the [name].</span>")
+			user.visible_message("<span class='danger'>Unsure which end of [I] is which, [user] fails to light [src].</span>")
 			explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 			fireball.charges--
 			return FALSE
