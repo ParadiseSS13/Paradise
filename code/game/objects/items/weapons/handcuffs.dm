@@ -235,10 +235,8 @@
 			return
 
 		var/obj/item/wirerod/W = new /obj/item/wirerod
-		if(user.unEquip(src) || remove_item_from_storage(user))
+		if(user.unEquip(src) || !remove_item_from_storage(user))
 			user.put_in_hands(W)
-		else
-			W.forceMove(src.loc)
 		to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
 		qdel(src)
 		return
