@@ -176,6 +176,8 @@
 	power_change()
 	RegisterSignal(src, COMSIG_MOVABLE_UNTILTED, PROC_REF(on_untilt))
 	RegisterSignal(src, COMSIG_MOVABLE_TRY_UNTILT, PROC_REF(on_try_untilt))
+	if(aggressive)
+		AddComponent(/datum/component/proximity_monitor)
 
 /obj/machinery/economy/vending/Destroy()
 	SStgui.close_uis(wires)

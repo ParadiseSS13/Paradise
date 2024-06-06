@@ -168,9 +168,6 @@
 /obj/machinery/economy/vending/snack/trapped
 	aggressive = TRUE
 
-/obj/machinery/economy/vending/snack/trapped/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
 
 /mob/living/simple_animal/hostile/hivebot/strong/malfborg
 	name = "Security cyborg"

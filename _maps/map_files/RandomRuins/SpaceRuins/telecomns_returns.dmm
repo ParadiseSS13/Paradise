@@ -3089,7 +3089,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
 "Sr" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/telepad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault";
@@ -3158,6 +3158,20 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/computer)
+"Tw" = (
+/obj/machinery/computer/telescience{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault";
+	name = "Mainframe floor";
+	nitrogen = 100;
+	oxygen = 0;
+	tag = "icon-vault (NORTH)";
+	temperature = 80
+	},
+/area/ruin/space/telecomns/chamber)
 "TL" = (
 /obj/structure/grille,
 /obj/structure/cable{
@@ -7441,7 +7455,7 @@ EM
 il
 il
 il
-Sr
+Tw
 eE
 il
 tW
