@@ -4,7 +4,7 @@
 	icon = 'icons/obj/restraints.dmi'
 	var/cuffed_state = "handcuff"
 
-/obj/item/restraints/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent) //you only want to break hand or legcuffs, not any type of restraint
+/obj/item/restraints/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent) // you only want to break hand or legcuffs, not any type of restraint
 	. = ..()
 	if(break_cuffs)
 		qdel(src)
