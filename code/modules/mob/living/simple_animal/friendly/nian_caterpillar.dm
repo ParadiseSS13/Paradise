@@ -106,7 +106,7 @@
 /mob/living/simple_animal/nian_caterpillar/proc/consume(obj/item/food/snacks/G)
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating food items without evolving.
 		return to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
-	visible_message("[src] ravenously consumes [G].", "You ravenously devour [G].")
+	visible_message("<span class='warning'>[src] ravenously consumes [G].</span>", "<span class='notice'>You ravenously devour [G].</span>")
 	playsound(loc, 'sound/items/eatfood.ogg', 30, TRUE, frequency = 1.5)
 	if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)
 		adjust_nutrition(2)
