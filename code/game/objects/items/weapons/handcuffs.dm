@@ -239,7 +239,7 @@
 /obj/item/restraints/handcuffs/twimsts/finish_resist_restraints(mob/living/carbon/user, break_cuffs)
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
-		if(!human_user.check_has_mouth()) //I have no mouth but I must eat twimsts
+		if(!human_user.check_has_mouth()) // I have no mouth but I must eat twimsts
 			break_cuffs = TRUE
 			return ..()
 
