@@ -60,7 +60,7 @@
 		for(var/obj/structure/telecomns_doomsday_device/D in range(5, src))
 			D.start_the_party()
 			break
-		new /obj/item/documents/nanotrasen/dvorak_blackbox(get_turf(src))
+		new /obj/item/documents/syndicate/dvorak_blackbox(get_turf(src))
 		if(prob(50))
 			if(prob(80))
 				new /obj/item/surveillance_upgrade(get_turf(src))
@@ -256,3 +256,26 @@
 		sleep(5 SECONDS)
 		explosion(loc, -1, -1, 2, 4, flame_range = 4)
 		qdel(src)
+
+/obj/effect/spawner/lootdrop/telecomns_core_table
+	name = "telecomns core table spawner"
+	lootcount = 1
+	loot = list(
+			/obj/item/rcd/combat,
+			/obj/item/gun/medbeam,
+			/obj/item/mod/module/energy_shield,
+			/obj/item/storage/box/syndie_kit/oops_all_extraction_flares
+	)
+
+/obj/item/storage/box/syndie_kit/oops_all_extraction_flares
+	name = "surplus box of extraction flares"
+
+/obj/item/storage/box/syndie_kit/oops_all_extraction_flares/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/wormhole_jaunter/contractor(src)
+
+/obj/effect/spawner/random_spawners/telecomns_teleprod_maybe
+	name = "teleprod maybe"
+	result = list(
+	/datum/nothing = 4,
+	/obj/item/melee/baton/cattleprod/teleprod = 1)
