@@ -40,18 +40,10 @@
 	else
 		say("Connection failure!")
 
-/mob/living/silicon/decoy/syndicate/depot/death(pass)
+/mob/living/silicon/decoy/syndicate/depot/death(gibbed)
 	if(!raised_alert)
 		raise_alert()
-	. = ..(pass)
-
-/mob/living/silicon/decoy/syndicate/depot/adjustBruteLoss(dmg)
-	. = ..(dmg)
-	updatehealth()
-
-/mob/living/silicon/decoy/syndicate/depot/adjustFireLoss(dmg)
-	. = ..(dmg)
-	updatehealth()
+	. = ..()
 
 /mob/living/silicon/decoy/syndicate/depot/ex_act(severity)
 	adjustBruteLoss(250)

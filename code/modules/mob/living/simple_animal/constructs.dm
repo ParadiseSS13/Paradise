@@ -45,6 +45,7 @@
 		AddSpell(new spell(null))
 
 	set_light(2, 3, l_color = GET_CULT_DATA(construct_glow, LIGHT_COLOR_BLOOD_MAGIC))
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	// we also drop our heldbody from the /construct_held_body component, as well as our cult/wiz construct antag datums

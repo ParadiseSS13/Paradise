@@ -396,3 +396,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
+
+// Healing traits
+/// This mob heals from carp rifts. future shenanigans for space dragon.
+#define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
+
+/// This mob heals from cult pylons.
+#define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"

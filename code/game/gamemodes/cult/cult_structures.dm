@@ -228,13 +228,24 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	death_message = "<span class='danger'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
 	death_sound = 'sound/effects/pylon_shatter.ogg'
 
-	var/heal_delay = 30
-	var/last_heal = 0
-	var/corrupt_delay = 50
-	var/last_corrupt = 0
+	/// Length of the cooldown in between tile corruptions. Doubled if no turfs are found.
+	var/corruption_cooldown_duration = 5 SECONDS
+	/// The cooldown for corruptions.
+	COOLDOWN_DECLARE(corruption_cooldown)
 
 /obj/structure/cult/functional/pylon/Initialize(mapload)
 	. = ..()
+	AddComponent( \
+			/datum/component/aura_healing, \
+			range = 5, \
+			brute_heal = 0.4, \
+			burn_heal = 0.4, \
+			blood_heal = 0.4, \
+			simple_heal = 1.2, \
+			requires_visibility = FALSE, \
+			limit_to_trait = TRAIT_HEALS_FROM_CULT_PYLONS, \
+			healing_color = COLOR_CULT_RED, \
+		)
 	START_PROCESSING(SSobj, src)
 	icon_state = GET_CULT_DATA(pylon_icon_state, "pylon")
 
@@ -257,52 +268,36 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	if(!anchored)
 		return
 
-	if(last_heal <= world.time)
-		last_heal = world.time + heal_delay
-		for(var/mob/living/L in range(5, src))
-			if(IS_CULTIST(L) || iswizard(L) || isshade(L) || isconstruct(L))
-				if(L.health != L.maxHealth)
-					new /obj/effect/temp_visual/heal(get_turf(src), COLOR_HEALING_GREEN)
-
-					if(ishuman(L))
-						L.heal_overall_damage(1, 1, TRUE, FALSE, TRUE)
-
-					else if(isshade(L) || isconstruct(L))
-						var/mob/living/simple_animal/M = L
-						if(M.health < M.maxHealth)
-							M.adjustHealth(-1)
-
-				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 1
-
-	if(!is_station_level(z) && last_corrupt <= world.time) //Pylons only convert tiles on offstation bases to help hide onstation cults from meson users
-		var/list/validturfs = list()
-		var/list/cultturfs = list()
-		for(var/T in circleviewturfs(src, 5))
-			if(istype(T, /turf/simulated/floor/engine/cult))
-				cultturfs |= T
-				continue
-			if(is_type_in_typecache(T, GLOB.blacklisted_pylon_turfs))
-				continue
-			else
-				validturfs |= T
-
-		last_corrupt = world.time + corrupt_delay
-
-		var/turf/T = safepick(validturfs)
-		if(T)
-			if(isfloorturf(T))
-				T.ChangeTurf(/turf/simulated/floor/engine/cult)
-			if(iswallturf(T))
-				T.ChangeTurf(/turf/simulated/wall/cult/artificer)
+	if(is_station_level(z)) //Pylons only convert tiles on offstation bases to help hide onstation cults from meson users
+		return
+	if(!COOLDOWN_FINISHED(src, corruption_cooldown))
+		return
+	var/list/validturfs = list()
+	var/list/cultturfs = list()
+	for(var/T in circleviewturfs(src, 5))
+		if(istype(T, /turf/simulated/floor/engine/cult))
+			cultturfs |= T
+			continue
+		if(is_type_in_typecache(T, GLOB.blacklisted_pylon_turfs))
+			continue
 		else
-			var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
-			if(F)
-				new /obj/effect/temp_visual/cult/turf/open/floor(F)
-			else
-				// Are we in space or something? No cult turfs or
-				// convertable turfs?
-				last_corrupt = world.time + corrupt_delay * 2
+			validturfs |= T
+
+	var/turf/T = safepick(validturfs)
+	if(T)
+		if(istype(T, /turf/simulated/floor))
+			T.ChangeTurf(/turf/simulated/floor/engine/cult)
+		if(istype(T, /turf/simulated/wall))
+			T.ChangeTurf(/turf/simulated/wall/cult/artificer)
+	else
+		var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
+		if(F)
+			new /obj/effect/temp_visual/cult/turf/open/floor(F)
+		else
+			// Are we in space or something? No cult turfs or convertable turfs?
+			COOLDOWN_START(src, corruption_cooldown, corruption_cooldown_duration * 2)
+			return
+	COOLDOWN_START(src, corruption_cooldown, corruption_cooldown_duration)
 
 /obj/structure/cult/functional/archives
 	name = "archives"

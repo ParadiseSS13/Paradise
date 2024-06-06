@@ -15,7 +15,7 @@
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
 
-/mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
+/mob/living/carbon/human/adjustBrainLoss(amount, updating_health = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
@@ -28,11 +28,11 @@
 			sponge.damage = clamp(sponge.damage + amount, 0, 120)
 			if(sponge.damage >= 120)
 				death()
-	if(updating)
+	if(updating_health)
 		update_stat("adjustBrainLoss")
 	return STATUS_UPDATE_STAT
 
-/mob/living/carbon/human/setBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
+/mob/living/carbon/human/setBrainLoss(amount, updating_health = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
@@ -45,7 +45,7 @@
 			sponge.damage = clamp(amount, 0, 120)
 			if(sponge.damage >= 120)
 				death()
-	if(updating)
+	if(updating_health)
 		update_stat("setBrainLoss")
 	return STATUS_UPDATE_STAT
 
@@ -136,7 +136,7 @@
 			O.unmutate()
 			to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
 
-/mob/living/carbon/human/adjustCloneLoss(amount)
+/mob/living/carbon/human/adjustCloneLoss(amount, updating_health)
 	if(dna.species && amount > 0)
 		amount *= dna.species.clone_mod
 	. = ..()
@@ -184,32 +184,32 @@
 		unmutateAllBodyparts()
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
-/mob/living/carbon/human/adjustOxyLoss(amount)
+/mob/living/carbon/human/adjustOxyLoss(amount, updating_health)
 	if(dna.species && amount > 0)
 		amount *= dna.species.oxy_mod
 	. = ..()
 
-/mob/living/carbon/human/setOxyLoss(amount)
+/mob/living/carbon/human/setOxyLoss(amount, updating_health)
 	if(dna.species && amount > 0)
 		amount *= dna.species.oxy_mod
 	. = ..()
 
-/mob/living/carbon/human/adjustToxLoss(amount)
+/mob/living/carbon/human/adjustToxLoss(amount, updating_health)
 	if(dna.species && amount > 0)
 		amount *= dna.species.tox_mod
 	. = ..()
 
-/mob/living/carbon/human/setToxLoss(amount)
+/mob/living/carbon/human/setToxLoss(amount, updating_health)
 	if(dna.species && amount > 0)
 		amount *= dna.species.tox_mod
 	. = ..()
 
-/mob/living/carbon/human/adjustStaminaLoss(amount, updating = TRUE)
+/mob/living/carbon/human/adjustStaminaLoss(amount, updating_health)
 	if(dna.species && amount > 0)
 		amount *= dna.species.stamina_mod
 	. = ..()
 
-/mob/living/carbon/human/setStaminaLoss(amount, updating = TRUE)
+/mob/living/carbon/human/setStaminaLoss(amount, updating_health)
 	if(dna.species && amount > 0)
 		amount *= dna.species.stamina_mod
 	. = ..()

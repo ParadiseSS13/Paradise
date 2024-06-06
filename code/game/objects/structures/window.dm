@@ -805,7 +805,7 @@
 	take_damage(rand(25, 75), BRUTE)
 	if(src)
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/window/reinforced/clockwork/fulltile

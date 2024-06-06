@@ -89,6 +89,7 @@
 #define COLOR_HARD_ROCK    "#363636"
 #define COLOR_FLOOR_HARD_ROCK    "#bdbdbd"
 #define COLOR_HEALING_GREEN    "#375637"
+#define COLOR_CULT_RED			"#960000"
 
 //Color defines used by the assembly detailer.
 #define COLOR_ASSEMBLY_BLACK   "#545454"

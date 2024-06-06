@@ -325,13 +325,31 @@
 	tick_interval = 25
 	examine_text = "<span class='notice'>They seem to have an aura of healing and helpfulness about them.</span>"
 	alert_type = null
+	var/datum/component/aura_healing/aura_healing
 	var/deathTick = 0
-	/// How many points the rod has to heal with, maxes at 50, or whatever heal_points_max is set to.
-	var/heal_points = 50
-	/// Max heal points for the rod to spend on healing people
-	var/max_heal_points = 50
 
 /datum/status_effect/hippocraticOath/on_apply()
+	var/static/list/organ_healing = list(
+		"brain" = 1.4,
+	)
+
+	aura_healing = owner.AddComponent( \
+		/datum/component/aura_healing, \
+		range = 7, \
+		brute_heal = 1.4, \
+		burn_heal = 1.4, \
+		toxin_heal = 1.4, \
+		suffocation_heal = 1.4, \
+		stamina_heal = 1.4, \
+		clone_heal = 0.4, \
+		simple_heal = 1.4, \
+		organ_healing = organ_healing, \
+		heal_fractures = TRUE, \
+		heal_internal_bleedings = TRUE, \
+		heal_critical_burns = TRUE, \
+		healing_color = "#375637", \
+	)
+
 	//Makes the user passive, it's in their oath not to harm!
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
@@ -339,6 +357,7 @@
 	return ..()
 
 /datum/status_effect/hippocraticOath/on_remove()
+	QDEL_NULL(aura_healing)
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "hippocraticOath")
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	H.remove_hud_from(owner)
@@ -374,69 +393,6 @@
 			H.adjustStaminaLoss(-1.5)
 			H.adjustCloneLoss(-0.5)
 			new /obj/effect/temp_visual/heal(get_turf(H), COLOR_HEALING_GREEN)
-
-	// Regenerate points passively
-	if(heal_points < max_heal_points)
-		heal_points = min(heal_points + 3, max_heal_points)
-
-	// The main course: heal everyone around you with the points we just gained!
-	for(var/mob/living/L in view(7, owner))
-		heal(L)
-		if(!heal_points)
-			break
-
-/datum/status_effect/hippocraticOath/proc/heal(mob/living/L)
-	var/starting_points = heal_points
-	var/force_particle = FALSE
-
-	if(ishuman(L))
-		heal_human(L)
-	else if(iscarbon(L))
-		if(L.health < L.maxHealth || L.getStaminaLoss()) // Carbons have no burn wounds to worry about nor brain damage to heal
-			L.adjustBruteLoss(-3.5)
-			L.adjustFireLoss(-3.5)
-			L.adjustOxyLoss(-3.5)
-			L.adjustToxLoss(-3.5)
-			L.adjustStaminaLoss(-3.5)
-			L.adjustCloneLoss(-1)
-			heal_points--
-	else if(issilicon(L))
-		if(L.health < L.maxHealth)
-			L.adjustBruteLoss(-3.5)
-			L.adjustFireLoss(-3.5)
-			heal_points--
-	else if(isanimal(L))
-		var/mob/living/simple_animal/SM = L
-		if(SM.health < SM.maxHealth)
-			SM.adjustHealth(-3.5)
-			force_particle = TRUE
-			if(prob(50)) // Animals are simpler
-				heal_points--
-
-	if(starting_points < heal_points || force_particle)
-		new /obj/effect/temp_visual/heal(get_turf(L), COLOR_HEALING_GREEN)
-
-/datum/status_effect/hippocraticOath/proc/heal_human(mob/living/carbon/human/H)
-	if(H.getBruteLoss() || H.getFireLoss() || H.getOxyLoss() || H.getToxLoss() || H.getBrainLoss() || H.getStaminaLoss() || H.getCloneLoss()) // Avoid counting burn wounds
-		H.adjustBruteLoss(-3.5, robotic = TRUE)
-		H.adjustFireLoss(-3.5, robotic = TRUE)
-		H.adjustOxyLoss(-3.5)
-		H.adjustToxLoss(-3.5)
-		H.adjustBrainLoss(-3.5)
-		H.adjustStaminaLoss(-3.5)
-		H.adjustCloneLoss(-1)
-		heal_points--
-		if(!heal_points)
-			return
-
-	for(var/obj/item/organ/external/E in H.bodyparts)
-		if(prob(10) && (E.status & (ORGAN_BROKEN | ORGAN_INT_BLEEDING | ORGAN_BURNT)) && !E.is_robotic())
-			E.mend_fracture()
-			E.fix_internal_bleeding()
-			E.fix_burn_wound()
-			heal_points--
-			if(!heal_points)
-				return
 
 /atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"

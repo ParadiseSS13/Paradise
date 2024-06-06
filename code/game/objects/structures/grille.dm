@@ -306,7 +306,7 @@
 	take_damage(rand(1, 3), BRUTE)
 	if(src)
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/grille/ratvar/broken

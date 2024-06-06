@@ -31,8 +31,6 @@
 
 // Simple animals
 
-#define issimple_animal(A) (istype(A, /mob/living/simple_animal))
-
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
