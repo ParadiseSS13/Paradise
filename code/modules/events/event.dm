@@ -92,6 +92,7 @@
   */
 /datum/event/proc/start()
 	SHOULD_NOT_SLEEP(TRUE)
+	return
 
 /**
   * Called when the tick is equal to the announceWhen variable.
@@ -102,6 +103,7 @@
   */
 /datum/event/proc/announce(false_alarm = FALSE)
 	SHOULD_NOT_SLEEP(TRUE)
+	return
 
 /**
   * Called on or after the tick counter is equal to startWhen.
@@ -113,6 +115,7 @@
   */
 /datum/event/proc/tick()
 	SHOULD_NOT_SLEEP(TRUE)
+	return
 
 /**
   * Called on or after the tick is equal or more than endWhen
@@ -126,6 +129,7 @@
   */
 /datum/event/proc/end()
 	SHOULD_NOT_SLEEP(TRUE)
+	return
 
 /**
   * Returns the latest point of event processing.
