@@ -29373,10 +29373,10 @@
 /turf/simulated/wall,
 /area/station/service/hydroponics)
 "bZw" = (
-/obj/item/flag/nt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/machinery/suit_storage_unit/blueshield/secure,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "bZx" = (

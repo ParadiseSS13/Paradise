@@ -24,6 +24,7 @@
 	req_one_access = list(ACCESS_HEADS, ACCESS_ARMORY) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
+	flags_2 = NO_MALF_EFFECT_2
 	var/mode = null
 	icon_screen = "cellconsole_on"
 	//Used for logging people entering cryosleep and important items they are carrying.
@@ -183,6 +184,7 @@
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
+	flags_2 = NO_MALF_EFFECT_2
 	dir = WEST
 	base_icon_state = "bodyscanner-open"
 	var/occupied_icon_state = "bodyscanner"
