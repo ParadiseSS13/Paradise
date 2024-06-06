@@ -244,7 +244,7 @@
 /obj/item/mod/control/on_mob_move(direction, mob/user)
 	if(!jetpack_active || !isturf(user.loc))
 		return
-	var/turf/T = get_step(src, reverse_direction(direction))
+	var/turf/T = get_step(src, REVERSE_DIR(direction))
 	if(!has_gravity(T))
 		new /obj/effect/particle_effect/ion_trails(T, direction)
 
