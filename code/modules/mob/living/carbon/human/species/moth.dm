@@ -40,7 +40,7 @@
 		2 = "Lighter",
 		3 = "Darker",
 		4 = "Purple"
-		)
+	)
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/nian,
