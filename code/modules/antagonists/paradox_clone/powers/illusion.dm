@@ -1,6 +1,6 @@
 /datum/spell/paradox_spell/self/illusion
 	name = "Illusion"
-	desc = "You strain and release a piece of yourself into this world - an illusion that attacks everybody. Lives twenty seconds, useful for finishing off recumbent targets, blocking the passage or stalling for time."
+	desc = "You strain and release a piece of yourself into this world - an illusion that attacks everybody. Exists for twenty seconds, useful for finishing off recumbent targets, blocking the passage or stalling for time."
 	action_icon_state = "paradox_illusion"
 	base_cooldown = 140 SECONDS
 

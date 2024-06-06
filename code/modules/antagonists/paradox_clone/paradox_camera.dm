@@ -67,13 +67,13 @@
 	if(length(the_original.mind.job_objectives))
 		para_mind.job_objectives += the_original.mind.job_objectives
 
-	var/obj/item/organ/internal/body_egg/egg = para_mind.current.get_int_organ(/obj/item/organ/internal/body_egg) //OH NO WHY I AM ALREADY INFESTED WITH XENOMORPH EGG!??!??
+	var/obj/item/organ/internal/body_egg/egg = para_mind.current.get_int_organ(/obj/item/organ/internal/body_egg) // OH NO WHY I AM ALREADY INFESTED WITH XENOMORPH EGG!??!??
 	if(egg)
 		egg.remove(para_mind.current)
 		qdel(egg)
 
 	para_mind.current.reagents.add_reagent("mutadone", 1)
-	for(var/datum/disease/D in para_mind.current.viruses) //OH NO WHY I AM ALREADY INFESTED WITH GBS
+	for(var/datum/disease/D in para_mind.current.viruses) // OH NO WHY I AM ALREADY INFESTED WITH GBS
 		D.cure()
 
 	para_mind.miming = the_original.mind.miming
@@ -96,7 +96,7 @@
 		para_mind.learned_recipes = the_original.mind.learned_recipes
 
 	for(var/obj/item/organ/internal/I in para.internal_organs)
-		I.heal_internal_damage(400) //I'm not using rejuvenate cus it can break some things
+		I.heal_internal_damage(400) // I'm not using rejuvenate cus it can break some things
 
 	if(para.wear_id)
 		var/obj/item/card/id/W = para.wear_id
@@ -122,7 +122,7 @@
 		make_owner_and_target(paradox_shield, para_clone_datum, the_original.mind)
 		paradox_shield.explanation_text += " Check your ability 'United Bonds'. It can help you with this objective."
 		para_clone_datum.add_antag_objective(paradox_shield)
-		objective_spell = /datum/spell/paradox_spell/self/united_bonds //yes, I know this power is kinda useless, but I love even numbers and sometimes it can help...
+		objective_spell = /datum/spell/paradox_spell/self/united_bonds // yes, I know this power is kinda useless, but I love even numbers and sometimes it can help...
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -253,7 +253,6 @@
 	if(paradox_clone.wear_pda)
 		var/obj/item/pda/P = paradox_clone.wear_pda
 		P.silent = TRUE
-		//P.ttone = "interference" I decided to avoid meta like secs asking everyone to see their pda beeps
 		P.start_program(P.find_program(/datum/data/pda/app/main_menu))
 		P.owner = paradox_clone
 
@@ -264,7 +263,7 @@
 	if(paradox_clone.wear_id)
 		var/obj/item/card/id/W = paradox_clone.wear_id
 		var/obj/item/card/id/HW = H.wear_id
-		W.photo = get_id_photo(paradox_clone) //for some reason after serializing ID doesn't have a photo in it.
+		W.photo = get_id_photo(paradox_clone) // for some reason after serializing ID doesn't have a photo in it.
 		W.mining_points = HW.mining_points
 		W.total_mining_points = HW.total_mining_points
 		W.assignment = HW.assignment
@@ -275,7 +274,7 @@
 
 	return paradox_clone
 
-/mob/camera/paradox/Move(NewLoc, Dir = 0) //can't leave station Z
+/mob/camera/paradox/Move(NewLoc, Dir = 0) // can't leave station Z
 	if(istype(get_area(NewLoc), /area/station))
 		loc = NewLoc
 	else

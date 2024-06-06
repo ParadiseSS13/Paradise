@@ -64,7 +64,7 @@
 	var/user_toxins = use.toxloss
 
 	use.setStaminaLoss(target_stamina)
-	H.setStaminaLoss(user_stamina, FALSE) //TRICKY PARADOX
+	H.setStaminaLoss(user_stamina, FALSE) // TRICKY PARADOX
 
 	use.SetWeakened(target_weakened)
 	H.SetWeakened(user_weakened)
@@ -93,7 +93,7 @@
 		if(!R.harmless)
 			H.reagents.add_reagent(R.id, R.volume)
 			use.reagents.remove_reagent(R.id, R.volume)
-	//gives harmless target's reagents to user and user's harmful reagents to target
+	// gives harmless target's reagents to user and user's harmful reagents to target
 	for(var/datum/reagent/R in H.reagents.reagent_list)
 		if(R.harmless)
 			H.reagents.remove_reagent(R.id, R.volume)

@@ -52,7 +52,7 @@
 			revert_cast()
 			return
 
-		if(!check(target, user)) //if face_atom didn't work.
+		if(!check(target, user)) // if face_atom didn't work.
 			to_chat(user, "<span class='warning'>You are out of [target.name] sight.</span>")
 			revert_cast()
 			return

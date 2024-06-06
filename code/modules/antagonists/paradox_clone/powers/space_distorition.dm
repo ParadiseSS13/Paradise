@@ -1,13 +1,13 @@
 /datum/spell/touch/paradox_spell/space_distortion
 	name = "Space Distortion"
-	desc = "Warps space around you to let you pass into an object."
+	desc = "Warps space around you to let you pass through an object."
 	action_icon_state = "space_distortion"
 	base_cooldown = 30 SECONDS
 	hand_path = /obj/item/melee/touch_attack/space_distortion
 
 /obj/item/melee/touch_attack/space_distortion
 	name = "reality tear"
-	desc = "Looks like the absence of space molded into a hand. Everything seems to bend around it. If you place this in front of something, you can stare right past it."
+	desc = "Looks like the absence of space, vaguely resembling a hand. Everything seems to bend around it. If you look through it, you can see behind objects ahead of you."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "fleshtostone"
 	item_state = "fleshtostone"

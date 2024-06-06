@@ -21,7 +21,7 @@
 	var/wait_time = 20 SECONDS
 	var/mob/living/carbon/human/chosen
 	var/list/possible_chosen = list()
-	var/station_z = level_name_to_num(MAIN_STATION) //idk why GDN removed this, who wants to be a paradox clone of miner or explorer??!?!?!
+	var/station_z = level_name_to_num(MAIN_STATION) // idk why GDN removed this, who wants to be a paradox clone of miner or explorer??!?!?!
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.mind && H.key && H.z == station_z && H.stat == CONSCIOUS && !istype(get_area(H), /area/station/public/sleep) && H.mind.assigned_role != null && !H.mind.offstation_role && !is_paradox_clone(H))
@@ -33,7 +33,7 @@
 		return
 
 	for(var/countd in 1 to spawncount)
-		chosen = pick(possible_chosen) //not pick n take to have at least very LOW chance to create an interesting situation like one clone need to protect someone, and second clone need to kill them lol
+		chosen = pick(possible_chosen) // not pick n take to have at least very LOW chance to create an interesting situation like one clone need to protect someone, and second clone need to kill them lol
 
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a paradox clone of [chosen.real_name], the [chosen.mind.assigned_role]?", ROLE_PARADOX_CLONE, TRUE, wait_time, source = chosen)
 

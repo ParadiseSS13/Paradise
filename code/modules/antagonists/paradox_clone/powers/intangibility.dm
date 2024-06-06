@@ -1,6 +1,6 @@
 /datum/spell/paradox_spell/self/intangibility
 	name = "Intangibility"
-	desc = "Just one moment of disappearance, and handcuffs, bolas and other obstacles go out of your way. Freedom."
+	desc = "Just one moment of disappearance, and handcuffs, bolas and other obstacles aren't an issue. Freedom."
 	action_icon_state = "intangibility"
 	base_cooldown = 180 SECONDS
 
@@ -33,7 +33,7 @@
 	for(var/obj/item/grab/G in user.grabbed_by)
 		var/mob/living/carbon/M = G.assailant
 		user.visible_message("<span class='warning'>[user] goes through [M]'s hands and slips out of their grab!</span>")
-		M.Stun(1 SECONDS) //Drops the grab
+		M.Stun(1 SECONDS) // Drops the grab
 		M.AdjustHallucinate(40 SECONDS)
 		used = TRUE
 

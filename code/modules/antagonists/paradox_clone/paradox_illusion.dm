@@ -24,10 +24,10 @@
 	gold_core_spawnable = NO_SPAWN
 	see_in_dark = 99
 	sight = SEE_MOBS
-	maxHealth = 200 //max health
-	health = 200 //health
-	faction = list(ROLE_PARADOX_CLONE) //don't attack paradox clones
-	life_span = 12 SECONDS //how long until they despawn
+	maxHealth = 200
+	health = 200
+	faction = list(ROLE_PARADOX_CLONE) // don't attack paradox clones
+	life_span = 12 SECONDS // how long until they despawn
 	var/mob/living/parent // okay I'm autodoccing it this is who is the parent of this illusion just who summoned it
 
 	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE

@@ -2,7 +2,7 @@ GLOBAL_LIST_INIT(possible_paradox_clone_ids, list("Alpha", "Bravo", "Charlie",
 	"Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet",
 	"Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec",
 	"Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
-	"Yankee", "Zulu")) //just a copy of GLOB.photenic_alphabet but for paradox clones ids which removes
+	"Yankee", "Zulu")) // just a copy of GLOB.photenic_alphabet but for paradox clones ids which removes
 
 GLOBAL_LIST_INIT(paradox_clones, list())
 
@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	job_rank = ROLE_PARADOX_CLONE
 	special_role = SPECIAL_ROLE_PARADOX_CLONE
 	antag_hud_name = "hudparadoxclone"
-	antag_hud_type = ANTAG_HUD_PARADOX_CLONE //they see each other hud
+	antag_hud_type = ANTAG_HUD_PARADOX_CLONE // they see each other hud
 	clown_gain_text = "<span class='notice'>You are from alternative universe, where clowns are actually quite dextrous. This allows you to wield weapons without harming yourself.</span>"
 	clown_removal_text = "<span class='danger'>Your connection with your native universe fades, and with it goes your dexterity.</span>"
 	wiki_page_name = "Paradox_Clone"
@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 		/datum/spell/touch/paradox_spell/suppression,
 		/datum/spell/paradox_spell/aoe/hud_malfunction
 	)
-	//"replace" is issued if there is a objective to kill n replace and "United Bonds" when need to protect original.
+	// "replace" is issued if there is a objective to kill n replace and "United Bonds" when need to protect original.
 	var/mob/living/carbon/human/original
 	var/list/current_powers = list()
 	give_objectives = FALSE
@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 /datum/antagonist/paradox_clone/on_gain()
 	var/mob/living/carbon/human/H = owner.current
 	GLOB.paradox_clones += owner
-	var/prefix = pick("Experiment", "Paradox", "Agent", "Subject") //There is some hint that some paradoxical clones are victims of an anomaly, either experiments by scientists, or specially sent agents.
+	var/prefix = pick("Experiment", "Paradox", "Agent", "Subject") // There is some hint that some paradoxical clones are victims of an anomaly, either experiments by scientists, or specially sent agents.
 	if(length(GLOB.possible_paradox_clone_ids))
 		var/id = pick(GLOB.possible_paradox_clone_ids)
 		real_id = id
@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
-	return TRUE //override cus shows up empty red box menu... not cool!
+	return TRUE // override cus shows up empty red box menu... not cool!
 
 /datum/antagonist/paradox_clone/Destroy()
 	GLOB.paradox_clones -= owner

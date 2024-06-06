@@ -1,4 +1,4 @@
-/datum/spell/paradox_spell/self/united_bonds //objective protect
+/datum/spell/paradox_spell/self/united_bonds // objective protect
 	name = "United Bonds"
 	desc = "Gets the direction and condition of your target. Works once. May alert your target."
 	action_icon_state = "united_bonds"
@@ -9,7 +9,7 @@
 		revert_cast()
 		return
 
-	var/datum/antagonist/paradox_clone/i_can_be_ur_angle = user.mind.has_antag_datum(/datum/antagonist/paradox_clone)
+	var/datum/antagonist/paradox_clone/i_can_be_ur_angle = user.mind.has_antag_datum(/datum/antagonist/paradox_clone) // about variable's name - ask GDN, i dunno why he changed var/px to var/this thing
 	if(!i_can_be_ur_angle)
 		return
 	var/mob/living/carbon/human/or_ur_devil = i_can_be_ur_angle.original

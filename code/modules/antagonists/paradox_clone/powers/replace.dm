@@ -1,11 +1,11 @@
-/datum/spell/paradox_spell/click_target/replace //objective "kill"
+/datum/spell/paradox_spell/click_target/replace // objective "kill"
 	name = "Replace"
 	desc = "You take hold of your original, and you start slowly sending it into the void, limb by limb, until there's nothing left of them..."
 	action_icon_state = "replace"
 	base_cooldown = 10 SECONDS
 	base_range = 1
-	selection_activated_message = "<span class='warning'>Click on the target to remove them from existence...</span>"
-	selection_deactivated_message = "<span class='notice'>You decided to spare them. Probably.</span>"
+	selection_activated_message = "<span class='warning'>Click on the target to begin removing them from existence. This will take some time. It will be best to find a quiet place, as to not be disturbed...</span>"
+	selection_deactivated_message = "<span class='notice'>You decided to spare them. For now...</span>"
 
 /datum/spell/paradox_spell/click_target/replace/cast(list/targets, mob/living/user = usr)
 	var/mob/living/target = targets[1]
@@ -46,7 +46,7 @@
 		if(do_after(user, rand(4, 8) SECONDS, target = target))
 			var/obj/item/organ/external/limb_to_delete = pick_n_take(available_limbs)
 			if(do_after(user, rand(6, 8) SECONDS, target = target) && istype(limb_to_delete, /obj/item/organ/external/head))
-				to_chat(user, "<span class='warning'>You need slightly more time to vanish [limb_to_delete]</span>")
+				to_chat(user, "<span class='warning'>You need to focus on [limb_to_delete] to remove it from existence!</span>")
 			limb_to_delete.droplimb()
 			do_sparks(rand(2, 4), FALSE, target)
 			to_chat(target, "<span class='biggerdanger'>Your [limb_to_delete] just vanished!</span>")
