@@ -302,6 +302,8 @@
 			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon
 		else
 			do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.
+	else if(isliving(target))
+		do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.
 	add_attack_logs(firer, target, "Shot with a [type] [teleport_target ? "(Destination: [teleport_target])" : ""]")
 	return ..()
 
