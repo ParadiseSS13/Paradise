@@ -889,87 +889,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		unEquip(I)
 	remove_status_effect(STATUS_EFFECT_REMOVE_MUZZLE)
 
+/mob/living/carbon/proc/cuff_resist(obj/item/restraints, break_cuffs)
+	var/effective_breakout_time = restraints.breakouttime
+	if(break_cuffs)
+		effective_breakout_time = 5 SECONDS
 
-/mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
-	breakouttime = I.breakouttime
+	if(has_status_effect(STATUS_EFFECT_REMOVE_CUFFS))
+		to_chat(src, "<span class='notice'>You are already trying to [break_cuffs ? "break" : "remove"] [restraints].</span>")
+		return
 
-	var/displaytime = breakouttime / 10
-	if(!cuff_break)
-		if(has_status_effect(STATUS_EFFECT_REMOVE_CUFFS))
-			to_chat(src, "<span class='notice'>You are already trying to remove [I].</span>")
-			return
-		apply_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
-		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
-		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [displaytime] seconds and you need to stand still.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
-			remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
-			if(I.loc != src || buckled)
-				return
-			if(istype(I, /obj/item/restraints/handcuffs/twimsts))
-				visible_message("<span class='danger'>[src] manages to eat through [I]!</span>", "<span class='notice'>You successfully eat through [I].</span>")
-			else
-				visible_message("<span class='danger'>[src] manages to remove [I]!</span>", "<span class='notice'>You successfully remove [I].</span>")
+	apply_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 
-			if(I == handcuffed)
-				if(istype(I, /obj/item/restraints/handcuffs/twimsts))
-					playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
-					if(I.reagents && length(I.reagents.reagent_list))
-						taste(I.reagents)
-						I.reagents.reaction(src, REAGENT_INGEST)
-						I.reagents.trans_to(src, I.reagents.total_volume)
-					qdel(handcuffed)
-				else
-					handcuffed.forceMove(drop_location())
-					handcuffed.dropped(src)
-					handcuffed = null
-				if(buckled && buckled.buckle_requires_restraints)
-					buckled.unbuckle_mob(src)
-				update_handcuffed()
-				return
-			if(I == legcuffed)
-				legcuffed.forceMove(drop_location())
-				legcuffed.dropped()
-				legcuffed = null
-				toggle_move_intent()
-				update_inv_legcuffed()
-				return
-			else
-				unEquip(I)
-				I.dropped(src)
-				return
-		else
-			remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
-			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
-
-	else
-		breakouttime = 50
-		if(has_status_effect(STATUS_EFFECT_BREAK_CUFFS))
-			to_chat(src, "<span class='notice'>You are already trying to break [I].</span>")
-			return
-		apply_status_effect(STATUS_EFFECT_BREAK_CUFFS)
-		visible_message("<span class='warning'>[src] is trying to break [I]!</span>")
-		to_chat(src, "<span class='notice'>You attempt to break [I]... (This will take around 5 seconds and you need to stand still.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
-			remove_status_effect(STATUS_EFFECT_BREAK_CUFFS)
-			if(!I.loc || buckled)
-				return
-			visible_message("<span class='danger'>[src] manages to break [I]!</span>")
-			to_chat(src, "<span class='notice'>You successfully break [I].</span>")
-			qdel(I)
-
-			if(I == handcuffed)
-				handcuffed = null
-				update_handcuffed()
-				return
-			else if(I == legcuffed)
-				legcuffed = null
-				toggle_move_intent()
-				update_inv_legcuffed()
-				return
-			return 1
-		else
-			remove_status_effect(STATUS_EFFECT_BREAK_CUFFS)
-			to_chat(src, "<span class='warning'>You fail to break [I]!</span>")
+	restraints.attempt_resist_restraints(src, break_cuffs, effective_breakout_time)
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
