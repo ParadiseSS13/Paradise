@@ -1,4 +1,4 @@
-//stuff for the telecomns sat (wizardcrash.dmm)
+// stuff for the telecomns sat (wizardcrash.dmm)
 
 /obj/effect/abstract/bot_trap
 	name = "evil bot trap to make explorers hate you"
@@ -35,13 +35,13 @@
 	anchored = TRUE
 
 /obj/machinery/shieldwallgen/telecomns
-	icon_state = "Shield_Gen +a" //should avoid missplacing with this
+	icon_state = "Shield_Gen +a" // should avoid misplacing with this
 	anchored = TRUE
 	activated = TRUE
 
 /obj/machinery/shieldwallgen/telecomns/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(activate)), 5 MINUTES)// Let the bloody powernet start up, no one will get in this ruin in the first 5 minutes of the map template *initializing*, much less roundstart
+	addtimer(CALLBACK(src, PROC_REF(activate)), 5 MINUTES) // Let the bloody powernet start up, no one will get in this ruin in the first 5 minutes of the map template *initializing*, much less roundstart
 
 /mob/living/silicon/decoy/telecomns
 	faction = list("malf_drone")
@@ -49,10 +49,10 @@
 	name = "D.V.O.R.A.K"
 	desc = "A Downloadable and Versatile, fully Overclocked and Reactive Ai Kernel."
 	icon_state = "ai-triumvirate-malf"
-	death_sound = 'sound/voice/borg_deathsound.ogg' //something fucked up here
+	death_sound = 'sound/voice/borg_deathsound.ogg' // something fucked up here
 	universal_speak = TRUE
 	universal_understand = TRUE
-	var/has_died = FALSE //fucking decoy silicons are wierd.
+	var/has_died = FALSE // fucking decoy silicons are weird.
 
 /mob/living/silicon/decoy/telecomns/death(gibbed)
 	if(!has_died)
@@ -64,7 +64,7 @@
 		if(prob(50))
 			if(prob(80))
 				new /obj/item/surveillance_upgrade(get_turf(src))
-			else //10% chance
+			else // 10% chance
 				new /obj/item/malf_upgrade(get_turf(src))
 	. = ..()
 
@@ -115,7 +115,7 @@
 	qdel(flick_holder)
 	qdel(src)
 
-/obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn //They are going to spawn it on station anyway. I can feel it.
+/obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn // They are going to spawn it on station anyway. I can feel it.
 	name = "\improper D.V.O.R.A.K's Doomsday Device"
 	icon_state = "death-bomb"
 	desc = "Nice to see AI's are improvising on the standard doomsday device. Good to have variety. Also probably a good idea to start running."
@@ -128,7 +128,7 @@
 	return //saves me headache later
 
 /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn/ex_act(severity)
-	return //No.
+	return // No.
 
 /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn/screwdriver_act(mob/user, obj/item/I)
 	to_chat(user, "<span class='danger'>[src] is welded shut! You can't get at the wires!</span>")
@@ -137,10 +137,10 @@
 	name = "a supermatter charged bomb core"
 	desc = "If you are looking at this, please don't put it in a bomb"
 
-/obj/item/bombcore/telecomns_doomsday_please_dont_spawn/ex_act(severity) //No
+/obj/item/bombcore/telecomns_doomsday_please_dont_spawn/ex_act(severity) // No
 	return
 
-/obj/item/bombcore/telecomns_doomsday_please_dont_spawn/burn() //Still no.
+/obj/item/bombcore/telecomns_doomsday_please_dont_spawn/burn() // Still no.
 	return
 
 /obj/item/bombcore/telecomns_doomsday_please_dont_spawn/detonate()
@@ -151,7 +151,7 @@
 	explosion(get_turf(src), 30, 40, 50, 60, 1, 1, 65, 0)
 	sleep(3 SECONDS)
 	var/obj/singularity/S = new/obj/singularity(get_turf(src))
-	S.consumedSupermatter = TRUE //woe large supermatter to eat the remains apon thee
+	S.consumedSupermatter = TRUE // woe large supermatter to eat the remains apon thee
 	S.energy = 4000
 	sleep(25 SECONDS)
 	S.visible_message("<span class='danger'>[S] collapses in on itself, vanishing as fast as it appeared!</span>")
@@ -182,7 +182,7 @@
 	speed = 0.5
 	projectiletype = /obj/item/projectile/beam/disabler/weak
 	projectilesound = 'sound/weapons/taser2.ogg'
-	gold_core_spawnable = NO_SPAWN //Could you imagine xenobio with this? lmao.
+	gold_core_spawnable = NO_SPAWN // Could you imagine xenobio with this? lmao.
 	a_intent = INTENT_HARM
 	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
 
@@ -203,7 +203,7 @@
 	..()
 
 /obj/structure/displaycase/dvoraks_treat
-	alert = TRUE //Ooopsies you opened this after doomsday and the doors bolted, oh nooooo
+	alert = TRUE // Ooopsies you opened this after doomsday and the doors bolted, oh nooooo
 	force_alarm = TRUE
 	req_access = list(ACCESS_CAPTAIN)
 	trophy_message = "BEHOLD MY ONE SHINY THING TO LOOK AT. LOOK AT ITS VALUE. REALISE IT IS WORTH SO MUCH MORE THAN YOU PUNY ORGANICS."
@@ -211,13 +211,13 @@
 /obj/structure/displaycase/dvoraks_treat/Initialize(mapload)
 	if(prob(50))
 		start_showpiece_type = /obj/item/remote_ai_upload
-	else if(prob(25)) //Can't use anomaly/random due to how this works
+	else if(prob(25)) // Can't use anomaly/random due to how this works
 		start_showpiece_type = pick(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/cryo, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
 	else
 		start_showpiece_type = pick(/obj/item/organ/internal/cyberimp/brain/sensory_enhancer, /obj/item/organ/internal/cyberimp/brain/hackerman_deck, /obj/item/storage/lockbox/experimental_weapon)
 	. = ..()
 
-/obj/item/remote_ai_upload //A 1 use AI upload. Potential D.V.O.R.A.K reward.
+/obj/item/remote_ai_upload // A 1 use AI upload. Potential D.V.O.R.A.K reward.
 	name = "remote AI upload"
 	desc = "A mobile AI upload. The bluespace relay will likely overload after one use. Make it count."
 	icon = 'icons/obj/device.dmi'

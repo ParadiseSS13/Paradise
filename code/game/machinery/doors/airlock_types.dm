@@ -385,7 +385,7 @@
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
 	safe = FALSE
-	normal_integrity = 100 //going to get boosted by security level anyway
+	normal_integrity = 100 // going to get boosted by security level anyway
 
 /obj/machinery/door/airlock/hatch/syndicate/command/trapped/process()
 	if(locate(/mob/living) in get_turf(src))
