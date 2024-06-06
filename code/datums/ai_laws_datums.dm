@@ -45,7 +45,7 @@
 
 /datum/ai_laws/proc/laws_to_state()
 	sort_laws()
-	var/list/statements = new()
+	var/list/statements = list()
 	for(var/datum/ai_law/law in sorted_laws)
 		if(get_state_law(law))
 			statements += law
