@@ -481,7 +481,7 @@
 /obj/item/clothing/accessory/legal_badge/attack_self(mob/user)
 	if(prob(1))
 		user.say("The testimony contradicts the evidence!")
-	user.visible_message("<span class='notice'>[user] shows [user.p_their()] [src.name].</span>", "<span class='notice'>You show your [src.name].</span>")
+	user.visible_message("<span class='notice'>[user] shows [user.p_their()] [name].</span>", "<span class='notice'>You show your [name].</span>")
 
 /obj/item/clothing/accessory/legal_badge/attack(mob/living/carbon/human/H, mob/living/user)
 	if(H != user)
