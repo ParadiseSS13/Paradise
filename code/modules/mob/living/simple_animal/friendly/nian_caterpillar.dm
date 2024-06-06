@@ -116,12 +116,12 @@
 
 /mob/living/simple_animal/nian_caterpillar/attack_hand(mob/living/carbon/human/M)
 	// Let people pick the little buggers up.
-    if(M.a_intent != INTENT_HELP)
-        return ..()
-    if(isrobot(M))
-        M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
-    else
-        get_scooped(M)
+	if(M.a_intent != INTENT_HELP)
+		return ..()
+	if(isrobot(M))
+		M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
+	else
+		get_scooped(M)
 
 /mob/living/simple_animal/nian_caterpillar/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
