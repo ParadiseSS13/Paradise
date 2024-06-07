@@ -964,11 +964,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 // I would love to scope this locally to the AI class, however its used by holopads as well
 // I wish we had nice OOP -aa07
-/proc/getHologramIcon(icon/A, safety = TRUE) // If safety is on, a new icon is not created.
+// hi squidward I'm stealing this for a space ruin -qwerty
+/proc/getHologramIcon(icon/A, safety = TRUE, colour = rgb(125,180,225), opacity = 0.5, colour_blocking = FALSE) // If safety is on, a new icon is not created.
 	var/icon/flat_icon = safety ? A : new(A) // Has to be a new icon to not constantly change the same icon.
 	var/icon/alpha_mask
-	flat_icon.ColorTone(rgb(125,180,225)) // Let's make it bluish.
-	flat_icon.ChangeOpacity(0.5) // Make it half transparent.
+	if(colour && !colour_blocking)
+		flat_icon.ColorTone(colour) // Let's make it bluish.
+	flat_icon.ChangeOpacity(opacity) // Make it half transparent.
 
 	if(A.Height() == 64)
 		alpha_mask = new('icons/mob/ancient_machine.dmi', "scanline2") //Scaline for tall icons.

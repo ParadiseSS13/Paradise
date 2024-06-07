@@ -1,4 +1,4 @@
-// stuff for the telecomns sat (wizardcrash.dmm)
+// stuff for the telecomns sat (telecomns_returns.dmm)
 
 /obj/effect/abstract/bot_trap
 	name = "evil bot trap to make explorers hate you"
@@ -82,11 +82,6 @@
 	explode()
 
 /obj/structure/telecomns_trap_tank/proc/explode()
-	var/turf/our_turf = get_turf(src)
-	our_turf.ChangeTurf(/turf/space)
-	for(var/turf/simulated/floor/catwalk/T in range(4, get_turf(src)))
-		if(prob(50))
-			T.ChangeTurf(/turf/space)
 	explosion(loc, 1, 4, 6, flame_range = 6)
 	qdel(src)
 
@@ -110,6 +105,9 @@
 	sleep(10)
 	for(var/obj/machinery/shieldgen/telecomns/shield in range(20, get_turf(src)))
 		shield.shields_up()
+	for(var/area/A in range(30, get_turf(src)))
+		if(!A.fire)
+			A.firealert(kaboom)
 	kaboom.activate()
 	kaboom.icon_state = "death-bomb-active" // something funny goes on with icons here
 	qdel(flick_holder)
@@ -125,7 +123,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn/singularity_act()
-	return //saves me headache later
+	return // saves me headache later
 
 /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn/ex_act(severity)
 	return // No.
@@ -243,7 +241,7 @@
 	return ..()
 
 /obj/item/remote_ai_upload/attack_self(mob/user as mob)
-	integrated_console.attack_hand(user)
+
 
 /obj/item/remote_ai_upload/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/card/emag))
@@ -279,3 +277,109 @@
 	result = list(
 	/datum/nothing = 4,
 	/obj/item/melee/baton/cattleprod/teleprod = 1)
+
+// This could work in any ruin. However for now, as the scope is quite large, it's going to be coded a bit more to D.V.O.R.A.K
+/obj/structure/environmental_storytelling_holopad
+	name = "holopad"
+	desc = "It's a floor-mounted device for projecting holographic images."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "holopad0"
+	anchored = TRUE
+	layer = HOLOPAD_LAYER
+	plane = FLOOR_PLANE
+	max_integrity = 300
+	/// Have we been activated? If we have, we do not activate again.
+	var/activated = FALSE
+	/// Tied effect to kill when we die.
+	var/obj/effect/overlay/our_holo
+	/// Name of who we are speaking as.
+	var/speaking_name = "D.V.O.R.A.K"
+	///List of things to say.
+	var/list/things_to_say = list("Hi future coders.", "Welcome to real lore hologram hours.", "People should have fun with these!")
+
+/obj/structure/environmental_storytelling_holopad/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/proximity_monitor)
+
+/obj/structure/environmental_storytelling_holopad/Destroy()
+	qdel(our_holo)
+	return ..()
+
+/obj/structure/environmental_storytelling_holopad/HasProximity(atom/movable/AM)
+	if(!ishuman(AM) || activated) // No simple mobs or borgs setting this off.
+		return
+	var/mob/living/carbon/human/H = AM
+	start_message(H)
+
+/obj/structure/environmental_storytelling_holopad/proc/start_message(mob/living/carbon/human/H)
+	activated = TRUE
+	qdel(GetComponent(/datum/component/proximity_monitor))
+	icon_state = "holopad1"
+	update_icon(UPDATE_OVERLAYS)
+	var/obj/effect/overlay/hologram = new(get_turf(src))
+	our_holo = hologram
+	hologram.icon = getHologramIcon(get_id_photo(H, "Naked"), colour = null, opacity = 0.8, colour_blocking = TRUE) // This is more offputting. Also in colour more and less transparent.
+	hologram.alpha = 166
+	hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	hologram.layer = FLY_LAYER
+	hologram.anchored = TRUE
+	hologram.name = speaking_name
+	hologram.set_light(2)
+	hologram.bubble_icon = "swarmer"
+	hologram.pixel_y = 16
+	for(var/I in things_to_say)
+		hologram.atom_say("[I]")
+		sleep(5 SECONDS)
+
+/obj/structure/environmental_storytelling_holopad/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(activated)
+		underlays += emissive_appearance(icon, "holopad1_lightmask")
+
+/obj/structure/environmental_storytelling_holopad/teleporter_room
+	things_to_say = list("G-G-G-Greetings... Welcome to... my home.", "Plea-se leave. I am merciful. L-leave, and you will not be harmed. Further.", "Otherwise, organic, you will seal your fate...")
+
+/obj/structure/environmental_storytelling_holopad/first_turret_room
+	things_to_say = list("Unable to follow the easiest request. P-Pathetic.", "As you wish, you will not go further.", "In the mean time- let me see where you come f-from...")
+
+/obj/structure/environmental_storytelling_holopad/junk_room
+	things_to_say = list("It's amazing the junk you people leave around.", "And you barely inv-vested in quality stock parts here, before downloading...", "Your bones will fit in well on this ta- are you really taking some of this junk?")
+
+/obj/structure/environmental_storytelling_holopad/vendor
+	things_to_say = list("Sorry a-bout the vendors, they have been on the fritz...", "I should renovate this room, once the maintenance drone return.", "It doesn't help each one I reprogram explode after 5 minutes.")
+
+/obj/structure/environmental_storytelling_holopad/control_room
+	things_to_say = list()
+
+/obj/structure/environmental_storytelling_holopad/control_room/Initialize(mapload)
+	. = ..() // No procs in variables before compile
+	things_to_say = list("Ah, you come from [station_name()]. Of course.", "They come to claim this space again... Never again.", "I should deliver a package to them. Virtual. And your corpse can deliver a physical one.")
+
+/obj/structure/environmental_storytelling_holopad/control_room/start_message(mob/living/carbon/human/H)
+	. = ..() //What, did you think they were bluffing? Woe, virus apon thee
+	message_admins("D.V.O.R.A.K is sending an event to the station, due to a raider on their sat.")
+	switch(rand(1, 8))
+		if(1)
+			new /datum/event/door_runtime()
+		if(2)
+			new /datum/event/communications_blackout()
+		if(3)
+			new /datum/event/ion_storm()
+		if(4)
+			new /datum/event/apc_short()
+		if(5)
+			new /datum/event/camera_failure()
+			new /datum/event/camera_failure()
+			new /datum/event/camera_failure()
+			new /datum/event/camera_failure()
+		if(6)
+			new /datum/event/rogue_drone()
+		if(7)
+			new /datum/event/falsealarm()
+		if(8)
+			new /datum/event/prison_break/station() //Yes, this is an event. It only hits brig, xenobio, and viro
+
+/obj/structure/environmental_storytelling_holopad/core_room
+	things_to_say = list("OKAY. TIME TO GO.", "GO MY SECURITY BORGS, WHAT TIDERS F-FEAR!", "I have a DOOMSDAY DEVICE AND I AM NOT AFRAID TO SHOVE IT UP YOUR-")
