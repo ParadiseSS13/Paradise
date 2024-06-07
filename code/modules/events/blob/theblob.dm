@@ -49,10 +49,10 @@ GLOBAL_LIST_EMPTY(blob_minions)
 
 /obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
-		return 1
+		return TRUE
 	if(istype(mover) && mover.checkpass(PASSBLOB))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/structure/blob/CanAtmosPass(turf/T)
 	return !atmosblock
@@ -87,12 +87,15 @@ GLOBAL_LIST_EMPTY(blob_minions)
 /obj/structure/blob/proc/RegenHealth()
 	// All blobs heal over time when pulsed, but it has a cool down
 	if(health_timestamp > world.time)
-		return 0
+		return FALSE
+
 	var/turf/T = get_turf(src)
 	chemical_attack(T)
+
 	if(obj_integrity < max_integrity)
 		obj_integrity = min(max_integrity, obj_integrity + 1)
 		check_integrity()
+
 	health_timestamp = world.time + 10 // 1 seconds
 
 /obj/structure/blob/proc/chemical_attack(turf/T)
@@ -116,26 +119,24 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		return//Inf loop check
 
 	//Looking for another blob to pulse
-	var/list/dirs = list(1,2,4,8)
+	var/list/dirs = list(NORTH, SOUTH, EAST, WEST)
 	dirs.Remove(origin_dir)//Dont pulse the guy who pulsed us
-	for(var/i = 1 to 4)
-		if(!length(dirs))	break
-		var/dirn = pick(dirs)
-		dirs.Remove(dirn)
-		var/turf/T = get_step(src, dirn)
-		var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
-		if(!B)
-			expand(T, 1, a_color, overmind)//No blob here so try and expand
-			return
-		B.adjustcolors(a_color)
-
-		B.Pulse((pulse+1),get_dir(src.loc,T), a_color)
+	if(!length(dirs))
 		return
-	return
 
+	var/dirn = pick(dirs)
+	dirs.Remove(dirn)
+	var/turf/T = get_step(src, dirn)
+	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
+	if(!B)
+		expand(T, 1, a_color, overmind)	//No blob here so try and expand
+		return
+
+	B.adjustcolors(a_color)
+	B.Pulse((pulse+1),get_dir(src.loc,T), a_color)
 
 /obj/structure/blob/proc/run_action()
-	return 0
+	return FALSE
 
 /obj/structure/blob/proc/ConsumeTile()
 	for(var/atom/A in loc)
@@ -146,28 +147,40 @@ GLOBAL_LIST_EMPTY(blob_minions)
 /obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color, _overmind = null, turf/double_target = null)
 	if(prob && !prob(obj_integrity))
 		return
-	if(isspaceturf(T) && prob(75)) 	return
+
+	if(isspaceturf(T) && prob(75))
+		return
+
 	if(!T)
 		var/list/dirs = list(1,2,4,8)
+
 		for(var/i = 1 to 4)
 			var/dirn = pick(dirs)
 			dirs.Remove(dirn)
 			T = get_step(src, dirn)
-			if(!(locate(/obj/structure/blob) in T))	break
-			else	T = null
 
-	if(!T)	return 0
+			if(!(locate(/obj/structure/blob) in T))
+				break
+			else
+				T = null
+
+	if(!T)
+		return FALSE
+
 	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(obj_integrity, 30))
 	B.color = a_color
 	B.density = TRUE
 	B.overmind = _overmind
+
 	if(T.Enter(B,src))//Attempt to move into the tile
 		B.density = initial(B.density)
 		B.loc = T
+
 		if(double_target)
 			if(!overmind.can_buy(5))
 				overmind.last_attack = world.time
 				return
+
 			B.expand(double_target, 0, overmind.blob_reagent_datum.color, overmind)
 			overmind.blob_core.chemical_attack(T)
 			overmind.last_attack = world.time
@@ -183,14 +196,14 @@ GLOBAL_LIST_EMPTY(blob_minions)
 			overmind.blob_reagent_datum.reaction_mob(M, REAGENT_TOUCH, 25, 1, mob_protection)
 			overmind.blob_reagent_datum.send_message(M)
 		A.blob_act(src)
-	return 1
+	return TRUE
 
-/obj/structure/blob/proc/double_expand(turf/T = null, prob = 1, a_color, _overmind = null)
+/obj/structure/blob/proc/double_expand(turf/T = null, prob = 1, a_color, mob/camera/blob/incoming_overmind = null)
 	for(var/turf/adjacent in circlerange(T, 1))
 		if(adjacent in circlerange(src, 1))
-			expand(adjacent, 0, overmind.blob_reagent_datum.color, overmind, T)
-			overmind.blob_core.chemical_attack(adjacent)
-			color = overmind.blob_reagent_datum.color
+			expand(adjacent, 0, incoming_overmind.blob_reagent_datum.color, incoming_overmind, T)
+			incoming_overmind.blob_core.chemical_attack(adjacent)
+			color = incoming_overmind.blob_reagent_datum.color
 			return
 
 /obj/structure/blob/Crossed(mob/living/L, oldloc)
@@ -228,12 +241,15 @@ GLOBAL_LIST_EMPTY(blob_minions)
 			damage_amount *= fire_resist
 		else
 			return 0
+
 	var/armor_protection = 0
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
+
 	damage_amount = round(damage_amount * (100 - armor_protection)*0.01, 0.1)
 	if(overmind && damage_flag)
 		damage_amount = overmind.blob_reagent_datum.damage_reaction(src, damage_amount, damage_type, damage_flag)
+
 	return damage_amount
 
 /obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -244,11 +260,13 @@ GLOBAL_LIST_EMPTY(blob_minions)
 /obj/structure/blob/proc/change_to(type)
 	if(!ispath(type))
 		error("[type] is an invalid type for the blob.")
+
 	var/obj/structure/blob/B = new type(src.loc)
 	if(!istype(type, /obj/structure/blob/core) || !istype(type, /obj/structure/blob/node))
 		B.color = color
 	else
 		B.adjustcolors(color)
+
 	qdel(src)
 
 /obj/structure/blob/proc/adjustcolors(a_color)
