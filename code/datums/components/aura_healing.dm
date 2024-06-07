@@ -45,8 +45,7 @@
 	/// Shows that aura heals internal bleedings
 	var/heal_internal_bleedings = FALSE
 
-	/// Showa that aura heals critical burns
-
+	/// Shows that aura heals critical burns
 	var/heal_critical_burns = FALSE
 
 	/// Amount of damage to heal on simple mobs over a second
