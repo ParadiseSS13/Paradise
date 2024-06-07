@@ -30,7 +30,7 @@
 			var/mob/living/silicon/robot/R = M
 			R.disable_component("actuator", 7 SECONDS)
 			SEND_SOUND(M, sound('sound/weapons/flash.ogg'))
-			R.flash_eyes(2, affect_silicon = TRUE) //70 Stamina damage
+			R.flash_eyes(2, affect_silicon = TRUE) //80 Stamina damage
 
 	for(var/obj/machinery/light/L in range(4, user))
 		L.on = TRUE
