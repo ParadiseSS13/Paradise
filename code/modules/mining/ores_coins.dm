@@ -147,7 +147,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	singular_name = "iron ore chunk"
 	points = 1
 	refined_type = /obj/item/stack/sheet/metal
-	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
