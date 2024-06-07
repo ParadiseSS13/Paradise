@@ -353,7 +353,6 @@
 	return FALSE
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
-	walk_to(src, 0)
 	visible_message("<span class='boldannounceic'>[src] blows apart!</span>")
 	var/turf/explode_turf = get_turf(src)
 	new /obj/item/bikehorn(explode_turf)

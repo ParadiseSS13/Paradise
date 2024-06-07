@@ -514,7 +514,6 @@
 	return FALSE
 
 /mob/living/simple_animal/bot/medbot/explode()
-	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/explode_turf = get_turf(src)
 

@@ -419,11 +419,10 @@
 		. += "floorbot_[amount > 0 ? "metal" : ""]"
 
 /mob/living/simple_animal/bot/floorbot/explode()
-	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/explode_turf = get_turf(src)
-	var/obj/item/storage/toolbox/mechanical/N = new /obj/item/storage/toolbox/mechanical(explode_turf)
-	N.contents = list()
+	var/obj/item/storage/toolbox/mechanical/empty_toolbox = new /obj/item/storage/toolbox/mechanical(explode_turf)
+	empty_toolbox.contents = list()
 	new /obj/item/assembly/prox_sensor(explode_turf)
 	if(prob(50))
 		drop_part(robot_arm, explode_turf)

@@ -197,7 +197,6 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/cleanbot/explode()
-	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/explode_turf = get_turf(src)
 	new /obj/item/reagent_containers/glass/bucket(explode_turf)

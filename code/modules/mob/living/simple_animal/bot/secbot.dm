@@ -432,7 +432,6 @@
 
 
 /mob/living/simple_animal/bot/secbot/explode()
-	walk_to(src,0)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/explode_turf = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(explode_turf)

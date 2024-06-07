@@ -372,7 +372,6 @@
 	return 0
 
 /mob/living/simple_animal/bot/ed209/explode()
-	walk_to(src,0)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/explode_turf = get_turf(src)
 
