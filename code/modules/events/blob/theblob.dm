@@ -124,16 +124,15 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	if(!length(dirs))
 		return
 
-	var/dirn = pick(dirs)
-	dirs.Remove(dirn)
+	var/dirn = pick_n_take(dirs)
 	var/turf/T = get_step(src, dirn)
-	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
+	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	if(!B)
 		expand(T, 1, a_color, overmind)	//No blob here so try and expand
 		return
 
 	B.adjustcolors(a_color)
-	B.Pulse((pulse+1),get_dir(src.loc,T), a_color)
+	B.Pulse(pulse+1, get_dir(loc, T), a_color)
 
 /obj/structure/blob/proc/run_action()
 	return FALSE
