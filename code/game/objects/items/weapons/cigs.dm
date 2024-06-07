@@ -192,7 +192,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(istype(I, /obj/item/pen/edagger) || istype(I, /obj/item/melee/energy))
 		// The cleaving saw is an energy weapon and I hate it.
-		if(istypeI, /obj/item/melee/energy/cleaving_saw)
+		if(istype(I, /obj/item/melee/energy/cleaving_saw))
 			return FALSE
 		var/obj/item/pen/edagger/dagger = I
 		var/obj/item/melee/energy/sword = I
