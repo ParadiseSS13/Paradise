@@ -452,17 +452,17 @@
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/secbot/disassemble()
 	walk_to(src,0)
-	var/turf/Tsec = get_turf(src)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	var/turf/disassemble_turf = get_turf(src)
+	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(disassemble_turf)
 	Sa.build_step = 1
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
-	new /obj/item/assembly/prox_sensor(Tsec)
-	new /obj/item/melee/baton(Tsec)
-	drop_part(robot_arm, Tsec)
+	new /obj/item/assembly/prox_sensor(disassemble_turf)
+	new /obj/item/melee/baton(disassemble_turf)
+	drop_part(robot_arm, disassemble_turf)
 	if(istype(src, /mob/living/simple_animal/bot/secbot/beepsky))
-		new /obj/item/stock_parts/cell/potato(Tsec)
-		var/obj/item/reagent_containers/drinks/drinkingglass/S = new(Tsec)
+		new /obj/item/stock_parts/cell/potato(disassemble_turf)
+		var/obj/item/reagent_containers/drinks/drinkingglass/S = new(disassemble_turf)
 		S.reagents.add_reagent("whiskey", 15)
 		S.on_reagent_change()
 	qdel(src)

@@ -210,19 +210,19 @@
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/secbot/griefsky/disassemble()
 	walk_to(src,0)
-	var/turf/Tsec = get_turf(src)
-	new /obj/item/assembly/prox_sensor(Tsec)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	var/turf/disassemble_turf = get_turf(src)
+	new /obj/item/assembly/prox_sensor(disassemble_turf)
+	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(disassemble_turf)
 	Sa.build_step = 1
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
-	drop_part(robot_arm, Tsec)
+	drop_part(robot_arm, disassemble_turf)
 	if(weapon == /obj/item/melee/energy/sword/saber/)
 		log_and_message_admins("[key_name(usr)] has dismantled [src] containing energy sword(s)]!")
-	new weapon(Tsec)
-	new weapon(Tsec)
-	new weapon(Tsec)
-	new weapon(Tsec)
+	new weapon(disassemble_turf)
+	new weapon(disassemble_turf)
+	new weapon(disassemble_turf)
+	new weapon(disassemble_turf)
 	qdel(src)
 //this section is blocking attack
 

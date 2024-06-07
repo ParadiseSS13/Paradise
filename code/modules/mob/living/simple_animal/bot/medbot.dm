@@ -560,40 +560,40 @@
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/medbot/disassemble()
 	on = FALSE
-	var/turf/Tsec = get_turf(src)
+	var/turf/disassemble_turf = get_turf(src)
 
 	switch(skin)
 		if("ointment")
-			new /obj/item/storage/firstaid/fire/empty(Tsec)
+			new /obj/item/storage/firstaid/fire/empty(disassemble_turf)
 		if("tox")
-			new /obj/item/storage/firstaid/toxin/empty(Tsec)
+			new /obj/item/storage/firstaid/toxin/empty(disassemble_turf)
 		if("o2")
-			new /obj/item/storage/firstaid/o2/empty(Tsec)
+			new /obj/item/storage/firstaid/o2/empty(disassemble_turf)
 		if("brute")
-			new /obj/item/storage/firstaid/brute/empty(Tsec)
+			new /obj/item/storage/firstaid/brute/empty(disassemble_turf)
 		if("adv")
-			new /obj/item/storage/firstaid/adv/empty(Tsec)
+			new /obj/item/storage/firstaid/adv/empty(disassemble_turf)
 		if("bezerk")
-			var/obj/item/storage/firstaid/tactical/empty/T = new(Tsec)
+			var/obj/item/storage/firstaid/tactical/empty/T = new(disassemble_turf)
 			T.syndicate_aligned = syndicate_aligned //This is a special case since Syndicate medibots and the mysterious medibot look the same; we also dont' want crew building Syndicate medibots if the mysterious medibot blows up.
 		if("fish")
-			new /obj/item/storage/firstaid/aquatic_kit(Tsec)
+			new /obj/item/storage/firstaid/aquatic_kit(disassemble_turf)
 		if("machine")
-			new /obj/item/storage/firstaid/machine/empty(Tsec)
+			new /obj/item/storage/firstaid/machine/empty(disassemble_turf)
 		else
-			new /obj/item/storage/firstaid(Tsec)
+			new /obj/item/storage/firstaid(disassemble_turf)
 
-	new /obj/item/assembly/prox_sensor(Tsec)
+	new /obj/item/assembly/prox_sensor(disassemble_turf)
 
-	new /obj/item/healthanalyzer(Tsec)
+	new /obj/item/healthanalyzer(disassemble_turf)
 
-	drop_part(robot_arm, Tsec)
+	drop_part(robot_arm, disassemble_turf)
 
 	if(reagent_glass)
-		reagent_glass.forceMove(Tsec)
+		reagent_glass.forceMove(disassemble_turf)
 		reagent_glass = null
 
-	if(emagged) //Check what this is and if we leave it
+	if(emagged) //If emagged the medibots will always insult the player upon being disassembled
 		playsound(loc, 'sound/voice/minsult.ogg', 50, FALSE)
 
 	qdel(src)

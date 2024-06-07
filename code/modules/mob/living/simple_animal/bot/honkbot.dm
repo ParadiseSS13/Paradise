@@ -369,12 +369,12 @@
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/honkbot/disassemble()
 	walk_to(src, 0)
-	var/turf/Tsec = get_turf(src)
-	new /obj/item/bikehorn(Tsec)
-	new /obj/item/assembly/prox_sensor(Tsec)
-	drop_part(robot_arm, Tsec)
-	new /obj/item/storage/box/clown(Tsec)
-	new /obj/item/instrument/trombone(Tsec)
+	var/turf/disassemble_turf = get_turf(src)
+	new /obj/item/bikehorn(disassemble_turf)
+	new /obj/item/assembly/prox_sensor(disassemble_turf)
+	drop_part(robot_arm, disassemble_turf)
+	new /obj/item/storage/box/clown(disassemble_turf)
+	new /obj/item/instrument/trombone(disassemble_turf)
 	qdel(src)
 
 /mob/living/simple_animal/bot/honkbot/attack_alien(mob/living/carbon/alien/user as mob)

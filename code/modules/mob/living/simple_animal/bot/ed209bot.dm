@@ -421,36 +421,36 @@
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/ed209/disassemble()
 	walk_to(src,0)
-	var/turf/Tsec = get_turf(src)
+	var/turf/disassemble_turf = get_turf(src)
 
-	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
+	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(disassemble_turf)
 	Sa.build_step = 1
 	Sa.overlays += image('icons/obj/aibots.dmi', "hs_hole")
 	Sa.created_name = name
-	new /obj/item/assembly/prox_sensor(Tsec)
+	new /obj/item/assembly/prox_sensor(disassemble_turf)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/disabler/G = new /obj/item/gun/energy/disabler(Tsec)
+		var/obj/item/gun/energy/disabler/G = new /obj/item/gun/energy/disabler(disassemble_turf)
 		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
-		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(Tsec)
+		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(disassemble_turf)
 		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "r")
-		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(Tsec)
+		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(disassemble_turf)
 		G.cell.charge = 0
 		G.update_icon()
 
-	new /obj/item/robot_parts/l_leg(Tsec)
-	new /obj/item/robot_parts/r_leg(Tsec)
-	new /obj/item/clothing/head/helmet(Tsec)
+	new /obj/item/robot_parts/l_leg(disassemble_turf)
+	new /obj/item/robot_parts/r_leg(disassemble_turf)
+	new /obj/item/clothing/head/helmet(disassemble_turf)
 	if(!lasercolor)
-		new /obj/item/clothing/suit/armor/vest(Tsec)
+		new /obj/item/clothing/suit/armor/vest(disassemble_turf)
 	else if(lasercolor == "b")
-		new /obj/item/clothing/suit/bluetag(Tsec)
+		new /obj/item/clothing/suit/bluetag(disassemble_turf)
 	else if(lasercolor == "r")
-		new /obj/item/clothing/suit/redtag(Tsec)
+		new /obj/item/clothing/suit/redtag(disassemble_turf)
 	qdel(src)
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
