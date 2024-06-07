@@ -160,6 +160,10 @@
 	name = "ЦК - Тюрьма"
 	icon_state = "centcom"
 
+/area/shuttle/assault_pod/nanotrasen
+	name = "Nanotrasen Drop Pod"
+	icon_state = "shuttle"
+
 /* Syndicate Base - Mothership */
 /area/syndicate_mothership
 	name = "Syndicate Forward Base"

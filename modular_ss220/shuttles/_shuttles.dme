@@ -1,3 +1,4 @@
 #include "_shuttles.dm"
 
 #include "code/lance_shuttle.dm"
+#include "code/nanotrasen_drop_pod.dm"
