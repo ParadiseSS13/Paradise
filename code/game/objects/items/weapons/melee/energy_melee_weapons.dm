@@ -15,16 +15,26 @@
 	desc = "If you can see this and didn't spawn it in as an admin, make an issue report on GitHub."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	var/active = FALSE
-	var/force_on = 30 //force when active
+	/// Damage done when active. Does not stack with force_off.
+	var/force_on = 30
+	/// Damage done when thrown while active. Does not stack with throwforce_off.
 	var/throwforce_on = 20
-	var/force_off //Used to properly reset the force
+	/// Used to properly reset the force.
+	var/force_off
+	/// Used to properly reset the force.
 	var/throwforce_off
-	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
-	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
-	stealthy_audio = TRUE //Most of these are antag weps so we dont want them to be /too/ overt.
+	/// Bonus damage dealt to any mob belonging to specified factions.
+	var/faction_bonus_force = 0
+	/// Any mob with a faction that exists in this list will take bonus damage/effects.
+	var/list/nemesis_factions
+	// Most of these are antag weps so we dont want them to be /too/ overt...
+	stealthy_audio = TRUE
 	w_class = WEIGHT_CLASS_SMALL
+	/// Size when active, used to stop you from pocketing it when active. That would be silly.
 	var/w_class_on = WEIGHT_CLASS_BULKY
+	/// Alternative appearance when active.
 	var/icon_state_on
+	/// What flavour of shanking you perform when the blade is active.
 	var/list/attack_verb_on = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
@@ -42,13 +52,11 @@
 	throwforce_off = initial(throwforce)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/user)
-	// Because for some reason the cleaving saw is an energy blade.
-	if(!istype(src, /obj/item/melee/energy/cleaving_saw))
 		// For lighting cigarettes.
-		var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-		if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
-			cig.attackby(src, user, target)
-			return FALSE
+	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
+	if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
+		cig.attackby(src, user, target)
+		return FALSE
 
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
@@ -61,6 +69,7 @@
 	. = ..()
 	if(nemesis_faction)
 		force -= faction_bonus_force
+
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
 						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))

@@ -113,8 +113,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return FALSE
 
 	if(istype(I, /obj/item/lighter/zippo))
-		var/obj/item/lighter/zippo/Zip = I
-		if(Zip.lit)
+		var/obj/item/lighter/zippo/zip = I
+		if(zip.lit)
 			if(target == user)
 				light("<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [name] with [I]. Damn [user.p_theyre()] cool.</span>")
 			else
@@ -128,7 +128,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			if(target == user)
 				light("<span class='notice'>[user] lights [user.p_their()] [name] with [I].</span>")
 			else
-				light("<span class='notice'>[user] holds [I] out for [target], and lights \the [name].</span>")
+				light("<span class='notice'>[user] holds [I] out for [target], and lights [src].</span>")
 			return TRUE
 		return failed_to_light(I, user)
 
@@ -187,10 +187,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(target == user)
 			light("<span class='notice'>[user] presses [I] against [user.p_their()] [name] until it lights.</span>")
 		else
-			light("<span class='notice'>[user] presses [I] against \the [name] in the mouth of [target] until it lights.</span>")
+			light("<span class='notice'>[user] presses [I] against [src] in the mouth of [target] until it lights.</span>")
 		return TRUE
 
 	if(istype(I, /obj/item/pen/edagger) || istype(I, /obj/item/melee/energy))
+		// The cleaving saw is an energy weapon and I hate it.
+		if(istypeI, /obj/item/melee/energy/cleaving_saw)
+			return FALSE
 		var/obj/item/pen/edagger/dagger = I
 		var/obj/item/melee/energy/sword = I
 		if(dagger.active || sword.active)
