@@ -45,6 +45,11 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
+///Mode Defines
+	#define SECSWORD_OFF 0
+	#define SECSWORD_STUN 1
+	#define SECSWORD_BURN 2
+
 //Security Sword
 /obj/item/melee/secsword
 	name = "securiblade"
@@ -63,14 +68,11 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
 	needs_permit = TRUE
-
-	///Mode Defines
-	#define SECSWORD_OFF 0
-	#define SECSWORD_STUN 1
-	#define SECSWORD_BURN 2
-
+	///The icon the sword has when turned off
 	var/base_icon = "secsword"
+	///How much stamina damage the sword does in stamina mode
 	var/stam_damage = 35 // 3 hits to stamcrit
+	///How much burn damage the sword does in burn mode
 	var/burn_damage = 10
 	/// How much power does it cost to stun someone
 	var/stam_hitcost = 1000
@@ -78,7 +80,9 @@
 	var/burn_hitcost = 1500
 	/// the initial cooldown tracks the time between stamina damage. tracks the world.time when the baton is usable again.
 	var/cooldown = 3.5 SECONDS
+	///The sword's power cell - starts high
 	var/obj/item/stock_parts/cell/high/cell = null
+	///The sword's current mode. Defaults to off.
 	var/state = SECSWORD_OFF
 
 /obj/item/melee/secsword/examine(mob/user)
@@ -184,7 +188,7 @@
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		return
 	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user)) // Just like the baton, no sword + judo.
-		to_chat(user, "<span class='warning'>The sword feels off balance in your hand due to your judo training!</span>")
+		to_chat(user, "<span class='warning'>The sword feels off-balance in your hand due to your specific martial training!</span>")
 		return
 
 	if(state == SECSWORD_OFF) // Off or no battery
@@ -292,7 +296,6 @@
 	flags = CONDUCT
 	force = 5
 	throwforce = 5
-	var/force_wield = 40
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	origin_tech = "combat=6;syndicate=5"
@@ -300,7 +303,8 @@
 	hitsound = 'sound/weapons/swordhitheavy.ogg'
 	materials = list(MAT_METAL = 2000)
 	needs_permit = TRUE
-
+	///How much damage the sword does when wielded
+	var/force_wield = 40
 
 /obj/item/melee/breach_cleaver/Initialize(mapload)
 	. = ..()
