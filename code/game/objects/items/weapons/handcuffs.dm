@@ -222,7 +222,7 @@
 //////////////////////////////
 // MARK: CRAFTING
 //////////////////////////////
-/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user as mob, params)
+/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
 	..()
 	// Don't allow borgs to send their their ziptie module to the shadow realm.
 	if(istype(src, /obj/item/restraints/handcuffs/cable/zipties/cyborg))
@@ -234,7 +234,7 @@
 			to_chat(user, "<span class='warning'>[R.amount > 1 ? "These rods" : "This rod"] somehow can't be used for crafting!</span>")
 			return
 
-		var/obj/item/wirerod/W = new /obj/item/wirerod
+		var/obj/item/wirerod/W = new /obj/item/wirerod(get_turf(src))
 		if(user.unEquip(src) || !remove_item_from_storage(user))
 			user.put_in_hands(W)
 		to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
@@ -248,8 +248,8 @@
 			return
 
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(M.use(6) && do_after(user, 35 * M.toolspeed, target = src))
-			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
+		if(M.use(6) && do_after(user, 3.5 SECONDS * M.toolspeed, target = src))
+			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(get_turf(src))
 			user.put_in_hands(S)
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
 			if(!remove_item_from_storage(user))
