@@ -52,9 +52,10 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/proc/end_processing()
-	REMOVE_TRAIT(injection_target, TRAIT_HAS_IV_BAG, UID())
-	UnregisterSignal(injection_target, COMSIG_PARENT_EXAMINE)
-	injection_target = null
+	if(injection_target)
+		REMOVE_TRAIT(injection_target, TRAIT_HAS_IV_BAG, UID())
+		UnregisterSignal(injection_target, COMSIG_PARENT_EXAMINE)
+		injection_target = null
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/process()
