@@ -570,6 +570,7 @@ emp_act
 							update_inv_w_uniform()
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
+	return TRUE
 
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)

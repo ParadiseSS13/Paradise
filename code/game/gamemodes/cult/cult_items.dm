@@ -49,7 +49,14 @@
 	if(IS_CULTIST(target) || . == FALSE)
 		return
 
-	var/datum/status_effect/cult_stun_mark/S = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
+/obj/item/melee/cultblade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag)
+		return
+	if(!isliving(target))
+		return
+	var/mob/living/living_target = target
+	var/datum/status_effect/cult_stun_mark/S = living_target.has_status_effect(STATUS_EFFECT_CULT_STUN)
 	if(S)
 		S.trigger()
 
@@ -627,12 +634,14 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/cult_spear/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(. == FALSE)
+	if(!proximity_flag)
 		return
-
-	var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
+	if(!isliving(target))
+		return
+	var/mob/living/living_target = target
+	var/datum/status_effect/cult_stun_mark/S = living_target.has_status_effect(STATUS_EFFECT_CULT_STUN)
 	if(S && HAS_TRAIT(src, TRAIT_WIELDED))
 		S.trigger()
 
