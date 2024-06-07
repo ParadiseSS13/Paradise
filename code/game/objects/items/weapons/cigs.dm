@@ -302,7 +302,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	type_butt = /obj/item/cigbutt/roach
 	throw_speed = 0.5
 	item_state = "spliffoff"
-	list_reagents = list("thc" = 20, "cbd" = 40)
+	list_reagents = list("thc" = 40, "cbd" = 20)
 
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
 	. = ..()
