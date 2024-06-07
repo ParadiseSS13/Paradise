@@ -7,9 +7,37 @@
 	. = ..()
 	if(isrobot(AM) || ishuman(AM))
 		var/turf/T = get_turf(src)
-		for(var/mob/living/simple_animal/bot/B in range(30, get_turf(src)))
+		for(var/mob/living/simple_animal/bot/B in range(30, T))
 			B.call_bot(null, T, FALSE)
 		qdel(src)
+
+// This effect surrounds the table with loot in the telecomns core room. If you take from this table, dvorak will be pissed if you try to leave.
+/obj/effect/abstract/loot_trap
+	name = "table surrounding loot trap"
+
+/obj/effect/abstract/loot_trap/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(isrobot(AM) || ishuman(AM))
+		var/turf/T = get_turf(src)
+		for(var/obj/structure/telecomns_doomsday_device/DD in range(7, T))
+			DD.thief = TRUE
+			break
+		for(var/obj/effect/abstract/loot_trap/LT in range(3, T))
+			qdel(LT)
+		qdel(src)
+
+// If you stole loot, without killing dvorak, he starts doomsday
+/obj/effect/abstract/cheese_trap
+	name = "cheese preventer"
+
+/obj/effect/abstract/cheese_trap/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(isrobot(AM) || ishuman(AM))
+		var/turf/T = get_turf(src)
+		for(var/obj/structure/telecomns_doomsday_device/DD in range(15, T))
+			if(DD.thief)
+				DD.start_the_party(TRUE)
+				return
 
 /obj/machinery/autolathe/trapped
 	name = "recharger"
@@ -92,8 +120,10 @@
 	icon_state = "turretCover"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	anchored = TRUE
+	//Has someone stolen loot from the ruins core room? If they try to leave without killing dvorak, they are punished.
+	var/thief = FALSE
 
-/obj/structure/telecomns_doomsday_device/proc/start_the_party()
+/obj/structure/telecomns_doomsday_device/proc/start_the_party(ruin_cheese_attempted = FALSE)
 	invisibility = 90
 	var/obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn/kaboom = new /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn(get_turf(src))
 	kaboom.icon_state = "death-bomb-active"
@@ -105,9 +135,16 @@
 	sleep(10)
 	for(var/obj/machinery/shieldgen/telecomns/shield in range(20, get_turf(src)))
 		shield.shields_up()
+	if(ruin_cheese_attempted)
+		for(var/obj/machinery/door/airlock/A in range(30, get_turf(src)))
+			A.unlock(TRUE) //Fuck your bolted open doors, you cheesed it.
 	for(var/area/A in range(30, get_turf(src)))
-		if(!A.fire)
+		if(ruin_cheese_attempted)
+			A.burglaralert(src)
+		else if(!A.fire)
 			A.firealert(kaboom)
+	for(var/obj/effect/abstract/cheese_trap/CT in range(15, get_turf(src)))
+		qdel(CT)
 	kaboom.activate()
 	kaboom.icon_state = "death-bomb-active" // something funny goes on with icons here
 	qdel(flick_holder)
@@ -215,6 +252,12 @@
 		start_showpiece_type = pick(/obj/item/organ/internal/cyberimp/brain/sensory_enhancer, /obj/item/organ/internal/cyberimp/brain/hackerman_deck, /obj/item/storage/lockbox/experimental_weapon)
 	. = ..()
 
+/obj/structure/displaycase/dvoraks_treat/trigger_alarm()
+	for(var/obj/structure/telecomns_doomsday_device/DD in range(7, get_turf(src)))
+		DD.thief = TRUE
+		break
+	return ..()
+
 /obj/item/remote_ai_upload // A 1 use AI upload. Potential D.V.O.R.A.K reward.
 	name = "remote AI upload"
 	desc = "A mobile AI upload. The bluespace relay will likely overload after one use. Make it count."
@@ -241,7 +284,7 @@
 	return ..()
 
 /obj/item/remote_ai_upload/attack_self(mob/user as mob)
-
+	integrated_console.attack_hand(user)
 
 /obj/item/remote_ai_upload/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/card/emag))
@@ -348,7 +391,7 @@
 	things_to_say = list("It's amazing the junk you people leave around.", "And you barely inv-vested in quality stock parts here, before downloading...", "Your bones will fit in well on this ta- are you really taking some of this junk?")
 
 /obj/structure/environmental_storytelling_holopad/vendor
-	things_to_say = list("Sorry a-bout the vendors, they have been on the fritz...", "I should renovate this room, once the maintenance drone return.", "It doesn't help each one I reprogram explode after 5 minutes.")
+	things_to_say = list("Sorry a-bout the vendors, they have been on the fritz...", "I should renovate this room, once the maintenance drones return.", "It doesn't help each one I reprogram explode after 5 minutes.")
 
 /obj/structure/environmental_storytelling_holopad/control_room
 	things_to_say = list()

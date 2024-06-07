@@ -27,7 +27,8 @@
 /obj/machinery/porta_turret/ai_turret{
 	check_synth = 1;
 	lethal = 1;
-	faction = "malf_drone"
+	faction = "malf_drone";
+	ailock = 1
 	},
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel,
@@ -69,6 +70,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
+"bJ" = (
+/obj/effect/abstract/loot_trap,
+/turf/simulated/floor/bluegrid{
+	icon_state = "dark";
+	name = "Mainframe Floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomns/chamber)
 "bO" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 1
@@ -495,18 +506,6 @@
 "iE" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
-"iO" = (
-/obj/machinery/camera/xray{
-	c_tag = "Telecomms Airlock";
-	network = list("Telecomms")
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/catwalk,
-/area/ruin/space/telecomns/powercontrol)
 "iR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -573,9 +572,11 @@
 	check_synth = 1;
 	lethal = 1;
 	scan_range = 9;
-	faction = "malf_drone"
+	faction = "malf_drone";
+	ailock = 1
 	},
 /obj/effect/turf_decal/box/white,
+/obj/effect/abstract/cheese_trap,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/telecomns)
 "kT" = (
@@ -712,7 +713,8 @@
 	lethal = 1;
 	scan_range = 12;
 	faction = "malf_drone";
-	initial_eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser
+	initial_eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser;
+	ailock = 1
 	},
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel,
@@ -737,17 +739,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"mL" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Telecomms West Wing North";
-	dir = 2;
-	network = list("Telecomms")
-	},
-/turf/space,
-/area/space)
 "mN" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -838,11 +829,6 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns)
 "nQ" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms Server Room South";
-	dir = 1;
-	network = list("Telecomms")
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -1036,6 +1022,17 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
+"qn" = (
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 9;
+	faction = "malf_drone";
+	ailock = 1
+	},
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/telecomns)
 "qo" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -1119,14 +1116,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns)
-"rM" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms West Solars";
-	dir = 8;
-	network = list("Telecomms")
-	},
-/turf/space,
-/area/space/nearstation)
 "rT" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -1241,11 +1230,6 @@
 	external_pressure_bound = 140;
 	on = 1;
 	pressure_checks = 0
-	},
-/obj/machinery/camera{
-	c_tag = "Telecomms Control Room";
-	dir = 2;
-	network = list("Telecomms")
 	},
 /obj/structure/table,
 /obj/item/folder/yellow,
@@ -1460,11 +1444,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/computer)
 "wh" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms Server Room North";
-	dir = 2;
-	network = list("Telecomms")
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -1606,14 +1585,6 @@
 	dir = 5
 	},
 /area/ruin/space/telecomns/computer)
-"xT" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms East Solars";
-	dir = 4;
-	network = list("Telecomms")
-	},
-/turf/space,
-/area/space/nearstation)
 "yh" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -1749,11 +1720,6 @@
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
 "za" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms Entrance North";
-	dir = 2;
-	network = list("Telecomms")
-	},
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/night,
 /turf/simulated/floor/plasteel,
@@ -1769,6 +1735,11 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns/powercontrol)
+"zk" = (
+/obj/structure/lattice,
+/obj/effect/abstract/cheese_trap,
+/turf/space,
+/area/space/nearstation)
 "zG" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1802,6 +1773,7 @@
 	req_access_txt = "0"
 	},
 /obj/structure/telecomns_trap_tank,
+/obj/effect/abstract/cheese_trap,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns)
 "Ad" = (
@@ -1930,14 +1902,6 @@
 /obj/effect/spawner/airlock/long/square/e_to_s/telecoms,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomns/powercontrol)
-"Bs" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms East Wing South";
-	dir = 8;
-	network = list("Telecomms")
-	},
-/turf/space,
-/area/space)
 "BQ" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2038,14 +2002,6 @@
 "CU" = (
 /turf/space,
 /area/space/nearstation)
-"CW" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms South Solars";
-	dir = 4;
-	network = list("Telecomms")
-	},
-/turf/space,
-/area/space/nearstation)
 "Dd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -2083,11 +2039,6 @@
 	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
-	},
-/obj/machinery/camera{
-	c_tag = "Telecomms Foyer";
-	dir = 2;
-	network = list("Telecomms")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -2130,6 +2081,14 @@
 	dir = 8
 	},
 /obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"EK" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/lattice,
+/obj/effect/abstract/cheese_trap,
 /turf/space,
 /area/space/nearstation)
 "EM" = (
@@ -2369,16 +2328,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
-"HN" = (
-/obj/machinery/porta_turret/ai_turret/disable{
-	check_synth = 1;
-	lethal = 1;
-	scan_range = 12;
-	faction = "malf_drone"
-	},
-/obj/effect/turf_decal/box/white,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/telecomns)
 "HP" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2479,14 +2428,6 @@
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/telecomns/foyer)
-"Jl" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms North Solars";
-	dir = 8;
-	network = list("Telecomms")
-	},
-/turf/space,
-/area/space/nearstation)
 "Jm" = (
 /obj/machinery/computer/sm_monitor{
 	dir = 1
@@ -2604,6 +2545,7 @@
 /area/space/nearstation)
 "Lh" = (
 /obj/machinery/tcomms/relay/dvorak,
+/obj/effect/abstract/loot_trap,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault";
@@ -2659,13 +2601,6 @@
 "LW" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/catwalk,
-/area/ruin/space/telecomns)
-"LX" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms Storage";
-	network = list("Telecomms")
-	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns)
 "Ma" = (
 /obj/structure/window/reinforced,
@@ -2779,14 +2714,6 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
-"Ny" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms Lounge";
-	dir = 2;
-	network = list("Telecomms")
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomns/computer)
 "Nz" = (
 /obj/structure/rack,
 /obj/item/circuitboard/sleeper/syndicate,
@@ -2915,7 +2842,8 @@
 /obj/machinery/porta_turret/ai_turret{
 	check_synth = 1;
 	lethal = 1;
-	faction = "malf_drone"
+	faction = "malf_drone";
+	ailock = 1
 	},
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel,
@@ -2927,11 +2855,6 @@
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
-	},
-/obj/machinery/camera{
-	c_tag = "Telecomms Power Room West";
-	dir = 1;
-	network = list("Telecomms")
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -2964,6 +2887,14 @@
 	dir = 4
 	},
 /obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
+"QP" = (
+/obj/structure/lattice,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/abstract/cheese_trap,
 /turf/space,
 /area/space/nearstation)
 "QR" = (
@@ -3146,17 +3077,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"SR" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Telecomms West Wing Central";
-	dir = 8;
-	network = list("Telecomms")
-	},
-/turf/space,
-/area/space/nearstation)
 "Ta" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -3234,6 +3154,7 @@
 	level = 1
 	},
 /obj/structure/telecomns_trap_tank,
+/obj/effect/abstract/cheese_trap,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns)
 "UE" = (
@@ -3305,24 +3226,11 @@
 	pixel_x = 0;
 	tag = ""
 	},
-/obj/machinery/camera{
-	c_tag = "Telecomms Power Room East";
-	dir = 1;
-	network = list("Telecomms")
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
-"VQ" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms West Wing South";
-	dir = 4;
-	network = list("Telecomms")
-	},
-/turf/space,
-/area/space)
 "Wc" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -6268,7 +6176,7 @@ yo
 Ed
 Ed
 Ed
-rM
+CU
 Ig
 Ed
 Ed
@@ -6632,7 +6540,7 @@ Ff
 Ed
 Ed
 Ed
-yo
+zk
 Ed
 Ed
 Ed
@@ -6642,10 +6550,10 @@ Ed
 Ed
 Ed
 Ed
-yo
+zk
 Ed
 Ed
-VQ
+Ed
 Ff
 yo
 FC
@@ -6724,12 +6632,12 @@ yo
 yo
 yo
 yo
-HN
+kA
 yo
 yo
 yo
 yo
-HN
+qn
 yo
 yo
 yo
@@ -6816,7 +6724,7 @@ an
 Ed
 Ed
 Ed
-yo
+zk
 Ed
 Ed
 Ed
@@ -6826,7 +6734,7 @@ Ed
 Ed
 Ed
 Ed
-yo
+zk
 Ed
 Ed
 Ed
@@ -6835,7 +6743,7 @@ yo
 Ed
 FC
 SA
-iO
+jo
 Nb
 Qx
 CM
@@ -6902,13 +6810,13 @@ XP
 xa
 ik
 FC
-mL
+Vp
 YQ
 Vp
 Ed
 Gd
 Gd
-QN
+EK
 Gd
 Gd
 Gd
@@ -6918,7 +6826,7 @@ Gd
 Gd
 Gd
 Gd
-QN
+EK
 Gd
 Gd
 CU
@@ -7092,17 +7000,17 @@ sO
 Ma
 Sm
 Wc
-On
+QP
 Rw
 gg
 Ay
-SR
+PZ
 Wq
 PZ
 PZ
 PZ
 PZ
-On
+QP
 fs
 YN
 Xf
@@ -7370,9 +7278,9 @@ xF
 Xf
 Zu
 ve
-il
+bJ
 Lh
-il
+bJ
 Sr
 cz
 il
@@ -7401,7 +7309,7 @@ Ed
 Ed
 Ed
 Ed
-CW
+CU
 Ed
 Ed
 Ed
@@ -7462,9 +7370,9 @@ vK
 Xf
 Zu
 EM
-il
+bJ
 bP
-il
+bJ
 Tw
 eE
 il
@@ -7554,9 +7462,9 @@ yN
 Hr
 Zu
 WR
-il
-il
-il
+bJ
+bJ
+bJ
 il
 il
 il
@@ -8275,7 +8183,7 @@ Ed
 Ed
 Ed
 Ed
-Jl
+CU
 Ed
 yo
 Ed
@@ -8742,7 +8650,7 @@ XP
 xa
 ik
 ux
-Ny
+Pl
 Pl
 Pl
 Jo
@@ -8932,7 +8840,7 @@ yB
 ZE
 ul
 Hr
-HN
+qn
 yo
 yh
 RW
@@ -8942,7 +8850,7 @@ JC
 mD
 yh
 yo
-kA
+qn
 yo
 yo
 yo
@@ -9027,7 +8935,7 @@ ux
 yo
 Gf
 yh
-LX
+JC
 JC
 qE
 qF
@@ -9036,7 +8944,7 @@ yh
 Ed
 yo
 Gf
-Bs
+Ed
 Ed
 Ed
 yo
@@ -9488,7 +9396,7 @@ Dy
 Ed
 yo
 Ed
-xT
+CU
 Ig
 Ed
 Ed
