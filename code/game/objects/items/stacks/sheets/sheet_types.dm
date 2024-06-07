@@ -635,7 +635,6 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	. += ""
 	. += "Brass is also associated with the Cult of the Clockwork Justiciar - Ratvar. His followers use it extensively in their works and creations, although it has been a long time since anyone has seen them..."
 
-
 /obj/item/stack/tile/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)

@@ -179,7 +179,6 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	. += "Despite plastitanium glass being a structurally more robust material, pure plasma glass has some unique properties that Nanotrasen exploits in some of its experimental energy weapons, such as the immolator laser."
 
 /obj/item/stack/sheet/plasmaglass/fifty
-
 	amount = 50
 
 /obj/item/stack/sheet/plasmaglass/New(loc, amount)
