@@ -356,7 +356,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 
 /obj/effect/spawner/airlock/long/square/e_to_s/telecoms
 	door_name = "telecoms external access"
-	req_access_txt = "61;13" //ACCESS_TCOMSAT,ACCESS_EXTERNAL_AIRLOCKS
 	door_type = /obj/machinery/door/airlock/external
 
 /obj/effect/spawner/airlock/long/square/three/syndicate

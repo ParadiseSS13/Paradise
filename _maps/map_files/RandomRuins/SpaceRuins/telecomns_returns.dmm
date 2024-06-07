@@ -1200,6 +1200,18 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"to" = (
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	ailock = 1
+	},
+/obj/effect/turf_decal/box/white,
+/obj/effect/abstract/cheese_trap,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/telecomns)
 "tx" = (
 /obj/item/radio/intercom{
 	name = "station intercom (General)";
@@ -2779,6 +2791,13 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
+"Pe" = (
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomns/computer)
 "Pl" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/computer)
@@ -3012,6 +3031,9 @@
 /obj/item/stock_parts/micro_laser/high,
 /obj/item/stock_parts/micro_laser/high,
 /obj/effect/spawner/lootdrop/maintenance/three,
+/obj/item/stock_parts/matter_bin,
+/obj/item/stock_parts/matter_bin,
+/obj/item/stock_parts/matter_bin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns)
 "Sm" = (
@@ -3253,6 +3275,17 @@
 	dir = 4
 	},
 /turf/space,
+/area/ruin/space/telecomns)
+"WC" = (
+/obj/machinery/porta_turret/ai_turret/disable{
+	check_synth = 1;
+	lethal = 1;
+	scan_range = 12;
+	faction = "malf_drone";
+	ailock = 1
+	},
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/telecomns)
 "WO" = (
 /obj/structure/cable{
@@ -6632,12 +6665,12 @@ yo
 yo
 yo
 yo
-kA
+to
 yo
 yo
 yo
 yo
-qn
+WC
 yo
 yo
 yo
@@ -8470,7 +8503,7 @@ nB
 KE
 Pl
 SH
-Pl
+Pe
 Hr
 QN
 QN
@@ -8840,7 +8873,7 @@ yB
 ZE
 ul
 Hr
-qn
+WC
 yo
 yh
 RW

@@ -59,13 +59,15 @@
 /obj/machinery/shieldgen/telecomns
 	name = "overclocked shield generator"
 	desc = "These shield generators seem to have been rewired a lot."
-	shield_range = 6
 	anchored = TRUE
+	shield_range = 6
+	req_access = list(ACCESS_ENGINE)
 
 /obj/machinery/shieldwallgen/telecomns
 	icon_state = "Shield_Gen +a" // should avoid misplacing with this
 	anchored = TRUE
 	activated = TRUE
+	req_access = list(ACCESS_TCOMSAT)
 
 /obj/machinery/shieldwallgen/telecomns/Initialize(mapload)
 	. = ..()
