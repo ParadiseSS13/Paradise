@@ -62,9 +62,9 @@
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
-	var/turf/Tsec = get_turf(src)
-	new /obj/item/stock_parts/cell/potato(Tsec)
-	var/obj/item/reagent_containers/drinks/drinkingglass/S = new(Tsec)
+	var/turf/explode_turf = get_turf(src)
+	new /obj/item/stock_parts/cell/potato(explode_turf)
+	var/obj/item/reagent_containers/drinks/drinkingglass/S = new(explode_turf)
 	S.reagents.add_reagent("whiskey", 15)
 	S.on_reagent_change()
 	..()
@@ -434,15 +434,15 @@
 /mob/living/simple_animal/bot/secbot/explode()
 	walk_to(src,0)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	var/turf/explode_turf = get_turf(src)
+	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(explode_turf)
 	Sa.build_step = 1
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
-	new /obj/item/assembly/prox_sensor(Tsec)
-	new /obj/item/melee/baton(Tsec)
+	new /obj/item/assembly/prox_sensor(explode_turf)
+	new /obj/item/melee/baton(explode_turf)
 	if(prob(50))
-		drop_part(robot_arm, Tsec)
+		drop_part(robot_arm, explode_turf)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()

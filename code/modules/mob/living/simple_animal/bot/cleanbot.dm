@@ -199,11 +199,11 @@
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
-	new /obj/item/reagent_containers/glass/bucket(Tsec)
-	new /obj/item/assembly/prox_sensor(Tsec)
+	var/turf/explode_turf = get_turf(src)
+	new /obj/item/reagent_containers/glass/bucket(explode_turf)
+	new /obj/item/assembly/prox_sensor(explode_turf)
 	if(prob(50))
-		drop_part(robot_arm, Tsec)
+		drop_part(robot_arm, explode_turf)
 	do_sparks(3, 1, src)
 	..()
 

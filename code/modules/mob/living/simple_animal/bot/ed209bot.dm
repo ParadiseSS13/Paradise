@@ -374,41 +374,41 @@
 /mob/living/simple_animal/bot/ed209/explode()
 	walk_to(src,0)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
+	var/turf/explode_turf = get_turf(src)
 
-	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
-	Sa.build_step = 1
-	Sa.overlays += image('icons/obj/aibots.dmi', "hs_hole")
-	Sa.created_name = name
-	new /obj/item/assembly/prox_sensor(Tsec)
+	var/obj/item/ed209_assembly/assembly = new /obj/item/ed209_assembly(explode_turf)
+	assembly.build_step = 1
+	assembly.overlays += image('icons/obj/aibots.dmi', "hs_hole")
+	assembly.created_name = name
+	new /obj/item/assembly/prox_sensor(explode_turf)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/disabler/G = new /obj/item/gun/energy/disabler(Tsec)
+		var/obj/item/gun/energy/disabler/G = new /obj/item/gun/energy/disabler(explode_turf)
 		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
-		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(Tsec)
+		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(explode_turf)
 		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "r")
-		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(Tsec)
+		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(explode_turf)
 		G.cell.charge = 0
 		G.update_icon()
 
 	if(prob(50))
-		new /obj/item/robot_parts/l_leg(Tsec)
+		new /obj/item/robot_parts/l_leg(explode_turf)
 		if(prob(25))
-			new /obj/item/robot_parts/r_leg(Tsec)
+			new /obj/item/robot_parts/r_leg(explode_turf)
 	if(prob(25))//50% chance for a helmet OR vest
 		if(prob(50))
-			new /obj/item/clothing/head/helmet(Tsec)
+			new /obj/item/clothing/head/helmet(explode_turf)
 		else
 			if(!lasercolor)
-				new /obj/item/clothing/suit/armor/vest(Tsec)
+				new /obj/item/clothing/suit/armor/vest(explode_turf)
 			if(lasercolor == "b")
-				new /obj/item/clothing/suit/bluetag(Tsec)
+				new /obj/item/clothing/suit/bluetag(explode_turf)
 			if(lasercolor == "r")
-				new /obj/item/clothing/suit/redtag(Tsec)
+				new /obj/item/clothing/suit/redtag(explode_turf)
 
 	do_sparks(3, 1, src)
 
@@ -419,10 +419,10 @@
 /mob/living/simple_animal/bot/ed209/disassemble()
 	var/turf/disassemble_turf = get_turf(src)
 
-	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(disassemble_turf)
-	Sa.build_step = 1
-	Sa.overlays += image('icons/obj/aibots.dmi', "hs_hole")
-	Sa.created_name = name
+	var/obj/item/ed209_assembly/assembly = new /obj/item/ed209_assembly(disassemble_turf)
+	assembly.build_step = 1
+	assembly.overlays += image('icons/obj/aibots.dmi', "hs_hole")
+	assembly.created_name = name
 	new /obj/item/assembly/prox_sensor(disassemble_turf)
 
 	if(!lasercolor)

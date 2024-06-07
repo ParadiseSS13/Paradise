@@ -516,39 +516,39 @@
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
+	var/turf/explode_turf = get_turf(src)
 
 	if(drops_parts)
 		switch(skin)
 			if("ointment")
-				new /obj/item/storage/firstaid/fire/empty(Tsec)
+				new /obj/item/storage/firstaid/fire/empty(explode_turf)
 			if("tox")
-				new /obj/item/storage/firstaid/toxin/empty(Tsec)
+				new /obj/item/storage/firstaid/toxin/empty(explode_turf)
 			if("o2")
-				new /obj/item/storage/firstaid/o2/empty(Tsec)
+				new /obj/item/storage/firstaid/o2/empty(explode_turf)
 			if("brute")
-				new /obj/item/storage/firstaid/brute/empty(Tsec)
+				new /obj/item/storage/firstaid/brute/empty(explode_turf)
 			if("adv")
-				new /obj/item/storage/firstaid/adv/empty(Tsec)
+				new /obj/item/storage/firstaid/adv/empty(explode_turf)
 			if("bezerk")
-				var/obj/item/storage/firstaid/tactical/empty/T = new(Tsec)
+				var/obj/item/storage/firstaid/tactical/empty/T = new(explode_turf)
 				T.syndicate_aligned = syndicate_aligned //This is a special case since Syndicate medibots and the mysterious medibot look the same; we also dont' want crew building Syndicate medibots if the mysterious medibot blows up.
 			if("fish")
-				new /obj/item/storage/firstaid/aquatic_kit(Tsec)
+				new /obj/item/storage/firstaid/aquatic_kit(explode_turf)
 			if("machine")
-				new /obj/item/storage/firstaid/machine/empty(Tsec)
+				new /obj/item/storage/firstaid/machine/empty(explode_turf)
 			else
-				new /obj/item/storage/firstaid(Tsec)
+				new /obj/item/storage/firstaid(explode_turf)
 
-		new /obj/item/assembly/prox_sensor(Tsec)
+		new /obj/item/assembly/prox_sensor(explode_turf)
 
-		new /obj/item/healthanalyzer(Tsec)
+		new /obj/item/healthanalyzer(explode_turf)
 
 		if(prob(50))
-			drop_part(robot_arm, Tsec)
+			drop_part(robot_arm, explode_turf)
 
 	if(reagent_glass)
-		reagent_glass.forceMove(Tsec)
+		reagent_glass.forceMove(explode_turf)
 		reagent_glass = null
 
 	if(emagged && prob(25))

@@ -355,11 +355,11 @@
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	walk_to(src, 0)
 	visible_message("<span class='boldannounceic'>[src] blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
-	new /obj/item/bikehorn(Tsec)
-	new /obj/item/assembly/prox_sensor(Tsec)
+	var/turf/explode_turf = get_turf(src)
+	new /obj/item/bikehorn(explode_turf)
+	new /obj/item/assembly/prox_sensor(explode_turf)
 	if(prob(50))
-		drop_part(robot_arm, Tsec)
+		drop_part(robot_arm, explode_turf)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	var/datum/effect_system/spark_spread/s = new
 	s.set_up(3, 1, src)
