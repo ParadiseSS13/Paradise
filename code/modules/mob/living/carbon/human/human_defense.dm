@@ -93,6 +93,9 @@ emp_act
 		return
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
+		if(ismachineperson(src))
+			to_chat(user, "<span class='notice'>[p_they(TRUE)] [p_are()] missing that limb!</span>")
+			return TRUE
 		return
 	if(!S.is_robotic() || S.open == ORGAN_SYNTHETIC_OPEN)
 		return

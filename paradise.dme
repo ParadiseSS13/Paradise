@@ -1445,6 +1445,7 @@
 #include "code\modules\antagonists\changeling\powers\chameleon_skin.dm"
 #include "code\modules\antagonists\changeling\powers\contort_body.dm"
 #include "code\modules\antagonists\changeling\powers\digitalcamo.dm"
+#include "code\modules\antagonists\changeling\powers\environmental_adaption.dm"
 #include "code\modules\antagonists\changeling\powers\epinephrine.dm"
 #include "code\modules\antagonists\changeling\powers\fakedeath.dm"
 #include "code\modules\antagonists\changeling\powers\fleshmend.dm"

@@ -251,7 +251,7 @@ SUBSYSTEM_DEF(ticker)
 	SSjobs.DivideOccupations() //Distribute jobs
 
 	if(hide_mode)
-		var/list/modes = new
+		var/list/modes = list()
 		for(var/datum/game_mode/M in runnable_modes)
 			modes += M.name
 		modes = sortList(modes)
