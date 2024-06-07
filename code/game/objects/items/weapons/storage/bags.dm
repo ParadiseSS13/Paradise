@@ -334,7 +334,7 @@
 		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
 
 	if(ishuman(M) && prob(10))
-		M.Weaken(4 SECONDS)
+		M.KnockDown(4 SECONDS)
 
 /obj/item/storage/bag/tray/update_icon_state()
 	return
