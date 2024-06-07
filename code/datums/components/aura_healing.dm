@@ -80,7 +80,7 @@
 	limit_to_trait = null,
 	healing_color = COLOR_GREEN,
 )
-	if (!isatom(parent))
+	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	START_PROCESSING(SSaura_healing, src)
