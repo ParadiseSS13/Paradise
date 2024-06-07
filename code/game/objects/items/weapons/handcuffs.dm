@@ -233,9 +233,10 @@
 		if(!R.use(1))
 			to_chat(user, "<span class='warning'>[R.amount > 1 ? "These rods" : "This rod"] somehow can't be used for crafting!</span>")
 			return
-
+		if(!user.unEquip(src))
+			return
 		var/obj/item/wirerod/W = new /obj/item/wirerod(get_turf(src))
-		if(user.unEquip(src) || !remove_item_from_storage(user))
+		if(!remove_item_from_storage(user))
 			user.put_in_hands(W)
 		to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
 		qdel(src)
@@ -248,12 +249,13 @@
 			return
 
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(M.use(6) && do_after(user, 3.5 SECONDS * M.toolspeed, target = src))
+		if(do_after(user, 3.5 SECONDS * M.toolspeed, target = src))
+			if(!M.use(6) || !user.unEquip(src))
+				return
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(get_turf(src))
-			user.put_in_hands(S)
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
 			if(!remove_item_from_storage(user))
-				user.unEquip(src)
+				user.put_in_hands(S)
 			qdel(src)
 		return
 
