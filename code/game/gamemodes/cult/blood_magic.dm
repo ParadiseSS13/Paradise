@@ -620,7 +620,7 @@
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
 	icon_state = "cablecuff"
-	breakouttime = 450
+	breakouttime = 45 SECONDS
 	origin_tech = "materials=4;magnets=5;abductor=2"
 	flags = DROPDEL
 
