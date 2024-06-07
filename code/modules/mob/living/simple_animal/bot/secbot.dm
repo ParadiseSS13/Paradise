@@ -451,7 +451,6 @@
 
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/secbot/disassemble()
-	walk_to(src,0)
 	var/turf/disassemble_turf = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(disassemble_turf)
 	Sa.build_step = 1

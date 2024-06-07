@@ -368,7 +368,6 @@
 
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/honkbot/disassemble()
-	walk_to(src, 0)
 	var/turf/disassemble_turf = get_turf(src)
 	new /obj/item/bikehorn(disassemble_turf)
 	new /obj/item/assembly/prox_sensor(disassemble_turf)

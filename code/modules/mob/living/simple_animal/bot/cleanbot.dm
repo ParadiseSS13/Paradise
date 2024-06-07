@@ -209,7 +209,6 @@
 
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/cleanbot/disassemble()
-	on = FALSE
 	var/turf/disassemble_turf = get_turf(src)
 	new /obj/item/reagent_containers/glass/bucket(disassemble_turf)
 	new /obj/item/assembly/prox_sensor(disassemble_turf)

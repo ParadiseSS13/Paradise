@@ -559,7 +559,6 @@
 
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/medbot/disassemble()
-	on = FALSE
 	var/turf/disassemble_turf = get_turf(src)
 
 	switch(skin)

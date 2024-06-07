@@ -209,7 +209,6 @@
 
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/secbot/griefsky/disassemble()
-	walk_to(src,0)
 	var/turf/disassemble_turf = get_turf(src)
 	new /obj/item/assembly/prox_sensor(disassemble_turf)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(disassemble_turf)

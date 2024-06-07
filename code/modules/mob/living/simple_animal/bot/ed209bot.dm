@@ -420,7 +420,6 @@
 
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/ed209/disassemble()
-	walk_to(src,0)
 	var/turf/disassemble_turf = get_turf(src)
 
 	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(disassemble_turf)

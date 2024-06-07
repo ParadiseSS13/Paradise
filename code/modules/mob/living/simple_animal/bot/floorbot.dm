@@ -443,7 +443,6 @@
 
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/floorbot/disassemble()
-	on = FALSE
 	var/turf/disassemble_turf = get_turf(src)
 	var/obj/item/storage/toolbox/mechanical/empty_toolbox = new /obj/item/storage/toolbox/mechanical(disassemble_turf)
 	empty_toolbox.contents = list()
