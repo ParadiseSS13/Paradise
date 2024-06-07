@@ -221,7 +221,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Representative"), "Nanotrasen Diplomat")
-	// Will show as ? on sec huds, as this is not a recognized rank.
+	H.sec_hud_set_ID()
 
 /datum/outfit/admin/nt_undercover
 	name = "NT Undercover Operative"

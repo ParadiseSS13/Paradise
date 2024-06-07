@@ -1143,25 +1143,6 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
 		return TRUE
 
-/proc/reverse_direction(dir)
-	switch(dir)
-		if(NORTH)
-			return SOUTH
-		if(NORTHEAST)
-			return SOUTHWEST
-		if(EAST)
-			return WEST
-		if(SOUTHEAST)
-			return NORTHWEST
-		if(SOUTH)
-			return NORTH
-		if(SOUTHWEST)
-			return NORTHEAST
-		if(WEST)
-			return EAST
-		if(NORTHWEST)
-			return SOUTHEAST
-
 /*
 Checks if that loc and dir has a item on the wall
 */

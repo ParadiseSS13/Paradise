@@ -79,7 +79,6 @@
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
 	anchored = TRUE
-	layer = ABOVE_MOB_LAYER
 	alpha = 150
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_LIGHT_INSULATION

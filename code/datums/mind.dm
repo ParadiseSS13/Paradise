@@ -1714,8 +1714,8 @@
 
 	S.team = team
 
-	var/list/obj/effect/landmark/abductor/agent_landmarks = new
-	var/list/obj/effect/landmark/abductor/scientist_landmarks = new
+	var/list/obj/effect/landmark/abductor/agent_landmarks = list()
+	var/list/obj/effect/landmark/abductor/scientist_landmarks = list()
 	agent_landmarks.len = 4
 	scientist_landmarks.len = 4
 	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)
