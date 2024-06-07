@@ -852,10 +852,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/corner{
+/obj/machinery/hologram/holopad,
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -903,15 +903,27 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "afe" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/structure/window/reinforced,
+/obj/structure/rack/gunrack,
+/obj/structure/window/reinforced{
+	dir = 8
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Armory_South";
-	location = "Armory_North"
+/obj/item/gun/energy/disabler{
+	pixel_x = -8
+	},
+/obj/item/gun/energy/disabler{
+	pixel_x = -4
+	},
+/obj/item/gun/energy/disabler,
+/obj/item/gun/energy/disabler{
+	pixel_x = 4
+	},
+/obj/item/gun/energy/disabler{
+	pixel_x = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "afk" = (
@@ -1478,17 +1490,11 @@
 	dir = 4
 	},
 /obj/item/gun/energy/laser{
-	pixel_x = 8
-	},
-/obj/item/gun/energy/laser{
-	pixel_x = 4
+	pixel_x = -4
 	},
 /obj/item/gun/energy/laser,
 /obj/item/gun/energy/laser{
-	pixel_x = -4
-	},
-/obj/item/gun/energy/laser{
-	pixel_x = -8
+	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1576,17 +1582,11 @@
 	dir = 4
 	},
 /obj/item/gun/energy/gun{
-	pixel_x = 8
-	},
-/obj/item/gun/energy/gun{
-	pixel_x = 4
+	pixel_x = -4
 	},
 /obj/item/gun/energy/gun,
 /obj/item/gun/energy/gun{
-	pixel_x = -4
-	},
-/obj/item/gun/energy/gun{
-	pixel_x = -8
+	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1740,7 +1740,6 @@
 /area/station/security/brig)
 "ajq" = (
 /obj/structure/rack,
-/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -1769,22 +1768,18 @@
 /area/station/security/armory/secure)
 "ajr" = (
 /obj/structure/rack/gunrack,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 8
-	},
-/obj/item/gun/energy/disabler{
-	pixel_x = 4
-	},
-/obj/item/gun/energy/disabler,
-/obj/item/gun/energy/disabler{
+/obj/item/gun/projectile/automatic/sslr{
 	pixel_x = -4
 	},
-/obj/item/gun/energy/disabler{
-	pixel_x = -8
+/obj/item/gun/projectile/automatic/sslr,
+/obj/item/gun/projectile/automatic/sslr{
+	pixel_x = 4
+	},
+/obj/item/gun/projectile/automatic/sslr{
+	pixel_x = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1893,6 +1888,9 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1990,13 +1988,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2193,6 +2191,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light_switch/south,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45610,6 +45611,13 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Armory_South";
+	location = "Armory_North"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53730,6 +53738,57 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/fsmaint)
+"guL" = (
+/obj/structure/window/reinforced,
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 12;
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 12
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 12;
+	pixel_x = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 8;
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 8
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 8;
+	pixel_x = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 4;
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 4;
+	pixel_x = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr,
+/obj/item/ammo_box/magazine/sslr{
+	pixel_x = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/station/security/armory/secure)
 "guQ" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/condiment/saltshaker,
@@ -65035,6 +65094,9 @@
 	id = "Secure Armory";
 	name = "Secure Armory Shutter Control";
 	req_one_access_txt = "3"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -133934,7 +133996,7 @@ ahV
 aiq
 aiN
 ajr
-ajj
+guL
 kAr
 aiv
 amG

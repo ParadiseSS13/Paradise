@@ -223,20 +223,17 @@
 /area/station/maintenance/abandonedbar)
 "acU" = (
 /obj/structure/rack/gunrack,
-/obj/item/gun/energy/gun{
-	pixel_x = -2
+/obj/item/gun/projectile/automatic/sslr{
+	pixel_x = -4
 	},
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/item/gun/energy/gun,
-/obj/item/gun/energy/gun{
-	pixel_x = 2
-	},
-/obj/item/gun/energy/gun{
+/obj/item/gun/projectile/automatic/sslr,
+/obj/item/gun/projectile/automatic/sslr{
 	pixel_x = 4
 	},
-/obj/item/gun/energy/gun{
-	pixel_x = 6
+/obj/item/gun/projectile/automatic/sslr{
+	pixel_x = 8
 	},
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "acX" = (
@@ -1706,6 +1703,51 @@
 /obj/structure/sign/pods,
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry)
+"amO" = (
+/obj/structure/rack,
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 12;
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 12
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 12;
+	pixel_x = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 8;
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 8
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 8;
+	pixel_x = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 4;
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 4;
+	pixel_x = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr,
+/obj/item/ammo_box/magazine/sslr{
+	pixel_x = 4
+	},
+/obj/effect/turf_decal/delivery/red/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/armory/secure)
 "amP" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -40219,10 +40261,6 @@
 /mob/living/simple_animal/bot/secbot/armsky{
 	auto_patrol = 1
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Armory_North";
-	location = "Armory_South"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -51567,6 +51605,14 @@
 	icon_state = "redfull"
 	},
 /area/station/security/brig)
+"fcC" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Armory_South";
+	location = "Armory_North"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/armory/secure)
 "fcZ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -55620,10 +55666,17 @@
 	},
 /area/station/hallway/primary/central/sw)
 "grA" = (
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Armory_South";
-	location = "Armory_North"
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/item/gun/energy/laser{
+	pixel_x = 2
 	},
+/obj/item/gun/energy/laser{
+	pixel_x = 4
+	},
+/obj/item/gun/energy/laser{
+	pixel_x = 6
+	},
+/obj/structure/rack/gunrack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "grY" = (
@@ -64405,18 +64458,14 @@
 /area/station/science/toxins/mixing)
 "jeM" = (
 /obj/structure/rack/gunrack,
-/obj/item/gun/energy/laser{
-	pixel_x = -2
-	},
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/item/gun/energy/laser,
-/obj/item/gun/energy/laser{
+/obj/item/gun/energy/gun{
 	pixel_x = 2
 	},
-/obj/item/gun/energy/laser{
+/obj/item/gun/energy/gun{
 	pixel_x = 4
 	},
-/obj/item/gun/energy/laser{
+/obj/item/gun/energy/gun{
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -84862,6 +84911,12 @@
 	pixel_x = 6
 	},
 /obj/structure/rack/gunrack,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "pup" = (
@@ -108021,6 +108076,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Armory_North";
+	location = "Armory_South"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "wKf" = (
@@ -112521,12 +112580,6 @@
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "ycB" = (
@@ -165838,14 +165891,14 @@ off
 xPq
 npj
 wJU
-lam
-jeM
-ycf
-ptZ
-acU
-nqn
 grA
-gpP
+jeM
+ptZ
+nqn
+acU
+amO
+ycf
+fcC
 dMi
 oaR
 bxB

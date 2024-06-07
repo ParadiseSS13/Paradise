@@ -2606,8 +2606,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "arV" = (
-/obj/effect/turf_decal/delivery/hollow,
-/mob/living/simple_animal/bot/secbot/armsky,
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 8;
@@ -2618,8 +2616,11 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/mob/living/simple_animal/bot/secbot/armsky,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 6;
+	icon_state = "darkred"
 	},
 /area/station/security/armory/secure)
 "asu" = (
@@ -4879,9 +4880,48 @@
 	},
 /area/station/security/permabrig)
 "aBx" = (
-/obj/structure/rack,
 /obj/structure/reagent_dispensers/peppertank/west,
-/obj/item/gun/energy/ionrifle,
+/obj/structure/rack,
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 12;
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 12
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 12;
+	pixel_x = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 8;
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 8
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 8;
+	pixel_x = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 4;
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_y = 4;
+	pixel_x = 4
+	},
+/obj/item/ammo_box/magazine/sslr{
+	pixel_x = -4
+	},
+/obj/item/ammo_box/magazine/sslr,
+/obj/item/ammo_box/magazine/sslr{
+	pixel_x = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -45129,15 +45169,18 @@
 	},
 /area/station/security/main)
 "dCp" = (
-/obj/structure/rack,
 /obj/machinery/firealarm/directional/west,
-/obj/item/gun/energy/disabler{
+/obj/structure/rack,
+/obj/item/gun/projectile/automatic/sslr{
+	pixel_y = 9
+	},
+/obj/item/gun/projectile/automatic/sslr{
 	pixel_y = 6
 	},
-/obj/item/gun/energy/disabler{
+/obj/item/gun/projectile/automatic/sslr{
 	pixel_y = 3
 	},
-/obj/item/gun/energy/disabler,
+/obj/item/gun/projectile/automatic/sslr,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -60628,6 +60671,7 @@
 "kNk" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/hooded/ablative,
+/obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -65355,8 +65399,6 @@
 	},
 /area/station/medical/virology)
 "mRy" = (
-/obj/structure/rack,
-/obj/item/storage/box/tranquilizer,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 4;
@@ -65366,6 +65408,26 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/structure/rack,
+/obj/item/storage/box/tranquilizer{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/storage/box/beanbag,
+/obj/item/storage/box/beanbag,
+/obj/item/storage/box/beanbag,
+/obj/item/storage/box/rubbershot{
+	pixel_x = -2;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = -2;
+	pixel_y = -3
+	},
+/obj/item/storage/box/rubbershot{
+	pixel_x = -2;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -66951,22 +67013,21 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/bridge)
 "nxO" = (
-/obj/structure/rack,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_y = 6
-	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/shotgun/riot,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/light/directional/north,
+/obj/structure/rack,
+/obj/item/gun/energy/disabler{
+	pixel_y = 6
+	},
+/obj/item/gun/energy/disabler{
+	pixel_y = 3
+	},
+/obj/item/gun/energy/disabler,
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "darkred"
 	},
 /area/station/security/armory/secure)
@@ -75669,7 +75730,6 @@
 	},
 /area/station/engineering/atmos/control)
 "rJh" = (
-/obj/structure/rack,
 /obj/machinery/requests_console{
 	department = "Warden";
 	departmentType = 7;
@@ -75681,21 +75741,14 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/storage/box/beanbag{
-	pixel_x = 2;
+/obj/structure/rack,
+/obj/item/gun/projectile/shotgun/riot{
+	pixel_y = 6
+	},
+/obj/item/gun/projectile/shotgun/riot{
 	pixel_y = 3
 	},
-/obj/item/storage/box/beanbag{
-	pixel_x = 2;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beanbag{
-	pixel_x = 2;
-	pixel_y = 3
-	},
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
-/obj/item/storage/box/rubbershot,
+/obj/item/gun/projectile/shotgun/riot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -86440,6 +86493,7 @@
 	},
 /area/station/medical/virology)
 "xdb" = (
+/obj/machinery/alarm/directional/west,
 /obj/structure/rack,
 /obj/item/shield/riot{
 	pixel_y = 3
@@ -86448,9 +86502,8 @@
 /obj/item/shield/riot{
 	pixel_y = -3
 	},
-/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
-	dir = 6;
+	dir = 4;
 	icon_state = "darkred"
 	},
 /area/station/security/armory/secure)
