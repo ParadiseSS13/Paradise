@@ -645,6 +645,8 @@
 #define COMSIG_MINE_TRIGGERED "minegoboom"
 /// Called by /obj/item/proc/worn_overlays(list/overlays, mutable_appearance/standing, isinhands, icon_file)
 #define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
+/// Called by /obj/item/assembly/signaler(called_from_radio)
+#define COMSIG_ASSEMBLY_PULSED "item_assembly_pulsed"
 
 /// Defib-specific signals
 

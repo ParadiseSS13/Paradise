@@ -33,7 +33,7 @@
 	var/Angle = null
 	var/original_angle = null //Angle at firing
 	var/spread = 0			//amount (in degrees) of projectile spread
-	animate_movement = 0
+	animate_movement = NO_STEPS
 
 	var/ignore_source_check = FALSE
 

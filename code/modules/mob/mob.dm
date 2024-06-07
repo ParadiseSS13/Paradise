@@ -190,7 +190,7 @@
 
 	// based on say code
 	var/omsg = replacetext(message, "<B>[src]</B> ", "")
-	var/list/listening_obj = new
+	var/list/listening_obj = list()
 	for(var/atom/movable/A in view(range, src))
 		if(ismob(A))
 			var/mob/M = A
@@ -545,7 +545,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  * Mobs out of view but in range will be listed as unknown. Else they will have their visible name
 */
 /mob/proc/get_telepathic_targets()
-	var/list/validtargets = new /list()
+	var/list/validtargets = list() /list()
 	var/turf/T = get_turf(src)
 	var/list/mobs_in_view = get_visible_mobs()
 
