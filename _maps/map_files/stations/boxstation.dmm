@@ -32888,13 +32888,6 @@
 	icon_state = "darkgreen"
 	},
 /area/station/medical/medbay3)
-"ccL" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/bookcase/sop,
-/turf/simulated/floor/wood,
-/area/station/command/office/ntrep)
 "ccW" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -34426,17 +34419,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
-"ciK" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/kirbyplants,
-/turf/simulated/floor/wood,
-/area/station/command/office/ntrep)
 "ciM" = (
 /obj/machinery/camera{
 	c_tag = "Central Primary Hallway South-West";
@@ -34848,10 +34830,6 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "ckw" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "ckx" = (
@@ -40705,6 +40683,17 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency/port)
+"cEK" = (
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/kirbyplants,
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "cEL" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -44286,6 +44275,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/directional/east,
+/obj/item/flag/nt,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "cRC" = (
@@ -65209,7 +65199,7 @@
 	},
 /area/station/legal/courtroom)
 "jNe" = (
-/obj/item/flag/nt,
+/obj/machinery/suit_storage_unit/blueshield/secure,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "jNu" = (
@@ -78857,6 +78847,13 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
+"qpw" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/bookcase/sop,
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "qpx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
@@ -122197,7 +122194,7 @@ cdZ
 rME
 cdN
 cgW
-ccL
+qpw
 bAb
 ckw
 ckv
@@ -123225,7 +123222,7 @@ cfv
 cgh
 bsr
 cgW
-ciK
+cEK
 ceP
 cop
 chH

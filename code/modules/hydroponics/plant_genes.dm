@@ -444,7 +444,7 @@
 	dangerous = TRUE
 
 /datum/plant_gene/trait/smoke/on_squash(obj/item/food/snacks/grown/G, atom/target)
-	var/datum/effect_system/smoke_spread/chem/S = new
+	var/datum/effect_system/smoke_spread/chem/plant/S = new()
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
 	S.set_up(G.reagents, splat_location)

@@ -550,7 +550,7 @@
 	amt_req_cures = 2
 
 /datum/chemical_reaction/zombie/second/get_possible_cures()
-	return list("vomit", "fungus", "jenkem", "charcoal", "egg", "salglu_solution", "toxin", "atropine", "lye", "sacid", "facid", "sodawater", "surge", "ultralube", "happiness", "morphine")
+	return list("vomit", "jenkem", "charcoal", "egg", "salglu_solution", "toxin", "atropine", "lye", "sacid", "facid", "sodawater", "surge", "ultralube", "happiness", "morphine")
 
 /datum/chemical_reaction/zombie/third
 	name = "Anti-Plague Sequence Gamma"
