@@ -163,7 +163,11 @@
 	H.parentdeck = src
 	H.update_values()
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draw a card.</span>")
+	user.visible_message(
+		"<span class='notice'>[user] draws a card.</span>",
+		"<span class='notice'>You draw a card.</span>",
+		"<span class='notice'>You hear a card being drawn.</span>"
+		)
 	to_chat(user,"<span class='notice'>It's the [P].</span>")
 
 /obj/item/deck/proc/deal_card()
@@ -217,9 +221,17 @@
 		H.concealed = TRUE
 		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
-		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [user.p_themselves()].</span>")
+		user.visible_message(
+			"<span class='notice'>[user] deals [dcard] card(s) to [user.p_themselves()].</span>",
+			"<span class='notice'>You deal [dcard] card(s) to yourself.</span>",
+			"<span class='notice'>You deal [dcard] card(s) to yourself.</span>"
+			)
 	else
-		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [target].</span>")
+		user.visible_message(
+			"<span class='notice'>[user] deals [dcard] card(s) to [target].</span>",
+			"<span class='notice'>You deal [dcard] card(s) to [target].</span>",
+			"<span class='notice'>You hear cards being delt.</span>"
+			)
 	H.throw_at(get_step(target,target.dir),3,1,H)
 
 
@@ -235,7 +247,11 @@
 		cards = shuffle(cards)
 
 		if(user)
-			user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
+			user.visible_message(
+				"<span class='notice'>[user] shuffles [src].</span>",
+				"<span class='notice'>You shuffle [src].</span>",
+				"<span class='notice'>You hear cards being shuffled.</span>"
+				)
 			playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 		cooldown = world.time
 
@@ -278,7 +294,11 @@
 
 
 /obj/item/pack/attack_self(mob/user as mob)
-	user.visible_message("<span class='notice'>[name] rips open [src]!</span>", "<span class='notice'>You rip open [src]!</span>")
+	user.visible_message(
+		"<span class='notice'>[name] rips open [src]!</span>",
+		"<span class='notice'>You rip open [src]!</span>",
+		"<span class='notice'>You hear the sound of a packet being ripped open.</span>"
+		)
 	var/obj/item/cardhand/H = new(get_turf(user))
 
 	H.cards += cards
@@ -440,7 +460,11 @@
 	var/datum/playingcard/card = pickablecards[pickedcard]
 	if(loc != user) // Don't want people teleporting cards
 		return
-	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [pickedcard] from your hand.</span>")
+	user.visible_message(
+		"<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>",
+		"<span class='notice'>You take the [pickedcard] from your hand.</span>",
+		"<span class='notice'>You hear a card being drawn.</span>"
+		)
 	pickedcard = null
 
 	var/obj/item/cardhand/H = new(get_turf(src))
@@ -492,7 +516,11 @@
 		if(length(cards))
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(length(H.cards))
-			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
+			user.visible_message(
+				"<span class='notice'>[user] plays the [discarding].</span>",
+				"<span class='notice'>You play the [discarding].</span>",
+				"<span class='notice'>You hear a card being played.</span>"
+				)
 		H.loc = get_step(user, user.dir)
 
 	if(!length(cards))
