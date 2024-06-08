@@ -139,10 +139,6 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 	)
 
 	var/safety[] = list(1,2,3)//Tells the proc which options to remove later on.
-	var/nouns[] = list("love","hate","anger","peace","pride","sympathy","bravery","loyalty","honesty","integrity","compassion","charity","success","courage","deceit","skill","beauty","brilliance","pain","misery","belief","dream","justice","truth","faith","liberty","knowledge","thought","information","culture","trust","dedication","progress","education","hospitality","leisure","trouble","friendship","relaxation","laser","robot","box","crate","camera","wire","glass","plasma","gold","iron","titanium","diamond")
-	var/locations[] = list("arrivals","departures","bridge","brig","armory","cargo","bar","kitchen","botany","library","dormitories","holodeck","robotics","science","xenobiology","genetics","medbay","chemistry","morgue","engineering","atmospherics","maintenance")
-
-
 	var/maxwords = words//Extra var to check for duplicates.
 
 	for(words,words>0,words--)//Randomly picks from one of the choices below.
@@ -157,12 +153,12 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 				. += pick(GLOB.joblist)//Returns a job.
 				safety -= 1
 			if(2)
-				. += pick(locations)
+				. += pick(GLOB.codeword_locations)
 				safety -= 2
 			if(3)
 				switch(rand(1, 3)) // Nouns, adjectives, verbs. Can be selected more than once.
 					if(1)
-						. += pick(nouns)
+						. += pick(GLOB.codeword_nouns)
 					if(2)
 						. += pick(GLOB.adjectives)
 					if(3)
