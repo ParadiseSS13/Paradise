@@ -25,7 +25,7 @@
 	/// Whether or not to spread at a range when spreading
 	var/spread_at_range = TRUE
 
-/obj/effect/particle_effect/foam/Initialize(mapload, loc)
+/obj/effect/particle_effect/foam/Initialize(mapload)
 	. = ..()
 	create_reagents(25)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, TRUE, -3)
