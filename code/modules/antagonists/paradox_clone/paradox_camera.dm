@@ -46,7 +46,6 @@
 	clone.key = G.key
 
 	clone.mind.add_antag_datum(/datum/antagonist/paradox_clone)
-	qdel(src)
 	var/datum/antagonist/paradox_clone/para_clone_datum = clone.mind.has_antag_datum(/datum/antagonist/paradox_clone)
 	var/mob/living/carbon/human/para = para_clone_datum.owner.current
 	var/datum/mind/para_mind = para_clone_datum.owner
@@ -142,14 +141,6 @@
 	para_mind.spell_list += objective_spell
 	para_clone_datum.current_powers += objective_spell
 
-	var/list/messages = list()
-	messages.Add("<span class='userdanger'>You are a Paradox Clone!</span>")
-	messages.Add(para_clone_datum.greet())
-	messages.Add(para_mind.prepare_announce_objectives())
-	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[para_clone_datum.wiki_page_name])</span>")
-
-	to_chat(para, chat_box_red(messages.Join("<br>")))
-
 #define NANOTRASEN 1
 #define SYNDICATE 2
 
@@ -186,6 +177,8 @@
 	PS.target_brain = the_original.get_int_organ(/obj/item/organ/internal/brain)
 
 	addtimer(CALLBACK(SSjobs, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), para.client, para_mind), 1 SECONDS)
+
+	qdel(src)
 
 /mob/camera/paradox/proc/make_owner_and_target(datum/objective/O, datum/antagonist/paradox_clone/pc, datum/mind/orig)
 	O.owner = pc.owner

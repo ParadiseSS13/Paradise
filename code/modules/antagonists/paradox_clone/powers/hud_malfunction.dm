@@ -31,7 +31,7 @@
 			used = TRUE
 			var/mob/living/carbon/human/H = L
 			var/obj/item/clothing/glasses/G = H.glasses
-			if(istype(G, /obj/item/clothing/glasses/hud))
+			if(istype(G, /obj/item/clothing/glasses/hud) || locate(/obj/item/organ/internal/cyberimp/eyes/hud) in H.internal_organs)
 				H.flash_eyes(10, TRUE)
 				H.KnockDown(1 SECONDS)
 				H.EyeBlurry(10 SECONDS)

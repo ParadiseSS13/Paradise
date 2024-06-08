@@ -16,6 +16,18 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	clown_gain_text = "<span class='notice'>You are from alternative universe, where clowns are actually quite dextrous. This allows you to wield weapons without harming yourself.</span>"
 	clown_removal_text = "<span class='danger'>Your connection with your native universe fades, and with it goes your dexterity.</span>"
 	wiki_page_name = "Paradox_Clone"
+
+	give_objectives = FALSE
+	silent = TRUE
+
+	blurb_text_color = COLOR_GRAY
+	blurb_text_outline_width = 2
+
+	blurb_r = 46
+	blurb_g = 46
+	blurb_b = 46
+	blurb_a = 0.40
+
 	var/paradox_id = "Paradox"
 	var/real_id
 	var/static/list/paradox_powers = list(
@@ -28,21 +40,13 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 		/datum/spell/touch/paradox_spell/microcircuit_disorder,
 		/datum/spell/paradox_spell/self/intangibility,
 		/datum/spell/touch/paradox_spell/suppression,
-		/datum/spell/paradox_spell/aoe/hud_malfunction
+		/datum/spell/paradox_spell/aoe/hud_malfunction,
+		/datum/spell/paradox_spell/self/light_step
 	)
 	// "replace" is issued if there is a objective to kill n replace and "United Bonds" when need to protect original.
 	var/mob/living/carbon/human/original
 	var/list/current_powers = list()
-	give_objectives = FALSE
-	silent = TRUE
-
-	blurb_text_color = COLOR_GRAY
-	blurb_text_outline_width = 2
-
-	blurb_r = 46
-	blurb_g = 46
-	blurb_b = 46
-	blurb_a = 0.40
+	var/light_step = FALSE
 
 /datum/antagonist/paradox_clone/on_gain()
 	var/mob/living/carbon/human/H = owner.current
@@ -59,14 +63,7 @@ GLOBAL_LIST_INIT(paradox_clones, list())
 	for(var/mob/living/carbon/human/clone in GLOB.human_list)
 		if(clone != H && is_paradox_clone(clone))
 			to_chat("<span class='danger'>You have a feeling, that something familiar and native appeared in this dark universe...</span>")
-
-	owner.special_role = special_role
-	apply_innate_effects()
-
-	if(is_banned(owner.current) && replace_banned)
-		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
-	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
-	return TRUE // override cus shows up empty red box menu... not cool!
+	..()
 
 /datum/antagonist/paradox_clone/Destroy()
 	GLOB.paradox_clones -= owner
