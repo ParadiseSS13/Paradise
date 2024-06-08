@@ -130,7 +130,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		return
 
 	B.adjustcolors(a_color)
-	B.Pulse(pulse+1, get_dir(loc, T), a_color)
+	B.Pulse(pulse + 1, get_dir(loc, T), a_color)
 
 /obj/structure/blob/proc/run_action()
 	return FALSE
