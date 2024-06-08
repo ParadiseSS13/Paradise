@@ -1,0 +1,305 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/space,
+/area/space)
+"b" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/transport)
+"c" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/transport)
+"d" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "TSF_Shuttle_2"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/transport)
+"e" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/turf/simulated/floor/plasteel/dark{
+	dir = 1;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"g" = (
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "navybluefull"
+	},
+/area/shuttle/transport)
+"h" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/obj/machinery/status_display/directional/north,
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel/dark{
+	dir = 9;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"i" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"j" = (
+/obj/item/flag/solgov,
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/plasteel/dark{
+	dir = 9;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"k" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 32
+	},
+/obj/machinery/status_display/directional/north,
+/turf/simulated/floor/plasteel/dark{
+	dir = 5;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"l" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Шаттл ТСФ"
+	},
+/obj/docking_port/mobile{
+	dir = 4;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/transport)
+"m" = (
+/turf/simulated/floor/catwalk,
+/area/shuttle/transport)
+"n" = (
+/obj/machinery/computer/shuttle/ferry/request{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "navybluefull"
+	},
+/area/shuttle/transport)
+"o" = (
+/obj/structure/table/reinforced{
+	color = "#444444"
+	},
+/obj/machinery/door_control/shutter{
+	id = "TSF_Shuttle_2";
+	name = "Pilot Shutters Control"
+	},
+/turf/simulated/floor/plasteel/dark{
+	dir = 6;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"q" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/obj/machinery/status_display/directional/south,
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel/dark{
+	dir = 10;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"r" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark{
+	dir = 4;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"s" = (
+/turf/simulated/floor/plasteel/dark{
+	dir = 8;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"t" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/obj/machinery/status_display/directional/south,
+/obj/machinery/recharger/wallcharger/upgraded{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel/dark{
+	dir = 6;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"D" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/obj/structure/sign/flag/terragov{
+	pixel_y = -32
+	},
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"H" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "TSF_Shuttle_1"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/transport)
+"J" = (
+/obj/machinery/door/airlock/centcom/glass{
+	name = "Кабина Пилота"
+	},
+/obj/effect/turf_decal/delivery/blue,
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "navybluefull"
+	},
+/area/shuttle/transport)
+"N" = (
+/obj/item/flag/solgov,
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/plasteel/dark{
+	dir = 10;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"O" = (
+/obj/structure/table/reinforced{
+	color = "#444444"
+	},
+/obj/machinery/door_control/shutter{
+	id = "TSF_Shuttle_1";
+	name = "Boarding Shutters Control"
+	},
+/turf/simulated/floor/plasteel/dark{
+	dir = 5;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"Q" = (
+/turf/simulated/floor/plasteel/dark{
+	dir = 4;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+"R" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/transport)
+"Y" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/obj/structure/sign/flag/terragov{
+	pixel_y = 32
+	},
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/plasteel/dark{
+	dir = 1;
+	icon_state = "navyblue"
+	},
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+b
+l
+b
+a
+"}
+(2,1,1) = {"
+b
+R
+g
+R
+b
+"}
+(3,1,1) = {"
+c
+h
+s
+q
+c
+"}
+(4,1,1) = {"
+H
+e
+m
+i
+H
+"}
+(5,1,1) = {"
+c
+Y
+m
+D
+c
+"}
+(6,1,1) = {"
+H
+e
+m
+i
+H
+"}
+(7,1,1) = {"
+c
+k
+Q
+t
+c
+"}
+(8,1,1) = {"
+c
+c
+J
+c
+c
+"}
+(9,1,1) = {"
+c
+j
+s
+N
+c
+"}
+(10,1,1) = {"
+d
+O
+r
+o
+d
+"}
+(11,1,1) = {"
+d
+d
+n
+d
+d
+"}
+(12,1,1) = {"
+a
+d
+d
+d
+a
+"}

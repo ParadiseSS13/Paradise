@@ -1,0 +1,215 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/space,
+/area/space)
+"b" = (
+/obj/structure/shuttle/engine/propulsion/burst/left{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/transport)
+"c" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/transport)
+"d" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/transport)
+"f" = (
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/transport)
+"g" = (
+/obj/machinery/computer/security{
+	dir = 8;
+	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/transport)
+"h" = (
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/transport)
+"i" = (
+/obj/structure/bookcase/random,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/transport)
+"j" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/transport)
+"l" = (
+/obj/machinery/computer/shuttle/ferry/request{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/transport)
+"m" = (
+/obj/structure/chair/comfy/corp,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/transport)
+"n" = (
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/transport)
+"q" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen/multi/fountain{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/transport)
+"r" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/transport)
+"s" = (
+/obj/machinery/recharger,
+/obj/structure/table/reinforced,
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/transport)
+"t" = (
+/obj/item/bedsheet/black,
+/obj/structure/bed,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/transport)
+"I" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/flashlight/lamp/green,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/transport)
+"J" = (
+/obj/structure/shuttle/engine/propulsion/burst/right{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/transport)
+"P" = (
+/obj/structure/closet/crate/secure/bin{
+	color = "#36373a";
+	anchored = 1
+	},
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/transport)
+"U" = (
+/obj/machinery/door/airlock/titanium/glass{
+	name = "Комната VIP"
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/transport)
+"V" = (
+/obj/structure/dresser,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/transport)
+"Z" = (
+/obj/machinery/door/airlock/titanium/glass{
+	name = "Шаттл VIP"
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+b
+c
+J
+a
+"}
+(2,1,1) = {"
+b
+c
+c
+c
+J
+"}
+(3,1,1) = {"
+c
+h
+m
+q
+c
+"}
+(4,1,1) = {"
+d
+i
+f
+I
+d
+"}
+(5,1,1) = {"
+d
+i
+f
+t
+d
+"}
+(6,1,1) = {"
+c
+P
+f
+V
+c
+"}
+(7,1,1) = {"
+c
+c
+U
+c
+c
+"}
+(8,1,1) = {"
+c
+s
+n
+r
+c
+"}
+(9,1,1) = {"
+c
+j
+n
+j
+c
+"}
+(10,1,1) = {"
+d
+l
+n
+g
+d
+"}
+(11,1,1) = {"
+d
+d
+n
+d
+d
+"}
+(12,1,1) = {"
+a
+d
+Z
+d
+a
+"}

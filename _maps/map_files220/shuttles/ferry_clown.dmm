@@ -1,0 +1,180 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/space,
+/area/space)
+"b" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/bananium,
+/area/shuttle/transport)
+"c" = (
+/turf/simulated/wall/mineral/bananium,
+/area/shuttle/transport)
+"d" = (
+/obj/structure/window/full/shuttle{
+	color = "yellow"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/transport)
+"i" = (
+/obj/machinery/economy/vending/artvend/free,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"j" = (
+/obj/machinery/economy/vending/autodrobe/free,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"k" = (
+/obj/structure/sign/clown{
+	pixel_y = 32
+	},
+/obj/item/bedsheet/clown,
+/obj/structure/bed,
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"l" = (
+/obj/machinery/door/airlock/bananium/glass{
+	id_tag = "s_docking_airlock";
+	name = "Шаттл Клоунов"
+	},
+/obj/docking_port/mobile{
+	dir = 4;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/transport)
+"m" = (
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/shuttle/transport)
+"n" = (
+/obj/machinery/computer/shuttle/ferry/request{
+	dir = 8
+	},
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"q" = (
+/obj/item/flag/clown,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"r" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/shuttle/transport)
+"s" = (
+/obj/structure/dresser,
+/obj/item/food/snacks/grown/banana,
+/obj/item/grenade/bananade,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"t" = (
+/obj/structure/statue/bananium/clown,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"N" = (
+/obj/item/bedsheet/clown,
+/obj/structure/bed,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"Z" = (
+/obj/item/bedsheet/clown,
+/obj/structure/bed,
+/obj/machinery/light/spot,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+b
+l
+b
+a
+"}
+(2,1,1) = {"
+b
+c
+m
+c
+b
+"}
+(3,1,1) = {"
+c
+q
+m
+q
+c
+"}
+(4,1,1) = {"
+c
+i
+m
+j
+c
+"}
+(5,1,1) = {"
+d
+N
+m
+N
+d
+"}
+(6,1,1) = {"
+c
+s
+m
+s
+c
+"}
+(7,1,1) = {"
+c
+k
+m
+Z
+c
+"}
+(8,1,1) = {"
+c
+s
+m
+s
+c
+"}
+(9,1,1) = {"
+d
+N
+m
+N
+d
+"}
+(10,1,1) = {"
+c
+t
+r
+t
+c
+"}
+(11,1,1) = {"
+c
+d
+n
+d
+c
+"}
+(12,1,1) = {"
+a
+d
+d
+d
+a
+"}
