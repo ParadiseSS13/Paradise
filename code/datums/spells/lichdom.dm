@@ -112,6 +112,9 @@
 	target.desc += "<br><span class='warning'>A terrible aura surrounds this item, its very existence is offensive to life itself...</span>"
 	target.color = "#003300"
 	marked_item_uid = target.UID()
+	
+	GLOB.poi_list |= target
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(on_marked_item_destroy))
 
 	current_body = user.mind.current
 	if(ishuman(user))
@@ -142,3 +145,7 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), SLOT_HUD_HEAD)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), SLOT_HUD_JUMPSUIT)
+
+/datum/spell/lichdom/proc/on_marked_item_destroy(obj/item/target)
+	SIGNAL_HANDLER
+	GLOB.poi_list -= target
