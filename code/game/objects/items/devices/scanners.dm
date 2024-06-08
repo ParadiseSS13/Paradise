@@ -334,7 +334,7 @@ SLIME SCANNER
 	user.unEquip(I)
 	to_chat(user, "<span class='notice'>You install the upgrade on [src].</span>")
 	add_overlay("advanced")
-	playsound(loc, I.usesound, 50, 1)
+	playsound(loc, I.usesound, 50, TRUE)
 	advanced = TRUE
 	qdel(I)
 
