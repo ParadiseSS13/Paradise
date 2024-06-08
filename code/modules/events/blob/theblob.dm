@@ -48,11 +48,9 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	return atmosblock
 
 /obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
+	if(height == 0)
 		return TRUE
-	if(istype(mover) && mover.checkpass(PASSBLOB))
-		return TRUE
-	return FALSE
+	return istype(mover) && mover.checkpass(PASSBLOB)
 
 /obj/structure/blob/CanAtmosPass(turf/T)
 	return !atmosblock
@@ -143,19 +141,17 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	if(iswallturf(loc))
 		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
 
-/obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color, _overmind = null, turf/double_target = null)
+/obj/structure/blob/proc/expand(turf/T, prob = TRUE, a_color, _overmind, turf/double_target)
 	if(prob && !prob(obj_integrity))
-		return
 
 	if(isspaceturf(T) && prob(75))
 		return
 
 	if(!T)
-		var/list/dirs = list(1,2,4,8)
+		var/list/dirs = list(NORTH, SOUTH, EAST, WEST)
 
 		for(var/i = 1 to 4)
-			var/dirn = pick(dirs)
-			dirs.Remove(dirn)
+			var/dirn = pick_n_take(dirs)
 			T = get_step(src, dirn)
 
 			if(!(locate(/obj/structure/blob) in T))
@@ -197,7 +193,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		A.blob_act(src)
 	return TRUE
 
-/obj/structure/blob/proc/double_expand(turf/T = null, prob = 1, a_color, mob/camera/blob/incoming_overmind = null)
+/obj/structure/blob/proc/double_expand(turf/T, prob = TRUE, a_color, mob/camera/blob/incoming_overmind)
 	for(var/turf/adjacent in circlerange(T, 1))
 		if(adjacent in circlerange(src, 1))
 			expand(adjacent, 0, incoming_overmind.blob_reagent_datum.color, incoming_overmind, T)
