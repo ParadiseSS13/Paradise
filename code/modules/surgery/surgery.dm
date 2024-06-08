@@ -446,11 +446,11 @@
 		if(can_infect && affected && !prob(surgery.germ_prevention_quality))
 			spread_germs_to_organ(affected, user, tool)
 	if(ishuman(user) && !isalien(target) && prob(60))
-		var/bloodspread = SEND_SIGNAL(surgery, COMSIG_SURGERY_BLOOD_SPLASH, user, target, target_zone, tool)
+		var/blood_spread = SEND_SIGNAL(surgery, COMSIG_SURGERY_BLOOD_SPLASH, user, target, target_zone, tool)
 
 		var/mob/living/carbon/human/H = user
 
-		if(bloodspread == COMPONENT_BLOOD_SPLASH_HANDLED)
+		if(blood_spread == COMPONENT_BLOOD_SPLASH_HANDLED)
 			return
 		switch(blood_level)
 			if(SURGERY_BLOODSPREAD_HANDS)
