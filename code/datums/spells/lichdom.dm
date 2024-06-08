@@ -147,5 +147,5 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), SLOT_HUD_JUMPSUIT)
 
 /datum/spell/lichdom/proc/on_marked_item_destroy(obj/item/target)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
 	GLOB.poi_list -= target
