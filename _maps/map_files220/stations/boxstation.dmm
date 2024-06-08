@@ -35532,7 +35532,14 @@
 	pixel_x = -28;
 	pixel_y = 4
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom/custom{
+	pixel_y = 34
+	},
+/obj/machinery/door_control/shutter/north{
+	pixel_x = null;
+	name = "AI Core Shutters";
+	id = "AI Core Shutters"
+	},
 /obj/effect/landmark/start/ai,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
@@ -41701,12 +41708,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/turretid/lethal{
-	check_synth = 1;
-	name = "AI Chamber Turret Control";
-	pixel_x = -6;
-	pixel_y = 24;
-	req_one_access_txt = "75"
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
@@ -44704,7 +44709,16 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "drN" = (
-/turf/simulated/wall,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "AI Core Shutters";
+	name = "AI Chamber Entrance Shutters"
+	},
+/turf/simulated/floor/plating,
 /area/station/turret_protected/ai)
 "drO" = (
 /obj/machinery/light/directional/east,
@@ -44827,6 +44841,11 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/ai_slipper,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "dsg" = (
@@ -44844,8 +44863,8 @@
 	},
 /area/station/hallway/primary/aft)
 "dsh" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/hologram/holopad,
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74183,6 +74202,14 @@
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
+"nIH" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/bluegrid,
+/area/station/turret_protected/ai)
 "nIM" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -95379,11 +95406,19 @@
 	},
 /obj/machinery/flasher{
 	id = "hopflash";
-	pixel_y = 24
+	pixel_y = 24;
+	pixel_x = 9
 	},
 /obj/machinery/camera{
 	c_tag = "AI Satellite Exterior South";
 	network = list("SS13","MiniSat")
+	},
+/obj/machinery/turretid/lethal{
+	check_synth = 1;
+	name = "AI Chamber Turret Control";
+	req_one_access_txt = "75";
+	pixel_y = 26;
+	pixel_x = -7
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
@@ -145211,8 +145246,8 @@ dnl
 drv
 drE
 dnw
-drN
-drN
+drf
+drf
 gCq
 drN
 dfE
@@ -145468,7 +145503,7 @@ dnj
 iFI
 dnq
 dnt
-drN
+drf
 cJM
 dry
 dsc
@@ -145725,11 +145760,11 @@ drE
 drv
 drE
 dni
-drN
-drN
+drf
+drf
 vfp
 drN
-dry
+nIH
 nFg
 drf
 drf
