@@ -39,7 +39,6 @@
 
 /datum/emote/living/carbon/human/clap
 	key = "clap"
-	key = "clap"
 	key_third_person = "claps"
 	message = "claps."
 	message_mime = "claps silently."

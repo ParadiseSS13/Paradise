@@ -63,7 +63,7 @@
 
 	var/obj/structure/mecha_wreckage/wreckage = null  // type that the mecha becomes when destroyed
 
-	var/list/equipment = new
+	var/list/equipment = list()
 	var/obj/item/mecha_parts/mecha_equipment/selected
 	var/max_equip = 3
 	var/turf/crashing = null
@@ -103,8 +103,6 @@
 	var/phasing_energy_drain = 200
 	var/phase_state = "" //icon_state when phasing
 
-	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
-
 	//Action datums
 	var/datum/action/innate/mecha/mech_eject/eject_action = new
 	var/datum/action/innate/mecha/mech_toggle_internals/internals_action = new
@@ -118,6 +116,9 @@
 	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
 	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
+	var/list/select_actions = list()
+
+	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
 /obj/mecha/Initialize()
 	. = ..()
@@ -264,7 +265,7 @@
 
 
 //////////////////////////////////
-////////  MARK: Movement procs  
+////////  MARK: Movement procs
 //////////////////////////////////
 
 /obj/mecha/Process_Spacemove(movement_dir = 0)

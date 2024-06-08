@@ -108,11 +108,6 @@
 		"<span class='userdanger'>You evade [hitting_projectile]!</span>",
 	)
 	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg', 'sound/effects/refill.ogg'), 75, TRUE)
-	var/dir_to_avoid = angle2dir_cardinal(hitting_projectile.Angle)
-	var/list/potential_first_directions = list(NORTH, SOUTH, EAST, WEST)
-	potential_first_directions -= dir_to_avoid
-	new /obj/effect/temp_visual/decoy/fading(source.loc, source)
-	step(source, pick(potential_first_directions))
 	if(prob(50))
 		addtimer(VARSET_CALLBACK(source, advanced_bullet_dodge_chance, advanced_bullet_dodge_chance), 0.25 SECONDS)
 		advanced_bullet_dodge_chance = 0

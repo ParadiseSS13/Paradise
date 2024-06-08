@@ -8,7 +8,6 @@
 /obj/item/mod/control
 	name = "MOD control unit"
 	desc = "The control unit of a Modular Outerwear Device, a powered suit that protects against various environments."
-	icon_state = "standard-control"
 	icon_state = "mod_control"
 	item_state = "mod_control"
 	base_icon_state = "control"
@@ -244,7 +243,7 @@
 /obj/item/mod/control/on_mob_move(direction, mob/user)
 	if(!jetpack_active || !isturf(user.loc))
 		return
-	var/turf/T = get_step(src, reverse_direction(direction))
+	var/turf/T = get_step(src, REVERSE_DIR(direction))
 	if(!has_gravity(T))
 		new /obj/effect/particle_effect/ion_trails(T, direction)
 

@@ -317,9 +317,9 @@
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
 		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
-			if(limb_brute >= max_damage && prob(original_brute / 2))
+			if(limb_brute + limb_burn >= max_damage && prob(original_brute / 2))
 				droplimb(0, DROPLIMB_SHARP)
-			if(limb_burn >= max_damage && prob(original_burn / 2))
+			if(limb_brute + limb_burn >= max_damage && prob(original_burn / 2))
 				droplimb(0, DROPLIMB_BURN)
 
 	if(owner_old)
@@ -556,6 +556,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/droplimb(clean, disintegrate, ignore_children, nodamage)
 
 	if(limb_flags & CANNOT_DISMEMBER || !owner)
+		return
+
+	if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS) && !clean)
+		fracture()
 		return
 
 	if(!disintegrate)
