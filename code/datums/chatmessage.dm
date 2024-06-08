@@ -210,7 +210,7 @@
 	animate_lifespan = lifespan
 
 	// View the message
-	LAZYADDASSOC(owned_by.seen_messages, message_loc, src)
+	LAZYADDASSOCLIST(owned_by.seen_messages, message_loc, src)
 	owned_by.images |= message
 
 	// Fade in

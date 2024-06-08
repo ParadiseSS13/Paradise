@@ -69,6 +69,9 @@
 
 	summon_type = list(/obj/item/soulstone/anybody/purified)
 
+/datum/spell/aoe/conjure/build/soulstone/any
+	summon_type = list(/obj/item/soulstone/anybody)
+
 /datum/spell/aoe/conjure/build/pylon
 	name = "Cult Pylon"
 	desc = "This spell uses dark magic to craft an unholy beacon. Heals cultists, and makes a handy light source."
