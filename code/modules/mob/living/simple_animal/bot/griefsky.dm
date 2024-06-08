@@ -205,8 +205,6 @@
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	qdel(src)
 
-//this section is blocking attack
-
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/secbot/griefsky/disassemble()
 	var/turf/disassemble_turf = get_turf(src)
@@ -223,9 +221,8 @@
 	new weapon(disassemble_turf)
 	new weapon(disassemble_turf)
 	qdel(src)
-//this section is blocking attack
 
-/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
+/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized | This code is blocking ranged attacks
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
 		visible_message("[src] deflects [P] with its energy swords!")
