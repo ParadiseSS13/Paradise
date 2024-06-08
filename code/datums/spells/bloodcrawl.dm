@@ -103,7 +103,7 @@
 /datum/spell/bloodcrawl/proc/sink_animation(atom/A, mob/living/L)
 	var/turf/mob_loc = get_turf(L)
 	mob_loc.visible_message(
-		"<span class='danger'>[L] sinks into [A].</span>"
+		"<span class='danger'>[L] sinks into [A].</span>",
 		"<span class='danger'>You hear the sound of something sinking into a thick liquid.</span>"
 		)
 	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
@@ -129,7 +129,7 @@
 	L.stop_pulling()
 	to_chat(L, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
 	A.visible_message(
-		"<span class='warning'><b>Loud eating sounds come from the blood...</b></span>"
+		"<span class='warning'><b>Loud eating sounds come from the blood...</b></span>",
 		"<span class='warning'><b>The sound of torn flesh and snapping bones fills the air...</b></span>"
 		)
 	var/sound
@@ -210,7 +210,7 @@
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
 		playsound(tele_loc, pick(voice),50, TRUE, -1)
 	A.visible_message(
-		"<span class='warning'><b>[L] rises out of [A]!</b></span>"
+		"<span class='warning'><b>[L] rises out of [A]!</b></span>",
 		"<span class='warning'><b>You hear something rising out of a thick liquid!</b></span>"
 		)
 	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
@@ -223,7 +223,7 @@
 
 /datum/spell/bloodcrawl/proc/rise_message(atom/A)
 	A.visible_message(
-		"<span class='warning'>[A] starts to bubble...</span>"
+		"<span class='warning'>[A] starts to bubble...</span>",
 		"<span class='warning'>You can hear bubbling...</span>"
 		)
 

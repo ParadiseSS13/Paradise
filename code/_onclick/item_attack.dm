@@ -131,7 +131,7 @@
 	if(!I.force)
 		user.visible_message(
 			"<span class='notice'>[user] gently taps [src] with [I].</span>",
-			"<span class='warning'>This weapon is ineffective, it does no damage!</span>,"
+			"<span class='warning'>This weapon is ineffective, it does no damage!</span>",
 			"<span class='notice'>You hear a gentle tapping.</span>"
 			)
 	else if(I.force < force_threshold || I.damtype == STAMINA)

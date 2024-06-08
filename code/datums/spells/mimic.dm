@@ -229,13 +229,13 @@
 /datum/spell/mimic/morph/show_restore_form_message(mob/user, old_name, new_name)
 	user.visible_message(
 		"<span class='warning'>[old_name] suddenly collapses in on itself, dissolving into a pile of green flesh!</span>",
-		"<span class='notice'>You reform to your normal body.</span>"
+		"<span class='notice'>You reform to your normal body.</span>",
 		"<span class='warning'>You hear loud cracking noises followed by a thud!</span>"
 		)
 
 /datum/spell/mimic/morph/show_death_message(mob/user)
 	user.visible_message(
 		"<span class='warning'>[user] twists and dissolves into a pile of green flesh!</span>",
-		"<span class='userdanger'>Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--</span>"
+		"<span class='userdanger'>Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--</span>",
 		"<span class='warning'>You hear loud cracking noises followed by a thud!</span>"
 		)
