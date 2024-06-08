@@ -92851,14 +92851,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cloning)
-"tWQ" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "tXb" = (
 /obj/machinery/light{
 	dir = 8
@@ -123315,11 +123307,11 @@ abj
 abj
 ayG
 tnt
-tWQ
+ayG
 tnt
 ayG
 tnt
-tWQ
+ayG
 tnt
 ayG
 tnt
