@@ -642,6 +642,10 @@
 /mob/proc/rename_self(role, allow_numbers = FALSE, force = FALSE)
 	spawn(0)
 		var/oldname = real_name
+		if(role == "AI")
+			oldname = client.prefs.active_character.ai_name
+		else if(role == "Robot" || role == "Cyborg" || role == "Android")
+			oldname = client.prefs.active_character.cyborg_name
 
 		var/time_passed = world.time
 		var/newname

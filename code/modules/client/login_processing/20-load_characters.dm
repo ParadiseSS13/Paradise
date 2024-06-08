@@ -62,7 +62,11 @@
 		physique,
 		height,
 		cyborg_brain_type,
-		body_type
+		body_type,
+		ai_name,
+		cyborg_name,
+		core_display,
+		hologram
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

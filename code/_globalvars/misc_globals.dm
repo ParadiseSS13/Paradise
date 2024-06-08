@@ -57,6 +57,28 @@ GLOBAL_LIST_INIT(character_physiques, list("rail thin", "thin", "average", "well
 
 GLOBAL_LIST_INIT(character_heights, list("very short", "short", "average height", "tall", "very tall"))
 
+///AI core display and holograms
+///These do not support costum sprites, but they're still avaible to those who have them once in game
+GLOBAL_LIST_INIT(core_display_choices, list("Monochrome", "Blue", "Clown", "Inverted", "Text", "Smiley", "Angry", "Dorf",
+	"Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate",
+	"Triumvirate Static", "Red October", "Sparkles", "ANIMA", "President", "NT",
+	"NT2", "Rainbow", "Angel", "Heartline", "Hades", "Helios", "Syndicat Meow",
+	"Too Deep", "Goon", "Murica", "Fuzzy", "Glitchman", "House", "Database", "Alien",
+	"Tiger", "Fox", "Vox", "Lizard", "Dark Matter", "Cheese", "Rainbow Slime",
+	"Void Donut", "NAD Burn", "Borb", "Bee", "Catamari"))
+
+GLOBAL_LIST_INIT(hologram_animals, list(
+		"Bear", "Carp", "Chicken", "Corgi", "Cow", "Crab", "Deer", "Fox", "Goat",
+		"Goose", "Kitten", "Kitten2", "Pig", "Poly", "Pug", "Seal", "Spider",
+		"Turkey", "Shantak", "Bunny", "Hellhound", "Lightgeist", "Cockroach",
+		"Mecha-Cat", "Mecha-Fairy", "Mecha-Fox", "Mecha-Monkey", "Mecha-Mouse",
+		"Mecha-Snake", "Roller-Mouse", "Roller-Monkey"))
+
+GLOBAL_LIST_INIT(hologram_unique, list(
+	"default", "floating face", "xeno queen", "eldritch", "ancient machine", "angel",
+	"borb", "biggest fan", "cloudkat", "donut", "frost phoenix", "engi bot",
+	"drone", "boxbot"))
+
 #define GLOBAL_SPARK_LIMIT 500
 /// Counter for the current amount of sparks
 GLOBAL_VAR_INIT(sparks_active, 0)
