@@ -143,6 +143,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 
 /obj/structure/blob/proc/expand(turf/T, prob = TRUE, a_color, _overmind, turf/double_target)
 	if(prob && !prob(obj_integrity))
+		return
 
 	if(isspaceturf(T) && prob(75))
 		return
