@@ -46,8 +46,6 @@
 			user.adjustBruteLoss(rand(force/2, force))
 		return
 	. = ..()
-	if(IS_CULTIST(target) || . == FALSE)
-		return
 
 /obj/item/melee/cultblade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
