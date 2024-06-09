@@ -165,6 +165,8 @@
 /obj/structure/table/glass,
 /obj/item/storage/box/beakers/bluespace,
 /obj/item/storage/box/beakers/bluespace,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/hydroponics,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "qI" = (

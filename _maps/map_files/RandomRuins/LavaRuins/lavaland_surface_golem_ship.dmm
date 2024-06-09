@@ -198,6 +198,7 @@
 "I" = (
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder,
+/obj/item/book/manual/wiki/hydroponics,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "J" = (
