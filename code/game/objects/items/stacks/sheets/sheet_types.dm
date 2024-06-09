@@ -11,6 +11,7 @@
  * Brass (clockwork cult)
  * Bones
  * Plastic
+ * Saltpetre Crystal
  */
 
 /*
@@ -113,6 +114,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("air alarm frame", /obj/item/mounted/frame/alarm_frame, 2),
 	new /datum/stack_recipe("fire alarm frame", /obj/item/mounted/frame/firealarm, 2),
 	new /datum/stack_recipe("intercom frame", /obj/item/mounted/frame/intercom, 2),
+	new /datum/stack_recipe/barsign_frame("bar sign frame", /obj/machinery/barsign, 4),
 	new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
 	null
 ))
@@ -193,6 +195,12 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	point_value = 23
 	table_type = /obj/structure/table/reinforced
 
+/obj/item/stack/sheet/plasteel/five
+	amount = 5
+
+/obj/item/stack/sheet/plasteel/fifteen
+	amount = 15
+
 /obj/item/stack/sheet/plasteel/fifty
 	amount = 50
 
@@ -214,6 +222,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("rake", /obj/item/cultivator/rake, 5, time = 1 SECONDS),
 	new /datum/stack_recipe("wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS),
 	new /datum/stack_recipe("firebrand", /obj/item/match/firebrand, 2, time = 10 SECONDS),
+	new /datum/stack_recipe("notice board", /obj/item/mounted/noticeboard, 5, time = 5 SECONDS),
 	null,
 	new /datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20),
 	new /datum/stack_recipe_list("wood structures", list(
@@ -319,7 +328,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 		new /datum/stack_recipe("cloth handwraps", /obj/item/clothing/gloves/handwraps, 2),
 		new /datum/stack_recipe("fingerless gloves", /obj/item/clothing/gloves/fingerless, 1),
 		new /datum/stack_recipe("white gloves", /obj/item/clothing/gloves/color/white, 3),
-		new /datum/stack_recipe("white softcap", /obj/item/clothing/head/soft/mime, 2),
+		new /datum/stack_recipe("white softcap", /obj/item/clothing/head/soft/white, 2),
 		new /datum/stack_recipe("white beanie", /obj/item/clothing/head/beanie, 2),
 	)),
 	null,
@@ -514,7 +523,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, and reality sunderers)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, reality sunderers, and blank tarot cards)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	))
 
@@ -690,3 +699,16 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 
 /obj/item/stack/sheet/plastic/five
 	amount = 5
+
+/*
+ * Saltpetre crystal
+ */
+
+/obj/item/stack/sheet/saltpetre_crystal
+	name = "saltpetre crystal"
+	desc = "A bunch of saltpetre crystals. Can be ground to get liquid saltpetre that can be used to dope hydroponics trays and soil plots."
+	singular_name = "saltpetre crystal"
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-saltpetre"
+	item_state = "sheet-saltpetre"
+	origin_tech = "materials=1;biotech=1"

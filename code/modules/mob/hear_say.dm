@@ -68,7 +68,7 @@
 	//make sure the air can transmit speech - hearer's side
 	var/turf/T = get_turf(src)
 	if(T && !isobserver(src))
-		var/datum/gas_mixture/environment = T.return_air()
+		var/datum/gas_mixture/environment = T.get_readonly_air()
 		var/pressure = environment ? environment.return_pressure() : 0
 		if(pressure < SOUND_MINIMUM_PRESSURE && get_dist(speaker, src) > 1)
 			return FALSE
@@ -174,16 +174,16 @@
 /mob/proc/hear_sleep(message)
 	var/heard = ""
 	if(prob(15))
-		message = strip_html_properly(message)
+		message = html_decode(strip_html_tags(message))
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")
 		if(length(messages) > 0)
 			var/R = rand(1, length(messages))
 			var/heardword = messages[R]
 			if(copytext(heardword,1, 1) in punctuation)
-				heardword = copytext(heardword,2)
+				heardword = html_encode(copytext(heardword, 2))
 			if(copytext(heardword,-1) in punctuation)
-				heardword = copytext(heardword,1,length(heardword))
+				heardword = html_encode(copytext(heardword, 1, length(heardword)))
 			heard = "<span class='game say'>...<i>You hear something about<i>... '[heardword]'...</span>"
 		else
 			heard = "<span class='game say'>...<i>You almost hear something...</i>...</span>"

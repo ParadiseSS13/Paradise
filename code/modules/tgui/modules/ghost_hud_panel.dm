@@ -81,6 +81,9 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 
 			GLOB.antag_hud_users |= ghost.ckey
 
+			if(!check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE))
+				// admins always get aobserve
+				add_verb(ghost, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
 
 			ghost.antagHUD = TRUE
 			for(var/datum/atom_hud/antag/H in GLOB.huds)

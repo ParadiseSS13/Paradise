@@ -43,7 +43,7 @@
 /obj/item/seeds/kudzu/get_analyzer_text()
 	var/text = ..()
 	var/text_string = ""
-	for(var/datum/spacevine_mutation/SM in mutations)
+	for(var/datum/spacevine_mutation/SM as anything in mutations)
 		text_string += "[(text_string == "") ? "" : ", "][initial(SM.name)]"
 	text += "\n- Plant Mutations: [(text_string == "") ? "None" : text_string]"
 	return text
@@ -52,7 +52,7 @@
 	var/list/temp_mut_list = list()
 
 	if(S.has_reagent("sterilizine", 5))
-		for(var/datum/spacevine_mutation/SM in mutations)
+		for(var/datum/spacevine_mutation/SM as anything in mutations)
 			if(initial(SM.quality) == SPACEVINE_MUTATION_NEGATIVE)
 				temp_mut_list += SM
 		if(prob(20) && length(temp_mut_list))
@@ -60,7 +60,7 @@
 		temp_mut_list.Cut()
 
 	if(S.has_reagent("fuel", 5))
-		for(var/datum/spacevine_mutation/SM in mutations)
+		for(var/datum/spacevine_mutation/SM as anything in mutations)
 			if(initial(SM.quality) == SPACEVINE_MUTATION_POSITIVE)
 				temp_mut_list += SM
 		if(prob(20) && length(temp_mut_list))
@@ -68,7 +68,7 @@
 		temp_mut_list.Cut()
 
 	if(S.has_reagent("phenol", 5))
-		for(var/datum/spacevine_mutation/SM in mutations)
+		for(var/datum/spacevine_mutation/SM as anything in mutations)
 			if(initial(SM.quality) == SPACEVINE_MUTATION_MINOR_NEGATIVE)
 				temp_mut_list += SM
 		if(prob(20) && length(temp_mut_list))

@@ -1,4 +1,5 @@
 import re
+import pathlib
 from typing import Optional
 
 from .common import Constant, Typepath
@@ -219,12 +220,16 @@ class Rules:
 class Lint:
     help: Optional[str] = None
     rules: dict[TypepathExtra, Rules]
+    exclude_files: list[str] = list()
 
     def __init__(self, data):
         expect(isinstance(data, dict), "Lint must be a dictionary.")
 
         if "help" in data:
             self.help = data.pop("help")
+
+        if "exclude_files" in data:
+            self.exclude_files = [pathlib.Path(x) for x in data.pop("exclude_files")]
 
         expect(isinstance(self.help, str) or self.help is None, "Lint help must be a string.")
 

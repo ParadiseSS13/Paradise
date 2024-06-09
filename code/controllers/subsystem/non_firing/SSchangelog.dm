@@ -97,7 +97,7 @@ SUBSYSTEM_DEF(changelog)
 /client/verb/changes()
 	set name = "Changelog"
 	set desc = "View the changelog."
-	set category = "OOC"
+	set category = null
 	// Just invoke the actual CL thing
 	SSchangelog.OpenChangelog(src)
 

@@ -233,7 +233,7 @@ const MessageResponse = (props, context) => {
       sectionTitle = 'Message sent successfully';
       break;
     case 'FAIL':
-      sectionTitle = 'Request supplies from another department';
+      sectionTitle = 'Unable to contact messaging server';
       break;
   }
 
@@ -261,6 +261,7 @@ const MessageLog = (props, context) => {
       sectionTitle = 'Shipping label print log';
       break;
   }
+  list2iterate.reverse();
 
   return (
     <Stack.Item grow textAlign="center">

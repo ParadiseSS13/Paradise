@@ -65,8 +65,6 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 /datum/spell
 	var/name = "Spell" // Only rename this if the spell you're making is not abstract
 	var/desc = "A wizard spell"
-	var/panel = "Spells"//What panel the proc holder needs to go on.
-
 	var/school = "evocation" //not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
 	///recharge time in deciseconds
 	var/base_cooldown = 10 SECONDS

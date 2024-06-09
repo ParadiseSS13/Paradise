@@ -233,6 +233,10 @@
 		visible_message("<span class='danger'>You hear a loud metallic grinding sound.</span>")
 		return
 
+	if(HAS_TRAIT(occupant, TRAIT_CLING_BURSTING))
+		visible_message("<span class='warning'>[src] jams up as [occupant]'s corpse rapidly grows in size...</span>")
+		return
+
 	use_power(1000)
 	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
 
@@ -242,7 +246,7 @@
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
 
 	var/slab_name = occupant.name
-	var/slab_count = 3
+	var/slab_count = 6
 	var/slab_type = /obj/item/food/snacks/meat/human //gibber can only gib humans on paracode, no need to check meat type
 	var/slab_nutrition = occupant.nutrition / 15
 

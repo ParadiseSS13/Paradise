@@ -416,13 +416,35 @@
 
 /datum/design/cyberimp_toolset_abductor
 	name = "Abductor Toolset Implant"
-	desc = "An alien toolset, designed to be installed on subject's arm."
+	desc = "An alien toolset, designed to be installed on the subject's arm."
 	id = "ci-hacking"
 	req_tech = list("materials" = 6, "engineering" = 6, "plasmatech" = 6, "abductor" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
 	construction_time = 200
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset_abductor
+	category = list("Medical")
+
+/datum/design/cyberimp_janitorial_abductor
+	name = "Abductor Janitorial Toolset Implant"
+	desc = "An alien janitorial toolset, designed to be installed on the subject's arm."
+	id = "ci-jani-abductor"
+	req_tech = list("materials" = 6, "engineering" = 6, "biotech" = 6, "abductor" = 3)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
+	construction_time = 20 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/arm/janitorial_abductor
+	category = list("Medical")
+
+/datum/design/cyberimp_surgical_abductor
+	name = "Abductor Surgical Toolset Implant"
+	desc = "An alien surgical toolset, designed to be installed on the subject's arm."
+	id = "ci-med-abductor"
+	req_tech = list("materials" = 6, "magnets" = 6, "biotech" = 6, "abductor" = 3)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
+	construction_time = 20 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/arm/surgical_abductor
 	category = list("Medical")
 
 /datum/design/cyberimp_jani_hud
@@ -500,6 +522,17 @@
 	construction_time = 60
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/organ/internal/eyes/cybernetic/thermals
+	category = list("Medical")
+
+/datum/design/cyberimp_scope
+	name = "Kaleido Optics Implant"
+	desc = "These cybernetic eye implants will let you zoom in on far away objects. Many users find it disorienting, and find it hard to interact with things near them when active."
+	id = "ci-scope"
+	req_tech = list("materials" = 6, "programming" = 4, "biotech" = 7, "magnets" = 5,"plasmatech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/organ/internal/eyes/cybernetic/scope
 	category = list("Medical")
 
 /datum/design/cyberimp_antidrop

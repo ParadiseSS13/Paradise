@@ -69,7 +69,9 @@ const RecordView = (props, context) => {
               <LabeledList.Item label="Details">{medical.alg_d}</LabeledList.Item>
               <LabeledList.Item label="Current Diseases">{medical.cdi}</LabeledList.Item>
               <LabeledList.Item label="Details">{medical.cdi_d}</LabeledList.Item>
-              <LabeledList.Item label="Important Notes">{medical.notes}</LabeledList.Item>
+              <LabeledList.Item label="Important Notes" preserveWhitespace>
+                {medical.notes}
+              </LabeledList.Item>
             </LabeledList>
           ) : (
             <Box color="red" bold>
@@ -89,7 +91,9 @@ const RecordView = (props, context) => {
               <LabeledList.Item label="Details">{security.mi_crim_d}</LabeledList.Item>
               <LabeledList.Item label="Major Crimes">{security.ma_crim}</LabeledList.Item>
               <LabeledList.Item label="Details">{security.ma_crim_d}</LabeledList.Item>
-              <LabeledList.Item label="Important Notes">{security.notes}</LabeledList.Item>
+              <LabeledList.Item label="Important Notes" preserveWhitespace>
+                {security.notes}
+              </LabeledList.Item>
             </LabeledList>
           ) : (
             <Box color="red" bold>

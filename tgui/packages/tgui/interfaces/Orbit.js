@@ -89,7 +89,7 @@ const OrbitedButton = (props, context) => {
 
 export const Orbit = (props, context) => {
   const { act, data } = useBackend(context);
-  const { alive, antagonists, highlights, response_teams, auto_observe, dead, ghosts, misc, npcs } = data;
+  const { alive, antagonists, highlights, response_teams, auto_observe, dead, ssd, ghosts, misc, npcs } = data;
 
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
@@ -112,6 +112,7 @@ export const Orbit = (props, context) => {
       highlights,
       alive,
       ghosts,
+      ssd,
       dead,
       npcs,
       misc,
@@ -180,6 +181,8 @@ export const Orbit = (props, context) => {
         <BasicSection title="Alive" source={alive} searchText={searchText} color={'good'} />
 
         <BasicSection title="Ghosts" source={ghosts} searchText={searchText} color={'grey'} />
+
+        <BasicSection title="SSD" source={ssd} searchText={searchText} color={'grey'} />
 
         <BasicSection title="Dead" source={dead} searchText={searchText} sorted={false} />
 

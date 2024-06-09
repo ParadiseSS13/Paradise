@@ -100,13 +100,13 @@
 	desc = "Heavy duty, airtight, plastic flaps."
 
 /obj/structure/plasticflaps/mining/Initialize()
-	air_update_turf(TRUE)
-	..()
+	. = ..()
+	recalculate_atmos_connectivity()
 
 /obj/structure/plasticflaps/mining/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
-/obj/structure/plasticflaps/mining/CanAtmosPass(turf/T)
+/obj/structure/plasticflaps/mining/CanAtmosPass(direction)
 	return FALSE

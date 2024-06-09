@@ -77,6 +77,18 @@ actual development.
     /:cl:
 ```
 
+## Modifying MILLA
+
+Our atmos engine, MILLA, is in the `milla/` directory. It's written in Rust for performance reasons, which means it's not compiled the same way as the rest of the code. If you're on Windows, you get a pre-built copy by default. If you're on Linux, you built one already to run the server.
+
+If you make changes to MILLA, you'll want to rebuild. This will be very similar to RUSTG:
+https://github.com/ParadiseSS13/rust-g
+The only difference is that you run `cargo` from the `milla/` directory, and don't need to speify `--all-features` (though it doesn't hurt).
+
+The server will automatically detect that you have a local build, and use that over the default Windows one.
+
+When you're ready to make a PR, please DO NOT modify `milla.dll` or `tools/ci/libmilla_ci.so`. Leave "Allow edits and access to secrets by maintainers" enabled, and post a comment on your PR saying `!build_milla`. A bot will automatically build them for you and update your branch.
+
 ## Specifications
 
 As mentioned before, you are expected to follow these specifications in order to make everyone's lives easier. It'll save both your time and ours, by making
@@ -157,7 +169,7 @@ if(thing == TRUE)
 	return "bleh"
 var/other_thing = pick(TRUE, FALSE)
 if(other_thing == FALSE)
-	return "meh"
+    return "meh"
 
 // Good
 var/thing = pick(TRUE, FALSE)
@@ -165,7 +177,7 @@ if(thing)
 	return "bleh"
 var/other_thing = pick(TRUE, FALSE)
 if(!other_thing)
-	return "meh"
+    return "meh"
 ```
 
 ### Use `pick(x, y, z)`, not `pick(list(x, y, z))`
@@ -450,6 +462,32 @@ Look for code examples on how to properly use it.
 //Good
 /datum/datum1/proc/proc1(target)
     addtimer(CALLBACK(target, PROC_REF(dothing), arg1, arg2, arg3), 5 SECONDS)
+```
+
+### Signals
+
+Signals are a slightly more advanced topic, but are often useful for attaching external behavior to objects that should be triggered when a specific event occurs.
+
+When defining procs that should be called by signals, you must include `SIGNAL_HANDLER` after the proc header. This ensures that no sleeping code can be called from within a signal handler, as that can cause problems with the signal system.
+
+Since callbacks can be connected to many signals with `RegisterSignal`, it can be difficult to pin down the source that a callback is invoked from. Any new `SIGNAL_HANDLER` should be followed by a comment listing the signals that the proc is expected to be invoked for. If there are multiple signals to be handled, separate them with a `+`.
+
+```dm
+/atom/movable/proc/when_moved(atom/movable/A)
+    SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
+    do_something()
+
+/datum/component/foo/proc/on_enter(datum/source, atom/enterer)
+    SIGNAL_HANDLER  // COMSIG_ATOM_ENTERED + COMSIG_ATOM_INITIALIZED_ON
+    do_something_else()
+```
+
+If your proc does have something that needs to sleep (such as a `do_after()`), do not simply omit the `SIGNAL_HANDLER`. Instead, call the sleeping code with `INVOKE_ASYNC` from within the signal handling function.
+
+```dm
+/atom/movable/proc/when_moved(atom/movable/A)
+    SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
+    INVOKE_ASYNC(src, PROC_REF(thing_that_sleeps), arg1)
 ```
 
 ### Operators

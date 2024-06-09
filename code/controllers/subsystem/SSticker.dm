@@ -141,6 +141,8 @@ SUBSYSTEM_DEF(ticker)
 				var/list/pickable_types = list()
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
+					if(istype(SSmapping.map_datum, M)) // Random will never choose the same map twice in a row.
+						continue
 					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
 						pickable_types += M
 
@@ -249,7 +251,7 @@ SUBSYSTEM_DEF(ticker)
 	SSjobs.DivideOccupations() //Distribute jobs
 
 	if(hide_mode)
-		var/list/modes = new
+		var/list/modes = list()
 		for(var/datum/game_mode/M in runnable_modes)
 			modes += M.name
 		modes = sortList(modes)
@@ -852,17 +854,17 @@ SUBSYSTEM_DEF(ticker)
 				if(length(SSticker.mode.blob_overminds))
 					switch(outcome)
 						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob nuclear victories", 1, "Blob")
 						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob survives to normal round end", 1, "Blob")
 						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob survives to admin round end", 1, "Blob")
 				else
 					switch(outcome)
 						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob dies station nuked", 1, "Blob")
 						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob dies normal end", 1, "Blob")
 						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob dies admin round end", 1, "Blob")
 

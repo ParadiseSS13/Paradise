@@ -21,7 +21,7 @@
  */
 /datum/reagents
 	/// All contained reagents. More specifically, references to the reagent datums.
-	var/list/datum/reagent/reagent_list = new/list()
+	var/list/datum/reagent/reagent_list = list()
 	/// The total volume of all reagents in this holder.
 	var/total_volume = 0
 	/// This is the maximum volume of the holder.
@@ -31,8 +31,8 @@
 	var/chem_temp = T20C
 	var/temperature_min = 0
 	var/temperature_max = 10000
-	var/list/datum/reagent/addiction_list = new/list()
-	var/list/addiction_threshold_accumulated = new/list()
+	var/list/datum/reagent/addiction_list = list()
+	var/list/addiction_threshold_accumulated = list()
 	var/flags
 
 /datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
@@ -390,7 +390,7 @@
 		M.update_stat("reagent metabolism")
 	if(update_flags & STATUS_UPDATE_STAMINA)
 		M.update_stamina()
-		M.update_health_hud()
+		M.update_stamina_hud()
 	if(update_flags & STATUS_UPDATE_BLIND)
 		M.update_blind_effects()
 	if(update_flags & STATUS_UPDATE_NEARSIGHTED)
@@ -463,7 +463,7 @@
 				var/total_matching_catalysts = 0
 				var/matching_container = FALSE
 				var/matching_other = FALSE
-				var/list/multipliers = new/list()
+				var/list/multipliers = list()
 				var/min_temp = C.min_temp			//Minimum temperature required for the reaction to occur (heat to/above this)
 				var/max_temp = C.max_temp			//Maximum temperature allowed for the reaction to occur (cool to/below this)
 				for(var/B in C.required_reagents)
@@ -496,6 +496,8 @@
 					min_temp = chem_temp
 
 				if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && chem_temp <= max_temp && chem_temp >= min_temp)
+					if(!C.last_can_react_check(src))
+						continue
 					var/multiplier = min(multipliers)
 					var/preserved_data = null
 					for(var/B in C.required_reagents)
@@ -810,6 +812,15 @@
 /datum/reagents/proc/get_reagent(type)
 	. = locate(type) in reagent_list
 
+/datum/reagents/proc/get_reagent_by_id(id)
+	var/list/cached_reagents = reagent_list
+	for(var/A in cached_reagents)
+		var/datum/reagent/R = A
+		if(R.id == id)
+			return R
+
+	return
+
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = FALSE, safety = TRUE) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount))
 		return TRUE
@@ -965,6 +976,17 @@
 			var/R = initial(thing.id)
 			if(R in GLOB.blocked_chems)
 				continue
+			random_reagents += R
+	var/picked_reagent = pick(random_reagents)
+	return picked_reagent
+
+/// Returns a random reagent ID, with real non blacklisted balance boosting action!
+/proc/get_unrestricted_random_reagent_id()
+	var/static/list/random_reagents
+	if(!length(random_reagents))
+		random_reagents = list()
+		for(var/datum/reagent/thing as anything in subtypesof(/datum/reagent))
+			var/R = initial(thing.id)
 			random_reagents += R
 	var/picked_reagent = pick(random_reagents)
 	return picked_reagent

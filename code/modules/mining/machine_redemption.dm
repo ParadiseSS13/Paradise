@@ -213,7 +213,7 @@
 							"<span class='notice'>You insert [I] into [src].</span>")
 		return
 
-	else if(istype(I, /obj/item/gripper_engineering))
+	else if(istype(I, /obj/item/gripper))
 		if(!try_refill_storage(user))
 			to_chat(user, "<span class='notice'>You fail to retrieve any sheets from [src].</span>")
 		return

@@ -111,7 +111,6 @@
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_cult"
-	panel = "Demon"
 
 /datum/spell/sense_victims/create_new_targeting()
 	return new /datum/spell_targeting/alive_mob_list

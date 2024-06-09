@@ -326,7 +326,7 @@
 	return T.straight_table_check(direction)
 
 /obj/structure/table/AltShiftClick(mob/living/carbon/human/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped || is_ventcrawling(user))
 		return
 
 	if(!flipped)

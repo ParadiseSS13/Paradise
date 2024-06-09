@@ -27,7 +27,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg, MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+				to_chat(C, msg, MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_ADMINHELP)
 					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
@@ -76,13 +76,19 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
+	var/our_key = M.key
+	if(M.client && M.client.holder)
+		if(M.client.holder.fakekey && M.client.holder.big_brother)
+			our_key = M.client.holder.fakekey
 
-	var/body = "<html><meta charset='UTF-8'><head><title>Options for [M.key]</title></head>"
+	var/body = "<html><meta charset='UTF-8'><head><title>Options for [our_key]</title></head>"
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
-		if(check_rights(R_PERMISSIONS, 0))
+		if(check_rights(R_PERMISSIONS, FALSE))
 			body += "\[<A href='byond://?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\] "
+		else if(M.client.holder && M.client.holder.fakekey && M.client.holder.big_brother)
+			body += "\[Player\] "
 		else
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
 		body += "\[<A href='byond://?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
@@ -660,7 +666,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Nuclear Operative"
 	if(iswizard(M))
 		antag_list += "Wizard"
-	if(ischangeling(M))
+	if(IS_CHANGELING(M))
 		antag_list += "Changeling"
 	if(M.mind in SSticker.mode.abductors)
 		antag_list += "Abductor"
@@ -670,7 +676,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Vampire Thrall"
 	if(M.mind.has_antag_datum(/datum/antagonist/traitor))
 		antag_list += "Traitor"
-	if(M.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE))
+	if(IS_MINDSLAVE(M))
 		antag_list += "Mindslave"
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
@@ -710,7 +716,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	var/list/types = typesof(/atom)
-	var/list/matches = new()
+	var/list/matches = list()
 
 	var/include_subtypes = TRUE
 	if(copytext(object, -1) == ".")

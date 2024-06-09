@@ -200,7 +200,7 @@
 		var/obj/item/paper/crumpled/P = new(loc)
 		P.name = name
 		if(info) // Something written on the paper.
-			/*var/new_text = strip_html_properly(info, MAX_PAPER_MESSAGE_LEN, TRUE) // Don't want HTML stuff getting gibberished.
+			/*var/new_text = strip_html_tags(info, MAX_PAPER_MESSAGE_LEN, TRUE) // Don't want HTML stuff getting gibberished.
 			P.info = Gibberish(new_text, 100)*/
 			P.info = "<i>Whatever was once written here has been made completely illegible by a combination of chew marks and saliva.</i>"
 			message_ending = ", the drool making it an unreadable mess!"
@@ -660,6 +660,42 @@
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
 
+/obj/item/paper/nuclear_guide_operating
+	name = "nuclear guide : 'Operating the Nuclear Device'"
+	info = "<b>ARMING THE NUCLEAR DEVICE</b><hr /> \
+		1. Insert the NAD. <br> \
+		2. Enter the code provided by Central Command. For this training device, the code is 11111.<br> \
+		3. (Optional) Set a specific timer for detonation. Default and minimum is 2 minutes.<br> \
+		4. Disable the safety.<br> \
+		5. Arm the nuclear device.<br> \
+		6. Take out the NAD to ensure the device stays armed.<hr /> \
+		<b>DISARMING THE NUCLEAR DEVICE</b><hr /> \
+		Follow step 1 and 2, then hit the disarm. If you have the NAD but don't know the code, refer to the Defusing guide. If you have neither, refer to the Spacing guide."
+
+/obj/item/paper/nuclear_guide_defusing
+	name = "nuclear guide : 'Defusing the Nuclear Device'"
+	info = "<b>DEFUSING THE NUCLEAR DEVICE</b><hr /> \
+		<b>IF YOU DON'T HAVE THE NAD :</b> Refer to the Spacing guide, you cannot defuse the nuclear device.<hr /> \
+		1. Insert the NAD. <br> \
+		2. Use a SCREWDRIVER and open the device's panel.<br> \
+		3. CUT the CONTROL wire using WIRECUTTERS to short out the control panel and bypass it.<br>\
+		4. PULSE the DISARM wire using a MULTITOOL to stop the bomb's timer.<hr /> \
+		<b>WARNING</b> : Nuclear devices deployed by hostile operatives will likely have unlabelled wires.<br> \
+		PULSING or CUTTING the DETONATOR wire will prematurely detonate the bomb if the timer is active.<br> \
+		Depending on the timer left on the bomb, try your luck or refer to the Spacing guide."
+
+/obj/item/paper/nuclear_guide_spacing
+	name = "nuclear guide : 'Spacing the Nuclear Device'"
+	info = "<b>SPACING THE NUCLEAR DEVICE</b><hr /> \
+	To be used on assets of hostile operatives only. Any loss of NT nuclear devices following this guide will be charged as Grand Theft per Space Law.<hr /> \
+	1. Ensure the device's access panel is closed. Use a screwdriver to close it if it isn't. <br> \
+	2. Use a WELDING TOOL to cut the anchoring bolt covers.<br> \
+	3. Use a CROWBAR to pry the bolts open.<br> \
+	4. Use a WELDING TOOL to cut the anchoring system sealant.<br> \
+	5. Use a WRENCH to unwrench the anchoring bolts.<br> \
+	6. Use a CROWBAR to pry the nuclear device off its anchors.<br> \
+	7. DRAG the nuclear device to the closest opening to SPACE, and PUSH it away from the station."
+
 /obj/item/paper/central_command
 	name = "paper"
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
@@ -685,6 +721,50 @@
 /obj/item/paper/syndicate_druglab/delivery
 	name = "paper - 'Delivery Note'"
 	info = "<i>Hey sweetie! The boss wants you to have some friends. I couldn't get you a real suit, but I found this in a cosplay shop! The bees surely won't see through your IMPECCABLE disguise!<br><br>xoxo,<br>george ♥</i><br><br>- What the fuck. I'm airlocking him tomorrow."
+
+/obj/item/paper/zombie_cure
+	name = "paper - 'Research on Zombies'"
+
+/obj/item/paper/zombie_cure/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD // Make sure reagents appear before this paper
+
+/obj/item/paper/zombie_cure/LateInitialize()
+	. = ..()
+	var/list/zombie_cure_reactions = list()
+	for(var/id in GLOB.chemical_reactions_list)
+		for(var/datum/chemical_reaction/zombie/reaction in GLOB.chemical_reactions_list[id])
+			zombie_cure_reactions["[reaction.cure_level]"] = reaction // we use string keys here so we can measure how many cures there are
+
+	if(length(zombie_cure_reactions) != 4)
+		stack_trace("GLOB.chemical_reactions_list only had [length(zombie_cure_reactions)] zombie cure reactions, when it should have had 4")
+
+	var/list/info_builder = list(
+		"I've done my best to cure them but... I'm out of time. I'd rather die than be bitten and turn into one of them. Below is a compilation of my research of the virus... Good luck.<br>"
+	)
+	for(var/counter in list("1", "2", "3", "4"))
+		var/datum/chemical_reaction/zombie/level = zombie_cure_reactions[counter]
+		if(!level)
+			continue
+		info_builder += "<b><font size='4'>[level.name]</font></b><br>"
+		if(counter == "4")
+			var/datum/reagent/reagent_type
+			for(var/reagent in level.required_reagents)
+				if(reagent == "blood")
+					continue
+				reagent_type = GLOB.chemical_reagents_list[reagent]
+				break
+			info_builder += "I wasn't able to finalize this final Omega sequence. But I know it must contain [reagent_type.name]."
+			break
+		info_builder += "<ul>"
+		for(var/reagent in level.required_reagents)
+			if(reagent == "blood")
+				continue
+			var/datum/reagent/reagent_type = GLOB.chemical_reagents_list[reagent]
+			info_builder += "<li>[reagent_type.name]"
+		info_builder += "</ul><br>"
+
+	info = info_builder.Join("")
 
 /obj/item/paper/evilfax
 	name = "Centcomm Reply"
@@ -752,7 +832,9 @@
 			else if(myeffect == "Death By Fire")
 				to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(target)
-				new /obj/effect/hotspot(T)
+				var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+				hotspot.temperature = 1000
+				hotspot.recolor()
 				target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 			else if(myeffect == "Total Brain Death")
 				to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")

@@ -111,7 +111,7 @@
 
 	var/mob/living/M = user
 	var/turf/mobloc = get_turf(M)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/found_turf = FALSE
 	var/list/bagholding = user.search_contents_for(/obj/item/storage/backpack/holding)
 	for(var/turf/T in range(user, tp_range))
@@ -271,7 +271,7 @@
 	if(HAS_TRAIT(user, TRAIT_RESISTHEAT))
 		to_chat(user, "<span class='warning'>You are already fireproof!</span>")
 		return
-	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || (user.dna && user.dna.species.name != "Plasmaman"))
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || (user.dna && user.dna.species.name != "Plasmaman"))
 		to_chat(user, "<span class='warning'>The injector is not compatable with your biology!</span>")
 		return
 	if(used)

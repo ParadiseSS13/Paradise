@@ -23,6 +23,7 @@
 	assemblytype = /obj/structure/firelock_frame
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 100, FIRE = 95, ACID = 70)
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
@@ -321,13 +322,17 @@
 	if(get_dir(loc, target) == dir)
 		return !density
 	else
-		return 1
+		return TRUE
 
-/obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T)
-	if(get_dir(loc, T) == dir)
+/obj/machinery/door/firedoor/border_only/CanAtmosPass(direction)
+	if(direction == dir)
 		return !density
-	else
-		return 1
+	return TRUE
+
+/obj/machinery/door/firedoor/border_only/get_superconductivity(direction)
+	if(direction == dir && density)
+		return FALSE
+	return ..()
 
 /obj/machinery/door/firedoor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -338,7 +343,6 @@
 	name = "heavy firelock"
 	icon = 'icons/obj/doors/doorfire.dmi'
 	glass = FALSE
-	opacity = TRUE
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
 	max_integrity = 550

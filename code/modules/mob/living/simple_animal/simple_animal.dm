@@ -152,7 +152,6 @@
 		real_name = name
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
-	remove_verb(src, /mob/verb/observe)
 	if(can_hide)
 		var/datum/action/innate/hide/hide = new()
 		hide.Grant(src)
@@ -290,20 +289,22 @@
 						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 
 
-/mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
+/mob/living/simple_animal/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
+		return
 	var/atmos_suitable = 1
 
-	var/areatemp = get_temperature(environment)
+	var/areatemp = get_temperature(readonly_environment)
 
 	if(abs(areatemp - bodytemperature) > 5 && !HAS_TRAIT(src, TRAIT_NOBREATH))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		bodytemperature += diff
 
-	var/tox = environment.toxins
-	var/oxy = environment.oxygen
-	var/n2 = environment.nitrogen
-	var/co2 = environment.carbon_dioxide
+	var/tox = readonly_environment.toxins()
+	var/oxy = readonly_environment.oxygen()
+	var/n2 = readonly_environment.nitrogen()
+	var/co2 = readonly_environment.carbon_dioxide()
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = 0

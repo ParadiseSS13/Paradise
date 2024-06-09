@@ -118,7 +118,7 @@
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
 	var/damage = rand(A.dna.species.punchdamagelow, A.dna.species.punchdamagehigh)
-	var/datum/unarmed_attack/attack = A.dna.species.unarmed
+	var/datum/unarmed_attack/attack = A.get_unarmed_attack()
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
 	if(IS_HORIZONTAL(D))
@@ -258,6 +258,7 @@
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
+	layer_over_suit = TRUE
 	var/datum/martial_art/wrestling/style
 
 /obj/item/storage/belt/champion/wrestling/Initialize()
@@ -316,7 +317,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(ischangeling(user))
+		if(IS_CHANGELING(user))
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -340,7 +341,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(ischangeling(user))
+		if(IS_CHANGELING(user))
 			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires

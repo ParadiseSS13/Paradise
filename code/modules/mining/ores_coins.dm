@@ -317,11 +317,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		spawn(det_time)
 		if(primed)
 			if(quality == GIBTONITE_QUALITY_HIGH)
-				explosion(src.loc,2,4,9,adminlog = notify_admins)
+				explosion(loc, 2, 4, 9, adminlog = notify_admins)
 			if(quality == GIBTONITE_QUALITY_MEDIUM)
-				explosion(src.loc,1,2,5,adminlog = notify_admins)
+				explosion(loc, 1, 2, 5, adminlog = notify_admins)
 			if(quality == GIBTONITE_QUALITY_LOW)
-				explosion(src.loc,-1,1,3,adminlog = notify_admins)
+				explosion(loc, -1, 1, 3, adminlog = notify_admins)
 			qdel(src)
 
 

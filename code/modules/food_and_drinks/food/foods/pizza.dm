@@ -16,6 +16,7 @@
 	icon_state = "margheritapizza"
 	slice_path = /obj/item/food/snacks/margheritapizzaslice
 	list_reagents = list("nutriment" = 30, "tomatojuice" = 6, "vitamin" = 5)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/margheritapizzaslice
 	name = "margherita slice"
@@ -34,6 +35,7 @@
 	slice_path = /obj/item/food/snacks/meatpizzaslice
 	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
 	tastes = list("crust" = 1, "cheese" = 1, "meat" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/meatpizzaslice
 	name = "meat pizza slice"
@@ -52,6 +54,7 @@
 	slice_path = /obj/item/food/snacks/mushroompizzaslice
 	list_reagents = list("plantmatter" = 30, "vitamin" = 5)
 	tastes = list("crust" = 1, "cheese" = 1, "mushroom" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/mushroompizzaslice
 	name = "mushroom pizza slice"
@@ -70,6 +73,7 @@
 	slice_path = /obj/item/food/snacks/vegetablepizzaslice
 	list_reagents = list("plantmatter" = 25, "tomatojuice" = 6, "oculine" = 12, "vitamin" = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "carrot" = 1, "vegetables" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/vegetablepizzaslice
 	name = "vegetable pizza slice"
@@ -88,6 +92,7 @@
 	slice_path = /obj/item/food/snacks/hawaiianpizzaslice
 	list_reagents = list("protein" = 15, "tomatojuice" = 6, "plantmatter" = 20, "pineapplejuice" = 6, "vitamin" = 5)
 	tastes = list("crust" = 1, "cheese" = 1, "pineapple" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/hawaiianpizzaslice
 	name = "hawaiian pizza slice"
@@ -107,6 +112,7 @@
 	list_reagents = list("nutriment" = 40, "vitamin" = 5) //More nutriment because carbs, but it's not any more vitaminicious
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "cheese" = 2, "pasta" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/macpizzaslice
 	name = "mac 'n' cheese pizza slice"
@@ -126,6 +132,7 @@
 	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
 	filling_color = "#ffe45d"
 	tastes = list("cheese" = 3, "pepperoni" = 3, "grease" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/pepperonipizzaslice
 	name = "pepperoni pizza slice"
@@ -143,6 +150,7 @@
 	icon_state = "cheesepizza"
 	slice_path = /obj/item/food/snacks/cheesepizzaslice
 	list_reagents = list("nutriment" = 40, "tomatojuice" = 6, "vitamin" = 5)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/cheesepizzaslice
 	name = "cheese pizza slice"
@@ -161,6 +169,7 @@
 	slice_path = /obj/item/food/snacks/donkpocketpizzaslice
 	list_reagents = list("nutriment" = 35, "tomatojuice" = 6, "vitamin" = 2, "weak_omnizine" = 6)
 	tastes = list("crust" = 1, "meat" = 1, "laziness" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/donkpocketpizzaslice
 	name = "donk-pocket pizza slice"
@@ -179,6 +188,7 @@
 	slice_path = /obj/item/food/snacks/dankpizzaslice
 	list_reagents = list("nutriment" = 30, "tomatojuice" = 6, "vitamin" = 5, "cbd" = 6, "thc" = 6)
 	tastes = list("crust" = 1, "cheese" = 1, "special herbs" = 2)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/dankpizzaslice
 	name = "dank pizza slice"
@@ -197,6 +207,7 @@
 	slice_path = /obj/item/food/snacks/firecrackerpizzaslice
 	list_reagents = list("nutriment" = 30, "vitamin" = 5, "capsaicin" = 12)
 	tastes = list("crust" = 1, "cheese" = 1, "HOTNESS" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/firecrackerpizzaslice
 	name = "firecracker pizza slice"
@@ -215,6 +226,7 @@
 	slice_path = /obj/item/food/snacks/pestopizzaslice
 	list_reagents = list("nutriment" = 30, "tomatojuice" = 12, "vitamin" = 5, "wasabi" = 12)
 	tastes = list("tomato" = 1, "cheese" = 1, "wasabi" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/pestopizzaslice
 	name = "\"pesto\" pizza slice"
@@ -233,6 +245,7 @@
 	slice_path = /obj/item/food/snacks/garlicpizzaslice
 	list_reagents = list("plantmatter" = 30, "vitamin" = 5, "garlic" = 12)
 	tastes = list("crust" = 1, "cheese" = 1, "garlic" = 1)
+	goal_difficulty = FOOD_GOAL_DUPLICATE
 
 /obj/item/food/snacks/garlicpizzaslice
 	name = "garlic pizza slice"
