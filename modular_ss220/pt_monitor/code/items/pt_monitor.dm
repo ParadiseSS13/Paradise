@@ -87,7 +87,8 @@
 
 		if(istype(atmos_sensor, /obj/machinery/atmospherics/air_sensor))
 			var/obj/machinery/atmospherics/air_sensor/sensor = atmos_sensor
-			var/datum/gas_mixture/air_sample = sensor.return_obj_air()
+			var/turf/sensor_turf = get_turf(sensor)
+			var/datum/gas_mixture/air_sample = sensor_turf.get_readonly_air()
 			current_pressure = (sensor.output & SENSOR_PRESSURE) ? air_sample.return_pressure() : NO_DATA_VALUE
 			current_temperature = (sensor.output & SENSOR_TEMPERATURE) ? air_sample.temperature() : NO_DATA_VALUE
 		else if(istype(atmos_sensor, /obj/machinery/atmospherics/meter))
