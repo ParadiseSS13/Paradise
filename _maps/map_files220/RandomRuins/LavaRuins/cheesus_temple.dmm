@@ -190,6 +190,11 @@
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
+"oP" = (
+/obj/effect/spawner/window/shuttle,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/powered/cheesus)
 "pm" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 5
@@ -322,6 +327,7 @@
 "Cn" = (
 /obj/effect/spawner/window/shuttle,
 /obj/effect/mapping_helpers/damaged_window,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/ruin/powered/cheesus)
 "CW" = (
@@ -698,7 +704,7 @@ Sv
 rW
 Ga
 fK
-VZ
+oP
 qw
 Ka
 Ka
@@ -748,7 +754,7 @@ qw
 qw
 qw
 dm
-VZ
+oP
 Cn
 dm
 mn
@@ -756,7 +762,7 @@ rW
 Sv
 Ud
 Ex
-VZ
+oP
 qw
 qw
 qw
@@ -772,10 +778,10 @@ qw
 qw
 qw
 dm
-VZ
+oP
 Cn
-VZ
-VZ
+oP
+oP
 dm
 tw
 cn
@@ -799,8 +805,8 @@ Ka
 qw
 qw
 dm
-VZ
-VZ
+oP
+oP
 Dm
 dF
 dp
@@ -855,7 +861,7 @@ Ka
 Ka
 Ka
 Ka
-VZ
+oP
 dF
 CW
 vk
@@ -884,7 +890,7 @@ Ka
 Ka
 Ka
 qw
-VZ
+oP
 ZK
 dp
 yM
@@ -961,7 +967,7 @@ dm
 Sv
 Ud
 wp
-VZ
+oP
 qw
 qw
 Ka
@@ -990,7 +996,7 @@ Vn
 Sv
 Ud
 fk
-VZ
+oP
 qw
 qw
 Ka
@@ -1004,9 +1010,9 @@ qw
 qw
 qw
 dm
-VZ
-VZ
-VZ
+oP
+oP
+oP
 Cn
 dm
 pm
@@ -1038,8 +1044,8 @@ qw
 qw
 qw
 dm
-VZ
-VZ
+oP
+oP
 dm
 mO
 Sv
