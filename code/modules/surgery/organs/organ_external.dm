@@ -640,10 +640,15 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!iscarbon(C))
 		return
 
+	// these vars track what we dropped, for the sake of adding better messaging after we've handled all the removals.
+	// if we dropped an organ.
 	var/organ_spilled = FALSE
+	// If we dropped an item.
+	var/something_else = FALSE
+
 	var/turf/T = get_turf(C)
 	C.add_splatter_floor(T)
-	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, 1)
+	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, TRUE)
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X
 		var/org_zone = check_zone(O.parent_organ)
@@ -652,8 +657,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 			O.forceMove(T)
 			organ_spilled = TRUE
 
+	var/obj/item/organ/external/org = C.get_organ(spillage_zone)
+	if(istype(org))
+		for(var/obj/item/content in org)
+			content.forceMove(T)
+			content.dropped(owner, TRUE)
+			something_else = TRUE
+
 	if(organ_spilled)
-		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
+		C.visible_message("<span class='danger'><b>[C]'s internal organs spill out onto the floor!</b></span>")
+	if(something_else)
+		C.visible_message("<span class='danger'>Some things fall out of [C]!</span>")
 	return TRUE
 
 /obj/item/organ/external/chest/droplimb()

@@ -17,6 +17,9 @@ SUBSYSTEM_DEF(mapping)
 	///What primary cave theme we have picked for cave generation today.
 	var/cave_theme
 
+	/// A mapping of environment names to MILLA environment IDs.
+	var/list/environments
+
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
 	. = ..()
@@ -40,6 +43,11 @@ SUBSYSTEM_DEF(mapping)
 		F << next_map.type
 
 /datum/controller/subsystem/mapping/Initialize()
+	environments = list()
+	environments[ENVIRONMENT_LAVALAND] = create_environment(oxygen = LAVALAND_OXYGEN, nitrogen = LAVALAND_NITROGEN, temperature = LAVALAND_TEMPERATURE)
+	environments[ENVIRONMENT_TEMPERATE] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = T20C)
+	environments[ENVIRONMENT_COLD] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = 180)
+
 	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
 	ASSERT(lavaland_theme_type)
 	lavaland_theme = new lavaland_theme_type

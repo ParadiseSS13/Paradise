@@ -87,15 +87,16 @@
 
 		if(istype(atmos_sensor, /obj/machinery/atmospherics/air_sensor))
 			var/obj/machinery/atmospherics/air_sensor/sensor = atmos_sensor
-			var/datum/gas_mixture/air_sample = sensor.return_air()
+			var/turf/sensor_turf = get_turf(sensor)
+			var/datum/gas_mixture/air_sample = sensor_turf.get_readonly_air()
 			current_pressure = (sensor.output & SENSOR_PRESSURE) ? air_sample.return_pressure() : NO_DATA_VALUE
-			current_temperature = (sensor.output & SENSOR_TEMPERATURE) ? air_sample.return_temperature() : NO_DATA_VALUE
+			current_temperature = (sensor.output & SENSOR_TEMPERATURE) ? air_sample.temperature() : NO_DATA_VALUE
 		else if(istype(atmos_sensor, /obj/machinery/atmospherics/meter))
 			var/obj/machinery/atmospherics/meter/the_meter = atmos_sensor
 			if(the_meter.target)
-				var/datum/gas_mixture/meter_air_sample = the_meter.target.return_air()
+				var/datum/gas_mixture/meter_air_sample = the_meter.target.return_obj_air()
 				current_pressure = meter_air_sample ? meter_air_sample.return_pressure() : NO_DATA_VALUE
-				current_temperature = meter_air_sample ? meter_air_sample.return_temperature() : NO_DATA_VALUE
+				current_temperature = meter_air_sample ? meter_air_sample.temperature() : NO_DATA_VALUE
 		else
 			sensor_name_uid_map -= sensor_name
 			sensor_name_data_map -= sensor_name

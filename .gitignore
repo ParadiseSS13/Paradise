@@ -72,5 +72,8 @@ $RECYCLE.BIN
 # VIM swap files.
 *.swp
 
+# Rust output.
+/milla/target/*
+
 # SS220 EDIT
 sound/tts_cache/*

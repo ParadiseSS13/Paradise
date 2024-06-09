@@ -54,7 +54,7 @@
 	var/target_dir = turn(dir, 90)
 
 	setDir(target_dir)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	add_fingerprint(user)
 	return TRUE
 

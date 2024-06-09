@@ -90,6 +90,7 @@
 #include "code\__DEFINES\mecha_defines.dm"
 #include "code\__DEFINES\mecha_hides.dm"
 #include "code\__DEFINES\medal.dm"
+#include "code\__DEFINES\milla.dm"
 #include "code\__DEFINES\misc_defines.dm"
 #include "code\__DEFINES\mob_defines.dm"
 #include "code\__DEFINES\mod.dm"
