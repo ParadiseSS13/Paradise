@@ -233,6 +233,10 @@
 		visible_message("<span class='danger'>You hear a loud metallic grinding sound.</span>")
 		return
 
+	if(HAS_TRAIT(occupant, TRAIT_CLING_BURSTING))
+		visible_message("<span class='warning'>[src] jams up as [occupant]'s corpse rapidly grows in size...</span>")
+		return
+
 	use_power(1000)
 	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
 

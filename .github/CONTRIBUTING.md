@@ -77,6 +77,18 @@ actual development.
     /:cl:
 ```
 
+## Modifying MILLA
+
+Our atmos engine, MILLA, is in the `milla/` directory. It's written in Rust for performance reasons, which means it's not compiled the same way as the rest of the code. If you're on Windows, you get a pre-built copy by default. If you're on Linux, you built one already to run the server.
+
+If you make changes to MILLA, you'll want to rebuild. This will be very similar to RUSTG:
+https://github.com/ParadiseSS13/rust-g
+The only difference is that you run `cargo` from the `milla/` directory, and don't need to speify `--all-features` (though it doesn't hurt).
+
+The server will automatically detect that you have a local build, and use that over the default Windows one.
+
+When you're ready to make a PR, please DO NOT modify `milla.dll` or `tools/ci/libmilla_ci.so`. Leave "Allow edits and access to secrets by maintainers" enabled, and post a comment on your PR saying `!build_milla`. A bot will automatically build them for you and update your branch.
+
 ## Specifications
 
 As mentioned before, you are expected to follow these specifications in order to make everyone's lives easier. It'll save both your time and ours, by making
