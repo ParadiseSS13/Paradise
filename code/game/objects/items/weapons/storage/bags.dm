@@ -356,10 +356,10 @@
 		return ..()
 
 	// Not a table or turf.
-	if(!isturf(target) && !istype(target,/obj/structure/table))
+	if(!isturf(target) && !istype(target, /obj/structure/table))
 		return ..()
 
-	var/found_table = istype(target,/obj/structure/table/)
+	var/found_table = istype(target, /obj/structure/table)
 	// We clicked a turf, search it for a table.
 	if(!found_table)
 		for(var/obj/structure/table/T in target)
