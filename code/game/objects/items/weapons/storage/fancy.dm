@@ -43,7 +43,6 @@
 	icon_state = "donutbox"
 	storage_slots = 6
 	can_hold = list(/obj/item/food/snacks/donut)
-	icon_type = "donut"
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 
@@ -424,23 +423,19 @@
 	else
 		. += "ledb"
 
-/obj/item/storage/lockbox/vials/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(broken)
-		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
-		return
-	if(allowed(user))
-		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src].</span>")
-		update_icon()
-	else
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-
 /obj/item/storage/lockbox/vials/attackby(obj/item/I, mob/user, params)
 	..()
 	update_icon()
 
+/obj/item/storage/lockbox/vials/zombie_cure
+	name = "secure vial storage box - 'Anti-Plague Sequences'"
+
+/obj/item/storage/lockbox/vials/zombie_cure/populate_contents()
+	for(var/count in 1 to 4)
+		var/obj/item/reagent_containers/glass/bottle/cure = new /obj/item/reagent_containers/glass/bottle(src)
+		cure.reagents.add_reagent("zombiecure[count]", 50)
+		var/datum/reagent/temp = GLOB.chemical_reagents_list["zombiecure[count]"]
+		cure.name = "[lowertext(temp.name)] bottle"
 
 
 ///Aquatic Starter Kit

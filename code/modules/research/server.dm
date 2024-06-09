@@ -74,8 +74,9 @@
 	if(prob(3) && plays_sound)
 		playsound(loc, "computer_ambience", 10, TRUE, ignore_walls = FALSE)
 
-	var/datum/gas_mixture/environment = loc.return_air()
-	switch(environment.temperature)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.get_readonly_air()
+	switch(environment.temperature())
 		if(0 to T0C)
 			health = min(100, health + 1)
 		if(T0C to (T20C + 20))
@@ -88,11 +89,11 @@
 		var/updateRD = 0
 		files.known_designs = list()
 		for(var/v in files.known_tech)
-			var/datum/tech/T = files.known_tech[v]
+			var/datum/tech/tech = files.known_tech[v]
 			// Slowly decrease research if health drops below 0
 			if(prob(1))
 				updateRD++
-				T.level--
+				tech.level--
 		if(updateRD)
 			files.RefreshResearch()
 	if(delay)
@@ -120,25 +121,31 @@
 		files.push_data(C.files)
 
 /obj/machinery/r_n_d/server/proc/produce_heat(heat_amt)
-	if(!(stat & (NOPOWER|BROKEN))) // Blatantly stolen from space heater.
-		var/turf/simulated/L = loc
-		if(istype(L))
-			var/datum/gas_mixture/env = L.return_air()
-			if(env.temperature < (heat_amt+T0C))
+	var/datum/milla_safe/rnd_server_heat/milla = new()
+	milla.invoke_async(src, heat_amt)
 
-				var/transfer_moles = 0.25 * env.total_moles()
+/datum/milla_safe/rnd_server_heat
 
-				var/datum/gas_mixture/removed = env.remove(transfer_moles)
+/datum/milla_safe/rnd_server_heat/on_run(obj/machinery/r_n_d/server/server, heat)
+	var/turf/T = get_turf(server)
+	var/datum/gas_mixture/env = get_turf_air(T)
 
-				if(removed)
+	if(server.stat & (NOPOWER|BROKEN))
+		return
+	if(env.temperature() >= (heat + T0C))
+		return
 
-					var/heat_capacity = removed.heat_capacity()
-					if(heat_capacity == 0 || heat_capacity == null)
-						heat_capacity = 1
-					removed.temperature = min((removed.temperature*heat_capacity + heating_power)/heat_capacity, 1000)
+	var/transfer_moles = 0.25 * env.total_moles()
 
-				env.merge(removed)
-				air_update_turf()
+	var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	if(!removed)
+		return
+
+	var/heat_capacity = removed.heat_capacity()
+	if(heat_capacity == 0 || heat_capacity == null)
+		heat_capacity = 1
+	removed.set_temperature(min((removed.temperature() * heat_capacity + server.heating_power) / heat_capacity, 1000))
+	env.merge(removed)
 
 /obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(exchange_parts(user, O))
@@ -161,7 +168,7 @@
 	server_id = -1
 
 /obj/machinery/r_n_d/server/centcom/Initialize()
-	..()
+	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)

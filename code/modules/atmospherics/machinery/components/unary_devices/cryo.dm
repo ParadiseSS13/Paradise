@@ -178,15 +178,14 @@
 	return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
-	..()
 	if(!node || !on)
 		return
 
 	if(air_contents)
-		temperature_archived = air_contents.temperature
+		temperature_archived = air_contents.temperature()
 		heat_gas_contents()
 
-	if(abs(temperature_archived-air_contents.temperature) > 1)
+	if(abs(temperature_archived-air_contents.temperature()) > 1)
 		parent.update = 1
 
 
@@ -241,11 +240,11 @@
 		occupantData["bodyTemperature"] = occupant.bodytemperature
 	data["occupant"] = occupantData
 
-	data["cellTemperature"] = round(air_contents.temperature)
+	data["cellTemperature"] = round(air_contents.temperature())
 	data["cellTemperatureStatus"] = "good"
-	if(air_contents.temperature > T0C) // if greater than 273.15 kelvin (0 celcius)
+	if(air_contents.temperature() > T0C) // if greater than 273.15 kelvin (0 celcius)
 		data["cellTemperatureStatus"] = "bad"
-	else if(air_contents.temperature > TCRYO)
+	else if(air_contents.temperature() > TCRYO)
 		data["cellTemperatureStatus"] = "average"
 
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
@@ -380,14 +379,14 @@
 		occupant.bodytemperature = T0C
 		return
 
-	occupant.bodytemperature += 2 * (air_contents.temperature - occupant.bodytemperature) * current_heat_capacity / (current_heat_capacity + air_contents.heat_capacity())
-	occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
+	occupant.bodytemperature += 2 * (air_contents.temperature() - occupant.bodytemperature) * current_heat_capacity / (current_heat_capacity + air_contents.heat_capacity())
+	occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature()) // this is so ugly i'm sorry for doing it i'll fix it later i promise
 
 	if(occupant.bodytemperature < T0C)
 		var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000 / efficiency)) STATUS_EFFECT_CONSTANT
 		occupant.Sleeping(stun_time)
 
-		var/heal_mod = air_contents.oxygen < 2 ? 0.2 : 1
+		var/heal_mod = air_contents.oxygen() < 2 ? 0.2 : 1
 		occupant.adjustOxyLoss(-6 * heal_mod)
 
 	if(beaker && world.time >= last_injection + injection_cooldown)
@@ -404,8 +403,8 @@
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = current_heat_capacity + air_heat_capacity
 	if(combined_heat_capacity > 0)
-		var/combined_energy = T20C*current_heat_capacity + air_heat_capacity*air_contents.temperature
-		air_contents.temperature = combined_energy/combined_heat_capacity
+		var/combined_energy = T20C * current_heat_capacity + air_heat_capacity * air_contents.temperature()
+		air_contents.set_temperature(combined_energy / combined_heat_capacity)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
