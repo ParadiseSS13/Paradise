@@ -36,7 +36,7 @@
 	if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
 		cig.attackby(src, user, M)
 		return FALSE
-	..()
+	return ..()
 
 /obj/item/storm_staff/attack_self(mob/user)
 	var/area/user_area = get_area(user)

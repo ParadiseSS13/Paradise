@@ -240,7 +240,7 @@
 
 	if(istype(M) && user.zone_selected == "mouth" && length(contents) > 0 && !M.wear_mask)
 		var/got_cig = FALSE
-		for(var/num=1, num <= length(contents), num++)
+		for(var/num in 1 to length(contents))
 			var/obj/item/I = contents[num]
 			if(istype(I, /obj/item/clothing/mask/cigarette))
 				var/obj/item/clothing/mask/cigarette/C = I
