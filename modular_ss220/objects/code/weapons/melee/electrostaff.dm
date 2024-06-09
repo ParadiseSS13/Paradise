@@ -1,5 +1,5 @@
 /obj/item/melee/baton/electrostaff
-	name = "электропосох"
+	name = "electrostaff"
 	desc = "Шоковая палка, только более мощная, двуручная и доступная наиболее авторитетным членам силовых структур Nanotrasen. А еще у неё нет тупого конца."
 	lefthand_file = 'modular_ss220/objects/icons/inhands/melee_lefthand.dmi'
 	righthand_file = 'modular_ss220/objects/icons/inhands/melee_righthand.dmi'
@@ -63,10 +63,8 @@
 
 /obj/item/melee/baton/electrostaff/examine(mob/user)
 	. = ..()
-	. -= span_notice("This item can be recharged in a recharger. Using a screwdriver on this item will allow you to access its power cell, which can be replaced.")
-	. += span_notice("Данный предмет не имеет внешних разъемов для зарядки. Используйте <b>отвертку</b> для доступа к внутренней батарее, чтобы заменить или зарядить её.")
 	if(unique_reskin)
-		. += span_notice("Alt-клик, чтобы изменить свечение.")
+		. += span_notice("<b>Alt-click</b>, to reskin it.")
 
 /obj/item/melee/baton/electrostaff/attack_self(mob/user)
 	var/signal_ret = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user)
@@ -139,7 +137,7 @@
 	return TRUE
 
 /obj/item/weaponcrafting/gunkit/electrostaff
-	name = "\improper electrostaff parts kit"
+	name = "electrostaff parts kit"
 	desc = "Возьмите 2 оглушающие дубинки. Соедините их вместе, поместив внутрь батарею. Используйте остальные инструменты (лишних винтиков быть не должно)."
 	origin_tech = "combat=6;materials=4"
 	outcome = /obj/item/melee/baton/electrostaff/loaded

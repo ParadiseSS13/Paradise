@@ -1,6 +1,6 @@
 /obj/item/gun/projectile/automatic/sslr
 	name = "SSLR"
-	desc = "Стандартная лазерная винтовка производства Warp-Tac Industries, использующая лазерные картриджи вместо аккумулятора. Одно из самых популярных решений для службы безопасности Nanotrasen"
+	desc = "Стандартная лазерная винтовка производства Warp-Tac Industries, использующая лазерные картриджи вместо аккумулятора. Одно из самых популярных решений для службы безопасности Nanotrasen."
 	icon = 'modular_ss220/objects/icons/guns.dmi'
 	lefthand_file = 'modular_ss220/objects/icons/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_ss220/objects/icons/inhands/guns_righthand.dmi'
@@ -23,7 +23,7 @@
 
 /obj/item/ammo_box/magazine/sslr
 	name = "SSLR magazine"
-	desc = "Стандартный магазин для винтовки SSLR производства Warp-Tac Industries"
+	desc = "Стандартный магазин для винтовки SSLR производства Warp-Tac Industries."
 	icon = 'modular_ss220/objects/icons/ammo.dmi'
 	icon_state = "sslr"
 	ammo_type = /obj/item/ammo_casing/caseless/laser
@@ -35,7 +35,7 @@
 
 /obj/item/ammo_box/small_laser
 	name = "small ammo box (laser)"
-	desc = "Упаковка на 8 лазерных патронов для лазерных винтовок с магазинным способом заряжания"
+	desc = "Упаковка на 8 лазерных патронов для лазерных винтовок с магазинным способом заряжания."
 	icon_state = "laserbox"
 	origin_tech = "combat=1"
 	ammo_type = /obj/item/ammo_casing/caseless/laser
@@ -43,19 +43,21 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /datum/design/sslr_magazine
-	name = "SSLR magazine"
-	desc = "Стандратный магазин на 8 патронов для SSLR"
+	name = "Security Laser Rifle Magazine"
+	desc = "Стандратный магазин на 8 патронов для SSLR."
 	id = "mag_sslr"
 	build_type = PROTOLATHE
+	req_tech = list("combat" = 1, "powerstorage" = 1)
 	materials = list(MAT_METAL = 1600, MAT_PLASMA = 240)
 	build_path = /obj/item/ammo_box/magazine/sslr
 	category = list("Weapons")
 
 /datum/design/laser_rifle_small_ammo_box
-	name = "small ammo box (laser)"
-	desc = "Упаковка на 8 лазерных патронов для лазерных винтовок с магазинным способом заряжания"
+	name = "Security Laser Rifle Ammunition"
+	desc = "Упаковка на 8 лазерных патронов для лазерных винтовок с магазинным способом заряжания."
 	id = "small_box_laser"
 	build_type = PROTOLATHE
+	req_tech = list("combat" = 1, "powerstorage" = 1)
 	materials = list(MAT_METAL = 1600, MAT_PLASMA = 240)
 	build_path = /obj/item/ammo_box/small_laser
 	category = list("Weapons")
