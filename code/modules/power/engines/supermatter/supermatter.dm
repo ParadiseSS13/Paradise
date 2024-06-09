@@ -272,7 +272,7 @@
 	var/turf/T = get_turf(src)
 	if(!T)
 		return SUPERMATTER_ERROR
-	var/datum/gas_mixture/air = T.return_air()
+	var/datum/gas_mixture/air = T.get_readonly_air()
 	if(!air)
 		return SUPERMATTER_ERROR
 
@@ -286,10 +286,10 @@
 	if(integrity < SUPERMATTER_DANGER_PERCENT)
 		return SUPERMATTER_DANGER
 
-	if((integrity < SUPERMATTER_WARNING_PERCENT) || (air.temperature > CRITICAL_TEMPERATURE))
+	if((integrity < SUPERMATTER_WARNING_PERCENT) || (air.temperature() > CRITICAL_TEMPERATURE))
 		return SUPERMATTER_WARNING
 
-	if(air.temperature > (CRITICAL_TEMPERATURE * 0.8))
+	if(air.temperature() > (CRITICAL_TEMPERATURE * 0.8))
 		return SUPERMATTER_NOTIFY
 
 	if(power > 5)
@@ -405,9 +405,19 @@
 	qdel(src)
 
 /obj/machinery/atmospherics/supermatter_crystal/process_atmos()
+	var/datum/milla_safe/supermatter_process/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/supermatter_process
+
+/datum/milla_safe/supermatter_process/on_run(obj/machinery/atmospherics/supermatter_crystal/supermatter)
+	var/turf/T = get_turf(supermatter)
+	var/datum/gas_mixture/env = get_turf_air(T)
+	supermatter.process_atmos_safely(T, env)
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/process_atmos_safely(turf/T, datum/gas_mixture/env)
 	if(!processes) //Just fuck me up bro
 		return
-	var/turf/T = loc
 
 	if(isnull(T))		// We have a null turf...something is wrong, stop processing this entity.
 		return PROCESS_KILL
@@ -443,9 +453,6 @@
 		var/next_sound = round((100 - aggression) * 5)
 		last_accent_sound = world.time + max(SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN, next_sound)
 
-	//Ok, get the air from the turf
-	var/datum/gas_mixture/env = T.return_air()
-
 	var/datum/gas_mixture/removed
 	if(produces_gas)
 		//Remove gas from surrounding area
@@ -465,7 +472,7 @@
 			//((((some value between 0.5 and 1 * temp - ((273.15 + 40) * some values between 1 and 10)) * some number between 0.25 and knock your socks off / 150) * 0.25
 			//Heat and mols account for each other, a lot of hot mols are more damaging then a few
 			//Mols start to have a positive effect on damage after 350
-			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * removed.temperature - ((T0C + heat_penalty_threshold)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
+			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * removed.temperature() - ((T0C + heat_penalty_threshold)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			//Power only starts affecting damage when it is above 5000
 			damage = max(damage + (max(power - POWER_PENALTY_THRESHOLD, 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			//Molar count only starts affecting damage when it is above 1800
@@ -475,24 +482,23 @@
 			//healing damage
 			if(combined_gas < MOLE_PENALTY_THRESHOLD)
 				//Only has a net positive effect when the temp is below 313.15, heals up to 2 damage. Psycologists increase this temp min by up to 45
-				damage = max(damage + (min(removed.temperature - (T0C + heat_penalty_threshold), 0) / 150 ), 0)
+				damage = max(damage + (min(removed.temperature() - (T0C + heat_penalty_threshold), 0) / 150 ), 0)
 
 			//Check for holes in the SM inner chamber
-			for(var/t in RANGE_TURFS(1, loc))
-				if(!isspaceturf(t))
+			var/turf/here = get_turf(src)
+			for(var/turf/neighbor in here.GetAtmosAdjacentTurfs(alldir = TRUE))
+				if(!isspaceturf(neighbor))
 					continue
-				var/turf/turf_to_check = t
-				if(length(turf_to_check.atmos_adjacent_turfs))
-					var/integrity = get_integrity()
-					if(integrity < 10)
-						damage += clamp((power * 0.0005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
-					else if(integrity < 25)
-						damage += clamp((power * 0.0009) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
-					else if(integrity < 45)
-						damage += clamp((power * 0.005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
-					else if(integrity < 75)
-						damage += clamp((power * 0.002) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
-					break
+				var/integrity = get_integrity()
+				if(integrity < 10)
+					damage += clamp((power * 0.0005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
+				else if(integrity < 25)
+					damage += clamp((power * 0.0009) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
+				else if(integrity < 45)
+					damage += clamp((power * 0.005) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
+				else if(integrity < 75)
+					damage += clamp((power * 0.002) * DAMAGE_INCREASE_MULTIPLIER, 0, MAX_SPACE_EXPOSURE_DAMAGE)
+				break
 			//caps damage rate
 
 			//Takes the lower number between archived damage + (1.8) and damage
@@ -502,11 +508,11 @@
 		//calculating gas related values
 		combined_gas = max(removed.total_moles(), 0)
 
-		plasmacomp = max(removed.toxins / combined_gas, 0)
-		o2comp = max(removed.oxygen / combined_gas, 0)
-		co2comp = max(removed.carbon_dioxide / combined_gas, 0)
-		n2ocomp = max(removed.sleeping_agent / combined_gas, 0)
-		n2comp = max(removed.nitrogen / combined_gas, 0)
+		plasmacomp = max(removed.toxins() / combined_gas, 0)
+		o2comp = max(removed.oxygen() / combined_gas, 0)
+		co2comp = max(removed.carbon_dioxide() / combined_gas, 0)
+		n2ocomp = max(removed.sleeping_agent() / combined_gas, 0)
+		n2comp = max(removed.nitrogen() / combined_gas, 0)
 
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp - n2comp, 0), 1)
 
@@ -547,7 +553,7 @@
 
 
 		if(power_changes)
-			power = max((removed.temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
+			power = max((removed.temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
 		if(prob(50))
 			var/mole_crunch_bonus = 0
@@ -566,19 +572,18 @@
 		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
 		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
 		//Power * 0.55 * (some value between 1.5 and 23) / 5
-		removed.temperature += (((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier)
+		removed.set_temperature(removed.temperature() + (((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier))
 		//We can only emit so much heat, that being 57500
-		removed.temperature = max(0, min(removed.temperature, 2500 * dynamic_heat_modifier))
+		removed.set_temperature(max(0, min(removed.temperature(), 2500 * dynamic_heat_modifier)))
 
 		//Calculate how much gas to release
 		//Varies based on power and gas content
-		removed.toxins += max(((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER) * gas_multiplier, 0)
+		removed.set_toxins(removed.toxins() + max(((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER) * gas_multiplier, 0))
 		//Varies based on power, gas content, and heat
-		removed.oxygen += max((((device_energy + removed.temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier, 0)
+		removed.set_oxygen(removed.oxygen() + max((((device_energy + removed.temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier, 0))
 
 		if(produces_gas)
 			env.merge(removed)
-			air_update_turf()
 
 	//Makes em go mad and accumulate rads.
 	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
@@ -600,9 +605,9 @@
 	if(power > POWER_PENALTY_THRESHOLD || damage > damage_penalty_point) //If the power is above 5000 or if the damage is above 550
 		var/range = 4
 		zap_cutoff = 1500
-		if(removed && removed.return_pressure() > 0 && removed.return_temperature() > 0)
+		if(removed && removed.return_pressure() > 0 && removed.temperature() > 0)
 			//You may be able to freeze the zapstate of the engine with good planning, we'll see
-			zap_cutoff = clamp(3000 - (power * (removed.total_moles()) / 10) / removed.return_temperature(), 350, 3000)//If the core is cold, it's easier to jump, ditto if there are a lot of mols
+			zap_cutoff = clamp(3000 - (power * (removed.total_moles()) / 10) / removed.temperature(), 350, 3000)//If the core is cold, it's easier to jump, ditto if there are a lot of mols
 			//We should always be able to zap our way out of the default enclosure
 			//See supermatter_zap() for more details
 			range = clamp(power / removed.return_pressure() * 10, 2, 7)
@@ -1185,8 +1190,8 @@
 		//This gotdamn variable is a boomer and keeps giving me problems
 		var/turf/T = get_turf(target)
 		var/pressure = 1
-		if(T?.return_air())
-			var/datum/gas_mixture/G = T.return_air()
+		var/datum/gas_mixture/G = T?.get_readonly_air()
+		if(G)
 			pressure = max(1, G.return_pressure())
 		//We get our range with the strength of the zap and the pressure, the higher the former and the lower the latter the better
 		var/new_range = clamp(zap_str / pressure * 10, 2, 7)

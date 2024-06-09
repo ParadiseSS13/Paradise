@@ -281,6 +281,8 @@ CREATE TABLE `player` (
   `toggles` int(11) DEFAULT NULL,
   `toggles_2` int(11) DEFAULT NULL,
   `sound` mediumint(8) DEFAULT '31',
+  `light` MEDIUMINT(3) NOT NULL DEFAULT '7',
+  `glowlevel` TINYINT(1) NOT NULL DEFAULT '1',
   `volume_mixer` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastchangelog` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `exp` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,

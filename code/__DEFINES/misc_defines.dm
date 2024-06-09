@@ -403,7 +403,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 562206 // SS220 EDIT
+#define SQL_VERSION 572206
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)

@@ -593,7 +593,7 @@
 	name = newname
 	if(mind)
 		mind.name = newname
-		if(mind.initial_account?.account_name == oldname)
+		if(mind?.initial_account?.account_name == oldname)
 			mind.initial_account.account_name = newname
 	if(dna)
 		dna.real_name = real_name
