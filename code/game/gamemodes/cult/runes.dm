@@ -26,7 +26,7 @@ To draw a rune, use a ritual dagger.
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // So that runes aren't so hard to click
 	var/visibility = 0
 	var/view_range = 7
-	invisibility = 25
+	invisibility = INVISIBILITY_RUNES
 	layer = SIGIL_LAYER
 	color = COLOR_BLOOD_BASE
 
