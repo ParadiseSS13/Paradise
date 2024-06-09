@@ -250,8 +250,6 @@
 /datum/game_mode/proc/get_players_for_role(role, override_jobbans = FALSE)
 	var/list/players = list()
 	var/list/candidates = list()
-	//var/list/drafted = list()
-	//var/datum/mind/applicant = null
 
 	var/roletext = get_roletext(role)
 
@@ -323,13 +321,6 @@
 // The proc that is called whenever a gamemode hands out things like objectives later
 /datum/game_mode/proc/late_handout()
 	return
-
-/*
-/datum/game_mode/proc/check_player_role_pref(role, mob/player)
-	if(player.preferences.be_special & role)
-		return 1
-	return 0
-*/
 
 /datum/game_mode/proc/num_players()
 	. = 0

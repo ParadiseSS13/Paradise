@@ -127,7 +127,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 		possible_targets += possible_target
 
-
 	if(length(possible_targets) > 0)
 		target = pick(possible_targets)
 
