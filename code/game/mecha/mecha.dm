@@ -63,7 +63,7 @@
 
 	var/obj/structure/mecha_wreckage/wreckage = null  // type that the mecha becomes when destroyed
 
-	var/list/equipment = new
+	var/list/equipment = list()
 	var/obj/item/mecha_parts/mecha_equipment/selected
 	var/max_equip = 3
 	var/turf/crashing = null

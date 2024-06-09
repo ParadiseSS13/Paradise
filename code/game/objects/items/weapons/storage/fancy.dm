@@ -43,7 +43,6 @@
 	icon_state = "donutbox"
 	storage_slots = 6
 	can_hold = list(/obj/item/food/snacks/donut)
-	icon_type = "donut"
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 

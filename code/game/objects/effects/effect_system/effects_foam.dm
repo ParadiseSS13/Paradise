@@ -8,7 +8,7 @@
 	opacity = FALSE
 	density = FALSE
 	layer = OBJ_LAYER + 0.9
-	animate_movement = 0
+	animate_movement = NO_STEPS
 	var/amount = 3
 	var/expand = 1
 	var/metal = 0
