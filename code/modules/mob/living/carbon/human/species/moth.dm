@@ -117,8 +117,12 @@
 		return FALSE
 	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return FALSE
-	var/datum/gas_mixture/current = A.return_air()
-	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
+	if(isobj(H.loc))
+		// Can't fly if you're in a box/mech/whatever.
+		return FALSE
+	var/turf/T = get_turf(H)
+	var/datum/gas_mixture/current = T.get_readonly_air()
+	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)

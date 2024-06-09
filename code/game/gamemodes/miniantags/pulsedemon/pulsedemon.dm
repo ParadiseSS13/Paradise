@@ -792,8 +792,8 @@
 /mob/living/simple_animal/demon/pulse_demon/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/experience_pressure_difference()
-	return // no thanks
+/mob/living/simple_animal/demon/pulse_demon/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /mob/living/simple_animal/demon/pulse_demon/singularity_pull()
 	return
