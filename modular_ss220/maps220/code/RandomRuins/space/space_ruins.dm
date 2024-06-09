@@ -84,3 +84,4 @@
 	suffix = "spacehotel.dmm"
 	cost = 10
 	allow_duplicates = FALSE
+
