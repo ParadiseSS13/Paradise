@@ -6101,7 +6101,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "ayR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
