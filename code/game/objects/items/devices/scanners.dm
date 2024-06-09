@@ -131,7 +131,7 @@ SLIME SCANNER
 		if(DETAILED_HEALTH_SCAN)
 			to_chat(user, "<span class='notice'>The scanner is now showing localised limb damage.</span>")
 		if(SIMPLE_HEALTH_SCAN)
-			to_chat(user, "<span class='notice'>The scanner no longer localised limb damage.</span>")
+			to_chat(user, "<span class='notice'>The scanner no longer showing localised limb damage.</span>")
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
