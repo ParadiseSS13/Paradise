@@ -95,18 +95,20 @@
 	set category = "Admin"
 	set hidden = 1
 
-	if(!loc) return 0
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.get_readonly_air()
 
-	var/datum/gas_mixture/environment = loc.return_air()
+	if(!environment)
+		return
 
 	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
-	t+= "<span class='warning'>Temperature: [environment.temperature] \n</span>"
-	t+= "<span class='notice'>Nitrogen: [environment.nitrogen] \n</span>"
-	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
-	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
-	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
-	t+= "<span class='notice'>N2O: [environment.sleeping_agent] \n</span>"
-	t+= "<span class='notice'>Agent B: [environment.agent_b] \n</span>"
+	t+= "<span class='warning'>Temperature: [environment.temperature()] \n</span>"
+	t+= "<span class='notice'>Nitrogen: [environment.nitrogen()] \n</span>"
+	t+= "<span class='notice'>Oxygen: [environment.oxygen()] \n</span>"
+	t+= "<span class='notice'>Plasma : [environment.toxins()] \n</span>"
+	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide()] \n</span>"
+	t+= "<span class='notice'>N2O: [environment.sleeping_agent()] \n</span>"
+	t+= "<span class='notice'>Agent B: [environment.agent_b()] \n</span>"
 
 	usr.show_message(t, EMOTE_VISIBLE)
 
@@ -190,7 +192,7 @@
 
 	// based on say code
 	var/omsg = replacetext(message, "<B>[src]</B> ", "")
-	var/list/listening_obj = new
+	var/list/listening_obj = list()
 	for(var/atom/movable/A in view(range, src))
 		if(ismob(A))
 			var/mob/M = A
@@ -545,7 +547,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  * Mobs out of view but in range will be listed as unknown. Else they will have their visible name
 */
 /mob/proc/get_telepathic_targets()
-	var/list/validtargets = new /list()
+	var/list/validtargets = list() /list()
 	var/turf/T = get_turf(src)
 	var/list/mobs_in_view = get_visible_mobs()
 

@@ -165,6 +165,8 @@
 /obj/structure/table/glass,
 /obj/item/storage/box/beakers/bluespace,
 /obj/item/storage/box/beakers/bluespace,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/hydroponics,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "qI" = (
@@ -321,7 +323,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "FS" = (
-/obj/effect/spawner/window/reinforced/tinted,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/ruin/powered/seedvault)
 "HL" = (

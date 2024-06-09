@@ -14,7 +14,7 @@
 	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, RAD = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
-	var/list/cargo = new
+	var/list/cargo = list()
 	var/cargo_capacity = 15
 
 	/// How many goliath hides does the Ripley have? Does not stack with other armor
