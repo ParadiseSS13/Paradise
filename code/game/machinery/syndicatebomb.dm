@@ -320,10 +320,10 @@
 	origin_tech = "syndicate=5;combat=6"
 	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
 	var/adminlog = null
-	var/range_heavy = 3
-	var/range_medium = 9
-	var/range_light = 17
-	var/range_flame = 17
+	var/range_heavy = 5
+	var/range_medium = 10
+	var/range_light = 20
+	var/range_flame = 20
 	var/admin_log = TRUE
 
 /obj/item/bombcore/ex_act(severity) //Little boom can chain a big boom
@@ -422,17 +422,10 @@
 	playsound(src.loc, 'sound/misc/sadtrombone.ogg', 50)
 	..()
 
-/obj/item/bombcore/large
-	name = "large bomb payload"
-	range_heavy = 5
-	range_medium = 10
-	range_light = 20
-	range_flame = 20
-
-/obj/item/bombcore/large/explosive_wall
+/obj/item/bombcore/explosive_wall
 	admin_log = FALSE
 
-/obj/item/bombcore/large/underwall
+/obj/item/bombcore/underwall
 	layer = ABOVE_OPEN_TURF_LAYER
 
 /obj/item/bombcore/miniature

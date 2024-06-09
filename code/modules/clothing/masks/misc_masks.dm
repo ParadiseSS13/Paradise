@@ -416,7 +416,6 @@
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
-	can_toggle = TRUE
 
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
