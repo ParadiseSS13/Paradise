@@ -135,7 +135,7 @@
 		var/obj/item/gripper/gripper = I
 		// Gripper is empty.
 		if(!gripper.gripped_item)
-			to_chat(user, "<span class='warning'>You're not holding anything!</span>")
+			to_chat(user, "<span class='warning'>There's nothing in your gripper to throw away!</span>")
 			return
 		gripper.gripped_item.forceMove(src)
 		user.visible_message(
