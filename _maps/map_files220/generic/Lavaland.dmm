@@ -653,7 +653,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "bF" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
 "bG" = (
 /obj/structure/closet/crate/freezer,
@@ -7725,11 +7725,7 @@
 /area/mine/outpost/hallway/east)
 "Dt" = (
 /obj/item/stack/ore/iron,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Dy" = (
 /obj/item/toy/figure/crew/miner,
@@ -8372,7 +8368,9 @@
 /obj/structure/closet/walllocker/emerglocker/north,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/flashlight/flare,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium"
+	},
 /area/lavaland/surface/outdoors)
 "HF" = (
 /obj/structure/stone_tile/block{
@@ -8745,7 +8743,9 @@
 /area/lavaland/surface/outdoors/legion)
 "JJ" = (
 /obj/structure/door_assembly/door_assembly_silver,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium"
+	},
 /area/lavaland/surface/outdoors)
 "JK" = (
 /obj/machinery/conveyor{
@@ -9912,11 +9912,7 @@
 /obj/effect/mob_spawn/human/corpse/skeleton,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Rd" = (
 /obj/structure/rack,
@@ -10073,11 +10069,7 @@
 /area/lavaland/surface/outdoors/legion)
 "RY" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Sa" = (
 /obj/structure/lattice/catwalk/mining,
@@ -10330,11 +10322,7 @@
 /area/mine/laborcamp)
 "TV" = (
 /obj/structure/grille/broken,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Uc" = (
 /obj/structure/stone_tile/cracked{
@@ -11450,7 +11438,9 @@
 /obj/item/stack/cable_coil{
 	amount = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium"
+	},
 /area/lavaland/surface/outdoors)
 "ZZ" = (
 /obj/effect/decal/cleanable/fungus,

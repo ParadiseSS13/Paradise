@@ -309,7 +309,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "bq" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build/reqpower_build)
@@ -1000,7 +1000,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "eK" = (
 /mob/living/simple_animal/hostile/abomination/altform4{
-	desc = "Скуластое, громоздкое чудовище. Еще один неудачный эксперимент. Что именно они пытались создать?";
 	maxbodytemp = 1500
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -1016,7 +1015,6 @@
 /area/awaymission/caves)
 "eM" = (
 /mob/living/simple_animal/hostile/abomination/altform1{
-	desc = "Скуластое, громоздкое чудовище. Еще один неудачный эксперимент. Что именно они пытались создать?";
 	maxbodytemp = 1500
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -1380,7 +1378,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "gu" = (
 /obj/machinery/computer/nonfunctional{
-	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
 	icon_keyboard = "generic_key_broken"
@@ -1546,7 +1543,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "hD" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/fans/tiny/invisible,
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating,
@@ -1789,9 +1786,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "iD" = (
-/mob/living/simple_animal/hostile/abomination{
-	desc = "Скуластое, громоздкое чудовище. Еще один неудачный эксперимент. Что именно они пытались создать?"
-	},
+/mob/living/simple_animal/hostile/abomination,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
 	dir = 1;
@@ -1862,7 +1857,6 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredalt"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -2193,7 +2187,7 @@
 /area/awaymission/caves/build/reqpower_build)
 "kI" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build)
@@ -2261,7 +2255,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "lo" = (
 /mob/living/simple_animal/hostile/abomination/altform3{
-	desc = "Скуластое, громоздкое чудовище. Еще один неудачный эксперимент. Что именно они пытались создать?";
 	maxbodytemp = 1500
 	},
 /obj/effect/landmark/damageturf,
@@ -2376,13 +2369,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
-"lI" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel/dark{
-	dir = 2;
-	icon_state = "darkredalt"
-	},
-/area/awaymission/caves/build/reqpower_build)
 "lJ" = (
 /obj/item/organ/external/chest,
 /obj/item/kitchen/knife/butcher,
@@ -2656,7 +2642,6 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredaltstrip"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -3120,12 +3105,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/caves)
-"pL" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 2
-	},
-/turf/simulated/floor/engine/cult/lavaland_air,
-/area/awaymission/caves)
 "pQ" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/dark{
@@ -3155,7 +3134,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "pZ" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "qa" = (
@@ -3961,7 +3940,6 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredalt"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -4077,7 +4055,6 @@
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredaltstrip"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -4169,7 +4146,6 @@
 "vy" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredaltstrip"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -4241,9 +4217,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "vS" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 2
-	},
+/obj/structure/stone_tile/slab/cracked,
 /obj/structure/flora/rock,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine/cult/lavaland_air,
@@ -4939,9 +4913,7 @@
 /turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "zD" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 2
-	},
+/obj/structure/stone_tile/slab/cracked,
 /obj/structure/flora/rock,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
@@ -5341,7 +5313,6 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredalt"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -5857,7 +5828,7 @@
 	},
 /area/awaymission/caves/build)
 "EE" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build)
@@ -6164,7 +6135,6 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredalt"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -6472,14 +6442,9 @@
 /area/awaymission/caves/build/reqpower_build)
 "HM" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build)
-"HQ" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/effect/mapping_helpers/damaged_window,
-/turf/simulated/floor/plating,
-/area/awaymission/caves/build/reqpower_build)
 "HR" = (
 /obj/machinery/gateway,
 /turf/simulated/floor/engine/cult/lavaland_air,
@@ -6492,7 +6457,6 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredaltstrip"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -6521,7 +6485,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "HY" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build)
 "HZ" = (
@@ -6684,7 +6648,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "IY" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/effect/mapping_helpers/damaged_window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "cave4_blast2"
@@ -6807,13 +6771,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/caves)
-"JA" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 2
-	},
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/engine/cult/lavaland_air,
-/area/awaymission/caves)
 "JC" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
@@ -6872,7 +6829,6 @@
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredaltstrip"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -6921,7 +6877,6 @@
 /area/awaymission/caves)
 "Kd" = (
 /mob/living/simple_animal/hostile/abomination/altform2{
-	desc = "Скуластое, громоздкое чудовище. Еще один неудачный эксперимент. Что именно они пытались создать?";
 	maxbodytemp = 1500
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -7527,7 +7482,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "NN" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
@@ -7633,13 +7588,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/caves/build/reqpower_build)
-"Or" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 2
-	},
-/obj/structure/flora/rock,
-/turf/simulated/floor/engine/cult/lavaland_air,
-/area/awaymission/caves)
 "Os" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -7683,7 +7631,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "OL" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "cave4_blast2"
 	},
@@ -7864,7 +7812,6 @@
 /area/awaymission/caves/build/reqpower_build)
 "PB" = (
 /mob/living/simple_animal/hostile/abomination/altform3{
-	desc = "Скуластое, громоздкое чудовище. Еще один неудачный эксперимент. Что именно они пытались создать?";
 	maxbodytemp = 1500
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -8093,7 +8040,6 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredaltstrip"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -8760,7 +8706,6 @@
 /area/awaymission/caves/build)
 "Uv" = (
 /obj/machinery/computer/nonfunctional{
-	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
 	icon_keyboard = "generic_key_broken"
@@ -8918,7 +8863,6 @@
 /area/awaymission/caves)
 "UZ" = (
 /obj/machinery/computer/nonfunctional{
-	dir = 2;
 	icon_state = "broken";
 	icon_screen = "broken";
 	icon_keyboard = "generic_key_broken"
@@ -9218,12 +9162,9 @@
 /obj/structure/railing/cap{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/abomination/altform1{
-	desc = "Скуластое, громоздкое чудовище. Еще один неудачный эксперимент. Что именно они пытались создать?"
-	},
+/mob/living/simple_animal/hostile/abomination/altform1,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredaltstrip"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -9576,7 +9517,6 @@
 /obj/item/kirbyplants,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/dark{
-	dir = 2;
 	icon_state = "darkredalt"
 	},
 /area/awaymission/caves/build/reqpower_build)
@@ -9754,7 +9694,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "Zj" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves/build)
 "Zm" = (
@@ -15518,7 +15458,7 @@ BH
 BH
 BH
 ZJ
-pL
+mf
 BH
 BH
 BH
@@ -16213,7 +16153,7 @@ BH
 BH
 BH
 BH
-pL
+mf
 ZJ
 ZJ
 ZJ
@@ -17333,7 +17273,7 @@ LU
 LU
 LU
 LU
-Or
+qT
 LU
 LU
 LU
@@ -17812,7 +17752,7 @@ LU
 LU
 LU
 mz
-JA
+Gi
 mz
 ml
 ZJ
@@ -17835,15 +17775,15 @@ BH
 BH
 ZJ
 Xq
-pL
+mf
 Xq
 ZJ
 Xq
 ZJ
-pL
+mf
 ZJ
 Xq
-pL
+mf
 ZJ
 BH
 BH
@@ -18050,7 +17990,7 @@ sz
 Dv
 ml
 EZ
-pL
+mf
 mz
 GR
 mz
@@ -18273,7 +18213,7 @@ Xq
 Dv
 UI
 aE
-pL
+mf
 TK
 TK
 TK
@@ -31369,7 +31309,7 @@ LU
 as
 Tl
 Tl
-HQ
+Rn
 oz
 xS
 aa
@@ -31833,7 +31773,7 @@ LU
 as
 aF
 zG
-HQ
+Rn
 cE
 bb
 Fo
@@ -37870,7 +37810,7 @@ YS
 as
 Nn
 dP
-lI
+VL
 as
 as
 as
