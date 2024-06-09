@@ -637,7 +637,7 @@
 		/datum/species/diona,
 	)
 
-	. = ..()
+	return ..()
 
 
 /obj/effect/mob_spawn/human/corpse/random_species/gambler
