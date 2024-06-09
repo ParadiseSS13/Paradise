@@ -61,7 +61,7 @@
 		traitor.add_antag_datum(traitor_datum)
 
 	if(length(pre_traitors))
-		var/random_time = rand(300 SECONDS, 900 SECONDS)
+		var/random_time = rand(5 MINUTES, 15 MINUTES)
 		addtimer(CALLBACK(src, PROC_REF(late_handout)), random_time)
 
 /datum/game_mode/traitor/proc/traitors_to_add()
