@@ -305,7 +305,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user)
-		if(!user.unEquip(src, silent = TRUE))
+		if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS) || !user.unEquip(src, silent = TRUE))
 			return 0
 
 	if(flags & ABSTRACT)
@@ -396,12 +396,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
-	if(signal_result != 0)
-		if(hit_reaction_chance >= 0) //Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
-			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-		return signal_result
-	return FALSE
+	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)) + prob(final_block_chance)
+	if(!signal_result)
+		return FALSE
+	if(hit_reaction_chance >= 0) //Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
+		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+	return signal_result
 
 // Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
 // Returns TRUE on success, FALSE on failure.
@@ -650,16 +650,16 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			var/volume = get_volume_by_throwforce_and_or_w_class()
 			if(throwforce > 0)
 				if(mob_throw_hit_sound)
-					playsound(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
+					SSthrowing.playsound_capped(hit_atom, mob_throw_hit_sound, volume, TRUE, -1)
 				else if(hitsound)
-					playsound(hit_atom, hitsound, volume, TRUE, -1)
+					SSthrowing.playsound_capped(hit_atom, hitsound, volume, TRUE, -1)
 				else
-					playsound(hit_atom, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
+					SSthrowing.playsound_capped(hit_atom, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
 			else
-				playsound(hit_atom, 'sound/weapons/throwtap.ogg', volume, TRUE, -1)
+				SSthrowing.playsound_capped(hit_atom, 'sound/weapons/throwtap.ogg', volume, TRUE, -1)
 
 		else
-			playsound(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
+			SSthrowing.playsound_capped(src, drop_sound, YEET_SOUND_VOLUME, ignore_walls = FALSE)
 		return hit_atom.hitby(src, 0, itempush, throwingdatum = throwingdatum)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin = 1, diagonals_first = 0, datum/callback/callback, force, dodgeable)
@@ -832,7 +832,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 // Access and Job stuff
 
-/obj/item/proc/get_job_name() //Used in secHUD icon generation
+/// Used in secHUD icon generation
+/obj/item/proc/get_job_name()
 	var/assignmentName = get_ID_assignment(if_no_id = "Unknown")
 	var/rankName = get_ID_rank(if_no_id = "Unknown")
 
@@ -840,22 +841,36 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/centcom = get_all_centcom_jobs()
 	var/solgov = get_all_solgov_jobs()
 	var/soviet = get_all_soviet_jobs()
+	var/special = get_all_special_jobs()
 
-	if((assignmentName in centcom) || (rankName in centcom)) //Return with the NT logo if it is a Centcom job
-		return "Centcom"
+	// Return with the NT logo if it is a Centcom job
+	if((assignmentName in centcom) || (rankName in centcom))
+		return "centcom"
 
-	if((assignmentName in solgov) || (rankName in solgov)) //Return with the SolGov logo if it is a SolGov job
+	// Return with the SolGov logo if it is a SolGov job
+	if((assignmentName in solgov) || (rankName in solgov))
 		return "solgov"
 
-	if((assignmentName in soviet) || (rankName in soviet)) //Return with the U.S.S.P logo if it is a Soviet job
+	// Return with the U.S.S.P logo if it is a Soviet job
+	if((assignmentName in soviet) || (rankName in soviet))
 		return "soviet"
 
-	if(assignmentName in job_icons) //Check if the job has a hud icon
+	// For roles that can't be assigned to any category and require custom icon
+	if(assignmentName in special)
 		return assignmentName
+
+	if(rankName in special)
+		return rankName
+
+	// Check if the job has a hud icon
+	if(assignmentName in job_icons)
+		return assignmentName
+
 	if(rankName in job_icons)
 		return rankName
 
-	return "Unknown" //Return unknown if none of the above apply
+	// Return unknown hud if none of the above apply
+	return "unknown"
 
 /obj/item/proc/get_ID_assignment(if_no_id = "No id")
 	var/obj/item/card/id/id = GetID()

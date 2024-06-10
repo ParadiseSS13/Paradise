@@ -383,23 +383,25 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-/obj/structure/closet/crate/freezer/return_air()
+/obj/structure/closet/crate/freezer/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
-	var/datum/gas_mixture/gas = (..())
-	if(!gas)	return null
+	var/datum/gas_mixture/gas = ..()
+	if(!gas)
+		var/turf/T = get_turf(src)
+		gas = T.get_readonly_air()
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
-	newgas.oxygen = gas.oxygen
-	newgas.carbon_dioxide = gas.carbon_dioxide
-	newgas.nitrogen = gas.nitrogen
-	newgas.toxins = gas.toxins
+	newgas.set_oxygen(gas.oxygen())
+	newgas.set_carbon_dioxide(gas.carbon_dioxide())
+	newgas.set_nitrogen(gas.nitrogen())
+	newgas.set_toxins(gas.toxins())
 	newgas.volume = gas.volume
-	newgas.temperature = gas.temperature
-	if(newgas.temperature <= target_temp)	return
+	newgas.set_temperature(gas.temperature())
+	if(newgas.temperature() <= target_temp)	return
 
-	if((newgas.temperature - cooling_power) > target_temp)
-		newgas.temperature -= cooling_power
+	if((newgas.temperature() - cooling_power) > target_temp)
+		newgas.set_temperature(newgas.temperature() - cooling_power)
 	else
-		newgas.temperature = target_temp
+		newgas.set_temperature(target_temp)
 	return newgas
 
 /obj/structure/closet/crate/freezer/iv_storage

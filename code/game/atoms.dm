@@ -276,20 +276,6 @@
 				L.unEquip(M)
 			M.forceMove(src)
 
-/atom/proc/assume_air(datum/gas_mixture/giver)
-	qdel(giver)
-	return null
-
-/atom/proc/remove_air(amount)
-	return null
-
-/atom/proc/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
-	if(loc)
-		return loc.return_air()
-	else
-		return null
-
 ///Return the air if we can analyze it
 /atom/proc/return_analyzable_air()
 	return null
