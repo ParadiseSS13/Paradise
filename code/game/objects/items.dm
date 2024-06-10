@@ -8,7 +8,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
-	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
+	/// Used in item_attack.dm to make an item not show an attack message to viewers.
+	var/discrete = 0
 	/// The icon state used to display the item in your inventory. If null then the icon_state value itself will be used
 	var/item_state = null
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -40,54 +41,76 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/stealthy_audio = FALSE
 	/// Allows you to override the attack animation with an attack effect
 	var/attack_effect_override
-	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
+	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
+	var/list/attack_verb
 	var/w_class = WEIGHT_CLASS_NORMAL
-	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
+	/// This is used to determine on which slots an item can fit.
+	var/slot_flags = 0
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
 //	causeerrorheresoifixthis
 	var/obj/item/master = null
 
-	var/heat_protection = 0 //flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
-	var/cold_protection = 0 //flags which determine which body parts are protected from cold. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
-	var/max_heat_protection_temperature //Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
-	var/min_cold_protection_temperature //Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
+	/// Flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
+	var/heat_protection = 0
+	/// Flags which determine which body parts are protected from cold. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
+	var/cold_protection = 0
+	/// Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
+	var/max_heat_protection_temperature
+	/// Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
+	var/min_cold_protection_temperature
 
-	var/list/actions = list() //list of /datum/action's that this item has.
-	var/list/actions_types = list() //list of paths of action datums to give to the item on New().
-	var/list/action_icon = list() //list of icons-sheets for a given action to override the icon.
-	var/list/action_icon_state = list() //list of icon states for a given action to override the icon_state.
+	/// list of /datum/action's that this item has.
+	var/list/actions = list()
+	/// list of paths of action datums to give to the item on New().
+	var/list/actions_types = list()
+	/// list of icons-sheets for a given action to override the icon.
+	var/list/action_icon = list()
+	/// list of icon states for a given action to override the icon_state.
+	var/list/action_icon_state = list()
 
+	/// What materials the item yields when broken down. Some methods will not recover everything (autolathes only recover metal and glass, for example).
 	var/list/materials = list()
+
 	//Since any item can now be a piece of clothing, this has to be put here so all items share it.
-	var/flags_inv //This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
+	/// This flag is used to determine when items in someone's inventory cover others (e.g. helmets making it so you can't see glasses, etc.).
+	var/flags_inv
 	var/item_color = null
 	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
-	//var/heat_transfer_coefficient = 1 //0 prevents all transfers, 1 is invisible
-	var/gas_transfer_coefficient = 1 // for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
-	var/permeability_coefficient = 1 // for chemicals/diseases
-	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
-	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up
+	//var/heat_transfer_coefficient = 1 //0 prevents all transfers, 1 is invisible.
+	/// for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets).
+	var/gas_transfer_coefficient = 1
+	/// for chemicals/diseases
+	var/permeability_coefficient = 1
+	/// for electrical admittance/conductance (electrocution checks and shit)
+	var/siemens_coefficient = 1
+	/// How much clothing is slowing you down. Negative values speed you up
+	var/slowdown = 0
 	/// Flat armour reduction, occurs after percentage armour penetration.
 	var/armour_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.
 	var/armour_penetration_percentage = 0
-	var/list/allowed = null //suit storage stuff.
-	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
+	/// What types of items are allowed in suit storage.
+	var/list/allowed = null
+	/// All items can have an uplink hidden inside, just remember to add the triggers.
+	var/obj/item/uplink/hidden/hidden_uplink = null
 
-	var/needs_permit = FALSE			//Used by security bots to determine if this item is safe for public use.
+	/// Used by security bots to determine if this item is safe for public use.
+	var/needs_permit = FALSE
 
+	/// How long does it take to remove this item using the strip menu?
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
+	/// How long does it take to reverse-pickpocket this item onto someone using the strip menu?
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
+	/// For restraining items, how long does it take to remove them?
 	var/breakouttime = 0
 	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
 
 	/// Used to give a reaction chance on hit that is not a block. If less than 0, will remove the block message, allowing overides.
 	var/hit_reaction_chance = 0
 
-	// Needs to be in /obj/item because corgis can wear a lot of
-	// non-clothing items
-	var/datum/dog_fashion/dog_fashion = null
+	/// Used to allow corgis to wear items as an outfit.
+	var/datum/dog_fashion/dog_fashion = null		// Needs to be in /obj/item because corgis can wear a lot of non-clothing items
 
 	/// UID of a /mob
 	var/thrownby
@@ -104,10 +127,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME //A time in ticks, multiplied by the w_class.
 	var/embedded_ignore_throwspeed_threshold = FALSE
 
-	var/tool_behaviour = NONE //What kind of tool are we?
-	var/tool_enabled = TRUE //If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
-	var/tool_volume = 50 //How loud are we when we use our tool?
-	var/toolspeed = 1 // If this item is a tool, the speed multiplier
+	/// Does this item peform the functions of a tool (e.g. TOOL_WELDER)?
+	var/tool_behaviour = NONE
+	/// If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
+	var/tool_enabled = TRUE
+	/// How loud are we when we use our tool?
+	var/tool_volume = 50
+	// If this item is a tool, the speed multiplier. Smaller numbers are faster.
+	var/toolspeed = 1
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
@@ -117,12 +144,16 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	If index term exists and icon_override is not set, this sprite sheet will be used.
 	*/
 	var/list/sprite_sheets = null
-	var/list/sprite_sheets_inhand = null //Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
-	var/icon_override = null  //Used to override hardcoded clothing dmis in human clothing proc.
-	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
+	/// Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
+	var/list/sprite_sheets_inhand = null
+	/// Used to override hardcoded clothing dmis in human clothing proc.
+	var/icon_override = null
+	/// Used to override hardcoded clothing inventory object dmis in human clothing proc.
+	var/sprite_sheets_obj = null
 
 	//Tooltip vars
-	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
+	/// Is this item equipped into an inventory slot or hand of a mob?
+	var/in_inventory = FALSE
 	var/tip_timer = 0
 
 	// item hover FX
@@ -154,7 +185,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
 
-// this proc is used to add text for items with ABSTRACT flag after default examine text
+/// This proc is used to add text for items with ABSTRACT flag after default examine text.
 /obj/item/proc/customised_abstract_text(mob/living/carbon/owner)
 	return
 
@@ -228,7 +259,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		else
 			msg += "<span class='danger'>No tech origins detected.</span><BR>"
 
-
 		if(length(materials))
 			msg += "<span class='notice'>Extractable materials:<BR>"
 			for(var/mat in materials)
@@ -257,7 +287,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
-	if(!user) return 0
+	if(!user) return FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
@@ -265,10 +295,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			temp = H.bodyparts_by_name["l_hand"]
 		if(!temp)
 			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
-			return 0
+			return FALSE
 		if(temp && !temp.is_usable())
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
-			return 0
+			return FALSE
 
 	if((resistance_flags & ON_FIRE) && !pickupfireoverride)
 		var/mob/living/carbon/human/H = user
@@ -306,14 +336,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		throwing.finalize(FALSE)
 	if(loc == user)
 		if(!user.unEquip(src, silent = TRUE))
-			return 0
+			return FALSE
 
 	if(flags & ABSTRACT)
-		return 0
+		return FALSE
 
 	else
 		if(isliving(loc))
-			return 0
+			return FALSE
 
 	pickup(user)
 	add_fingerprint(user)
@@ -486,26 +516,26 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)
-	return 1
+	return TRUE
 
-//returns 1 if the item is equipped by a mob, 0 otherwise.
+//returns TRUE if the item is equipped by a mob, FALSE otherwise.
 //This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
 /obj/item/proc/is_equipped()
 	if(!ismob(loc))
-		return 0
+		return FALSE
 
 	var/mob/M = loc
 	if(src in M.get_equipped_items())
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
-//the mob M is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
+//the mob M is attempting to equip this item into the slot passed through as 'slot'. Return TRUE if it can do this and FALSE if it can't.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
 //Set disable_warning to 1 if you wish it to not give you outputs.
 /obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(!M)
-		return 0
+		return FALSE
 
 	return M.can_equip(src, slot, disable_warning)
 
@@ -544,7 +574,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	attack_self(user)
 
 /obj/item/proc/IsReflect(def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
-	return 0
+	return FALSE
 
 /obj/item/proc/get_loc_turf()
 	var/atom/L = loc
@@ -674,16 +704,16 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	in_inventory = FALSE
 
 /obj/item/proc/pwr_drain()
-	return 0 // Process Kill
+	return FALSE // Process Kill
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
-		return 0
+		return FALSE
 	if(isstorage(loc))
 		var/obj/item/storage/S = loc
 		S.remove_from_storage(src,newLoc)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /obj/item/proc/wash(mob/user, atom/source)
@@ -696,10 +726,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	acid_level = 0
 	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
 						"<span class='notice'>You wash [src] using [source].</span>")
-	return 1
+	return TRUE
 
 /obj/item/proc/get_crutch_efficiency() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
-	return 0
+	return FALSE
 
 // Return true if you don't want regular throw handling
 /obj/item/proc/override_throw(mob/user, atom/target)
@@ -720,7 +750,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	return FALSE
 
 /obj/item/mech_melee_attack(obj/mecha/M)
-	return 0
+	return FALSE
 
 /obj/item/proc/openTip(location, control, params, user)
 	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")
@@ -792,9 +822,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		filters -= outline_filter
 		outline_filter = null
 
-// Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
+/// Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the RPED
 /obj/item/proc/get_part_rating()
-	return 0
+	return FALSE
 
 /obj/item/proc/update_slot_icon()
 	if(!ismob(loc))
@@ -927,3 +957,25 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name
+
+/**
+  * This proc is called by items that can act as a cigarette lighter.
+  *
+  * All the lighting related text is found here, along with the abilitty to light cigars.
+  * Arguments:
+  * * light_own_cig - The message used when a user lights their own cigarette. If left empty, will default to a generic message.
+  * * light_other_cig - The message used when a user lights someone else's cigarette. If left empty, will default to a generic message.
+  * * can_light_cigars - FALSE by default. Set to TRUE if this item is allowed to light cigars.
+  * * cigar_light_failure - Text used if an item that is not allowed to light cigars is used on a cigar. It can be modified to make item-tailored messages, otherwise it will default to a generic message.
+  * * light_own_cig_failure - (optional) Text used if a bad outcome for a cigarette lighting affects the user (e.g accidentally shooting yourself with a Wand of Fireball).
+  * * light_other_cig_failure - (optional) Text used if a bad outcome for a cigarette lighting affects someone else.
+  */
+/obj/item/proc/get_cigarette_flavour_info()
+	SHOULD_CALL_PARENT(TRUE)
+	var/light_own_cig = "<span class='notice'>[user] lights [I] with [src].</span>"
+	var/light_other_cig = "<span class='notice'>[user] lights [I] for [target] with [src].</span>"
+ 	var/can_light_cigars = FALSE
+	var/cigar_light_failure = "<span class='warning'>[I] straight-up <b>REFUSES</b> to be lit by such uncivilized means!</span>"
+	var/light_own_cig_failure
+	var/light_other_cig_failure
+	return (light_own_cig, light_other_cig, can_light_cigars, cigar_light_failure, light_own_cig_failure, light_other_cig_failure)

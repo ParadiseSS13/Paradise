@@ -74,12 +74,36 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/attack(mob/living/carbon/M, mob/living/carbon/user)
-	// For lighting cigarettes.
-	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+/obj/item/flamethrower/attack(mob/living/user, mob/living/carbon/target, obj/item/I)
+	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
 	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
 		return ..()
-	cig.attackby(src, user, M)
+
+	if(!lit)
+		to_chat(user, "<span class='warning'>You need to ignite [src] before you can use it as a lighter!</span>")
+		return FALSE
+
+	if(prob(50) || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Life Support Specialist" || HAS_TRAIT(user, TRAIT_BADASS))
+		return cig.attackby(user, target, I, get_cigarette_flavour_info())
+
+	get_cigarette_flavour_info()
+	if(target == user)
+		user.visible_message(light_own_cig_failure)
+	else
+		user.visible_message(light_other_cig_failure)
+	target.adjust_fire_stacks(2)
+	target.IgniteMob()
+	return
+
+/obj/item/flamethrower/get_cigarette_flavour_info()
+	. = ..()
+	light_own_cig = "<span class='warning'>[user] confidently lifts up [src] in front of [user.p_their()] face and releases a big puff of flame at [user.p_their()] [item] to light it, like some kind of psychopath!</span>"
+	light_other_cig = "<span class='warning'>[user] confidently lifts up [I] in front of the face of [target] and releases a big puff of flame at [target.p_their()] [name] to light it, like some kind of psychopath!</span>"
+	cigar_light_failure = "<span class='danger'>[item] stubbornly refuses to be lit, you'd probably burn down the station before it yields.</span>"
+	light_own_cig_failure = "<span class='danger'>With little regard for [user.p_their()] own safety, [user] lifts up [I] to [user.p_their()] face and attempts to light [user.p_their()] [name]. \
+						Unfortunately, [user] pulls the trigger a little too hard and releases a large burst that sets [user.p_them()] ablaze!</span>"
+	light_other_cig_failure = "<span class='danger'>With little regard for the safety of [target], [user] lifts up [I] to the face of [target] and attempts to light [target.p_their()] [name]. \
+						Unfortunately, [user] pulls the trigger a little too hard and releases a large burst that sets [target] ablaze!</span>"
 
 /obj/item/flamethrower/afterattack(atom/target, mob/user, flag)
 	. = ..()

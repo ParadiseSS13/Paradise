@@ -134,7 +134,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(istype(src, /obj/item/clothing/mask/cigarette/cigar) || istype(src, /obj/item/clothing/mask/cigarette/pipe))
 		// Cigars and pipes are too cultured to allow themselves to be lit by the BARBARIC means below.
-		to_chat(user, "<span class='warning'>[name] straight out <b>REFUSES</b> to be lit by such uncivilized means!</span>")
+		to_chat(user, "<span class='warning'>[src] straight out <b>REFUSES</b> to be lit by such uncivilized means!</span>")
 		return FALSE
 
 	if(istype(I, /obj/item/lighter))
@@ -204,27 +204,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 				light("<span class='warning'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes. \
 				[user.p_they(TRUE)] lights [src] in the mouth of [target] with [I] in the process.</span>")
 			return TRUE
-		return failed_to_light(I, user)
-
-	if(istype(I, /obj/item/flamethrower))
-		var/obj/item/flamethrower/flame = I
-		if(flame.lit)
-			if(prob(50) || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Life Support Specialist" || HAS_TRAIT(user, TRAIT_BADASS))
-				if(target == user)
-					light("<span class='warning'>[user] confidently lifts up [I] in front of [user.p_their()] face and releases a big puff of flame at [user.p_their()] [name] to light it, like some kind of psychopath!</span>")
-				else
-					light("<span class='warning'>[user] confidently lifts up [I] in front of the face of [target] and releases a big puff of flame at [target.p_their()] [name] to light it, like some kind of psychopath!</span>")
-				return TRUE
-
-			if(target == user)
-				light("<span class='danger'>With little regard for [user.p_their()] own safety, [user] lifts up [I] to [user.p_their()] face and attempts to light [user.p_their()] [name]. \
-				Unfortunately, [user] pulls the trigger a little too hard and releases a large burst that sets [user.p_them()] ablaze!</span>")
-			else
-				light("<span class='danger'>With little regard for the safety of [target], [user] lifts up [I] to the face of [target] and attempts to light [target.p_their()] [name]. \
-				Unfortunately, [user] pulls the trigger a little too hard and releases a large burst that sets [target] ablaze!</span>")
-				target.adjust_fire_stacks(2)
-				target.IgniteMob()
-			return TRUE	// At least the cig still gets lit...
 		return failed_to_light(I, user)
 
 	if(istype(I, /obj/item/gun/magic/wand/fireball))
