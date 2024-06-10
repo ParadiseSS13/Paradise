@@ -6,7 +6,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "ci" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
