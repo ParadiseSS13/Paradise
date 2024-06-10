@@ -180,9 +180,11 @@
 	..()
 
 
+/// Check if we're standing in an oxygenless environment
 /obj/structure/bonfire/proc/CheckOxygen()
-	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(G.oxygen > 13)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/G = T.get_readonly_air()
+	if(G.oxygen() > 13)
 		return 1
 	return 0
 
