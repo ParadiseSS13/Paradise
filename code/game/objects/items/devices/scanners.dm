@@ -331,7 +331,10 @@ SLIME SCANNER
 		to_chat(user, "<span class='notice'>An upgrade is already installed on [src].</span>")
 		return
 
-	user.unEquip(I)
+	if(!user.unEquip(I))
+		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
+		return
+
 	to_chat(user, "<span class='notice'>You install the upgrade on [src].</span>")
 	add_overlay("advanced")
 	playsound(loc, I.usesound, 50, TRUE)
