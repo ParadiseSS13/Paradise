@@ -27,7 +27,7 @@
 		atmosblock = FALSE
 	else
 		atmosblock = TRUE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/blob/shield/update_name()
 	. = ..()
