@@ -7,7 +7,7 @@
 	. = ..()
 	if(isrobot(AM) || ishuman(AM))
 		var/turf/T = get_turf(src)
-		for(var/mob/living/simple_animal/bot/B in range(30, T))
+		for(var/mob/living/simple_animal/bot/B in urange(22, T))
 			B.call_bot(null, T, FALSE)
 		qdel(src)
 
@@ -34,7 +34,7 @@
 	. = ..()
 	if(isrobot(AM) || ishuman(AM))
 		var/turf/T = get_turf(src)
-		for(var/obj/structure/telecomns_doomsday_device/DD in range(15, T))
+		for(var/obj/structure/telecomns_doomsday_device/DD in urange(15, T))
 			if(DD.thief)
 				DD.start_the_party(TRUE)
 				return
@@ -43,18 +43,21 @@
 	name = "recharger"
 	desc = "A charging dock for energy based weaponry. Did it just-"
 	icon_state = "autolathe_trap"
+	//Has someone put an item in the autolathe, breaking the hologram?
+	var/disguise_broken = FALSE
 
 /obj/machinery/autolathe/trapped/Initialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, PROC_REF(material_container_shenanigins))
 
 /obj/machinery/autolathe/trapped/proc/material_container_shenanigins(datum/source, obj/item/attacker, mob/user)
-	if(icon_state == "autolathe_trap")
+	if(!disguise_broken)
 		to_chat(user, "<span class='danger'>As you stick [attacker] into the recharger, it sparks and flashes blue. Wait a minute, this isn't a recharger!</span>")
 		name = "modified autolathe"
 		desc = "An autolathe modified with holopad parts, to make it look like a harmless weapon recharger!"
 		do_sparks(3, 1, src)
 		icon_state = "autolathe"
+		disguise_broken = TRUE
 
 /obj/machinery/shieldgen/telecomns
 	name = "overclocked shield generator"
@@ -85,17 +88,18 @@
 	var/has_died = FALSE // fucking decoy silicons are weird.
 
 /mob/living/silicon/decoy/telecomns/death(gibbed)
-	if(!has_died)
-		has_died = TRUE
-		for(var/obj/structure/telecomns_doomsday_device/D in range(5, src))
-			D.start_the_party()
-			break
-		new /obj/item/documents/syndicate/dvorak_blackbox(get_turf(src))
-		if(prob(50))
-			if(prob(80))
-				new /obj/item/surveillance_upgrade(get_turf(src))
-			else // 10% chance
-				new /obj/item/malf_upgrade(get_turf(src))
+	if(has_died)
+		return ..()
+	has_died = TRUE
+	for(var/obj/structure/telecomns_doomsday_device/D in range(5, src))
+		D.start_the_party()
+		break
+	new /obj/item/documents/syndicate/dvorak_blackbox(get_turf(src))
+	if(prob(50))
+		if(prob(80))
+			new /obj/item/surveillance_upgrade(get_turf(src))
+		else // 10% chance
+			new /obj/item/malf_upgrade(get_turf(src))
 	return ..()
 
 /obj/structure/telecomns_trap_tank
@@ -127,68 +131,78 @@
 
 /obj/structure/telecomns_doomsday_device/proc/start_the_party(ruin_cheese_attempted = FALSE)
 	invisibility = 90
-	var/obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn/kaboom = new /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn(get_turf(src))
+	var/obj/machinery/syndicatebomb/doomsday/kaboom = new /obj/machinery/syndicatebomb/doomsday(get_turf(src))
 	kaboom.icon_state = "death-bomb-active"
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	for(var/obj/structure/telecomns_trap_tank/TTT in range(20, get_turf(src)))
+	for(var/obj/structure/telecomns_trap_tank/TTT in urange(15, get_turf(src)))
 		TTT.explode()
 	flick_holder.layer = kaboom.layer + 0.1
 	flick("popup", flick_holder)
 	sleep(1 SECONDS)
-	for(var/obj/machinery/shieldgen/telecomns/shield in range(20, get_turf(src)))
+	for(var/obj/machinery/shieldgen/telecomns/shield in urange(15, get_turf(src)))
 		shield.shields_up()
 	if(ruin_cheese_attempted)
-		for(var/obj/machinery/door/airlock/A in range(30, get_turf(src)))
+		for(var/obj/machinery/door/airlock/A in urange(20, get_turf(src)))
 			A.unlock(TRUE) //Fuck your bolted open doors, you cheesed it.
-	for(var/area/A in range(30, get_turf(src)))
+	for(var/area/A in urange(25, get_turf(src), areas = TRUE))
+		if(istype(A, /area/space))
+			continue
 		if(ruin_cheese_attempted)
 			A.burglaralert(src)
 		else if(!A.fire)
 			A.firealert(kaboom)
-	for(var/obj/effect/abstract/cheese_trap/CT in range(15, get_turf(src)))
+	for(var/obj/effect/abstract/cheese_trap/CT in urange(15, get_turf(src)))
 		qdel(CT)
 	kaboom.activate()
 	kaboom.icon_state = "death-bomb-active" // something funny goes on with icons here
 	qdel(flick_holder)
 	qdel(src)
 
-/obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn // They are going to spawn it on station anyway. I can feel it.
+/obj/machinery/syndicatebomb/doomsday
 	name = "\improper D.V.O.R.A.K's Doomsday Device"
 	icon_state = "death-bomb"
 	desc = "Nice to see that AI's are improving on the standard doomsday device. Good to have variety. Also probably a good idea to start running."
 	anchored = TRUE
 	timer_set = 100
-	payload = /obj/item/bombcore/telecomns_doomsday_please_dont_spawn
+	payload = /obj/item/bombcore/doomsday
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn/singularity_act()
+/obj/machinery/syndicatebomb/doomsday/singularity_act()
 	return // saves me headache later
 
-/obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn/ex_act(severity)
+/obj/machinery/syndicatebomb/doomsday/ex_act(severity)
 	return // No.
 
-/obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/syndicatebomb/doomsday/screwdriver_act(mob/user, obj/item/I)
 	to_chat(user, "<span class='danger'>[src] is welded shut! You can't get at the wires!</span>")
 
-/obj/item/bombcore/telecomns_doomsday_please_dont_spawn
+/obj/machinery/syndicatebomb/doomsday/Initialize(mapload)
+	. = ..()
+	var/turf/T = get_turf(src)
+	if(is_station_level(T.z))
+		log_debug("something tried to spawn a telecomns doomsday ruin bomb on the station, deleting!")
+		return INITIALIZE_HINT_QDEL
+
+/obj/item/bombcore/doomsday
 	name = "a supermatter charged bomb core"
 	desc = "If you are looking at this, please don't put it in a bomb"
 
-/obj/item/bombcore/telecomns_doomsday_please_dont_spawn/Initialize()
+/obj/item/bombcore/doomsday/Initialize()
 	. = ..()
-	if(!istype(loc, /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn)
-		log_debug("something tried to spawn a telecomns doomsday ruin payload outside the ruin, deleting!
+	if(!istype(loc, /obj/machinery/syndicatebomb/doomsday))
+		log_debug("something tried to spawn a telecomns doomsday ruin payload outside the ruin, deleting!")
 		return INITIALIZE_HINT_QDEL
-/obj/item/bombcore/telecomns_doomsday_please_dont_spawn/ex_act(severity) // No
+
+/obj/item/bombcore/doomsday/ex_act(severity) // No
 	return
 
-/obj/item/bombcore/telecomns_doomsday_please_dont_spawn/burn() // Still no.
+/obj/item/bombcore/doomsday/burn() // Still no.
 	return
 
-/obj/item/bombcore/telecomns_doomsday_please_dont_spawn/detonate()
+/obj/item/bombcore/doomsday/detonate()
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		loc.invisibility = 90
-	for(var/turf/simulated/wall/indestructible/riveted/R in range(25, get_turf(src)))
+	for(var/turf/simulated/wall/indestructible/riveted/R in urange(25, get_turf(src)))
 		R.ChangeTurf(/turf/space)
 	explosion(get_turf(src), 30, 40, 50, 60, 1, 1, 65, 0)
 	sleep(3 SECONDS)
@@ -235,6 +249,7 @@
 /mob/living/simple_animal/hostile/hivebot/strong/malfborg/Destroy()
 	QDEL_NULL(baton)
 	return ..()
+
 /mob/living/simple_animal/hostile/hivebot/strong/malfborg/AttackingTarget()
 	if(QDELETED(target))
 		return
