@@ -527,7 +527,7 @@
 /obj/item/disk/plantgene/update_desc()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		desc = "A floppy disk containing 1.44 MB of unique cryptographic identification data. Used along with a valid code to detonate the on-site nuclear fission explosive."
+		desc = "A floppy disk containing unique cryptographic identification data. Used along with a valid code to detonate the on-site nuclear fission explosive."
 		return
 
 	desc = "A disk for storing plant genetic data."

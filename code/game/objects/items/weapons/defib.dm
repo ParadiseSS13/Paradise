@@ -363,6 +363,7 @@
 	. = ..()
 	cell = new(src)
 	update_icon(UPDATE_OVERLAYS)
+
 /obj/item/shockpaddles/syndicate
 	name = "combat defibrillator paddles"
 	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
