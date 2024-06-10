@@ -121,7 +121,7 @@
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. It has a proprietary adapter allowing it to inject through the ports of Syndicate-made hardsuits."
 	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = null
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30)
 	icon_state = "combat_hypo"
 	volume = 90
 	can_pierce_hardsuits = TRUE // So they can heal their comrades.
@@ -138,7 +138,6 @@
 	name = "medical nanite injector"
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanomachines for rapid field stabilization."
 	volume = 100
-	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30) // i want to let them to inject more/less depending on the situation, while keeping the flags the base combat has
 	list_reagents = list("syndicate_nanites" = 100)
 
 //////////////////////////////
