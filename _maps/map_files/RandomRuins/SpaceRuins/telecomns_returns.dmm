@@ -2009,6 +2009,12 @@
 	},
 /area/ruin/space/telecomns/chamber)
 "CM" = (
+/obj/item/gps/ruin{
+	pixel_x = 32;
+	gpstag = "STAY_AWAY";
+	name = "Exterior Status Terminal";
+	desc = "A status terminal for this satellite. All it shows is a bunch of errors, and a message to stay away."
+	},
 /turf/simulated/floor/catwalk/airless,
 /area/ruin/space/telecomns/powercontrol)
 "CU" = (
