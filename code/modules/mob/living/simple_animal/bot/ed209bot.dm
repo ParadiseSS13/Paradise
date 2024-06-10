@@ -382,17 +382,17 @@
 	new /obj/item/assembly/prox_sensor(explode_turf)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/disabler/G = new /obj/item/gun/energy/disabler(explode_turf)
-		G.cell.charge = 0
-		G.update_icon()
+		var/obj/item/gun/energy/disabler/ed_gun = new /obj/item/gun/energy/disabler(explode_turf)
+		ed_gun.cell.charge = 0
+		ed_gun.update_icon()
 	else if(lasercolor == "b")
-		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(explode_turf)
-		G.cell.charge = 0
-		G.update_icon()
+		var/obj/item/gun/energy/laser/tag/blue/ed_gun = new /obj/item/gun/energy/laser/tag/blue(explode_turf)
+		ed_gun.cell.charge = 0
+		ed_gun.update_icon()
 	else if(lasercolor == "r")
-		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(explode_turf)
-		G.cell.charge = 0
-		G.update_icon()
+		var/obj/item/gun/energy/laser/tag/red/ed_gun = new /obj/item/gun/energy/laser/tag/red(explode_turf)
+		ed_gun.cell.charge = 0
+		ed_gun.update_icon()
 
 	if(prob(50))
 		new /obj/item/robot_parts/l_leg(explode_turf)
@@ -425,17 +425,17 @@
 	new /obj/item/assembly/prox_sensor(disassemble_turf)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/disabler/G = new /obj/item/gun/energy/disabler(disassemble_turf)
-		G.cell.charge = 0
-		G.update_icon()
+		var/obj/item/gun/energy/disabler/ed_gun = new /obj/item/gun/energy/disabler(disassemble_turf)
+		ed_gun.cell.charge = 0
+		ed_gun.update_icon()
 	else if(lasercolor == "b")
-		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(disassemble_turf)
-		G.cell.charge = 0
-		G.update_icon()
+		var/obj/item/gun/energy/laser/tag/blue/ed_gun = new /obj/item/gun/energy/laser/tag/blue(disassemble_turf)
+		ed_gun.cell.charge = 0
+		ed_gun.update_icon()
 	else if(lasercolor == "r")
-		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(disassemble_turf)
-		G.cell.charge = 0
-		G.update_icon()
+		var/obj/item/gun/energy/laser/tag/red/ed_gun = new /obj/item/gun/energy/laser/tag/red(disassemble_turf)
+		ed_gun.cell.charge = 0
+		ed_gun.update_icon()
 
 	new /obj/item/robot_parts/l_leg(disassemble_turf)
 	new /obj/item/robot_parts/r_leg(disassemble_turf)
