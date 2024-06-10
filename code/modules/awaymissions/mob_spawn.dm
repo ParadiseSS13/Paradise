@@ -616,14 +616,14 @@
 	for(var/datum/disease/zombie/zomb in H.viruses)
 		zomb.stage = 8
 
-	. = ..()
+	return ..()
 
 /obj/effect/mob_spawn/human/alive/zombie/non_infectious
 	name = "NPC Zombie (Non-infectious)"
 
 /obj/effect/mob_spawn/human/alive/zombie/non_infectious/equip(mob/living/carbon/human/H)
 	ADD_TRAIT(H, TRAIT_NON_INFECTIOUS_ZOMBIE, ROUNDSTART_TRAIT)
-	. = ..()
+	return ..()
 
 ////////Non-human spawners////////
 
