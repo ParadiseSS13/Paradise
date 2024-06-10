@@ -333,8 +333,8 @@
 		M.KnockDown(4 SECONDS)
 
 /obj/item/storage/bag/tray/proc/scatter_tray_items(obj/item/I)
-	for(var/i in 1 to rand(1, 2))
-		if(I)
+	if(I)
+		for(var/i in 1 to rand(1, 2))
 			step(I, pick(NORTH,SOUTH,EAST,WEST))
 			sleep(rand(2,4))
 
