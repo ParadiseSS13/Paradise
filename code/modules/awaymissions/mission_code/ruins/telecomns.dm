@@ -174,6 +174,11 @@
 	name = "a supermatter charged bomb core"
 	desc = "If you are looking at this, please don't put it in a bomb"
 
+/obj/item/bombcore/telecomns_doomsday_please_dont_spawn/Initialize()
+	. = ..()
+	if(!istype(loc, /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn)
+		log_debug("something tried to spawn a telecomns doomsday ruin payload outside the ruin, deleting!
+		return INITIALIZE_HINT_QDEL
 /obj/item/bombcore/telecomns_doomsday_please_dont_spawn/ex_act(severity) // No
 	return
 
