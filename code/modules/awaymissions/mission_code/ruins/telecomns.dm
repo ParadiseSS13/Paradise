@@ -96,7 +96,7 @@
 				new /obj/item/surveillance_upgrade(get_turf(src))
 			else // 10% chance
 				new /obj/item/malf_upgrade(get_turf(src))
-	. = ..()
+	return ..()
 
 /obj/structure/telecomns_trap_tank
 	name = "rigged plasma tank"
@@ -134,7 +134,7 @@
 		TTT.explode()
 	flick_holder.layer = kaboom.layer + 0.1
 	flick("popup", flick_holder)
-	sleep(10)
+	sleep(1 SECONDS)
 	for(var/obj/machinery/shieldgen/telecomns/shield in range(20, get_turf(src)))
 		shield.shields_up()
 	if(ruin_cheese_attempted)
@@ -155,7 +155,7 @@
 /obj/machinery/syndicatebomb/telecomns_doomsday_please_dont_spawn // They are going to spawn it on station anyway. I can feel it.
 	name = "\improper D.V.O.R.A.K's Doomsday Device"
 	icon_state = "death-bomb"
-	desc = "Nice to see AI's are improvising on the standard doomsday device. Good to have variety. Also probably a good idea to start running."
+	desc = "Nice to see that AI's are improving on the standard doomsday device. Good to have variety. Also probably a good idea to start running."
 	anchored = TRUE
 	timer_set = 100
 	payload = /obj/item/bombcore/telecomns_doomsday_please_dont_spawn
@@ -192,13 +192,13 @@
 		R.ChangeTurf(/turf/space)
 	explosion(get_turf(src), 30, 40, 50, 60, 1, 1, 65, 0)
 	sleep(3 SECONDS)
-	var/obj/singularity/S = new/obj/singularity(get_turf(src))
+	var/obj/singularity/S = new /obj/singularity(get_turf(src))
 	S.consumedSupermatter = TRUE // woe large supermatter to eat the remains apon thee
 	S.energy = 4000
 	sleep(25 SECONDS)
 	S.visible_message("<span class='danger'>[S] collapses in on itself, vanishing as fast as it appeared!</span>")
 	qdel(S)
-	if(loc && istype(loc, /obj/machinery/syndicatebomb))
+	if(istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
 
@@ -232,6 +232,9 @@
 	. = ..()
 	baton = new(src)
 
+/mob/living/simple_animal/hostile/hivebot/strong/malfborg/Destroy()
+	QDEL_NULL(baton)
+	return ..()
 /mob/living/simple_animal/hostile/hivebot/strong/malfborg/AttackingTarget()
 	if(QDELETED(target))
 		return
@@ -257,7 +260,7 @@
 		start_showpiece_type = pick(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/cryo, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
 	else
 		start_showpiece_type = pick(/obj/item/organ/internal/cyberimp/brain/sensory_enhancer, /obj/item/organ/internal/cyberimp/brain/hackerman_deck, /obj/item/storage/lockbox/experimental_weapon)
-	. = ..()
+	return ..()
 
 /obj/structure/displaycase/dvoraks_treat/trigger_alarm()
 	for(var/obj/structure/telecomns_doomsday_device/DD in range(7, get_turf(src)))
@@ -295,7 +298,7 @@
 
 /obj/item/remote_ai_upload/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/card/emag))
-		to_chat(user, "<span class='warning'>You are more likely to damage this with an emag, than achive something useful.</span>")
+		to_chat(user, "<span class='warning'>You are more likely to damage this with an emag, than achieve something useful.</span>")
 		return
 	var/time_to_die = integrated_console.attackby(O, user, params)
 	if(time_to_die)
@@ -325,8 +328,8 @@
 /obj/effect/spawner/random_spawners/telecomns_teleprod_maybe
 	name = "teleprod maybe"
 	result = list(
-	/datum/nothing = 4,
-	/obj/item/melee/baton/cattleprod/teleprod = 1)
+		/datum/nothing = 4,
+		/obj/item/melee/baton/cattleprod/teleprod = 1)
 
 // This could work in any ruin. However for now, as the scope is quite large, it's going to be coded a bit more to D.V.O.R.A.K
 /obj/structure/environmental_storytelling_holopad
@@ -352,7 +355,7 @@
 	AddComponent(/datum/component/proximity_monitor)
 
 /obj/structure/environmental_storytelling_holopad/Destroy()
-	qdel(our_holo)
+	QDEL_NULL(our_holo)
 	return ..()
 
 /obj/structure/environmental_storytelling_holopad/HasProximity(atom/movable/AM)
