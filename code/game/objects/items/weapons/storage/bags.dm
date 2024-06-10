@@ -322,11 +322,7 @@
 	// Make each item scatter a bit
 	for(var/obj/item/I in oldContents)
 		I.forceMove(M)
-		spawn()
-			for(var/i = 1, i <= rand(1,2), i++)
-				if(I)
-					step(I, pick(NORTH,SOUTH,EAST,WEST))
-					sleep(rand(2,4))
+		INVOKE_ASYNC(src, PROC_REF(scatter_tray_items), I)
 
 	if(prob(50))
 		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
@@ -335,6 +331,12 @@
 
 	if(ishuman(M) && prob(10))
 		M.KnockDown(4 SECONDS)
+
+/obj/item/storage/bag/tray/proc/scatter_tray_items(obj/item/I)
+	for(var/i in 1 to rand(1, 2))
+		if(I)
+			step(I, pick(NORTH,SOUTH,EAST,WEST))
+			sleep(rand(2,4))
 
 /obj/item/storage/bag/tray/update_icon_state()
 	return
@@ -384,11 +386,7 @@
 		I.forceMove(dropspot)
 		// If there is no table, dump the contents of the tray at our feet like we're doing the service equivilent of a micdrop.
 		if(!found_table && isturf(dropspot))
-			spawn()
-				for(var/i in 1 to rand(1, 2))
-					if(I)
-						step(I, pick(NORTH,SOUTH,EAST,WEST))
-						sleep(rand(2,4))
+			INVOKE_ASYNC(src, PROC_REF(scatter_tray_items), I)
 
 	if(found_table)
 		user.visible_message("<span class='notice'>[user] unloads [user.p_their()] serving tray.</span>")
