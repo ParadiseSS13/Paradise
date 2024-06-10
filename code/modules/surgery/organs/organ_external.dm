@@ -63,7 +63,7 @@
 
 	var/splinted_count = 0 //Time when this organ was last splinted
 
-/obj/item/organ/external/necrotize(update_sprite=TRUE)
+/obj/item/organ/external/necrotize(update_sprite=TRUE, ignore_vital_death = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return
 	status |= ORGAN_DEAD
@@ -72,7 +72,7 @@
 	if(owner)
 		to_chat(owner, "<span class='notice'>You can't feel your [name] anymore...</span>")
 		owner.update_body()
-		if(vital)
+		if(vital && !ignore_vital_death)
 			owner.death()
 
 /obj/item/organ/external/Destroy()
@@ -317,9 +317,9 @@
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
 		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
-			if(limb_brute >= max_damage && prob(original_brute / 2))
+			if(limb_brute + limb_burn >= max_damage && prob(original_brute / 2))
 				droplimb(0, DROPLIMB_SHARP)
-			if(limb_burn >= max_damage && prob(original_burn / 2))
+			if(limb_brute + limb_burn >= max_damage && prob(original_burn / 2))
 				droplimb(0, DROPLIMB_BURN)
 
 	if(owner_old)
@@ -384,13 +384,16 @@ This function completely restores a damaged organ to perfect condition.
 	surgeryize()
 	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT
+	else if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS))
+		status = ORGAN_DEAD
 	else
 		status = 0
 	germ_level = 0
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
-	open = ORGAN_CLOSED //Closing all wounds.
+	if(!HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS)) // zombies's wounds don't close. Because thats cool.
+		open = ORGAN_CLOSED //Closing all wounds.
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
@@ -555,6 +558,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(limb_flags & CANNOT_DISMEMBER || !owner)
 		return
 
+	if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS) && !clean)
+		fracture()
+		return
+
 	if(!disintegrate)
 		disintegrate = DROPLIMB_SHARP
 	if(disintegrate == DROPLIMB_BURN && istype(src, /obj/item/organ/external/head))
@@ -633,10 +640,15 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!iscarbon(C))
 		return
 
+	// these vars track what we dropped, for the sake of adding better messaging after we've handled all the removals.
+	// if we dropped an organ.
 	var/organ_spilled = FALSE
+	// If we dropped an item.
+	var/something_else = FALSE
+
 	var/turf/T = get_turf(C)
 	C.add_splatter_floor(T)
-	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, 1)
+	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, TRUE)
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X
 		var/org_zone = check_zone(O.parent_organ)
@@ -645,8 +657,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 			O.forceMove(T)
 			organ_spilled = TRUE
 
+	var/obj/item/organ/external/org = C.get_organ(spillage_zone)
+	if(istype(org))
+		for(var/obj/item/content in org)
+			content.forceMove(T)
+			content.dropped(owner, TRUE)
+			something_else = TRUE
+
 	if(organ_spilled)
-		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
+		C.visible_message("<span class='danger'><b>[C]'s internal organs spill out onto the floor!</b></span>")
+	if(something_else)
+		C.visible_message("<span class='danger'>Some things fall out of [C]!</span>")
 	return TRUE
 
 /obj/item/organ/external/chest/droplimb()
@@ -666,9 +687,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
 		user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
 			"<span class='notice'>You begin to cut open [src]...</span>")
-		if(do_after(user, 54, target = src))
+		if(do_after(user, 5.4 SECONDS, target = src))
 			drop_organs(user)
 			drop_embedded_objects()
+			open = ORGAN_ORGANIC_VIOLENT_OPEN
 	else
 		return ..()
 
@@ -817,6 +839,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/is_usable()
 	if((is_robotic() && get_damage() >= max_damage) && !tough) //robot limbs just become inoperable at max damage
 		return
+	if(owner && HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS))
+		return TRUE
 	return !(status & (ORGAN_MUTATED|ORGAN_DEAD))
 
 /obj/item/organ/external/proc/is_malfunctioning()

@@ -75,6 +75,15 @@
 /obj/machinery/suit_storage_unit/captain/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/blueshield
+	name = "blueshield's suit storage unit"
+	mask_type = /obj/item/clothing/mask/gas
+	suit_type = /obj/item/mod/control/pre_equipped/praetorian
+	req_access = list(ACCESS_BLUESHIELD)
+
+/obj/machinery/suit_storage_unit/blueshield/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/engine
 	name = "engineering suit storage unit"
 	icon_state = "industrial"

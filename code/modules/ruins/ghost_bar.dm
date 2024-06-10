@@ -46,6 +46,8 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	I.implant(H, null)
 	for(var/gear in save_to_load.loadout_gear)
 		var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
+		if(isnull(G))
+			continue
 		if(G.allowed_roles) // Fix due to shitty HUD code
 			continue
 		if(G.slot)
