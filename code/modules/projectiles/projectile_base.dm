@@ -463,7 +463,7 @@
 	return TRUE
 
 /obj/item/projectile/experience_pressure_difference()
-	return
+	return // Immune to gas flow.
 
 /obj/item/projectile/forceMove(atom/target)
 	. = ..()
