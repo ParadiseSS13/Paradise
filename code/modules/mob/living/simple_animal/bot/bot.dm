@@ -497,7 +497,7 @@
 
 // Override me please!
 /mob/living/simple_animal/bot/proc/disassemble()
-	qdel(src)
+	CRASH("disassemble() not overridden on [type]")
 
 /mob/living/simple_animal/bot/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE //Must be true or we attempt to stab the bot | Sets standard return value for this code block
