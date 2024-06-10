@@ -1,6 +1,6 @@
 /obj/item/clothing/shoes/magboots
 	name = "magboots"
-	desc = "Magnetic boots with a heavy pull, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
+	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
 	icon_state = "magboots0"
 	origin_tech = "materials=3;magnets=4;engineering=4"
 	var/magboot_state = "magboots"
@@ -102,7 +102,7 @@
 
 /obj/item/clothing/shoes/magboots/syndie
 	name = "blood-red magboots"
-	desc = "Reverse-engineered magnetic boots that have a heavy magnetic pull. Property of Gorlex Marauders."
+	desc = "Reverse-engineered magnetic boots. Property of Gorlex Marauders."
 	icon_state = "syndiemag0"
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
