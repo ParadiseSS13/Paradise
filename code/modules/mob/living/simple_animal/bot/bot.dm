@@ -462,21 +462,24 @@
 	return ..()
 
 /mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE //Must be true or we attempt to stab the bot | Sets standard return value for this code block
+
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(locked)
 		to_chat(user, "<span class='warning'>The interface is locked.</span>")
-		return TRUE // Must be true or we attempt to stab the bot
+		return
 
-	open = !open
 	I.play_tool_sound(src)
+	open = !open
 	to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
-	return TRUE
+	return
 
 /mob/living/simple_animal/bot/wrench_act(mob/living/user, obj/item/I)
-	. = TRUE // Must be true or we attempt to bash the bot
+	. = TRUE //Must be true or we attempt to stab the bot | Sets standard return value for this code block
+
 	if(user.a_intent != INTENT_HELP)
-		return ..()
+		return..()
 	if(locked) //ID-Lock
 		to_chat(user, "<span class='warning'>The interface is locked.</span>")
 		return
@@ -490,28 +493,31 @@
 	I.play_tool_sound(src)
 	wrenched = !wrenched
 	to_chat(user, "<span class='notice'>The internal components are now [wrenched ? "wrenched" : "unwrenched"].</span>")
+	return TRUE
 
 // Override me please!
 /mob/living/simple_animal/bot/proc/disassemble()
 	qdel(src)
 
 /mob/living/simple_animal/bot/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE //Must be true or we attempt to stab the bot | Sets standard return value for this code block
+
 	if(user.a_intent != INTENT_HELP)
-		return..()
+		return ..()
 	if(locked) //ID-Lock
 		to_chat(user, "<span class='warning'>The interface is locked.</span>")
-		return TRUE // Must be true or we attempt to bash the bot
+		return
 	if(!open) //Screwdriver panel
 		to_chat(user, "<span class='warning'>The maintenance panel is screwed in place.</span>")
-		return TRUE // Must be true or we attempt to bash the bot
-	if(((bot_type == SEC_BOT) || (bot_type == GRIEF_BOT)) && (wrenched == TRUE)) //Should only affect security bots and griefsky
+		return
+	if(((bot_type == SEC_BOT) || (bot_type == GRIEF_BOT)) && (wrenched == TRUE)) //Should only affect security bots and griefsky that have their components wrenched
 		to_chat(user, "<span class='warning'>The internal components are wrenched in place.</span>")
-		return TRUE // Must be true or we attempt to bash the bot
+		return
 
 	I.play_tool_sound(src)
-	disassemble()
 	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-	return TRUE
+	disassemble()
+	return
 
 /mob/living/simple_animal/bot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
