@@ -167,9 +167,9 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
 			if(istype(L, /mob/camera/aiEye))
-				var/mob/camera/aiEye/AEAIO = L
-				if(AEAIO.relay_speech && AEAIO.ai)
-					listeners += AEAIO.ai
+				var/mob/camera/aiEye/ai_eye = L
+				if(ai_eye.relay_speech && ai_eye.ai)
+					listeners += ai_eye.ai
 			else
 				listeners += L
 
