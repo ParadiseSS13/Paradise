@@ -1233,7 +1233,7 @@
 /area/space)
 "Fm" = (
 /obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/mineral/silver,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/hall)
 "FP" = (
 /obj/structure/mineral_door/silver,
