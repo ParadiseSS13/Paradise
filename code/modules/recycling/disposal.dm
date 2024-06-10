@@ -179,7 +179,7 @@
 			C.show_message("<span class='warning'>[GM] has been placed in the disposal unit by [user].</span>", 3)
 		qdel(G)
 		update()
-		add_attack_logs(user, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
+		add_attack_logs(user, GM, "Disposal'ed", !GM.ckey ? null : ATKLOG_ALL)
 		return
 
 	if(!user.drop_item() || QDELETED(I))
