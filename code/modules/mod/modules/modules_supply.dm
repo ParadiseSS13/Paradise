@@ -58,7 +58,7 @@
 		if(target_turf.density)
 			return
 		playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
-		if(!do_after(mod.wearer, load_time, target = target))
+		if(!do_after(mod.wearer, load_time, target = target, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/obj/item/mod/module/clamp, should_cancel_drop)))))
 			return
 		if(target_turf.density)
 			return
@@ -85,6 +85,10 @@
 		to_chat(mod.wearer, "<span class='warning'>Too heavy!</span>")
 		return FALSE
 	return TRUE
+
+/// Checks if the target crate has already been dropped by another on_select_use call
+/obj/item/mod/module/clamp/proc/should_cancel_drop()
+	return !length(stored_crates)
 
 /obj/item/mod/module/clamp/loader
 	name = "MOD loader hydraulic clamp module"

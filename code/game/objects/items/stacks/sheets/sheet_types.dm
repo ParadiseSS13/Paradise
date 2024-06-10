@@ -195,6 +195,12 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	point_value = 23
 	table_type = /obj/structure/table/reinforced
 
+/obj/item/stack/sheet/plasteel/five
+	amount = 5
+
+/obj/item/stack/sheet/plasteel/fifteen
+	amount = 15
+
 /obj/item/stack/sheet/plasteel/fifty
 	amount = 50
 

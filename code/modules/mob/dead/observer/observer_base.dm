@@ -40,7 +40,6 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	var/gas_scan = FALSE
 	///toggle for ghost plant analyzer
 	var/plant_analyzer = FALSE
-	var/datum/orbit_menu/orbit_menu
 	/// The "color" their runechat would have had
 	var/alive_runechat_color = "#FFFFFF"
 	/// UID of the mob which we are currently observing
@@ -116,9 +115,6 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
-	if(orbit_menu)
-		SStgui.close_uis(orbit_menu)
-		QDEL_NULL(orbit_menu)
 	if(seerads)
 		STOP_PROCESSING(SSobj, src)
 	remove_observer_verbs()
@@ -500,10 +496,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
 
-	if(!orbit_menu)
-		orbit_menu = new(src)
-
-	orbit_menu.ui_interact(src)
+	GLOB.orbit_menu.ui_interact(src)
 
 /mob/dead/observer/verb/crew_monitor()
 	set category = "Ghost"
