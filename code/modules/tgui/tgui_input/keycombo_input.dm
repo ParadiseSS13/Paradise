@@ -15,7 +15,7 @@
 		user = usr
 
 	if(!istype(user))
-		if(isclient(user))
+		if(!isclient(user))
 			return
 		var/client/client = user
 		user = client.mob
@@ -25,7 +25,7 @@
 
 	// Client does NOT have tgui_input on: Returns regular input
 	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
-		var/input_key = uppertext(input(user, message, title + "(Modifiers are TGUI only, sorry!)", default) as null|text)
+		var/input_key = uppertext(input(user, message, title + " (Modifiers are TGUI only, sorry!)", default) as null|text)
 		return input_key[1]
 
 	var/datum/tgui_input_keycombo/key_input = new(user, message, title, default, timeout, ui_state)
