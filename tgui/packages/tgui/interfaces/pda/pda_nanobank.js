@@ -11,7 +11,7 @@ import {
   Tabs,
   Table,
   Divider,
-  Stack
+  Stack,
 } from '../../components';
 
 export const pda_nanobank = (props, context) => {
@@ -57,12 +57,12 @@ const NanoBankNavigation = (properties, context) => {
         <Icon mr={1} name="list" />
         Transaction History
       </Tabs.Tab>
-      {Boolean(is_premium) &&
+      {Boolean(is_premium) && (
         <Tabs.Tab selected={4 === tabIndex} onClick={() => setTabIndex(4)}>
           <Icon mr={1} name="list" />
           Supply Orders
         </Tabs.Tab>
-      }
+      )}
     </Tabs>
   );
 };
@@ -467,48 +467,48 @@ const SupplyOrders = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { supply_requests } = data;
   return (
-      <>
-        <Box bold>Requests</Box>
-        <Table>
-          {supply_requests.map((r) => (
-            <Table.Row key={r.ordernum} className="Cargo_RequestList">
-              <Table.Cell mb={1}>
-                <Box>
-                  Order #{r.ordernum}: {r.supply_type} ({r.cost} credits) for{' '}
-                  <b>{r.orderedby}</b> with{' '}
-                  {r.department
-                    ? `The ${r.department} Department`
-                    : 'Their Personal'}{' '}
-                  Account
-                </Box>
-                <Box italic>Reason: {r.comment}</Box>
-                <GetRequestNotice request={r} />
-              </Table.Cell>
-              <Stack.Item textAlign="right">
-                <Button
-                  content="Approve"
-                  color="green"
-                  disabled={!r.can_approve}
-                  onClick={() =>
-                    act('approve_crate', {
-                      ordernum: r.ordernum,
-                    })
-                  }
-                />
-                <Button
-                  content="Deny"
-                  color="red"
-                  disabled={!r.can_deny}
-                  onClick={() =>
-                    act('deny_crate', {
-                      ordernum: r.ordernum,
-                    })
-                  }
-                />
-              </Stack.Item>
-            </Table.Row>
-          ))}
-        </Table>
-      </>
+    <>
+      <Box bold>Requests</Box>
+      <Table>
+        {supply_requests.map((r) => (
+          <Table.Row key={r.ordernum} className="Cargo_RequestList">
+            <Table.Cell mb={1}>
+              <Box>
+                Order #{r.ordernum}: {r.supply_type} ({r.cost} credits) for{' '}
+                <b>{r.orderedby}</b> with{' '}
+                {r.department
+                  ? `The ${r.department} Department`
+                  : 'Their Personal'}{' '}
+                Account
+              </Box>
+              <Box italic>Reason: {r.comment}</Box>
+              <GetRequestNotice request={r} />
+            </Table.Cell>
+            <Stack.Item textAlign="right">
+              <Button
+                content="Approve"
+                color="green"
+                disabled={!r.can_approve}
+                onClick={() =>
+                  act('approve_crate', {
+                    ordernum: r.ordernum,
+                  })
+                }
+              />
+              <Button
+                content="Deny"
+                color="red"
+                disabled={!r.can_deny}
+                onClick={() =>
+                  act('deny_crate', {
+                    ordernum: r.ordernum,
+                  })
+                }
+              />
+            </Stack.Item>
+          </Table.Row>
+        ))}
+      </Table>
+    </>
   );
 };
