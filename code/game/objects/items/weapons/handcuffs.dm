@@ -26,7 +26,7 @@
 	/// Sound made when cuffing someone.
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	/// Trash item generated when cuffs are broken (for disposable cuffs).
-	var/trashtype = null
+	var/trashtype
 	/// If set to TRUE, people with the TRAIT_CLUMSY won't cuff themselves when trying to cuff others.
 	var/ignoresClumsy = FALSE
 
