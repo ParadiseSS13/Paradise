@@ -2046,19 +2046,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return dna.species.unarmed
 	return zombie.claw_attack
 
-/mob/living/carbon/human/npc_zombie
-	icon_state = "zombie_s" // for mapping
-	var/spawn_species = /datum/species/human
-	var/datum/outfit/outfit
-
-/mob/living/carbon/human/npc_zombie/Initialize(mapload)
-	. = ..(mapload, spawn_species)
-	ADD_TRAIT(src, TRAIT_NPC_ZOMBIE, ROUNDSTART_TRAIT)
-	ForceContractDisease(new /datum/disease/zombie)
-	for(var/datum/disease/zombie/zomb in viruses)
-		zomb.stage = 8
-
-	// Make em random
+/mob/living/carbon/human/proc/get_dna_scrambled()
 	scramble(1, src, 100)
 	real_name = random_name(gender, dna.species.name) //Give them a name that makes sense for their species.
 	sync_organ_dna(assimilate = 1)
@@ -2066,10 +2054,5 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
 	reset_markings() //...Or markings.
 	dna.ResetUIFrom(src)
+	flavor_text = ""
 
-	if(istype(outfit))
-		equipOutfit(outfit)
-
-/mob/living/carbon/human/npc_zombie/non_infectious/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NON_INFECTIOUS_ZOMBIE, ROUNDSTART_TRAIT)
