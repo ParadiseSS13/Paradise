@@ -474,22 +474,22 @@
 	return TRUE
 
 /mob/living/simple_animal/bot/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE // Must be true or we attempt to bash the bot
 	if(user.a_intent != INTENT_HELP)
-		return..()
+		return ..()
 	if(locked) //ID-Lock
 		to_chat(user, "<span class='warning'>The interface is locked.</span>")
-		return TRUE // Must be true or we attempt to bash the bot
+		return
 	if(!open) //Screwdriver panel
 		to_chat(user, "<span class='warning'>The maintenance panel is screwed in place.</span>")
-		return TRUE // Must be true or we attempt to bash the bot
+		return
 	if((bot_type != SEC_BOT) && (bot_type != GRIEF_BOT)) //Should only affect security bots and griefsky
 		to_chat(user, "<span class='warning'>The internal components cannot be wrenched more securely.</span>")
-		return TRUE // Must be true or we attempt to bash the bot
+		return
 
 	I.play_tool_sound(src)
 	wrenched = !wrenched
 	to_chat(user, "<span class='notice'>The internal components are now [wrenched ? "wrenched" : "unwrenched"].</span>")
-	return TRUE
 
 // Override me please!
 /mob/living/simple_animal/bot/proc/disassemble()
