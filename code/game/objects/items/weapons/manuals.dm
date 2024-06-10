@@ -908,6 +908,22 @@
 	title = "Faxes and You!"
 	wiki_article_title = "Guide_to_Faxes"
 
+/obj/item/book/manual/wiki/hydroponics
+	name = "General Hydroponics"
+	desc = "A guide outlining the principles of hydroponics"
+	icon_state ="bookHydroponicsGeneral"
+	author = "Nanotrasen"
+	title = "General Hydroponics"
+	wiki_article_title = "Guide_to_Hydroponics"
+
+/obj/item/book/manual/wiki/botanist
+	name = "The Station Botanist Handbook"
+	desc = "A handbook with instructions and tips for station botanists"
+	icon_state ="bookHydroponicsBotanist"
+	author = "Nanotrasen"
+	title = "The Station Botanist Handbook"
+	wiki_article_title = "Botanist"
+
  //* STANDARD OPERATING PROCEDURE MANUALS *// (and space Law)
 
 /obj/item/book/manual/wiki/security_space_law

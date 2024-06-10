@@ -37,9 +37,9 @@
 							"Dice Pack" = image(icon = 'icons/obj/dice.dmi', icon_state = "dicebag"),
 							"Cigarette" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cigon"),
 							"Newdles" = image(icon = 'icons/obj/food/food.dmi', icon_state = "chinese3"),
-							"Donut" = image(icon = 'icons/obj/food/food.dmi', icon_state = "donut1"),
+							"Donut" = image(icon = 'icons/obj/food/bakedgoods.dmi', icon_state = "donut1"),
 							"Chicken Soup" = image(icon = 'icons/obj/drinks.dmi', icon_state = "soupcan"),
-							"Tofu Burger" = image(icon = 'icons/obj/food/food.dmi', icon_state = "tofuburger"))
+							"Tofu Burger" = image(icon = 'icons/obj/food/burgerbread.dmi', icon_state = "tofuburger"))
 	var/rsf_radial_choice = show_radial_menu(user, src, rsf_icons)
 	if(user.stat || !in_range(user, src))
 		return

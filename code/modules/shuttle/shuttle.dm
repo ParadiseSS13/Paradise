@@ -448,7 +448,23 @@
 		if(!canMove())
 			return -1
 
-	var/obj/docking_port/stationary/S0 = get_docked()
+	var/datum/milla_safe/docking_port_dock/milla = new()
+	milla.invoke_async(src, S1, force, transit)
+
+/datum/milla_safe/docking_port_dock
+
+/datum/milla_safe/docking_port_dock/on_run(obj/docking_port/mobile/mobile_port, obj/docking_port/stationary/S1, force, transit)
+	// Re-check that it's OK to dock.
+	if(S1.get_docked() == mobile_port)
+		mobile_port.remove_ripples()
+		return
+	if(!force)
+		if(!mobile_port.check_dock(S1))
+			return
+		if(!mobile_port.canMove())
+			return
+
+	var/obj/docking_port/stationary/S0 = mobile_port.get_docked()
 	var/turf_type = /turf/space
 	var/area_type = /area/space
 	if(S0)
@@ -458,18 +474,18 @@
 			area_type = S0.area_type
 
 	//close and lock the dock's airlocks
-	closePortDoors(S0)
+	mobile_port.closePortDoors(S0)
 
-	var/list/L0 = return_ordered_turfs(x, y, z, dir, areaInstance)
-	var/list/L1 = return_ordered_turfs(S1.x, S1.y, S1.z, S1.dir)
+	var/list/L0 = mobile_port.return_ordered_turfs(mobile_port.x, mobile_port.y, mobile_port.z, mobile_port.dir, mobile_port.areaInstance)
+	var/list/L1 = mobile_port.return_ordered_turfs(S1.x, S1.y, S1.z, S1.dir)
 
-	var/rotation = dir2angle(S1.dir)-dir2angle(dir)
+	var/rotation = dir2angle(S1.dir) - dir2angle(mobile_port.dir)
 	if((rotation % 90) != 0)
 		rotation += (rotation % 90) //diagonal rotations not allowed, round up
 	rotation = SIMPLIFY_DEGREES(rotation)
 
 	//remove area surrounding docking port
-	if(length(areaInstance.contents))
+	if(length(mobile_port.areaInstance.contents))
 		var/area/A0 = locate("[area_type]")
 		if(!A0)
 			A0 = new area_type(null)
@@ -477,10 +493,10 @@
 			A0.contents += T0
 
 	// Removes ripples
-	remove_ripples()
+	mobile_port.remove_ripples()
 
 	//move or squish anything in the way ship at destination
-	if(lance_docking && is_station_level(S1.z))
+	if(mobile_port.lance_docking && is_station_level(S1.z))
 		var/list/L2 = list()
 		switch(S1.dir)
 			if(NORTH)
@@ -491,8 +507,8 @@
 				L2 = block(locate(S1.x+36, S1.y-9, S1.z), locate(255, S1.y+9, S1.z))
 			if(WEST)
 				L2 = block(locate(1, S1.y-9, S1.z), locate(S1.x-36, S1.y+9, S1.z))
-		shuttle_smash(L2, S1)
-	roadkill(L0, L1, S1.dir)
+		mobile_port.shuttle_smash(L2, S1)
+	mobile_port.roadkill(L0, L1, S1.dir)
 
 	for(var/i in 1 to length(L0))
 		var/turf/T0 = L0[i]
@@ -502,61 +518,54 @@
 		if(!T1)
 			continue
 
-		areaInstance.contents += T1
+		mobile_port.areaInstance.contents += T1
 
-		var/should_transit = !is_turf_blacklisted_for_transit(T0)
+		var/should_transit = !mobile_port.is_turf_blacklisted_for_transit(T0)
 		if(should_transit) // Only move over stuff if the transfer actually happened
 			T0.copyTurf(T1)
 
 			//copy over air
 			if(issimulatedturf(T1))
-				var/turf/simulated/Ts1 = T1
-				Ts1.copy_air_with_tile(T0)
+				get_turf_air(T1).copy_from(get_turf_air(T0))
 
 			//move mobile to new location
 			for(var/atom/movable/AM in T0)
 				if(AM.loc != T0) //fix for multi-tile objects
 					continue
-				AM.onShuttleMove(T0, T1, rotation, last_caller)
+				AM.onShuttleMove(T0, T1, rotation, mobile_port.last_caller)
 
 			if(rotation)
 				T1.shuttleRotate(rotation)
 
 		// Always do this stuff as it ensures that the destination turfs still behave properly with the rest of the shuttle transit
-		//atmos and lighting stuff
-		SSair.remove_from_active(T1)
-		T1.CalculateAdjacentTurfs()
-		SSair.add_to_active(T1,1)
-
+		//lighting stuff
 		T1.lighting_build_overlay()
+		T1.recalculate_atmos_connectivity()
 
 		if(!should_transit)
 			continue // Don't want to actually change the skipped turf
 		T0.ChangeTurf(turf_type, keep_icon = FALSE)
+		T0.recalculate_atmos_connectivity()
 
-		SSair.remove_from_active(T0)
-		T0.CalculateAdjacentTurfs()
-		SSair.add_to_active(T0,1)
-
-	areaInstance.moving = transit
+	mobile_port.areaInstance.moving = transit
 	for(var/A1 in L1)
 		var/turf/T1 = A1
 		T1.postDock(S1)
 		for(var/atom/movable/M in T1)
 			M.postDock(S1)
 
-	loc = S1.loc
-	dir = S1.dir
+	mobile_port.loc = S1.loc
+	mobile_port.dir = S1.dir
 
 	//update mining and labor shuttle ash storm audio
-	if(id in list("mining", "laborcamp"))
+	if(mobile_port.id in list("mining", "laborcamp"))
 		var/mining_zlevel = level_name_to_num(MINING)
 		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
 		if(W)
 			W.update_eligible_areas()
 			W.update_audio()
 
-	unlockPortDoors(S1)
+	mobile_port.unlockPortDoors(S1)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
 	var/static/list/blacklisted_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/lava, /turf/simulated/floor/plating/asteroid))

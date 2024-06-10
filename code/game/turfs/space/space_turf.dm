@@ -17,6 +17,8 @@
 	var/destination_x
 	var/destination_y
 
+	atmos_mode = ATMOS_MODE_SPACE
+
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(!istype(src, /turf/space/transit))

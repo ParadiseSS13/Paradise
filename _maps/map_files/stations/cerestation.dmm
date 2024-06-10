@@ -64103,6 +64103,8 @@
 /obj/item/stack/packageWrap,
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/item/book/manual/hydroponics_pod_people,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/botanist,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
