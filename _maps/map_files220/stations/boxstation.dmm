@@ -70783,6 +70783,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
+"muu" = (
+/obj/machinery/dye_generator,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "muv" = (
 /obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel{
@@ -138516,7 +138521,7 @@ att
 awl
 ayd
 bfz
-aPe
+muu
 aIc
 lXb
 aUd
@@ -138773,7 +138778,7 @@ aJu
 aqc
 aJx
 aJv
-att
+aPe
 aIc
 aSJ
 aUI
