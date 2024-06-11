@@ -298,7 +298,10 @@
 	if(bumpoff)
 		UnregisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP)
 	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW))
-	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
+	var/our_alpha = 255
+	if(HAS_TRAIT(mod.wearer, TRAIT_ENVIROMENTAL_ADAPTAION))
+		our_alpha = ENVIROMENTAL_ADAPTAION_ALPHA
+	animate(mod.wearer, alpha = our_alpha, time = 1.5 SECONDS)
 
 /obj/item/mod/module/stealth/proc/unstealth(datum/source)
 	SIGNAL_HANDLER

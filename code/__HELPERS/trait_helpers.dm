@@ -235,6 +235,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SLOW_GRABBER "slow_grabber" // Adds a 1.5 * CLICK_CD_MELEE delay to upgrading into a aggressive grab.
 #define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
 #define TRAIT_HAS_IV_BAG "iv_bag" // Used to check if there is an active IV bag. Currently blocks another IV bags from being inserted.
+#define TRAIT_ENVIROMENTAL_ADAPTAION "enviromental_adaptaion" //Used to check if the changeling has enviromental adaptaion, so alpha restoring effects restore not to full alpha.
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion

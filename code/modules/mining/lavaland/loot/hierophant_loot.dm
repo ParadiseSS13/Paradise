@@ -56,7 +56,7 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return
-	
+
 	if((!is_mining_level(user.z) && !iswizard(user) && !istype(get_area(user), /area/ruin/space/bubblegum_arena))) //Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
 		timer = world.time + cooldown_time
 		user.visible_message("<span class='danger'>[user]'s hierophant club malfunctions!</span>")
@@ -254,7 +254,10 @@
 	sleep(1)
 	if(!M)
 		return
-	animate(M, alpha = 255, time = 2, easing = EASE_IN) //fade IN
+	var/our_alpha = 255
+	if(HAS_TRAIT(M, TRAIT_ENVIROMENTAL_ADAPTAION))
+		our_alpha = ENVIROMENTAL_ADAPTAION_ALPHA
+	animate(M, alpha = our_alpha, time = 2, easing = EASE_IN) //fade IN
 	sleep(1)
 	if(!M)
 		return

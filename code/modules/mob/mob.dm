@@ -1360,6 +1360,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 /mob/proc/reset_visibility()
 	invisibility = initial(invisibility)
 	alpha = initial(alpha)
+	if(HAS_TRAIT(src, TRAIT_ENVIROMENTAL_ADAPTAION))
+		alpha = ENVIROMENTAL_ADAPTAION_ALPHA
 	add_to_all_human_data_huds()
 
 /mob/proc/make_invisible()

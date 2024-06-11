@@ -50,6 +50,9 @@ GLOBAL_LIST(contractors)
 #define CHANGELING_FAKEDEATH_TIME				50 SECONDS
 #define CHANGELING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
 
+///The alpha level of changelings Enviromental Adaptaion
+#define ENVIROMENTAL_ADAPTAION_ALPHA 65
+
 /**
  * Abductors
  */
