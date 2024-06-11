@@ -432,6 +432,10 @@
 /obj/structure/closet/cardboard,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
+"alr" = (
+/mob/living/simple_animal/mouse/brown/Tom,
+/turf/simulated/floor/greengrid,
+/area/station/command/vault)
 "alN" = (
 /obj/item/clothing/suit/chef/classic,
 /obj/effect/decal/cleanable/blood/old,
@@ -978,6 +982,11 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/command/office/hop)
+"aAb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "aAM" = (
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
@@ -1183,6 +1192,14 @@
 	icon_state = "dark"
 	},
 /area/station/telecomms/computer)
+"aFY" = (
+/obj/structure/table,
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 4
+	},
+/obj/item/deck/cards,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "aGa" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
@@ -1437,8 +1454,7 @@
 /area/station/maintenance/dorms/port)
 "aMC" = (
 /obj/structure/holohoop{
-	dir = 8;
-	pixel_x = -13
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
@@ -1822,6 +1838,20 @@
 "aVP" = (
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom/gallery)
+"aVV" = (
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = 28
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_x = 9;
+	pixel_y = 19
+	},
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "aWb" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
@@ -2088,6 +2118,22 @@
 /area/station/maintenance/aft2)
 "bas" = (
 /obj/machinery/washing_machine,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
+"bat" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/donkpockets,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8;
+	pixel_y = 1
+	},
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "bav" = (
@@ -2680,6 +2726,10 @@
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
+"bqF" = (
+/obj/structure/mopbucket/full,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "bqP" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2872,6 +2922,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
+"bvA" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "bvM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_maybe,
@@ -2988,6 +3042,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
+"bzb" = (
+/obj/item/reagent_containers/glass/bottle/ammonia,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "bzh" = (
 /obj/item/shard{
 	icon_state = "medium"
@@ -4277,6 +4335,12 @@
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
+"cgn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "cgs" = (
 /obj/structure/railing{
 	dir = 4
@@ -4385,6 +4449,18 @@
 /obj/item/wirecutters,
 /obj/item/crowbar/large,
 /obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/lootdrop{
+	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
+	name = "trash spawner"
+	},
+/obj/effect/spawner/lootdrop{
+	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
+	name = "trash spawner"
+	},
+/obj/effect/spawner/lootdrop{
+	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
+	name = "trash spawner"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "cjF" = (
@@ -5254,8 +5330,15 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "cFT" = (
-/obj/machinery/computer/area_atmos/area{
-	dir = 4
+/obj/structure/table,
+/obj/item/storage/box/handcuffs{
+	pixel_y = 3;
+	pixel_x = 3
+	},
+/obj/item/storage/box/teargas,
+/obj/item/megaphone{
+	pixel_y = -3;
+	pixel_x = -3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5378,6 +5461,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
+"cHQ" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/security/permabrig)
 "cIq" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/closet/emcloset,
@@ -6119,6 +6210,28 @@
 	icon_state = "wood-broken5"
 	},
 /area/station/public/vacant_office/secondary)
+"dbH" = (
+/obj/structure/closet/crate/trashcart{
+	desc = "A heavy, metal laundrycart with wheels.";
+	name = "laundry cart"
+	},
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/under/misc/pj/red,
+/obj/item/clothing/under/misc/pj/red,
+/obj/item/clothing/under/misc/pj/blue,
+/obj/item/clothing/under/misc/pj/blue,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/item/screwdriver,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "dbR" = (
 /turf/simulated/wall,
 /area/station/hallway/primary/central/sw)
@@ -6681,6 +6794,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint2)
+"dqM" = (
+/obj/structure/table,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 8
+	},
+/obj/item/storage/bag/dice,
+/obj/item/dice/d20,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "drk" = (
 /obj/structure/chair/comfy/teal,
 /turf/simulated/floor/wood,
@@ -6849,6 +6971,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/aisat/hall)
+"dtY" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "duj" = (
 /obj/structure/transit_tube,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
@@ -7682,6 +7809,11 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
+"dSj" = (
+/obj/item/camera,
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "dSk" = (
 /obj/structure/chair{
 	dir = 8
@@ -8200,6 +8332,16 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
+/obj/item/book/manual/wiki/chef_recipes,
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 11
+	},
+/obj/item/kitchen/utensil/pfork,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "egq" = (
@@ -8830,6 +8972,14 @@
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
 /area/station/maintenance/abandonedbar)
+"exf" = (
+/obj/structure/bed,
+/obj/item/bedsheet/orange,
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "exu" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -9753,6 +9903,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
+"eYS" = (
+/obj/item/mop,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "eYU" = (
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
@@ -10742,6 +10896,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
+"fyj" = (
+/obj/structure/chair/stool,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "fyk" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Break Room"
@@ -11063,6 +11222,12 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/supply_shuttle,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
+"fFd" = (
+/obj/structure/table,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/item/dice/d20,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "fFi" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -11556,6 +11721,10 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
+"fRz" = (
+/obj/item/seeds/cherry,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "fRE" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -11725,6 +11894,11 @@
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
+"fWL" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "fWN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -12469,6 +12643,10 @@
 /obj/structure/closet/secure_closet/ntrep,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
+"grQ" = (
+/obj/item/vending_refill/coffee,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "gsc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 9
@@ -12501,7 +12679,7 @@
 	},
 /area/station/maintenance/aft2)
 "gtn" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
+/obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -12664,6 +12842,7 @@
 /area/station/maintenance/dorms/aft)
 "gyB" = (
 /obj/machinery/seed_extractor,
+/obj/item/plant_analyzer,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "gyH" = (
@@ -13158,6 +13337,7 @@
 	pixel_x = 9;
 	pixel_y = 19
 	},
+/obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "gJk" = (
@@ -13462,6 +13642,12 @@
 /obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"gSN" = (
+/obj/structure/rack,
+/obj/item/soap/nanotrasen,
+/obj/item/toy/figure/crew/syndie,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "gTn" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
@@ -14389,6 +14575,15 @@
 /area/station/science/genetics)
 "hmd" = (
 /obj/structure/bed,
+/obj/item/bedsheet/brown,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
+"hmf" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_y = 7
+	},
+/obj/item/pen,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "hmq" = (
@@ -14453,6 +14648,10 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
+"hnY" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "hoG" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
@@ -14936,6 +15135,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
+"hAi" = (
+/obj/structure/sink{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "hAj" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "SMES Room"
@@ -15225,6 +15430,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
+"hGq" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "hGx" = (
 /obj/structure/table/wood,
 /obj/item/trash/liquidfood,
@@ -15376,6 +15585,12 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood,
 /area/station/service/library)
+"hLH" = (
+/obj/structure/table,
+/obj/item/storage/fancy/matches,
+/obj/item/storage/fancy/rollingpapers,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "hLI" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel{
@@ -15915,6 +16130,12 @@
 	icon_state = "dark"
 	},
 /area/station/security/armory/secure)
+"hZN" = (
+/obj/item/reagent_containers/condiment/rice,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/paramedic)
 "hZO" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Cargo Bay Maintenance"
@@ -16471,6 +16692,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"iod" = (
+/obj/structure/sink{
+	pixel_y = 24
+	},
+/obj/item/soap/nanotrasen,
+/obj/item/bikehorn/rubberducky,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/security/permabrig)
 "ioA" = (
 /turf/simulated/wall,
 /area/station/maintenance/assembly_line)
@@ -16658,6 +16889,12 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
+"ivi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "ivl" = (
 /obj/structure/closet/secure_closet{
 	anchored = 1;
@@ -17453,6 +17690,11 @@
 /obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
+"iNB" = (
+/obj/structure/flora/rock/jungle,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "iNW" = (
 /obj/structure/morgue{
 	dir = 8
@@ -17489,6 +17731,7 @@
 	name = "Prison Forestry"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "iOR" = (
@@ -17578,6 +17821,10 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
 /area/station/public/park)
+"iQE" = (
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "iQH" = (
 /obj/effect/spawner/random_barrier/obstruction,
 /obj/effect/decal/cleanable/dirt,
@@ -18501,6 +18748,13 @@
 "jnP" = (
 /turf/space,
 /area/space)
+"job" = (
+/obj/item/soap/nanotrasen,
+/obj/structure/sink{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "jof" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
 /obj/effect/decal/cleanable/dirt,
@@ -18549,6 +18803,14 @@
 	},
 /turf/simulated/wall,
 /area/station/turret_protected/ai)
+"jpx" = (
+/obj/structure/table,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 4
+	},
+/obj/item/storage/fancy/crayons,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "jpA" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plasteel{
@@ -18945,6 +19207,15 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
+"jBg" = (
+/obj/machinery/hydroponics/constructable{
+	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
+	name = "Prison hydroponics tray";
+	using_irrigation = 1
+	},
+/obj/item/seeds/orange,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "jBh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/singulo{
@@ -19109,6 +19380,11 @@
 /area/station/service/chapel)
 "jEp" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/box/donkpockets,
+/obj/item/clothing/head/chefhat,
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "jEx" = (
@@ -20160,6 +20436,10 @@
 /area/station/supply/expedition)
 "kfQ" = (
 /obj/structure/table,
+/obj/item/storage/box/bodybags,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20443,6 +20723,11 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior)
+"kmU" = (
+/obj/structure/closet/wardrobe/pjs,
+/obj/item/screwdriver,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "kmV" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -20474,6 +20759,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/station/maintenance/starboard)
+"knr" = (
+/obj/machinery/door/airlock{
+	name = "Prison Showers"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/security/permabrig)
 "knw" = (
 /obj/structure/table,
 /obj/item/trash/tray,
@@ -21381,6 +21674,12 @@
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"kNc" = (
+/obj/structure/table,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/under/color/orange/prison,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "kNk" = (
 /obj/structure/rack,
 /obj/item/reagent_containers/spray/pepper{
@@ -23461,6 +23760,13 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
+"lLD" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "lLM" = (
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel,
@@ -24257,6 +24563,10 @@
 "mjs" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos/asteroid_filtering)
+"mjy" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "mjE" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/effect/decal/cleanable/dirt,
@@ -24796,6 +25106,15 @@
 /obj/item/rpd,
 /turf/simulated/floor/plating,
 /area/station/aisat/hall)
+"mzE" = (
+/obj/machinery/hydroponics/constructable{
+	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
+	name = "Prison hydroponics tray";
+	using_irrigation = 1
+	},
+/obj/item/seeds/chili,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "mzY" = (
 /obj/machinery/computer/operating{
 	name = "Robotics Operating Computer";
@@ -24940,7 +25259,7 @@
 /turf/simulated/floor/grass,
 /area/station/public/park)
 "mDO" = (
-/obj/machinery/cryopod,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "mDZ" = (
@@ -25639,6 +25958,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
+"mVV" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "mVY" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
@@ -25914,6 +26239,11 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/station/maintenance/dorms/aft)
+"ncG" = (
+/obj/structure/table,
+/obj/item/camera,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "ncH" = (
 /obj/machinery/door/airlock{
 	name = "Court";
@@ -28196,6 +28526,9 @@
 "ogs" = (
 /obj/structure/railing,
 /obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/sign/electricshock{
+	pixel_x = -32
+	},
 /turf/simulated/floor/grass,
 /area/station/public/park)
 "ogv" = (
@@ -28660,6 +28993,7 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
+/obj/item/seeds/ambrosia,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "otB" = (
@@ -28834,10 +29168,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "oyx" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/table,
-/turf/space,
-/area/station/security/permabrig)
+/obj/structure/rack,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/clothing/mask/breath,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/screwdriver,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "oyF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
@@ -29408,7 +29745,8 @@
 /area/station/maintenance/apmaint)
 "oMY" = (
 /turf/simulated/floor/plasteel/goonplaque/memorial{
-	desc = "\"The plaque Honor Ian, who Bravely saved the hop when they tripped a syndicate agent while attempting to solicit belly rubs from them./"},
+	desc = "\"The plaque Honor Ian, who Bravely saved the hop when they tripped a syndicate agent while attempting to solicit belly rubs from them./"
+	},
 /area/station/public/dorms)
 "oNg" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -31422,6 +31760,7 @@
 /obj/item/clothing/suit/straight_jacket,
 /obj/item/clothing/glasses/sunglasses/blindfold,
 /obj/item/clothing/mask/muzzle,
+/obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -31665,7 +32004,6 @@
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/orange,
 /obj/item/clothing/shoes/orange,
-/obj/item/crowbar/large,
 /obj/item/clothing/under/misc/pj/red,
 /obj/item/clothing/under/misc/pj/red,
 /obj/item/clothing/under/misc/pj/blue,
@@ -31835,6 +32173,7 @@
 /area/station/maintenance/electrical)
 "pUT" = (
 /obj/structure/weightmachine/weightlifter,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "pUV" = (
@@ -32124,6 +32463,12 @@
 	icon_state = "darkred"
 	},
 /area/station/command/office/hos)
+"qcO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "qcP" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = 32
@@ -32266,6 +32611,9 @@
 /area/station/engineering/atmos/control)
 "qgx" = (
 /obj/machinery/smartfridge/drying_rack,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 1
+	},
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "qgA" = (
@@ -32466,6 +32814,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "qlF" = (
+/obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "qlS" = (
@@ -33251,6 +33600,18 @@
 /obj/structure/transit_tube/diagonal/topleft,
 /turf/space,
 /area/space)
+"qHt" = (
+/obj/machinery/hydroponics/constructable{
+	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
+	name = "Prison hydroponics tray";
+	using_irrigation = 1
+	},
+/obj/item/seeds/onion,
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "qHD" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
@@ -33518,6 +33879,7 @@
 /area/station/maintenance/electrical)
 "qPK" = (
 /obj/structure/closet/crate/can,
+/obj/item/crowbar/large,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "qPQ" = (
@@ -34024,6 +34386,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"rcR" = (
+/obj/item/wrench,
+/obj/structure/rack,
+/obj/item/crowbar,
+/obj/item/screwdriver,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/permabrig)
 "rcS" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/space,
@@ -34340,6 +34711,8 @@
 	dir = 8
 	},
 /obj/item/wirecutters,
+/obj/item/reagent_containers/condiment/rice,
+/obj/item/reagent_containers/condiment/flour,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "rkz" = (
@@ -34892,6 +35265,11 @@
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/space,
 /area/station/science/toxins/mixing)
+"rxF" = (
+/obj/structure/table,
+/obj/item/instrument/harmonica,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "rxQ" = (
 /obj/machinery/power/emitter,
 /turf/simulated/floor/plasteel{
@@ -34994,6 +35372,7 @@
 /area/station/aisat/atmos)
 "rAu" = (
 /obj/structure/table,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35303,6 +35682,9 @@
 /obj/machinery/flasher{
 	id = "Perma Cell 4";
 	pixel_x = -22
+	},
+/obj/structure/toilet{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
@@ -35921,6 +36303,11 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel)
+"rYw" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "rYB" = (
 /mob/living/simple_animal/lizard{
 	name = "Valid"
@@ -36120,6 +36507,13 @@
 	icon_state = "whitegreenfull"
 	},
 /area/station/medical/virology)
+"sed" = (
+/obj/item/soap/nanotrasen,
+/obj/item/bikehorn/rubberducky,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/security/permabrig)
 "sem" = (
 /turf/simulated/floor/plasteel,
 /area/station/public/park)
@@ -36599,6 +36993,11 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
+"spQ" = (
+/obj/structure/flora/grass/jungle,
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "sqa" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/meson{
@@ -36616,6 +37015,11 @@
 /obj/item/crowbar,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/station/engineering/atmos/asteroid)
+"sqh" = (
+/obj/structure/closet/emcloset,
+/obj/item/wrench,
+/turf/simulated/floor/plating,
+/area/station/maintenance/maintcentral)
 "sqy" = (
 /obj/structure/table,
 /obj/item/ashtray/glass{
@@ -37126,6 +37530,12 @@
 "sBG" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/machinery/atmospherics/meter,
+/obj/machinery/computer/cryopod{
+	pixel_y = -30;
+	dir = 1;
+	pixel_x = 32
+	},
+/obj/machinery/power/apc/critical/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -37332,6 +37742,7 @@
 	id = "Perma Cell 1";
 	pixel_x = 22
 	},
+/obj/item/bedsheet/brown,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "sIn" = (
@@ -38212,6 +38623,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
+"teD" = (
+/obj/structure/table,
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 8
+	},
+/obj/item/deck/cards,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "teO" = (
 /obj/structure/mopbucket,
 /obj/item/caution,
@@ -38460,13 +38879,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "tmq" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Oversight"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38773,6 +39192,11 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior)
+"tsL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "ttc" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/effect/decal/cleanable/dirt,
@@ -38885,6 +39309,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/chef_recipes,
+/obj/item/clothing/head/chefhat,
+/obj/item/kitchen/utensil/pfork,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "txu" = (
@@ -39042,6 +39469,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office/secondary)
+"tzB" = (
+/obj/machinery/hydroponics/constructable{
+	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
+	name = "Prison hydroponics tray";
+	using_irrigation = 1
+	},
+/obj/item/seeds/glowshroom,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "tzL" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -40086,6 +40522,17 @@
 /obj/item/aicard,
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
+"udq" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/structure/sign/electricshock{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/prison/cell_block)
 "udu" = (
 /obj/structure/chair/sofa/pew/right{
 	dir = 4
@@ -40109,6 +40556,11 @@
 	icon_state = "wood-broken4"
 	},
 /area/station/maintenance/abandonedbar)
+"udU" = (
+/obj/structure/flora/grass/jungle,
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "udY" = (
 /obj/structure/transit_tube/diagonal/topleft{
 	dir = 1
@@ -40806,6 +41258,7 @@
 /area/station/engineering/control)
 "uBt" = (
 /obj/structure/table,
+/obj/item/storage/fancy/crayons,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "uBC" = (
@@ -41795,6 +42248,11 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/processing)
+"vag" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "vak" = (
 /obj/structure/table,
 /obj/item/eftpos/register,
@@ -42607,6 +43065,15 @@
 /obj/structure/lattice,
 /turf/simulated/floor/plating/airless,
 /area/space)
+"vuh" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/obj/item/pen,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "vuN" = (
 /obj/structure/railing,
 /obj/structure/railing/corner,
@@ -42767,6 +43234,11 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/hallway/secondary/entry/lounge)
+"vyJ" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "vyL" = (
 /obj/structure/table/glass/reinforced,
 /turf/simulated/floor/plasteel{
@@ -43146,6 +43618,12 @@
 /obj/item/shovel/spade,
 /obj/item/plant_analyzer,
 /obj/item/storage/bag/plants/seed_sorting_tray,
+/obj/item/seeds/carrot,
+/obj/item/seeds/banana,
+/obj/item/seeds/wheat/rice,
+/obj/item/seeds/wheat,
+/obj/item/seeds/tobacco,
+/obj/item/reagent_containers/spray/pestspray,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "vHY" = (
@@ -43402,6 +43880,12 @@
 /obj/machinery/economy/vending/engivend,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
+"vOS" = (
+/obj/structure/table,
+/obj/item/instrument/harmonica,
+/obj/item/storage/bag/dice,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "vPt" = (
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -43574,6 +44058,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/station/maintenance/dorms/starboard)
+"vTB" = (
+/obj/machinery/shower{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/security/permabrig)
 "vTO" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/space,
@@ -43817,6 +44309,17 @@
 /obj/item/flashlight/flare/glowstick/random,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"vZh" = (
+/obj/structure/table,
+/obj/structure/sign/electricshock{
+	pixel_x = 32
+	},
+/obj/machinery/recharger,
+/obj/item/restraints/handcuffs,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/prison/cell_block)
 "vZj" = (
 /obj/machinery/teleport/hub,
 /turf/simulated/floor/plasteel,
@@ -45095,6 +45598,7 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
+/obj/item/seeds/orange,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "wHu" = (
@@ -45993,6 +46497,12 @@
 	icon_state = "showroomfloor"
 	},
 /area/station/public/toilet/lockerroom)
+"xev" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "xeX" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -46070,6 +46580,7 @@
 	id = "Perma Cell 3";
 	pixel_x = 22
 	},
+/obj/item/bedsheet/brown,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "xgT" = (
@@ -47044,6 +47555,9 @@
 /area/station/security/processing)
 "xGE" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/item/crowbar/large,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/rice,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "xGF" = (
@@ -47145,6 +47659,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
+"xKa" = (
+/obj/item/seeds/wheat,
+/turf/space,
+/area/space)
 "xKc" = (
 /obj/machinery/conveyor/southeast{
 	id = "garbage"
@@ -47194,8 +47712,9 @@
 	},
 /area/station/aisat/service)
 "xKI" = (
-/obj/structure/chair/sofa,
-/turf/simulated/floor/plasteel,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "xKJ" = (
 /obj/effect/landmark/burnturf,
@@ -47851,6 +48370,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
+"yeB" = (
+/obj/machinery/hydroponics/constructable{
+	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
+	name = "Prison hydroponics tray";
+	using_irrigation = 1
+	},
+/obj/item/seeds/amanita,
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "yeY" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/wood,
@@ -76996,10 +77524,10 @@ tvC
 hCo
 fcS
 fqC
-uBt
+hLH
 tMK
 nFL
-nFL
+exf
 rkL
 rkL
 rkL
@@ -77013,7 +77541,7 @@ jnP
 jnP
 jnP
 jnP
-jnP
+xKa
 jnP
 ojW
 nkm
@@ -77251,7 +77779,7 @@ hCo
 hCo
 uTr
 hCo
-dzn
+dSj
 fqC
 tvF
 tMK
@@ -77260,7 +77788,7 @@ fqC
 tMK
 pst
 tMK
-cAY
+cHQ
 rkL
 ojW
 jnP
@@ -77508,16 +78036,16 @@ wKm
 wKm
 wKm
 hTL
-xKI
+dzn
 fqC
 tvF
 tMK
 pGn
 fqC
 tMK
-fqC
+job
 tMK
-fqC
+sed
 rkL
 tHM
 ojW
@@ -77774,7 +78302,7 @@ fqC
 tMK
 qqB
 tMK
-qqB
+knr
 rkL
 rkL
 vKg
@@ -78026,17 +78554,17 @@ lye
 wyr
 lye
 tMK
-pRI
+dbH
 fqC
 krL
 fqC
 hxM
 fqC
 tMK
-otu
-otu
-otu
-otu
+mzE
+jBg
+yeB
+tzB
 otu
 rkL
 rkL
@@ -78276,13 +78804,13 @@ afq
 wKm
 amG
 tMK
-fqC
-fqC
+pst
+nUB
 tMK
 krL
 fqC
 fqC
-fqC
+cAY
 fqC
 fqC
 fqC
@@ -78290,12 +78818,12 @@ fqC
 fqC
 fqC
 tMK
+vyJ
+hnY
 qlF
-qlF
-qlF
-qlF
-qlF
-otu
+rYw
+xKI
+qHt
 rkL
 jnP
 jnP
@@ -78547,11 +79075,11 @@ mmB
 fqC
 fqC
 tMK
-gJc
-qlF
-qlF
-qlF
-qlF
+aVV
+mVV
+hGq
+hnY
+hGq
 kgU
 rkL
 rkL
@@ -78791,7 +79319,7 @@ wKm
 mQE
 tMK
 sIh
-uBt
+hmf
 tMK
 fqC
 fqC
@@ -78807,9 +79335,9 @@ lye
 fqC
 fqC
 fqC
-qlF
-qlF
-qlF
+iNB
+udU
+iNB
 gyB
 vKg
 jnP
@@ -79050,23 +79578,23 @@ tMK
 tMK
 lye
 tMK
-fqC
-elS
-uBt
-uBt
-fqC
+ivi
+fyj
+teD
+rxF
+mDO
 pUT
-fqC
+mDO
 pUT
-fqC
-fqC
+mDO
+mDO
 iOJ
-fqC
-fqC
-fqC
-fqC
-qlF
-qlF
+mDO
+mDO
+mDO
+mDO
+qcO
+aAb
 qgx
 vKg
 jnP
@@ -79305,11 +79833,11 @@ wKm
 uai
 tMK
 oKR
-fqC
+nUB
 tMK
-fqC
+gtn
 elS
-uBt
+dqM
 fqC
 bAn
 fqC
@@ -79322,8 +79850,8 @@ vHR
 qPK
 fqC
 fqC
-qlF
-qlF
+hnY
+vyJ
 vmU
 vKg
 jnP
@@ -79564,7 +80092,7 @@ rJj
 fqC
 fqC
 nib
-fqC
+gtn
 fqC
 cNd
 fqC
@@ -79573,7 +80101,7 @@ fqC
 fqC
 fqC
 fqC
-mDO
+fqC
 tMK
 rkh
 rRs
@@ -79819,9 +80347,9 @@ wKm
 amG
 tMK
 hmd
-uBt
+vuh
 tMK
-fqC
+gtn
 fqC
 fqC
 fqC
@@ -79837,7 +80365,7 @@ fqC
 fqC
 fqC
 pSz
-jEp
+bat
 rkL
 jnP
 jnP
@@ -80332,7 +80860,7 @@ afq
 wKm
 wKm
 oTb
-oTb
+udq
 oTb
 tMK
 tmq
@@ -80342,9 +80870,9 @@ lye
 tMK
 idu
 idu
+lLD
 rIF
-rIF
-rIF
+bqF
 idu
 doU
 vKg
@@ -80593,16 +81121,16 @@ wKm
 wKm
 lye
 lSi
-rAu
+rcR
 cFT
 oJj
 lYC
 idu
 cjq
+eYS
+bzb
 rIF
-rIF
-rIF
-rIF
+bvA
 doU
 jnP
 jnP
@@ -80859,7 +81387,7 @@ xxv
 rIF
 tcl
 rIF
-rIF
+oyx
 doU
 xpU
 xpU
@@ -81112,11 +81640,11 @@ xmi
 aCJ
 fMj
 idu
+kNc
+grQ
 rIF
-rIF
-rIF
-rIF
-rIF
+fRz
+gSN
 doU
 jnP
 jnP
@@ -81360,7 +81888,7 @@ rkR
 wKm
 wKm
 wKm
-kfQ
+vZh
 kfQ
 tMK
 tmq
@@ -81370,7 +81898,7 @@ lye
 tMK
 idu
 idu
-rIF
+sqh
 rIF
 rIF
 idu
@@ -81622,7 +82150,7 @@ tMK
 tMK
 gtn
 krL
-uBt
+vOS
 fqC
 cqE
 fqC
@@ -81874,10 +82402,10 @@ rkR
 wKm
 amG
 tMK
-fqC
-fqC
+pst
+nUB
 tMK
-fqC
+gtn
 fqC
 fqC
 fqC
@@ -82134,7 +82662,7 @@ iAx
 fqC
 fqC
 fsv
-fqC
+gtn
 fqC
 bVI
 fqC
@@ -82143,7 +82671,7 @@ fqC
 fqC
 fqC
 fqC
-nUB
+fqC
 tMK
 rey
 bbs
@@ -82389,11 +82917,11 @@ wKm
 rio
 tMK
 xgS
-uBt
+vuh
 tMK
-fqC
+gtn
 elS
-uBt
+jpx
 fqC
 bAn
 fqC
@@ -82407,7 +82935,7 @@ pOy
 fqC
 fqC
 qlF
-qlF
+iQE
 gyB
 vKg
 jnP
@@ -82646,25 +83174,25 @@ wKm
 amG
 tMK
 tMK
-oyx
+lye
 tMK
-fqC
-elS
-uBt
-uBt
-fqC
+xev
+fyj
+aFY
+fFd
+mDO
 pUT
-fqC
+mDO
 pUT
-fqC
-fqC
+mDO
+mDO
 iOJ
-fqC
-fqC
-fqC
-fqC
-qlF
-qlF
+mDO
+mDO
+mDO
+mDO
+tsL
+cgn
 qgx
 vKg
 jnP
@@ -82903,7 +83431,7 @@ wKm
 pSC
 tMK
 rIX
-uBt
+nUB
 tMK
 fqC
 fqC
@@ -82919,9 +83447,9 @@ lye
 fqC
 fqC
 fqC
+hnY
 qlF
-qlF
-qlF
+hnY
 vmU
 vKg
 jnP
@@ -83174,10 +83702,10 @@ fqC
 fqC
 tMK
 gJc
-qlF
-qlF
-qlF
-qlF
+spQ
+fWL
+dtY
+xKI
 kgU
 rkL
 rkL
@@ -83417,12 +83945,12 @@ wKm
 amG
 tMK
 hmd
-fqC
+hmf
 tMK
 krL
 fqC
 fqC
-fqC
+cAY
 fqC
 fqC
 fqC
@@ -83430,12 +83958,12 @@ fqC
 fqC
 fqC
 tMK
+fWL
+mjy
 qlF
-qlF
-qlF
-qlF
-qlF
-otu
+hnY
+vag
+qHt
 rkL
 jnP
 jnP
@@ -83687,10 +84215,10 @@ fqC
 hxM
 fqC
 tMK
-otu
+mzE
 wHr
-otu
-otu
+yeB
+tzB
 otu
 rkL
 rkL
@@ -83942,7 +84470,7 @@ fqC
 tMK
 qqB
 tMK
-qqB
+knr
 rkL
 rkL
 vKg
@@ -84190,16 +84718,16 @@ nhB
 fAV
 hLI
 vKg
-xKI
+rgZ
 fqC
 tvF
 tMK
-pGn
+kmU
 fqC
 tMK
-fqC
+hAi
 tMK
-fqC
+iod
 rkL
 jnP
 jnP
@@ -84403,7 +84931,7 @@ kOC
 uNy
 dxh
 hWU
-dxh
+alr
 ryu
 gbz
 jnP
@@ -84447,7 +84975,7 @@ cIC
 cyS
 pKz
 tMK
-rgZ
+ncG
 fqC
 tvF
 tMK
@@ -84456,7 +84984,7 @@ fqC
 tMK
 wyB
 tMK
-cAY
+vTB
 rkL
 ojW
 ojW
@@ -84706,10 +85234,10 @@ ivr
 ivr
 fcS
 elS
-uBt
+hLH
 tMK
 nFL
-nFL
+exf
 rkL
 rkL
 rkL
@@ -87783,7 +88311,7 @@ kyA
 kyA
 sYy
 hnq
-mJz
+hZN
 mJz
 kda
 sYy
