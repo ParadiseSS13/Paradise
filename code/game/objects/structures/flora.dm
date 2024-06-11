@@ -302,7 +302,10 @@
 /obj/item/kirbyplants/proc/unhide_user(mob/living/carbon/user)
 	UnregisterSignal(user, COMSIG_CARBON_REGENERATE_ICONS)
 	user.cut_overlay(mob_overlay)
-	user.alpha = initial(user.alpha)
+	if(HAS_TRAIT(user, TRAIT_ENVIROMENTAL_ADAPTAION))
+		user.alpha = ENVIROMENTAL_ADAPTAION_ALPHA
+	else
+		user.alpha = initial(user.alpha)
 	QDEL_NULL(mob_overlay)
 
 /// Icon operation has occured, time to make sure we're showing a plant again if we need to be.
