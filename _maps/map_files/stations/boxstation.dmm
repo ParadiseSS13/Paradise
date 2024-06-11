@@ -80328,6 +80328,16 @@
 /obj/machinery/smartfridge/id,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
+"qWx" = (
+/obj/structure/chair/stool,
+/obj/effect/landmark/start/botanist,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/botanist,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/station/service/hydroponics)
 "qWF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -136563,7 +136573,7 @@ bow
 bow
 byM
 bru
-bxL
+qWx
 fiB
 bAr
 boi

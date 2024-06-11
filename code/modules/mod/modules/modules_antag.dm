@@ -331,7 +331,6 @@
 	icon_state = "cloak_ninja"
 	bumpoff = FALSE
 	stealth_alpha = 10
-	cooldown_time = 5 SECONDS
 	active_power_cost = DEFAULT_CHARGE_DRAIN
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 3 SECONDS
