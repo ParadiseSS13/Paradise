@@ -164,18 +164,18 @@
 
 /obj/item/riding_offhand/dropped()
 	selfdeleting = TRUE
-	. = ..()
+	return ..()
 
 /obj/item/riding_offhand/equipped()
 	if(loc != rider && loc != parent)
 		selfdeleting = TRUE
 		qdel(src)
-	. = ..()
+	return ..()
 
 /obj/item/riding_offhand/Destroy()
 	var/atom/movable/AM = parent
 	if(selfdeleting)
 		if(rider in AM.buckled_mobs)
 			AM.unbuckle_mob(rider)
-	. = ..()
+	return ..()
 
