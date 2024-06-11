@@ -124,12 +124,13 @@
 /atom/proc/update_bloom()
 	cut_overlay(glow_overlay)
 	cut_overlay(exposure_overlay)
+
 	if(glow_icon && glow_icon_state)
 		if(!glow_overlay)
 			glow_overlay = image(icon = glow_icon, icon_state = glow_icon_state, dir = dir, layer = 1)
-
 		glow_overlay.plane = LIGHTING_LAMPS_PLANE
 		glow_overlay.blend_mode = BLEND_ADD
+
 		if(glow_colored)
 			var/datum/color_matrix/mat = new(
 				light_color,
@@ -145,9 +146,14 @@
 		exposure_overlay.blend_mode = BLEND_ADD
 		exposure_overlay.appearance_flags = RESET_ALPHA | RESET_COLOR | KEEP_APART
 
-		var/datum/color_matrix/mat = new(1, GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power, GLOB.configuration.lighting_effects.exposure_brightness_base + GLOB.configuration.lighting_effects.exposure_brightness_power * light_power)
+		var/datum/color_matrix/mat = new(
+			1,
+			GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power,
+			GLOB.configuration.lighting_effects.exposure_brightness_base + GLOB.configuration.lighting_effects.exposure_brightness_power * light_power)
 		if(exposure_colored)
-			mat.set_color(light_color, GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power, GLOB.configuration.lighting_effects.exposure_brightness_base + GLOB.configuration.lighting_effects.exposure_brightness_power * light_power)
+			mat.set_color(light_color,
+			GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power,
+			GLOB.configuration.lighting_effects.exposure_brightness_base + GLOB.configuration.lighting_effects.exposure_brightness_power * light_power)
 		exposure_overlay.color = mat.get()
 
 		var/icon/EX = icon(icon = exposure_icon, icon_state = exposure_icon_state)

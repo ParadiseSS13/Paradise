@@ -1,3 +1,4 @@
+// Brightness (Luminance) of RGB on grayscale. Used for saturation matrix
 #define LUM_R 0.3086 //  or  0.2125
 #define LUM_G 0.6094 //  or  0.7154
 #define LUM_B 0.0820 //  or  0.0721
@@ -68,9 +69,11 @@
 /matrix/proc/get_y_shift()
 	. = f
 
+/// A color matrix allows us to set the color of an atom in a list form, thus allowing us to change color in more flexible ways. For example, we can set the brightness and contrast of the bloom and exposure of lamps
 /datum/color_matrix
 	var/list/matrix
 
+/// Value can be color as text (e.g. "#735184") that will set matrix to be the same color / number that will set the saturation of matrix / or the color list itself, contrast as number, brightness as number
 /datum/color_matrix/New(value, contrast = 1, brightness = null)
 	..()
 	if(istext(value))
@@ -120,7 +123,7 @@
 	if(matrix_length == 9)
 		matrix += list(brightness, brightness, brightness)
 		return
-	
+
 	// Here we have CCM matrix of type:
 	// | rr rg rb ra |
 	// | gr gg gb ga |
@@ -131,7 +134,7 @@
 		matrix += list(brightness, brightness, brightness, 0)
 		return
 
-	// We already have brightness row, just override. 
+	// We already have brightness row, just override.
 	if(matrix_length == 12)
 		for(var/i = matrix_length to matrix_length - 3 step -1)
 			matrix[i] = brightness
