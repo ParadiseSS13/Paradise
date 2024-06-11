@@ -86,7 +86,7 @@
 	if(!uses && !permanent)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return FALSE
-	if((jobban_isbanned(user, banType) || (jobban_isbanned(user, ROLE_SYNDICATE) && restrict_antagban)))
+	if((jobban_isbanned(user, banType) || (restrict_antagban && jobban_isbanned(user, ROLE_SYNDICATE))))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return FALSE
 	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE))
