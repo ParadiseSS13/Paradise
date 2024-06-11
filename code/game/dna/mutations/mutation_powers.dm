@@ -219,7 +219,8 @@
 			M.alpha = round(M.alpha * 0.8)
 	else
 		M.reset_visibility()
-		M.alpha = round(255 * 0.8)
+		if(!HAS_TRAIT(M, TRAIT_ENVIROMENTAL_ADAPTAION))
+			M.alpha = round(255 * 0.80)
 	if(M.alpha == 0)
 		M.make_invisible()
 
