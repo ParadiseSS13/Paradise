@@ -111,7 +111,19 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(lit)
 		to_chat(user, "<span class='warning'>\The [initial(name)] is already lit!</span>")
 		return FALSE
-
+	
+	if(!I.cigarette_lighter_act())
+		return
+	
+	// Do not light cigars or pipes unless the lighting item is sufficiently cultured.
+	if(!I.can_light_cigars && (istype(I, /obj/item/clothing/mask/cigarette/pipe) || istype(/obj/item/clothing/mask/cigarette/cigar)))
+		user.visible_message(cigar_light_failure)
+		return
+	
+	// If you screw up lighting the cig, do not light the cig.
+	if(I.bad_lighter_outcome)
+		return
+/*
 	if(istype(I, /obj/item/lighter/zippo))
 		var/obj/item/lighter/zippo/zip = I
 		if(zip.lit)
@@ -228,6 +240,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			light("<span class='warning'>[user] points [I] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [name] alight!</span>")
 		playsound(target, 'sound/magic/lightningbolt.ogg', 20, TRUE)
 		return TRUE
+*/
 
 /obj/item/clothing/mask/cigarette/proc/failed_to_light(obj/item/I, mob/living/user)
 	to_chat(user, "<span class='warning'>You need to turn on [I] before you can use it as a lighter!</span>")
