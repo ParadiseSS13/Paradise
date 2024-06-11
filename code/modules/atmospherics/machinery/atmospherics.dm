@@ -261,7 +261,7 @@ Pipelines + Other Objects -> Pipe network
 
 	var/fuck_you_dir = get_dir(src, user)
 	if(!fuck_you_dir)
-		fuck_you_dir = pick(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST)
+		fuck_you_dir = pick(GLOB.alldirs)
 
 	var/turf/general_direction = get_edge_target_turf(user, fuck_you_dir)
 	user.visible_message("<span class='danger'>[user] is sent flying by pressure!</span>","<span class='userdanger'>The pressure sends you flying!</span>")
