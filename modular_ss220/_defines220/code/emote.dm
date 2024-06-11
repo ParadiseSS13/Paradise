@@ -77,6 +77,7 @@
 #define EMOTE_HUMAN_WINK 			"Подмигнуть"
 #define EMOTE_HUMAN_HIGHFIVE 		"Дать пять"
 #define EMOTE_HUMAN_HANDSHAKE 		"Пожать руку"
+#define EMOTE_HUMAN_RPS				"Камень, ножницы, бумага"
 #define EMOTE_HUMAN_SNAP 			"Щёлкнуть пальцами"
 #define EMOTE_HUMAN_CRACK 			"Хрустеть пальцами"
 #define EMOTE_HUMAN_FART 			"Пёрнуть"

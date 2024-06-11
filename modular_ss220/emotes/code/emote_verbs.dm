@@ -120,6 +120,11 @@
 	set category = "Эмоции"
 	emote("slap", intentional = TRUE)
 
+/mob/living/carbon/human/verb/emote_rps()
+	set name = "○ " + EMOTE_HUMAN_RPS + " "
+	set category = "Эмоции"
+	emote("rps", intentional = TRUE)
+
 /// Exercise Emotes ///
 /mob/living/carbon/human/verb/emote_exercise()
 	set name = "⚝ " + EMOTE_EXERCISE

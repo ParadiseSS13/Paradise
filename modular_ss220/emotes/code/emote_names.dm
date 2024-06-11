@@ -280,6 +280,9 @@
 /datum/emote/living/carbon/human/highfive/handshake
 	name = EMOTE_HUMAN_HANDSHAKE
 
+/datum/emote/living/carbon/human/highfive/rps
+	name = EMOTE_HUMAN_RPS
+
 /datum/emote/living/carbon/human/hug
 	name = EMOTE_HUMAN_HUG
 
