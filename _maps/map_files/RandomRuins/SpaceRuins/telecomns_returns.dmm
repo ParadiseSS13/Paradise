@@ -61,7 +61,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/telecomns/tele)
 "bE" = (
-/obj/machinery/light/spot,
+/obj/machinery/light,
 /turf/space,
 /area/ruin/space/telecomns)
 "bI" = (
@@ -477,7 +477,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/telecomns/tele)
 "ia" = (
-/obj/item/grenade/empgrenade,
+/obj/effect/spawner/random_spawners/telecomns_emp_loot,
 /turf/simulated/floor/engine,
 /area/ruin/space/telecomns/computer)
 "ik" = (
@@ -2138,7 +2138,7 @@
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
 "Ff" = (
-/obj/machinery/light/spot{
+/obj/machinery/light{
 	dir = 8
 	},
 /turf/space,
@@ -2194,7 +2194,7 @@
 /turf/space,
 /area/space/nearstation)
 "Gf" = (
-/obj/machinery/light/spot{
+/obj/machinery/light{
 	dir = 4
 	},
 /turf/space,

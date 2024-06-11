@@ -144,6 +144,7 @@
 	if(ruin_cheese_attempted)
 		for(var/obj/machinery/door/airlock/A in urange(20, get_turf(src)))
 			A.unlock(TRUE) //Fuck your bolted open doors, you cheesed it.
+			A.close(override = TRUE)
 	for(var/area/A in urange(25, get_turf(src), areas = TRUE))
 		if(istype(A, /area/space))
 			continue
@@ -262,6 +263,11 @@
 		used_item = baton
 	..()
 
+/mob/living/simple_animal/hostile/hivebot/strong/malfborg/emp_act(severity)
+	. = ..()
+	target = null
+	adjustBruteLoss(50)
+
 /obj/structure/displaycase/dvoraks_treat
 	alert = TRUE // Ooopsies you opened this after doomsday and the doors bolted, oh nooooo
 	force_alarm = TRUE
@@ -339,6 +345,12 @@
 /obj/item/storage/box/syndie_kit/oops_all_extraction_flares/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/wormhole_jaunter/contractor(src)
+/obj/effect/spawner/random_spawners/telecomns_emp_loot
+	name = "telecomns emp loot"
+	result = list(
+		/obj/item/grenade/empgrenade = 8,
+		/obj/item/gun/energy/ionrifle/carbine = 1,
+		/obj/item/gun/energy/ionrifle = 1)
 
 /obj/effect/spawner/random_spawners/telecomns_teleprod_maybe
 	name = "teleprod maybe"
