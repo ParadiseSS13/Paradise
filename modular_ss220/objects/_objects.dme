@@ -1,5 +1,8 @@
 #include "_objects.dm"
 
+// Flora
+#include "code/flora/sakura.dm"
+
 // ID Skins
 #include "code/id_skins/_id_skins_base.dm"
 #include "code/id_skins/id_skins.dm"
