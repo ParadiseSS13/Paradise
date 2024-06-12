@@ -1,7 +1,7 @@
 /mob
 	density = TRUE
 	layer = MOB_LAYER
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
 	pressure_resistance = 8
 	throwforce = 10
 	var/datum/mind/mind

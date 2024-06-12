@@ -16,7 +16,8 @@
 	var/destination_z
 	var/destination_x
 	var/destination_y
-	plane = PLANE_SPACE
+
+	atmos_mode = ATMOS_MODE_SPACE
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -146,7 +147,7 @@
 			if(itercount > 100)
 				stack_trace("SPACE Z-TRANSIT ERROR: [A] encountered a possible infinite loop while traveling through z-levels.")
 				break
-			var/turf/target_turf = get_step(current_pull.pulledby.loc, reverse_direction(current_pull.pulledby.dir)) || current_pull.pulledby.loc
+			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
 			ADD_TRAIT(current_pull, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
 			current_pull.forceMove(target_turf)
 			REMOVE_TRAIT(current_pull, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)

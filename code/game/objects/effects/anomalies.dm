@@ -355,7 +355,11 @@
 		ticks = 0
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 20)
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(1000)
+		air.set_toxins(20)
+		air.set_oxygen(20)
+		T.blind_release_air(air)
 
 /obj/effect/anomaly/pyro/detonate()
 	if(produces_slime)
@@ -364,7 +368,12 @@
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 500) //Make it hot and burny for the new slime
+		//Make it hot and burny for the new slime
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(1000)
+		air.set_toxins(500)
+		air.set_oxygen(500)
+		T.blind_release_air(air)
 	var/new_colour = pick("red", "orange")
 	var/mob/living/simple_animal/slime/S = new(T, new_colour)
 	S.rabid = TRUE
@@ -409,7 +418,11 @@
 
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
-			T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_N2O | LINDA_SPAWN_CO2, 20)
+			var/datum/gas_mixture/air = new()
+			air.set_temperature(TCMB)
+			air.set_sleeping_agent(20)
+			air.set_carbon_dioxide(20)
+			T.blind_release_air(air)
 
 	if(prob(10))
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
@@ -436,7 +449,11 @@
 /obj/effect/anomaly/cryo/detonate()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T) && drops_core)
-		T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_CO2, 1000)
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(TCMB)
+		air.set_sleeping_agent(1000)
+		air.set_carbon_dioxide(1000)
+		T.blind_release_air(air)
 
 /////////////////////
 

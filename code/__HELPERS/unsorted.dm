@@ -819,8 +819,8 @@ Returns 1 if the chain up to the area contains the given typepath
 
 					// Give the new turf our air, if simulated
 					if(issimulatedturf(X) && issimulatedturf(T))
-						var/turf/simulated/sim = X
-						sim.copy_air_with_tile(T)
+						var/datum/milla_safe/area_move_transrer_gas/milla = new()
+						milla.invoke_async(T, X)
 
 					// Quick visual fix for some weird shuttle corner artefacts when on transit space tiles
 					if(direction && findtext(X.icon_state, "swall_s"))
@@ -876,18 +876,10 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-	if(length(to_update))
-		for(var/turf/simulated/T1 in to_update)
-			SSair.remove_from_active(T1)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1, TRUE)
+/datum/milla_safe/area_move_transrer_gas
 
-	if(length(from_update))
-		for(var/turf/simulated/T2 in from_update)
-			SSair.remove_from_active(T2)
-			T2.CalculateAdjacentTurfs()
-			SSair.add_to_active(T2, TRUE)
-
+/datum/milla_safe/area_move_transrer_gas/on_run(turf/source, turf/target)
+	get_turf_air(target).copy_from(get_turf_air(source))
 
 /proc/DuplicateObject(obj/original, perfectcopy = 0, sameloc = 0, atom/newloc)
 	if(!original)
@@ -1007,11 +999,6 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_src -= T
 					refined_trg -= B
 					continue moving
-
-	if(length(to_update))
-		for(var/turf/simulated/T1 in to_update)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
 
 	return copied_objects
 
@@ -1142,25 +1129,6 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
 		return TRUE
-
-/proc/reverse_direction(dir)
-	switch(dir)
-		if(NORTH)
-			return SOUTH
-		if(NORTHEAST)
-			return SOUTHWEST
-		if(EAST)
-			return WEST
-		if(SOUTHEAST)
-			return NORTHWEST
-		if(SOUTH)
-			return NORTH
-		if(SOUTHWEST)
-			return NORTHEAST
-		if(WEST)
-			return EAST
-		if(NORTHWEST)
-			return SOUTHEAST
 
 /*
 Checks if that loc and dir has a item on the wall

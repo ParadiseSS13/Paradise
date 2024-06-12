@@ -318,7 +318,7 @@
 			if(!step_towards(mechsyringe,trg))
 				break
 
-			var/list/mobs = new
+			var/list/mobs = list()
 			for(var/mob/living/carbon/M in mechsyringe.loc)
 				mobs += M
 			var/mob/living/carbon/M = safepick(mobs)

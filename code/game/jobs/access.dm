@@ -391,16 +391,54 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Deathsquad Commando","Research Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
+	return list(
+		"VIP Guest",
+		"Custodian",
+		"Thunderdome Overseer",
+		"Intel Officer",
+		"Medical Officer",
+		"Research Officer",
+		"Special Operations Officer",
+		"Nanotrasen Diplomat",
+		"Nanotrasen Navy Representative",
+		"Nanotrasen Navy Officer",
+		"Nanotrasen Navy Captain",
+		"Supreme Commander")
 
 /proc/get_all_ERT_jobs()
-	return list("Emergency Response Team Officer","Emergency Response Team Engineer","Emergency Response Team Medic","Emergency Response Team Inquisitor","Emergency Response Team Janitor","Emergency Response Team Leader","Emergency Response Team Member")
+	return list(
+		"Emergency Response Team Member",
+		"Emergency Response Team Officer",
+		"Emergency Response Team Engineer",
+		"Emergency Response Team Medic",
+		"Emergency Response Team Janitor",
+		"Emergency Response Team Inquisitor",
+		"Emergency Response Team Leader")
 
 /proc/get_all_solgov_jobs()
-	return list("Solar Federation Lieutenant","Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
+	return list(
+		"Sol Trader",
+		"Solar Federation Marine",
+		"Solar Federation Lieutenant",
+		"Solar Federation Specops Marine",
+		"Solar Federation Specops Lieutenant",
+		"Solar Federation Representative",
+		"Solar Federation General")
 
 /proc/get_all_soviet_jobs()
-	return list("Soviet Tourist", "Soviet Conscript", "Soviet Soldier", "Soviet Officer", "Soviet Marine", "Soviet Marine Captain", "Soviet Admiral")
+	return list(
+		"Soviet Tourist",
+		"Soviet Conscript",
+		"Soviet Soldier",
+		"Soviet Officer",
+		"Soviet Marine",
+		"Soviet Marine Captain",
+		"Soviet Admiral")
+
+/proc/get_all_special_jobs()
+	return list(
+		"Deathsquad",
+		"Emergency Response Clown")
 
 /proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + get_all_ERT_jobs() + list("Prisoner")
