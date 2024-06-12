@@ -61,7 +61,7 @@
 /// Returns a readable string of the vehicle's health for examining. Overridden by subtypes who want to be more verbose with their health messages.
 /obj/tgvehicle/proc/generate_integrity_message()
 	var/examine_text = ""
-	var/integrity = obj_integrity/max_integrity * 100
+	var/integrity = obj_integrity / max_integrity * 100
 	switch(integrity)
 		if(50 to 99)
 			examine_text = "It looks slightly damaged."
