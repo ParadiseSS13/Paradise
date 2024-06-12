@@ -227,7 +227,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure
 	name = "\improper Anti-Plague Sequence Alpha autoinjector"
-	desc = "A small autoinjector containing 15, units of Anti-Plague Sequence Alpha. Prevents infection, cures level 1 infection."
+	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Alpha. Prevents infection, cures level 1 infection."
 	icon_state = "zombiepen"
 	amount_per_transfer_from_this = 15
 	volume = 15
@@ -236,7 +236,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/attack(mob/living/M, mob/user)
 	if(..())
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1) //Sucker for sounds, also gets zombies attention.
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE) //Sucker for sounds, also gets zombies attention.
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure2
 	name = "\improper Anti-Plague Sequence Beta autoinjector"
