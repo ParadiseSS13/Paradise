@@ -70043,6 +70043,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "gFm" = (
