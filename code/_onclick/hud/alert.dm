@@ -879,7 +879,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/do_we_revive = FALSE
 	var/image/toggle_overlay
 
-/atom/movable/screen/alert/changeling_defib_revive/Initialize(mapload, parent_unit,)
+/atom/movable/screen/alert/changeling_defib_revive/Initialize(mapload, parent_unit)
 	. = ..()
 	var/image/defib_appearance = image(parent_unit)
 	defib_appearance.layer = FLOAT_LAYER
@@ -891,6 +891,8 @@ so as to remain in compliance with the most up-to-date laws."
 	RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_defib_revive))
 
 /atom/movable/screen/alert/changeling_defib_revive/Destroy()
+	if(owner)
+		UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
 	if(toggle_overlay)
 		overlays -= toggle_overlay
 		qdel(toggle_overlay)
