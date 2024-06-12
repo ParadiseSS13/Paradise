@@ -23,8 +23,6 @@ GLOBAL_LIST_EMPTY(msays)
 
 	display_says(GLOB.msays, "msay")
 
-
-
 /client/proc/view_asays()
 	set name = "Asays"
 	set desc = "View Asays from the current round."
