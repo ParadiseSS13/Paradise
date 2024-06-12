@@ -131,7 +131,7 @@
 /datum/map_template/shuttle/emergency/lance
 	suffix = "lance"
 	name = "NAV Lance"
-	description = "Based on a rejected design by an overager member of Nanotrasen Asset Protection, the NAV Lance is designed to tactically slam into destroyed stations, \
+	description = "Based on a rejected design by an over-eager member of Nanotrasen Asset Protection, the NAV Lance is designed to tactically slam into destroyed stations, \
 	dispatching threats and saving crew at the same time! \
 	Be careful to stay out of its path. Comes with a beacon to choose where it docks!"
 	admin_notes = "WARNING: This shuttle is designed to crash into the station. It has turrets, similar to the raven. Place down the beacon please. Once the shuttle is loaded, it cannot be unloaded."
