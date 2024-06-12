@@ -574,13 +574,12 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 
 	b_stat = !b_stat
-	if(!istype(src, /obj/item/radio/beacon))
-		if(b_stat)
-			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
-		else
-			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
+	if(b_stat)
+		user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
+	else
+		user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
 
-		updateDialog()
+	updateDialog()
 
 /obj/item/radio/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
