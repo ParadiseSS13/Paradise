@@ -36145,13 +36145,6 @@
 /turf/simulated/wall,
 /area/station/science/robotics)
 "equ" = (
-/obj/effect/spawner/grouped_spawner{
-	group_id = "tunnelbats";
-	max_per_spawner = 1;
-	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
-	total_amount = 20
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -123794,7 +123787,7 @@ lzH
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 lzH
@@ -124331,7 +124324,7 @@ rNK
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 rNK
@@ -125035,7 +125028,7 @@ rNK
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 rNK
@@ -131527,7 +131520,7 @@ xbO
 xbO
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 rNK
@@ -135894,7 +135887,7 @@ rNK
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 knD
@@ -140742,7 +140735,7 @@ rNK
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 rNK
@@ -141240,7 +141233,7 @@ lzH
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 lzH
 euP
