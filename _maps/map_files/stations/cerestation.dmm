@@ -9721,7 +9721,7 @@
 /area/station/command/office/cmo)
 "bhm" = (
 /obj/structure/table,
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/item/radio/intercom{
 	pixel_x = -28;
 	name = "custom placement"

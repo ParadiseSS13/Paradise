@@ -26528,7 +26528,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "bPB" = (
