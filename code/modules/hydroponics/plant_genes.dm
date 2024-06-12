@@ -440,7 +440,7 @@
 			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
 
 /datum/plant_gene/trait/smoke
-	name = "gaseous decomposition"
+	name = "Gaseous Decomposition"
 	dangerous = TRUE
 
 /datum/plant_gene/trait/smoke/on_squash(obj/item/food/snacks/grown/G, atom/target)
