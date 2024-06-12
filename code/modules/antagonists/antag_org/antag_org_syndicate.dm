@@ -94,7 +94,7 @@
 
 /datum/antag_org/syndicate/gorlex //Hijack only
 	name = "Gorlex Marauders"
-	intro_desc = "(TODO - LORE) You are an operative of the infamous Gorlex Marauders, a brutal and merciless gang of pirates and cutthroats. \
+	intro_desc = "You are an operative of the infamous Gorlex Marauders, a brutal and merciless gang of pirates and cutthroats. \
 		Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
 	forced_objective = /datum/objective/hijack
 	chaos_level = ORG_CHAOS_HIJACK
