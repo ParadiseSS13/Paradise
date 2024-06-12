@@ -375,10 +375,10 @@
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/explode_turf = get_turf(src)
 
-	var/obj/item/ed209_assembly/assembly = new /obj/item/ed209_assembly(explode_turf)
-	assembly.build_step = 1
-	assembly.overlays += image('icons/obj/aibots.dmi', "hs_hole")
-	assembly.created_name = name
+	var/obj/item/ed209_assembly/pierced_helmet = new /obj/item/ed209_assembly(explode_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += image('icons/obj/aibots.dmi', "hs_hole")
+	pierced_helmet.created_name = name
 	new /obj/item/assembly/prox_sensor(explode_turf)
 
 	if(!lasercolor)
@@ -418,10 +418,10 @@
 /mob/living/simple_animal/bot/ed209/disassemble()
 	var/turf/disassemble_turf = get_turf(src)
 
-	var/obj/item/ed209_assembly/assembly = new /obj/item/ed209_assembly(disassemble_turf)
-	assembly.build_step = 1
-	assembly.overlays += image('icons/obj/aibots.dmi', "hs_hole")
-	assembly.created_name = name
+	var/obj/item/ed209_assembly/pierced_helmet = new /obj/item/ed209_assembly(disassemble_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += image('icons/obj/aibots.dmi', "hs_hole")
+	pierced_helmet.created_name = name
 	new /obj/item/assembly/prox_sensor(disassemble_turf)
 
 	if(!lasercolor)

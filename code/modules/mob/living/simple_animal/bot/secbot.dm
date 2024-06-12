@@ -434,10 +434,10 @@
 /mob/living/simple_animal/bot/secbot/explode()
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/explode_turf = get_turf(src)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(explode_turf)
-	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
-	Sa.created_name = name
+	var/obj/item/secbot_assembly/pierced_helmet = new /obj/item/secbot_assembly(explode_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += "hs_hole"
+	pierced_helmet.created_name = name
 	new /obj/item/assembly/prox_sensor(explode_turf)
 	new /obj/item/melee/baton(explode_turf)
 	if(prob(50))
@@ -449,10 +449,10 @@
 ///Disassembling the bot in a civilized manner with a multitool
 /mob/living/simple_animal/bot/secbot/disassemble()
 	var/turf/disassemble_turf = get_turf(src)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(disassemble_turf)
-	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
-	Sa.created_name = name
+	var/obj/item/secbot_assembly/pierced_helmet = new /obj/item/secbot_assembly(disassemble_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += "hs_hole"
+	pierced_helmet.created_name = name
 	new /obj/item/assembly/prox_sensor(disassemble_turf)
 	new /obj/item/melee/baton(disassemble_turf)
 	drop_part(robot_arm, disassemble_turf)
