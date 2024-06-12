@@ -8,17 +8,19 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 	/// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
-	move_resist = null
+	move_resist
 	/// used in item_attack.dm to make an item not show an attack message to viewers
-	var/discrete = 0
+	var/discrete = FALSE
 	/// The icon state used to display the item in your inventory. If null then the icon_state value itself will be used
 	var/item_state = null
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-	/// Dimensions of the lefthand_file and righthand_file vars
+	/// Dimension X of the lefthand_file and righthand_file vars
 	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_x_dimension = 32
+	/// Dimension Y of the lefthand_file and righthand_file vars
+	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_y_dimension = 32
 
 	max_integrity = 200
@@ -52,7 +54,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
 	// causeerrorheresoifixthis
-	var/obj/item/master = null
+	var/obj/item/master
 
 	/// Flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
 	var/heat_protection = 0
@@ -76,7 +78,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
 	var/flags_inv
 	var/item_color = null
-	/// See setup.dm for appropriate bit flags
+	/// What bodyflags does this item cover? See setup.dm for appropriate bit flags
 	var/body_parts_covered = 0
 	/// For leaking gas from turf to mask and vice-versa.
 	var/gas_transfer_coefficient = 1
@@ -90,10 +92,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/armour_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.
 	var/armour_penetration_percentage = 0
-	/// suit storage stuff.
-	var/list/allowed = null
+	/// For what suits can store. IE. secuirty vest holding stunbatons, disablers, cuffs.
+	var/list/allowed
 	/// All items can have an uplink hidden inside, just remember to add the triggers.
-	var/obj/item/uplink/hidden/hidden_uplink = null
+	var/obj/item/uplink/hidden/hidden_uplink
 
 	/// Used by security bots to determine if this item is safe for public use.
 	var/needs_permit = FALSE
@@ -103,12 +105,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
 	/// How long it takes to resist out of restraints, like cuffs, and whatnot.
 	var/breakouttime = 0
-	/// for flags such as GLASSESCOVERSEYES
+	/// For flags that define what areas an item cover
 	var/flags_cover = 0
 
 	/// Used to give a reaction chance on hit that is not a block. If less than 0, will remove the block message, allowing overides.
 	var/hit_reaction_chance = 0
 
+	/// What can/cant be worn, and where is valid to be worn by ian/E-N(and corgies), most of the time changing the name and emotes of the pet.
 	// Needs to be in /obj/item because corgis can wear a lot of non-clothing items
 	var/datum/dog_fashion/dog_fashion = null
 
@@ -136,7 +139,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	/// What kind of tool are we?
 	var/tool_behaviour = NONE
-	// If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
+	/// If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
 	var/tool_enabled = TRUE
 	/// How loud are we when we use our tool?
 	var/tool_volume = 50
