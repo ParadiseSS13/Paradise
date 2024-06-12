@@ -28,7 +28,8 @@
 	check_synth = 1;
 	lethal = 1;
 	faction = "malf_drone";
-	ailock = 1
+	ailock = 1;
+	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel,
@@ -240,7 +241,7 @@
 	},
 /obj/machinery/power/apc/directional/east{
 	malfhack = 1;
-	malfai = 1;
+	malfai = "DVORAK";
 	emp_proof = 1
 	},
 /obj/structure/environmental_storytelling_holopad/control_room,
@@ -253,7 +254,7 @@
 	},
 /obj/machinery/power/apc/directional/north{
 	malfhack = 1;
-	malfai = 1
+	malfai = "DVORAK"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/foyer)
@@ -573,7 +574,8 @@
 	lethal = 1;
 	scan_range = 9;
 	faction = "malf_drone";
-	ailock = 1
+	ailock = 1;
+	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
 /obj/effect/abstract/cheese_trap,
@@ -714,7 +716,8 @@
 	scan_range = 12;
 	faction = "malf_drone";
 	initial_eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser;
-	ailock = 1
+	ailock = 1;
+	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel,
@@ -1028,7 +1031,8 @@
 	lethal = 1;
 	scan_range = 9;
 	faction = "malf_drone";
-	ailock = 1
+	ailock = 1;
+	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plating/airless,
@@ -1206,7 +1210,8 @@
 	lethal = 1;
 	scan_range = 12;
 	faction = "malf_drone";
-	ailock = 1
+	ailock = 1;
+	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
 /obj/effect/abstract/cheese_trap,
@@ -1232,7 +1237,7 @@
 	},
 /obj/machinery/power/apc/directional/north{
 	malfhack = 1;
-	malfai = 1
+	malfai = "DVORAK"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
@@ -2274,7 +2279,7 @@
 	},
 /obj/machinery/power/apc/directional/north{
 	malfhack = 1;
-	malfai = 1;
+	malfai = "DVORAK";
 	emp_proof = 1
 	},
 /turf/simulated/floor/catwalk,
@@ -2868,7 +2873,8 @@
 	check_synth = 1;
 	lethal = 1;
 	faction = "malf_drone";
-	ailock = 1
+	ailock = 1;
+	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel,
@@ -3288,7 +3294,8 @@
 	lethal = 1;
 	scan_range = 12;
 	faction = "malf_drone";
-	ailock = 1
+	ailock = 1;
+	check_borgs = 1
 	},
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plating/airless,
@@ -3314,7 +3321,7 @@
 	},
 /obj/machinery/power/apc/directional/north{
 	malfhack = 1;
-	malfai = 1;
+	malfai = "DVORAK";
 	emp_proof = 1
 	},
 /turf/simulated/floor/bluegrid{
@@ -3383,6 +3390,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"YC" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "YF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/catwalk,
@@ -3420,7 +3431,7 @@
 	},
 /obj/machinery/power/apc/directional/east{
 	malfhack = 1;
-	malfai = 1
+	malfai = "DVORAK"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns/powercontrol)
@@ -8162,7 +8173,7 @@ HR
 De
 PQ
 ik
-Dy
+YC
 PQ
 PQ
 PQ

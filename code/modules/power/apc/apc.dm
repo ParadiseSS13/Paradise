@@ -491,6 +491,9 @@
 	if(issilicon(user))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
+		if(malfai == "DVORAK") //I'm not making an actual ai core for this, you get a string.
+			to_chat(user, "<span class='danger'>The APC interface program has been completely corrupted, you are unable to interface with it!</span>")
+			return FALSE
 		if(aidisabled || (malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent))) || (istype(robot) && malfai && !(robot in malfai.connected_robots))))
 			if(!loud)
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
