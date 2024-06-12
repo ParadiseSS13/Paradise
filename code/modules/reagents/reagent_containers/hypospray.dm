@@ -236,7 +236,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/attack(mob/living/M, mob/user)
 	if(..())
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1) //Sucker for sounds, also gets zombies attention.
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE) //Sucker for sounds, also gets zombies attention.
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure2
 	name = "\improper Anti-Plague Sequence Beta autoinjector"
