@@ -3186,6 +3186,12 @@
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"bBF" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/execution)
 "bBS" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 4
@@ -3802,6 +3808,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "bSJ" = (
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11030,10 +11038,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "fBs" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
+	},
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "ExecutionTint"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/execution)
@@ -11886,6 +11896,12 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/corner,
+/obj/machinery/flasher{
+	id = "justiceflash";
+	name = "mounted justice flash";
+	pixel_x = -23
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11970,7 +11986,23 @@
 /turf/simulated/wall,
 /area/station/maintenance/aft)
 "fZN" = (
-/obj/structure/closet/secure_closet/injection,
+/obj/structure/table/reinforced,
+/obj/item/storage/backpack/duffel/security,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/glass/bottle/morphine{
+	pixel_x = 8
+	},
+/obj/machinery/door_control{
+	id = "justice_blast";
+	name = "Space Vent";
+	pixel_x = 32;
+	req_access_txt = "2"
+	},
+/obj/machinery/flasher_button{
+	id = "Execution";
+	pixel_x = 32;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -12520,10 +12552,16 @@
 /area/station/engineering/atmos/control)
 "gnM" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
+/obj/item/flashlight/lamp/green{
+	pixel_x = -5;
+	pixel_y = 12
 	},
+/obj/item/ashtray/bronze,
+/obj/item/storage/fancy/cigarettes/dromedaryco{
+	pixel_y = 1;
+	pixel_x = 8
+	},
+/obj/item/clothing/mask/cigarette,
 /turf/simulated/floor/plasteel,
 /area/station/security/detective)
 "goq" = (
@@ -15927,6 +15965,10 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/station/public/fitness)
+"hUi" = (
+/obj/item/kirbyplants,
+/turf/simulated/floor/plasteel,
+/area/station/security/detective)
 "hUu" = (
 /obj/structure/sign/electricshock{
 	pixel_x = -32
@@ -16055,6 +16097,7 @@
 /obj/structure/chair/e_chair{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19796,6 +19839,12 @@
 	icon_state = "dark"
 	},
 /area/station/security/warden)
+"jNd" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/detective)
 "jNm" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "waste_sensor";
@@ -24989,11 +25038,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "muN" = (
-/obj/machinery/door/airlock/security/glass,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "ExecutionTint"
 	},
+/turf/simulated/floor/plating,
 /area/station/security/execution)
 "mvV" = (
 /obj/structure/chair/sofa/left{
@@ -25300,6 +25348,14 @@
 	icon_state = "white"
 	},
 /area/station/medical/break_room)
+"mEL" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/execution)
 "mES" = (
 /obj/structure/lattice,
 /obj/item/megaphone{
@@ -26920,6 +26976,10 @@
 /area/station/maintenance/fpmaint)
 "nqM" = (
 /obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
 /obj/item/reagent_containers/drinks/flask/detflask,
 /turf/simulated/floor/plasteel,
 /area/station/security/detective)
@@ -27321,6 +27381,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/box/evidence,
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel,
 /area/station/security/detective)
 "nBv" = (
@@ -29745,8 +29806,7 @@
 /area/station/maintenance/apmaint)
 "oMY" = (
 /turf/simulated/floor/plasteel/goonplaque/memorial{
-	desc = "\"The plaque Honor Ian, who Bravely saved the hop when they tripped a syndicate agent while attempting to solicit belly rubs from them./"
-	},
+	desc = "\"The plaque Honor Ian, who Bravely saved the hop when they tripped a syndicate agent while attempting to solicit belly rubs from them./"},
 /area/station/public/dorms)
 "oNg" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -30438,6 +30498,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/station/security/execution)
 "pdY" = (
@@ -34424,6 +34485,15 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/processing)
+"rdp" = (
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "ExecutionTint"
+	},
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "ExecutionTint"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/execution)
 "rdB" = (
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -34900,6 +34970,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
+"roY" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/execution)
 "rpc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 6
@@ -36734,6 +36813,10 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/starboard)
+"siT" = (
+/obj/structure/closet/secure_closet/injection,
+/turf/simulated/floor/plasteel,
+/area/station/security/execution)
 "sjf" = (
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
@@ -38126,6 +38209,12 @@
 "sTb" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/prisonlockers)
+"sTh" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/execution)
 "sTk" = (
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
@@ -40809,6 +40898,16 @@
 /obj/item/assembly/signaler{
 	code = 6;
 	frequency = 1445
+	},
+/obj/item/reagent_containers/glass/bottle/facid,
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/machinery/button/windowtint{
+	pixel_y = 24;
+	pixel_x = 7;
+	id = "ExecutionTint"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -43657,8 +43756,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "vJi" = (
-/obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -45231,6 +45330,7 @@
 /area/station/maintenance/dorms/port)
 "wwO" = (
 /obj/structure/table/wood,
+/obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/plasteel,
 /area/station/security/detective)
 "wwR" = (
@@ -46820,6 +46920,11 @@
 /obj/item/trash/twimsts,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical)
+"xmw" = (
+/obj/machinery/door/airlock/security/glass,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/station/security/execution)
 "xng" = (
 /obj/structure/morgue,
 /obj/structure/window/reinforced{
@@ -47659,10 +47764,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
-"xKa" = (
-/obj/item/seeds/wheat,
-/turf/space,
-/area/space)
 "xKc" = (
 /obj/machinery/conveyor/southeast{
 	id = "garbage"
@@ -72379,7 +72480,7 @@ bvh
 bvh
 bAa
 nSh
-lon
+hVh
 oRl
 tcF
 sWK
@@ -73150,7 +73251,7 @@ bvh
 bvh
 cop
 uur
-hVh
+jNd
 hVh
 tcF
 tcF
@@ -73409,7 +73510,7 @@ cop
 rOl
 hVh
 hVh
-wwO
+lon
 nBg
 tcF
 lEk
@@ -73922,7 +74023,7 @@ bvh
 bAa
 aon
 hVh
-hVh
+hUi
 wwO
 ojC
 tcF
@@ -77541,7 +77642,7 @@ jnP
 jnP
 jnP
 jnP
-xKa
+jnP
 jnP
 ojW
 nkm
@@ -84968,8 +85069,8 @@ aat
 aat
 aat
 ivr
-gQM
-gQM
+muN
+xmw
 muN
 cIC
 cyS
@@ -85224,10 +85325,10 @@ aat
 aat
 aat
 aat
-gQM
+rdp
 dzt
 vEl
-puK
+siT
 ivr
 ivr
 ivr
@@ -85481,7 +85582,7 @@ fDK
 kdr
 aat
 aat
-gQM
+muN
 vJi
 pdL
 czx
@@ -85738,12 +85839,12 @@ fDY
 vxy
 xPX
 xPX
-gQM
+tZT
 uma
-jee
+bBF
 puK
 gvN
-bSJ
+sTh
 hWJ
 tZT
 rkL
@@ -85995,13 +86096,13 @@ qAY
 btM
 aat
 aat
-gQM
+tZT
 fZN
 jee
 puK
 gQM
-bSJ
-bSJ
+roY
+mEL
 mgb
 jnP
 jnP
