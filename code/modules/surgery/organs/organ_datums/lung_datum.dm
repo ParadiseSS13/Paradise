@@ -250,7 +250,7 @@
 		if(TC)
 			for(var/D in cold_damage_types)
 				if(HAS_TRAIT(H, TRAIT_DRASK_SUPERCOOL))
-					TC = TC * 4
+					TC *= 4
 				H.apply_damage_type(TC * CM * cold_damage_types[D], D)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
