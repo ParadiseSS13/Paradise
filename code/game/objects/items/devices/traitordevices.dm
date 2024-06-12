@@ -295,7 +295,6 @@
 
 /obj/item/cryoregenerative_enhancer/examine_more(mob/user)
 	. = ..()
-	. = list()
 	. += "Designed by Viim-vaarooomunnm's prestigious polytechnic university, these experimental nanomachines infiltrate the cells of the drask host and integrate into the specialised cryoregenerative organelles that facilitate low-temperature healing and work to boost enzymatic activity, massively improving the efficiency of the associated metabolic processes."
 	. += ""
 	. += "Clinical trials have shown a four times increase in the rate of healing compared to a placebo. Whilst the product is technically not yet available to the public, your connections have allowed you to get a hold of them early..."
