@@ -107,28 +107,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(!lit)
 		light("<span class='warning'>[src] is lit by the flames!</span>")
 
-/obj/item/clothing/mask/cigarette/proc/lighter_interaction(obj/item/I, mob/user, mob/living/carbon/target)
-	if(lit)
-		to_chat(user, "<span class='warning'>\The [initial(name)] is already lit!</span>")
-		return FALSE
-	
-	if(!I.cigarette_lighter_act())
-		return
-	
-	// Do not light cigars or pipes unless the lighting item is sufficiently cultured.
-	if(!I.can_light_cigars && (istype(I, /obj/item/clothing/mask/cigarette/pipe) || istype(/obj/item/clothing/mask/cigarette/cigar)))
-		user.visible_message(cigar_light_failure)
-		return
-	
-	// If you screw up lighting the cig, do not light the cig.
-	if(bad_outcome)
-		return
-	
-	if(user == target)
-		light(light_own_cig)
-	else
-		light(light_other_cig)
-	
 /*
 	if(istype(I, /obj/item/lighter/zippo))
 		var/obj/item/lighter/zippo/zip = I
@@ -248,19 +226,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return TRUE
 */
 
-/obj/item/clothing/mask/cigarette/proc/failed_to_light(obj/item/I, mob/living/user)
-	to_chat(user, "<span class='warning'>You need to turn on [I] before you can use it as a lighter!</span>")
-	return FALSE
-
-/obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/user, mob/living/carbon/M, params)
+/obj/item/clothing/mask/cigarette/attackby(mob/living/user, mob/living/carbon/target, obj/item/I, params)
 	// If the cig is being clicked directly, we treat it as the user's cig.
-	if(!ismob(M))
-		M = user
-	if(lighter_interaction(I, user, M) == TRUE)
-		user.update_inv_wear_mask()
-		user.update_inv_l_hand()
-		user.update_inv_r_hand()
-	..()
+	if(!ismob(target))
+		target = user
+	if(!light(user, target, I))
+		return ..()
+	user.update_inv_wear_mask()
+	user.update_inv_l_hand()
+	user.update_inv_r_hand()
 
 /obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity)
 	..()

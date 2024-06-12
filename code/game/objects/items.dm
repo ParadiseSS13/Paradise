@@ -961,32 +961,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /**
   * This proc is called by items that can act as a cigarette lighter.
   *
-  * Override this proc to add effects related to the cigarette lighting process.
-  * Arguments:
-  * * can_light_cigars - Set to TRUE if this item is allowed to light cigars.
-  * * bad_outcome - (optional) Use this to signal that a bad outcome has happened, it will block the cigarette from being lit. Directly call light() if you want to light the cig anyway (which the flamethrower does, for example).
+  * Override this proc with everything the item will do, call light() on the cigarette to actually light the cigarette.
   */
 /obj/item/proc/cigarette_lighter_act(mob/living/user, mob/living/carbon/target, obj/item/I)
 	return
-
-/**
-  * This proc is called by items that can act as a cigarette lighter.
-  *
-  * All the lighting related text is found here, along with the abilitty to light cigars.
-  * Arguments:
-  * * light_own_cig - The message used when a user lights their own cigarette. If left empty, will default to a generic message.
-  * * light_other_cig - The message used when a user lights someone else's cigarette. If left empty, will default to a generic message.
-  * * can_light_cigars - Set to TRUE if this item is allowed to light cigars.
-  * * cigar_light_failure - Text used if an item that is not allowed to light cigars is used on a cigar. It can be modified to make item-tailored messages, otherwise it will default to a generic message.
-  * * light_own_cig_bad_outcome - (optional) Text used if a bad outcome for a cigarette lighting affects the user (e.g accidentally shooting yourself with a Wand of Fireball).
-  * * light_other_cig_bad_outcome - (optional) Text used if a bad outcome for a cigarette lighting affects someone else.
-  */
-/obj/item/proc/get_cigarette_flavour_info(mob/living/user, mob/living/carbon/target, obj/item/I)
-	SHOULD_CALL_PARENT(TRUE)
-	var/light_own_cig = "<span class='notice'>[user] lights [I] with [src].</span>"
-	var/light_other_cig = "<span class='notice'>[user] lights [I] for [target] with [src].</span>"
- 	var/can_light_cigars = FALSE
-	var/cigar_light_failure = "<span class='warning'>[I] straight-up <b>REFUSES</b> to be lit by such uncivilized means!</span>"
-	var/light_own_cig_failure
-	var/light_other_cig_failure
-	return (light_own_cig, light_other_cig, can_light_cigars, cigar_light_failure, light_own_cig_failure, light_other_cig_failure)
