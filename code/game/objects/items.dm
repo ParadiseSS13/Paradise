@@ -187,7 +187,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/alert_admins_on_destroy()
 	SIGNAL_HANDLER
 	var/turf/turf_loc = get_turf(src)
-	var/location
 	if(turf_loc)
 		// guess it's actually just in nullspace. lol. lmao
 		message_admins("[src] has been destroyed in [get_area(turf_loc)] at [ADMIN_COORDJMP(turf_loc)].")
