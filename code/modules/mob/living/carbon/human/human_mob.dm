@@ -2047,7 +2047,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return zombie.claw_attack
 
 /**
- * Helper for tracking alpha
+ * Helper for tracking alpha, use this to set an alpha source
+ *
+ * alpha_num - num between 0 and 255 that represents the alpha from `source`
+ * source - a typepath or other key that is the alpha source. Maybe this should use UID someday
+ * update_alpha - boolean if alpha should be updated with this proc. Set this to false if you plan to animate the alpha after this call.
  */
 /mob/living/carbon/human/proc/set_alpha_tracking(alpha_num, source, update_alpha = TRUE)
 	alpha_num = round(alpha_num)
@@ -2058,6 +2062,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(update_alpha)
 		alpha = get_alpha()
 
+/**
+ * Gets the target alpha of the human
+ *
+ * optional_key - use this to get the alpha of an exact source
+ */
 /mob/living/carbon/human/proc/get_alpha(optional_key)
 	if(optional_key)
 		return alpha_sources[optional_key]
