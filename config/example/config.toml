@@ -175,7 +175,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 56
+sql_version = 57
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -655,6 +655,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_engi_sat.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/telecomns_returns.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/rocky_motel.dmm",
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",

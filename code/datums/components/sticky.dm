@@ -15,10 +15,12 @@
 
 /datum/component/sticky/Destroy(force, silent)
 	// we dont want the falling off visible message if this component is getting destroyed because parent is getting destroyed
-	if(!QDELETED(parent) && isitem(parent) && attached_to)
-		var/obj/item/I = parent
-		I.visible_message("<span class='notice'>[parent] falls off of [attached_to].</span>")
-	pick_up(parent)
+	if(attached_to)
+		if(!QDELETED(parent) && isitem(parent))
+			var/obj/item/I = parent
+			I.visible_message("<span class='notice'>[parent] falls off of [attached_to].</span>")
+		pick_up(parent)
+
 	move_to_the_thing(parent, get_turf(parent))
 	return ..()
 

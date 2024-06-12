@@ -7366,7 +7366,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "aKK" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -9535,7 +9535,7 @@
 /obj/item/book/manual/wiki/security_space_law{
 	pixel_y = 5
 	},
-/obj/item/cartridge/lawyer{
+/obj/item/cartridge/iaa{
 	pixel_y = 5
 	},
 /obj/structure/table/reinforced,
@@ -12124,9 +12124,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
-"aZL" = (
-/turf/simulated/wall/r_wall,
-/area/station/turret_protected/ai_upload/foyer)
 "aZM" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -12148,11 +12145,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
@@ -12162,7 +12154,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/turret_protected/ai_upload/foyer)
+/area/station/turret_protected/ai_upload)
 "aZP" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass,
@@ -12664,7 +12656,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/turret_protected/ai_upload/foyer)
+/area/station/turret_protected/ai_upload)
 "bbm" = (
 /obj/machinery/alarm/directional/north,
 /obj/item/kirbyplants/applebush,
@@ -13001,10 +12993,6 @@
 	},
 /area/station/maintenance/fsmaint)
 "bcl" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -13019,19 +13007,16 @@
 	req_access = list(75)
 	},
 /obj/effect/landmark/start/cyborg,
-/obj/machinery/power/apc/important/directional/south,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /obj/item/radio/intercom/private{
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = 26
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/turret_protected/ai_upload/foyer)
+/area/station/turret_protected/ai_upload)
 "bcn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -13056,19 +13041,18 @@
 	pixel_x = 29
 	},
 /obj/effect/landmark/start/cyborg,
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "custom placement";
-	pixel_x = 26;
-	pixel_y = 24
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/turret_protected/ai_upload/foyer)
+/area/station/turret_protected/ai_upload)
 "bcq" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /obj/effect/turf_decal/delivery,
@@ -14909,9 +14893,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "bgH" = (
-/obj/machinery/ai_status_display{
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -17545,7 +17526,7 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "bnB" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
@@ -19327,7 +19308,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "bsl" = (
 /obj/machinery/firealarm{
@@ -22398,7 +22379,7 @@
 	},
 /area/station/engineering/smes)
 "bAQ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
@@ -26528,7 +26509,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "bPB" = (
@@ -30469,7 +30450,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "cdw" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "cdB" = (
@@ -33900,7 +33881,7 @@
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
 "cqM" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "cqN" = (
@@ -37944,7 +37925,7 @@
 /turf/simulated/floor/plating,
 /area/station/medical/cryo)
 "cGy" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -48951,9 +48932,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/eftpos/register{
-	dir = 8
-	},
+/obj/item/eftpos/register,
+/obj/item/wrench,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -50709,6 +50689,8 @@
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/botanist,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "fWg" = (
@@ -52394,7 +52376,7 @@
 	},
 /area/station/engineering/atmos)
 "gIm" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -61284,9 +61266,7 @@
 	id_tag = "rdtoxins";
 	name = "Toxins Lab Shutters"
 	},
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
@@ -64010,9 +63990,7 @@
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/tox_storage,
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -68830,9 +68808,7 @@
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -73193,7 +73169,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82049,6 +82025,14 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
+"sWe" = (
+/obj/machinery/ai_status_display{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/central/north)
 "sWL" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -85625,9 +85609,7 @@
 	},
 /area/station/security/execution)
 "uEr" = (
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /obj/machinery/door/airlock/research,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -89714,9 +89696,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/tox,
-/obj/machinery/door/firedoor/heavy{
-	opacity = 0
-	},
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -118296,7 +118276,7 @@ sPp
 bbh
 bcM
 bel
-jmL
+bfR
 bhq
 bhq
 bkO
@@ -118806,8 +118786,8 @@ aUk
 aVx
 aOG
 aOG
-aZL
-aZL
+aOG
+aOG
 bdF
 bep
 ccP
@@ -119064,10 +119044,10 @@ uLQ
 aZx
 aOG
 bcl
-aZL
+aOG
 bgF
 xuG
-bfR
+sWe
 bht
 bje
 dKK
@@ -119578,7 +119558,7 @@ beA
 aWZ
 aOG
 bco
-aZL
+aOG
 bgH
 xuG
 jmL
@@ -119834,8 +119814,8 @@ mVR
 aVz
 aOG
 aOG
-aZL
-aZL
+aOG
+aOG
 bdU
 xuG
 jmL

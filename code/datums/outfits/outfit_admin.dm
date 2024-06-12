@@ -856,13 +856,13 @@
 
 /datum/outfit/admin/trader/sol
 	name = "Trans-Solar Federation Trader"
-	suit = /obj/item/clothing/suit/jacket/cargobomber
+	suit = /obj/item/clothing/suit/jacket/bomber/cargo
 	head = /obj/item/clothing/head/soft/cargo
 
 /datum/outfit/admin/trader/cyber
 	name = "Cybersun Industries Trader"
 	uniform = /obj/item/clothing/under/syndicate/tacticool
-	suit = /obj/item/clothing/suit/jacket/syndicatebomber
+	suit = /obj/item/clothing/suit/jacket/bomber/syndicate
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/combat
 	belt = /obj/item/melee/classic_baton/telescopic
@@ -915,7 +915,7 @@
 /datum/outfit/admin/trader/grey
 	name = "Technocracy Trader"
 	uniform = /obj/item/clothing/under/costume/psyjump
-	suit = /obj/item/clothing/suit/jacket/robobomber
+	suit = /obj/item/clothing/suit/jacket/bomber/robo
 	belt = /obj/item/melee/classic_baton/telescopic
 	back = /obj/item/storage/backpack/robotics
 

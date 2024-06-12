@@ -173,7 +173,7 @@
 /proc/difflist(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
 		return
-	var/list/result = new
+	var/list/result = list()
 	if(skiprep)
 		for(var/e in first)
 			if(!(e in result) && !(e in second))
@@ -191,7 +191,7 @@
 /proc/uniquemergelist(list/first, list/second, skiprep=0)
 	if(!islist(first) || !islist(second))
 		return
-	var/list/result = new
+	var/list/result = list()
 	if(skiprep)
 		result = difflist(first, second, skiprep)+difflist(second, first, skiprep)
 	else
@@ -297,7 +297,7 @@
 /proc/mergeKey(list/client/L, list/client/R, order = 1)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		var/client/rL = L[Li]
 		var/client/rR = R[Ri]
@@ -323,7 +323,7 @@
 	if(!L || !R) return 0
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		var/atom/rL = L[Li]
 		var/atom/rR = R[Ri]
@@ -352,7 +352,7 @@
 /proc/mergeRecordLists(list/datum/data/record/L, list/datum/data/record/R, field = "name", order = 1)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	if(!isnull(L) && !isnull(R))
 		while(Li <= length(L) && Ri <= length(R))
 			var/datum/data/record/rL = L[Li]
@@ -385,7 +385,7 @@
 /proc/mergeLists(list/L, list/R)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		if(sorttext(L[Li], R[Ri]) < 1)
 			result += R[Ri++]
@@ -407,7 +407,7 @@
 /proc/mergeKeyedLists(list/L, list/R, key)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		if(sorttext(L[Li][key], R[Ri][key]) < 1)
 			// Works around list += list2 merging lists; it's not pretty but it works
@@ -432,7 +432,7 @@
 /proc/mergeAssoc(list/L, list/R)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		if(sorttext(L[Li], R[Ri]) < 1)
 			result += R&R[Ri++]
@@ -519,7 +519,7 @@
 /proc/dd_mergeObjectList(list/L, list/R, list/cache)
 	var/Li=1
 	var/Ri=1
-	var/list/result = new()
+	var/list/result = list()
 	while(Li <= length(L) && Ri <= length(R))
 		var/LLi = L[Li]
 		var/RRi = R[Ri]
@@ -569,7 +569,7 @@
 	// This works by going to the half-point of the list, seeing if the node in question is higher or lower cost,
 	// then going halfway up or down the list and checking again.
 	// This is a very fast way to sort an item into a list.
-	var/list/sorted_text = new()
+	var/list/sorted_text = list()
 	var/low_index
 	var/high_index
 	var/insert_index

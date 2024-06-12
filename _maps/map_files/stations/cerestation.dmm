@@ -9721,7 +9721,7 @@
 /area/station/command/office/cmo)
 "bhm" = (
 /obj/structure/table,
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/item/radio/intercom{
 	pixel_x = -28;
 	name = "custom placement"
@@ -21509,7 +21509,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/tech_storage)
 "clm" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -36145,13 +36145,6 @@
 /turf/simulated/wall,
 /area/station/science/robotics)
 "equ" = (
-/obj/effect/spawner/grouped_spawner{
-	group_id = "tunnelbats";
-	max_per_spawner = 1;
-	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
-	total_amount = 20
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -42595,7 +42588,7 @@
 /area/station/medical/morgue)
 "gGj" = (
 /obj/structure/table,
-/obj/item/kitchen/knife,
+/obj/item/wrench,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
 "gGB" = (
@@ -50926,9 +50919,9 @@
 /area/station/service/library)
 "jlp" = (
 /obj/structure/table,
-/obj/item/eftpos/register,
 /obj/item/eftpos,
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -51704,7 +51697,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "jwo" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/airless/indestructible,
 /area/station/science/toxins/test)
@@ -64103,6 +64096,8 @@
 /obj/item/stack/packageWrap,
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/item/book/manual/hydroponics_pod_people,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/botanist,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -75104,7 +75099,9 @@
 	pixel_y = -24
 	},
 /obj/structure/table/reinforced,
-/obj/item/eftpos/register,
+/obj/item/eftpos/register{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -80702,7 +80699,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/south)
 "sCV" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -91338,7 +91335,7 @@
 	},
 /area/station/security/brig)
 "vRR" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -123792,7 +123789,7 @@ lzH
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 lzH
@@ -124329,7 +124326,7 @@ rNK
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 rNK
@@ -125033,7 +125030,7 @@ rNK
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 rNK
@@ -131525,7 +131522,7 @@ xbO
 xbO
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 rNK
@@ -135892,7 +135889,7 @@ rNK
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 knD
@@ -140740,7 +140737,7 @@ rNK
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 rNK
 rNK
@@ -141238,7 +141235,7 @@ lzH
 rNK
 rNK
 rNK
-dcv
+rNK
 rNK
 lzH
 euP
