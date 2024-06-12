@@ -12054,10 +12054,7 @@
 	},
 /obj/item/kirbyplants,
 /obj/machinery/light/directional/east,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = 24
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/carpet,
 /area/station/service/bar/atrium)
 "baU" = (

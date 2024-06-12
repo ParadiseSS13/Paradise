@@ -3983,9 +3983,7 @@
 /area/awaymission/BMPship/Buffer)
 "rk" = (
 /obj/machinery/sleeper/survival_pod,
-/obj/machinery/economy/vending/wallmed/survival_pod{
-	pixel_x = -25
-	},
+/obj/machinery/economy/vending/wallmed/syndicate/directional/west,
 /turf/simulated/floor/pod,
 /area/awaymission/BMPship/Shelter)
 "rm" = (
@@ -6782,10 +6780,7 @@
 "UA" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/cocoon,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 30
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "UF" = (
