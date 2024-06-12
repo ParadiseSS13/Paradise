@@ -486,7 +486,7 @@
 	if(!open) //Screwdriver panel
 		to_chat(user, "<span class='warning'>The maintenance panel is screwed in place.</span>")
 		return
-	if((bot_type != SEC_BOT) && (bot_type != GRIEF_BOT)) //Should only affect security bots and griefsky
+	if(bot_type != SEC_BOT && bot_type != GRIEF_BOT) //Should only affect security bots and griefsky
 		to_chat(user, "<span class='warning'>The internal components cannot be wrenched more securely.</span>")
 		return
 
@@ -510,7 +510,7 @@
 	if(!open) //Screwdriver panel
 		to_chat(user, "<span class='warning'>The maintenance panel is screwed in place.</span>")
 		return
-	if(((bot_type == SEC_BOT) || (bot_type == GRIEF_BOT)) && (wrenched == TRUE)) //Should only affect security bots and griefsky that have their components wrenched
+	if((bot_type == SEC_BOT || bot_type == GRIEF_BOT) && wrenched) //Should only affect security bots and griefsky that have their components wrenched
 		to_chat(user, "<span class='warning'>The internal components are wrenched in place.</span>")
 		return
 
