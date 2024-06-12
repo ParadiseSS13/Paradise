@@ -6156,6 +6156,10 @@
 	icon_state = "darkbrown"
 	},
 /area/station/supply/office)
+"aOn" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/south)
 "aOu" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -7392,6 +7396,7 @@
 	network = list("SS13","QM")
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/start/assistant,
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
@@ -10131,6 +10136,10 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
+"bjP" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/west)
 "bjT" = (
 /obj/structure/table/wood,
 /obj/item/camera_film,
@@ -28650,10 +28659,7 @@
 	},
 /area/station/public/quantum/cargo)
 "cXc" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/effect/landmark/start/assistant,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -34926,6 +34932,29 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/prison/cell_block/A)
+"dSH" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "purplecorner"
+	},
+/area/station/hallway/primary/aft/east)
 "dSI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -37611,7 +37640,7 @@
 /turf/simulated/floor/plating,
 /area/station/public/quantum/service)
 "eQt" = (
-/obj/item/kirbyplants/plant21,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -47846,21 +47875,6 @@
 /obj/item/pickaxe,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/west)
-"ipe" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluecorner"
-	},
-/area/station/hallway/primary/starboard/south)
 "ipr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -55352,6 +55366,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -61020,6 +61037,10 @@
 	slowdown = -0.3
 	},
 /area/station/hallway/spacebridge/comeng)
+"mnA" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/aft/east)
 "mnL" = (
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 4
@@ -72231,7 +72252,7 @@
 	},
 /area/station/service/chapel/office)
 "pSr" = (
-/obj/item/kirbyplants,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "pSE" = (
@@ -73486,6 +73507,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/east)
+"qkR" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/wood,
+/area/station/maintenance/starboard)
 "qkS" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -79552,6 +79577,13 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/gravitygenerator)
+"slZ" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/station/command/bridge)
 "smf" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -80649,6 +80681,13 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
+"sCQ" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkredcorners"
+	},
+/area/station/security/brig)
 "sCT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/sign/directions/engineering{
@@ -82727,6 +82766,7 @@
 	dir = 4;
 	color = "#954535"
 	},
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -91805,6 +91845,7 @@
 /area/station/maintenance/port2)
 "vZN" = (
 /obj/machinery/light,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "wac" = (
@@ -116212,7 +116253,7 @@ aom
 nFH
 sZS
 afd
-yfX
+sCQ
 bqV
 dpu
 mng
@@ -124827,10 +124868,10 @@ xFM
 ful
 wpc
 ful
-igd
+dSH
 ciG
-vni
-pQN
+gPL
+mnA
 pQN
 nta
 cGd
@@ -125088,7 +125129,7 @@ njR
 ciG
 gPL
 pQN
-tnj
+pQN
 clq
 cGd
 xPU
@@ -125345,7 +125386,7 @@ rMW
 ciG
 gPL
 pQN
-jRl
+tnj
 kmp
 cGd
 pAi
@@ -125602,7 +125643,7 @@ dUO
 ciG
 gPL
 pQN
-gtV
+jRl
 awZ
 cGd
 isf
@@ -125859,7 +125900,7 @@ aeG
 ciG
 gPL
 pQN
-fqM
+gtV
 vru
 cGd
 dzs
@@ -126116,7 +126157,7 @@ jkh
 ciG
 nWY
 pQN
-wsR
+fqM
 awZ
 cGd
 cGd
@@ -128612,7 +128653,7 @@ wWC
 aXR
 aZK
 aZK
-aZK
+bjP
 jjf
 oZE
 cIA
@@ -131136,7 +131177,7 @@ aVS
 aVS
 aVS
 aVS
-xLP
+slZ
 tkv
 fPE
 suI
@@ -144549,7 +144590,7 @@ rni
 vuM
 seO
 bxN
-ipe
+bxN
 tjS
 tHE
 bxN
@@ -144806,7 +144847,7 @@ rnv
 bmS
 bmS
 bmS
-vXn
+bmS
 oGF
 gOh
 oGF
@@ -145063,8 +145104,8 @@ rnW
 rNa
 blC
 bmT
-cKk
-cKk
+aOn
+vXn
 voS
 cKk
 jVQ
@@ -156141,7 +156182,7 @@ hPG
 itf
 itf
 itf
-jsE
+qkR
 jsE
 gvx
 pep
