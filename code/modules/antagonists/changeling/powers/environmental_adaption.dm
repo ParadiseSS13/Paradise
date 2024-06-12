@@ -17,7 +17,9 @@
 	var/chem_recharge_slowdown = 0
 
 /datum/action/changeling/environmental_adaptation/Destroy(force, ...)
-	cling.owner.current.set_alpha_tracking(ALPHA_VISIBLE, /datum/action/changeling/environmental_adaptation)
+	if(ishuman(cling.owner.current))
+		var/mob/living/carbon/human/H = cling.owner.current
+		H.set_alpha_tracking(ALPHA_VISIBLE, /datum/action/changeling/environmental_adaptation)
 	return ..()
 
 /datum/action/changeling/environmental_adaptation/sting_action(mob/living/carbon/human/cling) //SHOULD always be human, because req_human = TRUE
