@@ -457,6 +457,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
 		cost *= 3
 
+/datum/uplink_item/explosives/targrenade
+	name = "Sticky Tar Grenade"
+	desc = "A grenade filled with aerosols and sticky tar. \
+			Will release a plume of smoke that applies tar to a wide area, severely slowing down movement. Makes for the ultimate getaway!"
+	reference = "TARG"
+	item = /obj/item/grenade/chem_grenade/tar
+	cost = 7
+
 ////////////////////////////////////////
 // MARK: STEALTHY TOOLS
 ////////////////////////////////////////
@@ -638,6 +646,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "OREX"
 	item = /obj/item/organ_extractor
 	cost = 20
+
+/datum/uplink_item/device_tools/tar_spray
+	name = "Sticky Tar Applicator"
+	desc = "A spray bottle containing an extremely viscous fluid that will leave behind tar whenever it is sprayed, greatly slowing down anyone who tries to walk over it. \
+	Comes with 10 uses worth of fluid and cannot be refilled."
+	reference = "TAR"
+	item = /obj/item/reagent_containers/spray/sticky_tar
+	cost = 10
 
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"

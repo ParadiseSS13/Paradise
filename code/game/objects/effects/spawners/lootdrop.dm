@@ -168,6 +168,7 @@
 				/obj/item/clothing/suit/jacket/bomber/syndicate = 5,
 				/obj/item/clothing/suit/storage/iaa/blackjacket/armored = 2, // More armored than bomber and has pockets, so it is rarer
 				/obj/item/melee/knuckleduster/syndie = 2,
+				/obj/item/reagent_containers/spray/sticky_tar = 1,
 				"" = 61 // This should be a decently high number for chances where no loot will spawn
 				)
 
