@@ -103,7 +103,7 @@
 	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/accessory.ogg'
 	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/accessory.ogg'
 
-/obj/item/clothing/accessory/lawyers_badge
+/obj/item/clothing/accessory/legal_badge
 	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/accessory.ogg'
 	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/accessory.ogg'
 

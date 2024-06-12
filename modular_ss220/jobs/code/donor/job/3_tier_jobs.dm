@@ -34,7 +34,7 @@
 	pda = /obj/item/pda/librarian
 	id = /obj/item/card/id/administrator
 	backpack_contents = list(
-		/obj/item/clothing/under/rank/procedure/lawyer/black = 1,
+		/obj/item/clothing/under/rank/procedure/iaa/formal/black = 1,
 		/obj/item/clothing/under/misc/waiter = 1,
 		/obj/item/eftpos = 1,
 		/obj/item/clipboard = 1,
