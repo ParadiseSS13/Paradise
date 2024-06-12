@@ -359,6 +359,8 @@
 		trajectory.increment(trajectory_multiplier)
 		var/turf/T = trajectory.return_turf()
 		if(!istype(T))
+			// if we've gone off of the map, we need to step back once so that hitscanning projectiles have a valid end turf
+			trajectory.increment(-trajectory_multiplier)
 			qdel(src)
 			return
 		if(T.z != loc.z)
