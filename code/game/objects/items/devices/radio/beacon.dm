@@ -16,15 +16,15 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
 
-/obj/item/beacon/New()
-	..()
+/obj/item/beacon/Initialize()
+	. = ..()
 	GLOB.beacons |= src
 
 /obj/item/beacon/Destroy()
 	GLOB.beacons -= src
 	return ..()
 
-/obj/item/beacon/emag_act(user as mob)
+/obj/item/beacon/emag_act(user)
 	if(!emagged)
 		emagged = TRUE
 		syndicate = TRUE
@@ -36,7 +36,7 @@
 /obj/item/beacon/bacon
 
 /obj/item/beacon/bacon/proc/digest_delay()
-	QDEL_IN(src, 600)
+	QDEL_IN(src, 60 SECONDS)
 
 /obj/item/beacon/emagged
 	syndicate = TRUE
