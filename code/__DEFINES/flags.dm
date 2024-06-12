@@ -63,12 +63,10 @@
 
 #define OVERLAY_QUEUED_2		(1<<12)
 
-#define CHECK_RICOCHET_2		(1<<13)
-
 /// should the contents of this atom be acted upon
-#define RAD_PROTECT_CONTENTS_2	(1<<14)
+#define RAD_PROTECT_CONTENTS_2		(1<<14)
 /// should this object be allowed to be contaminated
-#define RAD_NO_CONTAMINATE_2	(1<<15)
+#define RAD_NO_CONTAMINATE_2		(1<<15)
 /// Prevents shuttles from deleting the item
 #define IMMUNE_TO_SHUTTLECRUSH_2 	(1<<16)
 /// Prevents malf AI animate + overload ability
@@ -79,6 +77,12 @@
 #define RANDOM_BLOCKER_2			(1<<19)
 /// This flag allows for wearing of a belt item, even if you're not wearing a jumpsuit
 #define ALLOW_BELT_NO_JUMPSUIT_2	(1<<20)
+
+// /atom ricochet flags
+/// If the thing can reflect light (lasers/energy)
+#define RICOCHET_SHINY	(1<<0)
+/// If the thing can reflect matter (bullets/bomb shrapnel)
+#define RICOCHET_HARD 	(1<<1)
 
 //Reagent flags
 #define REAGENT_NOREACT			1
@@ -136,9 +140,9 @@
 #define PASSGIRDER		(1<<8)
 
 //turf-only flags
-#define NOJAUNT		(1<<0)
-#define NO_LAVA_GEN	(1<<1) //Blocks lava rivers being generated on the turf
-#define NO_RUINS 	(1<<2)
+#define BLESSED_TILE	(1<<0)
+#define NO_LAVA_GEN	    (1<<1) //Blocks lava rivers being generated on the turf
+#define NO_RUINS     	(1<<2)
 
 //ITEM INVENTORY SLOT BITMASKS
 #define SLOT_FLAG_OCLOTHING	(1<<0)

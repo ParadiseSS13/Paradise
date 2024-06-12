@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	/// Can we send messages off-station?
 	var/long_range_enabled = FALSE
-	req_one_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
+	req_one_access = list(ACCESS_INTERNAL_AFFAIRS, ACCESS_HEADS, ACCESS_ARMORY)
 
 	idle_power_consumption = 30
 	active_power_consumption = 200

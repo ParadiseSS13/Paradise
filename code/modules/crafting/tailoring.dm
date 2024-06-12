@@ -167,6 +167,29 @@
 	reqs = list(/obj/item/clothing/glasses/hud/skills/goggles = 1)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/hudsunskills
+	name = "Skills HUD sunglasses"
+	result = list(/obj/item/clothing/glasses/hud/skills/sunglasses)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/skills = 1,
+				/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsunskills/New()
+	..()
+	blacklist = subtypesof(/obj/item/clothing/glasses/hud/skills) \
+		| typesof(/obj/item/clothing/glasses/sunglasses) - ALLOWED_INGREDIENT_SUNGLASSES
+
+/datum/crafting_recipe/hudsunskillsremoval
+	name = "Skills HUD removal"
+	result = list(/obj/item/clothing/glasses/sunglasses, /obj/item/clothing/glasses/hud/skills)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/skills/sunglasses = 1)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/hudsunsec
 	name = "Security HUDsunglasses"
 	result = list(/obj/item/clothing/glasses/hud/security/sunglasses)
