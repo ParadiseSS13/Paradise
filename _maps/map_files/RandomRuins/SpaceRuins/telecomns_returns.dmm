@@ -2803,10 +2803,7 @@
 	},
 /area/ruin/space/telecomns/chamber)
 "Pe" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/computer)
 "Pl" = (
