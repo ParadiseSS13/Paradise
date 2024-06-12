@@ -71947,7 +71947,6 @@
 	},
 /area/station/security/brig)
 "hNW" = (
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -86815,7 +86814,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/permasolitary)
 "qKQ" = (
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
