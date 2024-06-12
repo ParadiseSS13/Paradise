@@ -425,8 +425,7 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 		to_chat(user, "<span class='warning'>This creature does not have DNA!</span>")
 		return FALSE
 	if(get_dna(target.dna))
-		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
-		return FALSE
+		to_chat(user, "<span class='warning'>We already have this DNA in storage.</span>")
 	return TRUE
 
 /datum/antagonist/changeling/proc/on_death(mob/living/L, gibbed)
