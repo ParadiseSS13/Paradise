@@ -16708,7 +16708,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bax" = (
 /obj/structure/window/reinforced{
@@ -16782,7 +16782,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "baF" = (
 /turf/simulated/wall,
@@ -17596,10 +17596,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bcB" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -18164,7 +18161,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bea" = (
 /obj/machinery/hologram/holopad,
@@ -20896,7 +20893,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "blw" = (
 /obj/item/kirbyplants,
@@ -21047,7 +21044,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "blR" = (
 /obj/structure/sink/kitchen{
@@ -21290,14 +21287,14 @@
 	dir = 8
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bmq" = (
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bmr" = (
 /obj/structure/window/reinforced{
@@ -21308,7 +21305,7 @@
 	dir = 4
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bms" = (
 /obj/structure/window/reinforced{
@@ -21832,17 +21829,11 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bnP" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bnR" = (
 /obj/structure/window/reinforced,
@@ -21948,9 +21939,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bof" = (
 /obj/machinery/hydroponics/constructable,
@@ -22522,7 +22511,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bpo" = (
 /obj/structure/window/reinforced,
@@ -22530,7 +22519,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bpp" = (
 /obj/structure/cable/yellow{
@@ -22548,7 +22537,7 @@
 /area/station/engineering/control)
 "bpq" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bpr" = (
 /obj/structure/shuttle/engine/propulsion/burst{
@@ -22564,7 +22553,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bpu" = (
 /obj/structure/lattice,
@@ -23247,7 +23236,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "brq" = (
 /obj/structure/lattice,
@@ -23443,7 +23432,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "brU" = (
 /obj/machinery/navbeacon{
@@ -23491,10 +23480,7 @@
 "bsb" = (
 /obj/structure/chair,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bsc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -23931,7 +23917,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "btl" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -24071,7 +24057,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bty" = (
 /turf/simulated/floor/plasteel{
@@ -24716,7 +24702,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bvx" = (
 /obj/machinery/power/apc/directional/east,
@@ -25179,7 +25165,7 @@
 	dir = 8;
 	network = list("SS13","Minisat")
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bwN" = (
 /turf/simulated/wall/r_wall,
@@ -25652,7 +25638,7 @@
 	network = list("Minisat","SS13");
 	pixel_y = -22
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bxN" = (
 /obj/structure/table,
@@ -26946,7 +26932,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bBy" = (
 /turf/simulated/floor/plasteel,
@@ -30599,9 +30585,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bJP" = (
 /obj/structure/window/reinforced,
@@ -30615,14 +30599,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bJQ" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bJR" = (
 /obj/structure/table/reinforced,
@@ -30718,15 +30702,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/machinery/camera{
-	c_tag = "AI Minisatellite Foyer Access";
-	dir = 1;
-	network = list("SS13","Minisat")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bJY" = (
 /obj/structure/window/reinforced{
@@ -30742,7 +30718,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bJZ" = (
 /obj/structure/closet/emcloset,
@@ -33630,7 +33606,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bRs" = (
 /obj/structure/window/reinforced{
@@ -33661,7 +33637,7 @@
 	dir = 8;
 	network = list("SS13","Minisat")
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bRx" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -39611,7 +39587,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "chW" = (
 /obj/machinery/computer/message_monitor{
@@ -42227,7 +42203,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "cpd" = (
 /obj/structure/window/reinforced{
@@ -42240,7 +42216,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "cpe" = (
 /obj/structure/window/reinforced,
@@ -42253,7 +42229,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "cpf" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -43017,20 +42993,17 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "cqL" = (
 /obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "cqM" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "cqN" = (
 /obj/machinery/field/generator{
@@ -43483,7 +43456,7 @@
 	dir = 8
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "csl" = (
 /obj/structure/window/reinforced,
@@ -43491,7 +43464,7 @@
 	dir = 4
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "csm" = (
 /obj/machinery/light{
@@ -66762,22 +66735,6 @@
 /obj/effect/spawner/random_spawners/grille_often,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"eHx" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/aisat)
 "eHD" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
@@ -69739,7 +69696,7 @@
 /area/station/hallway/primary/fore/east)
 "gvb" = (
 /obj/machinery/ai_status_display,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/station/aisat)
 "gvr" = (
 /turf/simulated/floor/plasteel{
@@ -70265,6 +70222,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"gLg" = (
+/obj/structure/sign/poster/contraband/borg_fancy_2,
+/turf/simulated/wall,
+/area/station/aisat)
 "gLm" = (
 /obj/machinery/door/airlock/medical{
 	name = "Operating Theatre 2"
@@ -70386,7 +70347,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "gNB" = (
 /obj/structure/cable,
@@ -74126,10 +74087,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/morgue)
-"jfp" = (
-/obj/structure/sign/poster/contraband/borg_fancy_2,
-/turf/simulated/wall/r_wall,
-/area/station/aisat)
 "jfy" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -75060,7 +75017,7 @@
 /area/station/security/permabrig)
 "jLQ" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/station/aisat)
 "jMb" = (
 /obj/machinery/door/window{
@@ -77891,16 +77848,6 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/port)
-"lvH" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/aisat)
 "lvO" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -78781,7 +78728,7 @@
 	req_access_txt = "11,13";
 	door_name = "AI minisat access"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/station/aisat)
 "lYX" = (
 /obj/item/paper_bin{
@@ -80202,17 +80149,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/misc_lab)
-"mRz" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/aisat)
 "mSa" = (
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
@@ -83922,7 +83858,7 @@
 	},
 /area/station/maintenance/port)
 "oUR" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/station/aisat)
 "oVd" = (
 /obj/structure/cable{
@@ -85026,19 +84962,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
-"pDS" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/aisat)
 "pEn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -88025,20 +87948,6 @@
 /obj/structure/chair,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
-"rrB" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/station/aisat)
 "rrL" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -95268,9 +95177,7 @@
 	dir = 8;
 	network = list("SS13","Minisat")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "vvQ" = (
 /obj/structure/chair{
@@ -96641,6 +96548,17 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central/ne)
+"wjU" = (
+/obj/machinery/camera{
+	c_tag = "AI Minisatellite Foyer Access";
+	dir = 1;
+	network = list("SS13","Minisat")
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/transparent/glass,
+/area/station/aisat)
 "wjY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/atmos/glass{
@@ -96899,9 +96817,7 @@
 	network = list("Minisat","SS13");
 	pixel_y = -22
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "wqd" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -96991,6 +96907,19 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
+"wts" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/aisat)
 "wtE" = (
 /obj/machinery/cryopod/right,
 /obj/machinery/light{
@@ -106902,7 +106831,7 @@ bVJ
 ccx
 bNM
 bkt
-lvH
+bpo
 brr
 aaa
 aaa
@@ -107159,7 +107088,7 @@ bXI
 cgI
 bNM
 bkt
-lvH
+bpo
 dSz
 pVN
 bpm
@@ -107417,10 +107346,10 @@ chu
 bNM
 bku
 boe
-mRz
+brp
 vvO
-mRz
-mRz
+brp
+brp
 brp
 cpb
 brs
@@ -111015,10 +110944,10 @@ bXN
 bNM
 bku
 bJO
-pDS
+chS
 wpU
-pDS
-pDS
+chS
+chS
 chS
 cpe
 brs
@@ -111262,7 +111191,7 @@ bmo
 bmo
 bpm
 bmo
-oUR
+bmo
 bNM
 bRt
 bXI
@@ -111271,7 +111200,7 @@ bXI
 bXO
 bNM
 bkt
-eHx
+bJP
 orz
 oMO
 bpu
@@ -111519,7 +111448,7 @@ chS
 chS
 gNA
 bJX
-oUR
+wjU
 bNM
 bPN
 czz
@@ -112297,7 +112226,7 @@ gbo
 bTO
 bVW
 qdb
-rrB
+chS
 chS
 cpe
 brs
@@ -113320,7 +113249,7 @@ gtb
 oUR
 oUR
 lwd
-oUR
+gLg
 rCa
 sQW
 qHE
@@ -113577,11 +113506,11 @@ abj
 abj
 abj
 dVS
-jfp
+sYZ
 plz
 sQW
 plz
-oUR
+sYZ
 abj
 aaa
 aaa
@@ -113834,11 +113763,11 @@ aaa
 aaa
 aaa
 adh
-sYZ
+wts
 qbl
 bTU
 niC
-sYZ
+wts
 abj
 aaa
 aaa
