@@ -117,7 +117,7 @@
 /datum/map_template/shuttle/emergency/raven
 	suffix = "raven"
 	name = "NSV Raven"
-	description = "The NTSV Raven is a former high-risk salvage frigate, now repurposed into an emergency escape shuttle. \
+	description = "The NSV Raven is a former high-risk salvage frigate, now repurposed into an emergency escape shuttle. \
 	Once first to the scene to pick through warzones for valuable remains, it now serves as an excellent escape option for stations under heavy fire from outside forces. \
 	This escape shuttle boasts shields and numerous anti-personnel turrets guarding its perimeter to fend off meteors and enemy boarding attempts."
 	admin_notes = "Comes with turrets that will target simple mobs."
