@@ -126,7 +126,7 @@
 			victim.Weaken(2 * grinding_mulitipler SECONDS)
 			victim.KnockDown(4 * grinding_mulitipler SECONDS)
 	else
-		var/backdir = reverse_direction(dir)
+		var/backdir = REVERSE_DIR(dir)
 		step(src, backdir)
 		rider.spin(4, 1)
 
