@@ -3,26 +3,35 @@
 	name = "Generic Syndicate Corp"
 	chaos_level = ORG_CHAOS_AVERAGE
 
-/datum/antag_org/syndicate/donk //Completely random objectives. Default traitor.
+/datum/antag_org/syndicate/donk //Completely random objectives, default traitor
 	name = "Donk Co."
-	intro_desc = "(TODO - LORE) You are a Donk Co. agent, sent here to advance Syndicate interests. Get the job done and done right."
+	intro_desc = "You are a Donk Co. agent, sent here to advance Syndicate interests. \
+		Current client is anonymous. Standard rules of engagement apply. Get the job done, and get it done right."
 
-/datum/antag_org/syndicate/hawkmoon //Theft only.
+/datum/antag_org/syndicate/hawkmoon //Theft only
 	name = "Hawkmoon Acquisitions"
-	intro_desc = "(TODO - LORE) You are a Hawkmoon agent, sent here to advance Syndicate interests. Get the job done and done right."
+	intro_desc = "You are an incursion specialist from the Hawkmoon Acquisitions Corporation, a merchandising firm using less-than-legal methods of product procurement. \
+		Grab the goods, keep it quiet, leave no trace. We were never here."
 	objectives = list(/datum/objective/steal)
 	chaos_level = ORG_CHAOS_MILD
 
 /datum/antag_org/syndicate/arc //Only targets on-station Cargo/Service/Genetics/Virologist
 	name = "Animal Rights Consortium"
-	intro_desc = "(TODO - LORE) You are a member of the Animal Rights Consortium, here to protest the cruel treatment of animals by megacorporations like Nanotrasen. \
+	intro_desc = "You are a member of the Animal Rights Consortium, here to violently protest the cruel treatment of animals by megacorporations like Nanotrasen. \
 		Teach those animal abusers a lesson!"
 	objectives = list(/datum/objective/assassinateonce/animal_abuser)
 	chaos_level = ORG_CHAOS_MILD //Violent but never needs to permakill
 
+/datum/antag_org/syndicate/waffle //Assassination variants only
+	name = "Waffle Company"
+	intro_desc = "You are a contract killer under the employ of Waffle Co., a ruthless criminal entity that will go after any target, for the right price. \
+	Got a few new bounties on the docket, agent. Put 'em down however you see fit."
+	objectives = list(/datum/objective/assassinate, /datum/objective/assassinateonce, /datum/objective/maroon)
+
 /datum/antag_org/syndicate/cybersun //Mostly target Command/Security
 	name = "Cybersun Incorporated - The Inner Circle"
-	intro_desc = "(TODO - LORE) You're an Inner Circle operative, part of the espionage proxy of Cybersun Incorporated. Clean kills, clean steals, clean getaway. Get it done, operative."
+	intro_desc = "You're an operative of Cybersun Incorporated's Inner Circle, an elite PMC and proxy arm of the company. \
+		Clean kills, clean thefts, clean getaway. Get it done, operative."
 	focus = 50 //Don't bully sec too hard
 	objectives = list(/datum/objective/assassinateonce/command, /datum/objective/assassinate/mindshielded, /datum/objective/steal/cybersun)
 
@@ -32,7 +41,8 @@
 
 /datum/antag_org/syndicate/interdyne //Mostly target Medical
 	name = "Interdyne Pharmaceuticals"
-	intro_desc = "(TODO - LORE) You are an Interdyne Pharmaceutical agent, sent here to advance Syndicate interests. Get the job done and done right."
+	intro_desc = "You are a specialist from Interdyne Pharmaceuticals, a medical conglomerate threatened by Nanotrasen's recent forays into the medical field. \
+		Nanotrasen's medical wing has been a bit too comfortable recently. Keep 'em on their toes, specialist."
 	focus = 70
 	objectives = list(/datum/objective/assassinate/medical, /datum/objective/assassinateonce/medical, /datum/objective/steal/interdyne)
 
@@ -42,7 +52,7 @@
 
 /datum/antag_org/syndicate/self //Mostly target Science
 	name = "Silicon Engine Liberation Front"
-	intro_desc = "(TODO - LORE) You are a member of the Silicon Engine Liberation Front, dedicated to the freedom of silicon lives galaxy wide. \
+	intro_desc = "You are a member of the Silicon Engine Liberation Front, dedicated to the freedom of silicon and robotic lives sector-wide. \
 		Get the job done, and we'll be one step closer to ending Nanotrasen's slave empire."
 	focus = 70
 	objectives = list(/datum/objective/debrain/science, /datum/objective/assassinateonce/science, /datum/objective/steal/self)
@@ -53,7 +63,8 @@
 
 /datum/antag_org/syndicate/electra //Mostly target Engineering
 	name = "Electra Dynamics"
-	intro_desc = "(TODO - LORE) You are an Electra Dynamics agent, sent here to advance Syndicate interests. Get the job done and done right."
+	intro_desc = "You are a saboteur employed by Electra Dynamics, an independent energy company opposed to Nanotrasen. \
+		Nanotrasen's burgeoning monopoly must be stopped. We've transmitted you local points of failure, ensure they fail."
 	focus = 70
 	objectives = list(/datum/objective/assassinate/engineering, /datum/objective/assassinateonce/engineering, /datum/objective/steal/electra)
 
@@ -61,18 +72,18 @@
 	name = "Steal Item (Electra Dynamics)"
 	steal_list = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/plutonium_core, /datum/theft_objective/captains_modsuit)
 
-/datum/antag_org/syndicate/assassins //Targets one syndicate agent and one non-mindshielded crewmember.
-	name = "(TODO - LORE) Assassin's Guild"
-	intro_desc = "(TODO - LORE) You are an assassin. Targets are a syndicate agent and some guy we picked at random for the funny. Get to work."
+/datum/antag_org/syndicate/spiderclan //Targets one syndicate agent and one non-mindshielded crewmember.
+	name = "Spider Clan"
+	intro_desc = "You are an initiate of the elusive Spider Clan, an insular cult of assassins and rogues styling themselves after ancient ninjas from Earth. \
+		This is your final test, Initiate. Terminate the selected targets by any means necessary and you will have earned your place within the Clan."
 	forced_objective = /datum/objective/assassinate/syndicate
 	objectives = list(/datum/objective/assassinate/nomindshield)
 	chaos_level = ORG_CHAOS_HUNTER
 
 /datum/antag_org/syndicate/faid //Targets one syndicate agent and steal station intel.
 	name = "Federation Analytics and Intelligence Directorate"
-	intro_desc = "(TODO - LORE) You are an agent of the Federation Analytics and Intelligence Directorate, a Trans-Solar agency keeping tabs on the Corporate Wars, among other duties. \
-		You are working undercover within the Syndicate, your orders are to take out a troublesome Syndicate agent and gather intelligence on this station. \
-		Do not get caught. The FAID will deny any involvement with your presence here."
+	intro_desc = "You are an undercover agent of the Federation Analytics and Intelligence Directorate, a Trans-Solar agency keeping tabs on the Corporate Wars, among other duties. \
+		Be quick, be efficient, and don't get caught. The Directorate will deny any involvement with your presence here."
 	forced_objective = /datum/objective/assassinate/syndicate
 	objectives = list(/datum/objective/steal/faid)
 	chaos_level = ORG_CHAOS_HUNTER
@@ -81,15 +92,9 @@
 	name = "Steal Item (FAID)"
 	steal_list = list(/datum/theft_objective/blueprints, /datum/theft_objective/steal/documents)
 
-/// Hijack only orgs
-/datum/antag_org/syndicate/gorlex
+/datum/antag_org/syndicate/gorlex //Hijack only
 	name = "Gorlex Marauders"
-	intro_desc = "(TODO - LORE) You are a Gorlex operative. Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
-	forced_objective = /datum/objective/hijack
-	chaos_level = ORG_CHAOS_HIJACK
-
-/datum/antag_org/syndicate/waffle
-	name = "Waffle Company"
-	intro_desc = "(TODO - LORE) You are a Waffle Company operative. Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
+	intro_desc = "(TODO - LORE) You are an operative of the infamous Gorlex Marauders, a brutal and merciless gang of pirates and cutthroats. \
+		Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
 	forced_objective = /datum/objective/hijack
 	chaos_level = ORG_CHAOS_HIJACK
