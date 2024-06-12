@@ -12,6 +12,7 @@
 	integrity_failure = 0
 	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 70, ACID = 100)
 	glass = TRUE // Used by polarized helpers. Windoors are always glass.
+	superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = FALSE
@@ -159,13 +160,13 @@
 	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
 		return FALSE
 	else
-		return 1
+		return TRUE
 
-/obj/machinery/door/window/CanAtmosPass(turf/T)
-	if(get_dir(loc, T) == dir)
+/obj/machinery/door/window/CanAtmosPass(direction)
+	if(direction == dir)
 		return !density
 	else
-		return 1
+		return TRUE
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
 /obj/machinery/door/window/CanPathfindPass(obj/item/card/id/ID, to_dir, no_id = FALSE)
@@ -202,7 +203,7 @@
 
 	density = FALSE
 //	sd_set_opacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 
 	if(operating) //emag again
@@ -226,7 +227,7 @@
 	density = TRUE
 	if(polarized_on)
 		set_opacity(TRUE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	sleep(10)
 

@@ -46,60 +46,56 @@
 
 /obj/machinery/atmospherics/portable/scrubber/process_atmos()
 	..()
+	var/datum/milla_safe/portable_scrubber_process/milla = new()
+	milla.invoke_async(src)
 
-	if(!on)
+/datum/milla_safe/portable_scrubber_process
+
+/datum/milla_safe/portable_scrubber_process/on_run(obj/machinery/atmospherics/portable/scrubber/scrubber)
+	if(!scrubber.on)
 		return
-	scrub(loc)
-	if(widenet)
-		var/turf/T = loc
-		if(istype(T))
-			for(var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(alldir=1))
-				scrub(tile)
+	if(scrubber.holding_tank)
+		scrubber.scrub(scrubber.holding_tank.air_contents)
+		return
 
-/obj/machinery/atmospherics/portable/scrubber/proc/scrub(turf/simulated/tile)
-	var/datum/gas_mixture/environment
-	if(holding_tank)
-		environment = holding_tank.air_contents
-	else
-		environment = tile.return_air()
-	var/transfer_moles = min(1,volume_rate/environment.volume)*environment.total_moles()
+	var/turf/T = get_turf(scrubber)
+	scrubber.scrub(get_turf_air(T))
+	if(scrubber.widenet)
+		for(var/turf/simulated/tile in T.GetAtmosAdjacentTurfs(alldir=1))
+			scrubber.scrub(get_turf_air(tile))
+
+/obj/machinery/atmospherics/portable/scrubber/proc/scrub(datum/gas_mixture/environment)
+	var/transfer_moles = min(1, volume_rate / environment.volume) * environment.total_moles()
 
 	//Take a gas sample
 	var/datum/gas_mixture/removed
-	if(holding_tank)
-		removed = environment.remove(transfer_moles)
-	else
-		removed = loc.remove_air(transfer_moles)
+	removed = environment.remove(transfer_moles)
 
 	//Filter it
 	if(removed)
 		var/datum/gas_mixture/filtered_out = new
 
-		filtered_out.temperature = removed.temperature
+		filtered_out.set_temperature(removed.temperature())
 
 
-		filtered_out.toxins = removed.toxins
-		removed.toxins = 0
+		filtered_out.set_toxins(removed.toxins())
+		removed.set_toxins(0)
 
-		filtered_out.carbon_dioxide = removed.carbon_dioxide
-		removed.carbon_dioxide = 0
+		filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
+		removed.set_carbon_dioxide(0)
 
-		filtered_out.sleeping_agent = removed.sleeping_agent
-		removed.sleeping_agent = 0
+		filtered_out.set_sleeping_agent(removed.sleeping_agent())
+		removed.set_sleeping_agent(0)
 
-		filtered_out.agent_b = removed.agent_b
-		removed.agent_b = 0
+		filtered_out.set_agent_b(removed.agent_b())
+		removed.set_agent_b(0)
 
-	//Remix the resulting gases
+		//Remix the resulting gases
 		air_contents.merge(filtered_out)
 
-		if(holding_tank)
-			environment.merge(removed)
-		else
-			tile.assume_air(removed)
-			tile.air_update_turf()
+		environment.merge(removed)
 
-/obj/machinery/atmospherics/portable/scrubber/return_air()
+/obj/machinery/atmospherics/portable/scrubber/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 

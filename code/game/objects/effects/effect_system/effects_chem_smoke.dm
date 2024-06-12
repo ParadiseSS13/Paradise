@@ -141,6 +141,9 @@
 		if(iscarbon(A))
 			mobs_to_smoke += A
 
+	if(!length(mobs_to_smoke))
+		return
+
 	var/percentage_to_add = chemholder.reagents.total_volume / length(mobs_to_smoke)
 
 	for(var/mob/living/carbon/smoker as anything in mobs_to_smoke)

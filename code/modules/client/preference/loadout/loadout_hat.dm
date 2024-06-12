@@ -44,7 +44,7 @@
 	path = /obj/item/clothing/head/wizard/marisa/fake
 
 /datum/gear/hat/piratecaphat
-	display_name = "Pirate captian hat"
+	display_name = "Pirate captain hat"
 	path = /obj/item/clothing/head/pirate
 
 /datum/gear/hat/fez

@@ -38,12 +38,12 @@
 //This proc re-assigns all of engine beacons in the global list to a local list.
 /obj/item/enginepicker/proc/locatebeacons()
 	LAZYCLEARLIST(list_enginebeacons)
-	for(var/obj/item/radio/beacon/engine/B in GLOB.engine_beacon_list)
+	for(var/obj/item/beacon/engine/B in GLOB.engine_beacon_list)
 		if(B && !QDELETED(B))	//This ensures that the input pop-up won't have any qdeleted beacons
 			list_enginebeacons += B
 
 //Spawns and logs / announces the appropriate engine based on the choice made
-/obj/item/enginepicker/proc/processchoice(obj/item/radio/beacon/engine/choice, mob/living/carbon/user)
+/obj/item/enginepicker/proc/processchoice(obj/item/beacon/engine/choice, mob/living/carbon/user)
 	var/issuccessful = FALSE	//Check for a successful choice
 	var/engtype					//Engine type
 	var/G						//Generator that will be spawned
