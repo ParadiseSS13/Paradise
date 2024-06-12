@@ -2046,3 +2046,21 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return dna.species.unarmed
 	return zombie.claw_attack
 
+/**
+ * Helper for tracking alpha
+ */
+/mob/living/carbon/human/proc/set_alpha_tracking(alpha_num, source, update_alpha = TRUE)
+	alpha_num = round(alpha_num)
+	if(alpha_num >= ALPHA_VISIBLE)
+		LAZYREMOVE(alpha_sources, source)
+	else
+		LAZYSET(alpha_sources, source, max(alpha_num, 0))
+	if(update_alpha)
+		alpha = get_alpha()
+
+/mob/living/carbon/human/proc/get_alpha(optional_key)
+	if(optional_key)
+		return alpha_sources[optional_key]
+	. = ALPHA_VISIBLE
+	for(var/source in alpha_sources)
+		. = min(., alpha_sources[source])

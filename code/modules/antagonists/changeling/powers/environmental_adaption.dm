@@ -16,6 +16,10 @@
 	var/recharge_slowdown = 0.15
 	var/chem_recharge_slowdown = 0
 
+/datum/action/changeling/environmental_adaptation/Destroy(force, ...)
+	cling.owner.current.set_alpha_tracking(ALPHA_VISIBLE, /datum/action/changeling/environmental_adaptation)
+	return ..()
+
 /datum/action/changeling/environmental_adaptation/sting_action(mob/living/carbon/human/cling) //SHOULD always be human, because req_human = TRUE
 	..()
 	is_active = !is_active
@@ -26,14 +30,16 @@
 
 
 /datum/action/changeling/environmental_adaptation/proc/enable_ability(mob/living/carbon/human/cling) //Enable the adaptation
-	animate(cling, alpha = 65, time = 3 SECONDS)
+	cling.set_alpha_tracking(65, /datum/action/changeling/environmental_adaptation, update_alpha = FALSE)
+	animate(cling, alpha = cling.get_alpha(), time = 3 SECONDS)
 	cling.visible_message("<span class='warning'>[cling]'s skin suddenly starts becoming translucent!</span>", \
 					"<span class='notice'>We adapt our pigmentation to suit the environment around us.</span>")
 	var/datum/antagonist/changeling/changeling_data = cling.mind?.has_antag_datum(/datum/antagonist/changeling)
 	changeling_data?.chem_recharge_slowdown -= recharge_slowdown //Slows down chem regeneration
 
 /datum/action/changeling/environmental_adaptation/proc/disable_ability(mob/living/carbon/human/cling) //Restore the adaptation
-	animate(cling, alpha = 255, time = 3 SECONDS)
+	cling.set_alpha_tracking(ALPHA_VISIBLE, /datum/action/changeling/environmental_adaptation, update_alpha = FALSE)
+	animate(cling, alpha = cling.get_alpha(), time = 3 SECONDS)
 	cling.visible_message(
 		"<span class='warning'>[cling] appears from thin air!</span>",
 		"<span class='notice'>We stop concentration on our pigmentation, allowing it to return to normal.</span>",

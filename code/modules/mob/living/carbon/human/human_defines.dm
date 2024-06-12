@@ -103,3 +103,5 @@
 	var/list/bodyparts = list()
 	/// map organ names to organs
 	var/list/bodyparts_by_name = list()
+
+	var/list/alpha_sources

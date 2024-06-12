@@ -56,7 +56,7 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return
-	
+
 	if((!is_mining_level(user.z) && !iswizard(user) && !istype(get_area(user), /area/ruin/space/bubblegum_arena))) //Will only spawn a few sparks if not on mining z level, unless a wizard uses it.
 		timer = world.time + cooldown_time
 		user.visible_message("<span class='danger'>[user]'s hierophant club malfunctions!</span>")
@@ -242,6 +242,9 @@
 	var/turf/turf_to_teleport_to = get_step(target, get_dir(source, M)) //get position relative to caster
 	if(!turf_to_teleport_to || is_blocked_turf(turf_to_teleport_to, TRUE))
 		return
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.set_alpha_tracking(0, /obj/item/hierophant_club, update_alpha = FALSE)
 	animate(M, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	sleep(1)
 	if(!M)
@@ -254,7 +257,12 @@
 	sleep(1)
 	if(!M)
 		return
-	animate(M, alpha = 255, time = 2, easing = EASE_IN) //fade IN
+	var/our_alpha = 255
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.set_alpha_tracking(ALPHA_VISIBLE, /obj/item/hierophant_club, update_alpha = FALSE)
+		our_alpha = H.get_alpha()
+	animate(M, alpha = our_alpha, time = 2, easing = EASE_IN) //fade IN
 	sleep(1)
 	if(!M)
 		return
