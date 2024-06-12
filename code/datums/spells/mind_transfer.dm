@@ -84,4 +84,3 @@ Also, you never added distance checking after target is selected. I've went ahea
 		for(var/mob/living/L in range(3, new_or_formal_wizard))
 			L.SetSilence(15 SECONDS)
 
-
