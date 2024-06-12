@@ -70682,10 +70682,6 @@
 	icon_state = "darkgreen"
 	},
 /area/station/medical/virology)
-"gYL" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/aisat)
 "haj" = (
 /obj/structure/railing{
 	dir = 1
@@ -92879,11 +92875,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/item/beacon,
 /obj/structure/cable{
 	d1 = 4;
@@ -112027,7 +112018,7 @@ jfy
 nmp
 bTN
 bVV
-gYL
+oUR
 bmo
 bnM
 bJP
