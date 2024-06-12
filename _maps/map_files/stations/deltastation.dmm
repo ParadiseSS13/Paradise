@@ -37049,7 +37049,7 @@
 	pixel_x = -30
 	},
 /obj/item/clipboard,
-/obj/item/toy/figure/crew/lawyer,
+/obj/item/toy/figure/crew/iaa,
 /turf/simulated/floor/wood,
 /area/station/legal/lawoffice)
 "caH" = (
@@ -46436,6 +46436,18 @@
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
+	},
+/area/station/supply/expedition)
+"czW" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/machinery/requests_console{
+	department = "Expedition";
+	pixel_x = -30;
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "browncorner"
 	},
 /area/station/supply/expedition)
 "czY" = (
@@ -89449,18 +89461,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/robotics/showroom)
-"sjl" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/obj/machinery/requests_console{
-	department = "Expedition";
-	pixel_x = -30;
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "browncorner"
-	},
-/area/station/supply/expedition)
 "sjA" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
@@ -141324,7 +141324,7 @@ cxe
 cvK
 cyw
 cyr
-sjl
+czW
 cBw
 cCV
 cyv

@@ -9535,7 +9535,7 @@
 /obj/item/book/manual/wiki/security_space_law{
 	pixel_y = 5
 	},
-/obj/item/cartridge/lawyer{
+/obj/item/cartridge/iaa{
 	pixel_y = 5
 	},
 /obj/structure/table/reinforced,

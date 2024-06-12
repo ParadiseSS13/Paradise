@@ -5485,7 +5485,7 @@
 /area/tdome/arena_source)
 "st" = (
 /obj/structure/table/wood,
-/obj/item/clothing/accessory/lawyers_badge{
+/obj/item/clothing/accessory/legal_badge{
 	desc = "A badge of upmost glory.";
 	name = "thunderdome badge"
 	},
