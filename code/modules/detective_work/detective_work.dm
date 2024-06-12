@@ -3,7 +3,7 @@
 /atom/proc/add_fibers(mob/living/carbon/human/M)
 	if(M.gloves && isclothing(M.gloves))
 		var/obj/item/clothing/gloves/G = M.gloves
-		if(isitem(src) && G.blood_DNA)
+		if(easy_to_spill_blood && G.blood_DNA)
 			add_blood(G.blood_DNA, G.blood_color)
 		else if(G.transfer_blood > 1 && add_blood(G.blood_DNA, G.blood_color))
 			G.transfer_blood--
@@ -15,7 +15,7 @@
 			M.update_inv_gloves()
 
 	else
-		if(isitem(src) && M.blood_DNA)
+		if(easy_to_spill_blood && M.blood_DNA)
 			add_blood(M.blood_DNA, M.hand_blood_color)
 		else if(M.bloody_hands > 1 && add_blood(M.blood_DNA, M.hand_blood_color))
 			M.bloody_hands--

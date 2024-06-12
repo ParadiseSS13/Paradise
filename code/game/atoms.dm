@@ -15,6 +15,7 @@
 
 	var/list/blood_DNA
 	var/blood_color
+	var/easy_to_spill_blood = FALSE
 	var/pass_flags = 0
 	/// The higher the germ level, the more germ on the atom.
 	var/germ_level = GERM_LEVEL_AMBIENT
