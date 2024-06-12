@@ -18778,7 +18778,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "bgI" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/camera{
 	c_tag = "Arrivals South"
 	},
@@ -19794,7 +19794,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bji" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bjj" = (
@@ -58085,7 +58085,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "glt" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/stripes,
 /obj/machinery/camera{
 	c_tag = "Research Toxins Test Chamber Center";
@@ -71097,7 +71097,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hop)
 "mFb" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -80328,6 +80328,16 @@
 /obj/machinery/smartfridge/id,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
+"qWx" = (
+/obj/structure/chair/stool,
+/obj/effect/landmark/start/botanist,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/botanist,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "green"
+	},
+/area/station/service/hydroponics)
 "qWF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -86306,7 +86316,7 @@
 	},
 /area/station/medical/medbay)
 "tWz" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -88427,7 +88437,7 @@
 /area/station/science/lobby)
 "vfn" = (
 /obj/structure/table,
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
@@ -136563,7 +136573,7 @@ bow
 bow
 byM
 bru
-bxL
+qWx
 fiB
 bAr
 boi

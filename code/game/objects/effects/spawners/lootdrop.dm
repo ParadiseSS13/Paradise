@@ -165,7 +165,7 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				/obj/item/clothing/suit/jacket/syndicatebomber = 5,
+				/obj/item/clothing/suit/jacket/bomber/syndicate = 5,
 				/obj/item/clothing/suit/storage/iaa/blackjacket/armored = 2, // More armored than bomber and has pockets, so it is rarer
 				/obj/item/melee/knuckleduster/syndie = 2,
 				/obj/item/reagent_containers/spray/sticky_tar = 1,
@@ -450,7 +450,7 @@
 	name = "11. cybersun industries small gear"
 	loot = list(
 				/obj/item/storage/box/syndidonkpockets = 50,
-				/obj/item/clothing/suit/jacket/syndicatebomber = 50,
+				/obj/item/clothing/suit/jacket/bomber/syndicate = 50,
 				/obj/item/storage/box/syndie_kit/space = 50,
 				/obj/item/clothing/glasses/meson/sunglasses = 50,
 				/obj/item/storage/pill_bottle/zoom = 50,

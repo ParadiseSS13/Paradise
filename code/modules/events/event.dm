@@ -91,6 +91,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/start()
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /**
@@ -101,6 +102,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/announce(false_alarm = FALSE)
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /**
@@ -112,6 +114,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/tick()
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /**
@@ -125,6 +128,7 @@
   * Ensure no sleep is called. Use INVOKE_ASYNC to call procs which do.
   */
 /datum/event/proc/end()
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /**

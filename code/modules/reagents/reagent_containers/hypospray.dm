@@ -36,9 +36,10 @@
 		return
 
 	var/mob/living/carbon/human/H = M
-	if(HAS_TRAIT(H.wear_suit, TRAIT_HYPOSPRAY_IMMUNE) && !ignore_hypospray_immunity)	// This check is here entirely to stop goobers injecting nukies with meme chems
-		to_chat(user, "<span class='warning'>[src] is unable to penetrate the armour of [M] or interface with any injection ports.</span>")
-		return
+	if(H.wear_suit)
+		if(HAS_TRAIT(H.wear_suit, TRAIT_HYPOSPRAY_IMMUNE) && !ignore_hypospray_immunity)	// This check is here entirely to stop goobers injecting nukies with meme chems
+			to_chat(user, "<span class='warning'>[src] is unable to penetrate the armour of [M] or interface with any injection ports.</span>")
+			return
 
 	if(reagents.total_volume && (can_pierce_hardsuits || M.can_inject(user, TRUE))) // can_pierce_hardsuits should be checked first or there will be an error message.
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
@@ -120,7 +121,7 @@
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. It has a proprietary adapter allowing it to inject through the ports of Syndicate-made hardsuits."
 	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = null
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30)
 	icon_state = "combat_hypo"
 	volume = 90
 	can_pierce_hardsuits = TRUE // So they can heal their comrades.
@@ -128,10 +129,16 @@
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
-	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing. It can interface with the injection ports on any type of hardsuit."
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with a cocktail of experimental combat drugs and <b>extremely</b> expensive medical nanomachines. Capable of healing almost any injury in just a few seconds. It can interface with the injection ports on any type of hardsuit."
 	icon_state = "nanites_hypo"
 	volume = 100
 	list_reagents = list("nanites" = 100)
+
+/obj/item/reagent_containers/hypospray/combat/syndicate_nanites
+	name = "medical nanite injector"
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanomachines for rapid field stabilization."
+	volume = 100
+	list_reagents = list("syndicate_nanites" = 100)
 
 //////////////////////////////
 // MARK: CMO HYPO

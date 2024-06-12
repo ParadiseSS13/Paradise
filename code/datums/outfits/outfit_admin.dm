@@ -221,7 +221,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Representative"), "Nanotrasen Diplomat")
-	// Will show as ? on sec huds, as this is not a recognized rank.
+	H.sec_hud_set_ID()
 
 /datum/outfit/admin/nt_undercover
 	name = "NT Undercover Operative"
@@ -856,13 +856,13 @@
 
 /datum/outfit/admin/trader/sol
 	name = "Trans-Solar Federation Trader"
-	suit = /obj/item/clothing/suit/jacket/cargobomber
+	suit = /obj/item/clothing/suit/jacket/bomber/cargo
 	head = /obj/item/clothing/head/soft/cargo
 
 /datum/outfit/admin/trader/cyber
 	name = "Cybersun Industries Trader"
 	uniform = /obj/item/clothing/under/syndicate/tacticool
-	suit = /obj/item/clothing/suit/jacket/syndicatebomber
+	suit = /obj/item/clothing/suit/jacket/bomber/syndicate
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/combat
 	belt = /obj/item/melee/classic_baton/telescopic
@@ -915,7 +915,7 @@
 /datum/outfit/admin/trader/grey
 	name = "Technocracy Trader"
 	uniform = /obj/item/clothing/under/costume/psyjump
-	suit = /obj/item/clothing/suit/jacket/robobomber
+	suit = /obj/item/clothing/suit/jacket/bomber/robo
 	belt = /obj/item/melee/classic_baton/telescopic
 	back = /obj/item/storage/backpack/robotics
 

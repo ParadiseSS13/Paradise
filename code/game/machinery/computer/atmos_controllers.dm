@@ -223,7 +223,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			// Cache here to avoid a ton of list lookups
 			var/obj/machinery/atmospherics/air_sensor/AS = AM
 			var/list/sensor_data = sensor_name_data_map[sensor_name]
-			var/datum/gas_mixture/air_sample = AS.return_air()
+			var/turf/T = get_turf(AS)
+			var/datum/gas_mixture/air_sample = T.get_readonly_air()
 
 			// We remove it from the list incase sensor reporting is ever disabled
 			// We only want to show the information available
@@ -233,7 +234,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				sensor_data -= "pressure"
 
 			if(AS.output & SENSOR_TEMPERATURE)
-				sensor_data["temperature"] = air_sample.return_temperature()
+				sensor_data["temperature"] = air_sample.temperature()
 			else
 				sensor_data -= "temperature"
 
@@ -241,27 +242,27 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 			if(total_moles > 0)
 				if(AS.output & SENSOR_O2)
-					sensor_data["o2"] = round(100 * air_sample.oxygen / total_moles, 0.1)
+					sensor_data["o2"] = round(100 * air_sample.oxygen() / total_moles, 0.1)
 				else
 					sensor_data -= "o2"
 
 				if(AS.output & SENSOR_PLASMA)
-					sensor_data["plasma"] = round(100 * air_sample.toxins / total_moles, 0.1)
+					sensor_data["plasma"] = round(100 * air_sample.toxins() / total_moles, 0.1)
 				else
 					sensor_data -= "plasma"
 
 				if(AS.output & SENSOR_N2)
-					sensor_data["n2"] = round(100 * air_sample.nitrogen / total_moles, 0.1)
+					sensor_data["n2"] = round(100 * air_sample.nitrogen() / total_moles, 0.1)
 				else
 					sensor_data -= "n2"
 
 				if(AS.output & SENSOR_CO2)
-					sensor_data["co2"] = round(100 * air_sample.carbon_dioxide / total_moles, 0.1)
+					sensor_data["co2"] = round(100 * air_sample.carbon_dioxide() / total_moles, 0.1)
 				else
 					sensor_data -= "co2"
 
 				if(AS.output & SENSOR_N2O)
-					sensor_data["n2o"] = round(100 * air_sample.sleeping_agent / total_moles, 0.1)
+					sensor_data["n2o"] = round(100 * air_sample.sleeping_agent() / total_moles, 0.1)
 				else
 					sensor_data -= "n2o"
 
@@ -269,10 +270,10 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			var/list/meter_data = sensor_name_data_map[sensor_name]
 			var/obj/machinery/atmospherics/meter/the_meter = AM
 			if(the_meter.target)
-				var/datum/gas_mixture/meter_env = the_meter.target.return_air()
+				var/datum/gas_mixture/meter_env = the_meter.target.return_obj_air()
 				if(meter_env)
 					meter_data["pressure"] = meter_env.return_pressure()
-					meter_data["temperature"] = meter_env.return_temperature()
+					meter_data["temperature"] = meter_env.temperature()
 
 
 /obj/machinery/computer/general_air_control/process()

@@ -682,7 +682,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Power Sink"
 	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
 	reference = "PS"
-	item = /obj/item/radio/beacon/syndicate/power_sink
+	item = /obj/item/beacon/syndicate/power_sink
 	cost = 50
 
 /datum/uplink_item/device_tools/singularity_beacon
@@ -692,7 +692,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			in containment. Because of its size, it cannot be carried. Ordering this \
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
-	item = /obj/item/radio/beacon/syndicate
+	item = /obj/item/beacon/syndicate
 	cost = 10
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
@@ -948,7 +948,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Bomber Jacket"
 	desc = "An awesome jacket to help you style on Nanotrasen with. The lining is made of a thin polymer to provide a small amount of armor. Does not provide any extra storage space."
 	reference = "JCKT"
-	item = /obj/item/clothing/suit/jacket/syndicatebomber
+	item = /obj/item/clothing/suit/jacket/bomber/syndicate
 	cost = 3
 
 /datum/uplink_item/badass/tpsuit
