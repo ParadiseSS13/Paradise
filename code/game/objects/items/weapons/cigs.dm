@@ -121,8 +121,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	
 	// If you screw up lighting the cig, do not light the cig.
-	if(I.bad_lighter_outcome)
+	if(bad_outcome)
 		return
+	
+	if(user == target)
+		light(light_own_cig)
+	else
+		light(light_other_cig)
+	
 /*
 	if(istype(I, /obj/item/lighter/zippo))
 		var/obj/item/lighter/zippo/zip = I
