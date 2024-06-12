@@ -137,7 +137,7 @@
 	if(!direction) // cable direction = 0, which means its a node
 		return TRUE
 	var/turf/potential_cable_turf = get_step(origin_turf, direction)
-	var/reversed_direction = reverse_direction(direction)
+	var/reversed_direction = REVERSE_DIR(direction)
 	for(var/obj/structure/cable/other_cable in potential_cable_turf.contents)
 		if(reversed_direction == other_cable.d1 || reversed_direction == other_cable.d2)
 			return TRUE

@@ -275,13 +275,15 @@
 			if(!P.can_order())
 				to_chat(user, "<span class='warning'>That cannot be ordered right now. Please try again later.</span>")
 				return
-
+			if(P.are_you_sure_you_want_to_be_banned)
+				var/we_warned_you = tgui_alert(user, "[P.are_you_sure_you_want_to_be_banned]", "ARE YOU SURE?", list("Yes", "No"))
+				if(!we_warned_you || we_warned_you == "No")
+					return
 			if(!P.singleton && params["multiple"])
 				var/num_input = tgui_input_number(user, "Amount", "How many crates?", max_value = MULTIPLE_CRATE_MAX, min_value = 1)
 				if(isnull(num_input) || (!is_public && !is_authorized(user)) || ..()) // Make sure they dont walk away
 					return
 				amount = clamp(round(num_input), 1, MULTIPLE_CRATE_MAX)
-
 			var/reason = tgui_input_text(user, "Reason", "Why do you require this item?", encode = FALSE, timeout = 60 SECONDS)
 			if(!reason || (!is_public && !is_authorized(user)) || ..())
 				return

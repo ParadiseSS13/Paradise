@@ -63,7 +63,7 @@
 		user.drop_item()
 		qdel(src)
 
-/obj/item/beacon/syndicate/bundle/
+/obj/item/beacon/syndicate/bundle
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to select a bundle</i>."
 	var/list/static/bundles = list(
@@ -79,7 +79,10 @@
 		"Sniper" = /obj/item/storage/box/syndie_kit/bundle/professional,
 		"Grenadier" = /obj/item/storage/box/syndie_kit/bundle/grenadier,
 		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid,
-		"Ocelot" = /obj/item/storage/box/syndie_kit/bundle/ocelot)
+		"Ocelot" = /obj/item/storage/box/syndie_kit/bundle/ocelot,
+		"Nuclear Wannabe" = /obj/item/storage/box/syndie_kit/bundle/operative,
+		"Big Spender" = /obj/item/storage/box/syndie_kit/bundle/rich,
+		"Maintenance Collector" = /obj/item/storage/box/syndie_kit/bundle/maint_loot)
 	var/list/selected = list()
 	var/list/unselected = list()
 

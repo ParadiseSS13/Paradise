@@ -219,6 +219,8 @@
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = FALSE
 	var/prescription_upgradable = FALSE
+	/// Overrides colorblindness when interacting with wires
+	var/correct_wires = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
@@ -364,6 +366,7 @@
 /obj/item/clothing/head
 	name = "head"
 	icon = 'icons/obj/clothing/hats.dmi'
+	icon_override = 'icons/mob/clothing/head.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_FLAG_HEAD
 	var/HUDType = null

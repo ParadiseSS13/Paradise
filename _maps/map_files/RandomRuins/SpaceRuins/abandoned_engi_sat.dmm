@@ -13,6 +13,10 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/abandoned_engi_sat)
+"aR" = (
+/mob/living/simple_animal/hostile/carp/megacarp,
+/turf/template_noop,
+/area/template_noop)
 "bi" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -239,6 +243,7 @@
 /area/ruin/space/abandoned_engi_sat)
 "hB" = (
 /obj/structure/table,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/carpet/airless,
 /area/ruin/space/abandoned_engi_sat)
 "hE" = (
@@ -567,7 +572,6 @@
 "pX" = (
 /obj/structure/closet{
 	icon_state = "eng_secure";
-	opened = 1;
 	open_door_sprite = "eng_secure_door";
 	name = "engineer's locker"
 	},
@@ -577,6 +581,10 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
+"rn" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 "rr" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -1079,6 +1087,11 @@
 	name = "floor"
 	},
 /area/ruin/space/abandoned_engi_sat)
+"Ig" = (
+/obj/structure/table,
+/obj/item/salvage/ruin/nanotrasen,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_engi_sat)
 "Iz" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
@@ -1096,7 +1109,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "0-2";
-	pixel_y = 1;
 	d2 = 2
 	},
 /obj/machinery/computer/nonfunctional,
@@ -1203,6 +1215,10 @@
 	dir = 9;
 	icon_state = "blue"
 	},
+/area/ruin/space/abandoned_engi_sat)
+"OW" = (
+/mob/living/simple_animal/hostile/asteroid/hivelord,
+/turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "OZ" = (
 /obj/structure/lattice/catwalk,
@@ -1410,6 +1426,11 @@
 /obj/structure/bed,
 /turf/simulated/floor/carpet/airless,
 /area/ruin/space/abandoned_engi_sat)
+"Xq" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/asteroid/hivelord,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
 "XP" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -1550,13 +1571,13 @@ LP
 "}
 (2,1,1) = {"
 LP
+rn
 LP
 LP
 LP
 LP
 LP
-LP
-LP
+rn
 LP
 LP
 LP
@@ -1586,9 +1607,9 @@ LP
 LP
 LP
 LP
+rn
 LP
-LP
-LP
+rn
 LP
 LP
 LP
@@ -1780,7 +1801,7 @@ Iz
 hE
 LP
 LP
-LP
+aR
 LP
 LP
 LP
@@ -1974,7 +1995,7 @@ kt
 eP
 fA
 XP
-et
+OW
 et
 Yz
 CP
@@ -2040,7 +2061,7 @@ kZ
 Tw
 YE
 jG
-XP
+Xq
 XP
 Ud
 fA
@@ -2308,7 +2329,7 @@ oL
 mW
 NM
 mW
-BR
+Ig
 IC
 IC
 ao
@@ -2357,11 +2378,11 @@ LP
 Gi
 LP
 LP
+rn
 LP
 LP
 LP
-LP
-LP
+rn
 LP
 "}
 (26,1,1) = {"
@@ -2427,7 +2448,7 @@ px
 LP
 LP
 LP
-LP
+rn
 LP
 LP
 LP
@@ -2486,7 +2507,7 @@ uQ
 qu
 LP
 LP
-LP
+rn
 LP
 LP
 LP
@@ -2523,7 +2544,7 @@ LP
 LP
 LP
 LP
-LP
+rn
 LP
 LP
 LP
