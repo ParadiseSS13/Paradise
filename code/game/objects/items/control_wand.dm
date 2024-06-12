@@ -236,10 +236,10 @@
 	busy = TRUE
 	var/mob/living/carbon/human/H = user
 	if(H.mind.assigned_role == "Janitor" && last_airlock_uid == D.UID())
-		to_chat(user, "<span class='notice'>You recognise the [D] and look for the key you used...</span>")
+		to_chat(user, "<span class='notice'>You recognize [D] and look for the key you used...</span>")
 		hack_speed = 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D]...</span>")
+		to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open [D]...</span>")
 		if(H.mind.assigned_role != "Janitor")
 			hack_speed = rand(30, 60) SECONDS
 		else
