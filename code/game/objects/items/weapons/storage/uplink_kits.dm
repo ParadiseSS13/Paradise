@@ -288,7 +288,7 @@
 		/obj/item/deck/cards/syndicate, // 2 TC
 		/obj/item/storage/secure/briefcase/syndie, // 5 TC
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 7 TC
-		/obj/item/clothing/suit/jacket/syndicatebomber, // 3 TC
+		/obj/item/clothing/suit/jacket/bomber/syndicate, // 3 TC
 		/obj/item/melee/knuckleduster/syndie, // 10 TC
 	)
 

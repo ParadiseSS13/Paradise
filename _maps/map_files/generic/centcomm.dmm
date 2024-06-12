@@ -3597,7 +3597,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/suit/blacktrenchcoat,
-/obj/item/clothing/suit/jacket{
+/obj/item/clothing/suit/jacket/bomber{
 	pixel_x = 3;
 	pixel_y = -3
 	},
