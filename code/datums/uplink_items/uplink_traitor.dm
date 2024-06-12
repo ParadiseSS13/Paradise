@@ -406,7 +406,6 @@
 	species = list("Drask")
 	surplus = 0
 
-
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
 // -------------------------------------
