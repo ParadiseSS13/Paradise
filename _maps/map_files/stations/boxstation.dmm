@@ -40199,20 +40199,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
-"cDl" = (
-/obj/machinery/atmospherics/binary/volume_pump/on{
-	dir = 8;
-	name = "Air To Distro"
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/directional/north{
-	shock_proof = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/distribution)
 "cDm" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
@@ -53204,6 +53190,22 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/gravitygenerator)
+"ear" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/power/apc/important/directional/west,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "eay" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -56357,22 +56359,6 @@
 /obj/item/seeds/amanita,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
-"ftL" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	dir = 6
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/machinery/power/apc/important/directional/west,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "ftM" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -56857,6 +56843,18 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
+"fEi" = (
+/obj/machinery/atmospherics/binary/volume_pump/on{
+	dir = 8;
+	name = "Air To Distro"
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/important/directional/north,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/distribution)
 "fEv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -58710,6 +58708,15 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/smes)
+"gAo" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/machinery/power/apc/important/directional/west,
+/turf/space,
+/area/space/nearstation)
 "gAt" = (
 /obj/structure/chair{
 	dir = 8
@@ -127638,7 +127645,7 @@ dbK
 dct
 ddm
 dtv
-ftL
+ear
 deG
 dgr
 dgM
@@ -129936,7 +129943,7 @@ ssc
 cOj
 czq
 cOT
-cDl
+fEi
 cOJ
 cPE
 cPW
@@ -130974,7 +130981,7 @@ cQp
 oej
 cZh
 cNE
-dba
+gAo
 djE
 dcS
 djE
