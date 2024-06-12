@@ -589,7 +589,6 @@ Difficulty: Hard
 	maxHealth = 1
 	alpha = 127.5
 	crusher_loot = null
-	loot = null
 	medal_type = null
 	score_type = null
 	deathmessage = "Explodes into a pool of blood!"
