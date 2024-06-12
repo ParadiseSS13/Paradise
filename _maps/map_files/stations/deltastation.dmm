@@ -92873,11 +92873,6 @@
 	},
 /area/station/command/office/cmo)
 "tZH" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/item/radio/beacon,
-/obj/item/radio/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -92888,9 +92883,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
 	},
 /obj/item/beacon,
 /obj/structure/cable{
@@ -92903,10 +92895,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
-	},
-/obj/item/beacon,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
@@ -95265,7 +95253,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = ssssssss;
+	c_tag = "AI Minisatellite SouthWest";
 	dir = 8;
 	network = list("SS13","Minisat")
 	},
