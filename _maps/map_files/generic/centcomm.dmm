@@ -4463,7 +4463,7 @@
 	},
 /area/centcom/control)
 "oP" = (
-/obj/machinery/teleport/station,
+/obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -13681,7 +13681,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Wx" = (
-/obj/machinery/teleport/station,
+/obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Wy" = (
