@@ -18,10 +18,13 @@
 	var/reinf = FALSE
 	var/heat_resistance = 800
 	var/decon_speed = null
+	/// If set to TRUE, the window is a full-tile window, otherwise it is a directional window.
 	var/fulltile = FALSE
 	var/shardtype = /obj/item/shard
 	var/glass_decal = /obj/effect/decal/cleanable/glass
+	/// The material that drops when the window is dismantled.
 	var/glass_type = /obj/item/stack/sheet/glass
+	/// How much material drops when the window is dismantled.
 	var/glass_amount = 1
 	var/mutable_appearance/crack_overlay
 	var/real_explosion_block	//ignore this, just use explosion_block
