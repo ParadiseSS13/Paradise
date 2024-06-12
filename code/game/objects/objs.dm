@@ -115,7 +115,7 @@
 			air = environment
 		if(isnull(air))
 			return
-		
+
 		var/breath_percentage = BREATH_VOLUME / air.return_volume()
 		return air.remove(air.total_moles() * breath_percentage)
 	else
@@ -302,6 +302,12 @@
 		C.Weaken(3 SECONDS)
 	else
 		C.KnockDown(3 SECONDS)
+
+/obj/handle_ricochet(obj/item/projectile/P)
+	. = ..()
+	if(. && receive_ricochet_damage_coeff)
+		// pass along receive_ricochet_damage_coeff damage to the structure for the ricochet
+		take_damage(P.damage * receive_ricochet_damage_coeff, P.damage_type, P.flag, 0, REVERSE_DIR(P.dir), P.armour_penetration_flat, P.armour_penetration_percentage)
 
 /obj/proc/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
