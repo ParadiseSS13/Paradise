@@ -875,6 +875,7 @@
 		/obj/item/reagent_containers/spray/cleaner/drone,
 		/obj/item/soap,
 		/obj/item/t_scanner,
+		/obj/item/painter,
 		/obj/item/rpd,
 		/obj/item/analyzer,
 		/obj/item/stack/sheet/metal/cyborg/drone,
