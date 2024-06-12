@@ -479,7 +479,7 @@
 	. = TRUE //Must be true or we attempt to stab the bot | Sets standard return value for this code block
 
 	if(user.a_intent != INTENT_HELP)
-		return..()
+		return ..()
 	if(locked) //ID-Lock
 		to_chat(user, "<span class='warning'>The interface is locked.</span>")
 		return
@@ -517,7 +517,6 @@
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 	disassemble()
-	return
 
 /mob/living/simple_animal/bot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
