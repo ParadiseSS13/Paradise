@@ -48932,9 +48932,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/eftpos/register{
-	dir = 8
-	},
+/obj/item/eftpos/register,
+/obj/item/wrench,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

@@ -42588,7 +42588,7 @@
 /area/station/medical/morgue)
 "gGj" = (
 /obj/structure/table,
-/obj/item/kitchen/knife,
+/obj/item/wrench,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/service/kitchen)
 "gGB" = (
@@ -50919,9 +50919,9 @@
 /area/station/service/library)
 "jlp" = (
 /obj/structure/table,
-/obj/item/eftpos/register,
 /obj/item/eftpos,
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -75099,7 +75099,9 @@
 	pixel_y = -24
 	},
 /obj/structure/table/reinforced,
-/obj/item/eftpos/register,
+/obj/item/eftpos/register{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
