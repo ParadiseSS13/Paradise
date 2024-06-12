@@ -110,3 +110,4 @@
 
 //Ghost roles
 #define ACCESS_FREE_GOLEMS 300
+#define ACCESS_THETA_STATION 301

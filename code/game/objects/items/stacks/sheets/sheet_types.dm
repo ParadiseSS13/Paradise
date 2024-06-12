@@ -159,6 +159,9 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 /obj/item/stack/sheet/metal/cyborg/drone
 	energy_type = /datum/robot_storage/energy/metal
 
+/obj/item/stack/sheet/metal/ten
+	amount = 10
+
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
 
