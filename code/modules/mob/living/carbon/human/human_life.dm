@@ -668,28 +668,26 @@
 
 #undef BODYPART_PAIN_REDUCTION
 
-/mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
+/mob/living/carbon/human/proc/handle_nutrition_alerts()
+	if(!nutrition_display)
 		return
-	var/new_hunger
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
+		nutrition_display.icon_state = null
+		return
+	nutrition_display.icon = dna.species.hunger_icon
 	switch(nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
-			new_hunger = "fat"
+			nutrition_display.icon_state = "fat"
 		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-			new_hunger = "full"
+			nutrition_display.icon_state = "full"
 		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			new_hunger = "well_fed"
+			nutrition_display.icon_state = "well_fed"
 		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			new_hunger = "fed"
+			nutrition_display.icon_state = "fed"
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			new_hunger = "hungry"
+			nutrition_display.icon_state = "hungry"
 		else
-			new_hunger = "starving"
-	if(dna.species.hunger_type)
-		new_hunger += "/[dna.species.hunger_type]"
-	if(dna.species.hunger_level != new_hunger)
-		dna.species.hunger_level = new_hunger
-		throw_alert("nutrition", "/atom/movable/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
+			nutrition_display.icon_state = "starving"
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high

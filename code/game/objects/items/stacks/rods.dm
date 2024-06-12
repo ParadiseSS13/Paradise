@@ -39,12 +39,9 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/rods
 
-
-
 /obj/item/stack/rods/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Using rods on a floor plating will install a reinforced floor. You can make reinforced glass by combining rods and normal glass sheets.</span>"
-
 
 /obj/item/stack/rods/cyborg
 	energy_type = /datum/robot_storage/energy/rods
@@ -76,9 +73,11 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	if(get_amount() < 2)
 		to_chat(user, "<span class='warning'>You need at least two rods to do this!</span>")
 		return
+
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+
 	var/obj/item/stack/sheet/metal/new_item = new(drop_location())
 	if(new_item.get_amount() <= 0)
 		// stack was moved into another one on the pile
