@@ -24,7 +24,7 @@
 	new /obj/item/gun/energy/kinetic_accelerator/pistol(src)
 	new /obj/item/storage/firstaid/regular(src)
 	new /obj/item/clothing/accessory/holster(src)
-	new /obj/item/radio/beacon(src)
+	new /obj/item/beacon(src)
 	new /obj/item/storage/box/relay_kit(src)
 	new /obj/item/gps(src)
 	new /obj/item/storage/bag/ore(src)

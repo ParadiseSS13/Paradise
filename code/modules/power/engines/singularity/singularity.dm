@@ -291,24 +291,20 @@
 
 
 /obj/singularity/proc/eat()
-	for(var/tile in spiral_range_turfs(grav_pull, src))
-		var/turf/T = tile
-		if(!T || !isturf(loc))
+	for(var/turf/tile as anything in RANGE_TURFS(grav_pull, src))
+		if(!tile || !isturf(loc))
 			continue
-		if(get_dist(T, src) > consume_range)
-			T.singularity_pull(src, current_size)
+		if(get_dist(tile, src) > consume_range)
+			tile.singularity_pull(src, current_size)
 		else
-			consume(T)
-		for(var/thing in T)
-			if(isturf(loc) && thing != src)
+			consume(tile)
+		for(var/thing in tile)
+			if(thing != src)
 				var/atom/movable/X = thing
 				if(get_dist(X, src) > consume_range)
 					X.singularity_pull(src, current_size)
 				else
 					consume(X)
-			if(TICK_CHECK)
-				return // You've eaten enough. Prevents weirdness like the singulo eating the containment on stage 2
-
 
 /obj/singularity/proc/consume(atom/A)
 	var/gain = A.singularity_act(current_size)

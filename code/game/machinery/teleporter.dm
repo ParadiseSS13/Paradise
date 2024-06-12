@@ -208,7 +208,7 @@
 	var/list/L = list()
 	var/list/areaindex = list()
 
-	for(var/obj/item/radio/beacon/R in GLOB.beacons)
+	for(var/obj/item/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
@@ -289,8 +289,8 @@
 	area_bypass = FALSE
 	var/turf/T = get_turf(target)
 	for(var/item in T.contents)
-		if(istype(item, /obj/item/radio/beacon))
-			var/obj/item/radio/beacon/B = item
+		if(istype(item, /obj/item/beacon))
+			var/obj/item/beacon/B = item
 			if(B.area_bypass)
 				area_bypass = TRUE
 			cc_beacon = B.cc_beacon

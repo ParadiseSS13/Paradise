@@ -549,7 +549,7 @@
 
 /obj/item/storage/box/syndie_kit/prescan/populate_contents()
 	new /obj/item/bio_chip_implanter/grey_autocloner(src)
-	new /obj/item/radio/beacon/syndicate/bomb/grey_autocloner(src)
+	new /obj/item/beacon/syndicate/bomb/grey_autocloner(src)
 
 /obj/item/storage/box/syndie_kit/pen_bomb
 	name = "\improper Pen bomb"

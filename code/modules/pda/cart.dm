@@ -91,7 +91,7 @@
 		new /datum/data/pda/app/janitor
 	)
 
-/obj/item/cartridge/lawyer
+/obj/item/cartridge/iaa
 	name = "P.R.O.V.E. Cartridge"
 	desc = "A data cartridge for portable microcomputers. Has security records."
 	icon_state = "cart-s"
