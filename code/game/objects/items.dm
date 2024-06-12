@@ -16,10 +16,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-	/// Dimension X of the lefthand_file and righthand_file vars
+	/// Dimension X of the lefthand_file and righthand_file var
 	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_x_dimension = 32
-	/// Dimension Y of the lefthand_file and righthand_file vars
+	/// Dimension Y of the lefthand_file and righthand_file var
 	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_y_dimension = 32
 
