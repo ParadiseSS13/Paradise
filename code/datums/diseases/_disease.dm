@@ -143,19 +143,20 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(spread_flags & AIRBORNE)
 		spread_range++
 
-	var/turf/T = affected_mob.loc
-	if(istype(T))
+	var/turf/target = affected_mob.loc
+	if(istype(target))
 		for(var/mob/living/carbon/C in oview(spread_range, affected_mob))
-			var/turf/V = get_turf(C)
-			if(V)
+			var/turf/current = get_turf(C)
+			if(current)
 				while(TRUE)
-					if(V == T)
+					if(current == target)
 						C.ContractDisease(src)
 						break
-					var/turf/Temp = get_step_towards(V, T)
-					if(!V.CanAtmosPass(Temp))
+					var/direction = get_dir(current, target)
+					var/turf/next = get_step(current, direction)
+					if(!current.CanAtmosPass(direction) || !next.CanAtmosPass(turn(direction, 180)))
 						break
-					V = Temp
+					current = next
 
 
 /datum/disease/proc/cure()

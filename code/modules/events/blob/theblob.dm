@@ -31,21 +31,23 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	setDir(pick(GLOB.cardinal))
 	check_integrity()
 	if(atmosblock)
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 	ConsumeTile()
 
 /obj/structure/blob/Destroy()
 	if(atmosblock)
 		atmosblock = FALSE
-		air_update_turf(1)
+		recalculate_atmos_connectivity()
 	GLOB.blobs -= src
 	overmind = null // let us not have gc issues
 	if(isturf(loc)) //Necessary because Expand() is screwed up and spawns a blob and then deletes it
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()
 
-/obj/structure/blob/BlockSuperconductivity()
-	return atmosblock
+/obj/structure/blob/get_superconductivity(direction)
+	if(atmosblock)
+		return FALSE
+	return ..()
 
 /obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
@@ -54,7 +56,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		return 1
 	return 0
 
-/obj/structure/blob/CanAtmosPass(turf/T)
+/obj/structure/blob/CanAtmosPass(direction)
 	return !atmosblock
 
 /obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)

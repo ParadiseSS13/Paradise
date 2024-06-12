@@ -61,6 +61,10 @@
 	if(flags & (NOBLUDGEON))
 		return FALSE
 
+	if((is_surgery_tool_by_behavior(src) || is_organ(src) || tool_behaviour) && user.a_intent == INTENT_HELP && on_operable_surface(M) && M != user)
+		to_chat(user, "<span class='info'>You don't want to harm the person you're trying to help!</span>")
+		return
+
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return

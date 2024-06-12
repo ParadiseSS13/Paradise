@@ -21,7 +21,7 @@
  */
 /datum/reagents
 	/// All contained reagents. More specifically, references to the reagent datums.
-	var/list/datum/reagent/reagent_list = new/list()
+	var/list/datum/reagent/reagent_list = list()
 	/// The total volume of all reagents in this holder.
 	var/total_volume = 0
 	/// This is the maximum volume of the holder.
@@ -31,8 +31,8 @@
 	var/chem_temp = T20C
 	var/temperature_min = 0
 	var/temperature_max = 10000
-	var/list/datum/reagent/addiction_list = new/list()
-	var/list/addiction_threshold_accumulated = new/list()
+	var/list/datum/reagent/addiction_list = list()
+	var/list/addiction_threshold_accumulated = list()
 	var/flags
 
 /datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
@@ -463,7 +463,7 @@
 				var/total_matching_catalysts = 0
 				var/matching_container = FALSE
 				var/matching_other = FALSE
-				var/list/multipliers = new/list()
+				var/list/multipliers = list()
 				var/min_temp = C.min_temp			//Minimum temperature required for the reaction to occur (heat to/above this)
 				var/max_temp = C.max_temp			//Maximum temperature allowed for the reaction to occur (cool to/below this)
 				for(var/B in C.required_reagents)
@@ -819,7 +819,7 @@
 		if(R.id == id)
 			return R
 
-	return 
+	return
 
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = FALSE, safety = TRUE) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount))

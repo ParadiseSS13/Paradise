@@ -51,7 +51,7 @@
 	..()
 
 	save_spawn_values()
-	LAZYADDASSOC(spawner_groups, group_id, src)
+	LAZYADDASSOCLIST(spawner_groups, group_id, src)
 
 	return INITIALIZE_HINT_LATELOAD
 
