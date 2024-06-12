@@ -15,6 +15,7 @@
 
 	var/list/blood_DNA
 	var/blood_color
+	/// Wont gloves/hands spend blood spill points to make this bloody
 	var/easy_to_spill_blood = FALSE
 	var/pass_flags = 0
 	/// The higher the germ level, the more germ on the atom.
