@@ -149,14 +149,16 @@
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
-	planetary_atmos = TRUE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/lava/mapping_lava
 
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
-	planetary_atmos = TRUE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	color = COLOR_FLOOR_HARD_ROCK
 	baseturf = /turf/simulated/floor/lava/lava_land_surface
 
@@ -445,7 +447,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	temperature = 180
 	slowdown = 2
 	environment_type = "snow"
-	planetary_atmos = TRUE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_COLD
 	digResult = /obj/item/stack/sheet/mineral/snow
 
 /turf/simulated/floor/plating/asteroid/snow/burn_tile()
@@ -464,12 +467,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	temperature = TCMB
 	oxygen = 0
 	nitrogen = 0
-
-/turf/simulated/floor/plating/asteroid/snow/temperature
-	temperature = 255.37
+	atmos_mode = ATMOS_MODE_SEALED
 
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
-	oxygen = 22
-	nitrogen = 82
-	temperature = 180
-	planetary_atmos = FALSE
+	atmos_mode = ATMOS_MODE_SEALED
