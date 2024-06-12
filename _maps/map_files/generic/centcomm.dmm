@@ -1332,9 +1332,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 32;
+/obj/machinery/economy/vending/wallmed/directional/north{
 	power_state = 0
 	},
 /obj/item/clipboard,
@@ -3127,13 +3125,13 @@
 /area/syndicate_mothership)
 "kR" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 8
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 4
 	},
-/obj/item/radio/beacon/syndicate/bomb,
+/obj/item/beacon/syndicate/bomb,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kS" = (
@@ -3597,7 +3595,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/suit/blacktrenchcoat,
-/obj/item/clothing/suit/jacket{
+/obj/item/clothing/suit/jacket/bomber{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -4463,7 +4461,7 @@
 	},
 /area/centcom/control)
 "oP" = (
-/obj/machinery/teleport/station,
+/obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -5485,7 +5483,7 @@
 /area/tdome/arena_source)
 "st" = (
 /obj/structure/table/wood,
-/obj/item/clothing/accessory/lawyers_badge{
+/obj/item/clothing/accessory/legal_badge{
 	desc = "A badge of upmost glory.";
 	name = "thunderdome badge"
 	},
@@ -5723,10 +5721,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tt" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 30
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tv" = (
@@ -5735,9 +5730,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tw" = (
-/obj/machinery/economy/vending/wallmed/syndicate{
-	pixel_x = -30
-	},
+/obj/machinery/economy/vending/wallmed/syndicate/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tx" = (
@@ -6034,10 +6027,10 @@
 /area/shuttle/syndicate)
 "ur" = (
 /obj/structure/table,
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 5
 	},
-/obj/item/radio/beacon/syndicate/bomb,
+/obj/item/beacon/syndicate/bomb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "us" = (
@@ -13681,7 +13674,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Wx" = (
-/obj/machinery/teleport/station,
+/obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Wy" = (

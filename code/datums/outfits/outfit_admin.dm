@@ -276,7 +276,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/rank/centcom/deathsquad
 	shoes = /obj/item/clothing/shoes/magboots/elite
-	glasses = /obj/item/clothing/glasses/thermal
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	r_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
@@ -285,12 +285,21 @@
 	suit_store = /obj/item/gun/energy/pulse
 
 	backpack_contents = list(
-		/obj/item/storage/box/flashbangs,
+		/obj/item/storage/box/smoke_grenades,
+		/obj/item/ammo_box/a357,
+		/obj/item/ammo_box/a357,
 		/obj/item/ammo_box/a357,
 		/obj/item/flashlight/seclite,
-		/obj/item/grenade/plastic/c4/x4,
+		/obj/item/grenade/barrier,
 		/obj/item/melee/energy/sword/saber,
-		/obj/item/shield/energy,
+		/obj/item/shield/energy
+	)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/eyes/cybernetic/thermals/hardened,
+		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
+		/obj/item/organ/internal/cyberimp/chest/reviver/hardened
 	)
 
 	bio_chips = list(
@@ -860,13 +869,13 @@
 
 /datum/outfit/admin/trader/sol
 	name = "Trans-Solar Federation Trader"
-	suit = /obj/item/clothing/suit/jacket/cargobomber
+	suit = /obj/item/clothing/suit/jacket/bomber/cargo
 	head = /obj/item/clothing/head/soft/cargo
 
 /datum/outfit/admin/trader/cyber
 	name = "Cybersun Industries Trader"
 	uniform = /obj/item/clothing/under/syndicate/tacticool
-	suit = /obj/item/clothing/suit/jacket/syndicatebomber
+	suit = /obj/item/clothing/suit/jacket/bomber/syndicate
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/combat
 	belt = /obj/item/melee/classic_baton/telescopic
@@ -919,7 +928,7 @@
 /datum/outfit/admin/trader/grey
 	name = "Technocracy Trader"
 	uniform = /obj/item/clothing/under/costume/psyjump
-	suit = /obj/item/clothing/suit/jacket/robobomber
+	suit = /obj/item/clothing/suit/jacket/bomber/robo
 	belt = /obj/item/melee/classic_baton/telescopic
 	back = /obj/item/storage/backpack/robotics
 
