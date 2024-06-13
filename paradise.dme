@@ -973,6 +973,7 @@
 #include "code\game\objects\effects\decals\Cleanable\humans.dm"
 #include "code\game\objects\effects\decals\Cleanable\misc_cleanables.dm"
 #include "code\game\objects\effects\decals\Cleanable\robots.dm"
+#include "code\game\objects\effects\decals\Cleanable\tar.dm"
 #include "code\game\objects\effects\decals\Cleanable\tracks.dm"
 #include "code\game\objects\effects\decals\turfdecals\dirt.dm"
 #include "code\game\objects\effects\decals\turfdecals\markings.dm"

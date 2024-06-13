@@ -79,7 +79,7 @@
 
 		/obj/item/bio_chip_implanter/death_alarm = 1,
 		/obj/item/lighter/zippo/engraved = 1,
-		/obj/item/clothing/under/rank/procedure/lawyer/black = 1,
+		/obj/item/clothing/under/rank/procedure/iaa/formal/black = 1,
 		/obj/item/clothing/mask/cigarette/cigar/havana = 6,
 	)
 

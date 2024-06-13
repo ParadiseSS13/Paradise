@@ -386,7 +386,7 @@
 	name = "Actor"
 	jobtype = /datum/job/donor/actor
 
-	uniform = /obj/item/clothing/under/rank/procedure/lawyer/red
+	uniform = /obj/item/clothing/under/rank/procedure/iaa/formal/red
 	shoes = /obj/item/clothing/shoes/laceup
 	head = /obj/item/clothing/head/bowlerhat
 	gloves = /obj/item/clothing/gloves/color/white
@@ -404,7 +404,7 @@
 /datum/outfit/job/donor/actor/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/rank/procedure/lawyer/red/skirt
+		uniform = /obj/item/clothing/under/rank/procedure/iaa/formal/red/skirt
 
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)

@@ -1146,7 +1146,7 @@
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-explorer"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-			if(JOB_LAWYER)
+			if(JOB_INTERNAL_AFFAIRS)
 				clothes_s = new /icon('icons/mob/clothing/under/procedure.dmi', "iaa_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/inhands/items_righthand.dmi', "briefcase"), ICON_UNDERLAY)

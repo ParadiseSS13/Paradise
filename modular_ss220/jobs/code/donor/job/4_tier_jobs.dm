@@ -9,7 +9,7 @@
 	relate_job = "Internal Affairs Agent"
 	supervisors = "главой персонала и капитаном"
 	department_head = list("Head of Personnel", "Captain")
-	access = list(ACCESS_LIBRARY, ACCESS_HEADS, ACCESS_EVA, ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
+	access = list(ACCESS_LIBRARY, ACCESS_HEADS, ACCESS_EVA, ACCESS_INTERNAL_AFFAIRS, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	selection_color = "#717097"
 	hidden_from_job_prefs = FALSE
 	donator_tier = 4
@@ -32,9 +32,9 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	gloves = /obj/item/clothing/gloves/color/white
 	l_pocket = /obj/item/laser_pointer
-	r_pocket = /obj/item/clothing/accessory/lawyers_badge
+	r_pocket = /obj/item/clothing/accessory/legal_badge
 	l_hand = /obj/item/storage/briefcase
-	pda = /obj/item/pda/lawyer
+	pda = /obj/item/pda/iaa
 	id = /obj/item/card/id/adjutant
 	backpack_contents = list(
 		/obj/item/folder/blue = 1,
@@ -42,7 +42,7 @@
 		/obj/item/taperecorder = 1,
 		/obj/item/storage/box/tapes = 1,
 		/obj/item/clipboard = 1,
-		/obj/item/clothing/under/rank/procedure/lawyer/blue = 1,
+		/obj/item/clothing/under/rank/procedure/iaa/formal/blue = 1,
 		)
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
@@ -54,7 +54,7 @@
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if("Butler", "Дворецкий")
-				uniform = /obj/item/clothing/under/rank/procedure/lawyer/black
+				uniform = /obj/item/clothing/under/rank/procedure/iaa/formal/black
 				shoes = /obj/item/clothing/shoes/laceup
 				head = /obj/item/clothing/head/beaverhat
 				glasses = /obj/item/clothing/glasses/monocle
@@ -103,7 +103,7 @@
 	ru_title = "Дворецкий"
 	alt_titles = list("Дворецкий")
 	relate_job = "Vip"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_LIBRARY, ACCESS_HEADS, ACCESS_EVA, ACCESS_LAWYER)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_LIBRARY, ACCESS_HEADS, ACCESS_EVA, ACCESS_INTERNAL_AFFAIRS)
 	selection_color = "#717097"
 	hidden_from_job_prefs = FALSE
 	donator_tier = 4
@@ -116,7 +116,7 @@
 	name = "Butler"
 	//jobtype = /datum/job/donor/butler
 
-	uniform = /obj/item/clothing/under/rank/procedure/lawyer/black
+	uniform = /obj/item/clothing/under/rank/procedure/iaa/formal/black
 	shoes = /obj/item/clothing/shoes/laceup
 	head = /obj/item/clothing/head/beaverhat
 	glasses = /obj/item/clothing/glasses/monocle
@@ -146,7 +146,7 @@
 	ru_title = "Горничная"
 	alt_titles = list("Горничная")
 	relate_job = "Vip"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_LIBRARY, ACCESS_HEADS, ACCESS_EVA, ACCESS_LAWYER)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_LIBRARY, ACCESS_HEADS, ACCESS_EVA, ACCESS_INTERNAL_AFFAIRS)
 	selection_color = "#717097"
 	hidden_from_job_prefs = FALSE
 	donator_tier = 4

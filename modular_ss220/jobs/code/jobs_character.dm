@@ -117,7 +117,7 @@
 
 
 			if(JOB_ADJUTANT, /* JOB_BUTLER, JOB_MAID */)
-				clothes_s = new /icon('icons/mob/clothing/under/procedure.dmi', "lawyer_black[g ? "_skirt" : ""]_s")
+				clothes_s = new /icon('icons/mob/clothing/under/procedure.dmi', "iaa_formal_black[g ? "_skirt" : ""]_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
 				if(prob(10))
 					clothes_s.Blend(new /icon('icons/mob/clothing/eyes.dmi', "monocle"), ICON_OVERLAY)
@@ -164,7 +164,7 @@
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 
 			if(JOB_REPRESENTATIVE_TSF, JOB_REPRESENTATIVE_USSP, JOB_DEALER)
-				clothes_s = new /icon('icons/mob/clothing/under/procedure.dmi', "lawyer_black[g ? "_skirt" : ""]_s")
+				clothes_s = new /icon('icons/mob/clothing/under/procedure.dmi', "iaa_formal_black[g ? "_skirt" : ""]_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
 				if(prob(10))
 					clothes_s.Blend(new /icon('icons/mob/clothing/eyes.dmi', "monocle"), ICON_OVERLAY)

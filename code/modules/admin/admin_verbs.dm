@@ -50,6 +50,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/global_man_up,
 	/client/proc/library_manager,
 	/client/proc/view_asays,
+	/client/proc/view_msays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -212,7 +213,8 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/openMentorTicketUI,
 	/client/proc/admin_observe,  /* Allow mentors to observe as well, though they face some limitations */
 	/client/proc/admin_observe_target,
-	/client/proc/cmd_mentor_say	/* mentor say*/
+	/client/proc/cmd_mentor_say,	/* mentor say*/
+	/client/proc/view_msays,
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 ))
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(

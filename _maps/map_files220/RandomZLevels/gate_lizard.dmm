@@ -12706,7 +12706,7 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "qph" = (
 /obj/structure/closet/syndicate,
-/obj/item/clothing/suit/jacket/syndicatebomber,
+/obj/item/clothing/suit/jacket/bomber/syndicate,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/jungle_planet/outside/abandoned)

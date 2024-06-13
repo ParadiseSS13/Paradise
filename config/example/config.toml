@@ -669,6 +669,8 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/voyager.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_engi_sat.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/rocky_motel.dmm",
+	## SS220 Ruins
 	"_maps/map_files220/RandomRuins/SpaceRuins/mechtransport_new.dmm",
 	"_maps/map_files220/RandomRuins/SpaceRuins/destroyed_infiltrator.dmm",
 	"_maps/map_files220/RandomRuins/SpaceRuins/transit_bar.dmm",

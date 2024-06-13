@@ -46,7 +46,7 @@
 /obj/item/clothing/accessory/holobadge/Initialize(mapload)
 	. = ..()
 	material_type = MATERIAL_CLASS_NONE
-/obj/item/clothing/accessory/lawyers_badge/Initialize(mapload)
+/obj/item/clothing/accessory/legal_badge/Initialize(mapload)
 	. = ..()
 	material_type = MATERIAL_CLASS_NONE
 /obj/item/clothing/accessory/necklace/Initialize(mapload)

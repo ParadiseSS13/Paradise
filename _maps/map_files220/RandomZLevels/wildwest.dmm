@@ -1799,7 +1799,7 @@
 	},
 /obj/item/mining_scanner,
 /obj/item/clothing/suit/hooded/explorer,
-/obj/item/clothing/suit/jacket/miningbomber,
+/obj/item/clothing/suit/jacket/bomber/mining,
 /obj/item/storage/backpack/industrial,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
@@ -2221,7 +2221,7 @@
 	icon_state = "mining"
 	},
 /obj/item/mining_scanner,
-/obj/item/clothing/suit/jacket/miningbomber,
+/obj/item/clothing/suit/jacket/bomber/mining,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/storage/backpack/industrial,
 /turf/simulated/floor/wood/oak,
@@ -3769,7 +3769,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "KL" = (
 /obj/effect/mine/dnascramble,
-/obj/item/clothing/suit/jacket/miningbomber,
+/obj/item/clothing/suit/jacket/bomber/mining,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "KN" = (

@@ -469,7 +469,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "uA" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "uP" = (
