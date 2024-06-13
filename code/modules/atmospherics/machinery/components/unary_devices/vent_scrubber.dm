@@ -100,8 +100,6 @@
 	check_turfs()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/process_atmos()
-	..()
-
 	if(widenet)
 		check_turfs()
 
@@ -135,62 +133,67 @@
 		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir=1)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(turf/simulated/tile)
+	var/datum/milla_safe/vent_scrubber_process/milla = new()
+	milla.invoke_async(src, tile)
+
+/datum/milla_safe/vent_scrubber_process
+
+/datum/milla_safe/vent_scrubber_process/on_run(obj/machinery/atmospherics/unary/vent_scrubber/scrubber, turf/simulated/tile)
 	if(!tile || !istype(tile))
 		return 0
 
-	var/datum/gas_mixture/environment = tile.return_air()
+	var/datum/gas_mixture/environment = get_turf_air(tile)
 
-	if(scrubbing)
-		if((scrub_O2 && environment.oxygen>0.001) || (scrub_N2 && environment.nitrogen>0.001) || (scrub_CO2 && environment.carbon_dioxide>0.001) || (scrub_Toxins && environment.toxins>0.001) || (environment.sleeping_agent) || (environment.agent_b))
-			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
+	if(scrubber.scrubbing)
+		if((scrubber.scrub_O2 && environment.oxygen() > 0.001) || (scrubber.scrub_N2 && environment.nitrogen() > 0.001) || (scrubber.scrub_CO2 && environment.carbon_dioxide() > 0.001) || (scrubber.scrub_Toxins && environment.toxins() > 0.001) || (environment.sleeping_agent()) || (environment.agent_b()))
+			var/transfer_moles = min(1, scrubber.volume_rate / environment.volume) * environment.total_moles()
 
 			//Take a gas sample
-			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
+			var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 			if(isnull(removed)) //in space
 				return
 
 			//Filter it
 			var/datum/gas_mixture/filtered_out = new
-			filtered_out.temperature = removed.temperature
-			if(scrub_O2)
-				filtered_out.oxygen = removed.oxygen
-				removed.oxygen = 0
-			if(scrub_N2)
-				filtered_out.nitrogen = removed.nitrogen
-				removed.nitrogen = 0
-			if(scrub_Toxins)
-				filtered_out.toxins = removed.toxins
-				removed.toxins = 0
-			if(scrub_CO2)
-				filtered_out.carbon_dioxide = removed.carbon_dioxide
-				removed.carbon_dioxide = 0
+			filtered_out.set_temperature(removed.temperature())
+			if(scrubber.scrub_O2)
+				filtered_out.set_oxygen(removed.oxygen())
+				removed.set_oxygen(0)
+			if(scrubber.scrub_N2)
+				filtered_out.set_nitrogen(removed.nitrogen())
+				removed.set_nitrogen(0)
+			if(scrubber.scrub_Toxins)
+				filtered_out.set_toxins(removed.toxins())
+				removed.set_toxins(0)
+			if(scrubber.scrub_CO2)
+				filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
+				removed.set_carbon_dioxide(0)
 
-			if(removed.agent_b)
-				filtered_out.agent_b = removed.agent_b
-				removed.agent_b = 0
+			if(removed.agent_b())
+				filtered_out.set_agent_b(removed.agent_b())
+				removed.set_agent_b(0)
 
-			if(scrub_N2O)
-				filtered_out.sleeping_agent = removed.sleeping_agent
-				removed.sleeping_agent = 0
+			if(scrubber.scrub_N2O)
+				filtered_out.set_sleeping_agent(removed.sleeping_agent())
+				removed.set_sleeping_agent(0)
 
 			//Remix the resulting gases
-			air_contents.merge(filtered_out)
+			scrubber.air_contents.merge(filtered_out)
 
-			tile.assume_air(removed)
-			tile.air_update_turf()
+			environment.merge(removed)
 
 	else //Just siphoning all air
-		if(air_contents.return_pressure() >= (50 * ONE_ATMOSPHERE))
+		if(scrubber.air_contents.return_pressure() >= (50 * ONE_ATMOSPHERE))
 			return
 
-		var/transfer_moles = environment.total_moles() * (volume_rate/environment.volume)
+		var/transfer_moles = environment.total_moles() * (scrubber.volume_rate / environment.volume)
 
-		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
+		var/datum/gas_mixture/removed = environment.remove(transfer_moles)
 
-		air_contents.merge(removed)
-		tile.air_update_turf()
+		scrubber.air_contents.merge(removed)
 
-	parent.update = 1
+	if(!QDELETED(scrubber.parent))
+		scrubber.parent.update = 1
 
 	return 1
 

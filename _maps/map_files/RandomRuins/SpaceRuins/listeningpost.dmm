@@ -18,6 +18,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_listening_station)
+"cB" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/space/syndicate_listening_station/asteroid)
 "du" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -41,8 +44,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
@@ -69,8 +71,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/fans/tiny,
 /obj/effect/decal/cleanable/dirt,
@@ -90,8 +91,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/light{
 	dir = 8
@@ -133,8 +133,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/falsewall/rock_ancient,
 /turf/simulated/floor/plating/airless,
@@ -143,8 +142,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -154,8 +152,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
@@ -163,8 +160,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/structure/falsewall/rock_ancient,
 /turf/simulated/floor/plating/airless,
@@ -173,8 +169,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
@@ -186,8 +181,7 @@
 	},
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -243,8 +237,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
@@ -296,8 +289,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -366,8 +358,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -386,8 +377,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -423,8 +413,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/dirt,
@@ -447,6 +436,10 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
+/area/ruin/space/syndicate_listening_station/asteroid)
+"Ie" = (
+/obj/structure/spawner/mining/basilisk,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "Km" = (
 /obj/machinery/light/small{
@@ -495,16 +488,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
-"Pc" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/ruin/space/syndicate_listening_station)
 "PH" = (
 /obj/item/gps/ruin{
 	gpstag = "Encrypted Signal"
@@ -525,8 +508,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
@@ -539,8 +521,7 @@
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -569,8 +550,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
@@ -591,8 +571,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
@@ -611,8 +590,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -832,10 +810,10 @@ Zw
 Zw
 Zw
 yn
-yn
+cB
 Zw
 Zw
-yn
+cB
 yn
 yn
 yn
@@ -846,8 +824,8 @@ Zw
 Zw
 yn
 yn
-yn
-yn
+cB
+cB
 yn
 Zw
 Zw
@@ -876,8 +854,8 @@ Zw
 yn
 yn
 Zw
-yn
-yn
+cB
+cB
 yn
 Zw
 yn
@@ -888,9 +866,9 @@ Zw
 Zw
 yn
 yn
-yn
-yn
-yn
+cB
+cB
+cB
 Zw
 Zw
 Zw
@@ -945,7 +923,7 @@ HZ
 yn
 yn
 yn
-yn
+cB
 yn
 AT
 AT
@@ -985,15 +963,15 @@ tk
 HZ
 yn
 yn
-yn
+cB
 yn
 yn
 yn
 AT
 AT
 yn
-yn
-yn
+cB
+cB
 yn
 yn
 yn
@@ -1026,9 +1004,9 @@ yn
 yn
 yn
 yn
+cB
 yn
-yn
-yn
+cB
 yn
 yn
 yn
@@ -1066,6 +1044,8 @@ kJ
 kE
 kJ
 yn
+cB
+cB
 yn
 yn
 yn
@@ -1078,9 +1058,7 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
+cB
 yn
 yn
 yn
@@ -1118,14 +1096,14 @@ yn
 yn
 yn
 yn
+cB
+yn
+cB
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
+cB
+cB
 Zw
 Zw
 Zw
@@ -1164,10 +1142,10 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
+cB
+cB
+cB
+cB
 Zw
 Zw
 Zw
@@ -1208,7 +1186,7 @@ yn
 yn
 yn
 yn
-yn
+cB
 yn
 yn
 Zw
@@ -1247,7 +1225,7 @@ kJ
 kJ
 yn
 yn
-yn
+cB
 yn
 yn
 yn
@@ -1359,7 +1337,7 @@ yn
 kJ
 Em
 tF
-Pc
+Bt
 UM
 yv
 nC
@@ -1377,7 +1355,7 @@ yn
 yn
 yn
 AT
-AT
+Ie
 AT
 Zw
 Zw
@@ -1543,7 +1521,7 @@ yn
 yn
 yn
 AT
-AT
+Ie
 AT
 Zw
 Zw
@@ -1660,9 +1638,9 @@ kJ
 yn
 yn
 rK
-yn
-yn
-yn
+cB
+cB
+cB
 yn
 yn
 yn
@@ -1703,9 +1681,9 @@ yn
 yn
 rK
 yn
-yn
-yn
-yn
+cB
+cB
+cB
 yn
 yn
 yn
@@ -1746,8 +1724,8 @@ yn
 iL
 yn
 yn
-yn
-yn
+cB
+cB
 yn
 yn
 AT
@@ -1788,7 +1766,7 @@ yn
 Zw
 yn
 yn
-yn
+cB
 Zw
 yn
 AT
@@ -1980,8 +1958,8 @@ Zw
 Zw
 yn
 yn
-yn
-yn
+cB
+cB
 Zw
 Zw
 yn
