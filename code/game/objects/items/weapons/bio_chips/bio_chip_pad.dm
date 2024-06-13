@@ -118,4 +118,3 @@
 			if(!length(newtag) || T.gpstag == newtag)
 				return
 			T.gpstag = newtag
-			//name = "global positioning system ([T.internal_gps.gpstag])"
