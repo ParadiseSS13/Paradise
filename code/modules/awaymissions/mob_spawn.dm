@@ -535,23 +535,6 @@
 	id_job = "Engineer"
 	outfit = /datum/outfit/job/engineer
 
-//Hardsuit Engineer corpse.
-/obj/effect/mob_spawn/human/corpse/engineer/hardsuit
-	outfit = /datum/outfit/job/engineer/suit
-
-/datum/outfit/job/engineer/suit
-	name = "Station Engineer"
-
-	uniform = /obj/item/clothing/under/rank/engineering/engineer
-	belt = /obj/item/storage/belt/utility/full
-	back = /obj/item/mod/control/pre_equipped/engineering
-	shoes = /obj/item/clothing/shoes/workboots
-	mask = /obj/item/clothing/mask/breath
-	id = /obj/item/card/id/engineering
-	l_pocket = /obj/item/t_scanner
-
-	backpack = /obj/item/storage/backpack/industrial
-
 //Mime corpse.
 /obj/effect/mob_spawn/human/corpse/mime
 	name = "Mime"

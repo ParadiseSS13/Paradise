@@ -18,13 +18,16 @@
 	/// Whether calibration is in progress or not. Calibration prevents changes.
 	var/calibrating = FALSE
 	/// The target turf of the teleporter
-	var/turf/target
+	var/atom/target
 
 	/* 	var/area_bypass is for one-time-use teleport cards
 		Setting this to TRUE will set var/obj/item/gps/locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
 	*/
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE
+
+	/// When the teleporter is upgraded, it can lock onto beacons directly, rather than turfs. This is the variable for it.
+	var/advanced_beacon_locking = FALSE
 
 /obj/machinery/computer/teleporter/Initialize()
 	. = ..()
@@ -98,6 +101,9 @@
 	data["calibrating"] = calibrating
 	data["locked"] = locked ? TRUE : FALSE
 	data["targetsTeleport"] = null
+	if(power_station && power_station.efficiency >= 7)
+		data["adv_beacon_allowed"] = 1
+	data["advanced_beacon_locking"] = advanced_beacon_locking
 	switch(regime)
 		if(REGIME_TELEPORT)
 			data["targetsTeleport"] = targets_teleport()
@@ -131,11 +137,14 @@
 			target = null
 		if("settarget")
 			resetPowerstation()
-			var/turf/tmpTarget = locate(text2num(params["x"]), text2num(params["y"]), text2num(params["z"]))
-			if(!isturf(tmpTarget))
-				atom_say("No valid targets available.")
-				return
-			target = tmpTarget
+			if(!advanced_beacon_locking)
+				var/turf/tmpTarget = locate(text2num(params["x"]), text2num(params["y"]), text2num(params["z"]))
+				if(!isturf(tmpTarget))
+					atom_say("No valid targets available.")
+					return
+				target = tmpTarget
+			else
+				target = locateUID(params["tptarget"])
 			if(regime == REGIME_TELEPORT)
 				teleport_helper()
 			if(regime == REGIME_GATE)
@@ -151,6 +160,8 @@
 			atom_say("Processing hub calibration to target...")
 			calibrating = TRUE
 			addtimer(CALLBACK(src, PROC_REF(calibrateCallback)), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
+		if("advanced_beacon_locking")
+			advanced_beacon_locking = !advanced_beacon_locking
 
 /**
 *	Resets the connected powerstation to initial values. Helper function of ui_act
@@ -197,7 +208,7 @@
 	var/list/L = list()
 	var/list/areaindex = list()
 
-	for(var/obj/item/radio/beacon/R in GLOB.beacons)
+	for(var/obj/item/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
@@ -214,7 +225,8 @@
 			"name" = tmpname,
 			"x" = T.x,
 			"y" = T.y,
-			"z" = T.z)
+			"z" = T.z,
+			"pretarget" = R.UID())
 
 	for(var/obj/item/bio_chip/tracking/I in GLOB.tracked_implants)
 		if(!I.implanted || !ismob(I.loc))
@@ -236,7 +248,8 @@
 				"name" = tmpname,
 				"x" = T.x,
 				"y" = T.y,
-				"z" = T.z)
+				"z" = T.z,
+				"pretarget" = M.UID())
 	return L
 
 /**
@@ -263,7 +276,8 @@
 				"name" = tmpname,
 				"x" = T.x,
 				"y" = T.y,
-				"z" = T.z)
+				"z" = T.z,
+				"pretarget" = R.UID())
 	return L
 
 /**
@@ -273,9 +287,10 @@
 */
 /obj/machinery/computer/teleporter/proc/teleport_helper()
 	area_bypass = FALSE
-	for(var/item in target.contents)
-		if(istype(item, /obj/item/radio/beacon))
-			var/obj/item/radio/beacon/B = item
+	var/turf/T = get_turf(target)
+	for(var/item in T.contents)
+		if(istype(item, /obj/item/beacon))
+			var/obj/item/beacon/B = item
 			if(B.area_bypass)
 				area_bypass = TRUE
 			cc_beacon = B.cc_beacon
@@ -361,7 +376,7 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 	RefreshParts()
 
 /obj/machinery/teleport/hub/process()
@@ -573,6 +588,17 @@
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+	link_console_and_hub()
+
+/obj/machinery/teleport/station/upgraded/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/teleporter_station(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 	link_console_and_hub()

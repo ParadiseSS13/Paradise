@@ -184,7 +184,7 @@
 		/datum/job/hop = /obj/item/organ/internal/eyes/cybernetic/shield,
 		/datum/job/hos = /obj/item/organ/internal/cyberimp/brain/anti_stam, //not giving them thermals
 		/datum/job/janitor = /obj/item/organ/internal/cyberimp/eyes/hud/jani,
-		/datum/job/lawyer = /obj/item/organ/internal/heart/cybernetic/upgraded,
+		/datum/job/iaa = /obj/item/organ/internal/heart/cybernetic/upgraded,
 		/datum/job/mime = /obj/item/organ/internal/cyberimp/brain/anti_stam, //...
 		/datum/job/paramedic = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
 		/datum/job/psychiatrist = /obj/item/organ/internal/heart/cybernetic/upgraded, //heart of gold. Or at least part gold
