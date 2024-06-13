@@ -513,31 +513,34 @@
 		return TRUE
 	return FALSE
 
+/mob/living/simple_animal/bot/medbot/proc/drop_medkit(drop_turf)
+
+	switch(skin)
+		if("ointment")
+			new /obj/item/storage/firstaid/fire/empty(drop_turf)
+		if("tox")
+			new /obj/item/storage/firstaid/toxin/empty(drop_turf)
+		if("o2")
+			new /obj/item/storage/firstaid/o2/empty(drop_turf)
+		if("brute")
+			new /obj/item/storage/firstaid/brute/empty(drop_turf)
+		if("adv")
+			new /obj/item/storage/firstaid/adv/empty(drop_turf)
+		if("bezerk")
+			var/obj/item/storage/firstaid/tactical/empty/T = new(drop_turf)
+		if("fish")
+			new /obj/item/storage/firstaid/aquatic_kit(drop_turf)
+		if("machine")
+			new /obj/item/storage/firstaid/machine/empty(drop_turf)
+		else
+			new /obj/item/storage/firstaid(drop_turf)
+
 /mob/living/simple_animal/bot/medbot/explode()
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/explode_turf = get_turf(src)
 
 	if(drops_parts)
-		switch(skin)
-			if("ointment")
-				new /obj/item/storage/firstaid/fire/empty(explode_turf)
-			if("tox")
-				new /obj/item/storage/firstaid/toxin/empty(explode_turf)
-			if("o2")
-				new /obj/item/storage/firstaid/o2/empty(explode_turf)
-			if("brute")
-				new /obj/item/storage/firstaid/brute/empty(explode_turf)
-			if("adv")
-				new /obj/item/storage/firstaid/adv/empty(explode_turf)
-			if("bezerk")
-				var/obj/item/storage/firstaid/tactical/empty/T = new(explode_turf)
-				T.syndicate_aligned = syndicate_aligned //This is a special case since Syndicate medibots and the mysterious medibot look the same; we also dont' want crew building Syndicate medibots if the mysterious medibot blows up.
-			if("fish")
-				new /obj/item/storage/firstaid/aquatic_kit(explode_turf)
-			if("machine")
-				new /obj/item/storage/firstaid/machine/empty(explode_turf)
-			else
-				new /obj/item/storage/firstaid(explode_turf)
+		drop_medkit(explode_turf)
 
 		new /obj/item/assembly/prox_sensor(explode_turf)
 
@@ -560,26 +563,7 @@
 /mob/living/simple_animal/bot/medbot/disassemble()
 	var/turf/disassemble_turf = get_turf(src)
 
-	switch(skin)
-		if("ointment")
-			new /obj/item/storage/firstaid/fire/empty(disassemble_turf)
-		if("tox")
-			new /obj/item/storage/firstaid/toxin/empty(disassemble_turf)
-		if("o2")
-			new /obj/item/storage/firstaid/o2/empty(disassemble_turf)
-		if("brute")
-			new /obj/item/storage/firstaid/brute/empty(disassemble_turf)
-		if("adv")
-			new /obj/item/storage/firstaid/adv/empty(disassemble_turf)
-		if("bezerk")
-			var/obj/item/storage/firstaid/tactical/empty/T = new(disassemble_turf)
-			T.syndicate_aligned = syndicate_aligned //This is a special case since Syndicate medibots and the mysterious medibot look the same; we also dont' want crew building Syndicate medibots if the mysterious medibot blows up.
-		if("fish")
-			new /obj/item/storage/firstaid/aquatic_kit(disassemble_turf)
-		if("machine")
-			new /obj/item/storage/firstaid/machine/empty(disassemble_turf)
-		else
-			new /obj/item/storage/firstaid(disassemble_turf)
+	drop_medkit(disassemble_turf)
 
 	new /obj/item/assembly/prox_sensor(disassemble_turf)
 
