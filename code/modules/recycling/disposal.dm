@@ -417,7 +417,7 @@
 		user.visible_message(
 			"<span class='notice'>[user] ejects the contents of the disposal unit.</span>",
 			"<span class='notice'>You eject the contents of the disposal unit.</span>",
-			"<span class='notice'>You hear sudden gush of air and the clattering of objects.</span>"
+			"<span class='notice'>You hear a sudden gush of air and the clattering of objects.</span>"
 		)
 		eject()
 
