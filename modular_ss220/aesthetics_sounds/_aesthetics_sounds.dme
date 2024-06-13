@@ -6,3 +6,4 @@
 #include "code/wilhelm.dm"
 #include "code/shuttle.dm"
 #include "code/mindslave.dm"
+#include "code/lobby_music.dm"

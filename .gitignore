@@ -77,3 +77,5 @@ $RECYCLE.BIN
 
 # SS220 EDIT
 sound/tts_cache/*
+config/lobby_music/sounds/*
+config/jukebox_music/sounds/*
