@@ -58631,15 +58631,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/smes)
-"gAo" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/power/apc/important/directional/west,
-/turf/space,
-/area/space/nearstation)
 "gAt" = (
 /obj/structure/chair{
 	dir = 8
@@ -131044,7 +131035,7 @@ cQp
 oej
 cZh
 cNE
-gAo
+dba
 djE
 dcS
 djE
