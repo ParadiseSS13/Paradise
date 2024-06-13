@@ -670,6 +670,8 @@
 
 //Update the screentip to reflect what we're hovering over
 /atom/movable/MouseEntered(location, control, params)
+	if(invisibility > usr.see_invisible)
+		return
 	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
 	var/screentip_mode = usr.client.prefs.screentip_mode
 	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))

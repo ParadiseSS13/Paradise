@@ -167,7 +167,7 @@
 		M.set_multitool_buffer(user, src)
 
 
-/obj/machinery/power/compressor/CanAtmosPass(turf/T)
+/obj/machinery/power/compressor/CanAtmosPass(direction)
 	return !density
 
 /obj/machinery/power/compressor/proc/trigger_overheat()
@@ -181,46 +181,46 @@
 	return max(last_overheat + OVERHEAT_TIME - world.time, 0)
 
 /obj/machinery/power/compressor/process()
-	if(!turbine)
-		stat = BROKEN
-	if(stat & BROKEN || panel_open)
+	var/datum/milla_safe/compressor_process/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/compressor_process
+
+/datum/milla_safe/compressor_process/on_run(obj/machinery/power/compressor/compressor)
+	if(!compressor.turbine)
+		compressor.stat = BROKEN
+	if(compressor.stat & BROKEN || compressor.panel_open)
 		return
-	if(!starter)
+	if(!compressor.starter)
 		return
 
-	if(rpm_threshold == OVERDRIVE)
-		//UI update here
-		overheat += 2
-		if(overheat >= OVERHEAT_THRESHOLD)
-			trigger_overheat()
-	else if(overheat > 0)
-		overheat -= 2
-	rpm = 0.9* rpm + 0.1 * rpmtarget
-	var/datum/gas_mixture/environment = inturf.return_air()
+	if(compressor.rpm_threshold == OVERDRIVE)
+		compressor.overheat += 2
+		if(compressor.overheat >= OVERHEAT_THRESHOLD)
+			compressor.trigger_overheat()
+	else if(compressor.overheat > 0)
+		compressor.overheat -= 2
+	compressor.rpm = 0.9 * compressor.rpm + 0.1 * compressor.rpmtarget
 
-	// It's a simplified version taking only 1/10 of the moles from the turf nearby. It should be later changed into a better version
-	//2023 note: It works, im not touc
-
+	var/datum/gas_mixture/environment = get_turf_air(compressor.inturf)
 	var/transfer_moles = environment.total_moles()/10
-	//var/transfer_moles = rpm/10000*capacity
-	var/datum/gas_mixture/removed = inturf.remove_air(transfer_moles)
-	gas_contained.merge(removed)
+	var/datum/gas_mixture/removed = environment.remove(transfer_moles)
+	compressor.gas_contained.merge(removed)
 
 // RPM function to include compression friction - be advised that too low/high of a compfriction value can make things screwy
+	compressor.rpm = max(0, compressor.rpm - (compressor.rpm*compressor.rpm)/(COMPFRICTION*compressor.efficiency))
 
-	rpm = max(0, rpm - (rpm*rpm)/(COMPFRICTION*efficiency))
 
-
-	if(starter && !(stat & NOPOWER))
-		use_power(2800)
-		if(rpm<1000)
-			rpmtarget = 1000
+	if(!(compressor.stat & NOPOWER))
+		compressor.use_power(2800)
+		if(compressor.rpm < 1000)
+			compressor.rpmtarget = 1000
 	else
-		if(rpm<1000)
-			rpmtarget = 0
+		if(compressor.rpm < 1000)
+			compressor.rpmtarget = 0
 
 	var/new_rpm_threshold
-	switch(rpm)
+	switch(compressor.rpm)
 		if(50001 to INFINITY)
 			new_rpm_threshold = OVERDRIVE
 		if(10001 to 50000)
@@ -232,9 +232,9 @@
 		else
 			new_rpm_threshold = NONE
 
-	if(rpm_threshold != new_rpm_threshold)
-		rpm_threshold = new_rpm_threshold
-		update_icon(UPDATE_OVERLAYS)
+	if(compressor.rpm_threshold != new_rpm_threshold)
+		compressor.rpm_threshold = new_rpm_threshold
+		compressor.update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/compressor/update_overlays()
 	. = ..()
@@ -286,44 +286,49 @@
 	return !density
 
 /obj/machinery/power/turbine/process()
+	var/datum/milla_safe/turbine_process/milla = new()
+	milla.invoke_async(src)
 
-	if(!compressor)
-		stat = BROKEN
+/datum/milla_safe/turbine_process
 
-	if((stat & BROKEN) || panel_open)
+/datum/milla_safe/turbine_process/on_run(obj/machinery/power/turbine/turbine)
+	if(!turbine.compressor)
+		turbine.stat = BROKEN
+
+	if((turbine.stat & BROKEN) || turbine.panel_open)
 		return
-	if(!compressor.starter)
+	if(!turbine.compressor.starter)
 		return
 
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBPOWER and TURBCURVESHAPE values
 
-	if(compressor.gas_contained.temperature < 500)
-		lastgen = 0
+	if(turbine.compressor.gas_contained.temperature() < 500)
+		turbine.lastgen = 0
 	else
-		lastgen = ((compressor.rpm / TURBPOWER) ** TURBCURVESHAPE) * TURBPOWER * productivity * POWER_CURVE_MOD
+		turbine.lastgen = ((turbine.compressor.rpm / TURBPOWER) ** TURBCURVESHAPE) * TURBPOWER * turbine.productivity * POWER_CURVE_MOD
 
-	produce_direct_power(lastgen)
+	turbine.produce_direct_power(turbine.lastgen)
 
 	// Weird function but it works. Should be something else...
 
-	var/newrpm = ((compressor.gas_contained.temperature) * compressor.gas_contained.total_moles())/4
+	var/newrpm = ((turbine.compressor.gas_contained.temperature()) * turbine.compressor.gas_contained.total_moles()) / 4
 
 	newrpm = max(0, newrpm)
 
-	if(!compressor.starter || newrpm > 1000)
-		compressor.rpmtarget = newrpm
+	if(!turbine.compressor.starter || newrpm > 1000)
+		turbine.compressor.rpmtarget = newrpm
 
-	if(compressor.gas_contained.total_moles()>0)
-		var/oamount = min(compressor.gas_contained.total_moles(), (compressor.rpm+100)/35000*compressor.capacity)
-		var/datum/gas_mixture/removed = compressor.gas_contained.remove(oamount)
-		outturf.assume_air(removed)
+	if(turbine.compressor.gas_contained.total_moles()>0)
+		var/oamount = min(turbine.compressor.gas_contained.total_moles(), (turbine.compressor.rpm + 100) / 35000 * turbine.compressor.capacity)
+		var/datum/gas_mixture/removed = turbine.compressor.gas_contained.remove(oamount)
+		turbine.outturf.blind_release_air(removed)
 
-	if((lastgen > 100) != generator_threshold)
-		generator_threshold = !generator_threshold
-		update_icon(UPDATE_OVERLAYS)
+	if((turbine.lastgen > 100) != turbine.generator_threshold)
+		turbine.generator_threshold = !turbine.generator_threshold
+		turbine.update_icon(UPDATE_OVERLAYS)
 
-	updateDialog()
+	turbine.updateDialog()
 
 /obj/machinery/power/turbine/update_overlays()
 	. = ..()
@@ -378,7 +383,7 @@
 		data["online"] = compressor.starter
 		data["power"] = compressor.turbine.lastgen
 		data["rpm"] = compressor.rpm
-		data["temperature"] = compressor.gas_contained.return_temperature()
+		data["temperature"] = compressor.gas_contained.temperature()
 	return data
 
 /obj/machinery/power/turbine/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -446,7 +451,7 @@
 		data["online"] = compressor.starter
 		data["power"] = compressor.turbine.lastgen
 		data["rpm"] = compressor.rpm
-		data["temperature"] = compressor.gas_contained.return_temperature()
+		data["temperature"] = compressor.gas_contained.temperature()
 		data["bearing_heat"] = clamp((compressor.overheat / OVERHEAT_THRESHOLD) * 100, 0, 100)
 	return data
 

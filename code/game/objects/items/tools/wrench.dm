@@ -60,7 +60,7 @@
 	icon_state = "drill_bolt"
 	item_state = "drill"
 	belt_icon = "hand_drill"
-	usesound = 'sound/items/drill_use.ogg'
+	usesound = 'sound/items/impactwrench.ogg' // Sourced from freesfx.co.uk
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2"
 	force = 8

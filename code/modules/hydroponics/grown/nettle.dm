@@ -32,10 +32,9 @@
 /obj/item/grown/nettle
 	name = "nettle"
 	desc = "It's probably <B>not</B> wise to touch it with bare hands..."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "nettle"
 	damtype = "fire"
 	force = 15

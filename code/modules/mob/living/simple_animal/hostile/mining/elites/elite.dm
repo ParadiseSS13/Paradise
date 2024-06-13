@@ -398,14 +398,21 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		SSblackbox.record_feedback("tally", "ai_controlled_elite_win", 1, mychild.name)
 	if(times_won == 1)
-		mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
-		to_chat(mychild, "<span class='warning'>As the life in the activator's eyes fade, the forcefield around you dies out and you feel your power subside.\n\
-			Despite this inferno being your home, you feel as if you aren't welcome here anymore.\n\
-			Without any guidance, your purpose is now for you to decide.</span>")
-		to_chat(mychild, "<b>Your max health has been halved, but can now heal by standing on your tumor. Note, it's your only way to heal.\n\
-			Bear in mind, if anyone interacts with your tumor, you'll be resummoned here to carry out another fight. In such a case, you will regain your full max health.\n\
-			Also, be weary of your fellow inhabitants, they likely won't be happy to see you!</b>")
-		to_chat(mychild, "<span class='big bold'>Note that you are a lavaland monster, and thus not allied to the station. You should not cooperate or act friendly with any station crew unless under extreme circumstances!</span>")
+		mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, FALSE)
+		var/list/text = list()
+		text += "<span class='warning'>As the life in the activator's eyes fade, the forcefield around you dies out and you feel your power subside.</span>"
+		text += "<span class='warning'>Despite this inferno being your home, you feel as if you aren't welcome here anymore.</span>"
+		text += "<span class='warning'>Without any guidance, your purpose is now for you to decide.\n</span>"
+		text += "<b>Your max health has been halved, but can now heal by standing on your tumor. Note, it's your only way to heal.</b>"
+		text += "<b>Bear in mind, if anyone interacts with your tumor, you'll be resummoned here to carry out another fight. In such a case, you will regain your full max health.</b>"
+		text += "<b>Also, be wary of your fellow inhabitants, they likely won't be happy to see you! \n</b>"
+		text += "<span class='big bold'>Note that you are a lavaland monster, and thus not allied to the station.</span>"
+		text += "<span class='big bold>'You should not cooperate or act friendly with any station crew unless under extreme circumstances!</span>"
+		text += "<span class='warning'>Do not attack the Mining Station or Labour Camp, unless the Shaft Miner you are actively fighting runs into the Station/Camp.</span>"
+		text += "<span class='warning'>After they are killed, you must withdraw. If you wish to continue attacking the Station, you MUST ahelp.</span>"
+		text += "<span class='warning'>If teleported to the Station by jaunter, you are allowed to attack people on Station, until you get killed.</span>"
+		to_chat(mychild, text.Join(" "))
+
 	qdel(GetComponent(/datum/component/proximity_monitor))
 
 /obj/item/tumor_shard

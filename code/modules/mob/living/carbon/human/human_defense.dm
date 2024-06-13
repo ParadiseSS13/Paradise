@@ -93,6 +93,9 @@ emp_act
 		return
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
+		if(ismachineperson(src))
+			to_chat(user, "<span class='notice'>[p_they(TRUE)] [p_are()] missing that limb!</span>")
+			return TRUE
 		return
 	if(!S.is_robotic() || S.open == ORGAN_SYNTHETIC_OPEN)
 		return
@@ -769,10 +772,10 @@ emp_act
 	else
 		..()
 
-/mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
+/mob/living/carbon/human/experience_pressure_difference(flow_x, flow_y)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
 	if(HAS_TRAIT(src, TRAIT_NOSLIP))
-		return FALSE
+		return // Immune to gas flow.
 	return ..()
 
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)

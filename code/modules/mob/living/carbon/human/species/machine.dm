@@ -44,7 +44,6 @@
 	butt_sprite = "machine"
 
 	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
-	hunger_type = "machine"
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
