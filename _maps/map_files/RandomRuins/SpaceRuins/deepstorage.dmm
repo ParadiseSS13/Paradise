@@ -1229,7 +1229,6 @@
 /area/ruin/space/deepstorage)
 "gq" = (
 /obj/structure/rack,
-/obj/item/storage/box/syndie_kit/chameleon,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -2491,7 +2490,9 @@
 "ps" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/storage/box/telescience,
+/obj/item/grenade/confetti,
+/obj/item/grenade/confetti,
+/obj/item/grenade/confetti,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -3201,17 +3202,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "black"
-	},
-/area/ruin/space/deepstorage)
-"uv" = (
-/obj/structure/mirror{
-	broken = 1;
-	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
-	icon_state = "mirror_broke";
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
 	},
 /area/ruin/space/deepstorage)
 "uw" = (
@@ -4374,7 +4364,7 @@
 /obj/structure/safe,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/spacecash/c500,
-/obj/item/storage/belt/champion/wrestling,
+/obj/effect/spawner/random_spawners/ruin/deepstorage_award,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -5142,7 +5132,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/safe,
 /obj/item/stack/spacecash/c500,
-/obj/item/rod_of_asclepius,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -8477,7 +8466,7 @@ jB
 oO
 us
 Vw
-uv
+Qh
 cE
 jB
 zK
