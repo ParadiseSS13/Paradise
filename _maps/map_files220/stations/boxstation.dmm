@@ -24681,11 +24681,9 @@
 /turf/simulated/floor/plating,
 /area/station/science/rnd)
 "bTg" = (
-/obj/machinery/disposal,
 /obj/machinery/ai_status_display/east,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
 	},
@@ -35180,7 +35178,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "cIL" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -35188,6 +35185,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -67065,9 +67065,6 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/meeting_room)
 "liO" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -91342,8 +91339,10 @@
 	},
 /area/station/medical/morgue)
 "tJA" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
