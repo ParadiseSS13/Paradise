@@ -14,6 +14,9 @@
 	holder.remove_reagent(id, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
 	return STATUS_UPDATE_NONE
 
+////////////////////////////////////////
+// MARK:	Hydrocodone
+////////////////////////////////////////
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
 	id = "hydrocodone"
@@ -29,6 +32,9 @@
 	var/update_flags = STATUS_UPDATE_HEALTH
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Sterilizine
+////////////////////////////////////////
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
@@ -39,7 +45,7 @@
 	goal_difficulty = REAGENT_GOAL_EASY
 
 	//makes you squeaky clean
-/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method= REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
 		M.germ_level -= min(volume*20, M.germ_level)
 
@@ -49,6 +55,9 @@
 /datum/reagent/medicine/sterilizine/reaction_turf(turf/T, volume)
 	T.germ_level -= min(volume*20, T.germ_level)
 
+////////////////////////////////////////
+// MARK:	Synaptizine
+////////////////////////////////////////
 /datum/reagent/medicine/synaptizine
 	name = "Synaptizine"
 	id = "synaptizine"
@@ -93,6 +102,9 @@
 			update_flags |= M.adjustToxLoss(1, FALSE)
 	return list(effect, update_flags)
 
+////////////////////////////////////////
+// MARK:	Mitocholide
+////////////////////////////////////////
 /datum/reagent/medicine/mitocholide
 	name = "Mitocholide"
 	id = "mitocholide"
@@ -120,6 +132,9 @@
 		if(!Org.is_robotic())
 			Org.rejuvenate()
 
+////////////////////////////////////////
+// MARK:	Cryoxadone
+////////////////////////////////////////
 /datum/reagent/medicine/cryoxadone
 	name = "Cryoxadone"
 	id = "cryoxadone"
@@ -157,6 +172,9 @@
 
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Rezadone
+////////////////////////////////////////
 /datum/reagent/medicine/rezadone
 	name = "Rezadone"
 	id = "rezadone"
@@ -188,6 +206,9 @@
 	M.Jitter(10 SECONDS)
 	return list(0, update_flags)
 
+////////////////////////////////////////
+// MARK:	Spaceacillin
+////////////////////////////////////////
 /datum/reagent/medicine/spaceacillin
 	name = "Spaceacillin"
 	id = "spaceacillin"
@@ -221,6 +242,9 @@
 	M.germ_level = max(M.germ_level - 20, 0) // Reduces the mobs germ level, too
 	return ..()
 
+////////////////////////////////////////
+// MARK:	Saline-glucose solution
+////////////////////////////////////////
 /datum/reagent/medicine/salglu_solution
 	name = "Saline-Glucose Solution"
 	id = "salglu_solution"
@@ -235,8 +259,8 @@
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(33))
-		update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(ishuman(M) && prob(33))
 		var/mob/living/carbon/human/H = M
 		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
@@ -286,6 +310,9 @@
 
 	return ..()
 
+////////////////////////////////////////
+// MARK:	Synthflesh
+////////////////////////////////////////
 /datum/reagent/medicine/heal_on_apply/synthflesh
 	name = "Synthflesh"
 	id = "synthflesh"
@@ -326,6 +353,9 @@
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
+////////////////////////////////////////
+// MARK:	Stypic powder
+////////////////////////////////////////
 /datum/reagent/medicine/heal_on_apply/styptic_powder
 	name = "Styptic Powder"
 	id = "styptic_powder"
@@ -360,6 +390,9 @@
 
 	return ..()
 
+////////////////////////////////////////
+// MARK:	Silver sulfadiazine
+////////////////////////////////////////
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
 	id = "silver_sulfadiazine"
@@ -393,6 +426,9 @@
 
 	return ..()
 
+////////////////////////////////////////
+// MARK:	Charcoal
+////////////////////////////////////////
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
 	id = "charcoal"
@@ -404,13 +440,48 @@
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(-1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)
-				M.reagents.remove_reagent(R.id,1)
+				M.reagents.remove_reagent(R.id, 1)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Degreaser
+////////////////////////////////////////
+// Mild Purgative / Lube Remover. Basically IPC charcoal.
+/datum/reagent/medicine/degreaser
+	name = "Degreaser"
+	id = "degreaser"
+	description = "An industrial degreaser which can be used to clean residual build-up from machinery and surfaces."
+	reagent_state = LIQUID
+	color = "#CC7A00"
+	process_flags = SYNTHETIC
+	taste_description = "overclocking"
+	goal_difficulty = REAGENT_GOAL_NORMAL
+
+/datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(50))
+		M.AdjustConfused(-10 SECONDS)
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R != src)
+			if(R.id == "ultralube" || R.id == "lube")
+				//Flushes lube and ultra-lube even faster than other chems
+				M.reagents.remove_reagent(R.id, 5)
+			else
+				M.reagents.remove_reagent(R.id, 1)
+	return ..() | update_flags
+
+/datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
+	if(volume >= 1 && istype(T))
+		if(T.wet)
+			T.MakeDry(TURF_WET_LUBE)
+
+////////////////////////////////////////
+// MARK:	Omnizine
+////////////////////////////////////////
 /datum/reagent/medicine/omnizine
 	name = "Omnizine"
 	id = "omnizine"
@@ -424,18 +495,19 @@
 	addiction_threshold = 5
 	harmless = FALSE
 	taste_description = "health"
+	var/heals_robots = FALSE	// This is needed becuase of IPC subtype stuff.
 
-/datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/omnizine/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+	update_flags |= M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+	update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = heals_robots)	// This allows IPCs to heal if heals_robots is set to true.
+	update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = heals_robots)
 	if(prob(50))
 		M.AdjustLoseBreath(-2 SECONDS)
 	return ..() | update_flags
 
-/datum/reagent/medicine/omnizine/overdose_process(mob/living/M, severity)
+/datum/reagent/medicine/omnizine/overdose_process(mob/living/carbon/M, severity)
 	if(HAS_TRAIT(M, TRAIT_BADASS))
 		return list(0, STATUS_UPDATE_NONE)
 
@@ -473,6 +545,10 @@
 			M.Weaken(6 SECONDS)
 	return list(effect, update_flags)
 
+////////////////////////////////////////
+// MARK:	Omnizine (no addiction)
+////////////////////////////////////////
+// Used in adrenals implants.
 /datum/reagent/medicine/omnizine/no_addict
 	id = "omnizine_no_addiction"
 	overdose_threshold = 0
@@ -480,6 +556,67 @@
 	addiction_chance_additional = 100
 	addiction_threshold = 0
 
+////////////////////////////////////////
+// MARK:	Smart Metal
+////////////////////////////////////////
+// Used in the IPC supercharge implant - because IPCs deserve the little bit of healing too.
+// Could actually be interesting to add a crew-accessable synthetic version of omnizine...
+/datum/reagent/medicine/omnizine/no_addict/synthetic
+	name = "Smart Metal"
+	id = "synthetic_omnizine_no_addiction"
+	description = "An exotic metal alloy paste mixed with encapsulated nanomachines, used as a potent repair tool for synthetics. Once delivered, the capsules are eaten away by the nanomachines, \
+	which then shape the alloy and adjust its various properties before solidifying to patch up damage."
+	heals_robots = TRUE
+
+	process_flags = SYNTHETIC
+
+	overdose_threshold = 0
+	addiction_chance = 0
+	addiction_chance_additional = 100
+	addiction_threshold = 0
+
+////////////////////////////////////////
+// MARK:	Diluted omnizine
+////////////////////////////////////////
+/datum/reagent/medicine/omnizine_diluted
+	name = "Diluted Omnizine"
+	id = "weak_omnizine"
+	description = "Slowly heals all damage types. A far weaker substitute than actual omnizine."
+	reagent_state = LIQUID
+	color = "#DCDCDC"
+	overdose_threshold = 30
+	metabolization_rate = 0.1
+	harmless = FALSE
+	taste_description = "faint hope"
+
+////////////////////////////////////////
+// MARK:	Godblood
+////////////////////////////////////////
+/datum/reagent/medicine/omnizine_diluted/godblood
+	name = "Godblood"
+	id = "godblood"
+	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
+	overdose_threshold = 150
+
+/datum/reagent/medicine/omnizine_diluted/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustOxyLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/omnizine_diluted/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustOxyLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return list(0, update_flags)
+
+////////////////////////////////////////
+// MARK:	Calomel
+////////////////////////////////////////
 /datum/reagent/medicine/calomel
 	name = "Calomel"
 	id = "calomel"
@@ -495,13 +632,16 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.id,5)
+			M.reagents.remove_reagent(R.id, 5)
 	if(M.health > 20)
-		update_flags |= M.adjustToxLoss(5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(6))
 		M.fakevomit()
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Potassium iodide
+////////////////////////////////////////
 /datum/reagent/medicine/potass_iodide
 	name = "Potassium Iodide"
 	id = "potass_iodide"
@@ -515,6 +655,9 @@
 	M.radiation = max(0, M.radiation - 25)
 	return ..()
 
+////////////////////////////////////////
+// MARK:	Pentetic acid
+////////////////////////////////////////
 /datum/reagent/medicine/pen_acid
 	name = "Pentetic Acid"
 	id = "pen_acid"
@@ -529,15 +672,18 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.id,4)
-	M.radiation = max(0, M.radiation-70)
+			M.reagents.remove_reagent(R.id, 4)
+	M.radiation = max(0, M.radiation -70)
 	if(prob(75))
-		update_flags |= M.adjustToxLoss(-4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(-4 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(33))
-		update_flags |= M.adjustBruteLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Salicylic acid
+////////////////////////////////////////
 /datum/reagent/medicine/sal_acid
 	name = "Salicylic Acid"
 	id = "sal_acid"
@@ -559,6 +705,9 @@
 		M.bodytemperature = max(310.15, M.bodytemperature - 10)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Menthol
+////////////////////////////////////////
 /datum/reagent/medicine/menthol
 	name = "Menthol"
 	id = "menthol"
@@ -576,6 +725,9 @@
 		M.bodytemperature = max(280, M.bodytemperature - 10)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Salbutamol
+////////////////////////////////////////
 /datum/reagent/medicine/salbutamol
 	name = "Salbutamol"
 	id = "salbutamol"
@@ -588,10 +740,13 @@
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustOxyLoss(-6*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustOxyLoss(-6 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	M.AdjustLoseBreath(-8 SECONDS)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Perflurodecalin
+////////////////////////////////////////
 /datum/reagent/medicine/perfluorodecalin
 	name = "Perfluorodecalin"
 	id = "perfluorodecalin"
@@ -611,10 +766,10 @@
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 
-	update_flags |= M.adjustOxyLoss(-25*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustOxyLoss(-25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(33))
-		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 
 	return ..() | update_flags
 
@@ -622,6 +777,9 @@
 	M.LoseBreath(12 SECONDS)
 	return list(0, STATUS_UPDATE_NONE)
 
+////////////////////////////////////////
+// MARK:	Ephedrine
+////////////////////////////////////////
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
 	id = "ephedrine"
@@ -642,7 +800,7 @@
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
 	M.AdjustKnockDown(-2 SECONDS)
-	update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustStaminaLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 10 SECONDS)
 	if(M.getOxyLoss() > 75)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
@@ -676,6 +834,9 @@
 			M.emote("collapse")
 	return list(effect, update_flags)
 
+////////////////////////////////////////
+// MARK:	Diphenhydramine
+////////////////////////////////////////
 /datum/reagent/medicine/diphenhydramine
 	name = "Diphenhydramine"
 	id = "diphenhydramine"
@@ -740,6 +901,9 @@
 			M.Druggy(30 SECONDS)
 	return list(effect, update_flags)
 
+////////////////////////////////////////
+// MARK:	Morphene
+////////////////////////////////////////
 /datum/reagent/medicine/morphine
 	name = "Morphine"
 	id = "morphine"
@@ -769,6 +933,9 @@
 			M.Drowsy(40 SECONDS)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Oculine
+////////////////////////////////////////
 /datum/reagent/medicine/oculine
 	name = "Oculine"
 	id = "oculine"
@@ -799,6 +966,9 @@
 		M.SetEyeBlind(0)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Atropine
+////////////////////////////////////////
 /datum/reagent/medicine/atropine
 	name = "Atropine"
 	id = "atropine"
@@ -819,16 +989,19 @@
 		M.emote("collapse")
 	M.AdjustLoseBreath(-10 SECONDS, bound_lower = 10 SECONDS)
 	if(M.getOxyLoss() > 65)
-		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-10 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -25)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
-		update_flags |= M.adjustBruteLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	else if(M.health > -60)
 		update_flags |= M.adjustToxLoss(1, FALSE)
 	M.reagents.remove_reagent("sarin", 20)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Epinephrine
+////////////////////////////////////////
 /datum/reagent/medicine/epinephrine
 	name = "Epinephrine"
 	id = "epinephrine"
@@ -851,11 +1024,11 @@
 	holder.remove_reagent("histamine", 15)
 	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 6 SECONDS)
 	if(M.getOxyLoss() > 35)
-		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-10 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -10 && M.health > -65)
-		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/epinephrine/overdose_process(mob/living/M, severity)
@@ -882,6 +1055,9 @@
 			M.emote("collapse")
 	return list(effect, update_flags)
 
+////////////////////////////////////////
+// MARK:	Lazarus reagent
+////////////////////////////////////////
 /datum/reagent/medicine/lazarus_reagent
 	name = "Lazarus Reagent"
 	id = "lazarus_reagent"
@@ -954,6 +1130,9 @@
 					SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 	..()
 
+////////////////////////////////////////
+// MARK:	Sanguine reagent
+////////////////////////////////////////
 /datum/reagent/medicine/sanguine_reagent
 	name = "Sanguine Reagent"
 	id = "sanguine_reagent"
@@ -1010,6 +1189,9 @@
 				addtimer(VARSET_CALLBACK(H.client, color, ""), 6 SECONDS)
 	return list(0, update_flags)
 
+////////////////////////////////////////
+// MARK:	Osseous reagent
+////////////////////////////////////////
 /datum/reagent/medicine/osseous_reagent
 	name = "Osseous Reagent"
 	id = "osseous_reagent"
@@ -1039,6 +1221,9 @@
 
 	return ..()
 
+////////////////////////////////////////
+// MARK:	Mannitol
+////////////////////////////////////////
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
 	id = "mannitol"
@@ -1052,6 +1237,28 @@
 	update_flags |= M.adjustBrainLoss(-3, FALSE)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Liquid Solder
+////////////////////////////////////////
+// IPC Mannitol.
+/datum/reagent/medicine/liquid_solder
+	name = "Liquid Solder"
+	id = "liquid_solder"
+	description = "A solution formulated to clean and repair damaged connections in posibrains while in use."
+	reagent_state = LIQUID
+	color = "#D7B395"
+	process_flags = SYNTHETIC
+	taste_description = "heavy metals"
+	goal_difficulty = REAGENT_GOAL_EASY
+
+/datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustBrainLoss(-3, FALSE)
+	return ..() | update_flags
+
+////////////////////////////////////////
+// MARK:	Mutadone
+////////////////////////////////////////
 /datum/reagent/medicine/mutadone
 	name = "Mutadone"
 	id = "mutadone"
@@ -1082,6 +1289,9 @@
 			H.update_mutations()
 	return ..()
 
+////////////////////////////////////////
+// MARK:	Antihol
+////////////////////////////////////////
 /datum/reagent/medicine/antihol
 	name = "Antihol"
 	id = "antihol"
@@ -1099,6 +1309,10 @@
 		update_flags |= M.adjustToxLoss(-2.0, FALSE)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Stimulants
+////////////////////////////////////////
+// Used in the stimulants autoinjector tot item.
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
 	id = "stimulants"
@@ -1110,10 +1324,10 @@
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(volume > 5)
-		update_flags |= M.adjustOxyLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustToxLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustBruteLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-10 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-10 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.setStaminaLoss(0, FALSE)
 		M.SetSlowed(0)
 		M.AdjustDizzy(-20 SECONDS)
@@ -1141,11 +1355,14 @@
 		M.remove_stun_absorption("stimulants")
 	..()
 
-//the highest end antistun chem, removes stun and stamina rapidly.
+////////////////////////////////////////
+// MARK:	Stimulative agent
+////////////////////////////////////////
+// Used in the adrenals implant.
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
-	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
+	description = "Stimulates the skeletal musculature and central nervous system, allowing the user to run faster whilst also clearing stuns. If overdosed it will deal toxin damage and be less effective for healing stamina."
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
@@ -1170,8 +1387,8 @@
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(33))
-		update_flags |= M.adjustStaminaLoss(2.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustStaminaLoss(2.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		M.AdjustLoseBreath(2 SECONDS)
 	return list(0, update_flags)
 
@@ -1184,6 +1401,56 @@
 /datum/reagent/medicine/stimulative_agent/changeling/on_mob_delete(mob/living/L)
 	return
 
+////////////////////////////////////////
+// MARK:	Surge plus
+////////////////////////////////////////
+// This is stimulative agent but for IPCs. Used in the supercharge implant.
+/datum/reagent/medicine/stimulative_agent/surge_plus
+	name = "Surge Plus"
+	id = "surge_plus"
+	description = "A high quality, low-viscocity gel that both supercharges processors and massively increases the efficincy of synthetic locomotive systems, allowing the user to run faster whilst also clearing stuns. \
+	If overdosed, it will cause short-circuits that will cause damage and reduce locomotive efficiancy gains."
+	reagent_state = LIQUID
+	color = "#28b581"
+
+	process_flags = SYNTHETIC
+
+	taste_description = "silicon"
+
+/datum/reagent/surge_plus/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustParalysis(-6 SECONDS)
+	M.AdjustStunned(-6 SECONDS)
+	M.AdjustWeakened(-6 SECONDS)
+	M.AdjustKnockDown(-6 SECONDS)
+	// The 4 below benefits are from Synaptizine, because we don't need a synthetic version of that.	
+	M.AdjustDrowsy(-10 SECONDS)
+	M.AdjustConfused(-10 SECONDS)
+	M.AdjustDizzy(-10 SECONDS)
+	M.SetSleeping(0)
+	update_flags |= M.adjustStaminaLoss(-40 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(prob(5))
+		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like the world is moving in slow motion.")
+		if(prob(10))
+			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!" // "GOTTAGOFAST" in binary.
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+
+	return ..() | update_flags
+
+/datum/reagent/surge_plus/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(33))
+		M.Stuttering(5 SECONDS)
+		to_chat(M, pick("<span class='warning'>Your circuits overheat!</span>", "<span class='warning'>Electrical arcs discharge inside you!</span>"))
+		update_flags |= M.adjustStaminaLoss(2.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE) // 5 to compensate for no breathloss. Not like anyone will ever OD on this anyway.
+		M.AdjustLoseBreath(2 SECONDS)
+	return list(0, update_flags)
+
+
+////////////////////////////////////////
+// MARK:	Insulin
+////////////////////////////////////////
 /datum/reagent/medicine/insulin
 	name = "Insulin"
 	id = "insulin"
@@ -1196,6 +1463,9 @@
 	M.reagents.remove_reagent("sugar", 5)
 	return ..()
 
+////////////////////////////////////////
+// MARK:	Heparin
+////////////////////////////////////////
 /datum/reagent/heparin
 	name = "Heparin"
 	id = "heparin"
@@ -1234,6 +1504,9 @@
 	return list(effect, update_flags)
 
 
+////////////////////////////////////////
+// MARK:	Teporone
+////////////////////////////////////////
 /datum/reagent/medicine/teporone
 	name = "Teporone"
 	id = "teporone"
@@ -1254,6 +1527,9 @@
 		M.bodytemperature = min(310, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..()
 
+////////////////////////////////////////
+// MARK:	Haloperidol
+////////////////////////////////////////
 /datum/reagent/medicine/haloperidol
 	name = "Haloperidol"
 	id = "haloperidol"
@@ -1284,6 +1560,9 @@
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Ether
+////////////////////////////////////////
 /datum/reagent/medicine/ether
 	name = "Ether"
 	id = "ether"
@@ -1309,6 +1588,9 @@
 			M.Drowsy(40 SECONDS)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Restorative nanites
+////////////////////////////////////////
 /// Used exclusively by Syndicate medical cyborgs
 /datum/reagent/medicine/syndicate_nanites
 	name = "Restorative Nanites"
@@ -1320,99 +1602,18 @@
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE) //A ton of healing - this is a 50 telecrystal investment.
-	update_flags |= M.adjustFireLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-15*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustToxLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBrainLoss(-15*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustCloneLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE) //A ton of healing - this is a 50 telecrystal investment.
+	update_flags |= M.adjustFireLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustOxyLoss(-15 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBrainLoss(-15 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustCloneLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/omnizine_diluted
-	name = "Diluted Omnizine"
-	id = "weak_omnizine"
-	description = "Slowly heals all damage types. A far weaker substitute than actual omnizine."
-	reagent_state = LIQUID
-	color = "#DCDCDC"
-	overdose_threshold = 30
-	metabolization_rate = 0.1
-	harmless = FALSE
-	taste_description = "faint hope"
-
-/datum/reagent/medicine/omnizine_diluted/godblood
-	name = "Godblood"
-	id = "godblood"
-	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
-	overdose_threshold = 150
-
-/datum/reagent/medicine/omnizine_diluted/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	return ..() | update_flags
-
-/datum/reagent/medicine/omnizine_diluted/overdose_process(mob/living/M, severity)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBruteLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	return list(0, update_flags)
-
-//////////////////////////////
-//		Synth-Meds			//
-//////////////////////////////
-
-//Degreaser: Mild Purgative / Lube Remover
-/datum/reagent/medicine/degreaser
-	name = "Degreaser"
-	id = "degreaser"
-	description = "An industrial degreaser which can be used to clean residual build-up from machinery and surfaces."
-	reagent_state = LIQUID
-	color = "#CC7A00"
-	process_flags = SYNTHETIC
-	taste_description = "overclocking"
-	goal_difficulty = REAGENT_GOAL_NORMAL
-
-/datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(50))
-		M.AdjustConfused(-10 SECONDS)
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			if(R.id == "ultralube" || R.id == "lube")
-				//Flushes lube and ultra-lube even faster than other chems
-				M.reagents.remove_reagent(R.id, 5)
-			else
-				M.reagents.remove_reagent(R.id,1)
-	return ..() | update_flags
-
-/datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
-	if(volume >= 1 && istype(T))
-		if(T.wet)
-			T.MakeDry(TURF_WET_LUBE)
-
-//Liquid Solder: Mannitol
-/datum/reagent/medicine/liquid_solder
-	name = "Liquid Solder"
-	id = "liquid_solder"
-	description = "A solution formulated to clean and repair damaged connections in posibrains while in use."
-	reagent_state = LIQUID
-	color = "#D7B395"
-	process_flags = SYNTHETIC
-	taste_description = "heavy metals"
-	goal_difficulty = REAGENT_GOAL_EASY
-
-/datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBrainLoss(-3, FALSE)
-	return ..() | update_flags
-
-
-
-//Trek-Chems. DO NOT USE THES OUTSIDE OF BOTANY OR FOR VERY SPECIFIC PURPOSES. NEVER GIVE A RECIPE UNDER ANY CIRCUMSTANCES//
+////////////////////////////////////////
+// MARK:	Bicardine
+////////////////////////////////////////
+//Trek-Chem. DO NOT USE THESE OUTSIDE OF BOTANY OR FOR VERY SPECIFIC PURPOSES. NEVER GIVE A RECIPE UNDER ANY CIRCUMSTANCES//
 /datum/reagent/medicine/bicaridine
 	name = "Bicaridine"
 	id = "bicaridine"
@@ -1425,14 +1626,18 @@
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(4 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return list(0, update_flags)
 
+////////////////////////////////////////
+// MARK:	Kelotane
+////////////////////////////////////////
+//Trek-Chem. DO NOT USE THESE OUTSIDE OF BOTANY OR FOR VERY SPECIFIC PURPOSES. NEVER GIVE A RECIPE UNDER ANY CIRCUMSTANCES//
 /datum/reagent/medicine/kelotane
 	name = "Kelotane"
 	id = "kelotane"
@@ -1445,15 +1650,17 @@
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/kelotane/overdose_process(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(4 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-
+////////////////////////////////////////
+// MARK:	Earthsblood
+////////////////////////////////////////
 /// Created by ambrosia gaia plants
 /datum/reagent/medicine/earthsblood
 	name = "Earthsblood"
@@ -1503,6 +1710,9 @@
 			update_flags |= M.adjustToxLoss(6 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return list(0, update_flags)
 
+////////////////////////////////////////
+// MARK:	Corazone
+////////////////////////////////////////
 /datum/reagent/medicine/corazone
 	name = "Corazone"
 	id = "corazone"
@@ -1510,8 +1720,10 @@
 	color = "#F5F5F5"
 	taste_description = "a brief respite"
 
+////////////////////////////////////////
+// MARK:	Nano-calcium
+////////////////////////////////////////
 // This reagent's effects are handled in heart attack handling code
-
 /datum/reagent/medicine/nanocalcium
 	name = "Nano-Calcium"
 	id = "nanocalcium"
@@ -1587,6 +1799,9 @@
 						update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Lavaland extract
+////////////////////////////////////////
 /datum/reagent/medicine/lavaland_extract
 	name = "Lavaland Extract"
 	id = "lavaland_extract"
@@ -1597,18 +1812,21 @@
 
 /datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/lavaland_extract/overdose_process(mob/living/M) // This WILL be brutal
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustConfused(10 SECONDS)
-	update_flags |= M.adjustBruteLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustToxLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
+////////////////////////////////////////
+// MARK:	Zombie cure
+////////////////////////////////////////
 // First level, prevents scratches from infecting you and cures stage 1 zombie infections.
 /datum/reagent/zombie_cure
 	name = "Anti-Plague Sequence Alpha"
