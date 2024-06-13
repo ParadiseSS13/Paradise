@@ -1045,7 +1045,7 @@
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.add_language(new_language))
+		if(H.add_language(new_language, TRUE))
 			to_chat(usr, "Added [new_language] to [H].")
 			message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] the language [new_language]")
 			log_admin("[key_name(usr)] has given [key_name(H)] the language [new_language]")
@@ -1073,7 +1073,7 @@
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.remove_language(rem_language.name))
+		if(H.remove_language(rem_language.name, TRUE))
 			to_chat(usr, "Removed [rem_language] from [H].")
 			message_admins("[key_name_admin(usr)] has removed language [rem_language] from [key_name_admin(H)]")
 			log_admin("[key_name(usr)] has removed language [rem_language] from [key_name(H)]")

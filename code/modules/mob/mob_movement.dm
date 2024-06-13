@@ -289,7 +289,7 @@
 			L.dir = direct
 		if(INCORPOREAL_MOVE_HOLY_BLOCK)
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
-			if(stepTurf.flags & NOJAUNT)
+			if(stepTurf.flags & BLESSED_TILE)
 				to_chat(L, "<span class='warning'>Holy energies block your path.</span>")
 				L.notransform = TRUE
 				spawn(2)
@@ -361,6 +361,8 @@
 	if(A == loc && pulling.density)
 		return
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))
+		return
+	if(src in pulling.contents)
 		return
 	var/target_turf = get_step(pulling, get_dir(pulling.loc, A))
 	if(get_dist(target_turf, loc) > 1) // Make sure the turf we are trying to pull to is adjacent to the user.

@@ -69,6 +69,9 @@
 
 	summon_type = list(/obj/item/soulstone/anybody/purified)
 
+/datum/spell/aoe/conjure/build/soulstone/any
+	summon_type = list(/obj/item/soulstone/anybody)
+
 /datum/spell/aoe/conjure/build/pylon
 	name = "Cult Pylon"
 	desc = "This spell uses dark magic to craft an unholy beacon. Heals cultists, and makes a handy light source."
@@ -118,6 +121,7 @@
 	jaunt_in_time = 12
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
+	jaunt_type_path = /obj/effect/dummy/spell_jaunt/wraith
 
 /datum/spell/ethereal_jaunt/shift/do_jaunt(mob/living/target)
 	target.set_light(0)

@@ -1269,6 +1269,12 @@
 
 		usr.client.view_asays()
 
+	else if(href_list["msays"])
+		if(!check_rights(R_ADMIN | R_MENTOR))
+			return
+
+		usr.client.view_msays()
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -1567,13 +1573,14 @@
 		usr.client.cmd_admin_robotize(H)
 
 	else if(href_list["makeanimal"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/M = locateUID(href_list["makeanimal"])
 		if(isnewplayer(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/new_player</span>")
 			return
-		if(alert(usr, "Confirm make animal?", null, "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Confirm make animal?", "Confirm Choice", list("Yes", "No")) != "Yes")
 			return
 
 		usr.client.cmd_admin_animalize(M)
@@ -2090,7 +2097,9 @@
 			if("Fire Death")
 				to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(M)
-				new /obj/effect/hotspot(T)
+				var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+				hotspot.temperature = 1000
+				hotspot.recolor()
 				M.adjustFireLoss(150)
 				logmsg = "a firey death."
 			if("Gib")

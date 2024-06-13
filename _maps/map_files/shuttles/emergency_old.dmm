@@ -327,11 +327,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "rj" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/structure/bed/roller,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
