@@ -594,17 +594,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "bT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/item/circular_saw,
-/obj/item/retractor,
-/obj/item/hemostat,
-/obj/item/scalpel,
-/obj/item/cautery,
-/obj/item/FixOVein,
-/obj/item/surgicaldrill,
-/obj/item/bonegel,
-/obj/item/bonesetter,
-/obj/item/stack/medical/bruise_pack/advanced,
+/obj/structure/closet/crate/secure/oldstation/surgery,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "bU" = (
@@ -1266,7 +1256,6 @@
 "dL" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blue"
@@ -1368,11 +1357,11 @@
 "dX" = (
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/off_station/empty_charge/directional/east,
+/obj/structure/closet/crate/secure/oldstation/rechargers,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/comm)
 "dY" = (
@@ -1407,16 +1396,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/white,
-/area/ruin/ancientstation/rnd)
-"ec" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/rdconsole/public,
-/turf/simulated/floor/plasteel/white,
-/area/ruin/ancientstation/rnd)
-"ed" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/r_n_d/destructive_analyzer,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "ee" = (
@@ -1471,7 +1450,6 @@
 /area/ruin/ancientstation/betanorth)
 "el" = (
 /obj/structure/table,
-/obj/machinery/recharger,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -1628,8 +1606,7 @@
 "eE" = (
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering{
 	charge = 0
@@ -1757,17 +1734,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
-"eT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/r_n_d/protolathe,
-/turf/simulated/floor/plasteel/white,
-/area/ruin/ancientstation/rnd)
-"eU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/r_n_d/circuit_imprinter,
-/obj/item/reagent_containers/dropper,
-/turf/simulated/floor/plasteel/white,
-/area/ruin/ancientstation/rnd)
 "eV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -2024,7 +1990,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Engineering External Access";
-	req_one_access_txt = "271"
+	req_one_access_txt = "301"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
@@ -2421,20 +2387,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
-"ge" = (
-/obj/structure/table,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
-/obj/machinery/power/apc/off_station/empty_charge/directional/west,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
-	},
-/area/ruin/ancientstation/sec)
 "gf" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -2447,6 +2399,7 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
+/obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
 "gh" = (
@@ -2497,6 +2450,7 @@
 /obj/item/stock_parts/capacitor,
 /obj/item/stock_parts/micro_laser,
 /obj/item/stack/cable_coil,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
 "gn" = (
@@ -3092,7 +3046,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_one_access_txt = "271"
+	req_one_access_txt = "301"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
@@ -3170,7 +3124,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Engineering External Access";
-	req_one_access_txt = "271"
+	req_one_access_txt = "301"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/engi)
@@ -3328,8 +3282,7 @@
 "id" = (
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/off_station/empty_charge/directional/north,
@@ -3450,8 +3403,7 @@
 "ir" = (
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering{
 	charge = 0
@@ -3781,8 +3733,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/dead,
@@ -3877,9 +3828,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "jt" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall/r_wall,
-/area/ruin/ancientstation/proto)
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/salvage/ruin/nanotrasen,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/comm)
 "ju" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3889,7 +3842,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Prototype Laboratory";
-	req_access_txt = "271"
+	req_access_txt = "301"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -3900,7 +3853,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Prototype Laboratory";
-	req_access_txt = "271"
+	req_access_txt = "301"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -4141,6 +4094,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "jZ" = (
@@ -4358,7 +4312,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "kA" = (
-/obj/machinery/computer/nonfunctional,
+/obj/machinery/computer/nonfunctional{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
@@ -4382,8 +4338,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/atmo)
 "kE" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/indestructible/riveted,
 /area/ruin/ancientstation/proto)
 "kF" = (
 /obj/structure/transit_tube_pod{
@@ -4811,13 +4767,8 @@
 /obj/machinery/alarm/all_access/directional/west{
 	report_danger_level = 0
 	},
-/obj/structure/rack,
-/obj/item/gun/energy/laser/retro/old{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/gun/energy/laser/retro/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/oldstation/security,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -4908,17 +4859,20 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "lL" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/armor/vest/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/deck/cards{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
 /area/ruin/ancientstation/sec)
 "lM" = (
-/obj/structure/rack,
-/obj/item/clothing/head/helmet/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -4960,6 +4914,25 @@
 /obj/machinery/power/tesla_coil,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
+"Hr" = (
+/obj/structure/table,
+/obj/item/salvage/ruin/nanotrasen,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "red"
+	},
+/area/ruin/ancientstation/sec)
+"JF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/oldstation/research,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/rnd)
 "Lu" = (
 /obj/structure/transit_tube/horizontal{
 	dir = 4
@@ -6583,7 +6556,7 @@ aa
 am
 aM
 aO
-aF
+jt
 at
 aS
 dt
@@ -7169,7 +7142,7 @@ bC
 bC
 cG
 dg
-ge
+Hr
 eu
 fX
 eu
@@ -7952,13 +7925,13 @@ dj
 dj
 iS
 jj
-jt
-jt
-jt
-jt
-jt
-jt
-jt
+kE
+kE
+kE
+kE
+kE
+kE
+kE
 aa
 aa
 aa
@@ -7990,7 +7963,7 @@ eb
 ex
 dE
 fm
-gf
+JF
 gy
 dG
 hg
@@ -8000,13 +7973,13 @@ ig
 dj
 ld
 lg
-jt
+kE
 jB
 jS
-jt
+kE
 kq
 ky
-jt
+kE
 aa
 aa
 aa
@@ -8034,9 +8007,9 @@ cp
 cN
 dj
 dE
-ec
 dE
-eT
+dE
+dE
 dE
 gg
 gy
@@ -8048,13 +8021,13 @@ ig
 dj
 iU
 jk
-jt
+kE
 jC
 jT
-jt
+kE
 jT
 jC
-jt
+kE
 aa
 aa
 aa
@@ -8082,9 +8055,9 @@ ev
 fz
 dj
 dE
-ed
 dE
-eU
+dE
+dE
 dE
 gh
 gy
@@ -8096,13 +8069,13 @@ ih
 dj
 iV
 ji
-jt
+kE
 jD
 jU
 ki
 jU
 jU
-jt
+kE
 aa
 aa
 aa
@@ -8144,13 +8117,13 @@ gf
 dj
 ld
 lg
-jt
+kE
 cV
 jV
 jV
 jV
 kz
-jt
+kE
 aa
 aa
 aa
@@ -8288,13 +8261,13 @@ dj
 dj
 iT
 fq
-jt
+kE
 cW
 jV
 jV
 jV
 kz
-jt
+kE
 aa
 aa
 aa
@@ -8336,13 +8309,13 @@ ij
 dj
 lf
 lh
-jt
+kE
 jI
 jW
 kj
 jW
 jW
-jt
+kE
 aa
 aa
 aa
@@ -8384,13 +8357,13 @@ ik
 dj
 iT
 fq
-jt
+kE
 jC
 jX
-jt
+kE
 jX
 jC
-jt
+kE
 aa
 aa
 aa
@@ -8432,13 +8405,13 @@ il
 dj
 ld
 kS
-jt
+kE
 jJ
 jY
-jt
+kE
 kt
 kB
-jt
+kE
 aa
 aa
 aa
@@ -8480,13 +8453,13 @@ dj
 dj
 iS
 jn
-jt
-jt
-jt
-jt
-jt
-jt
-jt
+kE
+kE
+kE
+kE
+kE
+kE
+kE
 aa
 aa
 aa

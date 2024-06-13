@@ -47,5 +47,6 @@ GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_i
 							"fungalspores", "jagged_crystals", "salmonella",
 							"lavaland_extract", "stable_mutagen", "beer2",
 							"curare", "gluttonytoxin", "smoke_powder", "stimulative_cling",
-							"teslium_paste", "omnizine_no_addiction"
+							"teslium_paste", "omnizine_no_addiction", "zombiecure1",
+							"zombiecure2", "zombiecure3", "zombiecure4"
 							))
