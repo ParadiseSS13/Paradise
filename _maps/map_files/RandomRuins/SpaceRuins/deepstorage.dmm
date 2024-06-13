@@ -1111,6 +1111,18 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle/empty,
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/space/deepstorage)
+"fp" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Your instincts say you shouldn't be following these.";
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks";
+	dir = 10;
+	pixel_y = 4;
+	pixel_x = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lowpressure,
+/area/ruin/space/deepstorage)
 "ft" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -2279,6 +2291,18 @@
 	icon_state = "white"
 	},
 /area/ruin/space/deepstorage)
+"nR" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Your instincts say you shouldn't be following these.";
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks";
+	dir = 5;
+	pixel_y = 4;
+	pixel_x = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lowpressure,
+/area/ruin/space/deepstorage)
 "nW" = (
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
@@ -2361,6 +2385,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
+/area/ruin/space/deepstorage)
+"oH" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/splatter{
+	color = "red"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lowpressure,
 /area/ruin/space/deepstorage)
 "oI" = (
 /obj/structure/railing{
@@ -2648,6 +2679,10 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/ruin/space/deepstorage)
+"qR" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid/basalt/lowpressure,
 /area/ruin/space/deepstorage)
 "qV" = (
 /obj/machinery/light/small{
@@ -3831,6 +3866,7 @@
 /obj/effect/turf_decal{
 	dir = 4
 	},
+/obj/item/paper/fluff/ruins/deepstorage/log6,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -5739,6 +5775,12 @@
 	icon_state = "blackcorner"
 	},
 /area/ruin/space/deepstorage)
+"NY" = (
+/obj/effect/decal/cleanable/blood/splatter{
+	color = "red"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lowpressure,
+/area/ruin/space/deepstorage)
 "NZ" = (
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
@@ -6597,6 +6639,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/ruin/space/deepstorage)
+"UB" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	color = "red";
+	desc = "Your instincts say you shouldn't be following these.";
+	icon = 'icons/effects/blood.dmi';
+	icon_state = "tracks";
+	dir = 6;
+	pixel_y = 4;
+	pixel_x = -3
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lowpressure,
 /area/ruin/space/deepstorage)
 "UC" = (
 /turf/simulated/floor/mineral/plastitanium,
@@ -8792,7 +8846,7 @@ eB
 eB
 eB
 eB
-eB
+oH
 eB
 ka
 JA
@@ -8860,8 +8914,8 @@ eB
 eB
 eB
 eB
-eB
-eB
+NY
+UB
 eB
 eB
 AD
@@ -8989,6 +9043,7 @@ jB
 jB
 jB
 Lz
+NY
 eB
 eB
 eB
@@ -9000,9 +9055,8 @@ eB
 eB
 eB
 eB
-eB
-eB
-eB
+NY
+qR
 AD
 sk
 ab
@@ -9058,9 +9112,9 @@ No
 LJ
 FN
 eB
-eB
-eB
-eB
+nR
+oH
+NY
 eB
 eB
 eB
@@ -9071,7 +9125,7 @@ eB
 eB
 eB
 eB
-eB
+NY
 AD
 sk
 ab
@@ -9128,7 +9182,7 @@ na
 FN
 eB
 eB
-eB
+NY
 eB
 eB
 eB
@@ -9138,7 +9192,7 @@ Ol
 eB
 eB
 eB
-eB
+NY
 eB
 eB
 AD
@@ -9265,7 +9319,7 @@ jB
 jB
 jB
 Lz
-eB
+oH
 eB
 eB
 eB
@@ -9336,7 +9390,7 @@ Ol
 Ol
 eB
 eB
-eB
+NY
 eB
 eB
 rj
@@ -9756,8 +9810,8 @@ Ol
 gP
 Qk
 eB
-eB
-eB
+NY
+fp
 eB
 eB
 eB
@@ -9826,7 +9880,7 @@ Ol
 bT
 eB
 eB
-eB
+oH
 eB
 eB
 Qa

@@ -332,3 +332,10 @@
 	<br>
 	Yes, it's contagious and i don't think it's limited with physical contact. We have been burning the corpses, there's still more to burn.
 	This will not end well, i advise evacuating crew to a more suitable quarantine zone before things goes out of hand."}
+
+/obj/item/paper/fluff/ruins/deepstorage/log6
+	name = "warning"
+	info = {"We sealed that thing in warehouse, it teared apart half of my squad. We were no match.<br>
+	<br>
+	For whatever reason you want to go in, package teleporter is still functional. Gates will remain sealed as long as that thing is alive so, proceed with your own
+	discretion."}
