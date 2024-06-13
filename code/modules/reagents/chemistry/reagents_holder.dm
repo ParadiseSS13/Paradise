@@ -457,7 +457,7 @@
 					continue
 
 				var/datum/chemical_reaction/C = reaction
-				var/total_required_reagents = length(C.required_reagents)
+				var/total_required_reagents = get_total_required_reagents()
 				var/total_matching_reagents = 0
 				var/total_required_catalysts = length(C.required_catalysts)
 				var/total_matching_catalysts = 0
@@ -495,7 +495,7 @@
 				if(min_temp == 0)
 					min_temp = chem_temp
 
-				if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && chem_temp <= max_temp && chem_temp >= min_temp)
+				if(total_matching_reagents >= total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && chem_temp <= max_temp && chem_temp >= min_temp)
 					if(!C.last_can_react_check(src))
 						continue
 					var/multiplier = min(multipliers)

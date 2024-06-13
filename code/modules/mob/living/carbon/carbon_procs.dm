@@ -810,6 +810,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		var/obj/structure/struct = buckled
 		time = struct.unbuckle_time
 
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+		time /= 2
+		// Ctodo fix unbuckling since I think its broken for zombies
+
 	if(time == 0)
 		buckled.user_unbuckle_mob(src, src)
 		return

@@ -20,7 +20,7 @@
 		healing_factor /= 3
 	if(zomboid.stat == DEAD)
 		healing_factor *= 2
-	zomboid.heal_overall_damage(healing_factor, healing_factor)
+	zomboid.heal_overall_damage(healing_factor, healing_factor, robotic = TRUE)
 	zomboid.adjustBrainLoss(-healing_factor)
 	if(zomboid.stat == DEAD && zomboid.getBruteLoss() <= 1 && zomboid.getFireLoss() <= 1 && (zomboid.timeofdeath + 15 SECONDS <= world.time))
 		var/datum/reagent/the_cure = zomboid.reagents.has_reagent("zombiecure4")
@@ -118,8 +118,8 @@
 /datum/component/zombie_regen/proc/mindless_hunger()
 	var/mob/living/carbon/human/zomboid = parent
 	var/list/targets = list()
-	for(var/mob/living/carbon/human/target in view(6, zomboid))
-		if(target.stat == CONSCIOUS && !HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
+	for(var/mob/living/target in view(6, zomboid))
+		if(target.stat == CONSCIOUS && target.client && !HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
 			targets |= target
 			if(zomboid.Adjacent(target))
 				break // we're just gonna hit em

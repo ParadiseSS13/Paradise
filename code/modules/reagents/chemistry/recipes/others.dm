@@ -500,13 +500,13 @@
 	result = "zombiecure1"
 	result_amount = 1
 	required_reagents = list("blood" = 1, "diphenhydramine" = 1)
-	mix_message = "The mixture into a dark green paste."
+	mix_message = "The mixture turns into a thick paste."
 	/// The cure level of the reagent, level 4 cure requires level 3 cure, which requires level 2 cure, etc
 	var/cure_level = 1
 	/// The amount of reagents to pick from get_possible_cures()
 	var/amt_req_cures = 1
 	/// A virus symptom required to complete this chemical reaction
-	var/datum/symptom/required_symptom
+	var/datum/symptom/required_symptom // ctodo make this lower the amount of required cures
 
 /datum/chemical_reaction/zombie/New()
 	. = ..()
@@ -528,16 +528,17 @@
 	var/datum/disease/zombie/zomb = locate(/datum/disease/zombie) in blood.data["viruses"]
 	if(!zomb)
 		return FALSE
-	if(zomb.cure_stage + 1 > cure_level) // Virus has already been cured to this level
-		return FALSE
+	return zomb.cure_stage < cure_level
+
+/datum/chemical_reaction/zombie/get_total_required_reagents(datum/reagents/holder)
+	. = ..()
 	if(!required_symptom)
-		return TRUE
+		return
 
 	for(var/datum/disease/advance/advanced in blood.data["viruses"])
 		for(var/datum/symptom/symptom as anything in advanced.symptoms)
 			if(istype(symptom, required_symptom))
-				return TRUE
-	return FALSE
+				return 2 // if you have the symptom, it becomes much easier to make! (blood and 1 other random reagent)
 
 /datum/chemical_reaction/zombie/proc/get_possible_cures()
 	return list()
@@ -548,6 +549,7 @@
 	result = "zombiecure2"
 	cure_level = 2
 	amt_req_cures = 3
+	required_symptom = /datum/symptom/heal/metabolism
 
 /datum/chemical_reaction/zombie/second/get_possible_cures()
 	return list("salglu_solution", "toxin", "atropine", "lye", "sodawater", "happiness", "morphine", "teporone")
@@ -569,7 +571,6 @@
 	result = "zombiecure4"
 	cure_level = 4
 	amt_req_cures = 2
-	required_symptom = /datum/symptom/heal/metabolism
 
 /datum/chemical_reaction/zombie/four/get_possible_cures()
 	return list("colorful_reagent", "bacchus_blessing", "pen_acid", "glyphosate", "lazarus_reagent", "omnizine", "sarin", "ants", "clf3", "sorium", "????", "aranesp")

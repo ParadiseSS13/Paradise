@@ -491,6 +491,14 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(M.stat != DEAD)
 			M.emote("scream")
 
+		if(HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
+			if(istype(user))
+				add_attack_logs(user, M, "Burned with cremator (Zombie)")
+			M.adjustFireLoss(1000)
+			M.adjust_fire_stacks(20)
+			M.IgniteMob()
+			return
+
 		if(istype(user))
 			add_attack_logs(user, M, "Cremated")
 

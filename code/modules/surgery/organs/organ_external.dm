@@ -585,7 +585,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(limb_flags & CANNOT_DISMEMBER || !owner)
 		return
 
-	if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS) && !clean)
+	if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS) && !clean && !vital)
 		fracture()
 		return
 
