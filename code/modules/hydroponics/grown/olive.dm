@@ -1,6 +1,6 @@
 // Olives!
 /obj/item/seeds/olive
-	name = "pack of olive seads"
+	name = "pack of olive seeds"
 	desc = "These seeds grow into olive trees."
 	icon_state = "seed-olive"
 	species = "olive"
