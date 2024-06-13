@@ -1342,6 +1342,10 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
+/obj/item/food/snacks/meatkebab{
+	pixel_y = 20;
+	layer = 3.1
+	},
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/aft)
 "aKE" = (
@@ -7239,6 +7243,17 @@
 	icon_state = "darkred"
 	},
 /area/station/security/warden)
+"dCf" = (
+/obj/machinery/door_control{
+	id = "justice_blast";
+	name = "Space Vent";
+	pixel_x = 32;
+	req_access_txt = "2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/paramedic)
 "dCg" = (
 /obj/machinery/door/airlock/command/glass,
 /obj/machinery/door/poddoor/preopen{
@@ -8622,6 +8637,10 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/ai)
+"emZ" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/simulated/floor/plasteel,
+/area/station/public/fitness)
 "enk" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -12001,7 +12020,7 @@
 /obj/machinery/flasher_button{
 	id = "Execution";
 	pixel_x = 32;
-	pixel_y = 7
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -17384,6 +17403,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
+"iHg" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard)
 "iHk" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel,
@@ -32090,6 +32113,10 @@
 	icon_state = "dark"
 	},
 /area/station/telecomms/computer)
+"pRV" = (
+/obj/machinery/economy/vending/cola,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore)
 "pRZ" = (
 /obj/item/shard{
 	icon_state = "small"
@@ -39322,6 +39349,11 @@
 /obj/item/multitool,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
+"ttR" = (
+/obj/structure/table,
+/obj/item/book/manual/wiki/sop_command,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore)
 "ttT" = (
 /obj/item/cigbutt,
 /obj/effect/decal/cleanable/dirt,
@@ -45521,6 +45553,10 @@
 	icon_state = "dark"
 	},
 /area/station/security/armory/secure)
+"wBq" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/spacebridge/dorms/west)
 "wBF" = (
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel,
@@ -74999,9 +75035,9 @@ vyj
 rtG
 sik
 chh
-mYU
-mYU
-mYU
+slw
+pRV
+ttR
 chh
 aSK
 eMT
@@ -85589,7 +85625,7 @@ czx
 nfE
 fWc
 bSJ
-gQM
+muN
 fcS
 elS
 hEX
@@ -86307,7 +86343,7 @@ oJl
 oJl
 eCS
 exL
-mYU
+xWI
 mYU
 mYU
 ici
@@ -87873,7 +87909,7 @@ ukq
 ukq
 ukq
 ukq
-ukq
+uZE
 vmZ
 ojW
 ojW
@@ -88130,7 +88166,7 @@ vPt
 vPt
 vPt
 ukq
-ukq
+wBq
 vmZ
 jnP
 jnP
@@ -88387,7 +88423,7 @@ vPt
 pET
 vPt
 vPt
-ukq
+wBq
 vmZ
 jnP
 jnP
@@ -88670,7 +88706,7 @@ kyA
 bFc
 mJz
 mJz
-mJz
+dCf
 mJz
 mri
 hpO
@@ -91184,7 +91220,7 @@ pzH
 tdx
 uRj
 wKo
-gxc
+emZ
 gxc
 hUh
 hLn
@@ -92990,7 +93026,7 @@ xYk
 dZE
 wKo
 wKo
-vhz
+yek
 vhz
 vhz
 vhz
@@ -95860,7 +95896,7 @@ lxc
 lxc
 mlc
 mlc
-kyA
+iHg
 kyA
 kyA
 ngr
