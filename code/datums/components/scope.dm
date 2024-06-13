@@ -167,7 +167,7 @@
 	tracker.assign_to_mob(user, range_modifier)
 	if(flags & SCOPE_MOVEMENT_CANCELS)
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
-	if(flags & SCOPE_MIDDLE_CLICK)
+	if(flags & SCOPE_CLICK_MIDDLE)
 		RegisterSignal(tracker, COMSIG_CLICK, PROC_REF(generic_click))
 	tracker_owner_ckey = user.ckey
 	if(user.is_holding(parent))

@@ -206,6 +206,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// Can we use scope from mechs, lockers, etc?
 #define SCOPE_TURF_ONLY 		(1<<1)
 /// Do we let the user scope and click on the middle of their screen?
-#define SCOPE_MIDDLE_CLICK 		(1<<2)
+#define SCOPE_CLICK_MIDDLE 		(1<<2)
 /// Should the user hold the item in active hand to use it?
 #define SCOPE_NEED_ACTIVE_HAND 	(1<<3)
