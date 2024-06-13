@@ -180,3 +180,7 @@
 	name = "Cybersun Mobile Exosuit Factory"
 	apc_starts_off = TRUE
 	there_can_be_many = FALSE
+
+/area/ruin/space/deepstorage
+	name = "Derelict Facility"
+	apc_starts_off = TRUE

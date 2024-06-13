@@ -291,3 +291,8 @@
 	drop_y = y
 	var/list/target_z = levels_by_trait(SPAWN_RUINS)
 	drop_z = pick(target_z)
+
+/turf/simulated/floor/chasm/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB

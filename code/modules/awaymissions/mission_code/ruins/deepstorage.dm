@@ -1,0 +1,334 @@
+// When reviewing this, please consider someone who didn't know what they were doing just copy-pasted a lot of things
+
+/mob/living/simple_animal/hostile/megafauna/fleshling
+	name = "Fleshling"
+	desc = "This sinister mass of flesh appears to be molded into this shape, nothing about its appearance looks like a deed of evolution. It doesn't look like welcoming your presence here. You must defeat it first in order to get out of here."
+	health = 1000
+	icon = 'icons/mob/fleshling.dmi'
+	icon_state = "fleshling"
+	icon_living = "fleshling"
+	icon_dead = ""
+	speed = 5
+	move_to_delay = 4
+	ranged = TRUE
+	pixel_x = -16
+	attack_sound = 'sound/misc/demon_attack1.ogg'
+	melee_damage_lower = 20
+	melee_damage_upper = 20
+	wander = TRUE
+	move_force = MOVE_FORCE_VERY_STRONG
+	move_resist = MOVE_FORCE_VERY_STRONG
+	pull_force = MOVE_FORCE_VERY_STRONG
+	sentience_type = SENTIENCE_BOSS
+	a_intent = INTENT_HARM
+	deathmessage = "collapses into a pile of gib, from the looks of it this is the deadest it can get... "
+	del_on_death = TRUE
+	death_sound = 'sound/misc/demon_dies.ogg'
+	attack_sound = 'sound/misc/demon_attack1.ogg'
+
+	var/charging = FALSE
+	var/revving_charge = FALSE
+	var/bosskilled = FALSE // used for the same thing as var/hasdied for fleshling
+
+// Below here is copy-pasted from /asteroid/big_legion
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/AttackingTarget()
+	if(!isliving(target))
+		return ..()
+	var/mob/living/L = target
+	var/datum/status_effect/stacking/ground_pound/G = L.has_status_effect(STATUS_EFFECT_GROUNDPOUND)
+	if(!G)
+		L.apply_status_effect(STATUS_EFFECT_GROUNDPOUND, 1, src)
+		return ..()
+	if(G.add_stacks(stacks_added = 1, attacker = src))
+		return ..()
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/proc/throw_mobs()
+	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
+	for(var/mob/living/L in range(3, src))
+		if(faction_check(faction, L.faction, FALSE))
+			continue
+
+		L.visible_message("<span class='danger'>[L] was thrown by [src]!</span>",
+		"<span class='userdanger'>You feel a strong force throwing you!</span>",
+		"<span class='danger'>You hear a thud.</span>")
+		var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
+		L.throw_at(throw_target, 4, 4)
+		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
+		var/armor = L.run_armor_check(def_zone = limb_to_hit, attack_flag = MELEE, armour_penetration_percentage = 50)
+		L.apply_damage(40, BRUTE, limb_to_hit, armor)
+
+// Below here is edited from Bubblegum
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2)
+	if(!chargeat)
+		return
+	if(chargeat.z != z)
+		return
+	var/chargeturf = get_turf(chargeat)
+	if(!chargeturf)
+		return
+	var/dir = get_dir(src, chargeturf)
+	var/turf/T = get_ranged_target_turf(chargeturf, dir, chargepast)
+	if(!T)
+		return
+	new /obj/effect/temp_visual/dragon_swoop/bubblegum(T)
+	charging = TRUE
+	revving_charge = TRUE
+	walk(src, 0)
+	setDir(dir)
+	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
+	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
+	SLEEP_CHECK_DEATH(delay)
+	revving_charge = FALSE
+	var/movespeed = 0.8
+	walk_towards(src, T, movespeed)
+	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
+	walk(src, 0)
+	charging = FALSE
+	loot = list(/obj/effect/decal/cleanable/blood/innards,
+			/obj/effect/decal/cleanable/blood,
+			/obj/effect/gibspawner/generic,
+			/obj/effect/gibspawner/generic)
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/ListTargetsLazy()
+	return ListTargets()
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/Aggro()
+	. = ..()
+	if(target)
+		playsound(loc, 'sound/voice/zombie_scream.ogg', 70, TRUE)
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/OpenFire()
+	if(charging)
+		return
+	charge(delay = 3)
+	SetRecoveryTime(15)
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	if(Dir)
+		new /obj/effect/decal/cleanable/blood/bubblegum(loc)
+	playsound(src, 'sound/effects/meteorimpact.ogg', 25, TRUE, 2, TRUE)
+	return ..()
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/Bump(atom/A, yes)
+	if(charging && yes)
+		if(isliving(A))
+			var/mob/living/L = A
+			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
+			forceMove(get_turf(L))
+			L.apply_damage(istype(src, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination) ? 15 : 30, BRUTE)
+			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+			shake_camera(L, 4, 3)
+			shake_camera(src, 2, 3)
+	..()
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/Destroy()
+	handle_dying()
+	return ..()
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/proc/handle_dying()
+	if(!bosskilled)
+		bosskilled = TRUE
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/death(gibbed)
+	if(can_die() && !bosskilled)
+		UnlockBlastDoors("DS_BossStorage")
+	return ..(gibbed)
+
+/mob/living/simple_animal/hostile/megafauna/fleshling/proc/UnlockBlastDoors(target_id_tag)
+	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
+		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
+			P.open()
+
+/mob/living/simple_animal/hostile/spaceinfected
+	name = "Infected"
+	desc = "A reanimated corpse, wandering around aimlessly."
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "spaceinfected"
+	icon_living = "spaceinfected"
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	speak_chance = 1
+	turns_per_move = 3
+	death_sound = 'sound/effects/bodyfall1.ogg'
+	speed = 0
+	maxHealth = 150
+	health = 150
+	melee_damage_lower = 20
+	melee_damage_upper = 20
+	attacktext = "hits"
+	attack_sound = 'sound/effects/blobattack.ogg'
+	del_on_death = TRUE
+	sentience_type = SENTIENCE_OTHER
+	footstep_type = FOOTSTEP_MOB_SHOE
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	loot = list(/obj/effect/decal/cleanable/blood/innards,
+			/obj/effect/decal/cleanable/blood,
+			/obj/effect/gibspawner/generic,
+			/obj/effect/gibspawner/generic)
+
+/mob/living/simple_animal/hostile/spaceinfected/ListTargetsLazy()
+	return ListTargets()
+
+/mob/living/simple_animal/hostile/spaceinfected/Aggro()
+	. = ..()
+	if(target)
+		playsound(loc, 'sound/voice/zombie_scream.ogg', 70, TRUE)
+
+/mob/living/simple_animal/hostile/spaceinfected/default
+
+/mob/living/simple_animal/hostile/spaceinfected/default/Initialize(mapload)
+	. = ..()
+	if(prob(10))
+		loot = list(/obj/item/salvage/ruin/nanotrasen,
+			/obj/effect/decal/cleanable/blood/innards,
+			/obj/effect/decal/cleanable/blood,
+			/obj/effect/gibspawner/generic,
+			/obj/effect/gibspawner/generic)
+
+	if(prob(20))
+		loot = list(/obj/item/salvage/ruin/brick,
+			/obj/effect/decal/cleanable/blood/innards,
+			/obj/effect/decal/cleanable/blood,
+			/obj/effect/gibspawner/generic,
+			/obj/effect/gibspawner/generic)
+
+
+/mob/living/simple_animal/hostile/spaceinfected/gateopener //when this mob dies it'll trigger a poddoor open
+	var/hasdied = FALSE
+	loot = list(/obj/item/gun/energy/laser,
+			/obj/effect/decal/cleanable/blood/innards,
+			/obj/effect/decal/cleanable/blood,
+			/obj/effect/gibspawner/generic,
+			/obj/effect/gibspawner/generic) // first weapon this ruin provides
+
+/mob/living/simple_animal/hostile/spaceinfected/gateopener/Destroy()
+	handle_dying()
+	return ..()
+
+/mob/living/simple_animal/hostile/spaceinfected/gateopener/proc/handle_dying()
+	if(!hasdied)
+		hasdied = TRUE
+
+/mob/living/simple_animal/hostile/spaceinfected/gateopener/death(gibbed)
+	if(can_die() && !hasdied)
+		UnlockBlastDoors("DS_Engineering")
+	return ..(gibbed)
+
+/mob/living/simple_animal/hostile/spaceinfected/gateopener/proc/UnlockBlastDoors(target_id_tag)
+	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
+		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
+			P.open()
+
+/mob/living/simple_animal/hostile/spaceinfected/default/ranged
+	desc = "A reanimated corpse. This one is keeping its distance from you."
+	icon_state = "spaceinfected_ranged"
+	ranged = TRUE
+	retreat_distance = 5
+	minimum_distance = 5
+	projectiletype = /obj/item/projectile/neurotox
+	projectilesound = 'sound/weapons/pierce.ogg'
+
+// Below here is ruin specific code
+
+/obj/structure/blob/normal/deepstorage //parent one didn't allow me to color them with varedit
+	name = "flesh wall"
+	desc = "What even..."
+	color = rgb(80, 39, 39)
+
+/obj/machinery/deepstorage_teleporter
+	name = "package teleporter"
+	desc = "It's tuned to maintain one-way teleportation."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "controller"
+	density = TRUE
+	anchored = TRUE
+
+	var/active_portals = 0
+
+/obj/machinery/deepstorage_teleporter/attack_hand(mob/user)
+	if(active_portals !=0)
+		return
+
+	var/list/boss_warning = list("Proceed" = TRUE)
+	var/final_decision = tgui_input_list(user, "Just a hunch but wherever this machine may lead, it won't be somewhere so pleasant. Are you sure about this?", "Make your decision", boss_warning)
+	if(!final_decision)
+		to_chat(user, "<span class='notice'>The teleporter machine remains untouched.</span>")
+		return
+
+	new /obj/effect/deepstorage_portal(locate(x, y + 1, z))
+	active_portals++
+
+/obj/effect/deepstorage_portal
+	name = "portal"
+	desc = "Good luck."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "portal-syndicate"
+
+/obj/effect/deepstorage_portal/Crossed(atom/movable/AM, oldloc)
+	AM.forceMove(locate(x + 3, y - 6, z))
+	do_sparks(5, 0, loc)
+
+// paper stuff & lore
+
+/obj/item/paper/fluff/ruins/deepstorage/log1
+	name = "a note"
+	info = {"As per administration's request, i will be keeping auxiliary power room locked from now on.<br>
+	<br>
+	If you need in for whatever reason, find me in cave tunnels in the western part."}
+
+/obj/item/paper/fluff/ruins/deepstorage/log2
+	name = "to my love"
+	info = {"Everything went batshit insane, at first we all thought it was a terrorist attack or something...
+	All floors were put into lockdown, then shortly after all communication across the facility went black.<br>
+	<br>
+	Guards never told us anything about what's going on but the fear in their eyes was all there to be seen.<br>
+	<br>
+	Our colleagues, friends and other folks started arguing, hurting then killing each other in time. Me and four other managed to isolate ourselves in cafeteria.<br>
+	<br>
+	We have enough supply to last a few weeks here, should be enough until reinforcements arrive, right?"<br>
+	<br>
+	If it won't, then god forsake what might happen to us... I can't wait to see you again.<br>
+	<br>
+	Sincerely yours..."}
+
+/obj/item/paper/fluff/ruins/deepstorage/log3
+	name = "quartermaster's personal log"
+	info = {"<b>(beginning of record...)</b><br>
+	<br>
+	Day 5 since the lockdown, we can't communicate with other floors which is quite a nuisance. We were already behind 13 deliveries.
+	At these very times i miss my time back at- <br>
+	<br>
+	<b>(end of record.)</b><br>
+	<br>
+	<b>(beginning of record...)</b><br>
+	<br>
+	Day 5, since the lockdown. More people are getting sick. I heard the body count was so high they had to start cremating them.
+	The more away they are the better. <br>
+	<br>
+	<b>(end of record.)</b><br>
+	<br>
+	<b>(beginning of record...)</b><br>
+	<br>
+	Day... 5, since the-. God, i just checked my previous entries and there was like, 14 in total? In a big portion of it i start with 'day 5 of this, of that'.
+	Weird part is, i don't recall any of those records. It must be my insolent staff, right. They're yearning for some bad words in their recommendation letter
+	and that they shall receive...<br>
+	<br>
+	<b>(end of record.)</b><br>"}
+
+/obj/item/paper/fluff/ruins/deepstorage/log4
+	name = "crematorium report"
+	info = {"We burnt so many... There's no end to this. It's been days and we're still burning them."}
+
+
+/obj/item/paper/fluff/ruins/deepstorage/log5
+	name = "'my concerns'"
+	info = {"First of all i appreciate the good initative on cutting off comms, although i am sure there are some rats listening the private frequency.
+	Unless you desire my floor to embrace a chaos, i suggest you to keep quiet in there.<br>
+	<br>
+	Off to the matter, we have been working on the sample tissue you have sent non-stop for days by now. In my proficiency one might assume they saw all
+	 bio-abominations there is to be seen. I never seen anything like this, because it's not a virus or disease or anything that you claim to be.<br>
+	 <br>
+	 Yes, it's contagious and i don't think it's limited with physical contact. We have been burning the corpses, there's still more to burn.
+	 This will not end well, i advise evacuating crew to a more suitable quarantine zone before things goes out of hand."}
