@@ -2135,9 +2135,6 @@
 	pixel_x = -8;
 	pixel_y = 1
 	},
-/obj/structure/sign/electricshock{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "bav" = (
@@ -4709,6 +4706,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
+"cpy" = (
+/obj/machinery/economy/vending/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/prison/cell_block)
 "cpI" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -7835,6 +7838,9 @@
 "dSj" = (
 /obj/item/camera,
 /obj/structure/table,
+/obj/structure/sign/electricshock{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "dSk" = (
@@ -8365,6 +8371,9 @@
 	pixel_y = 11
 	},
 /obj/item/kitchen/utensil/pfork,
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "egq" = (
@@ -9000,8 +9009,24 @@
 /turf/simulated/wall,
 /area/station/maintenance/abandonedbar)
 "exf" = (
-/obj/structure/bed,
-/obj/item/bedsheet/orange,
+/obj/structure/closet/crate/trashcart{
+	desc = "A heavy, metal laundrycart with wheels.";
+	name = "laundry cart"
+	},
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/under/misc/pj/red,
+/obj/item/clothing/under/misc/pj/red,
+/obj/item/clothing/under/misc/pj/blue,
+/obj/item/clothing/under/misc/pj/blue,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
 /obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
@@ -9945,6 +9970,9 @@
 "eZo" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
+"eZq" = (
+/turf/simulated/floor/plasteel,
+/area/merge_conflict_marker)
 "eZF" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
@@ -15814,6 +15842,12 @@
 	icon_state = "dark"
 	},
 /area/station/command/office/cmo)
+"hOM" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/prison/cell_block)
 "hOO" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -18467,6 +18501,9 @@
 /area/station/command/office/ce)
 "jeV" = (
 /obj/machinery/kitchen_machine/grill,
+/obj/structure/sign/electricshock{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "jeX" = (
@@ -19448,9 +19485,6 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/box/donkpockets,
 /obj/item/clothing/head/chefhat,
-/obj/structure/sign/electricshock{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "jEx" = (
@@ -20552,6 +20586,9 @@
 /area/station/engineering/atmos)
 "kgU" = (
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary,
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "khv" = (
@@ -22450,11 +22487,11 @@
 	},
 /area/station/security/warden)
 "lfA" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/table,
+/obj/item/ashtray/plastic,
+/obj/item/clothing/mask/cigarette,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block)
 "lfQ" = (
@@ -24750,11 +24787,14 @@
 	},
 /area/station/maintenance/auxsolarport)
 "mlC" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security/glass{
+	name = "Prison Wing";
+	security_level = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/security/brig)
+/area/station/security/prison/cell_block)
 "mlG" = (
 /obj/machinery/economy/vending/lawdrobe,
 /turf/simulated/floor/plasteel{
@@ -24808,7 +24848,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "mmB" = (
-/obj/structure/weightmachine/stacklifter,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "mmG" = (
@@ -26321,6 +26361,9 @@
 "ncG" = (
 /obj/structure/table,
 /obj/item/camera,
+/obj/structure/sign/electricshock{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "ncH" = (
@@ -27574,10 +27617,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
 "nFL" = (
-/obj/structure/bed,
-/obj/item/bedsheet/orange,
-/turf/simulated/floor/plasteel,
-/area/station/security/permabrig)
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/prison/cell_block)
 "nFM" = (
 /obj/structure/table/wood,
 /obj/item/eftpos{
@@ -29078,6 +29122,9 @@
 	using_irrigation = 1
 	},
 /obj/item/seeds/ambrosia,
+/obj/structure/sign/electricshock{
+	pixel_x = -32
+	},
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "otB" = (
@@ -29829,7 +29876,8 @@
 /area/station/maintenance/apmaint)
 "oMY" = (
 /turf/simulated/floor/plasteel/goonplaque/memorial{
-	desc = "\"The plaque Honor Ian, who Bravely saved the hop when they tripped a syndicate agent while attempting to solicit belly rubs from them./"},
+	desc = "\"The plaque Honor Ian, who Bravely saved the hop when they tripped a syndicate agent while attempting to solicit belly rubs from them./"
+	},
 /area/station/public/dorms)
 "oNg" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -32080,22 +32128,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/incinerator)
 "pRI" = (
-/obj/structure/closet/crate/trashcart{
-	desc = "A heavy, metal laundrycart with wheels.";
-	name = "laundry cart"
+/obj/structure/chair/stool{
+	dir = 1
 	},
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/under/misc/pj/red,
-/obj/item/clothing/under/misc/pj/red,
-/obj/item/clothing/under/misc/pj/blue,
-/obj/item/clothing/under/misc/pj/blue,
-/obj/item/clothing/shoes/sandal/white,
-/obj/item/clothing/shoes/sandal/white,
-/obj/item/clothing/shoes/sandal/white,
-/obj/item/clothing/shoes/sandal/white,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "pRO" = (
@@ -32210,6 +32245,13 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/starboard)
+"pTA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "pTI" = (
 /obj/structure/urinal{
 	pixel_y = 28
@@ -32260,8 +32302,8 @@
 	},
 /area/station/maintenance/electrical)
 "pUT" = (
-/obj/structure/weightmachine/weightlifter,
-/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/closet/wardrobe/orange/prison,
+/obj/item/wirecutters,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "pUV" = (
@@ -33588,6 +33630,11 @@
 	icon_state = "white"
 	},
 /area/station/medical/medbay)
+"qCN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/item/beach_ball/holoball,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "qCW" = (
 /obj/structure/morgue,
 /obj/structure/window/reinforced{
@@ -33695,9 +33742,6 @@
 	using_irrigation = 1
 	},
 /obj/item/seeds/onion,
-/obj/structure/sign/electricshock{
-	pixel_y = -32
-	},
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "qHD" = (
@@ -34807,7 +34851,6 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/item/wirecutters,
 /obj/item/reagent_containers/condiment/rice,
 /obj/item/reagent_containers/condiment/flour,
 /turf/simulated/floor/plasteel,
@@ -39396,12 +39439,13 @@
 /turf/space,
 /area/station/science/rnd)
 "tvC" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
+/obj/structure/table,
+/obj/item/food/snacks/no_raisin{
+	pixel_y = 14;
+	pixel_x = -8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block)
 "tvF" = (
@@ -39433,6 +39477,9 @@
 /obj/item/book/manual/wiki/chef_recipes,
 /obj/item/clothing/head/chefhat,
 /obj/item/kitchen/utensil/pfork,
+/obj/structure/sign/electricshock{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "txu" = (
@@ -42166,11 +42213,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "uTr" = (
-/obj/machinery/door/airlock{
-	name = "Toilet"
+/obj/structure/chair{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block)
 "uTB" = (
@@ -43009,6 +43056,10 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/space,
 /area/station/science/robotics)
+"vpZ" = (
+/obj/structure/closet/wardrobe/orange/prison,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "vqc" = (
 /obj/item/shard{
 	icon_state = "small"
@@ -47297,6 +47348,18 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"xwg" = (
+/obj/machinery/hydroponics/constructable{
+	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
+	name = "Prison hydroponics tray";
+	using_irrigation = 1
+	},
+/obj/item/seeds/ambrosia,
+/obj/structure/sign/electricshock{
+	pixel_x = 32
+	},
+/turf/simulated/floor/grass,
+/area/station/security/permabrig)
 "xwj" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -47699,6 +47762,9 @@
 /obj/item/crowbar/large,
 /obj/item/reagent_containers/condiment/flour,
 /obj/item/reagent_containers/condiment/rice,
+/obj/structure/sign/electricshock{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "xGF" = (
@@ -48419,11 +48485,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/legal/courtroom)
 "ycM" = (
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
+/obj/structure/sign/electricshock{
+	pixel_y = -32
 	},
-/area/station/security/brig)
+/obj/machinery/washing_machine,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "ycO" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -77139,8 +77206,8 @@ nEX
 aWb
 wqA
 wqA
-mlC
-ycM
+wuR
+qVa
 oDq
 sdh
 sdh
@@ -77396,8 +77463,8 @@ efh
 bjq
 pJX
 wqA
-ikE
-vBB
+wKm
+amG
 oDq
 oDq
 oDq
@@ -77653,9 +77720,9 @@ reR
 reR
 eYs
 nEX
-ikE
-ikE
-hCo
+wKm
+wKm
+nFL
 lfA
 tvC
 hCo
@@ -77663,8 +77730,8 @@ fcS
 fqC
 hLH
 tMK
-nFL
-exf
+dbH
+ycM
 rkL
 rkL
 rkL
@@ -77910,10 +77977,10 @@ reR
 reR
 flg
 aia
-ikE
-ikE
-hCo
-hCo
+wKm
+wKm
+nFL
+uTr
 uTr
 hCo
 dSj
@@ -78167,9 +78234,9 @@ reR
 reR
 reR
 nEX
-ikE
-ikE
 wKm
+wKm
+mlC
 wKm
 wKm
 hTL
@@ -78424,17 +78491,17 @@ dzA
 sYi
 oHi
 wqA
-ikE
-ikE
 wKm
 wKm
-wKm
+nFL
+hOM
+cpy
 hTL
 rgZ
 fqC
 jbU
 tMK
-bas
+pUT
 fqC
 tMK
 qqB
@@ -78691,7 +78758,7 @@ lye
 wyr
 lye
 tMK
-dbH
+fqC
 fqC
 krL
 fqC
@@ -79206,9 +79273,9 @@ fqC
 fqC
 fqC
 fqC
-mmB
 fqC
-mmB
+fqC
+fqC
 fqC
 fqC
 tMK
@@ -79719,10 +79786,10 @@ ivi
 fyj
 teD
 rxF
+pTA
 mDO
-pUT
 mDO
-pUT
+mDO
 mDO
 mDO
 iOJ
@@ -79975,11 +80042,11 @@ tMK
 gtn
 elS
 dqM
+mmB
+pRI
+fqC
 fqC
 bAn
-fqC
-fqC
-fqC
 fqC
 fqC
 lye
@@ -80232,7 +80299,7 @@ nib
 gtn
 fqC
 cNd
-fqC
+cNd
 fqC
 fqC
 fqC
@@ -80492,8 +80559,8 @@ fqC
 fqC
 fqC
 fqC
-lPc
-lPc
+fqC
+aMC
 fqC
 jbU
 tMK
@@ -80747,8 +80814,8 @@ gtn
 krL
 uBt
 fqC
-aMC
-fqC
+lPc
+lPc
 idu
 idu
 fBL
@@ -82289,8 +82356,8 @@ gtn
 krL
 vOS
 fqC
-cqE
-fqC
+lPc
+lPc
 idu
 idu
 fBL
@@ -82548,8 +82615,8 @@ fqC
 fqC
 fqC
 fqC
-lPc
-lPc
+fqC
+cqE
 fqC
 jbU
 tMK
@@ -82802,7 +82869,7 @@ fsv
 gtn
 fqC
 bVI
-fqC
+bVI
 fqC
 fqC
 fqC
@@ -83059,8 +83126,8 @@ tMK
 gtn
 elS
 jpx
-fqC
-bAn
+mmB
+pRI
 fqC
 fqC
 fqC
@@ -83317,10 +83384,10 @@ xev
 fyj
 aFY
 fFd
+pTA
 mDO
-pUT
+qCN
 mDO
-pUT
 mDO
 mDO
 iOJ
@@ -83832,9 +83899,9 @@ fqC
 fqC
 fqC
 fqC
-mmB
 fqC
-mmB
+fqC
+fqC
 fqC
 fqC
 tMK
@@ -84345,7 +84412,7 @@ lye
 wyr
 lye
 tMK
-pRI
+fqC
 fqC
 krL
 fqC
@@ -84356,7 +84423,7 @@ mzE
 wHr
 yeB
 tzB
-otu
+xwg
 rkL
 rkL
 jnP
@@ -84602,7 +84669,7 @@ dzn
 fqC
 jbU
 tMK
-bas
+vpZ
 fqC
 tMK
 qqB
@@ -85373,7 +85440,7 @@ fcS
 elS
 hLH
 tMK
-nFL
+bas
 exf
 rkL
 rkL
@@ -96151,7 +96218,7 @@ mrW
 mrW
 lxc
 lxc
-mlc
+eZq
 mlc
 kyA
 kyA
