@@ -39,17 +39,6 @@
 	var/list/req_one_access = null
 	var/req_one_access_txt = "0"
 
-/obj/New()
-	..()
-	if(obj_integrity == null)
-		obj_integrity = max_integrity
-	if(on_blueprints && isturf(loc))
-		var/turf/T = loc
-		if(force_blueprints)
-			T.add_blueprints(src)
-		else
-			T.add_blueprints_preround(src)
-
 /obj/Initialize(mapload)
 	. = ..()
 	if(islist(armor))
@@ -60,6 +49,15 @@
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
+
+	if(obj_integrity == null)
+		obj_integrity = max_integrity
+	if(on_blueprints && isturf(loc))
+		var/turf/T = loc
+		if(force_blueprints)
+			T.add_blueprints(src)
+		else
+			T.add_blueprints_preround(src)
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -86,6 +84,7 @@
 	if(!ismachinery(src))
 		if(!speed_process)
 			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
+			// AA 2024-05-20 - processing var?????
 		else
 			STOP_PROCESSING(SSfastprocess, src)
 	return ..()
@@ -115,7 +114,7 @@
 			air = environment
 		if(isnull(air))
 			return
-		
+
 		var/breath_percentage = BREATH_VOLUME / air.return_volume()
 		return air.remove(air.total_moles() * breath_percentage)
 	else
@@ -302,6 +301,12 @@
 		C.Weaken(3 SECONDS)
 	else
 		C.KnockDown(3 SECONDS)
+
+/obj/handle_ricochet(obj/item/projectile/P)
+	. = ..()
+	if(. && receive_ricochet_damage_coeff)
+		// pass along receive_ricochet_damage_coeff damage to the structure for the ricochet
+		take_damage(P.damage * receive_ricochet_damage_coeff, P.damage_type, P.flag, 0, REVERSE_DIR(P.dir), P.armour_penetration_flat, P.armour_penetration_percentage)
 
 /obj/proc/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)

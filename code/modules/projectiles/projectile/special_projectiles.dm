@@ -290,7 +290,7 @@
 	damage = 0
 	nodamage = 1
 	alwayslog = TRUE
-	var/obj/item/radio/beacon/teleport_target = null
+	var/obj/item/beacon/teleport_target
 
 /obj/item/projectile/energy/teleport/New(loc, tele_target)
 	..(loc)

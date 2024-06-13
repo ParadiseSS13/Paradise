@@ -1103,7 +1103,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "ajd" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
@@ -18074,6 +18074,7 @@
 /obj/item/hand_labeler,
 /obj/item/book/manual/wiki/chef_recipes,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/wrench,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -19258,6 +19259,9 @@
 	dir = 8;
 	name = "kitchen ingredient storage"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bhI" = (
@@ -19290,6 +19294,7 @@
 /obj/item/reagent_containers/condiment/flour,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/food/snacks/dough,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -19325,10 +19330,10 @@
 	},
 /area/station/hallway/primary/fore/east)
 "bhQ" = (
-/obj/item/food/snacks/dough,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -19336,7 +19341,13 @@
 "bhR" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/item/food/snacks/mint,
+/obj/item/food/snacks/mint{
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = 7
+	},
+/obj/item/reagent_containers/condiment/peppermill,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -20781,13 +20792,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blo" = (
-/obj/item/clipboard,
-/obj/item/toy/figure/crew/chef,
-/obj/effect/turf_decal/delivery/hollow,
-/obj/item/eftpos/register{
-	dir = 1
+/obj/item/toy/figure/crew/chef{
+	pixel_x = -1;
+	pixel_y = 3
 	},
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/clothing/suit/chef,
+/obj/item/kitchen/knife{
+	pixel_x = -9;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blq" = (
@@ -21586,10 +21601,11 @@
 /turf/simulated/wall,
 /area/station/service/kitchen)
 "bnc" = (
-/obj/item/clothing/suit/chef,
-/obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
+/obj/item/eftpos/register{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bnd" = (
@@ -21606,11 +21622,11 @@
 /turf/simulated/wall,
 /area/station/supply/lobby)
 "bne" = (
-/obj/item/reagent_containers/condiment/saltshaker,
-/obj/item/reagent_containers/condiment/peppermill,
-/obj/item/kitchen/knife,
 /obj/effect/turf_decal/delivery,
 /obj/structure/table,
+/obj/item/eftpos/register{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bnf" = (
@@ -33909,7 +33925,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "bSh" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -35251,7 +35267,7 @@
 	},
 /area/station/hallway/primary/starboard/east)
 "bVp" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=hall12";
 	location = "hall11"
@@ -37027,7 +37043,7 @@
 	pixel_x = -30
 	},
 /obj/item/clipboard,
-/obj/item/toy/figure/crew/lawyer,
+/obj/item/toy/figure/crew/iaa,
 /turf/simulated/floor/wood,
 /area/station/legal/lawoffice)
 "caH" = (
@@ -43371,7 +43387,7 @@
 	},
 /area/station/hallway/primary/central)
 "crF" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -45214,7 +45230,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cwV" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -68912,11 +68928,7 @@
 	pixel_x = -4;
 	pixel_y = 5
 	},
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/camera{
 	c_tag = "Chemistry South";
 	network = list("Medical","SS13")
@@ -73147,6 +73159,44 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/processing)
+"iCd" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/door/window,
+/obj/effect/mapping_helpers/airlock/windoor/autoname,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
+/obj/item/reagent_containers/drinks/britcup,
+/obj/item/reagent_containers/condiment/saltshaker,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/door/window,
+/obj/effect/mapping_helpers/airlock/windoor/autoname,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/station/service/kitchen)
 "iCE" = (
 /obj/machinery/economy/vending/snack,
 /obj/effect/decal/cleanable/cobweb,
@@ -73754,23 +73804,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/west)
-"iUZ" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/peppermill,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window,
-/obj/effect/mapping_helpers/airlock/windoor/autoname,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	id_tag = "kitchenbar";
-	name = "Kitchen Shutters"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/station/service/kitchen)
 "iVg" = (
 /obj/machinery/economy/atm/directional/west,
 /turf/simulated/floor/plasteel{
@@ -74825,10 +74858,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/station/engineering/atmos)
 "jHq" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -79298,7 +79328,7 @@
 	},
 /area/station/hallway/primary/starboard/west)
 "msl" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -79379,7 +79409,7 @@
 	},
 /area/station/medical/reception)
 "mtx" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "mtL" = (
@@ -81014,24 +81044,6 @@
 /obj/machinery/economy/vending/crittercare,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/starboard)
-"nnP" = (
-/obj/machinery/door/window,
-/obj/effect/mapping_helpers/airlock/windoor/autoname,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
-/obj/item/reagent_containers/drinks/britcup,
-/obj/item/reagent_containers/condiment/saltshaker,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/delivery,
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	id_tag = "kitchenbar";
-	name = "Kitchen Shutters"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/station/service/kitchen)
 "nnV" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/requests_console{
@@ -81496,7 +81508,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "nCh" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -81508,7 +81520,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "nCu" = (
@@ -83305,11 +83317,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "oGw" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_y = -32
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -83329,22 +83337,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
-"oHk" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window,
-/obj/effect/mapping_helpers/airlock/windoor/autoname,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
-/obj/effect/turf_decal/delivery,
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	id_tag = "kitchenbar";
-	name = "Kitchen Shutters"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/station/service/kitchen)
 "oHv" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -83386,7 +83378,7 @@
 	},
 /area/station/maintenance/starboard)
 "oIJ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "oIN" = (
@@ -83952,11 +83944,7 @@
 	},
 /area/station/security/brig)
 "oXz" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/camera{
 	c_tag = "Medbay South Hallway";
 	dir = 9;
@@ -84680,6 +84668,43 @@
 	icon_state = "darkred"
 	},
 /area/station/security/main)
+"pvE" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/condiment/peppermill,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window,
+/obj/effect/mapping_helpers/airlock/windoor/autoname,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window,
+/obj/effect/mapping_helpers/airlock/windoor/autoname,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/station/service/kitchen)
 "pvQ" = (
 /obj/machinery/status_display{
 	pixel_x = -32
@@ -86786,6 +86811,49 @@
 /obj/machinery/economy/vending/plasmaresearch,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
+"qQB" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window,
+/obj/effect/mapping_helpers/airlock/windoor/autoname,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
+/obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window,
+/obj/effect/mapping_helpers/airlock/windoor/autoname,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
+/obj/effect/turf_decal/delivery,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
+/obj/item/reagent_containers/condiment/peppermill,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/drinks/britcup{
+	pixel_x = -9
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/station/service/kitchen)
 "qQE" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/white,
@@ -86894,10 +86962,7 @@
 /area/station/public/toilet/lockerroom)
 "qTl" = (
 /obj/machinery/disposal,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -88211,11 +88276,7 @@
 /obj/structure/chair/sofa/bench{
 	dir = 8
 	},
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/camera{
 	c_tag = "Medbay Entrance Hall";
 	dir = 8;
@@ -93161,11 +93222,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
@@ -98784,11 +98841,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "xFI" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -137679,7 +137732,7 @@ aWg
 aUo
 aOG
 aTp
-iUZ
+pvE
 bdQ
 bfk
 bgA
@@ -137936,7 +137989,7 @@ aWh
 aUw
 aOG
 aTp
-nnP
+iCd
 bdP
 bgv
 bgB
@@ -138193,7 +138246,7 @@ aWi
 aUB
 aOG
 aVQ
-oHk
+qQB
 bdQ
 bfm
 bhN
