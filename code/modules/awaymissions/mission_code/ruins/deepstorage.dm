@@ -328,7 +328,7 @@
 	Unless you desire my floor to embrace a chaos, i suggest you to keep quiet in there.<br>
 	<br>
 	Off to the matter, we have been working on the sample tissue you have sent non-stop for days by now. In my proficiency one might assume they saw all
-	 bio-abominations there is to be seen. I never seen anything like this, because it's not a virus or disease or anything that you claim to be.<br>
-	 <br>
-	 Yes, it's contagious and i don't think it's limited with physical contact. We have been burning the corpses, there's still more to burn.
-	 This will not end well, i advise evacuating crew to a more suitable quarantine zone before things goes out of hand."}
+	bio-abominations there is to be seen. I never seen anything like this, because it's not a virus or disease or anything that you claim to be.<br>
+	<br>
+	Yes, it's contagious and i don't think it's limited with physical contact. We have been burning the corpses, there's still more to burn.
+	This will not end well, i advise evacuating crew to a more suitable quarantine zone before things goes out of hand."}
