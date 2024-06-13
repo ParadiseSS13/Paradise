@@ -62,7 +62,7 @@
 /area/ruin/space/abandtele)
 "q" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "r" = (
