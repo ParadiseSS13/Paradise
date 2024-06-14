@@ -1,5 +1,5 @@
 /obj/item/tarot_generator
-	name = "Enchanted tarot card deck"
+	name = "enchanted tarot card deck"
 	desc = "This tarot card box has quite the array of runes and artwork on it."
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "tarot_box"
@@ -145,8 +145,10 @@
 	var/datum/tarot/our_tarot
 	/// Our fancy description given to use by the tarot datum.
 	var/card_desc = "Untold answers... wait what? This is a bug, report this as an issue on github!"
-	///Is the card face down? Shows the card back, hides the examine / name.
+	/// Is the card face down? Shows the card back, hides the examine / name.
 	var/face_down = FALSE
+	/// Will this card automatically disappear if thrown at a non-mob?
+	var/needs_mob_target = TRUE
 
 /obj/item/magic_tarot_card/Initialize(mapload, obj/item/tarot_generator/source, datum/tarot/chosen_tarot)
 	. = ..()
@@ -188,6 +190,8 @@
 
 /obj/item/magic_tarot_card/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
+	if(needs_mob_target && !isliving(hit_atom))
+		return
 	poof()
 	if(isliving(hit_atom) && our_tarot)
 		pre_activate(hit_atom)
