@@ -262,37 +262,37 @@
 	if(!istype(location))
 		return 0
 
-	var/datum/gas_mixture/environment = location.return_air()
+	var/datum/milla_safe/airalarm_heat_cool/milla = new()
+	milla.invoke_async(src)
+
+	var/datum/gas_mixture/environment = location.get_readonly_air()
+	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.volume
 	var/datum/tlv/cur_tlv
-
-	handle_heating_cooling(environment, cur_tlv, location)
-
-	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature/environment.volume
 
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 
 	cur_tlv = TLV["oxygen"]
-	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen*GET_PP)
+	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen() * GET_PP)
 
 	cur_tlv = TLV["nitrogen"]
-	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen*GET_PP)
+	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen() * GET_PP)
 
 	cur_tlv = TLV["carbon dioxide"]
-	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide*GET_PP)
+	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide() * GET_PP)
 
 	cur_tlv = TLV["plasma"]
-	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins*GET_PP)
+	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins() * GET_PP)
 
 	cur_tlv = TLV["nitrous oxide"]
-	var/sleeping_agent_dangerlevel = cur_tlv.get_danger_level(environment.sleeping_agent*GET_PP)
+	var/sleeping_agent_dangerlevel = cur_tlv.get_danger_level(environment.sleeping_agent() * GET_PP)
 
 	cur_tlv = TLV["other"]
 	var/other_dangerlevel = cur_tlv.get_danger_level(environment.total_trace_moles() * GET_PP)
 
 	cur_tlv = TLV["temperature"]
-	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
+	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature())
 
 	var/old_danger_level = danger_level
 	danger_level = max(
@@ -313,43 +313,48 @@
 		mode = AALARM_MODE_SCRUBBING
 		apply_mode()
 
+/datum/milla_safe/airalarm_heat_cool
 
-/obj/machinery/alarm/proc/handle_heating_cooling(datum/gas_mixture/environment, datum/tlv/cur_tlv, turf/simulated/location)
-	cur_tlv = TLV["temperature"]
+/datum/milla_safe/airalarm_heat_cool/on_run(obj/machinery/alarm/alarm)
+	var/turf/location = get_turf(alarm)
+	var/datum/gas_mixture/environment = get_turf_air(location)
+
+	if(!alarm.thermostat_state)
+		return
+	var/datum/tlv/cur_tlv = alarm.TLV["temperature"]
 	//Handle temperature adjustment here.
-	if(environment.temperature < target_temperature - 2 || environment.temperature > target_temperature + 2 || regulating_temperature)
+	if(environment.temperature() < alarm.target_temperature - 2 || environment.temperature() > alarm.target_temperature + 2 || alarm.regulating_temperature)
 		//If it goes too far, we should adjust ourselves back before stopping.
-		if(!cur_tlv.get_danger_level(target_temperature))
-			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
+		if(!cur_tlv.get_danger_level(alarm.target_temperature))
+			var/datum/gas_mixture/gas = environment.remove(0.25 * environment.total_moles())
 			if(!gas)
 				return
-			if(!regulating_temperature && thermostat_state)
-				regulating_temperature = TRUE
-				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
+			if(!alarm.regulating_temperature && alarm.thermostat_state)
+				alarm.regulating_temperature = TRUE
+				alarm.visible_message("\The [alarm] clicks as it starts [environment.temperature() > alarm.target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
-			if(target_temperature > MAX_TEMPERATURE)
-				target_temperature = MAX_TEMPERATURE
+			if(alarm.target_temperature > MAX_TEMPERATURE)
+				alarm.target_temperature = MAX_TEMPERATURE
 
-			if(target_temperature < MIN_TEMPERATURE)
-				target_temperature = MIN_TEMPERATURE
+			if(alarm.target_temperature < MIN_TEMPERATURE)
+				alarm.target_temperature = MIN_TEMPERATURE
 
-			if(thermostat_state)
-				var/heat_capacity = gas.heat_capacity()
-				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
+			var/heat_capacity = gas.heat_capacity()
+			var/energy_used = max(abs(heat_capacity * (gas.temperature() - alarm.target_temperature) ), MAX_ENERGY_CHANGE)
 
-				//Use power.  Assuming that each power unit represents 1000 watts....
-				use_power(energy_used / 1000, PW_CHANNEL_ENVIRONMENT)
+			//Use power.  Assuming that each power unit represents 1000 watts....
+			alarm.use_power(energy_used / 1000, PW_CHANNEL_ENVIRONMENT)
 
-				//We need to cool ourselves.
-				if(heat_capacity)
-					if(environment.temperature > target_temperature)
-						gas.temperature -= energy_used / heat_capacity
-					else
-						gas.temperature += energy_used / heat_capacity
+			//We need to cool ourselves.
+			if(heat_capacity)
+				if(environment.temperature() > alarm.target_temperature)
+					gas.set_temperature(gas.temperature() - energy_used / heat_capacity)
+				else
+					gas.set_temperature(gas.temperature() + energy_used / heat_capacity)
 
-				if(abs(environment.temperature - target_temperature) <= 0.5)
-					regulating_temperature = FALSE
-					visible_message("[src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
+			if(abs(environment.temperature() - alarm.target_temperature) <= 0.5)
+				alarm.regulating_temperature = FALSE
+				alarm.visible_message("[alarm] clicks quietly as it stops [environment.temperature() > alarm.target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 			environment.merge(gas)
 
@@ -577,36 +582,36 @@
 	if(!istype(location))
 		return
 
-	var/datum/gas_mixture/environment = location.return_air()
-	var/known_total = environment.oxygen + environment.nitrogen + environment.carbon_dioxide + environment.toxins + environment.sleeping_agent
+	var/datum/gas_mixture/environment = location.get_readonly_air()
+	var/known_total = environment.oxygen() + environment.nitrogen() + environment.carbon_dioxide() + environment.toxins() + environment.sleeping_agent()
 	var/total = environment.total_moles()
 
 	var/datum/tlv/cur_tlv
-	var/GET_PP = R_IDEAL_GAS_EQUATION*environment.temperature/environment.volume
+	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.volume
 
 	cur_tlv = TLV["pressure"]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 
 	cur_tlv = TLV["oxygen"]
-	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen*GET_PP)
-	var/oxygen_percent = total ? environment.oxygen / total * 100 : 0
+	var/oxygen_dangerlevel = cur_tlv.get_danger_level(environment.oxygen() * GET_PP)
+	var/oxygen_percent = total ? environment.oxygen() / total * 100 : 0
 
 	cur_tlv = TLV["nitrogen"]
-	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen*GET_PP)
-	var/nitrogen_percent = total ? environment.nitrogen / total * 100 : 0
+	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen() * GET_PP)
+	var/nitrogen_percent = total ? environment.nitrogen() / total * 100 : 0
 
 	cur_tlv = TLV["carbon dioxide"]
-	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide*GET_PP)
-	var/co2_percent = total ? environment.carbon_dioxide / total * 100 : 0
+	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide() * GET_PP)
+	var/co2_percent = total ? environment.carbon_dioxide() / total * 100 : 0
 
 	cur_tlv = TLV["plasma"]
-	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins*GET_PP)
-	var/plasma_percent = total ? environment.toxins / total * 100 : 0
+	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins() * GET_PP)
+	var/plasma_percent = total ? environment.toxins() / total * 100 : 0
 
 	cur_tlv = TLV["nitrous oxide"]
-	var/sleeping_agent_dangerlevel = cur_tlv.get_danger_level(environment.sleeping_agent*GET_PP)
-	var/sleeping_agent_percent = total ? environment.sleeping_agent / total * 100 : 0
+	var/sleeping_agent_dangerlevel = cur_tlv.get_danger_level(environment.sleeping_agent() * GET_PP)
+	var/sleeping_agent_percent = total ? environment.sleeping_agent() / total * 100 : 0
 
 	cur_tlv = TLV["other"]
 	var/other_moles = total - known_total
@@ -614,12 +619,12 @@
 	var/other_percent = total ? other_moles / total * 100 : 0
 
 	cur_tlv = TLV["temperature"]
-	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
+	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature())
 
 	var/list/data = list()
 	data["pressure"] = environment_pressure
-	data["temperature"] = environment.temperature
-	data["temperature_c"] = round(environment.temperature - T0C, 0.1)
+	data["temperature"] = environment.temperature()
+	data["temperature_c"] = round(environment.temperature() - T0C, 0.1)
 	data["thermostat_state"] = thermostat_state
 
 	var/list/percentages = list()

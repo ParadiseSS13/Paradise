@@ -61,6 +61,7 @@
 	)
 
 /datum/outfit/spacebase_syndicate/post_equip(mob/living/carbon/human/H)
+	. = ..()
 	H.faction |= "syndicate"
 	var/random_name = random_name(pick(MALE,FEMALE), H.dna.species.name)
 	H.rename_character(H.real_name, random_name)

@@ -370,6 +370,103 @@
 		EQUIPMENT("Analyzer", /obj/item/analyzer, 50)
 	)
 
+/**********************Mining Equipment Vendor (Explorer)**************************/
+
+/obj/machinery/mineral/equipment_vendor/explorer
+	name = "explorer equipment vendor"
+	desc = "An equipment vendor for explorers, points collected at an ore redemption machine can be spent here."
+	icon_state = "explorer"
+
+/obj/machinery/mineral/equipment_vendor/explorer/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/explorer(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	RefreshParts()
+
+/obj/machinery/mineral/equipment_vendor/explorer/Initialize(mapload)
+	. = ..()
+	prize_list = list()
+	prize_list["Equipment"] = list(
+		EQUIPMENT("Advanced Scanner", /obj/item/t_scanner/adv_mining_scanner, 800),
+		EQUIPMENT("Tacticool Toolbelt", /obj/item/storage/belt/utility/expedition, 500),
+		EQUIPMENT("Fulton Beacon", /obj/item/fulton_core, 400),
+		EQUIPMENT("GPS", /obj/item/gps, 200),
+		EQUIPMENT("Treasure Satchel", /obj/item/storage/bag/expedition, 100),
+		EQUIPMENT ("Robust Treasure Satchel", /obj/item/storage/bag/expedition/robust, 300),
+		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
+		EQUIPMENT("Telecommunications Relay Kit", /obj/item/storage/box/relay_kit, 500),
+		EQUIPMENT("Tracking Beacon", /obj/item/beacon, 200),
+	)
+	prize_list["Modsuits"] = list(
+		EQUIPMENT("Standard MODsuit", /obj/item/mod/control/pre_equipped/standard/explorer, 1000),
+		EQUIPMENT("Advanced Jetpack Module", /obj/item/mod/module/jetpack/advanced, 2000),
+		EQUIPMENT("Night Vision Module", /obj/item/mod/module/visor/night, 1500),
+		EQUIPMENT("Clamp Module", /obj/item/mod/module/clamp, 500),
+		EQUIPMENT("GPS Module", /obj/item/mod/module/gps, 500),
+		EQUIPMENT("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining/vendor, 3500),
+		EQUIPMENT("Asteroid MODsuit Skin", /obj/item/mod/skin_applier/asteroid, 1000),
+	)
+
+	prize_list["Consumables"] = list(
+		EQUIPMENT("First-Aid Kit", /obj/item/storage/firstaid/regular, 400),
+		EQUIPMENT("Advanced First-Aid Kit", /obj/item/storage/firstaid/adv, 600),
+		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
+		EQUIPMENT("Point Transfer Card", /obj/item/card/mining_point_card, 500),
+		EQUIPMENT("Stabilizing Serum", /obj/item/hivelordstabilizer, 400),
+	)
+
+	prize_list["Kinetic Accelerator"] = list(
+		EQUIPMENT("Kinetic Pistol", /obj/item/gun/energy/kinetic_accelerator/pistol, 750),
+		EQUIPMENT("KA Adjustable Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer/adjustable, 150),
+		EQUIPMENT("KA AoE Damage", /obj/item/borg/upgrade/modkit/aoe/mobs, 2000),
+		EQUIPMENT("KA Cooldown Decrease", /obj/item/borg/upgrade/modkit/cooldown, 1000),
+		EQUIPMENT("KA Damage Increase", /obj/item/borg/upgrade/modkit/damage, 1000),
+		EQUIPMENT("KA Hyper Chassis", /obj/item/borg/upgrade/modkit/chassis_mod/orange, 300),
+		EQUIPMENT("KA Range Increase", /obj/item/borg/upgrade/modkit/range, 1000),
+		EQUIPMENT("KA Super Chassis", /obj/item/borg/upgrade/modkit/chassis_mod, 250),
+		EQUIPMENT("KA White Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer, 100),
+	)
+
+	prize_list["Miscellaneous"] = list(
+		EQUIPMENT("Alien Toy", /obj/item/clothing/mask/facehugger/toy, 300),
+		EQUIPMENT("Toy Sword", /obj/item/toy/sword, 200),
+		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
+		EQUIPMENT("Laser Pointer", /obj/item/laser_pointer, 300),
+		EQUIPMENT("Suspicious ID Sticker", /obj/item/id_decal/emag, 400),
+		EQUIPMENT("Syndicate Coin", /obj/item/coin/antagtoken/syndicate, 100),
+		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
+	)
+
+/obj/machinery/mineral/equipment_vendor/explorer/attackby(obj/item/I, mob/user, params)
+	if(default_deconstruction_screwdriver(user, "explorer-open", "explorer", I))
+		return
+	if(panel_open)
+		if(istype(I, /obj/item/crowbar))
+			remove_id()
+			default_deconstruction_crowbar(user, I)
+		return TRUE
+	if(istype(I, /obj/item/mining_voucher))
+		if(!has_power())
+			return
+		redeem_voucher(I, user)
+		return
+	if(istype(I, /obj/item/card/id))
+		if(!has_power())
+			return
+		var/obj/item/card/id/C = user.get_active_hand()
+		if(istype(C) && !istype(inserted_id))
+			if(!user.drop_item())
+				return
+			C.forceMove(src)
+			inserted_id = C
+			ui_interact(user)
+		return
+	return ..()
+
 /**********************Mining Equipment Datum**************************/
 
 /datum/data/mining_equipment
@@ -416,4 +513,3 @@
 
 
 #undef EQUIPMENT
-

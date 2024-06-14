@@ -51,6 +51,29 @@
 			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, def_zone)
 
+/// Tries to dodge incoming bullets if we aren't disabled for any reasons. Advised to overide with advanced effects, this is as basic example admins can apply.
+/mob/living/proc/advanced_bullet_dodge(mob/living/source, obj/item/projectile/hitting_projectile)
+	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))
+		return NONE
+	if(source.stat != CONSCIOUS)
+		return NONE
+	if(!prob(advanced_bullet_dodge_chance))
+		return NONE
+
+	source.visible_message(
+		"<span class='danger'>[source] [pick("dodges","jumps out of the way of","evades","dives out of the way of")] [hitting_projectile]!</span>",
+		"<span class='userdanger'>You evade [hitting_projectile]!</span>",
+	)
+	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+	// Chance to dodge multiple shotgun spreads, but not likely. Mainly: Infinite loop prevention from admins setting it to 100 and doing something stupid.
+	// If you want to set your dodge chance to 100 on a subtype, no issue: Just make sure the subtype does not step in a direction, otherwise you'll have the mob move a large distance to dodge rubbershot.
+	if(prob(50))
+		addtimer(VARSET_CALLBACK(src, advanced_bullet_dodge_chance, advanced_bullet_dodge_chance), 0.25 SECONDS) // Returns fast enough for multiple laser shots.
+		advanced_bullet_dodge_chance = 0
+	return ATOM_PREHIT_FAILURE
+
 /mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	return 0
 
@@ -200,12 +223,12 @@
 	else
 		ExtinguishMob()
 		return FALSE
-	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(G.oxygen < 1)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/G = T?.get_readonly_air() // Check if we're standing in an oxygenless environment
+	if(!G || G.oxygen() < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return FALSE
-	var/turf/location = get_turf(src)
-	location.hotspot_expose(700, 50, 1)
+	T.hotspot_expose(700, 50, 1)
 	SEND_SIGNAL(src, COMSIG_LIVING_FIRE_TICK)
 	return TRUE
 

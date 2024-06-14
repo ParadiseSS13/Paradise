@@ -257,6 +257,10 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
+	// TODO: Remove with 516
+	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
+		winset(src, "", "browser-options=byondstorage")
+
 	var/tdata = TopicData //save this for later use
 	// Instantiate stat panel
 	stat_panel = new(src, "statbrowser")
@@ -1168,6 +1172,14 @@
 	else
 		src << link(GLOB.configuration.system.region_map[choice])
 
+/client/proc/set_eye(new_eye)
+	if(new_eye == eye)
+		return
+	eye = new_eye
+
+/client/proc/clear_screen()
+	for(var/object in screen)
+		screen -= object
 
 /client/verb/reload_graphics()
 	set category = "Special Verbs"
@@ -1258,6 +1270,42 @@
 				class = "unknown"
 			debug_variables(stat_item)
 			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
+/**
+*	Handles fullscreen on the client.
+*/
+/client/verb/toggle_fullscreen()
+	set name = "Toggle Fullscreen"
+	set category = "OOC"
+
+	fullscreen = !fullscreen
+
+	if(fullscreen)
+		winset(usr, "mainwindow", "titlebar=false")
+		winset(usr, "mainwindow", "can-resize=false")
+		winset(usr, "mainwindow", "is-maximized=false")  // Ensures the window doesn't get stretched oddly.
+		winset(usr, "mainwindow", "is-maximized=true")
+		winset(usr, "mainwindow", "is-fullscreen=true")
+		winset(usr, "mainwindow", "menu=")				 // Top-Menu bar [DISABLED]
+	else
+		winset(usr, "mainwindow", "titlebar=true")
+		winset(usr, "mainwindow", "can-resize=true")
+		winset(usr, "mainwindow", "is-fullscreen=false") // Order matters. Fullscreen [OFF] -> Maximize [TRUE]
+		winset(usr, "mainwindow", "is-maximized=true")
+		winset(usr, "mainwindow", "menu=menu")
+	var/fullscreen_state = fullscreen ? "on" : "off"
+	to_chat(usr, "Toggled fullscreen [fullscreen_state]. To Toggle fullscreen; Go to the tab OOC -> Toggle fullscreen or press F11")
+	fit_viewport()
+
+/client/proc/try_open_reagent_editor(atom/target)
+	var/target_UID = target.UID()
+	var/datum/reagents_editor/editor
+	// editors is static, it can be accessed using a null reference
+	editor = editor.editors[target_UID]
+	if(!editor)
+		editor = new /datum/reagents_editor(target)
+		editor.editors[target_UID] = editor
+
+	editor.ui_interact(mob)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

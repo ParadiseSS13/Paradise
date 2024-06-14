@@ -4,6 +4,8 @@
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
+	/// how the atom should handle ricochet behavior
+	var/flags_ricochet = NONE
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
@@ -106,6 +108,11 @@
 	var/list/viewing_alternate_appearances
 	/// Contains the world.time of when we start dragging something with our mouse. Used to prevent weird situations where you fail to click on something
 	var/drag_start = 0
+
+	///When a projectile tries to ricochet off this atom, the projectile ricochet chance is multiplied by this
+	var/receive_ricochet_chance_mod = 1
+	///When a projectile ricochets off this atom, it deals the normal damage * this modifier to this atom
+	var/receive_ricochet_damage_coeff = 0.33
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -275,20 +282,6 @@
 				var/mob/living/L = M.loc
 				L.unEquip(M)
 			M.forceMove(src)
-
-/atom/proc/assume_air(datum/gas_mixture/giver)
-	qdel(giver)
-	return null
-
-/atom/proc/remove_air(amount)
-	return null
-
-/atom/proc/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
-	if(loc)
-		return loc.return_air()
-	else
-		return null
 
 ///Return the air if we can analyze it
 /atom/proc/return_analyzable_air()
@@ -1121,8 +1114,20 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/zap_act(power, zap_flags)
 	return
 
-/atom/proc/handle_ricochet(obj/item/projectile/P)
-	return
+/atom/proc/handle_ricochet(obj/item/projectile/ricocheting_projectile)
+	var/turf/p_turf = get_turf(ricocheting_projectile)
+	var/face_direction = get_dir(src, p_turf) || get_dir(src, ricocheting_projectile)
+	var/face_angle = dir2angle(face_direction)
+	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180))
+	var/a_incidence_s = abs(incidence_s)
+	if(a_incidence_s > 90 && a_incidence_s < 270)
+		return FALSE
+	if((ricocheting_projectile.flag in list(BULLET, BOMB)) && ricocheting_projectile.ricochet_incidence_leeway)
+		if((a_incidence_s < 90 && a_incidence_s < 90 - ricocheting_projectile.ricochet_incidence_leeway) || (a_incidence_s > 270 && a_incidence_s -270 > ricocheting_projectile.ricochet_incidence_leeway))
+			return FALSE
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
+	ricocheting_projectile.set_angle(new_angle_s)
+	return TRUE
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
 /atom/proc/handle_atom_del(atom/A)
@@ -1164,6 +1169,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(curturf)
 		.["Jump to turf"] = "?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
 	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
+	.["Edit reagents"] = "?_src_=vars;editreagents=[UID()]"
 	.["Trigger explosion"] = "?_src_=vars;explode=[UID()]"
 	.["Trigger EM pulse"] = "?_src_=vars;emp=[UID()]"
 
