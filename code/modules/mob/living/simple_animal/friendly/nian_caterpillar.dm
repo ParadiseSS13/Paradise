@@ -75,8 +75,8 @@
 	for(var/datum/language/L in languages)
 		adult.add_language(L.name)
 	adult.regenerate_icons()
-	adult.name = src.name
-	adult.real_name = adult.name
+	adult.name = name
+	adult.real_name = name
 
 	// Mind transfer to new worme.
 	M.transfer_to(adult)
