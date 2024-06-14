@@ -44,7 +44,7 @@
 
 /datum/uplink_item/jobspecific/trick_grenade
 	name = "Trick Grenade"
-	desc = "Syndicate Minibomb made from a bananium-boomerangium alloy. Flies back into your hands after throwing for easy reusing!"
+	desc = "Syndicate Minibomb with glue ejectors that will stick it to the user's hands on activation."
 	reference = "CGN"
 	item = /obj/item/storage/box/syndie_kit/fake_minibomb
 	cost = 5

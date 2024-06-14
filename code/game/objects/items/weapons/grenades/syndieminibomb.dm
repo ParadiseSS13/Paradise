@@ -17,6 +17,18 @@
 
 /obj/item/grenade/syndieminibomb/fake
 
+/obj/item/grenade/syndieminibomb/fake/examine(mob/user)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_CLUMSY))
+		. += "<span class='sans'>There are small glue ejectors all over the bomb.</span>"
+
+/obj/item/grenade/syndieminibomb/fake/attack_self(mob/user)
+	if(!active)
+		flags |= NODROP
+		to_chat(user, "<span class='userdanger'>As you activate the bomb, it emits a substance that sticks to your hand! It won't come off!</span>")
+		to_chat(user, "<span class='sans'>Uh oh.</span>")
+	. = ..()
+
 /obj/item/grenade/syndieminibomb/pen
 	name = "pen"
 	desc = "It's a normal black ink pen."
