@@ -83,30 +83,11 @@
 #define ui_alert4 "EAST-1:28,CENTER+2:21"
 #define ui_alert5 "EAST-1:28,CENTER+1:19"
 
-
-//Gun buttons
-#define ui_gun1 "EAST-2:26,SOUTH+2:7"
-#define ui_gun2 "EAST-1:28,SOUTH+3:7"
-#define ui_gun3 "EAST-2:26,SOUTH+3:7"
-#define ui_gun_select "EAST-1:28,SOUTH+2:7"
-
-//Upper-middle right (damage indicators)
-#define ui_toxin "EAST-1:28,CENTER+5:27"
-#define ui_fire "EAST-1:28,CENTER+4:25"
-#define ui_oxygen "EAST-1:28,CENTER+3:23"
-#define ui_pressure "EAST-1:28,CENTER+2:21"
-
-#define ui_alien_toxin "EAST-1:28,CENTER+5:25"
-#define ui_alien_fire "EAST-1:28,CENTER+4:25"
-#define ui_alien_oxygen "EAST-1:28,CENTER+3:25"
-#define ui_alien_nightvision "EAST-1:28,CENTER+2:25"
-
 //Middle right (status indicators)
-#define ui_nutrition "EAST-1:28,CENTER-3:11"
-#define ui_temp "EAST-1:28,CENTER-2:13"
-#define ui_healthdoll "EAST-1:28,CENTER-1:15"
-#define ui_health "EAST-1:28,CENTER:17"
 #define ui_internal "EAST-1:28,CENTER+1:19"
+#define ui_health "EAST-1:28,CENTER:17"
+#define ui_healthdoll "EAST-1:28,CENTER-1:15"
+#define ui_nutrition "EAST-2:32,CENTER-1:13"
 #define ui_stamina "EAST-1:28,CENTER-2:15"
 
 //borgs

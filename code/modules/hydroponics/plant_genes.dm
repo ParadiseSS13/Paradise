@@ -148,7 +148,7 @@
 	var/rate = 0.04
 
 /datum/plant_gene/reagent/get_name()
-	return "[name] production [rate*100]%"
+	return "[name] production [rate * 200]%" // Yes 200 is correct
 
 /datum/plant_gene/reagent/proc/set_reagent(reag_id)
 	reagent_id = reag_id
@@ -440,7 +440,7 @@
 			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
 
 /datum/plant_gene/trait/smoke
-	name = "gaseous decomposition"
+	name = "Gaseous Decomposition"
 	dangerous = TRUE
 
 /datum/plant_gene/trait/smoke/on_squash(obj/item/food/snacks/grown/G, atom/target)
