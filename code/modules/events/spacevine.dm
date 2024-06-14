@@ -310,7 +310,6 @@
 		return expected_damage
 	if(!I.sharp)
 		return expected_damage * 0.5
-	return expected_damage
 
 /datum/spacevine_mutation/flowering
 	name = "flowering"
