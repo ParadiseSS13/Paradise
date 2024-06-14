@@ -53,7 +53,7 @@
 	if(!P)
 		return
 	if(world.time < P.last_shocked + P.shock_delay)
-		to_chat(user, "<span class='warning'>The powerchip still recharging.</span>")
+		to_chat(user, "<span class='warning'>The powerchip is still recharging.</span>")
 		return FALSE
 	var/turf/T = get_turf(user)
 	var/obj/structure/cable/C = locate() in T
