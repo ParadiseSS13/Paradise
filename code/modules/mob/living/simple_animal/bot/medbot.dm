@@ -527,7 +527,7 @@
 		if("adv")
 			new /obj/item/storage/firstaid/adv/empty(drop_turf)
 		if("bezerk")
-			var/obj/item/storage/firstaid/tactical/empty/T = new(drop_turf)
+			new /obj/item/storage/firstaid/tactical/empty(drop_turf)
 		if("fish")
 			new /obj/item/storage/firstaid/aquatic_kit(drop_turf)
 		if("machine")

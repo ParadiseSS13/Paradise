@@ -447,7 +447,7 @@
 	empty_toolbox.contents = list()
 	new /obj/item/assembly/prox_sensor(disassemble_turf)
 	drop_part(robot_arm, disassemble_turf)
-	if(amount > 0)
+	if(amount)
 		new /obj/item/stack/tile/plasteel(disassemble_turf, amount)
 	qdel(src)
 
