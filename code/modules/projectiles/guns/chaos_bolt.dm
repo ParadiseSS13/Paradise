@@ -263,7 +263,7 @@
   */
 /obj/item/projectile/magic/chaos/proc/apply_misc_effect(mob/living/target)
 	if(!ishuman(target))
-		chaos_effect = pick("recolor", "bark", "confetti", "smoke", "wand of nothing", "bike horn", "tarot card")
+		chaos_effect = pick("recolor", "bark", "confetti", "smoke", "wand of nothing", "bike horn")
 	else
 		chaos_effect = pick("bark", "smoke", "spin", "flip", "confetti", "slip", "wand of nothing", \
 			"help maint", "fake callout", "bike horn", "tarot card")
