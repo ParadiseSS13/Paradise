@@ -1,9 +1,9 @@
 #define CHAOS_STAFF_DAMAGE 30 //Damaging effects will use this number, multiplied or divided depending on effect
-#define CHAOS_STAFF_LETHAL_CHANCE 5 //These should add up to 100
-#define CHAOS_STAFF_NEGATIVE_CHANCE 45
-#define CHAOS_STAFF_MISC_CHANCE 30
-#define CHAOS_STAFF_GIFT_CHANCE 15
-#define CHAOS_STAFF_GREAT_GIFT_CHANCE 5
+#define CHAOS_STAFF_LETHAL_CHANCE 0 //These should add up to 100
+#define CHAOS_STAFF_NEGATIVE_CHANCE 0
+#define CHAOS_STAFF_MISC_CHANCE 33
+#define CHAOS_STAFF_GIFT_CHANCE 33
+#define CHAOS_STAFF_GREAT_GIFT_CHANCE 34
 
 /obj/item/projectile/magic/chaos
 	name = "chaos bolt"
@@ -263,10 +263,10 @@
   */
 /obj/item/projectile/magic/chaos/proc/apply_misc_effect(mob/living/target)
 	if(!ishuman(target))
-		chaos_effect = pick("recolor", "bark", "confetti", "smoke", "wand of nothing", "bike horn")
+		chaos_effect = pick("recolor", "bark", "confetti", "smoke", "wand of nothing", "bike horn", "tarot card")
 	else
 		chaos_effect = pick("bark", "smoke", "spin", "flip", "confetti", "slip", "wand of nothing", \
-			"help maint", "fake callout", "bike horn")
+			"help maint", "fake callout", "bike horn", "tarot card")
 	switch(chaos_effect)
 		if("recolor") //non-humans only because recoloring humans is kinda meh
 			target.color = pick(GLOB.random_color_list)
@@ -301,7 +301,12 @@
 		if("bike horn")
 			item_to_summon = /obj/item/bikehorn
 			explosion_amount = rand(2, 3)
-
+		if("tarot card")
+			if(ishuman(target))
+				var/mob/living/carbon/human/H = target
+				var/obj/item/magic_tarot_card/spawned_card = new /obj/item/magic_tarot_card(H)
+				H.visible_message("<span class='chaosneutral'>[H] is forced to use [spawned_card]!</span>", "<span class='chaosneutral'>[spawned_card] appears in front of you and glows bright!</span>")
+				spawned_card.pre_activate(H)
 /**
   * Picks a random gift to be given to mob/living/target. Should be mildly useful and/or funny.
   */
