@@ -86,7 +86,6 @@
 		15.2 Plague sequence beta
 		15.3 Plague sequence gamma
 		15.4 Plague sequence omega
-
 */
 
 /datum/reagent/medicine
@@ -1932,7 +1931,7 @@
 	return ..() | update_flags
 
 ////////////////////////////////////////
-// MARK:	Restorative nanites
+//			Restorative nanites
 ////////////////////////////////////////
 /// Used exclusively by Syndicate medical cyborgs
 /datum/reagent/medicine/syndicate_nanites

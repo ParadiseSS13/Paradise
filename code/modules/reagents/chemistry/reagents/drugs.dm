@@ -5,9 +5,6 @@
 */
 #define DRAWBACK_CHANCE_MODIFIER(duration) 0.1 * duration
 
-////////////////////////////////////////
-// MARK:	Lithium
-////////////////////////////////////////
 /datum/reagent/lithium
 	name = "Lithium"
 	id = "lithium"
