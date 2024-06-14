@@ -53,13 +53,13 @@
 	if(!P)
 		return
 	if(world.time < P.last_shocked + P.shock_delay)
-		to_chat(user, "<span class='warning'>The gloves are still recharging.</span>")
+		to_chat(user, "<span class='warning'>The powerchip still recharging.</span>")
 		return FALSE
 	var/turf/T = get_turf(user)
 	var/obj/structure/cable/C = locate() in T
 	if(!P.unlimited_power)
 		if(!C || !istype(C))
-			to_chat(user, "<span class='warning'>There is no cable here to power the gloves.</span>")
+			to_chat(user, "<span class='warning'>There is no cable here to power the biochip.</span>")
 			return FALSE
 	var/turf/target_turf = get_turf(A)
 	if(get_dist(T, target_turf) > P.shock_range)
