@@ -33,6 +33,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	/// Unlit cigarette sprite.
 	var/icon_off = "cigoff"
+	/// Are we an extra-classy smokable?
+	var/fancy = FALSE
 	/// What trash item the cigarette makes when it burns out.
 	var/type_butt = /obj/item/cigbutt
 	/// How long does the cigarette last before going out?
@@ -226,9 +228,26 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return TRUE
 */
 
-/obj/item/clothing/mask/cigarette/attackby(mob/living/user, mob/living/carbon/target, obj/item/I, params)
-	if(!I.cigarette_lighter_act(user, target, I))
+/obj/item/clothing/mask/cigarette/attackby(mob/living/user, mob/living/target, obj/item/I, params)
+	// Handles cigarettes being clicked directly rather than being brought here by an item's attack().
+	if(isnull(target))
+		target = user
+	if(!I.cigarette_lighter_act(user, target))
 		return
+
+/obj/item/clothing/mask/cigarette/proc/handle_cigarette_lighter_act(mob/living/user, mob/living/carbon/target, obj/item/I)
+	if(lit)
+		to_chat(user, "<span class='warning'>[src] is already lit!</span>")
+		return FALSE
+
+	// Cigars and pipes do not take kindly to tomfoolery!
+	if(fancy && !can_light_fancy(I))
+		to_chat(user, "<span class='warning'>[src] straight out <b>REFUSES</b> to be lit by such uncivilized means!</span>")
+		return FALSE
+
+	light(user, target)
+	return TRUE
+
 
 /obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity)
 	..()
@@ -244,12 +263,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 			else
 				to_chat(user, "<span class='notice'>[src] is full.</span>")
 
-/obj/item/clothing/mask/cigarette/proc/light(mob/living/user, mob/living/target, obj/item/I,)
+/obj/item/clothing/mask/cigarette/proc/light(mob/living/user, mob/living/target)
 	if(lit)
-		to_chat(user, "<span class='warning'>[I] is already lit!</span>")
+		to_chat(user, "<span class='warning'>[src] is already lit!</span>")
 		return FALSE
 
-	if(target?)
+	// The cigarette was clicked on directly, so there is no target mob.
+	if(isnull(target))
 		target = user
 
 	lit = TRUE
@@ -400,6 +420,26 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/rollie/custom
 	list_reagents = list()
 
+/obj/item/cigbutt
+	name = "cigarette butt"
+	desc = "A manky old cigarette butt."
+	icon = 'icons/obj/clothing/masks.dmi'
+	icon_state = "cigbutt"
+	w_class = WEIGHT_CLASS_TINY
+	throwforce = 1
+
+/obj/item/cigbutt/Initialize(mapload)
+	. = ..()
+	pixel_x = rand(-10,10)
+	pixel_y = rand(-10,10)
+	transform = turn(transform,rand(0,360))
+
+/obj/item/cigbutt/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(isdrone(user))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/cigbutt/roach
 	name = "roach"
@@ -475,27 +515,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime = 450
 	chem_volume = 180
 	list_reagents = list("nicotine" = 180)
-
-/obj/item/cigbutt
-	name = "cigarette butt"
-	desc = "A manky old cigarette butt."
-	icon = 'icons/obj/clothing/masks.dmi'
-	icon_state = "cigbutt"
-	w_class = WEIGHT_CLASS_TINY
-	throwforce = 1
-
-/obj/item/cigbutt/Initialize(mapload)
-	. = ..()
-	pixel_x = rand(-10,10)
-	pixel_y = rand(-10,10)
-	transform = turn(transform,rand(0,360))
-
-/obj/item/cigbutt/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(isdrone(user))
-		C.stored_comms["wood"] += 1
-		qdel(src)
-		return TRUE
-	return ..()
 
 /obj/item/cigbutt/cigarbutt
 	name = "cigar butt"

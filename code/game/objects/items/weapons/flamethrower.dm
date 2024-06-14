@@ -74,21 +74,24 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/attack(mob/living/user, mob/living/carbon/target, obj/item/I)
+/obj/item/flamethrower/attack(mob/living/user, mob/living/carbon/target)
 	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
 	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
 		return ..()
 
-	cigarette_lighter_act(user, target, I)
+	cig.attackby(user, target, src)
+	return FALSE // So you don't do a melee attack.
 
-/obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/carbon/target, obj/item/clothing/mask/cigarette/I)
+/obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/carbon/target)
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to ignite [src] before you can use it as a lighter!</span>")
-		return FALSE
-
-	if(!I.light(user, target, I))
 		return
 
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+	if(!I.handle_cigarette_lighter_act(user, target, src))
+		return
+
+	// Pulling this off 'safely' requires years of experiance, a true badass, or blind luck!
 	if(prob(50) || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Life Support Specialist" || HAS_TRAIT(user, TRAIT_BADASS))
 		if(user == target)
 			user.visible_message(
@@ -104,6 +107,7 @@
 			)
 		return
 
+	// You set them on fire, but at least the cigarette got lit...
 	if(target == user)
 		user.visible_message(
 			"<span class='danger'>With little regard for [user.p_their()] own safety, [user] lifts up [src] to [user.p_their()] face and attempts to light [I] in [user.p_their()] mouth. \
