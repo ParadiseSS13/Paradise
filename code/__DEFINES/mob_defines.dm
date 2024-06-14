@@ -203,6 +203,13 @@
 #define INVISIBILITY_ABSTRACT 101
 #define UNHEALING_EAR_DAMAGE 100
 
+/// Nian and Nian Worme cocoon do_after delay, in seconds.
+#define COCOON_WEAVE_DELAY 5 SECONDS
+/// Nian and Nian worme delay after they emerge from their cocoon, in seconds.
+#define COCOON_EMERGE_DELAY 15 SECONDS
+/// Nian and nian worme fly swatter damage multiplier, X + 1 => Total multiplier. (Ex. Value of 9 => 10x dmg)
+#define FLYSWATTER_DAMAGE_MULTIPLIER 9
+
 /// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
 #define EXAMINE_MORE_WINDOW 1 SECONDS
 

@@ -1,7 +1,3 @@
-#define COCOON_WEAVE_DELAY 5 SECONDS
-#define COCOON_EMERGE_DELAY 15 SECONDS
-#define FLYSWATTER_DAMAGE_MULTIPLIER 14
-
 /mob/living/simple_animal/nian_caterpillar
 	name = "nian caterpillar"
 	icon = 'icons/mob/monkey.dmi'
@@ -151,7 +147,3 @@
 		var/datum/mind/H = user.mind
 		user.evolve(C, H)
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
-
-#undef COCOON_WEAVE_DELAY
-#undef COCOON_EMERGE_DELAY
-#undef FLYSWATTER_DAMAGE_MULTIPLIER
