@@ -2,10 +2,9 @@
 //Bartender
 /obj/item/clothing/head/chefhat
 	name = "chef's hat"
-	desc = "It's a hat used by chefs to keep hair out of your food. Judging by the food in the mess, they don't work."
+	desc = "The commander in chef's head wear."
 	icon_state = "chef"
 	item_state = "chef"
-	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	put_on_delay = 10
 	dog_fashion = /datum/dog_fashion/head/chef
@@ -194,4 +193,3 @@
 	desc = "A cap coroners wear during autopsies. Keeps their hair from falling into the cadavers. It is as dark as the coroner's humor."
 	icon_state = "surgcap_black"
 	dog_fashion = /datum/dog_fashion/head/surgery
-

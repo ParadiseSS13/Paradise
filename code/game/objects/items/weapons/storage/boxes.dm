@@ -440,7 +440,8 @@
 
 /obj/item/storage/box/pillbottles/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle(src)
+		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle(src)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/patch_packs
 	name = "box of patch packs"
@@ -449,7 +450,8 @@
 
 /obj/item/storage/box/patch_packs/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle/patch_pack(src)
+		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle/patch_pack(src)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/bodybags
 	name = "body bags"
@@ -696,6 +698,15 @@
 /obj/item/storage/box/tranquilizer/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+
+/obj/item/storage/box/holy
+	name = "ammunition box (Holy Water darts)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "hshell_box"
+
+/obj/item/storage/box/holy/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/holy(src)
 
 ////////////////
 /* Donk Boxes */
@@ -949,6 +960,17 @@
 				return
 	return ..()
 
+/obj/item/storage/box/relay_kit
+	name = "telecommunications relay kit"
+	desc = "Contains everything you need to set up your own telecommunications array!"
+
+/obj/item/storage/box/relay_kit/populate_contents()
+	new /obj/item/paper/tcommskey(src)
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/circuitboard/tcomms/relay(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stack/cable_coil(src, 7)
 
 /obj/item/storage/box/centcomofficer
 	name = "officer kit"
@@ -973,7 +995,6 @@
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
 	icon_state = "ert_box"
-	storage_slots = 8
 
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
@@ -982,8 +1003,7 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 
 /obj/item/storage/box/deathsquad
 	name = "boxed death kit"
@@ -993,10 +1013,10 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/grenade/plastic/c4/x4(src)
 	new /obj/item/reagent_containers/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
-	new /obj/item/ammo_box/a357(src)
-	new /obj/item/ammo_box/a357(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 
 /obj/item/storage/box/soviet
 	name = "boxed survival kit"

@@ -461,3 +461,20 @@
 	reagent_state = LIQUID
 	color = "#29262b"
 	taste_description = "burnt dirt"
+
+/datum/reagent/tar_compound
+	name = "Sticky tar"
+	id = "sticky_tar"
+	description = "A sticky compound that creates tar on contact with surfaces."
+	reagent_state = LIQUID
+	color = "#4B4B4B"
+	harmless = FALSE
+	taste_description = "processed sludge"
+
+/datum/reagent/tar_compound/reaction_turf(turf/simulated/T, volume)
+	if(volume < 1 || !issimulatedturf(T))
+		return
+	var/obj/effect/decal/cleanable/tar/C = locate() in T
+	if(C) // We don't want the slowdown to stack
+		return
+	new /obj/effect/decal/cleanable/tar(T)
