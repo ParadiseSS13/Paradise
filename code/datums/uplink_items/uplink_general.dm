@@ -2,7 +2,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
 // Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
 
-/proc/get_uplink_items(obj/item/uplink/U, mob/user)
+/proc/get_uplink_items(obj/item/uplink/U, mob/user = null, surplus = FALSE)
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
@@ -25,6 +25,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
 				sales_items += I
 
+	if(surplus)
+		return uplink_items
+
 	var/i = 0
 	while(i<3)
 		var/datum/uplink_item/Item = pick_n_take(sales_items)
@@ -42,6 +45,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 					speciesAllowed = TRUE
 			if(!speciesAllowed)
 				continue
+		if(Item.hijack_only && !(locate(/datum/objective/hijack) in user.mind.get_all_objectives())) //If you aren't a hijacker, no hijack only items
+			continue
 		var/datum/uplink_item/A = new Item.type
 		var/discount = 0.5
 		A.limited_stock = 1
@@ -65,24 +70,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		uplink_items[A.category] += A
 
 	return uplink_items
-
-/proc/get_surplus_items(obj/item/uplink/U)
-	var/list/surplus_items = list()
-	if(!length(surplus_items))
-		for(var/path in GLOB.uplink_items)
-			var/datum/uplink_item/I = new path
-			if(!I.item)
-				continue
-			if(length(I.uplinktypes) && !(U.uplink_type in I.uplinktypes) && U.uplink_type != UPLINK_TYPE_ADMIN)
-				continue
-			if(length(I.excludefrom) && (U.uplink_type in I.excludefrom))
-				continue
-
-			if(!surplus_items[I.category])
-				surplus_items[I.category] = list()
-
-			surplus_items[I.category] += I
-	return surplus_items
 
 // You can change the order of the list by putting datums before/after one another
 
