@@ -327,7 +327,7 @@
 		if("medkit")
 			item_to_summon = pick(/obj/item/storage/firstaid/brute, /obj/item/storage/firstaid/fire, /obj/item/storage/firstaid/adv)
 		if("tarot pack")
-			item_summon = pick(/obj/item/tarot_card_pack, /obj/item/tarot_card_pack/jumbo, /obj/item/tarot_card_pack/mega)
+			item_to_summon = pick(/obj/item/tarot_card_pack, /obj/item/tarot_card_pack/jumbo, /obj/item/tarot_card_pack/mega)
 		if("insulated gloves")
 			item_to_summon = /obj/item/clothing/gloves/color/yellow
 			explosion_amount = rand(2, 5)
