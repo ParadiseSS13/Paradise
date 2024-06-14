@@ -85,7 +85,7 @@
 
 /datum/gear/suit/bomber/basic
 	display_name = "Bomber jacket"
-	path = /obj/item/clothing/suit/jacket
+	path = /obj/item/clothing/suit/jacket/bomber
 
 /datum/gear/suit/bomber/job
 	main_typepath = /datum/gear/suit/bomber/job
@@ -93,57 +93,62 @@
 
 /datum/gear/suit/bomber/job/sec
 	display_name = "Bomber jacket, security"
-	path = /obj/item/clothing/suit/jacket/secbomber
+	path = /obj/item/clothing/suit/jacket/bomber/sec
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/suit/bomber/job/cargo
 	display_name = "Bomber jacket, cargo"
-	path = /obj/item/clothing/suit/jacket/cargobomber
+	path = /obj/item/clothing/suit/jacket/bomber/cargo
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/suit/bomber/job/miner
 	display_name = "Bomber jacket, mining"
-	path = /obj/item/clothing/suit/jacket/miningbomber
+	path = /obj/item/clothing/suit/jacket/bomber/mining
 	allowed_roles = list("Quartermaster", "Shaft Miner")
+
+/datum/gear/suit/bomber/job/expedition
+	display_name = "Bomber jacket, expedition"
+	path = /obj/item/clothing/suit/jacket/bomber/expedition
+	allowed_roles = list("Quartermaster", "Explorer")
 
 /datum/gear/suit/bomber/job/engi
 	display_name = "Bomber jacket, engineering"
-	path = /obj/item/clothing/suit/jacket/engibomber
+	path = /obj/item/clothing/suit/jacket/bomber/engi
 	allowed_roles = list("Chief Engineer", "Station Engineer")
 
 /datum/gear/suit/bomber/job/atmos
 	display_name = "Bomber jacket, atmospherics"
-	path = /obj/item/clothing/suit/jacket/atmosbomber
+	path = /obj/item/clothing/suit/jacket/bomber/atmos
 	allowed_roles = list("Chief Engineer", "Life Support Specialist")
 
 /datum/gear/suit/bomber/job/hydro
 	display_name = "Bomber jacket, hydroponics"
-	path = /obj/item/clothing/suit/jacket/hydrobomber
+	path = /obj/item/clothing/suit/jacket/bomber/hydro
 	allowed_roles = list("Botanist")
 
 /datum/gear/suit/bomber/job/medical
 	display_name = "Bomber jacket, medical"
-	path = /obj/item/clothing/suit/jacket/medbomber
+	path = /obj/item/clothing/suit/jacket/bomber/med
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
 
 /datum/gear/suit/bomber/job/chemist
 	display_name = "Bomber jacket, chemist"
-	path = /obj/item/clothing/suit/jacket/chembomber
+	path = /obj/item/clothing/suit/jacket/bomber/chem
 	allowed_roles = list("Chemist")
 
 /datum/gear/suit/bomber/job/coroner
 	display_name = "Bomber jacket, coroner"
-	path = /obj/item/clothing/suit/jacket/coronerbomber
+	path = /obj/item/clothing/suit/jacket/bomber/coroner
 	allowed_roles = list("Coroner")
 
 /datum/gear/suit/bomber/job/science
 	display_name = "Bomber jacket, science"
-	path = /obj/item/clothing/suit/jacket/scibomber
+	path = /obj/item/clothing/suit/jacket/bomber/sci
 	allowed_roles = list("Research Director", "Scientist")
 
 /datum/gear/suit/bomber/job/robotics
 	display_name = "Bomber jacket, robotics"
-	path = /obj/item/clothing/suit/jacket/robobomber
+	path = /obj/item/clothing/suit/jacket/bomber/robo
 	allowed_roles = list("Research Director", "Roboticist")
 
 //JACKETS

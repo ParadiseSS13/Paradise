@@ -16,6 +16,7 @@
 	icon_dead = "towercap-dead"
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list(/obj/item/seeds/tower/steel)
+	reagents_add = list("carbon" = 0.2)
 
 /obj/item/seeds/tower/steel
 	name = "pack of steel-cap mycelium"
@@ -25,10 +26,8 @@
 	plantname = "Steel Caps"
 	product = /obj/item/grown/log/steel
 	mutatelist = list()
+	reagents_add = list("iron" = 0.5)
 	rarity = 20
-
-
-
 
 /obj/item/grown/log
 	seed = /obj/item/seeds/tower
@@ -178,9 +177,11 @@
 	..()
 
 
+/// Check if we're standing in an oxygenless environment
 /obj/structure/bonfire/proc/CheckOxygen()
-	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(G.oxygen > 13)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/G = T.get_readonly_air()
+	if(G.oxygen() > 13)
 		return 1
 	return 0
 

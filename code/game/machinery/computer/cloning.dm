@@ -7,7 +7,6 @@
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
 	circuit = /obj/item/circuitboard/cloning
-	req_access = list(ACCESS_MEDICAL)
 
 	/// The currently-selected cloning pod.
 	var/obj/machinery/clonepod/selected_pod
@@ -21,8 +20,6 @@
 	var/feedback
 	/// The desired outcome of the cloning process.
 	var/datum/cloning_data/desired_data
-	/// Whether the ID lock is on or off
-	var/locked = TRUE
 
 	COOLDOWN_DECLARE(scancooldown)
 
@@ -49,18 +46,7 @@
 			P.console = null
 	return ..()
 
-/obj/machinery/computer/cloning/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>[src] is currently [locked ? "locked" : "unlocked"], and can be [locked ? "unlocked" : "locked"] by swiping an ID with medical access on it.</span>"
-
 /obj/machinery/computer/cloning/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-		if(allowed(user))
-			locked = !locked
-			to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
-		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
 
 	if(!ismultitool(I))
 		return ..()
@@ -109,16 +95,6 @@
 
 	ui_interact(user)
 
-/obj/machinery/computer/cloning/emag_act(mob/user)
-	. = ..()
-	if(!emagged)
-		emagged = TRUE
-		to_chat(user, "<span class='notice'>You short out the ID scanner on [src].</span>")
-	else
-		to_chat(user, "<span class='warning'>[src]'s ID scanner is already broken!</span>")
-
-	return TRUE
-
 /obj/machinery/computer/cloning/proc/generate_healthy_data(datum/cloning_data/patient_data)
 	var/datum/cloning_data/desired_data = new
 
@@ -154,12 +130,6 @@
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(!allowed(user) && locked && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-		if(ui)
-			ui.close()
 		return
 
 	var/datum/asset/simple/cloning/assets = get_asset_datum(/datum/asset/simple/cloning)

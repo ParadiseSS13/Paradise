@@ -166,7 +166,12 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 				var/mob/living/carbon/human/H = L
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
-			listeners += L
+			if(istype(L, /mob/camera/aiEye))
+				var/mob/camera/aiEye/ai_eye = L
+				if(ai_eye.relay_speech && ai_eye.ai)
+					listeners += ai_eye.ai
+			else
+				listeners += L
 
 	if(!length(listeners))
 		next_command = world.time + cooldown_none

@@ -1,6 +1,6 @@
 /turf/simulated/wall/mineral
 	name = "mineral wall"
-	desc = "This shouldn't exist"
+	desc = "If you can see this, please make an issue report on GitHub."
 	icon_state = ""
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
@@ -220,7 +220,7 @@
 	icon_state = "plastinum_wall-0"
 	base_icon_state = "plastinum_wall"
 	explosion_block = 3
-	flags_2 = CHECK_RICOCHET_2
+	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
@@ -308,6 +308,9 @@
 	return
 
 /turf/simulated/wall/mineral/titanium/nodecon/welder_act()
+	return
+
+/turf/simulated/wall/mineral/titanium/nodecon/try_destroy()
 	return
 
 /////////////////////Plastitanium walls/////////////////////

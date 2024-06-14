@@ -90,6 +90,11 @@
 	/// A list of all the minds that have the ERT special role
 	var/list/datum/mind/ert = list()
 
+	/// A list of all minds that are zombies
+	var/list/datum/mind/zombies = list()
+	/// A list of all minds that are infected with the zombie virus, but aren't zombies yet
+	var/list/datum/mind/zombie_infected = list()
+
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
@@ -438,14 +443,14 @@
 
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.nuke_list)
 		if(bomb && bomb.r_code && is_station_level(bomb.z))
 			nukecode = bomb.r_code
 	return nukecode
 
 /proc/get_nuke_status()
 	var/nuke_status = NUKE_MISSING
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.nuke_list)
 		if(is_station_level(bomb.z))
 			nuke_status = NUKE_CORE_MISSING
 			if(bomb.core)

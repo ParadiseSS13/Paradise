@@ -280,6 +280,8 @@ CREATE TABLE `player` (
   `toggles` int(11) DEFAULT NULL,
   `toggles_2` int(11) DEFAULT NULL,
   `sound` mediumint(8) DEFAULT '31',
+  `light` MEDIUMINT(3) NOT NULL DEFAULT '7',
+  `glowlevel` TINYINT(1) NOT NULL DEFAULT '1',
   `volume_mixer` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastchangelog` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `exp` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -404,8 +406,11 @@ CREATE TABLE `notes` (
   `server` varchar(50) NOT NULL,
   `crew_playtime` mediumint(8) UNSIGNED DEFAULT '0',
   `automated` TINYINT(3) UNSIGNED NULL DEFAULT '0',
+  `deleted` TINYINT(4) NOT NULL DEFAULT '0',
+  `deletedby` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
-  KEY `ckey` (`ckey`)
+  KEY `ckey` (`ckey`),
+  KEY `deleted` (`deleted`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

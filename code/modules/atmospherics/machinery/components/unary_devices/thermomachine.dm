@@ -93,30 +93,29 @@
 
 
 /obj/machinery/atmospherics/unary/thermomachine/process_atmos()
-	..()
 	if(!on)
 		return
 
 	// Coolers don't heat.
-	if(air_contents.temperature <= target_temperature && cooling)
+	if(air_contents.temperature() <= target_temperature && cooling)
 		return
 	// Heaters don't cool.
-	if(air_contents.temperature >= target_temperature && !cooling)
+	if(air_contents.temperature() >= target_temperature && !cooling)
 		return
 
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = heat_capacity + air_heat_capacity
-	var/old_temperature = air_contents.temperature
+	var/old_temperature = air_contents.temperature()
 
 	if(combined_heat_capacity > 0)
-		var/combined_energy = heat_capacity * target_temperature + air_heat_capacity * air_contents.temperature
-		air_contents.temperature = combined_energy / combined_heat_capacity
+		var/combined_energy = heat_capacity * target_temperature + air_heat_capacity * air_contents.temperature()
+		air_contents.set_temperature(combined_energy / combined_heat_capacity)
 
 	//todo: have current temperature affected. require power to bring down current temperature again
 
-	var/temperature_delta = abs(old_temperature - air_contents.temperature)
+	var/temperature_delta = abs(old_temperature - air_contents.temperature())
 	if(temperature_delta > 1)
-		var/new_active_consumption = (temperature_delta * 25) * min(log(10, air_contents.temperature) - 1, 1)
+		var/new_active_consumption = (temperature_delta * 25) * min(log(10, air_contents.temperature()) - 1, 1)
 		update_active_power_consumption(power_channel, new_active_consumption + idle_power_consumption)
 		change_power_mode(ACTIVE_POWER_USE)
 		parent.update = TRUE
@@ -191,7 +190,7 @@
 	data["target"] = target_temperature
 	data["initial"] = initial(target_temperature)
 
-	data["temperature"] = air_contents.temperature
+	data["temperature"] = air_contents.temperature()
 	data["pressure"] = air_contents.return_pressure()
 	return data
 

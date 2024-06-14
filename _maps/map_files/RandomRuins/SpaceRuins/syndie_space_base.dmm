@@ -804,10 +804,10 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "eN" = (
 /obj/structure/closet/crate/hydroponics,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/storage/bag/plants/portaseeder,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -816,6 +816,10 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/item/clothing/glasses/hud/hydroponic,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/service)
 "eO" = (
@@ -845,6 +849,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/hydroponics,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/service)
 "eR" = (
@@ -937,7 +942,7 @@
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "fo" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/mob_spawn/human/corpse/skeleton,
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "fp" = (
@@ -2800,6 +2805,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "pk" = (
 /obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/catwalk,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "pl" = (
@@ -6701,6 +6707,7 @@
 "Lj" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/door/firedoor,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7237,6 +7244,9 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"OT" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "OY" = (
 /obj/machinery/light{
 	dir = 1
@@ -13200,7 +13210,7 @@ nv
 Kh
 Jo
 Vl
-kE
+OT
 kE
 kE
 kE
@@ -13272,8 +13282,8 @@ nv
 Vl
 Vl
 Vl
-kE
-kE
+OT
+OT
 kE
 Ri
 Ri
@@ -13343,8 +13353,8 @@ nv
 nv
 qT
 Vl
-kE
-kE
+OT
+OT
 Ri
 kE
 kE
@@ -13396,7 +13406,7 @@ LE
 AD
 Mf
 kE
-kE
+OT
 kE
 Vl
 Vl
@@ -13416,7 +13426,7 @@ nv
 Vl
 Vl
 kE
-kE
+OT
 kE
 kE
 kE
@@ -13468,7 +13478,7 @@ AD
 kE
 AD
 kE
-kE
+OT
 kE
 kE
 Vl
@@ -13489,7 +13499,7 @@ Vl
 kE
 kE
 kE
-kE
+OT
 kE
 Ri
 Ri
@@ -13612,7 +13622,7 @@ kE
 AD
 kE
 kE
-kE
+OT
 kE
 kE
 kE
@@ -13632,7 +13642,7 @@ Vl
 kE
 kE
 kE
-kE
+OT
 kE
 Ri
 Ri
@@ -13684,7 +13694,7 @@ kE
 AD
 Vs
 kE
-kE
+OT
 kE
 kE
 kE
@@ -13702,9 +13712,9 @@ Vl
 Vl
 kE
 kE
+OT
 kE
-kE
-kE
+OT
 Ri
 Ri
 Ri
@@ -13756,11 +13766,11 @@ kE
 kE
 kE
 kE
+OT
+OT
 kE
-kE
-kE
-kE
-kE
+OT
+OT
 kE
 kE
 Vl
@@ -13771,13 +13781,13 @@ Vl
 Vl
 Vl
 kE
+OT
+kE
+OT
 kE
 kE
-kE
-kE
-kE
-kE
-kE
+OT
+OT
 Ri
 Ri
 AV
@@ -13827,13 +13837,13 @@ kE
 kE
 kE
 kE
+OT
+OT
+OT
+OT
 kE
-kE
-kE
-kE
-kE
-kE
-kE
+OT
+OT
 kE
 kE
 kE
@@ -13842,14 +13852,14 @@ Vl
 Vl
 kE
 kE
+OT
+OT
 kE
 kE
 kE
-kE
-kE
-kE
-kE
-kE
+OT
+OT
+OT
 Ri
 Ri
 Ri
@@ -13899,6 +13909,8 @@ Ri
 Ri
 kE
 Ri
+OT
+OT
 kE
 kE
 kE
@@ -13910,15 +13922,13 @@ kE
 kE
 kE
 kE
+OT
+OT
 kE
 kE
 kE
 kE
-kE
-kE
-kE
-kE
-kE
+OT
 Ri
 Ri
 Ri
@@ -13979,9 +13989,9 @@ kE
 kE
 Ri
 kE
-kE
-kE
-kE
+OT
+OT
+OT
 kE
 kE
 kE
@@ -13990,7 +14000,7 @@ kE
 kE
 Ri
 kE
-kE
+OT
 Ri
 Ri
 Ri

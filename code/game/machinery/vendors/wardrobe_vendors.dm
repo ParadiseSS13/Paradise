@@ -31,7 +31,7 @@
 					/obj/item/clothing/mask/bandana/red = 4,
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/mask/gas/sechailer/swat = 2,
-					/obj/item/clothing/suit/jacket/secbomber = 2,
+					/obj/item/clothing/suit/jacket/bomber/sec = 2,
 					/obj/item/clothing/suit/armor/secjacket = 4,
 					/obj/item/clothing/suit/armor/secponcho = 4,
 					/obj/item/clothing/suit/hooded/wintercoat/security = 4,
@@ -68,7 +68,7 @@
 				/obj/item/clothing/mask/bandana/red = 40,
 				/obj/item/clothing/mask/balaclava = 60,
 				/obj/item/clothing/mask/gas/sechailer/swat = 60,
-				/obj/item/clothing/suit/jacket/secbomber = 75,
+				/obj/item/clothing/suit/jacket/bomber/sec = 75,
 				/obj/item/clothing/suit/armor/secjacket = 75,
 				/obj/item/clothing/suit/armor/secponcho = 75,
 				/obj/item/clothing/suit/hooded/wintercoat/security = 75,
@@ -173,7 +173,7 @@
 					/obj/item/clothing/suit/storage/fr_jacket = 3,
 					/obj/item/clothing/suit/storage/labcoat = 3,
 					/obj/item/clothing/suit/apron/surgical = 3,
-					/obj/item/clothing/suit/jacket/medbomber = 3,
+					/obj/item/clothing/suit/jacket/bomber/med = 3,
 					/obj/item/clothing/accessory/armband/med = 3,
 					/obj/item/clothing/accessory/armband/medgreen = 3,
 					/obj/item/clothing/shoes/laceup = 3,
@@ -203,7 +203,7 @@
 				/obj/item/clothing/suit/storage/fr_jacket = 75,
 				/obj/item/clothing/suit/storage/labcoat = 75,
 				/obj/item/clothing/suit/apron/surgical = 75,
-				/obj/item/clothing/suit/jacket/medbomber = 75,
+				/obj/item/clothing/suit/jacket/bomber/med = 75,
 				/obj/item/clothing/accessory/armband/med = 20,
 				/obj/item/clothing/accessory/armband/medgreen = 20,
 				/obj/item/clothing/shoes/laceup = 30,
@@ -272,7 +272,7 @@
 					/obj/item/clothing/under/rank/medical/chemist/skirt = 2,
 					/obj/item/clothing/head/beret/med = 2,
 					/obj/item/clothing/suit/storage/labcoat/chemist = 2,
-					/obj/item/clothing/suit/jacket/chembomber = 2,
+					/obj/item/clothing/suit/jacket/bomber/chem = 2,
 					/obj/item/clothing/accessory/armband/med = 2,
 					/obj/item/clothing/mask/gas = 2,
 					/obj/item/clothing/shoes/laceup = 2,
@@ -287,7 +287,7 @@
 				/obj/item/clothing/under/rank/medical/chemist/skirt = 50,
 				/obj/item/clothing/head/beret/med = 20,
 				/obj/item/clothing/suit/storage/labcoat/chemist = 75,
-				/obj/item/clothing/suit/jacket/chembomber = 75,
+				/obj/item/clothing/suit/jacket/bomber/chem = 75,
 				/obj/item/clothing/accessory/armband/med = 20,
 				/obj/item/clothing/shoes/laceup = 30,
 				/obj/item/clothing/shoes/white = 20,
@@ -350,7 +350,7 @@
 					/obj/item/clothing/under/rank/rnd/scientist/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/science = 3,
 					/obj/item/clothing/suit/storage/labcoat/science = 3,
-					/obj/item/clothing/suit/jacket/scibomber = 3,
+					/obj/item/clothing/suit/jacket/bomber/sci = 3,
 					/obj/item/clothing/head/beret/sci = 3,
 					/obj/item/clothing/accessory/armband/science = 6,
 					/obj/item/clothing/shoes/laceup = 3,
@@ -367,7 +367,7 @@
 				/obj/item/clothing/under/rank/rnd/scientist/skirt = 50,
 				/obj/item/clothing/suit/hooded/wintercoat/science = 75,
 				/obj/item/clothing/suit/storage/labcoat/science = 75,
-				/obj/item/clothing/suit/jacket/scibomber = 75,
+				/obj/item/clothing/suit/jacket/bomber/sci = 75,
 				/obj/item/clothing/head/beret/sci = 20,
 				/obj/item/clothing/accessory/armband/science = 20,
 				/obj/item/clothing/shoes/laceup = 30,
@@ -395,7 +395,7 @@
 					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 3,
 					/obj/item/clothing/suit/storage/labcoat/roboblack = 3,
 					/obj/item/clothing/suit/storage/labcoat/robowhite = 3,
-					/obj/item/clothing/suit/jacket/robobomber = 3,
+					/obj/item/clothing/suit/jacket/bomber/robo = 3,
 					/obj/item/clothing/head/beret/roboblack = 3,
 					/obj/item/clothing/head/beret/robowhite = 3,
 					/obj/item/clothing/head/soft/black = 3,
@@ -414,7 +414,7 @@
 				/obj/item/clothing/under/rank/rnd/roboticist/skirt = 50,
 				/obj/item/clothing/suit/storage/labcoat/roboblack = 75,
 				/obj/item/clothing/suit/storage/labcoat/robowhite = 75,
-				/obj/item/clothing/suit/jacket/robobomber = 75,
+				/obj/item/clothing/suit/jacket/bomber/robo = 75,
 				/obj/item/clothing/head/beret/roboblack = 20,
 				/obj/item/clothing/head/beret/robowhite = 20,
 				/obj/item/clothing/head/soft/black = 20,
@@ -443,8 +443,8 @@
 	products = list(/obj/item/clothing/under/rank/engineering/engineer = 6,
 					/obj/item/clothing/under/rank/engineering/engineer/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
-					/obj/item/clothing/suit/jacket/engibomber = 3,
-					/obj/item/clothing/suit/storage/hazardvest = 3,
+					/obj/item/clothing/suit/jacket/bomber/engi = 3,
+					/obj/item/clothing/suit/storage/hazardvest/staff = 3,
 					/obj/item/clothing/head/beret/eng = 3,
 					/obj/item/clothing/head/hardhat = 2,
 					/obj/item/clothing/head/hardhat/orange = 2,
@@ -464,8 +464,8 @@
 	prices = list(/obj/item/clothing/under/rank/engineering/engineer = 50,
 				/obj/item/clothing/under/rank/engineering/engineer/skirt = 50,
 				/obj/item/clothing/suit/hooded/wintercoat/engineering = 75,
-				/obj/item/clothing/suit/jacket/engibomber = 75,
-				/obj/item/clothing/suit/storage/hazardvest = 75,
+				/obj/item/clothing/suit/jacket/bomber/engi = 75,
+				/obj/item/clothing/suit/storage/hazardvest/staff = 50,
 				/obj/item/clothing/head/beret/eng = 20,
 				/obj/item/clothing/head/hardhat = 20,
 				/obj/item/clothing/head/hardhat/orange = 30,
@@ -496,8 +496,8 @@
 	products = list(/obj/item/clothing/under/rank/engineering/atmospheric_technician  = 6,
 					/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
-					/obj/item/clothing/suit/jacket/atmosbomber = 3,
-					/obj/item/clothing/suit/storage/hazardvest = 3,
+					/obj/item/clothing/suit/jacket/bomber/atmos = 3,
+					/obj/item/clothing/suit/storage/hazardvest/staff = 3,
 					/obj/item/clothing/head/beret/atmos = 3,
 					/obj/item/clothing/head/hardhat = 2,
 					/obj/item/clothing/head/hardhat/red = 2,
@@ -517,8 +517,8 @@
 	prices = list(/obj/item/clothing/under/rank/engineering/atmospheric_technician = 50,
 				/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt = 50,
 				/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 75,
-				/obj/item/clothing/suit/jacket/atmosbomber = 75,
-				/obj/item/clothing/suit/storage/hazardvest = 50,
+				/obj/item/clothing/suit/jacket/bomber/atmos = 75,
+				/obj/item/clothing/suit/storage/hazardvest/staff = 50,
 				/obj/item/clothing/head/beret/atmos = 20,
 				/obj/item/clothing/head/hardhat = 20,
 				/obj/item/clothing/head/hardhat/red = 30,
@@ -538,10 +538,11 @@
 /obj/machinery/economy/vending/cargodrobe
 	name = "\improper CargoDrobe"
 	desc = "A highly advanced vending machine for buying cargo related clothing for free... most of the time."
-	icon_state = "yellow_drobe"
+	icon_state = "cargodrobe"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
-	icon_addon = "cargodrobe"
+	icon_broken = "base_drobe"
+	icon_off = "base_drobe"
 	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("Upgraded Assistant Style! Pick yours today!",
 					"These shorts are comfy and easy to wear, get yours now!")
@@ -549,12 +550,13 @@
 	vend_reply = "Thank you for using the CargoDrobe!"
 	products = list(/obj/item/clothing/under/rank/cargo/tech = 6,
 					/obj/item/clothing/under/rank/cargo/tech/skirt = 3,
-					/obj/item/clothing/under/rank/cargo/deliveryboy = 2,
-					/obj/item/clothing/head/soft/deliverysoft = 2,
+					/obj/item/clothing/under/rank/cargo/tech/overalls = 3,
+					/obj/item/clothing/under/rank/cargo/tech/delivery = 2,
 					/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
-					/obj/item/clothing/suit/jacket/cargobomber = 3,
-					/obj/item/clothing/suit/storage/hazardvest = 3,
+					/obj/item/clothing/suit/jacket/bomber/cargo = 3,
+					/obj/item/clothing/suit/storage/hazardvest/staff = 3,
 					/obj/item/clothing/head/soft/cargo = 3,
+					/obj/item/clothing/head/beret/cargo = 3,
 					/obj/item/clothing/head/hardhat/orange = 2,
 					/obj/item/clothing/gloves/fingerless = 6,
 					/obj/item/clothing/accessory/armband/cargo = 6,
@@ -562,16 +564,18 @@
 					/obj/item/clothing/shoes/workboots = 3)
 
 	contraband = list(/obj/item/toy/figure/crew/qm = 1,
-					/obj/item/toy/figure/crew/cargotech = 1)
+					/obj/item/toy/figure/crew/cargotech = 1,
+					/obj/item/toy/figure/crew/miner = 1)
 
 	prices = list(/obj/item/clothing/under/rank/cargo/tech = 50,
 				/obj/item/clothing/under/rank/cargo/tech/skirt = 50,
-				/obj/item/clothing/under/rank/cargo/deliveryboy = 100,
-				/obj/item/clothing/head/soft/deliverysoft = 50,
+				/obj/item/clothing/under/rank/cargo/tech/overalls = 50,
+				/obj/item/clothing/under/rank/cargo/tech/delivery = 100,
 				/obj/item/clothing/suit/hooded/wintercoat/cargo = 75,
-				/obj/item/clothing/suit/jacket/cargobomber = 75,
-				/obj/item/clothing/suit/storage/hazardvest = 50,
+				/obj/item/clothing/suit/jacket/bomber/cargo = 75,
+				/obj/item/clothing/suit/storage/hazardvest/staff = 50,
 				/obj/item/clothing/head/soft/cargo = 20,
+				/obj/item/clothing/head/beret/cargo = 20,
 				/obj/item/clothing/head/hardhat/orange = 30,
 				/obj/item/clothing/gloves/fingerless = 20,
 				/obj/item/clothing/accessory/armband/cargo = 20,
@@ -579,6 +583,50 @@
 				/obj/item/clothing/shoes/workboots = 20)
 
 	refill_canister = /obj/item/vending_refill/cargodrobe
+
+/obj/machinery/economy/vending/exploredrobe
+	name = "\improper ExploreDrobe"
+	desc = "This vending machine dispense clothing for the expedition team, though wearing any of the contents in place of a space suit may not go well for you."
+	icon_state = "exploredrobe"
+	icon_lightmask = "base_drobe"
+	icon_panel = "drobe"
+	icon_broken = "base_drobe"
+	icon_off = "base_drobe"
+	category = VENDOR_TYPE_CLOTHING
+	ads_list = list("Not guaranteed to protect the user from space. We are not liable!")
+
+	vend_reply = "Thank you for using the ExploreDrobe!"
+	products = list(/obj/item/clothing/under/rank/cargo/expedition = 3,
+				/obj/item/clothing/under/rank/cargo/expedition/skirt = 3,
+				/obj/item/clothing/under/rank/cargo/expedition/overalls = 3,
+				/obj/item/clothing/head/soft/expedition = 3,
+				/obj/item/clothing/head/beret/expedition = 3,
+				/obj/item/clothing/suit/jacket/bomber/expedition = 3,
+				/obj/item/clothing/suit/storage/hazardvest/staff = 3,
+				/obj/item/mod/skin_applier = 3,
+				/obj/item/clothing/gloves/color/black = 3,
+				/obj/item/clothing/accessory/armband/cargo = 3,
+				/obj/item/clothing/shoes/jackboots = 3,
+				/obj/item/clothing/mask/gas/explorer = 3,
+				/obj/item/storage/backpack/explorer = 2,
+				/obj/item/storage/backpack/satchel/explorer = 2)
+
+	contraband = list(/obj/item/toy/figure/crew/explorer = 1)
+
+	prices = list(/obj/item/clothing/under/rank/cargo/expedition = 50,
+				/obj/item/clothing/under/rank/cargo/expedition/skirt = 50,
+				/obj/item/clothing/under/rank/cargo/expedition/overalls = 50,
+				/obj/item/clothing/head/soft/expedition = 20,
+				/obj/item/clothing/head/beret/expedition = 20,
+				/obj/item/clothing/suit/jacket/bomber/expedition = 75,
+				/obj/item/clothing/suit/storage/hazardvest/staff = 50,
+				/obj/item/clothing/gloves/color/black = 20,
+				/obj/item/clothing/accessory/armband/cargo = 20,
+				/obj/item/clothing/shoes/jackboots = 20,
+				/obj/item/storage/backpack/explorer = 50,
+				/obj/item/storage/backpack/satchel/explorer = 50)
+
+	refill_canister = /obj/item/vending_refill/exploredrobe
 
 /obj/machinery/economy/vending/chefdrobe
 	name = "\improper ChefDrobe"
@@ -682,7 +730,7 @@
 					/obj/item/clothing/suit/apron = 3,
 					/obj/item/clothing/suit/apron/overalls = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/hydro = 3,
-					/obj/item/clothing/suit/jacket/hydrobomber = 3,
+					/obj/item/clothing/suit/jacket/bomber/hydro = 3,
 					/obj/item/clothing/suit/storage/labcoat/hydro = 3,
 					/obj/item/clothing/mask/bandana/botany = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3,
@@ -698,7 +746,7 @@
 				/obj/item/clothing/suit/apron = 50,
 				/obj/item/clothing/suit/apron/overalls = 50,
 				/obj/item/clothing/suit/hooded/wintercoat/hydro = 75,
-				/obj/item/clothing/suit/jacket/hydrobomber = 75,
+				/obj/item/clothing/suit/jacket/bomber/hydro = 75,
 				/obj/item/clothing/suit/storage/labcoat/hydro = 75,
 				/obj/item/clothing/mask/bandana/botany = 20,
 				/obj/item/clothing/accessory/armband/hydro = 20,
@@ -727,6 +775,7 @@
 					/obj/item/clothing/head/soft/janitorgrey = 3,
 					/obj/item/clothing/head/soft/janitorpurple = 3,
 					/obj/item/clothing/head/beret/janitor = 3,
+					/obj/item/clothing/suit/storage/hazardvest/staff = 3,
 					/obj/item/clothing/gloves/janitor = 3,
 					/obj/item/clothing/shoes/galoshes = 3,
 					/obj/item/clothing/accessory/armband/service = 3,
@@ -740,6 +789,7 @@
 					/obj/item/clothing/head/soft/janitorgrey = 20,
 					/obj/item/clothing/head/soft/janitorpurple = 20,
 					/obj/item/clothing/head/beret/janitor = 20,
+					/obj/item/clothing/suit/storage/hazardvest/staff = 50,
 					/obj/item/clothing/accessory/armband/service = 20)
 
 	refill_canister = /obj/item/vending_refill/janidrobe
@@ -759,14 +809,14 @@
 	products = list(/obj/item/clothing/under/rank/procedure/iaa = 2,
 					/obj/item/clothing/under/rank/procedure/iaa/blue = 2,
 					/obj/item/clothing/under/rank/procedure/iaa/purple = 2,
-					/obj/item/clothing/under/rank/procedure/lawyer/black = 2,
-					/obj/item/clothing/under/rank/procedure/lawyer/black/skirt = 2,
-					/obj/item/clothing/under/rank/procedure/lawyer/red = 2,
-					/obj/item/clothing/under/rank/procedure/lawyer/red/skirt = 2,
-					/obj/item/clothing/under/rank/procedure/lawyer/blue = 2,
-					/obj/item/clothing/under/rank/procedure/lawyer/blue/skirt = 2,
-					/obj/item/clothing/under/rank/procedure/lawyer/goodman = 2,
-					/obj/item/clothing/under/rank/procedure/lawyer/goodman/skirt = 2,
+					/obj/item/clothing/under/rank/procedure/iaa/formal/black = 2,
+					/obj/item/clothing/under/rank/procedure/iaa/formal/black/skirt = 2,
+					/obj/item/clothing/under/rank/procedure/iaa/formal/red = 2,
+					/obj/item/clothing/under/rank/procedure/iaa/formal/red/skirt = 2,
+					/obj/item/clothing/under/rank/procedure/iaa/formal/blue = 2,
+					/obj/item/clothing/under/rank/procedure/iaa/formal/blue/skirt = 2,
+					/obj/item/clothing/under/rank/procedure/iaa/formal/goodman = 2,
+					/obj/item/clothing/under/rank/procedure/iaa/formal/goodman/skirt = 2,
 					/obj/item/clothing/under/suit/female = 2,
 					/obj/item/clothing/suit/storage/iaa/blackjacket = 2,
 					/obj/item/clothing/suit/storage/iaa/bluejacket = 2,
@@ -775,22 +825,21 @@
 					/obj/item/clothing/shoes/black = 2,
 					/obj/item/clothing/shoes/brown = 2,
 					/obj/item/clothing/glasses/sunglasses/big = 2,
-					/obj/item/clothing/accessory/lawyers_badge = 2,
 					/obj/item/clothing/accessory/armband/procedure = 2)
 
-	contraband = list(/obj/item/toy/figure/crew/lawyer = 1)
+	contraband = list(/obj/item/toy/figure/crew/iaa = 1)
 
 	prices = list(/obj/item/clothing/under/rank/procedure/iaa = 50,
 				/obj/item/clothing/under/rank/procedure/iaa/blue = 50,
 				/obj/item/clothing/under/rank/procedure/iaa/purple = 50,
-				/obj/item/clothing/under/rank/procedure/lawyer/black = 50,
-				/obj/item/clothing/under/rank/procedure/lawyer/black/skirt = 50,
-				/obj/item/clothing/under/rank/procedure/lawyer/red = 50,
-				/obj/item/clothing/under/rank/procedure/lawyer/red/skirt = 50,
-				/obj/item/clothing/under/rank/procedure/lawyer/blue = 50,
-				/obj/item/clothing/under/rank/procedure/lawyer/blue/skirt = 50,
-				/obj/item/clothing/under/rank/procedure/lawyer/goodman = 50,
-				/obj/item/clothing/under/rank/procedure/lawyer/goodman/skirt = 50,
+				/obj/item/clothing/under/rank/procedure/iaa/formal/black = 50,
+				/obj/item/clothing/under/rank/procedure/iaa/formal/black/skirt = 50,
+				/obj/item/clothing/under/rank/procedure/iaa/formal/red = 50,
+				/obj/item/clothing/under/rank/procedure/iaa/formal/red/skirt = 50,
+				/obj/item/clothing/under/rank/procedure/iaa/formal/blue = 50,
+				/obj/item/clothing/under/rank/procedure/iaa/formal/blue/skirt = 50,
+				/obj/item/clothing/under/rank/procedure/iaa/formal/goodman = 50,
+				/obj/item/clothing/under/rank/procedure/iaa/formal/goodman/skirt = 50,
 				/obj/item/clothing/under/suit/female = 50,
 				/obj/item/clothing/suit/storage/iaa/blackjacket = 75,
 				/obj/item/clothing/suit/storage/iaa/bluejacket = 75,
@@ -799,7 +848,6 @@
 				/obj/item/clothing/shoes/black = 20,
 				/obj/item/clothing/shoes/brown = 20,
 				/obj/item/clothing/glasses/sunglasses/big = 30,
-				/obj/item/clothing/accessory/lawyers_badge = 50,
 				/obj/item/clothing/accessory/armband/procedure = 20)
 
 	refill_canister = /obj/item/vending_refill/lawdrobe
