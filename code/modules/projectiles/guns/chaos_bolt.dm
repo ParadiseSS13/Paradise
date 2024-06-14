@@ -302,11 +302,13 @@
 			item_to_summon = /obj/item/bikehorn
 			explosion_amount = rand(2, 3)
 		if("tarot card")
-			if(ishuman(target))
+			if(ishuman(target) && target.mind)
 				var/mob/living/carbon/human/H = target
 				var/obj/item/magic_tarot_card/spawned_card = new /obj/item/magic_tarot_card(H)
 				H.visible_message("<span class='chaosneutral'>[H] is forced to use [spawned_card]!</span>", "<span class='chaosneutral'>[spawned_card] appears in front of you and glows bright!</span>")
 				spawned_card.pre_activate(H)
+			else
+				target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
 /**
   * Picks a random gift to be given to mob/living/target. Should be mildly useful and/or funny.
   */
