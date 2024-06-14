@@ -7,9 +7,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/sales_items = list()
 	var/newreference = 1
 	if(!length(uplink_items))
-
 		for(var/path in GLOB.uplink_items)
-
 			var/datum/uplink_item/I = new path
 			if(!I.item)
 				continue
@@ -47,6 +45,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				continue
 		if(Item.hijack_only && !(locate(/datum/objective/hijack) in user.mind.get_all_objectives())) //If you aren't a hijacker, no hijack only items
 			continue
+
 		var/datum/uplink_item/A = new Item.type
 		var/discount = 0.5
 		A.limited_stock = 1
@@ -57,10 +56,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.cost = max(round(A.cost * (1-discount)),1)
 		A.category = "Discounted Gear"
 		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
-		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
 		A.reference = "DIS[newreference]"
 		A.desc += " Limit of [A.limited_stock] per uplink. Normally costs [initial(A.cost)] TC."
-		A.surplus = 0 // stops the surplus crate potentially giving out a bit too much
 		A.item = Item.item
 		newreference++
 		i++
