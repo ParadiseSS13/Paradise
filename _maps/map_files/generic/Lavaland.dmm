@@ -2555,10 +2555,7 @@
 /obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -3489,9 +3486,7 @@
 /area/lavaland/surface/outdoors)
 "jG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/economy/vending/wallmed{
-	pixel_y = 32
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -7922,7 +7917,7 @@
 	d1 = 1;
 	d2 = 4
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9041,11 +9036,7 @@
 /turf/simulated/wall/mineral/iron,
 /area/lavaland/surface/outdoors)
 "Qf" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_y = -32
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -10206,9 +10197,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "XF" = (
-/obj/machinery/economy/vending/wallmed{
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -15438,7 +15427,7 @@ wK
 SJ
 bk
 Qf
-Iv
+OG
 jM
 SR
 WL
