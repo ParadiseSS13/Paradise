@@ -75,7 +75,7 @@
 		beam_from.Beam(target_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 6)
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
-			var/powergrid = C.get_available_power() //We want available power, so the station being conservative doesn't mess with glove / dark bundle users
+			var/powergrid = C.get_available_power() //We want available power, so the station being conservative doesn't mess with the power biochip / dark bundle users
 			if(user.a_intent == INTENT_DISARM)
 				add_attack_logs(user, L, "shocked with power bio-chip.")
 				L.apply_damage(60, STAMINA)
