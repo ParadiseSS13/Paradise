@@ -1,9 +1,9 @@
 #define CHAOS_STAFF_DAMAGE 30 //Damaging effects will use this number, multiplied or divided depending on effect
-#define CHAOS_STAFF_LETHAL_CHANCE 0 //These should add up to 100
-#define CHAOS_STAFF_NEGATIVE_CHANCE 0
-#define CHAOS_STAFF_MISC_CHANCE 33
-#define CHAOS_STAFF_GIFT_CHANCE 33
-#define CHAOS_STAFF_GREAT_GIFT_CHANCE 34
+#define CHAOS_STAFF_LETHAL_CHANCE 5 //These should add up to 100
+#define CHAOS_STAFF_NEGATIVE_CHANCE 45
+#define CHAOS_STAFF_MISC_CHANCE 30
+#define CHAOS_STAFF_GIFT_CHANCE 15
+#define CHAOS_STAFF_GREAT_GIFT_CHANCE 5
 
 /obj/item/projectile/magic/chaos
 	name = "chaos bolt"
