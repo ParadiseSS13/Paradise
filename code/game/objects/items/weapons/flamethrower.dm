@@ -81,13 +81,12 @@
 
 	cigarette_lighter_act(user, target, I)
 
-/obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/carbon/target, obj/item/I)
+/obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/carbon/target, obj/item/clothing/mask/cigarette/I)
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to ignite [src] before you can use it as a lighter!</span>")
 		return FALSE
 
-	if(!I.light)
-		to_chat(user, "<span class='warning'>[I] is already lit!</span>")
+	if(!I.light(user, target, I))
 		return
 
 	if(prob(50) || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Life Support Specialist" || HAS_TRAIT(user, TRAIT_BADASS))

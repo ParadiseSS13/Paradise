@@ -10,7 +10,7 @@
 	if(capitalized)
 		. = capitalize(.)
 
-/// Applies one of "their", "its", "his", or "hers" as appropriate.
+/// Applies one of "their", "its", "his", or "her" as appropriate.
 /datum/proc/p_their(capitalized, temp_gender)
 	. = "its"
 	if(capitalized)
