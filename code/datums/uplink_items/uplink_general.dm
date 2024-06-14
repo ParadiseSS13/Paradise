@@ -2,7 +2,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
 // Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
 
-/proc/get_uplink_items(obj/item/uplink/U)
+/proc/get_uplink_items(obj/item/uplink/U, mob/user)
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
@@ -25,12 +25,27 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
 				sales_items += I
 
-	for(var/i in 1 to 3)
-		var/datum/uplink_item/I = pick_n_take(sales_items)
-		var/datum/uplink_item/A = new I.type
+	var/i = 0
+	while(i<3)
+		var/datum/uplink_item/Item = pick_n_take(sales_items)
+		if(Item.job) //If your job does not match, no discount
+			var/jobAllowed = FALSE
+			for(var/job in Item.job)
+				if(job == user.mind.assigned_role)
+					jobAllowed = TRUE
+			if(!jobAllowed)
+				continue
+		if(Item.species) //If your species does not match, no discount
+			var/speciesAllowed = FALSE
+			for(var/species in Item.species)
+				if(species == user.dna.species.name)
+					speciesAllowed = TRUE
+			if(!speciesAllowed)
+				continue
+		var/datum/uplink_item/A = new Item.type
 		var/discount = 0.5
 		A.limited_stock = 1
-		I.refundable = FALSE
+		Item.refundable = FALSE
 		A.refundable = FALSE
 		if(A.cost >= 100)
 			discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
@@ -38,18 +53,36 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.category = "Discounted Gear"
 		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
 		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
-		A.species = null //same as above for species speific items
 		A.reference = "DIS[newreference]"
 		A.desc += " Limit of [A.limited_stock] per uplink. Normally costs [initial(A.cost)] TC."
 		A.surplus = 0 // stops the surplus crate potentially giving out a bit too much
-		A.item = I.item
+		A.item = Item.item
 		newreference++
+		i++
 		if(!uplink_items[A.category])
 			uplink_items[A.category] = list()
 
 		uplink_items[A.category] += A
 
 	return uplink_items
+
+/proc/get_surplus_items(obj/item/uplink/U)
+	var/list/surplus_items = list()
+	if(!length(surplus_items))
+		for(var/path in GLOB.uplink_items)
+			var/datum/uplink_item/I = new path
+			if(!I.item)
+				continue
+			if(length(I.uplinktypes) && !(U.uplink_type in I.uplinktypes) && U.uplink_type != UPLINK_TYPE_ADMIN)
+				continue
+			if(length(I.excludefrom) && (U.uplink_type in I.excludefrom))
+				continue
+
+			if(!surplus_items[I.category])
+				surplus_items[I.category] = list()
+
+			surplus_items[I.category] += I
+	return surplus_items
 
 // You can change the order of the list by putting datums before/after one another
 

@@ -4,7 +4,6 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //Clown
@@ -333,7 +332,6 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //skrell
