@@ -35,7 +35,9 @@
 		"armblade" = 'sound/weapons/armblade.ogg',
 		"laser" = 'sound/weapons/laser.ogg',
 		"sniper" = 'sound/weapons/gunshots/gunshot_sniper.ogg',
-		"pistol" = 'sound/weapons/gunshots/gunshot_pistol.ogg'
+		"pistol" = 'sound/weapons/gunshots/gunshot_pistol.ogg',
+		"blob" = 'sound/effects/splat.ogg',
+		"bite" = 'sound/weapons/bite.ogg'
 	)
 
 	var/selected_sound = "revolver"
