@@ -67,6 +67,10 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 
 /obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
 	..()
+	if(istype(W, /obj/item/lightreplacer))
+		W.attackby(src, user)
+		return
+
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(CC.get_amount() < 5)
@@ -76,7 +80,9 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 		to_chat(user, "<span class='notice'>You attach wire to [src].</span>")
 		new /obj/item/stack/light_w(user.loc)
 		use(1)
-	else if(istype(W, /obj/item/stack/rods))
+		return
+
+	if(istype(W, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V  = W
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
@@ -87,8 +93,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 		G.use(1)
 		if(!G && !RG && replace)
 			user.put_in_hands(RG)
-	else
-		return ..()
+		return
 
 //////////////////////////////
 // MARK: REINFORCED GLASS

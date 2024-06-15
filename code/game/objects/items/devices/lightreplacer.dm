@@ -74,10 +74,10 @@
 		if(uses >= max_uses)
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 			return
-		else if(G.use(decrement))
+
+		if(G.use(decrement))
 			AddUses(increment)
 			to_chat(user, "<span class='notice'>You insert a piece of glass into [src]. You have [uses] light\s remaining.</span>")
-			return
 		else
 			to_chat(user, "<span class='warning'>You need one sheet of glass to replace lights!</span>")
 		return
@@ -88,25 +88,26 @@
 			return
 		if(!user.unEquip(I))
 			return
-		AddUses(round(increment * 0.75))
+		AddUses(round(increment * 1)) // It literally contains the same amount of glass as a sheet.
 		to_chat(user, "<span class='notice'>You insert a shard of glass into [src]. You have [uses] light\s remaining.</span>")
 		qdel(I)
 		return
 
 	if(istype(I, /obj/item/light))
 		var/obj/item/light/L = I
-		if(L.status == 0) // LIGHT OKAY
-			if(uses < max_uses)
-				if(!user.unEquip(L))
-					return
-				AddUses(1)
-				qdel(L)
-		else
+		if(L.status == LIGHT_OK && uses < max_uses) // LIGHT OKAY
 			if(!user.unEquip(L))
 				return
-			to_chat(user, "<span class='notice'>You insert [L] into [src].</span>")
-			AddShards(1, user)
+			AddUses(1)
+			to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
 			qdel(L)
+			return
+
+		if(!user.unEquip(L))
+			return
+		to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
+		AddShards(1, user)
+		qdel(L)
 		return
 
 	if(isstorage(I))
