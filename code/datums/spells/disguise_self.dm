@@ -32,7 +32,6 @@
 
 /datum/spell/disguise_self/proc/finish_disguise(var/mob/living/carbon/human/H)
 	H.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE)
-	var/datum/effect_system/smoke_spread/smoke
-	smoke = new /datum/effect_system/smoke_spread()
+	var/datum/effect_system/smoke_spread/smoke = new /datum/effect_system/smoke_spread()
 	smoke.set_up(4, FALSE, H.loc)
 	smoke.start()
