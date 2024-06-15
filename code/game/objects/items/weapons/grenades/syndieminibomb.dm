@@ -11,10 +11,6 @@
 	explosion(loc, 1, 2, 4, flame_range = 2)
 	qdel(src)
 
-/obj/item/grenade/syndieminibomb/cmag_act(mob/user)
-	to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]. [src] suddenly doesn't want to leave you...</span>")
-	AddComponent(/datum/component/boomerang, throw_range, TRUE)
-
 /obj/item/grenade/syndieminibomb/fake
 
 /obj/item/grenade/syndieminibomb/fake/examine(mob/user)
