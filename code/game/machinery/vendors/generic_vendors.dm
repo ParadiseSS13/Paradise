@@ -1186,9 +1186,8 @@
 	icon_lightmask = "cigs"
 	category = VENDOR_TYPE_RECREATION
 	products = list(/obj/item/clothing/mask/cigarette/cigar = 2,
-					/obj/item/storage/fancy/cigarettes = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
-					/obj/item/storage/fancy/cigarettes/dromedaryco = 6
+					/obj/item/storage/fancy/cigarettes/dromedaryco = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
@@ -1203,7 +1202,6 @@
 	contraband = list(/obj/item/storage/fancy/rollingpapers = 5)
 
 	prices = list(/obj/item/clothing/mask/cigarette/cigar = 100,
-				/obj/item/storage/fancy/cigarettes = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 25,
 				/obj/item/storage/fancy/cigarettes/dromedaryco = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 80,
@@ -1227,7 +1225,6 @@
 // The Syndicate version doesn't sell Robust because that is a Nanotrasen-owned brand. It *does* have its special own-brand replacement.
 /obj/machinery/economy/vending/cigarette/syndicate
 	products = list(/obj/item/clothing/mask/cigarette/cigar = 6,
-				/obj/item/storage/fancy/cigarettes = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
 				/obj/item/storage/fancy/cigarettes/dromedaryco = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
@@ -1237,7 +1234,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 				/obj/item/reagent_containers/patch/nicotine = 10,
 				/obj/item/storage/fancy/matches = 10,
-				/obj/item/lighter/zippo = 6
+				/obj/item/lighter/zippo = 6,
 				/obj/item/storage/fancy/rollingpapers = 5)
 
 	contraband = list()
