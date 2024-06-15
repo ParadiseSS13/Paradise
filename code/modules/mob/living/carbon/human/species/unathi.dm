@@ -7,6 +7,7 @@
 	tail = "sogtail"
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	unarmed_type = /datum/unarmed_attack/claws
+	hiss_sound = 'sound/effects/unathihiss.ogg' // Credit to Jamius (freesound.org) for the sound.
 	primitive_form = /datum/species/monkey/unathi
 
 	blurb = "Unathi are a scaled species of reptilian beings from the desert world of Moghes, within the Uuosa-Eso system. \

@@ -24,8 +24,13 @@
 				I.receive_damage(rand(3, 5))
 			if((E.status & ORGAN_BURNT) && !(E.status & ORGAN_SALVED))
 				E.custom_pain("You feel the skin sloughing off the burn on your [E.name]!")
+				if(!HAS_TRAIT(src, TRAIT_NOPAIN) && world.time >= next_pain_time) //No pain, no gain
+					if(prob(65)) //More likely for a non-audible emote to prevent spam
+						custom_emote(EMOTE_VISIBLE, "clutches [p_their()] burnt and blackened [E.name]!")
+					else
+						emote("hiss", intentional = FALSE)
+					next_pain_time = world.time + 10 SECONDS
 				E.germ_level++
-
 
 	//handle_stance()
 	handle_grasp()
