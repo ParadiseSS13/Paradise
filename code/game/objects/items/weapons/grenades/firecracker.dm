@@ -12,11 +12,13 @@
 	var/min_time_between_pops = 5 DECISECONDS
 	/// The longest possible length between fires.
 	var/max_time_between_pops = 20 DECISECONDS
-
+	/// Whether or not to play a smoke sound before going off
+	var/play_fuse_sound = TRUE
 
 /obj/item/grenade/firecracker/prime()
 	. = ..()
-	playsound(src, 'sound/effects/smoke.ogg', 50, TRUE, -3)
+	if(play_fuse_sound)
+		playsound(src, 'sound/effects/smoke.ogg', 10, TRUE, -3)
 	INVOKE_ASYNC(src, PROC_REF(start_popping), TRUE)
 
 /obj/item/grenade/firecracker/proc/start_popping(del_after = FALSE)
@@ -29,7 +31,9 @@
 /obj/item/grenade/firecracker/decoy
 	name = "decoy grenade"
 	desc = "A grenade capable of imitating many different sounds."
+	play_fuse_sound = FALSE
 
+	/// The sounds which this grenade can select.
 	var/list/possible_sounds = list(
 		"revolver" = 'sound/weapons/gunshots/gunshot_strong.ogg',
 		"armblade" = 'sound/weapons/armblade.ogg',
@@ -40,6 +44,7 @@
 		"bite" = 'sound/weapons/bite.ogg'
 	)
 
+	/// The currently selected sound for the decoy.
 	var/selected_sound = "revolver"
 
 /obj/item/grenade/firecracker/decoy/Initialize(mapload)
