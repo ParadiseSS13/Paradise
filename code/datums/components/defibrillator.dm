@@ -173,6 +173,11 @@
 		to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
 		window_flash(ghost.client)
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
+	else if(HAS_TRAIT_FROM(target, TRAIT_FAKEDEATH, CHANGELING_TRAIT))
+		to_chat(target, "<span class='ghostalert'>Your heart is being defibrillated. Click the defibrillator status to be revived!</span>")
+		window_flash(target.client)
+		SEND_SOUND(target, sound('sound/effects/genetics.ogg'))
+		target.throw_alert("cling_defib", /atom/movable/screen/alert/changeling_defib_revive, alert_args = list(parent, target))
 
 	if(!do_after(user, 3 SECONDS * speed_multiplier, target = target)) // Beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 		busy = FALSE
@@ -238,37 +243,39 @@
 	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	ghost = target.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
 
-	var/defib_success = TRUE
-
 	// Run through some quick failure states after shocking.
 	var/time_dead = world.time - target.timeofdeath
 
+	var/failure_message
 	if(!target.is_revivable())
-		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
-		defib_success = FALSE
+		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>"
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180)
-		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
-		defib_success = FALSE
+		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Severe tissue damage detected.</span>"
 	else if(HAS_TRAIT(target, TRAIT_HUSK))
-		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Subject is husked.</span>")
-		defib_success = FALSE
+		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Subject is husked.</span>"
 	else if(target.blood_volume < BLOOD_VOLUME_SURVIVE)
-		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient blood volume critically low.</span>")
-		defib_success = FALSE
+		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient blood volume critically low.</span>"
 	else if(!target.get_organ_slot("brain"))  // So things like headless clings don't get outed
-		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No brain detected within patient.</span>")
-		defib_success = FALSE
+		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No brain detected within patient.</span>"
 	else if(ghost)
 		if(!ghost.can_reenter_corpse || target.suiciding) // DNR or AntagHUD
-			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No electrical brain activity detected.</span>")
+			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No electrical brain activity detected.</span>"
 		else
-			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>")
-		defib_success = FALSE
-	else if((signal_result & COMPONENT_BLOCK_DEFIB) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || HAS_TRAIT(target, TRAIT_BADDNA) || target.suiciding)  // these are a bit more arbitrary
-		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed.</span>")
-		defib_success = FALSE
+			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>"
+	else if(HAS_TRAIT(target, TRAIT_FAKEDEATH))
+		if(signal_result & COMPONENT_DEFIB_FAKEDEATH_DENIED)
+			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>"
+		else if(signal_result & COMPONENT_DEFIB_FAKEDEATH_ACCEPTED)
+			// as much as I hate that this is here, it has to come after the `Patient is not in a valid state. Operation aborted.` check.
+			REMOVE_TRAIT(target, TRAIT_FAKEDEATH, CHANGELING_TRAIT)
+		else
+			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed.</span>" // has a fakedeath like capulettium
 
-	if(!defib_success)
+	else if((signal_result & COMPONENT_BLOCK_DEFIB) || HAS_TRAIT(target, TRAIT_BADDNA) || target.suiciding)  // these are a bit more arbitrary
+		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed.</span>"
+
+	if(failure_message)
+		user.visible_message(failure_message)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 	else
 		// Heal each basic damage type by as much as we're under -100 health
@@ -313,7 +320,7 @@
 		target.med_hud_set_status()
 		add_attack_logs(user, target, "Revived with [defib_ref]")
 		SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
-	SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, defib_success)
+	SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, isnull(failure_message))
 	set_cooldown(cooldown)
 	busy = FALSE
 

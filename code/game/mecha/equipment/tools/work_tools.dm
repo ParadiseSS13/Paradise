@@ -245,7 +245,7 @@
 				if(do_after_cooldown(F))
 					chassis.spark_system.start()
 					F.ChangeTurf(F.baseturf)
-					F.air_update_turf()
+					F.recalculate_atmos_connectivity()
 					playsound(F, usesound, 50, 1)
 			else if(istype(target, /obj/machinery/door/airlock))
 				occupant_message("Deconstructing [target]...")

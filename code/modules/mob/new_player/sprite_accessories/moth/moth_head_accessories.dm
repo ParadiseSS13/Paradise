@@ -2,7 +2,7 @@
 	icon = 'icons/mob/sprite_accessories/moth/moth_head_accessories.dmi'
 	species_allowed = list("Nian")
 	over_hair = TRUE
-	do_colouration = FALSE
+	do_colouration = TRUE
 
 /datum/sprite_accessory/head_accessory/moth/plain
 	name = "Plain Antennae"

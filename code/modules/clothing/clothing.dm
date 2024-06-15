@@ -366,6 +366,7 @@
 /obj/item/clothing/head
 	name = "head"
 	icon = 'icons/obj/clothing/hats.dmi'
+	icon_override = 'icons/mob/clothing/head.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_FLAG_HEAD
 	var/HUDType = null

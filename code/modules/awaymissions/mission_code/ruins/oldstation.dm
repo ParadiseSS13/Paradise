@@ -15,7 +15,7 @@
 	desc = "A perfectly retrograde identification card. Looks like it could use some flavor."
 	icon = 'icons/obj/card.dmi'
 	icon_state = "retro"
-	access = list(ACCESS_AWAY01)
+	access = list(ACCESS_THETA_STATION)
 
 /obj/item/card/id/away/old/sec
 	name = "Security Officer ID"
@@ -328,6 +328,103 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list("bromine" = 30)
+
+/// Secure Crates: Access locked to Theta crew. Cannot be moved, destroyed,
+/// emagged or EMPed because gamers can't be trusted not to game.
+/obj/structure/closet/crate/secure/oldstation
+	anchored = TRUE
+	resistance_flags = INDESTRUCTIBLE
+	req_access = list(ACCESS_THETA_STATION)
+
+/// Allow Theta crew to move the crates once unlocked so they don't get in the way
+/obj/structure/closet/crate/secure/oldstation/togglelock(mob/user)
+	if(!..())
+		return
+
+	anchored = locked
+
+	if(anchored)
+		to_chat(user, "<span class='info'>The crate reanchors itself to the ground.</span>")
+	else
+		to_chat(user, "<span class='info'>The crate unanchors itself from the ground.</span>")
+
+/obj/structure/closet/crate/secure/oldstation/emag_act(mob/user)
+	// var/can_be_emaged works in mysterious ways so screw it
+	return
+
+/obj/structure/closet/crate/secure/oldstation/emp_act(severity)
+	return
+
+/obj/structure/closet/crate/secure/oldstation/security
+	name = "security equipment crate"
+	desc = "A crate containing various security equipment."
+	icon_state = "secgearcrate"
+	icon_opened = "secgearcrate_open"
+	icon_closed = "secgearcrate"
+
+/obj/structure/closet/crate/secure/oldstation/security/populate_contents()
+	new /obj/item/gun/energy/laser/retro/old(src)
+	new /obj/item/gun/energy/laser/retro/old(src)
+	new /obj/item/clothing/suit/armor/vest/old(src)
+	new /obj/item/clothing/head/helmet/old(src)
+
+/obj/structure/closet/crate/secure/oldstation/rechargers
+	name = "recharger crate"
+	desc = "A crate containing the components to build weapon rechargers."
+
+/obj/structure/closet/crate/secure/oldstation/rechargers/populate_contents()
+	new /obj/item/circuitboard/recharger(src)
+	new /obj/item/circuitboard/recharger(src)
+	new /obj/item/stock_parts/capacitor(src)
+	new /obj/item/stock_parts/capacitor(src)
+	new /obj/item/stack/cable_coil/ten(src)
+	new /obj/item/stack/sheet/metal/ten(src)
+	new /obj/item/screwdriver(src)
+
+/obj/structure/closet/crate/secure/oldstation/research
+	name = "research crate"
+	desc = "A crate containing the components necessary to perform research."
+	icon_state = "scisecurecrate"
+	icon_opened = "scisecurecrate_open"
+	icon_closed = "scisecurecrate"
+
+/obj/structure/closet/crate/secure/oldstation/research/populate_contents()
+	new /obj/item/circuitboard/circuit_imprinter(src)
+	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/protolathe(src)
+	new /obj/item/circuitboard/rdconsole/public(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/micro_laser(src)
+	new /obj/item/stock_parts/scanning_module(src)
+
+/obj/structure/closet/crate/secure/oldstation/surgery
+	name = "surgery crate"
+	desc = "A crate containing surgical tools and equipment."
+	icon_state = "medicalsecurecrate"
+	icon_opened = "medicalsecurecrate_open"
+	icon_closed = "medicalsecurecrate"
+
+/obj/structure/closet/crate/secure/oldstation/surgery/populate_contents()
+	new /obj/item/circular_saw(src)
+	new /obj/item/retractor(src)
+	new /obj/item/hemostat(src)
+	new /obj/item/scalpel(src)
+	new /obj/item/cautery(src)
+	new /obj/item/FixOVein(src)
+	new /obj/item/surgicaldrill(src)
+	new /obj/item/bonegel(src)
+	new /obj/item/bonesetter(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
 
 //////////////////////////////
 // MARK: ENGINES
