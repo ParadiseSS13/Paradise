@@ -424,7 +424,7 @@
 	addiction_threshold = 5
 	harmless = FALSE
 	taste_description = "health"
-	heals_robots = FALSE
+	var/heals_robots = FALSE
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
