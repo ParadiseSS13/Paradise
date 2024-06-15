@@ -189,7 +189,7 @@
 	if(current_heat >= max_heat)
 		user.visible_message("<span class='warning'>[src] pops as it shuts off!</span>", "<span class='warning'>[src] pops and hisses as it shuts off. It is broken.</span>")
 		broken = SCREWDRIVER_OPEN
-		user.adjust_fire_stacks(40)
+		user.adjust_fire_stacks(20)
 		user.IgniteMob()
 		LoseTarget()
 		return
