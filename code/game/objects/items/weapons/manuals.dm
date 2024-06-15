@@ -501,23 +501,16 @@
 				<b>Anti-Plague Sequence Beta</b>
 				<ul>
 					<li>1 unit of blood containing zombie plague cured by Anti-Plague Sequence Alpha</li>
-					<li>2 random chemicals from the list below, 1 unit of each (Unknown Random Recipe)
+					<li>3 random chemicals from the list below, 1 unit of each (Unknown Random Recipe)
 						<ul>
-							<li>Yellow Vomit</li>
-							<li>Jenkem</li>
-							<li>Charcoal</li>
-							<li>Egg</li>
 							<li>Saline-Glucose Solution</li>
 							<li>Toxin</li>
 							<li>Atropine</li>
 							<li>Lye</li>
-							<li>Sulphuric acid</li>
-							<li>Fluorosulfuric Acid</li>
 							<li>Soda Water</li>
-							<li>Surge</li>
-							<li>Ultra-Lube</li>
 							<li>Happiness</li>
 							<li>Morphine</li>
+							<li>Teporone</li>
 						</ul>
 					</li>
 				</ul>
@@ -528,21 +521,15 @@
 					<li>1 unit of blood containing an advanced virus with the <b>"Necrotizing Fasciitis"</b> symptom</li>
 					<li>3 random chemicals from the list below, 1 unit of each (Unknown Random Recipe)
 						<ul>
-							<li>Colorful Reagent</li>
-							<li>Bacchus' Blessing</li>
-							<li>Pentetic Acid</li>
-							<li>Teporone</li>
-							<li>Glyphosate</li>
-							<li>Lazarus Reagent</li>
-							<li>Omnizine</li>
-							<li>Sarin</li>
+							<li>Yellow Vomit</li>
+							<li>Jenkem</li>
+							<li>Charcoal</li>
+							<li>Egg</li>
+							<li>Sulphuric acid</li>
+							<li>Fluorosulfuric Acid</li>
+							<li>Surge</li>
+							<li>Ultra-Lube</li>
 							<li>Mitocholide</li>
-							<li>Fliptonium</li>
-							<li>Ants</li>
-							<li>Chlorine Trifluoride</li>
-							<li>Sorium</li>
-							<li>"????" Reagent</li>
-							<li>Aranesp</li>
 						</ul>
 					</li>
 				</ul>
@@ -553,14 +540,18 @@
 					<li>1 unit of blood containing an advanced virus with the <b>"Anti-Bodies Metabolism"</b> symptom</li>
 					<li>2 of the chemicals from the list below, 1 unit of each (Unknown Random Recipe)
 						<ul>
-							<li>Entropic Polypnium</li>
-							<li>Tinea Luxor</li>
-							<li>earthsblood</li>
-							<li>Bath Salts</li>
-							<li>Rezadone</li>
-							<li>Rotatium</li>
-							<li>Krokodil</li>
-							<li>Fliptonium</li>
+							<li>Colorful Reagent</li>
+							<li>Bacchus' Blessing</li>
+							<li>Pentetic Acid</li>
+							<li>Glyphosate</li>
+							<li>Lazarus Reagent</li>
+							<li>Omnizine</li>
+							<li>Sarin</li>
+							<li>Ants</li>
+							<li>Chlorine Trifluoride</li>
+							<li>Sorium</li>
+							<li>"????" Reagent</li>
+							<li>Aranesp</li>
 						</ul>
 					</li>
 				</ul>
