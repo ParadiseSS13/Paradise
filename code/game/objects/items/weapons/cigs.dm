@@ -84,32 +84,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 			user.visible_message("<span class='notice'>[user] quickly whips out [src] and nonchalantly lights it with [user.p_their()] own burning body. Clearly, [user.p_they()] [user.p_have()] [user.p_their()] priorities straight...</span>")
 		return TRUE
 
-	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
-	if(!istype(cig) || user.a_intent != INTENT_HELP) 
-		return ..()
-	cigarette_lighter_act(user, M)
-
-// Yes, a cigarette can be a cigarette lighter too!
-/obj/item/clothing/mask/cigarette/cigarette_lighter_act(mob/living/user, mob/living/target)
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(!lit)
-		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
-		return
-
-	if(!I.handle_cigarette_lighter_act(user, target, src))
-		return
-
-	if(target == user)
-		user.visible_message(
-			"<span class='notice'>[user] presses [user.p_their()] [src.name] into [user.p_their()] [I] until it lights. Seems a bit redundant...</span>",
-			"<span class='notice'>You press [src] into [I] until it lights.</span>"
-			)
-	else
-		user.visible_message(
-			"<span class='notice'>[user] presses [user.p_their()] [src.name] into [I] in the mouth of [target] until it lights.</span>",
-			"<span class='notice'>You press [src.name] into [I] in the mouth of [target] until it lights.</span>"
-			)
-
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
 		to_chat(user, "<span class='warning'>[S] can't hold \the [initial(name)] while it's lit!</span>") // initial(name) so it doesn't say "lit" twice in a row
@@ -125,11 +99,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 		light("<span class='warning'>[src] is lit by the flames!</span>")
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/living/user, params)
-	// Handles cigarettes being clicked directly rather than being brought here by an item's attack(). This will treat the user as the target always.
-	if(!I.cigarette_lighter_act(user, user))
+	// Handles cigarettes being clicked directly rather than being brought here by an item's attack().
+	if(!I.cigarette_lighter_act(user, user, src))
 		return
 
-/obj/item/clothing/mask/cigarette/proc/handle_cigarette_lighter_act(mob/living/user, mob/living/carbon/target, obj/item/I)
+/obj/item/clothing/mask/cigarette/proc/handle_cigarette_lighter_act(mob/living/user, obj/item/I)
 	if(lit)
 		// initial(name) used so it doesn't say "The lit cigarette is already lit!"
 		to_chat(user, "<span class='warning'>\The [initial(name)] is already lit!</span>")
@@ -137,10 +111,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	// Cigars and pipes do not take kindly to your tomfoolery!
 	if(fancy && !can_light_fancy(I))
-		to_chat(user, "<span class='boldwarning'>[src] straight out <b>REFUSES</b> to be lit by such uncivilized means!</span>")
+		to_chat(user, "<span class='boldwarning'>[src] straight out REFUSES to be lit by such uncivilized means!</span>")
 		return FALSE
 
-	light(user, target)
 	return TRUE
 
 /obj/item/clothing/mask/cigarette/proc/can_light_fancy(obj/item/I)
@@ -149,10 +122,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/proc/light(mob/living/user, mob/living/target)
 	if(lit)
 		return
-
-	// If there is no target, the user must be lighting their own cig.
-	if(isnull(target))
-		target = user
 
 	lit = TRUE
 	name = "lit [name]"
@@ -182,9 +151,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 		qdel(src)
 		return
 
-	target.update_inv_wear_mask()
-	target.update_inv_l_hand()
-	target.update_inv_r_hand()
+	// If there is no target, the user is probably lighting their own cig.
+	if(isnull(target))
+		target = user
+
+	// If there is also no user, the cig is being lit by atmos or something.
+	if(target)
+		target.update_inv_wear_mask()
+		target.update_inv_l_hand()
+		target.update_inv_r_hand()
+
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
 	icon_state = icon_on
@@ -214,33 +190,39 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	die()
 
-/obj/item/clothing/mask/cigarette/afterattack(mob/living/user, mob/living/carbon/target, obj/item/reagent_containers/glass/glass, proximity)
+/obj/item/clothing/mask/cigarette/afterattack(atom/target, mob/living/user, proximity)
 	if(!proximity)
 		return
 
-	if(istype(target) && user.zone_selected == "mouth" && !target.wear_mask)
-		user.unEquip(src, TRUE)
-		target.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK)
-		if(target != user)
-			user.visible_message(
-				"<span class='notice'>[user] slips \a [name] into the mouth of [target].</span>",
-				"<span class='notice'>You slip [src] into the mouth of [target].</span>"
-					)
+	if(ismob(target))
+		var/mob/living/carbon/M = target
+		if(istype(M) && user.zone_selected == "mouth" && !M.wear_mask)
+			user.unEquip(src, TRUE)
+			M.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK)
+			if(target != user)
+				user.visible_message(
+					"<span class='notice'>[user] slips \a [name] into the mouth of [M].</span>",
+					"<span class='notice'>You slip [src] into the mouth of [M].</span>"
+						)
+			else
+				to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
+			return TRUE
+
+	// You can dip cigarettes into beakers.
+	if(istype(target, /obj/item/reagent_containers/glass))
+		var/obj/item/reagent_containers/glass/glass = target
+		var/transfered = glass.reagents.trans_to(src, chem_volume)
+		if(transfered)
+			to_chat(user, "<span class='notice'>You dip [src] into [glass].</span>")
+			return
+
+		// Either the beaker was empty, or the cigarette was full
+		if(!glass.reagents.total_volume)
+			to_chat(user, "<span class='notice'>[glass] is empty.</span>")
 		else
-			to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
-		return TRUE
+			to_chat(user, "<span class='notice'>[src] is full.</span>")
 
 	..()
-
-	if(istype(glass))	//you can dip cigarettes into beakers
-		var/transfered = glass.reagents.trans_to(src, chem_volume)
-		if(transfered)	//if reagents were transfered, show the message
-			to_chat(user, "<span class='notice'>You dip [src] into [glass].</span>")
-		else			//if not, either the beaker was empty, or the cigarette was full
-			if(!glass.reagents.total_volume)
-				to_chat(user, "<span class='notice'>[glass] is empty.</span>")
-			else
-				to_chat(user, "<span class='notice'>[src] is full.</span>")
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)

@@ -64,9 +64,12 @@
 		return ..()
 	cigarette_lighter_act(user, M)
 
-/obj/item/assembly/igniter/cigarette_lighter_act(mob/living/user, mob/living/target)
+/obj/item/assembly/igniter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(!I.handle_cigarette_lighter_act(user, target, src))
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(target == user)
@@ -82,6 +85,7 @@
 			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
 			)
 	sparks.start()	// Make sparks fly!
+	I.light(user, target)
 
 /obj/item/assembly/igniter/attack_self(mob/user)
 	if(!istype(loc, /obj/item/assembly_holder))

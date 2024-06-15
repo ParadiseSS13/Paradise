@@ -974,10 +974,5 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name
 
-/**
-  * This proc is called by items that can act as a cigarette lighter.
-  *
-  * Override this proc with everything the item will do, call light() on the cigarette to actually light the cigarette.
-  */
-/obj/item/proc/cigarette_lighter_act(mob/living/user, mob/living/target)
+/obj/item/proc/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	return

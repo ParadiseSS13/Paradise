@@ -164,13 +164,16 @@
 	if((HAS_TRAIT(src, TRAIT_WIELDED)) && prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
-/obj/item/dualsaber/cigarette_lighter_act(mob/living/user, mob/living/target)
+/obj/item/dualsaber/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
 		return
 
 	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(!I.handle_cigarette_lighter_act(user, target, src))
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(target == user)
@@ -186,7 +189,8 @@
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
 	INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
-	playsound(loc, hitsound, vary = TRUE)
+	I.light(user, target)
+	playsound(user.loc, hitsound, 50, TRUE)
 
 /obj/item/dualsaber/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))

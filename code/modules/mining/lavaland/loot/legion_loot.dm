@@ -38,27 +38,32 @@
 		return FALSE
 	return ..()
 
-/obj/item/storm_staff/cigarette_lighter_act(mob/living/user, mob/living/target)
+/obj/item/storm_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	if(!thunder_charges)
 		to_chat(user, "<span class='warning'>[src] needs to recharge!</span>")
 		return
 
 	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(!I.handle_cigarette_lighter_act(user, target, src))
+
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(target == user)
 		user.visible_message(
-			"<span class='warning'>[user] holds [src] up to [user.p_their()] [I] and shoots a tiny bolt of lightning that sets it alight!</span>",
+			"<span class='warning'>[user] holds [src] up to [user.p_their()] [I.name] and shoots a tiny bolt of lightning that sets it alight!</span>",
 			"<span class='warning'>You hold [src] up to [I] and shoot a tiny bolt of lightning that sets it alight!</span>",
 			"<span class='danger'>A thundercrack fills the air!</span>"
 			)
 	else
 		user.visible_message(
-			"<span class='warning'>[user] points [src] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [I] alight!</span>",
-			"<span class='warning'>You point [src] at [target] and shoot a tiny bolt of lightning that sets [target.p_their()] [I] alight!</span>",
+			"<span class='warning'>[user] points [src] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [I.name] alight!</span>",
+			"<span class='warning'>You point [src] at [target] and shoot a tiny bolt of lightning that sets [target.p_their()] [I.name] alight!</span>",
 			"<span class='danger'>A thundercrack fills the air!</span>"
 			)
+	I.light(user, target)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 50, TRUE)
 	thunder_charges--
 

@@ -213,14 +213,16 @@ CONTENTS:
 
 	cigarette_lighter_act(user, M)
 
-/obj/item/gun/magic/wand/fireball/cigarette_lighter_act(mob/living/user, mob/living/target)
+/obj/item/gun/magic/wand/fireball/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	if(!charges)
 		to_chat(user, "<span class='warning'>[src] is out of charge!</span>")
 		return
 
 	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(I.lit)
-		to_chat(user, "<span class='warning'>[I] does not need to be zapped!</span>")
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(prob(50) || user.mind.assigned_role == "Wizard")
@@ -236,7 +238,7 @@ CONTENTS:
 				"<span class='notice'>You swish and flick [src] at [target], lighting [user.p_their()] [I.name] with a plume of flame, whilst only moderately eyebrow singing [target.p_their()] eyebrows.</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
 				)
-		I.handle_cigarette_lighter_act(user, target, src)
+		I.light(user, target)
 		return
 
 	// Oops...

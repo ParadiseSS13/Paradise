@@ -95,17 +95,21 @@
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")
 
-	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(target)
+	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
 	if(!istype(cig) || user.a_intent != INTENT_HELP) 
 		return ..()
+	cigarette_lighter_act(user, target)
 
-/obj/item/lighter/zippo/cigarette_lighter_act(mob/living/user, mob/living/target)
-	var/obj/item/clothing/mask/cigarette/I = help_light_cig(target)
+/obj/item/lighter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/I = locate_cigarette(target)
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
 		return
+	
+	if(direct_attackby_item)
+		I = direct_attackby_item
 
-	if(!I.handle_cigarette_lighter_act(user, target, src))
+	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(target == user)
@@ -118,6 +122,7 @@
 			"<span class='notice'>After some fiddling, [user] manages to light [I] in the mouth of [target] with [src].</span>",
 			"<span class='notice'>After some fiddling, you manage to light [I] in the mouth of [target] with [src].</span>"
 			)
+	I.light(user, target)
 
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
@@ -179,17 +184,21 @@
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")
 
-	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(target)
+	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
 	if(!istype(cig) || user.a_intent != INTENT_HELP) 
 		return ..()	
+	cigarette_lighter_act(user, target)
 
-/obj/item/lighter/zippo/cigarette_lighter_act(mob/living/user, mob/living/target)
-	var/obj/item/clothing/mask/cigarette/I = help_light_cig(target)
+/obj/item/lighter/zippo/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/I = locate_cigarette(target)
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
 		return
+	
+	if(direct_attackby_item)
+		I = direct_attackby_item
 
-	if(!I.handle_cigarette_lighter_act(user, target, src))
+	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(target == user)
@@ -202,12 +211,18 @@
 			"<span class='rose'>[user] whips [src] out and holds it for [target]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light [I] with. Damn [user.p_theyre()] cool.</span>",
 			"<span class='rose'>You whip [src] out and hold it for [target]. Your arm is as steady as the unflickering flame you light [I] with.</span>"
 			)
+	I.light(user, target)
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)
 	return
 
 /obj/item/lighter/zippo/attempt_light(mob/living/user)
 	return
+
+/obj/item/proc/locate_cigarette(mob/living/M)
+	var/mask_item = M.get_item_by_slot(SLOT_HUD_WEAR_MASK)
+	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
+		return mask_item
 
 //////////////////////////////
 // MARK: EXTRA LIGHTERS
@@ -319,18 +334,21 @@
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")
 
-	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(target)
+	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
 	if(!istype(cig) || user.a_intent != INTENT_HELP) 
 		return ..()
 	cigarette_lighter_act(user, target)
 
-/obj/item/match/cigarette_lighter_act(mob/living/user, mob/living/target)
+/obj/item/match/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
 		return
+	
+	if(direct_attackby_item)
+		I = direct_attackby_item
 
-	if(!I.handle_cigarette_lighter_act(user, target, src))
+	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(target == user)
@@ -343,6 +361,7 @@
 			"<span class='notice'>[user] holds [src] out for [target], and lights [I].</span>",
 			"<span class='notice'>You hold [src] out for [target], and light [user.p_their()] [I.name].</span>"
 			)
+	I.light(user, target)
 	matchburnout()
 
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -351,11 +370,6 @@
 		qdel(src)
 		return TRUE
 	return ..()
-
-/obj/item/proc/help_light_cig(mob/living/M)
-	var/mask_item = M.get_item_by_slot(SLOT_HUD_WEAR_MASK)
-	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
-		return mask_item
 
 /obj/item/match/get_heat()
 	return lit * 1000
@@ -380,23 +394,26 @@
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
 
-/obj/item/match/unathi/attack(mob/living/user, mob/living/target)
+/obj/item/match/unathi/attack(mob/living/target, mob/living/user)
 	if(lit && target.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")
 
-	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(target)
+	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
 	if(!istype(cig) || user.a_intent != INTENT_HELP) 
 		return ..()
 	cigarette_lighter_act(user, target)
 	
-/obj/item/match/unathi/cigarette_lighter_act(mob/living/target, mob/living/user)
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+/obj/item/match/unathi/cigarette_lighter_act(mob/living/target, mob/living/user, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/I = locate_cigarette(target)
 	if(!lit)
 		to_chat(user, "<span class='userdanger'>If you can see this message, please make an issue report to GitHub, something bad has happened.</span>")
 		return
 
-	if(!I.handle_cigarette_lighter_act(user, target, src))
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(target == user)
@@ -421,6 +438,7 @@
 			var/obj/item/organ/external/head/affecting = target.get_organ("head")
 			affecting.receive_damage(0, 5)
 			target.UpdateDamageIcon()
+	I.light(user, target)
 	playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
 	matchburnout()
 

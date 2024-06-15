@@ -273,6 +273,34 @@
 	. = ..()
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
+/obj/item/lava_staff/attack(mob/target, mob/living/user)
+	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
+	if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
+		cigarette_lighter_act(user, target)
+		return FALSE
+	return ..()
+
+/obj/item/lava_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!I.handle_cigarette_lighter_act(user, src))
+		return
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] holds the tip of [src] near [user.p_their()] [I.name] until it is suddenly set alight.</span>",
+			"<span class='notice'>You hold the tip of [src] near [I] until it is suddenly set alight.</span>",
+			)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] points [src] at [I] in the mouth of [target] until it is suddenly set alight.</span>",
+			"<span class='notice'>You point [src] at [I] in the mouth of [target] until it is suddenly set alight.</span>",
+			)
+	I.light(user, target)
+
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
 	if(timer > world.time)

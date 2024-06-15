@@ -76,17 +76,20 @@
 
 /obj/item/flamethrower/attack(mob/living/target, mob/living/user)
 	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-	if(!istype(cig) || target.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP)
 		return ..()
 	cigarette_lighter_act(user, target)
 
-/obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/target)
+/obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to ignite [src] before you can use it as a lighter!</span>")
 		return
 
 	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(!I.handle_cigarette_lighter_act(user, target, src))
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	// Pulling this off 'safely' requires years of experiance, a true badass, or blind luck!
@@ -103,6 +106,7 @@
 				"<span class='notice'>You lift up [src] in front of the face of [target] and lightly pull the trigger, lighting [I] in [target.p_their()] mouth with a big puff of flame.</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
 			)
+		I.light(user, target)
 		return
 
 	// You set them on fire, but at least the cigarette got lit...
@@ -121,6 +125,7 @@
 			Unfortunately, your pull it a little too hard and releate large burst of flame that sets you ablaze!</span>",
 			"<span class='danger'>You hear a plume of fire and something igniting!</span>"
 			)
+	I.light(user, target)
 	target.adjust_fire_stacks(2)
 	target.IgniteMob()
 	return

@@ -72,7 +72,7 @@
 	if(nemesis_faction)
 		force -= faction_bonus_force
 
-/obj/item/melee/energy/cigarette_lighter_act(mob/living/user, mob/living/target)
+/obj/item/melee/energy/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	if(is_a_cleaving_saw)
 		return
 
@@ -81,24 +81,28 @@
 		return
 
 	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(!I.handle_cigarette_lighter_act(user, target, src))
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(target == user)
 		user.visible_message(
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-			[user.p_they(TRUE)] lights [user.p_their()] [I] with [src] in the process.</span>",
+			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [I] with [src] in the process.</span>",
 			"<span class='notice'>You casually slash [src] at [I], lighting it with the blade.</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
 	else
 		user.visible_message(
 			"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-			[user.p_they(TRUE)] lights [I] in the mouth of [target] with [src] in the process.</span>",
+			[user.p_they(TRUE)] light[user.p_s()] [I] in the mouth of [target] with [src] in the process.</span>",
 			"<span class='notice'>You casually slash [src] at [I] in the mouth of [target], lighting it with the blade.</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
-	playsound(loc, hitsound, vary = TRUE)
+	I.light(user, target)
+	playsound(user.loc, hitsound, 50, TRUE)
 
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
