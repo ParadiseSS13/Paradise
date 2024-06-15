@@ -434,8 +434,8 @@
 	update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(heals_robots)
-		update_flags |= ipc.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)	// This allows IPCs to heal if heals_robots is set to true.
-		update_flags |= ipc.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)		// Because you cannot heal robotic limbs unless you specifically use the human version of adjustXloss. Pain.
+		update_flags |= ipc.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
+		update_flags |= ipc.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
 	if(prob(50))
 		M.AdjustLoseBreath(-2 SECONDS)
 	return ..() | update_flags
