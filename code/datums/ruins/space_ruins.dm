@@ -351,4 +351,3 @@
 	name = "Abandoned Security Shuttle"
 	description = "A security shuttle that has been floating in space."
 	allow_duplicates = FALSE
-	cost = 2
