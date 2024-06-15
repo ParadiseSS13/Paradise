@@ -857,15 +857,21 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		visible_message("<span class='danger'>[src] has successfully extinguished [p_themselves()]!</span>","<span class='notice'>You extinguish yourself.</span>")
 		ExtinguishMob()
 
-/mob/living/carbon/resist_restraints()
+/mob/living/carbon/resist_restraints(attempt_breaking)
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
-	var/obj/item/I = null
+	if(wear_suit && wear_suit.breakouttime)
+		wear_suit.resist_restraints(src, attempt_breaking)
+		return
+
+	var/obj/item/restraints/cuffs
 	if(handcuffed)
-		I = handcuffed
+		cuffs = handcuffed
 	else if(legcuffed)
-		I = legcuffed
-	if(I)
-		cuff_resist(I)
+		cuffs = legcuffed
+
+	if(!cuffs)
+		return
+	cuff_resist(cuffs, attempt_breaking)
 
 /mob/living/carbon/resist_muzzle()
 	if(!istype(wear_mask, /obj/item/clothing/mask/muzzle))
