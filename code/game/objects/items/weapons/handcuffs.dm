@@ -4,8 +4,28 @@
 	icon = 'icons/obj/restraints.dmi'
 	var/cuffed_state = "handcuff"
 
-/obj/item/restraints/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent) // you only want to break hand or legcuffs, not any type of restraint
-	. = ..()
+/obj/item/proc/attempt_resist_restraints(mob/living/carbon/user, break_cuffs, effective_breakout_time, silent)
+	if(effective_breakout_time)
+		if(!silent)
+			user.visible_message("<span class='warning'>[user] attempts to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_cuffs ? "break" : "remove"] [src]...</span>")
+		to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
+
+	if(!do_after(user, effective_breakout_time, FALSE, user))
+		user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
+		to_chat(user, "<span class='warning'>You fail to [break_cuffs ? "break" : "remove"] [src]!</span>")
+		return
+
+	user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
+	if(loc != user || user.buckled)
+		return
+
+	finish_resist_restraints(user, break_cuffs)
+
+/obj/item/proc/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
+	if(!silent)
+		user.visible_message("<span class='danger'>[user] manages to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_cuffs ? "break" : "remove"] [src].</span>")
+	user.unEquip(src)
+
 	if(break_cuffs)
 		qdel(src)
 		return TRUE
@@ -27,8 +47,9 @@
 	throw_range = 5
 	materials = list(MAT_METAL=500)
 	origin_tech = "engineering=3;combat=3"
-	breakouttime = 1 MINUTES
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+	///How long it will take to break out of restraints
+	var/breakouttime = 1 MINUTES
 	/// Sound made when cuffing someone.
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	/// Trash item generated when cuffs are broken (for disposable cuffs).
