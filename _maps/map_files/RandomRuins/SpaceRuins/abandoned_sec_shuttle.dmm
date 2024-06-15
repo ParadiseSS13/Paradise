@@ -169,7 +169,7 @@
 "S" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13")
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
