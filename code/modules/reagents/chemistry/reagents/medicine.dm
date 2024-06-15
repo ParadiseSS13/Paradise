@@ -929,7 +929,7 @@
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					if(IS_CHANGELING(M))
+					if(IS_CHANGELING(M) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 						return
 					M.delayed_gib(TRUE)
 					return
