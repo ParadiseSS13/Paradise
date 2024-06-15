@@ -29,6 +29,7 @@
 			return
 		zombie_rejuv()
 		to_chat(zomboid, "<span class='zombielarge'>We... Awaken...</span>")
+		zomboid.notify_ghost_cloning("Your zombie body has risen again, re-enter your corpse to continue the feast!", source = zomboid)
 
 	// If no client, but they were a player thats not SSD (debrained, revived but hasn't returned to body, etc)
 	if(zomboid.stat != CONSCIOUS || HAS_TRAIT(zomboid, TRAIT_HANDS_BLOCKED))
@@ -128,6 +129,8 @@
 		target = pick(targets)
 
 	if(zomboid.Adjacent(target) && safe_active_hand(zomboid))
+		if(!zomboid.get_active_hand())
+			zomboid.put_in_hands(new /obj/item/zombie_claw())
 		zomboid.a_intent = INTENT_HARM
 		zomboid.ClickOn(target)
 		return

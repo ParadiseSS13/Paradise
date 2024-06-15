@@ -1577,15 +1577,6 @@
 	icon_state = "darkred"
 	},
 /area/ruin/space/derelict/arrival)
-"dV" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/derelict/arrival)
 "dW" = (
 /turf/simulated/wall/mineral/titanium/nodecon,
 /area/ruin/space/derelict/hallway/primary)
@@ -1693,8 +1684,7 @@
 "el" = (
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /obj/structure/musician/piano,
 /obj/machinery/power/apc/off_station/directional/north,
@@ -1913,8 +1903,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2008,8 +1997,7 @@
 	},
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
@@ -2305,8 +2293,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
@@ -2323,8 +2310,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
@@ -2586,8 +2572,7 @@
 	},
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2722,8 +2707,7 @@
 "gC" = (
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/plasteel{
@@ -2894,8 +2878,7 @@
 /obj/machinery/power/solar,
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -4967,26 +4950,6 @@
 /obj/item/shard,
 /turf/template_noop,
 /area/ruin/space/derelict/hallway/primary)
-"mb" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/ruin/space/derelict/solar_control)
 "mc" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1
@@ -5567,8 +5530,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -6587,8 +6549,7 @@
 "qr" = (
 /obj/structure/cable{
 	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
@@ -8960,11 +8921,11 @@ ac
 aW
 bn
 dP
-dV
-dV
-dV
+fX
+fX
+fX
 eK
-dV
+fX
 fD
 fY
 do
@@ -14499,11 +14460,11 @@ jP
 kJ
 ls
 jx
-mb
-mb
-mb
-mb
-mb
+su
+su
+su
+su
+su
 lH
 ac
 ac
@@ -14867,11 +14828,11 @@ jP
 kJ
 ls
 jx
-mb
-mb
-mb
-mb
-mb
+su
+su
+su
+su
+su
 lH
 ac
 ac

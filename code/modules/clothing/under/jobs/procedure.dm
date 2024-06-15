@@ -105,54 +105,57 @@
 	item_state = "iaa_blue"
 	item_color = "iaa_blue"
 
-/obj/item/clothing/under/rank/procedure/lawyer
-	name = "lawyer suit"
-	desc = "Slick threads."
+/obj/item/clothing/under/rank/procedure/iaa/formal
+	name = "Internal Affairs formal uniform"
+	desc = "Slick threads, for the Internal Affairs Agent with ambitions of grandeur."
 
-/obj/item/clothing/under/rank/procedure/lawyer/black
-	icon_state = "lawyer_black"
-	item_state = "lawyer_black"
-	item_color = "lawyer_black"
+/obj/item/clothing/under/rank/procedure/iaa/formal/black
+	icon_state = "iaa_formal_black"
+	item_state = "iaa_formal_black"
+	item_color = "iaa_formal_black"
 
-/obj/item/clothing/under/rank/procedure/lawyer/black/skirt
-	name = "lawyer skirt"
-	icon_state = "lawyer_black_skirt"
-	item_state = "lawyer_black_skirt"
-	item_color = "lawyer_black_skirt"
+/obj/item/clothing/under/rank/procedure/iaa/formal/black/skirt
+	name = "Internal Affairs formal skirt"
+	icon_state = "iaa_formal_black_skirt"
+	item_state = "iaa_formal_black_skirt"
+	item_color = "iaa_formal_black_skirt"
 
-/obj/item/clothing/under/rank/procedure/lawyer/red
-	name = "lawyer red suit"
-	icon_state = "lawyer_red"
-	item_state = "lawyer_red"
-	item_color = "lawyer_red"
+/obj/item/clothing/under/rank/procedure/iaa/formal/red
+	name = "Internal Affairs formal red suit"
+	icon_state = "iaa_formal_red"
+	item_state = "iaa_formal_red"
+	item_color = "iaa_formal_red"
 
-/obj/item/clothing/under/rank/procedure/lawyer/red/skirt
-	name = "lawyer red skirt"
-	icon_state = "lawyer_red_skirt"
-	item_state = "lawyer_red_skirt"
-	item_color = "lawyer_red_skirt"
+/obj/item/clothing/under/rank/procedure/iaa/formal/red/skirt
+	name = "Internal Affairs formal red skirt"
+	icon_state = "iaa_formal_red_skirt"
+	item_state = "iaa_formal_red_skirt"
+	item_color = "iaa_formal_red_skirt"
 
-/obj/item/clothing/under/rank/procedure/lawyer/blue
-	name = "lawyer blue suit"
-	icon_state = "lawyer_blue"
-	item_state = "lawyer_blue"
-	item_color = "lawyer_blue"
+/obj/item/clothing/under/rank/procedure/iaa/formal/blue
+	name = "Internal Affairs formal blue suit"
+	icon_state = "iaa_formal_blue"
+	item_color = "iaa_formal_blue"
 
-/obj/item/clothing/under/rank/procedure/lawyer/blue/skirt
-	name = "lawyer blue skirt"
-	icon_state = "lawyer_blue_skirt"
-	item_state = "lawyer_blue_skirt"
-	item_color = "lawyer_blue_skirt"
+/obj/item/clothing/under/rank/procedure/iaa/formal/blue/skirt
+	name = "Internal Affairs formal blue skirt"
+	icon_state = "iaa_formal_blue_skirt"
+	item_state = "iaa_formal_blue_skirt"
+	item_color = "iaa_formal_blue_skirt"
 
-/obj/item/clothing/under/rank/procedure/lawyer/goodman
+/obj/item/clothing/under/rank/procedure/iaa/formal/goodman	// You get ONE lawyer reference, IAA...
 	name = "criminal lawyer suit"
 	desc = "It's all good, man!"
-	icon_state = "lawyer_goodman"
-	item_state = "lawyer_goodman"
-	item_color = "lawyer_goodman"
+	icon_state = "iaa_formal_goodman"
+	item_state = "iaa_formal_goodman"
+	item_color = "iaa_formal_goodman"
 
-/obj/item/clothing/under/rank/procedure/lawyer/goodman/skirt
+/obj/item/clothing/under/rank/procedure/iaa/formal/goodman/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Now all you need is a law degree and a job that actually deals with the law...</span>"	// But don't get any ideas about it meaning anything.
+
+/obj/item/clothing/under/rank/procedure/iaa/formal/goodman/skirt
 	name = "criminal lawyer skirt"
-	icon_state = "lawyer_goodman_skirt"
-	item_state = "lawyer_goodman_skirt"
-	item_color = "lawyer_goodman_skirt"
+	icon_state = "iaa_formal_goodman_skirt"
+	item_state = "iaa_formal_goodman_skirt"
+	item_color = "iaa_formal_goodman_skirt"

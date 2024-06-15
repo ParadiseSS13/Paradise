@@ -33,8 +33,8 @@
 	PT.master = V
 	OT.master = V
 
-	PT.air_contents.temperature = btemp1 + T0C
-	OT.air_contents.temperature = btemp2 + T0C
+	PT.air_contents.set_temperature(btemp1 + T0C)
+	OT.air_contents.set_temperature(btemp2 + T0C)
 
 	var/obj/item/assembly/S
 

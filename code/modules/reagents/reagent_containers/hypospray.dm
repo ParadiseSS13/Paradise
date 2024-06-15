@@ -1,7 +1,6 @@
-////////////////////////////////////////////////////////////////////////////////
-/// HYPOSPRAY
-////////////////////////////////////////////////////////////////////////////////
-
+//////////////////////////////
+/// MARK: HYPOSPRAY
+//////////////////////////////
 /obj/item/reagent_containers/hypospray
 	name = "hypospray"
 	desc = "The DeForest Medical Corporation hypospray is a sterile, air-needle autoinjector for rapid administration of drugs to patients."
@@ -15,8 +14,14 @@
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_FLAG_BELT
-	var/ignore_flags = FALSE
+	/// If TRUE, the hypospray can inject through most hardsuits/modsuits.
+	var/can_pierce_hardsuits = FALSE
+	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
+	var/ignore_hypospray_immunity = FALSE
+	/// If TRUE, the hypospray will reject any chemicals not on the safe_chem_list.
 	var/safety_hypo = FALSE
+	// List of SOSHA-approved medicines.
+	/// List of reagents that are allowed to go into a hypospray with active safeties.
 	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "salbutamol", "omnizine",
 									"weak_omnizine", "godblood", "potass_iodide", "oculine", "mannitol", "spaceacillin", "salglu_solution",
 									"sal_acid", "cryoxadone", "sugar", "hydrocodone", "mitocholide", "rezadone", "menthol",
@@ -30,7 +35,13 @@
 	if(!iscarbon(M))
 		return
 
-	if(reagents.total_volume && (ignore_flags || M.can_inject(user, TRUE))) // Ignore flag should be checked first or there will be an error message.
+	var/mob/living/carbon/human/H = M
+	if(H.wear_suit)
+		if(HAS_TRAIT(H.wear_suit, TRAIT_HYPOSPRAY_IMMUNE) && !ignore_hypospray_immunity)	// This check is here entirely to stop goobers injecting nukies with meme chems
+			to_chat(user, "<span class='warning'>[src] is unable to penetrate the armour of [M] or interface with any injection ports.</span>")
+			return
+
+	if(reagents.total_volume && (can_pierce_hardsuits || M.can_inject(user, TRUE))) // can_pierce_hardsuits should be checked first or there will be an error message.
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
 
@@ -88,10 +99,13 @@
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)
 		emagged = TRUE
-		ignore_flags = TRUE
+		can_pierce_hardsuits = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
 		return TRUE
 
+//////////////////////////////
+// MARK: HYPO VARIANTS
+//////////////////////////////
 /obj/item/reagent_containers/hypospray/safety
 	name = "medical hypospray"
 	desc = "A general use medical hypospray for quick injection of chemicals. There is a safety button by the trigger."
@@ -103,32 +117,46 @@
 	icon_state = "ert_hypo"
 	list_reagents = list("omnizine" = 30)
 
+/obj/item/reagent_containers/hypospray/combat
+	name = "combat stimulant injector"
+	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. It has a proprietary adapter allowing it to inject through the ports of Syndicate-made hardsuits."
+	amount_per_transfer_from_this = 15
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30)
+	icon_state = "combat_hypo"
+	volume = 90
+	can_pierce_hardsuits = TRUE // So they can heal their comrades.
+	ignore_hypospray_immunity = TRUE
+	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
+
+/obj/item/reagent_containers/hypospray/combat/nanites
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with a cocktail of experimental combat drugs and <b>extremely</b> expensive medical nanomachines. Capable of healing almost any injury in just a few seconds. It can interface with the injection ports on any type of hardsuit."
+	icon_state = "nanites_hypo"
+	volume = 100
+	list_reagents = list("nanites" = 100)
+
+/obj/item/reagent_containers/hypospray/combat/syndicate_nanites
+	name = "medical nanite injector"
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanomachines for rapid field stabilization."
+	volume = 100
+	list_reagents = list("syndicate_nanites" = 100)
+
+//////////////////////////////
+// MARK: CMO HYPO
+//////////////////////////////
 /obj/item/reagent_containers/hypospray/CMO
 	name = "advanced hypospray"
 	list_reagents = list("omnizine" = 30)
+	volume = 100
+	can_pierce_hardsuits = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
-/obj/item/reagent_containers/hypospray/combat
-	name = "combat stimulant injector"
-	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
-	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = null
-	icon_state = "combat_hypo"
-	volume = 90
-	ignore_flags = 1 // So they can heal their comrades.
-	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
-
-/obj/item/reagent_containers/hypospray/combat/nanites
-	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
-	icon_state = "nanites_hypo"
-	volume = 100
-	list_reagents = list("nanites" = 100)
-
-/// This is an empty variant
+//////////////////////////////
+// MARK: AUTOINJECTOR
+//////////////////////////////
 /obj/item/reagent_containers/hypospray/autoinjector
 	name = "empty autoinjector"
 	desc = "A rapid and safe way to inject chemicals into humanoids. This one is empty."
@@ -138,7 +166,8 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 	volume = 10
-	ignore_flags = TRUE //so you can medipen through hardsuits
+	can_pierce_hardsuits = TRUE //so you can medipen through hardsuits
+	ignore_hypospray_immunity = TRUE
 	container_type = DRAWABLE
 	flags = null
 
@@ -224,3 +253,31 @@
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure
+	name = "\improper Anti-Plague Sequence Alpha autoinjector"
+	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Alpha. Prevents infection, cures level 1 infection."
+	icon_state = "zombiepen"
+	amount_per_transfer_from_this = 15
+	volume = 15
+	container_type = null //No sucking out the reagent
+	list_reagents = list("zombiecure1" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/attack(mob/living/M, mob/user)
+	if(..())
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE) //Sucker for sounds, also gets zombies attention.
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure2
+	name = "\improper Anti-Plague Sequence Beta autoinjector"
+	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Beta. Weakens zombies, heals low infections."
+	list_reagents = list("zombiecure2" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure3
+	name = "\improper Anti-Plague Sequence Gamma autoinjector"
+	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Gamma. Lowers zombies healing. Heals stage 5 and slows stage 6 infections."
+	list_reagents = list("zombiecure3" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure4
+	name = "\improper Anti-Plague Sequence Omega autoinjector"
+	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Omega.  Cures all cases of the Necrotizing Plague. Also heals dead limbs."
+	list_reagents = list("zombiecure4" = 15)

@@ -337,6 +337,14 @@
 	allow_duplicates = FALSE
 	cost = 1
 
+/datum/map_template/ruin/space/rocky_motel
+	id = "rocky_motel"
+	suffix = "rocky_motel.dmm"
+	name = "Rocky Motel"
+	description = "A cozy little home nestled in an asteroid, perfect for one or two people!"
+	allow_duplicates = FALSE
+	cost = 1
+  
 /datum/map_template/ruin/space/abandoned_security_shuttle
 	id = "abandoned_sec_shuttle"
 	suffix = "abandoned_sec_shuttle.dmm"

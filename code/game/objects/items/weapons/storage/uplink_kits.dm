@@ -288,7 +288,7 @@
 		/obj/item/deck/cards/syndicate, // 2 TC
 		/obj/item/storage/secure/briefcase/syndie, // 5 TC
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 7 TC
-		/obj/item/clothing/suit/jacket/syndicatebomber, // 3 TC
+		/obj/item/clothing/suit/jacket/bomber/syndicate, // 3 TC
 		/obj/item/melee/knuckleduster/syndie, // 10 TC
 	)
 
@@ -549,7 +549,7 @@
 
 /obj/item/storage/box/syndie_kit/prescan/populate_contents()
 	new /obj/item/bio_chip_implanter/grey_autocloner(src)
-	new /obj/item/radio/beacon/syndicate/bomb/grey_autocloner(src)
+	new /obj/item/beacon/syndicate/bomb/grey_autocloner(src)
 
 /obj/item/storage/box/syndie_kit/pen_bomb
 	name = "\improper Pen bomb"
