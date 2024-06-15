@@ -180,3 +180,7 @@
 	name = "Cybersun Mobile Exosuit Factory"
 	apc_starts_off = TRUE
 	there_can_be_many = FALSE
+
+/area/ruin/space/sec_shuttle
+	name = "Abandoned Security Shuttle"
+	apc_starts_off = TRUE
