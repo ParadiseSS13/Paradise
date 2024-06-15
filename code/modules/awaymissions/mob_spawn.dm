@@ -374,6 +374,7 @@
 
 /obj/effect/mob_spawn/human/corpse/skeleton/security_officer
 	outfit = /datum/outfit/job/officer
+	id_access = "Assistant" //no brig access for explorers
 
 /obj/effect/mob_spawn/human/corpse/skeleton/prisoner
 	uniform = /obj/item/clothing/under/color/orange/prison
