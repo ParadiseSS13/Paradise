@@ -25,6 +25,6 @@
 				/obj/item/tarot_card_pack = 10,
 				/obj/item/tarot_card_pack/jumbo = 6,
 				/obj/item/tarot_card_pack/mega = 4,
-				/obj/item/book/granter/spell/summon_cheese = 10      // hungry wizard stuff
+				/obj/item/book/granter/spell/summon_cheese = 10,      // hungry wizard stuff
 				/obj/item/reagent_containers/drinks/everfull = 10   // Cheese and wine
 				)
