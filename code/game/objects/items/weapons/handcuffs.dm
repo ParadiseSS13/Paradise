@@ -4,7 +4,7 @@
 	icon = 'icons/obj/restraints.dmi'
 	var/cuffed_state = "handcuff"
 
-/obj/item/proc/attempt_resist_restraints(mob/living/carbon/user, break_cuffs, effective_breakout_time, silent)
+/obj/item/restraints/proc/attempt_resist_restraints(mob/living/carbon/user, break_cuffs, effective_breakout_time, silent)
 	if(effective_breakout_time)
 		if(!silent)
 			user.visible_message("<span class='warning'>[user] attempts to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_cuffs ? "break" : "remove"] [src]...</span>")
@@ -21,7 +21,7 @@
 
 	finish_resist_restraints(user, break_cuffs)
 
-/obj/item/proc/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
+/obj/item/restraints/proc/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
 	if(!silent)
 		user.visible_message("<span class='danger'>[user] manages to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_cuffs ? "break" : "remove"] [src].</span>")
 	user.unEquip(src)
