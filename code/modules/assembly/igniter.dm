@@ -28,7 +28,10 @@
 	var/turf/location = get_turf(loc)
 	if(location)
 		location.hotspot_expose(1000, 1000)
-
+	visible_message(
+		"<span class='notice'>Sparks shoot out of [src].</span>",
+		"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+		)
 	sparks.start()
 
 	if(istype(loc, /obj/item/assembly_holder))
@@ -55,11 +58,30 @@
 	return TRUE
 
 // For lighting cigarettes.
-/obj/item/assembly/igniter/attack(mob/living/carbon/M, mob/living/user)
+/obj/item/assembly/igniter/attack(mob/living/M, mob/living/user)
 	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
 	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
 		return ..()
-	cig.attackby(src, user, M)
+	cigarette_lighter_act(user, M)
+
+/obj/item/assembly/igniter/cigarette_lighter_act(mob/living/user, mob/living/target)
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+	if(!I.handle_cigarette_lighter_act(user, target, src))
+		return
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] against [I] in [user.p_their()] mouth and activates it, lighting [I] in a shower of sparks!</span>",
+			"<span class='notice'>You press [src] against [I] and activates it, lighting [I] in a shower of sparks!</span>",
+			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+			)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] against [I] in the mouth of [target] and activates it, lighting [I] in a shower of sparks!</span>",
+			"<span class='notice'>You press [src] against [I] and activate it, lighting [I] in a shower of sparks!</span>",
+			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
+			)
+	sparks.start()	// Make sparks fly!
 
 /obj/item/assembly/igniter/attack_self(mob/user)
 	if(!istype(loc, /obj/item/assembly_holder))

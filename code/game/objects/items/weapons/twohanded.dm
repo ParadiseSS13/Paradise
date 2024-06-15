@@ -165,7 +165,7 @@
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 /obj/item/dualsaber/cigarette_lighter_act(mob/living/user, mob/living/target)
-	if(!active)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
 		return
 
@@ -186,7 +186,7 @@
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
 	INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
-	playsound(loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
+	playsound(loc, hitsound, vary = TRUE)
 
 /obj/item/dualsaber/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))

@@ -20,8 +20,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "cigarette"
 	desc = "A roll of tobacco and nicotine."
 	icon_state = "cigoff"
-	throw_speed = 0.5
 	item_state = "cigoff"
+	throw_speed = 0.5
 	slot_flags = SLOT_FLAG_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
@@ -76,24 +76,39 @@ LIGHTERS ARE IN LIGHTERS.DM
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(M)
 		if(M != user)
-			light("<span class='notice'>[user] coldly lights [src] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>")
+			light(user, user)
+			user.visible_message("<span class='notice'>[user] coldly lights [src] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>")
 		else
 			// The fire will light it in your hands by itself, but if you whip out the cig and click yourself fast enough, this will happen. TRULY you have your priorities stright.
-			light("<span class='notice'>[user] quickly whips out [src] and nonchalantly lights it with [user.p_their()] own burning body. Clearly, [user.p_they()] [user.p_have()] [user.p_their()] priorities straight...</span>")
+			light(user, user)
+			user.visible_message("<span class='notice'>[user] quickly whips out [src] and nonchalantly lights it with [user.p_their()] own burning body. Clearly, [user.p_they()] [user.p_have()] [user.p_their()] priorities straight...</span>")
 		return TRUE
 
-	if(istype(M) && user.zone_selected == "mouth" && !M.wear_mask)
-		user.unEquip(src, TRUE)
-		M.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK)
-		if(M != user)
-			user.visible_message(
-				"<span class='notice'>[user] slips \a [name] into the mouth of [M].</span>",
-				"<span class='notice'>You slip [src] into the mouth of [M].</span>"
-					)
-		else
-			to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
-		return TRUE
-	return ..()
+	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
+	if(!istype(cig) || user.a_intent != INTENT_HELP) 
+		return ..()
+	cigarette_lighter_act(user, M)
+
+// Yes, a cigarette can be a cigarette lighter too!
+/obj/item/clothing/mask/cigarette/cigarette_lighter_act(mob/living/user, mob/living/target)
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+	if(!lit)
+		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
+		return
+
+	if(!I.handle_cigarette_lighter_act(user, target, src))
+		return
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] presses [user.p_their()] [src.name] into [user.p_their()] [I] until it lights. Seems a bit redundant...</span>",
+			"<span class='notice'>You press [src] into [I] until it lights.</span>"
+			)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] presses [user.p_their()] [src.name] into [I] in the mouth of [target] until it lights.</span>",
+			"<span class='notice'>You press [src.name] into [I] in the mouth of [target] until it lights.</span>"
+			)
 
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -108,93 +123,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/catch_fire()
 	if(!lit)
 		light("<span class='warning'>[src] is lit by the flames!</span>")
-
-/*
-	if(istype(I, /obj/item/lighter/zippo))
-		var/obj/item/lighter/zippo/zip = I
-		if(zip.lit)
-			if(target == user)
-				light("<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [name] with [I]. Damn [user.p_theyre()] cool.</span>")
-			else
-				light("<span class='rose'>[user] whips [I] out and holds it for [target]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] lights [src] with. Damn [user.p_theyre()] cool.</span>")
-			return TRUE
-		return failed_to_light(I, user)
-
-	if(istype(I, /obj/item/match))
-		var/obj/item/match/Match = I
-		if(Match.lit)
-			if(target == user)
-				light("<span class='notice'>[user] lights [user.p_their()] [name] with [I].</span>")
-			else
-				light("<span class='notice'>[user] holds [I] out for [target], and lights [src].</span>")
-			return TRUE
-		return failed_to_light(I, user)
-
-	if(istype(src, /obj/item/clothing/mask/cigarette/cigar) || istype(src, /obj/item/clothing/mask/cigarette/pipe))
-		// Cigars and pipes are too cultured to allow themselves to be lit by the BARBARIC means below.
-		to_chat(user, "<span class='warning'>[src] straight out <b>REFUSES</b> to be lit by such uncivilized means!</span>")
-		return FALSE
-
-	if(istype(I, /obj/item/lighter))
-		var/obj/item/lighter/light = I
-		if(light.lit)
-			if(target == user)
-				light("<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [name] with [I].</span>")
-			else
-				light("<span class='notice'>After some fiddling, [user] manages to light [src] with [I] for [target].</span>")
-			return TRUE
-		return failed_to_light(I, user)
-
-	if(istype(I, /obj/item/match/unathi))
-		var/obj/item/match/unathi/liz_fire = I
-		if(liz_fire.lit)
-			if(target == user)
-				light("<span class='rose'>[user] spits fire at [user.p_their()] [name], igniting it.</span>")
-			else
-				if(prob(50))
-					light("<span class='rose'>[user] spits fire at [target], lighting [name] and nearly burning [target.p_their()] face!</span>")
-				else
-					light("<span class='rose'>[user] spits fire at [target], burning [target.p_their()] face and lighting [src] in the process!</span>")
-					var/obj/item/organ/external/head/affecting = target.get_organ("head")
-					affecting.receive_damage(0, 5)
-					target.UpdateDamageIcon()
-			playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
-			liz_fire.matchburnout()
-			return TRUE
-		return failed_to_light(I, user)
-
-	if(istype(I, /obj/item/weldingtool))
-		var/obj/item/weldingtool/welder = I
-		if(welder.tool_enabled)
-			if(target == user)
-				light("<span class='notice'>[user] casually lights [src] with [I], what a badass.</span>")
-			else
-				light("<span class='notice'>[user] holds out [I] out for [target], and casually lights [name]. What a badass.</span>")
-			return TRUE
-		return failed_to_light(I, user)
-
-	if(istype(I, /obj/item/assembly/igniter))
-		if(target == user)
-			light("<span class='notice'>[user] presses [I] against [src], and activates it, lighting [user.p_their()] [name] in a shower of sparks!</span>")
-		else
-			light("<span class='notice'>[user] presses [I] against [src] in the mouth of [target], and activates it, lighting [target.p_their()] [name] in a shower of sparks!</span>")
-		I.attack_self()	// Make sparks fly!
-		return TRUE
-
-	if(istype(I, /obj/item/cautery) || istype(I, /obj/item/scalpel/laser))
-		if(target == user)
-			light("<span class='notice'>[user] presses [I] against [user.p_their()] [name] until it lights.</span>")
-		else
-			light("<span class='notice'>[user] presses [I] against [src] in the mouth of [target] until it lights.</span>")
-		return TRUE
-
-	if(istype(I, /obj/item/pen/edagger) || istype(I, /obj/item/melee/energy))
-		// The cleaving saw is an energy weapon and I hate it.
-		if(istype(I, /obj/item/melee/energy/cleaving_saw))
-			return FALSE
-
-
-*/
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/living/user, params)
 	// Handles cigarettes being clicked directly rather than being brought here by an item's attack(). This will treat the user as the target always.
@@ -215,8 +143,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	light(user, target)
 	return TRUE
 
-/obj/item/clothing/mask/cigarette/proc/can_light_fancy(obj/item/lighting_item)
-	return (istype(lighting_item, /obj/item/match) || istype(lighting_item, /obj/item/lighter/zippo))
+/obj/item/clothing/mask/cigarette/proc/can_light_fancy(obj/item/I)
+	return (istype(I, /obj/item/match) || istype(I, /obj/item/lighter/zippo))
 
 /obj/item/clothing/mask/cigarette/proc/light(mob/living/user, mob/living/target)
 	if(lit)
@@ -286,14 +214,28 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	die()
 
-/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity)
-	..()
+/obj/item/clothing/mask/cigarette/afterattack(mob/living/user, mob/living/carbon/target, obj/item/reagent_containers/glass/glass, proximity)
 	if(!proximity)
 		return
+
+	if(istype(target) && user.zone_selected == "mouth" && !target.wear_mask)
+		user.unEquip(src, TRUE)
+		target.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK)
+		if(target != user)
+			user.visible_message(
+				"<span class='notice'>[user] slips \a [name] into the mouth of [target].</span>",
+				"<span class='notice'>You slip [src] into the mouth of [target].</span>"
+					)
+		else
+			to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
+		return TRUE
+
+	..()
+
 	if(istype(glass))	//you can dip cigarettes into beakers
 		var/transfered = glass.reagents.trans_to(src, chem_volume)
 		if(transfered)	//if reagents were transfered, show the message
-			to_chat(user, "<span class='notice'>You dip \the [src] into \the [glass].</span>")
+			to_chat(user, "<span class='notice'>You dip [src] into [glass].</span>")
 		else			//if not, either the beaker was empty, or the cigarette was full
 			if(!glass.reagents.total_volume)
 				to_chat(user, "<span class='notice'>[glass] is empty.</span>")
@@ -455,11 +397,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "\improper Premium Cigar"
 	desc = "A brown roll of tobacco and... well, you're not quite sure. This thing's huge!"
 	icon_state = "cigaroff"
+	item_state = "cigaroff"
 	icon_on = "cigaron"
 	icon_off = "cigaroff"
-	type_butt = /obj/item/cigbutt/cigarbutt
 	throw_speed = 0.5
-	item_state = "cigaroff"
+	fancy = TRUE
+	type_butt = /obj/item/cigbutt/cigarbutt
 	smoketime = 300
 	chem_volume = 120
 	list_reagents = list("nicotine" = 120)
@@ -564,6 +507,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "pipeoff"
 	icon_on = "pipeon"  //Note - these are in masks.dmi
 	icon_off = "pipeoff"
+	fancy = TRUE
 	smoketime = 500
 	chem_volume = 200
 	list_reagents = list("nicotine" = 200)

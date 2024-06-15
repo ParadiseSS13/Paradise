@@ -74,7 +74,7 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/attack(mob/living/user, mob/living/target)
+/obj/item/flamethrower/attack(mob/living/target, mob/living/user)
 	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
 	if(!istype(cig) || target.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
 		return ..()

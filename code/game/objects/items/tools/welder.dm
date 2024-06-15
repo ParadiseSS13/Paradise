@@ -154,11 +154,29 @@
 	remove_fuel(0.5)
 
 /obj/item/weldingtool/attack(mob/living/carbon/M, mob/living/user)
-	// For lighting cigarettes.
+	if(!tool_enabled)
+		return ..()
+
 	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
 	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
 		return ..()
-	cig.attackby(src, user, M)
+	cigarette_lighter_act(user, M)
+
+/obj/item/weldingtool/cigarette_lighter_act(mob/living/user, mob/living/target)
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+	if(!I.handle_cigarette_lighter_act(user, target, src))
+		return
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] casually lights [I] with [src], what a badass.</span>",
+			"<span class='notice'>You light [I] with [src].</span>"
+			)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] holds out [src] out for [target], and casually lights [I]. What a badass.</span>",
+			"<span class='notice'>You light [I] for [target] with [src].</span>"
+			)
 
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
 	target.add_overlay(GLOB.welding_sparks)
