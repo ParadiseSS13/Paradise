@@ -56,8 +56,9 @@
 /obj/item/grenade/firecracker/decoy/AltClick(mob/user)
 	. = ..()
 	var/selected = tgui_input_list(user, "Choose the decoy sound.", items = possible_sounds)
-	sound_effect = possible_sounds[selected] || sound_effect
-	to_chat(user, "<span class='notice'>[src] will now sound like \a [selected_sound].</span>")
+	if(selected)
+		sound_effect = possible_sounds[selected]
+		to_chat(user, "<span class='notice'>[src] will now sound like \a [selected].</span>")
 
 /obj/item/grenade/firecracker/decoy/AltShiftClick(mob/user)
 	. = ..()
