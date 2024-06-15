@@ -79,7 +79,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
-	var/breakouttime = 0
 	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
 
 	/// Used to give a reaction chance on hit that is not a block. If less than 0, will remove the block message, allowing overides.
@@ -948,25 +947,3 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name
-
-/obj/item/proc/attempt_resist_restraints(mob/living/carbon/user, break_cuffs, effective_breakout_time, silent)
-	if(effective_breakout_time)
-		if(!silent)
-			user.visible_message("<span class='warning'>[user] attempts to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_cuffs ? "break" : "remove"] [src]...</span>")
-		to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
-
-	if(!do_after(user, effective_breakout_time, FALSE, user))
-		user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
-		to_chat(user, "<span class='warning'>You fail to [break_cuffs ? "break" : "remove"] [src]!</span>")
-		return
-
-	user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
-	if(loc != user || user.buckled)
-		return
-
-	finish_resist_restraints(user, break_cuffs)
-
-/obj/item/proc/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
-	if(!silent)
-		user.visible_message("<span class='danger'>[user] manages to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_cuffs ? "break" : "remove"] [src].</span>")
-	user.unEquip(src)
