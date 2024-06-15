@@ -45,7 +45,7 @@
 	var/open = FALSE
 	/// ID interface
 	var/locked = TRUE
-	/// Used by secbots to know if their components can be disconnected with a multitool if the panel is open, or if they requires unwrenching first
+	/// Used by secbots and griefsky bots to know if their components can be disconnected with a multitool if the panel is open, or if they requires unwrenching first
 	var/wrenched = TRUE
 	/// Used to differentiate between being hacked by silicons and emagged by humans.
 	var/hacked = FALSE
