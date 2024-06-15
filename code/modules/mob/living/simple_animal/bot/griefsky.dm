@@ -215,7 +215,7 @@
 	Sa.created_name = name
 	drop_part(robot_arm, disassemble_turf)
 	if(weapon == /obj/item/melee/energy/sword/saber)
-		log_and_message_admins("[key_name(usr)] has dismantled [src] containing energy sword(s)]!")
+		log_and_message_admins("[key_name(usr)] has dismantled [src] containing energy sword(s)!")
 	new weapon(disassemble_turf)
 	new weapon(disassemble_turf)
 	new weapon(disassemble_turf)
