@@ -74,15 +74,13 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/attack(mob/living/user, mob/living/carbon/target)
+/obj/item/flamethrower/attack(mob/living/user, mob/living/target)
 	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+	if(!istype(cig) || target.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
 		return ..()
+	cigarette_lighter_act(user, target)
 
-	cig.attackby(user, target, src)
-	return FALSE // So you don't do a melee attack.
-
-/obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/carbon/target)
+/obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/target)
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to ignite [src] before you can use it as a lighter!</span>")
 		return
@@ -96,13 +94,13 @@
 		if(user == target)
 			user.visible_message(
 				"<span class='warning'>[user] confidently lifts up [src] in front of [user.p_their()] face and releases a big puff of flame at [I] in [user.p_their()] mouth to light it, like some kind of psychopath!</span>",
-				"<span class='warning'>You lift up [src] in front of your face and lightly pull the trigger, lighting [I].</span>",
+				"<span class='notice'>You lift up [src] in front of your face and lightly pull the trigger, lighting [I].</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
 				)
 		else
 			user.visible_message(
 				"<span class='warning'>[user] confidently lifts up [src] in front of the face of [target] and releases a big puff of flame at [target.p_their()] [I] to light it, like some kind of psychopath!</span>",
-				"<span class='warning'>You lift up [src] in front of the face of [target] and lightly pull the trigger, lighting [I] in [target.p_their()] mouth with a big puff of flame.</span>",
+				"<span class='notice'>You lift up [src] in front of the face of [target] and lightly pull the trigger, lighting [I] in [target.p_their()] mouth with a big puff of flame.</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
 			)
 		return

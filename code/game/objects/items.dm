@@ -979,5 +979,5 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
   *
   * Override this proc with everything the item will do, call light() on the cigarette to actually light the cigarette.
   */
-/obj/item/proc/cigarette_lighter_act(mob/living/user, mob/living/carbon/target, obj/item/I)
+/obj/item/proc/cigarette_lighter_act(mob/living/user, mob/living/target)
 	return

@@ -211,7 +211,42 @@ CONTENTS:
 			return
 		return ..()	// Blow everyone else up!
 
-	cig.attackby(src, user, M)
+	cigarette_lighter_act(user, M)
+
+/obj/item/gun/magic/wand/fireball/cigarette_lighter_act(mob/living/user, mob/living/target)
+	if(!charges)
+		to_chat(user, "<span class='warning'>[src] is out of charge!</span>")
+		return
+
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+	if(I.lit)
+		to_chat(user, "<span class='warning'>[I] does not need to be zapped!</span>")
+		return
+
+	if(prob(50) || user.mind.assigned_role == "Wizard")
+		if(target == user)
+			user.visible_message(
+				"<span class='warning'>Holy shit! Did [user] just manage to light [user.p_their()] [I.name] with [src], with only moderate eyebrow singing!?</span>",
+				"<span class='notice'>You swish and flick [src], lighting [I] with a plume of flame, whilst only moderately eyebrow singing your eyebrows.</span>",
+				"<span class='warning'>You hear a brief burst of flame!</span>"
+				)
+		else
+			user.visible_message(
+				"<span class='warning'>Holy shit! Did [user] just manage to light [I] in the mouth of [target] with [src], only moderately singing [target.p_their()] eyebrows!?</span>",
+				"<span class='notice'>You swish and flick [src] at [target], lighting [user.p_their()] [I.name] with a plume of flame, whilst only moderately eyebrow singing [target.p_their()] eyebrows.</span>",
+				"<span class='warning'>You hear a brief burst of flame!</span>"
+				)
+		I.handle_cigarette_lighter_act(user, target, src)
+		return
+
+	// Oops...
+	user.visible_message(
+		"<span class='userdanger'>Unsure which end of [src] is which, [user] zaps [user.p_themselves()] with a fireball!</span>",
+		"<span class='userdanger'>Unsure which end of [src] is which, you accidentally zap yourself with a fireball!</span>",
+		"<span class='userdanger'>You hear a firey explosion!</span>"
+		)
+	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
+	charges--
 
 // This is needed to you don't try to perform an execution/suicide when lighting a cigarette.
 /obj/item/gun/magic/wand/fireball/handle_suicide(mob/user, mob/living/carbon/human/target, params)

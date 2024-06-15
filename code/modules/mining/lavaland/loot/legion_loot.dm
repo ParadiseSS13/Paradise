@@ -38,6 +38,30 @@
 		return FALSE
 	return ..()
 
+/obj/item/storm_staff/cigarette_lighter_act(mob/living/user, mob/living/target)
+	if(!thunder_charges)
+		to_chat(user, "<span class='warning'>[src] needs to recharge!</span>")
+		return
+
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+	if(!I.handle_cigarette_lighter_act(user, target, src))
+		return
+
+	if(target == user)
+		user.visible_message(
+			"<span class='warning'>[user] holds [src] up to [user.p_their()] [I] and shoots a tiny bolt of lightning that sets it alight!</span>",
+			"<span class='warning'>You hold [src] up to [I] and shoot a tiny bolt of lightning that sets it alight!</span>",
+			"<span class='danger'>A thundercrack fills the air!</span>"
+			)
+	else
+		user.visible_message(
+			"<span class='warning'>[user] points [src] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [I] alight!</span>",
+			"<span class='warning'>You point [src] at [target] and shoot a tiny bolt of lightning that sets [target.p_their()] [I] alight!</span>",
+			"<span class='danger'>A thundercrack fills the air!</span>"
+			)
+	playsound(target, 'sound/magic/lightningbolt.ogg', 50, TRUE)
+	thunder_charges--
+
 /obj/item/storm_staff/attack_self(mob/user)
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)
@@ -135,7 +159,10 @@
 		for(var/obj/hit_thing in T)
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
-	target.visible_message("<span class='danger'>A thunderbolt strikes [target]!</span>")
+	target.visible_message(
+		"<span class='danger'>A thunderbolt strikes [target]!</span>",
+		"<span class='danger'>A thundercrack fills the air!</span>"
+	)
 	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
 
 

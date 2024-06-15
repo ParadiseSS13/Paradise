@@ -4,19 +4,19 @@
 //////////////////////////////
 // MARK: Pronouns
 //////////////////////////////
-/// Applies one of "they", "it", "he", or "she" as appropriate.
+/// Applies one of "they", "it", "he", or "she" as appropriate. Set to TRUE to capitalise.
 /datum/proc/p_they(capitalized, temp_gender)
 	. = "it"
 	if(capitalized)
 		. = capitalize(.)
 
-/// Applies one of "their", "its", "his", or "her" as appropriate.
+/// Applies one of "their", "its", "his", or "her" as appropriate. Set to TRUE to capitalise.
 /datum/proc/p_their(capitalized, temp_gender)
 	. = "its"
 	if(capitalized)
 		. = capitalize(.)
 
-/// Applies one of "them", "it", "him", or "her" as appropriate.
+/// Applies one of "them", "it", "him", or "her" as appropriate. Set to TRUE to capitalise.
 /datum/proc/p_them(capitalized, temp_gender)
 	. = "it"
 	if(capitalized)
@@ -38,15 +38,15 @@
 /datum/proc/p_do(temp_gender)
 	. = "does"
 
-/// Applies one of "they've", "it's", "he's", or "she's" as appropriate.
+/// Applies one of "they've", "it's", "he's", or "she's" as appropriate. Set to TRUE to capitalise.
 /datum/proc/p_theyve(capitalized, temp_gender)
 	. = p_they(capitalized, temp_gender) + "'" + copytext(p_have(temp_gender), 3)
 
-/// Applies one of "they're", "it's", "he's", or "she's" as appropriate.
+/// Applies one of "they're", "it's", "he's", or "she's" as appropriate. Set to TRUE to capitalise.
 /datum/proc/p_theyre(capitalized, temp_gender)
 	. = p_they(capitalized, temp_gender) + "'" + copytext(p_are(temp_gender), 2)
 
-/// Applies one of "themselves", "itself", "himself", or "herself" as appropriate.
+/// Applies one of "themselves", "itself", "himself", or "herself" as appropriate. Set to TRUE to capitalise.
 /datum/proc/p_themselves(capitalized, temp_gender)
 	. = "itself"
 
