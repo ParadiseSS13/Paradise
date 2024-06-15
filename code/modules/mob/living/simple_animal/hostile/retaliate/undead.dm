@@ -108,6 +108,9 @@
 	melee_damage_upper = 15
 	deathmessage = null
 
+/mob/living/simple_animal/hostile/retaliate/skeleton/warden/Process_Spacemove(movement_dir)
+	return TRUE
+
 /mob/living/simple_animal/hostile/skeleton/angered_warden
 	name = "angered skeleton warden" //round 2
 	desc = "An angry skeleton. A keycard rests on its belt."
@@ -124,6 +127,9 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	loot = list(/obj/effect/decal/remains/human, /obj/item/clothing/head/warden, /obj/item/card/sec_shuttle_ruin)
+
+/mob/living/simple_animal/hostile/skeleton/angered_warden/Process_Spacemove(movement_dir)
+	return TRUE
 
 /mob/living/simple_animal/hostile/retaliate/zombie
 	name = "zombie"
