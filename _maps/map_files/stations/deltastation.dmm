@@ -80913,15 +80913,6 @@
 "nlB" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/prison/cell_block)
-"nlH" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/carpet/black,
-/area/station/service/chapel)
 "nmj" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/rack,
@@ -136229,7 +136220,7 @@ dbp
 dJx
 pKs
 tpl
-nlH
+bXT
 sjQ
 dSi
 tpl
