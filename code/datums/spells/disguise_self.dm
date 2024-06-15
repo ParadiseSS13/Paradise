@@ -30,7 +30,7 @@
 		to_chat(H, "<span class='danger'>You must stand still to cast [src]!</span>")
 		return FALSE
 
-/datum/spell/disguise_self/proc/finish_disguise(var/mob/living/carbon/human/H)
+/datum/spell/disguise_self/proc/finish_disguise(mob/living/carbon/human/H)
 	H.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE)
 	var/datum/effect_system/smoke_spread/smoke = new /datum/effect_system/smoke_spread
 	smoke.set_up(4, FALSE, H.loc)
