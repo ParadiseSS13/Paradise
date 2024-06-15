@@ -6572,6 +6572,13 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/trader_station/sol)
+"wr" = (
+/obj/machinery/economy/vending/cigarette/beach/centcomm,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "green"
+	},
+/area/centcom/evac)
 "ws" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/reedbush,
@@ -47868,7 +47875,7 @@ OF
 Nu
 QG
 OF
-Nu
+wr
 Xl
 XC
 YO
