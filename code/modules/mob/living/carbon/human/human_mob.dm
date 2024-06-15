@@ -988,20 +988,11 @@
 		affected.custom_pain("You feel a stabbing pain in your chest!")
 		L.linked_organ.damage = L.linked_organ.min_bruised_damage
 
-/mob/living/carbon/human/cuff_resist(obj/item/I)
+/mob/living/carbon/human/resist_restraints(attempt_breaking)
 	if(HAS_TRAIT(src, TRAIT_HULK))
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		if(..(I, TRUE))
-			unEquip(I)
-	else
-		if(..())
-			unEquip(I)
-
-/mob/living/carbon/human/resist_restraints()
-	if(wear_suit && wear_suit.breakouttime)
-		cuff_resist(wear_suit)
-	else
-		..()
+		attempt_breaking = TRUE
+	. = ..()
 
 /mob/living/carbon/human/generate_name()
 	name = dna.species.get_random_name(gender)
