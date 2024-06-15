@@ -25,6 +25,13 @@ type State = {
 // Picks out radio channel keycodes
 const CHANNEL_REGEX = /^[:#.][^\s]\s/;
 
+const ROWS: Record<keyof typeof WINDOW_SIZES, number> = {
+  small: 1,
+  medium: 2,
+  large: 3,
+  width: 1, // not used
+} as const;
+
 export class TguiSay extends Component<{}, State> {
   private channelIterator: ChannelIterator;
   private chatHistory: ChatHistory;
@@ -351,11 +358,14 @@ export class TguiSay extends Component<{}, State> {
               {this.state.buttonContent}
             </button>
             <textarea
+              autoCorrect="off"
               className={`textarea textarea-${theme}`}
               maxLength={this.maxLength}
               onInput={this.handleInput}
               onKeyDown={this.handleKeyDown}
               ref={this.innerRef}
+              spellCheck={false}
+              rows={ROWS[this.state.size] || 1}
             />
           </div>
           <Dragzone position="right" theme={theme} />

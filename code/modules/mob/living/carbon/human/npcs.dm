@@ -107,5 +107,5 @@
 /mob/living/carbon/human/monkey/magic/mind_checks()
 	if(!..())
 		return FALSE
-	mind.AddSpell(new /obj/effect/proc_holder/spell/turf_teleport/blink(null))
+	mind.AddSpell(new /datum/spell/turf_teleport/blink(null))
 	mind.special_role = SPECIAL_ROLE_WIZARD

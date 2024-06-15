@@ -13,6 +13,7 @@
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
+	var/current_emotion = 1
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 
 /obj/item/paicard/syndicate
@@ -302,8 +303,6 @@
 	overlays.Cut()
 	overlays += "pai-off"
 
-/obj/item/paicard
-	var/current_emotion = 1
 /obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
 		overlays.Cut()
@@ -320,7 +319,7 @@
 		current_emotion = emotion
 
 /obj/item/paicard/proc/alertUpdate()
-	var/turf/T = get_turf_or_move(loc)
+	var/turf/T = get_turf(loc)
 	for(var/mob/M in viewers(T))
 		M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Additional personalities available for download.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
 

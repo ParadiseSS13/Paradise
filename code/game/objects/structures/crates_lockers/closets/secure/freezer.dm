@@ -11,6 +11,7 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"
+	desc = "It's a card-locked cabinet for storing dry ingredients. It looks robust enough to withstand most explosions."
 	req_access = list(ACCESS_KITCHEN)
 
 /obj/structure/closet/secure_closet/freezer/kitchen/populate_contents()

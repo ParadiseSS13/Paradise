@@ -12,9 +12,9 @@
 		addtimer(CALLBACK(src, PROC_REF(resume_bleeding)), amount)
 
 /mob/living/carbon/human/proc/resume_bleeding()
-	bleedsuppress = FALSE
-	if(stat != DEAD && bleed_rate)
+	if(stat != DEAD && bleed_rate && bleedsuppress)
 		to_chat(src, "<span class='warning'>The blood soaks through your bandage.</span>")
+	bleedsuppress = FALSE
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
@@ -58,9 +58,9 @@
 			if(BP.is_robotic())
 				continue
 
-			//We want an accurate reading of .len
+			//We want an accurate reading of length()
 			listclearnulls(BP.embedded_objects)
-			temp_bleed += 0.5*BP.embedded_objects.len
+			temp_bleed += 0.5 * length(BP.embedded_objects)
 
 			if(brutedamage >= 20)
 				temp_bleed += (brutedamage * 0.013)
@@ -191,7 +191,7 @@
 			blood_data["viruses"] += D.Copy()
 
 		blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
-		if(resistances && resistances.len)
+		if(resistances && length(resistances))
 			blood_data["resistances"] = resistances.Copy()
 		var/list/temp_chem = list()
 		for(var/datum/reagent/R in reagents.reagent_list)

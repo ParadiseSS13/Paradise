@@ -45,53 +45,12 @@ const IdDisk = (properties, context) => {
       </Box>
       <Divider />
       <LabeledList>
-        <LabeledList.Item label="ID card">
-          {id ? (
-            <Button
-              selected
-              bold
-              verticalAlign="middle"
-              icon="eject"
-              content={id.name}
-              tooltip="Ejects the ID card."
-              onClick={() => act('eject_id')}
-              style={{
-                'white-space': 'pre-wrap',
-              }}
-            />
-          ) : (
-            <Button
-              icon="sign-in-alt"
-              content="Insert"
-              tooltip="Hold the ID card in your hand to insert."
-              onClick={() => act('insert_id')}
-            />
-          )}
-        </LabeledList.Item>
-        {id && (
-          <LabeledList.Item label="Current Mining Points">
-            <Box bold>{formatPoints(id.points)}</Box>
-          </LabeledList.Item>
-        )}
-        {id && (
-          <LabeledList.Item label="Total Mining Points">
-            <Box bold>{formatPoints(id.total_points)}</Box>
-          </LabeledList.Item>
-        )}
         <LabeledList.Item
           label="Unclaimed Points"
           color={points > 0 ? 'good' : 'grey'}
           bold={points > 0 && 'good'}
         >
           {formatPoints(points)}
-        </LabeledList.Item>
-        <LabeledList.Item>
-          <Button
-            disabled={!id}
-            icon="hand-holding-usd"
-            content="Claim"
-            onClick={() => act('claim')}
-          />
         </LabeledList.Item>
       </LabeledList>
       <Divider />

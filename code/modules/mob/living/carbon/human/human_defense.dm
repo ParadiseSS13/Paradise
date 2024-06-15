@@ -9,7 +9,7 @@ emp_act
 
 
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
-	if(!dna.species.bullet_act(P, src))
+	if(!dna.species.bullet_act(P, src, def_zone))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		P.reflect_back(src) //It has to be here, not on species. Why? Who knows. Testing showed me no reason why it doesn't work on species, and neither did tracing. It has to be here, or it gets qdel'd by bump.
 		return -1
@@ -93,6 +93,9 @@ emp_act
 		return
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
+		if(ismachineperson(src))
+			to_chat(user, "<span class='notice'>[p_they(TRUE)] [p_are()] missing that limb!</span>")
+			return TRUE
 		return
 	if(!S.is_robotic() || S.open == ORGAN_SYNTHETIC_OPEN)
 		return
@@ -162,7 +165,7 @@ emp_act
 	var/organnum = 0
 
 	if(def_zone)
-		if(isorgan(def_zone))
+		if(is_external_organ(def_zone))
 			return getarmor_organ(def_zone, type)
 		var/obj/item/organ/external/affecting = get_organ(def_zone)
 		if(affecting)
@@ -474,9 +477,11 @@ emp_act
 			return FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
+
+	// if the targeted limb doesn't exist, pick a new one at random so you don't have to swap target zone
 	if(!affecting)
-		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
-		return FALSE
+		affecting = pick(bodyparts)
+
 	var/hit_area = parse_zone(affecting.limb_name)
 
 	if(user != src)
@@ -594,16 +599,22 @@ emp_act
 
 	else if(I)
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
-			if(can_embed(I))
-				if(prob(I.embed_chance) && !HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-					var/obj/item/organ/external/L = pick(bodyparts)
-					L.add_embedded_object(I)
-					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
-					L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
-					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
-					hitpush = FALSE
-					skipcatch = TRUE //can't catch the now embedded item
+			if(try_embed_object(I))
+				hitpush = FALSE
+				skipcatch = TRUE //can't catch the now embedded item
 	return ..()
+
+/mob/living/carbon/human/proc/try_embed_object(obj/item/I)
+	if(!can_embed(I))
+		return FALSE
+	if(!prob(I.embed_chance) || HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
+		return FALSE
+	var/obj/item/organ/external/L = pick(bodyparts)
+	L.add_embedded_object(I)
+	I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
+	L.receive_damage(I.w_class * I.embedded_impact_pain_multiplier)
+	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+	return TRUE
 
 /mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
 
@@ -633,7 +644,8 @@ emp_act
 		if(check_shields(user, 15, "the [hulk_verb]ing"))
 			return
 		..(user, TRUE)
-		playsound(loc, user.dna.species.unarmed.attack_sound, 25, 1, -1)
+		var/datum/unarmed_attack/unarmed = user.get_unarmed_attack()
+		playsound(loc, unarmed.attack_sound, 25, TRUE, -1)
 		var/message = "[user] has [hulk_verb]ed [src]!"
 		visible_message("<span class='danger'>[message]</span>", "<span class='userdanger'>[message]</span>")
 		adjustBruteLoss(15)
@@ -760,10 +772,10 @@ emp_act
 	else
 		..()
 
-/mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
+/mob/living/carbon/human/experience_pressure_difference(flow_x, flow_y)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
 	if(HAS_TRAIT(src, TRAIT_NOSLIP))
-		return FALSE
+		return // Immune to gas flow.
 	return ..()
 
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)

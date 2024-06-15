@@ -22,7 +22,7 @@
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/bsa/full/B)
+	for(var/obj/machinery/bsa/full/B in GLOB.machines)
 		if(B && !B.stat && is_station_contact(B.z))
 			return TRUE
 	return FALSE
@@ -293,7 +293,7 @@
 	target_all_areas = TRUE
 
 /obj/machinery/computer/bsa_control/admin/Initialize()
-	..()
+	. = ..()
 	if(!cannon)
 		cannon = deploy()
 

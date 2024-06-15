@@ -26,7 +26,7 @@
 			to_chat(user, "<span class='warning'>You should clean [src] before you use it for food prep.</span>")
 		return 0
 	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]))
-		if(contents.len>=max_n_of_items)
+		if(length(contents)>=max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
 		if(istype(I, /obj/item/stack))
@@ -63,9 +63,9 @@
 	if(dirty)
 		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
 	else
-		var/list/items_counts = new
-		var/list/items_measures = new
-		var/list/items_measures_p = new
+		var/list/items_counts = list()
+		var/list/items_measures = list()
+		var/list/items_measures_p = list()
 		for(var/obj/O in contents)
 			var/display_name = O.name
 			if(istype(O,/obj/item/food/snacks/egg))
@@ -103,11 +103,11 @@
 				display_name = "Coldsauce"
 			dat += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
 
-		if(items_counts.len==0 && reagents.reagent_list.len==0)
+		if(length(items_counts)==0 && length(reagents.reagent_list)==0)
 			dat = {"<B>[src] is empty</B><BR>"}
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
-		dat += {"<hr><br> <a href='?src=[UID()];action=dispose'>Dispose ingredients!</a><br>"}
+		dat += {"<hr><br> <a href='byond://?src=[UID()];action=dispose'>Dispose ingredients!</a><br>"}
 
 	var/datum/browser/popup = new(user, name, name, 400, 400)
 	popup.set_content(dat)

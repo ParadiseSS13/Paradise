@@ -2,10 +2,9 @@
 //Bartender
 /obj/item/clothing/head/chefhat
 	name = "chef's hat"
-	desc = "It's a hat used by chefs to keep hair out of your food. Judging by the food in the mess, they don't work."
+	desc = "The commander in chef's head wear."
 	icon_state = "chef"
 	item_state = "chef"
-	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	put_on_delay = 10
 	dog_fashion = /datum/dog_fashion/head/chef
@@ -35,20 +34,6 @@
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "captain_cap"
 
-/obj/item/clothing/head/caphat/beret
-	name = "captain's beret"
-	desc = "For Captains that are more inclined towards style."
-	icon_state = "captain_beret"
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
-		)
-
-/obj/item/clothing/head/caphat/beret/white
-	name = "captain's white beret"
-	desc = "For Captains that are more inclined towards style, and for the color white."
-	icon_state = "captain_beret_white"
-
 //Head of Personnel
 /obj/item/clothing/head/hop
 	name = "head of personnel's cap"
@@ -62,16 +47,6 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
-/obj/item/clothing/head/hop/beret
-	name = "head of personnel's beret"
-	desc = "For doing paperwork with style."
-	icon_state = "beret_hop"
-	dog_fashion = /datum/dog_fashion/head/hop
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
-		)
-
 //Quartermaster
 /obj/item/clothing/head/qm
 	name = "quartermaster's cap"
@@ -82,16 +57,6 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-	)
-
-/obj/item/clothing/head/qm/beret
-	name = "quartermaster's beret"
-	desc = "A brown beret with a golden cargo insignia emblazoned on it. Rule over Cargonia in style."
-	icon_state = "beret_qm"
-	dog_fashion = /datum/dog_fashion/head/qm
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 	)
 
 //Nanotrasen Representative
@@ -151,24 +116,6 @@
 	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
-//Mime
-/obj/item/clothing/head/beret
-	name = "beret"
-	desc = "A beret, an artist's favorite headwear."
-	icon_state = "beret"
-	dog_fashion = /datum/dog_fashion/head/beret
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
-/obj/item/clothing/head/beret/durathread
-	name = "durathread beret"
-	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
-	icon_state = "beretdurathread"
-	item_color = null
-	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = 20, ACID = 5)
-
 //Security
 /obj/item/clothing/head/HoS
 	name = "head of security's cap"
@@ -177,16 +124,6 @@
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
 	strip_delay = 80
 	dog_fashion = /datum/dog_fashion/head/HoS
-
-/obj/item/clothing/head/HoS/beret
-	name = "head of security's beret"
-	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
-	icon_state = "beret_hos_black"
-	dog_fashion = /datum/dog_fashion/head/HoS
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
@@ -221,61 +158,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
-/obj/item/clothing/head/beret/sec
-	name = "security beret"
-	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
-	icon_state = "beret_officer"
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
-	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/beret/sec
-
-/obj/item/clothing/head/beret/sec/warden
-	name = "warden's beret"
-	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
-	icon_state = "beret_warden"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 20, ACID = 50)
-
-/obj/item/clothing/head/beret/eng
-	name = "engineering beret"
-	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
-	icon_state = "beret_engineering"
-
-/obj/item/clothing/head/beret/atmos
-	name = "atmospherics beret"
-	desc = "A beret for those who have shown immaculate proficienty in piping. Or plumbing."
-	icon_state = "beret_atmospherics"
-
-/obj/item/clothing/head/beret/ce
-	name = "chief engineer's beret"
-	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
-	icon_state = "beret_ce"
-
-/obj/item/clothing/head/beret/sci
-	name = "science beret"
-	desc = "A white beret with a purple science insignia emblazoned on it. It has that authentic smell of burning plasma."
-	icon_state = "beret_science"
-
-/obj/item/clothing/head/beret/robowhite
-	name = "robotics beret"
-	desc = "A white beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
-	icon_state = "beret_roboticswhite"
-
-/obj/item/clothing/head/beret/roboblack
-	name = "bioengineer beret"
-	desc = "A black beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
-	icon_state = "beret_roboticsblack"
-
-/obj/item/clothing/head/beret/janitor
-	name = "janitorial beret"
-	desc = "A purple beret with a mint service insignia emblazoned on it. It smells squeaky clean."
-	icon_state = "beret_janitor"
 
 //Medical
-/obj/item/clothing/head/beret/med
-	name = "medical beret"
-	desc = "A white beret with a green cross finely threaded into it. It has that sterile smell about it."
-	icon_state = "beret_med"
-
 /obj/item/clothing/head/surgery
 	name = "blue surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."
@@ -309,21 +193,3 @@
 	desc = "A cap coroners wear during autopsies. Keeps their hair from falling into the cadavers. It is as dark as the coroner's humor."
 	icon_state = "surgcap_black"
 	dog_fashion = /datum/dog_fashion/head/surgery
-
-//Special Roles
-/obj/item/clothing/head/beret/solgov/command
-	name = "\improper Trans-Solar Federation Lieutenant's beret"
-	desc = "A beret worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
-	icon_state = "solgovcberet"
-	item_color = "solgovc"
-	dog_fashion = null
-	armor = list(MELEE = 10, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
-	strip_delay = 80
-
-/obj/item/clothing/head/beret/solgov/command/elite
-	name = "\improper Trans-Solar Federation Specops Lieutenant's beret"
-	desc = "A beret worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
-	icon_state = "solgovceliteberet"
-	item_color = "solgovcelite"
-	resistance_flags = FIRE_PROOF

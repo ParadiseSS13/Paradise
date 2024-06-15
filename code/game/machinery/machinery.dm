@@ -7,6 +7,8 @@
 	layer = BELOW_OBJ_LAYER
 	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
 	atom_say_verb = "beeps"
+	flags_ricochet = RICOCHET_HARD
+	receive_ricochet_chance_mod = 0.3
 	var/stat = 0
 
 	/// How is this machine currently passively consuming power?
@@ -272,7 +274,7 @@
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		on_deconstruction()
-		if(component_parts && component_parts.len)
+		if(component_parts && length(component_parts))
 			spawn_frame(disassembled)
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
@@ -397,13 +399,26 @@
 						else if(B.rating <= A.rating)
 							continue
 						W.remove_from_storage(B, src)
-						W.handle_item_insertion(A, 1)
+						W.handle_item_insertion(A, user, TRUE)
 						component_parts -= A
 						component_parts += B
 						B.loc = null
 						to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
-						shouldplaysound = 1
+						shouldplaysound = TRUE
 						break
+			for(var/obj/item/reagent_containers/glass/beaker/A in component_parts)
+				for(var/obj/item/reagent_containers/glass/beaker/B in W.contents)
+					// If it's not better -> next content
+					if(B.reagents.maximum_volume <= A.reagents.maximum_volume)
+						continue
+					W.remove_from_storage(B, src)
+					W.handle_item_insertion(A, TRUE)
+					component_parts -= A
+					component_parts += B
+					B.loc = null
+					to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
+					shouldplaysound = TRUE
+					break
 			RefreshParts()
 		else
 			to_chat(user, display_parts(user))

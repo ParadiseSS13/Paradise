@@ -262,40 +262,6 @@
 /proc/format_frequency(f)
 	return "[round(f / 10)].[f % 10]"
 
-/obj/proc/atmosanalyzer_scan(datum/gas_mixture/air_contents, mob/user, obj/target = src)
-	var/obj/icon = target
-	if(isliving(user))
-		user.visible_message("<span class='notice'>[user] uses the analyzer on [target].</span>", "<span class='notice'>You use the analyzer on [target].</span>")
-	var/pressure = air_contents.return_pressure()
-	var/total_moles = air_contents.total_moles()
-	var/volume = air_contents.return_volume()
-
-	user.show_message("<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>", 1)
-	if(total_moles>0)
-		var/o2_concentration = air_contents.oxygen/total_moles
-		var/n2_concentration = air_contents.nitrogen/total_moles
-		var/co2_concentration = air_contents.carbon_dioxide/total_moles
-		var/plasma_concentration = air_contents.toxins/total_moles
-		var/n2o_concentration = air_contents.sleeping_agent/total_moles
-
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration+n2o_concentration)
-
-		user.show_message("<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>", 1)
-		user.show_message("<span class='notice'>Nitrogen: [round(n2_concentration*100)] % ([round(air_contents.nitrogen,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Oxygen: [round(o2_concentration*100)] % ([round(air_contents.oxygen,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>CO2: [round(co2_concentration*100)] % ([round(air_contents.carbon_dioxide,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Plasma: [round(plasma_concentration*100)] % ([round(air_contents.toxins,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Nitrous Oxide: [round(n2o_concentration*100)] % ([round(air_contents.sleeping_agent,0.01)] moles)</span>", 1)
-		if(unknown_concentration>0.01)
-			user.show_message("<span class='danger'>Unknown: [round(unknown_concentration*100)] % ([round(unknown_concentration*total_moles,0.01)] moles)</span>", 1)
-		user.show_message("<span class='notice'>Total: [round(total_moles,0.01)] moles</span>", 1)
-		user.show_message("<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>", 1)
-		user.show_message("<span class='notice'>Volume: [round(volume)] Liters</span>", 1)
-	else
-		user.show_message("<span class='notice'>[target] is empty!</span>", 1)
-		user.show_message("<span class='notice'>Volume: [round(volume)] Liters</span>", 1)
-	return
-
 //Picks a string of symbols to display as the law number for hacked or ion laws
 /proc/ionnum()
 	return "[pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
@@ -323,7 +289,6 @@
 		if(A.control_disabled)
 			continue
 		. += A
-	return .
 
 //Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
 /proc/select_active_ai_with_fewest_borgs()
@@ -485,12 +450,12 @@
 //For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
 //Optional arg 'type' to stop once it reaches a specific type instead of a turf.
 /proc/get_atom_on_turf(atom/movable/M, stop_type)
-	var/atom/loc = M
-	while(loc?.loc && !isturf(loc.loc))
-		loc = loc.loc
-		if(stop_type && istype(loc, stop_type))
+	var/atom/current = M
+	while(current?.loc && !isturf(current.loc))
+		current = current.loc
+		if(stop_type && istype(current, stop_type))
 			break
-	return loc
+	return current
 
 /*
 Returns 1 if the chain up to the area contains the given typepath
@@ -578,6 +543,42 @@ Returns 1 if the chain up to the area contains the given typepath
 		starting_turf = check
 
 	return starting_turf
+
+// returns turf relative to A for a given clockwise angle at set range
+// result is bounded to map size
+/proc/get_angle_target_turf(atom/A, angle, range)
+	if(!istype(A))
+		return null
+	var/x = A.x
+	var/y = A.y
+
+	x += range * sin(angle)
+	y += range * cos(angle)
+
+	//Restricts to map boundaries while keeping the final angle the same
+	var/dx = A.x - x
+	var/dy = A.y - y
+	var/ratio
+	if(dy == 0) //prevents divide-by-zero errors
+		ratio = INFINITY
+	else
+		ratio = dx / dy
+
+	if(x < 1)
+		y += (1 - x) / ratio
+		x = 1
+	else if(x > world.maxx)
+		y += (world.maxx - x) / ratio
+		x = world.maxx
+
+	if(y < 1)
+		x += (1 - y) * ratio
+		y = 1
+	else if(y > world.maxy)
+		x += (world.maxy - y) * ratio
+		y = world.maxy
+
+	return locate(round(x, 1), round(y, 1), A.z)
 
 // returns turf relative to A offset in dx and dy tiles
 // bound to map limits
@@ -720,16 +721,19 @@ Returns 1 if the chain up to the area contains the given typepath
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all turfs in areas of that type of that type in the world.
 /proc/get_area_turfs(areatype)
-	if(!areatype) return null
-	if(istext(areatype)) areatype = text2path(areatype)
+	if(!areatype)
+		return
+	if(istext(areatype))
+		areatype = text2path(areatype)
 	if(isarea(areatype))
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
 	var/list/turfs = list()
-	for(var/area/N in world)
+	for(var/area/N as anything in GLOB.all_areas)
 		if(istype(N, areatype))
-			for(var/turf/T in N) turfs += T
+			for(var/turf/T in N)
+				turfs += T
 	return turfs
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
@@ -754,7 +758,7 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/y_pos
 	var/z_pos
 
-/area/proc/move_contents_to(area/A, turf_to_leave, direction)
+/area/proc/move_contents_to(area/A, turf_to_leave, direction) // someone rewrite this function i beg of you
 	//Takes: Area. Optional: turf type to leave behind.
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
@@ -763,7 +767,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	if(!A || !src) return 0
 
-	var/list/turfs_src = get_area_turfs(src.type)
+	var/list/turfs_src = get_area_turfs(type)
 	var/list/turfs_trg = get_area_turfs(A.type)
 
 	var/src_min_x = 0
@@ -815,8 +819,8 @@ Returns 1 if the chain up to the area contains the given typepath
 
 					// Give the new turf our air, if simulated
 					if(issimulatedturf(X) && issimulatedturf(T))
-						var/turf/simulated/sim = X
-						sim.copy_air_with_tile(T)
+						var/datum/milla_safe/area_move_transrer_gas/milla = new()
+						milla.invoke_async(T, X)
 
 					// Quick visual fix for some weird shuttle corner artefacts when on transit space tiles
 					if(direction && findtext(X.icon_state, "swall_s"))
@@ -872,18 +876,10 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-	if(length(to_update))
-		for(var/turf/simulated/T1 in to_update)
-			SSair.remove_from_active(T1)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1, TRUE)
+/datum/milla_safe/area_move_transrer_gas
 
-	if(length(from_update))
-		for(var/turf/simulated/T2 in from_update)
-			SSair.remove_from_active(T2)
-			T2.CalculateAdjacentTurfs()
-			SSair.add_to_active(T2, TRUE)
-
+/datum/milla_safe/area_move_transrer_gas/on_run(turf/source, turf/target)
+	get_turf_air(target).copy_from(get_turf_air(source))
 
 /proc/DuplicateObject(obj/original, perfectcopy = 0, sameloc = 0, atom/newloc)
 	if(!original)
@@ -1004,11 +1000,6 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-	if(length(to_update))
-		for(var/turf/simulated/T1 in to_update)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
-
 	return copied_objects
 
 
@@ -1124,51 +1115,20 @@ Returns 1 if the chain up to the area contains the given typepath
 		loc = loc.loc
 	return null
 
-/proc/get_turf_or_move(turf/location)
-	return get_turf(location)
-
-
-//For objects that should embed, but make no sense being is_sharp or is_pointed()
+//For objects that should embed, but make no sense being sharp or is_pointed()
 //e.g: rods
 GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	/obj/item/stack/rods,
 	/obj/item/pipe)))
 
 /proc/can_embed(obj/item/W)
-	if(is_sharp(W))
-		return 1
+	if(W.sharp)
+		return TRUE
 	if(is_pointed(W))
-		return 1
+		return TRUE
 
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
-		return 1
-
-//Whether or not the given item counts as sharp in terms of dealing damage
-/proc/is_sharp(obj/O)
-	if(!O)
-		return 0
-	if(O.sharp)
-		return 1
-	return 0
-
-/proc/reverse_direction(dir)
-	switch(dir)
-		if(NORTH)
-			return SOUTH
-		if(NORTHEAST)
-			return SOUTHWEST
-		if(EAST)
-			return WEST
-		if(SOUTHEAST)
-			return NORTHWEST
-		if(SOUTH)
-			return NORTH
-		if(SOUTHWEST)
-			return NORTHEAST
-		if(WEST)
-			return EAST
-		if(NORTHWEST)
-			return SOUTHEAST
+		return TRUE
 
 /*
 Checks if that loc and dir has a item on the wall
@@ -1180,7 +1140,7 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 	/obj/machinery/computer/security/telescreen, /obj/machinery/airlock_controller,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
-	/obj/structure/sign)))
+	/obj/structure/sign, /obj/machinery/barsign)))
 
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)
@@ -1225,7 +1185,7 @@ Standard way to write links -Sayu
 /proc/topic_link(datum/D, arglist, content)
 	if(islist(arglist))
 		arglist = list2params(arglist)
-	return "<a href='?src=[D.UID()];[arglist]'>[content]</a>"
+	return "<a href='byond://?src=[D.UID()];[arglist]'>[content]</a>"
 
 
 
@@ -1336,7 +1296,7 @@ Standard way to write links -Sayu
 /proc/get_random_colour(simple, lower, upper)
 	var/colour
 	if(simple)
-		colour = pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))
+		colour = pick("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF")
 	else
 		for(var/i=1;i<=3;i++)
 			var/temp_col = "[num2hex(rand(lower,upper), 2)]"
@@ -1383,10 +1343,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	move_resist = INFINITY
 	simulated = 0
 	see_in_dark = 1e6
-
-/mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
-	SHOULD_CALL_PARENT(FALSE)
-	return
 
 /mob/dview/Destroy()
 	SHOULD_CALL_PARENT(FALSE)
@@ -1608,17 +1564,18 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 				closest_atom = A
 	return closest_atom
 
-/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
-	if(!value) //nothing should be calling us with a number, so this is safe
-		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
-		if(isnull(value))
-			return
-	value = trim(value)
-	if(!isnull(value) && value != "")
-		matches = filter_fancy_list(matches, value)
+/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types(), skip_filter = FALSE)
+	if(!skip_filter)
+		if(!value) //nothing should be calling us with a number, so this is safe
+			value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
+			if(isnull(value))
+				return
+		value = trim(value)
+		if(!isnull(value) && value != "")
+			matches = filter_fancy_list(matches, value)
 
-	if(!length(matches))
-		return
+		if(!length(matches))
+			return
 
 	var/chosen
 	if(length(matches) == 1)
@@ -1714,6 +1671,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/structure = "STRUCTURE",
 			/obj/vehicle = "VEHICLE",
 			/obj = "O",
+			/datum/station_goal/secondary = "S_GOAL",
+			/datum/station_goal = "GOAL",
 			/datum = "D",
 			/turf/simulated/floor = "SIM_FLOOR",
 			/turf/simulated/wall = "SIM_WALL",
@@ -1921,6 +1880,27 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	pixel_x = initialpixelx
 	pixel_y = initialpixely
 
+/// Returns a turf based on text inputs, original turf and viewing client
+/proc/parse_caught_click_modifiers(list/modifiers, turf/origin, client/viewing_client)
+	if(!modifiers)
+		return
+
+	var/screen_loc = splittext(modifiers["screen-loc"], ",")
+	var/list/actual_view = getviewsize(viewing_client ? viewing_client.view : world.view)
+	var/click_turf_x = splittext(screen_loc[1], ":")
+	var/click_turf_y = splittext(screen_loc[2], ":")
+	var/click_turf_z = origin.z
+
+	var/click_turf_px = text2num(click_turf_x[2])
+	var/click_turf_py = text2num(click_turf_y[2])
+	click_turf_x = origin.x + text2num(click_turf_x[1]) - round(actual_view[1] / 2) - 1
+	click_turf_y = origin.y + text2num(click_turf_y[1]) - round(actual_view[2] / 2) - 1
+
+	var/turf/click_turf = locate(clamp(click_turf_x, 1, world.maxx), clamp(click_turf_y, 1, world.maxy), click_turf_z)
+	LAZYSET(modifiers, "icon-x", "[(click_turf_px - click_turf.pixel_x) + ((click_turf_x - click_turf.x) * world.icon_size)]")
+	LAZYSET(modifiers, "icon-y", "[(click_turf_py - click_turf.pixel_y) + ((click_turf_y - click_turf.y) * world.icon_size)]")
+	return click_turf
+
 /proc/params2turf(scr_loc, turf/origin, client/C)
 	if(!scr_loc)
 		return null
@@ -2066,3 +2046,18 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/is_color_dark(color, threshold = 25)
 	var/hsl = rgb2num(color, COLORSPACE_HSL)
 	return hsl[3] < threshold
+
+/**
+ * This proc takes a list of types, and returns them in the format below.
+ * [type] = amount of type in list.
+ * Useful for recipes.
+ */
+/proc/type_list_to_counted_assoc_list(list/origin_list)
+	var/list/return_list = list()
+	for(var/datum/path as anything in origin_list)
+		if(isdatum(path))
+			path = path.type
+		if(!return_list[path])
+			return_list[path] = 0
+		return_list[path] += 1
+	return return_list

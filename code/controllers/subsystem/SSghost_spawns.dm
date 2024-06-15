@@ -130,8 +130,8 @@ SUBSYSTEM_DEF(ghost_spawns)
 		// Chat message
 		var/act_jump = ""
 		if(isatom(source))
-			act_jump = "<a href='?src=[M.UID()];jump=\ref[source]'>\[Teleport]</a>"
-		var/act_signup = "<a href='?src=[A.UID()];signup=1'>\[Sign Up]</a>"
+			act_jump = "<a href='byond://?src=[M.UID()];jump=\ref[source]'>\[Teleport]</a>"
+		var/act_signup = "<a href='byond://?src=[A.UID()];signup=1'>\[Sign Up]</a>"
 		to_chat(M, "<big><span class='boldnotice'>Now looking for candidates [role ? "to play as \an [role_cleanname || get_roletext(role)]" : "\"[question]\""]. [act_jump] [act_signup] [reason ? "<i>\nReason: [sanitize(reason)]</i>" : ""]</span></big>")
 
 		// Start processing it so it updates visually the timer

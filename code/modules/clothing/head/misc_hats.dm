@@ -27,18 +27,6 @@
 	item_state = "jwig"
 	dog_fashion = /datum/dog_fashion/head/justice_wig
 
-/obj/item/clothing/head/beret/blue
-	icon_state = "beret_blue"
-
-/obj/item/clothing/head/beret/black
-	icon_state = "beret_black"
-
-/obj/item/clothing/head/beret/white
-	icon_state = "beret_white"
-
-/obj/item/clothing/head/beret/purple_normal
-	icon_state = "beret_purple_normal"
-
 /obj/item/clothing/head/that
 	name = "top-hat"
 	desc = "It's an amish looking hat."
@@ -96,8 +84,11 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 	sprite_sheets = list(
-	"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
-	)
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi')
 
 
 /obj/item/clothing/head/cueball
@@ -125,14 +116,6 @@
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
-
-/obj/item/clothing/head/that
-	name = "sturdy top-hat"
-	desc = "It's an amish looking armored top hat."
-	icon_state = "tophat"
-	item_state = "that"
-	flags_inv = 0
-
 
 /obj/item/clothing/head/greenbandana
 	name = "green bandana"
@@ -247,6 +230,12 @@
 	item_state = "cowboyhat"
 	desc = "For the Rancher in us all."
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		)
+
 /obj/item/clothing/head/cowboyhat/tan
 	name = "tan cowboy hat"
 	icon_state = "cowboyhat_tan"
@@ -270,6 +259,12 @@
 	icon_state = "cowboyhat_pink"
 	item_state = "cowboyhat_pink"
 	desc = "For those buckle bunnies wanta' become a real buckaroo."
+
+/obj/item/clothing/head/cowboyhat/sec
+	name = "security cowboy hat"
+	desc = "Secway is your horse."
+	icon_state = "cowboyhat_sec"
+	item_state = "cowboyhat_sec"
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
@@ -355,7 +350,7 @@
 	icon_state = "enhead"
 
 /obj/item/clothing/head/bearpelt
-	name = "bear pelt hat"
+	name = "space bear pelt hat"
 	desc = "Fuzzy."
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
@@ -364,6 +359,22 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
+
+/obj/item/clothing/head/bearpelt/black
+	name = "black bear pelt hat"
+	icon_state = "black_bearpelt"
+	item_state = "black_bearpelt"
+
+/obj/item/clothing/head/bearpelt/brown
+	name = "brown bear pelt hat"
+	icon_state = "brown_bearpelt"
+	item_state = "brown_bearpelt"
+
+/obj/item/clothing/head/bearpelt/polar
+	name = "polar bear pelt hat"
+	desc = "Fuzzy, and also stained with blood."
+	icon_state = "polar_bearpelt"
+	item_state = "polar_bearpelt"
 
 /obj/item/clothing/head/xenos
 	name = "xeno helmet"
@@ -403,23 +414,6 @@
 	desc = " A purple beret, with a small golden crescent moon sewn onto it."
 	icon_state = "beret_purple"
 	item_state = "purpleberet"
-
-/obj/item/clothing/head/beret/centcom/officer
-	name = "officer beret"
-	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
-	icon_state = "beret_centcom_officer"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 10, ACID = 50)
-	strip_delay = 60
-
-/obj/item/clothing/head/beret/centcom/officer/navy
-	name = "navy blue officer beret"
-	desc = "A navy blue beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
-	icon_state = "beret_centcom_officer_navy"
-
-/obj/item/clothing/head/beret/centcom/captain
-	name = "captain's beret"
-	desc = "A white beret adorned with the shield—a cobalt kite shield with an engraved sword—of the Nanotrasen security forces, worn only by those captaining a vessel of the Nanotrasen Navy."
-	icon_state = "beret_centcom_captain"
 
 /obj/item/clothing/head/sombrero
 	name = "sombrero"

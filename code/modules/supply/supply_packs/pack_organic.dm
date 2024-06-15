@@ -135,7 +135,8 @@
 	name = "Bar Starter Kit"
 	contains = list(/obj/item/storage/box/drinkingglasses,
 					/obj/item/circuitboard/chem_dispenser/soda,
-					/obj/item/circuitboard/chem_dispenser/beer)
+					/obj/item/circuitboard/chem_dispenser/beer,
+					/obj/item/barsign_electronics)
 	cost = 250
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
@@ -162,6 +163,9 @@
 /datum/supply_packs/organic/chicken
 	name = "Chicken Crate"
 	cost = 100
+	contains_special = list(
+		"4 to 6 chickens"
+	)
 	containertype = /obj/structure/closet/critter/chick
 	containername = "chicken crate"
 

@@ -1,7 +1,5 @@
 //Damage things	//TODO: merge these down to reduce on defines
 //Way to waste perfectly good damagetype names (BRUTE) on this... If you were really worried about case sensitivity, you could have just used lowertext(damagetype) in the proc...
-#define CUT 		"cut"
-#define BRUISE		"bruise"
 #define BRUTE		"brute"
 #define BURN		"fire"
 #define TOX			"tox"
@@ -36,12 +34,13 @@
 #define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
-#define BRUTELOSS       (1<<0)
-#define FIRELOSS        (1<<1)
-#define TOXLOSS         (1<<2)
-#define OXYLOSS         (1<<3)
-#define SHAME           (1<<4)
-#define OBLITERATION    (1<<5)
+#define BRUTELOSS		(1<<0)
+#define FIRELOSS		(1<<1)
+#define TOXLOSS			(1<<2)
+#define OXYLOSS			(1<<3)
+/// Stam crits the effected mob, as well as ensures they dont die from suicide
+#define SHAME 			(1<<4)
+#define OBLITERATION 	(1<<5)
 
 //Bitflags defining which status effects could be or are inflicted on a mob
 #define CANSTUN			(1<<0)
@@ -156,3 +155,10 @@
 #define STATUS_EFFECT_CONSTANT * 20
 
 #define IS_HORIZONTAL(x) x.body_position
+
+/// Compatible firemode is in the gun. Wait until it's held in the user hands.
+#define AUTOFIRE_STAT_IDLE (1<<0)
+/// Gun is active and in the user hands. Wait until user does a valid click.
+#define AUTOFIRE_STAT_ALERT	(1<<1)
+/// Gun is shooting.
+#define AUTOFIRE_STAT_FIRING (1<<2)

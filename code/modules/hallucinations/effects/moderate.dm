@@ -61,11 +61,11 @@
 		"\improper ARG" = list('icons/obj/guns/projectile.dmi', "arg-30"),
 		"\improper C4" = list('icons/obj/grenade.dmi', "plastic-explosive0"),
 		"\improper L6 SAW" = list('icons/obj/guns/projectile.dmi', "l6closed100"),
-		"chainsaw" = list('icons/obj/items.dmi', "chainsaw0"),
+		"chainsaw" = list('icons/obj/weapons/melee.dmi', "chainsaw0"),
 		"combat shotgun" = list('icons/obj/guns/projectile.dmi', "cshotgun"),
-		"double-bladed energy sword" = list('icons/obj/items.dmi', "dualsaberred1"),
-		"energy sword" = list('icons/obj/items.dmi', "swordred"),
-		"fireaxe" = list('icons/obj/items.dmi', "fireaxe1"),
+		"double-bladed energy sword" = list('icons/obj/weapons/energy_melee.dmi', "dualsaberred1"),
+		"energy sword" = list('icons/obj/weapons/energy_melee.dmi', "swordred"),
+		"fireaxe" = list('icons/obj/weapons/melee.dmi', "fireaxe1"),
 		"ritual dagger" = list('icons/obj/cult.dmi', "blood_dagger"),
 		"ritual dagger" = list('icons/obj/cult.dmi', "death_dagger"),
 		"ritual dagger" = list('icons/obj/cult.dmi', "hell_dagger"),
@@ -234,7 +234,7 @@
 /obj/effect/hallucination/delamination_alarm/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 	target.playsound_local(target, 'sound/machines/engine_alert2.ogg', 25, FALSE, 30, 30)
-	target.hear_radio(message_to_multilingual("Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(30, 50)]%"), vname = "supermatter crystal", part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
+	target.hear_radio(message_to_multilingual("<b>Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(30, 50)]%</b>"), vname = "supermatter crystal", part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 
 /**
   * # Hallucination - Plasma Flood
@@ -284,9 +284,9 @@
 		var/turf/source_turf = t
 		expand_queue -= source_turf
 		// Expand to each dir
-		for(var/dir in GLOB.cardinal)
-			var/turf/target_turf = get_step(source_turf, dir)
-			if(processed[target_turf] || !source_turf.CanAtmosPass(target_turf))
+		for(var/direction in GLOB.cardinal)
+			var/turf/target_turf = get_step(source_turf, direction)
+			if(processed[target_turf] || !source_turf.CanAtmosPass(direction) || !target_turf.CanAtmosPass(turn(direction, 180)))
 				continue
 			create_plasma(target_turf)
 			expand_queue += target_turf
@@ -437,7 +437,7 @@
   * Returns the image to use as override to the target's appearance.
   */
 /obj/effect/hallucination/self_delusion/proc/get_image()
-	return image('icons/mob/animal.dmi', target, pick("bear", "brownbear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
+	return image('icons/mob/animal.dmi', target, pick("black_bear", "brown_bear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
 
 /**
   * # Hallucination - Delusion
@@ -466,4 +466,4 @@
   * Returns the image to use as override to the target's appearance.
   */
 /obj/effect/hallucination/delusion/proc/get_image(mob/living/carbon/human/H)
-	return image('icons/mob/animal.dmi', H, pick("bear", "brownbear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))
+	return image('icons/mob/animal.dmi', H, pick("black_bear", "brown_bear", "corgi", "cow", "deer", "goat", "goose", "pig", "blank-body"))

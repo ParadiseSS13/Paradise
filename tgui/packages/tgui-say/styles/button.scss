@@ -20,6 +20,13 @@
   }
 }
 
+// Remove conditionals with 516
+@supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
+  .button {
+    outline: none;
+  }
+}
+
 .button-lightMode {
   background-color: colors.$lightBorder;
   border: none;

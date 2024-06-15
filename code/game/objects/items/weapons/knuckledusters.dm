@@ -1,7 +1,7 @@
 /obj/item/melee/knuckleduster
 	name = "knuckleduster"
 	desc = "Simple metal punch enhancers, perfect for bar brawls."
-	icon = 'icons/obj/knuckleduster.dmi'
+	icon = 'icons/obj/weapons/knuckleduster.dmi'
 	icon_state = "knuckleduster"
 	flags = CONDUCT
 	force = 10

@@ -42,7 +42,7 @@
 	var/turf/location = loc
 	if(ismob(location))
 		var/mob/M = location
-		if(M.l_hand == src || M.r_hand == src)
+		if(M.is_holding(src))
 			location = M.loc
 	if(isturf(location)) //start a fire if possible
 		igniter.flamethrower_process(location)
@@ -122,8 +122,6 @@
 		update_icon()
 		return
 
-	else if(istype(I, /obj/item/analyzer) && ptank)
-		atmosanalyzer_scan(ptank.air_contents, user)
 	else
 		return ..()
 
@@ -155,6 +153,11 @@
 	status = !status
 	to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
 	update_icon()
+
+/obj/item/flamethrower/return_analyzable_air()
+	if(ptank)
+		return ptank.return_analyzable_air()
+	return null
 
 /obj/item/flamethrower/attack_self(mob/user)
 	toggle_igniter(user)
@@ -204,11 +207,11 @@
 	operating = TRUE
 	var/turf/previousturf = get_turf(src)
 	for(var/turf/simulated/T in turflist)
-		if(!T.air)
+		if(T.blocks_air)
 			break
 		if(T == previousturf)
 			continue	//so we don't burn the tile we be standin on
-		if(!T.CanAtmosPass(previousturf))
+		if(!T.CanAtmosPass(get_dir(T, previousturf)) || !previousturf.CanAtmosPass(get_dir(previousturf, T)))
 			break
 		if(igniter)
 			igniter.ignite_turf(src, T)
@@ -226,13 +229,10 @@
 	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
 	//Transfer 5% of current tank air contents to turf
 	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
-	if(air_transfer.toxins)
-		air_transfer.toxins = air_transfer.toxins * 5
-	target.assume_air(air_transfer)
-	//Burn it based on transfered gas
-	target.hotspot_expose((ptank.air_contents.temperature*2) + 380, 500)
-	//location.hotspot_expose(1000,500,1)
-	SSair.add_to_active(target, 0)
+	if(air_transfer.toxins())
+		air_transfer.set_toxins(air_transfer.toxins() * 5)
+	target.blind_release_air(air_transfer)
+	target.hotspot_expose((ptank.air_contents.temperature() * 2) + 380, 500)
 
 
 /obj/item/flamethrower/Initialize(mapload)

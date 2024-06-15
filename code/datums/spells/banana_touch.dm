@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/touch/banana
+/datum/spell/touch/banana
 	name = "Banana Touch"
 	desc = "A spell popular at wizard birthday parties, this spell will put on a clown costume on the target, \
 		stun them with a loud HONK, and mutate them to make them more entertaining! \
@@ -19,7 +19,7 @@
 	icon_state = "banana_touch"
 	item_state = "banana_touch"
 
-/obj/effect/proc_holder/spell/touch/banana/apprentice
+/datum/spell/touch/banana/apprentice
 	hand_path = /obj/item/melee/touch_attack/banana/apprentice
 
 /obj/item/melee/touch_attack/banana/apprentice

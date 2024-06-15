@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(debugview)
 	// Generate debug text
 	var/list/entries = list()
 	entries += "CPU: [round(world.cpu, 1)] | MCPU: [round(world.map_cpu, 1)] | FPS/TPS: [world.fps] | Clients: [length(GLOB.clients)] | BYOND: [world.byond_version].[world.byond_build]"
-	entries += "\[Air] Cost: [round(SSair.cost, 1)]ms | AT: [length(SSair.active_turfs)]"
+	entries += "\[Air] Cost: [SSair.get_cost()]ms | MT: [round(SSair.cost_milla_tick, 1)]ms | IT: [SSair.interesting_tile_count]"
 	entries += "\[Debug] Cost: [round(SSdebugview.cost, 1)]ms | P: [length(SSdebugview.processing)]" // meta af (tbf we need to know how much were using)
 	entries += "\[FP] Cost: [round(SSfastprocess.cost, 1)]ms | P: [length(SSfastprocess.processing)]"
 	// Snowflakery for SSgarbage
@@ -87,7 +87,7 @@ SUBSYSTEM_DEF(debugview)
 		if((SS.flags & SS_NO_FIRE) || !SS.can_fire)
 			continue
 
-		html += "[SS.state_colour()]\[[SS.state_letter()]][SS.ss_id]</font>\t[round(SS.cost, 1)]ms | [round(SS.tick_usage, 1)]% [SS.get_stat_details() ? "| [SS.get_stat_details()] " : ""]| <a href=?_src_=vars;Vars=[SS.UID()]>VV Edit</a>"
+		html += "[SS.state_colour()]\[[SS.state_letter()]][SS.ss_id]</font>\t[SS.get_cost()]ms | [round(SS.tick_usage, 1)]% [SS.get_stat_details() ? "| [SS.get_stat_details()] " : ""]| <a href=byond://?_src_=vars;Vars=[SS.UID()]>VV Edit</a>"
 
 	popup.set_content(html.Join("<br>"))
 	popup.open(FALSE)

@@ -1,14 +1,5 @@
-/mob/dead/observer/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/ghost(src)
-		SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
-
 /atom/movable/screen/ghost
 	icon = 'icons/mob/screen_ghost.dmi'
-
-/atom/movable/screen/ghost/MouseEntered()
-	. = ..()
-	flick(icon_state + "_anim", src)
 
 /atom/movable/screen/ghost/orbit
 	name = "Orbit"
@@ -25,6 +16,10 @@
 /atom/movable/screen/ghost/reenter_corpse/Click()
 	var/mob/dead/observer/G = usr
 	G.reenter_corpse()
+
+/atom/movable/screen/ghost/reenter_corpse/MouseEntered()
+	. = ..()
+	flick(icon_state + "_anim", src)
 
 /atom/movable/screen/ghost/teleport
 	name = "Teleport"
@@ -115,7 +110,24 @@
 	for(var/atom/movable/screen/S in (static_inventory + toggleable_inventory))
 		S.hud = src
 
-/datum/hud/ghost/show_hud()
-	mymob.client.screen = list()
-	mymob.client.screen += static_inventory
-	..()
+/datum/hud/ghost/show_hud(version = 0, mob/viewmob)
+	// don't show this HUD if observing; show the HUD of the observee
+	var/mob/dead/observer/O = mymob
+	if(istype(O) && O.mob_observed)
+		plane_masters_update()
+		return FALSE
+
+	. = ..()
+	if(!.)
+		return
+	var/mob/screenmob = viewmob || mymob
+	screenmob.client.screen += static_inventory
+
+
+// We should only see observed mob alerts.
+/datum/hud/ghost/reorganize_alerts(mob/viewmob)
+	var/mob/dead/observer/O = mymob
+	if(istype(O) && O.mob_observed)
+		return
+	return ..()
+

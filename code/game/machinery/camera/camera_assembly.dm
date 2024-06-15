@@ -61,7 +61,7 @@
 		return ..()
 
 /obj/item/camera_assembly/crowbar_act(mob/user, obj/item/I)
-	if(!upgrades.len)
+	if(!length(upgrades))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -87,7 +87,7 @@
 		return
 
 	var/list/tempnetwork = splittext(input, ",")
-	if(tempnetwork.len < 1)
+	if(length(tempnetwork) < 1)
 		state = ASSEMBLY_WIRED
 		to_chat(usr, "<span class='warning'>No network found please hang up and try your call again.</span>")
 		return

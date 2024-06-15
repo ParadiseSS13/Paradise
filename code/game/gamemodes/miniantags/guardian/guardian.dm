@@ -30,6 +30,7 @@
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
 	butcher_results = list(/obj/item/food/snacks/ectoplasm = 1)
+	hud_type = /datum/hud/guardian
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
@@ -275,7 +276,7 @@
 	if(has_guardian(user))
 		to_chat(user, "You already have a [mob_name]!")
 		return
-	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)))
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)))
 		to_chat(user, "[ling_failure]")
 		return
 	if(used)
@@ -304,7 +305,7 @@
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the [mob_name] ([guardian_type]) of [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
 	var/mob/dead/observer/theghost = null
 
-	if(candidates.len)
+	if(length(candidates))
 		theghost = pick(candidates)
 		if(has_guardian(user))
 			to_chat(user, "You already have a [mob_name]!")

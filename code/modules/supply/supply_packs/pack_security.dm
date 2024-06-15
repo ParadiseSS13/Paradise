@@ -172,8 +172,10 @@
 					/obj/item/clothing/mask/gas/sechailer/swat,
 					/obj/item/clothing/mask/gas/sechailer/swat,
 					/obj/item/storage/belt/military/assault,
-					/obj/item/storage/belt/military/assault)
-	cost = 800
+					/obj/item/storage/belt/military/assault,
+					/obj/item/clothing/shoes/combat,
+					/obj/item/clothing/shoes/combat)
+	cost = 900
 	containername = "assault armor crate"
 
 /datum/supply_packs/security/armory/laserarmor
@@ -281,6 +283,13 @@
 	cost = 400
 	containername = "tranquilizer shell crate"
 
+/datum/supply_packs/security/armory/holyammo
+	name = "Holy Water Shell Crate"
+	contains = list(/obj/item/storage/box/holy,
+					/obj/item/storage/box/holy)
+	cost = 400
+	containername = "holy water shell crate"
+
 /datum/supply_packs/security/armory/disablersmg
 	name = "WT-450 Disabler SMG Crate"
 	contains = list(/obj/item/gun/energy/disabler/smg,
@@ -327,7 +336,7 @@
 					/obj/item/clothing/under/rank/security/warden/corporate,
 					/obj/item/clothing/head/beret/sec/warden,
 					/obj/item/clothing/under/rank/security/head_of_security/corporate,
-					/obj/item/clothing/head/HoS/beret)
+					/obj/item/clothing/head/beret/hos)
 	cost = 200
 	containername = "security clothing crate"
 
@@ -352,6 +361,9 @@
 
 /datum/supply_packs/security/secway
 	name = "Secway Crate"
+	contains_special = list(
+		"Secway"
+	)
 	cost = 800
 	containertype = /obj/structure/largecrate/secway
 	containername = "secway crate"

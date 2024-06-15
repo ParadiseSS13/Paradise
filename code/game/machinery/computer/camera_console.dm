@@ -161,7 +161,7 @@
 			stack_trace("Camera in a cameranet has a non-list camera network")
 			continue
 		var/list/tempnetwork = C.network & network
-		if(tempnetwork.len)
+		if(length(tempnetwork))
 			D["[C.c_tag]"] = C
 	return D
 

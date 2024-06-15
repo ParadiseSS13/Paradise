@@ -4,26 +4,27 @@
 	AC.ui_interact(user)
 
 /mob/living/carbon/human/proc/change_gender(new_gender, update_dna = TRUE)
-	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(gender == new_gender || (gender == PLURAL && !dna.species.has_gender))
+	if(gender == new_gender)
 		return
 
 	gender = new_gender
-
-	if(istype(H))
-		var/datum/sprite_accessory/hair/current_hair = GLOB.hair_styles_full_list[H.h_style]
-		if(current_hair.gender != NEUTER && current_hair.gender != gender)
-			reset_head_hair()
-
-		var/datum/sprite_accessory/hair/current_fhair = GLOB.facial_hair_styles_list[H.f_style]
-		if(current_fhair.gender != NEUTER && current_fhair.gender != gender)
-			reset_facial_hair()
 
 	if(update_dna)
 		update_dna()
 	sync_organ_dna(assimilate = FALSE)
 	update_body()
 	return TRUE
+
+/mob/living/carbon/human/proc/change_body_type(new_body, update_dna = TRUE)
+	if(!new_body || new_body == body_type)
+		return
+
+	body_type = new_body
+
+	if(update_dna)
+		update_dna()
+	sync_organ_dna(FALSE)
+	update_body(TRUE)
 
 /mob/living/carbon/human/proc/change_hair(hair_style, fluff)
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -154,7 +155,7 @@
 	if(!H)
 		return
 	var/list/valid_hairstyles = generate_valid_hairstyles()
-	if(valid_hairstyles.len)
+	if(length(valid_hairstyles))
 		H.h_style = pick(valid_hairstyles)
 	else
 		//this shouldn't happen
@@ -173,7 +174,7 @@
 	if(!H)
 		return
 	var/list/valid_facial_hairstyles = generate_valid_facial_hairstyles()
-	if(valid_facial_hairstyles.len)
+	if(length(valid_facial_hairstyles))
 		H.f_style = pick(valid_facial_hairstyles)
 	else
 		//this shouldn't happen
@@ -185,7 +186,7 @@
 
 	if(location)
 		valid_markings = generate_valid_markings(location)
-		if(valid_markings.len)
+		if(length(valid_markings))
 			m_styles[location] = pick(valid_markings)
 		else
 			//this shouldn't happen
@@ -193,7 +194,7 @@
 	else
 		for(var/m_location in list("head", "body", "tail"))
 			valid_markings = generate_valid_markings(m_location)
-			if(valid_markings.len)
+			if(length(valid_markings))
 				m_styles[m_location] = pick(valid_markings)
 			else
 				//this shouldn't happen
@@ -207,7 +208,7 @@
 	if(!H)
 		return
 	var/list/valid_head_accessories = generate_valid_head_accessories()
-	if(valid_head_accessories.len)
+	if(length(valid_head_accessories))
 		H.ha_style = pick(valid_head_accessories)
 	else
 		//this shouldn't happen
@@ -347,12 +348,12 @@
 	SEND_SIGNAL(src, COMSIG_HUMAN_UPDATE_DNA)
 
 /mob/living/carbon/human/proc/generate_valid_species(check_whitelist = TRUE, list/whitelist = list(), list/blacklist = list())
-	var/list/valid_species = new()
+	var/list/valid_species = list()
 	for(var/current_species_name in GLOB.all_species)
 		if(check_whitelist && !check_rights(R_ADMIN, FALSE, src)) //If we're using the whitelist, make sure to check it!
-			if(whitelist.len && !(current_species_name in whitelist))
+			if(length(whitelist) && !(current_species_name in whitelist))
 				continue
-			if(blacklist.len && (current_species_name in blacklist))
+			if(length(blacklist) && (current_species_name in blacklist))
 				continue
 			if(!can_use_species(src, current_species_name))
 				continue
@@ -362,7 +363,7 @@
 	return sortTim(valid_species, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_hairstyles()
-	var/list/valid_hairstyles = new()
+	var/list/valid_hairstyles = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no hair.
@@ -372,8 +373,6 @@
 
 		if(hairstyle == "Bald") //Just in case.
 			valid_hairstyles += hairstyle
-			continue
-		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
@@ -390,7 +389,7 @@
 	return sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_facial_hairstyles()
-	var/list/valid_facial_hairstyles = new()
+	var/list/valid_facial_hairstyles = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no hair.
@@ -400,8 +399,6 @@
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
-			continue
-		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
@@ -419,7 +416,7 @@
 	return sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_head_accessories()
-	var/list/valid_head_accessories = new()
+	var/list/valid_head_accessories = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
 		return //No head, no head accessory.
@@ -434,7 +431,7 @@
 	return sortTim(valid_head_accessories, GLOBAL_PROC_REF(cmp_text_asc))
 
 /mob/living/carbon/human/proc/generate_valid_markings(location = "body")
-	var/list/valid_markings = new()
+	var/list/valid_markings = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H && location == "head")
 		return //No head, no head markings.

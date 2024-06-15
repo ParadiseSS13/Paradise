@@ -15,10 +15,6 @@ import { ReconnectButton } from './reconnect';
 import { SettingsPanel, useSettings } from './settings';
 
 export const Panel = (props, context) => {
-  // IE8-10: Needs special treatment due to missing Flex support
-  if (Byond.IS_LTE_IE10) {
-    return <HoboPanel />;
-  }
   const audio = useAudio(context);
   const settings = useSettings(context);
   const game = useGame(context);

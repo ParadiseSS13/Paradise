@@ -137,7 +137,7 @@
 	base_name = "large airlock"
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	dir = EAST
-	var/width = 1
+	var/width = 2
 	airlock_type = /obj/machinery/door/airlock/multi_tile
 	glass_type = /obj/machinery/door/airlock/multi_tile/glass
 	material_amt = 8

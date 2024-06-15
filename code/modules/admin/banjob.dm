@@ -35,7 +35,7 @@
 /**
  * Lists all active jobbans for src client
  *
- * from_client_connection - If true, user will not recieve any info in chat if they have no job bans, used when a player loads into to the lobby.
+ * from_client_connection - If true, user will not receive any info in chat if they have no job bans, used when a player loads into to the lobby.
  */
 /client/proc/display_job_bans(from_client_connection = FALSE)
 	if(!from_client_connection) // Only reload if this is being checked by a user manually, as we load job bans at client new anyway

@@ -12,7 +12,7 @@
 	icon_state = "mulebot0"
 	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	animate_movement = 1
+	animate_movement = FORWARD_STEPS
 	health = 50
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -106,25 +106,6 @@
 		visible_message("[user] inserts a cell into [src].",
 						"<span class='notice'>You insert the new cell into [src].</span>")
 		update_controls()
-	else if(istype(I, /obj/item/crowbar) && open && cell)
-		cell.add_fingerprint(usr)
-		cell.forceMove(loc)
-		cell = null
-		visible_message("[user] crowbars out the power cell from [src].",
-						"<span class='notice'>You pry the powercell out of [src].</span>")
-		update_controls()
-	else if(istype(I, /obj/item/wrench))
-		if(health < maxHealth)
-			adjustBruteLoss(-25)
-			updatehealth()
-			user.visible_message(
-				"<span class='notice'>[user] repairs [src]!</span>",
-				"<span class='notice'>You repair [src]!</span>"
-			)
-		else
-			to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
-	else if((istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters)) && open)
-		return attack_hand(user)
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
@@ -138,15 +119,57 @@
 	update_icon()
 	return
 
+/mob/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/I)
+	if(!open || !cell)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
+	cell.add_fingerprint(user)
+	cell.forceMove(loc)
+	cell = null
+	visible_message("[user] crowbars out the power cell from [src].",
+					"<span class='notice'>You pry the powercell out of [src].</span>")
+	update_controls()
+
+/mob/living/simple_animal/bot/mulebot/multitool_act(mob/living/user, obj/item/I)
+	if(!open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
+	attack_hand(user)
+
 /mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(!.)
 		return
-
 	if(open)
 		on = FALSE
 	update_controls()
 	update_icon()
+
+/mob/living/simple_animal/bot/mulebot/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(health >= maxHealth)
+		to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
+		return
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
+	adjustBruteLoss(-25)
+	updatehealth()
+	user.visible_message(
+		"<span class='notice'>[user] repairs [src]!</span>",
+		"<span class='notice'>You repair [src]!</span>"
+	)
+
+/mob/living/simple_animal/bot/mulebot/wirecutter_act(mob/living/user, obj/item/I)
+	if(!open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
+	attack_hand(user)
 
 /mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
 	if(!emagged)
@@ -305,31 +328,31 @@
 		dat += "<b>Power level:</b> [cell ? cell.percent() : 0]%"
 
 		if(locked && !ai && !user.can_admin_interact())
-			dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><A href='?src=[UID()];op=unlock'>Unlock Controls</A>"
+			dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><A href='byond://?src=[UID()];op=unlock'>Unlock Controls</A>"
 		else
-			dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><A href='?src=[UID()];op=lock'>Lock Controls</A><BR><BR>"
+			dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><A href='byond://?src=[UID()];op=lock'>Lock Controls</A><BR><BR>"
 
-			dat += "<A href='?src=[UID()];op=power'>Toggle Power</A><BR>"
-			dat += "<A href='?src=[UID()];op=stop'>Stop</A><BR>"
-			dat += "<A href='?src=[UID()];op=go'>Proceed</A><BR>"
-			dat += "<A href='?src=[UID()];op=home'>Return to Home</A><BR>"
-			dat += "<A href='?src=[UID()];op=destination'>Set Destination</A><BR>"
-			dat += "<A href='?src=[UID()];op=setid'>Set Bot ID</A><BR>"
-			dat += "<A href='?src=[UID()];op=sethome'>Set Home</A><BR>"
-			dat += "<A href='?src=[UID()];op=autoret'>Toggle Auto Return Home</A> ([auto_return ? "On":"Off"])<BR>"
-			dat += "<A href='?src=[UID()];op=autopick'>Toggle Auto Pickup Crate</A> ([auto_pickup ? "On":"Off"])<BR>"
-			dat += "<A href='?src=[UID()];op=report'>Toggle Delivery Reporting</A> ([report_delivery ? "On" : "Off"])<BR>"
+			dat += "<A href='byond://?src=[UID()];op=power'>Toggle Power</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=stop'>Stop</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=go'>Proceed</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=home'>Return to Home</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=destination'>Set Destination</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=setid'>Set Bot ID</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=sethome'>Set Home</A><BR>"
+			dat += "<A href='byond://?src=[UID()];op=autoret'>Toggle Auto Return Home</A> ([auto_return ? "On":"Off"])<BR>"
+			dat += "<A href='byond://?src=[UID()];op=autopick'>Toggle Auto Pickup Crate</A> ([auto_pickup ? "On":"Off"])<BR>"
+			dat += "<A href='byond://?src=[UID()];op=report'>Toggle Delivery Reporting</A> ([report_delivery ? "On" : "Off"])<BR>"
 			if(load)
-				dat += "<A href='?src=[UID()];op=unload'>Unload Now</A><BR>"
+				dat += "<A href='byond://?src=[UID()];op=unload'>Unload Now</A><BR>"
 			dat += "<div class='notice'>The maintenance hatch is closed.</div>"
 	else
 		if(!ai)
 			dat += "<div class='notice'>The maintenance hatch is open.</div><BR>"
 			dat += "<b>Power cell:</b> "
 			if(cell)
-				dat += "<A href='?src=[UID()];op=cellremove'>Installed</A><BR>"
+				dat += "<A href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
 			else
-				dat += "<A href='?src=[UID()];op=cellinsert'>Removed</A><BR>"
+				dat += "<A href='byond://?src=[UID()];op=cellinsert'>Removed</A><BR>"
 
 			wires.Interact(user)
 		else
@@ -672,7 +695,7 @@
 			var/obj/effect/decal/cleanable/blood/tracks/B = locate() in next
 			if(!B)
 				B = new /obj/effect/decal/cleanable/blood/tracks(loc)
-			if(blood_DNA && blood_DNA.len)
+			if(blood_DNA && length(blood_DNA))
 				B.blood_DNA |= blood_DNA.Copy()
 			B.basecolor = currentBloodColor
 			var/newdir = get_dir(next, loc)
@@ -840,12 +863,6 @@
 
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
-
-/mob/living/simple_animal/bot/mulebot/remove_air(amount) //To prevent riders suffocating
-	if(loc)
-		return loc.remove_air(amount)
-	else
-		return null
 
 /mob/living/simple_animal/bot/mulebot/run_resist()
 	. = ..()

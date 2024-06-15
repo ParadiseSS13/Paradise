@@ -6,7 +6,7 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 			return
-		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || (check_death_method() && getOxyLoss() > 50) || HAS_TRAIT(src, TRAIT_FAKEDEATH) || health < HEALTH_THRESHOLD_KNOCKOUT && check_death_method())
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || (check_death_method() && getOxyLoss() > 50) || HAS_TRAIT(src, TRAIT_FAKEDEATH) || health < HEALTH_THRESHOLD_KNOCKOUT && check_death_method() || health <= HEALTH_THRESHOLD_DEAD)
 			if(stat == CONSCIOUS)
 				KnockOut()
 				create_debug_log("fell unconscious, trigger reason: [reason]")
@@ -18,6 +18,7 @@
 				create_debug_log("woke up, trigger reason: [reason]")
 	update_damage_hud()
 	update_health_hud()
+	update_stamina_hud()
 	med_hud_set_health()
 	med_hud_set_status()
 

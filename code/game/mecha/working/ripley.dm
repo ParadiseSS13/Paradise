@@ -6,6 +6,7 @@
 	step_in = 4 //Move speed, lower is faster.
 	var/fast_pressure_step_in = 2 //step_in while in normal pressure conditions
 	var/slow_pressure_step_in = 4 //step_in while in better pressure conditions
+	mech_enter_time = 3 SECONDS
 	max_temperature = 20000
 	max_integrity = 200
 	lights_power = 7
@@ -13,9 +14,17 @@
 	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, RAD = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
-	var/list/cargo = new
+	var/list/cargo = list()
 	var/cargo_capacity = 15
+
+	/// How many goliath hides does the Ripley have? Does not stack with other armor
 	var/hides = 0
+
+	/// How many drake hides does the Ripley have? Does not stack with other armor
+	var/drake_hides = 0
+
+	/// How many plates does the Ripley have? Does not stack with other armor
+	var/plates = 0
 
 /obj/mecha/working/ripley/Move()
 	. = ..()
@@ -32,10 +41,14 @@
 					ore.forceMove(ore_box)
 
 /obj/mecha/working/ripley/Destroy()
-	for(var/i=1, i <= hides, i++)
-		new /obj/item/stack/sheet/animalhide/goliath_hide(loc) //If a goliath-plated ripley gets killed, all the plates drop
+	for(var/i in 1 to hides)
+		new /obj/item/stack/sheet/animalhide/goliath_hide(get_turf(src))  //If a armor-plated ripley gets killed, all the armor drop
+	for(var/i in 1 to plates)
+		new /obj/item/stack/sheet/animalhide/armor_plate(get_turf(src))
+	for(var/i in 1 to drake_hides)
+		new /obj/item/stack/sheet/animalhide/ashdrake(get_turf(src))
 	for(var/atom/movable/A in cargo)
-		A.forceMove(loc)
+		A.forceMove(get_turf(src))
 		step_rand(A)
 	cargo.Cut()
 	return ..()
@@ -54,22 +67,68 @@
 
 /obj/mecha/working/ripley/update_desc()
 	. = ..()
-	if(!hides) // Just in case if hides are somehow removed
+	if(!hides && !plates && !drake_hides) // Just in case if armor is removed
 		desc = initial(desc)
 		return
-	if(hides == 3)
-		desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
-	else
-		desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+
+	// Goliath hides
+	if(hides)
+		if(hides == HIDES_COVERED_FULL)
+			desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
+		else
+			desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+		return
+
+	// Metal plates
+	if(plates)
+		if(plates == PLATES_COVERED_FULL)
+			desc = "Autonomous Power Loader Unit. Its armor is completely lined with metal plating."
+		else
+			desc = "Autonomous Power Loader Unit. Its armor is reinforced with some metal plating."
+		return
+
+	// Drake hides
+	if(drake_hides)
+		if(drake_hides == DRAKE_HIDES_COVERED_FULL)
+			desc = "Autonomous Power Loader Unit. Its every corner is covered in ancient hide, creating a powerful shield. The pilot of this exosuit must be prepared for battles on the level of legend."
+		if(drake_hides == DRAKE_HIDES_COVERED_MODERATE)
+			desc = "Autonomous Power Loader Unit. Its armor is adorned with dragon hide plates, instilling fear in its enemies and guarding its pilot."
+		if(drake_hides == DRAKE_HIDES_COVERED_SLIGHT)
+			desc = "Autonomous Power Loader Unit. The armor of this exosuit only touches the mythical: a few plates of dragon hide adorn its plating like rare warrior trophies."
+		return
 
 /obj/mecha/working/ripley/update_overlays()
 	. = ..()
-	if(!hides)
-		return
-	if(hides == 3)
-		. += occupant ? "ripley-g-full" : "ripley-g-full-open"
-	else
-		. += occupant ? "ripley-g" : "ripley-g-open"
+// hides
+	if(hides)
+		if(hides == HIDES_COVERED_FULL)
+			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+		else
+			. += occupant ? "ripley-g" : "ripley-g-open"
+//plates
+	if(plates)
+		if(plates == PLATES_COVERED_FULL)
+			. += occupant ? "ripley-m-full" : "ripley-m-full-open"
+		else
+			. += occupant ? "ripley-m" : "ripley-m-open"
+//drake hides
+	if(drake_hides)
+		if(drake_hides == DRAKE_HIDES_COVERED_FULL)
+			. += occupant ? "ripley-d-full" : "ripley-d-full-open"
+		else if(drake_hides == DRAKE_HIDES_COVERED_MODERATE)
+			. += occupant ? "ripley-d-2" : "ripley-d-2-open"
+		else if(drake_hides == DRAKE_HIDES_COVERED_SLIGHT)
+			. += occupant ? "ripley-d" : "ripley-d-open"
+
+/obj/mecha/working/ripley/examine_more(mob/user)
+	. = ..()
+	. += "<i>The Ripley is a robust, venerable utility exosuit originally produced by Hephaestus Industries. \
+	It now sees widespread use in and around the Orion sector, being one of the most pervasive mechs ever produced. \
+	Shortly after initial production, Hephaestus licensed production rights for the Ripley to other corporations, earning royalties as the exosuit grew more popular.</i>"
+	. += ""
+	. += "<i>Depending on the configuration, the Ripley can be used for many purposes, including mining, construction, and even goods transport. \
+	To this day, it remains one of the most valuable mechs ever produced, and Hephaestus enjoys a substantial profit from sales of this aging but rugged design. \
+	As with all station-side mechs, Nanotrasen has purchased the license to make the Ripley in their facilities.</i>"
 
 /obj/mecha/working/ripley/firefighter
 	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."
@@ -80,9 +139,18 @@
 	max_integrity = 250
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	lights_power = 7
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
+
+/obj/mecha/working/ripley/firefighter/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>Based on the venerable Ripley chassis, designed initially by Hephaestus Industries, the Firefighter is a retrofit created by Nanotrasen as their mining operations expanded, and a robust, fireproof exosuit was needed. \
+	Adapted to fit heat-resistant shielding, the Firefighter became a popular mech for mining teams in dangerous environments.</i>"
+	. += ""
+	. += "<i>Since Nanotrasen's expansion into Epsilon Eridani and their mining operations on Lavaland, the Firefighter has grown more popular among seasoned miners looking for a safer, armored way to mine in even the hottest of biomes. \
+	Additionally, it has seen some use among atmospherics crews and is admired for its ability to control even the toughest of plasmafires while protecting its pilot.</i>"
 
 /obj/mecha/working/ripley/deathripley
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
@@ -105,6 +173,16 @@
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
 	return
+
+/obj/mecha/working/ripley/deathripley/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>A functioning, well-made collectable for the popular Nanotrasen-Funded holovid show, 'Deathsquad'. \
+	A retrofitted and repainted Ripley chassis, the Death Ripley was created and used by the leader of the Deathsquad, Master Sergeant Killjoy, during the climactic battle with the Spider Queen “Xerxes” at the end of Season 4. \
+	The mech bears the signature mark of the team's engineer, Corporal Ironhead, who assisted Killjoy in its construction.</i>"
+	. += ""
+	. += "<i>Replicas such as this are sought-after collectibles among the biggest fans of Deathsquad. \
+	An altercation even occurred where an individual dressed in a poorly-made Killjoy costume attempted to kill a collector to gain a Death Ripley, who was later sent to a mental institution after screaming, “THE DEATHSQUAD IS REAL.</i>"
 
 /obj/mecha/working/ripley/mining
 	desc = "An old, dusty mining ripley."
@@ -155,7 +233,7 @@
 			var/turf/T = get_turf(O)
 			if(T)
 				T.Entered(O)
-			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - cargo.len]")
+			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - length(cargo)]")
 	return
 
 
@@ -163,9 +241,9 @@
 /obj/mecha/working/ripley/get_stats_part()
 	var/output = ..()
 	output += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
-	if(cargo.len)
+	if(length(cargo))
 		for(var/obj/O in cargo)
-			output += "<a href='?src=[UID()];drop_from_cargo=\ref[O]'>Unload</a> : [O]<br>"
+			output += "<a href='byond://?src=[UID()];drop_from_cargo=\ref[O]'>Unload</a> : [O]<br>"
 	else
 		output += "Nothing"
 	output += "</div>"

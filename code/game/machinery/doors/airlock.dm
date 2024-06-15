@@ -48,6 +48,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock
 	name = "airlock"
+	desc = "An airlock door keeping you safe from the vacuum of space. Only works if closed."
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "closed"
 	anchored = TRUE
@@ -167,6 +168,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/Destroy()
 	SStgui.close_uis(wires)
+	QDEL_LIST_CONTENTS(fillers)
 	QDEL_NULL(electronics)
 	QDEL_NULL(wires)
 	QDEL_NULL(note)
@@ -1266,7 +1268,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			return 0
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(forced)
-		playsound(loc, 'sound/machines/airlockforced.ogg', 30, 1)
+		playsound(loc, 'sound/machines/airlockforcedopen.ogg', 30, TRUE)
 	else
 		playsound(loc, doorOpen, 30, 1)
 	if(closeOther != null && istype(closeOther, /obj/machinery/door/airlock/) && !closeOther.density)
@@ -1282,10 +1284,14 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	update_icon(AIRLOCK_OPENING, 1)
 	sleep(1)
 	set_opacity(0)
+	if(width > 1)
+		set_fillers_opacity(0)
 	update_freelook_sight()
 	sleep(4)
 	density = FALSE
-	air_update_turf(1)
+	if(width > 1)
+		set_fillers_density(FALSE)
+	recalculate_atmos_connectivity()
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
 	update_icon(AIRLOCK_OPEN, 1)
@@ -1311,7 +1317,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(forced)
-		playsound(loc, 'sound/machines/airlockforced.ogg', 30, 1)
+		playsound(loc, 'sound/machines/airlockforcedclose.ogg', 30, TRUE)
 	else
 		playsound(loc, doorClose, 30, 1)
 	var/obj/structure/window/killthis = (locate(/obj/structure/window) in get_turf(src))
@@ -1325,13 +1331,17 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!override)
 		sleep(1)
 	density = TRUE
-	air_update_turf(1)
+	if(width > 1)
+		set_fillers_density(TRUE)
+	recalculate_atmos_connectivity()
 	if(!override)
 		sleep(4)
 	if(!safe)
 		crush()
 	if((visible && !glass) || polarized_on)
 		set_opacity(1)
+		if(width > 1)
+			set_fillers_opacity(1)
 	update_freelook_sight()
 	sleep(1)
 	update_icon(AIRLOCK_CLOSED, 1)
@@ -1536,16 +1546,19 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(!electronics)
 			ae = new/obj/item/airlock_electronics(loc)
 			check_access()
-			if(req_access.len)
+			if(length(req_access))
 				ae.selected_accesses = req_access
-			else if(req_one_access.len)
+			else if(length(req_one_access))
 				ae.selected_accesses = req_one_access
 				ae.one_access = 1
 			ae.unres_access_from = unres_sides
+			ae.is_installed = FALSE
 		else
 			ae = electronics
 			electronics = null
 			ae.forceMove(loc)
+			ae.is_installed = FALSE
+	QDEL_LIST_CONTENTS(fillers)
 	qdel(src)
 
 /obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock

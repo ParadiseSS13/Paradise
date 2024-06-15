@@ -103,4 +103,4 @@
 			var/obj/item/seeds/replicapod/harvestseeds = src.Copy()
 			harvestseeds.forceMove(output_loc)
 
-	parent.update_tray()
+	parent.update_tray(user, 1)

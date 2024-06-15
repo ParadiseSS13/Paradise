@@ -117,6 +117,11 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/shot/malf
+	name = "cyborg shotgun internal magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/lasershot
+	max_ammo = 8
+
 /obj/item/ammo_box/magazine/internal/shot/dual
 	name = "double-barrel shotgun internal magazine"
 	max_ammo = 2

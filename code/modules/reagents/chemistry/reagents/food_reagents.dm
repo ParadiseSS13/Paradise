@@ -12,8 +12,7 @@
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
-	var/is_vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && !is_vamp)
+	if(ishuman(M) && !M.mind?.has_antag_datum(/datum/antagonist/vampire) && !HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 		var/mob/living/carbon/human/H = M
 		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 			H.adjust_nutrition(nutriment_factor)	// For hunger and fatness
@@ -32,8 +31,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/is_vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && !is_vamp)
+	if(ishuman(M) && !M.mind?.has_antag_datum(/datum/antagonist/vampire) && !HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 		var/mob/living/carbon/human/H = M
 		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 			if(prob(50))
@@ -52,7 +50,7 @@
 	data = counterlist_normalise(supplied_data)
 
 /datum/reagent/consumable/nutriment/on_merge(list/newdata, newvolume)
-	if(!islist(newdata) || !newdata.len)
+	if(!islist(newdata) || !length(newdata))
 		return
 	var/list/taste_amounts = list()
 	var/list/other_taste_amounts = newdata.Copy()
@@ -133,6 +131,8 @@
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#792300" // rgb: 121, 35, 0
 	taste_description = "soy"
+	goal_department = "Kitchen"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ketchup
 	name = "Ketchup"
@@ -150,6 +150,8 @@
 	reagent_state = LIQUID
 	color = "#DFDFDF" // rgb: 223, 223, 223
 	taste_description = "mayonnaise"
+	goal_department = "Kitchen"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/peanutbutter
 	name = "Peanut Butter"
@@ -169,6 +171,8 @@
 	color = "#78280A" // rbg: 120, 40, 10
 	taste_mult = 2.5
 	taste_description = "smokey sweetness"
+	goal_department = "Kitchen"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/capsaicin
 	name = "Capsaicin Oil"
@@ -372,19 +376,15 @@
 	nutriment_factor = 10 * REAGENTS_METABOLISM
 	color = "#DBCF5C" //rgb: 219, 207, 92
 	taste_description = "olive oil"
+	goal_department = "Kitchen"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/cornoil/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
 		return
 	if(volume >= 3)
 		T.MakeSlippery()
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-2000, lowertemp.temperature / 2), 0)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
+	T.quench(1000, 2)
 
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"
@@ -393,6 +393,8 @@
 	reagent_state = LIQUID
 	color = "#282314" // rgb: 54, 94, 48
 	taste_description = "sweetness"
+	goal_department = "Kitchen"
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/dry_ramen
 	name = "Dry Ramen"
@@ -778,6 +780,8 @@
 	reagent_state = LIQUID
 	color = "#B4641B"
 	taste_description = "gravy"
+	goal_department = "Kitchen"
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/wasabi
 	name = "Wasabi"
@@ -1014,3 +1018,5 @@
 	description = "Useful for pickling, or putting on chips."
 	taste_description = "vinegar"
 	color = "#ffffff"
+	goal_department = "Kitchen"
+	goal_difficulty = REAGENT_GOAL_NORMAL

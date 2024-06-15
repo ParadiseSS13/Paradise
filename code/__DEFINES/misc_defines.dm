@@ -33,6 +33,7 @@
 #define INFECTION_LEVEL_ONE		100
 #define INFECTION_LEVEL_TWO		500
 #define INFECTION_LEVEL_THREE	1000
+#define INFECTION_LEVEL_FOUR	1500
 
 // Damage above this value must be repaired with surgery.
 #define ROBOLIMB_SELF_REPAIR_CAP 60
@@ -51,6 +52,9 @@
 #define CRAYON_FONT "Comic Sans MS"
 #define PRINTER_FONT "Times New Roman"
 #define SIGNFONT "Times New Roman"
+
+/// Emoji icon set
+#define EMOJI_SET 'icons/ui_icons/emoji.dmi'
 
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
@@ -107,18 +111,17 @@
 
 #define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
 	block( \
-	locate(max(CENTER.x-(H_RADIUS),1),          max(CENTER.y-(V_RADIUS),1),          CENTER.z), \
-	locate(min(CENTER.x+(H_RADIUS),world.maxx), min(CENTER.y+(V_RADIUS),world.maxy), CENTER.z) \
+	max(CENTER.x - (H_RADIUS), 1),			max(CENTER.y - (V_RADIUS), 1), 			CENTER.z, \
+	min(CENTER.x + (H_RADIUS), world.maxx), min(CENTER.y + (V_RADIUS), world.maxy), CENTER.z \
 	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
 // order of the additions: top edge + bottom edge + left edge + right edge
 #define RANGE_EDGE_TURFS(RADIUS, CENTER)\
-	(CENTER.y + RADIUS < world.maxy ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z)) : list()) +\
-	(CENTER.y - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z)) : list()) +\
-	(CENTER.x - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list()) +\
-	(CENTER.x + RADIUS < world.maxx ? block(locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list())
-
+	(CENTER.y + RADIUS < world.maxy ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z) : list()) +\
+	(CENTER.y - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z) : list()) +\
+	(CENTER.x - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list()) +\
+	(CENTER.x + RADIUS < world.maxx ? block(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list())
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
@@ -137,6 +140,9 @@
 
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
+
+/// Grabs the area of a supplied object. Passing an area in to this will result in an error
+#define get_area(T) ((get_step(T, 0)?.loc))
 
 //check_target_facings() return defines
 #define FACING_FAILED											0
@@ -165,25 +171,26 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define EYES_OVERLAY_LAYER		42
-#define WING_LAYER				41
-#define WING_UNDERLIMBS_LAYER	40
-#define MUTANTRACE_LAYER		39
-#define TAIL_UNDERLIMBS_LAYER	38	//Tail split-rendering.
-#define LIMBS_LAYER				37
-#define MARKINGS_LAYER			36
-#define INTORGAN_LAYER			35
-#define UNDERWEAR_LAYER			34
-#define MUTATIONS_LAYER			33
-#define H_DAMAGE_LAYER			32
-#define UNIFORM_LAYER			31
-#define ID_LAYER				30
-#define HANDS_LAYER				29	//Exists to overlay hands over jumpsuits
-#define SHOES_LAYER				28
-#define GLOVES_LAYER			27
-#define EARS_LAYER				26
+#define EYES_OVERLAY_LAYER		43
+#define WING_LAYER				42
+#define WING_UNDERLIMBS_LAYER	41
+#define MUTANTRACE_LAYER		40
+#define TAIL_UNDERLIMBS_LAYER	39	//Tail split-rendering.
+#define LIMBS_LAYER				38
+#define MARKINGS_LAYER			37
+#define INTORGAN_LAYER			36
+#define UNDERWEAR_LAYER			35
+#define MUTATIONS_LAYER			34
+#define H_DAMAGE_LAYER			33
+#define UNIFORM_LAYER			32
+#define ID_LAYER				31
+#define HANDS_LAYER				30	//Exists to overlay hands over jumpsuits
+#define SHOES_LAYER				29
+#define GLOVES_LAYER			28
+#define EARS_LAYER				27
+#define BELT_LAYER				26	//Possible make this an overlay of something required to wear a belt?
 #define SUIT_LAYER				25
-#define BELT_LAYER				24	//Possible make this an overlay of somethign required to wear a belt?
+#define SPECIAL_BELT_LAYER		24
 #define SUIT_STORE_LAYER		23
 #define BACK_LAYER				22
 #define HEAD_ACCESSORY_LAYER	21
@@ -207,7 +214,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			42
+#define TOTAL_LAYERS			43
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -243,6 +250,10 @@
 #define MATRIX_TAJ_CBLIND list(0.4,0.2,0.4,\
 							0.4,0.6,0.0,\
 							0.2,0.2,0.6)
+
+#define MATRIX_STANDARD list(1.0,0.0,0.0,\
+							0.0,1.0,0.0,\
+							0.0,0.0,1.0)
 
 /*
 	Used for wire name appearances. Replaces the color name on the left with the one on the right.
@@ -390,9 +401,10 @@
 #define INVESTIGATE_RENAME "renames"
 
 #define INVESTIGATE_BOMB "bombs"
+#define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 53
+#define SQL_VERSION 57
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -411,11 +423,6 @@
 // Area selection defines
 #define AREASELECT_CORNERA "corner A"
 #define AREASELECT_CORNERB "corner B"
-
-//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
-#define MOUSE_OPACITY_TRANSPARENT 0
-#define MOUSE_OPACITY_ICON 1
-#define MOUSE_OPACITY_OPAQUE 2
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
@@ -633,19 +640,19 @@ do { \
 
 //Individual defines
 #define MAP_GENERATOR_CLUSTER_CHECK_NONE				0  //No checks are done, cluster as much as possible
-#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS	2  //Don't let turfs of DIFFERENT types cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS	4  //Don't let atoms of DIFFERENT types cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS		8  //Don't let turfs of the SAME type cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS		16 //Don't let atoms of the SAME type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS	(1<<1)  //Don't let turfs of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS	(1<<2)  //Don't let atoms of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS		(1<<3)  //Don't let turfs of the SAME type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS		(1<<4) //Don't let atoms of the SAME type cluster
 
 //Combined defines
-#define MAP_GENERATOR_CLUSTER_CHECK_SAMES				24 //Don't let any of the same type cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS		6  //Don't let any of different types cluster
-#define MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS			10 //Don't let ANY turfs cluster same and different types
-#define MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS			20 //Don't let ANY atoms cluster same and different types
+#define MAP_GENERATOR_CLUSTER_CHECK_SAMES				(MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let any of the same type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS		(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS) //Don't let any of different types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS) //Don't let ANY turfs cluster same and different types
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let ANY atoms cluster same and different types
 
 //All
-#define MAP_GENERATOR_CLUSTER_CHECK_ALL				30 //Don't let anything cluster, like, at all
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL				((1<<4) - 2) //Don't let anything cluster, like, at all.  -2 because we skipped <<1 for some odd reason.
 
 // Buffer datatype flags.
 #define DNA2_BUF_UI (1<<0)
@@ -694,3 +701,10 @@ do { \
 #define TEAM_ADMIN_ADD_OBJ_SUCCESS				(1<<0)
 #define TEAM_ADMIN_ADD_OBJ_CANCEL_LOG 			(1<<1)
 #define TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL 	(1<<2)
+
+/// A helper used by `restrict_file_types.py` to identify types to restrict in a file. Not used by byond at all.
+#define RESTRICT_TYPE(type) // do nothing
+
+#define INGREDIENT_CHECK_EXACT 1
+#define INGREDIENT_CHECK_FAILURE 0
+#define INGREDIENT_CHECK_SURPLUS -1

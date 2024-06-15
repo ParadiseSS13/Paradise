@@ -111,7 +111,7 @@
 				if(temp_vent.welded) // no point considering a vent we can't even use
 					continue
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if(!length(vents))
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)

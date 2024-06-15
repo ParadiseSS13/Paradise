@@ -45,7 +45,7 @@
 	. = ..()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	if(!up)
@@ -186,6 +186,13 @@
 	icon_state = "explorer_envirohelm"
 	item_state = "explorer_envirohelm"
 	visor_icon = "explorer_envisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/expedition
+	name = "expedition plasma envirosuit helmet"
+	desc = "A brown and blue helmet given to plasmaman explorers operating in Space.."
+	icon_state = "expedition_envirohelm"
+	item_state = "expedition_envirohelm"
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 150)
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain
 	name = "chaplain's plasma envirosuit helmet"

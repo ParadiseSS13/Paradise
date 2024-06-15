@@ -89,6 +89,7 @@ SUBSYSTEM_DEF(garbage)
 		if(I.hard_deletes)
 			dellog += "\tTotal Hard Deletes [I.hard_deletes]"
 			dellog += "\tTime Spent Hard Deleting: [I.hard_delete_time]ms"
+			dellog += "\tAverage References During Hardel: [I.reference_average] references."
 		if(I.slept_destroy)
 			dellog += "\tSleeps: [I.slept_destroy]"
 		if(I.no_respect_force)
@@ -258,6 +259,7 @@ SUBSYSTEM_DEF(garbage)
 
 	I.hard_deletes++
 	I.hard_delete_time += TICK_DELTA_TO_MS(tick)
+	I.reference_average = (refcount(I) + I.reference_average) / I.hard_deletes
 
 
 	if(tick > highest_del_tickusage)
@@ -275,7 +277,7 @@ SUBSYSTEM_DEF(garbage)
 /datum/controller/subsystem/garbage/Recover()
 	InitQueues() //We first need to create the queues before recovering data
 	if(istype(SSgarbage.queues))
-		for(var/i in 1 to SSgarbage.queues.len)
+		for(var/i in 1 to length(SSgarbage.queues))
 			queues[i] |= SSgarbage.queues[i]
 
 
@@ -289,6 +291,8 @@ SUBSYSTEM_DEF(garbage)
 	var/no_respect_force = 0//Number of times it's not respected force=TRUE
 	var/no_hint = 0			//Number of times it's not even bother to give a qdel hint
 	var/slept_destroy = 0	//Number of times it's slept in its destroy
+	/// Average amount of references that the hard deleted item holds when hard deleted
+	var/reference_average = 0
 
 /datum/qdel_item/New(mytype)
 	name = "[mytype]"

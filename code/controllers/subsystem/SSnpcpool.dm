@@ -18,8 +18,8 @@ SUBSYSTEM_DEF(npcpool)
 
 	var/list/currentrun = src.currentrun
 
-	while(currentrun.len)
-		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
+	while(length(currentrun))
+		var/mob/living/simple_animal/SA = currentrun[length(currentrun)]
 		--currentrun.len
 		if(!SA)
 			log_debug("npcpool encountered an invalid entry, resumed: [resumed], SA [SA], type of SA [SA?.type], null [SA == null], qdelled [QDELETED(SA)], SA in AI_ON list: [SA in GLOB.simple_animals[AI_ON]]")

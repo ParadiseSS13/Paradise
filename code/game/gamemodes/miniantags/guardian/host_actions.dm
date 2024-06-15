@@ -82,7 +82,7 @@
 
 	// Do this immediately, so the user can't spam a bunch of polls.
 	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 5 MINUTES)
-	UpdateButtonIcon()
+	UpdateButtons()
 
 	to_chat(owner, "<span class='danger'>Searching for a replacement ghost...</span>")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as [guardian.real_name]?", ROLE_GUARDIAN, FALSE, 15 SECONDS, source = guardian)
@@ -102,7 +102,7 @@
 	dust_if_respawnable(new_stand)
 	qdel(src)
 
-/obj/effect/proc_holder/spell/summon_guardian_beacon
+/datum/spell/summon_guardian_beacon
 	name = "Place Teleportation Beacon"
 	desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon requires an anchor, will not work on space tiles."
 	clothes_req = FALSE
@@ -111,10 +111,10 @@
 	action_background_icon_state = "reset"
 	action_icon = 'icons/mob/guardian.dmi'
 
-/obj/effect/proc_holder/spell/summon_guardian_beacon/create_new_targeting()
+/datum/spell/summon_guardian_beacon/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/summon_guardian_beacon/cast(list/targets, mob/living/user = usr)
+/datum/spell/summon_guardian_beacon/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1]
 	var/mob/living/simple_animal/hostile/guardian/healer/guardian_user = user
 	var/turf/beacon_loc = get_turf(target)
@@ -125,7 +125,7 @@
 
 	return TRUE
 
-/obj/effect/proc_holder/spell/surveillance_snare
+/datum/spell/surveillance_snare
 	name = "Set Surveillance Snare"
 	desc = "Places an invisible Surveillance Snare on the ground, if someone walks over it you'll be alerted. Max of 6 snares active at a time"
 	clothes_req = FALSE
@@ -134,10 +134,10 @@
 	action_background_icon_state = "reset"
 	action_icon = 'icons/mob/guardian.dmi'
 
-/obj/effect/proc_holder/spell/surveillance_snare/create_new_targeting()
+/datum/spell/surveillance_snare/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/surveillance_snare/cast(list/targets, mob/living/user = usr)
+/datum/spell/surveillance_snare/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1]
 	var/mob/living/simple_animal/hostile/guardian/ranged/guardian_user = user
 	if(length(guardian_user.snares) < 6)
@@ -156,7 +156,7 @@
 			to_chat(user, "<span class='notice'>Snare disarmed.</span>")
 			revert_cast()
 
-/obj/effect/proc_holder/spell/choose_battlecry
+/datum/spell/choose_battlecry
 	name = "Change battlecry"
 	desc = "Changes your battlecry."
 	clothes_req = FALSE
@@ -165,10 +165,10 @@
 	action_background_icon_state = "communicate"
 	action_icon = 'icons/mob/guardian.dmi'
 
-/obj/effect/proc_holder/spell/choose_battlecry/create_new_targeting()
+/datum/spell/choose_battlecry/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/choose_battlecry/cast(list/targets, mob/living/user = usr)
+/datum/spell/choose_battlecry/cast(list/targets, mob/living/user = usr)
 	var/mob/living/simple_animal/hostile/guardian/punch/guardian_user = user
 	var/input = tgui_input_text(guardian_user, "What do you want your battlecry to be? Max length of 6 characters.", "Change Battlecry", guardian_user.battlecry, 6)
 	if(!input)
@@ -181,7 +181,7 @@
  */
 /datum/action/guardian/reset_guardian/proc/reset_cooldown()
 	cooldown_timer = null
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /**
  * Grants all existing `/datum/action/guardian` type actions to the src mob.

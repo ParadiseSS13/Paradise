@@ -11,7 +11,7 @@
 	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message_count = 0 //contains a number of how many times a message identical to last_message was sent.
 	var/last_message_time = 0 //holds the last time (based on world.time) a message was sent
-	var/datum/pm_tracker/pm_tracker = new()
+	var/datum/pm_tracker/pm_tracker
 
 		/////////
 		//OTHER//
@@ -61,6 +61,9 @@
 	var/ip_intel = "Disabled"
 
 	var/datum/click_intercept/click_intercept = null
+
+	/// Time when the click was intercepted
+	var/click_intercept_time = 0
 
 	//datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
@@ -132,6 +135,27 @@
 	var/list/active_keybindings = list()
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
+
+	/// Used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_up_icon = null
+	/// Used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_down_icon = null
+	/// Used to override the mouse cursor so it doesnt get reset
+	var/mouse_override_icon = null
+
+	/// Autoclick list of two elements, first being the clicked thing, second being the parameters.
+	var/list/atom/selected_target[2]
+	/// Used in MouseDrag to preserve the original mouse click parameters
+	var/mouseParams = ""
+	/// Used in MouseDrag to preserve the last mouse-entered location.
+	var/mouse_location_UID
+	/// Used in MouseDrag to preserve the last mouse-entered object.
+	var/mouse_object_UID
+	/// When we started the currently active drag
+	var/drag_start = 0
+	/// The params we passed at the start of the drag, in list form
+	var/list/drag_details
+
 	/// The client's currently moused over datum, limited to movable and stored as UID
 	var/atom/movable/moused_over
 
@@ -200,6 +224,9 @@
 
 	/// Our object window datum. It stores info about and handles behavior for the object tab
 	var/datum/object_window_info/obj_window
+
+	/// The current fullscreen state for /client/toggle_fullscreen()
+	var/fullscreen = FALSE
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

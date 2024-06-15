@@ -61,6 +61,10 @@
 	if(flags & (NOBLUDGEON))
 		return FALSE
 
+	if((is_surgery_tool_by_behavior(src) || is_organ(src) || tool_behaviour) && user.a_intent == INTENT_HELP && on_operable_surface(M) && M != user)
+		to_chat(user, "<span class='info'>You don't want to harm the person you're trying to help!</span>")
+		return
+
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return
@@ -80,7 +84,6 @@
 	. = M.attacked_by(src, user, def_zone)
 
 	add_fingerprint(user)
-
 
 //the equivalent of the standard version of attack() but for object targets.
 /obj/item/proc/attack_obj(obj/O, mob/living/user, params)
@@ -146,7 +149,7 @@
 	if(I.discrete)
 		return
 	var/message_verb = "attacked"
-	if(I.attack_verb && I.attack_verb.len)
+	if(I.attack_verb && length(I.attack_verb))
 		message_verb = "[pick(I.attack_verb)]"
 	else if(!I.force)
 		return

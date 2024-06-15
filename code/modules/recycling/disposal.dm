@@ -9,7 +9,7 @@
 
 /obj/machinery/disposal
 	name = "disposal unit"
-	desc = "A pneumatic waste disposal unit. Alt-click to manually eject its contents."
+	desc = "A pneumatic waste disposal unit, or a basketball hoop if you're bored. Alt-click to manually eject its contents."
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "disposal"
 	anchored = TRUE
@@ -77,14 +77,31 @@
 /obj/machinery/disposal/Initialize(mapload)
 	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
 	. = ..()
-	var/atom/L = loc
-	var/datum/gas_mixture/env = new
-	env.copy_from(L.return_air())
-	var/datum/gas_mixture/removed = env.remove(SEND_PRESSURE + 1)
-	air_contents = new
-	air_contents.merge(removed)
+	air_contents = new()
+	var/datum/milla_safe/disposal_suck_air/milla = new()
+	milla.invoke_async(src)
 	trunk_check()
 	update()
+
+/datum/milla_safe/disposal_suck_air
+
+/datum/milla_safe/disposal_suck_air/on_run(obj/machinery/disposal/disposal)
+	var/turf/T = get_turf(disposal)
+	var/datum/gas_mixture/env = get_turf_air(T)
+
+	var/pressure_delta = (SEND_PRESSURE + 1) - disposal.air_contents.return_pressure()
+
+	if(env.temperature() > 0)
+		var/transfer_moles = 0.1 * pressure_delta*disposal.air_contents.volume / (env.temperature() * R_IDEAL_GAS_EQUATION)
+
+		//Actually transfer the gas
+		var/datum/gas_mixture/removed = env.remove(transfer_moles)
+		disposal.air_contents.merge(removed)
+
+	// if full enough, switch to ready mode
+	if(disposal.air_contents.return_pressure() >= SEND_PRESSURE)
+		disposal.mode = 2
+		disposal.update()
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
@@ -101,7 +118,7 @@
 		var/obj/item/storage/S = I
 		if(!S.removal_allowed_check(user))
 			return
-		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
+		if((S.allow_quick_empty || S.allow_quick_gather) && length(S.contents))
 			S.hide_from(user)
 			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
 			for(var/obj/item/O in S.contents)
@@ -140,7 +157,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		to_chat(user, "Eject the items first!")
 		return
 	if(mode==0) // It's off but still not unscrewed
@@ -154,7 +171,7 @@
 	if(mode != required_mode_to_deconstruct)
 		return
 	. = TRUE
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		to_chat(user, "Eject the items first!")
 		return
 	if(!I.tool_use_check(user, 0))
@@ -379,7 +396,7 @@
 		return
 
 	// 	check for items in disposal - occupied light
-	if(contents.len > 0)
+	if(length(contents) > 0)
 		. += "dispover-full"
 		underlays += emissive_appearance(icon, "dispover-full")
 
@@ -403,7 +420,7 @@
 
 	flush_count++
 	if(flush_count >= flush_every_ticks)
-		if(contents.len)
+		if(length(contents))
 			if(mode == 2)
 				spawn(0)
 					flush()
@@ -425,25 +442,9 @@
 	// otherwise charge
 	change_power_mode(ACTIVE_POWER_USE)
 
-	var/atom/L = loc						// recharging from loc turf
+	var/datum/milla_safe/disposal_suck_air/milla = new()
+	milla.invoke_async(src)
 
-	var/datum/gas_mixture/env = L.return_air()
-	var/pressure_delta = (SEND_PRESSURE*1.01) - air_contents.return_pressure()
-
-	if(env.temperature > 0)
-		var/transfer_moles = 0.1 * pressure_delta*air_contents.volume/(env.temperature * R_IDEAL_GAS_EQUATION)
-
-		//Actually transfer the gas
-		var/datum/gas_mixture/removed = env.remove(transfer_moles)
-		air_contents.merge(removed)
-		air_update_turf()
-
-
-	// if full enough, switch to ready mode
-	if(air_contents.return_pressure() >= SEND_PRESSURE)
-		mode = 2
-		update()
-	return
 
 // perform a flush
 /obj/machinery/disposal/proc/flush()
@@ -524,7 +525,7 @@
 /obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
 	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
-		if(istype(I, /obj/item/projectile))
+		if(isprojectile(I))
 			return
 		if(prob(75) || (istype(mover.throwing.thrower) && (HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS) || HAS_TRAIT(mover.throwing.thrower, TRAIT_NEVER_MISSES_DISPOSALS))))
 			I.forceMove(src)
@@ -545,7 +546,7 @@
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/stretch/impaired, 2)
 
 /obj/machinery/disposal/force_eject_occupant(mob/target)
 	target.forceMove(get_turf(src))
@@ -714,11 +715,9 @@
 	playsound(loc, 'sound/effects/clang.ogg', 50, 0, 0)
 
 	// called to vent all gas in holder to a location
-/obj/structure/disposalholder/proc/vent_gas(atom/location)
-	if(location)
-		location.assume_air(gas)  // vent all gas to turf
-	air_update_turf()
-	return
+/obj/structure/disposalholder/proc/vent_gas(turf/location)
+	if(istype(location))
+		location.blind_release_air(gas)
 
 // Disposal pipes
 

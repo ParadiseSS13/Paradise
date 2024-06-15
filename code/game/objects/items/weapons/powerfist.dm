@@ -31,6 +31,9 @@
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank/internals))
+		if(!user.is_holding(src))
+			to_chat(user, "<span class='warning'>You have to hold [src] in your hand!</span>")
+			return
 		if(!tank)
 			var/obj/item/tank/internals/IT = W
 			if(IT.volume <= 3)
@@ -90,7 +93,7 @@
 	if(!tank)
 		to_chat(user, "<span class='warning'>[src] can't operate without a source of gas!</span>")
 		return
-	if(tank && !tank.air_contents.boolean_remove(((gasperfist * fisto_setting) * tank.air_contents.return_volume()) / (R_IDEAL_GAS_EQUATION * tank.air_contents.return_temperature())))
+	if(tank && !tank.air_contents.boolean_remove(((gasperfist * fisto_setting) * tank.air_contents.return_volume()) / (R_IDEAL_GAS_EQUATION * tank.air_contents.temperature())))
 		to_chat(user, "<span class='warning'>[src]'s piston-ram lets out a weak hiss, it needs more gas!</span>")
 		playsound(loc, 'sound/effects/refill.ogg', 50, 1)
 		return

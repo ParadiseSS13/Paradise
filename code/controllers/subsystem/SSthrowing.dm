@@ -13,6 +13,15 @@ SUBSYSTEM_DEF(throwing)
 	var/list/currentrun
 	var/list/processing = list()
 
+	/// How many throw impact sounds have happened this tick.
+	var/impact_sounds = 0
+	/// How many throw impact sounds we allow per tick.
+	var/impact_sounds_cap = 20
+	/// How many sounds we've skipped due to hitting the per-tick cap.
+	var/skipped_sounds = 0
+	/// How many sounds there were last tick.
+	var/last_impact_sounds = 0
+
 /datum/controller/subsystem/throwing/get_stat_details()
 	return "P:[length(processing)]"
 
@@ -25,12 +34,14 @@ SUBSYSTEM_DEF(throwing)
 /datum/controller/subsystem/throwing/fire(resumed = 0)
 	if(!resumed)
 		src.currentrun = processing.Copy()
+		last_impact_sounds = impact_sounds
+		impact_sounds = 0
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 
 	while(length(currentrun))
-		var/atom/movable/AM = currentrun[currentrun.len]
+		var/atom/movable/AM = currentrun[length(currentrun)]
 		var/datum/thrownthing/TT = currentrun[AM]
 		currentrun.len--
 		if(!AM || !TT)
@@ -45,6 +56,13 @@ SUBSYSTEM_DEF(throwing)
 			return
 
 	currentrun = null
+
+/datum/controller/subsystem/throwing/proc/playsound_capped(atom/source, soundin, vol, vary, extrarange, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
+	if(impact_sounds < impact_sounds_cap)
+		impact_sounds++
+		playsound(source, soundin, vol, vary, extrarange, falloff_exponent, frequency, channel, pressure_affected, ignore_walls, falloff_distance, use_reverb)
+	else
+		skipped_sounds++
 
 /datum/thrownthing
 	var/atom/movable/thrownthing

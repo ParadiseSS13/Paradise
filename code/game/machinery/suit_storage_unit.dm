@@ -75,6 +75,15 @@
 /obj/machinery/suit_storage_unit/captain/secure
 	secure = TRUE
 
+/obj/machinery/suit_storage_unit/blueshield
+	name = "blueshield's suit storage unit"
+	mask_type = /obj/item/clothing/mask/gas
+	suit_type = /obj/item/mod/control/pre_equipped/praetorian
+	req_access = list(ACCESS_BLUESHIELD)
+
+/obj/machinery/suit_storage_unit/blueshield/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/engine
 	name = "engineering suit storage unit"
 	icon_state = "industrial"
@@ -179,6 +188,11 @@
 	helmet_type = /obj/item/clothing/head/space/prisoner_gulag
 	mask_type = /obj/item/clothing/mask/breath
 
+/obj/machinery/suit_storage_unit/expedition
+	name = "explorer modsuit storage unit"
+	mask_type = /obj/item/clothing/mask/gas/explorer
+	suit_type = /obj/item/mod/control/pre_equipped/standard/explorer
+	req_access = list(ACCESS_EXPEDITION)
 /obj/machinery/suit_storage_unit/cmo
 	name = "chief medical officer's suit storage unit"
 	mask_type = /obj/item/clothing/mask/breath
@@ -241,7 +255,7 @@
 
 //copied from /obj/effect/nasavoidsuitspawner
 /obj/machinery/suit_storage_unit/telecoms/Initialize()
-	switch(pick(list("red", "green", "ntblue", "purple", "yellow", "ltblue")))
+	switch(pick("red", "green", "ntblue", "purple", "yellow", "ltblue"))
 		if("red")
 			helmet_type = /obj/item/clothing/head/helmet/space/nasavoid
 			suit_type = /obj/item/clothing/suit/space/nasavoid
@@ -301,8 +315,9 @@
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
-/obj/machinery/suit_storage_unit/Destroy()
-	dump_contents()
+/obj/machinery/suit_storage_unit/Destroy(force)
+	if(!force)
+		dump_contents()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	return ..()
@@ -347,16 +362,6 @@
 			to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
 		return
 	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
-			if(occupant || helmet || suit || storage || boots)
-				to_chat(user, "<span class='warning'>There are contents that prevent you from deconstructing [src]!</span>")
-				return
-			if(locked)
-				to_chat(user, "<span class='warning'>The security system prevents you from deconstructing [src]!</span>")
-				return
-			dump_contents() // probably still a good idea for just incase?
-			default_deconstruction_crowbar(user, I)
-			return
 		wires.Interact(user)
 		return
 	if(state_open)
@@ -369,10 +374,25 @@
 		return
 	return ..()
 
-/obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+/obj/machinery/suit_storage_unit/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
 		return
 	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+	if(occupant || helmet || suit || storage || boots)
+		to_chat(user, "<span class='warning'>There are contents that prevent you from deconstructing [src]!</span>")
+		return
+	if(locked)
+		to_chat(user, "<span class='warning'>The security system prevents you from deconstructing [src]!</span>")
+		return
+	dump_contents() // probably still a good idea for just incase?
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return

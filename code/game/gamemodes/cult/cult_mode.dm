@@ -1,6 +1,3 @@
-/datum/game_mode
-	var/datum/team/cult/cult_team
-
 /datum/game_mode/proc/get_cult_team()
 	if(!cult_team)
 		new /datum/team/cult() // assignment happens in create_team()
@@ -44,10 +41,10 @@
 	..()
 
 /datum/game_mode/cult/declare_completion()
-	if(cult_team.sacrifices_required == NARSIE_HAS_RISEN)
+	if(cult_team.cult_status == NARSIE_HAS_RISEN)
 		SSticker.mode_result = "cult win - cult win"
 		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [GET_CULT_DATA(entity_name, "their god")]!</FONT></span>")
-	else if(cult_team.sacrifices_required == NARSIE_HAS_FALLEN)
+	else if(cult_team.cult_status == NARSIE_HAS_FALLEN)
 		SSticker.mode_result = "cult draw - narsie died, nobody wins"
 		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [GET_CULT_DATA(entity_name, "the cult god")] was summoned, but banished!</FONT></span>")
 	else

@@ -54,6 +54,11 @@
   */
 /obj/machinery/tcomms/relay/LateInitialize()
 	. = ..()
+
+	// It's also possible the relay's APC's Initialize was called after this one.
+	// Take the opportunity here to re-check the equipment channel.
+	power_change()
+
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		if(C.network_id == autolink_id)
 			AddLink(C)

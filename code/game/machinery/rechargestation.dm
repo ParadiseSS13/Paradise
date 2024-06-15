@@ -165,6 +165,7 @@
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
 		return
+	UnregisterSignal(occupant, COMSIG_MOVABLE_MOVED)
 	occupant.forceMove(loc)
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
@@ -233,6 +234,7 @@
 	QDEL_LIST_CONTENTS(target.grabbed_by)
 	target.forceMove(src)
 	occupant = target
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(go_out))
 
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)

@@ -54,22 +54,13 @@
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/wrench/abductor
-	name = "alien wrench"
-	desc = "A polarized wrench. It causes anything placed between the jaws to turn."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "wrench"
-	usesound = 'sound/effects/empulse.ogg'
-	toolspeed = 0.1
-	origin_tech = "materials=5;engineering=5;abductor=3"
-
 /obj/item/wrench/power
 	name = "hand drill"
 	desc = "A simple powered drill with a bolt bit."
 	icon_state = "drill_bolt"
 	item_state = "drill"
 	belt_icon = "hand_drill"
-	usesound = 'sound/items/drill_use.ogg'
+	usesound = 'sound/items/impactwrench.ogg' // Sourced from freesfx.co.uk
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2"
 	force = 8

@@ -7,7 +7,7 @@
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 40
-
+	/// Amount of arcade tickets in the prize counter.
 	var/tickets = 0
 
 /obj/machinery/prize_counter/Initialize(mapload)
@@ -20,6 +20,58 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
+/obj/machinery/prize_counter/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/prize_counter/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "PrizeCounter", name)
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+/obj/machinery/prize_counter/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/prize_counter)
+	)
+
+/obj/machinery/prize_counter/ui_data(mob/user)
+	var/list/data = list()
+	data["tickets"] = tickets
+	return data
+
+/obj/machinery/prize_counter/ui_static_data(mob/user)
+	var/list/static_data = list()
+
+	var/list/prizes = list()
+	for(var/datum/prize_item/prize in GLOB.global_prizes.prizes)
+		prizes += list(list(
+			"name" = initial(prize.name),
+			"desc" = initial(prize.desc),
+			"cost" = prize.cost,
+			"itemID" = GLOB.global_prizes.prizes.Find(prize),
+			"imageID" = replacetext(replacetext("[prize.typepath]", "/obj/item/", ""), "/", "-"),
+		))
+	static_data["prizes"] = prizes
+
+	return static_data
+
+/obj/machinery/prize_counter/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+	. = TRUE
+
+	add_fingerprint(usr)
+	switch(action)
+		if("purchase")
+			var/itemID = text2num(params["purchase"])
+			if(!GLOB.global_prizes.PlaceOrder(src, itemID))
+				return
+			return TRUE
+		if("eject")
+			print_tickets(usr)
+			return TRUE
+
 /obj/machinery/prize_counter/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "prize_counter-broken"
@@ -30,184 +82,60 @@
 	else
 		icon_state = "prize_counter-on"
 
-/obj/machinery/prize_counter/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/machinery/prize_counter/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/tickets))
 		var/obj/item/stack/tickets/T = O
 		if(user.unEquip(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
 			tickets += T.amount
+			SStgui.update_uis(src)
 			qdel(T)
 		else
 			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
 		return
 	if(panel_open)
-		if(istype(O, /obj/item/wrench))
-			default_unfasten_wrench(user, O, time = 6 SECONDS)
-		if(component_parts && istype(O, /obj/item/crowbar))
-			if(tickets)		//save the tickets!
-				print_tickets()
-			default_deconstruction_crowbar(user, O)
 		return
 
 	return ..()
 
+/obj/machinery/prize_counter/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open || !component_parts)
+		return
+	. = TRUE
+	if(tickets)		//save the tickets!
+		print_tickets()
+	default_deconstruction_crowbar(user, I)
+
 /obj/machinery/prize_counter/screwdriver_act(mob/living/user, obj/item/I)
 	if(!anchored)
 		return
-	I.play_tool_sound(src)
+	. = TRUE
+	if(!I.use_tool(src, user, I.tool_volume))
+		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance panel.</span>")
 	update_icon(UPDATE_ICON_STATE)
-	return TRUE
 
-/obj/machinery/prize_counter/attack_hand(mob/user as mob)
+/obj/machinery/prize_counter/wrench_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	default_unfasten_wrench(user, I, time = 6 SECONDS)
+
+/obj/machinery/prize_counter/attack_hand(mob/user)
 	if(..())
 		return
-	add_fingerprint(user)
-	interact(user)
+	ui_interact(user)
 
-/obj/machinery/prize_counter/interact(mob/user as mob)
-	user.set_machine(src)
-
-	if(stat & (BROKEN|NOPOWER))
-		return
-
-	var/dat = {"
-<html><meta charset='utf-8'>
-	<head>
-		<title>Arcade Ticket Exchange</title>
-		<style type="text/css">
-* {
-	font-family:sans-serif;
-	font-size:x-small;
-}
-html {
-	background:#333;
-	color:#999;
-}
-
-table {background:#303030;border:1px solid #262626;}
-
-caption {text-align:left;}
-
-.button {
-	color:#cfcfcf;
-	text-decoration:none;
-	font-weight:bold;
-	text-align:center;
-	width:75px;
-	padding:21px;
-	box-sizing:border-box;
-	background:none;
-	border:none;
-	display: inline-block;
-}
-.button:hover {color:#ffffff;}
-
-a {
-	color:#cfcfcf;
-	text-decoration:none;
-	font-weight:bold;
-}
-a:hover {color:#ffffff;}
-
-p {margin:0;}
-
-tr.dark {background:#303030;}
-
-tr.light {background:#3f3f3f;}
-
-td,th {padding:15px;border-bottom:1px solid #262626;}
-
-th.cost{padding:0px;border-left:1px solid #262626;}
-
-th.cost.affordable {background:green;}
-
-th.cost.toomuch {background:maroon;}
-
-		</style>
-	</head>
-	<body>
-	<p style="float:right"><b>Tickets: [tickets]</b> | <a href='byond://?src=[UID()];eject=1'>Eject Tickets</a></p>
-	<h1>Arcade Ticket Exchange</h1>
-	<p>
-		<b>Exchange that pile of tickets for a pile of cool prizes!</b>
-	</p>
-	<br>
-	<table cellspacing="0" cellpadding="0">
-		<caption><b>Available Prizes:</b></caption>
-		<thead>
-			<th>#</th>
-			<th>Name/Description</th>
-			<th>Tickets</th>
-		</thead>
-		<tbody>
-	"}
-
-	for(var/datum/prize_item/item in GLOB.global_prizes.prizes)
-		var/cost_class="affordable"
-		if(item.cost>tickets)
-			cost_class="toomuch"
-		var/itemID = GLOB.global_prizes.prizes.Find(item)
-		var/row_color="light"
-		if(itemID%2 == 0)
-			row_color="dark"
-		dat += {"
-			<tr class="[row_color]">
-				<th>
-					[itemID]
-				</th>
-				<td>
-					<p><b>[item.name]</b></p>
-					<p>[item.desc]</p>
-				</td>
-		"}
-		dat += {"
-				<th class="cost [cost_class]">
-					<a href="byond://?src=[UID()];buy=[itemID]" class="button">[item.cost]</a>
-				</th>
-			</tr>
-		"}
-
-	dat += {"
-		</tbody>
-	</table>
-	</body>
-</html>"}
-	user << browse(dat, "window=prize_counter;size=440x600;can_resize=0")
-	onclose(user, "prize_counter")
-	return
-
-/obj/machinery/prize_counter/Topic(href, href_list)
-	if(..())
-		return 1
-
-	add_fingerprint(usr)
-
-	if(href_list["eject"])
-		print_tickets()
-
-	if(href_list["buy"])
-		var/itemID = text2num(href_list["buy"])
-		var/datum/prize_item/item = GLOB.global_prizes.prizes[itemID]
-		var/sure = tgui_alert(usr,"Are you sure you wish to purchase [item.name] for [item.cost] tickets?", "You sure?", list("Yes","No"))
-		if(sure == "No")
-			updateUsrDialog()
-			return
-		if(!GLOB.global_prizes.PlaceOrder(src, itemID))
-			to_chat(usr, "<span class='warning'>Unable to complete the exchange.</span>")
-		else
-			to_chat(usr, "<span class='notice'>You've successfully purchased the item.</span>")
-
-	interact(usr)
-	return
+/obj/machinery/prize_counter/attack_ghost(mob/user)
+	ui_interact(user)
 
 /obj/machinery/prize_counter/proc/print_tickets()
-	if(!tickets)
+	if(tickets <= 0)
+		tickets = 0 // Reset tickets to zero when trying to print a negative number
 		return
 	if(tickets >= 9999)
-		new /obj/item/stack/tickets(get_turf(src), 9999)	//max stack size
+		new /obj/item/stack/tickets(get_turf(src), 9999) // Max stack size
 		tickets -= 9999
-		print_tickets()
 	else
 		new /obj/item/stack/tickets(get_turf(src), tickets)
 		tickets = 0

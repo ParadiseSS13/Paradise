@@ -62,6 +62,8 @@
 	var/start_time
 	/// The lifespan of the tgui_alert, after which the window will close and delete itself.
 	var/timeout
+	/// The attached timer that handles this objects timeout deletion
+	var/deletion_timer
 	/// The bool that controls if this modal should grab window focus
 	var/autofocus
 	/// Boolean field describing if the tgui_alert was closed by the user.
@@ -79,12 +81,12 @@
 	if(timeout)
 		src.timeout = timeout
 		start_time = world.time
-		QDEL_IN(src, timeout)
+		deletion_timer = QDEL_IN(src, timeout)
 
 /datum/tgui_alert/Destroy(force)
 	SStgui.close_uis(src)
 	state = null
-	QDEL_NULL(buttons)
+	deltimer(deletion_timer)
 	return ..()
 
 /**

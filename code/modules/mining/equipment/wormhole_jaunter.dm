@@ -2,7 +2,6 @@
 /obj/item/wormhole_jaunter
 	name = "wormhole jaunter"
 	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. The wormholes it creates are unpleasant to travel through, to say the least.\nThanks to modifications provided by the Free Golems, this jaunter can be worn on the belt to provide protection from chasms."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "Jaunter"
 	item_state = "electronic"
 	throwforce = 0
@@ -26,7 +25,7 @@
 /obj/item/wormhole_jaunter/proc/get_destinations(mob/user)
 	var/list/destinations = list()
 
-	for(var/obj/item/radio/beacon/B in GLOB.global_radios)
+	for(var/obj/item/beacon/B in GLOB.beacons)
 		var/turf/T = get_turf(B)
 		if(is_station_level(T.z))
 			destinations += B
@@ -38,11 +37,11 @@
 		return
 
 	var/list/L = get_destinations(user)
-	if(!L.len)
+	if(!length(L))
 		to_chat(user, "<span class='notice'>[src] found no beacons in the world to anchor a wormhole to.</span>")
 		return
 	var/chosen_beacon = pick(L)
-	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100, user)
+	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), chosen_beacon, src, 100, user)
 	J.emagged = emagged
 	if(adjacent)
 		try_move_adjacent(J)
@@ -110,7 +109,7 @@
 	var/list/L = list()
 	var/list/areaindex = list()
 
-	for(var/obj/item/radio/beacon/R in GLOB.beacons)
+	for(var/obj/item/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
@@ -163,7 +162,7 @@
 
 /obj/item/storage/box/syndie_kit/escape_flare/populate_contents()
 	new /obj/item/wormhole_jaunter/contractor(src)
-	new /obj/item/radio/beacon/emagged(src)
+	new /obj/item/beacon/emagged(src)
 
 /obj/effect/portal/advanced/getaway
 	one_use = TRUE
@@ -198,7 +197,7 @@
 /obj/item/grenade/jaunter_grenade/prime()
 	update_mob()
 	var/list/destinations = list()
-	for(var/obj/item/radio/beacon/B in GLOB.global_radios)
+	for(var/obj/item/beacon/B in GLOB.beacons)
 		var/turf/BT = get_turf(B)
 		if(is_station_level(BT.z))
 			destinations += BT

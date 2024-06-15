@@ -159,7 +159,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/defibrillator/equipped(mob/user, slot)
 	..()

@@ -26,9 +26,15 @@
 			if(M.stat == DEAD)
 				M.faction = list("neutral")
 				M.revive()
-				M.can_collar = TRUE
+				M.set_can_collar(TRUE)
 				if(ishostile(target))
 					var/mob/living/simple_animal/hostile/H = M
+					if(isretaliate(target))
+						// Clear the enemies list so we don't break windows
+						// to get to people we no longer hate.
+						var/mob/living/simple_animal/hostile/retaliate/R = H
+						R.enemies.Cut()
+
 					if(malfunctioning)
 						H.faction |= list("lazarus", "\ref[user]")
 						H.robust_searching = TRUE

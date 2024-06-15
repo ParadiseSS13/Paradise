@@ -39,8 +39,8 @@
 	var/movement_dir
 	/// Variable that defines whether it has a field generator close enough
 	var/has_close_field = FALSE
-	/// Init list that has all the areas that we can possibly move to, to reduce processing impact
-	var/list/all_possible_areas = list()
+	/// How many tiles do we move per movement step?
+	var/steps_per_move = 8
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	miniball = is_miniball
@@ -84,7 +84,6 @@
 /obj/singularity/energy_ball/process()
 	if(!parent_energy_ball)
 		handle_energy()
-		move_the_basket_ball()
 
 		playsound(loc, 'sound/magic/lightningbolt.ogg', 100, TRUE, extrarange = 30, channel = CHANNEL_ENGINE)
 
@@ -99,6 +98,8 @@
 			var/range = rand(1, clamp(length(orbiting_balls), 2, 3))
 			//We zap off the main ball instead of ourselves to make things looks proper
 			tesla_zap(src, range, TESLA_MINI_POWER / 7 * range)
+
+		move_the_basket_ball()
 	else
 		energy = 0 // ensure we dont have miniballs of miniballs //But it'll be cool broooooooooooooooo
 
@@ -108,6 +109,7 @@
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball()
+	has_close_field = FALSE
 	for(var/i in 1 to length(GLOB.field_generator_fields))
 		var/temp_distance = get_dist(src, GLOB.field_generator_fields[i])
 		if(temp_distance <= 15)
@@ -117,29 +119,103 @@
 		var/turf/T = get_step(src, pick(GLOB.alldirs))
 		if(can_move(T))
 			forceMove(T)
-			has_close_field = FALSE
 			for(var/mob/living/carbon/C in loc)
 				dust_mobs(C)
 		return
-	if(!target_turf)
+
+	if(!target_turf || loc == target_turf)
 		find_the_basket()
 		return
-	for(var/i in 0 to 8)
-		movement_dir = get_dir(get_turf(src), target_turf)
-		forceMove(get_step(src, movement_dir))
-		if(get_turf(src) == target_turf)
-			target_turf = null
-		for(var/mob/living/carbon/C in loc)
-			dust_mobs(C)
-		has_close_field = FALSE
 
+	var/turf/move_target = next_move_target()
+	movement_beam(move_target, 1.5 SECONDS)
+	sleep(0.5 SECONDS)
+	// MORE POWER
+	movement_beam(move_target, 1 SECONDS)
+	sleep(0.5 SECONDS)
+	walk_towards(src, move_target, 0, 10)
+
+/datum/move_with_corner
+	var/turf/start
+	var/turf/end
+	var/turf/corner
+	var/pre_corner_x_unit
+	var/pre_corner_y_unit
+	var/pre_corner_dist
+	var/post_corner_x_unit
+	var/post_corner_y_unit
+	var/post_corner_dist
+
+/datum/move_with_corner/New(atom/start_in, atom/end_in)
+	start = start_in
+	end = end_in
+	pre_corner_x_unit = (end.x > start.x) ? 1 : -1
+	pre_corner_y_unit = (end.y > start.y) ? 1 : -1
+	if(start.x == end.x)
+		// Moving along y
+		corner = end
+		pre_corner_x_unit = 0
+		pre_corner_dist = abs(start.y - end.y)
+		return
+	if(start.y == end.y)
+		// Moving along x
+		corner = end
+		pre_corner_y_unit = 0
+		pre_corner_dist = abs(start.x - end.x)
+		return
+
+	pre_corner_dist = min(abs(start.x-end.x), abs(start.y-end.y))
+	corner = locate(start.x + pre_corner_x_unit * pre_corner_dist, start.y + pre_corner_y_unit * pre_corner_dist, start.z)
+
+	if(start.x + pre_corner_x_unit * pre_corner_dist == end.x)
+		// x finished first, move along y
+		post_corner_x_unit = 0
+		post_corner_dist = abs(start.y - end.y) - pre_corner_dist
+	else
+		// y finished first, move along x
+		post_corner_y_unit = 0
+		post_corner_dist = abs(start.x - end.x) - pre_corner_dist
+
+/datum/move_with_corner/proc/get_early_end(dist)
+	if(dist <= pre_corner_dist)
+		return locate(start.x + pre_corner_x_unit * dist, start.y + pre_corner_y_unit * dist, start.z)
+	else if(dist == pre_corner_dist)
+		return corner
+	else if(dist >= pre_corner_dist + post_corner_dist)
+		return end
+
+	var/remaining_dist = dist - pre_corner_dist
+	return locate(corner.x + remaining_dist * post_corner_x_unit, corner.y + remaining_dist * post_corner_y_unit, corner.z)
+
+/obj/singularity/energy_ball/proc/next_move_target()
+	var/datum/move_with_corner/path = new(loc, target_turf)
+	return path.get_early_end(steps_per_move)
+
+/obj/singularity/energy_ball/proc/movement_beam(turf/move_target, duration)
+	var/datum/move_with_corner/path = new(loc, move_target)
+
+	loc.Beam(path.corner, "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', duration, INFINITY)
+	if(path.corner != move_target)
+		path.corner.Beam(move_target, "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', duration, INFINITY)
 
 /obj/singularity/energy_ball/proc/find_the_basket()
 	var/area/where_to_move = pick(all_possible_areas) // Grabs a random area that isn't restricted
 	var/turf/target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
 	target_turf = pick(target_area_turfs) // Grabs a single turf from the entire list
-	return
 
+/obj/singularity/energy_ball/Move(target, direction)
+	// Energy balls move through everything, make it a forceMove.
+	if(miniball)
+		return ..()
+	forceMove(target, direction)
+	return TRUE
+
+// This handles mobs crossing us. For us crossing mobs, see /mob/living/Crossed.
+// (It also dusts them.)
+/obj/singularity/energy_ball/Crossed(atom/thing)
+	if(isliving(thing))
+		var/mob/victim = thing
+		victim.dust()
 
 /obj/singularity/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)

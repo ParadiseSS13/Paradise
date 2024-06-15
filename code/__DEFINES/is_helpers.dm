@@ -58,6 +58,10 @@
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
+#define isprojectile(A) (istype(A, /obj/item/projectile))
+
+#define isgun(A) (istype(A, /obj/item/gun))
+
 #define is_pen(W) (istype(W, /obj/item/pen) || istype(W, /obj/item/flashlight/pen))
 
 #define is_pda(W) (istype(W, /obj/item/pda))
@@ -113,8 +117,13 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 // Areas
 //#define isarea(A, B, C...) BYOND proc, can test multiple arguments and only return TRUE if all are areas
 
+#define isspacearea(A)	(istype(A, /area/space))
+
 // Structures
 #define isstructure(A)	(istype((A), /obj/structure))
+
+// Vehicles
+#define isvehicle(A) istype(A, /obj/vehicle)
 
 // Misc
 #define isclient(A) istype(A, /client)

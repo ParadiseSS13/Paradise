@@ -92,13 +92,17 @@
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
 		var/obj/item/mmi/new_mmi
-		switch(O.mind.role_alt_title)
-			if("Robot")
+		switch(O.client.prefs.active_character.cyborg_brain_type)
+			if(ROBOBRAIN_BORG)
 				new_mmi = new /obj/item/mmi/robotic_brain(O)
 				if(new_mmi.brainmob)
 					new_mmi.brainmob.name = O.name
-			if("Cyborg")
+			if(MMI_BORG)
 				new_mmi = new /obj/item/mmi(O)
+			if(POSITRONIC_BORG)
+				new_mmi = new /obj/item/mmi/robotic_brain/positronic(O)
+				if(new_mmi.brainmob)
+					new_mmi.brainmob.name = O.name
 			else
 				// This should never happen, but oh well
 				new_mmi = new /obj/item/mmi(O)
@@ -199,7 +203,10 @@
 /mob/living/carbon/human/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in mobtypes
+	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a Type", mobtypes)
+
+	if(!mobpath)
+		return
 
 	if(notransform)
 		return
@@ -218,8 +225,6 @@
 
 	new_mob.key = key
 	new_mob.a_intent = INTENT_HARM
-
-
 	to_chat(new_mob, "You suddenly feel more... animalistic.")
 	new_mob.update_pipe_vision()
 	qdel(src)
@@ -227,7 +232,10 @@
 /mob/proc/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in mobtypes
+	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a Type", mobtypes)
+
+	if(!mobpath)
+		return
 
 	var/mob/new_mob = new mobpath(src.loc)
 
@@ -235,7 +243,6 @@
 	new_mob.a_intent = INTENT_HARM
 	to_chat(new_mob, "You feel more... animalistic")
 	new_mob.update_pipe_vision()
-
 	qdel(src)
 
 

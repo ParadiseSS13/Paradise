@@ -36,7 +36,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload, mob/living/host)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/summon_guardian_beacon(null))
+	AddSpell(new /datum/spell/summon_guardian_beacon(null))
 
 /mob/living/simple_animal/hostile/guardian/healer/Destroy()
 	QDEL_NULL(beacon)
@@ -69,6 +69,7 @@
 				C.adjustFireLoss(-5, robotic=1)
 				C.adjustOxyLoss(-5)
 				C.adjustToxLoss(-5)
+				C.adjustCloneLoss(-1)
 				heal_cooldown = world.time + 1.5 SECONDS
 				if(C == summoner)
 					med_hud_set_health()

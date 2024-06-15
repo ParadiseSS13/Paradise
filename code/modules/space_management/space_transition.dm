@@ -200,8 +200,8 @@
 /datum/spacewalk_grid/Destroy()
 	for(var/datum/point/P in filled_nodes)
 		release_node(P)
-	if(available_nodes.len > 1)
-		log_debug("Multiple nodes left behind after SW grid qdel: [available_nodes.len]")
+	if(length(available_nodes) > 1)
+		log_debug("Multiple nodes left behind after SW grid qdel: [length(available_nodes)]")
 		for(var/datum/point/P in available_nodes)
 			log_debug("([P.x],[P.y])")
 	return ..()
@@ -337,7 +337,7 @@
 
 	// Now, we pop entries in a random order from our list of space levels
 	// and assign its connections based on the grid
-	while(crosslinks.len)
+	while(length(crosslinks))
 		D = pick(crosslinks)
 		crosslinks.Remove(D)
 		// Add it to our space grid

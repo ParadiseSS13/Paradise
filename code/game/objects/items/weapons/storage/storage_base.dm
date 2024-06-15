@@ -73,6 +73,8 @@
 	closer.plane = ABOVE_HUD_PLANE
 	orient2hud()
 
+	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
+
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
 		O.mouse_opacity = initial(O.mouse_opacity)
@@ -197,12 +199,9 @@
 	orient2hud(user) // this only needs to happen to make .contents show properly as screen objects.
 	if(user.s_active)
 		user.s_active.hide_from(user) // If there's already an interface open, close it.
-	user.client.screen -= boxes
-	user.client.screen -= closer
-	user.client.screen -= contents
-	user.client.screen += boxes
-	user.client.screen += closer
-	user.client.screen += contents
+	user.client.screen |= boxes
+	user.client.screen |= closer
+	user.client.screen |= contents
 	user.s_active = src
 	LAZYDISTINCTADD(mobs_viewing, user)
 
@@ -232,11 +231,20 @@
 /obj/item/storage/proc/update_viewers()
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
-		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
+		if(!QDELETED(M) && M.s_active == src && Adjacent(M))
 			continue
 		hide_from(M)
+	for(var/obj/item/storage/child in src)
+		child.update_viewers()
+
+/obj/item/storage/Moved(atom/oldloc, dir, forced = FALSE)
+	. = ..()
+	update_viewers()
 
 /obj/item/storage/proc/open(mob/user)
+	if(isobserver(user))
+		show_to(user)
+		return
 	if(use_sound && isliving(user))
 		playsound(loc, use_sound, 50, TRUE, -5)
 
@@ -327,7 +335,7 @@
 		for(var/obj/item/I in contents)
 			var/found = FALSE
 			for(var/datum/numbered_display/ND in numbered_contents)
-				if(ND.sample_object.type == I.type && ND.sample_object.name == I.name)
+				if(ND.sample_object.should_stack_with(I))
 					ND.number++
 					found = TRUE
 					break
@@ -423,20 +431,21 @@
   * This doesn't perform any checks of whether an item can be inserted. That's done by [/obj/item/storage/proc/can_be_inserted]
   * Arguments:
   * * obj/item/I - The item to be inserted
+  * * mob/user - The mob performing the insertion
   * * prevent_warning - Stop the insertion message being displayed. Intended for cases when you are inserting multiple items at once.
   */
-/obj/item/storage/proc/handle_item_insertion(obj/item/I, prevent_warning = FALSE)
+/obj/item/storage/proc/handle_item_insertion(obj/item/I, mob/user, prevent_warning = FALSE)
 	if(!istype(I))
 		return FALSE
-	if(usr)
-		if(!Adjacent(usr) && !isnewplayer(usr))
+	if(user)
+		if(!Adjacent(user) && !isnewplayer(user))
 			return FALSE
-		if(!usr.unEquip(I, silent = TRUE))
+		if(!user.unEquip(I, silent = TRUE))
 			return FALSE
-		usr.update_icons()	//update our overlays
+		user.update_icons()	//update our overlays
 	if(QDELING(I))
 		return FALSE
-	if(silent)
+	if(silent || HAS_TRAIT(I, TRAIT_SILENT_INSERTION))
 		prevent_warning = TRUE
 	I.forceMove(src)
 	if(QDELING(I))
@@ -447,25 +456,38 @@
 		var/mob/M = _M
 		if((M.s_active == src) && M.client)
 			M.client.screen += I
+	if(user)
+		if(user.client && user.s_active != src)
+			user.client.screen -= I
+		if(length(user.observers))
+			for(var/mob/observer in user.observers)
+				if(observer.client && observer.s_active != src)
+					observer.client.screen -= I
+		I.dropped(user, TRUE)
+	add_fingerprint(user)
 
-	if(usr)
-		if(usr.client && usr.s_active != src)
-			usr.client.screen -= I
-		I.dropped(usr, TRUE)
-		add_fingerprint(usr)
+	if(!prevent_warning)
+		// all mobs with clients attached, sans the item's user
+		var/viewer_list = GLOB.player_list - user
 
-		if(!prevent_warning && !istype(I, /obj/item/gun/energy/kinetic_accelerator/crossbow))
-			for(var/mob/M in viewers(usr, null))
-				if(M == usr)
-					to_chat(usr, "<span class='notice'>You put [I] into [src].</span>")
-				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
-					M.show_message("<span class='notice'>[usr] puts [I] into [src].</span>")
-				else if(I && I.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
-					M.show_message("<span class='notice'>[usr] puts [I] into [src].</span>")
+		// the item's user will always get a notification
+		to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 
-		orient2hud(usr)
-		if(usr.s_active)
-			usr.s_active.show_to(usr)
+		// if the item less than normal sized, only people within 1 tile get the message, otherwise, everybody in view gets it
+		if(I.w_class < WEIGHT_CLASS_NORMAL)
+			for(var/mob/M in viewer_list)
+				if(in_range(M, user))
+					M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
+		else
+			// restrict player list to include only those in view
+			viewer_list = viewer_list & viewers(world.view, user)
+			for(var/mob/M in viewer_list)
+				M.show_message("<span class='notice'>[user] puts [I] into [src].</span>")
+
+	orient2hud(user)
+	if(user.s_active)
+		user.s_active.show_to(user)
+
 	I.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	I.in_inventory = TRUE
 	update_icon()
@@ -545,7 +567,7 @@
 			return TRUE
 		return FALSE
 
-	handle_item_insertion(I)
+	handle_item_insertion(I, user)
 
 /obj/item/storage/attack_hand(mob/user)
 	if(ishuman(user))
@@ -704,7 +726,7 @@
 		// But then again a tesseract would destroy the server anyways
 		// Also I wish I could just insert a list instead of it reading it the wrong way
 		content_list.len++
-		content_list[content_list.len] = AM.serialize()
+		content_list[length(content_list)] = AM.serialize()
 	return data
 
 /obj/item/storage/deserialize(list/data)

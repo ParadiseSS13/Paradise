@@ -84,7 +84,7 @@ GLOBAL_DATUM_INIT(discord_manager, /datum/discord_manager, new())
 		else
 			alerttext = "| **NO MENTORS ONLINE**"
 
-	var/message = "[content] [alerttext][add_ping ? handle_mentor_ping() : ""]"
+	var/message = "[html_decode(strip_html_tags(content))] [alerttext][add_ping ? handle_mentor_ping() : ""]"
 
 	var/datum/discord_webhook_payload/dwp = new()
 	dwp.webhook_content = "**\[[GLOB.configuration.system.instance_id]]** [message]"

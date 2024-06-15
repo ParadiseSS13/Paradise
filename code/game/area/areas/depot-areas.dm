@@ -133,7 +133,7 @@
 
 /area/syndicate_depot/core/proc/armory_locker_looted()
 	if(!run_finished && !used_self_destruct)
-		if(shield_list.len)
+		if(length(shield_list))
 			activate_self_destruct("Armory compromised despite armory shield being online.", FALSE)
 			return
 		declare_finished()
@@ -221,7 +221,7 @@
 			var/obj/effect/landmark/L = thing
 			if(L.name == "syndi_depot_bot")
 				possible_bot_spawns |= L
-		if(possible_bot_spawns.len)
+		if(length(possible_bot_spawns))
 			var/obj/effect/landmark/S = pick(possible_bot_spawns)
 			new /obj/effect/portal(get_turf(S))
 			var/mob/living/simple_animal/bot/ed209/syndicate/B = new /mob/living/simple_animal/bot/ed209/syndicate(get_turf(S))
@@ -345,7 +345,7 @@
 		SEND_SOUND(R, sound('sound/misc/notice1.ogg'))
 
 /area/syndicate_depot/core/proc/shields_up()
-	if(shield_list.len)
+	if(length(shield_list))
 		return
 	for(var/thing in GLOB.landmarks_list)
 		var/obj/effect/landmark/L = thing
@@ -362,7 +362,7 @@
 		A.lock()
 
 /area/syndicate_depot/core/proc/shields_key_check()
-	if(!shield_list.len)
+	if(!length(shield_list))
 		return
 	if(detected_mech || detected_pod || detected_double_agent)
 		return
@@ -485,7 +485,7 @@
 	var/list/shield_list = list()
 
 /area/syndicate_depot/perimeter/proc/perimeter_shields_up()
-	if(shield_list.len)
+	if(length(shield_list))
 		return
 	for(var/turf/T in src)
 		var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(T)

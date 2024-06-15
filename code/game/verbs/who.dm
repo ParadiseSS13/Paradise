@@ -38,7 +38,7 @@
 	lines += output_players.Join(", ") // Turn players into a comma separated list
 
 	if(check_rights(R_ADMIN, FALSE))
-		lines += "Click <a href='?_src_=holder;who_advanced=1'>here</a> for detailed (old) who."
+		lines += "Click <a href='byond://?_src_=holder;who_advanced=1'>here</a> for detailed (old) who."
 
 	var/msg = lines.Join("\n")
 
@@ -112,10 +112,10 @@
 		for(var/client/C in GLOB.admins)
 			if(check_rights(R_ADMIN, 0, C.mob))
 
-				if(C.holder.fakekey && !check_rights(R_ADMIN, 0))		//Mentors can't see stealthmins
+				if(C?.holder?.fakekey && !check_rights(R_ADMIN, 0))		//Mentors can't see stealthmins
 					continue
 
-				if(C.holder.big_brother && !check_rights(R_PERMISSIONS, 0))		// normal admins can't see BB
+				if(C?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE))		// normal admins can't see BB
 					continue
 
 				// Their rank may not have a defined colour, only set colour if so

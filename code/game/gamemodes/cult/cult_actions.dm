@@ -112,15 +112,11 @@
 	name = "Draw Blood Rune"
 	desc = "Use the ritual dagger to create a powerful blood rune"
 	button_icon_state = "blood_dagger"
+	default_button_position = "6:157,4:-2"
 
 /datum/action/innate/cult/use_dagger/Grant()
 	button_icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
 	..()
-
-/datum/action/innate/cult/use_dagger/override_location()
-	button.ordered = FALSE
-	button.screen_loc = "6:157,4:-2"
-	button.moved = "6:157,4:-2"
 
 /datum/action/innate/cult/use_dagger/Activate()
 	var/obj/item/melee/cultblade/dagger/D = owner.find_item(/obj/item/melee/cultblade/dagger)

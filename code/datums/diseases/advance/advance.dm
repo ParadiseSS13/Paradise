@@ -49,9 +49,9 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		D = null
 	// Generate symptoms if we weren't given any.
 
-	if(!symptoms || !symptoms.len)
+	if(!symptoms || !length(symptoms))
 
-		if(!D || !D.symptoms || !D.symptoms.len)
+		if(!D || !D.symptoms || !length(D.symptoms))
 			symptoms = GenerateSymptoms(0, 2)
 		else
 			for(var/datum/symptom/S in D.symptoms)
@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 /datum/disease/advance/stage_act()
 	if(!..())
 		return FALSE
-	if(symptoms && symptoms.len)
+	if(symptoms && length(symptoms))
 
 		if(!processing)
 			processing = TRUE
@@ -162,7 +162,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 			if(!HasSymptom(S))
 				possible_symptoms += S
 
-	if(!possible_symptoms.len)
+	if(!length(possible_symptoms))
 		return generated
 
 	// Random chance to get more than one symptom
@@ -172,7 +172,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		while(prob(20))
 			number_of += 1
 
-	for(var/i = 1; number_of >= i && possible_symptoms.len; i++)
+	for(var/i = 1; number_of >= i && length(possible_symptoms); i++)
 		generated += pick_n_take(possible_symptoms)
 
 	return generated
@@ -194,16 +194,16 @@ GLOBAL_LIST_INIT(advance_cures, list(
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
 
-	if(!symptoms || !symptoms.len)
+	if(!symptoms || !length(symptoms))
 		CRASH("We did not have any symptoms before generating properties.")
 
-	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage_rate" = 1, "transmittable" = 1, "severity" = 0)
+	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
 
 	for(var/datum/symptom/S in symptoms)
 
 		properties["resistance"] += S.resistance
 		properties["stealth"] += S.stealth
-		properties["stage_rate"] += S.stage_speed
+		properties["stage rate"] += S.stage_speed
 		properties["transmittable"] += S.transmittable
 		properties["severity"] = max(properties["severity"], S.severity) // severity is based on the highest severity symptom
 
@@ -212,7 +212,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties(list/properties = list())
 
-	if(properties && properties.len)
+	if(properties && length(properties))
 		switch(properties["stealth"])
 			if(2)
 				visibility_flags = HIDDEN_SCANNER
@@ -220,10 +220,10 @@ GLOBAL_LIST_INIT(advance_cures, list(
 				visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
 
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
-		SetSpread(clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE))
+		SetSpread(clamp(2 ** (properties["transmittable"] - length(symptoms)), BLOOD, AIRBORNE))
 		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
 		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
-		stage_prob = max(properties["stage_rate"], 2)
+		stage_prob = max(properties["stage rate"], 2)
 		SetSeverity(properties["severity"])
 		GenerateCure(properties)
 	else
@@ -266,8 +266,8 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
-	if(properties && properties.len)
-		var/res = clamp(properties["resistance"] - (symptoms.len / 2), 1, GLOB.advance_cures.len)
+	if(properties && length(properties))
+		var/res = clamp(properties["resistance"] - (length(symptoms) / 2), 1, length(GLOB.advance_cures))
 //		to_chat(world, "Res = [res]")
 		cures = list(GLOB.advance_cures[res])
 
@@ -288,7 +288,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 // Randomly remove a symptom.
 /datum/disease/advance/proc/Devolve()
-	if(symptoms.len > 1)
+	if(length(symptoms) > 1)
 		var/s = safepick(symptoms)
 		if(s)
 			RemoveSymptom(s)
@@ -319,7 +319,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	if(HasSymptom(S))
 		return
 
-	if(symptoms.len < (VIRUS_SYMPTOM_LIMIT - 1) + rand(-1, 1))
+	if(length(symptoms) < (VIRUS_SYMPTOM_LIMIT - 1) + rand(-1, 1))
 		symptoms += S
 	else
 		RemoveSymptom(pick(symptoms))
@@ -347,14 +347,14 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	for(var/datum/disease/advance/A in D_list)
 		diseases += A.Copy()
 
-	if(!diseases.len)
+	if(!length(diseases))
 		return null
-	if(diseases.len <= 1)
+	if(length(diseases) <= 1)
 		return pick(diseases) // Just return the only entry.
 
 	var/i = 0
 	// Mix our diseases until we are left with only one result.
-	while(i < 20 && diseases.len > 1)
+	while(i < 20 && length(diseases) > 1)
 
 		i++
 
@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 			for(var/datum/disease/A in data["viruses"])
 				preserve += A.Copy()
 			R.data = data.Copy()
-		if(preserve.len)
+		if(length(preserve))
 			R.data["viruses"] = preserve
 
 /proc/AdminCreateVirus(client/user)
@@ -407,7 +407,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 					i -= 1
 	while(i > 0)
 
-	if(D.symptoms.len > 0)
+	if(length(D.symptoms) > 0)
 
 		var/new_name = stripped_input(user, "Name your new disease.", "New Name")
 		if(!new_name)

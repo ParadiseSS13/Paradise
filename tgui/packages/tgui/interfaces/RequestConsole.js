@@ -30,13 +30,15 @@ export const RequestConsole = (props, context) => {
         return <PrintShippingLabel />;
       case 10:
         return <MessageLog type="SHIPPING" />;
+      case 11:
+        return <SecondaryGoal />;
       default:
         return "WE SHOULDN'T BE HERE!";
     }
   };
 
   return (
-    <Window width={450} height={announcementConsole ? 385 : 345}>
+    <Window width={450} height={announcementConsole ? 425 : 385}>
       <Window.Content scrollable>
         <Stack fill vertical>
           {pickPage(screen)}
@@ -115,6 +117,14 @@ const MainMenu = (props, context) => {
               content="Request Supplies"
               icon="box"
               onClick={() => act('setScreen', { setScreen: 2 })}
+            />
+            <Button
+              fluid
+              lineHeight={3}
+              color="translucent"
+              content="Request Secondary Goal"
+              icon="clipboard-list"
+              onClick={() => act('setScreen', { setScreen: 11 })}
             />
             <Button
               fluid
@@ -234,7 +244,7 @@ const MessageResponse = (props, context) => {
       sectionTitle = 'Message sent successfully';
       break;
     case 'FAIL':
-      sectionTitle = 'Request supplies from another department';
+      sectionTitle = 'Unable to contact messaging server';
       break;
   }
 
@@ -268,6 +278,7 @@ const MessageLog = (props, context) => {
       sectionTitle = 'Shipping label print log';
       break;
   }
+  list2iterate.reverse();
 
   return (
     <Stack.Item grow textAlign="center">
@@ -449,6 +460,58 @@ const PrintShippingLabel = (props, context) => {
               </LabeledList.Item>
             ))}
           </LabeledList>
+        </Section>
+      </Stack.Item>
+    </>
+  );
+};
+
+const SecondaryGoal = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { secondaryGoalAuth, secondaryGoalEnabled } = data;
+
+  return (
+    <>
+      <Stack.Item grow>
+        <Section
+          fill
+          scrollable
+          title="Request Secondary Goal"
+          buttons={
+            <Button
+              content="Back"
+              icon="arrow-left"
+              onClick={() => act('setScreen', { setScreen: 0 })}
+            />
+          }
+        />
+      </Stack.Item>
+      <Stack.Item>
+        <Section>
+          {secondaryGoalEnabled ? (
+            secondaryGoalAuth ? (
+              <Box textAlign="center" color="green">
+                ID verified. Authentication accepted.
+              </Box>
+            ) : (
+              <Box textAlign="center" color="label">
+                Swipe your ID card to authenticate yourself
+              </Box>
+            )
+          ) : (
+            <Box textAlign="center" color="label">
+              Complete your current goal first!
+            </Box>
+          )}
+          <Button
+            fluid
+            mt={2}
+            textAlign="center"
+            content="Request Secondary Goal"
+            icon="clipboard-list"
+            disabled={!(secondaryGoalAuth && secondaryGoalEnabled)}
+            onClick={() => act('requestSecondaryGoal')}
+          />
         </Section>
       </Stack.Item>
     </>
