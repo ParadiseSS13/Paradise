@@ -6,6 +6,8 @@
 	icon_screen = "camera_syndi_screen"
 	networks = list("SS13")
 	circuit = /obj/item/circuitboard/syndi_teleporter
+	power_state = NO_POWER_USE
+	interact_offline = TRUE
 	var/datum/action/innate/teleport_in/syndi/tele_in_action = new
 	var/obj/machinery/syndi_telepad/pad
 
@@ -60,9 +62,9 @@
 	desc = "Used to teleport in and then quickly back out"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "syndi-pad-idle"
-	idle_power_consumption = 10
-	active_power_consumption = 50000 //If we take into account it teleporting you back too it will drain a regular power cell in like 5-8 uses but if you dont force the power on the apc its gonna last you only like 1-2 uses before the power turns off
 	anchored = TRUE
+	power_state = NO_POWER_USE
+	interact_offline = TRUE
 	var/cooldown = 0
 	var/cooldown_time = 3 MINUTES
 	var/retrieve_timer = 45 SECONDS
@@ -83,15 +85,10 @@
 	return ..()
 
 /obj/machinery/syndi_telepad/update_icon_state()
-	if(panel_open || (stat & NOPOWER))
+	if(panel_open)
 		icon_state = "syndi-pad-o"
 	else
 		icon_state = "syndi-pad-idle"
-
-/obj/machinery/syndi_telepad/power_change()
-	if(!..())
-		return
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/syndi_telepad/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
@@ -111,7 +108,7 @@
 		return TRUE
 
 /obj/machinery/syndi_telepad/proc/Teleport_Out(mob/living/carbon/target)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (BROKEN))
 		return
 	if(target.handcuffed && (target.buckled || target.pulledby))
 		return
@@ -120,10 +117,9 @@
 	do_sparks(10, 0, target.loc)
 	target.forceMove(get_turf(src))
 	do_sparks(10, 0, target.loc)
-	use_power(active_power_consumption)
 
 /obj/machinery/syndi_telepad/proc/Teleport_In(turf/T, mob/living/carbon/user)
-	if((stat & (BROKEN|NOPOWER)) || !anchored)
+	if((stat & (BROKEN)) || !anchored)
 		return
 	if(cooldown > world.time)
 		var/timeleft = cooldown - world.time
@@ -139,7 +135,6 @@
 		target.forceMove(T)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 		addtimer(CALLBACK(src, PROC_REF(Teleport_Out), target), retrieve_timer)
-		use_power(active_power_consumption)
 
 /obj/effect/temp_visual/teleport_abductor/syndi
 	duration = 25
@@ -150,4 +145,3 @@
 /obj/item/storage/box/syndie_kit/hit_run_teleporter/populate_contents()
 	new /obj/item/beacon/syndicate/bomb/syndi_teleporter(src)
 	new /obj/item/beacon/syndicate/bomb/syndi_telepad(src)
-	new /obj/item/clothing/gloves/color/yellow(src)
