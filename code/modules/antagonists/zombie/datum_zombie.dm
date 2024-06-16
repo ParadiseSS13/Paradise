@@ -7,8 +7,9 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	special_role = SPECIAL_ROLE_ZOMBIE
 	clown_gain_text = "B-Braaaaaains... Honk..."
 	clown_removal_text = "You feel funnier again."
+	wiki_page_name = "Zombie"
 	var/list/old_languages = list() // someone make this better to prevent langs changing if species changes while zombie somehow
-	var/static/list/zombie_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_GOTTAGOSLOW, TRAIT_ABSTRACT_HANDS, TRAIT_SLOW_GRABBER)
+	var/static/list/zombie_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_GOTTAGOSLOW, TRAIT_ABSTRACT_HANDS, TRAIT_NOBREATH)
 	var/datum/unarmed_attack/claws/claw_attack
 
 // possibly upgrades for the zombies after eating brains? Better vision (/datum/action/changeling/augmented_eyesight), better weapons (armblade), better infection, more inhereint armor (physiology)
@@ -26,6 +27,12 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 /datum/antagonist/zombie/detach_from_owner()
 	owner.RemoveSpell(/datum/spell/zombie_claws)
 	return ..()
+
+/datum/antagonist/zombie/add_owner_to_gamemode()
+	SSticker.mode.zombies |= owner
+
+/datum/antagonist/zombie/remove_owner_from_gamemode()
+	SSticker.mode.zombies -= owner
 
 /datum/antagonist/zombie/greet()
 	var/list/messages = list()

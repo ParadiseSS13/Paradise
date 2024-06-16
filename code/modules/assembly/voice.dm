@@ -43,7 +43,7 @@
 		pulse(0)
 
 /obj/item/assembly/voice/activate()
-	return // previously this toggled listning when not in a holder, that's a little silly.  It was only called in attack_self that way.
+	return ..() // previously this toggled listning when not in a holder, that's a little silly.  It was only called in attack_self that way.
 
 
 /obj/item/assembly/voice/attack_self(mob/user)

@@ -716,7 +716,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	var/list/types = typesof(/atom)
-	var/list/matches = new()
+	var/list/matches = list()
 
 	var/include_subtypes = TRUE
 	if(copytext(object, -1) == ".")
