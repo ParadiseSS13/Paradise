@@ -78,7 +78,7 @@
 
 		if(G.use(decrement))
 			AddUses(increment)
-			to_chat(user, "<span class='notice'>You insert a piece of glass into [src]. You have [uses] light\s remaining.</span>")
+			to_chat(user, "<span class='notice'>You insert a some glass into [src]. You have [uses] light\s remaining.</span>")
 		else
 			to_chat(user, "<span class='warning'>You need one sheet of glass to replace lights!</span>")
 		return
@@ -106,8 +106,8 @@
 		if(!user.unEquip(L))
 			to_chat(user, "<span class='warning'>[L] is stuck to your hand!</span>")
 			return
-		to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
 		AddShards(1, user)
+		to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
 		qdel(L)
 		return
 
