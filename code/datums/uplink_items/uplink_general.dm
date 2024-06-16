@@ -2,7 +2,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
 // Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
 
-/proc/get_uplink_items(obj/item/uplink/U, mob/user = null)
+/proc/get_uplink_items(obj/item/uplink/U, mob/user)
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
-			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 10)
+			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
 				sales_items += I
 
 	if(user == null) //Handles surplus
