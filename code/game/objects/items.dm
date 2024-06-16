@@ -77,7 +77,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/flags_inv
 	var/item_color = null
 	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
-	//var/heat_transfer_coefficient = 1 //0 prevents all transfers, 1 is invisible.
 	/// for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets).
 	var/gas_transfer_coefficient = 1
 	/// for chemicals/diseases

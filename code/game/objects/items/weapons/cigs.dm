@@ -99,9 +99,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		light("<span class='warning'>[src] is lit by the flames!</span>")
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/living/user, params)
-	// Handles cigarettes being clicked directly rather than being brought here by an item's attack().
-	if(!I.cigarette_lighter_act(user, user, src))
-		return
+	I.cigarette_lighter_act(user, user, src)
 
 /obj/item/clothing/mask/cigarette/proc/handle_cigarette_lighter_act(mob/living/user, obj/item/I)
 	if(lit)
