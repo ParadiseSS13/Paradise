@@ -30,13 +30,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		var/datum/uplink_item/A = new I.type
 		var/discount = 0.5
 		A.limited_stock = 1
-		I.refundable = FALSE
-		A.refundable = FALSE
 		if(A.cost >= 100)
 			discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
-		A.cost = max(round(A.cost * (1-discount)),1)
+		A.cost = max(round(A.cost * (1 - discount)), 1)
 		A.category = "Discounted Gear"
-		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
+		A.name += " ([round(((initial(A.cost) - A.cost) / initial(A.cost)) * 100)]% off!)"
 		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
 		A.species = null //same as above for species speific items
 		A.reference = "DIS[newreference]"
@@ -79,7 +77,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	/// Chance of being included in the surplus crate (when pick() selects it)
 	var/surplus = 100
 	/// Can this be sold at a discount?
-	var/can_discount = FALSE
+	var/can_discount = TRUE
 	/// Can you only buy so many? -1 allows for infinite purchases
 	var/limited_stock = -1
 	/// Can this item be purchased only during hijackings?
@@ -106,6 +104,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(item && !uses_special_spawn)
 		return new item(loc)
 
+	if(limited_stock)
+		limited_stock -= 1 // In case we are handling discount items differently
 	return UPLINK_SPECIAL_SPAWNING
 
 /datum/uplink_item/proc/description()

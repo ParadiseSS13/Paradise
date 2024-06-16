@@ -129,24 +129,32 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink/proc/refund(mob/user as mob)
 	var/obj/item/I = user.get_active_hand()
-	if(I) // Make sure there's actually something in the hand before even bothering to check
-		for(var/category in uplink_items)
-			for(var/item in uplink_items[category])
-				var/datum/uplink_item/UI = item
-				var/path = UI.refund_path || UI.item
-				var/cost = UI.refund_amount || UI.cost
-				if(I.type == path && UI.refundable && I.check_uplink_validity())
-					var/refund_amount = cost
-					if(istype(I, /obj/item/guardiancreator/tech))
-					//	var/obj/item/guardiancreator/tech/holopara = I
-						refund_amount = I:refund_cost
-					uses += refund_amount
-					used_TC -= refund_amount
-					to_chat(user, "<span class='notice'>[I] refunded.</span>")
-					qdel(I)
-					return
-		// If we are here, we didnt refund
+	if(!I) // Make sure there's actually something in the hand before even bothering to check
 		to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
+		return
+
+	for(var/category in uplink_items)
+		for(var/item in uplink_items[category])
+			var/datum/uplink_item/UI = item
+			var/path = UI.refund_path || UI.item
+			var/cost = UI.refund_amount || UI.cost
+
+			if(ispath(I.type, path) && UI.refundable && I.check_uplink_validity())
+				var/refund_amount = cost
+				if(istype(I, /obj/item/guardiancreator/tech))
+					var/obj/item/guardiancreator/tech/holopara = I
+					if(holopara.is_discounted && cost != holopara.refund_cost)
+						message_admins("continue [holopara.refund_cost] cost [cost]")
+						continue
+					refund_amount = holopara.refund_cost
+				uses += refund_amount
+				used_TC -= refund_amount
+				to_chat(user, "<span class='notice'>[I] refunded.</span>")
+				qdel(I)
+				return
+
+	// If we are here, we didnt refund
+	to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!

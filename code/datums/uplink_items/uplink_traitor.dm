@@ -421,7 +421,6 @@
 	refundable = TRUE
 	surplus = 0 // This being refundable makes this a big no no in my mind.
 	uses_special_spawn = TRUE
-	can_discount = TRUE
 
 /datum/uplink_item/dangerous/guardian/spawn_item(turf/loc, obj/item/uplink/U)
 	if(..() != UPLINK_SPECIAL_SPAWNING)
@@ -438,7 +437,6 @@
 	item = /obj/item/sleeping_carp_scroll
 	cost = 65
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	can_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/bearserk
 	name = "Bearserker Pelt"
@@ -449,7 +447,7 @@
 	item = /obj/item/clothing/head/bearpelt/bearserk
 	cost = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	can_discount = TRUE
+
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Traitor's Toolbelt"
 	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."

@@ -414,6 +414,8 @@
 	name_list = list("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
 	/// How much do we refund this for?
 	var/refund_cost = 0
+	/// Is this discounted?
+	var/is_discounted = FALSE
 
 /obj/item/guardiancreator/tech/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[picked_name] [color]"
@@ -508,12 +510,10 @@
 
 /obj/item/storage/box/syndie_kit/guardian/uplink/Initialize(mapload, new_cost)
 	. = ..()
-	if(new_cost)
-		holopara_cost = new_cost
-
-/obj/item/storage/box/syndie_kit/guardian/populate_contents()
-	new /obj/item/paper/guardian(src)
-
-/obj/item/storage/box/syndie_kit/guardian/uplink/proc/add_creator()
 	var/obj/item/guardiancreator/tech/choose/holopara = new(src)
-	holopara.refund_cost = holopara_cost
+	if(holopara_cost != new_cost)
+		holopara.is_discounted = TRUE
+	holopara.refund_cost = new_cost
+
+/obj/item/storage/box/syndie_kit/guardian/uplink/populate_contents()
+	new /obj/item/paper/guardian(src)
