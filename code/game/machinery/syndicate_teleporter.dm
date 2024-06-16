@@ -61,7 +61,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "syndi-pad-idle"
 	idle_power_consumption = 10
-	active_power_consumption = 100000 //Will drain a regular power cell in like 5-8 uses but if you dont force the power on the apc its gonna last you only like 1-2 uses before the power turns off
+	active_power_consumption = 50000 //If we take into account it teleporting you back too it will drain a regular power cell in like 5-8 uses but if you dont force the power on the apc its gonna last you only like 1-2 uses before the power turns off
 	anchored = TRUE
 	var/cooldown = 0
 	var/cooldown_time = 2 MINUTES
@@ -114,11 +114,12 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(target.handcuffed && (target.buckled || target.pulledby))
-		do_sparks(10, 0, target.loc)
 		return
 	flick("syndi-pad", src)
 	new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(target), target.dir)
+	do_sparks(10, 0, target.loc)
 	target.forceMove(get_turf(src))
+	do_sparks(10, 0, target.loc)
 	use_power(active_power_consumption)
 
 /obj/machinery/syndi_telepad/proc/Teleport_In(turf/T, mob/living/carbon/user)
@@ -136,7 +137,7 @@
 		target.forceMove(T)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 		addtimer(CALLBACK(src, PROC_REF(Teleport_Out), target), retrieve_timer)
-	use_power(active_power_consumption)
+		use_power(active_power_consumption)
 
 /obj/effect/temp_visual/teleport_abductor/syndi
 	duration = 25
