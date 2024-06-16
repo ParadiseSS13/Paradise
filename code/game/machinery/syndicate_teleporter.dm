@@ -129,6 +129,8 @@
 		var/timeleft = cooldown - world.time
 		to_chat(user, "<span class='notice'>The telepad is still charging, wait [round(timeleft/10)] seconds.</span>")
 		return
+	if(!locate(/mob/living) in src.loc)
+		return
 	cooldown = world.time + cooldown_time
 	new/obj/effect/temp_visual/teleport_abductor/syndi(T)
 	sleep(25)
