@@ -179,16 +179,6 @@
 	else
 		to_chat(user, "<span class='notice'>You shut off [src].")
 
-/obj/item/lighter/zippo/attack(mob/living/target, mob/living/user)
-	if(lit && target.IgniteMob())
-		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
-		log_game("[key_name(user)] set [key_name(target)] on fire")
-
-	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
-	if(!istype(cig) || user.a_intent != INTENT_HELP) 
-		return ..()	
-	cigarette_lighter_act(user, target)
-
 /obj/item/lighter/zippo/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/I = locate_cigarette(target)
 	if(!lit)
@@ -393,16 +383,6 @@
 	origin_tech = null
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
-
-/obj/item/match/unathi/attack(mob/living/target, mob/living/user)
-	if(lit && target.IgniteMob())
-		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
-		log_game("[key_name(user)] set [key_name(target)] on fire")
-
-	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
-	if(!istype(cig) || user.a_intent != INTENT_HELP) 
-		return ..()
-	cigarette_lighter_act(user, target)
 	
 /obj/item/match/unathi/cigarette_lighter_act(mob/living/target, mob/living/user, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/I = locate_cigarette(target)

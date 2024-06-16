@@ -174,7 +174,6 @@
 	hitsound = 'sound/weapons/sear.ogg'
 
 /obj/item/scalpel/laser/attack(mob/living/carbon/target, mob/living/user)
-	// For lighting cigarettes.
 	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
 	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
 		return ..()

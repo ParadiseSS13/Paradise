@@ -109,7 +109,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Used to give a reaction chance on hit that is not a block. If less than 0, will remove the block message, allowing overides.
 	var/hit_reaction_chance = 0
 
-	/// Used to allow corgis to wear items as an outfit.
+	/// What dog outfit should a corgi gain when this item is equipped to them?
 	var/datum/dog_fashion/dog_fashion = null		// Needs to be in /obj/item because corgis can wear a lot of non-clothing items
 
 	/// UID of a /mob
@@ -826,7 +826,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /// Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the RPED
 /obj/item/proc/get_part_rating()
-	return FALSE
+	return 0
 
 /obj/item/proc/update_slot_icon()
 	if(!ismob(loc))
