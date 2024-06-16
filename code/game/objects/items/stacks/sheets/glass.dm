@@ -66,11 +66,6 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	..()
 
 /obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/lightreplacer))
-		W.attackby(src, user)
-		return
-
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(CC.get_amount() < 5)
@@ -94,6 +89,8 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 		if(!G && !RG && replace)
 			user.put_in_hands(RG)
 		return
+	
+	return ..()
 
 //////////////////////////////
 // MARK: REINFORCED GLASS

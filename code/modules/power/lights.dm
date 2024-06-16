@@ -948,10 +948,6 @@
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode. Light replacers eat them.
 /obj/item/light/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/lightreplacer))
-		I.attackby(src, user)
-		return
-
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 
