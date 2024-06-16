@@ -55,8 +55,7 @@
 		return
 	var/mob/living/living_target = target
 	var/datum/status_effect/cult_stun_mark/S = living_target.has_status_effect(STATUS_EFFECT_CULT_STUN)
-	if(S)
-		S.trigger()
+	S?.trigger()
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	. = ..()
