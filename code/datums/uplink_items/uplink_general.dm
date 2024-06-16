@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	/// Chance of being included in the surplus crate (when pick() selects it)
 	var/surplus = 100
 	/// Can this be sold at a discount?
-	var/can_discount = TRUE
+	var/can_discount = FALSE
 	/// Can you only buy so many? -1 allows for infinite purchases
 	var/limited_stock = -1
 	/// Can this item be purchased only during hijackings?

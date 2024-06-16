@@ -136,8 +136,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				var/path = UI.refund_path || UI.item
 				var/cost = UI.refund_amount || UI.cost
 				if(I.type == path && UI.refundable && I.check_uplink_validity())
-					uses += cost
-					used_TC -= cost
+					var/refund_amount = cost
+					if(istype(I, /obj/item/guardiancreator/tech))
+					//	var/obj/item/guardiancreator/tech/holopara = I
+						refund_amount = I:refund_cost
+					uses += refund_amount
+					used_TC -= refund_amount
 					to_chat(user, "<span class='notice'>[I] refunded.</span>")
 					qdel(I)
 					return

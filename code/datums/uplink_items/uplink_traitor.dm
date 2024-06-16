@@ -414,13 +414,20 @@
 	reference = "HPA"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel. \
 			The holoparasites are unable to incoporate themselves to changeling and vampire agents."
-	item = /obj/item/storage/box/syndie_kit/guardian
+	item = /obj/item/storage/box/syndie_kit/guardian/uplink
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cost = 60
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
 	surplus = 0 // This being refundable makes this a big no no in my mind.
-	can_discount = FALSE
+	uses_special_spawn = TRUE
+	can_discount = TRUE
+
+/datum/uplink_item/dangerous/guardian/spawn_item(turf/loc, obj/item/uplink/U)
+	if(..() != UPLINK_SPECIAL_SPAWNING)
+		return FALSE
+
+	new /obj/item/storage/box/syndie_kit/guardian/uplink(loc, cost)
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
@@ -431,7 +438,7 @@
 	item = /obj/item/sleeping_carp_scroll
 	cost = 65
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	can_discount = FALSE
+	can_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/bearserk
 	name = "Bearserker Pelt"
@@ -442,7 +449,7 @@
 	item = /obj/item/clothing/head/bearpelt/bearserk
 	cost = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
+	can_discount = TRUE
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Traitor's Toolbelt"
 	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
