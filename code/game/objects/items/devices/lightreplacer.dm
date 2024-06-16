@@ -88,7 +88,7 @@
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 
-		AddUses(round(increment * 1))
+		AddUses(increment)
 		to_chat(user, "<span class='notice'>You insert a shard of glass into [src]. You have [uses] light\s remaining.</span>")
 		qdel(I)
 		return
