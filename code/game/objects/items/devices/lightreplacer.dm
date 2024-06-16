@@ -88,7 +88,7 @@
 			return
 		if(!user.unEquip(I))
 			return
-		AddUses(round(increment * 1)) // It literally contains the same amount of glass as a sheet.
+		AddUses(increment)
 		to_chat(user, "<span class='notice'>You insert a shard of glass into [src]. You have [uses] light\s remaining.</span>")
 		qdel(I)
 		return
