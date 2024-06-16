@@ -437,6 +437,7 @@
 	item = /obj/item/sleeping_carp_scroll
 	cost = 65
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/bearserk
 	name = "Bearserker Pelt"
