@@ -143,8 +143,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				var/refund_amount = cost
 				if(istype(I, /obj/item/guardiancreator/tech))
 					var/obj/item/guardiancreator/tech/holopara = I
-					if(holopara.is_discounted && cost != holopara.refund_cost)
-						message_admins("continue [holopara.refund_cost] cost [cost]")
+					if(holopara.is_discounted && cost != holopara.refund_cost) // This has to be done because the normal holopara uplink datum precedes the discounted uplink datum
 						continue
 					refund_amount = holopara.refund_cost
 				uses += refund_amount
