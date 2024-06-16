@@ -92,7 +92,7 @@
 	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
-	// Pulling this off 'safely' requires years of experiance, a true badass, or blind luck!
+	// Pulling this off 'safely' requires years of experience, a true badass, or blind luck!
 	if(prob(50) || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Life Support Specialist" || HAS_TRAIT(user, TRAIT_BADASS))
 		if(user == target)
 			user.visible_message(

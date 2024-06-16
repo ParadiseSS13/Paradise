@@ -47,7 +47,6 @@
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
 	var/is_a_cleaving_saw = FALSE
 
-
 /obj/item/melee/energy/Initialize(mapload)
 	. = ..()
 	force_off = initial(force) //We want to check this only when initializing, not when swapping, so sharpening works.
