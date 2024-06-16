@@ -64,7 +64,7 @@
 	active_power_consumption = 50000 //If we take into account it teleporting you back too it will drain a regular power cell in like 5-8 uses but if you dont force the power on the apc its gonna last you only like 1-2 uses before the power turns off
 	anchored = TRUE
 	var/cooldown = 0
-	var/cooldown_time = 2 MINUTES
+	var/cooldown_time = 3 MINUTES
 	var/retrieve_timer = 45 SECONDS
 	var/obj/item/gps/internal/gps_signal = /obj/item/gps/internal/hit_run_teleporter
 
