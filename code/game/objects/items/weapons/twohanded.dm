@@ -185,7 +185,7 @@
 	else
 		user.visible_message(
 			"<span class='danger'>[user] flips through the air and slashes at [user] with [src]! The blade barely misses, brushing against [user.p_their()] [I] and setting it alight!</span>",
-			"<span class='notice'>You flip through the air and slash [src] at [I] in the mouth of [target], lighting it with the blade.</span>",
+			"<span class='notice'>You flip through the air and slash [src] at [I], lighting it for [target].</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
 	INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)

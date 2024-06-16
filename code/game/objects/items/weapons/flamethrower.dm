@@ -96,14 +96,14 @@
 	if(prob(50) || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Life Support Specialist" || HAS_TRAIT(user, TRAIT_BADASS))
 		if(user == target)
 			user.visible_message(
-				"<span class='warning'>[user] confidently lifts up [src] in front of [user.p_their()] face and releases a big puff of flame at [I] in [user.p_their()] mouth to light it, like some kind of psychopath!</span>",
-				"<span class='notice'>You lift up [src] in front of your face and lightly pull the trigger, lighting [I].</span>",
+				"<span class='warning'>[user] confidently lifts up [src] and releases a big puff of flame at [I] to light it, like some kind of psychopath!</span>",
+				"<span class='notice'>You lift up [src] and lightly pull the trigger, lighting [I].</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
 				)
 		else
 			user.visible_message(
-				"<span class='warning'>[user] confidently lifts up [src] in front of the face of [target] and releases a big puff of flame at [target.p_their()] [I] to light it, like some kind of psychopath!</span>",
-				"<span class='notice'>You lift up [src] in front of the face of [target] and lightly pull the trigger, lighting [I] in [target.p_their()] mouth with a big puff of flame.</span>",
+				"<span class='warning'>[user] confidently lifts up [src] and points it at [target], releasing a big puff of flame at [target.p_their()] [I.name] to light it, like some kind of psychopath!</span>",
+				"<span class='notice'>You lift up [src] and point it at [target], lightly pullling the trigger to light [target.p_their()] [I.name] with a big puff of flame.</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
 			)
 		I.light(user, target)
@@ -112,17 +112,17 @@
 	// You set them on fire, but at least the cigarette got lit...
 	if(target == user)
 		user.visible_message(
-			"<span class='danger'>With little regard for [user.p_their()] own safety, [user] lifts up [src] to [user.p_their()] face and attempts to light [I] in [user.p_their()] mouth. \
+			"<span class='danger'>With little regard for [user.p_their()] own safety, [user] lifts up [src] and attempts to light [user.p_their()] [I.name]. \
 			Unfortunately, [user] pulls the trigger a little too hard and releases a large burst of flame that sets [user.p_them()] ablaze!</span>",
-			"<span class='userdanger'>You lift up [src] in front your face and pull the trigger. Unfortunately, your pull it a little too hard and release a large burst of flame that sets you ablaze!</span>",
+			"<span class='userdanger'>You lift up [src] and squeeze the trigger to light [I]. Unfortunately, you squeeze a little too hard and release a large burst of flame that sets you ablaze!</span>",
 			"<span class='danger'>You hear a plume of fire and something igniting!</span>"
 						)
 	else
 		user.visible_message(
-			"<span class='danger'>With little regard for the safety of [target], [user] lifts up [src] to the face of [target] and attempts to light [I] in [target.p_their()] mouth. \
-			Unfortunately, [user] pulls the trigger a little too hard and releases a large burst of flame that sets [target] ablaze!</span>",
-			"<span class='userdanger'>You lift up [src] in front of the face of [target] and pull the trigger to try and light [I] in [target.p_their()] mouth. \
-			Unfortunately, your pull it a little too hard and releate large burst of flame that sets you ablaze!</span>",
+			"<span class='danger'>With little regard for the safety of [target], [user] lifts up [src] and points it at [target] to light [target.p_their()][I.name]. \
+			Unfortunately, [user] squeezes the trigger a little too hard and releases a large burst of flame that sets [target] ablaze!</span>",
+			"<span class='userdanger'>You lift up [src] up and point it at [target], squeezing the trigger to light [target.p_their()] [I.name]. \
+			Unfortunately, your squeeze a little too hard and release large burst of flame that sets [target.p_them()] ablaze!</span>",
 			"<span class='danger'>You hear a plume of fire and something igniting!</span>"
 			)
 	I.light(user, target)

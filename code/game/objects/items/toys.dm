@@ -241,6 +241,11 @@
 	if(direct_attackby_item)
 		I = direct_attackby_item
 
+	// We don't want this to function unless the cig is absolutely in someone's mouth.
+	if(!istype(target?.wear_mask, I))
+		to_chat(user, "<span class='notice'> You tap [I] with [src]. Nothing happens.</span>")
+		return
+
 	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
@@ -251,15 +256,15 @@
 		if(target == user)
 			user.visible_message(
 				"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-				[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [I] with [src] in the process.</span>",
-				"<span class='notice'>You casually slash [src] at [I], lighting it with the blade.</span>",
+				[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [I] with [src] in the process. Somehow...</span>",
+				"<span class='notice'>You casually slash [src] at [I], lighting it with the blade. Somehow...</span>",
 				"<span class='danger'>You hear an energy blade slashing something!</span>"
 			)
 		else
 			user.visible_message(
 				"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-				[user.p_they(TRUE)] light[user.p_s()] [I] in the mouth of [target] with [src] in the process.</span>",
-				"<span class='notice'>You casually slash [src] at [I] in the mouth of [target], lighting it with the blade.</span>",
+				[user.p_they(TRUE)] light[user.p_s()] [I] in the mouth of [target] with [src] in the process. Somehow...</span>",
+				"<span class='notice'>You casually slash [src] at [I] in the mouth of [target], lighting it with the blade. Somehow...</span>",
 				"<span class='danger'>You hear an energy blade slashing something!</span>"
 			)
 		I.light(user, target)

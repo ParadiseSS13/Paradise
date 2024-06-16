@@ -234,8 +234,8 @@ CONTENTS:
 				)
 		else
 			user.visible_message(
-				"<span class='warning'>Holy shit! Did [user] just manage to light [I] in the mouth of [target] with [src], only moderately singing [target.p_their()] eyebrows!?</span>",
-				"<span class='notice'>You swish and flick [src] at [target], lighting [user.p_their()] [I.name] with a plume of flame, whilst only moderately eyebrow singing [target.p_their()] eyebrows.</span>",
+				"<span class='warning'>Holy shit! Did [user] just manage to light [I] for [target] with [src], only moderately singing [target.p_their()] eyebrows!?</span>",
+				"<span class='notice'>You swish and flick [src] at [target], lighting [user.p_their()] [I.name] with a plume of flame, whilst only moderately singing [target.p_their()] eyebrows.</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
 				)
 		I.light(user, target)

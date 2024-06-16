@@ -296,8 +296,8 @@
 			)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] points [src] at [I] in the mouth of [target] until it is suddenly set alight.</span>",
-			"<span class='notice'>You point [src] at [I] in the mouth of [target] until it is suddenly set alight.</span>",
+			"<span class='notice'>[user] points [src] at [target] until [target.p_their()] [I] is suddenly set alight.</span>",
+			"<span class='notice'>You point [src] at [target] until [target.p_their()] [I] is suddenly set alight.</span>",
 			)
 	I.light(user, target)
 
