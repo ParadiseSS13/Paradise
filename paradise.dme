@@ -839,6 +839,7 @@
 #include "code\game\machinery\status_display.dm"
 #include "code\game\machinery\suit_storage_unit.dm"
 #include "code\game\machinery\supply_display.dm"
+#include "code\game\machinery\syndicate_teleporter.dm"
 #include "code\game\machinery\syndicatebeacon.dm"
 #include "code\game\machinery\syndicatebomb.dm"
 #include "code\game\machinery\teleporter.dm"

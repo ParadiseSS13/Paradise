@@ -864,6 +864,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stock_parts/capacitor = 5)
 
+/obj/item/circuitboard/syndi_telepad
+	board_name = "Hit and Run Telepad"
+	icon_state = "engineering"
+	build_path = /obj/machinery/syndi_telepad
+	board_type = "machine"
+	origin_tech = "programming=3;engineering=4;bluespace=3;materials=4;syndicate=2;abductor=1"
+	req_components = list(
+							/obj/item/stack/ore/bluespace_crystal = 2,
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stock_parts/manipulator = 1)
+
 /obj/item/circuitboard/teleporter_hub
 	board_name = "Teleporter Hub"
 	icon_state = "engineering"

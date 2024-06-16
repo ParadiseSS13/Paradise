@@ -145,6 +145,15 @@
 	origin_tech = "bluespace=2;syndicate=2"
 	bomb = /obj/machinery/grey_autocloner
 
+/obj/item/beacon/syndicate/bomb/syndi_teleporter
+	name = "suspicious beacon"
+	desc = "A label on it reads: <i>Warning: Activating this device will send a hit and run teleporter console to your location</i>."
+	bomb = /obj/machinery/computer/camera_advanced/hit_run_teleporter
+
+/obj/item/beacon/syndicate/bomb/syndi_telepad
+	desc = "A label on it reads: <i>Warning: Activating this device will send a hit and run telepad to your location</i>."
+	bomb = /obj/machinery/syndi_telepad
+
 /obj/item/beacon/engine
 	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."
 	anchored = TRUE		//Let's not move these around. Some folk might get the idea to use these for assassinations

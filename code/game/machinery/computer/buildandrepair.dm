@@ -255,6 +255,12 @@
 	build_path = /obj/machinery/computer/teleporter
 	origin_tech = "programming=3;bluespace=3;plasmatech=3"
 
+/obj/item/circuitboard/syndi_teleporter
+	board_name = "Hit and Run Teleporter Console"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/camera_advanced/hit_run_teleporter
+	origin_tech = "programming=3;bluespace=3;plasmatech=3;syndicate=3;abductor=2"
+
 /obj/item/circuitboard/secure_data
 	board_name = "Security Records"
 	icon_state = "security"
