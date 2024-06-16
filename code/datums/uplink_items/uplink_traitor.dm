@@ -319,7 +319,9 @@
 
 /datum/uplink_item/jobspecific/hit_run_teleporter
 	name = "Hit and Run Teleporter"
-	desc = "A syndicate adaptation of the abductors teleportation technology, can teleport the user anywhere onto the station even from space and then teleports them back in 45 seconds unless they are restrained and held in place. Unfortunately, research into making this advanced technology stealthy is still ongoing meaning that the teleporter releases a suspicious signal into the whole sector, noticed by anyone with a GPS, additionally it has a high power use"
+	desc = "A syndicate adaptation of the abductors teleportation technology, can teleport the user anywhere onto the station even from space and then teleports them back in 45 seconds unless they are restrained and held in place. \
+	Unfortunately, research into making this advanced technology stealthy is still ongoing meaning that the teleporter releases a suspicious signal into the whole sector, noticed by anyone with a GPS, additionally it has a high power use. \
+	Comes with free insulates gloves for safely forcing power on APCs."
 	reference = "HRT"
 	item = /obj/item/storage/box/syndie_kit/hit_run_teleporter
 	cost = 60

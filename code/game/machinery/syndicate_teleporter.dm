@@ -148,3 +148,4 @@
 /obj/item/storage/box/syndie_kit/hit_run_teleporter/populate_contents()
 	new /obj/item/beacon/syndicate/bomb/syndi_teleporter(src)
 	new /obj/item/beacon/syndicate/bomb/syndi_telepad(src)
+	new /obj/item/clothing/gloves/color/yellow(src)
