@@ -246,29 +246,31 @@
 	anchored = TRUE
 
 	var/active_portals = 0
+	var/menu_open = FALSE
 
 /obj/machinery/deepstorage_teleporter/attack_hand(mob/user)
-	if(active_portals !=0)
+	if(active_portals !=0 || menu_open)
 		return
-
+	menu_open = TRUE
 	var/list/boss_warning = list("Proceed" = TRUE)
 	var/final_decision = tgui_input_list(user, "Just a hunch but wherever this machine may lead, it won't be somewhere so pleasant. Are you sure about this?", "Make your decision", boss_warning)
 	if(!final_decision)
 		to_chat(user, "<span class='notice'>The teleporter machine remains untouched.</span>")
+		menu_open = FALSE
 		return
 
-	new /obj/effect/deepstorage_portal(locate(x, y + 1, z))
+	new /obj/effect/portal/advanced/deepstorage(locate(x, y + 1, z), locate(x + 3, y- 6, z), src, 200)
+	playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 	active_portals++
+	addtimer(CALLBACK(src, PROC_REF(cooldownpassed)), 20 SECONDS)
+	menu_open = FALSE
 
-/obj/effect/deepstorage_portal
+/obj/machinery/deepstorage_teleporter/proc/cooldownpassed()
+	active_portals--
+
+/obj/effect/portal/advanced/deepstorage
 	name = "portal"
 	desc = "Good luck."
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "portal-syndicate"
-
-/obj/effect/deepstorage_portal/Crossed(atom/movable/AM, oldloc)
-	AM.forceMove(locate(x + 3, y - 6, z))
-	do_sparks(5, 0, loc)
 
 // paper stuff & lore
 
@@ -312,7 +314,7 @@
 	<b>(beginning of record...)</b><br>
 	<br>
 	Day... 5, since the-. God, i just checked my previous entries and there was like, 14 in total? In a big portion of it i start with 'day 5 of this, of that'.
-	Weird part is, i don't recall any of those records. It must be my insolent staff, right. They're yearning for some bad words in their recommendation letter
+	Weird part is, i don't recall any of those records. It must be my insolent staff, right. They're yearning for some bad words in their employee records
 	and that they shall receive...<br>
 	<br>
 	<b>(end of record.)</b><br>"}
