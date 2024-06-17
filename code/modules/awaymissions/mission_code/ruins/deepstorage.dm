@@ -129,11 +129,11 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/fleshling/proc/handle_dying()
-	if(!bosskilled)
-		bosskilled = TRUE
+	if(!boss_killed)
+		boss_killed = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/fleshling/death(gibbed)
-	if(can_die() && !bosskilled)
+	if(can_die() && !boss_killed)
 		UnlockBlastDoors("DS_BossStorage")
 	return ..(gibbed)
 
