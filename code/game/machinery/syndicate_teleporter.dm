@@ -30,10 +30,7 @@
 		tele_in_action.Grant(user)
 		actions += tele_in_action
 
-/obj/machinery/computer/camera_advanced/hit_run_teleporter/proc/try_link_pad(relink)
-	if(relink)
-		linked_pad.linked_console = null
-		linked_pad = null
+/obj/machinery/computer/camera_advanced/hit_run_teleporter/proc/try_link_pad()
 	if(linked_pad)
 		return
 	for(var/obj/machinery/syndi_telepad/T in range(1, src))
@@ -88,6 +85,7 @@
 	RefreshParts()
 
 /obj/machinery/syndi_telepad/Destroy()
+	linked_console.linked_pad = null
 	QDEL_NULL(gps_signal)
 	return ..()
 
@@ -112,7 +110,6 @@
 
 /obj/machinery/syndi_telepad/wrench_act(mob/user, obj/item/I)
 	if(default_unfasten_wrench(user, I))
-		try_link_pad(TRUE)
 		return TRUE
 
 /obj/machinery/syndi_telepad/proc/Teleport_Out(mob/living/carbon/target)
