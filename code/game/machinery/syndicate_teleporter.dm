@@ -9,11 +9,11 @@
 	power_state = NO_POWER_USE
 	interact_offline = TRUE
 	var/datum/action/innate/teleport_in/syndi/tele_in_action = new
-	var/obj/machinery/syndi_telepad/pad
+	var/obj/machinery/syndi_telepad/linked_pad
 
 /obj/machinery/computer/camera_advanced/hit_run_teleporter/Initialize(mapload)
 	. = ..()
-	link_pad()
+	try_link_pad()
 
 /obj/machinery/computer/camera_advanced/hit_run_teleporter/CreateEye()
 	..()
@@ -25,18 +25,24 @@
 	..()
 
 	if(tele_in_action)
-		if(!pad)
-			link_pad()
-		tele_in_action.target = pad
+		try_link_pad()
+		tele_in_action.target = linked_pad
 		tele_in_action.Grant(user)
 		actions += tele_in_action
 
-/obj/machinery/computer/camera_advanced/hit_run_teleporter/proc/link_pad()
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
-		pad = locate(/obj/machinery/syndi_telepad, get_step(src, dir))
-		if(pad)
-			tele_in_action.target = pad
-			return
+/obj/machinery/computer/camera_advanced/hit_run_teleporter/proc/try_link_pad(relink)
+	if(relink)
+		linked_pad.linked_console = null
+		linked_pad = null
+	if(linked_pad)
+		return
+	for(var/obj/machinery/syndi_telepad/T in range(1, src))
+		if(T.linked_console)
+			continue
+		linked_pad = T
+		T.linked_console = src
+		tele_in_action.target = T
+		return
 
 /obj/item/gps/internal/hit_run_teleporter
 	icon_state = null
@@ -69,6 +75,7 @@
 	var/cooldown_time = 3 MINUTES
 	var/retrieve_timer = 45 SECONDS
 	var/obj/item/gps/internal/gps_signal = /obj/item/gps/internal/hit_run_teleporter
+	var/obj/machinery/computer/camera_advanced/hit_run_teleporter/linked_console
 
 /obj/machinery/syndi_telepad/Initialize(mapload)
 	. = ..()
@@ -105,6 +112,7 @@
 
 /obj/machinery/syndi_telepad/wrench_act(mob/user, obj/item/I)
 	if(default_unfasten_wrench(user, I))
+		try_link_pad(TRUE)
 		return TRUE
 
 /obj/machinery/syndi_telepad/proc/Teleport_Out(mob/living/carbon/target)
@@ -119,11 +127,14 @@
 	do_sparks(10, 0, target.loc)
 
 /obj/machinery/syndi_telepad/proc/Teleport_In(turf/T, mob/living/carbon/user)
-	if((stat & (BROKEN)) || !anchored)
+	if((stat & (BROKEN)))
+		return
+	if(!anchored)
+		to_chat(user, "<span class='warning'>[src] must be anchored first!</span>")
 		return
 	if(cooldown > world.time)
 		var/timeleft = cooldown - world.time
-		to_chat(user, "<span class='notice'>The telepad is still charging, wait [round(timeleft/10)] seconds.</span>")
+		to_chat(user, "<span class='notice'>[src] is still charging, wait [round(timeleft/10)] seconds.</span>")
 		return
 	if(!locate(/mob/living) in src.loc)
 		return
