@@ -18,7 +18,9 @@
 	},
 /area/ruin/space/unpowered)
 "ae" = (
-/turf/simulated/wall/mineral/titanium/nodecon,
+/turf/simulated/wall/mineral/titanium{
+	name = "wizard wall"
+	},
 /area/ruin/space/unpowered)
 "af" = (
 /obj/structure/computerframe,
@@ -469,7 +471,9 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bH" = (
-/turf/simulated/wall/mineral/titanium/nodecon,
+/turf/simulated/wall/mineral/titanium{
+	name = "wizard wall"
+	},
 /area/space/nearstation)
 "bI" = (
 /obj/structure/window/plasmareinforced,
