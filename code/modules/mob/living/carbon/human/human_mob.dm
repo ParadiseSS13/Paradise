@@ -992,7 +992,7 @@
 	if(HAS_TRAIT(src, TRAIT_HULK))
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		attempt_breaking = TRUE
-	. = ..()
+	return ..()
 
 /mob/living/carbon/human/generate_name()
 	name = dna.species.get_random_name(gender)
