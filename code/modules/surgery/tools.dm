@@ -78,8 +78,8 @@
 			)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [I] in the mouth of [target], heating it until it lights.</span>",
-			"<span class='notice'>You press [src] against [I] in the mouth of [target], heating it until it lights.</span>"
+			"<span class='notice'>[user] presses [src] against [I] for [target], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [I] for [target], heating it until it lights.</span>"
 		)
 	I.light(user, target)
 
@@ -194,8 +194,8 @@
 			)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [I] in the mouth of [target], heating it until it lights.</span>",
-			"<span class='notice'>You press [src] against [I] in the mouth of [target], heating it until it lights.</span>"
+			"<span class='notice'>[user] presses [src] against [I] for [target], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [I] for [target], heating it until it lights.</span>"
 		)
 	I.light(user, target)
 
