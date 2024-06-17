@@ -1,5 +1,6 @@
 // When reviewing this, please consider someone who didn't know what they were doing just copy-pasted a lot of things
-
+#define DS_BOSS_STORAGE "DS_BossStorage"
+#define DS_ENGINEERING "DS_Engineering"
 /mob/living/simple_animal/hostile/megafauna/fleshling
 	name = "Fleshling"
 	desc = "A sinister mass of flesh appears molded into a grotesque shape, nothing about its appearance looks like a deed of evolution. It looks agitated and clearly doesn't want you to leave here alive."
@@ -132,10 +133,10 @@
 
 /mob/living/simple_animal/hostile/megafauna/fleshling/death(gibbed)
 	if(can_die() && !boss_killed)
-		UnlockBlastDoors("DS_BossStorage")
+		unlock_blast_doors(DS_BOSS_STORAGE)
 	return ..(gibbed)
 
-/mob/living/simple_animal/hostile/megafauna/fleshling/proc/UnlockBlastDoors(target_id_tag)
+/mob/living/simple_animal/hostile/megafauna/fleshling/proc/unlock_blast_doors(target_id_tag)
 	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
 		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
 			P.open()
@@ -185,6 +186,7 @@
 			/obj/effect/decal/cleanable/blood,
 			/obj/effect/gibspawner/generic,
 			/obj/effect/gibspawner/generic)
+		return
 
 	if(prob(20))
 		loot = list(/obj/item/salvage/ruin/brick,
@@ -192,10 +194,11 @@
 			/obj/effect/decal/cleanable/blood,
 			/obj/effect/gibspawner/generic,
 			/obj/effect/gibspawner/generic)
-
+		return
 
 /mob/living/simple_animal/hostile/spaceinfected/gateopener //when this mob dies it'll trigger a poddoor open
-	var/hasdied = FALSE
+	// is our mob dead?
+	var/has_died = FALSE
 	loot = list(/obj/item/gun/energy/laser,
 			/obj/effect/decal/cleanable/blood/innards,
 			/obj/effect/decal/cleanable/blood,
@@ -207,15 +210,15 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/spaceinfected/gateopener/proc/handle_dying()
-	if(!hasdied)
-		hasdied = TRUE
+	if(!has_died)
+		has_died = TRUE
 
 /mob/living/simple_animal/hostile/spaceinfected/gateopener/death(gibbed)
-	if(can_die() && !hasdied)
-		UnlockBlastDoors("DS_Engineering")
+	if(can_die() && !has_died)
+		unlock_blast_doors(DS_ENGINEERING)
 	return ..(gibbed)
 
-/mob/living/simple_animal/hostile/spaceinfected/gateopener/proc/UnlockBlastDoors(target_id_tag)
+/mob/living/simple_animal/hostile/spaceinfected/gateopener/proc/unlock_blast_doors(target_id_tag)
 	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
 		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
 			P.open()
@@ -244,11 +247,13 @@
 	density = TRUE
 	anchored = TRUE
 
+	// how many portals are present right now?
 	var/active_portals = 0
+	// do user has the tgui menu open right now?
 	var/menu_open = FALSE
 
 /obj/machinery/deepstorage_teleporter/attack_hand(mob/user)
-	if(active_portals !=0 || menu_open)
+	if(active_portals != 0 || menu_open)
 		return
 	menu_open = TRUE
 	var/list/boss_warning = list("Proceed" = TRUE)
@@ -261,10 +266,11 @@
 	new /obj/effect/portal/advanced/deepstorage(locate(x, y + 1, z), locate(x + 3, y- 6, z), src, 200)
 	playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 	active_portals++
-	addtimer(CALLBACK(src, PROC_REF(cooldownpassed)), 20 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(cooldown_passed)), 20 SECONDS)
 	menu_open = FALSE
 
-/obj/machinery/deepstorage_teleporter/proc/cooldownpassed()
+// this proc is called when portal disappears after a while, so users can interact with teleporter again
+/obj/machinery/deepstorage_teleporter/proc/cooldown_passed()
 	active_portals--
 
 /obj/effect/portal/advanced/deepstorage
@@ -340,3 +346,6 @@
 	<br>
 	For whatever reason you want to go in, package teleporter is still functional. Gates will remain sealed as long as that thing is alive so, proceed with your own
 	discretion."}
+
+#undef DS_BOSS_STORAGE
+#undef DS_ENGINEERING
