@@ -40,35 +40,47 @@
 			continue
 		dance(dancer)
 
-// Drums
-/obj/machinery/jukebox/drum_red
-	name = "\proper красный барабан"
-	desc = "Крутые барабаны от какой-то группы."
-	icon_state = "drum_red_unanchored"
-	base_icon_state = "drum_red"
-	jukebox_type = /datum/jukebox/drum
+/obj/machinery/jukebox/concertspeaker
+	name = "\proper концертная установка"
+	desc = "Концертная колонка, которая используется для воспроизведения концертной записи."
+	icon = 'modular_ss220/jukebox/icons/jukebox.dmi'
+	icon_state = "concertspeaker_unanchored"
+	base_icon_state = "concertspeaker"
+	jukebox_type = /datum/jukebox/concertspeaker
 	anchored = FALSE
+	var/receiving = FALSE
+	var/code = 0
+	var/frequency = 1400
 
-/obj/machinery/jukebox/drum_red/wrench_act()
+/obj/machinery/jukebox/concertspeaker/examine()
+	. = ..()
+	. += "<span class='notice'>Используйте гаечный ключ, чтобы разобрать для транспортировки и собрать для игры.</span>"
+
+/obj/machinery/jukebox/concertspeaker/wrench_act()
 	. = ..()
 	icon_state = "[base_icon_state][anchored ? null : "_unanchored"]"
 
-/obj/machinery/jukebox/drum_red/update_icon_state()
+/obj/machinery/jukebox/concertspeaker/update_icon_state()
 	if(stat & (BROKEN))
 		icon_state = "[base_icon_state]_broken"
 	else
-		icon_state = "[base_icon_state][music_player.active_song_sound ? "-active" : null]"
+		icon_state = "[base_icon_state][music_player.active_song_sound ? "_active" : null]"
 
-/obj/machinery/jukebox/drum_red/drum_yellow
-	name = "\proper желтый барабан"
-	icon_state = "drum_yellow_unanchored"
-	base_icon_state = "drum_yellow"
-
-/obj/machinery/jukebox/drum_red/drum_blue
-	name = "\proper синий барабан"
-	icon_state = "drum_blue_unanchored"
-	base_icon_state = "drum_blue"
-
-/datum/supply_packs/misc/bigband/New()
+/obj/machinery/jukebox/concertspeaker/Initialize()
 	. = ..()
-	contains |= /obj/machinery/jukebox/drum_red
+	GLOB.remote_signalers |= src
+
+/obj/machinery/jukebox/concertspeaker/activate_music()
+	. = ..()
+	signal()
+
+/obj/machinery/jukebox/concertspeaker/stop_music()
+	. = ..()
+	signal()
+
+/obj/machinery/jukebox/concertspeaker/proc/signal()
+	for(var/obj/item/assembly/signaler/S as anything in GLOB.remote_signalers)
+		if(S == src)
+			continue
+		if(S.receiving && (S.code == code) && (S.frequency == frequency))
+			S.signal_callback()

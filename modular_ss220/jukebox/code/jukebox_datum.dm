@@ -404,15 +404,26 @@
 /datum/jukebox/single_mob/start_music(mob/solo_listener)
 	register_listener(solo_listener)
 
-/datum/jukebox/drum
-	songs_path = "config/drum_music/"
+/datum/jukebox/concertspeaker
+	songs_path = "sound/music/soundhand/"
 
-/datum/jukebox/drum/load_songs_from_config()
+/datum/jukebox/concertspeaker/load_songs_from_config()
 	var/static/list/config_songs
 	if(isnull(config_songs))
 		config_songs = fill_songs_static_list()
 	// returns a copy so it can mutate if desired.
 	return config_songs.Copy()
+
+/datum/jukebox/concertspeaker/fill_songs_static_list()
+	var/songs_list = list()
+	for(var/datum/track/new_track as anything in subtypesof(/datum/track/soundhand))
+		songs_list[new_track.song_name] = new new_track (new_track.song_name,new_track.song_path,new_track.song_length,new_track.song_beat)
+
+	if(!length(songs_list))
+		var/datum/track/default/default_track = new()
+		songs_list[default_track.song_name] = default_track
+
+	return songs_list
 
 #undef IS_PREF_MUTED
 

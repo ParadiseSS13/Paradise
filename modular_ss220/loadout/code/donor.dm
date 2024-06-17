@@ -130,25 +130,45 @@
 	cost = 1
 
 /datum/gear/donor/driver
-	display_name = "Driver jacket."
+	display_name = "Driver jacket"
 	path = /obj/item/clothing/suit/jacket/driver
 	donator_tier = 2
 	cost = 1
 
 /datum/gear/donor/soundhand_black_jacket
-	display_name = "Черная куртка с тэгом группы Саундхэнд."
-	path = /obj/item/clothing/suit/storage/soundhand_black_jacket/soundhand_black_jacket_tag
+	display_name = "Черная куртка с тэгом группы Саундхэнд"
+	path = /obj/item/clothing/suit/storage/soundhand_black_jacket/tag
 	cost = 2
 
 /datum/gear/donor/soundhand_olive_jacket
-	display_name = "Оливковая куртка с тэгом группы Саундхэнд."
-	path = /obj/item/clothing/suit/storage/soundhand_olive_jacket/soundhand_olive_jacket_tag
+	display_name = "Оливковая куртка с тэгом группы Саундхэнд"
+	path = /obj/item/clothing/suit/storage/soundhand_olive_jacket/tag
 	cost = 2
 
 /datum/gear/donor/soundhand_brown_jacket
-	display_name = "Коричневая куртка с тэгом группы Саундхэнд."
-	path = /obj/item/clothing/suit/storage/soundhand_brown_jacket/soundhand_brown_jacket_tag
+	display_name = "Коричневая куртка с тэгом группы Саундхэнд"
+	path = /obj/item/clothing/suit/storage/soundhand_brown_jacket/tag
 	cost = 2
+
+/datum/gear/donor/soundhand_white_jacket
+	display_name = "Серебристая куртка Арии"
+	path = /obj/item/clothing/suit/storage/soundhand_white_jacket/tag
+	donator_tier = 5
+	cost = 2
+
+/datum/gear/donor/soundhand_metal_guitar
+	display_name = "Электро-гитара Арии"
+	path = /obj/item/instrument/soundhand_metal_guitar
+	donator_tier = 5
+	cost = 2
+
+/datum/gear/instrument/soundhand_bass_guitar
+	display_name = "Бас гитара"
+	path = /obj/item/instrument/soundhand_bass_guitar
+
+/datum/gear/instrument/soundhand_rock_guitar
+	display_name = "Рок гитара"
+	path = /obj/item/instrument/soundhand_rock_guitar
 
 // ID Skins
 /datum/gear/donor/id_decal_colored
