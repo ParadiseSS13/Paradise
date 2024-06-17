@@ -381,18 +381,19 @@
 	pierced_helmet.created_name = name
 	new /obj/item/assembly/prox_sensor(explode_turf)
 
-	if(!lasercolor)
-		var/obj/item/gun/energy/disabler/ed_gun = new /obj/item/gun/energy/disabler(explode_turf)
-		ed_gun.cell.charge = 0
-		ed_gun.update_icon()
-	else if(lasercolor == "b")
-		var/obj/item/gun/energy/laser/tag/blue/ed_gun = new /obj/item/gun/energy/laser/tag/blue(explode_turf)
-		ed_gun.cell.charge = 0
-		ed_gun.update_icon()
-	else if(lasercolor == "r")
-		var/obj/item/gun/energy/laser/tag/red/ed_gun = new /obj/item/gun/energy/laser/tag/red(explode_turf)
-		ed_gun.cell.charge = 0
-		ed_gun.update_icon()
+	switch(lasercolor)
+		if("b")
+			var/obj/item/gun/energy/laser/tag/blue/ed_gun = new /obj/item/gun/energy/laser/tag/blue(explode_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
+		if("r")
+			var/obj/item/gun/energy/laser/tag/red/ed_gun = new /obj/item/gun/energy/laser/tag/red(explode_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
+		else
+			var/obj/item/gun/energy/disabler/ed_gun = new /obj/item/gun/energy/disabler(explode_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
 
 	if(prob(50))
 		new /obj/item/robot_parts/l_leg(explode_turf)
@@ -402,12 +403,13 @@
 		if(prob(50))
 			new /obj/item/clothing/head/helmet(explode_turf)
 		else
-			if(!lasercolor)
-				new /obj/item/clothing/suit/armor/vest(explode_turf)
-			if(lasercolor == "b")
-				new /obj/item/clothing/suit/bluetag(explode_turf)
-			if(lasercolor == "r")
-				new /obj/item/clothing/suit/redtag(explode_turf)
+			switch(lasercolor)
+				if("b")
+					new /obj/item/clothing/suit/bluetag(explode_turf)
+				if("r")
+					new /obj/item/clothing/suit/redtag(explode_turf)
+				else
+					new /obj/item/clothing/suit/armor/vest(explode_turf)
 
 	do_sparks(3, 1, src)
 
@@ -424,28 +426,31 @@
 	pierced_helmet.created_name = name
 	new /obj/item/assembly/prox_sensor(disassemble_turf)
 
-	if(!lasercolor)
-		var/obj/item/gun/energy/disabler/ed_gun = new /obj/item/gun/energy/disabler(disassemble_turf)
-		ed_gun.cell.charge = 0
-		ed_gun.update_icon()
-	else if(lasercolor == "b")
-		var/obj/item/gun/energy/laser/tag/blue/ed_gun = new /obj/item/gun/energy/laser/tag/blue(disassemble_turf)
-		ed_gun.cell.charge = 0
-		ed_gun.update_icon()
-	else if(lasercolor == "r")
-		var/obj/item/gun/energy/laser/tag/red/ed_gun = new /obj/item/gun/energy/laser/tag/red(disassemble_turf)
-		ed_gun.cell.charge = 0
-		ed_gun.update_icon()
+	switch(lasercolor)
+		if("b")
+			var/obj/item/gun/energy/laser/tag/blue/ed_gun = new /obj/item/gun/energy/laser/tag/blue(disassemble_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
+		if("r")
+			var/obj/item/gun/energy/laser/tag/red/ed_gun = new /obj/item/gun/energy/laser/tag/red(disassemble_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
+		else
+			var/obj/item/gun/energy/disabler/ed_gun = new /obj/item/gun/energy/disabler(disassemble_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
 
 	new /obj/item/robot_parts/l_leg(disassemble_turf)
 	new /obj/item/robot_parts/r_leg(disassemble_turf)
 	new /obj/item/clothing/head/helmet(disassemble_turf)
-	if(!lasercolor)
-		new /obj/item/clothing/suit/armor/vest(disassemble_turf)
-	else if(lasercolor == "b")
-		new /obj/item/clothing/suit/bluetag(disassemble_turf)
-	else if(lasercolor == "r")
-		new /obj/item/clothing/suit/redtag(disassemble_turf)
+
+	switch(lasercolor)
+		if("b")
+			new /obj/item/clothing/suit/bluetag(disassemble_turf)
+		if("r")
+			new /obj/item/clothing/suit/redtag(disassemble_turf)
+		else
+			new /obj/item/clothing/suit/armor/vest(disassemble_turf)
 	qdel(src)
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
