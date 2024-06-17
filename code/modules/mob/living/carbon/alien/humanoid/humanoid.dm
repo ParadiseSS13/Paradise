@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 /mob/living/carbon/alien/humanoid/resist_restraints(attempt_breaking)
 	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
 	attempt_breaking = TRUE
-	. = ..()
+	return ..()
 
 /mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset()
 	if(leaping)
