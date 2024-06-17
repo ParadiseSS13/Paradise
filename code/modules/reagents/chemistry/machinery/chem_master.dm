@@ -24,16 +24,18 @@
 	var/production_mode = null
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers = list(
-		COLOR_RED = "Red",
+		COLOR_RED_LIGHT = "Red",
 		COLOR_GREEN = "Green",
 		COLOR_PALE_BTL_GREEN = "Pale Green",
-		COLOR_BLUE = "Blue",
 		COLOR_CYAN_BLUE = "Light Blue",
 		COLOR_TEAL = "Teal",
 		COLOR_YELLOW = "Yellow",
 		COLOR_ORANGE = "Orange",
 		COLOR_PINK = "Pink",
-		COLOR_MAROON = "Brown"
+		COLOR_MAROON = "Brown",
+		COLOR_INDIGO = "Indigo",
+		COLOR_VIOLET = "Violet",
+		COLOR_PURPLE = "Purple"
 	)
 	var/list/datum/chemical_production_mode/production_modes = list()
 

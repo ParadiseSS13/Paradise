@@ -33,6 +33,7 @@
 #define INFECTION_LEVEL_ONE		100
 #define INFECTION_LEVEL_TWO		500
 #define INFECTION_LEVEL_THREE	1000
+#define INFECTION_LEVEL_FOUR	1500
 
 // Damage above this value must be repaired with surgery.
 #define ROBOLIMB_SELF_REPAIR_CAP 60
@@ -403,7 +404,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 56
+#define SQL_VERSION 57
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)

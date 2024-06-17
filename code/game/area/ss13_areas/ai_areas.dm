@@ -7,11 +7,6 @@
 	icon_state = "ai_upload"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-/area/station/turret_protected/ai_upload/foyer
-	name = "AI Upload Access"
-	icon_state = "ai_foyer"
-	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-
 /area/station/turret_protected/ai
 	name = "\improper AI Chamber"
 	icon_state = "ai_chamber"

@@ -1269,6 +1269,12 @@
 
 		usr.client.view_asays()
 
+	else if(href_list["msays"])
+		if(!check_rights(R_ADMIN | R_MENTOR))
+			return
+
+		usr.client.view_msays()
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -2091,7 +2097,9 @@
 			if("Fire Death")
 				to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(M)
-				new /obj/effect/hotspot(T)
+				var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+				hotspot.temperature = 1000
+				hotspot.recolor()
 				M.adjustFireLoss(150)
 				logmsg = "a firey death."
 			if("Gib")
