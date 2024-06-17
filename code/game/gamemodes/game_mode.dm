@@ -233,7 +233,7 @@
 	if(escaped_on_pod_3)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_3, list("escapees", "on_pod_3"))
 	if(escaped_on_pod_4)
-		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_4, list("escapees", "on_pod_5"))
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_4, list("escapees", "on_pod_4"))
 	for(var/tech_id in SSeconomy.tech_levels)
 		SSblackbox.record_feedback("tally", "cargo max tech level sold", SSeconomy.tech_levels[tech_id], tech_id)
 
