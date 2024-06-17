@@ -42,15 +42,15 @@ SUBSYSTEM_DEF(throwing)
 
 	while(length(currentrun))
 		var/atom/movable/AM = currentrun[length(currentrun)]
-		var/datum/thrownthing/TT = currentrun[AM]
+		var/datum/thrownthing/thrown_thing = currentrun[AM]
 		currentrun.len--
-		if(QDELETED(AM) || QDELETED(TT))
+		if(QDELETED(AM) || QDELETED(thrown_thing))
 			processing -= AM
 			if(MC_TICK_CHECK)
 				return
 			continue
 
-		TT.tick()
+		thrown_thing.tick()
 
 		if(MC_TICK_CHECK)
 			return
@@ -101,8 +101,6 @@ SUBSYSTEM_DEF(throwing)
 	var/dy
 	///The movement force provided to a given object in transit. More info on these in move_force.dm
 	var/force = MOVE_FORCE_DEFAULT
-	///If the throw is gentle, then the thrownthing is harmless on impact.
-	var/gentle = FALSE
 	///How many tiles that need to be moved in order to travel to the target.
 	var/diagonal_error
 	///If a thrown thing has a callback, it can be invoked here within thrownthing.
