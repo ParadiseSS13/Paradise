@@ -150,7 +150,7 @@ SUBSYSTEM_DEF(throwing)
 
 ///Defines the datum behavior on the thrownthing's qdeletion event.
 /datum/thrownthing/proc/on_thrownthing_qdel(atom/movable/source, force)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER	// COMSIG_PARENT_QDELETING
 
 	qdel(src)
 
@@ -233,7 +233,7 @@ SUBSYSTEM_DEF(throwing)
 			finalize(TRUE, actual_target)
 			return
 
-		if (dist_travelled > MAX_THROWING_DIST)
+		if(dist_travelled > MAX_THROWING_DIST)
 			finalize()
 			return
 
