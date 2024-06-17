@@ -4347,10 +4347,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/station/security/prison/cell_block/A)
 "apA" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /obj/structure/table/reinforced,
 /obj/item/stack/medical/bruise_pack/advanced,
 /obj/machinery/firealarm{
@@ -13219,10 +13216,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "aQE" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -14970,10 +14964,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -18778,7 +18769,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "bgI" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/camera{
 	c_tag = "Arrivals South"
 	},
@@ -19794,7 +19785,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bji" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "bjj" = (
@@ -23277,7 +23268,6 @@
 /obj/item/reagent_containers/condiment/enzyme{
 	layer = 5
 	},
-/obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -23285,6 +23275,7 @@
 "bsT" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/sop_service,
+/obj/item/stack/packageWrap,
 /obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -26577,10 +26568,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
 "bFJ" = (
@@ -28932,10 +28920,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -30371,11 +30356,11 @@
 /turf/simulated/floor/plating,
 /area/station/science/rnd)
 "bTg" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
 /obj/machinery/ai_status_display{
 	pixel_x = 32
 	},
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
 	},
@@ -31115,11 +31100,6 @@
 /area/station/science/hallway)
 "bWs" = (
 /obj/machinery/sleeper,
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -31393,10 +31373,7 @@
 	},
 /area/station/medical/cloning)
 "bXL" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /obj/machinery/camera{
 	c_tag = "Medbay Cloning"
 	},
@@ -32444,11 +32421,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28;
-	pixel_x = 5
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -40345,10 +40318,7 @@
 /area/station/science/misc_lab)
 "cDE" = (
 /obj/machinery/hologram/holopad,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "cDF" = (
@@ -40718,22 +40688,21 @@
 	},
 /area/station/supply/miningdock)
 "cEU" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/windoor/autoname{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "kitchenhall";
 	name = "Kitchen Shutters";
 	dir = 2
+	},
+/obj/structure/table/reinforced,
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -47049,10 +47018,7 @@
 /area/station/engineering/atmos)
 "dbM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
@@ -57105,10 +57071,7 @@
 "fJX" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -58085,7 +58048,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "glt" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/stripes,
 /obj/machinery/camera{
 	c_tag = "Research Toxins Test Chamber Center";
@@ -63182,10 +63145,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/item/clothing/under/rank/medical/scrubs,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitehall"
@@ -66686,6 +66646,16 @@
 /obj/structure/closet/jcloset,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
+"kAl" = (
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/sleeper)
 "kAp" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -70458,10 +70428,7 @@
 	pixel_x = 5;
 	pixel_y = -6
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "mmt" = (
@@ -71097,7 +71064,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hop)
 "mFb" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -72267,6 +72234,16 @@
 	icon_state = "blackcorner"
 	},
 /area/station/security/permabrig)
+"nlp" = (
+/obj/structure/table,
+/obj/item/eftpos/register{
+	dir = 4
+	},
+/obj/item/wrench,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "nlK" = (
 /obj/machinery/light{
 	dir = 8
@@ -76067,10 +76044,7 @@
 /obj/item/clothing/shoes/orange,
 /obj/item/clothing/shoes/orange,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /obj/item/crowbar/large,
 /obj/item/clothing/under/misc/pj/red,
 /obj/item/clothing/under/misc/pj/red,
@@ -85717,11 +85691,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "tJA" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/structure/disposalpipe/segment/corner{
+/obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -86055,6 +86028,28 @@
 	},
 /turf/simulated/floor/noslip,
 /area/station/engineering/control)
+"tRp" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/classic/reversed{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
+	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters";
+	dir = 2
+	},
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "tRs" = (
 /obj/machinery/door/airlock/maintenance{
 	locked = 1
@@ -86316,7 +86311,7 @@
 	},
 /area/station/medical/medbay)
 "tWz" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -86558,10 +86553,7 @@
 	pixel_y = 2
 	},
 /obj/item/clothing/gloves/boxing/yellow,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "ubz" = (
@@ -88437,7 +88429,7 @@
 /area/station/science/lobby)
 "vfn" = (
 /obj/structure/table,
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
@@ -89339,10 +89331,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -91488,10 +91477,7 @@
 /obj/item/clothing/glasses/science{
 	pixel_y = 3
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -129141,7 +129127,7 @@ mcM
 bZk
 bZk
 bZk
-bZk
+kAl
 bWa
 gKN
 tmX
@@ -132198,7 +132184,7 @@ biU
 boN
 bdT
 bmh
-bof
+nlp
 bpL
 bof
 bof
@@ -134003,7 +133989,7 @@ buv
 bof
 bof
 bof
-hrA
+tRp
 bzf
 nuq
 uZL
