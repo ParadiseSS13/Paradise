@@ -2,7 +2,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/fleshling
 	name = "Fleshling"
-	desc = "This sinister mass of flesh appears to be molded into this shape, nothing about its appearance looks like a deed of evolution. It doesn't look like welcoming your presence here. You must defeat it first in order to get out of here."
+	desc = "A sinister mass of flesh appears molded into a grotesque shape, nothing about its appearance looks like a deed of evolution. It looks agitated and clearly doesn't want you to leave here alive."
 	health = 1000
 	icon = 'icons/mob/fleshling.dmi'
 	icon_state = "fleshling"
