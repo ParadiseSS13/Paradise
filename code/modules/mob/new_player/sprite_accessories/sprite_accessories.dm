@@ -457,6 +457,7 @@
 /datum/sprite_accessory/undershirt/shirt_rainbow
 	name = "Rainbow Shirt"
 	icon_state = "shirt_rainbow"
+
 //end graphic shirts
 
 //short sleeved
