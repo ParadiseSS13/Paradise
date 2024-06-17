@@ -176,7 +176,8 @@
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
-	planetary_atmos = TRUE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
 	light_range = 2
 	light_power = 0.75
@@ -278,6 +279,8 @@
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
 
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
 	return 1

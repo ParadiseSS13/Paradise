@@ -588,7 +588,11 @@
 	visible_message("<span class='danger'>[src] vents heated plasma!</span>")
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C, 20)
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(1000)
+		air.set_toxins(20)
+		air.set_oxygen(20)
+		T.blind_release_air(air)
 
 #undef PLASMA_CHARGE_USE_PER_SECOND
 #undef PLASMA_DISCHARGE_LIMIT
