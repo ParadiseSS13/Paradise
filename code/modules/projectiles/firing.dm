@@ -8,8 +8,8 @@
 				spread = round((rand() - 0.5) * distro)
 			else //Smart spread
 				spread = round((i / pellets - 0.5) * distro)
-		if(!throw_proj(target, targloc, user, params, spread))
-			return 0
+		if(isnull(throw_proj(target, targloc, user, params, spread, firer_source_atom)))
+			return FALSE
 		if(i > 1)
 			newshot()
 	if(click_cooldown_override)
@@ -36,31 +36,33 @@
 		reagents.trans_to(BB, reagents.total_volume) //For chemical darts/bullets
 		qdel(reagents)
 
-/obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
-	var/turf/curloc = get_turf(user)
+/obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread, atom/firer_source_atom)
+	var/turf/curloc = get_turf(firer_source_atom)
 	if(!istype(targloc) || !istype(curloc) || !BB)
-		return 0
+		return
 	BB.ammo_casing = src
 
 	if(target && get_dist(user, target) <= 1) //Point blank shot must always hit
 		BB.prehit(target)
 		target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
-		return 1
+		return TRUE
 
 	if(targloc == curloc)
 		if(target) //if the target is right on our location we go straight to bullet_act()
 			BB.prehit(target)
 			target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
-		return 1
+		return TRUE
 
 	var/modifiers = params2list(params)
-	BB.preparePixelProjectile(target, curloc, modifiers, spread)
+	BB.preparePixelProjectile(target, user, modifiers, spread)
+
 	if(BB)
 		BB.fire()
 	BB = null
-	return 1
+
+	return TRUE
 
 /obj/item/ammo_casing/proc/spread(turf/target, turf/current, distro)
 	var/dx = abs(target.x - current.x)
@@ -132,36 +134,35 @@
 	var/p_x = LAZYACCESS(modifiers, ICON_X) ? text2num(LAZYACCESS(modifiers, ICON_X)) : world.icon_size / 2 // ICON_(X|Y) are measured from the bottom left corner of the icon.
 	var/p_y = LAZYACCESS(modifiers, ICON_Y) ? text2num(LAZYACCESS(modifiers, ICON_Y)) : world.icon_size / 2 // This centers the target if modifiers aren't passed.
 
-	if(target)
-		var/turf/source_loc = get_turf(source)
-		var/turf/target_loc = get_turf(target)
-		var/dx = ((target_loc.x - source_loc.x) * world.icon_size) + (target.pixel_x - source.pixel_x) + (p_x - (world.icon_size / 2))
-		var/dy = ((target_loc.y - source_loc.y) * world.icon_size) + (target.pixel_y - source.pixel_y) + (p_y - (world.icon_size / 2))
+	var/mob/user = source
+	if(ismob(user) && user?.client && LAZYACCESS(modifiers, SCREEN_LOC))
+		//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
+		var/list/screen_loc_params = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
 
-		angle = ATAN2(dy, dx)
+		//Split X+Pixel_X up into list(X, Pixel_X)
+		var/list/screen_loc_X = splittext(screen_loc_params[1],":")
+
+		//Split Y+Pixel_Y up into list(Y, Pixel_Y)
+		var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
+		var/x = (text2num(screen_loc_X[1]) - 1) * world.icon_size + text2num(screen_loc_X[2])
+		var/y = (text2num(screen_loc_Y[1]) - 1) * world.icon_size + text2num(screen_loc_Y[2])
+
+		//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
+		var/list/screenview = getviewsize(user.client.view)
+
+		var/ox = round((screenview[1] * world.icon_size) / 2) - user.client.pixel_x //"origin" x
+		var/oy = round((screenview[2] * world.icon_size) / 2) - user.client.pixel_y //"origin" y
+		angle = ATAN2(y - oy, x - ox)
+
 		return list(angle, p_x, p_y)
 
-	if(!ismob(source) || !LAZYACCESS(modifiers, SCREEN_LOC))
+	if(!target)
 		CRASH("Can't make trajectory calculations without a target or click modifiers and a client.")
 
-	var/mob/user = source
-	if(!user.client)
-		CRASH("Can't make trajectory calculations without a target or click modifiers and a client.")
+	var/turf/source_loc = get_turf(source)
+	var/turf/target_loc = get_turf(target)
+	var/dx = ((target_loc.x - source_loc.x) * world.icon_size) + (target.pixel_x - source.pixel_x) + (p_x - (world.icon_size / 2))
+	var/dy = ((target_loc.y - source_loc.y) * world.icon_size) + (target.pixel_y - source.pixel_y) + (p_y - (world.icon_size / 2))
 
-	//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-	var/list/screen_loc_params = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
-	//Split X+Pixel_X up into list(X, Pixel_X)
-	var/list/screen_loc_X = splittext(screen_loc_params[1],":")
-	//Split Y+Pixel_Y up into list(Y, Pixel_Y)
-	var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-
-	var/tx = (text2num(screen_loc_X[1]) - 1) * world.icon_size + text2num(screen_loc_X[2])
-	var/ty = (text2num(screen_loc_Y[1]) - 1) * world.icon_size + text2num(screen_loc_Y[2])
-
-	//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
-	var/list/screenview = view_to_pixels(user.client.view)
-
-	var/ox = round(screenview[1] / 2) - user.client.pixel_x //"origin" x
-	var/oy = round(screenview[2] / 2) - user.client.pixel_y //"origin" y
-	angle = ATAN2(tx - oy, ty - ox)
+	angle = ATAN2(dy, dx)
 	return list(angle, p_x, p_y)
