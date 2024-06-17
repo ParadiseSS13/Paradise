@@ -280,7 +280,7 @@
 /datum/emote/proc/alter_emote_pitch(mob/user)
 	if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
 		return 0.7
-	return 1
+	return
 
 /**
  * Send an emote to runechat for all (listening) users in the vicinity.
