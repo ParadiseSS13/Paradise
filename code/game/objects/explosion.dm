@@ -157,7 +157,9 @@
 
 			if(T)
 				if(flame_dist && prob(40) && !isspaceturf(T) && !T.density)
-					new /obj/effect/hotspot(T) //Mostly for ambience!
+					var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T) //Mostly for ambience!
+					hotspot.temperature = 1000
+					hotspot.recolor()
 				if(dist > 0)
 					if(issimulatedturf(T))
 						var/turf/simulated/S = T

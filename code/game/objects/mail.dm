@@ -194,7 +194,7 @@
 							/obj/item/food/snacks/spesslaw,
 							/obj/item/clothing/head/collectable/petehat,
 							/obj/item/toy/figure/crew/captain,
-							/obj/item/toy/figure/crew/lawyer,
+							/obj/item/toy/figure/crew/iaa,
 							/obj/item/toy/figure/crew/dsquad,
 							/obj/item/storage/box/scratch_cards)
 	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent")

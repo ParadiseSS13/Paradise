@@ -80,7 +80,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "ap" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "aq" = (
@@ -454,7 +454,7 @@
 /area/mine/outpost/hallway/west)
 "bJ" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/cafeteria)
 "bK" = (
@@ -632,17 +632,14 @@
 /area/mine/outpost/maintenance/south)
 "ch" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 8
+/obj/structure/window/plasmareinforced{
+	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
+/obj/structure/window/plasmareinforced{
 	dir = 1
 	},
 /turf/simulated/floor/plating/lavaland_air,
-/area/shuttle/mining)
+/area/shuttle/siberia)
 "cj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/pump,
@@ -878,7 +875,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "cN" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/medbay)
 "cO" = (
@@ -952,7 +949,7 @@
 /area/mine/outpost/medbay)
 "cU" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/storage)
 "cV" = (
@@ -1056,7 +1053,7 @@
 	},
 /area/mine/outpost/airlock)
 "dg" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/mine/outpost/mechbay)
 "dh" = (
@@ -1467,7 +1464,9 @@
 	},
 /area/mine/outpost/medbay)
 "dR" = (
-/turf/simulated/mineral/ancient,
+/turf/simulated/mineral/ancient{
+	temperature = 293.15
+	},
 /area/mine/outpost/engineering)
 "dS" = (
 /obj/machinery/hologram/holopad,
@@ -2095,14 +2094,14 @@
 /area/mine/outpost/maintenance/south)
 "fc" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
+/obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
+/obj/structure/window/plasmareinforced{
 	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
@@ -2473,8 +2472,8 @@
 /area/mine/laborcamp)
 "fO" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/window/reinforced/tinted/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/window/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/east)
 "fP" = (
@@ -2556,10 +2555,7 @@
 /obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -3387,6 +3383,7 @@
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mining qm"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
 "jk" = (
@@ -3489,9 +3486,7 @@
 /area/lavaland/surface/outdoors)
 "jG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/economy/vending/wallmed{
-	pixel_y = 32
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -3567,7 +3562,7 @@
 /area/mine/laborcamp)
 "kf" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/airlock)
 "kg" = (
@@ -3702,7 +3697,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lf" = (
-/obj/effect/spawner/window/grilled,
+/obj/effect/spawner/window/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "lg" = (
@@ -5151,7 +5146,7 @@
 /area/mine/laborcamp)
 "sk" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/lockers)
 "sr" = (
@@ -5402,7 +5397,7 @@
 	},
 /area/mine/laborcamp)
 "um" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "uo" = (
@@ -5634,7 +5629,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "vy" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -5814,7 +5809,7 @@
 /area/mine/laborcamp)
 "wi" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/mine/outpost/cafeteria)
@@ -5881,7 +5876,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "xa" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/security)
@@ -7225,6 +7220,7 @@
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mining qm"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
 "Em" = (
@@ -7877,9 +7873,8 @@
 /area/lavaland/surface/outdoors)
 "IR" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+/obj/structure/window/plasmareinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/siberia)
@@ -7922,7 +7917,7 @@
 	d1 = 1;
 	d2 = 4
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8021,7 +8016,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "JF" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Labor";
 	name = "labor camp blast door"
@@ -8810,7 +8805,7 @@
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "OX" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Labor";
 	name = "labor camp blast door"
@@ -8847,7 +8842,7 @@
 /obj/structure/sign/securearea{
 	name = "\improper KEEP CLEAR: DOCKING AREA"
 	},
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "Ph" = (
@@ -8930,6 +8925,7 @@
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mining qm"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
 "PI" = (
@@ -9040,11 +9036,7 @@
 /turf/simulated/wall/mineral/iron,
 /area/lavaland/surface/outdoors)
 "Qf" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_y = -32
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding"
 	},
@@ -9089,7 +9081,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
 "QE" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -10205,9 +10197,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "XF" = (
-/obj/machinery/economy/vending/wallmed{
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -10263,7 +10253,7 @@
 /area/mine/outpost/mechbay)
 "XZ" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "Ya" = (
@@ -10508,7 +10498,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Zm" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "Zn" = (
@@ -12613,7 +12603,7 @@ kI
 Wd
 kA
 pq
-IR
+ch
 xD
 ab
 ai
@@ -15437,7 +15427,7 @@ wK
 SJ
 bk
 Qf
-Iv
+OG
 jM
 SR
 WL
@@ -20085,7 +20075,7 @@ xC
 tb
 fU
 tb
-ch
+fc
 xo
 LM
 vZ
