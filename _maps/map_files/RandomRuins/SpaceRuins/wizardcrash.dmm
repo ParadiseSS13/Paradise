@@ -19,7 +19,8 @@
 /area/ruin/space/unpowered)
 "ae" = (
 /turf/simulated/wall/mineral/titanium/nodecon{
-	name = "wizard wall"
+	name = "wizard wall";
+	desc = "Like regular titanium, but able to deflect wizards aggressors."
 	},
 /area/ruin/space/unpowered)
 "af" = (
@@ -472,7 +473,8 @@
 /area/ruin/space/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium/nodecon{
-	name = "wizard wall"
+	name = "wizard wall";
+	desc = "Like regular titanium, but able to deflect wizards aggressors."
 	},
 /area/space/nearstation)
 "bI" = (
