@@ -804,10 +804,10 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "eN" = (
 /obj/structure/closet/crate/hydroponics,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/storage/bag/plants/portaseeder,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -816,6 +816,10 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/item/clothing/glasses/hud/hydroponic,
+/obj/item/clothing/glasses/hud/hydroponic,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/service)
 "eO" = (

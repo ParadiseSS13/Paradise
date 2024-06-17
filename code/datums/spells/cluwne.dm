@@ -54,7 +54,7 @@
 	SetConfused(0)
 	SetJitter(0)
 	if(mind)
-		mind.assigned_role = "Lawyer"
+		mind.assigned_role = "Internal Affairs Agent"
 
 	var/obj/item/organ/internal/honktumor/cursed/tumor = get_int_organ(/obj/item/organ/internal/honktumor/cursed)
 	if(tumor)
@@ -85,5 +85,5 @@
 		unEquip(gloves, 1)
 		qdel(G)
 
-	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/procedure/lawyer/black, SLOT_HUD_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/procedure/iaa/formal/black, SLOT_HUD_JUMPSUIT, TRUE, TRUE)
 	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, SLOT_HUD_SHOES, TRUE, TRUE)

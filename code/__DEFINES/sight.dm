@@ -7,10 +7,12 @@
 
 #define SEE_INVISIBLE_LIVING_AI 24
 
+// Normal cult runes
+#define INVISIBILITY_RUNES 25
 #define SEE_INVISIBLE_LIVING 25
 
 // Hidden cult runes
-#define INVISIBILITY_HIDDEN_RUNES  30
+#define INVISIBILITY_HIDDEN_RUNES 30
 #define SEE_INVISIBLE_HIDDEN_RUNES 30
 
 #define SEE_INVISIBLE_LEVEL_ONE 35	//Used by some stuff in code. It's really poorly organized.
