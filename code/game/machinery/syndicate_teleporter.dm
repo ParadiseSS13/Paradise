@@ -13,7 +13,14 @@
 
 /obj/machinery/computer/camera_advanced/hit_run_teleporter/Initialize(mapload)
 	. = ..()
+	if(!isfloorturf(loc))
+		anchored = FALSE
 	try_link_pad()
+
+/obj/machinery/computer/camera_advanced/hit_run_teleporter/Destroy()
+	if(linked_pad)
+		linked_pad.linked_console = null
+	return ..()
 
 /obj/machinery/computer/camera_advanced/hit_run_teleporter/CreateEye()
 	..()
@@ -33,7 +40,7 @@
 	if(linked_pad)
 		return
 	for(var/obj/machinery/syndi_telepad/T in range(1, src))
-		if(T.linked_console)
+		if(T.linked_console || !T.anchored)
 			continue
 		linked_pad = T
 		T.linked_console = src
@@ -70,6 +77,7 @@
 	var/cooldown = 0
 	var/cooldown_time = 3 MINUTES
 	var/retrieve_timer = 45 SECONDS
+	var/about_to_retrieve = FALSE
 	var/obj/item/gps/internal/gps_signal = /obj/item/gps/internal/hit_run_teleporter
 	var/obj/machinery/computer/camera_advanced/hit_run_teleporter/linked_console
 
@@ -77,6 +85,8 @@
 	. = ..()
 	try_link_console()
 	gps_signal = new gps_signal(src)
+	if(!isfloorturf(loc))
+		anchored = FALSE
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/syndi_telepad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
@@ -85,7 +95,8 @@
 	RefreshParts()
 
 /obj/machinery/syndi_telepad/Destroy()
-	linked_console.linked_pad = null
+	if(linked_console)
+		linked_console.linked_pad = null
 	QDEL_NULL(gps_signal)
 	return ..()
 
@@ -109,20 +120,13 @@
 		return
 
 /obj/machinery/syndi_telepad/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(about_to_retrieve)
+		to_chat(user, "<span class='warning'>The bolts are locked down!</span>")
+		return
 	if(default_unfasten_wrench(user, I))
 		try_link_console(TRUE)
-		return TRUE
-
-/obj/machinery/syndi_telepad/proc/Teleport_Out(mob/living/carbon/target)
-	if(stat & (BROKEN))
 		return
-	if(target.handcuffed && (target.buckled || target.pulledby))
-		return
-	flick("syndi-pad", src)
-	new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(target), target.dir)
-	do_sparks(10, 0, target.loc)
-	target.forceMove(get_turf(src))
-	do_sparks(10, 0, target.loc)
 
 /obj/machinery/syndi_telepad/proc/try_link_console(relink)
 	if(relink && linked_console)
@@ -138,11 +142,20 @@
 		T.tele_in_action.target = src
 		return
 
+/obj/machinery/syndi_telepad/proc/Teleport_Out(mob/living/carbon/target)
+	if(stat & (BROKEN))
+		return
+	if(target.handcuffed && (target.buckled || target.pulledby))
+		return
+	flick("syndi-pad", src)
+	new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(target), target.dir)
+	do_sparks(10, 0, target.loc)
+	target.forceMove(get_turf(src))
+	do_sparks(10, 0, target.loc)
+	about_to_retrieve = FALSE
+
 /obj/machinery/syndi_telepad/proc/Teleport_In(turf/T, mob/living/carbon/user)
 	if((stat & (BROKEN)))
-		return
-	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] must be anchored first!</span>")
 		return
 	if(cooldown > world.time)
 		var/timeleft = cooldown - world.time
@@ -158,6 +171,7 @@
 		target.forceMove(T)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 		addtimer(CALLBACK(src, PROC_REF(Teleport_Out), target), retrieve_timer)
+		about_to_retrieve = TRUE
 
 /obj/effect/temp_visual/teleport_abductor/syndi
 	duration = 25
