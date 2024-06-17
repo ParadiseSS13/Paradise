@@ -25,7 +25,6 @@
 	..()
 
 	if(tele_in_action)
-		try_link_pad()
 		tele_in_action.target = linked_pad
 		tele_in_action.Grant(user)
 		actions += tele_in_action
@@ -76,6 +75,7 @@
 
 /obj/machinery/syndi_telepad/Initialize(mapload)
 	. = ..()
+	try_link_console()
 	gps_signal = new gps_signal(src)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/syndi_telepad(null)
@@ -110,6 +110,7 @@
 
 /obj/machinery/syndi_telepad/wrench_act(mob/user, obj/item/I)
 	if(default_unfasten_wrench(user, I))
+		try_link_console(TRUE)
 		return TRUE
 
 /obj/machinery/syndi_telepad/proc/Teleport_Out(mob/living/carbon/target)
@@ -122,6 +123,20 @@
 	do_sparks(10, 0, target.loc)
 	target.forceMove(get_turf(src))
 	do_sparks(10, 0, target.loc)
+
+/obj/machinery/syndi_telepad/proc/try_link_console(relink)
+	if(relink && linked_console)
+		linked_console.linked_pad = null
+		linked_console = null
+	if(linked_console || !anchored)
+		return
+	for(var/obj/machinery/computer/camera_advanced/hit_run_teleporter/T in range(1, src))
+		if(T.linked_pad)
+			continue
+		linked_console = T
+		T.linked_pad = src
+		T.tele_in_action.target = src
+		return
 
 /obj/machinery/syndi_telepad/proc/Teleport_In(turf/T, mob/living/carbon/user)
 	if((stat & (BROKEN)))
