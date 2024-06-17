@@ -26,9 +26,10 @@
 	death_sound = 'sound/misc/demon_dies.ogg'
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 
+	// is the boss charging right now?
 	var/charging = FALSE
-	var/revving_charge = FALSE
-	var/bosskilled = FALSE // used for the same thing as var/hasdied for fleshling
+	// did our boss die?
+	var/boss_killed = FALSE
 
 // Below here is copy-pasted from /asteroid/big_legion
 
