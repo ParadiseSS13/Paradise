@@ -51,8 +51,8 @@
 			continue
 
 		L.visible_message("<span class='danger'>[L] was thrown by [src]!</span>",
-		"<span class='userdanger'>You feel a strong force throwing you!</span>",
-		"<span class='danger'>You hear a thud.</span>")
+			"<span class='userdanger'>You feel a strong force throwing you!</span>",
+			"<span class='danger'>You hear a thud.</span>")
 		var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
 		L.throw_at(throw_target, 4, 4)
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
