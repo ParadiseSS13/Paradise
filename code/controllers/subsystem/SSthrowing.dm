@@ -119,7 +119,6 @@ SUBSYSTEM_DEF(throwing)
 	var/block_movement = TRUE
 
 /datum/thrownthing/New(thrownthing, atom/target, init_dir, maxrange, speed, atom/thrower, diagonals_first, force, callback, dodgeable, block_movement, target_zone)
-	. = ..()
 	src.thrownthing = thrownthing
 	RegisterSignal(thrownthing, COMSIG_PARENT_QDELETING, PROC_REF(on_thrownthing_qdel))
 	src.starting_turf = get_turf(thrownthing)
