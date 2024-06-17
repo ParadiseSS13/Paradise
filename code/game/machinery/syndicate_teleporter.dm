@@ -167,6 +167,8 @@
 	new/obj/effect/temp_visual/teleport_abductor/syndi(T)
 	sleep(25)
 	flick("syndy-pad", src)
+	if(linked_console)
+		linked_console.remove_eye_control(user)
 	for(var/mob/living/target in src.loc)
 		target.forceMove(T)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
