@@ -18,7 +18,7 @@
 	},
 /area/ruin/space/unpowered)
 "ae" = (
-/turf/simulated/wall/mineral/titanium{
+/turf/simulated/wall/mineral/titanium/nodecon{
 	name = "wizard wall"
 	},
 /area/ruin/space/unpowered)
@@ -471,7 +471,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bH" = (
-/turf/simulated/wall/mineral/titanium{
+/turf/simulated/wall/mineral/titanium/nodecon{
 	name = "wizard wall"
 	},
 /area/space/nearstation)
