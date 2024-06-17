@@ -53,7 +53,7 @@
 	desc = "This signal is snooping in the station's camera network, hide your passwords!"
 
 /datum/action/innate/teleport_in/syndi
-	name = "Send To"
+	name = "Teleport"
 	button_icon_state = "beam_down"
 
 /datum/action/innate/teleport_in/syndi/Activate()
