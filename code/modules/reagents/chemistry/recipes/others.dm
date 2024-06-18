@@ -506,7 +506,7 @@
 	/// The amount of reagents to pick from get_possible_cures()
 	var/amt_req_cures = 1
 	/// A virus symptom required to complete this chemical reaction
-	var/datum/symptom/required_symptom // ctodo make this lower the amount of required cures
+	var/datum/symptom/helpful_symptom // ctodo make this lower the amount of required cures
 
 /datum/chemical_reaction/zombie/New()
 	. = ..()
@@ -532,12 +532,12 @@
 
 /datum/chemical_reaction/zombie/get_total_required_reagents(datum/reagents/holder)
 	. = ..()
-	if(!required_symptom)
+	if(!helpful_symptom)
 		return
 
 	for(var/datum/disease/advance/advanced in blood.data["viruses"])
 		for(var/datum/symptom/symptom as anything in advanced.symptoms)
-			if(istype(symptom, required_symptom))
+			if(istype(symptom, helpful_symptom))
 				return 2 // if you have the symptom, it becomes much easier to make! (blood and 1 other random reagent)
 
 /datum/chemical_reaction/zombie/proc/get_possible_cures()
@@ -549,7 +549,7 @@
 	result = "zombiecure2"
 	cure_level = 2
 	amt_req_cures = 3
-	required_symptom = /datum/symptom/heal/metabolism
+	helpful_symptom = /datum/symptom/heal/metabolism
 
 /datum/chemical_reaction/zombie/second/get_possible_cures()
 	return list("salglu_solution", "toxin", "atropine", "lye", "sodawater", "happiness", "morphine", "teporone")
@@ -560,7 +560,7 @@
 	result = "zombiecure3"
 	cure_level = 3
 	amt_req_cures = 3
-	required_symptom = /datum/symptom/flesh_eating
+	helpful_symptom = /datum/symptom/flesh_eating
 
 /datum/chemical_reaction/zombie/third/get_possible_cures()
 	return list("vomit", "jenkem", "charcoal", "egg", "sacid", "facid", "surge", "ultralube", "mitocholide")
