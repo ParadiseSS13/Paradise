@@ -303,7 +303,7 @@
 	if(HAS_TRAIT(user, TRAIT_DRASK_SUPERCOOL))
 		to_chat(user, "<span class='warning'>Your regeneration is already enhanced!</span>")
 		return
-	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || (user.dna && user.dna.species.name != "Drask"))
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || user.dna?.species.name != "Drask")
 		to_chat(user, "<span class='warning'>The injector is not compatable with your biology!</span>")
 		return
 	if(used)
