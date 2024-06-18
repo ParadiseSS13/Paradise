@@ -12,7 +12,7 @@
 
 	/// Min body temp
 	var/min_body_temp = NONCARBON_DEFAULT_MIN_BODY_TEMP
-	///Max body temp
+	/// Max body temp
 	var/max_body_temp = NONCARBON_DEFAULT_MAX_BODY_TEMP
 
 	//// Damage when below min temp
@@ -45,7 +45,7 @@
 	return ..()
 
 /datum/element/body_temperature/proc/handle_temperature(mob/living/simple_animal/target)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT
 
 	var/datum/gas_mixture/environment = target.loc.return_air()
 	if(!environment)

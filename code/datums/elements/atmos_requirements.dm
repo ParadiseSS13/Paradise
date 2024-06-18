@@ -27,7 +27,7 @@
 	return ..()
 
 /datum/element/atmos_requirements/proc/handle_environment(mob/living/simple_animal/target)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT
 
 	var/datum/gas_mixture/environment = target.loc.return_air()
 	if(!environment)
