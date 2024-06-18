@@ -81,7 +81,6 @@
 					new /obj/item/tarot_card_pack/mega(src)
 				if(11)
 					new /obj/item/tarot_generator(src) // ~1/250? Seems reasonable
-			
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disk
