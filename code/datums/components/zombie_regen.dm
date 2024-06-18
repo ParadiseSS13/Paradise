@@ -15,7 +15,7 @@
 	if(zomboid.suiciding)
 		return
 	var/turf/current_turf = get_turf(zomboid)
-	var/healing_factor = max(1, 6 * (1 - current_turf.get_lumcount()))
+	var/healing_factor = max(3, 8 * (1 - current_turf.get_lumcount()))
 	if(zomboid.reagents.has_reagent("zombiecure3"))
 		healing_factor /= 3
 	if(zomboid.stat == DEAD)
