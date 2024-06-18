@@ -70,8 +70,8 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (1 / 3) SECONDS) //75% uptime
 	if(isliving(loc))
 		var/mob/owner = loc
-		RegisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(drop_slapper), override = TRUE)
-		RegisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(drop_slapper), override = TRUE)
+		RegisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(signal_qdel), override = TRUE)
+		RegisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(signal_qdel), override = TRUE)
 	return ..()
 
 /obj/item/slapper/parry/Destroy()
@@ -80,11 +80,6 @@
 		UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
 		UnregisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS)
 	. = ..()
-
-///I keep this stupid proc that just calls qdel until i find how to make Signal cause Destroy proc itself
-/obj/item/slapper/parry/proc/drop_slapper()
-	SIGNAL_HANDLER // COMSIG_MOB_WILLINGLY_DROP + COMSIG_MOB_WEAPON_APPEARS
-	qdel(src)
 
 /obj/item/slapper/parry/attack(mob/M, mob/living/carbon/human/user)
 	if(isliving(M))
