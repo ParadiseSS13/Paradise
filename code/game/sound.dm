@@ -93,7 +93,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	S.volume = vol
 
 	if(vary)
-		if(frequency)
+		if(frequency || frequency != 1)
 			S.frequency = frequency
 		else
 			S.frequency = get_rand_frequency()

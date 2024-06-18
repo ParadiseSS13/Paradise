@@ -1728,7 +1728,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return ..()
 
 /mob/living/carbon/human/proc/get_age_pitch(species_pitch = 85)
-	return 1.0 + 0.5 * ((species_pitch * 0.35) - age) / (0.94 * species_pitch)
+	return get_rand_frequency() * (1.0 + 0.5 * ((species_pitch * 0.35) - age) / (0.94 * species_pitch))
 
 /mob/living/carbon/human/get_access()
 	. = ..()
