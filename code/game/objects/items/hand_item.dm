@@ -75,7 +75,7 @@
 	return ..()
 
 /obj/item/slapper/parry/proc/drop_slapper()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOB_WILLINGLY_DROP + COMSIG_MOB_WEAPON_APPEARS
 	if(isliving(loc))
 		var/mob/owner = loc
 		UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
