@@ -206,7 +206,7 @@
 		return ..()
 	else //Burn
 		var/mob/living/L = M
-		L.apply_damage(burn_damage, SECSWORD_BURN)
+		L.apply_damage(burn_damage, BURN)
 		deductcharge(burn_hitcost)
 		return ..()
 
