@@ -8,11 +8,12 @@
 	circuit = /obj/item/circuitboard/syndi_teleporter
 	power_state = NO_POWER_USE
 	interact_offline = TRUE
-	var/datum/action/innate/teleport_in/syndi/tele_in_action = new
+	var/datum/action/innate/teleport_in/syndi/tele_in_action
 	var/obj/machinery/syndi_telepad/linked_pad
 
 /obj/machinery/computer/camera_advanced/hit_run_teleporter/Initialize(mapload)
 	. = ..()
+	tele_in_action = new
 	if(!isfloorturf(loc))
 		anchored = FALSE
 	try_link_pad()
@@ -76,8 +77,8 @@
 	interact_offline = TRUE
 	var/cooldown = 0
 	var/cooldown_time = 3 MINUTES
-	var/retrieve_timer = 45 SECONDS
-	var/about_to_retrieve = FALSE
+	var/retrieve_timer = 45 SECONDS //The time the teleporter teleports the person back after teleporting with it
+	var/about_to_retrieve = FALSE //If the retrieve_timer is currently running
 	var/obj/item/gps/internal/gps_signal = /obj/item/gps/internal/hit_run_teleporter
 	var/obj/machinery/computer/camera_advanced/hit_run_teleporter/linked_console
 
@@ -155,13 +156,13 @@
 	about_to_retrieve = FALSE
 
 /obj/machinery/syndi_telepad/proc/Teleport_In(turf/T, mob/living/carbon/user)
-	if((stat & (BROKEN)))
+	if(stat & (BROKEN))
 		return
 	if(cooldown > world.time)
 		var/timeleft = cooldown - world.time
 		to_chat(user, "<span class='notice'>[src] is still charging, wait [round(timeleft/10)] seconds.</span>")
 		return
-	if(!locate(/mob/living) in src.loc)
+	if(!locate(/mob/living) in loc)
 		return
 	cooldown = world.time + cooldown_time
 	new/obj/effect/temp_visual/teleport_abductor/syndi(T)
@@ -169,7 +170,7 @@
 	flick("syndy-pad", src)
 	if(linked_console)
 		linked_console.remove_eye_control(user)
-	for(var/mob/living/target in src.loc)
+	for(var/mob/living/target in loc)
 		target.forceMove(T)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 		addtimer(CALLBACK(src, PROC_REF(Teleport_Out), target), retrieve_timer)
