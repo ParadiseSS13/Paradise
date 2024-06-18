@@ -34,7 +34,7 @@
 /obj/item/stock_parts/cell/New()
 	..()
 	START_PROCESSING(SSobj, src)
-	charge = starting_charge ? maxcharge : starting_charge
+	charge = !isnull(starting_charge) ? starting_charge : maxcharge
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
 	update_icon(UPDATE_OVERLAYS)
