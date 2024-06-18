@@ -1,10 +1,9 @@
 //Regular syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate
 	name = "red space helmet"
-	desc = "Top secret Spess Helmet."
+	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
 	icon_state = "syndicate"
 	item_state = "syndicate"
-	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',

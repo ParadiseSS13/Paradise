@@ -439,7 +439,7 @@
 
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
 	H.visible_message("<span class='warning'>[H] teleports!</span>", "<span class='danger'>You destabilize and teleport!</span>")
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	for(var/turf/T in orange(tele_range, H))
 		if(T.density)
 			continue
@@ -521,7 +521,7 @@
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
 	H.visible_message("<span class='warning'>[H] teleports!</span>", "<span class='danger'>You teleport!</span>")
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	for(var/turf/T in orange(tele_range, H))
 		if(isspaceturf(T))
 			continue

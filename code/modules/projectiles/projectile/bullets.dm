@@ -137,6 +137,11 @@
 	icon_state = "peashooter_bullet"
 	damage = 25
 
+/obj/item/projectile/bullet/midbullet3/overgrown/prehit(atom/target)
+	if(HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
+		damage += 10
+	return ..()
+
 /obj/item/projectile/bullet/heavybullet
 	damage = 35
 
@@ -159,7 +164,9 @@
 	..()
 	var/turf/location = get_turf(src)
 	if(location)
-		new /obj/effect/hotspot(location)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
+		hotspot.temperature = 1000
+		hotspot.recolor()
 		location.hotspot_expose(700, 50, 1)
 
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
@@ -268,6 +275,12 @@
 /obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
 	..()
 	reagents.add_reagent("haloperidol", 15)
+
+/obj/item/projectile/bullet/dart/syringe/holy
+
+/obj/item/projectile/bullet/dart/syringe/holy/New()
+	..()
+	reagents.add_reagent("holywater", 10)
 
 /obj/item/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"

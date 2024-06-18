@@ -27,6 +27,10 @@
 		viewing_alternate_appearances = null
 	LAssailant = null
 	runechat_msg_location = null
+	if(length(observers))
+		for(var/mob/dead/observe as anything in observers)
+			observe.reset_perspective(null)
+
 	return ..()
 
 /mob/Initialize(mapload)
@@ -91,18 +95,20 @@
 	set category = "Admin"
 	set hidden = 1
 
-	if(!loc) return 0
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.get_readonly_air()
 
-	var/datum/gas_mixture/environment = loc.return_air()
+	if(!environment)
+		return
 
 	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
-	t+= "<span class='warning'>Temperature: [environment.temperature] \n</span>"
-	t+= "<span class='notice'>Nitrogen: [environment.nitrogen] \n</span>"
-	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
-	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
-	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
-	t+= "<span class='notice'>N2O: [environment.sleeping_agent] \n</span>"
-	t+= "<span class='notice'>Agent B: [environment.agent_b] \n</span>"
+	t+= "<span class='warning'>Temperature: [environment.temperature()] \n</span>"
+	t+= "<span class='notice'>Nitrogen: [environment.nitrogen()] \n</span>"
+	t+= "<span class='notice'>Oxygen: [environment.oxygen()] \n</span>"
+	t+= "<span class='notice'>Plasma : [environment.toxins()] \n</span>"
+	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide()] \n</span>"
+	t+= "<span class='notice'>N2O: [environment.sleeping_agent()] \n</span>"
+	t+= "<span class='notice'>Agent B: [environment.agent_b()] \n</span>"
 
 	usr.show_message(t, EMOTE_VISIBLE)
 
@@ -186,7 +192,7 @@
 
 	// based on say code
 	var/omsg = replacetext(message, "<B>[src]</B> ", "")
-	var/list/listening_obj = new
+	var/list/listening_obj = list()
 	for(var/atom/movable/A in view(range, src))
 		if(ismob(A))
 			var/mob/M = A
@@ -541,7 +547,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  * Mobs out of view but in range will be listed as unknown. Else they will have their visible name
 */
 /mob/proc/get_telepathic_targets()
-	var/list/validtargets = new /list()
+	var/list/validtargets = list() /list()
 	var/turf/T = get_turf(src)
 	var/list/mobs_in_view = get_visible_mobs()
 
@@ -600,7 +606,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(.)
 		// Allows sharing HUDs with ghosts
 		if(hud_used)
-			client.screen = list()
+			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
@@ -611,6 +617,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/A)
+	if(A.invisibility > see_invisible)
+		A = get_turf(A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"), MESSAGE_TYPE_INFO, confidential = TRUE)
 		return TRUE

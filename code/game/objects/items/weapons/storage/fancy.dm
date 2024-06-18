@@ -43,7 +43,6 @@
 	icon_state = "donutbox"
 	storage_slots = 6
 	can_hold = list(/obj/item/food/snacks/donut)
-	icon_type = "donut"
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 
@@ -287,8 +286,9 @@
 /obj/item/storage/fancy/cigarettes/syndicate
 	name = "\improper Syndicate Cigarettes"
 	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\""
-	icon_state = "robustpacket"
-	item_state = "robustpacket"
+	icon_state = "syndiepacket"
+	item_state = "syndiepacket"
+	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/syndicate/Initialize(mapload)
 	. = ..()
@@ -424,23 +424,18 @@
 	else
 		. += "ledb"
 
-/obj/item/storage/lockbox/vials/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(broken)
-		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
-		return
-	if(allowed(user))
-		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src].</span>")
-		update_icon()
-	else
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-
 /obj/item/storage/lockbox/vials/attackby(obj/item/I, mob/user, params)
 	..()
 	update_icon()
 
+/obj/item/storage/lockbox/vials/zombie_cure
+	name = "secure vial storage box - 'Anti-Plague Sequences'"
+
+/obj/item/storage/lockbox/vials/zombie_cure/populate_contents()
+	new /obj/item/reagent_containers/glass/bottle/zombiecure1(src)
+	new /obj/item/reagent_containers/glass/bottle/zombiecure2(src)
+	new /obj/item/reagent_containers/glass/bottle/zombiecure3(src)
+	new /obj/item/reagent_containers/glass/bottle/zombiecure4(src)
 
 
 ///Aquatic Starter Kit
