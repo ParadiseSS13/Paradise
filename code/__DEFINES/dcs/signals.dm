@@ -462,6 +462,10 @@
 	#define COMPONENT_BLOCK_DEFIB (1<<0)
 	/// If returned, don't even show the "failed" message, defer to the signal handler to do that.
 	#define COMPONENT_DEFIB_OVERRIDE (1<<1)
+	/// If returned, allow to revive through false death.
+	#define COMPONENT_DEFIB_FAKEDEATH_ACCEPTED (1<<2)
+	/// If returned, make the fake death look like a unresponsive ghost.
+	#define COMPONENT_DEFIB_FAKEDEATH_DENIED (1<<3)
 ///send from defibs on ressurection: (defibber, defib_item, ghost)
 #define COMSIG_LIVING_DEFIBBED "living_defibbed"
 ///from base of mob/living/revive() (full_heal, admin_revive)
@@ -645,6 +649,8 @@
 #define COMSIG_MINE_TRIGGERED "minegoboom"
 /// Called by /obj/item/proc/worn_overlays(list/overlays, mutable_appearance/standing, isinhands, icon_file)
 #define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
+/// Called by /obj/item/assembly/signaler(called_from_radio)
+#define COMSIG_ASSEMBLY_PULSED "item_assembly_pulsed"
 
 /// Defib-specific signals
 
