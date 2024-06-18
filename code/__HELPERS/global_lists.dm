@@ -79,7 +79,10 @@
 		var/datum/gear/G = geartype
 
 		var/use_category = initial(G.sort_category)
-
+		// SS220 EDIT - START
+		if(G.removed_from_loadout)
+			continue
+		// SS220 EDIT - END
 		if(G == initial(G.main_typepath))
 			continue
 
