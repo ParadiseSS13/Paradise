@@ -1,4 +1,5 @@
 // When reviewing this, please consider someone who didn't know what they were doing just copy-pasted a lot of things
+
 #define DS_BOSS_STORAGE "DS_BossStorage"
 #define DS_ENGINEERING "DS_Engineering"
 /mob/living/simple_animal/hostile/megafauna/fleshling
@@ -176,6 +177,11 @@
 	if(target)
 		playsound(loc, 'sound/voice/zombie_scream.ogg', 70, TRUE)
 
+/mob/living/simple_animal/hostile/spaceinfected/Move(atom/newloc)
+	if(ischasm(newloc)) // as this place filled with chasms, they shouldn't randomly fall in while wandering around
+		return FALSE
+	return ..()
+
 /mob/living/simple_animal/hostile/spaceinfected/default
 
 /mob/living/simple_animal/hostile/spaceinfected/default/Initialize(mapload)
@@ -330,7 +336,7 @@
 
 
 /obj/item/paper/fluff/ruins/deepstorage/log5
-	name = "'my concerns'"
+	name = "subject: my concerns"
 	info = {"First of all i appreciate the good initative on cutting off comms, although i am sure there are some rats listening the private frequency.
 	Unless you desire my floor to embrace a chaos, i suggest you to keep quiet in there.<br>
 	<br>
@@ -338,7 +344,7 @@
 	bio-abominations there is to be seen. I never seen anything like this, because it's not a virus or disease or anything that you claim to be.<br>
 	<br>
 	Yes, it's contagious and i don't think it's limited with physical contact. We have been burning the corpses, there's still more to burn.
-	This will not end well, i advise evacuating crew to a more suitable quarantine zone before things goes out of hand."}
+	This will not end well, i advise evacuating workers to a more suitable quarantine zone before things goes out of hand."}
 
 /obj/item/paper/fluff/ruins/deepstorage/log6
 	name = "warning"
@@ -346,6 +352,31 @@
 	<br>
 	For whatever reason you want to go in, package teleporter is still functional. Gates will remain sealed as long as that thing is alive so, proceed with your own
 	discretion."}
+
+/obj/item/paper/fluff/ruins/deepstorage/log7
+	name = "???"
+	info = {"<u>Entry 1</u><br><br> By now it's safe to assume they know we're listening their frequency. If it weren't for a copy of the manual
+	i laid my hands on, they would've shaken us off already.<br>
+	<br>
+	<u>Entry 2</u><br><br> The discussions of some resonance and applications of it frequently brought upon. I don't get even a single thing about what they're talking
+	about but i know it is connected to what we're getting through. Today guards arrested three more workers, they're desperately looking for us.<br>
+	<br><br>...<br><br>
+	<u>Entry 4</u><br><br> Elevators between floors and trams are now shut off, communications across floors followed after. Now there is a sickness...
+	i still have two months until my transfer to some other facility in sector. This too shall pass...<br>
+	<br><br>...<br><br>
+	<u>Entry 9</u><br><br> I no longer can tell where dream ends and real begins. Is this real, or still a dream... How many times did i write this? Where are we?
+	This isn't our facility. Who are these people? They're not from our post...
+	<br><br>...<br><br>
+	<u>Entry 13</u><br><br> KICK THEM. KICK THEM WHILE THEY ARE DOWN.
+	"}
+
+/obj/item/paper/fluff/ruins/deepstorage/log8
+	name = "notice"
+	info = {"Until further notice elevators will be out of service. Contact the floor administrator should you require access."}
+
+/obj/item/paper/fluff/ruins/deepstorage/log9
+	name = "attention"
+	info = {"As per administration's order, unauthorized entry to supply storage is forbidden. Make your requests from guard wing if you have a pending delivery."}
 
 #undef DS_BOSS_STORAGE
 #undef DS_ENGINEERING
