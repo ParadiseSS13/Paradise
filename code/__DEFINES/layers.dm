@@ -151,10 +151,6 @@
 
 #define HUD_PLANE_BUILDMODE 30
 
-// Rendering
-#define RENDER_PLANE_GAME 31
-#define RENDER_PLANE_MASTER 32
-
 // This should always be on top. No exceptions.
 #define HUD_PLANE_DEBUGVIEW 40
 
