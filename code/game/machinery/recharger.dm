@@ -189,6 +189,10 @@
 		var/obj/item/melee/baton/B = I
 		return B.cell
 
+	if(istype(I, /obj/item/melee/secsword))
+		var/obj/item/melee/secsword/S = I
+		return S.cell
+
 	if(istype(I, /obj/item/rcs))
 		var/obj/item/rcs/R = I
 		return R.rcell

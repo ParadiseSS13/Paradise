@@ -125,6 +125,9 @@
 	else
 		cell = new(src)
 
+/obj/item/melee/secsword/get_cell()
+	return cell
+
 /obj/item/melee/secsword/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stock_parts/cell))
 		return
