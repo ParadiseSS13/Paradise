@@ -1492,7 +1492,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_body()
 
 /mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
-	var/list/out = new
+	var/list/out = list()
 	for(var/i=1;i<=TOTAL_LAYERS;i++)
 		if(overlays_standing[i])
 			if(i in unwantedLayers)

@@ -1,7 +1,7 @@
 /mob
 	density = TRUE
 	layer = MOB_LAYER
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
 	pressure_resistance = 8
 	throwforce = 10
 	var/datum/mind/mind
@@ -27,6 +27,7 @@
 	*/
 	var/atom/movable/screen/leap_icon = null
 	var/atom/movable/screen/healthdoll/healthdoll = null
+	var/atom/movable/screen/nutrition/nutrition_display = null
 
 	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0

@@ -101,11 +101,11 @@
 
 	AIproc = FALSE
 
-/mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
+/mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
 		return
 
-	var/loc_temp = get_temperature(environment)
+	var/loc_temp = get_temperature(readonly_environment)
 
 	adjust_bodytemperature(adjust_body_temperature(bodytemperature, loc_temp, 1))
 

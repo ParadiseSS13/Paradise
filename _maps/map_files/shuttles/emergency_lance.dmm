@@ -154,10 +154,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
 "gN" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -249,10 +246,7 @@
 	},
 /area/shuttle/escape)
 "jr" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -561,10 +555,7 @@
 	},
 /area/shuttle/escape)
 "xj" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /obj/effect/turf_decal/blue_corner{
 	dir = 4
 	},

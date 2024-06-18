@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	singular_name = "cable"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
-	item_state = "coil_red"
+	item_state = "coil"
 	belt_icon = "cable_coil"
 	amount = MAXCOIL
 	max_amount = MAXCOIL
@@ -24,12 +24,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	materials = list(MAT_METAL = 15, MAT_GLASS = 10)
 	flags = CONDUCT
 	slot_flags = SLOT_FLAG_BELT
-	item_state = "coil"
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 
-/obj/item/stack/cable_coil/New(location, length = MAXCOIL, paramcolor = null)
+/obj/item/stack/cable_coil/New(location, length, paramcolor)
 	. = ..()
 	if(paramcolor)
 		color = paramcolor
@@ -83,6 +82,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		return ..()
 	var/mob/living/carbon/human/H = M
 	var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_selected]
+
+	if(!S && ismachineperson(M) && user.a_intent == INTENT_HELP)
+		to_chat(user, "<span class='notice'>[M.p_they(TRUE)] [M.p_are()] missing that limb!</span>")
+		return
 
 	if(!S?.is_robotic() || user.a_intent != INTENT_HELP || S.open == ORGAN_SYNTHETIC_OPEN)
 		return ..()
@@ -348,8 +351,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	return color
 
-/obj/item/stack/cable_coil/five/New(loc, new_amount = 5, merge = TRUE, paramcolor = null)
-	..()
+/obj/item/stack/cable_coil/five
+	amount = 5
+
+/obj/item/stack/cable_coil/ten
+	amount = 10
 
 /obj/item/stack/cable_coil/yellow
 	color = COLOR_YELLOW

@@ -1,8 +1,9 @@
 /* Closets for specific jobs
  * Contains:
  *		Bartender
+*		Chef
  *		Janitor
- *		Lawyer
+ *		Paramedic
  */
 
 /*
