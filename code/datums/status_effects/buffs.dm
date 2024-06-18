@@ -635,7 +635,8 @@
 
 /atom/movable/screen/alert/status_effect/breaching_and_cleaving
 	name = "Breaching and Cleaving!"
-	desc = "<span class='danger'>Doors, people, machines... nothing will stand before your martial prowess!</spa
+	desc = "<span class='danger'>Doors, people, machines... nothing will stand before your martial prowess!</span>"
+	icon_state = "breachcleaver"
 
 /datum/status_effect/breaching_and_cleaving/on_apply()
 	. = ..()
