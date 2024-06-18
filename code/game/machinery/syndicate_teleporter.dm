@@ -65,7 +65,7 @@
 	var/obj/machinery/syndi_telepad/P = target
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
-		P.Teleport_In(get_turf(remote_eye), owner)
+		P.teleport_in(get_turf(remote_eye), owner)
 
 /obj/machinery/syndi_telepad
 	name = "hit and run telepad"
@@ -143,7 +143,7 @@
 		T.tele_in_action.target = src
 		return
 
-/obj/machinery/syndi_telepad/proc/Teleport_Out(mob/living/carbon/target)
+/obj/machinery/syndi_telepad/proc/teleport_out(mob/living/carbon/target)
 	if(stat & (BROKEN))
 		return
 	if(target.handcuffed && (target.buckled || target.pulledby))
@@ -155,7 +155,7 @@
 	do_sparks(10, 0, target.loc)
 	about_to_retrieve = FALSE
 
-/obj/machinery/syndi_telepad/proc/Teleport_In(turf/T, mob/living/carbon/user)
+/obj/machinery/syndi_telepad/proc/teleport_in(turf/T, mob/living/carbon/user)
 	if(stat & (BROKEN))
 		return
 	if(cooldown > world.time)
@@ -173,7 +173,7 @@
 	for(var/mob/living/target in loc)
 		target.forceMove(T)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
-		addtimer(CALLBACK(src, PROC_REF(Teleport_Out), target), retrieve_timer)
+		addtimer(CALLBACK(src, PROC_REF(teleport_out), target), retrieve_timer)
 		about_to_retrieve = TRUE
 
 /obj/effect/temp_visual/teleport_abductor/syndi
