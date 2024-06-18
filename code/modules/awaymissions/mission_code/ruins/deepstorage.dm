@@ -186,14 +186,14 @@
 	. = ..()
 	var/loot_num = rand(1,100)
 	switch(loot_num)
-		if(loot_num <= 10)
+		if(1 to 10)
 			loot = list(/obj/item/salvage/ruin/nanotrasen,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
 
-		if(loot_num <= 30)
+		if(11 to 30)
 			loot = list(/obj/item/salvage/ruin/brick,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
