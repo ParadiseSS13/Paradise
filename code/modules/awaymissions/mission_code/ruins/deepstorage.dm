@@ -1,5 +1,3 @@
-// When reviewing this, please consider someone who didn't know what they were doing just copy-pasted a lot of things
-
 #define DS_BOSS_STORAGE "DS_BossStorage"
 #define DS_ENGINEERING "DS_Engineering"
 /mob/living/simple_animal/hostile/megafauna/fleshling
@@ -186,21 +184,21 @@
 
 /mob/living/simple_animal/hostile/spaceinfected/default/Initialize(mapload)
 	. = ..()
-	if(prob(10))
-		loot = list(/obj/item/salvage/ruin/nanotrasen,
-			/obj/effect/decal/cleanable/blood/innards,
-			/obj/effect/decal/cleanable/blood,
-			/obj/effect/gibspawner/generic,
-			/obj/effect/gibspawner/generic)
-		return
+	var/loot_num = rand(1,100)
+	switch(loot_num)
+		if(loot_num <= 10)
+			loot = list(/obj/item/salvage/ruin/nanotrasen,
+				/obj/effect/decal/cleanable/blood/innards,
+				/obj/effect/decal/cleanable/blood,
+				/obj/effect/gibspawner/generic,
+				/obj/effect/gibspawner/generic)
 
-	if(prob(20))
-		loot = list(/obj/item/salvage/ruin/brick,
-			/obj/effect/decal/cleanable/blood/innards,
-			/obj/effect/decal/cleanable/blood,
-			/obj/effect/gibspawner/generic,
-			/obj/effect/gibspawner/generic)
-		return
+		if(loot_num <= 30)
+			loot = list(/obj/item/salvage/ruin/brick,
+				/obj/effect/decal/cleanable/blood/innards,
+				/obj/effect/decal/cleanable/blood,
+				/obj/effect/gibspawner/generic,
+				/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/spaceinfected/gateopener //when this mob dies it'll trigger a poddoor open
 	// is our mob dead?
