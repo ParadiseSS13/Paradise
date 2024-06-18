@@ -635,8 +635,7 @@
 
 /atom/movable/screen/alert/status_effect/breaching_and_cleaving
 	name = "Breaching and Cleaving!"
-	desc = "<span class='danger'>Doors, people, machines... nothing will stand before your martial prowess!</span>"
-	icon_state = "breachcleaver"
+	desc = "<span class='danger'>Doors, people, machines... nothing will stand before your martial prowess!</spa
 
 /datum/status_effect/breaching_and_cleaving/on_apply()
 	. = ..()
@@ -644,13 +643,15 @@
 		return
 	if(.)
 		var/mob/living/carbon/human/H = owner
-		H.physiology.armor.modifyRating(0, 30, 30, 30, 0, 0, 50)
+		var/datum/armor/cleavingArmorBoost = getArmor(0, 30, 30, 30, 0, 0, 50, 0, 0)
+		H.physiology.armor = H.physiology.armor.attachArmor(cleavingArmorBoost)
 		H.physiology.stamina_mod *= 0.8
 
 /datum/status_effect/breaching_and_cleaving/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.physiology.armor.modifyRating(0, -30, -30, -30, 0, 0, -50)
+		var/datum/armor/cleavingArmorBoost = getArmor(0, 30, 30, 30, 0, 0, 50, 0, 0)
+		H.physiology.armor = H.physiology.armor.detachArmor(cleavingArmorBoost)
 		H.physiology.stamina_mod /= 0.8
 
 /datum/status_effect/hope
