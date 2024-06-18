@@ -74,12 +74,16 @@
 		RegisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(drop_slapper), override = TRUE)
 	return ..()
 
-/obj/item/slapper/parry/proc/drop_slapper()
-	SIGNAL_HANDLER // COMSIG_MOB_WILLINGLY_DROP + COMSIG_MOB_WEAPON_APPEARS
+/obj/item/slapper/parry/Destroy()
 	if(isliving(loc))
 		var/mob/owner = loc
 		UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
 		UnregisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS)
+	. = ..()
+
+///I keep this stupid proc that just calls qdel until i find how to make Signal cause Destroy proc itself
+/obj/item/slapper/parry/proc/drop_slapper()
+	SIGNAL_HANDLER
 	qdel(src)
 
 /obj/item/slapper/parry/attack(mob/M, mob/living/carbon/human/user)
