@@ -43,11 +43,14 @@
 
 //HEAT TRANSFER COEFFICIENTS
 //Must be between 0 and 1. Values closer to 1 equalize temperature faster
-//Should not exceed 0.4 else strange heat flow occur
-#define FLOOR_HEAT_TRANSFER_COEFFICIENT		0.15
+//Capped at OPEN_HEAT_TRANSFER_COEFFICIENT, both here and in Rust.
 #define WALL_HEAT_TRANSFER_COEFFICIENT		0.0
+#define DOOR_HEAT_TRANSFER_COEFFICIENT		0.001
 #define OPEN_HEAT_TRANSFER_COEFFICIENT		0.4
-#define WINDOW_HEAT_TRANSFER_COEFFICIENT	0.1		//a hack for now
+#define WINDOW_HEAT_TRANSFER_COEFFICIENT	0.001
+// This looks silly, but it's for clarity when reading elsewhere.
+#define ZERO_HEAT_TRANSFER_COEFFICIENT		0.0
+
 #define HEAT_CAPACITY_VACUUM				700000	//a hack to help make vacuums "cold", sacrificing realism for gameplay
 
 //FIRE
@@ -148,3 +151,15 @@
 // Reactions
 #define N2O_DECOMPOSITION_MIN_ENERGY		1400
 #define N2O_DECOMPOSITION_ENERGY_RELEASED	200000
+
+// From milla/src/lib.rs
+#define ATMOS_MODE_SPACE 0
+#define ATMOS_MODE_SEALED 1
+#define ATMOS_MODE_EXPOSED_TO_ENVIRONMENT 2
+
+/// Lavaland environment: hot, low pressure.
+#define ENVIRONMENT_LAVALAND "lavaland"
+/// Temperate environment: Normal atmosphere, 20 C.
+#define ENVIRONMENT_TEMPERATE "temperate"
+/// Cold environment: Normal atmosphere, -93 C.
+#define ENVIRONMENT_COLD "cold"

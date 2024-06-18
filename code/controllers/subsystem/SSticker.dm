@@ -141,6 +141,8 @@ SUBSYSTEM_DEF(ticker)
 				var/list/pickable_types = list()
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
+					if(istype(SSmapping.map_datum, M)) // Random will never choose the same map twice in a row.
+						continue
 					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
 						pickable_types += M
 
@@ -249,7 +251,7 @@ SUBSYSTEM_DEF(ticker)
 	SSjobs.DivideOccupations() //Distribute jobs
 
 	if(hide_mode)
-		var/list/modes = new
+		var/list/modes = list()
 		for(var/datum/game_mode/M in runnable_modes)
 			modes += M.name
 		modes = sortList(modes)

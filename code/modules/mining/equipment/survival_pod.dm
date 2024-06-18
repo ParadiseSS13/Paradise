@@ -111,10 +111,24 @@
 	icon_regular_floor = "podfloor_light"
 	floor_tile = /obj/item/stack/tile/pod/light
 
+/turf/simulated/floor/pod/light/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/pod/dark
 	icon_state = "podfloor_dark"
 	icon_regular_floor = "podfloor_dark"
 	floor_tile = /obj/item/stack/tile/pod/dark
+
+/turf/simulated/floor/pod/dark/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //Door
 /obj/machinery/door/airlock/survival_pod
@@ -175,6 +189,8 @@
 
 	products = list(/obj/item/stack/medical/splint = 2)
 	contraband = list()
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod, 32, 32)
 
 //Computer
 /obj/item/gps/computer
@@ -264,14 +280,14 @@
 
 /obj/structure/fans/Initialize(loc)
 	. = ..()
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/fans/Destroy()
 	arbitraryatmosblockingvar = 0
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
-/obj/structure/fans/CanAtmosPass(turf/T)
+/obj/structure/fans/CanAtmosPass(direction)
 	return !arbitraryatmosblockingvar
 
 /obj/structure/fans/deconstruct()
@@ -296,6 +312,10 @@
 	density = FALSE
 	icon_state = "fan_tiny"
 	buildstackamount = 2
+
+/obj/structure/fans/tiny/get_superconductivity(direction)
+	// Mostly for stuff on Lavaland.
+	return ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/fans/tiny/invisible
 	name = "air flow blocker"
