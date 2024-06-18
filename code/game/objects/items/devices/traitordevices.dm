@@ -314,7 +314,7 @@
 		to_chat(user, "<span class='notice'>You decide against using [src].</span>")
 		return
 	if(used)
-		to_chat(user, "<span class='notice'>The injector is empty!</span>")
+		to_chat(user, "<span class='warning'>The injector is empty!</span>")
 		return
 	used = TRUE 
 	to_chat(user, "<span class='notice'>You inject yourself with the enhancer!</span>")
