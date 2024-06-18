@@ -83,7 +83,7 @@
 
 ///I keep this stupid proc that just calls qdel until i find how to make Signal cause Destroy proc itself
 /obj/item/slapper/parry/proc/drop_slapper()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOB_WILLINGLY_DROP + COMSIG_MOB_WEAPON_APPEARS
 	qdel(src)
 
 /obj/item/slapper/parry/attack(mob/M, mob/living/carbon/human/user)
