@@ -53,11 +53,9 @@
 
 	for(var/datum/mind/traitor in pre_traitors)
 		var/datum/antagonist/traitor/traitor_datum = new(src)
-		if(isAI(traitor.current))
-			traitor.add_antag_datum(traitor_datum)
-			continue
+		if(ishuman(traitor.current))
+			traitor_datum.delayed_objectives = TRUE
 
-		traitor_datum.delayed_objectives = TRUE
 		traitor.add_antag_datum(traitor_datum)
 
 	if(length(pre_traitors))
