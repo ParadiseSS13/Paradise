@@ -833,6 +833,56 @@
 	item_state = "corset_blue"
 	item_color = "corset_blue"
 
+//Pins
+/obj/item/clothing/accessory/pin
+	name = "nanotrasen pin"
+	desc = "It's a standard pin to wear so you can show your loyalty to Nanotrasen!"
+	icon_state = "nt_pin"
+	item_state = "nt_pin"
+	item_color = "nt_pin"
+
+/obj/item/clothing/accessory/pin/pride
+	name = "pride pin"
+	desc = "It's a standard pin, wear it with pride. You can change which flag is used from a button on the back."
+	icon_state = "pride_pin"
+	item_state = "pride_pin"
+	item_color = "pride_pin"
+
+	///List of all pride flags to icon state
+	var/static/list/flag_types = list(
+		"Pride" = "pride_pin",
+		"Bisexual Pride" = "bi_pin",
+		"Pansexual Pride" = "pan_pin",
+		"Asexual Pride" = "ace_pin",
+		"Non-binary Pride" = "enby_pin",
+		"Transgender Pride" = "trans_pin")
+
+	///List of all pride flags to icon image, for the radial
+	var/static/list/flag_icons = list()
+
+/obj/item/clothing/accessory/pin/pride/Initialize(mapload)
+	. = ..()
+	if(length(flag_icons)) //Only generate it once
+		return
+
+	for(var/current_pin in flag_types) //generate the flag icons
+		var/image/pin_icon = image(icon, icon_state = flag_types[current_pin])
+		flag_icons[current_pin] = pin_icon
+
+/obj/item/clothing/accessory/pin/pride/attack_self(mob/user)
+	. = ..()
+	var/chosen_pin = show_radial_menu(user, src, flag_icons, require_near = TRUE)
+	if(!chosen_pin)
+		to_chat(user, "<span class='notice'>You decide not to change [src].</span>")
+		return
+	var/pin_icon_state = flag_types[chosen_pin]
+	to_chat(user, "<span class='notice'>You change [src] to show [chosen_pin].</span>")
+
+	icon_state = pin_icon_state
+	item_state = pin_icon_state
+	item_color = pin_icon_state
+	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
+
 /proc/english_accessory_list(obj/item/clothing/under/U)
 	if(!istype(U) || !length(U.accessories))
 		return
