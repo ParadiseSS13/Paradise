@@ -21752,10 +21752,6 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/apmaint)
-"clZ" = (
-/obj/structure/lattice,
-/turf/space,
-/area/station/engineering/solar/port)
 "cme" = (
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment/corner{
@@ -50243,10 +50239,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/port/north)
-"iWs" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "iWx" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell"
@@ -72376,18 +72368,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
 "pLU" = (
-/obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/machinery/door/airlock/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -76431,14 +76418,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
-"qVd" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/space,
-/area/station/maintenance/portsolar)
 "qVi" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -130493,11 +130472,11 @@ rNK
 rNK
 lzH
 oyl
-qVd
+jrJ
 oyl
-clZ
-clZ
-lAv
+lzH
+lzH
+lzH
 lzH
 lzH
 lzH
@@ -131539,7 +131518,7 @@ lzH
 lzH
 lzH
 lzH
-iWs
+lzH
 eFs
 rNK
 lez
@@ -132567,7 +132546,7 @@ lzH
 lzH
 lzH
 lzH
-iWs
+lzH
 eFs
 rNK
 lez
