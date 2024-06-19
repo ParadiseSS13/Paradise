@@ -388,6 +388,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/clothing/suit/space/hardsuit/syndi/freedom

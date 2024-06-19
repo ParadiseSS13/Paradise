@@ -44,14 +44,13 @@
 	UnregisterSignal(target, COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT)
 	return ..()
 
-/datum/element/body_temperature/proc/handle_temperature(mob/living/simple_animal/target)
+/datum/element/body_temperature/proc/handle_temperature(mob/living/simple_animal/target, datum/gas_mixture/readonly_environment)
 	SIGNAL_HANDLER  // COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT
 
-	var/datum/gas_mixture/environment = target.loc.return_air()
-	if(!environment)
+	if(!readonly_environment)
 		return
 
-	var/areatemp = target.get_temperature(environment)
+	var/areatemp = target.get_temperature(readonly_environment)
 
 	if(abs(areatemp - target.bodytemperature) > 5 && !HAS_TRAIT(src, TRAIT_NOBREATH))
 		var/diff = areatemp - target.bodytemperature

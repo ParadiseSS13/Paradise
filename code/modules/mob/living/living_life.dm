@@ -50,7 +50,16 @@
 	if(stat != DEAD)
 		handle_heartattack()
 
-	handle_environment()
+	//Handle temperature/pressure differences between body and environment
+	var/datum/gas_mixture/readonly_environment = null
+	if(isobj(loc))
+		var/obj/O = loc
+		readonly_environment = O.return_obj_air()
+	if(isnull(readonly_environment))
+		var/turf/T = get_turf(src)
+		if(!isnull(T))
+			readonly_environment = T.get_readonly_air()
+	handle_environment(readonly_environment)
 
 	handle_fire()
 

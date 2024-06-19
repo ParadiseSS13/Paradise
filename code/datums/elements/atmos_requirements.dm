@@ -26,19 +26,18 @@
 	UnregisterSignal(target, COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT)
 	return ..()
 
-/datum/element/atmos_requirements/proc/handle_environment(mob/living/simple_animal/target)
+/datum/element/atmos_requirements/proc/handle_environment(mob/living/simple_animal/target, datum/gas_mixture/readonly_environment)
 	SIGNAL_HANDLER  // COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT
 
-	var/datum/gas_mixture/environment = target.loc.return_air()
-	if(!environment)
+	if(!readonly_environment)
 		return
 
 	var/atmos_suitable = TRUE
 
-	var/tox = environment.toxins
-	var/oxy = environment.oxygen
-	var/n2 = environment.nitrogen
-	var/co2 = environment.carbon_dioxide
+	var/tox = readonly_environment.toxins()
+	var/oxy = readonly_environment.oxygen()
+	var/n2 = readonly_environment.nitrogen()
+	var/co2 = readonly_environment.carbon_dioxide()
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = FALSE

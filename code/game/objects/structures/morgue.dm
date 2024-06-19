@@ -472,7 +472,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 			M.show_message("<span class='warning'>You hear a hollow crackle.</span>", EMOTE_VISIBLE)
 
 		return
-
+	for(var/mob/living/M in search_contents_for(/mob/living)) //search for this for funny cling shenaigins first.
+		if(HAS_TRAIT(M, TRAIT_CLING_BURSTING))
+			visible_message("<span class='warning'>The crematorium fails to start, something big is blocking the pipes!</span>")
+			return
 
 	for(var/mob/M in viewers(src))
 		M.show_message("<span class='warning'>You hear a roar as the crematorium activates.</span>", EMOTE_VISIBLE)

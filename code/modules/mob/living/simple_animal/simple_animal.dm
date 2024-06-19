@@ -306,8 +306,8 @@
 					else
 						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 
-/mob/living/simple_animal/handle_environment()
-	SEND_SIGNAL(src, COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT)
+/mob/living/simple_animal/handle_environment(datum/gas_mixture/readonly_environment)
+	SEND_SIGNAL(src, COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT, readonly_environment)
 
 /mob/living/simple_animal/gib()
 	if(icon_gib)
