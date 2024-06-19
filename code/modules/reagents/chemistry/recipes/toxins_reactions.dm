@@ -38,7 +38,7 @@
 	name = "Pancuronium"
 	id = "pancuronium"
 	result = "pancuronium"
-	required_reagents = list("cyanide" = 1, "sulfonal" = 1, "capulettium" = 1)
+	required_reagents = list("cyanide" = 1, "bromine" = 1, "capulettium" = 1)
 	result_amount = 3
 	mix_message = "The mixture deepens to a dark blue, leaving no smell."
 
