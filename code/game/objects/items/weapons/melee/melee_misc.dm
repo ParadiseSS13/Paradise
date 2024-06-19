@@ -206,7 +206,12 @@
 		return ..()
 	else //Burn
 		var/mob/living/L = M
-		L.apply_damage(burn_damage, BURN)
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
+			H.apply_damage(burn_damage, BURN, targetlimb, H.run_armor_check(targetlimb, MELEE))
+		else
+			L.apply_damage(burn_damage, BURN)
 		deductcharge(burn_hitcost)
 		return ..()
 
@@ -230,12 +235,12 @@
 		var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
 		H.apply_damage(stam_damage, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
 		H.SetStuttering(5 SECONDS)
+		deductcharge(stam_hitcost)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // So a person cannot hit the same person with a sword AND a baton, or two swords
 	addtimer(CALLBACK(src, PROC_REF(stun_delay), L, user_UID), 2 SECONDS)
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
-	deductcharge(stam_hitcost)
 	return TRUE
 
 /obj/item/melee/secsword/proc/stun_delay(mob/living/target, user_UID)
