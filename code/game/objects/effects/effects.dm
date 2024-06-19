@@ -31,8 +31,8 @@
 /obj/effect/blob_act(obj/structure/blob/B)
 	return
 
-/obj/effect/experience_pressure_difference()
-	return
+/obj/effect/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /obj/effect/ex_act(severity)
 	switch(severity)

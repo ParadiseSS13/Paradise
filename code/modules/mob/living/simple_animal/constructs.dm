@@ -176,6 +176,8 @@
 /// Used in bubblegum summoning. Needs MOB_SIZE_LARGE so crushers don't suffer
 /mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum
 	mob_size =	MOB_SIZE_LARGE
+	maxbodytemp = INFINITY
+	weather_immunities = list("ash")
 
 /////////////////////////////Artificer/////////////////////////
 

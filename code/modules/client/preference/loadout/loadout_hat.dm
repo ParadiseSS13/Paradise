@@ -44,7 +44,7 @@
 	path = /obj/item/clothing/head/wizard/marisa/fake
 
 /datum/gear/hat/piratecaphat
-	display_name = "Pirate captian hat"
+	display_name = "Pirate captain hat"
 	path = /obj/item/clothing/head/pirate
 
 /datum/gear/hat/fez
@@ -76,11 +76,6 @@
 	display_name = "Security cap"
 	path = /obj/item/clothing/head/soft/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
-
-/datum/gear/hat/deliverysoft
-	display_name = "Cap, delivery boy"
-	path = /obj/item/clothing/head/soft/deliverysoft
-	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/hat/capjanigrey
 	display_name = "Cap, janitor grey"
@@ -201,6 +196,11 @@
 	display_name = "Beret, head of personnel"
 	path = /obj/item/clothing/head/beret/hop
 	allowed_roles = list("Head of Personnel")
+
+/datum/gear/hat/beret_job/cargo
+	display_name = "Beret, cargo"
+	path = /obj/item/clothing/head/beret/cargo
+	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/hat/beret_job/qm
 	display_name = "Beret, quartermaster"
