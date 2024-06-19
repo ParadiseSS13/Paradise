@@ -53,9 +53,10 @@ GLOBAL_LIST_EMPTY(flame_effects)
 			if(ishuman(mob_to_burn))
 				var/mob/living/carbon/human/human_to_burn = mob_to_burn
 				var/fire_armour = human_to_burn.get_thermal_protection()
-				if(fire_armour == FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+				if(fire_armour >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 					continue
-				fire_damage /= ARMOUR_VALUE_TO_PERCENTAGE(fire_armour)
+				else if(fire_armour == FIRE_SUIT_MAX_TEMP_PROTECT) // Good protection but you won't survive infinitely in it
+					fire_damage /= 3
 
 			mob_to_burn.adjustFireLoss(fire_damage)
 			mob_to_burn.adjust_fire_stacks(application_stacks)
@@ -66,7 +67,6 @@ GLOBAL_LIST_EMPTY(flame_effects)
 			var/obj/obj_to_burn = thing_to_burn
 			obj_to_burn.fire_act(null, temperature)
 			continue
-
 
 /obj/effect/fire/water_act(volume, temperature, source, method)
 	. = ..()
