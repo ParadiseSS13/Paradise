@@ -1905,6 +1905,7 @@
 	dir = 8
 	},
 /obj/item/clothing/suit/hooded/ablative,
+/obj/item/clothing/suit/armor/laserproof,
 /obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel{
 	dir = 8;

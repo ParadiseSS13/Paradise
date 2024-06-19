@@ -62283,6 +62283,7 @@
 "kNk" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/hooded/ablative,
+/obj/item/clothing/suit/armor/laserproof,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"

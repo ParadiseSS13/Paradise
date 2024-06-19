@@ -21705,13 +21705,14 @@
 /area/station/security/prisonershuttle)
 "bnp" = (
 /obj/structure/rack,
-/obj/item/gun/energy/ionrifle,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/item/clothing/suit/hooded/ablative,
+/obj/item/clothing/suit/armor/laserproof,
+/obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel,
 /area/station/security/armory/secure)
 "bnr" = (

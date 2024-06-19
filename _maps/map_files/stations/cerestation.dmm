@@ -42947,8 +42947,9 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/rack,
-/obj/item/gun/energy/ionrifle,
 /obj/item/clothing/suit/hooded/ablative,
+/obj/item/clothing/suit/armor/laserproof,
+/obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
