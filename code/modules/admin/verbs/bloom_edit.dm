@@ -63,7 +63,8 @@
 			GLOB.configuration.lighting_effects.exposure_contrast_power = initial(GLOB.configuration.lighting_effects.exposure_contrast_power)
 		if("update_lamps")
 			for(var/obj/machinery/light/L in GLOB.machines)
-				L.update_bloom()
+				if(L.glow_overlay || L.exposure_overlay)
+					L.update_bloom()
 	return TRUE
 
 /datum/bloom_edit/ui_state(mob/user)
