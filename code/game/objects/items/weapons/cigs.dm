@@ -160,7 +160,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(glass))	//you can dip cigarettes into beakers
 		var/transfered = glass.reagents.trans_to(src, chem_volume)
 		if(transfered)	//if reagents were transfered, show the message
-			smoketime = min(smoketime + initial(smoketime) * (transfered / chem_volume), initial(smoketime))
+			smoketime = initial(smoketime) * reagents.total_volume / reagents.maximum_volume
 			to_chat(user, "<span class='notice'>You dip \the [src] into \the [glass].</span>")
 		else			//if not, either the beaker was empty, or the cigarette was full
 			if(!glass.reagents.total_volume)
