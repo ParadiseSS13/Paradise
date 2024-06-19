@@ -35774,11 +35774,6 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/service/bar)
-"eiX" = (
-/obj/structure/lattice,
-/obj/item/stack/cable_coil,
-/turf/space,
-/area/space/nearstation)
 "eja" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -37611,10 +37606,9 @@
 "eMX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+	desc = "A warning sign which reads 'HIGH VOLTAGE'";
+	icon_state = "shock";
+	name = "HIGH VOLTAGE";
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
@@ -53471,6 +53465,13 @@
 /area/station/hallway/primary/fore/west)
 "jRK" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_x = 32
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "jRW" = (
@@ -55037,6 +55038,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "ksP" = (
@@ -128995,7 +128998,7 @@ rfn
 rfn
 mtz
 rfn
-ftr
+rfn
 ftr
 ccW
 ccW
@@ -131568,7 +131571,7 @@ lAv
 lAv
 lAv
 lAv
-eiX
+lzH
 lzH
 lzH
 lzH
