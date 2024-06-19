@@ -297,6 +297,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -4873,6 +4874,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/security_officer,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -5451,6 +5453,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/security_officer,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -13745,14 +13748,19 @@
 	},
 /mob/living/simple_animal/mouse,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -14344,9 +14352,9 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 4;
+	d1 = 2;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -44038,15 +44046,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
-"djR" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
-/area/station/security/brig)
 "djU" = (
 /obj/structure/bed,
 /obj/item/clothing/suit/straight_jacket,
@@ -44468,6 +44467,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -51013,8 +51017,8 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -53155,15 +53159,12 @@
 	},
 /area/station/aisat)
 "gXN" = (
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
-	},
+/turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "gYm" = (
 /obj/machinery/hydroponics/soil,
@@ -54445,28 +54446,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/command/office/cmo)
-"hAl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "hAn" = (
 /obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -55007,16 +54986,16 @@
 	},
 /area/station/science/research)
 "hKK" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	d2 = 8;
+	icon_state = "1-8"
 	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/armory/secure)
 "hKO" = (
@@ -55197,7 +55176,6 @@
 /turf/simulated/floor/carpet/purple,
 /area/station/maintenance/fore)
 "hNK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -55211,6 +55189,12 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -57546,18 +57530,6 @@
 	icon_state = "white"
 	},
 /area/station/science/explab)
-"iLl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "iLs" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -57571,25 +57543,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
-"iLw" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "iLE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/blue,
 /turf/simulated/wall/r_wall,
@@ -61488,16 +61441,6 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -62469,6 +62412,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -62941,6 +62889,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63361,14 +63314,6 @@
 	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
-"liR" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/brig)
 "liS" = (
 /obj/structure/table,
 /obj/item/clothing/ears/earmuffs{
@@ -66128,6 +66073,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -67232,6 +67182,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -70536,12 +70491,21 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
 "odW" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/station/security/permabrig)
 "oec" = (
 /obj/structure/cable{
@@ -74011,6 +73975,11 @@
 	pixel_x = -3;
 	pixel_y = -5
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -76473,6 +76442,11 @@
 "qGf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -81461,6 +81435,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -81700,6 +81679,11 @@
 "sPd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -81809,6 +81793,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -84923,11 +84912,6 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -85881,24 +85865,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/cafeteria)
-"uKW" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "uLb" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -86823,16 +86789,6 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
 /area/station/maintenance/asmaint)
-"vcs" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "vcF" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -87070,6 +87026,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -89205,6 +89167,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -114841,11 +114808,11 @@ udK
 eSS
 iqe
 udK
-odW
+ezq
 kRm
 udK
 mOC
-odW
+lLb
 abW
 abW
 aaa
@@ -115098,11 +115065,11 @@ uGn
 fCF
 eyZ
 rLO
-gXN
-obJ
+oaX
+odW
 qNV
-obJ
-gXN
+odW
+oaX
 cUM
 abW
 abW
@@ -115355,13 +115322,13 @@ jOp
 aZu
 nbK
 qbU
-iLw
-uKW
+jOp
+nbK
 ayZ
 mnU
 kxy
-vcs
-lLb
+uZy
+gXN
 daV
 ggM
 abW
@@ -116387,9 +116354,9 @@ pPA
 naU
 qal
 gKl
-hAl
-vcs
-lLb
+taf
+uZy
+bOX
 ivD
 qIB
 abW
@@ -122048,7 +122015,7 @@ amx
 amx
 amx
 wRx
-djR
+oSi
 aCu
 maC
 oSi
@@ -122305,7 +122272,7 @@ tmm
 oSi
 oSi
 ugy
-liR
+apP
 apP
 fJF
 apP
@@ -127474,7 +127441,7 @@ aTp
 aTo
 aYP
 aLl
-iLl
+jln
 bdW
 eMs
 bgg
