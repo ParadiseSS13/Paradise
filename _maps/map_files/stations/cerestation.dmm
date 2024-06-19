@@ -44372,10 +44372,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
-"hgH" = (
-/turf/simulated/wall/r_wall,
-/area/space,
-/area/station/science/server/coldroom)
 "hgP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -58428,7 +58424,6 @@
 	dir = 5;
 	icon_state = "whitepurple"
 	},
-/area/space,
 /area/station/science/misc_lab)
 "lrd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -59788,9 +59783,6 @@
 /area/station/maintenance/port2)
 "lMr" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -59798,7 +59790,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/maintenance{
+	name = "Aft Asteroid Maintenance"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/south)
 "lMu" = (
@@ -115078,7 +115072,7 @@ cxg
 tHG
 ptZ
 tHG
-hgH
+wXW
 wXW
 wXW
 wXW
