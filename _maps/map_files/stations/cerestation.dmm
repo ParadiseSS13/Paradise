@@ -72952,6 +72952,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sop_science{
+	pixel_x = -9;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -96140,9 +96144,13 @@
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/item/mmi,
-/obj/item/robotanalyzer,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/item/book/manual/ripley_build_and_repair,
+/obj/item/book/manual/wiki/robotics_cyborgs{
+	pixel_y = -3;
+	pixel_x = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
@@ -98482,6 +98490,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
