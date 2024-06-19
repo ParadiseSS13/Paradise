@@ -324,6 +324,13 @@
 	icon_state = "floor_large"
 	},
 /area/awaymission/space_battle/cruiser)
+"aX" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal/deliveryChute,
+/turf/simulated/floor/plating,
+/area/awaymission/space_battle/hallway11)
 "aY" = (
 /obj/structure/table/reinforced{
 	color = "#444444"
@@ -1818,7 +1825,8 @@
 	dir = 8
 	},
 /obj/machinery/door/window/reinforced/normal{
-	dir = 1
+	dir = 1;
+	req_access = list(301)
 	},
 /obj/structure/rack,
 /turf/simulated/floor/plasteel/dark,
@@ -2233,7 +2241,8 @@
 	dir = 8
 	},
 /obj/machinery/door/window/reinforced/normal{
-	dir = 1
+	dir = 1;
+	req_access = list(301)
 	},
 /obj/structure/rack,
 /obj/item/ammo_box/magazine/enforcer/lethal,
@@ -6363,7 +6372,8 @@
 	dir = 8
 	},
 /obj/machinery/door/window/reinforced/normal{
-	dir = 1
+	dir = 1;
+	req_access = list(301)
 	},
 /obj/structure/rack,
 /obj/item/clothing/head/helmet,
@@ -6886,6 +6896,16 @@
 /obj/structure/lattice,
 /turf/space,
 /area/awaymission/space_battle/hallway2)
+"vx" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/transit_tube,
+/obj/machinery/constructable_frame{
+	layer = 4;
+	icon = 'icons/obj/singularity.dmi';
+	icon_state = "TheSingGen"
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/space_battle/hallway11)
 "vy" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
@@ -10743,7 +10763,7 @@
 "Hk" = (
 /obj/machinery/door/airlock/security{
 	name = "Armory";
-	req_access = list(271)
+	req_access = list(301)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway8)
@@ -11723,7 +11743,8 @@
 /obj/machinery/door/airlock/highsecurity,
 /obj/machinery/door/poddoor{
 	layer = 3.2;
-	id_tag = "GATE"
+	id_tag = "GATE";
+	interact_offline = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
@@ -14441,7 +14462,8 @@
 	dir = 8
 	},
 /obj/machinery/door/window/reinforced/normal{
-	dir = 1
+	dir = 1;
+	req_access = list(301)
 	},
 /obj/structure/rack,
 /obj/item/clothing/shoes/jackboots/noisy{
@@ -40596,8 +40618,8 @@ yG
 Iq
 bb
 XG
-pq
-cq
+vx
+aX
 vS
 ND
 mf
