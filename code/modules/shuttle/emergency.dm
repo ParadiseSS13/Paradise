@@ -110,7 +110,7 @@
 						message_admins("[key_name_admin(user)] has wiped the AI in the shuttle computer.")
 						log_game("[key_name(user)] has wiped the AI in the shuttle computer in ([x], [y], [z])")
 						GLOB.minor_announcement.Announce("NO NO NO N---\[[Gibberish("###########", 100, 90)]\]...")
-						GLOB.minor_announcement.Announce("Shuttle AI restored to emergency backup. Avoding toll hyperlanes. Recalculating route. Recalculating. Recalculating. Please stand by...")
+						GLOB.minor_announcement.Announce("Shuttle AI restored to emergency backup. Avoiding toll hyperlanes. Recalculating route. Recalculating. Recalculating. Please stand by...")
 						SSshuttle.emergency.setTimer(60 SECONDS)
 						kill_the_ai()
 
@@ -151,7 +151,7 @@
 	update_icon()
 	AI.cancel_camera()
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
-	to_chat(AI, "<span class='warning'>You are now loaded into the shuttle computer. Make sure command does not wipe you from it, there is no going back...</span>")
+	to_chat(AI, "<span class='userdanger'>You are now loaded into the shuttle computer. Make sure command does not wipe you from it, there is no going back...</span>")
 	SSshuttle.emergency.aihacked = TRUE
 	authorized.Cut() //In case command was already swiping to early launch or something
 
