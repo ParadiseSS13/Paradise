@@ -36,10 +36,10 @@
 		if(hijack_announce)
 			. += "<span class='warning'>It is probably best to fortify your position as to be uninterrupted during the attempt, given the automatic announcements...</span>"
 
-/obj/machinery/computer/emergency_shuttle/attackby(obj/item/card/W, mob/user, params)
+/obj/machinery/computer/emergency_shuttle/attackby(obj/item/card/id/W, mob/user, params)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	if(!istype(W, /obj/item/card))
+	if(!istype(W, /obj/item/card/id))
 		return
 	if(SSshuttle.emergency.mode != SHUTTLE_DOCKED && !SSshuttle.emergency.aihacked)
 		return
@@ -51,17 +51,17 @@
 		if(istype(W, /obj/item/pda))
 			var/obj/item/pda/pda = W
 			W = pda.id
-		if(!W:access) //no access
-			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
+		if(!W.access) //no access
+			to_chat(user, "The access level of [W.registered_name]\'s card is not high enough. ")
 			return
 
-		var/list/cardaccess = W:access
+		var/list/cardaccess = W.access
 		if(!istype(cardaccess, /list) || !length(cardaccess)) //no access
-			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
+			to_chat(user, "The access level of [W.registered_name]\'s card is not high enough. ")
 			return
 
-		if(!(ACCESS_HEADS in W:access)) //doesn't have this access
-			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")
+		if(!(ACCESS_HEADS in W.access)) //doesn't have this access
+			to_chat(user, "The access level of [W.registered_name]\'s card is not high enough. ")
 			return 0
 		if(!SSshuttle.emergency.aihacked)
 			var/choice = tgui_alert(user, "Would you like to (un)authorize a shortened launch time? [auth_need - length(authorized)] authorization\s are still needed. Use abort to cancel all authorizations.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
@@ -74,8 +74,8 @@
 
 			switch(choice)
 				if("Authorize")
-					if(!authorized.Find(W:registered_name))
-						authorized += W:registered_name
+					if(!authorized.Find(W.registered_name))
+						authorized += W.registered_name
 						if(auth_need - length(authorized) > 0)
 							message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 							log_game("[key_name(user)] has authorized early shuttle launch in ([x], [y], [z]).")
@@ -84,10 +84,10 @@
 							message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
 							log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
 							GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds")
-							SSshuttle.emergency.setTimer(100)
+							SSshuttle.emergency.setTimer(10 SECONDS)
 
 				if("Repeal")
-					if(authorized.Remove(W:registered_name))
+					if(authorized.Remove(W.registered_name))
 						GLOB.minor_announcement.Announce("[auth_need - length(authorized)] authorizations needed until shuttle is launched early")
 
 				if("Abort")
@@ -100,8 +100,8 @@
 			return FALSE
 		switch(choice)
 			if("Authorize")
-				if(!authorized.Find(W:registered_name))
-					authorized += W:registered_name
+				if(!authorized.Find(W.registered_name))
+					authorized += W.registered_name
 					if(auth_need - length(authorized) > 0)
 						message_admins("[key_name_admin(user)] has authorized restoring shuttle AI backup.")
 						log_game("[key_name(user)] has authorized restoring shuttle AI backup in ([x], [y], [z]).")
@@ -111,11 +111,11 @@
 						log_game("[key_name(user)] has wiped the AI in the shuttle computer in ([x], [y], [z])")
 						GLOB.minor_announcement.Announce("NO NO NO N---\[[Gibberish("###########", 100, 90)]\]...")
 						GLOB.minor_announcement.Announce("Shuttle AI restored to emergency backup. Avoding toll hyperlanes. Recalculating route. Recalculating. Recalculating. Please stand by...")
-						SSshuttle.emergency.setTimer(600)
+						SSshuttle.emergency.setTimer(60 SECONDS)
 						kill_the_ai()
 
 			if("Repeal")
-				if(authorized.Remove(W:registered_name))
+				if(authorized.Remove(W.registered_name))
 					GLOB.minor_announcement.Announce("[auth_need - length(authorized)] authorizations needed unti- THE SHUTTLE EXPLODES. PLEASE REVO-KE ALL AUTHORIZATIONS.")
 
 			if("Abort")
@@ -129,7 +129,7 @@
 		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
 		log_game("[key_name(user)] has emagged the emergency shuttle in ([x], [y], [z]): [time] seconds before launch.")
 		GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds", "SYSTEM ERROR:")
-		SSshuttle.emergency.setTimer(100)
+		SSshuttle.emergency.setTimer(10 SECONDS)
 		emagged = TRUE
 		return TRUE
 
@@ -151,7 +151,7 @@
 	update_icon()
 	AI.cancel_camera()
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
-	to_chat(AI, "You are now loaded into the shuttle computer. Make sure command does not wipe you from it, there is no going back...")
+	to_chat(AI, "<span class='warning'>You are now loaded into the shuttle computer. Make sure command does not wipe you from it, there is no going back...</span>")
 	SSshuttle.emergency.aihacked = TRUE
 	authorized.Cut() //In case command was already swiping to early launch or something
 
