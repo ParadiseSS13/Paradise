@@ -457,7 +457,7 @@
 					continue
 
 				var/datum/chemical_reaction/C = reaction
-				var/total_required_reagents = C.get_total_required_reagents()
+				var/total_required_reagents = C.get_total_required_reagents(src)
 				var/total_matching_reagents = 0
 				var/total_required_catalysts = length(C.required_catalysts)
 				var/total_matching_catalysts = 0

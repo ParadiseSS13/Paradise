@@ -159,13 +159,19 @@
 		for(var/datum/disease/advance/AD in mix2)
 			to_mix += AD
 
+		var/list/preserve = list()
+		for(var/D in data["viruses"])
+			if(!istype(D, /datum/disease/advance))
+				preserve += D
+		for(var/D in mix_data["viruses"])
+			if(!istype(D, /datum/disease/advance))
+				preserve += D
+
 		var/datum/disease/advance/AD = Advance_Mix(to_mix)
 		if(AD)
-			var/list/preserve = list(AD)
-			for(var/D in data["viruses"])
-				if(!istype(D, /datum/disease/advance))
-					preserve += D
-			data["viruses"] = preserve
+			preserve += AD
+
+		data["viruses"] = preserve
 
 /datum/reagent/blood/on_update(atom/A)
 	if(data["blood_color"])
