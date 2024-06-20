@@ -79,7 +79,7 @@
 		var/mob/owner = loc
 		UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
 		UnregisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS)
-	. = ..()
+	return ..()
 
 /obj/item/slapper/parry/attack(mob/M, mob/living/carbon/human/user)
 	if(isliving(M))
