@@ -271,4 +271,4 @@
 
 /obj/structure/bonfire/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It looks like it'll burn for [time_left()] seconds and has around [fuel] units of fuel left, you can add more fuel by adding logs or planks of wood to [src].</span>"
+	. += "<span class='notice'>It looks like it'll burn for [time_left()] seconds and has around [round(fuel)] units of fuel left, you can add more fuel by adding logs or planks of wood to [src].</span>"
