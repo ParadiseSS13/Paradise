@@ -260,7 +260,7 @@
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
 	if(world.time > next_emp_message)
 		atom_say("Warning: Electromagnetic pulse detected. Integrated shielding prevented all potential hardware damage.")
-		playsound(src, 'sound/machines/defib_saftyon.ogg', 50)
+		playsound(src, 'sound/machines/defib_safety_on.ogg', 50)
 		next_emp_message = world.time + 5 SECONDS
 
 //paddles
@@ -345,7 +345,7 @@
 /obj/item/shockpaddles/suicide_act(mob/user)
 	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	defib.deductcharge(revivecost)
-	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+	playsound(get_turf(src), 'sound/machines/zap.ogg', 50, 1, -1)
 	return OXYLOSS
 
 /obj/item/shockpaddles/dropped(mob/user)
