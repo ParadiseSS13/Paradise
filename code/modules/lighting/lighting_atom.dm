@@ -126,8 +126,7 @@
 	cut_overlay(exposure_overlay)
 
 	if(glow_icon && glow_icon_state)
-		if(!glow_overlay)
-			glow_overlay = image(icon = glow_icon, icon_state = glow_icon_state, dir = dir, layer = 1)
+		glow_overlay = image(icon = glow_icon, icon_state = glow_icon_state, dir = dir, layer = 1)
 		glow_overlay.plane = LIGHTING_LAMPS_PLANE
 		glow_overlay.blend_mode = BLEND_ADD
 
@@ -140,8 +139,7 @@
 		add_overlay(glow_overlay)
 
 	if(exposure_icon && exposure_icon_state)
-		if(!exposure_overlay)
-			exposure_overlay = image(icon = exposure_icon, icon_state = exposure_icon_state, dir = dir, layer = -1)
+		exposure_overlay = image(icon = exposure_icon, icon_state = exposure_icon_state, dir = dir, layer = -1)
 		exposure_overlay.plane = LIGHTING_EXPOSURE_PLANE
 		exposure_overlay.blend_mode = BLEND_ADD
 		exposure_overlay.appearance_flags = RESET_ALPHA | RESET_COLOR | KEEP_APART
@@ -166,3 +164,6 @@
 	cut_overlay(exposure_overlay)
 	QDEL_NULL(glow_overlay)
 	QDEL_NULL(exposure_overlay)
+
+/atom/update_bloom/shuttleRotate(rotation, params)
+	. = ..()
