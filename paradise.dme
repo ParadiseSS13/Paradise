@@ -661,7 +661,6 @@
 #include "code\game\world.dm"
 #include "code\game\area\ai_monitored.dm"
 #include "code\game\area\areas.dm"
-#include "code\game\area\asteroid_areas.dm"
 #include "code\game\area\away_content_areas.dm"
 #include "code\game\area\centcom_areas.dm"
 #include "code\game\area\holodeck_areas.dm"

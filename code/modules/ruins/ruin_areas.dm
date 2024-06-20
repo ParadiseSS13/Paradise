@@ -12,9 +12,6 @@
 /area/ruin/unpowered
 	always_unpowered = FALSE
 
-/area/ruin/unpowered/no_grav
-	has_gravity = FALSE
-
 /area/ruin/powered
 	requires_power = FALSE
 
