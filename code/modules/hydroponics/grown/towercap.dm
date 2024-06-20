@@ -131,9 +131,20 @@
 	density = FALSE
 	anchored = TRUE
 	buckle_lying = FALSE
-	var/burning = 0
-	var/lighter // Who lit the fucking thing
+	/// True/False whether the bonfire is lit or not.
+	var/burning = FALSE
+	/// The person who ignited the bonfire
+	var/lighter
+	/// The amount of fire stacks to add per burn proc.
 	var/fire_stack_strength = 5
+	/// The amount of fuel left in the bonfire, when this reaches 0 the bonfire extinguishes itself.
+	var/fuel = 10
+	/// Max amount of fuel.
+	var/max_fuel = 20
+	/// Amount of fuel to burn per process.
+	var/fuel_consumption_rate = 0.1
+	/// Amount of fuel added per sheet of wood (plank)
+	var/fuel_per_plank = 5
 
 /obj/structure/bonfire/dense
 	density = TRUE
@@ -149,6 +160,11 @@
 	StartBurning()
 
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/stack/sheet/wood))
+		var/obj/item/stack/sheet/wood/P = W
+		P.use(1)
+		fuel = clamp(fuel + fuel_per_plank, 0, max_fuel)
+		to_chat(user, "<span class='italics'>You add a fuel to [src].")
 	if(istype(W, /obj/item/stack/rods) && !can_buckle)
 		var/obj/item/stack/rods/R = W
 		R.use(1)
@@ -157,7 +173,7 @@
 		to_chat(user, "<span class='italics'>You add a rod to [src].")
 		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
 		underlays += U
-	if(W.get_heat())
+	if(W.get_heat() && CheckFuel())
 		lighter = user.ckey
 		user.create_log(MISC_LOG, "lit a bonfire", src)
 		StartBurning()
@@ -182,13 +198,17 @@
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/G = T.get_readonly_air()
 	if(G.oxygen() > 13)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
+
+/// Check if the bonfire has fuel.
+/obj/structure/bonfire/proc/CheckFuel()
+	return (fuel > 0)
 
 /obj/structure/bonfire/proc/StartBurning()
 	if(!burning && CheckOxygen())
 		icon_state = "bonfire_on_fire"
-		burning = 1
+		burning = TRUE
 		set_light(6, l_color = "#ED9200")
 		Burn()
 		START_PROCESSING(SSobj, src)
@@ -207,6 +227,7 @@
 /obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)
 	current_location.hotspot_expose(1000,500,1)
+	fuel = clamp(fuel - fuel_consumption_rate, 0, max_fuel)
 	for(var/A in current_location)
 		if(A == src)
 			continue
@@ -219,7 +240,7 @@
 			L.IgniteMob()
 
 /obj/structure/bonfire/process()
-	if(!CheckOxygen())
+	if(!CheckOxygen() || !CheckFuel())
 		extinguish()
 		return
 	Burn()
@@ -227,7 +248,7 @@
 /obj/structure/bonfire/extinguish()
 	if(burning)
 		icon_state = "bonfire"
-		burning = 0
+		burning = FALSE
 		set_light(0)
 		STOP_PROCESSING(SSobj, src)
 
