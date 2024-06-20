@@ -371,26 +371,33 @@
 		reset_cloning()
 		return TRUE
 
-	if(clone.cloneloss && !force) //Only let the cloning complete if the mob either has no cloneloss left or they are forced out
+	if(!clone.cloneloss)
+		clone.forceMove(loc)
+		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
+		patient_mind.transfer_to(clone)
+		clone.grab_ghost()
+		clone.update_revive()
+		REMOVE_TRAIT(clone, TRAIT_NOFIRE, "cloning")
+		to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
+		to_chat(clone, "<span class='notice'>There's a bright flash of light, and you take your first breath once more.</span>")
+
+		reset_cloning()
+		return TRUE
+
+	if(!force)
 		return FALSE
 
 	clone.forceMove(loc)
+	new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
+	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
+
 	var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
 	patient_mind.transfer_to(clone)
 	clone.grab_ghost()
 	clone.update_revive()
 	REMOVE_TRAIT(clone, TRAIT_NOFIRE, "cloning")
 	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
-
-	if(clone.cloneloss)
-		to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
-		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna) //Leave gibs behind if not fully cloned
-		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
-	else
-		to_chat(clone, "<span class='notice'>There's a bright flash of light, and you take your first breath once more.</span>")
-
-	if(clone.mind.has_antag_datum(/datum/antagonist/mindslave)) //The Mindslave Bio-chip wont persist through cloning, but the mindslave would, becoming unremovable
-		clone.mind.remove_antag_datum(/datum/antagonist/mindslave)
+	to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
 
 	reset_cloning()
 	return TRUE
