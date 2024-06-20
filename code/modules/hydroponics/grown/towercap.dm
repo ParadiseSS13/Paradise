@@ -142,7 +142,7 @@
 	/// Max amount of fuel.
 	var/max_fuel = 20
 	/// Amount of fuel to burn per process.
-	var/fuel_consumption_rate = 0.1
+	var/fuel_consumption_rate = 0.05
 	/// Amount of fuel added per sheet of wood (plank)
 	var/fuel_per_plank = 5
 
@@ -157,9 +157,14 @@
 
 /obj/structure/bonfire/lit/Initialize(mapload)
 	. = ..()
-	StartBurning()
+	start_burning()
 
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/grown/log))
+		var/obj/item/grown/log/L = W
+		qdel(L)
+		fuel = clamp(fuel + (fuel_per_plank * 2), 0, max_fuel)
+		to_chat(user, "<span class='italics'>You add a fuel to [src].")
 	if(istype(W, /obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/P = W
 		P.use(1)
@@ -173,10 +178,10 @@
 		to_chat(user, "<span class='italics'>You add a rod to [src].")
 		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
 		underlays += U
-	if(W.get_heat() && CheckFuel())
+	if(W.get_heat() && check_fuel())
 		lighter = user.ckey
 		user.create_log(MISC_LOG, "lit a bonfire", src)
-		StartBurning()
+		start_burning()
 
 
 /obj/structure/bonfire/attack_hand(mob/user)
@@ -194,7 +199,7 @@
 
 
 /// Check if we're standing in an oxygenless environment
-/obj/structure/bonfire/proc/CheckOxygen()
+/obj/structure/bonfire/proc/check_oxygen()
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/G = T.get_readonly_air()
 	if(G.oxygen() > 13)
@@ -202,11 +207,15 @@
 	return FALSE
 
 /// Check if the bonfire has fuel.
-/obj/structure/bonfire/proc/CheckFuel()
+/obj/structure/bonfire/proc/check_fuel()
 	return (fuel > 0)
 
-/obj/structure/bonfire/proc/StartBurning()
-	if(!burning && CheckOxygen())
+/// Gives an easy to read time format for how long the bonfire will burn for in seconds
+/obj/structure/bonfire/proc/time_left()
+	. = max(0, round(fuel / (fuel_consumption_rate / 2)))
+
+/obj/structure/bonfire/proc/start_burning()
+	if(!burning && check_oxygen())
 		icon_state = "bonfire_on_fire"
 		burning = TRUE
 		set_light(6, l_color = "#ED9200")
@@ -215,7 +224,7 @@
 
 /obj/structure/bonfire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
-	StartBurning()
+	start_burning()
 
 /obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
 	if(burning)
@@ -240,7 +249,7 @@
 			L.IgniteMob()
 
 /obj/structure/bonfire/process()
-	if(!CheckOxygen() || !CheckFuel())
+	if(!check_oxygen() || !check_fuel())
 		extinguish()
 		return
 	Burn()
@@ -259,3 +268,7 @@
 /obj/structure/bonfire/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
 	if(..())
 		buckled_mob.pixel_y -= 13
+
+/obj/structure/bonfire/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It looks like it'll burn for [time_left()] seconds and has around [fuel] units of fuel left, you can add more fuel by adding logs or planks of wood to the [src].</span>"
