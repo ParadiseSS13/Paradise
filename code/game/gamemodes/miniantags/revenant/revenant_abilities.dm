@@ -242,7 +242,7 @@
 		M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
 		M.Stun(3 SECONDS)
 		do_sparks(4, 0, M)
-		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
+		playsound(M, 'sound/machines/zap.ogg', 50, TRUE, -1)
 
 //Defile: Corrupts nearby stuff, unblesses floor tiles.
 /datum/spell/aoe/revenant/defile
