@@ -80,7 +80,6 @@
 			traitor_datum.objective_holder.assigned_targets = list()
 			for(var/datum/objective/objective as anything in traitor_datum.objective_holder.objectives)
 				objective.force_reset_target()
-				objective.update_explanation_text()
 
 			SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
 
