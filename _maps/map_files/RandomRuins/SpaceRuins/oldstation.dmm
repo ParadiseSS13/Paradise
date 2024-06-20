@@ -1771,7 +1771,9 @@
 	id_tag = "ancient"
 	},
 /obj/machinery/door/firedoor/closed,
-/obj/machinery/door/airlock/security,
+/obj/machinery/door/airlock/security/glass{
+	name = "Charlie Station security office"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "fg" = (
@@ -3839,6 +3841,10 @@
 "jM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/glass{
+	amount = 30
+	},
+/obj/item/solar_assembly,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "jN" = (
@@ -3864,20 +3870,20 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jP" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jR" = (
@@ -4001,19 +4007,6 @@
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"km" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/item/solar_assembly,
-/obj/item/stack/sheet/glass{
-	amount = 30
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/ruin/ancientstation)
 "kn" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -4128,13 +4121,13 @@
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered)
 "kI" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/alive/old/sec{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "kL" = (
@@ -4655,10 +4648,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
-"nv" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall/indestructible/riveted,
-/area/template_noop)
 "nF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -4672,11 +4661,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
 "op" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/alive/old/sci,
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "qj" = (
@@ -4730,11 +4719,11 @@
 /area/ruin/ancientstation/atmo)
 "sI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/alive/old/eng,
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "tY" = (
@@ -4774,6 +4763,15 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
+"wm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "xr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -4869,20 +4867,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "De" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/pod,
 /obj/item/bedsheet/red,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -4939,13 +4927,13 @@
 /area/ruin/ancientstation/proto)
 "FP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "GT" = (
@@ -4961,9 +4949,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "Ik" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4972,23 +4957,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/security,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	req_one_access_txt = "301"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
+/obj/machinery/door/airlock/security{
+	req_one_access_txt = "301";
+	name = "Theta Station security checkpoint"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
@@ -5060,25 +5031,9 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
 "Nj" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table,
-/obj/item/salvage/ruin/nanotrasen,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/off_station/empty_charge/directional/west,
 /obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -5153,25 +5108,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
 "Qh" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	name = "Theta prototype vault lockdown button";
-	id = "prototype_vault"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/computer/nonfunctional{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "Qi" = (
@@ -5198,6 +5135,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/ancientstation/proto)
+"RH" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "Sh" = (
@@ -5230,40 +5171,42 @@
 /obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/proto)
+"TE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation)
 "TF" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/betanorth)
 "TZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/chair,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/computer/nonfunctional{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
+"Uk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm/all_access/directional/east{
+	report_danger_level = 0
+	},
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/ancientstation/betanorth)
 "Ut" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/thetacorridor)
 "UR" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "UW" = (
@@ -5615,7 +5558,7 @@ ab
 bf
 be
 be
-be
+Uk
 cT
 be
 be
@@ -6836,7 +6779,7 @@ jq
 jy
 jN
 aL
-km
+aL
 dd
 az
 aa
@@ -7028,7 +6971,7 @@ bA
 bC
 UR
 op
-bC
+TE
 UR
 jP
 bC
@@ -7124,7 +7067,7 @@ jr
 dV
 FP
 sI
-dV
+wm
 FP
 jQ
 kG
@@ -7220,7 +7163,7 @@ bA
 bC
 kI
 jP
-bC
+TE
 UR
 jP
 bC
@@ -8422,7 +8365,7 @@ UW
 rU
 jT
 jC
-ZR
+RH
 YH
 rU
 tY
@@ -8571,7 +8514,7 @@ RD
 OB
 Jn
 qz
-nv
+kE
 aa
 aa
 "}
@@ -8619,7 +8562,7 @@ BB
 Td
 Fr
 qz
-nv
+kE
 aa
 aa
 "}
