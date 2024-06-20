@@ -254,7 +254,7 @@
 
 	target.visible_message("<span class='warning'>[target]'s body convulses a bit.</span>")
 	playsound(get_turf(defib_ref), "bodyfall", 50, 1)
-	playsound(get_turf(defib_ref), 'sound/machines/zap.ogg', 50, 1, -1)
+	playsound(get_turf(defib_ref), zap_sound, 50, 1, -1)
 	ghost = target.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
 
 	// Run through some quick failure states after shocking.
@@ -353,7 +353,7 @@
 			"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
 	target.apply_damage(60, STAMINA)
 	target.KnockDown(10 SECONDS)
-	playsound(get_turf(parent), 'sound/machines/zap.ogg', 50, 1, -1)
+	playsound(get_turf(parent), zap_sound, 50, 1, -1)
 	target.emote("gasp")
 	if(combat && prob(heart_attack_chance))
 		target.set_heartattack(TRUE)
@@ -375,7 +375,7 @@
 		target.set_heartattack(TRUE)
 		target.visible_message("<span class='danger'>[user] has touched [target] with [parent]!</span>", \
 				"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
-		playsound(get_turf(parent), 'sound/machines/zap.ogg', 50, TRUE, -1)
+		playsound(get_turf(parent), zap_sound, 50, TRUE, -1)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		set_cooldown(cooldown)
 		return
