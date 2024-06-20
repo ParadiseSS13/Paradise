@@ -535,6 +535,10 @@
 	if(!helpful_symptom)
 		return
 
+	var/datum/reagent/blood/blood = locate(/datum/reagent/blood) in holder.reagent_list
+	if(!blood || !blood.data)
+		return
+
 	for(var/datum/disease/advance/advanced in blood.data["viruses"])
 		for(var/datum/symptom/symptom as anything in advanced.symptoms)
 			if(istype(symptom, helpful_symptom))

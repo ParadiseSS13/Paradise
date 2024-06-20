@@ -247,8 +247,8 @@
 
 	if(HAS_TRAIT(occupant, TRAIT_I_WANT_BRAINS))
 		if(istype(user))
-			add_attack_logs(user, M, "Crushed with gibber (Zombie)")
-		M.adjustBruteLoss(1000)
+			add_attack_logs(user, occupant, "Crushed with gibber (Zombie)")
+		occupant.adjustBruteLoss(1000)
 		return
 
 	var/slab_name = occupant.name
