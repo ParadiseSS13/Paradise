@@ -910,9 +910,9 @@
 	pathtools = list(/obj/item/reagent_containers/glass/rag = 1) //need something to paint with it
 	category = CAT_MISC
 
-/datum/crafting_recipe/tactical_medkit
+/datum/crafting_recipe/fake_tactical_medkit
 	name = "Tactical First-Aid Kit"
-	result = list(/obj/item/storage/firstaid/tactical/empty)
+	result = list(/obj/item/storage/firstaid/fake_tactical)
 	time = 40
 	reqs = list(/datum/reagent/paint/blue = 10,
 				/datum/reagent/paint/black = 30,
