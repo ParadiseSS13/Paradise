@@ -836,7 +836,7 @@ SLIME SCANNER
 
 /obj/item/bodyanalyzer/proc/setReady()
 	ready = TRUE
-	playsound(src, 'sound/machines/defib_saftyon.ogg', 50, 0)
+	playsound(src, 'sound/machines/defib_safety_on.ogg', 50, 0)
 	update_icon()
 
 /obj/item/bodyanalyzer/update_icon_state()
