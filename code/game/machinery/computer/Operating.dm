@@ -222,7 +222,7 @@
 		if(crit && table.patient.health <= -50)
 			playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
 		if(oxy && table.patient.getOxyLoss()>oxyAlarm)
-			playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)
+			playsound(src.loc, 'sound/machines/defib_safety_off.ogg', 50, 0)
 		if(healthAnnounce && table.patient.health <= healthAlarm)
 			atom_say("[round(table.patient.health)]")
 		if(table.patient.stat != patientStatusHolder)
