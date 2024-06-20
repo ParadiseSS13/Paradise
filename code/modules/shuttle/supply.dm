@@ -29,7 +29,7 @@
 			/obj/item/disk/nuclear,
 			/obj/machinery/nuclearbomb),
 		"homing beacons" = list(
-			/obj/item/radio/beacon,
+			/obj/item/beacon,
 			/obj/machinery/quantumpad,
 			/obj/machinery/teleport/station,
 			/obj/machinery/teleport/hub,

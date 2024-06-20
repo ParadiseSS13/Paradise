@@ -19,7 +19,8 @@
 	name = "armor"
 	desc = "An armored vest that protects against some damage."
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 	icon_state = "armor"
 	item_state = "armor"
@@ -44,7 +45,8 @@
 	name = "security armor"
 	desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 	icon_state = "armor"
 	item_state = "armor"
@@ -90,7 +92,8 @@
 	name = "blueshield's security armor"
 	desc = "An armored vest with the badge of a Blueshield."
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 	icon_state = "blueshield"
 	item_state = "blueshield"
@@ -275,7 +278,8 @@
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	slowdown = 1
-	sprite_sheets = list()
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
@@ -372,7 +376,8 @@
 	name = "armor"
 	desc = "An armored vest with a detective's badge on it."
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 	icon_state = "detective-armor"
 	item_state = "armor"

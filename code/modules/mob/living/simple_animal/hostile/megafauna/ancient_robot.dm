@@ -593,7 +593,9 @@ Difficulty: Hard
 				var/turf/C = get_turf(src)
 				new /obj/effect/temp_visual/lava_warning(C, enraged ? 18 SECONDS : 6 SECONDS)
 				for(var/turf/T in range (1,src))
-					new /obj/effect/hotspot(T)
+					var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+					hotspot.temperature = 1000
+					hotspot.recolor()
 					T.hotspot_expose(700,50,1)
 			if(mode == VORTEX)
 				var/turf/T = get_turf(src)

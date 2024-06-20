@@ -173,7 +173,6 @@
 	name = "tourist outfit"
 	desc = "A light blue shirt with brown shorts. Feels oddly spooky."
 	icon_state = "tourist"
-	icon_state = "tourist"
 	item_color = "tourist"
 
 /obj/item/clothing/under/costume/singery
