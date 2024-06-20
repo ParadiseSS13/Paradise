@@ -23510,9 +23510,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "btF" = (
@@ -65402,6 +65399,24 @@
 /obj/structure/falsewall,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"jTk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "jTq" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -89785,9 +89800,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -121416,7 +121428,7 @@ iLY
 bZc
 bSi
 cdU
-cok
+jTk
 shN
 qcM
 mNf
