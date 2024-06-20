@@ -164,6 +164,3 @@
 	cut_overlay(exposure_overlay)
 	QDEL_NULL(glow_overlay)
 	QDEL_NULL(exposure_overlay)
-
-/atom/update_bloom/shuttleRotate(rotation, params)
-	. = ..()
