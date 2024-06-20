@@ -12,7 +12,7 @@
 	stop_charging_text = "You stop charging the magnetism around you."
 	stop_charging_fail_text = "The magnetism around you is too strong to stop now!"
 	start_charging_text = "You start gathering magnetism around you."
-	bounce_hit_sound = 'sound/machines/defib_zap.ogg'
+	bounce_hit_sound = 'sound/machines/zap.ogg'
 
 /datum/spell/charge_up/bounce/magnet/New()
 	..()
