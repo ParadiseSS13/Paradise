@@ -88,7 +88,3 @@ RESTRICT_TYPE(/datum/antagonist/mindslave)
 	slaved.serv -= owner
 	slaved.leave_serv_hud(owner)
 	owner.som = null
-
-/datum/antagonist/mindslave/implant/on_body_transfer(mob/living/old_body, mob/living/new_body)
-	. = ..()
-	owner.remove_antag_datum(/datum/antagonist/mindslave/implant)
