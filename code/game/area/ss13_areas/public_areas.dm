@@ -150,10 +150,6 @@
 	icon_state = "dorms"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
-
-/area/crew_quarters/toilet/aux
-	name = "\improper Auxiliary Toilets"
-
 /area/station/public/sleep
 	name = "\improper Primary Cryogenic Dormitories"
 	icon_state = "Sleep"
@@ -197,8 +193,6 @@
 /area/station/public/vacant_office
 	name = "\improper Vacant Office"
 	icon_state = "vacantoffice"
-
-/area/station/public/vacant_office/secondary
 
 //Storage
 /area/station/public/storage
