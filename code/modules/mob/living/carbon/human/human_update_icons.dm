@@ -762,7 +762,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			right_ear_icon = r_ear.sprite_sheets[dna.species.sprite_sheet_name]
 		if(r_ear.icon_override)
 			right_ear_icon = "[right_ear_item_state]_l"
-			right_ear_icon = l_ear.icon_override
+			right_ear_icon = r_ear.icon_override
 
 		overlays_standing[RIGHT_EAR_LAYER] = mutable_appearance(right_ear_icon, right_ear_item_state, layer = -RIGHT_EAR_LAYER)
 
