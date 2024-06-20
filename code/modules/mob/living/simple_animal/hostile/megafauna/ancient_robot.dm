@@ -52,7 +52,7 @@ Difficulty: Hard
 	health = 2500
 	maxHealth = 2500
 	attacktext = "shocks"
-	attack_sound = 'sound/machines/defib_zap.ogg'
+	attack_sound = 'sound/machines/zap.ogg'
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "ancient_robot"
 	icon_living = "ancient_robot"
