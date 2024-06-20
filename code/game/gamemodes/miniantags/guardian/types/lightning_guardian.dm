@@ -7,7 +7,7 @@
 	melee_damage_upper = 12
 	attacktext = "shocks"
 	melee_damage_type = BURN
-	attack_sound = 'sound/machines/defib_zap.ogg'
+	attack_sound = 'sound/machines/zap.ogg'
 	damage_transfer = 0.5
 	range = 7
 	playstyle_string = "As a <b>Lightning</b> type, you will apply lightning chains to targets on attack and have a lightning chain to your summoner. Lightning chains will shock anyone near them."
