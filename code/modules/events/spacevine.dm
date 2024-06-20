@@ -306,10 +306,11 @@
 	holder.obj_integrity = holder.max_integrity
 
 /datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
+	. = expected_damage
+	if(!I)
+		return
 	if(!I.sharp)
-		. = expected_damage * 0.5
-	else
-		. = expected_damage
+		return expected_damage * 0.5
 
 /datum/spacevine_mutation/flowering
 	name = "flowering"

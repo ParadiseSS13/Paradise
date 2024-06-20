@@ -67,7 +67,7 @@
 	table_smacks_left = 10 //Much more smackitude
 
 /obj/item/slapper/parry/Initialize(mapload)
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (1 / 3) SECONDS) //75% uptime
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (4 / 3) SECONDS) //75% uptime
 	if(isliving(loc))
 		var/mob/owner = loc
 		RegisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP, TYPE_PROC_REF(/datum, signal_qdel), override = TRUE)
