@@ -99,7 +99,7 @@
 		return .
 
 	if(!get_turf(end))
-		stack_trace("Invalid JPS destination")
+		// Something has asynchronously removed our original target
 		return FALSE
 	if(start.z != end.z || start == end) //no pathfinding between z levels
 		return FALSE
