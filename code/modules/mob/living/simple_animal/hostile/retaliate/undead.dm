@@ -113,7 +113,7 @@
 
 /mob/living/simple_animal/hostile/skeleton/angered_warden
 	name = "angered skeleton warden" //round 2
-	desc = "An angry skeleton. A keycard rests on its belt."
+	desc = "An angry skeleton."
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "skeleton_warden_alt"
 	icon_living = "skeleton_warden_alt"
