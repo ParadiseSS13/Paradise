@@ -288,7 +288,8 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 // Just the above proc but for alive players
-/datum/game_mode/proc/get_alive_players_for_role(role, override_jobbans = FALSE)
+/// Gets all alive players for a specific role. Disables offstation roles by default
+/datum/game_mode/proc/get_alive_players_for_role(role, override_jobbans = FALSE, allow_offstation_roles = FALSE)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -305,7 +306,7 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/living/carbon/human/player in players)
-		if(!player.client.skip_antag)
+		if(!player.client.skip_antag && (allow_offstation_roles || !player.mind?.offstation_role))
 			if((role in player.client.prefs.be_special) && !(player.client.prefs.active_character.species in protected_species))
 				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
 				candidates += player.mind
