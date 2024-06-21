@@ -100,6 +100,8 @@
 	name = "Атриум"
 	icon_state = "bar"
 
+/area/station/public/vacant_office/secondary
+
 /* CentCom */
 /area/centcom/ss220
 	name = "ЦК"
