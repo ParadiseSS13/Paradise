@@ -5,6 +5,34 @@
 	containertype = /obj/structure/closet/crate/sci
 	department_restrictions = list(DEPARTMENT_SCIENCE)
 
+/datum/supply_packs/science/rnd	// Everything you need to kick-start Science from scratch once the dust of the apocalypse has blown over.
+	name = "Research & Development Crate"
+	contains = list(/obj/item/circuitboard/rdconsole,
+					/obj/item/circuitboard/protolathe,
+					/obj/item/circuitboard/destructive_analyzer,
+					/obj/item/circuitboard/circuit_imprinter,
+					/obj/item/stock_parts/manipulator,
+					/obj/item/stock_parts/manipulator,
+					/obj/item/stock_parts/manipulator,
+					/obj/item/stock_parts/manipulator,
+					/obj/item/stock_parts/matter_bin,
+					/obj/item/stock_parts/matter_bin,
+					/obj/item/stock_parts/matter_bin,
+					/obj/item/stock_parts/scanning_module,
+					/obj/item/stock_parts/micro_laser,
+					/obj/item/reagent_containers/glass/beaker,
+					/obj/item/reagent_containers/glass/beaker,
+					/obj/item/reagent_containers/glass/beaker,
+					/obj/item/reagent_containers/glass/beaker,
+					/obj/item/stack/sheet/glass/fifty,
+					/obj/item/stack/sheet/metal/fifty,
+					/obj/item/stack/cable_coil)
+	cost = 1000
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "research & development crate"
+	access = ACCESS_RESEARCH
+	announce_beacons = list("Research Division" = list("Robotics", "Science", "Research Director's Desk"))
+
 /datum/supply_packs/science/robotics
 	name = "Robotics Assembly Crate"
 	contains = list(/obj/item/assembly/prox_sensor,
