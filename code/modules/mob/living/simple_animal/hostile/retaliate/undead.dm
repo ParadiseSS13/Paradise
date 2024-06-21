@@ -96,7 +96,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/skeleton/warden
 	name = "skeleton warden"
-	desc = "The remains of a warden. A keycard rests on its belt."
+	desc = "The remains of a warden."
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "skeleton_warden"
 	icon_living = "skeleton_warden"
