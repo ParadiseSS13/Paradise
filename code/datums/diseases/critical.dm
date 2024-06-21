@@ -33,6 +33,7 @@
 	cures = list("salglu_solution", "syndicate_nanites", "stimulative_agent")
 	cure_chance = 10
 	stage_prob = 6
+	visibility_flags = HIDDEN_PANDEMIC
 
 /datum/disease/critical/shock/stage_act()
 	if(..())
@@ -88,6 +89,7 @@
 	stage_prob = 5
 	severity = HARMFUL
 	disease_flags = CURABLE
+	visibility_flags = HIDDEN_PANDEMIC
 	required_organs = list(ORGAN_DATUM_HEART)
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
