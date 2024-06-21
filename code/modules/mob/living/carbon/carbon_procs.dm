@@ -1028,10 +1028,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
  * * TRUE if handcuffs or legcuffs were removed, FALSE otherwise
  */
 /mob/living/carbon/proc/clear_restraints(show_message = FALSE)
-	var/cleared_hands = clear_handcuffs(show_message)
-	var/cleared_legs = clear_legcuffs(show_message)
-
-	return cleared_hands || cleared_legs
+	. = clear_handcuffs(show_message)
+	. |= clear_legcuffs(show_message)
 
 /**
  * Removes a carbon's handcuffs, dropping them to the ground. Calls update_handcuffed(). Unbuckles if handcuffs were necessary for the buckle (pipe buckling, etc.)
