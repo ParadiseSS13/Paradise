@@ -692,8 +692,6 @@
 		return
 
 	var/obj/item/card/sec_shuttle_ruin/keycard = user.get_active_hand()
-	if(!keycard)
-		return
 	if(!istype(keycard))
 		return
 
