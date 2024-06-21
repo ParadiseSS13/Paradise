@@ -182,7 +182,7 @@
 	if(broken)
 		to_chat(user, "<span class='warning'>[src] fails to start! It's broken!</span>")
 		return FALSE
-	. = ..()
+	return ..()
 
 /obj/item/gun/medbeam/damaged/on_beam_tick(mob/living/user, mob/living/target)
 	. = ..()
