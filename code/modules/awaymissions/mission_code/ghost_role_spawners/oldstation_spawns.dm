@@ -122,5 +122,5 @@
 /obj/structure/showcase/machinery/thermomachine_broken
 	name = "derelict thermomachine"
 	desc = "A thermomachine long since rendered non-functional due to lack of maintenance. All the components are burned out and useless."
-	icon = "icons/obj/cryogenic2.dmi"
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "freezer"
