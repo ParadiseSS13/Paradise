@@ -86620,9 +86620,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/hop,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor"
-	},
+/obj/machinery/door/airlock/command,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
@@ -94329,7 +94327,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor";
 	name = "Head of Personnel Office"
 	},
 /turf/simulated/floor/wood,
