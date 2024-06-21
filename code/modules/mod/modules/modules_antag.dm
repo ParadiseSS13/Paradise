@@ -331,7 +331,6 @@
 	icon_state = "cloak_ninja"
 	bumpoff = FALSE
 	stealth_alpha = 10
-	cooldown_time = 5 SECONDS
 	active_power_cost = DEFAULT_CHARGE_DRAIN
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 3 SECONDS
@@ -389,6 +388,7 @@
 	icon_state = "eradicationlock" //looks like a bluespace transmitter or something, probably could use an actual camera look.
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/ert_camera)
+	removable = FALSE
 	var/obj/machinery/camera/portable/camera
 
 /obj/item/mod/module/ert_camera/on_suit_activation()

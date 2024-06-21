@@ -82,14 +82,6 @@
 	name = "\improper Fore Starboard Solar Array"
 	icon_state = "FSsolars"
 
-/area/station/engineering/solar/fore
-	name = "\improper Fore Solar Array"
-	icon_state = "yellow"
-
-/area/station/engineering/solar/aft
-	name = "\improper Aft Solar Array"
-	icon_state = "Asolars"
-
 /area/station/engineering/solar/starboard
 	name = "\improper Starboard Solar Array"
 	icon_state = "Ssolars"
