@@ -119,7 +119,7 @@
 	..()
 
 /datum/game_mode/trifecta/proc/traitors_to_add()
-	var/extra_points = cost_at_roundstart - num_players()
+	var/extra_points = num_players_started() - cost_at_roundstart
 	if(extra_points - TOT_COST < 0)
 		return 0 // Not enough new players to add extra tots
 
