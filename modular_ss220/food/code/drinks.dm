@@ -621,6 +621,32 @@
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/reagent/consumable/ethanol/narsour
+	name = "Nar'Sour"
+	id = "narsour"
+	description = "Побочные эффекты включают в себя склонность к суициду и складирование пластали."
+	color = "#9e0f0f"
+	alcohol_perc = 0.3
+	dizzy_adj = 4 SECONDS
+	taste_description = "bloody"
+	drink_icon = "narsour"
+	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drink_desc = "Новый хит-коктейль, вдохновлённый пивоварнями фирмы \"THE ARM\", что заставит вас выкрикивать Fuu ma'jin без остановки!"
+	drink_name = "Nar'Sour"
+
+/datum/chemical_reaction/narsour
+	name = "Nar'Sour"
+	id = "narsour"
+	result = "narsour"
+	result_amount = 2
+	required_reagents = list("blood" = 1, "bloodymary" = 1, "lemonjuice" = 1)
+	mix_message = "Смесь излучает зловещее сияние."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/reagent/consumable/ethanol/narsour/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	M.CultSlur(10 SECONDS)
+
 // fermenting_barrel don't have behavior for non-plant food, so we need some proc for bread
 /obj/structure/fermenting_barrel/proc/make_drink(obj/item/I, drink_id, amount)
 	reagents.add_reagent(drink_id, amount)
