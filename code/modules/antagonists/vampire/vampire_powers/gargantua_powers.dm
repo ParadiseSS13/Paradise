@@ -100,8 +100,9 @@
 
 /datum/spell/vampire/self/blood_rush/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
-	if(L.IsWeakened())
-		to_chat(L, "<span class='warning'>You can't use this spell while incapacitated!</span>")
+	// they're not getting anything out of this spell if they're stunned or buckled anyways, so we might as well stop them from wasting the blood
+	if(L.IsWeakened() || L.buckled)
+		to_chat(L, "<span class='warning'>You can't cast this spell while incapacitated!</span>")
 		return FALSE
 	return ..()
 
@@ -115,6 +116,8 @@
 
 	H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
 	H.clear_legcuffs(TRUE)
+	// note that this doesn't cancel the baton knockdown timer
+	H.SetKnockDown(0)
 	H.stand_up(TRUE)
 
 /datum/spell/fireball/demonic_grasp

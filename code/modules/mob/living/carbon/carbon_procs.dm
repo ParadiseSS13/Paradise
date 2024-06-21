@@ -1034,7 +1034,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return cleared_hands || cleared_legs
 
 /**
- * Removes a carbon's handcuffs, dropping them to the ground. Unbuckles if handcuffs were necessary for the buckle (pipe buckling, etc.)
+ * Removes a carbon's handcuffs, dropping them to the ground. Calls update_handcuffed(). Unbuckles if handcuffs were necessary for the buckle (pipe buckling, etc.)
  *
  * Arguments:
  * * show_message - if TRUE, will display a visible message when restraints are removed. FALSE by default.
@@ -1070,7 +1070,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return TRUE
 
 /**
- * Removes a carbon's legcuffs, dropping them to the ground.
+ * Removes a carbon's legcuffs, dropping them to the ground. Calls update_inv_legcuffed().
  *
  * Arguments:
  * * show_message - if TRUE, will display a visible message when restraints are removed. FALSE by default.
