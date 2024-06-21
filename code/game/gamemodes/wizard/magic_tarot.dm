@@ -149,6 +149,8 @@
 	var/face_down = FALSE
 	/// Will this card automatically disappear if thrown at a non-mob?
 	var/needs_mob_target = TRUE
+	/// Has the card been activated? If it has, don't activate it again
+	var/has_been_activated = FALSE
 
 /obj/item/magic_tarot_card/Initialize(mapload, obj/item/tarot_generator/source, datum/tarot/chosen_tarot)
 	. = ..()
@@ -176,9 +178,12 @@
 
 /obj/item/magic_tarot_card/attack_self(mob/user)
 	poof()
+	if(has_been_activated)
+		return
 	if(face_down)
 		flip()
 	if(our_tarot)
+		user.drop_item()
 		pre_activate(user)
 		return
 	qdel(src)
@@ -193,6 +198,8 @@
 	if(needs_mob_target && !isliving(hit_atom))
 		return
 	poof()
+	if(has_been_activated)
+		return
 	if(isliving(hit_atom) && our_tarot)
 		pre_activate(hit_atom)
 		return
@@ -220,6 +227,7 @@
 	qdel(src)
 
 /obj/item/magic_tarot_card/proc/pre_activate(mob/user)
+	has_been_activated = TRUE
 	forceMove(user)
 	var/obj/effect/temp_visual/tarot_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
 	user.vis_contents += draft

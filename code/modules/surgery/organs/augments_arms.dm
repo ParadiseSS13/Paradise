@@ -742,7 +742,7 @@
 	force = initial(force)
 
 /obj/item/shield/v1_arm/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
 
 /obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(disabled)
