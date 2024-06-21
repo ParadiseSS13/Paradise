@@ -317,7 +317,6 @@
 	var/datum/spell_targeting/click/C = new()
 	C.selection_type = SPELL_SELECTION_RANGE
 	C.allowed_type = /mob/living
-	C.click_radius = -1
 	return C
 
 /datum/spell/blind/cast(list/targets, mob/living/user)
@@ -326,8 +325,8 @@
 		return
 
 	var/mob/living/target = targets[1]
-	target.EyeBlurry(30 SECONDS)
-	target.EyeBlind(20 SECONDS)
+	target.EyeBlurry(40 SECONDS)
+	target.EyeBlind(30 SECONDS)
 
 	SEND_SOUND(target, sound('sound/magic/blind.ogg'))
 	return TRUE
