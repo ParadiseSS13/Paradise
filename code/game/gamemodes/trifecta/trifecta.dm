@@ -125,11 +125,10 @@
 
 	. = 0
 	while(extra_points)
-		if(extra_points < TOT_COST)
-			.++
+		.++
+		if(extra_points < TOT_COST) // The leftover change is enough for us to buy another traitor with, what a deal!
 			return
 		extra_points -= TOT_COST
-		.++
 
 /datum/game_mode/trifecta/late_handout()
 	var/traitors_to_add = 0
@@ -143,7 +142,6 @@
 			traitor_datum.objective_holder.assigned_targets = list()
 			for(var/datum/objective/objective as anything in traitor_datum.objective_holder.objectives)
 				objective.force_reset_target()
-				objective.update_explanation_text()
 
 			SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
 
