@@ -685,7 +685,6 @@
 	name = "locked crate"
 	desc = "The side of the crate has a slot for a keycard to be swiped."
 	can_be_emaged = FALSE
-	var/linked_card_code = "sec_shuttle_ruin"
 
 /obj/structure/closet/crate/secure/sec_shuttle_ruin/allowed(mob/user)
 	if(!user)
@@ -695,8 +694,6 @@
 	if(!istype(keycard))
 		return
 
-	if(linked_card_code != keycard.linked_crate_code)
-		return
 	to_chat(user, "<span class='notice'>You swipe [keycard] in [src]'s keycard slot.</span>")
 	return TRUE
 
@@ -704,4 +701,3 @@
 	name = "warden's card"
 	desc = "A card used by the warden to unlock their crate."
 	icon_state = "data"
-	var/linked_crate_code = "sec_shuttle_ruin"
