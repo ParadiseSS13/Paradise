@@ -345,7 +345,7 @@
 	if(uses < 10)
 		to_chat(user, "<span class='warning'>Theres not enough paint left to have an effect!</span>")
 		return
-	uses = uses - 10
+	uses -= 10
 	user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
 	if(!attackee.is_eyes_covered()) // eyes aren't covered? ARGH IT BURNS.
 		attackee.Confused(6 SECONDS)
