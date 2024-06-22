@@ -53,7 +53,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Determines what it can pass over/through. IE. 'PASSTABLE' will allow it to pass over tables
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
-	// causeerrorheresoifixthis
 	var/obj/item/master
 
 	/// Flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
@@ -168,7 +167,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	var/tip_timer = 0
 
-	// item hover FX
+	///////////////////////////
+	// MARK: item hover FX
+	///////////////////////////
 
 	/// Is this item inside a storage object?
 	var/in_storage = FALSE
