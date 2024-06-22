@@ -36,7 +36,7 @@
 
 /obj/item/kinetic_crusher/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (7 / 3) SECONDS ) // 2.3333 seconds of cooldown for 30% uptime
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (10 / 3) SECONDS ) // 2.3333 seconds of cooldown for 30% uptime
 	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, force_unwielded = force)
 
 /obj/item/kinetic_crusher/Destroy()
