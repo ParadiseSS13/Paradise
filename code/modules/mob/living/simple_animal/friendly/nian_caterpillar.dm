@@ -45,7 +45,7 @@
 
 	/// Evolution action.
 	var/datum/action/innate/nian_caterpillar_emerge/evolve_action = new()
-	/// The amount of nutrition the nian caterpillar needs to evolve.
+	/// The amount of nutrition the nian caterpillar needs to evolve, default is 500.
 	var/nutrition_need = 500
 
 /mob/living/simple_animal/nian_caterpillar/Initialize()
