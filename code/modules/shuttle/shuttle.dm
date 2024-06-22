@@ -507,8 +507,8 @@
 				L2 = block(S1.x+36, S1.y-9, S1.z, 255, S1.y+9, S1.z)
 			if(WEST)
 				L2 = block(1, S1.y-9, S1.z, S1.x-36, S1.y+9, S1.z)
-		shuttle_smash(L2, S1)
-	roadkill(L0, L1, S1.dir)
+		mobile_port.shuttle_smash(L2, S1)
+	mobile_port.roadkill(L0, L1, S1.dir)
 
 	for(var/i in 1 to length(L0))
 		var/turf/T0 = L0[i]
