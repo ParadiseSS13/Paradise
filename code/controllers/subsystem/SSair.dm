@@ -418,32 +418,8 @@ SUBSYSTEM_DEF(air)
 		if(T.excited_group)
 			T.excited_group.garbage_collect()
 
-/datum/controller/subsystem/air/proc/add_to_active(turf/simulated/T, blockchanges = 1)
-	if(!initialized)
-		/* it makes no sense to "activate" turfs before setup_allturfs is
-		 * called, as setup_allturfs would simply cull the list incorrectly.
-		 * only /turf/simulated/Initialize_Atmos() is blessed enough to
-		 * activate turfs during this phase of initialization, as it happens
-		 * post-cull and inlines the logic (perhaps incorrectly)
-		 **/
-		return
-
-	if(istype(T) && T.air)
-		T.excited = 1
-		active_turfs |= T
-		if(currentpart == SSAIR_ACTIVETURFS)
-			currentrun |= T
-		if(blockchanges && T.excited_group)
-			T.excited_group.garbage_collect()
-	else
-		for(var/turf/simulated/S in T.atmos_adjacent_turfs)
-			add_to_active(S)
-
-/datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(1, 1, 1, world.maxx, world.maxy, world.maxz))
-	for(var/thing in turfs_to_init)
-		var/turf/T = thing
-		if(T.blocks_air)
-			continue
+/datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
+	for(var/turf/T as anything in turfs_to_init)
 		T.Initialize_Atmos(times_fired)
 		CHECK_TICK
 
