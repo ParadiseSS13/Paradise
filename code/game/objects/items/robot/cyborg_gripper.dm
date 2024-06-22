@@ -185,7 +185,7 @@
 		if(M == user)
 			user.visible_message(
 				"<span class='notice'>[user] gives [user.p_themselves()] a hug to make [user.p_themselves()] feel better.</span>",
-				"<span class='notice'>You give yourself a hug to make yourselelf feel better.</span>"
+				"<span class='notice'>You give yourself a hug to make yourself feel better.</span>"
 				)
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			return
