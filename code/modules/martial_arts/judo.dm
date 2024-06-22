@@ -17,8 +17,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	icon_state = "judobelt"
 	item_state = "judo"
-	slot_flags = SLOT_FLAG_BELT
-	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	w_class = WEIGHT_CLASS_BULKY
 	storage_slots = 3
 	max_combined_w_class = 6
