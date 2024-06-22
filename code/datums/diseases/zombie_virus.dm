@@ -13,10 +13,12 @@
 	allow_dead = TRUE
 	disease_flags = CAN_CARRY
 	virus_heal_resistant = TRUE
-	stage_prob = 1
+	stage_prob = 100 // It isn't actually 100%, but is instead based on a timer
 	cure_chance = 80
 	/// How far this particular virus is in being cured (0-4)
 	var/cure_stage = 0
+	/// Cooldown until the virus can advance to the next stage
+	COOLDOWN_DECLARE(stage_timer)
 
 /datum/disease/zombie/stage_act()
 	if(stage == 8)
@@ -34,7 +36,7 @@
 		SSticker.mode.zombie_infected -= affected_mob
 		if(affected_mob.reagents.has_reagent("zombiecure4"))
 			return
-		handle_rot(TRUE)
+		handle_rot()
 		stage = 7
 		return FALSE
 	SSticker.mode.zombie_infected |= affected_mob
@@ -79,17 +81,24 @@
 			if(stage == 6 && !affected_mob.reagents.has_reagent("zombiecure3")) // cure 3 can delay it, but not cure it
 				if(prob(10))
 					to_chat(affected_mob, "<span class='danger zombie'>You feel your flesh rotting.</span>")
-				handle_rot()
+				if(prob(10) || affected_mob.stat != DEAD)
+					handle_rot()
 		if(7)
-			if(!handle_rot(TRUE))
+			if(!handle_rot())
 				stage = 6
 				return
 
+/datum/disease/zombie/handle_stage_advance(has_cure = FALSE)
+	if(!stage_timer)
+		COOLDOWN_START(src, stage_timer, 1 MINUTES) // for the first infection
+	if(affected_mob.stat != DEAD || !prob(30)) // when the body is dead, it always has a 30% chance to advance regardless
+		if(!COOLDOWN_FINISHED(src, stage_timer))
+			return
+	COOLDOWN_START(src, stage_timer, 1 MINUTES)
+	..()
 
 
-/datum/disease/zombie/proc/handle_rot(forced = FALSE)
-	if(!prob(20) && !forced && affected_mob.stat != DEAD)
-		return FALSE
+/datum/disease/zombie/proc/handle_rot()
 	var/mob/living/carbon/human/H = affected_mob
 	if(!istype(H))
 		return FALSE

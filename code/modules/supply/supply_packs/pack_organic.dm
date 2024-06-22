@@ -83,6 +83,13 @@
 	containername = "monkey crate"
 	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
+/datum/supply_packs/organic/nian_worme
+	name = "Nian Worme Crate"
+	contains = list (/obj/item/storage/box/monkeycubes/nian_worme_cubes)
+	cost = 200
+	containername = "nian worme crate"
+	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
+
 /datum/supply_packs/organic/farwa
 	name = "Farwa Crate"
 	contains = list (/obj/item/storage/box/monkeycubes/farwacubes)
@@ -209,6 +216,13 @@
 	cost = 300
 	containertype = /obj/structure/closet/critter/butterfly
 	containername = "butterfly crate"
+
+/datum/supply_packs/organic/nian_caterpillar
+	name = "Nian Caterpillar Crate"
+	cost = 150
+	containertype = /obj/structure/closet/critter/nian_caterpillar
+	contains = list(/obj/item/petcollar)
+	containername = "nian caterpillar crate"
 
 /datum/supply_packs/organic/deer
 	name = "Deer Crate"
