@@ -12,6 +12,28 @@
 	R.add_fingerprint(user)
 	qdel(src)
 
+/obj/item/bodybag/medical_dnr
+	name = "body bag (medical DNR)"
+	desc = "A folded bag designed for the storage and transportation of cadavers under a Medical DNR Notice."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "MMTODO"
+
+/obj/item/bodybag/medical_dnr/attack_self(mob/user)
+	var/obj/structure/closet/body_bag/medical_dnr/R = new /obj/structure/closet/body_bag/medical_dnr(user.loc)
+	R.add_fingerprint(user)
+	qdel(src)
+
+/obj/item/bodybag/security_dnr
+	name = "body bag (security DNR)"
+	desc = "A folded bag designed for the storage and transportation of cadavers under a Security DNR Notice."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "MMTODO"
+
+/obj/item/bodybag/attack_self(mob/user)
+	var/obj/structure/closet/body_bag/security_dnr/R = new /obj/structure/closet/body_bag/security_dnr(user.loc)
+	R.add_fingerprint(user)
+	qdel(src)
+
 /obj/structure/closet/body_bag
 	name = "body bag"
 	desc = "A plastic bag designed for the storage and transportation of cadavers."
@@ -26,6 +48,26 @@
 	open_sound_volume = 15
 	close_sound_volume = 15
 	var/item_path = /obj/item/bodybag
+
+/obj/structure/closet/body_bag/medical_dnr
+	name = "body bag (medical DNR)"
+	desc = "A plastic bag designed for the storage and transportation of cadavers under a Medical DNR Notice."
+	icon = 'icons/obj/bodybag.dmi'
+	///MMTODO
+	icon_state = "bodybag_closed"
+	icon_closed = "bodybag_closed"
+	icon_opened = "bodybag_open"
+	item_path = /obj/item/bodybag/medical_dnr
+
+/obj/structure/closet/body_bag/security_dnr
+	name = "body bag (security DNR)"
+	desc = "A plastic bag designed for the storage and transportation of cadavers under a Security DNR Notice."
+	icon = 'icons/obj/bodybag.dmi'
+	///MMTODO
+	icon_state = "bodybag_closed"
+	icon_closed = "bodybag_closed"
+	icon_opened = "bodybag_open"
+	item_path = /obj/item/bodybag/security_dnr
 
 
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)

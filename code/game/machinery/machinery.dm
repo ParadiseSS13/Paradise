@@ -496,7 +496,7 @@
 
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
-				if(SEC_RECORD_STATUS_EXECUTE)
+				if(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_DNRS)
 					threatcount += 7
 				if(SEC_RECORD_STATUS_ARREST)
 					threatcount += 5

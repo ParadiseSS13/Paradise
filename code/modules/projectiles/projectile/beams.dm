@@ -310,7 +310,7 @@
 		no_worky(target, warrant_fail = TRUE)
 		return
 	var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-	if(!R || (R.fields["criminal"] in list(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_ARREST)))
+	if(!R || (R.fields["criminal"] in list(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_DNRS, SEC_RECORD_STATUS_ARREST)))
 		no_worky(target, warrant_fail = TRUE)
 		return
 	set_criminal_status(firer, R, SEC_RECORD_STATUS_SEARCH, "Target tagged by Detective Revolver", "Detective Revolver")

@@ -266,6 +266,9 @@
 				if(SEC_RECORD_STATUS_EXECUTE)
 					holder.icon_state = "hudexecute"
 					return
+				if(SEC_RECORD_STATUS_DNRS)
+					holder.icon_state = "MMTODO"
+					return
 				if(SEC_RECORD_STATUS_ARREST)
 					holder.icon_state = "hudwanted"
 					return

@@ -2,6 +2,7 @@
 #define SEC_RECORD_STATUS_NONE "None"
 #define SEC_RECORD_STATUS_ARREST "*Arrest*"
 #define SEC_RECORD_STATUS_EXECUTE "*Execute*"
+#define SEC_RECORD_STATUS_DNRS "*DNR-S*"
 #define SEC_RECORD_STATUS_INCARCERATED "Incarcerated"
 #define SEC_RECORD_STATUS_RELEASED "Released"
 #define SEC_RECORD_STATUS_PAROLLED "Parolled"
