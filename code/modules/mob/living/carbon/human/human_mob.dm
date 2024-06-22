@@ -549,7 +549,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.general)
 						if(R.fields["id"] == E.fields["id"])
-							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
+							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "DNR-M", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
 
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 								if(setmedical != "Cancel")

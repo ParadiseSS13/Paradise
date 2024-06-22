@@ -52,7 +52,7 @@
 	field_edit_choices = list(
 		// General
 		"sex" = list("Male", "Female"),
-		"p_stat" = list("*Deceased*", "*SSD*", "Active", "Physically Unfit", "Disabled"),
+		"p_stat" = list("*Deceased*", "DNR-M", "*DNR-S*" "*SSD*", "Active", "Physically Unfit", "Disabled"),
 		"m_stat" = list("*Insane*", "*Unstable*", "*Watch*", "Stable"),
 		// Medical
 		"blood_type" = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "Slime Jelly", "None"),
@@ -447,7 +447,7 @@
 				if(4)
 					R.fields["blood_type"] = pick("A-", "B-", "AB-", "O-", "A+", "B+", "AB+", "O+")
 				if(5)
-					R.fields["p_stat"] = pick("*SSD*", "Active", "Physically Unfit", "Disabled")
+					R.fields["p_stat"] = pick("*SSD*", "DNR-M", "Active", "Physically Unfit", "Disabled")
 				if(6)
 					R.fields["m_stat"] = pick("*Insane*", "*Unstable*", "*Watch*", "Stable")
 			continue
