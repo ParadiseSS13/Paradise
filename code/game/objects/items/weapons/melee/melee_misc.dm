@@ -296,9 +296,9 @@
 	if(!.)
 		return
 	var/turf/user_turf = get_turf(user)
-	if(get_dist(user_turf, get_turf(target)) > 7) //blocks cameras without blocking xray or thermals
+	if(get_dist(user_turf, get_turf(target)) > 9) //blocks cameras without blocking xray or thermals
 		return
-	if(!((target in view(7, user)) || user.sight & SEE_MOBS))
+	if(!((target in view(9, user)) || user.sight & SEE_MOBS))
 		return
 	var/list/turfs = list()
 	for(var/turf/T in orange(1, get_turf(target)))
