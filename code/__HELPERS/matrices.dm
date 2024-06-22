@@ -73,7 +73,7 @@
 /datum/color_matrix
 	var/list/matrix
 
-/// Value can be color as text (e.g. "#735184") that will set matrix to be the same color / number that will set the saturation of matrix / or the color list itself, contrast as number, brightness as number
+/// Value can be color as text (e.g. "#735184") that will set matrix to be the same color / number that will set the saturation of matrix / the color list itself, contrast as number, brightness as number
 /datum/color_matrix/New(value, contrast = 1, brightness = null)
 	..()
 	if(istext(value))
