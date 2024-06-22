@@ -165,6 +165,9 @@
 /mob/living/carbon/human/stok/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/unathi)
 
+/mob/living/carbon/human/nian_worme/Initialize(mapload)
+	. = ..(mapload, /datum/species/monkey/nian_worme)
+
 /mob/living/carbon/human/moth/Initialize(mapload)
 	. = ..(mapload, /datum/species/moth)
 	if(!body_accessory)
