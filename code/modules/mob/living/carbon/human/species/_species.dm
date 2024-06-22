@@ -48,8 +48,6 @@
 	var/hunger_drain = HUNGER_FACTOR
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
 	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
-	var/hunger_type
-	var/hunger_level
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
@@ -319,6 +317,10 @@
 	if(ignoreslow)
 		return // Only malusses after here
 
+	if(!IS_HORIZONTAL(H) || (HAS_TRAIT(H, TRAIT_NOKNOCKDOWNSLOWDOWN) && !H.resting))
+		if(HAS_TRAIT(H, TRAIT_GOTTAGOSLOW))
+			. += 1
+
 	if(H.dna.species.spec_movement_delay()) //Species overrides for slowdown due to feet/legs
 		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
 
@@ -512,23 +514,8 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 		return FALSE
-	//Vampire code
-	var/datum/antagonist/vampire/V = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(V && !V.draining && user.zone_selected == "head" && target != user)
-		if((NO_BLOOD in target.dna.species.species_traits) || !target.blood_volume)
-			to_chat(user, "<span class='warning'>They have no blood!</span>")
-			return
-		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
-			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
-			return
-		if(HAS_TRAIT(target, TRAIT_SKELETONIZED))
-			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
-			return
-		//we're good to suck the blood, blaah
-		V.handle_bloodsucking(target)
-		add_attack_logs(user, target, "vampirebit")
-		return
-		//end vampire codes
+	if(target != user && handle_harm_antag(user, target))
+		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
@@ -536,45 +523,45 @@
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
 		return TRUE
-	else
-		var/datum/unarmed_attack/attack = user.dna.species.unarmed
 
-		user.do_attack_animation(target, attack.animation_type)
-		if(attack.harmless)
-			playsound(target.loc, attack.attack_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
-			return FALSE
-		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
+	var/datum/unarmed_attack/attack = user.get_unarmed_attack()
 
-		if(!iscarbon(user))
-			target.LAssailant = null
-		else
-			target.LAssailant = user
-
-		target.lastattacker = user.real_name
-		target.lastattackerckey = user.ckey
-
-		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
-		damage += attack.damage
-		damage += user.physiology.melee_bonus
-		if(!damage)
-			playsound(target.loc, attack.miss_sound, 25, 1, -1)
-			target.visible_message("<span class='danger'>[user] tried to [pick(attack.attack_verb)] [target]!</span>")
-			return FALSE
-
-
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/armor_block = target.run_armor_check(affecting, MELEE)
-
-		playsound(target.loc, attack.attack_sound, 25, 1, -1)
-
+	user.do_attack_animation(target, attack.animation_type)
+	if(attack.harmless)
+		playsound(target.loc, attack.attack_sound, 25, TRUE, -1)
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
-		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp)
-		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
-			target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
-							"<span class='userdanger'>[user] has knocked down [target]!</span>")
-			target.KnockDown(4 SECONDS)
-		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
+		return FALSE
+	add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
+
+	if(!iscarbon(user))
+		target.LAssailant = null
+	else
+		target.LAssailant = user
+
+	target.lastattacker = user.real_name
+	target.lastattackerckey = user.ckey
+
+	var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
+	damage += attack.damage
+	damage += user.physiology.melee_bonus
+	if(!damage)
+		playsound(target.loc, attack.miss_sound, 25, TRUE, -1)
+		target.visible_message("<span class='danger'>[user] tried to [pick(attack.attack_verb)] [target]!</span>")
+		return FALSE
+
+
+	var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
+	var/armor_block = target.run_armor_check(affecting, MELEE)
+
+	playsound(target.loc, attack.attack_sound, 25, TRUE, -1)
+
+	target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+	target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp)
+	if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
+		target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
+						"<span class='userdanger'>[user] has knocked down [target]!</span>")
+		target.KnockDown(4 SECONDS)
+	SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
@@ -1077,3 +1064,107 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	else
 		var/obj/item/organ/external/head/HD = H.get_organ("head")
 		return HD?.hair_colour
+
+/datum/species/proc/handle_harm_antag(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	if(!istype(target))
+		return
+	if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
+		var/obj/item/grab/grabby = user.get_inactive_hand()
+		if(istype(grabby))
+			if(ismachineperson(target))
+				to_chat(user, "<span class='warning zombie'>We can't smell any brains in [target].</span>")
+				return FALSE
+			if(grabby.state < GRAB_AGGRESSIVE)
+				to_chat(user, "<span class='warning zombie'>We need a better grip on [target] to bite them!</span>")
+				return TRUE
+
+			if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
+				to_chat(user, "<span class='warning zombie'>Our bite fails to pierce [target]!</span>")
+				return FALSE
+
+			user.visible_message("<span class='danger'>[user] violently bites [target]!</span>")
+			playsound(user.loc, 'sound/weapons/bite.ogg', 20, TRUE)
+			playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
+			user.do_attack_animation(target, ATTACK_EFFECT_BITE)
+			target.apply_damage(20, BRUTE, user.zone_selected)
+			if(!HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
+				if(!target.HasDisease(/datum/disease/zombie))
+					var/datum/disease/zombie/zomb = new /datum/disease/zombie
+					if(target.CanContractDisease(zomb)) // biosuit aint going to protect you buddy
+						target.ForceContractDisease(zomb)
+						target.Dizzy(10 SECONDS)
+						target.Confused(10 SECONDS)
+					else
+						qdel(zomb)
+
+				for(var/datum/disease/zombie/zomb in target.viruses)
+					zomb.stage = max(rand(3, 4), zomb.stage)
+
+			qdel(grabby)
+			return TRUE
+
+		if(HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
+			to_chat(user, "<span class='warning zombie'>We can't smell any fresh brains in [target].</span>")
+			return
+
+		var/obj/item/organ/internal/brain/eat_brain = target.get_organ_slot("brain")
+		if(!eat_brain || ismachineperson(target))
+			to_chat(user, "<span class='warning zombie'>We can't smell any brains in [target].</span>")
+			return FALSE
+		var/obj/item/organ/external/brain_house = target.get_limb_by_name(eat_brain.parent_organ)
+		if(!brain_house)
+			to_chat(user, "<span class='warning zombie'>We can't smell any brains in [target].</span>")
+			return FALSE
+		if(brain_house.limb_name != user.zone_selected || !brain_house.open)
+			return FALSE
+		if(target.getarmor(brain_house, MELEE) > 0) // dont count negative armor
+			to_chat(user, "<span class='warning zombie'>[target]'s brains are blocked.</span>")
+			return FALSE // Armor blocks zombies trying to eat your brains!
+
+		if(target.getBrainLoss() >= 120)
+			to_chat(user, "<span class='warning zombie'>No more brains left...</span>")
+			return TRUE
+
+		eat_brain.custom_pain("OH GOD!!! THEY'RE EATING MY [uppertext(eat_brain.name)]!!") // gnarly
+		user.visible_message("<span class='danger'>[user] digs their claws into [target]'s [brain_house.name], eating their [eat_brain]!</span>", "<span class='danger zombie'>We feast on [target]'s brains.</span>")
+		if(!HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
+			if(!target.HasDisease(/datum/disease/zombie))
+				var/datum/disease/zombie/zomb = new /datum/disease/zombie
+				target.ContractDisease(zomb)
+
+			for(var/datum/disease/zombie/zomb in target.viruses)
+				zomb.stage = max(5, zomb.stage)
+
+		if(!do_mob(user, target, 1 SECONDS))
+			return
+
+		playsound(user.loc, 'sound/items/eatfood.ogg', 20, TRUE)
+		playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
+		user.do_attack_animation(target, ATTACK_EFFECT_BITE)
+		target.adjustBrainLoss(5)
+		if(target.stat == CONSCIOUS && prob(33))
+			// Ouch, eaten alive.
+			target.emote("scream")
+
+		if(user.nutrition < NUTRITION_LEVEL_FULL - 10) // no fat zombies
+			user.set_nutrition(user.nutrition + 10)
+		user.heal_overall_damage(2, 2)
+		return TRUE
+
+	//Vampire code
+	var/datum/antagonist/vampire/V = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(V && !V.draining && user.zone_selected == BODY_ZONE_HEAD)
+		if((NO_BLOOD in target.dna.species.species_traits) || !target.blood_volume)
+			to_chat(user, "<span class='warning'>They have no blood!</span>")
+			return TRUE
+		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
+			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh!</span>")
+			return TRUE
+		if(HAS_TRAIT(target, TRAIT_SKELETONIZED))
+			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
+			return TRUE
+		//we're good to suck the blood, blaah
+		V.handle_bloodsucking(target)
+		add_attack_logs(user, target, "vampirebit")
+		return TRUE
+		//end vampire codes

@@ -659,6 +659,11 @@
 			dreamer.adjustBruteLoss(-1, FALSE)
 			dreamer.adjustFireLoss(-1, FALSE)
 			dreamer.adjustToxLoss(-1)
+			dreamer.adjustOxyLoss(-1)
+			dreamer.adjustCloneLoss(-0.5)
+			if(dreamer.HasDisease(/datum/disease/critical/heart_failure) && prob(25))
+				for(var/datum/disease/critical/heart_failure/HF in dreamer.viruses)
+					HF.cure()
 	dreamer.handle_dreams()
 	dreamer.adjustStaminaLoss(-10)
 	var/comfort = 1

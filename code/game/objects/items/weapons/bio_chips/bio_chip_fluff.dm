@@ -87,9 +87,6 @@
 	notes = "A bio-chip that is illegal in many systems. This is the early prototype version of the RX-92. It's significantly cheaper than it's newer version."
 	function = "Uses a mixture of cheap cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
 
-/datum/implant_fluff/health
-	name = "Nanotrasen Health Bio-chip"
-
 /datum/implant_fluff/krav_maga
 	name = "Prospero Foreign Industries Krav Maga Neurotrainer"
 	life = "Will cease functioning 4 hours after death of host."

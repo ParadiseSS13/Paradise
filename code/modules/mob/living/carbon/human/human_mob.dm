@@ -823,6 +823,9 @@
 	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
 
+	if(wear_suit && HAS_TRAIT(wear_suit, TRAIT_RSG_IMMUNE))
+		return FALSE
+
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
 	if(!affecting)
@@ -831,8 +834,10 @@
 	else if(affecting.is_robotic())
 		. = FALSE
 		fail_msg = "That limb is robotic."
-	if(wear_suit && !HAS_TRAIT(wear_suit, TRAIT_PUNCTURE_IMMUNE) && piercing)
+
+	if(piercing)
 		return TRUE
+
 	if(target_zone == "head")
 		if((head?.flags & THICKMATERIAL) && !penetrate_thick)
 			. = FALSE
@@ -1264,6 +1269,9 @@
 /mob/living/carbon/human/get_default_language()
 	if(default_language)
 		return default_language
+
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)) // you're not allowed to speak common
+		return GLOB.all_languages["Zombie"]
 
 	if(!dna.species)
 		return null
@@ -2031,3 +2039,20 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		message += "\tI could make [result.gender == PLURAL ? "some" : "a"] [bicon(result)] <b>[result.name]</b> by using \a [possible_recipes[recipe]] with [english_list(ingredient_list)][length(required_reagents) ? ", along with [english_list(required_reagents)]" : ""]."
 		qdel(recipe)
 	to_chat(src, chat_box_examine(message.Join("<br>")))
+
+/mob/living/carbon/human/proc/get_unarmed_attack()
+	var/datum/antagonist/zombie/zombie = mind?.has_antag_datum(/datum/antagonist/zombie)
+	if(!istype(zombie))
+		return dna.species.unarmed
+	return zombie.claw_attack
+
+/mob/living/carbon/human/proc/get_dna_scrambled()
+	scramble(1, src, 100)
+	real_name = random_name(gender, dna.species.name) // Give them a name that makes sense for their species.
+	sync_organ_dna(assimilate = 1)
+	update_body()
+	reset_hair() // No more winding up with hairstyles you're not supposed to have, and blowing your cover.
+	reset_markings() // ...Or markings.
+	dna.ResetUIFrom(src)
+	flavor_text = ""
+

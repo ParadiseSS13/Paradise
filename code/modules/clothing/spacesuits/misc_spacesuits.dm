@@ -65,7 +65,8 @@
 
 /obj/item/clothing/suit/space/deathsquad/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer beret"

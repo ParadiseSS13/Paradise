@@ -183,8 +183,7 @@
 	log_admin("[key_name(src)] replied to [key_name(H)]'s [sender] message with the message [input].")
 	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input]\"")
 	to_chat(H, "<span class = 'specialnoticebold'>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span><span class = 'specialnotice'> [input]</span>")
-
-
+	SEND_SOUND(H, 'sound/effects/headset_message.ogg')
 
 
 /client/proc/cmd_admin_godmode(mob/M as mob in GLOB.mob_list)
