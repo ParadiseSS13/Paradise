@@ -125,6 +125,10 @@
 	else
 		cell = new(src)
 
+/obj/item/melee/secsword/emp_act(severity)
+	cell.use(round(cell.charge / severity))
+	update_icon()
+
 /obj/item/melee/secsword/get_cell()
 	return cell
 
