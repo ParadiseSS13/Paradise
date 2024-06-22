@@ -187,7 +187,7 @@
 				"<span class='notice'>[user] gives [user.p_themselves()] a hug to make [user.p_themselves()] feel better.</span>",
 				"<span class='notice'>You give yourself a hug to make yourselelf feel better.</span>"
 				)
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			return
 
 		// Checks if holder_type exists to prevent picking up animals like mice, because we're about to use the hands that borgs secretly have.
@@ -224,8 +224,8 @@
 			"<span class='notice'>[user] gives [user.p_themselves()] a firm hug bear-hug to make [user.p_themselves()] feel better.</span>",
 			"<span class='notice'>You give yourself a firm bear hug to make yourselelf feel better.</span>"
 			)
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			return
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+		return
 
 		if(!ishuman(M) || user.zone_selected == BODY_ZONE_HEAD)
 			user.visible_message(
