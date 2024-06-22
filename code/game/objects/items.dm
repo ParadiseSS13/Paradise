@@ -8,7 +8,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 	// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
-	move_resist
+	move_resist = null
 	/// used in item_attack.dm to make an item not show an attack message to viewers
 	var/discrete = FALSE
 	/// The icon state used to display the item in your inventory. If null then the icon_state value itself will be used
@@ -77,7 +77,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Since any item can now be a piece of clothing, this has to be put here so all items share it.
 	/// This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
 	var/flags_inv
-	var/item_color = null
+	var/item_color
 	/// What bodyflags does this item cover? See setup.dm for appropriate bit flags
 	var/body_parts_covered = 0
 	/// For leaking gas from turf to mask and vice-versa.
@@ -93,7 +93,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Percentage armour reduction, happens before flat armour reduction.
 	var/armour_penetration_percentage = 0
 	/// For what suits can store. IE. secuirty vest holding stunbatons, disablers, cuffs.
-	var/list/allowed
+	var/list/allowed = list()
 	/// All items can have an uplink hidden inside, just remember to add the triggers.
 	var/obj/item/uplink/hidden/hidden_uplink
 
@@ -153,13 +153,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		)
 	If index term exists and icon_override is not set, this sprite sheet will be used.
 	*/
-	var/list/sprite_sheets = null
+	var/list/sprite_sheets
 	/// Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
-	var/list/sprite_sheets_inhand = null
+	var/list/sprite_sheets_inhand
 	/// Used to override hardcoded clothing dmis in human clothing proc.
-	var/icon_override = null
+	var/icon_override
 	/// Used to override hardcoded clothing inventory object dmis in human clothing proc.
-	var/sprite_sheets_obj = null
+	var/sprite_sheets_obj
 
 	//Tooltip vars
 
