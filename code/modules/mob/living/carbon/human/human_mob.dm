@@ -688,7 +688,7 @@
 		return
 
 	if(found_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE || SEC_RECORD_STATUS_DNRS)
-		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution order. Use a security computer instead.</span>")
+		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution or Do Not Resuscitate - Security order. Use a security computer instead.</span>")
 		return
 
 	var/static/list/possible_status = list(
@@ -713,7 +713,7 @@
 	if(!hasHUD(user, EXAMINE_HUD_SECURITY_WRITE))
 		return
 	if(found_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE || SEC_RECORD_STATUS_DNRS)
-		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution order. Use a security computer instead.</span>")
+		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution or Do Not Resuscitate - Security order. Use a security computer instead.</span>")
 		return
 	var/rank
 	if(ishuman(user))

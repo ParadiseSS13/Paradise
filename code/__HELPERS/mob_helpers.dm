@@ -250,6 +250,7 @@
 		if("dnr-s", SEC_RECORD_STATUS_DNRS)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_DNRS
+				///MMTODO - set MedRecord here somehow???
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>DO NOT RESUSCITATE (SECURITY)</span> for [their_rank] [their_name], with comment: [comment]")
 			else
 				return 0
