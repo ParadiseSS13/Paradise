@@ -408,16 +408,6 @@ SUBSYSTEM_DEF(air)
 			last_bound_mixtures = length(bound_mixtures)
 			return
 
-/datum/controller/subsystem/air/proc/remove_from_active(turf/simulated/T)
-	active_turfs -= T
-	active_super_conductivity -= T // bug: if a turf is hit by ex_act 1 while processing, it can end up in super conductivity as /turf/space and cause runtimes
-	if(currentpart == SSAIR_ACTIVETURFS || currentpart == SSAIR_SUPERCONDUCTIVITY)
-		currentrun -= T
-	if(istype(T))
-		T.excited = 0
-		if(T.excited_group)
-			T.excited_group.garbage_collect()
-
 /datum/controller/subsystem/air/proc/setup_allturfs(list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
 	for(var/turf/T as anything in turfs_to_init)
 		T.Initialize_Atmos(times_fired)
