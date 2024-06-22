@@ -1,3 +1,4 @@
 #include "_redis220.dm"
 
 #include "code/news.dm"
+#include "code/tgs_deploy_bandaid.dm"
