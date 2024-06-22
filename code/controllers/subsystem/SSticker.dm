@@ -833,7 +833,8 @@ SUBSYSTEM_DEF(ticker)
 						if(ROUND_END_FORCED)
 							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, output)
 			if("Xenomorphs")
-				if(length(SSticker.mode.xenos) > 5)
+				var/living_xenos = count_xenomorps()
+				if(living_xenos > 5)
 					switch(outcome)
 						if(ROUND_END_NUCLEAR)
 							SSblackbox.record_feedback("tally", "Xeno nuclear victories", 1, "Xenomorphs")
@@ -868,3 +869,9 @@ SUBSYSTEM_DEF(ticker)
 						if(ROUND_END_FORCED)
 							SSblackbox.record_feedback("tally", "Blob dies admin round end", 1, "Blob")
 
+/datum/controller/subsystem/ticker/proc/count_xenomorps()
+	. = 0
+	for(var/datum/mind/xeno_mind as anything in SSticker.mode.xenos)
+		if(xeno_mind.current?.stat == DEAD)
+			continue
+		.++

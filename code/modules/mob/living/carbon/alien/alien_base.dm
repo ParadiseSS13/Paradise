@@ -169,8 +169,6 @@
 	if(!.)
 		return
 
-	if(SSticker?.mode?.xenos)
-		SSticker.mode.xenos -= mind
 	deathrattle()
 
 /mob/living/carbon/alien/proc/deathrattle()
