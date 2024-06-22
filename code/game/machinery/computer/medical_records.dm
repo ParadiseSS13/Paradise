@@ -52,7 +52,7 @@
 	field_edit_choices = list(
 		// General
 		"sex" = list("Male", "Female"),
-		"p_stat" = list("*Deceased*", "DNR-M", "*DNR-S*" "*SSD*", "Active", "Physically Unfit", "Disabled"),
+		"p_stat" = list("*Deceased*", "DNR-M", "*DNR-S*", "*SSD*", "Active", "Physically Unfit", "Disabled"),
 		"m_stat" = list("*Insane*", "*Unstable*", "*Watch*", "Stable"),
 		// Medical
 		"blood_type" = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "Slime Jelly", "None"),
