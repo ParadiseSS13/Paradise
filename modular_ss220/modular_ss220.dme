@@ -81,7 +81,7 @@
 #include "antagonists/_antagonists.dme"
 #include "uplink_items/_uplink_items.dme"
 #include "shuttles/_shuttles.dme"
-
+#include "redis220/_redis220.dme"
 // --- PRIME --- //
 // #define MODPACK_MAIN_ONLY
 // Чтобы отключить модпаки прайма, нужно добавиту строку выше в code/__DEFINES/_ss220.dm.
