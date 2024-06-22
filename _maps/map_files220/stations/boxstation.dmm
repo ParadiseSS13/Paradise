@@ -3131,7 +3131,8 @@
 "aoa" = (
 /obj/structure/table,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Internal Affairs Office"
+	department = "Internal Affairs Office";
+	pixel_y = 4
 	},
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/light/directional/west,

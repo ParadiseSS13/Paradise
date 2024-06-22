@@ -79029,14 +79029,15 @@
 /area/station/security/podpilot)
 "nGZ" = (
 /obj/machinery/alarm/directional/east,
-/obj/machinery/photocopier/faxmachine/longrange{
-	pixel_y = 4
-	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /obj/machinery/light/directional/east,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Internal Affairs Office";
+	pixel_y = 4
+	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/lawoffice)
 "nHh" = (
