@@ -32,10 +32,10 @@
 	var/static/list/acceptable_items = typecacheof(list(
 		/obj/item/seeds,
 		/obj/item/unsorted_seeds,
-		/obj/item/food/snacks/grown,
+		/obj/item/food/grown,
 		/obj/item/grown,
-		/obj/item/food/snacks/grown/ash_flora,
-		/obj/item/food/snacks/honeycomb))
+		/obj/item/food/grown/ash_flora,
+		/obj/item/food/honeycomb))
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()

@@ -785,8 +785,8 @@
 	item_state = "plushie_ipc"
 
 /obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
-	if(istype(B, /obj/item/food/snacks/breadslice))
-		new /obj/item/food/snacks/toast(get_turf(loc))
+	if(istype(B, /obj/item/food/breadslice))
+		new /obj/item/food/toast(get_turf(loc))
 		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		qdel(B)

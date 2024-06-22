@@ -486,7 +486,7 @@
 				/obj/item/clothing/under/new_soviet = 50,
 				/obj/item/clothing/suit/sovietcoat = 50,
 				/obj/item/clothing/head/ushanka = 50,
-				/obj/item/food/snacks/grown/potato = 50,
+				/obj/item/food/grown/potato = 50,
 				/obj/item/reagent_containers/drinks/bottle/vodka/badminka = 50,
 				/obj/item/clothing/head/sovietsidecap = 50,
 				/obj/item/flag/ussp = 30,
@@ -745,20 +745,20 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/food/snacks/soup/beetsoup,
-			/obj/item/food/snacks/soup/stew,
-			/obj/item/food/snacks/soup/hotchili,
-			/obj/item/food/snacks/soup/nettlesoup,
-			/obj/item/food/snacks/soup/meatballsoup)
+			/obj/item/food/soup/beetsoup,
+			/obj/item/food/soup/stew,
+			/obj/item/food/soup/hotchili,
+			/obj/item/food/soup/nettlesoup,
+			/obj/item/food/soup/meatballsoup)
 	var/salads = list(
-			/obj/item/food/snacks/salad/herb,
-			/obj/item/food/snacks/salad/valid,
-			/obj/item/food/snacks/salad/aesir)
+			/obj/item/food/salad/herb,
+			/obj/item/food/salad/valid,
+			/obj/item/food/salad/aesir)
 	var/mains = list(
-			/obj/item/food/snacks/enchiladas,
-			/obj/item/food/snacks/stewedsoymeat,
-			/obj/item/food/snacks/burger/bigbite,
-			/obj/item/food/snacks/burger/superbite)
+			/obj/item/food/enchiladas,
+			/obj/item/food/stewedsoymeat,
+			/obj/item/food/burger/bigbite,
+			/obj/item/food/burger/superbite)
 
 /obj/effect/spawner/lootdrop/three_course_meal/Initialize(mapload)
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)

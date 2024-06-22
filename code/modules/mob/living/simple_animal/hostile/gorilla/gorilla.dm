@@ -9,7 +9,7 @@
 	speak_chance = 80
 	maxHealth = 220
 	health = 220
-	butcher_results = list(/obj/item/food/snacks/meat/slab/gorilla = 4)
+	butcher_results = list(/obj/item/food/meat/slab/gorilla = 4)
 	response_help = "prods"
 	response_disarm = "challenges"
 	response_harm = "thumps"

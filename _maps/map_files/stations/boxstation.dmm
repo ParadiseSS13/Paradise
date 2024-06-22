@@ -11591,7 +11591,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "aLG" = (
-/obj/item/food/snacks/meat/slab,
+/obj/item/food/meat/slab,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -11871,7 +11871,7 @@
 /area/station/maintenance/fore)
 "aMl" = (
 /obj/structure/table,
-/obj/item/food/snacks/donut,
+/obj/item/food/donut,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aMo" = (
@@ -12072,7 +12072,7 @@
 /area/station/maintenance/fpmaint)
 "aMT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/food/snacks/meat/slab,
+/obj/item/food/meat/slab,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -12477,7 +12477,7 @@
 /area/station/maintenance/fpmaint2)
 "aOo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/food/snacks/meat/slab,
+/obj/item/food/meat/slab,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -12758,7 +12758,7 @@
 "aPa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_maybe,
-/obj/item/food/snacks/meat/slab,
+/obj/item/food/meat/slab,
 /obj/item/clothing/mask/face/fox,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint2)
@@ -16490,7 +16490,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "baa" = (
-/obj/item/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "bab" = (
@@ -16984,7 +16984,7 @@
 /area/station/maintenance/fpmaint)
 "bbH" = (
 /obj/structure/table,
-/obj/item/food/snacks/baguette,
+/obj/item/food/baguette,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "bbI" = (
@@ -17005,7 +17005,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bbJ" = (
-/obj/item/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /obj/item/storage/backpack/duffel/clown,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
@@ -17552,7 +17552,7 @@
 "bdp" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/bananalamp,
-/obj/item/food/snacks/pie,
+/obj/item/food/pie,
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
@@ -18607,7 +18607,7 @@
 /area/station/service/chapel)
 "bgj" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/chips,
+/obj/item/food/chips,
 /obj/item/reagent_containers/drinks/cans/cola,
 /turf/simulated/floor/carpet,
 /area/station/hallway/secondary/entry/lounge)
@@ -23816,7 +23816,7 @@
 /area/station/service/kitchen)
 "bus" = (
 /obj/structure/table,
-/obj/item/food/snacks/mint,
+/obj/item/food/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -48493,7 +48493,7 @@
 "dgY" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/food/snacks/donkpocket,
+/obj/item/food/donkpocket,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "dgZ" = (
@@ -52236,7 +52236,7 @@
 /area/station/maintenance/apmaint)
 "dEb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/food/snacks/meat/slab,
+/obj/item/food/meat/slab,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "dEq" = (
@@ -59080,7 +59080,7 @@
 "gMa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/food/snacks/dough{
+/obj/item/food/dough{
 	desc = "A piece of dough. It looks moldy and is hard as a rock. Hope you're not planning on turning this into a pizza..";
 	name = "old dough"
 	},
@@ -65790,7 +65790,7 @@
 "kdh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/obj/item/food/snacks/grown/cannabis,
+/obj/item/food/grown/cannabis,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/asmaint)
 "kdk" = (
@@ -70057,7 +70057,7 @@
 	},
 /area/station/command/server)
 "mdX" = (
-/obj/item/food/snacks/grown/cannabis,
+/obj/item/food/grown/cannabis,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/cigarette/medical_marijuana,
 /turf/simulated/floor/wood{
@@ -80907,7 +80907,7 @@
 "rkL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/seeds/cannabis,
-/obj/item/food/snacks/grown/ambrosia/vulgaris,
+/obj/item/food/grown/ambrosia/vulgaris,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "rkS" = (
@@ -86322,13 +86322,13 @@
 /area/station/science/test_chamber)
 "tWD" = (
 /obj/structure/closet/crate,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/onion,
-/obj/item/food/snacks/grown/onion,
+/obj/item/food/breadslice,
+/obj/item/food/breadslice,
+/obj/item/food/breadslice,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/onion,
+/obj/item/food/grown/onion,
 /obj/item/storage/box/donkpockets,
 /obj/item/storage/fancy/egg_box,
 /obj/item/reagent_containers/condiment/flour,
@@ -87581,7 +87581,7 @@
 /area/station/engineering/atmos/distribution)
 "uGf" = (
 /obj/structure/table/reinforced,
-/obj/item/food/snacks/grilledcheese{
+/obj/item/food/grilledcheese{
 	pixel_y = 9
 	},
 /turf/simulated/floor/wood,
@@ -87858,7 +87858,7 @@
 /area/station/hallway/secondary/exit)
 "uRK" = (
 /obj/item/organ/internal/heart/vox,
-/obj/item/food/snacks/fried_vox,
+/obj/item/food/fried_vox,
 /obj/structure/table,
 /obj/item/scalpel,
 /turf/simulated/floor/plating,
@@ -93542,7 +93542,7 @@
 /area/station/medical/surgery/observation)
 "xII" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/pistachios,
+/obj/item/food/pistachios,
 /obj/item/poster/random_contraband,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)

@@ -10,8 +10,8 @@
 		output_loc = extractor.loc
 
 	var/original_seed = null
-	if(istype(source_item, /obj/item/food/snacks/grown))
-		var/obj/item/food/snacks/grown/F = source_item
+	if(istype(source_item, /obj/item/food/grown))
+		var/obj/item/food/grown/F = source_item
 		original_seed = F.unsorted_seed || F.seed
 	else if(istype(source_item, /obj/item/grown))
 		var/obj/item/grown/F = source_item
@@ -99,7 +99,7 @@
 			SStgui.update_uis(src)
 		else
 			var/seedable = 0
-			for(var/obj/item/food/snacks/grown/ignored in P)
+			for(var/obj/item/food/grown/ignored in P)
 				seedable++
 			for(var/obj/item/grown/ignored in P)
 				seedable++

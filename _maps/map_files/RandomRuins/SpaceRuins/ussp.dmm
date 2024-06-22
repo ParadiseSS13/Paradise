@@ -1823,7 +1823,7 @@
 /area/space/nearstation)
 "eB" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/peanuts,
+/obj/item/food/grown/peanuts,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -5610,7 +5610,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "nS" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/soup/beetsoup,
+/obj/item/food/soup/beetsoup,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6384,11 +6384,11 @@
 	layer = 2.9
 	},
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
