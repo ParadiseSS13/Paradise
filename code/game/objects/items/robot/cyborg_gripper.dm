@@ -184,7 +184,7 @@
 	if(user.a_intent == INTENT_HELP)
 		if(M == user)
 			user.visible_message(
-				"<span class='notice'>[user] gives [user.p_themselves()] a hug to make [user.p_themselves()] feel better.</span>"
+				"<span class='notice'>[user] gives [user.p_themselves()] a hug to make [user.p_themselves()] feel better.</span>",
 				"<span class='notice'>You give yourself a hug to make yourselelf feel better.</span>"
 				)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
@@ -221,7 +221,7 @@
 	if(user.a_intent == INTENT_HARM && !emagged)
 		if(M == user)
 			user.visible_message(
-			"<span class='notice'>[user] gives [user.p_themselves()] a firm hug bear-hug to make [user.p_themselves()] feel better.</span>"
+			"<span class='notice'>[user] gives [user.p_themselves()] a firm hug bear-hug to make [user.p_themselves()] feel better.</span>",
 			"<span class='notice'>You give yourself a firm bear hug to make yourselelf feel better.</span>"
 			)
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
@@ -248,7 +248,7 @@
 
 	if(M == user)
 		user.visible_message(
-			"<span class='danger'>[user] punches [user.p_themselves()] in the face!.</span>"
+			"<span class='danger'>[user] punches [user.p_themselves()] in the face!.</span>",
 			"<span class='userdanger'>You punch yourself in the face!</span>"
 			)
 		user.do_attack_animation(M, ATTACK_EFFECT_PUNCH)
