@@ -39,6 +39,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_removal_text = "You are clumsy again."
 	/// The spawn class to use for gain/removal clown text
 	var/clown_text_span_class = "boldnotice"
+	/// If the antagonist can have their spoken voice be something else
+	var/mimicking = ""
 	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name]
 	var/wiki_page_name
 
