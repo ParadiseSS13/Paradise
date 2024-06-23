@@ -286,7 +286,7 @@
 	desc = "Like regular titanium, but able to deflect capitalist aggressors."
 	can_dismantle_with_welder = FALSE
 
-/turf/simulated/wall/mineral/titanium/nodecon
+/turf/simulated/wall/mineral/titanium/nodecon/wizard
 	name = "wizard wall"
 	desc = "Like regular titanium, but able to deflect wizards aggressors."
 
