@@ -16,6 +16,7 @@
 	resistance_flags = ACID_PROOF
 	blocks_emissive = FALSE
 	var/label_text = ""
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/reagent_containers/glass/Initialize(mapload)
 	. = ..()
