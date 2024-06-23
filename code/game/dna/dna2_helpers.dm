@@ -194,8 +194,6 @@
 		if(ISINDEXSAFE(GLOB.character_heights, new_height))
 			H.height = GLOB.character_heights[new_height]
 
-
-
 		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, length(GLOB.body_accessory_by_name))
 		if(bodyacc > 0 && bodyacc <= length(GLOB.body_accessory_by_name))
 			H.body_accessory = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]

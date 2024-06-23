@@ -1056,7 +1056,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /**
   * Species-specific runechat colour handler
   *
-  * Returns the mob's runechat color which can be changed at a mirror or in preferances.
+  * Returns the mob's runechat color which can be changed at a mirror or in preferences.
   * Arguments:
   * * H - The human who this DNA belongs to
   */

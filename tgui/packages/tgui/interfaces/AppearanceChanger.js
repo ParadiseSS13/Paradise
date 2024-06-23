@@ -255,8 +255,11 @@ const ColorContent = (props, context) => {
       text: 'Change skin color',
       action: 'skin_color',
     },
-
-    { key: 'change_runechat_color', text: 'Change runechat color', action: 'runechat_color' },
+    {
+      key: 'change_runechat_color',
+      text: 'Change runechat color',
+      action: 'runechat_color',
+    },
     {
       key: 'change_head_accessory_color',
       text: 'Change head accessory color',
