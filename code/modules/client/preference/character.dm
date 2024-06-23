@@ -105,7 +105,7 @@
 	var/h_grad_colour = "#000000"
 	var/h_grad_alpha = 255
 	/// Runechat color
-	var/runechat_color = "#000000"
+	var/runechat_color = "#FFFFFF"
 	/// Custom emote text ("name" = "emote text")
 	var/list/custom_emotes = list()
 

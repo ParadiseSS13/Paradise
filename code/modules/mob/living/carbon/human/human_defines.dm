@@ -97,7 +97,7 @@
 	var/original_eye_color = "#000000"
 
 	///Runechat color
-	var/runechat_color = "#000000"
+	var/runechat_color = "#FFFFFF"
 
 	var/list/overlays_standing[TOTAL_LAYERS]
 	/// Stores what the body last looked like. Prevents updating the body when we don't need to

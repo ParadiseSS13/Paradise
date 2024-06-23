@@ -154,7 +154,7 @@
 	var/default_headacc_colour
 
 	///Runechat color, stored on the mob itself and not in preferances.
-	var/default_runechat_color = "#000000"
+	var/default_runechat_color = "#FFFFFF"
 
 	/// Name of default body accessory if any.
 	var/default_bodyacc
