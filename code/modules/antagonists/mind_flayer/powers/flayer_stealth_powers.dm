@@ -42,6 +42,7 @@
 	name = "Enhanced Voice Mod"
 	desc = "Name changer"
 	power_type = FLAYER_PURCHASABLE_POWER
+	category = CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS
 
 /datum/spell/flayer/self/voice_synthesizer/cast(list/targets, mob/living/user)
