@@ -141,7 +141,7 @@ Difficulty: Hard
 	H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
 	if(second_life)
 		H.clear_fullscreen("Bubblegum")
-		H.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/fog, 2)
+		H.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/stretch/fog, 2)
 
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
@@ -589,7 +589,6 @@ Difficulty: Hard
 	maxHealth = 1
 	alpha = 127.5
 	crusher_loot = null
-	loot = null
 	medal_type = null
 	score_type = null
 	deathmessage = "Explodes into a pool of blood!"

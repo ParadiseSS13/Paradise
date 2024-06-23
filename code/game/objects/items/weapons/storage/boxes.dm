@@ -440,7 +440,8 @@
 
 /obj/item/storage/box/pillbottles/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle(src)
+		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle(src)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/patch_packs
 	name = "box of patch packs"
@@ -449,7 +450,8 @@
 
 /obj/item/storage/box/patch_packs/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle/patch_pack(src)
+		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle/patch_pack(src)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/bodybags
 	name = "body bags"
@@ -697,6 +699,15 @@
 	for(var/I in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
+/obj/item/storage/box/holy
+	name = "ammunition box (Holy Water darts)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "hshell_box"
+
+/obj/item/storage/box/holy/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/holy(src)
+
 ////////////////
 /* Donk Boxes */
 ////////////////
@@ -776,6 +787,78 @@
 	new /obj/item/gun/projectile/automatic/pistol/enforcer/lethal(src)
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
+
+/obj/item/storage/box/hydroponics_starter
+	name = "hydroponics starter kit"
+	desc = "Everything you need to start your own botany lab."
+
+/obj/item/storage/box/hydroponics_starter/populate_contents()
+	for(var/I in 1 to 2)
+		new /obj/item/circuitboard/hydroponics(src)
+		new /obj/item/stock_parts/matter_bin(src)
+		new /obj/item/stock_parts/matter_bin(src)
+		new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/reagent_containers/glass/bucket(src)
+
+/obj/item/storage/box/turbine_kit
+	name = "turbine kit"
+	desc = "Somehow, they managed to fit almost an entire turbine assembly into this box."
+
+/obj/item/storage/box/turbine_kit/populate_contents()
+	new /obj/item/circuitboard/turbine_computer(src)
+	new /obj/item/circuitboard/power_compressor(src)
+	new /obj/item/circuitboard/power_turbine(src)
+	for(var/I in 1 to 6)
+		new /obj/item/stock_parts/capacitor(src)
+		new /obj/item/stock_parts/manipulator(src)
+
+/obj/item/storage/box/deagle
+	name = "desert eagle handcannon kit"
+	desc = "A box marked with pictures of the iconic Desert Eagle pistol, one ammo clip, and the word 'LETHAL'."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/deagle/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol/deagle(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+
+/obj/item/storage/box/skrell_suit
+	name = "skrellian suit box"
+	desc = "A box containing a skrell-designed medical spacesuit."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/skrell_suit/white
+	name = "white skrellian suit box"
+	desc = "A box containing a skrell-designed medical spacesuit. This one is white."
+
+/obj/item/storage/box/skrell_suit/white/populate_contents()
+	new /obj/item/clothing/head/helmet/space/skrell/white(src)
+	new /obj/item/clothing/suit/space/skrell/white(src)
+
+/obj/item/storage/box/skrell_suit/black
+	name = "black skrellian suit box"
+	desc = "A box containing a skrell-designed medical spacesuit. This one is black."
+
+/obj/item/storage/box/skrell_suit/black/populate_contents()
+	new /obj/item/clothing/head/helmet/space/skrell/black(src)
+	new /obj/item/clothing/suit/space/skrell/black(src)
+
+/obj/item/storage/box/breacher
+	name = "unathi breacher suit box"
+	desc = "A box containing a bulky unathi battlesuit."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/breacher/populate_contents()
+	new /obj/item/clothing/suit/space/unathi/breacher(src)
+	new /obj/item/clothing/head/helmet/space/unathi/breacher(src)
+
+/obj/item/storage/box/vox_spacesuit
+	name = "vox voidsuit box"
+	desc = "A box containing an old, dusty voidsuit fit for vox."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/vox_spacesuit/populate_contents()
+	new /obj/item/clothing/head/helmet/space/vox/pressure(src)
+	new /obj/item/clothing/suit/space/vox/pressure(src)
 
 /obj/item/storage/box/telescience
 	name = "babies first telescience kit"
@@ -877,6 +960,17 @@
 				return
 	return ..()
 
+/obj/item/storage/box/relay_kit
+	name = "telecommunications relay kit"
+	desc = "Contains everything you need to set up your own telecommunications array!"
+
+/obj/item/storage/box/relay_kit/populate_contents()
+	new /obj/item/paper/tcommskey(src)
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/circuitboard/tcomms/relay(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stack/cable_coil(src, 7)
 
 /obj/item/storage/box/centcomofficer
 	name = "officer kit"
@@ -901,7 +995,6 @@
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
 	icon_state = "ert_box"
-	storage_slots = 8
 
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
@@ -910,8 +1003,7 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 
 /obj/item/storage/box/deathsquad
 	name = "boxed death kit"
@@ -921,10 +1013,10 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/grenade/plastic/c4/x4(src)
 	new /obj/item/reagent_containers/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
-	new /obj/item/ammo_box/a357(src)
-	new /obj/item/ammo_box/a357(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 
 /obj/item/storage/box/soviet
 	name = "boxed survival kit"

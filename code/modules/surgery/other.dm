@@ -75,7 +75,8 @@
 	name = "mend internal bleeding"
 	allowed_tools = list(
 		TOOL_FIXOVEIN = 100,
-		/obj/item/stack/cable_coil = 90
+		/obj/item/stack/cable_coil = 90,
+		/obj/item/stack/sheet/sinew = 90
 	)
 	can_infect = TRUE
 	blood_level = SURGERY_BLOODSPREAD_HANDS
@@ -185,6 +186,7 @@
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
 		/obj/item/kitchen/knife = 90,
+		/obj/item/kitchen/knife/shiv = 70,
 		/obj/item/shard = 60
 	)
 

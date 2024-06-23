@@ -156,7 +156,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 		for(var/obj/item/organ/external/E in H.bodyparts)
-			if(E.open == ORGAN_ORGANIC_OPEN)
+			if(E.open >= ORGAN_ORGANIC_OPEN)
 				to_chat(user, "<span class='warning'>[E] is cut open, you'll need more than a bandage!</span>")
 				return
 		affecting.germ_level = 0

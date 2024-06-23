@@ -306,10 +306,11 @@
 	holder.obj_integrity = holder.max_integrity
 
 /datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
+	. = expected_damage
+	if(!I)
+		return
 	if(!I.sharp)
-		. = expected_damage * 0.5
-	else
-		. = expected_damage
+		return expected_damage * 0.5
 
 /datum/spacevine_mutation/flowering
 	name = "flowering"
@@ -396,6 +397,7 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE //Clicking anywhere on the turf is good enough
 	pass_flags = PASSTABLE | PASSGRILLE
 	max_integrity = 50
+	unbuckle_time = 5 SECONDS
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
@@ -511,10 +513,14 @@
 	wither()
 
 /obj/structure/spacevine/Crossed(mob/crosser, oldloc)
-	if(isliving(crosser))
-		for(var/SM_type in mutations)
-			var/datum/spacevine_mutation/SM = mutations[SM_type]
-			SM.on_cross(src, crosser)
+	if(!isliving(crosser))
+		return
+	for(var/SM_type in mutations)
+		var/datum/spacevine_mutation/SM = mutations[SM_type]
+		SM.on_cross(src, crosser)
+
+	if(prob(30 * energy))
+		entangle(crosser)
 
 /obj/structure/spacevine/attack_hand(mob/user)
 	for(var/SM_type in mutations)

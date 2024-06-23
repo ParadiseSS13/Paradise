@@ -163,7 +163,7 @@
 	drink_name = "Glass of Mojito"
 	drink_desc = "Fresh from Spesscuba."
 	taste_description = "mojito"
-	goal_difficulty = REAGENT_GOAL_EASY
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/vodka
 	name = "Vodka"
@@ -776,7 +776,7 @@
 	drink_name = "Demons Blood"
 	drink_desc = "Just looking at this thing makes the hair at the back of your neck stand up."
 	taste_description = "<span class='warning'>evil</span>"
-	goal_difficulty = REAGENT_GOAL_EASY
+	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/vodkatonic
 	name = "Vodka and Tonic"
@@ -1529,7 +1529,7 @@
 	drink_desc = "A sawed-off cola bottle filled with Fernet Cola. You can hear cuarteto music coming from the inside."
 	taste_description = "low class heaven"
 	remove_nutrition = 1
-	goal_difficulty = REAGENT_GOAL_EASY
+	goal_difficulty = REAGENT_GOAL_EXCESSIVE
 
 /datum/reagent/consumable/ethanol/gimlet
 	name = "Gimlet"
@@ -1553,7 +1553,7 @@
 	drink_name = "Sidecar"
 	drink_desc = "You can smell the citrus from here!"
 	taste_description = "smooth cognac and tart citrus"
-	goal_difficulty = REAGENT_GOAL_HARD
+	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/whiskey_sour
 	name = "Whiskey Sour"
@@ -1577,7 +1577,7 @@
 	drink_name = "Mint Julep"
 	drink_desc = "A dainty glass of whiskey and mint on the rocks. Perfect for summer!"
 	taste_description = "sweet and cooling mint"
-	goal_difficulty = REAGENT_GOAL_EASY
+	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/pina_colada
 	name = "Pina Colada"
@@ -1861,4 +1861,33 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	mutated = TRUE
 
+	return ..()
+
+/datum/reagent/consumable/ethanol/lager
+	name = "Lager"
+	id = "lager"
+	description = "A pale beer commonly drank by football hooligans"
+	color = "#664300"
+	alcohol_perc = 0.4
+	drink_icon = "lagerglass"
+	drink_name = "Starlink Lager"
+	drink_desc = "A pale beer that's the cause of many a soccer-related fight"
+	taste_description = "an own goal"
+
+/datum/reagent/consumable/ethanol/stout
+	name = "Stout"
+	id = "stout"
+	description = "A pitch black beer, high in iron content"
+	color = "#000000"
+	alcohol_perc = 0.4
+	drink_icon = "stoutglass"
+	drink_name = "Stout"
+	drink_desc = "A pitch black beer from Ireland, high in iron content"
+	taste_description = "the luck of the Irish"
+
+/datum/reagent/consumable/ethanol/stout/on_mob_life(mob/living/M) // Replenishes blood, seeing as there's iron in it
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits) && (H.blood_volume < BLOOD_VOLUME_NORMAL))
+			H.blood_volume += 0.4
 	return ..()

@@ -63,7 +63,7 @@
 		if(hasInternalDamage(intdamflag))
 			output += dam_reports[tflag]
 			output += "<br />"
-	if(return_pressure() > WARNING_HIGH_PRESSURE)
+	if(cabin_air.return_pressure() > WARNING_HIGH_PRESSURE)
 		output += "<font color='red'><b>DANGEROUSLY HIGH CABIN PRESSURE</b></font><br />"
 	return output
 
@@ -74,7 +74,7 @@
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
 	var/tank_temperature_c = internal_tank ? internal_tank.return_temperature() - T0C : "Unknown"
-	var/cabin_pressure = round(return_pressure(),0.01)
+	var/cabin_pressure = round(cabin_air.return_pressure(), 0.01)
 	. = "[report_internal_damage()]"
 	. += "[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]"
 	. += "<b>Integrity: </b> [integrity]%<br>"
@@ -83,7 +83,7 @@
 	. += "<b>Airtank pressure: </b>[tank_pressure]kPa<br>"
 	. += "<b>Airtank temperature: </b>[tank_temperature]&deg;K|[tank_temperature_c]&deg;C<br>"
 	. += "<b>Cabin pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? "<font color='red'>[cabin_pressure]</font>": cabin_pressure]kPa<br>"
-	. += "<b>Cabin temperature: </b> [return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C<br>"
+	. += "<b>Cabin temperature: </b> [cabin_air.temperature()]&deg;K|[cabin_air.temperature() - T0C]&deg;C<br>"
 	. += "<b>Lights: </b>[lights?"on":"off"]<br>"
 	. += "[dna ? "<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna]</span> \[<a href='byond://?src=[UID()];reset_dna=1'>Reset</a>\]<br>" : ""]"
 	. += "[defense_action.owner ? "<b>Defence Mode: </b> [defence_mode ? "Enabled" : "Disabled"]<br>" : ""]"
@@ -327,19 +327,19 @@
 		if(!in_range(src, usr))	return
 		var/mob/user = afilter.getMob("user")
 		if(user)
-			if(state==0)
-				state = 1
+			if(state == MECHA_MAINT_OFF)
+				state = MECHA_MAINT_ON
 				to_chat(user, "The securing bolts are now exposed.")
 				if(occupant)
 					occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
-			else if(state==1)
-				state = 0
+			else if(state == MECHA_MAINT_ON)
+				state = MECHA_MAINT_OFF
 				to_chat(user, "The securing bolts are now hidden.")
 				if(occupant)
 					occupant.clear_alert("locked")
 			output_maintenance_dialog(afilter.getObj("id_card"),user)
 		return
-	if(href_list["set_internal_tank_valve"] && state >=1)
+	if(href_list["set_internal_tank_valve"] && state >= MECHA_MAINT_ON)
 		if(!in_range(src, usr))	return
 		var/mob/user = afilter.getMob("user")
 		if(user)

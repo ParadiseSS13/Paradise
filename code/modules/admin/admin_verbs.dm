@@ -12,6 +12,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
+	/client/proc/admin_observe,			/*allows us to freely observe mobs */
+	/client/proc/admin_observe_target,			/*and gives it to us on right click*/
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
@@ -48,6 +50,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/global_man_up,
 	/client/proc/library_manager,
 	/client/proc/view_asays,
+	/client/proc/view_msays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -155,7 +158,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/uid_log,
-	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
 	#ifdef REFERENCE_TRACKING
@@ -169,7 +171,12 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
-	/client/proc/debug_global_variables
+	/client/proc/debug_global_variables,
+	/client/proc/raw_gas_scan,
+	/client/proc/teleport_interesting_turf,
+	/client/proc/visualize_interesting_turfs,
+	/client/proc/profile_code,
+	/client/proc/debug_atom_init
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -195,14 +202,19 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/dsay,
 	/datum/admins/proc/show_player_panel,
 	/client/proc/ban_panel,
-	/client/proc/debug_variables		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/admin_observe,
+	/client/proc/admin_observe_target,
 ))
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/openMentorTicketUI,
-	/client/proc/cmd_mentor_say	/* mentor say*/
+	/client/proc/admin_observe,  /* Allow mentors to observe as well, though they face some limitations */
+	/client/proc/admin_observe_target,
+	/client/proc/cmd_mentor_say,	/* mentor say*/
+	/client/proc/view_msays,
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 ))
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
@@ -234,9 +246,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/ss_breakdown,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
-	/client/proc/visualise_active_turfs,
 	/client/proc/debug_timers,
-	/client/proc/timer_log
+	/client/proc/timer_log,
+	/client/proc/raw_gas_scan,
+	/client/proc/teleport_interesting_turf,
+	/client/proc/visualize_interesting_turfs,
+	/client/proc/profile_code
 ))
 
 /client/proc/add_admin_verbs()
@@ -337,13 +352,22 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/admin_ghost()
-	set category = "Admin"
-	set name = "Aghost"
+/client/proc/mentor_ghost()
+	var/is_mentor = check_rights(R_MENTOR, FALSE)
+	var/is_full_admin = check_rights(R_ADMIN|R_MOD, FALSE)
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!is_mentor && !is_full_admin)
+		to_chat(src, "<span class='warning'>You aren't allowed to use this!</span>")
 		return
 
+	// mentors are allowed only if they have the observe trait, which is given on observe.
+	// they should also not be given this proc.
+	if(!is_full_admin && (is_mentor && !HAS_MIND_TRAIT(mob, TRAIT_MENTOR_OBSERVING) || !is_mentor))
+		return
+
+	do_aghost()
+
+/client/proc/do_aghost()
 	if(isobserver(mob))
 		//re-enter
 		var/mob/dead/observer/ghost = mob
@@ -369,6 +393,134 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		log_admin("[key_name(usr)] has admin-ghosted")
 		// TODO: SStgui.on_transfer() to move windows from old and new
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/admin_ghost()
+	set category = "Admin"
+	set name = "Aghost"
+
+	if(!check_rights(R_ADMIN|R_MOD))
+		return
+
+	do_aghost()
+
+/// Allow an admin to observe someone.
+/// mentors are allowed to use this verb while living, but with some stipulations:
+/// if they attempt to do anything that would stop their orbit, they will immediately be returned to their body.
+/client/proc/admin_observe()
+	set name = "Aobserve"
+	set category = "Admin"
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+		return
+
+	if(isnewplayer(mob))
+		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
+		return
+
+	var/mob/target
+
+	target = tgui_input_list(mob, "Select a mob to observe", "Aobserve", GLOB.player_list)
+	if(isnull(target))
+		return
+	if(target == src)
+		to_chat(src, "<span class='warning'>You can't observe yourself!</span>")
+		return
+
+	if(isobserver(target))
+		to_chat(src, "<span class='warning'>[target] is a ghost, and cannot be observed.</span>")
+		return
+
+	if(isnewplayer(target))
+		to_chat(src, "<span class='warning'>[target] is in the lobby, and cannot be observed.</span>")
+		return
+
+	admin_observe_target(target)
+
+/client/proc/cleanup_admin_observe(mob/dead/observer/ghost)
+	if(!istype(ghost) || !ghost.mob_observed)
+		return FALSE
+
+	// un-follow them
+	ghost.cleanup_observe()
+	// if it's a mentor, make sure they go back to their body.
+	if(HAS_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING))
+		// handler will handle removing the trait
+		mob.stop_orbit()
+	log_admin("[key_name(src)] has de-activated Aobserve")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
+	return TRUE
+
+/// targeted form of admin_observe: this should only appear in the right-click menu.
+/client/proc/admin_observe_target(mob/target as mob in GLOB.mob_list)
+	set name = "\[Admin\] Aobserve"
+	set category = null
+
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR, mob))
+		return
+
+	var/full_admin = check_rights(R_ADMIN|R_MOD, FALSE, mob)
+
+	if(isnewplayer(mob))
+		to_chat(src, "<span class='warning'>You cannot aobserve while in the lobby. Please join or observe first.</span>")
+		return
+
+	if(isnewplayer(target))
+		to_chat(src, "<span class='warning'>[target] is currently in the lobby.</span>")
+		return
+
+	if(isobserver(target))
+		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
+		return
+
+	if(cleanup_admin_observe(mob))
+		return
+
+	if(isnull(target) || target == src)
+		// let the default one find the target if there isn't one
+		admin_observe()
+		return
+
+	// observers don't need to ghost, so we don't need to worry about adding any traits
+	if(isobserver(mob))
+		var/mob/dead/observer/ghost = mob
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aobserve")
+		ghost.do_observe(target)
+		return
+
+	log_admin("[key_name(src)] has Aobserved out of their body to follow [target]")
+	do_aghost()
+	var/mob/dead/observer/ghost = mob
+
+	if(!full_admin)
+		// if they're a me and they're alive, add the MENTOR_OBSERVINGtrait to ensure that they can only go back to their body.
+		// we need to handle this here because when you aghost, your mob gets set to the ghost. Oops!
+		ADD_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING, MENTOR_OBSERVING)
+		RegisterSignal(ghost, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_mentor_observe_end), override = TRUE)
+		to_chat(src, "<span class='notice'>You have temporarily observed [target], either move or observe again to un-observe.</span>")
+		log_admin("[key_name(src)] has mobserved out of their body to follow [target].")
+	else
+		log_admin("[key_name(src)] is aobserving [target].")
+
+
+	ghost.do_observe(target)
+
+/client/proc/on_mentor_observe_end(atom/movable/us, atom/movable/orbited)
+	SIGNAL_HANDLER  // COMSIG_ATOM_ORBITER_STOP
+	if(!isobserver(mob))
+		log_and_message_admins("A mentor somehow managed to end observing while not being a ghost. Please investigate and notify coders.")
+		return
+	var/mob/dead/observer/ghost = mob
+
+	// just to be safe
+	ghost.cleanup_observe()
+
+	REMOVE_TRAIT(mob.mind, TRAIT_MENTOR_OBSERVING, MENTOR_OBSERVING)
+	UnregisterSignal(mob, COMSIG_ATOM_ORBITER_STOP)
+
+	if(!ghost.reenter_corpse())
+		// tell everyone since this is kinda nasty.
+		log_debug("Mentor [key_name_mentor(src)] was unable to re-enter their body after mentor observing.")
+		log_and_message_admins("[key_name_mentor(src)] was unable to re-enter their body after mentor observing.")
+		to_chat(src, "<span class='userdanger'>Unable to return you to your body after mentor ghosting. If your body still exists, please contact a coder, and you should probably ahelp.</span>")
 
 /client/proc/invisimin()
 	set name = "Invisimin"
@@ -503,8 +655,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
 			holder.big_brother = 1
+			if(isobserver(mob))
+				mob.invisibility = 90
+				mob.see_invisible = 90
 			createStealthKey()
-		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]")
+		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]", TRUE)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode")
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
@@ -955,6 +1110,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	src.stat_panel.send_message("create_debug")
 
+/client/proc/profile_code()
+	set name = "Profile Code"
+	set category = "Debug"
+
+	winset(usr, null, "command=.profile")
+
 /client/proc/export_current_character()
 	set name = "Export Character DMI/JSON"
 	set category = "Admin"
@@ -962,3 +1123,107 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(ishuman(mob))
 		var/mob/living/carbon/human/H = mob
 		H.export_dmi_json()
+
+/client/proc/raw_gas_scan()
+	set name = "Raw Gas Scan"
+	set category = "Debug"
+	set desc = "Scans your current tile, including LINDA data not normally displayed."
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	atmos_scan(mob, get_turf(mob), silent = TRUE, milla_turf_details = TRUE)
+
+/client/proc/teleport_interesting_turf()
+	set name = "Interesting Turf"
+	set category = "Debug"
+	set desc = "Teleports you to a random Interesting Turf from MILLA"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	if(!isobserver(mob))
+		to_chat(mob, "<span class='warning'>You must be an observer to do this!</span>")
+		return
+
+	var/list/interesting_tile = get_random_interesting_tile()
+	if(!length(interesting_tile))
+		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		return
+
+	var/turf/T = interesting_tile[MILLA_INDEX_TURF]
+	var/mob/dead/observer/O = mob
+	admin_forcemove(O, T)
+	O.ManualFollow(T)
+
+/client/proc/visualize_interesting_turfs()
+	set name = "Visualize Interesting Turfs"
+	set category = "Debug"
+	set desc = "Shows all the Interesting Turfs from MILLA"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	if(SSair.interesting_tile_count > 500)
+		// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
+		var/confirm = alert(usr, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", "I am sure", "Nope")
+		if(confirm != "I am sure")
+			return
+
+	var/display_turfs_overlay = FALSE
+	var/do_display_turf_overlay = alert(usr, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", "Yep", "Nope")
+	if(do_display_turf_overlay == "Yep")
+		display_turfs_overlay = TRUE
+
+	message_admins("[key_name_admin(usr)] is visualising interesting atmos turfs. Server may lag.")
+
+	var/list/zlevel_turf_indexes = list()
+	
+	var/list/coords = get_interesting_atmos_tiles()
+	if(!length(coords))
+		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		return
+
+	while(length(coords))
+		var/offset = length(coords) - MILLA_INTERESTING_TILE_SIZE
+		var/turf/T = coords[offset + MILLA_INDEX_TURF]
+		coords.len -= MILLA_INTERESTING_TILE_SIZE
+
+
+		// ENSURE YOU USE STRING NUMBERS HERE, THIS IS A DICTIONARY KEY NOT AN INDEX!!!
+		if(!zlevel_turf_indexes["[T.z]"])
+			zlevel_turf_indexes["[T.z]"] = list()
+		zlevel_turf_indexes["[T.z]"] |= T
+		if(display_turfs_overlay)
+			usr.client.images += image('icons/effects/alphacolors.dmi', T, "red")
+		CHECK_TICK
+
+	// Sort the keys
+	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
+
+	for(var/key in zlevel_turf_indexes)
+		to_chat(usr, "<span class='notice'>Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] Interesting Turfs</b></span>")
+
+	var/z_to_view = input(usr, "A list of z-levels their ITs has appeared in chat. Please enter a Z to visualise. Enter 0 to cancel.", "Selection", 0) as num
+
+	if(!z_to_view)
+		return
+
+	// Do not combine these
+	var/list/ui_dat = list()
+	var/list/turf_markers = list()
+
+	var/datum/browser/vis = new(usr, "atvis", "Interesting Turfs (Z[z_to_view])", 300, 315)
+	ui_dat += "<center><canvas width=\"255px\" height=\"255px\" id=\"atmos\"></canvas></center>"
+	ui_dat += "<script>e=document.getElementById(\"atmos\");c=e.getContext('2d');c.fillStyle='#ffffff';c.fillRect(0,0,255,255);function s(x,y){var p=c.createImageData(1,1);p.data\[0]=255;p.data\[1]=0;p.data\[2]=0;p.data\[3]=255;c.putImageData(p,(x-1),255-Math.abs(y-1));}</script>"
+	// Now generate the other list
+	for(var/x in zlevel_turf_indexes["[z_to_view]"])
+		var/turf/T = x
+		turf_markers += "s([T.x],[T.y]);"
+		CHECK_TICK
+
+	ui_dat += "<script>[turf_markers.Join("")]</script>"
+
+	vis.set_content(ui_dat.Join(""))
+	vis.open(FALSE)
+

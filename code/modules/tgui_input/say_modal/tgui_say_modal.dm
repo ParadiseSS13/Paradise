@@ -119,8 +119,5 @@
 		if("entry")
 			handle_entry(payload)
 			return TRUE
-		if("ready_state_error")
-			to_chat(client, "<span class='warning'>TGUI Say attempted to render before it was ready, please try again!</span>")
-			return FALSE
 
 	return FALSE

@@ -1,8 +1,9 @@
 /* Closets for specific jobs
  * Contains:
  *		Bartender
+*		Chef
  *		Janitor
- *		Lawyer
+ *		Paramedic
  */
 
 /*
@@ -53,8 +54,8 @@
 	new /obj/item/clothing/suit/chef/classic(src)
 	new /obj/item/clothing/suit/chef/classic(src)
 	new /obj/item/clothing/suit/chef/classic(src)
-	new /obj/item/clothing/head/soft/mime(src)
-	new /obj/item/clothing/head/soft/mime(src)
+	new /obj/item/clothing/head/soft/white(src)
+	new /obj/item/clothing/head/soft/white(src)
 	new /obj/item/storage/box/mousetraps(src)
 	new /obj/item/storage/box/mousetraps(src)
 	new /obj/item/clothing/under/rank/civilian/chef(src)

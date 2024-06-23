@@ -38,14 +38,18 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot != SLOT_HUD_JUMPSUIT)
+		return
 	if(!user.ventcrawler)
 		user.ventcrawler = VENTCRAWLER_ALWAYS
-	..()
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/dropped(mob/living/carbon/human/user)
-	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
+	. = ..()
+	if(user.get_item_by_slot(SLOT_HUD_JUMPSUIT) != src)
+		return
+	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling)) // This is such a snowflaky check
 		user.ventcrawler = VENTCRAWLER_NONE
-	..()
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/proc/check_clothing(mob/user as mob)
 	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)

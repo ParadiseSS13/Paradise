@@ -3,8 +3,12 @@
 	max_integrity = 200
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
-	var/list/species_restricted = null //Only these species can wear this kit.
-	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
+	/// Only these species can wear this kit.
+	var/list/species_restricted
+	/// Can the wearer see reagents inside transparent containers while it's equipped?
+	var/scan_reagents = FALSE
+	/// Can the wearer see reagents inside any container and identify blood types while it's equipped?
+	var/scan_reagents_advanced = FALSE
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
@@ -215,6 +219,8 @@
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = FALSE
 	var/prescription_upgradable = FALSE
+	/// Overrides colorblindness when interacting with wires
+	var/correct_wires = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
@@ -256,8 +262,8 @@
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
 	///Master pickpocket?
-	var/pickpocket = 0
-	var/clipped = 0
+	var/pickpocket = FALSE
+	var/clipped = FALSE
 	///Do they protect the wearer from poison ink?
 	var/safe_from_poison = FALSE
 	strip_delay = 20
@@ -360,6 +366,7 @@
 /obj/item/clothing/head
 	name = "head"
 	icon = 'icons/obj/clothing/hats.dmi'
+	icon_override = 'icons/mob/clothing/head.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_FLAG_HEAD
 	var/HUDType = null

@@ -168,6 +168,12 @@
 	icon_state = "round_bottle"
 	list_reagents = list("sulfonal" = 30)
 
+/obj/item/reagent_containers/glass/bottle/love
+	name = "love bottle"
+	desc = "A small bottle of love."
+	icon_state = "round_bottle"
+	list_reagents = list("love" = 50)
+
 //Reagent bottles
 
 /obj/item/reagent_containers/glass/bottle/reagent
@@ -411,3 +417,27 @@
 	desc = "A small bottle containing Bio Virus Antidote Kit."
 	icon_state = "wide_bottle"
 	list_reagents = list("atropine" = 5, "epinephrine" = 5, "salbutamol" = 10, "spaceacillin" = 10)
+
+/obj/item/reagent_containers/glass/bottle/zombiecure1
+	name = "\improper Anti-Plague Sequence Alpha bottle"
+	desc = "A small bottle containing 50 units of Anti-Plague Sequence Alpha. Prevents infection, cures level 1 infection."
+	icon_state = "wide_bottle"
+	list_reagents = list("zombiecure1" = 50)
+
+/obj/item/reagent_containers/glass/bottle/zombiecure2
+	name = "\improper Anti-Plague Sequence Beta bottle"
+	desc = "A small bottle containing 50 units of Anti-Plague Sequence Beta. Weakens zombies, heals low infections."
+	icon_state = "wide_bottle"
+	list_reagents = list("zombiecure2" = 50)
+
+/obj/item/reagent_containers/glass/bottle/zombiecure3
+	name = "\improper Anti-Plague Sequence Gamma bottle"
+	desc = "A small bottle containing 50 units of Anti-Plague Sequence Gamma. Lowers zombies healing. Heals stage 5 and slows stage 6 infections."
+	icon_state = "wide_bottle"
+	list_reagents = list("zombiecure3" = 50)
+
+/obj/item/reagent_containers/glass/bottle/zombiecure4
+	name = "\improper Anti-Plague Sequence Omega bottle"
+	desc = "A small bottle containing 50 units of Anti-Plague Sequence Omega. Cures all cases of the Necrotizing Plague. Also heals dead limbs."
+	icon_state = "wide_bottle"
+	list_reagents = list("zombiecure4" = 50)

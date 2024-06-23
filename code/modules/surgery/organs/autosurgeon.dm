@@ -135,6 +135,11 @@
 	if(storedorgan)
 		return storedorgan.examine_more()
 
+/obj/item/autosurgeon/organ/syndicate/scope_eyes
+	desc = "A single use autosurgeon that contains Hardened Kaleido Optics eyes. A screwdriver can be used to remove it, but implants can't be placed back in."
+	uses = 1
+	starting_organ = /obj/item/organ/internal/eyes/cybernetic/scope/hardened
+
 /obj/item/autosurgeon/organ/syndicate/thermal_eyes
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/thermals/hardened
 

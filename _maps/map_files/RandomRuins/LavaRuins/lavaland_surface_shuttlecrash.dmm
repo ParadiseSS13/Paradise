@@ -1,0 +1,1523 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bm" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"bz" = (
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"bF" = (
+/obj/machinery/door/airlock/public,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"bK" = (
+/obj/machinery/economy/vending/snack,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"cl" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"dD" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"dS" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/unpowered/misc_lavaruin)
+"en" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/item/reagent_containers/hypospray/autoinjector{
+	name = "emergency autoinjector";
+	icon_state = "autoinjector0"
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"eo" = (
+/obj/structure/table_frame,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/unpowered/misc_lavaruin)
+"eG" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/cleanable/glass,
+/obj/item/stack/rods,
+/obj/item/airlock_electronics,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"fU" = (
+/obj/structure/table_frame,
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"ge" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/cleanable/blood,
+/obj/item/cigbutt,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"gY" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/unpowered/misc_lavaruin)
+"hb" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"hK" = (
+/turf/simulated/floor/lava/mapping_lava,
+/area/lavaland/surface/outdoors)
+"hW" = (
+/obj/item/stack/sheet/metal,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface{
+	icon_state = "basalt_dug"
+	},
+/area/lavaland/surface/outdoors)
+"jU" = (
+/obj/item/stack/sheet/metal,
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"kk" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"kv" = (
+/obj/effect/landmark/damageturf,
+/obj/item/flashlight/flare,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"ma" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"mA" = (
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"mN" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface{
+	icon_state = "basalt_dug"
+	},
+/area/lavaland/surface/outdoors)
+"ng" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/unpowered/misc_lavaruin)
+"nG" = (
+/obj/machinery/door/airlock/public,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/unpowered/misc_lavaruin)
+"oD" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/item/storage/briefcase{
+	pixel_x = 3;
+	pixel_y = -5
+	},
+/obj/item/storage/briefcase{
+	pixel_x = -3
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"oF" = (
+/obj/structure/largecrate,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"oV" = (
+/obj/effect/decal/cleanable/generic,
+/obj/machinery/light/built,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"qG" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface{
+	icon_state = "basalt_dug"
+	},
+/area/lavaland/surface/outdoors)
+"rw" = (
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"rx" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"sa" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/decal/cleanable/molten_object,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"sf" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"sx" = (
+/obj/structure/bonfire,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"sJ" = (
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"sY" = (
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/unpowered/misc_lavaruin)
+"tp" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"tH" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"tN" = (
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/unpowered/misc_lavaruin)
+"uQ" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"vA" = (
+/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/item/storage/briefcase{
+	pixel_x = -2;
+	pixel_y = -4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"wf" = (
+/obj/item/stack/rods,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wD" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wN" = (
+/obj/machinery/door/airlock/public,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/unpowered/misc_lavaruin)
+"xc" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"xd" = (
+/obj/item/stack/rods,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"xJ" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"yo" = (
+/obj/machinery/light/built{
+	dir = 4
+	},
+/obj/item/light/tube{
+	status = 2
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/unpowered/misc_lavaruin)
+"zo" = (
+/obj/machinery/door/airlock/public,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/unpowered/misc_lavaruin)
+"zv" = (
+/obj/machinery/light/built,
+/obj/item/light/tube{
+	status = 2
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"zG" = (
+/obj/structure/toilet,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/unpowered/misc_lavaruin)
+"zM" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/largecrate,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"zX" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Aj" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface{
+	icon_state = "basalt_dug"
+	},
+/area/lavaland/surface/outdoors)
+"Ax" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/structure/closet/crate/can,
+/obj/item/paper/crumpled,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/unpowered/misc_lavaruin)
+"AC" = (
+/obj/structure/sink{
+	pixel_x = 12;
+	dir = 4
+	},
+/obj/item/mounted/mirror{
+	icon_state = "mirror_broke";
+	pixel_y = -32
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/unpowered/misc_lavaruin)
+"AO" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Bf" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"BX" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Ca" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Dt" = (
+/obj/effect/spawner/window/shuttle,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"DM" = (
+/obj/item/stack/rods/ten,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Et" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface{
+	icon_state = "basalt_dug"
+	},
+/area/lavaland/surface/outdoors)
+"Fy" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"FN" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"FO" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/unpowered/misc_lavaruin)
+"FY" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Gt" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"HF" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"HJ" = (
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"It" = (
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/unpowered/misc_lavaruin)
+"Iu" = (
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface{
+	icon_state = "basalt_dug"
+	},
+/area/lavaland/surface/outdoors)
+"IL" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/structure/window/reinforced,
+/obj/item/c_tube,
+/obj/item/flashlight,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"IQ" = (
+/obj/item/stack/sheet/metal,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Ks" = (
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/unpowered/misc_lavaruin)
+"Kx" = (
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/unpowered/misc_lavaruin)
+"KT" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/unpowered/misc_lavaruin)
+"LJ" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Mb" = (
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/obj/item/shard{
+	icon_state = "small";
+	pixel_y = -6;
+	pixel_x = -7
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"Mf" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"My" = (
+/obj/machinery/door/airlock/public,
+/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"MC" = (
+/obj/machinery/economy/vending/wallmed/directional/north,
+/obj/machinery/door/window/reinforced/normal{
+	name = "Luggage Storage"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"MS" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"NE" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/unpowered/misc_lavaruin)
+"NG" = (
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Oe" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/unpowered/misc_lavaruin)
+"Oq" = (
+/obj/effect/landmark/burnturf,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"Oz" = (
+/obj/effect/landmark/damageturf,
+/obj/structure/largecrate,
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"OT" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"QD" = (
+/obj/machinery/light{
+	brightness_color = "#FF3232";
+	emergency_mode = 1;
+	fire_mode = 1
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/unpowered/misc_lavaruin)
+"QK" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"RH" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"RK" = (
+/obj/structure/shuttle/engine/propulsion,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface{
+	icon_state = "basalt_dug"
+	},
+/area/lavaland/surface/outdoors)
+"RP" = (
+/obj/machinery/door/airlock/public,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"Sd" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Sj" = (
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"SH" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface{
+	icon_state = "basalt_dug"
+	},
+/area/lavaland/surface/outdoors)
+"Tb" = (
+/obj/effect/landmark/burnturf,
+/obj/effect/decal/cleanable/ash,
+/obj/item/storage/box/survival,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"Tm" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Ts" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"TU" = (
+/obj/machinery/light{
+	dir = 1;
+	brightness_color = "#FF3232";
+	emergency_mode = 1;
+	fire_mode = 1
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Ua" = (
+/obj/structure/table/reinforced,
+/obj/item/paper/crumpled,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/unpowered/misc_lavaruin)
+"Uw" = (
+/obj/structure/closet/walllocker/emerglocker/north,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Uz" = (
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"UV" = (
+/obj/effect/landmark/burnturf,
+/obj/item/stack/rods,
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"Vs" = (
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"VO" = (
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"WF" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/molten_object/large,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"WI" = (
+/obj/item/stack/sheet/metal,
+/obj/item/light/tube{
+	status = 2
+	},
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"WU" = (
+/turf/simulated/floor/plasteel/lavaland_air{
+	icon_state = "titanium_blue"
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Yf" = (
+/obj/effect/decal/cleanable/ash,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface{
+	icon_state = "basalt_dug"
+	},
+/area/lavaland/surface/outdoors)
+"Yg" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/misc_lavaruin)
+"Yi" = (
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+"}
+(2,1,1) = {"
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+NG
+"}
+(3,1,1) = {"
+NG
+NG
+NG
+NG
+NG
+NG
+dD
+Gt
+Gt
+dD
+dD
+dD
+Gt
+Gt
+NG
+NG
+NG
+NG
+NG
+"}
+(4,1,1) = {"
+NG
+NG
+NG
+NG
+NG
+NG
+dD
+Gt
+It
+Dt
+Dt
+Dt
+It
+Gt
+NG
+NG
+NG
+NG
+NG
+"}
+(5,1,1) = {"
+NG
+NG
+NG
+NG
+NG
+dD
+dD
+dD
+It
+gY
+Ua
+gY
+It
+dD
+dD
+NG
+NG
+NG
+NG
+"}
+(6,1,1) = {"
+NG
+NG
+NG
+NG
+NG
+dD
+dD
+dD
+Dt
+dS
+FO
+KT
+Dt
+dD
+dD
+NG
+NG
+NG
+NG
+"}
+(7,1,1) = {"
+NG
+NG
+NG
+NG
+dD
+dD
+Gt
+Gt
+Dt
+yo
+Kx
+sY
+Dt
+Gt
+Gt
+dD
+NG
+NG
+NG
+"}
+(8,1,1) = {"
+NG
+NG
+NG
+NG
+dD
+Gt
+Gt
+It
+It
+It
+zo
+It
+It
+It
+Gt
+Gt
+NG
+NG
+NG
+"}
+(9,1,1) = {"
+NG
+NG
+NG
+NG
+dD
+Gt
+It
+It
+fU
+Tm
+rw
+WU
+FY
+It
+It
+Gt
+NG
+NG
+NG
+"}
+(10,1,1) = {"
+NG
+NG
+NG
+NG
+dD
+dD
+It
+TU
+WU
+WU
+rw
+WU
+WU
+zv
+It
+dD
+dD
+NG
+NG
+"}
+(11,1,1) = {"
+NG
+NG
+NG
+NG
+dD
+Gt
+QK
+kk
+WU
+kk
+DM
+kk
+WU
+Ts
+QK
+dD
+dD
+NG
+NG
+"}
+(12,1,1) = {"
+NG
+NG
+NG
+NG
+dD
+Gt
+QK
+kk
+VO
+kk
+rw
+kk
+WU
+Ts
+QK
+dD
+SH
+NG
+NG
+"}
+(13,1,1) = {"
+NG
+NG
+NG
+dD
+Gt
+Gt
+QK
+kk
+WU
+Ts
+Mf
+IQ
+WU
+kk
+QK
+dD
+dD
+dD
+NG
+"}
+(14,1,1) = {"
+NG
+NG
+Gt
+Vs
+Gt
+Gt
+QK
+WU
+WU
+Ts
+Mf
+Ts
+WU
+Ts
+QK
+dD
+dD
+dD
+NG
+"}
+(15,1,1) = {"
+NG
+NG
+Vs
+sx
+Vs
+xJ
+OT
+rx
+MS
+xc
+Mf
+kk
+WU
+kk
+QK
+dD
+It
+dD
+NG
+"}
+(16,1,1) = {"
+Gt
+Gt
+Gt
+Gt
+Gt
+zX
+OT
+tp
+Sd
+HF
+sa
+bm
+Uz
+kk
+QK
+dD
+dD
+dD
+Fy
+"}
+(17,1,1) = {"
+NG
+dD
+dD
+hK
+dD
+Gt
+Gt
+en
+Ca
+UV
+uQ
+bm
+Uz
+ge
+Et
+SH
+dD
+It
+Gt
+"}
+(18,1,1) = {"
+NG
+dD
+hK
+hK
+dD
+It
+Gt
+Aj
+Aj
+Aj
+Aj
+hW
+Aj
+mN
+Et
+Gt
+Gt
+Gt
+Gt
+"}
+(19,1,1) = {"
+dD
+hK
+hK
+hK
+hK
+dD
+hK
+qG
+Aj
+hW
+hK
+Iu
+hK
+Aj
+hK
+dD
+hK
+dD
+Gt
+"}
+(20,1,1) = {"
+dD
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+Aj
+hK
+hK
+hK
+hK
+It
+"}
+(21,1,1) = {"
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+"}
+(22,1,1) = {"
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+"}
+(23,1,1) = {"
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+"}
+(24,1,1) = {"
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+hK
+dD
+Mf
+dD
+hK
+xd
+Yi
+dD
+hK
+dD
+hK
+dD
+"}
+(25,1,1) = {"
+hK
+dD
+hK
+dD
+Gt
+Gt
+wf
+Gt
+Gt
+Gt
+Gt
+wf
+Gt
+cl
+Gt
+cl
+Gt
+Gt
+Gt
+"}
+(26,1,1) = {"
+Gt
+Gt
+Gt
+Gt
+wf
+It
+It
+bF
+It
+It
+RP
+Gt
+It
+wN
+It
+It
+It
+Gt
+dD
+"}
+(27,1,1) = {"
+NG
+dD
+It
+Gt
+cl
+WU
+bz
+WU
+It
+Uw
+RH
+WU
+It
+ng
+ng
+tN
+It
+dD
+NG
+"}
+(28,1,1) = {"
+NG
+dD
+dD
+Gt
+It
+TU
+WU
+LJ
+It
+bz
+WI
+oV
+It
+NE
+ng
+QD
+It
+dD
+NG
+"}
+(29,1,1) = {"
+NG
+dD
+It
+Gt
+cl
+WF
+mA
+FN
+It
+bK
+Mf
+AO
+It
+eo
+ng
+ng
+It
+dD
+NG
+"}
+(30,1,1) = {"
+NG
+dD
+SH
+Gt
+wD
+HJ
+BX
+It
+It
+It
+My
+It
+It
+It
+Ax
+Ks
+It
+dD
+NG
+"}
+(31,1,1) = {"
+It
+dD
+SH
+Aj
+It
+WU
+Sj
+It
+IL
+sf
+Yg
+Oq
+Tb
+It
+It
+nG
+It
+dD
+NG
+"}
+(32,1,1) = {"
+NG
+dD
+dD
+Aj
+It
+jU
+Bf
+It
+MC
+Yg
+Yg
+Mb
+eG
+It
+zG
+AC
+It
+dD
+NG
+"}
+(33,1,1) = {"
+NG
+dD
+dD
+Aj
+Oe
+It
+It
+It
+Oz
+kv
+hb
+sJ
+vA
+It
+It
+It
+Oe
+dD
+NG
+"}
+(34,1,1) = {"
+NG
+dD
+dD
+Gt
+Oe
+tH
+tH
+It
+oF
+zM
+zM
+zM
+oD
+It
+tH
+tH
+Oe
+dD
+NG
+"}
+(35,1,1) = {"
+NG
+dD
+dD
+Gt
+Aj
+ma
+ma
+Oe
+Oe
+It
+It
+It
+Oe
+Oe
+ma
+Aj
+Yf
+dD
+NG
+"}
+(36,1,1) = {"
+NG
+NG
+dD
+dD
+SH
+Aj
+Aj
+Oe
+tH
+tH
+tH
+tH
+tH
+Oe
+Aj
+SH
+SH
+dD
+NG
+"}
+(37,1,1) = {"
+NG
+NG
+dD
+dD
+SH
+SH
+SH
+SH
+ma
+ma
+ma
+ma
+ma
+SH
+SH
+SH
+RK
+dD
+NG
+"}
+(38,1,1) = {"
+NG
+NG
+dD
+dD
+dD
+SH
+SH
+dD
+dD
+dD
+dD
+dD
+dD
+dD
+SH
+SH
+SH
+dD
+NG
+"}
+(39,1,1) = {"
+NG
+NG
+dD
+dD
+SH
+dD
+Yf
+SH
+dD
+SH
+SH
+SH
+dD
+SH
+dD
+SH
+SH
+NG
+NG
+"}
+(40,1,1) = {"
+NG
+NG
+NG
+dD
+SH
+SH
+SH
+SH
+SH
+SH
+SH
+SH
+SH
+SH
+SH
+dD
+SH
+NG
+NG
+"}
