@@ -1,4 +1,4 @@
-# Updates the DB from 57 to 58 -SpaghettiBit
+# Updates the DB from 57 to 58 ~SpaghettiBit
 # Adds a runechat color preference to characters.
 
 # Add runechat color after hair_gradient_alpha
