@@ -196,7 +196,7 @@
 					hair_gradient_offset=:h_grad_offset,
 					hair_gradient_colour=:h_grad_colour,
 					hair_gradient_alpha=:h_grad_alpha,
-					runechat_color=:runechat_color
+					runechat_color=:runechat_color,
 					custom_emotes=:custom_emotes,
 					cyborg_brain_type=:cyborg_brain_type,
 					body_type=:body_type
