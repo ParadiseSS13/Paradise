@@ -165,6 +165,9 @@
 /mob/living/carbon/human/stok/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/unathi)
 
+/mob/living/carbon/human/nian_worme/Initialize(mapload)
+	. = ..(mapload, /datum/species/monkey/nian_worme)
+
 /mob/living/carbon/human/moth/Initialize(mapload)
 	. = ..(mapload, /datum/species/moth)
 	if(!body_accessory)
@@ -2045,4 +2048,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!istype(zombie))
 		return dna.species.unarmed
 	return zombie.claw_attack
+
+/mob/living/carbon/human/proc/get_dna_scrambled()
+	scramble(1, src, 100)
+	real_name = random_name(gender, dna.species.name) // Give them a name that makes sense for their species.
+	sync_organ_dna(assimilate = 1)
+	update_body()
+	reset_hair() // No more winding up with hairstyles you're not supposed to have, and blowing your cover.
+	reset_markings() // ...Or markings.
+	dna.ResetUIFrom(src)
+	flavor_text = ""
 
