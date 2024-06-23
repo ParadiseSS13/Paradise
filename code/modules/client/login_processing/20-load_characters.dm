@@ -58,6 +58,7 @@
 		hair_gradient_offset,
 		hair_gradient_colour,
 		hair_gradient_alpha,
+		runechat_color,
 		custom_emotes,
 		physique,
 		height,
