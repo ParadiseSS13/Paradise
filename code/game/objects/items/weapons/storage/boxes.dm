@@ -358,6 +358,12 @@
 	icon_state = "wolpin_box"
 	monkey_cube_type = /obj/item/food/snacks/monkeycube/wolpincube
 
+/obj/item/storage/box/monkeycubes/nian_worme_cubes
+	name = "nian worme cube box"
+	desc = "Nian Trade Guild brand worme cubes. Just add water!"
+	icon_state = "nian_worme_box"
+	monkey_cube_type = /obj/item/food/snacks/monkeycube/nian_wormecube
+
 ///////////////////
 /* Medical Boxes */
 ///////////////////
