@@ -737,11 +737,14 @@ SUBSYSTEM_DEF(ticker)
 	if(end_string)
 		end_state = end_string
 
-	// Play a haha funny noise
+	// Play a haha funny noise for those who want to hear it :)
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
-	SEND_SOUND(world, sound(round_end_sound))
-	sleep(sound_length)
+
+	for(var/mob/M in GLOB.player_list)
+		if(M.client.prefs.sound & SOUND_END_OF_ROUND)
+			SEND_SOUND(M, round_end_sound)
+			sleep(sound_length)
 
 	world.Reboot()
 
