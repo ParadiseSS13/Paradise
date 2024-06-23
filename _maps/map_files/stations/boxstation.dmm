@@ -34147,6 +34147,9 @@
 /area/station/medical/medbay3)
 "chH" = (
 /obj/structure/closet/secure_closet/ntrep,
+/obj/machinery/keycard_auth{
+	pixel_y = -26
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "chI" = (
@@ -34340,6 +34343,9 @@
 /area/station/public/toilet/lockerroom)
 "ciD" = (
 /obj/structure/closet/secure_closet/blueshield,
+/obj/machinery/keycard_auth{
+	pixel_y = -26
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "ciE" = (
@@ -35183,6 +35189,13 @@
 	},
 /area/station/hallway/primary/aft/north)
 "clR" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Blueshield";
+	departmentType = 5;
+	name = "Blueshield Requests Console";
+	pixel_x = -32
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "clT" = (
@@ -64377,6 +64390,7 @@
 "jrt" = (
 /obj/structure/rack,
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "jrI" = (
@@ -69380,6 +69394,7 @@
 	layer = 2.9
 	},
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /obj/machinery/light,
 /obj/item/storage/box/monkeycubes/farwacubes{
 	pixel_x = -6
@@ -77012,6 +77027,7 @@
 /obj/item/storage/box/monkeycubes/stokcubes,
 /obj/item/storage/box/monkeycubes/neaeracubes,
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /obj/item/storage/box/monkeycubes/farwacubes,
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
@@ -82874,16 +82890,6 @@
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"smS" = (
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Blueshield";
-	departmentType = 5;
-	name = "Blueshield Requests Console";
-	pixel_y = -30
-	},
-/turf/simulated/wall,
-/area/station/command/office/blueshield)
 "smW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -120391,7 +120397,7 @@ bTy
 cok
 cfi
 cgS
-smS
+cgS
 cgS
 coT
 coT
