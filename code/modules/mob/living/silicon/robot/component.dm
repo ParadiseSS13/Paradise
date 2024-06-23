@@ -76,9 +76,15 @@
 	var/burn_damage_healed = clamp(electronics, 0, electronics_damage)
 	var/brute_damage_healed = clamp(brute, 0, brute_damage)
 	current_slowdown_factor = clamp((current_slowdown_factor - ((burn_damage_healed + brute_damage_healed) / 100)), min_slowdown_factor, max_slowdown_factor)
+	rounding_error_check()
 	brute_damage -= brute_damage_healed
 	electronics_damage -= burn_damage_healed
 	SStgui.update_uis(owner.self_diagnosis)
+
+///There tends to be some desync between slowdown and damage when being healed up slowly like through self-repair or upgraded rechargers.
+/datum/robot_component/proc/rounding_error_check()
+	if(current_slowdown_factor < (min_slowdown_factor) + 0.0001) //Within .0001 of the minimum, just set it to the minimum
+		current_slowdown_factor = min_slowdown_factor
 
 /datum/robot_component/proc/is_powered()
 	return installed && (brute_damage + electronics_damage < max_damage) && (powered)
