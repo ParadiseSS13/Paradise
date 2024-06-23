@@ -884,7 +884,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/list/special_belts = list(
 			/obj/item/defibrillator/compact,
 			/obj/item/nullrod,
-			/obj/item/judobelt,
+			/obj/item/storage/belt/judobelt,
 			/obj/item/claymore)
 		overlay_layer = is_type_in_list(belt, special_belts) ? SPECIAL_BELT_LAYER : BELT_LAYER
 		if(istype(belt, /obj/item/storage/belt))
