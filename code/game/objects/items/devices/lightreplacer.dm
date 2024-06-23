@@ -95,19 +95,17 @@
 
 	if(istype(I, /obj/item/light))
 		var/obj/item/light/L = I
-		if(L.status == LIGHT_OK)
-			if(!user.unEquip(L))
-				return
-			AddUses(1)
-			to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
-			qdel(L)
-			return
-
 		if(!user.unEquip(L))
 			to_chat(user, "<span class='warning'>[L] is stuck to your hand!</span>")
 			return
-		AddShards(1, user)
-		to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
+
+		if(L.status == LIGHT_OK)
+			AddUses(1)
+			to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
+			qdel(L)
+		else
+			AddShards(1, user)
+			to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
 		qdel(L)
 		return
 
