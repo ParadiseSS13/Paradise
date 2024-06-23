@@ -1,10 +1,9 @@
-
-/datum/event/mass_transfer
+/datum/event/crew_arrivals
 	var/max_spawn = 8 // Maximum amount of spawns.
 	var/spawned_in = 0 // Amount spawned in.
 	var/sucess_run = 0
 
-/datum/event/mass_transfer/start()
+/datum/event/crew_arrivals/start()
 	var/R = /datum/job/assistant
 
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_GAMMA) // Who would send more people to somewhere that's not safe?
@@ -18,7 +17,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(spawn_arrivals), spawn_where, R)
 
-/datum/event/mass_transfer/proc/spawn_arrivals(list/spawn_where, R)
+/datum/event/crew_arrivals/proc/spawn_arrivals(list/spawn_where, R)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to join as part of a mass personnel transfer?", null, TRUE, 30 SECONDS, FALSE, 0, FALSE, TRUE)
 	var/index = 1
 	while(max_spawn > 0 && length(candidates))
