@@ -744,7 +744,8 @@ SUBSYSTEM_DEF(ticker)
 	for(var/mob/M in GLOB.player_list)
 		if(M.client.prefs.sound & SOUND_END_OF_ROUND)
 			SEND_SOUND(M, round_end_sound)
-			sleep(sound_length)
+
+	sleep(sound_length)
 
 	world.Reboot()
 
