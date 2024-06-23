@@ -8,7 +8,7 @@
 	if(!msg)
 		return
 
-	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	var/datum/say/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
 	GLOB.asays += asay
 	log_adminsay(msg, src)
 
@@ -64,6 +64,8 @@
 
 	msg = emoji_parse(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
 	log_mentorsay(msg, src)
+	var/datum/say/msay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	GLOB.msays += msay
 	mob.create_log(OOC_LOG, "MSAY: [msg]")
 
 	if(!msg)

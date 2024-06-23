@@ -351,7 +351,7 @@
 	desc = "An energy based weapon that launches high velocity plasma spikes. These spikes hit with enough force to knock the target down and leave a nasty wound."
 	reference = "STG"
 	item = /obj/item/gun/energy/spikethrower
-	cost = 60
+	cost = 50
 	species = list("Vox")
 	surplus = 0
 
@@ -625,7 +625,7 @@
 	name = "Syndicate Bundle"
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals. You can select one out of three specialisations after purchase."
 	reference = "SYB"
-	item = /obj/item/radio/beacon/syndicate/bundle
+	item = /obj/item/beacon/syndicate/bundle
 	cost = 100
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -664,7 +664,7 @@
 	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SB"
-	item = /obj/item/radio/beacon/syndicate/bomb
+	item = /obj/item/beacon/syndicate/bomb
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -676,7 +676,7 @@
 	desc = "The EMP has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb. Will pulse 3 times."
 	reference = "SBEMP"
-	item = /obj/item/radio/beacon/syndicate/bomb/emp
+	item = /obj/item/beacon/syndicate/bomb/emp
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
