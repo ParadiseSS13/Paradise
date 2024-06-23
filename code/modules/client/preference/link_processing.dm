@@ -1034,7 +1034,7 @@
 					sound ^= SOUND_MIDI
 
 				if("hear_end_of_round")
-					sound ^= SOUND_END_OF_ROUND
+					sound ^= SOUND_MUTE_END_OF_ROUND
 
 				if("lobby_music")
 					sound ^= SOUND_LOBBY

@@ -170,13 +170,13 @@
 		usr.stop_sound_channel(CHANNEL_ADMIN)
 
 /datum/preference_toggle/toggle_end_of_round_sound
-	name = "Toggle End of Round Sound"
-	description = "Toggles hearing the end of round sound"
-	preftoggle_bitflag = SOUND_END_OF_ROUND
+	name = "Toggle Mute End of Round Sound"
+	description = "Toggles muting the end of round sound"
+	preftoggle_bitflag = SOUND_MUTE_END_OF_ROUND
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You will now hear the end of round sound."
-	disable_message = "You will no longer hear the end of round sound."
+	enable_message = "You have muted the end of round sound."
+	disable_message = "You have unmuted the end of round sound."
 	blackbox_message = "Toggle End of Round Sound"
 
 /datum/preference_toggle/toggle_ooc
