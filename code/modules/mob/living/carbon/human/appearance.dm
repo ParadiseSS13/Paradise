@@ -235,6 +235,14 @@
 		update_body()
 	return TRUE
 
+/mob/living/carbon/human/proc/change_runechat_color(colour = "#000000", update_dna = TRUE, skip_icons = TRUE)
+	if(colour == runechat_color)
+		return
+	runechat_color = colour
+	if(update_dna)
+		update_dna()
+	return TRUE
+
 /mob/living/carbon/human/proc/get_eye_color()
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)

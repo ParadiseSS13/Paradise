@@ -391,6 +391,11 @@
 					if(result)
 						active_character.h_grad_colour = result
 
+				if("runechat_color")
+					var/result = input(user, "Choose your character's runechat color:", "Character Preference", active_character.runechat_color) as color|null
+					if(result)
+						active_character.runechat_color = result
+
 				if("h_grad_alpha")
 					var/result = tgui_input_number(user, "Choose your character's hair gradient alpha (0-255):", "Character Preference", active_character.h_grad_alpha, 255)
 					if(isnull(result))

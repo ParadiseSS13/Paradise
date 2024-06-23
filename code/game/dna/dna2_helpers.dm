@@ -154,6 +154,9 @@
 
 		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
 
+		// Runechat color
+		H.runechat_color = rgb(dna.GetUIValueRange(DNA_UI_RUNECHAT_COLOR_R, 255), dna.GetUIValueRange(DNA_UI_RUNECHAT_COLOR_G, 255), dna.GetUIValueRange(DNA_UI_RUNECHAT_COLOR_B, 255))
+
 		switch(dna.GetUIState(DNA_UI_BODY_TYPE))
 			if(DNA_GENDER_FEMALE)
 				H.change_body_type(FEMALE, FALSE)
@@ -190,6 +193,8 @@
 		var/new_height = dna.GetUIValueRange(DNA_UI_HEIGHT, length(GLOB.character_heights))
 		if(ISINDEXSAFE(GLOB.character_heights, new_height))
 			H.height = GLOB.character_heights[new_height]
+
+
 
 		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, length(GLOB.body_accessory_by_name))
 		if(bodyacc > 0 && bodyacc <= length(GLOB.body_accessory_by_name))

@@ -153,6 +153,9 @@
 	var/default_headacc				//Default head accessory style for newly created humans unless otherwise set.
 	var/default_headacc_colour
 
+	///Runechat color, stored on the mob itself and not in preferances.
+	var/default_runechat_color = "#000000"
+
 	/// Name of default body accessory if any.
 	var/default_bodyacc
 
@@ -1053,17 +1056,12 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /**
   * Species-specific runechat colour handler
   *
-  * Checks the species datum flags and returns the appropriate colour
-  * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
+  * Returns the mob's runechat color which can be changed at a mirror or in preferances.
   * Arguments:
   * * H - The human who this DNA belongs to
   */
 /datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
-	if(bodyflags & HAS_SKIN_COLOR)
-		return H.skin_colour
-	else
-		var/obj/item/organ/external/head/HD = H.get_organ("head")
-		return HD?.hair_colour
+	return H.runechat_color
 
 /datum/species/proc/handle_harm_antag(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!istype(target))

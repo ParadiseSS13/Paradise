@@ -96,6 +96,9 @@
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"
 
+	///Runechat color
+	var/runechat_color = "#000000"
+
 	var/list/overlays_standing[TOTAL_LAYERS]
 	/// Stores what the body last looked like. Prevents updating the body when we don't need to
 	var/previous_damage_appearance

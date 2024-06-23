@@ -13,6 +13,7 @@ export const AppearanceChanger = (props, context) => {
     change_eye_color,
     change_skin_tone,
     change_skin_color,
+    change_runechat_color,
     change_head_accessory_color,
     change_hair_color,
     change_secondary_hair_color,
@@ -54,6 +55,7 @@ export const AppearanceChanger = (props, context) => {
     change_eye_color ||
     change_skin_tone ||
     change_skin_color ||
+    change_runechat_color ||
     change_head_accessory_color ||
     change_hair_color ||
     change_secondary_hair_color ||
@@ -253,6 +255,8 @@ const ColorContent = (props, context) => {
       text: 'Change skin color',
       action: 'skin_color',
     },
+
+    { key: 'change_runechat_color', text: 'Change runechat color', action: 'runechat_color' },
     {
       key: 'change_head_accessory_color',
       text: 'Change head accessory color',
