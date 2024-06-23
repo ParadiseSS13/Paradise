@@ -53,7 +53,7 @@
 		return has_changer
 
 	if(mind)
-		antagonist_status = mind.has_antag_datum(datum/antagonist)
+		var/datum/antagonist/antagonist_status = mind.has_antag_datum(/datum/antagonist)
 		if(antagonist_status?.mimicking)
 			return antagonist_status.mimicking
 

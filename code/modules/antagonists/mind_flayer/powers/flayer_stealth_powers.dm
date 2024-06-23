@@ -37,3 +37,27 @@
 	active_bugs += nanobot
 	flayer.send_swarm_message("Surveilance unit #[internal_camera.connections] deployed.")
 	return TRUE
+
+/datum/spell/flayer/self/voice_synthesizer
+	name = "Enhanced Voice Mod"
+	desc = "Name changer"
+	power_type = FLAYER_PURCHASABLE_POWER
+	base_cooldown = 1 SECONDS
+
+/datum/spell/flayer/self/voice_synthesizer/cast(list/targets, mob/living/user)
+	if(flayer.mimicking)
+		flayer.mimicking = ""
+		user.extra_message_range = 0
+		to_chat(user, "<span class='notice'>We turn our vocal modulator to its original settings.</span>")
+		return FALSE
+
+	var/mimic_voice = tgui_input_text(user, "Enter a name to mimic.", "Mimic Voice", max_length = MAX_NAME_LEN)
+	if(!mimic_voice)
+		return FALSE
+
+	flayer.mimicking = mimic_voice
+	user.extra_message_range = 5
+	to_chat(user, "<span class='notice'>We adjust the parameters of our voicebox to mimic <b>[mimic_voice]</b>.</span>")
+	to_chat(user, "<span class='notice'>Use this power again to return to revert the changes.</span>")
+	return TRUE
+
