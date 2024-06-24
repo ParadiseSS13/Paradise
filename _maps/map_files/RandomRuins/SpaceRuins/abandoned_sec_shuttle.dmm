@@ -56,7 +56,7 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/sec_shuttle)
 "j" = (
-/obj/machinery/computer{
+/obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -111,7 +111,7 @@
 	},
 /area/ruin/space/sec_shuttle)
 "D" = (
-/obj/machinery/computer,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
