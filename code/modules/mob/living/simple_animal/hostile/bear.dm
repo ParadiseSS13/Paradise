@@ -14,7 +14,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/snacks/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt = 1)
+	butcher_results = list(/obj/item/food/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt = 1)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "hits"
@@ -44,14 +44,14 @@
 	icon_state = "black_bear"
 	icon_living = "black_bear"
 	icon_dead = "black_bear_dead"
-	butcher_results = list(/obj/item/food/snacks/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/black = 1)
+	butcher_results = list(/obj/item/food/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/black = 1)
 
 /mob/living/simple_animal/hostile/bear/brown
 	name = "brown bear"
 	icon_state = "brown_bear"
 	icon_living = "brown_bear"
 	icon_dead = "brown_bear_dead"
-	butcher_results = list(/obj/item/food/snacks/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/brown = 1)
+	butcher_results = list(/obj/item/food/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/brown = 1)
 
 /mob/living/simple_animal/hostile/bear/polar
 	name = "polar bear"
@@ -59,7 +59,7 @@
 	icon_state = "polar_bear"
 	icon_living = "polar_bear"
 	icon_dead = "polar_bear_dead"
-	butcher_results = list(/obj/item/food/snacks/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/polar = 1)
+	butcher_results = list(/obj/item/food/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/polar = 1)
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson
@@ -68,7 +68,7 @@
 	icon_state = "combat_bear"
 	icon_living = "combat_bear"
 	icon_dead = "combat_bear_dead"
-	butcher_results = list(/obj/item/food/snacks/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/brown = 1)
+	butcher_results = list(/obj/item/food/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt/brown = 1)
 
 /mob/living/simple_animal/hostile/bear/Hudson/Initialize(mapload)
 	. = ..()

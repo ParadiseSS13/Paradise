@@ -1806,11 +1806,11 @@
 /area/station/hallway/secondary/entry/south)
 "anA" = (
 /obj/structure/table/reinforced,
-/obj/item/food/snacks/meat/slab{
+/obj/item/food/meat/slab{
 	pixel_x = 6;
 	pixel_y = 11
 	},
-/obj/item/food/snacks/meat/slab,
+/obj/item/food/meat/slab,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
@@ -7884,9 +7884,9 @@
 /obj/structure/table,
 /obj/item/seeds/poppy/lily,
 /obj/item/seeds/poppy/geranium,
-/obj/item/food/snacks/grown/wheat,
+/obj/item/food/grown/wheat,
 /obj/item/grown/corncob,
-/obj/item/food/snacks/grown/apple,
+/obj/item/food/grown/apple,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
@@ -7908,9 +7908,9 @@
 /obj/structure/table,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
-/obj/item/food/snacks/grown/tea,
-/obj/item/food/snacks/grown/grapes,
-/obj/item/food/snacks/grown/cherries,
+/obj/item/food/grown/tea,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/cherries,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
@@ -13132,7 +13132,7 @@
 /area/station/service/bar)
 "aRC" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/cheesiehonkers,
+/obj/item/food/cheesiehonkers,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -15011,7 +15011,7 @@
 /area/station/supply/miningdock)
 "aWg" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/chips,
+/obj/item/food/chips,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -19294,7 +19294,7 @@
 /obj/item/reagent_containers/condiment/flour,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/item/food/snacks/dough,
+/obj/item/food/dough,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -19341,7 +19341,7 @@
 "bhR" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/item/food/snacks/mint{
+/obj/item/food/mint{
 	pixel_y = 10
 	},
 /obj/item/reagent_containers/condiment/saltshaker{
@@ -24991,10 +24991,10 @@
 /obj/item/seeds/wheat,
 /obj/item/seeds/potato,
 /obj/item/seeds/pumpkin,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/watermelon,
-/obj/item/food/snacks/grown/grapes,
-/obj/item/food/snacks/grown/tomato,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/tomato,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -26200,7 +26200,7 @@
 	dir = 9
 	},
 /obj/structure/displaycase{
-	start_showpiece_type = /obj/item/food/snacks/donut/sprinkles
+	start_showpiece_type = /obj/item/food/donut/sprinkles
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -51072,7 +51072,7 @@
 "cOp" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/bananalamp,
-/obj/item/food/snacks/pie,
+/obj/item/food/pie,
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	d2 = 4;
@@ -64610,8 +64610,8 @@
 /area/station/service/chapel/office)
 "dUK" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/geranium,
-/obj/item/food/snacks/grown/lily{
+/obj/item/food/grown/geranium,
+/obj/item/food/grown/lily{
 	pixel_x = 4;
 	pixel_y = 5
 	},
@@ -76030,7 +76030,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "knI" = (
-/obj/item/food/snacks/donut/jelly/cherryjelly,
+/obj/item/food/donut/jelly/cherryjelly,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -88855,7 +88855,7 @@
 /obj/structure/table/reinforced,
 /obj/item/folder,
 /obj/item/pen,
-/obj/item/food/snacks/grown/apple,
+/obj/item/food/grown/apple,
 /obj/machinery/door/window/classic/normal{
 	dir = 8
 	},
@@ -94877,9 +94877,9 @@
 /obj/item/seeds/lime,
 /obj/item/seeds/watermelon,
 /obj/item/seeds/grape,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/watermelon,
-/obj/item/food/snacks/grown/banana,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/banana,
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
 	},

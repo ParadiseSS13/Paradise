@@ -12,7 +12,7 @@
 	see_in_dark = 6
 	maxHealth = 10
 	health = 10
-	butcher_results = list(/obj/item/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"

@@ -34,7 +34,7 @@
 	wander = FALSE
 	attacktext = "glomps"
 	attack_sound = 'sound/effects/blobattack.ogg'
-	butcher_results = list(/obj/item/food/snacks/meat/slab = 2)
+	butcher_results = list(/obj/item/food/meat/slab = 2)
 
 	/// If the morph is disguised or not
 	var/morphed = FALSE

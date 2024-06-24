@@ -173,7 +173,7 @@
 		if(!emagged && space_los(M))
 			Beam(get_turf(M), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
 			if(istype(M, /obj/effect/space_dust/meaty))
-				new /obj/item/food/snacks/meatsteak(get_turf(M))
+				new /obj/item/food/meatsteak(get_turf(M))
 			qdel(M)
 
 /obj/machinery/satellite/meteor_shield/toggle(user)

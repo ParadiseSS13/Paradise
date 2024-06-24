@@ -5,7 +5,7 @@
 	icon_state = "seed-watermelon"
 	species = "watermelon"
 	plantname = "Watermelon Vines"
-	product = /obj/item/food/snacks/grown/watermelon
+	product = /obj/item/food/grown/watermelon
 	lifespan = 50
 	endurance = 40
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
@@ -21,12 +21,12 @@
 	qdel(src)
 	return OBLITERATION
 
-/obj/item/food/snacks/grown/watermelon
+/obj/item/food/grown/watermelon
 	seed = /obj/item/seeds/watermelon
 	name = "watermelon"
 	desc = "It's full of watery goodness."
 	icon_state = "watermelon" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
-	slice_path = /obj/item/food/snacks/watermelonslice
+	slice_path = /obj/item/food/watermelonslice
 	slices_num = 5
 	dried_type = null
 	w_class = WEIGHT_CLASS_NORMAL
@@ -42,12 +42,12 @@
 	icon_state = "seed-holymelon"
 	species = "holymelon"
 	plantname = "Holy Melon Vines"
-	product = /obj/item/food/snacks/grown/holymelon
+	product = /obj/item/food/grown/holymelon
 	mutatelist = list()
 	reagents_add = list("holywater" = 0.2, "vitamin" = 0.04, "nutriment" = 0.1)
 	rarity = 20
 
-/obj/item/food/snacks/grown/holymelon
+/obj/item/food/grown/holymelon
 	seed = /obj/item/seeds/watermelon/holy
 	name = "holymelon"
 	desc = "The water within this melon has been blessed by some deity that's particularly fond of watermelon."

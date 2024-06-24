@@ -39,7 +39,7 @@
 	if(!linked_organ.owner)
 		change_beating(FALSE)
 
-/datum/organ/heart/on_prepare_eat(obj/item/food/snacks/organ/snorgan)
+/datum/organ/heart/on_prepare_eat(obj/item/food/organ/snorgan)
 	snorgan.icon_state = linked_organ.dead_icon
 
 /// A subtype that is always beating. Abductor glands and demon hearts use this.

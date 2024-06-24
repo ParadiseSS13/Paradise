@@ -14,7 +14,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	footstep_type = FOOTSTEP_MOB_CLAW
-	butcher_results = list(/obj/item/food/snacks/monstermeat/spidermeat = 2, /obj/item/food/snacks/monstermeat/spiderleg = 8)
+	butcher_results = list(/obj/item/food/monstermeat/spidermeat = 2, /obj/item/food/monstermeat/spiderleg = 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
@@ -65,7 +65,7 @@
 	icon_state = "nurse"
 	icon_living = "nurse"
 	icon_dead = "nurse_dead"
-	butcher_results = list(/obj/item/food/snacks/monstermeat/spidermeat = 2, /obj/item/food/snacks/monstermeat/spiderleg = 8, /obj/item/food/snacks/monstermeat/spidereggs = 4)
+	butcher_results = list(/obj/item/food/monstermeat/spidermeat = 2, /obj/item/food/monstermeat/spiderleg = 8, /obj/item/food/monstermeat/spidereggs = 4)
 
 	maxHealth = 40
 	health = 40

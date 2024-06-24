@@ -28,7 +28,7 @@
 		available_recipes = list()
 		acceptable_items = list()
 		//These are going to be acceptable even if they aren't in a recipe
-		acceptable_items |= /obj/item/food/snacks
+		acceptable_items |= /obj/item/food
 		acceptable_items |= /obj/item/reagent_containers/drinks/cans
 		//the rest is based on what is used in recipes so we don't have people destroying the nuke disc
 		for(var/type in subtypesof(/datum/bottler_recipe))
@@ -45,8 +45,8 @@
 		to_chat(user, "<span class='warning'>[O] is stuck to your hand, you can't seem to put it down!</span>")
 		return 0
 	if(is_type_in_list(O,acceptable_items))
-		if(istype(O, /obj/item/food/snacks))
-			var/obj/item/food/snacks/S = O
+		if(istype(O, /obj/item/food))
+			var/obj/item/food/S = O
 			user.unEquip(S)
 			if(S.reagents && !S.reagents.total_volume)		//This prevents us from using empty foods, should one occur due to some sort of error
 				to_chat(user, "<span class='warning'>[S] is gone, oh no!</span>")

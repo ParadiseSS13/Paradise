@@ -6,7 +6,7 @@
 	icon_state = "seed-x"
 	species = "?????"
 	plantname = "strange plant"
-	product = /obj/item/food/snacks/grown/random
+	product = /obj/item/food/grown/random
 	icon_grow = "xpod-grow"
 	icon_dead = "xpod-dead"
 	icon_harvest = "xpod-harvest"
@@ -30,14 +30,14 @@
 	add_random_plant_type(100)
 	desc = "Label: \n" + get_analyzer_text()
 
-/obj/item/food/snacks/grown/random
+/obj/item/food/grown/random
 	seed = /obj/item/seeds/random
 	name = "strange plant"
 	desc = "What could this even be?"
 	icon_state = "crunchy"
 	bitesize_mod = 2
 
-/obj/item/food/snacks/grown/random/Initialize()
+/obj/item/food/grown/random/Initialize()
 	. = ..()
 	wine_power = rand(0.1,1.5)
 	if(prob(1))

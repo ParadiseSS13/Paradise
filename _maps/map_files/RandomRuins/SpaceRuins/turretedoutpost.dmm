@@ -257,7 +257,7 @@
 /area/ruin/space/unpowered)
 "S" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/rawcutlet,
+/obj/item/food/rawcutlet,
 /obj/machinery/light{
 	dir = 8
 	},

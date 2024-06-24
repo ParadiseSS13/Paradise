@@ -318,11 +318,11 @@
 /area/ruin/space/unpowered)
 "aF" = (
 /obj/structure/closet/cardboard,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
+/obj/item/food/beans,
+/obj/item/food/beans,
+/obj/item/food/beans,
+/obj/item/food/beans,
+/obj/item/food/beans,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "aG" = (
@@ -649,7 +649,7 @@
 /area/ruin/space/unpowered)
 "bD" = (
 /obj/structure/table,
-/obj/item/food/snacks/beans,
+/obj/item/food/beans,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

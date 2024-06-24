@@ -8,7 +8,7 @@
 	force = 5
 
 	clumsy_check = FALSE
-	valid_projectile_type = /obj/item/food/snacks/pie
+	valid_projectile_type = /obj/item/food/pie
 	max_capacity = 5
 	projectile_speed = 2
 	projectile_range = 30
@@ -17,7 +17,7 @@
 /obj/item/gun/throw/piecannon/Initialize(mapload)
 	. = ..()
 	for(var/i in 1 to max_capacity)
-		var/obj/item/food/snacks/pie/P = new (src)
+		var/obj/item/food/pie/P = new (src)
 		loaded_projectiles += P
 	process_chamber()
 

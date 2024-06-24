@@ -16,7 +16,7 @@
 #define WATCHER_EGG_ACTIVE_MOD 0.5
 
 /// Egg which hatches into a helpful pet. Or you can eat it if you want.
-/obj/item/food/snacks/egg/watcher
+/obj/item/food/egg/watcher
 	name = "watcher egg"
 	desc = "A lonely egg still pulsing with life, somehow untouched by the corruption of the Necropolis."
 	icon_state = "egg_watcher"
@@ -30,15 +30,15 @@
 	/// Datum used to measure our steps
 	var/datum/movement_detector/pedometer
 
-/obj/item/food/snacks/egg/watcher/Initialize(mapload)
+/obj/item/food/egg/watcher/Initialize(mapload)
 	. = ..()
 	pedometer = new(src, CALLBACK(src, PROC_REF(on_stepped)))
 
-/obj/item/food/snacks/egg/watcher/Destroy(force)
+/obj/item/food/egg/watcher/Destroy(force)
 	. = ..()
 	QDEL_NULL(pedometer)
 
-/obj/item/food/snacks/egg/watcher/examine(mob/user)
+/obj/item/food/egg/watcher/examine(mob/user)
 	. = ..()
 	if(steps_travelled < (steps_to_hatch * WATCHER_EGG_ACTIVE_MOD))
 		. += "<span class='notice'>Something stirs listlessly inside.</span>"
@@ -50,7 +50,7 @@
 
 
 /// Called when we are moved, whether inside an inventory or by ourself somehow
-/obj/item/food/snacks/egg/watcher/proc/on_stepped(atom/movable/egg, atom/mover, atom/old_loc, direction)
+/obj/item/food/egg/watcher/proc/on_stepped(atom/movable/egg, atom/mover, atom/old_loc, direction)
 	var/new_loc = get_turf(egg)
 	if(isnull(new_loc) || new_loc == get_turf(old_loc))
 		return // Didn't actually go anywhere
@@ -67,7 +67,7 @@
 	qdel(src)
 
 /// Animate the egg
-/obj/item/food/snacks/egg/watcher/proc/jiggle()
+/obj/item/food/egg/watcher/proc/jiggle()
 	var/animation = isturf(loc) ? rand(1, 3) : 1 // Pixel_x/y animations don't work in an inventory
 	switch(animation)
 		if(1)

@@ -3,7 +3,7 @@
 //		Vendor		//
 //////////////////////
 
-/obj/item/food/snacks/chips
+/obj/item/food/chips
 	name = "chips"
 	desc = "Commander Riker's What-The-Crisps."
 	icon_state = "chips"
@@ -15,7 +15,7 @@
 	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 3)
 	tastes = list("crisps" = 1)
 
-/obj/item/food/snacks/sosjerky
+/obj/item/food/sosjerky
 	name = "Scaredy's Private Reserve Beef Jerky"
 	icon_state = "sosjerky"
 	desc = "Beef jerky made from the finest space cows."
@@ -26,7 +26,7 @@
 	list_reagents = list("protein" = 1, "sugar" = 3)
 	tastes = list("chewy beef" = 1)
 
-/obj/item/food/snacks/pistachios
+/obj/item/food/pistachios
 	name = "pistachios"
 	icon_state = "pistachios"
 	desc = "Deliciously salted pistachios. A perfectly valid choice..."
@@ -37,7 +37,7 @@
 	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 4)
 	tastes = list("pistachios" = 1)
 
-/obj/item/food/snacks/no_raisin
+/obj/item/food/no_raisin
 	name = "4no Raisins"
 	icon_state = "4no_raisins"
 	desc = "Best raisins in the universe. Not sure why."
@@ -48,7 +48,7 @@
 	list_reagents = list("plantmatter" = 2, "sugar" = 4)
 	tastes = list("dried raisins" = 1)
 
-/obj/item/food/snacks/spacetwinkie
+/obj/item/food/spacetwinkie
 	name = "Space Twinkie"
 	icon_state = "space_twinkie"
 	desc = "Guaranteed to survive longer then you will."
@@ -58,7 +58,7 @@
 	list_reagents = list("sugar" = 4)
 	tastes = list("twinkies" = 1)
 
-/obj/item/food/snacks/cheesiehonkers
+/obj/item/food/cheesiehonkers
 	name = "Cheesie Honkers"
 	icon_state = "cheesie_honkers"
 	desc = "Bite sized cheesie snacks that will honk all over your mouth."
@@ -69,7 +69,7 @@
 	list_reagents = list("nutriment" = 1, "fake_cheese" = 2, "sugar" = 3)
 	tastes = list("cheese" = 1, "crisps" = 2)
 
-/obj/item/food/snacks/syndicake
+/obj/item/food/syndicake
 	name = "Syndi-Cakes"
 	icon_state = "syndi_cakes"
 	desc = "An extremely moist snack cake that tastes just as good after being nuked."
@@ -80,7 +80,7 @@
 	list_reagents = list("nutriment" = 4, "salglu_solution" = 5)
 	tastes = list("sweetness" = 3, "cake" = 1)
 
-/obj/item/food/snacks/tastybread
+/obj/item/food/tastybread
 	name = "bread tube"
 	desc = "Bread in a tube. Chewy and surprisingly tasty."
 	icon_state = "tastybread"
@@ -91,7 +91,7 @@
 	list_reagents = list("nutriment" = 2, "sugar" = 4)
 	tastes = list("bread" = 1)
 
-/obj/item/food/snacks/stroopwafel
+/obj/item/food/stroopwafel
 	name = "stroopwafel"
 	desc = "Straight from the snack factories of Space Den Haag comes a classic dutch treat!"
 	icon_state = "stroopwafel"
@@ -100,7 +100,7 @@
 	list_reagents = list("nutriment" = 10, "sugar" = 4)
 	tastes = list("syrup" = 3, "waffle" = 2)
 
-/obj/item/food/snacks/twimsts
+/obj/item/food/twimsts
 	name = "Twimsts"
 	desc = "Sweet twisted sticks made of liquorice, can be used to make edible handcuffs!"
 	icon_state = "twimsts"
@@ -111,7 +111,7 @@
 	list_reagents = list("nutriment" = 2, "sugar" = 10)
 	tastes = list("sweetness" = 3, "liquorice" = 2)
 
-/obj/item/food/snacks/twimsts/attack_self(mob/user)
+/obj/item/food/twimsts/attack_self(mob/user)
 	var/obj/item/restraints/handcuffs/twimsts/L = new /obj/item/restraints/handcuffs/twimsts
 	L.create_reagents(100)
 	reagents.copy_to(L, reagents.total_volume)
@@ -125,13 +125,13 @@
 //		Homemade	//
 //////////////////////
 
-/obj/item/food/snacks/sosjerky/healthy
+/obj/item/food/sosjerky/healthy
 	name = "homemade beef jerky"
 	desc = "Homemade beef jerky made from the finest space cows."
 	list_reagents = list("nutriment" = 3, "vitamin" = 1)
 	junkiness = 0
 
-/obj/item/food/snacks/no_raisin/healthy
+/obj/item/food/no_raisin/healthy
 	name = "homemade raisins"
 	desc = "homemade raisins, the best in all of spess."
 	list_reagents = list("nutriment" = 3, "vitamin" = 2)

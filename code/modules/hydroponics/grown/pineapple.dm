@@ -5,7 +5,7 @@
 	icon_state = "seed-pineapple"
 	species = "pineapple"
 	plantname = "Pineapple Plant"
-	product = /obj/item/food/snacks/grown/pineapple
+	product = /obj/item/food/grown/pineapple
 	lifespan = 40
 	endurance = 30
 	growthstages = 3
@@ -14,7 +14,7 @@
 	mutatelist = list(/obj/item/seeds/apple)
 	reagents_add = list("vitamin" = 0.02, "plantmatter" = 0.2, "water" = 0.04)
 
-/obj/item/food/snacks/grown/pineapple
+/obj/item/food/grown/pineapple
 	seed = /obj/item/seeds/pineapple
 	name = "pineapple"
 	desc = "A soft sweet interior surrounded by a spiky skin."
@@ -25,7 +25,7 @@
 	attack_verb = list("stung", "pined")
 	throw_speed = 1
 	throw_range = 5
-	slice_path = /obj/item/food/snacks/pineappleslice
+	slice_path = /obj/item/food/pineappleslice
 	slices_num = 3
 	filling_color = "#F6CB0B"
 	w_class = WEIGHT_CLASS_NORMAL

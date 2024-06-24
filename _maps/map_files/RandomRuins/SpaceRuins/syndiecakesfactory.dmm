@@ -16,7 +16,7 @@
 /area/ruin/space/unpowered)
 "bk" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_y = 7
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -111,11 +111,11 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
 	},
-/obj/item/food/snacks/donut/sprinkles{
+/obj/item/food/donut/sprinkles{
 	pixel_y = 8;
 	pixel_x = -9
 	},
-/obj/item/food/snacks/donut/sprinkles{
+/obj/item/food/donut/sprinkles{
 	pixel_y = -1;
 	pixel_x = 5
 	},
@@ -123,8 +123,8 @@
 /area/ruin/space/unpowered)
 "fq" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/meat/corgi,
-/obj/item/food/snacks/meat/corgi{
+/obj/item/food/meat/corgi,
+/obj/item/food/meat/corgi{
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -133,14 +133,14 @@
 /area/ruin/space/unpowered)
 "fs" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_y = 7
 	},
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_x = 15;
 	pixel_y = 7
 	},
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_y = -10
 	},
 /obj/machinery/light/small{
@@ -152,7 +152,7 @@
 /area/ruin/space/unpowered)
 "fE" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/syndicake,
+/obj/item/food/syndicake,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -275,11 +275,11 @@
 /area/ruin/space/unpowered)
 "ke" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_x = 15;
 	pixel_y = 7
 	},
-/obj/item/food/snacks/syndicake,
+/obj/item/food/syndicake,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -369,11 +369,11 @@
 /area/ruin/space/unpowered)
 "qd" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/breadslice{
+/obj/item/food/breadslice,
+/obj/item/food/breadslice{
 	pixel_y = 4
 	},
-/obj/item/food/snacks/breadslice{
+/obj/item/food/breadslice{
 	pixel_y = 8
 	},
 /obj/machinery/light/small{
@@ -480,12 +480,12 @@
 /area/ruin/space/unpowered)
 "tf" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/syndicake,
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake,
+/obj/item/food/syndicake{
 	pixel_x = 15;
 	pixel_y = 7
 	},
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_x = 15
 	},
 /turf/simulated/floor/plasteel{
@@ -693,10 +693,10 @@
 /area/ruin/space/unpowered)
 "Bh" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_y = 7
 	},
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_y = -10
 	},
 /turf/simulated/floor/plasteel{
@@ -748,7 +748,7 @@
 /area/ruin/space/unpowered)
 "Do" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/meat/corgi,
+/obj/item/food/meat/corgi,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -832,8 +832,8 @@
 /area/ruin/space/unpowered)
 "Gn" = (
 /obj/structure/table/reinforced,
-/obj/item/food/snacks/syndicake,
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake,
+/obj/item/food/syndicake{
 	pixel_y = 7
 	},
 /turf/simulated/floor/engine,
@@ -877,7 +877,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "Iz" = (
-/obj/item/food/snacks/meat/corgi{
+/obj/item/food/meat/corgi{
 	pixel_y = 6
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -947,10 +947,10 @@
 /area/ruin/space/unpowered)
 "Lt" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_y = 7
 	},
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_x = 15
 	},
 /turf/simulated/floor/plasteel{
@@ -977,8 +977,8 @@
 /area/ruin/space/unpowered)
 "Mw" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/syndicake,
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake,
+/obj/item/food/syndicake{
 	pixel_x = 15;
 	pixel_y = 7
 	},
@@ -1003,10 +1003,10 @@
 /area/ruin/space/unpowered)
 "MY" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_y = 7
 	},
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_x = 15
 	},
 /turf/simulated/floor/plasteel{
@@ -1035,21 +1035,21 @@
 /area/template_noop)
 "Ov" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/donkpocket{
+/obj/item/food/donkpocket{
 	pixel_x = 8
 	},
-/obj/item/food/snacks/donkpocket{
+/obj/item/food/donkpocket{
 	pixel_x = -8
 	},
-/obj/item/food/snacks/donkpocket{
+/obj/item/food/donkpocket{
 	pixel_x = -8;
 	pixel_y = 8
 	},
-/obj/item/food/snacks/donkpocket{
+/obj/item/food/donkpocket{
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/food/snacks/birthdaycakeslice,
+/obj/item/food/birthdaycakeslice,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -1116,12 +1116,12 @@
 /area/ruin/space/unpowered)
 "QF" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/syndicake,
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake,
+/obj/item/food/syndicake{
 	pixel_x = 15;
 	pixel_y = 7
 	},
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_x = 15
 	},
 /obj/machinery/light/small{
@@ -1162,7 +1162,7 @@
 	},
 /area/ruin/space/unpowered)
 "SS" = (
-/obj/item/food/snacks/meat/corgi,
+/obj/item/food/meat/corgi,
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "TG" = (
@@ -1203,7 +1203,7 @@
 	},
 /area/ruin/space/unpowered)
 "VI" = (
-/obj/item/food/snacks/meat/corgi{
+/obj/item/food/meat/corgi{
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -1296,7 +1296,7 @@
 /area/ruin/space/unpowered)
 "Zw" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/food/snacks/syndicake{
+/obj/item/food/syndicake{
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{

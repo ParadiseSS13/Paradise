@@ -2,7 +2,7 @@
 	name = "seed vault seeds"
 	lootcount = 1
 
-	loot = list(/obj/item/food/snacks/grown/mushroom/glowshroom/glowcap = 10,
+	loot = list(/obj/item/food/grown/mushroom/glowshroom/glowcap = 10,
 				/obj/item/seeds/cherry/bomb = 10,
 				/obj/item/seeds/berry/glow = 10,
 				/obj/item/seeds/sunflower/moonflower = 8

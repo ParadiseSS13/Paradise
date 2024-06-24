@@ -5,7 +5,7 @@
 	icon_state = "seed-cocoapod"
 	species = "cocoapod"
 	plantname = "Cocao Tree"
-	product = /obj/item/food/snacks/grown/cocoapod
+	product = /obj/item/food/grown/cocoapod
 	lifespan = 20
 	maturation = 5
 	production = 5
@@ -18,7 +18,7 @@
 	mutatelist = list(/obj/item/seeds/cocoapod/vanillapod)
 	reagents_add = list("cocoa" = 0.25, "plantmatter" = 0.1)
 
-/obj/item/food/snacks/grown/cocoapod
+/obj/item/food/grown/cocoapod
 	seed = /obj/item/seeds/cocoapod
 	name = "cocoa pod"
 	desc = "Fattening... Mmmmm... chucklate."
@@ -34,12 +34,12 @@
 	icon_state = "seed-vanillapod"
 	species = "vanillapod"
 	plantname = "Vanilla Tree"
-	product = /obj/item/food/snacks/grown/vanillapod
+	product = /obj/item/food/grown/vanillapod
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list()
 	reagents_add = list("vanilla" = 0.25, "plantmatter" = 0.1)
 
-/obj/item/food/snacks/grown/vanillapod
+/obj/item/food/grown/vanillapod
 	seed = /obj/item/seeds/cocoapod/vanillapod
 	name = "vanilla pod"
 	desc = "Fattening... Mmmmm... vanilla."

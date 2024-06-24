@@ -153,25 +153,25 @@
 	name = "fancy food"
 	lootcount = 3
 	loot = list(
-		/obj/item/food/snacks/wingfangchu,
-		/obj/item/food/snacks/hotdog,
-		/obj/item/food/snacks/sliceable/turkey,
-		/obj/item/food/snacks/plumphelmetbiscuit,
-		/obj/item/food/snacks/appletart,
-		/obj/item/food/snacks/sliceable/cheesecake,
-		/obj/item/food/snacks/sliceable/bananacake,
-		/obj/item/food/snacks/sliceable/chocolatecake,
-		/obj/item/food/snacks/soup/meatballsoup,
-		/obj/item/food/snacks/soup/mysterysoup,
-		/obj/item/food/snacks/soup/stew,
-		/obj/item/food/snacks/soup/hotchili,
-		/obj/item/food/snacks/burrito,
-		/obj/item/food/snacks/fishburger,
-		/obj/item/food/snacks/cubancarp,
-		/obj/item/food/snacks/fishandchips,
-		/obj/item/food/snacks/meatpie,
+		/obj/item/food/wingfangchu,
+		/obj/item/food/hotdog,
+		/obj/item/food/sliceable/turkey,
+		/obj/item/food/plumphelmetbiscuit,
+		/obj/item/food/appletart,
+		/obj/item/food/sliceable/cheesecake,
+		/obj/item/food/sliceable/bananacake,
+		/obj/item/food/sliceable/chocolatecake,
+		/obj/item/food/soup/meatballsoup,
+		/obj/item/food/soup/mysterysoup,
+		/obj/item/food/soup/stew,
+		/obj/item/food/soup/hotchili,
+		/obj/item/food/burrito,
+		/obj/item/food/fishburger,
+		/obj/item/food/cubancarp,
+		/obj/item/food/fishandchips,
+		/obj/item/food/meatpie,
 		/obj/item/pizzabox/hawaiian, //it ONLY gives hawaiian. MUHAHAHA
-		/obj/item/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
+		/obj/item/food/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
 #define kW *1000

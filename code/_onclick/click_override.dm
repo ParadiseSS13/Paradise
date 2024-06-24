@@ -33,7 +33,7 @@
 	to_chat(user, "<span class='notice'>You draw a bit of power from [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>")
 
 /datum/middleClickOverride/badminClicker
-	var/summon_path = /obj/item/food/snacks/cookie
+	var/summon_path = /obj/item/food/cookie
 
 /datum/middleClickOverride/badminClicker/onClick(atom/A, mob/living/user)
 	var/atom/movable/newObject = new summon_path

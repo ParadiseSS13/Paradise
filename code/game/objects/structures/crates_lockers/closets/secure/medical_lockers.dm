@@ -135,7 +135,7 @@
 	new /obj/item/storage/pill_bottle/psychiatrist(src)
 	new /obj/random/plushie(src)
 	for(var/i in 0 to 3)
-		var/candy = pick(subtypesof(/obj/item/food/snacks/candy/fudge))
+		var/candy = pick(subtypesof(/obj/item/food/candy/fudge))
 		new candy(src)
 
 /obj/structure/closet/secure_closet/CMO

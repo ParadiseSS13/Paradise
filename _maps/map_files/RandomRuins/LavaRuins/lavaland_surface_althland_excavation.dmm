@@ -665,7 +665,7 @@
 /area/lavaland/surface/outdoors)
 "ie" = (
 /obj/structure/table,
-/obj/item/food/snacks/badrecipe,
+/obj/item/food/badrecipe,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "iv" = (
@@ -1088,8 +1088,8 @@
 "Cs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
-/obj/item/food/snacks/badrecipe,
-/obj/item/food/snacks/badrecipe{
+/obj/item/food/badrecipe,
+/obj/item/food/badrecipe{
 	pixel_y = 14;
 	pixel_x = 14
 	},
@@ -1313,7 +1313,7 @@
 /area/lavaland/surface/outdoors)
 "OX" = (
 /obj/structure/table_frame,
-/obj/item/food/snacks/badrecipe,
+/obj/item/food/badrecipe,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "Pe" = (

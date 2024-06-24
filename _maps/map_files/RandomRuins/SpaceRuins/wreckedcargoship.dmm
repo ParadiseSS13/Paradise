@@ -224,8 +224,8 @@
 /area/ruin/space/wreck_cargoship)
 "jm" = (
 /obj/item/toy/plushie/ipcplushie,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/breadslice,
+/obj/item/food/breadslice,
+/obj/item/food/breadslice,
 /obj/item/paper/crumpled{
 	name = "unintelligible scribbles";
 	info = "toast... i must... the plushie..."

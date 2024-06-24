@@ -4,7 +4,7 @@
 // ***********************************************************
 
 // Base type. Subtypes are found in /grown dir.
-/obj/item/food/snacks/grown
+/obj/item/food/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	/// The seed of this plant. Starts as a type path, gets converted to an item on New()
 	var/obj/item/seeds/seed = null
@@ -21,7 +21,7 @@
 	resistance_flags = FLAMMABLE
 	origin_tech = "biotech=1"
 
-/obj/item/food/snacks/grown/Initialize(mapload, obj/new_seed = null)
+/obj/item/food/grown/Initialize(mapload, obj/new_seed = null)
 	. = ..()
 	if(!tastes)
 		tastes = list("[name]" = 1)
@@ -51,25 +51,25 @@
 		if(seed.variant)
 			name += " \[[seed.variant]]"
 
-/obj/item/food/snacks/grown/Destroy()
+/obj/item/food/grown/Destroy()
 	QDEL_NULL(seed)
 	return ..()
 
-/obj/item/food/snacks/grown/proc/add_juice()
+/obj/item/food/grown/proc/add_juice()
 	if(reagents)
 		if(bitesize_mod)
 			bitesize = 1 + round(reagents.total_volume / bitesize_mod)
 		return 1
 	return 0
 
-/obj/item/food/snacks/grown/examine(user)
+/obj/item/food/grown/examine(user)
 	. = ..()
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			if(T.examine_line)
 				. += T.examine_line
 
-/obj/item/food/snacks/grown/attackby(obj/item/O, mob/user, params)
+/obj/item/food/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if(slices_num && slice_path)
 		var/inaccurate = TRUE
@@ -106,12 +106,12 @@
 
 
 // Various gene procs
-/obj/item/food/snacks/grown/attack_self(mob/user)
+/obj/item/food/grown/attack_self(mob/user)
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
 		squash(user)
 	..()
 
-/obj/item/food/snacks/grown/throw_impact(atom/hit_atom)
+/obj/item/food/grown/throw_impact(atom/hit_atom)
 	if(!..()) //was it caught by a mob?
 		if(seed)
 			log_action(locateUID(thrownby), hit_atom, "Thrown [src] at")
@@ -120,7 +120,7 @@
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
 				squash(hit_atom)
 
-/obj/item/food/snacks/grown/proc/squash(atom/target)
+/obj/item/food/grown/proc/squash(atom/target)
 	var/turf/T = get_turf(target)
 	if(ispath(splat_type, /obj/effect/decal/cleanable/plant_smudge))
 		if(filling_color)
@@ -145,28 +145,28 @@
 
 	qdel(src)
 
-/obj/item/food/snacks/grown/On_Consume(mob/M, mob/user)
+/obj/item/food/grown/On_Consume(mob/M, mob/user)
 	if(iscarbon(M))
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_consume(src, M)
 	..()
 
-/obj/item/food/snacks/grown/after_slip(mob/living/carbon/human/H)
+/obj/item/food/grown/after_slip(mob/living/carbon/human/H)
 	if(!seed)
 		return
 	for(var/datum/plant_gene/trait/T in seed.genes)
 		T.on_slip(src, H)
 
 // Glow gene procs
-/obj/item/food/snacks/grown/generate_trash(atom/location)
+/obj/item/food/grown/generate_trash(atom/location)
 	if(trash && ispath(trash, /obj/item/grown))
 		. = new trash(location, seed)
 		trash = null
 		return
 	return ..()
 
-/obj/item/food/snacks/grown/decompile_act(obj/item/matter_decompiler/C, mob/user)
+/obj/item/food/grown/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user))
 		C.stored_comms["wood"] += 4
 		qdel(src)
@@ -174,7 +174,7 @@
 	return ..()
 
 // For item-containing growns such as eggy or gatfruit
-/obj/item/food/snacks/grown/shell/attack_self(mob/user)
+/obj/item/food/grown/shell/attack_self(mob/user)
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
 	user.unEquip(src)
@@ -185,14 +185,14 @@
 	qdel(src)
 
 // Diona Nymphs can eat these as well as weeds to gain nutrition.
-/obj/item/food/snacks/grown/attack_animal(mob/living/simple_animal/M)
+/obj/item/food/grown/attack_animal(mob/living/simple_animal/M)
 	if(isnymph(M))
 		var/mob/living/simple_animal/diona/D = M
 		D.consume(src)
 	else
 		return ..()
 
-/obj/item/food/snacks/grown/proc/log_action(mob/user, atom/target, what_done)
+/obj/item/food/grown/proc/log_action(mob/user, atom/target, what_done)
 	var/reagent_str = reagents.log_list()
 	var/genes_str = "No genes"
 	if(seed && length(seed.genes))
@@ -205,12 +205,12 @@
 
 	add_attack_logs(user, target, "[what_done] ([reagent_str] | [genes_str])")
 
-/obj/item/food/snacks/grown/extinguish_light(force)
+/obj/item/food/grown/extinguish_light(force)
 	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
 		return
 	set_light(0)
 
-/obj/item/food/snacks/grown/proc/send_plant_details(mob/user)
+/obj/item/food/grown/proc/send_plant_details(mob/user)
 	var/msg = "<span class='info'>This is \a </span><span class='name'>[src].</span>\n"
 	if(seed)
 		msg += seed.get_analyzer_text()
@@ -225,13 +225,13 @@
 		msg += reag_txt
 	to_chat(user, msg)
 
-/obj/item/food/snacks/grown/attack_ghost(mob/dead/observer/user)
+/obj/item/food/grown/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
 	if(user.plant_analyzer)
 		send_plant_details(user)
 
-/obj/item/food/snacks/grown/fire_act()
+/obj/item/food/grown/fire_act()
 	if(!..()) //Checks for if its unburnable
 		return
 	if(!reagents)
