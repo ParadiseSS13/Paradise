@@ -569,8 +569,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "dl" = (
-/obj/effect/turf_decal/stripes/box,
-/turf/simulated/floor/engine,
+/obj/effect/turf_decal/stripes,
+/turf/simulated/floor/indestructible,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "do" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
