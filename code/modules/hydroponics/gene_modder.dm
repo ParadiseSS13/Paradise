@@ -6,26 +6,36 @@
 	icon_state = "dnamod"
 	density = TRUE
 	anchored = TRUE
-
+	/// the seed stored in the machine
 	var/obj/item/seeds/seed
+	/// the disk in use
 	var/obj/item/disk/plantgene/disk
-
+	/// list of the seed's trait genes
 	var/list/core_genes = list()
+	/// list of the seed's trait genes
 	var/list/reagent_genes = list()
+	/// list of the seed's trait genes
 	var/list/trait_genes = list()
+	/// disk capacity
 	var/disk_capacity = 100
-
+	/// gene targeted for operation
 	var/datum/plant_gene/target
+	/// maximum potency that can be put on a disk
 	var/max_potency = 50 // See RefreshParts() for how these work
+	/// maximum yield that can be put on a disk
 	var/max_yield = 2
+	/// minimum production that can be put on a disk
 	var/min_production = 12
+	/// maximum endurance that can be put on a disk
 	var/max_endurance = 10 // IMPT: ALSO AFFECTS LIFESPAN
+	/// minimum weed growth chance that can be put on a disk
 	var/min_weed_chance = 67
+	/// minimum weed growth rate that can be put on a disk
 	var/min_weed_rate = 10
+	/// amount of seeds needed to make a core stat disk
 	var/seeds_for_bulk_core = 5
-
+	/// index of disk in use in the content list
 	var/disk_index = 0
-
 
 /obj/machinery/plantgenes/Initialize(mapload)
 	. = ..()
@@ -291,7 +301,7 @@
 			else if(istype(D.gene, /datum/plant_gene/reagent))
 				var/datum/plant_gene/reagent/R = D.gene
 				var/insertable = R?.can_add(seed)
-				reagents.Add(list(list("display_name" = R.name + " " + num2text(R.rate*100) +"%", "index" = i,  "can_insert" = insertable, "read_only" = D.read_only)))
+				reagents.Add(list(list("display_name" = "[R.name] [num2text(R.rate*100)]%", "index" = i,  "can_insert" = insertable, "read_only" = D.read_only)))
 	if(length(stats))
 		data["stat_disks"] = stats
 	if(length(traits))
