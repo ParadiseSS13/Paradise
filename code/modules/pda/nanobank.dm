@@ -1,6 +1,7 @@
 #define TRANSFER_REQUEST_MAX		5000
 #define TRANSFER_COOLDOWN           5 SECONDS
 #define PREMIUM_COST 250
+
 /datum/data/pda/app/nanobank
 	name = "NanoBank"
 	icon = "fas fa-university"
@@ -108,7 +109,6 @@
 				can_deny = TRUE // if it's a department account, you can deny crates (only it's department crates will show up)
 			if(order.requires_cargo_approval)
 				can_approve = FALSE // You cannot remotely approve CT locked transactions :)
-
 
 			else if(order.requires_head_approval)
 				// Step 1: Check if this is a department account and assign permission accordingly
@@ -421,7 +421,6 @@
 				pda.atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
 				SSeconomy.request_list -= order
 
-
 /datum/data/pda/app/nanobank/proc/deny_crate(order_num, user)
 	if(!premium_version)
 		return // cheater cheater pumpkin eater
@@ -451,7 +450,6 @@
 			return
 		SSeconomy.request_list -= order
 		pda.investigate_log("| [key_name(user)] has denied an order for [order.object.name] through the Nanobank app.", "cargo")
-
 
 /datum/data/pda/app/nanobank/proc/pay_with_account(user, amount, purpose, transactor, datum/money_account/target)
 	if(user_account.suspended)
