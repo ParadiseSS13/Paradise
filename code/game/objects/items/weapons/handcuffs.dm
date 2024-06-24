@@ -262,7 +262,7 @@
 		reagents.reaction(user, REAGENT_INGEST)
 		reagents.trans_to(user, reagents.total_volume)
 	qdel(src)
-  
+
 //////////////////////////////
 // MARK: CRAFTING
 //////////////////////////////
