@@ -160,13 +160,13 @@
 	ui_interact(user)
 
 /obj/machinery/plantgenes/proc/add_disk(obj/item/disk/plantgene/new_disk, mob/user)
-	if(length(contents) >= disk_capacity)
+	if(length(contents) - (seed ? 1 : 0) >= disk_capacity)
 		to_chat(user, "<span class='warning'>[src] cannot hold any more disks!</span>")
 		return
 	if(istype(new_disk, /obj/item/storage/box))
 		var/has_disks = FALSE
 		for(var/obj/item/disk/plantgene/D in new_disk.contents)
-			if(length(contents) >= disk_capacity)
+			if(length(contents)- (seed ? 1 : 0) >= disk_capacity)
 				to_chat(user, "<span class='notice'>You fill [src] with disks.</span>")
 				break
 			has_disks = TRUE
@@ -301,7 +301,7 @@
 			else if(istype(D.gene, /datum/plant_gene/reagent))
 				var/datum/plant_gene/reagent/R = D.gene
 				var/insertable = R?.can_add(seed)
-				reagents.Add(list(list("display_name" = "[R.name] [num2text(R.rate*100)]%", "index" = i,  "can_insert" = insertable, "read_only" = D.read_only)))
+				reagents.Add(list(list("display_name" = "[R.name] [num2text(R.rate*200)]%", "index" = i,  "can_insert" = insertable, "read_only" = D.read_only)))
 	if(length(stats))
 		data["stat_disks"] = stats
 	if(length(traits))
