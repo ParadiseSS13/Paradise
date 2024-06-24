@@ -519,7 +519,7 @@
 		/obj/item/reagent_containers/condiment,
 	))
 
-/obj/machinery/smartfridge/secure/foodcart/attackby(obj/item/O, mob/user, params) ///Anti-theft technology, inspired by the station nuke
+/obj/machinery/smartfridge/secure/foodcart/attackby(obj/item/O, mob/user, params) // Anti-theft technology, inspired by the station nuke
 	if(istype(O, /obj/item/card/id))
 		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
