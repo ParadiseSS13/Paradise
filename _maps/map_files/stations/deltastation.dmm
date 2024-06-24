@@ -20732,13 +20732,13 @@
 	},
 /area/station/security/permabrig)
 "blf" = (
-/obj/machinery/smartfridge/foodcart,
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/smartfridge/secure/foodcart,
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blh" = (

@@ -471,7 +471,6 @@
 	face_while_pulling = FALSE
 	silicon_controllable = FALSE
 
-
 /obj/machinery/smartfridge/foodcart/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
@@ -490,6 +489,91 @@
 	return
 
 /obj/machinery/smartfridge/foodcart/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 4)
+	qdel(src)
+
+/**
+  * # Food and Drink Cart
+  *
+  * Secure variant of the [Food Cart][/obj/machinery/smartfridge/foodcart].
+  */
+/obj/machinery/smartfridge/secure/foodcart
+	name = "food and drink cart"
+	desc = "A portable cart for hawking your food and drink wares around the station. This one seems to have an ID scanner on it."
+	icon = 'icons/obj/kitchen.dmi'
+	icon_state = "foodcart"
+	anchored = FALSE
+	interact_offline = TRUE
+	power_state = NO_POWER_USE
+	visible_contents = FALSE
+	face_while_pulling = FALSE
+	silicon_controllable = FALSE
+
+/obj/machinery/smartfridge/secure/foodcart/Initialize(mapload)
+	. = ..()
+	req_one_access_txt = "[ACCESS_KITCHEN], [ACCESS_BAR]"
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/food/snacks,
+		/obj/item/reagent_containers/drinks,
+		/obj/item/reagent_containers/condiment,
+	))
+
+/obj/machinery/smartfridge/secure/foodcart/attackby(obj/item/O, mob/user, params) ///Anti-theft technology, inspired by the station nuke
+	if(istype(O, /obj/item/card/id))
+		if(!allowed(user))
+			to_chat(user, "<span class='warning'>Access denied.</span>")
+			return
+		if(emagged)
+			to_chat(user, "<span class='warning'>The cart is silent as a brief puff of black smoke rises from the ID scanner.</span>")
+			return
+		if(anchored)
+			to_chat(user, "<span class='warning'>You release the locking mechanism, unanchoring the cart.</span>")
+			anchored = FALSE
+			playsound(loc, 'sound/machines/boltsup.ogg', 30, 0, 3)
+			return
+		to_chat(user, "<span class='warning'>You swipe your ID over the scanner, and with a steely snap bolts slide out from underneath the cart, securely anchoring it on the floor.</span>")
+		anchored = TRUE
+		playsound(loc, 'sound/machines/boltsdown.ogg', 30, 0, 3)
+		return TRUE
+	if(istype(O, /obj/item/airlock_electronics) && !istype(O, /obj/item/airlock_electronics/destroyed))
+		var/obj/item/airlock_electronics/new_electronics = O
+		if(!emagged)
+			to_chat(user, "<span class='warning'>The cart is working fine and doesn't needs repairs!</span>")
+			return
+		user.drop_item()
+		new_electronics.forceMove(src)
+		spawn_atom_to_turf(/obj/item/airlock_electronics/destroyed, user.loc, 1)
+		emagged = FALSE
+		to_chat(user, "<span class='notice'>You swap out the burnt out electronics in the ID scanner.</span>")
+		return TRUE
+	. = ..()
+
+/obj/machinery/smartfridge/secure/foodcart/emag_act(mob/user)
+	. = ..()
+	if(anchored)
+		anchored = FALSE
+		playsound(loc, 'sound/machines/boltsup.ogg', 30, 0, 3)
+
+/obj/machinery/smartfridge/secure/foodcart/emp_act(severity)
+	. = ..()
+	if(anchored)
+		anchored = FALSE
+		playsound(loc, 'sound/machines/boltsup.ogg', 30, 0, 3)
+
+/obj/machinery/smartfridge/secure/foodcart/screwdriver_act(mob/living/user, obj/item/I)
+	return
+
+/obj/machinery/smartfridge/secure/foodcart/wrench_act(mob/living/user, obj/item/I)
+	return
+
+/obj/machinery/smartfridge/secure/foodcart/crowbar_act(mob/living/user, obj/item/I)
+	return
+
+/obj/machinery/smartfridge/secure/foodcart/exchange_parts()
+	return
+
+/obj/machinery/smartfridge/secure/foodcart/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 4)
 	qdel(src)

@@ -80148,8 +80148,8 @@
 	},
 /area/station/hallway/primary/aft/north)
 "sgk" = (
-/obj/machinery/smartfridge/foodcart,
 /obj/machinery/alarm/directional/north,
+/obj/machinery/smartfridge/secure/foodcart,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},

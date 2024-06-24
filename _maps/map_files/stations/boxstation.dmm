@@ -22208,7 +22208,7 @@
 	},
 /area/station/service/chapel)
 "bpL" = (
-/obj/machinery/smartfridge/foodcart,
+/obj/machinery/smartfridge/secure/foodcart,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
