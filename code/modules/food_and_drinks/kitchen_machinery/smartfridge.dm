@@ -547,7 +547,7 @@
 		emagged = FALSE
 		to_chat(user, "<span class='notice'>You swap out the burnt out electronics in the ID scanner.</span>")
 		return TRUE
-	. = ..()
+	return ..()
 
 /obj/machinery/smartfridge/secure/foodcart/emag_act(mob/user)
 	. = ..()
