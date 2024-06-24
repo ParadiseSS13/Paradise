@@ -203,7 +203,7 @@
 				user.visible_message(
 					"<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>",
 					"<span class='danger'>You blow smoke off of [src]'s barrel.</span>",
-					"<span class='danger'>You hear someone blowing.</span>"
+					"<span class='danger'>You hear someone blowing over a hollow tube.</span>"
 					)
 			else
 				handle_suicide(user, target, params)
