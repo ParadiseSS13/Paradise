@@ -164,12 +164,12 @@
 		var/obj/item/grown/log/L = W
 		qdel(L)
 		fuel = clamp(fuel + (fuel_per_plank * 2), 0, max_fuel)
-		to_chat(user, "<span class='italics'>You add a fuel to [src].")
+		to_chat(user, "<span class='italics'>You add a fuel to [src].</span>")
 	if(istype(W, /obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/P = W
 		P.use(1)
 		fuel = clamp(fuel + fuel_per_plank, 0, max_fuel)
-		to_chat(user, "<span class='italics'>You add a fuel to [src].")
+		to_chat(user, "<span class='italics'>You add a fuel to [src].</span>")
 	if(istype(W, /obj/item/stack/rods) && !can_buckle)
 		var/obj/item/stack/rods/R = W
 		R.use(1)
