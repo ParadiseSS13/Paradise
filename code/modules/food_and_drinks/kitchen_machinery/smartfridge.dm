@@ -499,8 +499,8 @@
   * Secure variant of the [Food Cart][/obj/machinery/smartfridge/foodcart].
   */
 /obj/machinery/smartfridge/secure/foodcart
-	name = "food and drink cart"
-	desc = "A portable cart for hawking your food and drink wares around the station. This one seems to have an ID scanner on it."
+	name = "E.A.T."
+	desc = "Short for the Entrée Armoured Transport, this technological marvel by Donk Co. allows Chefs to... for hawking your food and drink wares around the station, just with a bit more security."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "foodcart"
 	anchored = FALSE
