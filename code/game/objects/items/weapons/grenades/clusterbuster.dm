@@ -232,6 +232,11 @@
 	desc = "For when you need to do something between everything and nothing."
 	payload = /obj/item/grenade/iedcasing
 
+/obj/item/grenade/clusterbuster/tar
+	name = "\improper Sticky Tar Cluster Grenade"
+	desc = "Speed limit enforced by goop."
+	payload = /obj/item/grenade/chem_grenade/tar
+
 ////////////Clusterbuster of Clusterbusters////////////
 //As a note: be extrodinarily careful about make the payload clusterbusters as it can quickly destroy the MC/Server
 

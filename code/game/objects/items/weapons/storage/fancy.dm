@@ -286,8 +286,9 @@
 /obj/item/storage/fancy/cigarettes/syndicate
 	name = "\improper Syndicate Cigarettes"
 	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\""
-	icon_state = "robustpacket"
-	item_state = "robustpacket"
+	icon_state = "syndiepacket"
+	item_state = "syndiepacket"
+	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/syndicate/Initialize(mapload)
 	. = ..()
@@ -431,11 +432,10 @@
 	name = "secure vial storage box - 'Anti-Plague Sequences'"
 
 /obj/item/storage/lockbox/vials/zombie_cure/populate_contents()
-	for(var/count in 1 to 4)
-		var/obj/item/reagent_containers/glass/bottle/cure = new /obj/item/reagent_containers/glass/bottle(src)
-		cure.reagents.add_reagent("zombiecure[count]", 50)
-		var/datum/reagent/temp = GLOB.chemical_reagents_list["zombiecure[count]"]
-		cure.name = "[lowertext(temp.name)] bottle"
+	new /obj/item/reagent_containers/glass/bottle/zombiecure1(src)
+	new /obj/item/reagent_containers/glass/bottle/zombiecure2(src)
+	new /obj/item/reagent_containers/glass/bottle/zombiecure3(src)
+	new /obj/item/reagent_containers/glass/bottle/zombiecure4(src)
 
 
 ///Aquatic Starter Kit

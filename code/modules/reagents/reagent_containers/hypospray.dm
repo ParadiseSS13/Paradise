@@ -121,7 +121,7 @@
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. It has a proprietary adapter allowing it to inject through the ports of Syndicate-made hardsuits."
 	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = null
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30)
 	icon_state = "combat_hypo"
 	volume = 90
 	can_pierce_hardsuits = TRUE // So they can heal their comrades.
@@ -129,10 +129,16 @@
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
-	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing. It can interface with the injection ports on any type of hardsuit."
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with a cocktail of experimental combat drugs and <b>extremely</b> expensive medical nanomachines. Capable of healing almost any injury in just a few seconds. It can interface with the injection ports on any type of hardsuit."
 	icon_state = "nanites_hypo"
 	volume = 100
 	list_reagents = list("nanites" = 100)
+
+/obj/item/reagent_containers/hypospray/combat/syndicate_nanites
+	name = "medical nanite injector"
+	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanomachines for rapid field stabilization."
+	volume = 100
+	list_reagents = list("syndicate_nanites" = 100)
 
 //////////////////////////////
 // MARK: CMO HYPO
@@ -247,3 +253,31 @@
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure
+	name = "\improper Anti-Plague Sequence Alpha autoinjector"
+	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Alpha. Prevents infection, cures level 1 infection."
+	icon_state = "zombiepen"
+	amount_per_transfer_from_this = 15
+	volume = 15
+	container_type = null //No sucking out the reagent
+	list_reagents = list("zombiecure1" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/attack(mob/living/M, mob/user)
+	if(..())
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE) //Sucker for sounds, also gets zombies attention.
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure2
+	name = "\improper Anti-Plague Sequence Beta autoinjector"
+	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Beta. Weakens zombies, heals low infections."
+	list_reagents = list("zombiecure2" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure3
+	name = "\improper Anti-Plague Sequence Gamma autoinjector"
+	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Gamma. Lowers zombies healing. Heals stage 5 and slows stage 6 infections."
+	list_reagents = list("zombiecure3" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure4
+	name = "\improper Anti-Plague Sequence Omega autoinjector"
+	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Omega.  Cures all cases of the Necrotizing Plague. Also heals dead limbs."
+	list_reagents = list("zombiecure4" = 15)
