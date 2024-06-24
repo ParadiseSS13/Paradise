@@ -148,11 +148,11 @@
 
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
 	suit = /obj/item/clothing/suit/apron/overalls
-	shoes = /obj/item/clothing/shoes/galoshes/dry
+	shoes = /obj/item/clothing/shoes/galoshes/dry/lightweight
 	gloves = /obj/item/clothing/gloves/color/purple
 	mask = /obj/item/clothing/mask/bandana/purple
 	head = /obj/item/clothing/head/soft/purple
-	belt = /obj/item/storage/belt/janitor/full
+	belt = /obj/item/storage/belt/janitor/full/donor
 	r_pocket = /obj/item/door_remote/janikeyring
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/janitor
@@ -161,6 +161,7 @@
 		/obj/item/clothing/head/beret/purple_normal = 1,
 		/obj/item/clothing/suit/storage/iaa/purplejacket = 1,
 		/obj/item/clipboard = 1,
+		/obj/item/reagent_containers/spray/cleaner = 1,
 	)
 
 

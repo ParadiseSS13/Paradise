@@ -169,3 +169,13 @@
 /obj/item/gun/energy/clown/security/warden
 	name = "Личное ХОНК-ружье смотрителя"
 	desc = "Личное смертоносное оружие клоуна-смотрителя, выданное за заслуги перед НТ и \[ДАННЫЕ ХОНКНУТЫ\]. Ходят слухи что это один из первых экземпляров произведенных во время войны мимов и клоунов на родной планете клоунов."
+
+// JANITOR //
+/obj/item/storage/belt/janitor/full/donor/populate_contents()
+	new /obj/item/holosign_creator/janitor(src)
+	new /obj/item/reagent_containers/spray/cleaner(src)
+	new /obj/item/storage/bag/trash(src)
+	new /obj/item/soap/nanotrasen/prime(src)
+	new /obj/item/grenade/chem_grenade/cleaner(src)
+	new /obj/item/grenade/chem_grenade/cleaner(src)
+	update_icon()

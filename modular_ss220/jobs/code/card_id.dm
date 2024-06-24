@@ -140,7 +140,7 @@ GLOBAL_LIST_INIT(card_skins_donor_ss220, list(
 	name = "Clining Manager ID"
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MEDICAL)
 	icon = 'modular_ss220/aesthetics/better_ids/icons/better_ids.dmi'
-	icon_state = "cleaningmanager"
+	icon_state = "managerjanitor"
 
 /obj/item/card/id/apprentice
 	name = "Apprentice ID"
