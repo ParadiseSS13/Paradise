@@ -224,7 +224,7 @@
 		user.visible_message(
 			"<span class='notice'>[user] deals [dcard] card(s) to [user.p_themselves()].</span>",
 			"<span class='notice'>You deal [dcard] card(s) to yourself.</span>",
-			"<span class='notice'>You deal [dcard] card(s) to yourself.</span>"
+			"<span class='notice'>You hear cards being dealt.</span>"
 			)
 	else
 		user.visible_message(
