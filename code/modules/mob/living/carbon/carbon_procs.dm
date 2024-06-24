@@ -802,15 +802,22 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
-	var/obj/item/I = get_restraining_item()
-	var/time = 0
-	if(istype(I))
-		time = I.breakouttime
+	var/breakout_time = 0
+	var/obj/item/restraints = get_restraining_item()
+
+	if(istype(restraints, /obj/item/clothing/suit/straight_jacket))
+		var/obj/item/clothing/suit/straight_jacket/jacket = restraints
+		jacket.breakouttime = breakout_time
+
+	else if(istype(restraints, /obj/item/restraints))
+		var/obj/item/restraints/cuffs = restraints
+		breakout_time = cuffs.breakouttime
+
 	else if(isstructure(buckled))
 		var/obj/structure/struct = buckled
-		time = struct.unbuckle_time
+		breakout_time = struct.unbuckle_time
 
-	if(time == 0)
+	if(!breakout_time)
 		buckled.user_unbuckle_mob(src, src)
 		return
 
@@ -820,8 +827,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	apply_status_effect(STATUS_EFFECT_UNBUCKLE)
 
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
-				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
-	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check)))))
+				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [breakout_time / 10] seconds and you need to stay still.)</span>")
+	if(!do_after(src, breakout_time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check)))))
 		if(src && buckled)
 			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 	else
@@ -895,7 +902,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		unEquip(I)
 	remove_status_effect(STATUS_EFFECT_REMOVE_MUZZLE)
 
-/mob/living/carbon/proc/cuff_resist(obj/item/restraints, break_cuffs)
+/mob/living/carbon/proc/cuff_resist(obj/item/restraints/restraints, break_cuffs)
 	var/effective_breakout_time = restraints.breakouttime
 	if(break_cuffs)
 		effective_breakout_time = 5 SECONDS
