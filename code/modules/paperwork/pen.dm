@@ -148,7 +148,6 @@
 	origin_tech = "engineering=4;syndicate=2"
 	var/transfer_amount = 50
 
-
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
 	if(!istype(M))
 		return
@@ -169,7 +168,6 @@
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	return TRUE
-
 
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
@@ -196,6 +194,11 @@
 
 /obj/item/pen/sleepy/love/fill_pen()
 	reagents.add_reagent("love", 100)
+
+/obj/item/pen/sleepy/undisguised
+	name = "sleepy pen"
+	desc = "Used to stealthily inject targets. Comes loaded with ketamine but can be refilled with other chemicals. This one isn't disguised."
+	icon_state = "pen_syndie"
 
 //////////////////////////////
 // MARK: E-DAGGERS
