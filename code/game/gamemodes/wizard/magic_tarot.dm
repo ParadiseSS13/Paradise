@@ -147,6 +147,8 @@
 	var/card_desc = "Untold answers... wait what? This is a bug, report this as an issue on github!"
 	///Is the card face down? Shows the card back, hides the examine / name.
 	var/face_down = FALSE
+	///Has the card been activated? If it has, don't activate it again
+	var/has_been_activated = FALSE
 
 /obj/item/magic_tarot_card/Initialize(mapload, obj/item/tarot_generator/source, datum/tarot/chosen_tarot)
 	. = ..()
@@ -173,9 +175,16 @@
 	. += "<span class='hierophant'>Alt-Shift-Click to flip the card over.</span>"
 
 /obj/item/magic_tarot_card/attack_self(mob/user)
-	if(our_tarot)
-		INVOKE_ASYNC(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user)
 	poof()
+	if(has_been_activated)
+		return
+	if(face_down)
+		flip()
+	if(our_tarot)
+		user.drop_item()
+		pre_activate(user)
+		return
+	qdel(src)
 
 /obj/item/magic_tarot_card/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	if(face_down)
@@ -184,9 +193,13 @@
 
 /obj/item/magic_tarot_card/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	if(isliving(hit_atom) && our_tarot)
-		INVOKE_ASYNC(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), hit_atom)
 	poof()
+	if(has_been_activated)
+		return
+	if(isliving(hit_atom) && our_tarot)
+		pre_activate(hit_atom)
+		return
+	qdel(src)
 
 /obj/item/magic_tarot_card/AltShiftClick(mob/user)
 	flip()
@@ -203,12 +216,37 @@
 
 /obj/item/magic_tarot_card/proc/poof()
 	new /obj/effect/temp_visual/revenant(get_turf(src))
-	qdel(src)
 
 /obj/item/magic_tarot_card/proc/dust()
 	visible_message("<span class='danger'>[src] disintegrates into dust!</span>")
 	new /obj/effect/temp_visual/revenant(get_turf(src))
 	qdel(src)
+
+/obj/item/magic_tarot_card/proc/pre_activate(mob/user)
+	has_been_activated = TRUE
+	forceMove(user)
+	var/obj/effect/temp_visual/tarot_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
+	user.vis_contents += draft
+	user.visible_message("<span class='hierophant'>[user] holds up [src]!</span>")
+	addtimer(CALLBACK(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user), 0.5 SECONDS)
+	QDEL_IN(src, 0.6 SECONDS)
+
+/obj/effect/temp_visual/tarot_preview
+	name = "a tarot card"
+	icon = 'icons/obj/playing_cards.dmi'
+	icon_state = "tarot_the_unknown"
+	pixel_y = 20
+	duration = 1.5 SECONDS
+
+/obj/effect/temp_visual/tarot_preview/Initialize(atom/mapload, new_icon_state)
+	. = ..()
+	if(new_icon_state)
+		icon_state = "tarot_[new_icon_state]"
+	var/new_filter = isnull(get_filter("ray"))
+	ray_filter_helper(1, 40,"#fcf3dc", 6, 20)
+	if(new_filter)
+		animate(get_filter("ray"), alpha = 0, offset = 10, time = duration, loop = -1)
+		animate(offset = 0, time = duration)
 
 /datum/tarot
 	/// Name used for the card
@@ -572,7 +610,7 @@
 		return
 	var/mob/living/carbon/human/H = target
 	for(var/obj/item/I in H)
-		if(istype(/obj/item/bio_chip, I))
+		if(istype(I, /obj/item/bio_chip))
 			continue
 		H.unEquip(I)
 

@@ -384,7 +384,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		else if(allowed(user))
 			locked = !locked
 			to_chat(user, "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>")
-			updateUsrDialog()
+			SStgui.update_uis(src)
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
 

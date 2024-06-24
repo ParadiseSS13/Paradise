@@ -336,3 +336,11 @@
 	description = "A derelict operating base for NT engineering crew."
 	allow_duplicates = FALSE
 	cost = 1
+
+/datum/map_template/ruin/space/rocky_motel
+	id = "rocky_motel"
+	suffix = "rocky_motel.dmm"
+	name = "Rocky Motel"
+	description = "A cozy little home nestled in an asteroid, perfect for one or two people!"
+	allow_duplicates = FALSE
+	cost = 1

@@ -25,7 +25,6 @@
 	maxHealth = 150
 	health = 150
 	healable = FALSE
-	gender = NEUTER
 
 	see_in_dark = 8
 
