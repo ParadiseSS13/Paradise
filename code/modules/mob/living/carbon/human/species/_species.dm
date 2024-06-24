@@ -153,8 +153,6 @@
 	var/default_headacc				//Default head accessory style for newly created humans unless otherwise set.
 	var/default_headacc_colour
 
-	///Runechat color, stored on the mob itself and not in preferances.
-	var/default_runechat_color = "#FFFFFF"
 
 	/// Name of default body accessory if any.
 	var/default_bodyacc

@@ -143,8 +143,8 @@
 
 		if("runechat_color")
 			var/new_runechat_color = input("Please select runechat color.", "Runechat Color", owner.runechat_color) as color|null
-			if(new_runechat_color && (!..()) && owner.change_runechat_color(new_runechat_color))
-				update_dna()
+			if(new_runechat_color && (!..()))
+				owner.change_runechat_color(new_runechat_color)
 
 		if("head_accessory")
 			if(can_change_head_accessory() && (params["head_accessory"] in valid_head_accessories))

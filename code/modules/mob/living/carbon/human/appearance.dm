@@ -235,7 +235,7 @@
 		update_body()
 	return TRUE
 
-/mob/living/carbon/human/proc/change_runechat_color(colour = "#000000", update_dna = TRUE, skip_icons = TRUE)
+/mob/living/carbon/human/proc/change_runechat_color(colour = "#000000", update_dna = TRUE)
 	if(colour == runechat_color)
 		return
 	runechat_color = colour
