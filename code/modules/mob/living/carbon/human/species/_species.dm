@@ -1087,17 +1087,18 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
 			user.do_attack_animation(target, ATTACK_EFFECT_BITE)
 			target.apply_damage(20, BRUTE, user.zone_selected)
-			if(!target.HasDisease(/datum/disease/zombie))
-				var/datum/disease/zombie/zomb = new /datum/disease/zombie
-				if(target.CanContractDisease(zomb)) // biosuit aint going to protect you buddy
-					target.ForceContractDisease(zomb)
-					target.Dizzy(10 SECONDS)
-					target.Confused(10 SECONDS)
-				else
-					qdel(zomb)
+			if(!HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
+				if(!target.HasDisease(/datum/disease/zombie))
+					var/datum/disease/zombie/zomb = new /datum/disease/zombie
+					if(target.CanContractDisease(zomb)) // biosuit aint going to protect you buddy
+						target.ForceContractDisease(zomb)
+						target.Dizzy(10 SECONDS)
+						target.Confused(10 SECONDS)
+					else
+						qdel(zomb)
 
-			for(var/datum/disease/zombie/zomb in target.viruses)
-				zomb.stage = max(rand(3, 4), zomb.stage)
+				for(var/datum/disease/zombie/zomb in target.viruses)
+					zomb.stage = max(rand(3, 4), zomb.stage)
 
 			qdel(grabby)
 			return TRUE
@@ -1126,12 +1127,13 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 		eat_brain.custom_pain("OH GOD!!! THEY'RE EATING MY [uppertext(eat_brain.name)]!!") // gnarly
 		user.visible_message("<span class='danger'>[user] digs their claws into [target]'s [brain_house.name], eating their [eat_brain]!</span>", "<span class='danger zombie'>We feast on [target]'s brains.</span>")
-		if(!target.HasDisease(/datum/disease/zombie))
-			var/datum/disease/zombie/zomb = new /datum/disease/zombie
-			target.ContractDisease(zomb)
+		if(!HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
+			if(!target.HasDisease(/datum/disease/zombie))
+				var/datum/disease/zombie/zomb = new /datum/disease/zombie
+				target.ContractDisease(zomb)
 
-		for(var/datum/disease/zombie/zomb in target.viruses)
-			zomb.stage = max(5, zomb.stage)
+			for(var/datum/disease/zombie/zomb in target.viruses)
+				zomb.stage = max(5, zomb.stage)
 
 		if(!do_mob(user, target, 1 SECONDS))
 			return

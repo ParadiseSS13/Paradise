@@ -36,7 +36,7 @@
 		return
 	if(zomboid.client || isLivingSSD(zomboid))
 		return
-	if(zomboid.last_known_ckey && !zomboid.key) // make sure they were player inhabited and not admin ghosted
+	if((zomboid.last_known_ckey || HAS_TRAIT(zomboid, TRAIT_NPC_ZOMBIE)) && !zomboid.key) // make sure they were player inhabited and not admin ghosted
 		mindless_hunger()
 
 /datum/component/zombie_regen/proc/zombie_rejuv()
