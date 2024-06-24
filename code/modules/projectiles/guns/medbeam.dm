@@ -269,8 +269,10 @@
 		to_chat(user, "<span class='notice'>You stop repairing [src].</span>")
 		return
 
-	if(!tool_used.use_tool(src, user))
-		to_chat(user, "<span class='warning'>You failed to use [tool_used] on [src].</span>")
+	if(!user.Adjacent(src))
+		return
+
+	if(!user.get_active_hand() == tool_used)
 		return
 
 	switch(broken)
