@@ -265,12 +265,12 @@
 		return TRUE
 
 /obj/item/gun/medbeam/damaged/proc/attempt_repair(mob/living/user, obj/item/tool_used, next_broken_state)
-	if(!do_after(user, 5 SECONDS, TRUE, src))
+	if(!do_after_once(user, 5 SECONDS, TRUE, src))
 		to_chat(user, "<span class='notice'>You stop repairing [src].</span>")
 		return
 
-	if(!broken)
-		to_chat(user, "<span class='warning'>[src] isn't broken, what are you trying to repair?</span>")
+	if(!tool_used.use_tool(src, user))
+		to_chat(user, "<span class='warning'>You failed to use [tool_used] on [src].</span>")
 		return
 
 	switch(broken)
