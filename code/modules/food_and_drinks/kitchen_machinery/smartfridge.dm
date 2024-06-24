@@ -530,11 +530,11 @@
 		if(anchored)
 			to_chat(user, "<span class='warning'>You release the locking mechanism, unanchoring the cart.</span>")
 			anchored = FALSE
-			playsound(loc, 'sound/machines/boltsup.ogg', 30, 0, 3)
+			playsound(loc, 'sound/machines/boltsup.ogg', 30, FALSE, 3)
 			return
 		to_chat(user, "<span class='warning'>You swipe your ID over the scanner, and with a steely snap bolts slide out from underneath the cart, securely anchoring it on the floor.</span>")
 		anchored = TRUE
-		playsound(loc, 'sound/machines/boltsdown.ogg', 30, 0, 3)
+		playsound(loc, 'sound/machines/boltsdown.ogg', 30, FALSE, 3)
 		return TRUE
 	if(istype(O, /obj/item/airlock_electronics) && !istype(O, /obj/item/airlock_electronics/destroyed))
 		var/obj/item/airlock_electronics/new_electronics = O
@@ -553,13 +553,13 @@
 	. = ..()
 	if(anchored)
 		anchored = FALSE
-		playsound(loc, 'sound/machines/boltsup.ogg', 30, 0, 3)
+		playsound(loc, 'sound/machines/boltsup.ogg', 30, FALSE, 3)
 
 /obj/machinery/smartfridge/secure/foodcart/emp_act(severity)
 	. = ..()
 	if(anchored)
 		anchored = FALSE
-		playsound(loc, 'sound/machines/boltsup.ogg', 30, 0, 3)
+		playsound(loc, 'sound/machines/boltsup.ogg', 30, FALSE, 3)
 
 /obj/machinery/smartfridge/secure/foodcart/screwdriver_act(mob/living/user, obj/item/I)
 	return
