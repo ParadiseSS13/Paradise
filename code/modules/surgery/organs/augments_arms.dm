@@ -240,7 +240,7 @@
 	return FALSE
 
 /obj/item/organ/internal/cyberimp/arm/toolset_abductor
-	name = "Alien Toolset implant"
+	name = "alien toolset implant"
 	desc = "An alien toolset, designed to be installed on subject's arm."
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=3"
 	contents = newlist(/obj/item/screwdriver/abductor, /obj/item/wirecutters/abductor, /obj/item/crowbar/abductor, /obj/item/wrench/abductor, /obj/item/weldingtool/abductor, /obj/item/multitool/abductor)
@@ -262,7 +262,7 @@
 	parent_organ = "l_arm"
 
 /obj/item/organ/internal/cyberimp/arm/surgical_abductor
-	name = "Alien Surgical Toolset implant"
+	name = "alien surgical toolset implant"
 	desc = "An alien surgical toolset, designed to be installed on the subject's arm."
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=2"
 	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/FixOVein/alien, /obj/item/surgicaldrill/alien)
@@ -742,7 +742,7 @@
 	force = initial(force)
 
 /obj/item/shield/v1_arm/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
 
 /obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(disabled)
