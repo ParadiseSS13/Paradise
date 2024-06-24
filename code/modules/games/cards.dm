@@ -230,7 +230,7 @@
 		user.visible_message(
 			"<span class='notice'>[user] deals [dcard] card(s) to [target].</span>",
 			"<span class='notice'>You deal [dcard] card(s) to [target].</span>",
-			"<span class='notice'>You hear cards being delt.</span>"
+			"<span class='notice'>You hear cards being dealt.</span>"
 			)
 	H.throw_at(get_step(target,target.dir),3,1,H)
 
