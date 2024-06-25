@@ -515,6 +515,14 @@
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/device_tools/hyper_medipen
+	name = "Hyperregenerative Medipen"
+	desc = "Autoinjector filled with a variety of medical chemicals. It rapidly heals conventional injuries and genetic damage, but loses potency just as quickly. May have side effects if used in succession."
+	reference = "HMP"
+	item = /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
+	cost = 10
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /// Nukies get Diamond Tipped Thermal Safe Drill instead
 /datum/uplink_item/device_tools/thermal_drill
 	name = "Amplifying Thermal Safe Drill"
