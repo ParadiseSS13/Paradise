@@ -532,7 +532,7 @@
 			anchored = FALSE
 			playsound(loc, 'sound/machines/boltsup.ogg', 30, FALSE, 3)
 			return
-		to_chat(user, "<span class='warning'>You swipe your ID over the scanner, and with a steely snap bolts slide out from underneath the cart, securely anchoring it on the floor.</span>")
+		to_chat(user, "<span class='warning'>to_chat(user, "<span class='warning'>You swipe your ID over the scanner, and with a steely snap, bolts slide out from underneath the cart securely anchoring the cart to the floor.</span>")</span>")
 		anchored = TRUE
 		playsound(loc, 'sound/machines/boltsdown.ogg', 30, FALSE, 3)
 		return TRUE
