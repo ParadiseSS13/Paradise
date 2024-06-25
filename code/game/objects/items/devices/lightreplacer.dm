@@ -78,7 +78,7 @@
 
 		if(G.use(decrement))
 			AddUses(increment)
-			to_chat(user, "<span class='notice'>You insert a some glass into [src]. You have [uses] light\s remaining.</span>")
+			to_chat(user, "<span class='notice'>You insert some glass into [src]. You have [uses] light\s remaining.</span>")
 		else
 			to_chat(user, "<span class='warning'>You need one sheet of glass to replace lights!</span>")
 		return
@@ -231,17 +231,8 @@
 /obj/item/lightreplacer/afterattack(atom/target, mob/U, proximity)
 	. = ..()
 	if(isitem(target))
-		if(istype(target, /obj/item/shard))
-			attackby(target, U)
-			return
-
-		if(istype(target, /obj/item/light))
-			attackby(target, U)
-			return
-
-		if(istype(target, /obj/item/stack/sheet/glass))
-			attackby(target, U)
-			return
+		attackby(target, U)
+		return
 
 	if(!proximity && !bluespace_toggle)
 		return
