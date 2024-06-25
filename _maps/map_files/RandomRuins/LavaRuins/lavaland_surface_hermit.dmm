@@ -155,6 +155,7 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Escape Pod Airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/powered)
 "I" = (
@@ -165,11 +166,7 @@
 /area/ruin/powered)
 "J" = (
 /obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
+/turf/simulated/floor/plating,
 /area/ruin/powered)
 "K" = (
 /obj/effect/baseturf_helper,

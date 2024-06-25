@@ -11,6 +11,10 @@
 	if(HAS_TRAIT(user, TRAIT_UNREVIVABLE))
 		to_chat(user, "<span class='notice'>Something is preventing us from regenerating, we will need to revive at another point.</span>")
 		return FALSE
+	if(!HAS_TRAIT_FROM(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT))
+		cling.acquired_powers -= src
+		Remove(user)
+		return
 	REMOVE_TRAIT(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT)
 	for(var/obj/item/grab/G in user.grabbed_by)
 		var/mob/living/carbon/M = G.assailant
