@@ -435,6 +435,10 @@
 		to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
+	if(I.requires_machine_person && !ismachineperson(target))
+		to_chat(user, "<span class='warning'>[I] is an organ that requires an IPC interface! [target]'s [parse_zone(target_zone)] does not have one.</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
 	if(I.damage > (I.max_damage * 0.75))
 		to_chat(user, "<span class='notice'> \The [I] is in no state to be transplanted.</span>")
 		return SURGERY_BEGINSTEP_SKIP

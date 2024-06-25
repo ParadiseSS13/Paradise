@@ -1,8 +1,5 @@
-#define COCOON_WEAVE_DELAY 5 SECONDS
-#define COCOON_EMERGE_DELAY 15 SECONDS
 #define COCOON_HARM_AMOUNT 50
 #define COCOON_NUTRITION_AMOUNT -200
-#define FLYSWATTER_DAMAGE_MULTIPLIER 9
 
 /datum/species/moth
 	name = "Nian"
@@ -51,6 +48,8 @@
 		"eyes" =     /obj/item/organ/internal/eyes/nian
 	)
 
+	primitive_form = /datum/species/monkey/nian_worme
+
 	optional_body_accessory = FALSE
 
 	suicide_messages = list(
@@ -74,7 +73,6 @@
 				new_icobase = 'icons/mob/human_races/nian/r_moth.dmi'
 
 		H.change_icobase(new_icobase, owner_sensitive) //Update the icobase of all our organs, but make sure we don't mess with frankenstein limbs in doing so.
-
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -105,7 +103,7 @@
 
 /datum/species/moth/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-	return E.eye_color
+	return E ? E.eye_color : flesh_color
 
 /datum/species/moth/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
@@ -117,8 +115,12 @@
 		return FALSE
 	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return FALSE
-	var/datum/gas_mixture/current = A.return_air()
-	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
+	if(isobj(H.loc))
+		// Can't fly if you're in a box/mech/whatever.
+		return FALSE
+	var/turf/T = get_turf(H)
+	var/datum/gas_mixture/current = T.get_readonly_air()
+	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
@@ -240,8 +242,5 @@
 	id = "cocooned"
 	alert_type = null
 
-#undef COCOON_WEAVE_DELAY
-#undef COCOON_EMERGE_DELAY
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
-#undef FLYSWATTER_DAMAGE_MULTIPLIER
