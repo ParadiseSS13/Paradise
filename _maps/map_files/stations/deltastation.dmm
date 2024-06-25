@@ -33618,10 +33618,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat)
-"bRw" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/turret_protected/ai)
 "bRx" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 5
@@ -111418,7 +111414,7 @@ btd
 bpm
 bmo
 bmo
-bRw
+btd
 bmo
 bmo
 bpm
