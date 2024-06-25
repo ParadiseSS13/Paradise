@@ -644,6 +644,14 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /////////////////////////////////////////Necromantic Stone///////////////////
 
+/obj/item/necromantic_stone
+	name = "necromantic stone"
+	desc = "A shard capable of resurrecting humans as skeleton thralls."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "necrostone"
+	item_state = "electronic"
+	origin_tech = "bluespace=4;materials=4"
+	w_class = WEIGHT_CLASS_TINY
 	///List of mobs transformed into skeletons by the stone
 	var/list/active_skeletons = list()
 	///How many skeletons can be converted by the stone at a time
