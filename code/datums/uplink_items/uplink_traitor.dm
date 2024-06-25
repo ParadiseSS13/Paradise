@@ -351,7 +351,7 @@
 	desc = "An energy based weapon that launches high velocity plasma spikes. These spikes hit with enough force to knock the target down and leave a nasty wound."
 	reference = "STG"
 	item = /obj/item/gun/energy/spikethrower
-	cost = 60
+	cost = 50
 	species = list("Vox")
 	surplus = 0
 
