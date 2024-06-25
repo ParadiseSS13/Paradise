@@ -388,6 +388,7 @@
 	icon_state = "eradicationlock" //looks like a bluespace transmitter or something, probably could use an actual camera look.
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/ert_camera)
+	removable = FALSE
 	var/obj/machinery/camera/portable/camera
 
 /obj/item/mod/module/ert_camera/on_suit_activation()
