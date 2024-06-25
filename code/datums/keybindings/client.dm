@@ -9,6 +9,14 @@
 	. = ..()
 	C.adminhelp()
 
+/datum/keybinding/client/toggle_fullscreen
+	name ="Toggle Fullscreen"
+	keys = list("F11")
+
+/datum/keybinding/client/toggle_fullscreen/down(client/C)
+	. = ..()
+	C.toggle_fullscreen()
+
 /datum/keybinding/client/toggle_min_hud
 	name = "Toggle Minimal HUD"
 	keys = list("F12")

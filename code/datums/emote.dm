@@ -147,16 +147,16 @@
  *
  * Arguments:
  * * user - Person that is trying to send the emote.
- * * params - Parameters added after the emote.
+ * * emote_arg - String parameter added after the emote.
  * * type_override - Override to the current emote_type.
  * * intentional - Bool that says whether the emote was forced (FALSE) or not (TRUE).
  *
  * Returns TRUE if it was able to run the emote, FALSE otherwise.
  */
-/datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE)
+/datum/emote/proc/run_emote(mob/user, emote_arg, type_override, intentional = FALSE)
 	. = TRUE
 	var/msg = select_message_type(user, message, intentional)
-	if(params && message_param)
+	if(emote_arg && message_param)
 		// In this case, we did make some changes to the message that will be used, and we want to add the postfix on with the new parameters.
 		// This is applicable to things like mimes, who this lets have a target on their canned emote responses.
 		// Note that we only do this if we would otherwise have a message param, meaning there should be some target by default.
@@ -164,17 +164,17 @@
 		if(message_param == EMOTE_PARAM_USE_POSTFIX || (msg != message && message_postfix))
 			if(!message_postfix)
 				CRASH("Emote was specified to use postfix but message_postfix is empty.")
-			msg = select_param(user, params, "[remove_ending_punctuation(msg)] [message_postfix]", msg)
+			msg = select_param(user, emote_arg, "[remove_ending_punctuation(msg)] [message_postfix]", msg)
 		else if(msg == message)
 			// In this case, we're not making any substitutions in select_message_type, but we do have some params we want to sub in.
-			msg = select_param(user, params, message_param, message)
+			msg = select_param(user, emote_arg, message_param, message)
 
 		// If this got propogated up, jump out.
 		if(msg == EMOTE_ACT_STOP_EXECUTION)
 			return TRUE
 
 		if(isnull(msg))
-			to_chat(user, "<span class='warning'>'[params]' isn't a valid parameter for [key].</span>")
+			to_chat(user, "<span class='warning'>'[emote_arg]' isn't a valid parameter for [key].</span>")
 			return TRUE
 
 	msg = replace_pronoun(user, msg)
@@ -230,13 +230,13 @@
  * Try to run an emote, checking can_run_emote once before executing the emote itself.
  *
  * * user - User of the emote
- * * params - Params of the emote to be passed to run_emote
+ * * params - An optional extra argument included after the emote key.
  * * type_override - emote type to override the existing one with, if given.
  * * intentional - Whether or not the emote was triggered intentionally (if false, the emote was forced by code).
  *
  * Returns TRUE if the emote was able to be run (or failed successfully), or FALSE if the emote is unusable.
  */
-/datum/emote/proc/try_run_emote(mob/user, params, type_override, intentional = FALSE)
+/datum/emote/proc/try_run_emote(mob/user, emote_arg, type_override, intentional = FALSE)
 	// You can use this signal to block execution of emotes from components/other sources.
 	var/sig_res = SEND_SIGNAL(user, COMSIG_MOB_PREEMOTE, key, intentional)
 	switch(sig_res)
@@ -245,9 +245,18 @@
 		if(COMPONENT_BLOCK_EMOTE_SILENT)
 			return TRUE
 
-	. = run_emote(user, params, type_override, intentional)
+	. = run_emote(user, emote_arg, type_override, intentional)
 
 	// safeguard in case these get modified
+	reset_emote()
+
+/**
+ * Reset the emote back to its original state.
+ * Necessary if you've made modifications to the emote itself over the course of its
+ * execution, as emotes are singletons, and changes would be reflected on every usage of the emote.
+ */
+/datum/emote/proc/reset_emote()
+	SHOULD_CALL_PARENT(TRUE)
 	message = initial(message)
 	message_param = initial(message_param)
 
@@ -264,9 +273,14 @@
 	if(age_based && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		// Vary needs to be true as otherwise frequency changes get ignored deep within playsound_local :(
-		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(H.dna.species.max_age))
+		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(H.dna.species.max_age) * alter_emote_pitch(user))
 	else
-		playsound(user.loc, sound_path, sound_volume, vary)
+		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = alter_emote_pitch(user))
+
+/datum/emote/proc/alter_emote_pitch(mob/user)
+	if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
+		return 0.7
+	return 1
 
 /**
  * Send an emote to runechat for all (listening) users in the vicinity.
@@ -420,6 +434,9 @@
  * Returns the modified string, or null if the given parameter is invalid. May also return EMOTE_ACT_STOP_EXECUTION if acting on the target should stop emote execution.
  */
 /datum/emote/proc/select_param(mob/user, params, substitution, base_message)
+
+	if(target_behavior == EMOTE_TARGET_BHVR_IGNORE)
+		return base_message
 
 	if(target_behavior == EMOTE_TARGET_BHVR_RAW)
 		return replacetext(substitution, "%t", params)

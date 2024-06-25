@@ -434,7 +434,7 @@
 					/obj/item/clothing/under/dress/redeveninggown = 2,
 					/obj/item/clothing/under/dress/blacktango = 2,
 					/obj/item/clothing/suit/hooded/wintercoat = 3,
-					/obj/item/clothing/suit/jacket = 3,
+					/obj/item/clothing/suit/jacket/bomber = 3,
 					/obj/item/clothing/suit/hooded/hoodie = 3,
 					/obj/item/clothing/suit/hooded/hoodie/blue = 3,
 					/obj/item/clothing/suit/jacket/motojacket = 3,
@@ -520,7 +520,7 @@
 				/obj/item/clothing/under/dress/redeveninggown = 100,
 				/obj/item/clothing/under/dress/blacktango = 100,
 				/obj/item/clothing/suit/hooded/wintercoat = 75,
-				/obj/item/clothing/suit/jacket = 75,
+				/obj/item/clothing/suit/jacket/bomber = 75,
 				/obj/item/clothing/suit/hooded/hoodie = 75,
 				/obj/item/clothing/suit/hooded/hoodie/blue = 75,
 				/obj/item/clothing/suit/jacket/motojacket = 75,
@@ -1290,6 +1290,8 @@
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed, 32, 32)
+
 /obj/machinery/economy/vending/cart
 	name = "\improper PTech"
 	desc = "Cartridges for PDA's."
@@ -1301,7 +1303,6 @@
 	icon_panel = "wide_vendor"
 	category = VENDOR_TYPE_SUPPLIES
 	products = list(/obj/item/pda =10,
-					/obj/item/cartridge/mob_hunt_game = 25,
 					/obj/item/cartridge/medical = 10,
 					/obj/item/cartridge/chemistry = 10,
 					/obj/item/cartridge/engineering = 10,
@@ -1314,7 +1315,6 @@
 					/obj/item/cartridge/mime = 1)
 
 	prices = list(/obj/item/pda = 300,
-				/obj/item/cartridge/mob_hunt_game = 50,
 				/obj/item/cartridge/medical = 200,
 				/obj/item/cartridge/chemistry = 150,
 				/obj/item/cartridge/engineering = 100,

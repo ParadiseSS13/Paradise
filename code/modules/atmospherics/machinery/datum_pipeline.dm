@@ -8,10 +8,10 @@
 	var/update = TRUE
 
 /datum/pipeline/New()
-	SSair.networks += src
+	SSair.pipenets += src
 
 /datum/pipeline/Destroy()
-	SSair.networks -= src
+	SSair.pipenets -= src
 	if(air && air.volume)
 		temporarily_store_air()
 	for(var/obj/machinery/atmospherics/pipe/P in members)
@@ -76,6 +76,7 @@
 	other_airs |= G
 
 /datum/pipeline/proc/addMember(obj/machinery/atmospherics/A, obj/machinery/atmospherics/N)
+	update = TRUE
 	if(istype(A, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/P = A
 		P.parent = src
@@ -120,18 +121,26 @@
 		member.air_temporary = new
 		member.air_temporary.volume = member.volume
 
-		member.air_temporary.oxygen = air.oxygen * member.volume / air.volume
-		member.air_temporary.nitrogen = air.nitrogen * member.volume / air.volume
-		member.air_temporary.toxins = air.toxins * member.volume / air.volume
-		member.air_temporary.carbon_dioxide = air.carbon_dioxide * member.volume / air.volume
-		member.air_temporary.sleeping_agent = air.sleeping_agent * member.volume / air.volume
-		member.air_temporary.agent_b = air.agent_b * member.volume / air.volume
+		member.air_temporary.set_oxygen(air.oxygen() * member.volume / air.volume)
+		member.air_temporary.set_nitrogen(air.nitrogen() * member.volume / air.volume)
+		member.air_temporary.set_toxins(air.toxins() * member.volume / air.volume)
+		member.air_temporary.set_carbon_dioxide(air.carbon_dioxide() * member.volume / air.volume)
+		member.air_temporary.set_sleeping_agent(air.sleeping_agent() * member.volume / air.volume)
+		member.air_temporary.set_agent_b(air.agent_b() * member.volume / air.volume)
 
-		member.air_temporary.temperature = air.temperature
+		member.air_temporary.set_temperature(air.temperature())
 
 /datum/pipeline/proc/temperature_interact(turf/target, share_volume, thermal_conductivity)
-	var/total_heat_capacity = air.heat_capacity()
-	var/partial_heat_capacity = total_heat_capacity*(share_volume/air.volume)
+	var/datum/milla_safe/pipeline_temperature_interact/milla = new()
+	milla.invoke_async(src, target, share_volume, thermal_conductivity)
+
+/datum/milla_safe/pipeline_temperature_interact
+
+/datum/milla_safe/pipeline_temperature_interact/on_run(datum/pipeline/pipeline, turf/target, share_volume, thermal_conductivity)
+	var/datum/gas_mixture/environment = get_turf_air(target)
+
+	var/total_heat_capacity = pipeline.air.heat_capacity()
+	var/partial_heat_capacity = total_heat_capacity*(share_volume/pipeline.air.volume)
 
 	if(issimulatedturf(target))
 		var/turf/simulated/modeled_location = target
@@ -139,20 +148,20 @@
 		if(modeled_location.blocks_air)
 
 			if((modeled_location.heat_capacity>0) && (partial_heat_capacity>0))
-				var/delta_temperature = air.temperature - modeled_location.temperature
+				var/delta_temperature = pipeline.air.temperature() - modeled_location.temperature
 
 				var/heat = thermal_conductivity*delta_temperature* \
 					(partial_heat_capacity*modeled_location.heat_capacity/(partial_heat_capacity+modeled_location.heat_capacity))
 
-				air.temperature -= heat/total_heat_capacity
+				pipeline.air.set_temperature(pipeline.air.temperature() - heat / total_heat_capacity)
 				modeled_location.temperature += heat/modeled_location.heat_capacity
 
 		else
 			var/delta_temperature = 0
 			var/sharer_heat_capacity = 0
 
-			delta_temperature = (air.temperature - modeled_location.air.temperature)
-			sharer_heat_capacity = modeled_location.air.heat_capacity()
+			delta_temperature = (pipeline.air.temperature() - environment.temperature())
+			sharer_heat_capacity = environment.heat_capacity()
 
 			var/self_temperature_delta = 0
 			var/sharer_temperature_delta = 0
@@ -166,20 +175,20 @@
 			else
 				return 1
 
-			air.temperature += self_temperature_delta
+			pipeline.air.set_temperature(pipeline.air.temperature() + self_temperature_delta)
 
-			modeled_location.air.temperature += sharer_temperature_delta
+			environment.set_temperature(environment.temperature() + sharer_temperature_delta)
 
 
 	else
 		if((target.heat_capacity>0) && (partial_heat_capacity>0))
-			var/delta_temperature = air.temperature - target.temperature
+			var/delta_temperature = pipeline.air.temperature() - target.temperature
 
-			var/heat = thermal_conductivity*delta_temperature* \
-				(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
+			var/heat = thermal_conductivity * delta_temperature * \
+				(partial_heat_capacity * target.heat_capacity / (partial_heat_capacity + target.heat_capacity))
 
-			air.temperature -= heat/total_heat_capacity
-	update = TRUE
+			pipeline.air.set_temperature(pipeline.air.temperature() - heat / total_heat_capacity)
+	pipeline.update = TRUE
 
 /datum/pipeline/proc/reconcile_air()
 	var/list/datum/gas_mixture/GL = list()
@@ -209,43 +218,4 @@
 			if(C.connected_device)
 				GL += C.portableConnectorReturnAir()
 
-	var/total_volume = 0
-	var/total_thermal_energy = 0
-	var/total_heat_capacity = 0
-	var/total_oxygen = 0
-	var/total_nitrogen = 0
-	var/total_toxins = 0
-	var/total_carbon_dioxide = 0
-	var/total_sleeping_agent = 0
-	var/total_agent_b = 0
-
-	for(var/datum/gas_mixture/G in GL)
-		total_volume += G.volume
-		total_thermal_energy += G.thermal_energy()
-		total_heat_capacity += G.heat_capacity()
-
-		total_oxygen += G.oxygen
-		total_nitrogen += G.nitrogen
-		total_toxins += G.toxins
-		total_carbon_dioxide += G.carbon_dioxide
-		total_sleeping_agent += G.sleeping_agent
-		total_agent_b += G.agent_b
-
-	if(total_volume > 0)
-
-		//Calculate temperature
-		var/temperature = 0
-
-		if(total_heat_capacity > 0)
-			temperature = total_thermal_energy/total_heat_capacity
-
-		//Update individual gas_mixtures by volume ratio
-		for(var/datum/gas_mixture/G in GL)
-			G.oxygen = total_oxygen * G.volume / total_volume
-			G.nitrogen = total_nitrogen * G.volume / total_volume
-			G.toxins = total_toxins * G.volume / total_volume
-			G.carbon_dioxide = total_carbon_dioxide * G.volume / total_volume
-			G.sleeping_agent = total_sleeping_agent * G.volume / total_volume
-			G.agent_b = total_agent_b * G.volume / total_volume
-
-			G.temperature = temperature
+	share_many_airs(GL)

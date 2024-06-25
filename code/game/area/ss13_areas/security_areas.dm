@@ -106,6 +106,10 @@
 	name = "\improper Firing Range"
 	icon_state = "firingrange"
 
+/area/station/security/defusal
+	name = "\improper Defusal Workshop"
+	icon_state = "defusal"
+
 // Checkpoints
 
 /area/station/security/checkpoint

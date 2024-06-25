@@ -3,21 +3,15 @@
 
 /datum/outfit/admin/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(!visualsOnly && H.mind)
-		H.mind.assigned_role = name
-		H.job = name
-
-/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-
 	if(visualsOnly)
 		return
 
-	if(H.mind)
-		H.mind.offstation_role = TRUE
-	else
-		H.RegisterSignal(H, COMSIG_HUMAN_LOGIN, TYPE_PROC_REF(/mob/living/carbon/human, apply_offstation_roles))
+	H.job = name
 
+/datum/outfit/admin/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	H.mind.assigned_role = name
+	H.mind.offstation_role = TRUE
 
 /proc/apply_to_card(obj/item/card/id/I, mob/living/carbon/human/H, list/access = list(), rank, special_icon)
 	if(!istype(I) || !istype(H))
@@ -227,7 +221,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Representative"), "Nanotrasen Diplomat")
-	// Will show as ? on sec huds, as this is not a recognized rank.
+	H.sec_hud_set_ID()
 
 /datum/outfit/admin/nt_undercover
 	name = "NT Undercover Operative"
@@ -282,7 +276,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/rank/centcom/deathsquad
 	shoes = /obj/item/clothing/shoes/magboots/elite
-	glasses = /obj/item/clothing/glasses/thermal
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	r_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
@@ -291,12 +285,21 @@
 	suit_store = /obj/item/gun/energy/pulse
 
 	backpack_contents = list(
-		/obj/item/storage/box/flashbangs,
+		/obj/item/storage/box/smoke_grenades,
+		/obj/item/ammo_box/a357,
+		/obj/item/ammo_box/a357,
 		/obj/item/ammo_box/a357,
 		/obj/item/flashlight/seclite,
-		/obj/item/grenade/plastic/c4/x4,
+		/obj/item/grenade/barrier,
 		/obj/item/melee/energy/sword/saber,
-		/obj/item/shield/energy,
+		/obj/item/shield/energy
+	)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/eyes/cybernetic/thermals/hardened,
+		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
+		/obj/item/organ/internal/cyberimp/chest/reviver/hardened
 	)
 
 	bio_chips = list(
@@ -862,13 +865,13 @@
 
 /datum/outfit/admin/trader/sol
 	name = "Trans-Solar Federation Trader"
-	suit = /obj/item/clothing/suit/jacket/cargobomber
+	suit = /obj/item/clothing/suit/jacket/bomber/cargo
 	head = /obj/item/clothing/head/soft/cargo
 
 /datum/outfit/admin/trader/cyber
 	name = "Cybersun Industries Trader"
 	uniform = /obj/item/clothing/under/syndicate/tacticool
-	suit = /obj/item/clothing/suit/jacket/syndicatebomber
+	suit = /obj/item/clothing/suit/jacket/bomber/syndicate
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/combat
 	belt = /obj/item/melee/classic_baton/telescopic
@@ -921,7 +924,7 @@
 /datum/outfit/admin/trader/grey
 	name = "Technocracy Trader"
 	uniform = /obj/item/clothing/under/costume/psyjump
-	suit = /obj/item/clothing/suit/jacket/robobomber
+	suit = /obj/item/clothing/suit/jacket/bomber/robo
 	belt = /obj/item/melee/classic_baton/telescopic
 	back = /obj/item/storage/backpack/robotics
 
@@ -1250,17 +1253,17 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Ancient One", "data")
 
-	if(H.mind)
-		if(!H.mind.has_antag_datum(/datum/antagonist/vampire))
-			H.mind.make_vampire(TRUE)
-		var/datum/antagonist/vampire/V = H.mind.has_antag_datum(/datum/antagonist/vampire)
-		V.bloodusable = 9999
-		V.bloodtotal = 9999
-		V.add_subclass(SUBCLASS_ANCIENT, FALSE)
-		H.dna.SetSEState(GLOB.jumpblock, TRUE)
-		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
-		H.update_mutations()
-		H.gene_stability = 100
+/datum/outfit/admin/ancient_vampire/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	H.mind.make_vampire()
+	var/datum/antagonist/vampire/V = H.mind.has_antag_datum(/datum/antagonist/vampire)
+	V.bloodusable = 9999
+	V.bloodtotal = 9999
+	V.add_subclass(SUBCLASS_ANCIENT, FALSE)
+	H.dna.SetSEState(GLOB.jumpblock, TRUE)
+	singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
+	H.update_mutations()
+	H.gene_stability = 100
 
 /datum/outfit/admin/wizard
 	name = "Blue Wizard"
@@ -1490,10 +1493,6 @@
 
 	H.real_name = "Unknown" //Enforcers sacrifice their name to Oblivion for their power
 
-	for(var/spell_path in spell_paths)
-		var/S = new spell_path
-		H.mind.AddSpell(S)
-
 	var/obj/item/clothing/suit/hooded/oblivion/robes = H.wear_suit
 	if(istype(robes))
 		robes.ToggleHood()
@@ -1501,6 +1500,12 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Oblivion Enforcer")
+
+/datum/outfit/admin/enforcer/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	for(var/spell_path in spell_paths)
+		var/S = new spell_path
+		H.mind.AddSpell(S)
 
 /datum/outfit/admin/viper
 	name = "Solar Federation Viper Infiltrator"

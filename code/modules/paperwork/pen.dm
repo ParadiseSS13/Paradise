@@ -64,7 +64,7 @@
 	var/pen_colour_iconstate = "pencolor"
 
 /obj/item/pen/multi/Initialize(mapload)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/pen/multi/proc/select_colour(mob/user as mob)
@@ -195,6 +195,11 @@
 
 /obj/item/pen/sleepy/love/fill_pen()
 	reagents.add_reagent("love", 100)
+
+/obj/item/pen/sleepy/undisguised
+	name = "sleepy pen"
+	desc = "Used to stealthily inject targets. Comes loaded with ketamine but can be refilled with other chemicals. This one isn't disguised."
+	icon_state = "pen_syndie"
 
 /*
  * (Alan) Edaggers

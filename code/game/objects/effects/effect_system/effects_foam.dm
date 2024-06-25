@@ -252,13 +252,13 @@
 	var/metal = METAL_FOAM_ALUMINUM
 
 /obj/structure/foamedmetal/Initialize()
-	..()
-	air_update_turf(1)
+	. = ..()
+	recalculate_atmos_connectivity()
 
 /obj/structure/foamedmetal/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/foamedmetal/Move()
 	var/turf/T = loc
@@ -296,5 +296,5 @@
 /obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target)
 	return !density
 
-/obj/structure/foamedmetal/CanAtmosPass()
+/obj/structure/foamedmetal/CanAtmosPass(direction)
 	return !density

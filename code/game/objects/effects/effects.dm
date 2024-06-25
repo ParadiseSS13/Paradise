@@ -31,8 +31,8 @@
 /obj/effect/blob_act(obj/structure/blob/B)
 	return
 
-/obj/effect/experience_pressure_difference()
-	return
+/obj/effect/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /obj/effect/ex_act(severity)
 	switch(severity)
@@ -159,7 +159,7 @@
 	///typepath of the last location we're in, if it's different when moved then we need to update vis contents
 	var/last_attached_location_type
 	/// The main item we're attached to at the moment, particle holders hold particles for something
-	var/atom/parent
+	var/atom/movable/parent
 	/// The mob that is holding our item
 	var/mob/holding_parent
 
@@ -181,6 +181,7 @@
 	if(parent)
 		UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 	QDEL_NULL(particles)
+	parent.vis_contents -= src
 	return ..()
 
 ///signal called when parent is moved
@@ -192,6 +193,7 @@
 ///signal called when parent is deleted
 /obj/effect/abstract/particle_holder/proc/on_qdel(atom/movable/attached, force)
 	SIGNAL_HANDLER
+	attached.vis_contents -= src
 	qdel(src)//our parent is gone and we need to be as well
 
 ///logic proc for particle holders, aka where they move.

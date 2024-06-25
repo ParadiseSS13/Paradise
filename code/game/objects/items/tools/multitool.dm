@@ -29,6 +29,8 @@
 	var/obj/machinery/buffer // TODO - Make this a soft ref to tie into whats below
 	/// Soft-ref for linked stuff. This should be used over the above var.
 	var/buffer_uid
+	/// Cooldown for detecting APCs
+	COOLDOWN_DECLARE(cd_apc_scan)
 
 /obj/item/multitool/multitool_check_buffer(user, silent = FALSE)
 	return TRUE
@@ -44,6 +46,20 @@
 /obj/item/multitool/Destroy()
 	buffer = null
 	return ..()
+
+/obj/item/multitool/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, cd_apc_scan))
+		return
+	COOLDOWN_START(src, cd_apc_scan, 1.5 SECONDS)
+	var/area/local_area = get_area(src)
+	var/obj/machinery/power/apc/apc = local_area?.get_apc()
+	if(!apc)
+		to_chat(user, "<span class='warning'>No APC detected.</span>")
+		return
+	if(get_turf(src) == get_turf(apc)) // we're standing on top of it
+		to_chat(user, "<span class='notice'>APC detected 0 meters [dir2text(apc.dir)].</span>")
+		return
+	to_chat(user, "<span class='notice'>APC detected [get_dist(src, apc)] meter\s [dir2text(get_dir(src, apc))].</span>")
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect
@@ -170,19 +186,6 @@
 /obj/item/multitool/cyborg/drone/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT) // Drones are linked to the station
-
-/obj/item/multitool/abductor
-	name = "alien multitool"
-	desc = "An omni-technological interface."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "multitool"
-	toolspeed = 0.1
-	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "magnets=5;engineering=5;abductor=3"
-
-/obj/item/multitool/abductor/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
 
 #undef PROXIMITY_NONE
 #undef PROXIMITY_ON_SCREEN

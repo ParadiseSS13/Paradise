@@ -107,10 +107,11 @@
 							/obj/item/clothing/mask/cigarette/cigar,
 							/obj/item/stack/wrapping_paper,
 							/obj/item/toy/figure/crew/cargotech,
+							/obj/item/toy/figure/crew/explorer,
 							/obj/item/toy/figure/crew/qm,
 							/obj/item/toy/figure/crew/miner,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner")
+	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
 
 /obj/item/envelope/medical
 	icon_state = "mail_med"
@@ -193,7 +194,7 @@
 							/obj/item/food/snacks/spesslaw,
 							/obj/item/clothing/head/collectable/petehat,
 							/obj/item/toy/figure/crew/captain,
-							/obj/item/toy/figure/crew/lawyer,
+							/obj/item/toy/figure/crew/iaa,
 							/obj/item/toy/figure/crew/dsquad,
 							/obj/item/storage/box/scratch_cards)
 	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent")
@@ -211,7 +212,7 @@
 							/obj/item/toy/figure/owl,
 							/obj/item/toy/figure/griffin,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Assistant", "Explorer")
+	job_list = list("Assistant")
 
 
 	/*//////////////////////\/
@@ -242,6 +243,8 @@
 	origin_tech = "magnets=1"
 	/// The reference to the envelope that is currently stored in the mail scanner. It will be cleared upon confirming a correct delivery
 	var/obj/item/envelope/saved
+	/// How far away can the scanner scan mail or people
+	var/scanner_range = 7
 
 /obj/item/mail_scanner/examine(mob/user)
 	. = ..()
@@ -251,6 +254,9 @@
 	return
 
 /obj/item/mail_scanner/afterattack(atom/A, mob/user)
+	if(get_dist(A, user) > scanner_range)
+		to_chat(user, "<span class='warning'>The scanner doesn't reach that far!</span>")
+		return
 	if(istype(A, /obj/item/envelope))
 		var/obj/item/envelope/envelope = A
 		if(envelope.has_been_scanned)

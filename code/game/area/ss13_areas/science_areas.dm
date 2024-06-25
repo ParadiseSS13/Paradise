@@ -26,6 +26,10 @@
 	name = "Research Division"
 	icon_state = "sci"
 
+/area/station/science/lobby
+	name = "Research Division Lobby"
+	icon_state = "sci"
+
 /area/station/science/break_room
 	name = "\improper Science Break Room"
 	icon_state = "scibreak"
@@ -46,22 +50,10 @@
 	name = "\improper Research Lab"
 	icon_state = "sci"
 
-/area/station/science/supermatter
-	name = "\improper Supermatter Lab"
-	icon_state = "scilab"
-
 /area/station/science/xenobiology
 	name = "\improper Xenobiology Lab"
 	icon_state = "xenobio"
 	xenobiology_compatible = TRUE
-
-/area/station/science/xenobiology/xenoflora_storage
-	name = "Xenoflora Storage"
-	icon_state = "scilab"
-
-/area/station/science/xenobiology/xenoflora
-	name = "\improper Xenoflora Lab"
-	icon_state = "scilab"
 
 /area/station/science/storage
 	name = "\improper Science Toxins Storage"
