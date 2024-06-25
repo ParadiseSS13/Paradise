@@ -9,7 +9,7 @@
 	/// The maximum number of times it fires.
 	var/max_pops = 20
 	/// How long, at least, we'll end up between pops.
-	var/min_time_between_pops = 5 DECISECONDS
+	var/min_time_between_pops = CLICK_CD_MELEE
 	/// The longest possible length between fires.
 	var/max_time_between_pops = 20 DECISECONDS
 	/// Whether or not to play a smoke sound before going off
@@ -67,6 +67,22 @@
 
 /obj/item/grenade/firecracker/decoy/AltShiftClick(mob/user)
 	. = ..()
-	min_time_between_pops = tgui_input_number(user, "Select the minimum time between pops (in 1/10s of a second).", "Minimum time", min_time_between_pops, 50, 2)
-	max_time_between_pops = tgui_input_number(user, "Select the maximum time between pops (in 1/10s of a second).", "Maximum time", max_time_between_pops, 50, 2)
+	if(!user.Adjacent(src))
+		return
+	var/min_between_pops_input = tgui_input_number(user, "Select the minimum time between pops (in 1/10s of a second).", "Minimum time", min_time_between_pops, 50, 2)
+	if(!user.Adjacent(src))
+		to_chat(user, "<span class='notice'>You need to be closer to [src] to set this!</span>")
+		return
+	min_time_between_pops = min_between_pops_input
+	var/max_between_pops_input = tgui_input_number(user, "Select the maximum time between pops (in 1/10s of a second).", "Maximum time", max_time_between_pops, 50, 2)
+	if(!user.Adjacent(src))
+		to_chat(user, "<span class='notice'>You need to be closer to [src] to set this!</span>")
+		return
 
+	max_time_between_pops = max_between_pops_input
+
+	// var/imitate_screams_input = tgui_alert(user, "Should [src] imitate damage effects (screams, bone breaks)?", "Extra noises", list("Yes", "No"))
+	// if(!user.Adjacent(src))
+	// 	to_chat(user, "<span class='notice'>You need to be closer to [src] to set this!</span>")
+	// 	return
+	// imitate_screams = imitate_screams_input == "Yes"

@@ -721,11 +721,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 
 /datum/uplink_item/device_tools/decoy_nade
-	name = "Decoy Grenade"
-	desc = "A grenade that can be configured to reproduce many suspicious sounds at varying rates."
+	name = "Decoy Grenade Kit"
+	desc = "A box of five grenades that can be configured to reproduce many suspicious sounds at varying rates."
 	reference = "DCY"
-	item = /obj/item/grenade/firecracker/decoy
-	cost = 15
+	item = /obj/item/storage/box/syndie_kit/decoy
+	cost = 20
 
 ////////////////////////////////////////
 // MARK: SPACE SUITS AND HARDSUITS
