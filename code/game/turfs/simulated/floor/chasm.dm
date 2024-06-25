@@ -35,7 +35,11 @@
 		/obj/effect/dummy/slaughter, //no bloodcrawlers into chasms.
 		/obj/effect/dummy/spell_jaunt, //No jaunters into chasms either.
 		/mob/living/simple_animal/hostile/megafauna, //failsafe
+<<<<<<< HEAD
 		/obj/machinery/light // lights hanging on walls shouldn't get chasm'd
+=======
+		/obj/tgvehicle/scooter/skateboard/hoverboard
+>>>>>>> master
 		))
 	var/drop_x = 1
 	var/drop_y = 1
@@ -130,6 +134,8 @@
 	if(isliving(AM))
 		var/mob/living/M = AM
 		if(M.flying || M.floating)
+			return FALSE
+		if(istype(M.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
 			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM

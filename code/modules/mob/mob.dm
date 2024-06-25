@@ -617,6 +617,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
 /mob/proc/run_examinate(atom/A)
+	if(A.invisibility > see_invisible)
+		A = get_turf(A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"), MESSAGE_TYPE_INFO, confidential = TRUE)
 		return TRUE
@@ -1401,4 +1403,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	target.mind.kudos_received_from |= ckey
 
-
+/mob/living/simple_animal/relaymove(mob/living/user, direction)
+	if(user.incapacitated())
+		return
+	return relaydrive(user, direction)
