@@ -206,7 +206,7 @@ Pipelines + Other Objects -> Pipe network
 	if(level == 1 && isturf(T) && T.intact)
 		to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
 		return
-	var/datum/gas_mixture/int_air = return_air()
+	var/datum/gas_mixture/int_air = return_obj_air()
 	var/datum/gas_mixture/env_air = T.get_readonly_air()
 	add_fingerprint(user)
 
