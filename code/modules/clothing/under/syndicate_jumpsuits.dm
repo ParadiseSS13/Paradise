@@ -23,7 +23,7 @@
 
 
 /obj/item/clothing/under/syndicate/greyman
-	name = "Greyman Henley"
+	name = "greyman henley"
 	desc = "Attire for someone who finds it hard to survive in the safest place known to man - urban environment "
 	icon_state = "greyman"
 	item_color = "greyman"
