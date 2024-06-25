@@ -65420,10 +65420,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
-"ehn" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/turret_protected/aisat)
 "ehT" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -107310,7 +107306,7 @@ btd
 bpu
 bms
 bms
-bRw
+btd
 bms
 bms
 bpu
@@ -111949,7 +111945,7 @@ ojZ
 bNM
 bNM
 bNM
-ehn
+bNM
 bJP
 bpq
 brr
