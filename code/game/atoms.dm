@@ -17,6 +17,8 @@
 
 	var/list/blood_DNA
 	var/blood_color
+	/// Wont gloves/hands spend blood spill points to make this bloody
+	var/easy_to_spill_blood = FALSE
 	var/pass_flags = 0
 	/// The higher the germ level, the more germ on the atom.
 	var/germ_level = GERM_LEVEL_AMBIENT
@@ -896,6 +898,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return FALSE
 
 /obj/add_blood(list/blood_dna, b_color)
+	blood_color = b_color
 	return transfer_blood_dna(blood_dna)
 
 /obj/item/add_blood(list/blood_dna, b_color)
