@@ -72,9 +72,8 @@
 	if(!target_turf || !target_turf.Enter(src))
 		return
 
-	var/obj/effect/particle_effect/foam/new_foam
+	var/obj/effect/particle_effect/foam/new_foam = locate() in target_turf
 
-	new_foam = locate() in target_turf
 	if(new_foam)
 		return
 
@@ -201,8 +200,6 @@
 	var/obj/effect/particle_effect/foam/working_foam = locate() in location
 	if(working_foam)
 		working_foam.spread_amount = min(working_foam.spread_amount + working_foam.spread_amount, working_foam.max_amount_on_spread)
-		// if(working_foam.react_mode & FOAM_REACT_DURING_SPREAD)
-		// 	working_foam.disperse_reagents()
 		return
 
 	working_foam = new effect_type(location)
