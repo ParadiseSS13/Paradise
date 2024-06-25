@@ -19,6 +19,7 @@ import { TemporaryNotice } from './common/TemporaryNotice';
 
 const statusStyles = {
   '*Execute*': 'execute',
+  '*DNR-S*': 'dnrs',
   '*Arrest*': 'arrest',
   'Incarcerated': 'incarcerated',
   'Parolled': 'parolled',

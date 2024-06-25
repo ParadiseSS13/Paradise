@@ -552,7 +552,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.general)
 						if(R.fields["id"] == E.fields["id"])
-							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
+							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "DNR-M", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
 
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 								if(setmedical != "Cancel")
@@ -690,8 +690,8 @@
 		to_chat(user, "<span class='warning'>Unable to locate a record for this person.</span>")
 		return
 
-	if(found_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
-		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution order. Use a security computer instead.</span>")
+	if(found_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE || SEC_RECORD_STATUS_DNRS)
+		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution or Do Not Resuscitate - Security order. Use a security computer instead.</span>")
 		return
 
 	var/static/list/possible_status = list(
@@ -715,8 +715,8 @@
 
 	if(!hasHUD(user, EXAMINE_HUD_SECURITY_WRITE))
 		return
-	if(found_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
-		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution order. Use a security computer instead.</span>")
+	if(found_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE || SEC_RECORD_STATUS_DNRS)
+		to_chat(user, "<span class='warning'>Unable to modify the criminal status of a person with an active Execution or Do Not Resuscitate - Security order. Use a security computer instead.</span>")
 		return
 	var/rank
 	if(ishuman(user))
@@ -1423,7 +1423,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
-				if(SEC_RECORD_STATUS_EXECUTE)
+				if(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_DNRS)
 					threatcount += 7
 				if(SEC_RECORD_STATUS_ARREST)
 					threatcount += 5
