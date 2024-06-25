@@ -301,7 +301,7 @@
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
 	aoe_range = 3
 
-/datum/spell/genetic/blind
+/datum/spell/blind
 	name = "Blind"
 	desc = "This spell temporarily blinds a single person and does not require wizard garb."
 	school = "transmutation"
@@ -311,20 +311,25 @@
 	invocation_type = "whisper"
 	message = "<span class='notice'>Your eyes cry out in pain!</span>"
 	cooldown_min = 2 SECONDS
-	traits = list(TRAIT_BLIND)
-
-	duration = 30 SECONDS
 	sound = 'sound/magic/blind.ogg'
 
-/datum/spell/genetic/blind/create_new_targeting()
+/datum/spell/blind/create_new_targeting()
 	var/datum/spell_targeting/click/C = new()
+	C.selection_type = SPELL_SELECTION_RANGE
 	C.allowed_type = /mob/living
 	return C
 
-/datum/spell/genetic/blind/do_additional_effects(mob/living/target)
-	target.EyeBlurry(20 SECONDS)
-	target.EyeBlind(10 SECONDS)
+/datum/spell/blind/cast(list/targets, mob/living/user)
+	if(!length(targets))
+		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		return
+
+	var/mob/living/target = targets[1]
+	target.EyeBlurry(40 SECONDS)
+	target.EyeBlind(30 SECONDS)
+
 	SEND_SOUND(target, sound('sound/magic/blind.ogg'))
+	return TRUE
 
 /datum/spell/fireball
 	name = "Fireball"
