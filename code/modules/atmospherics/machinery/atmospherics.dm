@@ -247,7 +247,6 @@ Pipelines + Other Objects -> Pipe network
 				unsafe_pressure_release(user,internal_pressure)
 		deconstruct(TRUE)
 
-
 //(De)construction
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)

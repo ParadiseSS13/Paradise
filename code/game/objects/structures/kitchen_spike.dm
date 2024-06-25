@@ -12,7 +12,7 @@
 
 /obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/I)
 	if(!I.tool_use_check(user, 0))
-		return
+		return FALSE
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 		return TRUE

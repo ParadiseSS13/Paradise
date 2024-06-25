@@ -111,7 +111,6 @@
 
 	return TRUE
 
-
 /obj/structure/engineeringcart/attack_hand(mob/user)
 	var/list/engicart_items = list()
 
