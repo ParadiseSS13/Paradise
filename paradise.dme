@@ -1468,6 +1468,7 @@
 #include "code\modules\antagonists\survivalist\survivalist.dm"
 #include "code\modules\antagonists\traitor\datum_mindslave.dm"
 #include "code\modules\antagonists\traitor\datum_traitor.dm"
+#include "code\modules\antagonists\traitor\misc_mindslave.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\contractor_hub.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\contractor_hub_ui.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\objective_contract.dm"
