@@ -178,7 +178,7 @@
 #define MW kW *1000
 #define GW MW *1000
 #define BASE_ENERGY_CONVERSION 4e-6
-#define BASE_POINTS 4
+#define BASE_POINTS 2
 
 /**
   * # Bluespace Harvester
@@ -235,7 +235,7 @@
 
 	/// Max power input level, I don't expect this to be ever reached
 	var/max_level = 25
-	/// minimum amount of points generated when turned on
+	/// amoubnt of points generated per level for the first 10 levels
 	var/base_points = BASE_POINTS
 	/// amount of points generated per process cycle per unit of energy consumed
 	var/conversion_ratio = BASE_ENERGY_CONVERSION
@@ -406,7 +406,7 @@
 	if(actual_power_usage)
 		consume_direct_power(actual_power_usage)
 
-		var/points_to_add = base_points + actual_power_usage * (conversion_ratio + emagged * 1e-6)
+		var/points_to_add = min(base_points * 10, base_points * input_level) + actual_power_usage * (conversion_ratio + emagged * 1e-6)//2 points per level up to level 10 and 4 points per MW or 5 when emmaged
 		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
 
@@ -582,3 +582,5 @@
 #undef kW
 #undef MW
 #undef GW
+#undef BASE_ENERGY_CONVERSION
+#undef BASE_POINTS
