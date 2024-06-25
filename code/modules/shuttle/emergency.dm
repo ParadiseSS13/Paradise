@@ -200,7 +200,7 @@
 			return
 		transfer_ai(AI_SHUTTLE_HACK, AI, AI)
 		GLOB.minor_announcement.Announce("Warning! B.A.S.I.C shuttle piloting AI comp-- Comparing notes with the engine system to maximize efficency. Do not be alarmed.")
-		SSshuttle.emergency.setTimer(600)
+		SSshuttle.emergency.setTimer(60 SECONDS)
 		return
 	if(hijack_hacking)
 		return
