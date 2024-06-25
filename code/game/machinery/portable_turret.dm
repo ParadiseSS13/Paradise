@@ -367,7 +367,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	. = TRUE
 	to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
 	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
-		return
+		return FALSE
 	if(prob(70))
 		to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
 		if(installation)

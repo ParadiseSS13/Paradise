@@ -1262,7 +1262,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	user.visible_message("<span class='notice'>[user] starts to bolt [src] to the plating...</span>")
 	if(!I.use_tool(src, user, 4 SECONDS, 0, 50))
 		user.visible_message("<span class='notice'>[user] decides not to bolt [src].</span>")
-		return
+		return FALSE
 	user.visible_message("<span class='notice'>[user] finishes fastening down [src]!</span>")
 	anchored = TRUE
 
