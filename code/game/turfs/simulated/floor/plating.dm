@@ -207,7 +207,7 @@
 	. = ..()
 
 /turf/simulated/floor/engine/wrench_act(mob/living/user, obj/item/wrench/W)
-	if(!istype(W) || !user)
+	if(!user)
 		return
 	. = TRUE
 	to_chat(user, "<span class='notice'>You begin removing rods...</span>")

@@ -48,7 +48,6 @@
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
 
 /obj/machinery/power/rad_collector/wrench_act(mob/living/user, obj/item/I)
-	. = ..()
 	if(loaded_tank)
 		to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
 		return TRUE
