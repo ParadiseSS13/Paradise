@@ -26,8 +26,8 @@
 /datum/surgery_step/generic/cut_open/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] starts the incision on [target]'s [affected.name] with \the [tool].",
-		"You start the incision on [target]'s [affected.name] with \the [tool].",
+		"[user] starts the incision on [target]'s [affected.name] with [tool].",
+		"You start the incision on [target]'s [affected.name] with [tool].",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.custom_pain("You feel a horrible pain as if from a sharp knife in your [affected.name]!")
