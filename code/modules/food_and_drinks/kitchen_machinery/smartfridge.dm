@@ -541,6 +541,9 @@
 		if(!emagged)
 			to_chat(user, "<span class='warning'>The cart is working fine and doesn't needs repairs!</span>")
 			return
+		if(!user.drop_item())
+			to_chat(user, "<span class='warning'>\The [O] is stuck to you!</span>")
+			return FALSE
 		user.drop_item()
 		new_electronics.forceMove(src)
 		spawn_atom_to_turf(/obj/item/airlock_electronics/destroyed, user.loc, 1)
