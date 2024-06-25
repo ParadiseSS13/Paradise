@@ -71878,30 +71878,6 @@
 "hTV" = (
 /turf/simulated/wall,
 /area/station/legal/magistrate)
-"hUq" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	ext_button_link_id = "enginen_btn_ext";
-	ext_door_link_id = "enginen_door_ext";
-	int_button_link_id = "enginen_btn_int";
-	int_door_link_id = "enginen_door_int";
-	pixel_y = -25;
-	vent_link_id = "enginen_vent"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "enginen_vent";
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/space,
-/area/space)
 "hUE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -95919,6 +95895,16 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"vFY" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/west)
 "vGg" = (
 /obj/machinery/economy/vending/coffee,
 /obj/structure/sign/poster/official/random{
@@ -130989,7 +130975,6 @@ aaa
 aaa
 aaa
 aaa
-aaa
 knM
 aaa
 aaa
@@ -131008,6 +130993,7 @@ aaa
 aaa
 aaa
 qcA
+aaa
 aaa
 aaa
 aaa
@@ -131241,7 +131227,6 @@ aaa
 aaa
 aaa
 aaa
-aaa
 abj
 abj
 abj
@@ -131266,6 +131251,7 @@ abj
 iUU
 qke
 rJk
+abj
 abj
 abj
 abj
@@ -131497,7 +131483,6 @@ aaa
 aaa
 aaa
 aaa
-aaa
 abj
 abj
 aaa
@@ -131506,9 +131491,9 @@ iUU
 pGg
 pGg
 iUU
+aaa
+aaa
 abj
-aaa
-aaa
 aaa
 iUU
 iUU
@@ -131523,7 +131508,8 @@ abj
 iUU
 ahQ
 iUU
-hUq
+aaa
+abj
 aaa
 aaa
 aaa
@@ -131752,7 +131738,6 @@ aaa
 aaa
 aaa
 aaa
-aaa
 adb
 iUU
 adb
@@ -131780,6 +131765,7 @@ adb
 iUU
 eKO
 iUU
+adb
 adb
 adb
 aAr
@@ -132007,7 +131993,6 @@ aaa
 aaa
 aaa
 aaa
-aaa
 iUU
 iUU
 uci
@@ -132036,6 +132021,7 @@ age
 agg
 adZ
 xcL
+gtZ
 gtZ
 meH
 oMA
@@ -132264,7 +132250,6 @@ aaa
 aaa
 aaa
 aaa
-aaa
 aeN
 pUC
 aeN
@@ -132294,6 +132279,7 @@ vTw
 vTw
 amA
 yee
+vFY
 hyL
 hhn
 anu
@@ -132521,7 +132507,6 @@ aaa
 aaa
 aaa
 aaa
-aaa
 iUU
 iUU
 iUU
@@ -132551,6 +132536,7 @@ mFy
 wil
 reW
 wOi
+aeb
 aeb
 saK
 kWK
@@ -132780,7 +132766,6 @@ aaa
 aaa
 aaa
 aaa
-aaa
 adb
 iUU
 adb
@@ -132804,6 +132789,7 @@ iUU
 iUU
 iUU
 iUU
+adb
 adb
 adb
 adb
@@ -133039,15 +133025,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
 abj
 abj
-aaa
 aaa
 aaa
 abj
 aaa
 aaa
+abj
 aaa
 aaa
 abj
@@ -133066,6 +133051,7 @@ aaa
 aaa
 aaa
 aaa
+abj
 aaa
 aAr
 ezV
@@ -133297,7 +133283,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abj
 abj
 abj
 abj
