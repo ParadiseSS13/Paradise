@@ -501,6 +501,7 @@
 				/obj/item/stack/rods = 10)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	category = CAT_MISC
+
 /datum/crafting_recipe/spear_primal // alternative recipe for Ash Walkers
 	name = "Spear"
 	result = list(/obj/item/spear)

@@ -292,7 +292,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///e.g. a storage container or a modsuit.
 #define TRAIT_ADJACENCY_TRANSPARENT "adjacency_transparent"
 
-/// A trait for items that will not break glass tables if the user is buckled to them. I guess.
+/// A trait for items that will not break glass tables if the user is buckled to them.
 #define TRAIT_NO_BREAK_GLASS_TABLES "no_break_glass_tables"
 
 //****** ATOM/MOVABLE TRAITS *****//

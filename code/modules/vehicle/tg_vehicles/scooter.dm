@@ -178,7 +178,7 @@
 			victim.Weaken(1.5 SECONDS)
 			skater.adjustStaminaLoss(instability)
 			victim.visible_message("<span class='danger'>[victim] straight up gets grinded into the ground by [skater]'s [src]! Radical!</span>")
-	addtimer(CALLBACK(src, PROC_REF(grind)), 1)
+	addtimer(CALLBACK(src, PROC_REF(grind)), 1 DECISECONDS)
 
 /obj/tgvehicle/scooter/skateboard/MouseDrop(atom/over_object)
 	. = ..()
@@ -221,7 +221,6 @@
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/make_ridable()
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/scooter/skateboard/hover)
-
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/admin
 	name = "\improper Board Of Directors"

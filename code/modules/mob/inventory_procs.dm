@@ -34,10 +34,9 @@
 
 //Checks if we're holding an item of type: typepath
 /mob/proc/is_holding_item_of_type(typepath)
-	for(var/obj/item/I in list(l_hand, r_hand))
-		if(istype(I, typepath))
-			return I
-	return FALSE
+	. = FALSE
+	if(istype(l_hand, typepath) || istype(r_hand, typepath))
+		return I
 
 //Returns the thing in our inactive hand
 /mob/proc/get_inactive_hand()
