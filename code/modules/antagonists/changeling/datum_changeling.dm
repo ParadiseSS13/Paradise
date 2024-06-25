@@ -278,6 +278,22 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 	power.on_purchase(changeling || owner.current, src)
 
 /**
+ * Removes all `power_type` abilities that the changeling has. Refunds the cost of the power from our genetic points.
+ *
+ * Arugments:
+ * * datum/action/changeling/power - the typepath power to remove from the changeling.
+ * * refund_cost - if we should refund genetic points when giving the power
+ */
+/datum/antagonist/changeling/proc/remove_specific_power(datum/action/changeling/power_type, refund_cost = TRUE)
+	for(var/datum/action/changeling/power in acquired_powers)
+		if(!istype(power, power_type))
+			continue
+		if(refund_cost)
+			genetic_points -= power.dna_cost
+		acquired_powers -= power
+		qdel(power)
+
+/**
  * Store the languages from the `new_languages` list into the `absorbed_languages` list. Teaches the changeling the new languages.
  *
  * Arguments:
@@ -425,8 +441,7 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 		to_chat(user, "<span class='warning'>This creature does not have DNA!</span>")
 		return FALSE
 	if(get_dna(target.dna))
-		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
-		return FALSE
+		to_chat(user, "<span class='warning'>We already have this DNA in storage.</span>")
 	return TRUE
 
 /datum/antagonist/changeling/proc/on_death(mob/living/L, gibbed)

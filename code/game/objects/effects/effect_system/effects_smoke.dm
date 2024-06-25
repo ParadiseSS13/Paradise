@@ -152,16 +152,9 @@
 /datum/effect_system/smoke_spread/freezing/proc/Chilled(atom/A)
 	if(issimulatedturf(A))
 		var/turf/simulated/T = A
-		if(T.air)
-			var/datum/gas_mixture/G = T.air
-			if(get_dist(T, src) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-				G.temperature = 2
-			T.air_update_turf()
-			for(var/obj/effect/hotspot/H in T)
-				qdel(H)
-				if(G.toxins)
-					G.nitrogen += (G.toxins)
-					G.toxins = 0
+		if(!T.blocks_air)
+			var/datum/milla_safe/smoke_spread_chill/milla = new()
+			milla.invoke_async(src, T)
 		for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
 			if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
 				V.welded = TRUE
@@ -176,6 +169,18 @@
 			L.ExtinguishMob()
 		for(var/obj/item/Item in T)
 			Item.extinguish()
+
+/datum/milla_safe/smoke_spread_chill
+
+/datum/milla_safe/smoke_spread_chill/on_run(datum/effect_system/smoke_spread/smoke, turf/T)
+	var/datum/gas_mixture/env = get_turf_air(T)
+	if(get_dist(T, smoke) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
+		env.set_temperature(2)
+	for(var/obj/effect/hotspot/H in T)
+		qdel(H)
+		if(env.toxins())
+			env.set_nitrogen(env.nitrogen() + env.toxins())
+			env.set_toxins(0)
 
 /datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, datum/reagents/chemicals, blasting = FALSE)
 	..()

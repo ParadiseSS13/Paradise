@@ -9,7 +9,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	clown_removal_text = "You feel funnier again."
 	wiki_page_name = "Zombie"
 	var/list/old_languages = list() // someone make this better to prevent langs changing if species changes while zombie somehow
-	var/static/list/zombie_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_GOTTAGOSLOW, TRAIT_ABSTRACT_HANDS, TRAIT_SLOW_GRABBER, TRAIT_NOBREATH)
+	var/static/list/zombie_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_GOTTAGOSLOW, TRAIT_ABSTRACT_HANDS, TRAIT_NOBREATH)
 	var/datum/unarmed_attack/claws/claw_attack
 
 // possibly upgrades for the zombies after eating brains? Better vision (/datum/action/changeling/augmented_eyesight), better weapons (armblade), better infection, more inhereint armor (physiology)

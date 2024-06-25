@@ -11,17 +11,15 @@
 		return
 	var/list/map = mother.map
 	for(var/turf/simulated/T in map)
-		SSair.remove_from_active(T)
-	for(var/turf/simulated/T in map)
-		if(T.air)
-			T.air.oxygen = T.oxygen
-			T.air.nitrogen = T.nitrogen
-			T.air.carbon_dioxide = T.carbon_dioxide
-			T.air.toxins = T.toxins
-			T.air.sleeping_agent = T.sleeping_agent
-			T.air.agent_b = T.agent_b
-			T.air.temperature = T.temperature
-		SSair.add_to_active(T)
+		var/datum/gas_mixture/air = new()
+		air.set_oxygen(T.oxygen)
+		air.set_nitrogen(T.nitrogen)
+		air.set_carbon_dioxide(T.carbon_dioxide)
+		air.set_toxins(T.toxins)
+		air.set_sleeping_agent(T.sleeping_agent)
+		air.set_agent_b(T.agent_b)
+		air.set_temperature(T.temperature)
+		T.blind_set_air(air)
 
 //Only places atoms/turfs on area borders
 /datum/mapGeneratorModule/border
