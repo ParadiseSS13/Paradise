@@ -1051,16 +1051,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	H.AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 	H.Weaken(60 SECONDS)
 
-/**
-  * Species-specific runechat colour handler
-  *
-  * Returns the mob's runechat color which can be changed at a mirror or in preferences.
-  * Arguments:
-  * * H - The human who this DNA belongs to
-  */
-/datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
-	return H.runechat_color
-
 /datum/species/proc/handle_harm_antag(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return
