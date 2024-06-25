@@ -185,7 +185,6 @@
 		var/dir_to_move = get_dir(trailer.loc, old_loc)
 		step(trailer, dir_to_move)
 
-
 /obj/tgvehicle/generate_action_type(actiontype)
 	var/datum/action/vehicle/A = ..()
 	. = A
