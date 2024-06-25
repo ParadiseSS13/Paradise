@@ -115,7 +115,7 @@
 		if(91)
 			new /obj/item/organ/internal/brain/xeno(src)
 		if(92)
-			new /obj/item/melee/skateboard/pro(src)
+			new /obj/item/melee/skateboard/hoverboard(src)
 		if(93)
 			new /obj/item/soulstone/anybody(src)
 		if(94)

@@ -44,7 +44,7 @@
 	///Whether the board is currently grinding
 	var/grinding = FALSE
 	///Stores the time of the last crash plus a short cooldown, affects availability and outcome of certain actions
-	var/next_crash
+	COOLDOWN_DECLARE(next_crash)
 	///The handheld item counterpart for the board
 	var/board_item_type = /obj/item/melee/skateboard
 	///Stamina drain multiplier
@@ -67,7 +67,7 @@
 	return ..()
 
 /obj/tgvehicle/scooter/skateboard/relaymove(mob/living/user, direction)
-	if(grinding || world.time < next_crash)
+	if(grinding || !COOLDOWN_FINISHED(src, next_crash))
 		return FALSE
 	return ..()
 
@@ -87,13 +87,13 @@
 
 /obj/tgvehicle/scooter/skateboard/Bump(atom/bumped_thing)
 	. = ..()
-	if(!bumped_thing.density || !has_buckled_mobs() || world.time < next_crash)
+	if(!bumped_thing.density || !has_buckled_mobs() || !COOLDOWN_FINISHED(src, next_crash))
 		return
 	var/mob/living/rider = buckled_mobs[1]
 	if(rider.m_intent == MOVE_INTENT_WALK && can_slow_down) //Going slow prevents you from crashing.
 		return
 
-	next_crash = world.time + 10
+	COOLDOWN_START(src, next_crash, 1 SECONDS)
 	rider.adjustStaminaLoss(instability * 6)
 	playsound(src, 'sound/effects/bang.ogg', 40, TRUE)
 	if(!iscarbon(rider) || rider.getStaminaLoss() >= 100 || grinding || iscarbon(bumped_thing))
