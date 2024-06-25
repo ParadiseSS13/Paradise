@@ -248,7 +248,7 @@
 	icon_state = "bonepen"
 	amount_per_transfer_from_this = 30
 	volume = 30
-	list_reagents = list("nanocalcium" = 30)
+	list_reagents = list("nanocalcium" = 30, "epinephrine" = 5)
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())
