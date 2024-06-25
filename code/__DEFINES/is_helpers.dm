@@ -124,6 +124,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 // Vehicles
 #define isvehicle(A) istype(A, /obj/vehicle)
+#define istgvehicle(A) istype(A, /obj/tgvehicle)
 
 // Misc
 #define isclient(A) istype(A, /client)

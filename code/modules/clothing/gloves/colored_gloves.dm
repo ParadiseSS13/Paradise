@@ -232,4 +232,3 @@
 	icon_state = "furglovesico"
 	item_state = "furgloves"
 	transfer_prints = TRUE
-	transfer_blood = TRUE

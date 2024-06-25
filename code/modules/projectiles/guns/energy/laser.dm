@@ -237,7 +237,7 @@
 
 /obj/item/gun/energy/lwap/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 3 SECONDS, movement_cancels_scope = TRUE)
+	AddComponent(/datum/component/scope, range_modifier = 2, time_to_scope = 3 SECONDS, flags = SCOPE_MOVEMENT_CANCELS | SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
 
 /obj/item/gun/energy/lwap/on_scope_success(mob/living/user)
 	to_chat(user, "<b><span class='robot'>SCOPE_CREEPER_[rand(1, 9999)] Online.</span></b>")
@@ -368,7 +368,7 @@
 	allowing entire rooms to be quickly peppered with incendiary laser fire."
 	. += ""
 	. += "Few weapons inspire quite the same fear and loathing as this. Nanotrasen reserves this weapon for its elite combat operatives and cyborgs. If you're holding it, be glad you're not the one on the other end."
-	
+
 /obj/item/gun/energy/immolator/multi/update_overlays()
 	. = ..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
@@ -416,7 +416,7 @@
 	return
 
 // Special version given by the Safety Override upgrade and as a standard module for ERT engiborgs.
-/obj/item/gun/energy/emitter/cyborg/proto	
+/obj/item/gun/energy/emitter/cyborg/proto
 	name = "mounted prototype laser emitter"
 	desc = "A modified mobile laser emitter that draws power directly from your internal energy cell. This one operates on unoptimised software, reducing its effectiveness."
 	ammo_type = list(/obj/item/ammo_casing/energy/emitter/cyborg/proto)

@@ -107,6 +107,7 @@
 	icon = 'icons/turf/walls/boss_wall.dmi'
 	icon_state = "boss_wall-0"
 	base_icon_state = "boss_wall"
+	baseturf = /turf/simulated/floor/lava/mapping_lava
 	explosion_block = 2
 	damage_cap = 600
 	hardness = 10

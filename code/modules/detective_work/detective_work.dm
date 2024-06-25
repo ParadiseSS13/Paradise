@@ -3,12 +3,29 @@
 /atom/proc/add_fibers(mob/living/carbon/human/M)
 	if(M.gloves && isclothing(M.gloves))
 		var/obj/item/clothing/gloves/G = M.gloves
-		if(G.transfer_blood > 1) //bloodied gloves transfer blood to touched objects
-			if(add_blood(G.blood_DNA, G.blood_color)) //only reduces the bloodiness of our gloves if the item wasn't already bloody
-				G.transfer_blood--
-	else if(M.bloody_hands > 1)
-		if(add_blood(M.blood_DNA, M.hand_blood_color))
+		if(easy_to_spill_blood && G.blood_DNA)
+			add_blood(G.blood_DNA, G.blood_color)
+		else if(G.transfer_blood > 1 && add_blood(G.blood_DNA, G.blood_color))
+			G.transfer_blood--
+
+		if(blood_DNA)
+			var/old_transfer_blood = G.transfer_blood
+			G.add_blood(blood_DNA, blood_color)
+			G.transfer_blood = old_transfer_blood
+			M.update_inv_gloves()
+
+	else
+		if(easy_to_spill_blood && M.blood_DNA)
+			add_blood(M.blood_DNA, M.hand_blood_color)
+		else if(M.bloody_hands > 1 && add_blood(M.blood_DNA, M.hand_blood_color))
 			M.bloody_hands--
+
+		if(blood_DNA)
+			var/old_bloody_hands = M.bloody_hands
+			M.add_blood(blood_DNA, blood_color)
+			M.bloody_hands = old_bloody_hands
+			M.update_inv_gloves()
+
 	if(!suit_fibers) suit_fibers = list()
 	var/fibertext
 	var/item_multiplier = isitem(src)?1.2:1

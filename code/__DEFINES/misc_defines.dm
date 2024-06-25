@@ -94,6 +94,7 @@
 #define AI_TRANS_TO_CARD	1 //Downloading AI to InteliCard.
 #define AI_TRANS_FROM_CARD	2 //Uploading AI from InteliCard
 #define AI_MECH_HACK		3 //Malfunctioning AI hijacking mecha
+#define AI_SHUTTLE_HACK		4 //Malfunctioning AI hijacking shuttle
 
 //singularity defines
 #define STAGE_ONE 1

@@ -90,6 +90,18 @@
 			"function" = implant_data.function,
 			"image" = "[icon2base64(icon(initial(case.imp.icon), initial(case.imp.icon_state), SOUTH, 1))]",
 		)
+		if(istype(case.imp, /obj/item/bio_chip/tracking))
+			var/obj/item/bio_chip/tracking/T = case.imp
+			data["gps"] = T
+			data["tag"] = T.gpstag
+		else
+			data["gps"] = null
+			data["tag"] = null
+	else
+		// Sanity check in the case that a pad is used for multiple types of implants.
+		data["gps"] = null
+		data["tag"] = null
+
 	return data
 
 /obj/item/bio_chip_pad/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -99,3 +111,10 @@
 	switch(action)
 		if("eject_case")
 			eject_case(ui.user)
+		if("tag")
+			var/obj/item/bio_chip/tracking/T = case.imp
+			var/newtag = params["newtag"] || ""
+			newtag = uppertext(paranoid_sanitize(copytext_char(newtag, 1, 5)))
+			if(!length(newtag) || T.gpstag == newtag)
+				return
+			T.gpstag = newtag

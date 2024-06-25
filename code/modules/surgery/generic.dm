@@ -188,7 +188,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_CLOSED
-	affected.germ_level = 0
+	affected.germ_level = max(affected.germ_level - 50, 0)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/cauterize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

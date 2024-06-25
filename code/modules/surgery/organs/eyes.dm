@@ -178,7 +178,7 @@
 
 /obj/item/organ/internal/eyes/cybernetic/scope/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = scope_range, item_action_type = /datum/action/item_action/organ_action/toggle, allow_middle_click = TRUE)
+	AddComponent(/datum/component/scope, range_modifier = scope_range, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
 
 /obj/item/organ/internal/eyes/cybernetic/scope/insert(mob/living/carbon/human/M, special)
 	. = ..()

@@ -17,6 +17,8 @@
 
 	var/list/blood_DNA
 	var/blood_color
+	/// Wont gloves/hands spend blood spill points to make this bloody
+	var/easy_to_spill_blood = FALSE
 	var/pass_flags = 0
 	/// The higher the germ level, the more germ on the atom.
 	var/germ_level = GERM_LEVEL_AMBIENT
@@ -896,6 +898,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return FALSE
 
 /obj/add_blood(list/blood_dna, b_color)
+	blood_color = b_color
 	return transfer_blood_dna(blood_dna)
 
 /obj/item/add_blood(list/blood_dna, b_color)
@@ -1393,3 +1396,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/mouseparams = list2params(paramslist)
 		usr_client.Click(src, loc, null, mouseparams)
 		return TRUE
+
+/**
+ * A special case of relaymove() in which the person relaying the move may be "driving" this atom
+ *
+ * This is a special case for vehicles and ridden animals where the relayed movement may be handled
+ * by the riding component attached to this atom. Returns TRUE as long as there's nothing blocking
+ * the movement, or FALSE if the signal gets a reply that specifically blocks the movement
+ */
+/atom/proc/relaydrive(mob/living/user, direction)
+	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
