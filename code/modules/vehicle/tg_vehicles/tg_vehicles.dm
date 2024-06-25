@@ -76,7 +76,7 @@
 	return istype(I, key_type)
 
 /obj/tgvehicle/proc/return_occupants()
-	return occupants
+	return length(occupants) ? occupants : list()
 
 /obj/tgvehicle/proc/occupant_amount()
 	return LAZYLEN(occupants)
