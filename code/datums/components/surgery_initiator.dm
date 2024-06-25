@@ -339,7 +339,6 @@
 	SIGNAL_HANDLER  // COMSIG_SURGERY_BLOOD_SPLASH
 	return
 
-
 /datum/component/surgery_initiator/limb
 	can_cancel = FALSE  // don't let a leg cancel a surgery
 
@@ -390,6 +389,7 @@
 	return TRUE
 
 /datum/component/surgery_initiator/cloth/on_blood_splash(datum/surgery, mob/user, mob/target, zone, obj/item/tool)
+	SIGNAL_HANDLER  // COMSIG_SURGERY_BLOOD_SPLASH
 	if(prob(90 * germ_prevention_quality))
 		target.visible_message("<span class='notice'>Blood splashes onto the dressing.</span>")
 		var/obj/item/I = parent  // safety: this component can only go onto an item
