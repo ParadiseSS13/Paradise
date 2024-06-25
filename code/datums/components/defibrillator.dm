@@ -1,6 +1,9 @@
 /**
  * A component for an item that attempts to defibrillate a mob when activated.
  */
+
+#define DEFIB_TIME 5 SECONDS
+
 /datum/component/defib
 	/// If this is being used by a borg or not, with necessary safeties applied if so.
 	var/robotic
@@ -24,8 +27,6 @@
 	var/emag_proof
 	/// uid to an item that should be making noise and handling things that our direct parent shouldn't be concerned with.
 	var/actual_unit_uid
-	/// The time it takes between clicking on the patient and the zap being delivered.
-	var/defib_time = 5 SECONDS
 	/// Sound for defib windup.
 	var/charge_sound = 'sound/machines/defib_charge.ogg'
 	/// Sound when the defib is successful.
@@ -38,6 +39,7 @@
 	var/safety_on_sound = 'sound/machines/defib_saftyon.ogg'
 	/// Sound when the defib's safety is disabled.
 	var/safety_off_sound = 'sound/machines/defib_saftyoff.ogg'
+
 /**
  * Create a new defibrillation component.
  *
@@ -201,7 +203,7 @@
 
 	var/signal_result = SEND_SIGNAL(target, COMSIG_LIVING_PRE_DEFIB, user, parent, ghost)
 
-	if(!do_after(user, defib_time * speed_multiplier, target = target)) // Placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+	if(!do_after(user, DEFIB_TIME * speed_multiplier, target = target)) // Placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 		busy = FALSE
 		return
 
@@ -407,5 +409,4 @@
 							"<span class='userdanger'>You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ("l_arm") : affecting.get_organ("r_arm")] and back down your [affecting.hand ? affecting.get_organ("r_arm") : affecting.get_organ("l_arm")]!</span>")
 			affecting.set_heartattack(TRUE)
 
-
-
+#undef DEFIB_TIME
