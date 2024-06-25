@@ -35,7 +35,7 @@
 		/obj/effect/dummy/slaughter, //no bloodcrawlers into chasms.
 		/obj/effect/dummy/spell_jaunt, //No jaunters into chasms either.
 		/mob/living/simple_animal/hostile/megafauna, //failsafe
-		/obj/tgvehicle/scooter/skateboard/hoverboard
+		/obj/tgvehicle/scooter/skateboard/hoverboard,
 		/obj/machinery/light // lights hanging on walls shouldn't get chasm'd
 		))
 	var/drop_x = 1
