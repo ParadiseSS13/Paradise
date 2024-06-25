@@ -1,6 +1,6 @@
 /obj/tgvehicle
 	name = "generic vehicle"
-	desc = "Yell at coderbus."
+	desc = "Yell at coding chat."
 	icon = 'icons/obj/tgvehicles.dmi'
 	icon_state = "error"
 	max_integrity = 300

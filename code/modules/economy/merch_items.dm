@@ -117,7 +117,6 @@
 	cost = 500
 	category = MERCH_CAT_TOY
 
-
 /datum/merch_item/skateboard
 	name = "Skateboard"
 	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a radical weapon."

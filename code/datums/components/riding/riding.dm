@@ -44,7 +44,6 @@
 	/// For telling someone they can't drive
 	COOLDOWN_DECLARE(vehicle_move_cooldown)
 
-
 /datum/component/riding/Initialize(mob/living/riding_mob, force = FALSE, buckle_mob_flags= NONE, potion_boost = FALSE)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -227,8 +226,6 @@
 	buckled_mob.pixel_x = initial(buckled_mob.pixel_x)
 	buckled_mob.pixel_y = initial(buckled_mob.pixel_y)
 	buckled_mob.plane = initial(buckled_mob.plane)
-	//if(buckled_mob.client)
-	//	buckled_mob.client.view_size.resetToDefault()
 
 //MOVEMENT
 /datum/component/riding/proc/turf_check(turf/next, turf/current)
