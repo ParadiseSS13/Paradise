@@ -62,18 +62,20 @@
 
 /obj/item/zombie_claw/Initialize(mapload, new_parent_spell)
 	. = ..()
-	parent_spell = new_parent_spell
-	RegisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dispel))
+	if(new_parent_spell)
+		parent_spell = new_parent_spell
+		RegisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dispel))
 
 /obj/item/zombie_claw/proc/dispel(mob/user)
 	if(user && user.get_active_hand() == src)
 		qdel(src)
 
 /obj/item/zombie_claw/Destroy()
-	UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
 	if(parent_spell)
-		parent_spell.our_claws -= src
-		parent_spell = null
+		UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
+		if(parent_spell)
+			parent_spell.our_claws -= src
+			parent_spell = null
 	return ..()
 
 /obj/item/zombie_claw/customised_abstract_text(mob/living/carbon/owner)
@@ -126,7 +128,7 @@
 
 
 /obj/item/zombie_claw/proc/try_infect(mob/living/carbon/human/target, mob/living/user)
-	if(!ishuman(target))
+	if(!ishuman(target) || HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
 		return
 	if(!(user.zone_selected in list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)))
 		to_chat(user, "<span class='warning zombie'>Our infection cannot spread without their head or chest.</span>")
