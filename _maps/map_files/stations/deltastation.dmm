@@ -30719,6 +30719,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "bJY" = (
@@ -65422,7 +65423,7 @@
 "ehn" = (
 /obj/structure/lattice,
 /turf/simulated/wall/r_wall,
-/area/space/nearstation)
+/area/station/turret_protected/aisat)
 "ehT" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -71611,6 +71612,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/transparent/glass,
 /area/station/aisat)
 "hMD" = (
@@ -77966,6 +77968,17 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical)
+"lCU" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/space,
+/area/space/nearstation)
 "lDF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -106796,7 +106809,7 @@ lUv
 bNM
 bNM
 bNM
-ehn
+bNM
 rMH
 bpq
 brr
@@ -111414,7 +111427,7 @@ bmo
 bmo
 bpm
 btd
-bmo
+xLV
 bNM
 bRt
 bXI
@@ -111671,7 +111684,7 @@ gNA
 gNA
 gNA
 bJX
-cqK
+brs
 bNM
 bPN
 czz
@@ -111928,7 +111941,7 @@ cqM
 cqM
 tzQ
 hMy
-tzQ
+lCU
 bNN
 bNM
 bNM
