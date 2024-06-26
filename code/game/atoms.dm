@@ -19,6 +19,8 @@
 	var/blood_color
 	/// Wont gloves/hands spend blood spill points to make this bloody
 	var/easy_to_spill_blood = FALSE
+	/// Will the atom spread blood when touched?
+	var/should_spread_blood = FALSE
 	var/pass_flags = 0
 	/// The higher the germ level, the more germ on the atom.
 	var/germ_level = GERM_LEVEL_AMBIENT
@@ -898,10 +900,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return FALSE
 
 /obj/add_blood(list/blood_dna, b_color)
+	if(isnull(b_color))
+		b_color = "#A10808"
 	blood_color = b_color
 	return transfer_blood_dna(blood_dna)
 
 /obj/item/add_blood(list/blood_dna, b_color)
+	if(isnull(b_color))
+		b_color = "#A10808"
 	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
 	if(!..())
 		return FALSE
@@ -915,6 +921,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	transfer_blood = rand(2, 4)
 
 /turf/add_blood(list/blood_dna, b_color)
+	if(isnull(b_color))
+		b_color = "#A10808"
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
