@@ -360,7 +360,7 @@
 			icon_state = "sword[item_color]"
 			set_light(brightness_on, l_color=colormap[item_color])
 		w_class = w_class_on
-		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 60000)
+		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) * 30000))
 		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
 	else
 		force = force_off
