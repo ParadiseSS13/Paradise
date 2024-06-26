@@ -146,6 +146,14 @@
 	var/damaging_heat_percent = 0.6
 	///If the gun has overheated and broke down
 	var/broken = FALSE
+	///If the gun is still too hot to repair
+	var/overheated = FALSE
+	var/obj/effect/abstract/particle_holder/fire_particles
+
+/obj/item/gun/medbeam/damaged/Destroy()
+	. = ..()
+	if(fire_particles)
+		QDEL_NULL(fire_particles)
 
 /obj/item/gun/medbeam/damaged/examine(mob/user) //The 8 Trials of Asclepius
 	. = ..()
@@ -192,6 +200,8 @@
 		user.adjust_fire_stacks(20)
 		user.IgniteMob()
 		LoseTarget()
+		update_fire_overlay(COLOR_ORANGE)
+		overheated = TRUE
 		return
 
 	if(current_heat / max_heat > damaging_heat_percent)
@@ -228,6 +238,9 @@
 /obj/item/gun/medbeam/damaged/screwdriver_act(mob/user, obj/item/screwdriver)
 	. = ..()
 	if(broken == SCREWDRIVER_OPEN)
+		if(overheated)
+			to_chat(user,  "<span class='warning'>[src] is still too hot for the screws to be safely removed from it.</span>")
+			return
 		to_chat(user, "<span class='notice'>You start removing the screws from [src]'s shell.</span>")
 		attempt_repair(user, screwdriver, REMOVE_OLD_PARTS)
 		return TRUE
@@ -247,7 +260,7 @@
 /obj/item/gun/medbeam/damaged/welder_act(mob/living/user, obj/item/welder)
 	. = ..()
 	if(broken == WELD_SHELL)
-		if(!tool_start_check(welder, user, 1))
+		if(!welder.tool_start_check(src, user, 1))
 			to_chat(user, "<span class='warning'>[welder] isn't functioning.</span>")
 			return
 		to_chat(user, "<span class='notice'>You start welding [src] back to form.</span>")
@@ -263,6 +276,15 @@
 		to_chat(user, "<span class='notice'>You start to activate the electronics in [src].</span>")
 		attempt_repair(user, multitool, SCREWDRIVER_CLOSED)
 		return TRUE
+
+/obj/item/gun/medbeam/damaged/proc/update_fire_overlay(new_color)
+	if(!fire_particles)
+		fire_particles = new(src, /particles/fire_particles)
+		fire_particles.color = COLOR_RED
+
+	animate(fire_particles, 20 SECONDS, color = COLOR_ORANGE)
+	animate(fire_particles, 10 SECONDS, color = COLOR_GRAY, delay = 20 SECONDS)
+	addtimer(VARSET_CALLBACK(src, overheated, FALSE), 30 SECONDS)
 
 /obj/item/gun/medbeam/damaged/proc/attempt_repair(mob/living/user, obj/item/tool_used, next_broken_state)
 	if(!do_after_once(user, 5 SECONDS, TRUE, src))
@@ -308,8 +330,10 @@
 				return
 			qdel(battery)
 
+		if(SCREWDRIVER_CLOSED)
+			QDEL_NULL(fire_particles)
+
 	broken = next_broken_state
-	return TRUE
 
 #undef SCREWDRIVER_OPEN
 #undef REMOVE_OLD_PARTS
