@@ -470,7 +470,7 @@
 	hitsound = 'sound/items/trayhit1.ogg'
 	hit_reaction_chance = 50
 	materials = list(MAT_METAL = 2000)
-	/// Likely hood of smashing the chair.
+	/// Likelihood of smashing the chair.
 	var/break_chance = 5
 	/// Used for when placing a chair back down.
 	var/obj/structure/chair/origin_type = /obj/structure/chair
