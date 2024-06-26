@@ -49,7 +49,7 @@
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_organ_damage(5,5)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
-		REMOVE_TRAIT(src,TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
+		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 	else
 		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
@@ -343,7 +343,7 @@
 			to_chat(H, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 			H.take_organ_damage(10,10)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
-		REMOVE_TRAIT(src,TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
+		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 	else
 		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
