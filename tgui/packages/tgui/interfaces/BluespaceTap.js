@@ -24,11 +24,9 @@ export const BluespaceTap = (props, context) => {
     availablePower,
     maxLevel,
     emagged,
-    safeLevels,
     nextLevelPower,
     autoShutown,
     stabilizers,
-    overhead,
     stabilizerPower,
   } = data;
   const barColor = (desiredLevel > inputLevel && 'bad') || 'good';
@@ -40,16 +38,18 @@ export const BluespaceTap = (props, context) => {
           <Collapsible title="Input Management">
             <Section fill title="Input">
               <Button
-                icon={autoShutown ? 'toggle-on' : 'toggle-off'}
+                icon={!!autoShutown && !emagged ? 'toggle-on' : 'toggle-off'}
                 content="Auto shutdown"
-                color={autoShutown ? 'green' : 'red'}
+                color={!!autoShutown && !emagged ? 'green' : 'red'}
+                disabled={!!emagged}
                 tooltip="Turn auto shutdown on or off"
                 onClick={() => act('auto_shutdown')}
               />
               <Button
-                icon={stabilizers ? 'toggle-on' : 'toggle-off'}
+                icon={!!stabilizers && !emagged ? 'toggle-on' : 'toggle-off'}
                 content="Stabilizers"
-                color={stabilizers ? 'green' : 'red'}
+                color={!!stabilizers && !emagged ? 'green' : 'red'}
+                disabled={!!emagged}
                 tooltip="Turn stabilizers on or off"
                 onClick={() => act('stabilizers')}
               />
@@ -177,7 +177,6 @@ export const Alerts = (props, context) => {
   const { act, data } = useBackend(context);
   const product = data.product || [];
   const {
-    desiredLevel,
     inputLevel,
     emagged,
     safeLevels,
@@ -190,7 +189,7 @@ export const Alerts = (props, context) => {
       {!autoShutown && !emagged && (
         <NoticeBox danger={1}>Auto shutdown disabled</NoticeBox>
       )}
-      {!!emagged ? (
+      {emagged ? (
         <NoticeBox danger={1}>All safeties disabled</NoticeBox>
       ) : inputLevel <= safeLevels ? (
         ''
