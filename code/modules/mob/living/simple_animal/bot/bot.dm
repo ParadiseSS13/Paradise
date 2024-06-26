@@ -400,51 +400,63 @@
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
+			return
+		if(emagged)
+			to_chat(user, "<span class='danger'>ERROR</span>")
+		if(open)
+			to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
 		else
-			if(emagged)
-				to_chat(user, "<span class='danger'>ERROR</span>")
-			if(open)
-				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
-			else
-				to_chat(user, "<span class='warning'>Access denied.</span>")
-	else if(istype(W, /obj/item/paicard))
+			to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+
+	if(istype(W, /obj/item/paicard))
 		if(paicard)
 			to_chat(user, "<span class='warning'>A [paicard] is already inserted!</span>")
-		else if(allow_pai && !key)
-			if(!locked && !open && !hijacked)
-				var/obj/item/paicard/card = W
-				if(card.pai && card.pai.mind)
-					if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
-						to_chat(user, "<span class='warning'>[W] is unable to establish a connection to [src].</span>")
-						return
-					if(!user.drop_item())
-						return
-					W.forceMove(src)
-					paicard = card
-					user.visible_message("[user] inserts [W] into [src]!","<span class='notice'>You insert [W] into [src].</span>")
-					paicard.pai.mind.transfer_to(src)
-					to_chat(src, "<span class='notice'>You sense your form change as you are uploaded into [src].</span>")
-					bot_name = name
-					name = paicard.pai.name
-					faction = user.faction
-					add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
-				else
-					to_chat(user, "<span class='warning'>[W] is inactive.</span>")
-			else
-				to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
-		else
+			return
+
+		if(!allow_pai || key)
 			to_chat(user, "<span class='warning'>[src] is not compatible with [W].</span>")
-	else if(istype(W, /obj/item/hemostat) && paicard)
+			return
+
+		if(locked || open || hijacked)
+			to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
+			return
+
+		var/obj/item/paicard/card = W
+		if(!card.pai?.mind)
+			to_chat(user, "<span class='warning'>[W] is inactive.</span>")
+			return
+
+		if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
+			to_chat(user, "<span class='warning'>[W] is unable to establish a connection to [src].</span>")
+			return
+
+		if(!user.drop_item())
+			return
+
+		W.forceMove(src)
+		paicard = card
+		user.visible_message("[user] inserts [W] into [src]!", "<span class='notice'>You insert [W] into [src].</span>")
+		paicard.pai.mind.transfer_to(src)
+		to_chat(src, "<span class='notice'>You sense your form change as you are uploaded into [src].</span>")
+		bot_name = name
+		name = paicard.pai.name
+		faction = user.faction
+		add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
+		return
+
+	if(istype(W, /obj/item/hemostat) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
-		else
-			to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
-			if(do_after(user, 30 * W.toolspeed, target = src))
-				if(paicard)
-					user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
-					ejectpai(user)
-	else
-		return ..()
+			return
+
+		to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
+		if(do_after(user, 30 * W.toolspeed, target = src))
+			if(paicard)
+				user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
+				ejectpai(user)
+				return
+	return ..()
 
 /mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)

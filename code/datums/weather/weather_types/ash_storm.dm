@@ -60,7 +60,6 @@
 			outside_areas += place
 		else
 			inside_areas += place
-		CHECK_TICK
 
 	sound_ao.output_atoms = outside_areas
 	sound_ai.output_atoms = inside_areas

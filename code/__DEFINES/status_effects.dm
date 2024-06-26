@@ -151,6 +151,7 @@
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 #define STATUS_EFFECT_FLOORED /datum/status_effect/incapacitating/floored
+#define STATUS_EFFECT_ARMBAR /datum/status_effect/judo_armbar
 
 // transient
 #define STATUS_EFFECT_CONFUSION /datum/status_effect/transient/confusion
@@ -178,6 +179,7 @@
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
 #define STATUS_EFFECT_DAP /datum/status_effect/high_five/dap
 #define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
+#define STATUS_EFFECT_RPS /datum/status_effect/high_five/rps
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 

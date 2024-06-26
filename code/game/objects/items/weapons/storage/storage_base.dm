@@ -199,12 +199,9 @@
 	orient2hud(user) // this only needs to happen to make .contents show properly as screen objects.
 	if(user.s_active)
 		user.s_active.hide_from(user) // If there's already an interface open, close it.
-	user.client.screen -= boxes
-	user.client.screen -= closer
-	user.client.screen -= contents
-	user.client.screen += boxes
-	user.client.screen += closer
-	user.client.screen += contents
+	user.client.screen |= boxes
+	user.client.screen |= closer
+	user.client.screen |= contents
 	user.s_active = src
 	LAZYDISTINCTADD(mobs_viewing, user)
 
@@ -245,6 +242,9 @@
 	update_viewers()
 
 /obj/item/storage/proc/open(mob/user)
+	if(isobserver(user))
+		show_to(user)
+		return
 	if(use_sound && isliving(user))
 		playsound(loc, use_sound, 50, TRUE, -5)
 
@@ -459,6 +459,10 @@
 	if(user)
 		if(user.client && user.s_active != src)
 			user.client.screen -= I
+		if(length(user.observers))
+			for(var/mob/observer in user.observers)
+				if(observer.client && observer.s_active != src)
+					observer.client.screen -= I
 		I.dropped(user, TRUE)
 	add_fingerprint(user)
 

@@ -20,32 +20,21 @@
 	var/secured = TRUE
 	var/list/attached_overlays = null
 	var/obj/item/assembly_holder/holder = null
-	var/cooldown = FALSE //To prevent spam
+	var/cooldown = 0 //To prevent spam
 	var/wires = ASSEMBLY_WIRE_RECEIVE | ASSEMBLY_WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
 
-/obj/item/assembly/proc/activate()									//What the device does when turned on
+
+/// Called when the holder is moved
+/obj/item/assembly/proc/holder_movement()
 	return
 
-/obj/item/assembly/proc/pulsed(radio = FALSE)						//Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
+/// Called when attack_self is called
+/obj/item/assembly/interact(mob/user)
 	return
 
-/obj/item/assembly/proc/toggle_secure()								//Code that has to happen when the assembly is un\secured goes here
-	return
-
-/obj/item/assembly/proc/attach_assembly(obj/A, mob/user)	//Called when an assembly is attacked by another
-	return
-
-/obj/item/assembly/proc/process_cooldown()							//Called via spawn(10) to have it count down the cooldown var
-	return
-
-/obj/item/assembly/proc/holder_movement()							//Called when the holder is moved
-	return
-
-/obj/item/assembly/interact(mob/user)					//Called when attack_self is called
-	return
-
-/obj/item/assembly/process_cooldown()
+/// Called to constantly step down the countdown/cooldown
+/obj/item/assembly/proc/process_cooldown()
 	cooldown--
 	if(cooldown <= 0)
 		return FALSE
@@ -62,14 +51,15 @@
 		holder = null
 	return ..()
 
-/obj/item/assembly/pulsed(radio = FALSE)
+/// Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
+/obj/item/assembly/proc/pulsed(radio = FALSE)
 	if(holder && (wires & ASSEMBLY_WIRE_RECEIVE))
-		activate()
+		activate(radio)
 	if(radio && (wires & ASSEMBLY_WIRE_RADIO_RECEIVE))
-		activate()
+		activate(radio)
 	return TRUE
 
-//Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
+/// Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
 /obj/item/assembly/proc/pulse(radio = FALSE)
 	if(connected && wires)
 		connected.pulse_assembly(src)
@@ -81,21 +71,27 @@
 	if(istype(loc, /obj/item/grenade)) // This is a hack.  Todo: Manage this better -Sayu
 		var/obj/item/grenade/G = loc
 		G.prime()                // Adios, muchachos
+	SEND_SIGNAL(src, COMSIG_ASSEMBLY_PULSED, radio)
 	return TRUE
 
-/obj/item/assembly/activate()
+/// What the device does when turned on
+/obj/item/assembly/proc/activate(radio = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 	if(!secured || cooldown > 0)
 		return FALSE
 	cooldown = 2
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
+
 	return TRUE
 
-/obj/item/assembly/toggle_secure()
+/// Happens when the assembly is (un)secured
+/obj/item/assembly/proc/toggle_secure()
 	secured = !secured
 	update_icon()
 	return secured
 
-/obj/item/assembly/attach_assembly(obj/item/assembly/A, mob/user)
+/// Called when an assembly is attacked by another
+/obj/item/assembly/proc/attach_assembly(obj/item/assembly/A, mob/user)
 	holder = new /obj/item/assembly_holder(get_turf(src))
 	if(holder.attach(A, src, user))
 		to_chat(user, "<span class='notice'>You attach [A] to [src]!</span>")
@@ -138,6 +134,3 @@
 	user.set_machine(src)
 	interact(user)
 	return TRUE
-
-/obj/item/assembly/interact(mob/user)
-	return

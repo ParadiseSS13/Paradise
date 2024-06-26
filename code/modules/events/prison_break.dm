@@ -1,5 +1,5 @@
 /datum/event/prison_break
-	startWhen		= 5
+	startWhen		= 40
 	announceWhen	= 75
 
 	var/releaseWhen = 60
@@ -13,19 +13,17 @@
 /datum/event/prison_break/virology
 	eventDept = "Medical"
 	areaName = list("Virology")
-	areaType = list(/area/station/medical/virology, /area/station/medical/virology/lab)
+	areaType = list(/area/station/medical/virology)
 
 /datum/event/prison_break/xenobiology
 	eventDept = "Science"
 	areaName = list("Xenobiology")
 	areaType = list(/area/station/science/xenobiology)
-	areaNotType = list(/area/station/science/xenobiology/xenoflora, /area/station/science/xenobiology/xenoflora_storage)
 
 /datum/event/prison_break/station
 	eventDept = "Station"
 	areaName = list("Brig","Virology","Xenobiology")
 	areaType = list(/area/station/security/prison, /area/station/security/brig, /area/station/security/permabrig, /area/station/medical/virology, /area/station/medical/virology/lab, /area/station/science/xenobiology)
-	areaNotType = list(/area/station/science/xenobiology/xenoflora, /area/station/science/xenobiology/xenoflora_storage)
 
 
 /datum/event/prison_break/setup()
@@ -37,7 +35,7 @@
 
 /datum/event/prison_break/announce(false_alarm)
 	if(length(areas) || false_alarm)
-		GLOB.minor_announcement.Announce("[pick("Gr3y.T1d3 virus","Malignant trojan")] detected in [station_name()] [(eventDept == "Security")? "imprisonment":"containment"] subroutines. Secure any compromised areas immediately. Station AI involvement is recommended.", "[eventDept] Alert")
+		GLOB.minor_announcement.Announce("[pick("Gr3y.T1d3 virus", "S.E.L.F program", "Malignant trojan", "Runtime error", "Cybersun worm", "[pick("Castle", "Felix", "Fractal", "Paradox", "Rubiks", "Portcullis", "Hammer", "Lockpick", "Faust", "Dream")][pick(" 2.0","")] Daemon")] detected in [station_name()] [(eventDept == "Security")? "imprisonment":"containment"] subroutines. Secure any compromised areas immediately. Station AI involvement is recommended.", "[eventDept] Alert")
 
 /datum/event/prison_break/start()
 	for(var/area/A in world)
@@ -46,12 +44,9 @@
 
 	if(areas && length(areas) > 0)
 		var/my_department = "[station_name()] firewall subroutines"
-		var/rc_message = "An unknown malicious program has been detected in the [english_list(areaName)] lighting and airlock control systems at [station_time_timestamp()]. Systems will be fully compromised within approximately three minutes. Direct intervention is required immediately.<br>"
+		var/rc_message = "An unknown malicious program has been detected in the [english_list(areaName)] lighting and airlock control systems at [station_time_timestamp()]. Systems will be fully compromised within approximately one minute. Direct intervention is required immediately.<br>"
 		for(var/obj/machinery/message_server/MS in GLOB.machines)
 			MS.send_rc_message("Engineering", my_department, rc_message, "", "", 2)
-		for(var/mob/living/silicon/ai/A in GLOB.player_list)
-			to_chat(A, "<span class='danger'>Malicious program detected in the [english_list(areaName)] lighting and airlock control systems by [my_department].</span>")
-
 	else
 		stack_trace("Could not initiate grey-tide. Unable to find suitable containment area.")
 		kill()

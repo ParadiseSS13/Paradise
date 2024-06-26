@@ -199,7 +199,8 @@
 	Moved(old_loc, direction, TRUE)
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
-	if(!loc || !newloc) return 0
+	if(!loc || !newloc)
+		return FALSE
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
@@ -321,7 +322,7 @@
 
 	Moved(old_loc, NONE)
 
-	return 1
+	return TRUE
 
 /atom/movable/proc/onTransitZ(old_z,new_z)
 	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
@@ -348,36 +349,39 @@
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below
-//Return 0 to have src start/keep drifting in a no-grav area and 1 to stop/not start drifting
-//Mobs should return 1 if they should be able to move of their own volition, see client/Move() in mob_movement.dm
+//return FALSE to have src start/keep drifting in a no-grav area and TRUE to stop/not start drifting
+//Mobs should return TRUE if they should be able to move of their own volition, see client/Move() in mob_movement.dm
 //movement_dir == 0 when stopping or any dir when trying to move
 /atom/movable/proc/Process_Spacemove(movement_dir = 0)
 	if(has_gravity(src))
-		return 1
+		return TRUE
 
 	if(pulledby && !pulledby.pulling)
-		return 1
+		return TRUE
+
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir) & COMSIG_MOVABLE_STOP_SPACEMOVE)
+		return TRUE
 
 	if(throwing)
-		return 1
+		return TRUE
 
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 /atom/movable/proc/newtonian_move(direction) //Only moves the object if it's under no gravity
 	if(!loc || Process_Spacemove(0))
 		inertia_dir = 0
-		return 0
+		return FALSE
 
 	inertia_dir = direction
 	if(!direction)
-		return 1
+		return TRUE
 
 	inertia_last_loc = loc
 	SSspacedrift.processing[src] = src
-	return 1
+	return TRUE
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
@@ -397,7 +401,7 @@
 
 /atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE, block_movement = TRUE)
 	if(!target || (flags & NODROP) || speed <= 0)
-		return 0
+		return FALSE
 
 	if(pulledby)
 		pulledby.stop_pulling()
@@ -473,6 +477,13 @@
 
 	return TRUE
 
+/// This proc is recursive, and calls itself to constantly set the glide size of an atom/movable
+/atom/movable/proc/set_glide_size(target = 8)
+	glide_size = target
+
+	for(var/mob/buckled_mob as anything in buckled_mobs)
+		buckled_mob.set_glide_size(target)
+
 //Overlays
 /atom/movable/overlay
 	var/atom/master = null
@@ -500,8 +511,8 @@
 			last_move = buckled_mob.last_move
 			inertia_dir = last_move
 			buckled_mob.inertia_dir = last_move
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -521,7 +532,7 @@
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
 	if(mover in buckled_mobs)
-		return 1
+		return TRUE
 	return ..()
 
 /atom/movable/proc/get_spacemove_backup()
@@ -669,6 +680,8 @@
 
 //Update the screentip to reflect what we're hovering over
 /atom/movable/MouseEntered(location, control, params)
+	if(invisibility > usr.see_invisible)
+		return
 	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
 	var/screentip_mode = usr.client.prefs.screentip_mode
 	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))

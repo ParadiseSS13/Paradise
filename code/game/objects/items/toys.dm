@@ -1367,6 +1367,12 @@
 	icon_state = "cargotech"
 	toysay = "For Cargonia!"
 
+/obj/item/toy/figure/crew/explorer
+	name = "\improper Explorer action figure"
+	desc = "The oblivious explorer, from Space Life's SS12 figurine collection."
+	icon_state = "explorer"
+	toysay = "I f-foun-nd-d it-t in-n s-spac-ce!"
+
 /obj/item/toy/figure/crew/ce
 	name = "\improper Chief Engineer action figure"
 	desc = "The expert Chief Engineer, from Space Life's SS12 figurine collection."
@@ -1451,10 +1457,10 @@
 	icon_state = "janitor"
 	toysay = "Look at the signs, you idiot."
 
-/obj/item/toy/figure/crew/lawyer
+/obj/item/toy/figure/crew/iaa
 	name = "\improper Internal Affairs Agent action figure"
 	desc = "The unappreciated Internal Affairs Agent, from Space Life's SS12 figurine collection."
-	icon_state = "lawyer"
+	icon_state = "internal_affairs"
 	toysay = "Standard Operating Procedure says they're guilty! Hacking is proof they're an Enemy of the Corporation!"
 
 /obj/item/toy/figure/crew/librarian

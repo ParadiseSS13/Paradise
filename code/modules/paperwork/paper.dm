@@ -722,6 +722,50 @@
 	name = "paper - 'Delivery Note'"
 	info = "<i>Hey sweetie! The boss wants you to have some friends. I couldn't get you a real suit, but I found this in a cosplay shop! The bees surely won't see through your IMPECCABLE disguise!<br><br>xoxo,<br>george ♥</i><br><br>- What the fuck. I'm airlocking him tomorrow."
 
+/obj/item/paper/zombie_cure
+	name = "paper - 'Research on Zombies'"
+
+/obj/item/paper/zombie_cure/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD // Make sure reagents appear before this paper
+
+/obj/item/paper/zombie_cure/LateInitialize()
+	. = ..()
+	var/list/zombie_cure_reactions = list()
+	for(var/id in GLOB.chemical_reactions_list)
+		for(var/datum/chemical_reaction/zombie/reaction in GLOB.chemical_reactions_list[id])
+			zombie_cure_reactions["[reaction.cure_level]"] = reaction // we use string keys here so we can measure how many cures there are
+
+	if(length(zombie_cure_reactions) != 4)
+		stack_trace("GLOB.chemical_reactions_list only had [length(zombie_cure_reactions)] zombie cure reactions, when it should have had 4")
+
+	var/list/info_builder = list(
+		"I've done my best to cure them but... I'm out of time. I'd rather die than be bitten and turn into one of them. Below is a compilation of my research of the virus... Good luck.<br>"
+	)
+	for(var/counter in list("1", "2", "3", "4"))
+		var/datum/chemical_reaction/zombie/level = zombie_cure_reactions[counter]
+		if(!level)
+			continue
+		info_builder += "<b><font size='4'>[level.name]</font></b><br>"
+		if(counter == "4")
+			var/datum/reagent/reagent_type
+			for(var/reagent in level.required_reagents)
+				if(reagent == "blood")
+					continue
+				reagent_type = GLOB.chemical_reagents_list[reagent]
+				break
+			info_builder += "I wasn't able to finalize this final Omega sequence. But I know it must contain [reagent_type.name]."
+			break
+		info_builder += "<ul>"
+		for(var/reagent in level.required_reagents)
+			if(reagent == "blood")
+				continue
+			var/datum/reagent/reagent_type = GLOB.chemical_reagents_list[reagent]
+			info_builder += "<li>[reagent_type.name]"
+		info_builder += "</ul><br>"
+
+	info = info_builder.Join("")
+
 /obj/item/paper/evilfax
 	name = "Centcomm Reply"
 	info = ""
@@ -788,7 +832,9 @@
 			else if(myeffect == "Death By Fire")
 				to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(target)
-				new /obj/effect/hotspot(T)
+				var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+				hotspot.temperature = 1000
+				hotspot.recolor()
 				target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 			else if(myeffect == "Total Brain Death")
 				to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")

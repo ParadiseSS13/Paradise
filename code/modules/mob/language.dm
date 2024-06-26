@@ -667,25 +667,32 @@
 	syllables = list ("beep", "boop")
 
 // Language handling.
-/mob/proc/add_language(language)
+/mob/proc/add_language(language, force)
 	var/datum/language/new_language = GLOB.all_languages[language]
 
 	if(!istype(new_language) || (new_language in languages))
 		return FALSE
 
+	if(HAS_TRAIT(src, TRAIT_LANGUAGE_LOCKED) && !force)
+		return FALSE
+
 	languages |= new_language
 	return TRUE
 
-/mob/proc/remove_language(rem_language)
+/mob/proc/remove_language(rem_language, force)
+	if(HAS_TRAIT(src, TRAIT_LANGUAGE_LOCKED) && !force)
+		return FALSE
 	var/datum/language/L = GLOB.all_languages[rem_language]
 	. = (L in languages)
 	languages.Remove(L)
 
 /mob/living/remove_language(rem_language)
+	. = ..()
+	if(!.)
+		return
 	var/datum/language/L = GLOB.all_languages[rem_language]
 	if(default_language == L)
 		default_language = null
-	return ..()
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
@@ -767,5 +774,30 @@
 		if(new_language.flags & NOBABEL)
 			continue
 		languages |= new_language
+
+/datum/language/zombie
+	name = "Zombie"
+	desc = "Flesh... Brains... We hunger..."
+	speech_verb = "groans"
+	ask_verb = "groans"
+	exclaim_verbs = list("yells")
+	colour = "zombie"
+	key = "zz" //doesn't matter, this is their default and only language
+	flags = RESTRICTED | NOLIBRARIAN
+	syllables = list("Brains", "Brainssss", "Flesh", "Grrr", "Hnng", "Braaaains", "Braaiiiins")
+	english_names = TRUE
+
+/datum/language/zombie/scramble(input)
+	var/terminator = "..."
+	if(!length(input))
+		return "[pick(syllables)][terminator]"
+
+	var/last_letter = copytext(input, length(input))
+	if(last_letter in list("?", "!"))
+		terminator = last_letter
+
+	if(prob(90) || !length(input))
+		return "[pick(syllables)][terminator]"
+	return "[copytext_char(input, 1, min(7, length(input)))][terminator]"
 
 #undef SCRAMBLE_CACHE_LEN

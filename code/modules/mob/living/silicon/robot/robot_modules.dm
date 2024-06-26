@@ -320,6 +320,7 @@
 /obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	return FALSE
 
+/// Overriden for specific modules if they have storage items. These should have their contents emptied out onto the floor.
 /obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
 	return
 
@@ -354,13 +355,18 @@
 		/obj/item/stack/medical/ointment/advanced/cyborg,
 		/obj/item/stack/medical/splint/cyborg,
 		/obj/item/stack/nanopaste/cyborg,
-		/obj/item/gripper_medical
+		/obj/item/gripper/medical
 	)
 	malf_modules = list(/obj/item/gun/syringemalf)
 	special_rechargables = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/gun/syringemalf
 	)
+
+/obj/item/robot_module/medical/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/medical/G = locate(/obj/item/gripper/medical) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
 
 // Disable safeties on the borg's defib.
 /obj/item/robot_module/medical/emag_act(mob/user)
@@ -393,7 +399,7 @@
 
 //Preload Syringes
 /obj/item/gun/syringemalf/Initialize(mapload)
-	..()
+	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 	process_chamber()
 
@@ -451,7 +457,7 @@
 		/obj/item/analyzer,
 		/obj/item/geiger_counter/cyborg,
 		/obj/item/holosign_creator/engineering,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/matter_decompiler,
 		/obj/item/painter,
 		/obj/item/areaeditor/blueprints/cyborg,
@@ -471,9 +477,12 @@
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
 
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper_engineering/G = locate(/obj/item/gripper_engineering) in modules
+	var/obj/item/gripper/engineering/G = locate(/obj/item/gripper/engineering) in modules
+	var/obj/item/storage/part_replacer/P = locate(/obj/item/storage/part_replacer) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
+	if(istype(P))
+		P.drop_inventory(R)
 
 // Security cyborg module.
 /obj/item/robot_module/security
@@ -513,7 +522,8 @@
 		/obj/item/mop/advanced/cyborg,
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator/janitor,
-		/obj/item/extinguisher/mini
+		/obj/item/extinguisher/mini,
+		/obj/item/melee/flyswatter
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/malfbroom)
@@ -524,6 +534,11 @@
 		/obj/item/reagent_containers/spray/cyborg_facid,
 		/obj/item/extinguisher/mini
 	)
+
+/obj/item/robot_module/janitor/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/storage/bag/trash/T = locate(/obj/item/storage/bag/trash) in modules
+	if(istype(T))
+		T.drop_inventory(R)
 
 /obj/item/robot_module/janitor/Initialize(mapload)
 	. = ..()
@@ -603,7 +618,8 @@
 		/obj/item/reagent_containers/dropper/cyborg,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/bag/tray/cyborg,
-		/obj/item/reagent_containers/drinks/shaker
+		/obj/item/reagent_containers/drinks/shaker,
+		/obj/item/gripper/service
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer)
 	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/instrument/guitar/cyborg)
@@ -614,6 +630,13 @@
 		/obj/item/gun/projectile/shotgun/automatic/combat/cyborg
 	)
 
+/obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/service/G = locate(/obj/item/gripper/service) in modules
+	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
+	if(istype(T))
+		T.drop_inventory(R)
 
 // This is a special type of beer given when emagged, one sip and the target falls asleep.
 /obj/item/reagent_containers/drinks/cans/beer/sleepy_beer
@@ -643,12 +666,6 @@
 	R.add_language("Neo-Russkiya", 1)
 	R.add_language("Tkachi", 1)
 
-/obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
-	if(istype(T))
-		T.drop_inventory(R)
-
-
 /obj/item/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
@@ -663,14 +680,22 @@
 		/obj/item/shovel,
 		/obj/item/weldingtool/mini,
 		/obj/item/extinguisher/mini,
-		/obj/item/storage/bag/sheetsnatcher/borg,
 		/obj/item/t_scanner/adv_mining_scanner/cyborg,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
-		/obj/item/gps/cyborg
+		/obj/item/gps/cyborg,
+		/obj/item/gripper/mining
 	)
 	emag_modules = list(/obj/item/pickaxe/drill/jackhammer)
 	malf_modules = list(/obj/item/gun/energy/kinetic_accelerator/cyborg/malf)
 	special_rechargables = list(/obj/item/extinguisher/mini, /obj/item/weldingtool/mini)
+
+/obj/item/robot_module/miner/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/mining/G = locate(/obj/item/gripper/mining) in modules
+	var/obj/item/storage/bag/ore/B = locate(/obj/item/storage/bag/ore) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
+	if(istype(B))
+		B.drop_inventory(R)
 
 // This makes it so others can crowbar out KA upgrades from the miner borg.
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
@@ -705,7 +730,7 @@
 		/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg/red,
-		/obj/item/pinpointer/operative
+		/obj/item/pinpointer/operative,
 	)
 
 // Sydicate medical cyborg module.
@@ -738,7 +763,7 @@
 		/obj/item/stack/nanopaste/cyborg/syndicate,
 		/obj/item/gun/medbeam,
 		/obj/item/extinguisher/mini,
-		/obj/item/gripper_medical
+		/obj/item/gripper/medical,
 	)
 	special_rechargables = list(/obj/item/extinguisher/mini)
 
@@ -759,7 +784,7 @@
 		/obj/item/multitool/cyborg,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/card/emag,
 		/obj/item/borg_chameleon,
@@ -845,11 +870,12 @@
 		/obj/item/wirecutters/cyborg/drone,
 		/obj/item/multitool/cyborg/drone,
 		/obj/item/lightreplacer/cyborg,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/matter_decompiler,
 		/obj/item/reagent_containers/spray/cleaner/drone,
 		/obj/item/soap,
 		/obj/item/t_scanner,
+		/obj/item/painter,
 		/obj/item/rpd,
 		/obj/item/analyzer,
 		/obj/item/stack/sheet/metal/cyborg/drone,
@@ -869,7 +895,7 @@
 	)
 
 /obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper_engineering/G = locate(/obj/item/gripper_engineering) in modules
+	var/obj/item/gripper/engineering/G = locate(/obj/item/gripper/engineering) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
 

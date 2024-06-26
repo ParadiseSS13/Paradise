@@ -41,5 +41,5 @@
 #define MOUSE_OPACITY_TRANSPARENT 0
 /// Objects will be clicked on if it is the topmost object and the pixel isn't transparent at the position of the mouse (default behavior for 99.99% of game objects)
 #define MOUSE_OPACITY_ICON 1
-/// Objects will be always be clicked on regardless of pixel transparency or other objects at that location (used in space vines, megafauna, storage containers)
+/// Objects will be always be clicked on regardless of pixel transparency or other objects at that location (used in space vines, storage containers)
 #define MOUSE_OPACITY_OPAQUE 2

@@ -65,6 +65,7 @@
 		item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE)
 		item.credits = 0
 		item.reason = "[AM] does not have the right traits."
+		item.requests_console_department = "Hydroponics"
 		manifest.line_items += item
 		return COMSIG_CARGO_SELL_WRONG
 
@@ -79,27 +80,12 @@
 		update_item.credits = 0
 		update_item.zero_is_good = TRUE
 		update_item.reason = "Received [sent_this_shipment] useful samples of kudzu seeds."
+		update_item.requests_console_department = "Hydroponics"
 		manifest.line_items += update_item
 
 	if(sent < needed)
 		return
 
-	var/datum/economy/line_item/supply_item = new
-	supply_item.account = SSeconomy.cargo_account
-	supply_item.credits = SSeconomy.credits_per_kudzu_goal / 3
-	supply_item.reason = "Secondary goal complete: [needed] samples of kudzu seeds."
-	manifest.line_items += supply_item
-
-	var/datum/economy/line_item/department_item = new
-	department_item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE)
-	department_item.credits = SSeconomy.credits_per_kudzu_goal / 3
-	department_item.reason = "Secondary goal complete: [needed] samples of kudzu seeds."
-	manifest.line_items += department_item
-
-	var/datum/economy/line_item/personal_item = new
-	personal_item.account = personal_account || department_item.account
-	personal_item.credits = SSeconomy.credits_per_kudzu_goal / 3
-	personal_item.reason = "Secondary goal complete: [needed] samples of kudzu seeds."
-	manifest.line_items += personal_item
+	three_way_reward(manifest, "Hydroponics", GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), SSeconomy.credits_per_kudzu_goal, "Secondary goal complete: [needed] samples of kudzu seeds.")
 
 	return TRUE
