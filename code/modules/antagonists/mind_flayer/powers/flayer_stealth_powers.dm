@@ -57,7 +57,7 @@
 		return FALSE
 
 	flayer.mimicking = mimic_voice
-	user.extra_message_range = 5
+	user.extra_message_range = 5 //Artificially extend the range of your voice to lure out victims
 	to_chat(user, "<span class='notice'>We adjust the parameters of our voicebox to mimic <b>[mimic_voice]</b>.</span>")
 	to_chat(user, "<span class='notice'>Use this power again to return to revert the changes.</span>")
 	return TRUE
