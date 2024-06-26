@@ -487,7 +487,6 @@
 	/// the attack types that are considered for parrying
 	var/parryable_attack_types = NON_PROJECTILE_ATTACKS
 
-
 /obj/item/chair/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded = force_unwielded, force_wielded = force_wielded)
