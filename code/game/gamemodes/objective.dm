@@ -545,6 +545,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/datum/theft_objective/steal_target
 	martyr_compatible = FALSE
 	var/theft_area
+	/// If set, steal targets will be pulled from this list
 	var/list/steal_list = list()
 
 /datum/objective/steal/found_target()
