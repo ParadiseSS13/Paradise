@@ -429,6 +429,10 @@ const GetRequestNotice = (_properties, context) => {
       head_name = 'Any Head';
       head_color = 'grey';
       break;
+    default:
+      head_name = 'None';
+      head_color = 'grey';
+      break;
   }
 
   return (
