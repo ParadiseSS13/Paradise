@@ -112,7 +112,7 @@
 	name = "Draw Blood Rune"
 	desc = "Use the ritual dagger to create a powerful blood rune"
 	button_icon_state = "blood_dagger"
-	default_button_position = "6:157,4:-2"
+	default_button_position = "10:29,4:-2"
 
 /datum/action/innate/cult/use_dagger/Grant()
 	button_icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
