@@ -617,6 +617,8 @@ emp_act
 	return TRUE
 
 /mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color)
+	if(isnull(b_color))
+		b_color = "#A10808"
 	if(gloves)
 		gloves.add_blood(blood_dna, blood_color)
 	else
