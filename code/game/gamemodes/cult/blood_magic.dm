@@ -12,23 +12,6 @@
 		qdel(X)
 	..()
 
-/datum/action/innate/cult/blood_magic/proc/Positioning()
-	for(var/datum/hud/hud as anything in viewers)
-		var/our_view = hud.mymob?.client?.view || "15x15"
-		var/atom/movable/screen/movable/action_button/button = viewers[hud]
-		var/position = screen_loc_to_offset(button.screen_loc)
-		var/spells_iterated = 0
-		for(var/datum/action/innate/cult/blood_spell/blood_spell in spells)
-			spells_iterated += 1
-			if(blood_spell.positioned)
-				continue
-			var/atom/movable/screen/movable/action_button/moving_button = blood_spell.viewers[hud]
-			if(!moving_button)
-				continue
-			var/our_x = position[1] + spells_iterated * world.icon_size // Offset any new buttons into our list
-			hud.position_action(moving_button, offset_to_screen_loc(our_x, position[2], our_view))
-			blood_spell.positioned = TRUE
-
 /datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
 	var/limit = RUNELESS_MAX_BLOODCHARGE
@@ -102,6 +85,7 @@
 	var/health_cost = 0
 	/// Have we already been positioned into our starting location?
 	var/positioned = FALSE
+	default_button_position = SCRN_OBJ_CULT_LIST
 
 
 /datum/action/innate/cult/blood_spell/proc/get_panel_text()
@@ -128,10 +112,6 @@
 	// todo blood magic guh
 	// button.ordered = FALSE
 	..()
-
-/datum/action/innate/cult/blood_spell/override_location()
-	// button.locked = TRUE
-	all_magic.Positioning()
 
 /datum/action/innate/cult/blood_spell/Remove()
 	if(all_magic)
