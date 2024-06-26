@@ -445,10 +445,11 @@
 /obj/item/clothing/suit/pimpcoat/tan
 	name = "coat of status"
 	desc = "Very fluffy tan coat, made out of the finest fur from the Earth. Gifted to Quartermaster of Nanotrasen."
+	extended_desc = "Has additional layer of protection against harsh environment of Lavaland and a strap to hold equipment of Quartermaster."
 	icon_state = "pimpcoat_tan"
 	item_state = "pimpcoat_tan"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 15, ACID = 50)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/melee/classic_baton/telescopic, /obj/item/gun/energy/kinetic_accelerator)
+	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster, /obj/item/rcs)
 
 /obj/item/clothing/suit/furcoat
 	name = "fur coat"
