@@ -81,7 +81,7 @@
 			max_number = 5
 			vermstring = "молей"
 		if(VERM_MOTHROACH)
-			spawn_types = list(/mob/living/simple_animal/mothroach)
+			spawn_types = list(/mob/living/simple_animal/nian_caterpillar)
 			max_number = 5
 			vermstring = "молетараканов"
 	var/amount_to_spawn = rand(2, max_number)

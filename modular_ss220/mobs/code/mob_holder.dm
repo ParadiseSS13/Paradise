@@ -369,13 +369,6 @@
 	icon_state = "fennec"
 	origin_tech = "biotech=4"
 
-/obj/item/holder/mothroach
-	name = "mothroach"
-	desc = "Bzzzz"
-	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'
-	icon_state = "mothroach"
-	origin_tech = "biotech=4"
-
 /obj/item/holder/moth
 	name = "moth"
 	desc = "Bzzzz"
