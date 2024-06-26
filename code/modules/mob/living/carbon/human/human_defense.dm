@@ -617,13 +617,10 @@ emp_act
 	return TRUE
 
 /mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
-
 	if(gloves)
 		gloves.add_mob_blood(source)
-		gloves:transfer_blood = amount
 	else
 		add_mob_blood(source)
-		bloody_hands = amount
 	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(mob/living/source)
@@ -657,6 +654,10 @@ emp_act
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		dna.species.spec_attack_hand(H, src)
+
+	if(bleed_rate && ishuman(user))
+		var/mob/living/carbon/human/attacker = user
+		attacker.bloody_hands(src)
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
