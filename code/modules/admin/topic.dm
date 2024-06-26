@@ -3597,7 +3597,12 @@
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
 
-	. = ADMIN_FLW(target,"FLW")
+	if(isclient(target))
+		var/client/C = target
+		if(C.mob)
+			target = C.mob
+
+	. = ADMIN_FLW(target, "FLW")
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
 		if(A.client && A.eyeobj) // No point following clientless AI eyes

@@ -7,107 +7,144 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
-	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
-	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
+	// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
+	move_resist = null
+	/// used in item_attack.dm to make an item not show an attack message to viewers
+	var/discrete = FALSE
 	/// The icon state used to display the item in your inventory. If null then the icon_state value itself will be used
 	var/item_state = null
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-	//Dimensions of the lefthand_file and righthand_file vars
-	//eg: 32x32 sprite, 64x64 sprite, etc.
+	/// Dimension X of the lefthand_file and righthand_file var
+	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_x_dimension = 32
+	/// Dimension Y of the lefthand_file and righthand_file var
+	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_y_dimension = 32
 
 	max_integrity = 200
 
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
+	easy_to_spill_blood = TRUE
 
-	///Sound played when you hit something with the item
+	/// Sound played when you hit something with the item
 	var/hitsound
-	///Played when the item is used, for example tools
+	/// Played when the item is used, for example tools
 	var/usesound
-	///Used when yate into a mob
+	/// Used when yate into a mob
 	var/mob_throw_hit_sound
-	///Sound used when equipping the item into a valid slot
+	/// Sound used when equipping the item into a valid slot
 	var/equip_sound
-	///Sound uses when picking the item up (into your hands)
+	/// Sound uses when picking the item up (into your hands)
 	var/pickup_sound
-	///Sound uses when dropping the item, or when its thrown.
+	/// Sound uses when dropping the item, or when its thrown.
 	var/drop_sound
-	///Whether or not we use stealthy audio levels for this item's attack sounds
+	/// Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE
 	/// Allows you to override the attack animation with an attack effect
 	var/attack_effect_override
-	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
+	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
+	var/list/attack_verb
+	/// Determines how big/small items are to fit in storage containers
 	var/w_class = WEIGHT_CLASS_NORMAL
-	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
+	/// This is used to determine on which slots an item can fit.
+	var/slot_flags = 0
+	/// Determines what it can pass over/through. IE. 'PASSTABLE' will allow it to pass over tables
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
-//	causeerrorheresoifixthis
-	var/obj/item/master = null
+	var/obj/item/master
 
-	var/heat_protection = 0 //flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
-	var/cold_protection = 0 //flags which determine which body parts are protected from cold. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
-	var/max_heat_protection_temperature //Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
-	var/min_cold_protection_temperature //Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
-
-	var/list/actions = list() //list of /datum/action's that this item has.
-	var/list/actions_types = list() //list of paths of action datums to give to the item on New().
-	var/list/action_icon = list() //list of icons-sheets for a given action to override the icon.
-	var/list/action_icon_state = list() //list of icon states for a given action to override the icon_state.
+	/// Flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
+	var/heat_protection = 0
+	/// Flags which determine which body parts are protected from cold. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
+	var/cold_protection = 0
+	/// Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
+	var/max_heat_protection_temperature
+	/// Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
+	var/min_cold_protection_temperature
+	/// List of /datum/action's that this item has.
+	var/list/actions = list()
+	/// List of paths of action datums to give to the item on New().
+	var/list/actions_types = list()
+	/// List of icons-sheets for a given action to override the icon.
+	var/list/action_icon = list()
+	/// List of icon states for a given action to override the icon_state.
+	var/list/action_icon_state = list()
 
 	var/list/materials = list()
-	//Since any item can now be a piece of clothing, this has to be put here so all items share it.
-	var/flags_inv //This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
-	var/item_color = null
-	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
-	//var/heat_transfer_coefficient = 1 //0 prevents all transfers, 1 is invisible
-	var/gas_transfer_coefficient = 1 // for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
-	var/permeability_coefficient = 1 // for chemicals/diseases
-	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
-	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up
+	/// Since any item can now be a piece of clothing, this has to be put here so all items share it.
+	/// This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
+	var/flags_inv
+	var/item_color
+	/// What bodyflags does this item cover? See setup.dm for appropriate bit flags
+	var/body_parts_covered = 0
+	/// For leaking gas from turf to mask and vice-versa.
+	var/gas_transfer_coefficient = 1
+	/// for chemicals/diseases
+	var/permeability_coefficient = 1
+	/// for electrical admittance/conductance (electrocution checks and shit)
+	var/siemens_coefficient = 1
+	/// How much clothing is slowing you down. Negative values speeds you up
+	var/slowdown = 0
 	/// Flat armour reduction, occurs after percentage armour penetration.
 	var/armour_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.
 	var/armour_penetration_percentage = 0
-	var/list/allowed = null //suit storage stuff.
-	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
+	/// For what suits can store. IE. secuirty vest holding stunbatons, disablers, cuffs.
+	var/list/allowed = list()
+	/// All items can have an uplink hidden inside, just remember to add the triggers.
+	var/obj/item/uplink/hidden/hidden_uplink
 
-	var/needs_permit = FALSE			//Used by security bots to determine if this item is safe for public use.
-
+	/// Used by security bots to determine if this item is safe for public use.
+	var/needs_permit = FALSE
+	/// How long it takes to remove an item off of somebody. IE. clothing
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
+	/// How long it takes to put an item onto somebody. IE. clothing
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
+	/// How long it takes to resist out of restraints, like cuffs, and whatnot.
 	var/breakouttime = 0
-	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
+	/// For flags that define what areas an item cover
+	var/flags_cover = 0
 
 	/// Used to give a reaction chance on hit that is not a block. If less than 0, will remove the block message, allowing overides.
 	var/hit_reaction_chance = 0
 
-	// Needs to be in /obj/item because corgis can wear a lot of
-	// non-clothing items
+	/// What can/cant be worn, and where is valid to be worn by ian/E-N(and corgies), most of the time changing the name and emotes of the pet.
+	// Needs to be in /obj/item because corgis can wear a lot of non-clothing items
 	var/datum/dog_fashion/dog_fashion = null
 
 	/// UID of a /mob
 	var/thrownby
 
-	//So items can have custom embedd values
-	//Because customisation is king
+	/// So items can have custom embedd values because customisation is king
 	var/embed_chance = EMBED_CHANCE
+	/// The chances of the item falling out of the limb
 	var/embedded_fall_chance = EMBEDDED_ITEM_FALLOUT
+	/// The cances of the item dealing damage to the limb
 	var/embedded_pain_chance = EMBEDDED_PAIN_CHANCE
-	var/embedded_pain_multiplier = EMBEDDED_PAIN_MULTIPLIER  //The coefficient of multiplication for the damage this item does while embedded (this*w_class)
-	var/embedded_fall_pain_multiplier = EMBEDDED_FALL_PAIN_MULTIPLIER //The coefficient of multiplication for the damage this item does when falling out of a limb (this*w_class)
-	var/embedded_impact_pain_multiplier = EMBEDDED_IMPACT_PAIN_MULTIPLIER //The coefficient of multiplication for the damage this item does when first embedded (this*w_class)
-	var/embedded_unsafe_removal_pain_multiplier = EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER //The coefficient of multiplication for the damage removing this without surgery causes (this*w_class)
-	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME //A time in ticks, multiplied by the w_class.
+	/// The coefficient of multiplication for the damage this item does while embedded (this * w_class)
+	var/embedded_pain_multiplier = EMBEDDED_PAIN_MULTIPLIER
+	/// The coefficient of multiplication for the damage this item does when falling out of a limb (this * w_class)
+	var/embedded_fall_pain_multiplier = EMBEDDED_FALL_PAIN_MULTIPLIER
+	/// The coefficient of multiplication for the damage this item does when first embedded (this * w_class)
+	var/embedded_impact_pain_multiplier = EMBEDDED_IMPACT_PAIN_MULTIPLIER
+	/// The coefficient of multiplication for the damage removing this without surgery causes (this * w_class)
+	var/embedded_unsafe_removal_pain_multiplier = EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER
+	/// A time in ticks, multiplied by the w_class.
+	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME
+	/// How fast something has to be going to embed
 	var/embedded_ignore_throwspeed_threshold = FALSE
 
-	var/tool_behaviour = NONE //What kind of tool are we?
-	var/tool_enabled = TRUE //If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
-	var/tool_volume = 50 //How loud are we when we use our tool?
-	var/toolspeed = 1 // If this item is a tool, the speed multiplier
+	/// What kind of tool are we?
+	var/tool_behaviour = NONE
+	/// If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
+	var/tool_enabled = TRUE
+	/// How loud are we when we use our tool?
+	var/tool_volume = 50
+	/// If this item is a tool, the speed multiplier
+	var/toolspeed = 1
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
@@ -116,16 +153,25 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		)
 	If index term exists and icon_override is not set, this sprite sheet will be used.
 	*/
-	var/list/sprite_sheets = null
-	var/list/sprite_sheets_inhand = null //Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
-	var/icon_override = null  //Used to override hardcoded clothing dmis in human clothing proc.
-	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
+	var/list/sprite_sheets
+	/// Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
+	var/list/sprite_sheets_inhand
+	/// Used to override hardcoded clothing dmis in human clothing proc.
+	var/icon_override
+	/// Used to override hardcoded clothing inventory object dmis in human clothing proc.
+	var/sprite_sheets_obj
 
 	//Tooltip vars
-	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
+
+	/// Is this item equipped into an inventory slot or hand of a mob?
+	var/in_inventory = FALSE
+
 	var/tip_timer = 0
 
-	// item hover FX
+	///////////////////////////
+	// MARK: item hover FX
+	///////////////////////////
+
 	/// Is this item inside a storage object?
 	var/in_storage = FALSE
 	// For assigning a belt overlay icon state in belts.dmi
@@ -297,11 +343,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
 				to_chat(user, "<span class='warning'>The acid on [src] burns your hand!</span>")
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
-				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
+				if(affecting && affecting.receive_damage(0, 5))	// 5 burn damage
 					H.UpdateDamageIcon()
 
 	if(isstorage(src.loc))
-		//If the item is in a storage item, take it out
+		/// If the item is in a storage item, take it out
 		var/obj/item/storage/S = src.loc
 		S.remove_from_storage(src)
 
@@ -341,11 +387,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/attack_ai(mob/user as mob)
 	if(istype(src.loc, /obj/item/robot_module))
-		//If the item is part of a cyborg module, equip it
+		// If the item is part of a cyborg module, equip it
 		if(!isrobot(user))
 			return
 		var/mob/living/silicon/robot/R = user
-		if(!R.low_power_mode) //can't equip modules with an empty cell.
+		if(!R.low_power_mode) // Can't equip modules with an empty cell.
 			R.activate_module(src)
 			R.hud_used.update_robot_modules_display()
 
@@ -355,7 +401,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(isstorage(I))
 		var/obj/item/storage/S = I
 		if(S.use_to_pickup)
-			if(S.pickup_all_on_tile) //Mode is set to collect all items on a tile and we clicked on a valid one.
+			if(S.pickup_all_on_tile) // Mode is set to collect all items on a tile and we clicked on a valid one.
 				if(isturf(loc))
 					var/list/rejections = list()
 					var/success = 0
@@ -369,7 +415,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 							failure = 1
 							continue
 						success = 1
-						S.handle_item_insertion(IT, user, TRUE)	//The TRUE stops the "You put the [src] into [S]" insertion message from being displayed.
+						S.handle_item_insertion(IT, user, TRUE)	// The TRUE stops the "You put the [src] into [S]" insertion message from being displayed.
 					if(success && !failure)
 						to_chat(user, "<span class='notice'>You put everything in [S].</span>")
 					else if(success)
@@ -380,7 +426,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src, user)
 	else if(istype(I, /obj/item/stack/tape_roll))
-		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
+		if(isstorage(src)) // Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
 			if(bag.can_be_inserted(I))
 				return ..()
@@ -405,18 +451,16 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)) + prob(final_block_chance)
 	if(!signal_result)
 		return FALSE
-	if(hit_reaction_chance >= 0) //Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
+	if(hit_reaction_chance >= 0) // Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
 		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
 	return signal_result
 
-// Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
-// Returns TRUE on success, FALSE on failure.
+/// Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc. Returns TRUE on success, FALSE on failure.
 /obj/item/proc/use(used)
 	return !used
 
-//Generic refill proc. Transfers something (e.g. fuel, charge) from an atom to our tool. returns TRUE if it was successful, FALSE otherwise
-//Not sure if there should be an argument that indicates what exactly is being refilled
-/obj/item/proc/refill(mob/user, atom/A, amount)
+/// Generic refill proc. Transfers something (e.g. fuel, charge) from an atom to our tool. returns TRUE if it was successful, FALSE otherwise
+/obj/item/proc/refill(mob/user, atom/A, amount) // Not sure if there should be an argument that indicates what exactly is being refilled
 	return FALSE
 
 /obj/item/proc/talk_into(mob/M, text, channel=null)
@@ -430,7 +474,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		A.Remove(user)
 	if(flags & DROPDEL)
 		qdel(src)
-	if((flags & NODROP) && !(initial(flags) & NODROP)) //Remove NODROP is dropped
+	if((flags & NODROP) && !(initial(flags) & NODROP)) // Remove NODROP if dropped. Probably from delimbing.
 		flags &= ~NODROP
 	in_inventory = FALSE
 	remove_outline()
@@ -494,9 +538,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/item_action_slot_check(slot, mob/user)
 	return 1
 
-//returns 1 if the item is equipped by a mob, 0 otherwise.
-//This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
-/obj/item/proc/is_equipped()
+/// returns 1 if the item is equipped by a mob, 0 otherwise.
+/obj/item/proc/is_equipped() // This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
 	if(!ismob(loc))
 		return 0
 
@@ -506,9 +549,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	else
 		return 0
 
-//the mob M is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
-//If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
-//Set disable_warning to 1 if you wish it to not give you outputs.
+// the mob(M) is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
+// If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
+// Set disable_warning to 1 if you wish it to not give you outputs.
 /obj/item/proc/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 	if(!M)
 		return 0
@@ -520,36 +563,36 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	set category = null
 	set name = "Pick up"
 
-	if(!(usr)) //BS12 EDIT
+	if(!(usr)) // BS12 EDIT
 		return
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
-	if(!iscarbon(usr) || isbrain(usr)) //Is humanoid, and is not a brain
+	if(!iscarbon(usr) || isbrain(usr)) // Is humanoid, and is not a brain
 		to_chat(usr, "<span class='warning'>You can't pick things up!</span>")
 		return
-	if(anchored) //Object isn't anchored
+	if(anchored) // Object isn't anchored
 		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
-	if(!usr.hand && usr.r_hand) //Right hand is not full
+	if(!usr.hand && usr.r_hand) // Right hand is not full
 		to_chat(usr, "<span class='warning'>Your right hand is full.</span>")
 		return
-	if(usr.hand && usr.l_hand) //Left hand is not full
+	if(usr.hand && usr.l_hand) // Left hand is not full
 		to_chat(usr, "<span class='warning'>Your left hand is full.</span>")
 		return
-	if(!isturf(loc)) //Object is on a turf
+	if(!isturf(loc)) // Object is on a turf
 		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
-	//All checks are done, time to pick it up!
+	// All checks are done, time to pick it up!
 	usr.UnarmedAttack(src)
 
 
-//This proc is executed when someone clicks the on-screen UI button.
-//The default action is attack_self().
-//Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
+// This proc is executed when someone clicks the on-screen UI button.
+// The default action is attack_self().
+// Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click(mob/user, actiontype)
 	attack_self(user)
 
-/obj/item/proc/IsReflect(def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
+/obj/item/proc/IsReflect(def_zone) // This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
 	return 0
 
 /obj/item/proc/get_loc_turf()
@@ -573,7 +616,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		to_chat(user, "<span class='danger'>You're going to need to remove that mask/helmet/glasses first!</span>")
 		return
 
-	if(isalien(M) || isslime(M))//Aliens don't have eyes./N     slimes also don't have eyes!
+	if(isalien(M) || isslime(M)) // Aliens don't have eyes, slimes also don't have eyes!
 		to_chat(user, "<span class='warning'>You cannot locate any eyes on this creature!</span>")
 		return
 
@@ -616,7 +659,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		eyes.receive_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(M.stat != 2)
-				if(!eyes.is_robotic())  //robot eyes bleeding might be a bit silly
+				if(!eyes.is_robotic()) // robot eyes bleeding might be a bit silly
 					to_chat(M, "<span class='danger'>Your eyes start to bleed profusely!</span>")
 			if(prob(50))
 				if(M.stat != DEAD)
@@ -648,8 +691,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
 		var/itempush = TRUE
 		if(w_class < WEIGHT_CLASS_BULKY)
-			itempush = FALSE //too light to push anything
-		if(isliving(hit_atom)) //Living mobs handle hit sounds differently.
+			itempush = FALSE // too light to push anything
+		if(isliving(hit_atom)) // Living mobs handle hit sounds differently.
 			if(get_heat())
 				var/mob/living/L = hit_atom
 				L.IgniteMob()
@@ -670,19 +713,19 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin = 1, diagonals_first = 0, datum/callback/callback, force, dodgeable)
 	thrownby = thrower?.UID()
-	callback = CALLBACK(src, PROC_REF(after_throw), callback) //replace their callback with our own
+	callback = CALLBACK(src, PROC_REF(after_throw), callback) // replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, dodgeable)
 
 /obj/item/proc/after_throw(datum/callback/callback)
-	if(callback) //call the original callback
+	if(callback) // call the original callback
 		. = callback.Invoke()
-	throw_speed = initial(throw_speed) //explosions change this.
+	throw_speed = initial(throw_speed) // explosions change this.
 	in_inventory = FALSE
 
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill
 
-/obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
+/obj/item/proc/remove_item_from_storage(atom/newLoc) // please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
 		return 0
 	if(isstorage(loc))
@@ -693,7 +736,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 
 /obj/item/proc/wash(mob/user, atom/source)
-	if(flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
+	if(flags & ABSTRACT) // Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
 	to_chat(user, "<span class='notice'>You start washing [src]...</span>")
 	if(!do_after(user, 40, target = source))
@@ -704,10 +747,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 						"<span class='notice'>You wash [src] using [source].</span>")
 	return 1
 
-/obj/item/proc/get_crutch_efficiency() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
+/obj/item/proc/get_crutch_efficiency() // Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
 	return 0
 
-// Return true if you don't want regular throw handling
+/// Return true if you don't want regular throw handling
 /obj/item/proc/override_throw(mob/user, atom/target)
 	return FALSE
 
@@ -743,12 +786,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			return
 		var/mob/living/L = user
 		if(istype(L) && HAS_TRAIT(L, TRAIT_HANDS_BLOCKED))
-			apply_outline(L, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
+			apply_outline(L, COLOR_RED_GRAY) // if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
 		else
-			apply_outline(L) //if the player's alive and well we send the command with no color set, so it uses the theme's color
+			apply_outline(L) // if the player's alive and well we send the command with no color set, so it uses the theme's color
 
 /obj/item/MouseExited()
-	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
+	deltimer(tip_timer) // delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
 	remove_outline()
 	return ..()
@@ -762,26 +805,26 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		S.swap_items(src, I, user)
 		remove_outline()
 		return TRUE
-	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
+	remove_outline() // get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
 
 /obj/item/proc/apply_outline(mob/user, outline_color = null)
-	if(!(in_inventory || in_storage) || QDELETED(src) || isobserver(user)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
+	if(!(in_inventory || in_storage) || QDELETED(src) || isobserver(user)) // cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
 		return
 	var/theme = lowertext(user.client.prefs.UI_style)
-	if(!outline_color) //if we weren't provided with a color, take the theme's color
-		switch(theme) //yeah it kinda has to be this way
+	if(!outline_color) // if we weren't provided with a color, take the theme's color
+		switch(theme) // yeah it kinda has to be this way
 			if("midnight")
 				outline_color = COLOR_THEME_MIDNIGHT
 			if("plasmafire")
 				outline_color = COLOR_THEME_PLASMAFIRE
 			if("retro")
-				outline_color = COLOR_THEME_RETRO //just as garish as the rest of this theme
+				outline_color = COLOR_THEME_RETRO // just as garish as the rest of this theme
 			if("slimecore")
 				outline_color = COLOR_THEME_SLIMECORE
 			if("operative")
 				outline_color = COLOR_THEME_OPERATIVE
 			if("clockwork")
-				outline_color = COLOR_THEME_CLOCKWORK //if you want free gbp go fix the fact that clockwork's tooltip css is glass'
+				outline_color = COLOR_THEME_CLOCKWORK // if you want free gbp go fix the fact that clockwork's tooltip css is glass'
 			if("glass")
 				outline_color = COLOR_THEME_GLASS
 			// SS220 ADDITION - START
@@ -792,10 +835,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			if("trasenknox")
 				outline_color = COLOR_THEME_TRASENKNOX
 			// SS220 ADDITION - END
-			else //this should never happen, hopefully
+			else // this should never happen, hopefully
 				outline_color = COLOR_WHITE
 	if(color)
-		outline_color = COLOR_WHITE //if the item is recolored then the outline will be too, let's make the outline white so it becomes the same color instead of some ugly mix of the theme and the tint
+		outline_color = COLOR_WHITE // if the item is recolored then the outline will be too, let's make the outline white so it becomes the same color instead of some ugly mix of the theme and the tint
 	if(outline_filter)
 		filters -= outline_filter
 	outline_filter = filter(type = "outline", size = 1, color = outline_color)
@@ -806,7 +849,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		filters -= outline_filter
 		outline_filter = null
 
-// Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
+/// Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the B/RPED
 /obj/item/proc/get_part_rating()
 	return 0
 
