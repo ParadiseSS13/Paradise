@@ -88216,6 +88216,7 @@
 /obj/item/storage/box/monkeycubes/neaeracubes,
 /obj/item/storage/box/monkeycubes/stokcubes,
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /obj/machinery/requests_console{
 	department = "Genetics";
 	departmentType = 1;

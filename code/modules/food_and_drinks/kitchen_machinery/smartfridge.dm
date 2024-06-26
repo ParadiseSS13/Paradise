@@ -519,7 +519,7 @@
 		/obj/item/reagent_containers/condiment,
 	))
 
-/obj/machinery/smartfridge/secure/foodcart/attackby(obj/item/O, mob/user, params) ///Anti-theft technology, inspired by the station nuke
+/obj/machinery/smartfridge/secure/foodcart/attackby(obj/item/O, mob/user, params) // Anti-theft technology, inspired by the station nuke
 	if(istype(O, /obj/item/card/id))
 		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
@@ -530,36 +530,39 @@
 		if(anchored)
 			to_chat(user, "<span class='warning'>You release the locking mechanism, unanchoring the cart.</span>")
 			anchored = FALSE
-			playsound(loc, 'sound/machines/boltsup.ogg', 30, 0, 3)
+			playsound(loc, 'sound/machines/boltsup.ogg', 30, FALSE, 3)
 			return
-		to_chat(user, "<span class='warning'>You swipe your ID over the scanner, and with a steely snap bolts slide out from underneath the cart, securely anchoring it on the floor.</span>")
+		to_chat(user, "<span class='warning'>You swipe your ID over the scanner, and with a steely snap, bolts slide out from underneath the cart securely anchoring the cart to the floor.</span>")
 		anchored = TRUE
-		playsound(loc, 'sound/machines/boltsdown.ogg', 30, 0, 3)
+		playsound(loc, 'sound/machines/boltsdown.ogg', 30, FALSE, 3)
 		return TRUE
 	if(istype(O, /obj/item/airlock_electronics) && !istype(O, /obj/item/airlock_electronics/destroyed))
 		var/obj/item/airlock_electronics/new_electronics = O
 		if(!emagged)
 			to_chat(user, "<span class='warning'>The cart is working fine and doesn't needs repairs!</span>")
 			return
+		if(!user.drop_item())
+			to_chat(user, "<span class='warning'>\The [O] is stuck to you!</span>")
+			return FALSE
 		user.drop_item()
 		new_electronics.forceMove(src)
 		spawn_atom_to_turf(/obj/item/airlock_electronics/destroyed, user.loc, 1)
 		emagged = FALSE
 		to_chat(user, "<span class='notice'>You swap out the burnt out electronics in the ID scanner.</span>")
 		return TRUE
-	. = ..()
+	return ..()
 
 /obj/machinery/smartfridge/secure/foodcart/emag_act(mob/user)
 	. = ..()
 	if(anchored)
 		anchored = FALSE
-		playsound(loc, 'sound/machines/boltsup.ogg', 30, 0, 3)
+		playsound(loc, 'sound/machines/boltsup.ogg', 30, FALSE, 3)
 
 /obj/machinery/smartfridge/secure/foodcart/emp_act(severity)
 	. = ..()
 	if(anchored)
 		anchored = FALSE
-		playsound(loc, 'sound/machines/boltsup.ogg', 30, 0, 3)
+		playsound(loc, 'sound/machines/boltsup.ogg', 30, FALSE, 3)
 
 /obj/machinery/smartfridge/secure/foodcart/screwdriver_act(mob/living/user, obj/item/I)
 	return

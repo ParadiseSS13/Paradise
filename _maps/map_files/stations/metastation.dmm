@@ -74699,6 +74699,7 @@
 /obj/item/storage/box/monkeycubes/neaeracubes,
 /obj/structure/table/glass,
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /obj/item/storage/box/monkeycubes/farwacubes,
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)

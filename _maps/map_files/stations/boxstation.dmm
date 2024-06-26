@@ -23510,9 +23510,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "btF" = (
@@ -34147,6 +34144,9 @@
 /area/station/medical/medbay3)
 "chH" = (
 /obj/structure/closet/secure_closet/ntrep,
+/obj/machinery/keycard_auth{
+	pixel_y = -26
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "chI" = (
@@ -34340,6 +34340,9 @@
 /area/station/public/toilet/lockerroom)
 "ciD" = (
 /obj/structure/closet/secure_closet/blueshield,
+/obj/machinery/keycard_auth{
+	pixel_y = -26
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "ciE" = (
@@ -35183,6 +35186,13 @@
 	},
 /area/station/hallway/primary/aft/north)
 "clR" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Blueshield";
+	departmentType = 5;
+	name = "Blueshield Requests Console";
+	pixel_x = -32
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "clT" = (
@@ -64377,6 +64387,7 @@
 "jrt" = (
 /obj/structure/rack,
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "jrI" = (
@@ -65402,6 +65413,24 @@
 /obj/structure/falsewall,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"jTk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "jTq" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -69380,6 +69409,7 @@
 	layer = 2.9
 	},
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /obj/machinery/light,
 /obj/item/storage/box/monkeycubes/farwacubes{
 	pixel_x = -6
@@ -77012,6 +77042,7 @@
 /obj/item/storage/box/monkeycubes/stokcubes,
 /obj/item/storage/box/monkeycubes/neaeracubes,
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /obj/item/storage/box/monkeycubes/farwacubes,
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
@@ -82874,16 +82905,6 @@
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"smS" = (
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Blueshield";
-	departmentType = 5;
-	name = "Blueshield Requests Console";
-	pixel_y = -30
-	},
-/turf/simulated/wall,
-/area/station/command/office/blueshield)
 "smW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -89785,9 +89806,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -120391,7 +120409,7 @@ bTy
 cok
 cfi
 cgS
-smS
+cgS
 cgS
 coT
 coT
@@ -121416,7 +121434,7 @@ iLY
 bZc
 bSi
 cdU
-cok
+jTk
 shN
 qcM
 mNf
