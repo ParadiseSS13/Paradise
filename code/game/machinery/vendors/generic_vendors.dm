@@ -458,7 +458,7 @@
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/under/costume/soviet = 1,
-					/obj/item/clothing/suit/pimpcoat/white = 1,
+					/obj/item/clothing/suit/pimpcoat/white = 3,
 					/obj/item/storage/belt/fannypack/black = 1)
 
 	prices = list(/obj/item/clothing/under/suit/navy = 75,
