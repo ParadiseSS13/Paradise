@@ -87,6 +87,11 @@
 	name = "judge's security armor"
 	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
 	icon_state = "streetjudgearmor"
+		sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+	)
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield's security armor"
