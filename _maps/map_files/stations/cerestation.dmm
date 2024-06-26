@@ -27789,7 +27789,7 @@
 	width = 9
 	},
 /turf/space,
-/area/space/nearstation)
+/area/space)
 "dqw" = (
 /obj/structure/table,
 /obj/item/storage/box/bodybags,
