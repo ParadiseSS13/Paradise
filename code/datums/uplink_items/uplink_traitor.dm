@@ -351,7 +351,7 @@
 	desc = "An energy based weapon that launches high velocity plasma spikes. These spikes hit with enough force to knock the target down and leave a nasty wound."
 	reference = "STG"
 	item = /obj/item/gun/energy/spikethrower
-	cost = 60
+	cost = 50
 	species = list("Vox")
 	surplus = 0
 
@@ -567,7 +567,7 @@
 	Overdosing will cause massive heart damage, but will allow the user to dodge bullets for a minute and attack even faster.\
 	Two minute normal uptime, 5 minute cooldown, unlimited uses. Incompatible with the Binyat Wireless Hacking System."
 	reference = "QLSC"
-	item = /obj/item/autosurgeon/organ/syndicate/sensory_enhancer
+	item = /obj/item/autosurgeon/organ/syndicate/oneuse/sensory_enhancer
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) //No, nukies do not get to dodge bullets.
 
