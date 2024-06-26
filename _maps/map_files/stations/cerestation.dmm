@@ -17001,6 +17001,17 @@
 	icon_state = "dark"
 	},
 /area/station/command/bridge)
+"bXU" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/item/paper/crumpled,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/public/storefront)
 "bYc" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/engine/co2,
@@ -19445,6 +19456,14 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/science/rnd)
+"cpo" = (
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/public/storefront)
 "cpp" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -24766,13 +24785,19 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "cUz" = (
-/obj/structure/table,
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/area/station/public/storefront)
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/starboard/south)
 "cUB" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Central Asteroid Maintenance"
@@ -32537,7 +32562,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Medbay SMES Access"
+	name = "Starboard SMES Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
@@ -32581,16 +32606,8 @@
 	},
 /area/station/science/toxins/mixing)
 "enD" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
@@ -34595,6 +34612,28 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"eVv" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/fore/east)
 "eVQ" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -36930,6 +36969,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/north)
+"fMQ" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/starboard/south)
 "fMY" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -42511,12 +42556,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
-"hzA" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/starboard/south)
 "hzK" = (
 /obj/item/crowbar/red,
 /obj/effect/spawner/grouped_spawner{
@@ -49519,8 +49558,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/item/paper/crumpled,
+/obj/item/extinguisher,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -53243,6 +53281,12 @@
 	icon_state = "tranquillite"
 	},
 /area/station/service/theatre)
+"kHz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 2
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/starboard/south)
 "kHN" = (
 /obj/machinery/door_control{
 	id = "fb1";
@@ -55795,12 +55839,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal/external/southeast)
-"lqD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/starboard/south)
 "lqQ" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -56502,13 +56540,6 @@
 	icon_state = "darkfull"
 	},
 /area/station/public/quantum/cargo)
-"lCl" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Medbay SMES Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/starboard/south)
 "lCs" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -56815,28 +56846,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
-"lGy" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/fore/east)
 "lHa" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -56922,11 +56931,6 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel/office)
-"lIp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/starboard/south)
 "lIS" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_3)
@@ -61215,6 +61219,13 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/port2)
+"nbV" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Medbay SMES Access"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/starboard/south)
 "nca" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -67996,7 +68007,7 @@
 /area/station/maintenance/asmaint)
 "piZ" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Medbay SMES Access"
+	name = "Starboard SMES Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/orange{
@@ -71421,6 +71432,11 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel)
+"qid" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/starboard/south)
 "qii" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/disposalpipe/segment{
@@ -75991,12 +76007,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
-"rKp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
-	dir = 2
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/starboard/south)
 "rKq" = (
 /obj/machinery/light{
 	dir = 8
@@ -76893,16 +76903,6 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"rXQ" = (
-/obj/structure/rack{
-	dir = 1
-	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/item/extinguisher,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/public/storefront)
 "rXV" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
@@ -142151,7 +142151,7 @@ tIH
 fHs
 kXp
 kXp
-hzA
+fMQ
 scE
 mbP
 vXn
@@ -142403,9 +142403,9 @@ rNK
 fHs
 kXp
 rPz
-lqD
-rKp
-lIp
+enD
+kHz
+qid
 iBx
 iBx
 wQz
@@ -142666,7 +142666,7 @@ aAk
 rPz
 rPz
 dws
-enD
+cUz
 gYd
 sJk
 baq
@@ -143175,7 +143175,7 @@ jnW
 jnW
 jnW
 vXn
-lCl
+nbV
 vXn
 vXn
 vXn
@@ -145207,7 +145207,7 @@ uJv
 rAh
 rAh
 uJv
-rXQ
+jzs
 lTP
 gOh
 gOh
@@ -145461,10 +145461,10 @@ iAL
 cjh
 uJv
 hTT
-jzs
+bXU
 yhM
 uJv
-cUz
+cpo
 lTP
 rxE
 mEr
@@ -145746,7 +145746,7 @@ jpX
 jpX
 twF
 iAL
-lGy
+eVv
 idF
 dua
 cOC
