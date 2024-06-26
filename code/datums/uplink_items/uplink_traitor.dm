@@ -517,7 +517,7 @@
 
 /datum/uplink_item/device_tools/hyper_medipen
 	name = "Hyperregenerative Medipen"
-	desc = "Autoinjector filled with a variety of medical chemicals. It rapidly heals conventional injuries and genetic damage, but loses potency just as quickly. May have side effects if used in succession."
+	desc = "An autoinjector filled with a variety of medical chemicals. It rapidly heals conventional injuries and genetic damage, but loses potency just as quickly. May have side effects if used in quick succession."
 	reference = "HMP"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
 	cost = 10
