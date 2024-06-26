@@ -11,7 +11,7 @@
 		if(blood_DNA && should_spread_blood)
 			var/old_transfer_blood = G.transfer_blood
 			G.add_blood(blood_DNA, blood_color)
-			G.transfer_blood = old_transfer_blood
+			G.transfer_blood = max(1, old_transfer_blood)
 			M.update_inv_gloves()
 
 	else

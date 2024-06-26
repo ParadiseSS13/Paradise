@@ -31,6 +31,9 @@
 			return
 	target.cleaning_act(user, src, cleanspeed)
 
+/obj/item/soap/add_blood(list/blood_dna, b_color)
+	return
+
 /obj/item/soap/proc/eat_soap(mob/living/carbon/human/drask/user)
 	times_eaten++
 	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
