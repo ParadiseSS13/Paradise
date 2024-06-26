@@ -36,26 +36,7 @@ export const BluespaceTap = (props, context) => {
     <Window width={650} height={450}>
       <Window.Content scrollable>
         <Stack fill vertical>
-          {!!emagged && <NoticeBox danger={1}>All safeties disabled</NoticeBox>}
-          {!autoShutown && !emagged && (
-            <NoticeBox danger={1}>Auto shutdown disabled</NoticeBox>
-          )}
-          {!stabilizers && (
-            <NoticeBox danger={1}>Stabilizers disabled</NoticeBox>
-          )}
-          {inputLevel - overhead > safeLevels && !emagged ? (
-            <NoticeBox danger={1}>
-              Stabilizers overwhelmed, Instability likely
-            </NoticeBox>
-          ) : !emagged && inputLevel > safeLevels ? (
-            <NoticeBox>High Power, engaging stabilizers</NoticeBox>
-          ) : inputLevel > safeLevels ? (
-            <NoticeBox danger={1}>
-              Stabilizers disabled, Instability likely
-            </NoticeBox>
-          ) : (
-            ''
-          )}
+          <Alerts />
           <Collapsible title="Input Management">
             <Section fill title="Input">
               <Button
@@ -189,5 +170,41 @@ export const BluespaceTap = (props, context) => {
         </Stack>
       </Window.Content>
     </Window>
+  );
+};
+
+export const Alerts = (props, context) => {
+  const { act, data } = useBackend(context);
+  const product = data.product || [];
+  const {
+    desiredLevel,
+    inputLevel,
+    emagged,
+    safeLevels,
+    autoShutown,
+    stabilizers,
+    overhead,
+  } = data;
+  return (
+    <>
+      {!autoShutown && !emagged && (
+        <NoticeBox danger={1}>Auto shutdown disabled</NoticeBox>
+      )}
+      {!!emagged ? (
+        <NoticeBox danger={1}>All safeties disabled</NoticeBox>
+      ) : inputLevel <= safeLevels ? (
+        ''
+      ) : !stabilizers ? (
+        <NoticeBox danger={1}>
+          Stabilizers disabled, Instability likely
+        </NoticeBox>
+      ) : inputLevel - overhead > safeLevels ? (
+        <NoticeBox danger={1}>
+          Stabilizers overwhelmed, Instability likely
+        </NoticeBox>
+      ) : (
+        <NoticeBox>High Power, engaging stabilizers</NoticeBox>
+      )}
+    </>
   );
 };

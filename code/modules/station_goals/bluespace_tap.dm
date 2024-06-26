@@ -235,7 +235,7 @@
 
 	/// Max power input level, I don't expect this to be ever reached
 	var/max_level = 25
-	/// amoubnt of points generated per level for the first 10 levels
+	/// amount of points generated per level for the first 10 levels
 	var/base_points = BASE_POINTS
 	/// amount of points generated per process cycle per unit of energy consumed
 	var/conversion_ratio = BASE_ENERGY_CONVERSION
@@ -406,26 +406,26 @@
 	if(actual_power_usage)
 		consume_direct_power(actual_power_usage)
 
-		var/points_to_add = min(base_points * 10, base_points * input_level) + actual_power_usage * (conversion_ratio + emagged * 1e-6)//2 points per level up to level 10 and 4 points per MW or 5 when emmaged
-		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
+		var/points_to_add = min(base_points * 10, base_points * input_level) + actual_power_usage * (conversion_ratio + emagged * 1e-6) //2 points per level up to level 10 and 4 points per MW or 5 when emmaged
+		points += points_to_add	// point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
 
 	overhead = input_level >= 18  ? get_surplus() * 1e-7 : get_surplus() * 2e-7 // 5MW of surplus per overhead level above 15 if under level 18. 10MW per level above 15 from level 18 onwards.
 	stabilizer_power = stabilizers && input_level > 15 ? input_level >= 18? min(get_surplus() , (input_level - 15) * 1e7) : min(get_surplus() , (input_level - 15) * 0.5e7) : 0
 	consume_direct_power(stabilizer_power)
 	// actual input level changes slowly
-	//holy shit every proccess this
+	// holy shit every proccess this
 	if(input_level < desired_level && (get_surplus() + get_power_use(input_level) + stabilizer_power >= get_power_use(input_level + 1)))
 		input_level++
 		update_icon()
 	else if(input_level > desired_level)
 		input_level--
 		update_icon()
-	if(prob(input_level - (safe_levels + overhead * 2) + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
+	if(prob(input_level - (safe_levels + overhead * 2) + (emagged * 5))) // at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
 		var/area/our_area = get_area(src)
 		GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [our_area.name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
 		if(!emagged && auto_shutdown)
-			input_level = 0	//emergency shutdown unless we're sabotaged
+			input_level = 0	//emergency shutdown unless it is disabled
 			desired_level = 0
 		start_nether_portaling(rand(1 , 3) + stabilizers * max((level - 15 - overhead) / 3 , 0))
 
@@ -546,7 +546,7 @@
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS
-	max_mobs = 5	//Dont' want them overrunning the station
+	max_mobs = 5 // Don't want them overrunning the station
 	max_integrity = 250
 	/// the BSH that spawned this portal
 	var/obj/machinery/power/bluespace_tap/linked_source_object
