@@ -464,7 +464,7 @@
 	lefthand_file = 'icons/mob/inhands/chairs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/chairs_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	force = 8
+	force = 6
 	throwforce = 10
 	throw_range = 3
 	hitsound = 'sound/items/trayhit1.ogg'
@@ -476,9 +476,9 @@
 	var/obj/structure/chair/origin_type = /obj/structure/chair
 	// Twohanded Component Vars
 	/// force applied with one hand.
-	var/force_unwielded = 8
+	var/force_unwielded = 6
 	/// force applied with two hands.
-	var/force_wielded = 12
+	var/force_wielded = 8
 	// Parry Component Vars when wielding
 	/// the flat amount of damage the shield user takes per non-perfect parry
 	var/stamina_constant = 2
@@ -501,13 +501,13 @@
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "stool_toppled"
 	item_state = "stool"
-	force = 10
-	throwforce = 10
+	force = 8
+	throwforce = 8
 	w_class = WEIGHT_CLASS_HUGE
 	origin_type = /obj/structure/chair/stool
 	break_chance = 0 //It's too sturdy.
-	force_unwielded = 10
-	force_wielded = 14
+	force_unwielded = 8
+	force_wielded = 10
 
 /obj/item/chair/stool/bar
 	name = "bar stool"
