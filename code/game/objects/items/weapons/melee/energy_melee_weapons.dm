@@ -278,7 +278,7 @@
 
 /obj/item/melee/energy/blade/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, ROUNDSTART_TRAIT)
 
 /obj/item/melee/energy/blade/attack_self(mob/user)
 	return
