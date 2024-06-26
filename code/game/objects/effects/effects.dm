@@ -181,6 +181,7 @@
 	if(parent)
 		UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 	QDEL_NULL(particles)
+	holding_parent = null
 	parent.vis_contents -= src
 	return ..()
 
