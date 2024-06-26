@@ -267,6 +267,7 @@
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
+	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		if(LAZYLEN(SSmobs.cubemonkeys) >= GLOB.configuration.general.monkey_cube_cap)
@@ -279,7 +280,20 @@
 			to_chat(owner, "[X] doesn't have monkeys.")
 			return
 		else if(X.monkeys >= 1)
-			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(remote_eye.loc)
+			var/mob/living/carbon/human/monkey/food
+			switch(recycler.cube_type)
+				if(/obj/item/food/snacks/monkeycube) 										// Regular monkey
+					food = new /mob/living/carbon/human/monkey(remote_eye.loc)
+				if(/obj/item/food/snacks/monkeycube/nian_wormecube) 						// Worme
+					food = new /mob/living/carbon/human/nian_worme(remote_eye.loc)
+				if(/obj/item/food/snacks/monkeycube/farwacube) 								// Farwa
+					food = new /mob/living/carbon/human/farwa(remote_eye.loc)
+				if(/obj/item/food/snacks/monkeycube/stokcube) 								// Stok
+					food = new /mob/living/carbon/human/stok(remote_eye.loc)
+				if(/obj/item/food/snacks/monkeycube/neaeracube) 							// Neara
+					food = new /mob/living/carbon/human/neara(remote_eye.loc)
+				if(/obj/item/food/snacks/monkeycube/wolpincube) 							// Wolpin
+					food = new /mob/living/carbon/human/wolpin(remote_eye.loc)
 			SSmobs.cubemonkeys += food
 			food.LAssailant = C
 			X.monkeys --
@@ -471,13 +485,27 @@
 	var/mob/living/C = user
 	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
+	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 	var/area/turfarea = get_area(T)
 	if(iswallturf(T))
 		to_chat(user, "You can't place monkey here.")
 		return
 	else if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		if(X.monkeys >= 1)
-			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(T)
+			var/mob/living/carbon/human/monkey/food
+			switch(recycler.cube_type)
+				if(/obj/item/food/snacks/monkeycube) 										// Regular monkey
+					food = new /mob/living/carbon/human/monkey(T)
+				if(/obj/item/food/snacks/monkeycube/nian_wormecube) 						// Worme
+					food = new /mob/living/carbon/human/nian_worme(T)
+				if(/obj/item/food/snacks/monkeycube/farwacube) 								// Farwa
+					food = new /mob/living/carbon/human/farwa(T)
+				if(/obj/item/food/snacks/monkeycube/stokcube) 								// Stok
+					food = new /mob/living/carbon/human/stok(T)
+				if(/obj/item/food/snacks/monkeycube/neaeracube) 							// Neara
+					food = new /mob/living/carbon/human/neara(T)
+				if(/obj/item/food/snacks/monkeycube/wolpincube) 							// Wolpin
+					food = new /mob/living/carbon/human/wolpin(T)
 			food.LAssailant = C
 			X.monkeys--
 			X.monkeys = round(X.monkeys, 0.1)
