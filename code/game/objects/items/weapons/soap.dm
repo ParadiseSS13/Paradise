@@ -96,7 +96,7 @@
 					if(!istype(carried_item, /obj/item/bio_chip))//If it's not an implant.
 						carried_item.add_mob_blood(target)//Oh yes, there will be blood...
 				var/mob/living/carbon/human/H = target
-				H.bloody_hands(target,0)
+				H.make_bloody_hands(H.get_blood_dna_list(), H.get_blood_color())
 				H.bloody_body(target)
 
 	return
