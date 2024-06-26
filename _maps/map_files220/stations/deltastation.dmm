@@ -4784,7 +4784,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/mob/living/simple_animal/mothroach{
+/mob/living/simple_animal/nian_caterpillar{
 	name = "Сеньйор";
 	desc = "Мотылёк. Обожает светочи. Знает всю атмосферику, но из-за своего скверного характера не расскажет, даже если бы мог говорить."
 	},
