@@ -437,16 +437,18 @@
 	)
 
 /obj/item/clothing/suit/pimpcoat/white
-	name = "expensive coat"
+	name = "fashionable coat"
 	desc = "Very fluffy white coat, made out of quality synthetic fur."
 	icon_state = "pimpcoat_white"
 	item_state = "pimpcoat_white"
 
 /obj/item/clothing/suit/pimpcoat/tan
-	name = "expensive coat"
-	desc = "Very fluffy tan coat, made out of the finest fur from the Earth."
+	name = "coat of status"
+	desc = "Very fluffy tan coat, made out of the finest fur from the Earth. Gifted to Quartermaster of Nanotrasen."
 	icon_state = "pimpcoat_tan"
 	item_state = "pimpcoat_tan"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 15, ACID = 50)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/melee/classic_baton/telescopic, /obj/item/gun/energy/kinetic_accelerator)
 
 /obj/item/clothing/suit/furcoat
 	name = "fur coat"
