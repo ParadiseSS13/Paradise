@@ -281,7 +281,8 @@
 	name = "judge's helmet"
 	desc = "Commonly used security headgear for the more theatrically inclined. Wear this in hostage situations to make everything worse."
 	icon_state = "streetjudge_hat"
-		sprite_sheets = list(
+
+	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
