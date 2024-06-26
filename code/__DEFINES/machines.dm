@@ -100,3 +100,9 @@
 
 #define CIRCULATOR_SIDE_LEFT WEST
 #define CIRCULATOR_SIDE_RIGHT EAST
+
+// Request Console Department Types.
+// For one console to be under multiple categories, you need to add the numbers with each other. For example, value of 6 will allow you to request supplies and relay info to that specific console.
+#define RC_ASSIST (1<<0)		//Request Assistance
+#define RC_SUPPLY (1<<1)		//Request Supplies
+#define RC_INFO   (1<<2)		//Relay Info
