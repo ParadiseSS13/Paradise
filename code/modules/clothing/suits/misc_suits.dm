@@ -430,6 +430,24 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
+
+/obj/item/clothing/suit/pimpcoat/white
+	name = "expensive coat"
+	desc = "Very fluffy white coat, made out of quality synthetic fur."
+	icon_state = "pimpcoat_white"
+	item_state = "pimpcoat_white"
+
+/obj/item/clothing/suit/pimpcoat/tan
+	name = "expensive coat"
+	desc = "Very fluffy tan coat, made out of the finest fur from the Earth."
+	icon_state = "pimpcoat_tan"
+	item_state = "pimpcoat_tan"
+
 /obj/item/clothing/suit/furcoat
 	name = "fur coat"
 	desc = "A trenchcoat made from fur. You could put an oxygen tank in one of the pockets."
