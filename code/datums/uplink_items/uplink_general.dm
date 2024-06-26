@@ -23,33 +23,33 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
 				sales_items += I
 
-	if(user == null) //Handles surplus
+	if(isnull(user)) //Handles surplus
 		return uplink_items
 
 	var/i = 0
 	while(i < 3)
-		var/datum/uplink_item/Item = pick_n_take(sales_items)
-		if(Item.job) //If your job does not match, no discount
-			var/jobAllowed = FALSE
-			for(var/job in Item.job)
+		var/datum/uplink_item/sale_item = pick_n_take(sales_items)
+		if(sale_item.job) //If your job does not match, no discount
+			var/job_allowed = FALSE
+			for(var/job in sale_item.job)
 				if(job == user.mind.assigned_role)
-					jobAllowed = TRUE
-			if(!jobAllowed)
+					job_allowed = TRUE
+			if(!job_allowed)
 				continue
-		if(Item.species) //If your species does not match, no discount
-			var/speciesAllowed = FALSE
-			for(var/species in Item.species)
+		if(sale_item.species) //If your species does not match, no discount
+			var/species_allowed = FALSE
+			for(var/species in sale_item.species)
 				if(species == user.dna.species.name)
-					speciesAllowed = TRUE
-			if(!speciesAllowed)
+					species_allowed = TRUE
+			if(!species_allowed)
 				continue
-		if(Item.hijack_only && !(locate(/datum/objective/hijack) in user.mind.get_all_objectives())) //If you aren't a hijacker, no hijack only items
+		if(sale_item.hijack_only && !(locate(/datum/objective/hijack) in user.mind.get_all_objectives())) //If you aren't a hijacker, no hijack only items
 			continue
 
-		var/datum/uplink_item/A = new Item.type
+		var/datum/uplink_item/A = new sale_item.type
 		var/discount = 0.5
 		A.limited_stock = 1
-		Item.refundable = FALSE
+		sale_item.refundable = FALSE
 		A.refundable = FALSE
 		if(A.cost >= 100)
 			discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
@@ -58,7 +58,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
 		A.reference = "DIS[newreference]"
 		A.desc += " Limit of [A.limited_stock] per uplink. Normally costs [initial(A.cost)] TC."
-		A.item = Item.item
+		A.item = sale_item.item
 		newreference++
 		i++
 		if(!uplink_items[A.category])

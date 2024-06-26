@@ -26,6 +26,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
+	/// Whether or not the uplink has generated its stock and discounts
 	var/items_generated = FALSE
 
 /obj/item/uplink/ui_host()
