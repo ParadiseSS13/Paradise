@@ -221,7 +221,7 @@
 	if(user.a_intent == INTENT_HARM && !emagged)
 		if(M == user)
 			user.visible_message(
-			"<span class='notice'>[user] gives [user.p_themselves()] a firm hug bear-hug to make [user.p_themselves()] feel better.</span>",
+			"<span class='notice'>[user] gives [user.p_themselves()] a firm bear-hug to make [user.p_themselves()] feel better.</span>",
 			"<span class='notice'>You give yourself a firm bear-hug to make yourself feel better.</span>"
 			)
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
