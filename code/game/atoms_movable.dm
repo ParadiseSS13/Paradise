@@ -199,7 +199,7 @@
 	Moved(old_loc, direction, TRUE)
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
-	if(!loc || !newloc) 
+	if(!loc || !newloc)
 		return FALSE
 	var/atom/oldloc = loc
 
@@ -359,6 +359,9 @@
 	if(pulledby && !pulledby.pulling)
 		return TRUE
 
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir) & COMSIG_MOVABLE_STOP_SPACEMOVE)
+		return TRUE
+
 	if(throwing)
 		return TRUE
 
@@ -473,6 +476,13 @@
 	TT.tick()
 
 	return TRUE
+
+/// This proc is recursive, and calls itself to constantly set the glide size of an atom/movable
+/atom/movable/proc/set_glide_size(target = 8)
+	glide_size = target
+
+	for(var/mob/buckled_mob as anything in buckled_mobs)
+		buckled_mob.set_glide_size(target)
 
 //Overlays
 /atom/movable/overlay

@@ -23510,9 +23510,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "btF" = (
@@ -65418,6 +65415,24 @@
 /obj/structure/falsewall,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"jTk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "jTq" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -89780,34 +89795,6 @@
 /obj/effect/spawner/window/reinforced/tinted,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"vMm" = (
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Bridge"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/command/bridge)
 "vMv" = (
 /obj/structure/punching_bag,
 /obj/effect/turf_decal/delivery/hollow,
@@ -93079,6 +93066,31 @@
 	icon_state = "hydrofloor"
 	},
 /area/station/maintenance/asmaint)
+"xvv" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "xvM" = (
 /obj/machinery/door/window{
 	dir = 8
@@ -121158,7 +121170,7 @@ aaa
 aaa
 bmc
 iZO
-vMm
+xvv
 cxl
 bxv
 hut
@@ -121437,7 +121449,7 @@ iLY
 bZc
 bSi
 cdU
-cok
+jTk
 shN
 qcM
 mNf
