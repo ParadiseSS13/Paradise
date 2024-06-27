@@ -493,19 +493,6 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE
 
-/proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
-	var/turf/T = get_turf(target)
-	if(!T)
-		CRASH("attempt to spawn atom type: [spawn_type] in nullspace")
-
-	var/list/new_args = list(T)
-	if(extra_args)
-		new_args += extra_args
-
-	for(var/j in 1 to amount)
-		var/atom/X = new spawn_type(arglist(new_args))
-		X.admin_spawned = admin_spawn
-
 /proc/admin_mob_info(mob/M, mob/user = usr)
 	if(!ismob(M))
 		to_chat(user, "This can only be used on instances of type /mob")
