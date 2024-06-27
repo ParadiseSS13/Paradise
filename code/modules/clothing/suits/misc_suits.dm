@@ -444,7 +444,7 @@
 
 /obj/item/clothing/suit/pimpcoat/tan
 	name = "coat of status"
-	desc = "Very fluffy tan coat, made out of the finest fur from the Earth. Gifted to Quartermaster of Nanotrasen. Has additional layer of protection against harsh environment of Lavaland and a strap to hold equipment of Quartermaster."
+	desc = "A very fluffy tan coat, made out of real fur imported from Earth. A symbol of status often given to Nanotrasen Quartermasters. Has an additional layer of protective materials for defense against harsh environments, and a strap to hold equipment."
 	icon_state = "pimpcoat_tan"
 	item_state = "pimpcoat_tan"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 15, ACID = 50)
