@@ -68,7 +68,10 @@
 	if(T.intact)
 		var/turf/simulated/floor/F = T
 		F.remove_tile(null,TRUE,TRUE)
-		T.visible_message("<span class='warning'>The floortile is ripped from the floor!</span>", "<span class='warning'>You hear a loud bang!</span>")
+		T.visible_message(
+			"<span class='warning'>The floortile is ripped from the floor!</span>",
+			"<span class='warning'>You hear a loud bang!</span>"
+			)
 	if(trunk)
 		trunk.remove_trunk_links()
 	var/obj/structure/disposalconstruct/C = new (loc)
@@ -134,12 +137,13 @@
 		var/obj/item/storage/S = I
 		if(!S.removal_allowed_check(user))
 			return
+
 		if((S.allow_quick_empty || S.allow_quick_gather) && length(S.contents))
 			S.hide_from(user)
 			user.visible_message(
 				"<span class='notice'>[user] empties [S] into the disposal unit.</span>",
 				"<span class='notice'>You empty [S] into disposal unit.</span>",
-				"<span class='notice'>You hear someone emptying something full of smaller objects out into a disposal unit.</span>"
+				"<span class='notice'>You hear someone emptying something into a disposal unit.</span>"
 				)
 			for(var/obj/item/O in S.contents)
 				S.remove_from_storage(O, src)
@@ -154,6 +158,7 @@
 		if(!gripper.gripped_item)
 			to_chat(user, "<span class='warning'>There's nothing in your gripper to throw away!</span>")
 			return
+
 		gripper.gripped_item.forceMove(src)
 		user.visible_message(
 			"<span class='notice'>[user] places [gripper.gripped_item] into the disposal unit.</span>", 
@@ -168,15 +173,24 @@
 		// If there's not actually a mob in the grab, stop it. Get some help.
 		if(!ismob(G.affecting))
 			return
+
 		var/mob/GM = G.affecting
-		for(var/mob/V in viewers(user))
-			V.show_message("[user] starts putting [GM] into the disposal unit.", 3)
+		user.visible_message(
+			"<span class='warning'>[user] starts stuffing [GM] into the disposal unit!</span>",
+			"<span class='warning'>You start stuffing [GM] into the disposal unit.</span>",
+			"<span class='warning'>You hear someone trying to stuff someone else into a disposal unit!</span>"
+			)
+
 		// Abort if the target manages to scurry away.
 		if(!do_after(user, 20, target = GM))
 			return
+
 		GM.forceMove(src)
-		for(var/mob/C in viewers(src))
-			C.show_message("<span class='warning'>[GM] has been placed in the disposal unit by [user].</span>", 3)
+		user.visible_message(
+			"<span class='warning'>[GM] has been stuffed into the disposal unit by [user]!</span>",
+			"<span class='warning'>You stuff [GM] into the disposal unit.</span>",
+			"<span class='warning'>You hear someone being stuffed into a disposal unit!</span>"
+			)
 		qdel(G)
 		update()
 		add_attack_logs(user, GM, "Disposal'ed", !GM.ckey ? null : ATKLOG_ALL)
@@ -211,7 +225,11 @@
 		mode = DISPOSALS_UNSCREWED
 	else if(mode == DISPOSALS_UNSCREWED)
 		mode = DISPOSALS_OFF
-	to_chat(user, "You [mode ? "unfasten": "fasten"] the screws around the power connection.")
+	user.visible_message(
+		"<span class='notice'>[user] [mode ? "unfastens": "fastens"] the screws around the power connection of the disposal unit.</span>",
+		"<span class='notice'>You [mode ? "unfasten": "fasten"] the screws around the power connection of the disposal unit.</span>",
+		"<span class='notice'>You hear screws being [mode ? "unfastened": "fastened"].</span>"
+		)
 	update()
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
@@ -241,7 +259,7 @@
 	target.visible_message(
 		"<span class='warning'>[attacker] shoves [target] inside of the disposal unit!</span>",
 		"<span class='userdanger'>[attacker] shoves you inside of the disposal unit!</span>",
-		"<span class='warning'>You hear the sound of something being thrown in the trash.</span>"
+		"<span class='warning'>You hear the sound of someone being thrown into a disposal unit.</span>"
 	)
 	target.forceMove(src)
 	add_attack_logs(attacker, target, "Shoved into disposals", target.ckey ? null : ATKLOG_ALL)
@@ -254,32 +272,51 @@
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
 	if(!istype(target) || target.buckled || target.has_buckled_mobs() || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user))
 		return
+
+	// Animals cannot put mobs other than themselves into disposals.
 	if(isanimal(user) && target != user)
-		return //animals cannot put mobs other than themselves into disposal
+		return
+
 	src.add_fingerprint(user)
-	for(var/mob/V in viewers(user))
-		if(target == user && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
-			V.show_message("[user] starts climbing into the disposal.", 3)
-		if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
-			if(target.anchored) return
-			V.show_message("[user] starts stuffing [target.name] into the disposal.", 3)
+	if(target == user && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
+		user.visible_message(
+			"<span class='notice'>[user] starts climbing into the disposal unit.</span>",
+			"<span class='notice'>You start climbing into the disposal unit.</span>",
+			"<span class='notice'>You hear someone trying to climb into a disposal unit.</span>"
+			)
+	if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
+		if(target.anchored)
+			return
+		user.visible_message("<span class='warning'>[user] starts stuffing [target.name] into the disposal.</span>")
+		user.visible_message(
+			"<span class='warning'>[user] starts stuffing [target] into the disposal unit!</span>",
+			"<span class='warning'>You start stuffing [target] into the disposal unit.</span>",
+			"<span class='warning'>You hear someone trying to stuff someone else into a disposal unit!</span>"
+			)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disposal, put_in), target, user)
 	return TRUE
 
 /obj/machinery/disposal/proc/put_in(mob/living/target, mob/living/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
-	var/msg
-	var/target_loc = target.loc
 	if(!do_after(user, 20, target = target))
 		return
+
+	var/target_loc = target.loc
 	if(QDELETED(src) || target_loc != target.loc)
 		return
-	if(target == user && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())	// if drop self, then climbed in
-											// must be awake, not stunned or whatever
-		msg = "[user.name] climbs into the disposal unit."
-		to_chat(user, "You climb into the disposal unit.")
+
+	// All the extra checks ensure you cannot disposal yourself/others whilst incapacitated.
+	if(target == user && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
+		user.visible_message(
+			"<span class='notice'>[user] climbs into the disposal unit.</span>",
+			"<span class='notice'>You climb into the disposal unit.</span>",
+			"<span class='notice'>You hear someone climbing into a disposal unit.</span>"
+			)
 	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
-		msg = "[user.name] stuffs [target.name] into the disposal unit!"
-		to_chat(user, "You stuff [target.name] into the disposal unit!")
+		user.visible_message(
+			"<span class='warning'>[user] stuffs [target] into the disposal unit.</span>",
+			"<span class='warning'>You stuff [target] into the disposal unit.</span>",
+			"<span class='warning'>You hear the sound of someone being stuffed into a disposal unit.</span>"
+			)
 		if(!iscarbon(user))
 			target.LAssailant = null
 		else
@@ -287,14 +324,9 @@
 		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
+
 	QDEL_LIST_CONTENTS(target.grabbed_by)
 	target.forceMove(src)
-
-	for(var/mob/C in viewers(src))
-		if(C == user)
-			continue
-		C.show_message(msg, 3)
-
 	update()
 
 // attempt to move while inside
@@ -579,15 +611,23 @@
 		var/obj/item/I = mover
 		if(isprojectile(I))
 			return
+
 		if(prob(75) || (istype(mover.throwing.thrower) && (HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS) || HAS_TRAIT(mover.throwing.thrower, TRAIT_NEVER_MISSES_DISPOSALS))))
 			I.forceMove(src)
-			for(var/mob/M in viewers(src))
-				M.show_message("[I] lands in [src].", 3)
+			visible_message(
+				"<span class='notice'>[I] lands in [src].</span>",
+				"<span class='notice'>You hear something being tossed into a disposal unit.</span>"
+				)
 			update()
+			return
+
 		else
-			for(var/mob/M in viewers(src))
-				M.show_message("\the [I] bounces off of \the [src]'s rim!", 3)
-		return 0
+			visible_message(
+				"<span class='warning'>[I] bounces off of [src]'s rim!</span>",
+				"<span class='warning'>You hear something bouncing off the rim of a disposal unit!</span>"
+				)
+		return
+
 	else
 		return ..(mover, target, height)
 
