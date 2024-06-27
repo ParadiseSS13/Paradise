@@ -57365,7 +57365,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/hallway/secondary/exit)
 "dls" = (
 /obj/structure/cable{
@@ -69030,9 +69032,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
-"fZj" = (
-/turf/simulated/floor/plasteel/dark,
-/area/station/hallway/secondary/exit)
 "fZU" = (
 /obj/structure/chair/stool/bar{
 	dir = 1
@@ -88135,15 +88134,6 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
-"rxv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/hallway/secondary/exit)
 "rxy" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/beakers,
@@ -99613,14 +99603,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
-"xTu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/hallway/secondary/exit)
 "xUg" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes,
@@ -137514,7 +137496,7 @@ dPM
 rCw
 dPM
 dPM
-xTu
+dPM
 dPM
 dkq
 dSs
@@ -138025,7 +138007,7 @@ cYk
 dbV
 ddw
 dNa
-fZj
+dKo
 dKo
 dKo
 dNb
@@ -138288,7 +138270,7 @@ dKo
 dQp
 pAd
 tAw
-rxv
+dXJ
 dKo
 dKo
 dWA
@@ -138540,8 +138522,8 @@ dNc
 pAd
 dXF
 dKo
-fZj
-fZj
+dKo
+dKo
 dNb
 dNP
 dOw
