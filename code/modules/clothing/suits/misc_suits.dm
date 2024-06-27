@@ -438,7 +438,7 @@
 
 /obj/item/clothing/suit/pimpcoat/white
 	name = "fashionable coat"
-	desc = "Very fluffy white coat, made out of quality synthetic fur."
+	desc = "A very fluffy white coat, made out of high-quality synthetic fur."
 	icon_state = "pimpcoat_white"
 	item_state = "pimpcoat_white"
 
