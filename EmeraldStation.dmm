@@ -600,6 +600,9 @@
 	dir = 8;
 	name = "Botany Delivery"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/service/hydroponics)
 "ail" = (
@@ -1803,6 +1806,13 @@
 	icon_state = "grimy"
 	},
 /area/station/service/bar)
+"axF" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway North-West";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/nw)
 "axH" = (
 /turf/simulated/wall,
 /area/station/public/construction)
@@ -2376,6 +2386,13 @@
 /obj/item/flag/nt,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
+"aFq" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway South East";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/se)
 "aFw" = (
 /obj/machinery/economy/vending/chinese,
 /turf/simulated/floor/plasteel,
@@ -2437,6 +2454,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
+"aGb" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway North";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/ne)
 "aGf" = (
 /obj/machinery/newscaster{
 	name = "north bump";
@@ -3549,6 +3573,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/ai_monitored/storage/eva)
+"aUe" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway North East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/ne)
 "aUA" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Incinerator Access"
@@ -5304,6 +5335,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"bpj" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/camera{
+	c_tag = "Dorms Port Space Bridge";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/spacebridge/dorms/west)
 "bpm" = (
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/visible/supply,
@@ -9337,6 +9376,14 @@
 	icon_state = "dark"
 	},
 /area/station/ai_monitored/storage/eva)
+"chV" = (
+/obj/machinery/light/small,
+/obj/machinery/camera{
+	c_tag = "Aft Port Solar Access";
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "chX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{
@@ -10760,6 +10807,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
+"cyX" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway East";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/se)
 "czi" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 4
@@ -11142,6 +11196,13 @@
 	icon_state = "dark"
 	},
 /area/station/security/armory/secure)
+"cEK" = (
+/obj/machinery/camera{
+	c_tag = "Fore Primary Hall";
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore)
 "cEL" = (
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
@@ -11549,6 +11610,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/command/server)
+"cIB" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway South West";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "cIC" = (
 /turf/simulated/wall,
 /area/station/security/prison/cell_block/A)
@@ -12205,6 +12273,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
+"cQM" = (
+/obj/machinery/camera{
+	c_tag = "Starboard-Aft Primary Hallway";
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/south)
 "cRc" = (
 /obj/machinery/door/airlock/medical,
 /obj/machinery/door/poddoor/preopen{
@@ -14787,6 +14862,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/station/maintenance/starboard)
+"dsv" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Dorms Hall South East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/dorms)
 "dsH" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -18237,6 +18322,13 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
 /area/station/command/vault)
+"ejP" = (
+/obj/machinery/camera{
+	c_tag = "Starboard Primary Hall East";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard)
 "ejR" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
@@ -22913,6 +23005,10 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Central Hallway West";
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "foD" = (
@@ -26112,6 +26208,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white/side,
 /area/station/maintenance/asmaint)
+"gbF" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway South West";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/south)
 "gbI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
@@ -26455,6 +26558,10 @@
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
+	},
+/obj/machinery/camera{
+	c_tag = "Dorms Hall North West";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
@@ -29378,6 +29485,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
+"gNU" = (
+/obj/machinery/camera{
+	c_tag = "Dorms Hall East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/dorms)
 "gNW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -30727,6 +30841,15 @@
 	icon_state = "white"
 	},
 /area/station/medical/medbay2)
+"hcW" = (
+/obj/structure/closet/firecloset,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Aft Starboard Solar Access";
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "hda" = (
 /obj/structure/filingcabinet,
 /obj/effect/decal/cleanable/dirt,
@@ -31602,6 +31725,14 @@
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"hna" = (
+/obj/item/kirbyplants,
+/obj/machinery/camera{
+	c_tag = "Central Hallway North";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/north)
 "hnb" = (
 /obj/item/kirbyplants,
 /obj/structure/cable{
@@ -32805,6 +32936,10 @@
 "hBs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
+/obj/machinery/camera{
+	c_tag = "Fore Starboard Solars";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
 "hBt" = (
@@ -37171,6 +37306,10 @@
 /area/station/supply/sorting)
 "iGO" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/camera{
+	c_tag = "Central Hallway North";
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
 "iGP" = (
@@ -41357,6 +41496,10 @@
 /area/station/hallway/secondary/entry/east)
 "jFq" = (
 /obj/structure/closet/emcloset,
+/obj/machinery/camera{
+	c_tag = "Dorms Aft Space Bridge";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/spacebridge/dorms/south)
 "jFt" = (
@@ -44591,6 +44734,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "kqL" = (
+/obj/machinery/camera{
+	c_tag = "Aft Port Solar Control";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "kqN" = (
@@ -45854,6 +46001,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
+"kIu" = (
+/obj/machinery/camera{
+	c_tag = "Fore Primary Hall West";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore)
 "kIx" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -47604,6 +47758,10 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Starboard Primary Hall";
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "lcY" = (
@@ -49277,6 +49435,7 @@
 	dir = 2
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /turf/simulated/floor/plasteel,
 /area/station/science/rnd)
 "lwp" = (
@@ -54631,6 +54790,17 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos/transit)
+"mOM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Fore Starboard Solar Access";
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/dorms/starboard)
 "mPb" = (
 /turf/simulated/wall,
 /area/station/public/sleep)
@@ -55946,6 +56116,10 @@
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
+	},
+/obj/machinery/camera{
+	c_tag = "Dorms Aft Space Bridge";
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/spacebridge/dorms/south)
@@ -58106,6 +58280,9 @@
 	location = "Medbay"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/medical/storage/secondary)
 "nDD" = (
@@ -58579,6 +58756,17 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/rnd)
+"nHD" = (
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/obj/machinery/camera{
+	c_tag = "Dorms Hall North East";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/dorms)
 "nHE" = (
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
@@ -59229,6 +59417,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /turf/simulated/floor/plating,
 /area/station/maintenance/assembly_line)
 "nPG" = (
@@ -61928,6 +62117,10 @@
 "ovT" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
+/obj/machinery/camera{
+	c_tag = "Fore Primary Hall";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "owa" = (
@@ -63001,6 +63194,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"oIh" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway North";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/nw)
 "oIo" = (
 /obj/effect/landmark/spawner/rev,
 /obj/machinery/camera{
@@ -63458,7 +63658,8 @@
 /area/station/maintenance/apmaint)
 "oMY" = (
 /turf/simulated/floor/plasteel/goonplaque/memorial{
-	desc = "\"The plaque Honor Ian, who Bravely saved the hop when they tripped a syndicate agent while attempting to solicit belly rubs from them./"},
+	desc = "\"The plaque Honor Ian, who Bravely saved the hop when they tripped a syndicate agent while attempting to solicit belly rubs from them./"
+	},
 /area/station/public/dorms)
 "oNg" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -64986,6 +65187,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
+"pdm" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway West";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/nw)
 "pdr" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -66523,6 +66731,17 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/public/toilet/unisex)
+"pwd" = (
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Starboard Primary Hall West";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard)
 "pwo" = (
 /obj/structure/table/glass,
 /obj/item/hemostat,
@@ -67481,6 +67700,10 @@
 /obj/structure/table/wood,
 /obj/item/storage/fancy/crayons,
 /obj/item/lipstick/random,
+/obj/machinery/camera{
+	c_tag = "Dorms Hall West";
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "pIA" = (
@@ -67688,6 +67911,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"pKn" = (
+/obj/machinery/camera{
+	c_tag = "Fore Primary Hall South";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore)
 "pKq" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/candle_box/full,
@@ -68420,6 +68650,18 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/public/toilet/unisex)
+"pTR" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/camera{
+	c_tag = "Fore Port Solar Control";
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/auxsolarport)
 "pTW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -69400,6 +69642,13 @@
 	opacity = 1
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 1
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 1;
+	name = "Engineering Delivery"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "qer" = (
@@ -70998,6 +71247,13 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior)
+"qyw" = (
+/obj/machinery/camera{
+	c_tag = "Fore Primary Hall East";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore)
 "qyy" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -71122,6 +71378,13 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"qAG" = (
+/obj/machinery/camera{
+	c_tag = "Starboard-Aft Primary Hallway";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/south)
 "qAM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -72480,6 +72743,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/aisat/hall)
+"qSf" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway South";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/south)
 "qSj" = (
 /obj/machinery/power/apc/critical/directional/west,
 /obj/structure/cable{
@@ -73945,6 +74215,13 @@
 	icon_state = "dark"
 	},
 /area/station/security/lobby)
+"rgU" = (
+/obj/machinery/camera{
+	c_tag = "Starboard-Aft Primary South";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/south)
 "rgZ" = (
 /obj/structure/chair/sofa/left,
 /turf/simulated/floor/wood,
@@ -75850,6 +76127,13 @@
 	icon_state = "whitegreenfull"
 	},
 /area/station/medical/virology/lab)
+"rDn" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway West";
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "rDo" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -76075,6 +76359,13 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
+"rGs" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/se)
 "rGt" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -76117,6 +76408,9 @@
 /obj/machinery/door/window/classic/reversed{
 	dir = 8;
 	name = "Glass Door"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
@@ -78132,6 +78426,10 @@
 	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Disposals";
+	dir = 2
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -81921,6 +82219,9 @@
 	name = "Kitchen Delivery"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/service/kitchen)
 "sWY" = (
@@ -83122,6 +83423,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
+"tlt" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway West";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "tlw" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -84703,6 +85011,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"tDg" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Starboard-Aft Primary Hallway North";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/south)
 "tDi" = (
 /obj/structure/chair/sofa{
 	dir = 1
@@ -85664,6 +85982,10 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Dorms Hall North";
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "tPa" = (
@@ -86072,6 +86394,10 @@
 "tUr" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/sop_service,
+/obj/machinery/camera{
+	c_tag = "Dorms Hall South West";
+	dir = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "tUs" = (
@@ -86087,6 +86413,10 @@
 /area/station/supply/storage)
 "tUG" = (
 /obj/item/kirbyplants,
+/obj/machinery/camera{
+	c_tag = "Dorms Port Space Bridge";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/spacebridge/dorms/west)
 "tUI" = (
@@ -87476,6 +87806,9 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/janitor{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "ulc" = (
@@ -88557,6 +88890,9 @@
 	dir = 8;
 	name = "Glass Door"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "uAS" = (
@@ -89097,6 +89433,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
+"uGP" = (
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Fore Primary Hall West";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore)
 "uGS" = (
 /obj/structure/bed/pod,
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -89541,6 +89888,15 @@
 "uMS" = (
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
+"uMT" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/obj/machinery/camera{
+	c_tag = "Holodeck Control";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/public/dorms)
 "uMY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -90481,6 +90837,9 @@
 	codes_txt = "delivery";
 	dir = 1;
 	location = "Atmospherics"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -93458,6 +93817,10 @@
 /area/station/maintenance/apmaint)
 "vGH" = (
 /obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Dorms Hall South";
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
 "vGM" = (
@@ -93955,6 +94318,13 @@
 	icon_state = "dark"
 	},
 /area/station/telecomms/computer)
+"vMN" = (
+/obj/machinery/camera{
+	c_tag = "Starboard-Aft Primary South";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/south)
 "vMO" = (
 /obj/structure/rack,
 /obj/item/tank/internals/oxygen,
@@ -95435,6 +95805,7 @@
 	location = "Bar"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /turf/simulated/floor/plating,
 /area/station/service/bar)
 "wfB" = (
@@ -97935,6 +98306,10 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Starboard Primary Hall East";
+	dir = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "wLb" = (
@@ -99052,6 +99427,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"wYM" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway North East";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/ne)
 "wYQ" = (
 /obj/structure/chair/sofa/bench/left{
 	dir = 1;
@@ -99523,6 +99905,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
+"xfI" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway South East";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/se)
 "xfT" = (
 /obj/structure/table,
 /obj/item/folder/blue,
@@ -99740,6 +100129,10 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "Aft Starboard Solar Control";
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "xhY" = (
@@ -99935,6 +100328,13 @@
 	icon_state = "vault"
 	},
 /area/station/engineering/gravitygenerator)
+"xkF" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway South";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/south)
 "xkG" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -101626,6 +102026,13 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
 /area/station/public/dorms)
+"xEs" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway North-West";
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/nw)
 "xEx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -103229,6 +103636,10 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "Fore Port Solar Access";
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "yaG" = (
@@ -103485,6 +103896,14 @@
 "ydU" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/secure_storage)
+"ydY" = (
+/obj/item/kirbyplants,
+/obj/machinery/camera{
+	c_tag = "Fore Primary Hall South";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore)
 "ydZ" = (
 /obj/effect/landmark/lightsout,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -103527,6 +103946,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
+"yez" = (
+/obj/machinery/status_display{
+	pixel_x = -32
+	},
+/obj/machinery/camera{
+	c_tag = "Central Hallway South West";
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "yeB" = (
 /obj/machinery/hydroponics/constructable{
 	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
@@ -122352,7 +122781,7 @@ aok
 hcH
 ppB
 abG
-fRm
+chV
 wty
 mdx
 lbl
@@ -126928,7 +127357,7 @@ snX
 gmo
 uep
 wkS
-snX
+tlt
 snX
 jSL
 ldE
@@ -126945,7 +127374,7 @@ uep
 xCt
 ter
 snX
-dPj
+yez
 uep
 bEg
 rGN
@@ -127428,7 +127857,7 @@ snX
 snX
 snX
 snX
-snX
+rDn
 snX
 snX
 qRd
@@ -127707,7 +128136,7 @@ wPt
 wPt
 wPt
 wPt
-snX
+cIB
 gmo
 kJP
 rzF
@@ -128449,7 +128878,7 @@ mAE
 mAE
 bvh
 nmP
-bvh
+pdm
 bAa
 gnM
 czw
@@ -129172,7 +129601,7 @@ jnP
 dGi
 usw
 pOM
-lgQ
+pTR
 iHX
 dGi
 lfn
@@ -129466,7 +129895,7 @@ boD
 bvh
 bvh
 bvh
-bvh
+xEs
 bvh
 bvh
 bvh
@@ -129715,7 +130144,7 @@ nKE
 iFD
 nKE
 nAP
-bvh
+axF
 nmP
 bvh
 bvh
@@ -130971,7 +131400,7 @@ chh
 chh
 chh
 chh
-fXw
+uGP
 xuN
 mYU
 chh
@@ -131564,7 +131993,7 @@ qRH
 bla
 rxd
 iSc
-rxd
+gbF
 vwR
 aXl
 sej
@@ -133286,7 +133715,7 @@ mYU
 mMY
 mYU
 xuN
-mYU
+kIu
 sWf
 sWf
 sWf
@@ -133570,7 +133999,7 @@ dZr
 abt
 nAP
 nAP
-bvh
+oIh
 xBu
 rIt
 aJv
@@ -134132,7 +134561,7 @@ jnP
 ojW
 jnP
 xmm
-rxd
+xkF
 pjq
 jYc
 nGq
@@ -135343,7 +135772,7 @@ uQi
 qcP
 xuN
 mYU
-mYU
+cEK
 kYe
 kYe
 lXH
@@ -135607,7 +136036,7 @@ bnx
 aRY
 eFp
 kYe
-xWI
+ydY
 mYU
 tLr
 mYU
@@ -136386,7 +136815,7 @@ mYU
 qxy
 mYU
 mYU
-mYU
+pKn
 gQg
 gLI
 qxy
@@ -136653,7 +137082,7 @@ diC
 tSw
 npi
 npi
-dOt
+hna
 ckv
 vli
 ckv
@@ -137729,7 +138158,7 @@ jnP
 jnP
 xmm
 xmm
-rxd
+xkF
 fzD
 iSc
 rxd
@@ -138455,7 +138884,7 @@ jMC
 ihU
 soN
 dlV
-soN
+aGb
 sTb
 ckL
 dqb
@@ -140223,7 +140652,7 @@ jaH
 eOU
 gJk
 gZS
-mYU
+qyw
 xuN
 mYU
 csX
@@ -140559,7 +140988,7 @@ jOs
 idu
 rxd
 iSc
-rxd
+qSf
 oSD
 oEa
 xCI
@@ -141841,7 +142270,7 @@ idu
 idu
 idu
 idu
-jOu
+aFq
 bUG
 udf
 jOu
@@ -142303,7 +142732,7 @@ joH
 soN
 gmp
 ora
-soN
+wYM
 xbE
 soN
 soN
@@ -142336,7 +142765,7 @@ jOu
 dbu
 jOu
 xOJ
-jOu
+xfI
 jOu
 eSB
 jOu
@@ -142347,7 +142776,7 @@ dbu
 koO
 jOu
 jOu
-jOu
+xfI
 jOu
 xrR
 jOu
@@ -142828,7 +143257,7 @@ soN
 aaV
 soN
 soN
-soN
+aUe
 jJP
 soN
 soN
@@ -142844,7 +143273,7 @@ seC
 qLF
 eXi
 neK
-jOu
+rGs
 wDZ
 jOu
 jOu
@@ -143094,7 +143523,7 @@ dkG
 dkG
 rSC
 rSC
-jOu
+cyX
 bls
 jOu
 rQU
@@ -143839,7 +144268,7 @@ ojW
 jnP
 jnP
 vmZ
-chy
+bpj
 vPt
 vPt
 pET
@@ -145443,7 +145872,7 @@ cHG
 iWE
 glQ
 iWE
-cTw
+tDg
 iWE
 iWE
 iWE
@@ -145718,7 +146147,7 @@ ern
 iWE
 iWE
 iWE
-iWE
+cQM
 iWE
 iWE
 glQ
@@ -145739,7 +146168,7 @@ iWE
 cTw
 iWE
 iWE
-iWE
+rgU
 iWE
 iWE
 gxF
@@ -146178,7 +146607,7 @@ hNM
 hNM
 hNM
 hNM
-qEg
+pwd
 efX
 kyA
 ajq
@@ -146224,7 +146653,7 @@ mll
 iWE
 iWE
 iWE
-iWE
+qAG
 iWE
 iWE
 aOs
@@ -146499,7 +146928,7 @@ dsS
 dsS
 iWE
 nTI
-iWE
+vMN
 wDu
 wDu
 ttS
@@ -149998,7 +150427,7 @@ wdZ
 wdZ
 wdZ
 jej
-llq
+uMT
 vhz
 ljn
 ydZ
@@ -151015,7 +151444,7 @@ pZx
 fRK
 jYw
 oJI
-ngm
+nHD
 fdJ
 jMv
 rvs
@@ -151539,7 +151968,7 @@ gZE
 mXJ
 xxD
 vhz
-vhz
+gNU
 hCg
 vhz
 vhz
@@ -151834,7 +152263,7 @@ mlc
 hgZ
 kyA
 efX
-kyA
+ejP
 ngr
 lrp
 bwj
@@ -152063,7 +152492,7 @@ pzO
 giW
 giW
 rvs
-jMv
+dsv
 vhz
 unZ
 vhz
@@ -154608,7 +155037,7 @@ pal
 dON
 tRU
 uEN
-mxz
+mOM
 yhE
 dvt
 fyu
@@ -158861,7 +159290,7 @@ kML
 kQk
 yby
 bap
-pYZ
+hcW
 mFr
 vfF
 xhS
