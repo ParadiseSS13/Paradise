@@ -473,7 +473,6 @@
 	I.play_tool_sound(src)
 	open = !open
 	to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
-	return
 
 /mob/living/simple_animal/bot/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE //Must be true or we attempt to stab the bot
