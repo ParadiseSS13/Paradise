@@ -222,7 +222,7 @@
 	new weapon(disassemble_turf)
 	qdel(src)
 
-/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized | This code is blocking ranged attacks
+/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) // So uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
 		visible_message("[src] deflects [P] with its energy swords!")
