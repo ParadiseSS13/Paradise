@@ -500,7 +500,7 @@
   */
 /obj/machinery/smartfridge/secure/foodcart
 	name = "E.A.T."
-	desc = "Short for the Entrée Armoured Transport, this technological marvel by Donk Co. allows Chefs to... for hawking your food and drink wares around the station, just with a bit more security."
+	desc = "Short for the Entrée Armoured Transport, this technological marvel by Donk Co. allows Chefs to hawk their food and drink wares around the station, just with a bit more security."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "foodcart"
 	anchored = FALSE
@@ -541,13 +541,11 @@
 		if(!emagged)
 			to_chat(user, "<span class='warning'>The cart is working fine and doesn't needs repairs!</span>")
 			return
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [O] is stuck to you!</span>")
+		if(!user.unEquip())
+			to_chat(user, "<span class='warning'>[O] is stuck to you!</span>")
 			return FALSE
-		user.drop_item()
 		new_electronics.forceMove(src)
-		spawn_atom_to_turf(/obj/item/airlock_electronics/destroyed, user.loc, 1)
-		emagged = FALSE
+		new /obj/item/airlock_electronics/destroyed(get_turf(user))
 		to_chat(user, "<span class='notice'>You swap out the burnt out electronics in the ID scanner.</span>")
 		return TRUE
 	return ..()
