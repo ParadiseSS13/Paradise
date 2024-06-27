@@ -12,7 +12,6 @@
 //Click cooldowns, in tenths of a second
 #define CLICK_CD_MELEE 8
 #define CLICK_CD_RANGE 4
-#define CLICK_CD_HANDCUFFED 10
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
 #define CLICK_CD_RESIST 8
@@ -33,6 +32,7 @@
 #define INFECTION_LEVEL_ONE		100
 #define INFECTION_LEVEL_TWO		500
 #define INFECTION_LEVEL_THREE	1000
+#define INFECTION_LEVEL_FOUR	1500
 
 // Damage above this value must be repaired with surgery.
 #define ROBOLIMB_SELF_REPAIR_CAP 60
@@ -94,6 +94,7 @@
 #define AI_TRANS_TO_CARD	1 //Downloading AI to InteliCard.
 #define AI_TRANS_FROM_CARD	2 //Uploading AI from InteliCard
 #define AI_MECH_HACK		3 //Malfunctioning AI hijacking mecha
+#define AI_SHUTTLE_HACK		4 //Malfunctioning AI hijacking shuttle
 
 //singularity defines
 #define STAGE_ONE 1
@@ -110,18 +111,17 @@
 
 #define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
 	block( \
-	locate(max(CENTER.x-(H_RADIUS),1),          max(CENTER.y-(V_RADIUS),1),          CENTER.z), \
-	locate(min(CENTER.x+(H_RADIUS),world.maxx), min(CENTER.y+(V_RADIUS),world.maxy), CENTER.z) \
+	max(CENTER.x - (H_RADIUS), 1),			max(CENTER.y - (V_RADIUS), 1), 			CENTER.z, \
+	min(CENTER.x + (H_RADIUS), world.maxx), min(CENTER.y + (V_RADIUS), world.maxy), CENTER.z \
 	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
 // order of the additions: top edge + bottom edge + left edge + right edge
 #define RANGE_EDGE_TURFS(RADIUS, CENTER)\
-	(CENTER.y + RADIUS < world.maxy ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z)) : list()) +\
-	(CENTER.y - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z)) : list()) +\
-	(CENTER.x - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list()) +\
-	(CENTER.x + RADIUS < world.maxx ? block(locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list())
-
+	(CENTER.y + RADIUS < world.maxy ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z) : list()) +\
+	(CENTER.y - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z) : list()) +\
+	(CENTER.x - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list()) +\
+	(CENTER.x + RADIUS < world.maxx ? block(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list())
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
@@ -171,23 +171,24 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define EYES_OVERLAY_LAYER		43
-#define WING_LAYER				42
-#define WING_UNDERLIMBS_LAYER	41
-#define MUTANTRACE_LAYER		40
-#define TAIL_UNDERLIMBS_LAYER	39	//Tail split-rendering.
-#define LIMBS_LAYER				38
-#define MARKINGS_LAYER			37
-#define INTORGAN_LAYER			36
-#define UNDERWEAR_LAYER			35
-#define MUTATIONS_LAYER			34
-#define H_DAMAGE_LAYER			33
-#define UNIFORM_LAYER			32
-#define ID_LAYER				31
-#define HANDS_LAYER				30	//Exists to overlay hands over jumpsuits
-#define SHOES_LAYER				29
-#define GLOVES_LAYER			28
-#define EARS_LAYER				27
+#define EYES_OVERLAY_LAYER		44
+#define WING_LAYER				43
+#define WING_UNDERLIMBS_LAYER	42
+#define MUTANTRACE_LAYER		41
+#define TAIL_UNDERLIMBS_LAYER	40	//Tail split-rendering.
+#define LIMBS_LAYER				39
+#define MARKINGS_LAYER			38
+#define INTORGAN_LAYER			37
+#define UNDERWEAR_LAYER			36
+#define MUTATIONS_LAYER			35
+#define H_DAMAGE_LAYER			34
+#define UNIFORM_LAYER			33
+#define ID_LAYER				32
+#define HANDS_LAYER				31	//Exists to overlay hands over jumpsuits
+#define SHOES_LAYER				30
+#define GLOVES_LAYER			29
+#define LEFT_EAR_LAYER			28
+#define RIGHT_EAR_LAYER			27
 #define BELT_LAYER				26	//Possible make this an overlay of something required to wear a belt?
 #define SUIT_LAYER				25
 #define SPECIAL_BELT_LAYER		24
@@ -214,7 +215,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			43
+#define TOTAL_LAYERS			44
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -404,7 +405,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 56
+#define SQL_VERSION 57
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)

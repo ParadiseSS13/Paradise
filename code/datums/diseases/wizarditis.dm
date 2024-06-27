@@ -11,7 +11,7 @@
 	permeability_mod = 0.75
 	severity = MINOR
 	/// A mapping of `num2text(SLOT_HUD_XYZ)` -> item path
-	var/list/magic_fashion = new
+	var/list/magic_fashion = list()
 
 
 /datum/disease/wizarditis/New()
@@ -62,7 +62,7 @@
 		return // Woe, wizard xeno upon ye
 
 	// Which slots can we replace?
-	var/list/eligible_slot_IDs = new
+	var/list/eligible_slot_IDs = list()
 	for(var/slot in magic_fashion)
 		var/slot_ID = text2num(slot) // Convert back to numeric defines
 

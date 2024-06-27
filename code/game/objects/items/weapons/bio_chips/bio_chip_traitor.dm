@@ -35,7 +35,7 @@
 		return FALSE
 
 	// Create a new mindslave datum for the target with the user as their master.
-	mindslave_target.mind.add_antag_datum(new /datum/antagonist/mindslave(user.mind))
+	mindslave_target.mind.add_antag_datum(new /datum/antagonist/mindslave/implant(user.mind))
 	mindslave_UID = mindslave_target.mind.UID()
 	log_admin("[key_name_admin(user)] has mind-slaved [key_name_admin(mindslave_target)].")
 	return ..()
@@ -43,7 +43,7 @@
 /obj/item/bio_chip/traitor/removed(mob/target)
 	. = ..()
 	var/datum/mind/M = locateUID(mindslave_UID)
-	M.remove_antag_datum(/datum/antagonist/mindslave)
+	M.remove_antag_datum(/datum/antagonist/mindslave/implant)
 
 /obj/item/bio_chip_implanter/traitor
 	name = "bio-chip implanter (Mindslave)"
