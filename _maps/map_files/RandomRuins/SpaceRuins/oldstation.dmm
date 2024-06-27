@@ -594,17 +594,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "bT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/item/circular_saw,
-/obj/item/retractor,
-/obj/item/hemostat,
-/obj/item/scalpel,
-/obj/item/cautery,
-/obj/item/FixOVein,
-/obj/item/surgicaldrill,
-/obj/item/bonegel,
-/obj/item/bonesetter,
-/obj/item/stack/medical/bruise_pack/advanced,
+/obj/structure/closet/crate/secure/oldstation/surgery,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "bU" = (
@@ -1266,7 +1256,6 @@
 "dL" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blue"
@@ -1372,6 +1361,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/off_station/empty_charge/directional/east,
+/obj/structure/closet/crate/secure/oldstation/rechargers,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/comm)
 "dY" = (
@@ -1406,16 +1396,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/white,
-/area/ruin/ancientstation/rnd)
-"ec" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/rdconsole/public,
-/turf/simulated/floor/plasteel/white,
-/area/ruin/ancientstation/rnd)
-"ed" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/r_n_d/destructive_analyzer,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "ee" = (
@@ -1470,7 +1450,6 @@
 /area/ruin/ancientstation/betanorth)
 "el" = (
 /obj/structure/table,
-/obj/machinery/recharger,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -1755,17 +1734,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
-"eT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/r_n_d/protolathe,
-/turf/simulated/floor/plasteel/white,
-/area/ruin/ancientstation/rnd)
-"eU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/r_n_d/circuit_imprinter,
-/obj/item/reagent_containers/dropper,
-/turf/simulated/floor/plasteel/white,
-/area/ruin/ancientstation/rnd)
 "eV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -2022,7 +1990,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Engineering External Access";
-	req_one_access_txt = "271"
+	req_one_access_txt = "301"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
@@ -2431,6 +2399,7 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
+/obj/item/reagent_containers/dropper,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
 "gh" = (
@@ -3077,7 +3046,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_one_access_txt = "271"
+	req_one_access_txt = "301"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
@@ -3155,7 +3124,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Engineering External Access";
-	req_one_access_txt = "271"
+	req_one_access_txt = "301"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/engi)
@@ -3873,7 +3842,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Prototype Laboratory";
-	req_access_txt = "271"
+	req_access_txt = "301"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -3884,7 +3853,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Prototype Laboratory";
-	req_access_txt = "271"
+	req_access_txt = "301"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -4343,7 +4312,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "kA" = (
-/obj/machinery/computer/nonfunctional,
+/obj/machinery/computer/nonfunctional{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
@@ -4796,13 +4767,8 @@
 /obj/machinery/alarm/all_access/directional/west{
 	report_danger_level = 0
 	},
-/obj/structure/rack,
-/obj/item/gun/energy/laser/retro/old{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/gun/energy/laser/retro/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/oldstation/security,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -4893,17 +4859,20 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "lL" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/armor/vest/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/deck/cards{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
 /area/ruin/ancientstation/sec)
 "lM" = (
-/obj/structure/rack,
-/obj/item/clothing/head/helmet/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -4959,6 +4928,11 @@
 	icon_state = "red"
 	},
 /area/ruin/ancientstation/sec)
+"JF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/oldstation/research,
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/rnd)
 "Lu" = (
 /obj/structure/transit_tube/horizontal{
 	dir = 4
@@ -7989,7 +7963,7 @@ eb
 ex
 dE
 fm
-gf
+JF
 gy
 dG
 hg
@@ -8033,9 +8007,9 @@ cp
 cN
 dj
 dE
-ec
 dE
-eT
+dE
+dE
 dE
 gg
 gy
@@ -8081,9 +8055,9 @@ ev
 fz
 dj
 dE
-ed
 dE
-eU
+dE
+dE
 dE
 gh
 gy

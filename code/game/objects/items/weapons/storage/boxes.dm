@@ -358,6 +358,12 @@
 	icon_state = "wolpin_box"
 	monkey_cube_type = /obj/item/food/snacks/monkeycube/wolpincube
 
+/obj/item/storage/box/monkeycubes/nian_worme_cubes
+	name = "nian worme cube box"
+	desc = "Nian Trade Guild brand worme cubes. Just add water!"
+	icon_state = "nian_worme_box"
+	monkey_cube_type = /obj/item/food/snacks/monkeycube/nian_wormecube
+
 ///////////////////
 /* Medical Boxes */
 ///////////////////
@@ -1013,10 +1019,10 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/grenade/plastic/c4/x4(src)
 	new /obj/item/reagent_containers/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
-	new /obj/item/ammo_box/a357(src)
-	new /obj/item/ammo_box/a357(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 
 /obj/item/storage/box/soviet
 	name = "boxed survival kit"
