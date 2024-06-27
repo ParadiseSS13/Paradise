@@ -123,7 +123,7 @@
 			var/grinding_mulitipler = 1
 			if(grinding)
 				grinding_mulitipler = 2
-				victim.Weaken(2.5 SECONDS) //This is easier said than done, so probably fine. If officers or crew weaponise it I'll kill it fully.
+				victim.Weaken(2.5 SECONDS) // This is easier said than done, so probably fine. If officers or crew weaponize it I'll kill it fully.
 			victim.KnockDown(4 * grinding_mulitipler SECONDS)
 	else
 		var/backdir = REVERSE_DIR(dir)
