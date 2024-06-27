@@ -27,7 +27,7 @@
 		use_power()
 
 /mob/living/silicon/robot/proc/use_power()
-	var/amt = clamp((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
+	var/amt = clamp((lamp_intensity - 2) * 2, 1, cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
 	cell.use(amt) //Usage table: 1/tick if off/lowest setting, 4 = 4/tick, 6 = 8/tick, 8 = 12/tick, 10 = 16/tick
 	diag_hud_set_borgcell()
 
