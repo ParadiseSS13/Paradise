@@ -35983,10 +35983,6 @@
 /turf/simulated/wall,
 /area/station/command/office/blueshield)
 "coU" = (
-/obj/machinery/camera{
-	c_tag = "Blueshield's Office";
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -89574,6 +89570,13 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/exit)
+"vGu" = (
+/obj/machinery/camera{
+	c_tag = "Blueshield's Office";
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "vHd" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -122211,7 +122214,7 @@ cgW
 qpw
 bAb
 ckw
-ckv
+vGu
 cgW
 lNb
 qov
