@@ -34,6 +34,12 @@
 	on = TRUE
 	icon_state = "map_scrubber"
 
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins
+	on = TRUE
+	icon_state = "map_scrubber"
+	scrub_CO2 = FALSE
+	scrub_Toxins = TRUE
+
 /obj/machinery/atmospherics/unary/vent_scrubber/Initialize(mapload)
 	. = ..()
 	icon = null
