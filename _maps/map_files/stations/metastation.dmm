@@ -25502,7 +25502,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "bLH" = (
-/obj/machinery/alarm/directional/west,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -34349,8 +34351,8 @@
 	},
 /area/station/medical/cryo)
 "csN" = (
-/obj/structure/sink{
-	pixel_y = 22
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -36488,7 +36490,9 @@
 	},
 /area/station/medical/exam_room)
 "cBu" = (
-/obj/machinery/alarm/directional/east,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -38024,9 +38028,6 @@
 	},
 /area/station/medical/exam_room)
 "cHa" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
 /obj/machinery/camera{
 	c_tag = "Medbay Cryogenics";
 	dir = 4
@@ -38038,6 +38039,9 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -42367,6 +42371,7 @@
 	c_tag = "Medbay Surgery 2";
 	dir = 8
 	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -43751,6 +43756,7 @@
 	c_tag = "Medbay Surgery 1";
 	dir = 4
 	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -54646,6 +54652,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -84845,6 +84854,21 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/brig)
+"ujh" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/medbay)
 "ujj" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1;
@@ -116488,7 +116512,7 @@ rtb
 mFQ
 pIt
 cXr
-dLU
+ujh
 hDL
 blu
 wcp
