@@ -476,14 +476,14 @@
 	return
 
 /mob/living/simple_animal/bot/wrench_act(mob/living/user, obj/item/I)
-	. = TRUE //Must be true or we attempt to stab the bot | Sets standard return value for this code block
+	. = TRUE //Must be true or we attempt to stab the bot
 
 	if(user.a_intent != INTENT_HELP)
 		return ..()
 	if(locked) //ID-Lock
 		to_chat(user, "<span class='warning'>The interface is locked.</span>")
 		return
-	if(!open) //Screwdriver panel
+	if(!open)
 		to_chat(user, "<span class='warning'>The maintenance panel is screwed in place.</span>")
 		return
 	if(bot_type != SEC_BOT && bot_type != GRIEF_BOT) //Should only affect security bots and griefsky
@@ -500,14 +500,14 @@
 	CRASH("disassemble() not overridden on [type]")
 
 /mob/living/simple_animal/bot/multitool_act(mob/living/user, obj/item/I)
-	. = TRUE //Must be true or we attempt to stab the bot | Sets standard return value for this code block
+	. = TRUE //Must be true or we attempt to stab the bot
 
 	if(user.a_intent != INTENT_HELP)
 		return ..()
-	if(locked) //ID-Lock
+	if(locked)
 		to_chat(user, "<span class='warning'>The interface is locked.</span>")
 		return
-	if(!open) //Screwdriver panel
+	if(!open)
 		to_chat(user, "<span class='warning'>The maintenance panel is screwed in place.</span>")
 		return
 	if((bot_type == SEC_BOT || bot_type == GRIEF_BOT) && wrenched) //Should only affect security bots and griefsky that have their components wrenched
