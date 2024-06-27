@@ -18,9 +18,9 @@ jobs:
       - name: Check commenter authorization
         id: check-auth
         run: |
-          AUTHORIZED_USER="SynthTwo"
+          AUTHORIZED_USERS=("SynthTwo")
           COMMENTER="${{ github.event.comment.user.login }}"
-          if [ "$COMMENTER" = "$AUTHORIZED_USER" ]; then
+          if [ "$COMMENTER" = "$AUTHORIZED_USERS" ]; then
             echo "authorized=true" >> $GITHUB_OUTPUT
           else
             echo "authorized=false" >> $GITHUB_OUTPUT
