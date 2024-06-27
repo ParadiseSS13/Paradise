@@ -526,6 +526,12 @@
 					/obj/item/vending_refill/exploredrobe)
 	containername = "cargo clothing vendor crate"
 
+/datum/supply_packs/misc/hoverboard
+	name = "Hoverboard Crate"
+	contains = list(/obj/item/melee/skateboard/hoverboard)
+	cost = 1000 //Price of cool
+	containername = "hoverboard crate"
+
 ///////////// Station Goals
 
 /datum/supply_packs/misc/station_goal
