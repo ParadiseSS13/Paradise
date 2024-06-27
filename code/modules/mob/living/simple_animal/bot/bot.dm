@@ -492,7 +492,6 @@
 	I.play_tool_sound(src)
 	wrenched = !wrenched
 	to_chat(user, "<span class='notice'>The internal components are now [wrenched ? "wrenched" : "unwrenched"].</span>")
-	return TRUE
 
 // Override me please!
 /mob/living/simple_animal/bot/proc/disassemble()
