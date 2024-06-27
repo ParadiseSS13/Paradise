@@ -580,7 +580,7 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(!ismachineperson(target))
-		to_chat(user, "<span class='danger'>[tool] can not be installed into an organic body, as it is not designed to operate the complex biological systems of one!</span>")
+		to_chat(user, "<span class='danger'>[tool] cannot be installed into an organic body, as it is not designed to operate the complex biological systems of one!</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(!target.dna.species)
