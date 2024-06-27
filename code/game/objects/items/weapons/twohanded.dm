@@ -959,7 +959,7 @@
 
 /obj/item/push_broom/traitor/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime
 	// parent component handles this
 	AddComponent(/datum/component/two_handed, force_wielded = 25, force_unwielded = force)
 
