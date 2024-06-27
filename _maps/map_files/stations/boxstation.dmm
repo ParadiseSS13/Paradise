@@ -35983,10 +35983,6 @@
 /turf/simulated/wall,
 /area/station/command/office/blueshield)
 "coU" = (
-/obj/machinery/camera{
-	c_tag = "Blueshield's Office";
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -60504,6 +60500,13 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/toxins/mixing)
+"hth" = (
+/obj/machinery/camera{
+	c_tag = "NT Representative's Office";
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "htR" = (
 /obj/structure/chair/sofa/right{
 	dir = 4;
@@ -122211,7 +122214,7 @@ cgW
 qpw
 bAb
 ckw
-ckv
+hth
 cgW
 lNb
 qov
