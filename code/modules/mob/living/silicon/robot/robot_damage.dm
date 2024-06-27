@@ -173,8 +173,8 @@ Begins the stamcrit reboot process for borgs. Stuns them, and warns people if th
 	playsound(src, 'sound/machines/shut_down.ogg', 100, FALSE, SOUND_RANGE_SET(10))
 	if(!has_power_source())
 		visible_message(
-		"<span class='warning'>[src]'s system sounds an alarm, \"ERROR: NO POWER SOURCE DETECTED. SYSTEM SHUTDOWN IMMINENT.\"</span>",
-		"<span class='warning'>EMERGENCY: FULL SYSTEM SHUTDOWN IMMINENT.</span>")
+			"<span class='warning'>[src]'s system sounds an alarm, \"ERROR: NO POWER SOURCE DETECTED. SYSTEM SHUTDOWN IMMINENT.\"</span>",
+			"<span class='warning'>EMERGENCY: FULL SYSTEM SHUTDOWN IMMINENT.</span>")
 		playsound(src, 'sound/machines/buzz-two.ogg' , 50, FALSE, SOUND_RANGE_SET(10))
 	else
 		visible_message(
