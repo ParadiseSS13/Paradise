@@ -45,7 +45,7 @@
 	/// Counter that increments by 1 per tick. Resets when it reaches the value of flush_every_ticks and attempts to perform a flush.
 	var/flush_count = 0
 	var/last_sound = 0
-	var/required_mode_to_deconstruct = -1
+	var/required_mode_to_deconstruct = DISPOSALS_UNSCREWED
 	/// What does this drop when deconstructed?
 	var/deconstructs_to = PIPE_DISPOSALS_BIN
 
