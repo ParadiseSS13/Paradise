@@ -67,10 +67,6 @@
 		"<span class='userdanger'>You evade [hitting_projectile]!</span>",
 	)
 	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
-	var/dir_to_avoid = angle2dir_cardinal(hitting_projectile.Angle)
-	var/list/potential_first_directions = list(NORTH, SOUTH, EAST, WEST)
-	potential_first_directions -= dir_to_avoid
-	step(source, pick(potential_first_directions))
 	// Chance to dodge multiple shotgun spreads, but not likely. Mainly: Infinite loop prevention from admins setting it to 100 and doing something stupid.
 	// If you want to set your dodge chance to 100 on a subtype, no issue: Just make sure the subtype does not step in a direction, otherwise you'll have the mob move a large distance to dodge rubbershot.
 	if(prob(50))
@@ -227,12 +223,12 @@
 	else
 		ExtinguishMob()
 		return FALSE
-	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(G.oxygen < 1)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/G = T?.get_readonly_air() // Check if we're standing in an oxygenless environment
+	if(!G || G.oxygen() < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return FALSE
-	var/turf/location = get_turf(src)
-	location.hotspot_expose(700, 50, 1)
+	T.hotspot_expose(700, 50, 1)
 	SEND_SIGNAL(src, COMSIG_LIVING_FIRE_TICK)
 	return TRUE
 
