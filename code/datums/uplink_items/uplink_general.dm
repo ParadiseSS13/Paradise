@@ -35,9 +35,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				for(var/species in I.species)
 					if(species == user.dna.species.name)
 						species_check = TRUE
-			else {
+			else
 				species_check = TRUE
-			}
 			if(I.hijack_only && !(locate(/datum/objective/hijack) in user.mind.get_all_objectives())) //If you aren't a hijacker, no hijack only items
 				hijacker_check = TRUE
 			else if(!I.hijack_only)
