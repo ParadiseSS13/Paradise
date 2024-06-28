@@ -92,7 +92,7 @@
 	else if(times_used == max_uses)
 		burn_out()
 
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		flash_carbon(user, user, 30 SECONDS, 0)
 		return FALSE
 
