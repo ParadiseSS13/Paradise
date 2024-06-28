@@ -220,7 +220,7 @@
 	icon_state = "plastinum_wall-0"
 	base_icon_state = "plastinum_wall"
 	explosion_block = 3
-	flags_2 = CHECK_RICOCHET_2
+	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
@@ -285,6 +285,10 @@
 	name = "russian wall"
 	desc = "Like regular titanium, but able to deflect capitalist aggressors."
 	can_dismantle_with_welder = FALSE
+
+/turf/simulated/wall/mineral/titanium/nodecon/wizard
+	name = "wizard wall"
+	desc = "Like regular titanium, but able to deflect wizards aggressors."
 
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend
 	fixed_underlay = list("icon"='icons/turf/floors.dmi', "icon_state"="darkredfull")

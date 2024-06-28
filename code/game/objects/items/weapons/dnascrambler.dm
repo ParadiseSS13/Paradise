@@ -40,14 +40,7 @@
 /obj/item/dnascrambler/proc/injected(mob/living/carbon/human/target, mob/living/carbon/user)
 	if(istype(target))
 		var/mob/living/carbon/human/H = target
-		scramble(1, H, 100)
-		H.real_name = random_name(H.gender, H.dna.species.name) //Give them a name that makes sense for their species.
-		H.sync_organ_dna(assimilate = 1)
-		H.update_body()
-		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
-		H.reset_markings() //...Or markings.
-		H.dna.ResetUIFrom(H)
-		H.flavor_text = ""
+		H.get_dna_scrambled()
 	target.update_icons()
 
 	add_attack_logs(user, target, "injected with [src]")

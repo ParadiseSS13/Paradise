@@ -8,7 +8,17 @@ export const Teleporter = (props, context) => {
   const REGIME_TELEPORT = 0;
   const REGIME_GATE = 1;
   const REGIME_GPS = 2;
-  const { calibrated, calibrating, powerstation, regime, teleporterhub, target, locked } = data;
+  const {
+    calibrated,
+    calibrating,
+    powerstation,
+    regime,
+    teleporterhub,
+    target,
+    locked,
+    adv_beacon_allowed,
+    advanced_beacon_locking,
+  } = data;
   return (
     <Window width={350} height={270}>
       <Window.Content>
@@ -22,7 +32,33 @@ export const Teleporter = (props, context) => {
               </Section>
             )}
             {powerstation && teleporterhub && (
-              <Section fill scrollable title="Status">
+              <Section
+                fill
+                scrollable
+                title="Status"
+                buttons={
+                  // eslint-disable-next-line react/jsx-no-useless-fragment
+                  <>
+                    {!!adv_beacon_allowed && (
+                      <>
+                        <Box inline color="label">
+                          Advanced Beacon Locking:&nbsp;
+                        </Box>
+                        <Button
+                          selected={advanced_beacon_locking}
+                          icon={advanced_beacon_locking ? 'toggle-on' : 'toggle-off'}
+                          content={advanced_beacon_locking ? 'Enabled' : 'Disabled'}
+                          onClick={() =>
+                            act('advanced_beacon_locking', {
+                              on: advanced_beacon_locking ? 0 : 1,
+                            })
+                          }
+                        />
+                      </>
+                    )}
+                  </>
+                }
+              >
                 <Stack mb={1}>
                   <Stack.Item width={8.5} color="label">
                     Teleport target:
@@ -43,6 +79,7 @@ export const Teleporter = (props, context) => {
                             x: targetsTeleport[val]['x'],
                             y: targetsTeleport[val]['y'],
                             z: targetsTeleport[val]['z'],
+                            tptarget: targetsTeleport[val]['pretarget'],
                           })
                         }
                       />
@@ -59,6 +96,7 @@ export const Teleporter = (props, context) => {
                             x: targetsTeleport[val]['x'],
                             y: targetsTeleport[val]['y'],
                             z: targetsTeleport[val]['z'],
+                            tptarget: targetsTeleport[val]['pretarget'],
                           })
                         }
                       />

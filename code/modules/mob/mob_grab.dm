@@ -64,9 +64,6 @@
 	clean_grabbed_by(assailant, affecting)
 	adjust_position()
 
-	if(HAS_TRAIT(assailant, TRAIT_SLOW_GRABBER))
-		assailant.changeNext_move(1.5 * CLICK_CD_MELEE)
-
 /obj/item/grab/Destroy()
 	if(affecting)
 		UnregisterSignal(affecting, COMSIG_MOVABLE_MOVED)
