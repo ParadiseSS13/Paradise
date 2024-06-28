@@ -354,7 +354,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 				for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
 					crit.cure()
 
-		H.uncuff()
+		H.clear_restraints()
 		H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
 		if(H.reagents?.has_reagent("holywater"))
 			H.reagents.del_reagent("holywater") // Also prevent fill stomach with holy water and "forgot" about it after converting

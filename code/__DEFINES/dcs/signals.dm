@@ -833,6 +833,8 @@
 #define COMSIG_SPECIES_GAIN "species_gain"
 ///from datum/species/on_species_loss(): (datum/species/lost_species)
 #define COMSIG_SPECIES_LOSS "species_loss"
+///from /datum/species/proc/spec_hitby()
+#define COMSIG_SPECIES_HITBY "species_hitby"
 
 // /datum/song signals
 
