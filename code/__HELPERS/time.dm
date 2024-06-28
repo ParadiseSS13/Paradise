@@ -5,9 +5,9 @@
 // So you can be all 10 SECONDS
 #define SECONDS *10
 
-#define MINUTES SECONDS*60
+#define MINUTES *600
 
-#define HOURS MINUTES*60
+#define HOURS *3600
 
 #define TICKS *world.tick_lag
 
