@@ -70,11 +70,16 @@
 				/obj/item/clothing/mask/balaclava = 60,
 				/obj/item/clothing/mask/gas/sechailer/swat = 60,
 <<<<<<< HEAD
+<<<<<<< HEAD
 				/obj/item/clothing/suit/jacket/bomber/sec = 75,
 =======
 				/obj/item/clothing/suit/jacket/secbomber = 75,
 				/obj/item/clothing/suit/greatcoat/sec = 75,
 >>>>>>> cfb82080d9 (drobse)
+=======
+				/obj/item/clothing/suit/greatcoat/sec = 75,
+				/obj/item/clothing/suit/jacket/bomber/sec = 75,
+>>>>>>> a30186fe47 (Upstream merge! :skull:)
 				/obj/item/clothing/suit/armor/secjacket = 75,
 				/obj/item/clothing/suit/armor/secponcho = 75,
 				/obj/item/clothing/suit/hooded/wintercoat/security = 75,
