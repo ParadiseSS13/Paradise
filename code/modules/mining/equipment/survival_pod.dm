@@ -190,6 +190,8 @@
 	products = list(/obj/item/stack/medical/splint = 2)
 	contraband = list()
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod, 32, 32)
+
 //Computer
 /obj/item/gps/computer
 	name = "pod computer"

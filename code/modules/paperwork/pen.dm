@@ -196,6 +196,11 @@
 /obj/item/pen/sleepy/love/fill_pen()
 	reagents.add_reagent("love", 100)
 
+/obj/item/pen/sleepy/undisguised
+	name = "sleepy pen"
+	desc = "Used to stealthily inject targets. Comes loaded with ketamine but can be refilled with other chemicals. This one isn't disguised."
+	icon_state = "pen_syndie"
+
 /*
  * (Alan) Edaggers
  */

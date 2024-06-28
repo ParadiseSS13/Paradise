@@ -485,7 +485,34 @@ Note that amputating the affected organ does in fact remove the infection from t
 				if(parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30))
 					parent.germ_level++
 
+		if(prob(5))
+			var/list/messages = list(
+				"You feel something uncomfortable in [src].",
+				"A sharp pain seems to spread out from [src].",
+				"[src] feels like it's burning from the inside out!",
+				"[src] seems to be turning a nasty color.",
+			)
+			to_chat(owner, "<span class='danger'>[pick(messages)]</span>")
+
 	if(germ_level >= INFECTION_LEVEL_THREE)
+		if(vital)
+			var/list/messages = list(
+				"[src] oozes with pus!",
+				"[src] starts to go numb.",
+				"[src] feels dreadful, it feels like you're dying!"
+			)
+			// kill them fast, but don't drop them dead.
+			if(prob(5))
+				to_chat(owner, "<span class='userdanger'>[pick(messages)]</span>")
+			owner.adjustToxLoss(5)
+		else
+			necrotize()
+			owner.adjustToxLoss(1)
+
+		germ_level++
+
+	if(germ_level >= INFECTION_LEVEL_FOUR)
+		// we warned you
 		necrotize()
 		germ_level++
 		owner.adjustToxLoss(1)
@@ -804,7 +831,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(company && istext(company))
-		set_company(company)
+		set_company(company, owner.dna.species.sprite_sheet_name)
 
 	limb_flags |= CANNOT_BREAK
 	get_icon()
@@ -814,11 +841,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 
-/obj/item/organ/external/proc/set_company(company)
+/obj/item/organ/external/proc/set_company(company, species_sheet_name)
 	model = company
 	var/datum/robolimb/R = GLOB.all_robolimbs[company]
 	if(R)
-		force_icon = R.icon
+		if(length(R.sprite_sheets)) // Species specific augmented limbs
+			force_icon = R.sprite_sheets[species_sheet_name]
+		else
+			force_icon = R.icon
 		name = "[R.company] [initial(name)]"
 		desc = "[R.desc]"
 

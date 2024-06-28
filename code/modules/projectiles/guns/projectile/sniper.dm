@@ -23,7 +23,7 @@
 /obj/item/gun/projectile/automatic/sniper_rifle/Initialize(mapload)
 	. = ..()
 	if(zoomable)
-		AddComponent(/datum/component/scope, range_modifier = 2)
+		AddComponent(/datum/component/scope, range_modifier = 2, flags = SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(istype(chambered.BB, /obj/item/projectile/bullet/sniper) && !HAS_TRAIT(user, TRAIT_SCOPED))

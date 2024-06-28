@@ -446,7 +446,7 @@
 		var/mob/living/carbon/human/H = user
 		switch(blood_level)
 			if(SURGERY_BLOODSPREAD_HANDS)
-				H.bloody_hands(target, 0)
+				H.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color())
 			if(SURGERY_BLOODSPREAD_FULLBODY)
 				H.bloody_body(target)
 	return
