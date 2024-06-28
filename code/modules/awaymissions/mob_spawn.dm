@@ -39,6 +39,8 @@
 	var/ghost_usable = TRUE
 	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
 	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in deciseconds. People that join as observers are not included.
+	///If antagbanned people are prevented from using it, only false for the ghost bar spawner.
+	var/restrict_antagban = TRUE
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	if(!valid_to_spawn(user))
@@ -84,7 +86,7 @@
 	if(!uses && !permanent)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return FALSE
-	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
+	if((jobban_isbanned(user, banType) || (restrict_antagban && jobban_isbanned(user, ROLE_SYNDICATE))))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return FALSE
 	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE))
@@ -183,6 +185,8 @@
 	assignedrole = "Ghost Role"
 
 	var/husk = null
+	/// Should we fully dna-scramble these humans?
+	var/dna_scrambled = FALSE
 	//these vars are for lazy mappers to override parts of the outfit
 	//these cannot be null by default, or mappers cannot set them to null if they want nothing in that slot
 	var/uniform = -1
@@ -258,6 +262,9 @@
 	else
 		H.s_tone = random_skin_tone()
 		H.skin_colour = rand_hex_color()
+
+	if(dna_scrambled)
+		H.get_dna_scrambled()
 
 	H.update_body(rebuild_base = TRUE)
 
@@ -580,6 +587,28 @@
 	mob_name = "skeleton"
 	mob_species = /datum/species/skeleton/brittle
 	mob_gender = NEUTER
+
+/obj/effect/mob_spawn/human/alive/zombie
+	name = "NPC Zombie (Infectious)"
+	icon = 'icons/mob/human.dmi'
+	icon_state = "zombie_s"
+	roundstart = TRUE
+	dna_scrambled = TRUE
+
+/obj/effect/mob_spawn/human/alive/zombie/equip(mob/living/carbon/human/H)
+	ADD_TRAIT(H, TRAIT_NPC_ZOMBIE, ROUNDSTART_TRAIT)
+	H.ForceContractDisease(new /datum/disease/zombie)
+	for(var/datum/disease/zombie/zomb in H.viruses)
+		zomb.stage = 8
+
+	return ..()
+
+/obj/effect/mob_spawn/human/alive/zombie/non_infectious
+	name = "NPC Zombie (Non-infectious)"
+
+/obj/effect/mob_spawn/human/alive/zombie/non_infectious/equip(mob/living/carbon/human/H)
+	ADD_TRAIT(H, TRAIT_NON_INFECTIOUS_ZOMBIE, ROUNDSTART_TRAIT)
+	return ..()
 
 ////////Non-human spawners////////
 
