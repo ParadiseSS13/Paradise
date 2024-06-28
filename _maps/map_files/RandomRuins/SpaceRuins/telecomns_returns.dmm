@@ -3,8 +3,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
@@ -50,8 +49,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /mob/living/simple_animal/hostile/malf_drone,
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
@@ -59,7 +57,8 @@
 /area/ruin/space/telecomns/powercontrol)
 "bb" = (
 /obj/machinery/teleport/hub,
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
 "bE" = (
 /obj/machinery/light,
@@ -94,15 +93,15 @@
 	},
 /area/ruin/space/telecomns/chamber)
 "bP" = (
-/obj/structure/table,
 /obj/effect/spawner/lootdrop/telecomns_core_table,
+/obj/machinery/ai_slipper,
+/obj/structure/table/glass/reinforced/plastitanium,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault";
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (NORTH)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -122,8 +121,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns)
@@ -139,7 +137,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (NORTH)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -147,20 +144,17 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	req_access_txt = "0"
@@ -171,8 +165,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -191,7 +184,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (EAST)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -199,8 +191,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -288,7 +279,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (NORTH)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -391,21 +381,18 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -425,7 +412,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (EAST)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -433,8 +419,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/hatch{
 	name = "Telecoms Satellite";
@@ -466,16 +451,10 @@
 /obj/structure/window/reinforced,
 /turf/space,
 /area/space/nearstation)
-"hC" = (
-/obj/structure/reflector/box{
-	dir = 4;
-	anchored = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomns/tele)
 "hU" = (
 /obj/machinery/computer/teleporter,
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
 "ia" = (
 /obj/effect/spawner/random_spawners/telecomns_emp_loot,
@@ -494,11 +473,7 @@
 	},
 /area/ruin/space/telecomns/chamber)
 "iy" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/computer)
 "iD" = (
@@ -521,16 +496,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns/powercontrol)
-"kj" = (
-/obj/structure/window/plasmareinforced{
-	dir = 4
-	},
-/obj/structure/reflector/box{
-	dir = 4;
-	anchored = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomns/tele)
 "kl" = (
 /obj/machinery/computer/nonfunctional{
 	dir = 1
@@ -541,8 +506,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -603,21 +567,18 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -643,8 +604,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -674,8 +634,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns)
@@ -726,8 +685,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -752,8 +710,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
@@ -765,7 +722,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
 	icon_state = "vault";
 	dir = 5
 	},
@@ -782,7 +738,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (NORTH)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -791,8 +746,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/computer)
@@ -835,16 +789,13 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/light,
-/obj/machinery/hologram/holopad,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
@@ -870,14 +821,12 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -885,16 +834,12 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns)
 "oz" = (
@@ -973,8 +918,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/environmental_storytelling_holopad/first_turret_room,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -1001,8 +945,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -1015,8 +958,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
@@ -1093,8 +1035,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -1135,8 +1076,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -1281,7 +1221,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (NORTH)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -1346,8 +1285,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/light{
 	dir = 1
@@ -1379,11 +1317,7 @@
 	},
 /area/ruin/space/telecomns/chamber)
 "vp" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
 	nitrogen = 400;
@@ -1392,10 +1326,6 @@
 	},
 /area/ruin/space/telecomns/chamber)
 "vu" = (
-/obj/structure/reflector/box{
-	dir = 4;
-	anchored = 1
-	},
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
@@ -1404,10 +1334,6 @@
 "vJ" = (
 /obj/machinery/light_switch{
 	pixel_y = -28
-	},
-/obj/structure/reflector/box{
-	dir = 4;
-	anchored = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
@@ -1419,8 +1345,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/catwalk,
@@ -1439,8 +1364,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -1464,14 +1388,12 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -1544,8 +1466,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -1577,8 +1498,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns)
@@ -1597,7 +1517,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
 	icon_state = "vault";
 	dir = 5
 	},
@@ -1615,7 +1534,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
 	icon_state = "vault";
 	dir = 5
 	},
@@ -1628,8 +1546,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/computer)
@@ -1652,8 +1569,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/recharge_station/upgraded,
 /mob/living/simple_animal/hostile/hivebot/strong/malfborg,
@@ -1663,7 +1579,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (EAST)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -1677,7 +1592,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
 	icon_state = "vault";
 	dir = 5
 	},
@@ -1690,8 +1604,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
@@ -1700,8 +1613,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/door/airlock/hatch/syndicate/command/trapped,
 /obj/item/radio/intercom{
@@ -1720,14 +1632,12 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -1757,12 +1667,15 @@
 /obj/effect/abstract/cheese_trap,
 /turf/space,
 /area/space/nearstation)
+"zq" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomns/tele)
 "zG" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomns/chamber)
@@ -1815,7 +1728,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (EAST)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -1828,6 +1740,9 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/bluespace/trapped,
+/obj/machinery/light_switch{
+	pixel_y = -28
+	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns/powercontrol)
 "Aj" = (
@@ -1851,8 +1766,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
@@ -1861,17 +1775,13 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6;
 	level = 1
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns/powercontrol)
 "AX" = (
@@ -1892,8 +1802,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1955,8 +1864,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
@@ -1985,8 +1893,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -1996,8 +1903,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -2009,7 +1915,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (EAST)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -2035,8 +1940,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -2054,14 +1958,12 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -2083,8 +1985,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns)
@@ -2148,6 +2049,19 @@
 	},
 /turf/space,
 /area/ruin/space/telecomns)
+"Fg" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomns/tele)
 "FA" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'SERVER ROOM'.";
@@ -2208,14 +2122,12 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -2237,7 +2149,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (EAST)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -2257,8 +2168,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -2305,8 +2215,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -2323,8 +2232,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -2335,8 +2243,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -2357,20 +2264,20 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/light_switch{
-	pixel_y = -28
+/obj/structure/table,
+/obj/machinery/turretid/lethal{
+	check_borgs = 1;
+	faction = "malf_drone";
+	check_synth = 1;
+	locked = 0
 	},
-/obj/structure/closet/emcloset,
-/obj/item/reagent_containers/syringe,
-/obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/catwalk,
-/area/ruin/space/telecomns/powercontrol)
+/area/ruin/space/telecomns/tele)
 "HR" = (
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
@@ -2395,8 +2302,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -2404,8 +2310,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	req_access_txt = "0"
@@ -2422,7 +2327,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
 	icon_state = "vault";
 	dir = 5
 	},
@@ -2431,14 +2335,12 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -2487,14 +2389,12 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/computer)
@@ -2542,8 +2442,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -2566,6 +2465,17 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"KQ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/closet/emcloset,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/reagent_containers/syringe,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/telecomns/powercontrol)
 "Lh" = (
 /obj/machinery/tcomms/relay/dvorak,
 /obj/effect/abstract/loot_trap,
@@ -2575,7 +2485,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (NORTH)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -2598,8 +2507,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /mob/living/silicon/decoy/telecomns,
 /turf/simulated/floor/bluegrid{
@@ -2652,14 +2560,12 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
@@ -2668,7 +2574,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
 	icon_state = "vault";
 	dir = 5
 	},
@@ -2689,12 +2594,15 @@
 /obj/effect/spawner/random_spawners/oil_often,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomns/powercontrol)
+"No" = (
+/obj/effect/turf_decal/loading_area,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomns/tele)
 "Nr" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -2717,8 +2625,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -2747,8 +2654,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -2789,8 +2695,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/box/white,
 /obj/structure/telecomns_doomsday_device,
@@ -2814,8 +2719,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/girder/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2843,8 +2747,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/hatch{
 	name = "Telecoms Satellite";
@@ -2881,8 +2784,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -2939,7 +2841,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (EAST)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -2986,18 +2887,14 @@
 	dir = 8;
 	on = 1
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
 "Rv" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
@@ -3059,8 +2956,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -3077,7 +2973,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (NORTH)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -3087,8 +2982,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -3127,7 +3021,6 @@
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
-	tag = "icon-vault (NORTH)";
 	temperature = 80
 	},
 /area/ruin/space/telecomns/chamber)
@@ -3141,8 +3034,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -3169,8 +3061,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
@@ -3192,8 +3083,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	req_access_txt = "0"
@@ -3254,8 +3144,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -3273,7 +3162,8 @@
 /area/space/nearstation)
 "Wp" = (
 /obj/machinery/teleport/station,
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/tele)
 "Wq" = (
 /obj/structure/lattice,
@@ -3302,13 +3192,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomns/foyer)
 "WR" = (
@@ -3460,7 +3346,6 @@
 	name = "Core Access"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-vault (NORTHEAST)";
 	icon_state = "vault";
 	dir = 5
 	},
@@ -3504,8 +3389,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
@@ -7162,7 +7046,7 @@ sT
 jo
 Qx
 PA
-jo
+KQ
 qD
 xa
 XP
@@ -7528,7 +7412,7 @@ PQ
 PQ
 XJ
 PQ
-hC
+iE
 LK
 vJ
 PQ
@@ -7712,9 +7596,9 @@ UF
 kU
 Jz
 gm
-iE
-LK
-iE
+zq
+Fg
+zq
 iE
 hU
 PQ
@@ -7899,7 +7783,7 @@ Uw
 iE
 iE
 iE
-iE
+No
 bb
 PQ
 xa
@@ -7989,7 +7873,7 @@ XJ
 PQ
 tz
 vu
-kj
+vu
 vu
 CC
 PQ
