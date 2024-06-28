@@ -503,7 +503,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/glasses/chameleon/thermal
 	cost = 15
 
-/datum/uplink_item/stealthy_tools/thermal
+/datum/uplink_item/stealthy_tools/night
 	name = "Nightvision Chameleon Glasses"
 	desc = "These glasses are nightvision with Syndicate chameleon technology built into them. Lets you see clearer in the dark."
 	reference = "TNIG"
