@@ -18,9 +18,9 @@ jobs:
       - name: Check commenter authorization
         id: check-auth
         run: |
-          AUTHORIZED_USERS=("SynthTwo")
+          IFS=',' read -ra AUTHORIZED_USERS <<< "${{ vars.AUTHORIZED_USERS }}"
           COMMENTER="${{ github.event.comment.user.login }}"
-          if [ "$COMMENTER" = "$AUTHORIZED_USERS" ]; then
+          if [[ " ${AUTHORIZED_USERS[@]} " =~ " ${COMMENTER} " ]]; then
             echo "authorized=true" >> $GITHUB_OUTPUT
           else
             echo "authorized=false" >> $GITHUB_OUTPUT
@@ -30,20 +30,18 @@ jobs:
         if: steps.check-auth.outputs.authorized == 'true'
         run: |
           gh pr edit ${{ github.event.issue.number }} --add-label "Requires Wiki Update"
-          echo "Label 'Requires Wiki update' added to PR #${{ github.event.issue.number }}"
+          echo "Label 'Requires Wiki Update' added to PR #${{ github.event.issue.number }}"
           curl -X POST \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions" \
             -d '{"content":"+1"}'
-          gh pr comment ${{ github.event.issue.number }} --body "Label 'Requires Wiki update' has been added."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Unauthorized user comment and thumbs down reaction
+      - name: Unauthorized user thumbs down reaction
         if: steps.check-auth.outputs.authorized == 'false'
         run: |
-          gh pr comment ${{ github.event.issue.number }} --body "Sorry, you are not authorized to use the !wiki_label command."
           curl -X POST \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
