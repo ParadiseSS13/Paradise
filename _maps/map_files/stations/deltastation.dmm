@@ -72290,7 +72290,6 @@
 	pixel_y = 28
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/smartfridge/disks,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "ivD" = (
