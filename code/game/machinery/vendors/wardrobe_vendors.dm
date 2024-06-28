@@ -31,6 +31,7 @@
 					/obj/item/clothing/mask/bandana/red = 4,
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/mask/gas/sechailer/swat = 2,
+					/obj/item/clothing/suit/greatcoat/sec = 2,
 					/obj/item/clothing/suit/jacket/bomber/sec = 2,
 					/obj/item/clothing/suit/greatcoat/sec = 2,
 					/obj/item/clothing/suit/armor/secjacket = 4,
@@ -71,6 +72,10 @@
 				/obj/item/clothing/mask/gas/sechailer/swat = 60,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+				/obj/item/clothing/suit/greatcoat/sec = 75,
+>>>>>>> a30186fe47b80632d86cc3c1448966fa05f31f20
 				/obj/item/clothing/suit/jacket/bomber/sec = 75,
 =======
 				/obj/item/clothing/suit/jacket/secbomber = 75,
