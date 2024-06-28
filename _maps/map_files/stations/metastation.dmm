@@ -58969,7 +58969,6 @@
 /area/station/ai_monitored/storage/eva)
 "jHO" = (
 /obj/structure/table/glass,
-/obj/machinery/smartfridge/disks,
 /obj/machinery/camera{
 	c_tag = "Hydroponics";
 	dir = 6

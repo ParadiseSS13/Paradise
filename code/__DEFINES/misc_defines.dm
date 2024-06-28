@@ -111,17 +111,17 @@
 
 #define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
 	block( \
-	max(CENTER.x - (H_RADIUS), 1),			max(CENTER.y - (V_RADIUS), 1), 			CENTER.z, \
+	max(CENTER.x - (H_RADIUS), 1),          max(CENTER.y - (V_RADIUS), 1),          CENTER.z, \
 	min(CENTER.x + (H_RADIUS), world.maxx), min(CENTER.y + (V_RADIUS), world.maxy), CENTER.z \
 	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
 // order of the additions: top edge + bottom edge + left edge + right edge
 #define RANGE_EDGE_TURFS(RADIUS, CENTER)\
-	(CENTER.y + RADIUS < world.maxy ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z) : list()) +\
-	(CENTER.y - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z) : list()) +\
-	(CENTER.x - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list()) +\
-	(CENTER.x + RADIUS < world.maxx ? block(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list())
+	(CENTER.y + RADIUS < world.maxy ? 	block(max(CENTER.x - RADIUS, 1), 			min(CENTER.y + RADIUS, world.maxy), 	CENTER.z, min(CENTER.x + RADIUS, world.maxx), 	min(CENTER.y + RADIUS, world.maxy), CENTER.z) : list()) +\
+	(CENTER.y - RADIUS > 1 ? 			block(max(CENTER.x - RADIUS, 1), 			max(CENTER.y - RADIUS, 1), 				CENTER.z, min(CENTER.x + RADIUS, world.maxx), 	max(CENTER.y - RADIUS, 1), 			CENTER.z) : list()) +\
+	(CENTER.x - RADIUS > 1 ? 			block(max(CENTER.x - RADIUS, 1), 			min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, max(CENTER.x - RADIUS, 1), 			max(CENTER.y - RADIUS + 1, 1), 		CENTER.z) : list()) +\
+	(CENTER.x + RADIUS < world.maxx ? 	block(min(CENTER.x + RADIUS, world.maxx), 	min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), 	max(CENTER.y - RADIUS + 1, 1), 		CENTER.z) : list())
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
@@ -167,8 +167,19 @@
 
 // Metal foam states
 // teehee no one will find these here
-#define MFOAM_ALUMINUM 	1
-#define MFOAM_IRON 		2
+#define METAL_FOAM_ALUMINUM 	1
+#define METAL_FOAM_IRON 		2
+
+// Defines for foam
+
+/// The chemicals in the foam (if any) will never react.
+#define FOAM_REACT_NEVER			(1<<0)
+/// Chemicals in the foam will only react when the foam dissipates.
+#define FOAM_REACT_ON_DISSIPATE		(1<<1)
+/// Chemicals in the foam will react while the foam is still processing.
+#define FOAM_REACT_DURING_SPREAD	(1<<2)
+/// Chemicals in the foam will react when the foam first reaches a tile.
+#define FOAM_REACT_BEFORE_SPREAD	(1<<3)
 
 //Human Overlays Indexes/////////
 #define EYES_OVERLAY_LAYER		44
