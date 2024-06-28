@@ -277,9 +277,8 @@
 		return
 	to_chat(user, "<span class='notice'>You begin making handlebars for [src].</span>")
 	if(do_after(user, 2.5 SECONDS, target = src))
-		if(!loc || !S || S.get_amount() < 2)
+		if(!loc || !S || S.get_amount() < 2 || !S.use(2))
 			return
-	S.use(2)
 	to_chat(user, "<span class='notice'>You add the rods to [src], creating handlebars.</span>")
 	var/obj/tgvehicle/scooter/skaterskoot = new(loc)
 	if(has_buckled_mobs())
