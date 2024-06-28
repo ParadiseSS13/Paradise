@@ -616,11 +616,16 @@ emp_act
 	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 	return TRUE
 
-/mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
+/mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color)
+	if(isnull(b_color))
+		b_color = "#A10808"
 	if(gloves)
-		gloves.add_mob_blood(source)
+		gloves.add_blood(blood_dna, blood_color)
 	else
-		add_mob_blood(source)
+		hand_blood_color = b_color
+		bloody_hands = rand(2, 4)
+		transfer_blood_dna(blood_dna)
+		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(mob/living/source)
@@ -657,7 +662,7 @@ emp_act
 
 	if(bleed_rate && ishuman(user))
 		var/mob/living/carbon/human/attacker = user
-		attacker.bloody_hands(src)
+		attacker.make_bloody_hands(get_blood_dna_list(), get_blood_color())
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
