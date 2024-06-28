@@ -332,6 +332,12 @@
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	prescription_upgradable = TRUE
 
+/obj/item/clothing/glasses/chameleon/night
+	origin_tech = "magnets=3;syndicate=1"
+	see_in_dark = 8
+	prescription_upgradable = TRUE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
 /obj/item/clothing/glasses/hud/security/chameleon
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
 	flash_protect = FLASH_PROTECTION_FLASH
