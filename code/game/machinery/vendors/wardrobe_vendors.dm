@@ -69,12 +69,8 @@
 				/obj/item/clothing/mask/bandana/red = 40,
 				/obj/item/clothing/mask/balaclava = 60,
 				/obj/item/clothing/mask/gas/sechailer/swat = 60,
-<<<<<<< HEAD
-				/obj/item/clothing/suit/jacket/secbomber = 75,
 				/obj/item/clothing/suit/greatcoat/sec = 75,
-=======
 				/obj/item/clothing/suit/jacket/bomber/sec = 75,
->>>>>>> upstream/master
 				/obj/item/clothing/suit/armor/secjacket = 75,
 				/obj/item/clothing/suit/armor/secponcho = 75,
 				/obj/item/clothing/suit/hooded/wintercoat/security = 75,
