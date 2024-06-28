@@ -257,7 +257,6 @@
 	icon = 'icons/turf/floors/catwalk_floor.dmi'
 	icon_state = "catwalk"
 	base_icon_state = "catwalk"
-	baseturf = /turf/space // I expect someone to fix this before this is merged, applying it now anyway
 	floor_tile = /obj/item/stack/tile/catwalk
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_SIMULATED_TURFS)

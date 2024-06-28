@@ -147,6 +147,8 @@
 	var/card_desc = "Untold answers... wait what? This is a bug, report this as an issue on github!"
 	///Is the card face down? Shows the card back, hides the examine / name.
 	var/face_down = FALSE
+	///Has the card been activated? If it has, don't activate it again
+	var/has_been_activated = FALSE
 
 /obj/item/magic_tarot_card/Initialize(mapload, obj/item/tarot_generator/source, datum/tarot/chosen_tarot)
 	. = ..()
@@ -174,9 +176,12 @@
 
 /obj/item/magic_tarot_card/attack_self(mob/user)
 	poof()
+	if(has_been_activated)
+		return
 	if(face_down)
 		flip()
 	if(our_tarot)
+		user.drop_item()
 		pre_activate(user)
 		return
 	qdel(src)
@@ -189,6 +194,8 @@
 /obj/item/magic_tarot_card/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	poof()
+	if(has_been_activated)
+		return
 	if(isliving(hit_atom) && our_tarot)
 		pre_activate(hit_atom)
 		return
@@ -216,6 +223,7 @@
 	qdel(src)
 
 /obj/item/magic_tarot_card/proc/pre_activate(mob/user)
+	has_been_activated = TRUE
 	forceMove(user)
 	var/obj/effect/temp_visual/tarot_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
 	user.vis_contents += draft

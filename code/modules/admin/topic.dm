@@ -1269,6 +1269,12 @@
 
 		usr.client.view_asays()
 
+	else if(href_list["msays"])
+		if(!check_rights(R_ADMIN | R_MENTOR))
+			return
+
+		usr.client.view_msays()
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -3591,7 +3597,12 @@
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
 
-	. = ADMIN_FLW(target,"FLW")
+	if(isclient(target))
+		var/client/C = target
+		if(C.mob)
+			target = C.mob
+
+	. = ADMIN_FLW(target, "FLW")
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
