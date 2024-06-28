@@ -82319,7 +82319,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
 "tgc" = (
-/obj/machinery/smartfridge/foodcart{
+/obj/machinery/smartfridge/secure/foodcart{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
