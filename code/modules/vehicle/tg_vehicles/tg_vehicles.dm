@@ -15,10 +15,14 @@
 	COOLDOWN_DECLARE(message_cooldown)
 	COOLDOWN_DECLARE(cooldown_vehicle_move)
 	var/list/mob/occupants //mob = bitflags of their control level.
+	///Whether or not headlights are on
+	var/headlights_toggle = FALSE
 	///Maximum amount of passengers plus drivers
 	var/max_occupants = 1
 	////Maximum amount of drivers
 	var/max_drivers = 1
+	/// Whether the vehicle is currently able to move
+	var/canmove = TRUE
 	/**
 	  * If the driver needs a certain item in hand (or inserted, for vehicles) to drive this. For vehicles, this must be duplicated on their riding component subtype
 	  * [/datum/component/riding/var/keytype] variable because only a few specific checks are handled here with this var, and the majority of it is on the riding component
@@ -239,3 +243,31 @@
 /obj/tgvehicle/zap_act(power, zap_flags)
 	zap_buckle_check(power)
 	return ..()
+
+/obj/tgvehicle/proc/mob_try_exit(mob/M, mob/user, silent = FALSE, randomstep = FALSE)
+	mob_exit(M, silent, randomstep)
+
+/obj/tgvehicle/proc/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
+	if(!istype(M))
+		return FALSE
+	if(!isAI(M))//This is the ONE mob we dont want to be moved to the vehicle that should be handeled when used
+		M.forceMove(exit_location(M))
+	if(randomstep)
+		var/turf/target_turf = get_step(exit_location(M), pick(GLOB.alldirs))
+		M.throw_at(target_turf, 5, 10)
+
+	if(!silent)
+		M.visible_message("<span class='notice'>[M] drops out of \the [src]!</span>")
+	return TRUE
+
+/obj/tgvehicle/proc/exit_location(M)
+	return drop_location()
+
+/obj/tgvehicle/proc/dump_specific_mobs(flag, randomstep = TRUE)
+	for(var/i in occupants)
+		if(!(occupants[i] & flag))
+			continue
+		mob_exit(i, randomstep = randomstep)
+		if(iscarbon(i))
+			var/mob/living/carbon/C = i
+			C.Paralyse(40)

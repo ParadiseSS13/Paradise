@@ -25,6 +25,13 @@
 /// If the rider is disabled or loses their needed limbs, do they fall off?
 #define UNBUCKLE_DISABLED_RIDER (1<<3)
 
+///Will this car kidnap people by ramming into them?
+#define CAN_KIDNAP (1<<0)
+
+#define CLOWN_CANNON_INACTIVE 0
+#define CLOWN_CANNON_BUSY 1
+#define CLOWN_CANNON_READY 2
+
 
 /// The vehicle being ridden requires pixel offsets for all directions
 #define RIDING_OFFSET_ALL "ALL"
