@@ -120,7 +120,7 @@
 	var/obj/item/projectile/tether = new /obj/item/projectile/tether(get_turf(mod.wearer))
 	tether.original = target
 	tether.firer = mod.wearer
-	tether.preparePixelProjectile(target, get_turf(target), mod.wearer)
+	tether.preparePixelProjectile(target, mod.wearer)
 	tether.fire()
 	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
 	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/item/projectile/tether, make_chain))
