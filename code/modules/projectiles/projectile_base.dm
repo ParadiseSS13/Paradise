@@ -201,7 +201,7 @@
 				L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
 				if(istype(H))
 					for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
-						M.bloody_hands(H)
+						M.make_bloody_hands(H.get_blood_dna_list(), H.get_blood_color())
 						/* Uncomment when bloody_body stops randomly not transferring blood colour.
 						M.bloody_body(H) */
 		else if(impact_effect_type && !hitscan)

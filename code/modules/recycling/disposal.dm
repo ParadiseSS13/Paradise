@@ -527,7 +527,8 @@
 		var/obj/item/I = mover
 		if(isprojectile(I))
 			return
-		if(prob(75) || (istype(mover.throwing.thrower) && (HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS) || HAS_TRAIT(mover.throwing.thrower, TRAIT_NEVER_MISSES_DISPOSALS))))
+		var/atom/movable/thrower = mover.throwing?.get_thrower()
+		if(prob(75) || (istype(thrower) && (HAS_TRAIT(thrower, TRAIT_BADASS) || HAS_TRAIT(thrower, TRAIT_NEVER_MISSES_DISPOSALS))))
 			I.forceMove(src)
 			for(var/mob/M in viewers(src))
 				M.show_message("[I] lands in [src].", 3)
