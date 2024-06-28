@@ -7,7 +7,7 @@
 
 #define MINUTES *600
 
-#define HOURS *3600
+#define HOURS *36000
 
 #define TICKS *world.tick_lag
 
