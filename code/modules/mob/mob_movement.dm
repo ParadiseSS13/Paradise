@@ -9,7 +9,7 @@
 	if(isprojectile(mover))
 		return projectile_hit_check(mover)
 	if(mover.throwing)
-		return (!density || horizontal || (mover.throwing.thrower == src))
+		return (!density || horizontal || (mover.throwing?.get_thrower() == src))
 	if(mover.checkpass(PASSMOB))
 		return 1
 	if(buckled == mover)
