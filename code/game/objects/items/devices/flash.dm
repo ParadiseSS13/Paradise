@@ -67,7 +67,7 @@
 	if(broken)
 		return FALSE
 
-	if(!COOLDOWN_FINISHED(src, flash_cooldown))
+	if(!COOLDOWN_FINISHED(src, flash_cooldown) && user)
 		to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
 		return FALSE
 
