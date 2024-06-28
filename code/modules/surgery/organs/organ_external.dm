@@ -845,7 +845,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	model = company
 	var/datum/robolimb/R = GLOB.all_robolimbs[company]
 	if(R)
-		if(length(R.sprite_sheets)) // Species specific augmented limbs
+		if(length(R.sprite_sheets) && R.sprite_sheets[species_sheet_name]) // Species specific augmented limbs
 			force_icon = R.sprite_sheets[species_sheet_name]
 		else
 			force_icon = R.icon
