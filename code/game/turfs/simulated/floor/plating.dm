@@ -304,6 +304,11 @@
 	nitrogen = 0
 	temperature = TCMB
 
+/turf/simulated/floor/engine/asteroid
+	temperature = 500
+	toxins = 10
+	agent_b = 0.5
+
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)

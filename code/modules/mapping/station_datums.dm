@@ -23,6 +23,12 @@
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/paradise/cerestation/"
 	min_players_random = 60
 
+/datum/map/EmeraldStation
+	fluff_name = "NSS Seraphim"
+	technical_name = "EmeraldStation"
+	map_path = "_maps/map_files/stations/emeraldstation.dmm"
+	webmap_url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUIcmlja3JvbGw%3D"
+
 /datum/map/test_tiny
 	fluff_name = "test_tiny"
 	technical_name = "test_tiny"
