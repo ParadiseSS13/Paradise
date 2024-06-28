@@ -8,19 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.issue.pull_request && github.event.comment.body == '!wiki_label'
     permissions:
-      contents: read
       issues: write
       pull-requests: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Check commenter authorization
         id: check-auth
         run: |
-          IFS=',' read -ra AUTHORIZED_USERS <<< "${{ vars.AUTHORIZED_USERS }}"
+          IFS=',' read -ra WIKI_MANAGERS <<< "${{ vars.WIKI_MANAGERS }}"
           COMMENTER="${{ github.event.comment.user.login }}"
-          if [[ " ${AUTHORIZED_USERS[@]} " =~ " ${COMMENTER} " ]]; then
+          if [[ " ${WIKI_MANAGERS[@]} " =~ " ${COMMENTER} " ]]; then
             echo "authorized=true" >> $GITHUB_OUTPUT
           else
             echo "authorized=false" >> $GITHUB_OUTPUT
@@ -30,7 +26,7 @@ jobs:
         if: steps.check-auth.outputs.authorized == 'true'
         run: |
           gh pr edit ${{ github.event.issue.number }} --add-label "Requires Wiki Update"
-          echo "Label 'Requires Wiki Update' added to PR #${{ github.event.issue.number }}"
+          echo "Label 'Requires Wiki update' added to PR #${{ github.event.issue.number }}"
           curl -X POST \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
