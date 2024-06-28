@@ -684,8 +684,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(!istype(victim))
 		return ..()
 
-	if(!istype(necromancer))
-		return
 
 	if(victim.stat != DEAD)
 		to_chat(necromancer, "<span class='warning'>This artifact can only affect the dead!</span>")
