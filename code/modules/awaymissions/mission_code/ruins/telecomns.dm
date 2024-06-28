@@ -428,7 +428,7 @@
 	things_to_say = list("It's amazing the junk you people leave around.", "And you barely inv-vested in quality stock parts here, before downloading...", "Your bones will fit in well on this ta- are you really taking some of this junk?")
 
 /obj/structure/environmental_storytelling_holopad/vendor
-	things_to_say = list("Sorry a-bout the vendors, they have been on the fritz...", "I should renovate this room, once the maintenance drones return.", "It doesn't help each one I reprogram explode after 5 minutes.")
+	things_to_say = list("Sorry a-bout the vendors, they have been on the fritz...", "I should renovate this room, once the maintenance drones return.", "It doesn't help each one I reprogram explodes after 5 minutes.")
 
 /obj/structure/environmental_storytelling_holopad/control_room
 	things_to_say = list()
