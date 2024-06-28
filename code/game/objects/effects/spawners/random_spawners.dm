@@ -290,7 +290,7 @@
 		/obj/item/mod/module/visor/night = 1,
 		/obj/item/clothing/gloves/color/black/thief = 1,
 		/obj/item/clothing/suit/storage/iaa/blackjacket/armored = 1,
-		/obj/item/clothing/suit/jacket/syndicatebomber = 1,
+		/obj/item/clothing/suit/jacket/bomber/syndicate = 1,
 		/obj/item/mod/module/holster/hidden = 1,
 		/obj/item/storage/firstaid/tactical = 1,
 		/obj/item/clothing/under/syndicate/silicon_cham = 1,
@@ -328,7 +328,7 @@
 	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot/armory
 	// Combat orientated items that could give the player an advantage if an antag messes with them.
 	result = list(/obj/item/melee/energy/sword/saber = 1,
-		/obj/item/autosurgeon/organ/syndicate/razorwire = 1,
+		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/CQC_manual = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,

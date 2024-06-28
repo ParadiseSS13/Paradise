@@ -234,14 +234,14 @@
 	desc = "It tastes a little odd but it's still delicious."
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "bacon"
-	var/obj/item/radio/beacon/bacon/baconbeacon
+	var/obj/item/beacon/bacon/baconbeacon
 	list_reagents = list("nutriment" = 4, "porktonium" = 10)
 	tastes = list("bacon" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/snacks/telebacon/Initialize(mapload)
 	. = ..()
-	baconbeacon = new /obj/item/radio/beacon/bacon(src)
+	baconbeacon = new /obj/item/beacon/bacon(src)
 
 /obj/item/food/snacks/telebacon/Destroy()
 	QDEL_NULL(baconbeacon)
@@ -390,6 +390,10 @@
 /obj/item/food/snacks/monkeycube/wolpincube
 	name = "wolpin cube"
 	monkey_type = /datum/species/monkey/vulpkanin
+
+/obj/item/food/snacks/monkeycube/nian_wormecube
+	name = "nian worme cube"
+	monkey_type = /datum/species/monkey/nian_worme
 
 /obj/item/food/snacks/monkeycube/stokcube
 	name = "stok cube"

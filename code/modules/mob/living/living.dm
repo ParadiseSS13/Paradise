@@ -6,6 +6,8 @@
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
 	GLOB.mob_living_list += src
+	if(advanced_bullet_dodge_chance)
+		RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
 
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
@@ -51,6 +53,7 @@
 	QDEL_NULL(middleClickOverride)
 	if(mind?.current == src)
 		mind.current = null
+	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
@@ -668,7 +671,7 @@
 	else
 		return pick("trails_1", "trails_2")
 
-/mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
+/mob/living/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
 	if(buckled)
 		return
 	if(client && client.move_delay >= world.time + world.tick_lag * 2)
@@ -677,6 +680,16 @@
 	var/list/turfs_to_check = list()
 
 	if(has_limbs)
+		var/direction = 0
+		if(flow_x > 100)
+			direction |= EAST
+		if(flow_x < -100)
+			direction |= WEST
+		if(flow_y > 100)
+			direction |= NORTH
+		if(flow_y < -100)
+			direction |= SOUTH
+
 		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
 		if(T)
 			turfs_to_check += T
@@ -695,7 +708,7 @@
 					pressure_resistance_prob_delta -= 20
 					break
 
-	..(pressure_difference, direction, pressure_resistance_prob_delta)
+	..(flow_x, flow_y, pressure_resistance_prob_delta)
 
 /*//////////////////////
 	START RESIST PROCS
@@ -882,10 +895,14 @@
 	var/loc_temp = T0C
 	if(ismecha(loc))
 		var/obj/mecha/M = loc
-		loc_temp =  M.return_temperature()
+		var/datum/gas_mixture/cabin = M.return_obj_air()
+		if(cabin)
+			loc_temp = cabin.temperature()
+		else
+			loc_temp = environment.temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
-		loc_temp = environment.temperature
+		loc_temp = environment.temperature()
 
 	else if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
@@ -895,12 +912,12 @@
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
 
 		if(C.air_contents.total_moles() < 10)
-			loc_temp = environment.temperature
+			loc_temp = environment.temperature()
 		else
-			loc_temp = C.air_contents.temperature
+			loc_temp = C.air_contents.temperature()
 
 	else
-		loc_temp = environment.temperature
+		loc_temp = environment.temperature()
 
 	return loc_temp
 
@@ -983,6 +1000,8 @@
 		return FALSE
 	if(incapacitated())
 		return
+	if(SEND_SIGNAL(src, COMSIG_LIVING_TRY_PULL, AM, force) & COMSIG_LIVING_CANCEL_PULL)
+		return FALSE
 	// If we're pulling something then drop what we're currently pulling and pull this instead.
 	AM.add_fingerprint(src)
 	if(pulling)
@@ -1071,6 +1090,9 @@
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+		if("advanced_bullet_dodge_chance")
+			UnregisterSignal(src, COMSIG_ATOM_PREHIT)
+			RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
 
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()

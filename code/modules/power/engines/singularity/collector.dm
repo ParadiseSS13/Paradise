@@ -25,13 +25,13 @@
 /obj/machinery/power/rad_collector/process()
 	if(!loaded_tank)
 		return
-	if(!loaded_tank.air_contents.toxins)
+	if(!loaded_tank.air_contents.toxins())
 		investigate_log("<font color='red'>out of fuel</font>.", "singulo")
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 		eject()
 	else
-		var/gasdrained = min(powerproduction_drain * drainratio, loaded_tank.air_contents.toxins)
-		loaded_tank.air_contents.toxins -= gasdrained
+		var/gasdrained = min(powerproduction_drain * drainratio, loaded_tank.air_contents.toxins())
+		loaded_tank.air_contents.set_toxins(loaded_tank.air_contents.toxins() - gasdrained)
 
 		var/power_produced = RAD_COLLECTOR_OUTPUT
 		produce_direct_power(power_produced)
@@ -43,7 +43,7 @@
 		if(!locked)
 			toggle_power()
 			user.visible_message("[user.name] turns the [name] [active ? "on" : "off"].", "You turn the [name] [active ? "on" : "off"].")
-			investigate_log("turned [active ? "<font color='green'>on</font>" : "<font color='red'>off</font>"] by [user.key]. [loaded_tank ? "Fuel: [round(loaded_tank.air_contents.toxins / 0.29)]%" : "<font color='red'>It is empty</font>"].", "singulo")
+			investigate_log("turned [active ? "<font color='green'>on</font>" : "<font color='red'>off</font>"] by [user.key]. [loaded_tank ? "Fuel: [round(loaded_tank.air_contents.toxins() / 0.29)]%" : "<font color='red'>It is empty</font>"].", "singulo")
 		else
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
 

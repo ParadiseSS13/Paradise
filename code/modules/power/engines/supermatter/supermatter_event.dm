@@ -1,22 +1,21 @@
 /datum/supermatter_event
 	var/name = "Unknown X-K (Report this to coders)"
 	var/obj/machinery/atmospherics/supermatter_crystal/supermatter
-	var/datum/gas_mixture/environment
 	/// Probability of the event not running, higher tiers being rarer
 	var/threat_level
 	var/duration
+	var/turf/supermatter_turf
 
 /datum/supermatter_event/New(obj/machinery/atmospherics/supermatter_crystal/_supermatter)
 	. = ..()
 	supermatter = _supermatter
+	supermatter_turf = get_turf(supermatter)
 	if(!supermatter)
 		stack_trace("a /datum/supermatter_event was called without an involved supermatter.")
 		return
 	if(!istype(supermatter))
 		stack_trace("a /datum/supermatter_event was called with (name: [supermatter], type: [supermatter.type]) instead of a supermatter!")
 		return
-	var/turf/T = get_turf(supermatter)
-	environment = T.return_air()
 
 /datum/supermatter_event/proc/start_event()
 	supermatter.event_active = src
@@ -66,21 +65,27 @@
 	name = "D-1"
 
 /datum/supermatter_event/delta_tier/sleeping_gas/on_start()
-	environment.sleeping_agent += 200
+	var/datum/gas_mixture/air = new()
+	air.set_sleeping_agent(200)
+	supermatter_turf.blind_release_air(air)
 
 // nitrogen
 /datum/supermatter_event/delta_tier/nitrogen
 	name = "D-2"
 
 /datum/supermatter_event/delta_tier/nitrogen/on_start()
-	environment.nitrogen += 200
+	var/datum/gas_mixture/air = new()
+	air.set_nitrogen(200)
+	supermatter_turf.blind_release_air(air)
 
 // carbon dioxide
 /datum/supermatter_event/delta_tier/carbon_dioxide
 	name = "D-3"
 
 /datum/supermatter_event/delta_tier/carbon_dioxide/on_start()
-	environment.carbon_dioxide += 250
+	var/datum/gas_mixture/air = new()
+	air.set_carbon_dioxide(250)
+	supermatter_turf.blind_release_air(air)
 
 
 // C class events
@@ -97,14 +102,18 @@
 	name = "C-1"
 
 /datum/supermatter_event/charlie_tier/oxygen/on_start()
-	environment.oxygen += 250
+	var/datum/gas_mixture/air = new()
+	air.set_oxygen(250)
+	supermatter_turf.blind_release_air(air)
 
 // plasma
 /datum/supermatter_event/charlie_tier/plasma
 	name = "C-2"
 
 /datum/supermatter_event/charlie_tier/plasma/on_start()
-	environment.toxins += 200
+	var/datum/gas_mixture/air = new()
+	air.set_toxins(200)
+	supermatter_turf.blind_release_air(air)
 
 // lowers the temp required for the SM to take damage.
 /datum/supermatter_event/charlie_tier/heat_penalty_threshold

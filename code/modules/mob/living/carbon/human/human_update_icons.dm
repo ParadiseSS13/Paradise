@@ -338,6 +338,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 				if(head_accessory_style.do_colouration)
 					head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
+				if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+					head_accessory_s.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+					head_accessory_s.SetIntensity(0.7)
 				head_accessory_standing = head_accessory_s //head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
 														//Having it this way preserves animations. Useful for animated antennae.
 
@@ -368,11 +371,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/datum/sprite_accessory/hair/hair = GLOB.hair_styles_full_list[O.h_style]
 		if(hair?.species_allowed && ((O.dna.species.name in hair.species_allowed) || (O.dna.species.bodyflags & ALL_RPARTS)))
 			// Base hair
-			var/mutable_appearance/img_hair = mutable_appearance(hair.icon, "[hair.icon_state]_s")
-			if(istype(O.dna.species, /datum/species/slime))
-				img_hair.color = COLOR_MATRIX_OVERLAY("[skin_colour]A0")
-			else if(hair.do_colouration)
-				img_hair.color = COLOR_MATRIX_ADD(O.hair_colour)
+			var/icon/hair_icon = new /icon(hair.icon, "[hair.icon_state]_s")
+			if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+				hair_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+				hair_icon.SetIntensity(0.7)
+			var/mutable_appearance/img_hair = mutable_appearance(hair_icon)
+			// Zombie skrells and slimes do not have colored hair
+			if(!(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS) && (istype(O.dna.species, /datum/species/slime) || istype(O.dna.species, /datum/species/skrell))))
+				if(istype(O.dna.species, /datum/species/slime))
+					img_hair.color = COLOR_MATRIX_OVERLAY("[skin_colour]A0")
+				else if(hair.do_colouration)
+					img_hair.color = COLOR_MATRIX_ADD(O.hair_colour)
 			MA.overlays += img_hair
 
 			// Gradient
@@ -720,46 +729,45 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_misc_effects()
 
 /mob/living/carbon/human/update_inv_ears()
-	remove_overlay(EARS_LAYER)
-	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_LEFT_EAR]
-		if(inv)
-			inv.update_icon()
+	remove_overlay(LEFT_EAR_LAYER)
+	remove_overlay(RIGHT_EAR_LAYER)
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_RIGHT_EAR]
-		if(inv)
-			inv.update_icon()
+		var/atom/movable/screen/inventory/left_ear_inv = hud_used.inv_slots[SLOT_HUD_LEFT_EAR]
+		var/atom/movable/screen/inventory/right_ear_inv = hud_used.inv_slots[SLOT_HUD_RIGHT_EAR]
+		if(left_ear_inv)
+			left_ear_inv.update_icon()
+		if(right_ear_inv)
+			right_ear_inv.update_icon()
 
-	if(l_ear || r_ear)
-		if(l_ear)
-			update_hud_l_ear(l_ear)
+	if(l_ear)
+		update_hud_l_ear(l_ear)
 
-			var/t_type = l_ear.item_state
-			if(!t_type)
-				t_type = l_ear.icon_state
-			if(l_ear.icon_override)
-				t_type = "[t_type]_l"
-				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
-			else if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.sprite_sheet_name])
-				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.sprite_sheets[dna.species.sprite_sheet_name], "[t_type]", layer = -EARS_LAYER)
-			else
-				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
+		var/left_ear_item_state = l_ear.item_state ? l_ear.item_state : l_ear.icon_state
+		var/left_ear_icon = 'icons/mob/clothing/ears.dmi'
+		if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.sprite_sheet_name])
+			left_ear_icon = l_ear.sprite_sheets[dna.species.sprite_sheet_name]
+		if(l_ear.icon_override)
+			left_ear_item_state = "[left_ear_item_state]_l"
+			left_ear_icon = l_ear.icon_override
 
-		if(r_ear)
-			update_hud_r_ear(r_ear)
+		overlays_standing[LEFT_EAR_LAYER] = mutable_appearance(left_ear_icon, left_ear_item_state, layer = -LEFT_EAR_LAYER)
 
-			var/t_type = r_ear.item_state
-			if(!t_type)
-				t_type = r_ear.icon_state
-			if(r_ear.icon_override)
-				t_type = "[t_type]_r"
-				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
-			else if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.sprite_sheet_name])
-				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.sprite_sheets[dna.species.sprite_sheet_name], "[t_type]", layer = -EARS_LAYER)
-			else
-				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
-	apply_overlay(EARS_LAYER)
+	if(r_ear)
+		update_hud_r_ear(r_ear)
+
+		var/right_ear_item_state = r_ear.item_state ? r_ear.item_state : r_ear.icon_state
+		var/right_ear_icon = 'icons/mob/clothing/ears.dmi'
+		if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.sprite_sheet_name])
+			right_ear_icon = r_ear.sprite_sheets[dna.species.sprite_sheet_name]
+		if(r_ear.icon_override)
+			right_ear_icon = "[right_ear_item_state]_l"
+			right_ear_icon = r_ear.icon_override
+
+		overlays_standing[RIGHT_EAR_LAYER] = mutable_appearance(right_ear_icon, right_ear_item_state, layer = -RIGHT_EAR_LAYER)
+
+	apply_overlay(LEFT_EAR_LAYER)
+	apply_overlay(RIGHT_EAR_LAYER)
 
 /mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)
@@ -846,6 +854,21 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_belt()
 	remove_overlay(BELT_LAYER)
+	remove_overlay(SPECIAL_BELT_LAYER)
+	var/overlay_layer = BELT_LAYER
+
+	// Certain belts should go OVER the suit. But not all.
+	/* Items (on the belt slot) that go over the suit:
+		- /obj/item/storage/belt/security/webbing
+		- /obj/item/storage/belt/bandolier
+		- /obj/item/judobelt
+		- /obj/item/storage/belt/chef
+		- /obj/item/storage/belt/mining/..
+		- /obj/item/storage/belt/rapier
+		- /obj/item/defibrillator/compact/..
+		- /obj/item/nullrod/..
+		- /obj/item/claymore/..
+	*/
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_BELT]
 		if(inv)
@@ -856,20 +879,32 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			belt.screen_loc = ui_belt
 
 	if(belt)
-		update_observer_view(belt)
+		// Manual checks for outliers (Claymores, null rods, defibs, judobelt, etc.) - Items that are belts but not storages.
+		var/list/special_belts = list(
+			/obj/item/defibrillator/compact,
+			/obj/item/nullrod,
+			/obj/item/storage/belt/judobelt,
+			/obj/item/claymore)
+		overlay_layer = is_type_in_list(belt, special_belts) ? SPECIAL_BELT_LAYER : BELT_LAYER
+		if(istype(belt, /obj/item/storage/belt))
+			var/obj/item/storage/belt/B = belt
+			overlay_layer = B.layer_over_suit ? SPECIAL_BELT_LAYER : BELT_LAYER
+
 		var/t_state = belt.item_state
+		update_observer_view(belt)
 		if(!t_state)
 			t_state = belt.icon_state
 
 		if(belt.icon_override)
 			t_state = "[t_state]_be"
-			overlays_standing[BELT_LAYER] = mutable_appearance(belt.icon_override, "[t_state]", layer = -BELT_LAYER)
+			overlays_standing[overlay_layer] = mutable_appearance(belt.icon_override, "[t_state]", layer = -overlay_layer)
 		else if(belt.sprite_sheets && belt.sprite_sheets[dna.species.sprite_sheet_name])
-			overlays_standing[BELT_LAYER] = mutable_appearance(belt.sprite_sheets[dna.species.sprite_sheet_name], "[t_state]", layer = -BELT_LAYER)
+			overlays_standing[overlay_layer] = mutable_appearance(belt.sprite_sheets[dna.species.sprite_sheet_name], "[t_state]", layer = -overlay_layer)
 		else
-			overlays_standing[BELT_LAYER] = mutable_appearance('icons/mob/clothing/belt.dmi', "[t_state]", layer = -BELT_LAYER)
-	apply_overlay(BELT_LAYER)
+			overlays_standing[overlay_layer] = mutable_appearance('icons/mob/clothing/belt.dmi', "[t_state]", layer = -overlay_layer)
 
+	apply_overlay(BELT_LAYER)
+	apply_overlay(SPECIAL_BELT_LAYER)
 
 /mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
@@ -1177,13 +1212,21 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!body_accessory.try_restrictions(src))
 		return
 
-	var/mutable_appearance/wings = mutable_appearance(body_accessory.icon, body_accessory.icon_state, layer = -WING_LAYER)
+	var/icon/wings_icon = new /icon(body_accessory.icon, body_accessory.icon_state)
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+		wings_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+		wings_icon.SetIntensity(0.7)
+	var/mutable_appearance/wings = mutable_appearance(wings_icon, layer = -WING_LAYER)
 	wings.pixel_x = body_accessory.pixel_x_offset
 	wings.pixel_y = body_accessory.pixel_y_offset
 	overlays_standing[WING_LAYER] = wings
 
 	if(body_accessory.has_behind)
-		var/mutable_appearance/under_wing = mutable_appearance(body_accessory.icon, "[body_accessory.icon_state]_BEHIND", layer = -WING_UNDERLIMBS_LAYER)
+		var/icon/under_wing_icon = new /icon(body_accessory.icon, "[body_accessory.icon_state]_BEHIND")
+		if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+			under_wing_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+			under_wing_icon.SetIntensity(0.7)
+		var/mutable_appearance/under_wing = mutable_appearance(under_wing_icon, layer = -WING_UNDERLIMBS_LAYER)
 		under_wing.pixel_x = body_accessory.pixel_x_offset
 		under_wing.pixel_y = body_accessory.pixel_y_offset
 		overlays_standing[WING_UNDERLIMBS_LAYER] = under_wing
@@ -1209,10 +1252,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(body_accessory)
 		if(body_accessory.try_restrictions(src))
 			var/icon/accessory_s = new/icon("icon" = body_accessory.icon, "icon_state" = body_accessory.icon_state)
-			if(dna.species.bodyflags & HAS_SKIN_COLOR)
-				accessory_s.Blend(skin_colour, body_accessory.blend_mode)
-			if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
-				accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
+			if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+				accessory_s.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+				accessory_s.SetIntensity(0.7)
+			else
+				if(dna.species.bodyflags & HAS_SKIN_COLOR)
+					accessory_s.Blend(skin_colour, body_accessory.blend_mode)
+				if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
+					accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/mob/body_accessory.dmi', "icon_state" = "accessory_none_s")
@@ -1243,10 +1290,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else if(tail && dna.species.bodyflags & HAS_TAIL) //no tailless tajaran
 		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
 			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[tail]_s")
-			if(dna.species.bodyflags & HAS_SKIN_COLOR)
-				tail_s.Blend(skin_colour, ICON_ADD)
-			if(tail_marking_icon && !tail_marking_style.tails_allowed)
-				tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
+			if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+				tail_s.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
+				tail_s.SetIntensity(0.7)
+			else
+				if(dna.species.bodyflags & HAS_SKIN_COLOR)
+					tail_s.Blend(skin_colour, ICON_ADD)
+				if(tail_marking_icon && !tail_marking_style.tails_allowed)
+					tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "blank")
@@ -1440,7 +1491,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_body()
 
 /mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
-	var/list/out = new
+	var/list/out = list()
 	for(var/i=1;i<=TOTAL_LAYERS;i++)
 		if(overlays_standing[i])
 			if(i in unwantedLayers)

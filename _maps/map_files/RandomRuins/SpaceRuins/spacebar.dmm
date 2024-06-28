@@ -593,7 +593,7 @@
 	},
 /area/ruin/space/powered/bar)
 "xZ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

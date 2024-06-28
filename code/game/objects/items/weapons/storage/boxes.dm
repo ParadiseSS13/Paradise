@@ -358,6 +358,12 @@
 	icon_state = "wolpin_box"
 	monkey_cube_type = /obj/item/food/snacks/monkeycube/wolpincube
 
+/obj/item/storage/box/monkeycubes/nian_worme_cubes
+	name = "nian worme cube box"
+	desc = "Nian Trade Guild brand worme cubes. Just add water!"
+	icon_state = "nian_worme_box"
+	monkey_cube_type = /obj/item/food/snacks/monkeycube/nian_wormecube
+
 ///////////////////
 /* Medical Boxes */
 ///////////////////
@@ -440,7 +446,8 @@
 
 /obj/item/storage/box/pillbottles/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle(src)
+		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle(src)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/patch_packs
 	name = "box of patch packs"
@@ -449,7 +456,8 @@
 
 /obj/item/storage/box/patch_packs/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle/patch_pack(src)
+		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle/patch_pack(src)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/bodybags
 	name = "body bags"
@@ -696,6 +704,15 @@
 /obj/item/storage/box/tranquilizer/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+
+/obj/item/storage/box/holy
+	name = "ammunition box (Holy Water darts)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "hshell_box"
+
+/obj/item/storage/box/holy/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/holy(src)
 
 ////////////////
 /* Donk Boxes */
@@ -984,7 +1001,6 @@
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
 	icon_state = "ert_box"
-	storage_slots = 8
 
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
@@ -993,8 +1009,7 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 
 /obj/item/storage/box/deathsquad
 	name = "boxed death kit"
@@ -1004,10 +1019,10 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/grenade/plastic/c4/x4(src)
 	new /obj/item/reagent_containers/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
-	new /obj/item/ammo_box/a357(src)
-	new /obj/item/ammo_box/a357(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 
 /obj/item/storage/box/soviet
 	name = "boxed survival kit"

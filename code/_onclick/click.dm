@@ -51,7 +51,7 @@
 	if(QDELETED(A))
 		return
 
-	if(client.click_intercept)
+	if(client?.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
@@ -109,7 +109,6 @@
 		return M.click_action(A, src, params)
 
 	if(restrained())
-		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)
 		return
 

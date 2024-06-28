@@ -659,6 +659,11 @@
 			dreamer.adjustBruteLoss(-1, FALSE)
 			dreamer.adjustFireLoss(-1, FALSE)
 			dreamer.adjustToxLoss(-1)
+			dreamer.adjustOxyLoss(-1)
+			dreamer.adjustCloneLoss(-0.5)
+			if(dreamer.HasDisease(/datum/disease/critical/heart_failure) && prob(25))
+				for(var/datum/disease/critical/heart_failure/HF in dreamer.viruses)
+					HF.cure()
 	dreamer.handle_dreams()
 	dreamer.adjustStaminaLoss(-10)
 	var/comfort = 1
@@ -1348,3 +1353,9 @@
 /obj/effect/bubblegum_warning/proc/slap_someone()
 	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(src), null, 10)
 	qdel(src)
+
+/datum/status_effect/judo_armbar
+	id = "armbar"
+	duration = 5 SECONDS
+	alert_type = null
+	status_type = STATUS_EFFECT_REPLACE
