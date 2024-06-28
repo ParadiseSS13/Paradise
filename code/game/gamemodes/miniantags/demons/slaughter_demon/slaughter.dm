@@ -166,8 +166,10 @@
 
 /datum/action/innate/demon/whisper
 	name = "Demonic Whisper"
+	desc = "Whisper sweet nothings into the ears of the crew. Or threats."
 	button_icon_state = "demon_comms"
 	background_icon_state = "bg_demon"
+	keybinding_category = AKB_CATEGORY_DEMON
 
 /datum/action/innate/demon/whisper/IsAvailable()
 	return ..()

@@ -83,7 +83,7 @@
 		to_chat(src, "<span class='danger'>Cannot secrete jelly in space.</span>")
 		return
 	visible_message("<span class='notice'>[src] begins to secrete royal jelly.</span>")
-	if(do_after_once(src, 100, target = loc, attempt_cancel_message = "You stop producing jelly."))
+	if(do_after_once(src, 10 SECONDS, target = loc, attempt_cancel_message = "You stop producing jelly."))
 		if(loc != mylocation)
 			return
 		if(regen_points < jelly_cost)

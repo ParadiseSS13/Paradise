@@ -60,6 +60,7 @@
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
+	keybinding_category = AKB_CATEGORY_CULT
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 	summon_type = list(/obj/item/soulstone)
@@ -85,6 +86,7 @@
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 	summon_type = list(/obj/structure/cult/functional/pylon)
+	keybinding_category = AKB_CATEGORY_CULT
 
 
 /datum/spell/aoe/conjure/build/lesserforcewall
@@ -100,6 +102,7 @@
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	summon_type = list(/obj/effect/forcefield/cult)
 	summon_lifespan = 200
+	keybinding_category = AKB_CATEGORY_CULT
 
 /obj/effect/forcefield/cult
 	desc = "That eerie looking obstacle seems to have been pulled from another dimension through sheer force"
@@ -122,6 +125,7 @@
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/wraith
+	keybinding_category = AKB_CATEGORY_CULT
 
 /datum/spell/ethereal_jaunt/shift/do_jaunt(mob/living/target)
 	target.set_light(0)
@@ -149,6 +153,7 @@
 	proj_lifespan = 10
 	proj_step_delay = 5
 	proj_type = /obj/item/projectile/magic/magic_missile/lesser
+	keybinding_category = AKB_CATEGORY_CULT
 
 /datum/spell/projectile/magic_missile/lesser/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -177,3 +182,4 @@
 
 	smoke_type = SMOKE_SLEEPING
 	smoke_amt = 10
+	keybinding_category = AKB_CATEGORY_CULT

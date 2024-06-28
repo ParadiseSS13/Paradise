@@ -6,6 +6,7 @@
 	uses = 2
 	implant_data = /datum/implant_fluff/emp
 	implant_state = "implant-syndicate"
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/emp_implant)
 
 /obj/item/bio_chip/emp/activate()
 	uses--

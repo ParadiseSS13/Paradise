@@ -10,6 +10,7 @@
 	action_background_icon_state = "bg_demon"
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
+	keybinding_category = AKB_CATEGORY_DEMON
 
 /datum/spell/bloodcrawl/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()

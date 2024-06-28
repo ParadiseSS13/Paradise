@@ -90,7 +90,6 @@
 
 /// The next generation of talismans, handles storage/creation of blood magic
 /datum/action/innate/cult/blood_spell
-	name = "Blood Magic"
 	button_icon_state = "telerune"
 	desc = "Fear the Old Blood."
 	var/charges = 1

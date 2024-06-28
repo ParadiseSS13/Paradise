@@ -51,7 +51,7 @@
 	var/real_name = client.prefs.active_character.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
-	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
+	var/list/output = list("<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>")
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)
@@ -80,12 +80,12 @@
 
 	if(length(GLOB.configuration.system.region_map))
 		output += "<p><a href='byond://?src=[UID()];setregion=1'>Set region (reduces ping)</A></p>"
-
-	output += "</center>"
+	output += "<center><p><a href='byond://?src=[UID()];show_preferences_and_set_tab=[TAB_TOGGLES]'>Preferences</A></br></p>"
+	output += "<center><p><a href='byond://?src=[UID()];show_preferences_and_set_tab=[TAB_KEYS]'>Keybindings</A></br></p>"
 
 	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 340)
 	popup.set_window_options("can_close=0")
-	popup.set_content(output)
+	popup.set_content(output.Join())
 	popup.open(FALSE)
 
 /mob/new_player/get_status_tab_items()
@@ -133,6 +133,11 @@
 		qdel(query)
 
 	if(href_list["show_preferences"])
+		client.prefs.ShowChoices(src)
+		return TRUE
+	
+	if(href_list["show_preferences_and_set_tab"])
+		client.prefs.current_tab = text2num(href_list["show_preferences_and_set_tab"])
 		client.prefs.ShowChoices(src)
 		return TRUE
 

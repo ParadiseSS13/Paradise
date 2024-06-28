@@ -22,6 +22,7 @@
 /datum/action/innate/mecha
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	keybinding_category = AKB_CATEGORY_MECHA
 	var/obj/mecha/chassis
 
 /datum/action/innate/mecha/Grant(mob/living/L, obj/mecha/M)
@@ -35,6 +36,7 @@
 
 /datum/action/innate/mecha/mech_eject
 	name = "Eject From Mech"
+	desc = "Ejects the current occupant from the mecha"
 	button_icon_state = "mech_eject"
 
 /datum/action/innate/mecha/mech_eject/Activate()
@@ -46,6 +48,7 @@
 
 /datum/action/innate/mecha/mech_toggle_internals
 	name = "Toggle Internal Airtank Usage"
+	desc = "Toggles your air supply from internal to external and vice versa."
 	button_icon_state = "mech_internals_off"
 
 /datum/action/innate/mecha/mech_toggle_internals/Activate()
@@ -59,6 +62,7 @@
 
 /datum/action/innate/mecha/mech_toggle_lights
 	name = "Toggle Lights"
+	desc = "Toggles your mecha's lights."
 	button_icon_state = "mech_lights_off"
 
 /datum/action/innate/mecha/mech_toggle_lights/Activate()
@@ -77,6 +81,7 @@
 
 /datum/action/innate/mecha/mech_view_stats
 	name = "View Stats"
+	desc = "View internal statistics of your mecha. Allows you to change settings of your mecha, such as the chosen weapon."
 	button_icon_state = "mech_view_stats"
 
 /datum/action/innate/mecha/mech_view_stats/Activate()
@@ -86,6 +91,7 @@
 
 /datum/action/innate/mecha/mech_defence_mode
 	name = "Toggle Defence Mode"
+	desc = "Toggles your durands defense mode. While in defense mode you cannot move but you deflect 35% more attacks."
 	button_icon_state = "mech_defense_mode_off"
 
 /datum/action/innate/mecha/mech_defence_mode/Activate(forced_state = null)
@@ -107,6 +113,7 @@
 
 /datum/action/innate/mecha/mech_overload_mode
 	name = "Toggle leg actuators overload"
+	desc = "Toggles your gygax's speed mode. Doubles your mecha's speed while draining more energy and dealing 1 brute damage every time it takes a step."
 	button_icon_state = "mech_overload_off"
 
 /datum/action/innate/mecha/mech_overload_mode/Activate(forced_state = null)
@@ -137,6 +144,7 @@
 
 /datum/action/innate/mecha/mech_toggle_thrusters
 	name = "Toggle Thrusters"
+	desc = "Toggles your mechas ion thrusters."
 	button_icon_state = "mech_thrusters_off"
 
 /datum/action/innate/mecha/mech_toggle_thrusters/Activate()
@@ -152,6 +160,7 @@
 
 /datum/action/innate/mecha/mech_smoke
 	name = "Smoke"
+	desc = "Activates your mecha's cloaking smoke module."
 	button_icon_state = "mech_smoke"
 
 /datum/action/innate/mecha/mech_smoke/Activate()
@@ -168,6 +177,7 @@
 
 /datum/action/innate/mecha/mech_zoom
 	name = "Zoom"
+	desc = "Activates your mecha's zoom mode, cannot move while activated."
 	button_icon_state = "mech_zoom_off"
 
 /datum/action/innate/mecha/mech_zoom/Activate()
@@ -187,6 +197,7 @@
 
 /datum/action/innate/mecha/mech_toggle_phasing
 	name = "Toggle Phasing"
+	desc = "Toggles your phazon's material phasing mode. Drains extra power when moving."
 	button_icon_state = "mech_phasing_off"
 
 /datum/action/innate/mecha/mech_toggle_phasing/Activate()
@@ -200,6 +211,7 @@
 
 /datum/action/innate/mecha/mech_switch_damtype
 	name = "Reconfigure arm microtool arrays"
+	desc = "Toggles your phazon's damaging melee."
 	button_icon_state = "mech_damtype_brute"
 
 /datum/action/innate/mecha/mech_switch_damtype/Activate()

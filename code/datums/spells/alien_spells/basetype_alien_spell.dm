@@ -22,6 +22,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	clothes_req = FALSE
 	base_cooldown = 0
 	create_attack_logs = FALSE
+	keybinding_category = AKB_CATEGORY_ALIEN
 	/// Every alien spell creates only logs, no attack messages on someone placing weeds, but you DO get attack messages on neurotoxin and corrosive acid
 	create_custom_logs = TRUE
 	/// How much plasma it costs to use this

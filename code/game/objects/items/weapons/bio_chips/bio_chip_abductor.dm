@@ -7,6 +7,7 @@
 	origin_tech = "materials=2;biotech=7;magnets=4;bluespace=4;abductor=5"
 	implant_data = /datum/implant_fluff/abductor
 	implant_state = "implant-alien"
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/abductor_recall_implant)
 
 	var/obj/machinery/abductor/pad/home
 	var/cooldown = 30

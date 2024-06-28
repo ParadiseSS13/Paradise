@@ -48,6 +48,7 @@
 	desc = "Go on, ring your bicycle bell!"
 	icon_icon = 'icons/obj/bureaucracy.dmi'
 	button_icon_state = "desk_bell"
+	keybinding_category = AKB_CATEGORY_ITEM_ACTION
 	COOLDOWN_DECLARE(ring_cooldown)
 
 /datum/action/bicycle_bell/Trigger(left_click)

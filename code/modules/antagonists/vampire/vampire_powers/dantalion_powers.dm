@@ -10,7 +10,7 @@
 /datum/vampire_passive/increment_thrall_cap/three
 
 /datum/spell/vampire/enthrall
-	name = "Enthrall (150)"
+	name = "Enthrall"
 	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
 	gain_desc = "You have gained the ability to thrall people to your will."
 	action_icon_state = "vampire_enthrall"
@@ -125,7 +125,7 @@
 	user.create_log(SAY_LOG, "(DANTALION) [input]")
 
 /datum/spell/vampire/pacify
-	name = "Pacify (10)"
+	name = "Pacify"
 	desc = "Pacify a target temporarily, making them unable to cause harm."
 	gain_desc = "You have gained the ability to pacify someone's harmful tendencies, preventing them from doing any physical harm to anyone."
 	action_icon_state = "pacify"
@@ -144,7 +144,7 @@
 		H.apply_status_effect(STATUS_EFFECT_PACIFIED)
 
 /datum/spell/vampire/switch_places
-	name = "Subspace Swap (30)"
+	name = "Subspace Swap"
 	desc = "Switch positions with a target."
 	gain_desc = "You have gained the ability to switch positions with a targeted mob."
 	centcom_cancast = FALSE
@@ -168,7 +168,7 @@
 	user.forceMove(target_turf)
 
 /datum/spell/vampire/self/decoy
-	name = "Deploy Decoy (30)"
+	name = "Deploy Decoy"
 	desc = "Briefly turn invisible and deploy a decoy illusion to fool your prey."
 	gain_desc = "You have gained the ability to turn invisible and create decoy illusions."
 	action_icon_state = "decoy"
@@ -184,7 +184,7 @@
 	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, reset_visibility)), 6 SECONDS)
 
 /datum/spell/vampire/rally_thralls
-	name = "Rally Thralls (100)"
+	name = "Rally Thralls"
 	desc = "Removes all incapacitating effects from your nearby thralls."
 	gain_desc = "You have gained the ability to remove all incapacitating effects from nearby thralls."
 	action_icon_state = "thralls_up"

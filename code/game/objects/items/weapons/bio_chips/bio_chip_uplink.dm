@@ -6,6 +6,7 @@
 	origin_tech = "materials=4;magnets=4;programming=4;biotech=4;syndicate=5;bluespace=5"
 	implant_data = /datum/implant_fluff/uplink
 	implant_state = "implant-syndicate"
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/uplink_implant)
 
 /obj/item/bio_chip/uplink/Initialize(mapload)
 	. = ..()

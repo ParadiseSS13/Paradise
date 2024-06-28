@@ -217,6 +217,7 @@
 	background_icon_state = "bg_mod"
 	icon_icon = 'icons/mob/actions/actions_mod.dmi'
 	button_icon = 'icons/mob/actions/actions_mod.dmi'
+	keybinding_category = AKB_CATEGORY_MODSUIT
 	/// The cooldown for the recall.
 	COOLDOWN_DECLARE(recall_cooldown)
 

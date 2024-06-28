@@ -148,7 +148,6 @@
 	for(var/datum/action/spell_action/action in actions)
 		action.UpdateButtons()
 
-
 /mob/living/simple_animal/hostile/morph/proc/assume()
 	morphed = TRUE
 

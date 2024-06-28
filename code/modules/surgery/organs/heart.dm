@@ -179,10 +179,11 @@
 	INVOKE_ASYNC(src, PROC_REF(poll_keybinds))
 
 /datum/action/item_action/organ_action/cursed_heart/proc/poll_keybinds()
-	if(alert(owner, "You've been given a cursed heart! Do you want to bind its action to a keybind?", "Cursed Heart", "Yes", "No") == "Yes")
+	if(tgui_alert(owner, "You've been given a cursed heart! Do you want to bind its action to a keybind?", "Cursed Heart", "Yes", "No") == "Yes")
 		return
-		// button.set_to_keybind(owner)
-		// TODO GAHHH SORRY GDN
+	for(var/datum/hud/hud in viewers)
+		var/atom/movable/screen/movable/action_button/button = viewers[hud]
+		INVOKE_ASYNC(button, TYPE_PROC_REF(/atom/movable/screen/movable/action_button, set_to_keybind), owner)
 
 /obj/item/organ/internal/heart/cybernetic
 	name = "cybernetic heart"

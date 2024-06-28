@@ -6,6 +6,7 @@
 	origin_tech = "combat=5;magnets=3;biotech=4;syndicate=2"
 	implant_data = /datum/implant_fluff/shock
 	implant_state = "implant-syndicate"
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/shock_implant)
 	var/enabled = TRUE
 	var/old_mclick_override
 	var/datum/middleClickOverride/shock_implant/mclick_override = new /datum/middleClickOverride/shock_implant

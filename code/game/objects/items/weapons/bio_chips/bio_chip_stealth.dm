@@ -21,6 +21,7 @@
 	background_icon_state = "bg_agent"
 	button_icon_state = "deploy_box"
 	use_itemicon = FALSE
+	keybinding_category = AKB_CATEGORY_ORGAN
 	/// If TRUE, the box can't be deployed
 	var/on_cooldown = FALSE
 

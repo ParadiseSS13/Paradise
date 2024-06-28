@@ -3,6 +3,7 @@
 /datum/action/chameleon_outfit
 	name = "Select Chameleon Outfit"
 	button_icon_state = "chameleon_outfit"
+	keybinding_category = AKB_CATEGORY_ITEM_ACTION
 	var/list/outfit_options //By default, this list is shared between all instances. It is not static because if it were, subtypes would not be able to have their own. If you ever want to edit it, copy it first.
 
 /datum/action/chameleon_outfit/New()

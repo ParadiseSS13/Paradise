@@ -191,6 +191,7 @@
 	sound = null
 	invocation_type = "none"
 	invocation = null
+	keybinding_category = AKB_CATEGORY_DEMON
 
 /datum/spell/fireball/shadow_grapple/update_spell_icon()
 	return

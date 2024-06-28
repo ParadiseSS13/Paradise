@@ -1,3 +1,5 @@
+// Keybinding datum defines
+
 #define KB_CATEGORY_MOVEMENT		1
 #define KB_CATEGORY_MOB				2
 #define KB_CATEGORY_LIVING			3
@@ -17,6 +19,33 @@
 #define KB_CATEGORY_CLICK			17
 #define KB_CATEGORY_COMMUNICATION	18
 #define KB_CATEGORY_UNSORTED		1000
+
+// Action Keybind defines
+
+#define AKB_CATEGORY_ITEM_ACTION    1
+#define AKB_CATEGORY_INNATE_ACTION  2
+#define AKB_CATEGORY_CULT           3
+#define AKB_CATEGORY_ABDUCTOR       4
+#define AKB_CATEGORY_DEMON          5
+#define AKB_CATEGORY_GUARDIAN       6
+#define AKB_CATEGORY_MORPH          7
+#define AKB_CATEGORY_MECHA          8
+#define AKB_CATEGORY_ORGAN          9
+#define AKB_CATEGORY_CHANGELING     10
+#define AKB_CATEGORY_MINING_DRONE   11
+#define AKB_CATEGORY_CYBORG         12
+#define AKB_CATEGORY_BLOB           13
+#define AKB_CATEGORY_MEGAFAUNA      14
+#define AKB_CATEGORY_LAVALAND_ELITE 15
+#define AKB_CATEGORY_TERROR_SPIDER  16
+#define AKB_CATEGORY_MODSUIT        17
+#define AKB_CATEGORY_MARTIAL_ART    18
+#define AKB_CATEGORY_GENERAL_SPELL  19
+#define AKB_CATEGORY_VAMPIRE        20
+#define AKB_CATEGORY_ALIEN          21
+#define AKB_CATEGORY_GENETICS       22
+#define AKB_CATEGORY_AI             23
+#define AKB_CATEGORY_REVENANT       24
 
 ///Max length of a keypress command before it's considered to be a forged packet/bogus command
 #define MAX_KEYPRESS_COMMANDLENGTH 16

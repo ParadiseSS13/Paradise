@@ -41,8 +41,8 @@
 	loudspeaker = TRUE
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/queen
-	var/spider_spawnfrequency = 1200 // 120 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
-	var/spider_spawnfrequency_stable = 1200 // 120 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
+	var/spider_spawnfrequency = 120 SECONDS// 120 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
+	var/spider_spawnfrequency_stable = 120 SECONDS // 120 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
 	var/spider_lastspawn = 0
 	var/nestfrequency = 300 // 30 seconds
 	var/lastnestsetup = 0
@@ -227,7 +227,6 @@
 	var/confirm = tgui_alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.", "Nest?", list("Yes","No"))
 	if(confirm == "Yes")
 		NestMode()
-
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestMode()
 	queeneggs_action = new()

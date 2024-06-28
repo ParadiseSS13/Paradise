@@ -25,7 +25,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!
-	delay_web = 20 // double speed
+	delay_web = 2 SECONDS // double speed
 	web_type = /obj/structure/spider/terrorweb/gray
 	ai_spins_webs = FALSE // uses massweb instead
 	var/prob_ai_massweb = 10

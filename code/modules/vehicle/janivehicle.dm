@@ -48,6 +48,7 @@
 	desc = "Movement speed is decreased while active."
 	icon_icon = 'icons/obj/vehicles.dmi'
 	button_icon_state = "upgrade"
+	keybinding_category = AKB_CATEGORY_ITEM_ACTION
 
 /datum/action/floor_buffer/Trigger(left_click)
 	. = ..()

@@ -7,6 +7,7 @@
 	cant_hold = list(/obj/item/disk/nuclear)
 	w_class_override = list(/obj/item/storage/belt)
 	silent = TRUE
+	actions_types = list(/datum/action/item_action/hands_free/implant_action/storage_implant)
 
 /obj/item/bio_chip/storage
 	name = "storage bio-chip"
