@@ -29,9 +29,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				for(var/job in I.job)
 					if(job == user.mind.assigned_role)
 						job_check = TRUE
-			else {
+			else
 				job_check = TRUE
-			}
 			if(I.species) //If your species does not match, no discount
 				for(var/species in I.species)
 					if(species == user.dna.species.name)
