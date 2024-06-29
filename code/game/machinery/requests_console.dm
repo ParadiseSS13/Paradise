@@ -102,7 +102,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		department = containing_area.request_console_name || containing_area.name
 	if(isnull(departmentType))
 		departmentType = containing_area.request_console_flags
-	announcementConsole ||= containing_area.request_console_announces
+	announcementConsole = containing_area.request_console_announces
 
 	announcer.config.default_title = "[department] announcement"
 
