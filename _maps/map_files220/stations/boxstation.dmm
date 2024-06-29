@@ -80927,9 +80927,6 @@
 "pZg" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "pZj" = (
@@ -92885,9 +92882,6 @@
 /area/station/maintenance/aft)
 "ukr" = (
 /obj/structure/table,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

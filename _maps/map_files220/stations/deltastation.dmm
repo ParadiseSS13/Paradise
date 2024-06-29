@@ -23768,11 +23768,7 @@
 	},
 /area/station/science/misc_lab)
 "bSk" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -25;
-	name = "custom placement"
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -31069,7 +31065,6 @@
 "cuz" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/machinery/smartfridge/disks,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "cuA" = (
@@ -35099,9 +35094,6 @@
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
-	},
-/obj/machinery/firealarm/directional/south{
-	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -105700,6 +105692,7 @@
 	c_tag = "Brig Evidence";
 	dir = 4
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"

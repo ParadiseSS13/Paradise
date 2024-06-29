@@ -1023,35 +1023,89 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				legcuffed,
 				back,
 				wear_mask)
+/**
+ * Clears a carbon mob's handcuffs and legcuffs, dropping them to the ground.
+ *
+ * Arguments:
+ * * show_message - if TRUE, will display a visible message when restraints are removed. FALSE by default.
+ *
+ * Returns:
+ * * TRUE if handcuffs or legcuffs were removed, FALSE otherwise
+ */
+/mob/living/carbon/proc/clear_restraints(show_message = FALSE)
+	. = clear_handcuffs(show_message)
+	. |= clear_legcuffs(show_message)
 
-/mob/living/carbon/proc/uncuff()
-	if(handcuffed)
-		var/obj/item/W = handcuffed
-		handcuffed = null
-		if(buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob(src)
-		update_handcuffed()
-		if(client)
-			client.screen -= W
-		if(W)
-			W.forceMove(drop_location())
-			W.dropped(src)
-			if(W)
-				W.layer = initial(W.layer)
-				W.plane = initial(W.plane)
-	if(legcuffed)
-		var/obj/item/W = legcuffed
-		legcuffed = null
-		toggle_move_intent()
-		update_inv_legcuffed()
-		if(client)
-			client.screen -= W
-		if(W)
-			W.forceMove(drop_location())
-			W.dropped(src)
-			if(W)
-				W.layer = initial(W.layer)
-				W.plane = initial(W.plane)
+/**
+ * Removes a carbon's handcuffs, dropping them to the ground. Calls update_handcuffed(). Unbuckles if handcuffs were necessary for the buckle (pipe buckling, etc.)
+ *
+ * Arguments:
+ * * show_message - if TRUE, will display a visible message when restraints are removed. FALSE by default.
+ *
+ * Returns:
+ * * TRUE if handcuffs existed and were successfully removed, FALSE otherwise
+ */
+/mob/living/carbon/proc/clear_handcuffs(show_message = FALSE)
+	if(!handcuffed)
+		return FALSE
+
+	var/obj/item/W = handcuffed
+	if(isnull(W))
+		return FALSE
+
+	handcuffed = null
+	if(buckled && buckled.buckle_requires_restraints)
+		buckled.unbuckle_mob(src)
+	update_handcuffed()
+
+	if(client)
+		client.screen -= W
+
+	if(show_message)
+		visible_message("<span class='warning'>[src] slips out of [W]!</span>")
+
+	W.forceMove(drop_location())
+	W.dropped(src)
+	if(W)
+		W.layer = initial(W.layer)
+		W.plane = initial(W.plane)
+
+	return TRUE
+
+/**
+ * Removes a carbon's legcuffs, dropping them to the ground. Calls update_inv_legcuffed().
+ *
+ * Arguments:
+ * * show_message - if TRUE, will display a visible message when restraints are removed. FALSE by default.
+ *
+ * Returns:
+ * * TRUE if legcuffs existed and were successfully removed, FALSE otherwise
+ */
+/mob/living/carbon/proc/clear_legcuffs(show_message = FALSE)
+	if(!legcuffed)
+		return FALSE
+
+	var/obj/item/W = legcuffed
+	if(isnull(W))
+		return FALSE
+
+	legcuffed = null
+	toggle_move_intent()
+	update_inv_legcuffed()
+
+	if(client)
+		client.screen -= W
+
+	if(show_message)
+		visible_message("<span class='warning'>[W] falls off of [src]!</span>")
+
+	W.forceMove(drop_location())
+	W.dropped(src)
+	if(W)
+		W.layer = initial(W.layer)
+		W.plane = initial(W.plane)
+
+	return TRUE
 
 
 /mob/living/carbon/proc/slip(description, knockdown, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")

@@ -27,7 +27,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
-	easy_to_spill_blood = TRUE
 
 	/// Sound played when you hit something with the item
 	var/hitsound
@@ -54,6 +53,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Determines what it can pass over/through. IE. 'PASSTABLE' will allow it to pass over tables
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
+	should_spread_blood = TRUE
 	var/obj/item/master
 
 	/// Flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm

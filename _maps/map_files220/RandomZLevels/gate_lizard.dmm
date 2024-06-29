@@ -392,10 +392,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "aEA" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/wood/oak,
@@ -944,10 +941,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "bqx" = (
-/obj/machinery/firealarm{
-	name = "north fire alarm";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "bqF" = (
@@ -4499,10 +4493,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "fTv" = (
 /obj/structure/computerframe,
-/obj/machinery/firealarm{
-	name = "north fire alarm";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/item/stack/cable_coil{
 	amount = 2
 	},
@@ -6159,10 +6150,7 @@
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /obj/item/flash,
-/obj/machinery/firealarm{
-	name = "north fire alarm";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -8316,11 +8304,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "kIg" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south fire alarm";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkneutralfull"
@@ -9402,10 +9386,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "mdf" = (
-/obj/machinery/firealarm{
-	name = "north fire alarm";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9653,11 +9634,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "mpQ" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south fire alarm";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/effect/decal/remains/human,
 /obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/plasteel{
@@ -10665,11 +10642,7 @@
 "nBk" = (
 /obj/item/clothing/head/helmet/old,
 /obj/effect/decal/cleanable/generic,
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south fire alarm";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
 	},
@@ -12035,11 +12008,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "pqt" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south fire alarm";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel,
@@ -12392,11 +12361,7 @@
 	},
 /area/awaymission/jungle_planet/outside/cave/small)
 "pTC" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south fire alarm";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -14082,10 +14047,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/jungle_planet/inside/complex)
 "rSn" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -16094,10 +16056,7 @@
 /obj/item/stack/rods,
 /obj/item/shard,
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
