@@ -1,7 +1,17 @@
 @use 'sass:color';
 @use './colors.scss';
 
-$dragSize: 0.6rem;
+// Remove conditionals with 516
+@supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
+  $dragSize: 0.3rem;
+}
+
+// Remove with 516
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  $dragSize: 0.6rem;
+}
+
+$dragSize: 0.3rem;
 $borderSize: 0.2rem;
 
 .dragzone-horizontal {

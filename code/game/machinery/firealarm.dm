@@ -336,6 +336,8 @@ FIRE ALARM
 	LAZYREMOVE(our_area.firealarms, src)
 	return ..()
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 24, 24)
+
 /*
 FIRE ALARM CIRCUIT
 Just a object used in constructing fire alarms

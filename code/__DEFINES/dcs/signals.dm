@@ -181,6 +181,8 @@
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 ///called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
+/// called on an atom who has stopped orbiting another atom (atom/orbiter, atom/formerly_orbited)
+#define COMSIG_ATOM_ORBITER_STOP "atom_orbiter_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
 /// Called when an atom is sharpened or dulled.
@@ -216,11 +218,23 @@
 #define COMSIG_ATOM_START_PULL "movable_start_pull"
 ///called on /living when someone starts pulling it (atom/movable/puller, state, force)
 #define COMSIG_LIVING_START_PULL "living_start_pull"
+///called on /living, when pull is attempted, but before it completes, from base of [/mob/living/start_pulling]: (atom/movable/thing, force)
+#define COMSIG_LIVING_TRY_PULL "living_try_pull"
+	#define COMSIG_LIVING_CANCEL_PULL (1 << 0)
 
 /////////////////
 
-///from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
+// /client signals
+
+/// from base of client/Click(): (atom/target, atom/location, control, params, mob/user)
 #define COMSIG_CLIENT_CLICK "atom_client_click"
+/// from base of client/MouseDown(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDOWN "client_mousedown"
+/// from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEUP "client_mouseup"
+	#define COMPONENT_CLIENT_MOUSEUP_INTERCEPT (1<<0)
+/// from base of client/MouseUp(): (/client, object, location, control, params)
+#define COMSIG_CLIENT_MOUSEDRAG "client_mousedrag"
 
 ///from base of area/Entered(): (/area)
 #define COMSIG_ENTER_AREA "enter_area"
@@ -290,10 +304,16 @@
 	#define COMPONENT_MOVABLE_IMPACT_NEVERMIND (1<<1)					//return true if you destroyed whatever it was you're impacting and there won't be anything for hitby() to run on
 ///from base of mob/living/hitby(): (mob/living/target, hit_zone)
 #define COMSIG_MOVABLE_IMPACT_ZONE "item_impact_zone"
+///from /atom/movable/proc/buckle_mob(): (mob/living/M, force, check_loc, buckle_mob_flags)
+#define COMSIG_MOVABLE_PREBUCKLE "prebuckle" // this is the last chance to interrupt and block a buckle before it finishes
+	#define COMPONENT_BLOCK_BUCKLE (1<<0)
 ///from base of atom/movable/buckle_mob(): (mob, force)
 #define COMSIG_MOVABLE_BUCKLE "buckle"
 ///from base of atom/movable/unbuckle_mob(): (mob, force)
 #define COMSIG_MOVABLE_UNBUCKLE "unbuckle"
+///from /obj/vehicle/proc/driver_move, caught by the riding component to check and execute the driver trying to drive the vehicle
+#define COMSIG_RIDDEN_DRIVER_MOVE "driver_move"
+	#define COMPONENT_DRIVER_BLOCK_MOVE (1<<0)
 ///from base of atom/movable/throw_at(): (list/args)
 #define COMSIG_MOVABLE_PRE_THROW "movable_pre_throw"
 	#define COMPONENT_CANCEL_THROW (1<<0)
@@ -327,12 +347,18 @@
 ///called when the movable is removed from a disposal holder object: /obj/structure/disposalpipe/proc/expel(): (obj/structure/disposalholder/H, turf/T, direction)
 #define COMSIG_MOVABLE_EXIT_DISPOSALS "movable_exit_disposals"
 
+/// from base of atom/movable/Process_Spacemove(): (movement_dir, continuous_move)
+#define COMSIG_MOVABLE_SPACEMOVE "spacemove"
+	#define COMSIG_MOVABLE_STOP_SPACEMOVE (1<<0)
+
 // /datum/mind signals
 
 ///from base of /datum/mind/proc/transfer_to(mob/living/new_character)
 #define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
 ///called on the mob instead of the mind
 #define COMSIG_BODY_TRANSFER_TO "body_transfer_to"
+///called when the mind is initialized (called every time the mob logins)
+#define COMSIG_MIND_INITIALIZE "mind_initialize"
 
 // /mob signals
 
@@ -429,6 +455,9 @@
 #define COMSIG_MOB_AUTOMUTE_CHECK "automute_check"
 	#define WAIVE_AUTOMUTE_CHECK (1<<0)
 
+///Called when movement intent is toggled.
+#define COMSIG_MOVE_INTENT_TOGGLED "move_intent_toggled"
+
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)
@@ -449,6 +478,10 @@
 	#define COMPONENT_BLOCK_DEFIB (1<<0)
 	/// If returned, don't even show the "failed" message, defer to the signal handler to do that.
 	#define COMPONENT_DEFIB_OVERRIDE (1<<1)
+	/// If returned, allow to revive through false death.
+	#define COMPONENT_DEFIB_FAKEDEATH_ACCEPTED (1<<2)
+	/// If returned, make the fake death look like a unresponsive ghost.
+	#define COMPONENT_DEFIB_FAKEDEATH_DENIED (1<<3)
 ///send from defibs on ressurection: (defibber, defib_item, ghost)
 #define COMSIG_LIVING_DEFIBBED "living_defibbed"
 ///from base of mob/living/revive() (full_heal, admin_revive)
@@ -632,6 +665,8 @@
 #define COMSIG_MINE_TRIGGERED "minegoboom"
 /// Called by /obj/item/proc/worn_overlays(list/overlays, mutable_appearance/standing, isinhands, icon_file)
 #define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
+/// Called by /obj/item/assembly/signaler(called_from_radio)
+#define COMSIG_ASSEMBLY_PULSED "item_assembly_pulsed"
 
 /// Defib-specific signals
 
@@ -708,11 +743,19 @@
 
 // /obj/item/gun signals
 
-///called in /obj/item/gun/process_fire (user, target, params, zone_override)
-#define COMSIG_MOB_FIRED_GUN "mob_fired_gun"
-
+///called in /obj/item/gun/fire_gun (user, target, flag, params)
+#define COMSIG_GUN_TRY_FIRE "gun_try_fire"
+	#define COMPONENT_CANCEL_GUN_FIRE (1<<0)
+///called in /obj/item/gun/afterattack (user, target, flag, params)
+#define COMSIG_MOB_TRY_FIRE "mob_fired_gun"
 ///called in /obj/item/gun/process_fire (user, target)
 #define COMSIG_GUN_FIRED "gun_fired"
+/// called in /datum/component/automatic_fire/proc/on_mouse_down: (client/clicker, atom/target, turf/location, control, params)
+#define COMSIG_AUTOFIRE_ONMOUSEDOWN "autofire_onmousedown"
+	#define COMPONENT_AUTOFIRE_ONMOUSEDOWN_BYPASS (1<<0)
+/// called in /datum/component/automatic_fire/proc/process_shot(): (atom/target, mob/living/shooter, allow_akimbo, params)
+#define COMSIG_AUTOFIRE_SHOT "autofire_shot"
+	#define COMPONENT_AUTOFIRE_SHOT_SUCCESS (1<<0)
 
 // /obj/item/grenade signals
 
@@ -790,6 +833,8 @@
 #define COMSIG_SPECIES_GAIN "species_gain"
 ///from datum/species/on_species_loss(): (datum/species/lost_species)
 #define COMSIG_SPECIES_LOSS "species_loss"
+///from /datum/species/proc/spec_hitby()
+#define COMSIG_SPECIES_HITBY "species_hitby"
 
 // /datum/song signals
 
@@ -926,10 +971,25 @@
 ///from base of datum/action/proc/Trigger(): (datum/action)
 #define COMSIG_ACTION_TRIGGER "action_trigger"
 	#define COMPONENT_ACTION_BLOCK_TRIGGER (1<<0)
+/// From /datum/action/Grant(): (mob/grant_to)
+#define COMSIG_ACTION_GRANTED "action_grant"
+/// From /datum/action/Grant(): (datum/action)
+#define COMSIG_MOB_GRANTED_ACTION "mob_action_grant"
+/// From /datum/action/Remove(): (mob/removed_from)
+#define COMSIG_ACTION_REMOVED "action_removed"
+/// From /datum/action/Remove(): (datum/action)
+#define COMSIG_MOB_REMOVED_ACTION "mob_action_removed"
 
 // Note that this is only defined for actions because this could be a good bit expensive otherwise
 /// From base of /atom/movable/screen/movable/action_button/MouseWheel(src, delta_x, delta_y, location, control, params)
 #define COMSIG_ACTION_SCROLLED "action_scrolled"
+
+// ghost signals
+
+/// from observer_base/do_observe(): (mob/now_followed)
+#define COMSIG_GHOST_START_OBSERVING "ghost_start_observing"
+/// from observer_base/do_observe(): (mob/no_longer_following)
+#define COMSIG_GHOST_STOP_OBSERVING "ghost_stop_observing"
 
 //Xenobio hotkeys
 
@@ -1018,6 +1078,10 @@
 /// from /obj/structure/cursed_slot_machine/determine_victor() when someone finally wins.
 #define COMSIG_GLOB_CURSED_SLOT_MACHINE_WON "cursed_slot_machine_won"
 
+/// from base of /obj/item/slimepotion/speed/afterattack(): (obj/target, /obj/src, mob/user)
+#define COMSIG_SPEED_POTION_APPLIED "speed_potion"
+	#define SPEED_POTION_STOP (1<<0)
+
 // Signal types for the cargo shuttle
 
 // Sent before the shuttle scans its contents.
@@ -1041,3 +1105,12 @@
 
 ///from of mob/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_DO_MOB_STRIP "do_mob_strip"
+
+// Sent when a mob spawner is attacked directly or via projectile.
+#define COMSIG_SPAWNER_SET_TARGET "spawner_set_target"
+
+/// Used by admin-tooling to remove radiation
+#define COMSIG_ADMIN_DECONTAMINATE "admin_decontaminate"
+
+/// Sent when bodies transfer between shades/shards and constructs
+#define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"

@@ -47,6 +47,14 @@ $font-size: 24px;
     )
   );
   @include meta.load-css(
+    '../components/ImageButton.scss',
+    $with: (
+      'color-default': darken(#e8e4c9, 40%),
+      'color-disabled': #363636,
+      'color-selected': #9d0808
+    )
+  );
+  @include meta.load-css(
     '../components/ProgressBar.scss',
     $with: ('color-disabled': #363636)
   );
@@ -103,6 +111,13 @@ $font-size: 24px;
     color: #fff;
     color: inherit;
 
+    &::placeholder {
+      font-style: italic;
+      color: #777;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    // TODO: Remove with 516
     &:-ms-input-placeholder {
       font-style: italic;
       color: #777;

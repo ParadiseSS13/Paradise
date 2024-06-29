@@ -3,10 +3,9 @@
 	desc =  "Learn a new form to mimic or become one of your known forms"
 	clothes_req = FALSE
 	base_cooldown = 3 SECONDS
-	action_icon_state = "genetic_morph"
+	action_icon_state = "morph_mimic"
 	selection_activated_message = "<span class='sinister'>Click on a target to remember it's form. Click on yourself to change form.</span>"
 	create_attack_logs = FALSE
-	action_icon_state = "morph_mimic"
 	/// Which form is currently selected
 	var/datum/mimic_form/selected_form
 	/// Which forms the user can become
@@ -26,7 +25,7 @@
 		/atom/movable/lighting_object,
 		/obj/machinery/dna_vault,
 		/obj/machinery/power/bluespace_tap,
-		/obj/structure/sign/barsign,
+		/obj/machinery/barsign,
 		/obj/machinery/atmospherics/unary/cryo_cell,
 		/obj/machinery/gravity_generator
 	)

@@ -29,6 +29,7 @@ type LabeledListItemProps = {
   textAlign?: string | BooleanLike;
   buttons?: InfernoNode;
   tooltip?: string | BooleanLike;
+  preserveWhitespace?: BooleanLike;
   /** @deprecated */
   content?: any;
   children?: InfernoNode;
@@ -45,6 +46,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
     tooltip,
     content,
     children,
+    preserveWhitespace,
   } = props;
   let listItem = (
     <tr className={classes(['LabeledList__row', className])}>
@@ -61,6 +63,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         textAlign={textAlign}
         className={classes(['LabeledList__cell', 'LabeledList__content'])}
         colSpan={buttons ? undefined : 2}
+        preserveWhitespace={preserveWhitespace}
       >
         {content}
         {children}

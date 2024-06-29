@@ -79,6 +79,8 @@
 		return TRUE
 	if(!istype(neighbor))
 		return ..()
+	if(isnull(loc))
+		return FALSE
 	if(HAS_TRAIT(loc, TRAIT_ADJACENCY_TRANSPARENT))
 		// Transparent parent, don't decrease recurse.
 		return loc.Adjacent(neighbor, recurse)

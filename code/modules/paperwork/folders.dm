@@ -31,7 +31,7 @@
 
 /obj/item/folder/update_overlays()
 	. = ..()
-	if(contents.len)
+	if(length(contents))
 		. += "folder_paper"
 
 /obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -46,16 +46,16 @@
 		return ..()
 
 /obj/item/folder/attack_self(mob/user as mob)
-	var/dat = {"<meta charset="UTF-8"><title>[name]</title>"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><title>[name]</title>"}
 
 	for(var/obj/item/paper/P in src)
-		dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a> - <a href='?src=[UID()];read=\ref[P]'>[P.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];remove=\ref[P]'>Remove</a> - <a href='byond://?src=[UID()];read=\ref[P]'>[P.name]</a><br>"
 	for(var/obj/item/photo/Ph in src)
-		dat += "<A href='?src=[UID()];remove=\ref[Ph]'>Remove</A> - <A href='?src=[UID()];look=\ref[Ph]'>[Ph.name]</A><BR>"
+		dat += "<A href='byond://?src=[UID()];remove=\ref[Ph]'>Remove</A> - <A href='byond://?src=[UID()];look=\ref[Ph]'>[Ph.name]</A><BR>"
 	for(var/obj/item/paper_bundle/Pa in src)
-		dat += "<A href='?src=[UID()];remove=\ref[Pa]'>Remove</A> - <A href='?src=[UID()];browse=\ref[Pa]'>[Pa.name]</A><BR>"
+		dat += "<A href='byond://?src=[UID()];remove=\ref[Pa]'>Remove</A> - <A href='byond://?src=[UID()];browse=\ref[Pa]'>[Pa.name]</A><BR>"
 	for(var/obj/item/documents/doc in src)
-		dat += "<A href='?src=[UID()];remove=\ref[doc]'>Remove</A> - <A href='?src=[UID()];look=\ref[doc]'>[doc.name]</A><BR>"
+		dat += "<A href='byond://?src=[UID()];remove=\ref[doc]'>Remove</A> - <A href='byond://?src=[UID()];look=\ref[doc]'>[doc.name]</A><BR>"
 	user << browse(dat, "window=folder")
 	onclose(user, "folder")
 	add_fingerprint(usr)

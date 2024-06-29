@@ -4,8 +4,6 @@
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
 	floor_tile = null
-	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	burnt_states = list("floorscorched1", "floorscorched2")
 	var/unfastened = FALSE
 	footstep = FOOTSTEP_PLATING
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
@@ -18,6 +16,9 @@
 	. = ..()
 	icon_plating = icon_state
 	update_icon()
+
+/turf/simulated/floor/plating/get_broken_states()
+	return list("floorscorched1", "floorscorched2")
 
 /turf/simulated/floor/plating/damaged/Initialize(mapload)
 	. = ..()
@@ -169,9 +170,11 @@
 	name = "plating"
 
 /turf/simulated/floor/plating/lavaland_air
-	temperature = 500
-	oxygen = 8
-	nitrogen = 14
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/engine
 	name = "reinforced floor"
@@ -245,16 +248,20 @@
 			return
 
 	if(!. && isliving(A))
-		sleep(2 DECISECONDS)
-		new /obj/effect/temp_visual/cult/turf/open/floor(src)
+		addtimer(CALLBACK(src, PROC_REF(spawn_visual)), 0.2 SECONDS, TIMER_DELETE_ME)
+
+/turf/simulated/floor/engine/cult/proc/spawn_visual()
+	new /obj/effect/temp_visual/cult/turf/open/floor(src)
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
 
 /turf/simulated/floor/engine/cult/lavaland_air
-	nitrogen = 14
-	oxygen = 8
-	temperature = 500
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //air filled floors; used in atmos pressure chambers
 
@@ -363,17 +370,18 @@
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
 	icon_state = "metalfoam"
-	var/metal = MFOAM_ALUMINUM
+	/// which kind of metal this will turn into
+	var/metal_kind = METAL_FOAM_ALUMINUM
 
 /turf/simulated/floor/plating/metalfoam/iron
 	icon_state = "ironfoam"
-	metal = MFOAM_IRON
+	metal_kind = METAL_FOAM_IRON
 
 /turf/simulated/floor/plating/metalfoam/update_icon_state()
-	switch(metal)
-		if(MFOAM_ALUMINUM)
+	switch(metal_kind)
+		if(METAL_FOAM_ALUMINUM)
 			icon_state = "metalfoam"
-		if(MFOAM_IRON)
+		if(METAL_FOAM_IRON)
 			icon_state = "ironfoam"
 
 /turf/simulated/floor/plating/metalfoam/attackby(obj/item/C, mob/user, params)
@@ -383,7 +391,7 @@
 	if(istype(C) && C.force)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
-		var/smash_prob = max(0, C.force*17 - metal*25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
+		var/smash_prob = max(0, C.force * 17 - metal_kind * 25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
 		if(prob(smash_prob))
 			// YAR BE CAUSIN A HULL BREACH
 			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [C]!</span>")

@@ -257,12 +257,19 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
+	// TODO: Remove with 516
+	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
+		winset(src, "", "browser-options=byondstorage")
+
 	var/tdata = TopicData //save this for later use
 	// Instantiate stat panel
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
-	tgui_panel = new(src, "browseroutput")
+	// Create a PM tracker bound to this ckey.
+	pm_tracker = new(ckey)
+
+	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
 	TopicData = null							//Prevent calls to client.Topic from connect
 
@@ -453,6 +460,7 @@
 	display_job_bans(TRUE)
 	if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, mob))
 		winset(src, "debugmcbutton", "is-disabled=false")
+		winset(src, "profilecode", "is-disabled=false")
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -683,7 +691,7 @@
 		if(living_hours < 20)
 			return
 
-	to_chat(src, "<B>You have no verified forum account. <a href='?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
+	to_chat(src, "<B>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
 	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM oauth_tokens WHERE ckey=:ckey limit 1", list(
@@ -905,7 +913,7 @@
 	var/url = winget(src, null, "url")
 
 	//special javascript to make them reconnect under a new window.
-	src << browse("<a id='link' href='byond://[url]?token=[token]'>\
+	src << browse("<!DOCTYPE html><a id='link' href='byond://[url]?token=[token]'>\
 		byond://[url]?token=[token]\
 	</a>\
 	<script type='text/javascript'>\
@@ -1164,6 +1172,14 @@
 	else
 		src << link(GLOB.configuration.system.region_map[choice])
 
+/client/proc/set_eye(new_eye)
+	if(new_eye == eye)
+		return
+	eye = new_eye
+
+/client/proc/clear_screen()
+	for(var/object in screen)
+		screen -= object
 
 /client/verb/reload_graphics()
 	set category = "Special Verbs"
@@ -1209,7 +1225,7 @@
 /client/proc/check_panel_loaded()
 	if(stat_panel.is_ready())
 		return
-	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
+	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
 
 /**
  * Handles incoming messages from the stat-panel TGUI.
@@ -1227,6 +1243,18 @@
 		if("Set-Tab")
 			stat_tab = payload["tab"]
 			SSstatpanels.immediate_send_stat_data(src)
+		if("Listedturf-Scroll")
+			if(payload["min"] == payload["max"])
+				// Not properly loaded yet, send the default set.
+				SSstatpanels.refresh_client_obj_view(src)
+			else
+				SSstatpanels.refresh_client_obj_view(src, payload["min"], payload["max"])
+		// Uncomment to enable log_debug in stat panel code.
+		// Disabled normally due to HREF exploit concerns.
+		//if("Statpanel-Debug")
+		//	log_debug(payload)
+		if("Resend-Asset")
+			SSassets.transport.send_assets(src, list(payload))
 		if("Debug-Stat-Entry")
 			var/stat_item = locateUID(payload["stat_item_uid"])
 			if(!check_rights(R_DEBUG | R_VIEWRUNTIMES) || !stat_item)
@@ -1242,6 +1270,42 @@
 				class = "unknown"
 			debug_variables(stat_item)
 			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
+/**
+*	Handles fullscreen on the client.
+*/
+/client/verb/toggle_fullscreen()
+	set name = "Toggle Fullscreen"
+	set category = "OOC"
+
+	fullscreen = !fullscreen
+
+	if(fullscreen)
+		winset(usr, "mainwindow", "titlebar=false")
+		winset(usr, "mainwindow", "can-resize=false")
+		winset(usr, "mainwindow", "is-maximized=false")  // Ensures the window doesn't get stretched oddly.
+		winset(usr, "mainwindow", "is-maximized=true")
+		winset(usr, "mainwindow", "is-fullscreen=true")
+		winset(usr, "mainwindow", "menu=")				 // Top-Menu bar [DISABLED]
+	else
+		winset(usr, "mainwindow", "titlebar=true")
+		winset(usr, "mainwindow", "can-resize=true")
+		winset(usr, "mainwindow", "is-fullscreen=false") // Order matters. Fullscreen [OFF] -> Maximize [TRUE]
+		winset(usr, "mainwindow", "is-maximized=true")
+		winset(usr, "mainwindow", "menu=menu")
+	var/fullscreen_state = fullscreen ? "on" : "off"
+	to_chat(usr, "Toggled fullscreen [fullscreen_state]. To Toggle fullscreen; Go to the tab OOC -> Toggle fullscreen or press F11")
+	fit_viewport()
+
+/client/proc/try_open_reagent_editor(atom/target)
+	var/target_UID = target.UID()
+	var/datum/reagents_editor/editor
+	// editors is static, it can be accessed using a null reference
+	editor = editor.editors[target_UID]
+	if(!editor)
+		editor = new /datum/reagents_editor(target)
+		editor.editors[target_UID] = editor
+
+	editor.ui_interact(mob)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

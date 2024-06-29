@@ -32,7 +32,7 @@
 				if(holocreator_busy)
 					to_chat(user, "<span class='notice'>[src] is busy creating a hologram.</span>")
 					return
-				if(signs.len < max_signs)
+				if(length(signs) < max_signs)
 					playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
 					if(creation_time)
 						holocreator_busy = TRUE
@@ -40,7 +40,7 @@
 							holocreator_busy = FALSE
 							return
 						holocreator_busy = FALSE
-						if(signs.len >= max_signs)
+						if(length(signs) >= max_signs)
 							return
 						if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
@@ -54,7 +54,7 @@
 	return
 
 /obj/item/holosign_creator/attack_self(mob/user)
-	if(signs.len)
+	if(length(signs))
 		for(var/H in signs)
 			qdel(H)
 		to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
@@ -135,7 +135,7 @@
 			to_chat(user, "<span class='notice'>You clear all active holograms, and reset your projector to normal.</span>")
 			holosign_type = /obj/structure/holosign/barrier/cyborg
 			creation_time = 5
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 			shock = 0
@@ -144,17 +144,17 @@
 			to_chat(user, "<span class='warning'>You clear all active holograms, and overload your energy projector!</span>")
 			holosign_type = /obj/structure/holosign/barrier/cyborg/hacked
 			creation_time = 30
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 			shock = 1
 			return
 		else
-			if(signs.len)
+			if(length(signs))
 				for(var/H in signs)
 					qdel(H)
 				to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
-	if(signs.len)
+	if(length(signs))
 		for(var/H in signs)
 			qdel(H)
 		to_chat(user, "<span class='notice'>You clear all active holograms.</span>")

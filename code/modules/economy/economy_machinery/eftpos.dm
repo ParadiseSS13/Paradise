@@ -96,7 +96,7 @@
 			var/attempt_code = tgui_input_number(user, "Re-enter the current EFTPOS access code:", "Confirm old EFTPOS code", max_value = 9999, min_value = 1000)
 			if(attempt_code == access_code)
 				var/trycode = tgui_input_number(user, "Enter a new access code for this device:", "Enter new EFTPOS code", max_value = 9999, min_value = 1000)
-				if(!trycode)
+				if(isnull(trycode))
 					return
 				access_code = trycode
 				print_reference()
@@ -122,7 +122,7 @@
 			transaction_purpose = purpose
 		if("trans_value")
 			var/try_num = tgui_input_number(user, "Enter amount for EFTPOS transaction", "Transaction amount", transaction_amount, MAX_EFTPOS_CHARGE)
-			if(!check_user_position(user) || !try_num)
+			if(!check_user_position(user) || isnull(try_num))
 				return
 			transaction_amount = try_num
 		if("toggle_lock")

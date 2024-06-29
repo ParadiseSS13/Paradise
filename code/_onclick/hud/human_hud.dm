@@ -6,14 +6,22 @@
 	icon_state = "toggle"
 
 /atom/movable/screen/human/toggle/Click()
-	if(usr.hud_used.inventory_shown)
+
+	var/mob/targetmob = usr
+
+	if(isobserver(usr))
+		if(ishuman(usr.client.eye) && (usr.client.eye != usr))
+			var/mob/M = usr.client.eye
+			targetmob = M
+
+	if(usr.hud_used.inventory_shown && targetmob.hud_used)
 		usr.hud_used.inventory_shown = FALSE
-		usr.client.screen -= usr.hud_used.toggleable_inventory
+		usr.client.screen -= targetmob.hud_used.toggleable_inventory
 	else
 		usr.hud_used.inventory_shown = TRUE
-		usr.client.screen += usr.hud_used.toggleable_inventory
+		usr.client.screen += targetmob.hud_used.toggleable_inventory
 
-	usr.hud_used.hidden_inventory_update()
+	targetmob.hud_used.hidden_inventory_update(usr)
 
 /atom/movable/screen/human/equip
 	name = "equip"
@@ -21,7 +29,7 @@
 
 /atom/movable/screen/human/equip/Click()
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
-		return 1
+		return TRUE
 	var/mob/living/carbon/human/H = usr
 	H.quick_equip()
 
@@ -33,6 +41,8 @@
 	screen_loc = ui_lingstingdisplay
 
 /atom/movable/screen/ling/sting/Click()
+	if(isobserver(usr))
+		return
 	var/datum/antagonist/changeling/cling = usr.mind.has_antag_datum(/datum/antagonist/changeling)
 	cling?.chosen_sting?.unset_sting()
 
@@ -59,7 +69,7 @@
 
 /datum/hud/human/New(mob/living/carbon/human/owner, ui_style = 'icons/mob/screen_white.dmi', ui_color = "#ffffff", ui_alpha = 255)
 	..()
-	owner.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
+	owner.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/stretch/see_through_darkness)
 
 	var/atom/movable/screen/using
 	var/atom/movable/screen/inventory/inv_box
@@ -329,8 +339,14 @@
 	mymob.healths = new /atom/movable/screen/healths()
 	infodisplay += mymob.healths
 
+	mymob.staminas = new /atom/movable/screen/healths/stamina()
+	infodisplay += mymob.staminas
+
 	mymob.healthdoll = new()
 	infodisplay += mymob.healthdoll
+
+	mymob.nutrition_display = new()
+	infodisplay += mymob.nutrition_display
 
 	mymob.pullin = new /atom/movable/screen/pull()
 	mymob.pullin.icon = ui_style
@@ -386,113 +402,118 @@
 		else
 			crafting.invisibility = initial(crafting.invisibility)
 
-/datum/hud/human/hidden_inventory_update()
+/datum/hud/human/hidden_inventory_update(mob/viewer)
 	if(!mymob)
 		return
 	var/mob/living/carbon/human/H = mymob
-	if(inventory_shown && hud_shown)
+
+	var/mob/screenmob = viewer || H
+	if(screenmob.hud_used.inventory_shown && screenmob.hud_used.hud_shown && screenmob.hud_used.hud_version == HUD_STYLE_STANDARD)
+
 		if(H.shoes)
 			H.shoes.screen_loc = ui_shoes
-			H.client.screen += H.shoes
+			screenmob.client.screen += H.shoes
 		if(H.gloves)
 			H.gloves.screen_loc = ui_gloves
-			H.client.screen += H.gloves
+			screenmob.client.screen += H.gloves
 		if(H.l_ear)
 			H.l_ear.screen_loc = ui_l_ear
-			H.client.screen += H.l_ear
+			screenmob.client.screen += H.l_ear
 		if(H.r_ear)
 			H.r_ear.screen_loc = ui_r_ear
-			H.client.screen += H.r_ear
+			screenmob.client.screen += H.r_ear
 		if(H.glasses)
 			H.glasses.screen_loc = ui_glasses
-			H.client.screen += H.glasses
+			screenmob.client.screen += H.glasses
 		if(H.w_uniform)
 			H.w_uniform.screen_loc = ui_iclothing
-			H.client.screen += H.w_uniform
+			screenmob.client.screen += H.w_uniform
 		if(H.wear_suit)
 			H.wear_suit.screen_loc = ui_oclothing
-			H.client.screen += H.wear_suit
+			screenmob.client.screen += H.wear_suit
 		if(H.wear_mask)
 			H.wear_mask.screen_loc = ui_mask
-			H.client.screen += H.wear_mask
+			screenmob.client.screen += H.wear_mask
 		if(H.head)
 			H.head.screen_loc = ui_head
-			H.client.screen += H.head
+			screenmob.client.screen += H.head
 	else
-		if(H.shoes)		H.shoes.screen_loc = null
-		if(H.gloves)	H.gloves.screen_loc = null
-		if(H.l_ear)		H.l_ear.screen_loc = null
-		if(H.r_ear)		H.r_ear.screen_loc = null
-		if(H.glasses)	H.glasses.screen_loc = null
-		if(H.w_uniform)	H.w_uniform.screen_loc = null
-		if(H.wear_suit)	H.wear_suit.screen_loc = null
-		if(H.wear_mask)	H.wear_mask.screen_loc = null
-		if(H.head)		H.head.screen_loc = null
+		if(H.shoes)
+			screenmob.client.screen -= H.shoes
+		if(H.gloves)
+			screenmob.client.screen -= H.gloves
+		if(H.l_ear)
+			screenmob.client.screen -= H.l_ear
+		if(H.r_ear)
+			screenmob.client.screen -= H.r_ear
+		if(H.glasses)
+			screenmob.client.screen -= H.glasses
+		if(H.w_uniform)
+			screenmob.client.screen -= H.w_uniform
+		if(H.wear_suit)
+			screenmob.client.screen -= H.wear_suit
+		if(H.wear_mask)
+			screenmob.client.screen -= H.wear_mask
+		if(H.head)
+			screenmob.client.screen -= H.head
 
-/datum/hud/human/persistent_inventory_update()
+/datum/hud/human/persistent_inventory_update(mob/viewer)
 	if(!mymob)
 		return
+	..()
 	var/mob/living/carbon/human/H = mymob
-	if(hud_shown)
-		if(H.s_store)
-			H.s_store.screen_loc = ui_sstore1
-			H.client.screen += H.s_store
-		if(H.wear_id)
-			H.wear_id.screen_loc = ui_id
-			H.client.screen += H.wear_id
-		if(H.wear_pda)
-			H.wear_pda.screen_loc = ui_pda
-			H.client.screen += H.wear_pda
-		if(H.belt)
-			H.belt.screen_loc = ui_belt
-			H.client.screen += H.belt
-		if(H.back)
-			H.back.screen_loc = ui_back
-			H.client.screen += H.back
-		if(H.l_store)
-			H.l_store.screen_loc = ui_storage1
-			H.client.screen += H.l_store
-		if(H.r_store)
-			H.r_store.screen_loc = ui_storage2
-			H.client.screen += H.r_store
-	else
-		if(H.s_store)
-			H.s_store.screen_loc = null
-		if(H.wear_id)
-			H.wear_id.screen_loc = null
-		if(H.wear_pda)
-			H.wear_pda.screen_loc = null
-		if(H.belt)
-			H.belt.screen_loc = null
-		if(H.back)
-			H.back.screen_loc = null
-		if(H.l_store)
-			H.l_store.screen_loc = null
-		if(H.r_store)
-			H.r_store.screen_loc = null
+	var/mob/screenmob = viewer || H
+
+	if(screenmob.hud_used)
+		if(screenmob.hud_used.hud_shown && screenmob.hud_used.hud_version == HUD_STYLE_STANDARD)
+			if(H.s_store)
+				H.s_store.screen_loc = ui_sstore1
+				screenmob.client.screen += H.s_store
+			if(H.wear_id)
+				H.wear_id.screen_loc = ui_id
+				screenmob.client.screen += H.wear_id
+			if(H.wear_pda)
+				H.wear_pda.screen_loc = ui_pda
+				screenmob.client.screen += H.wear_pda
+			if(H.belt)
+				H.belt.screen_loc = ui_belt
+				screenmob.client.screen += H.belt
+			if(H.back)
+				H.back.screen_loc = ui_back
+				screenmob.client.screen += H.back
+			if(H.l_store)
+				H.l_store.screen_loc = ui_storage1
+				screenmob.client.screen += H.l_store
+			if(H.r_store)
+				H.r_store.screen_loc = ui_storage2
+				screenmob.client.screen += H.r_store
+		else
+			if(H.s_store)
+				screenmob.client.screen -= H.s_store
+			if(H.wear_id)
+				screenmob.client.screen -= H.wear_id
+			if(H.wear_pda)
+				screenmob.client.screen -= H.wear_pda
+			if(H.belt)
+				screenmob.client.screen -= H.belt
+			if(H.back)
+				screenmob.client.screen -= H.back
+			if(H.l_store)
+				screenmob.client.screen -= H.l_store
+			if(H.r_store)
+				screenmob.client.screen -= H.r_store
 
 	if(hud_version != HUD_STYLE_NOHUD)
 		if(H.r_hand)
 			H.r_hand.screen_loc = ui_rhand
-			H.client.screen += H.r_hand
+			screenmob.client.screen += H.r_hand
 		if(H.l_hand)
 			H.l_hand.screen_loc = ui_lhand
-			H.client.screen += H.l_hand
+			screenmob.client.screen += H.l_hand
 	else
 		if(H.r_hand)
-			H.r_hand.screen_loc = null
+			screenmob.r_hand.screen_loc = null
+			screenmob.client.screen -= H.r_hand
 		if(H.l_hand)
-			H.l_hand.screen_loc = null
-
-
-/mob/living/carbon/human/verb/toggle_hotkey_verbs()
-	set category = "OOC"
-	set name = "Toggle Hotkey Buttons"
-	set desc = "This disables or enables the user interface buttons which can be used with hotkeys."
-
-	if(hud_used.hotkey_ui_hidden)
-		client.screen += hud_used.hotkeybuttons
-		hud_used.hotkey_ui_hidden = FALSE
-	else
-		client.screen -= hud_used.hotkeybuttons
-		hud_used.hotkey_ui_hidden = TRUE
+			screenmob.l_hand.screen_loc = null
+			screenmob.client.screen -= H.l_hand

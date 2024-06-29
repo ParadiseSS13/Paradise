@@ -267,9 +267,6 @@
 	emote_see = list("shakes its head.", "chases its tail.","shivers.")
 	desc = initial(desc)
 	set_light(0)
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	REMOVE_TRAIT(src, TRAIT_NOBREATH, DOGGO_SPACESUIT)
-	minbodytemp = initial(minbodytemp)
 
 	if(inventory_head && inventory_head.dog_fashion)
 		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
@@ -474,10 +471,6 @@
 			movement_target.attack_animal(src) // Eat the thing
 		else if(prob(30) && ishuman(movement_target.loc)) // mean hooman has stolen it
 			custom_emote(EMOTE_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face.")
-
-/obj/item/food/snacks/meat/corgi
-	name = "Corgi meat"
-	desc = "Tastes like... well you know..."
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/narsie_act()
 	playsound(src, 'sound/misc/demon_dies.ogg', 75, TRUE)

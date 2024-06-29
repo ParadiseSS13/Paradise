@@ -165,6 +165,9 @@
 /mob/living/carbon/human/stok/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey/unathi)
 
+/mob/living/carbon/human/nian_worme/Initialize(mapload)
+	. = ..(mapload, /datum/species/monkey/nian_worme)
+
 /mob/living/carbon/human/moth/Initialize(mapload)
 	. = ..(mapload, /datum/species/moth)
 	if(!body_accessory)
@@ -496,7 +499,7 @@
 								to_chat(usr, "<b>Major Crimes:</b> [R.fields["ma_crim"]]")
 								to_chat(usr, "<b>Details:</b> [R.fields["ma_crim_d"]]")
 								to_chat(usr, "<b>Notes:</b> [R.fields["notes"]]")
-								to_chat(usr, "<a href='?src=[UID()];secrecordComment=`'>\[View Comment Log\]</a>")
+								to_chat(usr, "<a href='byond://?src=[UID()];secrecordComment=`'>\[View Comment Log\]</a>")
 								read = 1
 
 			if(!read)
@@ -524,7 +527,7 @@
 								else
 									to_chat(usr, "<span class='warning'>No comments found</span>")
 								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
-									to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
+									to_chat(usr, "<a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
@@ -555,7 +558,7 @@
 								if(setmedical != "Cancel")
 									R.fields["p_stat"] = setmedical
 									modified = TRUE
-									if(GLOB.PDA_Manifest.len)
+									if(length(GLOB.PDA_Manifest))
 										GLOB.PDA_Manifest.Cut()
 
 			if(!modified)
@@ -601,7 +604,7 @@
 								to_chat(usr, "<b>Major Disabilities:</b> [R.fields["ma_dis"]]")
 								to_chat(usr, "<b>Details:</b> [R.fields["ma_dis_d"]]")
 								to_chat(usr, "<b>Notes:</b> [R.fields["notes"]]")
-								to_chat(usr, "<a href='?src=[UID()];medrecordComment=`'>\[View Comment Log\]</a>")
+								to_chat(usr, "<a href='byond://?src=[UID()];medrecordComment=`'>\[View Comment Log\]</a>")
 								read = 1
 
 			if(!read)
@@ -625,7 +628,7 @@
 										to_chat(usr, c)
 								else
 									to_chat(usr, "<span class='warning'>No comment found</span>")
-								to_chat(usr, "<a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>")
+								to_chat(usr, "<a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
@@ -789,12 +792,12 @@
 
 /mob/living/carbon/human/abiotic(full_body = 0)
 	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
-		return 1
+		return TRUE
 
 	if((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)))
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 
 /mob/living/carbon/human/proc/check_dna()
@@ -823,6 +826,9 @@
 	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
 
+	if(wear_suit && HAS_TRAIT(wear_suit, TRAIT_RSG_IMMUNE))
+		return FALSE
+
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
 	if(!affecting)
@@ -831,8 +837,10 @@
 	else if(affecting.is_robotic())
 		. = FALSE
 		fail_msg = "That limb is robotic."
-	if(wear_suit && !HAS_TRAIT(wear_suit, TRAIT_PUNCTURE_IMMUNE) && piercing)
+
+	if(piercing)
 		return TRUE
+
 	if(target_zone == "head")
 		if((head?.flags & THICKMATERIAL) && !penetrate_thick)
 			. = FALSE
@@ -864,7 +872,7 @@
 			obscured |= SLOT_HUD_RIGHT_EAR
 			obscured |= SLOT_HUD_LEFT_EAR
 
-	if(obscured.len > 0)
+	if(length(obscured) > 0)
 		return obscured
 	else
 		return null
@@ -873,8 +881,8 @@
 	// Todo, check stomach organ when implemented.
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H || !H.can_intake_reagents)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /mob/living/carbon/human/proc/get_visible_gender()
 	var/list/obscured = check_obscured_slots()
@@ -1087,9 +1095,6 @@
 		if(oldspecies.default_language)
 			remove_language(oldspecies.default_language)
 
-		if(gender == PLURAL && oldspecies.has_gender)
-			change_gender(pick(MALE, FEMALE))
-
 		oldspecies.handle_dna(src, TRUE) // Remove any mutations that belong to the old species
 
 		oldspecies.on_species_loss(src)
@@ -1268,6 +1273,9 @@
 	if(default_language)
 		return default_language
 
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)) // you're not allowed to speak common
+		return GLOB.all_languages["Zombie"]
+
 	if(!dna.species)
 		return null
 	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null
@@ -1278,7 +1286,7 @@
 	set desc = "Use blood on your hands to write a short message on the floor or a wall, murder mystery style."
 
 	if(usr != src)
-		return 0 //something is terribly wrong
+		return FALSE //something is terribly wrong
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You can't write on the floor in your current state!</span>")
 		return
@@ -1451,8 +1459,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_THREE)
-		var/list/handlist = list(l_hand, r_hand)
-		for(var/obj/item/hand in handlist)
+		for(var/obj/item/hand in get_both_hands(src))
 			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& unEquip(hand))
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
@@ -1656,15 +1663,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	return md5(dna.uni_identity)
 
-/mob/living/carbon/human/can_see_reagents() //If they have some glasses or helmet equipped that lets them see reagents, they can see reagents
+/mob/living/carbon/human/reagent_vision() // If they have some glasses or helmet equipped that lets them see reagents inside transparent containers, they can see them.
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.scan_reagents)
-			return 1
+			return TRUE
 	if(istype(glasses, /obj/item/clothing/glasses))
 		var/obj/item/clothing/rscan = glasses
 		if(rscan.scan_reagents)
-			return 1
+			return TRUE
+
+/mob/living/carbon/human/advanced_reagent_vision() // If they have some glasses or helmet equipped that lets them see reagents inside everything, they can see reagents inside everything.
+	if(istype(head, /obj/item/clothing/head))
+		var/obj/item/clothing/head/hat = head
+		if(hat.scan_reagents_advanced)
+			return TRUE
+	if(istype(glasses, /obj/item/clothing/glasses))
+		var/obj/item/clothing/rscan = glasses
+		if(rscan.scan_reagents_advanced)
+			return TRUE
 
 /mob/living/carbon/human/can_eat(flags = 255)
 	return dna.species && (dna.species.dietflags & flags)
@@ -1672,26 +1689,26 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/selfFeed(obj/item/food/toEat, fullness)
 	if(!check_has_mouth())
 		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
-		return 0
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(obj/item/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
 		if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
-			return 0
+			return FALSE
 	return ..()
 
 /mob/living/carbon/human/selfDrink(obj/item/reagent_containers/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
-			return 0
+			return FALSE
 		else
 			to_chat(src, "<span class='notice'>You pour a bit of liquid from [toDrink] into your connection port.</span>")
 	else
 		to_chat(src, "<span class='notice'>You swallow a gulp of [toDrink].</span>")
-	return 1
+	return TRUE
 
 /mob/living/carbon/human/can_track(mob/living/user)
 	if(wear_id)
@@ -1908,7 +1925,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
 
 /mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
-	return min(health, maxHealth - getStaminaLoss()) + shock_reduction
+	return min(health, maxHealth) + shock_reduction
 
 /mob/living/carbon/human/WakeUp(updating = TRUE)
 	if(dna.species.spec_WakeUp(src))
@@ -1962,6 +1979,83 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	update_flavor_text()
 
-/mob/living/carbon/human/proc/apply_offstation_roles(source)
-	SIGNAL_HANDLER
-	mind.offstation_role = TRUE
+/mob/living/carbon/human/proc/expert_chef_knowledge()
+	if(!HAS_TRAIT(mind, TRAIT_KNOWS_COOKING_RECIPES))
+		return
+
+	var/list/possible_cookware = view(1, src)
+
+	for(var/obj/item/storage/storage in possible_cookware)
+		possible_cookware += storage.contents
+		possible_cookware -= storage
+
+	shuffle_inplace(possible_cookware)
+
+	var/list/available_ingredients = list()
+	var/list/available_reagents = list()
+	for(var/obj/item/item in possible_cookware)
+		if(item.container_type == OPENCONTAINER && item.reagents)
+			for(var/datum/reagent/reagent in item.reagents.reagent_list)
+				if(!available_reagents[reagent.id])
+					available_reagents[reagent.id] = 0
+				available_reagents[reagent.id] += reagent.volume
+		else
+			if(!available_ingredients[item.type])
+				available_ingredients[item.type] = 0
+			available_ingredients[item.type] += 1
+
+	var/list/possible_recipes = list()
+	for(var/datum/recipe/recipe_type as anything in subtypesof(/datum/recipe))
+		if(!recipe_type.result)
+			continue
+		var/datum/recipe/recipe = new recipe_type()
+		if(recipe.check_reagents_assoc_list(available_reagents) != INGREDIENT_CHECK_FAILURE && recipe.check_items_assoc_list(available_ingredients) != INGREDIENT_CHECK_FAILURE)
+			if(istype(recipe, /datum/recipe/microwave))
+				possible_recipes[recipe] = RECIPE_MICROWAVE
+			else if(istype(recipe, /datum/recipe/oven))
+				possible_recipes[recipe] = RECIPE_OVEN
+			else if(istype(recipe, /datum/recipe/grill))
+				possible_recipes[recipe] = RECIPE_GRILL
+			else if(istype(recipe, /datum/recipe/candy))
+				possible_recipes[recipe] = RECIPE_CANDY
+			else
+				possible_recipes[recipe] = "something? This shouldn't happen, make a bug report"
+
+	if(!length(possible_recipes))
+		to_chat(src, "<span class='warning'>You can't think of anything to cook with the items around you.</span>")
+		return
+
+	var/list/message = list("You draw upon your extensive experience in space food, contemplating what you could make with the items around you...")
+	for(var/datum/recipe/recipe in possible_recipes)
+		var/list/assoc = type_list_to_counted_assoc_list(recipe.items)
+		var/list/ingredient_list = list()
+		for(var/obj/item/path_key as anything in assoc)
+			ingredient_list += "[assoc[path_key]] [initial(path_key.name)]\s"
+
+		var/list/required_reagents = list()
+		for(var/reagent_id in recipe.reagents)
+			var/datum/reagent/temp = GLOB.chemical_reagents_list[reagent_id]
+			if(temp)
+				required_reagents += "[recipe.reagents[reagent_id]] unit\s of [temp.name]"
+
+		var/obj/item/result = recipe.result
+		message += "\tI could make [result.gender == PLURAL ? "some" : "a"] [bicon(result)] <b>[result.name]</b> by using \a [possible_recipes[recipe]] with [english_list(ingredient_list)][length(required_reagents) ? ", along with [english_list(required_reagents)]" : ""]."
+		qdel(recipe)
+	to_chat(src, chat_box_examine(message.Join("<br>")))
+
+/mob/living/carbon/human/proc/get_unarmed_attack()
+	var/datum/antagonist/zombie/zombie = mind?.has_antag_datum(/datum/antagonist/zombie)
+	if(!istype(zombie))
+		return dna.species.unarmed
+	return zombie.claw_attack
+
+/mob/living/carbon/human/proc/get_dna_scrambled()
+	scramble(1, src, 100)
+	real_name = random_name(gender, dna.species.name) // Give them a name that makes sense for their species.
+	sync_organ_dna(assimilate = 1)
+	update_body()
+	reset_hair() // No more winding up with hairstyles you're not supposed to have, and blowing your cover.
+	reset_markings() // ...Or markings.
+	dna.ResetUIFrom(src)
+	flavor_text = ""
+

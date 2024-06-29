@@ -44,10 +44,11 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "necro1"
 	baseturf = /turf/simulated/floor/indestructible/necropolis
-	oxygen = 8
-	nitrogen = 14
-	temperature = 500
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	footstep = FOOTSTEP_LAVA
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
@@ -69,10 +70,11 @@
 	icon = 'icons/turf/floors/boss_floors.dmi'
 	icon_state = "boss"
 	baseturf = /turf/simulated/floor/indestructible/boss
-	oxygen = 8
-	nitrogen = 14
-	temperature = 500
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/indestructible/boss/air
 	oxygen = MOLES_O2STANDARD
@@ -83,10 +85,11 @@
 	name = "floor"
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	icon_state = "floor"
-	oxygen = 8
-	nitrogen = 14
-	temperature = 500
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	smoothing_flags = SMOOTH_CORNERS
 
 /turf/simulated/floor/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)

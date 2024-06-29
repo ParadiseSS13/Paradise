@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 		notify_ghosts("[src] (player controlled) has appeared in [get_area(src)].")
 	else if(ai_playercontrol_allowtype)
 		var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
-		notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=[UID()];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
+		notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=byond://?src=[UID()];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	GLOB.ts_spiderlist -= src
@@ -377,7 +377,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
-	if(faction.len != 2 || (!("terrorspiders" in faction)) || master_commander != null)
+	if(length(faction) != 2 || (!("terrorspiders" in faction)) || master_commander != null)
 		to_chat(src, "<span class='userdanger'>Your connection to the hive mind has been severed!</span>")
 		stack_trace("Terror spider with incorrect faction list at: [atom_loc_line(src)]")
 		gib()

@@ -82,6 +82,7 @@
 	name = "Derelict 3"
 	description = "These hulks were once part of a larger structure, where \
 		the three great \[REDACTED\] were forged."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/derelict4
 	id = "derelict4"
@@ -146,7 +147,8 @@
 		No tabs. No violence in the inside areas. That's it. Welcome to the \
 		Rampant Golem and Yellow Hound. Can I take your order?"
 	allow_duplicates = FALSE //it spawn ship docking, no more than one to avoid duplication in console.
-	cost = 2
+	always_place = TRUE
+	cost = 0
 
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"
@@ -332,5 +334,13 @@
 	suffix = "abandoned_engi_sat.dmm"
 	name = "Abandoned NT Engineering Satellite"
 	description = "A derelict operating base for NT engineering crew."
+	allow_duplicates = FALSE
+	cost = 1
+
+/datum/map_template/ruin/space/rocky_motel
+	id = "rocky_motel"
+	suffix = "rocky_motel.dmm"
+	name = "Rocky Motel"
+	description = "A cozy little home nestled in an asteroid, perfect for one or two people!"
 	allow_duplicates = FALSE
 	cost = 1

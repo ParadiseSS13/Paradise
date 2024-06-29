@@ -374,14 +374,16 @@
 	..()
 	if(firestarter && active)
 		target.fire_act()
-		new /obj/effect/hotspot(get_turf(target))
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(target)
+		hotspot.temperature = 1000
+		hotspot.recolor()
 
 /obj/item/reagent_containers/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	if(I.get_heat() && !active)
 		active = TRUE
 		var/turf/bombturf = get_turf(src)
 		var/area/bombarea = get_area(bombturf)
-		message_admins("[key_name(user)][ADMIN_QUE(user,"?")] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[bombarea] (JMP)</a>.")
+		message_admins("[key_name(user)][ADMIN_QUE(user,"?")] has primed a [name] for detonation at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[bombarea] (JMP)</a>.")
 		log_game("[key_name(user)] has primed a [name] for detonation at [bombarea] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 
 		to_chat(user, "<span class='info'>You light [src] on fire.</span>")

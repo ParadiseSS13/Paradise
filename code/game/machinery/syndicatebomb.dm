@@ -320,10 +320,10 @@
 	origin_tech = "syndicate=5;combat=6"
 	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
 	var/adminlog = null
-	var/range_heavy = 3
-	var/range_medium = 9
-	var/range_light = 17
-	var/range_flame = 17
+	var/range_heavy = 5
+	var/range_medium = 10
+	var/range_light = 20
+	var/range_flame = 20
 	var/admin_log = TRUE
 
 /obj/item/bombcore/ex_act(severity) //Little boom can chain a big boom
@@ -422,17 +422,10 @@
 	playsound(src.loc, 'sound/misc/sadtrombone.ogg', 50)
 	..()
 
-/obj/item/bombcore/large
-	name = "large bomb payload"
-	range_heavy = 5
-	range_medium = 10
-	range_light = 20
-	range_flame = 20
-
-/obj/item/bombcore/large/explosive_wall
+/obj/item/bombcore/explosive_wall
 	admin_log = FALSE
 
-/obj/item/bombcore/large/underwall
+/obj/item/bombcore/underwall
 	layer = ABOVE_OPEN_TURF_LAYER
 
 /obj/item/bombcore/miniature
@@ -537,7 +530,7 @@
 
 /obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass/beaker) || istype(I, /obj/item/reagent_containers/glass/bottle))
-		if(beakers.len < max_beakers)
+		if(length(beakers) < max_beakers)
 			if(!user.drop_item())
 				return
 			beakers += I
@@ -553,7 +546,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(beakers.len == 0)
+	if(length(beakers) == 0)
 		return
 	for(var/obj/item/B in beakers)
 		B.loc = get_turf(src)
@@ -574,7 +567,7 @@
 			spread_range += 2 // Extra range, reduced density.
 			temp_boost += 50 // maximum of +150K blast using only large beakers. Not enough to self ignite.
 			for(var/obj/item/slime_extract/S in LG.beakers) // And slime cores.
-				if(beakers.len < max_beakers)
+				if(length(beakers) < max_beakers)
 					beakers += S
 					S.loc = src
 				else
@@ -591,7 +584,7 @@
 			time_release += 50 // A typical bomb, using basic beakers, will explode over 2-4 seconds. Using two will make the reaction last for less time, but it will be more dangerous overall.
 
 		for(var/obj/item/reagent_containers/glass/B in G)
-			if(beakers.len < max_beakers)
+			if(length(beakers) < max_beakers)
 				beakers += B
 				B.loc = src
 			else

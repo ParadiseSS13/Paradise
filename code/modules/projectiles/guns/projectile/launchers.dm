@@ -40,6 +40,7 @@
 	origin_tech = "combat=5"
 	mag_type = /obj/item/ammo_box/magazine/m75
 	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
+	can_suppress = FALSE
 	burst_size = 1
 	fire_delay = 0
 	actions_types = list()

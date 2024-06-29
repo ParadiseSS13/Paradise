@@ -6,6 +6,7 @@
 	icon_living = "shadow_demon"
 	move_resist = MOVE_FORCE_STRONG
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
+	see_in_dark = 10 // Below 10 `see_in_dark`, you'll not have full vision with fullscreen
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
 	death_sound = 'sound/shadowdemon/shadowdeath.ogg'
 	var/thrown_alert = FALSE
@@ -187,8 +188,6 @@
 
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_grapple"
-	panel = "Demon"
-
 	sound = null
 	invocation_type = "none"
 	invocation = null

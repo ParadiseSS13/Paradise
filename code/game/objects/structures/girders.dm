@@ -14,6 +14,10 @@
 	var/metalUsed = 2 //used to determine amount returned in deconstruction
 	var/metal_type = /obj/item/stack/sheet/metal
 
+/obj/structure/girder/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -20, 10)
+
 /obj/structure/girder/examine(mob/user)
 	. = ..()
 	switch(state)
@@ -410,7 +414,7 @@
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return prob(girderpasschance)
 	else
-		if(istype(mover, /obj/item/projectile))
+		if(isprojectile(mover))
 			return prob(girderpasschance)
 		else
 			return 0

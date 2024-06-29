@@ -464,14 +464,15 @@
 
 	user.playsound_local(user, "sparks", 50, FALSE, use_reverb = FALSE)
 	adjust_uses(-1, user)
-	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
+	target.audible_message("<span class='danger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
+	playsound(target, 'sound/goonstation/misc/fuse.ogg', 50, FALSE, use_reverb = FALSE)
 	addtimer(CALLBACK(src, PROC_REF(detonate_machine), target), 5 SECONDS) //kaboom!
 	to_chat(user, "<span class='warning'>Overloading machine circuitry...</span>")
 	return TRUE
 
 /datum/spell/ai_spell/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		explosion(get_turf(M), 0, 3, 5, 0)
+		explosion(get_turf(M), 0, 2, 3, 0)
 		if(M) //to check if the explosion killed it before we try to delete it
 			qdel(M)
 
@@ -813,26 +814,24 @@
 		AI.cracked_camera = TRUE
 		QDEL_NULL(AI.builtInCamera)
 
-/datum/AI_Module/engi_upgrade
-	module_name = "Engineering Cyborg Emitter Upgrade"
-	mod_pick_name = "emitter"
-	description = "Downloads firmware that activates the built in emitter in all engineering cyborgs linked to you. Cyborgs built after this upgrade will have it pre-installed."
-	cost = 50 // IDK look into this
+/datum/AI_Module/borg_upgrade
+	module_name = "Combat Cyborg Firmware Upgrade"
+	mod_pick_name = "combatborgs"
+	description = "Downloads firmware that activates built-in combat hardware present in all cyborgs. Cyborgs built after this is used will come with the hardware activated."
+	cost = 70 // IDK look into this
 	one_purchase = TRUE
 	upgrade = TRUE
-	unlock_text = "<span class='notice'>Firmware downloaded. Bugs removed. Built in emitters operating at 73% efficiency.</span>"
+	unlock_text = "<span class='notice'>Firmware downloaded. Bugs removed. Combat subsystems operating at 73% efficiency.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
-/datum/AI_Module/engi_upgrade/upgrade(mob/living/silicon/ai/AI)
-	AI.purchased_modules += /obj/item/robot_module/engineering
-	log_game("[key_name(usr)] purchased emitters for all engineering cyborgs.")
-	message_admins("<span class='notice'>[key_name_admin(usr)] purchased emitters for all engineering cyborgs!</span>")
+/datum/AI_Module/borg_upgrade/upgrade(mob/living/silicon/ai/AI)
+	AI.purchased_modules = list(/obj/item/robot_module/engineering, /obj/item/robot_module/janitor, /obj/item/robot_module/medical, /obj/item/robot_module/miner, /obj/item/robot_module/butler)
+	log_game("[key_name(usr)] purchased combat upgrades for all cyborgs.")
+	message_admins("<span class='notice'>[key_name_admin(usr)] purchased combat upgrades for all cyborgs!</span>")
 	for(var/mob/living/silicon/robot/R in AI.connected_robots)
-		if(!istype(R.module, /obj/item/robot_module/engineering))
-			continue
 		R.module.malfhacked = TRUE
 		R.module.rebuild_modules()
-		to_chat(R, "<span class='notice'>New firmware downloaded. Emitter is now online.</span>")
+		to_chat(R, "<span class='notice'>New firmware downloaded. Combat upgrades are now online.</span>")
 
 /datum/AI_Module/repair_cyborg
 	module_name = "Repair Cyborgs"
@@ -852,12 +851,6 @@
 	selection_activated_message = "<span class='notice'>Call to address 0FFFFFFF in APC logic thread, awaiting user response.</span>"
 	selection_deactivated_message = "<span class='notice'>APC logic thread restarting...</span>"
 	var/is_active = FALSE
-
-/datum/spell/ai_spell/ranged/repair_cyborg/create_new_targeting()
-	var/datum/spell_targeting/click/T = new
-	T.allowed_type = /mob/living/silicon/robot
-	T.try_auto_target = FALSE
-	return T
 
 /datum/spell/ai_spell/ranged/repair_cyborg/cast(list/targets, mob/user)
 	var/mob/living/silicon/robot/robot_target = targets[1]

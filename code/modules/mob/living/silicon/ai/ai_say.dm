@@ -3,7 +3,7 @@
  */
 
 
-/mob/living/silicon/ai/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
+/mob/living/silicon/ai/handle_track(message, verb = "says", atom/movable/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	if(hard_to_hear)
 		return
 
@@ -34,9 +34,8 @@
 		jobname = "Cyborg"
 	else if(ispAI(speaker))
 		jobname = "Personal AI"
-	else if(isAutoAnnouncer(speaker))
-		var/mob/living/automatedannouncer/AA = speaker
-		jobname = AA.role
+	else if(isradio(speaker))
+		jobname = "Automated Announcement"
 	else
 		jobname = "Unknown"
 
@@ -99,7 +98,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	var/list/localdat = list()
 	var/uid_cache = UID() // Saves proc jumping
 	for(var/word in word_list)
-		localdat += "<a href='?src=[uid_cache];say_word=[word]'>[word]</a>"
+		localdat += "<a href='byond://?src=[uid_cache];say_word=[word]'>[word]</a>"
 	return localdat.Join(" / ")
 
 /mob/living/silicon/ai/proc/ai_announcement()

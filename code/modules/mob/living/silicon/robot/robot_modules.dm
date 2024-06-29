@@ -320,6 +320,7 @@
 /obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	return FALSE
 
+/// Overriden for specific modules if they have storage items. These should have their contents emptied out onto the floor.
 /obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
 	return
 
@@ -333,7 +334,6 @@
 		/obj/item/crowbar/cyborg/red,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/robotanalyzer,
-		/obj/item/reagent_scanner/adv,
 		/obj/item/borg_defib,
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
@@ -355,10 +355,18 @@
 		/obj/item/stack/medical/ointment/advanced/cyborg,
 		/obj/item/stack/medical/splint/cyborg,
 		/obj/item/stack/nanopaste/cyborg,
-		/obj/item/gripper_medical
+		/obj/item/gripper/medical
 	)
-	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
-	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
+	malf_modules = list(/obj/item/gun/syringemalf)
+	special_rechargables = list(
+		/obj/item/extinguisher/mini,
+		/obj/item/gun/syringemalf
+	)
+
+/obj/item/robot_module/medical/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/medical/G = locate(/obj/item/gripper/medical) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
 
 // Disable safeties on the borg's defib.
 /obj/item/robot_module/medical/emag_act(mob/user)
@@ -375,6 +383,50 @@
 	for(var/obj/item/reagent_containers/borghypo/F in modules)
 		F.emag_act()
 	return ..()
+
+/// Malf Syringe Gun
+/obj/item/gun/syringemalf
+	name = "plasma syringe cannon"
+	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires heavy-duty plasma syringes tipped in poison."
+	icon_state = "rapidsyringegun"
+	throw_speed = 3
+	throw_range = 7
+	force = 4
+	fire_sound = 'sound/items/syringeproj.ogg'
+	fire_delay = 0.75
+	var/max_syringes = 14
+	var/current_syringes = 14
+
+//Preload Syringes
+/obj/item/gun/syringemalf/Initialize(mapload)
+	. = ..()
+	chambered = new /obj/item/ammo_casing/syringegun(src)
+	process_chamber()
+
+//Recharge syringes in a recharger
+/obj/item/gun/syringemalf/cyborg_recharge(coeff, emagged)
+	if(current_syringes + (chambered.BB ? 1 : 0) < max_syringes)
+		current_syringes++
+		process_chamber()
+
+//Cannot manually remove syringes
+/obj/item/gun/syringemalf/attack_self(mob/living/user)
+	return
+
+//Load syringe into the chamber
+/obj/item/gun/syringemalf/process_chamber()
+	if(!current_syringes || chambered?.BB)
+		return
+
+	chambered.BB = new /obj/item/projectile/bullet/dart/syringe/heavyduty(src)
+	chambered.BB.reagents.add_reagent_list(list("toxin" = 2))
+	chambered.BB.name = "heavy duty syringe"
+	current_syringes--
+
+/obj/item/gun/syringemalf/examine(mob/user)
+	. = ..()
+	var/num_syringes = current_syringes + (chambered.BB ? 1 : 0)
+	. += "Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining."
 
 // Fluorosulphuric acid spray bottle.
 /obj/item/reagent_containers/spray/cyborg_facid
@@ -405,7 +457,7 @@
 		/obj/item/analyzer,
 		/obj/item/geiger_counter/cyborg,
 		/obj/item/holosign_creator/engineering,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/matter_decompiler,
 		/obj/item/painter,
 		/obj/item/areaeditor/blueprints/cyborg,
@@ -425,9 +477,12 @@
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
 
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper_engineering/G = locate(/obj/item/gripper_engineering) in modules
+	var/obj/item/gripper/engineering/G = locate(/obj/item/gripper/engineering) in modules
+	var/obj/item/storage/part_replacer/P = locate(/obj/item/storage/part_replacer) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
+	if(istype(P))
+		P.drop_inventory(R)
 
 // Security cyborg module.
 /obj/item/robot_module/security
@@ -467,15 +522,23 @@
 		/obj/item/mop/advanced/cyborg,
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator/janitor,
-		/obj/item/extinguisher/mini
+		/obj/item/extinguisher/mini,
+		/obj/item/melee/flyswatter
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
-	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/malfbroom)
+	malf_modules = list(/obj/item/stack/caution/proximity_sign/malf)
 	special_rechargables = list(
 		/obj/item/lightreplacer,
 		/obj/item/reagent_containers/spray/cyborg_lube,
+		/obj/item/reagent_containers/spray/cyborg_facid,
 		/obj/item/extinguisher/mini
 	)
+
+/obj/item/robot_module/janitor/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/storage/bag/trash/T = locate(/obj/item/storage/bag/trash) in modules
+	if(istype(T))
+		T.drop_inventory(R)
 
 /obj/item/robot_module/janitor/Initialize(mapload)
 	. = ..()
@@ -514,6 +577,30 @@
 			cleaned_human.clean_blood()
 			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
 
+
+/obj/item/malfbroom
+	name = "cyborg combat broom"
+	desc = "A steel-core push broom for the hostile cyborg. The firm bristles make it more suitable for fighting than cleaning."
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "broom0"
+	base_icon_state = "broom"
+	attack_verb = list("smashed", "slammed", "whacked", "thwacked", "swept")
+	force = 20
+
+/obj/item/malfbroom/attack(mob/target, mob/user)
+	if(!ishuman(target))
+		return ..()
+	var/mob/living/carbon/human/H = target
+	if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
+		return ..()
+	H.visible_message("<span class='danger'>[user] sweeps [H]'s legs out from under [H.p_them()]!</span>", \
+						"<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
+						"<span class='italics'>You hear sweeping.</span>")
+	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
+	H.apply_damage(20, BRUTE)
+	H.KnockDown(4 SECONDS)
+	add_attack_logs(user, H, "Leg swept with cyborg combat broom", ATKLOG_ALL)
+
 // Service cyborg module.
 /obj/item/robot_module/butler
 	name = "service robot module"
@@ -527,20 +614,29 @@
 		/obj/item/razor,
 		/obj/item/instrument/piano_synth,
 		/obj/item/healthanalyzer/advanced,
-		/obj/item/reagent_scanner/adv,
 		/obj/item/rsf,
 		/obj/item/reagent_containers/dropper/cyborg,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/bag/tray/cyborg,
-		/obj/item/reagent_containers/drinks/shaker
+		/obj/item/reagent_containers/drinks/shaker,
+		/obj/item/gripper/service
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer)
-	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/instrument/guitar/cyborg)
+	malf_modules = list(/obj/item/gun/projectile/shotgun/automatic/combat/cyborg)
 	special_rechargables = list(
 		/obj/item/reagent_containers/condiment/enzyme,
-		/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer
+		/obj/item/reagent_containers/drinks/cans/beer/sleepy_beer,
+		/obj/item/gun/projectile/shotgun/automatic/combat/cyborg
 	)
 
+/obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/service/G = locate(/obj/item/gripper/service) in modules
+	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
+	if(istype(T))
+		T.drop_inventory(R)
 
 // This is a special type of beer given when emagged, one sip and the target falls asleep.
 /obj/item/reagent_containers/drinks/cans/beer/sleepy_beer
@@ -570,12 +666,6 @@
 	R.add_language("Neo-Russkiya", 1)
 	R.add_language("Tkachi", 1)
 
-/obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
-	if(istype(T))
-		T.drop_inventory(R)
-
-
 /obj/item/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
@@ -590,28 +680,22 @@
 		/obj/item/shovel,
 		/obj/item/weldingtool/mini,
 		/obj/item/extinguisher/mini,
-		/obj/item/storage/bag/sheetsnatcher/borg,
 		/obj/item/t_scanner/adv_mining_scanner/cyborg,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
-		/obj/item/gps/cyborg
+		/obj/item/gps/cyborg,
+		/obj/item/gripper/mining
 	)
-	emag_modules = list(/obj/item/borg/stun, /obj/item/pickaxe/drill/cyborg/diamond, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/pickaxe/drill/jackhammer)
+	malf_modules = list(/obj/item/gun/energy/kinetic_accelerator/cyborg/malf)
 	special_rechargables = list(/obj/item/extinguisher/mini, /obj/item/weldingtool/mini)
 
-// Replace their normal drill with a diamond drill.
-/obj/item/robot_module/miner/emag_act()
-	. = ..()
-	for(var/obj/item/pickaxe/drill/cyborg/D in modules)
-		// Make sure we don't remove the diamond drill If they already have a diamond drill from the borg upgrade.
-		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
-			qdel(D)
-			basic_modules -= D // Remove it from this list so it doesn't get added in the rebuild.
-
-// Readd the normal drill
-/obj/item/robot_module/miner/unemag()
-	var/obj/item/pickaxe/drill/cyborg/C = new(src)
-	basic_modules += C
-	return ..()
+/obj/item/robot_module/miner/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/mining/G = locate(/obj/item/gripper/mining) in modules
+	var/obj/item/storage/bag/ore/B = locate(/obj/item/storage/bag/ore) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
+	if(istype(B))
+		B.drop_inventory(R)
 
 // This makes it so others can crowbar out KA upgrades from the miner borg.
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
@@ -646,7 +730,7 @@
 		/obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg/red,
-		/obj/item/pinpointer/operative
+		/obj/item/pinpointer/operative,
 	)
 
 // Sydicate medical cyborg module.
@@ -679,7 +763,7 @@
 		/obj/item/stack/nanopaste/cyborg/syndicate,
 		/obj/item/gun/medbeam,
 		/obj/item/extinguisher/mini,
-		/obj/item/gripper_medical
+		/obj/item/gripper/medical,
 	)
 	special_rechargables = list(/obj/item/extinguisher/mini)
 
@@ -700,7 +784,7 @@
 		/obj/item/multitool/cyborg,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/card/emag,
 		/obj/item/borg_chameleon,
@@ -762,13 +846,11 @@
 		/obj/item/crowbar/cyborg/red,
 		/obj/item/melee/energy/alien/claws,
 		/obj/item/flash/cyborg/alien,
-		/obj/item/reagent_containers/spray/alien/stun,
 		/obj/item/reagent_containers/spray/alien/smoke,
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/alien/acid)
 	special_rechargables = list(
 		/obj/item/reagent_containers/spray/alien/acid,
-		/obj/item/reagent_containers/spray/alien/stun,
 		/obj/item/reagent_containers/spray/alien/smoke
 	)
 
@@ -788,11 +870,12 @@
 		/obj/item/wirecutters/cyborg/drone,
 		/obj/item/multitool/cyborg/drone,
 		/obj/item/lightreplacer/cyborg,
-		/obj/item/gripper_engineering,
+		/obj/item/gripper/engineering,
 		/obj/item/matter_decompiler,
 		/obj/item/reagent_containers/spray/cleaner/drone,
 		/obj/item/soap,
 		/obj/item/t_scanner,
+		/obj/item/painter,
 		/obj/item/rpd,
 		/obj/item/analyzer,
 		/obj/item/stack/sheet/metal/cyborg/drone,
@@ -812,7 +895,7 @@
 	)
 
 /obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper_engineering/G = locate(/obj/item/gripper_engineering) in modules
+	var/obj/item/gripper/engineering/G = locate(/obj/item/gripper/engineering) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
 
@@ -957,6 +1040,13 @@
 /datum/robot_storage/energy/medical/nanopaste/syndicate
 	max_amount = 25
 
+//Energy stack for landmines
+/datum/robot_storage/energy/janitor/landmine
+	name = "Landmine Synthesizer"
+	statpanel_name = "Landmines"
+	max_amount = 4
+	recharge_rate = 0.2
+
 /// This datum is an alternative to the energy storages, instead being recharged in different ways
 /datum/robot_storage/material
 	name = "Generic material storage"
@@ -986,3 +1076,4 @@
 	statpanel_name = "Metal"
 	stack = /obj/item/stack/sheet/metal
 	add_to_storage = TRUE
+

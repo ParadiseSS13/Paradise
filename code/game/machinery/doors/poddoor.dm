@@ -35,6 +35,9 @@
 /obj/machinery/door/poddoor/impassable/disable_lockdown()
 	return
 
+/obj/machinery/door/poddoor/bumpopen(mob/user)
+	return
+
 /obj/machinery/door/poddoor/impassable/emag_act(mob/user)
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
 	return
@@ -133,11 +136,6 @@
 /obj/machinery/door/poddoor/multi_tile/impassable/emag_act(mob/user)
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
 	return
-
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor
-	icon = 'icons/obj/doors/1x2blast_hor.dmi'
-	width = 2
-	dir = EAST
 
 /obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver
 	icon = 'icons/obj/doors/1x4blast_vert.dmi'

@@ -117,6 +117,16 @@
 	tastes = list("rice" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/snacks/boiledrice/attackby(obj/item/I, mob/user, params)
+	if(!istype(I, /obj/item/stack/seaweed))
+		return ..()
+	var/obj/item/stack/seaweed/S = I
+	if(!S.use(1))
+		return ..()
+	var/obj/item/food/snacks/onigiri/O = new(get_turf(user))
+	reagents.trans_to(O, reagents.total_volume)
+	qdel(src)
+	user.put_in_active_hand(O)
 
 /obj/item/food/snacks/roastparsnip
 	name = "roast parsnip"
@@ -127,3 +137,12 @@
 	filling_color = "#FF5500"
 	tastes = list("parsnip" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/snacks/onigiri
+	name = "onigiri"
+	desc = "Rice and seaweed."
+	icon_state = "onigiri"
+	list_reagents = list("nutriment" = 5, "vitamin" = 2)
+	tastes = list("rice" = 3, "seaweed" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
+

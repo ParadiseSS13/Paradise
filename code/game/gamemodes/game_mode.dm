@@ -45,6 +45,56 @@
 	/// Each item in this list can only be rolled once on average.
 	var/list/single_antag_positions = list("Head of Personnel", "Chief Engineer", "Research Director", "Chief Medical Officer", "Quartermaster")
 
+	/// A list of all minds which have the traitor antag datum.
+	var/list/datum/mind/traitors = list()
+	/// An associative list with mindslave minds as keys and their master's minds as values.
+	var/list/datum/mind/implanted = list()
+	/// A list of all minds which have the changeling antag datum
+	var/list/datum/mind/changelings = list()
+	/// A list of all minds which have the vampire antag datum
+	var/list/datum/mind/vampires = list()
+	/// A list of all minds which are thralled by a vampire
+	var/list/datum/mind/vampire_enthralled = list()
+	/// A list of all minds which have the wizard special role
+	var/list/datum/mind/wizards = list()
+	/// A list of all minds that are wizard apprentices
+	var/list/datum/mind/apprentices = list()
+
+	/// The cult team datum
+	var/datum/team/cult/cult_team
+
+	/// How many abductor teams do we have
+	var/abductor_teams = 0
+	/// A list which contains the minds of all abductors
+	var/list/datum/mind/abductors = list()
+	/// A list which contains the minds of all abductees
+	var/list/datum/mind/abductees = list()
+
+	/// A list of all the nuclear operatives' minds
+	var/list/datum/mind/syndicates = list()
+
+	/// A list of all the minds of head revolutionaries
+	var/list/datum/mind/head_revolutionaries = list()
+	/// A list of all the minds of revolutionaries
+	var/list/datum/mind/revolutionaries = list()
+	/// The revololution team datum
+	var/datum/team/revolution/rev_team
+
+	/// A list of all the minds with the superhero special role
+	var/list/datum/mind/superheroes = list()
+	/// A list of all the minds with the supervillain special role
+	var/list/datum/mind/supervillains = list()
+	/// A list of all the greyshirt minds
+	var/list/datum/mind/greyshirts = list()
+
+	/// A list of all the minds that have the ERT special role
+	var/list/datum/mind/ert = list()
+
+	/// A list of all minds that are zombies
+	var/list/datum/mind/zombies = list()
+	/// A list of all minds that are infected with the zombie virus, but aren't zombies yet
+	var/list/datum/mind/zombie_infected = list()
+
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
 
@@ -120,10 +170,16 @@
 	var/escaped_on_pod_1 = 0
 	var/escaped_on_pod_2 = 0
 	var/escaped_on_pod_3 = 0
-	var/escaped_on_pod_5 = 0
+	var/escaped_on_pod_4 = 0
 	var/escaped_on_shuttle = 0
 
-	var/list/area/escape_locations = list(/area/shuttle/escape, /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
+	var/list/area/escape_locations = list(
+		/area/shuttle/escape,
+		/area/shuttle/pod_1,
+		/area/shuttle/pod_2,
+		/area/shuttle/pod_3,
+		/area/shuttle/pod_4
+	)
 
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME) //shuttle didn't get to centcom
 		escape_locations -= /area/shuttle/escape
@@ -144,14 +200,14 @@
 				if(M.loc && M.loc.loc && M.loc.loc.type == SSshuttle.emergency.areaInstance.type && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME)
 					escaped_on_shuttle++
 
-				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/escape_pod1/centcom)
+				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/pod_1)
 					escaped_on_pod_1++
-				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/escape_pod2/centcom)
+				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/pod_2)
 					escaped_on_pod_2++
-				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/escape_pod3/centcom)
+				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/pod_3)
 					escaped_on_pod_3++
-				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/escape_pod5/centcom)
-					escaped_on_pod_5++
+				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/pod_4)
+					escaped_on_pod_4++
 
 			if(isobserver(M))
 				ghosts++
@@ -176,8 +232,8 @@
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_2, list("escapees", "on_pod_2"))
 	if(escaped_on_pod_3)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_3, list("escapees", "on_pod_3"))
-	if(escaped_on_pod_5)
-		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
+	if(escaped_on_pod_4)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_4, list("escapees", "on_pod_4"))
 	for(var/tech_id in SSeconomy.tech_levels)
 		SSblackbox.record_feedback("tally", "cargo max tech level sold", SSeconomy.tech_levels[tech_id], tech_id)
 
@@ -393,14 +449,14 @@
 
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.nuke_list)
 		if(bomb && bomb.r_code && is_station_level(bomb.z))
 			nukecode = bomb.r_code
 	return nukecode
 
 /proc/get_nuke_status()
 	var/nuke_status = NUKE_MISSING
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.nuke_list)
 		if(is_station_level(bomb.z))
 			nuke_status = NUKE_CORE_MISSING
 			if(bomb.core)
@@ -481,7 +537,7 @@
 		goal_weights += initial(picked.weight)
 		station_goals += new picked
 
-	if(station_goals.len)
+	if(length(station_goals))
 		send_station_goals_message()
 
 /datum/game_mode/proc/send_station_goals_message()

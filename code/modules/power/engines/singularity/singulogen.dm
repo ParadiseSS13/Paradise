@@ -14,7 +14,7 @@
 /obj/machinery/the_singularitygen/process()
 	var/turf/T = get_turf(src)
 	if(src.energy >= 200)
-		message_admins("A [creation_type] has been created at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+		message_admins("A [creation_type] has been created at [x], [y], [z] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		investigate_log("A [creation_type] has been created at [x], [y], [z]","singulo")
 
 		var/obj/singularity/S = new creation_type(T, 50)

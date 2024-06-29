@@ -183,8 +183,7 @@
 	log_admin("[key_name(src)] replied to [key_name(H)]'s [sender] message with the message [input].")
 	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input]\"")
 	to_chat(H, "<span class = 'specialnoticebold'>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span><span class = 'specialnotice'> [input]</span>")
-
-
+	SEND_SOUND(H, 'sound/effects/headset_message.ogg')
 
 
 /client/proc/cmd_admin_godmode(mob/M as mob in GLOB.mob_list)
@@ -368,7 +367,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(G_found.mind.assigned_role=="Alien")
 			if(alert("This character appears to have been an alien. Would you like to respawn them as such?", null,"Yes","No")=="Yes")
 				var/turf/T
-				if(GLOB.xeno_spawn.len)	T = pick(GLOB.xeno_spawn)
+				if(length(GLOB.xeno_spawn))	T = pick(GLOB.xeno_spawn)
 				else				T = pick(GLOB.latejoin)
 
 				var/mob/living/carbon/alien/new_xeno
@@ -519,14 +518,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)
 				continue //we have a live body we are tied to
 			candidates += M.ckey
-		if(candidates.len)
+		if(length(candidates))
 			ckey = input("Pick the player you want to respawn as a xeno.", "Suitable Candidates") as null|anything in candidates
 		else
 			to_chat(usr, "<font color='red'>Error: create_xeno(): no suitable candidates.</font>")
 	if(!istext(ckey))	return 0
 
 	var/alien_caste = input(usr, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Hunter","Sentinel","Drone","Larva")
-	var/obj/effect/landmark/spawn_here = GLOB.xeno_spawn.len ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
+	var/obj/effect/landmark/spawn_here = length(GLOB.xeno_spawn) ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
 	var/mob/living/carbon/alien/new_xeno
 	switch(alien_caste)
 		if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
@@ -1042,9 +1041,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string][obj_string]</TD>"
 		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
 		if(istype(H.loc, /obj/machinery/cryopod))
-			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>De-Spawn</A></TD>"
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()]'>De-Spawn</A></TD>"
 		else
-			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
 		msg += "</TR>"
 	msg += "</TABLE><br></BODY></HTML>"
 
@@ -1082,9 +1081,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_afk]</TD><TD>[role_string][obj_string]</TD>"
 		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
 		if(istype(H.loc, /obj/machinery/cryopod))
-			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
 		else
-			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
+			msg += "<TD><A href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
 		msg += "</TR>"
 	msg += "</TABLE></BODY></HTML>"
 	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")
@@ -1147,16 +1146,16 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
 		return
 
-	var/list/dat = list()
+	var/list/dat = list("<!DOCTYPE html>")
 	for(var/datum/station_goal/S in SSticker.mode.station_goals)
-		dat += "[S.name][S.completed ? " (C)" : ""] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a>"
+		dat += "[S.name][S.completed ? " (C)" : ""] - <a href='byond://?src=[S.UID()];announce=1'>Announce</a> | <a href='byond://?src=[S.UID()];remove=1'>Remove</a>"
 	dat += ""
-	dat += "<a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
+	dat += "<a href='byond://?src=[UID()];add_station_goal=1'>Add New Goal</a>"
 	dat += ""
 	dat += "<b>Secondary goals</b>"
 	for(var/datum/station_goal/secondary/SG in SSticker.mode.secondary_goals)
-		dat += "[SG.admin_desc][SG.completed ? " (C)" : ""] for [SG.requester_name || SG.department] - <a href='?src=[SG.UID()];announce=1'>Announce</a> | <a href='?src=[SG.UID()];remove=1'>Remove</a> | <a href='?src=[SG.UID()];mark_complete=1'>Mark complete</a> | <a href='?src=[SG.UID()];reset_progress=1'>Reset progress</a>"
-	dat += "<a href='?src=[UID()];add_secondary_goal=1'>Add New Secondary Goal</a>"
+		dat += "[SG.admin_desc][SG.completed ? " (C)" : ""] for [SG.requester_name || SG.department] - <a href='byond://?src=[SG.UID()];announce=1'>Announce</a> | <a href='byond://?src=[SG.UID()];remove=1'>Remove</a> | <a href='byond://?src=[SG.UID()];mark_complete=1'>Mark complete</a> | <a href='byond://?src=[SG.UID()];reset_progress=1'>Reset progress</a>"
+	dat += "<a href='byond://?src=[UID()];add_secondary_goal=1'>Add New Secondary Goal</a>"
 
 	usr << browse(dat.Join("<br>"), "window=goals;size=400x400")
 

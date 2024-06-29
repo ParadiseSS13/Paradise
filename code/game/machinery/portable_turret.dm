@@ -75,7 +75,7 @@
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
-	if(req_access && req_access.len)
+	if(req_access && length(req_access))
 		req_access.Cut()
 	req_one_access = list(ACCESS_SECURITY, ACCESS_HEADS)
 	one_access = TRUE
@@ -93,7 +93,7 @@
 
 /obj/machinery/porta_turret/centcom/Initialize(mapload)
 	. = ..()
-	if(req_one_access && req_one_access.len)
+	if(req_one_access && length(req_one_access))
 		req_one_access.Cut()
 	req_access = list(ACCESS_CENT_SPECOPS)
 	one_access = FALSE
@@ -179,7 +179,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)
-	return A && A.turret_controls.len > 0
+	return A && length(A.turret_controls) > 0
 
 /obj/machinery/porta_turret/proc/access_is_configurable()
 	return targetting_is_configurable && !HasController()
@@ -334,7 +334,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user)
 	if((stat & BROKEN) && !syndicate)
-		if(istype(I, /obj/item/crowbar))
+		if(I.tool_behaviour == TOOL_CROWBAR)
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
@@ -384,7 +384,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		else if(allowed(user))
 			locked = !locked
 			to_chat(user, "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>")
-			updateUsrDialog()
+			SStgui.update_uis(src)
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
 
@@ -531,7 +531,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(ismecha(A))
 			var/obj/mecha/ME = A
-			assess_and_assign(ME.occupant, targets, secondarytargets)
+			if(isliving(ME.occupant))
+				assess_and_assign(ME.occupant, targets, secondarytargets)
 
 		else if(istype(A, /obj/vehicle))
 			var/obj/vehicle/T = A
@@ -635,10 +636,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return TURRET_NOT_TARGET
 
 /obj/machinery/porta_turret/proc/tryToShootAt(list/mob/living/targets)
-	if(targets.len && last_target && (last_target in targets) && target(last_target))
+	if(length(targets) && last_target && (last_target in targets) && target(last_target))
 		return 1
 
-	while(targets.len > 0)
+	while(length(targets) > 0)
 		var/mob/living/M = pick(targets)
 		targets -= M
 		if(target(M))
@@ -860,7 +861,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				build_step = 1
 				return
 
-			else if(istype(I, /obj/item/crowbar) && !anchored)
+			else if(I.tool_behaviour == TOOL_CROWBAR && !anchored)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You dismantle the turret construction.</span>")
 				new /obj/item/stack/sheet/metal( loc, 5)
@@ -954,7 +955,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				return
 
 		if(7)
-			if(istype(I, /obj/item/crowbar))
+			if(I.tool_behaviour == TOOL_CROWBAR)
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
 				new /obj/item/stack/sheet/metal(loc, 2)
@@ -1100,7 +1101,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/syndicate/Initialize(mapload)
 	. = ..()
-	if(req_one_access && req_one_access.len)
+	if(req_one_access && length(req_one_access))
 		req_one_access.Cut()
 	req_access = list(ACCESS_SYNDICATE)
 	one_access = FALSE

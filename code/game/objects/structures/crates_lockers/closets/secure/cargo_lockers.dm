@@ -10,8 +10,26 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/gloves/fingerless(src)
-	new /obj/item/clothing/head/soft(src)
+	new /obj/item/clothing/head/soft/cargo(src)
 	new /obj/item/storage/bag/mail(src)
+
+/obj/structure/closet/secure_closet/explorer
+	name = "explorer's locker"
+	req_access = list(ACCESS_EXPEDITION)
+	icon_state = "explorer"
+	open_door_sprite = "mining_door"
+
+/obj/structure/closet/secure_closet/explorer/populate_contents()
+	new /obj/item/radio/headset/headset_cargo/expedition(src)
+	new /obj/item/gun/energy/kinetic_accelerator/pistol(src)
+	new /obj/item/storage/firstaid/regular(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/beacon(src)
+	new /obj/item/storage/box/relay_kit(src)
+	new /obj/item/gps(src)
+	new /obj/item/storage/bag/ore(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/storage/bag/expedition(src)
 
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"

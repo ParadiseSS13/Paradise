@@ -59,12 +59,12 @@
 	if(!files)
 		files = new /datum/research(src)
 	var/list/temp_list
-	if(!id_with_upload.len)
+	if(!length(id_with_upload))
 		temp_list = list()
 		temp_list = splittext(id_with_upload_string, ";")
 		for(var/N in temp_list)
 			id_with_upload += text2num(N)
-	if(!id_with_download.len)
+	if(!length(id_with_download))
 		temp_list = list()
 		temp_list = splittext(id_with_download_string, ";")
 		for(var/N in temp_list)
@@ -74,8 +74,9 @@
 	if(prob(3) && plays_sound)
 		playsound(loc, "computer_ambience", 10, TRUE, ignore_walls = FALSE)
 
-	var/datum/gas_mixture/environment = loc.return_air()
-	switch(environment.temperature)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.get_readonly_air()
+	switch(environment.temperature())
 		if(0 to T0C)
 			health = min(100, health + 1)
 		if(T0C to (T20C + 20))
@@ -88,11 +89,11 @@
 		var/updateRD = 0
 		files.known_designs = list()
 		for(var/v in files.known_tech)
-			var/datum/tech/T = files.known_tech[v]
+			var/datum/tech/tech = files.known_tech[v]
 			// Slowly decrease research if health drops below 0
 			if(prob(1))
 				updateRD++
-				T.level--
+				tech.level--
 		if(updateRD)
 			files.RefreshResearch()
 	if(delay)
@@ -120,37 +121,43 @@
 		files.push_data(C.files)
 
 /obj/machinery/r_n_d/server/proc/produce_heat(heat_amt)
-	if(!(stat & (NOPOWER|BROKEN))) // Blatantly stolen from space heater.
-		var/turf/simulated/L = loc
-		if(istype(L))
-			var/datum/gas_mixture/env = L.return_air()
-			if(env.temperature < (heat_amt+T0C))
+	var/datum/milla_safe/rnd_server_heat/milla = new()
+	milla.invoke_async(src, heat_amt)
 
-				var/transfer_moles = 0.25 * env.total_moles()
+/datum/milla_safe/rnd_server_heat
 
-				var/datum/gas_mixture/removed = env.remove(transfer_moles)
+/datum/milla_safe/rnd_server_heat/on_run(obj/machinery/r_n_d/server/server, heat)
+	var/turf/T = get_turf(server)
+	var/datum/gas_mixture/env = get_turf_air(T)
 
-				if(removed)
+	if(server.stat & (NOPOWER|BROKEN))
+		return
+	if(env.temperature() >= (heat + T0C))
+		return
 
-					var/heat_capacity = removed.heat_capacity()
-					if(heat_capacity == 0 || heat_capacity == null)
-						heat_capacity = 1
-					removed.temperature = min((removed.temperature*heat_capacity + heating_power)/heat_capacity, 1000)
+	var/transfer_moles = 0.25 * env.total_moles()
 
-				env.merge(removed)
-				air_update_turf()
+	var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	if(!removed)
+		return
+
+	var/heat_capacity = removed.heat_capacity()
+	if(heat_capacity == 0 || heat_capacity == null)
+		heat_capacity = 1
+	removed.set_temperature(min((removed.temperature() * heat_capacity + server.heating_power) / heat_capacity, 1000))
+	env.merge(removed)
 
 /obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(exchange_parts(user, O))
-		return 1
+		return TRUE
+	return ..()
 
-	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
-			griefProtection()
-			default_deconstruction_crowbar(user, O)
-			return 1
-	else
-		return ..()
+/obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	griefProtection()
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
 	default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", I)
@@ -161,7 +168,7 @@
 	server_id = -1
 
 /obj/machinery/r_n_d/server/centcom/Initialize()
-	..()
+	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
@@ -310,9 +317,9 @@
 				if(!atoms_share_level(get_turf(src), get_turf(S)) && !badmin)
 					continue
 				dat += "[S.name] || "
-				dat += "<A href='?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
-				dat += "<A href='?src=[UID()];data=[S.server_id]'>Data Management</A>"
-				if(badmin) dat += " | <A href='?src=[UID()];transfer=[S.server_id]'>Server-to-Server Transfer</A>"
+				dat += "<A href='byond://?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
+				dat += "<A href='byond://?src=[UID()];data=[S.server_id]'>Data Management</A>"
+				if(badmin) dat += " | <A href='byond://?src=[UID()];transfer=[S.server_id]'>Server-to-Server Transfer</A>"
 				dat += "<BR>"
 
 		if(1) //Access rights menu
@@ -320,7 +327,7 @@
 			dat += "Consoles with Upload Access<BR>"
 			for(var/obj/machinery/computer/rdconsole/C in consoles)
 				var/turf/console_turf = get_turf(C)
-				dat += "* <A href='?src=[UID()];upload_toggle=[C.id]'>[console_turf.loc]" //FYI, these are all numeric ids, eventually.
+				dat += "* <A href='byond://?src=[UID()];upload_toggle=[C.id]'>[console_turf.loc]" //FYI, these are all numeric ids, eventually.
 				if(C.id in temp_server.id_with_upload)
 					dat += " (Remove)</A><BR>"
 				else
@@ -328,12 +335,12 @@
 			dat += "Consoles with Download Access<BR>"
 			for(var/obj/machinery/computer/rdconsole/C in consoles)
 				var/turf/console_turf = get_turf(C)
-				dat += "* <A href='?src=[UID()];download_toggle=[C.id]'>[console_turf.loc]"
+				dat += "* <A href='byond://?src=[UID()];download_toggle=[C.id]'>[console_turf.loc]"
 				if(C.id in temp_server.id_with_download)
 					dat += " (Remove)</A><BR>"
 				else
 					dat += " (Add)</A><BR>"
-			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
+			dat += "<HR><A href='byond://?src=[UID()];main=1'>Main Menu</A>"
 
 		if(2) //Data Management menu
 			dat += "[temp_server.name] Data Management<BR><BR>"
@@ -343,25 +350,25 @@
 				if(T.level <= 0)
 					continue
 				dat += "* [T.name] "
-				dat += "<A href='?src=[UID()];reset_tech=[T.id]'>(Reset)</A><BR>" //FYI, these are all strings.
+				dat += "<A href='byond://?src=[UID()];reset_tech=[T.id]'>(Reset)</A><BR>" //FYI, these are all strings.
 			dat += "Known Designs<BR>"
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]
 				dat += "* [D.name] "
-				dat += "<A href='?src=[UID()];reset_design=[D.id]'>(Blacklist)</A><BR>"
+				dat += "<A href='byond://?src=[UID()];reset_design=[D.id]'>(Blacklist)</A><BR>"
 			if(length(temp_server.files.blacklisted_designs))
 				dat += "Blacklisted Designs<br>"
 				for(var/I in temp_server.files.blacklisted_designs)
 					dat += "* [I] "
-					dat += "<a href='?src=[UID()];restore_design=[I]'>(Restore design)</a><br>"
-			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
+					dat += "<a href='byond://?src=[UID()];restore_design=[I]'>(Restore design)</a><br>"
+			dat += "<HR><A href='byond://?src=[UID()];main=1'>Main Menu</A>"
 
 		if(3) //Server Data Transfer
 			dat += "[temp_server.name] Server to Server Transfer<BR><BR>"
 			dat += "Send Data to what server?<BR>"
 			for(var/obj/machinery/r_n_d/server/S in servers)
-				dat += "[S.name] <a href='?src=[UID()];send_to=[S.server_id]'> (Transfer)</a><br>"
-			dat += "<hr><a href='?src=[UID()];main=1'>Main Menu</a>"
+				dat += "[S.name] <a href='byond://?src=[UID()];send_to=[S.server_id]'> (Transfer)</a><br>"
+			dat += "<hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
 	user << browse("<title>R&D Server Control</title><hr><meta charset='UTF-8'>[dat]", "window=server_control;size=575x400")
 	onclose(user, "server_control")
 	return

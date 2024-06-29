@@ -220,7 +220,7 @@
 
 /obj/item/stock_parts/capacitor/quadratic
 	name = "quadratic capacitor"
-	desc = "An capacity capacitor used in the construction of a variety of devices."
+	desc = "An ultra-high capacity capacitor used in the construction of a variety of devices."
 	icon_state = "quadratic_capacitor"
 	origin_tech = "powerstorage=5;materials=4;engineering=4"
 	rating = 4

@@ -61,9 +61,10 @@
 	dispensable_reagents = list(
 		"mutagen",
 		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
+		"eznutrient",
+		"mutrient",
+		"left4zednutrient",
+		"robustharvestnutrient",
 		"water",
 		"atrazine",
 		"pestkiller",
@@ -164,7 +165,7 @@
 
 	var/beakerContents[0]
 	var/beakerCurrentVolume = 0
-	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
+	if(beaker && beaker.reagents && length(beaker.reagents.reagent_list))
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beakerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
@@ -372,7 +373,7 @@
 	name = "booze dispenser"
 	ui_title = "Booze Portal 9001"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol")
+	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol", "lager", "stout")
 	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
 	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
@@ -422,7 +423,7 @@
 	var/recharge_rate = 1 // Keep this as an integer
 
 /obj/item/handheld_chem_dispenser/Initialize()
-	..()
+	. = ..()
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
 	current_reagent = pick(dispensable_reagents)
@@ -608,9 +609,10 @@
 	dispensable_reagents = list(
 		"mutagen",
 		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
+		"eznutrient",
+		"mutrient",
+		"left4zednutrient",
+		"robustharvestnutrient",
 		"water",
 		"atrazine",
 		"pestkiller",

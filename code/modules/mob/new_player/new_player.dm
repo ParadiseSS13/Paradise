@@ -31,7 +31,7 @@
 		privacy_consent()
 
 /mob/new_player/proc/privacy_consent()
-	var/output = GLOB.join_tos
+	var/output = "<!DOCTYPE html>[GLOB.join_tos]"
 	// Dont blank out the other window. This one is read only.
 	if(!GLOB.configuration.system.external_tos_handler)
 		src << browse(null, "window=playersetup")
@@ -182,12 +182,20 @@
 				var/period_human_readable = "within [GLOB.configuration.general.roundstart_observer_period] minute\s"
 				if(GLOB.configuration.general.roundstart_observer_period == 0)
 					period_human_readable = "before the round started"
-				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability.</span>")
+				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability, and can freely observe what other players see.</span>")
+				if(!check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
+					// admins always get aobserve
+					add_verb(observer, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
 			observer.started_as_observer = 1
 			close_spawn_windows()
-			var/obj/O = locate("landmark*Observer-Start")
+			var/obj/spawn_point
+			if(SSticker.current_state < GAME_STATE_PLAYING)
+				spawn_point = pick(GLOB.roundstart_observer_start)
+			else
+				spawn_point = locate("landmark*Observer-Start")
+
 			to_chat(src, "<span class='notice'>Now teleporting.</span>")
-			observer.forceMove(O.loc)
+			observer.forceMove(get_turf(spawn_point))
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.active_character.update_preview_icon(1)
 			observer.icon = client.prefs.active_character.preview_icon
@@ -389,7 +397,7 @@
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 			if(A.announce_arrivals)
 				ailist += A
-		if(ailist.len)
+		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
@@ -421,7 +429,7 @@
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 			ailist += A
-		if(ailist.len)
+		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)

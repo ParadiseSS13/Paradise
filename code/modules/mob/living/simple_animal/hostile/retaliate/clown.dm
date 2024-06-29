@@ -6,7 +6,6 @@
 	icon_living = "clown"
 	icon_dead = "clown_dead"
 	icon_gib = "clown_gib"
-	speak_chance = 0
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	turns_per_move = 5
 	response_help = "pokes the"

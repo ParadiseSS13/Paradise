@@ -71,14 +71,15 @@
 /// Start the equipping process. This is the proc you should yield in.
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_equip(atom/source, obj/item/equipping, mob/user)
-	source.visible_message(
-		"<span class='notice'>[user] tries to put [equipping] on [source].</span>",
-		"<span class='notice'>[user] tries to put [equipping] on you.</span>",
-	)
-	if(ishuman(source))
-		var/mob/living/carbon/human/victim_human = source
-		if(!victim_human.has_vision())
-			to_chat(victim_human, "<span class='userdanger'>You feel someone trying to put something on you.</span>")
+	if(!in_thief_mode(user))
+		source.visible_message(
+			"<span class='notice'>[user] tries to put [equipping] on [source].</span>",
+			"<span class='notice'>[user] tries to put [equipping] on you.</span>",
+		)
+		if(ishuman(source))
+			var/mob/living/carbon/human/victim_human = source
+			if(!victim_human.has_vision())
+				to_chat(victim_human, "<span class='userdanger'>You feel someone trying to put something on you.</span>")
 
 	if(!do_mob(user, source, equipping.put_on_delay))
 		return FALSE
@@ -118,20 +119,20 @@
 	if(isnull(item))
 		return FALSE
 
-	source.visible_message(
-		"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
-		"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
-		"You hear rustling."
-	)
-
 	to_chat(user, "<span class='danger'>You try to remove [source]'s [item.name]...</span>")
 	add_attack_logs(user, source, "Attempting stripping of [item]")
 	item.add_fingerprint(user)
 
-	if(ishuman(source))
-		var/mob/living/carbon/human/victim_human = source
-		if(!victim_human.has_vision())
-			to_chat(source, "<span class='userdanger'>You feel someone fumble with your belongings.</span>")
+	if(!in_thief_mode(user))
+		source.visible_message(
+			"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
+			"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
+			"You hear rustling."
+		)
+		if(ishuman(source))
+			var/mob/living/carbon/human/victim_human = source
+			if(!victim_human.has_vision())
+				to_chat(source, "<span class='userdanger'>You feel someone fumble with your belongings.</span>")
 
 	return start_unequip_mob(get_item(source), source, user)
 
@@ -168,7 +169,7 @@
 /datum/strippable_item/proc/should_show(atom/source, mob/user)
 	return TRUE
 
-/// Returns whether or not this item should show.
+/// Returns whether the user is in "thief mode" where stripping/equipping is silent and stealing from pockets moves stuff to your hands
 /datum/strippable_item/proc/in_thief_mode(mob/user)
 	if(!ishuman(user))
 		return FALSE
@@ -242,6 +243,8 @@
 		return FALSE
 
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(finish_unequip_mob), item, source, user)
+	if(in_thief_mode(user))
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), item)
 
 /// Returns the delay of equipping this item to a mob
 /datum/strippable_item/mob_item_slot/proc/get_equip_delay(obj/item/equipping)
@@ -273,6 +276,9 @@
 
 	/// A lazy list of user mobs to a list of strip menu keys that they're interacting with
 	var/list/interactions
+
+	/// Associated list of "[icon][icon_state]" = base64 representation of icon. Used for PERFORMANCE.
+	var/static/list/base64_cache = list()
 
 /datum/strip_menu/New(atom/movable/owner, datum/element/strippable/strippable)
 	. = ..()
@@ -338,7 +344,10 @@
 
 		LAZYINITLIST(result)
 
-		result["icon"] = icon2base64(icon(item.icon, item.icon_state, dir = SOUTH, frame = 1, moving = FALSE))
+		var/key = "[item.icon],[item.icon_state]"
+		if(!(key in base64_cache))
+			base64_cache[key] = icon2base64(icon(item.icon, item.icon_state, dir = SOUTH, frame = 1, moving = FALSE))
+		result["icon"] = base64_cache[key]
 		result["name"] = item.name
 
 		var/real_alts = item_data.get_alternate_actions(owner, user)

@@ -141,25 +141,25 @@
 		var/atom/A = D
 		if(isliving(A))
 			var/mob/living/L = A
-			atomsnowflake += "<a href='?_src_=vars;rename=[L.UID()]'><b>[L]</b></a>"
+			atomsnowflake += "<a href='byond://?_src_=vars;rename=[L.UID()]'><b>[L]</b></a>"
 			if(L.dir)
-				atomsnowflake += "<br><font size='1'><a href='?_src_=vars;rotatedatum=[L.UID()];rotatedir=left'><<</a> <a href='?_src_=vars;datumedit=[L.UID()];varnameedit=dir'>[dir2text(L.dir)]</a> <a href='?_src_=vars;rotatedatum=[L.UID()];rotatedir=right'>>></a></font>"
+				atomsnowflake += "<br><font size='1'><a href='byond://?_src_=vars;rotatedatum=[L.UID()];rotatedir=left'><<</a> <a href='byond://?_src_=vars;datumedit=[L.UID()];varnameedit=dir'>[dir2text(L.dir)]</a> <a href='byond://?_src_=vars;rotatedatum=[L.UID()];rotatedir=right'>>></a></font>"
 			atomsnowflake += {"
-				<br><font size='1'><a href='?_src_=vars;datumedit=[L.UID()];varnameedit=ckey'>[L.ckey ? L.ckey : "No ckey"]</a> / <a href='?_src_=vars;datumedit=[L.UID()];varnameedit=real_name'>[L.real_name ? L.real_name : "No real name"]</a></font>
+				<br><font size='1'><a href='byond://?_src_=vars;datumedit=[L.UID()];varnameedit=ckey'>[L.ckey ? L.ckey : "No ckey"]</a> / <a href='byond://?_src_=vars;datumedit=[L.UID()];varnameedit=real_name'>[L.real_name ? L.real_name : "No real name"]</a></font>
 				<br><font size='1'>
-					BRUTE:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=brute'>[L.getBruteLoss()]</a>
-					FIRE:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=fire'>[L.getFireLoss()]</a>
-					TOXIN:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=toxin'>[L.getToxLoss()]</a>
-					OXY:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=oxygen'>[L.getOxyLoss()]</a>
-					CLONE:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=clone'>[L.getCloneLoss()]</a>
-					BRAIN:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=brain'>[L.getBrainLoss()]</a>
-					STAMINA:<font size='1'><a href='?_src_=vars;mobToDamage=[L.UID()];adjustDamage=stamina'>[L.getStaminaLoss()]</a>
+					BRUTE:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=brute'>[L.getBruteLoss()]</a>
+					FIRE:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=fire'>[L.getFireLoss()]</a>
+					TOXIN:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=toxin'>[L.getToxLoss()]</a>
+					OXY:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=oxygen'>[L.getOxyLoss()]</a>
+					CLONE:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=clone'>[L.getCloneLoss()]</a>
+					BRAIN:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=brain'>[L.getBrainLoss()]</a>
+					STAMINA:<font size='1'><a href='byond://?_src_=vars;mobToDamage=[L.UID()];adjustDamage=stamina'>[L.getStaminaLoss()]</a>
 				</font>
 			"}
 		else
-			atomsnowflake += "<a href='?_src_=vars;datumedit=[A.UID()];varnameedit=name'><b>[A]</b></a>"
+			atomsnowflake += "<a href='byond://?_src_=vars;datumedit=[A.UID()];varnameedit=name'><b>[A]</b></a>"
 			if(A.dir)
-				atomsnowflake += "<br><font size='1'><a href='?_src_=vars;rotatedatum=[A.UID()];rotatedir=left'><<</a> <a href='?_src_=vars;datumedit=[A.UID()];varnameedit=dir'>[dir2text(A.dir)]</a> <a href='?_src_=vars;rotatedatum=[D.UID()];rotatedir=right'>>></a></font>"
+				atomsnowflake += "<br><font size='1'><a href='byond://?_src_=vars;rotatedatum=[A.UID()];rotatedir=left'><<</a> <a href='byond://?_src_=vars;datumedit=[A.UID()];varnameedit=dir'>[dir2text(A.dir)]</a> <a href='byond://?_src_=vars;rotatedatum=[D.UID()];rotatedir=right'>>></a></font>"
 	else
 		atomsnowflake += "<b>[D]</b>"
 
@@ -225,7 +225,7 @@
 	var/list/variable_html = list()
 	if(islist)
 		var/list/L = D
-		for(var/i in 1 to L.len)
+		for(var/i in 1 to length(L))
 			var/key = L[i]
 			var/value
 			if(IS_NORMAL_LIST(L) && !isnum(key))
@@ -409,7 +409,7 @@
 					</td>
 					<td width='50%'>
 						<div align='center'>
-							<a id='refresh_link' href='?_src_=vars;[islist ? "listrefresh=\ref[D]" : "datumrefresh=[D.UID()]"]'>Refresh</a>
+							<a id='refresh_link' href='byond://?_src_=vars;[islist ? "listrefresh=\ref[D]" : "datumrefresh=[D.UID()]"]'>Refresh</a>
 							<form>
 								<select name="file" size="1"
 									onchange="loadPage(this.form.elements\[0\])"
@@ -468,9 +468,9 @@
 				name = DA[name] // name is really the index until this line
 			else
 				value = DA[name]
-			header = "<li style='backgroundColor:white'>(<a href='?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
+			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
 		else
-			header = "<li style='backgroundColor:white'>(<a href='?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
+			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
 	else
 		header = "<li>"
 
@@ -491,9 +491,9 @@
 	else if(istype(value, /image))
 		var/image/I = value
 		#ifdef VARSICON
-		item = "<a href='?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
+		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>) [bicon(value, use_class=0)]"
 		#else
-		item = "<a href='?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
+		item = "<a href='byond://?_src_=vars;Vars=[I.UID()]'>[name] \ref[value]</a> = /image (<span class='value'>[value]</span>)"
 		#endif
 
 	else if(isfile(value))
@@ -501,32 +501,32 @@
 
 	else if(istype(value, /datum))
 		var/datum/D = value
-		item = "<a href='?_src_=vars;Vars=[D.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [D.type]"
+		item = "<a href='byond://?_src_=vars;Vars=[D.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [D.type]"
 
 	else if(isclient(value))
 		var/client/C = value
-		item = "<a href='?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [C] [C.type]"
+		item = "<a href='byond://?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [C] [C.type]"
 //
 	else if(islist(value))
 		var/list/L = value
 		var/list/items = list()
 
-		if(L.len > 0 && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > (IS_NORMAL_LIST(L) ? 250 : 300)))
-			for(var/i in 1 to L.len)
+		if(length(L) > 0 && !(name == "underlays" || name == "overlays" || name == "vars" || length(L) > (IS_NORMAL_LIST(L) ? 250 : 300)))
+			for(var/i in 1 to length(L))
 				var/key = L[i]
 				var/val
 				if(IS_NORMAL_LIST(L) && !isnum(key))
 					val = L[key]
-				if(!val)
+				if(isnull(val))
 					val = key
 					key = i
 
 				items += debug_variable(key, val, level + 1, sanitize = sanitize)
 
-			item = "<a href='?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a><ul>[items.Join()]</ul>"
+			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a><ul>[items.Join()]</ul>"
 
 		else
-			item = "<a href='?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a>"
+			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a>"
 
 	else
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"
@@ -537,7 +537,10 @@
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
-	if(!check_rights(R_ADMIN|R_MOD, FALSE) && !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"]) && check_rights(R_VIEWRUNTIMES, FALSE)))
+	if(!check_rights(R_ADMIN|R_MOD, FALSE) \
+		&& !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"]) && check_rights(R_VIEWRUNTIMES, FALSE)) \
+		&& !((href_list["proc_call"]) && check_rights(R_PROCCALL, FALSE)) \
+	)
 		return // clients with R_VIEWRUNTIMES can still refresh the window/view references/view lists. they cannot edit anything else however.
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings
@@ -948,6 +951,14 @@
 					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]")
 					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
 
+	else if(href_list["editreagents"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/atom/A = locateUID(href_list["editreagents"])
+
+		try_open_reagent_editor(A)
+
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return
 
@@ -1034,7 +1045,7 @@
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.add_language(new_language))
+		if(H.add_language(new_language, TRUE))
 			to_chat(usr, "Added [new_language] to [H].")
 			message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] the language [new_language]")
 			log_admin("[key_name(usr)] has given [key_name(H)] the language [new_language]")
@@ -1049,7 +1060,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
 
-		if(!H.languages.len)
+		if(!length(H.languages))
 			to_chat(usr, "This mob knows no languages.")
 			return
 
@@ -1062,7 +1073,7 @@
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.remove_language(rem_language.name))
+		if(H.remove_language(rem_language.name, TRUE))
 			to_chat(usr, "Removed [rem_language] from [H].")
 			message_admins("[key_name_admin(usr)] has removed language [rem_language] from [key_name_admin(H)]")
 			log_admin("[key_name(usr)] has removed language [rem_language] from [key_name(H)]")
@@ -1400,9 +1411,9 @@
 			return TRUE
 
 		L.len = value["value"]
-		log_world("### ListVarEdit by [src]: /list len: [L.len]")
-		log_admin("[key_name(src)] modified list's len: [L.len]")
-		message_admins("[key_name_admin(src)] modified list's len: [L.len]")
+		log_world("### ListVarEdit by [src]: /list len: [length(L)]")
+		log_admin("[key_name(src)] modified list's len: [length(L)]")
+		message_admins("[key_name_admin(src)] modified list's len: [length(L)]")
 		return TRUE
 
 	if(href_list["listshuffle"])

@@ -29,7 +29,7 @@
 	switch(get_area_type())
 		if(AREA_SPACE)
 			text += "<p>According to [src], you are now in <b>outer space</b>. Hold your breath.</p> \
-			<p><a href='?src=[UID()];create_area=1'>Mark this place as new area.</a></p>"
+			<p><a href='byond://?src=[UID()];create_area=1'>Mark this place as new area.</a></p>"
 		if(AREA_SPECIAL)
 			text += "<p>This place is not noted on [src].</p>"
 	return text
@@ -107,12 +107,12 @@
 	var/area/our_area = get_area(src)
 	if(get_area_type() == AREA_STATION)
 		. += "<p>According to [src], you are now in <b>\"[sanitize(our_area.name)]\"</b>.</p>"
-		. += "<p>You may <a href='?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
+		. += "<p>You may <a href='byond://?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
 	if(!viewing)
-		. += "<p><a href='?src=[UID()];view_blueprints=1'>View structural data</a></p>"
+		. += "<p><a href='byond://?src=[UID()];view_blueprints=1'>View structural data</a></p>"
 	else
-		. += "<p><a href='?src=[UID()];refresh=1'>Refresh structural data</a></p>"
-		. += "<p><a href='?src=[UID()];hide_blueprints=1'>Hide structural data</a></p>"
+		. += "<p><a href='byond://?src=[UID()];refresh=1'>Refresh structural data</a></p>"
+		. += "<p><a href='byond://?src=[UID()];hide_blueprints=1'>Hide structural data</a></p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -175,7 +175,6 @@
 		/area/shuttle,
 		/area/admin,
 		/area/centcom,
-		/area/asteroid,
 		/area/tdome,
 		/area/wizard_station
 	)
@@ -211,7 +210,7 @@
 	A.always_unpowered = FALSE
 	A.set_dynamic_lighting()
 
-	for(var/i in 1 to turfs.len)
+	for(var/i in 1 to length(turfs))
 		var/turf/thing = turfs[i]
 		var/area/old_area = thing.loc
 		A.contents += thing
@@ -291,10 +290,10 @@
 
 
 /obj/item/areaeditor/proc/detect_room(turf/first)
-	var/list/turf/found = new
+	var/list/turf/found = list()
 	var/list/turf/pending = list(first)
-	while(pending.len)
-		if(found.len+pending.len > 300)
+	while(length(pending))
+		if(found.len+length(pending) > 300)
 			return ROOM_ERR_TOOLARGE
 		var/turf/T = pending[1] //why byond havent list::pop()?
 		pending -= T

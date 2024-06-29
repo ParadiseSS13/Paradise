@@ -126,156 +126,6 @@
 //////////////////
 /* Common Boxes */
 //////////////////
-/obj/item/storage/box/gloves
-	name = "box of latex gloves"
-	desc = "Contains white gloves."
-	icon_state = "latex"
-
-/obj/item/storage/box/gloves/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/clothing/gloves/color/latex(src)
-
-/obj/item/storage/box/masks
-	name = "sterile masks"
-	desc = "This box contains masks of sterility."
-	icon_state = "sterile"
-
-/obj/item/storage/box/masks/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/clothing/mask/surgical(src)
-
-/obj/item/storage/box/syringes
-	name = "syringes"
-	desc = "A box full of syringes."
-	desc = "A biohazard alert warning is printed on the box"
-	icon_state = "syringe"
-
-/obj/item/storage/box/syringes/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/syringe(src)
-
-/obj/item/storage/box/beakers
-	name = "beaker box"
-	icon_state = "beaker"
-
-/obj/item/storage/box/beakers/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker(src)
-
-/obj/item/storage/box/beakers/bluespace
-	name = "box of bluespace beakers"
-	icon_state = "beaker"
-
-/obj/item/storage/box/beakers/bluespace/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
-
-/obj/item/storage/box/iv_bags
-	name = "IV Bags"
-	desc = "A box full of empty IV bags."
-	icon_state = "beaker"
-
-/obj/item/storage/box/iv_bags/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/iv_bag(src)
-
-/obj/item/storage/box/injectors
-	name = "\improper DNA injectors"
-	desc = "This box contains injectors it seems."
-
-/obj/item/storage/box/injectors/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/dnainjector/h2m(src)
-
-/obj/item/storage/box/slug
-	name = "ammunition box (Slug)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "slugbox"
-
-/obj/item/storage/box/slug/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun(src)
-
-/obj/item/storage/box/buck
-	name = "ammunition box (Buckshot)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "buckshotbox"
-
-/obj/item/storage/box/buck/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
-
-/obj/item/storage/box/dragonsbreath
-	name = "ammunition box (Dragonsbreath)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "dragonsbreathbox"
-
-/obj/item/storage/box/dragonsbreath/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
-
-/obj/item/storage/box/stun
-	name = "ammunition box (Stun shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "stunbox"
-
-/obj/item/storage/box/stun/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
-
-/obj/item/storage/box/beanbag
-	name = "ammunition box (Beanbag shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "beanbagbox"
-
-/obj/item/storage/box/beanbag/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
-
-/obj/item/storage/box/rubbershot
-	name = "ammunition box (Rubbershot shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "rubbershotbox"
-
-/obj/item/storage/box/rubbershot/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-
-/obj/item/storage/box/tranquilizer
-	name = "ammunition box (Tranquilizer darts)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "tranqbox"
-
-/obj/item/storage/box/tranquilizer/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
-
-/obj/item/storage/box/flashes
-	name = "box of flashbulbs"
-	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
-	icon_state = "flashbang"
-
-/obj/item/storage/box/flashes/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/flash(src)
-
-/obj/item/storage/box/teargas
-	name = "box of tear gas grenades (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</B>"
-	icon_state = "flashbang"
-
-/obj/item/storage/box/teargas/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/grenade/chem_grenade/teargas(src)
-
-/obj/item/storage/box/emps
-	name = "emp grenades"
-	desc = "A box with 5 emp grenades."
-	icon_state = "flashbang"
-
-/obj/item/storage/box/emps/populate_contents()
-	for(var/I in 1 to 5)
-		new /obj/item/grenade/empgrenade(src)
 
 /obj/item/storage/box/tapes
 	name = "Tape Box"
@@ -367,14 +217,6 @@
 /obj/item/storage/box/disks_plantgene/populate_contents()
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
-
-/obj/item/storage/box/disks
-	name = "genetics diskette box"
-	icon_state = "disk_box"
-
-/obj/item/storage/box/disks/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/disk/data(src)
 
 /obj/item/storage/box/PDAs
 	name = "spare PDAs"
@@ -516,6 +358,12 @@
 	icon_state = "wolpin_box"
 	monkey_cube_type = /obj/item/food/snacks/monkeycube/wolpincube
 
+/obj/item/storage/box/monkeycubes/nian_worme_cubes
+	name = "nian worme cube box"
+	desc = "Nian Trade Guild brand worme cubes. Just add water!"
+	icon_state = "nian_worme_box"
+	monkey_cube_type = /obj/item/food/snacks/monkeycube/nian_wormecube
+
 ///////////////////
 /* Medical Boxes */
 ///////////////////
@@ -598,7 +446,8 @@
 
 /obj/item/storage/box/pillbottles/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle(src)
+		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle(src)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/patch_packs
 	name = "box of patch packs"
@@ -607,7 +456,8 @@
 
 /obj/item/storage/box/patch_packs/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle/patch_pack(src)
+		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle/patch_pack(src)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/bodybags
 	name = "body bags"
@@ -855,6 +705,15 @@
 	for(var/I in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
+/obj/item/storage/box/holy
+	name = "ammunition box (Holy Water darts)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "hshell_box"
+
+/obj/item/storage/box/holy/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/holy(src)
+
 ////////////////
 /* Donk Boxes */
 ////////////////
@@ -935,6 +794,78 @@
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 
+/obj/item/storage/box/hydroponics_starter
+	name = "hydroponics starter kit"
+	desc = "Everything you need to start your own botany lab."
+
+/obj/item/storage/box/hydroponics_starter/populate_contents()
+	for(var/I in 1 to 2)
+		new /obj/item/circuitboard/hydroponics(src)
+		new /obj/item/stock_parts/matter_bin(src)
+		new /obj/item/stock_parts/matter_bin(src)
+		new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/reagent_containers/glass/bucket(src)
+
+/obj/item/storage/box/turbine_kit
+	name = "turbine kit"
+	desc = "Somehow, they managed to fit almost an entire turbine assembly into this box."
+
+/obj/item/storage/box/turbine_kit/populate_contents()
+	new /obj/item/circuitboard/turbine_computer(src)
+	new /obj/item/circuitboard/power_compressor(src)
+	new /obj/item/circuitboard/power_turbine(src)
+	for(var/I in 1 to 6)
+		new /obj/item/stock_parts/capacitor(src)
+		new /obj/item/stock_parts/manipulator(src)
+
+/obj/item/storage/box/deagle
+	name = "desert eagle handcannon kit"
+	desc = "A box marked with pictures of the iconic Desert Eagle pistol, one ammo clip, and the word 'LETHAL'."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/deagle/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol/deagle(src)
+	new /obj/item/ammo_box/magazine/m50(src)
+
+/obj/item/storage/box/skrell_suit
+	name = "skrellian suit box"
+	desc = "A box containing a skrell-designed medical spacesuit."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/skrell_suit/white
+	name = "white skrellian suit box"
+	desc = "A box containing a skrell-designed medical spacesuit. This one is white."
+
+/obj/item/storage/box/skrell_suit/white/populate_contents()
+	new /obj/item/clothing/head/helmet/space/skrell/white(src)
+	new /obj/item/clothing/suit/space/skrell/white(src)
+
+/obj/item/storage/box/skrell_suit/black
+	name = "black skrellian suit box"
+	desc = "A box containing a skrell-designed medical spacesuit. This one is black."
+
+/obj/item/storage/box/skrell_suit/black/populate_contents()
+	new /obj/item/clothing/head/helmet/space/skrell/black(src)
+	new /obj/item/clothing/suit/space/skrell/black(src)
+
+/obj/item/storage/box/breacher
+	name = "unathi breacher suit box"
+	desc = "A box containing a bulky unathi battlesuit."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/breacher/populate_contents()
+	new /obj/item/clothing/suit/space/unathi/breacher(src)
+	new /obj/item/clothing/head/helmet/space/unathi/breacher(src)
+
+/obj/item/storage/box/vox_spacesuit
+	name = "vox voidsuit box"
+	desc = "A box containing an old, dusty voidsuit fit for vox."
+	icon_state = "doom_box"
+
+/obj/item/storage/box/vox_spacesuit/populate_contents()
+	new /obj/item/clothing/head/helmet/space/vox/pressure(src)
+	new /obj/item/clothing/suit/space/vox/pressure(src)
+
 /obj/item/storage/box/telescience
 	name = "babies first telescience kit"
 	desc = "A now restricted kit for those who want to learn about telescience!"
@@ -1005,7 +936,7 @@
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
-		if(contents.len)
+		if(length(contents))
 			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
 			return
 		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
@@ -1022,7 +953,7 @@
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return
 	else if(W.sharp)
-		if(!contents.len)
+		if(!length(contents))
 			if(item_state == "paperbag_None")
 				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")
 				new /obj/item/clothing/head/papersack(user.loc)
@@ -1035,6 +966,17 @@
 				return
 	return ..()
 
+/obj/item/storage/box/relay_kit
+	name = "telecommunications relay kit"
+	desc = "Contains everything you need to set up your own telecommunications array!"
+
+/obj/item/storage/box/relay_kit/populate_contents()
+	new /obj/item/paper/tcommskey(src)
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/circuitboard/tcomms/relay(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stack/cable_coil(src, 7)
 
 /obj/item/storage/box/centcomofficer
 	name = "officer kit"
@@ -1059,7 +1001,6 @@
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
 	icon_state = "ert_box"
-	storage_slots = 8
 
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
@@ -1068,8 +1009,7 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 
 /obj/item/storage/box/deathsquad
 	name = "boxed death kit"
@@ -1079,10 +1019,10 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/grenade/plastic/c4/x4(src)
 	new /obj/item/reagent_containers/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
-	new /obj/item/ammo_box/a357(src)
-	new /obj/item/ammo_box/a357(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 
 /obj/item/storage/box/soviet
 	name = "boxed survival kit"

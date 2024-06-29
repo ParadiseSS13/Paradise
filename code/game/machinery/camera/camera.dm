@@ -36,6 +36,10 @@
 
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	var/list/localMotionTargets = list()
+	var/detectTime = 0
+	var/area/station/ai_monitored/area_motion = null
+	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
 
 /obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE)
 	. = ..()
@@ -179,9 +183,9 @@
 				if(AI.control_disabled || (AI.stat == DEAD))
 					return
 				if(U.name == "Unknown")
-					to_chat(AI, "<b>[U]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+					to_chat(AI, "<b>[U]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				else
-					to_chat(AI, "<b><a href='?src=[AI.UID()];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+					to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='byond://?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
 				AI.last_paper_seen = "<html><meta charset='utf-8'><head><title>[itemname]</title></head><body><tt>[info]</tt></body></html>"
 			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
@@ -394,7 +398,7 @@
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused
-		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/stretch/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	if(isXRay() && isAI(user))

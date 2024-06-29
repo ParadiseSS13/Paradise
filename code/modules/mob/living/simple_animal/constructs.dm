@@ -46,37 +46,11 @@
 
 	set_light(2, 3, l_color = GET_CULT_DATA(construct_glow, LIGHT_COLOR_BLOOD_MAGIC))
 
-/mob/living/simple_animal/hostile/construct/Destroy()
-	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
-	mind?.remove_antag_datum(/datum/antagonist/wizard/construct, silent_removal = TRUE)
-	remove_held_body()
-	return ..()
-
 /mob/living/simple_animal/hostile/construct/death(gibbed)
-	mind?.remove_antag_datum(/datum/antagonist/cultist, silent_removal = TRUE)
-	mind?.remove_antag_datum(/datum/antagonist/wizard/construct, silent_removal = TRUE)
-	if(held_body) // Null check for empty bodies
-		held_body.forceMove(get_turf(src))
-		SSticker.mode?.cult_team?.add_cult_immunity(held_body)
-		if(ismob(held_body)) // Check if the held_body is a mob
-			held_body.key = key
-		else if(istype(held_body, /obj/item/organ/internal/brain)) // Check if the held_body is a brain
-			var/obj/item/organ/internal/brain/brain = held_body
-			if(brain.brainmob) // Check if the brain has a brainmob
-				brain.brainmob.key = key // Set the key to the brainmob
-				brain.brainmob.mind.transfer_to(brain.brainmob) // Transfer the mind to the brainmob
-		held_body.cancel_camera()
+	// we also drop our heldbody from the /construct_held_body component, as well as our cult/wiz construct antag datums
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	return ..()
-
-/mob/living/simple_animal/hostile/construct/proc/add_held_body(atom/movable/body)
-	held_body = body
-	RegisterSignal(body, COMSIG_PARENT_QDELETING, PROC_REF(remove_held_body))
-
-/mob/living/simple_animal/hostile/construct/proc/remove_held_body()
-	SIGNAL_HANDLER
-	held_body = null
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
@@ -202,6 +176,8 @@
 /// Used in bubblegum summoning. Needs MOB_SIZE_LARGE so crushers don't suffer
 /mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum
 	mob_size =	MOB_SIZE_LARGE
+	maxbodytemp = INFINITY
+	weather_immunities = list("ash")
 
 /////////////////////////////Artificer/////////////////////////
 

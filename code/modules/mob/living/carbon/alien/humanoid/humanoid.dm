@@ -1,3 +1,4 @@
+#define XENO_TOTAL_LAYERS 6
 /mob/living/carbon/alien/humanoid
 	name = "alien"
 	icon_state = "alien_s"
@@ -11,6 +12,7 @@
 	var/alien_slash_damage = 20 //Aliens deal a good amount of damage on harm intent
 	var/alien_movement_delay = 0 //This can be + or -, how fast an alien moves
 	var/temperature_resistance = T0C+75
+	var/list/overlays_standing[XENO_TOTAL_LAYERS]
 	pass_flags = PASSTABLE
 	hud_type = /datum/hud/alien
 
@@ -96,3 +98,5 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 
 /mob/living/carbon/alien/humanoid/get_permeability_protection()
 	return 0.8
+
+#undef XENO_TOTAL_LAYERS

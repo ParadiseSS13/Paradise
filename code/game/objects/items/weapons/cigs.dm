@@ -1,3 +1,5 @@
+#define REAGENT_TIME_RATIO 2.5
+
 /*
 CONTAINS:
 CIGARETTES
@@ -54,6 +56,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
+	smoketime = reagents.total_volume * 2.5
 	RegisterSignal(src, COMSIG_ITEM_BEING_ATTACKED, PROC_REF(try_light))
 
 /obj/item/clothing/mask/cigarette/Destroy()
@@ -158,6 +161,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(glass))	//you can dip cigarettes into beakers
 		var/transfered = glass.reagents.trans_to(src, chem_volume)
 		if(transfered)	//if reagents were transfered, show the message
+			smoketime = reagents.total_volume * 2.5
 			to_chat(user, "<span class='notice'>You dip \the [src] into \the [glass].</span>")
 		else			//if not, either the beaker was empty, or the cigarette was full
 			if(!glass.reagents.total_volume)
@@ -245,7 +249,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
 			for(var/datum/reagent/R in reagents.reagent_list)
-				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
+				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / length(reagents.reagent_list), 0.1)) //transfer at least .1 of each chem
 			first_puff = FALSE
 			if(!reagents.total_volume) // There were reagents, but now they're gone
 				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
@@ -283,7 +287,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	list_reagents = list("nicotine" = 40, "omnizine" = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
-	list_reagents = list("thc" = 40, "cbd" = 20)
+	list_reagents = list("thc" = 20, "cbd" = 40)
 
 /obj/item/clothing/mask/cigarette/robustgold
 	list_reagents = list("nicotine" = 40, "gold" = 1)
@@ -300,6 +304,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	type_butt = /obj/item/cigbutt/roach
 	throw_speed = 0.5
 	item_state = "spliffoff"
+	list_reagents = list("thc" = 40, "cbd" = 20)
 
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
 	. = ..()
@@ -502,7 +507,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	smoke()
 
-/obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) //Refills the pipe. Can be changed to an attackby later, if loose tobacco is added to vendors or something.
+/obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) // Extinguishes the pipe.
 	if(lit)
 		user.visible_message("<span class='notice'>[user] puts out [src].</span>")
 		lit = FALSE
@@ -510,17 +515,27 @@ LIGHTERS ARE IN LIGHTERS.DM
 		item_state = icon_off
 		STOP_PROCESSING(SSobj, src)
 		return
-	if(smoketime <= 0)
-		to_chat(user, "<span class='notice'>You refill the pipe with tobacco.</span>")
-		reagents.add_reagent("nicotine", chem_volume)
-		smoketime = initial(smoketime)
-		first_puff = TRUE
 
 /obj/item/clothing/mask/cigarette/pipe/try_light(obj/item/cigar, obj/item/lighting_item)
 	if(can_light_fancy(lighting_item))
 		return ..()
 
+// Refill or light the pipe
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/food/snacks/grown))
+		var/obj/item/food/snacks/grown/O = I
+		if(O.dry)
+			if(reagents.total_volume == reagents.maximum_volume)
+				to_chat(user, "<span class='warning'>[src] is full!</span>")
+				return
+			O.reagents.trans_to(src, chem_volume)
+			to_chat(user, "<span class='notice'>You stuff the [O.name] into the pipe.</span>")
+			smoketime = max(reagents.total_volume * REAGENT_TIME_RATIO, smoketime)
+			qdel(O)
+		else
+			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+		return
+
 	if(!is_type_in_typecache(I, things_that_light))
 		return
 	if(can_light_fancy(I))
@@ -535,8 +550,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "cobpipeoff"
 	icon_on = "cobpipeon"  //Note - these are in masks.dmi
 	icon_off = "cobpipeoff"
-	smoketime = 800
-	chem_volume = 40
+	smoketime = 0 //there is nothing to smoke initially
+	chem_volume = 160
+	list_reagents = list()
 
 ///////////
 //ROLLING//
@@ -569,3 +585,5 @@ LIGHTERS ARE IN LIGHTERS.DM
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
 	else
 		..()
+
+#undef REAGENT_TIME_RATIO

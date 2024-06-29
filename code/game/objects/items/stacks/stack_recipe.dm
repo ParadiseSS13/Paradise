@@ -134,7 +134,7 @@
 /datum/stack_recipe/dangerous
 /datum/stack_recipe/dangerous/post_build(mob/user, obj/item/stack/S, obj/result)
 	var/turf/targ = get_turf(user)
-	message_admins("[title] made by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) in [get_area(user)] [ADMIN_COORDJMP(targ)]!",0,1)
+	message_admins("[title] made by [key_name_admin(user)](<A href='byond://?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) in [get_area(user)] [ADMIN_COORDJMP(targ)]!",0,1)
 	log_game("[title] made by [key_name_admin(user)] at [get_area(user)] [targ.x], [targ.y], [targ.z].")
 	..()
 

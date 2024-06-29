@@ -92,18 +92,33 @@
 
 /datum/spell/vampire/self/blood_rush
 	name = "Blood Rush (30)"
-	desc = "Infuse yourself with blood magic to boost your movement speed."
+	desc = "Infuse yourself with blood magic to boost your movement speed and break out of leg restraints."
 	gain_desc = "You have gained the ability to temporarily move at high speeds."
 	base_cooldown = 30 SECONDS
 	required_blood = 30
 	action_icon_state = "blood_rush"
 
+/datum/spell/vampire/self/blood_rush/can_cast(mob/user, charge_check, show_message)
+	var/mob/living/L = user
+	// they're not getting anything out of this spell if they're stunned or buckled anyways, so we might as well stop them from wasting the blood
+	if(L.IsWeakened() || L.buckled)
+		to_chat(L, "<span class='warning'>You can't cast this spell while incapacitated!</span>")
+		return FALSE
+	return ..()
+
 /datum/spell/vampire/self/blood_rush/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		to_chat(H, "<span class='notice'>You feel a rush of energy!</span>")
-		H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
+	if(!ishuman(target))
+		return
+
+	var/mob/living/carbon/human/H = target
+	to_chat(H, "<span class='notice'>You feel a rush of energy!</span>")
+
+	H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
+	H.clear_legcuffs(TRUE)
+	// note that this doesn't cancel the baton knockdown timer
+	H.SetKnockDown(0)
+	H.stand_up(TRUE)
 
 /datum/spell/fireball/demonic_grasp
 	name = "Demonic Grasp (20)"
@@ -117,7 +132,6 @@
 
 	action_icon_state = "demonic_grasp"
 
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	sound = null
@@ -259,6 +273,7 @@
 	user.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
 	spell_active = TRUE
 	timer = addtimer(CALLBACK(src, PROC_REF(dispel), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
+	INVOKE_ASYNC(src, PROC_REF(arena_trap), get_turf(target))  //Gets another arena trap queued up for when this one runs out.
 	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(dispel))
 	arena_checks(get_turf(target), user)
 
@@ -266,7 +281,6 @@
 	if(!spell_active || QDELETED(src))
 		return
 	INVOKE_ASYNC(src, PROC_REF(fighters_check), user)  //Checks to see if our fighters died.
-	INVOKE_ASYNC(src, PROC_REF(arena_trap), target_turf)  //Gets another arena trap queued up for when this one runs out.
 	addtimer(CALLBACK(src, PROC_REF(arena_checks), target_turf, user), 5 SECONDS)
 
 /datum/spell/vampire/arena/proc/arena_trap(turf/target_turf)

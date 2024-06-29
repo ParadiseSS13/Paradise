@@ -5,7 +5,6 @@
  *		Soviet Hats
  *		Pumpkin head
  *		Kitty ears
- *		Cardborg Disguise
  *		Head Mirror
  */
 
@@ -75,7 +74,7 @@
 	var/turf/location = loc
 	if(ismob(location))
 		var/mob/living/carbon/human/M = location
-		if(M.l_hand == src || M.r_hand == src || M.head == src)
+		if(M.is_holding(src) || M.head == src)
 			location = M.loc
 
 	if(isturf(location))
@@ -209,32 +208,6 @@
 	name = "mouse ears"
 	desc = "A pair of mouse ears. Squeak!"
 	icon_state = "mousey"
-
-/obj/item/clothing/head/cardborg
-	name = "cardborg helmet"
-	desc = "A helmet made out of a box."
-	icon_state = "cardborg_h"
-	item_state = "cardborg_h"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	flags_cover = HEADCOVERSEYES
-	species_disguise = "High-tech robot"
-	dog_fashion = /datum/dog_fashion/head/cardborg
-	sprite_sheets = list(
-	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-	)
-
-
-/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
-	..()
-	if(ishuman(user) && slot == SLOT_HUD_HEAD)
-		var/mob/living/carbon/human/H = user
-		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))
-			var/obj/item/clothing/suit/cardborg/CB = H.wear_suit
-			CB.disguise(user, src)
-
-/obj/item/clothing/head/cardborg/dropped(mob/living/user)
-	..()
-	user.remove_alt_appearance("standard_borg_disguise")
 
 /*
  * Head Mirror

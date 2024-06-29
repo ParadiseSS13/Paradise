@@ -1,3 +1,4 @@
+RESTRICT_TYPE(/datum/antagonist/traitor)
 
 // Syndicate Traitors.
 /datum/antagonist/traitor

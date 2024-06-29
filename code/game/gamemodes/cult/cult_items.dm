@@ -6,9 +6,9 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/tome/New()
+/obj/item/tome/Initialize(mapload)
+	. = ..()
 	icon_state = GET_CULT_DATA(tome_icon, "tome")
-	..()
 
 /obj/item/melee/cultblade
 	name = "cult blade"
@@ -24,10 +24,10 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
-/obj/item/melee/cultblade/New()
+/obj/item/melee/cultblade/Initialize(mapload)
+	. = ..()
 	icon_state = GET_CULT_DATA(sword_icon, "blood_blade")
 	item_state = GET_CULT_DATA(sword_icon, "blood_blade")
-	..()
 
 /obj/item/melee/cultblade/examine(mob/user)
 	. = ..()
@@ -466,7 +466,7 @@
 	if(IS_CULTIST(owner) && !owner.holy_check()) // Cultist holding the shield
 
 		// Hit by a projectile
-		if(istype(hitby, /obj/item/projectile))
+		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
 			var/threshold // Depends on the damage Type (Brute or Burn)
@@ -567,7 +567,7 @@
 
 /obj/item/cult_spear/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
 	AddComponent(/datum/component/two_handed, force_wielded = 24, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 
 /obj/item/cult_spear/Destroy()
@@ -776,7 +776,7 @@
 
 	if(is_mining_level(R.z) && !is_mining_level(actual_selected_rune.z))
 		actual_selected_rune.handle_portal("lava")
-	else if(!is_station_level(R.z) || istype(get_area(src), /area/space))
+	else if(!is_station_level(R.z) || isspacearea(get_area(src)))
 		actual_selected_rune.handle_portal("space", T)
 	new /obj/effect/portal/cult(get_turf(R), get_turf(actual_selected_rune), src, 4 MINUTES)
 	to_chat(user, "<span class='cultitalic'>You use the magic of the amulet to turn [R] into a portal.</span>")

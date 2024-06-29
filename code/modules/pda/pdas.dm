@@ -133,6 +133,9 @@
 /obj/item/pda/shaftminer
 	icon_state = "pda-miner"
 
+/obj/item/pda/explorer
+	icon_state = "pda-exp"
+
 /obj/item/pda/syndicate
 	default_cartridge = /obj/item/cartridge/syndicate/nuclear
 	icon_state = "pda-syndi"
@@ -150,9 +153,9 @@
 	icon_state = "pda-chaplain"
 	ttone = "holy"
 
-/obj/item/pda/lawyer
-	default_cartridge = /obj/item/cartridge/lawyer
-	icon_state = "pda-lawyer"
+/obj/item/pda/iaa
+	default_cartridge = /obj/item/cartridge/iaa
+	icon_state = "pda-iaa"
 	ttone = "..."
 	default_pen = /obj/item/pen/multi
 

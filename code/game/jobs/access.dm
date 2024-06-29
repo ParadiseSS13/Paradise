@@ -56,7 +56,7 @@
 	for(var/req in req_access)
 		if(!(req in accesses)) //doesn't have this access
 			return 0
-	if(req_one_access.len)
+	if(length(req_one_access))
 		for(var/req in req_one_access)
 			if(req in accesses) //has an access from the single access list
 				return 1
@@ -126,7 +126,7 @@
 				ACCESS_HEADS, ACCESS_CAPTAIN, ACCESS_CARGO, ACCESS_CARGO_BAY, ACCESS_SUPPLY_SHUTTLE, ACCESS_MAILSORTING, ACCESS_CHAPEL_OFFICE, ACCESS_CE, ACCESS_CHEMISTRY, ACCESS_CLOWN, ACCESS_CMO,
 				ACCESS_COURT, ACCESS_CONSTRUCTION, ACCESS_CREMATORIUM, ACCESS_JANITOR, ACCESS_ENGINE, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_FORENSICS_LOCKERS,
 				ACCESS_GENETICS, ACCESS_EXPEDITION, ACCESS_BRIG, ACCESS_HOP, ACCESS_HOS, ACCESS_HYDROPONICS, ACCESS_CHANGE_IDS, ACCESS_KEYCARD_AUTH, ACCESS_KITCHEN,
-				ACCESS_LAWYER, ACCESS_LIBRARY, ACCESS_MAGISTRATE, ACCESS_MAINT_TUNNELS, ACCESS_HEADS_VAULT, ACCESS_MEDICAL, ACCESS_MIME,
+				ACCESS_INTERNAL_AFFAIRS, ACCESS_LIBRARY, ACCESS_MAGISTRATE, ACCESS_MAINT_TUNNELS, ACCESS_HEADS_VAULT, ACCESS_MEDICAL, ACCESS_MIME,
 				ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_MORGUE, ACCESS_NETWORK, ACCESS_NTREP, ACCESS_PARAMEDIC,  ACCESS_ALL_PERSONAL_LOCKERS,
 				ACCESS_ENGINE_EQUIP, ACCESS_PSYCHIATRIST, ACCESS_QM, ACCESS_RD, ACCESS_RC_ANNOUNCE, ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_RESEARCH, ACCESS_SECURITY,
 				ACCESS_SURGERY, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_THEATRE, ACCESS_TCOMSAT, ACCESS_TOX_STORAGE, ACCESS_VIROLOGY, ACCESS_WEAPONS, ACCESS_XENOBIOLOGY,
@@ -149,7 +149,7 @@
 		if(REGION_ALL)
 			return get_all_accesses()
 		if(REGION_GENERAL) //station general
-			return list(ACCESS_KITCHEN, ACCESS_BAR, ACCESS_HYDROPONICS, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_LIBRARY, ACCESS_THEATRE, ACCESS_LAWYER, ACCESS_MAGISTRATE, ACCESS_CLOWN, ACCESS_MIME)
+			return list(ACCESS_KITCHEN, ACCESS_BAR, ACCESS_HYDROPONICS, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_LIBRARY, ACCESS_THEATRE, ACCESS_INTERNAL_AFFAIRS, ACCESS_MAGISTRATE, ACCESS_CLOWN, ACCESS_MIME)
 		if(REGION_SECURITY) //security
 			return list(ACCESS_SEC_DOORS, ACCESS_WEAPONS, ACCESS_SECURITY, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_HOS)
 		if(REGION_MEDBAY) //medbay
@@ -265,7 +265,7 @@
 			return "Hydroponics"
 		if(ACCESS_LIBRARY)
 			return "Library"
-		if(ACCESS_LAWYER)
+		if(ACCESS_INTERNAL_AFFAIRS)
 			return "Law Office"
 		if(ACCESS_ROBOTICS)
 			return "Robotics"
@@ -391,16 +391,54 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Deathsquad Commando","Research Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
+	return list(
+		"VIP Guest",
+		"Custodian",
+		"Thunderdome Overseer",
+		"Intel Officer",
+		"Medical Officer",
+		"Research Officer",
+		"Special Operations Officer",
+		"Nanotrasen Diplomat",
+		"Nanotrasen Navy Representative",
+		"Nanotrasen Navy Officer",
+		"Nanotrasen Navy Captain",
+		"Supreme Commander")
 
 /proc/get_all_ERT_jobs()
-	return list("Emergency Response Team Officer","Emergency Response Team Engineer","Emergency Response Team Medic","Emergency Response Team Inquisitor","Emergency Response Team Janitor","Emergency Response Team Leader","Emergency Response Team Member")
+	return list(
+		"Emergency Response Team Member",
+		"Emergency Response Team Officer",
+		"Emergency Response Team Engineer",
+		"Emergency Response Team Medic",
+		"Emergency Response Team Janitor",
+		"Emergency Response Team Inquisitor",
+		"Emergency Response Team Leader")
 
 /proc/get_all_solgov_jobs()
-	return list("Solar Federation Lieutenant","Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
+	return list(
+		"Sol Trader",
+		"Solar Federation Marine",
+		"Solar Federation Lieutenant",
+		"Solar Federation Specops Marine",
+		"Solar Federation Specops Lieutenant",
+		"Solar Federation Representative",
+		"Solar Federation General")
 
 /proc/get_all_soviet_jobs()
-	return list("Soviet Tourist", "Soviet Conscript", "Soviet Soldier", "Soviet Officer", "Soviet Marine", "Soviet Marine Captain", "Soviet Admiral")
+	return list(
+		"Soviet Tourist",
+		"Soviet Conscript",
+		"Soviet Soldier",
+		"Soviet Officer",
+		"Soviet Marine",
+		"Soviet Marine Captain",
+		"Soviet Admiral")
+
+/proc/get_all_special_jobs()
+	return list(
+		"Deathsquad",
+		"Emergency Response Clown")
 
 /proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + get_all_ERT_jobs() + list("Prisoner")

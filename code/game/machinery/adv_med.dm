@@ -12,7 +12,7 @@
 	var/mob/living/carbon/human/occupant
 	///What is the level of the stock parts in the body scanner. A scan_level of one detects organs of stealth_level 1 or below, while a scan level of 4 would detect 4 or below.
 	var/scan_level = 1
-	var/known_implants = list(/obj/item/bio_chip/chem, /obj/item/bio_chip/death_alarm, /obj/item/bio_chip/mindshield, /obj/item/bio_chip/tracking, /obj/item/bio_chip/health)
+	var/known_implants = list(/obj/item/bio_chip/chem, /obj/item/bio_chip/death_alarm, /obj/item/bio_chip/mindshield, /obj/item/bio_chip/tracking)
 
 /obj/machinery/bodyscanner/examine(mob/user)
 	. = ..()
@@ -287,7 +287,7 @@
 				implantSubData["name"] = sanitize(I.name)
 				implantData.Add(list(implantSubData))
 		occupantData["implant"] = implantData
-		occupantData["implant_len"] = implantData.len
+		occupantData["implant_len"] = length(implantData)
 
 		var/extOrganData[0]
 		for(var/obj/item/organ/external/E in occupant.bodyparts)
@@ -310,7 +310,7 @@
 				shrapnelData.Add(list(shrapnelSubData))
 
 			organData["shrapnel"] = shrapnelData
-			organData["shrapnel_len"] = shrapnelData.len
+			organData["shrapnel_len"] = length(shrapnelData)
 
 			var/organStatus[0]
 			if(E.status & ORGAN_BROKEN)

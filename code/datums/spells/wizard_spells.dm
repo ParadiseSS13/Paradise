@@ -301,7 +301,7 @@
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
 	aoe_range = 3
 
-/datum/spell/genetic/blind
+/datum/spell/blind
 	name = "Blind"
 	desc = "This spell temporarily blinds a single person and does not require wizard garb."
 	school = "transmutation"
@@ -311,20 +311,25 @@
 	invocation_type = "whisper"
 	message = "<span class='notice'>Your eyes cry out in pain!</span>"
 	cooldown_min = 2 SECONDS
-	traits = list(TRAIT_BLIND)
-
-	duration = 30 SECONDS
 	sound = 'sound/magic/blind.ogg'
 
-/datum/spell/genetic/blind/create_new_targeting()
+/datum/spell/blind/create_new_targeting()
 	var/datum/spell_targeting/click/C = new()
+	C.selection_type = SPELL_SELECTION_RANGE
 	C.allowed_type = /mob/living
 	return C
 
-/datum/spell/genetic/blind/do_additional_effects(mob/living/target)
-	target.EyeBlurry(20 SECONDS)
-	target.EyeBlind(10 SECONDS)
+/datum/spell/blind/cast(list/targets, mob/living/user)
+	if(!length(targets))
+		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		return
+
+	var/mob/living/target = targets[1]
+	target.EyeBlurry(40 SECONDS)
+	target.EyeBlind(30 SECONDS)
+
 	SEND_SOUND(target, sound('sound/magic/blind.ogg'))
+	return TRUE
 
 /datum/spell/fireball
 	name = "Fireball"
@@ -371,7 +376,7 @@
 	FB.current = get_turf(user)
 	FB.original = target
 	FB.firer = user
-	FB.preparePixelProjectile(target, get_turf(target), user)
+	FB.preparePixelProjectile(target, user)
 	FB.fire()
 	user.newtonian_move(get_dir(U, T))
 
@@ -469,3 +474,48 @@
 	if(isliving(user))
 		var/mob/living/U = user
 		U.IgniteMob()
+
+/datum/spell/corpse_explosion
+	name = "Corpse Explosion"
+	desc = "Fills a corpse with energy, causing it to explode violently."
+	school = "evocation"
+	base_cooldown = 5 SECONDS
+	clothes_req = TRUE
+	invocation = "JAH ITH BER"
+	invocation_type = "whisper"
+	selection_activated_message = "<span class='notice'>You prepare to detonate a corpse. Click on a target to cast the spell.</span>"
+	selection_deactivated_message = "<span class='notice'>You cancel the spell.</span>"
+	action_icon_state = "corpse_explosion"
+
+/datum/spell/corpse_explosion/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.click_radius = 0
+	T.try_auto_target = FALSE
+	T.allowed_type = /mob/living
+	return T
+
+/datum/spell/corpse_explosion/cast(list/targets, mob/user)
+	var/mob/living/target = targets[1]
+	if(!target || target.stat != DEAD)
+		return
+	var/turf/corpse_turf = get_turf(target)
+	new /obj/effect/temp_visual/corpse_explosion(get_turf(target))
+	target.gib()
+	explosion(corpse_turf, 0, 0, 0, 0, silent = TRUE, breach = FALSE)
+	for(var/mob/living/M in range(4, corpse_turf))
+		if(M == user)
+			continue
+		var/range = get_dist_euclidian(M, corpse_turf)
+		range = max(1, range)
+		M.apply_damage(100 / range, BRUTE)
+		if(issilicon(M))
+			to_chat(M, "<span class='userdanger'>Your sensors are disabled, and your carapace is ripped apart by the violent dark magic!</span>")
+			M.Weaken(6 SECONDS / range)
+			continue
+
+		to_chat(M, "<span class='userdanger'>You are eviscerated by the violent dark magic!</span>")
+		if(ishuman(M))
+			if(range < 4)
+				M.KnockDown(4 SECONDS / range)
+			M.EyeBlurry(40 SECONDS / range)
+			M.AdjustConfused(6 SECONDS / range)

@@ -43,7 +43,7 @@
 
 /obj/item/storage/briefcase/false_bottomed/afterattack(atom/A, mob/user, flag, params)
 	..()
-	if(stored_item && istype(stored_item, /obj/item/gun) && !Adjacent(A))
+	if(stored_item && isgun(stored_item) && !Adjacent(A))
 		var/obj/item/gun/stored_gun = stored_item
 		stored_gun.afterattack(A, user, flag, params)
 

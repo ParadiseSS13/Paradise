@@ -1,9 +1,3 @@
-/obj/machinery/camera
-	var/list/localMotionTargets = list()
-	var/detectTime = 0
-	var/area/station/ai_monitored/area_motion = null
-	var/alarm_delay = 30 // Don't forget, there's another 3 seconds in queueAlarm()
-
 /obj/machinery/camera/process()
 	// motion camera event loop
 	if(!isMotion())

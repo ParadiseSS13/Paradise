@@ -1,10 +1,9 @@
 /mob
 	density = TRUE
 	layer = MOB_LAYER
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
 	pressure_resistance = 8
 	throwforce = 10
-	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
@@ -18,6 +17,7 @@
 	var/atom/movable/screen/m_select = null
 	var/atom/movable/screen/healths = null
 	var/atom/movable/screen/throw_icon = null
+	var/atom/movable/screen/staminas = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
@@ -27,6 +27,7 @@
 	*/
 	var/atom/movable/screen/leap_icon = null
 	var/atom/movable/screen/healthdoll/healthdoll = null
+	var/atom/movable/screen/nutrition/nutrition_display = null
 
 	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
@@ -44,7 +45,7 @@
 	var/memory = ""
 	var/notransform = FALSE	//Carbon
 	/// True for left hand active, otherwise for right hand active
-	var/hand = null
+	var/hand = HAND_BOOL_RIGHT
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
@@ -207,7 +208,7 @@
 	var/datum/input_focus = null
 	/// Is our mob currently suiciding? Used for suicide code along with many different revival checks
 	var/suiciding = FALSE
-	/// Used for some screen objects, such as
+	/// Used for some screen objects
 	var/list/screens = list()
 	/// lazy list. contains /atom/movable/screen/alert only,  On /mob so clientless mobs will throw alerts properly
 	var/list/alerts
@@ -246,7 +247,8 @@
 	var/next_click_modifier = 1
 	/// Tracks the open UIs that a mob has, used in TGUI for various things, such as updating UIs
 	var/list/open_uis = list()
-
+	/// List of observers currently observing us.
+	var/list/mob/dead/observer/observers = list()
 	/// Does this mob speak OOC?
 	/// Controls whether they can say some symbols.
 	var/speaks_ooc = FALSE

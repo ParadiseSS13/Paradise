@@ -167,6 +167,38 @@
 	emp_proof = TRUE
 	origin_tech = "materials=6;programming=5;biotech=6;magnets=6;syndicate=3"
 
+/obj/item/organ/internal/eyes/cybernetic/scope
+	name = "\improper Kaleido Optics eyes"
+	desc = "These cybernetic eye implants will let you zoom in on far away objects. Many users find it disorienting, and find it hard to interact with things near them when active."
+	eye_color = "#6f00ff"
+	flash_protect = FLASH_PROTECTION_EXTRA_SENSITIVE
+	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
+	var/scope_range = 0.8 //Only used in initialize. Greatly nerfed zoom range, since you are not taking the time zoom delay the lwap has.
+	var/active = FALSE
+
+/obj/item/organ/internal/eyes/cybernetic/scope/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/scope, range_modifier = scope_range, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
+
+/obj/item/organ/internal/eyes/cybernetic/scope/insert(mob/living/carbon/human/M, special)
+	. = ..()
+	flash_protect = FLASH_PROTECTION_NONE //Resets it to none, so we can just flip to inital each time it is used.
+
+/obj/item/organ/internal/eyes/cybernetic/scope/ui_action_click(mob/user, actiontype)
+	active = !active
+	if(active)
+		flash_protect = initial(flash_protect)
+	else
+		flash_protect = FLASH_PROTECTION_NONE
+
+/obj/item/organ/internal/eyes/cybernetic/scope/hardened
+	name = "\improper Hardened Kaleido Optics eyes"
+	desc = "These cybernetic eye implants will let you zoom in on far away objects. Many users find it disorienting, and find it hard to interact with things near them when active. This pair has been hardened for special operations personnel, and has enhanced zoom functionality."
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	origin_tech = "materials=6;programming=5;biotech=6;magnets=6;syndicate=3"
+	scope_range = 1.25
+	emp_proof = TRUE
+
 /obj/item/organ/internal/eyes/cybernetic/flashlight
 	name = "flashlight eyes"
 	desc = "It's two flashlights rigged together with some wire. Why would you put these in someone's head?"

@@ -15,14 +15,18 @@
 	can_unsuppress = TRUE
 	can_suppress = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
-	zoomable = TRUE
-	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	slot_flags = SLOT_FLAG_BACK
 	actions_types = list()
 	execution_speed = 8 SECONDS
+	var/zoomable = TRUE
+
+/obj/item/gun/projectile/automatic/sniper_rifle/Initialize(mapload)
+	. = ..()
+	if(zoomable)
+		AddComponent(/datum/component/scope, range_modifier = 2, flags = SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
-	if(istype(chambered.BB, /obj/item/projectile/bullet/sniper) && !zoomed)
+	if(istype(chambered.BB, /obj/item/projectile/bullet/sniper) && !HAS_TRAIT(user, TRAIT_SCOPED))
 		var/obj/item/projectile/bullet/sniper/S = chambered.BB
 		if(S.non_zoom_spread)
 			to_chat(user, "<span class='warning'>[src] must be zoomed in to fire this ammunition accurately!</span>")
@@ -192,7 +196,7 @@
 /obj/item/ammo_box/magazine/toy/sniper_rounds/update_overlays()
 	. = ..()
 	var/ammo = ammo_count()
-	if(ammo && istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
+	if(ammo && istype(contents[length(contents)], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
 		. += ".50mag-r"
 	else if(ammo)
 		. += ".50mag-f"

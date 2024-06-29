@@ -37,11 +37,14 @@
 		return
 
 	if(prob(5))
-		H.say(pick(list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...")))
+		H.say(pick("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk..."))
 
 	// Semi-permanent clown mask while in last stage of infection
 	if(locate(/obj/item/clothing/mask/gas/clown_hat) in H)
 		return
+	if(!istype(H)) // Xenos don't have masks. They can still feel silly though
+		return
+
 	if(!H.has_organ_for_slot(SLOT_HUD_WEAR_MASK) || !H.canUnEquip(H.get_item_by_slot(SLOT_HUD_WEAR_MASK)))
 		return
 

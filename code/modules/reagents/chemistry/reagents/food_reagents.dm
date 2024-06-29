@@ -12,8 +12,7 @@
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
-	var/is_vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && !is_vamp)
+	if(ishuman(M) && !M.mind?.has_antag_datum(/datum/antagonist/vampire) && !HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 		var/mob/living/carbon/human/H = M
 		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 			H.adjust_nutrition(nutriment_factor)	// For hunger and fatness
@@ -32,8 +31,7 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/is_vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && !is_vamp)
+	if(ishuman(M) && !M.mind?.has_antag_datum(/datum/antagonist/vampire) && !HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 		var/mob/living/carbon/human/H = M
 		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 			if(prob(50))
@@ -52,7 +50,7 @@
 	data = counterlist_normalise(supplied_data)
 
 /datum/reagent/consumable/nutriment/on_merge(list/newdata, newvolume)
-	if(!islist(newdata) || !newdata.len)
+	if(!islist(newdata) || !length(newdata))
 		return
 	var/list/taste_amounts = list()
 	var/list/other_taste_amounts = newdata.Copy()
@@ -386,13 +384,7 @@
 		return
 	if(volume >= 3)
 		T.MakeSlippery()
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-2000, lowertemp.temperature / 2), 0)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
+	T.quench(1000, 2)
 
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"

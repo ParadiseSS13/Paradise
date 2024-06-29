@@ -1,10 +1,6 @@
 
-
 // This list is basically a copy of GLOB.greek_letters, but it also removes letters when a changeling spawns in with that ID
 GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega"))
-
-/datum/game_mode
-	var/list/datum/mind/changelings = list()
 
 /datum/game_mode/changeling
 	name = "changeling"

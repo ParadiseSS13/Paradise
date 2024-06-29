@@ -351,7 +351,7 @@
 
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(list/buffer)
 	var/list/arr = list()
-	for(var/i = 1, i <= buffer.len, i++)
+	for(var/i = 1, i <= length(buffer), i++)
 		arr += "[i]:[EncodeDNABlock(buffer[i])]"
 	return arr
 
@@ -468,7 +468,7 @@
 	data["beakerVolume"] = 0
 	if(connected.beaker)
 		data["beakerLabel"] = connected.beaker.label_text ? connected.beaker.label_text : null
-		if(connected.beaker.reagents && connected.beaker.reagents.reagent_list.len)
+		if(length(connected.beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in connected.beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 

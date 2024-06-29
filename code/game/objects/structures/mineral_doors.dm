@@ -26,11 +26,12 @@
 /obj/structure/mineral_door/Initialize()
 	. = ..()
 	initial_state = icon_state
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
+	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -20, 10)
 
 /obj/structure/mineral_door/Destroy()
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/mineral_door/Move()
@@ -61,7 +62,7 @@
 		return !opacity
 	return !density
 
-/obj/structure/mineral_door/CanAtmosPass(turf/T)
+/obj/structure/mineral_door/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/mineral_door/proc/try_to_operate(atom/user)
@@ -97,7 +98,7 @@
 	density = !density
 	opacity = !opacity
 	state_open = !state_open
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 
@@ -167,7 +168,7 @@
 /obj/structure/mineral_door/transparent/operate_update()
 	density = !density
 	state_open = !state_open
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 
@@ -178,7 +179,7 @@
 
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user)
 	if(W.get_heat())
-		message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x], [y], [z] - <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", 0, 1)
+		message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x], [y], [z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", 0, 1)
 		log_game("Plasma mineral door ignited by [key_name(user)] in ([x], [y], [z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 		TemperatureAct(100)
@@ -211,3 +212,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
+
+/obj/structure/mineral_door/wood/Initialize()
+	. = ..()
+	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)

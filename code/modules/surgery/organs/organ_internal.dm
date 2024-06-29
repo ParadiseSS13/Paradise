@@ -142,7 +142,7 @@
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target)
 	insert(target)
 
-/obj/item/organ/internal/necrotize(update_sprite)
+/obj/item/organ/internal/necrotize(update_sprite, ignore_vital_death = FALSE)
 	for(var/organ_tag in organ_datums) // let the organ datums handle first
 		var/datum/organ/dead_organ = organ_datums[organ_tag]
 		dead_organ.on_necrotize()
@@ -187,15 +187,6 @@
 // Rendering!
 /obj/item/organ/internal/proc/render()
 	return
-
-/obj/item/food/snacks/organ
-	name = "appendix"
-	icon_state = "appendix"
-	icon = 'icons/obj/surgery.dmi'
-
-/obj/item/food/snacks/organ/Initialize(mapload)
-	. = ..()
-	reagents.add_reagent("nutriment", 5)
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))

@@ -86,7 +86,7 @@ SUBSYSTEM_DEF(afk)
 
 /datum/controller/subsystem/afk/proc/removeFromWatchList(list/toRemove)
 	for(var/C in toRemove)
-		for(var/i in 1 to afk_players.len)
+		for(var/i in 1 to length(afk_players))
 			if(afk_players[i] == C)
 				afk_players.Cut(i, i + 1)
 				break

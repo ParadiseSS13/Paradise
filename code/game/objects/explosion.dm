@@ -1,5 +1,3 @@
-//TODO: Flash range does nothing currently
-
 #define CREAK_DELAY 5 SECONDS //Time taken for the creak to play after explosion, if applicable.
 #define DEVASTATION_PROB 30 //The probability modifier for devistation, maths!
 #define HEAVY_IMPACT_PROB 5 //ditto
@@ -74,6 +72,10 @@
 				var/turf/M_turf = get_turf(M)
 				if(M_turf && M_turf.z == z0)
 					var/dist = get_dist(M_turf, epicenter)
+					if(isliving(M) && dist <= flash_range)
+						var/mob/living/to_flash = M
+						var/is_very_close_to_the_explosion = flash_range > (dist * 2)
+						to_flash.flash_eyes(is_very_close_to_the_explosion * 2, is_very_close_to_the_explosion, is_very_close_to_the_explosion) // Gets past sunglasses
 					var/baseshakeamount
 					if(orig_max_distance - dist > 0)
 						baseshakeamount = sqrt((orig_max_distance - dist) * 0.1)
@@ -107,14 +109,12 @@
 					if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
 						addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
 
-		if(heavy_impact_range > 1)
-			var/datum/effect_system/explosion/E
-			if(smoke)
-				E = new /datum/effect_system/explosion/smoke
-			else
-				E = new
-			E.set_up(epicenter)
-			E.start()
+		if(devastation_range > 0)
+			new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, TRUE)
+		else if(heavy_impact_range > 0)
+			new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, FALSE)
+		else if(light_impact_range > 0)
+			new /obj/effect/temp_visual/explosion(epicenter, max_range, TRUE, FALSE)
 
 		var/list/affected_turfs = spiral_range_turfs(max_range, epicenter)
 
@@ -157,7 +157,9 @@
 
 			if(T)
 				if(flame_dist && prob(40) && !isspaceturf(T) && !T.density)
-					new /obj/effect/hotspot(T) //Mostly for ambience!
+					var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T) //Mostly for ambience!
+					hotspot.temperature = 1000
+					hotspot.recolor()
 				if(dist > 0)
 					if(issimulatedturf(T))
 						var/turf/simulated/S = T

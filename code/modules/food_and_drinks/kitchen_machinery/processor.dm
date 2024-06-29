@@ -233,7 +233,7 @@
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
 		return 1
 
-	if(contents.len == 0)
+	if(length(contents) == 0)
 		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
 		return 1
 	processing = TRUE

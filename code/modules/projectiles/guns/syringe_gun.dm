@@ -15,7 +15,7 @@
 	var/max_syringes = 1
 
 /obj/item/gun/syringe/Initialize()
-	..()
+	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 
 /obj/item/gun/syringe/process_chamber()
@@ -41,7 +41,7 @@
 
 /obj/item/gun/syringe/examine(mob/user)
 	. = ..()
-	var/num_syringes = syringes.len + (chambered.BB ? 1 : 0)
+	var/num_syringes = length(syringes) + (chambered.BB ? 1 : 0)
 	. += "Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining."
 
 /obj/item/gun/syringe/attack_self(mob/living/user)
@@ -406,10 +406,24 @@
 	desc = "Fire syringes at a short distance."
 	icon_state = "blowgun"
 	item_state = "gun"
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // you fire it with your mouth
 
 /obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	visible_message("<span class='danger'>[user] shoots the blowgun!</span>")
-
-	user.adjustStaminaLoss(20, FALSE)
-	user.adjustOxyLoss(20)
+	if(chambered.BB)
+		visible_message("<span class='danger'>[user] shoots the blowgun!</span>")
+		user.adjustStaminaLoss(20, FALSE)
+		user.adjustOxyLoss(20)
 	return ..()
+
+/obj/item/gun/syringe/blowgun/suicide_act(mob/user)
+	if(chambered.BB)
+		visible_message("<span class='suicide'>[user] puts [src] to [user.p_their()] lips and inhales! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		return BRUTELOSS
+
+	visible_message("<span class='suicide'>[user] puts [src] to [user.p_their()] lips and begins blowing on it rapid-fire! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	for(var/i in 1 to 6)
+		if(!use_tool(user, user, 0.5 SECONDS))
+			return SHAME
+		var/action = pick("blows hard on [src].", "puffs out [user.p_their()] cheeks.", "tries to fire [src], but it's empty.", "utterly fails to use [src] as a straw.", "is unable to whistle through [src].", "has forgotten to attach a balloon to [src].", "accidentally left [src] on full auto.", "attempts a 360 no-scope.", "really blew it.", "definitely does not suck.", "finds [src] breathtaking.", "is no longer full of hot air.", "did not inhale.", "is determined to pass the breathalyzer test.", "has their lungs' regulator set to 150 kPa.", "has become a vent set to refill.")
+		visible_message("[user] [action]")
+	return OXYLOSS

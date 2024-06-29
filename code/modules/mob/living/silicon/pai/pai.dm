@@ -176,9 +176,6 @@
 		return 0
 	..()
 
-/mob/living/silicon/pai/MouseDrop(atom/over_object)
-	return
-
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
 	// 20% chance to kill
@@ -435,7 +432,8 @@
 
 /mob/living/silicon/pai/MouseDrop(atom/over_object)
 	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding pAIs.
-	if(!istype(H) || !Adjacent(H))  return ..()
+	if(!istype(H) || !Adjacent(H))
+		return ..()
 	if(usr == src)
 		switch(tgui_alert(H, "[src] wants you to pick [p_them()] up. Do it?", "Pick up", list("Yes", "No")))
 			if("Yes")
@@ -445,11 +443,10 @@
 					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
 			if("No")
 				to_chat(src, "<span class='warning'>[H] decided not to pick you up.</span>")
+	else if(Adjacent(H))
+		get_scooped(H)
 	else
-		if(Adjacent(H))
-			get_scooped(H)
-		else
-			return ..()
+		return ..()
 
 /mob/living/silicon/pai/on_forcemove(atom/newloc)
 	if(card)

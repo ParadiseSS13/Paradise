@@ -1,8 +1,6 @@
 /turf/simulated/floor/wood
 	icon_state = "wood"
 	floor_tile = /obj/item/stack/tile/wood
-	prying_tool_list = list(TOOL_SCREWDRIVER)
-	broken_states = list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT
 	clawfootstep = FOOTSTEP_WOOD_CLAW
@@ -19,6 +17,12 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	remove_tile(user, FALSE, FALSE)
+
+/turf/simulated/floor/wood/get_broken_states()
+	return list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
+
+/turf/simulated/floor/wood/get_prying_tools()
+	return list(TOOL_SCREWDRIVER)
 
 /turf/simulated/floor/wood/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
 	if(broken || burnt)
@@ -49,9 +53,11 @@
 	temperature = 180
 
 /turf/simulated/floor/wood/lavaland_air
-	nitrogen = 14
-	oxygen = 8
-	temperature = 500
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 // Grass
 /turf/simulated/floor/grass
@@ -63,13 +69,15 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS)
 	canSmoothWith = list(SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
 	layer = ABOVE_OPEN_TURF_LAYER
-	broken_states = list("damaged")
 	floor_tile = /obj/item/stack/tile/grass
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	transform = matrix(1, 0, -9, 0, 1, -9) //Yes, these sprites are 50x50px, big grass control the industry
+
+/turf/simulated/floor/grass/get_broken_states()
+	return list("damaged")
 
 /turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
 	if(..())
@@ -109,7 +117,6 @@
 	icon_state = "carpet-255"
 	base_icon_state = "carpet"
 	floor_tile = /obj/item/stack/tile/carpet
-	broken_states = list("damaged")
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET)
@@ -145,6 +152,9 @@
 
 /turf/simulated/floor/carpet/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
+
+/turf/simulated/floor/carpet/get_broken_states()
+	return list("damaged")
 
 /turf/simulated/floor/carpet/black
 	icon = 'icons/turf/floors/carpet_black.dmi'
@@ -204,6 +214,13 @@
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
+
+/turf/simulated/floor/carpet/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 //End of carpets
 
 // Bamboo mats
@@ -213,8 +230,6 @@
 	icon_state = "mat-0"
 	base_icon_state = "mat"
 	floor_tile = /obj/item/stack/tile/bamboo
-	prying_tool_list = list(TOOL_SCREWDRIVER)
-	broken_states = list("bamboo-damaged")
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_BAMBOO)
 	canSmoothWith = list(SMOOTH_GROUP_BAMBOO)
@@ -247,6 +262,12 @@
 /turf/simulated/floor/bamboo/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
 
+/turf/simulated/floor/bamboo/get_broken_states()
+	return list("bamboo-damaged")
+
+/turf/simulated/floor/bamboo/get_prying_tools()
+	return list(TOOL_SCREWDRIVER)
+
 /turf/simulated/floor/bamboo/airless
 	oxygen = 0
 	nitrogen = 0
@@ -256,9 +277,11 @@
 /turf/simulated/floor/bamboo/tatami
 	desc = "A traditional Japanese floor mat."
 	icon_state = "bamboo-green"
-	broken_states = list("tatami-damaged")
 	floor_tile = /obj/item/stack/tile/bamboo/tatami
 	smoothing_flags = NONE
+
+/turf/simulated/floor/bamboo/tatami/get_broken_states()
+	return list("tatami-damaged")
 
 /turf/simulated/floor/bamboo/tatami/purple
 	icon_state = "bamboo-purple"
@@ -273,13 +296,15 @@
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
 	floor_tile = /obj/item/stack/tile/fakespace
-	broken_states = list("damaged")
 	smoothing_flags = NONE
 	plane = PLANE_SPACE
 
 /turf/simulated/floor/fakespace/Initialize(mapload)
 	. = ..()
 	icon_state = SPACE_ICON_STATE
+
+/turf/simulated/floor/fakespace/get_broken_states()
+	return list("damaged")
 
 /turf/simulated/floor/fakespace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'

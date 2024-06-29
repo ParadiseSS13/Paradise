@@ -11,8 +11,8 @@
 	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "bluespace=4;materials=5"
 
-	/// The body/brain of the player inside this construct, transferred over from the soulstone.
-	var/atom/movable/held_body
+	/// Should we show rays? Triggered by a held body
+	var/animate_rays = FALSE
 	/// Does this soulstone ask the victim whether they want to be turned into a shade
 	var/optional = FALSE
 	/// Can this soul stone be used by anyone, or only cultists/wizards?
@@ -26,13 +26,6 @@
 	var/opt_in = FALSE
 	var/purified = FALSE
 
-/obj/item/soulstone/proc/add_held_body(atom/movable/body)
-	held_body = body
-	RegisterSignal(body, COMSIG_PARENT_QDELETING, PROC_REF(remove_held_body))
-
-/obj/item/soulstone/proc/remove_held_body()
-	SIGNAL_HANDLER
-	held_body = null
 
 /obj/item/soulstone/proc/can_use(mob/living/user)
 	if(IS_CULTIST(user) && purified && !iswizard(user))
@@ -78,13 +71,12 @@
 /obj/item/soulstone/Destroy() //Stops the shade from being qdel'd immediately and their ghost being sent back to the arrival shuttle.
 	for(var/mob/living/simple_animal/shade/A in src)
 		A.death()
-	remove_held_body()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/soulstone/process()
 	. = ..()
-	if(held_body)
+	if(animate_rays)
 		var/new_filter = isnull(get_filter("ray"))
 		if(!purified)
 			ray_filter_helper(1, 40,"#c926ae", 6, 20)
@@ -242,20 +234,19 @@
 		to_chat(user, "<span class='notice'>The shard feels too tough to shatter, you are not holy enough to free its captive!</span>")
 		return
 
-	if(!do_after_once(user, 10 SECONDS, FALSE, src) || !held_body)
+	if(!do_after_once(user, 10 SECONDS, FALSE, src))
 		return
 
-	user.visible_message("[user] shatters the soulstone apart! Releasing [held_body] from their prison!", "You shatter the soulstone holding [held_body], binding them free!", "You hear something shatter with a ghastly crack.")
-	if(ismob(held_body))
-		var/mob/M = held_body
-		M.key = S.key
-	else if(istype(held_body, /obj/item/organ/internal/brain))
-		var/obj/item/organ/internal/brain/B = held_body
-		B.brainmob.key = S.key
-	S.cancel_camera()
-	held_body.forceMove(get_turf(src))
-	SSticker.mode?.cult_team?.add_cult_immunity(held_body)
-	remove_held_body()
+	if(!S)
+		return
+
+	var/datum/component/construct_held_body/body_holder = S.GetComponent(/datum/component/construct_held_body)
+	var/atom/movable/dropped_body = body_holder.held_body
+	body_holder.drop_body()
+	if(!dropped_body)
+		return
+
+	user.visible_message("[user] shatters the soulstone apart! Releasing [dropped_body] from their prison!", "You shatter the soulstone holding [dropped_body], binding them free!", "You hear something shatter with a ghastly crack.")
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	qdel(src)
@@ -276,6 +267,7 @@
 		was_used()
 		remove_filter("ray")
 		STOP_PROCESSING(SSobj, src)
+		animate_rays = FALSE
 
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
 /obj/structure/constructshell
@@ -320,9 +312,8 @@
 				to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
 				T.Paralyse(40 SECONDS)
 				if(!get_cult_ghost(T, user, TRUE))
-					add_held_body(T)
-					T.forceMove(src) //If we can't get a ghost, shard the body anyways.
-					START_PROCESSING(SSobj, src)
+					// no luck, dont shard them.
+					to_chat(user, "<span class='userdanger'>No soul responds to the soul stone.</span>")
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
@@ -361,6 +352,7 @@
 					name = "soulstone : [T.name]"
 					to_chat(T, "<span class='notice'>Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form</span>")
 					to_chat(user, "<span class='notice'>Capture successful!</span> [T.name]'s has been recaptured and stored within the soul stone.")
+					animate_rays = TRUE
 					START_PROCESSING(SSobj, src)
 
 		if("CONSTRUCT")
@@ -397,13 +389,17 @@
 /mob/living/simple_animal/hostile/construct/proc/init_construct(mob/living/simple_animal/shade/shade, obj/item/soulstone/SS, obj/structure/constructshell/shell)
 	if(shade.mind)
 		shade.mind.transfer_to(src)
+	if(SS.usability)
+		// Replace regular soulstone summoning with anyuse soulstones
+		if(is_type_in_list(/datum/spell/aoe/conjure/build/soulstone, mob_spell_list))
+			RemoveSpell(/datum/spell/aoe/conjure/build/soulstone)
+			AddSpell(new /datum/spell/aoe/conjure/build/soulstone/any)
 	if(SS.purified)
 		make_holy()
 		// Replace regular soulstone summoning with purified soulstones
 		if(is_type_in_list(/datum/spell/aoe/conjure/build/soulstone, mob_spell_list))
 			RemoveSpell(/datum/spell/aoe/conjure/build/soulstone)
 			AddSpell(new /datum/spell/aoe/conjure/build/soulstone/holy)
-
 	else if(mind.has_antag_datum(/datum/antagonist/cultist)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
 		var/datum/action/innate/cult/check_progress/D = new
@@ -413,9 +409,8 @@
 		to_chat(src, "<span class='userdanger'>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</span>")
 	else
 		to_chat(src, "<span class='userdanger'>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</span>")
-	SS.held_body.forceMove(src)
-	add_held_body(SS.held_body)
-	SS.remove_held_body()
+
+	SEND_SIGNAL(shade, COMSIG_SHADE_TO_CONSTRUCT_TRANSFER, src)
 	cancel_camera()
 	qdel(shell)
 	qdel(shade)
@@ -465,13 +460,13 @@
 	if(!isrobot(M))
 		for(var/obj/item/I in M)
 			M.unEquip(I)
+
+	var/target_body = M
 	if(isbrain(M))
-		var/obj/item/organ/internal/brain/brain_obj = M.loc
-		add_held_body(brain_obj)
-		brain_obj.forceMove(src)
-	else
-		add_held_body(M)
-		M.forceMove(src)
+		target_body = M.loc // get the brain organ instead of the brain mob
+
+	S.AddComponent(/datum/component/construct_held_body, target_body)
+	animate_rays = TRUE
 
 /obj/item/soulstone/proc/get_shade_type()
 	if(purified)

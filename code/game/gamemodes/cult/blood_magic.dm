@@ -406,12 +406,12 @@
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
 
-/obj/item/melee/blood_magic/New(loc, spell)
+/obj/item/melee/blood_magic/Initialize(mapload, spell)
+	. = ..()
 	if(has_source)
 		source = spell
 		uses = source.charges
 		health_cost = source.health_cost
-	..()
 
 /obj/item/melee/blood_magic/Destroy()
 	if(has_source && !QDELETED(source))
@@ -546,7 +546,7 @@
 
 	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
+	if(QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated() || !actual_selected_rune)
 		return
 
 	if(HAS_TRAIT(user, TRAIT_FLOORED))
@@ -561,7 +561,7 @@
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
 		actual_selected_rune.handle_portal("lava")
-	else if(!is_station_level(user.z) || istype(get_area(user), /area/space))
+	else if(!is_station_level(user.z) || isspacearea(get_area(user)))
 		actual_selected_rune.handle_portal("space", origin)
 
 	if(user == target)

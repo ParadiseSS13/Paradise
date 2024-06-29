@@ -7,6 +7,8 @@
 	layer = BELOW_OBJ_LAYER
 	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
 	atom_say_verb = "beeps"
+	flags_ricochet = RICOCHET_HARD
+	receive_ricochet_chance_mod = 0.3
 	var/stat = 0
 
 	/// How is this machine currently passively consuming power?
@@ -272,7 +274,7 @@
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		on_deconstruction()
-		if(component_parts && component_parts.len)
+		if(component_parts && length(component_parts))
 			spawn_frame(disassembled)
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)

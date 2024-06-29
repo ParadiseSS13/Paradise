@@ -25,7 +25,6 @@
 	maxHealth = 150
 	health = 150
 	healable = FALSE
-	gender = NEUTER
 
 	see_in_dark = 8
 
@@ -194,7 +193,7 @@
 					healths.icon_state = "slime_health7"
 					severity = 6
 			if(severity > 0)
-				overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
+				overlay_fullscreen("brute", /atom/movable/screen/fullscreen/stretch/brute, severity)
 			else
 				clear_fullscreen("brute")
 
@@ -337,7 +336,7 @@
 
 				discipline_slime(M)
 	else
-		if(stat == DEAD && surgeries.len)
+		if(stat == DEAD && length(surgeries))
 			if(M.a_intent == INTENT_HELP || M.a_intent == INTENT_DISARM)
 				for(var/datum/surgery/S in surgeries)
 					if(S.next_step(M, src))
@@ -353,7 +352,7 @@
 
 
 /mob/living/simple_animal/slime/attackby(obj/item/I, mob/living/user, params)
-	if(stat == DEAD && surgeries.len)
+	if(stat == DEAD && length(surgeries))
 		if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
@@ -467,3 +466,7 @@
 		to_chat(src, "<i>I can't vent crawl while feeding...</i>")
 		return
 	..()
+
+/mob/living/simple_animal/slime/unit_test_dummy
+	wander = FALSE
+	stop_automated_movement = TRUE

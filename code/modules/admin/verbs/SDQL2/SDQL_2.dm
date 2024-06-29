@@ -32,12 +32,12 @@
 
 	var/list/query_list = SDQL2_tokenize(query_text)
 
-	if(!query_list || query_list.len < 1)
+	if(!query_list || length(query_list) < 1)
 		return
 
 	var/list/querys = SDQL_parse(query_list)
 
-	if(!querys || querys.len < 1)
+	if(!querys || length(querys) < 1)
 		return
 
 	var/query_log = "executed SDQL query: \"[query_text]\"."
@@ -103,7 +103,7 @@
 					var/text = ""
 					for(var/o in objs)
 						var/datum/t = o
-						text += "<A HREF='?_src_=vars;Vars=[t.UID()]'>\ref[t]</A>"
+						text += "<A href='byond://?_src_=vars;Vars=[t.UID()]'>\ref[t]</A>"
 						if(istype(t, /atom))
 							var/atom/a = t
 
@@ -129,7 +129,7 @@
 								var/datum/temp = d
 								var/i = 0
 								for(var/v in sets)
-									if(++i == sets.len)
+									if(++i == length(sets))
 										if(isturf(temp) && (v == "x" || v == "y" || v == "z"))
 											continue
 										if(!temp.vv_edit_var(v, SDQL_expression(d, set_list[sets])))
@@ -156,7 +156,7 @@
 	for(var/val in query_list)
 		if(val == ";")
 			do_parse = 1
-		else if(pos >= query_list.len)
+		else if(pos >= length(query_list))
 			query_tree += val
 			do_parse = 1
 
@@ -164,7 +164,7 @@
 			parser.query = query_tree
 			var/list/parsed_tree
 			parsed_tree = parser.parse()
-			if(parsed_tree.len > 0)
+			if(length(parsed_tree) > 0)
 				querys.len = querys_pos
 				querys[querys_pos] = parsed_tree
 				querys_pos++
@@ -282,7 +282,7 @@
 	var/result = 0
 	var/val
 
-	for(var/i = start, i <= expression.len, i++)
+	for(var/i = start, i <= length(expression), i++)
 		var/op = ""
 
 		if(i > start)
@@ -337,7 +337,7 @@
 	var/i = start
 	var/val = null
 
-	if(i > expression.len)
+	if(i > length(expression))
 		return list("val" = null, "i" = i)
 
 	if(istype(expression[i], /list))
@@ -375,14 +375,14 @@
 
 	else
 		val = SDQL_var(object, expression, i, object)
-		i = expression.len
+		i = length(expression)
 
 	return list("val" = val, "i" = i)
 
 /proc/SDQL_var(datum/object, list/expression, start = 1, source)
 	var/v
 
-	var/long = start < expression.len
+	var/long = start < length(expression)
 
 	if(object == world && long && expression[start + 1] == ".")
 		to_chat(usr, "Sorry, but global variables are not supported at the moment.")
@@ -431,7 +431,7 @@
 		else if(expression[start + 1] == "\[" && islist(v))
 			var/list/L = v
 			var/index = SDQL_expression(source, expression[start + 2])
-			if(isnum(index) && (!ISINTEGER(index) || L.len < index))
+			if(isnum(index) && (!ISINTEGER(index) || length(L) < index))
 				to_chat(world, "<span class='danger'>Invalid list index: [index]</span>")
 				return null
 			return L[index]

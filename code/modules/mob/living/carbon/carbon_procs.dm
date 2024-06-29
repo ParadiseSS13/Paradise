@@ -194,18 +194,11 @@
 	SEND_SIGNAL(src, COMSIG_CARBON_SWAP_HANDS)
 
 
-/mob/living/carbon/activate_hand(selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
-
-	if(istext(selhand))
-		selhand = lowertext(selhand)
-
-		if(selhand == "right" || selhand == "r")
-			selhand = 0
-		if(selhand == "left" || selhand == "l")
-			selhand = 1
-
+/mob/living/carbon/activate_hand(selhand)
 	if(selhand != hand)
 		swap_hand()
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	if(health < HEALTH_THRESHOLD_CRIT)
@@ -360,7 +353,7 @@
 	if((E && (E.status & ORGAN_DEAD)) || !.)
 		return FALSE
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/flash)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 
@@ -500,10 +493,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 					"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
-	if(!do_after(src, 4.5 SECONDS, target = src))
-		return
-
+#ifdef UNIT_TESTS
+	var/ventcrawl_delay = 0 SECONDS
+#else
+	var/ventcrawl_delay = 4.5 SECONDS
 	if(!client)
+		return
+#endif
+	if(!do_after(src, ventcrawl_delay, target = src))
 		return
 
 	if(!vent_found.can_crawl_through())
@@ -545,7 +542,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!A.pipe_image)
 			A.update_pipe_image()
 		pipes_shown += A.pipe_image
-		client.images += A.pipe_image
+		if(client)
+			client.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
 	if(client)
@@ -805,7 +803,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
 	var/obj/item/I = get_restraining_item()
-	if(!I) // If there is nothing to restrain him then he is not restrained
+	var/time = 0
+	if(istype(I))
+		time = I.breakouttime
+	else if(isstructure(buckled))
+		var/obj/structure/struct = buckled
+		time = struct.unbuckle_time
+
+	if(time == 0)
 		buckled.user_unbuckle_mob(src, src)
 		return
 
@@ -813,7 +818,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		to_chat(src, "<span class='notice'>You are already trying to unbuckle!</span>")
 		return
 	apply_status_effect(STATUS_EFFECT_UNBUCKLE)
-	var/time = I.breakouttime
+
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
 				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
 	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check)))))
@@ -887,16 +892,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
 	breakouttime = I.breakouttime
+	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+		breakouttime /= 2
 
-	var/displaytime = breakouttime / 10
 	if(!cuff_break)
 		if(has_status_effect(STATUS_EFFECT_REMOVE_CUFFS))
 			to_chat(src, "<span class='notice'>You are already trying to remove [I].</span>")
 			return
 		apply_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
-		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [displaytime] seconds and you need to stand still.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
+		var/is_zombie = HAS_TRAIT(src, TRAIT_I_WANT_BRAINS)
+		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [breakouttime / 10] seconds[is_zombie ? "" : " and you need to stand still"].)</span>")
+		if(do_after(src, breakouttime, 0, target = src, allow_moving = is_zombie, allow_moving_target = is_zombie))
 			remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 			if(I.loc != src || buckled)
 				return
@@ -908,7 +915,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(I == handcuffed)
 				if(istype(I, /obj/item/restraints/handcuffs/twimsts))
 					playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
-					if(I.reagents && I.reagents.reagent_list.len)
+					if(I.reagents && length(I.reagents.reagent_list))
 						taste(I.reagents)
 						I.reagents.reaction(src, REAGENT_INGEST)
 						I.reagents.trans_to(src, I.reagents.total_volume)
@@ -1011,35 +1018,89 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				legcuffed,
 				back,
 				wear_mask)
+/**
+ * Clears a carbon mob's handcuffs and legcuffs, dropping them to the ground.
+ *
+ * Arguments:
+ * * show_message - if TRUE, will display a visible message when restraints are removed. FALSE by default.
+ *
+ * Returns:
+ * * TRUE if handcuffs or legcuffs were removed, FALSE otherwise
+ */
+/mob/living/carbon/proc/clear_restraints(show_message = FALSE)
+	. = clear_handcuffs(show_message)
+	. |= clear_legcuffs(show_message)
 
-/mob/living/carbon/proc/uncuff()
-	if(handcuffed)
-		var/obj/item/W = handcuffed
-		handcuffed = null
-		if(buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob(src)
-		update_handcuffed()
-		if(client)
-			client.screen -= W
-		if(W)
-			W.forceMove(drop_location())
-			W.dropped(src)
-			if(W)
-				W.layer = initial(W.layer)
-				W.plane = initial(W.plane)
-	if(legcuffed)
-		var/obj/item/W = legcuffed
-		legcuffed = null
-		toggle_move_intent()
-		update_inv_legcuffed()
-		if(client)
-			client.screen -= W
-		if(W)
-			W.forceMove(drop_location())
-			W.dropped(src)
-			if(W)
-				W.layer = initial(W.layer)
-				W.plane = initial(W.plane)
+/**
+ * Removes a carbon's handcuffs, dropping them to the ground. Calls update_handcuffed(). Unbuckles if handcuffs were necessary for the buckle (pipe buckling, etc.)
+ *
+ * Arguments:
+ * * show_message - if TRUE, will display a visible message when restraints are removed. FALSE by default.
+ *
+ * Returns:
+ * * TRUE if handcuffs existed and were successfully removed, FALSE otherwise
+ */
+/mob/living/carbon/proc/clear_handcuffs(show_message = FALSE)
+	if(!handcuffed)
+		return FALSE
+
+	var/obj/item/W = handcuffed
+	if(isnull(W))
+		return FALSE
+
+	handcuffed = null
+	if(buckled && buckled.buckle_requires_restraints)
+		buckled.unbuckle_mob(src)
+	update_handcuffed()
+
+	if(client)
+		client.screen -= W
+
+	if(show_message)
+		visible_message("<span class='warning'>[src] slips out of [W]!</span>")
+
+	W.forceMove(drop_location())
+	W.dropped(src)
+	if(W)
+		W.layer = initial(W.layer)
+		W.plane = initial(W.plane)
+
+	return TRUE
+
+/**
+ * Removes a carbon's legcuffs, dropping them to the ground. Calls update_inv_legcuffed().
+ *
+ * Arguments:
+ * * show_message - if TRUE, will display a visible message when restraints are removed. FALSE by default.
+ *
+ * Returns:
+ * * TRUE if legcuffs existed and were successfully removed, FALSE otherwise
+ */
+/mob/living/carbon/proc/clear_legcuffs(show_message = FALSE)
+	if(!legcuffed)
+		return FALSE
+
+	var/obj/item/W = legcuffed
+	if(isnull(W))
+		return FALSE
+
+	legcuffed = null
+	toggle_move_intent()
+	update_inv_legcuffed()
+
+	if(client)
+		client.screen -= W
+
+	if(show_message)
+		visible_message("<span class='warning'>[W] falls off of [src]!</span>")
+
+	W.forceMove(drop_location())
+	W.dropped(src)
+	if(W)
+		W.layer = initial(W.layer)
+		W.plane = initial(W.plane)
+
+	return TRUE
 
 
 /mob/living/carbon/proc/slip(description, knockdown, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
@@ -1196,9 +1257,9 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/update_tint()
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/blind)
 	else if(tinttotal >= TINT_IMPAIR)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/impaired, 2)
 	else
 		clear_fullscreen("tint", 0)
 

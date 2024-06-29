@@ -34,7 +34,8 @@
 		/obj/effect/projectile_lighting,
 		/obj/effect/dummy/slaughter, //no bloodcrawlers into chasms.
 		/obj/effect/dummy/spell_jaunt, //No jaunters into chasms either.
-		/mob/living/simple_animal/hostile/megafauna //failsafe
+		/mob/living/simple_animal/hostile/megafauna, //failsafe
+		/obj/tgvehicle/scooter/skateboard/hoverboard
 		))
 	var/drop_x = 1
 	var/drop_y = 1
@@ -130,6 +131,8 @@
 		var/mob/living/M = AM
 		if(M.flying || M.floating)
 			return FALSE
+		if(istype(M.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
+			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if(istype(H.belt, /obj/item/wormhole_jaunter))
@@ -173,10 +176,11 @@
 	drop_z = z - 1
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	oxygen = 8
-	nitrogen = 14
-	temperature = 500
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
 	light_range = 2
 	light_power = 0.75
@@ -278,6 +282,8 @@
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
 
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
 	return 1

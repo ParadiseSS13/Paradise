@@ -293,7 +293,7 @@
 	target_all_areas = TRUE
 
 /obj/machinery/computer/bsa_control/admin/Initialize()
-	..()
+	. = ..()
 	if(!cannon)
 		cannon = deploy()
 

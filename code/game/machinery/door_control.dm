@@ -133,3 +133,11 @@
 /obj/machinery/door_control/no_emag/emag_act(user as mob)
 	to_chat(user, "<span class='notice'>The electronic systems in this button are far too advanced for your primitive hacking peripherals.</span>")
 	return
+
+/obj/machinery/door_control/no_emag/no_cyborg
+	desc = "A remote control-switch for a door. Looks strangely analog in design."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/machinery/door_control/no_emag/no_cyborg/attack_ai(mob/user)
+	to_chat(user, "<span class='warning'>Error, no route to host.</span>")
+	return

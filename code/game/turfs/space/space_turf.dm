@@ -16,7 +16,8 @@
 	var/destination_z
 	var/destination_x
 	var/destination_y
-	plane = PLANE_SPACE
+
+	atmos_mode = ATMOS_MODE_SPACE
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -117,18 +118,41 @@
 	if((!(A) || !(src in A.locs)))
 		return
 
-	if(destination_z && destination_x && destination_y)
-		A.forceMove(locate(destination_x, destination_y, destination_z))
+	if(destination_z && destination_x && destination_y && !A.pulledby && !HAS_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING))
+		var/tx = destination_x
+		var/ty = destination_y
+		var/turf/DT = locate(tx, ty, destination_z)
+		var/itercount = 0
+		while(DT.density || istype(DT.loc, /area/shuttle)) // Extend towards the center of the map, trying to look for a better place to arrive
+			if(itercount++ >= 100)
+				stack_trace("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [A] within 100 iterations.")
+				break
+			if(tx < 128)
+				tx++
+			else
+				tx--
+			if(ty < 128)
+				ty++
+			else
+				ty--
+			DT = locate(tx, ty, destination_z)
 
-		if(isliving(A))
-			var/mob/living/L = A
-			if(L.pulling)
-				var/turf/T = get_step(L.loc,turn(A.dir, 180))
-				L.pulling.forceMove(T)
+		ADD_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT) // roundstart because its robust and won't be removed by someone being an idiot
+		A.forceMove(DT)
+		REMOVE_TRAIT(A, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
 
-		//now we're on the new z_level, proceed the space drifting
-		sleep(0)//Let a diagonal move finish, if necessary
-		A.newtonian_move(A.inertia_dir)
+		itercount = 0
+		var/atom/movable/current_pull = A.pulling
+		while(current_pull)
+			if(itercount > 100)
+				stack_trace("SPACE Z-TRANSIT ERROR: [A] encountered a possible infinite loop while traveling through z-levels.")
+				break
+			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
+			ADD_TRAIT(current_pull, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
+			current_pull.forceMove(target_turf)
+			REMOVE_TRAIT(current_pull, TRAIT_CURRENTLY_Z_MOVING, ROUNDSTART_TRAIT)
+			current_pull = current_pull.pulling
+			itercount++
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x
@@ -147,7 +171,7 @@
 		if(!cur_pos) return
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
-		next_x = (--cur_x||GLOB.global_map.len)
+		next_x = (--cur_x||length(GLOB.global_map))
 		y_arr = GLOB.global_map[next_x]
 		target_z = y_arr[cur_y]
 /*
@@ -172,7 +196,7 @@
 		if(!cur_pos) return
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
-		next_x = (++cur_x > GLOB.global_map.len ? 1 : cur_x)
+		next_x = (++cur_x > length(GLOB.global_map) ? 1 : cur_x)
 		y_arr = GLOB.global_map[next_x]
 		target_z = y_arr[cur_y]
 /*
@@ -197,7 +221,7 @@
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
 		y_arr = GLOB.global_map[cur_x]
-		next_y = (--cur_y||y_arr.len)
+		next_y = (--cur_y||length(y_arr))
 		target_z = y_arr[next_y]
 /*
 		//debug
@@ -222,7 +246,7 @@
 		cur_x = cur_pos["x"]
 		cur_y = cur_pos["y"]
 		y_arr = GLOB.global_map[cur_x]
-		next_y = (++cur_y > y_arr.len ? 1 : cur_y)
+		next_y = (++cur_y > length(y_arr) ? 1 : cur_y)
 		target_z = y_arr[next_y]
 /*
 		//debug

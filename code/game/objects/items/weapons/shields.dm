@@ -66,7 +66,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/shield/riot/buckler/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (10 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
 
 /obj/item/shield/energy
@@ -86,7 +86,7 @@
 	return
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.shield_buster && active)
 			toggle(owner, TRUE)

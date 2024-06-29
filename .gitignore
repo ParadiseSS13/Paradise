@@ -68,3 +68,9 @@ $RECYCLE.BIN
 
 # Linux libs
 /*.so
+
+# VIM swap files.
+*.swp
+
+# Rust output.
+/milla/target/*

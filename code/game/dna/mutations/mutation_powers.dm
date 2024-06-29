@@ -277,7 +277,6 @@
 /datum/spell/cryokinesis
 	name = "Cryokinesis"
 	desc = "Drops the bodytemperature of another person."
-	panel = "Abilities"
 
 	base_cooldown = 1200
 
@@ -348,7 +347,6 @@
 /datum/spell/eat
 	name = "Eat"
 	desc = "Eat just about anything!"
-	panel = "Abilities"
 
 	base_cooldown = 300
 
@@ -391,11 +389,14 @@
 
 
 /datum/spell/eat/cast(list/targets, mob/user = usr)
-	if(!targets.len)
+	if(!length(targets))
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
 
 	var/atom/movable/the_item = targets[1]
+	if(!user.Adjacent(the_item))
+		to_chat(user, "<span class='danger'>You need to be next to [the_item] for this!</span>")
+		return FALSE
 	if(ishuman(the_item))
 		var/mob/living/carbon/human/H = the_item
 		var/obj/item/organ/external/limb = H.get_organ(user.zone_selected)
@@ -414,15 +415,14 @@
 			revert_cast()
 			return FALSE
 		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [user.p_their()] gaping maw!</span>")
-		var/oldloc = H.loc
-		if(!do_mob(user,H,EAT_MOB_DELAY))
+		if(!do_mob(user, H, EAT_MOB_DELAY))
 			to_chat(user, "<span class='danger'>You were interrupted before you could eat [the_item]!</span>")
 		else
 			if(!limb || !H)
 				return
-			if(H.loc != oldloc)
-				to_chat(user, "<span class='danger'>\The [limb] moved away from your mouth!</span>")
-				return
+			if(!user.Adjacent(the_item))
+				to_chat(user, "<span class='danger'>You need to be next to [the_item] for this!</span>")
+				return FALSE
 			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 
@@ -445,11 +445,27 @@
 					chest.receive_damage(50, sharp = TRUE)
 
 			doHeal(user)
-	else
-		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
-		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-		qdel(the_item)
-		doHeal(user)
+
+		return
+
+	if(ismob(the_item.loc) && isitem(the_item))
+		var/obj/item/eaten = the_item
+		var/mob/the_owner = the_item.loc
+		if(!the_owner.unEquip(eaten, FALSE, TRUE))
+			to_chat(user, "<span class='warning'>You can't eat [the_item], it won't go down your throat!</span>")
+			return
+	user.visible_message("<span class='danger'>[user] eats [the_item].</span>")
+	playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/external/chest/target_place = H.get_organ(BODY_ZONE_CHEST)
+		if(istype(target_place))
+			the_item.forceMove(target_place)
+			doHeal(user)
+			return
+
+	qdel(the_item)
+	doHeal(user)
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -471,8 +487,6 @@
 /datum/spell/leap
 	name = "Jump"
 	desc = "Leap great distances!"
-	panel = "Abilities"
-
 	base_cooldown = 60
 
 	clothes_req = FALSE
@@ -480,6 +494,7 @@
 	invocation_type = "none"
 
 	action_icon_state = "genetic_jump"
+	var/leap_distance = 10
 
 /datum/spell/leap/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -512,15 +527,25 @@
 		user.layer = 9
 
 		user.flying = TRUE
-		for(var/i=0, i<10, i++)
+		for(var/i in 1 to leap_distance)
+			var/turf/hit_turf = get_step(user, user.dir)
+			var/atom/hit_atom = get_blocking_atom(hit_turf)
+			if(hit_atom)
+				hit_atom.hit_by_thrown_mob(user, damage = 10)
+				break
+
 			step(user, user.dir)
-			if(i < 5) user.pixel_y += 8
-			else user.pixel_y -= 8
+			if(i < 6)
+				user.pixel_y += 8
+			else
+				user.pixel_y -= 8
 			sleep(1)
+
 		user.flying = prevFlying
+		user.pixel_y = 0 // In case leap was varedited to be longer or shorter
 
 		if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
-			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
+			user.visible_message("<span class='danger'><b>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(20 SECONDS)
 			user.AdjustStunned(10 SECONDS)
@@ -543,6 +568,26 @@
 		container.pixel_x = 0
 		container.pixel_y = 0
 
+/datum/spell/leap/proc/get_blocking_atom(turf/turf_to_check)
+	if(!turf_to_check)
+		return FALSE
+
+	if(turf_to_check.density)
+		return turf_to_check
+
+	for(var/atom/movable/hit_thing in turf_to_check)
+		if(isliving(hit_thing))
+			var/mob/living/hit_mob = hit_thing
+			if(hit_mob.density)
+				return hit_mob
+
+		if(isobj(hit_thing))
+			var/obj/hit_obj = hit_thing
+			if(hit_obj.density)
+				return hit_obj
+
+	return FALSE
+
 ////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/polymorphism
@@ -564,7 +609,6 @@
 /datum/spell/polymorph
 	name = "Polymorph"
 	desc = "Mimic the appearance of others!"
-	panel = "Abilities"
 	base_cooldown = 1800
 
 	clothes_req = FALSE
@@ -700,8 +744,8 @@
 			if(H.mind && H.mind.initial_account)
 				numbers += H.mind.initial_account.account_number
 				numbers += H.mind.initial_account.account_pin
-			if(numbers.len>0)
-				to_chat(user, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
+			if(length(numbers)>0)
+				to_chat(user, "<span class='notice'><b>Numbers</b>: You sense the number[length(numbers)>1?"s":""] [english_list(numbers)] [length(numbers)>1?"are":"is"] important to [M.name].</span>")
 		to_chat(user, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
 
 		if(M.dna?.GetSEState(GLOB.empathblock))
@@ -726,7 +770,6 @@
 /datum/spell/morph
 	name = "Morph"
 	desc = "Mimic the appearance of your choice!"
-	panel = "Abilities"
 	base_cooldown = 1800
 
 	clothes_req = FALSE
@@ -867,10 +910,10 @@
 			M.change_skin_tone(new_tone)
 
 	if(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-		var/prompt = "Please select skin tone: 1-[M.dna.species.icon_skin_tones.len] ("
-		for(var/i = 1 to M.dna.species.icon_skin_tones.len)
+		var/prompt = "Please select skin tone: 1-[length(M.dna.species.icon_skin_tones)] ("
+		for(var/i = 1 to length(M.dna.species.icon_skin_tones))
 			prompt += "[i] = [M.dna.species.icon_skin_tones[i]]"
-			if(i != M.dna.species.icon_skin_tones.len)
+			if(i != length(M.dna.species.icon_skin_tones))
 				prompt += ", "
 		prompt += ")"
 
@@ -878,7 +921,7 @@
 		if(!new_tone)
 			new_tone = 0
 		else
-			new_tone = max(min(round(text2num(new_tone)), M.dna.species.icon_skin_tones.len), 1)
+			new_tone = max(min(round(text2num(new_tone)), length(M.dna.species.icon_skin_tones)), 1)
 			M.change_skin_tone(new_tone)
 
 	//Skin colour.
@@ -957,7 +1000,7 @@
 	stat_allowed = CONSCIOUS
 	invocation_type = "none"
 	action_icon_state = "genetic_mindscan"
-	var/list/available_targets = list()
+	var/list/expanded_minds = list()
 
 /datum/spell/mindscan/create_new_targeting()
 	return new /datum/spell_targeting/telepathic
@@ -970,43 +1013,50 @@
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
 		user.show_message("<i><span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span></i>")
-		target.show_message("<i><span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span></i>")
-		available_targets += target
-		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 100)
+		target.show_message("<i><span class='abductor'><a href='byond://?src=[UID()];from=[target.UID()];to=[user.UID()]'>[message]</a></span></i>")
+		expanded_minds += target
+		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 10 SECONDS)
 
 /datum/spell/mindscan/proc/removeAvailability(mob/living/target)
-	if(target in available_targets)
-		available_targets -= target
-		if(!(target in available_targets))
+	if(target in expanded_minds)
+		expanded_minds -= target
+		if(!(target in expanded_minds))
 			target.show_message("<i><span class='abductor'>You feel the sensation fade...</span></i>")
 
 /datum/spell/mindscan/Topic(href, href_list)
-	var/mob/living/user
-	if(href_list["user"])
-		user = locateUID(href_list["user"])
-	if(href_list["target"])
-		if(!user)
-			return
-		var/mob/living/target = locateUID(href_list["target"])
-		if(!(target in available_targets))
-			return
-		available_targets -= target
-		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
-		if(!say)
-			return
-		say = pencode_to_html(say, target, format = FALSE, fields = FALSE)
-		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
-		log_say("(TPATH to [key_name(target)]) [say]", user)
-		if(target.dna?.GetSEState(GLOB.remotetalkblock))
-			target.show_message("<i><span class='abductor'>You project your mind into [user.name]: [say]</span></i>")
-		else
-			target.show_message("<i><span class='abductor'>You fill the space in your thoughts: [say]</span></i>")
-		user.show_message("<i><span class='abductor'>You hear [target.name]'s voice: [say]</span></i>")
-		for(var/mob/dead/observer/G in GLOB.player_list)
-			G.show_message("<i>Telepathic response from <b>[target]</b> ([ghost_follow_link(target, ghost=G)]) to <b>[user]</b> ([ghost_follow_link(user, ghost=G)]): [say]</i>")
+	var/mob/living/message_source
+	message_source = locateUID(href_list["from"])
+	if(!message_source)
+		return
+	if(!message_source || !(message_source in expanded_minds))
+		return
+
+	expanded_minds -= message_source
+
+	var/mob/living/message_target = locateUID(href_list["to"])
+	if(!message_target)
+		return
+
+	var/say = tgui_input_text(message_source, "What do you wish to say?", "Expanded Mind")
+	if(!say)
+		return
+	say = pencode_to_html(say, message_source, format = FALSE, fields = FALSE)
+
+	message_source.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", message_target)
+	log_say("(TPATH to [key_name(message_target)]) [say]", message_source)
+
+	if(message_source.dna?.GetSEState(GLOB.remotetalkblock))
+		message_source.show_message("<i><span class='abductor'>You project your mind into [message_target]: [say]</span></i>")
+	else
+		message_source.show_message("<i><span class='abductor'>You fill the space in your thoughts: [say]</span></i>")
+
+	message_target.show_message("<i><span class='abductor'>You hear [message_source]'s voice: [say]</span></i>")
+
+	for(var/mob/dead/observer/G in GLOB.player_list)
+		G.show_message("<i>Telepathic response from <b>[message_source]</b> ([ghost_follow_link(message_source, ghost=G)]) to <b>[message_target]</b> ([ghost_follow_link(message_target, ghost=G)]): [say]</i>")
 
 /datum/spell/mindscan/Destroy()
-	available_targets.Cut()
+	expanded_minds.Cut()
 	return ..()
 
 /datum/mutation/grant_spell/remoteview

@@ -134,7 +134,7 @@
 				to_chat(user, "You remove the label from [src].")
 				return 1
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
-		if(beakers.len == 2)
+		if(length(beakers) == 2)
 			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
 			return
 		else
@@ -184,7 +184,7 @@
 			nadeassembly.forceMove(get_turf(src))
 			nadeassembly.master = null
 			nadeassembly = null
-		if(beakers.len)
+		if(length(beakers))
 			for(var/obj/O in beakers)
 				O.forceMove(get_turf(src))
 			beakers = list()
@@ -280,7 +280,7 @@
 
 	if(!chem_splash(get_turf(src), affected_area, reactants, ignition_temp, threatscale) && !no_splash)
 		playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
-		if(beakers.len)
+		if(length(beakers))
 			for(var/obj/O in beakers)
 				O.forceMove(get_turf(src))
 			beakers = list()
@@ -293,9 +293,9 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z]) [contained]")
-		investigate_log("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.", INVESTIGATE_BOMB)
+		investigate_log("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.", INVESTIGATE_BOMB)
 		add_attack_logs(last, src, "has armed for detonation", ATKLOG_FEW)
 	update_mob()
 
@@ -427,9 +427,9 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
-		investigate_log("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.", INVESTIGATE_BOMB)
+		investigate_log("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.", INVESTIGATE_BOMB)
 		add_attack_logs(last, src, "has armed for detonation", ATKLOG_FEW)
 	else
 		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
@@ -590,6 +590,24 @@
 
 	beakers += B1
 	beakers += B2
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/grenade/chem_grenade/tar
+	payload_name = "sticky tar"
+	desc = "For spreading sticky tar. Become the anti-janitor!"
+	stage = READY
+
+/obj/item/grenade/chem_grenade/tar/Initialize(mapload)
+	. = ..()
+	var/obj/item/reagent_containers/glass/beaker/beaker_1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/beaker_2 = new(src)
+
+	beaker_1.reagents.add_reagent("sticky_tar", 15)
+	beaker_1.reagents.add_reagent("potassium", 10)
+	beaker_2.reagents.add_reagent("phosphorus", 10)
+	beaker_2.reagents.add_reagent("sugar", 10)
+	beakers += beaker_1
+	beakers += beaker_2
 	update_icon(UPDATE_ICON_STATE)
 
 #undef EMPTY

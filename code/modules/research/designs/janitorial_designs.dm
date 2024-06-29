@@ -21,16 +21,6 @@
 	build_path = /obj/item/storage/bag/trash/bluespace
 	category = list("Janitorial")
 
-/datum/design/buffer
-	name = "Floor Buffer Upgrade"
-	desc = "A floor buffer that can be attached to vehicular janicarts."
-	id = "buffer"
-	req_tech = list("materials" = 4, "engineering" = 4)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 3000, MAT_GLASS = 200)
-	build_path = /obj/item/janiupgrade
-	category = list("Janitorial")
-
 /datum/design/holosign
 	name = "Janitorial Holographic Sign Projector"
 	desc = "A holograpic projector used to project wet warning signs."
@@ -59,4 +49,34 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 6000, MAT_BLUESPACE = 300)
 	build_path = /obj/item/lightreplacer/bluespace
+	category = list("Janitorial")
+
+/datum/design/abductor_mop
+	name = "Alien Mop"
+	desc = "An advanced mop obtained through Abductor technology."
+	id = "alien_mop"
+	req_tech = list("materials" = 5, "engineering" = 5, "abductor" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
+	build_path = /obj/item/mop/advanced/abductor
+	category = list("Janitorial")
+
+/datum/design/abductor_light_replacer
+	name = "Alien Light Replacer"
+	desc = "An advanced light replacer obtained through Abductor technology."
+	id = "alien_light_replacer"
+	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 5, "abductor" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
+	build_path = /obj/item/lightreplacer/bluespace/abductor
+	category = list("Janitorial")
+
+/datum/design/abductor_flyswatter
+	name = "Alien Flyswatter"
+	desc = "An advanced flyswatter obtained through Abductor technology."
+	id = "alien_flyswatter"
+	req_tech = list("combat" = 5, "abductor" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
+	build_path = /obj/item/melee/flyswatter/abductor
 	category = list("Janitorial")

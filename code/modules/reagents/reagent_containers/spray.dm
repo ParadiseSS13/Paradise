@@ -37,6 +37,10 @@
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
 			return
 
+		if(!is_open_container())
+			to_chat(user, "<span class='notice'>[src] cannot be refilled.</span>")
+			return
+
 		var/trans = A.reagents.trans_to(src, 50) //This is a static amount, otherwise, it'll take forever to fill.
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [A].</span>")
 		return
@@ -57,7 +61,7 @@
 	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)	//harmful temperature
 		attack_log_type = ATKLOG_MOST
 
-	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only create space cleaner logs if it's burning people from being too hot or cold
+	if(length(reagents.reagent_list) == 1 && reagents.has_reagent("cleaner")) // Only create space cleaner logs if it's burning people from being too hot or cold
 		if(attack_log_type == ATKLOG_ALMOSTALL)
 			return
 
@@ -98,9 +102,9 @@
 	. = ..()
 	if(get_dist(user, src) && user == loc)
 		. += "[round(reagents.total_volume)] units left."
-	. += "<span class='info'><b>Alt-Click</b> to empty it.</span>"
+	. += "<span class='info'><b>Alt-Shift-Click</b> to empty it.</span>"
 
-/obj/item/reagent_containers/spray/AltClick(mob/user)
+/obj/item/reagent_containers/spray/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(tgui_alert(user, "Are you sure you want to empty that?", "Empty Bottle", list("Yes", "No")) != "Yes")
@@ -245,7 +249,7 @@
 	var/turf/T2 = get_step(T,turn(direction, -90))
 	var/list/the_targets = list(T,T1,T2)
 
-	for(var/i=1, i<=Sprays.len, i++)
+	for(var/i=1, i<=length(Sprays), i++)
 		spawn()
 			var/obj/effect/decal/chempuff/D = Sprays[i]
 			if(!D) continue
@@ -281,3 +285,18 @@
 	belt_icon = null
 	volume = 100
 	list_reagents = list("glyphosate" = 100)
+
+/// Sticky tar spray
+/obj/item/reagent_containers/spray/sticky_tar
+	name = "sticky tar applicator"
+	desc = "A suspicious looking spraycan filled with an extremely viscous and sticky fluid."
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	icon_state = "syndie_spraycan"
+	item_state = "syndie_spraycan"
+	container_type = AMOUNT_VISIBLE
+	spray_maxrange = 2
+	spray_currentrange = 2
+	amount_per_transfer_from_this = 10
+	list_reagents = list("sticky_tar" = 100)
+

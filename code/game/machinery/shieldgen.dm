@@ -14,12 +14,12 @@
 /obj/machinery/shield/Initialize(mapload)
 	. = ..()
 	dir = pick(NORTH, SOUTH, EAST, WEST)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/machinery/shield/Destroy()
 	opacity = FALSE
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/machinery/shield/Move()
@@ -32,7 +32,7 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/shield/CanAtmosPass(turf/T)
+/obj/machinery/shield/CanAtmosPass(direction)
 	return !density
 
 /obj/machinery/shield/ex_act(severity)
@@ -120,7 +120,7 @@
 		invisibility = INVISIBILITY_MAXIMUM
 		visible = FALSE
 
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return visible
 
 /obj/machinery/shieldgen
@@ -295,6 +295,12 @@
 
 /obj/machinery/shieldgen/update_icon_state()
 	icon_state = "shield[active ? "on" : "off"][malfunction ? "br" : ""]"
+
+/obj/machinery/shieldgen/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+	. = ..()
+	if(active)
+		shields_down()
+		addtimer(CALLBACK(src, PROC_REF(shields_up)), 1 SECONDS)//Lets docking finish, prevents placing shields on shuttle tiles.
 
 /obj/machinery/shieldgen/raven
 	name = "military shield generator"
@@ -547,7 +553,7 @@
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return prob(20)
 	else
-		if(istype(mover, /obj/item/projectile))
+		if(isprojectile(mover))
 			return prob(10)
 		else
 			return !density
@@ -563,7 +569,7 @@
 		var/mob/living/M = mover
 		if("syndicate" in M.faction)
 			return TRUE
-	if(istype(mover, /obj/item/projectile))
+	if(isprojectile(mover))
 		return FALSE
 	return ..(mover, target, height)
 

@@ -136,10 +136,7 @@
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
 						var/turf/simulated/O = T.ChangeTurf(NewTerrainFloors)
-						if(O.air)
-							var/datum/gas_mixture/G = O.air
-							G.copy_from(O.air)
-						if(prob(florachance) && NewFlora.len && !is_blocked_turf(O))
+						if(prob(florachance) && length(NewFlora) && !is_blocked_turf(O))
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
@@ -217,7 +214,7 @@
 /obj/machinery/anomalous_crystal/helpers/ActivationReaction(mob/user, method)
 	if(..() && !ready_to_deploy)
 		ready_to_deploy = 1
-		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=?src=\ref[src];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
+		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=byond://?src=\ref[src];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 		GLOB.poi_list |= src // ghosts should actually know they can join as a lightgeist
 
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
@@ -258,7 +255,7 @@
 	response_help = "waves away"
 	response_disarm = "brushes aside"
 	response_harm = "disrupts"
-	speak_emote = list("oscillates")
+	speak_emote = list("warps")
 	maxHealth = 2
 	health = 2
 	harm_intent_damage = 1
@@ -270,14 +267,13 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = HOSTILE_SPAWN
-	speak_emote = list("warps")
+
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	luminosity = 4
 	faction = list("neutral")
 	universal_understand = TRUE
 	del_on_death = TRUE
 	unsuitable_atmos_damage = 0
-	flying = TRUE
 	minbodytemp = 0
 	maxbodytemp = 1500
 	environment_smash = 0

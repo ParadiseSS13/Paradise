@@ -13,7 +13,6 @@
 	return TRUE
 
 /datum/spell/vampire
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
@@ -69,6 +68,14 @@
 	SEND_SIGNAL(U, COMSIG_LIVING_CLEAR_STUNS)
 	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
+	for(var/datum/disease/zombie/zombie_infection in U.viruses)
+		zombie_infection.stage = min(zombie_infection.stage, round(7 - (V.bloodtotal/100))) // 700 max usable blood can cleanse any zombie infection
+		if(zombie_infection.stage <= 0)
+			zombie_infection.cure()
+			to_chat(user, "<span class='notice'>You cleanse the plague from your system.</span>")
+		else
+			to_chat(user, "<span class='warning'>You weaken the plague in your system, but you don't have enough blood to completely remove it.</span>")
+
 	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
 		INVOKE_ASYNC(src, PROC_REF(heal), U, rejuv_bonus)
@@ -222,9 +229,6 @@
 		add_attack_logs(user, target, "(Vampire) Glared at")
 
 /datum/spell/vampire/glare/proc/calculate_deviation(mob/victim, mob/attacker)
-	// Are they on the same tile? We'll return partial deviation. This may be someone flashing while lying down
-	if(victim.loc == attacker.loc)
-		return DEVIATION_PARTIAL
 
 	// If the victim was looking at the attacker, this is the direction they'd have to be facing.
 	var/attacker_to_victim = get_dir(attacker, victim)
@@ -237,14 +241,15 @@
 	// Attacker within 45 degrees of where the victim is facing.
 	if(attacker_dir & attacker_to_victim)
 		return DEVIATION_NONE
-
+	// Are they on the same tile? This is probably the victim crawling under the vampire, and looking down shouldn't be too tough.
+	if(victim.loc == attacker.loc)
+		return DEVIATION_NONE
 	// # # #
 	// - V - Attacker facing south
 	// - - -
 	// Victim at 135 or more degrees of where the victim is facing.
-	if(attacker_dir & reverse_direction(attacker_to_victim))
+	if(attacker_dir & REVERSE_DIR(attacker_to_victim))
 		return DEVIATION_FULL
-
 	// - - -
 	// # V # Attacker facing south
 	// - - -

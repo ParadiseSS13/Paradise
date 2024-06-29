@@ -1,18 +1,3 @@
-/obj/mecha
-	//Action datums
-	var/datum/action/innate/mecha/mech_eject/eject_action = new
-	var/datum/action/innate/mecha/mech_toggle_internals/internals_action = new
-	var/datum/action/innate/mecha/mech_toggle_lights/lights_action = new
-	var/datum/action/innate/mecha/mech_view_stats/stats_action = new
-	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
-	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
-	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
-	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
-	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
-	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
-	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
-	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
-
 /obj/mecha/proc/GrantActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
 		eject_action.Grant(user, src)
@@ -21,6 +6,8 @@
 	stats_action.Grant(user, src)
 	if(locate(/obj/item/mecha_parts/mecha_equipment/thrusters) in equipment)
 		add_thrusters()
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment_mod in equipment)
+		equipment_mod.give_targeted_action()
 
 /obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -29,6 +16,8 @@
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	thrusters_action.Remove(user)
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment_mod in equipment)
+		equipment_mod.remove_targeted_action()
 
 /datum/action/innate/mecha
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
@@ -229,5 +218,26 @@
 			chassis.occupant_message("A bone-chillingly thick plasteel needle protracts from the exosuit's palm.")
 	chassis.damtype = new_damtype
 	button_icon_state = "mech_damtype_[new_damtype]"
-	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
+	playsound(src, 'sound/mecha/mechmove01.ogg', 50, TRUE)
 	UpdateButtons()
+
+/datum/action/innate/mecha/select_module
+	name = "Hey, you shouldn't see this please make a bug report"
+	var/obj/item/mecha_parts/mecha_equipment/equipment
+
+/datum/action/innate/mecha/select_module/Grant(mob/living/L, obj/mecha/M, obj/item/mecha_parts/mecha_equipment/_equipment)
+	if(!_equipment)
+		return FALSE
+	equipment = _equipment
+	icon_icon = equipment.icon
+	button_icon_state = equipment.icon_state
+	name = "Switch module to [equipment.name]"
+	return ..()
+
+/datum/action/innate/mecha/select_module/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	chassis.selected = equipment
+	chassis.occupant_message("<span class='notice'>You switch to [equipment.name].</span>")
+	chassis.visible_message("[chassis] raises [equipment.name]")
+	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())

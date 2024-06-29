@@ -100,13 +100,13 @@
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
 		GLOB.all_unique_areas[type] = src
-	..()
+	GLOB.all_areas += src
+	return ..()
 
 /area/Initialize(mapload)
 	if(is_station_level(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
-	GLOB.all_areas += src
 	icon_state = ""
 	layer = AREA_LAYER
 	uid = ++global_uid
@@ -530,6 +530,8 @@
 		INVOKE_ASYNC(temp_airlock, TYPE_PROC_REF(/obj/machinery/door/airlock, prison_open))
 	for(var/obj/machinery/door/window/temp_windoor in src)
 		INVOKE_ASYNC(temp_windoor, TYPE_PROC_REF(/obj/machinery/door, open))
+	for(var/obj/machinery/door/poddoor/temp_poddoor in src)
+		INVOKE_ASYNC(temp_poddoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
 /area/AllowDrop()
 	CRASH("Bad op: area/AllowDrop() called")

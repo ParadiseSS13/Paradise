@@ -18,7 +18,7 @@
 	},
 /area/ruin/space/unpowered)
 "ae" = (
-/turf/simulated/wall/mineral/titanium/nodecon,
+/turf/simulated/wall/mineral/titanium/nodecon/wizard,
 /area/ruin/space/unpowered)
 "af" = (
 /obj/structure/computerframe,
@@ -165,12 +165,6 @@
 /obj/item/book/manual/hydroponics_pod_people,
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
-"aF" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
-/area/ruin/space/unpowered)
 "aG" = (
 /obj/structure/table/wood,
 /obj/item/candle/eternal,
@@ -219,8 +213,15 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aO" = (
-/obj/item/storage/bag/books,
+/obj/item/storage/bag/books{
+	pixel_y = 4;
+	pixel_x = 1
+	},
 /obj/structure/table/wood,
+/obj/item/salvage/ruin/tablet{
+	pixel_x = -5;
+	pixel_y = 4
+	},
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aP" = (
@@ -468,7 +469,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bH" = (
-/turf/simulated/wall/mineral/titanium/nodecon,
+/turf/simulated/wall/mineral/titanium/nodecon/wizard,
 /area/space/nearstation)
 "bI" = (
 /obj/structure/window/plasmareinforced,
@@ -508,6 +509,13 @@
 /obj/item/stack/sheet/mineral/plasma,
 /obj/structure/table,
 /turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"YM" = (
+/obj/structure/table/wood,
+/obj/item/blank_tarot_card,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6"
+	},
 /area/ruin/space/unpowered)
 
 (1,1,1) = {"
@@ -747,7 +755,7 @@ ah
 an
 av
 aC
-aF
+YM
 aC
 aO
 aC

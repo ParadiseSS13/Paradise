@@ -1,6 +1,6 @@
 // At minimum every mob has a hear_say proc.
 
-/mob/proc/combine_message(list/message_pieces, verb, mob/speaker, always_stars = FALSE)
+/mob/proc/combine_message(list/message_pieces, verb, atom/movable/speaker, always_stars = FALSE)
 	var/iteration_count = 0
 	var/msg = "" // This is to make sure that the pieces have actually added something
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
@@ -68,7 +68,7 @@
 	//make sure the air can transmit speech - hearer's side
 	var/turf/T = get_turf(src)
 	if(T && !isobserver(src))
-		var/datum/gas_mixture/environment = T.return_air()
+		var/datum/gas_mixture/environment = T.get_readonly_air()
 		var/pressure = environment ? environment.return_pressure() : 0
 		if(pressure < SOUND_MINIMUM_PRESSURE && get_dist(speaker, src) > 1)
 			return FALSE
@@ -128,7 +128,7 @@
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)
 
 
-/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, check_name_against)
+/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, atom/movable/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, check_name_against)
 	if(!client)
 		return
 
@@ -155,7 +155,7 @@
 	else
 		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 
-/mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
+/mob/proc/handle_speaker_name(atom/movable/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "unknown"
 	if(speaker)
 		speaker_name = speaker.name
@@ -168,22 +168,22 @@
 
 	return speaker_name
 
-/mob/proc/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
+/mob/proc/handle_track(message, verb = "says", atom/movable/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	return
 
 /mob/proc/hear_sleep(message)
 	var/heard = ""
 	if(prob(15))
-		message = strip_html_properly(message)
+		message = html_decode(strip_html_tags(message))
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")
-		if(messages.len > 0)
-			var/R = rand(1, messages.len)
+		if(length(messages) > 0)
+			var/R = rand(1, length(messages))
 			var/heardword = messages[R]
 			if(copytext(heardword,1, 1) in punctuation)
-				heardword = copytext(heardword,2)
+				heardword = html_encode(copytext(heardword, 2))
 			if(copytext(heardword,-1) in punctuation)
-				heardword = copytext(heardword,1,length(heardword))
+				heardword = html_encode(copytext(heardword, 1, length(heardword)))
 			heard = "<span class='game say'>...<i>You hear something about<i>... '[heardword]'...</span>"
 		else
 			heard = "<span class='game say'>...<i>You almost hear something...</i>...</span>"
@@ -192,7 +192,7 @@
 
 	to_chat(src, heard)
 
-/mob/proc/hear_holopad_talk(list/message_pieces, verb = "says", mob/speaker = null, obj/effect/overlay/holo_pad_hologram/H)
+/mob/proc/hear_holopad_talk(list/message_pieces, verb = "says", atom/movable/speaker = null, obj/effect/overlay/holo_pad_hologram/H)
 	if(stat == UNCONSCIOUS)
 		hear_sleep(multilingual_to_message(message_pieces))
 		return
@@ -204,8 +204,9 @@
 	var/message_unverbed = combine_message(message_pieces, null, speaker)
 
 	var/name = speaker.name
-	if(!say_understands(speaker))
-		name = speaker.voice_name
+	if(!say_understands(speaker) && ismob(speaker))
+		var/mob/speaker_mob = speaker
+		name = speaker_mob.voice_name
 
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 		create_chat_message(H, message_unverbed)

@@ -132,7 +132,7 @@
 		investigate_log("turned <font color='green'>on</font> by [key_name(user)]", "singulo")
 
 	to_chat(user, "You turn [src] [toggle].")
-	message_admins("Emitter turned [toggle] by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	message_admins("Emitter turned [toggle] by [key_name_admin(user)] in ([x], [y], [z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	log_game("Emitter turned [toggle] by [key_name(user)] in [x], [y], [z]")
 	update_icon()
 

@@ -338,7 +338,10 @@
 		if(holder && holder.my_atom)
 			var/turf/simulated/T = get_turf(holder.my_atom)
 			if(istype(T))
-				T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 50)
+				var/datum/gas_mixture/air = new()
+				air.set_temperature(1000)
+				air.set_toxins(20)
+				T.blind_release_air(air)
 
 //Yellow
 

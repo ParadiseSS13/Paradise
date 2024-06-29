@@ -17,6 +17,10 @@
 		if(initial(candidate.goal_department) != department)
 			continue
 		if(initial(candidate.goal_difficulty) == REAGENT_GOAL_SKIP)
+			// Too easy, don't want.
+			continue
+		if(initial(candidate.goal_difficulty) == REAGENT_GOAL_EXCESSIVE)
+			// Too hard, don't ask for.
 			continue
 		valid_reagents += candidate
 
@@ -67,16 +71,11 @@
 	return copy
 
 /datum/secondary_goal_progress/random_bulk_reagent/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not a reagent container? Ignore.
-	if(!istype(AM, /obj/item/reagent_containers))
-		return
-
 	// Not in a matching personal crate? Ignore.
 	if(!check_personal_crate(AM))
 		return
 
-	var/obj/item/reagent_containers/container = AM
-	var/amount = container.reagents?.get_reagent_amount(initial(reagent_type.id))
+	var/amount = AM.reagents?.get_reagent_amount(initial(reagent_type.id))
 	if(!amount)
 		return
 	sent += amount
@@ -89,6 +88,7 @@
 	item.account = department_account
 	item.credits = 0
 	item.reason = "Received [amount] units of [initial(reagent_type.name)]."
+	item.requests_console_department = department
 	item.zero_is_good = TRUE
 	manifest.line_items += item
 

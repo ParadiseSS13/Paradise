@@ -47,6 +47,21 @@
 		return
 	A.emag_act(user)
 
+/obj/item/card/emag/magic_key
+	name = "magic key"
+	desc = "It's a magic key, that will open one door!"
+	icon_state = "magic_key"
+	origin_tech = "magnets=2"
+
+/obj/item/card/emag/magic_key/afterattack(atom/target, mob/user, proximity)
+	if(!istype(target, /obj/machinery/door))
+		return
+	var/obj/machinery/door/D = target
+	D.locked = FALSE
+	update_icon()
+	. = ..()
+	qdel(src)
+
 /obj/item/card/cmag
 	desc = "It's a card coated in a slurry of electromagnetic bananium."
 	name = "jestographic sequencer"
@@ -335,6 +350,7 @@
 	initial_access = list(ACCESS_SYNDICATE)
 	assignment = "Syndicate Researcher"
 	icon_state = "syndie"
+	untrackable = TRUE
 
 /obj/item/card/id/syndicate/New()
 	access = initial_access.Copy()
@@ -499,7 +515,7 @@
 							var/mob/living/carbon/human/H = user
 							default = H.age
 						var/new_age = tgui_input_number(user, "What age would you like to be written on this card?", "Agent Card Age", default, 300, 17)
-						if(!Adjacent(user) || !new_age)
+						if(!Adjacent(user) || isnull(new_age))
 							return
 						age = new_age
 						to_chat(user, "<span class='notice'>Age changed to [new_age].</span>")
@@ -535,7 +551,7 @@
 
 					if("Money Account")
 						var/new_account = tgui_input_number(user, "What money account would you like to link to this card?", "Agent Card Account", 12345, max_value = 9999999)
-						if(!Adjacent(user) || !new_account)
+						if(!Adjacent(user) || isnull(new_account))
 							return
 						associated_account_number = new_account
 						to_chat(user, "<span class='notice'>Linked money account changed to [new_account].</span>")
@@ -620,6 +636,29 @@
 	assignment = "Syndicate Overlord"
 	untrackable = TRUE
 	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
+
+// like /obj/item/card/id/syndicate, but you can only swipe access, not change your identity, its also trackable
+/obj/item/card/id/syndi_scan_only
+	name = "Syndicate Operative's ID card (Operative)"
+	rank = "Operative"
+	assignment = "Operative"
+	registered_name = "Syndicate Operative"
+	access = list(ACCESS_SYNDICATE)
+
+/obj/item/card/id/syndi_scan_only/examine(mob/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='notice'>Similar to an agent ID, this ID card can be used to copy accesses, but it lacks the customization and anti-tracking capabilities of an agent ID.</span>"
+
+/obj/item/card/id/syndi_scan_only/afterattack(obj/item/O, mob/user, proximity)
+	if(!proximity)
+		return
+	if(istype(O, /obj/item/card/id))
+		var/obj/item/card/id/I = O
+		if(isliving(user) && user.mind)
+			if(user.mind.special_role)
+				to_chat(user, "<span class='notice'>The card's microscanners activate as you pass it over [I], copying its access.</span>")
+				access |= I.access // Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
@@ -772,7 +811,7 @@
 	name = "Internal Affairs Agent ID"
 	registered_name = "Internal Affairs Agent"
 	icon_state = "internalaffairsagent"
-	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
+	access = list(ACCESS_INTERNAL_AFFAIRS, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 
 /obj/item/card/id/geneticist
 	name = "Geneticist ID"
@@ -834,7 +873,7 @@
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_EVA, ACCESS_HEADS,
 						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
-						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_INTERNAL_AFFAIRS,
 						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 						ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EXPEDITION, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
@@ -880,7 +919,7 @@
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
-						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_INTERNAL_AFFAIRS,
 						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 						ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EXPEDITION, ACCESS_WEAPONS, ACCESS_NTREP)
 
@@ -891,7 +930,7 @@
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
-						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_INTERNAL_AFFAIRS,
 						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 						ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EXPEDITION, ACCESS_WEAPONS, ACCESS_BLUESHIELD)
 
@@ -902,7 +941,7 @@
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
-						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_INTERNAL_AFFAIRS,
 						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 						ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EXPEDITION, ACCESS_MAGISTRATE)
 
@@ -1019,7 +1058,7 @@
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
-	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME) //access to robots/mechs
+	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
 	var/registered = FALSE
 
 /obj/item/card/id/golem/attack_self(mob/user as mob)

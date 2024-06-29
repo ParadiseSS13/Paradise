@@ -1,7 +1,7 @@
 /// This uplink catagory is for uplink items avalible by special circumstances. Think station traits, or if some event rolling in a round gave traitors special items, or an objective.
 /datum/uplink_item/special
 	category = "Special Offers"
-	cant_discount = TRUE
+	can_discount = FALSE
 	surplus = 0
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 

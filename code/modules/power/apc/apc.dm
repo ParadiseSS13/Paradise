@@ -52,7 +52,7 @@
 	/*** APC Status Vars ***/
 	/// The wire panel associated with this APC
 	var/datum/wires/apc/wires = null
-	/// Can the APC recieve/transmit power? Determined by the condition of the 2 Main Power Wires
+	/// Can the APC receive/transmit power? Determined by the condition of the 2 Main Power Wires
 	var/shorted = FALSE
 	/// Is the APC on and transmitting power to enabled breakers? Think of this var as the master breaker for the APC
 	var/operating = TRUE
@@ -79,7 +79,7 @@
 	var/locked = TRUE
 	/// If TRUE, the APC will automatically draw power from connect terminal, if FALSE it will not charge
 	var/chargemode = TRUE
-	/// Counter var, ticks up when the APC recieves power from terminal and resets to 0 when not charging, used for the `var/charging` var
+	/// Counter var, ticks up when the APC receives power from terminal and resets to 0 when not charging, used for the `var/charging` var
 	var/chargecount = 0
 	var/report_power_alarm = TRUE
 
@@ -166,17 +166,21 @@
 
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
+
+	var/area/A = get_area(src)
+
+	if(A.powernet && !A.powernet.powernet_apc)
+		A.powernet.powernet_apc = src
+
 	if(!mapload)
 		return
+
 	electronics_state = APC_ELECTRONICS_SECURED
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
 		cell = new /obj/item/stock_parts/cell/upgraded(src)
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
 		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
-
-	var/area/A = get_area(src)
-
 
 	//if area isn't specified use current
 	if(keep_preset_name)

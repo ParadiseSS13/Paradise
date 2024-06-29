@@ -79,22 +79,26 @@
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
 	anchored = TRUE
-	layer = ABOVE_MOB_LAYER
 	alpha = 150
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_LIGHT_INSULATION
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
-/obj/structure/holosign/barrier/atmos/CanAtmosPass(turf/T)
+// Airtight.
+/obj/structure/holosign/barrier/atmos/CanAtmosPass(direction)
 	return FALSE
+
+// Heatproof.
+/obj/structure/holosign/barrier/atmos/get_superconductivity(direction)
+	return 0
 
 /obj/structure/holosign/barrier/atmos/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
