@@ -27,7 +27,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
-	easy_to_spill_blood = TRUE
 
 	/// Sound played when you hit something with the item
 	var/hitsound

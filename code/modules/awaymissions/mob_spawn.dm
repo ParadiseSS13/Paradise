@@ -39,6 +39,8 @@
 	var/ghost_usable = TRUE
 	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
 	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in deciseconds. People that join as observers are not included.
+	///If antagbanned people are prevented from using it, only false for the ghost bar spawner.
+	var/restrict_antagban = TRUE
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	if(!valid_to_spawn(user))
@@ -84,7 +86,7 @@
 	if(!uses && !permanent)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return FALSE
-	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
+	if((jobban_isbanned(user, banType) || (restrict_antagban && jobban_isbanned(user, ROLE_SYNDICATE))))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return FALSE
 	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE))
@@ -585,6 +587,52 @@
 	mob_name = "skeleton"
 	mob_species = /datum/species/skeleton/brittle
 	mob_gender = NEUTER
+
+/datum/outfit/randomizer
+	name = "randomizer"
+
+/datum/outfit/randomizer/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	// Add picks for more slots as necessary for your needs
+	if(islist(uniform))
+		uniform = pick(uniform)
+	if(islist(shoes))
+		shoes = pick(shoes)
+
+/datum/outfit/randomizer/gambler
+	name = "gambler"
+	shoes = list(
+		/obj/item/clothing/shoes/laceup,
+		/obj/item/clothing/shoes/leather
+	)
+	uniform = list(
+		/obj/item/clothing/under/suit/navy,
+		/obj/item/clothing/under/suit/really_black,
+		/obj/item/clothing/under/suit/checkered,
+	)
+
+/obj/effect/mob_spawn/human/corpse/random_species/Initialize(mapload)
+	mob_species = pick(
+		/datum/species/human,
+		/datum/species/unathi,
+		/datum/species/moth,
+		/datum/species/skrell,
+		/datum/species/vox,
+		/datum/species/vulpkanin,
+		/datum/species/tajaran,
+		/datum/species/slime,
+		/datum/species/kidan,
+		/datum/species/drask,
+		/datum/species/grey,
+		/datum/species/diona,
+	)
+
+	return ..()
+
+/obj/effect/mob_spawn/human/corpse/random_species/gambler
+	name = "Gambler"
+	mob_name = "Gambler"
+	outfit = /datum/outfit/randomizer/gambler
 
 /obj/effect/mob_spawn/human/alive/zombie
 	name = "NPC Zombie (Infectious)"
