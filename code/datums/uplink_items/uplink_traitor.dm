@@ -396,6 +396,16 @@
 	cost = 25 /// A fresh start, but a start with nothing. Hard to use as well
 	species = list("Grey")
 
+// Drask
+/datum/uplink_item/species_restricted/cryoregenerative_enhancer
+	name = "Cryoregenerative Enhancer"
+	desc = "Specially designed nanomachines that enhance the low-temperature regenerative capabilities of drask. Requires supercooled air in the enviroment or internals to function."
+	reference = "CRE"
+	item = /obj/item/cryoregenerative_enhancer
+	cost = 25
+	species = list("Drask")
+	surplus = 0
+
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
 // -------------------------------------
@@ -414,13 +424,19 @@
 	reference = "HPA"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel. \
 			The holoparasites are unable to incoporate themselves to changeling and vampire agents."
-	item = /obj/item/storage/box/syndie_kit/guardian
+	item = /obj/item/storage/box/syndie_kit/guardian/uplink
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cost = 60
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
 	surplus = 0 // This being refundable makes this a big no no in my mind.
-	can_discount = FALSE
+	uses_special_spawn = TRUE
+
+/datum/uplink_item/dangerous/guardian/spawn_item(turf/loc, obj/item/uplink/U)
+	if(..() != UPLINK_SPECIAL_SPAWNING)
+		return FALSE
+
+	new /obj/item/storage/box/syndie_kit/guardian/uplink(loc, cost)
 
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
