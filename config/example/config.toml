@@ -20,6 +20,7 @@
 # - event_configuration
 # - gamemode_configuration
 # - general_configuration
+# - lighting_effects_configuration
 # - ipintel_configuration
 # - job_configuration
 # - logging_configuration
