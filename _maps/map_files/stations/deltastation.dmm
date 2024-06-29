@@ -56965,7 +56965,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/hallway/secondary/exit)
 "dls" = (
 /obj/structure/cable{
@@ -64461,7 +64463,9 @@
 	c_tag = "Departure Lounge Central"
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/hallway/secondary/exit)
 "dXH" = (
 /obj/machinery/camera{
@@ -68520,9 +68524,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
-"fZj" = (
-/turf/simulated/floor/plasteel/dark,
-/area/station/hallway/secondary/exit)
 "fZU" = (
 /obj/structure/chair/stool/bar{
 	dir = 1
@@ -72290,7 +72291,6 @@
 	pixel_y = 28
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/smartfridge/disks,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "ivD" = (
@@ -87607,15 +87607,6 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
-"rxv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/hallway/secondary/exit)
 "rxy" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/beakers,
@@ -91408,14 +91399,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
-"tAw" = (
-/obj/structure/chair,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/dark,
-/area/station/hallway/secondary/exit)
 "tBi" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass,
@@ -98992,14 +98975,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
-"xTu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/hallway/secondary/exit)
 "xUg" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes,
@@ -136893,7 +136868,7 @@ dPM
 rCw
 dPM
 dPM
-xTu
+dPM
 dPM
 dkq
 dSs
@@ -137404,7 +137379,7 @@ cYk
 dbV
 ddw
 dNa
-fZj
+dKo
 dKo
 dKo
 dNb
@@ -137666,8 +137641,8 @@ dKo
 dKo
 dQp
 pAd
-tAw
-rxv
+dRG
+dXJ
 dKo
 dKo
 dWA
@@ -137919,8 +137894,8 @@ dNc
 pAd
 dXF
 dKo
-fZj
-fZj
+dKo
+dKo
 dNb
 dNP
 dOw
