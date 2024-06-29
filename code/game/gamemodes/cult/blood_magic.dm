@@ -3,9 +3,9 @@
 	name = "Prepare Blood Magic"
 	button_icon_state = "carve"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
+	default_button_position = DEFAULT_BLOODSPELLS
 	var/list/spells = list()
 	var/channeling = FALSE
-	default_button_position = DEFAULT_BLOODSPELLS
 
 /datum/action/innate/cult/blood_magic/Remove()
 	for(var/X in spells)
