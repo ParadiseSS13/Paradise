@@ -15,14 +15,21 @@ export const GeneModder = (props, context) => {
   const { has_seed } = data;
 
   return (
-    <Window width={500} height={650}>
-      <Window.Content>
-        <Stack fill vertical>
-          <Storage />
-          <ComplexModal maxWidth="75%" maxHeight="75%" />
-          {has_seed === 0 ? <MissingSeed /> : <Genes />}
-        </Stack>
-      </Window.Content>
+    <Window width={950} height={650}>
+      <div className="GeneModder__left">
+        <Window.Content>
+          <Disks scrollable />
+        </Window.Content>
+      </div>
+      <div className="GeneModder__right">
+        <Window.Content>
+          <Stack fill vertical scrollable>
+            <Storage />
+            <ComplexModal maxWidth="75%" maxHeight="75%" />
+            {has_seed === 0 ? <MissingSeed /> : <Genes />}
+          </Stack>
+        </Window.Content>
+      </div>
     </Window>
   );
 };
@@ -32,19 +39,7 @@ const Genes = (props, context) => {
   const { disk } = data;
 
   return (
-    <Section
-      title="Genes"
-      fill
-      scrollable
-      buttons={
-        <Button
-          content="Insert Gene from Disk"
-          disabled={!disk || !disk.can_insert || disk.is_core}
-          icon="arrow-circle-down"
-          onClick={() => act('insert')}
-        />
-      }
-    >
+    <Section title="Genes" fill scrollable>
       <CoreGenes />
       <ReagentGenes />
       <TraitGenes />
@@ -123,7 +118,8 @@ const Storage = (props, context) => {
             <Button
               ml={3.3}
               content={show_disk}
-              onClick={() => act('eject_disk')}
+              tooltip="Select Empty Disk"
+              onClick={() => act('select_empty_disk')}
             />
           </Stack.Item>
         </LabeledList.Item>
@@ -151,14 +147,6 @@ const CoreGenes = (props, context) => {
               onClick={() => act('extract', { id: gene.id })}
             />
           </Stack.Item>
-          <Stack.Item>
-            <Button
-              content="Replace"
-              disabled={!gene.is_type || !disk.can_insert}
-              icon="arrow-circle-down"
-              onClick={() => act('replace', { id: gene.id })}
-            />
-          </Stack.Item>
         </Stack>
       ))}{' '}
       {
@@ -169,14 +157,6 @@ const CoreGenes = (props, context) => {
               disabled={!disk?.can_extract}
               icon="save"
               onClick={() => act('bulk_extract_core')}
-            />
-          </Stack.Item>
-          <Stack.Item>
-            <Button
-              content="Replace All"
-              disabled={!disk?.is_bulk_core}
-              icon="arrow-circle-down"
-              onClick={() => act('bulk_replace_core')}
             />
           </Stack.Item>
         </Stack>
@@ -245,5 +225,241 @@ const OtherGenes = (props, context) => {
         <Stack.Item>No Genes Detected</Stack.Item>
       )}
     </Collapsible>
+  );
+};
+
+const Disks = (props, context) => {
+  const { title, gene_set, do_we_show } = props;
+  const { act, data } = useBackend(context);
+  const { has_seed, empty_disks, stat_disks, trait_disks, reagent_disks } =
+    data;
+
+  return (
+    <Section title="Disks">
+      <br />
+      Empty Disks: {empty_disks}
+      <br />
+      <br />
+      <Button
+        width={12}
+        icon="arrow-down"
+        tooltip="Eject an Empty disk"
+        content="Eject Empty Disk"
+        onClick={() => act('eject_empty_disk')}
+      />
+      <Stack fill vertical>
+        <Section title="Stats">
+          <Stack fill vertical scrollable>
+            {stat_disks
+              .slice()
+              .sort((a, b) => a.display_name.localeCompare(b.display_name))
+              .map((item) => {
+                return (
+                  <Stack key={item} mr={2}>
+                    <Stack.Item width="49%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={25}>
+                      {item.stat === 'All' ? (
+                        <Button
+                          content="Replace All"
+                          tooltip="Write disk stats to seed"
+                          disabled={!item?.ready || !has_seed}
+                          icon="arrow-circle-down"
+                          onClick={() =>
+                            act('bulk_replace_core', { index: item.index })
+                          }
+                        />
+                      ) : (
+                        <Button
+                          width={6}
+                          icon="arrow-circle-down"
+                          tooltip="Write disk stat to seed"
+                          disabled={!item || !has_seed}
+                          content="Replace"
+                          onClick={() =>
+                            act('replace', {
+                              index: item.index,
+                              stat: item.stat,
+                            })
+                          }
+                        />
+                      )}
+                      <Button
+                        width={6}
+                        icon="arrow-right"
+                        content="Select"
+                        tooltip="Choose as target for extracted genes"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('select', {
+                            index: item.index,
+                          })
+                        }
+                      />
+                      <Button
+                        width={5}
+                        icon="arrow-down"
+                        content="Eject"
+                        tooltip="Eject Disk"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('eject_disk', {
+                            index: item.index,
+                          })
+                        }
+                      />
+                      <Button
+                        width={2}
+                        icon={item.read_only ? 'lock' : 'lock-open'}
+                        content=""
+                        tool_tip="Set/unset Read Only"
+                        onClick={() =>
+                          act('set_read_only', {
+                            index: item.index,
+                            read_only: item.read_only,
+                          })
+                        }
+                      />
+                    </Stack.Item>
+                  </Stack>
+                );
+              })}
+
+            <Button />
+          </Stack>
+        </Section>
+        <Section title="Traits">
+          <Stack fill vertical scrollable>
+            {trait_disks
+              .slice()
+              .sort((a, b) => a.display_name.localeCompare(b.display_name))
+              .map((item) => {
+                return (
+                  <Stack key={item} mr={2}>
+                    <Stack.Item width="49%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={25}>
+                      <Button
+                        width={6}
+                        icon="arrow-circle-down"
+                        disabled={!item || !item.can_insert}
+                        tooltip="Add disk trait to seed"
+                        content="Insert"
+                        onClick={() =>
+                          act('insert', {
+                            index: item.index,
+                          })
+                        }
+                      />
+                      <Button
+                        width={6}
+                        icon="arrow-right"
+                        content="Select"
+                        tooltip="Choose as target for extracted genes"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('select', {
+                            index: item.index,
+                          })
+                        }
+                      />
+                      <Button
+                        width={5}
+                        icon="arrow-down"
+                        content="Eject"
+                        tooltip="Eject Disk"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('eject_disk', {
+                            index: item.index,
+                          })
+                        }
+                      />
+                      <Button
+                        width={2}
+                        icon={item.read_only ? 'lock' : 'lock-open'}
+                        content=""
+                        tool_tip="Set/unset Read Only"
+                        onClick={() =>
+                          act('set_read_only', {
+                            index: item.index,
+                            read_only: item.read_only,
+                          })
+                        }
+                      />
+                    </Stack.Item>
+                  </Stack>
+                );
+              })}
+
+            <Button />
+          </Stack>
+        </Section>
+        <Section title="Reagents">
+          <Stack fill vertical scrollable>
+            {reagent_disks
+              .slice()
+              .sort((a, b) => a.display_name.localeCompare(b.display_name))
+              .map((item) => {
+                return (
+                  <Stack key={item} mr={2}>
+                    <Stack.Item width="49%">{item.display_name}</Stack.Item>
+                    <Stack.Item width={25}>
+                      <Button
+                        width={6}
+                        icon="arrow-circle-down"
+                        disabled={!item || !item.can_insert}
+                        tooltip="Add disk reagent to seed"
+                        content="Insert"
+                        onClick={() =>
+                          act('insert', {
+                            index: item.index,
+                          })
+                        }
+                      />
+                      <Button
+                        width={6}
+                        icon="arrow-right"
+                        content="Select"
+                        tooltip="Choose as target for extracted genes"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('select', {
+                            index: item.index,
+                          })
+                        }
+                      />
+                      <Button
+                        width={5}
+                        icon="arrow-down"
+                        content="Eject"
+                        tooltip="Eject Disk"
+                        tooltipPosition="bottom-start"
+                        onClick={() =>
+                          act('eject_disk', {
+                            index: item.index,
+                          })
+                        }
+                      />
+                      <Button
+                        width={2}
+                        icon={item.read_only ? 'lock' : 'lock-open'}
+                        content=""
+                        tool_tip="Set/unset Read Only"
+                        onClick={() =>
+                          act('set_read_only', {
+                            index: item.index,
+                            read_only: item.read_only,
+                          })
+                        }
+                      />
+                    </Stack.Item>
+                  </Stack>
+                );
+              })}
+
+            <Button />
+          </Stack>
+        </Section>
+      </Stack>
+    </Section>
   );
 };
