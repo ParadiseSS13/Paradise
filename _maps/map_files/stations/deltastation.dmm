@@ -80367,9 +80367,6 @@
 	},
 /area/station/medical/medbay)
 "njD" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 30
@@ -80378,18 +80375,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 30
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet/radiation,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
