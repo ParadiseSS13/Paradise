@@ -39,7 +39,7 @@
 	/// Does the icon_state change if the fuel is low?
 	var/low_fuel_changes_icon = TRUE
 	/// How often does the tool flash the user's eyes?
-	var/progress_flash_divisor = 10
+	var/progress_flash_divisor = 1 SECONDS
 
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()
