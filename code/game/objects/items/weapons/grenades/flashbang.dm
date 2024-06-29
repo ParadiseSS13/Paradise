@@ -10,7 +10,7 @@
 	light_color = LIGHT_COLOR_WHITE
 
 	/// The duration the area is illuminated.
-	var/light_time = 0.02 SECONDS
+	var/light_time = 0.2 SECONDS
 	/// The range in tiles of the flashbang.
 	var/range = 7
 
