@@ -49,6 +49,10 @@
 	name = "Central Maintenance"
 	icon_state = "maintcentral"
 
+/area/station/maintenance/maintcentral2
+	name = "Central Maintenance Secondary"
+	icon_state = "maintcentral"
+
 /area/station/maintenance/fore
 	name = "Fore Maintenance"
 	icon_state = "fmaint"
@@ -153,6 +157,11 @@
 /area/station/maintenance/assembly_line
 	name = "\improper Assembly Line"
 	icon_state = "ass_line"
+	apc_starts_off = TRUE
+
+/area/station/maintenance/abandoned_office
+	name = "\improper Abandoned Office"
+	icon_state = "abandoned_office"
 	apc_starts_off = TRUE
 
 /area/station/maintenance/abandoned_garden
