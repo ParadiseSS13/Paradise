@@ -285,6 +285,14 @@
 	addtimer(CALLBACK(board, TYPE_PROC_REF(/obj/tgvehicle/scooter/skateboard, pick_up_board), rider), 0.5 SECONDS)  // so the board can still handle "picking it up"
 
 //CLOWN CAR ACTION DATUMS
+/datum/action/vehicle/climb_out
+	name = "Climb Out"
+	desc = "Climb out of your vehicle!"
+	button_icon_state = "car_eject"
+
+/datum/action/vehicle/climb_out/Trigger(trigger_flags)
+	if(..() && istype(vehicle_target))
+		vehicle_target.mob_try_exit(owner, owner)
 
 /datum/action/vehicle/horn
 	name = "Honk Horn"

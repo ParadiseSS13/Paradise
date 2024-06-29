@@ -7,14 +7,12 @@
 	key_type = /obj/item/bikehorn
 	light_range = 6
 	light_power = 2
-	///Speed
-	var/movedelay = 0.6
 	///Traits
 	var/car_traits = CAN_KIDNAP
 	///Armor
 	var/armor_type = /datum/armor/car_clowncar
 	//How long does it take to get in?
-	var/enter_delay = 4 SECONDS
+	var/enter_delay = 40
 	///Are the lights on?
 	var/light_on = FALSE
 	///Determines which occupants provide access when bumping into doors
@@ -49,12 +47,12 @@
 
 /obj/tgvehicle/clowncar/MouseDrop_T(mob/living/M, mob/living/user)
 	mob_try_enter(user)
-	return ..()
 
 /obj/tgvehicle/clowncar/generate_actions()
 	. = ..()
 	if(car_traits & CAN_KIDNAP)
 		initialize_controller_action_type(/datum/action/vehicle/dump_kidnapped_mobs, VEHICLE_CONTROL_DRIVE)
+	initialize_controller_action_type(/datum/action/vehicle/climb_out, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/horn, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/headlights, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/thank, VEHICLE_CONTROL_KIDNAPPED)
@@ -63,8 +61,11 @@
 /obj/tgvehicle/clowncar/proc/mob_try_enter(mob/rider)
 	if(!istype(rider))
 		return FALSE
-	if (do_after(rider, enter_delay, target = src, extra_checks = list(CALLBACK(src, PROC_REF(enter_checks)))))
-		mob_enter(rider)
+	if (do_after(rider, enter_delay, target = src))
+		if(occupant_amount() < max_occupants)
+			mob_enter(rider)
+		else
+			audible_message("<span class='notify'>The clown car is full... somehow.</span>", null, 1)
 		return TRUE
 	return FALSE
 
@@ -84,16 +85,9 @@
 			return
 	add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 
-///Extra checks to perform during the do_after to enter the vehicle
-/obj/tgvehicle/clowncar/proc/enter_checks(mob/M)
-	return occupant_amount() < max_occupants
-
 /obj/tgvehicle/clowncar/after_add_occupant(mob/M)
 	. = ..()
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(!H.mind?.assigned_role == "Clown")
-			ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, "clowncar")
+	//ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, "clowncar")
 
 //Getting out of the car
 /obj/tgvehicle/clowncar/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
@@ -115,7 +109,7 @@
 			forced_mob.reagents.del_reagent("irishcarbomb")
 			if(reagent_amount >= 30)
 				message_admins("[ADMIN_LOOKUPFLW(forced_mob)] was forced into a clown car with [reagent_amount] unit(s) of Irish Car Bomb, causing an explosion.")
-				audible_message("<span class='warning'>(You hear a rattling sound coming from the engine. That can't be good...</span>", null, 1)
+				audible_message("<span class='warning'>You hear a rattling sound coming from the engine. That can't be good...</span>", null, 1)
 				addtimer(CALLBACK(src, PROC_REF(irish_car_bomb)), 5 SECONDS)
 
 /obj/tgvehicle/clowncar/proc/irish_car_bomb()
@@ -133,7 +127,7 @@
 		var/datum/effect_system/foam_spread/L = new()
 		var/datum/reagents/foamreagent = new /datum/reagents(25)
 		foamreagent.add_reagent(/datum/reagent/lube, 25)
-		L.set_up(4, src, loc, foamreagent)
+		L.set_up(40, loc, foamreagent)
 		L.start()
 
 /obj/tgvehicle/clowncar/attacked_by(obj/item/I, mob/living/user)
@@ -255,7 +249,7 @@
 			randomchems.my_atom = src
 			randomchems.add_reagent(get_random_reagent_id(), 100)
 			var/datum/effect_system/foam_spread/foam = new()
-			foam.set_up(200, src, loc, randomchems)
+			foam.set_up(200, src, randomchems)
 			foam.start()
 		if(3)
 			visible_message("<span class='warning'>[user] presses one of the colorful buttons on [src], and the clown car turns on its singularity disguise system.</span>")

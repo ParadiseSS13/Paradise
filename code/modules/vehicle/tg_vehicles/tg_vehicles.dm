@@ -31,8 +31,6 @@
 	var/key_type
 	///The inserted key, needed on some vehicles to start the engine
 	var/obj/item/key/inserted_key
-	/// Whether the vehicle is currently able to move
-	var/can_move = TRUE
 	var/list/autogrant_actions_passenger //plain list of typepaths
 	var/list/autogrant_actions_controller //assoc list "[bitflag]" = list(typepaths)
 	var/list/mob/occupant_actions //assoc list mob = list(type = action datum assigned to mob)
@@ -142,7 +140,7 @@
 	return
 
 /obj/tgvehicle/relaymove(mob/living/user, direction)
-	if(!can_move)
+	if(!canmove)
 		return FALSE
 	if(is_driver(user))
 		return relaydrive(user, direction)
@@ -214,15 +212,12 @@
 		inserted_key = I
 	else
 		to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
-	if(inserted_key) //just in case there's an invalid key
-		inserted_key.forceMove(drop_location())
-	inserted_key = I
 
 /obj/tgvehicle/AltClick(mob/user)
 	if(!inserted_key)
 		return ..()
-	if(!is_occupant(user))
-		to_chat(user, "<span class='warning'>You must be riding the [src] to remove [src]'s key!</span>")
+	if(!is_occupant(user) || !(occupants[user] & VEHICLE_CONTROL_DRIVE))
+		to_chat(user, "<span class='warning'>You must be driving the [src] to remove [src]'s key!</span>")
 		return
 	to_chat(user, "<span class='notice'>You remove [inserted_key] from [src].</span>")
 	inserted_key.forceMove(drop_location())
@@ -250,6 +245,7 @@
 /obj/tgvehicle/proc/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
 	if(!istype(M))
 		return FALSE
+	remove_occupant(M)
 	if(!isAI(M))//This is the ONE mob we dont want to be moved to the vehicle that should be handeled when used
 		M.forceMove(exit_location(M))
 	if(randomstep)
