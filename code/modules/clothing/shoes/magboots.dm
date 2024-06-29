@@ -76,7 +76,7 @@
 
 /obj/item/clothing/shoes/magboots/advance
 	name = "advanced magboots"
-	desc = "Experimental magnetic boots. Just as powerful as usual, but without feeling like you're trudging through molasses!"
+	desc = "Experimental magnetic boots. They automatically activate and deactivate their magnetic pull as the user walks."
 	icon_state = "advmag0"
 	magboot_state = "advmag"
 	slowdown_active = SHOES_SLOWDOWN

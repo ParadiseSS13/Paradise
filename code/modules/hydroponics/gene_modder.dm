@@ -569,17 +569,17 @@
 		. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 		return
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
-		. += "<span class='warning'>... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
+		. += "<span class='danger'>... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
 	else
-		. += "<span class='boldwarning'>You should keep this safe...</span>"
+		. += "<span class='danger'>You should keep this safe...</span>"
 
 /obj/item/disk/plantgene/examine_more(mob/user)
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
-		. += "<span class='warning'>Yes, even closer examination confirms it's not a trick of the light, it really is just a regular plant disk.</span>"
-		. += "<span class='boldwarning'>Now stop staring at this worthless fake and FIND THE REAL ONE!</span>"
+		. += "<span class='danger'>Yes, even closer examination confirms it's not a trick of the light, it really is just a regular plant disk.</span>"
+		. += "<span class='userdanger'>Now stop staring at this worthless fake and FIND THE REAL ONE!</span>"
 		return
 	. += "Nuclear fission explosives are stored on all Nanotrasen stations in the system so that they may be rapidly destroyed should the need arise."
 	. += ""

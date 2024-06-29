@@ -688,7 +688,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/disk/nuclear/examine(mob/user)
 	. = ..()
-	. += "<span class='boldwarning'>You should keep this safe...</span>"
+	. += "<span class='danger'>You should keep this safe...</span>"
 
 /obj/item/disk/nuclear/examine_more(mob/user)
 	. = ..()
@@ -705,7 +705,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/disk/nuclear/unrestricted/examine(mob/user)
 	. = ..()
-	. += "<span class='boldwarning'>This disk has had its safeties removed.</span>"
+	. += "<span class='danger'>This disk has had its safeties removed.</span>"
 
 /obj/item/disk/nuclear/New()
 	..()
@@ -836,7 +836,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/disk/nuclear/training/examine(mob/user)
 	. = ..()
-	. += "<span class='boldwarning'>For training purposes, of course.</span>"
+	. += "<span class='danger'>For training purposes, of course.</span>"
 
 #undef NUKE_INTACT
 #undef NUKE_COVER_OFF
