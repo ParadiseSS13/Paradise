@@ -733,7 +733,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/destroy/update_explanation_text()
 	if(delayed_objective)
-		explanation_text = "Your objective is to either destroy or steal an Artificial Intelligence. You will receive further information in a few minutes."
+		explanation_text = "Your objective is to either destroy an Artificial Intelligence. You will receive further information in a few minutes."
 		return
 
 	if(target?.current)
