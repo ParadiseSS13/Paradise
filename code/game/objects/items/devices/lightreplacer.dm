@@ -68,45 +68,45 @@
 	. = ..()
 	. += status_string()
 
-/obj/item/lightreplacer/attackby(obj/item/I, mob/user, params)
+/obj/item/lightreplacer/attackby(obj/item/I, mob/user)
+	if(uses >= max_uses)
+		to_chat(user, "<span class='warning'>[src] is full.</span>")
+		return
+
 	if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
-		if(uses >= max_uses)
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
-			return
-		else if(G.use(decrement))
+
+		if(G.use(decrement))
 			AddUses(increment)
-			to_chat(user, "<span class='notice'>You insert a piece of glass into [src]. You have [uses] light\s remaining.</span>")
-			return
+			to_chat(user, "<span class='notice'>You insert some glass into [src]. You have [uses] light\s remaining.</span>")
 		else
 			to_chat(user, "<span class='warning'>You need one sheet of glass to replace lights!</span>")
 		return
 
 	if(istype(I, /obj/item/shard))
-		if(uses >= max_uses)
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
-			return
 		if(!user.unEquip(I))
+			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
-		AddUses(round(increment * 0.75))
+
+		AddUses(increment)
 		to_chat(user, "<span class='notice'>You insert a shard of glass into [src]. You have [uses] light\s remaining.</span>")
 		qdel(I)
 		return
 
 	if(istype(I, /obj/item/light))
 		var/obj/item/light/L = I
-		if(L.status == 0) // LIGHT OKAY
-			if(uses < max_uses)
-				if(!user.unEquip(L))
-					return
-				AddUses(1)
-				qdel(L)
-		else
-			if(!user.unEquip(L))
-				return
-			to_chat(user, "<span class='notice'>You insert [L] into [src].</span>")
-			AddShards(1, user)
+		if(!user.unEquip(L))
+			to_chat(user, "<span class='warning'>[L] is stuck to your hand!</span>")
+			return
+
+		if(L.status == LIGHT_OK)
+			AddUses(1)
+			to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
 			qdel(L)
+		else
+			AddShards(1, user)
+			to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
+		qdel(L)
 		return
 
 	if(isstorage(I))
@@ -228,14 +228,20 @@
 	else
 		return 0
 
-/obj/item/lightreplacer/afterattack(atom/target_turf, mob/U, proximity)
+/obj/item/lightreplacer/afterattack(atom/target, mob/U, proximity)
 	. = ..()
+	if(isitem(target))
+		attackby(target, U)
+		return
+
 	if(!proximity && !bluespace_toggle)
 		return
-	var/turf/replace_turf = get_turf(target_turf)
+
+	var/turf/replace_turf = get_turf(target)
 	if(!istype(replace_turf))
 		return
-	if(get_dist(src, target_turf) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
+	
+	if(get_dist(src, target) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
 		return
 
 	var/used = FALSE

@@ -46,7 +46,7 @@
 					/obj/item/circuitboard/mecha/ripley/main,
 					/obj/item/circuitboard/mecha/ripley/peripherals,
 					/obj/item/clothing/suit/fire/firefighter,
-					/obj/item/stack/sheet/plasteel = 15)
+					/obj/item/stack/sheet/plasteel/fifteen)
 	cost = 350
 	containertype = /obj/structure/closet/crate/sci/robo
 	containername = "\improper APLU \"Ripley\" construction crate"
@@ -58,7 +58,7 @@
 	contains = list(/obj/item/circuitboard/mecha/odysseus/peripherals,
 					/obj/item/circuitboard/mecha/odysseus/main,
 					/obj/item/mecha_parts/mecha_equipment/medical/sleeper,
-					/obj/item/stack/sheet/plasteel = 5)
+					/obj/item/stack/sheet/plasteel/five)
 	cost = 350
 	containertype = /obj/structure/closet/crate/sci/robo
 	containername = "\improper \"Odysseus\" construction crate"

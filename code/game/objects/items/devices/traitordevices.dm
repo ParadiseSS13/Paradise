@@ -111,7 +111,7 @@
 
 	var/mob/living/M = user
 	var/turf/mobloc = get_turf(M)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/found_turf = FALSE
 	var/list/bagholding = user.search_contents_for(/obj/item/storage/backpack/holding)
 	for(var/turf/T in range(user, tp_range))

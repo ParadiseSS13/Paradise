@@ -357,6 +357,11 @@
 	else
 		return ..()
 
+/obj/item/storage/pill_bottle/proc/apply_wrapper_color(color_number)
+	var/static/list/colors = list(COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_CYAN_BLUE, COLOR_VIOLET, COLOR_PURPLE)
+	wrapper_color = colors[(color_number - 1) % length(colors) + 1]
+	apply_wrap()
+
 /obj/item/storage/pill_bottle/patch_pack
 	name = "patch pack"
 	desc = "It's a container for storing medical patches."

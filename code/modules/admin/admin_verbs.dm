@@ -50,6 +50,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/global_man_up,
 	/client/proc/library_manager,
 	/client/proc/view_asays,
+	/client/proc/view_msays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -157,7 +158,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/uid_log,
-	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
 	#ifdef REFERENCE_TRACKING
@@ -172,6 +172,9 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/force_verb_bypass,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
+	/client/proc/raw_gas_scan,
+	/client/proc/teleport_interesting_turf,
+	/client/proc/visualize_interesting_turfs,
 	/client/proc/profile_code,
 	/client/proc/debug_atom_init
 	))
@@ -210,7 +213,8 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/openMentorTicketUI,
 	/client/proc/admin_observe,  /* Allow mentors to observe as well, though they face some limitations */
 	/client/proc/admin_observe_target,
-	/client/proc/cmd_mentor_say	/* mentor say*/
+	/client/proc/cmd_mentor_say,	/* mentor say*/
+	/client/proc/view_msays,
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 ))
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
@@ -242,9 +246,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/ss_breakdown,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
-	/client/proc/visualise_active_turfs,
 	/client/proc/debug_timers,
 	/client/proc/timer_log,
+	/client/proc/raw_gas_scan,
+	/client/proc/teleport_interesting_turf,
+	/client/proc/visualize_interesting_turfs,
 	/client/proc/profile_code
 ))
 
@@ -1117,3 +1123,107 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(ishuman(mob))
 		var/mob/living/carbon/human/H = mob
 		H.export_dmi_json()
+
+/client/proc/raw_gas_scan()
+	set name = "Raw Gas Scan"
+	set category = "Debug"
+	set desc = "Scans your current tile, including LINDA data not normally displayed."
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	atmos_scan(mob, get_turf(mob), silent = TRUE, milla_turf_details = TRUE)
+
+/client/proc/teleport_interesting_turf()
+	set name = "Interesting Turf"
+	set category = "Debug"
+	set desc = "Teleports you to a random Interesting Turf from MILLA"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	if(!isobserver(mob))
+		to_chat(mob, "<span class='warning'>You must be an observer to do this!</span>")
+		return
+
+	var/list/interesting_tile = get_random_interesting_tile()
+	if(!length(interesting_tile))
+		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		return
+
+	var/turf/T = interesting_tile[MILLA_INDEX_TURF]
+	var/mob/dead/observer/O = mob
+	admin_forcemove(O, T)
+	O.ManualFollow(T)
+
+/client/proc/visualize_interesting_turfs()
+	set name = "Visualize Interesting Turfs"
+	set category = "Debug"
+	set desc = "Shows all the Interesting Turfs from MILLA"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	if(SSair.interesting_tile_count > 500)
+		// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
+		var/confirm = alert(usr, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", "I am sure", "Nope")
+		if(confirm != "I am sure")
+			return
+
+	var/display_turfs_overlay = FALSE
+	var/do_display_turf_overlay = alert(usr, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", "Yep", "Nope")
+	if(do_display_turf_overlay == "Yep")
+		display_turfs_overlay = TRUE
+
+	message_admins("[key_name_admin(usr)] is visualising interesting atmos turfs. Server may lag.")
+
+	var/list/zlevel_turf_indexes = list()
+	
+	var/list/coords = get_interesting_atmos_tiles()
+	if(!length(coords))
+		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
+		return
+
+	while(length(coords))
+		var/offset = length(coords) - MILLA_INTERESTING_TILE_SIZE
+		var/turf/T = coords[offset + MILLA_INDEX_TURF]
+		coords.len -= MILLA_INTERESTING_TILE_SIZE
+
+
+		// ENSURE YOU USE STRING NUMBERS HERE, THIS IS A DICTIONARY KEY NOT AN INDEX!!!
+		if(!zlevel_turf_indexes["[T.z]"])
+			zlevel_turf_indexes["[T.z]"] = list()
+		zlevel_turf_indexes["[T.z]"] |= T
+		if(display_turfs_overlay)
+			usr.client.images += image('icons/effects/alphacolors.dmi', T, "red")
+		CHECK_TICK
+
+	// Sort the keys
+	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
+
+	for(var/key in zlevel_turf_indexes)
+		to_chat(usr, "<span class='notice'>Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] Interesting Turfs</b></span>")
+
+	var/z_to_view = input(usr, "A list of z-levels their ITs has appeared in chat. Please enter a Z to visualise. Enter 0 to cancel.", "Selection", 0) as num
+
+	if(!z_to_view)
+		return
+
+	// Do not combine these
+	var/list/ui_dat = list()
+	var/list/turf_markers = list()
+
+	var/datum/browser/vis = new(usr, "atvis", "Interesting Turfs (Z[z_to_view])", 300, 315)
+	ui_dat += "<center><canvas width=\"255px\" height=\"255px\" id=\"atmos\"></canvas></center>"
+	ui_dat += "<script>e=document.getElementById(\"atmos\");c=e.getContext('2d');c.fillStyle='#ffffff';c.fillRect(0,0,255,255);function s(x,y){var p=c.createImageData(1,1);p.data\[0]=255;p.data\[1]=0;p.data\[2]=0;p.data\[3]=255;c.putImageData(p,(x-1),255-Math.abs(y-1));}</script>"
+	// Now generate the other list
+	for(var/x in zlevel_turf_indexes["[z_to_view]"])
+		var/turf/T = x
+		turf_markers += "s([T.x],[T.y]);"
+		CHECK_TICK
+
+	ui_dat += "<script>[turf_markers.Join("")]</script>"
+
+	vis.set_content(ui_dat.Join(""))
+	vis.open(FALSE)
+
