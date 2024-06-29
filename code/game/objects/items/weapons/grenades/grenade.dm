@@ -1,6 +1,6 @@
 /obj/item/grenade
 	name = "grenade"
-	desc = "A hand held grenade, with an adjustable timer."
+	desc = "A hand held grenade with an adjustable timer."
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "grenade"
@@ -11,9 +11,22 @@
 	slot_flags = SLOT_FLAG_BELT
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
+	/// Has the pin been pulled?
 	var/active = FALSE
-	var/det_time = 50
+	/// Time between the pin being pulled and detonation.
+	var/det_time = 5 SECONDS
+	/// Does the grenade show the fuze's time setting on examine?
 	var/display_timer = TRUE
+
+/obj/item/grenade/examine(mob/user)
+	. = ..()
+	if(display_timer)
+		if(det_time > 1)
+			. += "<span class='notice'>The fuze is set to [det_time / 10] second\s.</span>"
+		else
+			. += "<span class='danger'>[src] is set for instant detonation.</span>"
+		. += "<span class='notice'>Use a screwdriver to modify the time on the fuze.</span>"
+
 
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
@@ -21,9 +34,14 @@
 	if(!QDELETED(src))
 		qdel(src)
 
+/**
+  * Checks if the user is a non-clown.
+  *
+  * Returns `TRUE` if the user DOES NOT have `TRAIT_CLUMSY`.
+  */
 /obj/item/grenade/proc/clown_check(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
+		to_chat(user, "<span class='danger'>Huh? How does this thing work?</span>")
 		active = TRUE
 		icon_state = initial(icon_state) + "_active"
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
@@ -31,40 +49,13 @@
 			if(user)
 				user.drop_item()
 			prime()
-		return 0
-	return 1
-
-
-/*/obj/item/grenade/afterattack(atom/target as mob|obj|turf|area, mob/user as mob)
-	if(istype(target, /obj/item/storage)) return ..() // Trying to put it in a full container
-	if(istype(target, /obj/item/gun/grenadelauncher)) return ..()
-	if((user.is_in_active_hand(src)) && (!active) && (clown_check(user)) && target.loc != src.loc)
-		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
-		active = TRUE
-		icon_state = initial(icon_state) + "_active"
-		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-		spawn(det_time)
-			prime()
-			return
-		user.dir = get_dir(user, target)
-		user.drop_item()
-		var/t = (isturf(target) ? target : target.loc)
-		walk_towards(src, t, 3)
-	return*/
-
-
-/obj/item/grenade/examine(mob/user)
-	. = ..()
-	if(display_timer)
-		if(det_time > 1)
-			. += "The timer is set to [det_time/10] second\s."
-		else
-			. += "\The [src] is set for instant detonation."
+		return FALSE
+	return TRUE
 
 /obj/item/grenade/attack_self(mob/user as mob)
 	if(!active)
 		if(clown_check(user))
-			to_chat(user, "<span class='warning'>You prime [src]! [det_time/10] seconds!</span>")
+			to_chat(user, "<span class='danger'>You prime [src]! [det_time / 10] seconds!</span>")
 			active = TRUE
 			icon_state = initial(icon_state) + "_active"
 			add_fingerprint(user)
@@ -90,19 +81,23 @@
 		M.unEquip(src)
 
 /obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
+	// Grenades without this all are made to have fixed fuze lengths.
+	if(display_timer)
+		return
+
 	switch(det_time)
-		if(1)
-			det_time = 10
+		if(1 DECISECONDS)
+			det_time = 1 SECONDS
 			to_chat(user, "<span class='notice'>You set [src] for 1 second detonation time.</span>")
-		if(10)
-			det_time = 30
+		if(1 SECONDS)
+			det_time = 3 SECONDS
 			to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
-		if(30)
-			det_time = 50
+		if(3 SECONDS)
+			det_time = 5 SECONDS
 			to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
-		if(50)
-			det_time = 1
-			to_chat(user, "<span class='notice'>You set [src] for instant detonation.</span>")
+		if(5 SECONDS)
+			det_time = 0.1 SECONDS
+			to_chat(user, "<span class='danger'>You set [src] for instant detonation.</span>")
 	add_fingerprint(user)
 	return TRUE
 

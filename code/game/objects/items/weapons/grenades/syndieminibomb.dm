@@ -1,6 +1,6 @@
 /obj/item/grenade/syndieminibomb
-	name = "syndicate minibomb"
-	desc = "A syndicate manufactured explosive used to sow destruction and chaos."
+	name = "\improper Syndicate minibomb"
+	desc = "A Syndicate-manufactured high-explosive grenade used to sow destruction and chaos."
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
 	item_state = "grenade"
@@ -22,7 +22,7 @@
 	if(!active)
 		flags |= NODROP
 		to_chat(user, "<span class='userdanger'>As you activate the bomb, it emits a substance that sticks to your hand! It won't come off!</span>")
-		to_chat(user, "<span class='sans'>Uh oh.</span>")
+		to_chat(user, "<span class='sans'>Uh oh...</span>")
 	. = ..()
 
 /obj/item/grenade/syndieminibomb/pen
