@@ -151,14 +151,8 @@ export const BloomEdit = (props, context) => {
             </LabeledList.Item>
             <LabeledList.Divider />
             <LabeledList.Item>
-              <Button
-                content="Reload Lamps with New Parameters"
-                onClick={() => act('update_lamps')}
-              />
-              <Button
-                content="Reset to Default"
-                onClick={() => act('default')}
-              />
+              <Button content="Reload Lamps with New Parameters" onClick={() => act('update_lamps')} />
+              <Button content="Reset to Default" onClick={() => act('default')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>
