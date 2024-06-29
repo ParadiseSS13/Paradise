@@ -12,7 +12,12 @@ import { CSS_COLORS } from '../constants';
 export interface BoxProps {
   [key: string]: any;
   as?: string;
-  className?: string | BooleanLike;
+  /*
+    Temporarily removed as it causes a cascade of type issues.
+    Can be restored in Inferno v8.
+    TODO: Revert in 516
+   */
+  className?: string /* | BooleanLike */;
   children?: InfernoNode;
   position?: string | BooleanLike;
   overflow?: string | BooleanLike;
