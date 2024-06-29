@@ -47,26 +47,17 @@ GLOBAL_LIST_EMPTY(flame_effects)
 
 	for(var/atom/movable/thing_to_burn in get_turf(src))
 		if(isliving(thing_to_burn))
-			var/mob/living/mob_to_burn = thing_to_burn
-
-			var/fire_damage = temperature / 100
-			if(ishuman(mob_to_burn))
-				var/mob/living/carbon/human/human_to_burn = mob_to_burn
-				var/fire_armour = human_to_burn.get_thermal_protection()
-				if(fire_armour >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-					continue
-				else if(fire_armour == FIRE_SUIT_MAX_TEMP_PROTECT) // Good protection but you won't survive infinitely in it
-					fire_damage /= 3
-
-			mob_to_burn.adjustFireLoss(fire_damage)
-			mob_to_burn.adjust_fire_stacks(application_stacks)
-			mob_to_burn.IgniteMob()
+			damage_mob(thing_to_burn)
 			continue
 
 		if(isobj(thing_to_burn))
 			var/obj/obj_to_burn = thing_to_burn
 			obj_to_burn.fire_act(null, temperature)
 			continue
+
+	var/turf/location = get_turf(src)
+	if(location)
+		location.hotspot_expose(temperature, 500)
 
 /obj/effect/fire/water_act(volume, temperature, source, method)
 	. = ..()
@@ -76,17 +67,15 @@ GLOBAL_LIST_EMPTY(flame_effects)
 
 /obj/effect/fire/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(isliving(AM)) // TODO: add checks to see if they're protected here first
-		var/mob/living/mob_to_burn = AM
-		mob_to_burn.adjustFireLoss(temperature / 100)
-		mob_to_burn.adjust_fire_stacks(application_stacks)
-		mob_to_burn.IgniteMob()
-		to_chat(mob_to_burn, "<span class='warning'>[src] burns you!</span>")
+	if(isliving(AM))
+		damage_mob(AM)
+		to_chat(AM, "<span class='warning'>[src] burns you!</span>")
 		return
 
 	if(isitem(AM))
 		var/obj/item/item_to_burn = AM
 		item_to_burn.fire_act(null, temperature)
+		return
 
 /obj/effect/fire/proc/fizzle()
 	playsound(src, 'sound/effects/fire_sizzle.ogg', 50, TRUE)
@@ -96,5 +85,22 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	duration = min((duration + (merging_flame.duration / 4)), MAX_FIRE_EXIST_TIME)
 	temperature = ((merging_flame.temperature + temperature) / 2) // No making a sun by just clicking 10 times on a turf
 	merging_flame.fizzle()
+
+/obj/effect/fire/proc/damage_mob(mob/living/mob_to_burn)
+	if(!istype(mob_to_burn))
+		return
+	var/fire_damage = temperature / 100
+	if(ishuman(mob_to_burn))
+		var/mob/living/carbon/human/human_to_burn = mob_to_burn
+		var/fire_armour = human_to_burn.get_thermal_protection()
+		if(fire_armour >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+			return
+
+		if(fire_armour == FIRE_SUIT_MAX_TEMP_PROTECT) // Good protection but you won't survive infinitely in it
+			fire_damage /= 4
+
+	mob_to_burn.adjustFireLoss(fire_damage)
+	mob_to_burn.adjust_fire_stacks(application_stacks)
+	mob_to_burn.IgniteMob()
 
 #undef MAX_FIRE_EXIST_TIME
