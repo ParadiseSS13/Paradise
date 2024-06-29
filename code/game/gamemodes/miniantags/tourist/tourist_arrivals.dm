@@ -47,7 +47,7 @@
 /datum/event/tourist_arrivals/proc/greeting(mob/living/carbon/human/M)
 	var/list/greeting = list()
 	greeting.Add("<span class='boldnotice'><font size=3>You are a tourist!</font></span>")
-	greeting.Add("<b>You were chosen as a lucky winner of Nanotrasen's exclusive raffle! Winning a visit of a nearby Nanotrasen Research Station!</b>")
+	greeting.Add("<b>You were chosen as a lucky winner of Nanotrasen's exclusive raffle! Winning a visit to a nearby Nanotrasen Research Station!</b>")
 	greeting.Add("<b>Enjoy your exclusive tour and make the most of your time exploring our state-of-the-art facilities!</b>")
 	greeting.Add("<span class='notice'><br>Your current objectives are:</span>")
 	greeting.Add(M.mind.prepare_announce_objectives(FALSE))
@@ -58,6 +58,6 @@
 	var/tourist_species
 
 /datum/tourist/C
-	tourist_outfit = /datum/outfit/job/assistant
+	tourist_outfit = /datum/outfit/admin/tourist
 	tourist_species = /mob/living/carbon/human
 
