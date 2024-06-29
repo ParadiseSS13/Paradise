@@ -2,7 +2,8 @@
 
 	/// Maximum number of spawns.
 	var/max_spawn = 10
-	var/sucess_run = 0
+	/// If the event ran successfully
+	var/sucess_run = null
 	/// Number of tots spawned in
 	var/tot_number = 0
 	/// Number of player spawned in
@@ -13,23 +14,12 @@
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_GAMMA) // Who would send more people to somewhere that's not safe?
 		return
 
-	var/list/spawn_where = list()
-	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		spawn_where += get_turf(S)
-	if(!length(spawn_where))
-		return
+	INVOKE_ASYNC(src, PROC_REF(spawn_arrivals), T)
 
-	INVOKE_ASYNC(src, PROC_REF(spawn_arrivals), spawn_where, T)
-
-/datum/event/tourist_arrivals/proc/spawn_arrivals(list/spawn_where, datum/tourist/T)
+/datum/event/tourist_arrivals/proc/spawn_arrivals(datum/tourist/T)
 	var/list/candidates = SSghost_spawns.poll_candidates("Testing", null, FALSE, 30 SECONDS, TRUE)
-	var/index = 1
 	while(max_spawn > 0 && length(candidates))
-		if(index > length(spawn_where))
-			index = 1
-
-		var/turf/picked_loc = spawn_where[index]
-		index++
+		var/turf/picked_loc = pick(GLOB.latejoin)
 		var/mob/P = pick_n_take(candidates)
 		max_spawn--
 		if(P)
@@ -43,15 +33,25 @@
 
 			if(M.mind.special_role != SPECIAL_ROLE_TRAITOR)
 				M.mind.add_mind_objective(O)
-
+				greeting(M)
 			M.equipOutfit(T.tourist_outfit)
 			M.dna.species.after_equip_job(null, M)
 			sucess_run = TRUE
 			spawned_in++
 	if(sucess_run)
-		GLOB.minor_announcement.Announce("Success")
+		var/raffle_name = pick("Galactic Getaway Raffle", "Cosmic Jackpot Raffle", "Nebula Nonsense Raffle", "Greytide Giveaway Raffle", "Toolbox Treasure Raffle")
+		GLOB.minor_announcement.Announce("The lucky winners of the Nanotrasen raffle, 'Nanotrasen [raffle_name],' are arriving at [station_name()] shortly. Please welcome them warmly and assist them in any way possible during their exclusive tour.")
 	else
-		GLOB.minor_announcement.Announce("Something went wrong")
+		message_admins("Oops! Something went wrong with the event, make sure to open a github issue if you see this!")
+
+/datum/event/tourist_arrivals/proc/greeting(mob/living/carbon/human/M)
+	var/list/greeting = list()
+	greeting.Add("<span class='boldnotice'><font size=3>You are a tourist!</font></span>")
+	greeting.Add("<b>You were chosen as a lucky winner of Nanotrasen's exclusive raffle! Winning a visit of a nearby Nanotrasen Research Station!</b>")
+	greeting.Add("<b>Enjoy your exclusive tour and make the most of your time exploring our state-of-the-art facilities!</b>")
+	greeting.Add("<span class='notice'><br>Your current objectives are:</span>")
+	greeting.Add(M.mind.prepare_announce_objectives(FALSE))
+	to_chat(M, chat_box_green(greeting.Join("<br>")))
 
 /datum/tourist
 	var/tourist_outfit
