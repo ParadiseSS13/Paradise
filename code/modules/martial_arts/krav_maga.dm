@@ -171,7 +171,7 @@
 //////////////////////////////
 /obj/item/clothing/gloves/color/black/krav_maga/sec
 	name = "Krav Maga gloves"
-	desc = "These gloves can teach you to perform Krav Maga using nanochips (for as long as you're wearing them)."
+	desc = "These gloves can teach you to perform Krav Maga using nanochips for as long as you're wearing them."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
 

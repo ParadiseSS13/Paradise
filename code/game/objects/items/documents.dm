@@ -63,7 +63,7 @@
 /obj/item/documents/syndicate/mining
 	desc = "Documents detailing Syndicate plasma mining operations."
 
-/obj/item/documents/syndicate/yellow/examine(mob/user)
+/obj/item/documents/syndicate/mining/examine(mob/user)
 	. = ..()
 	. += "<span class='warning'>These documents are marked with \"<b>SECRET</b>\" and the logo of the Syndicate.</span>"
 

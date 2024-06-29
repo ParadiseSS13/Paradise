@@ -43,7 +43,7 @@
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/hand_tele/attack_self(mob/user)
-	/// The turf the user is currently located in.
+	// The turf the user is currently located in.
 	var/turf/current_location = get_turf(user)
 	if(emp_timer > world.time)
 		do_sparks(5, 0, loc)

@@ -149,7 +149,7 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
-/obj/item/reagent_containers/hypospray/examine_more(mob/user)
+/obj/item/reagent_containers/hypospray/CMO/examine_more(mob/user)
 	. = ..()
 	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
 	. += ""
