@@ -219,6 +219,7 @@
 	name = "ert first-aid kit"
 	icon_state = "bezerk"
 	desc = "A medical kit used by Nanotrasen emergency response team personnel."
+	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/ert/populate_contents()
 	new /obj/item/healthanalyzer/advanced(src)
@@ -243,6 +244,15 @@
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/storage/pill_bottle/ert_amber(src)
 	new /obj/item/storage/pill_bottle/patch_pack/ert_amber(src)
+
+/obj/item/storage/firstaid/fake_tactical
+	name = "tactical first-aid kit"
+	icon_state = "bezerk"
+	desc = "I hope you've got insurance. The paint is still wet."
+	med_bot_skin = "bezerk"
+
+/obj/item/storage/firstaid/fake_tactical/populate_contents()
+	return
 
 /*
  * Pill Bottles
