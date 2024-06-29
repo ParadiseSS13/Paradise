@@ -39,6 +39,8 @@
 	var/ghost_usable = TRUE
 	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
 	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in deciseconds. People that join as observers are not included.
+	///If antagbanned people are prevented from using it, only false for the ghost bar spawner.
+	var/restrict_antagban = TRUE
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	if(!valid_to_spawn(user))
@@ -84,7 +86,7 @@
 	if(!uses && !permanent)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return FALSE
-	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
+	if((jobban_isbanned(user, banType) || (restrict_antagban && jobban_isbanned(user, ROLE_SYNDICATE))))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return FALSE
 	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE))

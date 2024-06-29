@@ -128,7 +128,7 @@
 	var/turf/startloc = get_turf(src)
 	if(!is_teleshot)
 		var/obj/item/projectile/H = new /obj/item/projectile/herald(startloc)
-		H.preparePixelProjectile(marker, marker, src)
+		H.preparePixelProjectile(marker, startloc)
 		H.firer = src
 		H.firer_source_atom = src
 		if(target)
@@ -139,7 +139,7 @@
 			shoot_projectile(marker, set_angle - 15, FALSE, FALSE)
 	else
 		var/obj/item/projectile/H = new /obj/item/projectile/herald/teleshot(startloc)
-		H.preparePixelProjectile(marker, marker, startloc)
+		H.preparePixelProjectile(marker, startloc)
 		H.firer = src
 		H.firer_source_atom = src
 		if(target)
