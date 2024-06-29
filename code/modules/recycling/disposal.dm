@@ -1574,7 +1574,7 @@
 		var/turf/simulated/floor/F = T
 		F.remove_tile(null,TRUE,TRUE)
 		T.visible_message(
-			"<span class='warning'>The floortile is ripped from the floor!</span>"
+			"<span class='warning'>The floortile is ripped from the floor!</span>",
 		 	"<span class='warning'>You hear a loud bang!</span>")
 
 	if(linkedtrunk)
