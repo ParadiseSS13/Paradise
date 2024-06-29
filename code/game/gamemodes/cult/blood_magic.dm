@@ -76,6 +76,7 @@
 	name = "Blood Magic"
 	button_icon_state = "telerune"
 	desc = "Fear the Old Blood."
+	default_button_position = SCRN_OBJ_CULT_LIST
 	var/charges = 1
 	var/magic_path = null
 	var/obj/item/melee/blood_magic/hand_magic
@@ -85,7 +86,6 @@
 	var/health_cost = 0
 	/// Have we already been positioned into our starting location?
 	var/positioned = FALSE
-	default_button_position = SCRN_OBJ_CULT_LIST
 
 
 /datum/action/innate/cult/blood_spell/proc/get_panel_text()
