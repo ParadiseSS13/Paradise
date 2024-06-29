@@ -182,7 +182,7 @@
 			)
 
 		// Abort if the target manages to scurry away.
-		if(!do_after(user, 20, target = GM))
+		if(!do_after(user, 2 SECONDS, target = GM))
 			return
 
 		GM.forceMove(src)
