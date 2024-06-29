@@ -15,12 +15,7 @@ type KeyInputData = {
 };
 
 const isStandardKey = (event): boolean => {
-  return (
-    event.key !== KEY.Alt &&
-    event.key !== KEY.Control &&
-    event.key !== KEY.Shift &&
-    event.key !== KEY.Escape
-  );
+  return event.key !== KEY.Alt && event.key !== KEY.Control && event.key !== KEY.Shift && event.key !== KEY.Escape;
 };
 
 const KEY_CODE_TO_BYOND: Record<string, string> = {
@@ -86,9 +81,7 @@ export const KeyComboModal = (props, context) => {
 
   // Dynamically changes the window height based on the message.
   const windowHeight =
-    130 +
-    (message.length > 30 ? Math.ceil(message.length / 3) : 0) +
-    (message.length && large_buttons ? 5 : 0);
+    130 + (message.length > 30 ? Math.ceil(message.length / 3) : 0) + (message.length && large_buttons ? 5 : 0);
 
   return (
     <Window title={title} width={240} height={windowHeight}>
@@ -126,9 +119,7 @@ export const KeyComboModal = (props, context) => {
             <Stack.Item>
               <Button
                 disabled={binding}
-                content={
-                  binding && binding !== null ? 'Awaiting input...' : '' + input
-                }
+                content={binding && binding !== null ? 'Awaiting input...' : '' + input}
                 width="100%"
                 textAlign="center"
                 onClick={() => {
