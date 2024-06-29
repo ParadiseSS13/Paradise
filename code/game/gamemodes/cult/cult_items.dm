@@ -6,9 +6,9 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/tome/New()
+/obj/item/tome/Initialize(mapload)
+	. = ..()
 	icon_state = GET_CULT_DATA(tome_icon, "tome")
-	..()
 
 /obj/item/melee/cultblade
 	name = "cult blade"
@@ -24,10 +24,10 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
-/obj/item/melee/cultblade/New()
+/obj/item/melee/cultblade/Initialize(mapload)
+	. = ..()
 	icon_state = GET_CULT_DATA(sword_icon, "blood_blade")
 	item_state = GET_CULT_DATA(sword_icon, "blood_blade")
-	..()
 
 /obj/item/melee/cultblade/examine(mob/user)
 	. = ..()
@@ -567,7 +567,7 @@
 
 /obj/item/cult_spear/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
 	AddComponent(/datum/component/two_handed, force_wielded = 24, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 
 /obj/item/cult_spear/Destroy()

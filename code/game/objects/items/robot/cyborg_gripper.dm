@@ -3,7 +3,8 @@
 1. UNIVERSAL GRIPPER
 2. MEDICAL GRIPPER
 3. SERVICE GRIPPER
-4. ENGINEERING GRIPPER
+4. MINING GRIPPER
+5. ENGINEERING GRIPPER
 */
 
 // Generic gripper. This should never appear anywhere.
@@ -13,9 +14,9 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gripper"
 	actions_types = list(/datum/action/item_action/drop_gripped_item)
-	/// Set to TRUE to allow interaction with light fixtures and cell-containing machinery.
+	/// Set to TRUE to removal of cells/lights from machine objects containing them.
 	var/engineering_machine_interaction = FALSE
-	/// Set to TRUE to allow the gripper to shake people awake/help them up.
+	/// Set to TRUE to allow the gripper to shake people awake and help them up.
 	var/can_help_up = FALSE
 	/// Defines what items the gripper can carry.
 	var/list/can_hold = list()
@@ -33,10 +34,10 @@
 
 /obj/item/gripper/examine_more(mob/user)
 	. = ..()
-	. += {"Cyborg grippers are well-developed, and despite some anatomical differences that manifest in some models, they can be used just as effectively as a regular hand with enough practice.
-
-Companies like Nanotrasen use software to limit the items that a cyborg can manipulate to a specific pre-defined list, \
-as part of their multi-layered protections to try and eliminate the chance of a hypothetical synthetic uprising, not wishing to see a repeat of the IPC uprising in 2525."}
+	. += "Cyborg grippers are well-developed, and despite some anatomical differences that manifest in some models, they can be used just as effectively as a regular hand with enough practice."
+	. += ""
+	. += "Companies like Nanotrasen use software to limit the items that a cyborg can manipulate to a specific pre-defined list, \
+	as part of their multi-layered protections to try and eliminate the chance of a hypothetical synthetic uprising, not wishing to see a repeat of the IPC uprising in 2525."
 
 
 /obj/item/gripper/Initialize(mapload)
@@ -69,10 +70,40 @@ as part of their multi-layered protections to try and eliminate the chance of a 
 	return
 
 /obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
-	//Target is invalid or we are not adjacent.
+	// Target is invalid or we are not adjacent.
 	if(!target || !proximity)
-		return FALSE
-	// Shake people awake, get them on their feet.
+		return
+
+	// Does the gripper already have an item?
+	if(gripped_item)
+		// Pass the attack on to the target. This might delete/relocate gripped_item. If the attackby doesn't resolve or delete the target or gripped_item, afterattack.
+		if(!target.attackby(gripped_item, user, params))
+			gripped_item?.afterattack(target, user, 1, params)
+		// Check to see if there is still an item in the gripper (stackable items trigger this).
+		if(!gripped_item && length(contents))
+			gripped_item = contents[1]
+			return
+		// If the gripper thinks it has something but it actually doesn't, we fix this.
+		if(gripped_item && !length(contents))
+			gripped_item = null
+			return
+
+		return TRUE
+
+	// Is the gripper interacting with an item?
+	if(isitem(target))
+		var/obj/item/I = target
+		// Make sure the item is something the gripper can hold
+		if(can_hold_all_items || is_type_in_typecache(I, can_hold))
+			to_chat(user, "<span class='notice'>You collect [I].</span>")
+			I.forceMove(src)
+			gripped_item = I
+			return
+		
+		to_chat(user, "<span class='warning'>You hold your gripper over [target], but no matter how hard you try, you cannot make yourself grab it.</span>")
+		return
+
+	// Have we come across a poor soul on the floor that has fallen and can't get up?
 	if(ishuman(target) && can_help_up)
 		var/mob/living/carbon/human/pickup_target = target
 		if(!IS_HORIZONTAL(pickup_target))
@@ -90,72 +121,53 @@ as part of their multi-layered protections to try and eliminate the chance of a 
 			"<span class='notice'>[user] shakes [pickup_target] trying to wake [pickup_target.p_them()] up!</span>",
 			"<span class='notice'>You shake [pickup_target] trying to wake [pickup_target.p_them()] up!</span>"
 			)
-		return FALSE
-	//Already have an item.
-	if(gripped_item)
-
-		//Pass the attack on to the target. This might delete/relocate gripped_item.
-		if(!target.attackby(gripped_item, user, params))
-			// If the attackby didn't resolve or delete the target or gripped_item, afterattack
-			// (Certain things, such as mountable frames, rely on afterattack)
-			gripped_item?.afterattack(target, user, 1, params)
-
-		//If gripped_item either didn't get deleted, or it failed to be transfered to its target
-		if(!gripped_item && length(contents))
-			gripped_item = contents[1]
-			return FALSE
-		else if(gripped_item && !contents.len)
-			gripped_item = null
-		return TRUE
-
-	//Check that we're not pocketing a mob.
-	else if(isitem(target))
-		var/obj/item/I = target
-		// Make sure the item is something the gripper can hold
-		if(can_hold_all_items || is_type_in_typecache(I, can_hold))
-			to_chat(user, "<span class='notice'>You collect [I].</span>")
-			I.forceMove(src)
-			gripped_item = I
-			return TRUE
-
-		to_chat(user, "<span class='warning'>You hold your gripper over [target], but no matter how hard you try, you cannot make yourself grab it.</span>")
-		return FALSE
+		return
 
 	// Everything past this point requires being able to engineer.
 	if(!engineering_machine_interaction)
 		return
-	// APC cells.
+
+	// Removing cells from APCs.
 	if(istype(target, /obj/machinery/power/apc))
 		var/obj/machinery/power/apc/A = target
 		if(A.opened && A.cell)
 			gripped_item = A.cell
-
 			A.cell.add_fingerprint(user)
 			A.cell.update_icon()
 			A.cell.forceMove(src)
 			A.cell = null
-
 			A.charging = APC_NOT_CHARGING
 			A.update_icon()
+			user.visible_message(
+				"<span class='warning'>[user] removes the cell from [A]!</span>",
+				"<span class='warning'>You remove the cell from [A].</span>"
+				)
+		return
 
-			user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "<span class='warning'>You remove the power cell.</span>")
-	// Cell Chargers
-	else if(istype(target, /obj/machinery/cell_charger))
+	// Removing cells from cell chargers.
+	if(istype(target, /obj/machinery/cell_charger))
 		var/obj/machinery/cell_charger/cell_charger = target
 		if(cell_charger.charging)
 			gripped_item = cell_charger.charging
 			cell_charger.charging.add_fingerprint(user)
 			cell_charger.charging.forceMove(src)
 			cell_charger.removecell()
-	// Putting lights in fixtures.
-	else if(istype(target, /obj/machinery/light))
+		user.visible_message(
+			"<span class='notice'>[user] removes the cell from [cell_charger].</span>",
+			"<span class='notice'>You remove the cell from [cell_charger].</span>"
+			)
+		return
+
+	// Removing lights from fixtures.
+	if(istype(target, /obj/machinery/light))
 		var/obj/machinery/light/light = target
 		var/obj/item/light/L = light.drop_light_tube()
 		L.forceMove(src)
 		gripped_item = L
-		user.visible_message("<span class='notice'>[user] removes the light from the fixture.</span>", "<span class='notice'>You dislodge the light from the fixture.</span>")
-
-	return TRUE
+		user.visible_message(
+			"<span class='notice'>[user] removes [L] from [light].</span>",
+			"<span class='notice'>You remove [L] from [light].</span>"
+			)
 
 ////////////////////////////////
 // MARK:	UNIVERSAL GRIPPER
@@ -199,6 +211,19 @@ as part of their multi-layered protections to try and eliminate the chance of a 
 		/obj/item/paper,
 		/obj/item/photo,
 		/obj/item/toy/plushie
+	)
+
+////////////////////////////////
+// MARK:	MINING GRIPPER
+////////////////////////////////
+// For mining borgs. Mostly for self-application of goliath armour.
+/obj/item/gripper/mining
+	name = "mining gripper"
+	desc = "A grasping tool for cyborgs. This ruggedized version will let you add goliath plating to yourself and activate survival capsules. You could also use it to swing a pickaxe if you don't feel like using your drill."
+	can_hold = list(
+		/obj/item/pickaxe,	// Because the image of a mining borg ignoring its built-in drill and instead choosing to swing an old-fashioned pickaxe is funny.
+		/obj/item/stack/sheet/animalhide/goliath_hide,
+		/obj/item/survivalcapsule
 	)
 
 ////////////////////////////////

@@ -241,6 +241,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			return
 		ghostize(TRUE)
 		return
+	if(isbrain(M))
+		// let a brain ghost out if they want to, but also let them freely re-enter their brain.
+		var/response = tgui_alert(src, "Ghosting from this brain means you'll be respawnable but will be kicked out of your brain, which someone else could take over. Is this what you want?", "Ghost", list("Stay in Brain", "Ghost"))
+		if(response == "Ghost")
+			ghostize(TRUE)
+			log_admin("[key_name(M)] has ghosted as a brain-mob, but is keeping respawnability.")
+		return
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
 			warningmsg = "It's too early in the shift to enter cryo"

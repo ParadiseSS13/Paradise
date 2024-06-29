@@ -262,16 +262,6 @@
 	name = "REAL_NAME"
 	desc = "Omnicone's Chosen Champion."
 
-/datum/dog_fashion/back/hardsuit
-	name = "Space Explorer REAL_NAME"
-	desc = "That's one small step for a corgi. One giant yap for corgikind."
-
-/datum/dog_fashion/back/hardsuit/apply(mob/living/simple_animal/pet/dog/D)
-	..()
-	ADD_TRAIT(D, TRAIT_NOBREATH, DOGGO_SPACESUIT)
-	D.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	D.minbodytemp = 0
-
 /datum/dog_fashion/head/fried_vox_empty
 	name = "Colonel REAL_NAME"
 	desc = "Keep away from live vox."
