@@ -11340,8 +11340,8 @@
 	name = "east bump";
 	pixel_x = 30
 	},
-/obj/structure/closet/radiation,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aMO" = (
@@ -24708,8 +24708,11 @@
 	},
 /area/station/engineering/atmos/distribution)
 "bvH" = (
-/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
+/obj/machinery/atmospherics/meter{
+	autolink_id = "dloop_atm_meter";
+	name = "Distribution Loop"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -24726,12 +24729,15 @@
 	},
 /area/station/engineering/atmos/distribution)
 "bvJ" = (
-/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
+/obj/machinery/atmospherics/meter{
+	autolink_id = "wloop_atm_meter";
+	name = "Waste Loop"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -26332,12 +26338,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "bAb" = (
-/obj/structure/table/reinforced,
-/obj/item/tank/internals/emergency_oxygen,
-/obj/item/tank/internals/emergency_oxygen,
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/mask/breath,
-/obj/item/toy/figure/crew/atmos,
+/obj/machinery/computer/general_air_control{
+	dir = 8;
+	level = 3;
+	name = "Distribution and Waste Monitor";
+	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -26922,9 +26928,11 @@
 /area/station/engineering/atmos)
 "bBM" = (
 /obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/folder/yellow,
-/obj/item/pen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/tank/internals/emergency_oxygen,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/toy/figure/crew/atmos,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -65129,6 +65137,17 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/se)
+"efJ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 4
+	},
+/obj/machinery/atmospherics/meter{
+	autolink_id = "mair_out_meter";
+	layer = 2.9;
+	name = "Mixed Air Tank Out"
+	},
+/turf/simulated/wall/r_wall,
+/area/station/engineering/atmos)
 "efS" = (
 /obj/machinery/door/airlock/medical,
 /obj/effect/mapping_helpers/airlock/access/all/medical/morgue,
@@ -84524,6 +84543,14 @@
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
+"pGT" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/engineering/atmos)
 "pHd" = (
 /obj/structure/sign/electricshock{
 	pixel_y = 32
@@ -96590,8 +96617,8 @@
 /turf/simulated/floor/plating,
 /area/station/security/permasolitary)
 "wAP" = (
-/obj/structure/closet/radiation,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "wAW" = (
@@ -97552,9 +97579,13 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "xgF" = (
-/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
+	},
+/obj/machinery/atmospherics/meter{
+	autolink_id = "mair_in_meter";
+	layer = 2.9;
+	name = "Mixed Air Tank In"
 	},
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
@@ -127524,7 +127555,7 @@ rke
 bvO
 ban
 byC
-ban
+pGT
 bBM
 aOg
 bFe
@@ -128274,7 +128305,7 @@ abj
 aaa
 abj
 aOg
-xgF
+efJ
 odQ
 xgF
 aOg

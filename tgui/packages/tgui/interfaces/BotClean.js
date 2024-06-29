@@ -5,19 +5,8 @@ import { BotStatus } from './common/BotStatus';
 
 export const BotClean = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    locked,
-    noaccess,
-    maintpanel,
-    on,
-    autopatrol,
-    canhack,
-    emagged,
-    remote_disabled,
-    painame,
-    cleanblood,
-    area,
-  } = data;
+  const { locked, noaccess, maintpanel, on, autopatrol, canhack, emagged, remote_disabled, painame, cleanblood, area } =
+    data;
   return (
     <Window width={500} height={400}>
       <Window.Content scrollable>
@@ -45,13 +34,7 @@ export const BotClean = (props, context) => {
         </Section>
         {painame && (
           <Section title="pAI">
-            <Button
-              fluid
-              icon="eject"
-              content={painame}
-              disabled={noaccess}
-              onClick={() => act('ejectpai')}
-            />
+            <Button fluid icon="eject" content={painame} disabled={noaccess} onClick={() => act('ejectpai')} />
           </Section>
         )}
       </Window.Content>

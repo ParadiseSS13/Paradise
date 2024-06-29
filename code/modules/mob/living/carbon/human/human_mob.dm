@@ -1466,7 +1466,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	rad_act(current_size * 3)
 
 /mob/living/carbon/human/narsie_act()
-	if(iswizard(src) && IS_CULTIST(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway
+	if(iswizard(src) || IS_CULTIST(src)) // Wizards are immune to the magic. Cultists also don't get transformed.
 		return
 	..()
 
