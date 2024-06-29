@@ -306,8 +306,10 @@
 
 /turf/simulated/floor/engine/asteroid
 	temperature = 500
+	oxygen = 0
+	nitrogen = 0
 	toxins = 10
-	agent_b = 0.5
+	agent_b = 0.1
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	..()

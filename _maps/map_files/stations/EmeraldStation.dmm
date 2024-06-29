@@ -1385,7 +1385,7 @@
 /obj/structure/railing/cap{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "apC" = (
 /obj/machinery/disposal,
@@ -1595,7 +1595,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "arJ" = (
 /turf/simulated/wall/r_wall,
@@ -2192,7 +2192,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "ayG" = (
 /turf/simulated/floor/holofloor{
@@ -6493,7 +6493,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "brl" = (
 /obj/structure/cable{
@@ -6790,6 +6790,12 @@
 "bur" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/light,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/canister/air{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -8304,7 +8310,7 @@
 "bIg" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "bIo" = (
 /obj/structure/chair/comfy/shuttle{
@@ -9139,6 +9145,14 @@
 "bPF" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"bPI" = (
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 4;
+	name = "Air Recycing"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/asteroid_filtering)
 "bPJ" = (
 /obj/machinery/door/airlock/medical{
 	name = "Operating Theatre Storage"
@@ -9197,7 +9211,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "bQk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9560,7 +9574,7 @@
 /obj/structure/railing/cap{
 	dir = 5
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "bUk" = (
 /obj/machinery/camera{
@@ -10651,6 +10665,12 @@
 "cfc" = (
 /turf/simulated/wall/r_wall,
 /area/station/turret_protected/ai)
+"cff" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/asteroid_filtering)
 "cfj" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
@@ -11220,7 +11240,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "cmu" = (
 /turf/simulated/floor/plasteel{
@@ -16733,7 +16753,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "dos" = (
 /obj/machinery/door/airlock/public/glass{
@@ -16909,7 +16929,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine/airless,
 /area/station/engineering/atmos/asteroid_filtering)
 "dpv" = (
 /obj/structure/table,
@@ -18962,7 +18982,7 @@
 /obj/structure/railing/cap{
 	dir = 2
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "dLr" = (
 /obj/structure/table,
@@ -20277,7 +20297,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "eaQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -20840,7 +20860,7 @@
 /area/station/maintenance/apmaint)
 "egc" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "egd" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -21450,7 +21470,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "emF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -21643,7 +21663,7 @@
 /obj/structure/railing/cap{
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "eps" = (
 /obj/structure/closet/firecloset,
@@ -22012,18 +22032,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "esK" = (
-/obj/structure/sign/fire{
-	pixel_y = -32
-	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/red/corner,
-/obj/machinery/atmospherics/pipe/simple/visible/universal{
-	dir = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Asteroid Processing South West";
 	dir = 1
+	},
+/obj/machinery/atmospherics/trinary/filter{
+	dir = 8;
+	name = "Toxins filter";
+	on = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
@@ -23232,7 +23251,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "eFb" = (
 /obj/item/grown/log/bamboo,
@@ -23391,7 +23410,7 @@
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing/corner,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "eGj" = (
 /turf/simulated/floor/mineral/titanium/blue,
@@ -23854,7 +23873,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "eLF" = (
 /obj/item/kirbyplants,
@@ -30382,6 +30401,10 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/research)
+"fYn" = (
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/area/station/engineering/atmos/asteroid_core)
 "fYp" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -31042,10 +31065,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/machinery/atmospherics/binary/pump{
-	name = "N2 to Pure";
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "gfF" = (
@@ -31630,7 +31650,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "glw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -32249,8 +32269,8 @@
 	},
 /area/station/maintenance/starboard)
 "grJ" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/scrubbers{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
@@ -32568,7 +32588,7 @@
 /obj/structure/sign/securearea{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/atmos/asteroid)
 "guE" = (
 /obj/structure/cable{
@@ -35075,9 +35095,12 @@
 	},
 /area/station/public/construction)
 "gUT" = (
-/obj/structure/table,
-/obj/item/analyzer,
-/obj/item/grenade/chem_grenade/metalfoam,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/atmospherics/portable/canister/air{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "gUU" = (
@@ -36564,7 +36587,7 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "hiT" = (
 /obj/structure/extinguisher_cabinet{
@@ -37895,7 +37918,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "hwR" = (
 /obj/effect/spawner/random_barrier/obstruction,
@@ -38834,7 +38857,7 @@
 	c_tag = "Asteroid Core Central";
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "hEu" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -43396,7 +43419,6 @@
 	},
 /area/station/security/lobby)
 "iDI" = (
-/obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -43406,6 +43428,9 @@
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
@@ -43530,10 +43555,11 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/red/line,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 10
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4;
+	initialize_directions = 11
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "iFe" = (
@@ -43850,7 +43876,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "iHH" = (
 /obj/structure/cable{
@@ -48386,7 +48412,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "jDA" = (
 /obj/machinery/atmospherics/trinary/tvalve/digital/flipped{
@@ -49631,7 +49657,7 @@
 	c_tag = "Asteroid Core North";
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "jOp" = (
 /obj/item/chair/stool,
@@ -54751,7 +54777,7 @@
 	name = "Toxins Scrubber";
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine/airless,
 /area/station/engineering/atmos/asteroid_filtering)
 "kQY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -55003,7 +55029,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "kTL" = (
 /obj/structure/table,
@@ -55901,6 +55927,9 @@
 /area/station/science/research)
 "lec" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -56238,7 +56267,7 @@
 	name = "Toxins Scrubber";
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "lic" = (
 /turf/simulated/floor/plating,
@@ -56484,7 +56513,7 @@
 /area/station/service/barber)
 "lkN" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/atmos/asteroid)
 "lkR" = (
 /obj/structure/chair/stool,
@@ -56543,7 +56572,7 @@
 	name = "Toxins Scrubber";
 	dir = 8
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "llz" = (
 /obj/structure/table,
@@ -57817,10 +57846,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"lxH" = (
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/asteroid_filtering)
 "lxJ" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -58440,7 +58465,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine/airless,
 /area/station/engineering/atmos/asteroid_filtering)
 "lDr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -61175,7 +61200,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "mjP" = (
 /obj/structure/cable{
@@ -65197,17 +65222,6 @@
 	icon_state = "brown"
 	},
 /area/station/supply/miningdock)
-"naH" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos/asteroid_filtering)
 "naL" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Oversight"
@@ -65733,7 +65747,7 @@
 /obj/structure/railing/cap{
 	dir = 6
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "nfE" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -66099,6 +66113,11 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/medical/break_room)
+"njv" = (
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/area/station/engineering/atmos/asteroid_core)
 "njG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
@@ -67106,7 +67125,7 @@
 	c_tag = "Asteroid Access External";
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/atmos/asteroid)
 "nsK" = (
 /turf/simulated/wall,
@@ -67677,7 +67696,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "nzs" = (
 /obj/machinery/atmospherics/trinary/filter{
@@ -69716,6 +69735,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
+"nSv" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/area/station/engineering/atmos/asteroid_core)
 "nSD" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -70852,7 +70877,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "oeG" = (
 /obj/effect/landmark/burnturf,
@@ -72132,7 +72157,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "osi" = (
 /turf/simulated/wall/r_wall,
@@ -73177,7 +73202,7 @@
 	name = "engine outlet injector";
 	volume_rate = 200
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "oCf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -73899,7 +73924,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "oKb" = (
 /obj/effect/spawner/random_spawners/grille_maybe,
@@ -74655,7 +74680,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on/toxins{
 	name = "Toxins Scrubber"
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "oQA" = (
 /obj/structure/cable{
@@ -76254,6 +76279,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "peW" = (
@@ -76490,7 +76518,7 @@
 /area/station/service/library)
 "pgC" = (
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "pgJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -76831,7 +76859,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "pjO" = (
 /obj/structure/chair/stool,
@@ -78533,7 +78561,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "pDw" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer/on{
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/coldroom{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -79397,7 +79425,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "pKT" = (
 /obj/effect/decal/cleanable/vomit,
@@ -80263,7 +80291,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "pVg" = (
 /obj/structure/cable{
@@ -86262,7 +86290,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/atmos/asteroid)
 "rdX" = (
 /obj/machinery/gameboard,
@@ -86302,7 +86330,7 @@
 	name = "Asteroid Outlet Injector";
 	volume_rate = 200
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/atmos/asteroid_filtering)
 "rev" = (
 /obj/machinery/light{
@@ -86622,7 +86650,11 @@
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "rhc" = (
-/turf/simulated/floor/bluegrid/telecomms,
+/turf/simulated/floor/bluegrid{
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/station/science/xenobiology)
 "rhl" = (
 /obj/structure/transit_tube/curved/flipped{
@@ -87033,7 +87065,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/maintenance/starboard)
 "rlv" = (
 /obj/structure/cable{
@@ -87378,7 +87410,8 @@
 	c_tag = "Asteroid Core South";
 	dir = 9
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "rok" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -87524,7 +87557,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "rqe" = (
 /obj/structure/table/reinforced,
@@ -87658,7 +87691,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/aft)
 "rsc" = (
-/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "rsj" = (
@@ -90792,7 +90825,7 @@
 	},
 /area/station/medical/storage/secondary)
 "rWz" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/atmos/asteroid)
 "rWI" = (
 /obj/structure/chair/comfy/black{
@@ -90817,7 +90850,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "rWU" = (
 /obj/structure/cable{
@@ -91020,7 +91053,7 @@
 	},
 /area/station/security/lobby)
 "rYG" = (
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "rYU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -91398,6 +91431,10 @@
 	icon_state = "white"
 	},
 /area/station/science/lobby)
+"sdA" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/area/station/engineering/atmos/asteroid_core)
 "sdJ" = (
 /turf/simulated/wall,
 /area/station/hallway/primary/aft)
@@ -95233,7 +95270,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "sRx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -97568,17 +97605,8 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/maintenance/starboard)
-"tmN" = (
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	dir = 4
-	},
-/obj/machinery/atmospherics/binary/pump{
-	name = "O2 to Pure"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "tmY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/foamedmetal,
@@ -98096,7 +98124,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "tsp" = (
 /obj/effect/spawner/random_spawners/grille_maybe,
@@ -99127,7 +99155,7 @@
 	dir = 8;
 	network = list("Research","SS13")
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "tCS" = (
 /obj/structure/table,
@@ -99274,7 +99302,11 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/bluegrid/telecomms,
+/turf/simulated/floor/bluegrid{
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
 /area/station/science/xenobiology)
 "tEf" = (
 /obj/structure/chair/stool{
@@ -99762,7 +99794,7 @@
 	name = "engine outlet injector";
 	volume_rate = 200
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/engine)
 "tJr" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -100431,6 +100463,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/sign/fire{
+	pixel_y = 32
+	},
 /turf/simulated/floor/engine/asteroid,
 /area/station/engineering/atmos/asteroid_core)
 "tPw" = (
@@ -100519,7 +100554,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "tQQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -102078,7 +102113,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "uhm" = (
 /obj/effect/spawner/lootdrop{
@@ -103885,7 +103920,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/maintenance/incinerator)
 "uBY" = (
 /turf/simulated/wall,
@@ -104838,7 +104873,7 @@
 /obj/structure/sign/securearea{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/atmos/asteroid)
 "uKj" = (
 /obj/structure/table,
@@ -105121,15 +105156,13 @@
 	},
 /area/station/hallway/primary/central/ne)
 "uOx" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
+/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel,
@@ -108278,7 +108311,8 @@
 /area/station/maintenance/aft)
 "vua" = (
 /obj/structure/flora/ash/rock/style_random,
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "vuc" = (
 /obj/structure/lattice,
@@ -109201,6 +109235,12 @@
 	icon_state = "brown"
 	},
 /area/station/supply/miningdock)
+"vDD" = (
+/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/asteroid_filtering)
 "vDF" = (
 /obj/machinery/door/airlock/research{
 	name = "Research Division Access"
@@ -110472,7 +110512,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "vPx" = (
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "vPy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -111638,7 +111678,7 @@
 /obj/structure/railing/cap{
 	dir = 10
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "wbR" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -113178,7 +113218,7 @@
 	name = "Toxins Scrubber";
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "wsp" = (
 /obj/machinery/door/airlock/maintenance{
@@ -114017,6 +114057,7 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
+/obj/item/grenade/chem_grenade/metalfoam,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "wAV" = (
@@ -114284,7 +114325,7 @@
 /obj/structure/railing/cap{
 	dir = 4
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "wET" = (
 /obj/structure/cable{
@@ -115184,6 +115225,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/theatre)
+"wNf" = (
+/turf/space,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
+/area/station/engineering/atmos/asteroid_core)
 "wNj" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Janitor Supplies"
@@ -118522,6 +118567,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
+"xwn" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/asteroid_filtering)
 "xwv" = (
 /obj/machinery/porta_turret/ai_turret/disable,
 /obj/structure/sign/securearea{
@@ -119762,7 +119813,7 @@
 /area/station/public/dorms)
 "xJc" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/maintenance/starboard)
 "xJf" = (
 /obj/structure/rack{
@@ -120256,7 +120307,7 @@
 /obj/structure/railing/cap{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "xPs" = (
 /obj/machinery/door/airlock/public/glass{
@@ -121704,7 +121755,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "yfv" = (
 /obj/machinery/light/small{
@@ -121966,7 +122017,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/plasma,
+/turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "yib" = (
 /obj/structure/window/reinforced,
@@ -122429,7 +122480,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/lava/lava_land_surface/plasma,
+/turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 
 (1,1,1) = {"
@@ -126851,7 +126902,7 @@ wPA
 wPA
 vPx
 vPx
-vPx
+fYn
 vua
 wPA
 wPA
@@ -127106,10 +127157,10 @@ wPA
 wPA
 wPA
 vPx
-vPx
-vPx
-vPx
-vPx
+fYn
+fYn
+fYn
+fYn
 vPx
 vPx
 vPx
@@ -127360,18 +127411,18 @@ wPA
 wPA
 wPA
 wPA
-vua
+wNf
 vPx
 vPx
 wEP
 nfo
-vua
+sdA
 vPx
 rYG
 rYG
 rYG
 vPx
-vPx
+fYn
 vPx
 wPA
 wPA
@@ -127615,7 +127666,7 @@ wPA
 wPA
 wPA
 wPA
-vPx
+fYn
 vPx
 vPx
 rYG
@@ -127886,7 +127937,7 @@ rYG
 rYG
 rYG
 vPx
-vua
+sdA
 vPx
 wPA
 wPA
@@ -128126,7 +128177,7 @@ wPA
 wPA
 wPA
 wPA
-vua
+sdA
 vPx
 vPx
 rYG
@@ -128387,8 +128438,8 @@ vPx
 vPx
 vPx
 vPx
-vPx
-vPx
+fYn
+fYn
 rYG
 rYG
 pUV
@@ -128398,7 +128449,7 @@ rYG
 rYG
 rYG
 rYG
-vua
+sdA
 rYG
 rYG
 vPx
@@ -128644,7 +128695,7 @@ vPx
 vPx
 vPx
 rYG
-vua
+sdA
 vPx
 rYG
 rYG
@@ -128894,8 +128945,8 @@ wPA
 wPA
 wPA
 wPA
-vua
-vPx
+wNf
+fYn
 rYG
 vPx
 vPx
@@ -129172,7 +129223,7 @@ rYG
 rYG
 rYG
 rYG
-vua
+sdA
 vPx
 vPx
 vPx
@@ -129661,11 +129712,11 @@ wPA
 wPA
 wPA
 wPA
-vua
+wNf
+fYn
 vPx
 vPx
-vPx
-vua
+sdA
 rYG
 rYG
 rYG
@@ -129921,8 +129972,8 @@ vPx
 vPx
 rYG
 rYG
-vPx
-vPx
+fYn
+fYn
 vPx
 rYG
 rYG
@@ -129946,7 +129997,7 @@ rYG
 rYG
 rYG
 vPx
-vPx
+fYn
 wPA
 wPA
 wPA
@@ -130177,8 +130228,8 @@ wPA
 vPx
 rYG
 rYG
-vua
-vPx
+sdA
+fYn
 rYG
 rYG
 rYG
@@ -130203,7 +130254,7 @@ rYG
 rYG
 rYG
 vPx
-vPx
+fYn
 wPA
 wPA
 wPA
@@ -130430,7 +130481,7 @@ wPA
 wPA
 wPA
 vPx
-vPx
+fYn
 vPx
 vPx
 rYG
@@ -130459,8 +130510,8 @@ rYG
 rYG
 vPx
 vPx
-vPx
-vPx
+fYn
+fYn
 wPA
 wPA
 wPA
@@ -130711,12 +130762,12 @@ rYG
 rYG
 pUV
 bIg
-vua
+sdA
 rYG
-vPx
-vua
-vPx
-vPx
+fYn
+nSv
+fYn
+fYn
 vua
 wPA
 wPA
@@ -130946,7 +130997,7 @@ wPA
 vPx
 vPx
 vPx
-vua
+sdA
 rYG
 rYG
 rYG
@@ -130961,18 +131012,18 @@ rYG
 rYG
 rYG
 rYG
-vPx
-vPx
+fYn
+fYn
 vPx
 rYG
 rYG
 pUV
 xPf
-vPx
+fYn
 rYG
-vPx
-vPx
-vPx
+fYn
+njv
+fYn
 vPx
 wPA
 wPA
@@ -131225,10 +131276,10 @@ rYG
 rYG
 epc
 vPx
-vPx
-vPx
-vPx
-vPx
+njv
+fYn
+njv
+njv
 vPx
 wPA
 wPA
@@ -131456,8 +131507,8 @@ wPA
 wPA
 wPA
 vPx
-vPx
-vPx
+fYn
+fYn
 dLq
 tQI
 tQI
@@ -131482,10 +131533,10 @@ rYG
 vPx
 vPx
 vua
-vPx
-vPx
-vPx
-vPx
+njv
+fYn
+fYn
+fYn
 wPA
 wPA
 wPA
@@ -131712,9 +131763,9 @@ wPA
 wPA
 wPA
 vua
-vPx
-vPx
-vua
+njv
+fYn
+sdA
 rYG
 rYG
 rYG
@@ -131735,11 +131786,11 @@ rYG
 vPx
 rYG
 vPx
-vua
-vPx
-vPx
-vPx
-vPx
+sdA
+njv
+fYn
+fYn
+fYn
 vPx
 wPA
 wPA
@@ -131993,9 +132044,9 @@ vPx
 rYG
 vPx
 vPx
-vPx
-vPx
-vPx
+fYn
+fYn
+fYn
 vPx
 wPA
 wPA
@@ -132250,9 +132301,9 @@ vPx
 vPx
 vPx
 vPx
-vPx
-vPx
-vua
+fYn
+fYn
+sdA
 wPA
 wPA
 wPA
@@ -132483,13 +132534,13 @@ wPA
 wPA
 wPA
 vPx
-vPx
-vua
+fYn
+sdA
 rYG
 rYG
 rYG
 vPx
-vua
+sdA
 vPx
 vPx
 vPx
@@ -132505,10 +132556,10 @@ rYG
 vPx
 vPx
 vPx
-vua
+sdA
 vPx
 vua
-vPx
+fYn
 vPx
 wPA
 wPA
@@ -132745,27 +132796,27 @@ vPx
 vPx
 rYG
 vPx
-vPx
-vPx
-vPx
-vPx
+fYn
+fYn
+fYn
+fYn
 vua
-vPx
+fYn
 vPx
 vPx
 vPx
 pjB
 yhU
 vPx
-vua
+sdA
+vPx
+fYn
 vPx
 vPx
 vPx
-vPx
-vPx
-vua
-vPx
-vPx
+sdA
+fYn
+fYn
 vPx
 wPA
 wPA
@@ -132999,30 +133050,30 @@ wPA
 wPA
 wPA
 wPA
-vPx
+fYn
 vPx
 jOk
 ars
-vua
+sdA
 vPx
 vPx
 vPx
 vPx
 vPx
 hEl
-vua
+sdA
 sRv
 sRv
 vPx
 vPx
 vPx
 roh
-vua
+sdA
 vPx
 vPx
 vPx
-vPx
-vPx
+fYn
+fYn
 vPx
 wPA
 hpc
@@ -133279,7 +133330,7 @@ vPx
 vPx
 vPx
 vPx
-vua
+sdA
 wPA
 wPA
 hpc
@@ -133784,9 +133835,9 @@ jDC
 tnb
 bOK
 gik
-lxH
-grJ
 crj
+grJ
+cff
 gUT
 eGJ
 phW
@@ -134041,8 +134092,8 @@ vQv
 aCy
 aCy
 aCy
-vQv
-hYB
+xwn
+bPI
 esK
 mjs
 mjs
@@ -134298,7 +134349,7 @@ wVO
 cuW
 cuW
 rsc
-wVO
+vDD
 uOx
 iFc
 dps
@@ -134556,7 +134607,7 @@ wRK
 eZK
 pVA
 vQv
-naH
+uGu
 qHX
 mjs
 mjs
@@ -144357,7 +144408,7 @@ ojW
 jnP
 rUt
 nEA
-tmN
+lgR
 uTp
 iHZ
 ttI

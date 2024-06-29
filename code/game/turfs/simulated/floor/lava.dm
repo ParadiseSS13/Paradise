@@ -268,10 +268,13 @@
 	icon_state = "liquidplasma-255"
 	base_icon_state = "liquidplasma"
 	baseturf = /turf/simulated/floor/lava/plasma/fuming
+	planetary_atmos = FALSE
 
 	temperature = 500
+	oxygen = 0
+	nitrogen = 0
 	toxins = 10
-	agent_b = 0.5
+	agent_b = 0.1
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK

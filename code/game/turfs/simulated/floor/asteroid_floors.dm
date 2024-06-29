@@ -160,17 +160,21 @@
 	color = COLOR_FLOOR_HARD_ROCK
 	baseturf = /turf/simulated/floor/lava/lava_land_surface
 
+/turf/simulated/floor/plating/asteroid/basalt/plasma
+	temperature = 500
+	oxygen = 0
+	nitrogen = 0
+	toxins = 10
+	agent_b = 0.1
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/plasma
+	planetary_atmos = FALSE
+
 /turf/simulated/floor/plating/asteroid/airless
 	temperature = TCMB
 	oxygen = 0
 	nitrogen = 0
 	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
-/turf/simulated/floor/plating/asteroid/plasma
-	temperature = 500
-	toxins = 10
-	agent_b = 0.5
-	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 #define SPAWN_BUBBLEGUM 6
