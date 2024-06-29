@@ -134,7 +134,7 @@
 	. = ..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, force_unwielded = force_unwielded, wieldsound = wieldsound, unwieldsound = unwieldsound, wield_callback = CALLBACK(src, PROC_REF(on_wield)), unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), only_sharp_when_wielded = TRUE)
 
 /obj/item/dualsaber/update_icon_state()
@@ -565,7 +565,7 @@
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/singularityhammer/Initialize(mapload)
-	..()
+	. = ..()
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 40, \
 		force_unwielded = force, \
@@ -634,7 +634,7 @@
 	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/mjollnir/Initialize(mapload)
-	..()
+	. = ..()
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 25, \
 		force_unwielded = force, \

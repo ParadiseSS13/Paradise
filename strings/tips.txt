@@ -29,6 +29,7 @@ Most job-related exosuit clothing can fit job-related items into it. For example
 If there's something you need from another department, try asking! This game isn't singleplayer and you'd be surprised what you can get accomplished together!
 You'll quickly lose your interest in the game if you play to win and kill. If you find yourself doing this, take a step back and talk to people - it's a much better experience!
 Don't be afraid to ask for help, whether from your peers or from mentors.
+If someone is in critical condition, you can interact with them to start performing CPR. This will heal oxygen damage and help restart breathing. Additionally, if the patient is dead but still revivable, it will extend the defibrillation window for as long as CPR continues. If you or the patient is wearing a mask or you are a species that doesn't breathe the same kind of air as the patient, it will be less effective.
 As the Captain, you are one of the highest priority targets on the station. Everything from nuclear operatives to traitors that need to rob you of your unique lasergun or your life are things to worry about.
 As the Captain, always take the nuclear disk and pinpointer with you every shift. It's a good idea to give one of these to another head or Blueshield you can trust with keeping it safe.
 As the Captain, you have absolute access and control over the station, but this does not mean that being a horrible person won't result in mutiny and a ban.

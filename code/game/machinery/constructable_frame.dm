@@ -277,6 +277,7 @@ to destroy them and players will be able to make replacements.
 		"EngiDrobe" =							/obj/machinery/economy/vending/engidrobe,
 		"AtmosDrobe" =							/obj/machinery/economy/vending/atmosdrobe,
 		"CargoDrobe" =							/obj/machinery/economy/vending/cargodrobe,
+		"ExploreDrobe" =						/obj/machinery/economy/vending/exploredrobe,
 		"ChefDrobe" =							/obj/machinery/economy/vending/chefdrobe,
 		"BarDrobe" =							/obj/machinery/economy/vending/bardrobe,
 		"HydroDrobe" =							/obj/machinery/economy/vending/hydrodrobe,
@@ -561,7 +562,6 @@ to destroy them and players will be able to make replacements.
 							"Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
 							"Smart Virus Storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
 							"Drink Showcase" = /obj/machinery/smartfridge/drinks,
-							"Disk Compartmentalizer" = /obj/machinery/smartfridge/disks,
 							"Identification Card Compartmentalizer" = /obj/machinery/smartfridge/id,
 							"Circuit Board Storage" = /obj/machinery/smartfridge/secure/circuits,
 							"AI Laws Storage" = /obj/machinery/smartfridge/secure/circuits/aiupload)
@@ -1051,6 +1051,11 @@ to destroy them and players will be able to make replacements.
 	board_name = "Labour Equipment Vendor"
 	icon_state = "generic"
 	build_path = /obj/machinery/mineral/equipment_vendor/labor
+
+/obj/item/circuitboard/mining_equipment_vendor/explorer
+	board_name = "Explorer Equipment Vendor"
+	icon_state = "supply"
+	build_path = /obj/machinery/mineral/equipment_vendor/explorer
 
 /obj/item/circuitboard/clawgame
 	board_name = "Claw Game"

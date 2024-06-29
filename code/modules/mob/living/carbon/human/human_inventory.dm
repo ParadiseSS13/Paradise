@@ -186,6 +186,13 @@
 		update_inv_r_hand()
 
 	I.screen_loc = null
+	if(client)
+		client.screen -= I
+	if(length(observers))
+		for(var/mob/dead/observe as anything in observers)
+			if(observe.client)
+				observe.client.screen -= I
+
 	I.forceMove(src)
 	I.equipped(src, slot, initial)
 	I.layer = ABOVE_HUD_LAYER
@@ -271,8 +278,8 @@
 				var/obj/item/clothing/head/hat = I
 				if(hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 					update_sight()
+			// this calls update_inv_head() on its own
 			head_update(I)
-			update_inv_head()
 		if(SLOT_HUD_SHOES)
 			shoes = I
 			update_inv_shoes()

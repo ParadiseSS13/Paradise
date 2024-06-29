@@ -22,10 +22,9 @@
 		level = 1
 
 /obj/machinery/atmospherics/pipe/Destroy()
-	releaseAirToTurf()
-	QDEL_NULL(air_temporary)
+	var/turf/T = get_turf(src)
+	T.blind_release_air(air_temporary)
 
-	var/turf/T = loc
 	for(var/obj/machinery/atmospherics/meter/meter in T)
 		if(meter.target == src)
 			var/obj/item/pipe_meter/PM = new (T)
@@ -49,13 +48,7 @@
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null
 
-/obj/machinery/atmospherics/pipe/proc/releaseAirToTurf()
-	if(air_temporary)
-		var/turf/T = loc
-		T.assume_air(air_temporary)
-		air_update_turf()
-
-/obj/machinery/atmospherics/pipe/return_air()
+/obj/machinery/atmospherics/pipe/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	if(!parent)
 		return 0

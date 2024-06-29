@@ -12,6 +12,7 @@
 #include "config_sanity.dm"
 #include "crafting_lists.dm"
 #include "emotes.dm"
+#include "init_sanity.dm"
 #include "log_format.dm"
 #include "map_templates.dm"
 #include "map_tests.dm"

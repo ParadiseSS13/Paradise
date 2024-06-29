@@ -890,7 +890,7 @@
 /area/shuttle/escape)
 "dA" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Emergency Shutle Engineering"
+	name = "Emergency Shuttle Engineering"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
@@ -1344,6 +1344,14 @@
 	dir = 8;
 	icon_state = "whiteblue"
 	},
+/area/shuttle/escape)
+"Kk" = (
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/machinery/door/airlock/engineering{
+	name = "Emergency Shuttle Engineering"
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "Ls" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2032,7 +2040,7 @@ de
 dn
 ak
 ak
-dA
+Kk
 dE
 dE
 NK

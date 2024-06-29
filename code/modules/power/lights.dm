@@ -618,13 +618,13 @@
 // if a light is turned off, it won't activate emergency power
 /obj/machinery/light/proc/turned_off()
 	var/area/machine_area = get_area(src)
-	return !machine_area.lightswitch && machine_area.powernet.lighting_powered
+	return !machine_area.lightswitch && machine_area.powernet.has_power(PW_CHANNEL_LIGHTING)
 
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/has_power()
 	var/area/machine_area = get_area(src)
-	return machine_area.lightswitch && machine_area.powernet.lighting_powered
+	return machine_area.lightswitch && machine_area.powernet.has_power(PW_CHANNEL_LIGHTING)
 
 // attempts to set emergency lights
 /obj/machinery/light/proc/set_emergency_lights()
@@ -809,7 +809,7 @@
 /obj/machinery/light/power_change()
 	var/area/A = get_area(src)
 	if(A)
-		seton(A.lightswitch && A.powernet.lighting_powered)
+		seton(A.lightswitch && A.powernet.has_power(PW_CHANNEL_LIGHTING))
 
 // called when on fire
 
@@ -827,9 +827,8 @@
 	explosion(T, 0, 0, 2, 2)
 	qdel(src)
 
-
 /**
-  * # Light item
+  * MARK: Light item
   *
   * Parent type of light fittings (Light bulbs, light tubes)
   *
@@ -947,7 +946,7 @@
 
 
 // attack bulb/tube with object
-// if a syringe, can inject plasma to make it explode
+// if a syringe, can inject plasma to make it explode. Light replacers eat them.
 /obj/item/light/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I

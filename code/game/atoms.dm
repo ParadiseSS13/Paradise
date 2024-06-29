@@ -4,6 +4,8 @@
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
+	/// how the atom should handle ricochet behavior
+	var/flags_ricochet = NONE
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
@@ -15,6 +17,8 @@
 
 	var/list/blood_DNA
 	var/blood_color
+	/// Will the atom spread blood when touched?
+	var/should_spread_blood = FALSE
 	var/pass_flags = 0
 	/// The higher the germ level, the more germ on the atom.
 	var/germ_level = GERM_LEVEL_AMBIENT
@@ -106,6 +110,11 @@
 	var/list/viewing_alternate_appearances
 	/// Contains the world.time of when we start dragging something with our mouse. Used to prevent weird situations where you fail to click on something
 	var/drag_start = 0
+
+	///When a projectile tries to ricochet off this atom, the projectile ricochet chance is multiplied by this
+	var/receive_ricochet_chance_mod = 1
+	///When a projectile ricochets off this atom, it deals the normal damage * this modifier to this atom
+	var/receive_ricochet_damage_coeff = 0.33
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -275,20 +284,6 @@
 				var/mob/living/L = M.loc
 				L.unEquip(M)
 			M.forceMove(src)
-
-/atom/proc/assume_air(datum/gas_mixture/giver)
-	qdel(giver)
-	return null
-
-/atom/proc/remove_air(amount)
-	return null
-
-/atom/proc/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
-	if(loc)
-		return loc.return_air()
-	else
-		return null
 
 ///Return the air if we can analyze it
 /atom/proc/return_analyzable_air()
@@ -612,9 +607,10 @@
 	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
 	return FALSE
 
-/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
-		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
+/atom/proc/hitby(atom/movable/hitting_atom, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, hitting_atom, skipcatch, hitpush, blocked, throwingdatum)
+	if(density && !has_gravity(hitting_atom)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+		addtimer(CALLBACK(src, PROC_REF(hitby_react), hitting_atom), 2)
 
 /// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
 /atom/proc/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
@@ -785,7 +781,6 @@
 				if(fingerprintslast != H.ckey)
 					fingerprintshidden += "\[[all_timestamps()]\] (Wearing gloves). Real name: [H.real_name], Key: [H.key]"
 					fingerprintslast = H.ckey
-				H.gloves.add_fingerprint(M)
 				return FALSE
 
 		//More adminstuffz
@@ -902,12 +897,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/add_blood(list/blood_dna, b_color)
 	return FALSE
 
-/obj/add_blood(list/blood_dna, b_color)
-	return transfer_blood_dna(blood_dna)
-
 /obj/item/add_blood(list/blood_dna, b_color)
+	if(isnull(b_color))
+		b_color = "#A10808"
 	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
-	if(!..())
+	if(!transfer_blood_dna(blood_dna))
 		return FALSE
 	blood_color = b_color // update the blood color
 	if(!blood_count) //apply the blood-splatter overlay if it isn't already in there
@@ -919,6 +913,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	transfer_blood = rand(2, 4)
 
 /turf/add_blood(list/blood_dna, b_color)
+	if(isnull(b_color))
+		b_color = "#A10808"
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
@@ -1121,8 +1117,20 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/zap_act(power, zap_flags)
 	return
 
-/atom/proc/handle_ricochet(obj/item/projectile/P)
-	return
+/atom/proc/handle_ricochet(obj/item/projectile/ricocheting_projectile)
+	var/turf/p_turf = get_turf(ricocheting_projectile)
+	var/face_direction = get_dir(src, p_turf) || get_dir(src, ricocheting_projectile)
+	var/face_angle = dir2angle(face_direction)
+	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180))
+	var/a_incidence_s = abs(incidence_s)
+	if(a_incidence_s > 90 && a_incidence_s < 270)
+		return FALSE
+	if((ricocheting_projectile.flag in list(BULLET, BOMB)) && ricocheting_projectile.ricochet_incidence_leeway)
+		if((a_incidence_s < 90 && a_incidence_s < 90 - ricocheting_projectile.ricochet_incidence_leeway) || (a_incidence_s > 270 && a_incidence_s -270 > ricocheting_projectile.ricochet_incidence_leeway))
+			return FALSE
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
+	ricocheting_projectile.set_angle(new_angle_s)
+	return TRUE
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
 /atom/proc/handle_atom_del(atom/A)
@@ -1388,3 +1396,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/mouseparams = list2params(paramslist)
 		usr_client.Click(src, loc, null, mouseparams)
 		return TRUE
+
+/**
+ * A special case of relaymove() in which the person relaying the move may be "driving" this atom
+ *
+ * This is a special case for vehicles and ridden animals where the relayed movement may be handled
+ * by the riding component attached to this atom. Returns TRUE as long as there's nothing blocking
+ * the movement, or FALSE if the signal gets a reply that specifically blocks the movement
+ */
+/atom/proc/relaydrive(mob/living/user, direction)
+	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
