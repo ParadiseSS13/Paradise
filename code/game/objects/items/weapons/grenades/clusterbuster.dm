@@ -37,7 +37,7 @@
 //Clusterbang segment
 //////////////////////
 /obj/item/grenade/clusterbuster/segment
-	name = "clusterbang segment"
+	name = "clusterbang bomblet"
 	desc = "A bomblet released by a clusterbang. Better run!"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang_segment"
