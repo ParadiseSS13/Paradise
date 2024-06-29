@@ -1325,10 +1325,7 @@
 /area/awaymission/BMPship/Engines)
 "dZ" = (
 /obj/effect/decal/cleanable/blood/oil,
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = -24;
-	dir = 1
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
@@ -1497,10 +1494,7 @@
 	pixel_y = -1;
 	layer = 2.9
 	},
-/obj/machinery/firealarm/no_alarm{
-	pixel_x = -28;
-	layer = 3.6
-	},
+/obj/machinery/firealarm/no_alarm/directional/west,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Kitchen)
 "ez" = (
@@ -1689,9 +1683,7 @@
 	},
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin,
-/obj/machinery/firealarm/no_alarm{
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/no_alarm/directional/east,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "fb" = (
@@ -1912,11 +1904,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm/no_alarm{
-	pixel_x = -24;
-	layer = 3.6;
-	dir = 8
-	},
+/obj/machinery/firealarm/no_alarm/directional/west,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -2455,9 +2443,7 @@
 /area/awaymission/BMPship/Fore)
 "hq" = (
 /obj/structure/alien/weeds,
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = -28
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider{
 	health = 250;
@@ -3955,9 +3941,7 @@
 /area/awaymission/BMPship/Containment)
 "qS" = (
 /obj/effect/landmark/damageturf,
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
 "qX" = (
@@ -4633,9 +4617,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = -28
-	},
+/obj/machinery/firealarm/no_alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -5683,9 +5665,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 28
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "Hl" = (
@@ -5828,9 +5808,7 @@
 /obj/item/cigbutt/roach{
 	pixel_x = -12
 	},
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 28
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -6239,9 +6217,7 @@
 "Oj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/machinery/firealarm/no_alarm{
-	pixel_y = 28
-	},
+/obj/machinery/firealarm/no_alarm/directional/north,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
