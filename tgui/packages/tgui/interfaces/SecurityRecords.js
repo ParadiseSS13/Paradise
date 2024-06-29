@@ -1,16 +1,6 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Icon,
-  Input,
-  LabeledList,
-  Section,
-  Stack,
-  Tabs,
-  Table,
-} from '../components';
+import { Box, Button, Icon, Input, LabeledList, Section, Stack, Tabs, Table } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
@@ -77,11 +67,7 @@ const SecurityRecordsNavigation = (properties, context) => {
   return (
     <Stack.Item m={0}>
       <Tabs>
-        <Tabs.Tab
-          icon="list"
-          selected={currentPage === 1}
-          onClick={() => act('page', { page: 1 })}
-        >
+        <Tabs.Tab icon="list" selected={currentPage === 1} onClick={() => act('page', { page: 1 })}>
           List Records
         </Tabs.Tab>
         {currentPage === 2 && general && !general.empty && (
@@ -119,15 +105,7 @@ const SecurityRecordsPageList = (properties, context) => {
               .filter(
                 createSearch(searchText, (record) => {
                   return (
-                    record.name +
-                    '|' +
-                    record.id +
-                    '|' +
-                    record.rank +
-                    '|' +
-                    record.fingerprint +
-                    '|' +
-                    record.status
+                    record.name + '|' + record.id + '|' + record.rank + '|' + record.fingerprint + '|' + record.status
                   );
                 })
               )
@@ -138,9 +116,7 @@ const SecurityRecordsPageList = (properties, context) => {
               .map((record) => (
                 <Table.Row
                   key={record.id}
-                  className={
-                    'SecurityRecords__listRow--' + statusStyles[record.status]
-                  }
+                  className={'SecurityRecords__listRow--' + statusStyles[record.status]}
                   onClick={() =>
                     act('view', {
                       uid_gen: record.uid_gen,
@@ -184,9 +160,7 @@ const SortButton = (properties, context) => {
           }}
         >
           {children}
-          {sortId === id && (
-            <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
-          )}
+          {sortId === id && <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />}
         </Button>
       </Table.Cell>
     </Stack.Item>
@@ -200,12 +174,7 @@ const SecurityRecordsActions = (properties, context) => {
   return (
     <Stack fill>
       <Stack.Item>
-        <Button
-          ml="0.25rem"
-          content="New Record"
-          icon="plus"
-          onClick={() => act('new_general')}
-        />
+        <Button ml="0.25rem" content="New Record" icon="plus" onClick={() => act('new_general')} />
       </Stack.Item>
       <Stack.Item>
         <Button
@@ -270,23 +239,10 @@ const SecurityRecordsPageView = (properties, context) => {
           <Section
             fill
             title="Security Data"
-            buttons={
-              <Button
-                icon="pen"
-                content="Create New Record"
-                onClick={() => act('new_security')}
-              />
-            }
+            buttons={<Button icon="pen" content="Create New Record" onClick={() => act('new_security')} />}
           >
             <Stack fill>
-              <Stack.Item
-                bold
-                grow
-                textAlign="center"
-                fontSize={1.75}
-                align="center"
-                color="label"
-              >
+              <Stack.Item bold grow textAlign="center" fontSize={1.75} align="center" color="label">
                 <Icon.Stack>
                   <Icon name="scroll" size={5} color="gray" />
                   <Icon name="slash" size={5} color="red" />
@@ -316,11 +272,7 @@ const SecurityRecordsPageView = (properties, context) => {
               <Stack.Item>
                 <LabeledList>
                   {security.fields.map((field, i) => (
-                    <LabeledList.Item
-                      key={i}
-                      label={field.field}
-                      preserveWhitespace
-                    >
+                    <LabeledList.Item key={i} label={field.field} preserveWhitespace>
                       {decodeHtmlEntities(field.value)}
                       {!!field.edit && (
                         <Button
@@ -404,13 +356,7 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
         fill
         scrollable
         title="Comments/Log"
-        buttons={
-          <Button
-            icon="comment"
-            content="Add Entry"
-            onClick={() => modalOpen(context, 'comment_add')}
-          />
-        }
+        buttons={<Button icon="comment" content="Add Entry" onClick={() => modalOpen(context, 'comment_add')} />}
       >
         {security.comments.length === 0 ? (
           <Box color="label">No comments found.</Box>
