@@ -70,8 +70,7 @@
 		F.remove_tile(null,TRUE,TRUE)
 		T.visible_message(
 			"<span class='warning'>The floortile is ripped from the floor!</span>",
-			"<span class='warning'>You hear a loud bang!</span>"
-			)
+			"<span class='warning'>You hear a loud bang!</span>")
 	if(trunk)
 		trunk.remove_trunk_links()
 	var/obj/structure/disposalconstruct/C = new (loc)
@@ -143,8 +142,7 @@
 			user.visible_message(
 				"<span class='notice'>[user] empties [S] into the disposal unit.</span>",
 				"<span class='notice'>You empty [S] into disposal unit.</span>",
-				"<span class='notice'>You hear someone emptying something into a disposal unit.</span>"
-				)
+				"<span class='notice'>You hear someone emptying something into a disposal unit.</span>")
 			for(var/obj/item/O in S.contents)
 				S.remove_from_storage(O, src)
 			S.update_icon() // For content-sensitive icons
@@ -163,8 +161,7 @@
 		user.visible_message(
 			"<span class='notice'>[user] places [gripper.gripped_item] into the disposal unit.</span>", 
 			"<span class='notice'>You place [gripper.gripped_item] into the disposal unit.</span>",
-			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
-			)
+			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>")
 		return
 
 	// Someone has a mob in a grab.
@@ -178,8 +175,7 @@
 		user.visible_message(
 			"<span class='warning'>[user] starts stuffing [GM] into the disposal unit!</span>",
 			"<span class='warning'>You start stuffing [GM] into the disposal unit.</span>",
-			"<span class='warning'>You hear someone trying to stuff someone else into a disposal unit!</span>"
-			)
+			"<span class='warning'>You hear someone trying to stuff someone else into a disposal unit!</span>")
 
 		// Abort if the target manages to scurry away.
 		if(!do_after(user, 2 SECONDS, target = GM))
@@ -189,8 +185,7 @@
 		user.visible_message(
 			"<span class='warning'>[GM] has been stuffed into the disposal unit by [user]!</span>",
 			"<span class='warning'>You stuff [GM] into the disposal unit.</span>",
-			"<span class='warning'>You hear someone being stuffed into a disposal unit!</span>"
-			)
+			"<span class='warning'>You hear someone being stuffed into a disposal unit!</span>")
 		qdel(G)
 		update()
 		add_attack_logs(user, GM, "Disposal'ed", !GM.ckey ? null : ATKLOG_ALL)
@@ -204,8 +199,7 @@
 	user.visible_message(
 		"<span class='notice'>[user] places [I] into the disposal unit.</span>",
 		"<span class='notice'>You place [I] into the disposal unit.</span>",
-		"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
-		)
+		"<span class='notice'>You hear someone dropping something into a disposal unit.</span>")
 	update()
 
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
@@ -228,8 +222,7 @@
 	user.visible_message(
 		"<span class='notice'>[user] [mode ? "unfastens": "fastens"] the screws around the power connection of the disposal unit.</span>",
 		"<span class='notice'>You [mode ? "unfasten": "fasten"] the screws around the power connection of the disposal unit.</span>",
-		"<span class='notice'>You hear screws being [mode ? "unfastened": "fastened"].</span>"
-		)
+		"<span class='notice'>You hear screws being [mode ? "unfastened": "fastened"].</span>")
 	update()
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
@@ -259,8 +252,7 @@
 	target.visible_message(
 		"<span class='warning'>[attacker] shoves [target] inside of the disposal unit!</span>",
 		"<span class='userdanger'>[attacker] shoves you inside of the disposal unit!</span>",
-		"<span class='warning'>You hear the sound of someone being thrown into a disposal unit.</span>"
-	)
+		"<span class='warning'>You hear the sound of someone being thrown into a disposal unit.</span>")
 	target.forceMove(src)
 	add_attack_logs(attacker, target, "Shoved into disposals", target.ckey ? null : ATKLOG_ALL)
 	playsound(src, "sound/effects/bang.ogg")
@@ -282,8 +274,8 @@
 		user.visible_message(
 			"<span class='notice'>[user] starts climbing into the disposal unit.</span>",
 			"<span class='notice'>You start climbing into the disposal unit.</span>",
-			"<span class='notice'>You hear someone trying to climb into a disposal unit.</span>"
-			)
+			"<span class='notice'>You hear someone trying to climb into a disposal unit.</span>")
+
 	if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 		if(target.anchored)
 			return
@@ -291,8 +283,7 @@
 		user.visible_message(
 			"<span class='warning'>[user] starts stuffing [target] into the disposal unit!</span>",
 			"<span class='warning'>You start stuffing [target] into the disposal unit.</span>",
-			"<span class='warning'>You hear someone trying to stuff someone else into a disposal unit!</span>"
-			)
+			"<span class='warning'>You hear someone trying to stuff someone else into a disposal unit!</span>")
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disposal, put_in), target, user)
 	return TRUE
 
@@ -309,14 +300,14 @@
 		user.visible_message(
 			"<span class='notice'>[user] climbs into the disposal unit.</span>",
 			"<span class='notice'>You climb into the disposal unit.</span>",
-			"<span class='notice'>You hear someone climbing into a disposal unit.</span>"
-			)
+			"<span class='notice'>You hear someone climbing into a disposal unit.</span>")
+
 	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.IsStunned() && !user.IsParalyzed())
 		user.visible_message(
 			"<span class='warning'>[user] stuffs [target] into the disposal unit.</span>",
 			"<span class='warning'>You stuff [target] into the disposal unit.</span>",
-			"<span class='warning'>You hear the sound of someone being stuffed into a disposal unit.</span>"
-			)
+			"<span class='warning'>You hear the sound of someone being stuffed into a disposal unit.</span>")
+
 		if(!iscarbon(user))
 			target.LAssailant = null
 		else
@@ -443,14 +434,13 @@
 	user.visible_message(
 		"<span class='notice'>[user] tries to eject the contents of the disposal unit manually.</span>",
 		"<span class='notice'>You operate the manual ejection lever on the disposal unit.</span>",
-		"<span class='notice'>You hear a lever being pulled.</span>"
-	)
+		"<span class='notice'>You hear a lever being pulled.</span>")
+
 	if(do_after(user, 5 SECONDS, target = src))
 		user.visible_message(
 			"<span class='notice'>[user] ejects the contents of the disposal unit.</span>",
 			"<span class='notice'>You eject the contents of the disposal unit.</span>",
-			"<span class='notice'>You hear a sudden gush of air and the clattering of objects.</span>"
-		)
+			"<span class='notice'>You hear a sudden gush of air and the clattering of objects.</span>")
 		eject()
 
 // update the icon & overlays to reflect mode & status
@@ -617,16 +607,14 @@
 			I.forceMove(src)
 			visible_message(
 				"<span class='notice'>[I] lands in [src].</span>",
-				"<span class='notice'>You hear something being tossed into a disposal unit.</span>"
-				)
+				"<span class='notice'>You hear something being tossed into a disposal unit.</span>")
 			update()
 			return
 
 		else
 			visible_message(
 				"<span class='warning'>[I] bounces off of [src]'s rim!</span>",
-				"<span class='warning'>You hear something bouncing off the rim of a disposal unit!</span>"
-				)
+				"<span class='warning'>You hear something bouncing off the rim of a disposal unit!</span>")
 		return
 
 	else
@@ -1585,7 +1573,10 @@
 	if(T.intact)
 		var/turf/simulated/floor/F = T
 		F.remove_tile(null,TRUE,TRUE)
-		T.visible_message("<span class='warning'>The floortile is ripped from the floor!</span>", "<span class='warning'>You hear a loud bang!</span>")
+		T.visible_message(
+			"<span class='warning'>The floortile is ripped from the floor!</span>"
+		 	"<span class='warning'>You hear a loud bang!</span>")
+
 	if(linkedtrunk)
 		linkedtrunk.remove_trunk_links()
 	var/obj/structure/disposalconstruct/C = new (loc)
