@@ -175,7 +175,6 @@
 		/area/shuttle,
 		/area/admin,
 		/area/centcom,
-		/area/asteroid,
 		/area/tdome,
 		/area/wizard_station
 	)
@@ -291,7 +290,7 @@
 
 
 /obj/item/areaeditor/proc/detect_room(turf/first)
-	var/list/turf/found = new
+	var/list/turf/found = list()
 	var/list/turf/pending = list(first)
 	while(length(pending))
 		if(found.len+length(pending) > 300)

@@ -17,13 +17,13 @@
 	if(gas_type)
 		switch(gas_type)
 			if("oxygen")
-				air_contents.oxygen = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
+				air_contents.set_oxygen(((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)))
 			if("carbon dioxide")
-				air_contents.carbon_dioxide = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
+				air_contents.set_carbon_dioxide(((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)))
 
 /obj/item/tank/jetpack/on_mob_move(direction, mob/user)
 	if(on)
-		var/turf/T = get_step(src, reverse_direction(direction))
+		var/turf/T = get_step(src, REVERSE_DIR(direction))
 		if(!has_gravity(T))
 			new /obj/effect/particle_effect/ion_trails(T, direction)
 
@@ -77,7 +77,7 @@
 		return 0
 
 	var/turf/T = get_turf(user)
-	T.assume_air(removed)
+	T.blind_release_air(removed)
 	return 1
 
 /obj/item/tank/jetpack/improvised

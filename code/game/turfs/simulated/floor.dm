@@ -80,12 +80,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 // Checks if the turf is safe to be on
 /turf/simulated/floor/is_safe()
-	if(!air)
-		return FALSE
-	var/datum/gas_mixture/Z = air
+	var/datum/gas_mixture/Z = get_readonly_air()
 	var/pressure = Z.return_pressure()
 	// Can most things breathe and tolerate the temperature and pressure?
-	if(Z.oxygen < 16 || Z.toxins >= 0.05 || Z.carbon_dioxide >= 10 || Z.sleeping_agent >= 1 || (Z.temperature <= 270) || (Z.temperature >= 360) || (pressure <= 20) || (pressure >= 550))
+	if(Z.oxygen() < 16 || Z.toxins() >= 0.05 || Z.carbon_dioxide() >= 10 || Z.sleeping_agent() >= 1 || (Z.temperature() <= 270) || (Z.temperature() >= 360) || (pressure <= 20) || (pressure >= 550))
 		return FALSE
 	return TRUE
 

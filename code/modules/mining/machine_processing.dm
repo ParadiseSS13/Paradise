@@ -16,7 +16,7 @@
 	name = "production machine console"
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
-	density = TRUE
+	density = FALSE
 	anchored = TRUE
 	var/obj/machinery/mineral/processing_unit/machine = null
 	speed_process = TRUE
