@@ -61,11 +61,7 @@ export const ImageButton = (props) => {
           <div className={classes([imageAsset, image])} />
         ) : (
           <img
-            src={
-              imageUrl
-                ? resolveAsset(imageUrl)
-                : `data:image/jpeg;base64,${image}`
-            }
+            src={imageUrl ? resolveAsset(imageUrl) : `data:image/jpeg;base64,${image}`}
             style={{
               width: imageSize,
               height: imageSize,
@@ -95,22 +91,12 @@ export const ImageButton = (props) => {
         ) : (
           <div className={classes(['ImageButton__content__horizontal'])}>
             {title && (
-              <div
-                className={classes(['ImageButton__content__horizontal--title'])}
-              >
+              <div className={classes(['ImageButton__content__horizontal--title'])}>
                 {title}
-                <div
-                  className={classes([
-                    'ImageButton__content__horizontal--divider',
-                  ])}
-                />
+                <div className={classes(['ImageButton__content__horizontal--divider'])} />
               </div>
             )}
-            <div
-              className={classes(['ImageButton__content__horizontal--content'])}
-            >
-              {content}
-            </div>
+            <div className={classes(['ImageButton__content__horizontal--content'])}>{content}</div>
           </div>
         ))}
     </div>
@@ -125,11 +111,7 @@ export const ImageButton = (props) => {
   }
 
   return (
-    <div
-      className={classes([
-        vertical ? 'ImageButton--vertical' : 'ImageButton--horizontal',
-      ])}
-    >
+    <div className={classes([vertical ? 'ImageButton--vertical' : 'ImageButton--horizontal'])}>
       {buttonContent}
       {children}
     </div>
@@ -195,26 +177,14 @@ export const ImageButtonItem = (props) => {
           ])}
         >
           {icon && (iconPosition === 'top' || iconPosition === 'left') && (
-            <Icon
-              mb={0.5}
-              name={icon}
-              color={iconColor}
-              rotation={iconRotation}
-              size={iconSize}
-            />
+            <Icon mb={0.5} name={icon} color={iconColor} rotation={iconRotation} size={iconSize} />
           )}
           <div>
             {disabled && disabledContent ? disabledContent : content}
             {children}
           </div>
           {icon && !(iconPosition === 'top' || iconPosition === 'left') && (
-            <Icon
-              mt={0.5}
-              name={icon}
-              color={iconColor}
-              rotation={iconRotation}
-              size={iconSize}
-            />
+            <Icon mt={0.5} name={icon} color={iconColor} rotation={iconRotation} size={iconSize} />
           )}
         </div>
       </div>
