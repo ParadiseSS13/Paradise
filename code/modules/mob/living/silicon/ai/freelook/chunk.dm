@@ -154,7 +154,7 @@
 	for(var/obj/machinery/camera/c in urange(half_chunk + CAMERA_VIEW_DISTANCE, locate(x + half_chunk, y + half_chunk, z)))
 		add_camera(c)
 
-	for(var/turf/t in block(locate(max(x, 1), max(y, 1), max(z, 1)), locate(min(x + CAMERA_CHUNK_SIZE - 1, world.maxx), min(y + CAMERA_CHUNK_SIZE - 1, world.maxy), z)))
+	for(var/turf/t in block(max(x, 1), max(y, 1), max(z, 1), min(x + CAMERA_CHUNK_SIZE - 1, world.maxx), min(y + CAMERA_CHUNK_SIZE - 1, world.maxy), z))
 		turfs[t] = t
 
 	for(var/obj/machinery/camera/c as anything in active_cameras)

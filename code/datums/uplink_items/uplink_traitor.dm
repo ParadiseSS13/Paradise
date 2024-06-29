@@ -567,7 +567,7 @@
 	Overdosing will cause massive heart damage, but will allow the user to dodge bullets for a minute and attack even faster.\
 	Two minute normal uptime, 5 minute cooldown, unlimited uses. Incompatible with the Binyat Wireless Hacking System."
 	reference = "QLSC"
-	item = /obj/item/autosurgeon/organ/syndicate/sensory_enhancer
+	item = /obj/item/autosurgeon/organ/syndicate/oneuse/sensory_enhancer
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) //No, nukies do not get to dodge bullets.
 
