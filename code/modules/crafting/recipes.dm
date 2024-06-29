@@ -493,6 +493,15 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/skateboard
+	name = "Skateboard"
+	result = list(/obj/tgvehicle/scooter/skateboard/improvised)
+	time = 1.5 SECONDS
+	reqs = list(/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/rods = 10)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	category = CAT_MISC
+
 /datum/crafting_recipe/spear_primal // alternative recipe for Ash Walkers
 	name = "Spear"
 	result = list(/obj/item/spear)

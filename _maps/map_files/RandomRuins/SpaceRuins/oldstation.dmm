@@ -982,11 +982,7 @@
 /area/space/nearstation)
 "dc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/structure/chair{
 	dir = 1
 	},
@@ -1249,11 +1245,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
@@ -1304,11 +1296,7 @@
 /area/ruin/ancientstation)
 "dW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "dX" = (
@@ -1325,16 +1313,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/sec)
-"ea" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = -28
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/ancientstation/thetacorridor)
 "eb" = (
 /obj/machinery/light{
 	dir = 8
@@ -1367,11 +1345,7 @@
 "eh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "custom placement";
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ei" = (
@@ -1392,18 +1366,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
-"em" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/machinery/hydroponics/soil,
-/turf/simulated/floor/grass,
-/area/ruin/ancientstation/hydroponics)
 "en" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -1474,11 +1436,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ex" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = -28
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
@@ -2788,15 +2746,6 @@
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"ht" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = -28
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/ancientstation/thetacorridor)
 "hu" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -2997,11 +2946,7 @@
 /area/ruin/ancientstation/rnd)
 "hR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "custom placement";
-	pixel_x = -28
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
 "hS" = (
@@ -3040,11 +2985,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/structure/chair{
 	dir = 4
 	},
@@ -3204,11 +3145,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "custom placement";
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "in" = (
@@ -3331,11 +3268,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/structure/cable/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -3718,11 +3651,7 @@
 /area/ruin/ancientstation)
 "jO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jP" = (
@@ -4112,11 +4041,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "lh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /mob/living/simple_animal/hostile/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
@@ -4156,19 +4081,6 @@
 	icon_state = "red"
 	},
 /area/ruin/ancientstation/sec)
-"lo" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/item/book/manual/wiki/security_space_law,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/ruin/ancientstation/sec)
 "lp" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4197,27 +4109,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/atmo)
-"ls" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/blood/oil,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
-	},
-/area/ruin/ancientstation/engi)
 "lt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4833,6 +4724,26 @@
 	icon_state = "whitehall"
 	},
 /area/ruin/ancientstation/thetacorridor)
+"xP" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/machinery/firealarm/directional/west,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/ancientstation/powered)
 "xZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4845,6 +4756,34 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
+"yB" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/book/manual/wiki/security_space_law,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/ruin/ancientstation/sec)
 "zi" = (
 /mob/living/simple_animal/hostile/hivebot/strong,
 /obj/machinery/power/apc/off_station/directional/north,
@@ -4870,6 +4809,33 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/betanorth)
+"Ac" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/machinery/hydroponics/soil,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/firealarm/directional/west,
+/obj/item/kirbyplants/dead,
+/obj/effect/decal/cleanable/dirt,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/ancientstation/hydroponics)
 "AO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -5184,6 +5150,33 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
+"Im" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "custom placement";
+	pixel_x = -28
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/firealarm/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/thetacorridor)
 "Ip" = (
 /obj/structure/cable/yellow{
 	d2 = 4;
@@ -5568,6 +5561,46 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
+"Tb" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/blood/oil,
+/obj/machinery/firealarm{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/blood/oil,
+/obj/machinery/firealarm/directional/west,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/ruin/ancientstation/engi)
 "Td" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -5824,6 +5857,31 @@
 /obj/structure/sign/poster/contraband/donut_corp,
 /turf/simulated/wall,
 /area/ruin/ancientstation/sec)
+"Zn" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "custom placement";
+	pixel_x = -28
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/firealarm/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/ancientstation/thetacorridor)
 "Zx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -6967,7 +7025,7 @@ nc
 fC
 GT
 gp
-ls
+Tb
 lw
 cU
 aa
@@ -7390,7 +7448,7 @@ al
 bH
 ce
 cA
-em
+Ac
 EK
 dw
 hD
@@ -8214,7 +8272,7 @@ gN
 he
 hK
 lm
-lo
+yB
 lv
 lI
 dg
@@ -8688,7 +8746,7 @@ dK
 ew
 dh
 gJ
-ea
+Im
 kM
 eS
 kS
@@ -8696,7 +8754,7 @@ gb
 fq
 gO
 fq
-ht
+Zn
 lD
 ie
 fq
@@ -8945,7 +9003,7 @@ fq
 qj
 qz
 jU
-Yu
+xP
 jT
 ZR
 ZR

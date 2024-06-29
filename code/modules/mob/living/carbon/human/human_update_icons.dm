@@ -729,46 +729,45 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_misc_effects()
 
 /mob/living/carbon/human/update_inv_ears()
-	remove_overlay(EARS_LAYER)
-	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_LEFT_EAR]
-		if(inv)
-			inv.update_icon()
+	remove_overlay(LEFT_EAR_LAYER)
+	remove_overlay(RIGHT_EAR_LAYER)
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_RIGHT_EAR]
-		if(inv)
-			inv.update_icon()
+		var/atom/movable/screen/inventory/left_ear_inv = hud_used.inv_slots[SLOT_HUD_LEFT_EAR]
+		var/atom/movable/screen/inventory/right_ear_inv = hud_used.inv_slots[SLOT_HUD_RIGHT_EAR]
+		if(left_ear_inv)
+			left_ear_inv.update_icon()
+		if(right_ear_inv)
+			right_ear_inv.update_icon()
 
-	if(l_ear || r_ear)
-		if(l_ear)
-			update_hud_l_ear(l_ear)
+	if(l_ear)
+		update_hud_l_ear(l_ear)
 
-			var/t_type = l_ear.item_state
-			if(!t_type)
-				t_type = l_ear.icon_state
-			if(l_ear.icon_override)
-				t_type = "[t_type]_l"
-				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
-			else if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.sprite_sheet_name])
-				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.sprite_sheets[dna.species.sprite_sheet_name], "[t_type]", layer = -EARS_LAYER)
-			else
-				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
+		var/left_ear_item_state = l_ear.item_state ? l_ear.item_state : l_ear.icon_state
+		var/left_ear_icon = 'icons/mob/clothing/ears.dmi'
+		if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.sprite_sheet_name])
+			left_ear_icon = l_ear.sprite_sheets[dna.species.sprite_sheet_name]
+		if(l_ear.icon_override)
+			left_ear_item_state = "[left_ear_item_state]_l"
+			left_ear_icon = l_ear.icon_override
 
-		if(r_ear)
-			update_hud_r_ear(r_ear)
+		overlays_standing[LEFT_EAR_LAYER] = mutable_appearance(left_ear_icon, left_ear_item_state, layer = -LEFT_EAR_LAYER)
 
-			var/t_type = r_ear.item_state
-			if(!t_type)
-				t_type = r_ear.icon_state
-			if(r_ear.icon_override)
-				t_type = "[t_type]_r"
-				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
-			else if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.sprite_sheet_name])
-				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.sprite_sheets[dna.species.sprite_sheet_name], "[t_type]", layer = -EARS_LAYER)
-			else
-				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
-	apply_overlay(EARS_LAYER)
+	if(r_ear)
+		update_hud_r_ear(r_ear)
+
+		var/right_ear_item_state = r_ear.item_state ? r_ear.item_state : r_ear.icon_state
+		var/right_ear_icon = 'icons/mob/clothing/ears.dmi'
+		if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.sprite_sheet_name])
+			right_ear_icon = r_ear.sprite_sheets[dna.species.sprite_sheet_name]
+		if(r_ear.icon_override)
+			right_ear_icon = "[right_ear_item_state]_l"
+			right_ear_icon = r_ear.icon_override
+
+		overlays_standing[RIGHT_EAR_LAYER] = mutable_appearance(right_ear_icon, right_ear_item_state, layer = -RIGHT_EAR_LAYER)
+
+	apply_overlay(LEFT_EAR_LAYER)
+	apply_overlay(RIGHT_EAR_LAYER)
 
 /mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)
@@ -884,7 +883,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/list/special_belts = list(
 			/obj/item/defibrillator/compact,
 			/obj/item/nullrod,
-			/obj/item/judobelt,
+			/obj/item/storage/belt/judobelt,
 			/obj/item/claymore)
 		overlay_layer = is_type_in_list(belt, special_belts) ? SPECIAL_BELT_LAYER : BELT_LAYER
 		if(istype(belt, /obj/item/storage/belt))
