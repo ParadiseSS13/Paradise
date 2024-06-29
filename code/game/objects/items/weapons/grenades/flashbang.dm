@@ -29,7 +29,7 @@
 
 /obj/item/grenade/flashbang/screwdriver_act(mob/living/user, obj/item/I)
 	switch(det_time)
-		if(0.01 SECONDS)
+		if(0.1 SECONDS)
 			det_time = 3 SECONDS
 			to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
 		if(3 SECONDS)
