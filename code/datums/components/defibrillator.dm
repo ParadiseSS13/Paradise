@@ -209,7 +209,7 @@
 		busy = FALSE
 		return
 
-	if(target.undergoing_cardiac_arrest()) // Can have a heart attack and heart is either missing, necrotic, or not beating
+	if(target.undergoing_cardiac_arrest() && target.stat != DEAD) // Can have a heart attack and heart is either missing, necrotic, or not beating
 		var/datum/organ/heart/heart = target.get_int_organ_datum(ORGAN_DATUM_HEART)
 		if(!heart)
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
@@ -291,6 +291,7 @@
 		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
 			target.setBrainLoss(defib_time_brain_damage)
 
+		target.set_heartattack(FALSE)
 		target.update_revive()
 		target.KnockOut()
 		target.Paralyse(10 SECONDS)

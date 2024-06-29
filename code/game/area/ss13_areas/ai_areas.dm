@@ -21,14 +21,6 @@
 	name = "\improper AI Satellite Exterior"
 	icon_state = "ai"
 
-/area/station/aisat/entrance
-	name = "\improper AI Satellite Entrance"
-	icon_state = "ai"
-
-/area/station/aisat/maintenance
-	name = "\improper AI Satellite Maintenance"
-	icon_state = "ai"
-
 /area/station/aisat/atmos
 	name = "\improper AI Satellite Atmospherics"
 
@@ -57,21 +49,7 @@
 	icon_state = "tcomms"
 
 // These areas are needed for MetaStation's AI sat
-/area/station/turret_protected/tcomfoyer
-	name = "\improper Telecoms Foyer"
-	icon_state = "tcomms"
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
-
-/area/station/turret_protected/tcomeast
-	name = "\improper Telecoms East Wing"
-	icon_state = "tcomms"
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
-
 /area/station/telecomms/computer
 	name = "\improper Telecoms Control Room"
 	icon_state = "tcomms"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
-
-/area/station/telecomms/server
-	name = "\improper Telecoms Server Room"
-	icon_state = "tcomms"

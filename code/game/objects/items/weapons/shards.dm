@@ -62,12 +62,6 @@
 			if(affecting.receive_damage(force * 0.5))
 				H.UpdateDamageIcon()
 
-/obj/item/shard/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/lightreplacer))
-		I.attackby(src, user)
-		return
-	return ..()
-
 /obj/item/shard/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
