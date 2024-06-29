@@ -1742,6 +1742,7 @@
 /area/station/maintenance/fore2)
 "ani" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "arrival"
@@ -4310,6 +4311,7 @@
 /obj/structure/rack,
 /obj/item/flashlight,
 /obj/item/crowbar,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "aub" = (
@@ -4337,6 +4339,7 @@
 	pixel_y = 5
 	},
 /obj/item/stack/cable_coil/random,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "auh" = (
@@ -9753,13 +9756,13 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "aIF" = (
-/obj/machinery/firealarm/directional/south,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "aIG" = (
@@ -70236,9 +70239,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
@@ -70792,11 +70795,6 @@
 "hyL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "hyX" = (
@@ -83115,6 +83113,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "oMI" = (
@@ -85585,14 +85584,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine/supermatter)
-"qhf" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/controlroom)
 "qhG" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plasteel{
@@ -88826,6 +88817,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/important/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "sbe" = (
@@ -95272,16 +95268,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
-"vFY" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/west)
 "vGg" = (
 /obj/machinery/economy/vending/coffee,
 /obj/structure/sign/poster/official/random{
@@ -96186,17 +96172,6 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel)
-"wil" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/west)
 "wiD" = (
 /obj/structure/table,
 /obj/item/storage/box/bodybags{
@@ -96546,21 +96521,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "wsg" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
-	},
-/obj/machinery/firealarm/directional/east,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
@@ -97237,17 +97202,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
-"wOi" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/important/directional/east,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/west)
 "wOk" = (
 /obj/structure/table/glass,
 /obj/item/stack/sheet/mineral/plasma{
@@ -99501,16 +99455,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"yee" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/west)
 "yeh" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
@@ -127811,7 +127755,7 @@ btJ
 abj
 atd
 lDf
-qhf
+aub
 eEh
 wUc
 aug
@@ -131655,8 +131599,8 @@ vTw
 vTw
 vTw
 amA
-yee
-vFY
+amA
+hyL
 hyL
 hhn
 anu
@@ -131910,9 +131854,9 @@ aeb
 agB
 aeb
 mFy
-wil
+aeb
 reW
-wOi
+aeb
 wsg
 aeb
 saK
