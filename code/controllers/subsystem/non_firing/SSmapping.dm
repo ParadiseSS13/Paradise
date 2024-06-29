@@ -163,7 +163,7 @@ SUBSYSTEM_DEF(mapping)
 	)
 
 	for(var/z_level in space_z_levels)
-		var/list/turf/z_level_turfs = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
+		var/list/turf/z_level_turfs = block(1, 1, z_level, world.maxx, world.maxy, z_level)
 		for(var/z_level_turf in z_level_turfs)
 			var/turf/T = z_level_turf
 			var/area/A = get_area(T)
