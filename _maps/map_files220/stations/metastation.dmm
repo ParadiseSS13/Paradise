@@ -29152,7 +29152,6 @@
 /area/station/supply/expedition)
 "bZB" = (
 /obj/structure/table/glass,
-/obj/machinery/smartfridge/disks,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},

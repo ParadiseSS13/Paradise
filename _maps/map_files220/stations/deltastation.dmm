@@ -31069,7 +31069,6 @@
 "cuz" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/machinery/smartfridge/disks,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
 "cuA" = (
