@@ -1,10 +1,10 @@
 body {
 	/*	Disables scroll bars */
-	overflow:hidden;
+	overflow: hidden;
 }
 #background {
-	width:900px;
-	height:406px;
+	width: 900px;
+	height: 406px;
 	position: absolute;
 	background: url(backgroundsprite.png) no-repeat;
 	background-position: 0 -166px;
@@ -22,17 +22,17 @@ body {
 }
 
 #foreground {
-	width:900px;
-	height:520px;	
+	width: 900px;
+	height: 520px;
 	position: absolute;
 	background: url(backgroundsprite.png) no-repeat center;
 	background-position: 0 -575px;
-	z-index:10;
+	z-index: 10;
 }
 
 #crane {
-	width:100px;
-	height:100px;
+	width: 100px;
+	height: 100px;
 	position: absolute;
 	top: 131px;
 	left: 100px;
@@ -43,13 +43,13 @@ body {
 	height: 83px;
 	position: absolute;
 	background: url('crane_top.png') repeat-y center;
-	bottom: 86px;/*top: -69px;*/
+	bottom: 86px; /*top: -69px;*/
 	left: 47px;
 }
 
 #crane-handle-bottom {
-	width:10px;
-	height:8px;
+	width: 10px;
+	height: 8px;
 	position: absolute;
 	background: url('clawpieces.png') no-repeat center;
 	top: 14px;
@@ -57,7 +57,7 @@ body {
 	background-position: -198px -83px;
 }
 
-#crane-center{
+#crane-center {
 	width: 26px;
 	height: 27px;
 	position: absolute;
