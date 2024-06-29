@@ -72593,9 +72593,6 @@
 /area/station/science/robotics)
 "qhu" = (
 /obj/structure/table,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 5
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
