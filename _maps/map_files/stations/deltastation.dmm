@@ -21434,11 +21434,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35006,16 +35002,12 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/machinery/camera{
 	c_tag = "Minisat Power Station Access";
 	dir = 8;
 	network = list("SS13","Minisat")
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "bVJ" = (
@@ -35027,11 +35019,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -64828,25 +64816,11 @@
 	},
 /area/station/science/toxins/mixing)
 "ebW" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
 /obj/item/kirbyplants,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/kirbyplants,
-/obj/machinery/firealarm/directional/east,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -66978,29 +66952,12 @@
 /turf/simulated/floor/wood,
 /area/station/legal/lawoffice)
 "fkv" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
+/obj/machinery/light/small{
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/firealarm/directional/east,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
@@ -81131,22 +81088,9 @@
 	},
 /area/station/public/fitness)
 "nFx" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/firealarm/directional/west,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -82643,28 +82587,13 @@
 	},
 /area/station/medical/medbay)
 "oBi" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/structure/table/reinforced,
 /obj/item/crowbar,
 /obj/item/stack/cable_coil,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/window/reinforced,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/west,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "oBE" = (
