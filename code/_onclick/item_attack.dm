@@ -104,8 +104,8 @@
 		user.visible_message(
 			"<span class='danger'>[user] has hit [src] with [I]!</span>",
 			"<span class='danger'>You hit [src] with [I]!</span>",
-			"<span class='danger'>You hear something being struck by a weapon!</span>"
-			)
+			"<span class='danger'>You hear something being struck by a weapon!</span>")
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		damage += H.physiology.melee_bonus
@@ -132,14 +132,14 @@
 		user.visible_message(
 			"<span class='notice'>[user] gently taps [src] with [I].</span>",
 			"<span class='warning'>This weapon is ineffective, it does no damage!</span>",
-			"<span class='notice'>You hear a gentle tapping.</span>"
-			)
+			"<span class='notice'>You hear a gentle tapping.</span>")
+
 	else if(I.force < force_threshold || I.damtype == STAMINA)
 		visible_message(
 			"<span class='warning'>[I] bounces harmlessly off of [src].</span>",
 			"<span class='warning'>[I] bounces harmlessly off of [src]!</span>",
-			"<span class='warning'>You hear something being struck by a weapon!</span>"
-			)
+			"<span class='warning'>You hear something being struck by a weapon!</span>")
+
 	else
 		return ..()
 
@@ -172,6 +172,5 @@
 	visible_message(
 		"<span class='combat danger'>[attack_message]</span>",
 		"<span class='combat userdanger'>[attack_message]</span>",
-		"<span class='combat danger'>You hear someone being attacked with a weapon!</span>"
-		)
+		"<span class='combat danger'>You hear someone being attacked with a weapon!</span>")
 	return TRUE

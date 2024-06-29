@@ -29,7 +29,6 @@
 		user.visible_message(
 			"<span class='notice'>[user] shuffles [src].</span>", 
 			"<span class='notice'>You shuffle [src].</span>",
-			"<span class='notice'>You hear cards being shuffled.</span>"
-			)
+			"<span class='notice'>You hear cards being shuffled.</span>")
 		cooldown = world.time
 

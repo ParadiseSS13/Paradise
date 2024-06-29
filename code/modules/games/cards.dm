@@ -166,8 +166,7 @@
 	user.visible_message(
 		"<span class='notice'>[user] draws a card.</span>",
 		"<span class='notice'>You draw a card.</span>",
-		"<span class='notice'>You hear a card being drawn.</span>"
-		)
+		"<span class='notice'>You hear a card being drawn.</span>")
 	to_chat(user,"<span class='notice'>It's the [P].</span>")
 
 /obj/item/deck/proc/deal_card()
@@ -224,14 +223,12 @@
 		user.visible_message(
 			"<span class='notice'>[user] deals [dcard] card(s) to [user.p_themselves()].</span>",
 			"<span class='notice'>You deal [dcard] card(s) to yourself.</span>",
-			"<span class='notice'>You hear cards being dealt.</span>"
-			)
+			"<span class='notice'>You hear cards being dealt.</span>")
 	else
 		user.visible_message(
 			"<span class='notice'>[user] deals [dcard] card(s) to [target].</span>",
 			"<span class='notice'>You deal [dcard] card(s) to [target].</span>",
-			"<span class='notice'>You hear cards being dealt.</span>"
-			)
+			"<span class='notice'>You hear cards being dealt.</span>")
 	H.throw_at(get_step(target,target.dir),3,1,H)
 
 
@@ -250,8 +247,7 @@
 			user.visible_message(
 				"<span class='notice'>[user] shuffles [src].</span>",
 				"<span class='notice'>You shuffle [src].</span>",
-				"<span class='notice'>You hear cards being shuffled.</span>"
-				)
+				"<span class='notice'>You hear cards being shuffled.</span>")
 			playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 		cooldown = world.time
 
@@ -260,6 +256,7 @@
 	var/mob/M = usr
 	if(M.incapacitated() || !Adjacent(M))
 		return
+
 	if(!ishuman(M))
 		return
 
@@ -297,8 +294,7 @@
 	user.visible_message(
 		"<span class='notice'>[name] rips open [src]!</span>",
 		"<span class='notice'>You rip open [src]!</span>",
-		"<span class='notice'>You hear the sound of a packet being ripped open.</span>"
-		)
+		"<span class='notice'>You hear the sound of a packet being ripped open.</span>")
 	var/obj/item/cardhand/H = new(get_turf(user))
 
 	H.cards += cards
@@ -372,7 +368,10 @@
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
+	user.visible_message(
+		"<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>",
+		"<span class='notice'>You hear a hand of cards being flipped over.</span>"
+		)
 
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
@@ -463,8 +462,7 @@
 	user.visible_message(
 		"<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>",
 		"<span class='notice'>You take the [pickedcard] from your hand.</span>",
-		"<span class='notice'>You hear a card being drawn.</span>"
-		)
+		"<span class='notice'>You hear a card being drawn.</span>")
 	pickedcard = null
 
 	var/obj/item/cardhand/H = new(get_turf(src))
@@ -519,8 +517,7 @@
 			user.visible_message(
 				"<span class='notice'>[user] plays the [discarding].</span>",
 				"<span class='notice'>You play the [discarding].</span>",
-				"<span class='notice'>You hear a card being played.</span>"
-				)
+				"<span class='notice'>You hear a card being played.</span>")
 		H.loc = get_step(user, user.dir)
 
 	if(!length(cards))

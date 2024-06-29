@@ -104,8 +104,7 @@
 	var/turf/mob_loc = get_turf(L)
 	mob_loc.visible_message(
 		"<span class='danger'>[L] sinks into [A].</span>",
-		"<span class='danger'>You hear the sound of something sinking into a thick liquid.</span>"
-		)
+		"<span class='danger'>You hear something sinking into a thick liquid.</span>")
 	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, L.dir, "jaunt")
 
@@ -118,8 +117,7 @@
 	if(victim.stat == CONSCIOUS)
 		A.visible_message(
 			"<span class='warning'>[victim] kicks free of [A] just before entering it!</span>",
-			"<span class='warning'>You hear the sounds of a struggle!</span>",
-			)
+			"<span class='warning'>You hear something sinking into a thick liquid and someone struggling!</span>")
 		L.stop_pulling()
 		return
 
@@ -127,11 +125,10 @@
 	victim.emote("scream")
 	A.visible_message("<span class='warning'><b>[L] drags [victim] into [A]!</b></span>")
 	L.stop_pulling()
-	to_chat(L, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
+	to_chat(L, "<b>You begin to feast on [victim]. You cannot move while you are doing this.</b>")
 	A.visible_message(
-		"<span class='warning'><b>Loud eating sounds come from the blood...</b></span>",
-		"<span class='warning'><b>The sound of torn flesh and snapping bones fills the air...</b></span>"
-		)
+		"<span class='danger'>Loud eating sounds come from the blood...</span>",
+		"<span class='danger'>The sound of torn flesh and snapping bones fills the air...</span>")
 	var/sound
 	if(isslaughterdemon(L))
 		var/mob/living/simple_animal/demon/slaughter/SD = L
@@ -210,9 +207,8 @@
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
 		playsound(tele_loc, pick(voice),50, TRUE, -1)
 	A.visible_message(
-		"<span class='warning'><b>[L] rises out of [A]!</b></span>",
-		"<span class='warning'><b>You hear something rising out of a thick liquid!</b></span>"
-		)
+		"<span class='danger'>[L] rises out of [A]!</span>",
+		"<span class='danger'>You hear something rising out of a thick liquid!</span>")
 	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
 /datum/spell/bloodcrawl/proc/unblock_hands(mob/living/carbon/C)
@@ -223,9 +219,8 @@
 
 /datum/spell/bloodcrawl/proc/rise_message(atom/A)
 	A.visible_message(
-		"<span class='warning'>[A] starts to bubble...</span>",
-		"<span class='warning'>You can hear bubbling...</span>"
-		)
+		"<span class='danger'>[A] starts to bubble...</span>",
+		"<span class='danger'>You can hear bubbling...</span>")
 
 /datum/spell/bloodcrawl/proc/post_phase_out(atom/A, mob/living/L)
 	if(isslaughterdemon(L))
