@@ -58,6 +58,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
+	smoketime = reagents.total_volume * 2.5
+	RegisterSignal(src, COMSIG_ITEM_BEING_ATTACKED, PROC_REF(try_light))
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
@@ -120,6 +122,17 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/proc/light(mob/living/user, mob/living/target)
 	if(lit)
 		return
+
+	if(istype(glass))	//you can dip cigarettes into beakers
+		var/transfered = glass.reagents.trans_to(src, chem_volume)
+		if(transfered)	//if reagents were transfered, show the message
+			smoketime = reagents.total_volume * 2.5
+			to_chat(user, "<span class='notice'>You dip \the [src] into \the [glass].</span>")
+		else			//if not, either the beaker was empty, or the cigarette was full
+			if(!glass.reagents.total_volume)
+				to_chat(user, "<span class='notice'>[glass] is empty.</span>")
+			else
+				to_chat(user, "<span class='notice'>[src] is full.</span>")
 
 	lit = TRUE
 	name = "lit [name]"
@@ -281,7 +294,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	list_reagents = list("nicotine" = 40, "omnizine" = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
-	list_reagents = list("thc" = 40, "cbd" = 20)
+	list_reagents = list("thc" = 20, "cbd" = 40)
 
 /obj/item/clothing/mask/cigarette/robustgold
 	list_reagents = list("nicotine" = 40, "gold" = 1)
@@ -298,6 +311,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	type_butt = /obj/item/cigbutt/roach
 	throw_speed = 0.5
 	item_state = "spliffoff"
+	list_reagents = list("thc" = 40, "cbd" = 20)
 
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
 	. = ..()
