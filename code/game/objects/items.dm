@@ -611,7 +611,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(!eyes) // should still get stabbed in the head
 			var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
 			if(head)
-				head.receive_damage(rand(10, 14), 1)
+				head.receive_damage(force)
 			return
 		eyes.receive_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
@@ -629,10 +629,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
 		var/obj/item/organ/external/affecting = H.get_organ("head")
-		if(istype(affecting) && affecting.receive_damage(7))
+		if(istype(affecting) && affecting.receive_damage(force))
 			H.UpdateDamageIcon()
 	else
-		M.take_organ_damage(7)
+		M.take_organ_damage(force)
 	M.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
 	return
 
