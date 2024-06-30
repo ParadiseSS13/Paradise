@@ -479,7 +479,7 @@
 
 	if(user.a_intent != INTENT_HELP)
 		return ..()
-	if(locked) //ID-Lock
+	if(locked)
 		to_chat(user, "<span class='warning'>The interface is locked.</span>")
 		return
 	if(!open)
