@@ -22,7 +22,7 @@
 	if(!active)
 		flags |= NODROP
 		to_chat(user, "<span class='userdanger'>As you activate the bomb, it emits a substance that sticks to your hand! It won't come off!</span>")
-		to_chat(user, "<span class='sans'>Uh oh...</span>")
+		to_chat(user, "<span class='sans'>Uh oh.</span>")
 	. = ..()
 
 /obj/item/grenade/syndieminibomb/pen

@@ -24,7 +24,7 @@
 		if(det_time > 1)
 			. += "<span class='notice'>The fuze is set to [det_time / 10] second\s.</span>"
 		else
-			. += "<span class='danger'>[src] is set for instant detonation.</span>"
+			. += "<span class='warning'>[src] is set for instant detonation.</span>"
 		. += "<span class='notice'>Use a screwdriver to modify the time on the fuze.</span>"
 
 
@@ -41,7 +41,7 @@
   */
 /obj/item/grenade/proc/clown_check(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='danger'>Huh? How does this thing work?</span>")
+		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
 		active = TRUE
 		icon_state = initial(icon_state) + "_active"
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
@@ -97,7 +97,7 @@
 			to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
 		if(5 SECONDS)
 			det_time = 1 DECISECONDS
-			to_chat(user, "<span class='danger'>You set [src] for instant detonation.</span>")
+			to_chat(user, "<span class='warning'>You set [src] for instant detonation.</span>")
 	add_fingerprint(user)
 	return TRUE
 

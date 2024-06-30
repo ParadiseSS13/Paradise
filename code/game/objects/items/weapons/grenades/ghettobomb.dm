@@ -2,7 +2,7 @@
 
 /obj/item/grenade/iedcasing
 	name = "improvised firebomb"
-	desc = "An improvised incendiary device of dubious quality."
+	desc = "A sketchy improvised incendiary device."
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"

@@ -1,6 +1,6 @@
 /obj/item/grenade/empgrenade
 	name = "classic EMP grenade"
-	desc = "Upon detonation, releases a powerful EMP that will wreak havoc on electronic systems. Harmless against organic targets, unless they have implants..."
+	desc = "Upon detonation, releases a powerful EMP that will wreak havoc on electronic systems, including implants."
 	icon_state = "emp"
 	item_state = "emp"
 	origin_tech = "magnets=3;combat=2"
