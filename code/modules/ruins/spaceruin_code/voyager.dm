@@ -18,7 +18,7 @@
 
 /turf/simulated/wall/satellite
 	name = "satellite components storage"
-	desc = "There is plate covering inside storage, its wide and it have engraved 'Voyager' on it."
+	desc = "There is a large plate covering the internal storage, 'Voyager' is engraved on it."
 	icon = 'icons/turf/shuttle.dmi'
 	icon_state = "wall"
 	smoothing_flags = NONE
