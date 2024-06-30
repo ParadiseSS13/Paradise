@@ -87,12 +87,12 @@
 
 /obj/item/melee/secsword/examine(mob/user)
 	. = ..()
-	if(cell)
-		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
-		if(round(cell.percent() < 100))
-			. += "<span class='notice'>Can be recharged with a recharger.</span>"
-	else
-		. += "<span class='notice'>The powercell has been removed!</span>"
+	if(!cell)
+        . += "<span class='notice'>The powercell has been removed!</span>"
+        return
+    . += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
+    if(round(cell.percent() < 100))
+        . += "<span class='notice'>Can be recharged with a recharger.</span>"
 
 /obj/item/melee/secsword/examine_more(mob/user)
 	. = ..()
@@ -121,7 +121,7 @@
 
 /obj/item/melee/secsword/proc/link_new_cell(unlink = FALSE)
 	if(unlink)
-		cell = null
+		return
 	else
 		cell = new(src)
 
