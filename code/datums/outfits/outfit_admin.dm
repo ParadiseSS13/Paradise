@@ -1587,6 +1587,7 @@
 	shoes = /obj/item/clothing/shoes/sandal
 	id = /obj/item/card/id/assistant
 	box = /obj/item/storage/box/survival
+	pda = /obj/item/pda/clear
 
 	backpack_contents = list(
 		/obj/item/camera = 1,
@@ -1601,7 +1602,15 @@
 	if(visualsOnly)
 		return
 
+	// Sets the ID and secHUD icon!
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
 	H.sec_hud_set_ID()
+
+	// PDA setup
+	var/obj/item/pda/P = H.wear_pda
+	if(istype(P))
+		P.owner = H.real_name
+		P.ownjob = "Tourist"
+		P.name = "PDA-[H.real_name] ([P.ownjob])"
