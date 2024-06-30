@@ -80596,7 +80596,6 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
-	dir = 4;
 	location = "Medbay"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -84372,6 +84371,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"tqE" = (
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/medical/medbay3)
 "tqH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
@@ -135694,7 +135699,7 @@ cuQ
 bGG
 pMM
 rqs
-cfY
+tqE
 wjQ
 cfY
 chD
