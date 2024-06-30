@@ -46,9 +46,9 @@
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 ///Mode Defines
-	#define SECSWORD_OFF 0
-	#define SECSWORD_STUN 1
-	#define SECSWORD_BURN 2
+#define SECSWORD_OFF 0
+#define SECSWORD_STUN 1
+#define SECSWORD_BURN 2
 
 //Security Sword
 /obj/item/melee/secsword
