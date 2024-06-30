@@ -11,11 +11,7 @@ export const DeconstructionMenu = (properties, context) => {
   }
 
   if (!loaded_item) {
-    return (
-      <Section title="Deconstruction Menu">
-        No item loaded. Standing by...
-      </Section>
-    );
+    return <Section title="Deconstruction Menu">No item loaded. Standing by...</Section>;
   }
 
   return (
@@ -28,8 +24,7 @@ export const DeconstructionMenu = (properties, context) => {
         {loaded_item.origin_tech.map((item) => {
           return (
             <LabeledList.Item label={'* ' + item.name} key={item.name}>
-              {item.object_level}{' '}
-              {item.current_level ? <>(Current: {item.current_level})</> : null}
+              {item.object_level} {item.current_level ? <>(Current: {item.current_level})</> : null}
             </LabeledList.Item>
           );
         })}

@@ -827,9 +827,8 @@
 	explosion(T, 0, 0, 2, 2)
 	qdel(src)
 
-
 /**
-  * # Light item
+  * MARK: Light item
   *
   * Parent type of light fittings (Light bulbs, light tubes)
   *
@@ -947,7 +946,7 @@
 
 
 // attack bulb/tube with object
-// if a syringe, can inject plasma to make it explode
+// if a syringe, can inject plasma to make it explode. Light replacers eat them.
 /obj/item/light/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I

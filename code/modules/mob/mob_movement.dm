@@ -9,7 +9,7 @@
 	if(isprojectile(mover))
 		return projectile_hit_check(mover)
 	if(mover.throwing)
-		return (!density || horizontal || (mover.throwing.thrower == src))
+		return (!density || horizontal || (mover.throwing?.get_thrower() == src))
 	if(mover.checkpass(PASSMOB))
 		return 1
 	if(buckled == mover)
@@ -513,3 +513,4 @@
 		hud_used.move_intent.icon_state = icon_toggle
 		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
 			selector.update_icon()
+	SEND_SIGNAL(src, COMSIG_MOVE_INTENT_TOGGLED)
