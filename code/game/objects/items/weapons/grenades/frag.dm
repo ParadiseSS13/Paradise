@@ -8,7 +8,7 @@
 	origin_tech = "materials=3;magnets=4"
 	/// How many fragments the grenade will launch.
 	var/fragments_contained = 20
-	/// The type of object that will embed into victims when struck by fragments.
+	/// The type of projectile that will fired.
 	var/embedded_type = /obj/item/projectile/bullet/fragment
 
 /obj/item/grenade/frag/prime()
