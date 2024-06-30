@@ -251,6 +251,7 @@
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	return TRUE
 
+//Proc called to remove trait that prevents repeated stamina damage. Called on a 2 Second timer when hit in stun mode
 /obj/item/melee/secsword/proc/stun_delay(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
