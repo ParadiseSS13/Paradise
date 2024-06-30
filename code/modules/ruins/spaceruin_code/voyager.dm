@@ -16,7 +16,7 @@
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
-/turf/simulated/satellite
+/turf/simulated/wall/satellite
 	name = "satellite components storage"
 	desc = "There is plate covering inside storage, its wide and it have engraved 'Voyager' on it."
 	icon = 'icons/turf/shuttle.dmi'
