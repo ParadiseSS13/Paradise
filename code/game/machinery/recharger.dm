@@ -91,6 +91,8 @@
 
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
+	if(istype(src, /obj/machinery/recharger/wallcharger))	// Unwrenching wall rechargers and dragging them off all kinds of cursed.
+		return
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
 		return
