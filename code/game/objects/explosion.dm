@@ -279,19 +279,19 @@
 		T.maptext = ""
 
 /**
- * Creates an explosion of fragments at a turf.
+ * Creates an explosion of shrapnel at a turf.
  * - /turf/epicenter - where the explosion occurs
- * - fragment_number - the amount of fragments to create
- * - /obj/item/projectile/fragment_type - the type of fragment bullets to shoot
+ * - shrapnel_number - the amount of shrapnel to create
+ * - /obj/item/projectile/shrapnel_type - the type of shrapnel bullets to shoot
  * - chance_to_hit_same_turf - the probability to hit someone on the same turf, doubled for someone lying down
  */
-/proc/create_fragments(turf/epicenter, fragment_number = 10, obj/item/projectile/fragment_type = /obj/item/projectile/bullet/fragment, chance_to_hit_same_turf = 50)
+/proc/create_shrapnel(turf/epicenter, shrapnel_number = 10, obj/item/projectile/shrapnel_type = /obj/item/projectile/bullet/shrapnel, chance_to_hit_same_turf = 50)
 	epicenter = get_turf(epicenter)
-	if(!epicenter || !fragment_number || !fragment_type)
+	if(!epicenter || !shrapnel_number || !shrapnel_type)
 		return
-	fragment_number = min(fragment_number, 200) // calm down badmins, no crashing the server
+	shrapnel_number = min(shrapnel_number, 200) // calm down badmins, no crashing the server
 
-	var/angle_increment = 360 / fragment_number
+	var/angle_increment = 360 / shrapnel_number
 	var/mob/living/mob_standing_on_turf
 	var/mob/living/mob_lying_on_turf
 
@@ -301,10 +301,10 @@
 		else if(!mob_lying_on_turf)
 			mob_lying_on_turf = M
 
-	for(var/i in 1 to fragment_number)
-		var/obj/item/projectile/Shrapnel = new fragment_type(epicenter)
+	for(var/i in 1 to shrapnel_number)
+		var/obj/item/projectile/Shrapnel = new shrapnel_type(epicenter)
 
-		// You can't just stand over a fragmentation explosion to avoid it
+		// You can't just stand over a shrapnel explosion to avoid it
 		if(mob_standing_on_turf && prob(chance_to_hit_same_turf))
 			Shrapnel.Bump(mob_standing_on_turf, TRUE)
 			continue
