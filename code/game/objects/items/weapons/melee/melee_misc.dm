@@ -88,11 +88,11 @@
 /obj/item/melee/secsword/examine(mob/user)
 	. = ..()
 	if(!cell)
-        . += "<span class='notice'>The powercell has been removed!</span>"
-        return
-    . += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
-    if(round(cell.percent() < 100))
-        . += "<span class='notice'>Can be recharged with a recharger.</span>"
+		. += "<span class='notice'>The powercell has been removed!</span>"
+		return
+	. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
+	if(round(cell.percent() < 100))
+		. += "<span class='notice'>Can be recharged with a recharger.</span>"
 
 /obj/item/melee/secsword/examine_more(mob/user)
 	. = ..()
@@ -105,6 +105,11 @@
 	. += "While not the most popular option among the officers of Nanotrasen’s security forces, the Securiblade has still been valued for the multiple options it \
 	presents in combat. Deactivated, it’s a simple sword, but powered, it can either be utilized as a useful stun weapon, or as a dangerous, heated blade \
 	that can inflict grievous burn wounds on any suspects unfortunate enough to meet an officer using it. Rest assured, the Securiblade is a reliable tool in the hands of a skilled officer."
+
+/obj/item/melee/secsword/Destroy()
+	if(cell?.loc == src)
+		QDEL_NULL(cell)
+	return ..()
 
 /obj/item/melee/secsword/update_icon_state()
 	if(!cell)
@@ -198,26 +203,25 @@
 		to_chat(user, "<span class='warning'>The sword feels off-balance in your hand due to your specific martial training!</span>")
 		return
 
+	if(!isliving(M))
+		return ..()
 	if(state == SECSWORD_OFF) // Off or no battery
 		return ..()
-	else if(state == SECSWORD_STUN) // Stamina
+	if(state == SECSWORD_STUN) // Stamina
 		if(issilicon(M)) // Can't stun borgs and AIs
 			return ..()
-		if(!isliving(M))
-			return ..()
-		var/mob/living/L = M
-		sword_stun(L, user)
+		sword_stun(M, user)
 		return ..()
-	else //Burn
-		var/mob/living/L = M
-		if(ishuman(L))
-			var/mob/living/carbon/human/H = L
-			var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
-			H.apply_damage(burn_damage, BURN, targetlimb, H.run_armor_check(targetlimb, MELEE))
-		else
-			L.apply_damage(burn_damage, BURN)
-		deductcharge(burn_hitcost)
-		return ..()
+	//Burn
+	var/mob/living/L = M
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
+		H.apply_damage(burn_damage, BURN, targetlimb, H.run_armor_check(targetlimb, MELEE))
+	else
+		L.apply_damage(burn_damage, BURN)
+	deduct_charge(burn_hitcost)
+	return ..()
 
 // Returning false results in no attack animation, returning true results in an animation.
 /obj/item/melee/secsword/proc/sword_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
@@ -239,7 +243,7 @@
 		var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
 		H.apply_damage(stam_damage, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
 		H.SetStuttering(5 SECONDS)
-		deductcharge(stam_hitcost)
+		deduct_charge(stam_hitcost)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // So a person cannot hit the same person with a sword AND a baton, or two swords
 	addtimer(CALLBACK(src, PROC_REF(stun_delay), L, user_UID), 2 SECONDS)
@@ -250,7 +254,7 @@
 /obj/item/melee/secsword/proc/stun_delay(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
-/obj/item/melee/secsword/proc/deductcharge(amount)
+/obj/item/melee/secsword/proc/deduct_charge(amount)
 	if(!cell)
 		return
 	cell.use(amount)
@@ -258,7 +262,7 @@
 		cell = null
 		state = SECSWORD_OFF
 		update_icon()
-	if(cell.charge < (amount)) // If after the deduction the sword doesn't have enough charge for a hit it turns off.
+	if(cell.charge < amount) // If after the deduction the sword doesn't have enough charge for a hit it turns off.
 		state = SECSWORD_OFF
 		update_icon()
 
@@ -330,7 +334,7 @@
 /obj/item/melee/breach_cleaver/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
-		. += "<span class='warning'>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
+		. += "<span>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
 			Help intent will strike with the flat, dealing stamina, disarm intent forces them away, grab intent knocks down the target, \
 			and harm intent deals heavy damage.</span>"
 
@@ -349,15 +353,13 @@
 /obj/item/melee/breach_cleaver/update_icon_state()
 	icon_state = "[base_icon_state]0"
 
-/obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/user)
+/obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/living/carbon/human/user)
 	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
-	var/mob/living/carbon/human/H = user
-	H.apply_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
+	user.apply_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
 	update_icon_state()
 
-/obj/item/melee/breach_cleaver/proc/unwield(obj/item/source, mob/user)
-	var/mob/living/carbon/human/H = user
-	H.remove_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
+/obj/item/melee/breach_cleaver/proc/unwield(obj/item/source, mob/living/carbon/human/user)
+	user.remove_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
 	update_icon_state()
 
 /obj/item/melee/breach_cleaver/attack_obj(obj/O, mob/living/user, params)
@@ -368,15 +370,15 @@
 			return
 		if(flags & (NOBLUDGEON))
 			return
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(O)
-		user.visible_message("<span class='danger'>[user] has hit [O] with [src]!</span>", "<span class='danger'>You hit [O] with [src]!</span>")
-		var/damage = force_wield
 		var/mob/living/carbon/human/H = user
+		H.changeNext_move(CLICK_CD_MELEE)
+		H.do_attack_animation(O)
+		H.visible_message("<span class='danger'>[H] has hit [O] with [src]!</span>", "<span class='danger'>You hit [O] with [src]!</span>")
+		var/damage = force_wield
 		damage += H.physiology.melee_bonus
-		O.take_damage(damage*3, BRUTE, MELEE, TRUE, get_dir(src, user), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
+		O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
 	else
-		. = ..()
+		return ..()
 
 /obj/item/melee/breach_cleaver/attack(mob/target, mob/living/user)
 	armour_penetration_flat = 0
