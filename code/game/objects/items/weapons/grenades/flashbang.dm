@@ -1,7 +1,6 @@
 /obj/item/grenade/flashbang
 	name = "flashbang"
-	desc = "A less-than-lethal grenade designed for crowd control. Upon detonation it produces an extremely intense flash of light that blinds targets, \
-	and releases a shockwave that induces temporary deafness and causes a loss of balance by disturbing the fluid canals of the inner ear. Both effects can be negated with proper protective equipment."
+	desc = "A less-than-lethal grenade designed for crowd control. Blinds all unprotected targets in range and disrupts their balance, sending them falling to the floor."
 	icon_state = "flashbang"
 	item_state = "flashbang"
 	belt_icon = "flashbang"
