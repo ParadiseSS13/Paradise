@@ -16,7 +16,6 @@
 	display_timer = FALSE
 	var/list/times
 
-
 /obj/item/grenade/iedcasing/examine(mob/user)
 	. = ..()
 	. += "<span class='warning'>You have no idea how long the fuze will last for until it explodes!</span>"
