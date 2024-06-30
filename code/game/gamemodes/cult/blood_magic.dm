@@ -406,12 +406,12 @@
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
 
-/obj/item/melee/blood_magic/New(loc, spell)
+/obj/item/melee/blood_magic/Initialize(mapload, spell)
+	. = ..()
 	if(has_source)
 		source = spell
 		uses = source.charges
 		health_cost = source.health_cost
-	..()
 
 /obj/item/melee/blood_magic/Destroy()
 	if(has_source && !QDELETED(source))
@@ -438,6 +438,11 @@
 		uses = 0
 		qdel(src)
 		return
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
+			playsound(M, 'sound/weapons/genhit.ogg', 50, TRUE)
+			return TRUE
 	add_attack_logs(user, M, "used a cult spell ([src]) on")
 	M.lastattacker = user.real_name
 

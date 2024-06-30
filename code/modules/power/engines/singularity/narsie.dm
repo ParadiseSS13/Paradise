@@ -112,7 +112,6 @@
 	return
 
 /obj/singularity/narsie/proc/pickcultist() //Narsie rewards his cultists with being devoured first, then picks a ghost to follow. --NEO
-	var/list/cultists = list()
 	var/list/noncultists = list()
 	for(var/mob/living/carbon/food in GLOB.alive_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
@@ -121,18 +120,12 @@
 		if(pos.z != src.z)
 			continue
 
-		if(IS_CULTIST(food))
-			cultists += food
-		else
+		if(!IS_CULTIST(food))
 			noncultists += food
 
-		if(length(cultists)) //cultists get higher priority
-			acquire(pick(cultists))
-			return
-
-		if(length(noncultists))
-			acquire(pick(noncultists))
-			return
+	if(length(noncultists))
+		acquire(pick(noncultists))
+		return
 
 	//no living humans, follow a ghost instead.
 	for(var/mob/dead/observer/ghost in GLOB.player_list)
@@ -141,10 +134,9 @@
 		var/turf/pos = get_turf(ghost)
 		if(pos.z != src.z)
 			continue
-		cultists += ghost
-	if(length(cultists))
-		acquire(pick(cultists))
-		return
+		noncultists += ghost
+	if(length(noncultists))
+		acquire(pick(noncultists))
 
 
 /obj/singularity/narsie/proc/acquire(mob/food)

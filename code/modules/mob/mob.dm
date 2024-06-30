@@ -1407,4 +1407,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	target.mind.kudos_received_from |= ckey
 
-
+/mob/living/simple_animal/relaymove(mob/living/user, direction)
+	if(user.incapacitated())
+		return
+	return relaydrive(user, direction)

@@ -8,6 +8,8 @@
 	anchored = TRUE
 	flags = ON_BORDER
 	flags_2 = RAD_PROTECT_CONTENTS_2
+	flags_ricochet = RICOCHET_HARD
+	receive_ricochet_chance_mod = 0.5
 	can_be_unanchored = TRUE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
@@ -488,7 +490,7 @@
 		self_hurt = TRUE
 	..()
 	if(shattered)
-		C.throw_at(throwingdatum.target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+		C.throw_at(locateUID(throwingdatum.initial_target_uid), throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
 
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0

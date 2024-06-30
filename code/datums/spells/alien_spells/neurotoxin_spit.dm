@@ -29,7 +29,7 @@
 	neurotoxin.current = get_turf(user)
 	neurotoxin.original = target
 	neurotoxin.firer = user
-	neurotoxin.preparePixelProjectile(target, get_turf(target), user)
+	neurotoxin.preparePixelProjectile(target, user)
 	neurotoxin.fire()
 	user.newtonian_move(get_dir(U, T))
 
