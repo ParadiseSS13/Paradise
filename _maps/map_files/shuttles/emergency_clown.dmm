@@ -293,11 +293,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "be" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /obj/structure/bed/roller,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)

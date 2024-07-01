@@ -9,7 +9,7 @@
 	if(isprojectile(mover))
 		return projectile_hit_check(mover)
 	if(mover.throwing)
-		return (!density || horizontal || (mover.throwing.thrower == src))
+		return (!density || horizontal || (mover.throwing?.get_thrower() == src))
 	if(mover.checkpass(PASSMOB))
 		return 1
 	if(buckled == mover)
@@ -289,7 +289,7 @@
 			L.dir = direct
 		if(INCORPOREAL_MOVE_HOLY_BLOCK)
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
-			if(stepTurf.flags & NOJAUNT)
+			if(stepTurf.flags & BLESSED_TILE)
 				to_chat(L, "<span class='warning'>Holy energies block your path.</span>")
 				L.notransform = TRUE
 				spawn(2)
@@ -513,3 +513,4 @@
 		hud_used.move_intent.icon_state = icon_toggle
 		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
 			selector.update_icon()
+	SEND_SIGNAL(src, COMSIG_MOVE_INTENT_TOGGLED)

@@ -111,7 +111,7 @@
 
 	var/mob/living/M = user
 	var/turf/mobloc = get_turf(M)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/found_turf = FALSE
 	var/list/bagholding = user.search_contents_for(/obj/item/storage/backpack/holding)
 	for(var/turf/T in range(user, tp_range))
@@ -285,6 +285,40 @@
 		return
 	to_chat(user, "<span class='notice'>You inject yourself with the nanites!</span>")
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, "fireproof_injector")
+
+/obj/item/cryoregenerative_enhancer
+	name = "cryoregenerative enhancer"
+	desc = "Specially designed nanomachines that enhance the low-temperature regenerative capabilities of drask. Requires supercooled air in the enviroment or internals to function."
+	icon = 'icons/obj/hypo.dmi'
+	icon_state = "combat_hypo"
+	var/used = FALSE
+
+/obj/item/cryoregenerative_enhancer/examine_more(mob/user)
+	. = ..()
+	. += "Designed by Viim-vaarooomunnm's prestigious polytechnic university, these experimental nanomachines infiltrate the cells of the drask host and integrate into the specialised cryoregenerative organelles that facilitate low-temperature healing and work to boost enzymatic activity, massively improving the efficiency of the associated metabolic processes."
+	. += ""
+	. += "Clinical trials have shown a four times increase in the rate of healing compared to a placebo. Whilst the product is technically not yet available to the public, the right connections with the right people allow interested parties to obtain samples early..."
+
+/obj/item/cryoregenerative_enhancer/attack_self(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_DRASK_SUPERCOOL))
+		to_chat(user, "<span class='warning'>Your regeneration is already enhanced!</span>")
+		return
+	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || user.dna?.species.name != "Drask")
+		to_chat(user, "<span class='warning'>The injector is not compatable with your biology!</span>")
+		return
+	if(used)
+		to_chat(user, "<span class='notice'>The injector is empty!</span>")
+		return
+	var/choice = tgui_alert(user, "The injector is still unused. Do you wish to use it?", "Cryoregenerative enhancer", list("Yes", "No"))
+	if(choice != "Yes")
+		to_chat(user, "<span class='notice'>You decide against using [src].</span>")
+		return
+	if(used)
+		to_chat(user, "<span class='warning'>The injector is empty!</span>")
+		return
+	used = TRUE 
+	to_chat(user, "<span class='notice'>You inject yourself with the enhancer!</span>")
+	ADD_TRAIT(user, TRAIT_DRASK_SUPERCOOL, "cryoregenerative_enhancer")
 
 /obj/item/batterer
 	name = "mind batterer"

@@ -24,7 +24,6 @@
 	s.start()
 	holder.clear_reagents()
 
-
 /datum/chemical_reaction/metalfoam
 	name = "Metal Foam"
 	id = "metalfoam"
@@ -37,10 +36,9 @@
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, MFOAM_ALUMINUM)
+	var/datum/effect_system/foam_spread/metal/s = new()
+	s.set_up(created_volume, location, holder, METAL_FOAM_ALUMINUM)
 	s.start()
-
 
 /datum/chemical_reaction/ironfoam
 	name = "Iron Foam"
@@ -54,10 +52,9 @@
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, MFOAM_IRON)
+	var/datum/effect_system/foam_spread/metal/s = new()
+	s.set_up(created_volume, location, holder, METAL_FOAM_IRON)
 	s.start()
-
 
 	// Synthesizing these three chemicals is pretty complex in real life, but fuck it, it's just a game!
 /datum/chemical_reaction/ammonia
@@ -547,10 +544,10 @@
 	id = "zombiecure2"
 	result = "zombiecure2"
 	cure_level = 2
-	amt_req_cures = 2
+	amt_req_cures = 3
 
 /datum/chemical_reaction/zombie/second/get_possible_cures()
-	return list("vomit", "fungus", "jenkem", "charcoal", "egg", "salglu_solution", "toxin", "atropine", "lye", "sacid", "facid", "sodawater", "surge", "ultralube", "happiness", "morphine")
+	return list("salglu_solution", "toxin", "atropine", "lye", "sodawater", "happiness", "morphine", "teporone")
 
 /datum/chemical_reaction/zombie/third
 	name = "Anti-Plague Sequence Gamma"
@@ -561,7 +558,7 @@
 	required_symptom = /datum/symptom/flesh_eating
 
 /datum/chemical_reaction/zombie/third/get_possible_cures()
-	return list("colorful_reagent", "bacchus_blessing", "pen_acid", "teporone", "glyphosate", "lazarus_reagent", "omnizine", "sarin", "mitocholide", "ants", "clf3", "sorium", "????", "aranesp")
+	return list("vomit", "jenkem", "charcoal", "egg", "sacid", "facid", "surge", "ultralube", "mitocholide")
 
 /datum/chemical_reaction/zombie/four
 	name = "Anti-Plague Sequence Omega"
@@ -572,7 +569,9 @@
 	required_symptom = /datum/symptom/heal/metabolism
 
 /datum/chemical_reaction/zombie/four/get_possible_cures()
-	return list("entpoly", "tinlux", "earthsblood", "bath_salts", "rezadone", "rotatium", "krokodil", "fliptonium")
+	return list("colorful_reagent", "bacchus_blessing", "pen_acid", "glyphosate", "lazarus_reagent", "omnizine", "sarin", "ants", "clf3", "sorium", "????", "aranesp")
+	// Heres some ideas for making this harder if people ever get too good at curing zombies some day
+	// return list("entpoly", "tinlux", "earthsblood", "bath_salts", "rezadone", "rotatium", "krokodil", "fliptonium")
 
 /datum/chemical_reaction/dupe_zomb_cure
 	name = "Duplicate Zombie Cure"
