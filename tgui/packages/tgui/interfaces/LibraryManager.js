@@ -61,12 +61,7 @@ const MainMenu = (properties, context) => {
         content="View All Books By CKEY"
         onClick={() => modalOpen(context, 'specify_ckey_search')}
       />
-      <Button
-        icon="search"
-        width="auto"
-        content="View All Reported Books"
-        onClick={() => act('view_reported_books')}
-      />
+      <Button icon="search" width="auto" content="View All Reported Books" onClick={() => act('view_reported_books')} />
     </Section>
   );
 };
@@ -85,11 +80,7 @@ const ReportsMenu = (properties, context) => {
           All Reported Books
           <br />
         </Box>
-        <Button
-          content="Return to Main"
-          icon="arrow-alt-circle-left"
-          onClick={() => act('return')}
-        />
+        <Button content="Return to Main" icon="arrow-alt-circle-left" onClick={() => act('return')} />
         <Table.Row bold>
           <Table.Cell>Uploader CKEY</Table.Cell>
           <Table.Cell>SSID</Table.Cell>
@@ -108,9 +99,7 @@ const ReportsMenu = (properties, context) => {
               {report.title}
             </Table.Cell>
             <Table.Cell textAlign="left">{report.author}</Table.Cell>
-            <Table.Cell textAlign="left">
-              {report.report_description}
-            </Table.Cell>
+            <Table.Cell textAlign="left">{report.report_description}</Table.Cell>
             <Table.Cell bold>{report.reporter_ckey}</Table.Cell>
             <Table.Cell>
               <Button.Confirm
@@ -162,12 +151,7 @@ const BooksByCkeyMenu = (properties, context) => {
           Books uploaded by {ckey}
           <br />
         </Box>
-        <Button
-          mt={1}
-          content="Return to Main"
-          icon="arrow-alt-circle-left"
-          onClick={() => act('return')}
-        />
+        <Button mt={1} content="Return to Main" icon="arrow-alt-circle-left" onClick={() => act('return')} />
         <Table.Row bold>
           <Table.Cell>SSID</Table.Cell>
           <Table.Cell>Title</Table.Cell>
