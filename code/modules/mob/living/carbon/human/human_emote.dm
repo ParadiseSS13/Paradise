@@ -42,19 +42,22 @@
 
 /datum/emote/living/carbon/human/hiss/get_sound(mob/living/user)
 	var/mob/living/carbon/human/H = user
-	if(H.mind?.miming || !istype(H))
+	if(!istype(H) || H.mind?.miming)
 		return
-	else
-		return H.dna.species.hiss_sound
+	return H.dna.species.hiss_sound
 
-/datum/emote/living/carbon/human/hiss/select_message_type(mob/user, msg, intentional) //Only used when emote forced by burn wounds
-	. = ..()
+/datum/emote/living/carbon/human/hiss/burn_hiss
+	key = "burn_hiss"
+	key_third_person = "burn_hisses"
+	message = "hisses as their skin peels off!"
+	message_mime = "grimaces as their skin peels off!."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("pained hissing")
+
+/datum/emote/living/carbon/human/burn_hiss/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/human/H = user
-	if(intentional == FALSE)
-		if(H.mind?.miming)
-			return "grimaces as their skin peels off!"
-		else
-			return "hisses as their skin peels off!"
+	if(!istype(H) || !intentional)
+		return
 
 /datum/emote/living/carbon/human/airguitar
 	key = "airguitar"

@@ -28,7 +28,7 @@
 					if(prob(65)) //More likely for a non-audible emote to prevent spam
 						custom_emote(EMOTE_VISIBLE, "clutches [p_their()] burnt and blackened [E.name]!")
 					else
-						emote("hiss", intentional = FALSE)
+						emote("burn_hiss", intentional = FALSE)
 					next_pain_time = world.time + 10 SECONDS
 				E.germ_level++
 
