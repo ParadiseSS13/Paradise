@@ -46,12 +46,12 @@
 		reagents.reaction(A, REAGENT_TOUCH, fraction)
 
 	if(iscarbon(A) && !QDELETED(A))
-		var/mob/living/carbon/M = A
-		for(var/datum/reagent/R in reagents.reagent_list)
-			var/amount = M.reagents?.get_reagent_amount(R.id)
+		var/mob/living/carbon/foamed = A
+		for(var/datum/reagent/R as anything in reagents.reagent_list)
+			var/amount = foamed.reagents?.get_reagent_amount(R.id)
 			var/foam_content_amount = reagents.get_reagent_amount(R.id)
-			if(amount < max_reagent_filling && M.reagents)
-				M.reagents.add_reagent(R.id, min(round(foam_content_amount / 2), 15))
+			if(amount < max_reagent_filling)
+				foamed.reagents?.add_reagent(R.id, min(round(foam_content_amount / 2), 15))
 
 /obj/effect/particle_effect/foam/proc/initial_process()
 	process()
