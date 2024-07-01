@@ -201,7 +201,6 @@
 	description = "Seems the telecomunication satellite that went dark 4 years ago finally reapeared on scanners? Strange signals are coming from it."
 	cost = 5 // Huge. Large. In charge
 	allow_duplicates = FALSE // One sadistic malfunctioning AI is enough. Also unique apcs.
-	always_place = TRUE //TEMP HI REVIEWERS KILL ME WE DON'T ALWAYS NEED THIS //qwertodo edit on top: I still need to do finishing touches but this needs to be gone before merge
 
 /datum/map_template/ruin/space/clownmime
 	id = "clownmime"
