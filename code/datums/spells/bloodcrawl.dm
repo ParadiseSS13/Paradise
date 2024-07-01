@@ -126,7 +126,7 @@
 	victim.forceMove(holder)
 	victim.emote("scream")
 	A.visible_message(
-		"<span class='danger'>[L] drags [victim] into [A]!</span>"
+		"<span class='danger'>[L] drags [victim] into [A]!</span>",
 		"<span class='danger'>You hear something being dragged into a thick liquid!</span>"
 	)
 	L.stop_pulling()
