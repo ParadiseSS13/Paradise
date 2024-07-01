@@ -283,26 +283,28 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
 
-/datum/milla_safe/lava_fuming/process_atmos()
+/*
+/turf/simulated/floor/lava/plasma/fuming/process_atmos()
 	var/datum/milla_safe/lava_fuming/milla = new()
 	milla.invoke_async(src)
 
 /datum/milla_safe/lava_fuming/milla
 
 /datum/milla_safe/lava_fuming/milla/on_run(turf/simulated/floor/lava/plasma/fuming/tile)
-	var/datum/milla_safe/lava_fuming/environment
+	var/max_plasma = 60
 	var/turf/T = get_turf(tile)
-	environment = get_turf_air(T)
-	var/env_pressure = environment.return_pressure
-	var/pressure_delta = min(40 - env_pressure, (40 - env_pressure) / 2)
+	var/datum/milla_safe/lava_fuming/environment = get_turf_air(T)
+	var/environment_pressure = environment.return_pressure()
+	var/pressure_delta = min(max_plasma - environment_pressure, (max_plasma - environment_pressure) / 2)
 	var/add_moles = 0
 
-	//only add plasma if below 40kpa
-	if env_pressure <= 40
-		add_moles = pressure_delta * environment.volume / (canister.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
-		environment.merge(removed)
-
-
+	//only add plasma if below max_plasma
+	if (environment_pressure <= max_plasma)
+		add_moles = (pressure_delta * environment_pressure / (R_IDEAL_GAS_EQUATION))
+		environment.merge(add_moles)
+	else
+		return
+*/
 
 /turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()

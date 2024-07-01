@@ -268,3 +268,10 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/proc/get_prying_tools()
 	return list(TOOL_CROWBAR)
+
+
+/turf/simulated/floor/proc/process_atmos()
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+	return PROCESS_KILL
+
