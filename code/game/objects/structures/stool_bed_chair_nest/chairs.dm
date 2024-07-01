@@ -33,7 +33,7 @@
 		qdel(src)
 
 /obj/structure/chair/Move(atom/newloc, direct)
-	..()
+	. = ..()
 	handle_rotation()
 
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
