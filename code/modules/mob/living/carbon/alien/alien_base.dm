@@ -171,7 +171,6 @@
 
 	deathrattle()
 
-
 /mob/living/carbon/alien/proc/deathrattle()
 	var/alien_message = deathrattle_message()
 	for(var/mob/living/carbon/alien/M in GLOB.player_list)
