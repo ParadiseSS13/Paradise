@@ -109,7 +109,7 @@
 	affected.fix_internal_bleeding()
 	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
-		U.bloody_hands(target, 0)
+		U.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color())
 
 	return SURGERY_STEP_CONTINUE
 

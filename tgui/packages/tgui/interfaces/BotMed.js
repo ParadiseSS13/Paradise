@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  Stack,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Slider,
-} from '../components';
+import { Button, Stack, LabeledList, ProgressBar, Section, Slider } from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
@@ -95,20 +88,12 @@ export const BotMed = (props, context) => {
                 <LabeledList.Item label="Beaker">
                   <Stack inline width="100%">
                     <Stack.Item grow={1}>
-                      <ProgressBar
-                        value={reagent_glass.amount}
-                        minValue={0}
-                        maxValue={reagent_glass.max_amount}
-                      >
+                      <ProgressBar value={reagent_glass.amount} minValue={0} maxValue={reagent_glass.max_amount}>
                         {reagent_glass.amount} / {reagent_glass.max_amount}
                       </ProgressBar>
                     </Stack.Item>
                     <Stack.Item ml={1}>
-                      <Button
-                        content="Eject"
-                        disabled={noaccess}
-                        onClick={() => act('eject_reagent_glass')}
-                      />
+                      <Button content="Eject" disabled={noaccess} onClick={() => act('eject_reagent_glass')} />
                     </Stack.Item>
                   </Stack>
                 </LabeledList.Item>
@@ -132,13 +117,7 @@ export const BotMed = (props, context) => {
           </Section>
           {painame && (
             <Section title="pAI">
-              <Button
-                fluid
-                icon="eject"
-                content={painame}
-                disabled={noaccess}
-                onClick={() => act('ejectpai')}
-              />
+              <Button fluid icon="eject" content={painame} disabled={noaccess} onClick={() => act('ejectpai')} />
             </Section>
           )}
         </Stack>
