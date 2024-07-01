@@ -55,6 +55,7 @@
 	muzzled_noises = list("pained hissing")
 
 /datum/emote/living/carbon/human/burn_hiss/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
 	var/mob/living/carbon/human/H = user
 	if(!istype(H) || !intentional)
 		return
