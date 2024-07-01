@@ -197,7 +197,7 @@
 #define ID_LAYER				35
 #define HANDS_LAYER				34	//Exists to overlay hands over jumpsuits
 #define SHOES_LAYER				33
-#define L_FOOT_BLOOD_LAYER		33	// Blood overlay separation Right-Foot
+#define L_FOOT_BLOOD_LAYER		33	// Blood overlay separation Left-Foot
 #define R_FOOT_BLOOD_LAYER		32	// Blood overlay separation Right-Foot
 #define GLOVES_LAYER			31
 #define L_HAND_BLOOD_LAYER		30	// Blood overlay separation Left-Hand
