@@ -124,7 +124,6 @@
 		icon_state = "[base_icon][state]"
 		item_state = "[base_icon][state]"
 
-
 /obj/item/melee/secsword/proc/link_new_cell(unlink = FALSE)
 	if(unlink)
 		return
