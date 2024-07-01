@@ -148,7 +148,7 @@
 			S.unbuckle_mob(L)
 			L.KnockDown(2 SECONDS)
 			L.visible_message("<span class='warning'>[L] gets shot off [S] by [projectile]!</span>",
-			"<span class='warning'>You get shot off [S] by [projectile]!</span>")
+				"<span class='warning'>You get shot off [S] by [projectile]!</span>")
 
 /datum/component/riding/vehicle/scooter/skateboard/pro
 	vehicle_move_delay = 1
