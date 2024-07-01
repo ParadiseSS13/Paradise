@@ -44,7 +44,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/list/UI[DNA_UI_LENGTH]
 
 	// From old dna.
-	/// Should probably change to an integer => string map but I'm lazy.
+	/// The blood type of the mob.
 	var/blood_type = "A+"
 	/// Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
 	var/real_name
