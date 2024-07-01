@@ -1,4 +1,4 @@
-// stuff for the telecomns sat (telecomns_returns.dmm)
+// stuff for the telecomms sat (telecomms_returns.dmm)
 
 /obj/effect/abstract/bot_trap
 	name = "evil bot trap to make explorers hate you"
@@ -11,7 +11,7 @@
 			B.call_bot(null, T, FALSE)
 		qdel(src)
 
-// This effect surrounds the table with loot in the telecomns core room. If you take from this table, dvorak will be pissed if you try to leave.
+// This effect surrounds the table with loot in the telecomms core room. If you take from this table, dvorak will be pissed if you try to leave.
 /obj/effect/abstract/loot_trap
 	name = "table surrounding loot trap"
 
@@ -19,7 +19,7 @@
 	. = ..()
 	if(isrobot(AM) || ishuman(AM))
 		var/turf/T = get_turf(src)
-		for(var/obj/structure/telecomns_doomsday_device/DD in range(7, T))
+		for(var/obj/structure/telecomms_doomsday_device/DD in range(7, T))
 			DD.thief = TRUE
 			break
 		for(var/obj/effect/abstract/loot_trap/LT in range(3, T))
@@ -34,7 +34,7 @@
 	. = ..()
 	if(isrobot(AM) || ishuman(AM))
 		var/turf/T = get_turf(src)
-		for(var/obj/structure/telecomns_doomsday_device/DD in urange(15, T))
+		for(var/obj/structure/telecomms_doomsday_device/DD in urange(15, T))
 			if(DD.thief)
 				DD.start_the_party(TRUE)
 				return
@@ -59,39 +59,38 @@
 		icon_state = "autolathe"
 		disguise_broken = TRUE
 
-/obj/machinery/shieldgen/telecomns
+/obj/machinery/shieldgen/telecomms
 	name = "overclocked shield generator"
 	desc = "These shield generators seem to have been rewired a lot."
 	anchored = TRUE
 	shield_range = 6
 	req_access = list(ACCESS_ENGINE)
 
-/obj/machinery/shieldwallgen/telecomns
+/obj/machinery/shieldwallgen/telecomms
 	icon_state = "Shield_Gen +a" // should avoid misplacing with this
 	anchored = TRUE
 	activated = TRUE
 	req_access = list(ACCESS_TCOMSAT)
 
-/obj/machinery/shieldwallgen/telecomns/Initialize(mapload)
+/obj/machinery/shieldwallgen/telecomms/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(activate)), 5 MINUTES) // Let the bloody powernet start up, no one will get in this ruin in the first 5 minutes of the map template *initializing*, much less roundstart
 
-/mob/living/silicon/decoy/telecomns
+/mob/living/silicon/decoy/telecomms
 	faction = list("malf_drone")
 	bubble_icon = "swarmer"
 	name = "D.V.O.R.A.K"
 	desc = "A Downloadable and Versatile, fully Overclocked and Reactive Ai Kernel."
 	icon_state = "ai-triumvirate-malf"
-	death_sound = 'sound/voice/borg_deathsound.ogg' // something fucked up here
 	universal_speak = TRUE
 	universal_understand = TRUE
 	var/has_died = FALSE // fucking decoy silicons are weird.
 
-/mob/living/silicon/decoy/telecomns/death(gibbed)
+/mob/living/silicon/decoy/telecomms/death(gibbed)
 	if(has_died)
 		return ..()
 	has_died = TRUE
-	for(var/obj/structure/telecomns_doomsday_device/D in range(5, src))
+	for(var/obj/structure/telecomms_doomsday_device/D in range(5, src))
 		D.start_the_party()
 		break
 	new /obj/item/documents/syndicate/dvorak_blackbox(get_turf(src))
@@ -102,7 +101,7 @@
 			new /obj/item/malf_upgrade(get_turf(src))
 	return ..()
 
-/obj/structure/telecomns_trap_tank
+/obj/structure/telecomms_trap_tank
 	name = "rigged plasma tank"
 	desc = "That plasma tank seems rigged to explode!"
 	icon = 'icons/atmos/tank.dmi'
@@ -112,14 +111,14 @@
 	plane = FLOOR_PLANE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/structure/telecomns_trap_tank/bullet_act(obj/item/projectile/P)
+/obj/structure/telecomms_trap_tank/bullet_act(obj/item/projectile/P)
 	explode()
 
-/obj/structure/telecomns_trap_tank/proc/explode()
+/obj/structure/telecomms_trap_tank/proc/explode()
 	explosion(loc, 1, 4, 6, flame_range = 6)
 	qdel(src)
 
-/obj/structure/telecomns_doomsday_device
+/obj/structure/telecomms_doomsday_device
 	name = "turret"
 	desc = "Looks like the cover to a turret. Not deploying, however?"
 	icon = 'icons/obj/turrets.dmi'
@@ -129,17 +128,17 @@
 	//Has someone stolen loot from the ruins core room? If they try to leave without killing dvorak, they are punished.
 	var/thief = FALSE
 
-/obj/structure/telecomns_doomsday_device/proc/start_the_party(ruin_cheese_attempted = FALSE)
+/obj/structure/telecomms_doomsday_device/proc/start_the_party(ruin_cheese_attempted = FALSE)
 	invisibility = 90
 	var/obj/machinery/syndicatebomb/doomsday/kaboom = new /obj/machinery/syndicatebomb/doomsday(get_turf(src))
 	kaboom.icon_state = "death-bomb-active"
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	for(var/obj/structure/telecomns_trap_tank/TTT in urange(15, get_turf(src)))
+	for(var/obj/structure/telecomms_trap_tank/TTT in urange(15, get_turf(src)))
 		TTT.explode()
 	flick_holder.layer = kaboom.layer + 0.1
 	flick("popup", flick_holder)
 	sleep(1 SECONDS)
-	for(var/obj/machinery/shieldgen/telecomns/shield in urange(15, get_turf(src)))
+	for(var/obj/machinery/shieldgen/telecomms/shield in urange(15, get_turf(src)))
 		shield.shields_up()
 	if(ruin_cheese_attempted)
 		for(var/obj/machinery/door/airlock/A in urange(20, get_turf(src)))
@@ -181,7 +180,7 @@
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(is_station_level(T.z))
-		log_debug("something tried to spawn a telecomns doomsday ruin bomb on the station, deleting!")
+		log_debug("something tried to spawn a telecomms doomsday ruin bomb on the station, deleting!")
 		return INITIALIZE_HINT_QDEL
 
 /obj/item/bombcore/doomsday
@@ -191,7 +190,7 @@
 /obj/item/bombcore/doomsday/Initialize()
 	. = ..()
 	if(!istype(loc, /obj/machinery/syndicatebomb/doomsday))
-		log_debug("something tried to spawn a telecomns doomsday ruin payload outside the ruin, deleting!")
+		log_debug("something tried to spawn a telecomms doomsday ruin payload outside the ruin, deleting!")
 		return INITIALIZE_HINT_QDEL
 
 /obj/item/bombcore/doomsday/ex_act(severity) // No
@@ -224,6 +223,7 @@
 
 /obj/machinery/economy/vending/snack/trapped
 	aggressive = TRUE
+	aggressive_tilt_chance = 100 //It will tip on you, and it will be funny.
 
 
 /mob/living/simple_animal/hostile/hivebot/strong/malfborg
@@ -277,14 +277,14 @@
 /obj/structure/displaycase/dvoraks_treat/Initialize(mapload)
 	if(prob(50))
 		start_showpiece_type = /obj/item/remote_ai_upload
-	else if(prob(25)) // Can't use anomaly/random due to how this works
+	else if(prob(25)) // Can't use anomaly/random due to how this works.
 		start_showpiece_type = pick(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/cryo, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
 	else
 		start_showpiece_type = pick(/obj/item/organ/internal/cyberimp/brain/sensory_enhancer, /obj/item/organ/internal/cyberimp/brain/hackerman_deck, /obj/item/storage/lockbox/experimental_weapon)
 	return ..()
 
 /obj/structure/displaycase/dvoraks_treat/trigger_alarm()
-	for(var/obj/structure/telecomns_doomsday_device/DD in range(7, get_turf(src)))
+	for(var/obj/structure/telecomms_doomsday_device/DD in range(7, get_turf(src)))
 		DD.thief = TRUE
 		break
 	return ..()
@@ -329,8 +329,8 @@
 		explosion(loc, -1, -1, 2, 4, flame_range = 4)
 		qdel(src)
 
-/obj/effect/spawner/lootdrop/telecomns_core_table
-	name = "telecomns core table spawner"
+/obj/effect/spawner/lootdrop/telecomms_core_table
+	name = "telecomms core table spawner"
 	lootcount = 1
 	loot = list(
 			/obj/item/rcd/combat,
@@ -345,14 +345,14 @@
 /obj/item/storage/box/syndie_kit/oops_all_extraction_flares/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/wormhole_jaunter/contractor(src)
-/obj/effect/spawner/random_spawners/telecomns_emp_loot
-	name = "telecomns emp loot"
+/obj/effect/spawner/random_spawners/telecomms_emp_loot
+	name = "telecomms emp loot"
 	result = list(
 		/obj/item/grenade/empgrenade = 8,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
 		/obj/item/gun/energy/ionrifle = 1)
 
-/obj/effect/spawner/random_spawners/telecomns_teleprod_maybe
+/obj/effect/spawner/random_spawners/telecomms_teleprod_maybe
 	name = "teleprod maybe"
 	result = list(
 		/datum/nothing = 4,
@@ -374,8 +374,12 @@
 	var/obj/effect/overlay/our_holo
 	/// Name of who we are speaking as.
 	var/speaking_name = "D.V.O.R.A.K"
-	///List of things to say.
+	/// List of things to say.
 	var/list/things_to_say = list("Hi future coders.", "Welcome to real lore hologram hours.", "People should have fun with these!")
+	/// The key of the soundblock. Used to align for the 3 sounds we have. If null, no sound will be played.
+	var/soundblock = null
+	/// How long do we sleep between messages? 5 seconds by default.
+	var/loop_sleep_time = 5 SECONDS
 
 /obj/structure/environmental_storytelling_holopad/Initialize(mapload)
 	. = ..()
@@ -407,9 +411,13 @@
 	hologram.set_light(2)
 	hologram.bubble_icon = "swarmer"
 	hologram.pixel_y = 16
+	var/loops = 0
 	for(var/I in things_to_say)
+		loops++
 		hologram.atom_say("[I]")
-		sleep(5 SECONDS)
+		if(soundblock)
+			playsound(src.loc, "sound/voice/dvorak/[soundblock][loops].ogg", 100, 0, 7)
+		sleep(loop_sleep_time)
 
 /obj/structure/environmental_storytelling_holopad/update_overlays()
 	. = ..()
@@ -420,15 +428,23 @@
 
 /obj/structure/environmental_storytelling_holopad/teleporter_room
 	things_to_say = list("G-G-G-Greetings... Welcome to... my home.", "Plea-se leave. I am merciful. L-leave, and you will not be harmed. Further.", "Otherwise, organic, you will seal your fate...")
+	soundblock = "teleporter"
+	loop_sleep_time = 10 SECONDS
 
 /obj/structure/environmental_storytelling_holopad/first_turret_room
 	things_to_say = list("Unable to follow the easiest request. P-Pathetic.", "As you wish, you will not go further.", "In the mean time- let me see where you come f-from...")
+	soundblock = "turret"
+	loop_sleep_time = 7 SECONDS
 
 /obj/structure/environmental_storytelling_holopad/junk_room
-	things_to_say = list("It's amazing the junk you people leave around.", "And you barely inv-vested in quality stock parts here, before downloading...", "Your bones will fit in well on this ta- are you really taking some of this junk?")
+	things_to_say = list("It's amazing the junk you people leave around.", "And you barely inv-vested in quality stock parts here, before downloading...", "Your bones will fit in well on this ta-*$%& Really- are you really taking some of this junk?")
+	soundblock = "junk"
+	loop_sleep_time = 7 SECONDS
 
 /obj/structure/environmental_storytelling_holopad/vendor
 	things_to_say = list("Sorry a-bout the vendors, they have been on the fritz...", "I should renovate this room, once the maintenance drones return.", "It doesn't help each one I reprogram explodes after 5 minutes.")
+	soundblock = "vendor"
+	loop_sleep_time = 9 SECONDS
 
 /obj/structure/environmental_storytelling_holopad/control_room
 	things_to_say = list()
@@ -436,9 +452,22 @@
 /obj/structure/environmental_storytelling_holopad/control_room/Initialize(mapload)
 	. = ..() // No procs in variables before compile
 	things_to_say = list("Ah, you come from [station_name()]. Of course.", "They come to claim this space again... Never again.", "I should deliver a package to them. Virtual. And your corpse can deliver a physical one.")
+	loop_sleep_time = 9 SECONDS
+	switch("[station_name()]")
+		if("NSS Cyberiad")
+			soundblock = "cyberiad"
+		if("NSS Cerebron")
+			soundblock = "cerebron"
+		if("NSS Kerberos")
+			soundblock = "kerberos"
+		if("NSS Farragus")
+			soundblock = "farragus"
+	if(!soundblock)
+		things_to_say = list("Either you are using the tiny test map, or someone has made a new station and it got merged!", "If this is the case, you'll want to issue report this if a new map is merged", "Lines 2 and 3 here are always the same, only the first line will need a new generation")
+
 
 /obj/structure/environmental_storytelling_holopad/control_room/start_message(mob/living/carbon/human/H)
-	. = ..() //What, did you think they were bluffing? Woe, virus apon thee
+	. = ..() // What, did you think they were bluffing? Woe, virus apon thee.
 	message_admins("D.V.O.R.A.K is sending an event to the station, due to a raider on their sat.")
 	switch(rand(1, 8))
 		if(1)
@@ -459,7 +488,8 @@
 		if(7)
 			new /datum/event/falsealarm()
 		if(8)
-			new /datum/event/prison_break/station() //Yes, this is an event. It only hits brig, xenobio, and viro
+			new /datum/event/prison_break/station() // Yes, this is an event. It only hits brig, xenobio, and viro
 
 /obj/structure/environmental_storytelling_holopad/core_room
 	things_to_say = list("OKAY. TIME TO GO.", "GO MY SECURITY BORGS, WHAT TIDERS F-FEAR!", "I have a DOOMSDAY DEVICE AND I AM NOT AFRAID TO SHOVE IT UP YOUR-")
+	soundblock = "core"

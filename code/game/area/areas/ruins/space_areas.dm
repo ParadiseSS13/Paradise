@@ -214,29 +214,29 @@
 /area/ruin/space/powered/casino/maints
 	name = "Service Tunnels"
 
-// Telecomns: Alternative telecomns sat
-/area/ruin/space/telecomns
+// telecomms: Alternative telecomms sat
+/area/ruin/space/telecomms
 	name = "\improper Telecommunications Sat"
 	icon_state = "tcomms"
 	tele_proof = TRUE // No patrick, you can not syndicate teleport or hand teleport instantly into or out of this ruin
 
-/area/ruin/space/telecomns/powercontrol
+/area/ruin/space/telecomms/powercontrol
 	name = "\improper Telecommunications Power Control"
 	icon_state = "engine_smes"
 
-/area/ruin/space/telecomns/tele
+/area/ruin/space/telecomms/tele
 	name = "\improper Tel3coMMunic@tions-SS-S KILL_Welcoming Room" // If you teleport to it. With a name like that. Thats on you.
 	icon_state = "teleporter"
 	tele_proof = FALSE // Oh, right. The teleporter room. The teleporter room for Kuzco, the poison chosen especially to teleport Kuzco, Kuzco's teleporter room. That teleporter room?
 
-/area/ruin/space/telecomns/foyer
+/area/ruin/space/telecomms/foyer
 	name = "\improper Telecommunications Foyer"
 	icon_state = "entry"
 
-/area/ruin/space/telecomns/computer
+/area/ruin/space/telecomms/computer
 	name = "\improper Telecommunications Control Room"
 	icon_state = "bridge"
 
-/area/ruin/space/telecomns/chamber
+/area/ruin/space/telecomms/chamber
 	name = "\improper Telecommunications Central Compartment"
 	icon_state = "ai_chamber"
