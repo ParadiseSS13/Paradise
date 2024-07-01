@@ -85,6 +85,16 @@
 	///The sword's current mode. Defaults to off.
 	var/state = SECSWORD_OFF
 
+/obj/item/melee/secsword/Initialize(mapload)
+	. = ..()
+	link_new_cell()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+
+/obj/item/melee/secsword/Destroy()
+	if(cell?.loc == src)
+		QDEL_NULL(cell)
+	return ..()
+
 /obj/item/melee/secsword/examine(mob/user)
 	. = ..()
 	if(!cell)
@@ -106,11 +116,6 @@
 	presents in combat. Deactivated, it’s a simple sword, but powered, it can either be utilized as a useful stun weapon, or as a dangerous, heated blade \
 	that can inflict grievous burn wounds on any suspects unfortunate enough to meet an officer using it. Rest assured, the Securiblade is a reliable tool in the hands of a skilled officer."
 
-/obj/item/melee/secsword/Destroy()
-	if(cell?.loc == src)
-		QDEL_NULL(cell)
-	return ..()
-
 /obj/item/melee/secsword/update_icon_state()
 	if(!cell)
 		icon_state = "[base_icon]3"
@@ -119,10 +124,6 @@
 		icon_state = "[base_icon][state]"
 		item_state = "[base_icon][state]"
 
-/obj/item/melee/secsword/Initialize(mapload)
-	. = ..()
-	link_new_cell()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/melee/secsword/proc/link_new_cell(unlink = FALSE)
 	if(unlink)
@@ -203,9 +204,7 @@
 		to_chat(user, "<span class='warning'>The sword feels off-balance in your hand due to your specific martial training!</span>")
 		return
 
-	if(!isliving(M))
-		return ..()
-	if(state == SECSWORD_OFF) // Off or no battery
+	if(!isliving(M) || state == SECSWORD_OFF)
 		return ..()
 	if(state == SECSWORD_STUN) // Stamina
 		if(issilicon(M)) // Can't stun borgs and AIs
@@ -290,6 +289,10 @@
 	materials = list(MAT_METAL = 1000)
 	needs_permit = TRUE
 
+/obj/item/melee/snakesfang/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+
 /obj/item/melee/snakesfang/examine_more(mob/user)
 	. = ..()
 	. += "A uniquely curved, black and red sword. Extra-edgy and cutting-edge."
@@ -301,10 +304,6 @@
 	. += "While the benefits of its unique design are dubious at best, the Snakesfang is undoubtedly a perilous weapon, with a hardened \
 	plastitanium edge that can cause untold harm to a soft target. In the right hands, it can be a terrifying weapon to behold, \
 	and it’s said that blood runs down the blade in just the right way, to drip artfully from the twin ‘fangs’ at its apex."
-
-/obj/item/melee/snakesfang/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 // Unathi Sword
 /obj/item/melee/breach_cleaver
