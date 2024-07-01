@@ -161,7 +161,8 @@
 		user.visible_message(
 			"<span class='notice'>[user] places [gripper.gripped_item] into the disposal unit.</span>", 
 			"<span class='notice'>You place [gripper.gripped_item] into the disposal unit.</span>",
-			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>")
+			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
+		)
 		return
 
 	// Someone has a mob in a grab.
