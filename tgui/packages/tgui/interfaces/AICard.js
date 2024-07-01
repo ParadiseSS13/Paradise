@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  ProgressBar,
-  LabeledList,
-  Box,
-  Section,
-  Stack,
-} from '../components';
+import { Button, ProgressBar, LabeledList, Box, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const AICard = (props, context) => {
@@ -41,16 +34,11 @@ export const AICard = (props, context) => {
               <Section title={data.name}>
                 <LabeledList>
                   <LabeledList.Item label="Integrity">
-                    <ProgressBar
-                      color={integrityColor}
-                      value={data.integrity / 100}
-                    />
+                    <ProgressBar color={integrityColor} value={data.integrity / 100} />
                   </LabeledList.Item>
                 </LabeledList>
                 <Box color="red">
-                  <h2>
-                    {data.flushing === 1 ? 'Wipe of AI in progress...' : ''}
-                  </h2>
+                  <h2>{data.flushing === 1 ? 'Wipe of AI in progress...' : ''}</h2>
                 </Box>
               </Section>
             </Stack.Item>

@@ -1,13 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Dimmer,
-  Stack,
-  Icon,
-  LabeledList,
-  Section,
-} from '../components';
+import { Box, Button, Dimmer, Stack, Icon, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const SuitStorage = (props, context) => {
@@ -45,12 +37,7 @@ const StoredItems = (props, context) => {
       title="Stored Items"
       buttons={
         <>
-          <Button
-            content="Start Disinfection Cycle"
-            icon="radiation"
-            textAlign="center"
-            onClick={() => act('cook')}
-          />
+          <Button content="Start Disinfection Cycle" icon="radiation" textAlign="center" onClick={() => act('cook')} />
           <Button
             content={locked ? 'Unlock' : 'Lock'}
             icon={locked ? 'unlock' : 'lock'}
@@ -62,51 +49,16 @@ const StoredItems = (props, context) => {
     >
       {open && !locked ? (
         <LabeledList>
-          <ItemRow
-            object={helmet}
-            label="Helmet"
-            missingText="helmet"
-            eject="dispense_helmet"
-          />
-          <ItemRow
-            object={suit}
-            label="Suit"
-            missingText="suit"
-            eject="dispense_suit"
-          />
-          <ItemRow
-            object={magboots}
-            label="Boots"
-            missingText="boots"
-            eject="dispense_boots"
-          />
-          <ItemRow
-            object={mask}
-            label="Breathmask"
-            missingText="mask"
-            eject="dispense_mask"
-          />
-          <ItemRow
-            object={storage}
-            label="Storage"
-            missingText="storage item"
-            eject="dispense_storage"
-          />
+          <ItemRow object={helmet} label="Helmet" missingText="helmet" eject="dispense_helmet" />
+          <ItemRow object={suit} label="Suit" missingText="suit" eject="dispense_suit" />
+          <ItemRow object={magboots} label="Boots" missingText="boots" eject="dispense_boots" />
+          <ItemRow object={mask} label="Breathmask" missingText="mask" eject="dispense_mask" />
+          <ItemRow object={storage} label="Storage" missingText="storage item" eject="dispense_storage" />
         </LabeledList>
       ) : (
         <Stack fill>
-          <Stack.Item
-            bold
-            grow="1"
-            textAlign="center"
-            align="center"
-            color="label"
-          >
-            <Icon
-              name={locked ? 'lock' : 'exclamation-circle'}
-              size="5"
-              mb={3}
-            />
+          <Stack.Item bold grow="1" textAlign="center" align="center" color="label">
+            <Icon name={locked ? 'lock' : 'exclamation-circle'} size="5" mb={3} />
             <br />
             {locked ? 'The unit is locked.' : 'The unit is closed.'}
           </Stack.Item>
@@ -123,12 +75,7 @@ const ItemRow = (props, context) => {
     <LabeledList.Item label={label}>
       <Box my={0.5}>
         {object ? (
-          <Button
-            my={-1}
-            icon="eject"
-            content={object}
-            onClick={() => act(eject)}
-          />
+          <Button my={-1} icon="eject" content={object} onClick={() => act(eject)} />
         ) : (
           <Box color="silver" bold>
             No {missingText} found.
