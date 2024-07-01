@@ -73,29 +73,29 @@ Difficulty: Very Hard
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "sniper_zoom"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	button_overlay_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now firing in a spiral.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
 	name = "All Directions"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "at_shield2"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "at_shield2"
 	chosen_message = "<span class='colossus'>You are now firing in all directions.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
 	name = "Shotgun Fire"
-	icon_icon = 'icons/obj/guns/projectile.dmi'
-	button_icon_state = "shotgun"
+	button_overlay_icon = 'icons/obj/guns/projectile.dmi'
+	button_overlay_icon_state = "shotgun"
 	chosen_message = "<span class='colossus'>You are now firing shotgun shots where you aim.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
 	name = "Alternating Shots"
-	icon_icon = 'icons/obj/guns/projectile.dmi'
-	button_icon_state = "pistol"
+	button_overlay_icon = 'icons/obj/guns/projectile.dmi'
+	button_overlay_icon_state = "pistol"
 	chosen_message = "<span class='colossus'>You are now firing in alternating cardinal directions.</span>"
 	chosen_attack_num = 4
 

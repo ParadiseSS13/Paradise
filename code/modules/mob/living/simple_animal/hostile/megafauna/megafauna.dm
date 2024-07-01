@@ -160,8 +160,8 @@
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
-	button_icon_state = ""
+	button_overlay_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_overlay_icon_state = ""
 	var/mob/living/simple_animal/hostile/megafauna/M
 	var/chosen_message
 	var/chosen_attack_num = 0
