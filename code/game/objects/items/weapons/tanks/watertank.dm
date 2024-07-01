@@ -152,7 +152,7 @@
 		return TRUE
 
 /obj/item/reagent_containers/spray/mister/Move()
-	. = ..()
+	..()
 	if(loc != tank.loc)
 		loc = tank.loc
 
