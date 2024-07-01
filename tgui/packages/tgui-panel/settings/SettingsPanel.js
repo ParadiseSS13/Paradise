@@ -33,12 +33,7 @@ import {
   updateHighlightSetting,
 } from './actions';
 import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
-import {
-  selectActiveTab,
-  selectSettings,
-  selectHighlightSettings,
-  selectHighlightSettingById,
-} from './selectors';
+import { selectActiveTab, selectSettings, selectHighlightSettings, selectHighlightSettingById } from './selectors';
 
 export const SettingsPanel = (props, context) => {
   const activeTab = useSelector(context, selectActiveTab);
@@ -76,10 +71,7 @@ export const SettingsPanel = (props, context) => {
 };
 
 export const SettingsGeneral = (props, context) => {
-  const { theme, fontFamily, fontSize, lineHeight } = useSelector(
-    context,
-    selectSettings
-  );
+  const { theme, fontFamily, fontSize, lineHeight } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
   return (
@@ -234,11 +226,7 @@ const TextHighlightSettings = (props, context) => {
       <Section>
         <Stack vertical>
           {highlightSettings.map((id, i) => (
-            <TextHighlightSetting
-              key={i}
-              id={id}
-              mb={i + 1 === highlightSettings.length ? 0 : '10px'}
-            />
+            <TextHighlightSetting key={i} id={id} mb={i + 1 === highlightSettings.length ? 0 : '10px'} />
           ))}
           {highlightSettings.length < MAX_HIGHLIGHT_SETTINGS && (
             <Stack.Item>
@@ -271,13 +259,7 @@ const TextHighlightSetting = (props, context) => {
   const { id, ...rest } = props;
   const highlightSettingById = useSelector(context, selectHighlightSettingById);
   const dispatch = useDispatch(context);
-  const {
-    highlightColor,
-    highlightText,
-    highlightWholeMessage,
-    matchWord,
-    matchCase,
-  } = highlightSettingById[id];
+  const { highlightColor, highlightText, highlightWholeMessage, matchWord, matchCase } = highlightSettingById[id];
   return (
     <Stack.Item {...rest}>
       <Stack mb={1} color="label" align="baseline">

@@ -266,7 +266,7 @@
 		chaos_effect = pick("recolor", "bark", "confetti", "smoke", "wand of nothing", "bike horn")
 	else
 		chaos_effect = pick("bark", "smoke", "spin", "flip", "confetti", "slip", "wand of nothing", \
-			"help maint", "fake callout", "bike horn")
+			"help maint", "fake callout", "bike horn", "tarot card")
 	switch(chaos_effect)
 		if("recolor") //non-humans only because recoloring humans is kinda meh
 			target.color = pick(GLOB.random_color_list)
@@ -301,12 +301,19 @@
 		if("bike horn")
 			item_to_summon = /obj/item/bikehorn
 			explosion_amount = rand(2, 3)
-
+		if("tarot card")
+			if(ishuman(target) && target.mind)
+				var/mob/living/carbon/human/H = target
+				var/obj/item/magic_tarot_card/spawned_card = new /obj/item/magic_tarot_card(H)
+				H.visible_message("<span class='chaosneutral'>[H] is forced to use [spawned_card]!</span>", "<span class='chaosneutral'>[spawned_card] appears in front of you and glows bright!</span>")
+				spawned_card.pre_activate(H)
+			else
+				target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
 /**
   * Picks a random gift to be given to mob/living/target. Should be mildly useful and/or funny.
   */
 /obj/item/projectile/magic/chaos/proc/apply_gift_effect(mob/living/target)
-	chaos_effect = pick("toy sword", "toy revolver", "cheese", "food", "medkit", \
+	chaos_effect = pick("toy sword", "toy revolver", "cheese", "food", "medkit", "tarot pack", \
 		"insulated gloves", "wand of doors", "golden bike horn", "ban hammer", "banana")
 	switch(chaos_effect)
 		if("toy sword")
@@ -326,6 +333,8 @@
 
 		if("medkit")
 			item_to_summon = pick(/obj/item/storage/firstaid/brute, /obj/item/storage/firstaid/fire, /obj/item/storage/firstaid/adv)
+		if("tarot pack")
+			item_to_summon = pick(/obj/item/tarot_card_pack, /obj/item/tarot_card_pack/jumbo, /obj/item/tarot_card_pack/mega)
 		if("insulated gloves")
 			item_to_summon = /obj/item/clothing/gloves/color/yellow
 			explosion_amount = rand(2, 5)
@@ -344,7 +353,7 @@
   * Picks a random gift to be given to mob/living/target. Should be valuable and/or threatening to the wizard.
   */
 /obj/item/projectile/magic/chaos/proc/apply_great_gift_effect(mob/living/target)
-	chaos_effect = pick("esword", "emag", "chaos wand", "revolver", "aeg", \
+	chaos_effect = pick("esword", "emag", "chaos wand", "revolver", "aeg", "tarot deck", \
 		"bluespace banana", "banana grenade", "disco ball", "syndicate minibomb", "crystal ball")
 	switch(chaos_effect)
 		if("esword")
@@ -357,6 +366,8 @@
 			item_to_summon = /obj/item/gun/projectile/revolver
 		if("aeg")
 			item_to_summon = /obj/item/gun/energy/gun/nuclear
+		if("tarot deck")
+			item_to_summon = /obj/item/tarot_generator
 		if("bluespace banana")
 			item_to_summon = /obj/item/food/snacks/grown/banana/bluespace
 		if("banana grenade")

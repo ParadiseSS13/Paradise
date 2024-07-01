@@ -117,7 +117,7 @@
 
 
 /datum/space_level/proc/get_turfs()
-	return block(locate(1, 1, zpos), locate(world.maxx, world.maxy, zpos))
+	return block(1, 1, zpos, world.maxx, world.maxy, zpos)
 
 /datum/space_level/proc/set_linkage(transition_type)
 	if(linkage == transition_type)
