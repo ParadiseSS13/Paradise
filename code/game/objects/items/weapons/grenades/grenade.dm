@@ -116,5 +116,18 @@
 	return ..()
 
 /obj/item/grenade/cmag_act(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	ADD_TRAIT(src, TRAIT_CMAGGED, "cmagged grenade")
 	to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]. [src] suddenly doesn't want to leave you...</span>")
 	AddComponent(/datum/component/boomerang, throw_range, TRUE)
+
+/obj/item/grenade/uncmag()
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	REMOVE_TRAIT(src, TRAIT_CMAGGED, "cmagged grenade")
+	var/datum/component/bomberang = GetComponent(/datum/component/boomerang)
+	if(!bomberang)
+		return
+	bomberang.RemoveComponent()
+	qdel(bomberang)
