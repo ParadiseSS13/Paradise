@@ -88500,23 +88500,6 @@
 	},
 /area/station/hallway/primary/fore/north)
 "vmM" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/closet/secure_closet/personal/patient,
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes/farwacubes,
-/obj/item/storage/box/monkeycubes/neaeracubes,
-/obj/item/storage/box/monkeycubes/stokcubes,
-/obj/item/storage/box/monkeycubes/wolpincubes,
-/obj/machinery/requests_console{
-	department = "Genetics";
-	departmentType = 1;
-	pixel_x = -30
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/closet/secure_closet/personal/patient,
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/box/monkeycubes/farwacubes,
@@ -88526,9 +88509,6 @@
 /obj/item/storage/box/monkeycubes/nian_worme_cubes,
 /obj/machinery/requests_console{
 	pixel_x = -30
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
