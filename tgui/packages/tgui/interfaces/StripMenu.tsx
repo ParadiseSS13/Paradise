@@ -16,10 +16,7 @@ const getGridSpotKey = (spot: [number, number]): GridSpotKey => {
   return `${spot[0]}/${spot[1]}`;
 };
 
-const CornerText = (props: {
-  align: 'left' | 'right';
-  children: string;
-}): JSX.Element => {
+const CornerText = (props: { align: 'left' | 'right'; children: string }): JSX.Element => {
   const { align, children } = props;
 
   return (
@@ -290,12 +287,7 @@ export const StripMenu = (props, context) => {
   };
 
   return (
-    <Window
-      title={`Stripping ${data.name}`}
-      width={360}
-      height={390}
-      theme="nologo"
-    >
+    <Window title={`Stripping ${data.name}`} width={360} height={390} theme="nologo">
       <Window.Content style={{ 'background-color': 'rgba(0, 0, 0, 0.5)' }}>
         <Stack fill vertical>
           {range(0, ROWS).map((row) => (
@@ -346,11 +338,7 @@ export const StripMenu = (props, context) => {
                   } else if ('obscured' in item) {
                     content = (
                       <Icon
-                        name={
-                          item.obscured === ObscuringLevel.Completely
-                            ? 'ban'
-                            : 'eye-slash'
-                        }
+                        name={item.obscured === ObscuringLevel.Completely ? 'ban' : 'eye-slash'}
                         size={3}
                         ml={0}
                         mt={2.5}
@@ -417,8 +405,7 @@ export const StripMenu = (props, context) => {
                                 height: '32px',
                                 left: '50%',
                                 top: '50%',
-                                transform:
-                                  'translateX(-50%) translateY(-50%) scale(2)',
+                                transform: 'translateX(-50%) translateY(-50%) scale(2)',
                               }}
                             />
                           )}
@@ -450,9 +437,7 @@ export const StripMenu = (props, context) => {
                                       'z-index': 2 + index,
                                     }}
                                   >
-                                    <Icon
-                                      name={ALTERNATE_ACTIONS[actionKey].icon}
-                                    />
+                                    <Icon name={ALTERNATE_ACTIONS[actionKey].icon} />
                                   </Button>
                                 </Stack.Item>
                               );

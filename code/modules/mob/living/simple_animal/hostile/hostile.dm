@@ -406,7 +406,7 @@
 		if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space
 			newtonian_move(get_dir(targeted_atom, targets_from))
 		P.original = targeted_atom
-		P.preparePixelProjectile(targeted_atom, get_turf(targeted_atom), src)
+		P.preparePixelProjectile(targeted_atom, startloc)
 		P.fire()
 		return P
 
