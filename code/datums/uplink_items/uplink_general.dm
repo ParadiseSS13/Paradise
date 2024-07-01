@@ -205,6 +205,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/melee/energy/sword/saber
 	cost = 40
 
+/datum/uplink_item/dangerous/dsword
+	name = "Double Energy Sword"
+	desc = "A double-bladed energy sword. More damaging than a standard energy sword, and automatically parries incoming energy weapons fire. Bulk discount applied."
+	reference = "DSRD"
+	item = /obj/item/dualsaber
+	cost = 60
+
 /datum/uplink_item/dangerous/powerfist
 	name = "Power Fist"
 	desc = "The power-fist is a metal gauntlet with a built-in piston-ram powered by an external gas supply. \
