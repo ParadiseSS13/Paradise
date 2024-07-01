@@ -1,14 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  Collapsible,
-  Stack,
-  LabeledList,
-  NoticeBox,
-  Section,
-  Slider,
-  Box,
-} from '../components';
+import { Button, Collapsible, Stack, LabeledList, NoticeBox, Section, Slider, Box } from '../components';
 import { Window } from '../layouts';
 import { formatPower } from '../format';
 
@@ -54,9 +45,7 @@ export const BluespaceTap = (props, context) => {
                 onClick={() => act('stabilizers')}
               />
               <LabeledList>
-                <LabeledList.Item label="Input Level">
-                  {inputLevel}
-                </LabeledList.Item>
+                <LabeledList.Item label="Input Level">{inputLevel}</LabeledList.Item>
                 <LabeledList.Item label="Desired Level">
                   <Stack inline width="100%">
                     <Stack.Item>
@@ -113,21 +102,11 @@ export const BluespaceTap = (props, context) => {
                     </Stack.Item>
                   </Stack>
                 </LabeledList.Item>
-                <LabeledList.Item label="Total Power Use">
-                  {formatPower(powerUse)}
-                </LabeledList.Item>
-                <LabeledList.Item label="Mining Power Use">
-                  {formatPower(powerUse - stabilizerPower)}
-                </LabeledList.Item>
-                <LabeledList.Item label="Stabilizer Power Use">
-                  {formatPower(stabilizerPower)}
-                </LabeledList.Item>
-                <LabeledList.Item label="Mining Power for next level">
-                  {formatPower(nextLevelPower)}
-                </LabeledList.Item>
-                <LabeledList.Item label="Surplus Power">
-                  {formatPower(availablePower)}
-                </LabeledList.Item>
+                <LabeledList.Item label="Total Power Use">{formatPower(powerUse)}</LabeledList.Item>
+                <LabeledList.Item label="Mining Power Use">{formatPower(powerUse - stabilizerPower)}</LabeledList.Item>
+                <LabeledList.Item label="Stabilizer Power Use">{formatPower(stabilizerPower)}</LabeledList.Item>
+                <LabeledList.Item label="Mining Power for next level">{formatPower(nextLevelPower)}</LabeledList.Item>
+                <LabeledList.Item label="Surplus Power">{formatPower(availablePower)}</LabeledList.Item>
               </LabeledList>
             </Section>
           </Collapsible>
@@ -136,12 +115,8 @@ export const BluespaceTap = (props, context) => {
               <Stack.Item>
                 <Box>
                   <LabeledList>
-                    <LabeledList.Item label="Available Points">
-                      {points}
-                    </LabeledList.Item>
-                    <LabeledList.Item label="Total Points">
-                      {totalPoints}
-                    </LabeledList.Item>
+                    <LabeledList.Item label="Available Points">{points}</LabeledList.Item>
+                    <LabeledList.Item label="Total Points">{totalPoints}</LabeledList.Item>
                   </LabeledList>
                 </Box>
               </Stack.Item>
@@ -149,15 +124,10 @@ export const BluespaceTap = (props, context) => {
                 <Box>
                   <LabeledList>
                     {product.map((singleProduct) => (
-                      <LabeledList.Item
-                        key={singleProduct.key}
-                        label={singleProduct.name}
-                      >
+                      <LabeledList.Item key={singleProduct.key} label={singleProduct.name}>
                         <Button
                           disabled={singleProduct.price >= points}
-                          onClick={() =>
-                            act('vend', { target: singleProduct.key })
-                          }
+                          onClick={() => act('vend', { target: singleProduct.key })}
                           content={singleProduct.price}
                         />
                       </LabeledList.Item>
@@ -176,31 +146,18 @@ export const BluespaceTap = (props, context) => {
 export const Alerts = (props, context) => {
   const { act, data } = useBackend(context);
   const product = data.product || [];
-  const {
-    inputLevel,
-    emagged,
-    safeLevels,
-    autoShutown,
-    stabilizers,
-    overhead,
-  } = data;
+  const { inputLevel, emagged, safeLevels, autoShutown, stabilizers, overhead } = data;
   return (
     <>
-      {!autoShutown && !emagged && (
-        <NoticeBox danger={1}>Auto shutdown disabled</NoticeBox>
-      )}
+      {!autoShutown && !emagged && <NoticeBox danger={1}>Auto shutdown disabled</NoticeBox>}
       {emagged ? (
         <NoticeBox danger={1}>All safeties disabled</NoticeBox>
       ) : inputLevel <= safeLevels ? (
         ''
       ) : !stabilizers ? (
-        <NoticeBox danger={1}>
-          Stabilizers disabled, Instability likely
-        </NoticeBox>
+        <NoticeBox danger={1}>Stabilizers disabled, Instability likely</NoticeBox>
       ) : inputLevel - overhead > safeLevels ? (
-        <NoticeBox danger={1}>
-          Stabilizers overwhelmed, Instability likely
-        </NoticeBox>
+        <NoticeBox danger={1}>Stabilizers overwhelmed, Instability likely</NoticeBox>
       ) : (
         <NoticeBox>High Power, engaging stabilizers</NoticeBox>
       )}
