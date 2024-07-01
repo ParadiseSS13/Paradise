@@ -76,7 +76,7 @@
 	..()
 	if(istype(src, /turf/simulated/wall/clockwork)) //if we haven't changed type
 		var/previouscolor = color
-		color = "#960000"
+		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 

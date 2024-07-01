@@ -441,7 +441,7 @@
 		if("None")
 			to_chat(src, "Sensor augmentations disabled.")
 
-/mob/living/silicon/adjustToxLoss(amount)
+/mob/living/silicon/adjustToxLoss(amount, updating_health)
 	return STATUS_UPDATE_NONE
 
 /mob/living/silicon/get_access()

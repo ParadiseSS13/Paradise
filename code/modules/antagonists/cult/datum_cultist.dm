@@ -17,6 +17,7 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 	create_team() // make sure theres a global cult team
 	..()
 	owner.current.faction |= "cult"
+	ADD_TRAIT(owner.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 	add_cult_actions()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/bloodcult.ogg'))
 	owner.current.create_log(CONVERSION_LOG, "Converted to the cult")
@@ -34,6 +35,7 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 	if(!owner.current)
 		return ..()
 	owner.current.faction -= "cult"
+	REMOVE_TRAIT(owner.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 	owner.current.create_log(CONVERSION_LOG, "Deconverted from the cult") // yes, this is its own log, instead of the default MISC_LOG
 	for(var/datum/action/innate/cult/C in owner.current.actions)
 		qdel(C)

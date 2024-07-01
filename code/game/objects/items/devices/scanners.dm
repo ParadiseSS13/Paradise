@@ -140,7 +140,7 @@ SLIME SCANNER
 // Used by the PDA medical scanner too
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
 	var/list/msgs = list()
-	if(issimple_animal(M))
+	if(isanimal(M))
 		// no box here, keep it simple.
 		if(M.stat == DEAD)
 			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: <font color='red'>Dead</font></span>")

@@ -264,44 +264,44 @@
 /mob/living/proc/getBrainLoss()
 	return 0
 
-/mob/living/proc/adjustBrainLoss(amount, updating = TRUE)
+/mob/living/proc/adjustBrainLoss(amount, updating_health = TRUE)
 	return STATUS_UPDATE_NONE
 
-/mob/living/proc/setBrainLoss(amount, updating = TRUE)
+/mob/living/proc/setBrainLoss(amount, updating_health = TRUE)
 	return STATUS_UPDATE_NONE
 
 /mob/living/proc/getStaminaLoss()
 	return staminaloss
 
-/mob/living/proc/adjustStaminaLoss(amount, updating = TRUE)
+/mob/living/proc/adjustStaminaLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE
 	var/old_stamloss = staminaloss
 	staminaloss = min(max(staminaloss + amount, 0), 120)
 	if(old_stamloss == staminaloss)
-		updating = FALSE
+		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
 	if(amount > 0)
 		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
-	if(updating)
+	if(updating_health)
 		update_stamina_hud()
 		update_stamina()
 
-/mob/living/proc/setStaminaLoss(amount, updating = TRUE)
+/mob/living/proc/setStaminaLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE
 	var/old_stamloss = staminaloss
 	staminaloss = min(max(amount, 0), 120)
 	if(old_stamloss == staminaloss)
-		updating = FALSE
+		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
 	if(amount > 0)
 		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
-	if(updating)
+	if(updating_health)
 		update_stamina_hud()
 		update_stamina()
 
