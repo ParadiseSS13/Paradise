@@ -173,26 +173,23 @@
 		to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
 		return
 
+	add_fingerprint(user)
+	if(cell.charge < stam_hitcost || (SECSWORD_STUN && cell.charge < burn_hitcost))
+		state = SECSWORD_OFF
+		to_chat(user, "<span class='notice'>[src] does not have enough charge!</span>")
+		return
 	switch(state)
 		if(SECSWORD_OFF)
-			if(cell.charge < stam_hitcost)
-				state = SECSWORD_OFF
-				to_chat(user, "<span class='notice'>[src] does not have enough charge to stun!</span>")
-			else
-				state = SECSWORD_STUN
-				to_chat(user, "<span class='warning'>[src]'s edge is now set to stun.</span>")
-	 	if(SECSWORD_STUN)
-			if(cell.charge < burn_hitcost)
-				state = SECSWORD_OFF
-				to_chat(user, "<span class='notice'>[src] does not have enough charge to burn!</span>")
-			else
-				state = SECSWORD_BURN
-				to_chat(user, "<span class='warning'>[src]'s edge is now set to burn.</span>")
+			state = SECSWORD_STUN
+			to_chat(user, "<span class='warning'>[src]'s edge is now set to stun.</span>")
+		if(SECSWORD_STUN)
+			state = SECSWORD_BURN
+			to_chat(user, "<span class='warning'>[src]'s edge is now set to burn.</span>")
 		if(SECSWORD_BURN)
 			state = SECSWORD_OFF
 			to_chat(user, "<span class='notice'>[src]'s edge is now turned off.</span>")
 	update_icon()
-	add_fingerprint(user)
+
 
 /obj/item/melee/secsword/attack(mob/M, mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
