@@ -40,9 +40,7 @@ actual development.
 
 ### Pull Request Guidelines
 
-- Pull requests should be atomic; Make one commit for each distinct change, so if a part of a pull request needs to be removed/changed, you may simply modify that single commit. Due to limitations of the engine, this may not always be possible; but do try your best.
-
-- Keep your pull requests small and reviewable whenever possible. Do not bundle unrelated fixes even if not bundling them generates more pull requests. In case of mapping PRs that add features - consult a member of the development team on whether it would be appropriate to split up the PR to add the feature to multiple maps individually.
+- Keep your pull requests atomic. Each pull request should strive to address one primary goal, and should not include fixes or changes that aren't related to the main purpose of the pull request. Unrelated changes should be applied in new pull requests. In case of mapping PRs that add features - consult a member of the development team on whether it would be appropriate to split up the PR to add the feature to multiple maps individually.
 
 - Document and explain your pull requests thoroughly. Failure to do so will delay a PR as we question why changes were made. This is especially important if you're porting a PR from another codebase (i.e. TG) and divert from the original. Explaining with single comment on why you've made changes will help us review the PR faster and understand your decision making process.
 
