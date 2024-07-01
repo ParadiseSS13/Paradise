@@ -1,7 +1,7 @@
 /// Blood magic handles the creation of blood spells (formerly talismans)
 /datum/action/innate/cult/blood_magic
 	name = "Prepare Blood Magic"
-	button_icon_state = "carve"
+	button_overlay_icon_state = "carve"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
 	var/list/spells = list()
 	var/channeling = FALSE
@@ -91,7 +91,7 @@
 /// The next generation of talismans, handles storage/creation of blood magic
 /datum/action/innate/cult/blood_spell
 	name = "Blood Magic"
-	button_icon_state = "telerune"
+	button_overlay_icon_state = "telerune"
 	desc = "Fear the Old Blood."
 	var/charges = 1
 	var/magic_path = null
@@ -168,21 +168,21 @@
 /datum/action/innate/cult/blood_spell/stun
 	name = "Stun"
 	desc = "Will knock down and mute a victim on contact. Strike them with a cult blade to complete the invocation, stunning them and extending the mute."
-	button_icon_state = "stun"
+	button_overlay_icon_state = "stun"
 	magic_path = /obj/item/melee/blood_magic/stun
 	health_cost = 10
 
 /datum/action/innate/cult/blood_spell/teleport
 	name = "Teleport"
 	desc = "Empowers your hand to teleport yourself or another cultist to a teleport rune on contact."
-	button_icon_state = "teleport"
+	button_overlay_icon_state = "teleport"
 	magic_path = /obj/item/melee/blood_magic/teleport
 	health_cost = 7
 
 /datum/action/innate/cult/blood_spell/emp
 	name = "Electromagnetic Pulse"
 	desc = "Releases an Electromagnetic Pulse, affecting nearby non-cultists. <b>The pulse will still affect you.</b>"
-	button_icon_state = "emp"
+	button_overlay_icon_state = "emp"
 	health_cost = 10
 	invocation = "Ta'gh fara'qha fel d'amar det!"
 
@@ -218,24 +218,24 @@
 /datum/action/innate/cult/blood_spell/shackles
 	name = "Shadow Shackles"
 	desc = "Empowers your hand to start handcuffing victim on contact, and mute them if successful."
-	button_icon_state = "shackles"
+	button_overlay_icon_state = "shackles"
 	charges = 4
 	magic_path = /obj/item/melee/blood_magic/shackles
 
 /datum/action/innate/cult/blood_spell/construction
 	name = "Twisted Construction"
 	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 metal into a construct shell<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
-	button_icon_state = "transmute"
+	button_overlay_icon_state = "transmute"
 	magic_path = "/obj/item/melee/blood_magic/construction"
 	health_cost = 12
 
 /datum/action/innate/cult/blood_spell/dagger
 	name = "Summon Dagger"
 	desc = "Summon a ritual dagger, necessary to scribe runes."
-	button_icon_state = "cult_dagger"
+	button_overlay_icon_state = "cult_dagger"
 
 /datum/action/innate/cult/blood_spell/dagger/New()
-	button_icon_state = GET_CULT_DATA(dagger_icon, "cult_dagger")
+	button_overlay_icon_state = GET_CULT_DATA(dagger_icon, "cult_dagger")
 	..()
 
 /datum/action/innate/cult/blood_spell/dagger/Activate()
@@ -258,13 +258,13 @@
 /datum/action/innate/cult/blood_spell/equipment
 	name = "Summon Equipment"
 	desc = "Empowers your hand to summon combat gear onto a cultist you touch, including cult armor into open slots, a cult bola, and a cult sword."
-	button_icon_state = "equip"
+	button_overlay_icon_state = "equip"
 	magic_path = /obj/item/melee/blood_magic/armor
 
 /datum/action/innate/cult/blood_spell/horror
 	name = "Hallucinations"
 	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
-	button_icon_state = "horror"
+	button_overlay_icon_state = "horror"
 	var/datum/spell/horror/PH
 	charges = 4
 
@@ -330,7 +330,7 @@
 	name = "Conceal Presence"
 	desc = "Alternates between hiding and revealing nearby cult structures, cult airlocks and runes."
 	invocation = "Kla'atu barada nikt'o!"
-	button_icon_state = "veiling"
+	button_overlay_icon_state = "veiling"
 	charges = 10
 	var/revealing = FALSE //if it reveals or not
 
@@ -350,7 +350,7 @@
 			O.cult_conceal()
 		revealing = TRUE // Switch on use
 		name = "Reveal Runes"
-		button_icon_state = "revealing"
+		button_overlay_icon_state = "revealing"
 
 	else // Unhiding stuff
 		owner.visible_message("<span class='warning'>A flash of light shines from [owner]'s hand!</span>", \
@@ -365,7 +365,7 @@
 			O.cult_reveal()
 		revealing = FALSE // Switch on use
 		name = "Conceal Runes"
-		button_icon_state = "veiling"
+		button_overlay_icon_state = "veiling"
 	if(charges <= 0)
 		qdel(src)
 	desc = "[revealing ? "Reveals" : "Conceals"] nearby cult structures, airlocks, and runes."
@@ -377,7 +377,7 @@
 	desc = "Empowers your hand to manipulate blood. Use on blood or a noncultist to absorb blood to be used later, use on yourself or another cultist to heal them using absorbed blood. \
 		\nUse the spell in-hand to cast advanced rites, such as summoning a magical blood spear, firing blood projectiles out of your hands, and more!"
 	invocation = "Fel'th Dol Ab'orod!"
-	button_icon_state = "manip"
+	button_overlay_icon_state = "manip"
 	charges = 5
 	magic_path = /obj/item/melee/blood_magic/manipulator
 
