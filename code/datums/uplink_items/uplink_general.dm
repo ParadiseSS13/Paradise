@@ -211,7 +211,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "DSRD"
 	item = /obj/item/dualsaber
 	cost = 60
-  
+
 /datum/uplink_item/dangerous/snakefang
 	name = "Snakesfang"
 	desc = "The snakesfang is a fork-tipped scimitar with a sharp edge and sharper bite. This sword cannot fit in your bag, but it does come with a scabbard you can attach to your belt."
