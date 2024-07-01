@@ -255,7 +255,7 @@
 	return ..()
 
 /obj/item/extinguisher/mini/nozzle/Move()
-	. = ..()
+	..()
 	if(tank && loc != tank.loc)
 		forceMove(tank)
 
