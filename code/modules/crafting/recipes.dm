@@ -493,6 +493,15 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/skateboard
+	name = "Skateboard"
+	result = list(/obj/tgvehicle/scooter/skateboard/improvised)
+	time = 1.5 SECONDS
+	reqs = list(/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/rods = 10)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	category = CAT_MISC
+
 /datum/crafting_recipe/spear_primal // alternative recipe for Ash Walkers
 	name = "Spear"
 	result = list(/obj/item/spear)
@@ -908,6 +917,16 @@
 				/datum/reagent/paint/black = 30,
 				/obj/item/storage/toolbox = 1) //Paint in reagents so it doesnt take the container up, yet still take it from the beaker
 	pathtools = list(/obj/item/reagent_containers/glass/rag = 1) //need something to paint with it
+	category = CAT_MISC
+
+/datum/crafting_recipe/fake_tactical_medkit
+	name = "Tactical First-Aid Kit"
+	result = list(/obj/item/storage/firstaid/fake_tactical)
+	time = 40
+	reqs = list(/datum/reagent/paint/blue = 10,
+				/datum/reagent/paint/black = 30,
+				/obj/item/storage/firstaid = 1)
+	pathtools = list(/obj/item/reagent_containers/glass/rag = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/snowman
