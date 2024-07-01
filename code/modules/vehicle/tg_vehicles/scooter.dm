@@ -117,13 +117,13 @@
 			rider.adjustBrainLoss(5)
 			rider.updatehealth()
 		visible_message("<span class='danger'>[src] crashes into [bumped_thing], sending [rider] flying!</span>")
-		rider.Weaken(8 SECONDS)
+		rider.Weaken(6 SECONDS)
 		if(iscarbon(bumped_thing))
 			var/mob/living/carbon/victim = bumped_thing
 			var/grinding_mulitipler = 1
 			if(grinding)
 				grinding_mulitipler = 2
-			victim.Weaken(2 * grinding_mulitipler SECONDS)
+				victim.Weaken(2.5 SECONDS) // This is easier said than done, so probably fine. If officers or crew weaponize it I'll kill it fully.
 			victim.KnockDown(4 * grinding_mulitipler SECONDS)
 	else
 		var/backdir = REVERSE_DIR(dir)
@@ -246,11 +246,14 @@
 /obj/item/scooter_frame/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/sheet/metal))
 		return ..()
-	if(!I.tool_start_check(user, amount = 5))
+	var/obj/item/stack/S = I
+	if(S.get_amount() < 5)
 		return
 	to_chat(user, "<span class='notice'>You begin to add wheels to [src].</span>")
-	if(!I.use_tool(src, user, 80, volume = 50, amount = 5))
-		return
+	if(do_after(user, 5 SECONDS, target = src))
+		if(!loc || !S || S.get_amount() < 2)
+			return
+	S.use(2)
 	to_chat(user, "<span class='notice'>You finish making wheels for [src].</span>")
 	new /obj/tgvehicle/scooter/skateboard/improvised(user.loc)
 	qdel(src)
@@ -269,11 +272,13 @@
 /obj/tgvehicle/scooter/skateboard/improvised/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/rods))
 		return ..()
-	if(!I.tool_start_check(user, amount = 2))
+	var/obj/item/stack/S = I
+	if(S.get_amount() < 2)
 		return
 	to_chat(user, "<span class='notice'>You begin making handlebars for [src].</span>")
-	if(!I.use_tool(src, user, 25, volume = 50, amount = 2))
-		return
+	if(do_after(user, 2.5 SECONDS, target = src))
+		if(!loc || !S || S.get_amount() < 2 || !S.use(2))
+			return
 	to_chat(user, "<span class='notice'>You add the rods to [src], creating handlebars.</span>")
 	var/obj/tgvehicle/scooter/skaterskoot = new(loc)
 	if(has_buckled_mobs())
