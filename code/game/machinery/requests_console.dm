@@ -1,12 +1,6 @@
 /******************** Requests Console ********************/
 /** Originally written by errorage, updated by: Carn, needs more work though. I just added some security fixes */
 
-//Request Console Department Types.
-//For one console to be under multiple categories, you need to add the numbers with each other. For example, value of 6 will allow you to request supplies and relay info to that specific console.
-#define RC_ASSIST (1<<0)		//Request Assistance
-#define RC_SUPPLY (1<<1)		//Request Supplies
-#define RC_INFO   (1<<2)		//Relay Info
-
 //Request Console Screens
 #define RCS_MAINMENU	0	// Main menu
 #define RCS_RQSUPPLY	1	// Request supplies
@@ -43,15 +37,16 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	icon_state = "req_comp_off"
 	max_integrity = 300
 	armor = list(MELEE = 70, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, RAD = 0, FIRE = 90, ACID = 90)
-	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
+	/// The name of the containing department. Set this to the same thing if you want several consoles in one department.
+	var/department
+	/// Bitflag. Zero is reply-only. See [RC_ASSIST], [RC_SUPPLY], [RC_INFO].
+	var/departmentType
 	var/list/message_log = list() //List of all messages
-	var/departmentType = 0 		//Bitflag. Zero is reply-only. Map currently uses raw numbers instead of defines.
 	var/newmessagepriority = RQ_NONEW_MESSAGES
 	var/screen = RCS_MAINMENU
 	var/silent = FALSE // set to TRUE for it not to beep all the time
+	/// Whether this console can be used to send department announcements
 	var/announcementConsole = FALSE
-		// FALSE = This console cannot be used to send department announcements
-		// TRUE = This console can send department announcementsf
 	/// Will be set to TRUE when you authenticate yourself for announcements
 	var/announceAuth = FALSE
 	/// Will be set to TRUE when you authenticate yourself for requesting a secondary goal
@@ -101,6 +96,13 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	Radio.config(list("Engineering", "Medical", "Supply", "Command", "Science", "Service", "Security", "AI Private" = FALSE))
 	Radio.follow_target = src
 	. = ..()
+
+	var/area/containing_area = get_area(src)
+	if(isnull(department))
+		department = containing_area.request_console_name || containing_area.name
+	if(isnull(departmentType))
+		departmentType = containing_area.request_console_flags
+	announcementConsole = containing_area.request_console_announces
 
 	announcer.config.default_title = "[department] announcement"
 
@@ -434,9 +436,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	return TRUE
 
-#undef RC_ASSIST
-#undef RC_SUPPLY
-#undef RC_INFO
 #undef RCS_MAINMENU
 #undef RCS_RQSUPPLY
 #undef RCS_RQASSIST

@@ -38,14 +38,7 @@ const store = configureStore({
     settings: settingsReducer,
   }),
   middleware: {
-    pre: [
-      chatMiddleware,
-      pingMiddleware,
-      telemetryMiddleware,
-      settingsMiddleware,
-      audioMiddleware,
-      gameMiddleware,
-    ],
+    pre: [chatMiddleware, pingMiddleware, telemetryMiddleware, settingsMiddleware, audioMiddleware, gameMiddleware],
   },
 });
 
@@ -102,16 +95,7 @@ const setupApp = () => {
   if (module.hot) {
     setupHotReloading();
     module.hot.accept(
-      [
-        './audio',
-        './chat',
-        './game',
-        './Notifications',
-        './Panel',
-        './ping',
-        './settings',
-        './telemetry',
-      ],
+      ['./audio', './chat', './game', './Notifications', './Panel', './ping', './settings', './telemetry'],
       () => {
         renderApp();
       }
