@@ -81,7 +81,7 @@
 	/// the initial cooldown tracks the time between stamina damage. tracks the world.time when the baton is usable again.
 	var/cooldown = 3.5 SECONDS
 	///The sword's power cell - starts high
-	var/obj/item/stock_parts/cell/high/cell = null
+	var/obj/item/stock_parts/cell/high/cell
 	///The sword's current mode. Defaults to off.
 	var/state = SECSWORD_OFF
 
