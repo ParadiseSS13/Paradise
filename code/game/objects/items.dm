@@ -27,7 +27,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
-	easy_to_spill_blood = TRUE
 
 	/// Sound played when you hit something with the item
 	var/hitsound
@@ -104,8 +103,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	/// How long it takes to put an item onto somebody. IE. clothing
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
-	/// How long it takes to resist out of restraints, like cuffs, and whatnot.
-	var/breakouttime = 0
 	/// For flags that define what areas an item cover
 	var/flags_cover = 0
 

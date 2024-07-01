@@ -1,17 +1,7 @@
 import { sortBy } from 'common/collections';
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Dropdown,
-  Input,
-  NanoMap,
-  Section,
-  Stack,
-  Table,
-  Tabs,
-} from '../components';
+import { Box, Button, Dropdown, Input, NanoMap, Section, Stack, Table, Tabs } from '../components';
 import { TableCell } from '../components/Table';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
@@ -66,20 +56,10 @@ export const CrewMonitor = (props, context) => {
         <Stack fill vertical fillPositionedParent>
           <Stack.Item>
             <Tabs>
-              <Tabs.Tab
-                key="DataView"
-                icon="table"
-                selected={0 === tabIndex}
-                onClick={() => setTabIndex(0)}
-              >
+              <Tabs.Tab key="DataView" icon="table" selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
                 Data View
               </Tabs.Tab>
-              <Tabs.Tab
-                key="MapView"
-                icon="map-marked-alt"
-                selected={1 === tabIndex}
-                onClick={() => setTabIndex(1)}
-              >
+              <Tabs.Tab key="MapView" icon="map-marked-alt" selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
                 Map View
               </Tabs.Tab>
             </Tabs>
