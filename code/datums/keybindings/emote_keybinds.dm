@@ -502,7 +502,7 @@
 	name = "Rumble"
 
 /datum/keybinding/emote/carbon/human/hiss
-	linked_emote = /datum/emote/living/carbon/human/hiss/
+	linked_emote = /datum/emote/living/carbon/human/hiss
 	name = "Hiss"
 
 /datum/keybinding/emote/carbon/human/creak
