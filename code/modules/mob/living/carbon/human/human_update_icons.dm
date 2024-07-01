@@ -796,7 +796,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing.color = shoes.color
 			overlays_standing[SHOES_LAYER] = standing
 	else
-		if(feet_blood_DNA && get_organ("l_foot") && get_organ("r_foot")) // Checks for feet to make sure we don't have floating blood.
+		if(feet_blood_DNA && get_organ("l_foot") && get_organ("r_foot")) // Checks for feet to make sure we don't have mysterious floating blood.
 			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER)
 			bloodsies.color = feet_blood_color
 			overlays_standing[SHOES_LAYER] = bloodsies
