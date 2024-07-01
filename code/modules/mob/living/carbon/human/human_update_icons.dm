@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/u2_icon = U2.sprite_sheets && (dna.species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[dna.species.sprite_sheet_name] : U2.icon
 			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
 
-	if(socks && dna.species.clothing_flags & HAS_SOCKS)
+	if(socks && dna.species.clothing_flags & HAS_SOCKS && (get_organ("l_leg") && get_organ("r_leg")))
 		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
 		if(U3)
 			var/u3_icon = U3.sprite_sheets && (dna.species.sprite_sheet_name in U3.sprite_sheets) ? U3.sprite_sheets[dna.species.sprite_sheet_name] : U3.icon
