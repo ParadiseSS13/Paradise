@@ -155,6 +155,7 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Escape Pod Airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/powered)
 "I" = (

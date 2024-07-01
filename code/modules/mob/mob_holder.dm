@@ -94,6 +94,12 @@
 	desc = "It's a small maintenance robot."
 	icon_state = "drone"
 
+/obj/item/holder/nian_caterpillar
+	name = "nian caterpillar"
+	desc = "It's a tiny little itty bitty critter."
+	icon_state = "mothroach"
+	slot_flags = SLOT_FLAG_HEAD
+
 /obj/item/holder/drone/emagged
 	name = "maintenance drone"
 	icon_state = "drone-emagged"

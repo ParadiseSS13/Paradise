@@ -686,6 +686,8 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("toxin first aid kit", /obj/item/storage/firstaid/toxin, 4),
 		new /datum/stack_recipe("oxygen deprivation first aid kit", /obj/item/storage/firstaid/o2, 4),
 		new /datum/stack_recipe("advanced first-aid kit", /obj/item/storage/firstaid/adv, 4),
+		new /datum/stack_recipe("machine repair kit", /obj/item/storage/firstaid/machine, 4),
+		new /datum/stack_recipe("aquatic starter kit", /obj/item/storage/firstaid/aquatic_kit, 4),
 		)),
 	new /datum/stack_recipe("pill bottle", /obj/item/storage/pill_bottle),
 	new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2),

@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  AnimatedNumber,
-  Button,
-  LabeledList,
-  NoticeBox,
-  ProgressBar,
-  Section,
-} from '../components';
+import { AnimatedNumber, Button, LabeledList, NoticeBox, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const MechBayConsole = (props, context) => {
@@ -22,19 +15,11 @@ export const MechBayConsole = (props, context) => {
           fill
           title={!name ? 'Mech status' : 'Mech status: ' + name}
           textAlign="center"
-          buttons={
-            <Button
-              icon="sync"
-              content="Sync"
-              onClick={() => act('reconnect')}
-            />
-          }
+          buttons={<Button icon="sync" content="Sync" onClick={() => act('reconnect')} />}
         >
           <LabeledList>
             <LabeledList.Item label="Integrity">
-              {(!recharge_port && (
-                <NoticeBox>No power port detected. Please re-sync.</NoticeBox>
-              )) ||
+              {(!recharge_port && <NoticeBox>No power port detected. Please re-sync.</NoticeBox>) ||
                 (!mech && <NoticeBox>No mech detected.</NoticeBox>) || (
                   <ProgressBar
                     value={mech.health / mech.maxhealth}
@@ -47,9 +32,7 @@ export const MechBayConsole = (props, context) => {
                 )}
             </LabeledList.Item>
             <LabeledList.Item label="Power">
-              {(!recharge_port && (
-                <NoticeBox>No power port detected. Please re-sync.</NoticeBox>
-              )) ||
+              {(!recharge_port && <NoticeBox>No power port detected. Please re-sync.</NoticeBox>) ||
                 (!mech && <NoticeBox>No mech detected.</NoticeBox>) ||
                 (!cell && <NoticeBox>No cell is installed.</NoticeBox>) || (
                   <ProgressBar

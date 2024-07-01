@@ -73,7 +73,7 @@
 /datum/component/parry/proc/start_parry(mob/living/L)
 	SIGNAL_HANDLER
 	var/time_since_parry = world.time - time_parried
-	if(time_since_parry < parry_cooldown + parry_time_out_time) // stops spam
+	if(time_since_parry < parry_cooldown) // stops spam
 		return
 
 	time_parried = world.time

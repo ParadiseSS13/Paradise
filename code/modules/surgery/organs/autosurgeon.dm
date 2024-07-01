@@ -19,10 +19,6 @@
 	var/starting_organ
 	var/obj/item/organ/internal/storedorgan
 
-/obj/item/autosurgeon/organ/syndicate
-	name = "suspicious implant autosurgeon"
-	icon_state = "syndicate_autoimplanter"
-
 /obj/item/autosurgeon/organ/Initialize(mapload)
 	. = ..()
 	if(starting_organ)
@@ -83,32 +79,35 @@
 			desc = "[initial(desc)] Looks like it's been used up."
 	return TRUE
 
-/obj/item/autosurgeon/organ/syndicate/laser_arm
-	desc = "A single use autosurgeon that contains a combat arms-up laser augment. A screwdriver can be used to remove it, but implants can't be placed back in."
+/obj/item/autosurgeon/organ/syndicate
+	name = "suspicious implant autosurgeon"
+	icon_state = "syndicate_autoimplanter"
+
+/obj/item/autosurgeon/organ/syndicate/oneuse
 	uses = 1
+
+/obj/item/autosurgeon/organ/syndicate/oneuse/laser_arm
+	desc = "A single use autosurgeon that contains a combat arms-up laser augment. A screwdriver can be used to remove it, but implants can't be placed back in."
 	starting_organ = /obj/item/organ/internal/cyberimp/arm/gun/laser
 
-/obj/item/autosurgeon/organ/syndicate/meson_eyes
+/obj/item/autosurgeon/organ/syndicate/oneuse/meson_eyes
 	desc = "A single use autosurgeon that contains a pair of cybernetic meson eyes. A screwdriver can be used to remove it, but implants can't be placed back in."
-	uses = 1
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/meson
 
-/obj/item/autosurgeon/organ/syndicate/razorwire
+/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire
 	desc = "A single use autosurgeon that contains a Razorwire arm implant. A screwdriver can be used to remove it, but implants can't be placed back in."
-	uses = 1
 	starting_organ = /obj/item/organ/internal/cyberimp/arm/razorwire
 
-/obj/item/autosurgeon/organ/syndicate/razorwire/examine_more(mob/user)
+/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire/examine_more(mob/user)
 	. = ..()
 	if(storedorgan)
 		return storedorgan.examine_more()
 
-/obj/item/autosurgeon/organ/syndicate/hackerman_deck
+/obj/item/autosurgeon/organ/syndicate/oneuse/hackerman_deck
 	desc = "A single use autosurgeon that contains a Binyat wireless hacking system. A screwdriver can be used to remove it, but implants can't be placed back in."
-	uses = 1
 	starting_organ = /obj/item/organ/internal/cyberimp/brain/hackerman_deck
 
-/obj/item/autosurgeon/organ/syndicate/hackerman_deck/examine_more(mob/user)
+/obj/item/autosurgeon/organ/syndicate/oneuse/hackerman_deck/examine_more(mob/user)
 	. = ..()
 	. += "<i>Considered Cybersun Incorporated's most recent and developed implant system focused on hacking from a range while being undetectable from normal means. \
 	The Binyat Wireless Hacking System (BWHS) is a stealth-built implant that gives its user a rudimentary electronic interface on whatever can be perceived. \
@@ -121,19 +120,22 @@
 	. += "<i>As of modern times, the BWHS is heavily vetted under Cybersun Inc. due to its dangerous nature and rather difficult detection. \
 	However, this hasn't stopped the flow of these implants from reaching the black market, whether by inside or outside influences.</i>"
 
-/obj/item/autosurgeon/organ/syndicate/sensory_enhancer
+/obj/item/autosurgeon/organ/syndicate/oneuse/sensory_enhancer
 	desc = "A single use autosurgeon that contains a Qani-Laaca sensory computer. A screwdriver can be used to remove it, but implants can't be placed back in."
-	uses = 1
 	starting_organ = /obj/item/organ/internal/cyberimp/brain/sensory_enhancer
 
-/obj/item/autosurgeon/organ/syndicate/sensory_enhancer/examine(mob/user)
+/obj/item/autosurgeon/organ/syndicate/oneuse/sensory_enhancer/examine(mob/user)
 	. = ..()
 	. += "<span class='userdanger'>Epilepsy Warning: Drug has vibrant visual effects!</span>"
 
-/obj/item/autosurgeon/organ/syndicate/sensory_enhancer/examine_more(mob/user)
+/obj/item/autosurgeon/organ/syndicate/oneuse/sensory_enhancer/examine_more(mob/user)
 	. = ..()
 	if(storedorgan)
 		return storedorgan.examine_more()
+
+/obj/item/autosurgeon/organ/syndicate/oneuse/scope_eyes
+	desc = "A single use autosurgeon that contains Hardened Kaleido Optics eyes. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/eyes/cybernetic/scope/hardened
 
 /obj/item/autosurgeon/organ/syndicate/thermal_eyes
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/thermals/hardened
@@ -141,17 +143,13 @@
 /obj/item/autosurgeon/organ/syndicate/xray_eyes
 	starting_organ = /obj/item/organ/internal/eyes/cybernetic/xray/hardened
 
-/obj/item/autosurgeon/organ/syndicate/scope_eyes
-	starting_organ = /obj/item/organ/internal/eyes/cybernetic/scope/hardened
-
 /obj/item/autosurgeon/organ/syndicate/anti_stam
 	starting_organ = /obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 
 /obj/item/autosurgeon/organ/syndicate/reviver
 	starting_organ = /obj/item/organ/internal/cyberimp/chest/reviver/hardened
 
-/obj/item/autosurgeon/organ/syndicate/hardened_heart
-	uses = 1
+/obj/item/autosurgeon/organ/syndicate/oneuse/hardened_heart
 	starting_organ = /obj/item/organ/internal/heart/cybernetic/upgraded/hardened
 
 #undef INFINITE
