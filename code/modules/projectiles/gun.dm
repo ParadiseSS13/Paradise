@@ -151,14 +151,16 @@
 		if(message)
 			if(pointblank)
 				user.visible_message(
-				"<span class='danger'>[user] fires [src] point blank at [target]!</span>",
-				"<span class='danger'>You fire [src] point blank at [target]!</span>",
-				"<span class='danger'>You hear \a [fire_sound_text]!</span>")
+					"<span class='danger'>[user] fires [src] point blank at [target]!</span>",
+					"<span class='danger'>You fire [src] point blank at [target]!</span>",
+					"<span class='danger'>You hear \a [fire_sound_text]!</span>"
+				)
 			else
 				user.visible_message(
 					"<span class='danger'>[user] fires [src]!</span>",
 					"<span class='danger'>You fire [src]!</span>",
-					"<span class='danger'>You hear \a [fire_sound_text]!</span>")
+					"<span class='danger'>You hear \a [fire_sound_text]!</span>"
+				)
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
@@ -202,7 +204,8 @@
 				user.visible_message(
 					"<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>",
 					"<span class='danger'>You blow smoke off of [src]'s barrel.</span>",
-					"<span class='danger'>You hear someone blowing over a hollow tube.</span>")
+					"<span class='danger'>You hear someone blowing over a hollow tube.</span>"
+				)
 			else
 				handle_suicide(user, target, params)
 			return
@@ -484,11 +487,13 @@
 			return
 		target.visible_message(
 			"<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>",
-			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
+			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>"
+		)
 	else
 		target.visible_message(
 			"<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>",
-			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>")
+			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>"
+		)
 
 	semicd = 1
 
@@ -499,7 +504,8 @@
 			else if(target && target.Adjacent(user))
 				target.visible_message(
 					"<span class='notice'>[user] has decided to spare [target]'s life.</span>",
-					"<span class='userdanger'>[user] has decided to spare your life!</span>")
+					"<span class='userdanger'>[user] has decided to spare your life!</span>"
+				)
 		semicd = 0
 		return
 
@@ -507,7 +513,8 @@
 
 	target.visible_message(
 		"<span class='warning'>[user] pulls the trigger!</span>",
-		"<span class='userdanger'>[user] pulls the trigger!</span>")
+		"<span class='userdanger'>[user] pulls the trigger!</span>"
+	)
 
 	if(chambered && chambered.BB)
 		chambered.BB.damage *= 5
