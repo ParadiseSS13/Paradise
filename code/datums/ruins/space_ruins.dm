@@ -357,5 +357,4 @@
 	suffix = "abandoned_sec_shuttle.dmm"
 	name = "Abandoned Security Shuttle"
 	description = "A security shuttle that has been floating in space."
-  allow_duplicates = FALSE
-  
+	allow_duplicates = FALSE
