@@ -35655,10 +35655,6 @@
 /turf/simulated/wall,
 /area/station/command/office/blueshield)
 "coU" = (
-/obj/machinery/camera{
-	c_tag = "Blueshield's Office";
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -50882,7 +50878,9 @@
 	},
 /area/station/turret_protected/ai)
 "drs" = (
-/obj/machinery/door/airlock/command/glass,
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -55628,7 +55626,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/command/glass,
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "fof" = (
@@ -59291,9 +59291,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/captain,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor"
-	},
+/obj/machinery/door/airlock/command,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -65651,14 +65649,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "kkG" = (
-/obj/machinery/door/airlock/command/glass{
-	id_tag = "conference"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "conference"
+	},
+/obj/machinery/door/airlock/command/glass{
+	id_tag = "conference";
+	name = "Heads of Staff Meeting Room "
 	},
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
@@ -68600,7 +68599,9 @@
 /area/station/science/storage)
 "lHg" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command/glass,
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/rd,
 /turf/simulated/floor/plasteel{
@@ -69862,7 +69863,9 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/command/glass,
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "mlv" = (
@@ -72799,9 +72802,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "nPG" = (
-/obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor"
-	},
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -72811,6 +72811,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/command{
+	name = "Bridge"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -73210,7 +73213,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/command/glass{
-	id_tag = "conference"
+	id_tag = "conference";
+	name = "Heads of Staff Meeting Room "
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
@@ -73909,7 +73913,7 @@
 /area/station/science/lobby)
 "onW" = (
 /obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor"
+	name = "Bridge"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/door/firedoor,
@@ -80588,7 +80592,6 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
-	dir = 4;
 	location = "Medbay"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -82436,7 +82439,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "spy" = (
-/obj/machinery/door/airlock/command/glass,
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
@@ -84362,6 +84367,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"tqE" = (
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/medical/medbay3)
 "tqH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
@@ -85422,7 +85433,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor"
+	name = "Captain"
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
@@ -86010,9 +86021,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/hop,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor"
-	},
+/obj/machinery/door/airlock/command,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
@@ -88941,6 +88950,13 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/exit)
+"vGu" = (
+/obj/machinery/camera{
+	c_tag = "Blueshield's Office";
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/ntrep)
 "vHd" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -89154,29 +89170,6 @@
 /obj/effect/spawner/window/reinforced/tinted,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"vMm" = (
-/obj/machinery/door/airlock/command/glass,
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/command/bridge)
 "vMv" = (
 /obj/structure/punching_bag,
 /obj/effect/turf_decal/delivery/hollow,
@@ -89729,7 +89722,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/telecomms/chamber)
 "wbA" = (
-/obj/machinery/door/airlock/command/glass,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -89743,6 +89735,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "wbT" = (
@@ -90144,7 +90139,7 @@
 "wmZ" = (
 /obj/effect/mapping_helpers/airlock/access/any/command/captain,
 /obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor"
+	name = "Captain's Bedroom"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -90199,7 +90194,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "wpz" = (
-/obj/machinery/door/airlock/command/glass,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -90219,6 +90213,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "wpB" = (
@@ -90995,9 +90992,6 @@
 	},
 /area/station/service/barber)
 "wKf" = (
-/obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor"
-	},
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -91007,6 +91001,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/command{
+	name = "Bridge"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -92414,6 +92411,31 @@
 	icon_state = "hydrofloor"
 	},
 /area/station/maintenance/asmaint)
+"xvv" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "xvM" = (
 /obj/machinery/door/window{
 	dir = 8
@@ -93668,7 +93690,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor"
+	name = "Head of Personnel Office"
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
@@ -93751,12 +93773,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "xZq" = (
-/obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor"
-	},
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/command{
+	name = "Bridge"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -94273,9 +94295,6 @@
 /area/station/maintenance/fpmaint2)
 "ykr" = (
 /obj/effect/mapping_helpers/airlock/access/any/command/hop,
-/obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -94286,6 +94305,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/command{
+	id_tag = "hopofficedoor";
+	name = "Head of Personnel"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "yks" = (
@@ -120492,7 +120515,7 @@ aaa
 aaa
 bmc
 iZO
-vMm
+xvv
 cxl
 bxv
 hut
@@ -121548,7 +121571,7 @@ cgW
 qpw
 bAb
 ckw
-ckv
+vGu
 cgW
 lNb
 qov
@@ -135679,7 +135702,7 @@ cuQ
 bGG
 pMM
 rqs
-cfY
+tqE
 wjQ
 cfY
 chD
