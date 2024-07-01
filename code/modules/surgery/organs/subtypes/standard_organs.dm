@@ -319,3 +319,9 @@
 		if(2)
 			owner?.AdjustConfused(40 SECONDS)
 	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, overloading your motor control!</span>")
+
+/obj/item/organ/external/head/droplimb(clean, disintegrate, ignore_children, nodamage)
+	if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS)) // gonna have to work a bit harder to debrain a zombie
+		fracture()
+		return
+	return ..()
