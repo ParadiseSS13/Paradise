@@ -263,6 +263,7 @@
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
+//special turf for the asteroid core on EmeraldStation
 /turf/simulated/floor/lava/plasma/fuming
 	name = "liquid plasma"
 	desc = "A bubbling pit of liquid plasma. It constantly emits toxic fumes."
@@ -270,8 +271,9 @@
 	icon_state = "liquidplasma-255"
 	base_icon_state = "liquidplasma"
 	baseturf = /turf/simulated/floor/lava/plasma/fuming
-	planetary_atmos = FALSE
+	atmos_mode = ATMOS_MODE_SEALED
 
+	//Hot Ass Plasma lava
 	temperature = 500
 	oxygen = 0
 	nitrogen = 0
@@ -280,6 +282,27 @@
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
+
+/datum/milla_safe/lava_fuming/process_atmos()
+	var/datum/milla_safe/lava_fuming/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/lava_fuming/milla
+
+/datum/milla_safe/lava_fuming/milla/on_run(turf/simulated/floor/lava/plasma/fuming/tile)
+	var/datum/milla_safe/lava_fuming/environment
+	var/turf/T = get_turf(tile)
+	environment = get_turf_air(T)
+	var/env_pressure = environment.return_pressure
+	var/pressure_delta = min(40 - env_pressure, (40 - env_pressure) / 2)
+	var/add_moles = 0
+
+	//only add plasma if below 40kpa
+	if env_pressure <= 40
+		add_moles = pressure_delta * environment.volume / (canister.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
+		environment.merge(removed)
+
+
 
 /turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()
