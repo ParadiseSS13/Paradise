@@ -980,9 +980,15 @@
 	if(!HAS_TRAIT(attacker, TRAIT_PACIFISM))
 		add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 		tilt(target, from_combat = TRUE)
+		target.visible_message("<span class='danger'>[attacker] slams [target] into [src]!</span>", \
+								"<span class='userdanger'>You get slammed into [src] by [attacker]!</span>", \
+								"<span class='danger'>You hear a loud crunch.</span>")
 	else if(HAS_TRAIT_FROM(attacker, TRAIT_PACIFISM, GHOST_ROLE))  // should only apply to the ghost bar
 		add_attack_logs(attacker, target, "shoved into a vending machine ([src]), but flattened themselves.")
 		tilt(attacker, crit = TRUE, from_anywhere = TRUE) // get fucked
+		target.visible_message("<span class='warning'>[attacker] tries to slam [target] into [src], but falls face first into [src]!</span>", \
+								"<span class='userdanger'>You get pushed into [src] by [attacker], but narrowly move out of the way as it tips over on top of [attacker]!</span>", \
+								"<span class='danger'>You hear a loud crunch.</span>")
 	else
 		attacker.visible_message("<span class='notice'>[attacker] lightly presses [target] against [src].</span>", "<span class='warning'>You lightly press [target] against [src], you don't want to hurt [target.p_them()]!</span>")
 	return TRUE
