@@ -58,37 +58,20 @@ export const AtmosGraphMonitor = (props, context) => {
     }
   };
   return (
-    <Window
-      width={700}
-      height={getWindowHeight(Object.keys(data.sensors).length)}
-    >
+    <Window width={700} height={getWindowHeight(Object.keys(data.sensors).length)}>
       <Window.Content scrollable>
         <Box fillPositionedParent>
           <Tabs>
-            <Tabs.Tab
-              key="View"
-              selected={tabIndex === 0}
-              onClick={() => setTabIndex(0)}
-            >
+            <Tabs.Tab key="View" selected={tabIndex === 0} onClick={() => setTabIndex(0)}>
               <Icon name="area-chart" /> Текущие
             </Tabs.Tab>
-            <Tabs.Tab
-              key="History"
-              selected={tabIndex === 1}
-              onClick={() => setTabIndex(1)}
-            >
+            <Tabs.Tab key="History" selected={tabIndex === 1} onClick={() => setTabIndex(1)}>
               <Icon name="bar-chart" /> История
             </Tabs.Tab>
           </Tabs>
           {decideTab(tabIndex)}
           {Object.keys(data.sensors).length === 0 && (
-            <Box
-              pt={2}
-              textAlign={'center'}
-              textColor={'gray'}
-              bold
-              fontSize={1.3}
-            >
+            <Box pt={2} textAlign={'center'} textColor={'gray'} bold fontSize={1.3}>
               Подключите gas sensor или meter с помощью multitool
             </Box>
           )}
@@ -98,22 +81,13 @@ export const AtmosGraphMonitor = (props, context) => {
   );
 };
 
-const AtmosGraphPage = ({
-  data,
-  info,
-  pressureListName,
-  temperatureListName,
-}) => {
+const AtmosGraphPage = ({ data, info, pressureListName, temperatureListName }) => {
   let sensors_list = data.sensors || {};
 
-  const getLastReading = (sensor, listName) =>
-    sensors_list[sensor][listName].slice(-1)[0];
-  const getMinReading = (sensor, listName) =>
-    Math.min(...sensors_list[sensor][listName]);
-  const getMaxReading = (sensor, listName) =>
-    Math.max(...sensors_list[sensor][listName]);
-  const getDataToSensor = (sensor, listName) =>
-    sensors_list[sensor][listName].map((value, index) => [index, value]);
+  const getLastReading = (sensor, listName) => sensors_list[sensor][listName].slice(-1)[0];
+  const getMinReading = (sensor, listName) => Math.min(...sensors_list[sensor][listName]);
+  const getMaxReading = (sensor, listName) => Math.max(...sensors_list[sensor][listName]);
+  const getDataToSensor = (sensor, listName) => sensors_list[sensor][listName].map((value, index) => [index, value]);
 
   return (
     <Box>
@@ -138,20 +112,12 @@ const AtmosGraphPage = ({
                   <AtmosChart
                     fillPositionedParent
                     data={getDataToSensor(s, temperatureListName)}
-                    rangeX={[
-                      0,
-                      getDataToSensor(s, temperatureListName).length - 1,
-                    ]}
-                    rangeY={[
-                      getMinReading(s, temperatureListName) - 10,
-                      getMaxReading(s, temperatureListName) + 5,
-                    ]}
+                    rangeX={[0, getDataToSensor(s, temperatureListName).length - 1]}
+                    rangeY={[getMinReading(s, temperatureListName) - 10, getMaxReading(s, temperatureListName) + 5]}
                     strokeColor="rgba(219, 40, 40, 1)"
                     fillColor="rgba(219, 40, 40, 0.1)"
                     horizontalLinesCount={2}
-                    verticalLinesCount={
-                      getDataToSensor(s, temperatureListName).length - 2
-                    }
+                    verticalLinesCount={getDataToSensor(s, temperatureListName).length - 2}
                     labelViewBoxSize={400}
                   />
                 </Section>
@@ -175,20 +141,12 @@ const AtmosGraphPage = ({
                   <AtmosChart
                     fillPositionedParent
                     data={getDataToSensor(s, pressureListName)}
-                    rangeX={[
-                      0,
-                      getDataToSensor(s, pressureListName).length - 1,
-                    ]}
-                    rangeY={[
-                      getMinReading(s, pressureListName) - 10,
-                      getMaxReading(s, pressureListName) + 5,
-                    ]}
+                    rangeX={[0, getDataToSensor(s, pressureListName).length - 1]}
+                    rangeY={[getMinReading(s, pressureListName) - 10, getMaxReading(s, pressureListName) + 5]}
                     strokeColor="rgba(40, 219, 40, 1)"
                     fillColor="rgba(40, 219, 40, 0.1)"
                     horizontalLinesCount={2}
-                    verticalLinesCount={
-                      getDataToSensor(s, pressureListName).length - 2
-                    }
+                    verticalLinesCount={getDataToSensor(s, pressureListName).length - 2}
                     labelViewBoxSize={400}
                   />
                 </Section>
@@ -218,8 +176,7 @@ const normalizeData = (data, scale, rangeX, rangeY) => {
     min[1] = rangeY[0];
     max[1] = rangeY[1];
   }
-  const normalizeValue = (value, min, max, scale) =>
-    ((value - min) / (max - min)) * scale;
+  const normalizeValue = (value, min, max, scale) => ((value - min) / (max - min)) * scale;
   const normalizePoint = zipWith(normalizeValue);
   const normalizeData = map((point) => normalizePoint(point, min, max, scale));
   return normalizeData(data);
@@ -343,11 +300,7 @@ class AtmosChart extends Component<AtmosChartProps, AtmosChartState> {
                 />
               ))}
               {/* Полилиния (заливка) графика */}
-              <polyline
-                transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
-                fill={fillColor}
-                points={points}
-              />
+              <polyline transform={`scale(1, -1) translate(0, -${viewBox[1]})`} fill={fillColor} points={points} />
               {/* Линия графика */}
               {data.map((point, index) => {
                 if (index === 0) return null;

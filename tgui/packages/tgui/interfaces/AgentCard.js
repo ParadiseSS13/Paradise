@@ -21,18 +21,10 @@ export const AgentCard = (props, context) => {
         <Stack fill vertical>
           <Stack.Item textAlign="center">
             <Tabs fluid>
-              <Tabs.Tab
-                key="Card Info"
-                selected={0 === tabIndex}
-                onClick={() => setTabIndex(0)}
-              >
+              <Tabs.Tab key="Card Info" selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
                 <Icon name="table" /> Card Info
               </Tabs.Tab>
-              <Tabs.Tab
-                key="Appearance"
-                selected={1 === tabIndex}
-                onClick={() => setTabIndex(1)}
-              >
+              <Tabs.Tab key="Appearance" selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
                 <Icon name="id-card" /> Appearance
               </Tabs.Tab>
             </Tabs>
@@ -65,29 +57,16 @@ export const AgentCardInfo = (props, context) => {
         <Section title="Card Info">
           <LabeledList>
             <LabeledList.Item label="Name">
-              <Button
-                content={registered_name ? registered_name : '[UNSET]'}
-                onClick={() => act('change_name')}
-              />
+              <Button content={registered_name ? registered_name : '[UNSET]'} onClick={() => act('change_name')} />
             </LabeledList.Item>
             <LabeledList.Item label="Sex">
-              <Button
-                iconRight={false}
-                content={sex ? sex : '[UNSET]'}
-                onClick={() => act('change_sex')}
-              />
+              <Button iconRight={false} content={sex ? sex : '[UNSET]'} onClick={() => act('change_sex')} />
             </LabeledList.Item>
             <LabeledList.Item label="Age">
-              <Button
-                content={age ? age : '[UNSET]'}
-                onClick={() => act('change_age')}
-              />
+              <Button content={age ? age : '[UNSET]'} onClick={() => act('change_age')} />
             </LabeledList.Item>
             <LabeledList.Item label="Rank">
-              <Button
-                content={assignment ? assignment : '[UNSET]'}
-                onClick={() => act('change_occupation')}
-              />
+              <Button content={assignment ? assignment : '[UNSET]'} onClick={() => act('change_occupation')} />
             </LabeledList.Item>
             <LabeledList.Item label="Fingerprints">
               <Button
@@ -96,32 +75,19 @@ export const AgentCardInfo = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Blood Type">
-              <Button
-                content={blood_type ? blood_type : '[UNSET]'}
-                onClick={() => act('change_blood_type')}
-              />
+              <Button content={blood_type ? blood_type : '[UNSET]'} onClick={() => act('change_blood_type')} />
             </LabeledList.Item>
             <LabeledList.Item label="DNA Hash">
-              <Button
-                content={dna_hash ? dna_hash : '[UNSET]'}
-                onClick={() => act('change_dna_hash')}
-              />
+              <Button content={dna_hash ? dna_hash : '[UNSET]'} onClick={() => act('change_dna_hash')} />
             </LabeledList.Item>
             <LabeledList.Item label="Money Account">
               <Button
-                content={
-                  associated_account_number
-                    ? associated_account_number
-                    : '[UNSET]'
-                }
+                content={associated_account_number ? associated_account_number : '[UNSET]'}
                 onClick={() => act('change_money_account')}
               />
             </LabeledList.Item>
             <LabeledList.Item label="Photo">
-              <Button
-                content={photo ? 'Update' : '[UNSET]'}
-                onClick={() => act('change_photo')}
-              />
+              <Button content={photo ? 'Update' : '[UNSET]'} onClick={() => act('change_photo')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -130,22 +96,13 @@ export const AgentCardInfo = (props, context) => {
         <Section fill title="Card Settings">
           <LabeledList>
             <LabeledList.Item label="Card Info">
-              <Button
-                content="Delete Card Info"
-                onClick={() => act('delete_info')}
-              />
+              <Button content="Delete Card Info" onClick={() => act('delete_info')} />
             </LabeledList.Item>
             <LabeledList.Item label="Access">
-              <Button
-                content="Reset Access"
-                onClick={() => act('clear_access')}
-              />
+              <Button content="Reset Access" onClick={() => act('clear_access')} />
             </LabeledList.Item>
             <LabeledList.Item label="AI Tracking">
-              <Button
-                content={ai_tracking ? 'Untrackable' : 'Trackable'}
-                onClick={() => act('change_ai_tracking')}
-              />
+              <Button content={ai_tracking ? 'Untrackable' : 'Trackable'} onClick={() => act('change_ai_tracking')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -156,11 +113,7 @@ export const AgentCardInfo = (props, context) => {
 
 export const AgentCardAppearances = (props, context) => {
   const { act, data } = useBackend(context);
-  const [selectedAppearance, setSelectedAppearance] = useLocalState(
-    context,
-    'selectedAppearance',
-    null
-  );
+  const [selectedAppearance, setSelectedAppearance] = useLocalState(context, 'selectedAppearance', null);
   const { appearances } = data;
   return (
     <Stack.Item grow>

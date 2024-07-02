@@ -3,16 +3,7 @@ import { flow } from 'common/fp';
 
 import { BooleanLike } from '../../common/react';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Knob,
-  ProgressBar,
-  Section,
-  Stack,
-  Dimmer,
-  Icon,
-} from '../components';
+import { Box, Button, Knob, ProgressBar, Section, Stack, Dimmer, Icon } from '../components';
 import { Window } from '../layouts';
 
 type Song = {
@@ -56,9 +47,7 @@ export const Jukebox = (props, context) => {
   const MAX_NAME_LENGTH = 35;
   const need_payment = !payment && need_coin && !advanced_admin;
   const songs_sorted: Song[] = flow([sortBy((song: Song) => song.name)])(songs);
-  const song_selected: Song | undefined = songs.find(
-    (song) => song.name === track_selected
-  );
+  const song_selected: Song | undefined = songs.find((song) => song.name === track_selected);
   const totalTracks = songs_sorted.length;
   const selectedTrackNumber = song_selected
     ? songs_sorted.findIndex((song) => song.name === song_selected.name) + 1
@@ -117,22 +106,14 @@ export const Jukebox = (props, context) => {
                         icon={'undo'}
                         content="Повтор"
                         disabled={active || (need_coin && !advanced_admin)}
-                        tooltip={
-                          need_coin && !advanced_admin
-                            ? 'Вы не можете включить повтор за монетку'
-                            : null
-                        }
+                        tooltip={need_coin && !advanced_admin ? 'Вы не можете включить повтор за монетку' : null}
                         checked={looping}
                         onClick={() => act('loop', { looping: !looping })}
                       />
                     </Stack.Item>
                   </Stack>
                   <Stack.Item>
-                    <ProgressBar.Countdown
-                      start={startTime}
-                      current={!looping ? worldTime : endTime}
-                      end={endTime}
-                    >
+                    <ProgressBar.Countdown start={startTime} current={!looping ? worldTime : endTime} end={endTime}>
                       {trackTimer}
                     </ProgressBar.Countdown>
                   </Stack.Item>
@@ -180,15 +161,7 @@ export const Jukebox = (props, context) => {
                 <Stack.Item textAlign="center" textColor="label">
                   <Knob
                     size={2}
-                    color={
-                      volume <= 25
-                        ? 'green'
-                        : volume <= 50
-                          ? ''
-                          : volume <= 75
-                            ? 'orange'
-                            : 'red'
-                    }
+                    color={volume <= 25 ? 'green' : volume <= 50 ? '' : volume <= 75 ? 'orange' : 'red'}
                     value={volume}
                     unit="%"
                     minValue={0}

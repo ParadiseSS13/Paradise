@@ -1,17 +1,6 @@
 import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Table,
-  Section,
-  Dropdown,
-  Input,
-  BlockQuote,
-  Box,
-  Icon,
-  Stack,
-} from '../components';
+import { Button, LabeledList, Table, Section, Dropdown, Input, BlockQuote, Box, Icon, Stack } from '../components';
 import { Window } from '../layouts';
 
 type Seed = {
@@ -65,12 +54,7 @@ const gendersIcons = {
   },
 };
 
-const getCheckboxGroup = (
-  itemsList,
-  selectedList,
-  setSelected,
-  contentKey = null
-) => {
+const getCheckboxGroup = (itemsList, selectedList, setSelected, contentKey = null) => {
   return itemsList.map((item) => {
     const title = item[contentKey] ?? item;
     return (
@@ -80,9 +64,7 @@ const getCheckboxGroup = (
         content={title}
         onClick={() => {
           if (selectedList.includes(item)) {
-            setSelected(
-              selectedList.filter((i) => (i[contentKey] ?? i) !== item)
-            );
+            setSelected(selectedList.filter((i) => (i[contentKey] ?? i) !== item));
           } else {
             setSelected([item, ...selectedList]);
           }
@@ -107,82 +89,37 @@ export const TTSSeedsExplorer = () => {
 export const TTSSeedsExplorerContent = (props, context) => {
   const { act, data } = useBackend<TTSData>(context);
 
-  const {
-    providers,
-    seeds,
-    selected_seed,
-    phrases,
-    donator_level,
-    character_gender,
-  } = data;
+  const { providers, seeds, selected_seed, phrases, donator_level, character_gender } = data;
 
-  const categories = seeds
-    .map((seed) => seed.category)
-    .filter((category, i, a) => a.indexOf(category) === i);
-  const genders = seeds
-    .map((seed) => seed.gender)
-    .filter((gender, i, a) => a.indexOf(gender) === i);
+  const categories = seeds.map((seed) => seed.category).filter((category, i, a) => a.indexOf(category) === i);
+  const genders = seeds.map((seed) => seed.gender).filter((gender, i, a) => a.indexOf(gender) === i);
   const donatorLevels = seeds
     .map((seed) => seed.required_donator_level)
     .filter((level, i, a) => a.indexOf(level) === i)
     .sort((a, b) => a - b)
     .map((level) => donatorTiers[level]);
 
-  const [selectedProviders, setSelectedProviders] = useLocalState(
-    context,
-    'selectedProviders',
-    providers
-  );
+  const [selectedProviders, setSelectedProviders] = useLocalState(context, 'selectedProviders', providers);
   const [selectedGenders, setSelectedGenders] = useLocalState(
     context,
     'selectedGenders',
-    genders.includes(gender[character_gender])
-      ? [gender[character_gender]]
-      : genders
+    genders.includes(gender[character_gender]) ? [gender[character_gender]] : genders
   );
-  const [selectedCategories, setSelectedCategories] = useLocalState(
-    context,
-    'selectedCategories',
-    categories
-  );
+  const [selectedCategories, setSelectedCategories] = useLocalState(context, 'selectedCategories', categories);
   const [selectedDonatorLevels, setSelectedDonatorLevels] = useLocalState(
     context,
     'selectedDonatorLevels',
     donatorLevels.includes(donatorTiers[donator_level])
-      ? donatorLevels.slice(
-          0,
-          donatorLevels.indexOf(donatorTiers[donator_level]) + 1
-        )
+      ? donatorLevels.slice(0, donatorLevels.indexOf(donatorTiers[donator_level]) + 1)
       : donatorLevels
   );
-  const [selectedPhrase, setSelectedPhrase] = useLocalState(
-    context,
-    'selectedPhrase',
-    phrases[0]
-  );
+  const [selectedPhrase, setSelectedPhrase] = useLocalState(context, 'selectedPhrase', phrases[0]);
   const [searchtext, setSearchtext] = useLocalState(context, 'searchtext', '');
 
-  let providerCheckboxes = getCheckboxGroup(
-    providers,
-    selectedProviders,
-    setSelectedProviders,
-    'name'
-  );
-  let genderesCheckboxes = getCheckboxGroup(
-    genders,
-    selectedGenders,
-    setSelectedGenders
-  );
-  let categoriesCheckboxes = getCheckboxGroup(
-    categories,
-    selectedCategories,
-    setSelectedCategories
-  );
-  let donatorLevelsCheckboxes = getCheckboxGroup(
-    donatorLevels,
-    selectedDonatorLevels,
-    setSelectedDonatorLevels
-  );
+  let providerCheckboxes = getCheckboxGroup(providers, selectedProviders, setSelectedProviders, 'name');
+  let genderesCheckboxes = getCheckboxGroup(genders, selectedGenders, setSelectedGenders);
+  let categoriesCheckboxes = getCheckboxGroup(categories, selectedCategories, setSelectedCategories);
+  let donatorLevelsCheckboxes = getCheckboxGroup(donatorLevels, selectedDonatorLevels, setSelectedDonatorLevels);
 
   let phrasesSelect = (
     <Dropdown
@@ -193,13 +130,7 @@ export const TTSSeedsExplorerContent = (props, context) => {
     />
   );
 
-  let searchBar = (
-    <Input
-      placeholder="Название..."
-      width="100%"
-      onInput={(e, value) => setSearchtext(value)}
-    />
-  );
+  let searchBar = <Input placeholder="Название..." width="100%" onInput={(e, value) => setSearchtext(value)} />;
 
   const availableSeeds = seeds
     .sort((a, b) => {
@@ -218,27 +149,19 @@ export const TTSSeedsExplorerContent = (props, context) => {
         selectedProviders.some((provider) => provider.name === seed.provider) &&
         selectedGenders.includes(seed.gender) &&
         selectedCategories.includes(seed.category) &&
-        selectedDonatorLevels.includes(
-          donatorTiers[seed.required_donator_level]
-        ) &&
+        selectedDonatorLevels.includes(donatorTiers[seed.required_donator_level]) &&
         seed.name.toLowerCase().includes(searchtext.toLowerCase())
     );
 
   let seedsRow = availableSeeds.map((seed) => {
     return (
-      <Table.Row
-        key={seed.name}
-        backgroundColor={selected_seed === seed.name ? 'green' : 'transparent'}
-      >
+      <Table.Row key={seed.name} backgroundColor={selected_seed === seed.name ? 'green' : 'transparent'}>
         <Table.Cell collapsing textAlign="center">
           <Button
             fluid
             color={selected_seed === seed.name ? 'green' : 'transparent'}
             content={selected_seed === seed.name ? 'Выбрано' : 'Выбрать'}
-            tooltip={
-              donator_level < seed.required_donator_level &&
-              'Требуется более высокий уровень подписки'
-            }
+            tooltip={donator_level < seed.required_donator_level && 'Требуется более высокий уровень подписки'}
             onClick={() => act('select', { seed: seed.name })}
           />
         </Table.Cell>
@@ -249,46 +172,27 @@ export const TTSSeedsExplorerContent = (props, context) => {
             color={selected_seed === seed.name ? 'green' : 'transparent'}
             content=""
             tooltip="Прослушать пример"
-            onClick={() =>
-              act('listen', { seed: seed.name, phrase: selectedPhrase })
-            }
+            onClick={() => act('listen', { seed: seed.name, phrase: selectedPhrase })}
           />
         </Table.Cell>
         <Table.Cell
           bold
-          textColor={
-            seed.required_donator_level > 0 && selected_seed !== seed.name
-              ? 'orange'
-              : 'white'
-          }
+          textColor={seed.required_donator_level > 0 && selected_seed !== seed.name ? 'orange' : 'white'}
         >
           {seed.name}
         </Table.Cell>
-        <Table.Cell
-          collapsing
-          opacity={selected_seed === seed.name ? 0.5 : 0.25}
-          textAlign="left"
-        >
+        <Table.Cell collapsing opacity={selected_seed === seed.name ? 0.5 : 0.25} textAlign="left">
           {seed.category}
         </Table.Cell>
         <Table.Cell
           collapsing
           opacity={0.5}
-          textColor={
-            selected_seed === seed.name
-              ? 'white'
-              : gendersIcons[seed.gender].color
-          }
+          textColor={selected_seed === seed.name ? 'white' : gendersIcons[seed.gender].color}
           textAlign="left"
         >
           <Icon mx={1} size={1.2} name={gendersIcons[seed.gender].icon} />
         </Table.Cell>
-        <Table.Cell
-          collapsing
-          opacity={0.5}
-          textColor="white"
-          textAlign="right"
-        >
+        <Table.Cell collapsing opacity={0.5} textColor="white" textAlign="right">
           {seed.required_donator_level > 0 && (
             <>
               {donatorTiers[seed.required_donator_level]}
@@ -305,15 +209,9 @@ export const TTSSeedsExplorerContent = (props, context) => {
       <Stack.Item height="175px">
         <Section fill scrollable title="Фильтры">
           <LabeledList>
-            <LabeledList.Item label="Провайдеры">
-              {providerCheckboxes}
-            </LabeledList.Item>
-            <LabeledList.Item label="Пол">
-              {genderesCheckboxes}
-            </LabeledList.Item>
-            <LabeledList.Item label="Уровень подписки">
-              {donatorLevelsCheckboxes}
-            </LabeledList.Item>
+            <LabeledList.Item label="Провайдеры">{providerCheckboxes}</LabeledList.Item>
+            <LabeledList.Item label="Пол">{genderesCheckboxes}</LabeledList.Item>
+            <LabeledList.Item label="Уровень подписки">{donatorLevelsCheckboxes}</LabeledList.Item>
             <LabeledList.Item label="Фраза">{phrasesSelect}</LabeledList.Item>
             <LabeledList.Item label="Поиск">{searchBar}</LabeledList.Item>
           </LabeledList>
@@ -345,11 +243,7 @@ export const TTSSeedsExplorerContent = (props, context) => {
         </Section>
       </Stack.Item>
       <Stack.Item grow>
-        <Section
-          fill
-          scrollable
-          title={`Голоса (${availableSeeds.length}/${seeds.length})`}
-        >
+        <Section fill scrollable title={`Голоса (${availableSeeds.length}/${seeds.length})`}>
           <Table>{seedsRow}</Table>
         </Section>
       </Stack.Item>
