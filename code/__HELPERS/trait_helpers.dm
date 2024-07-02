@@ -184,6 +184,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EMOTE_MUTE		"emote_mute"
 #define TRAIT_HYPOSPRAY_IMMUNE	"hypospray_immune" // For making crew-accessable hyposprays not pierce your clothing
 #define TRAIT_RSG_IMMUNE		"rsgimmune" //prevents RSG syringes from piercing your clothing
+#define TRAIT_DRASK_SUPERCOOL	"drask_supercool"
 
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
@@ -231,6 +232,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CAN_STRIP "can_strip" // This mob can strip other mobs.
 #define TRAIT_CLING_BURSTING "cling_bursting" // This changeling is about to burst into a headslug, block cremation / gibber to prevent nullspace issues
 #define TRAIT_I_WANT_BRAINS "mob_zombie" // A general trait for tracking if the mob is a zombie.
+#define TRAIT_NON_INFECTIOUS_ZOMBIE "non_infectious_zombie" // A trait for checking if a zombie shouldn't be able to infect other people
+#define TRAIT_NPC_ZOMBIE "npc_zombie" // A trait for checking if a zombie should act like an NPC and attack
 #define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
 #define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
 #define TRAIT_HAS_IV_BAG "iv_bag" // Used to check if there is an active IV bag. Currently blocks another IV bags from being inserted.
@@ -284,9 +287,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///An organ that was inserted into a dead mob, that has not been revived yet
 #define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
 
+//****** OBJ TRAITS *****//
+
 ///An /obj that should not increase the "depth" of the search for adjacency,
 ///e.g. a storage container or a modsuit.
 #define TRAIT_ADJACENCY_TRANSPARENT "adjacency_transparent"
+
+/// A trait for items that will not break glass tables if the user is buckled to them.
+#define TRAIT_NO_BREAK_GLASS_TABLES "no_break_glass_tables"
 
 //****** ATOM/MOVABLE TRAITS *****//
 /// A trait for determining if a atom/movable is currently crossing into another z-level by using of /turf/space z-level "destination-xyz" transfers

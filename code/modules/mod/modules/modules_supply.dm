@@ -470,7 +470,7 @@
 	var/obj/item/projectile/bomb = new /obj/item/projectile/bullet/reusable/mining_bomb(get_turf(mod.wearer))
 	bomb.original = target
 	bomb.firer = mod.wearer
-	bomb.preparePixelProjectile(target, get_turf(target), mod.wearer)
+	bomb.preparePixelProjectile(target, mod.wearer)
 	bomb.fire()
 	playsound(src, 'sound/weapons/grenadelaunch.ogg', 75, TRUE)
 	drain_power(use_power_cost)

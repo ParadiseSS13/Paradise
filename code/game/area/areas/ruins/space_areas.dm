@@ -180,3 +180,36 @@
 	name = "Cybersun Mobile Exosuit Factory"
 	apc_starts_off = TRUE
 	there_can_be_many = FALSE
+
+/area/ruin/space/powered/casino
+	name = "Dorian Casino"
+	there_can_be_many = FALSE
+	requires_power = TRUE
+
+/area/ruin/space/powered/casino/docked_ships
+	name = "Shuttle"
+	requires_power = FALSE
+
+/area/ruin/space/powered/casino/arrivals
+	name = "Arrivals"
+
+/area/ruin/space/powered/casino/kitchen
+	name = "Dining and Kitchen"
+
+/area/ruin/space/powered/casino/floor
+	name = "Casino Floor"
+
+/area/ruin/space/powered/casino/hall
+	name = "Main Hall"
+
+/area/ruin/space/powered/casino/engine
+	name = "Engine Room"
+
+/area/ruin/space/powered/casino/security
+	name = "Security"
+
+/area/ruin/space/powered/casino/teleporter
+	name = "Teleporter"
+
+/area/ruin/space/powered/casino/maints
+	name = "Service Tunnels"

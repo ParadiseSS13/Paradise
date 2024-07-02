@@ -73,8 +73,10 @@
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
-///from base of atom/examine(): (/mob)
+///from base of atom/examine(): (examining_user, examine_list)
 #define COMSIG_PARENT_EXAMINE "atom_examine"
+///from base of atom/examine_more(): (examining_user, examine_list)
+#define COMSIG_PARENT_EXAMINE_MORE "atom_examine_more"
 ///from base of atom/get_examine_name(): (/mob, list/overrides)
 #define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
 	//Positions for overrides list
@@ -218,6 +220,9 @@
 #define COMSIG_ATOM_START_PULL "movable_start_pull"
 ///called on /living when someone starts pulling it (atom/movable/puller, state, force)
 #define COMSIG_LIVING_START_PULL "living_start_pull"
+///called on /living, when pull is attempted, but before it completes, from base of [/mob/living/start_pulling]: (atom/movable/thing, force)
+#define COMSIG_LIVING_TRY_PULL "living_try_pull"
+	#define COMSIG_LIVING_CANCEL_PULL (1 << 0)
 
 /////////////////
 
@@ -301,10 +306,16 @@
 	#define COMPONENT_MOVABLE_IMPACT_NEVERMIND (1<<1)					//return true if you destroyed whatever it was you're impacting and there won't be anything for hitby() to run on
 ///from base of mob/living/hitby(): (mob/living/target, hit_zone)
 #define COMSIG_MOVABLE_IMPACT_ZONE "item_impact_zone"
+///from /atom/movable/proc/buckle_mob(): (mob/living/M, force, check_loc, buckle_mob_flags)
+#define COMSIG_MOVABLE_PREBUCKLE "prebuckle" // this is the last chance to interrupt and block a buckle before it finishes
+	#define COMPONENT_BLOCK_BUCKLE (1<<0)
 ///from base of atom/movable/buckle_mob(): (mob, force)
 #define COMSIG_MOVABLE_BUCKLE "buckle"
 ///from base of atom/movable/unbuckle_mob(): (mob, force)
 #define COMSIG_MOVABLE_UNBUCKLE "unbuckle"
+///from /obj/vehicle/proc/driver_move, caught by the riding component to check and execute the driver trying to drive the vehicle
+#define COMSIG_RIDDEN_DRIVER_MOVE "driver_move"
+	#define COMPONENT_DRIVER_BLOCK_MOVE (1<<0)
 ///from base of atom/movable/throw_at(): (list/args)
 #define COMSIG_MOVABLE_PRE_THROW "movable_pre_throw"
 	#define COMPONENT_CANCEL_THROW (1<<0)
@@ -337,6 +348,10 @@
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
 ///called when the movable is removed from a disposal holder object: /obj/structure/disposalpipe/proc/expel(): (obj/structure/disposalholder/H, turf/T, direction)
 #define COMSIG_MOVABLE_EXIT_DISPOSALS "movable_exit_disposals"
+
+/// from base of atom/movable/Process_Spacemove(): (movement_dir, continuous_move)
+#define COMSIG_MOVABLE_SPACEMOVE "spacemove"
+	#define COMSIG_MOVABLE_STOP_SPACEMOVE (1<<0)
 
 // /datum/mind signals
 
@@ -442,6 +457,9 @@
 #define COMSIG_MOB_AUTOMUTE_CHECK "automute_check"
 	#define WAIVE_AUTOMUTE_CHECK (1<<0)
 
+///Called when movement intent is toggled.
+#define COMSIG_MOVE_INTENT_TOGGLED "move_intent_toggled"
+
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)
@@ -491,6 +509,16 @@
 #define COMSIG_LIVING_REENTERED_BODY "reentered_body"
 //sent from a mob when they set themselves to DNR
 #define COMSIG_LIVING_SET_DNR "set_dnr"
+
+// Sent from a surgery step when blood is being splashed. (datum/surgery, mob/user, mob/target, zone, obj/item/tool)
+#define COMSIG_SURGERY_BLOOD_SPLASH "surgery_blood_splash"
+	/// If returned from this signal, will prevent any surgery splashing.
+	#define COMPONENT_BLOOD_SPLASH_HANDLED (1<<0)
+
+// Sent from a surgery step when organs are being spread from an incision
+#define COMSIG_SURGERY_GERM_SPREAD "surgery_germ_spread"
+	/// If returned from this signal, germ spread will be blocked.
+	#define COMPONENT_GERM_SPREAD_BLOCK (1<<0)
 
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
@@ -817,6 +845,8 @@
 #define COMSIG_SPECIES_GAIN "species_gain"
 ///from datum/species/on_species_loss(): (datum/species/lost_species)
 #define COMSIG_SPECIES_LOSS "species_loss"
+///from /datum/species/proc/spec_hitby()
+#define COMSIG_SPECIES_HITBY "species_hitby"
 
 // /datum/song signals
 
@@ -1059,6 +1089,10 @@
 
 /// from /obj/structure/cursed_slot_machine/determine_victor() when someone finally wins.
 #define COMSIG_GLOB_CURSED_SLOT_MACHINE_WON "cursed_slot_machine_won"
+
+/// from base of /obj/item/slimepotion/speed/afterattack(): (obj/target, /obj/src, mob/user)
+#define COMSIG_SPEED_POTION_APPLIED "speed_potion"
+	#define SPEED_POTION_STOP (1<<0)
 
 // Signal types for the cargo shuttle
 

@@ -19,7 +19,7 @@
 
 /obj/item/gun/rocketlauncher/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = 2)
+	AddComponent(/datum/component/scope, range_modifier = 2, flags = SCOPE_TURF_ONLY | SCOPE_NEED_ACTIVE_HAND)
 
 /obj/item/gun/rocketlauncher/examine(mob/user)
 	. = ..()

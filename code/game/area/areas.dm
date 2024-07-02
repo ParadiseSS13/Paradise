@@ -91,6 +91,14 @@
 	/// Turrets use this list to see if individual power/lethal settings are allowed. Contains the /obj/machinery/turretid for this area
 	var/list/turret_controls = list()
 
+	/// The flags applied to request consoles spawned in this area.
+	/// See [RC_ASSIST], [RC_SUPPLY], [RC_INFO].
+	var/request_console_flags = 0
+	/// The name for any spawned request consoles. Defaults to the area name.
+	var/request_console_name
+	/// Whether request consoles in this area can send announcements.
+	var/request_console_announces = FALSE
+
 	/*
 	Lighting Vars
 	*/
