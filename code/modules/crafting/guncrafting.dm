@@ -105,6 +105,12 @@
 	origin_tech = "combat=6;magnets=6;syndicate=2"
 	outcome = /obj/item/gun/energy/disabler/silencer
 
+/obj/item/weaponcrafting/gunkit/chemical_flamethrower
+	name = "extended chemical flamethrower parts kit"
+	desc = "A suitcase containing the necessary gun parts to transform a standard chemical flamethrower into a version that can accept two cartridges instead of one."
+	origin_tech = "combat=5;engineering=6;plasmatech=4"
+	outcome = /obj/item/chemical_flamethrower/extended
+
 /obj/item/weaponcrafting/gunkit/universal_gun_kit
 	name = "universal self assembling gun parts kit"
 	desc = "A suitcase containing the necessary gun parts to build a full gun, when combined with a gun kit. Use it directly on a gunkit to rapidly assemble it."
