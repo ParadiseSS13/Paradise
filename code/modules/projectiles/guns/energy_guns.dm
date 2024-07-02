@@ -75,7 +75,7 @@
 		shot = new shottype(src)
 		ammo_type[i] = shot
 	shot = ammo_type[select]
-	fire_sound = shot.fire_sound
+	fire_sound = HAS_TRAIT(src, TRAIT_CMAGGED) ? 'sound/weapons/gunshots/pew.ogg' : shot.fire_sound
 	fire_delay = shot.delay
 
 /obj/item/gun/energy/Destroy()
@@ -139,7 +139,7 @@
 	if(select > length(ammo_type))
 		select = 1
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	fire_sound = shot.fire_sound
+	fire_sound = HAS_TRAIT(src, TRAIT_CMAGGED) ? 'sound/weapons/gunshots/pew.ogg' : shot.fire_sound
 	fire_delay = shot.delay
 	if(shot.select_name)
 		to_chat(user, "<span class='notice'>[src] is now set to [shot.select_name].</span>")
@@ -252,3 +252,17 @@
 		update_icon()
 	else
 		charge_tick = 0
+
+/obj/item/gun/energy/cmag_act(mob/user)
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		to_chat(user, "<span class='warning'>Yellow ooze seeps into the [src]'s barrel and trigger...</span class='warning'>")
+		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			var/obj/item/ammo_casing/energy/projectile_fired = ammo_type[select]
+			projectile_fired.projectile_type = /obj/item/projectile/beam/cmagged
+			projectile_fired.select_name = "honklaser"
+			update_ammo_types()
+			process_chamber()
+		else
+			update_ammo_types()
+			return
