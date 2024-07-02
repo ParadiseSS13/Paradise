@@ -266,9 +266,6 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/mob/living/simple_animal/bot/secbot/buzzsky{
-	faction = list("neutral","silicon", "malf_drone")
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "eE" = (
@@ -1513,7 +1510,6 @@
 	name = "Telecoms Lounge";
 	req_access_txt = "61"
 	},
-/obj/effect/abstract/bot_trap,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -1559,9 +1555,7 @@
 "yB" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
-/mob/living/simple_animal/bot/secbot/buzzsky{
-	faction = list("neutral","silicon", "malf_drone")
-	},
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "yC" = (
@@ -2734,6 +2728,7 @@
 "PL" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "PQ" = (
@@ -3044,9 +3039,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/mob/living/simple_animal/bot/secbot/buzzsky{
-	faction = list("neutral","silicon", "malf_drone")
-	},
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "TY" = (
@@ -3255,9 +3248,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
-/mob/living/simple_animal/bot/secbot/buzzsky{
-	faction = list("neutral","silicon", "malf_drone")
-	},
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "YA" = (
@@ -3276,6 +3267,7 @@
 /area/space/nearstation)
 "YF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/abstract/bot_trap,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "YN" = (

@@ -1,5 +1,22 @@
 // stuff for the telecomms sat (telecomms_returns.dmm)
 
+GLOBAL_LIST_EMPTY(telecomms_bots)
+GLOBAL_LIST_EMPTY(telecomms_doomsday_device)
+GLOBAL_LIST_EMPTY(telecomms_trap_tank)
+
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms
+	name = "Soldier Shocksy"
+	desc = "It's Soldier Shocksy! Rusted and falling apart, this bot seems quite intent in beating you up."
+	faction = list("malf_drone")
+
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/Initialize(mapload)
+	. = ..()
+	GLOB.telecomms_bots += src
+
+/mob/living/simple_animal/bot/secbot/buzzsky/telecomms/Destroy()
+	GLOB.telecomms_bots -= src
+	return ..()
+
 /obj/effect/abstract/bot_trap
 	name = "evil bot trap to make explorers hate you"
 
@@ -7,7 +24,7 @@
 	. = ..()
 	if(isrobot(AM) || ishuman(AM))
 		var/turf/T = get_turf(src)
-		for(var/mob/living/simple_animal/bot/B in urange(22, T))
+		for(var/mob/living/simple_animal/bot/B in GLOB.telecomms_bots)
 			B.call_bot(null, T, FALSE)
 		qdel(src)
 
@@ -19,7 +36,7 @@
 	. = ..()
 	if(isrobot(AM) || ishuman(AM))
 		var/turf/T = get_turf(src)
-		for(var/obj/structure/telecomms_doomsday_device/DD in range(7, T))
+		for(var/obj/structure/telecomms_doomsday_device/DD in GLOB.telecomms_doomsday_device)
 			DD.thief = TRUE
 			break
 		for(var/obj/effect/abstract/loot_trap/LT in range(3, T))
@@ -33,8 +50,7 @@
 /obj/effect/abstract/cheese_trap/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(isrobot(AM) || ishuman(AM))
-		var/turf/T = get_turf(src)
-		for(var/obj/structure/telecomms_doomsday_device/DD in urange(15, T))
+		for(var/obj/structure/telecomms_doomsday_device/DD in GLOB.telecomms_doomsday_device)
 			if(DD.thief)
 				DD.start_the_party(TRUE)
 				return
@@ -90,7 +106,7 @@
 	if(has_died)
 		return ..()
 	has_died = TRUE
-	for(var/obj/structure/telecomms_doomsday_device/D in range(5, src))
+	for(var/obj/structure/telecomms_doomsday_device/D in GLOB.telecomms_doomsday_device)
 		D.start_the_party()
 		break
 	new /obj/item/documents/syndicate/dvorak_blackbox(get_turf(src))
@@ -111,6 +127,14 @@
 	plane = FLOOR_PLANE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/structure/telecomms_trap_tank/Initialize(mapload)
+	. = ..()
+	GLOB.telecomms_trap_tank += src
+
+/obj/structure/telecomms_trap_tank/Destroy()
+	GLOB.telecomms_trap_tank -= src
+	return ..()
+
 /obj/structure/telecomms_trap_tank/bullet_act(obj/item/projectile/P)
 	explode()
 
@@ -128,12 +152,20 @@
 	//Has someone stolen loot from the ruins core room? If they try to leave without killing dvorak, they are punished.
 	var/thief = FALSE
 
+/obj/structure/telecomms_doomsday_device/Initialize(mapload)
+	. = ..()
+	GLOB.telecomms_doomsday_device += src
+
+/obj/structure/telecomms_doomsday_device/Destroy()
+	GLOB.telecomms_doomsday_device -= src
+	return ..()
+
 /obj/structure/telecomms_doomsday_device/proc/start_the_party(ruin_cheese_attempted = FALSE)
 	invisibility = 90
 	var/obj/machinery/syndicatebomb/doomsday/kaboom = new /obj/machinery/syndicatebomb/doomsday(get_turf(src))
 	kaboom.icon_state = "death-bomb-active"
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	for(var/obj/structure/telecomms_trap_tank/TTT in urange(15, get_turf(src)))
+	for(var/obj/structure/telecomms_trap_tank/TTT in GLOB.telecomms_trap_tank)
 		TTT.explode()
 	flick_holder.layer = kaboom.layer + 0.1
 	flick("popup", flick_holder)
@@ -184,7 +216,7 @@
 		return INITIALIZE_HINT_QDEL
 
 /obj/item/bombcore/doomsday
-	name = "a supermatter charged bomb core"
+	name = "supermatter charged bomb core"
 	desc = "If you are looking at this, please don't put it in a bomb"
 
 /obj/item/bombcore/doomsday/Initialize()
@@ -209,9 +241,7 @@
 	var/obj/singularity/S = new /obj/singularity(get_turf(src))
 	S.consumedSupermatter = TRUE // woe large supermatter to eat the remains apon thee
 	S.energy = 4000
-	sleep(25 SECONDS)
-	S.visible_message("<span class='danger'>[S] collapses in on itself, vanishing as fast as it appeared!</span>")
-	qdel(S)
+	QDEL_IN(S, 25 SECONDS)
 	if(istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
@@ -224,7 +254,6 @@
 /obj/machinery/economy/vending/snack/trapped
 	aggressive = TRUE
 	aggressive_tilt_chance = 100 //It will tip on you, and it will be funny.
-
 
 /mob/living/simple_animal/hostile/hivebot/strong/malfborg
 	name = "Security cyborg"
@@ -284,7 +313,7 @@
 	return ..()
 
 /obj/structure/displaycase/dvoraks_treat/trigger_alarm()
-	for(var/obj/structure/telecomms_doomsday_device/DD in range(7, get_turf(src)))
+	for(var/obj/structure/telecomms_doomsday_device/DD in GLOB.telecomms_doomsday_device)
 		DD.thief = TRUE
 		break
 	return ..()
@@ -297,7 +326,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "camera_bug"
 	origin_tech = "syndicate=4;programming=6"
-	/// Integrated camera console to serve UI data
+	/// Integrated AI upload
 	var/obj/machinery/computer/aiupload/dvorak/integrated_console
 
 /obj/machinery/computer/aiupload/dvorak
@@ -325,7 +354,9 @@
 	if(time_to_die)
 		to_chat(user, "<span class='danger'>[src]'s relay begins to overheat...</span>")
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-		sleep(5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(prime)), 5 SECONDS)
+
+/obj/item/remote_ai_upload/proc/prime()
 		explosion(loc, -1, -1, 2, 4, flame_range = 4)
 		qdel(src)
 
@@ -345,6 +376,7 @@
 /obj/item/storage/box/syndie_kit/oops_all_extraction_flares/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/wormhole_jaunter/contractor(src)
+
 /obj/effect/spawner/random_spawners/telecomms_emp_loot
 	name = "telecomms emp loot"
 	result = list(
@@ -416,7 +448,7 @@
 		loops++
 		hologram.atom_say("[I]")
 		if(soundblock)
-			playsound(src.loc, "sound/voice/dvorak/[soundblock][loops].ogg", 100, 0, 7)
+			playsound(loc, "sound/voice/dvorak/[soundblock][loops].ogg", 100, 0, 7)
 		sleep(loop_sleep_time)
 
 /obj/structure/environmental_storytelling_holopad/update_overlays()
