@@ -28434,7 +28434,6 @@
 	},
 /area/station/hallway/secondary/exit)
 "bNx" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -58946,6 +58945,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"gTO" = (
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "gTV" = (
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/wood{
@@ -72474,10 +72477,6 @@
 	},
 /turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
-"nKN" = (
-/obj/machinery/alarm/directional/south,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/sw)
 "nKO" = (
 /obj/structure/table,
 /obj/item/reagent_containers/spray/pestspray,
@@ -119382,7 +119381,7 @@ bTy
 bYR
 tpM
 bYX
-bTy
+gTO
 caw
 bTy
 cfq
@@ -119900,7 +119899,7 @@ hwK
 bSi
 cdT
 cok
-nKN
+bTy
 cgS
 jNe
 clR
