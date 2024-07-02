@@ -109,6 +109,7 @@
 		/obj/item/toy/nuke,
 		/obj/item/toy/AI,
 		/obj/item/clothing/under/syndicate/tacticool,
+		/obj/item/clothing/under/syndicate/greyman,
 		/obj/item/storage/box/fakesyndiesuit,
 		/obj/item/gun/projectile/shotgun/toy/tommygun,
 		/obj/item/stack/tile/fakespace/loaded,
