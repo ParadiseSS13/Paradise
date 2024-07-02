@@ -498,3 +498,10 @@
 		valid_alt_heads += alternate_head
 
 	return sortTim(valid_alt_heads, GLOBAL_PROC_REF(cmp_text_asc))
+
+/mob/living/carbon/human/proc/get_blood_color()
+	var/bloodcolor = "#A10808"
+	var/list/b_data = get_blood_data(get_blood_id())
+	if(b_data)
+		bloodcolor = b_data["blood_color"]
+	return bloodcolor

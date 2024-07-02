@@ -87,10 +87,8 @@ export const MerchVendor = (props, context) => {
               }
             >
               <Stack.Item>
-                Doing your job and not getting any recognition at work? Well,
-                welcome to the merch shop! Here, you can buy cool things in
-                exchange for money you earn when you have completed your Job
-                Objectives.
+                Doing your job and not getting any recognition at work? Well, welcome to the merch shop! Here, you can
+                buy cool things in exchange for money you earn when you have completed your Job Objectives.
                 {user_cash !== null && (
                   <Box mt="0.5rem">
                     Your balance is <b>{user_cash ? user_cash : 0} credits</b>.
@@ -118,18 +116,10 @@ const MerchVendorNavigation = (properties, context) => {
 
   return (
     <Tabs>
-      <Tabs.Tab
-        icon="dice"
-        selected={1 === tabIndex}
-        onClick={() => setTabIndex(1)}
-      >
+      <Tabs.Tab icon="dice" selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
         Toys
       </Tabs.Tab>
-      <Tabs.Tab
-        icon="flag"
-        selected={2 === tabIndex}
-        onClick={() => setTabIndex(2)}
-      >
+      <Tabs.Tab icon="flag" selected={2 === tabIndex} onClick={() => setTabIndex(2)}>
         Decorations
       </Tabs.Tab>
     </Tabs>

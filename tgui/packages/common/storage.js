@@ -24,9 +24,7 @@ const testGeneric = (testFn) => () => {
   }
 };
 
-const testHubStorage = testGeneric(
-  () => window.hubStorage && window.hubStorage.getItem
-);
+const testHubStorage = testGeneric(() => window.hubStorage && window.hubStorage.getItem);
 
 // TODO: Remove with 516
 // prettier-ignore

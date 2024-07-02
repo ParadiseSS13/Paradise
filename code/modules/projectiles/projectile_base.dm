@@ -201,7 +201,7 @@
 				L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
 				if(istype(H))
 					for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
-						M.bloody_hands(H)
+						M.make_bloody_hands(H.get_blood_dna_list(), H.get_blood_color())
 						/* Uncomment when bloody_body stops randomly not transferring blood colour.
 						M.bloody_body(H) */
 		else if(impact_effect_type && !hitscan)
@@ -481,13 +481,16 @@
 
 /obj/item/projectile/set_angle(new_angle)
 	..()
+
 	Angle = new_angle
-	trajectory.set_angle(new_angle)
+	if(trajectory)
+		trajectory.set_angle(new_angle)
 	if(has_been_fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))
 		last_angle_set_hitscan_store = loc
 		var/datum/point/point_cache = new (src)
 		point_cache = trajectory.copy_to()
 		store_hitscan_collision(point_cache)
+	return TRUE
 
 /obj/item/projectile/proc/set_angle_centered(new_angle)
 	set_angle(new_angle)
