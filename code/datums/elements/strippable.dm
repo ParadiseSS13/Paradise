@@ -1,3 +1,5 @@
+#define SHOW_MINIATURE_MENU 0
+#define SHOW_FULLSIZE_MENU 1
 /// An element for atoms that, when dragged and dropped onto a mob, opens a strip panel.
 /datum/element/strippable
 	element_flags = ELEMENT_BESPOKE | ELEMENT_DETACH_ON_HOST_DESTROY
@@ -370,6 +372,7 @@
 	// as opposed to "Stripping The alien drone".
 	// Human names will still show without "the", as they are proper nouns.
 	data["name"] = "\the [owner]"
+	data["show_mode"] = user.client.prefs.toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? SHOW_FULLSIZE_MENU : SHOW_MINIATURE_MENU
 
 	return data
 
@@ -494,3 +497,6 @@
 		strippable_items[strippable_item.key] = strippable_item
 
 	return strippable_items
+
+#undef SHOW_MINIATURE_MENU
+#undef SHOW_FULLSIZE_MENU
