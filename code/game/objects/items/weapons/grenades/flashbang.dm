@@ -27,6 +27,20 @@
 		bang(T, src, range)
 	qdel(src)
 
+/obj/item/grenade/flashbang/screwdriver_act(mob/living/user, obj/item/I)
+	switch(det_time)
+		if(0.1 SECONDS)
+			det_time = 3 SECONDS
+			to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
+		if(3 SECONDS)
+			det_time = 5 SECONDS
+			to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
+		if(5 SECONDS)
+			det_time = 0.1 SECONDS
+			to_chat(user, "<span class='notice'>You set [src] for instant detonation.</span>")
+	add_fingerprint(user)
+	return TRUE
+
 /**
   * Creates a flashing effect that blinds and deafens mobs within range
   *
