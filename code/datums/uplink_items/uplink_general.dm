@@ -910,7 +910,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	This pair has been hardened for special operations personnel."
 	reference = "KOE"
 	item = /obj/item/autosurgeon/organ/syndicate/oneuse/scope_eyes
-	cost = 20
+	cost = 10
 
 
 ////////////////////////////////////////
