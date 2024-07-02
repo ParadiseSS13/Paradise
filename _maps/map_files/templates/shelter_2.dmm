@@ -92,12 +92,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
-"q" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 9
-	},
-/turf/simulated/floor/carpet/black,
-/area/survivalpod)
 "r" = (
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
@@ -231,7 +225,7 @@ a
 n
 o
 p
-q
+r
 r
 a
 "}
