@@ -213,3 +213,7 @@
 
 /area/ruin/space/powered/casino/maints
 	name = "Service Tunnels"
+
+/area/ruin/space/deepstorage
+	name = "Derelict Facility"
+	apc_starts_off = TRUE

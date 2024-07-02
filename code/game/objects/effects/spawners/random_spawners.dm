@@ -354,3 +354,10 @@
 	name = "80pc vaultdoor 20pc wall"
 	result = list(/obj/machinery/door/airlock/hatch/syndicate/vault = 4,
 		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1)
+
+/obj/effect/spawner/random_spawners/ruin/deepstorage_award
+	name = "boss award"
+	result = list(/obj/item/storage/belt/champion/wrestling = 1,
+		/obj/item/storage/box/telescience = 1,
+		/obj/item/storage/box/syndie_kit/chameleon = 3,
+		/obj/item/rod_of_asclepius = 3)

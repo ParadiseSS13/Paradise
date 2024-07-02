@@ -153,6 +153,10 @@
 	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/lava/mapping_lava
 
+/turf/simulated/floor/plating/asteroid/basalt/lowpressure
+	oxygen = 8
+	nitrogen = 14
+
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN

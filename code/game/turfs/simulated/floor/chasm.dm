@@ -35,7 +35,8 @@
 		/obj/effect/dummy/slaughter, //no bloodcrawlers into chasms.
 		/obj/effect/dummy/spell_jaunt, //No jaunters into chasms either.
 		/mob/living/simple_animal/hostile/megafauna, //failsafe
-		/obj/tgvehicle/scooter/skateboard/hoverboard
+		/obj/tgvehicle/scooter/skateboard/hoverboard,
+		/obj/machinery/light // lights hanging on walls shouldn't get chasm'd
 		))
 	var/drop_x = 1
 	var/drop_y = 1
@@ -294,3 +295,30 @@
 	drop_y = y
 	var/list/target_z = levels_by_trait(SPAWN_RUINS)
 	drop_z = pick(target_z)
+
+/turf/simulated/floor/chasm/space_ruin
+
+/turf/simulated/floor/chasm/space_ruin/drop(atom/movable/AM)
+	//Make sure the item is still there after our sleep
+	if(!AM || QDELETED(AM))
+		return
+	falling_atoms[AM] = TRUE
+
+	var/list/target_z = levels_by_trait(SPAWN_RUINS) // list of all z levels that can get ruins spawned in
+	target_z -= AM.z // excluding the one atom was already in from possible z levels
+	var/turf/T = locate(rand(5, world.maxx - 5), rand(5, world.maxy - 5), pick(target_z))
+
+	if(T)
+		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>GAH! Ah... where are you?</span>")
+		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
+		AM.forceMove(T)
+		if(isliving(AM))
+			var/mob/living/L = AM
+			L.Weaken(10 SECONDS)
+			L.adjustBruteLoss(30)
+	falling_atoms -= AM
+
+/turf/simulated/floor/chasm/space_ruin/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
