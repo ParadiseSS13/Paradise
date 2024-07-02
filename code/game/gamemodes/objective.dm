@@ -35,6 +35,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	var/datum/objective_holder/holder
 
+	/// Should this objective obscure the objective text on it's first gain?
+	var/delayed_objective = FALSE
+
 /datum/objective/New(text, datum/team/team_to_join)
 	. = ..()
 	SHOULD_CALL_PARENT(TRUE)
@@ -113,13 +116,16 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(!needs_target)
 		return
 
+	if(delayed_objective)
+		update_explanation_text()
+		return
+
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
 
 		possible_targets += possible_target
-
 
 	if(length(possible_targets) > 0)
 		target = pick(possible_targets)
@@ -157,11 +163,20 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TRUE
 	return isbrain(target_current) || istype(target_current, /mob/living/simple_animal/spiderbot)
 
+/datum/objective/proc/force_reset_target()
+	delayed_objective = FALSE
+	target = null
+	find_target()
+
 /datum/objective/assassinate
 	name = "Assassinate"
 	martyr_compatible = TRUE
 
 /datum/objective/assassinate/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to assassinate another crewmember. You will receive further information in a few minutes."
+		return
+
 	if(target?.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
 	else
@@ -184,6 +199,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/won = FALSE
 
 /datum/objective/assassinateonce/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to teach another crewmember a lesson. You will receive further information in a few minutes."
+		return
+
 	if(target?.current)
 		explanation_text = "Teach [target.current.real_name], the [target.assigned_role], a lesson they will not forget. The target only needs to die once for success."
 		establish_signals()
@@ -246,6 +265,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = FALSE
 
 /datum/objective/maroon/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. You will receive further information in a few minutes."
+		return
+
 	if(target?.current)
 		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role] from escaping alive."
 	else
@@ -265,7 +288,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TRUE
 	return TRUE
 
-
 /// I want braaaainssss
 /datum/objective/debrain
 	name = "Debrain"
@@ -280,6 +302,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_CHANGELING
 
 /datum/objective/debrain/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to steal another crewmember's brain. You will receive further information in a few minutes."
+		return
+
 	if(target?.current)
 		explanation_text = "Steal the brain of [target.current.real_name], the [target.assigned_role]."
 	else
@@ -433,6 +459,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	return TRUE
 
+/datum/objective/update_explanation_text()
+	return
 
 /datum/objective/escape/escape_with_identity
 	name = null
@@ -552,12 +580,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			continue
 		if(!O.check_objective_conditions())
 			continue
-		if(O.flags & 2) // THEFT_FLAG_UNIQUE
+		if(O.flags & THEFT_FLAG_UNIQUE)
 			continue
 
 		steal_target = O
 		update_explanation_text()
-		if(steal_target.special_equipment)
+		if(steal_target.special_equipment && !delayed_objective)
 			give_kit(steal_target.special_equipment)
 		return
 	explanation_text = "Free Objective."
@@ -590,6 +618,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target
 
 /datum/objective/steal/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to steal a high-value item. You will receive further information in a few minutes."
+		return
+
 	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
 	if(length(steal_target.protected_jobs) && steal_target.job_possession)
 		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]. "
@@ -649,6 +681,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		to_chat(failed_receiver, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
 		message_admins("[ADMIN_LOOKUPFLW(failed_receiver)] Failed to spawn with their [item_path] theft kit.")
 
+/datum/objective/steal/force_reset_target()
+	steal_target = null
+	return ..()
 
 /datum/objective/absorb
 	name = "Absorb DNA"
@@ -700,6 +735,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return target
 
 /datum/objective/destroy/update_explanation_text()
+	if(delayed_objective)
+		explanation_text = "Your objective is to destroy an Artificial Intelligence. You will receive further information in a few minutes."
+		return
+
 	if(target?.current)
 		explanation_text = "Destroy [target.current.real_name], the AI."
 	else

@@ -17,7 +17,6 @@
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")
 	to_chat(world, "<B>There is a syndicate traitor on the station. Do not let the traitor succeed!</B>")
 
-
 /datum/game_mode/traitor/pre_setup()
 
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
@@ -35,10 +34,7 @@
 
 	var/num_traitors = 1
 
-	if(GLOB.configuration.gamemode.traitor_scaling)
-		num_traitors = max(1, round((num_players())/(traitor_scaling_coeff)))
-	else
-		num_traitors = max(1, min(num_players(), traitors_possible))
+	num_traitors = traitors_to_add()
 
 	for(var/i in 1 to num_traitors)
 		if(!length(possible_traitors))
@@ -52,13 +48,64 @@
 		return FALSE
 	return TRUE
 
-
 /datum/game_mode/traitor/post_setup()
-	for(var/t in pre_traitors)
-		var/datum/mind/traitor = t
-		traitor.add_antag_datum(/datum/antagonist/traitor)
-	..()
+	. = ..()
 
+	for(var/datum/mind/traitor in pre_traitors)
+		var/datum/antagonist/traitor/traitor_datum = new(src)
+		if(ishuman(traitor.current))
+			traitor_datum.delayed_objectives = TRUE
+
+		traitor.add_antag_datum(traitor_datum)
+
+	if(length(pre_traitors))
+		var/random_time = rand(5 MINUTES, 15 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(late_handout)), random_time)
+
+/datum/game_mode/traitor/proc/traitors_to_add()
+	if(GLOB.configuration.gamemode.traitor_scaling)
+		. = max(1, round((num_players())/(traitor_scaling_coeff)))
+	else
+		. = max(1, min(num_players(), traitors_possible))
+
+/datum/game_mode/traitor/late_handout()
+	var/traitors_to_add = 0
+
+	for(var/datum/mind/traitor_mind as anything in traitors)
+		if(QDELETED(traitor_mind) || !traitor_mind.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
+			traitors_to_add++
+			traitors -= traitor_mind
+			continue
+		for(var/datum/antagonist/traitor/traitor_datum in traitor_mind.antag_datums)
+			traitor_datum.objective_holder.assigned_targets = list()
+			for(var/datum/objective/objective as anything in traitor_datum.objective_holder.objectives)
+				objective.force_reset_target()
+
+			SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
+
+		var/list/messages = traitor_mind.prepare_announce_objectives()
+		to_chat(traitor_mind.current, chat_box_red(messages.Join("<br>")))
+
+	if(length(traitors) < traitors_to_add())
+		traitors_to_add += (traitors_to_add() - length(traitors))
+
+	if(traitors_to_add)
+		var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
+		for(var/datum/mind/candidate as anything in potential_recruits)
+			if(candidate.special_role) // no traitor vampires or changelings or traitors or wizards or ... yeah you get the deal
+				potential_recruits.Remove(candidate)
+
+		if(!length(potential_recruits))
+			return ..()
+
+		log_admin("Attempting to add [traitors_to_add] traitors to the round. There are [length(potential_recruits)] potential recruits.")
+
+		for(var/i in 1 to traitors_to_add)
+			var/datum/mind/traitor = pick_n_take(potential_recruits)
+			traitor.special_role = SPECIAL_ROLE_TRAITOR
+			traitor.restricted_roles = restricted_jobs
+			traitor.add_antag_datum(/datum/antagonist/traitor) // They immediately get a new objective
+	..()
 
 /datum/game_mode/traitor/declare_completion()
 	..()

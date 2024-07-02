@@ -2,9 +2,6 @@
 //
 // Separated into datums so we can prevent roles from getting certain objectives.
 
-#define THEFT_FLAG_SPECIAL 1//unused, maybe someone will use it some day, I'll leave it here for the children
-#define THEFT_FLAG_UNIQUE 2
-
 /datum/theft_objective
 	var/name = "this objective is impossible, yell at a coder"
 	var/typepath=/obj/effect/debugging

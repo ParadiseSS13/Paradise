@@ -104,23 +104,17 @@
 /datum/game_mode/proc/can_start()
 	var/playerC = 0
 	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.client)&&(player.ready))
+		if((player.client) && (player.ready))
 			playerC++
 
 	if(!GLOB.configuration.gamemode.enable_gamemode_player_limit || (playerC >= required_players))
-		return 1
-	return 0
-
-//pre_pre_setup() For when you really don't want certain jobs ingame.
-/datum/game_mode/proc/pre_pre_setup()
-
-	return 1
+		return TRUE
+	return FALSE
 
 ///pre_setup()
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
-
-	return 1
+	return TRUE
 
 
 ///post_setup()
@@ -137,12 +131,12 @@
 
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
-	return 1
+	return TRUE
 
 ///process()
 ///Called by the gameticker
 /datum/game_mode/process()
-	return 0
+	return FALSE
 
 // I wonder what this could do guessing by the name
 /datum/game_mode/proc/set_mode_in_db()
@@ -264,11 +258,9 @@
 	if(rev_team)
 		rev_team.check_all_victory()
 
-/datum/game_mode/proc/get_players_for_role(role, override_jobbans=0)
+/datum/game_mode/proc/get_players_for_role(role, override_jobbans = FALSE)
 	var/list/players = list()
 	var/list/candidates = list()
-	//var/list/drafted = list()
-	//var/datum/mind/applicant = null
 
 	var/roletext = get_roletext(role)
 
@@ -293,28 +285,54 @@
 	// Remove candidates who want to be antagonist but have a job that precludes it
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					candidates -= player
+			if(player.assigned_role in restricted_jobs)
+				candidates -= player
 
 
 	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
+// Just the above proc but for alive players
+/// Gets all alive players for a specific role. Disables offstation roles by default
+/datum/game_mode/proc/get_alive_players_for_role(role, override_jobbans = FALSE, allow_offstation_roles = FALSE)
+	var/list/players = list()
+	var/list/candidates = list()
+
+	var/roletext = get_roletext(role)
+
+	// Assemble a list of active players without jobbans.
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(player.client && !(locate(player) in SSafk.afk_players))
+			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
+				players += player
+
+	// Shuffle the players list so that it becomes ping-independent.
+	players = shuffle(players)
+
+	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
+	for(var/mob/living/carbon/human/player in players)
+		if(!player.client.skip_antag && (allow_offstation_roles || !player.mind?.offstation_role))
+			if((role in player.client.prefs.be_special) && !(player.client.prefs.active_character.species in protected_species))
+				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
+				candidates += player.mind
+				players -= player
+
+	// Remove candidates who want to be antagonist but have a job that precludes it
+	if(restricted_jobs)
+		for(var/datum/mind/player in candidates)
+			if(player.assigned_role in restricted_jobs)
+				candidates -= player
+	return candidates
 
 /datum/game_mode/proc/latespawn(mob)
 	if(rev_team)
 		rev_team.update_team_objectives()
 		rev_team.process_promotion(REVOLUTION_PROMOTION_OPTIONAL)
 
-
-/*
-/datum/game_mode/proc/check_player_role_pref(role, mob/player)
-	if(player.preferences.be_special & role)
-		return 1
-	return 0
-*/
+// The proc that is called whenever a gamemode hands out things like objectives later
+/datum/game_mode/proc/late_handout()
+	return
 
 /datum/game_mode/proc/num_players()
 	. = 0

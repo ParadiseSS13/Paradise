@@ -104,9 +104,12 @@
  */
 
 /datum/objective_holder/proc/handle_objective(datum/objective/Objective)
+	if(Objective.delayed_objective)
+		Objective.update_explanation_text()
+		return
 	for(var/loop in 1 to 5)
 		Objective.find_target(assigned_targets)
-		if(Objective.found_target()) // handles normal objectives, and steal objectives
+		if(Objective.found_target()) // Handles normal objectives, and steal objectives
 			return
 
 	// We failed to find any target. Oh well...
