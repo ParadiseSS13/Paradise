@@ -76,12 +76,25 @@
 
 /obj/item/clothing/shoes/magboots/advance
 	name = "advanced magboots"
-	desc = "Advanced magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."
+	desc = "Experimental magnetic boots. They automatically activate and deactivate their magnetic pull as the user walks."
 	icon_state = "advmag0"
 	magboot_state = "advmag"
 	slowdown_active = SHOES_SLOWDOWN
 	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/shoes/magboots/advance/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] will not slow you down when active.</span>"
+
+/obj/item/clothing/shoes/magboots/advance/examine_more(mob/user)
+	. = ..()
+	. += "Nanotrasen's advanced magboots are an experimental development on commercially available designs. Using a combination of haptic feedback sensors and predictive algorithms, \
+	the electromagnets in the boots deactivate themselves when they detect the user trying to lift their feet up, whilst also remaining active if unexpected forces act upon the user. \
+	The predictive action occurs in less than 60 milliseconds, making it appear instant from the perspective of the user."
+	. += ""
+	. += "The rapid activation/deactivation action of the magboots allows users to sprint, jump, or perform any other actions they wish as if the boots were not there, \
+	whilst still providing unrivalled traction and grip both in zero-G and full gravity."
 
 /obj/item/clothing/shoes/magboots/advance/Initialize(mapload)
 	. = ..()
@@ -89,7 +102,7 @@
 
 /obj/item/clothing/shoes/magboots/syndie
 	name = "blood-red magboots"
-	desc = "Reverse-engineered magnetic boots that have a heavy magnetic pull. Property of Gorlex Marauders."
+	desc = "Reverse-engineered magnetic boots. Property of Gorlex Marauders."
 	icon_state = "syndiemag0"
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
@@ -103,6 +116,10 @@
 	origin_tech = null
 	slowdown_active = SHOES_SLOWDOWN
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/shoes/magboots/elite/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] will not slow you down when active.</span>"
 
 /obj/item/clothing/shoes/magboots/clown
 	name = "clown shoes"
