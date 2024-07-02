@@ -30,6 +30,43 @@
 	. += "<span class='notice'>Use it on targets to summon thunderbolts from the sky.</span>"
 	. += "<span class='notice'>The thunderbolts are boosted if in an area with weather effects.</span>"
 
+/obj/item/storm_staff/attack(mob/living/M, mob/living/user)
+	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+	// For lighting cigarettes.
+	if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
+		cigarette_lighter_act(user, M)
+		return FALSE
+	return ..()
+
+/obj/item/storm_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	if(!thunder_charges)
+		to_chat(user, "<span class='warning'>[src] needs to recharge!</span>")
+		return
+
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!I.handle_cigarette_lighter_act(user, src))
+		return
+
+	if(target == user)
+		user.visible_message(
+			"<span class='warning'>[user] holds [src] up to [user.p_their()] [I.name] and shoots a tiny bolt of lightning that sets it alight!</span>",
+			"<span class='warning'>You hold [src] up to [I] and shoot a tiny bolt of lightning that sets it alight!</span>",
+			"<span class='danger'>A thundercrack fills the air!</span>"
+			)
+	else
+		user.visible_message(
+			"<span class='warning'>[user] points [src] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [I.name] alight!</span>",
+			"<span class='warning'>You point [src] at [target] and shoot a tiny bolt of lightning that sets [target.p_their()] [I.name] alight!</span>",
+			"<span class='danger'>A thundercrack fills the air!</span>"
+			)
+	I.light(user, target)
+	playsound(target, 'sound/magic/lightningbolt.ogg', 50, TRUE)
+	thunder_charges--
+
 /obj/item/storm_staff/attack_self(mob/user)
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)
@@ -59,6 +96,13 @@
 			animate(user, color = old_color, transform = old_transform, time = 1 SECONDS)
 
 /obj/item/storm_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	// This early return stops the staff from shooting lightning at someone when being used as a lighter.
+	if(iscarbon(target))
+		var/mob/living/carbon/M = target
+		var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+		if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP && proximity_flag)
+			return
+
 	. = ..()
 	if(!thunder_charges)
 		to_chat(user, "<span class='warning'>The staff needs to recharge.</span>")
@@ -120,7 +164,10 @@
 		for(var/obj/hit_thing in T)
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
-	target.visible_message("<span class='danger'>A thunderbolt strikes [target]!</span>")
+	target.visible_message(
+		"<span class='danger'>A thunderbolt strikes [target]!</span>",
+		"<span class='danger'>A thundercrack fills the air!</span>"
+	)
 	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
 
 

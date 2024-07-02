@@ -56,6 +56,33 @@
 	attack_verb = list("burnt")
 	tool_behaviour = TOOL_CAUTERY
 
+/obj/item/cautery/attack(mob/living/target, mob/living/user)
+	// For lighting cigarettes.
+	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+		return ..()
+	cigarette_lighter_act(user, target)
+
+/obj/item/cautery/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+	if(!I.handle_cigarette_lighter_act(user, src))
+		return
+
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] against [I], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [I], heating it until it lights.</span>"
+			)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] against [I] for [target], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [I] for [target], heating it until it lights.</span>"
+		)
+	I.light(user, target)
+
 /obj/item/cautery/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
@@ -145,6 +172,32 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+
+/obj/item/scalpel/laser/attack(mob/living/carbon/target, mob/living/user)
+	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+		return ..()
+	cigarette_lighter_act(user, target)
+
+/obj/item/scalpel/laser/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!I.handle_cigarette_lighter_act(user, src))
+		return
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] against [I], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [I], heating it until it lights.</span>"
+			)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] against [I] for [target], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [I] for [target], heating it until it lights.</span>"
+		)
+	I.light(user, target)
 
 /// lasers also count as catuarys
 /obj/item/scalpel/laser/laser1

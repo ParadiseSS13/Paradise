@@ -146,6 +146,11 @@
 		set_light(0)
 
 /obj/item/dualsaber/attack(mob/target, mob/living/user)
+	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
+	if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
+		cigarette_lighter_act(user, target)
+		return FALSE
+
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally drop it!</span>")
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -158,6 +163,34 @@
 		return
 	if((HAS_TRAIT(src, TRAIT_WIELDED)) && prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+
+/obj/item/dualsaber/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+		return
+
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!I.handle_cigarette_lighter_act(user, src))
+		return
+
+	if(target == user)
+		user.visible_message(
+			"<span class='danger'>[user] flips through the air and spins [src] wildly! It brushes against [user.p_their()] [I] and sets it alight!</span>",
+			"<span class='notice'>You flip through the air and twist [src] so it brushes against [I], lighting it with the blade.</span>",
+			"<span class='danger'>You hear an energy blade slashing something!</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='danger'>[user] flips through the air and slashes at [user] with [src]! The blade barely misses, brushing against [user.p_their()] [I] and setting it alight!</span>",
+			"<span class='notice'>You flip through the air and slash [src] at [I], lighting it for [target].</span>",
+			"<span class='danger'>You hear an energy blade slashing something!</span>"
+		)
+	INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+	I.light(user, target)
+	playsound(user.loc, hitsound, 50, TRUE)
 
 /obj/item/dualsaber/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
