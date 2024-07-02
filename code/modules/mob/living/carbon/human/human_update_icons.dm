@@ -564,6 +564,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_fire()
 	update_icons()
 	update_emissive_block()
+	alpha = get_alpha()
 
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
