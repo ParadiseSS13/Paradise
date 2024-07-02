@@ -123,7 +123,7 @@
 	if(can_slow_down)
 		RegisterSignal(rider, COMSIG_MOVE_INTENT_TOGGLED, PROC_REF(toggle_move_delay))
 		toggle_move_delay(rider)
-		RegisterSignal(rider, COMSIG_ATOM_BULLET_ACT, PROC_REF(check_knockoff))
+	RegisterSignal(rider, COMSIG_ATOM_BULLET_ACT, PROC_REF(check_knockoff))
 
 /datum/component/riding/vehicle/scooter/skateboard/handle_unbuckle(mob/living/rider)
 	. = ..()
