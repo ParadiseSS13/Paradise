@@ -182,22 +182,26 @@
 #define FOAM_REACT_BEFORE_SPREAD	(1<<3)
 
 //Human Overlays Indexes/////////
-#define EYES_OVERLAY_LAYER		44
-#define WING_LAYER				43
-#define WING_UNDERLIMBS_LAYER	42
-#define MUTANTRACE_LAYER		41
-#define TAIL_UNDERLIMBS_LAYER	40	//Tail split-rendering.
-#define LIMBS_LAYER				39
-#define MARKINGS_LAYER			38
-#define INTORGAN_LAYER			37
-#define UNDERWEAR_LAYER			36
-#define MUTATIONS_LAYER			35
-#define H_DAMAGE_LAYER			34
-#define UNIFORM_LAYER			33
-#define ID_LAYER				32
-#define HANDS_LAYER				31	//Exists to overlay hands over jumpsuits
-#define SHOES_LAYER				30
-#define GLOVES_LAYER			29
+#define EYES_OVERLAY_LAYER		47
+#define WING_LAYER				46
+#define WING_UNDERLIMBS_LAYER	45
+#define MUTANTRACE_LAYER		44
+#define TAIL_UNDERLIMBS_LAYER	43	//Tail split-rendering.
+#define LIMBS_LAYER				42
+#define MARKINGS_LAYER			41
+#define INTORGAN_LAYER			40
+#define UNDERWEAR_LAYER			39
+#define MUTATIONS_LAYER			38
+#define H_DAMAGE_LAYER			37
+#define UNIFORM_LAYER			36
+#define ID_LAYER				35
+#define HANDS_LAYER				34	//Exists to overlay hands over jumpsuits
+#define SHOES_LAYER				33
+#define L_FOOT_BLOOD_LAYER		33	// Blood overlay separation Left-Foot
+#define R_FOOT_BLOOD_LAYER		32	// Blood overlay separation Right-Foot
+#define GLOVES_LAYER			31
+#define L_HAND_BLOOD_LAYER		30	// Blood overlay separation Left-Hand
+#define R_HAND_BLOOD_LAYER		29	// Blood overlay separation Right-Hand
 #define LEFT_EAR_LAYER			28
 #define RIGHT_EAR_LAYER			27
 #define BELT_LAYER				26	//Possible make this an overlay of something required to wear a belt?
@@ -226,7 +230,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			44
+#define TOTAL_LAYERS			47
 
 ///Access Region Codes///
 #define REGION_ALL			0
