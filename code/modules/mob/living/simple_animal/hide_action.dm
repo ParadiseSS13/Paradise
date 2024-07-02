@@ -4,7 +4,7 @@
 	var/layer_to_change_from = MOB_LAYER
 	var/layer_to_change_to = TURF_LAYER + 0.2
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "mouse_gray_sleep"
+	button_overlay_icon_state = "mouse_gray_sleep"
 
 /datum/action/innate/hide/Activate()
 	var/mob/living/simple_animal/simplemob = owner
@@ -23,10 +23,10 @@
 
 /datum/action/innate/hide/alien_larva_hide
 	desc = "Allows to hide beneath tables or certain items. Toggled on or off."
-	background_icon_state = "bg_alien"
-	button_icon_state = "alien_hide"
+	button_background_icon_state = "bg_alien"
+	button_overlay_icon_state = "alien_hide"
 	layer_to_change_to = ABOVE_NORMAL_TURF_LAYER
 	layer_to_change_from = MOB_LAYER
 
 /datum/action/innate/hide/drone_hide
-	button_icon_state = "repairbot"
+	button_overlay_icon_state = "repairbot"

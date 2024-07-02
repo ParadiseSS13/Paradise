@@ -220,11 +220,11 @@
 
 /datum/action/innate/minedrone
 	check_flags = AB_CHECK_CONSCIOUS
-	background_icon_state = "bg_default"
+	button_background_icon_state = "bg_default"
 
 /datum/action/innate/minedrone/toggle_light
 	name = "Toggle Light"
-	button_icon_state = "mech_lights_off"
+	button_overlay_icon_state = "mech_lights_off"
 
 /datum/action/innate/minedrone/toggle_light/Activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
@@ -238,7 +238,7 @@
 
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
-	button_icon_state = "meson"
+	button_overlay_icon_state = "meson"
 	var/sight_flags = SEE_TURFS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
@@ -262,7 +262,7 @@
 
 /datum/action/innate/minedrone/toggle_mode
 	name = "Toggle Mode"
-	button_icon_state = "mech_cycle_equip_off"
+	button_overlay_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/minedrone/toggle_mode/Activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
@@ -270,7 +270,7 @@
 
 /datum/action/innate/minedrone/dump_ore
 	name = "Dump Ore"
-	button_icon_state = "mech_eject"
+	button_overlay_icon_state = "mech_eject"
 
 /datum/action/innate/minedrone/dump_ore/Activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner

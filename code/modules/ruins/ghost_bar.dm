@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	flavour_text = "You are a ghost bar occupant. You've gotten sick of being dead and decided to meet up with some of your fellow haunting brothers. Take a seat, grab a beer, and chat it out."
 	assignedrole = "Ghost Bar Occupant"
 	death_cooldown = 1 MINUTES
+	restrict_antagban = FALSE
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/create(ckey, flavour = TRUE, name, mob/user = usr) // So divorced from the normal proc it's just being overriden
 	var/datum/character_save/save_to_load

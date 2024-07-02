@@ -62,8 +62,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
   static singletonPopper: ReturnType<typeof createPopper> | undefined;
   static currentOpenMenu: Element | undefined;
   static virtualElement: VirtualElement = {
-    getBoundingClientRect: () =>
-      Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
+    getBoundingClientRect: () => Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
   };
   menuContents: any;
   constructor(props: DropdownProps) {
@@ -167,10 +166,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       return (
         <div
           key={value}
-          className={classes([
-            'Dropdown__menuentry',
-            this.state.selected === value && 'selected',
-          ])}
+          className={classes(['Dropdown__menuentry', this.state.selected === value && 'selected'])}
           onClick={() => {
             this.setSelected(value);
           }}
@@ -188,14 +184,10 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       () => {
         let singletonPopper = Dropdown.singletonPopper;
         if (singletonPopper === undefined) {
-          singletonPopper = createPopper(
-            Dropdown.virtualElement,
-            renderedMenu!,
-            {
-              ...DEFAULT_OPTIONS,
-              placement: 'bottom-start',
-            }
-          );
+          singletonPopper = createPopper(Dropdown.virtualElement, renderedMenu!, {
+            ...DEFAULT_OPTIONS,
+            placement: 'bottom-start',
+          });
 
           Dropdown.singletonPopper = singletonPopper;
         } else {
@@ -282,9 +274,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
         }}
         {...rest}
       >
-        {icon && (
-          <Icon name={icon} rotation={iconRotation} spin={iconSpin} mr={1} />
-        )}
+        {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} mr={1} />}
         <span
           className="Dropdown__selected-text"
           style={{

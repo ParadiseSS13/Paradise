@@ -9,12 +9,11 @@ BODY SCANNERS
 SLIME SCANNER
 */
 
-/******************************/
-/***	T-RAY SCANNER		***/
-/******************************/
-
+////////////////////////////////////////
+// MARK:	T-ray scanner
+////////////////////////////////////////
 /obj/item/t_scanner
-	name = "T-ray scanner"
+	name = "\improper T-ray scanner"
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
@@ -71,25 +70,29 @@ SLIME SCANNER
 	if(length(t_ray_images))
 		flick_overlay(t_ray_images, list(viewer.client), flick_time)
 
-/******************************/
-/***	HEALTH ANALYZER		***/
-/******************************/
+////////////////////////////////////////
+// MARK:	Health analyser
+////////////////////////////////////////
+#define SIMPLE_HEALTH_SCAN 0
+#define DETAILED_HEALTH_SCAN 1
 
 /proc/get_chemscan_results(mob/living/user, mob/living/M)
 	var/msgs = list()
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.reagents)
-			if(length(H.reagents.reagent_list))
-				msgs += "<span class='boldnotice'>Subject contains the following reagents:</span>"
-				for(var/datum/reagent/R in H.reagents.reagent_list)
-					msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounceic'>OVERDOSING</span>" : ".</span>"]"
-			else
-				msgs += "<span class='notice'>Subject contains no reagents.</span>"
-			if(length(H.reagents.addiction_list))
-				msgs += "<span class='danger'>Subject is addicted to the following reagents:</span>"
-				for(var/datum/reagent/R in H.reagents.addiction_list)
-					msgs += "<span class='danger'>[R.name] Stage: [R.addiction_stage]/5</span>"
+	if(!ishuman(M))
+		return
+
+	var/mob/living/carbon/human/H = M
+	if(length(H.reagents.reagent_list))
+		msgs += "<span class='boldnotice'>Subject contains the following reagents:</span>"
+		for(var/datum/reagent/R in H.reagents.reagent_list)
+			msgs += "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class='boldannounceic'>OVERDOSING</span>" : ".</span>"]"
+	else
+		msgs += "<span class='notice'>Subject contains no reagents.</span>"
+
+	if(length(H.reagents.addiction_list))
+		msgs += "<span class='danger'>Subject is addicted to the following reagents:</span>"
+		for(var/datum/reagent/R in H.reagents.addiction_list)
+			msgs += "<span class='danger'>[R.name] Stage: [R.addiction_stage]/5</span>"
 
 	return msgs
 
@@ -113,12 +116,22 @@ SLIME SCANNER
 	throw_range = 7
 	materials = list(MAT_METAL=200)
 	origin_tech = "magnets=1;biotech=1"
-	var/mode = 1
+	/// Can be SIMPLE_HEALTH_SCAN (damage is only shown as a single % value), or DETAILED_HEALTH_SCAN (shows the % value and also damage for every specific limb).
+	var/mode = DETAILED_HEALTH_SCAN
+	/// Is the health analyzer upgraded? Allows reagents in the body to be seen.
 	var/advanced = FALSE
 
 /obj/item/healthanalyzer/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Use [src] in hand to swap between showing specific limb damage.</span>"
+	. += "<span class='info'>Use [src] in hand to toggle showing localised damage.</span>"
+
+/obj/item/healthanalyzer/attack_self(mob/user)
+	mode = !mode
+	switch(mode)
+		if(DETAILED_HEALTH_SCAN)
+			to_chat(user, "<span class='notice'>The scanner is now showing localised limb damage.</span>")
+		if(SIMPLE_HEALTH_SCAN)
+			to_chat(user, "<span class='notice'>The scanner is no longer showing localised limb damage.</span>")
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
@@ -131,26 +144,28 @@ SLIME SCANNER
 		to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 		return
 
-	user.visible_message("<span class='notice'>[user] analyzes [M]'s vitals.</span>", "<span class='notice'>You analyze [M]'s vitals.</span>")
-
+	user.visible_message(
+		"<span class='notice'>[user] analyzes [M]'s vitals.</span>",
+		"<span class='notice'>You analyze [M]'s vitals.</span>"
+	)
 	healthscan(user, M, mode, advanced)
-
 	add_fingerprint(user)
 
-// Used by the PDA medical scanner too
-/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
+// Used by the PDA medical scanner too.
+/proc/healthscan(mob/user, mob/living/M, mode = DETAILED_HEALTH_SCAN, advanced = FALSE)
 	var/list/msgs = list()
 	if(issimple_animal(M))
-		// no box here, keep it simple.
+		// No box here, keep it simple.
 		if(M.stat == DEAD)
 			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: <font color='red'>Dead</font></span>")
-		else
-			to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: [round(M.health / M.maxHealth * 100, 0.1)]% Healthy")
+			return
+
+		to_chat(user, "<span class='notice'>Analyzing Results for [M]:\nOverall Status: [round(M.health / M.maxHealth * 100, 0.1)]% Healthy")
 		to_chat(user, "\t Damage Specifics: <font color='red'>[M.maxHealth - M.health]</font>")
 		return
-	if(!ishuman(M) || ismachineperson(M))
-		//these sensors are designed for organic life
 
+	// These sensors are designed for organic life.
+	if(!ishuman(M) || ismachineperson(M))
 		msgs += "<span class='notice'>Analyzing Results for ERROR:\nOverall Status: ERROR</span>"
 		msgs += "Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
 		msgs += "Damage Specifics: <span class='healthscan_oxy'>?</span> - <font color='green'>?</font> - <font color='#FFA500'>?</font> - <font color='red'>?</font>"
@@ -171,7 +186,7 @@ SLIME SCANNER
 	var/DNR = !H.ghost_can_reenter() // If the ghost can't reenter
 	if(H.stat == DEAD)
 		if(DNR)
-			status = "<font color='red'>Dead <b>\[DNR]</b></font>"
+			status = "<font color='red'>Dead <b>(DNR)</b></font>"
 	else // Alive or unconscious
 		if(HAS_TRAIT(H, TRAIT_FAKEDEATH)) // status still shows as "Dead"
 			OX = fake_oxy > 50 ? "<b>[fake_oxy]</b>" : fake_oxy
@@ -181,15 +196,16 @@ SLIME SCANNER
 	msgs += "<span class='notice'>Analyzing Results for [H]:\nOverall Status: [status]"
 	msgs += "Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
 	msgs += "Damage Specifics: <span class='healthscan_oxy'>[OX]</span> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
+
 	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
 		msgs += "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]</span>"
 		var/tdelta = round(world.time - H.timeofdeath)
 		if(H.is_revivable() && !DNR)
 			msgs += "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>"
 		else
-			msgs += "<font color='red'>Subject died [DisplayTimeText(tdelta)] ago.</font>"
+			msgs += "<font color='red'>Subject died [DisplayTimeText(tdelta)] ago. <b>Defibrillation is not possible!</b></font>"
 
-	if(mode == 1)
+	if(mode == DETAILED_HEALTH_SCAN)
 		var/list/damaged = H.get_damaged_organs(1,1)
 		if(length(damaged))
 			msgs += "<span class='notice'>Localized Damage, Brute/Burn:</span>"
@@ -198,6 +214,7 @@ SLIME SCANNER
 
 	if(advanced)
 		msgs.Add(get_chemscan_results(user, H))
+
 	for(var/thing in H.viruses)
 		var/datum/disease/D = thing
 		if(D.visibility_flags & HIDDEN_SCANNER)
@@ -207,6 +224,7 @@ SLIME SCANNER
 			msgs += "<span class='notice'><font color='red'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 			continue
 		msgs += "<span class='notice'><font color='red'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
+
 	if(H.undergoing_cardiac_arrest())
 		var/datum/organ/heart/heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
 		if(heart && !(heart.linked_organ.status & ORGAN_DEAD))
@@ -218,9 +236,11 @@ SLIME SCANNER
 
 	if(H.getStaminaLoss())
 		msgs += "<span class='info'>Subject appears to be suffering from fatigue.</span>"
+
 	if(H.getCloneLoss())
 		msgs += "<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>"
 
+	// Brain.
 	if(H.get_int_organ(/obj/item/organ/internal/brain))
 		if(H.getBrainLoss() >= 100)
 			msgs += "<span class='warning'>Subject is brain dead.</span>"
@@ -230,6 +250,8 @@ SLIME SCANNER
 			msgs += "<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>"
 	else
 		msgs += "<span class='warning'>Subject has no brain.</span>"
+
+	// Broken bones, internal bleeding, infection, and critical burns.
 	var/broken_bone = FALSE
 	var/internal_bleed = FALSE
 	var/burn_wound = FALSE
@@ -253,6 +275,7 @@ SLIME SCANNER
 	if(burn_wound)
 		msgs += "<span class='warning'>Critical burn detected. Examine patient's body for location.</span>"
 
+	// Blood.
 	var/blood_id = H.get_blood_id()
 	if(blood_id)
 		if(H.bleed_rate)
@@ -279,10 +302,12 @@ SLIME SCANNER
 	var/implant_detect
 	for(var/obj/item/organ/internal/O in H.internal_organs)
 		if(O.is_robotic() && !O.stealth_level)
-			implant_detect += "[H.name] is modified with a [O.name].<br>"
+			implant_detect += "[O.name].<br>"
 	if(implant_detect)
 		msgs += "<span class='notice'>Detected cybernetic modifications:</span>"
 		msgs += "<span class='notice'>[implant_detect]</span>"
+
+	// Do you have too many genetics superpowers?
 	if(H.gene_stability < 40)
 		msgs += "<span class='userdanger'>Subject's genes are quickly breaking down!</span>"
 	else if(H.gene_stability < 70)
@@ -298,27 +323,23 @@ SLIME SCANNER
 
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
-/obj/item/healthanalyzer/attack_self(mob/user)
-	mode = !mode
-	switch(mode)
-		if(1)
-			to_chat(user, "<span class='notice'>The scanner now shows specific limb damage.</span>")
-		if(0)
-			to_chat(user, "<span class='notice'>The scanner no longer shows limb damage.</span>")
-
 /obj/item/healthanalyzer/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/healthupgrade))
-		if(advanced)
-			to_chat(user, "<span class='notice'>An upgrade is already installed on [src].</span>")
-		else
-			if(user.unEquip(I))
-				to_chat(user, "<span class='notice'>You install the upgrade on [src].</span>")
-				add_overlay("advanced")
-				playsound(loc, I.usesound, 50, 1)
-				advanced = TRUE
-				qdel(I)
+	if(!istype(I, /obj/item/healthupgrade))
+		return ..()
+
+	if(advanced)
+		to_chat(user, "<span class='notice'>An upgrade is already installed on [src].</span>")
 		return
-	return ..()
+
+	if(!user.unEquip(I))
+		to_chat(user, "<span class='warning'>[src] is stuck to your hand!</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You install the upgrade on [src].</span>")
+	add_overlay("advanced")
+	playsound(loc, I.usesound, 50, TRUE)
+	advanced = TRUE
+	qdel(I)
 
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
@@ -338,10 +359,12 @@ SLIME SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
 
-/******************************/
-/***	MACHINE ANALYZER	***/
-/******************************/
+#undef SIMPLE_HEALTH_SCAN
+#undef DETAILED_HEALTH_SCAN
 
+////////////////////////////////////////
+// MARK:	Machine analyzer
+////////////////////////////////////////
 /obj/item/robotanalyzer
 	name = "machine analyzer"
 	desc = "A hand-held scanner able to diagnose robotic injuries and the condition of machinery."
@@ -485,10 +508,9 @@ SLIME SCANNER
 
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
-/******************************/
-/***	GAS ANALYZER		***/
-/******************************/
-
+////////////////////////////////////////
+// MARK:	Gas analyzer
+////////////////////////////////////////
 /obj/item/analyzer
 	name = "analyzer"
 	desc = "A hand-held environmental scanner which reports current gas levels."
@@ -683,10 +705,9 @@ SLIME SCANNER
 	to_chat(user, chat_box_examine(message.Join("\n")))
 	return TRUE
 
-/******************************/
-/***	REAGENT SCANNERS	***/
-/******************************/
-
+////////////////////////////////////////
+// MARK:	Reagent scanners
+////////////////////////////////////////
 /obj/item/reagent_scanner
 	name = "reagent scanner"
 	desc = "A hand-held reagent scanner which identifies chemical agents and blood types."
@@ -764,9 +785,9 @@ SLIME SCANNER
 /obj/item/reagent_scanner/ui_action_click()
 	print_report()
 
-/******************************/
-/***	SLIME SCANNER		***/
-/******************************/
+////////////////////////////////////////
+// MARK:	Slime scanner
+////////////////////////////////////////
 /obj/item/slime_scanner
 	name = "slime scanner"
 	icon = 'icons/obj/device.dmi'
@@ -821,9 +842,9 @@ SLIME SCANNER
 		to_chat(user, "<span class='notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
 	to_chat(user, "========================")
 
-/******************************/
-/***	BODY ANALYZERS		***/
-/******************************/
+////////////////////////////////////////
+// MARK:	Body analyzers
+////////////////////////////////////////
 /obj/item/bodyanalyzer
 	name = "handheld body analyzer"
 	desc = "A handheld scanner capable of deep-scanning an entire body."

@@ -119,7 +119,8 @@
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.on_projectile_fire(D, user)
-		D.preparePixelProjectile(target, get_turf(target), user, clickparams)
+		var/modifiers = params2list(clickparams)
+		D.preparePixelProjectile(target, user, modifiers)
 		D.firer = user
 		D.firer_source_atom = src
 		D.hammer_synced = src
