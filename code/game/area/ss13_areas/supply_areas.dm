@@ -6,11 +6,11 @@
 
 /area/station/supply/lobby
 	name = "\improper Cargo Lobby"
-	icon_state = "cargooffice"
+	icon_state = "cargolobby"
 
 /area/station/supply/sorting
 	name = "\improper Delivery Office"
-	icon_state = "cargobay"
+	icon_state = "cargomail"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	request_console_flags = RC_SUPPLY
 	request_console_name = "Cargo Bay"
@@ -20,6 +20,14 @@
 	icon_state = "cargooffice"
 	request_console_flags = RC_SUPPLY
 	request_console_name = "Cargo Bay"
+
+/area/station/supply/warehouse
+	name = "\improper Cargo Warehouse"
+	icon_state = "cargowarehouse"
+
+/area/station/supply/break_room
+	name = "\improper Cargo Breakroom"
+	icon_state = "cargobreak"
 
 /area/station/supply/storage
 	name = "\improper Cargo Bay"

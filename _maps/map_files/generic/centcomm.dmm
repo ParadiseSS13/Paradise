@@ -6164,6 +6164,10 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/gamma/space)
+"uS" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "uT" = (
 /obj/machinery/teleport/hub/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -35002,9 +35006,9 @@ wK
 wK
 wK
 wK
-wK
-wK
-wK
+uS
+uS
+uS
 wK
 wK
 wK
