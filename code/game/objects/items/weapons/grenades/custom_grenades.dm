@@ -41,7 +41,7 @@
 	payload_name = "holy water"
 	desc = "Then shalt thou count to three, no more, no less."
 	stage = 2
-	det_time = 30
+	det_time = 3 SECONDS
 
 /obj/item/grenade/chem_grenade/holywater/Initialize(mapload)
 	. = ..()

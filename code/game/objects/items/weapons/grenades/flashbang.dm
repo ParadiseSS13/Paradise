@@ -1,5 +1,6 @@
 /obj/item/grenade/flashbang
 	name = "flashbang"
+	desc = "A less-than-lethal grenade designed for crowd control. Blinds all unprotected targets in range and disrupts their balance, sending them falling to the floor."
 	icon_state = "flashbang"
 	item_state = "flashbang"
 	belt_icon = "flashbang"
@@ -7,8 +8,10 @@
 	light_power = 10
 	light_color = LIGHT_COLOR_WHITE
 
-	var/light_time = 0.2 SECONDS // The duration the area is illuminated
-	var/range = 7 // The range in tiles of the flashbang
+	/// The duration the area is illuminated.
+	var/light_time = 0.2 SECONDS
+	/// The range in tiles of the flashbang.
+	var/range = 7
 
 /obj/item/grenade/flashbang/prime()
 	update_mob()
