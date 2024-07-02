@@ -1605,7 +1605,7 @@
 	// Sets the ID and secHUD icon!
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name, "tourist")
 	H.sec_hud_set_ID()
 
 	// PDA setup

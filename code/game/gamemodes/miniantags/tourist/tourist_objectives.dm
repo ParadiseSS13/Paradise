@@ -40,3 +40,12 @@
 
 /datum/objective/tourist/robo_enhanced
 	explanation_text = "You've heard that Nanotrasen is the premier in robotics research, get as augmented as you can!"
+
+/datum/objective/tourist/party_person
+	explanation_text = "You love parties! Make sure to throw one, let everyone know!"
+
+/datum/objective/tourist/skate_lover
+	explanation_text = "Organize a skateboard competition in a common area and get it promoted. Show off your best tricks!"
+
+/datum/objective/tourist/break_in
+	explanation_text = "Sneak into different departments or rooms on the station and leave a note in each one. Make sure not to get caught!"
