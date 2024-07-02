@@ -32,7 +32,14 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/completed = FALSE
 	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	var/martyr_compatible = FALSE
-
+	/// List of jobs that the objective will target if possible, any crew if not.
+	var/list/target_jobs = list()
+	/// If set to TRUE, this objective will target mindshielded crew if possible, any crew if not.
+	var/mindshielded_target = FALSE
+	/// If set to TRUE, this objective will target non-mindshielded crew if possible, any crew if not.
+	var/not_mindshielded_target = FALSE
+	/// If set to TRUE, this objective will target a syndicate agent if possible, any crew if not.
+	var/syndicate_target = FALSE
 	var/datum/objective_holder/holder
 
 /datum/objective/New(text, datum/team/team_to_join)
@@ -117,9 +124,21 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
-
+		if(mindshielded_target && !ismindshielded(possible_target.current))
+			continue
+		if(not_mindshielded_target && ismindshielded(possible_target.current))
+			continue
+		if(syndicate_target && possible_target.special_role != SPECIAL_ROLE_TRAITOR)
+			continue
+		if(length(target_jobs) && !(possible_target.assigned_role in target_jobs))
+			continue
 		possible_targets += possible_target
 
+	if(!length(possible_targets)) //If we can't find anyone, try with less restrictions
+		for(var/datum/mind/possible_target in SSticker.minds)
+			if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
+				continue
+			possible_targets += possible_target
 
 	if(length(possible_targets) > 0)
 		target = pick(possible_targets)
@@ -204,7 +223,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(won)
 		return
 	return ..()
-
 
 /datum/objective/mutiny
 	name = "Mutiny"
@@ -529,6 +547,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/datum/theft_objective/steal_target
 	martyr_compatible = FALSE
 	var/theft_area
+	/// If set, steal targets will be pulled from this list
+	var/list/steal_list = list()
 
 /datum/objective/steal/found_target()
 	return steal_target
@@ -537,7 +557,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target.location_override || "an unknown area"
 
 /datum/objective/steal/find_target(list/target_blacklist)
-	var/potential = GLOB.potential_theft_objectives.Copy()
+	var/potential
+	if(length(steal_list))
+		potential = steal_list.Copy()
+	else
+		potential = GLOB.potential_theft_objectives.Copy()
 	while(!steal_target && length(potential))
 		var/thefttype = pick_n_take(potential)
 		if(locate(thefttype) in target_blacklist)

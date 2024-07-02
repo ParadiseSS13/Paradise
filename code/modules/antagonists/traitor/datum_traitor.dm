@@ -82,6 +82,14 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 	return ..()
 
+/datum/antagonist/traitor/select_organisation()
+	var/chaos = pick(prob(ORG_PROB_HUNTER);ORG_CHAOS_HUNTER, prob(ORG_PROB_MILD);ORG_CHAOS_MILD, prob(ORG_PROB_AVERAGE);ORG_CHAOS_AVERAGE, prob(ORG_PROB_HIJACK);ORG_CHAOS_HIJACK)
+	for(var/org_type in shuffle(subtypesof(/datum/antag_org/syndicate)))
+		var/datum/antag_org/org = org_type
+		if(initial(org.chaos_level) == chaos)
+			organisation = new org_type(src)
+			break
+
 /datum/antagonist/traitor/add_owner_to_gamemode()
 	SSticker.mode.traitors |= owner
 
@@ -106,23 +114,28 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  * Create and assign a full set of randomized human traitor objectives.
  */
 /datum/antagonist/traitor/proc/forge_human_objectives()
-	// Hijack objective.
-	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-		add_antag_objective(/datum/objective/hijack)
-		return // Hijack should be their only objective (normally), so return.
-
-	// Will give normal steal/kill/etc. type objectives.
-	for(var/i in 1 to GLOB.configuration.gamemode.traitor_objectives_amount)
-		forge_single_human_objective()
-
+	var/iteration = 0
 	var/can_succeed_if_dead = TRUE
 	for(var/objective in owner.get_all_objectives())
 		var/datum/objective/O = objective
-		if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
+		if(!O.martyr_compatible) // Check if we need to stay alive in order to accomplish our objectives (Steal item, etc)
 			can_succeed_if_dead  = FALSE
 			break
 
-	// Give them an escape objective if they don't have one already.
+	//If our org has a forced objective, give it to us guaranteed.
+	if(organisation && organisation.forced_objective)
+		add_antag_objective(organisation.forced_objective)
+		iteration++
+
+	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
+		return //Hijackers only get hijack.
+
+	// Will give objectives from our org or random objectives.
+	while(iteration < GLOB.configuration.gamemode.traitor_objectives_amount)
+		forge_single_human_objective()
+		iteration++
+
+	// Give them an escape objective if they don't have one. 20 percent chance not to have escape if we can greentext without staying alive.
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
 		add_antag_objective(/datum/objective/escape)
 
@@ -138,25 +151,31 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  * Create and assign a single randomized human traitor objective.
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
-	if(prob(50))
-		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-			add_antag_objective(/datum/objective/destroy)
-		else if(prob(5))
-			add_antag_objective(/datum/objective/debrain)
-		else if(prob(30))
-			add_antag_objective(/datum/objective/maroon)
-		else if(prob(30))
-			add_antag_objective(/datum/objective/assassinateonce)
-		else
-			add_antag_objective(/datum/objective/assassinate)
+	//If our org has an objectives list, give one to us if we pass a roll on the org's focus
+	if(organisation && length(organisation.objectives) && prob(organisation.focus))
+		add_antag_objective(pick(organisation.objectives))
 	else
-		add_antag_objective(/datum/objective/steal)
+		if(prob(50))
+			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
+				add_antag_objective(/datum/objective/destroy)
+			else if(prob(5))
+				add_antag_objective(/datum/objective/debrain)
+			else if(prob(30))
+				add_antag_objective(/datum/objective/maroon)
+			else if(prob(30))
+				add_antag_objective(/datum/objective/assassinateonce)
+			else
+				add_antag_objective(/datum/objective/assassinate)
+		else
+			add_antag_objective(/datum/objective/steal)
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
  */
 /datum/antagonist/traitor/finalize_antag()
 	var/list/messages = list()
+	if(organisation)
+		antag_memory += "<b>Organisation</b>: [organisation.name]<br>"
 	if(give_codewords)
 		messages.Add(give_codewords())
 	if(isAI(owner.current))
