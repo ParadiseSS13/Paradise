@@ -100,6 +100,9 @@
 	/// Being hijacked by a pulse demon?
 	var/being_hijacked = FALSE
 
+	/// Are we immune to EMPS?
+	var/emp_proof = FALSE
+
 	/*** APC Malf AI Vars ****/
 	var/malfhack = FALSE //New var for my changes to AI malf. --NeoFite
 	var/mob/living/silicon/ai/malfai = null //See above --NeoFite
@@ -488,6 +491,9 @@
 	if(issilicon(user))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
+		if(malfai == "DVORAK") //I'm not making an actual ai core for this, you get a string. Naming an AI DVORAK will not do anything, as it will be an actual AI core, instead of a string
+			to_chat(user, "<span class='danger'>The APC interface program has been completely corrupted, you are unable to interface with it!</span>")
+			return FALSE
 		if(aidisabled || (malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent))) || (istype(robot) && malfai && !(robot in malfai.connected_robots))))
 			if(!loud)
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
@@ -947,6 +953,8 @@
 ///    *************
 
 /obj/machinery/power/apc/emp_act(severity)
+	if(emp_proof)
+		return
 	if(cell)
 		cell.emp_act(severity)
 	if(occupier)

@@ -26,6 +26,8 @@
 	var/list/start_showpieces = list()
 	/// A flavor message to show with this item.
 	var/trophy_message = ""
+	/// Do we want to force alarms even if off station?
+	var/force_alarm = FALSE
 
 /obj/structure/displaycase/Initialize(mapload)
 	. = ..()
@@ -107,7 +109,7 @@
 
 /obj/structure/displaycase/proc/trigger_alarm()
 	set waitfor = FALSE
-	if(alert && is_station_contact(z))
+	if(alert && (is_station_contact(z) || force_alarm))
 		var/area/alarmed = get_area(src)
 		alarmed.burglaralert(src)
 		visible_message("<span class='danger'>The burglar alarm goes off!</span>")

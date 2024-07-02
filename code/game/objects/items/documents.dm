@@ -56,3 +56,13 @@
 			poison_total -= poison_dose
 			add_attack_logs(src, user, "Picked up [src], the trapped syndicate documents")
 	return ..()
+
+/obj/item/documents/syndicate/dvorak_blackbox
+	name = "\improper D.V.O.R.A.K Blackbox Disk"
+	desc = "This disk contains a full record of all information that passed through D.V.O.R.A.K's systems during its uptime, not to mention what may have gone wrong. NT might be interested in this."
+	icon = 'icons/obj/module.dmi'
+	w_class = WEIGHT_CLASS_TINY
+	item_state = "card-id"
+	icon_state = "holodisk"
+	drop_sound = 'sound/items/handling/disk_drop.ogg'
+	pickup_sound = 'sound/items/handling/disk_pickup.ogg'
