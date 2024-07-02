@@ -55,7 +55,13 @@ export const SpawnersMenu = (props, context) => {
                 </Box>
               )}
               {!!spawner.important_info && (
-                <Box style={{ 'white-space': 'pre-wrap' }} mt={1} bold color="red" fontSize="18px">
+                <Box
+                  style={{ 'white-space': 'pre-wrap' }}
+                  mt={1}
+                  bold
+                  color="red"
+                  fontSize="18px"
+                >
                   {spawner.important_info}
                 </Box>
               )}

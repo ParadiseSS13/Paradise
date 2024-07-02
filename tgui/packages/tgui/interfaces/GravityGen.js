@@ -1,6 +1,14 @@
 // code\modules\power\gravitygenerator.dm
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section, Stack } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NoticeBox,
+  ProgressBar,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 
 export const GravityGen = (props, context) => {
@@ -52,7 +60,10 @@ export const GravityGen = (props, context) => {
             }
           >
             <LabeledList>
-              <LabeledList.Item label="Power Status" color={ext_power ? 'good' : 'bad'}>
+              <LabeledList.Item
+                label="Power Status"
+                color={ext_power ? 'good' : 'bad'}
+              >
                 {chargeStatus(charging_state)}
               </LabeledList.Item>
               <LabeledList.Item label="Gravity Charge">

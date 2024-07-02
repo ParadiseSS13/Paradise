@@ -35,7 +35,9 @@ const Fabricator = (props, context) => {
       return (
         <LabeledList>
           <LabeledList.Item label="External Power">
-            <Box color={fab_power ? 'good' : 'bad'}>[ {fab_power ? 'Online' : 'Offline'} ]</Box>
+            <Box color={fab_power ? 'good' : 'bad'}>
+              [ {fab_power ? 'Online' : 'Offline'} ]
+            </Box>
           </LabeledList.Item>
           <LabeledList.Item label="Drone Production">
             <ProgressBar
@@ -55,7 +57,11 @@ const Fabricator = (props, context) => {
           <Flex inline={1} direction="column">
             <Flex.Item>FABRICATOR NOT DETECTED.</Flex.Item>
             <Flex.Item>
-              <Button icon="search" content="Search" onClick={() => act('find_fab')} />
+              <Button
+                icon="search"
+                content="Search"
+                onClick={() => act('find_fab')}
+              />
             </Flex.Item>
           </Flex>
         </NoticeBox>
@@ -167,7 +173,11 @@ const DroneList = (props, context) => {
                   icon="power-off"
                   content="Recall"
                   disabled={drone.stat === 2 || drone.pathfinding}
-                  tooltip={drone.pathfinding ? 'This drone is currently pathfinding, please wait.' : null}
+                  tooltip={
+                    drone.pathfinding
+                      ? 'This drone is currently pathfinding, please wait.'
+                      : null
+                  }
                   tooltipPosition="left"
                   color="bad"
                   onClick={() =>
@@ -181,7 +191,9 @@ const DroneList = (props, context) => {
           }
         >
           <LabeledList>
-            <LabeledList.Item label="Status">{status(drone.stat, drone.client)}</LabeledList.Item>
+            <LabeledList.Item label="Status">
+              {status(drone.stat, drone.client)}
+            </LabeledList.Item>
             <LabeledList.Item label="Integrity">
               <ProgressBar
                 value={drone.health}
@@ -202,7 +214,9 @@ const DroneList = (props, context) => {
                 }}
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Location">{drone.location}</LabeledList.Item>
+            <LabeledList.Item label="Location">
+              {drone.location}
+            </LabeledList.Item>
           </LabeledList>
         </Section>
       ))}

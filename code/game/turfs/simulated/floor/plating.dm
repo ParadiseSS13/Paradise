@@ -370,18 +370,17 @@
 /turf/simulated/floor/plating/metalfoam
 	name = "foamed metal plating"
 	icon_state = "metalfoam"
-	/// which kind of metal this will turn into
-	var/metal_kind = METAL_FOAM_ALUMINUM
+	var/metal = MFOAM_ALUMINUM
 
 /turf/simulated/floor/plating/metalfoam/iron
 	icon_state = "ironfoam"
-	metal_kind = METAL_FOAM_IRON
+	metal = MFOAM_IRON
 
 /turf/simulated/floor/plating/metalfoam/update_icon_state()
-	switch(metal_kind)
-		if(METAL_FOAM_ALUMINUM)
+	switch(metal)
+		if(MFOAM_ALUMINUM)
 			icon_state = "metalfoam"
-		if(METAL_FOAM_IRON)
+		if(MFOAM_IRON)
 			icon_state = "ironfoam"
 
 /turf/simulated/floor/plating/metalfoam/attackby(obj/item/C, mob/user, params)
@@ -391,7 +390,7 @@
 	if(istype(C) && C.force)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
-		var/smash_prob = max(0, C.force * 17 - metal_kind * 25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
+		var/smash_prob = max(0, C.force*17 - metal*25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
 		if(prob(smash_prob))
 			// YAR BE CAUSIN A HULL BREACH
 			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [C]!</span>")

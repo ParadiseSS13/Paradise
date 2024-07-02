@@ -72,8 +72,9 @@ export const PrisonerImplantManager = (props, context) => {
                     Permanent prisoners should not be given a point goal.
                     <br />
                     <br />
-                    Prisoners who meet their point goal will be able to automatically access their locker and return to
-                    the station using the shuttle.
+                    Prisoners who meet their point goal will be able to
+                    automatically access their locker and return to the station
+                    using the shuttle.
                   </box>
                 </LabeledList.Item>
               </LabeledList>
@@ -89,8 +90,12 @@ export const PrisonerImplantManager = (props, context) => {
                       {' '}
                       <br />
                       <LabeledList>
-                        <LabeledList.Item label="Location">{implant.location}</LabeledList.Item>
-                        <LabeledList.Item label="Health">{implant.health}</LabeledList.Item>
+                        <LabeledList.Item label="Location">
+                          {implant.location}
+                        </LabeledList.Item>
+                        <LabeledList.Item label="Health">
+                          {implant.health}
+                        </LabeledList.Item>
                         <LabeledList.Item label="Prisoner">
                           <Button
                             icon="exclamation-triangle"
@@ -121,7 +126,9 @@ export const PrisonerImplantManager = (props, context) => {
                       {' '}
                       <br />
                       <LabeledList>
-                        <LabeledList.Item label="Remaining Reagents">{implant.volume}</LabeledList.Item>
+                        <LabeledList.Item label="Remaining Reagents">
+                          {implant.volume}
+                        </LabeledList.Item>
                       </LabeledList>
                       {injectionAmount.map((amount) => (
                         <Button

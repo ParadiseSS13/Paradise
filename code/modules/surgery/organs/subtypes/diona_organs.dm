@@ -73,30 +73,30 @@
 
 /// Turns into a nymph instantly, no transplanting possible.
 /obj/item/organ/internal/heart/diona
-	name = "circulatory siphonostele"
+	name = "neural strata"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
 /obj/item/organ/internal/lungs/diona
-	name = "respiratory nodules"
+	name = "respiratory vacuoles"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
 /// Turns into a nymph instantly, no transplanting possible.
 /obj/item/organ/internal/brain/diona
-	name = "neural strata"
+	name = "gas bladder"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
 /// Turns into a nymph instantly, no transplanting possible.
 /obj/item/organ/internal/kidneys/diona
-	name = "sieve-tube bundles"
+	name = "polyp segment"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
 /// Turns into a nymph instantly, no transplanting possible.
 /obj/item/organ/internal/appendix/diona
-	name = "auxiliary bud"
+	name = "anchoring ligament"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
@@ -110,7 +110,7 @@
 
 /// Turns into a nymph instantly, no transplanting possible.
 /obj/item/organ/internal/liver/diona
-	name = "nutrient sac"
+	name = "nutrient vessel"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
 	alcohol_intensity = 0.5

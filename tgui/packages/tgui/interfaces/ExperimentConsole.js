@@ -41,7 +41,9 @@ export const ExperimentConsole = (props, context) => {
               key={experimentType}
               icon={experimentInfoMap.get(experimentType).icon}
               content={experimentInfoMap.get(experimentType).label}
-              onClick={() => act('experiment', { experiment_type: experimentType })}
+              onClick={() =>
+                act('experiment', { experiment_type: experimentType })
+              }
             />
           ))}
         </LabeledList.Item>
@@ -61,7 +63,14 @@ export const ExperimentConsole = (props, context) => {
         </Section>
         <Section
           title="Scanner"
-          buttons={<Button icon="eject" content="Eject" disabled={!open} onClick={() => act('door')} />}
+          buttons={
+            <Button
+              icon="eject"
+              content="Eject"
+              disabled={!open}
+              onClick={() => act('door')}
+            />
+          }
         >
           {scannerSection}
         </Section>

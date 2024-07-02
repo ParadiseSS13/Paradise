@@ -19,7 +19,9 @@ const BotStatus = (mode) => {
     },
   ];
 
-  const matchedStatus = statusMap.find((mapping) => mapping.modes.includes(mode));
+  const matchedStatus = statusMap.find((mapping) =>
+    mapping.modes.includes(mode)
+  );
 
   return <Box color={matchedStatus.color}> {matchedStatus.label} </Box>;
 };
@@ -50,7 +52,11 @@ export const BotCall = (props, context) => {
           <Stack.Item>
             <Tabs fluid textAlign="center">
               {Array.from({ length: 6 }).map((_, index) => (
-                <Tabs.Tab key={index} selected={tabIndex === index} onClick={() => setTabIndex(index)}>
+                <Tabs.Tab
+                  key={index}
+                  selected={tabIndex === index}
+                  onClick={() => setTabIndex(index)}
+                >
                   {botNames[index]}
                 </Tabs.Tab>
               ))}
@@ -104,13 +110,21 @@ const MapBot = (props, context) => {
             <Table.Row key={bot.UID}>
               <Table.Cell>{bot.name}</Table.Cell>
               <Table.Cell>{bot.model}</Table.Cell>
-              <Table.Cell>{bot.on ? BotStatus(bot.status) : <Box color="red">Off</Box>}</Table.Cell>
+              <Table.Cell>
+                {bot.on ? BotStatus(bot.status) : <Box color="red">Off</Box>}
+              </Table.Cell>
               <Table.Cell>{bot.location}</Table.Cell>
               <Table.Cell>
-                <Button content="Interface" onClick={() => act('interface', { botref: bot.UID })} />
+                <Button
+                  content="Interface"
+                  onClick={() => act('interface', { botref: bot.UID })}
+                />
               </Table.Cell>
               <Table.Cell>
-                <Button content="Call" onClick={() => act('call', { botref: bot.UID })} />
+                <Button
+                  content="Call"
+                  onClick={() => act('call', { botref: bot.UID })}
+                />
               </Table.Cell>
             </Table.Row>
           ))}

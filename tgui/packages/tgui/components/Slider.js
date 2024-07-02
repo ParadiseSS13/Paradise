@@ -53,19 +53,34 @@ export const Slider = (props) => {
       }}
     >
       {(control) => {
-        const { dragging, editing, value, displayValue, displayElement, inputElement, handleDragStart } = control;
+        const {
+          dragging,
+          editing,
+          value,
+          displayValue,
+          displayElement,
+          inputElement,
+          handleDragStart,
+        } = control;
         const hasFillValue = fillValue !== undefined && fillValue !== null;
         const scaledValue = scale(value, minValue, maxValue);
-        const scaledFillValue = scale(fillValue ?? displayValue, minValue, maxValue);
+        const scaledFillValue = scale(
+          fillValue ?? displayValue,
+          minValue,
+          maxValue
+        );
         const scaledDisplayValue = scale(displayValue, minValue, maxValue);
-        const effectiveColor = color || keyOfMatchingRange(fillValue ?? value, ranges) || 'default';
+        const effectiveColor =
+          color || keyOfMatchingRange(fillValue ?? value, ranges) || 'default';
         return (
           <div
             className={classes([
               'Slider',
               disabled && 'Slider__disabled',
               'ProgressBar',
-              disabled ? 'ProgressBar--color--disabled' : 'ProgressBar--color--' + effectiveColor,
+              disabled
+                ? 'ProgressBar--color--disabled'
+                : 'ProgressBar--color--' + effectiveColor,
               className,
               computeBoxClassName(rest),
             ])}
@@ -76,7 +91,10 @@ export const Slider = (props) => {
             onMouseDown={handleDragStart}
           >
             <div
-              className={classes(['ProgressBar__fill', hasFillValue && 'ProgressBar__fill--animated'])}
+              className={classes([
+                'ProgressBar__fill',
+                hasFillValue && 'ProgressBar__fill--animated',
+              ])}
               style={{
                 width: clamp01(scaledFillValue) * 100 + '%',
                 opacity: 0.4,
@@ -85,7 +103,9 @@ export const Slider = (props) => {
             <div
               className="ProgressBar__fill"
               style={{
-                width: clamp01(Math.min(scaledFillValue, scaledDisplayValue)) * 100 + '%',
+                width:
+                  clamp01(Math.min(scaledFillValue, scaledDisplayValue)) * 100 +
+                  '%',
               }}
             />
             <div
@@ -96,9 +116,13 @@ export const Slider = (props) => {
             >
               <div className="Slider__cursor" />
               <div className="Slider__pointer" />
-              {dragging && <div className="Slider__popupValue">{displayElement}</div>}
+              {dragging && (
+                <div className="Slider__popupValue">{displayElement}</div>
+              )}
             </div>
-            <div className="ProgressBar__content">{hasContent ? children : displayElement}</div>
+            <div className="ProgressBar__content">
+              {hasContent ? children : displayElement}
+            </div>
             {inputElement}
           </div>
         );

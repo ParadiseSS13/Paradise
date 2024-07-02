@@ -1,6 +1,13 @@
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
-import { Button, LabeledList, NumberInput, Section, AnimatedNumber, Box } from '../components';
+import {
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+  AnimatedNumber,
+  Box,
+} from '../components';
 import { Window } from '../layouts';
 
 export const HealthSensor = (props, context) => {
@@ -41,7 +48,10 @@ export const HealthSensor = (props, context) => {
             </LabeledList.Item>
             {user_health !== null && (
               <LabeledList.Item label="User health">
-                <Box color={Health2Color(user_health)} bold={user_health >= 100}>
+                <Box
+                  color={Health2Color(user_health)}
+                  bold={user_health >= 100}
+                >
                   <AnimatedNumber value={user_health} />
                 </Box>
               </LabeledList.Item>

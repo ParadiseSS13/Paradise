@@ -46,12 +46,21 @@ export const BlueSpaceArtilleryControl = (props, context) => {
                 </LabeledList.Item>
                 {data.ready === 1 && !!data.target && (
                   <LabeledList.Item label="Firing">
-                    <Button icon="skull" content="FIRE!" color="red" onClick={() => act('fire')} />
+                    <Button
+                      icon="skull"
+                      content="FIRE!"
+                      color="red"
+                      onClick={() => act('fire')}
+                    />
                   </LabeledList.Item>
                 )}
                 {!data.connected && (
                   <LabeledList.Item label="Maintenance">
-                    <Button icon="wrench" content="Complete Deployment" onClick={() => act('build')} />
+                    <Button
+                      icon="wrench"
+                      content="Complete Deployment"
+                      onClick={() => act('build')}
+                    />
                   </LabeledList.Item>
                 )}
               </LabeledList>

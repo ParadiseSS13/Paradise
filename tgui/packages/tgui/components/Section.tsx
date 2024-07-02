@@ -45,7 +45,16 @@ export class Section extends Component<SectionProps> {
   }
 
   render() {
-    const { className, title, buttons, fill, fitted, scrollable, children, ...rest } = this.props;
+    const {
+      className,
+      title,
+      buttons,
+      fill,
+      fitted,
+      scrollable,
+      children,
+      ...rest
+    } = this.props;
     const hasTitle = canRender(title) || canRender(buttons);
     return (
       <div

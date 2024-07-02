@@ -1,5 +1,13 @@
 import { useBackend } from '../backend';
-import { Box, Section, Button, NumberInput, Stack, NoticeBox, Icon } from '../components';
+import {
+  Box,
+  Section,
+  Button,
+  NumberInput,
+  Stack,
+  NoticeBox,
+  Icon,
+} from '../components';
 import { Window } from '../layouts';
 
 export const Smartfridge = (props, context) => {
@@ -14,7 +22,11 @@ export const Smartfridge = (props, context) => {
     <Window width={500} height={500}>
       <Window.Content>
         <Stack fill vertical>
-          {!!secure && <NoticeBox>Secure Access: Please have your identification ready.</NoticeBox>}
+          {!!secure && (
+            <NoticeBox>
+              Secure Access: Please have your identification ready.
+            </NoticeBox>
+          )}
           <Section
             fill
             scrollable
@@ -33,7 +45,13 @@ export const Smartfridge = (props, context) => {
           >
             {!contents && (
               <Stack fill>
-                <Stack.Item bold grow textAlign="center" align="center" color="average">
+                <Stack.Item
+                  bold
+                  grow
+                  textAlign="center"
+                  align="center"
+                  color="average"
+                >
                   <Icon.Stack>
                     <Icon name="cookie-bite" size={5} color="brown" />
                     <Icon name="slash" size={5} color="red" />
@@ -51,14 +69,18 @@ export const Smartfridge = (props, context) => {
                   return (
                     <Stack key={item}>
                       <Stack.Item width="55%">{item.display_name}</Stack.Item>
-                      <Stack.Item width="25%">({item.quantity} in stock)</Stack.Item>
+                      <Stack.Item width="25%">
+                        ({item.quantity} in stock)
+                      </Stack.Item>
                       <Stack.Item width={13}>
                         <Button
                           width={3}
                           icon="arrow-down"
                           tooltip="Dispense one."
                           content="1"
-                          onClick={() => act('vend', { index: item.vend, amount: 1 })}
+                          onClick={() =>
+                            act('vend', { index: item.vend, amount: 1 })
+                          }
                         />
                         <NumberInput
                           width="40px"
@@ -67,7 +89,9 @@ export const Smartfridge = (props, context) => {
                           maxValue={item.quantity}
                           step={1}
                           stepPixelSize={3}
-                          onChange={(e, value) => act('vend', { index: item.vend, amount: value })}
+                          onChange={(e, value) =>
+                            act('vend', { index: item.vend, amount: value })
+                          }
                         />
                         <Button
                           width={4}

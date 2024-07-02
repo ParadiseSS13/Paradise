@@ -1,6 +1,12 @@
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
-import { LabeledList, NumberInput, Section, AnimatedNumber, Box } from '../components';
+import {
+  LabeledList,
+  NumberInput,
+  Section,
+  AnimatedNumber,
+  Box,
+} from '../components';
 import { Window } from '../layouts';
 import { round } from 'common/math';
 
@@ -32,13 +38,18 @@ export const TempGun = (props, context) => {
               &deg;C
             </LabeledList.Item>
             <LabeledList.Item label="Current Temperature">
-              <Box color={Temp2Color(temperature)} bold={temperature > 500 - 273.15}>
+              <Box
+                color={Temp2Color(temperature)}
+                bold={temperature > 500 - 273.15}
+              >
                 <AnimatedNumber value={round(temperature, 2)} />
                 &deg;C
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Power Cost">
-              <Box color={Temp2CostColor(temperature)}>{Temp2Cost(temperature)}</Box>
+              <Box color={Temp2CostColor(temperature)}>
+                {Temp2Cost(temperature)}
+              </Box>
             </LabeledList.Item>
           </LabeledList>
         </Section>

@@ -84,7 +84,11 @@ export const AppearanceChanger = (props, context) => {
           )}
           {!!change_gender && (
             <LabeledList.Item label="Gender">
-              <Button content="Male" selected={gender === 'male'} onClick={() => act('gender', { gender: 'male' })} />
+              <Button
+                content="Male"
+                selected={gender === 'male'}
+                onClick={() => act('gender', { gender: 'male' })}
+              />
               <Button
                 content="Female"
                 selected={gender === 'female'}
@@ -130,10 +134,22 @@ export const AppearanceChanger = (props, context) => {
           )}
           {!!change_hair_gradient && (
             <LabeledList.Item label="Hair Gradient">
-              <Button content="Change Style" onClick={() => act('hair_gradient')} />
-              <Button content="Change Offset" onClick={() => act('hair_gradient_offset')} />
-              <Button content="Change Color" onClick={() => act('hair_gradient_colour')} />
-              <Button content="Change Alpha" onClick={() => act('hair_gradient_alpha')} />
+              <Button
+                content="Change Style"
+                onClick={() => act('hair_gradient')}
+              />
+              <Button
+                content="Change Offset"
+                onClick={() => act('hair_gradient_offset')}
+              />
+              <Button
+                content="Change Color"
+                onClick={() => act('hair_gradient_colour')}
+              />
+              <Button
+                content="Change Alpha"
+                onClick={() => act('hair_gradient_alpha')}
+              />
             </LabeledList.Item>
           )}
           {!!change_facial_hair && (
@@ -143,7 +159,9 @@ export const AppearanceChanger = (props, context) => {
                   key={s.facialhairstyle}
                   content={s.facialhairstyle}
                   selected={s.facialhairstyle === facial_hair_style}
-                  onClick={() => act('facial_hair', { facial_hair: s.facialhairstyle })}
+                  onClick={() =>
+                    act('facial_hair', { facial_hair: s.facialhairstyle })
+                  }
                 />
               ))}
             </LabeledList.Item>
@@ -155,7 +173,9 @@ export const AppearanceChanger = (props, context) => {
                   key={s.headmarkingstyle}
                   content={s.headmarkingstyle}
                   selected={s.headmarkingstyle === head_marking_style}
-                  onClick={() => act('head_marking', { head_marking: s.headmarkingstyle })}
+                  onClick={() =>
+                    act('head_marking', { head_marking: s.headmarkingstyle })
+                  }
                 />
               ))}
             </LabeledList.Item>
@@ -167,7 +187,9 @@ export const AppearanceChanger = (props, context) => {
                   key={s.bodymarkingstyle}
                   content={s.bodymarkingstyle}
                   selected={s.bodymarkingstyle === body_marking_style}
-                  onClick={() => act('body_marking', { body_marking: s.bodymarkingstyle })}
+                  onClick={() =>
+                    act('body_marking', { body_marking: s.bodymarkingstyle })
+                  }
                 />
               ))}
             </LabeledList.Item>
@@ -179,7 +201,9 @@ export const AppearanceChanger = (props, context) => {
                   key={s.tailmarkingstyle}
                   content={s.tailmarkingstyle}
                   selected={s.tailmarkingstyle === tail_marking_style}
-                  onClick={() => act('tail_marking', { tail_marking: s.tailmarkingstyle })}
+                  onClick={() =>
+                    act('tail_marking', { tail_marking: s.tailmarkingstyle })
+                  }
                 />
               ))}
             </LabeledList.Item>
@@ -273,7 +297,16 @@ const ColorContent = (props, context) => {
 
   return (
     <LabeledList.Item label="Colors">
-      {colorOptions.map((c) => !!data[c.key] && <Button key={c.key} content={c.text} onClick={() => act(c.action)} />)}
+      {colorOptions.map(
+        (c) =>
+          !!data[c.key] && (
+            <Button
+              key={c.key}
+              content={c.text}
+              onClick={() => act(c.action)}
+            />
+          )
+      )}
     </LabeledList.Item>
   );
 };

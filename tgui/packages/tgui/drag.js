@@ -41,9 +41,15 @@ export const setWindowSize = (vec) => {
   });
 };
 
-export const getScreenPosition = () => [0 - screenOffset[0], 0 - screenOffset[1]];
+export const getScreenPosition = () => [
+  0 - screenOffset[0],
+  0 - screenOffset[1],
+];
 
-export const getScreenSize = () => [window.screen.availWidth, window.screen.availHeight];
+export const getScreenSize = () => [
+  window.screen.availWidth,
+  window.screen.availHeight,
+];
 
 /**
  * Moves an item to the top of the recents array, and keeps its length
@@ -78,7 +84,10 @@ export const storeWindowGeometry = async () => {
   };
   storage.set(windowKey, geometry);
   // Update the list of stored geometries
-  const [geometries, trimmedKey] = touchRecents((await storage.get('geometries')) || [], windowKey);
+  const [geometries, trimmedKey] = touchRecents(
+    (await storage.get('geometries')) || [],
+    windowKey
+  );
   if (trimmedKey) {
     storage.remove(trimmedKey);
   }
@@ -99,7 +108,10 @@ export const recallWindowGeometry = async (options = {}) => {
   // Set window size
   if (size) {
     // Constraint size to not exceed available screen area.
-    size = [Math.min(areaAvailable[0], size[0]), Math.min(areaAvailable[1], size[1])];
+    size = [
+      Math.min(areaAvailable[0], size[0]),
+      Math.min(areaAvailable[1], size[1]),
+    ];
     setWindowSize(size);
   }
   // Set window position
@@ -112,7 +124,11 @@ export const recallWindowGeometry = async (options = {}) => {
   }
   // Set window position at the center of the screen.
   else if (size) {
-    pos = vecAdd(vecScale(areaAvailable, 0.5), vecScale(size, -0.5), vecScale(screenOffset, -1.0));
+    pos = vecAdd(
+      vecScale(areaAvailable, 0.5),
+      vecScale(size, -0.5),
+      vecScale(screenOffset, -1.0)
+    );
     setWindowPosition(pos);
   }
 };
@@ -153,7 +169,10 @@ const constraintPosition = (pos, size) => {
 export const dragStartHandler = (event) => {
   logger.log('drag start');
   dragging = true;
-  dragPointOffset = [window.screenLeft - event.screenX, window.screenTop - event.screenY];
+  dragPointOffset = [
+    window.screenLeft - event.screenX,
+    window.screenTop - event.screenY,
+  ];
   document.addEventListener('mousemove', dragMoveHandler);
   document.addEventListener('mouseup', dragEndHandler);
   dragMoveHandler(event);
@@ -180,7 +199,10 @@ export const resizeStartHandler = (x, y) => (event) => {
   resizeMatrix = [x, y];
   logger.log('resize start', resizeMatrix);
   resizing = true;
-  dragPointOffset = [window.screenLeft - event.screenX, window.screenTop - event.screenY];
+  dragPointOffset = [
+    window.screenLeft - event.screenX,
+    window.screenTop - event.screenY,
+  ];
   initialSize = [window.innerWidth, window.innerHeight];
   document.addEventListener('mousemove', resizeMoveHandler);
   document.addEventListener('mouseup', resizeEndHandler);
@@ -205,7 +227,12 @@ const resizeMoveHandler = (event) => {
     initialSize,
     vecMultiply(
       resizeMatrix,
-      vecAdd([event.screenX, event.screenY], vecInverse([window.screenLeft, window.screenTop]), dragPointOffset, [1, 1])
+      vecAdd(
+        [event.screenX, event.screenY],
+        vecInverse([window.screenLeft, window.screenTop]),
+        dragPointOffset,
+        [1, 1]
+      )
     )
   );
   // Sane window size values

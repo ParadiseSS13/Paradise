@@ -17,8 +17,8 @@
 
 	var/list/blood_DNA
 	var/blood_color
-	/// Will the atom spread blood when touched?
-	var/should_spread_blood = FALSE
+	/// Wont gloves/hands spend blood spill points to make this bloody
+	var/easy_to_spill_blood = FALSE
 	var/pass_flags = 0
 	/// The higher the germ level, the more germ on the atom.
 	var/germ_level = GERM_LEVEL_AMBIENT
@@ -449,8 +449,8 @@
 /atom/proc/examine_more(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
-	. = list()
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
+
+	return list()
 
 /**
  * Updates the appearence of the icon
@@ -607,10 +607,9 @@
 	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
 	return FALSE
 
-/atom/proc/hitby(atom/movable/hitting_atom, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, hitting_atom, skipcatch, hitpush, blocked, throwingdatum)
-	if(density && !has_gravity(hitting_atom)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
-		addtimer(CALLBACK(src, PROC_REF(hitby_react), hitting_atom), 2)
+/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 /// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
 /atom/proc/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
@@ -781,6 +780,7 @@
 				if(fingerprintslast != H.ckey)
 					fingerprintshidden += "\[[all_timestamps()]\] (Wearing gloves). Real name: [H.real_name], Key: [H.key]"
 					fingerprintslast = H.ckey
+				H.gloves.add_fingerprint(M)
 				return FALSE
 
 		//More adminstuffz
@@ -897,11 +897,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/add_blood(list/blood_dna, b_color)
 	return FALSE
 
+/obj/add_blood(list/blood_dna, b_color)
+	blood_color = b_color
+	return transfer_blood_dna(blood_dna)
+
 /obj/item/add_blood(list/blood_dna, b_color)
-	if(isnull(b_color))
-		b_color = "#A10808"
 	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
-	if(!transfer_blood_dna(blood_dna))
+	if(!..())
 		return FALSE
 	blood_color = b_color // update the blood color
 	if(!blood_count) //apply the blood-splatter overlay if it isn't already in there
@@ -913,8 +915,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	transfer_blood = rand(2, 4)
 
 /turf/add_blood(list/blood_dna, b_color)
-	if(isnull(b_color))
-		b_color = "#A10808"
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)

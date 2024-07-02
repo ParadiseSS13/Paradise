@@ -46,8 +46,6 @@
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
-	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 
 /obj/item/storage/bag/garment/head_of_personnel
 	name = "head of personnel's garment bag"

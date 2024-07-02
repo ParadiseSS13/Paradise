@@ -16,7 +16,11 @@ const BotList = (props, context) => {
 
   return bots.map((b) => (
     <Box key={b.Name}>
-      <Button content={b.Name} icon="cog" onClick={() => act('control', { bot: b.uid })} />
+      <Button
+        content={b.Name}
+        icon="cog"
+        onClick={() => act('control', { bot: b.uid })}
+      />
     </Box>
   ));
 };
@@ -65,7 +69,11 @@ const BotStatus = (props, context) => {
         <LabeledList.Item label="Controls">
           <Button content="Go" icon="play" onClick={() => act('go')} />
           <Button content="Stop" icon="stop" onClick={() => act('stop')} />
-          <Button content="Summon" icon="arrow-down" onClick={() => act('summon')} />
+          <Button
+            content="Summon"
+            icon="arrow-down"
+            onClick={() => act('summon')}
+          />
         </LabeledList.Item>
       </LabeledList>
     </Section>

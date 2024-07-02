@@ -77,7 +77,11 @@ const handlePassthrough = (key: KeyEvent) => {
     return;
   }
   // NOTE: Alt modifier is pretty bad and sticky in IE11.
-  if (key.event.defaultPrevented || key.isModifierKey() || hotKeysAcquired.includes(key.code)) {
+  if (
+    key.event.defaultPrevented ||
+    key.isModifierKey() ||
+    hotKeysAcquired.includes(key.code)
+  ) {
     return;
   }
   if (keyString === 'F5') {
@@ -165,7 +169,8 @@ export const setupHotKeys = () => {
     }
     // Insert macros
     const escapedQuotRegex = /\\"/g;
-    const unescape = (str: string) => str.substring(1, str.length - 1).replace(escapedQuotRegex, '"');
+    const unescape = (str: string) =>
+      str.substring(1, str.length - 1).replace(escapedQuotRegex, '"');
     for (let ref of Object.keys(groupedByRef)) {
       const macro = groupedByRef[ref];
       const byondKeyName = unescape(macro.name);

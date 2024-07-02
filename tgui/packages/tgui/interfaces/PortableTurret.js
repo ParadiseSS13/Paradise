@@ -27,7 +27,9 @@ export const PortableTurret = (props, context) => {
     <Window width={475} height={750}>
       <Window.Content>
         <Stack fill vertical>
-          <NoticeBox>Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.</NoticeBox>
+          <NoticeBox>
+            Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.
+          </NoticeBox>
           <Stack.Item m={0}>
             <Section>
               <LabeledList>
@@ -54,7 +56,9 @@ export const PortableTurret = (props, context) => {
                 {!!access_is_configurable && (
                   <LabeledList.Item label="One Access Mode">
                     <Button
-                      icon={one_access ? 'address-card' : 'exclamation-triangle'}
+                      icon={
+                        one_access ? 'address-card' : 'exclamation-triangle'
+                      }
                       content={one_access ? 'On' : 'Off'}
                       selected={one_access}
                       disabled={locked}

@@ -90,7 +90,11 @@ export class NumberInput extends Component {
             maxValue + step
           );
           // Clamp the final value
-          state.value = clamp(state.internalValue - (state.internalValue % step) + stepOffset, minValue, maxValue);
+          state.value = clamp(
+            state.internalValue - (state.internalValue % step) + stepOffset,
+            minValue,
+            maxValue
+          );
           state.origin = e.screenY;
         } else if (Math.abs(offset) > 4) {
           state.dragging = true;
@@ -134,7 +138,12 @@ export class NumberInput extends Component {
   }
 
   render() {
-    const { dragging, editing, value: intermediateValue, suppressingFlicker } = this.state;
+    const {
+      dragging,
+      editing,
+      value: intermediateValue,
+      suppressingFlicker,
+    } = this.state;
     const {
       className,
       fluid,
@@ -172,7 +181,11 @@ export class NumberInput extends Component {
 
     return (
       <Box
-        className={classes(['NumberInput', fluid && 'NumberInput--fluid', className])}
+        className={classes([
+          'NumberInput',
+          fluid && 'NumberInput--fluid',
+          className,
+        ])}
         minWidth={width}
         minHeight={height}
         lineHeight={lineHeight}
@@ -183,7 +196,12 @@ export class NumberInput extends Component {
           <div
             className="NumberInput__bar"
             style={{
-              height: clamp(((displayValue - minValue) / (maxValue - minValue)) * 100, 0, 100) + '%',
+              height:
+                clamp(
+                  ((displayValue - minValue) / (maxValue - minValue)) * 100,
+                  0,
+                  100
+                ) + '%',
             }}
           />
         </div>
@@ -222,7 +240,11 @@ export class NumberInput extends Component {
           }}
           onKeyDown={(e) => {
             if (e.keyCode === 13) {
-              const value = clamp(parseFloat(e.target.value), minValue, maxValue);
+              const value = clamp(
+                parseFloat(e.target.value),
+                minValue,
+                maxValue
+              );
               if (Number.isNaN(value)) {
                 this.setState({
                   editing: false,

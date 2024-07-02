@@ -1,7 +1,15 @@
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, Input, LabeledList, Section, Stack, Dropdown } from '../components';
+import {
+  Box,
+  Button,
+  Input,
+  LabeledList,
+  Section,
+  Stack,
+  Dropdown,
+} from '../components';
 import { Window } from '../layouts';
 import { createSearch, toTitleCase } from 'common/string';
 
@@ -39,11 +47,21 @@ export const Autolathe = (props, context) => {
   if (category === 0) {
     category = 'Tools';
   }
-  let metalReadable = metal_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'); // add thousands seperator
-  let glassReadable = glass_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-  let totalReadable = total_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  let metalReadable = metal_amount
+    .toString()
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'); // add thousands seperator
+  let glassReadable = glass_amount
+    .toString()
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  let totalReadable = total_amount
+    .toString()
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
-  const [searchText, setSearchText] = useSharedState(context, 'search_text', '');
+  const [searchText, setSearchText] = useSharedState(
+    context,
+    'search_text',
+    ''
+  );
 
   const testSearch = createSearch(searchText, (recipe) => recipe.name);
 
@@ -70,7 +88,11 @@ export const Autolathe = (props, context) => {
   }
 
   const recipesToShow = flow([
-    filter((recipe) => (recipe.category.indexOf(category) > -1 || searchText) && (data.showhacked || !recipe.hacked)),
+    filter(
+      (recipe) =>
+        (recipe.category.indexOf(category) > -1 || searchText) &&
+        (data.showhacked || !recipe.hacked)
+    ),
     searchText && filter(testSearch),
     sortBy((recipe) => recipe.name.toLowerCase()),
   ])(recipes);
@@ -99,7 +121,12 @@ export const Autolathe = (props, context) => {
                 />
               }
             >
-              <Input fluid placeholder="Search for..." onInput={(e, v) => setSearchText(v)} mb={1} />
+              <Input
+                fluid
+                placeholder="Search for..."
+                onInput={(e, v) => setSearchText(v)}
+                mb={1}
+              />
               {recipesToShow.map((recipe) => (
                 <Stack.Item grow key={recipe.ref}>
                   <img
@@ -114,8 +141,17 @@ export const Autolathe = (props, context) => {
                   <Button
                     mr={1}
                     icon="hammer"
-                    selected={data.busyname === recipe.name && data.busyamt === 1}
-                    disabled={!canBeMade(recipe, data.metal_amount, data.glass_amount, 1)}
+                    selected={
+                      data.busyname === recipe.name && data.busyamt === 1
+                    }
+                    disabled={
+                      !canBeMade(
+                        recipe,
+                        data.metal_amount,
+                        data.glass_amount,
+                        1
+                      )
+                    }
                     onClick={() =>
                       act('make', {
                         make: recipe.uid,
@@ -129,8 +165,17 @@ export const Autolathe = (props, context) => {
                     <Button
                       mr={1}
                       icon="hammer"
-                      selected={data.busyname === recipe.name && data.busyamt === 10}
-                      disabled={!canBeMade(recipe, data.metal_amount, data.glass_amount, 10)}
+                      selected={
+                        data.busyname === recipe.name && data.busyamt === 10
+                      }
+                      disabled={
+                        !canBeMade(
+                          recipe,
+                          data.metal_amount,
+                          data.glass_amount,
+                          10
+                        )
+                      }
                       onClick={() =>
                         act('make', {
                           make: recipe.uid,
@@ -145,8 +190,17 @@ export const Autolathe = (props, context) => {
                     <Button
                       mr={1}
                       icon="hammer"
-                      selected={data.busyname === recipe.name && data.busyamt === 25}
-                      disabled={!canBeMade(recipe, data.metal_amount, data.glass_amount, 25)}
+                      selected={
+                        data.busyname === recipe.name && data.busyamt === 25
+                      }
+                      disabled={
+                        !canBeMade(
+                          recipe,
+                          data.metal_amount,
+                          data.glass_amount,
+                          25
+                        )
+                      }
                       onClick={() =>
                         act('make', {
                           make: recipe.uid,
@@ -161,8 +215,18 @@ export const Autolathe = (props, context) => {
                     <Button
                       mr={1}
                       icon="hammer"
-                      selected={data.busyname === recipe.name && data.busyamt === recipe.max_multiplier}
-                      disabled={!canBeMade(recipe, data.metal_amount, data.glass_amount, recipe.max_multiplier)}
+                      selected={
+                        data.busyname === recipe.name &&
+                        data.busyamt === recipe.max_multiplier
+                      }
+                      disabled={
+                        !canBeMade(
+                          recipe,
+                          data.metal_amount,
+                          data.glass_amount,
+                          recipe.max_multiplier
+                        )
+                      }
                       onClick={() =>
                         act('make', {
                           make: recipe.uid,
@@ -175,7 +239,10 @@ export const Autolathe = (props, context) => {
                   )}
                   {(recipe.requirements &&
                     Object.keys(recipe.requirements)
-                      .map((mat) => toTitleCase(mat) + ': ' + recipe.requirements[mat])
+                      .map(
+                        (mat) =>
+                          toTitleCase(mat) + ': ' + recipe.requirements[mat]
+                      )
                       .join(', ')) || <Box>No resources required.</Box>}
                 </Stack.Item>
               ))}
@@ -184,14 +251,24 @@ export const Autolathe = (props, context) => {
           <Stack.Item width="30%">
             <Section title="Materials">
               <LabeledList>
-                <LabeledList.Item label="Metal">{metalReadable}</LabeledList.Item>
-                <LabeledList.Item label="Glass">{glassReadable}</LabeledList.Item>
-                <LabeledList.Item label="Total">{totalReadable}</LabeledList.Item>
-                <LabeledList.Item label="Storage">{data.fill_percent}% Full</LabeledList.Item>
+                <LabeledList.Item label="Metal">
+                  {metalReadable}
+                </LabeledList.Item>
+                <LabeledList.Item label="Glass">
+                  {glassReadable}
+                </LabeledList.Item>
+                <LabeledList.Item label="Total">
+                  {totalReadable}
+                </LabeledList.Item>
+                <LabeledList.Item label="Storage">
+                  {data.fill_percent}% Full
+                </LabeledList.Item>
               </LabeledList>
             </Section>
             <Section title="Building">
-              <Box color={busyname ? 'green' : ''}>{busyname ? busyname : 'Nothing'}</Box>
+              <Box color={busyname ? 'green' : ''}>
+                {busyname ? busyname : 'Nothing'}
+              </Box>
             </Section>
             <Section title="Build Queue" height={23.7}>
               {buildQueueItems}

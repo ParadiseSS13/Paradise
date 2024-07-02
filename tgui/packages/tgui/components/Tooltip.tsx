@@ -109,10 +109,14 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
       () => {
         let singletonPopper = Tooltip.singletonPopper;
         if (singletonPopper === undefined) {
-          singletonPopper = createPopper(Tooltip.virtualElement, renderedTooltip!, {
-            ...DEFAULT_OPTIONS,
-            placement: this.props.position || 'auto',
-          });
+          singletonPopper = createPopper(
+            Tooltip.virtualElement,
+            renderedTooltip!,
+            {
+              ...DEFAULT_OPTIONS,
+              placement: this.props.position || 'auto',
+            }
+          );
 
           Tooltip.singletonPopper = singletonPopper;
         } else {
