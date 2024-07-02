@@ -687,13 +687,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		if(blood_DNA) // Checks for hands to make sure we don't get mysterious floating blood.
 			if(get_organ("l_hand"))
-				var/mutable_appearance/bloodsies_left 	= mutable_appearance(dna.species.blood_mask, "bloodyhand_left", layer = -L_HAND_BLOOD_LAYER)
+				var/mutable_appearance/bloodsies_left = mutable_appearance(dna.species.blood_mask, "bloodyhand_left", layer = -L_HAND_BLOOD_LAYER)
 				bloodsies_left.color = feet_blood_color
-				overlays_standing[L_HAND_BLOOD_LAYER] 	= bloodsies_left
+				overlays_standing[L_HAND_BLOOD_LAYER] = bloodsies_left
 			if(get_organ("r_hand"))
-				var/mutable_appearance/bloodsies_right 	= mutable_appearance(dna.species.blood_mask, "bloodyhand_right", layer = -R_HAND_BLOOD_LAYER)
+				var/mutable_appearance/bloodsies_right = mutable_appearance(dna.species.blood_mask, "bloodyhand_right", layer = -R_HAND_BLOOD_LAYER)
 				bloodsies_right.color = feet_blood_color
-				overlays_standing[R_HAND_BLOOD_LAYER] 	= bloodsies_right
+				overlays_standing[R_HAND_BLOOD_LAYER] = bloodsies_right
 	apply_overlay(GLOVES_LAYER)
 	apply_overlay(L_HAND_BLOOD_LAYER)
 	apply_overlay(R_HAND_BLOOD_LAYER)
@@ -809,13 +809,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		if(feet_blood_DNA) // Checks for feet to make sure we don't have mysterious floating blood.
 			if(get_organ("l_foot"))
-				var/mutable_appearance/bloodsies_left 	= mutable_appearance(dna.species.blood_mask, "shoeblood_left", layer = -L_FOOT_BLOOD_LAYER)
+				var/mutable_appearance/bloodsies_left = mutable_appearance(dna.species.blood_mask, "shoeblood_left", layer = -L_FOOT_BLOOD_LAYER)
 				bloodsies_left.color = feet_blood_color
-				overlays_standing[L_FOOT_BLOOD_LAYER] 	= bloodsies_left
+				overlays_standing[L_FOOT_BLOOD_LAYER] = bloodsies_left
 			if(get_organ("r_foot"))
-				var/mutable_appearance/bloodsies_right 	= mutable_appearance(dna.species.blood_mask, "shoeblood_right", layer = -R_FOOT_BLOOD_LAYER)
+				var/mutable_appearance/bloodsies_right = mutable_appearance(dna.species.blood_mask, "shoeblood_right", layer = -R_FOOT_BLOOD_LAYER)
 				bloodsies_right.color = feet_blood_color
-				overlays_standing[R_FOOT_BLOOD_LAYER] 	= bloodsies_right
+				overlays_standing[R_FOOT_BLOOD_LAYER] = bloodsies_right
 	apply_overlay(SHOES_LAYER)
 	apply_overlay(L_FOOT_BLOOD_LAYER)
 	apply_overlay(R_FOOT_BLOOD_LAYER)
