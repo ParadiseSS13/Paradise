@@ -41,9 +41,12 @@
 	var/obj/item/card/id/access_card
 	var/list/prev_access = list()
 	var/on = TRUE
-	/// Maint panel
+	/// Maintenance panel
 	var/open = FALSE
+	/// ID interface
 	var/locked = TRUE
+	/// Used by secbots and griefsky bots to know if their components can be disconnected with a multitool if the panel is open, or if they requires unwrenching first
+	var/wrenched = TRUE
 	/// Used to differentiate between being hacked by silicons and emagged by humans.
 	var/hacked = FALSE
 	/// Is currently hijacked by a pulse demon?
@@ -404,7 +407,7 @@
 		if(emagged)
 			to_chat(user, "<span class='danger'>ERROR</span>")
 		if(open)
-			to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
+			to_chat(user, "<span class='warning'>Please close the maintenance panel before locking the interface.</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
@@ -447,7 +450,7 @@
 
 	if(istype(W, /obj/item/hemostat) && paicard)
 		if(open)
-			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
+			to_chat(user, "<span class='warning'>Close the maintenance panel before manipulating the personality slot!</span>")
 			return
 
 		to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
@@ -459,17 +462,59 @@
 	return ..()
 
 /mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE //Must be true or we attempt to stab the bot | Sets standard return value for this code block
+
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(locked)
-		to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
-		return TRUE // Must be true or we attempt to stab the bot
+		to_chat(user, "<span class='warning'>The interface is locked.</span>")
+		return
 
-	open = !open
 	I.play_tool_sound(src)
+	open = !open
 	to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
-	return TRUE
 
+/mob/living/simple_animal/bot/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE //Must be true or we attempt to stab the bot
+
+	if(user.a_intent != INTENT_HELP)
+		return ..()
+	if(locked)
+		to_chat(user, "<span class='warning'>The interface is locked.</span>")
+		return
+	if(!open)
+		to_chat(user, "<span class='warning'>The maintenance panel is screwed in place.</span>")
+		return
+	if(bot_type != SEC_BOT && bot_type != GRIEF_BOT) //Should only affect security bots and griefsky
+		to_chat(user, "<span class='warning'>The internal components cannot be wrenched more securely.</span>")
+		return
+
+	I.play_tool_sound(src)
+	wrenched = !wrenched
+	to_chat(user, "<span class='notice'>The internal components are now [wrenched ? "wrenched" : "unwrenched"].</span>")
+
+// Override me please!
+/mob/living/simple_animal/bot/proc/disassemble()
+	CRASH("disassemble() not overridden on [type]")
+
+/mob/living/simple_animal/bot/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE //Must be true or we attempt to stab the bot
+
+	if(user.a_intent != INTENT_HELP)
+		return ..()
+	if(locked)
+		to_chat(user, "<span class='warning'>The interface is locked.</span>")
+		return
+	if(!open)
+		to_chat(user, "<span class='warning'>The maintenance panel is screwed in place.</span>")
+		return
+	if((bot_type == SEC_BOT || bot_type == GRIEF_BOT) && wrenched) //Should only affect security bots and griefsky that have their components wrenched
+		to_chat(user, "<span class='warning'>The internal components are wrenched in place.</span>")
+		return
+
+	I.play_tool_sound(src)
+	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	disassemble()
 
 /mob/living/simple_animal/bot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)

@@ -185,29 +185,44 @@
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
 	walk_to(src,0)
 	visible_message("<span class='boldannounceic'>[src] lets out a huge cough as it blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
-	new /obj/item/assembly/prox_sensor(Tsec)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	var/turf/explode_turf = get_turf(src)
+	new /obj/item/assembly/prox_sensor(explode_turf)
+	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(explode_turf)
 	Sa.build_step = 1
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
 	if(prob(50))
-		new /obj/item/robot_parts/r_arm(Tsec)
+		new /obj/item/robot_parts/r_arm(explode_turf)
 	if(prob(50)) //most of the time weapon will be destroyed
-		new weapon(Tsec)
+		new weapon(explode_turf)
 	if(prob(25))
-		new weapon(Tsec)
+		new weapon(explode_turf)
 	if(prob(10))
-		new weapon(Tsec)
+		new weapon(explode_turf)
 	if(prob(5))
-		new weapon(Tsec)
+		new weapon(explode_turf)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
-	..()
+	qdel(src)
 
-//this section is blocking attack
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/secbot/griefsky/disassemble()
+	var/turf/disassemble_turf = get_turf(src)
+	new /obj/item/assembly/prox_sensor(disassemble_turf)
+	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(disassemble_turf)
+	Sa.build_step = 1
+	Sa.overlays += "hs_hole"
+	Sa.created_name = name
+	drop_part(robot_arm, disassemble_turf)
+	if(weapon == /obj/item/melee/energy/sword/saber)
+		log_and_message_admins("[key_name(usr)] has dismantled [src] containing energy sword(s)!")
+	new weapon(disassemble_turf)
+	new weapon(disassemble_turf)
+	new weapon(disassemble_turf)
+	new weapon(disassemble_turf)
+	qdel(src)
 
-/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
+/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) // So uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
 		visible_message("[src] deflects [P] with its energy swords!")

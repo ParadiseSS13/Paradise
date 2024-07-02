@@ -419,27 +419,37 @@
 		. += "floorbot_[amount > 0 ? "metal" : ""]"
 
 /mob/living/simple_animal/bot/floorbot/explode()
-	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
-	var/obj/item/storage/toolbox/mechanical/N = new /obj/item/storage/toolbox/mechanical(Tsec)
-	N.contents = list()
-	new /obj/item/assembly/prox_sensor(Tsec)
+	var/turf/explode_turf = get_turf(src)
+	var/obj/item/storage/toolbox/mechanical/empty_toolbox = new /obj/item/storage/toolbox/mechanical(explode_turf)
+	empty_toolbox.contents = list()
+	new /obj/item/assembly/prox_sensor(explode_turf)
 	if(prob(50))
-		drop_part(robot_arm, Tsec)
+		drop_part(robot_arm, explode_turf)
 
 	while(amount)// Dumps the tiles into the appropriate sized stacks
 		if(amount >= 16)
-			var/obj/item/stack/tile/plasteel/T = new (Tsec)
+			var/obj/item/stack/tile/plasteel/T = new (explode_turf)
 			T.amount = 16
 			amount -= 16
 		else
-			var/obj/item/stack/tile/plasteel/T = new (Tsec)
+			var/obj/item/stack/tile/plasteel/T = new (explode_turf)
 			T.amount = amount
 			amount = 0
 
 	do_sparks(3, 1, src)
 	..()
+
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/floorbot/disassemble()
+	var/turf/disassemble_turf = get_turf(src)
+	var/obj/item/storage/toolbox/mechanical/empty_toolbox = new /obj/item/storage/toolbox/mechanical(disassemble_turf)
+	empty_toolbox.contents = list()
+	new /obj/item/assembly/prox_sensor(disassemble_turf)
+	drop_part(robot_arm, disassemble_turf)
+	if(amount)
+		new /obj/item/stack/tile/plasteel(disassemble_turf, amount)
+	qdel(src)
 
 /mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A)
 	if(isturf(A))

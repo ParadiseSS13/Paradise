@@ -62,11 +62,11 @@
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
-	var/turf/Tsec = get_turf(src)
-	new /obj/item/stock_parts/cell/potato(Tsec)
-	var/obj/item/reagent_containers/drinks/drinkingglass/S = new(Tsec)
-	S.reagents.add_reagent("whiskey", 15)
-	S.on_reagent_change()
+	var/turf/explode_turf = get_turf(src)
+	new /obj/item/stock_parts/cell/potato(explode_turf)
+	var/obj/item/reagent_containers/drinks/drinkingglass/beepsky_glass = new(explode_turf)
+	beepsky_glass.reagents.add_reagent("whiskey", 15)
+	beepsky_glass.on_reagent_change()
 	..()
 
 /mob/living/simple_animal/bot/secbot/pingsky
@@ -432,20 +432,36 @@
 
 
 /mob/living/simple_animal/bot/secbot/explode()
-	walk_to(src,0)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
-	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
-	Sa.created_name = name
-	new /obj/item/assembly/prox_sensor(Tsec)
-	new /obj/item/melee/baton(Tsec)
+	var/turf/explode_turf = get_turf(src)
+	var/obj/item/secbot_assembly/pierced_helmet = new /obj/item/secbot_assembly(explode_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += "hs_hole"
+	pierced_helmet.created_name = name
+	new /obj/item/assembly/prox_sensor(explode_turf)
+	new /obj/item/melee/baton(explode_turf)
 	if(prob(50))
-		drop_part(robot_arm, Tsec)
+		drop_part(robot_arm, explode_turf)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
+
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/secbot/disassemble()
+	var/turf/disassemble_turf = get_turf(src)
+	var/obj/item/secbot_assembly/pierced_helmet = new /obj/item/secbot_assembly(disassemble_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += "hs_hole"
+	pierced_helmet.created_name = name
+	new /obj/item/assembly/prox_sensor(disassemble_turf)
+	new /obj/item/melee/baton(disassemble_turf)
+	drop_part(robot_arm, disassemble_turf)
+	if(istype(src, /mob/living/simple_animal/bot/secbot/beepsky))
+		new /obj/item/stock_parts/cell/potato(disassemble_turf)
+		var/obj/item/reagent_containers/drinks/drinkingglass/beepsky_glass = new(disassemble_turf)
+		beepsky_glass.reagents.add_reagent("whiskey", 15)
+		beepsky_glass.on_reagent_change()
+	qdel(src)
 
 /mob/living/simple_animal/bot/secbot/attack_alien(mob/living/carbon/alien/user as mob)
 	..()

@@ -372,48 +372,86 @@
 	return 0
 
 /mob/living/simple_animal/bot/ed209/explode()
-	walk_to(src,0)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
+	var/turf/explode_turf = get_turf(src)
 
-	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
-	Sa.build_step = 1
-	Sa.overlays += image('icons/obj/aibots.dmi', "hs_hole")
-	Sa.created_name = name
-	new /obj/item/assembly/prox_sensor(Tsec)
+	var/obj/item/ed209_assembly/pierced_helmet = new /obj/item/ed209_assembly(explode_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += image('icons/obj/aibots.dmi', "hs_hole")
+	pierced_helmet.created_name = name
+	new /obj/item/assembly/prox_sensor(explode_turf)
 
-	if(!lasercolor)
-		var/obj/item/gun/energy/disabler/G = new /obj/item/gun/energy/disabler(Tsec)
-		G.cell.charge = 0
-		G.update_icon()
-	else if(lasercolor == "b")
-		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(Tsec)
-		G.cell.charge = 0
-		G.update_icon()
-	else if(lasercolor == "r")
-		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(Tsec)
-		G.cell.charge = 0
-		G.update_icon()
+	switch(lasercolor)
+		if("b")
+			var/obj/item/gun/energy/laser/tag/blue/ed_gun = new /obj/item/gun/energy/laser/tag/blue(explode_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
+		if("r")
+			var/obj/item/gun/energy/laser/tag/red/ed_gun = new /obj/item/gun/energy/laser/tag/red(explode_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
+		else
+			var/obj/item/gun/energy/disabler/ed_gun = new /obj/item/gun/energy/disabler(explode_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
 
 	if(prob(50))
-		new /obj/item/robot_parts/l_leg(Tsec)
+		new /obj/item/robot_parts/l_leg(explode_turf)
 		if(prob(25))
-			new /obj/item/robot_parts/r_leg(Tsec)
+			new /obj/item/robot_parts/r_leg(explode_turf)
 	if(prob(25))//50% chance for a helmet OR vest
 		if(prob(50))
-			new /obj/item/clothing/head/helmet(Tsec)
+			new /obj/item/clothing/head/helmet(explode_turf)
 		else
-			if(!lasercolor)
-				new /obj/item/clothing/suit/armor/vest(Tsec)
-			if(lasercolor == "b")
-				new /obj/item/clothing/suit/bluetag(Tsec)
-			if(lasercolor == "r")
-				new /obj/item/clothing/suit/redtag(Tsec)
+			switch(lasercolor)
+				if("b")
+					new /obj/item/clothing/suit/bluetag(explode_turf)
+				if("r")
+					new /obj/item/clothing/suit/redtag(explode_turf)
+				else
+					new /obj/item/clothing/suit/armor/vest(explode_turf)
 
 	do_sparks(3, 1, src)
 
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
+
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/ed209/disassemble()
+	var/turf/disassemble_turf = get_turf(src)
+
+	var/obj/item/ed209_assembly/pierced_helmet = new /obj/item/ed209_assembly(disassemble_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += image('icons/obj/aibots.dmi', "hs_hole")
+	pierced_helmet.created_name = name
+	new /obj/item/assembly/prox_sensor(disassemble_turf)
+
+	switch(lasercolor)
+		if("b")
+			var/obj/item/gun/energy/laser/tag/blue/ed_gun = new /obj/item/gun/energy/laser/tag/blue(disassemble_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
+		if("r")
+			var/obj/item/gun/energy/laser/tag/red/ed_gun = new /obj/item/gun/energy/laser/tag/red(disassemble_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
+		else
+			var/obj/item/gun/energy/disabler/ed_gun = new /obj/item/gun/energy/disabler(disassemble_turf)
+			ed_gun.cell.charge = 0
+			ed_gun.update_icon()
+
+	new /obj/item/robot_parts/l_leg(disassemble_turf)
+	new /obj/item/robot_parts/r_leg(disassemble_turf)
+	new /obj/item/clothing/head/helmet(disassemble_turf)
+
+	switch(lasercolor)
+		if("b")
+			new /obj/item/clothing/suit/bluetag(disassemble_turf)
+		if("r")
+			new /obj/item/clothing/suit/redtag(disassemble_turf)
+		else
+			new /obj/item/clothing/suit/armor/vest(disassemble_turf)
+	qdel(src)
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
 	shoot_sound = 'sound/weapons/laser.ogg'
