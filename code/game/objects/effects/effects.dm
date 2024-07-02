@@ -181,6 +181,7 @@
 	if(parent)
 		UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 	QDEL_NULL(particles)
+	holding_parent = null
 	parent.vis_contents -= src
 	return ..()
 
@@ -206,9 +207,9 @@
 
 	// Add new
 	if(isitem(attached_to) && ismob(attached_to.loc)) //special case we want to also be emitting from the mob
-		var/mob/particle_mob = attached_to.loc
+		holding_parent = attached_to.loc
 		last_attached_location_type = attached_to.loc
-		particle_mob.vis_contents += src
+		holding_parent.vis_contents += src
 
 	// Readd to ourselves
 	attached_to.vis_contents |= src
