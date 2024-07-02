@@ -288,9 +288,6 @@ CONTENTS:
 	if(!isabductor(user))
 		return
 
-	if(isrobot(target))
-		..()
-		return
 
 	if(!isliving(target))
 		return
@@ -298,6 +295,10 @@ CONTENTS:
 	var/mob/living/L = target
 
 	user.do_attack_animation(L)
+
+	if(isrobot(L))
+		L.apply_damage(120, STAMINA) //Force a reboot instantly
+		return
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L

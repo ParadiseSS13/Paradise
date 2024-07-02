@@ -605,6 +605,9 @@
 	if(!message)
 		return
 
+	if(HAS_TRAIT(speaker, TRAIT_MUTE))
+		return
+
 	var/log_message = "(ROBOT) [message]"
 	log_say(log_message, speaker)
 	speaker.create_log(SAY_LOG, log_message)

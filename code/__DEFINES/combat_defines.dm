@@ -20,6 +20,7 @@
 #define MAGIC		"magic"
 
 #define STUN		"stun"
+#define STAM_CRIT   "stam_crit"
 #define WEAKEN		"weaken"
 #define KNOCKDOWN	"knockdown"
 #define PARALYZE	"paralize"

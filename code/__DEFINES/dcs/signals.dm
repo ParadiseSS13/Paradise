@@ -495,6 +495,10 @@
 	#define COMPONENT_NO_ATTACH (1<<0)
 ///sent from borg recharge stations: (amount, repairs)
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"
+///sent when a mob enters a borg charger
+#define COMSIG_ENTERED_BORGCHARGER "enter_charger"
+///sent when a mob exits a borg charger
+#define COMSIG_EXITED_BORGCHARGER "exit_charger"
 ///sent when a mob/login() finishes: (client)
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
 ///sent from borg mobs to itself, for tools to catch an upcoming destroy() due to safe decon (rather than detonation)

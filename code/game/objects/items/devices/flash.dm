@@ -28,8 +28,8 @@
 /obj/item/flash/proc/clown_check(mob/user)
 	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		flash_carbon(user, user, 30 SECONDS, 0)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/item/flash/attackby(obj/item/I, mob/user, params)
 	if(can_overcharge)
@@ -66,7 +66,7 @@
 /obj/item/flash/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!
 		burn_out()
-		return 0
+		return FALSE
 
 	var/deciseconds_passed = world.time - last_used
 	for(var/seconds = deciseconds_passed/10, seconds>=10, seconds-=10) //get 1 charge every 10 seconds
@@ -122,20 +122,19 @@
 
 /obj/item/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))
-		return 0
+		return FALSE
 	if(iscarbon(M))
 		flash_carbon(M, user, 10 SECONDS, 1)
 		if(overcharged)
 			M.adjust_fire_stacks(6)
 			M.IgniteMob()
 			burn_out()
-		return 1
+		return TRUE
 	else if(issilicon(M))
 		add_attack_logs(user, M, "Flashed with [src]")
-		if(M.flash_eyes(affect_silicon = 1))
-			M.Weaken(rand(8 SECONDS, 12 SECONDS))
+		if(M.flash_eyes(intensity = 1.25, affect_silicon = TRUE)) // 40 * 1.25 = 50 stamina damage
 			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with [src]!</span>", "<span class='danger'>You overload [M]'s sensors with [src]!</span>")
-		return 1
+		return TRUE
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with [src]!</span>", "<span class='warning'>You fail to blind [M] with [src]!</span>")
 
 /obj/item/flash/afterattack(atom/target, mob/living/user, proximity, params)
@@ -155,7 +154,7 @@
 
 /obj/item/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!try_use_flash(user))
-		return 0
+		return FALSE
 	user.visible_message("<span class='disarm'>[user]'s [name] emits a blinding light!</span>", "<span class='danger'>Your [name] emits a blinding light!</span>")
 	for(var/mob/living/carbon/M in oviewers(3, null))
 		flash_carbon(M, user, 6 SECONDS, 0)
@@ -168,7 +167,7 @@
 
 /obj/item/flash/emp_act(severity)
 	if(!try_use_flash())
-		return 0
+		return FALSE
 	for(var/mob/living/carbon/M in viewers(3, null))
 		flash_carbon(M, null, 20 SECONDS, 0)
 	burn_out()

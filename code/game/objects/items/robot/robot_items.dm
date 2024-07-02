@@ -5,6 +5,10 @@
 	icon = 'icons/mob/robot_items.dmi'
 	var/powerneeded // Percentage of power remaining required to run item
 
+/*
+The old, instant-stun borg arm.
+Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun_arm
+*/
 /obj/item/borg/stun
 	name = "electrically-charged arm"
 	icon_state = "elecarm"
@@ -136,8 +140,3 @@
 #undef CYBORG_HUG
 #undef CYBORG_SHOCK
 #undef CYBORG_CRUSH
-
-/obj/item/borg/overdrive
-	name = "Overdrive"
-	icon = 'icons/obj/decals.dmi'
-	icon_state = "shock"
