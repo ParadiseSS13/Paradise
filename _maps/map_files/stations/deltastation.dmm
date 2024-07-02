@@ -63135,6 +63135,21 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
+"dRt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/grimy,
+/area/station/service/chapel/office)
 "dRu" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/grimy,
@@ -63336,6 +63351,12 @@
 	dir = 4;
 	icon_state = "chapel"
 	},
+/area/station/service/chapel)
+"dSm" = (
+/obj/structure/sign/kiddieplaque/remembrance{
+	pixel_x = 32
+	},
+/turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
 "dSn" = (
 /obj/structure/closet,
@@ -63625,6 +63646,17 @@
 /obj/item/hand_labeler,
 /obj/item/clothing/under/misc/burial,
 /obj/machinery/camera/autoname,
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/station/service/chapel/office)
+"dTq" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/morgue{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -63986,6 +64018,14 @@
 	id = "CHAP2";
 	pixel_x = 7
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/station/service/chapel/office)
+"dUO" = (
+/obj/effect/mapping_helpers/airlock/access/any/service/crematorium,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -67312,6 +67352,9 @@
 	},
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
+/obj/item/storage/belt/sheath/secsword{
+	contents = /obj/item/melee/secsword
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "foK" = (
@@ -76347,12 +76390,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
-"kVb" = (
-/obj/structure/sign/kiddieplaque/remembrance{
-	pixel_x = 32
-	},
-/turf/simulated/floor/carpet/black,
-/area/station/service/chapel)
 "kWF" = (
 /obj/machinery/light,
 /turf/simulated/floor/engine,
@@ -83840,21 +83877,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
-"pmX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel/grimy,
-/area/station/service/chapel/office)
 "pnr" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -87397,14 +87419,6 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/fore)
-"rsC" = (
-/obj/effect/mapping_helpers/airlock/access/any/service/crematorium,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock,
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
-/area/station/service/chapel/office)
 "rsK" = (
 /obj/machinery/computer/security/telescreen/research{
 	pixel_y = -32
@@ -98767,17 +98781,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
-"xOp" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/morgue{
-	dir = 2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
-/area/station/service/chapel/office)
 "xOG" = (
 /obj/structure/table/glass,
 /obj/item/toy/figure/crew/virologist,
@@ -133290,7 +133293,7 @@ dJx
 dPD
 dQh
 dQT
-pmX
+dRt
 yhA
 dXV
 dIx
@@ -134322,7 +134325,7 @@ djB
 xGn
 wRb
 dIx
-xOp
+dTq
 dUc
 dUN
 dIx
@@ -134838,7 +134841,7 @@ dIx
 dIx
 dIx
 dIx
-rsC
+dUO
 dIx
 abj
 aaa
@@ -136119,7 +136122,7 @@ dRv
 dRa
 dRA
 sBk
-kVb
+dSm
 lKc
 dJx
 dUQ
