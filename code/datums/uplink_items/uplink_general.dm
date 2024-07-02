@@ -510,6 +510,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/glasses/chameleon/thermal
 	cost = 15
 
+/datum/uplink_item/stealthy_tools/night
+	name = "Nightvision Chameleon Glasses"
+	desc = "These glasses are nightvision with Syndicate chameleon technology built into them. Lets you see clearer in the dark."
+	reference = "TNIG"
+	item = /obj/item/clothing/glasses/chameleon/night
+	cost = 5
+
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
 	desc = "Agent cards prevent artificial intelligences from tracking the wearer, and can copy access from other identification cards. The access is cumulative, so scanning one card does not erase the access gained from another."
