@@ -386,9 +386,11 @@
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_FLAG_MASK
-	var/adjusted_flags = null
 	strip_delay = 40
 	put_on_delay = 40
+	var/adjusted_flags = null
+	/// The unique sound effect of dying while wearing this
+	var/unique_death
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(mob/user)
