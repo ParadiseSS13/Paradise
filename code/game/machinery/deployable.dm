@@ -261,7 +261,7 @@
 	directional_list += dir_1
 	directional_list += dir_2
 	if(dir_2)
-		icon_state = "[dir2text(dir_1 + dir_2)]"
+		icon_state = "[dir2text(dir_1)][dir2text(dir_1 + dir_2)]"
 	else
 		icon_state = "[dir2text(dir_1)]"
 
