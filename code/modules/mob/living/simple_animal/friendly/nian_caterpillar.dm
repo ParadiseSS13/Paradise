@@ -128,8 +128,8 @@
 /datum/action/innate/nian_caterpillar_emerge
 	name = "Evolve"
 	desc = "Weave a cocoon around yourself to evolve into a greater form. The worme."
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "cocoon1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "cocoon1"
 
 /datum/action/innate/nian_caterpillar_emerge/proc/emerge(obj/structure/moth/cocoon/C)
 	for(var/mob/living/carbon/human/H in C)

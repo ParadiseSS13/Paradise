@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  Flex,
-  Table,
-  NoticeBox,
-  Section,
-  LabeledList,
-} from '../components';
+import { Button, Flex, Table, NoticeBox, Section, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 export const TachyonArray = (props, context) => {
@@ -17,12 +10,8 @@ export const TachyonArray = (props, context) => {
       <Window.Content scrollable>
         <Section>
           <LabeledList>
-            <LabeledList.Item label="Shift's Target">
-              {explosion_target}
-            </LabeledList.Item>
-            <LabeledList.Item label="Current Toxins Level">
-              {toxins_tech}
-            </LabeledList.Item>
+            <LabeledList.Item label="Shift's Target">{explosion_target}</LabeledList.Item>
+            <LabeledList.Item label="Current Toxins Level">{toxins_tech}</LabeledList.Item>
             <LabeledList.Item label="Administration">
               <Button
                 icon="print"
@@ -42,11 +31,7 @@ export const TachyonArray = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        {!records.length ? (
-          <NoticeBox>No Records</NoticeBox>
-        ) : (
-          <TachyonArrayContent />
-        )}
+        {!records.length ? <NoticeBox>No Records</NoticeBox> : <TachyonArrayContent />}
       </Window.Content>
     </Window>
   );
