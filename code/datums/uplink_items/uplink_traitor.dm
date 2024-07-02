@@ -4,7 +4,6 @@
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //Clown
@@ -145,6 +144,7 @@
 	job = list("Chaplain")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
+	can_discount = FALSE
 
 //Janitor
 
@@ -333,7 +333,6 @@
 
 /datum/uplink_item/species_restricted
 	category = "Species Specific Gear"
-	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //skrell

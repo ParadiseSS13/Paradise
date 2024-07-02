@@ -2,14 +2,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
 // Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
 
-/proc/get_uplink_items(obj/item/uplink/U)
+/proc/get_uplink_items(obj/item/uplink/U, mob/user)
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
 	if(!length(uplink_items))
-
 		for(var/path in GLOB.uplink_items)
-
 			var/datum/uplink_item/I = new path
 			if(!I.item)
 				continue
@@ -22,25 +20,49 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
-			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
+
+			//Add items to discount pool, checking job, species, and hijacker status
+			var/job_check = FALSE
+			var/species_check = FALSE
+			var/hijacker_check = FALSE
+			if(I.job) //If your job does not match, no discount
+				for(var/job in I.job)
+					if(job == user.mind.assigned_role)
+						job_check = TRUE
+			else
+				job_check = TRUE
+			if(I.species) //If your species does not match, no discount
+				for(var/species in I.species)
+					if(species == user.dna.species.name)
+						species_check = TRUE
+			else
+				species_check = TRUE
+			if(I.hijack_only && !(locate(/datum/objective/hijack) in user.mind.get_all_objectives())) //If you aren't a hijacker, no hijack only items
+				hijacker_check = TRUE
+			else if(!I.hijack_only)
+				hijacker_check = TRUE
+
+			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5 && job_check && species_check && hijacker_check)
 				sales_items += I
 
+	if(isnull(user)) //Handles surplus
+		return uplink_items
+
 	for(var/i in 1 to 3)
-		var/datum/uplink_item/I = pick_n_take(sales_items)
-		var/datum/uplink_item/A = new I.type
+		var/datum/uplink_item/sale_item = pick_n_take(sales_items)
+		var/datum/uplink_item/A = new sale_item.type
 		var/discount = 0.5
 		A.limited_stock = 1
+		sale_item.refundable = FALSE
+		A.refundable = FALSE
 		if(A.cost >= 100)
 			discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
 		A.cost = max(round(A.cost * (1 - discount)), 1)
 		A.category = "Discounted Gear"
 		A.name += " ([round(((initial(A.cost) - A.cost) / initial(A.cost)) * 100)]% off!)"
-		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
-		A.species = null //same as above for species speific items
 		A.reference = "DIS[newreference]"
 		A.desc += " Limit of [A.limited_stock] per uplink. Normally costs [initial(A.cost)] TC."
-		A.surplus = 0 // stops the surplus crate potentially giving out a bit too much
-		A.item = I.item
+		A.item = sale_item.item
 		newreference++
 		if(!uplink_items[A.category])
 			uplink_items[A.category] = list()
