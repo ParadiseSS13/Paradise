@@ -44,6 +44,7 @@
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 	see_in_dark = 8
@@ -60,6 +61,7 @@
 	flags_inv = HIDESHOES | HIDEJUMPSUIT | HIDETAIL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
@@ -97,6 +99,7 @@
 	slowdown = 0
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
