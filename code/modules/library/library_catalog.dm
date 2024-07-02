@@ -236,7 +236,7 @@
   * * range - Amount of books we want to grab at once
   * * datum/library_user_data/search_terms - datum with parameters for what we want to query our DB for
  */
-/datum/library_catalog/proc/get_book_by_range(initial = 1, range = 25, datum/library_user_data/search_terms, doAsync = TRUE)
+/datum/library_catalog/proc/get_book_by_range(initial = 1, range = 25, datum/library_user_data/search_terms)
 	var/list/search_query = build_search_query(search_terms)
 	var/sql = "SELECT id, author, title, content, summary, rating, raters, primary_category, secondary_category, tertiary_category, ckey, reports FROM library" + search_query[1] + " LIMIT :lowerlimit, :upperlimit"
 	var/list/sql_params = search_query[2]
@@ -246,7 +246,7 @@
 
 	var/datum/db_query/select_query = SSdbcore.NewQuery(sql, sql_params)
 
-	if(!select_query.warn_execute(async = doAsync))
+	if(!select_query.warn_execute())
 		qdel(select_query)
 		return
 
@@ -309,13 +309,13 @@
   * Arguments:
   * * datum/library_user_data/search_terms - datum with parameters for what we want to query our DB for
  */
-/datum/library_catalog/proc/get_total_books(datum/library_user_data/search_terms, async = TRUE)
+/datum/library_catalog/proc/get_total_books(datum/library_user_data/search_terms)
 	var/list/search_query = build_search_query(search_terms)
 	var/sql = "SELECT COUNT(id) FROM library" + search_query[1]
 	var/list/sql_params = search_query[2]
 
 	var/datum/db_query/count_query = SSdbcore.NewQuery(sql, sql_params)
-	if(!count_query.warn_execute(async))
+	if(!count_query.warn_execute())
 		qdel(count_query)
 		return
 
@@ -365,7 +365,7 @@
   * Arguments:
   * * amount - amount of random books to get
  */
-/datum/library_catalog/proc/get_random_book(amount = 1, doAsync = TRUE)
+/datum/library_catalog/proc/get_random_book(amount = 1)
 	if(!amount)
 		return
 	if(!SSdbcore.IsConnected())
@@ -374,7 +374,7 @@
 	var/list/sql_params = list("amount" = num_books )
 	var/sql = "SELECT id, author, title, content, summary, rating, primary_category, secondary_category, tertiary_category, ckey, reports FROM library GROUP BY title ORDER BY rand() LIMIT :amount"
 	var/datum/db_query/query = SSdbcore.NewQuery(sql, sql_params)
-	if(!query.warn_execute(async = doAsync)) //this proc is used in initialize in some objects :)
+	if(!query.warn_execute())
 		qdel(query)
 		return
 

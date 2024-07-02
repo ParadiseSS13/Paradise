@@ -334,7 +334,7 @@
 /mob/living/simple_animal/hostile/proc/Aggro()
 	vision_range = aggro_vision_range
 	if(target && length(emote_taunt) && prob(taunt_chance))
-		custom_emote(EMOTE_VISIBLE, "[pick(emote_taunt)] at [target].")
+		emote("me", EMOTE_VISIBLE, "[pick(emote_taunt)] at [target].")
 		taunt_chance = max(taunt_chance-7,2)
 
 /mob/living/simple_animal/hostile/proc/LoseAggro()
