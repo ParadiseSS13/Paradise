@@ -988,7 +988,7 @@
 		tilt(attacker, crit = TRUE, from_anywhere = TRUE) // get fucked
 		target.visible_message("<span class='warning'>[attacker] tries to slam [target] into [src], but falls face first into [src]!</span>", \
 								"<span class='userdanger'>You get pushed into [src] by [attacker], but narrowly move out of the way as it tips over on top of [attacker]!</span>", \
-								"You hear a loud crunch.")
+								"<span class='danger'>You hear a loud crunch.</span>")
 	else
 		attacker.visible_message("<span class='notice'>[attacker] lightly presses [target] against [src].</span>", "<span class='warning'>You lightly press [target] against [src], you don't want to hurt [target.p_them()]!</span>")
 	return TRUE
