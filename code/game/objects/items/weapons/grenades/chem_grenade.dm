@@ -175,7 +175,7 @@
 		stage = WIRED
 		update_icon(UPDATE_ICON_STATE)
 
-	else if(stage == WIRED && istype(I, /obj/item/wrench))
+	else if(stage == WIRED && iswrench(I))
 		to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
 		stage = EMPTY
 		payload_name = null

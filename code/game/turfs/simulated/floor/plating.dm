@@ -208,17 +208,16 @@
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
 	. = ..()
 
-/turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
-	if(!C || !user)
+/turf/simulated/floor/engine/wrench_act(mob/living/user, obj/item/wrench/W)
+	if(!user)
 		return
-	if(istype(C, /obj/item/wrench))
-		to_chat(user, "<span class='notice'>You begin removing rods...</span>")
-		playsound(src, C.usesound, 80, 1)
-		if(do_after(user, 30 * C.toolspeed, target = src))
-			if(!istype(src, /turf/simulated/floor/engine))
-				return
-			new /obj/item/stack/rods(src, 2)
-			ChangeTurf(/turf/simulated/floor/plating)
+	. = TRUE
+	to_chat(user, "<span class='notice'>You begin removing rods...</span>")
+	if(W.use_tool(src, user, 3 SECONDS, 0, 50))
+		if(!istype(src, /turf/simulated/floor/engine))
+			return
+		new /obj/item/stack/rods(src, 2)
+		ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/engine/ex_act(severity)
 	switch(severity)

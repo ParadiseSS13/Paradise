@@ -505,7 +505,7 @@
 
 //General Griefsky
 
-	else if(istype(I, /obj/item/wrench) && build_step == 3)
+	else if(iswrench(I) && build_step == 3)
 		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly(get_turf(src))
 		user.put_in_hands(A)
 		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!</span>")

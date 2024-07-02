@@ -86,7 +86,7 @@
 /obj/machinery/mass_driver_frame/attackby(obj/item/W as obj, mob/user as mob)
 	switch(build)
 		if(0) // Loose frame
-			if(istype(W, /obj/item/wrench))
+			if(iswrench(W))
 				to_chat(user, "You begin to anchor \the [src] on the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 0))
@@ -97,7 +97,7 @@
 			return FALSE
 
 		if(1) // Fixed to the floor
-			if(istype(W, /obj/item/wrench))
+			if(iswrench(W))
 				to_chat(user, "You begin to de-anchor \the [src] from the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 1))
@@ -108,7 +108,7 @@
 			return FALSE
 
 		if(2) // Welded to the floor
-			if(istype(W, /obj/item/stack/cable_coil))
+			if(iscoil(W))
 				var/obj/item/stack/cable_coil/C = W
 				to_chat(user, "You start adding cables to \the [src]...")
 				playsound(get_turf(src), C.usesound, 50, 1)
@@ -120,7 +120,7 @@
 			return FALSE
 
 		if(3) // Wired
-			if(istype(W, /obj/item/wirecutters))
+			if(iswirecutter(W))
 				to_chat(user, "You begin to remove the wiring from \the [src].")
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 3))
 					new /obj/item/stack/cable_coil(loc,2)
@@ -142,7 +142,7 @@
 			return FALSE
 
 		if(4) // Grille in place
-			if(W.tool_behaviour == TOOL_CROWBAR)
+			if(iscrowbar(W))
 				to_chat(user, "You begin to pry off the grille from \the [src]...")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 30 * W.toolspeed, target = src) && (build == 4))

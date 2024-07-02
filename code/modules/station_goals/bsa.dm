@@ -32,37 +32,24 @@
 	density = TRUE
 	anchored = TRUE
 
+/obj/machinery/bsa/wrench_act(mob/living/user, obj/item/I)
+	default_unfasten_wrench(user, I, 1 SECONDS)
+	return TRUE
+
+/obj/machinery/bsa/multitool_act(mob/living/user, obj/item/multitool/M)
+	M.buffer = src
+	to_chat(user, "<span class='notice'>You store linkage information in [M]'s buffer.</span>")
+	return TRUE
+
 /obj/machinery/bsa/back
 	name = "Bluespace Artillery Generator"
 	desc = "Generates cannon pulse. Needs to be linked with a fusor. "
 	icon_state = "power_box"
 
-/obj/machinery/bsa/back/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
-
 /obj/machinery/bsa/front
 	name = "Bluespace Artillery Bore"
 	desc = "Do not stand in front of cannon during operation. Needs to be linked with a fusor."
 	icon_state = "emitter_center"
-
-/obj/machinery/bsa/front/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
@@ -71,23 +58,19 @@
 	var/obj/machinery/bsa/back/back
 	var/obj/machinery/bsa/front/front
 
-/obj/machinery/bsa/middle/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		if(M.buffer)
-			if(istype(M.buffer,/obj/machinery/bsa/back))
-				back = M.buffer
-				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
-			else if(istype(M.buffer,/obj/machinery/bsa/front))
-				front = M.buffer
-				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
+/obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/multitool/M)
+	. = TRUE
+	if(!M.buffer)
+		to_chat(user, "<span class='warning'>[M]'s buffer is empty!</span>")
+		return
+	if(istype(M.buffer,/obj/machinery/bsa/back))
+		back = M.buffer
+		M.buffer = null
+		to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
+	else if(istype(M.buffer,/obj/machinery/bsa/front))
+		front = M.buffer
+		M.buffer = null
+		to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)
