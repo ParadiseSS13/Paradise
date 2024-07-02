@@ -442,12 +442,8 @@
 
 	var/datum/pathfinding_mover/pathfind = new(src, target)
 
-	// I originally only wanted to make it use an ID if it couldnt pathfind otherwise, but that means it could take multiple minutes if both searches failed
-	var/obj/item/card/id/temp_id = new(src)
-	temp_id.access = get_all_accesses()
 	set_pathfinding(pathfind)
-	var/found_path = pathfind.generate_path(150, null, temp_id)
-	qdel(temp_id)
+	var/found_path = pathfind.generate_path(150, null, get_all_accesses())
 	if(!found_path)
 		set_pathfinding(null)
 		return FALSE

@@ -212,7 +212,7 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
-/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/mob/living/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
 /mob/living/proc/can_track(mob/living/user)

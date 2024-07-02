@@ -79,7 +79,7 @@
 	QDEL_NULL(cell)
 	return ..()
 
-/mob/living/simple_animal/bot/mulebot/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
+/mob/living/simple_animal/bot/mulebot/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return FALSE
 
 /mob/living/simple_animal/bot/mulebot/can_buckle()
@@ -606,7 +606,7 @@
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
 	check_bot_access()
-	set_path(get_path_to(src, target, 250, id=access_card, exclude=avoid))
+	set_path(get_path_to(src, target, 250, access = access_card.access, exclude = avoid))
 
 // sets the current destination
 // signals all beacons matching the delivery code
