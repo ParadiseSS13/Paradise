@@ -959,7 +959,7 @@
 
 /obj/item/push_broom/traitor/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime
 	// parent component handles this
 	AddComponent(/datum/component/two_handed, force_wielded = 25, force_unwielded = force)
 
@@ -969,15 +969,6 @@
 		. += "<span class='warning'>When wielded, the broom has different effects depending on your intent, similar to a martial art. \
 			Help intent will sweep foes away from you, disarm intent sweeps their legs from under them, grab intent confuses \
 			and minorly fatigues them, and harm intent hits them normally.</span>"
-
-/obj/item/push_broom/traitor/wield(obj/item/source, mob/user)
-	ADD_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")
-	to_chat(user, "<span class='warning'>Your sweeping stance allows you to deflect projectiles.</span>")
-
-/obj/item/push_broom/traitor/unwield(obj/item/source, mob/user)
-	if(HAS_TRAIT_FROM(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")) //this check is needed because obj/item/twohanded calls unwield() on drop and you'd get the message even if you weren't wielding it before
-		REMOVE_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")
-		to_chat(user, "<span class='warning'>You stop reflecting projectiles.</span>")
 
 /obj/item/push_broom/traitor/attack(mob/target, mob/living/user)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))

@@ -159,7 +159,7 @@
 /datum/uplink_item/jobspecific/titaniumbroom
 	name = "Titanium Push Broom"
 	desc = "A push broom with a reinforced handle and a metal wire brush, perfect for giving yourself more work by beating up assistants. \
-	When wielded, you will reflect projectiles, and hitting people will have different effects based on your intent."
+			When wielded hitting people will have different effects based on your intent. "
 	reference = "TPBR"
 	item = /obj/item/push_broom/traitor
 	cost = 60
