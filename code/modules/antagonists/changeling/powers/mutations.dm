@@ -122,7 +122,7 @@
 	name = "Arm Blade"
 	desc = "We reform one of our arms into a deadly blade. Costs 15 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
-	button_icon_state = "armblade"
+	button_overlay_icon_state = "armblade"
 	chemical_cost = 15
 	dna_cost = 4
 	req_human = TRUE
@@ -187,7 +187,7 @@
 	Grab will immobilize the target and wrap a tentacle around them. \
 	Harm will drag the target closer and hit them with the object in our other hand. \
 	Cannot be used while in our lesser form."
-	button_icon_state = "tentacle"
+	button_overlay_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 4
 	req_human = TRUE
@@ -391,7 +391,7 @@
 	name = "Organic Shield"
 	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
 	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Automatically parries. Cannot be used while in lesser form."
-	button_icon_state = "organic_shield"
+	button_overlay_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 2
 	req_human = TRUE
@@ -444,7 +444,7 @@
 	name = "Organic Space Suit"
 	desc = "We grow an organic suit to protect ourselves from space exposure. Costs 20 chemicals."
 	helptext = "We must constantly repair our form to make it space proof, reducing chemical production while we are protected. Cannot be used in lesser form."
-	button_icon_state = "organic_suit"
+	button_overlay_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 4
 	req_human = TRUE
@@ -491,7 +491,7 @@
 	name = "Chitinous Armor"
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 25 chemicals."
 	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Cannot be used in lesser form."
-	button_icon_state = "chitinous_armor"
+	button_overlay_icon_state = "chitinous_armor"
 	chemical_cost = 25
 	dna_cost = 4
 	req_human = TRUE
@@ -589,7 +589,7 @@
 	name = "Bone Shard"
 	desc = "We evolve the ability to break off shards of our bone and shape them into throwing weapons which embed into our foes. Costs 15 chemicals."
 	helptext = "The shards of bone will dull upon hitting a target, rendering them unusable as weapons."
-	button_icon_state = "boneshard"
+	button_overlay_icon_state = "boneshard"
 	chemical_cost = 15
 	dna_cost = 3
 	req_human = TRUE

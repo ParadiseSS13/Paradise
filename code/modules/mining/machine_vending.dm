@@ -91,7 +91,7 @@
 		EQUIPMENT("Alien Toy", /obj/item/clothing/mask/facehugger/toy, 300),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
 		EQUIPMENT("GAR Meson Scanners", /obj/item/clothing/glasses/meson/gar, 500),
-		EQUIPMENT("Hoverboard", /obj/item/clothing/glasses/meson/gar, 4000), //Cross lava rivers in a discounted style. To buying it in cargo. Still more than jump boots.
+		EQUIPMENT("Hoverboard", /obj/item/melee/skateboard/hoverboard, 4000), //Cross lava rivers in a discounted style. To buying it in cargo. Still more than jump boots.
 		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 3500), //I want miners have to pay a lot to get this, but be set once they do.
 		EQUIPMENT("Laser Pointer", /obj/item/laser_pointer, 300),
 		EQUIPMENT("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000),
