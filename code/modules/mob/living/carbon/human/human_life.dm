@@ -764,7 +764,7 @@
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
 		return
 
-	if(decaytime <= 8 MINUTES) 
+	if(decaytime <= 8 MINUTES)
 		return
 
 	if(decaytime > 8 MINUTES)
