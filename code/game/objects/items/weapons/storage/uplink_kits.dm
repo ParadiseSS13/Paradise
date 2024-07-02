@@ -556,3 +556,10 @@
 
 /obj/item/storage/box/syndie_kit/pen_bomb/populate_contents()
 	new /obj/item/grenade/syndieminibomb/pen(src)
+
+/obj/item/storage/box/syndie_kit/decoy
+	name = "\improper Decoy Grenade kit"
+
+/obj/item/storage/box/syndie_kit/decoy/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/grenade/firecracker/decoy(src)
