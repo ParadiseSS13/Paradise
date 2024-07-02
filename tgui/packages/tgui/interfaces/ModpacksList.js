@@ -39,11 +39,7 @@ export const ModpacksListContent = (props, context) => {
         <Section
           fill
           scrollable
-          title={
-            searchText.length > 0
-              ? `Результаты поиска "${searchText}"`
-              : `Все модификации - ${modpacks.length}`
-          }
+          title={searchText.length > 0 ? `Результаты поиска "${searchText}"` : `Все модификации - ${modpacks.length}`}
         >
           <Stack fill vertical>
             <Stack.Item>
@@ -52,15 +48,9 @@ export const ModpacksListContent = (props, context) => {
                   (modpack) =>
                     modpack.name &&
                     (searchText.length > 0
-                      ? modpack.name
-                          .toLowerCase()
-                          .includes(searchText.toLowerCase()) ||
-                        modpack.desc
-                          .toLowerCase()
-                          .includes(searchText.toLowerCase()) ||
-                        modpack.author
-                          .toLowerCase()
-                          .includes(searchText.toLowerCase())
+                      ? modpack.name.toLowerCase().includes(searchText.toLowerCase()) ||
+                        modpack.desc.toLowerCase().includes(searchText.toLowerCase()) ||
+                        modpack.author.toLowerCase().includes(searchText.toLowerCase())
                       : true)
                 )
                 .map((modpack) => (

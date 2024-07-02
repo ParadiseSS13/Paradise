@@ -9,6 +9,7 @@
 	to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select corner</span>")
 	to_chat(user, "<span class='notice'>Left Mouse Button + Alt on turf/obj/mob = Delete region</span>")
 	to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Select object type</span>")
+	to_chat(user, "<span class='notice'>Left Mouse Button + alt on turf/obj    = Copy object type")
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/fill/change_settings(mob/user)
@@ -26,6 +27,15 @@
 	deselect_region()
 
 /datum/buildmode_mode/fill/handle_click(mob/user, params, obj/object)
+	var/list/pa = params2list(params)
+	var/alt_click = pa.Find("alt")
+	var/left_click = pa.Find("left")
+	if(left_click && alt_click)
+		if(isturf(object) || isobj(object) || ismob(object))
+			objholder = object.type
+			to_chat(user, "<span class='notice'>[initial(object.name)] ([object.type]) selected.</span>")
+		else
+			to_chat(user, "<span class='notice'>[initial(object.name)] is not a turf, object, or mob! Please select again.</span>")
 	if(isnull(objholder))
 		to_chat(user, "<span class='warning'>Select an object type first.</span>")
 		deselect_region()

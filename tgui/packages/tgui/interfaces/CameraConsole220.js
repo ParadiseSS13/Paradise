@@ -3,17 +3,7 @@ import { flow } from 'common/fp';
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  ByondUi,
-  Input,
-  Section,
-  Stack,
-  NanoMap,
-  Tabs,
-  Icon,
-  Box,
-} from '../components';
+import { Button, ByondUi, Input, Section, Stack, NanoMap, Tabs, Icon, Box } from '../components';
 import { Window } from '../layouts';
 
 /**
@@ -24,9 +14,7 @@ const prevNextCamera = (cameras, activeCamera) => {
   if (!activeCamera) {
     return [];
   }
-  const index = cameras.findIndex(
-    (camera) => camera.name === activeCamera.name
-  );
+  const index = cameras.findIndex((camera) => camera.name === activeCamera.name);
   return [cameras[index - 1]?.name, cameras[index + 1]?.name];
 };
 
@@ -65,27 +53,12 @@ export const CameraConsole220 = (props, context) => {
       <Window.Content>
         <Stack>
           <Box fillPositionedParent>
-            <Stack.Item
-              width={tabIndex === 1 ? '222px' : '475px'}
-              textAlign="center"
-            >
-              <Tabs
-                fluid
-                ml={tabIndex === 1 ? 1 : 0}
-                mt={tabIndex === 1 ? 1 : 0}
-              >
-                <Tabs.Tab
-                  key="Map"
-                  selected={tabIndex === 0}
-                  onClick={() => setTabIndex(0)}
-                >
+            <Stack.Item width={tabIndex === 1 ? '222px' : '475px'} textAlign="center">
+              <Tabs fluid ml={tabIndex === 1 ? 1 : 0} mt={tabIndex === 1 ? 1 : 0}>
+                <Tabs.Tab key="Map" selected={tabIndex === 0} onClick={() => setTabIndex(0)}>
                   <Icon name="map-marked-alt" /> Карта
                 </Tabs.Tab>
-                <Tabs.Tab
-                  key="List"
-                  selected={tabIndex === 1}
-                  onClick={() => setTabIndex(1)}
-                >
+                <Tabs.Tab key="List" selected={tabIndex === 1} onClick={() => setTabIndex(1)}>
                   <Icon name="table" /> Список
                 </Tabs.Tab>
               </Tabs>
@@ -103,10 +76,7 @@ export const CameraConsoleMapContent = (props, context) => {
   const cameras = selectCameras(data.cameras);
   const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
   const { mapRef, activeCamera, stationLevel } = data;
-  const [prevCameraName, nextCameraName] = prevNextCamera(
-    cameras,
-    activeCamera
-  );
+  const [prevCameraName, nextCameraName] = prevNextCamera(cameras, activeCamera);
   return (
     <Stack fill>
       <Stack.Item
@@ -180,21 +150,14 @@ export const CameraConsoleOldContent = (props, context) => {
   const { mapRef, activeCamera } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const cameras = selectCameras(data.cameras, searchText);
-  const [prevCameraName, nextCameraName] = prevNextCamera(
-    cameras,
-    activeCamera
-  );
+  const [prevCameraName, nextCameraName] = prevNextCamera(cameras, activeCamera);
   return (
     <Stack.Item>
       <div className="CameraConsole__left">
         <Window.Content>
           <Stack fill vertical>
             <Stack.Item>
-              <Input
-                width="215px"
-                placeholder="Найти камеру"
-                onInput={(e, value) => setSearchText(value)}
-              />
+              <Input width="215px" placeholder="Найти камеру" onInput={(e, value) => setSearchText(value)} />
             </Stack.Item>
             <Stack.Item grow>
               <Section fill scrollable>
@@ -207,13 +170,9 @@ export const CameraConsoleOldContent = (props, context) => {
                     className={classes([
                       'Button',
                       'Button--fluid',
-                      camera.status
-                        ? 'Button--color--transparent'
-                        : 'Button--color--danger',
+                      camera.status ? 'Button--color--transparent' : 'Button--color--danger',
                       'Button--ellipsis',
-                      activeCamera &&
-                        camera.name === activeCamera.name &&
-                        'Button--selected',
+                      activeCamera && camera.name === activeCamera.name && 'Button--selected',
                     ])}
                     onClick={() =>
                       act('switch_camera', {

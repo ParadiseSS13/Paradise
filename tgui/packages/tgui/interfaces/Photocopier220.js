@@ -1,12 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  Section,
-  Stack,
-  Input,
-  Slider,
-  ProgressBar,
-} from '../components';
+import { Button, Section, Stack, Input, Slider, ProgressBar } from '../components';
 import { Window } from '../layouts';
 import { filter, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
@@ -18,11 +11,7 @@ String.prototype.trimLongStr = function (length) {
 
 const selectForms = (forms, searchText = '') => {
   const testSearch = createSearch(searchText, (form) => form.altername);
-  return flow([
-    filter((form) => form?.altername),
-    searchText && filter(testSearch),
-    sortBy((form) => form.id),
-  ])(forms);
+  return flow([filter((form) => form?.altername), searchText && filter(testSearch), sortBy((form) => form.id)])(forms);
 };
 
 export const Photocopier220 = (props, context) => {
@@ -32,10 +21,7 @@ export const Photocopier220 = (props, context) => {
 
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
-  const forms = selectForms(
-    sortBy((form) => form.category)(data.forms || []),
-    searchText
-  );
+  const forms = selectForms(sortBy((form) => form.category)(data.forms || []), searchText);
   const categories = [];
   for (let form of forms) {
     if (!categories.includes(form.category)) {
@@ -63,11 +49,7 @@ export const Photocopier220 = (props, context) => {
                     Заряд тонера:
                   </Stack.Item>
                   <Stack.Item width="50%">
-                    <ProgressBar
-                      minValue={0}
-                      maxValue={30}
-                      value={data.toner}
-                    />
+                    <ProgressBar minValue={0} maxValue={30} value={data.toner} />
                   </Stack.Item>
                 </Stack>
                 <Stack mt={1}>
@@ -86,11 +68,7 @@ export const Photocopier220 = (props, context) => {
                       disabled={!data.copyitem && !data.mob}
                       icon={data.copyitem || data.mob ? 'eject' : 'times'}
                       content={
-                        data.copyitem
-                          ? data.copyitem
-                          : data.mob
-                            ? 'Жопа ' + data.mob + '!'
-                            : 'Слот для документа'
+                        data.copyitem ? data.copyitem : data.mob ? 'Жопа ' + data.mob + '!' : 'Слот для документа'
                       }
                       onClick={() => act('removedocument')}
                     />
@@ -142,9 +120,7 @@ export const Photocopier220 = (props, context) => {
                       textAlign="center"
                       icon="copy"
                       content="Копия"
-                      disabled={
-                        data.toner === 0 || (!data.copyitem && !data.mob)
-                      }
+                      disabled={data.toner === 0 || (!data.copyitem && !data.mob)}
                       onClick={() => act('copy')}
                     />
                   </Stack.Item>
@@ -229,12 +205,7 @@ export const Photocopier220 = (props, context) => {
               scrollable
               title={data.category || 'Все формы'}
               buttons={
-                <Input
-                  mr={18.5}
-                  width="100%"
-                  placeholder="Поиск формы"
-                  onInput={(e, value) => setSearchText(value)}
-                />
+                <Input mr={18.5} width="100%" placeholder="Поиск формы" onInput={(e, value) => setSearchText(value)} />
               }
             >
               {category.map((form) => (

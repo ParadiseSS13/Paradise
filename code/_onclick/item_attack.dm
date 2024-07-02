@@ -81,7 +81,7 @@
 	M.lastattackerckey = user.ckey
 
 	user.do_attack_animation(M)
-	. = M.attacked_by(src, user, def_zone)
+	. = !M.attacked_by(src, user, def_zone)
 
 	add_fingerprint(user)
 

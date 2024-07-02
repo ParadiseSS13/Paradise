@@ -54,18 +54,10 @@ export const AtmosControl = (props, context) => {
       <Window.Content scrollable={tabIndex === 0}>
         <Box fillPositionedParent>
           <Tabs>
-            <Tabs.Tab
-              key="DataView"
-              selected={tabIndex === 0}
-              onClick={() => setTabIndex(0)}
-            >
+            <Tabs.Tab key="DataView" selected={tabIndex === 0} onClick={() => setTabIndex(0)}>
               <Icon name="table" /> Data View
             </Tabs.Tab>
-            <Tabs.Tab
-              key="MapView"
-              selected={tabIndex === 1}
-              onClick={() => setTabIndex(1)}
-            >
+            <Tabs.Tab key="MapView" selected={tabIndex === 1} onClick={() => setTabIndex(1)}>
               <Icon name="map-marked-alt" /> Map View
             </Tabs.Tab>
           </Tabs>
