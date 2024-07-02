@@ -1,8 +1,8 @@
 /datum/action/item_action/mod
-	background_icon_state = "bg_mod"
-	button_icon_state = "bg_mod_border"
-	icon_icon = 'icons/mob/actions/actions_mod.dmi'
-	button_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_overlay_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_overlay_icon_state = "bg_mod_border"
+	button_background_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_background_icon_state = "bg_mod"
 	check_flags = AB_CHECK_CONSCIOUS
 	use_itemicon = FALSE
 
@@ -23,7 +23,7 @@
 /datum/action/item_action/mod/deploy
 	name = "Deploy MODsuit"
 	desc = "LMB: Deploy/Undeploy full suit. MMB: Deploy/Undeploy part."
-	button_icon_state = "deploy"
+	button_overlay_icon_state = "deploy"
 
 /datum/action/item_action/mod/deploy/Trigger(left_click, attack_self)
 	. = ..()
@@ -38,7 +38,7 @@
 /datum/action/item_action/mod/activate
 	name = "Activate MODsuit"
 	desc = "LMB: Activate/Deactivate suit with prompt. MMB: Activate/Deactivate suit skipping prompt."
-	button_icon_state = "activate"
+	button_overlay_icon_state = "activate"
 	/// First time clicking this will set it to TRUE, second time will activate it.
 	var/ready = FALSE
 
@@ -48,7 +48,7 @@
 		return
 	if(!ready && left_click)
 		ready = TRUE
-		button_icon_state = "activate-ready"
+		button_overlay_icon_state = "activate-ready"
 		UpdateButtons()
 		addtimer(CALLBACK(src, PROC_REF(reset_ready)), 3 SECONDS)
 		return
@@ -59,13 +59,13 @@
 /// Resets the state requiring to be doubleclicked again.
 /datum/action/item_action/mod/activate/proc/reset_ready()
 	ready = FALSE
-	button_icon_state = initial(button_icon_state)
+	button_overlay_icon_state = initial(button_overlay_icon_state)
 	UpdateButtons()
 
 /datum/action/item_action/mod/module
 	name = "Toggle Module"
 	desc = "Toggle a MODsuit module."
-	button_icon_state = "module"
+	button_overlay_icon_state = "module"
 
 /datum/action/item_action/mod/module/Trigger(left_click, attack_self)
 	. = ..()
@@ -77,7 +77,7 @@
 /datum/action/item_action/mod/panel
 	name = "MODsuit Panel"
 	desc = "Open the MODsuit's panel."
-	button_icon_state = "panel"
+	button_overlay_icon_state = "panel"
 
 /datum/action/item_action/mod/panel/Trigger(left_click, attack_self)
 	. = ..()
@@ -88,9 +88,9 @@
 
 /datum/action/item_action/mod/pinned_module
 	desc = "Activate the module."
-	icon_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
-	button_icon = 'icons/mob/actions/actions_mod.dmi'
-	button_icon_state = "module"
+	button_overlay_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
+	button_overlay_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_overlay_icon_state = "module"
 	/// Module we are linked to.
 	var/obj/item/mod/module/module
 	/// A ref to the mob we are pinned to.
@@ -101,7 +101,7 @@
 	desc = "Quickly activate [linked_module]."
 	..()
 	module = linked_module
-	button_icon_state = module.icon_state
+	button_overlay_icon_state = module.icon_state
 	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
 		// clears check hands
 		check_flags = AB_CHECK_CONSCIOUS
