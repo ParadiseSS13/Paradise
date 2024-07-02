@@ -336,6 +336,7 @@
 	speed = 1
 	wander = FALSE
 	alert_on_spacing = FALSE
+	alert_on_timeout = FALSE
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list() // Explodes, doesn't drop loot.
 
