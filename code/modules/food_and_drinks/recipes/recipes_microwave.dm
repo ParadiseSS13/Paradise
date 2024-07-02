@@ -1297,8 +1297,8 @@
 	)
 	result = /obj/item/food/snacks/frozen/snowcone
 
-/datum/recipe/microwave/snowcone/fruitsalad
-	reagents = list("ice" = 15, "orangejuice" = 5, "limejuice" = 5, "lemonjuice" = 5)
+/datum/recipe/microwave/fruitsalad
+	reagents = list("ice" = 15, "watermelonjuice" = 5, "berryjuice" = 5, "lemonjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/drinks/sillycup
 	)
