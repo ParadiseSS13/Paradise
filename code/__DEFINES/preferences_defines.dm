@@ -13,6 +13,12 @@
 
 #define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_HEARTBEAT|SOUND_BUZZ|SOUND_INSTRUMENTS|SOUND_MENTORHELP|SOUND_DISCO|SOUND_AI_VOICE|SOUND_PRAYERNOTIFY)
 
+#define LIGHT_NEW_LIGHTING	(1<<0)
+#define LIGHT_EXPOSURE		(1<<1)
+#define LIGHT_GLARE			(1<<2)
+
+#define LIGHT_DEFAULT		(LIGHT_NEW_LIGHTING|LIGHT_EXPOSURE|LIGHT_GLARE)
+
 #define PREFTOGGLE_CHAT_OOC					(1<<0)
 #define PREFTOGGLE_CHAT_DEAD				(1<<1)
 #define PREFTOGGLE_CHAT_GHOSTEARS			(1<<2)
@@ -92,10 +98,12 @@
 #define PREFTOGGLE_SPECIAL		0
 /// Interacts with the sound bitflag
 #define PREFTOGGLE_SOUND		1
+/// Interacts with the light bitflag
+#define PREFTOGGLE_LIGHT		2
 /// Interacts with the toggles bitflag
-#define PREFTOGGLE_TOGGLE1		2
+#define PREFTOGGLE_TOGGLE1		3
 /// Interacts with the toggles2 bitflag
-#define PREFTOGGLE_TOGGLE2		3
+#define PREFTOGGLE_TOGGLE2		4
 
 
 // Admin attack logs filter system, see /proc/add_attack_logs and /proc/msg_admin_attack
@@ -120,6 +128,12 @@
 #define EXP_TYPE_SERVICE		"Service"
 
 #define EXP_DEPT_TYPE_LIST		list(EXP_TYPE_SUPPLY, EXP_TYPE_SERVICE, EXP_TYPE_MEDICAL, EXP_TYPE_ENGINEERING, EXP_TYPE_SCIENCE, EXP_TYPE_SECURITY, EXP_TYPE_COMMAND, EXP_TYPE_SILICON, EXP_TYPE_SPECIAL, EXP_TYPE_GHOST)
+
+// Defines for the glow level preference for the lighting.
+#define GLOW_HIGH    0
+#define GLOW_MED     1 // Default.
+#define GLOW_LOW     2
+#define GLOW_DISABLE 3
 
 // Defines just for parallax because its levels make storing it in the regular prefs a pain in the ass
 // These dont need to be bitflags because there isnt going to be more than one at a time of these active

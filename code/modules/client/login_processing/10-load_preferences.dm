@@ -14,6 +14,8 @@
 		toggles,
 		toggles_2,
 		sound,
+		light,
+		glowlevel,
 		volume_mixer,
 		lastchangelog,
 		exp,

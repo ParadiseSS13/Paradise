@@ -104,6 +104,17 @@
 	var/tmp/datum/light_source/light
 	// Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
 	var/tmp/list/light_sources
+	// Variables for bloom and exposure
+	var/glow_icon = 'icons/obj/lamps.dmi'
+	var/exposure_icon = 'icons/effects/exposures.dmi'
+	
+	var/glow_icon_state
+	var/glow_colored = TRUE
+	var/exposure_icon_state
+	var/exposure_colored = TRUE
+	
+	var/image/glow_overlay
+	var/image/exposure_overlay
 	/// The alternate appearances we own. Lazylist
 	var/list/alternate_appearances
 	/// The alternate appearances we're viewing, stored here to reestablish them after Logout()s. Lazylist
