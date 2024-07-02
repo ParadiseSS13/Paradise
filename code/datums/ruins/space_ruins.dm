@@ -198,7 +198,7 @@
 	id = "malftcommsat"
 	suffix = "telecomns_returns.dmm"
 	name = "D.V.O.R.A.K'S Telecommunications Satellite"
-	description = "Seems the telecomunication satellite that went dark 4 years ago finally reapeared on scanners? Strange signals are coming from it."
+	description = "Seems the telecomunication satellite that went dark 4 years ago finally re-appeared on scanners? Strange signals are coming from it."
 	cost = 5 // Huge. Large. In charge
 	allow_duplicates = FALSE // One sadistic malfunctioning AI is enough. Also unique apcs.
 

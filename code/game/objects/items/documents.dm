@@ -59,7 +59,7 @@
 
 /obj/item/documents/syndicate/dvorak_blackbox
 	name = "\improper D.V.O.R.A.K Blackbox Disk"
-	desc = "This disk contains all the information D.V.O.R.A.K likely listened to overtime, not to mention what may have went wrong. NT might be interested in this."
+	desc = "This disk contains a full record of all information that passed through D.V.O.R.A.K's systems during its uptime, not to mention what may have gone wrong. NT might be interested in this."
 	icon = 'icons/obj/module.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "card-id"

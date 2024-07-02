@@ -965,7 +965,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 // I would love to scope this locally to the AI class, however its used by holopads as well
 // I wish we had nice OOP -aa07
 // hi squidward I'm stealing this for a space ruin -qwerty
-/proc/getHologramIcon(icon/A, safety = TRUE, colour = rgb(125,180,225), opacity = 0.5, colour_blocking = FALSE) // If safety is on, a new icon is not created.
+/proc/getHologramIcon(icon/A, safety = TRUE, colour = rgb(125, 180, 225), opacity = 0.5, colour_blocking = FALSE) // If safety is on, a new icon is not created.
 	var/icon/flat_icon = safety ? A : new(A) // Has to be a new icon to not constantly change the same icon.
 	var/icon/alpha_mask
 	if(colour && !colour_blocking)
