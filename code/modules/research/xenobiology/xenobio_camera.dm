@@ -217,7 +217,7 @@
 // === SLIME ACTION DATUMS ====
 /datum/action/innate/slime_place
 	name = "Place Slimes"
-	button_icon_state = "slime_down"
+	button_overlay_icon_state = "slime_down"
 
 /datum/action/innate/slime_place/Activate()
 	if(!target || !ishuman(owner))
@@ -237,7 +237,7 @@
 
 /datum/action/innate/slime_pick_up
 	name = "Pick up Slime"
-	button_icon_state = "slime_up"
+	button_overlay_icon_state = "slime_up"
 
 /datum/action/innate/slime_pick_up/Activate()
 	if(!target || !ishuman(owner))
@@ -259,7 +259,7 @@
 
 /datum/action/innate/feed_slime
 	name = "Feed Slimes"
-	button_icon_state = "monkey_down"
+	button_overlay_icon_state = "monkey_down"
 
 /datum/action/innate/feed_slime/Activate()
 	if(!target || !ishuman(owner))
@@ -303,7 +303,7 @@
 
 /datum/action/innate/monkey_recycle
 	name = "Recycle Monkeys"
-	button_icon_state = "monkey_up"
+	button_overlay_icon_state = "monkey_up"
 
 /datum/action/innate/monkey_recycle/Activate()
 	if(!target || !ishuman(owner))
@@ -328,7 +328,7 @@
 
 /datum/action/innate/slime_scan
 	name = "Scan Slime"
-	button_icon_state = "slime_scan"
+	button_overlay_icon_state = "slime_scan"
 
 /datum/action/innate/slime_scan/Activate()
 	if(!target || !isliving(owner))
@@ -344,7 +344,7 @@
 
 /datum/action/innate/feed_potion
 	name = "Apply Potion"
-	button_icon_state = "slime_potion"
+	button_overlay_icon_state = "slime_potion"
 
 /datum/action/innate/feed_potion/Activate()
 	if(!target || !ishuman(owner))
@@ -367,7 +367,7 @@
 
 /datum/action/innate/hotkey_help
 	name = "Hotkey Help"
-	button_icon_state = "hotkey_help"
+	button_overlay_icon_state = "hotkey_help"
 
 /datum/action/innate/hotkey_help/Activate()
 	if(!target || !isliving(owner))

@@ -73,8 +73,10 @@
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
-///from base of atom/examine(): (/mob)
+///from base of atom/examine(): (examining_user, examine_list)
 #define COMSIG_PARENT_EXAMINE "atom_examine"
+///from base of atom/examine_more(): (examining_user, examine_list)
+#define COMSIG_PARENT_EXAMINE_MORE "atom_examine_more"
 ///from base of atom/get_examine_name(): (/mob, list/overrides)
 #define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
 	//Positions for overrides list
@@ -508,6 +510,16 @@
 //sent from a mob when they set themselves to DNR
 #define COMSIG_LIVING_SET_DNR "set_dnr"
 
+// Sent from a surgery step when blood is being splashed. (datum/surgery, mob/user, mob/target, zone, obj/item/tool)
+#define COMSIG_SURGERY_BLOOD_SPLASH "surgery_blood_splash"
+	/// If returned from this signal, will prevent any surgery splashing.
+	#define COMPONENT_BLOOD_SPLASH_HANDLED (1<<0)
+
+// Sent from a surgery step when organs are being spread from an incision
+#define COMSIG_SURGERY_GERM_SPREAD "surgery_germ_spread"
+	/// If returned from this signal, germ spread will be blocked.
+	#define COMPONENT_GERM_SPREAD_BLOCK (1<<0)
+
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 // none of these are called as of right now, as there is nothing listening for them.
@@ -833,6 +845,8 @@
 #define COMSIG_SPECIES_GAIN "species_gain"
 ///from datum/species/on_species_loss(): (datum/species/lost_species)
 #define COMSIG_SPECIES_LOSS "species_loss"
+///from /datum/species/proc/spec_hitby()
+#define COMSIG_SPECIES_HITBY "species_hitby"
 
 // /datum/song signals
 

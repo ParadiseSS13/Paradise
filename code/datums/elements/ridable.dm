@@ -39,11 +39,12 @@
 	return ..()
 
 /// Someone is buckling to this movable, which is literally the only thing we care about (other than speed potions)
-/datum/element/ridable/proc/check_mounting(atom/movable/target_movable, mob/living/potential_rider, force = FALSE, ride_check_flags = NONE)
+/datum/element/ridable/proc/check_mounting(atom/movable/target_movable, mob/living/potential_rider, force = FALSE)
 	SIGNAL_HANDLER //COMSIG_MOVABLE_PREBUCKLE
-	INVOKE_ASYNC(src, PROC_REF(check_mounting_async_edition), target_movable, potential_rider, force, ride_check_flags)
+	var/datum/component/riding/R = riding_component_type
+	return check_mounting_part_two(target_movable, potential_rider, force, R.ride_check_flags)
 
-/datum/element/ridable/proc/check_mounting_async_edition(atom/movable/target_movable, mob/living/potential_rider, force = FALSE, ride_check_flags = NONE)
+/datum/element/ridable/proc/check_mounting_part_two(atom/movable/target_movable, mob/living/potential_rider, force = FALSE, ride_check_flags = NONE)
 	var/arms_needed = 0
 	if(ride_check_flags & RIDER_NEEDS_ARMS)
 		arms_needed = 2
@@ -59,6 +60,10 @@
 	if((ride_check_flags & RIDER_NEEDS_LEGS) && HAS_TRAIT(potential_rider, TRAIT_FLOORED))
 		potential_rider.visible_message("<span class='warning'>[potential_rider] can't get [potential_rider.p_their()] footing on [target_movable]!</span>",
 			"<span class='warning'>You can't get your footing on [target_movable]!</span>")
+		return COMPONENT_BLOCK_BUCKLE
+	if((ride_check_flags & RIDER_CARBON_OR_SILICON_NO_LARGE_MOBS) && !(iscarbon(potential_rider) || issilicon(potential_rider) || potential_rider.mob_size <= MOB_SIZE_SMALL))
+		potential_rider.visible_message("<span class='warning'>[potential_rider] is too big to get [potential_rider.p_their()] footing on [target_movable]!</span>",
+			"<span class='warning'>You are too big to get your footing on [target_movable]!</span>")
 		return COMPONENT_BLOCK_BUCKLE
 
 	var/mob/living/target_living = target_movable

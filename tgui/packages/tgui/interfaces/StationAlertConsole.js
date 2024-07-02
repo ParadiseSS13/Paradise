@@ -32,9 +32,7 @@ export const StationAlertConsoleContent = (props, context) => {
       </Section>
       <Section title="Atmospherics Alarms">
         <ul>
-          {atmos.length === 0 && (
-            <li className="color-good">Systems Nominal</li>
-          )}
+          {atmos.length === 0 && <li className="color-good">Systems Nominal</li>}
           {atmos.map((alert) => (
             <li key={alert} className="color-average">
               {alert}
@@ -44,9 +42,7 @@ export const StationAlertConsoleContent = (props, context) => {
       </Section>
       <Section title="Power Alarms">
         <ul>
-          {power.length === 0 && (
-            <li className="color-good">Systems Nominal</li>
-          )}
+          {power.length === 0 && <li className="color-good">Systems Nominal</li>}
           {power.map((alert) => (
             <li key={alert} className="color-average">
               {alert}
