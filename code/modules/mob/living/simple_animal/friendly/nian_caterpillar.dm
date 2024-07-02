@@ -64,6 +64,9 @@
 		to_chat(src, "<span class='warning'>You need to binge on food in order to have the energy to evolve...</span>")
 		return
 
+	if(master_commander)
+		to_chat(src, "<span class='userdanger'>As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!</span>")
+
 	// Worme is the lesser form of nian. The caterpillar evolves into this lesser form.
 	var/mob/living/carbon/human/nian_worme/adult = new(get_turf(loc))
 

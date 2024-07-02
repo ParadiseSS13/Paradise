@@ -579,6 +579,10 @@
 		to_chat(user, "<span class='danger'>You cannot install a computer brain into a meat enclosure.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
+	if(!ismachineperson(target))
+		to_chat(user, "<span class='danger'>[tool] cannot be installed into an organic body, as it is not designed to operate the complex biological systems of one!</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
 	if(!target.dna.species)
 		to_chat(user, "<span class='danger'>You have no idea what species this person is. Report this on the bug tracker.</span>")
 		return SURGERY_BEGINSTEP_SKIP
