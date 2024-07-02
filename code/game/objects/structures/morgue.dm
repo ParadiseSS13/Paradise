@@ -255,7 +255,7 @@
 	layer = 2.0
 	var/obj/structure/morgue/connected = null
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW
 	max_integrity = 350
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
@@ -552,7 +552,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	layer = 2.0
 	var/obj/structure/crematorium/connected = null
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW
 
 /obj/structure/c_tray/attack_hand(mob/user as mob)
 	if(connected)

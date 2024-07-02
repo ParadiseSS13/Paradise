@@ -21,7 +21,7 @@
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW
 	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
@@ -864,7 +864,7 @@
 	layer = TABLE_LAYER
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW
 	max_integrity = 20
 
 /obj/structure/rack/examine(mob/user)
