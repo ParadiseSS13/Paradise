@@ -557,9 +557,12 @@
 	allowed_tools = list(/obj/item/mmi = 100)
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(target_zone != BODY_ZONE_CHEST)
-		to_chat(user, "<span class='notice'> You must target the chest cavity.</span>")
+	if(target.get_int_organ(/obj/item/organ/internal/brain) || IS_CHANGELING(target))
+		to_chat(user, "<span class='warning'>[target] can't have two brains!</span>")
+		return SURGERY_BEGINSTEP_SKIP
 
+	if(target_zone != BODY_ZONE_CHEST)
+		to_chat(user, "<span class='notice'>You must target the chest cavity.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
