@@ -503,7 +503,7 @@
 
 /datum/keybinding/emote/carbon/human/hiss
 	linked_emote = /datum/emote/living/carbon/human/hiss
-	name = "Hiss (Unathi)"
+	name = "Hiss"
 
 /datum/keybinding/emote/carbon/human/creak
 	linked_emote = /datum/emote/living/carbon/human/creak
@@ -520,10 +520,6 @@
 /datum/keybinding/emote/carbon/human/growl
 	linked_emote = /datum/emote/living/carbon/human/growl
 	name = "Growl"
-
-/datum/keybinding/emote/carbon/human/hiss/tajaran
-	linked_emote = /datum/emote/living/carbon/human/hiss/tajaran
-	name = "Hiss (Tajaran)"
 
 /datum/keybinding/emote/carbon/human/rattle
 	linked_emote = /datum/emote/living/carbon/human/rattle
