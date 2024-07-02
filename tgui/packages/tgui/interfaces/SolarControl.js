@@ -1,5 +1,13 @@
 import { useBackend } from '../backend';
-import { Box, Button, Grid, LabeledList, NumberInput, ProgressBar, Section } from '../components';
+import {
+  Box,
+  Button,
+  Grid,
+  LabeledList,
+  NumberInput,
+  ProgressBar,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const SolarControl = (props, context) => {
@@ -23,15 +31,27 @@ export const SolarControl = (props, context) => {
       <Window.Content>
         <Section
           title="Status"
-          buttons={<Button icon="sync" content="Scan for new hardware" onClick={() => act('refresh')} />}
+          buttons={
+            <Button
+              icon="sync"
+              content="Scan for new hardware"
+              onClick={() => act('refresh')}
+            />
+          }
         >
           <Grid>
             <Grid.Column>
               <LabeledList>
-                <LabeledList.Item label="Solar tracker" color={connected_tracker ? 'good' : 'bad'}>
+                <LabeledList.Item
+                  label="Solar tracker"
+                  color={connected_tracker ? 'good' : 'bad'}
+                >
                   {connected_tracker ? 'OK' : 'N/A'}
                 </LabeledList.Item>
-                <LabeledList.Item label="Solar panels" color={connected_panels > 0 ? 'good' : 'bad'}>
+                <LabeledList.Item
+                  label="Solar panels"
+                  color={connected_panels > 0 ? 'good' : 'bad'}
+                >
                   {connected_panels}
                 </LabeledList.Item>
               </LabeledList>
@@ -63,7 +83,9 @@ export const SolarControl = (props, context) => {
                       {tracking_rate}&deg;/h ({rotating_direction}){' '}
                     </Box>
                   )}
-                  {tracking_state === TRACKER_OFF && <Box> Tracker offline </Box>}
+                  {tracking_state === TRACKER_OFF && (
+                    <Box> Tracker offline </Box>
+                  )}
                 </LabeledList.Item>
               </LabeledList>
             </Grid.Column>
@@ -83,7 +105,9 @@ export const SolarControl = (props, context) => {
                   onDrag={(e, cdir) => act('cdir', { cdir })}
                 />
               )}
-              {tracking_state === TRACKER_AUTO && <Box lineHeight="19px"> Automated </Box>}
+              {tracking_state === TRACKER_AUTO && (
+                <Box lineHeight="19px"> Automated </Box>
+              )}
             </LabeledList.Item>
             <LabeledList.Item label="Tracker status">
               <Button
@@ -122,8 +146,12 @@ export const SolarControl = (props, context) => {
                   onDrag={(e, tdir) => act('tdir', { tdir })}
                 />
               )}
-              {tracking_state === TRACKER_OFF && <Box lineHeight="19px"> Tracker offline </Box>}
-              {tracking_state === TRACKER_AUTO && <Box lineHeight="19px"> Automated </Box>}
+              {tracking_state === TRACKER_OFF && (
+                <Box lineHeight="19px"> Tracker offline </Box>
+              )}
+              {tracking_state === TRACKER_AUTO && (
+                <Box lineHeight="19px"> Automated </Box>
+              )}
             </LabeledList.Item>
           </LabeledList>
         </Section>

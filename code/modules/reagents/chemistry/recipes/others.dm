@@ -24,6 +24,7 @@
 	s.start()
 	holder.clear_reagents()
 
+
 /datum/chemical_reaction/metalfoam
 	name = "Metal Foam"
 	id = "metalfoam"
@@ -36,9 +37,10 @@
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/metal/s = new()
-	s.set_up(created_volume, location, holder, METAL_FOAM_ALUMINUM)
+	var/datum/effect_system/foam_spread/s = new()
+	s.set_up(created_volume, location, holder, MFOAM_ALUMINUM)
 	s.start()
+
 
 /datum/chemical_reaction/ironfoam
 	name = "Iron Foam"
@@ -52,9 +54,10 @@
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/metal/s = new()
-	s.set_up(created_volume, location, holder, METAL_FOAM_IRON)
+	var/datum/effect_system/foam_spread/s = new()
+	s.set_up(created_volume, location, holder, MFOAM_IRON)
 	s.start()
+
 
 	// Synthesizing these three chemicals is pretty complex in real life, but fuck it, it's just a game!
 /datum/chemical_reaction/ammonia

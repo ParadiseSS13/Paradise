@@ -1,5 +1,12 @@
 import { useBackend } from '../backend';
-import { Box, Button, Icon, LabeledList, Section, NoticeBox } from '../components';
+import {
+  Box,
+  Button,
+  Icon,
+  LabeledList,
+  Section,
+  NoticeBox,
+} from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 
@@ -86,7 +93,11 @@ const EconomyButtons = (properties, context) => {
           content="Delay Payroll"
           onClick={() => act('delay_payroll')}
         />
-        <Button width="auto" content="Set Payroll Time" onClick={() => act('set_payroll')} />
+        <Button
+          width="auto"
+          content="Set Payroll Time"
+          onClick={() => act('set_payroll')}
+        />
         <Button
           icon="angle-double-right"
           width="auto"
@@ -96,7 +107,8 @@ const EconomyButtons = (properties, context) => {
         />
       </Section>
       <NoticeBox>
-        <b>WARNING:</b> You take full responsibility for unbalancing the economy with these buttons!
+        <b>WARNING:</b> You take full responsibility for unbalancing the economy
+        with these buttons!
       </NoticeBox>
     </>
   );

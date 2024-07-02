@@ -15,8 +15,18 @@ export const Photocopier = (props, context) => {
                 {data.copynumber}
               </Stack.Item>
               <Stack.Item float="right">
-                <Button icon="minus" textAlign="center" content="" onClick={() => act('minus')} />
-                <Button icon="plus" textAlign="center" content="" onClick={() => act('add')} />
+                <Button
+                  icon="minus"
+                  textAlign="center"
+                  content=""
+                  onClick={() => act('minus')}
+                />
+                <Button
+                  icon="plus"
+                  textAlign="center"
+                  content=""
+                  onClick={() => act('add')}
+                />
               </Stack.Item>
             </Stack>
             <Stack mb={2}>
@@ -30,7 +40,13 @@ export const Photocopier = (props, context) => {
                   fluid
                   textAlign="center"
                   disabled={!data.copyitem && !data.mob}
-                  content={data.copyitem ? data.copyitem : data.mob ? data.mob + "'s ass!" : 'document'}
+                  content={
+                    data.copyitem
+                      ? data.copyitem
+                      : data.mob
+                        ? data.mob + "'s ass!"
+                        : 'document'
+                  }
                   onClick={() => act('removedocument')}
                 />
               </Stack.Item>
@@ -63,7 +79,14 @@ const Actions = (props, context) => {
   const { issilicon } = data;
   return (
     <>
-      <Button fluid icon="copy" float="center" textAlign="center" content="Copy" onClick={() => act('copy')} />
+      <Button
+        fluid
+        icon="copy"
+        float="center"
+        textAlign="center"
+        content="Copy"
+        onClick={() => act('copy')}
+      />
       <Button
         fluid
         icon="file-import"

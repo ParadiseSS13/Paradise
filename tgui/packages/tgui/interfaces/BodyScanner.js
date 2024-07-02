@@ -97,7 +97,11 @@ const germStatus = (i) => {
 export const BodyScanner = (props, context) => {
   const { data } = useBackend(context);
   const { occupied, occupant = {} } = data;
-  const body = occupied ? <BodyScannerMain occupant={occupant} /> : <BodyScannerEmpty />;
+  const body = occupied ? (
+    <BodyScannerMain occupant={occupant} />
+  ) : (
+    <BodyScannerEmpty />
+  );
   return (
     <Window width={700} height={600} title="Body Scanner">
       <Window.Content scrollable>{body}</Window.Content>
@@ -172,7 +176,15 @@ const BodyScannerMainOccupant = (props, context) => {
 
 const BodyScannerMainAbnormalities = (props) => {
   const { occupant } = props;
-  if (!(occupant.hasBorer || occupant.blind || occupant.colourblind || occupant.nearsighted || occupant.hasVirus)) {
+  if (
+    !(
+      occupant.hasBorer ||
+      occupant.blind ||
+      occupant.colourblind ||
+      occupant.nearsighted ||
+      occupant.hasVirus
+    )
+  ) {
     return (
       <Section title="Abnormalities">
         <Box color="label">No abnormalities found.</Box>
@@ -208,9 +220,14 @@ const BodyScannerMainDamage = (props) => {
             </Table.Row>
             <Table.Row>
               <Table.Cell>
-                <BodyScannerMainDamageBar value={occupant[d1[1]]} marginBottom={i < damages.length - 2} />
+                <BodyScannerMainDamageBar
+                  value={occupant[d1[1]]}
+                  marginBottom={i < damages.length - 2}
+                />
               </Table.Cell>
-              <Table.Cell>{!!d2 && <BodyScannerMainDamageBar value={occupant[d2[1]]} />}</Table.Cell>
+              <Table.Cell>
+                {!!d2 && <BodyScannerMainDamageBar value={occupant[d2[1]]} />}
+              </Table.Cell>
             </Table.Row>
           </>
         ))}
@@ -304,7 +321,12 @@ const BodyScannerMainOrgansExternal = (props) => {
                 </Stack>
               </ProgressBar>
             </Table.Cell>
-            <Table.Cell textAlign="right" verticalAlign="top" width="33%" pt={i > 0 && 'calc(0.5rem + 2px)'}>
+            <Table.Cell
+              textAlign="right"
+              verticalAlign="top"
+              width="33%"
+              pt={i > 0 && 'calc(0.5rem + 2px)'}
+            >
               <Box color="average" inline>
                 {reduceOrganStatus([
                   !!o.internalBleeding && 'Internal bleeding',
@@ -325,7 +347,9 @@ const BodyScannerMainOrgansExternal = (props) => {
                     </Box>
                   ),
                 ])}
-                {reduceOrganStatus(o.shrapnel.map((s) => (s.known ? s.name : 'Unknown object')))}
+                {reduceOrganStatus(
+                  o.shrapnel.map((s) => (s.known ? s.name : 'Unknown object'))
+                )}
               </Box>
             </Table.Cell>
           </Table.Row>
@@ -355,7 +379,11 @@ const BodyScannerMainOrgansInternal = (props) => {
         {props.organs.map((o, i) => (
           <Table.Row key={i}>
             <Table.Cell
-              color={(!!o.dead && 'bad') || (o.germ_level > 100 && 'average') || (o.robotic > 0 && 'label')}
+              color={
+                (!!o.dead && 'bad') ||
+                (o.germ_level > 100 && 'average') ||
+                (o.robotic > 0 && 'label')
+              }
               width="33%"
             >
               {capitalize(o.name)}
@@ -371,7 +399,12 @@ const BodyScannerMainOrgansInternal = (props) => {
                 {round(o.damage)}
               </ProgressBar>
             </Table.Cell>
-            <Table.Cell textAlign="right" verticalAlign="top" width="33%" pt={i > 0 && 'calc(0.5rem + 2px)'}>
+            <Table.Cell
+              textAlign="right"
+              verticalAlign="top"
+              width="33%"
+              pt={i > 0 && 'calc(0.5rem + 2px)'}
+            >
               <Box color="average" inline>
                 {reduceOrganStatus([germStatus(o.germ_level)])}
               </Box>

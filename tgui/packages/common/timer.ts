@@ -37,7 +37,8 @@ export const debounce = <F extends (...args: any[]) => any>(
  *
  * @param {number} time
  */
-export const sleep = (time: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, time));
+export const sleep = (time: number): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, time));
 
 /**
  * Returns a function, that, when invoked, will only be triggered at most once
@@ -47,7 +48,8 @@ export const throttle = <F extends (...args: any[]) => any>(
   fn: F,
   time: number
 ): ((...args: Parameters<F>) => void) => {
-  let previouslyRun: number | null, queuedToRun: ReturnType<typeof setTimeout> | null;
+  let previouslyRun: number | null,
+    queuedToRun: ReturnType<typeof setTimeout> | null;
   return function invokeFn(...args: Parameters<F>) {
     const now = Date.now();
     if (queuedToRun) {
@@ -57,7 +59,10 @@ export const throttle = <F extends (...args: any[]) => any>(
       fn.apply(null, args);
       previouslyRun = now;
     } else {
-      queuedToRun = setTimeout(() => invokeFn(...args), time - (now - (previouslyRun ?? 0)));
+      queuedToRun = setTimeout(
+        () => invokeFn(...args),
+        time - (now - (previouslyRun ?? 0))
+      );
     }
   };
 };

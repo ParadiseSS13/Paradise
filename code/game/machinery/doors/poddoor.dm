@@ -35,9 +35,6 @@
 /obj/machinery/door/poddoor/impassable/disable_lockdown()
 	return
 
-/obj/machinery/door/poddoor/bumpopen(mob/user)
-	return
-
 /obj/machinery/door/poddoor/impassable/emag_act(mob/user)
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
 	return

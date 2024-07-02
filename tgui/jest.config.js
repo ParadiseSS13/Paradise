@@ -1,6 +1,9 @@
 module.exports = {
   roots: ['<rootDir>/packages'],
-  testMatch: ['<rootDir>/packages/**/__tests__/*.{js,ts,tsx}', '<rootDir>/packages/**/*.{spec,test}.{js,ts,tsx}'],
+  testMatch: [
+    '<rootDir>/packages/**/__tests__/*.{js,ts,tsx}',
+    '<rootDir>/packages/**/*.{spec,test}.{js,ts,tsx}',
+  ],
   testEnvironment: 'jsdom',
   testRunner: require.resolve('jest-circus/runner'),
   transform: {

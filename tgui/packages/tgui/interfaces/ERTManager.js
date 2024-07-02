@@ -1,5 +1,14 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Box, Section, Stack, Tabs, Input, Icon } from '../components';
+import {
+  Button,
+  LabeledList,
+  Box,
+  Section,
+  Stack,
+  Tabs,
+  Input,
+  Icon,
+} from '../components';
 import { Window } from '../layouts';
 import { decodeHtmlEntities } from 'common/string';
 
@@ -69,7 +78,8 @@ export const ERTManager = (props, context) => {
 
 export const ERTOverview = (props, context) => {
   const { act, data } = useBackend(context);
-  const { security_level_color, str_security_level, ert_request_answered } = data;
+  const { security_level_color, str_security_level, ert_request_answered } =
+    data;
 
   return (
     <Stack.Item>
@@ -84,7 +94,9 @@ export const ERTOverview = (props, context) => {
               textColor={ert_request_answered ? null : 'bad'}
               content={ert_request_answered ? 'Answered' : 'Unanswered'}
               onClick={() => act('toggle_ert_request_answered')}
-              tooltip={'Checking this box will disable the next ERT reminder notification'}
+              tooltip={
+                'Checking this box will disable the next ERT reminder notification'
+              }
               selected={null}
             />
           </LabeledList.Item>
@@ -231,7 +243,13 @@ const SendERT = (props, context) => {
               disabled={data.ert_type !== 'Red' || !data.cyb}
               icon={data.secborg ? 'toggle-on' : 'toggle-off'}
               color={data.secborg ? 'red' : ''}
-              content={data.secborg ? 'Enabled' : data.ert_type !== 'Red' ? 'Unavailable' : 'Disabled'}
+              content={
+                data.secborg
+                  ? 'Enabled'
+                  : data.ert_type !== 'Red'
+                    ? 'Unavailable'
+                    : 'Disabled'
+              }
               textAlign="center"
               onClick={() => act('toggle_secborg')}
             />
@@ -288,7 +306,9 @@ const ReadERTRequests = (props, context) => {
               buttons={
                 <Button
                   content={request.sender_real_name}
-                  onClick={() => act('view_player_panel', { uid: request.sender_uid })}
+                  onClick={() =>
+                    act('view_player_panel', { uid: request.sender_uid })
+                  }
                   tooltip="View player panel"
                 />
               }
@@ -298,7 +318,13 @@ const ReadERTRequests = (props, context) => {
           ))
         ) : (
           <Stack fill>
-            <Stack.Item bold grow textAlign="center" align="center" color="average">
+            <Stack.Item
+              bold
+              grow
+              textAlign="center"
+              align="center"
+              color="average"
+            >
               <Icon.Stack>
                 <Icon name="broadcast-tower" size={5} color="gray" />
                 <Icon name="slash" size={5} color="red" />

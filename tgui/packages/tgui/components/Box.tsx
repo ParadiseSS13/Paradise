@@ -162,7 +162,12 @@ const styleMapperByPropName = {
   nowrap: mapBooleanPropTo('white-space', 'nowrap'),
   preserveWhitespace: mapBooleanPropTo('white-space', 'pre-wrap'),
   // Margins
-  m: mapDirectionalUnitPropTo('margin', halfUnit, ['top', 'bottom', 'left', 'right']),
+  m: mapDirectionalUnitPropTo('margin', halfUnit, [
+    'top',
+    'bottom',
+    'left',
+    'right',
+  ]),
   mx: mapDirectionalUnitPropTo('margin', halfUnit, ['left', 'right']),
   my: mapDirectionalUnitPropTo('margin', halfUnit, ['top', 'bottom']),
   mt: mapUnitPropTo('margin-top', halfUnit),
@@ -170,7 +175,12 @@ const styleMapperByPropName = {
   ml: mapUnitPropTo('margin-left', halfUnit),
   mr: mapUnitPropTo('margin-right', halfUnit),
   // Margins
-  p: mapDirectionalUnitPropTo('padding', halfUnit, ['top', 'bottom', 'left', 'right']),
+  p: mapDirectionalUnitPropTo('padding', halfUnit, [
+    'top',
+    'bottom',
+    'left',
+    'right',
+  ]),
   px: mapDirectionalUnitPropTo('padding', halfUnit, ['left', 'right']),
   py: mapDirectionalUnitPropTo('padding', halfUnit, ['top', 'bottom']),
   pt: mapUnitPropTo('padding-top', halfUnit),
@@ -243,7 +253,9 @@ export const Box = (props: BoxProps) => {
     return children(computeBoxProps(props));
   }
   const computedClassName =
-    typeof className === 'string' ? className + ' ' + computeBoxClassName(rest) : computeBoxClassName(rest);
+    typeof className === 'string'
+      ? className + ' ' + computeBoxClassName(rest)
+      : computeBoxClassName(rest);
   const computedProps = computeBoxProps(rest);
   // Render a wrapper element
   return createVNode(

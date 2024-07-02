@@ -282,7 +282,7 @@
 	build_path = /obj/machinery/computer/atmoscontrol
 
 /obj/item/circuitboard/air_management
-	board_name = "Air Sensor Monitor"
+	board_name = "Atmospheric Monitor"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/general_air_control
 

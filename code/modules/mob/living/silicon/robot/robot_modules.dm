@@ -355,8 +355,7 @@
 		/obj/item/stack/medical/ointment/advanced/cyborg,
 		/obj/item/stack/medical/splint/cyborg,
 		/obj/item/stack/nanopaste/cyborg,
-		/obj/item/gripper/medical,
-		/obj/item/surgical_drapes,
+		/obj/item/gripper/medical
 	)
 	malf_modules = list(/obj/item/gun/syringemalf)
 	special_rechargables = list(

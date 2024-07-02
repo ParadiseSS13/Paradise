@@ -1,6 +1,15 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Collapsible, Dropdown, Stack, Input, NoticeBox, Section } from '../components';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Dropdown,
+  Stack,
+  Input,
+  NoticeBox,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 const sortTypes = {
@@ -66,8 +75,16 @@ const MiningVendorItems = (_properties, context) => {
   const { has_id, id, items } = data;
   // Search thingies
   const [searchText, _setSearchText] = useLocalState(context, 'search', '');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sort', 'Alphabetical');
-  const [descending, _setDescending] = useLocalState(context, 'descending', false);
+  const [sortOrder, _setSortOrder] = useLocalState(
+    context,
+    'sort',
+    'Alphabetical'
+  );
+  const [descending, _setDescending] = useLocalState(
+    context,
+    'descending',
+    false
+  );
   const searcher = createSearch(searchText, (item) => {
     return item[0];
   });
@@ -89,12 +106,22 @@ const MiningVendorItems = (_properties, context) => {
     }
 
     has_contents = true;
-    return <MiningVendorItemsCategory key={kv[0]} title={kv[0]} items={items_in_cat} />;
+    return (
+      <MiningVendorItemsCategory
+        key={kv[0]}
+        title={kv[0]}
+        items={items_in_cat}
+      />
+    );
   });
   return (
     <Stack.Item grow mt={0.5}>
       <Section fill scrollable>
-        {has_contents ? contents : <Box color="label">No items matching your criteria was found!</Box>}
+        {has_contents ? (
+          contents
+        ) : (
+          <Box color="label">No items matching your criteria was found!</Box>
+        )}
       </Section>
     </Stack.Item>
   );
@@ -103,7 +130,11 @@ const MiningVendorItems = (_properties, context) => {
 const MiningVendorSearch = (_properties, context) => {
   const [_searchText, setSearchText] = useLocalState(context, 'search', '');
   const [_sortOrder, setSortOrder] = useLocalState(context, 'sort', '');
-  const [descending, setDescending] = useLocalState(context, 'descending', false);
+  const [descending, setDescending] = useLocalState(
+    context,
+    'descending',
+    false
+  );
   return (
     <Box>
       <Stack fill>

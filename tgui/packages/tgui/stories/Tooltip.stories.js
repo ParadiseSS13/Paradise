@@ -13,7 +13,14 @@ export const meta = {
 };
 
 const Story = () => {
-  const positions = ['top', 'left', 'right', 'bottom', 'bottom-start', 'bottom-end'];
+  const positions = [
+    'top',
+    'left',
+    'right',
+    'bottom',
+    'bottom-start',
+    'bottom-end',
+  ];
 
   return (
     <Section>

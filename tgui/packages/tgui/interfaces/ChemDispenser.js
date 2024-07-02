@@ -1,5 +1,12 @@
 import { useBackend } from '../backend';
-import { Box, Button, Stack, LabeledList, ProgressBar, Section } from '../components';
+import {
+  Box,
+  Button,
+  Stack,
+  LabeledList,
+  ProgressBar,
+  Section,
+} from '../components';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Window } from '../layouts';
 
@@ -77,7 +84,11 @@ const ChemDispenserChemicals = (properties, context) => {
   }
   return (
     <Stack.Item grow>
-      <Section fill scrollable title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}>
+      <Section
+        fill
+        scrollable
+        title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}
+      >
         {chemicals.map((c, i) => (
           <Button
             m={0.1}
@@ -105,7 +116,12 @@ const ChemDispenserChemicals = (properties, context) => {
 
 const ChemDispenserBeaker = (properties, context) => {
   const { act, data } = useBackend(context);
-  const { isBeakerLoaded, beakerCurrentVolume, beakerMaxVolume, beakerContents = [] } = data;
+  const {
+    isBeakerLoaded,
+    beakerCurrentVolume,
+    beakerMaxVolume,
+    beakerContents = [],
+  } = data;
   return (
     <Stack.Item height={16}>
       <Section
@@ -119,7 +135,12 @@ const ChemDispenserBeaker = (properties, context) => {
                 {beakerCurrentVolume} / {beakerMaxVolume} units
               </Box>
             )}
-            <Button icon="eject" content="Eject" disabled={!isBeakerLoaded} onClick={() => act('ejectBeaker')} />
+            <Button
+              icon="eject"
+              content="Eject"
+              disabled={!isBeakerLoaded}
+              onClick={() => act('ejectBeaker')}
+            />
           </Box>
         }
       >

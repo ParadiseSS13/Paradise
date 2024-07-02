@@ -50,7 +50,13 @@ const measure = (markerNameA, markerNameB) => {
 
 const formatDuration = (duration) => {
   const durationInFrames = duration / FRAME_DURATION;
-  return duration.toFixed(duration < 10 ? 1 : 0) + 'ms ' + '(' + durationInFrames.toFixed(2) + ' frames)';
+  return (
+    duration.toFixed(duration < 10 ? 1 : 0) +
+    'ms ' +
+    '(' +
+    durationInFrames.toFixed(2) +
+    ' frames)'
+  );
 };
 
 export const perf = {

@@ -31,7 +31,9 @@ const getPrefix = (() => {
       bright: '\x1b[37;1m',
       reset: '\x1b[0m',
     };
-    return (ns) => [`${ESC.dimmed}${getTimestamp()} ${ESC.bright}${ns}${ESC.reset}`];
+    return (ns) => [
+      `${ESC.dimmed}${getTimestamp()} ${ESC.bright}${ns}${ESC.reset}`,
+    ];
   }
   if (isChrome) {
     // Styles
@@ -39,7 +41,11 @@ const getPrefix = (() => {
       dimmed: 'color: #888',
       bright: 'font-weight: bold',
     };
-    return (ns) => [`%c${getTimestamp()}%c ${ns}`, styles.dimmed, styles.bright];
+    return (ns) => [
+      `%c${getTimestamp()}%c ${ns}`,
+      styles.dimmed,
+      styles.bright,
+    ];
   }
   // prettier-ignore
   return ns => [
@@ -62,4 +68,5 @@ export const createLogger = (ns) => ({
 /**
  * Explicitly log with chosen namespace.
  */
-export const directLog = (ns, ...args) => console.log(...getPrefix(ns), ...args);
+export const directLog = (ns, ...args) =>
+  console.log(...getPrefix(ns), ...args);

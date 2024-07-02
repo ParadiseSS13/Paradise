@@ -1,10 +1,25 @@
 import { useBackend } from '../backend';
-import { Button, ProgressBar, Section, Box, Stack, Icon, NumberInput } from '../components';
+import {
+  Button,
+  ProgressBar,
+  Section,
+  Box,
+  Stack,
+  Icon,
+  NumberInput,
+} from '../components';
 import { Window } from '../layouts';
 
 export const CloningPod = (props, context) => {
   const { act, data } = useBackend(context);
-  const { biomass, biomass_storage_capacity, sanguine_reagent, osseous_reagent, organs, currently_cloning } = data;
+  const {
+    biomass,
+    biomass_storage_capacity,
+    sanguine_reagent,
+    osseous_reagent,
+    organs,
+    currently_cloning,
+  } = data;
   return (
     <Window width={500} height={500}>
       <Window.Content scrollable>
@@ -17,8 +32,14 @@ export const CloningPod = (props, context) => {
               <ProgressBar
                 value={biomass}
                 ranges={{
-                  good: [(2 * biomass_storage_capacity) / 3, biomass_storage_capacity],
-                  average: [biomass_storage_capacity / 3, (2 * biomass_storage_capacity) / 3],
+                  good: [
+                    (2 * biomass_storage_capacity) / 3,
+                    biomass_storage_capacity,
+                  ],
+                  average: [
+                    biomass_storage_capacity / 3,
+                    (2 * biomass_storage_capacity) / 3,
+                  ],
                   bad: [0, biomass_storage_capacity / 3], // This is just thirds
                 }}
                 minValue={0}
@@ -48,7 +69,12 @@ export const CloningPod = (props, context) => {
               />
             </Stack.Item>
             <Stack.Item>
-              <Button content="Remove All" onClick={() => act('purge_reagent', { reagent: 'sanguine_reagent' })} />
+              <Button
+                content="Remove All"
+                onClick={() =>
+                  act('purge_reagent', { reagent: 'sanguine_reagent' })
+                }
+              />
             </Stack.Item>
           </Stack>
           <Stack height="25px" align="center">
@@ -73,7 +99,12 @@ export const CloningPod = (props, context) => {
               />
             </Stack.Item>
             <Stack.Item>
-              <Button content="Remove All" onClick={() => act('purge_reagent', { reagent: 'osseous_reagent' })} />
+              <Button
+                content="Remove All"
+                onClick={() =>
+                  act('purge_reagent', { reagent: 'osseous_reagent' })
+                }
+              />
             </Stack.Item>
           </Stack>
         </Section>
@@ -87,7 +118,12 @@ export const CloningPod = (props, context) => {
                     <Stack.Item>{organ.name}</Stack.Item>
                     <Stack.Item grow={1} />
                     <Stack.Item>
-                      <Button content="Eject" onClick={() => act('eject_organ', { organ_ref: organ.ref })} />
+                      <Button
+                        content="Eject"
+                        onClick={() =>
+                          act('eject_organ', { organ_ref: organ.ref })
+                        }
+                      />
                     </Stack.Item>
                   </Stack>
                 ))}
@@ -95,7 +131,13 @@ export const CloningPod = (props, context) => {
           )}
           {!!currently_cloning && (
             <Stack height="100%">
-              <Stack.Item bold grow="1" textAlign="center" align="center" color="label">
+              <Stack.Item
+                bold
+                grow="1"
+                textAlign="center"
+                align="center"
+                color="label"
+              >
                 <Icon name="lock" size="5" mb={3} />
                 <br />
                 Unable to access organ storage while cloning.

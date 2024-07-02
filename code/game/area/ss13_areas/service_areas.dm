@@ -6,13 +6,11 @@
 /area/station/service/kitchen
 	name = "\improper Kitchen"
 	icon_state = "kitchen"
-	request_console_flags = RC_SUPPLY
 
 /area/station/service/bar
 	name = "\improper Bar"
 	icon_state = "bar"
 	sound_environment = SOUND_AREA_WOODFLOOR
-	request_console_flags = RC_SUPPLY
 
 /area/station/service/theatre
 	name = "\improper Theatre"
@@ -24,7 +22,6 @@
 	name = "\improper Library"
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
-	request_console_flags = RC_SUPPLY
 
 /area/station/service/chapel
 	name = "\improper Chapel"
@@ -33,13 +30,10 @@
 	is_haunted = TRUE
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	valid_territory = FALSE
-	request_console_flags = RC_SUPPLY
 
 /area/station/service/chapel/office
 	name = "\improper Chapel Office"
 	icon_state = "chapeloffice"
-	request_console_flags = RC_SUPPLY
-	request_console_name = "Chapel"
 
 /area/station/service/clown
 	name = "\improper Clown's Office"
@@ -60,11 +54,8 @@
 	name = "\improper Custodial Closet"
 	icon_state = "janitor"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-	request_console_flags = RC_ASSIST
-	request_console_name = "Janitorial"
 
 /area/station/service/hydroponics
 	name = "Hydroponics"
 	icon_state = "hydro"
 	sound_environment = SOUND_AREA_STANDARD_STATION
-	request_console_flags = RC_SUPPLY

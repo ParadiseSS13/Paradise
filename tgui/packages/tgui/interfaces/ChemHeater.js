@@ -1,6 +1,14 @@
 import { round, toFixed } from 'common/math';
 import { useBackend } from '../backend';
-import { AnimatedNumber, Box, Button, LabeledList, NumberInput, Section, Stack } from '../components';
+import {
+  AnimatedNumber,
+  Box,
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+  Stack,
+} from '../components';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Window } from '../layouts';
 
@@ -19,7 +27,14 @@ export const ChemHeater = (_props, _context) => {
 
 const ChemHeaterSettings = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { targetTemp, targetTempReached, autoEject, isActive, currentTemp, isBeakerLoaded } = data;
+  const {
+    targetTemp,
+    targetTempReached,
+    autoEject,
+    isActive,
+    currentTemp,
+    isBeakerLoaded,
+  } = data;
   return (
     <Stack.Item>
       <Section
@@ -60,8 +75,16 @@ const ChemHeaterSettings = (_properties, context) => {
               }
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Reading" color={targetTempReached ? 'good' : 'average'}>
-            {(isBeakerLoaded && <AnimatedNumber value={currentTemp} format={(value) => toFixed(value) + ' K'} />) ||
+          <LabeledList.Item
+            label="Reading"
+            color={targetTempReached ? 'good' : 'average'}
+          >
+            {(isBeakerLoaded && (
+              <AnimatedNumber
+                value={currentTemp}
+                format={(value) => toFixed(value) + ' K'}
+              />
+            )) ||
               '—'}
           </LabeledList.Item>
         </LabeledList>
@@ -72,7 +95,12 @@ const ChemHeaterSettings = (_properties, context) => {
 
 const ChemHeaterBeaker = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { isBeakerLoaded, beakerCurrentVolume, beakerMaxVolume, beakerContents } = data;
+  const {
+    isBeakerLoaded,
+    beakerCurrentVolume,
+    beakerMaxVolume,
+    beakerContents,
+  } = data;
   return (
     <Stack.Item grow>
       <Section
@@ -85,12 +113,19 @@ const ChemHeaterBeaker = (_properties, context) => {
               <Box inline color="label" mr={2}>
                 {beakerCurrentVolume} / {beakerMaxVolume} units
               </Box>
-              <Button icon="eject" content="Eject" onClick={() => act('eject_beaker')} />
+              <Button
+                icon="eject"
+                content="Eject"
+                onClick={() => act('eject_beaker')}
+              />
             </Box>
           )
         }
       >
-        <BeakerContents beakerLoaded={isBeakerLoaded} beakerContents={beakerContents} />
+        <BeakerContents
+          beakerLoaded={isBeakerLoaded}
+          beakerContents={beakerContents}
+        />
       </Section>
     </Stack.Item>
   );

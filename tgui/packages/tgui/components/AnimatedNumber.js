@@ -11,7 +11,9 @@ const FPS = 20;
 const Q = 0.5;
 
 const isSafeNumber = (value) => {
-  return typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value);
+  return (
+    typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
+  );
 };
 
 export class AnimatedNumber extends Component {

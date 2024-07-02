@@ -28,7 +28,12 @@ export const LoginInfo = (_properties, context) => {
             color="good"
             onClick={() => act('login_eject')}
           />
-          <Button icon="sign-out-alt" content="Logout" color="good" onClick={() => act('login_logout')} />
+          <Button
+            icon="sign-out-alt"
+            content="Logout"
+            color="good"
+            onClick={() => act('login_logout')}
+          />
         </Stack.Item>
       </Stack>
     </NoticeBox>

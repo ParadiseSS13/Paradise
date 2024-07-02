@@ -145,7 +145,12 @@ const createHighlightNode = (text) => {
  * @param {(text: string) => Node} createNode Highlight node creator
  * @returns {number} Number of matches
  */
-export const highlightNode = (node, regex, words, createNode = createHighlightNode) => {
+export const highlightNode = (
+  node,
+  regex,
+  words,
+  createNode = createHighlightNode
+) => {
   if (!createNode) {
     createNode = createHighlightNode;
   }

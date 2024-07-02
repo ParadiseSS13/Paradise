@@ -54,7 +54,9 @@ export const applyMiddleware = (...middlewares) => {
       const store = createStore(reducer, ...args);
 
       let dispatch = () => {
-        throw new Error('Dispatching while constructing your middleware is not allowed.');
+        throw new Error(
+          'Dispatching while constructing your middleware is not allowed.'
+        );
       };
 
       const storeApi = {

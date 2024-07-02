@@ -1,16 +1,33 @@
 /// Blood magic handles the creation of blood spells (formerly talismans)
 /datum/action/innate/cult/blood_magic
 	name = "Prepare Blood Magic"
-	button_overlay_icon_state = "carve"
+	button_icon_state = "carve"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
-	default_button_position = DEFAULT_BLOODSPELLS
 	var/list/spells = list()
 	var/channeling = FALSE
+	default_button_position = DEFAULT_BLOODSPELLS
 
 /datum/action/innate/cult/blood_magic/Remove()
 	for(var/X in spells)
 		qdel(X)
 	..()
+
+/datum/action/innate/cult/blood_magic/proc/Positioning()
+	for(var/datum/hud/hud as anything in viewers)
+		var/our_view = hud.mymob?.client?.view || "15x15"
+		var/atom/movable/screen/movable/action_button/button = viewers[hud]
+		var/position = screen_loc_to_offset(button.screen_loc)
+		var/spells_iterated = 0
+		for(var/datum/action/innate/cult/blood_spell/blood_spell in spells)
+			spells_iterated += 1
+			if(blood_spell.positioned)
+				continue
+			var/atom/movable/screen/movable/action_button/moving_button = blood_spell.viewers[hud]
+			if(!moving_button)
+				continue
+			var/our_x = position[1] + spells_iterated * world.icon_size // Offset any new buttons into our list
+			hud.position_action(moving_button, offset_to_screen_loc(our_x, position[2], our_view))
+			blood_spell.positioned = TRUE
 
 /datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
@@ -74,9 +91,8 @@
 /// The next generation of talismans, handles storage/creation of blood magic
 /datum/action/innate/cult/blood_spell
 	name = "Blood Magic"
-	button_overlay_icon_state = "telerune"
+	button_icon_state = "telerune"
 	desc = "Fear the Old Blood."
-	default_button_position = SCRN_OBJ_CULT_LIST
 	var/charges = 1
 	var/magic_path = null
 	var/obj/item/melee/blood_magic/hand_magic
@@ -113,6 +129,10 @@
 	// button.ordered = FALSE
 	..()
 
+/datum/action/innate/cult/blood_spell/override_location()
+	// button.locked = TRUE
+	all_magic.Positioning()
+
 /datum/action/innate/cult/blood_spell/Remove()
 	if(all_magic)
 		all_magic.spells -= src
@@ -148,21 +168,21 @@
 /datum/action/innate/cult/blood_spell/stun
 	name = "Stun"
 	desc = "Will knock down and mute a victim on contact. Strike them with a cult blade to complete the invocation, stunning them and extending the mute."
-	button_overlay_icon_state = "stun"
+	button_icon_state = "stun"
 	magic_path = /obj/item/melee/blood_magic/stun
 	health_cost = 10
 
 /datum/action/innate/cult/blood_spell/teleport
 	name = "Teleport"
 	desc = "Empowers your hand to teleport yourself or another cultist to a teleport rune on contact."
-	button_overlay_icon_state = "teleport"
+	button_icon_state = "teleport"
 	magic_path = /obj/item/melee/blood_magic/teleport
 	health_cost = 7
 
 /datum/action/innate/cult/blood_spell/emp
 	name = "Electromagnetic Pulse"
 	desc = "Releases an Electromagnetic Pulse, affecting nearby non-cultists. <b>The pulse will still affect you.</b>"
-	button_overlay_icon_state = "emp"
+	button_icon_state = "emp"
 	health_cost = 10
 	invocation = "Ta'gh fara'qha fel d'amar det!"
 
@@ -198,24 +218,24 @@
 /datum/action/innate/cult/blood_spell/shackles
 	name = "Shadow Shackles"
 	desc = "Empowers your hand to start handcuffing victim on contact, and mute them if successful."
-	button_overlay_icon_state = "shackles"
+	button_icon_state = "shackles"
 	charges = 4
 	magic_path = /obj/item/melee/blood_magic/shackles
 
 /datum/action/innate/cult/blood_spell/construction
 	name = "Twisted Construction"
 	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 metal into a construct shell<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
-	button_overlay_icon_state = "transmute"
+	button_icon_state = "transmute"
 	magic_path = "/obj/item/melee/blood_magic/construction"
 	health_cost = 12
 
 /datum/action/innate/cult/blood_spell/dagger
 	name = "Summon Dagger"
 	desc = "Summon a ritual dagger, necessary to scribe runes."
-	button_overlay_icon_state = "cult_dagger"
+	button_icon_state = "cult_dagger"
 
 /datum/action/innate/cult/blood_spell/dagger/New()
-	button_overlay_icon_state = GET_CULT_DATA(dagger_icon, "cult_dagger")
+	button_icon_state = GET_CULT_DATA(dagger_icon, "cult_dagger")
 	..()
 
 /datum/action/innate/cult/blood_spell/dagger/Activate()
@@ -238,13 +258,13 @@
 /datum/action/innate/cult/blood_spell/equipment
 	name = "Summon Equipment"
 	desc = "Empowers your hand to summon combat gear onto a cultist you touch, including cult armor into open slots, a cult bola, and a cult sword."
-	button_overlay_icon_state = "equip"
+	button_icon_state = "equip"
 	magic_path = /obj/item/melee/blood_magic/armor
 
 /datum/action/innate/cult/blood_spell/horror
 	name = "Hallucinations"
 	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
-	button_overlay_icon_state = "horror"
+	button_icon_state = "horror"
 	var/datum/spell/horror/PH
 	charges = 4
 
@@ -310,7 +330,7 @@
 	name = "Conceal Presence"
 	desc = "Alternates between hiding and revealing nearby cult structures, cult airlocks and runes."
 	invocation = "Kla'atu barada nikt'o!"
-	button_overlay_icon_state = "veiling"
+	button_icon_state = "veiling"
 	charges = 10
 	var/revealing = FALSE //if it reveals or not
 
@@ -330,7 +350,7 @@
 			O.cult_conceal()
 		revealing = TRUE // Switch on use
 		name = "Reveal Runes"
-		button_overlay_icon_state = "revealing"
+		button_icon_state = "revealing"
 
 	else // Unhiding stuff
 		owner.visible_message("<span class='warning'>A flash of light shines from [owner]'s hand!</span>", \
@@ -345,7 +365,7 @@
 			O.cult_reveal()
 		revealing = FALSE // Switch on use
 		name = "Conceal Runes"
-		button_overlay_icon_state = "veiling"
+		button_icon_state = "veiling"
 	if(charges <= 0)
 		qdel(src)
 	desc = "[revealing ? "Reveals" : "Conceals"] nearby cult structures, airlocks, and runes."
@@ -357,7 +377,7 @@
 	desc = "Empowers your hand to manipulate blood. Use on blood or a noncultist to absorb blood to be used later, use on yourself or another cultist to heal them using absorbed blood. \
 		\nUse the spell in-hand to cast advanced rites, such as summoning a magical blood spear, firing blood projectiles out of your hands, and more!"
 	invocation = "Fel'th Dol Ab'orod!"
-	button_overlay_icon_state = "manip"
+	button_icon_state = "manip"
 	charges = 5
 	magic_path = /obj/item/melee/blood_magic/manipulator
 
@@ -418,11 +438,6 @@
 		uses = 0
 		qdel(src)
 		return
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
-			playsound(M, 'sound/weapons/genhit.ogg', 50, TRUE)
-			return TRUE
 	add_attack_logs(user, M, "used a cult spell ([src]) on")
 	M.lastattacker = user.real_name
 
@@ -586,7 +601,7 @@
 		"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
 		if(do_mob(user, C, 30))
 			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/cult(C)
+				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
 				C.update_handcuffed()
 				C.Silence(12 SECONDS)
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
@@ -601,19 +616,17 @@
 
 
 /// For the shackling spell
-/obj/item/restraints/handcuffs/cult
+/obj/item/restraints/handcuffs/energy/cult
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
-	icon_state = "cablecuff"
-	breakouttime = 45 SECONDS
-	origin_tech = "materials=4;magnets=5;abductor=2"
+	trashtype = /obj/item/restraints/handcuffs/energy/used
 	flags = DROPDEL
 
-/obj/item/restraints/handcuffs/cult/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
-	user.visible_message("<span class='danger'>[user]'s shackles shatter in a discharge of dark magic!</span>", "<span class='userdanger'>Your [name] shatter in a discharge of dark magic!</span>")
-	break_cuffs = TRUE
-	silent = TRUE
+/obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user)
+	user.visible_message("<span class='danger'>[user]'s shackles shatter in a discharge of dark magic!</span>", \
+	"<span class='userdanger'>Your [name] shatter in a discharge of dark magic!</span>")
 	. = ..()
+
 
 //Construction: Converts 50 metal to a construct shell, plasteel to runed metal, or an airlock to brittle runed airlock
 /obj/item/melee/blood_magic/construction

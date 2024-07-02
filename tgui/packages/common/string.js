@@ -46,7 +46,9 @@ export const multiline = (str) => {
  */
 export const createGlobPattern = (pattern) => {
   const escapeString = (str) => str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
-  const regex = new RegExp('^' + pattern.split(/\*+/).map(escapeString).join('.*') + '$');
+  const regex = new RegExp(
+    '^' + pattern.split(/\*+/).map(escapeString).join('.*') + '$'
+  );
   return (str) => regex.test(str);
 };
 

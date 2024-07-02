@@ -213,10 +213,10 @@
 	desc = "Recall a MODsuit anyplace, anytime."
 	use_itemicon = FALSE
 	check_flags = AB_CHECK_CONSCIOUS
-	button_overlay_icon = 'icons/mob/actions/actions_mod.dmi'
-	button_overlay_icon_state = "recall"
-	button_background_icon = 'icons/mob/actions/actions_mod.dmi'
-	button_background_icon_state = "bg_mod"
+	button_icon_state = "recall"
+	background_icon_state = "bg_mod"
+	icon_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_icon = 'icons/mob/actions/actions_mod.dmi'
 	/// The cooldown for the recall.
 	COOLDOWN_DECLARE(recall_cooldown)
 

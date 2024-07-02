@@ -8,7 +8,6 @@
 /area/station/medical/medbay
 	name = "\improper Medbay"
 	icon_state = "medbay"
-	request_console_flags = RC_ASSIST
 
 //Medbay is a large area, these additional areas help level out APC load.
 /area/station/medical/medbay2
@@ -22,20 +21,14 @@
 /area/station/medical/storage
 	name = "Medical Storage"
 	icon_state = "medbaystorage"
-	request_console_flags = RC_ASSIST
-	request_console_name = "Medbay"
 
 /area/station/medical/reception
 	name = "\improper Medbay Reception"
 	icon_state = "medbaylobby"
-	request_console_flags = RC_ASSIST
-	request_console_name = "Medbay"
 
 /area/station/medical/psych
 	name = "\improper Psych Room"
 	icon_state = "medbaypsych"
-	request_console_flags = RC_SUPPLY
-	request_console_name = "Psychiatrist"
 
 /area/station/medical/break_room
 	name = "\improper Medbay Break Room"
@@ -67,7 +60,6 @@
 /area/station/medical/virology
 	name = "Virology"
 	icon_state = "virology"
-	request_console_flags = RC_ASSIST | RC_SUPPLY
 
 /area/station/medical/virology/lab
 	name = "\improper Virology Laboratory"
@@ -79,12 +71,10 @@
 	ambientsounds = SPOOKY_SOUNDS
 	is_haunted = TRUE
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-	request_console_flags = RC_ASSIST | RC_INFO
 
 /area/station/medical/chemistry
 	name = "Chemistry"
 	icon_state = "chem"
-	request_console_flags = RC_ASSIST | RC_SUPPLY
 
 /area/station/medical/surgery
 	name = "\improper Surgery"
@@ -121,4 +111,3 @@
 /area/station/medical/paramedic
 	name = "Paramedic"
 	icon_state = "paramedic"
-	request_console_flags = RC_ASSIST

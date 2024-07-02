@@ -120,7 +120,8 @@ class ChatRenderer {
       const node = this.scrollNode;
       const height = node.scrollHeight;
       const bottom = node.scrollTop + node.offsetHeight;
-      const scrollTracking = Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE;
+      const scrollTracking =
+        Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE;
       if (scrollTracking !== this.scrollTracking) {
         this.scrollTracking = scrollTracking;
         this.events.emit('scrollTrackingChanged', scrollTracking);
@@ -241,7 +242,9 @@ class ChatRenderer {
         if (regexStr) {
           highlightRegex = new RegExp('(' + regexStr + ')', flags);
         } else {
-          const pattern = `${matchWord ? '\\b' : ''}(${highlightWords.join('|')})${matchWord ? '\\b' : ''}`;
+          const pattern = `${matchWord ? '\\b' : ''}(${highlightWords.join(
+            '|'
+          )})${matchWord ? '\\b' : ''}`;
           highlightRegex = new RegExp(pattern, flags);
         }
       } catch {
@@ -366,8 +369,11 @@ class ChatRenderer {
         // Highlight text
         if (!message.avoidHighlighting && this.highlightParsers) {
           this.highlightParsers.map((parser) => {
-            const highlighted = highlightNode(node, parser.highlightRegex, parser.highlightWords, (text) =>
-              createHighlightNode(text, parser.highlightColor)
+            const highlighted = highlightNode(
+              node,
+              parser.highlightRegex,
+              parser.highlightWords,
+              (text) => createHighlightNode(text, parser.highlightColor)
             );
             if (highlighted && parser.highlightWholeMessage) {
               node.className += ' ChatMessage--highlighted';
@@ -392,7 +398,9 @@ class ChatRenderer {
       message.node = node;
       // Query all possible selectors to find out the message type
       if (!message.type) {
-        const typeDef = MESSAGE_TYPES.find((typeDef) => typeDef.selector && node.querySelector(typeDef.selector));
+        const typeDef = MESSAGE_TYPES.find(
+          (typeDef) => typeDef.selector && node.querySelector(typeDef.selector)
+        );
         message.type = typeDef?.type || MESSAGE_TYPE_UNKNOWN;
       }
       updateMessageBadge(message);
@@ -456,7 +464,10 @@ class ChatRenderer {
     }
     // All messages
     {
-      const fromIndex = Math.max(0, this.messages.length - MAX_VISIBLE_MESSAGES);
+      const fromIndex = Math.max(
+        0,
+        this.messages.length - MAX_VISIBLE_MESSAGES
+      );
       if (fromIndex > 0) {
         this.messages = this.messages.slice(fromIndex);
         logger.log(`pruned ${fromIndex} stored messages`);
@@ -502,7 +513,9 @@ class ChatRenderer {
       message.node = 'pruned';
     }
     // Remove pruned messages from the message array
-    this.messages = this.messages.filter((message) => message.node !== 'pruned');
+    this.messages = this.messages.filter(
+      (message) => message.node !== 'pruned'
+    );
     logger.log(`Cleared chat`);
   }
 
@@ -543,7 +556,11 @@ class ChatRenderer {
       + '</html>\n';
     // Create and send a nice blob
     const blob = new Blob([pageHtml]);
-    const timestamp = new Date().toISOString().substring(0, 19).replace(/[-:]/g, '').replace('T', '-');
+    const timestamp = new Date()
+      .toISOString()
+      .substring(0, 19)
+      .replace(/[-:]/g, '')
+      .replace('T', '-');
     window.navigator.msSaveBlob(blob, `ss13-chatlog-${timestamp}.html`);
   }
 }

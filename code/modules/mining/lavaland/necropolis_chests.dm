@@ -61,7 +61,7 @@
 		if(19)
 			new /obj/item/gun/magic/hook(src)
 		if(20)
-			new /obj/item/reagent_containers/drinks/everfull(src)
+			new /obj/item/grenade/clusterbuster/inferno(src)
 		if(21)
 			new /obj/item/reagent_containers/drinks/bottle/holywater/hell(src)
 		if(22)

@@ -44,10 +44,7 @@
 	var/abstract = FALSE
 	/// Whether this surgery should be cancelled when an organ change happens. (removed if requires bodypart, or added if doesn't require bodypart)
 	var/cancel_on_organ_change = TRUE
-	/// Whether the surgery was started with drapes.
-	var/started_with_drapes = FALSE
-	/// How likely it should be for the surgery to cause infection: 0-1
-	var/germ_prevention_quality = 0
+
 
 /datum/surgery/New(atom/surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -443,21 +440,16 @@
 	SHOULD_CALL_PARENT(TRUE)
 	if(ishuman(target))
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if(can_infect && affected && !prob(surgery.germ_prevention_quality))
+		if(can_infect && affected)
 			spread_germs_to_organ(affected, user, tool)
 	if(ishuman(user) && !isalien(target) && prob(60))
 		var/mob/living/carbon/human/H = user
-
-		var/blood_spread = SEND_SIGNAL(surgery, COMSIG_SURGERY_BLOOD_SPLASH, user, target, target_zone, tool)
-		if(blood_spread == COMPONENT_BLOOD_SPLASH_HANDLED)
-			return
 		switch(blood_level)
 			if(SURGERY_BLOODSPREAD_HANDS)
-				target.visible_message("<span class='notice'>Blood splashes onto [user]'s hands.</span>")
-				H.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color())
+				H.bloody_hands(target, 0)
 			if(SURGERY_BLOODSPREAD_FULLBODY)
-				target.visible_message("<span class='notice'>A spray of blood coats [user].</span>")
 				H.bloody_body(target)
+	return
 
 /**
  * Finish a surgery step, performing anything that runs on the tail-end of a successful surgery.
@@ -492,7 +484,7 @@
  * * user - The user who's manipulating the organ.
  * * tool - The tool the user is using to mess with the organ.
  */
-/datum/surgery_step/proc/spread_germs_to_organ(obj/item/organ/target_organ, mob/living/carbon/human/user, obj/item/tool, datum/surgery/surgery)
+/proc/spread_germs_to_organ(obj/item/organ/target_organ, mob/living/carbon/human/user, obj/item/tool)
 	if(!istype(user) || !istype(target_organ) || target_organ.is_robotic() || target_organ.sterile)
 		return
 
@@ -510,7 +502,7 @@
  * * E - An external organ being operated on.
  * * tool - The tool performing the operation.
  */
-/datum/surgery_step/proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool, datum/surgery/surgery)
+/proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool)
 	if(!is_external_organ(E))
 		return
 	if(!E.owner)

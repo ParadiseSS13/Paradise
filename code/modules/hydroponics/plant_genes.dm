@@ -156,10 +156,7 @@
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
 	if(R && R.id == reagent_id)
-		if(reagent_id == "holywater")
-			name = "Holy Water"
-		else
-			name = R.name
+		name = R.name
 
 /datum/plant_gene/reagent/New(reag_id = null, reag_rate = 0)
 	..()
@@ -176,8 +173,6 @@
 
 /datum/plant_gene/reagent/can_add(obj/item/seeds/S)
 	if(!..())
-		return FALSE
-	if(!S)
 		return FALSE
 	for(var/datum/plant_gene/reagent/R in S.genes)
 		if(R.reagent_id == reagent_id)
@@ -200,8 +195,7 @@
 /datum/plant_gene/trait/can_add(obj/item/seeds/S)
 	if(!..())
 		return FALSE
-	if(!S)
-		return FALSE
+
 	for(var/datum/plant_gene/trait/R in S.genes)
 		if(trait_id && R.trait_id == trait_id)
 			return FALSE

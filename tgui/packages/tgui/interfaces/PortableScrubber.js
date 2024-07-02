@@ -1,5 +1,13 @@
 import { useBackend } from '../backend';
-import { Button, Section, LabeledList, Slider, Box, ProgressBar, Stack } from '../components';
+import {
+  Button,
+  Section,
+  LabeledList,
+  Slider,
+  Box,
+  ProgressBar,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 
 export const PortableScrubber = (props, context) => {
@@ -47,7 +55,11 @@ const PumpSettings = (props, context) => {
     >
       <Stack>
         <Stack.Item color="label">Port Status:</Stack.Item>
-        <Stack.Item color={port_connected ? 'green' : 'average'} bold={1} ml={6}>
+        <Stack.Item
+          color={port_connected ? 'green' : 'average'}
+          bold={1}
+          ml={6}
+        >
           {port_connected ? 'Connected' : 'Disconnected'}
         </Stack.Item>
       </Stack>
