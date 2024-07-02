@@ -51,11 +51,13 @@ export const PanDEMIC = (props, context) => {
     <Window width={575} height={510}>
       <Window.Content>
         <Stack fill vertical>
-          {(emptyPlaceholder && !beakerContainsVirus) ? (
+          {emptyPlaceholder && !beakerContainsVirus ? (
             <Section title="Container Information" buttons={<CommonCultureActions />}>
               <NoticeBox>{emptyPlaceholder}</NoticeBox>
-            </Section>) : (<CultureInformationSection />)
-          }
+            </Section>
+          ) : (
+            <CultureInformationSection />
+          )}
           {resistances?.length > 0 && <ResistancesSection />}
         </Stack>
       </Window.Content>
