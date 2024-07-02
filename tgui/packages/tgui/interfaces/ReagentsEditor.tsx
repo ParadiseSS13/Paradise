@@ -64,9 +64,7 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     if (state.searchText !== '') {
       reagents = reagents.concat(
         Object.entries(reagentsInformation)
-          .filter(
-            ([reagentID, _]) => reagentsInContainer[reagentID] === undefined
-          )
+          .filter(([reagentID, _]) => reagentsInContainer[reagentID] === undefined)
           .map(
             ([reagentID, reagent]): FilteredReagentInformation => ({
               ...reagent,
@@ -78,9 +76,7 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     }
 
     const reagentsRows = reagents
-      .filter(({ id: reagentID, name }) =>
-        createSearch(state.searchText, () => `${reagentID}|${name}`)({})
-      )
+      .filter(({ id: reagentID, name }) => createSearch(state.searchText, () => `${reagentID}|${name}`)({}))
       .map((reagent) => {
         const { volume, uid } = reagent;
         return volume === undefined ? (
@@ -98,25 +94,13 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
               <Stack.Item>
                 <Stack fill horizontal>
                   <Stack.Item grow>
-                    <Input
-                      fluid
-                      value={state.searchText}
-                      onChange={this.handleSearchChange}
-                    />
+                    <Input fluid value={state.searchText} onChange={this.handleSearchChange} />
                   </Stack.Item>
                   <Stack.Item>
-                    <Button
-                      icon="sync"
-                      tooltip="Update Reagent Amounts"
-                      onClick={() => act('update_total')}
-                    />
+                    <Button icon="sync" tooltip="Update Reagent Amounts" onClick={() => act('update_total')} />
                   </Stack.Item>
                   <Stack.Item>
-                    <Button
-                      icon="fire-alt"
-                      tooltip="Force Reagent Reaction"
-                      onClick={() => act('react_reagents')}
-                    />
+                    <Button icon="fire-alt" tooltip="Force Reagent Reaction" onClick={() => act('react_reagents')} />
                   </Stack.Item>
                 </Stack>
               </Stack.Item>
@@ -133,9 +117,7 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
 
 // Row for a reagent with non-zero volume
 const PresentReagentRow = (
-  {
-    reagent: { id: reagentID, name, uid, volume },
-  }: { reagent: FilteredReagentInformation },
+  { reagent: { id: reagentID, name, uid, volume } }: { reagent: FilteredReagentInformation },
   context: unknown
 ) => {
   const { act } = useBackend<ReagentsEditorData>(context);
@@ -170,9 +152,7 @@ const PresentReagentRow = (
             }
           />
         </div>
-        <span className="volume-label">
-          {volume === null ? `NULL` : `${volume}u`}
-        </span>
+        <span className="volume-label">{volume === null ? `NULL` : `${volume}u`}</span>
       </Table.Cell>
       <Table.Cell>
         {reagentID} ({name})

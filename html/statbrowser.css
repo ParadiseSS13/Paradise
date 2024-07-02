@@ -21,7 +21,7 @@ body {
 
 a {
 	color: black;
-	text-decoration: none
+	text-decoration: none;
 }
 
 a:hover,
@@ -231,7 +231,7 @@ body.dark {
 }
 
 .dark .link,
-.dark .listedturf_link{
+.dark .listedturf_link {
 	color: #abc6ec;
 }
 
@@ -275,7 +275,7 @@ body.ntos {
 }
 
 .ntos .link,
-.ntos .listedturf_link{
+.ntos .listedturf_link {
 	color: #abc6ec;
 }
 
@@ -319,7 +319,7 @@ body.paradise {
 }
 
 .paradise .link,
-.paradise .listedturf_link{
+.paradise .listedturf_link {
 	color: #edc1b2;
 }
 

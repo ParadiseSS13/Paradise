@@ -30,13 +30,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		var/datum/uplink_item/A = new I.type
 		var/discount = 0.5
 		A.limited_stock = 1
-		I.refundable = FALSE
-		A.refundable = FALSE
 		if(A.cost >= 100)
 			discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
-		A.cost = max(round(A.cost * (1-discount)),1)
+		A.cost = max(round(A.cost * (1 - discount)), 1)
 		A.category = "Discounted Gear"
-		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
+		A.name += " ([round(((initial(A.cost) - A.cost) / initial(A.cost)) * 100)]% off!)"
 		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
 		A.species = null //same as above for species speific items
 		A.reference = "DIS[newreference]"
@@ -106,6 +104,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(item && !uses_special_spawn)
 		return new item(loc)
 
+	if(limited_stock)
+		limited_stock -= 1 // In case we are handling discount items differently
 	return UPLINK_SPECIAL_SPAWNING
 
 /datum/uplink_item/proc/description()
@@ -204,6 +204,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "ES"
 	item = /obj/item/melee/energy/sword/saber
 	cost = 40
+
+/datum/uplink_item/dangerous/dsword
+	name = "Double Energy Sword"
+	desc = "A double-bladed energy sword. More damaging than a standard energy sword, and automatically parries incoming energy weapons fire. Bulk discount applied."
+	reference = "DSRD"
+	item = /obj/item/dualsaber
+	cost = 60
 
 /datum/uplink_item/dangerous/powerfist
 	name = "Power Fist"
@@ -730,7 +737,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
-	desc = "This red and black syndicate space suit is less encumbering than Nanotrasen variants, \
+	desc = "This armoured red and black Syndicate space suit is less encumbering than Nanotrasen variants, \
 			fits inside bags, and has a weapon slot. Comes packaged with internals. Nanotrasen crewmembers are trained to report red space suit \
 			sightings, however. "
 	reference = "SS"

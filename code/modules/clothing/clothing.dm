@@ -605,6 +605,8 @@
 	var/list/hide_tail_by_species = null
 	/// Maximum weight class of an item in the suit storage slot.
 	var/max_suit_w = WEIGHT_CLASS_BULKY
+	///How long to break out of the suits
+	var/breakouttime
 
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()
@@ -708,6 +710,31 @@
 
 /obj/item/clothing/suit/proc/special_overlays() // Does it have special overlays when worn?
 	return FALSE
+
+/obj/item/clothing/suit/proc/resist_restraints(mob/living/carbon/user, break_restraints)
+	var/effective_breakout_time = breakouttime
+	if(break_restraints)
+		effective_breakout_time = 5 SECONDS
+
+	if(user.has_status_effect(STATUS_EFFECT_REMOVE_CUFFS))
+		to_chat(user, "<span class='notice'>You are already trying to [break_restraints ? "break" : "remove"] your restraints.</span>")
+		return
+	user.apply_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
+
+	user.visible_message("<span class='warning'>[user] attempts to [break_restraints ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_restraints ? "break" : "remove"] [src]...</span>")
+	to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
+
+	if(!do_after(user, effective_breakout_time, FALSE, user))
+		user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
+		to_chat(user, "<span class='warning'>You fail to [break_restraints ? "break" : "remove"] [src]!</span>")
+		return
+
+	user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
+	if(loc != user || user.buckled)
+		return
+
+	user.visible_message("<span class='danger'>[user] manages to [break_restraints ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_restraints ? "break" : "remove"] [src].</span>")
+	user.unEquip(src)
 
 //Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.

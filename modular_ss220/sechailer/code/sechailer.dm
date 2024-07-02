@@ -3,8 +3,8 @@ GLOBAL_LIST_EMPTY(sechailers)
 /datum/action/item_action/dispatch
 	name = "Signal Dispatch"
 	desc = "Открывает колесо быстрого выбора для сообщения о преступлениях, включая ваше текущее местоположение."
-	button_icon_state = "dispatch"
-	icon_icon = 'modular_ss220/sechailer/icons/sechailer.dmi'
+	button_overlay_icon_state = "dispatch"
+	button_overlay_icon = 'modular_ss220/sechailer/icons/sechailer.dmi'
 	use_itemicon = FALSE
 
 /obj/item/clothing/mask/gas/sechailer

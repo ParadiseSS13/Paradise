@@ -38,10 +38,7 @@ export const ChatTabs = (props, context) => {
               key={page.id}
               selected={page === currentPage}
               rightSlot={
-                !page.hideUnreadCount &&
-                page.unreadCount > 0 && (
-                  <UnreadCountWidget value={page.unreadCount} />
-                )
+                !page.hideUnreadCount && page.unreadCount > 0 && <UnreadCountWidget value={page.unreadCount} />
               }
               onClick={() =>
                 dispatch(
