@@ -19,10 +19,15 @@
 	/// Cooldown until the next turned off message/sound can be activated
 	var/next_off_message
 
-/obj/item/lighter/random/New()
+/obj/item/lighter/random
+	/// Random color that is assigned whenever we initialize a new random color lighter.
+	var/random_color = "g"
+
+/obj/item/lighter/random/Initialize(mapload)
 	..()
-	var/color = pick("r","c","y","g")
-	icon_state = "lighter-[color]"
+	random_color = pick("r","c","y","g")
+	icon_state = "lighter-[random_color]"
+	item_state = "lighter-[random_color]"
 
 /obj/item/lighter/attack_self(mob/living/user)
 	. = ..()
@@ -119,11 +124,15 @@
 
 /obj/item/lighter/update_icon_state()
 	icon_state = "[initial(icon_state)][lit ? "-on" : ""]"
-	return ..()
 
 /obj/item/lighter/update_overlays()
 	item_state = "[initial(item_state)][lit ? "-on" : ""]"
-	return ..()
+
+/obj/item/lighter/random/update_icon_state()
+	icon_state = "lighter-[random_color][lit ? "-on" : ""]" // We don't use initial here because we're using a nonconstant randomly selected color upon initialization.
+
+/obj/item/lighter/random/update_overlays()
+	item_state = "lighter-[random_color][lit ? "-on" : ""]" // We don't use initial here because we're using a nonconstant randomly selected color upon initialization.
 
 /obj/item/lighter/get_heat()
 	return lit * 1500
