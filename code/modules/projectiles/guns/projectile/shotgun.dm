@@ -97,7 +97,7 @@
 		sawoff(user)
 	if(istype(A, /obj/item/melee/energy))
 		var/obj/item/melee/energy/W = A
-		if(W.active)
+		if(HAS_TRAIT(W, TRAIT_ITEM_ACTIVE))
 			sawoff(user)
 	if(istype(A, /obj/item/pipe))
 		unsaw(A, user)
