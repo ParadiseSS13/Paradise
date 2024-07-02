@@ -508,6 +508,8 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			listed_actions.insert_action(button)
 		if(SCRN_OBJ_IN_PALETTE)
 			palette_actions.insert_action(button)
+		if(SCRN_OBJ_CULT_LIST)
+			cult_actions.insert_action(button)
 		else // If we don't have it as a define, this is a screen_loc, and we should be floating
 			floating_actions += button
 			button.screen_loc = position
@@ -523,6 +525,8 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			listed_actions.insert_action(button, listed_actions.index_of(relative_to))
 		if(SCRN_OBJ_IN_PALETTE)
 			palette_actions.insert_action(button, palette_actions.index_of(relative_to))
+		if(SCRN_OBJ_CULT_LIST)
+			cult_actions.insert_action(button, cult_actions.index_of(relative_to))
 		if(SCRN_OBJ_FLOATING) // If we don't have it as a define, this is a screen_loc, and we should be floating
 			floating_actions += button
 			var/client/our_client = mymob.client
@@ -543,6 +547,8 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			floating_actions -= button
 		if(SCRN_OBJ_IN_LIST)
 			listed_actions.remove_action(button)
+		if(SCRN_OBJ_CULT_LIST)
+			cult_actions.remove_action(button)
 		if(SCRN_OBJ_IN_PALETTE)
 			palette_actions.remove_action(button)
 	button.screen_loc = null
@@ -551,11 +557,13 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 /datum/hud/proc/generate_landings(atom/movable/screen/movable/action_button/button)
 	listed_actions.generate_landing()
 	palette_actions.generate_landing()
+	cult_actions.generate_landing()
 
 /// Clears all currently visible landings
 /datum/hud/proc/hide_landings()
 	listed_actions.clear_landing()
 	palette_actions.clear_landing()
+	cult_actions.clear_landing()
 
 // Updates any existing "owned" visuals, ensures they continue to be visible
 /datum/hud/proc/update_our_owner()
@@ -563,6 +571,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	palette_down.refresh_owner()
 	palette_up.refresh_owner()
 	listed_actions.update_landing()
+	cult_actions.update_landing()
 	palette_actions.update_landing()
 
 /// Ensures all of our buttons are properly within the bounds of our client's view, moves them if they're not
@@ -570,6 +579,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	var/our_view = mymob?.client?.view
 	if(!our_view)
 		return
+	cult_actions.check_against_view()
 	listed_actions.check_against_view()
 	palette_actions.check_against_view()
 	for(var/atom/movable/screen/movable/action_button/floating_button as anything in floating_actions)
@@ -579,6 +589,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 
 /// Generates and fills new action groups with our mob's current actions
 /datum/hud/proc/build_action_groups()
+	cult_actions = new(src)
 	listed_actions = new(src)
 	palette_actions = new(src)
 	floating_actions = list()

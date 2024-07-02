@@ -14,7 +14,7 @@
 		return 0
 	if(newloc.density)
 		return 0
-	.=..()
+	. = ..()
 
 /obj/effect/particle_effect/water/Bump(atom/A)
 	if(reagents)
