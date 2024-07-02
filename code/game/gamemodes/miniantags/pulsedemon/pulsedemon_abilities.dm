@@ -255,7 +255,7 @@
 
 /datum/spell/pulse_demon/toggle/proc/do_toggle(varstate, mob/user)
 	if(action)
-		action.background_icon_state = varstate ? action_background_icon_state : "[action_background_icon_state]_disabled"
+		action.button_background_icon_state = varstate ? action_background_icon_state : "[action_background_icon_state]_disabled"
 		action.UpdateButtons()
 	if(user)
 		to_chat(user, "<span class='notice'>You will [varstate ? "now" : "no longer"] [base_message]</span>")

@@ -31,23 +31,21 @@
     }
 
     // add to prototype
-    [Element.prototype, Document.prototype, DocumentFragment.prototype].forEach(
-      function (e) {
-        e.hasOwnProperty('append') ||
-          Object.defineProperty(e, 'append', {
-            configurable: !0,
-            enumerable: !0,
-            writable: !0,
-            value: t,
-          });
-        e.hasOwnProperty('remove') ||
-          Object.defineProperty(e, 'remove', {
-            configurable: !0,
-            enumerable: !0,
-            writable: !0,
-            value: n,
-          });
-      }
-    );
+    [Element.prototype, Document.prototype, DocumentFragment.prototype].forEach(function (e) {
+      e.hasOwnProperty('append') ||
+        Object.defineProperty(e, 'append', {
+          configurable: !0,
+          enumerable: !0,
+          writable: !0,
+          value: t,
+        });
+      e.hasOwnProperty('remove') ||
+        Object.defineProperty(e, 'remove', {
+          configurable: !0,
+          enumerable: !0,
+          writable: !0,
+          value: n,
+        });
+    });
   })();
 })();
