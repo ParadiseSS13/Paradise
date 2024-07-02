@@ -425,13 +425,18 @@
 	addiction_threshold = 5
 	harmless = FALSE
 	taste_description = "health"
+	var/heals_robots = FALSE
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	var/mob/living/carbon/human/ipc = M
+	update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(heals_robots)
+		update_flags |= ipc.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
+		update_flags |= ipc.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
 	if(prob(50))
 		M.AdjustLoseBreath(-2 SECONDS)
 	return ..() | update_flags
@@ -480,6 +485,16 @@
 	addiction_chance = 0
 	addiction_chance_additional = 100
 	addiction_threshold = 0
+
+// Used in the IPC supercharge implant - because IPCs deserve the little bit of healing too.
+// Could actually be interesting to add a crew-accessable synthetic version of omnizine...
+/datum/reagent/medicine/omnizine/no_addict/synthetic
+	name = "Smart Metal"
+	id = "synthetic_omnizine_no_addiction"
+	description = "An exotic metal alloy paste mixed with encapsulated nanomachines, used as a potent repair tool for synthetics. Once delivered, the capsules are eaten away by the nanomachines, \
+	which then shape the alloy and adjust its various properties before solidifying to patch up damaged components."
+	heals_robots = TRUE
+	process_flags = SYNTHETIC
 
 /datum/reagent/medicine/calomel
 	name = "Calomel"
@@ -1184,6 +1199,45 @@
 
 /datum/reagent/medicine/stimulative_agent/changeling/on_mob_delete(mob/living/L)
 	return
+
+// IPC Stimulative Agent, for the Supercharge Biochip.
+/datum/reagent/medicine/stimulative_agent/surge_plus
+	name = "Surge Plus"
+	id = "surge_plus"
+	description = "A high quality, low-viscocity gel that both supercharges processors and massively increases the efficincy of synthetic locomotive systems, allowing the user to run faster whilst also clearing stuns. \
+	If overdosed, it will cause short-circuits that will cause damage and reduce locomotive efficiancy gains."
+	reagent_state = LIQUID
+	color = "#28b581"
+	process_flags = SYNTHETIC
+	taste_description = "silicon"
+
+/datum/reagent/surge_plus/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustParalysis(-6 SECONDS)
+	M.AdjustStunned(-6 SECONDS)
+	M.AdjustWeakened(-6 SECONDS)
+	M.AdjustKnockDown(-6 SECONDS)
+	// The 4 below benefits are from Synaptizine, because we don't need a synthetic version of that too.	
+	M.AdjustDrowsy(-10 SECONDS)
+	M.AdjustConfused(-10 SECONDS)
+	M.AdjustDizzy(-10 SECONDS)
+	M.SetSleeping(0)
+	update_flags |= M.adjustStaminaLoss(-40 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(prob(5))
+		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like the world is moving in slow motion.")
+		if(prob(10))
+			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!" // "GOTTAGOFAST" in binary.
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+
+/datum/reagent/surge_plus/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(33))
+		M.Stuttering(5 SECONDS)
+		to_chat(M, pick("<span class='warning'>Your circuits overheat!</span>", "<span class='warning'>Electrical arcs discharge inside you!</span>"))
+		update_flags |= M.adjustStaminaLoss(2.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE) // 5 to compensate for no breathloss. Not like anyone will ever OD on this anyway.
+		M.AdjustLoseBreath(2 SECONDS)
+	return list(0, update_flags)
 
 /datum/reagent/medicine/insulin
 	name = "Insulin"
