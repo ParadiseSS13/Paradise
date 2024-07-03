@@ -458,6 +458,7 @@
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/under/costume/soviet = 1,
+					/obj/item/clothing/suit/pimpcoat/white = 3,
 					/obj/item/storage/belt/fannypack/black = 1)
 
 	prices = list(/obj/item/clothing/under/suit/navy = 75,
@@ -540,6 +541,7 @@
 				/obj/item/clothing/suit/mantle = 20,
 				/obj/item/clothing/suit/mantle/old = 20,
 				/obj/item/clothing/suit/mantle/regal = 30,
+				/obj/item/clothing/suit/pimpcoat/white = 500,
 				/obj/item/clothing/under/misc/mailman = 100)
 
 	refill_canister = /obj/item/vending_refill/clothing

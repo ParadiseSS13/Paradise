@@ -388,16 +388,6 @@
 			usr.set_typing_indicator(FALSE)
 			usr.set_thinking_indicator(FALSE)
 
-/datum/preference_toggle/toggle_tgui_input_lists
-	name = "Toggle TGUI Input"
-	description = "Switches input lists between the TGUI and the standard one"
-	preftoggle_bitflag = PREFTOGGLE_2_DISABLE_TGUI_INPUT
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You will now use TGUI Input."
-	disable_message = "You will no longer use TGUI Input."
-	blackbox_message = "Toggle TGUI Input"
-
 /datum/preference_toggle/toggle_admin_logs
 	name = "Toggle Admin Log Messages"
 	description = "Disables admin log messages"

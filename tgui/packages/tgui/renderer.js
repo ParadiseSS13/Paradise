@@ -40,10 +40,7 @@ export const createRenderer = (getVNode) => () => {
       logger.log('rendered in', perf.measure('render/start', 'render/finish'));
       logger.log('fully loaded in', perf.measure('inception', 'render/finish'));
     } else {
-      logger.debug(
-        'rendered in',
-        perf.measure('render/start', 'render/finish')
-      );
+      logger.debug('rendered in', perf.measure('render/start', 'render/finish'));
     }
   }
   if (initialRender) {

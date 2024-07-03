@@ -297,6 +297,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -440,9 +441,7 @@
 /area/station/legal/magistrate)
 "afw" = (
 /obj/machinery/requests_console{
-	pixel_y = 30;
-	department = "Detective";
-	departmentType = 5
+	pixel_y = 30
 	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -1326,8 +1325,6 @@
 "alZ" = (
 /obj/structure/closet/secure_closet/security,
 /obj/machinery/requests_console{
-	department = "Security";
-	departmentType = 5;
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -4840,6 +4837,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/security_officer,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -5414,6 +5412,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/security_officer,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -5750,7 +5749,6 @@
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start/magistrate,
 /obj/machinery/requests_console{
-	department = "Magistrate";
 	pixel_y = 30
 	},
 /turf/simulated/floor/carpet,
@@ -6218,7 +6216,6 @@
 /area/station/supply/miningdock)
 "aHs" = (
 /obj/machinery/requests_console{
-	department = "Mining";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel,
@@ -7281,8 +7278,6 @@
 	},
 /obj/item/storage/box/pillbottles,
 /obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -8823,9 +8818,6 @@
 	department = "Quartermaster's Office"
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Quartermaster's Desk";
-	departmentType = 5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -12197,7 +12189,6 @@
 /area/station/hallway/secondary/bridge)
 "bad" = (
 /obj/machinery/requests_console{
-	department = "Crew Quarters";
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -13364,7 +13355,6 @@
 	pixel_y = -6
 	},
 /obj/machinery/requests_console{
-	department = "Tech Storage";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -13630,14 +13620,19 @@
 	},
 /mob/living/simple_animal/mouse,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -14138,9 +14133,6 @@
 "bfd" = (
 /obj/machinery/computer/atmos_alert,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Chief Engineer's Desk";
-	departmentType = 7;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -14221,9 +14213,9 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 4;
+	d1 = 2;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -15440,8 +15432,6 @@
 	},
 /obj/machinery/computer/card,
 /obj/machinery/requests_console{
-	department = "Security";
-	departmentType = 5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -16237,7 +16227,6 @@
 	pixel_x = 32
 	},
 /obj/machinery/requests_console{
-	department = "Tool Storage";
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel,
@@ -17804,8 +17793,6 @@
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/machinery/requests_console{
-	department = "Janitorial";
-	departmentType = 1;
 	pixel_x = -30
 	},
 /obj/machinery/camera{
@@ -18184,8 +18171,6 @@
 /obj/structure/table,
 /obj/item/stack/wrapping_paper,
 /obj/machinery/requests_console{
-	department = "Cargo Bay";
-	departmentType = 2;
 	pixel_y = -30
 	},
 /obj/item/stack/packageWrap{
@@ -18584,8 +18569,6 @@
 	},
 /obj/item/pen/multi,
 /obj/machinery/requests_console{
-	department = "AI";
-	departmentType = 5;
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -18718,7 +18701,6 @@
 /area/shuttle/arrival/station)
 "brt" = (
 /obj/machinery/requests_console{
-	department = "Arrival Shuttle";
 	pixel_y = -30
 	},
 /obj/machinery/light,
@@ -19909,9 +19891,6 @@
 /area/station/hallway/secondary/entry/east)
 "buE" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Bridge";
-	departmentType = 5;
 	pixel_x = 30
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -21428,9 +21407,6 @@
 "byu" = (
 /obj/machinery/pdapainter,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Head of Personnel's Desk";
-	departmentType = 5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/wood,
@@ -21543,9 +21519,6 @@
 	dir = 8
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Captain's Desk";
-	departmentType = 5;
 	pixel_x = 30
 	},
 /turf/simulated/floor/wood,
@@ -23992,7 +23965,6 @@
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/start/assistant,
 /obj/machinery/requests_console{
-	department = "Library";
 	pixel_y = 30
 	},
 /turf/simulated/floor/wood,
@@ -25232,7 +25204,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "bLH" = (
-/obj/machinery/alarm/directional/west,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -26425,8 +26399,6 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /obj/machinery/requests_console{
-	department = "Kitchen";
-	departmentType = 2;
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -26895,7 +26867,6 @@
 /area/station/command/teleporter)
 "bSi" = (
 /obj/machinery/requests_console{
-	department = "EVA";
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel,
@@ -28143,9 +28114,6 @@
 /obj/structure/table/wood,
 /obj/item/paper/blueshield,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Blueshield";
-	departmentType = 5;
 	pixel_x = -30
 	},
 /obj/item/paper_bin,
@@ -28413,9 +28381,6 @@
 /obj/item/pen/multi/fountain,
 /obj/item/stamp/rep,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "NT Representative";
-	departmentType = 5;
 	pixel_x = -30
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -28760,9 +28725,8 @@
 /area/station/command/office/ntrep)
 "bYp" = (
 /obj/machinery/requests_console{
-	department = "Expedition";
-	pixel_x = 30;
-	dir = 8
+	dir = 8;
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -29736,8 +29700,6 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/requests_console{
-	department = "Medbay";
-	departmentType = 1;
 	pixel_y = 30
 	},
 /obj/machinery/light{
@@ -29965,8 +29927,6 @@
 /area/station/hallway/primary/central/se)
 "ccZ" = (
 /obj/machinery/requests_console{
-	department = "Hydroponics";
-	departmentType = 2;
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -29998,8 +29958,6 @@
 "cdi" = (
 /obj/structure/table/reinforced,
 /obj/machinery/requests_console{
-	department = "Robotics";
-	departmentType = 2;
 	pixel_y = 30
 	},
 /obj/item/stack/sheet/plasteel{
@@ -33980,8 +33938,8 @@
 	},
 /area/station/medical/cryo)
 "csN" = (
-/obj/structure/sink{
-	pixel_y = 22
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -35011,9 +34969,6 @@
 /area/station/maintenance/starboard2)
 "cwH" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Research Director's Desk";
-	departmentType = 7;
 	pixel_x = 30
 	},
 /obj/machinery/computer/aifixer{
@@ -35727,9 +35682,6 @@
 	dir = 1
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Head of Security's Desk";
-	departmentType = 5;
 	pixel_y = 30
 	},
 /turf/simulated/floor/wood,
@@ -36108,7 +36060,9 @@
 	},
 /area/station/medical/exam_room)
 "cBu" = (
-/obj/machinery/alarm/directional/east,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -37630,9 +37584,6 @@
 	},
 /area/station/medical/exam_room)
 "cHa" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
 /obj/machinery/camera{
 	c_tag = "Medbay Cryogenics";
 	dir = 4
@@ -37644,6 +37595,9 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -38563,8 +38517,6 @@
 	},
 /obj/effect/landmark/start/geneticist,
 /obj/machinery/requests_console{
-	department = "Genetics";
-	departmentType = 1;
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -41938,6 +41890,7 @@
 	c_tag = "Medbay Surgery 2";
 	dir = 8
 	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -42760,8 +42713,6 @@
 	dir = 5
 	},
 /obj/machinery/requests_console{
-	department = "Xenobiology";
-	departmentType = 2;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -43012,8 +42963,6 @@
 	dir = 4
 	},
 /obj/machinery/requests_console{
-	department = "Chapel";
-	departmentType = 2;
 	pixel_y = 30
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -43314,6 +43263,7 @@
 	c_tag = "Medbay Surgery 1";
 	dir = 4
 	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -43599,15 +43549,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel,
-/area/station/security/brig)
-"djR" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "djU" = (
@@ -44031,6 +43972,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -45804,8 +45750,6 @@
 	pixel_y = 4
 	},
 /obj/machinery/requests_console{
-	department = "Engineering";
-	departmentType = 3;
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -46637,8 +46581,6 @@
 	pixel_y = 8
 	},
 /obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -50528,8 +50470,8 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -52652,15 +52594,12 @@
 	},
 /area/station/aisat)
 "gXN" = (
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
-	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
-	},
+/turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "gYm" = (
 /obj/machinery/hydroponics/soil,
@@ -53939,28 +53878,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/command/office/cmo)
-"hAl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "hAn" = (
 /obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -54140,6 +54057,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -54395,7 +54315,6 @@
 /area/station/medical/storage)
 "hHW" = (
 /obj/machinery/requests_console{
-	department = "Internal Affairs Office";
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -54501,16 +54420,16 @@
 	},
 /area/station/science/research)
 "hKK" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	d2 = 8;
+	icon_state = "1-8"
 	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/armory/secure)
 "hKO" = (
@@ -54687,7 +54606,6 @@
 /turf/simulated/floor/carpet/purple,
 /area/station/maintenance/fore)
 "hNK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -54701,6 +54619,12 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -55206,8 +55130,6 @@
 	c_tag = "Science - Research Fore"
 	},
 /obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -57032,18 +56954,6 @@
 	icon_state = "white"
 	},
 /area/station/science/explab)
-"iLl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "iLs" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -57057,25 +56967,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
-"iLw" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "iLE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/blue,
 /turf/simulated/wall/r_wall,
@@ -59211,8 +59102,6 @@
 	dir = 6
 	},
 /obj/machinery/requests_console{
-	department = "Robotics";
-	departmentType = 2;
 	pixel_x = -30
 	},
 /obj/structure/disposalpipe/segment{
@@ -60974,16 +60863,6 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -61126,9 +61005,6 @@
 	dir = 4
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Chief Medical Officer's Desk";
-	departmentType = 5;
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -61798,7 +61674,6 @@
 	dir = 6
 	},
 /obj/machinery/requests_console{
-	department = "Paramedic";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -61910,8 +61785,6 @@
 "kQx" = (
 /obj/item/kirbyplants/plant11,
 /obj/machinery/requests_console{
-	department = "Courtroom";
-	departmentType = 1;
 	pixel_x = -30
 	},
 /turf/simulated/floor/wood,
@@ -61954,6 +61827,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -62427,6 +62305,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -62583,8 +62466,6 @@
 "lfd" = (
 /obj/structure/table/glass,
 /obj/machinery/requests_console{
-	department = "Chemistry";
-	departmentType = 1;
 	pixel_x = -30
 	},
 /obj/machinery/reagentgrinder,
@@ -62847,14 +62728,6 @@
 	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
-"liR" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/brig)
 "liS" = (
 /obj/structure/table,
 /obj/item/clothing/ears/earmuffs{
@@ -63029,7 +62902,6 @@
 /area/station/engineering/control)
 "llW" = (
 /obj/machinery/requests_console{
-	department = "Locker Room";
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -63813,8 +63685,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /obj/machinery/requests_console{
-	department = "Atmospherics";
-	departmentType = 3;
 	pixel_x = 30
 	},
 /obj/structure/disposalpipe/segment,
@@ -65591,6 +65461,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -65613,7 +65488,6 @@
 	dir = 8
 	},
 /obj/machinery/requests_console{
-	department = "Psychiatrist";
 	pixel_x = 30
 	},
 /turf/simulated/floor/carpet,
@@ -66691,6 +66565,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -68149,8 +68028,6 @@
 /area/station/security/brig)
 "nos" = (
 /obj/machinery/requests_console{
-	department = "Bar";
-	departmentType = 2;
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -69981,12 +69858,21 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
 "odW" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/station/security/permabrig)
 "oec" = (
 /obj/structure/cable{
@@ -73432,6 +73318,11 @@
 	pixel_x = -3;
 	pixel_y = -5
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -73748,8 +73639,6 @@
 /area/station/hallway/secondary/entry/east)
 "pNo" = (
 /obj/machinery/requests_console{
-	department = "Cargo Bay";
-	departmentType = 2;
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -74294,8 +74183,6 @@
 /obj/item/clothing/mask/surgical,
 /obj/item/clothing/gloves/color/latex,
 /obj/machinery/requests_console{
-	department = "Morgue";
-	departmentType = 5;
 	pixel_x = -30
 	},
 /obj/machinery/light/small,
@@ -74841,8 +74728,6 @@
 	},
 /obj/item/storage/box,
 /obj/machinery/requests_console{
-	department = "Atmospherics";
-	departmentType = 3;
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -75891,6 +75776,11 @@
 "qGf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -76263,8 +76153,6 @@
 	pixel_y = -3
 	},
 /obj/machinery/requests_console{
-	department = "Virology";
-	departmentType = 3;
 	pixel_y = -30
 	},
 /obj/item/stack/sheet/mineral/plasma,
@@ -78444,8 +78332,6 @@
 "rJh" = (
 /obj/structure/rack,
 /obj/machinery/requests_console{
-	department = "Warden";
-	departmentType = 7;
 	pixel_y = 30
 	},
 /obj/structure/cable{
@@ -80860,6 +80746,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -81076,8 +80967,6 @@
 "sOH" = (
 /obj/structure/closet/bombcloset,
 /obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -81099,6 +80988,11 @@
 "sPd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -81208,6 +81102,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -82221,8 +82120,6 @@
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/requests_console{
-	department = "Engineering";
-	departmentType = 3;
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel,
@@ -84223,6 +84120,21 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/brig)
+"ujh" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/medical/medbay)
 "ujj" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1;
@@ -84301,11 +84213,6 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -85260,24 +85167,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/cafeteria)
-"uKW" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "uLb" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -86202,16 +86091,6 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
 /area/station/maintenance/asmaint)
-"vcs" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "vcF" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -86449,6 +86328,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -88574,6 +88459,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -114163,11 +114053,11 @@ udK
 eSS
 iqe
 udK
-odW
+ezq
 kRm
 udK
 mOC
-odW
+lLb
 abW
 abW
 aaa
@@ -114420,11 +114310,11 @@ uGn
 fCF
 eyZ
 rLO
-gXN
-obJ
+oaX
+odW
 qNV
-obJ
-gXN
+odW
+oaX
 cUM
 abW
 abW
@@ -114677,13 +114567,13 @@ jOp
 aZu
 nbK
 qbU
-iLw
-uKW
+jOp
+nbK
 ayZ
 mnU
 kxy
-vcs
-lLb
+uZy
+gXN
 daV
 ggM
 abW
@@ -115709,9 +115599,9 @@ pPA
 naU
 qal
 gKl
-hAl
-vcs
-lLb
+taf
+uZy
+bOX
 ivD
 qIB
 abW
@@ -115809,7 +115699,7 @@ rtb
 mFQ
 pIt
 cXr
-dLU
+ujh
 hDL
 blu
 wcp
@@ -121370,7 +121260,7 @@ amx
 amx
 amx
 wRx
-djR
+oSi
 aCu
 maC
 oSi
@@ -121627,7 +121517,7 @@ tmm
 oSi
 oSi
 ugy
-liR
+apP
 apP
 fJF
 apP
@@ -126796,7 +126686,7 @@ aTp
 aTo
 aYP
 aLl
-iLl
+jln
 bdW
 eMs
 bgg
