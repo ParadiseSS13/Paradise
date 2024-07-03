@@ -351,7 +351,6 @@
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
 
-
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
