@@ -272,6 +272,7 @@
 					/obj/item/clothing/under/color/rainbow = 1)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,
+					/obj/item/clothing/under/syndicate/greyman = 5,
 					/obj/item/clothing/under/color/orange/prison = 5)
 
 	prices = list(/obj/item/clothing/under/color/black = 30,
@@ -297,6 +298,7 @@
 				/obj/item/clothing/under/color/pink = 50,
 				/obj/item/clothing/under/color/rainbow = 100,
 				/obj/item/clothing/under/syndicate/tacticool = 75,
+				/obj/item/clothing/under/syndicate/greyman = 75,
 				/obj/item/clothing/under/color/orange/prison = 75)
 
 	refill_canister = /obj/item/vending_refill/suitdispenser
