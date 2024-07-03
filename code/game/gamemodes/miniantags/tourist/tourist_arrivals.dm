@@ -33,12 +33,12 @@
 	// Let's just avoid trouble, sending people into those is probably bad.
 	if(GAMEMODE_IS_CULT || GAMEMODE_IS_WIZARD || GAMEMODE_IS_NUCLEAR)
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
-		EC.next_event_time = world.time + (60 * 10)
+		EC.next_event_time = world.time + 1 MINUTES
 		message_admins("Tourist Arrivals roll canceled due to gamemode. Rolling another midround in 60 seconds.")
 		return
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_GAMMA) // Who would send more people to somewhere that's not safe?
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
-		EC.next_event_time = world.time + (60 * 10)
+		EC.next_event_time = world.time + 1 MINUTES
 		message_admins("Tourist Arrivals roll canceled due to heightened alert. Rolling another midround in 60 seconds.")
 		return
 
@@ -68,7 +68,7 @@
 			M.ckey = P.ckey
 			M.equipOutfit(T.tourist_outfit)
 			M.dna.species.after_equip_job(null, M)
-			M.age = rand(21,50)
+			M.age = rand(21, 50)
 			if(prob(50))
 				M.change_gender(MALE)
 			else
@@ -108,8 +108,8 @@
 /datum/event/tourist_arrivals/proc/set_appearance(mob/living/carbon/human/M)
 
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
-	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
-	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
+	var/hair_c = pick("#8B4513", "#000000", "#FF4500", "#FFD700") // Brown, black, red, blonde
+	var/eye_c = pick("#000000", "#8B4513", "1E90FF") // Black, brown, blue
 	var/skin_tone = rand(-120, 20) // A range of skin colors (This doesn't work, result is always pale white)
 
 	head_organ.facial_colour = hair_c
