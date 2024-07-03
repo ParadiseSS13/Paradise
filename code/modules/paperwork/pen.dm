@@ -227,7 +227,10 @@
 		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
 		M.apply_damage(40, STAMINA) //Just enough to slow
 		M.KnockDown(2 SECONDS)
-		M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")
+		M.visible_message(
+			"<span class='warning'>[user] stabs [M] in the back!</span>",
+			"<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>"
+		)
 
 		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
 	else

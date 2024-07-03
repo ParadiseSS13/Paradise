@@ -128,12 +128,12 @@
 		user.visible_message(
 			"<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [I] with [src].</span>",
 			"<span class='notice'>After some fiddling, you manage to light [I] with [src].</span>,"
-			)
+		)
 	else
 		user.visible_message(
 			"<span class='notice'>After some fiddling, [user] manages to light [I] for [target] with [src].</span>",
 			"<span class='notice'>After some fiddling, you manage to light [I] for [target] with [src].</span>"
-			)
+		)
 	I.light(user, target)
 
 /obj/item/lighter/process()
@@ -169,7 +169,7 @@
 			"<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>",
 			"<span class='rose'>Without breaking your stride, you flip open and light [src] in one smooth movement.</span>",
 			"<span class='rose'>You hear a zippo being lit.</span>"
-			)
+		)
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
 		next_on_message = world.time + 5 SECONDS
 	else
@@ -185,7 +185,7 @@
 			"<span class='rose'>You hear a quiet click as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.",
 			"<span class='rose'>You shut off [src] without even looking at what you're doing.",
 			"<span class='rose'>You hear a quiet click as a zippo lighter is shut off. Wow."
-			)
+		)
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
 		next_off_message = world.time + 5 SECONDS
 	else
@@ -207,12 +207,12 @@
 		user.visible_message(
 			"<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [I.name] with [src]. Damn [user.p_theyre()] cool.</span>",
 			"<span class='rose'>With a single flick of your wrist, you smoothly light [I] with [src].</span>"
-			)
+		)
 	else
 		user.visible_message(
 			"<span class='rose'>[user] whips [src] out and holds it for [target]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light [I] with. Damn [user.p_theyre()] cool.</span>",
 			"<span class='rose'>You whip [src] out and hold it for [target]. Your arm is as steady as the unflickering flame you light [I] with.</span>"
-			)
+		)
 	I.light(user, target)
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)
@@ -357,12 +357,12 @@
 		user.visible_message(
 			"<span class='notice'>[user] lights [user.p_their()] [I] with [src].</span>",
 			"<span class='notice'>You light [I] with [src]</span>"
-			)
+		)
 	else
 		user.visible_message(
 			"<span class='notice'>[user] holds [src] out for [target], and lights [I].</span>",
 			"<span class='notice'>You hold [src] out for [target], and light [user.p_their()] [I].</span>"
-			)
+		)
 	I.light(user, target)
 	matchburnout()
 
@@ -413,20 +413,20 @@
 			"<span class='rose'>[user] spits fire at [user.p_their()] [I.name], igniting it.</span>",
 			"<span class='rose'>You spit fire at [I], igniting it.</span>",
 			"<span class='warning'>You hear a brief burst of flame!</span>"
-			)
+		)
 	else
 		if(prob(50))
 			user.visible_message(
 				"<span class='rose'>[user] spits fire at [target], lighting [I] in [target.p_their()] mouth and nearly burning [target.p_their()] face!</span>",
 				"<span class='rose'>You spit fire at [target], lighting [I] in [target.p_their()] mouth and nearly burning [target.p_their()] face!</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
-				)
+			)
 		else
 			user.visible_message(
 				"<span class='rose'>[user] spits fire at [target], burning [target.p_their()] face and lighting [I] in the process!</span>",
 				"<span class='rose'>You spit fire at [target], burning [target.p_their()] face and lighting [I] in the process!</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
-				)
+			)
 			var/obj/item/organ/external/head/affecting = target.get_organ("head")
 			affecting.receive_damage(0, 5)
 			target.UpdateDamageIcon()

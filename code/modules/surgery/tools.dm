@@ -75,7 +75,7 @@
 		user.visible_message(
 			"<span class='notice'>[user] presses [src] against [I], heating it until it lights.</span>",
 			"<span class='notice'>You press [src] against [I], heating it until it lights.</span>"
-			)
+		)
 	else
 		user.visible_message(
 			"<span class='notice'>[user] presses [src] against [I] for [target], heating it until it lights.</span>",
@@ -191,7 +191,7 @@
 		user.visible_message(
 			"<span class='notice'>[user] presses [src] against [I], heating it until it lights.</span>",
 			"<span class='notice'>You press [src] against [I], heating it until it lights.</span>"
-			)
+		)
 	else
 		user.visible_message(
 			"<span class='notice'>[user] presses [src] against [I] for [target], heating it until it lights.</span>",

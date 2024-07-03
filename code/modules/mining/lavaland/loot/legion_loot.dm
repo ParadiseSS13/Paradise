@@ -55,13 +55,13 @@
 			"<span class='warning'>[user] holds [src] up to [user.p_their()] [I.name] and shoots a tiny bolt of lightning that sets it alight!</span>",
 			"<span class='warning'>You hold [src] up to [I] and shoot a tiny bolt of lightning that sets it alight!</span>",
 			"<span class='danger'>A thundercrack fills the air!</span>"
-			)
+		)
 	else
 		user.visible_message(
 			"<span class='warning'>[user] points [src] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [I.name] alight!</span>",
 			"<span class='warning'>You point [src] at [target] and shoot a tiny bolt of lightning that sets [target.p_their()] [I.name] alight!</span>",
 			"<span class='danger'>A thundercrack fills the air!</span>"
-			)
+		)
 	I.light(user, target)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 50, TRUE)
 	thunder_charges--
@@ -84,8 +84,10 @@
 			if(A.stage == WEATHER_WIND_DOWN_STAGE)
 				to_chat(user, "<span class='warning'>The storm is already ending! It would be a waste to use the staff now.</span>")
 				return
-			user.visible_message("<span class='warning'>[user] holds [src] skywards as an orange beam travels into the sky!</span>", \
-			"<span class='notice'>You hold [src] skyward, dispelling the storm!</span>")
+			user.visible_message(
+				"<span class='warning'>[user] holds [src] skywards as an orange beam travels into the sky!</span>",
+				"<span class='notice'>You hold [src] skyward, dispelling the storm!</span>"
+			)
 			playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
 			A.wind_down()
 			var/old_color = user.color

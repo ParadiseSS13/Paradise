@@ -76,13 +76,13 @@
 			"<span class='notice'>[user] presses [src] against [I] and activates it, lighting [I] in a shower of sparks!</span>",
 			"<span class='notice'>You press [src] against [I] and activates it, lighting [I] in a shower of sparks!</span>",
 			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
-			)
+		)
 	else
 		user.visible_message(
 			"<span class='notice'>[user] presses [src] against [I] and activates it, lighting [I] for [target] in a shower of sparks!</span>",
 			"<span class='notice'>You press [src] against [I] and activate it, lighting [I] in a shower of sparks!</span>",
 			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
-			)
+		)
 	sparks.start()	// Make sparks fly!
 	I.light(user, target)
 

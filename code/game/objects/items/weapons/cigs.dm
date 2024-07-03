@@ -106,7 +106,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				user.visible_message(
 					"<span class='notice'>[user] slips \a [name] into the mouth of [M].</span>",
 					"<span class='notice'>You slip [src] into the mouth of [M].</span>"
-						)
+				)
 			else
 				to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
 			return TRUE
@@ -136,7 +136,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
-		user.visible_message("<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>")
+		user.visible_message(
+			"<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>"
+			"<span class='notice'>You calmly drop and tread on [src], putting it out instantly.</span>"
+			"<span class='notice'>You hear a foot being brought down on something, and a tiny fizzling of an ember going out.</span>"
+		)
 		die()
 	return ..()
 
@@ -545,15 +549,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/pipe/die()
 	return
 
-/obj/item/clothing/mask/cigarette/pipe/light(flavor_text = null)
+/obj/item/clothing/mask/cigarette/pipe/light()
 	if(!lit)
 		lit = TRUE
 		damtype = "fire"
 		icon_state = icon_on
 		item_state = icon_on
-		if(flavor_text)
-			var/turf/T = get_turf(src)
-			T.visible_message(flavor_text)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()
@@ -574,7 +575,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) // Extinguishes the pipe.
 	if(lit)
-		user.visible_message("<span class='notice'>[user] puts out [src].</span>")
+		user.visible_message(
+			"<span class='notice'>[user] puts out [src].</span>"
+			"<span class='notice'>You put out [src].</span>"
+		)
 		lit = FALSE
 		first_puff = TRUE
 		icon_state = icon_off

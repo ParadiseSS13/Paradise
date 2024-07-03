@@ -99,13 +99,13 @@
 				"<span class='warning'>[user] confidently lifts up [src] and releases a big puff of flame at [I] to light it, like some kind of psychopath!</span>",
 				"<span class='notice'>You lift up [src] and lightly pull the trigger, lighting [I].</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
-				)
+			)
 		else
 			user.visible_message(
 				"<span class='warning'>[user] confidently lifts up [src] and points it at [target], releasing a big puff of flame at [target.p_their()] [I.name] to light it, like some kind of psychopath!</span>",
 				"<span class='notice'>You lift up [src] and point it at [target], lightly pullling the trigger to light [target.p_their()] [I.name] with a big puff of flame.</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
-			)
+		)
 		I.light(user, target)
 		return
 
@@ -116,7 +116,7 @@
 			Unfortunately, [user] pulls the trigger a little too hard and releases a large burst of flame that sets [user.p_them()] ablaze!</span>",
 			"<span class='userdanger'>You lift up [src] and squeeze the trigger to light [I]. Unfortunately, you squeeze a little too hard and release a large burst of flame that sets you ablaze!</span>",
 			"<span class='danger'>You hear a plume of fire and something igniting!</span>"
-						)
+		)
 	else
 		user.visible_message(
 			"<span class='danger'>With little regard for the safety of [target], [user] lifts up [src] and points it at [target] to light [target.p_their()][I.name]. \
@@ -124,7 +124,7 @@
 			"<span class='userdanger'>You lift up [src] up and point it at [target], squeezing the trigger to light [target.p_their()] [I.name]. \
 			Unfortunately, your squeeze a little too hard and release large burst of flame that sets [target.p_them()] ablaze!</span>",
 			"<span class='danger'>You hear a plume of fire and something igniting!</span>"
-			)
+		)
 	I.light(user, target)
 	target.adjust_fire_stacks(2)
 	target.IgniteMob()

@@ -231,13 +231,13 @@ CONTENTS:
 				"<span class='warning'>Holy shit! Did [user] just manage to light [user.p_their()] [I.name] with [src], with only moderate eyebrow singing!?</span>",
 				"<span class='notice'>You swish and flick [src], lighting [I] with a plume of flame, whilst only moderately eyebrow singing your eyebrows.</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
-				)
+			)
 		else
 			user.visible_message(
 				"<span class='warning'>Holy shit! Did [user] just manage to light [I] for [target] with [src], only moderately singing [target.p_their()] eyebrows!?</span>",
 				"<span class='notice'>You swish and flick [src] at [target], lighting [user.p_their()] [I.name] with a plume of flame, whilst only moderately singing [target.p_their()] eyebrows.</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
-				)
+			)
 		I.light(user, target)
 		return
 
@@ -246,7 +246,7 @@ CONTENTS:
 		"<span class='userdanger'>Unsure which end of [src] is which, [user] zaps [user.p_themselves()] with a fireball!</span>",
 		"<span class='userdanger'>Unsure which end of [src] is which, you accidentally zap yourself with a fireball!</span>",
 		"<span class='userdanger'>You hear a firey explosion!</span>"
-		)
+	)
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 	charges--
 

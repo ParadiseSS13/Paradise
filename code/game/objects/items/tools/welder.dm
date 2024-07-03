@@ -171,12 +171,12 @@
 		user.visible_message(
 			"<span class='notice'>[user] casually lights [I] with [src], what a badass.</span>",
 			"<span class='notice'>You light [I] with [src].</span>"
-			)
+		)
 	else
 		user.visible_message(
 			"<span class='notice'>[user] holds out [src] out for [target], and casually lights [I]. What a badass.</span>",
 			"<span class='notice'>You light [I] for [target] with [src].</span>"
-			)
+		)
 	I.light(user, target)
 
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
