@@ -139,12 +139,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station/directional/north{
-	environment_channel = 2;
-	equipment_channel = 0;
-	lighting_channel = 0;
-	locked = 0
-	},
+/obj/machinery/power/apc/off_station/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -453,12 +448,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station/directional/north{
-	equipment_channel = 0;
-	lighting_channel = 0;
-	locked = 0;
-	operating = 0
-	},
+/obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "bT" = (
@@ -783,11 +773,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station/directional/north{
-	environment_channel = 0;
-	locked = 0;
-	operating = 0
-	},
+/obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "cV" = (
@@ -1118,10 +1104,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station/directional/north{
-	locked = 0;
-	operating = 0
-	},
+/obj/machinery/power/apc/off_station/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
