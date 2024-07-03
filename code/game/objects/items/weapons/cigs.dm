@@ -92,11 +92,53 @@ LIGHTERS ARE IN LIGHTERS.DM
 			)
 		return TRUE
 
-	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+/obj/item/clothing/mask/cigarette/afterattack(atom/target, mob/living/user, proximity)
+	if(!proximity)
+		return
+
+	if(ismob(target))
+		// If the target has no cig, try to give them the cig.
+		var/mob/living/carbon/M = target
+		if(istype(M) && user.zone_selected == "mouth" && !M.wear_mask && user.a_intent == INTENT_HELP)
+			user.unEquip(src, TRUE)
+			M.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK)
+			if(target != user)
+				user.visible_message(
+					"<span class='notice'>[user] slips \a [name] into the mouth of [M].</span>",
+					"<span class='notice'>You slip [src] into the mouth of [M].</span>"
+						)
+			else
+				to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
+			return TRUE
+		
+		// If they DO have a cig, try to light it with your own cig.
+		var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+		if(istype(cig) || user.zone_selected == "mouth" || user.a_intent == INTENT_HELP) 
+			cigarette_lighter_act(user, M)
+			return
 		return ..()
 
-	cigarette_lighter_act(user, M)
+	// You can dip cigarettes into beakers.
+	if(istype(target, /obj/item/reagent_containers/glass))
+		var/obj/item/reagent_containers/glass/glass = target
+		var/transfered = glass.reagents.trans_to(src, chem_volume)
+		if(transfered)
+			to_chat(user, "<span class='notice'>You dip [src] into [glass].</span>")
+			return
+
+		// Either the beaker was empty, or the cigarette was full
+		if(!glass.reagents.total_volume)
+			to_chat(user, "<span class='notice'>[glass] is empty.</span>")
+		else
+			to_chat(user, "<span class='notice'>[src] is full.</span>")
+
+	return ..()
+
+/obj/item/clothing/mask/cigarette/attack_self(mob/user)
+	if(lit)
+		user.visible_message("<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>")
+		die()
+	return ..()
 
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -118,14 +160,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		I = direct_attackby_item
 
 	if(!lit)
-		// Role reversal!
-		if(I.lit)
-			var/switcheroo = user
-			user = target
-			target = switcheroo
-		else
-			to_chat(user, "<span class='warning'>You cannot light [I] with [src] because you need a lighter to light [src] before you can use [src] as a lighter to light [I]... This seems a little convoluted.</span>")
-			return
+		to_chat(user, "<span class='warning'>You cannot light [I] with [src] because you need a lighter to light [src] before you can use [src] as a lighter to light [I]... This seems a little convoluted.</span>")
+		return
 
 	if(!I.handle_cigarette_lighter_act(user, src))
 		return
@@ -240,46 +276,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(!force)
 		return
 	die()
-
-/obj/item/clothing/mask/cigarette/afterattack(atom/target, mob/living/user, proximity)
-	if(!proximity)
-		return
-
-	if(ismob(target))
-		var/mob/living/carbon/M = target
-		if(istype(M) && user.zone_selected == "mouth" && !M.wear_mask)
-			user.unEquip(src, TRUE)
-			M.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK)
-			if(target != user)
-				user.visible_message(
-					"<span class='notice'>[user] slips \a [name] into the mouth of [M].</span>",
-					"<span class='notice'>You slip [src] into the mouth of [M].</span>"
-						)
-			else
-				to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
-			return TRUE
-
-	// You can dip cigarettes into beakers.
-	if(istype(target, /obj/item/reagent_containers/glass))
-		var/obj/item/reagent_containers/glass/glass = target
-		var/transfered = glass.reagents.trans_to(src, chem_volume)
-		if(transfered)
-			to_chat(user, "<span class='notice'>You dip [src] into [glass].</span>")
-			return
-
-		// Either the beaker was empty, or the cigarette was full
-		if(!glass.reagents.total_volume)
-			to_chat(user, "<span class='notice'>[glass] is empty.</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] is full.</span>")
-
-	..()
-
-/obj/item/clothing/mask/cigarette/attack_self(mob/user)
-	if(lit)
-		user.visible_message("<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>")
-		die()
-	return ..()
 
 /obj/item/clothing/mask/cigarette/proc/smoke()
 	var/turf/location = get_turf(src)

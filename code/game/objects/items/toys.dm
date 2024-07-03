@@ -286,7 +286,7 @@
 			"<span class='warning'>You casually slash [src] at [I] in the mouth of [target], swatting it to the floor!</span>",
 			"<span class='notice'>You hear a gentle tapping.</span>"
 		)
-	playsound(loc, hitsound, vary = TRUE)
+	playsound(loc, 'sound/weapons/tap.ogg', vary = TRUE)
 	target.unEquip(I, TRUE)
 
 /obj/item/toy/sword/chaosprank/afterattack(mob/living/target, mob/living/user, proximity)
