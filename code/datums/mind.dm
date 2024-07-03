@@ -1110,7 +1110,7 @@
 					SSticker.mode.update_synd_icons_removed(src)
 					special_role = null
 					objective_holder.clear(/datum/objective/nuclear)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a Syndicate operative!</B></FONT></span>")
+					to_chat(current, "<span class='warning'><font size='3'><b>You have been brainwashed! You are no longer a Syndicate operative!</b></font></span>")
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
 			if("nuclear")
