@@ -5,7 +5,6 @@
 	icon = 'icons/obj/lighter.dmi'
 	lefthand_file = 'icons/mob/inhands/lighter_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lighter_righthand.dmi'
-	base_icon_state = "lighter"
 	icon_state = "lighter-g"
 	item_state = "lighter-g"
 	w_class = WEIGHT_CLASS_TINY
@@ -19,14 +18,16 @@
 	var/next_on_message
 	/// Cooldown until the next turned off message/sound can be activated
 	var/next_off_message
-	/// Our base state for the lighter.
-	var/base_item_state = "lighter"
+	/// Our base state for the lighter. This is for random color lighters
+	var/base_item_state = null
 	/// Our lighter color suffix. => [base_icon_state]-[lightercolor] => lighter-r
-	var/lighter_color = "g"
+	var/lighter_color = null
 
 /obj/item/lighter/random/Initialize(mapload)
 	. = ..()
 	lighter_color = pick("r","c","y","g")
+	base_icon_state = "lighter"
+	base_item_state = "lighter"
 	update_icon_state()
 	update_overlays()
 
@@ -124,10 +125,10 @@
 	return
 
 /obj/item/lighter/update_icon_state()
-	icon_state = "[base_icon_state]-[lighter_color][lit ? "-on" : ""]"
+	icon_state = "[base_icon_state ? "[base_icon_state]" : initial(icon_state)][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
 
 /obj/item/lighter/update_overlays()
-	item_state = "[base_item_state]-[lighter_color][lit ? "-on" : ""]"
+	item_state = "[base_item_state ? "[base_item_state]" : initial(item_state)][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
 
 /obj/item/lighter/get_heat()
 	return lit * 1500
