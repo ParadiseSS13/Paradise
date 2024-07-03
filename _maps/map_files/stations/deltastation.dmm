@@ -2576,7 +2576,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "apG" = (
 /turf/simulated/wall,
 /area/station/maintenance/electrical_shop)
@@ -3550,7 +3550,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "asi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -3864,7 +3864,7 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "asW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3909,7 +3909,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "atb" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -3917,12 +3917,12 @@
 	icon_state = "0-8"
 	},
 /turf/space,
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "atc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
 /turf/space,
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "atd" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/controlroom)
@@ -4173,7 +4173,7 @@
 	icon_state = "0-4"
 	},
 /turf/space,
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "atL" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -4192,7 +4192,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "atM" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4263,7 +4263,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "atV" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -4307,11 +4307,11 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "atZ" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "aua" = (
 /obj/structure/rack,
 /obj/item/flashlight,
@@ -8042,7 +8042,7 @@
 	icon_state = "0-2"
 	},
 /turf/space,
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "aEc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -8051,7 +8051,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/station/maintenance/auxsolarport)
+/area/station/engineering/solar/auxport)
 "aEe" = (
 /obj/machinery/light{
 	dir = 8
@@ -23191,12 +23191,12 @@
 /area/station/engineering/atmos/distribution)
 "brG" = (
 /obj/machinery/suit_storage_unit/atmos/secure,
-/obj/machinery/power/apc/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc/critical/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "brH" = (
@@ -67217,7 +67217,6 @@
 	name = "Supermatter Chamber"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -72043,7 +72042,6 @@
 	name = "Supermatter Chamber"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "ijT" = (
@@ -121772,9 +121770,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+btJ
+btJ
+btJ
 aaa
 aaa
 abj
@@ -122030,20 +122028,20 @@ aaa
 aaa
 aaa
 btJ
+rvc
 btJ
-btJ
 aaa
 aaa
-abj
-aaa
-aaa
-abj
-aaa
-aaa
-abj
-aaa
-aaa
-abj
+iBy
+hAD
+iBy
+hAD
+iBy
+hAD
+iBy
+hAD
+iBy
+hAD
 aGZ
 aIt
 aMO
@@ -122291,16 +122289,16 @@ rvc
 btJ
 abj
 abj
-iBy
-hAD
-iBy
-hAD
-iBy
-hAD
-iBy
-hAD
-iBy
-hAD
+tnt
+tnt
+tnt
+tnt
+tnt
+tnt
+tnt
+tnt
+tnt
+tnt
 fgh
 aIu
 aJN
