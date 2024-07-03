@@ -35,11 +35,11 @@
 	footstep_type = FOOTSTEP_MOB_SHOE
 	robust_searching = TRUE
 	var/list/loot_override = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-                	/obj/item/salvage/loot/syndicate,
-                	/obj/effect/decal/cleanable/blood/innards,
-                	/obj/effect/decal/cleanable/blood,
-                	/obj/effect/gibspawner/generic,
-                	/obj/effect/gibspawner/generic)
+					/obj/item/salvage/loot/syndicate,
+					/obj/effect/decal/cleanable/blood/innards,
+					/obj/effect/decal/cleanable/blood,
+					/obj/effect/gibspawner/generic,
+					/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	. = ..()
@@ -358,11 +358,11 @@
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
 	loot_override = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-            		/obj/item/salvage/loot/syndicate,
-                	/obj/effect/decal/cleanable/blood/innards,
-                	/obj/effect/decal/cleanable/blood,
-                	/obj/effect/gibspawner/generic,
-                	/obj/effect/gibspawner/generic)
+					/obj/item/salvage/loot/syndicate,
+					/obj/effect/decal/cleanable/blood/innards,
+					/obj/effect/decal/cleanable/blood,
+					/obj/effect/gibspawner/generic,
+					/obj/effect/gibspawner/generic)
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
@@ -394,11 +394,11 @@
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
 	loot_override = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-            		/obj/item/salvage/loot/syndicate,
-                	/obj/effect/decal/cleanable/blood/innards,
-                	/obj/effect/decal/cleanable/blood,
-                	/obj/effect/gibspawner/generic,
-                	/obj/effect/gibspawner/generic)
+					/obj/item/salvage/loot/syndicate,
+					/obj/effect/decal/cleanable/blood/innards,
+					/obj/effect/decal/cleanable/blood,
+					/obj/effect/gibspawner/generic,
+					/obj/effect/gibspawner/generic)
 
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/Initialize(mapload)
