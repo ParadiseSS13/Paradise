@@ -26,15 +26,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/species_check = FALSE
 			var/hijacker_check = FALSE
 			if(I.job) //If your job does not match, no discount
-				for(var/job in I.job)
-					if(job == user.mind.assigned_role)
-						job_check = TRUE
+				if(user.mind.assigned_role in I.job)
+					job_check = TRUE
+
 			else
 				job_check = TRUE
 			if(I.species) //If your species does not match, no discount
-				for(var/species in I.species)
-					if(species == user.dna.species.name)
-						species_check = TRUE
+				if(user.dna?.species.name in I.species)
+					species_check = TRUE
 			else
 				species_check = TRUE
 			if(I.hijack_only && !(locate(/datum/objective/hijack) in user.mind.get_all_objectives())) //If you aren't a hijacker, no hijack only items
