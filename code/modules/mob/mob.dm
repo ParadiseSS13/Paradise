@@ -767,11 +767,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 		return
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+	if(dna)
+		dna.flavor_text = msg // Only carbon mobs have DNA.
 	flavor_text = msg
 
 /mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
-		var/msg = replacetext(flavor_text, "\n", " ")
+		var/msg = !dna.flavor_text ? replacetext(dna.flavor_text, "\n", " ") : replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 40 || !shrink)
 			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
