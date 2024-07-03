@@ -355,9 +355,6 @@
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/Initialize(mapload)
-	. = ..()
-
 /mob/living/simple_animal/hostile/syndicate/ranged
 	ranged = TRUE
 	rapid = 2
@@ -380,10 +377,6 @@
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
-
-
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Initialize(mapload)
-	. = ..()
 
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0)
