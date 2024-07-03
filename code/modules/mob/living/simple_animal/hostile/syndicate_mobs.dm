@@ -34,17 +34,11 @@
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
 	robust_searching = TRUE
-	var/list/loot_override = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-					/obj/item/salvage/loot/syndicate,
-					/obj/effect/decal/cleanable/blood/innards,
-					/obj/effect/decal/cleanable/blood,
-					/obj/effect/gibspawner/generic,
-					/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	. = ..()
 	if(prob(50))
-		loot = loot_override
+		loot += /obj/item/salvage/loot/syndicate
 
 /mob/living/simple_animal/hostile/syndicate/Aggro()
 	. = ..()
@@ -290,7 +284,6 @@
 	alert_on_shield_breach = TRUE
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
-	loot_override = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster, /obj/item/salvage/loot/syndicate, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
 	. = ..()
@@ -357,12 +350,6 @@
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
-	loot_override = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-					/obj/item/salvage/loot/syndicate,
-					/obj/effect/decal/cleanable/blood/innards,
-					/obj/effect/decal/cleanable/blood,
-					/obj/effect/gibspawner/generic,
-					/obj/effect/gibspawner/generic)
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
@@ -393,12 +380,6 @@
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
-	loot_override = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-					/obj/item/salvage/loot/syndicate,
-					/obj/effect/decal/cleanable/blood/innards,
-					/obj/effect/decal/cleanable/blood,
-					/obj/effect/gibspawner/generic,
-					/obj/effect/gibspawner/generic)
 
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/Initialize(mapload)
