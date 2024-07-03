@@ -516,7 +516,7 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/hyper_medipen
-	name = "\improper Hyper-regenerative Medipen"
+	name = "Hyper-regenerative Medipen"
 	desc = "An autoinjector filled with a variety of medical chemicals. It rapidly heals conventional injuries and genetic damage, but loses potency just as quickly. May have side effects if used in quick succession."
 	reference = "HMP"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
