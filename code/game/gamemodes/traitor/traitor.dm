@@ -81,8 +81,7 @@
 			for(var/datum/objective/objective as anything in traitor_datum.objective_holder.objectives)
 				objective.force_reset_target()
 
-			SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
-
+		SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
 		var/list/messages = traitor_mind.prepare_announce_objectives()
 		to_chat(traitor_mind.current, chat_box_red(messages.Join("<br>")))
 
