@@ -137,8 +137,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
 		user.visible_message(
-			"<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>"
-			"<span class='notice'>You calmly drop and tread on [src], putting it out instantly.</span>"
+			"<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>",
+			"<span class='notice'>You calmly drop and tread on [src], putting it out instantly.</span>",
 			"<span class='notice'>You hear a foot being brought down on something, and a tiny fizzling of an ember going out.</span>"
 		)
 		die()
@@ -576,7 +576,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) // Extinguishes the pipe.
 	if(lit)
 		user.visible_message(
-			"<span class='notice'>[user] puts out [src].</span>"
+			"<span class='notice'>[user] puts out [src].</span>",
 			"<span class='notice'>You put out [src].</span>"
 		)
 		lit = FALSE
