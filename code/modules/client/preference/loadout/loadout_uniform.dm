@@ -367,6 +367,11 @@
 	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
 	path = /obj/item/clothing/under/syndicate/tacticool
 
+/datum/gear/uniform/suit/greyman
+	display_name = "Greyman Henley"
+	description = "Khaki henley paired up with some grey cargo pants (WARNING DOES NOT HAVE SUIT SENSORS)"
+	path = /obj/item/clothing/under/syndicate/greyman
+
 /datum/gear/uniform/suit/assistantformal
 	display_name = "Assistant's Formal Uniform"
 	description = "Formal attire fit for an Assistant."

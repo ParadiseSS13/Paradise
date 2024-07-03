@@ -164,11 +164,12 @@
 	var/mob/living/carbon/human/M = synd_mind.current
 
 	M.set_species(/datum/species/human, TRUE)
+	M.dna.flavor_text = null
+	M.flavor_text = null
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
 	M.dna.species.create_organs(M)
 	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
-	M.flavor_text = null
 
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
