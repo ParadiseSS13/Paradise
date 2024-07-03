@@ -188,9 +188,10 @@
 			"<span class='notice'>You flip through the air and slash [src] at [I], lighting it for [target].</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
-	INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
-	I.light(user, target)
+	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 50, TRUE)
+	I.light(user, target)
+	INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 /obj/item/dualsaber/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))

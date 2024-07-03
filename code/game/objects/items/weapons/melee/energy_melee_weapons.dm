@@ -100,8 +100,9 @@
 			"<span class='notice'>You casually slash [src] at [I] in the mouth of [target], lighting it with the blade.</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
-	I.light(user, target)
+	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 50, TRUE)
+	I.light(user, target)
 
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \

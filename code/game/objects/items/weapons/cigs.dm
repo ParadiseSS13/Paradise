@@ -79,12 +79,24 @@ LIGHTERS ARE IN LIGHTERS.DM
 		user.do_attack_animation(M)
 		if(M != user)
 			light(user, user)
-			user.visible_message("<span class='notice'>[user] coldly lights [src] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>")
+			user.visible_message(
+				"<span class='notice'>[user] coldly lights [src] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>",
+				"<span class='notice'>You coldly light [src] with the burning body of [M].</span>"
+			)
 		else
 			// The fire will light it in your hands by itself, but if you whip out the cig and click yourself fast enough, this will happen. TRULY you have your priorities stright.
 			light(user, user)
-			user.visible_message("<span class='notice'>[user] quickly whips out [src] and nonchalantly lights it with [user.p_their()] own burning body. Clearly, [user.p_they()] [user.p_have()] [user.p_their()] priorities straight...</span>")
+			user.visible_message(
+				"<span class='notice'>[user] quickly whips out [src] and nonchalantly lights it with [user.p_their()] own burning body. Clearly, [user.p_they()] [user.p_have()] [user.p_their()] priorities straight.</span>",
+				"<span class='notice'>You quickly whip out [src] and nonchalantly light it with your own burning body. Clearly, you have your priorities straight.</span>"
+			)
 		return TRUE
+
+	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
+	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+		return ..()
+
+	cigarette_lighter_act(user, M)
 
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -100,8 +112,48 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(!lit)
 		light("<span class='warning'>[src] is lit by the flames!</span>")
 
+/obj/item/clothing/mask/cigarette/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+	if(direct_attackby_item)
+		I = direct_attackby_item
+
+	if(!lit)
+		// Role reversal!
+		if(I.lit)
+			var/switcheroo = user
+			user = target
+			target = switcheroo
+		else
+			to_chat(user, "<span class='warning'>You cannot light [I] with [src] because you need a lighter to light [src] before you can use [src] as a lighter to light [I]... This seems a little convoluted.</span>")
+			return
+
+	if(!I.handle_cigarette_lighter_act(user, src))
+		return
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] against [I] until it lights. Seems a bit redundant...</span>",
+			"<span class='notice'>You press [src] against [I] until it lights. Seems a bit redundant...</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] until it lights. Sharing is caring!</span>",
+			"<span class='notice'>You press [src] against [I] until it lights. Sharing is caring!</span>"
+		)
+	I.light(user, target)
+
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/living/user, params)
-	I.cigarette_lighter_act(user, user, src)
+	if(I.cigarette_lighter_act(user, user, src))
+		return
+
+	// Catch any item that has no cigarette_lighter_act but logically should be able to work as a lighter due to being hot.
+	if(I.get_heat())
+		//Give a generic light message.
+		user.visible_message(
+			"<span class='notice'>[user] lights [src] with [I]</span>",
+			"<span class='notice'>You light [src] with [I].</span>"
+		)
+		light(user)
 
 /obj/item/clothing/mask/cigarette/proc/handle_cigarette_lighter_act(mob/living/user, obj/item/I)
 	if(lit)
@@ -111,7 +163,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	// Cigars and pipes do not take kindly to your tomfoolery!
 	if(fancy && !can_light_fancy(I))
-		to_chat(user, "<span class='boldwarning'>[src] straight out REFUSES to be lit by such uncivilized means!</span>")
+		to_chat(user, "<span class='danger'>[src] straight out REFUSES to be lit by such uncivilized means!</span>")
 		return FALSE
 
 	return TRUE
@@ -183,7 +235,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		die()
 		return
 	smoke()
-
 
 /obj/item/clothing/mask/cigarette/extinguish_light(force)
 	if(!force)

@@ -262,8 +262,9 @@
 			"<span class='notice'>You casually slash [src] at [I] in the mouth of [target], lighting it with the blade.</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
-	I.light(user, target)
+	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
+	I.light(user, target)
 
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
 	return FALSE

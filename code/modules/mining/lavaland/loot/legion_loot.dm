@@ -32,7 +32,6 @@
 
 /obj/item/storm_staff/attack(mob/living/M, mob/living/user)
 	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	// For lighting cigarettes.
 	if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
 		cigarette_lighter_act(user, M)
 		return FALSE

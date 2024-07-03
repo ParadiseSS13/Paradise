@@ -249,7 +249,7 @@
 	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
-	playsound(loc, hitsound, vary = TRUE)
+	user.do_attack_animation(target)
 
 	// 1% chance to light the cig. Somehow...
 	if(prob(1))
@@ -267,6 +267,7 @@
 				"<span class='notice'>You casually slash [src] at [I] in the mouth of [target], lighting it with the blade. Somehow...</span>",
 				"<span class='danger'>You hear an energy blade slashing something!</span>"
 			)
+		playsound(user.loc, 'sound/weapons/blade1.ogg', 50, TRUE)
 		I.light(user, target)
 		return
 
@@ -276,21 +277,22 @@
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
 			[user.p_their(TRUE)] [src] does hit [I], however, knocking it out of [user.p_their()] mouth and dropping it to the floor. What an idiot!</span>",
 			"<span class='warning'>You casually slash [src] at [I], swatting it out of your mouth. Because it's not a real energy sword, dumbass!</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
-			)
+			"<span class='notice'>You hear a gentle tapping.</span>"
+		)
 	else
 		user.visible_message(
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
 			[target.p_their(TRUE)] [src] does hit [I], however, knocking it out of [target.p_their()] mouth and dropping it to the floor. Wow, rude!</span>",
 			"<span class='warning'>You casually slash [src] at [I] in the mouth of [target], swatting it to the floor!</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
+			"<span class='notice'>You hear a gentle tapping.</span>"
 		)
+	playsound(loc, hitsound, vary = TRUE)
 	target.unEquip(I, TRUE)
 
 /obj/item/toy/sword/chaosprank/afterattack(mob/living/target, mob/living/user, proximity)
 	..()
 	if(!pranked)
-		to_chat(user, "<span class='chaosverybad'>Oh... it's a fake.</span>")
+		to_chat(user, "<span class='chaosverybad'>Oh... It's a fake.</span>")
 		name = "toy sword"
 		pranked = TRUE
 

@@ -1,7 +1,7 @@
 // MARK: BASIC LIGHTERS
 /obj/item/lighter
 	name = "cheap lighter"
-	desc = "A cheap-as-free lighter."
+	desc = "A cheap cigarette lighter. It gets the job done, barely."
 	icon = 'icons/obj/lighter.dmi'
 	lefthand_file = 'icons/mob/inhands/lighter_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lighter_righthand.dmi'
@@ -52,16 +52,28 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/lighter/proc/attempt_light(mob/living/user)
-	if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
-		to_chat(user, "<span class='notice'>You light [src].</span>")
-	else if(HAS_TRAIT(user, TRAIT_BADASS))
-		to_chat(user, "<span class='notice'>[src]'s flames lick your hand as you light it, but you don't flinch.</span>")
+	if(HAS_TRAIT(user, TRAIT_BADASS))
+		user.visible_message(
+			"<span class='rose'>[user] lights [src] in one smooth motion and completely ignores the brief burst of flame licking [user.p_their()] hand. What a badass.</span>",
+			"<span class='rose'>A brief burst of flames from [src] lick your hand as you light it, but you don't flinch.</span>",
+			"<span class='rose'>You hear a cheap lighter being lit in a single attempt.</span>"
+		)
+	else if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
+		user.visible_message(
+			"<span class='notice'>After some fiddling, [user] manages to light [src].</span>",
+			"<span class='notice'>After some fiddling, you manage to light [src].</span>",
+			"<span class='notice'>You hear someone fiddling with a cheap lighter until it finally sparks a flame.</span>"
+		)
 	else
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 		if(affecting.receive_damage(0, 5))		//INFERNO
 			H.UpdateDamageIcon()
-		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")
+		user.visible_message(
+			"<span class='warning'>After some fiddling, [user] manages to [src], but [user.p_they()] burn [user.p_their()] hand in the process!</span>",
+			"<span class='warning'>After some fiddling, you manage to light [src], but you burn your hand in the process!</span>",
+			"<span class='notice'>You hear someone fiddling with a cheap lighter until it finally sparks a flame.</span>"
+		)
 	if(world.time > next_on_message)
 		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
@@ -114,13 +126,13 @@
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [I.name] with [src].</span>",
-			"<span class='notice'>After some fiddling, you manage to light [I] with [src].</span>"
+			"<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [I] with [src].</span>",
+			"<span class='notice'>After some fiddling, you manage to light [I] with [src].</span>,"
 			)
 	else
 		user.visible_message(
-			"<span class='notice'>After some fiddling, [user] manages to light [I] in the mouth of [target] with [src].</span>",
-			"<span class='notice'>After some fiddling, you manage to light [I] in the mouth of [target] with [src].</span>"
+			"<span class='notice'>After some fiddling, [user] manages to light [I] for [target] with [src].</span>",
+			"<span class='notice'>After some fiddling, you manage to light [I] for [target] with [src].</span>"
 			)
 	I.light(user, target)
 
@@ -146,7 +158,7 @@
 //////////////////////////////
 /obj/item/lighter/zippo
 	name = "zippo lighter"
-	desc = "The zippo."
+	desc = "A premium cigarette lighter, for cool and distinguished individuals."
 	icon_state = "zippo"
 	item_state = "zippo"
 
@@ -219,7 +231,7 @@
 //////////////////////////////
 /obj/item/lighter/zippo/nt_rep
 	name = "gold engraved zippo"
-	desc = "An engraved golden Zippo lighter with the letters NT on it."
+	desc = "An engraved golden Zippo lighter with the letters \"NT\" engraved on the sides."
 	icon_state = "zippo-nt"
 	item_state = "zippo-gold"
 
@@ -343,13 +355,13 @@
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] lights [user.p_their()] [I.name] with [src].</span>",
+			"<span class='notice'>[user] lights [user.p_their()] [I] with [src].</span>",
 			"<span class='notice'>You light [I] with [src]</span>"
 			)
 	else
 		user.visible_message(
 			"<span class='notice'>[user] holds [src] out for [target], and lights [I].</span>",
-			"<span class='notice'>You hold [src] out for [target], and light [user.p_their()] [I.name].</span>"
+			"<span class='notice'>You hold [src] out for [target], and light [user.p_their()] [I].</span>"
 			)
 	I.light(user, target)
 	matchburnout()
