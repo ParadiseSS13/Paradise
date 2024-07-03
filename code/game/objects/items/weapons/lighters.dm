@@ -25,8 +25,7 @@
 	. = ..()
 	lighter_color = pick("r","c","y","g")
 	base_icon_state = "lighter"
-	update_icon_state()
-	update_overlays()
+	update_icon()
 
 /obj/item/lighter/attack_self(mob/living/user)
 	. = ..()
