@@ -90414,9 +90414,6 @@
 /obj/item/shield/riot{
 	pixel_y = -3
 	},
-/obj/item/storage/belt/sheath/secsword{
-	contents = /obj/item/melee/secsword
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"

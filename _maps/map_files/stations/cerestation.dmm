@@ -20695,9 +20695,6 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/item/storage/belt/sheath/secsword{
-	contents = /obj/item/melee/secsword
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

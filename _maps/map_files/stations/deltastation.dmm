@@ -67352,9 +67352,6 @@
 	},
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
-/obj/item/storage/belt/sheath/secsword{
-	contents = /obj/item/melee/secsword
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "foK" = (
