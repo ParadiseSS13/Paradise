@@ -18,8 +18,6 @@
 	var/next_on_message
 	/// Cooldown until the next turned off message/sound can be activated
 	var/next_off_message
-	/// Our base state for the lighter. This is for random color lighters
-	var/base_item_state = null
 	/// Our lighter color suffix. => [base_icon_state]-[lightercolor] => lighter-r
 	var/lighter_color = null
 
@@ -27,7 +25,6 @@
 	. = ..()
 	lighter_color = pick("r","c","y","g")
 	base_icon_state = "lighter"
-	base_item_state = "lighter"
 	update_icon_state()
 	update_overlays()
 
@@ -128,7 +125,7 @@
 	icon_state = "[base_icon_state ? "[base_icon_state]" : initial(icon_state)][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
 
 /obj/item/lighter/update_overlays()
-	item_state = "[base_item_state ? "[base_item_state]" : initial(item_state)][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
+	item_state = "[base_icon_state ? "[base_icon_state]" : initial(item_state)][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
 
 /obj/item/lighter/get_heat()
 	return lit * 1500
