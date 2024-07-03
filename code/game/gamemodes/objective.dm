@@ -37,6 +37,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	/// Should this objective obscure the objective text on it's first gain?
 	var/delayed_objective = FALSE
+	/// What is the text we show when our objective is delayed?
+	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
 
 /datum/objective/New(text, datum/team/team_to_join)
 	. = ..()
@@ -71,7 +73,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
  * This is for objectives that have reason to update their text, such as target changes.
  */
 /datum/objective/proc/update_explanation_text()
-	stack_trace("Objective [type]'s update_explanation_text was not overridden.")
+	if(delayed_objective)
+		explanation_text = delayed_objective_text
+		return FALSE
+	if(delayed_objective_text == initial(delayed_objective_text)) // If we didn't change the delayed text we're here by accident
+		stack_trace("Objective [type]'s update_explanation_text was not overridden.")
+	return TRUE
 
 /**
  * Get all owners of the objective, including ones from the objective's team, if it has one.
@@ -171,10 +178,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinate
 	name = "Assassinate"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to assassinate another crewmember. You will receive further information in a few minutes."
 
 /datum/objective/assassinate/update_explanation_text()
-	if(delayed_objective)
-		explanation_text = "Your objective is to assassinate another crewmember. You will receive further information in a few minutes."
+	. = ..()
+	if(!.)
 		return
 
 	if(target?.current)
@@ -196,11 +204,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinateonce
 	name = "Assassinate once"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to teach another crewmember a lesson. You will receive further information in a few minutes."
 	var/won = FALSE
 
 /datum/objective/assassinateonce/update_explanation_text()
-	if(delayed_objective)
-		explanation_text = "Your objective is to teach another crewmember a lesson. You will receive further information in a few minutes."
+	. = ..()
+	if(!.)
 		return
 
 	if(target?.current)
@@ -263,10 +272,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/maroon
 	name = "Maroon"
 	martyr_compatible = FALSE
+	delayed_explanation_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. You will receive further information in a few minutes."
 
 /datum/objective/maroon/update_explanation_text()
-	if(delayed_objective)
-		explanation_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. You will receive further information in a few minutes."
+	. = ..()
+	if(!.)
 		return
 
 	if(target?.current)
@@ -292,6 +302,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/debrain
 	name = "Debrain"
 	martyr_compatible = FALSE
+	delayed_objective_text = "Your objective is to steal another crewmember's brain. You will receive further information in a few minutes."
 
 /datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
 	. = ..()
@@ -302,8 +313,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_CHANGELING
 
 /datum/objective/debrain/update_explanation_text()
-	if(delayed_objective)
-		explanation_text = "Your objective is to steal another crewmember's brain. You will receive further information in a few minutes."
+	. = ..()
+	if(!.)
 		return
 
 	if(target?.current)
@@ -459,9 +470,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	return TRUE
 
-/datum/objective/update_explanation_text()
-	return
-
 /datum/objective/escape/escape_with_identity
 	name = null
 	/// Stored because the target's `[mob/var/real_name]` can change over the course of the round.
@@ -554,9 +562,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal
 	name = "Steal Item"
-	var/datum/theft_objective/steal_target
 	martyr_compatible = FALSE
+	delayed_objective_text = "Your objective is to steal a high-value item. You will receive further information in a few minutes."
 	var/theft_area
+	var/datum/theft_objective/steal_target
 
 /datum/objective/steal/found_target()
 	return steal_target
@@ -618,8 +627,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return steal_target
 
 /datum/objective/steal/update_explanation_text()
-	if(delayed_objective)
-		explanation_text = "Your objective is to steal a high-value item. You will receive further information in a few minutes."
+	. = ..()
+	if(!.)
 		return
 
 	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
@@ -725,6 +734,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/destroy
 	name = "Destroy AI"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to destroy an Artificial Intelligence. You will receive further information in a few minutes."
 
 /datum/objective/destroy/find_target(list/target_blacklist)
 	var/list/possible_targets = active_ais(1)
@@ -734,8 +744,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return target
 
 /datum/objective/destroy/update_explanation_text()
-	if(delayed_objective)
-		explanation_text = "Your objective is to destroy an Artificial Intelligence. You will receive further information in a few minutes."
+	. = ..()
+	if(!.)
 		return
 
 	if(target?.current)
