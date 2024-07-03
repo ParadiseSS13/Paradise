@@ -252,7 +252,7 @@
 		I.forceMove(src)
 		if(beaker)
 			to_chat(user, "<span class='notice'>You swap [I] with [beaker].</span>")
-			if (Adjacent(usr) && !issilicon(usr))
+			if(Adjacent(usr) && !issilicon(usr))
 				user.put_in_hands(beaker)
 			else
 				beaker.forceMove(loc)
