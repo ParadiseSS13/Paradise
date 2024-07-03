@@ -5,6 +5,7 @@
 	icon = 'icons/obj/lighter.dmi'
 	lefthand_file = 'icons/mob/inhands/lighter_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lighter_righthand.dmi'
+	base_icon_state = "lighter"
 	icon_state = "lighter-g"
 	item_state = "lighter-g"
 	w_class = WEIGHT_CLASS_TINY
@@ -18,16 +19,16 @@
 	var/next_on_message
 	/// Cooldown until the next turned off message/sound can be activated
 	var/next_off_message
-
-/obj/item/lighter/random
-	/// Random color that is assigned whenever we initialize a new random color lighter.
-	var/random_color = "g"
+	/// Our base state for the lighter.
+	var/base_item_state = "lighter"
+	/// Our lighter color suffix. => [base_icon_state]-[lightercolor] => lighter-r
+	var/lighter_color = "g"
 
 /obj/item/lighter/random/Initialize(mapload)
-	..()
-	random_color = pick("r","c","y","g")
-	icon_state = "lighter-[random_color]"
-	item_state = "lighter-[random_color]"
+	. = ..()
+	lighter_color = pick("r","c","y","g")
+	update_icon_state()
+	update_overlays()
 
 /obj/item/lighter/attack_self(mob/living/user)
 	. = ..()
@@ -123,16 +124,10 @@
 	return
 
 /obj/item/lighter/update_icon_state()
-	icon_state = "[initial(icon_state)][lit ? "-on" : ""]"
+	icon_state = "[base_icon_state]-[lighter_color][lit ? "-on" : ""]"
 
 /obj/item/lighter/update_overlays()
-	item_state = "[initial(item_state)][lit ? "-on" : ""]"
-
-/obj/item/lighter/random/update_icon_state()
-	icon_state = "lighter-[random_color][lit ? "-on" : ""]" // We don't use initial here because we're using a nonconstant randomly selected color upon initialization.
-
-/obj/item/lighter/random/update_overlays()
-	item_state = "lighter-[random_color][lit ? "-on" : ""]" // We don't use initial here because we're using a nonconstant randomly selected color upon initialization.
+	item_state = "[base_item_state]-[lighter_color][lit ? "-on" : ""]"
 
 /obj/item/lighter/get_heat()
 	return lit * 1500
