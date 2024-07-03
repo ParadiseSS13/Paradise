@@ -19,12 +19,14 @@
 	/// Cooldown until the next turned off message/sound can be activated
 	var/next_off_message
 	/// Our lighter color suffix. => [base_icon_state]-[lightercolor] => lighter-r
-	var/lighter_color = null
+	var/lighter_color
+
+/obj/item/lighter/random
+	base_icon_state = "lighter"
 
 /obj/item/lighter/random/Initialize(mapload)
 	. = ..()
 	lighter_color = pick("r","c","y","g")
-	base_icon_state = "lighter"
 	update_icon()
 
 /obj/item/lighter/attack_self(mob/living/user)
