@@ -21,6 +21,7 @@
 		var/obj/item/melee/energy/E = I
 		if(E.force_on > initial(E.force_on) || E.force_off > initial(E.force_off))
 			to_chat(user, "<span class='warning'>[E] has already been refined before. It cannot be sharpened further!</span>")
+			return
 		if(E.force_on >= max || E.force_off >= max)
 			to_chat(user, "<span class='warning'>[E] is much too powerful to sharpen further!</span>")
 			return
