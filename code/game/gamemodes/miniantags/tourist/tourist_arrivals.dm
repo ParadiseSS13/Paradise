@@ -59,41 +59,40 @@
 								/datum/tourist/skrell,
 								/datum/tourist/grey,
 								/datum/tourist/nian)
-		if(P)
-			var/mob/living/carbon/human/M = new T.tourist_species(picked_loc)
-			// Picking a random objective, as all objectives are a subtype of /objective/tourist.
-			var/objT = pick(subtypesof(/datum/objective/tourist/))
-			var/datum/objective/tourist/O = new objT()
-			// Handles outfit, account and other stuff.
-			M.ckey = P.ckey
-			M.equipOutfit(T.tourist_outfit)
-			M.dna.species.after_equip_job(null, M)
-			M.age = rand(21, 50)
-			if(prob(50))
-				M.change_gender(MALE)
-			else
-				M.change_gender(FEMALE)
-			set_appearance(M)
-			SSjobs.CreateMoneyAccount(M, null, null)
-			GLOB.data_core.manifest_inject(M)
-			// Rolls a 20% probability, checks if 3 tourists have been made into tot and check if there's space for a new tot!
-			// If any is false, we don't make a new tourist tot
-			if(prob(20) && tot_number < 3 && antag_count < max_antag)
-				tot_number++
-				M.mind.add_antag_datum(/datum/antagonist/traitor)
+		if(!istype(P))
+			continue
+		var/mob/living/carbon/human/M = new T.tourist_species(picked_loc)
+		// Picking a random objective, as all objectives are a subtype of /objective/tourist.
+		var/obj_tourist = pick(subtypesof(/datum/objective/tourist/))
+		var/datum/objective/tourist/O = new obj_tourist()
+		// Handles outfit, account and other stuff.
+		M.ckey = P.ckey
+		M.dna.species.after_equip_job(null, M)
+		M.age = rand(21, 50)
+		if(prob(50))
+			M.change_gender(MALE)
+		else
+			M.change_gender(FEMALE)
+		set_appearance(M)
+		GLOB.data_core.manifest_inject(M)
+		M.equipOutfit(T.tourist_outfit)
+		// Rolls a 20% probability, checks if 3 tourists have been made into tot and check if there's space for a new tot!
+		// If any is false, we don't make a new tourist tot
+		if(prob(20) && tot_number < 3 && antag_count < max_antag)
+			tot_number++
+			M.mind.add_antag_datum(/datum/antagonist/traitor)
 
-			// If they're a tot, they don't get tourist objectives neither the tourist greeting!
-			if(M.mind.special_role != SPECIAL_ROLE_TRAITOR)
-				M.mind.add_mind_objective(O)
-				greeting(M)
-			sucess_run = TRUE
-			spawned_in++
+		// If they're a tot, they don't get tourist objectives neither the tourist greeting!
+		if(M.mind.special_role != SPECIAL_ROLE_TRAITOR)
+			M.mind.add_mind_objective(O)
+			greeting(M)
+		sucess_run = TRUE
+		spawned_in++
 	if(sucess_run)
 		message_admins("Made: [tot_number] traitors.")
 		var/raffle_name = pick("Galactic Getaway Raffle", "Cosmic Jackpot Raffle", "Nebula Nonsense Raffle", "Greytide Giveaway Raffle", "Toolbox Treasure Raffle")
 		GLOB.minor_announcement.Announce("The lucky winners of the Nanotrasen raffle, 'Nanotrasen [raffle_name],' are arriving at [station_name()] shortly. Please welcome them warmly, they'll be staying with you until the end of your shift!")
-	else
-		return
+
 // Greets the player, announces objectives!
 /datum/event/tourist_arrivals/proc/greeting(mob/living/carbon/human/M)
 	var/list/greeting = list()
@@ -131,28 +130,23 @@
 	var/tourist_species
 
 /datum/tourist/human
-	tourist_outfit = /datum/outfit/admin/tourist
 	tourist_species = /mob/living/carbon/human
-
+	tourist_outfit = /datum/outfit/admin/tourist
 /datum/tourist/unathi
 	tourist_species = /mob/living/carbon/human/unathi
 	tourist_outfit = /datum/outfit/admin/tourist
-
 /datum/tourist/vulp
 	tourist_species = /mob/living/carbon/human/vulpkanin
 	tourist_outfit = /datum/outfit/admin/tourist
 /datum/tourist/ipc
 	tourist_species = /mob/living/carbon/human/machine
 	tourist_outfit = /datum/outfit/admin/tourist
-
 /datum/tourist/skrell
 	tourist_species = /mob/living/carbon/human/skrell
 	tourist_outfit = /datum/outfit/admin/tourist
-
 /datum/tourist/grey
 	tourist_species = /mob/living/carbon/human/grey
 	tourist_outfit = /datum/outfit/admin/tourist
-
 /datum/tourist/nian
 	tourist_species = /mob/living/carbon/human/moth
 	tourist_outfit = /datum/outfit/admin/tourist
