@@ -83,9 +83,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos
 	access = ACCESS_ATMOSPHERICS
 
-/obj/effect/mapping_helpers/airlock/access/any/engineering/tcoms
-	access = ACCESS_TCOMSAT
-
 /obj/effect/mapping_helpers/airlock/access/any/engineering/ce
 	access = ACCESS_CE
 
@@ -301,9 +298,6 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos
 	access = ACCESS_ATMOSPHERICS
-
-/obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms
-	access = ACCESS_TCOMSAT
 
 /obj/effect/mapping_helpers/airlock/access/all/engineering/ce
 	access = ACCESS_CE

@@ -80304,10 +80304,11 @@
 /obj/machinery/door/airlock{
 	name = "Court"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/iaa,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "nkC" = (
@@ -84937,13 +84938,14 @@
 /obj/machinery/door/airlock{
 	name = "Court"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/iaa,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/plasteel,
 /area/station/legal/courtroom)
 "pTN" = (
@@ -97407,7 +97409,8 @@
 /obj/machinery/door/airlock{
 	name = "Court"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/iaa,
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/plasteel,
 /area/station/legal/courtroom)
 "xaI" = (
