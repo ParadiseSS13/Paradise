@@ -11,11 +11,6 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"o" = (
-/obj/effect/mapping_helpers/airlock/access/any/supply/mail_sorting,
-/obj/effect/mapping_helpers/airlock/access/any/science/robotics,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
@@ -26,10 +21,6 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "x" = (
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"y" = (
-/obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "F" = (
@@ -46,13 +37,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"Y" = (
-/obj/effect/mapping_helpers/airlock/access/all/command/captain{
-	layer = 24
-	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/paramedic,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 
@@ -32310,9 +32294,9 @@ a
 u
 x
 x
-y
 x
-y
+x
+x
 u
 a
 a
@@ -32566,9 +32550,9 @@ a
 a
 u
 p
-o
+x
 b
-Y
+x
 F
 u
 a
