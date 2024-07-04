@@ -8,15 +8,15 @@
 	hud_type = /datum/hud/corgi
 
 /mob/living/simple_animal/pet/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/newspaper))
-		var/obj/item/newspaper/paper = O
-		if(!stat && paper.rolled)
-			user.visible_message("<span class='notice'>[user] baps [name] on the nose with the rolled up [O].</span>")
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2))
-					setDir(i)
-					sleep(1)
-			return ..()
+	if(!istype(O, /obj/item/newspaper))
 		return ..()
+	var/obj/item/newspaper/paper = O
+	if(stat || !paper.rolled)
+		return ..()
+	user.visible_message("<span class='notice'>[user] baps [name] on the nose with the rolled up [O].</span>")
+	spawn(0)
+		for(var/i in list(1,2,4,8,4,2,1,2))
+			setDir(i)
+			sleep(1)
 
 
