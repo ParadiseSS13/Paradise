@@ -29,6 +29,7 @@
 #include "labeler\code\labeler.dm"
 #include "library\code\library.dm"
 #include "light_switch\code\light_switch.dm"
+#include "lights\code\flashlight.dm"
 #include "lights\code\lights.dm"
 #include "newscaster\code\newscaster.dm"
 #include "piano\code\piano.dm"

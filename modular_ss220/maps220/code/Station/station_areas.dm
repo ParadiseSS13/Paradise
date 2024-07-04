@@ -102,6 +102,14 @@
 
 /area/station/public/vacant_office/secondary
 
+/area/station/service/chapel/bedroom
+	name = "Каюта Священника"
+	icon_state = "chapeloffice"
+
+/area/station/service/chapel/study
+	name = "Рабочий Кабинет Священника"
+	icon_state = "chapeloffice"
+
 /* CentCom */
 /area/centcom/ss220
 	name = "ЦК"
