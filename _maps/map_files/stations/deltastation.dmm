@@ -35138,6 +35138,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small,
+/obj/effect/mapping_helpers/airlock/access/any/science/minisat,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "bVB" = (
@@ -58221,6 +58223,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"drw" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/port)
 "drz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -73266,9 +73273,7 @@
 /area/station/science/toxins/mixing)
 "iYu" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
 "iYX" = (
@@ -74124,9 +74129,7 @@
 /area/station/medical/virology)
 "jEE" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/w_to_e/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
 "jEI" = (
@@ -78549,6 +78552,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "mnr" = (
@@ -79410,9 +79414,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "mPU" = (
-/obj/effect/spawner/airlock/s_to_n{
-	req_access_txt = 32
-	},
+/obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/wall,
 /area/station/engineering/gravitygenerator)
 "mQc" = (
@@ -79767,9 +79769,7 @@
 	},
 /area/station/maintenance/starboard)
 "mVF" = (
-/obj/effect/spawner/airlock/s_to_n{
-	req_access_txt = 1
-	},
+/obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/wall/r_wall,
 /area/station/security/permasolitary)
 "mWe" = (
@@ -82490,6 +82490,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "ozw" = (
@@ -85994,6 +85995,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "qFT" = (
@@ -87455,9 +87457,7 @@
 /area/station/security/storage)
 "rtH" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "rtU" = (
@@ -90514,6 +90514,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
 "sVv" = (
@@ -90549,9 +90550,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "sWx" = (
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = "11,13"
-	},
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall,
 /area/station/engineering/ai_transit_tube)
 "sWI" = (
@@ -90966,6 +90965,7 @@
 /area/station/medical/morgue)
 "tls" = (
 /obj/effect/turf_decal/delivery/hollow,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "tlz" = (
@@ -92407,9 +92407,7 @@
 /area/station/service/chapel/office)
 "uci" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/s_to_n{
-	req_access_txt = null
-	},
+/obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/west)
 "ucl" = (
@@ -92458,9 +92456,7 @@
 /area/station/medical/cloning)
 "udZ" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/w_to_e/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "uec" = (
@@ -94638,6 +94634,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
 "vzs" = (
@@ -97374,9 +97371,7 @@
 	},
 /area/station/maintenance/fsmaint)
 "wZD" = (
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/wall,
 /area/station/maintenance/port)
 "wZK" = (
@@ -119368,7 +119363,7 @@ cTi
 hkk
 aaa
 cHA
-cCq
+drw
 cHA
 aaa
 aaa
