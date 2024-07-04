@@ -140,7 +140,7 @@
 	base_icon_state = "sandbags"
 	max_integrity = 280
 	proj_pass_rate = 20
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW
 	bar_material = SAND
 	climbable = TRUE
 	smoothing_flags = SMOOTH_BITMASK

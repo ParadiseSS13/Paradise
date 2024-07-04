@@ -26,6 +26,10 @@ LINEN BINS
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5
 
+/obj/item/bedsheet/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/surgery_initiator/cloth, null, 0.45)  // honestly, not bad.
+
 /obj/item/bedsheet/attack_hand(mob/user)
 	if(isturf(loc) && user.Move_Pulled(src)) // make sure its on the ground first, prevents a speed exploit
 		return

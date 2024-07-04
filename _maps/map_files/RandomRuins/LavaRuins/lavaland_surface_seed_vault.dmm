@@ -379,9 +379,6 @@
 /area/lavaland/surface/outdoors)
 "Nt" = (
 /obj/structure/table/wood,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
-	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "OL" = (

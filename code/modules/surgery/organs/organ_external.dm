@@ -831,7 +831,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(company && istext(company))
-		set_company(company)
+		set_company(company, owner.dna.species.sprite_sheet_name)
 
 	limb_flags |= CANNOT_BREAK
 	get_icon()
@@ -841,11 +841,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 
-/obj/item/organ/external/proc/set_company(company)
+/obj/item/organ/external/proc/set_company(company, species_sheet_name)
 	model = company
 	var/datum/robolimb/R = GLOB.all_robolimbs[company]
 	if(R)
-		force_icon = R.icon
+		if(length(R.sprite_sheets) && R.sprite_sheets[species_sheet_name]) // Species specific augmented limbs
+			force_icon = R.sprite_sheets[species_sheet_name]
+		else
+			force_icon = R.icon
 		name = "[R.company] [initial(name)]"
 		desc = "[R.desc]"
 

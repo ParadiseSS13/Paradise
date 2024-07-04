@@ -991,20 +991,11 @@
 		affected.custom_pain("You feel a stabbing pain in your chest!")
 		L.linked_organ.damage = L.linked_organ.min_bruised_damage
 
-/mob/living/carbon/human/cuff_resist(obj/item/I)
+/mob/living/carbon/human/resist_restraints(attempt_breaking)
 	if(HAS_TRAIT(src, TRAIT_HULK))
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		if(..(I, cuff_break = 1))
-			unEquip(I)
-	else
-		if(..())
-			unEquip(I)
-
-/mob/living/carbon/human/resist_restraints()
-	if(wear_suit && wear_suit.breakouttime)
-		cuff_resist(wear_suit)
-	else
-		..()
+		attempt_breaking = TRUE
+	return ..()
 
 /mob/living/carbon/human/generate_name()
 	name = dna.species.get_random_name(gender)
@@ -1013,16 +1004,16 @@
 		dna.real_name = name
 	return name
 
-/mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
+/mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE)
 	if(include_species_change)
 		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
 	dna = new_dna.Clone()
 	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
+	if(dna.flavor_text)
+		flavor_text = dna.flavor_text
 	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
-	if(!keep_flavor_text)
-		flavor_text = ""
 	dna.UpdateSE()
 	dna.UpdateUI()
 	sync_organ_dna(TRUE)
@@ -1466,7 +1457,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	rad_act(current_size * 3)
 
 /mob/living/carbon/human/narsie_act()
-	if(iswizard(src) && IS_CULTIST(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway
+	if(iswizard(src) || IS_CULTIST(src)) // Wizards are immune to the magic. Cultists also don't get transformed.
 		return
 	..()
 
