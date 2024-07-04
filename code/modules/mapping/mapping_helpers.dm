@@ -89,7 +89,6 @@
 		log_world("[src] spawned outside of mapload!")
 		return INITIALIZE_HINT_QDEL
 
-
 /obj/effect/mapping_helpers/airlock/LateInitialize()
 	. = ..()
 	if(!(locate(/obj/machinery/door) in get_turf(src)))
