@@ -611,8 +611,9 @@
 /area/holodeck/source_basketball)
 "jK" = (
 /obj/structure/table/wood,
-/obj/item/paper{
-	info = "Я так понял был энфорсер с Сибилом."
+/obj/item/gun/projectile/revolver/reclinable/anaconda,
+/obj/item/gun/projectile/revolver/reclinable/rsh12{
+	pixel_y = -12
 	},
 /turf/simulated/floor/wood/oak,
 /area/admin)
@@ -1620,6 +1621,12 @@
 /obj/item/gun/magic/staff/slipping,
 /turf/simulated/floor/wood/oak,
 /area/admin)
+"yE" = (
+/obj/machinery/economy/vending/nta/admin{
+	req_access = "0"
+	},
+/turf/simulated/floor/wood/oak,
+/area/admin)
 "yH" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/nuclear,
@@ -1774,9 +1781,7 @@
 /area/admin)
 "Bl" = (
 /obj/structure/table/wood,
-/obj/item/paper{
-	info = "Тут ничего не было. Я серьёзно."
-	},
+/obj/item/gun/projectile/automatic/ak814,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "Bo" = (
@@ -10279,7 +10284,7 @@ Hc
 mB
 gd
 UO
-UO
+yE
 Up
 Up
 Up

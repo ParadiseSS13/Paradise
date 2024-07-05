@@ -25702,6 +25702,13 @@
 "okC" = (
 /turf/simulated/floor/carpet/purple,
 /area/centcom/ss220/park)
+"okD" = (
+/obj/machinery/economy/vending/nta/admin,
+/turf/simulated/floor/plasteel/dark{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/centcom/ss220/supply)
 "okL" = (
 /obj/machinery/economy/vending/clothing,
 /turf/simulated/floor/plasteel{
@@ -35998,11 +36005,13 @@
 "tVU" = (
 /obj/effect/turf_decal/arrows/white{
 	dir = 4;
-	pixel_y = 8
+	pixel_y = 8;
+	initialized = 1
 	},
 /obj/effect/turf_decal/arrows/white{
 	dir = 8;
-	pixel_y = -9
+	pixel_y = -9;
+	initialized = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -54652,7 +54661,7 @@ jwS
 vsJ
 ipb
 qyF
-jwS
+okD
 gwi
 fbR
 hXZ
