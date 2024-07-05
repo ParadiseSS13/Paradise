@@ -89,7 +89,7 @@
 		sucess_run = TRUE
 		spawned_in++
 	if(sucess_run)
-		message_admins("Made: [tot_number] traitors.")
+		message_admins("Tourist event made: [tot_number] traitors.")
 		var/raffle_name = pick("Galactic Getaway Raffle", "Cosmic Jackpot Raffle", "Nebula Nonsense Raffle", "Greytide Giveaway Raffle", "Toolbox Treasure Raffle")
 		GLOB.minor_announcement.Announce("The lucky winners of the Nanotrasen raffle, 'Nanotrasen [raffle_name],' are arriving at [station_name()] shortly. Please welcome them warmly, they'll be staying with you until the end of your shift!")
 
