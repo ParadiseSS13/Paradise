@@ -891,6 +891,7 @@
 	base_state = "ltube"
 	item_state = "c_tube"
 	brightness_range = 8
+	brightness_color = "#ffffff"
 
 /obj/item/light/tube/large
 	w_class = WEIGHT_CLASS_SMALL

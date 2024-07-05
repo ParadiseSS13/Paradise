@@ -130,7 +130,7 @@
 		glow_overlay.plane = LIGHTING_LAMPS_PLANE
 		glow_overlay.blend_mode = BLEND_ADD
 
-		if(glow_colored && light_color != "")
+		if(glow_colored)
 			var/datum/color_matrix/mat = new(
 				light_color,
 				GLOB.configuration.lighting_effects.glow_contrast_base + GLOB.configuration.lighting_effects.glow_contrast_power * light_power,
@@ -148,7 +148,7 @@
 			1,
 			GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power,
 			GLOB.configuration.lighting_effects.exposure_brightness_base + GLOB.configuration.lighting_effects.exposure_brightness_power * light_power)
-		if(exposure_colored && light_color != "")
+		if(exposure_colored)
 			mat.set_color(
 				light_color,
 				GLOB.configuration.lighting_effects.exposure_contrast_base + GLOB.configuration.lighting_effects.exposure_contrast_power * light_power,
