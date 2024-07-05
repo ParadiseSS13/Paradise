@@ -499,7 +499,7 @@ emp_act
 	send_item_attack_message(I, user, hit_area)
 
 	if(!I.force)
-		return FALSE //item force is zero
+		return TRUE //item force is zero
 
 	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration_flat = I.armour_penetration_flat, armour_penetration_percentage = I.armour_penetration_percentage)
 	if(armor == INFINITY)
