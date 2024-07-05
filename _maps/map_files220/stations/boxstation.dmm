@@ -48603,6 +48603,10 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/meter{
+	autolink_id = "wloop_atm_meter";
+	name = "Waste Loop"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -48909,6 +48913,10 @@
 "eJr" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
+	},
+/obj/machinery/atmospherics/meter{
+	autolink_id = "dloop_atm_meter";
+	name = "Distribution Loop"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -55093,6 +55101,15 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/asmaint)
+"gPO" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/meter{
+	autolink_id = "mair_out_meter";
+	layer = 2.9;
+	name = "Mixed Air Tank Out"
+	},
+/turf/simulated/wall/r_wall,
+/area/station/engineering/atmos)
 "gPW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -83301,6 +83318,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/vacant_store)
+"qLE" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/meter{
+	autolink_id = "mair_in_meter";
+	layer = 2.9;
+	name = "Mixed Air Tank In"
+	},
+/turf/simulated/wall/r_wall,
+/area/station/engineering/atmos)
 "qLK" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -133231,7 +133257,7 @@ qEe
 dhH
 uPV
 vWD
-dkM
+qLE
 lxB
 dkV
 dkV
@@ -133745,7 +133771,7 @@ gZo
 cNw
 djl
 cBs
-dkM
+gPO
 vTp
 dkV
 dkV
