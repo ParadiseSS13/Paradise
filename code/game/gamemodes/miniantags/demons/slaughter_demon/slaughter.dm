@@ -166,8 +166,8 @@
 
 /datum/action/innate/demon/whisper
 	name = "Demonic Whisper"
-	button_icon_state = "demon_comms"
-	background_icon_state = "bg_demon"
+	button_overlay_icon_state = "demon_comms"
+	button_background_icon_state = "bg_demon"
 
 /datum/action/innate/demon/whisper/IsAvailable()
 	return ..()

@@ -330,6 +330,7 @@
 			update_icon()
 
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)
+	. = ..()
 	if(!proximity)
 		return
 	if(capped)
@@ -338,24 +339,25 @@
 	if(istype(target, /obj/item/clothing/head/cardborg) || istype(target, /obj/item/clothing/suit/cardborg))	// Spraypainting your cardborg suit for more fashion options.
 		cardborg_recolor(target, user)
 		return
-	if(iscarbon(target))
-		if(uses - 10 > 0)
-			uses = uses - 10
-			var/mob/living/carbon/C = target
-			user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
-			if(C.client)
-				C.EyeBlurry(6 SECONDS)
-				C.EyeBlind(2 SECONDS)
-				if(ishuman(target))
-					var/mob/living/carbon/human/H = target
-					if(H.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
-						H.Confused(6 SECONDS)
-						H.KnockDown(6 SECONDS)
-					H.lip_style = "spray_face"
-					H.lip_color = colour
-					H.update_body()
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/attackee = target
+	if(uses < 10)
+		to_chat(user, "<span class='warning'>Theres not enough paint left to have an effect!</span>")
+		return
+	uses -= 10
+	user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
+	if(!attackee.is_eyes_covered()) // eyes aren't covered? ARGH IT BURNS.
+		attackee.Confused(6 SECONDS)
+		attackee.KnockDown(6 SECONDS)
+	attackee.EyeBlurry(6 SECONDS)
+	attackee.EyeBlind(2 SECONDS)
+
+	attackee.lip_style = "spray_face"
+	attackee.lip_color = colour
+	attackee.update_body()
+
 	playsound(user, 'sound/effects/spray.ogg', 5, TRUE, 5)
-	..()
 
 /obj/item/toy/crayon/spraycan/update_icon_state()
 	icon_state = "spraycan[capped ? "_cap" : ""]"
