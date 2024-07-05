@@ -102,8 +102,7 @@
 		var/mob/living/carbon/human/H = user
 		// For masks that give unique death sounds
 		if(istype(H) && isclothing(H.wear_mask) && H.wear_mask.unique_death)
-			playsound(H, H.wear_mask.unique_death, 200, TRUE, TRUE)
-			return
+			return H.wear_mask.unique_death
 		// Default death sound logic
 		if(H.dna.species)
 			message = H.dna.species.death_message
