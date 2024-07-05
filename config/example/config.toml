@@ -20,6 +20,7 @@
 # - event_configuration
 # - gamemode_configuration
 # - general_configuration
+# - lighting_effects_configuration
 # - ipintel_configuration
 # - job_configuration
 # - logging_configuration
@@ -380,6 +381,30 @@ bomb_cap = 20
 revival_brain_life = 6000 # 10 minutes
 # Enable random silicon lawset (If said lawset has default = TRUE in the code). Disable for always crewsimov
 random_ai_lawset = true
+
+
+################################################################
+
+
+[lighting_effects_configuration]
+# Settings that allow you to change light effects (bloom / exposure intensity)
+
+# Brightness of bloom effect independent of light_power
+glow_brightness_base = 0
+# Brightness of bloom effect that depends on light_power
+glow_brightness_power = -0.25
+# Contrast of bloom effect independent of light_power
+glow_contrast_base = 0
+# Contrast of bloom effect that depends on light_power
+glow_contrast_power = 0.5
+# Brightness of exposure effect independent of light_power
+exposure_brightness_base = 0.01
+# Brightness of exposure effect that depends on light_power
+exposure_brightness_power = 0
+# Contrast of exposure effect independent of light_power
+exposure_contrast_base = 9.5
+# Contrast of exposure effect that depends on light_power
+exposure_contrast_power = 0
 
 
 ################################################################
