@@ -19,7 +19,7 @@
 		"author_ckey" = author_ckey,
 		"title" = title,
 		"body" = body,
-		"img" = icon2base64(icon(img, frame = 1)),
+		"img" = img ? icon2base64(icon(img, frame = 1)) : null,
 		"censor_flags" = censor_flags,
 		"admin_locked" = admin_locked,
 		"view_count" = view_count,
