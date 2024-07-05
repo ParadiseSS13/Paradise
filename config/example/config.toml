@@ -399,6 +399,7 @@ exposure_contrast_base = 9.5
 # Contrast of exposure effect that depends on light_power
 exposure_contrast_power = 0
 
+
 ################################################################
 
 
