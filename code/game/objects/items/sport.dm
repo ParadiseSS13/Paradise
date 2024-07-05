@@ -67,7 +67,7 @@
 	icon_state = "hoop"
 	anchored = TRUE
 	density = TRUE
-	pass_flags_self = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 
 /obj/structure/holohoop/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/grab) && get_dist(src, user) <= 1)
