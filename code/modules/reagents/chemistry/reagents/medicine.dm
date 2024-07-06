@@ -93,6 +93,44 @@
 			update_flags |= M.adjustToxLoss(1, FALSE)
 	return list(effect, update_flags)
 
+/datum/reagent/medicine/synaptizine/recal
+	name = "Recal"
+	id = "recal"
+	description = "An oily insulating liquid that passively regulates electrical activity on sensitive electronic components, allowing them to recover from decalibrating events faster. \
+	Overdosing will cause under-voltage errors and hamper component heat dissipation, potentially causing heat damage."
+	reagent_state = LIQUID
+	color = "#85845d"
+	overdose_threshold = 40
+	harmless = FALSE
+	taste_description = "mineral oil and toothpaste"
+	process_flags = SYNTHETIC
+
+/datum/reagent/medicine/synaptizine/recal/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly jitters for a moment.</span>")
+			M.AdjustJitter(2 SECONDS)
+		else if(effect <= 3)
+			M.emote("shudder")
+		if(effect <= 8)
+			update_flags |= M.adjustFireLoss(1, FALSE)
+			to_chat(M, "<span class='warning'>Your internals start to overheat!</span>")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly jitters for a moment.</span>")
+			M.AdjustJitter(2 SECONDS)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] staggers and seizes up!</span>")
+			M.Dizzy(16 SECONDS)
+			M.Weaken(8 SECONDS)
+		if(effect <= 15)
+			update_flags |= M.adjustFireLoss(1, FALSE)
+			to_chat(M, "<span class='warning'>Your internals start to overheat!</span>")
+	return list(effect, update_flags)
+
 /datum/reagent/medicine/mitocholide
 	name = "Mitocholide"
 	id = "mitocholide"
@@ -424,16 +462,17 @@
 	addiction_threshold = 5
 	harmless = FALSE
 	taste_description = "health"
-	var/heals_robots = FALSE
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	// Typecasting is required to make IPC healing work.
 	var/mob/living/carbon/human/ipc = M
 	update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(heals_robots)
+	// Check if it's an IPC to stop vox from double-dipping. This is used for the IPC omnizine subtype.
+	if(ismachineperson(M) && process_flags == SYNTHETIC)
 		update_flags |= ipc.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
 		update_flags |= ipc.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
 	if(prob(50))
@@ -490,9 +529,7 @@
 /datum/reagent/medicine/omnizine/no_addict/synthetic
 	name = "Smart Metal"
 	id = "synthetic_omnizine_no_addiction"
-	description = "An exotic metal alloy paste mixed with encapsulated nanomachines, used as a potent repair tool for synthetics. Once delivered, the capsules are eaten away by the nanomachines, \
-	which then shape the alloy and adjust its various properties before solidifying to patch up damaged components."
-	heals_robots = TRUE
+	description = "An exotic liquid metal alloy that flows into cracks, fractures, and other surface imperfections before solidifying to patch up damaged components."
 	process_flags = SYNTHETIC
 
 /datum/reagent/medicine/calomel
@@ -1204,38 +1241,29 @@
 	name = "Surge Plus"
 	id = "surge_plus"
 	description = "A high quality, low-viscocity gel that both supercharges processors and massively increases the efficincy of synthetic locomotive systems, allowing the user to run faster whilst also clearing stuns. \
-	If overdosed, it will cause short-circuits that will cause damage and reduce locomotive efficiancy gains."
+	If overdosed, it will cause short-circuits that will inflict damage and reduce locomotive efficiancy gains."
 	reagent_state = LIQUID
 	color = "#28b581"
 	process_flags = SYNTHETIC
 	taste_description = "silicon"
 
-/datum/reagent/surge_plus/on_mob_life(mob/living/M)
+/datum/reagent/medicine/stimulative_agent/surge_plus/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustParalysis(-6 SECONDS)
-	M.AdjustStunned(-6 SECONDS)
-	M.AdjustWeakened(-6 SECONDS)
-	M.AdjustKnockDown(-6 SECONDS)
-	// The 4 below benefits are from Synaptizine, because we don't need a synthetic version of that too.	
-	M.AdjustDrowsy(-10 SECONDS)
-	M.AdjustConfused(-10 SECONDS)
-	M.AdjustDizzy(-10 SECONDS)
-	M.SetSleeping(0)
-	update_flags |= M.adjustStaminaLoss(-40 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= ..()
 	if(prob(5))
 		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like the world is moving in slow motion.")
 		if(prob(10))
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!" // "GOTTAGOFAST" in binary.
 		to_chat(M, "<span class='notice'>[high_message]</span>")
+	return ..() | update_flags
 
-/datum/reagent/surge_plus/overdose_process(mob/living/M, severity)
+/datum/reagent/medicine/stimulative_agent/surge_plus/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(33))
 		M.Stuttering(5 SECONDS)
 		to_chat(M, pick("<span class='warning'>Your circuits overheat!</span>", "<span class='warning'>Electrical arcs discharge inside you!</span>"))
 		update_flags |= M.adjustStaminaLoss(2.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE) // 5 to compensate for no breathloss. Not like anyone will ever OD on this anyway.
-		M.AdjustLoseBreath(2 SECONDS)
 	return list(0, update_flags)
 
 /datum/reagent/medicine/insulin
