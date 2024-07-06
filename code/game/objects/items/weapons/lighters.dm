@@ -18,11 +18,16 @@
 	var/next_on_message
 	/// Cooldown until the next turned off message/sound can be activated
 	var/next_off_message
+	/// Our lighter color suffix. => [base_icon_state]-[lightercolor] => lighter-r
+	var/lighter_color
 
-/obj/item/lighter/random/New()
-	..()
-	var/color = pick("r","c","y","g")
-	icon_state = "lighter-[color]"
+/obj/item/lighter/random
+	base_icon_state = "lighter"
+
+/obj/item/lighter/random/Initialize(mapload)
+	. = ..()
+	lighter_color = pick("r","c","y","g")
+	update_icon()
 
 /obj/item/lighter/attack_self(mob/living/user)
 	. = ..()
@@ -118,12 +123,10 @@
 	return
 
 /obj/item/lighter/update_icon_state()
-	icon_state = "[initial(icon_state)][lit ? "-on" : ""]"
-	return ..()
+	icon_state = "[base_icon_state ? "[base_icon_state]" : initial(icon_state)][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
 
 /obj/item/lighter/update_overlays()
-	item_state = "[initial(item_state)][lit ? "-on" : ""]"
-	return ..()
+	item_state = "[base_icon_state ? "[base_icon_state]" : initial(item_state)][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
 
 /obj/item/lighter/get_heat()
 	return lit * 1500

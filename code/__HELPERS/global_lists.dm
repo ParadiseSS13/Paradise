@@ -145,7 +145,7 @@
 	for(var/path in subtypesof(/datum/preference_toggle))
 		var/datum/preference_toggle/pref_toggle = path
 		if(initial(pref_toggle.name))
-			GLOB.preference_toggles += new path()
+			GLOB.preference_toggles[path] = new path()
 
 	for(var/path in subtypesof(/datum/objective))
 		var/datum/objective/O = path
