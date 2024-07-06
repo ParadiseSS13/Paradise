@@ -217,7 +217,7 @@ FIRE ALARM
 /obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(.) //damage received
-		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0)
+		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0 && !emagged)
 			if(prob(33))
 				alarm()
 
