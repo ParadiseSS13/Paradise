@@ -1607,11 +1607,11 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name, "tourist")
 		// Checking if the person has an account already
-		var/datum/money_account/account = GLOB.station_money_database.get_account_from_name(H.real_name)
+		var/datum/money_account/account = H.mind.initial_account
 		if(!account)
 			// If they don't, we create a new one and get it's account number.
 			SSjobs.CreateMoneyAccount(H, null, null)
-			account = GLOB.station_money_database.get_account_from_name(H.real_name)
+			account = H.mind.initial_account
 			I.associated_account_number = account.account_number
 		I.associated_account_number = account.account_number
 	H.sec_hud_set_ID()
