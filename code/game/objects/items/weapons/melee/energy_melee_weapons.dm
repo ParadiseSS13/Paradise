@@ -100,9 +100,6 @@
 	throwforce_off = clamp(throwforce_off + amount, 0, max_amount)
 	force_on = clamp(force_on + amount, 0, max_amount)
 	force_off = clamp(force_off + amount, 0, max_amount)
-	if(active)
-		force += amount
-	return COMPONENT_SHARPEN_APPLIED
 
 /obj/item/melee/energy/axe
 	name = "energy axe"
