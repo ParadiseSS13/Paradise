@@ -5,7 +5,7 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "grenade"
 	item_state = "grenade"
-	throw_speed = 4
+	throw_speed = 3
 	throw_range = 20
 	flags = CONDUCT
 	slot_flags = SLOT_FLAG_BELT
@@ -71,7 +71,6 @@
 			spawn(det_time)
 				prime()
 
-
 /obj/item/grenade/proc/prime()
 	return
 
@@ -110,3 +109,20 @@
 	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
 	walk_to(src, 0)
 	return ..()
+
+/obj/item/grenade/cmag_act(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	ADD_TRAIT(src, TRAIT_CMAGGED, "cmagged grenade")
+	to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]. [src] suddenly doesn't want to leave you...</span>")
+	AddComponent(/datum/component/boomerang, throw_range, TRUE)
+
+/obj/item/grenade/uncmag()
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	REMOVE_TRAIT(src, TRAIT_CMAGGED, "cmagged grenade")
+	var/datum/component/bomberang = GetComponent(/datum/component/boomerang)
+	if(!bomberang)
+		return
+	bomberang.RemoveComponent()
+	qdel(bomberang)

@@ -20,10 +20,7 @@
 
   // Components
   @include meta.load-css('~tgui/styles/components/Section.scss');
-  @include meta.load-css(
-    '~tgui/styles/components/Button.scss',
-    $with: ('color-default': #384e68)
-  );
+  @include meta.load-css('~tgui/styles/components/Button.scss', $with: ('color-default': #384e68));
   @include meta.load-css('~tgui/styles/components/NumberInput.scss');
   @include meta.load-css('~tgui/styles/components/TextArea.scss');
   @include meta.load-css('~tgui/styles/components/Knob.scss');
@@ -34,10 +31,7 @@
   @include meta.load-css('../components/Chat.scss');
 
   // Layouts
-  @include meta.load-css(
-    '~tgui/styles/layouts/Layout.scss',
-    $with: ('scrollbar-color-multiplier': 1)
-  );
+  @include meta.load-css('~tgui/styles/layouts/Layout.scss', $with: ('scrollbar-color-multiplier': 1));
   @include meta.load-css('~tgui/styles/layouts/Window.scss');
   @include meta.load-css(
     '~tgui/styles/layouts/TitleBar.scss',
