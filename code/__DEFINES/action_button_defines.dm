@@ -27,3 +27,5 @@
 #define SCRN_OBJ_IN_LIST "list"
 /// In the collapseable palette
 #define SCRN_OBJ_IN_PALETTE "palette"
+/// In cult spell list
+#define SCRN_OBJ_CULT_LIST "cult_list"

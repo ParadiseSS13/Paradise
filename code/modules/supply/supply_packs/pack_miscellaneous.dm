@@ -529,7 +529,7 @@
 /datum/supply_packs/misc/hoverboard
 	name = "Hoverboard Crate"
 	contains = list(/obj/item/melee/skateboard/hoverboard)
-	cost = 1000 //Price of cool
+	cost = 999 // Price of cool. Also under 1000 so it's not grand theft if stolen, lmao
 	containername = "hoverboard crate"
 
 ///////////// Station Goals

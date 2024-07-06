@@ -3327,6 +3327,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/item/reagent_containers/drinks/flask/gold,
 /obj/item/pen,
 /obj/item/paper/safe_code{
 	owner = "captain"
