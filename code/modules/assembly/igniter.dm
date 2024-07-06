@@ -58,8 +58,7 @@
 	return TRUE
 
 /obj/item/assembly/igniter/attack(mob/living/M, mob/living/user)
-	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+	if(!cigarette_check(user, M))
 		return ..()
 	cigarette_lighter_act(user, M)
 

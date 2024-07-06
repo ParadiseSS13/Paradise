@@ -75,8 +75,7 @@
 		return TRUE
 
 /obj/item/flamethrower/attack(mob/living/target, mob/living/user)
-	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP)
+	if(!cigarette_check(user, target))
 		return ..()
 	cigarette_lighter_act(user, target)
 
@@ -128,7 +127,6 @@
 	I.light(user, target)
 	target.adjust_fire_stacks(2)
 	target.IgniteMob()
-	return
 
 /obj/item/flamethrower/afterattack(atom/target, mob/user, flag)
 	. = ..()

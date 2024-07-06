@@ -57,9 +57,7 @@
 	tool_behaviour = TOOL_CAUTERY
 
 /obj/item/cautery/attack(mob/living/target, mob/living/user)
-	// For lighting cigarettes.
-	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+	if(!cigarette_check(user, target))
 		return ..()
 	cigarette_lighter_act(user, target)
 
@@ -174,8 +172,7 @@
 	hitsound = 'sound/weapons/sear.ogg'
 
 /obj/item/scalpel/laser/attack(mob/living/carbon/target, mob/living/user)
-	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+	if(!cigarette_check(user, target))
 		return ..()
 	cigarette_lighter_act(user, target)
 

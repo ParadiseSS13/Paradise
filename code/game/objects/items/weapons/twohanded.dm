@@ -146,8 +146,7 @@
 		set_light(0)
 
 /obj/item/dualsaber/attack(mob/target, mob/living/user)
-	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-	if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
+	if(cigarette_check(user, target))
 		cigarette_lighter_act(user, target)
 		return FALSE
 

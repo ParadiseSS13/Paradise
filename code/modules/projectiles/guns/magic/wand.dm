@@ -203,15 +203,13 @@ CONTENTS:
 	if(!iscarbon(target))
 		return ..()
 
-	// For lighting cigarettes.
 	var/mob/living/M = target
-	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP)
-		if(target == user)	// Do not blow yourself up!
-			return
-		return ..()	// Blow everyone else up!
+	if(cigarette_check(user, M))
+		cigarette_lighter_act(user, M)
+		return
 
-	cigarette_lighter_act(user, M)
+	if(M != user)	// Do not blow yourself up!
+		return ..()	// Blow everyone else up!
 
 /obj/item/gun/magic/wand/fireball/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	if(!charges)

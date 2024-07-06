@@ -112,11 +112,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 			return TRUE
 		
 		// If they DO have a cig, try to light it with your own cig.
-		var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-		if(istype(cig) || user.zone_selected == "mouth" || user.a_intent == INTENT_HELP) 
-			cigarette_lighter_act(user, M)
-			return
-		return ..()
+		if(!cigarette_lighter_act(user, M))
+			return ..()
 
 	// You can dip cigarettes into beakers.
 	if(istype(target, /obj/item/reagent_containers/glass))
@@ -160,15 +157,18 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(direct_attackby_item)
-		I = direct_attackby_item
+	if(!cigarette_check(user, target))
+		if(direct_attackby_item)
+			I = direct_attackby_item
+		else
+			return FALSE
 
 	if(!lit)
 		to_chat(user, "<span class='warning'>You cannot light [I] with [src] because you need a lighter to light [src] before you can use [src] as a lighter to light [I]... This seems a little convoluted.</span>")
-		return
+		return TRUE
 
 	if(!I.handle_cigarette_lighter_act(user, src))
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message(
@@ -181,6 +181,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			"<span class='notice'>You press [src] against [I] until it lights. Sharing is caring!</span>"
 		)
 	I.light(user, target)
+	return TRUE
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/living/user, params)
 	if(I.cigarette_lighter_act(user, user, src))

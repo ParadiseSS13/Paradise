@@ -153,13 +153,16 @@
 		return
 	remove_fuel(0.5)
 
-/obj/item/weldingtool/attack(mob/living/carbon/M, mob/living/user)
-	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+/obj/item/weldingtool/attack(mob/living/target, mob/living/user)
+	if(!cigarette_check(user, target))
 		return ..()
-	cigarette_lighter_act(user, M)
+	cigarette_lighter_act(user, target)
 
 /obj/item/weldingtool/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	if(!tool_enabled)
+		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+		return
+
 	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
 	if(direct_attackby_item)
 		I = direct_attackby_item

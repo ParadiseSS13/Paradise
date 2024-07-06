@@ -31,11 +31,9 @@
 	. += "<span class='notice'>The thunderbolts are boosted if in an area with weather effects.</span>"
 
 /obj/item/storm_staff/attack(mob/living/M, mob/living/user)
-	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
-		cigarette_lighter_act(user, M)
-		return FALSE
-	return ..()
+	if(!cigarette_check(user, M))
+		return ..()
+	cigarette_lighter_act(user, M)
 
 /obj/item/storm_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	if(!thunder_charges)

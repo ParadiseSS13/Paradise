@@ -230,8 +230,7 @@
 	var/pranked = FALSE
 
 /obj/item/toy/sword/attack(mob/target, mob/living/user)
-	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP) 
+	if(!cigarette_check(user, target))
 		return ..()
 	cigarette_lighter_act(user, target)
 

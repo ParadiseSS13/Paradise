@@ -274,11 +274,9 @@
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
 /obj/item/lava_staff/attack(mob/target, mob/living/user)
-	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-	if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
-		cigarette_lighter_act(user, target)
-		return FALSE
-	return ..()
+	if(!cigarette_check(user, target))
+		return ..()
+	cigarette_lighter_act(user, target)
 
 /obj/item/lava_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask

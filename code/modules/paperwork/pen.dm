@@ -214,11 +214,9 @@
 	throw_speed = 4
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
-	// For lighting cigarettes.
-	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(istype(cig) || user.zone_selected == "mouth" || user.a_intent == INTENT_HELP) 
+	if(cigarette_check(user, M))
 		cigarette_lighter_act(user, M)
-		return FALSE
+		return
 
 	var/extra_force_applied = FALSE
 	if(active && user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)

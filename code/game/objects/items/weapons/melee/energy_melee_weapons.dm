@@ -53,11 +53,9 @@
 	throwforce_off = initial(throwforce)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/user)
-	// For lighting cigarettes.
-	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-	if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
+	if(cigarette_check(user, target))
 		cigarette_lighter_act(user, target)
-		return FALSE
+		return
 
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))

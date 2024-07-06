@@ -993,5 +993,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name
 
+/// Handles the bulk of cigarette lighting interactions. You must call light() to actually light the cigarette.
 /obj/item/proc/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	return
+
+/// Checks to to see if a target has a cigarette equipped and that the user is targeting the mouth on help intent.
+/obj/item/proc/cigarette_check(mob/living/user, mob/living/target)
+	var/mask_item = target.get_item_by_slot(SLOT_HUD_WEAR_MASK)
+	if(istype(mask_item, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
+		return TRUE

@@ -103,14 +103,16 @@
 		next_off_message = world.time + 5 SECONDS
 
 /obj/item/lighter/attack(mob/living/target, mob/living/user)
+	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
+	if(istype(cig) || user.a_intent != INTENT_HELP)
+		cigarette_lighter_act(user, target)
+		return
+
 	if(lit && target.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")
 
-	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
-	if(!istype(cig) || user.a_intent != INTENT_HELP) 
-		return ..()
-	cigarette_lighter_act(user, target)
+	return ..()
 
 /obj/item/lighter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/I = locate_cigarette(target)
@@ -332,14 +334,16 @@
 		return TRUE
 
 /obj/item/match/attack(mob/living/target, mob/living/user)
+	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
+	if(istype(cig) || user.a_intent != INTENT_HELP)
+		cigarette_lighter_act(user, target)
+		return
+
 	if(lit && target.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")
+	return ..()
 
-	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
-	if(!istype(cig) || user.a_intent != INTENT_HELP) 
-		return ..()
-	cigarette_lighter_act(user, target)
 
 /obj/item/match/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
