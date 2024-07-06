@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/u2_icon = U2.sprite_sheets && (dna.species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[dna.species.sprite_sheet_name] : U2.icon
 			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
 
-	if(socks && dna.species.clothing_flags & HAS_SOCKS)
+	if(socks && dna.species.clothing_flags & HAS_SOCKS && get_organ("l_leg") && get_organ("r_leg")) // Check if the human has both legs before going on adding socks.
 		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
 		if(U3)
 			var/u3_icon = U3.sprite_sheets && (dna.species.sprite_sheet_name in U3.sprite_sheets) ? U3.sprite_sheets[dna.species.sprite_sheet_name] : U3.icon
@@ -658,6 +658,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_gloves()
 	remove_overlay(GLOVES_LAYER)
+	remove_overlay(L_HAND_BLOOD_LAYER)
+	remove_overlay(R_HAND_BLOOD_LAYER)
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_GLOVES]
 		if(inv)
@@ -677,17 +679,24 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			standing = mutable_appearance('icons/mob/clothing/hands.dmi', "[t_state]", layer = -GLOVES_LAYER)
 
-		if(gloves.blood_DNA)
+		if(gloves.blood_DNA) // No need to check for hands here because we won't have gloves on.
 			var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "bloodyhands")
 			bloodsies.color = gloves.blood_color
 			standing.overlays += bloodsies
 		overlays_standing[GLOVES_LAYER]	= standing
 	else
-		if(blood_DNA)
-			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "bloodyhands", layer = -GLOVES_LAYER)
-			bloodsies.color = hand_blood_color
-			overlays_standing[GLOVES_LAYER]	= bloodsies
+		if(blood_DNA) // Checks for hands to make sure we don't get mysterious floating blood.
+			if(get_organ("l_hand"))
+				var/mutable_appearance/bloodsies_left = mutable_appearance(dna.species.blood_mask, "bloodyhand_left", layer = -L_HAND_BLOOD_LAYER)
+				bloodsies_left.color = feet_blood_color
+				overlays_standing[L_HAND_BLOOD_LAYER] = bloodsies_left
+			if(get_organ("r_hand"))
+				var/mutable_appearance/bloodsies_right = mutable_appearance(dna.species.blood_mask, "bloodyhand_right", layer = -R_HAND_BLOOD_LAYER)
+				bloodsies_right.color = feet_blood_color
+				overlays_standing[R_HAND_BLOOD_LAYER] = bloodsies_right
 	apply_overlay(GLOVES_LAYER)
+	apply_overlay(L_HAND_BLOOD_LAYER)
+	apply_overlay(R_HAND_BLOOD_LAYER)
 
 
 /mob/living/carbon/human/update_inv_glasses()
@@ -771,6 +780,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)
+	remove_overlay(L_FOOT_BLOOD_LAYER)
+	remove_overlay(R_FOOT_BLOOD_LAYER)
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_SHOES]
 		if(inv)
@@ -788,7 +799,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			else
 				standing = mutable_appearance('icons/mob/clothing/feet.dmi', "[shoes.icon_state]", layer = -SHOES_LAYER)
 
-			if(shoes.blood_DNA)
+			if(shoes.blood_DNA) // No need to check for feet here since you need feet to wear shoes.
 				var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "shoeblood")
 				bloodsies.color = shoes.blood_color
 				standing.overlays += bloodsies
@@ -796,11 +807,18 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing.color = shoes.color
 			overlays_standing[SHOES_LAYER] = standing
 	else
-		if(feet_blood_DNA)
-			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER)
-			bloodsies.color = feet_blood_color
-			overlays_standing[SHOES_LAYER] = bloodsies
+		if(feet_blood_DNA) // Checks for feet to make sure we don't have mysterious floating blood.
+			if(get_organ("l_foot"))
+				var/mutable_appearance/bloodsies_left = mutable_appearance(dna.species.blood_mask, "shoeblood_left", layer = -L_FOOT_BLOOD_LAYER)
+				bloodsies_left.color = feet_blood_color
+				overlays_standing[L_FOOT_BLOOD_LAYER] = bloodsies_left
+			if(get_organ("r_foot"))
+				var/mutable_appearance/bloodsies_right = mutable_appearance(dna.species.blood_mask, "shoeblood_right", layer = -R_FOOT_BLOOD_LAYER)
+				bloodsies_right.color = feet_blood_color
+				overlays_standing[R_FOOT_BLOOD_LAYER] = bloodsies_right
 	apply_overlay(SHOES_LAYER)
+	apply_overlay(L_FOOT_BLOOD_LAYER)
+	apply_overlay(R_FOOT_BLOOD_LAYER)
 
 /mob/living/carbon/human/update_inv_s_store()
 	remove_overlay(SUIT_STORE_LAYER)

@@ -141,13 +141,7 @@ const NanoMapMarker = (props, context) => {
   return (
     <div>
       <Tooltip content={tooltip}>
-        <Box
-          position="absolute"
-          className="NanoMap__marker"
-          lineHeight="0"
-          bottom={ry + 'px'}
-          left={rx + 'px'}
-        >
+        <Box position="absolute" className="NanoMap__marker" lineHeight="0" bottom={ry + 'px'} left={rx + 'px'}>
           <Icon name={icon} color={color} fontSize="6px" />
         </Box>
       </Tooltip>
