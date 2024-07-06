@@ -205,15 +205,15 @@
 	icon_state = "match_unlit"
 	var/lit = FALSE
 	var/burnt = FALSE
-	var/smoketime = 5
+	var/smoke_time = 5
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1"
 	attack_verb = null
 
 /obj/item/match/process()
 	var/turf/location = get_turf(src)
-	smoketime--
-	if(smoketime < 1)
+	smoke_time--
+	if(smoke_time < 1)
 		matchburnout()
 	if(location)
 		location.hotspot_expose(700, 5)
@@ -316,7 +316,7 @@
 /obj/item/match/firebrand
 	name = "firebrand"
 	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
-	smoketime = 20 //40 seconds
+	smoke_time = 20 //40 seconds
 
 /obj/item/match/firebrand/New()
 	..()
