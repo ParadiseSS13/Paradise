@@ -151,8 +151,8 @@
 	AddSpell(new /datum/spell/fireball/shadow_grapple)
 	var/datum/spell/bloodcrawl/shadow_crawl/S = new
 	AddSpell(S)
-	whisper_action.button_icon_state = "shadow_whisper"
-	whisper_action.background_icon_state = "shadow_demon_bg"
+	whisper_action.button_overlay_icon_state = "shadow_whisper"
+	whisper_action.button_background_icon_state = "shadow_demon_bg"
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		S.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))

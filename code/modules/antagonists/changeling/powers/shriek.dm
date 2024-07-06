@@ -2,7 +2,7 @@
 	name = "Resonant Shriek"
 	desc = "Our lungs and vocal cords shift, allowing us to briefly emit a noise that deafens and confuses the weak minded. Costs 30 chemicals."
 	helptext = "Emits a high frequency sound that confuses and deafens humans, blows out nearby lights and overloads cyborg sensors."
-	button_icon_state = "resonant_shriek"
+	button_overlay_icon_state = "resonant_shriek"
 	chemical_cost = 30
 	dna_cost = 2
 	req_human = TRUE
@@ -40,7 +40,7 @@
 /datum/action/changeling/dissonant_shriek
 	name = "Dissonant Shriek"
 	desc = "We shift our vocal cords to release a high frequency sound that overloads nearby electronics. Costs 30 chemicals."
-	button_icon_state = "dissonant_shriek"
+	button_overlay_icon_state = "dissonant_shriek"
 	chemical_cost = 30
 	dna_cost = 2
 	power_type = CHANGELING_PURCHASABLE_POWER

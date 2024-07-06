@@ -11,6 +11,8 @@
 	name = "\improper AI Chamber"
 	icon_state = "ai_chamber"
 	ambientsounds = list('sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
+	request_console_flags = RC_ASSIST | RC_INFO
+	request_console_name = "AI"
 
 /area/station/turret_protected/aisat
 	name = "\improper AI Satellite"
