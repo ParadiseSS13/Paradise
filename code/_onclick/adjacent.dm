@@ -92,13 +92,13 @@
 
 /*
 	This checks if you there is uninterrupted airspace between that turf and this one.
-	This is defined as any dense ON_BORDER object, or any dense object without LETPASSTHROW.
+	This is defined as any dense ON_BORDER object, or any dense object without PASSTAKE .
 	The border_only flag allows you to not objects (for source and destination squares)
 */
 /turf/proc/ClickCross(target_dir, border_only, target_atom = null)
 	for(var/obj/O in src)
-		if(!O.density || O == target_atom || (O.pass_flags & LETPASSTHROW))
-			continue // LETPASSTHROW is used for anything you can click through
+		if(!O.density || O == target_atom || (O.pass_flags_self & PASSTAKE))
+			continue // PASSTAKE is used for anything you can click through
 
 		if(O.flags&ON_BORDER) // windows are on border, check them first
 			if(O.dir & target_dir || O.dir&(O.dir-1)) // full tile windows are just diagonals mechanically
