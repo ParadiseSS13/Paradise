@@ -22,12 +22,10 @@
 	for(var/mob/living/player in GLOB.mob_list)
 		if(player.mind && player.stat != DEAD)
 			crew_count++
-			if(!player.mind)
-				continue
 			if(player.mind.special_role)
 				antag_count++
 				continue
-	max_antag = round(crew_count / 10) + 1
+	max_antag = round(crew_count / 10, 1) + 1
 
 /datum/event/tourist_arrivals/start()
 	// Let's just avoid trouble, sending people into those is probably bad.
@@ -63,15 +61,13 @@
 			continue
 		var/mob/living/carbon/human/M = new T.tourist_species(picked_loc)
 		// Picking a random objective, as all objectives are a subtype of /objective/tourist.
-		var/obj_tourist = pick(subtypesof(/datum/objective/tourist/))
+		var/obj_tourist = pick(subtypesof(/datum/objective/tourist))
 		var/datum/objective/tourist/O = new obj_tourist()
 		// Handles outfit, account and other stuff.
 		M.ckey = P.ckey
 		M.dna.species.after_equip_job(null, M)
 		M.age = rand(21, 50)
 		if(prob(50))
-			M.change_gender(MALE)
-		else
 			M.change_gender(FEMALE)
 		set_appearance(M)
 		GLOB.data_core.manifest_inject(M)
