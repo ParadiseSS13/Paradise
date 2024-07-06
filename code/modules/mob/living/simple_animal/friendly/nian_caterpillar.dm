@@ -32,8 +32,8 @@
 	response_disarm = "shoos"
 	response_harm   = "kicks"
 
-	// Xenobiology and cargo are the only ways to get the caterpillar.
-	gold_core_spawnable = FRIENDLY_SPAWN
+	// Cargo is the only way to get the caterpillar. Do not add them to gold cores, they are banned because of xenobio cult shenanigans.
+	gold_core_spawnable = NO_SPAWN
 
 	melee_damage_lower = 5
 	melee_damage_upper = 8
