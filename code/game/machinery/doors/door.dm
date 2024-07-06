@@ -495,11 +495,11 @@
 	return
 
 /obj/machinery/door/proc/hostile_lockdown(mob/origin)
-	if(stat == CONSCIOUS) //So that only powered doors are closed.
+	if(!stat) //So that only powered doors are closed.
 		close() //Close ALL the doors!
 
 /obj/machinery/door/proc/disable_lockdown()
-	if(stat == CONSCIOUS) //Opens only powered doors.
+	if(!stat) //Opens only powered doors.
 		open() //Open everything!
 
 /obj/machinery/door/GetExplosionBlock()
