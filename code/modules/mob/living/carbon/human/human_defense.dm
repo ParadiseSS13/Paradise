@@ -503,7 +503,7 @@ emp_act
 		return FALSE
 
 	if(!I.force)
-		return TRUE //item force is zero, it deals no damage, we do not apply damage
+		return TRUE // item force is zero, it deals no damage, we do not apply damage
 
 	var/weapon_sharp = I.sharp
 	// do not roll for random blunt if the target mob is dead for the ease of decaps
