@@ -248,10 +248,10 @@
 	},
 /area/station/hallway/primary/central)
 "adt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "adu" = (
@@ -4316,7 +4316,6 @@
 /obj/structure/rack,
 /obj/item/flashlight,
 /obj/item/crowbar,
-/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "aub" = (
@@ -4344,7 +4343,6 @@
 	pixel_y = 5
 	},
 /obj/item/stack/cable_coil/random,
-/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "auh" = (
@@ -9661,6 +9659,7 @@
 	dir = 2
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/incinerator)
 "aIv" = (
@@ -9735,7 +9734,6 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "aID" = (
@@ -9770,17 +9768,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
-"aIG" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/controlroom)
 "aIH" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -9794,15 +9781,6 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/engine,
-/area/station/engineering/controlroom)
-"aII" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "aIM" = (
@@ -10114,7 +10092,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/incinerator)
@@ -10755,13 +10733,13 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aLo" = (
@@ -10773,13 +10751,13 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aLq" = (
@@ -10812,9 +10790,6 @@
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/multitool,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aLw" = (
@@ -10827,7 +10802,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aLx" = (
@@ -11148,17 +11123,14 @@
 	name = "east bump";
 	pixel_x = 30
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 30
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/machinery/power/smes,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "aMz" = (
@@ -11240,9 +11212,9 @@
 /area/station/engineering/controlroom)
 "aMM" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aMO" = (
@@ -11270,9 +11242,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aMR" = (
@@ -11301,6 +11273,7 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "aMU" = (
@@ -11312,6 +11285,9 @@
 /obj/machinery/power/smes,
 /obj/structure/sign/electricshock{
 	pixel_x = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
@@ -12251,10 +12227,6 @@
 "aPH" = (
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
-"aPI" = (
-/obj/item/kirbyplants,
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/atmos)
 "aPJ" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -12895,16 +12867,17 @@
 /obj/item/stack/sheet/rglass{
 	amount = 50
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
 	},
 /area/station/engineering/atmos)
 "aRi" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "aRj" = (
 /turf/simulated/floor/plasteel/grimy,
@@ -13340,9 +13313,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -13369,9 +13339,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "aSI" = (
@@ -13383,23 +13350,12 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos)
-"aSJ" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "aSK" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "aSL" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -14091,15 +14047,15 @@
 /area/station/engineering/atmos)
 "aUg" = (
 /obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8;
 	name = "Air to Pure";
 	target_pressure = 101
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -14297,9 +14253,9 @@
 /area/station/service/bar)
 "aUM" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "aUN" = (
@@ -57089,7 +57045,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "dlV" = (
@@ -74532,7 +74487,6 @@
 	name = "Turbine Generator Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "jMD" = (
@@ -84075,7 +84029,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "pmX" = (
@@ -86241,7 +86194,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "qDL" = (
@@ -88776,7 +88728,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "rYe" = (
@@ -97344,6 +97295,10 @@
 	icon_state = "showroomfloor"
 	},
 /area/station/medical/surgery)
+"wNr" = (
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/controlroom)
 "wNJ" = (
 /obj/structure/table/reinforced,
 /obj/item/tank/jetpack/carbondioxide{
@@ -98635,9 +98590,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "xBR" = (
@@ -124857,7 +124812,7 @@ aub
 jee
 aub
 aua
-atd
+auG
 avz
 awI
 wSK
@@ -125885,7 +125840,7 @@ nvp
 aub
 aub
 aue
-auG
+atd
 xXW
 sAR
 axO
@@ -126155,7 +126110,7 @@ aEh
 aFh
 aJs
 aHh
-aIG
+aID
 aJV
 aLs
 aMP
@@ -126669,7 +126624,7 @@ aEi
 qgC
 aFY
 xVK
-aII
+aID
 lZR
 aLu
 aMR
@@ -126912,8 +126867,8 @@ aub
 aub
 aub
 aub
-aub
-auG
+wNr
+atd
 xXW
 sAR
 axS
@@ -127447,7 +127402,7 @@ aMS
 aOg
 aPH
 aRh
-aSJ
+aSD
 aUf
 aVP
 aXu
@@ -127702,7 +127657,7 @@ rtU
 aLw
 aMT
 wjY
-aPH
+aRi
 aRi
 aSK
 aUg
@@ -127941,7 +127896,7 @@ aub
 eEh
 wUc
 aug
-atd
+auG
 xhh
 tAy
 fgm
@@ -127959,7 +127914,7 @@ auK
 aMx
 aMU
 aOg
-aPI
+aQZ
 aPH
 aSL
 aUh
