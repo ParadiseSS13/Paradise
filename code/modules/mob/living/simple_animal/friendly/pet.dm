@@ -9,7 +9,7 @@
 
 /mob/living/simple_animal/pet/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/newspaper))
-		if(!stat)
+		if(stat == CONSCIOUS)
 			user.visible_message("<span class='notice'>[user] baps [name] on the nose with the rolled up [O].</span>")
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2))

@@ -522,7 +522,7 @@
 	return
 
 /obj/machinery/emp_act(severity)
-	if(power_state && !stat)
+	if(power_state && stat == CONSCIOUS)
 		use_power(7500/severity)
 		. = TRUE
 	..()

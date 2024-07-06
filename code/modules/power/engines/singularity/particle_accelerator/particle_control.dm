@@ -119,11 +119,11 @@
 	if(stat & NOPOWER)
 		active = FALSE
 		change_power_mode(NO_POWER_USE)
-	else if(!stat && construction_state <= 3)
+	else if(stat == CONSCIOUS && construction_state <= 3)
 		change_power_mode(IDLE_POWER_USE)
 	update_icon()
 
-	if((stat & NOPOWER) || (!stat && construction_state <= 3)) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
+	if((stat & NOPOWER) || (stat == CONSCIOUS && construction_state <= 3)) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
 			part.powered = FALSE
