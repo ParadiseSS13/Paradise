@@ -94,7 +94,7 @@
 	return active * 3500
 
 /obj/item/melee/energy/proc/try_sharpen(obj/item/item, amount, max_amount)
-	if(force_on > initial(force_on) || force_on > max_amount)
+	if(force_on > initial(force_on) || force_on >= max_amount)
 		return COMPONENT_BLOCK_SHARPEN_MAXED
 	throwforce_on = clamp(throwforce_on + amount, 0, max_amount)
 	throwforce_off = clamp(throwforce_off + amount, 0, max_amount)
