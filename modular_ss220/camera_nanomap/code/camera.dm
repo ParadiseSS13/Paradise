@@ -19,7 +19,13 @@
 		// Register map objects
 		user.client.register_map_obj(cam_screen)
 		for(var/plane in cam_plane_masters)
-			user.client.register_map_obj(plane)
+			var/atom/movable/screen/plane_master/instance = new plane()
+			instance.assigned_map = map_name
+			instance.del_on_map_removal = FALSE
+			instance.screen_loc = "[map_name]:CENTER"
+			instance.backdrop(user)
+
+			user.client.register_map_obj(instance)
 		user.client.register_map_obj(cam_background)
 		// Open UI
 		ui = new(user, src, "CameraConsole220", name)
