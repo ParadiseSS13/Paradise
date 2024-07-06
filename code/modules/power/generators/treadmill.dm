@@ -85,7 +85,7 @@
 	update_icon()
 
 /obj/machinery/power/treadmill/proc/get_power_output()
-	if(speed && stat == CONSCIOUS && anchored && powernet)
+	if(speed && !stat && anchored && powernet)
 		return power_gen * speed / MAX_SPEED
 	return 0
 
