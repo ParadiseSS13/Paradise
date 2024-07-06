@@ -583,9 +583,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	plant.reagents.trans_to(custom_rollie, custom_rollie.reagents.total_volume)
 	custom_rollie.smoketime = custom_rollie.reagents.total_volume * 2.5
 
-	user.put_in_active_hand(R)
+	user.put_in_active_hand(custom_rollie)
 	to_chat(user, "<span class='notice'>You roll the [plant.name] into a rolling paper.</span>")
-	R.desc = "Dried [plant.name] rolled up in a thin piece of paper."
+	custom_rollie.desc = "Dried [plant.name] rolled up in a thin piece of paper."
 
 	qdel(plant)
 	qdel(src)
