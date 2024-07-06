@@ -295,16 +295,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/shadyjims
 	list_reagents = list("nicotine" = 40, "lipolicide" = 7.5, "ammonia" = 2, "atrazine" = 1, "toxin" = 1.5)
 
-/obj/item/clothing/mask/cigarette/midori
-	name = "rollie"
-	desc = "A roll of dried nicotine wrapped in foreign paper."
-	icon_state = "spliffoff"
-	icon_on = "spliffon"
-	icon_off = "spliffoff"
-	type_butt = /obj/item/cigbutt // Not a roach, since the roach implies this was a weed cigarette
-	item_state = "spliffoff"
-	list_reagents = list("nicotine" = 40)
-
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"
 	desc = "A roll of dried plant matter wrapped in thin paper."
