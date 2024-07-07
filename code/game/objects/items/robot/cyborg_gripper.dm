@@ -22,6 +22,8 @@
 	var/list/can_hold = list()
 	/// Set to TRUE to allow ANY item to be held, bypassing can_hold checks.
 	var/can_hold_all_items = FALSE
+	/// Set to TRUE to allow the gripper to shake people awake and help them up.
+	var/can_help_up = FALSE
 	/// The item currently being held.
 	var/obj/item/gripped_item
 
@@ -162,7 +164,7 @@
 		return
 
 	// If a human target is horizonal, try to help them up. Unless you're trying to kill them.
-	if(ishuman(M) && user.a_intent == INTENT_HELP)
+	if(ishuman(M) && user.a_intent == INTENT_HELP && can_help_up)
 		var/mob/living/carbon/human/pickup_target = M
 		if(IS_HORIZONTAL(pickup_target))
 			// Same restorative effects as when a human tries to help someone up.
@@ -289,6 +291,7 @@
 	desc = "A grasping tool for cyborgs. This one is not restricted by any restraining software, allowing it to handle any object the user wishes."
 	// It's UNIVERSAL so it has all functions enabled.
 	engineering_machine_interaction = TRUE
+	can_help_up = TRUE
 	can_hold_all_items = TRUE
 
 ////////////////////////////////
@@ -300,6 +303,7 @@
 	name = "medical gripper"
 	desc = "A grasping tool for cyborgs. This one is covered with hygenic medical-grade silicone rubber. \
 	Use it to help patients up once surgery is complete, or to substitute for hands in surgical operations."
+	can_help_up = TRUE
 	// REMOVE actions_types from here if you add a can_hold list for this gripper!
 	actions_types = list()
 
@@ -311,6 +315,7 @@
 	name = "service gripper"
 	desc = "A grasping tool for cyborgs. This version is made from hygenic easy-clean material. Maybe some day you'll be able to grab food with it..."
 	// For waking up drunkards.
+	can_help_up = TRUE
 	// Everything in this list is currently for either playing games or otherwise assisting the crew in mundane, non-impactful ways.
 	can_hold = list(
 		/obj/item/deck,
