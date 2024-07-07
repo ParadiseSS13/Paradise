@@ -294,13 +294,13 @@
 	info = {"Everything went batshit insane, at first we all thought it was a terrorist attack or something...
 	All floors were put into lockdown, then shortly after all communication across the facility went black.<br>
 	<br>
-	Guards never told us anything about what's going on but the fear in their eyes was all there to be seen.<br>
+	Guards never said what happened but the fear in their eyes told us everything.<br>
 	<br>
-	Our colleagues, friends and other folks started arguing, hurting then killing each other in time. Me and four other managed to isolate ourselves in cafeteria.<br>
+	Our colleagues, friends and other folks started arguing, hurting then killing each other in time. Me and four others managed to isolate ourselves in the cafeteria.<br>
 	<br>
-	We have enough supply to last a few weeks here, should be enough until reinforcements arrive, right?"<br>
+	We have enough supplies to last a few weeks here, should be enough until reinforcements arrive, right?"<br>
 	<br>
-	If it won't, then god forsake what might happen to us... I can't wait to see you again.<br>
+	If it won't, then god help us... I can't wait to see you again.<br>
 	<br>
 	Sincerely yours..."}
 
