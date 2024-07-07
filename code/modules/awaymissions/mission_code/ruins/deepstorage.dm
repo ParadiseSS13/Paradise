@@ -251,7 +251,7 @@
 	density = TRUE
 	anchored = TRUE
 
-	// how many portals are present right now?
+	/// How many portals are present right now?
 	var/active_portals = 0
 	// do user has the tgui menu open right now?
 	var/menu_open = FALSE
