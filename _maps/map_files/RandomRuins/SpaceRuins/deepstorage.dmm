@@ -5217,10 +5217,6 @@
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
-"FZ" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/floor/chasm,
-/area/ruin/space/deepstorage)
 "Gb" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/blob/normal/deepstorage,
@@ -13188,7 +13184,7 @@ mC
 Fk
 Fk
 Fk
-FZ
+Wn
 mG
 aK
 Lq
@@ -13256,8 +13252,8 @@ Fk
 Fk
 Fk
 Fk
-FZ
-FZ
+Wn
+Wn
 PF
 aK
 cj
