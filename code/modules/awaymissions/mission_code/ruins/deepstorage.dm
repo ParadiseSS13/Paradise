@@ -335,14 +335,14 @@
 
 /obj/item/paper/fluff/ruins/deepstorage/log5
 	name = "subject: my concerns"
-	info = {"First of all i appreciate the good initative on cutting off comms, although i am sure there are some rats listening the private frequency.
-	Unless you desire my floor to embrace a chaos, i suggest you to keep quiet in there.<br>
+	info = {"First of all, I appreciate your initiative in cutting off comms, although I'm sure there are some rats listening on the private frequency.
+	Unless you want a riot on your hands, I suggest keeping quiet in there.<br>
 	<br>
-	Off to the matter, we have been working on the sample tissue you have sent non-stop for days by now. In my proficiency one might assume they saw all
-	bio-abominations there is to be seen. I never seen anything like this, because it's not a virus or disease or anything that you claim to be.<br>
+	Getting down to business: we have been working on the sample tissues you've been sending non-stop. In my expert opinion, I don't think there's a single
+	bio-abomination we haven't discovered. I've never seen anything like this. It's nothing like a virus or disease you might be familiar with.<br>
 	<br>
-	Yes, it's contagious and i don't think it's limited with physical contact. We have been burning the corpses, there's still more to burn.
-	This will not end well, i advise evacuating workers to a more suitable quarantine zone before things goes out of hand."}
+	Yes, it's contagious, and I don't think it's limited to physical contact. We have been burning the corpses; there's still more to burn.
+	This will not end well. I advise evacuating workers to a more suitable quarantine zone before things get out of hand."}
 
 /obj/item/paper/fluff/ruins/deepstorage/log6
 	name = "warning"
