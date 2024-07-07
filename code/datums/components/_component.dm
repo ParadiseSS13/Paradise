@@ -349,11 +349,11 @@
 	var/list/all_components = datum_components
 	if(!all_components)
 		return null
-	var/datum/component/C
+	var/datum/component/potential_component
 	if(length(all_components))
-		C = all_components[c_type]
-	if(C?.type == c_type)
-		return C
+		potential_component = all_components[c_type]
+	if(potential_component?.type == c_type)
+		return potential_component
 	return null
 
 /**
