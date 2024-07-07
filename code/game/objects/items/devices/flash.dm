@@ -27,6 +27,9 @@
 	var/max_uses = 5
 	/// A reference to the timer used to recharge. If we use it while it's on cooldown, we reset the cooling
 	var/flash_timer
+	/// How long do we have between flashes
+	var/time_between_flashes = 5 SECONDS
+
 	var/use_sound = 'sound/weapons/flash.ogg'
 
 	COOLDOWN_DECLARE(flash_cooldown)
@@ -72,7 +75,7 @@
 		return FALSE
 
 	. = TRUE
-	COOLDOWN_START(src, flash_cooldown, 5 SECONDS)
+	COOLDOWN_START(src, flash_cooldown, time_between_flashes)
 	if(!flash_timer)
 		flash_timer = addtimer(CALLBACK(src, PROC_REF(flash_recharge)), 10 SECONDS, TIMER_STOPPABLE)
 	else
@@ -271,6 +274,7 @@
 /obj/item/flash/armimplant
 	name = "photon projector"
 	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
+	time_between_flashes = 2 SECONDS
 	var/obj/item/organ/internal/cyberimp/arm/implant
 
 /obj/item/flash/armimplant/burn_out()
