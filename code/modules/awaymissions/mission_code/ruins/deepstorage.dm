@@ -261,7 +261,7 @@
 		return
 	menu_open = TRUE
 	var/list/boss_warning = list("Proceed" = TRUE)
-	var/final_decision = tgui_input_list(user, "Just a hunch but wherever this machine may lead, it won't be somewhere so pleasant. Are you sure about this?", "Make your decision", boss_warning)
+	var/final_decision = tgui_input_list(user, "Just a hunch but wherever this machine may lead, it won't be somewhere pleasant. Are you sure about this?", "Make your decision", boss_warning)
 	if(!final_decision)
 		to_chat(user, "<span class='notice'>The teleporter machine remains untouched.</span>")
 		menu_open = FALSE
