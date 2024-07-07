@@ -21,7 +21,7 @@
 	pull_force = MOVE_FORCE_VERY_STRONG
 	sentience_type = SENTIENCE_BOSS
 	a_intent = INTENT_HARM
-	deathmessage = "collapses into a pile of gib, from the looks of it this is the deadest it can get... "
+	deathmessage = "collapses into a pile of gibs. From the looks of it this is the deadest it can get... "
 	del_on_death = TRUE
 	death_sound = 'sound/misc/demon_dies.ogg'
 	attack_sound = 'sound/misc/demon_attack1.ogg'
