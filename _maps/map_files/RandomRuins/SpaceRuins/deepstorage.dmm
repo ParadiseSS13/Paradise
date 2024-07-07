@@ -1,8 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aa" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/chasm/space_ruin,
-/area/ruin/space/powered)
 "ab" = (
 /turf/simulated/mineral/random/low_chance,
 /area/ruin/space/unpowered)
@@ -894,8 +890,7 @@
 "cY" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/ruin/space/deepstorage)
 "cZ" = (
@@ -1056,7 +1051,6 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/deepstorage)
 "et" = (
-/obj/structure/window/reinforced/polarized,
 /obj/structure/table/tray,
 /obj/item/scalpel{
 	pixel_y = 16
@@ -1068,6 +1062,7 @@
 	pixel_y = 1;
 	pixel_x = 8
 	},
+/obj/structure/window/reinforced/tinted,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "eu" = (
@@ -1609,8 +1604,8 @@
 	},
 /area/ruin/space/deepstorage)
 "im" = (
-/obj/structure/window/reinforced/polarized,
 /obj/structure/filingcabinet/chestdrawer,
+/obj/structure/window/reinforced/tinted,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "iq" = (
@@ -2906,15 +2901,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lowpressure,
 /area/ruin/space/deepstorage)
-"qX" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
-	},
-/area/ruin/space/deepstorage)
 "qZ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -3784,15 +3770,15 @@
 	},
 /area/ruin/space/deepstorage)
 "wp" = (
-/obj/structure/window/reinforced/polarized{
-	dir = 8
-	},
 /obj/structure/table/reinforced,
 /obj/item/radio{
 	pixel_y = 4;
 	pixel_x = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -4131,7 +4117,7 @@
 /area/ruin/space/unpowered)
 "yY" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 8
 	},
 /turf/simulated/floor/chasm/space_ruin,
 /area/ruin/space/powered)
@@ -4179,7 +4165,7 @@
 /area/ruin/space/deepstorage)
 "zk" = (
 /obj/machinery/light/small{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/chasm/space_ruin,
 /area/ruin/space/powered)
@@ -4332,10 +4318,10 @@
 	},
 /area/ruin/space/deepstorage)
 "Aj" = (
-/obj/structure/window/reinforced/polarized{
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
-/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -4842,9 +4828,9 @@
 /obj/structure/railing{
 	dir = 10
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/ruin/space/deepstorage)
 "Dc" = (
@@ -5086,8 +5072,7 @@
 "Ez" = (
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/ruin/space/deepstorage)
 "EA" = (
@@ -6078,6 +6063,10 @@
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
+"MS" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/chasm/space_ruin,
+/area/ruin/space/powered)
 "MU" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/catwalk,
@@ -6934,7 +6923,6 @@
 	},
 /area/ruin/space/deepstorage)
 "Tl" = (
-/obj/structure/window/reinforced/polarized,
 /obj/structure/table,
 /obj/item/restraints/handcuffs/cable/zipties{
 	pixel_y = 6
@@ -6943,6 +6931,7 @@
 	pixel_y = 4;
 	pixel_x = 8
 	},
+/obj/structure/window/reinforced/tinted,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
 "Tn" = (
@@ -7405,8 +7394,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/ruin/space/deepstorage)
 "Wn" = (
@@ -7634,13 +7622,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/deepstorage)
-"XB" = (
-/obj/item/kirbyplants/plant29,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
-	},
-/area/ruin/space/deepstorage)
 "XD" = (
 /obj/structure/railing{
 	dir = 8
@@ -7747,8 +7728,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/ruin/space/deepstorage)
 "Yk" = (
@@ -10294,7 +10274,7 @@ Fk
 Fk
 Fk
 Fk
-aa
+MS
 sk
 rj
 Ol
@@ -10357,7 +10337,7 @@ QF
 jB
 sk
 sk
-yY
+zk
 Fk
 Fk
 Fk
@@ -10701,14 +10681,14 @@ qD
 bU
 xr
 sk
-yY
+zk
 Fk
 Fk
 Fk
 Fk
 Fk
 Fk
-aa
+MS
 sk
 sk
 Tg
@@ -10764,7 +10744,7 @@ ab
 ab
 sk
 sk
-yY
+zk
 Fk
 jO
 bU
@@ -11178,7 +11158,7 @@ qn
 qn
 sk
 sk
-yY
+zk
 Fk
 Fk
 Qx
@@ -11386,7 +11366,7 @@ ab
 ab
 ab
 sk
-yY
+zk
 Fk
 Xp
 bU
@@ -13118,7 +13098,7 @@ sk
 sk
 sk
 Fk
-zk
+yY
 sk
 jB
 Ds
@@ -13267,7 +13247,7 @@ LA
 Fi
 NI
 LA
-LA
+Fi
 Fi
 cY
 Fk
@@ -13346,7 +13326,7 @@ Fk
 Fk
 Fk
 Wl
-qX
+uV
 vM
 aK
 xS
@@ -13407,7 +13387,7 @@ Fk
 jB
 jB
 Ez
-LA
+Fi
 Sv
 oI
 KY
@@ -13415,7 +13395,7 @@ II
 oI
 oI
 Sy
-LA
+wh
 jB
 jB
 jB
@@ -13476,7 +13456,7 @@ Fk
 Fk
 bK
 bK
-XB
+Pq
 uR
 qK
 jM
