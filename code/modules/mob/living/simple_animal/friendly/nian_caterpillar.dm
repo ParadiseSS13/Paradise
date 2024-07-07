@@ -83,6 +83,8 @@
 
 	// Mind transfer to new worme.
 	M.transfer_to(adult)
+	// Doesn't allow cult or vampires to benefit from them fully, similar to "TRAIT_HOLY".
+	ADD_TRAIT(adult.mind, TRAIT_ENLIGHTENED_HUMAN, ROUNDSTART_TRAIT)
 
 	// Worme is placed into cacoon.
 	adult.forceMove(C)

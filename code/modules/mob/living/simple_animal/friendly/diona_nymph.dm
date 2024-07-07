@@ -205,6 +205,8 @@
 	adult.real_name = adult.name
 	adult.ckey = ckey
 	adult.real_name = adult.dna.species.get_random_name()	//I hate this being here of all places but unfortunately dna is based on real_name!
+	// Doesn't allow cult or vampires to benefit from them fully, similar to "TRAIT_HOLY".
+	ADD_TRAIT(adult.mind, TRAIT_ENLIGHTENED_HUMAN, ROUNDSTART_TRAIT)
 
 	for(var/obj/item/W in contents)
 		unEquip(W)
