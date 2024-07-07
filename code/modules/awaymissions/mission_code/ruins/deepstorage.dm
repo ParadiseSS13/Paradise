@@ -253,7 +253,7 @@
 
 	/// How many portals are present right now?
 	var/active_portals = 0
-	// do user has the tgui menu open right now?
+	/// Does user have the TGUI menu open right now?
 	var/menu_open = FALSE
 
 /obj/machinery/deepstorage_teleporter/attack_hand(mob/user)
