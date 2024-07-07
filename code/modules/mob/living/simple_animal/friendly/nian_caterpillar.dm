@@ -45,7 +45,7 @@
 
 	/// Evolution action.
 	var/datum/action/innate/nian_caterpillar_emerge/evolve_action = new()
-	/// The amount of nutrition the nian caterpillar needs to evolve.
+	/// The amount of nutrition the nian caterpillar needs to evolve, default is 500.
 	var/nutrition_need = 500
 
 /mob/living/simple_animal/nian_caterpillar/Initialize()
@@ -63,6 +63,9 @@
 	if((nutrition < nutrition_need) && !IS_CHANGELING(M))
 		to_chat(src, "<span class='warning'>You need to binge on food in order to have the energy to evolve...</span>")
 		return
+
+	if(master_commander)
+		to_chat(src, "<span class='userdanger'>As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!</span>")
 
 	// Worme is the lesser form of nian. The caterpillar evolves into this lesser form.
 	var/mob/living/carbon/human/nian_worme/adult = new(get_turf(loc))
@@ -128,8 +131,8 @@
 /datum/action/innate/nian_caterpillar_emerge
 	name = "Evolve"
 	desc = "Weave a cocoon around yourself to evolve into a greater form. The worme."
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "cocoon1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "cocoon1"
 
 /datum/action/innate/nian_caterpillar_emerge/proc/emerge(obj/structure/moth/cocoon/C)
 	for(var/mob/living/carbon/human/H in C)

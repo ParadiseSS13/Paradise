@@ -313,7 +313,7 @@
 /obj/machinery/clonepod/proc/create_clone()
 	clone = new /mob/living/carbon/human(src, patient_data.genetic_info.species.type)
 
-	clone.change_dna(patient_data.genetic_info, FALSE, TRUE)
+	clone.change_dna(patient_data.genetic_info, FALSE)
 
 	for(var/obj/item/organ/external/limb in clone.bodyparts)
 		if(!(limb.limb_name in limbs_to_grow)) //if the limb was determined to be vital

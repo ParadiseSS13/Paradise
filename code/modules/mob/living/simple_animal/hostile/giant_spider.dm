@@ -163,8 +163,8 @@
 
 /datum/action/innate/web_giant_spider
 	name = "Lay Web"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "stickyweb1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "stickyweb1"
 
 /datum/action/innate/web_giant_spider/Activate()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/user = owner
@@ -172,8 +172,8 @@
 
 /datum/action/innate/wrap_giant_spider
 	name = "Wrap"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "cocoon_large1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "cocoon_large1"
 
 /datum/action/innate/wrap_giant_spider/Activate()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/user = owner
@@ -181,8 +181,8 @@
 
 /datum/action/innate/lay_eggs_giant_spider
 	name = "Lay Eggs"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "eggs"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "eggs"
 
 /datum/action/innate/lay_eggs_giant_spider/Activate()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/user = owner

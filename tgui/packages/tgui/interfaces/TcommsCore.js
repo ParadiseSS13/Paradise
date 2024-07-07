@@ -1,13 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Box,
-  Section,
-  NoticeBox,
-  Tabs,
-  Table,
-} from '../components';
+import { Button, LabeledList, Box, Section, NoticeBox, Tabs, Table } from '../components';
 import { Window } from '../layouts';
 
 export const TcommsCore = (props, context) => {
@@ -33,28 +25,13 @@ export const TcommsCore = (props, context) => {
       <Window.Content scrollable>
         {ion === 1 && <IonBanner />}
         <Tabs>
-          <Tabs.Tab
-            key="ConfigPage"
-            icon="wrench"
-            selected={tabIndex === 0}
-            onClick={() => setTabIndex(0)}
-          >
+          <Tabs.Tab key="ConfigPage" icon="wrench" selected={tabIndex === 0} onClick={() => setTabIndex(0)}>
             Configuration
           </Tabs.Tab>
-          <Tabs.Tab
-            key="LinkagePage"
-            icon="link"
-            selected={tabIndex === 1}
-            onClick={() => setTabIndex(1)}
-          >
+          <Tabs.Tab key="LinkagePage" icon="link" selected={tabIndex === 1} onClick={() => setTabIndex(1)}>
             Device Linkage
           </Tabs.Tab>
-          <Tabs.Tab
-            key="FilterPage"
-            icon="user-times"
-            selected={tabIndex === 2}
-            onClick={() => setTabIndex(2)}
-          >
+          <Tabs.Tab key="FilterPage" icon="user-times" selected={tabIndex === 2} onClick={() => setTabIndex(2)}>
             User Filtering
           </Tabs.Tab>
         </Tabs>
@@ -70,8 +47,7 @@ const IonBanner = () => {
   // the 80 char line limit
   return (
     <NoticeBox>
-      ERROR: An Ionospheric overload has occured. Please wait for the machine to
-      reboot. This cannot be manually done.
+      ERROR: An Ionospheric overload has occured. Please wait for the machine to reboot. This cannot be manually done.
     </NoticeBox>
   );
 };
@@ -101,9 +77,7 @@ const ConfigPage = (_properties, context) => {
               onClick={() => act('toggle_active')}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Sector Coverage">
-            {sectors_available}
-          </LabeledList.Item>
+          <LabeledList.Item label="Sector Coverage">{sectors_available}</LabeledList.Item>
         </LabeledList>
       </Section>
 
@@ -148,9 +122,7 @@ const ConfigPage = (_properties, context) => {
         <LabeledList>
           <LabeledList.Item label="Job Announcement Format">
             <Button
-              content={
-                nttc_job_indicator_type ? nttc_job_indicator_type : 'Unset'
-              }
+              content={nttc_job_indicator_type ? nttc_job_indicator_type : 'Unset'}
               selected={nttc_job_indicator_type}
               icon="pencil-alt"
               onClick={() => act('nttc_job_indicator_type')}
@@ -176,16 +148,8 @@ const ConfigPage = (_properties, context) => {
       </Section>
 
       <Section title="Maintenance">
-        <Button
-          content="Import Configuration"
-          icon="file-import"
-          onClick={() => act('import')}
-        />
-        <Button
-          content="Export Configuration"
-          icon="file-export"
-          onClick={() => act('export')}
-        />
+        <Button content="Import Configuration" icon="file-import" onClick={() => act('import')} />
+        <Button content="Export Configuration" icon="file-export" onClick={() => act('export')} />
       </Section>
     </>
   );
@@ -220,13 +184,7 @@ const LinkagePage = (_properties, context) => {
             <Table.Cell>{r.addr}</Table.Cell>
             <Table.Cell>{r.net_id}</Table.Cell>
             <Table.Cell>{r.sector}</Table.Cell>
-            <Table.Cell>
-              {r.status === 1 ? (
-                <Box color="green">Online</Box>
-              ) : (
-                <Box color="red">Offline</Box>
-              )}
-            </Table.Cell>
+            <Table.Cell>{r.status === 1 ? <Box color="green">Online</Box> : <Box color="red">Offline</Box>}</Table.Cell>
             <Table.Cell>
               <Button
                 content="Unlink"
@@ -251,13 +209,7 @@ const FilteringPage = (_properties, context) => {
   return (
     <Section
       title="User Filtering"
-      buttons={
-        <Button
-          content="Add User"
-          icon="user-plus"
-          onClick={() => act('add_filter')}
-        />
-      }
+      buttons={<Button content="Add User" icon="user-plus" onClick={() => act('add_filter')} />}
     >
       <Table m="0.5rem">
         <Table.Row header>

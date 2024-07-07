@@ -17,6 +17,8 @@
 
 	var/list/blood_DNA
 	var/blood_color
+	/// Will the atom spread blood when touched?
+	var/should_spread_blood = FALSE
 	var/pass_flags = 0
 	/// The higher the germ level, the more germ on the atom.
 	var/germ_level = GERM_LEVEL_AMBIENT
@@ -102,6 +104,17 @@
 	var/tmp/datum/light_source/light
 	// Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
 	var/tmp/list/light_sources
+	// Variables for bloom and exposure
+	var/glow_icon = 'icons/obj/lamps.dmi'
+	var/exposure_icon = 'icons/effects/exposures.dmi'
+	
+	var/glow_icon_state
+	var/glow_colored = TRUE
+	var/exposure_icon_state
+	var/exposure_colored = TRUE
+	
+	var/image/glow_overlay
+	var/image/exposure_overlay
 	/// The alternate appearances we own. Lazylist
 	var/list/alternate_appearances
 	/// The alternate appearances we're viewing, stored here to reestablish them after Logout()s. Lazylist
@@ -447,8 +460,8 @@
 /atom/proc/examine_more(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
-
-	return list()
+	. = list()
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
 
 /**
  * Updates the appearence of the icon
@@ -605,9 +618,10 @@
 	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
 	return FALSE
 
-/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
-		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
+/atom/proc/hitby(atom/movable/hitting_atom, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, hitting_atom, skipcatch, hitpush, blocked, throwingdatum)
+	if(density && !has_gravity(hitting_atom)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+		addtimer(CALLBACK(src, PROC_REF(hitby_react), hitting_atom), 2)
 
 /// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
 /atom/proc/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
@@ -778,7 +792,6 @@
 				if(fingerprintslast != H.ckey)
 					fingerprintshidden += "\[[all_timestamps()]\] (Wearing gloves). Real name: [H.real_name], Key: [H.key]"
 					fingerprintslast = H.ckey
-				H.gloves.add_fingerprint(M)
 				return FALSE
 
 		//More adminstuffz
@@ -895,12 +908,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/add_blood(list/blood_dna, b_color)
 	return FALSE
 
-/obj/add_blood(list/blood_dna, b_color)
-	return transfer_blood_dna(blood_dna)
-
 /obj/item/add_blood(list/blood_dna, b_color)
+	if(isnull(b_color))
+		b_color = "#A10808"
 	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
-	if(!..())
+	if(!transfer_blood_dna(blood_dna))
 		return FALSE
 	blood_color = b_color // update the blood color
 	if(!blood_count) //apply the blood-splatter overlay if it isn't already in there
@@ -912,6 +924,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	transfer_blood = rand(2, 4)
 
 /turf/add_blood(list/blood_dna, b_color)
+	if(isnull(b_color))
+		b_color = "#A10808"
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
@@ -1393,3 +1407,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/mouseparams = list2params(paramslist)
 		usr_client.Click(src, loc, null, mouseparams)
 		return TRUE
+
+/**
+ * A special case of relaymove() in which the person relaying the move may be "driving" this atom
+ *
+ * This is a special case for vehicles and ridden animals where the relayed movement may be handled
+ * by the riding component attached to this atom. Returns TRUE as long as there's nothing blocking
+ * the movement, or FALSE if the signal gets a reply that specifically blocks the movement
+ */
+/atom/proc/relaydrive(mob/living/user, direction)
+	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)

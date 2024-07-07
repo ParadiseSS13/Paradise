@@ -10672,7 +10672,7 @@
 	},
 /area/ghost_bar)
 "LH" = (
-/obj/machinery/economy/vending/cigarette/free,
+/obj/machinery/economy/vending/cigarette/beach/centcomm,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"

@@ -72,8 +72,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_WARNING,
     name: 'Warnings',
     description: 'Urgent messages from the game and items',
-    selector:
-      '.warning:not(.pm), .critical, .userdanger, .italics, .boldannounceic, .boldwarning',
+    selector: '.warning:not(.pm), .critical, .userdanger, .italics, .boldannounceic, .boldwarning',
   },
   {
     type: MESSAGE_TYPE_DEADCHAT,

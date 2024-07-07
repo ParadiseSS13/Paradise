@@ -1,14 +1,6 @@
 import { sortBy } from 'common/collections';
 import { useLocalState } from '../../backend';
-import {
-  Box,
-  Button,
-  Stack,
-  LabeledList,
-  Section,
-  Tabs,
-  Divider,
-} from '../../components';
+import { Box, Button, Stack, LabeledList, Section, Tabs, Divider } from '../../components';
 
 const diffMap = {
   0: {
@@ -39,17 +31,9 @@ export const AccessList = (props, context) => {
     grantDep,
     denyDep,
   } = props;
-  const [selectedAccessName, setSelectedAccessName] = useLocalState(
-    context,
-    'accessName',
-    accesses[0]?.name
-  );
-  const selectedAccess = accesses.find(
-    (access) => access.name === selectedAccessName
-  );
-  const selectedAccessEntries = sortBy((entry) => entry.desc)(
-    selectedAccess?.accesses || []
-  );
+  const [selectedAccessName, setSelectedAccessName] = useLocalState(context, 'accessName', accesses[0]?.name);
+  const selectedAccess = accesses.find((access) => access.name === selectedAccessName);
+  const selectedAccessEntries = sortBy((entry) => entry.desc)(selectedAccess?.accesses || []);
 
   const checkAccessIcon = (accesses) => {
     let oneAccess = false;
@@ -77,18 +61,8 @@ export const AccessList = (props, context) => {
       title="Access"
       buttons={
         <>
-          <Button
-            icon="check-double"
-            content="Select All"
-            color="good"
-            onClick={() => grantAll()}
-          />
-          <Button
-            icon="undo"
-            content="Deselect All"
-            color="bad"
-            onClick={() => denyAll()}
-          />
+          <Button icon="check-double" content="Select All" color="good" onClick={() => grantAll()} />
+          <Button icon="undo" content="Deselect All" color="bad" onClick={() => denyAll()} />
           {sectionButtons}
         </>
       }
@@ -142,9 +116,7 @@ export const AccessList = (props, context) => {
           {!!usedByRcd && (
             <Box my={1.5}>
               <LabeledList>
-                <LabeledList.Item label="Require">
-                  {rcdButtons}
-                </LabeledList.Item>
+                <LabeledList.Item label="Require">{rcdButtons}</LabeledList.Item>
               </LabeledList>
             </Box>
           )}
@@ -154,9 +126,7 @@ export const AccessList = (props, context) => {
               key={entry.desc}
               content={entry.desc}
               disabled={
-                grantableList.length > 0 &&
-                !grantableList.includes(entry.ref) &&
-                !selectedList.includes(entry.ref)
+                grantableList.length > 0 && !grantableList.includes(entry.ref) && !selectedList.includes(entry.ref)
               }
               checked={selectedList.includes(entry.ref)}
               onClick={() => accessMod(entry.ref)}

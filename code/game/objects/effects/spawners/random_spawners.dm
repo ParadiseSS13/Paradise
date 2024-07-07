@@ -328,7 +328,7 @@
 	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot/armory
 	// Combat orientated items that could give the player an advantage if an antag messes with them.
 	result = list(/obj/item/melee/energy/sword/saber = 1,
-		/obj/item/autosurgeon/organ/syndicate/razorwire = 1,
+		/obj/item/autosurgeon/organ/syndicate/oneuse/razorwire = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/CQC_manual = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
