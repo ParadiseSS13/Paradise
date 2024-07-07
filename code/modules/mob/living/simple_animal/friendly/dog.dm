@@ -250,7 +250,7 @@
 		item_to_add.forceMove(drop_location())
 		if(prob(25))
 			step_rand(item_to_add)
-		spin(7 DECISECONDS)
+		spin(7 DECISECONDS, 1)
 
 	return valid
 
