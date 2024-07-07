@@ -373,7 +373,7 @@
 
 /obj/item/paper/fluff/ruins/deepstorage/log9
 	name = "attention"
-	info = {"As per administration's order, unauthorized entry to supply storage is forbidden. Make your requests from guard wing if you have a pending delivery."}
+	info = {"As per administration's order, unauthorized entry to supply storage is forbidden. Make your requests from the guard wing if you have a pending delivery."}
 
 #undef DS_BOSS_STORAGE
 #undef DS_ENGINEERING
