@@ -694,7 +694,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
 			return
 
-	if(thrown_thing)
+	if(!QDELETED(thrown_thing))
 		if(!HAS_TRAIT(thrown_thing, TRAIT_NO_THROWN_MESSAGE))
 			visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 		newtonian_move(get_dir(target, src))
