@@ -285,9 +285,9 @@
 
 /obj/item/paper/fluff/ruins/deepstorage/log1
 	name = "a note"
-	info = {"As per administration's request, i will be keeping auxiliary power room locked from now on.<br>
+	info = {"As per administration's request, I will be keeping the auxiliary power room locked from now on.<br>
 	<br>
-	If you need in for whatever reason, find me in cave tunnels in the western part."}
+	If you need in for whatever reason, find me in the western area of the cave tunnels."}
 
 /obj/item/paper/fluff/ruins/deepstorage/log2
 	name = "to my love"
