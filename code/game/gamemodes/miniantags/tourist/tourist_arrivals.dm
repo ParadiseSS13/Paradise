@@ -3,7 +3,7 @@
 	/// Maximum number of spawns.
 	var/max_spawn = 10
 	/// If the event ran successfully
-	var/sucess_run
+	var/success_run
 	/// Number of tots spawned in
 	var/tot_number = 0
 	/// Number of players spawned in
@@ -82,9 +82,9 @@
 		if(M.mind.special_role != SPECIAL_ROLE_TRAITOR)
 			M.mind.add_mind_objective(O)
 			greeting(M)
-		sucess_run = TRUE
+		success_run = TRUE
 		spawned_in++
-	if(sucess_run)
+	if(success_run)
 		message_admins("Tourist event made: [tot_number] traitors.")
 		var/raffle_name = pick("Galactic Getaway Raffle", "Cosmic Jackpot Raffle", "Nebula Nonsense Raffle", "Greytide Giveaway Raffle", "Toolbox Treasure Raffle")
 		GLOB.minor_announcement.Announce("The lucky winners of the Nanotrasen raffle, 'Nanotrasen [raffle_name],' are arriving at [station_name()] shortly. Please welcome them warmly, they'll be staying with you until the end of your shift!")
@@ -104,7 +104,7 @@
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/hair_c = pick("#8B4513", "#000000", "#FF4500", "#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000", "#8B4513", "1E90FF") // Black, brown, blue
-	var/skin_tone = rand(-120, 20) // A range of skin colors (This doesn't work, result is always pale white)
+	var/skin_tone = rand(-120, 20)
 
 	head_organ.facial_colour = hair_c
 	head_organ.sec_facial_colour = hair_c
