@@ -9,7 +9,7 @@
 
 	track.cameras.Cut()
 
-	if(src.stat == DEAD)
+	if(stat == DEAD)
 		return
 
 	var/list/L = list()
