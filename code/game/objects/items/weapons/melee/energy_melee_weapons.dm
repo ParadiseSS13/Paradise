@@ -29,8 +29,8 @@
 	RegisterSignal(src, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(try_sharpen))
 
 /obj/item/melee/energy/Destroy()
-	. = ..()
 	UnregisterSignal(src, COMSIG_ITEM_SHARPEN_ACT)
+	return ..()
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
