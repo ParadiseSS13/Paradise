@@ -5,6 +5,15 @@
 	containertype = /obj/structure/closet/crate/sci
 	department_restrictions = list(DEPARTMENT_SCIENCE)
 
+/datum/supply_packs/science/rnd	// Everything you need to kick-start Science from scratch once the dust of the apocalypse has blown over.
+	name = "Research & Development Crate"
+	contains = list(/obj/item/storage/box/large/rnd_parts)
+	cost = 1000
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "research & development crate"
+	access = ACCESS_RESEARCH
+	announce_beacons = list("Research Division" = list("Robotics", "Science", "Research Director's Desk"))
+
 /datum/supply_packs/science/robotics
 	name = "Robotics Assembly Crate"
 	contains = list(/obj/item/assembly/prox_sensor,

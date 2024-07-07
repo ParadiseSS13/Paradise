@@ -272,6 +272,7 @@
 					/obj/item/clothing/under/color/rainbow = 1)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,
+					/obj/item/clothing/under/syndicate/greyman = 5,
 					/obj/item/clothing/under/color/orange/prison = 5)
 
 	prices = list(/obj/item/clothing/under/color/black = 30,
@@ -297,6 +298,7 @@
 				/obj/item/clothing/under/color/pink = 50,
 				/obj/item/clothing/under/color/rainbow = 100,
 				/obj/item/clothing/under/syndicate/tacticool = 75,
+				/obj/item/clothing/under/syndicate/greyman = 75,
 				/obj/item/clothing/under/color/orange/prison = 75)
 
 	refill_canister = /obj/item/vending_refill/suitdispenser
@@ -434,7 +436,7 @@
 					/obj/item/clothing/under/dress/redeveninggown = 2,
 					/obj/item/clothing/under/dress/blacktango = 2,
 					/obj/item/clothing/suit/hooded/wintercoat = 3,
-					/obj/item/clothing/suit/jacket = 3,
+					/obj/item/clothing/suit/jacket/bomber = 3,
 					/obj/item/clothing/suit/hooded/hoodie = 3,
 					/obj/item/clothing/suit/hooded/hoodie/blue = 3,
 					/obj/item/clothing/suit/jacket/motojacket = 3,
@@ -458,6 +460,7 @@
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/under/costume/soviet = 1,
+					/obj/item/clothing/suit/pimpcoat/white = 3,
 					/obj/item/storage/belt/fannypack/black = 1)
 
 	prices = list(/obj/item/clothing/under/suit/navy = 75,
@@ -520,7 +523,7 @@
 				/obj/item/clothing/under/dress/redeveninggown = 100,
 				/obj/item/clothing/under/dress/blacktango = 100,
 				/obj/item/clothing/suit/hooded/wintercoat = 75,
-				/obj/item/clothing/suit/jacket = 75,
+				/obj/item/clothing/suit/jacket/bomber = 75,
 				/obj/item/clothing/suit/hooded/hoodie = 75,
 				/obj/item/clothing/suit/hooded/hoodie/blue = 75,
 				/obj/item/clothing/suit/jacket/motojacket = 75,
@@ -540,6 +543,7 @@
 				/obj/item/clothing/suit/mantle = 20,
 				/obj/item/clothing/suit/mantle/old = 20,
 				/obj/item/clothing/suit/mantle/regal = 30,
+				/obj/item/clothing/suit/pimpcoat/white = 500,
 				/obj/item/clothing/under/misc/mailman = 100)
 
 	refill_canister = /obj/item/vending_refill/clothing
@@ -1185,13 +1189,16 @@
 	icon_state = "cigs"
 	icon_lightmask = "cigs"
 	category = VENDOR_TYPE_RECREATION
-	products = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
+	products = list(/obj/item/clothing/mask/cigarette/cigar = 2,
+					/obj/item/storage/fancy/cigarettes = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
-					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
-					/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
+					/obj/item/storage/fancy/cigarettes/dromedaryco = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
-					/obj/item/clothing/mask/cigarette/cigar/havana = 2,
+					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 					/obj/item/reagent_containers/patch/nicotine = 10,
 					/obj/item/storage/fancy/matches = 10,
 					/obj/item/lighter/random = 4,
@@ -1199,39 +1206,50 @@
 
 	contraband = list(/obj/item/storage/fancy/rollingpapers = 5)
 
-	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 25,
+	prices = list(/obj/item/clothing/mask/cigarette/cigar = 100,
+				/obj/item/storage/fancy/cigarettes = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 25,
-				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 35,
-				/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,
+				/obj/item/storage/fancy/cigarettes/dromedaryco = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 80,
+				/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,
+				/obj/item/storage/fancy/cigarettes/cigpack_robust = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 120,
+				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 50,
+				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 35,
 				/obj/item/reagent_containers/patch/nicotine = 70,
 				/obj/item/storage/fancy/matches = 20,
 				/obj/item/lighter/random = 40,
 				/obj/item/lighter/zippo = 80,
 				/obj/item/storage/fancy/rollingpapers = 30,
-				/obj/item/clothing/mask/cigarette/cigar/havana = 80)
+)
 
 	refill_canister = /obj/item/vending_refill/cigarette
 
 /obj/machinery/economy/vending/cigarette/free
 	prices = list()
 
+// The Syndicate version doesn't sell Robust because that is a Nanotrasen-owned brand. It *does* have its special own-brand replacement.
 /obj/machinery/economy/vending/cigarette/syndicate
-	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 7,
-				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
-				/obj/item/storage/fancy/cigarettes/cigpack_robust = 2,
-				/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
-				/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
+	products = list(/obj/item/clothing/mask/cigarette/cigar = 6,
+				/obj/item/storage/fancy/cigarettes = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
+				/obj/item/storage/fancy/cigarettes/dromedaryco = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
+				/obj/item/reagent_containers/patch/nicotine = 10,
 				/obj/item/storage/fancy/matches = 10,
+				/obj/item/lighter/zippo = 6,
 				/obj/item/storage/fancy/rollingpapers = 5)
 
-	contraband = list(/obj/item/lighter/zippo = 4)
+	contraband = list()
 
 /obj/machinery/economy/vending/cigarette/syndicate/free
 	prices = list()
 
-/// Used in the lavaland_biodome_beach.dmm ruin
+/// Used in the lavaland_biodome_beach.dmm ruin. As the ultimate in smokable vending, it sells the widest range in the grestest quantity.
 /obj/machinery/economy/vending/cigarette/beach
 	name = "\improper ShadyCigs Ultra"
 	desc = "Now with extra premium products!"
@@ -1244,19 +1262,40 @@
 					"Dope will get you through times of no money better than money will get you through times of no dope!",
 					"It's good for you!")
 
-	products = list(/obj/item/storage/fancy/cigarettes = 5,
-				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
-				/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
-				/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
-				/obj/item/storage/fancy/cigarettes/cigpack_midori = 3,
-				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
-				/obj/item/clothing/mask/cigarette/cigar/havana = 2,
+	products = list(/obj/item/clothing/mask/cigarette/cigar = 6,
+				/obj/item/clothing/mask/cigarette/cigar/cohiba = 6,
+				/obj/item/clothing/mask/cigarette/cigar/havana = 6,
+				/obj/item/storage/fancy/cigarettes = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_carp = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_random = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_midori = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_robust = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 10,
+				/obj/item/reagent_containers/patch/nicotine = 20,
 				/obj/item/storage/fancy/matches = 10,
-				/obj/item/lighter/zippo = 4,
-				/obj/item/storage/fancy/rollingpapers = 5)
+				/obj/item/lighter/zippo = 10,
+				/obj/item/storage/fancy/rollingpapers = 10)
 
 	contraband = list()
 	prices = list()
+
+// The finest cigs, available at centcomm for the crew to enjoy after a long, hard day of being brutalized.
+/obj/machinery/economy/vending/cigarette/beach/centcomm
+	slogan_list = list("Space cigs taste good like a cigarette should.",
+					"I'd rather toolbox than switch.",
+					"Smoke!",
+					"Don't believe the reports - smoke today!")
+
+	ads_list = list("Probably not bad for you!",
+					"Don't believe the scientists!",
+					"It's good for you!",
+					"Don't quit, buy more!",
+					"Smoke!",
+					"Nicotine heaven.",
+					"Best cigarettes since 2150.",
+					"Award-winning cigs.")
 
 /obj/machinery/economy/vending/wallmed
 	name = "\improper NanoMed"
@@ -1289,6 +1328,8 @@
 	//this shouldn't be priced
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed, 32, 32)
 
 /obj/machinery/economy/vending/cart
 	name = "\improper PTech"

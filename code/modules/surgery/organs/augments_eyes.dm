@@ -65,7 +65,15 @@
 /obj/item/organ/internal/cyberimp/eyes/hud/jani
 	name = "Janitor HUD implant"
 	desc = "These cybernetic eye implants will display a filth HUD over everything you see."
-	implant_color = "#AF00AF"
+	implant_color = "#DFBE00"
 	origin_tech = "materials=4;engineering=4;biotech=4"
 	aug_message = "You scan for filth spots around you..."
 	HUD_type = DATA_HUD_JANITOR
+
+/obj/item/organ/internal/cyberimp/eyes/hud/hydroponic
+	name = "Hydroponic HUD implant"
+	desc = "These cybernetic eye implants will display a botanical HUD over everything you see."
+	implant_color = "#4850D5"
+	origin_tech = "materials=4;magnets=4;biotech=4"
+	aug_message = "You scan for non-plastic plants around you..."
+	HUD_type = DATA_HUD_HYDROPONIC

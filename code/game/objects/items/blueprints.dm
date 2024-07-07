@@ -176,7 +176,6 @@
 		/area/shuttle,
 		/area/admin,
 		/area/centcom,
-		/area/asteroid,
 		/area/tdome,
 		/area/wizard_station
 	)

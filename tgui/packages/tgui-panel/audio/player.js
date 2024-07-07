@@ -49,8 +49,7 @@ export class AudioPlayer {
       if (!this.playing) {
         return;
       }
-      const shouldStop =
-        this.options.end > 0 && this.node.currentTime >= this.options.end;
+      const shouldStop = this.options.end > 0 && this.node.currentTime >= this.options.end;
       if (shouldStop) {
         this.stop();
       }

@@ -52,7 +52,7 @@
 	name = "holo barrier"
 	desc = "A short holographic barrier which can only be passed by walking."
 	icon_state = "holosign_sec"
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	density = TRUE
 	max_integrity = 20
 	var/allow_walk = TRUE //can we pass through it on walk intent
@@ -85,15 +85,20 @@
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
-/obj/structure/holosign/barrier/atmos/CanAtmosPass(turf/T)
+// Airtight.
+/obj/structure/holosign/barrier/atmos/CanAtmosPass(direction)
 	return FALSE
+
+// Heatproof.
+/obj/structure/holosign/barrier/atmos/get_superconductivity(direction)
+	return 0
 
 /obj/structure/holosign/barrier/atmos/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"

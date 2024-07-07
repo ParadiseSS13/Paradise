@@ -155,7 +155,7 @@
 	name = "Ignite"
 	desc = "Set yourself aflame, bringing yourself closer to exploding!"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "sacredflame"
+	button_overlay_icon_state = "sacredflame"
 
 /datum/action/innate/golem_ignite/Activate()
 	if(ishuman(owner))
@@ -379,7 +379,7 @@
 
 /datum/species/golem/sand/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H))
-		if(P.flag == BULLET || P.flag == BOMB)
+		if((P.flag == BULLET || P.flag == BOMB) && P.armour_penetration_percentage < 100)
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
 			H.visible_message("<span class='danger'>[P] sinks harmlessly in [H]'s sandy body!</span>", \
 			"<span class='userdanger'>[P] sinks harmlessly in [H]'s sandy body!</span>")
@@ -498,8 +498,8 @@
 /datum/action/innate/unstable_teleport
 	name = "Unstable Teleport"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "blink"
-	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_overlay_icon_state = "blink"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
 	var/activated = FALSE // To prevent spamming
 	var/cooldown = 150
 	var/last_teleport = 0

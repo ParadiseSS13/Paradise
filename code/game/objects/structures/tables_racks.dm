@@ -21,7 +21,7 @@
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
@@ -460,6 +460,8 @@
 
 /obj/structure/table/glass/proc/check_break(mob/living/M)
 	if(has_gravity(M) && M.mob_size > MOB_SIZE_SMALL)
+		if(M.buckled && HAS_TRAIT(M.buckled, TRAIT_NO_BREAK_GLASS_TABLES))
+			return
 		table_shatter(M)
 
 /obj/structure/table/glass/flip(direction)
@@ -862,7 +864,7 @@
 	layer = TABLE_LAYER
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	max_integrity = 20
 
 /obj/structure/rack/examine(mob/user)

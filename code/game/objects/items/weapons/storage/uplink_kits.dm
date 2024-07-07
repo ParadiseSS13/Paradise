@@ -88,7 +88,7 @@
 		/obj/item/pinpointer/advpinpointer, // 4TC
 		/obj/item/rcd/preloaded, // 0TC
 		/obj/item/storage/box/syndie_kit/space, // 4TC
-		/obj/item/autosurgeon/organ/syndicate/meson_eyes, // 0TC
+		/obj/item/autosurgeon/organ/syndicate/oneuse/meson_eyes, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 /// 185TC
@@ -130,7 +130,7 @@
 	desc = "A kit with everything you need to hack into and disrupt the Station, AI, its cyborgs and the Security team. HACK THE PLANET!"
 	items = list(
 		/obj/item/melee/energy/sword/saber/blue, // 40TC
-		/obj/item/autosurgeon/organ/syndicate/hackerman_deck, // 30TC
+		/obj/item/autosurgeon/organ/syndicate/oneuse/hackerman_deck, // 30TC
 		/obj/item/door_remote/omni/access_tuner, // 30 TC, HACK EVERYTHING
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/encryptionkey/binary, // 25TC
@@ -202,9 +202,9 @@
 		/obj/item/mod/module/stealth, // ?TC
 		/obj/item/mod/module/power_kick, // ?TC
 		/obj/item/mod/module/sphere_transform, // ?TC
-		/obj/item/autosurgeon/organ/syndicate/laser_arm, // ?TC
+		/obj/item/autosurgeon/organ/syndicate/oneuse/laser_arm, // ?TC
 		/obj/item/pinpointer/advpinpointer, // 20TC
-		/obj/item/autosurgeon/organ/syndicate/hardened_heart, // Like adrenals but no speed / healing
+		/obj/item/autosurgeon/organ/syndicate/oneuse/hardened_heart, // Like adrenals but no speed / healing
 		/obj/item/storage/belt/utility/full/multitool, // 15TC
 		/obj/item/clothing/head/collectable/slime,  // 0TC priceless
 		/obj/item/encryptionkey/syndicate) // 10TC
@@ -288,7 +288,7 @@
 		/obj/item/deck/cards/syndicate, // 2 TC
 		/obj/item/storage/secure/briefcase/syndie, // 5 TC
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 7 TC
-		/obj/item/clothing/suit/jacket/syndicatebomber, // 3 TC
+		/obj/item/clothing/suit/jacket/bomber/syndicate, // 3 TC
 		/obj/item/melee/knuckleduster/syndie, // 10 TC
 	)
 
@@ -549,7 +549,7 @@
 
 /obj/item/storage/box/syndie_kit/prescan/populate_contents()
 	new /obj/item/bio_chip_implanter/grey_autocloner(src)
-	new /obj/item/radio/beacon/syndicate/bomb/grey_autocloner(src)
+	new /obj/item/beacon/syndicate/bomb/grey_autocloner(src)
 
 /obj/item/storage/box/syndie_kit/pen_bomb
 	name = "\improper Pen bomb"

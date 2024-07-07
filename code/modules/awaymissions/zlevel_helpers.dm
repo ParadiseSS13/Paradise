@@ -1,6 +1,7 @@
-// Call this before you remove the last dirt on a z level - that way, all objects
-// will have proper atmos and other important enviro things
-/proc/late_setup_level(turfs, smoothTurfs)
+/datum/milla_safe/late_setup_level
+
+// Ensures that atmos and environment are set up.
+/datum/milla_safe/late_setup_level/on_run(turfs, smoothTurfs)
 	var/total_timer = start_watch()
 	var/subtimer = start_watch()
 	if(!smoothTurfs)
@@ -11,7 +12,7 @@
 	 * air subsystem will call subsequently call setup_allturfs with _every_
 	 * turf in the world */
 	if(SSair && SSair.initialized)
-		SSair.setup_allturfs(turfs)
+		SSair.setup_allturfs_sleepless(turfs)
 	log_debug("\tTook [stop_watch(subtimer)]s")
 
 	subtimer = start_watch()
@@ -29,7 +30,7 @@
 /proc/empty_rect(low_x,low_y, hi_x,hi_y, z)
 	var/timer = start_watch()
 	log_debug("Emptying region: ([low_x], [low_y]) to ([hi_x], [hi_y]) on z '[z]'")
-	empty_region(block(locate(low_x, low_y, z), locate(hi_x, hi_y, z)))
+	empty_region(block(low_x, low_y, z, hi_x, hi_y, z))
 	log_debug("Took [stop_watch(timer)]s")
 
 /proc/empty_region(list/turfs)

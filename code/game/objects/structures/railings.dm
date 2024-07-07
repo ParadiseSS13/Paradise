@@ -5,7 +5,7 @@
 	icon_state = "railing"
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
 	flags = ON_BORDER
