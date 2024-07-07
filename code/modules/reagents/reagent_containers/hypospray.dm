@@ -246,9 +246,9 @@
 	name = "protoype nanite autoinjector"
 	desc = "A highly experimental prototype chemical designed to fully mend limbs and organs of soldiers in the field, shuts down body systems whilst aiding in repair.<br><span class='boldwarning'>WARNING: Side effects can cause temporary paralysis, loss of co-ordination and sickness. Do not use with any kind of stimulant or drugs. Serious damage can occur!</span>"
 	icon_state = "bonepen"
-	amount_per_transfer_from_this = 30
-	volume = 30
-	list_reagents = list("nanocalcium" = 30)
+	amount_per_transfer_from_this = 40
+	volume = 40
+	list_reagents = list("nanocalcium" = 30, "epinephrine" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())
@@ -281,3 +281,11 @@
 	name = "\improper Anti-Plague Sequence Omega autoinjector"
 	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Omega.  Cures all cases of the Necrotizing Plague. Also heals dead limbs."
 	list_reagents = list("zombiecure4" = 15)
+	
+/obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
+	name = "suspicious medipen"
+	desc = "A cheap-looking medipen containing what seems to be a mix of nearly every medicine stored in the recently raided Nanotrasen warehouse." 
+	icon_state = "hyperpen"
+	amount_per_transfer_from_this = 37
+	volume = 37
+	list_reagents = list("salglu_solution" = 3, "synthflesh" = 4, "omnizine" = 3, "weak_omnizine" = 3, "perfluorodecalin" = 2, "sal_acid" = 1, "bicaridine" = 4, "kelotane" = 4, "epinephrine" = 5, "lavaland_extract" = 2, "rezadone" = 1, "teporone" =  2, "menthol" = 1, "vitamin" = 2)
