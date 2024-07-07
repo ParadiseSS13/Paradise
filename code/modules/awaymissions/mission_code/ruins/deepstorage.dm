@@ -352,16 +352,16 @@
 
 /obj/item/paper/fluff/ruins/deepstorage/log7
 	name = "???"
-	info = {"<u>Entry 1</u><br><br> By now it's safe to assume they know we're listening their frequency. If it weren't for a copy of the manual
-	i laid my hands on, they would've shaken us off already.<br>
+	info = {"<u>Entry 1</u><br><br> By now it's safe to assume they know we're listening on their frequency. If it weren't for a copy of the manual
+	I laid my hands on, they would've shaken us off already.<br>
 	<br>
-	<u>Entry 2</u><br><br> The discussions of some resonance and applications of it frequently brought upon. I don't get even a single thing about what they're talking
-	about but i know it is connected to what we're getting through. Today guards arrested three more workers, they're desperately looking for us.<br>
+	<u>Entry 2</u><br><br> I keep hearing discussions of "resonance" brought up. I don't understand a single thing they're talking
+	about but I know it is connected to what we're going through. Today guards arrested three more workers. They're desperately looking for us.<br>
 	<br><br>...<br><br>
-	<u>Entry 4</u><br><br> Elevators between floors and trams are now shut off, communications across floors followed after. Now there is a sickness...
-	i still have two months until my transfer to some other facility in sector. This too shall pass...<br>
+	<u>Entry 4</u><br><br> Elevators between floors and trams are now shut off, communications across floors followed soon after. Now there is a sickness...
+	I still have two months until my transfer to some other facility in the sector. This too shall pass...<br>
 	<br><br>...<br><br>
-	<u>Entry 9</u><br><br> I no longer can tell where dream ends and real begins. Is this real, or still a dream... How many times did i write this? Where are we?
+	<u>Entry 9</u><br><br> I no longer can tell where the dream ends and reality begins. Is this real, or still a dream... How many times did I write this? Where are we?
 	This isn't our facility. Who are these people? They're not from our post...
 	<br><br>...<br><br>
 	<u>Entry 13</u><br><br> KICK THEM. KICK THEM WHILE THEY ARE DOWN.
