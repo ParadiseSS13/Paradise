@@ -2,7 +2,7 @@
 #define DS_ENGINEERING "DS_Engineering"
 /mob/living/simple_animal/hostile/megafauna/fleshling
 	name = "Fleshling"
-	desc = "A sinister mass of flesh appears molded into a grotesque shape, nothing about its appearance looks like a deed of evolution. It looks agitated and clearly doesn't want you to leave here alive."
+	desc = "A sinister mass of flesh molded into a grotesque shape. Nothing about it looks like the result of natural evolution. It looks agitated and clearly doesn't want you to leave here alive."
 	health = 1000
 	icon = 'icons/mob/fleshling.dmi'
 	icon_state = "fleshling"
