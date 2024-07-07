@@ -595,7 +595,7 @@
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "od" = (
-/obj/item/food/snacks/grown/lily,
+/obj/item/food/grown/lily,
 /turf/simulated/floor/beach/away/water/deep,
 /area/ruin/space/powered/casino/hall)
 "oi" = (
