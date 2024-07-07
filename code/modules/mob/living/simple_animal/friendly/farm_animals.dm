@@ -53,7 +53,7 @@
 
 	eat_plants()
 	if(!pulledby)
-		for(var/direction in shuffle(list(1, 2, 4, 8, 5, 6, 9, 10)))
+		for(var/direction in shuffle(GLOB.alldirs))
 			var/step = get_step(src, direction)
 			if(step)
 				if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
