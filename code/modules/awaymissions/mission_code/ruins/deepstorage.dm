@@ -346,10 +346,9 @@
 
 /obj/item/paper/fluff/ruins/deepstorage/log6
 	name = "warning"
-	info = {"We sealed that thing in warehouse, it teared apart half of my squad. We were no match.<br>
+	info = {"We sealed that thing in the warehouse. It tore apart half of my squad. We were no match.<br>
 	<br>
-	For whatever reason you want to go in, package teleporter is still functional. Gates will remain sealed as long as that thing is alive so, proceed with your own
-	discretion."}
+	For whatever reason you want to go in, the package teleporter is still functional. Gates will remain sealed as long as that thing is alive so proceed at your own risk."}
 
 /obj/item/paper/fluff/ruins/deepstorage/log7
 	name = "???"
