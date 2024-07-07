@@ -44,25 +44,17 @@
 		)
 
 // Syndicate
-/obj/item/robot_module/syndicate/Initialize(mapload)
-	. = ..()
-	basic_modules |= list(
-		/obj/item/gripper/nuclear,
-		)
-
 /obj/item/robot_module/syndicate_medical/Initialize(mapload)
 	. = ..()
 	basic_modules |= list(
 		/obj/item/gps/cyborg,
 		/obj/item/rlf,
-		/obj/item/gripper/nuclear,
 	)
 
 /obj/item/robot_module/syndicate_saboteur/Initialize(mapload)
 	. = ..()
 	basic_modules |= list(
 		/obj/item/gripper/engineering,
-		/obj/item/gripper/nuclear,
 		/obj/item/holosign_creator/atmos,
 	)
 
@@ -71,7 +63,6 @@
 /obj/item/robot_module/deathsquad/Initialize(mapload)
 	. = ..()
 	basic_modules |= list(
-		/obj/item/gripper/nuclear,
 		/obj/item/gps/cyborg,
 		/obj/item/pinpointer/operative/nad,
 		)
@@ -79,7 +70,6 @@
 /obj/item/robot_module/destroyer/Initialize(mapload)
 	. = ..()
 	basic_modules |= list(
-		/obj/item/gripper/nuclear,
 		/obj/item/gps/cyborg,
 		/obj/item/pinpointer,
 		/obj/item/pinpointer/operative/nad,
@@ -88,7 +78,6 @@
 /obj/item/robot_module/combat/Initialize(mapload)
 	. = ..()
 	basic_modules |= list(
-		/obj/item/gripper/nuclear,
 		/obj/item/gps/cyborg,
 		/obj/item/pinpointer/operative/nad,
 	)
