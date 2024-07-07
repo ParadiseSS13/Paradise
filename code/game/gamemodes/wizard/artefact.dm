@@ -705,7 +705,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 ///Mindslave and equip the victim
 /obj/item/necromantic_stone/proc/convert_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 	active_skeletons |= victim
-	var/greet_text = "<span class='userdanger'>You have been revived by <B>[necromancer.real_name]!\n[necromancer.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>"
+	var/greet_text = "<span class='userdanger'>You have been revived by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>"
 	if(!victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
 		victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text))
 
