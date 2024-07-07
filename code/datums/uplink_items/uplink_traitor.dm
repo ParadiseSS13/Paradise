@@ -159,7 +159,7 @@
 /datum/uplink_item/jobspecific/titaniumbroom
 	name = "Titanium Push Broom"
 	desc = "A push broom with a reinforced handle and a metal wire brush, perfect for giving yourself more work by beating up assistants. \
-	When wielded, you will reflect projectiles, and hitting people will have different effects based on your intent."
+			When wielded hitting people will have different effects based on your intent. "
 	reference = "TPBR"
 	item = /obj/item/push_broom/traitor
 	cost = 60
@@ -529,6 +529,14 @@
 	reference = "CGM"
 	item = /obj/item/clothing/gloves/color/black/krav_maga
 	cost = 50
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/device_tools/hyper_medipen
+	name = "Hyper-regenerative Medipen"
+	desc = "An autoinjector filled with a variety of medical chemicals. It rapidly heals conventional injuries and genetic damage, but loses potency just as quickly. May have side effects if multiple are used in quick succession."
+	reference = "HMP"
+	item = /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
+	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /// Nukies get Diamond Tipped Thermal Safe Drill instead

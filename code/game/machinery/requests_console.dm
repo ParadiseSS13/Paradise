@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	var/area/containing_area = get_area(src)
 	if(isnull(department))
-		department = containing_area.request_console_name || containing_area.name
+		department = containing_area.request_console_name || trimtext(replacetext(containing_area.name, "\improper", ""))
 	if(isnull(departmentType))
 		departmentType = containing_area.request_console_flags
 	announcementConsole = containing_area.request_console_announces

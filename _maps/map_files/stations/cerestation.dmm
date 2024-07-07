@@ -570,6 +570,14 @@
 	icon_state = "green"
 	},
 /area/station/security/permabrig)
+"adt" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/turret_protected/ai)
 "adu" = (
 /obj/machinery/light{
 	dir = 4
@@ -1573,6 +1581,22 @@
 	icon_state = "darkfull"
 	},
 /area/station/supply/sorting)
+"akq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/turret_protected/ai)
 "akr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2018,6 +2042,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
+"amP" = (
+/turf/simulated/wall,
+/area/mine/unexplored/cere/cargo)
 "amQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3153,6 +3180,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/item/reagent_containers/drinks/flask/gold,
 /obj/item/pen,
 /obj/item/paper/safe_code{
 	owner = "captain"
@@ -22309,6 +22337,15 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/apmaint)
+"cAn" = (
+/obj/machinery/requests_console{
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbrown"
+	},
+/area/station/supply/office)
 "cAq" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "BrigEast";
@@ -75303,15 +75340,6 @@
 	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
-"ryA" = (
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbrown"
-	},
-/area/station/supply/office)
 "ryD" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
@@ -76159,9 +76187,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior/secondary)
-"rMl" = (
-/turf/simulated/wall,
-/area/mine/unexplored/cere/cargo)
 "rMx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -83540,22 +83565,6 @@
 /obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
-"udX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/turret_protected/ai)
 "uef" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -84658,14 +84667,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/hallway/secondary/exit)
-"uuB" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/turret_protected/ai)
 "uuF" = (
 /obj/structure/sign/poster/random{
 	name = "random official poster";
@@ -86679,6 +86680,22 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
+"uVC" = (
+/obj/structure/closet/secure_closet/personal/patient,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes/farwacubes,
+/obj/item/storage/box/monkeycubes/neaeracubes,
+/obj/item/storage/box/monkeycubes/stokcubes,
+/obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/nian_worme_cubes,
+/obj/machinery/requests_console{
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whitepurple"
+	},
+/area/station/science/genetics)
 "uVI" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
@@ -93269,22 +93286,6 @@
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/xenobiology)
-"wNH" = (
-/obj/structure/closet/secure_closet/personal/patient,
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes/farwacubes,
-/obj/item/storage/box/monkeycubes/neaeracubes,
-/obj/item/storage/box/monkeycubes/stokcubes,
-/obj/item/storage/box/monkeycubes/wolpincubes,
-/obj/item/storage/box/monkeycubes/nian_worme_cubes,
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitepurple"
-	},
-/area/station/science/genetics)
 "wNX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -141789,7 +141790,7 @@ vBu
 vBu
 acO
 sYg
-uuB
+adt
 xRp
 peQ
 sYg
@@ -142307,7 +142308,7 @@ aig
 ihn
 ajF
 gku
-udX
+akq
 pTh
 vzj
 okP
@@ -149335,7 +149336,7 @@ xAz
 rjp
 dlk
 udk
-wNH
+uVC
 vPs
 bLe
 bDA
@@ -150322,7 +150323,7 @@ hkF
 lSi
 kmH
 nLP
-ryA
+cAn
 ntW
 kzP
 ntW
@@ -155732,7 +155733,7 @@ gSQ
 gSQ
 alc
 alc
-rMl
+amP
 alc
 alc
 alc
