@@ -26,7 +26,7 @@
 	death_sound = 'sound/misc/demon_dies.ogg'
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 
-	// is the boss charging right now?
+	/// Is the boss charging right now?
 	var/charging = FALSE
 	// did our boss die?
 	var/boss_killed = FALSE
