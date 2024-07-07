@@ -28,7 +28,7 @@
 
 	/// Is the boss charging right now?
 	var/charging = FALSE
-	// did our boss die?
+	/// Did our boss die?
 	var/boss_killed = FALSE
 
 // Below here is copy-pasted from /asteroid/big_legion
