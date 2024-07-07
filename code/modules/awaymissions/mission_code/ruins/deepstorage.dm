@@ -322,9 +322,9 @@
 	<br>
 	<b>(beginning of record...)</b><br>
 	<br>
-	Day... 5, since the-. God, i just checked my previous entries and there was like, 14 in total? In a big portion of it i start with 'day 5 of this, of that'.
-	Weird part is, i don't recall any of those records. It must be my insolent staff, right. They're yearning for some bad words in their employee records
-	and that they shall receive...<br>
+	Day... 5, since the-. God, I just checked my previous entries and there were like, 14 in total? In so many I start with 'day 5 of this, of that'.
+	Weird part is, I don't recall making any of those records. It must be my insolent staff. If they want a bad review in their employee records,
+	they got it...<br>
 	<br>
 	<b>(end of record.)</b><br>"}
 
