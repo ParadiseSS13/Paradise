@@ -316,7 +316,7 @@
 	<b>(beginning of record...)</b><br>
 	<br>
 	Day 5, since the lockdown. More people are getting sick. I heard the body count was so high they had to start cremating them.
-	The more away they are the better. <br>
+	The fewer bodies, the better. <br>
 	<br>
 	<b>(end of record.)</b><br>
 	<br>
