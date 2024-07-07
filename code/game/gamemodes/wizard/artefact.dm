@@ -694,7 +694,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 
 	if(!check_skeletons()) //If above the cap, there is a cooldown on additional skeletons
-		to_chat(necromancer, "<span class='notice'>The amount of skeleton thralls risen by [src] strains its power.")
+		to_chat(necromancer, "<span class='notice'>The amount of skeleton thralls risen by [src] strains its power.</span>")
 		if(!COOLDOWN_FINISHED(src, additional_thralls_cooldown))
 			to_chat(necromancer, "<span class='warning'>[src] cannot rise another thrall for [DisplayTimeText(COOLDOWN_TIMELEFT(src, additional_thralls_cooldown))].</span>")
 			return
