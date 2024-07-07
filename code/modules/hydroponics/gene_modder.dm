@@ -60,6 +60,8 @@
 /obj/machinery/plantgenes/Destroy()
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)
+	seed = null
+	disk = null
 	core_genes.Cut()
 	reagent_genes.Cut()
 	trait_genes.Cut()
