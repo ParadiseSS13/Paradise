@@ -104,8 +104,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	/// How long it takes to put an item onto somebody. IE. clothing
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
-	/// How long it takes to resist out of restraints, like cuffs, and whatnot.
-	var/breakouttime = 0
 	/// For flags that define what areas an item cover
 	var/flags_cover = 0
 
@@ -655,7 +653,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(!eyes) // should still get stabbed in the head
 			var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
 			if(head)
-				head.receive_damage(rand(10, 14), 1)
+				head.receive_damage(force, TRUE)
 			return
 		eyes.receive_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
@@ -673,10 +671,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
 		var/obj/item/organ/external/affecting = H.get_organ("head")
-		if(istype(affecting) && affecting.receive_damage(7))
+		if(istype(affecting) && affecting.receive_damage(force))
 			H.UpdateDamageIcon()
 	else
-		M.take_organ_damage(7)
+		M.take_organ_damage(force)
 	M.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
 	return
 
@@ -748,7 +746,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 						"<span class='notice'>You wash [src] using [source].</span>")
 	return TRUE
 
-/obj/item/proc/get_crutch_efficiency() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
+/obj/item/proc/get_crutch_efficiency() // Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
 	return FALSE
 
 /// Return true if you don't want regular throw handling
