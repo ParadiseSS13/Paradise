@@ -33,7 +33,7 @@
 	set category = "AI Commands"
 	set name = "Show Camera List"
 
-	if(src.stat == DEAD)
+	if(stat == DEAD)
 		to_chat(src, "You can't list the cameras because you are dead!")
 		return
 
