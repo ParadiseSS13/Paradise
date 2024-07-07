@@ -133,6 +133,7 @@
 /mob/living/simple_animal/hostile/megafauna/fleshling/death(gibbed)
 	if(can_die() && !boss_killed)
 		unlock_blast_doors(DS_BOSS_STORAGE)
+		src.visible_message("<span class='notice'>Somewhere, a heavy door has opened.</span>")
 	return ..(gibbed)
 
 /mob/living/simple_animal/hostile/megafauna/fleshling/proc/unlock_blast_doors(target_id_tag)
@@ -200,14 +201,14 @@
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
 
-/mob/living/simple_animal/hostile/spaceinfected/gateopener //when this mob dies it'll trigger a poddoor open
-	// is our mob dead?
+/mob/living/simple_animal/hostile/spaceinfected/gateopener // When this mob dies it'll trigger a poddoor open
+	/// Is our mob dead?
 	var/has_died = FALSE
 	loot = list(/obj/item/gun/energy/laser,
 			/obj/effect/decal/cleanable/blood/innards,
 			/obj/effect/decal/cleanable/blood,
 			/obj/effect/gibspawner/generic,
-			/obj/effect/gibspawner/generic) // first weapon this ruin provides
+			/obj/effect/gibspawner/generic) // First weapon this ruin provides
 
 /mob/living/simple_animal/hostile/spaceinfected/gateopener/Destroy()
 	handle_dying()
@@ -220,6 +221,7 @@
 /mob/living/simple_animal/hostile/spaceinfected/gateopener/death(gibbed)
 	if(can_die() && !has_died)
 		unlock_blast_doors(DS_ENGINEERING)
+		src.visible_message("<span class='notice'>Somewhere, a heavy door has opened.</span>")
 	return ..(gibbed)
 
 /mob/living/simple_animal/hostile/spaceinfected/gateopener/proc/unlock_blast_doors(target_id_tag)
@@ -238,7 +240,7 @@
 
 // Below here is ruin specific code
 
-/obj/structure/blob/normal/deepstorage //parent one didn't allow me to color them with varedit
+/obj/structure/blob/normal/deepstorage
 	name = "flesh wall"
 	desc = "What even..."
 	color = rgb(80, 39, 39)
@@ -273,7 +275,7 @@
 	addtimer(CALLBACK(src, PROC_REF(cooldown_passed)), 20 SECONDS)
 	menu_open = FALSE
 
-// this proc is called when portal disappears after a while, so users can interact with teleporter again
+// This proc is called when portal disappears after a while, so users can interact with teleporter again
 /obj/machinery/deepstorage_teleporter/proc/cooldown_passed()
 	active_portals--
 
