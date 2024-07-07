@@ -184,7 +184,7 @@
 
 /mob/living/simple_animal/hostile/spaceinfected/default/Initialize(mapload)
 	. = ..()
-	var/loot_num = rand(1,100)
+	var/loot_num = rand(1, 100)
 	switch(loot_num)
 		if(1 to 10)
 			loot = list(/obj/item/salvage/ruin/nanotrasen,
