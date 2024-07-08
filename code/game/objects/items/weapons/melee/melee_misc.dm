@@ -132,6 +132,10 @@
 /obj/item/melee/secsword/get_cell()
 	return cell
 
+/obj/item/melee/secsword/proc/clear_cell(var/rigged = FALSE)
+	cell = null
+	update_icon()
+
 /obj/item/melee/secsword/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stock_parts/cell))
 		return
@@ -159,8 +163,7 @@
 	user.put_in_hands(cell)
 	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
 	cell.update_icon()
-	cell = null
-	update_icon()
+	clear_cell()
 
 /obj/item/melee/secsword/attack_self(mob/user)
 	if(!cell)
@@ -250,8 +253,8 @@
 		return
 	cell.use(amount)
 	if(cell.rigged)
-		cell = null
 		state = SECSWORD_OFF
+		clear_cell(TRUE)
 		update_icon()
 	if(cell.charge < amount) // If after the deduction the sword doesn't have enough charge for a hit it turns off.
 		state = SECSWORD_OFF
