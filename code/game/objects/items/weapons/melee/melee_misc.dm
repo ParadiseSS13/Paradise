@@ -132,7 +132,7 @@
 /obj/item/melee/secsword/get_cell()
 	return cell
 
-/obj/item/melee/secsword/proc/clear_cell(var/rigged = FALSE)
+/obj/item/melee/secsword/proc/clear_cell(rigged = FALSE)
 	cell = null
 	update_icon()
 
