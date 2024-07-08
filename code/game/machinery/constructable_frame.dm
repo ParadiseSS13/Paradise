@@ -155,6 +155,9 @@
 				for(var/obj/item/stock_parts/co in replacer)
 					part_list += co
 
+				for(var/obj/item/reagent_containers/glass/beaker/be in replacer)
+					part_list += be
+
 				for(var/path in req_components)
 					while(req_components[path] > 0 && (locate(path) in part_list))
 						var/obj/item/part = (locate(path) in part_list)
@@ -163,7 +166,7 @@
 						req_components[path]--
 						part_list -= part
 
-				for(var/obj/item/stock_parts/part in added_components)
+				for(var/obj/item/part in added_components)
 					components += part
 					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
 				replacer.play_rped_sound()

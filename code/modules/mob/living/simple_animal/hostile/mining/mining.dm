@@ -36,7 +36,7 @@
 	icon_state = icon_living
 
 /mob/living/simple_animal/hostile/asteroid/bullet_act(obj/item/projectile/P)//Reduces damage from most projectiles to curb off-screen kills
-	if(!stat)
+	if(stat == CONSCIOUS)
 		Aggro()
 	if(P.damage < 30 && P.damage_type != BRUTE && has_laser_resist)
 		P.damage = (P.damage / 3)
@@ -46,7 +46,7 @@
 /mob/living/simple_animal/hostile/asteroid/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //No floor tiling them to death, wiseguy
 	if(isitem(AM))
 		var/obj/item/T = AM
-		if(!stat)
+		if(stat == CONSCIOUS)
 			Aggro()
 		if(T.throwforce <= 20)
 			visible_message("<span class='notice'>[T] [throw_message] [src.name]!</span>")
