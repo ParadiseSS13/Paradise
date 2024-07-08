@@ -87,12 +87,11 @@
 
 /obj/item/melee/secsword/Initialize(mapload)
 	. = ..()
-	link_new_cell()
+	cell = new(src)
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/melee/secsword/Destroy()
-	if(cell?.loc == src)
-		QDEL_NULL(cell)
+	QDEL_NULL(cell)
 	return ..()
 
 /obj/item/melee/secsword/examine(mob/user)
@@ -123,13 +122,6 @@
 	else
 		icon_state = "[base_icon][state]"
 		item_state = "[base_icon][state]"
-
-
-/obj/item/melee/secsword/proc/link_new_cell(unlink = FALSE)
-	if(unlink)
-		return
-	else
-		cell = new(src)
 
 /obj/item/melee/secsword/emp_act(severity)
 	cell.use(round(cell.charge / severity))
