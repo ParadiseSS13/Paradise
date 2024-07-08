@@ -73,24 +73,49 @@
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+    var/is_robot = ((process_flags & SYNTHETIC) > 0)
 	if(severity == 1)
-		if(effect <= 1)
-			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
-			M.fakevomit(no_text = 1)
-		else if(effect <= 3)
-			M.emote(pick("groan","moan"))
-		if(effect <= 8)
-			update_flags |= M.adjustToxLoss(1, FALSE)
-	else if(severity == 2)
-		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
-			M.fakevomit(no_text = 1)
-		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
-			M.Dizzy(16 SECONDS)
-			M.Weaken(8 SECONDS)
-		if(effect <= 15)
-			update_flags |= M.adjustToxLoss(1, FALSE)
+		if(!is_robot)
+			if(effect <= 1)
+				M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+				M.fakevomit(no_text = 1)
+			else if(effect <= 3)
+				M.emote(pick("groan","moan"))
+			if(effect <= 8)
+				update_flags |= M.adjustToxLoss(1, FALSE)
+		else
+			if(effect <= 1)
+				M.visible_message("<span class='warning'>[M] suddenly jitters for a moment.</span>")
+				M.AdjustJitter(2 SECONDS)
+			else if(effect <= 3)
+				M.emote("shudder")
+			if(effect <= 8)
+				update_flags |= M.adjustFireLoss(1, FALSE)
+				to_chat(M, "<span class='warning'>Your internals start to overheat!</span>")
+		return list(effect, update_flags)
+
+	if(severity == 2)
+		if(!is_robot)
+			if(effect <= 2)
+				M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+				M.fakevomit(no_text = 1)
+			else if(effect <= 5)
+				M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
+				M.Dizzy(16 SECONDS)
+				M.Weaken(8 SECONDS)
+			if(effect <= 15)
+				update_flags |= M.adjustToxLoss(1, FALSE)
+		else
+			if(effect <= 2)
+				M.visible_message("<span class='warning'>[M] suddenly jitters for a moment.</span>")
+				M.AdjustJitter(2 SECONDS)
+			else if(effect <= 5)
+				M.visible_message("<span class='warning'>[M] staggers and seizes up!</span>")
+				M.Dizzy(16 SECONDS)
+				M.Weaken(8 SECONDS)
+			if(effect <= 15)
+				update_flags |= M.adjustFireLoss(1, FALSE)
+				to_chat(M, "<span class='warning'>Your internals start to overheat!</span>")
 	return list(effect, update_flags)
 
 /datum/reagent/medicine/synaptizine/recal
@@ -104,32 +129,6 @@
 	harmless = FALSE
 	taste_description = "mineral oil and toothpaste"
 	process_flags = SYNTHETIC
-
-/datum/reagent/medicine/synaptizine/recal/overdose_process(mob/living/M, severity)
-	var/list/overdose_info = ..()
-	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
-	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
-	if(severity == 1)
-		if(effect <= 1)
-			M.visible_message("<span class='warning'>[M] suddenly jitters for a moment.</span>")
-			M.AdjustJitter(2 SECONDS)
-		else if(effect <= 3)
-			M.emote("shudder")
-		if(effect <= 8)
-			update_flags |= M.adjustFireLoss(1, FALSE)
-			to_chat(M, "<span class='warning'>Your internals start to overheat!</span>")
-	else if(severity == 2)
-		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] suddenly jitters for a moment.</span>")
-			M.AdjustJitter(2 SECONDS)
-		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] staggers and seizes up!</span>")
-			M.Dizzy(16 SECONDS)
-			M.Weaken(8 SECONDS)
-		if(effect <= 15)
-			update_flags |= M.adjustFireLoss(1, FALSE)
-			to_chat(M, "<span class='warning'>Your internals start to overheat!</span>")
-	return list(effect, update_flags)
 
 /datum/reagent/medicine/mitocholide
 	name = "Mitocholide"
@@ -463,18 +462,13 @@
 	harmless = FALSE
 	taste_description = "health"
 
-/datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	// Typecasting is required to make IPC healing work.
-	var/mob/living/carbon/human/ipc = M
-	update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	// Check if it's an IPC to stop vox from double-dipping. This is used for the IPC omnizine subtype.
-	if(ismachineperson(M) && process_flags == SYNTHETIC)
-		update_flags |= ipc.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
-		update_flags |= ipc.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
+/datum/reagent/medicine/omnizine/on_mob_life(mob/living/carbon/human/H)
+    var/update_flags = STATUS_UPDATE_NONE
+    var/is_robot = ((process_flags & SYNTHETIC) > 0)
+    update_flags |= H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+    update_flags |= H.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+    update_flags |= H.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = is_robot)
+    update_flags |= H.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = is_robot)
 	if(prob(50))
 		M.AdjustLoseBreath(-2 SECONDS)
 	return ..() | update_flags
