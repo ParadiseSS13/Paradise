@@ -72,6 +72,29 @@ export const KeyComboModal = (props, context) => {
   const [input, setInput] = useLocalState(context, 'input', init_value);
   const [binding, setBinding] = useLocalState(context, 'binding', true);
 
+  const handleKeyPress = (event) => {
+    if (!binding) {
+      if (event.key === KEY.Enter) {
+        act('submit', { entry: input });
+      }
+      if (event.key === KEY.Escape) {
+        act('cancel');
+      }
+      return;
+    }
+
+    event.preventDefault();
+    if (isStandardKey(event)) {
+      setValue(formatKeyboardEvent(event));
+      setBinding(false);
+      return;
+    } else if (event.key === KEY.Escape) {
+      setValue(init_value);
+      setBinding(false);
+      return;
+    }
+  };
+
   const setValue = (value: string) => {
     if (value === input) {
       return;
@@ -88,26 +111,7 @@ export const KeyComboModal = (props, context) => {
       {timeout && <Loader value={timeout} />}
       <Window.Content
         onKeyDown={(event) => {
-          if (!binding) {
-            if (event.key === KEY.Enter) {
-              act('submit', { entry: input });
-            }
-            if (event.key === KEY.Escape) {
-              act('cancel');
-            }
-            return;
-          }
-
-          event.preventDefault();
-          if (isStandardKey(event)) {
-            setValue(formatKeyboardEvent(event));
-            setBinding(false);
-            return;
-          } else if (event.key === KEY.Escape) {
-            setValue(init_value);
-            setBinding(false);
-            return;
-          }
+          handleKeyPress(event);
         }}
       >
         <Section fill>
