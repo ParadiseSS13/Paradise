@@ -95,6 +95,7 @@
 			robot_healthscan(user, src)
 		else if(ishuman(src))
 			healthscan(user, src, 1, TRUE)
+	return ..()
 
 // ---------------------------------------
 // And here are some good things for free:
