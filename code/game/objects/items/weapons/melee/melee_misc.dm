@@ -132,7 +132,9 @@
 /obj/item/melee/secsword/get_cell()
 	return cell
 
-/obj/item/melee/secsword/proc/clear_cell(rigged = FALSE)
+/obj/item/melee/secsword/proc/clear_cell()
+	SIGNAL_HANDLER //COMSIG_PARENT_QDELETING
+	UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
 	cell = null
 	update_icon()
 
@@ -251,11 +253,9 @@
 /obj/item/melee/secsword/proc/deduct_charge(amount)
 	if(!cell)
 		return
-	cell.use(amount)
 	if(cell.rigged)
-		state = SECSWORD_OFF
-		clear_cell(TRUE)
-		update_icon()
+		RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(clear_cell))
+	cell.use(amount)
 	if(cell.charge < amount) // If after the deduction the sword doesn't have enough charge for a hit it turns off.
 		state = SECSWORD_OFF
 		update_icon()
