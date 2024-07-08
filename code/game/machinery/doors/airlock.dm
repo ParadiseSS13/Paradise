@@ -616,7 +616,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if("deny")
 			if(stat == CONSCIOUS)
 				update_icon(AIRLOCK_DENY)
-				playsound(src,doorDeni,50,0,3)
+				playsound(src, doorDeni, 50, FALSE, 3)
 				sleep(6)
 				update_icon(AIRLOCK_CLOSED)
 
@@ -1358,7 +1358,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return 0
 
 	locked = TRUE
-	playsound(src, boltDown, 30, 0, 3)
+	playsound(src, boltDown, 30, FALSE, 3)
 	update_icon()
 	return 1
 
@@ -1371,7 +1371,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			return
 
 	locked = FALSE
-	playsound(src,boltUp, 30, 0, 3)
+	playsound(src,boltUp, 30, FALSE, 3)
 	update_icon()
 	return 1
 
