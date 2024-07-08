@@ -76,7 +76,7 @@
 			if(transferred <= 0)
 				return
 			to_chat(usr, "<span class='notice'>[src] vibrates for a moment as it transfers the liquid.</span>")
-			playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
+			playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 
 	else if(href_list["remove"])
 		if(href_list["amount"])
@@ -87,7 +87,7 @@
 			if(beaker == null || id in locked_reagents)
 				reagents.remove_reagent(id,amount)
 				to_chat(usr, "<span class='notice'>[src] vibrates for a moment as it flushes the liquid.</span>")
-				playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
+				playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 				updateUsrDialog()
 				return
 
@@ -95,7 +95,7 @@
 			if(transferred <= 0)
 				return
 			to_chat(usr, "<span class='notice'>[src] vibrates for a moment as it transfers the liquid.</span>")
-			playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
+			playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 
 	else if(href_list["main"])
 		attack_hand(usr)
