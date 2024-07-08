@@ -83,7 +83,7 @@
 	if(!LAZYLEN(components))
 		return FALSE
 	var/datum/robot_component/C = components["power cell"]
-	if(C && C.installed)
+	if(C?.installed)
 		return C
 	return FALSE
 
