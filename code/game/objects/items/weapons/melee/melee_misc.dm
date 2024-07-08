@@ -124,6 +124,8 @@
 		item_state = "[base_icon][state]"
 
 /obj/item/melee/secsword/emp_act(severity)
+	if(!cell)
+		return
 	cell.use(round(cell.charge / severity))
 	update_icon()
 
