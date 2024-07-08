@@ -152,28 +152,25 @@
 	cigarette_lighter_act(user, target)
 
 /obj/item/weldingtool/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return
+
 	if(!tool_enabled)
 		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
 		return
 
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
-		return
-
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] casually lights [I] with [src], what a badass.</span>",
-			"<span class='notice'>You light [I] with [src].</span>"
+			"<span class='notice'>[user] casually lights [cig] with [src], what a badass.</span>",
+			"<span class='notice'>You light [cig] with [src].</span>"
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] holds out [src] out for [target], and casually lights [I]. What a badass.</span>",
-			"<span class='notice'>You light [I] for [target] with [src].</span>"
+			"<span class='notice'>[user] holds out [src] out for [target], and casually lights [cig]. What a badass.</span>",
+			"<span class='notice'>You light [cig] for [target] with [src].</span>"
 		)
-	I.light(user, target)
+	cig.light(user, target)
 
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
 	target.add_overlay(GLOB.welding_sparks)

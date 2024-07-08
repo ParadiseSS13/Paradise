@@ -78,18 +78,17 @@ LIGHTERS ARE IN LIGHTERS.DM
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(M)
 		if(M != user)
-			light(user, user)
 			user.visible_message(
 				"<span class='notice'>[user] coldly lights [src] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>",
 				"<span class='notice'>You coldly light [src] with the burning body of [M].</span>"
 			)
 		else
 			// The fire will light it in your hands by itself, but if you whip out the cig and click yourself fast enough, this will happen. TRULY you have your priorities stright.
-			light(user, user)
 			user.visible_message(
 				"<span class='notice'>[user] quickly whips out [src] and nonchalantly lights it with [user.p_their()] own burning body. Clearly, [user.p_they()] [user.p_have()] [user.p_their()] priorities straight.</span>",
 				"<span class='notice'>You quickly whip out [src] and nonchalantly light it with your own burning body. Clearly, you have your priorities straight.</span>"
 			)
+		light(user, user)
 		return TRUE
 
 /obj/item/clothing/mask/cigarette/afterattack(atom/target, mob/living/user, proximity)
@@ -156,31 +155,25 @@ LIGHTERS ARE IN LIGHTERS.DM
 		light("<span class='warning'>[src] is lit by the flames!</span>")
 
 /obj/item/clothing/mask/cigarette/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(!cigarette_check(user, target))
-		if(direct_attackby_item)
-			I = direct_attackby_item
-		else
-			return FALSE
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return
 
 	if(!lit)
-		to_chat(user, "<span class='warning'>You cannot light [I] with [src] because you need a lighter to light [src] before you can use [src] as a lighter to light [I]... This seems a little convoluted.</span>")
-		return TRUE
-
-	if(!I.handle_cigarette_lighter_act(user, src))
+		to_chat(user, "<span class='warning'>You cannot light [cig] with [src] because you need a lighter to light [src] before you can use [src] as a lighter to light [cig]... This seems a little convoluted.</span>")
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [I] until it lights. Seems a bit redundant...</span>",
-			"<span class='notice'>You press [src] against [I] until it lights. Seems a bit redundant...</span>"
+			"<span class='notice'>[user] presses [src] against [cig] until it lights. Seems a bit redundant...</span>",
+			"<span class='notice'>You press [src] against [cig] until it lights. Seems a bit redundant...</span>"
 		)
 	else
 		user.visible_message(
 			"<span class='notice'>[user] presses [src] until it lights. Sharing is caring!</span>",
-			"<span class='notice'>You press [src] against [I] until it lights. Sharing is caring!</span>"
+			"<span class='notice'>You press [src] against [cig] until it lights. Sharing is caring!</span>"
 		)
-	I.light(user, target)
+	cig.light(user, target)
 	return TRUE
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/living/user, params)
@@ -407,6 +400,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
+
 	if(istype(target, /obj/item/food/snacks/grown))
 		var/obj/item/food/snacks/grown/O = target
 		if(O.dry)

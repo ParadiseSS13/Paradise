@@ -62,24 +62,21 @@
 	cigarette_lighter_act(user, target)
 
 /obj/item/cautery/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(!I.handle_cigarette_lighter_act(user, src))
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
 		return
-
-	if(direct_attackby_item)
-		I = direct_attackby_item
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [I], heating it until it lights.</span>",
-			"<span class='notice'>You press [src] against [I], heating it until it lights.</span>"
+			"<span class='notice'>[user] presses [src] against [cig], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [cig], heating it until it lights.</span>"
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [I] for [target], heating it until it lights.</span>",
-			"<span class='notice'>You press [src] against [I] for [target], heating it until it lights.</span>"
+			"<span class='notice'>[user] presses [src] against [cig] for [target], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [cig] for [target], heating it until it lights.</span>"
 		)
-	I.light(user, target)
+	cig.light(user, target)
 
 /obj/item/cautery/Initialize(mapload)
 	. = ..()
@@ -177,24 +174,21 @@
 	cigarette_lighter_act(user, target)
 
 /obj/item/scalpel/laser/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
 		return
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [I], heating it until it lights.</span>",
-			"<span class='notice'>You press [src] against [I], heating it until it lights.</span>"
+			"<span class='notice'>[user] presses [src] against [cig], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [cig], heating it until it lights.</span>"
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [I] for [target], heating it until it lights.</span>",
-			"<span class='notice'>You press [src] against [I] for [target], heating it until it lights.</span>"
+			"<span class='notice'>[user] presses [src] against [cig] for [target], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [cig] for [target], heating it until it lights.</span>"
 		)
-	I.light(user, target)
+	cig.light(user, target)
 
 /// lasers also count as catuarys
 /obj/item/scalpel/laser/laser1

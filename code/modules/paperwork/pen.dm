@@ -238,34 +238,31 @@
 		force -= backstab_damage
 
 /obj/item/pen/edagger/cigarette_lighter_act(mob/living/user, mob/living/carbon/target, obj/item/direct_attackby_item)
-	if(!active)
-		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
 		return
 
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
+	if(!active)
+		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
 		return
 
 	if(target == user)
 		user.visible_message(
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [I] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [I], lighting it with the blade.</span>",
+			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process.</span>",
+			"<span class='notice'>You casually slash [src] at [cig], lighting it with the blade.</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
 	else
 		user.visible_message(
 			"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-			[user.p_they(TRUE)] light[user.p_s()] [I] in the mouth of [target] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [I] in the mouth of [target], lighting it with the blade.</span>",
+			[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process.</span>",
+			"<span class='notice'>You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade.</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
 	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
-	I.light(user, target)
+	cig.light(user, target)
 
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
 	return FALSE

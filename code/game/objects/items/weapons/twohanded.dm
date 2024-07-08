@@ -164,32 +164,29 @@
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 /obj/item/dualsaber/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return
+
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
 		return
 
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
-		return
-
 	if(target == user)
 		user.visible_message(
-			"<span class='danger'>[user] flips through the air and spins [src] wildly! It brushes against [user.p_their()] [I] and sets it alight!</span>",
-			"<span class='notice'>You flip through the air and twist [src] so it brushes against [I], lighting it with the blade.</span>",
+			"<span class='danger'>[user] flips through the air and spins [src] wildly! It brushes against [user.p_their()] [cig] and sets it alight!</span>",
+			"<span class='notice'>You flip through the air and twist [src] so it brushes against [cig], lighting it with the blade.</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
 	else
 		user.visible_message(
-			"<span class='danger'>[user] flips through the air and slashes at [user] with [src]! The blade barely misses, brushing against [user.p_their()] [I] and setting it alight!</span>",
-			"<span class='notice'>You flip through the air and slash [src] at [I], lighting it for [target].</span>",
+			"<span class='danger'>[user] flips through the air and slashes at [user] with [src]! The blade barely misses, brushing against [user.p_their()] [cig] and setting it alight!</span>",
+			"<span class='notice'>You flip through the air and slash [src] at [cig], lighting it for [target].</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
 	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 50, TRUE)
-	I.light(user, target)
+	cig.light(user, target)
 	INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 /obj/item/dualsaber/proc/jedi_spin(mob/living/user)

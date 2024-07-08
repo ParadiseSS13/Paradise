@@ -279,25 +279,21 @@
 	cigarette_lighter_act(user, target)
 
 /obj/item/lava_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
 		return
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] holds the tip of [src] near [user.p_their()] [I.name] until it is suddenly set alight.</span>",
-			"<span class='notice'>You hold the tip of [src] near [I] until it is suddenly set alight.</span>",
+			"<span class='notice'>[user] holds the tip of [src] near [user.p_their()] [cig.name] until it is suddenly set alight.</span>",
+			"<span class='notice'>You hold the tip of [src] near [cig] until it is suddenly set alight.</span>",
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] points [src] at [target] until [target.p_their()] [I] is suddenly set alight.</span>",
-			"<span class='notice'>You point [src] at [target] until [target.p_their()] [I] is suddenly set alight.</span>",
+			"<span class='notice'>[user] points [src] at [target] until [target.p_their()] [cig.name] is suddenly set alight.</span>",
+			"<span class='notice'>You point [src] at [target] until [target.p_their()] [cig] is suddenly set alight.</span>",
 		)
-	I.light(user, target)
+	cig.light(user, target)
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()

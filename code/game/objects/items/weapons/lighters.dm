@@ -115,28 +115,25 @@
 	return ..()
 
 /obj/item/lighter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	var/obj/item/clothing/mask/cigarette/I = locate_cigarette(target)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return	
+
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
-		return
-	
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [I] with [src].</span>",
-			"<span class='notice'>After some fiddling, you manage to light [I] with [src].</span>,"
+			"<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [cig] with [src].</span>",
+			"<span class='notice'>After some fiddling, you manage to light [cig] with [src].</span>,"
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>After some fiddling, [user] manages to light [I] for [target] with [src].</span>",
-			"<span class='notice'>After some fiddling, you manage to light [I] for [target] with [src].</span>"
+			"<span class='notice'>After some fiddling, [user] manages to light [cig] for [target] with [src].</span>",
+			"<span class='notice'>After some fiddling, you manage to light [cig] for [target] with [src].</span>"
 		)
-	I.light(user, target)
+	cig.light(user, target)
 
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
@@ -194,28 +191,25 @@
 		to_chat(user, "<span class='notice'>You shut off [src].")
 
 /obj/item/lighter/zippo/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	var/obj/item/clothing/mask/cigarette/I = locate_cigarette(target)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return
+
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
-		return
-	
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(target == user)
 		user.visible_message(
-			"<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [I.name] with [src]. Damn [user.p_theyre()] cool.</span>",
-			"<span class='rose'>With a single flick of your wrist, you smoothly light [I] with [src].</span>"
+			"<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [cig.name] with [src]. Damn [user.p_theyre()] cool.</span>",
+			"<span class='rose'>With a single flick of your wrist, you smoothly light [cig] with [src].</span>"
 		)
 	else
 		user.visible_message(
-			"<span class='rose'>[user] whips [src] out and holds it for [target]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light [I] with. Damn [user.p_theyre()] cool.</span>",
-			"<span class='rose'>You whip [src] out and hold it for [target]. Your arm is as steady as the unflickering flame you light [I] with.</span>"
+			"<span class='rose'>[user] whips [src] out and holds it for [target]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light [cig] with. Damn [user.p_theyre()] cool.</span>",
+			"<span class='rose'>You whip [src] out and hold it for [target]. Your arm is as steady as the unflickering flame you light [cig] with.</span>"
 		)
-	I.light(user, target)
+	cig.light(user, target)
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)
 	return
@@ -346,28 +340,25 @@
 
 
 /obj/item/match/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return
+
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
-		return
-	
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
 		return
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] lights [user.p_their()] [I] with [src].</span>",
-			"<span class='notice'>You light [I] with [src]</span>"
+			"<span class='notice'>[user] lights [user.p_their()] [cig] with [src].</span>",
+			"<span class='notice'>You light [cig] with [src]</span>"
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] holds [src] out for [target], and lights [I].</span>",
-			"<span class='notice'>You hold [src] out for [target], and light [user.p_their()] [I].</span>"
+			"<span class='notice'>[user] holds [src] out for [target], and lights [cig].</span>",
+			"<span class='notice'>You hold [src] out for [target], and light [user.p_their()] [cig].</span>"
 		)
-	I.light(user, target)
+	cig.light(user, target)
 	matchburnout()
 
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -401,40 +392,37 @@
 	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
 	
 /obj/item/match/unathi/cigarette_lighter_act(mob/living/target, mob/living/user, obj/item/direct_attackby_item)
-	var/obj/item/clothing/mask/cigarette/I = locate_cigarette(target)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return
+
 	if(!lit)
 		to_chat(user, "<span class='userdanger'>If you can see this message, please make an issue report to GitHub, something bad has happened.</span>")
 		return
 
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
-		return
-
 	if(target == user)
 		user.visible_message(
-			"<span class='rose'>[user] spits fire at [user.p_their()] [I.name], igniting it.</span>",
-			"<span class='rose'>You spit fire at [I], igniting it.</span>",
+			"<span class='rose'>[user] spits fire at [user.p_their()] [cig.name], igniting it.</span>",
+			"<span class='rose'>You spit fire at [cig], igniting it.</span>",
 			"<span class='warning'>You hear a brief burst of flame!</span>"
 		)
 	else
 		if(prob(50))
 			user.visible_message(
-				"<span class='rose'>[user] spits fire at [target], lighting [I] in [target.p_their()] mouth and nearly burning [target.p_their()] face!</span>",
-				"<span class='rose'>You spit fire at [target], lighting [I] in [target.p_their()] mouth and nearly burning [target.p_their()] face!</span>",
+				"<span class='rose'>[user] spits fire at [target], lighting [cig] in [target.p_their()] mouth and nearly burning [target.p_their()] face!</span>",
+				"<span class='rose'>You spit fire at [target], lighting [cig] in [target.p_their()] mouth and nearly burning [target.p_their()] face!</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
 			)
 		else
 			user.visible_message(
-				"<span class='rose'>[user] spits fire at [target], burning [target.p_their()] face and lighting [I] in the process!</span>",
-				"<span class='rose'>You spit fire at [target], burning [target.p_their()] face and lighting [I] in the process!</span>",
+				"<span class='rose'>[user] spits fire at [target], burning [target.p_their()] face and lighting [cig] in the process!</span>",
+				"<span class='rose'>You spit fire at [target], burning [target.p_their()] face and lighting [cig] in the process!</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
 			)
 			var/obj/item/organ/external/head/affecting = target.get_organ("head")
 			affecting.receive_damage(0, 5)
 			target.UpdateDamageIcon()
-	I.light(user, target)
+	cig.light(user, target)
 	playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
 	matchburnout()
 

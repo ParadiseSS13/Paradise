@@ -63,27 +63,24 @@
 	cigarette_lighter_act(user, M)
 
 /obj/item/assembly/igniter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
 		return
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [I] and activates it, lighting [I] in a shower of sparks!</span>",
-			"<span class='notice'>You press [src] against [I] and activates it, lighting [I] in a shower of sparks!</span>",
+			"<span class='notice'>[user] presses [src] against [cig] and activates it, lighting [cig] in a shower of sparks!</span>",
+			"<span class='notice'>You press [src] against [cig] and activates it, lighting [cig] in a shower of sparks!</span>",
 			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [I] and activates it, lighting [I] for [target] in a shower of sparks!</span>",
-			"<span class='notice'>You press [src] against [I] and activate it, lighting [I] in a shower of sparks!</span>",
+			"<span class='notice'>[user] presses [src] against [cig] and activates it, lighting [cig] for [target] in a shower of sparks!</span>",
+			"<span class='notice'>You press [src] against [cig] and activate it, lighting [cig] in a shower of sparks!</span>",
 			"<span class='warning'>You hear a shower of sparks shooting out from something!</span>"
 		)
 	sparks.start()	// Make sparks fly!
-	I.light(user, target)
+	cig.light(user, target)
 
 /obj/item/assembly/igniter/attack_self(mob/user)
 	if(!istype(loc, /obj/item/assembly_holder))

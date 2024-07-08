@@ -992,18 +992,26 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name
 
-/// Handles the bulk of cigarette lighting interactions. You must call light() to actually light the cigarette.
+/**
+  * Handles the bulk of cigarette lighting interactions. You must call light() to actually light the cigarette.
+  *
+  * The parent will return the target's cigarette (or the cigarette itself if attacked directly) if all checks are passed, otherwise it will return `null`.
+  * Arguments:
+  * * user - The mob trying to light the cigarette.
+  * * target - The mob with the cigarette.
+  * * direct_attackby_item - Used if the cigarette item is clicked on directly with a lighter instead of a mob wearing a cigarette.
+  */
 /obj/item/proc/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	if(!user || !target)
 		return null
-	var/obj/item/clothing/mask/cigarette/I = direct_attackby_item ? direct_attackby_item : target.wear_mask
 
-	if(!istype(I))
+	var/obj/item/clothing/mask/cigarette/cig = direct_attackby_item ? direct_attackby_item : target.wear_mask
+	if(!istype(cig))
 		return null
 
-	if(!I.handle_cigarette_lighter_act(user, src))
+	if(!cig.handle_cigarette_lighter_act(user, src))
 		return null
-	return I
+	return cig
 
 /// Checks to to see if a target has a cigarette equipped and that the user is targeting the mouth on help intent.
 /obj/item/proc/cigarette_check(mob/living/user, mob/living/target)

@@ -46,37 +46,34 @@
 		force -= faction_bonus_force
 
 /obj/item/melee/energy/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return
+
 	if(is_a_cleaving_saw)
 		return
 
 	if(!active)
-		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
-		return
-
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
+		to_chat(user, "<span class='warning'>You must activate [src] before you can light [cig] with it!</span>")
 		return
 
 	if(target == user)
 		user.visible_message(
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [I] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [I], lighting it with the blade.</span>",
+			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process.</span>",
+			"<span class='notice'>You casually slash [src] at [cig], lighting it with the blade.</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
 	else
 		user.visible_message(
 			"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-			[user.p_they(TRUE)] light[user.p_s()] [I] in the mouth of [target] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [I] in the mouth of [target], lighting it with the blade.</span>",
+			[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process.</span>",
+			"<span class='notice'>You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade.</span>",
 			"<span class='danger'>You hear an energy blade slashing something!</span>"
 		)
 	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 50, TRUE)
-	I.light(user, target)
+	cig.light(user, target)
 
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \

@@ -212,31 +212,28 @@ CONTENTS:
 		return ..()	// Blow everyone else up!
 
 /obj/item/gun/magic/wand/fireball/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	if(!charges)
-		to_chat(user, "<span class='warning'>[src] is out of charge!</span>")
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
 		return
 
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
+	if(!charges)
+		to_chat(user, "<span class='warning'>[src] is out of charge!</span>")
 		return
 
 	if(prob(50) || user.mind.assigned_role == "Wizard")
 		if(target == user)
 			user.visible_message(
-				"<span class='warning'>Holy shit! Did [user] just manage to light [user.p_their()] [I.name] with [src], with only moderate eyebrow singing!?</span>",
-				"<span class='notice'>You swish and flick [src], lighting [I] with a plume of flame, whilst only moderately eyebrow singing your eyebrows.</span>",
+				"<span class='warning'>Holy shit! Did [user] just manage to light [user.p_their()] [cig.name] with [src], with only moderate eyebrow singing!?</span>",
+				"<span class='notice'>You swish and flick [src], lighting [cig] with a plume of flame, whilst only moderately eyebrow singing your eyebrows.</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
 			)
 		else
 			user.visible_message(
-				"<span class='warning'>Holy shit! Did [user] just manage to light [I] for [target] with [src], only moderately singing [target.p_their()] eyebrows!?</span>",
-				"<span class='notice'>You swish and flick [src] at [target], lighting [user.p_their()] [I.name] with a plume of flame, whilst only moderately singing [target.p_their()] eyebrows.</span>",
+				"<span class='warning'>Holy shit! Did [user] just manage to light [cig] for [target] with [src], only moderately singing [target.p_their()] eyebrows!?</span>",
+				"<span class='notice'>You swish and flick [src] at [target], lighting [user.p_their()] [cig.name] with a plume of flame, whilst only moderately singing [target.p_their()] eyebrows.</span>",
 				"<span class='warning'>You hear a brief burst of flame!</span>"
 			)
-		I.light(user, target)
+		cig.light(user, target)
 		return
 
 	// Oops...
@@ -250,8 +247,7 @@ CONTENTS:
 
 // This is needed to you don't try to perform an execution/suicide when lighting a cigarette.
 /obj/item/gun/magic/wand/fireball/handle_suicide(mob/user, mob/living/carbon/human/target, params)
-	var/obj/item/clothing/mask/cigarette/cig = target?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || user.a_intent != INTENT_HELP)
+	if(!cigarette_check(user, target))
 		. = ..()
 
 /////////////////////////////////////

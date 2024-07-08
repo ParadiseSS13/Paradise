@@ -36,31 +36,27 @@
 	cigarette_lighter_act(user, M)
 
 /obj/item/storm_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return
+
 	if(!thunder_charges)
 		to_chat(user, "<span class='warning'>[src] needs to recharge!</span>")
 		return
 
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	if(!I.handle_cigarette_lighter_act(user, src))
-		return
-
 	if(target == user)
 		user.visible_message(
-			"<span class='warning'>[user] holds [src] up to [user.p_their()] [I.name] and shoots a tiny bolt of lightning that sets it alight!</span>",
-			"<span class='warning'>You hold [src] up to [I] and shoot a tiny bolt of lightning that sets it alight!</span>",
+			"<span class='warning'>[user] holds [src] up to [user.p_their()] [cig.name] and shoots a tiny bolt of lightning that sets it alight!</span>",
+			"<span class='warning'>You hold [src] up to [cig] and shoot a tiny bolt of lightning that sets it alight!</span>",
 			"<span class='danger'>A thundercrack fills the air!</span>"
 		)
 	else
 		user.visible_message(
-			"<span class='warning'>[user] points [src] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [I.name] alight!</span>",
-			"<span class='warning'>You point [src] at [target] and shoot a tiny bolt of lightning that sets [target.p_their()] [I.name] alight!</span>",
+			"<span class='warning'>[user] points [src] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [cig.name] alight!</span>",
+			"<span class='warning'>You point [src] at [target] and shoot a tiny bolt of lightning that sets [target.p_their()] [cig.name] alight!</span>",
 			"<span class='danger'>A thundercrack fills the air!</span>"
 		)
-	I.light(user, target)
+	cig.light(user, target)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 50, TRUE)
 	thunder_charges--
 
@@ -98,8 +94,7 @@
 	// This early return stops the staff from shooting lightning at someone when being used as a lighter.
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-		if(istype(cig) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP && proximity_flag)
+		if(cigarette_check(user, M))
 			return
 
 	. = ..()
