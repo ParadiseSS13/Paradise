@@ -38,6 +38,7 @@
 	name = "skateboard"
 	desc = "An old, battered skateboard. It's still rideable, but probably unsafe."
 	icon_state = "skateboard"
+	w_class = WEIGHT_CLASS_BULKY
 	density = FALSE
 	///Sparks datum for when we grind on tables
 	var/datum/effect_system/spark_spread/sparks
@@ -213,6 +214,7 @@
 	board_item_type = /obj/item/melee/skateboard/hoverboard
 	instability = 3
 	icon_state = "hoverboard_red"
+	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/Initialize(mapload)
