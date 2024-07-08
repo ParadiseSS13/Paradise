@@ -712,9 +712,6 @@
 	animate(held_item_icon, transform = m180)
 	underlays += held_item_icon
 
-/mob/living/simple_animal/parrot/CanPathfindPassTo(ID, dir, obj/destination)
-	return is_type_in_typecache(destination, desired_perches)
-
 #undef PARROT_PERCH
 #undef PARROT_SWOOP
 #undef PARROT_WANDER
