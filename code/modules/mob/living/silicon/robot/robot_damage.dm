@@ -201,7 +201,7 @@ Finishes the stamcrit process. If the borg doesn't have a power source for the r
 		addtimer(CALLBACK(src, PROC_REF(end_emergency_reboot)), restun_time)
 		return
 	rebooting = FALSE
-	if(!stat)
+	if(stat != CONSCIOUS)
 		return
 	playsound(src, 'sound/machines/reboot_chime.ogg' , 100, FALSE, SOUND_RANGE_SET(10))
 	update_stamina_hud()
