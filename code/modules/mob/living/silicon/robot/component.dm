@@ -132,7 +132,9 @@
 /datum/robot_component/proc/get_movement_delay()
 	if(is_missing())
 		return 0
-	return (is_destroyed() ? max_slowdown_factor : current_slowdown_factor)
+	if(is_destroyed())
+		return max_slowdown_factor
+	return  current_slowdown_factor
 
 /datum/robot_component/armour
 	name = "armour plating"
