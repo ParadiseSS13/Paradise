@@ -464,11 +464,6 @@
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/ruin/ancientstation/space
-	name = "Exposed To Space"
-	icon_state = "teleporter"
-	has_gravity = FALSE
-
 /area/ruin/ancientstation/atmo
 	name = "Beta Station Atmospherics"
 	icon_state = "red"
@@ -478,10 +473,6 @@
 /area/ruin/ancientstation/betanorth
 	name = "Beta Station North Corridor"
 	icon_state = "purple"
-
-/area/ruin/ancientstation/solar
-	name = "Station Solar Array"
-	icon_state = "panelsAP"
 
 /area/ruin/ancientstation/engi
 	name = "Charlie Station Engineering"
@@ -519,3 +510,4 @@
 /area/ruin/ancientstation/hivebot
 	name = "Hivebot Mothership"
 	icon_state = "teleporter"
+	requires_power = FALSE

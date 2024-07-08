@@ -2,6 +2,7 @@
 	name = "mousetrap"
 	desc = "A handy little spring-loaded trap for catching pesty rodents."
 	icon_state = "mousetrap"
+	item_state = "mousetrap"
 	materials = list(MAT_METAL=100)
 	origin_tech = "combat=1;materials=2;engineering=1"
 	var/armed = FALSE
@@ -19,12 +20,11 @@
 		return
 
 	armed = !armed
-	if(!armed)
-		if(ishuman(usr))
-			var/mob/living/carbon/human/user = usr
-			if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
-				to_chat(user, "Your hand slips, setting off the trigger.")
-				pulse(0)
+	if(!armed && ishuman(usr))
+		var/mob/living/carbon/human/user = usr
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
+			to_chat(user, "Your hand slips, setting off the trigger.")
+			pulse(0)
 
 	update_icon()
 

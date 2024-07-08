@@ -2,7 +2,7 @@
 	name = "Apex Predator"
 	desc = "We evolve a keen intuition, allowing us to detect the anxieties of nearby lifeforms."
 	helptext = "We will be able to detect the direction and room our prey is in, as well as if they have any injuries."
-	button_icon_state = "predator"
+	button_overlay_icon_state = "predator"
 	dna_cost = 1
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/utility

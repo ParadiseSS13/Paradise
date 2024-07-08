@@ -56,6 +56,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
+	smoketime = reagents.total_volume * 2.5
 	RegisterSignal(src, COMSIG_ITEM_BEING_ATTACKED, PROC_REF(try_light))
 
 /obj/item/clothing/mask/cigarette/Destroy()
@@ -160,6 +161,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(glass))	//you can dip cigarettes into beakers
 		var/transfered = glass.reagents.trans_to(src, chem_volume)
 		if(transfered)	//if reagents were transfered, show the message
+			smoketime = reagents.total_volume * 2.5
 			to_chat(user, "<span class='notice'>You dip \the [src] into \the [glass].</span>")
 		else			//if not, either the beaker was empty, or the cigarette was full
 			if(!glass.reagents.total_volume)
@@ -285,7 +287,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	list_reagents = list("nicotine" = 40, "omnizine" = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
-	list_reagents = list("thc" = 40, "cbd" = 20)
+	list_reagents = list("thc" = 20, "cbd" = 40)
 
 /obj/item/clothing/mask/cigarette/robustgold
 	list_reagents = list("nicotine" = 40, "gold" = 1)
@@ -302,6 +304,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	type_butt = /obj/item/cigbutt/roach
 	throw_speed = 0.5
 	item_state = "spliffoff"
+	list_reagents = list("thc" = 40, "cbd" = 20)
 
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
 	. = ..()
@@ -565,22 +568,26 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(target, /obj/item/food/snacks/grown))
-		var/obj/item/food/snacks/grown/O = target
-		if(O.dry)
-			user.unEquip(target, 1)
-			user.unEquip(src, 1)
-			var/obj/item/clothing/mask/cigarette/rollie/custom/R = new /obj/item/clothing/mask/cigarette/rollie/custom(user.loc)
-			R.chem_volume = target.reagents.total_volume
-			target.reagents.trans_to(R, R.chem_volume)
-			user.put_in_active_hand(R)
-			to_chat(user, "<span class='notice'>You roll the [target.name] into a rolling paper.</span>")
-			R.desc = "Dried [target.name] rolled up in a thin piece of paper."
-			qdel(target)
-			qdel(src)
-		else
-			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
-	else
-		..()
+	if(!istype(target, /obj/item/food/snacks/grown))
+		return ..()
+
+	var/obj/item/food/snacks/grown/plant = target
+	if(!plant.dry)
+		to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+		return
+
+	user.unEquip(plant, TRUE)
+	user.unEquip(src, TRUE)
+	var/obj/item/clothing/mask/cigarette/rollie/custom/custom_rollie = new (get_turf(user))
+	custom_rollie.reagents.maximum_volume = plant.reagents.total_volume
+	plant.reagents.trans_to(custom_rollie, custom_rollie.reagents.total_volume)
+	custom_rollie.smoketime = custom_rollie.reagents.total_volume * 2.5
+
+	user.put_in_active_hand(custom_rollie)
+	to_chat(user, "<span class='notice'>You roll the [plant.name] into a rolling paper.</span>")
+	custom_rollie.desc = "Dried [plant.name] rolled up in a thin piece of paper."
+
+	qdel(plant)
+	qdel(src)
 
 #undef REAGENT_TIME_RATIO

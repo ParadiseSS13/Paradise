@@ -100,7 +100,7 @@
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))
-		if(!stat)
+		if(stat == CONSCIOUS)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
