@@ -278,6 +278,7 @@
 		owner.update_fhair()
 		owner.update_head_accessory()
 		owner.update_markings()
+	get_icon()
 	. = ..()
 
 /obj/item/organ/external/head/replaced()

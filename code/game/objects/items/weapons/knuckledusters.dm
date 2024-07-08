@@ -34,12 +34,9 @@
 	gripped = FALSE
 	flags &= ~(NODROP | ABSTRACT)
 
-/obj/item/melee/knuckleduster/attack/(mob/living/user)
-	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
-	return ..()
-
 /obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/user)
 	. = ..()
+	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
 	if(!ishuman(target))
 		return
 

@@ -95,7 +95,6 @@
 			robot_healthscan(user, src)
 		else if(ishuman(src))
 			healthscan(user, src, 1, TRUE)
-	return ..()
 
 // ---------------------------------------
 // And here are some good things for free:
@@ -107,7 +106,3 @@
 		var/obj/machinery/computer/teleporter/com = S.teleporter_console
 		if(com && com.target)
 			user.forceMove(get_turf(com.target))
-
-/obj/effect/portal/attack_ghost(mob/user as mob)
-	if(target)
-		user.forceMove(get_turf(target))

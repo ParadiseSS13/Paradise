@@ -133,6 +133,17 @@
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
+
+	var/we_done = FALSE
+	for(var/organ_tag in organ_datums)
+		var/datum/organ/borgan = organ_datums[organ_tag]
+		if(borgan.on_successful_emp())
+			we_done = TRUE
+
+	if(we_done)
+		return
+
+	// No EMP handling was done, lets just give em damage
 	switch(severity)
 		if(1)
 			receive_damage(20, 1)
@@ -367,26 +378,6 @@
 			head_organ.f_style = "Very Long Beard"
 			head_organ.facial_colour = "#D8C078"
 			H.update_fhair()
-
-/obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-
-	var/we_done = FALSE
-	for(var/organ_tag in organ_datums)
-		var/datum/organ/borgan = organ_datums[organ_tag]
-		if(borgan.on_successful_emp())
-			we_done = TRUE
-
-	if(we_done)
-		return
-
-	// No EMP handling was done, lets just give em damage
-	switch(severity)
-		if(1)
-			receive_damage(20, 1)
-		if(2)
-			receive_damage(7, 1)
 
 /obj/item/organ/internal/handle_germs()
 	..()

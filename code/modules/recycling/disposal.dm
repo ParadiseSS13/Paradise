@@ -161,7 +161,7 @@
 
 		gripper.gripped_item.forceMove(src)
 		user.visible_message(
-			"<span class='notice'>[user] places [gripper.gripped_item] into the disposal unit.</span>", 
+			"<span class='notice'>[user] places [gripper.gripped_item] into the disposal unit.</span>",
 			"<span class='notice'>You place [gripper.gripped_item] into the disposal unit.</span>",
 			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
 		)
@@ -216,11 +216,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	
+
 	if(length(contents) > 0)
 		to_chat(user, "<span class='warning'>You need to empty the contents of the disposal unit first!</span>")
 		return
-	
+
 	if(mode == DISPOSALS_OFF) // It's off but still not unscrewed
 		mode = DISPOSALS_UNSCREWED
 	else if(mode == DISPOSALS_UNSCREWED)
@@ -635,11 +635,6 @@
 
 	else
 		return ..(mover, target, height)
-
-
-/obj/machinery/disposal/singularity_pull(S, current_size)
-	if(current_size >= STAGE_FIVE)
-		qdel(src)
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))

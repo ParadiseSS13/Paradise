@@ -591,11 +591,6 @@
 	hat_alpha = null
 	hat_color = null
 
-/mob/living/silicon/death(gibbed)
-	if(gibbed)
-		drop_hat()
-	. = ..()
-
 /mob/living/silicon/examine(mob/user)
 	. = ..()
 	if(silicon_hat)

@@ -47,6 +47,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(soundloop)
+	suit = null
 	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
@@ -181,10 +182,6 @@
 	QDEL_NULL(jetpack)
 	return ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/Destroy()
-	suit = null
-	return ..()
-
 /obj/item/clothing/suit/space/hardsuit/proc/MakeHelmet()
 	if(!helmettype)
 		return
@@ -230,6 +227,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	..()
+	if(helmettype && slot != SLOT_HUD_OUTER_SUIT)
+		RemoveHelmet()
 	if(jetpack)
 		if(slot == SLOT_HUD_OUTER_SUIT)
 			for(var/X in jetpack.actions)
@@ -238,6 +237,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/dropped(mob/user)
 	..()
+	RemoveHelmet()
 	if(jetpack)
 		for(var/X in jetpack.actions)
 			var/datum/action/A = X

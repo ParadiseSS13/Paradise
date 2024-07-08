@@ -203,9 +203,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				return
 	..(user)
 
-/obj/machinery/door/airlock/bumpopen(mob/living/simple_animal/user)
-	..(user)
-
 /obj/machinery/door/airlock/proc/isElectrified()
 	if(electrified_until != 0)
 		return 1

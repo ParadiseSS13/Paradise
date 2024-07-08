@@ -42,6 +42,16 @@
 
 /client/vv_edit_var(var_name, var_value) //called whenever a var is edited
 	switch(var_name)
+		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
+		// But guess what, if I have the ability to overengineer something, I am going to do it
+		if("tos_consent")
+			return FALSE
+		// Dont fuck with this
+		if("cui_entries")
+			return FALSE
+		// or this
+		if("jbh")
+			return FALSE
 		if("vars")
 			return FALSE
 		if("var_edited")

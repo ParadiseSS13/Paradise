@@ -23,6 +23,8 @@
 	noz = make_noz()
 
 /obj/item/watertank/Destroy()
+	if(on)
+		remove_noz()
 	QDEL_NULL(noz)
 	return ..()
 
@@ -68,12 +70,6 @@
 		var/mob/M = noz.loc
 		M.unEquip(noz, 1)
 	return
-
-/obj/item/watertank/Destroy()
-	if(on)
-		remove_noz()
-		QDEL_NULL(noz)
-	return ..()
 
 /obj/item/watertank/attack_hand(mob/user)
 	if(loc == user)
