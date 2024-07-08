@@ -993,7 +993,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	return type == other.type && name == other.name
 
 /**
-  * Handles the bulk of cigarette lighting interactions. You must call light() to actually light the cigarette.
+  * Handles the bulk of cigarette lighting interactions. You must call `light()` to actually light the cigarette.
   *
   * The parent will return the target's cigarette (or the cigarette itself if attacked directly) if all checks are passed, otherwise it will return `null`.
   * Arguments:
