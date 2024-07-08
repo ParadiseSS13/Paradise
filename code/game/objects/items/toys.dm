@@ -235,17 +235,8 @@
 	cigarette_lighter_act(user, target)
 
 /obj/item/toy/sword/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
-	var/obj/item/clothing/mask/cigarette/I = target?.wear_mask
-
-	if(direct_attackby_item)
-		I = direct_attackby_item
-
-	// We don't want this to function unless the cig is absolutely in someone's mouth.
-	if(!istype(target?.wear_mask, I))
-		to_chat(user, "<span class='notice'> You tap [I] with [src]. Nothing happens.</span>")
-		return
-
-	if(!I.handle_cigarette_lighter_act(user, src))
+	var/obj/item/clothing/mask/cigarette/I = ..()
+	if(!I)
 		return
 
 	user.do_attack_animation(target)
