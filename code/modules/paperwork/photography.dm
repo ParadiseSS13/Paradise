@@ -45,7 +45,7 @@
 		if(!txt)
 			return
 		txt = copytext(txt, 1, 128)
-		if(loc == user && user.stat == 0)
+		if(loc == user && user.stat == CONSCIOUS)
 			scribble = txt
 	else if(P.get_heat())
 		burnphoto(P, user)
