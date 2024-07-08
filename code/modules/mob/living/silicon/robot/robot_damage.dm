@@ -36,7 +36,7 @@
 	if(rebooting)
 		return
 	var/current_stam_damage = getStaminaLoss()
-	if(current_stam_damage > DAMAGE_PRECISION && (maxHealth - current_stam_damage) <= HEALTH_THRESHOLD_CRIT && !stat)
+	if(current_stam_damage > DAMAGE_PRECISION && (maxHealth - current_stam_damage) <= HEALTH_THRESHOLD_CRIT && stat == CONSCIOUS)
 		start_emergency_reboot()
 
 /mob/living/silicon/robot/handle_status_effects()
