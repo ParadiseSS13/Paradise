@@ -84,7 +84,7 @@
 			var/amount = text2num(href_list["amount"])
 			if(amount <= 0)
 				return
-			if(beaker == null || id in locked_reagents)
+			if(beaker == null || (id in locked_reagents))
 				reagents.remove_reagent(id,amount)
 				to_chat(usr, "<span class='notice'>[src] vibrates for a moment as it flushes the liquid.</span>")
 				playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
