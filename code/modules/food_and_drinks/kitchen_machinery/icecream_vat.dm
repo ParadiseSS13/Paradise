@@ -27,7 +27,7 @@
 
 /obj/machinery/icemachine/Initialize(mapload)
 	. = ..()
-	create_reagents(50)
+	create_reagents(500)
 
 /obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))
