@@ -531,7 +531,7 @@ emp_act
 				if(get_dist(H, src) <= 1) //people with TK won't get smeared with blood
 					H.add_mob_blood(src)
 
-		if(!stat)
+		if(stat == CONSCIOUS)
 			switch(hit_area)
 				if("head")//Harder to score a stun but if you do it lasts a bit longer
 					if(stat == CONSCIOUS && armor < 50)

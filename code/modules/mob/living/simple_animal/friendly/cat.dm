@@ -121,7 +121,7 @@
 	collar_type = "[initial(collar_type)]_sit"
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
-	if(!stat && !buckled)
+	if(stat == CONSCIOUS && !buckled)
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
 			lay_down()

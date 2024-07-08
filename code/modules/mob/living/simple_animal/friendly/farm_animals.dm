@@ -70,7 +70,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/Move()
 	. = ..()
-	if(!stat)
+	if(stat == CONSCIOUS)
 		eat_plants()
 
 /mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/O as obj, mob/user as mob, params)
@@ -159,12 +159,12 @@
 		udder.generateMilk()
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
-	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
+	if(stat == CONSCIOUS && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
 		M.visible_message("<span class='warning'>[M] tips over [src].</span>","<span class='notice'>You tip over [src].</span>")
 		Weaken(60 SECONDS)
 		icon_state = icon_dead
 		spawn(rand(20,50))
-			if(!stat && M)
+			if(stat == CONSCIOUS && M)
 				icon_state = icon_living
 				var/list/responses = list(	"[src] looks at you imploringly.",
 											"[src] looks at you pleadingly",
@@ -312,7 +312,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
 	if(istype(O, food_type)) //feedin' dem chickens
-		if(!stat && eggsleft < 8)
+		if(stat == CONSCIOUS && eggsleft < 8)
 			var/feedmsg = "[user] feeds [O] to [name]! [pick(feedMessages)]"
 			user.visible_message(feedmsg)
 			user.drop_item()

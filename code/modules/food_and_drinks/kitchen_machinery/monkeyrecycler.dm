@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		if(ishuman(grabbed))
 			var/mob/living/carbon/human/target = grabbed
 			if(issmall(target))
-				if(target.stat == 0)
+				if(target.stat == CONSCIOUS)
 					to_chat(user, "<span class='warning'>The monkey is struggling far too much to put it in the recycler.</span>")
 				else
 					user.drop_item()

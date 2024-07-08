@@ -1085,8 +1085,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/syndicate/CanPass(atom/A)
 	return ((stat & BROKEN) || !isliving(A))
 
-/obj/machinery/porta_turret/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return ((stat & BROKEN) || !isliving(caller))
+/obj/machinery/porta_turret/syndicate/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	return ((stat & BROKEN) || !pass_info.is_living)
 
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()
@@ -1208,5 +1208,5 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/inflatable_turret/CanPass(atom/A)
 	return ((stat & BROKEN) || !isliving(A))
 
-/obj/machinery/porta_turret/inflatable_turret/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return ((stat & BROKEN) || !isliving(caller))
+/obj/machinery/porta_turret/inflatable_turret/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	return ((stat & BROKEN) || !pass_info.is_living)

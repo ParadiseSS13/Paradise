@@ -614,7 +614,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if("closing")
 			update_icon(AIRLOCK_CLOSING)
 		if("deny")
-			if(!stat)
+			if(stat == CONSCIOUS)
 				update_icon(AIRLOCK_DENY)
 				playsound(src,doorDeni,50,0,3)
 				sleep(6)
@@ -1375,13 +1375,13 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	update_icon()
 	return 1
 
-/obj/machinery/door/airlock/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/obj/machinery/door/airlock/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
-	if(caller?.checkpass(PASSDOOR) && !locked)
+	if(pass_info.pass_flags & PASSDOOR && !locked)
 		return TRUE
 	//Airlock is passable if it is open (!density), bot has access, and is not bolted or welded shut)
-	return check_access(ID) && !locked && !welded && arePowerSystemsOn() && !no_id
+	return check_access_list(pass_info.access) && !locked && !welded && arePowerSystemsOn() && !pass_info.no_id
 
 /obj/machinery/door/airlock/emag_act(mob/user)
 	if(!operating && density && arePowerSystemsOn() && !emagged)
@@ -1490,7 +1490,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/hostile_lockdown(mob/origin)
 	// Must be powered and have working AI wire.
-	if(canAIControl(src) && !stat)
+	if(canAIControl(src) && stat == CONSCIOUS)
 		locked = FALSE //For airlocks that were bolted open.
 		safe = FALSE //DOOR CRUSH
 		close()
@@ -1501,7 +1501,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/disable_lockdown()
 	// Must be powered and have working AI wire.
-	if(canAIControl(src) && !stat)
+	if(canAIControl(src) && stat == CONSCIOUS)
 		unlock()
 		electrified_until = 0
 		open()

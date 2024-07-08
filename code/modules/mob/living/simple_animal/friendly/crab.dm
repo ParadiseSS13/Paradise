@@ -23,7 +23,7 @@
 
 /mob/living/simple_animal/crab/handle_automated_movement()
 	//CRAB movement
-	if(!stat || !isturf(loc) || IS_HORIZONTAL(src) || buckled)
+	if(stat == CONSCIOUS || !isturf(loc) || IS_HORIZONTAL(src) || buckled)
 		return
 
 	turns_since_move++
