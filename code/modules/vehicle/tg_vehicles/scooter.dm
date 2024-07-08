@@ -38,7 +38,6 @@
 	name = "skateboard"
 	desc = "An old, battered skateboard. It's still rideable, but probably unsafe."
 	icon_state = "skateboard"
-	w_class = WEIGHT_CLASS_BULKY
 	density = FALSE
 	///Sparks datum for when we grind on tables
 	var/datum/effect_system/spark_spread/sparks
@@ -214,7 +213,6 @@
 	board_item_type = /obj/item/melee/skateboard/hoverboard
 	instability = 3
 	icon_state = "hoverboard_red"
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/Initialize(mapload)
@@ -315,7 +313,8 @@
 	item_state = "skateboard"
 	force = 12
 	throwforce = 4
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = SLOT_FLAG_BACK
 	attack_verb = list("smacks", "whacks", "slams", "smashes")
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/tgvehicle/scooter/skateboard
@@ -340,6 +339,7 @@
 /obj/item/melee/skateboard/hoverboard
 	name = "hoverboard"
 	desc = "A blast from the past, so retro!"
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "hoverboard_red_held"
 	item_state = "hoverboard_red"
 	board_item_type = /obj/tgvehicle/scooter/skateboard/hoverboard
