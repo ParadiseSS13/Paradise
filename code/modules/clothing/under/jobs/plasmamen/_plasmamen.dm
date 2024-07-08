@@ -31,7 +31,7 @@
 			H.visible_message("<span class='warning'>[H]'s suit automatically extinguishes [H.p_them()]!</span>","<span class='warning'>Your suit automatically extinguishes you.</span>")
 			if(!extinguishes_left)
 				to_chat(H, "<span class='warning'>Onboard auto-extinguisher depleted, refill with a cartridge.</span>")
-			playsound(H.loc, 'sound/effects/spray.ogg', 10, 1, -3)
+			playsound(H.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 			H.ExtinguishMob()
 			new /obj/effect/particle_effect/water(get_turf(H))
 	return FALSE

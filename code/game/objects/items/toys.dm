@@ -546,10 +546,10 @@
 	if(has_stuffing || grenade)
 		var/cuddle_verb = pick("hugs", "cuddles", "snugs")
 		user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
-		playsound(get_turf(src), poof_sound, 50, 1, -1)
+		playsound(get_turf(src), poof_sound, 50, TRUE, -1)
 		if(grenade && !grenade.active)
 			add_attack_logs(user, user, "activated a hidden grenade in [src].", ATKLOG_MOST)
-			playsound(loc, 'sound/weapons/armbomb.ogg', 10, 1, -3)
+			playsound(loc, 'sound/weapons/armbomb.ogg', 10, TRUE, -3)
 			//We call with grenade as argument, so cutting the grenade out doesn't magically defuse it
 			addtimer(CALLBACK(src, PROC_REF(explosive_betrayal), grenade), rand(1, 3) SECONDS)
 	else
