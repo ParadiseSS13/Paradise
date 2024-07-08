@@ -421,7 +421,7 @@
 				L.buckled = 0
 			L.Weaken(10 SECONDS)
 			L.apply_effect(STUTTER, 10 SECONDS)
-			playsound(src, pick(hit_sound), 50, 0, 0)
+			playsound(src, pick(hit_sound), 50, FALSE, 0)
 			breakthrough = TRUE
 
 		else

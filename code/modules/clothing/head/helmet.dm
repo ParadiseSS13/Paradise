@@ -33,10 +33,10 @@
 
 			if(active_sound)
 				while(up)
-					playsound(src.loc, "[active_sound]", 100, 0, 4)
+					playsound(src.loc, "[active_sound]", 100, FALSE, 4)
 					sleep(15)
 			if(toggle_sound)
-				playsound(src.loc, "[toggle_sound]", 100, 0, 4)
+				playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"
