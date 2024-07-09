@@ -568,7 +568,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-    
+
 	if(!istype(target, /obj/item/food/snacks/grown))
 		return ..()
 
