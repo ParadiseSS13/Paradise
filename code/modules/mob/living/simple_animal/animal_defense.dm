@@ -12,7 +12,7 @@
 		if(INTENT_HELP)
 			if(health > 0)
 				visible_message("<span class='notice'>[M] [response_help] [src].</span>", "<span class='notice'>[M] [response_help] you.</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 		if(INTENT_GRAB)
 			if(holder_type)		// SS220 EDIT START
@@ -26,7 +26,7 @@
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>", "<span class='userdanger'>[M] [response_harm] you!</span>")
-			playsound(loc, attacked_sound, 25, 1, -1)
+			playsound(loc, attacked_sound, 25, TRUE, -1)
 			attack_threshold_check(harm_intent_damage)
 			add_attack_logs(M, src, "Melee attacked with fists")
 			updatehealth()
@@ -38,7 +38,7 @@
 			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
 			return FALSE
 		..(user, TRUE)
-		playsound(loc, "punch", 25, 1, -1)
+		playsound(loc, "punch", 25, TRUE, -1)
 		visible_message("<span class='danger'>[user] has punched [src]!</span>", "<span class='userdanger'>[user] has punched [src]!</span>")
 		adjustBruteLoss(15)
 		return TRUE
@@ -53,7 +53,7 @@
 			var/damage = rand(15, 30)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
 					"<span class='userdanger'>[M] has slashed at [src]!</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			add_attack_logs(M, src, "Alien attacked")
 			attack_threshold_check(damage)
 		return TRUE

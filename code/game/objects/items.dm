@@ -625,7 +625,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	src.add_fingerprint(user)
 
-	playsound(loc, src.hitsound, 30, 1, -1)
+	playsound(loc, src.hitsound, 30, TRUE, -1)
 
 	user.do_attack_animation(M)
 

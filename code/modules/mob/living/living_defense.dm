@@ -96,7 +96,7 @@
 				"<span class='danger'>[src] was arc flashed by \the [source]!</span>",
 				"<span class='userdanger'>\The [source] arc flashes and electrocutes you!</span>",
 				"<span class='italics'>You hear a lightning-like crack!</span>")
-			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
+			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
 			explosion(loc, -1, 0, 2, 2)
 	else
 		apply_damage(shock_damage, STAMINA)
@@ -314,7 +314,7 @@
 	G.synch()
 	LAssailant = user
 
-	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	/*if(user.dir == src.dir)
 		G.state = GRAB_AGGRESSIVE
 		G.last_upgrade = world.time
@@ -356,7 +356,7 @@
 		return FALSE
 
 	if(M.attack_sound)
-		playsound(loc, M.attack_sound, 50, 1, 1)
+		playsound(loc, M.attack_sound, 50, TRUE, 1)
 	M.do_attack_animation(src)
 	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
 					"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
@@ -379,7 +379,7 @@
 				add_attack_logs(L, src, "Larva attacked")
 				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
 						"<span class='userdanger'>[L.name] bites [src]!</span>")
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 				return 1
 			else
 				visible_message("<span class='danger'>[L.name] has attempted to bite [src]!</span>", \

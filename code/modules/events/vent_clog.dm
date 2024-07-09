@@ -34,6 +34,6 @@
 
 		var/datum/effect_system/smoke_spread/chem/smoke = new
 		smoke.set_up(R, vent, TRUE)
-		playsound(vent.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+		playsound(vent.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 		smoke.start(3)
 		qdel(R)
