@@ -5,7 +5,7 @@
 	icon_state = "railing"
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
 	flags = ON_BORDER
@@ -84,7 +84,7 @@
 /obj/structure/railing/corner/CanPass()
 	return TRUE
 
-/obj/structure/railing/corner/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/railing/corner/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE
 
 /obj/structure/railing/corner/CheckExit()
@@ -93,7 +93,7 @@
 /obj/structure/railing/cap/CanPass()
 	return TRUE
 
-/obj/structure/railing/cap/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/railing/cap/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE
 
 /obj/structure/railing/cap/CheckExit()
@@ -118,7 +118,7 @@
 		return density
 	return FALSE
 
-/obj/structure/railing/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/railing/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	if(to_dir == dir)
 		return FALSE
 	if(ordinal_direction_check(to_dir))

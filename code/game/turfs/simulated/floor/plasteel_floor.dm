@@ -16,6 +16,13 @@
 	temperature = TCMB
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_LATTICE)
 
+/turf/simulated/floor/plasteel/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/plasteel/airless/Initialize(mapload)
 	. = ..()
 	name = "floor"

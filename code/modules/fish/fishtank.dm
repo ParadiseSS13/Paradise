@@ -35,8 +35,7 @@
 	icon_state = "bowl1"
 	density = FALSE				// Small enough to not block stuff
 	anchored = FALSE			// Small enough to move even when filled
-	pass_flags = PASSTABLE | LETPASSTHROW // Just like at the county fair, you can't seem to throw the ball in to win the goldfish, and it's small enough to pull onto a table
-
+	pass_flags = PASSTABLE // Just like at the county fair, you can't seem to throw the ball in to win the goldfish, and it's small enough to pull onto a table
 	tank_type = "bowl"
 	water_capacity = 50			// Not very big, therefore it can't hold much
 	max_fish = 1				// What a lonely fish
@@ -52,7 +51,7 @@
 	icon_state = "tank1"
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags = null
 
 	tank_type = "tank"
 	water_capacity = 200		// Decent sized, holds almost 2 full buckets
@@ -161,7 +160,7 @@
 //////////////////////////////
 
 //Stops atmos from passing wall tanks, since they are effectively full-windows.
-/obj/machinery/fishtank/wall/CanAtmosPass(turf/T)
+/obj/machinery/fishtank/wall/CanAtmosPass(direction)
 	return FALSE
 
 /obj/machinery/fishtank/process()

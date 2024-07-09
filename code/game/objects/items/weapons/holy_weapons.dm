@@ -53,7 +53,7 @@
 			user.unEquip(src, 1)
 			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
 			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
-			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 			throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
 
 
@@ -503,7 +503,7 @@
 
 /obj/item/nullrod/claymore/bostaff/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // will remove the other component, 0.666667 seconds for 60% uptime.
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS ) // will remove the other component, 0.666667 seconds for 60% uptime.
 
 /obj/item/nullrod/tribal_knife
 	name = "arrhythmic knife"

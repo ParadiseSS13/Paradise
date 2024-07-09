@@ -32,7 +32,7 @@ Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun
 	M.visible_message("<span class='danger'>[user] has prodded [M] with [src]!</span>", \
 					"<span class='userdanger'>[user] has prodded you with [src]!</span>")
 
-	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	add_attack_logs(user, M, "Stunned with [src] ([uppertext(user.a_intent)])")
 
 #define CYBORG_HUGS 0

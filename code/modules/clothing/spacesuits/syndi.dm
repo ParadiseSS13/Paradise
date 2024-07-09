@@ -1,10 +1,9 @@
 //Regular syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate
 	name = "red space helmet"
-	desc = "Top secret Spess Helmet."
+	desc = "A suspicious-looking space helmet. It is reinforced with a layer of armour."
 	icon_state = "syndicate"
 	item_state = "syndicate"
-	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -18,7 +17,7 @@
 	name = "red space suit"
 	icon_state = "syndicate"
 	item_state = "space_suit_syndicate"
-	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
+	desc = "A suspicious-looking space suit. The fabric is reinforced with a blend of nomex and kevlar for added protection."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
@@ -189,14 +188,14 @@
 
 /obj/item/clothing/head/helmet/space/syndicate/contractor
 	name = "contractor helmet"
-	desc = "A specialised black and gold helmet that's more compact than its standard Syndicate counterpart. Can be ultra-compressed into even the tightest of spaces."
+	desc = "A specialised black and gold helmet that's more compact than its standard Syndicate counterpart. It is made of an exotic military-grade fabric for added protection, and can be ultra-compressed into even the tightest of spaces."
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "syndicate-helm-contractor"
 	item_state = "syndicate-helm-contractor"
 
 /obj/item/clothing/suit/space/syndicate/contractor
 	name = "contractor space suit"
-	desc = "A specialised black and gold space suit that's quicker, and more compact than its standard Syndicate counterpart. Can be ultra-compressed into even the tightest of spaces."
+	desc = "A specialised black and gold space suit that's easier to move around in than its standard Syndicate counterpart. It is made of an exotic military-grade fabric for added protection, and can be ultra-compressed into even the tightest of spaces."
 	slowdown = 1
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "syndicate-contractor"

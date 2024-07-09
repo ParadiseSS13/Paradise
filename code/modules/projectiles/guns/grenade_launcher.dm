@@ -8,7 +8,7 @@
 	throw_speed = 2
 	throw_range = 10
 	force = 5
-	var/list/grenades = new/list()
+	var/list/grenades = list()
 	var/max_grenades = 3
 
 	materials = list(MAT_METAL=2000)
@@ -52,6 +52,6 @@
 	log_game("[key_name(user)] fired a grenade ([F.name]) from a grenade launcher ([name]).")
 	F.active = TRUE
 	F.icon_state = initial(icon_state) + "_active"
-	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 	spawn(15)
 		F.prime()

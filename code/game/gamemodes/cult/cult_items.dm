@@ -6,9 +6,9 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/tome/New()
+/obj/item/tome/Initialize(mapload)
+	. = ..()
 	icon_state = GET_CULT_DATA(tome_icon, "tome")
-	..()
 
 /obj/item/melee/cultblade
 	name = "cult blade"
@@ -24,10 +24,10 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sprite_sheets_inhand = list("Skrell" = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
-/obj/item/melee/cultblade/New()
+/obj/item/melee/cultblade/Initialize(mapload)
+	. = ..()
 	icon_state = GET_CULT_DATA(sword_icon, "blood_blade")
 	item_state = GET_CULT_DATA(sword_icon, "blood_blade")
-	..()
 
 /obj/item/melee/cultblade/examine(mob/user)
 	. = ..()
@@ -45,11 +45,17 @@
 		else
 			user.adjustBruteLoss(rand(force/2, force))
 		return
-	if(!IS_CULTIST(target))
-		var/datum/status_effect/cult_stun_mark/S = target.has_status_effect(STATUS_EFFECT_CULT_STUN)
-		if(S)
-			S.trigger()
-	..()
+	. = ..()
+
+/obj/item/melee/cultblade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag)
+		return
+	if(!isliving(target))
+		return
+	var/mob/living/living_target = target
+	var/datum/status_effect/cult_stun_mark/S = living_target.has_status_effect(STATUS_EFFECT_CULT_STUN)
+	S?.trigger()
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	. = ..()
@@ -567,7 +573,7 @@
 
 /obj/item/cult_spear/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
 	AddComponent(/datum/component/two_handed, force_wielded = 24, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 
 /obj/item/cult_spear/Destroy()
@@ -580,35 +586,40 @@
 
 /obj/item/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/turf/T = get_turf(hit_atom)
-	if(isliving(hit_atom))
-		var/mob/living/L = hit_atom
-		if(IS_CULTIST(L))
-			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-			if(!L.restrained() && L.put_in_active_hand(src))
-				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
-			else
-				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
-		else if(!..())
-			if(L.null_rod_check())
-				return
-			var/datum/status_effect/cult_stun_mark/S = L.has_status_effect(STATUS_EFFECT_CULT_STUN)
-			if(S)
-				S.trigger()
-			else
-				L.KnockDown(10 SECONDS)
-				L.apply_damage(60, STAMINA)
-				L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
-				L.flash_eyes(1, TRUE)
-				if(issilicon(L))
-					L.emp_act(EMP_HEAVY)
-				else if(iscarbon(L))
-					L.Silence(6 SECONDS)
-					L.Stuttering(16 SECONDS)
-					L.CultSlur(20 SECONDS)
-					L.Jitter(16 SECONDS)
-			break_spear(T)
-	else
+	if(!isliving(hit_atom))
 		..()
+		return
+
+	var/mob/living/L = hit_atom
+	if(IS_CULTIST(L))
+		playsound(src, 'sound/weapons/throwtap.ogg', 50)
+		if(!L.restrained() && L.put_in_active_hand(src))
+			L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
+		else
+			L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
+		return
+
+	if(..())
+		return
+
+	if(L.null_rod_check())
+		return
+	var/datum/status_effect/cult_stun_mark/S = L.has_status_effect(STATUS_EFFECT_CULT_STUN)
+	if(S)
+		S.trigger()
+	else
+		L.KnockDown(10 SECONDS)
+		L.apply_damage(60, STAMINA)
+		L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
+		L.flash_eyes(1, TRUE)
+		if(issilicon(L))
+			L.emp_act(EMP_HEAVY)
+		else if(iscarbon(L))
+			L.Silence(6 SECONDS)
+			L.Stuttering(16 SECONDS)
+			L.CultSlur(20 SECONDS)
+			L.Jitter(16 SECONDS)
+	break_spear(T)
 
 /obj/item/cult_spear/proc/break_spear(turf/T)
 	if(!T)
@@ -620,20 +631,25 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/cult_spear/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
+	if(!proximity_flag)
+		return
+	if(!isliving(target))
+		return
+	var/mob/living/living_target = target
+	var/datum/status_effect/cult_stun_mark/S = living_target.has_status_effect(STATUS_EFFECT_CULT_STUN)
 	if(S && HAS_TRAIT(src, TRAIT_WIELDED))
 		S.trigger()
 
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
 	desc = "Call the blood spear back to your hand!"
-	background_icon_state = "bg_cult"
-	button_icon_state = "bloodspear"
+	button_background_icon_state = "bg_cult"
+	button_overlay_icon_state = "bloodspear"
+	default_button_position = "11:31,4:-2"
 	var/obj/item/cult_spear/spear
 	var/cooldown = 0
-	default_button_position = "6:157,4:-2"
 
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
 	. = ..()

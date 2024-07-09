@@ -227,7 +227,7 @@
 			var/mob/living/carbon/human/H = M
 			var/datum/dna/D = data["dna"]
 			if(!D.species.is_small)
-				H.change_dna(D, TRUE, TRUE)
+				H.change_dna(D, TRUE)
 
 	return ..()
 
@@ -473,7 +473,6 @@
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
 	taste_description = "beer"
-	taste_description = "piss water"
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
