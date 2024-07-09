@@ -222,6 +222,16 @@
 	. = ..()
 	usr.hud_used?.update_parallax_pref()
 
+/datum/preference_toggle/toggle_strip_tgui_size
+	name = "Toggle TGUI strip menu size"
+	description = "Toggles TGUI strip menu size between miniature and full-size."
+	preftoggle_bitflag = PREFTOGGLE_2_BIG_STRIP_MENU
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will see full-size TGUI strip menu."
+	disable_message = "You will see minuature TGUI strip menu."
+	blackbox_message = "Toggle TGUI strip menu size"
+
 /datum/preference_toggle/toggle_white_noise
 	name = "Toggle White Noise"
 	description = "Toggles hearing White Noise"

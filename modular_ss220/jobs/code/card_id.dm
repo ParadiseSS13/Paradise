@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(card_skins_donor_ss220, list(
 
 /obj/item/card/id/courier
 	name = "Deliverer ID"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINT, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINERAL_STOREROOM)
 	icon = 'modular_ss220/aesthetics/better_ids/icons/better_ids.dmi'
 	icon_state = "deliverer"
 
@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(card_skins_donor_ss220, list(
 
 /obj/item/card/id/dealer
 	name = "Dealer ID"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_LIBRARY, ACCESS_RC_ANNOUNCE, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINT, ACCESS_MINERAL_STOREROOM, ACCESS_CONSTRUCTION)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_LIBRARY, ACCESS_RC_ANNOUNCE, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINERAL_STOREROOM, ACCESS_CONSTRUCTION)
 	icon = 'modular_ss220/aesthetics/better_ids/icons/better_ids.dmi'
 	icon_state = "dealer"
 

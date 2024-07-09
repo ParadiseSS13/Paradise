@@ -184,7 +184,7 @@
 	relate_job = "Cargo Technician"
 	supervisors = "главой персонала и квартирмейстером"
 	department_head = list("Head of Personnel", "Quartermaster")
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINT, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINERAL_STOREROOM)
 	selection_color = "#558758"
 	hidden_from_job_prefs = FALSE
 	donator_tier = 2

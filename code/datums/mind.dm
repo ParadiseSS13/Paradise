@@ -989,7 +989,7 @@
 			if("changeling")
 				if(!IS_CHANGELING(current))
 					add_antag_datum(/datum/antagonist/changeling)
-					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</span>")
+					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... We are a changeling!</span>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
@@ -1117,7 +1117,7 @@
 					SSticker.mode.update_synd_icons_removed(src)
 					special_role = null
 					objective_holder.clear(/datum/objective/nuclear)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT></span>")
+					to_chat(current, "<span class='warning'><font size='3'><b>You have been brainwashed! You are no longer a Syndicate operative!</b></font></span>")
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
 			if("nuclear")
@@ -1152,7 +1152,7 @@
 				qdel(H.w_uniform)
 
 				if(!SSticker.mode.equip_syndicate(current))
-					to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
+					to_chat(usr, "<span class='warning'>Equipping a Syndicate failed!</span>")
 					return
 				SSticker.mode.update_syndicate_id(current.mind, length(SSticker.mode.syndicates) == 1)
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
@@ -1465,7 +1465,7 @@
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
 					return
 				make_Abductor()
-				log_admin("[key_name(usr)] turned [current] into abductor.")
+				log_admin("[key_name(usr)] turned [current] into an abductor.")
 				SSticker.mode.update_abductor_icons_added(src)
 				current.create_log(MISC_LOG, "[current] was made into an abductor by [key_name_admin(usr)]")
 			if("equip")
@@ -1529,7 +1529,7 @@
 				if(has_antag_datum(/datum/antagonist/traitor))
 					var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
 					if(!T.give_uplink())
-						to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
+						to_chat(usr, "<span class='warning'>Equipping a Syndicate failed!</span>")
 						return
 				log_admin("[key_name(usr)] has given [key_name(current)] an uplink")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")

@@ -228,7 +228,7 @@
 		adjustStaminaLoss(-10)
 		resting = FALSE
 		stand_up() // help them up if possible
-		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		if(!player_logged)
 			M.visible_message( \
 				"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
@@ -241,7 +241,7 @@
 		M.apply_status_effect(effect.type)
 		return
 	// BEGIN HUGCODE - N3X
-	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	if(M.zone_selected == "head")
 		M.visible_message(\
 		"<span class='notice'>[M] pats [src] on the head.</span>",\
@@ -699,11 +699,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
 			return
 
-	if(thrown_thing)
-		if(!HAS_TRAIT(thrown_thing, TRAIT_NO_THROWN_MESSAGE))
-			visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
-		newtonian_move(get_dir(target, src))
-		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+	if(QDELETED(thrown_thing))
+		return
+
+	if(!HAS_TRAIT(thrown_thing, TRAIT_NO_THROWN_MESSAGE))
+		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
+	newtonian_move(get_dir(target, src))
+	thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
@@ -1070,7 +1072,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	stop_pulling()
 	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
-	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
+	playsound(loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	KnockDown(knockdown)
