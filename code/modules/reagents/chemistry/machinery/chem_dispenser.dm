@@ -251,8 +251,11 @@
 			return
 		I.forceMove(src)
 		if(beaker)
-			user.put_in_hands(beaker)
-			to_chat(user, "<span class='notice'>You swap [I] with [beaker].</span>")
+			to_chat(usr, "<span class='notice'>You swap [I] with [beaker].</span>")
+			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
+				user.put_in_hands(beaker)
+			else
+				beaker.forceMove(loc)
 		else
 			to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		beaker = I
