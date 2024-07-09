@@ -11,7 +11,6 @@
 	. += speed
 	. += get_total_component_slowdown()
 	. += get_stamina_slowdown()
-	. = . - 1 //FOR THE TESTMERGE ONLY DO NOT LET THIS ACTUALLY STAY IN WHEN CONFIG PROPERLY CHANGES
 	// Counteract magboot slow in 0G.
 	if(!has_gravity(src) && HAS_TRAIT(src, TRAIT_MAGPULSE))
 		. -= 2	// The slowdown value on the borg magpulse.
