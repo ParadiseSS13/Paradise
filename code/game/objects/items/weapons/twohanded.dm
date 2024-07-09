@@ -513,7 +513,7 @@
 /obj/item/butcher_chainsaw/attack(mob/living/target, mob/living/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
+		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, TRUE, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
 		if(isnull(.)) //necessary check, successful attacks return null, without it target will drop any shields they may have before they get a chance to block
 			target.KnockDown(8 SECONDS)
 

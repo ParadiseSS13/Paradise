@@ -26,6 +26,11 @@
 	. = ..()
 	force_off = initial(force) //We want to check this only when initializing, not when swapping, so sharpening works.
 	throwforce_off = initial(throwforce)
+	RegisterSignal(src, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(try_sharpen))
+
+/obj/item/melee/energy/Destroy()
+	UnregisterSignal(src, COMSIG_ITEM_SHARPEN_ACT)
+	return ..()
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
@@ -87,6 +92,15 @@
 
 /obj/item/melee/energy/get_heat()
 	return active * 3500
+
+/obj/item/melee/energy/proc/try_sharpen(obj/item/item, amount, max_amount)
+	SIGNAL_HANDLER // COMSIG_ITEM_SHARPEN_ACT
+	if(force_on > initial(force_on) || force_on >= max_amount)
+		return COMPONENT_BLOCK_SHARPEN_MAXED
+	throwforce_on = clamp(throwforce_on + amount, 0, max_amount)
+	throwforce_off = clamp(throwforce_off + amount, 0, max_amount)
+	force_on = clamp(force_on + amount, 0, max_amount)
+	force_off = clamp(force_off + amount, 0, max_amount)
 
 /obj/item/melee/energy/axe
 	name = "energy axe"

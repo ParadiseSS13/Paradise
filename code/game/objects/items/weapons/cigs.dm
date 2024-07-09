@@ -568,7 +568,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-
+    
 	if(!istype(target, /obj/item/food/snacks/grown))
 		return ..()
 
@@ -583,7 +583,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	custom_rollie.reagents.maximum_volume = plant.reagents.total_volume
 	plant.reagents.trans_to(custom_rollie, custom_rollie.reagents.total_volume)
 	custom_rollie.smoke_time = custom_rollie.reagents.total_volume * REAGENT_TIME_RATIO
-
 	user.put_in_active_hand(custom_rollie)
 	to_chat(user, "<span class='notice'>You roll the [plant.name] into a rolling paper.</span>")
 	custom_rollie.desc = "Dried [plant.name] rolled up in a thin piece of paper."

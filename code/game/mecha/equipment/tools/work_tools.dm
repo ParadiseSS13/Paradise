@@ -147,10 +147,10 @@
 		var/obj/structure/reagent_dispensers/watertank/WT = target
 		WT.reagents.trans_to(src, 1000)
 		occupant_message("<span class='notice'>Extinguisher refilled.</span>")
-		playsound(chassis, 'sound/effects/refill.ogg', 50, 1, -6)
+		playsound(chassis, 'sound/effects/refill.ogg', 50, TRUE, -6)
 	else
 		if(reagents.total_volume > 0)
-			playsound(chassis, 'sound/effects/extinguish.ogg', 75, 1, -3)
+			playsound(chassis, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
 			var/direction = get_dir(chassis,target)
 			var/turf/T = get_turf(target)
 			var/turf/T1 = get_step(T,turn(direction, 90))
