@@ -2,3 +2,4 @@
 
 #include "code/anakonda.dm"
 #include "code/cattleprod.dm"
+#include "code/objects.dm"

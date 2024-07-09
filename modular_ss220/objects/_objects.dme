@@ -44,3 +44,4 @@
 #include "code/wallets.dm"
 #include "code/flashlight.dm"
 #include "code/material_pouch.dm"
+#include "code/components.dm"
