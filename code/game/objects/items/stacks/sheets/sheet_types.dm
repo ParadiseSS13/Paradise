@@ -368,6 +368,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 	)),
 	null,
 	new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, 1, 2, 6),
+	new /datum/stack_recipe("imrovised drapes", /obj/item/surgical_drapes/improvised, 1),
 	new /datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag, 1),
 	new /datum/stack_recipe("bedsheet", /obj/item/bedsheet, 3),
 	new /datum/stack_recipe("empty sandbag", /obj/item/emptysandbag, 4),
@@ -407,6 +408,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	new /datum/stack_recipe("durathread beret", /obj/item/clothing/head/beret/durathread, 2, time = 4 SECONDS),
 	new /datum/stack_recipe("durathread beanie", /obj/item/clothing/head/beanie/durathread, 2, time = 4 SECONDS),
 	new /datum/stack_recipe("durathread bandana", /obj/item/clothing/mask/bandana/durathread, 1, time = 2.5 SECONDS),
+	new /datum/stack_recipe("surgical drapes", /obj/item/surgical_drapes, 1, time = 3 SECONDS)
 	))
 
 /obj/item/stack/sheet/durathread
@@ -489,7 +491,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		var/atom/droploc = drop_location()
 		if(use(1))
-			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)
+			playsound(I, 'sound/items/bikehorn.ogg', 50, TRUE, -1)
 			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
 			new/obj/item/storage/box/clown(droploc) //bugfix
 	else
