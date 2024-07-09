@@ -338,7 +338,6 @@
 		log_game("[key_name(user)] set [key_name(target)] on fire")
 	return ..()
 
-
 /obj/item/match/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)

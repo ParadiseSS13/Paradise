@@ -89,7 +89,7 @@
 		return
 
 	// Pulling this off 'safely' requires years of experience, a true badass, or blind luck!
-	if(prob(50) || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Life Support Specialist" || HAS_TRAIT(user, TRAIT_BADASS))
+	if(HAS_TRAIT(user, TRAIT_BADASS) || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Life Support Specialist" || prob(50))
 		if(user == target)
 			user.visible_message(
 				"<span class='warning'>[user] confidently lifts up [src] and releases a big puff of flame at [cig] to light it, like some kind of psychopath!</span>",
