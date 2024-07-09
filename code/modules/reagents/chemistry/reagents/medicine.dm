@@ -73,7 +73,7 @@
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
-    var/is_robot = ((process_flags & SYNTHETIC) > 0)
+	var/is_robot = ((process_flags & SYNTHETIC) > 0)
 	if(severity == 1)
 		if(!is_robot)
 			if(effect <= 1)
@@ -463,14 +463,14 @@
 	taste_description = "health"
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/carbon/human/H)
-    var/update_flags = STATUS_UPDATE_NONE
-    var/is_robot = ((process_flags & SYNTHETIC) > 0)
-    update_flags |= H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-    update_flags |= H.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-    update_flags |= H.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = is_robot)
-    update_flags |= H.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = is_robot)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/is_robot = ((process_flags & SYNTHETIC) > 0)
+	update_flags |= H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= H.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= H.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = is_robot)
+	update_flags |= H.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE, robotic = is_robot)
 	if(prob(50))
-		M.AdjustLoseBreath(-2 SECONDS)
+		H.AdjustLoseBreath(-2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M, severity)
