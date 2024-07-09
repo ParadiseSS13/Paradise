@@ -69,6 +69,6 @@
 
 	if(!gibbed)
 		if(death_sound)
-			playsound(loc, death_sound, 80, 1, 1)
+			playsound(loc, death_sound, 80, TRUE, 1)
 		visible_message("<B>[src]</B> [death_message]")
 		update_icons()

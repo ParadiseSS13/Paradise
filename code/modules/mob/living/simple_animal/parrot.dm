@@ -139,7 +139,7 @@
 	if(client)
 		return
 
-	if(!stat && M.a_intent == "harm")
+	if(stat == CONSCIOUS && M.a_intent == "harm")
 		icon_state = "parrot_fly" //It is going to be flying regardless of whether it flees or attacks
 
 		if(parrot_state == PARROT_PERCH)
@@ -161,7 +161,7 @@
 //Mobs with objects
 /mob/living/simple_animal/parrot/attackby(obj/item/O, mob/user, params)
 	..()
-	if(!stat && !client && !istype(O, /obj/item/stack/medical))
+	if(stat == CONSCIOUS && !client && !istype(O, /obj/item/stack/medical))
 		if(O.force)
 			if(parrot_state == PARROT_PERCH)
 				parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
@@ -175,7 +175,7 @@
 //Bullets
 /mob/living/simple_animal/parrot/bullet_act(obj/item/projectile/P)
 	..()
-	if(!stat && !client)
+	if(stat == CONSCIOUS && !client)
 		if(parrot_state == PARROT_PERCH)
 			parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
 
@@ -189,7 +189,7 @@
 /mob/living/simple_animal/parrot/grabbedby(mob/living/carbon/user, supress_message)
 	..()
 
-	if(held_item && !stat)
+	if(held_item && stat == CONSCIOUS)
 		drop_held_item()
 
 /*
@@ -711,9 +711,6 @@
 	var/held_item_icon = image(held_item, pixel_y = -8)
 	animate(held_item_icon, transform = m180)
 	underlays += held_item_icon
-
-/mob/living/simple_animal/parrot/CanPathfindPassTo(ID, dir, obj/destination)
-	return is_type_in_typecache(destination, desired_perches)
 
 #undef PARROT_PERCH
 #undef PARROT_SWOOP
