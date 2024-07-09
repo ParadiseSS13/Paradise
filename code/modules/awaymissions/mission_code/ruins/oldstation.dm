@@ -510,3 +510,4 @@
 /area/ruin/ancientstation/hivebot
 	name = "Hivebot Mothership"
 	icon_state = "teleporter"
+	requires_power = FALSE

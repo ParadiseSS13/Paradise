@@ -335,7 +335,8 @@
 	icon_living = "syndicate_space_sword"
 	speed = 1
 	wander = FALSE
-	alert_on_spacing = FALSE
+	alert_on_spacing = FALSE // So it chasing players in space doesn't make depot explode.
+	alert_on_timeout = FALSE // So random fauna doesn't make depot explode.
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list() // Explodes, doesn't drop loot.
 
