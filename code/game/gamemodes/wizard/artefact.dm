@@ -678,7 +678,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 	var/cooldown_time_left = COOLDOWN_TIMELEFT(src, additional_thralls_cooldown)
 	if(cooldown_time_left)
-		. += "[src] is being strained by the amount of risen skeletons thralls. It cannot be used to rise another skeleton thrall for <b>[DisplayTimeText(cooldown_time_left)]</span>."
+		. += "[src] is being strained by the amount of risen skeletons thralls. It cannot be used to rise another skeleton thrall for <b>[DisplayTimeText(cooldown_time_left)]."
 
 /obj/item/necromantic_stone/attack(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
 	if(!istype(victim) || !istype(necromancer))
