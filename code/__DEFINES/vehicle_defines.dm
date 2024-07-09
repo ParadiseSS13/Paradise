@@ -24,7 +24,8 @@
 #define RIDER_NEEDS_LEGS   (1<<2)
 /// If the rider is disabled or loses their needed limbs, do they fall off?
 #define UNBUCKLE_DISABLED_RIDER (1<<3)
-
+/// Do we need a carbon, a silicon, or a small mob, to ride the vehicle?
+#define RIDER_CARBON_OR_SILICON_NO_LARGE_MOBS (1<<4)
 
 /// The vehicle being ridden requires pixel offsets for all directions
 #define RIDING_OFFSET_ALL "ALL"

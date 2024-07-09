@@ -592,7 +592,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/update_explanation_text()
 	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
 	if(length(steal_target.protected_jobs) && steal_target.job_possession)
-		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]."
+		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]. "
+	explanation_text += steal_target.extra_information
 
 /datum/objective/steal/check_completion()
 	if(!steal_target)
