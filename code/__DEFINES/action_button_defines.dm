@@ -6,6 +6,7 @@
 #define AB_CHECK_HANDS_BLOCKED	(1<<5)
 #define AB_CHECK_IMMOBILE		(1<<6)
 
+#define ACTION_BUTTON_DEFAULT_OVERLAY "default"
 #define ACTION_BUTTON_DEFAULT_BACKGROUND "_use_ui_default_background"
 
 
@@ -26,3 +27,5 @@
 #define SCRN_OBJ_IN_LIST "list"
 /// In the collapseable palette
 #define SCRN_OBJ_IN_PALETTE "palette"
+/// In cult spell list
+#define SCRN_OBJ_CULT_LIST "cult_list"
