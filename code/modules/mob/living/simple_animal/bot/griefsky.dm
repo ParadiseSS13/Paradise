@@ -207,7 +207,7 @@
 
 //this section is blocking attack
 
-/mob/living/simple_animal/bot/secbot/griefsky/special_retaliate_after_attack(mob/user)
+/mob/living/simple_animal/bot/secbot/griefsky/proc/special_retaliate_after_attack(mob/user)
 	if(icon_state != spin_icon)
 		return
 	if(prob(block_chance_melee))
