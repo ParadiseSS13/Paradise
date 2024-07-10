@@ -26,7 +26,7 @@
 		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
 		active = TRUE
 		icon_state = initial(icon_state) + "_active"
-		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+		playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 		spawn(5)
 			if(user)
 				user.drop_item()
@@ -42,7 +42,7 @@
 		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
 		active = TRUE
 		icon_state = initial(icon_state) + "_active"
-		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+		playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 		spawn(det_time)
 			prime()
 			return

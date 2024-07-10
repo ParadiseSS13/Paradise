@@ -131,14 +131,14 @@
 			A.do_attack_animation(D, attack.animation_type)
 
 	if(!damage)
-		playsound(D.loc, attack.miss_sound, 25, 1, -1)
+		playsound(D.loc, attack.miss_sound, 25, TRUE, -1)
 		D.visible_message("<span class='warning'>[A] has attempted to [atk_verb] [D]!</span>")
 		return FALSE
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 
-	playsound(D.loc, attack.attack_sound, 25, 1, -1)
+	playsound(D.loc, attack.attack_sound, 25, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] has [atk_verb]ed [D]!</span>", \
 								"<span class='userdanger'>[A] has [atk_verb]ed [D]!</span>")
 
@@ -420,7 +420,7 @@
 										"[user] twirls and slams [H] with [src]!")
 			H.visible_message("<span class='warning'>[pick(fluffmessages)]</span>", \
 								"<span class='userdanger'>[pick(fluffmessages)]</span>")
-			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
+			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, TRUE, -1)
 			H.apply_damage(rand(13,20), STAMINA)
 			if(prob(10))
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \
