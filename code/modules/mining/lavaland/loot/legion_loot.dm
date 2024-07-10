@@ -93,7 +93,8 @@
 /obj/item/storm_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	// This early return stops the staff from shooting lightning at someone when being used as a lighter.
 	if(iscarbon(target))
-		var/mask_item = target.get_item_by_slot(SLOT_HUD_WEAR_MASK)		
+		var/mob/living/carbon/cig_haver = target
+		var/mask_item = cig_haver.get_item_by_slot(SLOT_HUD_WEAR_MASK)		
 		if(istype(mask_item, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && !user.a_intent == INTENT_HELP)
 			return
 
