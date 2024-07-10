@@ -146,9 +146,8 @@
 		set_light(0)
 
 /obj/item/dualsaber/attack(mob/target, mob/living/user)
-	if(cigarette_check(user, target))
-		cigarette_lighter_act(user, target)
-		return FALSE
+	if(cigarette_lighter_act(user, target))
+		return
 
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally drop it!</span>")
@@ -170,7 +169,7 @@
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message(
@@ -188,6 +187,7 @@
 	playsound(user.loc, hitsound, 50, TRUE)
 	cig.light(user, target)
 	INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+	return TRUE
 
 /obj/item/dualsaber/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))

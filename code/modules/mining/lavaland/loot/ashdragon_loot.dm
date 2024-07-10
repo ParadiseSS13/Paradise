@@ -274,9 +274,8 @@
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
 /obj/item/lava_staff/attack(mob/target, mob/living/user)
-	if(!cigarette_check(user, target))
+	if(!cigarette_lighter_act(user, target))
 		return ..()
-	cigarette_lighter_act(user, target)
 
 /obj/item/lava_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -294,6 +293,7 @@
 			"<span class='notice'>You point [src] at [target] until [target.p_their()] [cig] is suddenly set alight.</span>",
 		)
 	cig.light(user, target)
+	return TRUE
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()

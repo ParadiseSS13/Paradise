@@ -57,15 +57,14 @@
 
 	return TRUE
 
-/obj/item/assembly/igniter/attack(mob/living/M, mob/living/user)
-	if(!cigarette_check(user, M))
+/obj/item/assembly/igniter/attack(mob/living/target, mob/living/user)
+	if(!cigarette_lighter_act(user, target))
 		return ..()
-	cigarette_lighter_act(user, M)
 
 /obj/item/assembly/igniter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message(
@@ -81,6 +80,7 @@
 		)
 	sparks.start()	// Make sparks fly!
 	cig.light(user, target)
+	return TRUE
 
 /obj/item/assembly/igniter/attack_self(mob/user)
 	if(!istype(loc, /obj/item/assembly_holder))

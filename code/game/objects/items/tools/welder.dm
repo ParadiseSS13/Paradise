@@ -147,9 +147,8 @@
 	remove_fuel(0.5)
 
 /obj/item/weldingtool/attack(mob/living/target, mob/living/user)
-	if(!cigarette_check(user, target))
+	if(!cigarette_lighter_act(user, target))
 		return ..()
-	cigarette_lighter_act(user, target)
 
 /obj/item/weldingtool/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -158,7 +157,7 @@
 
 	if(!tool_enabled)
 		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message(
@@ -171,6 +170,7 @@
 			"<span class='notice'>You light [cig] for [target] with [src].</span>"
 		)
 	cig.light(user, target)
+	return TRUE
 
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
 	target.add_overlay(GLOB.welding_sparks)

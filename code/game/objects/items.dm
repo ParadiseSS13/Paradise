@@ -1007,12 +1007,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(!istype(cig))
 		return null
 
+	if(user.zone_selected != "mouth" || !user.a_intent == INTENT_HELP)
+		return null
+
 	if(!cig.handle_cigarette_lighter_act(user, src))
 		return null
 	return cig
-
-/// Checks to to see if a target has a cigarette equipped and that the user is targeting the mouth on help intent.
-/obj/item/proc/cigarette_check(mob/living/user, mob/living/target)
-	var/mask_item = target.get_item_by_slot(SLOT_HUD_WEAR_MASK)
-	if(istype(mask_item, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
-		return TRUE

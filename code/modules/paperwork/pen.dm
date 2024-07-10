@@ -214,8 +214,7 @@
 	throw_speed = 4
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
-	if(cigarette_check(user, M))
-		cigarette_lighter_act(user, M)
+	if(cigarette_lighter_act(user, M))
 		return
 
 	var/extra_force_applied = FALSE
@@ -244,7 +243,7 @@
 
 	if(!active)
 		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message(
@@ -263,6 +262,7 @@
 	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
 	cig.light(user, target)
+	return TRUE
 
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
 	return FALSE

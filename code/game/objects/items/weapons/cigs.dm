@@ -135,7 +135,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		user.visible_message(
 			"<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>",
 			"<span class='notice'>You calmly drop and tread on [src], putting it out instantly.</span>",
-			"<span class='notice'>You hear a foot being brought down on something, and a tiny fizzling of an ember going out.</span>"
+			"<span class='notice'>You hear a foot being brought down on something, and the tiny fizzling of an ember going out.</span>"
 		)
 		die()
 	return ..()
@@ -165,8 +165,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig] until it lights. Seems a bit redundant...</span>",
-			"<span class='notice'>You press [src] against [cig] until it lights. Seems a bit redundant...</span>"
+			"<span class='notice'>[user] presses [src] against [cig] until it lights. Seems oddly recursive...</span>",
+			"<span class='notice'>You press [src] against [cig] until it lights. Seems oddly recursive...</span>"
 		)
 	else
 		user.visible_message(

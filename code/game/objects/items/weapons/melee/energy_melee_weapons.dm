@@ -34,8 +34,7 @@
 	return ..()
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/user)
-	if(cigarette_check(user, target))
-		cigarette_lighter_act(user, target)
+	if(cigarette_lighter_act(user, target))
 		return
 
 	var/nemesis_faction = FALSE
@@ -60,7 +59,7 @@
 
 	if(!active)
 		to_chat(user, "<span class='warning'>You must activate [src] before you can light [cig] with it!</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message(
@@ -79,6 +78,7 @@
 	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 50, TRUE)
 	cig.light(user, target)
+	return TRUE
 
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \

@@ -57,28 +57,16 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/lighter/proc/attempt_light(mob/living/user)
-	if(HAS_TRAIT(user, TRAIT_BADASS))
-		user.visible_message(
-			"<span class='rose'>[user] lights [src] in one smooth motion and completely ignores the brief burst of flame licking [user.p_their()] hand. What a badass.</span>",
-			"<span class='rose'>A brief burst of flames from [src] lick your hand as you light it, but you don't flinch.</span>",
-			"<span class='rose'>You hear a cheap lighter being lit in a single attempt.</span>"
-		)
-	else if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
-		user.visible_message(
-			"<span class='notice'>After some fiddling, [user] manages to light [src].</span>",
-			"<span class='notice'>After some fiddling, you manage to light [src].</span>",
-			"<span class='notice'>You hear someone fiddling with a cheap lighter until it finally sparks a flame.</span>"
-		)
+	if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
+		to_chat(user, "<span class='notice'>You light [src].</span>")
+	else if(HAS_TRAIT(user, TRAIT_BADASS))
+		to_chat(user, "<span class='notice'>[src]'s flames lick your hand as you light it, but you don't flinch.</span>")
 	else
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 		if(affecting.receive_damage(0, 5))		//INFERNO
 			H.UpdateDamageIcon()
-		user.visible_message(
-			"<span class='warning'>After some fiddling, [user] manages to [src], but [user.p_they()] burn [user.p_their()] hand in the process!</span>",
-			"<span class='warning'>After some fiddling, you manage to light [src], but you burn your hand in the process!</span>",
-			"<span class='notice'>You hear someone fiddling with a cheap lighter until it finally sparks a flame.</span>"
-		)
+		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")
 	if(world.time > next_on_message)
 		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
@@ -108,9 +96,7 @@
 		next_off_message = world.time + 5 SECONDS
 
 /obj/item/lighter/attack(mob/living/target, mob/living/user)
-	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
-	if(istype(cig) || user.a_intent != INTENT_HELP)
-		cigarette_lighter_act(user, target)
+	if(cigarette_lighter_act(user, target))
 		return
 
 	if(lit && target.IgniteMob())
@@ -126,7 +112,7 @@
 
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message(
@@ -139,6 +125,7 @@
 			"<span class='notice'>After some fiddling, you manage to light [cig] for [target] with [src].</span>"
 		)
 	cig.light(user, target)
+	return TRUE
 
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
@@ -200,7 +187,7 @@
 
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message(
@@ -213,17 +200,13 @@
 			"<span class='rose'>You whip [src] out and hold it for [target]. Your arm is as steady as the unflickering flame you light [cig] with.</span>"
 		)
 	cig.light(user, target)
+	return TRUE
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)
 	return
 
 /obj/item/lighter/zippo/attempt_light(mob/living/user)
 	return
-
-/obj/item/proc/locate_cigarette(mob/living/M)
-	var/mask_item = M.get_item_by_slot(SLOT_HUD_WEAR_MASK)
-	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
-		return mask_item
 
 //////////////////////////////
 // MARK: EXTRA LIGHTERS
@@ -331,14 +314,13 @@
 		return TRUE
 
 /obj/item/match/attack(mob/living/target, mob/living/user)
-	var/obj/item/clothing/mask/cigarette/cig = locate_cigarette(target)
-	if(istype(cig) || user.a_intent != INTENT_HELP)
-		cigarette_lighter_act(user, target)
+	if(cigarette_lighter_act(user, target))
 		return
 
 	if(lit && target.IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
 		log_game("[key_name(user)] set [key_name(target)] on fire")
+
 	return ..()
 
 /obj/item/match/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
@@ -348,7 +330,7 @@
 
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message(
@@ -362,6 +344,7 @@
 		)
 	cig.light(user, target)
 	matchburnout()
+	return TRUE
 
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user) && burnt)
@@ -400,7 +383,7 @@
 
 	if(!lit)
 		to_chat(user, "<span class='userdanger'>If you can see this message, please make an issue report to GitHub, something bad has happened.</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message(
@@ -427,6 +410,7 @@
 	cig.light(user, target)
 	playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
 	matchburnout()
+	return TRUE
 
 /obj/item/match/unathi/Initialize(mapload)
 	. = ..()

@@ -230,9 +230,8 @@
 	var/pranked = FALSE
 
 /obj/item/toy/sword/attack(mob/target, mob/living/user)
-	if(!cigarette_check(user, target))
+	if(!cigarette_lighter_act(user, target))
 		return ..()
-	cigarette_lighter_act(user, target)
 
 /obj/item/toy/sword/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -241,7 +240,7 @@
 
 	if(!active)
 		to_chat(user, "<span class='warning'>You must activate [src] before you can light [cig] with it!</span>")
-		return
+		return TRUE
 
 	user.do_attack_animation(target)
 
@@ -263,7 +262,7 @@
 			)
 		playsound(user.loc, 'sound/weapons/blade1.ogg', 50, TRUE)
 		cig.light(user, target)
-		return
+		return TRUE
 
 	// Else, bat it out of the target's mouth.
 	if(target == user)
@@ -282,6 +281,7 @@
 		)
 	playsound(loc, 'sound/weapons/tap.ogg', vary = TRUE)
 	target.unEquip(cig, TRUE)
+	return TRUE
 
 /obj/item/toy/sword/chaosprank/afterattack(mob/living/target, mob/living/user, proximity)
 	..()

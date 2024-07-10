@@ -30,10 +30,9 @@
 	. += "<span class='notice'>Use it on targets to summon thunderbolts from the sky.</span>"
 	. += "<span class='notice'>The thunderbolts are boosted if in an area with weather effects.</span>"
 
-/obj/item/storm_staff/attack(mob/living/M, mob/living/user)
-	if(!cigarette_check(user, M))
+/obj/item/storm_staff/attack(mob/living/target, mob/living/user)
+	if(!cigarette_lighter_act(user, target))
 		return ..()
-	cigarette_lighter_act(user, M)
 
 /obj/item/storm_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -42,7 +41,7 @@
 
 	if(!thunder_charges)
 		to_chat(user, "<span class='warning'>[src] needs to recharge!</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message(
@@ -59,6 +58,7 @@
 	cig.light(user, target)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 50, TRUE)
 	thunder_charges--
+	return TRUE
 
 /obj/item/storm_staff/attack_self(mob/user)
 	var/area/user_area = get_area(user)
@@ -93,8 +93,8 @@
 /obj/item/storm_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	// This early return stops the staff from shooting lightning at someone when being used as a lighter.
 	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		if(cigarette_check(user, M))
+		var/mask_item = target.get_item_by_slot(SLOT_HUD_WEAR_MASK)		
+		if(istype(mask_item, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && !user.a_intent == INTENT_HELP)
 			return
 
 	. = ..()
