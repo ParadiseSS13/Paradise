@@ -91,6 +91,14 @@
 	build_path = /obj/item/food/snacks/monkeycube/neaeracube
 	category = list("initial", "Food")
 
+/datum/design/nian_wormecube
+	name = "Nian worme cube"
+	id = "nwcube"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 250)
+	build_path = /obj/item/food/snacks/monkeycube/nian_wormecube
+	category = list("initial", "Food")
+
 /datum/design/ez_nut
 	name = "E-Z-Nutrient"
 	id = "ez_nut"
