@@ -426,7 +426,7 @@
 	origin_tech = "powerstorage=4;engineering=4"
 	fuel_name = "uranium" // Our fuel name as a string
 	fuel_type = MAT_URANIUM
-	max_fuel = 50000 // around 83k energy for 25 uranium/ 0 cr.
+	max_fuel = 150000 // around 83k energy for 25 uranium/ 0 cr.
 	fuel_per_cycle_idle = 10
 	fuel_per_cycle_active = 150
 	power_per_cycle = 250
