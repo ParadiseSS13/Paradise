@@ -20,12 +20,14 @@
 
 /obj/item/grenade/examine(mob/user)
 	. = ..()
-	if(display_timer)
-		if(det_time > 1)
-			. += "<span class='notice'>The fuze is set to [det_time / 10] second\s.</span>"
-		else
-			. += "<span class='warning'>[src] is set for instant detonation.</span>"
-		. += "<span class='notice'>Use a screwdriver to modify the time on the fuze.</span>"
+	if(!display_timer)
+		return
+
+	if(det_time > 1)
+		. += "<span class='notice'>The fuze is set to [det_time / 10] second\s.</span>"
+	else
+		. += "<span class='warning'>[src] is set for instant detonation.</span>"
+	. += "<span class='notice'>Use a screwdriver to modify the time on the fuze.</span>"
 
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
@@ -33,11 +35,6 @@
 	if(!QDELETED(src))
 		qdel(src)
 
-/**
-  * Checks if the user is a non-clown.
-  *
-  * Returns `TRUE` if the user DOES NOT have `TRAIT_CLUMSY`.
-  */
 /obj/item/grenade/proc/clown_check(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
@@ -52,23 +49,26 @@
 	return TRUE
 
 /obj/item/grenade/attack_self(mob/user as mob)
-	if(!active)
-		if(clown_check(user))
-			to_chat(user, "<span class='danger'>You prime [src]! [det_time / 10] seconds!</span>")
-			active = TRUE
-			icon_state = initial(icon_state) + "_active"
-			add_fingerprint(user)
-			var/turf/bombturf = get_turf(src)
-			var/area/A = get_area(bombturf)
-			message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
-			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])")
-			investigate_log("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])", INVESTIGATE_BOMB)
-			add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
-			if(iscarbon(user))
-				var/mob/living/carbon/C = user
-				C.throw_mode_on()
-			spawn(det_time)
-				prime()
+	if(active)
+		return
+	if(!clown_check(user))
+		return
+
+	to_chat(user, "<span class='danger'>You prime [src]! [det_time / 10] seconds!</span>")
+	active = TRUE
+	icon_state = initial(icon_state) + "_active"
+	add_fingerprint(user)
+	var/turf/bombturf = get_turf(src)
+	var/area/A = get_area(bombturf)
+	message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
+	log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])")
+	investigate_log("[key_name(usr)] has primed a [name] for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])", INVESTIGATE_BOMB)
+	add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.throw_mode_on()
+	spawn(det_time)
+		prime()
 
 /obj/item/grenade/proc/prime()
 	return
