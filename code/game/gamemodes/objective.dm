@@ -836,6 +836,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/objective_to_replace_with
 
 /datum/objective/delayed/New(datum/objective/delayed_objective)
+	..()
+	if(!ispath(delayed_objective))
+		stack_trace("A delayed objective has been given a non-path. Given was instead [delayed_objective]")
+		return
 	objective_to_replace_with = delayed_objective
 	explanation_text = initial(delayed_objective.delayed_objective_text)
 

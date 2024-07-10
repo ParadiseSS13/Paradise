@@ -303,20 +303,25 @@
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player.client && !(locate(player) in SSafk.afk_players))
-			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
-				players += player
+		if(!player.client || (locate(player) in SSafk.afk_players))
+			continue
+		if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
+			players += player
 
 	// Shuffle the players list so that it becomes ping-independent.
 	players = shuffle(players)
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/living/carbon/human/player in players)
-		if(!player.client.skip_antag && (allow_offstation_roles || !player.mind?.offstation_role))
-			if((role in player.client.prefs.be_special) && !(player.client.prefs.active_character.species in protected_species))
-				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
-				candidates += player.mind
-				players -= player
+		if(player.client.skip_antag || !(allow_offstation_roles || !player.mind?.offstation_role))
+			continue
+
+		if(!(role in player.client.prefs.be_special) || (player.client.prefs.active_character.species in protected_species))
+			continue
+
+		player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
+		candidates += player.mind
+		players -= player
 
 	// Remove candidates who want to be antagonist but have a job that precludes it
 	if(restricted_jobs)
