@@ -32,24 +32,32 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 	**/
 /datum/controller/subsystem/processing/dcs/proc/GetIdFromArguments(list/arguments)
 	var/datum/element/eletype = arguments[1]
-	var/list/fullid = list("[eletype]")
-	var/list/named_arguments = list()
-	for(var/i in initial(eletype.id_arg_index) to length(arguments))
+	var/list/fullid = list(eletype)
+	var/list/named_arguments
+	for(var/i in initial(eletype.id_arg_index) to (initial(eletype.id_arg_index) || length(arguments)))
 		var/key = arguments[i]
-		var/value
-		if(istext(key))
-			value = arguments[key]
-		if(!(istext(key) || isnum(key)))
-			key = "\ref[key]"
-		key = "[key]" // Key is stringified so numbers dont break things
-		if(!isnull(value))
-			if(!(istext(value) || isnum(value)))
-				value = "\ref[value]"
-			named_arguments["[key]"] = value
-		else
-			fullid += "[key]"
 
-	if(length(named_arguments))
-		named_arguments = sortList(named_arguments)
+		if(istext(key))
+			var/value = arguments[key]
+			if(isnull(value))
+				fullid += key
+			else
+				if(!istext(value) && !isnum(value))
+					value = text_ref(value)
+
+				if(!named_arguments)
+					named_arguments = list()
+
+				named_arguments[key] = value
+			continue
+
+		if(isnum(key))
+			fullid += key
+		else
+			fullid += text_ref(key)
+
+	if(named_arguments)
+		sortTim(named_arguments, GLOBAL_PROC_REF(cmp_text_asc))
 		fullid += named_arguments
+
 	return list2params(fullid)

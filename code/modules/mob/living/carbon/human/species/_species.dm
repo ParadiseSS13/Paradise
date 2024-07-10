@@ -48,8 +48,6 @@
 	var/hunger_drain = HUNGER_FACTOR
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
 	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
-	var/hunger_type
-	var/hunger_level
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
@@ -576,7 +574,7 @@
 	if(target.absorb_stun(0))
 		target.visible_message("<span class='warning'>[target] is not affected by [user]'s disarm attempt!</span>")
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
-		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
 		return TRUE
@@ -592,7 +590,7 @@
 
 	var/shove_dir = get_dir(user.loc, target.loc)
 	var/turf/shove_to = get_step(target.loc, shove_dir)
-	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 	if(shove_to == user.loc)
 		return FALSE
@@ -1016,7 +1014,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return TRUE
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
-	return
+	SEND_SIGNAL(H, COMSIG_SPECIES_HITBY, AM)
 
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	return
@@ -1089,17 +1087,18 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			playsound(user.loc, 'sound/misc/moist_impact.ogg', 50, TRUE)
 			user.do_attack_animation(target, ATTACK_EFFECT_BITE)
 			target.apply_damage(20, BRUTE, user.zone_selected)
-			if(!target.HasDisease(/datum/disease/zombie))
-				var/datum/disease/zombie/zomb = new /datum/disease/zombie
-				if(target.CanContractDisease(zomb)) // biosuit aint going to protect you buddy
-					target.ForceContractDisease(zomb)
-					target.Dizzy(10 SECONDS)
-					target.Confused(10 SECONDS)
-				else
-					qdel(zomb)
+			if(!HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
+				if(!target.HasDisease(/datum/disease/zombie))
+					var/datum/disease/zombie/zomb = new /datum/disease/zombie
+					if(target.CanContractDisease(zomb)) // biosuit aint going to protect you buddy
+						target.ForceContractDisease(zomb)
+						target.Dizzy(10 SECONDS)
+						target.Confused(10 SECONDS)
+					else
+						qdel(zomb)
 
-			for(var/datum/disease/zombie/zomb in target.viruses)
-				zomb.stage = max(rand(3, 4), zomb.stage)
+				for(var/datum/disease/zombie/zomb in target.viruses)
+					zomb.stage = max(rand(3, 4), zomb.stage)
 
 			qdel(grabby)
 			return TRUE
@@ -1128,12 +1127,13 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 		eat_brain.custom_pain("OH GOD!!! THEY'RE EATING MY [uppertext(eat_brain.name)]!!") // gnarly
 		user.visible_message("<span class='danger'>[user] digs their claws into [target]'s [brain_house.name], eating their [eat_brain]!</span>", "<span class='danger zombie'>We feast on [target]'s brains.</span>")
-		if(!target.HasDisease(/datum/disease/zombie))
-			var/datum/disease/zombie/zomb = new /datum/disease/zombie
-			target.ContractDisease(zomb)
+		if(!HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
+			if(!target.HasDisease(/datum/disease/zombie))
+				var/datum/disease/zombie/zomb = new /datum/disease/zombie
+				target.ContractDisease(zomb)
 
-		for(var/datum/disease/zombie/zomb in target.viruses)
-			zomb.stage = max(5, zomb.stage)
+			for(var/datum/disease/zombie/zomb in target.viruses)
+				zomb.stage = max(5, zomb.stage)
 
 		if(!do_mob(user, target, 1 SECONDS))
 			return

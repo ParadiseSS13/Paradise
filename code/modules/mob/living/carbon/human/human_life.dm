@@ -185,12 +185,11 @@
 
 	return null
 
-/mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
+/mob/living/carbon/human/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
 		return
 
-	var/loc_temp = get_temperature(environment)
-//	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
+	var/loc_temp = get_temperature(readonly_environment)
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
 	if(stat != DEAD)
@@ -254,7 +253,7 @@
 	// Account for massive pressure differences.  Done by Polymorph
 	// Made it possible to actually have something that can protect against high pressure... Done by Errorage. Polymorph now has an axe sticking from his head for his previous hardcoded nonsense!
 
-	var/pressure = environment.return_pressure()
+	var/pressure = readonly_environment.return_pressure()
 	var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
 	if(status_flags & GODMODE)	return 1	//godmode
 
@@ -669,32 +668,30 @@
 
 #undef BODYPART_PAIN_REDUCTION
 
-/mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
+/mob/living/carbon/human/proc/handle_nutrition_alerts()
+	if(!nutrition_display)
 		return
-	var/new_hunger
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
+		nutrition_display.icon_state = null
+		return
+	nutrition_display.icon = dna.species.hunger_icon
 	switch(nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
-			new_hunger = "fat"
+			nutrition_display.icon_state = "fat"
 		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-			new_hunger = "full"
+			nutrition_display.icon_state = "full"
 		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			new_hunger = "well_fed"
+			nutrition_display.icon_state = "well_fed"
 		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			new_hunger = "fed"
+			nutrition_display.icon_state = "fed"
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			new_hunger = "hungry"
+			nutrition_display.icon_state = "hungry"
 		else
-			new_hunger = "starving"
-	if(dna.species.hunger_type)
-		new_hunger += "/[dna.species.hunger_type]"
-	if(dna.species.hunger_level != new_hunger)
-		dna.species.hunger_level = new_hunger
-		throw_alert("nutrition", "/atom/movable/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
+			nutrition_display.icon_state = "starving"
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
-	if(!stat)
+	if(stat == CONSCIOUS)
 		if(getToxLoss() >= 45 && nutrition > 20)
 			lastpuke ++
 			if(lastpuke >= 25) // about 25 second delay I guess
@@ -767,7 +764,7 @@
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
 		return
 
-	if(decaytime <= 8 MINUTES) 
+	if(decaytime <= 8 MINUTES)
 		return
 
 	if(decaytime > 8 MINUTES)

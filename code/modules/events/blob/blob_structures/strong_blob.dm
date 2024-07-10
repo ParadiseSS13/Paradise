@@ -27,7 +27,7 @@
 		atmosblock = FALSE
 	else
 		atmosblock = TRUE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/blob/shield/update_name()
 	. = ..()
@@ -61,16 +61,4 @@
 	brute_resist = 0.5
 	explosion_block = 2
 	point_return = 9
-	flags_2 = CHECK_RICOCHET_2
-
-/obj/structure/blob/shield/reflective/handle_ricochet(obj/item/projectile/P)
-	var/turf/p_turf = get_turf(P)
-	var/face_direction = get_dir(src, p_turf)
-	var/face_angle = dir2angle(face_direction)
-	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
-	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
-		return FALSE
-	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-	P.set_angle(new_angle_s)
-	visible_message("<span class='warning'>[P] reflects off [src]!</span>")
-	return TRUE
+	flags_ricochet = RICOCHET_SHINY

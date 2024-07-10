@@ -93,7 +93,7 @@
 // Datum actions
 /datum/action/item_action/draw_card
 	name = "Draw - Draw one card"
-	button_icon_state = "draw"
+	button_overlay_icon_state = "draw"
 	use_itemicon = FALSE
 
 /datum/action/item_action/draw_card/Trigger(left_click)
@@ -104,7 +104,7 @@
 
 /datum/action/item_action/deal_card
 	name = "Deal - deal one card to a person next to you"
-	button_icon_state = "deal_card"
+	button_overlay_icon_state = "deal_card"
 	use_itemicon = FALSE
 
 /datum/action/item_action/deal_card/Trigger(left_click)
@@ -115,7 +115,7 @@
 
 /datum/action/item_action/deal_card_multi
 	name = "Deal multiple card - Deal multiple card to a person next to you"
-	button_icon_state = "deal_card_multi"
+	button_overlay_icon_state = "deal_card_multi"
 	use_itemicon = FALSE
 
 /datum/action/item_action/deal_card_multi/Trigger(left_click)
@@ -126,7 +126,7 @@
 
 /datum/action/item_action/shuffle
 	name = "Shuffle - shuffle the deck"
-	button_icon_state = "shuffle"
+	button_overlay_icon_state = "shuffle"
 	use_itemicon = FALSE
 
 /datum/action/item_action/shuffle/Trigger(left_click)
@@ -232,8 +232,7 @@
 			"<span class='notice'>You deal [dcard] card(s) to [target].</span>",
 			"<span class='notice'>You hear cards being dealt.</span>"
 		)
-	H.throw_at(get_step(target,target.dir),3,1,H)
-
+	H.throw_at(get_step(target,target.dir),3,1,null)
 
 /obj/item/deck/attack_self()
 	deckshuffle()
@@ -415,7 +414,7 @@
 
 /datum/action/item_action/remove_card
 	name = "Remove a card - Remove a single card from the hand."
-	button_icon_state = "remove_card"
+	button_overlay_icon_state = "remove_card"
 	use_itemicon = FALSE
 
 /datum/action/item_action/remove_card/IsAvailable()
@@ -434,7 +433,7 @@
 
 /datum/action/item_action/discard
 	name = "Discard - Place (a) card(s) from your hand in front of you."
-	button_icon_state = "discard"
+	button_overlay_icon_state = "discard"
 	use_itemicon = FALSE
 
 /datum/action/item_action/discard/Trigger(left_click)

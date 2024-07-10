@@ -11,11 +11,7 @@ export const GhostHudPanel = (props, context) => {
         <Section>
           <HudEntry label="Medical" type="medical" is_active={medical} />
           <HudEntry label="Security" type="security" is_active={security} />
-          <HudEntry
-            label="Diagnostic"
-            type="diagnostic"
-            is_active={diagnostic}
-          />
+          <HudEntry label="Diagnostic" type="diagnostic" is_active={diagnostic} />
           <Divider />
           <HudEntry
             label="Radioactivity"
@@ -25,12 +21,7 @@ export const GhostHudPanel = (props, context) => {
             act_off={'rads_off'}
           />
           <Divider />
-          <HudEntry
-            label="Antag HUD"
-            is_active={ahud}
-            act_on={'ahud_on'}
-            act_off={'ahud_off'}
-          />
+          <HudEntry label="Antag HUD" is_active={ahud} act_on={'ahud_on'} act_off={'ahud_off'} />
         </Section>
       </Window.Content>
     </Window>
@@ -39,13 +30,7 @@ export const GhostHudPanel = (props, context) => {
 
 const HudEntry = (props, context) => {
   const { act } = useBackend(context);
-  const {
-    label,
-    type = null,
-    is_active,
-    act_on = 'hud_on',
-    act_off = 'hud_off',
-  } = props;
+  const { label, type = null, is_active, act_on = 'hud_on', act_off = 'hud_off' } = props;
   return (
     <Flex pt={0.3} color="label">
       <Flex.Item pl={0.5} align="center" width="80%">

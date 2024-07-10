@@ -30,13 +30,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		var/datum/uplink_item/A = new I.type
 		var/discount = 0.5
 		A.limited_stock = 1
-		I.refundable = FALSE
-		A.refundable = FALSE
 		if(A.cost >= 100)
 			discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
-		A.cost = max(round(A.cost * (1-discount)),1)
+		A.cost = max(round(A.cost * (1 - discount)), 1)
 		A.category = "Discounted Gear"
-		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
+		A.name += " ([round(((initial(A.cost) - A.cost) / initial(A.cost)) * 100)]% off!)"
 		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
 		A.species = null //same as above for species speific items
 		A.reference = "DIS[newreference]"
@@ -106,6 +104,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(item && !uses_special_spawn)
 		return new item(loc)
 
+	if(limited_stock)
+		limited_stock -= 1 // In case we are handling discount items differently
 	return UPLINK_SPECIAL_SPAWNING
 
 /datum/uplink_item/proc/description()
@@ -205,6 +205,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/melee/energy/sword/saber
 	cost = 40
 
+/datum/uplink_item/dangerous/dsword
+	name = "Double Energy Sword"
+	desc = "A double-bladed energy sword. More damaging than a standard energy sword, and automatically parries incoming energy weapons fire. Bulk discount applied."
+	reference = "DSRD"
+	item = /obj/item/dualsaber
+	cost = 60
+
 /datum/uplink_item/dangerous/powerfist
 	name = "Power Fist"
 	desc = "The power-fist is a metal gauntlet with a built-in piston-ram powered by an external gas supply. \
@@ -228,7 +235,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A universal gun kit, that can be combined with any weapon kit to make a functioning RND gun of your own. Uses built in allen keys to self assemble, just combine the kits by hitting them together."
 	reference = "IKEA"
 	item = /obj/item/weaponcrafting/gunkit/universal_gun_kit
-	cost = 25
+	cost = 20
 
 /datum/uplink_item/dangerous/batterer
 	name = "Mind Batterer"
@@ -457,6 +464,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
 		cost *= 3
 
+/datum/uplink_item/explosives/targrenade
+	name = "Sticky Tar Grenade"
+	desc = "A grenade filled with aerosols and sticky tar. \
+			Will release a plume of smoke that applies tar to a wide area, severely slowing down movement. Makes for the ultimate getaway!"
+	reference = "TARG"
+	item = /obj/item/grenade/chem_grenade/tar
+	cost = 7
+
 ////////////////////////////////////////
 // MARK: STEALTHY TOOLS
 ////////////////////////////////////////
@@ -639,6 +654,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/organ_extractor
 	cost = 20
 
+/datum/uplink_item/device_tools/tar_spray
+	name = "Sticky Tar Applicator"
+	desc = "A spray bottle containing an extremely viscous fluid that will leave behind tar whenever it is sprayed, greatly slowing down anyone who tries to walk over it. \
+	Comes with 10 uses worth of fluid and cannot be refilled."
+	reference = "TAR"
+	item = /obj/item/reagent_containers/spray/sticky_tar
+	cost = 10
+
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
 	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary. To talk on the binary channel, type :+ before your radio message."
@@ -666,7 +689,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Power Sink"
 	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
 	reference = "PS"
-	item = /obj/item/radio/beacon/syndicate/power_sink
+	item = /obj/item/beacon/syndicate/power_sink
 	cost = 50
 
 /datum/uplink_item/device_tools/singularity_beacon
@@ -676,7 +699,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			in containment. Because of its size, it cannot be carried. Ordering this \
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
-	item = /obj/item/radio/beacon/syndicate
+	item = /obj/item/beacon/syndicate
 	cost = 10
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
@@ -714,7 +737,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
-	desc = "This red and black syndicate space suit is less encumbering than Nanotrasen variants, \
+	desc = "This armoured red and black Syndicate space suit is less encumbering than Nanotrasen variants, \
 			fits inside bags, and has a weapon slot. Comes packaged with internals. Nanotrasen crewmembers are trained to report red space suit \
 			sightings, however. "
 	reference = "SS"
@@ -868,7 +891,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	on use, and will be quite visual as you are emaging the object. \
 	Will not show on unupgraded body scanners. Incompatible with the Qani-Laaca Sensory Computer."
 	reference = "HKR"
-	item = /obj/item/autosurgeon/organ/syndicate/hackerman_deck
+	item = /obj/item/autosurgeon/organ/syndicate/oneuse/hackerman_deck
 	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
 
 /datum/uplink_item/cyber_implants/razorwire
@@ -877,7 +900,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
 		even from a few steps away. However, results against anything more durable will heavily vary."
 	reference = "RZR"
-	item = /obj/item/autosurgeon/organ/syndicate/razorwire
+	item = /obj/item/autosurgeon/organ/syndicate/oneuse/razorwire
 	cost = 20
 
 /datum/uplink_item/cyber_implants/scope_eyes
@@ -886,8 +909,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	Many users find it disorienting, and find it hard to interact with things near them when active. \
 	This pair has been hardened for special operations personnel."
 	reference = "KOE"
-	item = /obj/item/autosurgeon/organ/syndicate/scope_eyes
-	cost = 20
+	item = /obj/item/autosurgeon/organ/syndicate/oneuse/scope_eyes
+	cost = 10
 
 
 ////////////////////////////////////////
@@ -932,7 +955,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Bomber Jacket"
 	desc = "An awesome jacket to help you style on Nanotrasen with. The lining is made of a thin polymer to provide a small amount of armor. Does not provide any extra storage space."
 	reference = "JCKT"
-	item = /obj/item/clothing/suit/jacket/syndicatebomber
+	item = /obj/item/clothing/suit/jacket/bomber/syndicate
 	cost = 3
 
 /datum/uplink_item/badass/tpsuit

@@ -164,7 +164,9 @@
 	..()
 	var/turf/location = get_turf(src)
 	if(location)
-		new /obj/effect/hotspot(location)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
+		hotspot.temperature = 1000
+		hotspot.recolor()
 		location.hotspot_expose(700, 50, 1)
 
 /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
@@ -292,8 +294,6 @@
 	if(isalien(target))
 		knockdown = 0
 		nodamage = TRUE
-	if(isrobot(target))
-		stun = 10 SECONDS
 	. = ..() // Execute the rest of the code.
 
 /obj/item/projectile/bullet/anti_alien_toxin
