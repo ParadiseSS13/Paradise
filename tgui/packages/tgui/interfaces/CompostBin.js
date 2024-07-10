@@ -1,13 +1,5 @@
 import { useBackend, useSharedState } from '../backend';
-import {
-  Button,
-  Section,
-  Box,
-  Stack,
-  NumberInput,
-  ProgressBar,
-  LabeledList,
-} from '../components';
+import { Button, Section, Box, Stack, NumberInput, ProgressBar, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 export const CompostBin = (props, context) => {
@@ -42,10 +34,7 @@ export const CompostBin = (props, context) => {
                     maxValue={biomass_capacity}
                     ranges={{
                       good: [biomass_capacity * 0.5, Infinity],
-                      average: [
-                        biomass_capacity * 0.25,
-                        biomass_capacity * 0.5,
-                      ],
+                      average: [biomass_capacity * 0.25, biomass_capacity * 0.5],
                       bad: [-Infinity, biomass_capacity * 0.25],
                     }}
                   >
@@ -62,10 +51,7 @@ export const CompostBin = (props, context) => {
                     maxValue={compost_capacity}
                     ranges={{
                       good: [compost_capacity * 0.5, Infinity],
-                      average: [
-                        compost_capacity * 0.25,
-                        compost_capacity * 0.5,
-                      ],
+                      average: [compost_capacity * 0.25, compost_capacity * 0.5],
                       bad: [-Infinity, compost_capacity * 0.25],
                     }}
                   >
@@ -82,10 +68,7 @@ export const CompostBin = (props, context) => {
                     maxValue={potassium_capacity}
                     ranges={{
                       good: [potassium_capacity * 0.5, Infinity],
-                      average: [
-                        potassium_capacity * 0.25,
-                        potassium_capacity * 0.5,
-                      ],
+                      average: [potassium_capacity * 0.25, potassium_capacity * 0.5],
                       bad: [-Infinity, potassium_capacity * 0.25],
                     }}
                   >

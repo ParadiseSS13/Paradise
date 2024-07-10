@@ -34,13 +34,10 @@
 	gripped = FALSE
 	flags &= ~(NODROP | ABSTRACT)
 
-/obj/item/melee/knuckleduster/attack/(mob/living/user)
-	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
-	return ..()
-
 /obj/item/melee/knuckleduster/attack(mob/living/target, mob/living/user)
 	. = ..()
-	if(!ishuman(target))
+	hitsound = pick('sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
+	if(!ishuman(target) || QDELETED(target))
 		return
 
 	var/obj/item/organ/external/punched = target.get_organ(user.zone_selected)

@@ -158,8 +158,8 @@
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS|AB_CHECK_TURF
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "cocoon1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "cocoon1"
 
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/human/moth/H = owner
