@@ -26,8 +26,7 @@
 	if(ghost_pipeline)
 		var/datum/gas_mixture/ghost_copy = new()
 		ghost_copy.copy_from(ghost_pipeline)
-		T.assume_air(ghost_copy.remove(volume / ghost_pipeline.volume))
-		air_update_turf()
+		T.blind_release_air(ghost_copy.remove(volume / ghost_pipeline.volume))
 
 	for(var/obj/machinery/atmospherics/meter/meter in T)
 		if(meter.target == src)
@@ -52,7 +51,7 @@
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null
 
-/obj/machinery/atmospherics/pipe/return_air()
+/obj/machinery/atmospherics/pipe/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	if(!parent)
 		return 0

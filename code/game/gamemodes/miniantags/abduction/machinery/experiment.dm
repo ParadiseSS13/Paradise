@@ -166,11 +166,11 @@
 	H.Sleeping(16 SECONDS)
 	if(console && console.pad && console.pad.teleport_target)
 		H.forceMove(console.pad.teleport_target)
-		H.uncuff()
+		H.clear_restraints()
 		return
 	//Area not chosen / It's not safe area - teleport to arrivals
 	H.forceMove(pick(GLOB.latejoin))
-	H.uncuff()
+	H.clear_restraints()
 	return
 
 /obj/machinery/abductor/experiment/attackby(obj/item/G, mob/user)

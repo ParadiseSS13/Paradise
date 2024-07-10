@@ -146,7 +146,7 @@
 		new /obj/effect/temp_visual/bleed/explode(T)
 		for(var/d in GLOB.alldirs)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
-		playsound(T, "desceration", 200, 1, -1)
+		playsound(T, "desceration", 200, TRUE, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
@@ -239,11 +239,10 @@
 
 /datum/status_effect/cult_stun_mark/on_apply()
 	. = ..()
-	if(!ishuman(owner))
+	if(!isliving(owner))
 		return
 	overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
-	var/mob/living/carbon/human/H = owner
-	H.add_overlay(overlay)
+	owner.add_overlay(overlay)
 
 /datum/status_effect/cult_stun_mark/on_remove()
 	owner.cut_overlay(overlay)
@@ -659,6 +658,11 @@
 			dreamer.adjustBruteLoss(-1, FALSE)
 			dreamer.adjustFireLoss(-1, FALSE)
 			dreamer.adjustToxLoss(-1)
+			dreamer.adjustOxyLoss(-1)
+			dreamer.adjustCloneLoss(-0.5)
+			if(dreamer.HasDisease(/datum/disease/critical/heart_failure) && prob(25))
+				for(var/datum/disease/critical/heart_failure/HF in dreamer.viruses)
+					HF.cure()
 	dreamer.handle_dreams()
 	dreamer.adjustStaminaLoss(-10)
 	var/comfort = 1
@@ -1348,3 +1352,9 @@
 /obj/effect/bubblegum_warning/proc/slap_someone()
 	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(src), null, 10)
 	qdel(src)
+
+/datum/status_effect/judo_armbar
+	id = "armbar"
+	duration = 5 SECONDS
+	alert_type = null
+	status_type = STATUS_EFFECT_REPLACE

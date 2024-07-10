@@ -487,7 +487,7 @@ Difficulty: Hard
 	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
 	walk(src, 0)
-	playsound(src,'sound/machines/alarm.ogg',100,0,5)
+	playsound(src,'sound/machines/alarm.ogg', 100, FALSE, 5)
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
@@ -593,7 +593,9 @@ Difficulty: Hard
 				var/turf/C = get_turf(src)
 				new /obj/effect/temp_visual/lava_warning(C, enraged ? 18 SECONDS : 6 SECONDS)
 				for(var/turf/T in range (1,src))
-					new /obj/effect/hotspot(T)
+					var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+					hotspot.temperature = 1000
+					hotspot.recolor()
 					T.hotspot_expose(700,50,1)
 			if(mode == VORTEX)
 				var/turf/T = get_turf(src)

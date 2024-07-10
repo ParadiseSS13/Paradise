@@ -12,11 +12,11 @@
 	max_age = 130
 	language = "Bubblish"
 
-	blurb = "Slime People are gelatinous and translucent beings from the vast oceans of Xarxis 5. \
-	They are recent entrants to the galactic scene, having been discovered by a TSF exploratory company during space expeditions.<br/><br/> \
-	Slime People traditionally operate in roaming bands and tribes that migrate according to orbital patterns and tides. \
-	A great deal of Slime People prefer the comforts and traditions of their homeworld, though many more have decided to take their chances among the stars, trying \
-	to find a better life for themselves and their species."
+	blurb = "Slime People are gelatinous and translucent beings hailing from the tropical world of Xarxis 5 and surrounding Xarxis Republic. \
+	Relatively recent entrants to the galactic scene, the Xarxis Republic, and slime people by extension, were discovered in the mid-2400s by a TSF survery fleet..<br/><br/> \
+	Today, the Xarxis Republic is a member state of the Trans-Solar Federation, having become an Associate State following first contact, and later moving through several stages of integration.  \
+	While a great deal of Slime People prefer the comforts and traditions of their home system and the Federation, a number have decided to take their chances in the wider sector, in \
+	search of adventure, profit, and freedom among the stars."
 
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
@@ -110,8 +110,8 @@
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "greenglow"
 
 /datum/action/innate/slimecolor/Activate()
 	var/mob/living/carbon/human/H = owner
@@ -126,8 +126,8 @@
 /datum/action/innate/regrow
 	name = "Regrow limbs"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "greenglow"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "greenglow"
 
 /datum/action/innate/regrow/Activate()
 	var/mob/living/carbon/human/H = owner

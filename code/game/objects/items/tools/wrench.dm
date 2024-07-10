@@ -60,7 +60,7 @@
 	icon_state = "drill_bolt"
 	item_state = "drill"
 	belt_icon = "hand_drill"
-	usesound = 'sound/items/drill_use.ogg'
+	usesound = 'sound/items/impactwrench.ogg' // Sourced from freesfx.co.uk
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2"
 	force = 8
@@ -107,7 +107,7 @@
 
 	// Immobilize stops them from wandering off and dropping the wrench
 	user.Immobilize(10 SECONDS)
-	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
+	playsound(loc, 'sound/effects/pray.ogg', 50, TRUE, -1)
 
 	// Let the sound effect finish playing
 	sleep(20)

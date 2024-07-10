@@ -155,6 +155,9 @@
 				for(var/obj/item/stock_parts/co in replacer)
 					part_list += co
 
+				for(var/obj/item/reagent_containers/glass/beaker/be in replacer)
+					part_list += be
+
 				for(var/path in req_components)
 					while(req_components[path] > 0 && (locate(path) in part_list))
 						var/obj/item/part = (locate(path) in part_list)
@@ -163,7 +166,7 @@
 						req_components[path]--
 						part_list -= part
 
-				for(var/obj/item/stock_parts/part in added_components)
+				for(var/obj/item/part in added_components)
 					components += part
 					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
 				replacer.play_rped_sound()
@@ -277,6 +280,7 @@ to destroy them and players will be able to make replacements.
 		"EngiDrobe" =							/obj/machinery/economy/vending/engidrobe,
 		"AtmosDrobe" =							/obj/machinery/economy/vending/atmosdrobe,
 		"CargoDrobe" =							/obj/machinery/economy/vending/cargodrobe,
+		"ExploreDrobe" =						/obj/machinery/economy/vending/exploredrobe,
 		"ChefDrobe" =							/obj/machinery/economy/vending/chefdrobe,
 		"BarDrobe" =							/obj/machinery/economy/vending/bardrobe,
 		"HydroDrobe" =							/obj/machinery/economy/vending/hydrodrobe,
@@ -561,7 +565,6 @@ to destroy them and players will be able to make replacements.
 							"Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
 							"Smart Virus Storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
 							"Drink Showcase" = /obj/machinery/smartfridge/drinks,
-							"Disk Compartmentalizer" = /obj/machinery/smartfridge/disks,
 							"Identification Card Compartmentalizer" = /obj/machinery/smartfridge/id,
 							"Circuit Board Storage" = /obj/machinery/smartfridge/secure/circuits,
 							"AI Laws Storage" = /obj/machinery/smartfridge/secure/circuits/aiupload)
@@ -1051,6 +1054,11 @@ to destroy them and players will be able to make replacements.
 	board_name = "Labour Equipment Vendor"
 	icon_state = "generic"
 	build_path = /obj/machinery/mineral/equipment_vendor/labor
+
+/obj/item/circuitboard/mining_equipment_vendor/explorer
+	board_name = "Explorer Equipment Vendor"
+	icon_state = "supply"
+	build_path = /obj/machinery/mineral/equipment_vendor/explorer
 
 /obj/item/circuitboard/clawgame
 	board_name = "Claw Game"

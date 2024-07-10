@@ -122,7 +122,7 @@
 	name = "Arm Blade"
 	desc = "We reform one of our arms into a deadly blade. Costs 15 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
-	button_icon_state = "armblade"
+	button_overlay_icon_state = "armblade"
 	chemical_cost = 15
 	dna_cost = 4
 	req_human = TRUE
@@ -187,7 +187,7 @@
 	Grab will immobilize the target and wrap a tentacle around them. \
 	Harm will drag the target closer and hit them with the object in our other hand. \
 	Cannot be used while in our lesser form."
-	button_icon_state = "tentacle"
+	button_overlay_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 4
 	req_human = TRUE
@@ -391,7 +391,7 @@
 	name = "Organic Shield"
 	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
 	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Automatically parries. Cannot be used while in lesser form."
-	button_icon_state = "organic_shield"
+	button_overlay_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 2
 	req_human = TRUE
@@ -444,7 +444,7 @@
 	name = "Organic Space Suit"
 	desc = "We grow an organic suit to protect ourselves from space exposure. Costs 20 chemicals."
 	helptext = "We must constantly repair our form to make it space proof, reducing chemical production while we are protected. Cannot be used in lesser form."
-	button_icon_state = "organic_suit"
+	button_overlay_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 4
 	req_human = TRUE
@@ -491,7 +491,7 @@
 	name = "Chitinous Armor"
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 25 chemicals."
 	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Cannot be used in lesser form."
-	button_icon_state = "chitinous_armor"
+	button_overlay_icon_state = "chitinous_armor"
 	chemical_cost = 25
 	dna_cost = 4
 	req_human = TRUE
@@ -583,3 +583,48 @@
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 90, ACID = 90)
 	flags_inv = HIDEEARS
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+
+// Bone Shard
+/datum/action/changeling/weapon/bones
+	name = "Bone Shard"
+	desc = "We evolve the ability to break off shards of our bone and shape them into throwing weapons which embed into our foes. Costs 15 chemicals."
+	helptext = "The shards of bone will dull upon hitting a target, rendering them unusable as weapons."
+	button_overlay_icon_state = "boneshard"
+	chemical_cost = 15
+	dna_cost = 3
+	req_human = TRUE
+	weapon_type = /obj/item/throwing_star/boneshard
+	weapon_name_simple = "bone"
+	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/offence
+
+/obj/item/throwing_star/boneshard
+	name = "bone shard"
+	desc = "A serrated shard of bone laden with vicious barbs."
+	icon_state = "bone_star"
+	throwforce = 15
+	embedded_fall_chance = 5
+	embedded_impact_pain_multiplier = 3
+	embedded_unsafe_removal_pain_multiplier = 6
+	embedded_pain_chance = 10
+	w_class = WEIGHT_CLASS_NORMAL
+	materials = list()
+
+/obj/item/throwing_star/boneshard/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	..()
+	if(isliving(hit_atom))
+		name = "bone fragment"
+		desc = "A dull shard of fractured bone. It has little use as a weapon."
+		throwforce = 0
+		embed_chance = 0
+
+/obj/item/throwing_star/boneshard/Initialize(mapload)
+	. = ..()
+	if(!iscarbon(loc))
+		return
+
+	var/mob/living/carbon/C = loc
+	C.throw_mode_on()
+
+	playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
+	C.visible_message("<span class='warning'>Shards of bone grow through [C.name]'s palms and fall into [C.p_their()] hands!</span>", "<span class='warning'>We expel shards of bone into our hands.</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")

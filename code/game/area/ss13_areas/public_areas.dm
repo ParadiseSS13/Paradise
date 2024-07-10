@@ -149,10 +149,7 @@
 	name = "\improper Dormitories"
 	icon_state = "dorms"
 	sound_environment = SOUND_AREA_STANDARD_STATION
-
-
-/area/crew_quarters/toilet/aux
-	name = "\improper Auxiliary Toilets"
+	request_console_name = "Crew Quarters"
 
 /area/station/public/sleep
 	name = "\improper Primary Cryogenic Dormitories"
@@ -166,6 +163,7 @@
 /area/station/public/locker
 	name = "\improper Locker Room"
 	icon_state = "locker"
+	request_console_name = "Crew Quarters"
 
 /area/station/public/toilet
 	name = "\improper Dormitory Toilets"
@@ -181,6 +179,7 @@
 /area/station/public/fitness
 	name = "\improper Fitness Room"
 	icon_state = "fitness"
+	request_console_name = "Crew Quarters"
 
 /area/station/public/arcade
 	name = "\improper Arcade"
@@ -198,8 +197,6 @@
 	name = "\improper Vacant Office"
 	icon_state = "vacantoffice"
 
-/area/station/public/vacant_office/secondary
-
 //Storage
 /area/station/public/storage
 	sound_environment = SOUND_AREA_STANDARD_STATION
@@ -211,6 +208,7 @@
 /area/station/public/storage/tools
 	name = "Primary Tool Storage"
 	icon_state = "primarystorage"
+	request_console_name = "Tool Storage"
 
 /area/station/public/storage/art
 	name = "Art Supply Storage"

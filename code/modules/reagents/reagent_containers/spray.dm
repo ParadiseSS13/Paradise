@@ -37,6 +37,10 @@
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
 			return
 
+		if(!is_open_container())
+			to_chat(user, "<span class='notice'>[src] cannot be refilled.</span>")
+			return
+
 		var/trans = A.reagents.trans_to(src, 50) //This is a static amount, otherwise, it'll take forever to fill.
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [A].</span>")
 		return
@@ -48,7 +52,7 @@
 	var/contents_log = reagents.reagent_list.Join(", ")
 	INVOKE_ASYNC(src, PROC_REF(spray), A)
 
-	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
+	playsound(loc, 'sound/effects/spray2.ogg', 50, TRUE, -6)
 	user.changeNext_move(delay)
 	user.newtonian_move(get_dir(A, user))
 
@@ -281,3 +285,18 @@
 	belt_icon = null
 	volume = 100
 	list_reagents = list("glyphosate" = 100)
+
+/// Sticky tar spray
+/obj/item/reagent_containers/spray/sticky_tar
+	name = "sticky tar applicator"
+	desc = "A suspicious looking spraycan filled with an extremely viscous and sticky fluid."
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	icon_state = "syndie_spraycan"
+	item_state = "syndie_spraycan"
+	container_type = AMOUNT_VISIBLE
+	spray_maxrange = 2
+	spray_currentrange = 2
+	amount_per_transfer_from_this = 10
+	list_reagents = list("sticky_tar" = 100)
+

@@ -11,6 +11,7 @@
 #include "component_tests.dm"
 #include "config_sanity.dm"
 #include "crafting_lists.dm"
+#include "element_tests.dm"
 #include "emotes.dm"
 #include "init_sanity.dm"
 #include "log_format.dm"

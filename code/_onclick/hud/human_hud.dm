@@ -345,6 +345,9 @@
 	mymob.healthdoll = new()
 	infodisplay += mymob.healthdoll
 
+	mymob.nutrition_display = new()
+	infodisplay += mymob.nutrition_display
+
 	mymob.pullin = new /atom/movable/screen/pull()
 	mymob.pullin.icon = ui_style
 	mymob.pullin.hud = src

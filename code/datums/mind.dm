@@ -417,6 +417,16 @@
 
 	. += _memory_edit_role_enabled(ROLE_ABDUCTOR)
 
+/datum/mind/proc/memory_edit_zombie(mob/living/H)
+	. = _memory_edit_header("zombie", list())
+	if(has_antag_datum(/datum/antagonist/zombie))
+		. += "<a href='byond://?src=[UID()];zombie=clear'>no</a>|<b><font color='red'>ZOMBIE</font></b>"
+		return
+	if(current.HasDisease(/datum/disease/zombie))
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirusno'><font color='red'>dis-infect</font></a>"
+	else
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirus'>infect</a>"
+
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
 	if(src in SSticker.mode.eventmiscs)
@@ -546,6 +556,8 @@
 		sections["nuclear"] = memory_edit_nuclear(H)
 		/** Abductors **/
 		sections["abductor"] = memory_edit_abductor(H)
+		/** Zombies **/
+		sections["zombie"] = memory_edit_zombie(H)
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
@@ -970,7 +982,7 @@
 			if("changeling")
 				if(!IS_CHANGELING(current))
 					add_antag_datum(/datum/antagonist/changeling)
-					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</span>")
+					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... We are a changeling!</span>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
@@ -1098,7 +1110,7 @@
 					SSticker.mode.update_synd_icons_removed(src)
 					special_role = null
 					objective_holder.clear(/datum/objective/nuclear)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT></span>")
+					to_chat(current, "<span class='warning'><font size='3'><b>You have been brainwashed! You are no longer a Syndicate operative!</b></font></span>")
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
 			if("nuclear")
@@ -1133,7 +1145,7 @@
 				qdel(H.w_uniform)
 
 				if(!SSticker.mode.equip_syndicate(current))
-					to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
+					to_chat(usr, "<span class='warning'>Equipping a Syndicate failed!</span>")
 					return
 				SSticker.mode.update_syndicate_id(current.mind, length(SSticker.mode.syndicates) == 1)
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
@@ -1169,6 +1181,45 @@
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
 				log_admin("[key_name(usr)] has eventantag'ed [current].")
 				current.create_log(MISC_LOG, "[current] was made into an event antagonist by [key_name_admin(usr)]")
+
+	else if(href_list["zombie"])
+		switch(href_list["zombie"])
+			if("clear")
+				if(!has_antag_datum(/datum/antagonist/zombie))
+					return
+				remove_antag_datum(/datum/antagonist/zombie)
+				for(var/datum/disease/zombie/D in current.viruses)
+					D.cure()
+				if(ishuman(current))
+					var/mob/living/carbon/human/human_current = current
+					for(var/obj/item/organ/limb as anything in human_current.bodyparts)
+						if(limb.status & ORGAN_DEAD && !limb.is_robotic())
+							limb.status &= ~ORGAN_DEAD
+					human_current.update_body()
+				message_admins("[key_name_admin(usr)] has de-zombied'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has de-zombied'ed [key_name(current)].")
+			if("zombie")
+				if(has_antag_datum(/datum/antagonist/zombie))
+					return
+				add_antag_datum(/datum/antagonist/zombie)
+				message_admins("[key_name_admin(usr)] has zombie'ed [key_name(current)].")
+				log_admin("[key_name(usr)] has zombie'ed [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was made into an zombie by [key_name_admin(usr)]")
+			if("zombievirus")
+				if(has_antag_datum(/datum/antagonist/zombie) || !ishuman(current))
+					return
+				current.AddDisease(new /datum/disease/zombie)
+				message_admins("[key_name_admin(usr)] has given a zombie virus to [key_name(current)].")
+				log_admin("[key_name(usr)] has given a zombie virus to [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] was admin-infected with a zombie virus by [key_name_admin(usr)]")
+			if("zombievirusno")
+				if(has_antag_datum(/datum/antagonist/zombie))
+					return
+				for(var/datum/disease/zombie/D in current.viruses)
+					D.cure()
+				message_admins("[key_name_admin(usr)] has removed the zombie virus from [key_name(current)].")
+				log_admin("[key_name(usr)] has removed the zombie virus from [key_name(current)].")
+				current.create_log(MISC_LOG, "[key_name(current)] had their zombie virus admin-removed by [key_name_admin(usr)]")
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
@@ -1407,7 +1458,7 @@
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
 					return
 				make_Abductor()
-				log_admin("[key_name(usr)] turned [current] into abductor.")
+				log_admin("[key_name(usr)] turned [current] into an abductor.")
 				SSticker.mode.update_abductor_icons_added(src)
 				current.create_log(MISC_LOG, "[current] was made into an abductor by [key_name_admin(usr)]")
 			if("equip")
@@ -1471,7 +1522,7 @@
 				if(has_antag_datum(/datum/antagonist/traitor))
 					var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
 					if(!T.give_uplink())
-						to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
+						to_chat(usr, "<span class='warning'>Equipping a Syndicate failed!</span>")
 						return
 				log_admin("[key_name(usr)] has given [key_name(current)] an uplink")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
@@ -1656,8 +1707,8 @@
 
 	S.team = team
 
-	var/list/obj/effect/landmark/abductor/agent_landmarks = new
-	var/list/obj/effect/landmark/abductor/scientist_landmarks = new
+	var/list/obj/effect/landmark/abductor/agent_landmarks = list()
+	var/list/obj/effect/landmark/abductor/scientist_landmarks = list()
 	agent_landmarks.len = 4
 	scientist_landmarks.len = 4
 	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)

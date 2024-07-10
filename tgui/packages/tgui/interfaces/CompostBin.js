@@ -1,23 +1,24 @@
 import { useBackend, useSharedState } from '../backend';
-import {
-  Button,
-  Section,
-  Box,
-  Stack,
-  NumberInput,
-  ProgressBar,
-  LabeledList,
-} from '../components';
+import { Button, Section, Box, Stack, NumberInput, ProgressBar, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 export const CompostBin = (props, context) => {
   const { act, data } = useBackend(context);
-  const { biomass, compost, biomass_capacity, compost_capacity } = data;
+  const {
+    biomass,
+    compost,
+    biomass_capacity,
+    compost_capacity,
+    potassium,
+    potassium_capacity,
+    potash,
+    potash_capacity,
+  } = data;
 
   let [vendAmount, setVendAmount] = useSharedState(context, 'vendAmount', 1);
 
   return (
-    <Window width={300} height={175}>
+    <Window width={360} height={250}>
       <Window.Content>
         <Stack fill vertical>
           <Section label="Resources">
@@ -25,45 +26,70 @@ export const CompostBin = (props, context) => {
               <LabeledList>
                 <LabeledList.Item label="Biomass">
                   <ProgressBar
-                    ml={1}
-                    width={17}
+                    ml={0.5}
+                    mt={1}
+                    width={20}
                     value={biomass}
                     minValue={0}
                     maxValue={biomass_capacity}
                     ranges={{
                       good: [biomass_capacity * 0.5, Infinity],
-                      average: [
-                        biomass_capacity * 0.25,
-                        biomass_capacity * 0.5,
-                      ],
+                      average: [biomass_capacity * 0.25, biomass_capacity * 0.5],
                       bad: [-Infinity, biomass_capacity * 0.25],
                     }}
                   >
                     {biomass} / {biomass_capacity} Units
                   </ProgressBar>
                 </LabeledList.Item>
-              </LabeledList>
-            </Stack>
-            <Stack>
-              <LabeledList>
                 <LabeledList.Item label="Compost">
                   <ProgressBar
                     ml={0.5}
                     mt={1}
-                    width={17}
+                    width={20}
                     value={compost}
                     minValue={0}
                     maxValue={compost_capacity}
                     ranges={{
                       good: [compost_capacity * 0.5, Infinity],
-                      average: [
-                        compost_capacity * 0.25,
-                        compost_capacity * 0.5,
-                      ],
+                      average: [compost_capacity * 0.25, compost_capacity * 0.5],
                       bad: [-Infinity, compost_capacity * 0.25],
                     }}
                   >
                     {compost} / {compost_capacity} Units
+                  </ProgressBar>
+                </LabeledList.Item>
+                <LabeledList.Item label="Potassium">
+                  <ProgressBar
+                    ml={0.5}
+                    mt={1}
+                    width={20}
+                    value={potassium}
+                    minValue={0}
+                    maxValue={potassium_capacity}
+                    ranges={{
+                      good: [potassium_capacity * 0.5, Infinity],
+                      average: [potassium_capacity * 0.25, potassium_capacity * 0.5],
+                      bad: [-Infinity, potassium_capacity * 0.25],
+                    }}
+                  >
+                    {potassium} / {potassium_capacity} Units
+                  </ProgressBar>
+                </LabeledList.Item>
+                <LabeledList.Item label="Potash">
+                  <ProgressBar
+                    ml={0.5}
+                    mt={1}
+                    width={20}
+                    value={potash}
+                    minValue={0}
+                    maxValue={potash_capacity}
+                    ranges={{
+                      good: [potash_capacity * 0.5, Infinity],
+                      average: [potash_capacity * 0.25, potash_capacity * 0.5],
+                      bad: [-Infinity, potash_capacity * 0.25],
+                    }}
+                  >
+                    {potash} / {potash_capacity} Units
                   </ProgressBar>
                 </LabeledList.Item>
               </LabeledList>

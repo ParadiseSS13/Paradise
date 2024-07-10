@@ -71,6 +71,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
+	/// Allow the virus to infect and process while the affected_mob is dead
+	var/allow_dead = FALSE
 
 /datum/disease/Destroy()
 	affected_mob = null
@@ -87,22 +89,26 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 	stage = min(stage, max_stages)
 
-	if(!cure)
-		if(prob(stage_prob))
-			stage = min(stage + 1,max_stages)
-			if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
-				discovered = TRUE
-				affected_mob.med_hud_set_status()
-	else
-		if(prob(cure_chance))
-			stage = max(stage - 1, 1)
+	handle_stage_advance(cure)
+
+	return handle_cure_testing(cure)
+
+/datum/disease/proc/handle_stage_advance(has_cure = FALSE)
+	if(!has_cure && prob(stage_prob))
+		stage = min(stage + 1, max_stages)
+		if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
+			discovered = TRUE
+			affected_mob.med_hud_set_status()
+
+/datum/disease/proc/handle_cure_testing(has_cure = FALSE)
+	if(has_cure && prob(cure_chance))
+		stage = max(stage - 1, 1)
 
 	if(disease_flags & CURABLE)
-		if(cure && prob(cure_chance))
+		if(has_cure && prob(cure_chance))
 			cure()
 			return FALSE
 	return TRUE
-
 
 /datum/disease/proc/has_cure()
 	if(!(disease_flags & CURABLE))
@@ -140,19 +146,20 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(spread_flags & AIRBORNE)
 		spread_range++
 
-	var/turf/T = affected_mob.loc
-	if(istype(T))
+	var/turf/target = affected_mob.loc
+	if(istype(target))
 		for(var/mob/living/carbon/C in oview(spread_range, affected_mob))
-			var/turf/V = get_turf(C)
-			if(V)
+			var/turf/current = get_turf(C)
+			if(current)
 				while(TRUE)
-					if(V == T)
+					if(current == target)
 						C.ContractDisease(src)
 						break
-					var/turf/Temp = get_step_towards(V, T)
-					if(!V.CanAtmosPass(Temp))
+					var/direction = get_dir(current, target)
+					var/turf/next = get_step(current, direction)
+					if(!current.CanAtmosPass(direction) || !next.CanAtmosPass(turn(direction, 180)))
 						break
-					V = Temp
+					current = next
 
 
 /datum/disease/proc/cure()

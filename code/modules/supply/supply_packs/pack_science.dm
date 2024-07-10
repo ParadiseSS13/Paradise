@@ -5,6 +5,15 @@
 	containertype = /obj/structure/closet/crate/sci
 	department_restrictions = list(DEPARTMENT_SCIENCE)
 
+/datum/supply_packs/science/rnd	// Everything you need to kick-start Science from scratch once the dust of the apocalypse has blown over.
+	name = "Research & Development Crate"
+	contains = list(/obj/item/storage/box/large/rnd_parts)
+	cost = 1000
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "research & development crate"
+	access = ACCESS_RESEARCH
+	announce_beacons = list("Research Division" = list("Robotics", "Science", "Research Director's Desk"))
+
 /datum/supply_packs/science/robotics
 	name = "Robotics Assembly Crate"
 	contains = list(/obj/item/assembly/prox_sensor,
@@ -41,19 +50,28 @@
 	access = ACCESS_RD
 
 /datum/supply_packs/science/robotics/mecha_ripley
-	name = "Circuit Crate (Ripley APLU)"
+	name = "Construction Crate (Ripley APLU)"
 	contains = list(/obj/item/book/manual/ripley_build_and_repair,
-					/obj/item/circuitboard/mecha/ripley/main, //TEMPORARY due to lack of circuitboard printer
-					/obj/item/circuitboard/mecha/ripley/peripherals) //TEMPORARY due to lack of circuitboard printer
-	cost = 500
-	containername = "\improper APLU \"Ripley\" circuit crate"
+					/obj/item/circuitboard/mecha/ripley/main,
+					/obj/item/circuitboard/mecha/ripley/peripherals,
+					/obj/item/clothing/suit/fire/firefighter,
+					/obj/item/stack/sheet/plasteel/fifteen)
+	cost = 350
+	containertype = /obj/structure/closet/crate/sci/robo
+	containername = "\improper APLU \"Ripley\" construction crate"
+	announce_beacons = list("Research Division" = list("Robotics"))
+	department_restrictions = list(DEPARTMENT_ENGINEERING, DEPARTMENT_SCIENCE) // depending on module combinations, this is miner or engi mech
 
 /datum/supply_packs/science/robotics/mecha_odysseus
-	name = "Circuit Crate (Odysseus)"
-	contains = list(/obj/item/circuitboard/mecha/odysseus/peripherals, //TEMPORARY due to lack of circuitboard printer
-					/obj/item/circuitboard/mecha/odysseus/main) //TEMPORARY due to lack of circuitboard printer
-	cost = 450
-	containername = "\improper \"Odysseus\" circuit crate"
+	name = "Construction Crate (Odysseus)"
+	contains = list(/obj/item/circuitboard/mecha/odysseus/peripherals,
+					/obj/item/circuitboard/mecha/odysseus/main,
+					/obj/item/mecha_parts/mecha_equipment/medical/sleeper,
+					/obj/item/stack/sheet/plasteel/five)
+	cost = 350
+	containertype = /obj/structure/closet/crate/sci/robo
+	containername = "\improper \"Odysseus\" construction crate"
+	department_restrictions = list(DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE) // medical mech for medical shenanigans
 
 /datum/supply_packs/science/plasma
 	name = "Plasma Assembly Crate"

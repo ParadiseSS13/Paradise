@@ -1,15 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Box,
-  AnimatedNumber,
-  Section,
-  NoticeBox,
-  Tabs,
-  Icon,
-  Table,
-} from '../components';
+import { Button, LabeledList, Box, AnimatedNumber, Section, NoticeBox, Tabs, Icon, Table } from '../components';
 import { Window } from '../layouts';
 
 export const TcommsRelay = (props, context) => {
@@ -38,11 +28,7 @@ export const TcommsRelay = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Link Status">
-              {linked === 1 ? (
-                <Box color="green">Linked</Box>
-              ) : (
-                <Box color="red">Unlinked</Box>
-              )}
+              {linked === 1 ? <Box color="green">Linked</Box> : <Box color="red">Unlinked</Box>}
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -58,12 +44,8 @@ const LinkedView = (_properties, context) => {
   return (
     <Section title="Link Status">
       <LabeledList>
-        <LabeledList.Item label="Linked Core ID">
-          {linked_core_id}
-        </LabeledList.Item>
-        <LabeledList.Item label="Linked Core Address">
-          {linked_core_addr}
-        </LabeledList.Item>
+        <LabeledList.Item label="Linked Core ID">{linked_core_id}</LabeledList.Item>
+        <LabeledList.Item label="Linked Core Address">{linked_core_addr}</LabeledList.Item>
         <LabeledList.Item label="Hidden Link">
           <Button
             content={hidden_link ? 'Yes' : 'No'}
@@ -73,12 +55,7 @@ const LinkedView = (_properties, context) => {
           />
         </LabeledList.Item>
         <LabeledList.Item label="Unlink">
-          <Button
-            content="Unlink"
-            icon="unlink"
-            color="red"
-            onClick={() => act('unlink')}
-          />
+          <Button content="Unlink" icon="unlink" color="red" onClick={() => act('unlink')} />
         </LabeledList.Item>
       </LabeledList>
     </Section>

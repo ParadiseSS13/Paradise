@@ -65,6 +65,8 @@ Pipelines + Other Objects -> Pipe network
 		pipe_color = null
 
 /obj/machinery/atmospherics/proc/process_atmos() //If you dont use process why are you here
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
 	return PROCESS_KILL
 
 /obj/machinery/atmospherics/proc/atmos_init()
@@ -73,7 +75,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/Destroy()
 	SSair.atmos_machinery -= src
-	SSair.deferred_pipenet_rebuilds -= src
+	SSair.pipenets_to_build -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
@@ -175,10 +177,10 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/build_network(remove_deferral = FALSE)
 	// Called to build a network from this node
 	if(remove_deferral)
-		SSair.deferred_pipenet_rebuilds -= src
+		SSair.pipenets_to_build -= src
 
 /obj/machinery/atmospherics/proc/defer_build_network()
-	SSair.deferred_pipenet_rebuilds += src
+	SSair.pipenets_to_build += src
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
 	return
@@ -197,8 +199,8 @@ Pipelines + Other Objects -> Pipe network
 		if(level == 1 && isturf(T) && T.intact)
 			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
 			return
-		var/datum/gas_mixture/int_air = return_air()
-		var/datum/gas_mixture/env_air = loc.return_air()
+		var/datum/gas_mixture/int_air = return_obj_air()
+		var/datum/gas_mixture/env_air = T.get_readonly_air()
 		add_fingerprint(user)
 
 		var/unsafe_wrenching = FALSE
@@ -252,11 +254,15 @@ Pipelines + Other Objects -> Pipe network
 		return
 
 	if(!pressures)
-		var/datum/gas_mixture/int_air = return_air()
-		var/datum/gas_mixture/env_air = loc.return_air()
+		var/datum/gas_mixture/int_air = return_obj_air()
+		var/turf/T = get_turf(src)
+		var/datum/gas_mixture/env_air = T.get_readonly_air()
 		pressures = int_air.return_pressure() - env_air.return_pressure()
 
 	var/fuck_you_dir = get_dir(src, user)
+	if(!fuck_you_dir)
+		fuck_you_dir = pick(GLOB.alldirs)
+
 	var/turf/general_direction = get_edge_target_turf(user, fuck_you_dir)
 	user.visible_message("<span class='danger'>[user] is sent flying by pressure!</span>","<span class='userdanger'>The pressure sends you flying!</span>")
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
@@ -325,7 +331,7 @@ Pipelines + Other Objects -> Pipe network
 			user.forceMove(target_move)
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 				user.last_played_vent = world.time
-				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
+				playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()
@@ -343,6 +349,10 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return TRUE
+
+/obj/machinery/atmospherics/extinguish_light(force)
+	set_light(0)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/proc/change_color(new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible

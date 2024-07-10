@@ -24,16 +24,18 @@
 	var/production_mode = null
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers = list(
-		COLOR_RED = "Red",
+		COLOR_RED_LIGHT = "Red",
 		COLOR_GREEN = "Green",
 		COLOR_PALE_BTL_GREEN = "Pale Green",
-		COLOR_BLUE = "Blue",
 		COLOR_CYAN_BLUE = "Light Blue",
 		COLOR_TEAL = "Teal",
 		COLOR_YELLOW = "Yellow",
 		COLOR_ORANGE = "Orange",
 		COLOR_PINK = "Pink",
-		COLOR_MAROON = "Brown"
+		COLOR_MAROON = "Brown",
+		COLOR_INDIGO = "Indigo",
+		COLOR_VIOLET = "Violet",
+		COLOR_PURPLE = "Purple"
 	)
 	var/list/datum/chemical_production_mode/production_modes = list()
 
@@ -123,8 +125,11 @@
 			return
 		I.forceMove(src)
 		if(beaker)
-			user.put_in_hands(beaker)
-			to_chat(user, "<span class='notice'>You swap [I] with [beaker] inside.</span>")
+			to_chat(usr, "<span class='notice'>You swap [I] with [beaker] inside.</span>")
+			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
+				user.put_in_hands(beaker)
+			else
+				beaker.forceMove(loc)
 		else
 			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 		beaker = I

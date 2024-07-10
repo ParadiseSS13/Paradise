@@ -377,7 +377,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/medic
 	belt = /obj/item/storage/belt/medical //No need for belt defib, they got the built in ones. This gives them some extra storage.
-	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
+	l_pocket = /obj/item/reagent_containers/hypospray/combat/syndicate_nanites
 	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector/epinephrine
 
 	backpack_contents = list(
@@ -446,6 +446,13 @@
 	suit_store = /obj/item/gun/energy/gun
 	r_pocket = /obj/item/nullrod/ert
 	glasses = /obj/item/clothing/glasses/sunglasses
+
+	backpack_contents = list(
+		/obj/item/clothing/shoes/magboots = 1,
+		/obj/item/storage/box/zipties = 1,
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/storage/bible = 1
+	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,

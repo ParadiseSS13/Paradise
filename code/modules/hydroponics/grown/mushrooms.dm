@@ -225,7 +225,7 @@
 	product = /obj/item/food/snacks/grown/mushroom/glowshroom
 	lifespan = 100 //ten times that is the delay
 	endurance = 30
-	maturation = 15
+	maturation = 6
 	production = 1
 	yield = 3 //-> spread
 	potency = 30 //-> brightness
@@ -280,6 +280,7 @@
 	icon_harvest = "glowcap-harvest"
 	plantname = "Glowcaps"
 	product = /obj/item/food/snacks/grown/mushroom/glowshroom/glowcap
+	maturation = 15
 	genes = list(/datum/plant_gene/trait/glow/red, /datum/plant_gene/trait/cell_charge, /datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list()
 	reagents_add = list("teslium" = 0.1, "nutriment" = 0.04)
@@ -332,6 +333,7 @@
 	icon_dead = "shadowshroom-dead"
 	plantname = "Shadowshrooms"
 	product = /obj/item/food/snacks/grown/mushroom/glowshroom/shadowshroom
+	maturation = 15
 	genes = list(/datum/plant_gene/trait/glow/shadow, /datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list()
 	reagents_add = list("radium" = 0.2, "nutriment" = 0.04)

@@ -14,7 +14,6 @@
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health
 
-
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	var/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
 	var/oxyloss = 0	//Oxygen depravation damage (no air in lungs)
@@ -99,6 +98,9 @@
 
 	/// Famous last words -- if succumbing, what the user's last words were
 	var/last_words
+
+	///This variable is the chance for a mob to automatically dodge a bullet. Useful for admins, and applied to some mobs by default, such as the malfunctioning drone mobs.
+	var/advanced_bullet_dodge_chance = 0
 
 	/*
 	Taste Vars

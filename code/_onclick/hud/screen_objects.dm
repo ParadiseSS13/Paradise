@@ -556,6 +556,12 @@
 		var/mob/living/carbon/H = usr
 		H.check_self_for_injuries()
 
+/atom/movable/screen/nutrition
+	name = "nutrition"
+	icon = 'icons/mob/screen_hunger.dmi'
+	icon_state = null
+	screen_loc = ui_nutrition
+
 /atom/movable/screen/component_button
 	var/atom/movable/screen/parent
 

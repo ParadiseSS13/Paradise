@@ -130,7 +130,7 @@
 	var/turf/center = locate((destination.x + xoffset), (destination.y + yoffset), location.z) // So now, find the new center.
 
 	// Now to find a box from center location and make that our destination.
-	for(var/turf/T in block(locate(center.x + b1xerror, center.y + b1yerror, location.z), locate(center.x + b2xerror, center.y + b2yerror, location.z)))
+	for(var/turf/T in block(center.x + b1xerror, center.y + b1yerror, location.z, center.x + b2xerror, center.y + b2yerror, location.z))
 		if(density && T.density)
 			continue
 		if(T.x > world.maxx || T.x < 1 || T.y > world.maxy || T.y < 1)
@@ -819,8 +819,8 @@ Returns 1 if the chain up to the area contains the given typepath
 
 					// Give the new turf our air, if simulated
 					if(issimulatedturf(X) && issimulatedturf(T))
-						var/turf/simulated/sim = X
-						sim.copy_air_with_tile(T)
+						var/datum/milla_safe/area_move_transrer_gas/milla = new()
+						milla.invoke_async(T, X)
 
 					// Quick visual fix for some weird shuttle corner artefacts when on transit space tiles
 					if(direction && findtext(X.icon_state, "swall_s"))
@@ -876,18 +876,10 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-	if(length(to_update))
-		for(var/turf/simulated/T1 in to_update)
-			SSair.remove_from_active(T1)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1, TRUE)
+/datum/milla_safe/area_move_transrer_gas
 
-	if(length(from_update))
-		for(var/turf/simulated/T2 in from_update)
-			SSair.remove_from_active(T2)
-			T2.CalculateAdjacentTurfs()
-			SSair.add_to_active(T2, TRUE)
-
+/datum/milla_safe/area_move_transrer_gas/on_run(turf/source, turf/target)
+	get_turf_air(target).copy_from(get_turf_air(source))
 
 /proc/DuplicateObject(obj/original, perfectcopy = 0, sameloc = 0, atom/newloc)
 	if(!original)
@@ -1007,11 +999,6 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_src -= T
 					refined_trg -= B
 					continue moving
-
-	if(length(to_update))
-		for(var/turf/simulated/T1 in to_update)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
 
 	return copied_objects
 
@@ -1142,25 +1129,6 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
 		return TRUE
-
-/proc/reverse_direction(dir)
-	switch(dir)
-		if(NORTH)
-			return SOUTH
-		if(NORTHEAST)
-			return SOUTHWEST
-		if(EAST)
-			return WEST
-		if(SOUTHEAST)
-			return NORTHWEST
-		if(SOUTH)
-			return NORTH
-		if(SOUTHWEST)
-			return NORTHEAST
-		if(WEST)
-			return EAST
-		if(NORTHWEST)
-			return SOUTHEAST
 
 /*
 Checks if that loc and dir has a item on the wall
@@ -1375,10 +1343,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	move_resist = INFINITY
 	simulated = 0
 	see_in_dark = 1e6
-
-/mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
-	SHOULD_CALL_PARENT(FALSE)
-	return
 
 /mob/dview/Destroy()
 	SHOULD_CALL_PARENT(FALSE)
@@ -1936,20 +1900,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	LAZYSET(modifiers, "icon-x", "[(click_turf_px - click_turf.pixel_x) + ((click_turf_x - click_turf.x) * world.icon_size)]")
 	LAZYSET(modifiers, "icon-y", "[(click_turf_py - click_turf.pixel_y) + ((click_turf_y - click_turf.y) * world.icon_size)]")
 	return click_turf
-
-/proc/params2turf(scr_loc, turf/origin, client/C)
-	if(!scr_loc)
-		return null
-	var/tX = splittext(scr_loc, ",")
-	var/tY = splittext(tX[2], ":")
-	var/tZ = origin.z
-	tY = tY[1]
-	tX = splittext(tX[1], ":")
-	tX = tX[1]
-	var/list/actual_view = getviewsize(C ? C.view : world.view)
-	tX = clamp(origin.x + text2num(tX) - round(actual_view[1] / 2) - 1, 1, world.maxx)
-	tY = clamp(origin.y + text2num(tY) - round(actual_view[2] / 2) - 1, 1, world.maxy)
-	return locate(tX, tY, tZ)
 
 /proc/CallAsync(datum/source, proctype, list/arguments)
 	set waitfor = FALSE

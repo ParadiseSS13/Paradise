@@ -165,6 +165,7 @@
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
 		return
+	SEND_SIGNAL(occupant, COMSIG_EXITED_BORGCHARGER)
 	UnregisterSignal(occupant, COMSIG_MOVABLE_MOVED)
 	occupant.forceMove(loc)
 	occupant = null
@@ -200,18 +201,11 @@
 	var/can_accept_user
 	if(isrobot(target))
 		var/mob/living/silicon/robot/R = target
-
-		if(R.stat == DEAD)
-			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
-			return
+	
 		if(occupant)
 			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
 			return
-		if(!R.cell)
-			to_chat(R, "<span class='warning'>Without a power cell, you can't be recharged.</span>")
-			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
-			return
-		can_accept_user = 1
+		can_accept_user = TRUE
 
 	else if(ishuman(target))
 		var/mob/living/carbon/human/H = target
@@ -224,7 +218,7 @@
 		if(!ismodcontrol(H.back))
 			if(!H.get_int_organ(/obj/item/organ/internal/cell))
 				return
-		can_accept_user = 1
+		can_accept_user = TRUE
 
 	if(!can_accept_user)
 		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
@@ -232,6 +226,7 @@
 
 	target.stop_pulling()
 	QDEL_LIST_CONTENTS(target.grabbed_by)
+	SEND_SIGNAL(target, COMSIG_ENTERED_BORGCHARGER)
 	target.forceMove(src)
 	occupant = target
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(go_out))

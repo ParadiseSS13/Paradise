@@ -273,9 +273,14 @@
 	if(age_based && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		// Vary needs to be true as otherwise frequency changes get ignored deep within playsound_local :(
-		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(H.dna.species.max_age))
+		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(H.dna.species.max_age) * alter_emote_pitch(user))
 	else
-		playsound(user.loc, sound_path, sound_volume, vary)
+		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = alter_emote_pitch(user, FALSE))
+
+/datum/emote/proc/alter_emote_pitch(mob/user, multiplicative = TRUE)
+	if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
+		return 0.7
+	return multiplicative
 
 /**
  * Send an emote to runechat for all (listening) users in the vicinity.

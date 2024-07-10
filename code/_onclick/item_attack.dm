@@ -61,12 +61,16 @@
 	if(flags & (NOBLUDGEON))
 		return FALSE
 
+	if((is_surgery_tool_by_behavior(src) || is_organ(src) || tool_behaviour) && user.a_intent == INTENT_HELP && on_operable_surface(M) && M != user)
+		to_chat(user, "<span class='info'>You don't want to harm the person you're trying to help!</span>")
+		return
+
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return
 
 	if(!force)
-		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
+		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else
 		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
 		add_attack_logs(user, M, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
@@ -77,7 +81,7 @@
 	M.lastattackerckey = user.ckey
 
 	user.do_attack_animation(M)
-	. = M.attacked_by(src, user, def_zone)
+	. = !M.attacked_by(src, user, def_zone)
 
 	add_fingerprint(user)
 
