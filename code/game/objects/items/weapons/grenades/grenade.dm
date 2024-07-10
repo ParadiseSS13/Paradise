@@ -27,7 +27,6 @@
 			. += "<span class='warning'>[src] is set for instant detonation.</span>"
 		. += "<span class='notice'>Use a screwdriver to modify the time on the fuze.</span>"
 
-
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		prime()
