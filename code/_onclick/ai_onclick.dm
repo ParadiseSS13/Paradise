@@ -192,7 +192,9 @@
 /obj/machinery/power/apc/AICtrlClick(mob/living/user) // turns off/on APCs.
 	if(stat & BROKEN)
 		return
-	if(aidisabled)
+	var/mob/living/silicon/ai/AI = user
+	var/mob/living/silicon/robot/robot = user
+	if(aidisabled || hacked_by_ruin_AI || (malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent))) || (istype(robot) && malfai && !(robot in malfai.connected_robots))))
 		to_chat(user, "<span class='warning'>Unable to interface: Connection refused.</span>")
 		return
 	toggle_breaker(user)

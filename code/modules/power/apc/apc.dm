@@ -111,6 +111,9 @@
 	var/constructed = FALSE
 	var/overload = 1 //used for the Blackout malf module
 
+	/// Are we hacked by a ruins malf AI? If so, it will act like a malf AI hacked APC, but silicons and malf AI's will not be able to interface with it.
+	var/hacked_by_ruin_AI = FALSE
+
 	/*** APC Overlay Vars ***/
 	var/update_state = -1
 	var/update_overlay = -1
@@ -491,7 +494,7 @@
 	if(issilicon(user))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
-		if(malfai == "DVORAK") //I'm not making an actual ai core for this, you get a string. Naming an AI DVORAK will not do anything, as it will be an actual AI core, instead of a string
+		if(hacked_by_ruin_AI)
 			to_chat(user, "<span class='danger'>The APC interface program has been completely corrupted, you are unable to interface with it!</span>")
 			return FALSE
 		if(aidisabled || (malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent))) || (istype(robot) && malfai && !(robot in malfai.connected_robots))))

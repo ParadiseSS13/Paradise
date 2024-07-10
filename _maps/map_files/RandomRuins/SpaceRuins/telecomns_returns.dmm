@@ -232,8 +232,8 @@
 	},
 /obj/machinery/power/apc/directional/east{
 	malfhack = 1;
-	malfai = "DVORAK";
-	emp_proof = 1
+	emp_proof = 1;
+	hacked_by_ruin_AI = 1
 	},
 /obj/structure/environmental_storytelling_holopad/control_room,
 /turf/simulated/floor/plasteel,
@@ -245,7 +245,7 @@
 	},
 /obj/machinery/power/apc/directional/north{
 	malfhack = 1;
-	malfai = "DVORAK"
+	hacked_by_ruin_AI = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
@@ -1174,7 +1174,7 @@
 	},
 /obj/machinery/power/apc/directional/north{
 	malfhack = 1;
-	malfai = "DVORAK"
+	hacked_by_ruin_AI = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
@@ -2183,8 +2183,8 @@
 	},
 /obj/machinery/power/apc/directional/north{
 	malfhack = 1;
-	malfai = "DVORAK";
-	emp_proof = 1
+	emp_proof = 1;
+	hacked_by_ruin_AI = 1
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
@@ -3194,8 +3194,8 @@
 	},
 /obj/machinery/power/apc/directional/north{
 	malfhack = 1;
-	malfai = "DVORAK";
-	emp_proof = 1
+	emp_proof = 1;
+	hacked_by_ruin_AI = 1
 	},
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
@@ -3303,7 +3303,7 @@
 	},
 /obj/machinery/power/apc/directional/east{
 	malfhack = 1;
-	malfai = "DVORAK"
+	hacked_by_ruin_AI = 1
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
