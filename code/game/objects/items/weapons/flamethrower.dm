@@ -89,7 +89,7 @@
 		return
 
 	// Pulling this off 'safely' requires years of experience, a true badass, or blind luck!
-	if(HAS_TRAIT(user, TRAIT_BADASS) || user.mind.assigned_role == "Station Engineer" || user.mind.assigned_role == "Chief Engineer" || user.mind.assigned_role == "Life Support Specialist" || prob(50))
+	if(HAS_TRAIT(user, TRAIT_BADASS) || user.mind.assigned_role in list("Station Engineer", "Chief Engineer", "Life Support Specialist") || prob(50))
 		if(user == target)
 			user.visible_message(
 				"<span class='warning'>[user] confidently lifts up [src] and releases a big puff of flame at [cig] to light it, like some kind of psychopath!</span>",
@@ -106,14 +106,14 @@
 		// You set them on fire, but at least the cigarette got lit...
 		if(target == user)
 			user.visible_message(
-				"<span class='danger'>With little regard for [user.p_their()] own safety, [user] lifts up [src] and attempts to light [user.p_their()] [cig.name]. \
+				"<span class='danger'>[user] carelessly lifts up [src] and attempts to light [user.p_their()] [cig.name]. \
 				Unfortunately, [user] pulls the trigger a little too hard and releases a large burst of flame that sets [user.p_them()] ablaze!</span>",
 				"<span class='userdanger'>You lift up [src] and squeeze the trigger to light [cig]. Unfortunately, you squeeze a little too hard and release a large burst of flame that sets you ablaze!</span>",
 				"<span class='danger'>You hear a plume of fire and something igniting!</span>"
 			)
 		else
 			user.visible_message(
-				"<span class='danger'>With little regard for the safety of [target], [user] lifts up [src] and points it at [target] to light [target.p_their()][cig.name]. \
+				"<span class='danger'>[user] carelessly lifts up [src] and points it at [target] to light [target.p_their()][cig.name]. \
 				Unfortunately, [user] squeezes the trigger a little too hard and releases a large burst of flame that sets [target] ablaze!</span>",
 				"<span class='userdanger'>You lift up [src] up and point it at [target], squeezing the trigger to light [target.p_their()] [cig.name]. \
 				Unfortunately, your squeeze a little too hard and release large burst of flame that sets [target.p_them()] ablaze!</span>",
