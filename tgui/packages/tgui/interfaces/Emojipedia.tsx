@@ -15,9 +15,7 @@ export const Emojipedia = (props, context) => {
   const { data } = useBackend<Data>(context);
   const { emoji_list } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const filteredEmoji = emoji_list.filter((emoji) =>
-    emoji.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filteredEmoji = emoji_list.filter((emoji) => emoji.name.toLowerCase().includes(searchText.toLowerCase()));
 
   return (
     <Window width={325} height={400}>
@@ -29,16 +27,8 @@ export const Emojipedia = (props, context) => {
           title={'Emojipedia v1.0.1'}
           buttons={
             <>
-              <Input
-                placeholder="Search by name"
-                value={searchText}
-                onInput={(e, value) => setSearchText(value)}
-              />
-              <Button
-                tooltip={'Click on an emoji to copy its tag!'}
-                tooltipPosition="bottom"
-                icon="circle-question"
-              />
+              <Input placeholder="Search by name" value={searchText} onInput={(e, value) => setSearchText(value)} />
+              <Button tooltip={'Click on an emoji to copy its tag!'} tooltipPosition="bottom" icon="circle-question" />
             </>
           }
         >

@@ -33,3 +33,4 @@
 	name = "EVA Storage"
 	icon_state = "eva"
 	ambientsounds = HIGHSEC_SOUNDS
+	request_console_name = "EVA"

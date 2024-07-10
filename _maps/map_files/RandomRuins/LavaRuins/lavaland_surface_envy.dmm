@@ -11,7 +11,7 @@
 "d" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "e" = (
 /obj/structure/mirror{
 	broken = 1;
@@ -23,7 +23,7 @@
 /obj/effect/decal/cleanable/blood,
 /obj/item/clothing/head/human_head,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "f" = (
 /obj/structure/mirror{
 	broken = 1;
@@ -32,7 +32,7 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plating/burnt,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "g" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/structure/mirror{
@@ -42,18 +42,18 @@
 	pixel_x = -28
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "h" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "i" = (
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "j" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "k" = (
 /obj/structure/mirror{
 	broken = 1;
@@ -63,7 +63,7 @@
 	},
 /obj/item/kitchen/knife/envy,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "l" = (
 /obj/structure/mirror{
 	broken = 1;
@@ -72,7 +72,7 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "m" = (
 /obj/structure/mirror{
 	broken = 1;
@@ -81,10 +81,10 @@
 	pixel_x = -28
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "n" = (
 /turf/simulated/floor/plating/damaged,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "o" = (
 /obj/structure/mirror{
 	broken = 1;
@@ -93,16 +93,16 @@
 	pixel_x = -28
 	},
 /turf/simulated/floor/plating/damaged,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "p" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "q" = (
 /obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/envy)
 "A" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
