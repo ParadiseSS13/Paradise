@@ -532,9 +532,7 @@
 	// This condition is copied from atom to avoid an extra parent call, because this is a very hot proc.
 	if(!density || !height)
 		return TRUE
-	if(LAZYIN(buckled_mobs, mover))
-		return TRUE
-	return FALSE
+	return LAZYIN(buckled_mobs, mover)
 
 /atom/movable/proc/get_spacemove_backup()
 	var/atom/movable/dense_object_backup

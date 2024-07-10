@@ -244,7 +244,7 @@ SUBSYSTEM_DEF(throwing)
 	thrownthing.throwing = null
 	if(!hit)
 		if(get_turf(target) == get_turf(thrownthing))
-			hit = 1
+			hit = TRUE
 			thrownthing.throw_impact(target, src)
 		if(!hit)
 			thrownthing.throw_impact(get_turf(thrownthing), src)  // we haven't hit something yet and we still must, let's hit the ground.

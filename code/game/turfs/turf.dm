@@ -221,7 +221,7 @@
 		mover.Bump(src, TRUE)
 		return FALSE
 
-	//Finally, check objects/mobs that block entry and are not on the border
+	// Finally, check objects/mobs that block entry and are not on the border
 	var/atom/movable/tompost_bump
 	var/top_layer = FALSE
 	for(var/atom/movable/obstacle as anything in large_dense)
