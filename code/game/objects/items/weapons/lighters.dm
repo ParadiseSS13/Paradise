@@ -20,6 +20,7 @@
 	var/next_off_message
 	/// Our lighter color suffix. => [base_icon_state]-[lightercolor] => lighter-r
 	var/lighter_color
+	var/is_a_zippo = FALSE
 
 /obj/item/lighter/random
 	base_icon_state = "lighter"
@@ -110,6 +111,10 @@
 	if(!cig)
 		return	
 
+	// Otherwise the zippo lighter will get TRUE when its own cig lighter act calls parent and runtimes.
+	if(is_a_zippo)
+		return cig
+
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
 		return TRUE
@@ -150,6 +155,7 @@
 	desc = "A premium cigarette lighter, for cool and distinguished individuals."
 	icon_state = "zippo"
 	item_state = "zippo"
+	is_a_zippo = TRUE
 
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
