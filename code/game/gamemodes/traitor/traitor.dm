@@ -71,19 +71,7 @@
 /datum/game_mode/traitor/late_handout()
 	var/traitors_to_add = 0
 
-	for(var/datum/mind/traitor_mind as anything in traitors)
-		if(QDELETED(traitor_mind) || !traitor_mind.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
-			traitors_to_add++
-			traitors -= traitor_mind
-			continue
-		for(var/datum/antagonist/traitor/traitor_datum in traitor_mind.antag_datums)
-			traitor_datum.objective_holder.assigned_targets = list()
-			for(var/datum/objective/objective as anything in traitor_datum.objective_holder.objectives)
-				objective.force_reset_target()
-
-		SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
-		var/list/messages = traitor_mind.prepare_announce_objectives()
-		to_chat(traitor_mind.current, chat_box_red(messages.Join("<br>")))
+	traitors_to_add += reveal_traitor_objectives()
 
 	if(length(traitors) < traitors_to_add())
 		traitors_to_add += (traitors_to_add() - length(traitors))
@@ -200,3 +188,18 @@
 					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
 
 		return text.Join("")
+
+/datum/game_mode/proc/reveal_traitor_objectives()
+	var/traitors_to_add = 0
+	for(var/datum/mind/traitor_mind as anything in traitors)
+		if(QDELETED(traitor_mind) || !traitor_mind.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
+			traitors_to_add++
+			traitors -= traitor_mind
+			continue
+		for(var/datum/antagonist/traitor/traitor_datum in traitor_mind.antag_datums)
+			traitor_datum.reveal_delayed_objectives()
+
+		SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
+		var/list/messages = traitor_mind.prepare_announce_objectives()
+		to_chat(traitor_mind.current, chat_box_red(messages.Join("<br>")))
+	return traitors_to_add

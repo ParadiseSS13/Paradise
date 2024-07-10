@@ -158,6 +158,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	else
 		objective_to_add = /datum/objective/steal
 
+	if(delayed_objectives)
+		objective_to_add = new /datum/objective/delayed(objective_to_add)
 	add_antag_objective(objective_to_add)
 
 /**
@@ -281,3 +283,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 /datum/antagonist/traitor/custom_blurb()
 	return "[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(owner.current, TRUE)]\nBEGIN_MISSION"
+
+/datum/antagonist/traitor/proc/reveal_delayed_objectives()
+	for(var/datum/objective/delayed/delayed_obj in objective_holder.objectives)
+		delayed_obj.reveal_objective()
