@@ -95,7 +95,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/cig_haver = target
 		var/mask_item = cig_haver.get_item_by_slot(SLOT_HUD_WEAR_MASK)		
-		if(istype(mask_item, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && !user.a_intent == INTENT_HELP)
+		if(istype(mask_item, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
 			return
 
 	. = ..()
