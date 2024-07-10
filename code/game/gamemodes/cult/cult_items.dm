@@ -647,9 +647,9 @@
 	desc = "Call the blood spear back to your hand!"
 	button_background_icon_state = "bg_cult"
 	button_overlay_icon_state = "bloodspear"
+	default_button_position = "11:31,4:-2"
 	var/obj/item/cult_spear/spear
 	var/cooldown = 0
-	default_button_position = "6:157,4:-2"
 
 /datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
 	. = ..()

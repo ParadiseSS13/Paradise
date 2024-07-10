@@ -107,7 +107,7 @@
 
 	// Immobilize stops them from wandering off and dropping the wrench
 	user.Immobilize(10 SECONDS)
-	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
+	playsound(loc, 'sound/effects/pray.ogg', 50, TRUE, -1)
 
 	// Let the sound effect finish playing
 	sleep(20)

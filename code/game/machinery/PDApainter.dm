@@ -174,7 +174,7 @@
 	if(storedpda)
 		storedpda.icon_state = preview_icon_state
 		storedpda.desc = colorlist[preview_icon_state][2]
-		playsound(loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		playsound(loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		update_pda_cache()
 
 /obj/machinery/pdapainter/proc/update_pda_cache()

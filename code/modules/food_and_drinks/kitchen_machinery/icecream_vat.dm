@@ -11,6 +11,8 @@
 	idle_power_consumption = 20
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/useramount = 15	//Last used amount
+	/// Reagents that can't be exported from the machine except by making ice cream.
+	var/list/static/locked_reagents = list("cola", "kahlua", "dr_gibb", "vodka", "space_up", "rum", "spacemountainwind", "gin", "cream", "vanilla")
 
 
 /obj/machinery/icemachine/proc/generate_name(reagent_name)
@@ -53,16 +55,6 @@
 	return ..()
 
 
-/obj/machinery/icemachine/proc/validexchange(reag)
-	var/list/static/invalid_reagents = list("sprinkles", "cola", "kahlua", "dr_gibb", "vodka", "space-up", "rum", "spacemountainwind", "gin", "cream", "vanilla")
-	if(reag in invalid_reagents)
-		return
-	if(reagents.total_volume < 500)
-		to_chat(usr, "<span class='notice'>[src] vibrates for a moment, apparently accepting the unknown liquid.</span>")
-		playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
-	return TRUE
-
-
 /obj/machinery/icemachine/Topic(href, href_list)
 	if(..()) return
 
@@ -74,31 +66,36 @@
 		usr.unset_machine()
 		return
 
-	var/obj/item/reagent_containers/glass/A = null
-	var/datum/reagents/R = null
-
-	if(beaker)
-		A = beaker
-		R = A.reagents
-
 	if(href_list["add"])
 		if(href_list["amount"])
 			var/id = href_list["add"]
 			var/amount = text2num(href_list["amount"])
-			if(validexchange(id))
-				R.trans_id_to(src, id, amount)
+			if(amount <= 0)
+				return
+			var/transferred = beaker.reagents.trans_id_to(src, id, amount)
+			if(transferred <= 0)
+				return
+			to_chat(usr, "<span class='notice'>[src] vibrates for a moment as it transfers the liquid.</span>")
+			playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 
 	else if(href_list["remove"])
 		if(href_list["amount"])
 			var/id = href_list["remove"]
 			var/amount = text2num(href_list["amount"])
-			if(beaker == null)
+			if(amount <= 0)
+				return
+			if(beaker == null || (id in locked_reagents))
 				reagents.remove_reagent(id,amount)
-			else
-				if(validexchange(id))
-					reagents.trans_id_to(A, id, amount)
-				else
-					reagents.remove_reagent(id,amount)
+				to_chat(usr, "<span class='notice'>[src] vibrates for a moment as it flushes the liquid.</span>")
+				playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
+				updateUsrDialog()
+				return
+
+			var/transferred = reagents.trans_id_to(beaker, id, amount)
+			if(transferred <= 0)
+				return
+			to_chat(usr, "<span class='notice'>[src] vibrates for a moment as it transfers the liquid.</span>")
+			playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 
 	else if(href_list["main"])
 		attack_hand(usr)
@@ -106,17 +103,14 @@
 
 	else if(href_list["eject"])
 		if(beaker)
-			A.forceMove(loc)
+			beaker.forceMove(loc)
 			beaker = null
-			reagents.trans_to(A,reagents.total_volume)
+			reagents.trans_to(beaker, reagents.total_volume)
 
 	else if(href_list["synthcond"])
 		if(href_list["type"])
 			var/ID = text2num(href_list["type"])
-			/*
-			if(ID == 1)
-				reagents.add_reagent("sprinkles",1)
-				*/ //Sprinkles are now created by using the ice cream on the machine
+			// ID 1 was sprinkles, which are now added by using ice cream on the machine.
 			if(ID == 2 | ID == 3)
 				var/brand = pick(1,2,3,4)
 				if(brand == 1)
