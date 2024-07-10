@@ -680,12 +680,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/emp_act(severity)
 	..()
-	if(prob(30))
-		switch(pick(1,2))
-			if(1)
-				view_core()
-			if(2)
-				ai_call_shuttle()
+	Stun((12 SECONDS) / severity)
+	view_core()
 
 /mob/living/silicon/ai/ex_act(severity)
 	..()
@@ -807,7 +803,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	set name = "Access Robot Control"
 	set desc = "Wirelessly control various automatic robots."
-	if(stat == 2)
+	if(stat == DEAD)
 		to_chat(src, "<span class='danger'>Critical error. System offline.</span>")
 		return
 
@@ -905,7 +901,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable())
 		return
 
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		to_chat(usr, "You can't change your camera network because you are dead!")
 		return
 
@@ -945,7 +941,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	set name = "AI Status"
 
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		to_chat(usr, "You cannot change your emotional status because you are dead!")
 		return
 
