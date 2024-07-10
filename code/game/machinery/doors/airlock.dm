@@ -614,9 +614,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if("closing")
 			update_icon(AIRLOCK_CLOSING)
 		if("deny")
-			if(!stat)
+			if(stat == CONSCIOUS)
 				update_icon(AIRLOCK_DENY)
-				playsound(src,doorDeni,50,0,3)
+				playsound(src, doorDeni, 50, FALSE, 3)
 				sleep(6)
 				update_icon(AIRLOCK_CLOSED)
 
@@ -1063,7 +1063,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			security_level = AIRLOCK_SECURITY_NONE
 			modify_max_integrity(normal_integrity)
 			damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
-			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
+			new /obj/item/stack/sheet/plasteel(get_turf(user))
 			update_icon()
 	else if(panel_open && security_level == AIRLOCK_SECURITY_PLASTEEL_O_S)
 		to_chat(user, "<span class='notice'>You start removing outer layer of shielding...</span>")
@@ -1073,7 +1073,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			user.visible_message("<span class='notice'>[user] removes \the [src]'s shielding.</span>",
 								"<span class='notice'>You remove \the [src]'s shielding.</span>")
 			security_level = AIRLOCK_SECURITY_PLASTEEL_I
-			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
+			new /obj/item/stack/sheet/plasteel(get_turf(user))
 	else
 		try_to_crowbar(user, I)
 
@@ -1127,7 +1127,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 					"<span class='notice'>You cut through \the [src]'s shielding.</span>",
 					"<span class='italics'>You hear welding.</span>")
 				security_level = AIRLOCK_SECURITY_NONE
-				spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
+				new /obj/item/stack/sheet/metal(get_turf(user), 2)
 			if(AIRLOCK_SECURITY_PLASTEEL_O)
 				to_chat(user, "<span class='notice'>You begin cutting the outer layer of shielding...</span>")
 				if(!I.use_tool(src, user, 40, volume = I.tool_volume))
@@ -1291,7 +1291,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	density = FALSE
 	if(width > 1)
 		set_fillers_density(FALSE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
 	update_icon(AIRLOCK_OPEN, 1)
@@ -1333,7 +1333,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	density = TRUE
 	if(width > 1)
 		set_fillers_density(TRUE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	if(!override)
 		sleep(4)
 	if(!safe)
@@ -1358,7 +1358,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return 0
 
 	locked = TRUE
-	playsound(src, boltDown, 30, 0, 3)
+	playsound(src, boltDown, 30, FALSE, 3)
 	update_icon()
 	return 1
 
@@ -1371,17 +1371,17 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			return
 
 	locked = FALSE
-	playsound(src,boltUp, 30, 0, 3)
+	playsound(src,boltUp, 30, FALSE, 3)
 	update_icon()
 	return 1
 
-/obj/machinery/door/airlock/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/obj/machinery/door/airlock/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
-	if(caller?.checkpass(PASSDOOR) && !locked)
+	if(pass_info.pass_flags & PASSDOOR && !locked)
 		return TRUE
 	//Airlock is passable if it is open (!density), bot has access, and is not bolted or welded shut)
-	return check_access(ID) && !locked && !welded && arePowerSystemsOn() && !no_id
+	return check_access_list(pass_info.access) && !locked && !welded && arePowerSystemsOn() && !pass_info.no_id
 
 /obj/machinery/door/airlock/emag_act(mob/user)
 	if(!operating && density && arePowerSystemsOn() && !emagged)
@@ -1490,7 +1490,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/hostile_lockdown(mob/origin)
 	// Must be powered and have working AI wire.
-	if(canAIControl(src) && !stat)
+	if(canAIControl(src) && stat == CONSCIOUS)
 		locked = FALSE //For airlocks that were bolted open.
 		safe = FALSE //DOOR CRUSH
 		close()
@@ -1501,7 +1501,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/disable_lockdown()
 	// Must be powered and have working AI wire.
-	if(canAIControl(src) && !stat)
+	if(canAIControl(src) && stat == CONSCIOUS)
 		unlock()
 		electrified_until = 0
 		open()

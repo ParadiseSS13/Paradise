@@ -31,7 +31,6 @@
 	var/time_between_flashes = 5 SECONDS
 
 	var/use_sound = 'sound/weapons/flash.ogg'
-
 	COOLDOWN_DECLARE(flash_cooldown)
 
 /obj/item/flash/attackby(obj/item/I, mob/user, params)
@@ -140,8 +139,7 @@
 		return TRUE
 	else if(issilicon(M))
 		add_attack_logs(user, M, "Flashed with [src]")
-		if(M.flash_eyes(affect_silicon = 1))
-			M.Weaken(rand(8 SECONDS, 12 SECONDS))
+		if(M.flash_eyes(intensity = 1.25, affect_silicon = TRUE)) // 40 * 1.25 = 50 stamina damage
 			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with [src]!</span>", "<span class='danger'>You overload [M]'s sensors with [src]!</span>")
 		return TRUE
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with [src]!</span>", "<span class='warning'>You fail to blind [M] with [src]!</span>")

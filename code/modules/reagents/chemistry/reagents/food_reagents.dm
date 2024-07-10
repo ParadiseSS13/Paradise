@@ -384,13 +384,7 @@
 		return
 	if(volume >= 3)
 		T.MakeSlippery()
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-2000, lowertemp.temperature / 2), 0)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
+	T.quench(1000, 2)
 
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"
@@ -769,7 +763,7 @@
 /datum/reagent/consumable/meatslurry/reaction_turf(turf/T, volume)
 	if(prob(10) && volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		playsound(T, 'sound/effects/splat.ogg', 50, TRUE, -3)
 
 /datum/reagent/consumable/mashedpotatoes
 	name = "Mashed potatoes"

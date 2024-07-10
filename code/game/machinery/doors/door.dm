@@ -48,6 +48,9 @@
 	var/polarized_glass = FALSE
 	var/polarized_on
 
+	/// How much this door reduces superconductivity to when closed.
+	var/superconductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
+
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
@@ -64,7 +67,7 @@
 	explosion_block = EXPLOSION_BLOCK_PROC
 
 	update_icon()
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -83,7 +86,7 @@
 
 /obj/machinery/door/Destroy()
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	GLOB.airlocks -= src
 	QDEL_NULL(spark_system)
@@ -134,8 +137,13 @@
 			return !opacity
 	return !density
 
-/obj/machinery/door/CanAtmosPass()
+/obj/machinery/door/CanAtmosPass(direction)
 	return !density
+
+/obj/machinery/door/get_superconductivity(direction)
+	if(density)
+		return superconductivity
+	return ..()
 
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating)
@@ -342,7 +350,7 @@
 			else
 				flick("doorc1", src)
 		if("deny")
-			if(!stat)
+			if(stat == CONSCIOUS)
 				flick("door_deny", src)
 
 /obj/machinery/door/proc/open()
@@ -367,7 +375,7 @@
 	if(width > 1)
 		set_fillers_opacity(0)
 	operating = NONE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(autoclose)
 		autoclose_in(normalspeed ? auto_close_time : auto_close_time_dangerous)
@@ -402,7 +410,7 @@
 		if(width > 1)
 			set_fillers_opacity(TRUE)
 	operating = NONE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(safe)
 		CheckForMobs()
@@ -450,10 +458,11 @@
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, 0)
 
-/obj/machinery/door/BlockSuperconductivity() // Only heatproof airlocks block heat, currently only varedited doors have this
-	if(heat_proof)
-		return 1
-	return 0
+/obj/machinery/door/get_superconductivity(direction)
+	// Only heatproof airlocks block heat, currently only varedited doors have this
+	if(heat_proof && density)
+		return FALSE
+	return ..()
 
 /obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)
@@ -500,12 +509,12 @@
 	zap_flags &= ~ZAP_OBJ_DAMAGE
 	. = ..()
 
-/obj/machinery/door/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
-	if(QDELETED(caller))
+/obj/machinery/door/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(!locateUID(pass_info.caller_uid))
 		return ..()
-	if(caller.checkpass(PASSDOOR) && !locked)
+	if(pass_info.pass_flags & PASSDOOR && !locked)
 		return TRUE
-	if(caller.checkpass(PASSGLASS))
+	if(pass_info.pass_flags & PASSGLASS)
 		return !opacity
 	return ..()
 
@@ -528,9 +537,9 @@
 /obj/machinery/door/proc/update_bounds()
 	if(width <= 1)
 		return
-	
+
 	QDEL_LIST_CONTENTS(fillers)
-	
+
 	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size

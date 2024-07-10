@@ -67,10 +67,6 @@
 		"<span class='userdanger'>You evade [hitting_projectile]!</span>",
 	)
 	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
-	var/dir_to_avoid = angle2dir_cardinal(hitting_projectile.Angle)
-	var/list/potential_first_directions = list(NORTH, SOUTH, EAST, WEST)
-	potential_first_directions -= dir_to_avoid
-	step(source, pick(potential_first_directions))
 	// Chance to dodge multiple shotgun spreads, but not likely. Mainly: Infinite loop prevention from admins setting it to 100 and doing something stupid.
 	// If you want to set your dodge chance to 100 on a subtype, no issue: Just make sure the subtype does not step in a direction, otherwise you'll have the mob move a large distance to dodge rubbershot.
 	if(prob(50))
@@ -100,7 +96,7 @@
 				"<span class='danger'>[src] was arc flashed by \the [source]!</span>",
 				"<span class='userdanger'>\The [source] arc flashes and electrocutes you!</span>",
 				"<span class='italics'>You hear a lightning-like crack!</span>")
-			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
+			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
 			explosion(loc, -1, 0, 2, 2)
 	else
 		apply_damage(shock_damage, STAMINA)
@@ -227,12 +223,12 @@
 	else
 		ExtinguishMob()
 		return FALSE
-	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(G.oxygen < 1)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/G = T?.get_readonly_air() // Check if we're standing in an oxygenless environment
+	if(!G || G.oxygen() < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return FALSE
-	var/turf/location = get_turf(src)
-	location.hotspot_expose(700, 50, 1)
+	T.hotspot_expose(700, 50, 1)
 	SEND_SIGNAL(src, COMSIG_LIVING_FIRE_TICK)
 	return TRUE
 
@@ -315,7 +311,7 @@
 	G.synch()
 	LAssailant = user
 
-	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	/*if(user.dir == src.dir)
 		G.state = GRAB_AGGRESSIVE
 		G.last_upgrade = world.time
@@ -357,7 +353,7 @@
 		return FALSE
 
 	if(M.attack_sound)
-		playsound(loc, M.attack_sound, 50, 1, 1)
+		playsound(loc, M.attack_sound, 50, TRUE, 1)
 	M.do_attack_animation(src)
 	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
 					"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
@@ -380,7 +376,7 @@
 				add_attack_logs(L, src, "Larva attacked")
 				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
 						"<span class='userdanger'>[L.name] bites [src]!</span>")
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 				return 1
 			else
 				visible_message("<span class='danger'>[L.name] has attempted to bite [src]!</span>", \

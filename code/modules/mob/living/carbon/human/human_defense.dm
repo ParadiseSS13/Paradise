@@ -93,6 +93,9 @@ emp_act
 		return
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
+		if(ismachineperson(src))
+			to_chat(user, "<span class='notice'>[p_they(TRUE)] [p_are()] missing that limb!</span>")
+			return TRUE
 		return
 	if(!S.is_robotic() || S.open == ORGAN_SYNTHETIC_OPEN)
 		return
@@ -495,12 +498,12 @@ emp_act
 
 	send_item_attack_message(I, user, hit_area)
 
-	if(!I.force)
-		return FALSE //item force is zero
-
 	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration_flat = I.armour_penetration_flat, armour_penetration_percentage = I.armour_penetration_percentage)
 	if(armor == INFINITY)
 		return FALSE
+
+	if(!I.force)
+		return TRUE // item force is zero, it deals no damage, we do not apply damage
 
 	var/weapon_sharp = I.sharp
 	// do not roll for random blunt if the target mob is dead for the ease of decaps
@@ -528,7 +531,7 @@ emp_act
 				if(get_dist(H, src) <= 1) //people with TK won't get smeared with blood
 					H.add_mob_blood(src)
 
-		if(!stat)
+		if(stat == CONSCIOUS)
 			switch(hit_area)
 				if("head")//Harder to score a stun but if you do it lasts a bit longer
 					if(stat == CONSCIOUS && armor < 50)
@@ -567,6 +570,7 @@ emp_act
 							update_inv_w_uniform()
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
+	return TRUE
 
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
@@ -613,14 +617,16 @@ emp_act
 	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 	return TRUE
 
-/mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
-
+/mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color)
+	if(isnull(b_color))
+		b_color = "#A10808"
 	if(gloves)
-		gloves.add_mob_blood(source)
-		gloves:transfer_blood = amount
+		gloves.add_blood(blood_dna, blood_color)
 	else
-		add_mob_blood(source)
-		bloody_hands = amount
+		hand_blood_color = b_color
+		bloody_hands = rand(2, 4)
+		transfer_blood_dna(blood_dna)
+		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(mob/living/source)
@@ -655,6 +661,10 @@ emp_act
 		var/mob/living/carbon/human/H = user
 		dna.species.spec_attack_hand(H, src)
 
+	if(bleed_rate && ishuman(user))
+		var/mob/living/carbon/human/attacker = user
+		attacker.make_bloody_hands(get_blood_dna_list(), get_blood_color())
+
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
 		var/damage = rand(1, 3)
@@ -688,10 +698,10 @@ emp_act
 		if(M.a_intent == INTENT_DISARM) //If not absorbed, you get disarmed, knocked down, and hit with stamina damage.
 			if(absorb_stun(0))
 				visible_message("<span class='warning'>[src] is not affected by [M]'s disarm attempt!</span>")
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 				return FALSE
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 			apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
 			M.changeNext_move(1.6 SECONDS)
 			apply_damage(M.alien_disarm_damage, STAMINA)
@@ -769,10 +779,10 @@ emp_act
 	else
 		..()
 
-/mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
+/mob/living/carbon/human/experience_pressure_difference(flow_x, flow_y)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
 	if(HAS_TRAIT(src, TRAIT_NOSLIP))
-		return FALSE
+		return // Immune to gas flow.
 	return ..()
 
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)

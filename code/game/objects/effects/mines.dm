@@ -1,6 +1,6 @@
 /obj/effect/mine
 	name = "dummy mine"
-	desc = "I Better stay away from that thing."
+	desc = "I better stay away from that thing."
 	density = FALSE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "uglyminearmed"

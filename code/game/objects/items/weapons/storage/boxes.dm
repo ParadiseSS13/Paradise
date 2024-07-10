@@ -315,6 +315,32 @@
 	new /obj/item/toy/character/cthulhu(src)
 	new /obj/item/toy/character/lich(src)
 
+/obj/item/storage/box/large/rnd_parts
+	name = "\improper R&D components box"
+	desc = "A full set of labelled components for assembling an R&D setup with. There are wordless picrographs of how to assemble everything on the back."
+
+/obj/item/storage/box/large/rnd_parts/populate_contents()
+	new /obj/item/circuitboard/rdconsole(src)
+	new /obj/item/circuitboard/protolathe(src)
+	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/circuit_imprinter(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/scanning_module(src)
+	new /obj/item/stock_parts/micro_laser(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/reagent_containers/glass/beaker(src)
+	new /obj/item/stack/sheet/glass/fifty(src)
+	new /obj/item/stack/sheet/metal/fifty(src)
+	new /obj/item/stack/cable_coil(src)
+
 //////////////////
 /* Monkey Boxes */
 //////////////////
@@ -357,6 +383,12 @@
 	desc = "Drymate brand wolpin cubes. Just add water!"
 	icon_state = "wolpin_box"
 	monkey_cube_type = /obj/item/food/snacks/monkeycube/wolpincube
+
+/obj/item/storage/box/monkeycubes/nian_worme_cubes
+	name = "nian worme cube box"
+	desc = "Nian Trade Guild brand worme cubes. Just add water!"
+	icon_state = "nian_worme_box"
+	monkey_cube_type = /obj/item/food/snacks/monkeycube/nian_wormecube
 
 ///////////////////
 /* Medical Boxes */
@@ -440,7 +472,8 @@
 
 /obj/item/storage/box/pillbottles/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle(src)
+		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle(src)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/patch_packs
 	name = "box of patch packs"
@@ -449,7 +482,8 @@
 
 /obj/item/storage/box/patch_packs/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle/patch_pack(src)
+		var/obj/item/storage/pill_bottle/P = new /obj/item/storage/pill_bottle/patch_pack(src)
+		P.apply_wrapper_color(I)
 
 /obj/item/storage/box/bodybags
 	name = "body bags"
@@ -1011,10 +1045,10 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/grenade/plastic/c4/x4(src)
 	new /obj/item/reagent_containers/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
-	new /obj/item/ammo_box/a357(src)
-	new /obj/item/ammo_box/a357(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 
 /obj/item/storage/box/soviet
 	name = "boxed survival kit"
@@ -1096,7 +1130,7 @@
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
-	playsound(loc, "rustle", 50, 1, -5)
+	playsound(loc, "rustle", 50, TRUE, -5)
 	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
 
 /obj/item/storage/box/wizard

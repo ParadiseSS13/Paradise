@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	/// Can we send messages off-station?
 	var/long_range_enabled = FALSE
-	req_one_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
+	req_one_access = list(ACCESS_INTERNAL_AFFAIRS, ACCESS_HEADS, ACCESS_ARMORY)
 
 	idle_power_consumption = 30
 	active_power_consumption = 200
@@ -207,7 +207,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				var/n_name = tgui_input_text(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)
 				if(!n_name)
 					return
-				if(copyitem && copyitem.loc == src && usr.stat == 0)
+				if(copyitem && copyitem.loc == src && usr.stat == CONSCIOUS)
 					if(istype(copyitem, /obj/item/paper))
 						copyitem.name = "[(n_name ? "[n_name]" : initial(copyitem.name))]"
 						copyitem.desc = "This is a paper titled '" + copyitem.name + "'."

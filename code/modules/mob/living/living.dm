@@ -212,7 +212,7 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
-/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/mob/living/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
 /mob/living/proc/can_track(mob/living/user)
@@ -671,7 +671,7 @@
 	else
 		return pick("trails_1", "trails_2")
 
-/mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
+/mob/living/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
 	if(buckled)
 		return
 	if(client && client.move_delay >= world.time + world.tick_lag * 2)
@@ -680,6 +680,16 @@
 	var/list/turfs_to_check = list()
 
 	if(has_limbs)
+		var/direction = 0
+		if(flow_x > 100)
+			direction |= EAST
+		if(flow_x < -100)
+			direction |= WEST
+		if(flow_y > 100)
+			direction |= NORTH
+		if(flow_y < -100)
+			direction |= SOUTH
+
 		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
 		if(T)
 			turfs_to_check += T
@@ -698,7 +708,7 @@
 					pressure_resistance_prob_delta -= 20
 					break
 
-	..(pressure_difference, direction, pressure_resistance_prob_delta)
+	..(flow_x, flow_y, pressure_resistance_prob_delta)
 
 /*//////////////////////
 	START RESIST PROCS
@@ -885,10 +895,14 @@
 	var/loc_temp = T0C
 	if(ismecha(loc))
 		var/obj/mecha/M = loc
-		loc_temp =  M.return_temperature()
+		var/datum/gas_mixture/cabin = M.return_obj_air()
+		if(cabin)
+			loc_temp = cabin.temperature()
+		else
+			loc_temp = environment.temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
-		loc_temp = environment.temperature
+		loc_temp = environment.temperature()
 
 	else if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
@@ -898,12 +912,12 @@
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
 
 		if(C.air_contents.total_moles() < 10)
-			loc_temp = environment.temperature
+			loc_temp = environment.temperature()
 		else
-			loc_temp = C.air_contents.temperature
+			loc_temp = C.air_contents.temperature()
 
 	else
-		loc_temp = environment.temperature
+		loc_temp = environment.temperature()
 
 	return loc_temp
 
@@ -986,6 +1000,8 @@
 		return FALSE
 	if(incapacitated())
 		return
+	if(SEND_SIGNAL(src, COMSIG_LIVING_TRY_PULL, AM, force) & COMSIG_LIVING_CANCEL_PULL)
+		return FALSE
 	// If we're pulling something then drop what we're currently pulling and pull this instead.
 	AM.add_fingerprint(src)
 	if(pulling)

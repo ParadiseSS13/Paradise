@@ -4,14 +4,18 @@
  *	that were already defined in weapon/storage, but which had been
  *	re-implemented in other classes.
  *
- *	Contains:
- *		Trash Bag
- *		Mining Satchel
- *		Plant Bag
- *		Book Bag
- *		Tray
- *
- *	-Sayu
+ *	CONTENTS:
+ *		Trash bag
+ *		Mining satchel
+ *		Plant bag
+ *		Cash bag
+ *		Book bag
+ *		Serving tray
+ *		Chemistry bag
+ *		Bio bag
+ *		Mail bag
+ *		Construction bag
+ *		Treasure bag
  */
 
 //  Generic non-item
@@ -22,9 +26,9 @@
 	use_to_pickup = 1
 	slot_flags = SLOT_FLAG_BELT
 
-// -----------------------------
-//          Trash bag
-// -----------------------------
+////////////////////////////////////////
+// MARK:	Trash bag
+////////////////////////////////////////
 /obj/item/storage/bag/trash
 	name = "trash bag"
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
@@ -72,7 +76,7 @@
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
-	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
+	playsound(loc, 'sound/items/eatfood.ogg', 50, TRUE, -1)
 	return TOXLOSS
 
 /obj/item/storage/bag/trash/update_icon_state()
@@ -114,10 +118,9 @@
 /obj/item/storage/bag/trash/bluespace/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
 
-// -----------------------------
-//        Plastic Bag
-// -----------------------------
-
+////////////////////////////////////////
+// MARK:	Plastic bag
+////////////////////////////////////////
 /obj/item/storage/bag/plasticbag
 	name = "plastic bag"
 	desc = "It's a very flimsy, very noisy alternative to a bag."
@@ -159,10 +162,9 @@
 		STOP_PROCESSING(SSobj, src)
 	return
 
-// -----------------------------
-//        Mining Satchel
-// -----------------------------
-
+////////////////////////////////////////
+// MARK:	Mining satchel
+////////////////////////////////////////
 /obj/item/storage/bag/ore
 	name = "mining satchel"
 	desc = "This little bugger can be used to store and transport ores."
@@ -193,10 +195,9 @@
 	name = "cyborg mining satchel of holding"
 	flags = NODROP
 
-// -----------------------------
-//          Plant bag
-// -----------------------------
-
+////////////////////////////////////////
+// MARK:	Plant bag
+////////////////////////////////////////
 /obj/item/storage/bag/plants
 	name = "plant bag"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -261,9 +262,9 @@
 		depth = min(8, depth + 1)
 		unsorted.sort(depth)
 
-// -----------------------------
-//           Cash Bag
-// -----------------------------
+////////////////////////////////////////
+// MARK:	Cash bag
+////////////////////////////////////////
 
 /obj/item/storage/bag/cash
 	icon = 'icons/obj/storage.dmi'
@@ -274,11 +275,11 @@
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * cash.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/coin,/obj/item/stack/spacecash)
+	can_hold = list(/obj/item/coin, /obj/item/stack/spacecash)
 
-// -----------------------------
-//           Book bag
-// -----------------------------
+////////////////////////////////////////
+// MARK:	Book Bag
+////////////////////////////////////////
 
 /obj/item/storage/bag/books
 	name = "book bag"
@@ -293,11 +294,11 @@
 	can_hold = list(/obj/item/book, /obj/item/storage/bible, /obj/item/tome, /obj/item/spellbook)
 	resistance_flags = FLAMMABLE
 
-/*
- * Trays - Agouri
- */
+////////////////////////////////////////
+// MARK:	Serving tray
+////////////////////////////////////////
 /obj/item/storage/bag/tray
-	name = "tray"
+	name = "serving tray"
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
 	desc = "A metal tray to lay food on."
@@ -320,20 +321,24 @@
 
 	// Make each item scatter a bit
 	for(var/obj/item/I in oldContents)
-		spawn()
-			for(var/i = 1, i <= rand(1,2), i++)
-				if(I)
-					step(I, pick(NORTH,SOUTH,EAST,WEST))
-					sleep(rand(2,4))
+		I.forceMove(M)
+		INVOKE_ASYNC(src, PROC_REF(scatter_tray_items), I)
 
 	if(prob(50))
 		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
 	else
 		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
 
-	if(ishuman(M))
-		if(prob(10))
-			M.Weaken(4 SECONDS)
+	if(ishuman(M) && prob(10))
+		M.KnockDown(4 SECONDS)
+
+/obj/item/storage/bag/tray/proc/scatter_tray_items(obj/item/I)
+	if(!I)
+		return
+
+	for(var/i in 1 to rand(1, 2))
+		step(I, pick(NORTH,SOUTH,EAST,WEST))
+		sleep(rand(2, 4))
 
 /obj/item/storage/bag/tray/update_icon_state()
 	return
@@ -345,44 +350,52 @@
 
 /obj/item/storage/bag/tray/cyborg
 
-/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
-	if(isturf(target) || istype(target,/obj/structure/table))
-		var/found_table = istype(target,/obj/structure/table/)
-		if(!found_table) //it must be a turf!
-			for(var/obj/structure/table/T in target)
-				found_table = TRUE
-				break
+/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user, proximity_flag)
+	// We cannot reach the target.
+	if(!proximity_flag)
+		return
 
-		var/turf/dropspot
-		if(!found_table) // don't unload things onto walls or other silly places.
-			dropspot = user.loc
-		else if(isturf(target)) // they clicked on a turf with a table in it
-			dropspot = target
-		else					// they clicked on a table
-			dropspot = target.loc
+	// Tray is empty.
+	if(!length(contents))
+		return ..()
 
-		var/dropped_something = FALSE
+	// Not a table or turf.
+	if(!isturf(target) && !istype(target, /obj/structure/table))
+		return ..()
 
-		for(var/obj/item/I in contents)
-			remove_from_storage(I)
-			// Set the properties of the new item here, e.g., stack count, hover highlight, tooltip
-			I.forceMove(target.loc)
-			dropped_something = TRUE
-			if(!found_table && isturf(dropspot))
-				// if no table, presume that the person just shittily dropped the tray on the ground and made a mess everywhere!
-				spawn()
-					for(var/i = 1, i <= rand(1,2), i++)
-						if(I)
-							step(I, pick(NORTH,SOUTH,EAST,WEST))
-							sleep(rand(2,4))
-		if(dropped_something)
-			if(found_table)
-				user.visible_message("<span class='notice'>[user] unloads [user.p_their()] service tray.</span>")
-			else
-				user.visible_message("<span class='notice'>[user] drops all the items on [user.p_their()] tray.</span>")
-		update_icon(UPDATE_OVERLAYS)
+	var/found_table = istype(target, /obj/structure/table)
+	// We clicked a turf, search it for a table.
+	if(!found_table)
+		for(var/obj/structure/table/T in target)
+			found_table = TRUE
+			break
+
+	var/turf/dropspot
+	// We clicked the floor.
+	if(!found_table)
+		dropspot = user.loc
+	// We clicked the floor but there's a table on it.
+	else if(isturf(target))
+		dropspot = target
+	// We clicked a table directly.
+	else
+		dropspot = target.loc
+
+	var/list/obj/item/oldContents = contents.Copy()
+	drop_inventory(user)
+	for(var/obj/item/I in oldContents)
+		// Set the properties of the new item here, e.g., stack count, hover highlight, tooltip
+		I.forceMove(dropspot)
+		// If there is no table, dump the contents of the tray at our feet like we're doing the service equivilent of a micdrop.
+		if(!found_table && isturf(dropspot))
+			INVOKE_ASYNC(src, PROC_REF(scatter_tray_items), I)
+
+	if(found_table)
+		user.visible_message("<span class='notice'>[user] unloads [user.p_their()] serving tray.</span>")
+	else
+		user.visible_message("<span class='warning'>[user] upends [user.p_their()] serving tray, sending everything on it crashing down to the floor!</span>")
+	update_icon(UPDATE_OVERLAYS)
 	return ..()
-
 
 /obj/item/storage/bag/tray/cookies_tray
 	var/cookie = /obj/item/food/snacks/cookie
@@ -396,10 +409,9 @@
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/food/snacks/sugarcookie
 
-/*
- *	Chemistry bag
- */
-
+////////////////////////////////////////
+// MARK:	Chemistry bag
+////////////////////////////////////////
 /obj/item/storage/bag/chemistry
 	name = "chemistry bag"
 	icon = 'icons/obj/chemical.dmi'
@@ -413,10 +425,10 @@
 					/obj/item/reagent_containers/glass/beaker,
 					/obj/item/reagent_containers/glass/bottle)
 	resistance_flags = FLAMMABLE
-/*
- *  Biowaste bag (mostly for xenobiologists)
- */
 
+////////////////////////////////////////
+// MARK:	Bio bag
+////////////////////////////////////////
 /obj/item/storage/bag/bio
 	name = "bio bag"
 	icon = 'icons/obj/chemical.dmi'
@@ -431,10 +443,9 @@
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine)
 	resistance_flags = FLAMMABLE
 
-/*
- *	Mail bag
- */
-
+////////////////////////////////////////
+// MARK:	Mail bag
+////////////////////////////////////////
 /obj/item/storage/bag/mail
 	name = "mail bag"
 	desc = "A bag for envelopes, stamps, pens, and papers."
@@ -447,10 +458,9 @@
 	can_hold = list(/obj/item/envelope, /obj/item/stamp, /obj/item/pen, /obj/item/paper, /obj/item/mail_scanner)
 	resistance_flags = FLAMMABLE
 
-/*
- *	Construction bag
- */
-
+////////////////////////////////////////
+// MARK:	Construction bag
+////////////////////////////////////////
 /obj/item/storage/bag/construction
 	name = "construction bag"
 	desc = "A bag for storing various small scale construction supplies, such as wiring and circuit boards."
@@ -463,15 +473,15 @@
 	can_hold = list(/obj/item/airlock_electronics, /obj/item/firelock_electronics, /obj/item/firealarm_electronics, /obj/item/apc_electronics, /obj/item/airalarm_electronics, /obj/item/camera_assembly, /obj/item/stock_parts/cell, /obj/item/circuitboard, /obj/item/stack/cable_coil)
 	resistance_flags = FLAMMABLE
 
-/*
- *	Treasure bag
- */
+////////////////////////////////////////
+// MARK:	Treasure bag
+////////////////////////////////////////
 
 /obj/item/storage/bag/expedition
 	name = "treasure satchel"
 	desc = "A satchel for storing scavenged salvage. There be treasure."
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "satchel" // placeholder
+	icon_state = "satchel"
 	origin_tech = "engineering=2"
 	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
 	w_class = WEIGHT_CLASS_NORMAL

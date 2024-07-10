@@ -287,6 +287,14 @@
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
 	if(isprojectile(AM)	|| isAI(AM) || QDELETED(AM))
 		return
+
+	// We may already contain the object because thrown objects
+	// call CanPass which has a chance to immediately forceMove
+	// them into us.
+	if(AM.loc == src)
+		flush()
+		return
+
 	switch(dir)
 		if(NORTH)
 			if(AM.loc.y != loc.y + 1) return
@@ -324,7 +332,7 @@
 
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, FALSE)
+		playsound(src, 'sound/machines/disposalflush.ogg', 50, FALSE, FALSE)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
 
