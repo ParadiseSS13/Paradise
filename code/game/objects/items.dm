@@ -476,6 +476,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if((flags & NODROP) && !(initial(flags) & NODROP)) // Remove NODROP if dropped. Probably from delimbing.
 		flags &= ~NODROP
 	in_inventory = FALSE
+	mouse_opacity = initial(mouse_opacity)
 	remove_outline()
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 	if(!silent)
@@ -522,6 +523,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 // for items that can be placed in multiple slots
 // Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	for(var/X in actions)
 		var/datum/action/A = X
