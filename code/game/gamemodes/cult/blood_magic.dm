@@ -468,20 +468,20 @@
 	else
 		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
 
-		L.KnockDown(10 SECONDS)
-		L.apply_damage(60, STAMINA)
 		L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
-		L.flash_eyes(1, TRUE)
+		L.Silence(6 SECONDS)
 		if(issilicon(target))
 			var/mob/living/silicon/S = L
 			S.emp_act(EMP_HEAVY)
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
-			C.Silence(6 SECONDS)
+			C.KnockDown(10 SECONDS)
+			C.apply_damage(60, STAMINA)
+			C.flash_eyes(1, TRUE)
 			C.Stuttering(16 SECONDS)
 			C.CultSlur(20 SECONDS)
 			C.Jitter(16 SECONDS)
-			to_chat(user, "<span class='boldnotice'>Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!</span>")
+		to_chat(user, "<span class='boldnotice'>Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!</span>")
 	user.do_attack_animation(target)
 	uses--
 	..()

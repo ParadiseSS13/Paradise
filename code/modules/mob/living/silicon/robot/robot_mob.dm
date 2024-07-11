@@ -75,7 +75,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/brute_mod = 1
 	/// Incoming burn damage is multiplied by this number.
 	var/burn_mod = 1
-
+	///If the cyborg is rebooting from stamcrit
+	var/rebooting = FALSE
+	///If the cyborg is in a charger, or otherwise receiving power from an outside source.
+	var/externally_powered = FALSE
+	///What the cyborg's maximum slowdown penalty is, if it has one.
+	var/slowdown_cap = INFINITY
 	var/list/force_modules
 	/// Can a robot rename itself with the Namepick verb?
 	var/allow_rename = TRUE
@@ -212,7 +217,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = new(src)
 	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
-
+	RegisterSignal(src, COMSIG_ENTERED_BORGCHARGER, PROC_REF(gain_external_power))
+	RegisterSignal(src, COMSIG_EXITED_BORGCHARGER, PROC_REF(lose_external_power))
 	robot_module_hat_offset(icon_state)
 
 /mob/living/silicon/robot/get_radio()
@@ -684,7 +690,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
 	armor = getArmor(arglist(initial(armor)))
-
+	slowdown_cap = INFINITY
 	status_flags |= CANPUSH
 
 	hud_used.update_robot_modules_display()
@@ -881,21 +887,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(istype(W, /obj/item/robot_parts/robot_component) && opened)
 		for(var/V in components)
 			var/datum/robot_component/C = components[V]
-			if(C.is_missing() && istype(W, C.external_type))
-				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>[W] seems to be stuck in your hand!</span>")
-					return
-				C.install(W)
-				W.loc = null
-
-				var/obj/item/robot_parts/robot_component/WC = W
-				if(istype(WC))
-					C.brute_damage = WC.brute
-					C.electronics_damage = WC.burn
-
-				to_chat(usr, "<span class='notice'>You install [W].</span>")
-
+			if(!C.is_missing() || !istype(W, C.external_type))
+				continue
+			if(!user.drop_item())
+				to_chat(user, "<span class='warning'>[W] seems to be stuck in your hand!</span>")
 				return
+			var/obj/item/robot_parts/robot_component/WC = W
+			C.brute_damage = WC.brute
+			C.electronics_damage = WC.burn
+			C.install(WC)
+			to_chat(usr, "<span class='notice'>You install [W].</span>")
+			return
 
 	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || isdrone(src)))
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -920,12 +922,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "There is a power cell already installed.")
 		else
 			user.drop_item()
-			W.loc = src
 			to_chat(user, "You insert the power cell.")
 			C.install(W)
-			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
-			C.brute_damage = 0
-			C.electronics_damage = 0
 
 			var/been_hijacked = FALSE
 			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
@@ -1092,7 +1090,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		thing.burn = C.electronics_damage
 
 	C.uninstall()
-	thing.loc = loc
+	thing.forceMove(loc)
 
 
 
@@ -1485,11 +1483,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(emp_protection)
 		return
 	..()
+	adjustStaminaLoss((30 / severity)) //They also get flashed for an additional 30
 	switch(severity)
-		if(1)
-			disable_component("comms", 160)
-		if(2)
-			disable_component("comms", 60)
+		if(EMP_HEAVY)
+			disable_random_component(2, 20 SECONDS)
+		if(EMP_LIGHT)
+			disable_random_component(1, 10 SECONDS)
 
 /mob/living/silicon/robot/deathsquad
 	base_icon = "nano_bloodhound"
@@ -1750,3 +1749,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		old_ai.connected_robots -= src
 	if(connected_ai)
 		connected_ai.connected_robots |= src
+
+/mob/living/silicon/robot/proc/gain_external_power()
+	SIGNAL_HANDLER //COMSIG_ENTERED_BORGCHARGER
+	externally_powered = TRUE
+
+/mob/living/silicon/robot/proc/lose_external_power()
+	SIGNAL_HANDLER //COMSIG_EXITED_BORGCHARGER
+	externally_powered = FALSE
+
+/mob/living/silicon/robot/proc/has_power_source()
+	var/datum/robot_component/cell/cell = get_cell_component()
+	if(!cell)
+		return externally_powered
+	return cell.is_powered() || externally_powered
