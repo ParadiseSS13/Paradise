@@ -1,5 +1,5 @@
 /datum/gear/donor/neon_shoes
-	display_name = "Неоновые кросовки"
+	display_name = "Неоновые кроссовки"
 	path = /obj/item/clothing/shoes/black/neon
 	donator_tier = 1
 	cost = 1
