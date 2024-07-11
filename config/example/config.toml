@@ -605,7 +605,7 @@ crawling_speed_reduction = 4
 # Move delay for humanoids
 human_delay = 1.5
 # Move delay for cyborgs
-robot_delay = 2.5
+robot_delay = 1.5
 # Move delay for xenomorphs
 alien_delay = 1.5
 # Move delay for slimes (xenobio, not slimepeople)

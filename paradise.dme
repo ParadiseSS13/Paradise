@@ -2889,6 +2889,7 @@
 #include "code\modules\tgui\states\strippable_state.dm"
 #include "code\modules\tgui\states\viewer_state.dm"
 #include "code\modules\tgui\tgui_input\alert_input.dm"
+#include "code\modules\tgui\tgui_input\keycombo_input.dm"
 #include "code\modules\tgui\tgui_input\list_input.dm"
 #include "code\modules\tgui\tgui_input\number_input.dm"
 #include "code\modules\tgui\tgui_input\text_input.dm"
