@@ -239,7 +239,10 @@
 /obj/item/pen/edagger/cigarette_lighter_act(mob/living/user, mob/living/carbon/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		return
+		if(isnull(cig))
+			return
+		else
+			return TRUE
 
 	if(!active)
 		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")

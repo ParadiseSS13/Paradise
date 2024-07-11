@@ -52,7 +52,10 @@
 /obj/item/melee/energy/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		return
+		if(isnull(cig))
+			return
+		else
+			return TRUE
 
 	if(is_a_cleaving_saw)
 		return

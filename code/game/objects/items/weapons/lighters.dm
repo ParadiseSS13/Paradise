@@ -108,12 +108,15 @@
 
 /obj/item/lighter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
-	if(!cig)
-		return	
-
-	// Otherwise the zippo lighter will get TRUE when its own cig lighter act calls parent and runtimes.
+	// Otherwise the later parts of this proc can be passed to the zippo and cause a runtime.
 	if(is_a_zippo)
 		return cig
+
+	if(!cig)
+		if(isnull(cig))
+			return
+		else
+			return TRUE
 
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
@@ -189,7 +192,10 @@
 /obj/item/lighter/zippo/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		return
+		if(isnull(cig))
+			return
+		else
+			return TRUE
 
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
@@ -260,6 +266,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1"
 	attack_verb = null
+	var/is_unathi_fire = FALSE
 
 /obj/item/match/process()
 	var/turf/location = get_turf(src)
@@ -331,8 +338,16 @@
 
 /obj/item/match/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
+
+	// Otherwise the later parts of this proc can be passed to the unathi's blaze and cause a runtime.
+	if(is_unathi_fire)
+		return cig
+
 	if(!cig)
-		return
+		if(isnull(cig))
+			return
+		else
+			return TRUE
 
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
@@ -381,11 +396,15 @@
 	origin_tech = null
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
+	is_unathi_fire = TRUE
 	
 /obj/item/match/unathi/cigarette_lighter_act(mob/living/target, mob/living/user, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		return
+		if(isnull(cig))
+			return
+		else
+			return TRUE
 
 	if(!lit)
 		to_chat(user, "<span class='userdanger'>If you can see this message, please make an issue report to GitHub, something bad has happened.</span>")

@@ -993,7 +993,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /**
   * Handles the bulk of cigarette lighting interactions. You must call `light()` to actually light the cigarette.
   *
-  * The parent will return the target's cigarette (or the cigarette itself if attacked directly) if all checks are passed, otherwise it will return `null`.
+  * The parent will return the target's cigarette (or the cigarette itself if attacked directly) if all checks are passed.
+  * If the cigarette is already lit, or is a fancy smokable being lit by anything other than a zippo or match, will return `FALSE`.
+  * Otherwise it will return `null`.
   * Arguments:
   * * user - The mob trying to light the cigarette.
   * * target - The mob with the cigarette.
@@ -1010,6 +1012,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(user.zone_selected != "mouth" || !user.a_intent == INTENT_HELP)
 		return null
 
-	if(!cig.handle_cigarette_lighter_act(user, src))
-		return null
+	if(cig.lit)
+		to_chat(user, "<span class='warning'>[cig] is already lit!</span>")
+		return FALSE
+
+	// Only matches and cigars can light fancy smokables.
+	if(cig.fancy && !istype(src, /obj/item/match) && !istype(src, /obj/item/lighter/zippo))
+		to_chat(user, "<span class='danger'>[cig] straight out REFUSES to be lit by such uncivilized means!</span>")
+		return FALSE
+
 	return cig

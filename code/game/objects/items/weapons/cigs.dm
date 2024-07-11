@@ -59,7 +59,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 	smoketime = reagents.total_volume * 2.5
-	RegisterSignal(src, COMSIG_ITEM_BEING_ATTACKED, PROC_REF(handle_cigarette_lighter_act))
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
@@ -157,7 +156,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		return
+		if(isnull(cig))
+			return
+		else
+			return TRUE
 
 	if(!lit)
 		to_chat(user, "<span class='warning'>You cannot light [cig] with [src] because you need a lighter to light [src] before you can use [src] as a lighter to light [cig]... This seems a little convoluted.</span>")
@@ -188,22 +190,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 			"<span class='notice'>You light [src] with [I].</span>"
 		)
 		light(user)
-
-/obj/item/clothing/mask/cigarette/proc/handle_cigarette_lighter_act(mob/living/user, obj/item/I)
-	if(lit)
-		// initial(name) used so it doesn't say "The lit cigarette is already lit!"
-		to_chat(user, "<span class='warning'>\The [initial(name)] is already lit!</span>")
-		return FALSE
-
-	// Cigars and pipes do not take kindly to your tomfoolery!
-	if(fancy && !can_light_fancy(I))
-		to_chat(user, "<span class='danger'>[src] straight out REFUSES to be lit by such uncivilized means!</span>")
-		return FALSE
-
-	return TRUE
-
-/obj/item/clothing/mask/cigarette/proc/can_light_fancy(obj/item/I)
-	return (istype(I, /obj/item/match) || istype(I, /obj/item/lighter/zippo))
 
 /obj/item/clothing/mask/cigarette/proc/light(mob/living/user, mob/living/target)
 	if(lit)

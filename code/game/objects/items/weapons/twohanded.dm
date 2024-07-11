@@ -165,7 +165,10 @@
 /obj/item/dualsaber/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		return
+		if(isnull(cig))
+			return
+		else
+			return TRUE
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
