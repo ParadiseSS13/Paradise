@@ -51,25 +51,26 @@ export const BluespaceTap = (props, context) => {
                     <Stack.Item>
                       <Button
                         icon="fast-backward"
-                        disabled={desiredLevel === 0}
+                        disabled={desiredLevel === 0 || emagged}
                         tooltip="Set to 0"
                         onClick={() => act('set', { set_level: 0 })}
                       />
                       <Button
                         icon="step-backward"
                         tooltip="Decrease to actual input level"
-                        disabled={desiredLevel === 0}
+                        disabled={desiredLevel === 0 || emagged}
                         onClick={() => act('set', { set_level: inputLevel })}
                       />
                       <Button
                         icon="backward"
-                        disabled={desiredLevel === 0}
+                        disabled={desiredLevel === 0 || emagged}
                         tooltip="Decrease one step"
                         onClick={() => act('decrease')}
                       />
                     </Stack.Item>
                     <Stack.Item grow={1} mx={1}>
                       <Slider
+                        disabled={emagged}
                         value={desiredLevel}
                         fillValue={inputLevel}
                         minValue={0}
@@ -87,14 +88,14 @@ export const BluespaceTap = (props, context) => {
                     <Stack.Item>
                       <Button
                         icon="forward"
-                        disabled={desiredLevel === maxLevel}
+                        disabled={desiredLevel === maxLevel || emagged}
                         tooltip="Increase one step"
                         tooltipPosition="left"
                         onClick={() => act('increase')}
                       />
                       <Button
                         icon="fast-forward"
-                        disabled={desiredLevel === maxLevel}
+                        disabled={desiredLevel === maxLevel || emagged}
                         tooltip="Set to max"
                         tooltipPosition="left"
                         onClick={() => act('set', { set_level: maxLevel })}

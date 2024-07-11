@@ -539,6 +539,7 @@
 	if(emagged)
 		return
 	emagged = TRUE
+	desired_level = max_level
 	do_sparks(5, FALSE, src)
 	if(user)
 		user.visible_message("<span class='warning'>[user] disables the [src]'s safeties'.</span>", "<span class='warning'>You disable the [src]'s safeties'.</span>")
