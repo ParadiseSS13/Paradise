@@ -308,7 +308,7 @@
 	target_z -= AM.z // excluding the one atom was already in from possible z levels
 	var/turf/T = locate(rand(TRANSITIONEDGE + 1, world.maxx - TRANSITIONEDGE - 1), rand(TRANSITIONEDGE + 1, world.maxy - TRANSITIONEDGE - 1), pick(target_z))
 
-	if(T)
+	if(T && istype(get_area(T), /area/space))
 		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>GAH! Ah... where are you?</span>")
 		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
 		AM.forceMove(T)
