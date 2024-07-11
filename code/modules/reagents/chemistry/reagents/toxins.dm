@@ -227,7 +227,7 @@
 			var/mob/living/carbon/human/H = M
 			var/datum/dna/D = data["dna"]
 			if(!D.species.is_small)
-				H.change_dna(D, TRUE, TRUE)
+				H.change_dna(D, TRUE)
 
 	return ..()
 

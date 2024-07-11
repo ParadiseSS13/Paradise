@@ -332,7 +332,7 @@
 
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, FALSE)
+		playsound(src, 'sound/machines/disposalflush.ogg', 50, FALSE, FALSE)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
 

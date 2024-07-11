@@ -3327,6 +3327,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/item/reagent_containers/drinks/flask/gold,
 /obj/item/pen,
 /obj/item/paper/safe_code{
 	owner = "captain"
@@ -38589,10 +38590,11 @@
 /obj/machinery/door/airlock/glass{
 	name = "Courtroom"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Courtroom"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
 /turf/simulated/floor/carpet,
 /area/station/security/processing)
 "frV" = (
@@ -40604,13 +40606,14 @@
 "gck" = (
 /obj/machinery/door/airlock/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Courtroom"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
 "gcN" = (
@@ -51426,11 +51429,12 @@
 "jAr" = (
 /obj/machinery/door/airlock/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Courtroom"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
 "jAy" = (
@@ -72567,7 +72571,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/alarm/directional/north,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;

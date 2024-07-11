@@ -28434,7 +28434,6 @@
 	},
 /area/station/hallway/secondary/exit)
 "bNx" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -52655,10 +52654,11 @@
 	},
 /obj/machinery/door/airlock/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Courtroom"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom/gallery)
 "eba" = (
@@ -58946,6 +58946,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
+"gTO" = (
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/sw)
 "gTV" = (
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/wood{
@@ -60084,10 +60088,11 @@
 	},
 /obj/machinery/door/airlock/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Courtroom"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom/gallery)
 "hyk" = (
@@ -72474,10 +72479,6 @@
 	},
 /turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
-"nKN" = (
-/obj/machinery/alarm/directional/south,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/sw)
 "nKO" = (
 /obj/structure/table,
 /obj/item/reagent_containers/spray/pestspray,
@@ -94003,12 +94004,13 @@
 	name = "Courtroom Maintenance";
 	security_level = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/court,
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "yhP" = (
@@ -119382,7 +119384,7 @@ bTy
 bYR
 tpM
 bYX
-bTy
+gTO
 caw
 bTy
 cfq
@@ -119900,7 +119902,7 @@ hwK
 bSi
 cdT
 cok
-nKN
+bTy
 cgS
 jNe
 clR

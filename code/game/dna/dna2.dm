@@ -23,9 +23,12 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 /datum/dna
 	// READ-ONLY, GETS OVERWRITTEN
 	// DO NOT FUCK WITH THESE OR BYOND WILL EAT YOUR FACE
-	var/uni_identity = "" // Encoded UI
-	var/struc_enzymes = "" // Encoded SE
-	var/unique_enzymes = "" // MD5 of player name
+	/// Encoded UI
+	var/uni_identity = ""
+	/// Encoded SE
+	var/struc_enzymes = ""
+	/// MD5 of player name
+	var/unique_enzymes = ""
 
 	// Original Encoded SE, for use with Ryetalin
 	var/struc_enzymes_original = "" // Encoded SE
@@ -41,11 +44,16 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/list/UI[DNA_UI_LENGTH]
 
 	// From old dna.
-	var/blood_type = "A+"  // Should probably change to an integer => string map but I'm lazy.
-	var/real_name          // Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
-
-	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
-	var/list/default_blocks = list() //list of all blocks toggled at roundstart
+	/// The blood type of the mob.
+	var/blood_type = "A+"
+	/// Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
+	var/real_name
+	/// The type of mutant race the player is if applicable (i.e. potato-man)
+	var/datum/species/species = new /datum/species/human
+	/// list of all blocks toggled at roundstart
+	var/list/default_blocks = list()
+	/// The flavor text of the person. We store this here for polymorph and changelings.
+	var/flavor_text
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -57,6 +65,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	new_dna.blood_type = blood_type
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
+	new_dna.flavor_text = flavor_text
 
 	for(var/b = 1; b <= DNA_SE_LENGTH; b++)
 		new_dna.SE[b]=SE[b]
@@ -439,6 +448,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	// Because old DNA coders were insane or something
 	data["blood_type"] = blood_type
 	data["real_name"] = real_name
+	data["flavor_text"] = flavor_text
 	return data
 
 /datum/dna/deserialize(data)
@@ -452,6 +462,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	species = new S
 	blood_type = data["blood_type"]
 	real_name = data["real_name"]
+	flavor_text = data["flavor_text"]
 
 /datum/dna/proc/transfer_identity(mob/living/carbon/human/destination)
 	if(!istype(destination))
