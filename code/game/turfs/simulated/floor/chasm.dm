@@ -306,7 +306,7 @@
 
 	var/list/target_z = levels_by_trait(SPAWN_RUINS) // list of all z levels that can get ruins spawned in
 	target_z -= AM.z // excluding the one atom was already in from possible z levels
-	var/turf/T = locate(rand(5, world.maxx - 5), rand(5, world.maxy - 5), pick(target_z))
+	var/turf/T = locate(rand(TRANSITIONEDGE + 1, world.maxx - TRANSITIONEDGE - 1), rand(TRANSITIONEDGE + 1, world.maxy - TRANSITIONEDGE - 1), pick(target_z))
 
 	if(T)
 		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>GAH! Ah... where are you?</span>")
