@@ -385,7 +385,8 @@
 			if(account.account_type == ACCOUNT_TYPE_PERSONAL || isnull(order.ordered_by_department))
 				if(pay_with_account(account, order.object.get_cost(), "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
 					SSeconomy.process_supply_order(order, TRUE) //send 'er back through
-					update_static_data(user)
+					if(istype(order.object, /datum/supply_packs/abstract/shuttle))
+						update_static_data(user) // pack is going to be disabled, need to update pack data
 					SStgui.update_uis(src)
 					return TRUE
 				atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
@@ -406,7 +407,8 @@
 				if(pay_with_account(account, pack.get_cost(), "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
 					order.requires_head_approval = FALSE
 					SSeconomy.process_supply_order(order, TRUE)
-					update_static_data(user)
+					if(istype(order.object, /datum/supply_packs/abstract/shuttle))
+						update_static_data(user) // pack is going to be disabled, need to update pack data
 					SStgui.update_uis(src)
 					investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
 					SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
@@ -520,6 +522,8 @@
 	to_chat(user, "<span class='notice sans'>Special supplies unlocked.</span>")
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	update_static_data(user)
+	SStgui.update_uis(src)
 	return TRUE
 
 /obj/machinery/computer/supplycomp/public

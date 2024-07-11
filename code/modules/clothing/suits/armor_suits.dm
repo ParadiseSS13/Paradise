@@ -625,7 +625,7 @@
 				continue
 			owner.Beam(M,icon_state="lightning[rand(1, 12)]",icon='icons/effects/effects.dmi',time=5)
 			M.adjustFireLoss(20)
-			playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
+			playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 			add_attack_logs(owner, M, "[M] was shocked by [owner]'s [src]", ATKLOG_ALMOSTALL)
 		disable(rand(2, 5)) // let's not have buckshot set it off 4 times and do 80 burn damage.
 		return TRUE

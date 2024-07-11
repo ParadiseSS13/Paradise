@@ -325,7 +325,7 @@
 /datum/reagent/medicine/heal_on_apply/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		playsound(T, 'sound/effects/splat.ogg', 50, TRUE, -3)
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder
 	name = "Styptic Powder"

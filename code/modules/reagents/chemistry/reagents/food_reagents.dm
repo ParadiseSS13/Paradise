@@ -763,7 +763,7 @@
 /datum/reagent/consumable/meatslurry/reaction_turf(turf/T, volume)
 	if(prob(10) && volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		playsound(T, 'sound/effects/splat.ogg', 50, TRUE, -3)
 
 /datum/reagent/consumable/mashedpotatoes
 	name = "Mashed potatoes"
