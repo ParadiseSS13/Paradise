@@ -713,7 +713,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		equip_heresy(victim)//oh god why
 		return
 
-	victim.visible_message("<span class='warning'> A massive amount of flesh sloughs off [victim] and a skeleton rises up!</span>")
+	victim.visible_message("<span class='warning'>A massive amount of flesh sloughs off [victim] and a skeleton rises up!</span>")
 	equip_skeleton(victim)
 
 ///Clean the list of active skeletons and check if more can be summoned easily
