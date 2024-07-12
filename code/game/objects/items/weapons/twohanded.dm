@@ -518,9 +518,9 @@
 /obj/item/butcher_chainsaw/afterattack(mob/living/target, mob/living/user, proximity)
 	if(!proximity) //only works on adjacent targets, no telekinetic chainsaws
 		return
-	target.KnockDown(8 SECONDS)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		return
+	target.KnockDown(8 SECONDS)
 	if(isrobot(target)) //no buff from attacking robots
 		return
 	if(!isliving(target)) //no buff from attacking inanimate objects
