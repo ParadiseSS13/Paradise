@@ -399,6 +399,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			return TRUE
 	return FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console, 30, 30)
+
 /proc/send_requests_console_message(message, sender, recipient, stamped, verified, priority, obj/item/radio/radio)
 	if(!message)
 		return
