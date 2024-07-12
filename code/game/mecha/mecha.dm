@@ -1321,10 +1321,8 @@
 /obj/mecha/proc/get_out_and_die()
 	var/mob/living/pilot = occupant
 	pilot.visible_message(
-		"<span class='warning'>[src] is hit by \
-		a hyperspace ripple!</span>",
-		"<span class='userdanger'>You feel an immense \
-		crushing pressure as the space around you ripples.</span>"
+		"<span class='warning'>[src] is hit by a hyperspace ripple!</span>",
+		"<span class='userdanger'>You feel an immense crushing pressure as the space around you ripples.</span>"
 	)
 	go_out(TRUE)
 	if(iscarbon(pilot))
