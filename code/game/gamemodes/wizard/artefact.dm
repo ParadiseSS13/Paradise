@@ -690,7 +690,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 
 	if((!victim.mind || !victim.client) && !victim.grab_ghost())
-		to_chat(necromancer,"<span class='warning'>There is no soul connected to this body...</span>")
+		to_chat(necromancer, "<span class='warning'>There is no soul connected to this body...</span>")
 		return
 
 	if(!check_skeletons()) //If above the cap, there is a cooldown on additional skeletons
