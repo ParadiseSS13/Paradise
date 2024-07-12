@@ -833,7 +833,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/delayed
 	needs_target = FALSE
-	var/objective_to_replace_with
+	var/datum/objective/objective_to_replace_with
 
 /datum/objective/delayed/New(datum/objective/delayed_objective)
 	..()
@@ -847,6 +847,4 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return
 
 /datum/objective/delayed/proc/reveal_objective()
-	var/datum/objective/new_objective = new objective_to_replace_with()
-	new_objective.owner = owner
-	return holder.add_objective(new_objective)
+	return holder.replace_objective(src, objective_to_replace_with)

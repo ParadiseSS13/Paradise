@@ -59,9 +59,11 @@
  * Replace old_objective with new_objective
  */
 /datum/objective_holder/proc/replace_objective(datum/objective/old_objective, datum/objective/new_objective)
-	new_objective = add_objective(new_objective, add_to_list = FALSE)
+	new_objective = add_objective(new_objective, add_to_list = FALSE, should_find_target = FALSE)
 	new_objective.owner = old_objective.owner
 	new_objective.team = old_objective.team
+	if(new_objective.needs_target && !new_objective.found_target())
+		handle_objective(new_objective)
 	// Replace where the old objective was, with the new one
 	objectives.Insert(objectives.Find(old_objective), new_objective)
 	remove_objective(old_objective)
@@ -73,9 +75,10 @@
  * * _explanation_text - Optional, will assign this text to the objective
  * * target_override - A target override, will prevent finding a target
  * * add_to_list - Do we add the new objective to our list? Or will it be handled elsewhere (like replace_objective). Should not be set to false outside of this file.
+ * * should_find_target - Should the objective find a target immediately?
  */
 
-/datum/objective_holder/proc/add_objective(datum/objective/Objective, _explanation_text, mob/target_override, add_to_list = TRUE)
+/datum/objective_holder/proc/add_objective(datum/objective/Objective, _explanation_text, mob/target_override, add_to_list = TRUE, should_find_target = TRUE)
 	if(ispath(Objective))
 		Objective = new Objective()
 
@@ -86,7 +89,7 @@
 
 	if(target_override)
 		Objective.target = target_override
-	else if(Objective.needs_target && !Objective.found_target())
+	else if(should_find_target && Objective.needs_target && !Objective.found_target())
 		handle_objective(Objective)
 
 	var/found = Objective.found_target() // in case we are given a target override
