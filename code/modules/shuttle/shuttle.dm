@@ -644,9 +644,7 @@
 			if(ismecha(AM))
 				var/obj/mecha/mech = AM
 				if(mech.occupant)
-					var/mob/pilot = mech.occupant
-					mech.Destroy()
-					pilot.gib()
+					INVOKE_ASYNC(mech, TYPE_PROC_REF(/obj/mecha, get_out_and_die))
 			if(ismob(AM))
 				var/mob/M = AM
 				if(M.buckled)
