@@ -51,16 +51,17 @@
 /datum/game_mode/traitor/post_setup()
 	. = ..()
 
+	var/random_time = rand(5 MINUTES, 15 MINUTES)
+	if(length(pre_traitors))
+		addtimer(CALLBACK(src, PROC_REF(late_handout)), random_time)
+
 	for(var/datum/mind/traitor in pre_traitors)
 		var/datum/antagonist/traitor/traitor_datum = new(src)
 		if(ishuman(traitor.current))
 			traitor_datum.delayed_objectives = TRUE
+			traitor_datum.addtimer(CALLBACK(traitor_datum, TYPE_PROC_REF(/datum/antagonist/traitor, reveal_delayed_objectives)), random_time, TIMER_DELETE_ME)
 
 		traitor.add_antag_datum(traitor_datum)
-
-	if(length(pre_traitors))
-		var/random_time = rand(5 MINUTES, 15 MINUTES)
-		addtimer(CALLBACK(src, PROC_REF(late_handout)), random_time)
 
 /datum/game_mode/traitor/proc/traitors_to_add()
 	if(GLOB.configuration.gamemode.traitor_scaling)
@@ -196,10 +197,5 @@
 			traitors_to_add++
 			traitors -= traitor_mind
 			continue
-		for(var/datum/antagonist/traitor/traitor_datum in traitor_mind.antag_datums)
-			traitor_datum.reveal_delayed_objectives()
 
-		SEND_SOUND(traitor_mind.current, sound('sound/ambience/alarm4.ogg'))
-		var/list/messages = traitor_mind.prepare_announce_objectives()
-		to_chat(traitor_mind.current, chat_box_red(messages.Join("<br>")))
 	return traitors_to_add

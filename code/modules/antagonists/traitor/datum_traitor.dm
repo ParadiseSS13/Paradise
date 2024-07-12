@@ -287,3 +287,9 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 /datum/antagonist/traitor/proc/reveal_delayed_objectives()
 	for(var/datum/objective/delayed/delayed_obj in objective_holder.objectives)
 		delayed_obj.reveal_objective()
+
+	if(!owner?.current)
+		return
+	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+	var/list/messages = owner.prepare_announce_objectives()
+	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
