@@ -19,12 +19,10 @@
 		return
 	. = TRUE
 	var/turf/T = get_turf(src)
-	part1.forceMove(T)
-	part2.forceMove(T)
-	part1.loc = T
-	part2.loc = T
-	part1.master = null
-	part2.master = null
+	part1?.forceMove(T)
+	part2?.forceMove(T)
+	part1?.master = null
+	part2?.master = null
 	part1 = null
 	part2 = null
 	visible_message("<span class='notice'>[user] disassembles [src].</span>")

@@ -396,17 +396,18 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
 
-	else
-		//if the turret was attacked with the intention of harming it:
-		user.changeNext_move(CLICK_CD_MELEE)
-		playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
-		if(I.force * 0.5 > 1) //if the force of impact dealt at least 1 damage, the turret gets pissed off
-			if(!attacked && !emagged)
-				attacked = TRUE
-				spawn(60)
-					attacked = FALSE
+		return TRUE
 
-		..()
+	var/previous_damage = obj_integrity
+	. = ..()
+	if(.)
+		return TRUE
+	if(obj_integrity < previous_damage)
+		if(!attacked && !emagged)
+			attacked = TRUE
+			addtimer(VARSET_CALLBACK(src, attacked, FALSE), 6 SECONDS)
+
+
 
 /obj/machinery/porta_turret/attack_animal(mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)

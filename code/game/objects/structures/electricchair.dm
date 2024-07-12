@@ -37,6 +37,7 @@
 	part.loc = loc
 	part.master = null
 	part = null
+	visible_message("<span class='warning'>[user] deconstructs [src].</span>")
 	qdel(src)
 
 /obj/structure/chair/e_chair/AltClick(mob/user)

@@ -203,11 +203,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
-					"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
-	if(I.use_tool(src, user, 2 SECONDS, 0, 50))
-		new /obj/item/gps(loc)
-		qdel(src)
+	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
+						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
+		return
+	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+				"<span class='notice'>You disassemble [src].</span>", "You hear clanking and banging noises.")
+	new /obj/item/gps(loc)
+	qdel(src)
 
 /obj/item/gps/computer/attack_hand(mob/user)
 	attack_self(user)
@@ -296,10 +299,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 
 /obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
-						"<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
+	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
+						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
 	if(!I.use_tool(src, user, 2 SECONDS, volume = 50))
 		return
+	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+						"<span class='notice'>You disassemble [src].</span>", "You hear something fall on the floor.")
 	deconstruct()
 
 /obj/structure/fans/tiny

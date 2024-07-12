@@ -13,7 +13,6 @@
 	layer_offset = GAS_SCRUBBER_OFFSET
 
 	can_unwrench = TRUE
-	can_unwrench_while_on = TRUE
 	var/open = FALSE
 
 	var/area/initial_loc

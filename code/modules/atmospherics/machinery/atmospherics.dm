@@ -195,7 +195,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/wrench/W)
 	var/turf/T = get_turf(src)
 	if(!can_unwrench_while_on && !(stat & NOPOWER) && on)
-		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
+		to_chat(user, "<span class='alert'>You cannot unwrench this [name], turn it off first.</span>")
 		return TRUE
 	if(!can_unwrench)
 		return FALSE
@@ -229,26 +229,28 @@ Pipelines + Other Objects -> Pipe network
 		else
 			to_chat(user, "<span class='warning'>As you begin unwrenching [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 
-	if(!W.use_tool(src, user, 4 SECONDS, volume = 50) && !QDELETED(src))
-		safefromgusts = FALSE
+	if(!W.use_tool(src, user, 4 SECONDS, volume = 50) || QDELETED(src))
+		return
 
-		if(HAS_TRAIT(user, TRAIT_MAGPULSE))
-			safefromgusts = TRUE
+	safefromgusts = FALSE
 
-		user.visible_message(
-			"<span class='notice'>[user] unfastens [src].</span>",
-			"<span class='notice'>You have unfastened [src].</span>",
-			"<span class='italics'>You hear ratcheting.</span>"
-		)
-		investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+	if(HAS_TRAIT(user, TRAIT_MAGPULSE))
+		safefromgusts = TRUE
 
-		//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
-		if(unsafe_wrenching)
-			if(safefromgusts)
-				to_chat(user, "<span class='notice'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
-			else
-				unsafe_pressure_release(user,internal_pressure)
-		deconstruct(TRUE)
+	user.visible_message(
+		"<span class='notice'>[user] unfastens [src].</span>",
+		"<span class='notice'>You have unfastened [src].</span>",
+		"<span class='italics'>You hear ratcheting.</span>"
+	)
+	investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+
+	//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
+	if(unsafe_wrenching)
+		if(safefromgusts)
+			to_chat(user, "<span class='notice'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
+		else
+			unsafe_pressure_release(user,internal_pressure)
+	deconstruct(TRUE)
 
 //(De)construction
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)

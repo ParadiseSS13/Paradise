@@ -96,7 +96,7 @@
 		I.play_tool_sound(src, I.tool_volume)
 		user.visible_message(
 			"[user] tightens [src]'s casters.",
-			"<span class='notice'> You have tightened [src]'s casters.</span>",
+			"<span class='notice'>You have tightened [src]'s casters.</span>",
 			"You hear ratchet."
 		)
 		anchored = TRUE
