@@ -303,8 +303,7 @@
 		speed = 2
 		projectiletype = /obj/item/projectile/bullet/sniper/penetrator // Ignores cover.
 		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
-		loot -= /obj/item/salvage/loot/syndicate // I don't like this, but it guarantees the stronger version always drop 1 salvage.
-		loot += /obj/item/salvage/loot/syndicate // First remove any salvage that might appear due to the parent call, then make it drop a salvage on death. Prevents 2 salvage.
+		loot |= /obj/item/salvage/loot/syndicate
 	return INITIALIZE_HINT_LATELOAD
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
