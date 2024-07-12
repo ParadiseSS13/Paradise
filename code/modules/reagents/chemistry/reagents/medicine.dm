@@ -73,14 +73,14 @@
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
-	var/is_robot = ((process_flags & SYNTHETIC) > 0)
+	var/is_robot = (process_flags & SYNTHETIC) > 0
 	if(severity == 1)
 		if(!is_robot)
 			if(effect <= 1)
 				M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
-				M.fakevomit(no_text = 1)
+				M.fakevomit(no_text=TRUE)
 			else if(effect <= 3)
-				M.emote(pick("groan","moan"))
+				M.emote(pick("groan", "moan"))
 			if(effect <= 8)
 				update_flags |= M.adjustToxLoss(1, FALSE)
 		else
