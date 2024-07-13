@@ -316,3 +316,8 @@
 /obj/item/melee/baton/cattleprod/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE, ignore_shield_check = FALSE)
 	if(sparkler.activate())
 		return ..()
+
+/obj/item/melee/baton/loaded/borg_stun_arm
+	name = "electrically-charged arm"
+	desc = "A piece of scrap metal wired directly to your power cell."
+	hitcost = 100
