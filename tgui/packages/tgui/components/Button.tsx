@@ -139,9 +139,7 @@ export const Button = (props: ButtonProps) => {
 
 Button.defaultHooks = pureComponentHooks;
 
-export const ButtonCheckbox = (
-  props: ButtonProps & { checked?: BooleanLike }
-) => {
+export const ButtonCheckbox = (props: ButtonProps & { checked?: BooleanLike }) => {
   const { checked, ...rest } = props;
   return <Button color="transparent" icon={checked ? 'check-square-o' : 'square-o'} selected={checked} {...rest} />;
 };
@@ -158,10 +156,7 @@ type ButtonConfirmState = {
   clickedOnce: boolean;
 };
 
-export class ButtonConfirm extends Component<
-  ButtonConfirmProps,
-  ButtonConfirmState
-> {
+export class ButtonConfirm extends Component<ButtonConfirmProps, ButtonConfirmState> {
   constructor() {
     super();
     this.state = {
@@ -202,9 +197,7 @@ export class ButtonConfirm extends Component<
         content={this.state.clickedOnce ? confirmContent : content}
         icon={this.state.clickedOnce ? confirmIcon : icon}
         color={this.state.clickedOnce ? confirmColor : color}
-        onClick={(e) =>
-          this.state.clickedOnce ? onClick?.(e) : this.setClickedOnce(true)
-        }
+        onClick={(e) => (this.state.clickedOnce ? onClick?.(e) : this.setClickedOnce(true))}
         {...rest}
       />
     );

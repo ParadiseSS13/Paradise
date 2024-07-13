@@ -13,14 +13,7 @@ export const meta = {
 
 const Story = () => {
   /** @type{import('@popperjs/core').Placement[]} */
-  const positions = [
-    'top',
-    'left',
-    'right',
-    'bottom',
-    'bottom-start',
-    'bottom-end',
-  ];
+  const positions = ['top', 'left', 'right', 'bottom', 'bottom-start', 'bottom-end'];
 
   return (
     <Section>
