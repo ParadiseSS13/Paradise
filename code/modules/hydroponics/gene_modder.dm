@@ -420,7 +420,7 @@
 					user.put_in_hands(D)
 					update_genes()
 					return
-			to_chat(user, "<span class='warning'> No Empty Disks to Eject!</span>")
+			to_chat(user, "<span class='warning'>No Empty Disks to Eject!</span>")
 		if("set_read_only")
 			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
 			D.read_only = !D.read_only

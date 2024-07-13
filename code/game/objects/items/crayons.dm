@@ -342,7 +342,7 @@
 		if(uses - 10 > 0)
 			uses = uses - 10
 			var/mob/living/carbon/C = target
-			user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
+			user.visible_message("<span class='danger'>[user] sprays [src] into the face of [target]!</span>")
 			if(C.client)
 				C.EyeBlurry(6 SECONDS)
 				C.EyeBlind(2 SECONDS)
