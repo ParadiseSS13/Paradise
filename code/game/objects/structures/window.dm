@@ -137,13 +137,13 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/obj/structure/window/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
-		return 1
+		return TRUE
 	if((dir == FULLTILE_WINDOW_DIR) || (dir & to_dir) || fulltile)
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 /obj/structure/window/attack_tk(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -490,7 +490,7 @@
 		self_hurt = TRUE
 	..()
 	if(shattered)
-		C.throw_at(throwingdatum.target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+		C.throw_at(locateUID(throwingdatum.initial_target_uid), throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
 
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0

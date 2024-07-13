@@ -2,7 +2,7 @@
 
 /datum/action/chameleon_outfit
 	name = "Select Chameleon Outfit"
-	button_icon_state = "chameleon_outfit"
+	button_overlay_icon_state = "chameleon_outfit"
 	var/list/outfit_options //By default, this list is shared between all instances. It is not static because if it were, subtypes would not be able to have their own. If you ever want to edit it, copy it first.
 
 /datum/action/chameleon_outfit/New()
@@ -331,6 +331,12 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	prescription_upgradable = TRUE
+
+/obj/item/clothing/glasses/chameleon/night
+	origin_tech = "magnets=3;syndicate=1"
+	see_in_dark = 8
+	prescription_upgradable = TRUE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/hud/security/chameleon
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)

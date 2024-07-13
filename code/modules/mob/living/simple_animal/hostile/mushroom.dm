@@ -45,7 +45,7 @@
 
 /mob/living/simple_animal/hostile/mushroom/Life(seconds, times_fired)
 	..()
-	if(!stat)//Mushrooms slowly regenerate if conscious, for people who want to save them from being eaten
+	if(stat == CONSCIOUS)//Mushrooms slowly regenerate if conscious, for people who want to save them from being eaten
 		adjustBruteLoss(-2)
 
 /mob/living/simple_animal/hostile/mushroom/Initialize(mapload)  //Makes every shroom a little unique
@@ -147,7 +147,7 @@
 	adjustBruteLoss(-maxHealth) //They'll always heal, even if they don't gain a level, in case you want to keep this shroom around instead of harvesting it
 
 /mob/living/simple_animal/hostile/mushroom/proc/Bruise()
-	if(!bruised && !stat)
+	if(!bruised && stat == CONSCIOUS)
 		src.visible_message("<span class='notice'>[src] was bruised!</span>")
 		bruised = 1
 

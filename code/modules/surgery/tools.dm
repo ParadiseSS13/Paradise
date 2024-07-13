@@ -274,9 +274,24 @@
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"
-	desc = "Apearature brand surgical drapes providing privacy and infection control."
+	desc = "Apearature brand surgical drapes providing privacy and infection control. Built from durathread."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "surgical_drapes"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "biotech=1"
 	attack_verb = list("slapped")
+	/// How effective this is at preventing infections during surgeries.
+	var/surgery_effectiveness = 0.9
+
+/obj/item/surgical_drapes/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/surgery_initiator/cloth, null, surgery_effectiveness)
+
+/obj/item/surgical_drapes/improvised
+	name = "improvised drapes"
+	desc = "Hastily-sliced fabric that seems like it'd be useful for surgery. Probably better than the shirt off your back."
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
+	icon_state = "empty-sandbags"
+	origin_tech = null
+	surgery_effectiveness = 0.67

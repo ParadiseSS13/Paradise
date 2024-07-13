@@ -21,7 +21,7 @@
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
@@ -150,11 +150,10 @@
 			return TRUE
 	return FALSE
 
-/obj/structure/table/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/table/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSTABLE)
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSTABLE
 
 /**
  * Determines whether a projectile crossing our turf should be stopped.
@@ -248,7 +247,7 @@
 			if(slippery)
 				step_away(I, user)
 				visible_message("<span class='warning'>[I] slips right off [src]!</span>")
-				playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
+				playsound(loc, 'sound/misc/slip.ogg', 50, TRUE, -1)
 			else //Don't want slippery moving tables to have the item attached to them if it slides off.
 				item_placed(I)
 	else
@@ -460,6 +459,8 @@
 
 /obj/structure/table/glass/proc/check_break(mob/living/M)
 	if(has_gravity(M) && M.mob_size > MOB_SIZE_SMALL)
+		if(M.buckled && HAS_TRAIT(M.buckled, TRAIT_NO_BREAK_GLASS_TABLES))
+			return
 		table_shatter(M)
 
 /obj/structure/table/glass/flip(direction)
@@ -804,7 +805,7 @@
 	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
 		return
 
-	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, 1, ignore_walls = FALSE)
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
 
 	var/atom/movable/held
 	for(var/held_uid in held_items)
@@ -862,7 +863,7 @@
 	layer = TABLE_LAYER
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	max_integrity = 20
 
 /obj/structure/rack/examine(mob/user)
@@ -885,11 +886,10 @@
 	else
 		return 0
 
-/obj/structure/rack/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/rack/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSTABLE)
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSTABLE
 
 /obj/structure/rack/MouseDrop_T(obj/O, mob/user)
 	if((!isitem(O) || user.get_active_hand() != O))

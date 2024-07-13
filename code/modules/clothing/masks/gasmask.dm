@@ -415,12 +415,12 @@
 		if(!safety)
 			message = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
 			usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
-			playsound(src.loc, 'sound/voice/binsult.ogg', 100, 0, 4)
+			playsound(src.loc, 'sound/voice/binsult.ogg', 100, FALSE, 4)
 			cooldown = world.time
 			return
 
 		usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
-		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, 0, 4)
+		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, FALSE, 4)
 		cooldown = world.time
 
 

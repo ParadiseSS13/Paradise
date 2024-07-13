@@ -30,7 +30,7 @@
 /proc/empty_rect(low_x,low_y, hi_x,hi_y, z)
 	var/timer = start_watch()
 	log_debug("Emptying region: ([low_x], [low_y]) to ([hi_x], [hi_y]) on z '[z]'")
-	empty_region(block(locate(low_x, low_y, z), locate(hi_x, hi_y, z)))
+	empty_region(block(low_x, low_y, z, hi_x, hi_y, z))
 	log_debug("Took [stop_watch(timer)]s")
 
 /proc/empty_region(list/turfs)

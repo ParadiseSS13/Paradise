@@ -2089,7 +2089,7 @@
 			// These smiting types are valid for all living mobs
 			if("Lightning bolt")
 				M.electrocute_act(5, "Lightning Bolt", flags = SHOCK_NOGLOVES)
-				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
+				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(10 SECONDS)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
@@ -3597,7 +3597,12 @@
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
 
-	. = ADMIN_FLW(target,"FLW")
+	if(isclient(target))
+		var/client/C = target
+		if(C.mob)
+			target = C.mob
+
+	. = ADMIN_FLW(target, "FLW")
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
 		if(A.client && A.eyeobj) // No point following clientless AI eyes

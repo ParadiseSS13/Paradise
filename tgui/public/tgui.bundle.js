@@ -198,11 +198,11 @@
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
- */var a=r.toggleKitchenSink=(0,e.createAction)("debug/toggleKitchenSink"),t=r.toggleDebugLayout=(0,e.createAction)("debug/toggleDebugLayout"),o=r.openExternalBrowser=(0,e.createAction)("debug/openExternalBrowser")},5385:function(L,r,n){"use strict";r.__esModule=!0,r.useDebug=void 0;var e=n(88605),a=n(52991);/**
+ */var a=r.toggleKitchenSink=(0,e.createAction)("debug/toggleKitchenSink"),t=r.toggleDebugLayout=(0,e.createAction)("debug/toggleDebugLayout"),o=r.openExternalBrowser=(0,e.createAction)("debug/openExternalBrowser")},5385:function(w,r,n){"use strict";r.__esModule=!0,r.useDebug=void 0;var e=n(88605),a=n(52991);/**
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
- */var t=r.useDebug=function(){function o(f){return(0,e.useSelector)(f,a.selectDebug)}return o}()},90781:function(L,r,n){"use strict";r.__esModule=!0,r.useDebug=r.relayMiddleware=r.debugReducer=r.debugMiddleware=r.KitchenSink=void 0;var e=n(5385);r.useDebug=e.useDebug;var a=n(27598);r.KitchenSink=a.KitchenSink;var t=n(52785);r.debugMiddleware=t.debugMiddleware,r.relayMiddleware=t.relayMiddleware;var o=n(31125);r.debugReducer=o.debugReducer},52785:function(L,r,n){"use strict";r.__esModule=!0,r.relayMiddleware=r.debugMiddleware=void 0;var e=n(68100),a=n(92700),t=n(39952),o=n(82574);/**
+ */var t=r.useDebug=function(){function o(f){return(0,e.useSelector)(f,a.selectDebug)}return o}()},90781:function(w,r,n){"use strict";r.__esModule=!0,r.useDebug=r.relayMiddleware=r.debugReducer=r.debugMiddleware=r.KitchenSink=void 0;var e=n(5385);r.useDebug=e.useDebug;var a=n(27598);r.KitchenSink=a.KitchenSink;var t=n(52785);r.debugMiddleware=t.debugMiddleware,r.relayMiddleware=t.relayMiddleware;var o=n(31125);r.debugReducer=o.debugReducer},52785:function(w,r,n){"use strict";r.__esModule=!0,r.relayMiddleware=r.debugMiddleware=void 0;var e=n(68100),a=n(92700),t=n(39952),o=n(82574);/**
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
@@ -210,7 +210,7 @@
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
- */var n=r.debugReducer=function(){function e(a,t){a===void 0&&(a={});var o=t.type,f=t.payload;return o==="debug/toggleKitchenSink"?Object.assign({},a,{kitchenSink:!a.kitchenSink}):o==="debug/toggleDebugLayout"?Object.assign({},a,{debugLayout:!a.debugLayout}):a}return e}()},52991:function(L,r){"use strict";r.__esModule=!0,r.selectDebug=void 0;/**
+ */var n=r.debugReducer=function(){function e(a,t){a===void 0&&(a={});var o=t.type,f=t.payload;return o==="debug/toggleKitchenSink"?Object.assign({},a,{kitchenSink:!a.kitchenSink}):o==="debug/toggleDebugLayout"?Object.assign({},a,{debugLayout:!a.debugLayout}):a}return e}()},52991:function(w,r){"use strict";r.__esModule=!0,r.selectDebug=void 0;/**
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
@@ -230,7 +230,7 @@
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
- */var n=r.focusMap=function(){function a(){Byond.winset("paramapwindow.map",{focus:!0})}return a}(),e=r.focusWindow=function(){function a(){Byond.winset(Byond.windowId,{focus:!0})}return a}()},92986:function(L,r,n){"use strict";r.__esModule=!0,r.formatSiUnit=r.formatPower=r.formatMoney=r.formatDb=void 0;var e=n(36121);/**
+ */var n=r.focusMap=function(){function a(){Byond.winset("paramapwindow.map",{focus:!0})}return a}(),e=r.focusWindow=function(){function a(){Byond.winset(Byond.windowId,{focus:!0})}return a}()},92986:function(w,r,n){"use strict";r.__esModule=!0,r.formatSiUnit=r.formatPower=r.formatMoney=r.formatDb=void 0;var e=n(36121);/**
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
@@ -254,7 +254,7 @@
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
- */var n=r.captureExternalLinks=function(){function e(){document.addEventListener("click",function(a){for(var t=a.target;;){if(!t||t===document.body)return;var o=String(t.tagName).toLowerCase();if(o==="a")break;t=t.parentElement}var f=t.getAttribute("href")||"",V=f.charAt(0)==="?"||f.startsWith("byond://");if(!V){a.preventDefault();var k=f;k.toLowerCase().startsWith("www")&&(k="https://"+k),Byond.sendMessage({type:"openLink",url:k})}})}return e}()},81856:function(L,r,n){"use strict";r.__esModule=!0,r.logger=r.createLogger=void 0;var e=n(50719);/**
+ */var n=r.captureExternalLinks=function(){function e(){document.addEventListener("click",function(a){for(var t=a.target;;){if(!t||t===document.body)return;var o=String(t.tagName).toLowerCase();if(o==="a")break;t=t.parentElement}var f=t.getAttribute("href")||"",V=f.charAt(0)==="?"||f.startsWith("byond://");if(!V){a.preventDefault();var k=f;k.toLowerCase().startsWith("www")&&(k="https://"+k),Byond.sendMessage({type:"openLink",url:k})}})}return e}()},81856:function(w,r,n){"use strict";r.__esModule=!0,r.logger=r.createLogger=void 0;var e=n(50719);/**
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
@@ -270,15 +270,15 @@
  * @file
  * @copyright 2021 Aleksej Komarov
  * @license MIT
- */var t=r.meta={title:"Blink",render:function(){function f(){return(0,e.createComponentVNode)(2,o)}return f}()},o=function(V,k){return(0,e.createComponentVNode)(2,a.Section,{children:(0,e.createComponentVNode)(2,a.Blink,{children:"Blink"})})}},27431:function(L,r,n){"use strict";r.__esModule=!0,r.meta=void 0;var e=n(96524),a=n(24674),t=n(17306);/**
+ */var t=r.meta={title:"Blink",render:function(){function f(){return(0,e.createComponentVNode)(2,o)}return f}()},o=function(V,k){return(0,e.createComponentVNode)(2,a.Section,{children:(0,e.createComponentVNode)(2,a.Blink,{children:"Blink"})})}},27431:function(w,r,n){"use strict";r.__esModule=!0,r.meta=void 0;var e=n(96524),a=n(24674),t=n(17306);/**
  * @file
  * @copyright 2021 Aleksej Komarov
  * @license MIT
- */var o=r.meta={title:"BlockQuote",render:function(){function V(){return(0,e.createComponentVNode)(2,f)}return V}()},f=function(k,S){return(0,e.createComponentVNode)(2,a.Section,{children:(0,e.createComponentVNode)(2,a.BlockQuote,{children:(0,e.createComponentVNode)(2,t.BoxWithSampleText)})})}},6517:function(L,r,n){"use strict";r.__esModule=!0,r.meta=void 0;var e=n(96524),a=n(24674);/**
+ */var o=r.meta={title:"BlockQuote",render:function(){function V(){return(0,e.createComponentVNode)(2,f)}return V}()},f=function(k,S){return(0,e.createComponentVNode)(2,a.Section,{children:(0,e.createComponentVNode)(2,a.BlockQuote,{children:(0,e.createComponentVNode)(2,t.BoxWithSampleText)})})}},6517:function(w,r,n){"use strict";r.__esModule=!0,r.meta=void 0;var e=n(96524),a=n(24674);/**
  * @file
  * @copyright 2021 Aleksej Komarov
  * @license MIT
- */var t=r.meta={title:"Box",render:function(){function f(){return(0,e.createComponentVNode)(2,o)}return f}()},o=function(V,k){return(0,e.createComponentVNode)(2,a.Section,{children:[(0,e.createComponentVNode)(2,a.Box,{bold:!0,children:"bold"}),(0,e.createComponentVNode)(2,a.Box,{italic:!0,children:"italic"}),(0,e.createComponentVNode)(2,a.Box,{opacity:.5,children:"opacity 0.5"}),(0,e.createComponentVNode)(2,a.Box,{opacity:.25,children:"opacity 0.25"}),(0,e.createComponentVNode)(2,a.Box,{m:2,children:"m: 2"}),(0,e.createComponentVNode)(2,a.Box,{textAlign:"left",children:"left"}),(0,e.createComponentVNode)(2,a.Box,{textAlign:"center",children:"center"}),(0,e.createComponentVNode)(2,a.Box,{textAlign:"right",children:"right"})]})}},20648:function(L,r,n){"use strict";r.__esModule=!0,r.meta=void 0;var e=n(96524),a=n(24674);/**
+ */var t=r.meta={title:"Box",render:function(){function f(){return(0,e.createComponentVNode)(2,o)}return f}()},o=function(V,k){return(0,e.createComponentVNode)(2,a.Section,{children:[(0,e.createComponentVNode)(2,a.Box,{bold:!0,children:"bold"}),(0,e.createComponentVNode)(2,a.Box,{italic:!0,children:"italic"}),(0,e.createComponentVNode)(2,a.Box,{opacity:.5,children:"opacity 0.5"}),(0,e.createComponentVNode)(2,a.Box,{opacity:.25,children:"opacity 0.25"}),(0,e.createComponentVNode)(2,a.Box,{m:2,children:"m: 2"}),(0,e.createComponentVNode)(2,a.Box,{textAlign:"left",children:"left"}),(0,e.createComponentVNode)(2,a.Box,{textAlign:"center",children:"center"}),(0,e.createComponentVNode)(2,a.Box,{textAlign:"right",children:"right"})]})}},20648:function(w,r,n){"use strict";r.__esModule=!0,r.meta=void 0;var e=n(96524),a=n(24674);/**
  * @file
  * @copyright 2021 Aleksej Komarov
  * @license MIT
@@ -290,7 +290,7 @@
  * @file
  * @copyright 2021 Aleksej Komarov
  * @license MIT
- */var o=r.meta={title:"Collapsible",render:function(){function V(){return(0,e.createComponentVNode)(2,f)}return V}()},f=function(k,S){return(0,e.createComponentVNode)(2,a.Section,{children:(0,e.createComponentVNode)(2,a.Collapsible,{title:"Collapsible Demo",buttons:(0,e.createComponentVNode)(2,a.Button,{icon:"cog"}),children:(0,e.createComponentVNode)(2,t.BoxWithSampleText)})})}},37227:function(L,r,n){"use strict";r.__esModule=!0,r.meta=void 0;var e=n(96524),a=n(17899),t=n(24674);/**
+ */var o=r.meta={title:"Collapsible",render:function(){function V(){return(0,e.createComponentVNode)(2,f)}return V}()},f=function(k,S){return(0,e.createComponentVNode)(2,a.Section,{children:(0,e.createComponentVNode)(2,a.Collapsible,{title:"Collapsible Demo",buttons:(0,e.createComponentVNode)(2,a.Button,{icon:"cog"}),children:(0,e.createComponentVNode)(2,t.BoxWithSampleText)})})}},37227:function(w,r,n){"use strict";r.__esModule=!0,r.meta=void 0;var e=n(96524),a=n(17899),t=n(24674);/**
  * @file
  * @copyright 2021 Aleksej Komarov
  * @license MIT
@@ -326,7 +326,7 @@
  * @file
  * @copyright 2021 Aleksej Komarov
  * @license MIT
- */var o=r.meta={title:"Tooltip",render:function(){function V(){return(0,e.createComponentVNode)(2,f)}return V}()},f=function(){var k=["top","left","right","bottom","bottom-start","bottom-end"];return(0,e.createComponentVNode)(2,t.Section,{children:[(0,e.createComponentVNode)(2,t.Box,{children:[(0,e.createComponentVNode)(2,t.Tooltip,{content:"Tooltip text.",children:(0,e.createComponentVNode)(2,t.Box,{inline:!0,position:"relative",mr:1,children:"Box (hover me)."})}),(0,e.createComponentVNode)(2,t.Button,{tooltip:"Tooltip text.",content:"Button"})]}),(0,e.createComponentVNode)(2,t.Box,{mt:1,children:k.map(function(S){return(0,e.createComponentVNode)(2,t.Button,{color:"transparent",tooltip:"Tooltip text.",tooltipPosition:S,content:S},S)})})]})}},17306:function(L,r,n){"use strict";r.__esModule=!0,r.BoxWithSampleText=void 0;var e=n(96524),a=n(24674);/**
+ */var o=r.meta={title:"Tooltip",render:function(){function V(){return(0,e.createComponentVNode)(2,f)}return V}()},f=function(){var k=["top","left","right","bottom","bottom-start","bottom-end"];return(0,e.createComponentVNode)(2,t.Section,{children:[(0,e.createComponentVNode)(2,t.Box,{children:[(0,e.createComponentVNode)(2,t.Tooltip,{content:"Tooltip text.",children:(0,e.createComponentVNode)(2,t.Box,{inline:!0,position:"relative",mr:1,children:"Box (hover me)."})}),(0,e.createComponentVNode)(2,t.Button,{tooltip:"Tooltip text.",content:"Button"})]}),(0,e.createComponentVNode)(2,t.Box,{mt:1,children:k.map(function(S){return(0,e.createComponentVNode)(2,t.Button,{color:"transparent",tooltip:"Tooltip text.",tooltipPosition:S,content:S},S)})})]})}},17306:function(w,r,n){"use strict";r.__esModule=!0,r.BoxWithSampleText=void 0;var e=n(96524),a=n(24674);/**
  * @file
  * @copyright 2021 Aleksej Komarov
  * @license MIT

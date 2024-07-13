@@ -260,6 +260,9 @@ Pipelines + Other Objects -> Pipe network
 		pressures = int_air.return_pressure() - env_air.return_pressure()
 
 	var/fuck_you_dir = get_dir(src, user)
+	if(!fuck_you_dir)
+		fuck_you_dir = pick(GLOB.alldirs)
+
 	var/turf/general_direction = get_edge_target_turf(user, fuck_you_dir)
 	user.visible_message("<span class='danger'>[user] is sent flying by pressure!</span>","<span class='userdanger'>The pressure sends you flying!</span>")
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
@@ -328,7 +331,7 @@ Pipelines + Other Objects -> Pipe network
 			user.forceMove(target_move)
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 				user.last_played_vent = world.time
-				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
+				playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()

@@ -1,13 +1,6 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  LabeledList,
-  Section,
-  Input,
-  Dropdown,
-} from '../components';
+import { Box, Button, LabeledList, Section, Input, Dropdown } from '../components';
 import { Window } from '../layouts';
 
 export const EFTPOS = (props, context) => {
@@ -70,23 +63,14 @@ const LockedView = (props, context) => {
 const UnlockedView = (props, context) => {
   const { act, data } = useBackend(context);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const {
-    transaction_purpose,
-    transaction_amount,
-    linked_account,
-    available_accounts,
-  } = data;
+  const { transaction_purpose, transaction_amount, linked_account, available_accounts } = data;
 
   let accountMap = [];
   available_accounts.map((account) => (accountMap[account.name] = account.UID));
   return (
     <LabeledList>
       <LabeledList.Item label="Transaction Purpose">
-        <Button
-          content={transaction_purpose}
-          icon="edit"
-          onClick={() => act('trans_purpose')}
-        />
+        <Button content={transaction_purpose} icon="edit" onClick={() => act('trans_purpose')} />
       </LabeledList.Item>
       <LabeledList.Item label="Value">
         <Button
@@ -97,11 +81,7 @@ const UnlockedView = (props, context) => {
       </LabeledList.Item>
       <LabeledList.Item label="Linked Account">
         <Box mb={0.5}>{linked_account.name}</Box>
-        <Input
-          width="190px"
-          placeholder="Search by name"
-          onInput={(e, value) => setSearchText(value)}
-        />
+        <Input width="190px" placeholder="Search by name" onInput={(e, value) => setSearchText(value)} />
         <Dropdown
           mt={0.6}
           width="190px"
@@ -112,11 +92,7 @@ const UnlockedView = (props, context) => {
               })
             )
             .map((account) => account.name)}
-          selected={
-            available_accounts.filter(
-              (account) => account.UID === linked_account.UID
-            )[0]?.name
-          }
+          selected={available_accounts.filter((account) => account.UID === linked_account.UID)[0]?.name}
           onSelected={(val) =>
             act('link_account', {
               account: accountMap[val],
@@ -125,11 +101,7 @@ const UnlockedView = (props, context) => {
         />
       </LabeledList.Item>
       <LabeledList.Item label="Actions">
-        <Button
-          content="Change access code"
-          icon="key"
-          onClick={() => act('change_code')}
-        />
+        <Button content="Change access code" icon="key" onClick={() => act('change_code')} />
       </LabeledList.Item>
     </LabeledList>
   );

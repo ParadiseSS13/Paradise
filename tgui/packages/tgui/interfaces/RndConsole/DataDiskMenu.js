@@ -17,9 +17,7 @@ const TechSummary = (props, context) => {
       <LabeledList>
         <LabeledList.Item label="Name">{disk_data.name}</LabeledList.Item>
         <LabeledList.Item label="Level">{disk_data.level}</LabeledList.Item>
-        <LabeledList.Item label="Description">
-          {disk_data.desc}
-        </LabeledList.Item>
+        <LabeledList.Item label="Description">{disk_data.desc}</LabeledList.Item>
       </LabeledList>
       <Box mt="10px">
         <Button
@@ -49,11 +47,7 @@ const LatheSummary = (props, context) => {
       <LabeledList>
         <LabeledList.Item label="Name">{name}</LabeledList.Item>
 
-        {lathe_types_str ? (
-          <LabeledList.Item label="Lathe Types">
-            {lathe_types_str}
-          </LabeledList.Item>
-        ) : null}
+        {lathe_types_str ? <LabeledList.Item label="Lathe Types">{lathe_types_str}</LabeledList.Item> : null}
 
         <LabeledList.Item label="Required Materials" />
       </LabeledList>

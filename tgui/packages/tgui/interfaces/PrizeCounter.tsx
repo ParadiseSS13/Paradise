@@ -20,9 +20,7 @@ export const PrizeCounter = (props, context) => {
   const { act, data } = useBackend<PrizeData>(context);
   const { tickets, prizes = [] } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const filteredPrizes = prizes.filter((prize) =>
-    prize.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filteredPrizes = prizes.filter((prize) => prize.name.toLowerCase().includes(searchText.toLowerCase()));
   return (
     <Window width={450} height={585} title="Arcade Ticket Exchange">
       <Window.Content>
@@ -78,9 +76,7 @@ export const PrizeCounter = (props, context) => {
                       iconColor={disabled ? 'bad' : 'good'}
                       tooltip={disabled && 'Not enough tickets'}
                       disabled={disabled}
-                      onClick={() =>
-                        act('purchase', { 'purchase': prize.itemID })
-                      }
+                      onClick={() => act('purchase', { 'purchase': prize.itemID })}
                     />
                   </ImageButton>
                 );

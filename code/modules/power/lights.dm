@@ -167,6 +167,8 @@
 	desc = "Industrial-grade light fixture for brightening up dark corners of the station."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube1"
+	glow_icon_state = "tube"
+	exposure_icon_state = "cone"
 	anchored = TRUE
 	layer = 5
 	max_integrity = 100
@@ -233,6 +235,8 @@
 	icon_state = "bulb1"
 	desc = "A compact and cheap light fixture, perfect for keeping maintenance tunnels appropriately spooky."
 	fitting = "bulb"
+	glow_icon_state = "bulb"
+	exposure_icon_state = "circle"
 	base_state = "bulb"
 	brightness_range = 4
 	brightness_color = "#a0a080"
@@ -827,9 +831,8 @@
 	explosion(T, 0, 0, 2, 2)
 	qdel(src)
 
-
 /**
-  * # Light item
+  * MARK: Light item
   *
   * Parent type of light fittings (Light bulbs, light tubes)
   *
@@ -888,6 +891,7 @@
 	base_state = "ltube"
 	item_state = "c_tube"
 	brightness_range = 8
+	brightness_color = "#ffffff"
 
 /obj/item/light/tube/large
 	w_class = WEIGHT_CLASS_SMALL
@@ -947,7 +951,7 @@
 
 
 // attack bulb/tube with object
-// if a syringe, can inject plasma to make it explode
+// if a syringe, can inject plasma to make it explode. Light replacers eat them.
 /obj/item/light/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
