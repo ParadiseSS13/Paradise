@@ -34797,15 +34797,13 @@
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/north)
 "dVO" = (
-/obj/structure/disposalpipe/segment/corner,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -37436,9 +37434,6 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "eSm" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Xenobiology";
@@ -37446,15 +37441,6 @@
 	pixel_x = -30
 	},
 /obj/structure/disposalpipe/segment,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -41682,7 +41668,6 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
-/obj/machinery/firealarm/directional/west,
 /obj/machinery/quantumpad/cere/science_security{
 	name = "quantum pad"
 	},
@@ -49924,6 +49909,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/apmaint)
 "iXl" = (
@@ -53500,6 +53486,12 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/gambling_den)
+"kbw" = (
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurple"
+	},
+/area/station/public/quantum/science)
 "kbP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -59238,11 +59230,11 @@
 "lMf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/item/clothing/glasses/science{
 	pixel_x = 2;
 	pixel_y = 4
 	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -70492,22 +70484,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "psG" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/r_n_d/protolathe,
 /obj/effect/turf_decal/stripes/line,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
-/obj/machinery/r_n_d/circuit_imprinter,
-/obj/effect/turf_decal/stripes/line,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -77113,13 +77091,15 @@
 /area/station/engineering/smes)
 "rux" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+	dir = 4
 	},
-/obj/structure/disposalpipe/segment/corner,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /obj/structure/cable/orange{
-	d1 = 2;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "2-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -91197,7 +91177,14 @@
 "vIt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/storage/box/syringes,
+/obj/item/storage/box/syringes{
+	pixel_x = 5;
+	pixel_y = 0
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_x = -12;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -110036,7 +110023,7 @@ ccW
 rWw
 rWw
 rWw
-cdb
+rNK
 rNK
 rNK
 rNK
@@ -110293,7 +110280,7 @@ ccW
 ccW
 ccW
 rWw
-rWw
+rNK
 rNK
 rNK
 rNK
@@ -110548,9 +110535,9 @@ vtY
 ccW
 ccW
 ccW
-ccW
-ccW
 rWw
+rWw
+rNK
 rNK
 rNK
 rNK
@@ -110805,9 +110792,9 @@ ccW
 ccW
 ccW
 ccW
-ccW
-ccW
 rWw
+cdb
+rNK
 rNK
 rNK
 rNK
@@ -111062,9 +111049,9 @@ ccW
 ccW
 ccW
 ccW
-ccW
-ccW
 rWw
+cdb
+rNK
 rNK
 rNK
 rNK
@@ -111319,9 +111306,9 @@ ccW
 ccW
 ccW
 ccW
-ccW
-ccW
 rWw
+cdb
+rNK
 rNK
 rNK
 rNK
@@ -111576,9 +111563,9 @@ ccW
 ccW
 ccW
 ccW
-ccW
 rWw
 rWw
+rNK
 rNK
 rNK
 rNK
@@ -115972,7 +115959,7 @@ fmH
 kPy
 xnA
 rux
-lWU
+sKh
 hCC
 ftr
 pDu
@@ -116228,11 +116215,11 @@ dCe
 ctF
 jyL
 xnA
+rux
 sKh
-pNG
-iSu
+sKh
 wsR
-ftr
+oJH
 ccW
 ccW
 ccW
@@ -116485,8 +116472,8 @@ xGC
 ctD
 rYW
 xnA
-oJH
-sKh
+pNG
+dVO
 dVO
 iSu
 ccW
@@ -117750,7 +117737,7 @@ itm
 sDR
 nVd
 eGC
-van
+kbw
 lyI
 mSq
 rrN
@@ -129077,7 +129064,6 @@ jRK
 qRt
 kaD
 rfn
-rNK
 lzH
 rNK
 rNK
@@ -129087,6 +129073,7 @@ rNK
 rNK
 rNK
 lzH
+rNK
 rNK
 rNK
 rNK
@@ -129334,7 +129321,6 @@ oyl
 jrJ
 dgL
 oyl
-rNK
 lzH
 rNK
 rNK
@@ -129344,6 +129330,7 @@ rNK
 rNK
 rNK
 lzH
+rNK
 eFs
 eFs
 eFs
@@ -129591,7 +129578,6 @@ oyl
 jrJ
 oyl
 lzH
-rNK
 lzH
 rNK
 rNK
@@ -129604,6 +129590,7 @@ lzH
 rNK
 rNK
 rNK
+lzH
 rNK
 rNK
 eFs
@@ -133189,6 +133176,9 @@ ayb
 rNK
 rNK
 rNK
+lzH
+sxg
+rNK
 rNK
 lzH
 rNK
@@ -133200,9 +133190,6 @@ rNK
 rNK
 lzH
 rNK
-rNK
-rNK
-lzH
 rNK
 eFs
 eFs
@@ -133446,7 +133433,7 @@ hBQ
 rNK
 rNK
 rNK
-rNK
+lzH
 eFs
 eFs
 lia
