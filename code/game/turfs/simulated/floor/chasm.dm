@@ -50,11 +50,11 @@
 	if(!drop_stuff())
 		STOP_PROCESSING(SSprocessing, src)
 
-/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(!isliving(caller))
+/turf/simulated/floor/chasm/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(!pass_info.is_living)
 		return TRUE
-	var/mob/living/L = caller
-	return (L.flying || ismegafauna(caller))
+
+	return pass_info.is_flying || pass_info.is_megafauna
 
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'

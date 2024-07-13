@@ -298,7 +298,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	full_window = /obj/structure/window/full/plastitanium
 	table_type = /obj/structure/table/glass/reinforced/plastitanium
 
-/obj/item/stack/sheet/plasmaglass/examine_more(mob/user)
+/obj/item/stack/sheet/plastitaniumglass/examine_more(mob/user)
 	. = ..()
 	. += "A mixture of silica glass, and plastitanium. It boasts similar material properties to plastitanium whilst also being optically transparent."
 	. += ""
