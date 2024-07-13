@@ -19,6 +19,6 @@ jobs:
           days-before-issue-stale: 60
           days-before-close: 7
           days-before-issue-close: 14
-          exempt-issue-labels: '"Stale Exempt"'
-          exempt-pr-labels: '"Stale Exempt", "-Status: Awaiting approval", "-Status: Awaiting Merge", "-Status: Awaiting type assignment"'
-          any-of-issue-labels: '"Need Verification", "Cannot Reproduce", "Not A Bug", "(99% Sure) Not A Bug"'
+          exempt-issue-labels: 'Stale Exempt'
+          exempt-pr-labels: 'Stale Exempt, -Status: Awaiting approval, -Status: Awaiting Merge, -Status: Awaiting type assignment'
+          any-of-issue-labels: 'Need Verification, Cannot Reproduce, Not A Bug, (99% Sure) Not A Bug'

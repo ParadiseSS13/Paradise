@@ -3,7 +3,7 @@
 	desc = "Our skin pigmentations rapidly change to suit the environment around us. Needs 10 chemicals in-storage to toggle. Slows down our chemical regeneration by 15%"
 	helptext = "Allows us to darken and change the translucency of our pigmentation. \
 	The translucent effect works best in dark environments and garments. Can be toggled on and off."
-	button_icon_state = "enviro_adaptation"
+	button_overlay_icon_state = "enviro_adaptation"
 	dna_cost = 2
 	chemical_cost = 10
 	power_type = CHANGELING_PURCHASABLE_POWER

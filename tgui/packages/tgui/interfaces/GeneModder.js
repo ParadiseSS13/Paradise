@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  Section,
-  Stack,
-  Icon,
-  Collapsible,
-  LabeledList,
-} from '../components';
+import { Button, Section, Stack, Icon, Collapsible, LabeledList } from '../components';
 import { ComplexModal } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
 
@@ -51,13 +44,7 @@ const MissingSeed = (props, context) => {
   return (
     <Section fill height="85%">
       <Stack height="100%">
-        <Stack.Item
-          bold
-          grow="1"
-          textAlign="center"
-          align="center"
-          color="green"
-        >
+        <Stack.Item bold grow="1" textAlign="center" align="center" color="green">
           <Icon name="leaf" size={5} mb="10px" />
           <br />
           The plant DNA manipulator is missing a seed.
@@ -87,12 +74,7 @@ const Storage = (props, context) => {
           }}
         />
         <Button content={seed.name} onClick={() => act('eject_seed')} />
-        <Button
-          ml="3px"
-          icon="pen"
-          tooltip="Name Variant"
-          onClick={() => act('variant_name')}
-        />
+        <Button ml="3px" icon="pen" tooltip="Name Variant" onClick={() => act('variant_name')} />
       </Stack.Item>
     );
   } else {
@@ -115,12 +97,7 @@ const Storage = (props, context) => {
         <LabeledList.Item label="Plant Sample">{show_seed}</LabeledList.Item>
         <LabeledList.Item label="Data Disk">
           <Stack.Item>
-            <Button
-              ml={3.3}
-              content={show_disk}
-              tooltip="Select Empty Disk"
-              onClick={() => act('select_empty_disk')}
-            />
+            <Button ml={3.3} content={show_disk} tooltip="Select Empty Disk" onClick={() => act('select_empty_disk')} />
           </Stack.Item>
         </LabeledList.Item>
       </LabeledList>
@@ -169,26 +146,14 @@ const ReagentGenes = (props, context) => {
   const { data } = useBackend(context);
   const { reagent_genes, has_reagent } = data;
 
-  return (
-    <OtherGenes
-      title="Reagent Genes"
-      gene_set={reagent_genes}
-      do_we_show={has_reagent}
-    />
-  );
+  return <OtherGenes title="Reagent Genes" gene_set={reagent_genes} do_we_show={has_reagent} />;
 };
 
 const TraitGenes = (props, context) => {
   const { data } = useBackend(context);
   const { trait_genes, has_trait } = data;
 
-  return (
-    <OtherGenes
-      title="Trait Genes"
-      gene_set={trait_genes}
-      do_we_show={has_trait}
-    />
-  );
+  return <OtherGenes title="Trait Genes" gene_set={trait_genes} do_we_show={has_trait} />;
 };
 
 const OtherGenes = (props, context) => {
@@ -213,11 +178,7 @@ const OtherGenes = (props, context) => {
               />
             </Stack.Item>
             <Stack.Item>
-              <Button
-                content="Remove"
-                icon="times"
-                onClick={() => act('remove', { id: gene.id })}
-              />
+              <Button content="Remove" icon="times" onClick={() => act('remove', { id: gene.id })} />
             </Stack.Item>
           </Stack>
         ))
@@ -231,8 +192,7 @@ const OtherGenes = (props, context) => {
 const Disks = (props, context) => {
   const { title, gene_set, do_we_show } = props;
   const { act, data } = useBackend(context);
-  const { has_seed, empty_disks, stat_disks, trait_disks, reagent_disks } =
-    data;
+  const { has_seed, empty_disks, stat_disks, trait_disks, reagent_disks } = data;
 
   return (
     <Section title="Disks">
@@ -264,9 +224,7 @@ const Disks = (props, context) => {
                           tooltip="Write disk stats to seed"
                           disabled={!item?.ready || !has_seed}
                           icon="arrow-circle-down"
-                          onClick={() =>
-                            act('bulk_replace_core', { index: item.index })
-                          }
+                          onClick={() => act('bulk_replace_core', { index: item.index })}
                         />
                       ) : (
                         <Button

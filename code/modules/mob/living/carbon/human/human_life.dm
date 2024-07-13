@@ -691,7 +691,7 @@
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
-	if(!stat)
+	if(stat == CONSCIOUS)
 		if(getToxLoss() >= 45 && nutrition > 20)
 			lastpuke ++
 			if(lastpuke >= 25) // about 25 second delay I guess
@@ -764,7 +764,7 @@
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay
 		return
 
-	if(decaytime <= 8 MINUTES) 
+	if(decaytime <= 8 MINUTES)
 		return
 
 	if(decaytime > 8 MINUTES)

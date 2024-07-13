@@ -7,8 +7,7 @@ export const Wires = (props, context) => {
 
   const wires = data.wires || [];
   const statuses = data.status || [];
-  const dynamicHeight =
-    56 + wires.length * 23 + (status ? 0 : 15 + statuses.length * 17);
+  const dynamicHeight = 56 + wires.length * 23 + (status ? 0 : 15 + statuses.length * 17);
 
   return (
     <Window width={350} height={dynamicHeight}>
