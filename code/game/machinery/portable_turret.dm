@@ -359,8 +359,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return TRUE
 
 /obj/machinery/porta_turret/tool_act(mob/living/user, obj/item/I, tool_type)
-	if(!(stat & BROKEN) || syndicate)
-		return FALSE
+	if(user.a_intent != INTENT_HELP)
+		return ..()
+	if(syndicate)
+		to_chat(user, "<span class='danger'>[src] is sealed tightly, tools won't help here.</span>")
+		return TRUE
+
+	if(!(stat & BROKEN))
+		to_chat(user, "<span class='notice'>[src] is in fine condition, you'd need to rough it up a bit if you wanted to disassemble it.</span>")
+		return TRUE
 	return ..()
 
 /obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/I)
@@ -399,13 +406,18 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return TRUE
 
 	var/previous_damage = obj_integrity
-	. = ..()
-	if(.)
-		return TRUE
-	if(obj_integrity < previous_damage)
+	if(user.a_intent == INTENT_HELP)
+		return ..()
+	// otherwise, if the turret was attacked with the intention of harming it:
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_item_attack_animation()
+	playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
+	if(I.force * 0.5 > 1) //if the force of impact dealt at least 1 damage, the turret gets pissed off
 		if(!attacked && !emagged)
 			attacked = TRUE
 			addtimer(VARSET_CALLBACK(src, attacked, FALSE), 6 SECONDS)
+
+	..()
 
 
 
