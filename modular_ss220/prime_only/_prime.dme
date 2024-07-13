@@ -2,4 +2,5 @@
 
 #include "code/anakonda.dm"
 #include "code/cattleprod.dm"
+#include "code/megafauna.dm"
 #include "code/objects.dm"
