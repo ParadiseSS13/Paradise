@@ -1,16 +1,40 @@
+/* CONTENTS:
+* 1. GENERIC ENERGY BLADE
+* 2. ENERGY AXE
+* 3. ENERGY SWORD
+* 4. ENERGY SAW
+* 5. ENERGY CUTLASS
+* 6. HARDLIGHT BLADE
+* 7. CLEAVING SAW
+*/
+//////////////////////////////
+// MARK: GENERIC ENERGY BLADE
+//////////////////////////////
 /obj/item/melee/energy
+	name = "generic energy blade"
+	desc = "If you can see this and didn't spawn it in as an admin, make an issue report on GitHub."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	var/active = FALSE
-	var/force_on = 30 //force when active
+	/// Damage done when active. Does not stack with force_off.
+	var/force_on = 30
+	/// Damage done when thrown while active. Does not stack with throwforce_off.
 	var/throwforce_on = 20
-	var/force_off //Used to properly reset the force
+	/// Used to properly reset the force.
+	var/force_off
+	/// Used to properly reset the force.
 	var/throwforce_off
-	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
-	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
-	stealthy_audio = TRUE //Most of these are antag weps so we dont want them to be /too/ overt.
+	/// Bonus damage dealt to any mob belonging to specified factions.
+	var/faction_bonus_force = 0
+	/// Any mob with a faction that exists in this list will take bonus damage/effects.
+	var/list/nemesis_factions
+	// Most of these are antag weps so we dont want them to be /too/ overt...
+	stealthy_audio = TRUE
 	w_class = WEIGHT_CLASS_SMALL
+	/// Size when active, used to stop you from pocketing it when active. That would be silly.
 	var/w_class_on = WEIGHT_CLASS_BULKY
+	/// Alternative appearance when active.
 	var/icon_state_on
+	/// What flavour of shanking you perform when the blade is active.
 	var/list/attack_verb_on = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
@@ -26,6 +50,11 @@
 	. = ..()
 	force_off = initial(force) //We want to check this only when initializing, not when swapping, so sharpening works.
 	throwforce_off = initial(throwforce)
+	RegisterSignal(src, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(try_sharpen))
+
+/obj/item/melee/energy/Destroy()
+	UnregisterSignal(src, COMSIG_ITEM_SHARPEN_ACT)
+	return ..()
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
@@ -88,6 +117,18 @@
 /obj/item/melee/energy/get_heat()
 	return active * 3500
 
+/obj/item/melee/energy/proc/try_sharpen(obj/item/item, amount, max_amount)
+	SIGNAL_HANDLER // COMSIG_ITEM_SHARPEN_ACT
+	if(force_on > initial(force_on) || force_on >= max_amount)
+		return COMPONENT_BLOCK_SHARPEN_MAXED
+	throwforce_on = clamp(throwforce_on + amount, 0, max_amount)
+	throwforce_off = clamp(throwforce_off + amount, 0, max_amount)
+	force_on = clamp(force_on + amount, 0, max_amount)
+	force_off = clamp(force_off + amount, 0, max_amount)
+
+//////////////////////////////
+// MARK: AXE
+//////////////////////////////
 /obj/item/melee/energy/axe
 	name = "energy axe"
 	desc = "An energised battle axe."
@@ -114,6 +155,10 @@
 	user.visible_message("<span class='suicide'>[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS|FIRELOSS
 
+//////////////////////////////
+// MARK: SWORD
+//////////////////////////////
+// Base variant.
 /obj/item/melee/energy/sword
 	name = "energy sword"
 	desc = "May the force be within you."
@@ -144,8 +189,9 @@
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
-	return 0
+	return FALSE
 
+// Borg variant.
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
 
@@ -159,30 +205,14 @@
 		..()
 	return
 
-/// Used by medical Syndicate cyborgs
-/obj/item/melee/energy/sword/cyborg/saw
-	name = "energy saw"
-	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	force_on = 30
-	force = 18 //About as much as a spear
-	sharp = TRUE
-	hitsound = 'sound/weapons/circsawhit.ogg'
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "esaw_0"
-	icon_state_on = "esaw_1"
-	hitcost = 75 //Costs more than a standard cyborg esword
-	item_color = null
-	w_class = WEIGHT_CLASS_NORMAL
-	light_color = LIGHT_COLOR_WHITE
-	tool_behaviour = TOOL_SAW
-
 /obj/item/melee/energy/sword/cyborg/saw/New()
 	..()
 	item_color = null
 
 /obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	return 0
+	return FALSE
 
+// Syndicate energy sword.
 /obj/item/melee/energy/sword/saber
 
 /obj/item/melee/energy/sword/saber/blue
@@ -251,6 +281,29 @@
 		return -1
 	return TRUE
 
+//////////////////////////////
+// MARK: SAW
+//////////////////////////////
+/// Used by medical Syndicate cyborgs
+/obj/item/melee/energy/sword/cyborg/saw
+	name = "energy saw"
+	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
+	force_on = 30
+	force = 18 //About as much as a spear
+	sharp = TRUE
+	hitsound = 'sound/weapons/circsawhit.ogg'
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "esaw_0"
+	icon_state_on = "esaw_1"
+	hitcost = 75 //Costs more than a standard cyborg esword
+	item_color = null
+	w_class = WEIGHT_CLASS_NORMAL
+	light_color = LIGHT_COLOR_WHITE
+	tool_behaviour = TOOL_SAW
+
+//////////////////////////////
+// MARK: CUTLASS
+//////////////////////////////
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"
 	desc = "Arrrr matey."
@@ -260,6 +313,9 @@
 	light_color = LIGHT_COLOR_RED
 	origin_tech = "combat=3;magnets=4;syndicate=2"
 
+//////////////////////////////
+// MARK: HARDLIGHT BLADE
+//////////////////////////////
 /obj/item/melee/energy/blade
 	name = "energy blade"
 	desc = "A concentrated beam of energy in the shape of a blade. Very stylish... and lethal."
@@ -285,6 +341,9 @@
 /obj/item/melee/energy/proc/nemesis_effects(mob/living/user, mob/living/target)
 	return
 
+//////////////////////////////
+// MARK: CLEAVING SAW
+//////////////////////////////
 /obj/item/melee/energy/cleaving_saw
 	name = "cleaving saw"
 	desc = "This saw, effective at drawing the blood of beasts, transforms into a long cleaver that makes use of centrifugal force."

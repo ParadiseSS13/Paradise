@@ -268,6 +268,7 @@ SUBSYSTEM_DEF(throwing)
 
 	if(thrownthing)
 		SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)
+		thrownthing.end_throw()
 
 	qdel(src)
 
