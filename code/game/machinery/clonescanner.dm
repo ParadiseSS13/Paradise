@@ -101,6 +101,8 @@
 
 	has_scanned = TRUE
 
+	if(console.selected_pod?.currently_cloning)
+		return SCANNER_POD_IN_PROGRESS
 	if(!scanned.dna || HAS_TRAIT(scanned, TRAIT_GENELESS))
 		return SCANNER_MISC
 	if(HAS_TRAIT(scanned, TRAIT_BADDNA) && scanning_tier < 4)

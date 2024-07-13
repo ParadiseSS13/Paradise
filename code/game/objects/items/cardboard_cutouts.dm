@@ -47,9 +47,9 @@
 	if(I.flags & NOBLUDGEON)
 		return
 	if(!I.force)
-		playsound(loc, 'sound/weapons/tap.ogg', 20, 1, -1)
+		playsound(loc, 'sound/weapons/tap.ogg', 20, TRUE, -1)
 	else if(I.hitsound)
-		playsound(loc, I.hitsound, 20, 1, -1)
+		playsound(loc, I.hitsound, 20, TRUE, -1)
 
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)

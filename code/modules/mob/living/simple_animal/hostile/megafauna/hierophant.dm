@@ -529,7 +529,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Moved(oldLoc, movement_dir)
 	. = ..()
-	if(!stat && .)
+	if(stat == CONSCIOUS && .)
 		var/obj/effect/temp_visual/hierophant/squares/HS = new(oldLoc)
 		HS.setDir(movement_dir)
 		playsound(src, 'sound/mecha/mechmove04.ogg', 65, TRUE, -4)
