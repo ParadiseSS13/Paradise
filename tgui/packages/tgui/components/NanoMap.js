@@ -150,11 +150,7 @@ export class NanoMap extends Component {
           <img src={resolveAsset(mapUrl)} style={mapStyle} />
           <Box>{children}</Box>
         </Box>
-        <NanoMapZoomer
-          zoom={zoom}
-          onZoom={this.handleZoom}
-          onReset={this.handleReset}
-        />
+        <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} onReset={this.handleReset} />
       </Box>
     );
   }
@@ -220,10 +216,7 @@ const NanoMapZoomer = (props, context) => {
   return (
     <Box className="NanoMap__zoomer">
       <LabeledList>
-        <LabeledList.Item
-          label="Zoom"
-          labelStyle={{ 'vertical-align': 'middle' }}
-        >
+        <LabeledList.Item label="Zoom" labelStyle={{ 'vertical-align': 'middle' }}>
           <Flex direction="row">
             <Slider
               minValue={1}
@@ -233,13 +226,7 @@ const NanoMapZoomer = (props, context) => {
               value={props.zoom}
               onDrag={(e, v) => props.onZoom(e, v)}
             />
-            <Button
-              ml="0.5em"
-              float="right"
-              icon="sync"
-              tooltip="Reset View"
-              onClick={(e) => props.onReset?.(e)}
-            />
+            <Button ml="0.5em" float="right" icon="sync" tooltip="Reset View" onClick={(e) => props.onReset?.(e)} />
           </Flex>
         </LabeledList.Item>
       </LabeledList>
