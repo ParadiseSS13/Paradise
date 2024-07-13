@@ -199,24 +199,13 @@ const DepartmentList = (props, context) => {
         fill
         scrollable
         title={sectionTitle}
-        buttons={
-          <Button
-            content="Back"
-            icon="arrow-left"
-            onClick={() => act('setScreen', { setScreen: 0 })}
-          />
-        }
+        buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
       >
         <LabeledList>
           {list2iterate
             .filter((d) => d !== department)
             .map((d) => (
-              <LabeledList.Item
-                key={d}
-                label={d}
-                textAlign="right"
-                className="candystripe"
-              >
+              <LabeledList.Item key={d} label={d} textAlign="right" className="candystripe">
                 <Button
                   content="Message"
                   icon="envelope"
@@ -252,13 +241,7 @@ const MessageResponse = (props, context) => {
     <Section
       fill
       title={sectionTitle}
-      buttons={
-        <Button
-          content="Back"
-          icon="arrow-left"
-          onClick={() => act('setScreen', { setScreen: 0 })}
-        />
-      }
+      buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
     />
   );
 };
@@ -286,13 +269,7 @@ const MessageLog = (props, context) => {
         fill
         scrollable
         title={sectionTitle}
-        buttons={
-          <Button
-            content="Back"
-            icon="arrow-left"
-            onClick={() => act('setScreen', { setScreen: 0 })}
-          />
-        }
+        buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
       >
         {list2iterate.map((m) => (
           <Box key={m} textAlign="left">
@@ -318,13 +295,7 @@ const MessageAuth = (props, context) => {
           fill
           scrollable
           title="Message Authentication"
-          buttons={
-            <Button
-              content="Back"
-              icon="arrow-left"
-              onClick={() => act('setScreen', { setScreen: 0 })}
-            />
-          }
+          buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
         >
           <LabeledList>
             <LabeledList.Item label="Recipient">{recipient}</LabeledList.Item>
@@ -366,16 +337,8 @@ const StationAnnouncement = (props, context) => {
           title="Station-Wide Announcement"
           buttons={
             <>
-              <Button
-                content="Back"
-                icon="arrow-left"
-                onClick={() => act('setScreen', { setScreen: 0 })}
-              />
-              <Button
-                content="Edit Message"
-                icon="edit"
-                onClick={() => act('writeAnnouncement')}
-              />
+              <Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />
+              <Button content="Edit Message" icon="edit" onClick={() => act('writeAnnouncement')} />
             </>
           }
         >
@@ -417,19 +380,11 @@ const PrintShippingLabel = (props, context) => {
       <Stack.Item textAlign="center">
         <Section
           title="Print Shipping Label"
-          buttons={
-            <Button
-              content="Back"
-              icon="arrow-left"
-              onClick={() => act('setScreen', { setScreen: 0 })}
-            />
-          }
+          buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
         >
           <LabeledList>
             <LabeledList.Item label="Destination">{shipDest}</LabeledList.Item>
-            <LabeledList.Item label="Validated by">
-              {msgVerified}
-            </LabeledList.Item>
+            <LabeledList.Item label="Validated by">{msgVerified}</LabeledList.Item>
           </LabeledList>
           <Button
             fluid
@@ -446,12 +401,7 @@ const PrintShippingLabel = (props, context) => {
         <Section fill scrollable title="Destinations">
           <LabeledList>
             {ship_dept.map((d) => (
-              <LabeledList.Item
-                label={d}
-                key={d}
-                textAlign="right"
-                className="candystripe"
-              >
+              <LabeledList.Item label={d} key={d} textAlign="right" className="candystripe">
                 <Button
                   content={shipDest === d ? 'Selected' : 'Select'}
                   selected={shipDest === d}
@@ -477,13 +427,7 @@ const SecondaryGoal = (props, context) => {
           fill
           scrollable
           title="Request Secondary Goal"
-          buttons={
-            <Button
-              content="Back"
-              icon="arrow-left"
-              onClick={() => act('setScreen', { setScreen: 0 })}
-            />
-          }
+          buttons={<Button content="Back" icon="arrow-left" onClick={() => act('setScreen', { setScreen: 0 })} />}
         />
       </Stack.Item>
       <Stack.Item>

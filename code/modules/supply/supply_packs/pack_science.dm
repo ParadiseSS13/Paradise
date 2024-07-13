@@ -5,6 +5,15 @@
 	containertype = /obj/structure/closet/crate/sci
 	department_restrictions = list(DEPARTMENT_SCIENCE)
 
+/datum/supply_packs/science/rnd	// Everything you need to kick-start Science from scratch once the dust of the apocalypse has blown over.
+	name = "Research & Development Crate"
+	contains = list(/obj/item/storage/box/large/rnd_parts)
+	cost = 1000
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "research & development crate"
+	access = ACCESS_RESEARCH
+	announce_beacons = list("Research Division" = list("Robotics", "Science", "Research Director's Desk"))
+
 /datum/supply_packs/science/robotics
 	name = "Robotics Assembly Crate"
 	contains = list(/obj/item/assembly/prox_sensor,
@@ -46,7 +55,7 @@
 					/obj/item/circuitboard/mecha/ripley/main,
 					/obj/item/circuitboard/mecha/ripley/peripherals,
 					/obj/item/clothing/suit/fire/firefighter,
-					/obj/item/stack/sheet/plasteel = 15)
+					/obj/item/stack/sheet/plasteel/fifteen)
 	cost = 350
 	containertype = /obj/structure/closet/crate/sci/robo
 	containername = "\improper APLU \"Ripley\" construction crate"
@@ -58,7 +67,7 @@
 	contains = list(/obj/item/circuitboard/mecha/odysseus/peripherals,
 					/obj/item/circuitboard/mecha/odysseus/main,
 					/obj/item/mecha_parts/mecha_equipment/medical/sleeper,
-					/obj/item/stack/sheet/plasteel = 5)
+					/obj/item/stack/sheet/plasteel/five)
 	cost = 350
 	containertype = /obj/structure/closet/crate/sci/robo
 	containername = "\improper \"Odysseus\" construction crate"

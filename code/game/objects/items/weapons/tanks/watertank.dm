@@ -315,7 +315,7 @@
 				to_chat(user, "<span class='notice'>Metal foam mix is still being synthesized.</span>")
 				return
 			var/obj/effect/particle_effect/foam/F = new /obj/effect/particle_effect/foam(get_turf(target), TRUE)
-			F.amount = 0
+			F.spread_amount = 0
 			metal_synthesis_cooldown++
 			addtimer(CALLBACK(src, PROC_REF(metal_cooldown)), 10 SECONDS)
 
@@ -332,7 +332,7 @@
 
 /obj/effect/nanofrost_container/proc/Smoke()
 	var/datum/effect_system/smoke_spread/freezing/S = new
-	S.set_up(6, FALSE, loc, null, TRUE)
+	S.set_up(amount = 6, only_cardinals = FALSE, source = loc, desired_direction = null, chemicals = null, blasting = TRUE)
 	S.start()
 	new /obj/effect/decal/cleanable/flour/nanofrost(get_turf(src))
 	playsound(src, 'sound/effects/bamf.ogg', 100, TRUE)

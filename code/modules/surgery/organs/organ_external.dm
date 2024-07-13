@@ -317,9 +317,9 @@
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
 		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
-			if(limb_brute >= max_damage && prob(original_brute / 2))
+			if(limb_brute + limb_burn >= max_damage && prob(original_brute / 2))
 				droplimb(0, DROPLIMB_SHARP)
-			if(limb_burn >= max_damage && prob(original_burn / 2))
+			if(limb_brute + limb_burn >= max_damage && prob(original_burn / 2))
 				droplimb(0, DROPLIMB_BURN)
 
 	if(owner_old)
@@ -485,7 +485,34 @@ Note that amputating the affected organ does in fact remove the infection from t
 				if(parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30))
 					parent.germ_level++
 
+		if(prob(5))
+			var/list/messages = list(
+				"You feel something uncomfortable in [src].",
+				"A sharp pain seems to spread out from [src].",
+				"[src] feels like it's burning from the inside out!",
+				"[src] seems to be turning a nasty color.",
+			)
+			to_chat(owner, "<span class='danger'>[pick(messages)]</span>")
+
 	if(germ_level >= INFECTION_LEVEL_THREE)
+		if(vital)
+			var/list/messages = list(
+				"[src] oozes with pus!",
+				"[src] starts to go numb.",
+				"[src] feels dreadful, it feels like you're dying!"
+			)
+			// kill them fast, but don't drop them dead.
+			if(prob(5))
+				to_chat(owner, "<span class='userdanger'>[pick(messages)]</span>")
+			owner.adjustToxLoss(5)
+		else
+			necrotize()
+			owner.adjustToxLoss(1)
+
+		germ_level++
+
+	if(germ_level >= INFECTION_LEVEL_FOUR)
+		// we warned you
 		necrotize()
 		germ_level++
 		owner.adjustToxLoss(1)
@@ -556,6 +583,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/droplimb(clean, disintegrate, ignore_children, nodamage)
 
 	if(limb_flags & CANNOT_DISMEMBER || !owner)
+		return
+
+	if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS) && !clean)
+		fracture()
 		return
 
 	if(!disintegrate)
@@ -636,10 +667,15 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!iscarbon(C))
 		return
 
+	// these vars track what we dropped, for the sake of adding better messaging after we've handled all the removals.
+	// if we dropped an organ.
 	var/organ_spilled = FALSE
+	// If we dropped an item.
+	var/something_else = FALSE
+
 	var/turf/T = get_turf(C)
 	C.add_splatter_floor(T)
-	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, 1)
+	playsound(get_turf(C), 'sound/effects/splat.ogg', 25, TRUE)
 	for(var/X in C.internal_organs)
 		var/obj/item/organ/O = X
 		var/org_zone = check_zone(O.parent_organ)
@@ -648,8 +684,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 			O.forceMove(T)
 			organ_spilled = TRUE
 
+	var/obj/item/organ/external/org = C.get_organ(spillage_zone)
+	if(istype(org))
+		for(var/obj/item/content in org)
+			content.forceMove(T)
+			content.dropped(owner, TRUE)
+			something_else = TRUE
+
 	if(organ_spilled)
-		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
+		C.visible_message("<span class='danger'><b>[C]'s internal organs spill out onto the floor!</b></span>")
+	if(something_else)
+		C.visible_message("<span class='danger'>Some things fall out of [C]!</span>")
 	return TRUE
 
 /obj/item/organ/external/chest/droplimb()
@@ -666,7 +711,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(!length(contents))
 			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
 			return
-		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 		user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
 			"<span class='notice'>You begin to cut open [src]...</span>")
 		if(do_after(user, 5.4 SECONDS, target = src))
@@ -786,7 +831,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(company && istext(company))
-		set_company(company)
+		set_company(company, owner.dna.species.sprite_sheet_name)
 
 	limb_flags |= CANNOT_BREAK
 	get_icon()
@@ -796,11 +841,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 
-/obj/item/organ/external/proc/set_company(company)
+/obj/item/organ/external/proc/set_company(company, species_sheet_name)
 	model = company
 	var/datum/robolimb/R = GLOB.all_robolimbs[company]
 	if(R)
-		force_icon = R.icon
+		if(length(R.sprite_sheets) && R.sprite_sheets[species_sheet_name]) // Species specific augmented limbs
+			force_icon = R.sprite_sheets[species_sheet_name]
+		else
+			force_icon = R.icon
 		name = "[R.company] [initial(name)]"
 		desc = "[R.desc]"
 

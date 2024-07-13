@@ -3,6 +3,7 @@
  * Metal
  * Plasteel
  * Wood
+ * Bamboo
  * Cloth
  * Durathread
  * Cardboard
@@ -14,9 +15,9 @@
  * Saltpetre Crystal
  */
 
-/*
- * Metal
- */
+//////////////////////////////
+// MARK: METAL
+//////////////////////////////
 GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("stool", /obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("barstool", /obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE),
@@ -121,7 +122,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal
 	name = "metal"
-	desc = "Sheets made out of metal."
+	desc = "Sheets made out of steel."
 	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
@@ -137,6 +138,13 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. = ..()
 	. += "<span class='notice'>Metal is used in various different construction sequences.</span>"
 
+/obj/item/stack/sheet/metal/examine_more(mob/user)
+	. = ..()
+	. += "At its core, steel is an alloy of iron and carbon. The addition of a wide range of other elements and the use of various metallurgical processes allows control over nearly every property of the resulting alloy, \
+	from hardness and ductility to corrosion resistance."
+	. += ""
+	. += "Its use is ubiquitous across all post-industrial civilisations and is extensively used within all areas of construction, as well as the manufacture of almost any device that one can care to imagine."
+
 /obj/item/stack/sheet/metal/cyborg
 	energy_type = /datum/robot_storage/material/metal
 	is_cyborg = TRUE
@@ -146,10 +154,13 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	. = ..()
 	var/mob/living/silicon/robot/robot = user
 	if(!istype(robot.module, /obj/item/robot_module/drone))
-		. += "<span class='notice'>You can refill your metal by using your <b>magnetic gripper</b> on the Ore Redemption machine, or by picking it up from the ground.</span>"
+		. += "<span class='notice'>You can refill your metal by using your <b>magnetic gripper</b> on the Ore Redemption Machine, or by picking it up from the ground.</span>"
 
 /obj/item/stack/sheet/metal/cyborg/drone
 	energy_type = /datum/robot_storage/energy/metal
+
+/obj/item/stack/sheet/metal/ten
+	amount = 10
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
@@ -162,9 +173,9 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	recipes = GLOB.metal_recipes
 	return ..()
 
-/*
- * Plasteel
- */
+//////////////////////////////
+// MARK: PLASTEEL
+//////////////////////////////
 GLOBAL_LIST_INIT(plasteel_recipes, list(
 	new /datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 5 SECONDS, one_per_turf = TRUE),
 	new /datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 3, time = 5 SECONDS),
@@ -195,6 +206,20 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	point_value = 23
 	table_type = /obj/structure/table/reinforced
 
+/obj/item/stack/sheet/plasteel/examine_more(mob/user)
+	. = ..()
+	. += "A high-performance steel superalloy that incorporates a significant quantity of plasma. The plasma forms cross-links with the other constituants of the metal, \
+	pulling them in and bonding with them extremely strongly. It is exceptionally tough, heat-resistant, corrosion-resistant, and about 2.5 times as dense as regular steel."
+	. += ""
+	. += "It is used in the constuction of top-grade building and vehicle armour and some specialised tools and weapons. It is too heavy to make starships out of, \
+	although it is sometimes incorporated into the armour of critical areas. Its high density also makes it an excellent material for radiation shielding."
+
+/obj/item/stack/sheet/plasteel/five
+	amount = 5
+
+/obj/item/stack/sheet/plasteel/fifteen
+	amount = 15
+
 /obj/item/stack/sheet/plasteel/fifty
 	amount = 50
 
@@ -206,9 +231,9 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	energy_type = /datum/robot_storage/energy/wood
 	is_cyborg = TRUE
 
-/*
- * Wood
- */
+//////////////////////////////
+// MARK: WOOD
+//////////////////////////////
 GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal, 1),
 	new /datum/stack_recipe("baseball bat", /obj/item/melee/baseball_bat, 5, time = 1.5 SECONDS),
@@ -267,9 +292,9 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	recipes = GLOB.wood_recipes
 	return ..()
 
-/*
- * Bamboo
- */
+//////////////////////////////
+// MARK: BAMBOO
+//////////////////////////////
 GLOBAL_LIST_INIT(bamboo_recipes, list(
 	new /datum/stack_recipe("punji sticks trap", /obj/structure/punji_sticks, req_amount = 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("bamboo spear", /obj/item/spear/bamboo, req_amount = 25, time = 9 SECONDS),
@@ -309,9 +334,9 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 /obj/item/stack/sheet/bamboo/fifty
 	amount = 50
 
-/*
- * Cloth
- */
+//////////////////////////////
+// MARK: CLOTH
+//////////////////////////////
 GLOBAL_LIST_INIT(cloth_recipes, list (
 	new /datum/stack_recipe_list("cloth clothings", list(
 		new /datum/stack_recipe("white jumpsuit", /obj/item/clothing/under/color/white, 3),
@@ -343,6 +368,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 	)),
 	null,
 	new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, 1, 2, 6),
+	new /datum/stack_recipe("imrovised drapes", /obj/item/surgical_drapes/improvised, 1),
 	new /datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag, 1),
 	new /datum/stack_recipe("bedsheet", /obj/item/bedsheet, 3),
 	new /datum/stack_recipe("empty sandbag", /obj/item/emptysandbag, 4),
@@ -373,15 +399,16 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
 
-/*
- * Durathread
- */
+//////////////////////////////
+// MARK: DURATHREAD
+//////////////////////////////
 
 GLOBAL_LIST_INIT(durathread_recipes, list (
 	new /datum/stack_recipe("durathread jumpsuit", /obj/item/clothing/under/misc/durathread, 4, time = 4 SECONDS),
 	new /datum/stack_recipe("durathread beret", /obj/item/clothing/head/beret/durathread, 2, time = 4 SECONDS),
 	new /datum/stack_recipe("durathread beanie", /obj/item/clothing/head/beanie/durathread, 2, time = 4 SECONDS),
 	new /datum/stack_recipe("durathread bandana", /obj/item/clothing/mask/bandana/durathread, 1, time = 2.5 SECONDS),
+	new /datum/stack_recipe("surgical drapes", /obj/item/surgical_drapes, 1, time = 3 SECONDS)
 	))
 
 /obj/item/stack/sheet/durathread
@@ -425,9 +452,9 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/durathread
 
-/*
- * Cardboard
- */
+//////////////////////////////
+// MARK: CARDBOARD
+//////////////////////////////
 GLOBAL_LIST_INIT(cardboard_recipes, list (
 	new /datum/stack_recipe("box", /obj/item/storage/box),
 	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
@@ -464,7 +491,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		var/atom/droploc = drop_location()
 		if(use(1))
-			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)
+			playsound(I, 'sound/items/bikehorn.ogg', 50, TRUE, -1)
 			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
 			new/obj/item/storage/box/clown(droploc) //bugfix
 	else
@@ -486,9 +513,9 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	recipes = GLOB.cardboard_recipes
 	return ..()
 
-/*
- * soil
- */
+//////////////////////////////
+// MARK: SOIL
+//////////////////////////////
 GLOBAL_LIST_INIT(soil_recipes, list (
 	new /datum/stack_recipe("pile of dirt", /obj/machinery/hydroponics/soil, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
 ))
@@ -508,9 +535,9 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 	recipes = GLOB.soil_recipes
 	return ..()
 
-/*
- * Runed Metal
- */
+//////////////////////////////
+// MARK: RUNED METAL
+//////////////////////////////
 
 GLOBAL_LIST_INIT(cult_recipes, list (
 	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
@@ -530,6 +557,12 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
 	recipe_width = 700
+
+/obj/item/stack/sheet/runed_metal/examine_more(mob/user)
+	. = ..()
+	. += "There are things lurking in the darkness beyond our comprehension, sealed away by terrible writs. They scheme and plot amongst themselves and with the fools and unwilling converts that serve them in our world."
+	. += ""
+	. += "Mundane matter turned extraordinary by the dark blessings of those things that lie in wait - such as this - is the canvas used to build the works that shall one day tear asunder the veil that shields our world."
 
 /obj/item/stack/sheet/runed_metal/New()
 	. = ..()
@@ -568,9 +601,9 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	recipes = GLOB.cult_recipes
 	return ..()
 
-/*
- * Brass
- */
+//////////////////////////////
+// MARK: BRASS
+//////////////////////////////
 GLOBAL_LIST_INIT(brass_recipes, list (
 	new /datum/stack_recipe("wall gear", /obj/structure/clockwork/wall_gear, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
@@ -598,6 +631,15 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	table_type = /obj/structure/table/reinforced/brass
 	dynamic_icon_state = TRUE
 
+/obj/item/stack/tile/brass/examine_more(mob/user)
+	. = ..()
+	. += "Brass describes a class of alloys made primarily from copper and zinc, with colours ranging from yellowish-white, gold, brown, and reddish. \
+	It is a highly workable material with good electrical and thermal conductivity, and corrosion resistance."
+	. += ""
+	. += "It is used for ornamental and fashion applications (sometimes as a cheap substitute for gold), musical instruments, some specialised electronics, and spark-free tooling."
+	. += ""
+	. += "Brass is also associated with the Cult of the Clockwork Justiciar - Ratvar. His followers use it extensively in their works and creations, although it has been a long time since anyone has seen them..."
+
 /obj/item/stack/tile/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)
@@ -611,9 +653,9 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 /obj/item/stack/tile/brass/fifty
 	amount = 50
 
-/*
- * Bones
- */
+//////////////////////////////
+// MARK: BONES
+//////////////////////////////
 /obj/item/stack/sheet/bone
 	name = "bones"
 	icon = 'icons/obj/stacks/organic.dmi'
@@ -628,9 +670,9 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
 
-/*
- * Plastic
- */
+//////////////////////////////
+// MARK: PLASTIC
+//////////////////////////////
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS),
@@ -646,6 +688,8 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("toxin first aid kit", /obj/item/storage/firstaid/toxin, 4),
 		new /datum/stack_recipe("oxygen deprivation first aid kit", /obj/item/storage/firstaid/o2, 4),
 		new /datum/stack_recipe("advanced first-aid kit", /obj/item/storage/firstaid/adv, 4),
+		new /datum/stack_recipe("machine repair kit", /obj/item/storage/firstaid/machine, 4),
+		new /datum/stack_recipe("aquatic starter kit", /obj/item/storage/firstaid/aquatic_kit, 4),
 		)),
 	new /datum/stack_recipe("pill bottle", /obj/item/storage/pill_bottle),
 	new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2),
@@ -683,6 +727,15 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	origin_tech = "materials=1;biotech=1"
 	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/plastic
+
+/obj/item/stack/sheet/plastic/examine_more(mob/user)
+	. = ..()
+	. += "Plastics are a large and diverse range of materials consisting of long-chain polymers, typically based on hydrocarbons, \
+	but other chemical groups can be attached to the molecular backbone to achieve specific properties. \
+	They are generally characterised as very lightweight, easily mouldable, and versatile. Most plastics either cannot be recycled, or are cost-prohibitive to recycle."
+	. += ""
+	. += "Despite the extensive uses of plastics, they are not as ubiquitous as other materials (especially steel). This is due to a combination of environmental regulations, \
+	established market patterns, and the operational requirements for many space-based installations to employ easily recycled materials to conserve limited supplies."
 
 /obj/item/stack/sheet/plastic/New()
 	recipes = GLOB.plastic_recipes

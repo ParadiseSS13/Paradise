@@ -111,6 +111,15 @@
 	if(!M.selected)
 		M.selected = src
 	update_chassis_page()
+	if(M.occupant)
+		give_targeted_action()
+
+/obj/item/mecha_parts/mecha_equipment/proc/give_targeted_action()
+	if(!selectable)
+		return
+	var/datum/action/innate/mecha/select_module/select_action = new()
+	select_action.Grant(chassis.occupant, chassis, src)
+	chassis.select_actions[src] = select_action
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto = null)
 	moveto = moveto || get_turf(chassis)
@@ -119,10 +128,17 @@
 		if(chassis.selected == src)
 			chassis.selected = null
 		update_chassis_page()
+		remove_targeted_action()
 		chassis.log_message("[src] removed from equipment.")
 		chassis = null
 		set_ready_state(1)
 
+/obj/item/mecha_parts/mecha_equipment/proc/remove_targeted_action()
+	if(!selectable)
+		return
+	if(chassis.select_actions[src])
+		var/datum/action/innate/mecha/select_module/select_action = chassis.select_actions[src]
+		select_action.Remove(chassis.occupant)
 
 /obj/item/mecha_parts/mecha_equipment/Topic(href,href_list)
 	if(href_list["detach"])

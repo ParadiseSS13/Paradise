@@ -151,8 +151,8 @@
 	update_glow()
 	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 30, TRUE)
 	give_spells()
-	whisper_action.button_icon_state = "pulse_whisper"
-	whisper_action.background_icon_state = "bg_pulsedemon"
+	whisper_action.button_overlay_icon_state = "pulse_whisper"
+	whisper_action.button_background_icon_state = "bg_pulsedemon"
 
 /mob/living/simple_animal/demon/pulse_demon/proc/deleted_handler(our_demon, force)
 	SIGNAL_HANDLER
@@ -792,8 +792,8 @@
 /mob/living/simple_animal/demon/pulse_demon/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/experience_pressure_difference()
-	return // no thanks
+/mob/living/simple_animal/demon/pulse_demon/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /mob/living/simple_animal/demon/pulse_demon/singularity_pull()
 	return

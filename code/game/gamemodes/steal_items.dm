@@ -16,6 +16,8 @@
 	var/special_equipment = null
 	/// If a steal objective has forbidden jobs, and the forbidden jobs would not be in the possession of this item, set this to false
 	var/job_possession = TRUE
+	/// Any extra information about the objective
+	var/extra_information = ""
 
 /datum/theft_objective/proc/check_completion(datum/mind/owner)
 	if(!owner.current)
@@ -84,6 +86,7 @@
 	protected_jobs = list("Chief Engineer")
 	altitems = list(/obj/item/photo)
 	location_override = "the Chief Engineer's Office"
+	extra_information = "Obtaining a photograph of the blueprints is also an option."
 
 /datum/theft_objective/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints/ce))

@@ -250,9 +250,7 @@
 		item_to_add.forceMove(drop_location())
 		if(prob(25))
 			step_rand(item_to_add)
-		for(var/i in list(1,2,4,8,4,8,4,dir))
-			setDir(i)
-			sleep(1)
+		spin(7 DECISECONDS, 1)
 
 	return valid
 
@@ -267,9 +265,6 @@
 	emote_see = list("shakes its head.", "chases its tail.","shivers.")
 	desc = initial(desc)
 	set_light(0)
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	REMOVE_TRAIT(src, TRAIT_NOBREATH, DOGGO_SPACESUIT)
-	minbodytemp = initial(minbodytemp)
 
 	if(inventory_head && inventory_head.dog_fashion)
 		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)

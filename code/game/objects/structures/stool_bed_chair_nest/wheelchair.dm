@@ -87,7 +87,7 @@
 
 		occupant.Weaken(12 SECONDS)
 		occupant.Stuttering(12 SECONDS)
-		playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
+		playsound(src.loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 		if(isliving(A))
 			var/mob/living/victim = A
 			victim.Weaken(12 SECONDS)

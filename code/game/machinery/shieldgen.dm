@@ -14,12 +14,12 @@
 /obj/machinery/shield/Initialize(mapload)
 	. = ..()
 	dir = pick(NORTH, SOUTH, EAST, WEST)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/machinery/shield/Destroy()
 	opacity = FALSE
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/machinery/shield/Move()
@@ -32,7 +32,7 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/shield/CanAtmosPass(turf/T)
+/obj/machinery/shield/CanAtmosPass(direction)
 	return !density
 
 /obj/machinery/shield/ex_act(severity)
@@ -120,7 +120,7 @@
 		invisibility = INVISIBILITY_MAXIMUM
 		visible = FALSE
 
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return visible
 
 /obj/machinery/shieldgen
@@ -573,12 +573,10 @@
 		return FALSE
 	return ..(mover, target, height)
 
-/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(isliving(caller))
-		var/mob/living/M = caller
-		if("syndicate" in M.faction)
-			return TRUE
-	return ..(ID, to_dir, caller)
+/obj/machinery/shieldwall/syndicate/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.is_living && ("syndicate" in pass_info.factions))
+		return TRUE
+	return ..(to_dir, pass_info)
 
 /obj/machinery/shieldwall/syndicate/proc/phaseout()
 	// If you're bumping into an invisible shield, make it fully visible, then fade out over a couple of seconds.

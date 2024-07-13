@@ -92,6 +92,10 @@
 	if(throwing)
 		throwing.finalize(FALSE)
 
+/obj/structure/closet/extinguish_light(force)
+	for(var/atom/A in contents)
+		A.extinguish_light(force)
+
 /obj/structure/closet/proc/open()
 	if(opened)
 		return FALSE

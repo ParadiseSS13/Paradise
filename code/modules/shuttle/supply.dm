@@ -29,7 +29,7 @@
 			/obj/item/disk/nuclear,
 			/obj/machinery/nuclearbomb),
 		"homing beacons" = list(
-			/obj/item/radio/beacon,
+			/obj/item/beacon,
 			/obj/machinery/quantumpad,
 			/obj/machinery/teleport/station,
 			/obj/machinery/teleport/hub,
@@ -75,7 +75,7 @@
 		return 2
 	return ..()
 
-/obj/docking_port/mobile/supply/dock(port)
+/obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/port)
 	. = ..()
 	if(.)
 		return
@@ -84,11 +84,11 @@
 		// Ignore transit ports.
 		return
 
-	if(is_station_level(z))
+	if(is_station_level(port.z))
 		// Buy when arriving at the station.
 		buy()
 
-	if(z == level_name_to_num(CENTCOMM))
+	if(port.z == level_name_to_num(CENTCOMM))
 		// Sell when arriving at CentComm.
 		sell()
 

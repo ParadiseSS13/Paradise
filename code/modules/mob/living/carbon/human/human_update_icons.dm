@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/u2_icon = U2.sprite_sheets && (dna.species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[dna.species.sprite_sheet_name] : U2.icon
 			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
 
-	if(socks && dna.species.clothing_flags & HAS_SOCKS)
+	if(socks && dna.species.clothing_flags & HAS_SOCKS && get_organ("l_leg") && get_organ("r_leg")) // Check if the human has both legs before going on adding socks.
 		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
 		if(U3)
 			var/u3_icon = U3.sprite_sheets && (dna.species.sprite_sheet_name in U3.sprite_sheets) ? U3.sprite_sheets[dna.species.sprite_sheet_name] : U3.icon
@@ -658,6 +658,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_gloves()
 	remove_overlay(GLOVES_LAYER)
+	remove_overlay(L_HAND_BLOOD_LAYER)
+	remove_overlay(R_HAND_BLOOD_LAYER)
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_GLOVES]
 		if(inv)
@@ -677,17 +679,24 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			standing = mutable_appearance('icons/mob/clothing/hands.dmi', "[t_state]", layer = -GLOVES_LAYER)
 
-		if(gloves.blood_DNA)
+		if(gloves.blood_DNA) // No need to check for hands here because we won't have gloves on.
 			var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "bloodyhands")
 			bloodsies.color = gloves.blood_color
 			standing.overlays += bloodsies
 		overlays_standing[GLOVES_LAYER]	= standing
 	else
-		if(blood_DNA)
-			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "bloodyhands", layer = -GLOVES_LAYER)
-			bloodsies.color = hand_blood_color
-			overlays_standing[GLOVES_LAYER]	= bloodsies
+		if(blood_DNA) // Checks for hands to make sure we don't get mysterious floating blood.
+			if(get_organ("l_hand"))
+				var/mutable_appearance/bloodsies_left = mutable_appearance(dna.species.blood_mask, "bloodyhand_left", layer = -L_HAND_BLOOD_LAYER)
+				bloodsies_left.color = hand_blood_color
+				overlays_standing[L_HAND_BLOOD_LAYER] = bloodsies_left
+			if(get_organ("r_hand"))
+				var/mutable_appearance/bloodsies_right = mutable_appearance(dna.species.blood_mask, "bloodyhand_right", layer = -R_HAND_BLOOD_LAYER)
+				bloodsies_right.color = hand_blood_color
+				overlays_standing[R_HAND_BLOOD_LAYER] = bloodsies_right
 	apply_overlay(GLOVES_LAYER)
+	apply_overlay(L_HAND_BLOOD_LAYER)
+	apply_overlay(R_HAND_BLOOD_LAYER)
 
 
 /mob/living/carbon/human/update_inv_glasses()
@@ -729,49 +738,50 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_misc_effects()
 
 /mob/living/carbon/human/update_inv_ears()
-	remove_overlay(EARS_LAYER)
-	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_LEFT_EAR]
-		if(inv)
-			inv.update_icon()
+	remove_overlay(LEFT_EAR_LAYER)
+	remove_overlay(RIGHT_EAR_LAYER)
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_RIGHT_EAR]
-		if(inv)
-			inv.update_icon()
+		var/atom/movable/screen/inventory/left_ear_inv = hud_used.inv_slots[SLOT_HUD_LEFT_EAR]
+		var/atom/movable/screen/inventory/right_ear_inv = hud_used.inv_slots[SLOT_HUD_RIGHT_EAR]
+		if(left_ear_inv)
+			left_ear_inv.update_icon()
+		if(right_ear_inv)
+			right_ear_inv.update_icon()
 
-	if(l_ear || r_ear)
-		if(l_ear)
-			update_hud_l_ear(l_ear)
+	if(l_ear)
+		update_hud_l_ear(l_ear)
 
-			var/t_type = l_ear.item_state
-			if(!t_type)
-				t_type = l_ear.icon_state
-			if(l_ear.icon_override)
-				t_type = "[t_type]_l"
-				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
-			else if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.sprite_sheet_name])
-				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.sprite_sheets[dna.species.sprite_sheet_name], "[t_type]", layer = -EARS_LAYER)
-			else
-				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
+		var/left_ear_item_state = l_ear.item_state ? l_ear.item_state : l_ear.icon_state
+		var/left_ear_icon = 'icons/mob/clothing/ears.dmi'
+		if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.sprite_sheet_name])
+			left_ear_icon = l_ear.sprite_sheets[dna.species.sprite_sheet_name]
+		if(l_ear.icon_override)
+			left_ear_item_state = "[left_ear_item_state]_l"
+			left_ear_icon = l_ear.icon_override
 
-		if(r_ear)
-			update_hud_r_ear(r_ear)
+		overlays_standing[LEFT_EAR_LAYER] = mutable_appearance(left_ear_icon, left_ear_item_state, layer = -LEFT_EAR_LAYER)
 
-			var/t_type = r_ear.item_state
-			if(!t_type)
-				t_type = r_ear.icon_state
-			if(r_ear.icon_override)
-				t_type = "[t_type]_r"
-				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
-			else if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.sprite_sheet_name])
-				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.sprite_sheets[dna.species.sprite_sheet_name], "[t_type]", layer = -EARS_LAYER)
-			else
-				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
-	apply_overlay(EARS_LAYER)
+	if(r_ear)
+		update_hud_r_ear(r_ear)
+
+		var/right_ear_item_state = r_ear.item_state ? r_ear.item_state : r_ear.icon_state
+		var/right_ear_icon = 'icons/mob/clothing/ears.dmi'
+		if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.sprite_sheet_name])
+			right_ear_icon = r_ear.sprite_sheets[dna.species.sprite_sheet_name]
+		if(r_ear.icon_override)
+			right_ear_icon = "[right_ear_item_state]_l"
+			right_ear_icon = r_ear.icon_override
+
+		overlays_standing[RIGHT_EAR_LAYER] = mutable_appearance(right_ear_icon, right_ear_item_state, layer = -RIGHT_EAR_LAYER)
+
+	apply_overlay(LEFT_EAR_LAYER)
+	apply_overlay(RIGHT_EAR_LAYER)
 
 /mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)
+	remove_overlay(L_FOOT_BLOOD_LAYER)
+	remove_overlay(R_FOOT_BLOOD_LAYER)
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_SHOES]
 		if(inv)
@@ -789,7 +799,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			else
 				standing = mutable_appearance('icons/mob/clothing/feet.dmi', "[shoes.icon_state]", layer = -SHOES_LAYER)
 
-			if(shoes.blood_DNA)
+			if(shoes.blood_DNA) // No need to check for feet here since you need feet to wear shoes.
 				var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "shoeblood")
 				bloodsies.color = shoes.blood_color
 				standing.overlays += bloodsies
@@ -797,11 +807,18 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing.color = shoes.color
 			overlays_standing[SHOES_LAYER] = standing
 	else
-		if(feet_blood_DNA)
-			var/mutable_appearance/bloodsies = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER)
-			bloodsies.color = feet_blood_color
-			overlays_standing[SHOES_LAYER] = bloodsies
+		if(feet_blood_DNA) // Checks for feet to make sure we don't have mysterious floating blood.
+			if(get_organ("l_foot"))
+				var/mutable_appearance/bloodsies_left = mutable_appearance(dna.species.blood_mask, "shoeblood_left", layer = -L_FOOT_BLOOD_LAYER)
+				bloodsies_left.color = feet_blood_color
+				overlays_standing[L_FOOT_BLOOD_LAYER] = bloodsies_left
+			if(get_organ("r_foot"))
+				var/mutable_appearance/bloodsies_right = mutable_appearance(dna.species.blood_mask, "shoeblood_right", layer = -R_FOOT_BLOOD_LAYER)
+				bloodsies_right.color = feet_blood_color
+				overlays_standing[R_FOOT_BLOOD_LAYER] = bloodsies_right
 	apply_overlay(SHOES_LAYER)
+	apply_overlay(L_FOOT_BLOOD_LAYER)
+	apply_overlay(R_FOOT_BLOOD_LAYER)
 
 /mob/living/carbon/human/update_inv_s_store()
 	remove_overlay(SUIT_STORE_LAYER)
@@ -884,7 +901,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/list/special_belts = list(
 			/obj/item/defibrillator/compact,
 			/obj/item/nullrod,
-			/obj/item/judobelt,
+			/obj/item/storage/belt/judobelt,
 			/obj/item/claymore)
 		overlay_layer = is_type_in_list(belt, special_belts) ? SPECIAL_BELT_LAYER : BELT_LAYER
 		if(istype(belt, /obj/item/storage/belt))
@@ -1492,7 +1509,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_body()
 
 /mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
-	var/list/out = new
+	var/list/out = list()
 	for(var/i=1;i<=TOTAL_LAYERS;i++)
 		if(overlays_standing[i])
 			if(i in unwantedLayers)

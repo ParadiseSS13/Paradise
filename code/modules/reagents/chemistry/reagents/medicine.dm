@@ -277,8 +277,9 @@
 	if(!iscarbon(M))
 		return ..()
 
-	if(ishuman(M) && volume >= 20 && method == REAGENT_TOUCH)
-		var/applied_volume = splash_human(M, volume)
+	if(ishuman(M) && volume > 20 && method == REAGENT_TOUCH)
+		heal_overall_damage(M, 20)
+		var/applied_volume = splash_human(M, volume - 20)
 		return ..(M, method, applied_volume, show_message)
 
 	if(method == REAGENT_TOUCH)
@@ -324,7 +325,7 @@
 /datum/reagent/medicine/heal_on_apply/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		playsound(T, 'sound/effects/splat.ogg', 50, TRUE, -3)
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder
 	name = "Styptic Powder"
@@ -918,7 +919,7 @@
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					if(IS_CHANGELING(M))
+					if(IS_CHANGELING(M) || HAS_TRAIT(M, TRAIT_I_WANT_BRAINS))
 						return
 					M.delayed_gib(TRUE)
 					return
@@ -1609,7 +1610,7 @@
 	update_flags |= M.adjustToxLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-// First level, prevents scratches from infecting you and stops the advance of low-level zombie infections.
+// First level, prevents scratches from infecting you and cures stage 1 zombie infections.
 /datum/reagent/zombie_cure
 	name = "Anti-Plague Sequence Alpha"
 	id = "zombiecure1"
@@ -1619,7 +1620,7 @@
 	color = "#003602"
 	var/cure_level = 1
 
-// Cures low-level infections. Weakens zombies when in their system.
+// Weakens a zombie's claws when in their system. Cures stage 1-3 infections.
 /datum/reagent/zombie_cure/second
 	name = "Anti-Plague Sequence Beta"
 	id = "zombiecure2"
@@ -1627,7 +1628,7 @@
 	color = "#006238"
 	cure_level = 2
 
-// Prevents zombies from reviving, but not from healing. Removes all zombie viruses except for the rotting stage.
+// Significantly weakens a zombie's healing ability. Cures 1-5 infections and significantly slows the advance of the stage 6 infection
 /datum/reagent/zombie_cure/third
 	name = "Anti-Plague Sequence Gamma"
 	id = "zombiecure3"

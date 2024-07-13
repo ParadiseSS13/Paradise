@@ -126,11 +126,10 @@
 	if(isprojectile(mover))
 		return (prob(30) || !density)
 
-/obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/grille/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSGRILLE)
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSGRILLE
 
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -205,7 +204,7 @@
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
 		W.anchored = FALSE
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 		W.update_nearby_icons()
 		W.state = WINDOW_OUT_OF_FRAME
 		S.use(2)
