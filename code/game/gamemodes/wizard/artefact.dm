@@ -741,8 +741,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	for(var/obj/item/item in victim)
 		victim.unEquip(item)
 
-	var/skeleton_type = "roman"//defualt
-	skeleton_type = pick("roman","pirate","yand","clown")
+	var/skeleton_type = pick("roman", "pirate", "yand", "clown")
 
 	switch(skeleton_type)
 		if("roman")
