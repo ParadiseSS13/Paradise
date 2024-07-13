@@ -39,11 +39,7 @@ const getStatColor = (cm, critThreshold) => {
 
 export const CrewMonitor = (props, context) => {
   const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndexInternal] = useLocalState(
-    context,
-    'tabIndex',
-    data.tabIndex
-  );
+  const [tabIndex, setTabIndexInternal] = useLocalState(context, 'tabIndex', data.tabIndex);
   const setTabIndex = (index) => {
     setTabIndexInternal(index);
     act('set_tab_index', { tab_index: index });
@@ -83,12 +79,7 @@ export const CrewMonitor = (props, context) => {
 const CrewMonitorDataView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const crew = sortBy((cm) => cm.name)(data.crewmembers || []);
-  const {
-    possible_levels,
-    viewing_current_z_level,
-    is_advanced,
-    highlightedNames,
-  } = data;
+  const { possible_levels, viewing_current_z_level, is_advanced, highlightedNames } = data;
   const [search, setSearch] = useLocalState(context, 'search', '');
   const searcher = createSearch(search, (cm) => {
     return cm.name + '|' + cm.assignment + '|' + cm.area;
@@ -118,11 +109,7 @@ const CrewMonitorDataView = (_properties, context) => {
       <Table m="0.5rem">
         <Table.Row header>
           <Table.Cell>
-            <Button
-              tooltip="Clear highlights"
-              icon="square-xmark"
-              onClick={() => act('clear_highlighted_names')}
-            />
+            <Button tooltip="Clear highlights" icon="square-xmark" onClick={() => act('clear_highlighted_names')} />
           </Table.Cell>
           <Table.Cell>Name</Table.Cell>
           <Table.Cell>Status</Table.Cell>
@@ -137,12 +124,7 @@ const CrewMonitorDataView = (_properties, context) => {
                   checked={highlighted}
                   tooltip="Mark on map"
                   onClick={() =>
-                    act(
-                      highlighted
-                        ? 'remove_highlighted_name'
-                        : 'add_highlighted_name',
-                      { name: cm.name }
-                    )
+                    act(highlighted ? 'remove_highlighted_name' : 'add_highlighted_name', { name: cm.name })
                   }
                 />
               </TableCell>
@@ -243,12 +225,7 @@ const CrewMonitorMapView = (_properties, context) => {
                   })
                 : null;
             const onDblClick = () =>
-              act(
-                highlighted
-                  ? 'remove_highlighted_name'
-                  : 'add_highlighted_name',
-                { name: cm.name }
-              );
+              act(highlighted ? 'remove_highlighted_name' : 'add_highlighted_name', { name: cm.name });
             const tooltip = cm.name + ' (' + cm.assignment + ')';
             if (highlighted) {
               return (
