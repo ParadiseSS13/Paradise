@@ -38,24 +38,14 @@ export const SettingsMenu = (properties, context) => {
           />
 
           {admin === 1 ? (
-            <Button
-              icon="exclamation"
-              content="[ADMIN] Maximize Research Levels"
-              onClick={() => act('maxresearch')}
-            />
+            <Button icon="exclamation" content="[ADMIN] Maximize Research Levels" onClick={() => act('maxresearch')} />
           ) : null}
         </Flex>
       </Section>
 
       <Section
         title="Linked Devices"
-        buttons={
-          <Button
-            icon="link"
-            content="Re-sync with Nearby Devices"
-            onClick={() => act('find_device')}
-          />
-        }
+        buttons={<Button icon="link" content="Re-sync with Nearby Devices" onClick={() => act('find_device')} />}
       >
         <LabeledList>
           <LabeledList.Item label="Destructive Analyzer">

@@ -8,19 +8,11 @@ export const DeconstructionMenu = (props, context) => {
   const { tech_levels, loaded_item, linked_destroy } = data;
 
   if (!linked_destroy) {
-    return (
-      <Section title="Deconstruction Menu">
-        NO DESTRUCTIVE ANALYZER LINKED TO CONSOLE
-      </Section>
-    );
+    return <Section title="Deconstruction Menu">NO DESTRUCTIVE ANALYZER LINKED TO CONSOLE</Section>;
   }
 
   if (!loaded_item) {
-    return (
-      <Section title="Deconstruction Menu">
-        No item loaded. Standing by...
-      </Section>
-    );
+    return <Section title="Deconstruction Menu">No item loaded. Standing by...</Section>;
   }
 
   return (
@@ -60,8 +52,7 @@ export const DeconstructionMenu = (props, context) => {
             <Table.Cell header>New Level</Table.Cell>
           </Table.Row>
           {tech_levels.map(({ id, name, desc, level, object_level, icon }) => {
-            const objectLevelDefined =
-              object_level !== undefined && object_level !== null;
+            const objectLevelDefined = object_level !== undefined && object_level !== null;
             const newLevel = objectLevelDefined
               ? object_level >= level
                 ? Math.max(object_level, level + 1)
@@ -79,15 +70,9 @@ export const DeconstructionMenu = (props, context) => {
                 {objectLevelDefined ? (
                   <Table.Cell>{object_level}</Table.Cell>
                 ) : (
-                  <Table.Cell className="research-level-no-effect">
-                    -
-                  </Table.Cell>
+                  <Table.Cell className="research-level-no-effect">-</Table.Cell>
                 )}
-                <Table.Cell
-                  className={classes([newLevel !== level && 'upgraded-level'])}
-                >
-                  {newLevel}
-                </Table.Cell>
+                <Table.Cell className={classes([newLevel !== level && 'upgraded-level'])}>{newLevel}</Table.Cell>
               </Table.Row>
             );
           })}

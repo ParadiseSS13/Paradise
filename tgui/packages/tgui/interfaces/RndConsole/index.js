@@ -1,15 +1,6 @@
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
-import {
-  Box,
-  Button,
-  Icon,
-  LabeledList,
-  NoticeBox,
-  Section,
-  Table,
-  Tabs,
-} from '../../components';
+import { Box, Button, Icon, LabeledList, NoticeBox, Section, Table, Tabs } from '../../components';
 import { classes } from 'common/react';
 import { DataDiskMenu } from './DataDiskMenu';
 import { LatheMenu } from './LatheMenu';
@@ -56,19 +47,12 @@ const ConsoleTab = (props, context) => {
   const { act, data } = useBackend(context);
   const { menu: currentMenu } = data;
   const { menu, ...rest } = props;
-  return (
-    <Tab
-      selected={currentMenu === menu}
-      onClick={() => act('nav', { menu })}
-      {...rest}
-    />
-  );
+  return <Tab selected={currentMenu === menu} onClick={() => act('nav', { menu })} {...rest} />;
 };
 
 export const RndConsole = (properties, context) => {
   const { act, data } = useBackend(context);
-  const { menu, linked_destroy, linked_lathe, linked_imprinter, wait_message } =
-    data;
+  const { menu, linked_destroy, linked_lathe, linked_imprinter, wait_message } = data;
 
   return (
     <Window width={800} height={550}>
