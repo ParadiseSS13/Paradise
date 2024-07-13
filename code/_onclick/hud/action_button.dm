@@ -169,7 +169,7 @@
 	.["bg_state_active"] = "template_active"
 
 /atom/movable/screen/movable/action_button/proc/set_to_keybind(mob/user)
-	var/keybind_to_set_to = uppertext(input(user, "What keybind do you want to set this action button to?") as text)
+	var/keybind_to_set_to = tgui_input_keycombo(user, "What keybind do you want to set this action button to?")
 	if(keybind_to_set_to)
 		if(linked_keybind)
 			clean_up_keybinds(user)

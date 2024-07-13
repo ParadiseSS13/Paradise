@@ -45,7 +45,7 @@
 		if(!txt)
 			return
 		txt = copytext(txt, 1, 128)
-		if(loc == user && user.stat == 0)
+		if(loc == user && user.stat == CONSCIOUS)
 			scribble = txt
 	else if(P.get_heat())
 		burnphoto(P, user)
@@ -144,7 +144,7 @@
 		var/mob/M = usr
 		if(!is_screen_atom(over_object))
 			return ..()
-		playsound(loc, "rustle", 50, 1, -5)
+		playsound(loc, "rustle", 50, TRUE, -5)
 		if((!M.restrained() && !M.stat && M.back == src))
 			switch(over_object.name)
 				if("r_hand")
@@ -369,7 +369,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 	captureimage(target, user, flag)
 
-	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
+	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
 	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	pictures_left--
@@ -500,7 +500,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 
 	captureimage(target, user, flag)
-	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
+	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
 
 	icon_state = icon_off
 	on = FALSE
