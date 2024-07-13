@@ -588,6 +588,52 @@
 	mob_species = /datum/species/skeleton/brittle
 	mob_gender = NEUTER
 
+/datum/outfit/randomizer
+	name = "randomizer"
+
+/datum/outfit/randomizer/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	// Add picks for more slots as necessary for your needs
+	if(islist(uniform))
+		uniform = pick(uniform)
+	if(islist(shoes))
+		shoes = pick(shoes)
+
+/datum/outfit/randomizer/gambler
+	name = "gambler"
+	shoes = list(
+		/obj/item/clothing/shoes/laceup,
+		/obj/item/clothing/shoes/leather
+	)
+	uniform = list(
+		/obj/item/clothing/under/suit/navy,
+		/obj/item/clothing/under/suit/really_black,
+		/obj/item/clothing/under/suit/checkered,
+	)
+
+/obj/effect/mob_spawn/human/corpse/random_species/Initialize(mapload)
+	mob_species = pick(
+		/datum/species/human,
+		/datum/species/unathi,
+		/datum/species/moth,
+		/datum/species/skrell,
+		/datum/species/vox,
+		/datum/species/vulpkanin,
+		/datum/species/tajaran,
+		/datum/species/slime,
+		/datum/species/kidan,
+		/datum/species/drask,
+		/datum/species/grey,
+		/datum/species/diona,
+	)
+
+	return ..()
+
+/obj/effect/mob_spawn/human/corpse/random_species/gambler
+	name = "Gambler"
+	mob_name = "Gambler"
+	outfit = /datum/outfit/randomizer/gambler
+
 /obj/effect/mob_spawn/human/alive/zombie
 	name = "NPC Zombie (Infectious)"
 	icon = 'icons/mob/human.dmi'
