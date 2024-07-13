@@ -405,7 +405,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		return TRUE
 
-	var/previous_damage = obj_integrity
 	if(user.a_intent == INTENT_HELP)
 		return ..()
 	// otherwise, if the turret was attacked with the intention of harming it:
