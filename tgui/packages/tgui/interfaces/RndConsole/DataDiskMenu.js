@@ -20,11 +20,7 @@ const TechSummary = (props, context) => {
         <LabeledList.Item label="Description">{disk_data.desc}</LabeledList.Item>
       </LabeledList>
       <Box mt="10px">
-        <Button
-          content="Upload to Database"
-          icon="arrow-up"
-          onClick={() => act('updt_tech')}
-        />
+        <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_tech')} />
       </Box>
     </Box>
   );
@@ -62,11 +58,7 @@ const LatheSummary = (props, context) => {
       ))}
 
       <Box mt="10px">
-        <Button
-          content="Upload to Database"
-          icon="arrow-up"
-          onClick={() => act('updt_design')}
-        />
+        <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_design')} />
       </Box>
     </Box>
   );
@@ -79,12 +71,7 @@ const DiskSection = (props, context) => {
     <Section
       buttons={
         <>
-          <Button.Confirm
-            content="Erase"
-            icon="eraser"
-            disabled={!disk_data}
-            onClick={() => act('erase_disk')}
-          />
+          <Button.Confirm content="Erase" icon="eraser" disabled={!disk_data} onClick={() => act('erase_disk')} />
           <Button
             content="Eject"
             icon="eject"

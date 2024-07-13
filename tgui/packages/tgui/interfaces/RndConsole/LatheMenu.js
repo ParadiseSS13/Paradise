@@ -11,17 +11,9 @@ const Tab = Tabs.Tab;
 const PrinterTab = (props, context) => {
   const { act, data } = useBackend(context);
   const [act_id, currentMenu] =
-    data.menu === MENU.LATHE
-      ? ['nav_protolathe', data.submenu_protolathe]
-      : ['nav_imprinter', data.submenu_imprinter];
+    data.menu === MENU.LATHE ? ['nav_protolathe', data.submenu_protolathe] : ['nav_imprinter', data.submenu_imprinter];
   const { menu, ...rest } = props;
-  return (
-    <Tab
-      selected={currentMenu === menu}
-      onClick={() => act(act_id, { menu })}
-      {...rest}
-    />
-  );
+  return <Tab selected={currentMenu === menu} onClick={() => act(act_id, { menu })} {...rest} />;
 };
 
 const decideTab = (tab) => {
@@ -63,11 +55,7 @@ export const LatheMenu = (properties, context) => {
           Chemicals
         </PrinterTab>
       </Tabs>
-      {decideTab(
-        data.menu === MENU.LATHE
-          ? data.submenu_protolathe
-          : data.submenu_imprinter
-      )}
+      {decideTab(data.menu === MENU.LATHE ? data.submenu_protolathe : data.submenu_imprinter)}
     </Box>
   );
 };
