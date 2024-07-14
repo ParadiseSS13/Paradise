@@ -293,3 +293,4 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 	var/list/messages = owner.prepare_announce_objectives()
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
+	delayed_objectives = FALSE
