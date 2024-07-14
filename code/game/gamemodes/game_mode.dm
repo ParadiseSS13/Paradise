@@ -335,10 +335,6 @@
 		rev_team.update_team_objectives()
 		rev_team.process_promotion(REVOLUTION_PROMOTION_OPTIONAL)
 
-// The proc that is called whenever a gamemode hands out things like objectives later
-/datum/game_mode/proc/late_handout()
-	return
-
 /datum/game_mode/proc/num_players()
 	. = 0
 	for(var/mob/new_player/P in GLOB.player_list)
@@ -634,13 +630,29 @@
 /datum/game_mode/proc/traitors_to_add()
 	return 0
 
-/// Removes any deleted or gibbed traitors from the `traitors` list and returns how many have been removed from the list
 /datum/game_mode/proc/fill_antag_slots()
 	var/traitors_to_add = 0
-	for(var/datum/mind/traitor_mind as anything in traitors)
-		if(QDELETED(traitor_mind) || !traitor_mind.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
-			traitors_to_add++
-			traitors -= traitor_mind
-			continue
 
-	return traitors_to_add
+	traitors_to_add += traitors_to_add()
+
+	if(length(traitors) < traitors_to_add())
+		traitors_to_add += (traitors_to_add() - length(traitors))
+
+	if(!traitors_to_add)
+		return
+
+	var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
+	for(var/datum/mind/candidate as anything in potential_recruits)
+		if(candidate.special_role) // no traitor vampires or changelings or traitors or wizards or ... yeah you get the deal
+			potential_recruits.Remove(candidate)
+
+	if(!length(potential_recruits))
+		return
+
+	log_admin("Attempting to add [traitors_to_add] traitors to the round. There are [length(potential_recruits)] potential recruits.")
+
+	for(var/i in 1 to traitors_to_add)
+		var/datum/mind/traitor = pick_n_take(potential_recruits)
+		traitor.special_role = SPECIAL_ROLE_TRAITOR
+		traitor.restricted_roles = restricted_jobs
+		traitor.add_antag_datum(/datum/antagonist/traitor) // They immediately get a new objective

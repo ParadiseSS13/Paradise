@@ -114,47 +114,27 @@
 
 	if(length(pre_traitors))
 		var/random_time = rand(5 MINUTES, 15 MINUTES)
-		addtimer(CALLBACK(src, PROC_REF(late_handout)), random_time)
+		addtimer(CALLBACK(src, PROC_REF(fill_antag_slots)), random_time)
 
 	..()
 
 /datum/game_mode/trifecta/traitors_to_add()
+	. = 0
+	for(var/datum/mind/traitor_mind as anything in traitors)
+		if(!QDELETED(traitor_mind) && traitor_mind.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
+			continue
+		.++
+		traitors -= traitor_mind
+
 	var/extra_points = num_players_started() - cost_at_roundstart
 	if(extra_points - TOT_COST < 0)
 		return 0 // Not enough new players to add extra tots
 
-	. = 0
 	while(extra_points)
 		.++
 		if(extra_points < TOT_COST) // The leftover change is enough for us to buy another traitor with, what a deal!
 			return
 		extra_points -= TOT_COST
-
-/datum/game_mode/trifecta/late_handout()
-	var/traitors_to_add = 0
-
-	traitors_to_add += fill_antag_slots()
-
-	if(length(traitors) < traitors_to_add())
-		traitors_to_add += (traitors_to_add() - length(traitors))
-
-	if(traitors_to_add)
-		var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
-		for(var/datum/mind/candidate as anything in potential_recruits)
-			if(candidate.special_role) // no traitor vampires or changelings or traitors or wizards or ... yeah you get the deal
-				potential_recruits.Remove(candidate)
-
-		if(!length(potential_recruits))
-			return ..()
-
-		log_admin("Attempting to add [traitors_to_add] traitors to the round. There are [length(potential_recruits)] potential recruits.")
-
-		for(var/i in 1 to traitors_to_add)
-			var/datum/mind/traitor = pick_n_take(potential_recruits)
-			traitor.special_role = SPECIAL_ROLE_TRAITOR
-			traitor.restricted_roles = restricted_jobs
-			traitor.add_antag_datum(/datum/antagonist/traitor) // They immediately get a new objective
-	..()
 
 #undef TOT_COST
 #undef VAMP_COST
