@@ -476,8 +476,8 @@
 /obj/structure/barricade/foam
 	name = "foam blockage"
 	desc = "This foam blocks the airlock from being opened."
-	icon = 'icons/obj/dropwall.dmi'
-	icon_state = "south"
+	icon = 'icons/obj/foam_blobs.dmi'
+	icon_state = "foamed_1"
 	layer = DOOR_HELPER_LAYER
 	// The integrity goes up with 25 per level, with an extra 25 when going from 4 to 5
 	obj_integrity = 25
@@ -495,7 +495,7 @@
 	. += "It would need [(5 - foam_level)] more blobs of foam to fully block the airlock."
 
 /obj/structure/barricade/foam/CanPass(atom/movable/mover, turf/target)
-	return isprojectile(mover)
+	return istype(mover, /obj/item/projectile/c_foam) // Only c_foam blobs hit the airlock underneat/pass through the foam. The rest is hitting the barricade
 
 #undef SINGLE
 #undef VERTICAL

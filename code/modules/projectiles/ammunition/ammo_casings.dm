@@ -512,8 +512,8 @@
 /obj/item/ammo_casing/caseless/c_foam
 	name = "\improper C-Foam blob"
 	desc = "You shouldn't see this! Make an issue report on Github!"
-	caliber = "foam_force_sniper"
+	caliber = "c_foam"
 	projectile_type = /obj/item/projectile/c_foam
-	muzzle_flash_strength = MUZZLE_FLASH_RANGE_WEAK // Change this to not have a flash at all
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	muzzle_flash_strength = MUZZLE_FLASH_RANGE_WEAK
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
 	muzzle_flash_color = LIGHT_COLOR_DARKRED

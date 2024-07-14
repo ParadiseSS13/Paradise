@@ -1363,7 +1363,7 @@
 
 /datum/status_effect/c_foamed/on_apply()
 	. = ..()
-	foam_overlay = mutable_appearance('icons/mob/sprite_accessories/nucleation/nucleation_face.dmi', "betaburns_s")
+	foam_overlay = mutable_appearance('icons/obj/foam_blobs.dmi', "foamed_1")
 	owner.add_overlay(foam_overlay)
 	owner.next_move_modifier *= 1.5
 	owner.Slowed(10 SECONDS, 1.5)
@@ -1380,14 +1380,24 @@
 	. = ..()
 	if(--foam_level <= 0)
 		qdel(src)
+	refresh_overlay()
 
 /datum/status_effect/c_foamed/refresh()
 	. = ..()
 	// Our max slow is 50 seconds
 	foam_level = min(foam_level + 1, 5)
-	/* TODO: if sprites, add code here so the overlays will update depending on the foam level */
+
+	refresh_overlay()
+
 	if(foam_level == 5)
 		owner.Paralyse(4 SECONDS)
+
+/datum/status_effect/c_foamed/proc/refresh_overlay()
+	// Refresh overlay
+	owner.cut_overlay(foam_overlay)
+	QDEL_NULL(foam_overlay)
+	foam_overlay = mutable_appearance('icons/obj/foam_blobs.dmi', "foamed_[foam_level]")
+	owner.add_overlay(foam_overlay)
 
 /datum/status_effect/judo_armbar
 	id = "armbar"

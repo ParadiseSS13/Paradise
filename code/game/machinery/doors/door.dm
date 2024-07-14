@@ -594,7 +594,7 @@
 
 #define MAX_FOAM_LEVEL 5
 // Adds foam to the airlock, which will block it from being opened
-/obj/machinery/door/proc/foam_up(amount)
+/obj/machinery/door/proc/foam_up()
 	if(!foam_level)
 		new /obj/structure/barricade/foam(get_turf(src))
 		foam_level++
@@ -613,5 +613,7 @@
 			blockage.obj_integrity += 25
 			blockage.max_integrity += 25
 		foam_level++
+		blockage.icon_state = "foamed_[foam_level]"
+		blockage.update_icon_state()
 
 #undef MAX_FOAM_LEVEL
