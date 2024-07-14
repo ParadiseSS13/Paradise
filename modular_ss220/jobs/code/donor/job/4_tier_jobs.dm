@@ -223,7 +223,11 @@
 	. = ..()
 	if(visualsOnly)
 		return
-	H.add_language("Tradeband")
+	for(var/la in GLOB.all_languages)
+		var/datum/language/new_language = GLOB.all_languages[la]
+		if(new_language.flags & (HIVEMIND|NOLIBRARIAN|NOBABEL|WHITELISTED))
+			continue
+		H.add_language(la)
 
 
 /datum/job/donor/representative_ussp
@@ -275,8 +279,11 @@
 	. = ..()
 	if(visualsOnly)
 		return
-	H.add_language("Neo-Russkiya")
-
+	for(var/la in GLOB.all_languages)
+		var/datum/language/new_language = GLOB.all_languages[la]
+		if(new_language.flags & (HIVEMIND|NOLIBRARIAN|NOBABEL|WHITELISTED))
+			continue
+		H.add_language(la)
 
 /datum/job/donor/dealer
 	title = "Dealer"
