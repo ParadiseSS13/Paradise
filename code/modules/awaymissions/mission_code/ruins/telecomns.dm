@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	icon_state = "turretCover"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	anchored = TRUE
-	//Has someone stolen loot from the ruins core room? If they try to leave without killing dvorak, they are punished.
+	/// Has someone stolen loot from the ruins core room? If they try to leave without killing dvorak, they are punished.
 	var/thief = FALSE
 
 /obj/structure/telecomms_doomsday_device/Initialize(mapload)
