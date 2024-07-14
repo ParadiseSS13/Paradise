@@ -62,7 +62,7 @@
           - all-globs-to-all-files: '!modular_ss220/**'
       - base-branch: 'master'
 
-'Перевод':
+':pencil: Перевод':
   - base-branch: 'translate'
 
 'Фикс':
