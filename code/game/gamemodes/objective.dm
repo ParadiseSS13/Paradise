@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	/// What is the text we show when our objective is delayed?
 	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
 
-/datum/objective/New(text, datum/team/team_to_join)
+/datum/objective/New(text, datum/team/team_to_join, datum/mind/_owner)
 	. = ..()
 	SHOULD_CALL_PARENT(TRUE)
 	GLOB.all_objectives += src
@@ -46,6 +46,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = text
 	if(team_to_join)
 		team = team_to_join
+	if(_owner)
+		owner = _owner
 
 /datum/objective/Destroy()
 	GLOB.all_objectives -= src

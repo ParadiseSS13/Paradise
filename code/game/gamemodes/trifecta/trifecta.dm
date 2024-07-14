@@ -118,7 +118,7 @@
 
 	..()
 
-/datum/game_mode/trifecta/proc/traitors_to_add()
+/datum/game_mode/trifecta/traitors_to_add()
 	var/extra_points = num_players_started() - cost_at_roundstart
 	if(extra_points - TOT_COST < 0)
 		return 0 // Not enough new players to add extra tots
@@ -133,7 +133,7 @@
 /datum/game_mode/trifecta/late_handout()
 	var/traitors_to_add = 0
 
-	traitors_to_add += reveal_traitor_objectives()
+	traitors_to_add += fill_antag_slots()
 
 	if(length(traitors) < traitors_to_add())
 		traitors_to_add += (traitors_to_add() - length(traitors))

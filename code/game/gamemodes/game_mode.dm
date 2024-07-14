@@ -629,3 +629,18 @@
 	. += auto_declare_completion_revolution()
 	. += auto_declare_completion_abduction()
 	listclearnulls(.)
+
+/// Returns how many traitors should be added to the round
+/datum/game_mode/proc/traitors_to_add()
+	return 0
+
+/// Removes any deleted or gibbed traitors from the `traitors` list and returns how many have been removed from the list
+/datum/game_mode/proc/fill_antag_slots()
+	var/traitors_to_add = 0
+	for(var/datum/mind/traitor_mind as anything in traitors)
+		if(QDELETED(traitor_mind) || !traitor_mind.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
+			traitors_to_add++
+			traitors -= traitor_mind
+			continue
+
+	return traitors_to_add

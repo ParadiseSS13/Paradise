@@ -63,37 +63,39 @@
 
 		traitor.add_antag_datum(traitor_datum)
 
-/datum/game_mode/traitor/proc/traitors_to_add()
+/datum/game_mode/traitor/traitors_to_add()
 	if(GLOB.configuration.gamemode.traitor_scaling)
-		. = max(1, round((num_players())/(traitor_scaling_coeff)))
+		. = max(1, round(num_players() / traitor_scaling_coeff))
 	else
 		. = max(1, min(num_players(), traitors_possible))
 
 /datum/game_mode/traitor/late_handout()
 	var/traitors_to_add = 0
 
-	traitors_to_add += reveal_traitor_objectives()
+	traitors_to_add += fill_antag_slots()
 
 	if(length(traitors) < traitors_to_add())
 		traitors_to_add += (traitors_to_add() - length(traitors))
 
-	if(traitors_to_add)
-		var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
-		for(var/datum/mind/candidate as anything in potential_recruits)
-			if(candidate.special_role) // no traitor vampires or changelings or traitors or wizards or ... yeah you get the deal
-				potential_recruits.Remove(candidate)
+	if(!traitors_to_add)
+		return ..()
 
-		if(!length(potential_recruits))
-			return ..()
+	var/list/potential_recruits = get_alive_players_for_role(ROLE_TRAITOR)
+	for(var/datum/mind/candidate as anything in potential_recruits)
+		if(candidate.special_role) // no traitor vampires or changelings or traitors or wizards or ... yeah you get the deal
+			potential_recruits.Remove(candidate)
 
-		log_admin("Attempting to add [traitors_to_add] traitors to the round. There are [length(potential_recruits)] potential recruits.")
+	if(!length(potential_recruits))
+		return ..()
 
-		for(var/i in 1 to traitors_to_add)
-			var/datum/mind/traitor = pick_n_take(potential_recruits)
-			traitor.special_role = SPECIAL_ROLE_TRAITOR
-			traitor.restricted_roles = restricted_jobs
-			traitor.add_antag_datum(/datum/antagonist/traitor) // They immediately get a new objective
-	..()
+	log_admin("Attempting to add [traitors_to_add] traitors to the round. There are [length(potential_recruits)] potential recruits.")
+
+	for(var/i in 1 to traitors_to_add)
+		var/datum/mind/traitor = pick_n_take(potential_recruits)
+		traitor.special_role = SPECIAL_ROLE_TRAITOR
+		traitor.restricted_roles = restricted_jobs
+		traitor.add_antag_datum(/datum/antagonist/traitor) // They immediately get a new objective
+	return ..()
 
 /datum/game_mode/traitor/declare_completion()
 	..()
@@ -189,13 +191,3 @@
 					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
 
 		return text.Join("")
-
-/datum/game_mode/proc/reveal_traitor_objectives()
-	var/traitors_to_add = 0
-	for(var/datum/mind/traitor_mind as anything in traitors)
-		if(QDELETED(traitor_mind) || !traitor_mind.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
-			traitors_to_add++
-			traitors -= traitor_mind
-			continue
-
-	return traitors_to_add
