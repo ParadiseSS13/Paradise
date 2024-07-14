@@ -1521,6 +1521,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return FALSE
 	return TRUE
 
+/mob/living/silicon/ai/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
+	if(ourapc.hacked_by_ruin_AI || ourapc.aidisabled)
+		return FALSE
+	if(ourapc.malfhack && istype(ourapc.malfai) && (ourapc.malfai != src && ourapc.malfai != parent))
+		return FALSE
+	return TRUE
+
 /mob/living/silicon/ai/proc/blurb_it()
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/silicon/ai, show_ai_blurb)), 1 SECONDS)
 

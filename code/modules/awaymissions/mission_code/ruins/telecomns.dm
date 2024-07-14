@@ -501,6 +501,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/structure/environmental_storytelling_holopad/control_room/start_message(mob/living/carbon/human/H)
 	. = ..() // What, did you think they were bluffing? Woe, virus apon thee.
 	message_admins("D.V.O.R.A.K is sending an event to the station, due to a raider on their sat.")
+	log_debug("D.V.O.R.A.K is sending an event to the station, due to a raider on their sat.")
 	switch(rand(1, 8))
 		if(1)
 			new /datum/event/door_runtime()
