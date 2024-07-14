@@ -38,6 +38,15 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
+/datum/outfit/job/donor/vip_guest/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	for(var/la in GLOB.all_languages)
+		var/datum/language/new_language = GLOB.all_languages[la]
+		if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
+			continue
+		H.add_language(la)
 
 /datum/job/donor/banker
 	title = "Banker"
