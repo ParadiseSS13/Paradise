@@ -1,39 +1,72 @@
 'TGUI':
-  - 'tgui/**'
+  - changed-files:
+      - any-glob-to-any-file: ['tgui/**']
 
 'Звук':
-  - '**/*.ogg'
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.ogg']
 
 'Изменение Карты':
-  - '**/*.dmm'
-
-'Инструменты':
-  - '.gihub/workflows/**'
-  - 'tools/**'
-
-'Керберос':
-  - '_maps/map_files220/stations/deltastation.dmm'
+  - all:
+      - changed-files:
+          - any-glob-to-any-file: ['**/*.dmm']
+          - all-globs-to-all-files: ['!_maps/map_files220/stations/*.dmm']
 
 'Кибериада':
-  - '_maps/map_files220/stations/boxstation.dmm'
+  - changed-files:
+      - any-glob-to-any-file: ['_maps/map_files220/stations/boxstation.dmm']
+
+'Керберос':
+  - changed-files:
+      - any-glob-to-any-file: ['_maps/map_files220/stations/deltastation.dmm']
 
 'Цереброн':
-  - '_maps/map_files220/stations/metastation.dmm'
+  - changed-files:
+      - any-glob-to-any-file: ['_maps/map_files220/stations/metastation.dmm']
 
-'НЕ МОДУЛЬНО':
-  - all: ['code/**']
+'Фаррагус':
+  - changed-files:
+      - any-glob-to-any-file: ['_maps/map_files220/stations/cerestation.dmm']
 
 'Спрайты':
-  - '**/*.dmi'
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.dmi']
+
+'Инструменты':
+  - changed-files:
+      - any-glob-to-any-file: ['.gihub/workflows/**', 'tools/**']
 
 'Требуется изменение конфига':
-  - 'config/**'
+  - changed-files:
+      - any-glob-to-any-file: ['config/**']
 
 'Документация':
-  - '**/*.md'
-
-'Частичная модульность':
-  - all: ['code/**', modular_ss220/**]
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.md']
 
 'SQL':
-  - 'SQL/**'
+  - changed-files:
+      - any-glob-to-any-file: ['SQL/**']
+
+'Частичная модульность':
+  - all:
+      - changed-files:
+          - any-glob-to-any-file: ['code/**']
+          - any-glob-to-any-file: [modular_ss220/**]
+      - base-branch: 'master'
+
+'НЕ МОДУЛЬНО':
+  - all:
+      - changed-files:
+          - any-glob-to-any-file: ['code/**', 'icons/**', '_maps/map_files/**']
+          - all-globs-to-all-files: '!modular_ss220/**'
+      - base-branch: 'master'
+
+'Перевод':
+  - base-branch: 'translate'
+
+'Фикс':
+  - head-branch: ['^fix', 'fix']
+
+':trollface: Фича':
+  - head-branch: ['^feat', 'feat']
