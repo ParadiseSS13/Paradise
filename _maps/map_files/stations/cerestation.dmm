@@ -16218,7 +16218,6 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/maintenance/starboard)
@@ -23103,9 +23102,7 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/item/radio{
-	pixel_y = 0
-	},
+/obj/item/radio,
 /obj/item/radio{
 	pixel_x = -5;
 	pixel_y = 4
@@ -23676,8 +23673,7 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/fore/east)
 "cIq" = (
@@ -26575,7 +26571,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrowncorners"
 	},
 /area/station/supply/office)
@@ -29871,8 +29866,7 @@
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/fore/east)
 "dtF" = (
@@ -36243,8 +36237,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/fore/east)
 "fdD" = (
@@ -38061,8 +38054,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/supply/lobby)
 "fNC" = (
@@ -38862,8 +38854,7 @@
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/supply/lobby)
 "fZC" = (
@@ -39945,6 +39936,9 @@
 /obj/effect/spawner/airlock,
 /turf/simulated/mineral/ancient/outer,
 /area/station/hallway/primary/fore/west)
+"gve" = (
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/mine/unexplored/cere/orbiting)
 "gvj" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -41505,8 +41499,7 @@
 /obj/item/hand_labeler,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/supply/lobby)
 "gVK" = (
@@ -42398,9 +42391,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "hkF" = (
-/obj/structure/chair/office/dark{
-	dir = 2
-	},
+/obj/structure/chair/office/dark,
 /obj/effect/landmark/start/cargo_technician,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -42484,8 +42475,7 @@
 /area/station/maintenance/fpmaint)
 "hlC" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/supply/lobby)
 "hlH" = (
@@ -43707,8 +43697,7 @@
 /area/station/medical/reception)
 "hFO" = (
 /obj/machinery/conveyor/west{
-	id = "QMLoad";
-	dir = 8
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -46275,6 +46264,12 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
+"irS" = (
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/starboard)
 "irU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -46837,7 +46832,6 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkredcheck"
 	},
 /area/station/public/quantum/cargo)
@@ -47664,7 +47658,10 @@
 "iON" = (
 /obj/structure/closet,
 /obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkbrown"
+	},
 /area/station/maintenance/starboard)
 "iOP" = (
 /obj/structure/cable/orange{
@@ -48415,8 +48412,7 @@
 "iZB" = (
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/fore/east)
 "iZC" = (
@@ -48533,8 +48529,7 @@
 	},
 /obj/effect/landmark/start/assistant,
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/supply/lobby)
 "jaB" = (
@@ -50099,6 +50094,12 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"jyx" = (
+/obj/structure/sign/directions/cargo{
+	dir = 8
+	},
+/turf/simulated/wall,
+/area/station/maintenance/starboard)
 "jyK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -50643,8 +50644,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/supply/qm)
 "jFx" = (
@@ -53782,9 +53782,7 @@
 	},
 /area/station/service/theatre)
 "kHz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
 "kHN" = (
@@ -53950,7 +53948,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/storage)
@@ -55811,7 +55808,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/expedition)
@@ -58006,7 +58002,6 @@
 "lSK" = (
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/office)
@@ -58144,8 +58139,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	name = "Storefront Shutters";
-	id_tag = "store2";
-	dir = 4
+	id_tag = "store2"
 	},
 /obj/machinery/door/window{
 	dir = 8
@@ -58421,8 +58415,7 @@
 "lZH" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/machinery/camera{
-	c_tag = "Cargo Hallway";
-	dir = 2
+	c_tag = "Cargo Hallway"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -61885,8 +61878,7 @@
 	pixel_y = 3
 	},
 /obj/item/stack/sheet/metal/fifty{
-	pixel_x = 4;
-	pixel_y = 0
+	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -62638,8 +62630,7 @@
 /area/station/maintenance/starboard)
 "nuO" = (
 /obj/machinery/conveyor/west{
-	id = "QMLoad";
-	dir = 8
+	id = "QMLoad"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -63231,8 +63222,7 @@
 /obj/machinery/power/apc/directional/south,
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/supply/lobby)
 "nEL" = (
@@ -63717,7 +63707,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/storage)
@@ -65736,7 +65725,6 @@
 /area/station/engineering/control)
 "ott" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/office)
@@ -66016,7 +66004,6 @@
 /obj/effect/turf_decal/loading_area,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/office)
@@ -67404,7 +67391,6 @@
 /area/station/maintenance/gambling_den)
 "oWg" = (
 /obj/machinery/conveyor{
-	dir = 2;
 	id = "CargoWaste"
 	},
 /turf/simulated/floor/plasteel{
@@ -67993,7 +67979,6 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/storage)
@@ -69167,7 +69152,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/office)
@@ -69921,6 +69905,13 @@
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
+"pLe" = (
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbrown"
+	},
+/area/station/maintenance/starboard)
 "pLi" = (
 /obj/structure/morgue,
 /obj/machinery/light/small{
@@ -72353,10 +72344,10 @@
 /area/station/command/teleporter)
 "quO" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	dir = 1;
+	icon_state = "darkbrowncorners"
 	},
-/area/station/hallway/primary/fore/east)
+/area/station/maintenance/starboard)
 "quW" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating{
@@ -72951,7 +72942,6 @@
 /area/station/service/bar)
 "qFc" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrowncorners"
 	},
 /area/station/supply/office)
@@ -73882,7 +73872,6 @@
 /obj/structure/closet/emcloset,
 /obj/machinery/camera{
 	c_tag = "Cargo Northern Loading Bay";
-	dir = 2;
 	network = list("SS13","QM")
 	},
 /turf/simulated/floor/plasteel{
@@ -76098,7 +76087,6 @@
 /obj/structure/closet/secure_closet/explorer,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/expedition)
@@ -76925,7 +76913,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/expedition)
@@ -79349,8 +79336,7 @@
 "sLf" = (
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/supply/lobby)
 "sLg" = (
@@ -80926,8 +80912,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/supply/lobby)
 "tjT" = (
@@ -81470,6 +81455,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
+"ttn" = (
+/obj/effect/spawner/random_spawners/dirt_frequent,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkbrown"
+	},
+/area/station/maintenance/starboard)
 "ttA" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Equipment Storage"
@@ -82069,6 +82061,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/station/service/library)
+"tCX" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/rack,
+/obj/item/storage/backpack/satchel/explorer,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/starboard)
 "tDj" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/light/small{
@@ -83825,7 +83825,6 @@
 /area/station/medical/break_room)
 "uhG" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/storage)
@@ -92789,9 +92788,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/structure/disposaloutlet{
-	dir = 2
-	},
+/obj/structure/disposaloutlet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -93324,7 +93321,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrown"
 	},
 /area/station/supply/storage)
@@ -93639,7 +93635,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkbrowncorners"
 	},
 /area/station/supply/storage)
@@ -95449,8 +95444,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner";
-	dir = 2
+	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/fore/east)
 "xyC" = (
@@ -96112,7 +96106,10 @@
 /obj/structure/closet/crate/internals,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkbrown"
+	},
 /area/station/maintenance/starboard)
 "xGD" = (
 /obj/structure/table,
@@ -146469,7 +146466,7 @@ atI
 atI
 fKz
 fmI
-quO
+ozP
 hrC
 ozP
 ozP
@@ -146726,7 +146723,7 @@ fmI
 fmI
 fmI
 fmI
-quO
+ozP
 cYb
 mrR
 mrR
@@ -146971,16 +146968,16 @@ vdj
 aRx
 rse
 fdt
-quO
-quO
-quO
-quO
+ozP
+ozP
+ozP
+ozP
 cIn
 xyy
-quO
-quO
-quO
-quO
+ozP
+ozP
+ozP
+ozP
 dtD
 fdt
 iZB
@@ -153941,7 +153938,7 @@ rNK
 rNK
 rNK
 vuM
-fqw
+jyx
 sWr
 gSQ
 itf
@@ -154701,17 +154698,17 @@ cpC
 hqL
 mdT
 oSN
-umz
+fCP
 gSQ
-fsV
-rtW
+gSQ
+tCX
 xAK
 xgI
 pBH
 pgK
 xAK
 vmQ
-umz
+pLe
 fCP
 xAV
 xEZ
@@ -154960,7 +154957,7 @@ mdT
 rWb
 xia
 gSQ
-itf
+fsV
 fqw
 alc
 alc
@@ -155483,7 +155480,7 @@ vFD
 lif
 alc
 alc
-gFg
+irS
 xAV
 gSQ
 hbp
@@ -155730,7 +155727,7 @@ shX
 xdi
 rIu
 alc
-alc
+gSQ
 gSQ
 gSQ
 alc
@@ -155739,7 +155736,7 @@ amP
 alc
 alc
 alc
-gFg
+ttn
 gFg
 xAV
 umz
@@ -155996,7 +155993,7 @@ mwN
 pWy
 alc
 iON
-gFg
+quO
 gFg
 jNU
 luZ
@@ -156252,7 +156249,7 @@ gpB
 uda
 umz
 alc
-gSQ
+pLe
 gFg
 jft
 jft
@@ -156509,8 +156506,8 @@ alc
 alc
 aYL
 alc
-gSQ
-jft
+umz
+gve
 jft
 jft
 pvf
@@ -156766,8 +156763,8 @@ bfF
 bqf
 umz
 umz
-gSQ
-jft
+vHH
+gve
 jft
 heo
 obE
