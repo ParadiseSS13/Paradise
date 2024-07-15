@@ -61855,7 +61855,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/meeting_room)
 "isD" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "isK" = (
@@ -68224,7 +68224,7 @@
 "lAc" = (
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -91217,7 +91217,7 @@
 "wTH" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "wTO" = (
