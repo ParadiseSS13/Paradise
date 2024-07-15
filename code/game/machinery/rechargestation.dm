@@ -201,7 +201,6 @@
 	var/can_accept_user
 	if(isrobot(target))
 		var/mob/living/silicon/robot/R = target
-
 		if(occupant)
 			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
 			return
