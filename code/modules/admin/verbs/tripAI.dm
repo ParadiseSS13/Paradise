@@ -12,7 +12,7 @@
 			to_chat(usr, "Unable to locate the AI job")
 			return
 		if(HAS_TRAIT(SSstation, STATION_TRAIT_TRIAI))
-			to_chat(usr, "<span class='danger'>The triple AI station trait is activated. If you wished to turn on this mode, it is already enabled. If you wish to disable it, revert the trait in Modify Station Traits.</span>")
+			to_chat(usr, "<span class='danger'>The triple AI station trait is now enabled. This trait can be disabled in the Modify Station Traits menu.</span>")
 			return
 
 		if(SSticker.triai)
