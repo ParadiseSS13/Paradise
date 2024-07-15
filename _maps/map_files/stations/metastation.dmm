@@ -26338,9 +26338,6 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/camera{
-	c_tag = "Expedition"
-	},
 /obj/machinery/mineral/equipment_vendor/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -26898,10 +26895,8 @@
 /area/station/supply/expedition)
 "bSp" = (
 /obj/machinery/camera{
-	c_tag = "Research Test Lab North";
-	dir = 8;
-	network = list("RD","SS13");
-	pixel_y = -22
+	c_tag = "Expedition";
+	dir = 9
 	},
 /obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel{
