@@ -176,7 +176,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 57
+sql_version = 58
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -594,7 +594,7 @@ crawling_speed_reduction = 4
 # Move delay for humanoids
 human_delay = 1.5
 # Move delay for cyborgs
-robot_delay = 2.5
+robot_delay = 1.5
 # Move delay for xenomorphs
 alien_delay = 1.5
 # Move delay for slimes (xenobio, not slimepeople)

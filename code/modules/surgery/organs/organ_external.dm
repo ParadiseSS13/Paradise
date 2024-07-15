@@ -711,7 +711,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(!length(contents))
 			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
 			return
-		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 		user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
 			"<span class='notice'>You begin to cut open [src]...</span>")
 		if(do_after(user, 5.4 SECONDS, target = src))
