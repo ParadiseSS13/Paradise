@@ -78,7 +78,7 @@
 
 /datum/objective_holder/proc/add_objective(datum/objective/Objective, _explanation_text, mob/target_override, add_to_list = TRUE, datum/mind/owner_override)
 	if(ispath(Objective))
-		Objective = new Objective(_owner = (owner_override ? owner_override : null))
+		Objective = new Objective(_owner = owner_override)
 
 	Objective.holder = src
 
