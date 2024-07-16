@@ -29,7 +29,7 @@
 		return
 	if(istype(W, /obj/item/mop))
 		var/obj/item/mop/attacking_mop = W
-		if(attacking_mop.reagents.total_volume < M.reagents.maximum_volume)
+		if(attacking_mop.reagents.total_volume < attacking_mop.reagents.maximum_volume)
 			attacking_mop.wet_mop(src, user)
 			return
 
