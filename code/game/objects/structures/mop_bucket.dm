@@ -23,20 +23,25 @@
 	GLOB.janitorial_equipment -= src
 	return ..()
 
-/obj/structure/mopbucket/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/mopbucket/attackby(obj/item/W, mob/user, params)
 	if(W.is_robot_module())
 		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
 		return
 	if(istype(W, /obj/item/mop))
-		var/obj/item/mop/M = W
-		if(M.reagents.total_volume < M.reagents.maximum_volume)
-			M.wet_mop(src, user)
+		var/obj/item/mop/attacking_mop = W
+		if(attacking_mop.reagents.total_volume < M.reagents.maximum_volume)
+			attacking_mop.wet_mop(src, user)
 			return
-		if(!stored_mop)
-			M.mopbucket_insert(user, src)
+
+		if(!user.unEquip(attacking_mop))
+			to_chat(user, "<span class='notice'>[attacking_mop] is stuck to your hand!</span>")
 			return
-		to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")
-		return
+
+		if(!stored_mop && user.unEquip(attacking_mop))
+			attacking_mop.mopbucket_insert(user, src)
+			return
+
+		to_chat(user, "<span class='notice'>There is already a mop in the mopbucket.</span>")
 
 /obj/structure/mopbucket/proc/put_in_cart(obj/item/mop/I, mob/user)
 	user.drop_item()
