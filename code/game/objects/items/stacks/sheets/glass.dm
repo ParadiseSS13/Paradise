@@ -254,7 +254,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 //////////////////////////////
 /obj/item/stack/sheet/titaniumglass
 	name = "titanium glass"
-	desc = "A glass sheet made out of a titanium-silica mixture."
+	desc = "A glass sheet made out of titanium silicate."
 	singular_name = "titanium glass sheet"
 	icon_state = "sheet-titaniumglass"
 	item_state = "sheet-titaniumglass"
