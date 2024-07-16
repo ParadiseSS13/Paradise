@@ -9,6 +9,11 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/suit.dmi'
 		)
 
+/obj/item/clothing/under/suit/Initialize(mapload)
+	. = ..()
+	// better than nothing! ghetto surgery time
+	AddComponent(/datum/component/surgery_initiator/cloth, null, 0.1)
+
 /obj/item/clothing/under/suit/black
 	name = "black suit"
 	desc = "A black suit and red tie. Very formal."

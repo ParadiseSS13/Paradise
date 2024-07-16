@@ -294,8 +294,6 @@
 	if(isalien(target))
 		knockdown = 0
 		nodamage = TRUE
-	if(isrobot(target))
-		stun = 10 SECONDS
 	. = ..() // Execute the rest of the code.
 
 /obj/item/projectile/bullet/anti_alien_toxin

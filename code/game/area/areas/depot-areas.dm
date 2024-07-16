@@ -286,7 +286,7 @@
 		var/log_msg = "[key_name(user)] has triggered the depot self destruct at [A.name] ([T.x],[T.y],[T.z])"
 		message_admins(log_msg)
 		log_game(log_msg)
-		playsound(user, 'sound/machines/alarm.ogg', 100, 0, 0)
+		playsound(user, 'sound/machines/alarm.ogg', 100, FALSE, 0)
 	else
 		log_game("Depot self destruct activated.")
 	if(reactor)

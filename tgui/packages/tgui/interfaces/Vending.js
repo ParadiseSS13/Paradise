@@ -5,14 +5,7 @@ import { Window } from '../layouts';
 const VendingRow = (props, context) => {
   const { act, data } = useBackend(context);
   const { product, productStock, productImage } = props;
-  const {
-    chargesMoney,
-    user,
-    usermoney,
-    inserted_cash,
-    vend_ready,
-    inserted_item_name,
-  } = data;
+  const { chargesMoney, user, usermoney, inserted_cash, vend_ready, inserted_item_name } = data;
   const free = !chargesMoney || product.price === 0;
   let buttonText = 'ERROR!';
   let rowIcon = '';
@@ -24,9 +17,7 @@ const VendingRow = (props, context) => {
     rowIcon = 'shopping-cart';
   }
   let buttonDisabled =
-    !vend_ready ||
-    productStock === 0 ||
-    (!free && product.price > usermoney && product.price > inserted_cash);
+    !vend_ready || productStock === 0 || (!free && product.price > usermoney && product.price > inserted_cash);
   return (
     <Table.Row>
       <Table.Cell collapsing>
@@ -42,13 +33,7 @@ const VendingRow = (props, context) => {
       </Table.Cell>
       <Table.Cell bold>{product.name}</Table.Cell>
       <Table.Cell collapsing textAlign="center">
-        <Box
-          color={
-            (productStock <= 0 && 'bad') ||
-            (productStock <= product.max_amount / 2 && 'average') ||
-            'good'
-          }
-        >
+        <Box color={(productStock <= 0 && 'bad') || (productStock <= product.max_amount / 2 && 'average') || 'good'}>
           {productStock} in stock
         </Box>
       </Table.Cell>
@@ -113,11 +98,7 @@ export const Vending = (props, context) => {
                         <Button
                           fluid
                           icon="eject"
-                          content={
-                            <span style={{ 'text-transform': 'capitalize' }}>
-                              {inserted_item_name}
-                            </span>
-                          }
+                          content={<span style={{ 'text-transform': 'capitalize' }}>{inserted_item_name}</span>}
                           onClick={() => act('eject_item', {})}
                         />
                       )}
@@ -126,13 +107,7 @@ export const Vending = (props, context) => {
                       <Button
                         disabled={!inserted_cash}
                         icon="money-bill-wave-alt"
-                        content={
-                          inserted_cash ? (
-                            <>{<b>{inserted_cash}</b>} credits</>
-                          ) : (
-                            'Dispense Change'
-                          )
-                        }
+                        content={inserted_cash ? <>{<b>{inserted_cash}</b>} credits</> : 'Dispense Change'}
                         tooltip={inserted_cash ? 'Dispense Change' : null}
                         textAlign="left"
                         onClick={() => act('change')}
@@ -143,8 +118,7 @@ export const Vending = (props, context) => {
               >
                 {user && (
                   <Box>
-                    Welcome, <b>{user.name}</b>,{' '}
-                    <b>{user.job || 'Unemployed'}</b>!
+                    Welcome, <b>{user.name}</b>, <b>{user.job || 'Unemployed'}</b>!
                     <br />
                     Your balance is <b>{usermoney} credits</b>.
                     <br />
