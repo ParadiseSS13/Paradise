@@ -89584,6 +89584,11 @@
 /area/station/ai_monitored/storage/eva)
 "vjN" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
