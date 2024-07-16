@@ -59,10 +59,13 @@
  * Replace old_objective with new_objective
  */
 /datum/objective_holder/proc/replace_objective(datum/objective/old_objective, datum/objective/new_objective)
-	new_objective = add_objective(new_objective, add_to_list = FALSE, owner_override = old_objective.owner)
+	if(ispath(new_objective))
+		new_objective = new()
+	new_objective.owner = old_objective.owner
 	new_objective.team = old_objective.team
-	if(new_objective.needs_target && !new_objective.found_target())
-		handle_objective(new_objective)
+
+	new_objective = add_objective(new_objective, add_to_list = FALSE)
+
 	// Replace where the old objective was, with the new one
 	objectives.Insert(objectives.Find(old_objective), new_objective)
 	remove_objective(old_objective)
@@ -76,9 +79,9 @@
  * * add_to_list - Do we add the new objective to our list? Or will it be handled elsewhere (like replace_objective). Should not be set to false outside of this file.
  */
 
-/datum/objective_holder/proc/add_objective(datum/objective/Objective, _explanation_text, mob/target_override, add_to_list = TRUE, datum/mind/owner_override)
+/datum/objective_holder/proc/add_objective(datum/objective/Objective, _explanation_text, mob/target_override, add_to_list = TRUE)
 	if(ispath(Objective))
-		Objective = new Objective(_owner = owner_override)
+		Objective = new Objective()
 
 	Objective.holder = src
 
