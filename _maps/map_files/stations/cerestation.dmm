@@ -83364,10 +83364,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"tnK" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
-/turf/simulated/wall,
-/area/station/science/misc_lab)
 "tnL" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -122048,7 +122044,7 @@ kyW
 wQY
 xPU
 uwd
-tnK
+uwd
 qnS
 sKo
 pon
@@ -123846,7 +123842,7 @@ xIa
 xIa
 xIa
 xPU
-ftr
+sKo
 ftr
 uUm
 lMW
