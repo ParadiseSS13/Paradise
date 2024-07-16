@@ -49338,6 +49338,15 @@
 	icon_state = "dark"
 	},
 /area/station/service/library)
+"iPr" = (
+/obj/item/clothing/head/soft/white,
+/obj/item/clothing/shoes/white,
+/obj/item/clothing/under/color/white,
+/obj/item/beach_ball/baseball,
+/obj/item/melee/baseball_bat,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "iPU" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -121786,8 +121795,8 @@ xPU
 xPU
 xPU
 xPU
-pon
-pon
+cGd
+cGd
 pWf
 cfN
 pon
@@ -122043,8 +122052,8 @@ kPP
 kyW
 wQY
 xPU
-uwd
-uwd
+iPr
+ftr
 qnS
 sKo
 pon
