@@ -17257,9 +17257,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port)
 "blY" = (
-/obj/machinery/status_display{
-	layer = 4
-	},
+/obj/machinery/status_display,
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "bridge blast north";
@@ -96707,9 +96705,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/warden)
 "vBK" = (
-/obj/machinery/status_display{
-	layer = 4
-	},
+/obj/machinery/status_display,
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "bridge blast north";

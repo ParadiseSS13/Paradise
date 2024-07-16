@@ -2297,10 +2297,6 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/entry)
-"apj" = (
-/obj/machinery/ai_status_display,
-/turf/simulated/wall,
-/area/station/hallway/secondary/entry)
 "apk" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
@@ -149806,7 +149802,7 @@ acC
 ant
 rJt
 aow
-apj
+apk
 aqa
 aqV
 arO
