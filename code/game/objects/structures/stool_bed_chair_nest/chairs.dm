@@ -33,7 +33,7 @@
 		qdel(src)
 
 /obj/structure/chair/Move(atom/newloc, direct)
-	..()
+	. = ..()
 	handle_rotation()
 
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -263,7 +263,7 @@
 			buckled_mob.Weaken(12 SECONDS)
 			buckled_mob.Stuttering(12 SECONDS)
 			buckled_mob.take_organ_damage(10)
-			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
+			playsound(loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 			buckled_mob.visible_message("<span class='danger'>[buckled_mob] crashed into [A]!</span>")
 
 /obj/structure/chair/office/light
@@ -545,7 +545,7 @@
 			if(C.health < C.maxHealth*0.5)
 				C.Weaken(12 SECONDS)
 				C.Stuttering(12 SECONDS)
-				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
+				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 		smash(user)
 
 /obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)

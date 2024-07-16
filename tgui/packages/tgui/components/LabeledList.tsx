@@ -50,11 +50,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
   } = props;
   let listItem = (
     <tr className={classes(['LabeledList__row', className])}>
-      <Box
-        as="td"
-        color={labelColor}
-        className={classes(['LabeledList__cell', 'LabeledList__label'])}
-      >
+      <Box as="td" color={labelColor} className={classes(['LabeledList__cell', 'LabeledList__label'])}>
         {label ? label + ':' : null}
       </Box>
       <Box
@@ -68,9 +64,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         {content}
         {children}
       </Box>
-      {buttons && (
-        <td className="LabeledList__cell LabeledList__buttons">{buttons}</td>
-      )}
+      {buttons && <td className="LabeledList__cell LabeledList__buttons">{buttons}</td>}
     </tr>
   );
 
