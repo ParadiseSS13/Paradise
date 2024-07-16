@@ -1,6 +1,6 @@
 /datum/spell/alien_spell/plant_weeds
 	name = "Plant weeds"
-	desc = "Allows you to plant some alien weeds on the floor below you. Does not work while in space."
+	desc = "Allows you to plant some alien weeds on the floor below you. Does not work while in space. Consumes 50 plasma."
 	plasma_cost = 50
 	var/atom/weed_type = /obj/structure/alien/weeds/node
 	var/weed_name = "alien weed node"

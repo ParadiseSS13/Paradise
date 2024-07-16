@@ -1,6 +1,6 @@
 /datum/spell/touch/alien_spell/corrosive_acid
 	name = "Corrosive acid"
-	desc = "Spit acid on someone in range, this acid melts through nearly anything and heavily damages anyone lacking proper safety equipment."
+	desc = "Spit acid on someone in range, this acid melts through nearly anything and heavily damages anyone lacking proper safety equipment. Consumes 200 plasma."
 	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid"
 	action_icon_state = "alien_acid"
 	plasma_cost = 200
@@ -34,7 +34,7 @@
 
 /datum/spell/touch/alien_spell/burning_touch
 	name = "Blazing touch"
-	desc = "Boil acid within your hand to burn through anything you touch with it, deals a lot of damage to aliens and destroys resin structures instantly."
+	desc = "Boil acid within your hand to burn through anything you touch with it, deals a lot of damage to aliens and destroys resin structures instantly. Consumes 100 plasma."
 	hand_path = "/obj/item/melee/touch_attack/alien/burning_touch"
 	action_icon_state = "alien_acid"
 	plasma_cost = 100

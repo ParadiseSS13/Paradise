@@ -5,7 +5,7 @@
 
 /datum/spell/alien_spell/build_resin
 	name = "Build Resin Structure"
-	desc = "Allows you to create resin structures. Does not work while in space."
+	desc = "Allows you to create resin structures. Does not work while in space. Consumes 55 plasma."
 	plasma_cost = 55
 	action_icon_state = "alien_resin"
 
@@ -47,7 +47,7 @@
 
 /datum/spell/touch/alien_spell/consume_resin
 	name = "Consume resin structures"
-	desc = "Allows you to rip and tear straight through resin structures."
+	desc = "Allows you to rip and tear straight through resin structures. Consumes 10 plasma."
 	action_icon_state = "alien_resin"
 	hand_path = "/obj/item/melee/touch_attack/alien/consume_resin"
 	plasma_cost = 10

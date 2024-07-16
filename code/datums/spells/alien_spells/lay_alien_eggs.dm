@@ -1,6 +1,6 @@
 /datum/spell/alien_spell/plant_weeds/eggs
 	name = "Plant alien eggs"
-	desc = "Allows you to plant alien eggs on your current turf, does not work while in space."
+	desc = "Allows you to plant alien eggs on your current turf, does not work while in space. Consumes 75 plasma."
 	plasma_cost = 75
 	weed_type = /obj/structure/alien/egg
 	weed_name = "alien egg"
@@ -9,7 +9,7 @@
 
 /datum/spell/alien_spell/combust_facehuggers
 	name = "Combust facehuggers and eggs"
-	desc = "Take over the programming of facehuggers and eggs, sending out a shockwave which causes them to combust."
+	desc = "Take over the programming of facehuggers and eggs, sending out a shockwave which causes them to combust. Consumes 25 plasma."
 	plasma_cost = 25
 	action_icon_state = "alien_egg"
 	base_cooldown = 3 SECONDS
