@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/pipe
-	var/datum/gas_mixture/air_temporary //used when reconstructing a pipeline that broke
+	var/datum/gas_mixture/ghost_pipeline // used when reconstructing a pipeline that broke
 	var/datum/pipeline/parent
 	var/volume = 0
 	force = 20
@@ -23,7 +23,10 @@
 
 /obj/machinery/atmospherics/pipe/Destroy()
 	var/turf/T = get_turf(src)
-	T.blind_release_air(air_temporary)
+	if(ghost_pipeline)
+		var/datum/gas_mixture/ghost_copy = new()
+		ghost_copy.copy_from(ghost_pipeline)
+		T.blind_release_air(ghost_copy.remove(volume / ghost_pipeline.volume))
 
 	for(var/obj/machinery/atmospherics/meter/meter in T)
 		if(meter.target == src)
