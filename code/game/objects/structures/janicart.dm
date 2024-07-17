@@ -34,7 +34,7 @@
 	QDEL_NULL(myreplacer)
 	return ..()
 
-/obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
+/obj/structure/janitorialcart/proc/put_in_cart(mob/user, obj/item/I)
 	user.drop_item()
 	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
@@ -55,30 +55,30 @@
 			M.wet_mop(src, user)
 			return
 		if(!mymop)
-			put_in_cart(user, src)
+			put_in_cart(user, I)
 			return
 		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
 
 	else if(istype(I, /obj/item/push_broom) && !mybroom)
 		mybroom = I
-		put_in_cart(user, src)
+		put_in_cart(user, I)
 
 	else if(istype(I, /obj/item/storage/bag/trash) && !mybag)
 		mybag = I
-		put_in_cart(user, src)
+		put_in_cart(user, I)
 
 	else if(istype(I, /obj/item/reagent_containers/spray/cleaner) && !myspray)
 		myspray = I
-		put_in_cart(I, user)
+		put_in_cart(user, I)
 
 	else if(istype(I, /obj/item/lightreplacer) && !myreplacer)
 		myreplacer = I
-		put_in_cart(user,src)
+		put_in_cart(user, I)
 
 	else if(istype(I, /obj/item/caution))
 		if(signs < max_signs)
 			signs++
-			put_in_cart(I, user)
+			put_in_cart(user, I)
 		else
 			to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
 
