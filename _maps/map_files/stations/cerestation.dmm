@@ -65799,7 +65799,7 @@
 	name = "Cargo Desk";
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mining{
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
