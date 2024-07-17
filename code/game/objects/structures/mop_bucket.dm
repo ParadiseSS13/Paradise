@@ -37,7 +37,7 @@
 			to_chat(user, "<span class='notice'>[attacking_mop] is stuck to your hand!</span>")
 			return
 
-		if(!stored_mop && user.unEquip(attacking_mop))
+		if(!stored_mop)
 			attacking_mop.mopbucket_insert(user, src)
 			return
 
