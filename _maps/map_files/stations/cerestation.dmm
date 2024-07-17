@@ -12370,9 +12370,6 @@
 	c_tag = "Research Treatment Center";
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -23136,7 +23133,7 @@
 /area/station/maintenance/fore2)
 "cxV" = (
 /obj/effect/turf_decal/delivery/white/hollow,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/junction/reversed,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -66465,7 +66462,10 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "odl" = (
-/obj/effect/turf_decal/delivery/white/hollow,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -96958,6 +96958,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/port/north)
+"xmd" = (
+/obj/effect/turf_decal/delivery/white/hollow,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/station/hallway/primary/aft/west)
 "xmk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -121183,7 +121192,7 @@ uOP
 dWM
 idI
 dnS
-jRs
+xmd
 pYu
 qxn
 oYZ
