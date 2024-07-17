@@ -37,6 +37,10 @@
 			to_chat(user, "<span class='notice'>[attacking_mop] is stuck to your hand!</span>")
 			return
 
+		if(istype(attacking_mop, /obj/item/mop/advanced/cyborg))
+			to_chat(user, "<span class='notice'>[attacking_mop] cannot be removed from you!</span>")
+			return
+
 		if(!stored_mop)
 			mopbucket_insert(user, attacking_mop)
 			return
