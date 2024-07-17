@@ -35,7 +35,8 @@
 			mopbucket_insert(user, O)
 		if(istype(O, /obj/structure/janitorialcart))
 			var/obj/structure/janitorialcart/janicart = O
-			janicart.put_in_cart(user, O)
+			if(!janicart.mymop)
+				janicart.put_in_cart(user, src)
 		return
 
 	O.reagents.trans_to(src, 6)

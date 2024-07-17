@@ -58,6 +58,7 @@
 			M.wet_mop(src, user)
 			return
 		if(!mymop)
+			mymop = I
 			put_in_cart(user, I)
 			return
 		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
