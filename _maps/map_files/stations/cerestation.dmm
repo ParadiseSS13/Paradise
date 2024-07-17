@@ -58470,8 +58470,7 @@
 /area/station/legal/magistrate)
 "lxi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "lxm" = (
@@ -59194,6 +59193,10 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/hallway/spacebridge/scidock)
+"lHD" = (
+/obj/effect/spawner/random_spawners/fungus_maybe,
+/turf/simulated/wall,
+/area/station/maintenance/electrical_shop)
 "lHG" = (
 /mob/living/carbon/human/monkey/teeny,
 /obj/structure/cable/orange{
@@ -60326,11 +60329,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
-"maf" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/station/maintenance/electrical_shop)
 "maq" = (
 /obj/structure/table/wood,
 /obj/item/camera_film,
@@ -76424,6 +76422,9 @@
 	icon_state = "asteroidplating"
 	},
 /area/mine/unexplored/cere/research)
+"raX" = (
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/electrical_shop)
 "rbj" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -82941,6 +82942,7 @@
 	pixel_y = -3;
 	pixel_x = 3
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
@@ -127893,7 +127895,7 @@ caM
 yiT
 aTT
 sKh
-yfo
+lHD
 yfo
 ntB
 xJc
@@ -128149,7 +128151,7 @@ sKh
 gfb
 sKh
 hYF
-ftr
+wIq
 qHC
 alI
 vjN
@@ -128403,10 +128405,10 @@ nta
 eMX
 ftr
 lxi
-yfo
-maf
-yfo
-yfo
+wIq
+uvT
+uvT
+uvT
 qHC
 vvQ
 sIr
@@ -128659,8 +128661,8 @@ rfn
 mtz
 rfn
 rfn
-ftr
-qHC
+wIq
+wIq
 plk
 teG
 stN
@@ -128917,7 +128919,7 @@ tJW
 shP
 rfn
 ccW
-qHC
+wIq
 pfg
 lvB
 jRo
@@ -129174,7 +129176,7 @@ xEi
 hNu
 rfn
 ccW
-uvT
+wIq
 iwD
 gYH
 wvV
@@ -129430,15 +129432,15 @@ jRK
 qRt
 kaD
 rfn
-rWw
+cGd
+oBP
 flr
 flr
-flr
-flr
-flr
-flr
-flr
-flr
+raX
+raX
+raX
+raX
+raX
 sPV
 sPV
 sPV
