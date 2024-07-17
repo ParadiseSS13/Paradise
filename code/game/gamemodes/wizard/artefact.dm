@@ -718,6 +718,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 ///Clean the list of active skeletons and check if more can be summoned easily
 /obj/item/necromantic_stone/proc/check_skeletons()
+	. = FALSE
+	if(unlimited)
+		return TRUE
+
 	listclearnulls(active_skeletons)
 	var/living_skeletons = 0
 	for(var/mob/living/carbon/human/skeleton as anything in active_skeletons)
@@ -727,7 +731,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if(skeleton.stat != DEAD)
 			living_skeletons++
 
-	if(unlimited || living_skeletons < max_skeletons)
+	if(living_skeletons < max_skeletons)
 		return TRUE
 
 //Funny gimmick, skeletons always seem to wear roman/ancient armour
