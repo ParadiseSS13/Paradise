@@ -52,15 +52,14 @@ export const PanDEMIC = (props, context) => {
       <Window.Content>
         <Stack fill vertical>
           {emptyPlaceholder && !beakerContainsVirus ? (
-            <Section title="Container Information" buttons={<CommonCultureActions fill vertical/>}>
+            <Section title="Container Information" buttons={<CommonCultureActions fill vertical />}>
               <NoticeBox>{emptyPlaceholder}</NoticeBox>
             </Section>
           ) : (
             <CultureInformationSection />
           )}
-          {resistances?.length > 0 && <ResistancesSection align="bottom"/>}
+          {resistances?.length > 0 && <ResistancesSection align="bottom" />}
         </Stack>
-        
       </Window.Content>
     </Window>
   );
@@ -203,9 +202,9 @@ const CultureInformationSection = (props, context) => {
 
   if (strains.length === 0) {
     return (
-        <Section title="Container Information" buttons={<CommonCultureActions />}>
-          <NoticeBox>No disease detected in provided blood sample.</NoticeBox>
-        </Section>
+      <Section title="Container Information" buttons={<CommonCultureActions />}>
+        <NoticeBox>No disease detected in provided blood sample.</NoticeBox>
+      </Section>
     );
   }
 
