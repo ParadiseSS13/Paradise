@@ -38,21 +38,17 @@
 			return
 
 		if(!stored_mop)
-			attacking_mop.mopbucket_insert(user, src)
+			mopbucket_insert(user, attacking_mop)
 			return
 
 		to_chat(user, "<span class='notice'>There is already a mop in the mopbucket.</span>")
 
-/obj/structure/mopbucket/proc/put_in_cart(obj/item/mop/I, mob/user)
-	user.drop_item()
+/obj/structure/mopbucket/proc/mopbucket_insert(mob/user, obj/item/mop/I)
+	stored_mop = I
 	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	update_icon(UPDATE_OVERLAYS)
 	return
-
-/obj/item/mop/proc/mopbucket_insert(mob/user, obj/structure/mopbucket/J)
-	J.stored_mop = src
-	J.put_in_cart(src, user)
 
 /obj/structure/mopbucket/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
