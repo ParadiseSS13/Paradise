@@ -27,6 +27,7 @@
 	if(W.is_robot_module())
 		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
 		return
+
 	if(istype(W, /obj/item/mop))
 		var/obj/item/mop/attacking_mop = W
 		if(attacking_mop.reagents.total_volume < attacking_mop.reagents.maximum_volume)
@@ -35,10 +36,6 @@
 
 		if(!user.unEquip(attacking_mop))
 			to_chat(user, "<span class='notice'>[attacking_mop] is stuck to your hand!</span>")
-			return
-
-		if(istype(attacking_mop, /obj/item/mop/advanced/cyborg))
-			to_chat(user, "<span class='notice'>[attacking_mop] cannot be removed from you!</span>")
 			return
 
 		if(!stored_mop)
