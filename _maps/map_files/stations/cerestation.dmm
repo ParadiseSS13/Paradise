@@ -97050,11 +97050,6 @@
 	icon_state = "purplecorner"
 	},
 /area/station/hallway/primary/aft/west)
-"xOn" = (
-/obj/effect/spawner/window/reinforced,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/supply/lobby)
 "xOp" = (
 /obj/machinery/light{
 	dir = 1
@@ -147513,7 +147508,7 @@ ozP
 dtD
 fdt
 iZB
-xOn
+koD
 qBb
 dvZ
 dvZ
