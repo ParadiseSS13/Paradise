@@ -2120,9 +2120,7 @@
 /turf/simulated/floor/plasteel/white/side,
 /area/station/maintenance/fore2)
 "aog" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /obj/machinery/newscaster{
@@ -2143,9 +2141,7 @@
 /turf/simulated/floor/plasteel/white/side,
 /area/station/maintenance/fore2)
 "aoi" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -20757,9 +20753,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "blR" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /obj/machinery/camera{
@@ -77411,9 +77405,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "lAO" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /turf/simulated/floor/plating,

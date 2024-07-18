@@ -47,7 +47,6 @@
 
 /obj/machinery/computer/security/Destroy()
 	qdel(cam_screen)
-	QDEL_LIST_CONTENTS(cam_plane_masters)
 	qdel(cam_background)
 	return ..()
 
