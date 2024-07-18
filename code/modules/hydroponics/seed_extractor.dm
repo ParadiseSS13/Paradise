@@ -77,13 +77,17 @@
 /obj/machinery/seed_extractor/attackby(obj/item/O, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", O))
 		return
-	if(exchange_parts(user, O))
-		return
+
 	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
 		return
+
 	if(default_deconstruction_crowbar(user, O))
 		return
 
+	if(istype(O, /obj/item/storage/part_replacer))
+		..()
+		SStgui.update_uis(src)
+		return
 
 	if(istype(O, /obj/item/storage/bag/plants))
 		var/obj/item/storage/P = O
@@ -106,26 +110,32 @@
 			if(!seedable)
 				to_chat(user, "<span class='notice'>There are no seeds or plants in [O].</span>")
 				return
+
 			to_chat(user, "<span class='notice'>You dump the plants in [O] into [src].</span>")
 			if(!O.use_tool(src, user, min(5, seedable/2) SECONDS))
 				return
+
 			for(var/thing in P)
 				seedify(thing,-1, src, user)
 		return
 
-	else if(istype(O, /obj/item/unsorted_seeds))
+	if(istype(O, /obj/item/unsorted_seeds))
 		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
 		return ..()
-	else if(istype(O, /obj/item/seeds))
+
+	if(istype(O, /obj/item/seeds))
 		add_seed(O, user)
 		to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
 		SStgui.update_uis(src)
 		return
-	else if(seedify(O,-1, src, user))
+
+	if(seedify(O,-1, src, user))
 		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
 		return
-	else if(user.a_intent != INTENT_HARM)
+
+	if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
+
 	return ..()
 
 /obj/machinery/seed_extractor/attack_ai(mob/user)

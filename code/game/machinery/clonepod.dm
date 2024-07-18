@@ -556,9 +556,6 @@
 
 //Attackby and x_acts
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-
 	if(I.is_open_container())
 		return
 

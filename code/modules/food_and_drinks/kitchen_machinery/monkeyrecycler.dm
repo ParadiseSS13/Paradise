@@ -58,8 +58,8 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
 		return
 
-	if(exchange_parts(user, O))
-		return
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
 
 	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
 		power_change()
