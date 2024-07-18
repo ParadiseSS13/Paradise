@@ -267,7 +267,6 @@
 		return TRUE
 
 /obj/item/gun/medbeam/damaged/multitool_act(mob/living/user, obj/item/multitool)
-	. = ..()
 	if(broken == MULTITOOL_ELECTRONICS)
 		if(user.electrocute_act(rand(1, 10), src))
 			do_sparks(6, FALSE, user)
