@@ -236,7 +236,6 @@
 			return
 
 /obj/item/gun/medbeam/damaged/screwdriver_act(mob/user, obj/item/screwdriver)
-	. = ..()
 	if(broken == SCREWDRIVER_OPEN)
 		if(overheated)
 			to_chat(user,  "<span class='warning'>[src] is still too hot for the screws to be safely removed from it.</span>")
