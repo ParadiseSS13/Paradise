@@ -508,7 +508,7 @@ CREATE TABLE `connection_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `datetime` datetime NOT NULL,
   `ckey` varchar(32) NOT NULL,
-  `ip` varchar(32) NOT NULL,
+  `ip` INT UNSIGNED NOT NULL,
   `computerid` varchar(32) NOT NULL,
   `server_id` VARCHAR(50) NULL DEFAULT NULL,
   `result` ENUM('ESTABLISHED','DROPPED - IPINTEL','DROPPED - BANNED','DROPPED - INVALID') NOT NULL DEFAULT 'ESTABLISHED' COLLATE 'utf8mb4_general_ci',

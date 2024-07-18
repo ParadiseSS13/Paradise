@@ -138,7 +138,10 @@
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
-//Ears: currently only used for headsets and earmuffs
+//////////////////////////////
+// MARK: EARS
+//////////////////////////////
+// Currently only used for headsets and earmuffs.
 /obj/item/clothing/ears
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
@@ -201,8 +204,9 @@
 	icon_state = O.icon_state
 	dir = O.dir
 
-
-//Glasses
+//////////////////////////////
+// MARK: GLASSES
+//////////////////////////////
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
@@ -249,7 +253,9 @@
 		user.update_inv_glasses()
 	to_chat(user, "<span class='notice'>You adjust [src] to be worn [over_mask ? "over" : "under"] a mask.</span>")
 
-//Gloves
+//////////////////////////////
+// MARK: GLOVES
+//////////////////////////////
 /obj/item/clothing/gloves
 	name = "gloves"
 	///Carn: for grammarically correct text-parsing
@@ -295,6 +301,9 @@
 	else
 		return ..()
 
+//////////////////////////////
+// MARK: SUIT SENSORS
+//////////////////////////////
 /**
  * Tries to turn the sensors off. Returns TRUE if it succeeds
  */
@@ -305,21 +314,30 @@
 	return TRUE
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
-	if(!user.Adjacent(src) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!user.Adjacent(src))
+		to_chat(user, "<span class='warning'>You are too far away!</span>")
 		return
+
+	if(!isrobot(user) && (!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
+		return
+
 	if(has_sensor >= 2)
-		to_chat(user, "The controls are locked.")
+		to_chat(user, "<span class='warning'>The controls are locked.</span>")
 		return
+
 	if(has_sensor <= SUIT_SENSOR_OFF)
-		to_chat(user, "This suit does not have any sensors.")
+		to_chat(user, "<span class='warning'>This suit does not have any sensors.</span>")
 		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode + 1])
+	// If they walk away after the menu is already open.
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
-	if(!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		// If your hands get lopped off or cuffed after the menu is open.
+	if(!isrobot(user) && (!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		to_chat(user, "<span class='warning'>You can't use your hands!</span>")
 		return
 	if(!switchMode)
@@ -331,7 +349,7 @@
 			if(SUIT_SENSOR_OFF)
 				to_chat(user, "You disable your suit's remote sensing equipment.")
 			if(SUIT_SENSOR_BINARY)
-				to_chat(user, "Your suit will now report whether you are live or dead.")
+				to_chat(user, "Your suit will now report whether you are alive or dead.")
 			if(SUIT_SENSOR_VITAL)
 				to_chat(user, "Your suit will now report your vital lifesigns.")
 			if(SUIT_SENSOR_TRACKING)
@@ -340,8 +358,9 @@
 			var/mob/living/carbon/human/H = user
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
+		return
 
-	else if(ismob(loc))
+	if(ismob(loc))
 		switch(sensor_mode)
 			if(SUIT_SENSOR_OFF)
 				for(var/mob/V in viewers(user, 1))
@@ -363,7 +382,9 @@
 /obj/item/clothing/under/AltClick(mob/user)
 	set_sensors(user)
 
-//Head
+//////////////////////////////
+// MARK: HEAD
+//////////////////////////////
 /obj/item/clothing/head
 	name = "head"
 	icon = 'icons/obj/clothing/hats.dmi'
@@ -380,7 +401,9 @@
 	if(..())
 		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
 
-//Mask
+//////////////////////////////
+// MARK: MASK
+//////////////////////////////
 /obj/item/clothing/mask
 	name = "mask"
 	icon = 'icons/obj/clothing/masks.dmi'
@@ -461,7 +484,9 @@
 /obj/item/clothing/mask/proc/change_speech_verb()
 	return
 
-//Shoes
+//////////////////////////////
+// MARK: SHOES
+//////////////////////////////
 /obj/item/clothing/shoes
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'
@@ -587,7 +612,9 @@
 		if(hidden_blade)
 			. += "<span class='notice'>Your boot has a [hidden_blade.name] hidden inside of it!</span>"
 
-//Suit
+//////////////////////////////
+// MARK: SUIT
+//////////////////////////////
 /obj/item/clothing/suit
 	name = "suit"
 	icon = 'icons/obj/clothing/suits.dmi'
@@ -736,7 +763,9 @@
 	user.visible_message("<span class='danger'>[user] manages to [break_restraints ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_restraints ? "break" : "remove"] [src].</span>")
 	user.unEquip(src)
 
-//Spacesuit
+//////////////////////////////
+// MARK: SPACE SUIT
+//////////////////////////////
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
 //      Meaning the the suit is defined directly after the corrisponding helmet. Just like below!
 /obj/item/clothing/head/helmet/space
@@ -787,7 +816,9 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
-//Under clothing
+//////////////////////////////
+// MARK: UNDER CLOTHES
+//////////////////////////////
 /obj/item/clothing/under
 	icon = 'icons/obj/clothing/under/misc.dmi'
 	name = "under"
