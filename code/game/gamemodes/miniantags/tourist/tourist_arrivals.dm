@@ -14,6 +14,8 @@
 	var/antag_count = 0
 	/// Antag limit defined by crew/10 + 1
 	var/max_antag = 0
+	/// Chance of being antag
+	var/chance = 20
 
 
 /datum/event/tourist_arrivals/setup()
@@ -26,7 +28,8 @@
 				antag_count++
 				continue
 	max_antag = round(crew_count / 10, 1) + 1
-
+	if(SSticker && istype(SSticker.mode, /datum/game_mode/extended))
+		chance = 100
 /datum/event/tourist_arrivals/start()
 	// Let's just avoid trouble, sending people into those is probably bad.
 	if(GAMEMODE_IS_CULT || GAMEMODE_IS_WIZARD || GAMEMODE_IS_NUCLEAR)
@@ -71,10 +74,11 @@
 			M.change_gender(FEMALE)
 		set_appearance(M)
 		M.equipOutfit(T.tourist_outfit)
+		M.mind.special_role = SPECIAL_ROLE_TOURIST
 		GLOB.data_core.manifest_inject(M)
 		// Rolls a 20% probability, checks if 3 tourists have been made into tot and check if there's space for a new tot!
 		// If any is false, we don't make a new tourist tot
-		if(prob(20) && tot_number < 3 && antag_count < max_antag && !jobban_isbanned(M, SPECIAL_ROLE_TRAITOR))
+		if(prob(chance) && tot_number < 3 && antag_count < max_antag && !jobban_isbanned(M, SPECIAL_ROLE_TRAITOR))
 			tot_number++
 			M.mind.add_antag_datum(/datum/antagonist/traitor)
 
