@@ -250,7 +250,6 @@
 		return TRUE
 
 /obj/item/gun/medbeam/damaged/crowbar_act(mob/living/user, obj/item/crowbar)
-	. = ..()
 	if(broken == REMOVE_OLD_PARTS)
 		to_chat(user, "<span class='notice'>You start prying out the old electronics and lens from [src].</span>")
 		attempt_repair(user, crowbar, WELD_SHELL)
