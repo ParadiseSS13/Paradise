@@ -1,4 +1,4 @@
-#define DRYING_TIME (5 MINUTES) //for 1 unit of depth in puddle (amount var)
+#define DRYING_TIME 5 MINUTES //for 1 unit of depth in puddle (amount var)
 #define ALWAYS_IN_GRAVITY 2
 
 /obj/effect/decal/cleanable/blood
