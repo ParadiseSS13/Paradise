@@ -305,7 +305,7 @@
 		to_chat(H, "<span class='notice'>You grab [I] with your tentacle.</span>")
 		add_attack_logs(H, I, "[src] grabs [I] with a tentacle")
 		I.forceMove(H.loc)
-		I.attack_hand(H)//The tentacle takes the item back with them and makes them pick it up. No silly throw mode.
+		I.attack_hand(H) // The tentacle takes the item back with them and makes them pick it up. No silly throw mode.
 		return TRUE
 
 	if(!isliving(target))
