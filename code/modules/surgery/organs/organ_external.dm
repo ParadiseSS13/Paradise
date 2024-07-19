@@ -62,6 +62,8 @@
 	var/can_stand
 
 	var/splinted_count = 0 //Time when this organ was last splinted
+	///If this organ's max HP is reduced by the IPC magnetic joints implant
+	var/fragile = FALSE
 
 /obj/item/organ/external/necrotize(update_sprite=TRUE, ignore_vital_death = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
@@ -222,7 +224,7 @@
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
 	var/max_limb_damage = max_damage
-	if(owner)
+	if(owner && fragile)
 		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
