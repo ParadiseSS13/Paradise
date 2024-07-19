@@ -18,7 +18,7 @@
 	playsound(loc, I.usesound, 50, TRUE)
 	if(I.use_tool(src, user, 5 SECONDS, 0, 50))
 		user.visible_message("<span class='notice'>[user] disassembles [src]!</span>", "<span class='notice'>You break down [src] into scrap metal.</span>")
-		playsound(user, 'sound/items/deconstruct.ogg', 50, 1)
+		playsound(user, 'sound/items/deconstruct.ogg', 50, TRUE)
 		new /obj/item/stack/sheet/metal(drop_location())
 		qdel(src)
 	return TRUE
