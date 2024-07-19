@@ -230,7 +230,7 @@ export const reduce = (reducerFn, initialValue) => (array) => {
  * is determined by the order they occur in the array. The iteratee is
  * invoked with one argument: value.
  */
- 
+
 export const uniqBy =
   <T extends unknown>(iterateeFn?: (value: T) => unknown) =>
   (array: T[]) => {
@@ -262,7 +262,6 @@ export const uniqBy =
     }
     return result;
   };
- 
 
 export const uniq = uniqBy();
 
