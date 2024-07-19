@@ -62,6 +62,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
+	dyeable = FALSE
 
 /obj/item/clothing/suit/space/deathsquad/Initialize(mapload)
 	. = ..()

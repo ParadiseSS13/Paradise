@@ -55,4 +55,15 @@
 /atom/proc/post_clean(atom/target, mob/user) //For specific cleaning object behaviors after cleaning, such as mops making floors slippery.
 	return
 
+/atom/movable/proc/machine_wash(obj/machinery/washing_machine/source)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED)) //If we've cleaned a cmagged object
+		REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+		uncmag()
+
+	//Generic cleaning functionality
+	var/obj/effect/decal/cleanable/C = locate() in src
+	qdel(C)
+	clean_blood()
+
+
 #undef CMAG_CLEANTIME
