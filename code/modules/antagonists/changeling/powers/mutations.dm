@@ -312,7 +312,7 @@
 		return FALSE
 
 	var/mob/living/L = target
-	if(L.anchored || L.throwing)//avoid double hits
+	if(L.anchored || L.throwing) // avoid double hits
 		return FALSE
 
 	if(!iscarbon(L))
