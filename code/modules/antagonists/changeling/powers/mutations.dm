@@ -345,7 +345,7 @@
 				add_attack_logs(H, C, "[H] tried to grab [I] out of their hand with a tentacle, but failed")
 			C.visible_message("<span class='danger'>[C] is knocked over by [src]!</span>", "<span class='userdanger'>A tentacle hits you in the chest and knocks you over!</span>")
 			add_attack_logs(H, C, "[H] knocked over with a tentacle")
-			C.KnockDown(2 SECONDS) //Not useless with antidrop.
+			C.KnockDown(2 SECONDS) // Not useless with antidrop.
 			return TRUE
 
 		if(INTENT_GRAB)
