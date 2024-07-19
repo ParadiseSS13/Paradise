@@ -78,7 +78,7 @@
 		if(!is_robot)
 			if(effect <= 1)
 				M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
-				M.fakevomit(no_text=TRUE)
+				M.fakevomit(no_text = TRUE)
 			else if(effect <= 3)
 				M.emote(pick("groan", "moan"))
 			if(effect <= 8)
@@ -98,7 +98,7 @@
 		if(!is_robot)
 			if(effect <= 2)
 				M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
-				M.fakevomit(no_text = 1)
+				M.fakevomit(no_text = TRUE)
 			else if(effect <= 5)
 				M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
 				M.Dizzy(16 SECONDS)
@@ -519,7 +519,6 @@
 	addiction_threshold = 0
 
 // Used in the IPC supercharge implant - because IPCs deserve the little bit of healing too.
-// Could actually be interesting to add a crew-accessable synthetic version of omnizine...
 /datum/reagent/medicine/omnizine/no_addict/synthetic
 	name = "Smart Metal"
 	id = "synthetic_omnizine_no_addiction"
