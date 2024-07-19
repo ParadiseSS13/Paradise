@@ -188,9 +188,9 @@
 
 /datum/action/vehicle
 	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
-	button_icon = 'icons/mob/actions/actions_vehicle.dmi'
-	icon_icon = 'icons/mob/actions/actions_vehicle.dmi'
-	button_icon_state = "vehicle_eject"
+	button_background_icon = 'icons/mob/actions/actions_vehicle.dmi'
+	button_overlay_icon = 'icons/mob/actions/actions_vehicle.dmi'
+	button_overlay_icon_state = "vehicle_eject"
 	var/obj/tgvehicle/vehicle_target
 	var/obj/tgvehicle/vehicle_ridden_target
 
@@ -201,7 +201,7 @@
 /datum/action/vehicle/scooter/skateboard/ollie
 	name = "Ollie"
 	desc = "Get some air! Land on a table or fence to do a gnarly grind."
-	button_icon_state = "skateboard_ollie"
+	button_overlay_icon_state = "skateboard_ollie"
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/vehicle/scooter/skateboard/ollie/Trigger(left_click)
@@ -239,7 +239,11 @@
 	var/old_v_pass = vehicle.pass_flags
 	rider.pass_flags |= PASSTABLE | PASSFENCE
 	vehicle.pass_flags |= PASSTABLE | PASSFENCE
-
+	for(var/mob/living/buckled_mob as anything in vehicle.buckled_mobs) //In the event the board doesn't move, we need to refresh the pixel_y
+		if(buckled_mob.get_num_legs() > 0)
+			buckled_mob.pixel_y = 5
+		else
+			buckled_mob.pixel_y = -4
 	rider.Move(landing_turf, vehicle_target.dir)
 	rider.pass_flags = old_pass
 	vehicle.pass_flags = old_v_pass
@@ -247,7 +251,7 @@
 /datum/action/vehicle/scooter/skateboard/kickflip
 	name = "Kickflip"
 	desc = "Kick your board up and catch it."
-	button_icon_state = "skateboard_ollie"
+	button_overlay_icon_state = "skateboard_ollie"
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/vehicle/scooter/skateboard/kickflip/Trigger(left_click)

@@ -205,6 +205,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/melee/energy/sword/saber
 	cost = 40
 
+/datum/uplink_item/dangerous/dsword
+	name = "Double Energy Sword"
+	desc = "A double-bladed energy sword. More damaging than a standard energy sword, and automatically parries incoming energy weapons fire. Bulk discount applied."
+	reference = "DSRD"
+	item = /obj/item/dualsaber
+	cost = 60
+
 /datum/uplink_item/dangerous/powerfist
 	name = "Power Fist"
 	desc = "The power-fist is a metal gauntlet with a built-in piston-ram powered by an external gas supply. \
@@ -503,6 +510,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/glasses/chameleon/thermal
 	cost = 15
 
+/datum/uplink_item/stealthy_tools/night
+	name = "Nightvision Chameleon Glasses"
+	desc = "These glasses are nightvision with Syndicate chameleon technology built into them. Lets you see clearer in the dark."
+	reference = "TNIG"
+	item = /obj/item/clothing/glasses/chameleon/night
+	cost = 5
+
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
 	desc = "Agent cards prevent artificial intelligences from tracking the wearer, and can copy access from other identification cards. The access is cumulative, so scanning one card does not erase the access gained from another."
@@ -730,7 +744,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
-	desc = "This red and black syndicate space suit is less encumbering than Nanotrasen variants, \
+	desc = "This armoured red and black Syndicate space suit is less encumbering than Nanotrasen variants, \
 			fits inside bags, and has a weapon slot. Comes packaged with internals. Nanotrasen crewmembers are trained to report red space suit \
 			sightings, however. "
 	reference = "SS"
@@ -903,7 +917,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	This pair has been hardened for special operations personnel."
 	reference = "KOE"
 	item = /obj/item/autosurgeon/organ/syndicate/oneuse/scope_eyes
-	cost = 20
+	cost = 10
 
 
 ////////////////////////////////////////

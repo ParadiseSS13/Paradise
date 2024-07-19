@@ -59,7 +59,7 @@
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		user.drop_item()
 		qdel(src)
 
@@ -132,7 +132,7 @@
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new bomb(user.loc)
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		user.drop_item()
 		qdel(src)
 

@@ -167,6 +167,8 @@
 	desc = "Industrial-grade light fixture for brightening up dark corners of the station."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube1"
+	glow_icon_state = "tube"
+	exposure_icon_state = "cone"
 	anchored = TRUE
 	layer = 5
 	max_integrity = 100
@@ -233,6 +235,8 @@
 	icon_state = "bulb1"
 	desc = "A compact and cheap light fixture, perfect for keeping maintenance tunnels appropriately spooky."
 	fitting = "bulb"
+	glow_icon_state = "bulb"
+	exposure_icon_state = "circle"
 	base_state = "bulb"
 	brightness_range = 4
 	brightness_color = "#a0a080"
@@ -887,6 +891,7 @@
 	base_state = "ltube"
 	item_state = "c_tube"
 	brightness_range = 8
+	brightness_color = "#ffffff"
 
 /obj/item/light/tube/large
 	w_class = WEIGHT_CLASS_SMALL

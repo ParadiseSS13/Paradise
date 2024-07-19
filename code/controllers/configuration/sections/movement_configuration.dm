@@ -9,7 +9,7 @@
 	/// Move delay for humanoids
 	var/human_delay = 1.5
 	/// Move delay for cyborgs
-	var/robot_delay = 2.5
+	var/robot_delay = 1.5
 	/// Move delay for xenomorphs
 	var/alien_delay = 1.5
 	/// Move delay for slimes (xenobio, not slimepeople)

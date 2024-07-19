@@ -53,6 +53,7 @@
 	amputation_point = "left shoulder"
 	can_grasp = 1
 	convertable_children = list(/obj/item/organ/external/hand)
+	fragile = TRUE
 
 /obj/item/organ/external/arm/emp_act(severity)
 	..()
@@ -85,6 +86,7 @@
 	amputation_point = "left hip"
 	can_stand = 1
 	convertable_children = list(/obj/item/organ/external/foot)
+	fragile = TRUE
 
 /obj/item/organ/external/leg/emp_act(severity)
 	..()
@@ -123,6 +125,7 @@
 	parent_organ = "l_leg"
 	amputation_point = "left ankle"
 	can_stand = 1
+	fragile = TRUE
 
 /obj/item/organ/external/foot/emp_act(severity)
 	..()
@@ -164,6 +167,7 @@
 	parent_organ = "l_arm"
 	amputation_point = "left wrist"
 	can_grasp = 1
+	fragile = TRUE
 
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
@@ -229,6 +233,7 @@
 	amputation_point = "neck"
 	gendered_icon = TRUE
 	encased = "skull"
+	fragile = TRUE
 	var/can_intake_reagents = 1
 	var/alt_head = "None"
 

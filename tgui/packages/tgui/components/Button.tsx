@@ -4,17 +4,41 @@
  * @license MIT
  */
 
-import { classes, pureComponentHooks } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { BooleanLike, classes, pureComponentHooks } from 'common/react';
+import { Component, InfernoNode, RefObject, createRef } from 'inferno';
 import { KEY_ENTER, KEY_ESCAPE, KEY_SPACE } from 'common/keycodes';
 import { createLogger } from '../logging';
-import { Box } from './Box';
+import { Box, BoxProps } from './Box';
 import { Icon } from './Icon';
 import { Tooltip } from './Tooltip';
+import { Placement } from '@popperjs/core';
 
 const logger = createLogger('Button');
 
-export const Button = (props) => {
+export type ButtonProps = BoxProps & {
+  fluid?: boolean;
+  icon?: string;
+  iconRotation?: number;
+  iconSpin?: BooleanLike;
+  disabled?: BooleanLike;
+  selected?: BooleanLike;
+  tooltip?: InfernoNode;
+  tooltipPosition?: Placement;
+  ellipsis?: BooleanLike;
+  compact?: BooleanLike;
+  circular?: BooleanLike;
+  iconRight?: BooleanLike;
+  iconColor?: string;
+  iconStyle?: any;
+  multiLine?: BooleanLike;
+  children?: InfernoNode;
+  /** @deprecated Use children. */
+  content?: InfernoNode;
+  onClick?: (e: UIEvent) => void;
+  onclick?: ButtonProps['onClick'];
+};
+
+export const Button = (props: ButtonProps) => {
   const {
     className,
     fluid,
@@ -115,27 +139,38 @@ export const Button = (props) => {
 
 Button.defaultHooks = pureComponentHooks;
 
-export const ButtonCheckbox = (props) => {
+export const ButtonCheckbox = (props: ButtonProps & { checked?: BooleanLike }) => {
   const { checked, ...rest } = props;
   return <Button color="transparent" icon={checked ? 'check-square-o' : 'square-o'} selected={checked} {...rest} />;
 };
 
 Button.Checkbox = ButtonCheckbox;
 
-export class ButtonConfirm extends Component {
+export type ButtonConfirmProps = ButtonProps & {
+  confirmContent?: string;
+  confirmColor?: string;
+  confirmIcon?: string;
+};
+
+type ButtonConfirmState = {
+  clickedOnce: boolean;
+};
+
+export class ButtonConfirm extends Component<ButtonConfirmProps, ButtonConfirmState> {
   constructor() {
     super();
     this.state = {
       clickedOnce: false,
     };
-    this.handleClick = () => {
-      if (this.state.clickedOnce) {
-        this.setClickedOnce(false);
-      }
-    };
   }
 
-  setClickedOnce(clickedOnce) {
+  handleClick = () => {
+    if (this.state.clickedOnce) {
+      this.setClickedOnce(false);
+    }
+  };
+
+  setClickedOnce(clickedOnce: boolean) {
     this.setState({
       clickedOnce,
     });
@@ -162,7 +197,7 @@ export class ButtonConfirm extends Component {
         content={this.state.clickedOnce ? confirmContent : content}
         icon={this.state.clickedOnce ? confirmIcon : icon}
         color={this.state.clickedOnce ? confirmColor : color}
-        onClick={() => (this.state.clickedOnce ? onClick() : this.setClickedOnce(true))}
+        onClick={(e) => (this.state.clickedOnce ? onClick?.(e) : this.setClickedOnce(true))}
         {...rest}
       />
     );
@@ -171,7 +206,19 @@ export class ButtonConfirm extends Component {
 
 Button.Confirm = ButtonConfirm;
 
-export class ButtonInput extends Component {
+export type ButtonInputProps = ButtonProps & {
+  currentValue?: string;
+  defaultValue?: string;
+  onCommit?: (e: UIEvent, value: string) => void;
+};
+
+type ButtonInputState = {
+  inInput: boolean;
+};
+
+export class ButtonInput extends Component<ButtonInputProps, ButtonInputState> {
+  inputRef: RefObject<HTMLInputElement>;
+
   constructor() {
     super();
     this.inputRef = createRef();
@@ -180,7 +227,7 @@ export class ButtonInput extends Component {
     };
   }
 
-  setInInput(inInput) {
+  setInInput(inInput: boolean) {
     const { disabled } = this.props;
     if (disabled) {
       return;
@@ -200,7 +247,7 @@ export class ButtonInput extends Component {
     }
   }
 
-  commitResult(e) {
+  commitResult(e: UIEvent) {
     if (this.inputRef) {
       const input = this.inputRef.current;
       const hasValue = input.value !== '';
@@ -227,8 +274,6 @@ export class ButtonInput extends Component {
       tooltipPosition,
       color = 'default',
       disabled,
-      placeholder,
-      maxLength,
       multiLine,
       ...rest
     } = this.props;
