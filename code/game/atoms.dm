@@ -868,7 +868,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/L)
 	..(L)
 	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
+	if(b_data && !isnull(b_data["blood_color"]))
 		basecolor = b_data["blood_color"]
 	else
 		basecolor = "#A10808"
@@ -877,7 +877,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
 	..(L)
 	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
+	if(b_data && !isnull(b_data["blood_color"]))
 		basecolor = b_data["blood_color"]
 	else
 		basecolor = "#A10808"

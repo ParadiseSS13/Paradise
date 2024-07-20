@@ -1318,7 +1318,7 @@
 		return
 	if(message)
 		var/used_blood_amount = round(length(message) / 30, 1)
-		bloody_hands = max(0, bloody_hands - used_blood_amount) //use up some blood
+		bloody_hands = max(1, bloody_hands - used_blood_amount) //use up some blood
 
 		if(length(message) > max_length)
 			message += "-"
