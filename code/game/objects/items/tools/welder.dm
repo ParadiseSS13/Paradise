@@ -262,7 +262,7 @@
 
 	user.visible_message("<span class='suicide'>[user] is tinkering with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 
-	to_chat(user, "<span class='notice'> You begin tinkering with [src]...")
+	to_chat(user, "<span class='notice'>You begin tinkering with [src]...")
 	user.Immobilize(10 SECONDS)
 	sleep(2 SECONDS)
 	add_fingerprint(user)
