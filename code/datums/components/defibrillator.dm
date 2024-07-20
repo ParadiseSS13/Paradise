@@ -209,7 +209,7 @@
 		busy = FALSE
 		return
 
-	if(target.undergoing_cardiac_arrest()) // Can have a heart attack and heart is either missing, necrotic, or not beating
+	if(target.undergoing_cardiac_arrest() && target.stat != DEAD) // Can have a heart attack and heart is either missing, necrotic, or not beating
 		var/datum/organ/heart/heart = target.get_int_organ_datum(ORGAN_DATUM_HEART)
 		if(!heart)
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
@@ -226,7 +226,7 @@
 		set_cooldown(cooldown)
 		user.visible_message("<span class='boldnotice'>[defib_ref] pings: Cardiac arrhythmia corrected.</span>")
 		target.visible_message("<span class='warning'>[target]'s body convulses a bit.</span>", "<span class='userdanger'>You feel a jolt, and your heartbeat seems to steady.</span>")
-		playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+		playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 		playsound(get_turf(defib_ref), "bodyfall", 50, 1)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, 0)
 		busy = FALSE
@@ -240,7 +240,7 @@
 
 	target.visible_message("<span class='warning'>[target]'s body convulses a bit.</span>")
 	playsound(get_turf(defib_ref), "bodyfall", 50, 1)
-	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	ghost = target.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
 
 	// Run through some quick failure states after shocking.
@@ -291,6 +291,7 @@
 		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
 			target.setBrainLoss(defib_time_brain_damage)
 
+		target.set_heartattack(FALSE)
 		target.update_revive()
 		target.KnockOut()
 		target.Paralyse(10 SECONDS)
@@ -339,7 +340,7 @@
 			"<span class='userdanger'>[user] touches you with [parent], and you feel a strong jolt!</span>")
 	target.apply_damage(60, STAMINA)
 	target.KnockDown(10 SECONDS)
-	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	target.emote("gasp")
 	if(combat && prob(heart_attack_chance))
 		target.set_heartattack(TRUE)
