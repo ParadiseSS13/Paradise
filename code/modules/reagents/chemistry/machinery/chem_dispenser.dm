@@ -251,8 +251,11 @@
 			return
 		I.forceMove(src)
 		if(beaker)
-			user.put_in_hands(beaker)
-			to_chat(user, "<span class='notice'>You swap [I] with [beaker].</span>")
+			to_chat(usr, "<span class='notice'>You swap [I] with [beaker].</span>")
+			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
+				user.put_in_hands(beaker)
+			else
+				beaker.forceMove(loc)
 		else
 			to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		beaker = I
@@ -302,6 +305,12 @@
 	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
+	if(isdrone(user))
+		var/mob/living/silicon/robot/drone/drone = user
+		if(!drone.emagged)
+			// There's nothing a drone can do here that wouldn't violate their laws and/or the rules.
+			to_chat(user, "<span class='warning'>Your safety protocols refuse to connect to [src].</span>")
+			return
 	return attack_hand(user)
 
 /obj/machinery/chem_dispenser/attack_ghost(mob/user)

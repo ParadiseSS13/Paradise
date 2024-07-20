@@ -23,12 +23,7 @@ export const TransferValve = (props, context) => {
         <Section
           title="Assembly"
           buttons={
-            <Button
-              icon="cog"
-              content="Configure Assembly"
-              disabled={!attached_device}
-              onClick={() => act('device')}
-            />
+            <Button icon="cog" content="Configure Assembly" disabled={!attached_device} onClick={() => act('device')} />
           }
         >
           <LabeledList>
@@ -50,12 +45,7 @@ export const TransferValve = (props, context) => {
           <LabeledList>
             <LabeledList.Item label="Attachment">
               {tank_one ? (
-                <Button
-                  icon={'eject'}
-                  content={tank_one}
-                  disabled={!tank_one}
-                  onClick={() => act('tankone')}
-                />
+                <Button icon={'eject'} content={tank_one} disabled={!tank_one} onClick={() => act('tankone')} />
               ) : (
                 <Box color="average">No Tank</Box>
               )}
@@ -66,12 +56,7 @@ export const TransferValve = (props, context) => {
           <LabeledList>
             <LabeledList.Item label="Attachment">
               {tank_two ? (
-                <Button
-                  icon={'eject'}
-                  content={tank_two}
-                  disabled={!tank_two}
-                  onClick={() => act('tanktwo')}
-                />
+                <Button icon={'eject'} content={tank_two} disabled={!tank_two} onClick={() => act('tanktwo')} />
               ) : (
                 <Box color="average">No Tank</Box>
               )}

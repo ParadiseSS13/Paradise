@@ -3,6 +3,34 @@
 	desc = "Should not exist. Report me to a(n) coder/admin!"
 	icon = 'icons/obj/restraints.dmi'
 	var/cuffed_state = "handcuff"
+	///How long it will take to break out of restraints
+	var/breakouttime
+
+/obj/item/restraints/proc/attempt_resist_restraints(mob/living/carbon/user, break_cuffs, effective_breakout_time, silent)
+	if(effective_breakout_time)
+		if(!silent)
+			user.visible_message("<span class='warning'>[user] attempts to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_cuffs ? "break" : "remove"] [src]...</span>")
+		to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
+
+	if(!do_after(user, effective_breakout_time, FALSE, user))
+		user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
+		to_chat(user, "<span class='warning'>You fail to [break_cuffs ? "break" : "remove"] [src]!</span>")
+		return
+
+	user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
+	if(loc != user || user.buckled)
+		return
+
+	finish_resist_restraints(user, break_cuffs)
+
+/obj/item/restraints/proc/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
+	if(!silent)
+		user.visible_message("<span class='danger'>[user] manages to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_cuffs ? "break" : "remove"] [src].</span>")
+	user.unEquip(src)
+
+	if(break_cuffs)
+		qdel(src)
+		return TRUE
 
 //////////////////////////////
 // MARK: HANDCUFFS
@@ -63,7 +91,7 @@
 		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
 							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
 
-		playsound(loc, cuffsound, 15, 1, -10)
+		playsound(loc, cuffsound, 15, TRUE, -10)
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
@@ -218,6 +246,22 @@
 	throwforce = 0
 	breakouttime = 0
 	cuffsound = 'sound/weapons/cablecuff.ogg'
+
+/obj/item/restraints/handcuffs/twimsts/finish_resist_restraints(mob/living/carbon/user, break_cuffs)
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(!human_user.check_has_mouth()) // I have no mouth but I must eat twimsts
+			break_cuffs = TRUE
+			return ..()
+
+	visible_message("<span class='danger'>[user] manages to eat through [src]!</span>", "<span class='notice'>You successfully eat through [src].</span>")
+
+	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
+	if(reagents && length(reagents.reagent_list))
+		user.taste(reagents)
+		reagents.reaction(user, REAGENT_INGEST)
+		reagents.trans_to(user, reagents.total_volume)
+	qdel(src)
 
 //////////////////////////////
 // MARK: CRAFTING

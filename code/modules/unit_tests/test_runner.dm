@@ -33,7 +33,7 @@
 		test_logs[I] = list()
 		durations[I] = 0
 
-	for(var/turf/T in block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level)))
+	for(var/turf/T in block(1, 1, z_level, world.maxx, world.maxy, z_level))
 		for(var/datum/map_per_tile_test/test in tests)
 			if(test.failure_count < MAX_MAP_TEST_FAILURE_COUNT)
 				var/duration = REALTIMEOFDAY
@@ -42,6 +42,8 @@
 
 				if(test.failure_count >= MAX_MAP_TEST_FAILURE_COUNT)
 					test.Fail(T, "failure threshold reached at this tile")
+
+		CHECK_TICK
 
 	for(var/datum/map_per_tile_test/test in tests)
 		if(!test.succeeded)

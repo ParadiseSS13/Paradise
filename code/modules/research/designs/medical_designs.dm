@@ -480,6 +480,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	category = list("Medical")
 
+/datum/design/cyberimp_hydroponics_hud
+	name = "Hydroponic HUD Implant"
+	desc = "These cybernetic eye implants will display a hydroponics HUD over everything you see. Wiggle eyes to control."
+	id = "ci-hydrohud"
+	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4, "magnets" = 3)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 5 SECONDS
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 700, MAT_GOLD = 500)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/hydroponic
+	category = list("Medical")
+
 /datum/design/cyberimp_security_hud
 	name = "Security HUD Implant"
 	desc = "These cybernetic eyes will display a security HUD over everything you see. Wiggle eyes to control."
@@ -558,7 +569,7 @@
 	category = list("Medical")
 
 /datum/design/cyberimp_antisleep
-	name = "Neural Jumperstarter Implant"
+	name = "Neural Jumpstarter Implant"
 	desc = "This implant will automatically attempt to jolt you awake when it detects you have fallen unconscious. Has a short cooldown, incompatible with the CNS Rebooter."
 	id = "ci-antisleep"
 	req_tech = list("materials" = 6, "programming" = 5, "biotech" = 6)

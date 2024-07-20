@@ -277,8 +277,9 @@
 	if(!iscarbon(M))
 		return ..()
 
-	if(ishuman(M) && volume >= 20 && method == REAGENT_TOUCH)
-		var/applied_volume = splash_human(M, volume)
+	if(ishuman(M) && volume > 20 && method == REAGENT_TOUCH)
+		heal_overall_damage(M, 20)
+		var/applied_volume = splash_human(M, volume - 20)
 		return ..(M, method, applied_volume, show_message)
 
 	if(method == REAGENT_TOUCH)
@@ -324,7 +325,7 @@
 /datum/reagent/medicine/heal_on_apply/synthflesh/reaction_turf(turf/T, volume) //let's make a mess!
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		playsound(T, 'sound/effects/splat.ogg', 50, TRUE, -3)
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder
 	name = "Styptic Powder"
