@@ -109,12 +109,10 @@
 	// Variables for bloom and exposure
 	var/glow_icon = 'icons/obj/lamps.dmi'
 	var/exposure_icon = 'icons/effects/exposures.dmi'
-	
 	var/glow_icon_state
 	var/glow_colored = TRUE
 	var/exposure_icon_state
 	var/exposure_colored = TRUE
-	
 	var/image/glow_overlay
 	var/image/exposure_overlay
 	/// The alternate appearances we own. Lazylist
@@ -921,9 +919,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		add_blood_overlay()
 	return TRUE //we applied blood to the item
 
-/obj/item/clothing/gloves/add_blood(list/blood_dna, b_color)
+/obj/item/clothing/gloves/add_blood(list/blood_dna, b_color, amount=null)
 	. = ..()
-	transfer_blood = rand(2, 4)
+	if(isnull(amount))
+		transfer_blood = rand(2, 4)
+	else
+		transfer_blood = max(1, amount)
 
 /turf/add_blood(list/blood_dna, b_color)
 	if(isnull(b_color))

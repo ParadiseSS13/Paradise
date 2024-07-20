@@ -617,14 +617,17 @@ emp_act
 	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 	return TRUE
 
-/mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color)
+/mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color, amount=null)
 	if(isnull(b_color))
 		b_color = "#A10808"
 	if(gloves)
-		gloves.add_blood(blood_dna, blood_color)
+		gloves.add_blood(blood_dna, blood_color, amount)
 	else
 		hand_blood_color = b_color
-		bloody_hands = rand(2, 4)
+		if(isnull(amount))
+			bloody_hands = rand(2, 4)
+		else
+			bloody_hands = max(1, amount)
 		transfer_blood_dna(blood_dna)
 		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
