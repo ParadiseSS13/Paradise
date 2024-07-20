@@ -81,7 +81,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	return ..()
 
 /datum/antagonist/traitor/select_organisation()
-	var/chaos = pick(prob(ORG_PROB_HUNTER);ORG_CHAOS_HUNTER, prob(ORG_PROB_MILD);ORG_CHAOS_MILD, prob(ORG_PROB_AVERAGE);ORG_CHAOS_AVERAGE, prob(ORG_PROB_HIJACK);ORG_CHAOS_HIJACK)
+	var/chaos = pickweight(list(ORG_CHAOS_HUNTER = ORG_PROB_HUNTER, ORG_CHAOS_MILD = ORG_PROB_MILD, ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE, ORG_CHAOS_HIJACK = ORG_PROB_HIJACK))
 	for(var/org_type in shuffle(subtypesof(/datum/antag_org/syndicate)))
 		var/datum/antag_org/org = org_type
 		if(initial(org.chaos_level) == chaos)

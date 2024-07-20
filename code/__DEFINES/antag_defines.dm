@@ -71,13 +71,13 @@ GLOBAL_LIST(contractors)
  */
 
 /// Antag hunting antag. Might help security overall.
-#define ORG_CHAOS_HUNTER -1
+#define ORG_CHAOS_HUNTER "chaos_hunter"
 /// Will steal items/kill low importance crew, usually not much trouble
-#define ORG_CHAOS_MILD 0
+#define ORG_CHAOS_MILD "chaos_mild"
 /// Your average tator, will be an issue
-#define ORG_CHAOS_AVERAGE 1
+#define ORG_CHAOS_AVERAGE "chaos_average"
 /// Hijack or hijack-tier antagonists.
-#define ORG_CHAOS_HIJACK 2
+#define ORG_CHAOS_HIJACK "chaos_hijack"
 
 #define ORG_PROB_HUNTER 10
 #define ORG_PROB_MILD 20
