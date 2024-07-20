@@ -668,6 +668,8 @@
 			var/obj/item/organ/O = locateUID(params["organ_ref"])
 			if(!istype(O)) //This shouldn't happen
 				return FALSE
+			if(!O.in_contents_of(src)) //JUST IN CASE
+				return FALSE
 			if(!ui.user.put_in_hands(O))
 				O.forceMove(loc)
 			return TRUE
