@@ -86,7 +86,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		var/datum/antag_org/org = org_type
 		if(initial(org.chaos_level) == chaos)
 			organisation = new org_type(src)
-			break
+			return
 
 /datum/antagonist/traitor/add_owner_to_gamemode()
 	SSticker.mode.traitors |= owner
@@ -112,7 +112,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  * Create and assign a full set of randomized human traitor objectives.
  */
 /datum/antagonist/traitor/proc/forge_human_objectives()
-	var/iteration = 0
+	var/iteration = 1
 	var/can_succeed_if_dead = TRUE
 	for(var/objective in owner.get_all_objectives())
 		var/datum/objective/O = objective
@@ -120,7 +120,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 			can_succeed_if_dead  = FALSE
 			break
 
-	//If our org has a forced objective, give it to us guaranteed.
+	// If our org has a forced objective, give it to us guaranteed.
 	if(organisation && organisation.forced_objective)
 		add_antag_objective(organisation.forced_objective)
 		iteration++
@@ -129,9 +129,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		return //Hijackers only get hijack.
 
 	// Will give objectives from our org or random objectives.
-	while(iteration < GLOB.configuration.gamemode.traitor_objectives_amount)
+	for(var/i in iteration to GLOB.configuration.gamemode.traitor_objectives_amount)
 		forge_single_human_objective()
-		iteration++
 
 	// Give them an escape objective if they don't have one. 20 percent chance not to have escape if we can greentext without staying alive.
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
@@ -149,23 +148,23 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  * Create and assign a single randomized human traitor objective.
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
-	//If our org has an objectives list, give one to us if we pass a roll on the org's focus
+	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
 	if(organisation && length(organisation.objectives) && prob(organisation.focus))
 		add_antag_objective(pick(organisation.objectives))
-	else
-		if(prob(50))
-			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-				add_antag_objective(/datum/objective/destroy)
-			else if(prob(5))
-				add_antag_objective(/datum/objective/debrain)
-			else if(prob(30))
-				add_antag_objective(/datum/objective/maroon)
-			else if(prob(30))
-				add_antag_objective(/datum/objective/assassinateonce)
-			else
-				add_antag_objective(/datum/objective/assassinate)
+		return
+	if(prob(50))
+		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
+			add_antag_objective(/datum/objective/destroy)
+		else if(prob(5))
+			add_antag_objective(/datum/objective/debrain)
+		else if(prob(30))
+			add_antag_objective(/datum/objective/maroon)
+		else if(prob(30))
+			add_antag_objective(/datum/objective/assassinateonce)
 		else
-			add_antag_objective(/datum/objective/steal)
+			add_antag_objective(/datum/objective/assassinate)
+	else
+		add_antag_objective(/datum/objective/steal)
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
