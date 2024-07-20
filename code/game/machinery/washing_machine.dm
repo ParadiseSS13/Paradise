@@ -325,7 +325,7 @@
 
 /obj/machinery/washing_machine/container_resist(mob/living/L)
 	. = ..()
-	if(Washing)
+	if(washing)
 		return
 	if(!door_open)
 		toggle_door()
