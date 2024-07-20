@@ -5,8 +5,8 @@
 	origin_tech = "materials=3;magnets=4;engineering=4"
 	dyeable = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
-	strip_delay = 70
-	put_on_delay = 70
+	strip_delay = 7 SECONDS
+	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
 
 	var/magboot_state = "magboots"

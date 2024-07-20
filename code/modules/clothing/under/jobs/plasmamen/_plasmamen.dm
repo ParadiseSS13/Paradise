@@ -14,7 +14,7 @@
 	dyeing_key = DYE_REGISTRY_PLASMAMEN
 
 	var/next_extinguish = 0
-	var/extinguish_cooldown = 100
+	var/extinguish_cooldown = 10 SECONDS
 	var/extinguishes_left = 5
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)

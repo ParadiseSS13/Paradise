@@ -58,16 +58,16 @@
 
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's door is currently [door_open ? "open" : "closed"]."
+	. += "<span class='notice'>It's door is currently [door_open ? "open" : "closed"].</span>"
 	if(washing)
-		. += "<span class='notice'>It is currently in it's wash cycle."
+		. += "<span class='notice'>It is currently in it's wash cycle.</span>"
 	else
-		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle."
+		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle.</span>"
 	if(bloody_mess)
-		. += "<span class='warning'>The tub is covered in blood and gibs, you will need to clean it out with soap first."
+		. += "<span class='warning'>The tub is covered in blood and gibs, you will need to clean it out with soap first.</span>"
 	else
 		var/total_contents = LAZYLEN(inserted_items) + LAZYLEN(inserted_mobs)
-		. += "<span class='notice'>There is [total_contents] item\s inside"
+		. += "<span class='notice'>There is [total_contents] item\s inside.</span>"
 
 
 /obj/machinery/washing_machine/AltClick(mob/user)

@@ -263,8 +263,8 @@
 	body_parts_covered = HANDS
 	slot_flags = SLOT_FLAG_GLOVES
 	attack_verb = list("challenged")
-	strip_delay = 20
-	put_on_delay = 40
+	strip_delay = 2 SECONDS
+	put_on_delay = 4 SECONDS
 	dyeing_key = DYE_REGISTRY_GLOVES
 
 	var/transfer_prints = FALSE
@@ -612,7 +612,7 @@
 	slot_flags = SLOT_FLAG_OCLOTHING
 	dyeable = FALSE
 
-	var/fire_resist = T0C+100
+	var/fire_resist = T0C + 100
 	var/blood_overlay_type = "suit"
 	var/suit_toggled = FALSE
 	var/suit_adjusted = FALSE
