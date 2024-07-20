@@ -80,6 +80,23 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_PURPLE = /obj/item/clothing/mask/bandana/purple,
 		DYE_BLACK = /obj/item/clothing/mask/bandana/black,
 	),
+	DYE_REGISTRY_BEANIE = list(
+		DYE_BLACK = /obj/item/clothing/head/beanie/black,
+		DYE_WHITE = /obj/item/clothing/head/beanie,
+		DYE_RED = /obj/item/clothing/head/beanie/red,
+		DYE_GREEN = /obj/item/clothing/head/beanie/green,
+		DYE_CAPTAIN = /obj/item/clothing/head/beanie/darkblue,
+		DYE_NTREP = /obj/item/clothing/head/beanie/darkblue,
+		DYE_PURPLE = /obj/item/clothing/head/beanie/purple,
+		DYE_RD = /obj/item/clothing/head/beanie/purple,
+		DYE_YELLOW = /obj/item/clothing/head/beanie/yellow,
+		DYE_CE = /obj/item/clothing/head/beanie/orange,
+		DYE_ORANGE = /obj/item/clothing/head/beanie/orange,
+		DYE_CMO = /obj/item/clothing/head/beanie/cyan,
+		DYE_BLUE = /obj/item/clothing/head/beanie/cyan,
+
+
+	),
 	DYE_REGISTRY_SHOES = list(
 		DYE_RED = /obj/item/clothing/shoes/red,
 		DYE_ORANGE = /obj/item/clothing/shoes/orange,

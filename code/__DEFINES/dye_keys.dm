@@ -4,6 +4,7 @@
 #define DYE_REGISTRY_BANDANA "bandana"
 #define DYE_REGISTRY_SHOES "shoes"
 #define DYE_REGISTRY_FANNYPACK "fannypack"
+#define DYE_REGISTRY_BEANIE	"beanie"
 #define DYE_REGISTRY_BEDSHEET "bedsheet"
 #define DYE_REGISTRY_PLASMAMEN "plasmamen"
 #define DYE_REGISTRY_SYNDICATE_SUIT "syndicate_suit"

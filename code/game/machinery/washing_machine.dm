@@ -3,8 +3,8 @@
 #define WM_STATE_EMPTY				1
 #define WM_STATE_FULL				2
 #define WM_STATE_RUNNING			3
-#define WM_STATE_BLOODY			4
-#define WM_STATE_RUNNING_BLOODY	8
+#define WM_STATE_BLOODY				4
+#define WM_STATE_RUNNING_BLOODY		5
 
 /obj/machinery/washing_machine
 	name = "washing machine"
@@ -210,17 +210,23 @@
 	if(LAZYLEN(inserted_items))
 		for(var/obj/item/I in inserted_items)
 			if(QDELETED(I) || I.loc != src)
+				if(!QDELETED(I))
+					UnregisterSignal(I, COMSIG_PARENT_QDELETING)
 				LAZYREMOVE(inserted_items, I)
 	if(LAZYLEN(inserted_mobs))
 		for(var/mob/living/L in inserted_mobs)
 			if(QDELETED(L) || L.loc != src)
+				if(!QDELETED(L))
+					UnregisterSignal(L, COMSIG_PARENT_QDELETING)
 				LAZYREMOVE(inserted_mobs, L)
 	for(var/obj/item/I in contents)
 		if(!LAZYIN(inserted_items, I))
 			LAZYADD(inserted_items, I)
+			RegisterSignal(I, COMSIG_PARENT_QDELETING, PROC_REF(check_tub_contents))
 	for(var/mob/living/L in contents)
 		if(!LAZYIN(inserted_mobs, L))
 			LAZYADD(inserted_mobs, L)
+			RegisterSignal(L, COMSIG_PARENT_QDELETING, PROC_REF(check_tub_contents))
 	calculate_tub_capacity()
 	update_washing_state()
 
@@ -228,6 +234,7 @@
 /obj/machinery/washing_machine/proc/eject_tub_contents()
 	if(bloody_mess)
 		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
+	check_tub_contents() // one last time, we wanna make sure nothing got teleported out
 	if(LAZYLEN(inserted_items))
 		for(var/obj/item/I in inserted_items)
 			if(bloody_mess)
@@ -316,6 +323,19 @@
 	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	update_washing_state()
 
+/obj/machinery/washing_machine/container_resist(mob/living/L)
+	. = ..()
+	if(Washing)
+		return
+	if(!door_open)
+		toggle_door()
+		return
+	else
+		L.forceMove(loc)
+		check_tub_contents()
+
+
+
 /obj/machinery/washing_machine/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	if(I.tool_behaviour != TOOL_SCREWDRIVER)
 		return FALSE
@@ -333,7 +353,7 @@
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	eject_tub_contents()
-	new /obj/item/stack/sheet/metal(drop_location(), 2)
+	new /obj/item/stack/sheet/metal(drop_location(), 5)
 	new /obj/item/circuitboard/washing_machine(drop_location(), 2)
 	qdel(src)
 
