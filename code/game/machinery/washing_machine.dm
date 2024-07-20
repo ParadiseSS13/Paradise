@@ -1,6 +1,3 @@
-
-
-
 #define DEFAULT_TUB_CAPACITY 20
 
 #define WM_STATE_EMPTY				1
@@ -8,8 +5,6 @@
 #define WM_STATE_RUNNING			3
 #define WM_STATE_BLOODY			4
 #define WM_STATE_RUNNING_BLOODY	8
-
-
 
 /obj/machinery/washing_machine
 	name = "washing machine"
@@ -58,12 +53,15 @@
 /obj/machinery/washing_machine/update_icon_state()
 	icon_state = "wm_[washing_state][door_open ? 1 : 0][panel_open ? "_panel" : ""]"
 
+/// Determines which "WM state" to apply based on if the machine is a bloody mess, full/empty, washing, etc and then updates the icon state accordingly
 /obj/machinery/washing_machine/proc/update_washing_state()
 	if(bloody_mess)
 		washing_state = washing ? WM_STATE_RUNNING_BLOODY : WM_STATE_BLOODY
+		update_appearance(UPDATE_ICON_STATE)
 		return
 	if(current_tub_capacity)
 		washing_state = washing ? WM_STATE_RUNNING : WM_STATE_FULL
+		update_appearance(UPDATE_ICON_STATE)
 		return
 	washing_state = washing ? WM_STATE_RUNNING : WM_STATE_EMPTY
 	update_appearance(UPDATE_ICON_STATE)
@@ -77,6 +75,10 @@
 		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle."
 	if(bloody_mess)
 		. += "<span class='warning'>The tub is covered in blood and gibs, you will need to clean it out with soap first."
+	else
+		var/total_contents = LAZYLEN(inserted_items) + LAZYLEN(inserted_mobs)
+		. += "<span class='notice'>There is [total_contents] item\s inside"
+
 
 /obj/machinery/washing_machine/AltClick(mob/user)
 	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -102,10 +104,12 @@
 		return
 	if(default_deconstruction_crowbar(user, W, FALSE))
 		return
+	if(istype(W, /obj/item/soap))
+		return ..() // need to be able to clean washing machine without putting stuff into the washing machine :D
 	if(istype(W, /obj/item/grab))
 		var/obj/item/grab/G = W
 		if(isliving(G.assailant))
-			if(attempt_insert(user, G.assailant))
+			if(attempt_insert(user, G.affecting))
 				qdel(G)
 		return
 	if(istype(W))
@@ -150,12 +154,10 @@
 		if(item_to_insert.w_class >= WEIGHT_CLASS_HUGE)
 			to_chat(user, "<span class='notice'>You try to insert [item_to_insert] into [src] but [item_to_insert.p_them()] is too large for the tub!</span>")
 			return FALSE
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[item_to_insert] is stuck to your hand!</span>")
-			return FALSE
 		return insert_item_into_tub(user, item_to_insert)
 	return FALSE // how did we get here?
 
+/// Handles inserting mobs into the washing machines, checks machines capacity, does a do_after, and then applys appropriate signals and updates machines state
 /obj/machinery/washing_machine/proc/insert_mob_into_tub(mob/user, mob/living/mob_to_insert)
 	var/mob_content_size = mob_to_insert.mob_size
 	if(max_tub_capacity < ((mob_content_size * 2) + current_tub_capacity))
@@ -167,6 +169,7 @@
 		return FALSE
 	mob_to_insert.forceMove(src)
 	RegisterSignal(mob_to_insert, COMSIG_PARENT_QDELETING, PROC_REF(check_tub_contents))
+	LAZYADD(inserted_mobs, mob_to_insert)
 	calculate_tub_capacity()
 	update_washing_state()
 	add_attack_logs(user, mob_to_insert, "Shoved into washing machine.")
@@ -174,6 +177,7 @@
 	to_chat(user, "<span class='danger'>You shove [mob_to_insert] into [src].</span>")
 	return TRUE
 
+/// Handles inserting obj/items into the washing machines, checks machines capacity, does a do_after, and then applys appropriate signals and updates machines state
 /obj/machinery/washing_machine/proc/insert_item_into_tub(mob/user, obj/item/item_to_insert)
 	var/item_content_size = item_to_insert.w_class
 	if(max_tub_capacity < (item_content_size + current_tub_capacity))
@@ -181,8 +185,12 @@
 		return FALSE
 	if(!do_after_once(user, (1 SECONDS * (item_to_insert.w_class / 3)), target = src, attempt_cancel_message = "You stop inserting [item_to_insert] into [src]."))
 		return FALSE
+	if(!user.drop_item())
+		to_chat(user, "<span class='warning'>[item_to_insert] is stuck to your hand!</span>")
+		return FALSE
 	item_to_insert.forceMove(src)
 	RegisterSignal(item_to_insert, COMSIG_PARENT_QDELETING, PROC_REF(check_tub_contents))
+	LAZYADD(inserted_items, item_to_insert)
 	calculate_tub_capacity()
 	update_washing_state()
 	to_chat(user, "<span class='notice'>You insert [item_to_insert] into [src].</span>")
@@ -228,7 +236,7 @@
 			UnregisterSignal(I, COMSIG_PARENT_QDELETING)
 		LAZYNULL(inserted_items)
 	if(LAZYLEN(inserted_mobs))
-		for(var/mob/living/L in inserted_items)
+		for(var/mob/living/L in inserted_mobs)
 			L.forceMove(loc)
 			UnregisterSignal(L, COMSIG_PARENT_QDELETING)
 		LAZYNULL(inserted_mobs)
@@ -240,18 +248,19 @@
 	var/new_capacity = 0
 	if(LAZYLEN(inserted_items))
 		for(var/obj/item/I in inserted_items)
-			I += I.w_class
+			new_capacity += I.w_class
 	if(LAZYLEN(inserted_mobs))
-		for(var/mob/living/L in inserted_items)
+		for(var/mob/living/L in inserted_mobs)
 			new_capacity += L.mob_size * 2
 	current_tub_capacity = new_capacity
 
 /obj/machinery/washing_machine/proc/toggle_door()
 	door_open = !door_open
-	update_washing_state()
 	if(door_open)
 		eject_tub_contents()
+		update_washing_state()
 		return
+	update_washing_state()
 
 /// Attempts to locate stamps or crayons for dyeing purposes
 /obj/machinery/washing_machine/proc/locate_color_source()
@@ -260,18 +269,23 @@
 		color_sources += C
 	for(var/obj/item/stamp/S in contents)
 		color_sources += S
+	if(!length(color_sources))
+		return
 	color_source = pick(color_sources)
 	if(istype(color_source, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C
+		var/obj/item/toy/crayon/C = color_source
 		wash_color = C.dye_color
 	if(istype(color_source, /obj/item/stamp))
-		var/obj/item/stamp/S
+		var/obj/item/stamp/S = color_source
 		wash_color = S.dye_color
 
 /obj/machinery/washing_machine/proc/start_wash_cycle()
+	if(stat & (NOPOWER|BROKEN))
+		return
 	locate_color_source()
 	washing = TRUE
 	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
+	atom_say("Beginning Wash Cycle!")
 	sleep(1 SECONDS)
 	update_washing_state()
 	use_power(100)
@@ -279,20 +293,25 @@
 	addtimer(CALLBACK(src, PROC_REF(wash_cycle)), 15 SECONDS)
 
 /obj/machinery/washing_machine/proc/wash_cycle()
-	for(var/atom/movable/AM in contents)
-		AM.machine_wash(src)
-
+	for(var/obj/item/I in inserted_items)
+		I.machine_wash(src)
+	for(var/mob/living/L in inserted_mobs)
+		L.machine_wash(src)
 	update_washing_state()
 	use_power(50 * current_tub_capacity)
 	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(end_wash_cycle)), 15 SECONDS)
 
 /obj/machinery/washing_machine/proc/end_wash_cycle()
+	if(bloody_mess)
+		for(var/obj/item/I in inserted_items)
+			I.add_blood(I.blood_DNA)
 	if(color_source)
 		qdel(color_source)
 		color_source = null
 	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 	washing = FALSE
+	atom_say("Wash Cycle Complete!")
 	sleep(1 SECONDS)
 	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	update_washing_state()
@@ -315,19 +334,28 @@
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	eject_tub_contents()
 	new /obj/item/stack/sheet/metal(drop_location(), 2)
-	if(washing)
-		chem_splash(loc, 3, list("water"))
+	new /obj/item/circuitboard/washing_machine(drop_location(), 2)
 	qdel(src)
+
+/obj/machinery/washing_machine/AllowDrop()
+	return TRUE // so gibs and dropped items end up
 
 /obj/machinery/washing_machine/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
 	bloody_mess = FALSE
 	return ..()
 
+/obj/item/storage/belt/fannypack/machine_wash(obj/machinery/washing_machine/washer)
+	. = ..()
+	if(washer.color_source)
+		dye_item(washer.wash_color)
+
 /obj/item/clothing/machine_wash(obj/machinery/washing_machine/washer)
+	. = ..()
 	if(washer.color_source)
 		dye_item(washer.wash_color)
 
 /obj/item/bedsheet/machine_wash(obj/machinery/washing_machine/washer)
+	. = ..()
 	if(washer.color_source)
 		dye_item(washer.wash_color)
 
@@ -337,10 +365,39 @@
 		held_mob.machine_wash(washer)
 
 /obj/item/stack/sheet/hairlesshide/machine_wash(obj/machinery/washing_machine/washer)
+	. = ..()
 	new /obj/item/stack/sheet/wetleather(loc, amount)
 	qdel(src)
 
-/mob/living/basic/pet/machine_wash(obj/machinery/washing_machine/washer)
+/mob/living/simple_animal/pet/machine_wash(obj/machinery/washing_machine/washer)
 	washer.bloody_mess = TRUE
 	add_attack_logs(washer, src, "gibbed by washing machine")
-	gib()
+	gib() //warcrime time!
+
+#undef DEFAULT_TUB_CAPACITY
+#undef WM_STATE_EMPTY
+#undef WM_STATE_FULL
+#undef WM_STATE_RUNNING
+#undef WM_STATE_BLOODY
+#undef WM_STATE_RUNNING_BLOODY
+
+//
+//    , ,, ,
+//    | || |    ,/  _____  \.
+//    \_||_/    ||_/     \_||
+//      ||       \_| . . |_/
+//      ||         |  L  |
+//     ,||         |`==='|
+//     |>|      ___`>  -<'___
+//     |>|\    /             |
+//    \>| \   /  ,    .    .  |
+//      ||  \/  /| .  |  . |  |
+//      ||\  ` / | ___|___ |  |     (
+//   (( || `--'  | _______ |  |     ))  (
+// (  )\|| (  )\ | - --- - | -| (  ( \  ))
+// (\/  || ))/ ( | -- - -- |  | )) )  \((
+//  ( ()||((( ())|         |  |( (( () )hjm
+//
+//	"Allow this Devil to stand testament to the
+//    the shitcode that once haunted this file"
+//

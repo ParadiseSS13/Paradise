@@ -23,6 +23,8 @@
 	icon_state = "qm_skirt"
 	item_state = "qm_skirt"
 	item_color = "qm_skirt"
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/cargo/qm/dress
 	name = "quartermaster's dress uniform"

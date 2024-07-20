@@ -810,6 +810,8 @@
 	icon_state = "pyro"
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
+	dyeable = FALSE
+
 	var/on_cooldown = FALSE
 	var/obj/item/assembly/signaler/anomaly/pyro/core
 	var/next_spark_time

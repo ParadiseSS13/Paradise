@@ -417,6 +417,7 @@
 	desc = "It's a baseball hat in a tasteful grey colour."
 	icon_state = "greysoft"
 	item_color = "grey"
+	dyeable = FALSE
 
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -459,6 +460,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	dyeable = FALSE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -514,6 +516,7 @@
 	icon_state = "black"
 	item_color = "black"
 	desc = "A pair of black shoes."
+	dyeable = FALSE
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -648,6 +651,7 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/stamp/chameleon
+	dye_color = DYE_RAINBOW
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/stamp/chameleon/Initialize(mapload)

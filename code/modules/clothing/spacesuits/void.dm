@@ -6,6 +6,7 @@
 	icon_state = "void-red"
 	item_state = "void"
 	flags_inv = HIDEMASK|HIDEEARS
+	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_VOID_HELMET
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -19,6 +20,7 @@
 	icon_state = "void-red"
 	item_state = "void"
 	desc = "A high tech, NASA Centcom branch designed space suit. Used for AI satellite maintenance."
+	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_VOID_SUIT
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/multitool)
 	sprite_sheets = list(

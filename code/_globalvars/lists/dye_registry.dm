@@ -1,4 +1,16 @@
-//dye registry, add dye colors and their resulting output here if you want the sprite to change instead of just the color.
+/*
+	* Dye Registry
+	*
+	* This is the easiest way to expand the range of dyeable clothes in-game.
+	* Adding an entry to one of the registry lists allows all types with that dyeing_key to
+	* be dyed to one of the included paths (given a specific dye key) unless otherwise precluded
+	* by setting dyeable to FALSE
+	*
+	* For example, /obj/item/clothing/under dyeing_key is set to
+*/
+
+
+//dye registry, add dye colors and their resulting output here if you want the sprite to change
 GLOBAL_LIST_INIT(dye_registry, list(
 	DYE_REGISTRY_UNDER = list(
 		DYE_RED = /obj/item/clothing/under/color/red,
@@ -143,25 +155,48 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RD = /obj/item/clothing/under/plasmaman/rd,
 		DYE_CMO = /obj/item/clothing/under/plasmaman/cmo,
 	),
+	DYE_REGISTRY_VOID_SUIT = list(
+		DYE_RED = /obj/item/clothing/suit/space/nasavoid,
+		DYE_GREEN = /obj/item/clothing/suit/space/nasavoid/green,
+		DYE_BLUE = /obj/item/clothing/suit/space/nasavoid/ltblue,
+		DYE_PURPLE = /obj/item/clothing/suit/space/nasavoid/purple,
+		DYE_YELLOW = /obj/item/clothing/suit/space/nasavoid/yellow,
+		DYE_CAPTAIN = /obj/item/clothing/suit/space/nasavoid/captain,
+		DYE_SYNDICATE = /obj/item/clothing/suit/space/nasavoid/syndi,
+		DYE_HOP = /obj/item/clothing/suit/space/nasavoid/ntblue,
+		DYE_NTREP = /obj/item/clothing/suit/space/nasavoid/ntblue,
+	),
+	DYE_REGISTRY_VOID_HELMET = list(
+		DYE_RED = /obj/item/clothing/head/helmet/space/nasavoid,
+		DYE_GREEN = /obj/item/clothing/head/helmet/space/nasavoid/green,
+		DYE_BLUE = /obj/item/clothing/head/helmet/space/nasavoid/ltblue,
+		DYE_PURPLE = /obj/item/clothing/head/helmet/space/nasavoid/purple,
+		DYE_YELLOW = /obj/item/clothing/head/helmet/space/nasavoid/yellow,
+		DYE_CAPTAIN = /obj/item/clothing/head/helmet/space/nasavoid/captain,
+		DYE_SYNDICATE = /obj/item/clothing/head/helmet/space/nasavoid/syndi,
+		DYE_HOP = /obj/item/clothing/head/helmet/space/nasavoid/ntblue,
+		DYE_NTREP = /obj/item/clothing/head/helmet/space/nasavoid/ntblue,
+	),
 	DYE_REGISTRY_SYNDICATE_SUIT = list(
-		DYE_RED =/obj/item/clothing/suit/space/syndicate,
+		DYE_RED = /obj/item/clothing/suit/space/syndicate,
 		DYE_GREEN = /obj/item/clothing/suit/space/syndicate/green,
 		DYE_ORANGE = /obj/item/clothing/suit/space/syndicate/orange,
 		DYE_BLUE = /obj/item/clothing/suit/space/syndicate/blue,
+		DYE_YELLOW = /obj/item/clothing/suit/space/syndicate/black/engie,
 		DYE_BLACK = /obj/item/clothing/suit/space/syndicate/black,
 		DYE_CMO = /obj/item/clothing/suit/space/syndicate/black/med,
 		DYE_CE = /obj/item/clothing/suit/space/syndicate/black/engie,
-
-
-
+		DYE_NTREP = /obj/item/clothing/suit/space/syndicate/blue,
 	),
 	DYE_REGISTRY_SYNDICATE_HELMET = list(
 		DYE_RED = /obj/item/clothing/head/helmet/space/syndicate,
 		DYE_GREEN = /obj/item/clothing/head/helmet/space/syndicate/green,
 		DYE_ORANGE = /obj/item/clothing/head/helmet/space/syndicate/orange,
 		DYE_BLUE = /obj/item/clothing/head/helmet/space/syndicate/blue,
+		DYE_YELLOW = /obj/item/clothing/head/helmet/space/syndicate/black/engie,
 		DYE_BLACK = /obj/item/clothing/head/helmet/space/syndicate/black,
 		DYE_CMO = /obj/item/clothing/head/helmet/space/syndicate/black/med,
 		DYE_CE = /obj/item/clothing/head/helmet/space/syndicate/black/engie,
+		DYE_NTREP = /obj/item/clothing/head/helmet/space/syndicate/blue,
 	),
 ))

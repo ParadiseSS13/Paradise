@@ -138,9 +138,10 @@
 //Krav Maga Gloves
 
 /obj/item/clothing/gloves/color/black/krav_maga
-	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
 	resistance_flags = NONE
+	dyeable = FALSE
+	var/datum/martial_art/krav_maga/style
 
 /obj/item/clothing/gloves/color/black/krav_maga/Initialize()
 	. = ..()

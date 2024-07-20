@@ -28,6 +28,7 @@
 #define DYE_CAPTAIN "captain"
 #define DYE_HOP "hop"
 #define DYE_HOS "hos"
+#define DYE_NTREP "ntrep"
 #define DYE_CE "ce"
 #define DYE_RD "rd"
 #define DYE_CMO "cmo"

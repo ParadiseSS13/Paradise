@@ -11,6 +11,7 @@
 	item_state = "plasmaman"
 	item_color = "plasmaman"
 	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_PLASMAMEN
 
 	var/next_extinguish = 0
 	var/extinguish_cooldown = 100

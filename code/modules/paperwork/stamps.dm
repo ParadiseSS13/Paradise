@@ -90,7 +90,7 @@
 	name = "Nanotrasen Representative's rubber stamp"
 	icon_state = "stamp-rep"
 	item_color = "rep"
-	dye_color = DYE_CENTCOM
+	dye_color = DYE_NTREP
 
 /obj/item/stamp/magistrate
 	name = "Magistrate's rubber stamp"

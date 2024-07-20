@@ -55,6 +55,15 @@
 /atom/proc/post_clean(atom/target, mob/user) //For specific cleaning object behaviors after cleaning, such as mops making floors slippery.
 	return
 
+/*
+	* # machine_wash()
+	*
+	* Called by machinery/washing_machine during its wash cycle
+	* allows custom behaviour to be implemented on items that are put through the washing machine
+	* by default it un cmag's objects and cleans all contaminents off of the item
+	*
+	* source - the washing_machine that is responsible for the washing, used by overrides to detect color to dye with
+*/
 /atom/movable/proc/machine_wash(obj/machinery/washing_machine/source)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED)) //If we've cleaned a cmagged object
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)

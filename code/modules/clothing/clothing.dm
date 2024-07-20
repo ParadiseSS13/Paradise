@@ -814,6 +814,7 @@
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
+	dyeing_key = DYE_REGISTRY_UNDER
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',

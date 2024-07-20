@@ -10,6 +10,7 @@
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
+	dyeable = TRUE
 
 /obj/item/clothing/gloves/color/yellow/fake
 	siemens_coefficient = 1
