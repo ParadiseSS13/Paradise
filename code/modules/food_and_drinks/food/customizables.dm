@@ -435,7 +435,7 @@ do {\
 	. = ..()
 	if(LAZYLEN(ingredients))
 		var/whatsinside = pick(ingredients)
-		. += "<span class='notice'> You think you can see [whatsinside] in there.</span>"
+		. += "<span class='notice'>You think you can see [whatsinside] in there.</span>"
 
 
 /obj/item/food/snacks/customizable/proc/newname()
