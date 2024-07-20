@@ -17,6 +17,8 @@ const severities = {
 
 const medStatusStyles = {
   '*Deceased*': 'deceased',
+  '*DNR-S*': 'dnrs',
+  'DNR-M': 'dnrm',
   '*SSD*': 'ssd',
   'Physically Unfit': 'physically_unfit',
   'Disabled': 'disabled',
