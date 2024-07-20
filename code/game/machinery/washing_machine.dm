@@ -29,22 +29,12 @@
 	var/current_tub_capacity = 0
 	/// The cap for how much stuff you can shove in here
 	var/max_tub_capacity = DEFAULT_TUB_CAPACITY
-
-	/// static Typecache of items that are blacklists
-	var/static/list/washing_blacklist = list(
-		/obj/item/clothing/gloves/color/black/krav_maga/sec,
-	)
-
 	/// Is the washing machine tub filled with gibs/blood? Effects the sprite it uses
 	var/bloody_mess = FALSE
 	/// Where is our DYE color coming from?
 	var/obj/item/color_source
 	/// What DYE color are we dyeing stuff?
 	var/wash_color
-
-/obj/machinery/washing_machine/Initialize(mapload)
-	. = ..()
-	washing_blacklist = typecacheof(washing_blacklist)
 
 /obj/machinery/washing_machine/Destroy()
 	eject_tub_contents() // cleans up refs & signals
