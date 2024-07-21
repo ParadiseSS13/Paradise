@@ -145,7 +145,6 @@
 			to_chat(user, "<span class='notice'>You try to insert [item_to_insert] into [src] but [item_to_insert.p_them()] is too large to fit inside!</span>")
 			return FALSE
 		return insert_item_into_tub(user, item_to_insert)
-	return FALSE // how did we get here?
 
 /// Handles inserting mobs into the washing machines, checks machines capacity, does a do_after, and then applys appropriate signals and updates machines state
 /obj/machinery/washing_machine/proc/insert_mob_into_tub(mob/user, mob/living/mob_to_insert)
@@ -165,6 +164,7 @@
 	add_attack_logs(user, mob_to_insert, "Shoved into washing machine.")
 	to_chat(mob_to_insert, "<span class='userdanger'>[user] shoves you into [src]. Oh shit!</span>")
 	to_chat(user, "<span class='danger'>You shove [mob_to_insert] into [src].</span>")
+	visible_message("<span class='danger'>[user] shoves [mob_to_insert] into [src].</span>")
 	return TRUE
 
 /// Handles inserting obj/items into the washing machines, checks machines capacity, does a do_after, and then applys appropriate signals and updates machines state
@@ -354,7 +354,9 @@
 	new /obj/item/stack/sheet/wetleather(loc, amount)
 	qdel(src)
 
-/mob/living/simple_animal/pet/machine_wash(obj/machinery/washing_machine/washer)
+/mob/living/simple_animal/machine_wash(obj/machinery/washing_machine/washer)
+	if(mob_size >= MOB_SIZE_HUMAN)
+		return
 	washer.bloody_mess = TRUE
 	add_attack_logs(washer, src, "gibbed by washing machine")
 	gib() //warcrime time!
