@@ -49,11 +49,11 @@
 		washing_state = washing ? WM_STATE_RUNNING_BLOODY : WM_STATE_BLOODY
 		update_appearance(UPDATE_ICON_STATE)
 		return
-	if(current_tub_capacity)
-		washing_state = washing ? WM_STATE_RUNNING : WM_STATE_FULL
+	if(washing)
+		washing_state = WM_STATE_RUNNING
 		update_appearance(UPDATE_ICON_STATE)
 		return
-	washing_state = washing ? WM_STATE_RUNNING : WM_STATE_EMPTY
+	washing_state = current_tub_capacity ? WM_STATE_FULL : WM_STATE_EMPTY
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/machinery/washing_machine/examine(mob/user)
@@ -62,7 +62,7 @@
 	if(washing)
 		. += "<span class='notice'>It is currently in it's wash cycle.</span>"
 	else
-		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle.</span>"
+		 . += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle.</span>"
 	if(bloody_mess)
 		. += "<span class='warning'>The tub is covered in blood and gibs, you will need to clean it out with soap first.</span>"
 	else
@@ -90,7 +90,8 @@
 		return ..()
 	if(default_unfasten_wrench(user, W))
 		return
-	if(default_deconstruction_screwdriver(user, null, null, W))
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
+		update_appearance(UPDATE_ICON_STATE)
 		return
 	if(default_deconstruction_crowbar(user, W, FALSE))
 		return
@@ -324,22 +325,6 @@
 		L.forceMove(loc)
 		check_tub_contents()
 
-
-
-/obj/machinery/washing_machine/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
-	if(I.tool_behaviour != TOOL_SCREWDRIVER)
-		return FALSE
-	if(!I.use_tool(src, user, 0, volume = 0))
-		return FALSE
-	if(!panel_open)
-		panel_open = TRUE
-		to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
-	else
-		panel_open = FALSE
-		to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
-		I.play_tool_sound(user, I.tool_volume)
-	update_icon_state(UPDATE_ICON_STATE)
-	return TRUE
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	eject_tub_contents()

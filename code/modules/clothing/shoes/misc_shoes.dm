@@ -379,12 +379,14 @@
 	desc = "These boots were made for dancing."
 	icon_state = "bsing"
 	put_on_delay = 50
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/cowboy
 	name = "cowboy boots"
 	desc = "A pair a' brown boots."
 	icon_state = "cowboy_brown"
 	item_color = "cowboy_brown"
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/cowboy/black
 	name = "black cowboy boots"
@@ -437,6 +439,7 @@
 	item_state = "clothwrap"
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
@@ -449,6 +452,8 @@
 	permeability_coefficient = 0.05
 	can_cut_open = FALSE
 	knife_slot = TRUE
+	dyeable = FALSE
+
 	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
 	var/jumpspeed = 3
 	var/recharging_rate = 6 SECONDS //default 6 seconds between each dash

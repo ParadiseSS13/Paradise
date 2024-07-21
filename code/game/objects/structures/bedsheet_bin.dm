@@ -21,10 +21,7 @@ LINEN BINS
 	resistance_flags = FLAMMABLE
 	slot_flags = SLOT_FLAG_BACK
 	dog_fashion = /datum/dog_fashion/head/ghost
-
-	/// The associated key to the dye registry GLOB list, used to transform/color this piece of clothing through dyeing
-	var/dyeing_key = ""
-
+	dyeing_key = DYE_REGISTRY_BEDSHEET
 
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")

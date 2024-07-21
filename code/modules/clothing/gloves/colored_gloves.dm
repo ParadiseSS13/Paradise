@@ -164,7 +164,6 @@
 	item_color = "white"
 	transfer_prints = TRUE
 	resistance_flags = NONE
-	dyeable = FALSE // can't dye latex
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"

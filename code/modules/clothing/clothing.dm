@@ -38,10 +38,7 @@
 	var/cooldown = 0
 	var/species_disguise = null
 	var/magical = FALSE
-	/// Can we use dye to altar this piece of clothing? Currently used by the washing machine
-	var/dyeable = FALSE
-	/// The associated key to the dye registry GLOB list, used to transform/color this piece of clothing through dyeing
-	var/dyeing_key = ""
+
 	/// Do we block AI tracking?
 	var/blockTracking
 	w_class = WEIGHT_CLASS_SMALL
@@ -376,7 +373,6 @@
 	icon_override = 'icons/mob/clothing/head.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_FLAG_HEAD
-	dyeable = FALSE
 	var/HUDType = null
 
 	var/vision_flags = 0
@@ -479,6 +475,7 @@
 
 	body_parts_covered = FEET
 	slot_flags = SLOT_FLAG_FEET
+	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_SHOES
 
 	permeability_coefficient = 0.50
