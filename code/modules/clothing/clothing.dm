@@ -38,10 +38,10 @@
 	var/cooldown = 0
 	var/species_disguise = null
 	var/magical = FALSE
-	/// Can we use dye to altar this piece of clothing? Currently used by the washing machine
+	/// Can we use dye to alter this piece of clothing? Currently used by the washing machine
 	var/dyeable = FALSE
 	/// The associated key to the dye registry GLOB list, used to transform/color this piece of clothing through dyeing
-	var/dyeing_key = ""
+	var/dyeing_key
 	/// Do we block AI tracking?
 	var/blockTracking
 	w_class = WEIGHT_CLASS_SMALL

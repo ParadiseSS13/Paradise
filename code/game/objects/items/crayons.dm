@@ -217,7 +217,7 @@
 			dye_color = DYE_YELLOW
 		if("crayongreen")
 			name = "green crayon"
-			colour =COLOR_GREEN
+			colour = COLOR_GREEN
 			dye_color = DYE_GREEN
 		if("crayonblue")
 			name = "blue crayon"

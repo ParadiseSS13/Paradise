@@ -66,12 +66,13 @@
 */
 /atom/movable/proc/machine_wash(obj/machinery/washing_machine/source)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED)) //If we've cleaned a cmagged object
-		REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		uncmag()
+		REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
 	//Generic cleaning functionality
 	var/obj/effect/decal/cleanable/C = locate() in src
-	qdel(C)
+	if(!isnull(C))
+		qdel(C)
 	clean_blood()
 
 
