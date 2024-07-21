@@ -62,13 +62,12 @@
 	if(washing)
 		. += "<span class='notice'>It is currently in it's wash cycle.</span>"
 	else
-		 . += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle.</span>"
+		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle.</span>"
 	if(bloody_mess)
-		. += "<span class='warning'>The tub is covered in blood and gibs, you will need to clean it out with soap first.</span>"
+		. += "<span class='warning'>The inside is covered in blood and gibs, you will need to clean it out with soap first.</span>"
 	else
 		var/total_contents = LAZYLEN(inserted_items) + LAZYLEN(inserted_mobs)
 		. += "<span class='notice'>There is [total_contents] item\s inside.</span>"
-
 
 /obj/machinery/washing_machine/AltClick(mob/user)
 	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -132,7 +131,7 @@
 	if(isliving(atom_to_insert)) // not ismob() b/c we only want living creatures, ghosts could just float out of the washing machine whenever they wanted
 		var/mob/living/sacrifice = atom_to_insert
 		if(sacrifice.mob_size >= MOB_SIZE_HUMAN) // prevents some most mobs from being washed even if it would be really really funny
-			to_chat(user, "<span class='notice'>You try to insert [sacrifice] into [src] but [sacrifice.p_theyre()] too large to fit inside the tub!</span>")
+			to_chat(user, "<span class='notice'>You try to insert [sacrifice] into [src] but [sacrifice.p_theyre()] too large to fit inside!</span>")
 			return FALSE
 		if(sacrifice.buckled)
 			to_chat(user, "<span class='notice'>You try to insert [sacrifice] into [src] but [sacrifice.p_theyre()] still buckled to something!</span>")
@@ -143,7 +142,7 @@
 		if(item_to_insert.anchored)
 			return FALSE
 		if(item_to_insert.w_class >= WEIGHT_CLASS_HUGE)
-			to_chat(user, "<span class='notice'>You try to insert [item_to_insert] into [src] but [item_to_insert.p_them()] is too large for the tub!</span>")
+			to_chat(user, "<span class='notice'>You try to insert [item_to_insert] into [src] but [item_to_insert.p_them()] is too large to fit inside!</span>")
 			return FALSE
 		return insert_item_into_tub(user, item_to_insert)
 	return FALSE // how did we get here?
@@ -152,7 +151,7 @@
 /obj/machinery/washing_machine/proc/insert_mob_into_tub(mob/user, mob/living/mob_to_insert)
 	var/mob_content_size = mob_to_insert.mob_size
 	if(max_tub_capacity < ((mob_content_size * 2) + current_tub_capacity))
-		to_chat(user, "<span class='warning'>You try to insert [mob_to_insert] into [src] but the tub is too full for [mob_to_insert.p_them()]!</span>")
+		to_chat(user, "<span class='warning'>You try to insert [mob_to_insert] into [src] but it is too full for [mob_to_insert.p_them()]!</span>")
 		return FALSE
 	to_chat(mob_to_insert, "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
 	visible_message("<span class='warning'>[user] starts shoving [mob_to_insert] into [src]!</span>")
