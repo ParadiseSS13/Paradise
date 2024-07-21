@@ -1,10 +1,6 @@
-/datum/objective/debrain/command
-	name = "Debrain command"
-	target_jobs = list("Captain", "Head of Personnel", "Head of Security", "Research Director", "Chief Engineer", "Chief Medical Officer", "Quartermaster")
-
 /datum/objective/debrain/science
 	name = "Debrain science"
-	target_jobs = list("Research Director", "Scientist", "Roboticist", "Geneticist")
+	target_department = DEPARTMENT_SCIENCE
 
 /datum/objective/assassinate/mindshielded
 	name = "Assassinate mindshielded"
@@ -25,11 +21,11 @@
 
 /datum/objective/assassinate/medical
 	name = "Assassinate medical"
-	target_jobs = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Chemist", "Virologist", "Psychologist", "Coroner")
+	target_department = DEPARTMENT_MEDICAL
 
 /datum/objective/assassinate/engineering
 	name = "Assassinate engineering"
-	target_jobs = list("Chief Engineer", "Station Engineer", "Atmospherics Technician")
+	target_department = DEPARTMENT_ENGINEERING
 
 /datum/objective/assassinateonce/animal_abuser
 	name = "Assassinate animal abuser once"
@@ -42,19 +38,19 @@
 
 /datum/objective/assassinateonce/command
 	name = "Assassinate command once"
-	target_jobs = list("Captain", "Head of Personnel", "Head of Security", "Research Director", "Chief Engineer", "Chief Medical Officer", "Quartermaster")
+	target_department = DEPARTMENT_COMMAND
 
 /datum/objective/assassinateonce/medical
 	name = "Assassinate medical once"
-	target_jobs = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Chemist", "Virologist", "Psychologist", "Coroner")
+	target_department = DEPARTMENT_MEDICAL
 
 /datum/objective/assassinateonce/science
 	name = "Assassinate science once"
-	target_jobs = list("Research Director", "Scientist", "Roboticist", "Geneticist")
+	target_department = DEPARTMENT_SCIENCE
 
 /datum/objective/assassinateonce/engineering
 	name = "Assassinate engineering once"
-	target_jobs = list("Chief Engineer", "Station Engineer", "Atmospherics Technician")
+	target_department = DEPARTMENT_ENGINEERING
 
 /datum/objective/steal/cybersun
 	name = "Steal Item (Cybersun)"

@@ -34,6 +34,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/martyr_compatible = FALSE
 	/// List of jobs that the objective will target if possible, any crew if not.
 	var/list/target_jobs = list()
+	/// The department that'll be targeted by this objective. If set, fills target_jobs with jobs from that department.
+	var/target_department
 	/// Contains the flags needed to meet the conditions of a valid target, such as mindshielded or syndicate agent.
 	var/flags_target
 	var/datum/objective_holder/holder
@@ -46,6 +48,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = text
 	if(team_to_join)
 		team = team_to_join
+	if(target_department)
+		target_jobs = setup_target_jobs()
 
 /datum/objective/Destroy()
 	GLOB.all_objectives -= src
@@ -171,6 +175,28 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(check_silicon && issilicon(target_current))
 		return TRUE
 	return isbrain(target_current) || istype(target_current, /mob/living/simple_animal/spiderbot)
+
+// Setup and return the objective target jobs list based on target department
+/datum/objective/proc/setup_target_jobs()
+	if(!target_department)
+		return
+	var/list/L = list()
+	switch(target_department)
+		if(DEPARTMENT_COMMAND)
+			L = GLOB.command_head_positions.Copy()
+		if(DEPARTMENT_MEDICAL)
+			L = GLOB.medical_positions.Copy()
+		if(DEPARTMENT_ENGINEERING)
+			L = GLOB.engineering_positions.Copy()
+		if(DEPARTMENT_SCIENCE)
+			L = GLOB.science_positions.Copy()
+		if(DEPARTMENT_SECURITY)
+			L = GLOB.active_security_positions.Copy()
+		if(DEPARTMENT_SUPPLY)
+			L = GLOB.supply_positions.Copy()
+		if(DEPARTMENT_SERVICE)
+			L = GLOB.service_positions.Copy()
+	return L
 
 /datum/objective/assassinate
 	name = "Assassinate"
