@@ -32,7 +32,7 @@
 	name = "Cybersun Incorporated - The Inner Circle"
 	intro_desc = "You're an operative of Cybersun Incorporated's Inner Circle, an elite PMC and proxy arm of the company. \
 		Clean kills, clean thefts, clean getaway. Get it done, operative."
-	focus = 50 //Don't bully sec too hard
+	focus = 50 // Don't bully sec too hard
 	objectives = list(/datum/objective/assassinateonce/command, /datum/objective/assassinate/mindshielded, /datum/objective/steal/cybersun)
 
 /datum/antag_org/syndicate/interdyne // Mostly target Medical
