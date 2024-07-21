@@ -17,7 +17,7 @@
 		to_chat(owner, "<b><i>You cannot cancel an attack you haven't prepared!</i></b>")
 		return
 	to_chat(owner, "<b><i>You cancel your prepared attack.</i></b>")
-	owner.visible_message("<span class='danger'> [owner] relaxes [owner.p_their()] stance.</span>")
+	owner.visible_message("<span class='danger'>[owner] relaxes [owner.p_their()] stance.</span>")
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.in_stance = FALSE
 
