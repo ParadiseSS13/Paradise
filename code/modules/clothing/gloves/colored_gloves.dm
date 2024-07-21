@@ -138,7 +138,7 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "gray"
 	item_state = "graygloves"
-	item_color="grey"
+	item_color = "grey"
 
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
