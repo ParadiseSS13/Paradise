@@ -38,7 +38,6 @@
 	var/cooldown = 0
 	var/species_disguise = null
 	var/magical = FALSE
-
 	/// Do we block AI tracking?
 	var/blockTracking
 	w_class = WEIGHT_CLASS_SMALL

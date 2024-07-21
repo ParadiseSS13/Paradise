@@ -172,7 +172,7 @@
 /obj/machinery/washing_machine/proc/insert_item_into_tub(mob/user, obj/item/item_to_insert)
 	var/item_content_size = item_to_insert.w_class
 	if(max_tub_capacity < (item_content_size + current_tub_capacity))
-		to_chat(user, "<span class='warning'>You try to insert [item_to_insert] into [src] but the tub is too full for [item_to_insert.p_them()]!</span>")
+		to_chat(user, "<span class='warning'>You try to insert [item_to_insert] into [src] but [src] is too full for [item_to_insert.p_them()]!</span>")
 		return FALSE
 	if(!do_after_once(user, (1 SECONDS * (item_to_insert.w_class / 3)), target = src, attempt_cancel_message = "You stop inserting [item_to_insert] into [src]."))
 		return FALSE
@@ -336,20 +336,11 @@
 	return TRUE // so gibs and dropped items end up
 
 /obj/machinery/washing_machine/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
-	bloody_mess = FALSE
-	return ..()
-
-/obj/item/storage/belt/fannypack/machine_wash(obj/machinery/washing_machine/washer)
 	. = ..()
-	if(washer.color_source)
-		dye_item(washer.wash_color)
+	if(.)
+		bloody_mess = FALSE
 
-/obj/item/clothing/machine_wash(obj/machinery/washing_machine/washer)
-	. = ..()
-	if(washer.color_source)
-		dye_item(washer.wash_color)
-
-/obj/item/bedsheet/machine_wash(obj/machinery/washing_machine/washer)
+/obj/item/machine_wash(obj/machinery/washing_machine/washer)
 	. = ..()
 	if(washer.color_source)
 		dye_item(washer.wash_color)
