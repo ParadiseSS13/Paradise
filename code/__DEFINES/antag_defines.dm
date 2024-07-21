@@ -67,6 +67,14 @@ GLOBAL_LIST(contractors)
 #define IS_MINDSLAVE(mob) (ishuman(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindslave, FALSE))
 
 /**
+ * Objective targeting flags
+ */
+
+#define MINDSHIELDED_TARGET		(1<<0)
+#define UNMINDSHIELDED_TARGET	(1<<1)
+#define SYNDICATE_TARGET		(1<<2)
+
+/**
  * Antag organisations
  */
 

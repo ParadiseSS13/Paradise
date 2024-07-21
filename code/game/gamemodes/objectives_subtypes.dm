@@ -8,15 +8,15 @@
 
 /datum/objective/assassinate/mindshielded
 	name = "Assassinate mindshielded"
-	mindshielded_target = TRUE
+	flags_target = MINDSHIELDED_TARGET
 
 /datum/objective/assassinate/nomindshield
 	name = "Assassinate non-mindshielded"
-	not_mindshielded_target = TRUE
+	flags_target = UNMINDSHIELDED_TARGET
 
 /datum/objective/assassinate/syndicate
 	name = "Assassinate syndicate agent"
-	syndicate_target = TRUE
+	flags_target = SYNDICATE_TARGET
 
 /datum/objective/assassinate/syndicate/update_explanation_text()
 	..()

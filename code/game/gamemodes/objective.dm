@@ -34,12 +34,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/martyr_compatible = FALSE
 	/// List of jobs that the objective will target if possible, any crew if not.
 	var/list/target_jobs = list()
-	/// If set to TRUE, this objective will target mindshielded crew if possible, any crew if not.
-	var/mindshielded_target = FALSE
-	/// If set to TRUE, this objective will target non-mindshielded crew if possible, any crew if not.
-	var/not_mindshielded_target = FALSE
-	/// If set to TRUE, this objective will target a syndicate agent if possible, any crew if not.
-	var/syndicate_target = FALSE
+	/// Contains the flags needed to meet the conditions of a valid target, such as mindshielded or syndicate agent.
+	var/flags_target
 	var/datum/objective_holder/holder
 
 /datum/objective/New(text, datum/team/team_to_join)
@@ -124,11 +120,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
-		if(mindshielded_target && !ismindshielded(possible_target.current))
+		if(flags_target & MINDSHIELDED_TARGET && !ismindshielded(possible_target.current))
 			continue
-		if(not_mindshielded_target && ismindshielded(possible_target.current))
+		if(flags_target & UNMINDSHIELDED_TARGET && ismindshielded(possible_target.current))
 			continue
-		if(syndicate_target && possible_target.special_role != SPECIAL_ROLE_TRAITOR)
+		if(flags_target & SYNDICATE_TARGET && possible_target.special_role != SPECIAL_ROLE_TRAITOR)
 			continue
 		if(length(target_jobs) && !(possible_target.assigned_role in target_jobs))
 			continue
