@@ -8,7 +8,7 @@
 	item_state = "ygloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
-	item_color="yellow"
+	item_color = "yellow"
 	resistance_flags = NONE
 	dyeable = TRUE
 
