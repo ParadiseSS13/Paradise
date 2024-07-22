@@ -8977,9 +8977,7 @@
 /obj/structure/mirror{
 	pixel_y = -34
 	},
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = -8;
 	dir = 1
 	},
@@ -11252,9 +11250,7 @@
 /area/station/public/locker)
 "aXn" = (
 /obj/structure/closet/crate/freezer,
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -21345,7 +21341,7 @@
 "byo" = (
 /obj/structure/window/reinforced,
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
 	department = "Head of Personnel's Office"
 	},
 /turf/simulated/floor/wood,
@@ -26351,9 +26347,6 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/camera{
-	c_tag = "Expedition"
-	},
 /obj/machinery/mineral/equipment_vendor/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -26911,10 +26904,8 @@
 /area/station/supply/expedition)
 "bSp" = (
 /obj/machinery/camera{
-	c_tag = "Research Test Lab North";
-	dir = 8;
-	network = list("RD","SS13");
-	pixel_y = -22
+	c_tag = "Expedition";
+	dir = 9
 	},
 /obj/machinery/suit_storage_unit/expedition,
 /turf/simulated/floor/plasteel{
@@ -31556,9 +31547,7 @@
 /area/station/engineering/atmos/control)
 "ciF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel,
@@ -33496,10 +33485,8 @@
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
 "cqS" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+/obj/structure/sink/kitchen/old{
 	dir = 4;
-	name = "old sink";
 	pixel_x = -12
 	},
 /obj/structure/mirror{
@@ -79218,9 +79205,7 @@
 	},
 /area/station/security/main)
 "saw" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel{
@@ -81298,9 +81283,7 @@
 /obj/structure/mirror{
 	pixel_y = -34
 	},
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = -8;
 	dir = 1
 	},

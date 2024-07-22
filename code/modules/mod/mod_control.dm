@@ -296,7 +296,6 @@
 			return TRUE
 		if(!core)
 			return TRUE
-		wrench.play_tool_sound(src, 100)
 		core.forceMove(drop_location())
 		update_charge_alert()
 		return TRUE
@@ -314,7 +313,6 @@
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
 		if(active || activating)
 			to_chat(user, "<span class='warning'>Deactivate the suit first!</span>")
-		screwdriver.play_tool_sound(src, 100)
 		to_chat(user, "<span class='notice'>Cover [open ? "closed" : "opened"]</span>")
 		open = !open
 	return TRUE
