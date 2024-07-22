@@ -58,12 +58,14 @@
 	RefreshParts()
 
 /obj/machinery/plantgenes/Destroy()
+	for(var/atom/movable/A in contents)
+		A.forceMove(loc)
+	seed = null
+	disk = null
 	core_genes.Cut()
 	reagent_genes.Cut()
 	trait_genes.Cut()
 	target = null
-	QDEL_NULL(seed)
-	QDEL_NULL(disk)
 	return ..()
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
@@ -420,7 +422,7 @@
 					user.put_in_hands(D)
 					update_genes()
 					return
-			to_chat(user, "<span class='warning'> No Empty Disks to Eject!</span>")
+			to_chat(user, "<span class='warning'>No Empty Disks to Eject!</span>")
 		if("set_read_only")
 			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
 			D.read_only = !D.read_only

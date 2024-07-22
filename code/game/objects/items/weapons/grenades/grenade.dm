@@ -26,7 +26,7 @@
 		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
 		active = TRUE
 		icon_state = initial(icon_state) + "_active"
-		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+		playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 		spawn(5)
 			if(user)
 				user.drop_item()
@@ -42,7 +42,7 @@
 		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
 		active = TRUE
 		icon_state = initial(icon_state) + "_active"
-		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+		playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 		spawn(det_time)
 			prime()
 			return
@@ -59,7 +59,7 @@
 		if(det_time > 1)
 			. += "The timer is set to [det_time/10] second\s."
 		else
-			. += "\The [src] is set for instant detonation."
+			. += "[src] is set for instant detonation."
 
 /obj/item/grenade/attack_self(mob/user as mob)
 	if(!active)
@@ -79,7 +79,6 @@
 				C.throw_mode_on()
 			spawn(det_time)
 				prime()
-
 
 /obj/item/grenade/proc/prime()
 	return
@@ -115,3 +114,20 @@
 	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
 	walk_to(src, 0)
 	return ..()
+
+/obj/item/grenade/cmag_act(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	ADD_TRAIT(src, TRAIT_CMAGGED, "cmagged grenade")
+	to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]. [src] suddenly doesn't want to leave you...</span>")
+	AddComponent(/datum/component/boomerang, throw_range, TRUE)
+
+/obj/item/grenade/uncmag()
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	REMOVE_TRAIT(src, TRAIT_CMAGGED, "cmagged grenade")
+	var/datum/component/bomberang = GetComponent(/datum/component/boomerang)
+	if(!bomberang)
+		return
+	bomberang.RemoveComponent()
+	qdel(bomberang)

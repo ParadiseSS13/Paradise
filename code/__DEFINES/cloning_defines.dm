@@ -4,6 +4,7 @@
 #define SCANNER_ABSORBED "absorbed"
 #define SCANNER_NO_SOUL "soulless"
 #define SCANNER_BRAIN_ISSUE "suicide or missing brain"
+#define SCANNER_POD_IN_PROGRESS "cloning in progress"
 #define SCANNER_MISC "miscellanious"
 #define SCANNER_SUCCESSFUL "successful"
 

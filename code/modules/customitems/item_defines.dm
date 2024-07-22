@@ -738,7 +738,7 @@
 			icon_state = new_state["icon_state"]
 			state = choice
 			to_chat(user, "You adjust the helmet.")
-			playsound(src.loc, "[toggle_sound]", 100, 0, 4)
+			playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
 			user.update_inv_head()
 			return 1
 
