@@ -85,16 +85,26 @@ export const RndConsole = (properties, context) => {
             </ConsoleTab>
           </Tabs>
           {decideTab(menu)}
-          {wait_message ? (
-            <Box className="RndConsole__Overlay">
-              <Box className="RndConsole__Overlay__Wrapper">
-                <NoticeBox color="black">{wait_message}</NoticeBox>
-              </Box>
-            </Box>
-          ) : null}
+          <WaitNotice />
         </Box>
       </Window.Content>
     </Window>
+  );
+};
+
+const WaitNotice = (props, context) => {
+  const { data } = useBackend(context);
+  const { wait_message } = data;
+  if (!wait_message) {
+    return <></>;
+  }
+
+  return (
+    <Box className="RndConsole__Overlay">
+      <Box className="RndConsole__Overlay__Wrapper">
+        <NoticeBox color="black">{wait_message}</NoticeBox>
+      </Box>
+    </Box>
   );
 };
 
