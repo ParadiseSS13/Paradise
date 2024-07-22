@@ -19436,7 +19436,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/research)
+/area/station/maintenance/apmaint)
 "bXp" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -28697,7 +28697,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored/cere/research)
+/area/station/maintenance/apmaint)
 "daR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -38856,10 +38856,6 @@
 	},
 /turf/space,
 /area/space)
-"fur" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/space)
 "fuC" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -42110,7 +42106,7 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
-/area/mine/unexplored/cere/research)
+/area/station/maintenance/apmaint)
 "gAG" = (
 /obj/structure/disposaloutlet{
 	dir = 4
@@ -50356,7 +50352,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/mine/unexplored/cere/research)
+/area/station/maintenance/apmaint)
 "jaK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -52531,7 +52527,7 @@
 "jGU" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored/cere/research)
+/area/station/maintenance/apmaint)
 "jHd" = (
 /obj/item/radio/intercom{
 	pixel_y = 28;
@@ -61343,7 +61339,7 @@
 /obj/item/cultivator/rake,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/research)
+/area/station/maintenance/apmaint)
 "mps" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -64499,7 +64495,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored/cere/research)
+/area/station/maintenance/apmaint)
 "nro" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -67159,8 +67155,10 @@
 /turf/simulated/wall,
 /area/station/maintenance/turbine)
 "okt" = (
-/obj/machinery/light{
-	dir = 8
+/obj/machinery/camera{
+	c_tag = "Toxins Mixing";
+	dir = 4;
+	network = list("SS13","RD")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -67822,9 +67820,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
-"oru" = (
-/turf/simulated/mineral/ancient,
-/area/space)
 "orw" = (
 /turf/simulated/wall/r_wall,
 /area/station/hallway/primary/starboard/north)
@@ -71505,7 +71500,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /turf/simulated/floor/plating,
-/area/space)
+/area/station/maintenance/apmaint)
 "pzS" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -76377,11 +76372,6 @@
 	},
 /area/station/supply/office)
 "qVM" = (
-/obj/machinery/camera{
-	c_tag = "Toxins Mixing";
-	dir = 1;
-	network = list("SS13","RD")
-	},
 /obj/structure/dispenser,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -80545,6 +80535,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/portable/canister,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -85007,9 +85000,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
-"tFQ" = (
-/turf/simulated/mineral/ancient/outer,
-/area/space)
 "tFY" = (
 /obj/structure/railing,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
@@ -86685,7 +86675,7 @@
 	dir = 9;
 	icon_state = "whitepurple"
 	},
-/area/space)
+/area/station/maintenance/apmaint)
 "ujC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -89449,7 +89439,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/seeds/liberty,
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/research)
+/area/station/maintenance/apmaint)
 "uXj" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fore2)
@@ -92719,7 +92709,7 @@
 	dir = 8;
 	icon_state = "whitepurple"
 	},
-/area/space)
+/area/station/maintenance/apmaint)
 "vVL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -98005,7 +97995,7 @@
 /obj/item/seeds/ambrosia,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/research)
+/area/station/maintenance/apmaint)
 "xxg" = (
 /obj/effect/spawner/airlock/e_to_w,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -113733,8 +113723,8 @@ rWw
 rNK
 rNK
 rNK
-tFQ
-rNK
+rWw
+rWw
 rNK
 rNK
 ylg
@@ -113986,13 +113976,13 @@ cxd
 wqx
 ccW
 ccW
+oBP
+tLu
+tLu
+tLu
+oBP
 rWw
-fur
-fur
-fur
-tFQ
-tFQ
-rNK
+rWw
 rNK
 ylg
 lez
@@ -114243,13 +114233,13 @@ pDu
 ftr
 pDu
 ftr
-ccW
+wIq
 ujw
 vVI
 pzK
-oru
-tFQ
-tFQ
+wIq
+rWw
+rWw
 cTh
 rLA
 bYF
@@ -114504,9 +114494,9 @@ jGU
 gAv
 mpr
 uXa
-oru
-oru
-tFQ
+wIq
+ccW
+rWw
 cTh
 aFe
 cTh
@@ -114758,12 +114748,12 @@ lMW
 jfl
 gtZ
 daM
-raV
-raV
+sKh
+sKh
 xxb
-oru
-oru
-tFQ
+wIq
+ccW
+rWw
 cTh
 rLA
 wiu
@@ -115015,12 +115005,12 @@ nLO
 jJy
 ftr
 nrl
-raV
+sKh
 bXo
 jaB
-oru
-oru
-oru
+wIq
+ccW
+ccW
 wiu
 vxJ
 njB
