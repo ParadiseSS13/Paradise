@@ -157,7 +157,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 //////////////////////////////
 /obj/item/stack/sheet/plasmaglass
 	name = "plasma glass"
-	desc = "A very strong and very resistant sheet of a plasma-glass alloy."
+	desc = "A very strong and very resistant sheet of a plasma-glass mixture."
 	singular_name = "glass sheet"
 	icon_state = "sheet-plasmaglass"
 	item_state = "sheet-plasmaglass"
@@ -254,7 +254,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 //////////////////////////////
 /obj/item/stack/sheet/titaniumglass
 	name = "titanium glass"
-	desc = "A glass sheet made out of a titanium-silicate mixture."
+	desc = "A glass sheet made out of titanium silicate."
 	singular_name = "titanium glass sheet"
 	icon_state = "sheet-titaniumglass"
 	item_state = "sheet-titaniumglass"
@@ -267,7 +267,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 
 /obj/item/stack/sheet/titaniumglass/examine_more(mob/user)
 	. = ..()
-	. += "Titanium-silicate mixes are an old but highly effective technology that produce a relatively lightweight, very strong glass that can withstand a good amount of punishment."
+	. += "Titanium-silica mixes are an old but highly effective technology that produce a relatively lightweight, very strong glass that can withstand a good amount of punishment."
 	. += ""
 	. += "It is extensively used in the production of starship viewports and transparent armour, and is notably used extensively in space station construction by the USSP."
 

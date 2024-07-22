@@ -43,6 +43,8 @@
 				if(test.failure_count >= MAX_MAP_TEST_FAILURE_COUNT)
 					test.Fail(T, "failure threshold reached at this tile")
 
+		CHECK_TICK
+
 	for(var/datum/map_per_tile_test/test in tests)
 		if(!test.succeeded)
 			failed_any_test = TRUE

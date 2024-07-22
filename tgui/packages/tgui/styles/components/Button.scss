@@ -128,15 +128,15 @@ $bg-map: colors.$bg-map !default;
 }
 
 .Button--color--transparent {
-  @include button-color(base.$color-bg);
   background-color: rgba(base.$color-bg, 0);
   color: $color-transparent-text;
+  @include button-color(base.$color-bg);
 }
 
 .Button--color--translucent {
-  @include button-color(base.$color-bg);
   background-color: rgba(base.$color-bg, 0.6);
   color: $color-transparent-text;
+  @include button-color(base.$color-bg);
 }
 
 .Button--disabled {

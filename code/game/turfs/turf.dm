@@ -195,16 +195,22 @@
 	// First, make sure it can leave its square
 	if(isturf(mover.loc))
 		// Nothing but border objects stop you from leaving a tile, only one loop is needed
-		for(var/obj/obstacle in mover.loc)
-			if(!obstacle.CheckExit(mover, src) && obstacle != mover && obstacle != forget)
+		// This as anything looks odd, since we check istype shortly after, but it's so we can save an istype check for items, which are far more common than other objects.
+		for(var/obj/obstacle as anything in mover.loc)
+			if(isitem(obstacle) || !istype(obstacle) || obstacle == mover || obstacle == forget)
+				continue
+			if(!obstacle.CheckExit(mover, src))
 				mover.Bump(obstacle, TRUE)
 				return FALSE
 
 	var/list/large_dense = list()
-	//Next, check objects to block entry that are on the border
-	for(var/atom/movable/border_obstacle in src)
+	// Next, check for border obstacles on this turf
+	// Everyting inside a turf is an atom/movable.
+	for(var/atom/movable/border_obstacle as anything in src)
+		if(isitem(border_obstacle) || border_obstacle == forget || isnull(border_obstacle))
+			continue
 		if(border_obstacle.flags & ON_BORDER)
-			if(!border_obstacle.CanPass(mover, mover.loc, 1) && (forget != border_obstacle))
+			if(!border_obstacle.CanPass(mover, mover.loc, 1))
 				mover.Bump(border_obstacle, TRUE)
 				return FALSE
 		else
@@ -215,14 +221,15 @@
 		mover.Bump(src, TRUE)
 		return FALSE
 
-	//Finally, check objects/mobs to block entry that are not on the border
+	// Finally, check objects/mobs that block entry and are not on the border
 	var/atom/movable/tompost_bump
 	var/top_layer = FALSE
-	for(var/atom/movable/obstacle in large_dense)
-		if(!obstacle.CanPass(mover, mover.loc, 1) && (forget != obstacle))
-			if(obstacle.layer > top_layer)
-				tompost_bump = obstacle
-				top_layer = obstacle.layer
+	for(var/atom/movable/obstacle as anything in large_dense)
+		if(obstacle.layer <= top_layer)
+			continue
+		if(!obstacle.CanPass(mover, mover.loc, 1))
+			tompost_bump = obstacle
+			top_layer = obstacle.layer
 	if(tompost_bump)
 		mover.Bump(tompost_bump, TRUE)
 		return FALSE

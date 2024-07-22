@@ -3266,9 +3266,7 @@
 	},
 /area/station/security/storage)
 "amK" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 28
 	},
 /turf/simulated/floor/plating,
@@ -59034,9 +59032,7 @@
 "gVD" = (
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/item/restraints/handcuffs/cable/blue,
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /turf/simulated/floor/plating,
@@ -61855,7 +61851,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/meeting_room)
 "isD" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "isK" = (
@@ -68224,7 +68220,7 @@
 "lAc" = (
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -83515,10 +83511,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/launch)
 "sSX" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+/obj/structure/sink/kitchen/old{
 	dir = 4;
-	name = "old sink";
 	pixel_x = -12
 	},
 /obj/item/reagent_containers/glass/bucket,
@@ -83990,10 +83984,9 @@
 "tia" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/old{
 	dir = 8;
-	pixel_x = 12;
-	name = "old sink"
+	pixel_x = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -88731,10 +88724,9 @@
 	},
 /area/station/science/genetics)
 "vEA" = (
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/old{
 	dir = 8;
-	pixel_x = 12;
-	name = "old sink"
+	pixel_x = 12
 	},
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/radio/intercom/locked/prison{
@@ -91217,7 +91209,7 @@
 "wTH" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "wTO" = (
