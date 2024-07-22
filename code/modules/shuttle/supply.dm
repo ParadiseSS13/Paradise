@@ -538,7 +538,7 @@
 /datum/economy/simple_seller/tech_levels/begin_sell(obj/docking_port/mobile/supply/S)
 	temp_tech_levels = SSeconomy.tech_levels.Copy()
 
-/datum/economy/simple_seller/tech_levels/proc/getPrice(tech_rarity, tech_level, sold_level = null)
+/datum/economy/simple_seller/tech_levels/proc/get_price(tech_rarity, tech_level, sold_level = null)
 	// Calculates tech disk's supply points sell cost
 	if(!sold_level)
 		sold_level = 1
@@ -558,7 +558,7 @@
 		if(!disk.tech_id)
 			return COMSIG_CARGO_SELL_WRONG
 
-		var/cost = getPrice(disk.tech_rarity, disk.tech_level, temp_tech_levels[disk.tech_id])
+		var/cost = get_price(disk.tech_rarity, disk.tech_level, temp_tech_levels[disk.tech_id])
 		if(cost)
 			temp_tech_levels[disk.tech_id] = disk.tech_level
 			return COMSIG_CARGO_SELL_NORMAL
@@ -572,7 +572,7 @@
 	if(!disk.tech_id)
 		return
 
-	var/cost = getPrice(disk.tech_rarity, disk.tech_level, SSeconomy.tech_levels[disk.tech_id])
+	var/cost = get_price(disk.tech_rarity, disk.tech_level, SSeconomy.tech_levels[disk.tech_id])
 	if(!cost)
 		return
 
@@ -607,7 +607,7 @@
 		SSblackbox.record_feedback("tally", "cargo tech disks sold", 1, "blank")
 		return
 
-	var/cost = getPrice(disk.tech_rarity, disk.tech_level, SSeconomy.tech_levels[disk.tech_id])
+	var/cost = get_price(disk.tech_rarity, disk.tech_level, SSeconomy.tech_levels[disk.tech_id])
 	if(!cost)
 		item.reason = "[disk.tech_name] - no new data."
 		manifest.line_items += item

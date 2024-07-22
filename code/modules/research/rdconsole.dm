@@ -230,7 +230,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(d_disk && d_disk.blueprint)
 		files.AddDesign2Known(d_disk.blueprint)
 	else if(t_disk && t_disk.tech_id)
-		var/datum/tech/tech = files.FindPossibleTechWithID(t_disk.tech_id)
+		var/datum/tech/tech = files.find_possible_tech_with_id(t_disk.tech_id)
 		if(!isnull(tech))
 			tech.level = t_disk.tech_level
 	SStgui.update_uis(src)
@@ -843,7 +843,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					item["name"] = T.name
 					item["id"] = T.id
 			else
-				var/datum/tech/stored_tech = files.FindPossibleTechWithID(t_disk.tech_id)
+				var/datum/tech/stored_tech = files.find_possible_tech_with_id(t_disk.tech_id)
 				var/list/disk_data = list()
 				data["disk_data"] = disk_data
 				if(isnull(stored_tech))

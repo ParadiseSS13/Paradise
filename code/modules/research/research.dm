@@ -110,7 +110,7 @@ research holder datum.
 		return
 	known_tech[T.id] = T
 
-/datum/research/proc/FindPossibleTechWithID(id)
+/datum/research/proc/find_possible_tech_with_id(id)
 	for(var/datum/tech/T in possible_tech)
 		if(T.id == id)
 			return T
