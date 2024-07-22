@@ -463,10 +463,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(..())
 		return
 
-	if(!allowed(usr) && !isobserver(usr))
+	if(!allowed(ui.user) && !isobserver(ui.user))
 		return
 
-	add_fingerprint(usr)
+	add_fingerprint(ui.user)
 
 
 	switch(action)
@@ -529,13 +529,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("eject_disk")
 			if(t_disk)
 				t_disk.forceMove(loc)
-				if(Adjacent(usr) && !issilicon(usr))
-					usr.put_in_hands(t_disk)
+				if(Adjacent(ui.user) && !issilicon(ui.user))
+					ui.user.put_in_hands(t_disk)
 				t_disk = null
 			if(d_disk)
 				d_disk.forceMove(loc)
-				if(Adjacent(usr) && !issilicon(usr))
-					usr.put_in_hands(d_disk)
+				if(Adjacent(ui.user) && !issilicon(ui.user))
+					ui.user.put_in_hands(d_disk)
 				d_disk = null
 
 		if("erase_disk")
@@ -566,7 +566,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("eject_item") //Eject the item inside the destructive analyzer.
 			if(linked_destroy)
 				if(linked_destroy.busy)
-					to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+					to_chat(ui.user, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
 
 				else if(linked_destroy.loaded_item)
 					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
@@ -576,19 +576,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("maxresearch")
 			if(!check_rights(R_ADMIN))
 				return
-			if(tgui_alert(usr, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No")) != "Yes")
+			if(tgui_alert(ui.user, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No")) != "Yes")
 				return
-			log_admin("[key_name(usr)] has maximized the research levels.")
-			message_admins("[key_name_admin(usr)] has maximized the research levels.")
+			log_admin("[key_name(ui.user)] has maximized the research levels.")
+			message_admins("[key_name_admin(ui.user)] has maximized the research levels.")
 			Maximize()
 			griefProtection() //Update centcomm too
 
 		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
-			start_destroyer(usr)
+			start_destroyer(ui.user)
 
 		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+				to_chat(ui.user, "<span class='danger'>You must connect to the network first!</span>")
 			else
 				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
 				addtimer(CALLBACK(src, PROC_REF(sync_research)), SYNC_RESEARCH_DELAY)
@@ -647,7 +647,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("reset") //Reset the R&D console's database.
 			griefProtection()
-			var/choice = tgui_alert(usr, "Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", list("Continue", "Cancel"))
+			var/choice = tgui_alert(ui.user, "Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", list("Continue", "Cancel"))
 			if(choice == "Continue")
 				add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
 				addtimer(CALLBACK(src, PROC_REF(reset_research)), RESET_RESEARCH_DELAY)
