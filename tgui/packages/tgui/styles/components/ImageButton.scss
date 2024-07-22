@@ -214,6 +214,6 @@ $bg-map: colors.$bg-map !default;
 }
 
 .ImageButton__item--selected {
-  @include item-style($color-selected);
   border-left: 0;
+  @include item-style($color-selected);
 }

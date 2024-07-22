@@ -716,7 +716,7 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "BA" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/structure/railing/corner{
 	dir = 8
 	},
@@ -731,7 +731,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/wreck_cargoship)
 "CB" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/structure/railing/corner{
 	dir = 1
 	},

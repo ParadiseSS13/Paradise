@@ -26,13 +26,13 @@
 	return ..()
 
 /datum/surgery_step/slime/cut_flesh/end_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='notice'> [user] cuts through [target]'s flesh with \the [tool].</span>",
-	"<span class='notice'> You cut through [target]'s flesh with \the [tool], revealing its silky innards.</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
+	user.visible_message("<span class='notice'>[user] cuts through [target]'s flesh with \the [tool].</span>",
+	"<span class='notice'>You cut through [target]'s flesh with \the [tool], revealing its silky innards.</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/slime/cut_flesh/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='warning'> [user]'s hand slips, tearing [target]'s flesh with \the [tool]!</span>", \
-	"<span class='warning'> Your hand slips, tearing [target]'s flesh with \the [tool]!</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
+	user.visible_message("<span class='warning'>[user]'s hand slips, tearing [target]'s flesh with \the [tool]!</span>", \
+	"<span class='warning'>Your hand slips, tearing [target]'s flesh with \the [tool]!</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/slime/extract_core
@@ -67,6 +67,6 @@
 		return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/slime/extract_core/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("<span class='warning'> [user]'s hand slips, tearing [target]'s flesh with \the [tool]!</span>", \
-	"<span class='warning'> Your hand slips, tearing [target]'s flesh with \the [tool]!</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
+	user.visible_message("<span class='warning'>[user]'s hand slips, tearing [target]'s flesh with \the [tool]!</span>", \
+	"<span class='warning'>Your hand slips, tearing [target]'s flesh with \the [tool]!</span>", chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_RETRY
