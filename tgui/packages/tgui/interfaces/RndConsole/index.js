@@ -111,13 +111,13 @@ const MainMenu = (props, context) => {
           <Table.Cell header>Research Field</Table.Cell>
           <Table.Cell header>Level</Table.Cell>
         </Table.Row>
-        {tech_levels.map(({ id, name, desc, level, icon }) => (
+        {tech_levels.map(({ id, name, desc, level, ui_icon }) => (
           <Table.Row key={id}>
             <Table.Cell>
               <Button icon="circle-info" tooltip={desc} />
             </Table.Cell>
             <Table.Cell>
-              <Icon name={icon} /> {name}
+              <Icon name={ui_icon} /> {name}
             </Table.Cell>
             <Table.Cell>{level}</Table.Cell>
           </Table.Row>

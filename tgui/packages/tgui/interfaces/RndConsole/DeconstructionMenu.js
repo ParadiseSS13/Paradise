@@ -51,7 +51,7 @@ export const DeconstructionMenu = (props, context) => {
             <Table.Cell header>Object Level</Table.Cell>
             <Table.Cell header>New Level</Table.Cell>
           </Table.Row>
-          {tech_levels.map(({ id, name, desc, level, object_level, icon }) => {
+          {tech_levels.map(({ id, name, desc, level, object_level, ui_icon }) => {
             const objectLevelDefined = object_level !== undefined && object_level !== null;
             const newLevel = objectLevelDefined
               ? object_level >= level
@@ -64,7 +64,7 @@ export const DeconstructionMenu = (props, context) => {
                   <Button icon="circle-info" tooltip={desc} />
                 </Table.Cell>
                 <Table.Cell>
-                  <Icon name={icon} /> {name}
+                  <Icon name={ui_icon} /> {name}
                 </Table.Cell>
                 <Table.Cell>{level}</Table.Cell>
                 {objectLevelDefined ? (

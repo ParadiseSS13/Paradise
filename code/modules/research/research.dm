@@ -263,7 +263,8 @@ research holder datum.
 	var/level = 1						//A simple number scale of the research level. Level 0 = Secret tech.
 	var/max_level = 1          // Maximum level this can be at (for job objectives)
 	var/rare = 1						//How much CentCom wants to get that tech. Used in supply shuttle tech cost calculation.
-	var/icon = null						//Name of the FontAwesome icon to represent the tech
+	/// Name of the FontAwesome icon to represent the tech
+	var/ui_icon = null
 	var/list/req_tech = list()			//List of ids associated values of techs required to research this tech. "id" = #
 
 
@@ -274,14 +275,14 @@ research holder datum.
 	desc = "Development of new and improved materials."
 	id = "materials"
 	max_level = 7
-	icon = "layer-group"
+	ui_icon = "layer-group"
 
 /datum/tech/engineering
 	name = "Engineering Research"
 	desc = "Development of new and improved engineering parts and methods."
 	id = "engineering"
 	max_level = 7
-	icon = "tools"
+	ui_icon = "tools"
 
 /datum/tech/plasmatech
 	name = "Plasma Research"
@@ -289,14 +290,14 @@ research holder datum.
 	id = "plasmatech"
 	max_level = 7
 	rare = 3
-	icon = "fire"
+	ui_icon = "fire"
 
 /datum/tech/powerstorage
 	name = "Power Manipulation Technology"
 	desc = "The various technologies behind the storage and generation of electicity."
 	id = "powerstorage"
 	max_level = 7
-	icon = "bolt"
+	ui_icon = "bolt"
 
 /datum/tech/bluespace
 	name = "'Bluespace' Research"
@@ -304,35 +305,35 @@ research holder datum.
 	id = "bluespace"
 	max_level = 7
 	rare = 2
-	icon = "gem"
+	ui_icon = "gem"
 
 /datum/tech/biotech
 	name = "Biological Technology"
 	desc = "Research into the deeper mysteries of life and organic substances."
 	id = "biotech"
 	max_level = 7
-	icon = "seedling"
+	ui_icon = "seedling"
 
 /datum/tech/combat
 	name = "Combat Systems Research"
 	desc = "The development of offensive and defensive systems."
 	id = "combat"
 	max_level = 7
-	icon = "shield-alt"
+	ui_icon = "shield-alt"
 
 /datum/tech/magnets
 	name = "Electromagnetic Spectrum Research"
 	desc = "Research into the electromagnetic spectrum. No clue how they actually work, though."
 	id = "magnets"
 	max_level = 7
-	icon = "magnet"
+	ui_icon = "magnet"
 
 /datum/tech/programming
 	name = "Data Theory Research"
 	desc = "The development of new computer and artificial intelligence and data storage systems."
 	id = "programming"
 	max_level = 7
-	icon = "server"
+	ui_icon = "server"
 
 /// not meant to be raised by deconstruction, do not give objects toxins as an origin_tech
 /datum/tech/toxins
@@ -341,7 +342,7 @@ research holder datum.
 	id = "toxins"
 	max_level = 7
 	rare = 2
-	icon = "explosion"
+	ui_icon = "explosion"
 
 /datum/tech/syndicate
 	name = "Illegal Technologies Research"
@@ -349,7 +350,7 @@ research holder datum.
 	id = "syndicate"
 	max_level = 0 // Don't count towards maxed research, since it's illegal.
 	rare = 4
-	icon = "user-astronaut"
+	ui_icon = "user-astronaut"
 
 /datum/tech/abductor
 	name = "Alien Technologies Research"
@@ -357,7 +358,7 @@ research holder datum.
 	id = "abductor"
 	rare = 5
 	level = 0
-	icon = "satellite"
+	ui_icon = "satellite"
 
 /*
 datum/tech/arcane

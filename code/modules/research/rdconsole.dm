@@ -828,7 +828,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			this_tech_list["name"] = T.name
 			this_tech_list["level"] = T.level
 			this_tech_list["desc"] = T.desc
-			this_tech_list["icon"] = T.icon
+			this_tech_list["ui_icon"] = T.ui_icon
 			tech_levels[++tech_levels.len] = this_tech_list
 
 	else if(menu == MENU_DISK)
@@ -908,7 +908,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			this_tech_list["name"] = T.name
 			this_tech_list["level"] = T.level
 			this_tech_list["desc"] = T.desc
-			this_tech_list["icon"] = T.icon
+			this_tech_list["ui_icon"] = T.ui_icon
 			this_tech_list["object_level"] = temp_tech[T.id]
 			tech_levels[++tech_levels.len] = this_tech_list
 
