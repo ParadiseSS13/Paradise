@@ -331,7 +331,10 @@
 				user_data.selected_book.categories += text2num(params["category_id"])
 				populate_booklist()
 		if("uploadbook")
-			if(GLOB.library_catalog.upload_book(params["user_ckey"], user_data.selected_book))
+			var/choice = tgui_alert(ui.user, "I have ensured that nothing in this book violates this server's game rules and want to upload it to the database.", "Confirm", list("Yes", "No"))
+			if(choice != "Yes")
+				return
+			if(GLOB.library_catalog.upload_book(ui.user.ckey, user_data.selected_book))
 				playsound(src, 'sound/machines/ping.ogg', 50, 0)
 				atom_say("Book Uploaded!")
 				return
