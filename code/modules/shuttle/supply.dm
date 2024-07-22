@@ -547,8 +547,8 @@
 		return 0
 
 	var/cost = 0
-	for(var/i = sold_level + 1, i <= tech_level, i++)
-		cost += i*5*tech_rarity
+	for(var/i in (sold_level + 1) to tech_level)
+		cost += i * 5 * tech_rarity
 
 	return cost
 

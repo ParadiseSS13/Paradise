@@ -114,7 +114,6 @@ research holder datum.
 	for(var/datum/tech/T in possible_tech)
 		if(T.id == id)
 			return T
-	return null
 
 /datum/research/proc/CanAddDesign2Known(datum/design/D)
 	if(D.id in known_designs)
