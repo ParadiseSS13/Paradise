@@ -136,13 +136,15 @@ export const DataDiskMenu = (props, context) => {
         <CopySubmenu title="Design Disk" />
       );
     case DISK_TYPE_TECH:
-      return disk_data ? (
-        <DiskSection title="Technology Disk">
-          <TechSummary />
-        </DiskSection>
-      ) : (
-        <CopySubmenu title="Technology Disk" />
-      );
+      if (disk_data) {
+        return (
+          <DiskSection title="Technology Disk">
+            <TechSummary />
+          </DiskSection>
+        );
+      } else {
+        return <CopySubmenu title="Technology Disk" />;
+      }
     default:
       return <>UNRECOGNIZED DISK TYPE</>;
   }
