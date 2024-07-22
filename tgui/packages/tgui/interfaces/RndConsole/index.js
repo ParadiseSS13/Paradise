@@ -96,7 +96,7 @@ const WaitNotice = (props, context) => {
   const { data } = useBackend(context);
   const { wait_message } = data;
   if (!wait_message) {
-    return <></>;
+    return null;
   }
 
   return (

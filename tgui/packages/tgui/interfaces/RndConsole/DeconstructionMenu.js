@@ -52,7 +52,7 @@ export const DeconstructionMenu = (props, context) => {
             <Table.Cell header>New Level</Table.Cell>
           </Table.Row>
           {tech_levels.map((techLevel) => (
-            <TechnologyRow techLevel={techLevel} />
+            <TechnologyRow key={techLevel.id} techLevel={techLevel} />
           ))}
         </Table>
       </Section>
@@ -62,12 +62,12 @@ export const DeconstructionMenu = (props, context) => {
 
 const TechnologyRow = (props, context) => {
   const {
-    techLevel: { id, name, desc, level, object_level, ui_icon },
+    techLevel: { name, desc, level, object_level, ui_icon },
   } = props;
   const objectLevelDefined = object_level !== undefined && object_level !== null;
   const newLevel = objectLevelDefined ? (object_level >= level ? Math.max(object_level, level + 1) : level) : level;
   return (
-    <Table.Row key={id}>
+    <Table.Row>
       <Table.Cell>
         <Button icon="circle-info" tooltip={desc} />
       </Table.Cell>
