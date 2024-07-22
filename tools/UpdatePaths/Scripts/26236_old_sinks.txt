@@ -1,0 +1,1 @@
+/obj/structure/sink/kitchen{name="old sink"} : /obj/structure/sink/kitchen/old{@OLD;name=@SKIP;desc=@SKIP}

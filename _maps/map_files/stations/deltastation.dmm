@@ -2120,9 +2120,7 @@
 /turf/simulated/floor/plasteel/white/side,
 /area/station/maintenance/fore2)
 "aog" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /obj/machinery/newscaster{
@@ -2143,9 +2141,7 @@
 /turf/simulated/floor/plasteel/white/side,
 /area/station/maintenance/fore2)
 "aoi" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7209,7 +7205,7 @@
 	dir = 1;
 	icon_state = "darkredcorners"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aBG" = (
 /obj/machinery/alarm/directional/west,
 /obj/effect/decal/cleanable/dirt,
@@ -9118,7 +9114,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aHb" = (
 /obj/structure/sink{
 	dir = 4;
@@ -12925,7 +12921,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aRw" = (
 /obj/structure/table/wood,
 /obj/item/camera,
@@ -13843,7 +13839,7 @@
 	dir = 9;
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aTM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
@@ -13862,11 +13858,11 @@
 	dir = 5;
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aTO" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/wall,
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aTP" = (
 /obj/structure/bed,
 /obj/structure/cable{
@@ -13878,13 +13874,13 @@
 	dir = 9;
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aTQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aTR" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -13900,7 +13896,7 @@
 	dir = 5;
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aTS" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/segment/corner{
@@ -14594,7 +14590,7 @@
 	dir = 8;
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aVv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -14610,7 +14606,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aVw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -14629,7 +14625,7 @@
 	dir = 4;
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aVy" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -14643,7 +14639,7 @@
 	dir = 8;
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aVz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -14659,7 +14655,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aVA" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -14671,7 +14667,7 @@
 	dir = 4;
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aVC" = (
 /obj/machinery/light{
 	dir = 8
@@ -15289,7 +15285,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aWV" = (
 /obj/machinery/newscaster{
 	dir = 1;
@@ -15298,19 +15294,19 @@
 	},
 /obj/machinery/status_display,
 /turf/simulated/wall,
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aWW" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aWY" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitered"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aXa" = (
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
@@ -16239,7 +16235,6 @@
 	c_tag = "Perma-Brig Hallway Port";
 	network = list("SS13","Security")
 	},
-/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -16345,28 +16340,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
-/area/station/security/permasolitary)
-"aZX" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/power/apc/critical/directional/north,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
-	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "aZY" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment{
@@ -16430,7 +16404,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "bae" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_3)
@@ -17048,7 +17022,7 @@
 	dir = 1;
 	icon_state = "darkredcorners"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "bbC" = (
 /obj/effect/turf_decal/arrows/black{
 	dir = 4
@@ -17073,7 +17047,7 @@
 	dir = 1;
 	icon_state = "darkredcorners"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "bbE" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light{
@@ -17105,11 +17079,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "bbI" = (
 /obj/docking_port/mobile/pod{
 	dir = 4;
@@ -18067,7 +18040,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "beB" = (
 /obj/structure/chair{
 	dir = 1
@@ -20780,9 +20753,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "blR" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /obj/machinery/camera{
@@ -55926,7 +55897,7 @@
 	dir = 1;
 	icon_state = "darkredcorners"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "dhN" = (
 /obj/machinery/light{
 	dir = 1
@@ -68001,7 +67972,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "fNF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -69244,7 +69215,7 @@
 	dir = 1;
 	icon_state = "darkredcorners"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "gDv" = (
 /obj/machinery/door_timer/cell_1{
 	pixel_x = -32
@@ -69426,7 +69397,7 @@
 	dir = 1;
 	icon_state = "darkredcorners"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "gGO" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -70087,9 +70058,6 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
-"hcH" = (
-/turf/simulated/wall,
-/area/station/security/permasolitary)
 "hcU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -73669,6 +73637,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/sorting)
+"jkN" = (
+/obj/machinery/alarm/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredcorners"
+	},
+/area/station/security/permabrig)
 "jkP" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -74942,7 +74916,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "kbA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -77451,9 +77425,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "lAO" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /turf/simulated/floor/plating,
@@ -78400,9 +78372,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"mhu" = (
-/turf/simulated/wall/r_wall,
-/area/station/security/permasolitary)
 "mhx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -79031,7 +79000,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "mAC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -79256,7 +79225,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "mKZ" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
@@ -79831,7 +79800,7 @@
 	req_access_txt = 1
 	},
 /turf/simulated/wall/r_wall,
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "mWe" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -81519,7 +81488,7 @@
 	},
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "nSq" = (
 /obj/structure/chair{
 	dir = 1
@@ -83696,7 +83665,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "pdL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -84079,21 +84048,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/airless,
 /area/station/medical/virology)
-"prb" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/security/permasolitary)
 "prh" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -86322,7 +86276,7 @@
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
-/area/station/security/permasolitary)
+/area/station/security/permabrig)
 "qLt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -93478,21 +93432,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
-"uAj" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors";
-	opacity = 0
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/security/permasolitary)
 "uAP" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -96904,11 +96843,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/morgue)
-"wAN" = (
-/obj/structure/cable,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/security/permasolitary)
 "wAP" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/radiation,
@@ -154320,7 +154254,7 @@ aJx
 aJx
 aJx
 aJx
-aZH
+jkN
 bbt
 bdb
 oei
@@ -155343,14 +155277,14 @@ aJC
 aNO
 aPe
 aQH
-hcH
-hcH
-hcH
-hcH
-hcH
+aJx
+aJx
+aJx
+aJx
+aJx
 mAs
 aBD
-uAj
+wSB
 aaa
 aaa
 aaa
@@ -155600,11 +155534,11 @@ hch
 aNP
 aPf
 aQI
-hcH
+aJx
 aTL
 aVu
 aWW
-hcH
+aJx
 aHa
 dhM
 nRE
@@ -155857,14 +155791,14 @@ ygH
 ygH
 ygH
 ygH
-mhu
+ygH
 aTQ
 aVv
 aWT
 kaO
 aRv
 gGJ
-prb
+jSg
 aaa
 aaa
 aaa
@@ -156118,10 +156052,10 @@ fNm
 aTN
 aVw
 aWY
-hcH
+aJx
 bbH
 bbA
-mhu
+ygH
 abj
 aaa
 aaa
@@ -156371,14 +156305,14 @@ aaa
 aaa
 abj
 aaa
-mhu
+ygH
 aTO
 qKL
 aWV
-hcH
+aJx
 aZW
 gBV
-mhu
+ygH
 abj
 aaa
 aaa
@@ -156632,10 +156566,10 @@ fNm
 aTP
 aVy
 aWW
-hcH
-aZX
+aJx
+bbH
 bbD
-mhu
+ygH
 abj
 aaa
 aaa
@@ -156885,14 +156819,14 @@ abj
 abj
 aaa
 aaa
-mhu
+ygH
 aTQ
 aVz
 aWT
 mKU
 bad
 beA
-mhu
+ygH
 abj
 aaa
 aaa
@@ -157142,14 +157076,14 @@ abj
 abj
 abj
 abj
-mhu
+ygH
 aTR
 aVA
 aWY
-hcH
+aJx
 pdD
-wAN
-mhu
+gQU
+ygH
 bgs
 abj
 abj
@@ -157399,10 +157333,10 @@ aaa
 aaa
 aaa
 aaa
-mhu
-mhu
-mhu
-mhu
+ygH
+ygH
+ygH
+ygH
 mVF
 bda
 aTM
