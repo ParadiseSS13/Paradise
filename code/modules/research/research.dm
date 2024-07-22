@@ -393,7 +393,11 @@ datum/tech/robotics
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/tech_id = null
 	var/tech_name = null
+	// These variables are copied from /datum/tech. They must be copied and cached
+	// to prevent retroactively updating all disks when a new research level is unlocked
+	/// The level of the copied technology. Please see /datum/tech.level
 	var/tech_level = 0
+	/// The rarity of the copied technology. Affects sell price. Please see /datum/tech.rare
 	var/tech_rarity = 0
 	var/default_name = "\improper Technology Disk"
 	var/default_desc = "A disk for storing technology data for further research."
