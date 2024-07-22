@@ -73,8 +73,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/machinery/r_n_d/protolathe/linked_lathe = null				//Linked Protolathe
 	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null	//Linked Circuit Imprinter
 
+	/// The ID of the top-level menu, such as protolathe, analyzer, etc.
 	var/menu = MENU_MAIN
+	/// The ID of the protolathe submenu, such as materials, chemicals, crafting etc.
 	var/submenu_protolathe = SUBMENU_PRINTER_MAIN
+	/// The ID of the circuit imprinter submenu. Shares the same submenus as the protolathe.
 	var/submenu_imprinter = SUBMENU_PRINTER_MAIN
 	var/wait_message = 0
 	var/wait_message_timer = 0
