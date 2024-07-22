@@ -179,7 +179,7 @@
 
 /obj/machinery/smartfridge/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/storage/part_replacer))
-		..()
+		. = ..()
 		SStgui.update_uis(src)
 		return
 

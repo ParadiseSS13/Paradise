@@ -236,7 +236,7 @@
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/part_replacer))
-		..()
+		. = ..()
 		SStgui.update_uis(src)
 		return
 

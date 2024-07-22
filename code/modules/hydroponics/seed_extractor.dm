@@ -85,7 +85,7 @@
 		return
 
 	if(istype(O, /obj/item/storage/part_replacer))
-		..()
+		. = ..()
 		SStgui.update_uis(src)
 		return
 
