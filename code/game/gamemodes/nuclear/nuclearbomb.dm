@@ -704,7 +704,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/disk/nuclear/unrestricted/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>This disk has had its safeties removed and it will no longer teleport back to the station.</span>"
+	. += "<span class='warning'>This disk has had its safeties removed. It will not teleport back to the station if taken too far away.</span>"
 
 /obj/item/disk/nuclear/New()
 	..()
@@ -835,7 +835,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/disk/nuclear/training/examine(mob/user)
 	. = ..()
-	. += "<span class='danger'>For training purposes, of course.</span>"
+	. += "<span class='warning'>For training purposes, of course.</span>"
 
 #undef NUKE_INTACT
 #undef NUKE_COVER_OFF
