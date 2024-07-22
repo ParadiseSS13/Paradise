@@ -688,7 +688,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/disk/nuclear/examine(mob/user)
 	. = ..()
-	. += "<span class='danger'>You should keep this safe...</span>"
+	. += "<span class='warning'>You should keep this safe...</span>"
 
 /obj/item/disk/nuclear/examine_more(mob/user)
 	. = ..()
@@ -700,12 +700,11 @@ GLOBAL_VAR(bomb_set)
 
 /obj/item/disk/nuclear/unrestricted
 	name = "unrestricted nuclear authentication disk"
-	desc = "A floppy disk containing unique cryptographic identification data. Used along with a valid code to detonate the on-site nuclear fission explosive."
 	restricted_to_station = FALSE
 
 /obj/item/disk/nuclear/unrestricted/examine(mob/user)
 	. = ..()
-	. += "<span class='danger'>This disk has had its safeties removed.</span>"
+	. += "<span class='warning'>This disk has had its safeties removed and it will no longer teleport back to the station.</span>"
 
 /obj/item/disk/nuclear/New()
 	..()
