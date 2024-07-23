@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// Can the robot be emagged?
 	var/is_emaggable = TRUE
 	/// Is the robot protected from the visual portion of flashbangs and flashes(1)? Are they protected from laser pointer (2)?
-	var/eye_protection = 0
+	var/eye_protection = FALSE
 	/// Is the robot protected from the audio component of flashbangs? Prevents inflicting confusion.
 	var/ear_protection = FALSE
 	/// All incoming damage has this number subtracted from it.
@@ -1500,7 +1500,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = TRUE
 	pdahide = TRUE
-	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
+	eye_protection = TRUE // Immunity to flashes and the visual part of flashbangs
 	ear_protection = TRUE // Immunity to the audio part of flashbangs
 	damage_protection = 10 // Reduce all incoming damage by this number
 	allow_rename = FALSE
@@ -1592,7 +1592,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = TRUE
 	pdahide = TRUE
-	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
+	eye_protection = TRUE // Immunity to flashes and the visual part of flashbangs
 	ear_protection = TRUE // Immunity to the audio part of flashbangs
 	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
@@ -1763,3 +1763,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!cell)
 		return externally_powered
 	return cell.is_powered() || externally_powered
+
+/mob/living/silicon/robot/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type)
+	if(!eye_protection)
+		return ..()
+	return FALSE
