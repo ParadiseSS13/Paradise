@@ -1317,6 +1317,18 @@
 /obj/mecha/force_eject_occupant(mob/target)
 	go_out()
 
+// Called when a shuttle lands on top of the mech. Prevents the mech from just dropping the pilot unharmed inside the shuttle when destroyed.
+/obj/mecha/proc/get_out_and_die()
+	var/mob/living/pilot = occupant
+	pilot.visible_message(
+		"<span class='warning'>[src] is hit by a hyperspace ripple!</span>",
+		"<span class='userdanger'>You feel an immense crushing pressure as the space around you ripples.</span>"
+	)
+	go_out(TRUE)
+	if(iscarbon(pilot))
+		pilot.gib()
+	qdel(src)
+
 /////////////////////////
 ////// MARK: Access stuff
 /////////////////////////

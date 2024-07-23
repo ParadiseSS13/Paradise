@@ -221,7 +221,7 @@
 	in_use = TRUE
 	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
 	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
-					"<span class='danger'> You stare into [src], you can see the entire universe!</span>")
+					"<span class='danger'>You stare into [src], you can see the entire universe!</span>")
 	ghost = user.ghostize(TRUE, COLOR_BLUE, "Magic Spirit of [user.name]")
 	while(!QDELETED(user))
 		if(user.key || QDELETED(src))
@@ -652,142 +652,177 @@ GLOBAL_LIST_EMPTY(multiverse)
 	item_state = "electronic"
 	origin_tech = "bluespace=4;materials=4"
 	w_class = WEIGHT_CLASS_TINY
-	var/list/spooky_scaries = list()
-	var/unlimited = 0
-	var/heresy = 0
+	///List of mobs transformed into skeletons by the stone
+	var/list/active_skeletons = list()
+	///How many skeletons can be converted by the stone at a time
+	var/max_skeletons = 3
+	///If the stone can convert infinite skeletons, bypassing max_skeletons
+	var/unlimited = FALSE
+	///If the stone converts into anime instead of skeletons
+	var/heresy = FALSE
+	///how long the additional_thralls_cooldown is
+	var/above_cap_cooldown = 1 MINUTES
+	///Cooldown between uses when living skeletons above max skeletons
+	COOLDOWN_DECLARE(additional_thralls_cooldown)
 
-/obj/item/necromantic_stone/unlimited
-	unlimited = 1
+/obj/item/necromantic_stone/Destroy()
+	. = ..()
+	active_skeletons = null
 
-/obj/item/necromantic_stone/attack(mob/living/carbon/human/M as mob, mob/living/carbon/human/user as mob)
+/obj/item/necromantic_stone/examine(mob/user)
+	. = ..()
+	var/skele_count = length(active_skeletons)
+	if(skele_count)
+		. += "[skele_count] skeleton thrall[skele_count > 1 ? "s have" : " has"] been risen by [src]."
+	if(unlimited || skele_count < max_skeletons)
+		return
+	var/cooldown_time_left = COOLDOWN_TIMELEFT(src, additional_thralls_cooldown)
+	if(cooldown_time_left)
+		. += "[src] is being strained by the amount of risen skeletons thralls. It cannot be used to rise another skeleton thrall for <b>[cooldown_time_left / 10] seconds</b>."
 
-	if(!istype(M))
+/obj/item/necromantic_stone/attack(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+	if(!istype(victim) || !istype(necromancer))
 		return ..()
 
-	if(!istype(user))
+
+	if(victim.stat != DEAD)
+		to_chat(necromancer, "<span class='warning'>This artifact can only affect the dead!</span>")
 		return
 
-	if(M.stat != DEAD)
-		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
+	if((!victim.mind || !victim.client) && !victim.grab_ghost())
+		to_chat(necromancer, "<span class='warning'>There is no soul connected to this body...</span>")
 		return
 
-	if((!M.mind || !M.client) && !M.grab_ghost())
-		to_chat(user,"<span class='warning'>There is no soul connected to this body...</span>")
-		return
+	if(!check_skeletons()) //If above the cap, there is a cooldown on additional skeletons
+		to_chat(necromancer, "<span class='notice'>The amount of skeleton thralls risen by [src] strains its power.</span>")
+		if(!COOLDOWN_FINISHED(src, additional_thralls_cooldown))
+			to_chat(necromancer, "<span class='warning'>[src] cannot rise another thrall for [DisplayTimeText(COOLDOWN_TIMELEFT(src, additional_thralls_cooldown))].</span>")
+			return
+		COOLDOWN_START(src, additional_thralls_cooldown, above_cap_cooldown)
 
-	check_spooky()//clean out/refresh the list
+	convert_victim(victim, necromancer)
 
-	if(length(spooky_scaries) >= 3 && !unlimited)
-		to_chat(user, "<span class='warning'>This artifact can only affect three undead at a time!</span>")
-		return
+///Mindslave and equip the victim
+/obj/item/necromantic_stone/proc/convert_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+	active_skeletons |= victim
+	var/greet_text = "<span class='userdanger'>You have been revived by <b>[necromancer.real_name]</b>!\n[necromancer.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>"
+	if(!victim.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
+		victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text))
+
 	if(heresy)
-		spawnheresy(M)//oh god why
-	else
-		M.set_species(/datum/species/skeleton) // OP skellybones
-		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
-		M.grab_ghost() // yoinks the ghost if its not in the body
-		M.revive()
-		equip_skeleton(M)
-	spooky_scaries |= M
-	to_chat(M, "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>")
-	to_chat(M, "<span class='userdanger'>[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>")
-	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [length(spooky_scaries)]/3 active thralls."]"
-
-/obj/item/necromantic_stone/proc/check_spooky()
-	if(unlimited) //no point, the list isn't used.
+		equip_heresy(victim)//oh god why
 		return
-	for(var/X in spooky_scaries)
-		if(!ishuman(X))
-			spooky_scaries.Remove(X)
+
+	victim.visible_message("<span class='warning'>A massive amount of flesh sloughs off [victim] and a skeleton rises up!</span>")
+	equip_skeleton(victim)
+
+///Clean the list of active skeletons and check if more can be summoned easily
+/obj/item/necromantic_stone/proc/check_skeletons()
+	. = FALSE
+	if(unlimited)
+		return TRUE
+
+	listclearnulls(active_skeletons)
+	var/living_skeletons = 0
+	for(var/mob/living/carbon/human/skeleton as anything in active_skeletons)
+		if(!ishuman(skeleton))
+			active_skeletons.Remove(skeleton)
 			continue
-		var/mob/living/carbon/human/H = X
-		if(H.stat == DEAD)
-			spooky_scaries.Remove(X)
-			continue
-	listclearnulls(spooky_scaries)
+		if(skeleton.stat != DEAD)
+			living_skeletons++
+
+	if(living_skeletons < max_skeletons)
+		return TRUE
 
 //Funny gimmick, skeletons always seem to wear roman/ancient armour
 //Voodoo Zombie Pirates added for paradise
-/obj/item/necromantic_stone/proc/equip_skeleton(mob/living/carbon/human/H as mob)
-	for(var/obj/item/I in H)
-		H.unEquip(I)
-	var/randomSpooky = "roman"//defualt
-	randomSpooky = pick("roman","pirate","yand","clown")
+///Udate the mobs species and gear
+/obj/item/necromantic_stone/proc/equip_skeleton(mob/living/carbon/human/victim)
+	victim.set_species(/datum/species/skeleton) // OP skellybones
+	victim.grab_ghost() // yoinks the ghost if its not in the body
+	victim.revive()
 
-	switch(randomSpooky)
+	for(var/obj/item/item in victim)
+		victim.unEquip(item)
+
+	var/skeleton_type = pick("roman", "pirate", "yand", "clown")
+
+	switch(skeleton_type)
 		if("roman")
 			var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionaire)
-			H.equip_to_slot_or_del(new hat(H), SLOT_HUD_HEAD)
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), SLOT_HUD_JUMPSUIT)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), SLOT_HUD_SHOES)
-			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), SLOT_HUD_LEFT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/claymore(H), SLOT_HUD_RIGHT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/spear(H), SLOT_HUD_BACK)
+			victim.equip_to_slot_or_del(new hat(victim), SLOT_HUD_HEAD)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(victim), SLOT_HUD_JUMPSUIT)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(victim), SLOT_HUD_SHOES)
+			victim.equip_to_slot_or_del(new /obj/item/shield/riot/roman(victim), SLOT_HUD_LEFT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/claymore(victim), SLOT_HUD_RIGHT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/spear(victim), SLOT_HUD_BACK)
 		if("pirate")
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(H), SLOT_HUD_JUMPSUIT)
-			H.equip_to_slot_or_del(new /obj/item/clothing/suit/pirate_brown(H),  SLOT_HUD_OUTER_SUIT)
-			H.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(H), SLOT_HUD_HEAD)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
-			H.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(H), SLOT_HUD_GLASSES)
-			H.equip_to_slot_or_del(new /obj/item/claymore(H), SLOT_HUD_RIGHT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/spear(H), SLOT_HUD_BACK)
-			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), SLOT_HUD_LEFT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(victim), SLOT_HUD_JUMPSUIT)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/suit/pirate_brown(victim),  SLOT_HUD_OUTER_SUIT)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(victim), SLOT_HUD_HEAD)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(victim), SLOT_HUD_SHOES)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(victim), SLOT_HUD_GLASSES)
+			victim.equip_to_slot_or_del(new /obj/item/claymore(victim), SLOT_HUD_RIGHT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/spear(victim), SLOT_HUD_BACK)
+			victim.equip_to_slot_or_del(new /obj/item/shield/riot/roman(victim), SLOT_HUD_LEFT_HAND)
 		if("yand")//mine is an evil laugh
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
-			H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), SLOT_HUD_HEAD)
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(H), SLOT_HUD_JUMPSUIT)
-			H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  SLOT_HUD_OUTER_SUIT)
-			H.equip_to_slot_or_del(new /obj/item/katana(H), SLOT_HUD_RIGHT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), SLOT_HUD_LEFT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/spear(H), SLOT_HUD_BACK)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(victim), SLOT_HUD_SHOES)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(victim), SLOT_HUD_HEAD)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(victim), SLOT_HUD_JUMPSUIT)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(victim),  SLOT_HUD_OUTER_SUIT)
+			victim.equip_to_slot_or_del(new /obj/item/katana(victim), SLOT_HUD_RIGHT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/shield/riot/roman(victim), SLOT_HUD_LEFT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/spear(victim), SLOT_HUD_BACK)
 		if("clown")
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(H), SLOT_HUD_JUMPSUIT)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(H), SLOT_HUD_SHOES)
-			H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(H), SLOT_HUD_WEAR_MASK)
-			H.equip_to_slot_or_del(new /obj/item/clothing/head/stalhelm(H), SLOT_HUD_HEAD)
-			H.equip_to_slot_or_del(new /obj/item/bikehorn(H), SLOT_HUD_LEFT_STORE)
-			H.equip_to_slot_or_del(new /obj/item/claymore(H), SLOT_HUD_RIGHT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), SLOT_HUD_LEFT_HAND)
-			H.equip_to_slot_or_del(new /obj/item/spear(H), SLOT_HUD_BACK)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(victim), SLOT_HUD_JUMPSUIT)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(victim), SLOT_HUD_SHOES)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(victim), SLOT_HUD_WEAR_MASK)
+			victim.equip_to_slot_or_del(new /obj/item/clothing/head/stalhelm(victim), SLOT_HUD_HEAD)
+			victim.equip_to_slot_or_del(new /obj/item/bikehorn(victim), SLOT_HUD_LEFT_STORE)
+			victim.equip_to_slot_or_del(new /obj/item/claymore(victim), SLOT_HUD_RIGHT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/shield/riot/roman(victim), SLOT_HUD_LEFT_HAND)
+			victim.equip_to_slot_or_del(new /obj/item/spear(victim), SLOT_HUD_BACK)
 
-/obj/item/necromantic_stone/proc/spawnheresy(mob/living/carbon/human/H as mob)
-	H.set_species(/datum/species/human)
-	if(H.gender == MALE)
-		H.change_gender(FEMALE)
+///Updates the mobs species and gear to anime
+/obj/item/necromantic_stone/proc/equip_heresy(mob/living/carbon/human/victim)
+	victim.set_species(/datum/species/human)
+	if(victim.gender == MALE)
+		victim.change_gender(FEMALE)
 
 	var/list/anime_hair =list("Odango", "Kusanagi Hair", "Pigtails", "Hime Cut", "Floorlength Braid", "Ombre", "Twincurls", "Twincurls 2")
-	H.change_hair(pick(anime_hair))
+	victim.change_hair(pick(anime_hair))
 
 	var/list/anime_hair_colours = list(list(216, 192, 120),
 	list(140,170,74),list(0,0,0))
 
 	var/list/chosen_colour = pick(anime_hair_colours)
-	H.change_hair_color(chosen_colour[1], chosen_colour[2], chosen_colour[3])
+	victim.change_hair_color(chosen_colour[1], chosen_colour[2], chosen_colour[3])
 
-	H.update_dna()
-	H.update_body()
-	H.grab_ghost()
-	H.revive()
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
-	H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), SLOT_HUD_HEAD)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(H), SLOT_HUD_JUMPSUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  SLOT_HUD_OUTER_SUIT)
-	H.equip_to_slot_or_del(new /obj/item/katana(H), SLOT_HUD_RIGHT_HAND)
-	H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), SLOT_HUD_LEFT_HAND)
-	H.equip_to_slot_or_del(new /obj/item/spear(H), SLOT_HUD_BACK)
-	if(!H.real_name || H.real_name == "unknown")
-		H.real_name = "Neko-chan"
+	victim.update_dna()
+	victim.update_body()
+	victim.grab_ghost()
+	victim.revive()
+
+	victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(victim), SLOT_HUD_SHOES)
+	victim.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(victim), SLOT_HUD_HEAD)
+	victim.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(victim), SLOT_HUD_JUMPSUIT)
+	victim.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(victim),  SLOT_HUD_OUTER_SUIT)
+	victim.equip_to_slot_or_del(new /obj/item/katana(victim), SLOT_HUD_RIGHT_HAND)
+	victim.equip_to_slot_or_del(new /obj/item/shield/riot/roman(victim), SLOT_HUD_LEFT_HAND)
+	victim.equip_to_slot_or_del(new /obj/item/spear(victim), SLOT_HUD_BACK)
+
+	if(!victim.real_name || victim.real_name == "unknown")
+		victim.real_name = "Neko-chan"
 	else
-		H.real_name = "[H.name]-chan"
+		victim.real_name = "[victim.name]-chan"
 
-	H.mind.assigned_role = SPECIAL_ROLE_WIZARD
-	H.mind.special_role = SPECIAL_ROLE_WIZARD
+	victim.mind.assigned_role = SPECIAL_ROLE_WIZARD
+	victim.mind.special_role = SPECIAL_ROLE_WIZARD
 
-	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
-	wizhud.join_hud(H)
-	set_antag_hud(H, "apprentice")
+	victim.say("NYA!~")
 
-	H.say("NYA!~")
+/obj/item/necromantic_stone/unlimited
+	unlimited = TRUE
 
 /obj/item/necromantic_stone/nya
 	name = "nya-cromantic stone"
@@ -796,9 +831,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 	icon_state = "nyacrostone"
 	item_state = "electronic"
 	origin_tech = "bluespace=4;materials=4"
-	w_class = WEIGHT_CLASS_TINY
-	heresy = 1
-	unlimited = 1
+	heresy = TRUE
+	unlimited = TRUE
 
 /obj/item/organ/internal/heart/cursed/wizard
 	max_shocks_allowed = 3
