@@ -66,6 +66,7 @@
 	if(!user.Adjacent(src))
 		return
 	if(selected)
+		selected_sound = selected
 		sound_effect = possible_sounds[selected]
 		to_chat(user, "<span class='notice'>[src] will now sound like \a [selected].</span>")
 
