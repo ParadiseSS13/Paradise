@@ -32,7 +32,7 @@
 	var/list/spawn_centers = list()
 	for(var/datum/regional_powernet/P in SSmachines.powernets)
 		for(var/obj/structure/cable/C in P.cables)
-			if(!is_station_level(C.z) || P.available_power <= DEMON_REQUIRED_POWER)
+			if(!is_station_level(C.z) || P.available_power < DEMON_REQUIRED_POWER)
 				break // skip iterating over this entire powernet, it's not on station or it has zero available power (so it's not suitable)
 
 			var/turf/simulated/floor/F = get_turf(C)
