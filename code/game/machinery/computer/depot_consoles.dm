@@ -501,16 +501,17 @@
 		to_chat(user, "<span class='notice'>Outgoing Teleport Portal: deactivating... please wait...</span>")
 		return
 
-	var/turf/tele_target = choosetarget()
-	if(!tele_target)
-		return
-	toggle_portal(tele_target)
+	var/turf/tele_target = null
+	if(!portal_enabled)
+		tele_target = choosetarget()
+		if(!tele_target)
+			return
+
+	portal_enabled = !portal_enabled
+	update_portal(tele_target)
+
 	to_chat(user, "<span class='notice'>Outgoing Teleport Portal: [portal_enabled ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
 	playsound(user, sound_yes, 50, 0)
-
-/obj/machinery/computer/syndicate_depot/teleporter/proc/toggle_portal()
-	portal_enabled = !portal_enabled
-	update_portal()
 
 
 /obj/machinery/computer/syndicate_depot/aiterminal
