@@ -61,6 +61,8 @@
 /obj/item/grenade/firecracker/decoy/AltClick(mob/user)
 	. = ..()
 	var/selected = tgui_input_list(user, "Choose the decoy sound.", items = possible_sounds)
+	if(!user.Adjacent(src))
+		return
 	if(selected)
 		sound_effect = possible_sounds[selected]
 		to_chat(user, "<span class='notice'>[src] will now sound like \a [selected].</span>")
@@ -80,9 +82,3 @@
 		return
 
 	max_time_between_pops = max_between_pops_input
-
-	// var/imitate_screams_input = tgui_alert(user, "Should [src] imitate damage effects (screams, bone breaks)?", "Extra noises", list("Yes", "No"))
-	// if(!user.Adjacent(src))
-	// 	to_chat(user, "<span class='notice'>You need to be closer to [src] to set this!</span>")
-	// 	return
-	// imitate_screams = imitate_screams_input == "Yes"
