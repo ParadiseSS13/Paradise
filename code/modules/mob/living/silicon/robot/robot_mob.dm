@@ -1765,6 +1765,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return cell.is_powered() || externally_powered
 
 /mob/living/silicon/robot/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type)
-	if(!eye_protection)
+	if(affect_silicon && !eye_protection)
 		return ..()
 	return FALSE
