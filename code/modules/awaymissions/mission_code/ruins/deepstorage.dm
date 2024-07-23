@@ -300,7 +300,7 @@
 	<br>
 	Our colleagues, friends and other folks started arguing, hurting then killing each other in time. Me and four others managed to isolate ourselves in the cafeteria.<br>
 	<br>
-	We have enough supplies to last a few weeks here, should be enough until reinforcements arrive, right?"<br>
+	We have enough supplies to last a few weeks here, should be enough until reinforcements arrive, right?<br>
 	<br>
 	If it won't, then god help us... I can't wait to see you again.<br>
 	<br>
