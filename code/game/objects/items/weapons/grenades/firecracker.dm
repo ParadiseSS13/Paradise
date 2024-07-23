@@ -34,7 +34,7 @@
 	play_fuse_sound = FALSE
 
 	/// The sounds which this grenade can select.
-	var/list/possible_sounds = list(
+	var/static/list/possible_sounds = list(
 		"revolver" = 'sound/weapons/gunshots/gunshot_strong.ogg',
 		"armblade" = 'sound/weapons/armblade.ogg',
 		"laser" = 'sound/weapons/laser.ogg',
