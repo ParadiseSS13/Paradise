@@ -1161,6 +1161,6 @@
 		dust()
 	return ..()
 
-//Can a mob interact with the apc remotely like a pulse demon, cyborg, or AI?
+/// Can a mob interact with the apc remotely like a pulse demon, cyborg, or AI?
 /mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
 	return FALSE

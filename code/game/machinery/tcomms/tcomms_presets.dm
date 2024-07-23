@@ -31,7 +31,7 @@
 	hidden_link = TRUE
 	password_bypass = TRUE
 
-// DVORAK RELAY //
+/// DVORAK RELAY
 /obj/machinery/tcomms/relay/dvorak
 	network_id = "DEBUG_RELAY_DO_NOT_REMOVE" // I'll change this if needed to avoid confusion, but if I was trying to sneak into a relay system, well...
 	autolink_id = "STATION-CORE"

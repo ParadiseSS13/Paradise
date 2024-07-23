@@ -214,7 +214,7 @@
 /area/ruin/space/powered/casino/maints
 	name = "Service Tunnels"
 
-// telecomms: Alternative telecomms sat
+/// telecomms: Alternative telecomms sat
 /area/ruin/space/telecomms
 	name = "\improper Telecommunications Sat"
 	icon_state = "tcomms"
