@@ -32,7 +32,8 @@
 	if(O.reagents.total_volume < 1)
 		to_chat(user, "[O] is empty!</span>")
 		if(istype(O, /obj/structure/mopbucket))
-			mopbucket_insert(user, O)
+			var/obj/structure/mopbucket/mopbucket = O
+			mopbucket.mopbucket_insert(user, O)
 		if(istype(O, /obj/structure/janitorialcart))
 			var/obj/structure/janitorialcart/janicart = O
 			if(!janicart.mymop)
@@ -122,8 +123,5 @@
 	return ..()
 
 /obj/item/mop/advanced/cyborg
-
-/obj/item/mop/advanced/cyborg/mopbucket_insert(mob/user, obj/structure/mopbucket/J)
-	return
 
 #undef MOP_SOUND_CD
