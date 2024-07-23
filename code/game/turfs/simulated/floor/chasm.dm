@@ -297,18 +297,38 @@
 	drop_z = pick(target_z)
 
 /turf/simulated/floor/chasm/space_ruin
+	/// Used to keep count of how many times we checked if our target turf was valid.
+	var/times_turfs_checked = 0
+	/// List of all eligible Z levels.
+	var/list/target_z
+	/// Target turf that players will be teleported to.
+	var/turf/T
+
+/turf/simulated/floor/chasm/space_ruin/proc/pick_a_turf(atom/movable/AM)
+	if(times_turfs_checked <= 2)
+		target_z = levels_by_trait(SPAWN_RUINS)
+		target_z -= AM.z // excluding the one atom was already in from possible z levels
+		T = locate(rand(TRANSITIONEDGE + 1, world.maxx - TRANSITIONEDGE - 1), rand(TRANSITIONEDGE + 1, world.maxy - TRANSITIONEDGE - 1), pick(target_z))
+		check_turf(AM)
+	else
+		// If we still fail to pick a random valid turf after 2 attempts, we just send the atom to somewhere valid for certain
+		T = locate(TRANSITIONEDGE + 1, TRANSITIONEDGE + 1, pick(target_z))
+
+
+/turf/simulated/floor/chasm/space_ruin/proc/check_turf(atom/movable/AM)
+	times_turfs_checked++
+	if(istype(get_area(T), /area/space))
+		return
+	else
+		pick_a_turf(AM)
 
 /turf/simulated/floor/chasm/space_ruin/drop(atom/movable/AM)
 	//Make sure the item is still there after our sleep
 	if(!AM || QDELETED(AM))
 		return
 	falling_atoms[AM] = TRUE
-
-	var/list/target_z = levels_by_trait(SPAWN_RUINS) // list of all z levels that can get ruins spawned in
-	target_z -= AM.z // excluding the one atom was already in from possible z levels
-	var/turf/T = locate(rand(TRANSITIONEDGE + 1, world.maxx - TRANSITIONEDGE - 1), rand(TRANSITIONEDGE + 1, world.maxy - TRANSITIONEDGE - 1), pick(target_z))
-
-	if(T && istype(get_area(T), /area/space))
+	pick_a_turf(AM)
+	if(T)
 		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>GAH! Ah... where are you?</span>")
 		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
 		AM.forceMove(T)
@@ -316,6 +336,7 @@
 			var/mob/living/L = AM
 			L.Weaken(10 SECONDS)
 			L.adjustBruteLoss(30)
+		times_turfs_checked = 0 // We successfully teleported the atom, let's reset the count
 	falling_atoms -= AM
 
 /turf/simulated/floor/chasm/space_ruin/airless
