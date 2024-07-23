@@ -41,7 +41,8 @@
 		"sniper" = 'sound/weapons/gunshots/gunshot_sniper.ogg',
 		"pistol" = 'sound/weapons/gunshots/gunshot_pistol.ogg',
 		"blob" = 'sound/effects/splat.ogg',
-		"bite" = 'sound/weapons/bite.ogg'
+		"bite" = 'sound/weapons/bite.ogg',
+		"chainsaw" = 'sound/weapons/chainsaw.ogg'
 	)
 
 	/// The currently selected sound for the decoy.
@@ -55,8 +56,9 @@
 	. = ..()
 	if(!user.Adjacent(src))
 		return
-	. += "<span class='notice'>[src] will sound like \a [selected_sound].</span>"
-	. += "<span class='notice'>Alt-Click to change the imitated sound.</span>"
+	. += "[src] will sound like \a <span class='warning'>[selected_sound]</span>."
+	. += "<span class='notice'>Alt-Click</span> to change the imitated sound."
+	. += "<span class='notice'>Alt-Shift-Click</span> to change the frequency of the sound."
 
 /obj/item/grenade/firecracker/decoy/AltClick(mob/user)
 	. = ..()
