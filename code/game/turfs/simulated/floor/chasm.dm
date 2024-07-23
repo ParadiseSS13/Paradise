@@ -301,7 +301,7 @@
 	var/times_turfs_checked = 0
 	/// List of all eligible Z levels.
 	var/list/target_z
-	/// Target turf that players will be teleported to.
+	/// Target turf that atoms will be teleported to.
 	var/turf/T
 
 /turf/simulated/floor/chasm/space_ruin/proc/pick_a_turf(atom/movable/AM)
