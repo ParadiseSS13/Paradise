@@ -402,7 +402,7 @@
 			unit_spread += 25
 		else
 			unit_spread = 5
-	to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
+	to_chat(user, "<span class='notice'>You set the time release to [unit_spread] units per detonation.</span>")
 
 /obj/item/grenade/chem_grenade/adv_release/prime()
 	if(stage != READY)

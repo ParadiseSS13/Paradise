@@ -3266,9 +3266,7 @@
 	},
 /area/station/security/storage)
 "amK" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 28
 	},
 /turf/simulated/floor/plating,
@@ -24943,9 +24941,7 @@
 	},
 /area/station/hallway/primary/central/west)
 "bzN" = (
-/obj/effect/spawner/airlock/w_to_e/long{
-	req_access_txt = 32
-	},
+/obj/effect/spawner/airlock/w_to_e/long,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/ai_transit_tube)
 "bzO" = (
@@ -28850,6 +28846,15 @@
 "bOU" = (
 /turf/simulated/wall,
 /area/station/medical/chemistry)
+"bOY" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/auxsolarport)
 "bPd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -51412,7 +51417,7 @@
 /area/station/medical/sleeper)
 "dvb" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/e_to_w/arrivals,
+/obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "dvv" = (
@@ -54727,9 +54732,7 @@
 /area/station/hallway/primary/aft/south)
 "eXd" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/s_to_n/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
 "eXy" = (
@@ -59034,9 +59037,7 @@
 "gVD" = (
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/item/restraints/handcuffs/cable/blue,
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /turf/simulated/floor/plating,
@@ -61855,7 +61856,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/command/meeting_room)
 "isD" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "isK" = (
@@ -64223,6 +64224,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
+"jCt" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/portsolar)
 "jCu" = (
 /obj/machinery/economy/vending/scidrobe,
 /turf/simulated/floor/plasteel{
@@ -64717,9 +64727,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "jRo" = (
-/obj/effect/spawner/airlock/s_to_n/long/square/engineer{
-	req_access_txt = null
-	},
+/obj/effect/spawner/airlock/s_to_n/long/square,
 /turf/simulated/wall,
 /area/station/maintenance/fpmaint2)
 "jRx" = (
@@ -65015,6 +65023,10 @@
 	icon_state = "barber"
 	},
 /area/station/service/barber)
+"jVV" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint2)
 "jWg" = (
 /obj/machinery/disposal,
 /obj/structure/window/reinforced{
@@ -67543,6 +67555,10 @@
 	icon_state = "purplecorner"
 	},
 /area/station/science/robotics)
+"liR" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "lje" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -68224,7 +68240,7 @@
 "lAc" = (
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -71436,9 +71452,7 @@
 /area/station/hallway/secondary/exit)
 "nee" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/s_to_n{
-	req_access_txt = "11,13"
-	},
+/obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
 "neo" = (
@@ -71664,9 +71678,7 @@
 /area/station/medical/virology)
 "nnF" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/s_to_n/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "noq" = (
@@ -72134,9 +72146,7 @@
 /area/station/science/toxins/mixing)
 "nBq" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/long/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/long,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "nBs" = (
@@ -72244,6 +72254,15 @@
 	icon_state = "dark"
 	},
 /area/station/science/robotics/chargebay)
+"nCl" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "nCm" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -74409,9 +74428,7 @@
 /area/station/maintenance/asmaint)
 "oBF" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/s_to_n/long/engineer{
-	req_access_txt = null
-	},
+/obj/effect/spawner/airlock/s_to_n/long,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "oBJ" = (
@@ -77444,9 +77461,7 @@
 /area/station/supply/miningdock)
 "qaB" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "qaI" = (
@@ -79588,6 +79603,15 @@
 	},
 /turf/simulated/wall,
 /area/space/nearstation)
+"qUj" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboardsolar)
 "qUu" = (
 /obj/machinery/light_switch{
 	dir = 4;
@@ -80657,6 +80681,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"ruY" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "rvo" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -82540,6 +82568,10 @@
 /obj/structure/statue/cyberiad/north/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"ssO" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft)
 "ssQ" = (
 /obj/structure/closet/radiation,
 /obj/machinery/light{
@@ -83515,10 +83547,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/launch)
 "sSX" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+/obj/structure/sink/kitchen/old{
 	dir = 4;
-	name = "old sink";
 	pixel_x = -12
 	},
 /obj/item/reagent_containers/glass/bucket,
@@ -83990,10 +84020,9 @@
 "tia" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/old{
 	dir = 8;
-	pixel_x = 12;
-	name = "old sink"
+	pixel_x = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -84127,6 +84156,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "tle" = (
@@ -84638,6 +84668,10 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/turbine)
+"tAH" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating/airless,
+/area/station/maintenance/fpmaint2)
 "tAS" = (
 /obj/structure/door_assembly/door_assembly_mai{
 	anchored = 1;
@@ -86219,9 +86253,7 @@
 /area/station/command/office/hop)
 "unh" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/w_to_e/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "uno" = (
@@ -86788,6 +86820,15 @@
 /obj/item/book/random/triple,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"uDn" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/station/maintenance/auxsolarstarboard)
 "uDI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -88212,7 +88253,7 @@
 /area/station/maintenance/asmaint)
 "vrV" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/engineer,
+/obj/effect/spawner/airlock,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "vsw" = (
@@ -88731,10 +88772,9 @@
 	},
 /area/station/science/genetics)
 "vEA" = (
-/obj/structure/sink/kitchen{
+/obj/structure/sink/kitchen/old{
 	dir = 8;
-	pixel_x = 12;
-	name = "old sink"
+	pixel_x = 12
 	},
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/radio/intercom/locked/prison{
@@ -91217,7 +91257,7 @@
 "wTH" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "wTO" = (
@@ -93245,7 +93285,7 @@
 /area/station/maintenance/apmaint2)
 "xSF" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/e_to_w/engineer,
+/obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "xSH" = (
@@ -106234,7 +106274,7 @@ aaa
 doE
 aHS
 aHS
-aHS
+jVV
 aHS
 pTK
 aND
@@ -108281,7 +108321,7 @@ asb
 asb
 laU
 dap
-dap
+bOY
 dap
 hoD
 aEE
@@ -108344,7 +108384,7 @@ jWI
 noP
 ubK
 coL
-coL
+liR
 coL
 doE
 aaa
@@ -112141,7 +112181,7 @@ doE
 doE
 aHS
 lcl
-lcl
+tAH
 aHS
 rMP
 blG
@@ -115563,7 +115603,7 @@ aaa
 aaa
 aab
 swl
-ntD
+jCt
 swl
 aab
 aab
@@ -135525,7 +135565,7 @@ awQ
 axq
 axq
 jOz
-jOz
+uDn
 jOz
 sDz
 aHI
@@ -135893,7 +135933,7 @@ cep
 hzG
 cep
 ghR
-cep
+ssO
 cep
 doE
 aaa
@@ -137581,7 +137621,7 @@ aaa
 aaa
 doE
 aGY
-aGY
+ruY
 aGY
 cZV
 aGY
@@ -144884,7 +144924,7 @@ deN
 dfa
 tMT
 sTF
-sTF
+qUj
 sTF
 ddE
 ddE
@@ -148186,7 +148226,7 @@ aaa
 aaa
 aab
 ycI
-cNq
+nCl
 ycI
 ciY
 sKQ
