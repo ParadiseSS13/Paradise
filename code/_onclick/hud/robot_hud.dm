@@ -176,6 +176,8 @@
 //Health
 	mymob.healths = new /atom/movable/screen/healths/robot()
 	infodisplay += mymob.healths
+	mymob.staminas = new /atom/movable/screen/healths/stamina()
+	infodisplay += mymob.staminas
 
 //Installed Module
 	mymobR.hands = new /atom/movable/screen/robot/module()
