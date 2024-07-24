@@ -59207,16 +59207,16 @@
 	dir = 1;
 	name = "navigation beacon (Research Lab Delivery)"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/door/window/reinforced/normal{
 	name = "Research Lab Delivery Chute"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research,
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -59312,12 +59312,12 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
-	dir = 4
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	location = "Xenobiology"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+	dir = 4
 	},
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -83147,7 +83147,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/science/robotics{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
 	dir = 8
 	},
 /obj/structure/plasticflaps{
