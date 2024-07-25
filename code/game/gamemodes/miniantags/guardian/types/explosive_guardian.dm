@@ -23,7 +23,7 @@
 		to_chat(src, "<span class='danger'>You're too far from [A] to disguise it as a bomb.</span>")
 		return
 	if(isobj(A) && can_plant(A))
-		if(bomb_cooldown <= world.time && !stat)
+		if(bomb_cooldown <= world.time && stat == CONSCIOUS)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
 			to_chat(src, "<span class='danger'>Success! Bomb on [A] armed!</span>")

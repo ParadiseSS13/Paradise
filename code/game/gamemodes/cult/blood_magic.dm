@@ -3,31 +3,14 @@
 	name = "Prepare Blood Magic"
 	button_overlay_icon_state = "carve"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
+	default_button_position = DEFAULT_BLOODSPELLS
 	var/list/spells = list()
 	var/channeling = FALSE
-	default_button_position = DEFAULT_BLOODSPELLS
 
 /datum/action/innate/cult/blood_magic/Remove()
 	for(var/X in spells)
 		qdel(X)
 	..()
-
-/datum/action/innate/cult/blood_magic/proc/Positioning()
-	for(var/datum/hud/hud as anything in viewers)
-		var/our_view = hud.mymob?.client?.view || "15x15"
-		var/atom/movable/screen/movable/action_button/button = viewers[hud]
-		var/position = screen_loc_to_offset(button.screen_loc)
-		var/spells_iterated = 0
-		for(var/datum/action/innate/cult/blood_spell/blood_spell in spells)
-			spells_iterated += 1
-			if(blood_spell.positioned)
-				continue
-			var/atom/movable/screen/movable/action_button/moving_button = blood_spell.viewers[hud]
-			if(!moving_button)
-				continue
-			var/our_x = position[1] + spells_iterated * world.icon_size // Offset any new buttons into our list
-			hud.position_action(moving_button, offset_to_screen_loc(our_x, position[2], our_view))
-			blood_spell.positioned = TRUE
 
 /datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
@@ -93,6 +76,7 @@
 	name = "Blood Magic"
 	button_overlay_icon_state = "telerune"
 	desc = "Fear the Old Blood."
+	default_button_position = SCRN_OBJ_CULT_LIST
 	var/charges = 1
 	var/magic_path = null
 	var/obj/item/melee/blood_magic/hand_magic
@@ -128,10 +112,6 @@
 	// todo blood magic guh
 	// button.ordered = FALSE
 	..()
-
-/datum/action/innate/cult/blood_spell/override_location()
-	// button.locked = TRUE
-	all_magic.Positioning()
 
 /datum/action/innate/cult/blood_spell/Remove()
 	if(all_magic)
@@ -488,20 +468,20 @@
 	else
 		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
 
-		L.KnockDown(10 SECONDS)
-		L.apply_damage(60, STAMINA)
 		L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
-		L.flash_eyes(1, TRUE)
+		L.Silence(6 SECONDS)
 		if(issilicon(target))
 			var/mob/living/silicon/S = L
 			S.emp_act(EMP_HEAVY)
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
-			C.Silence(6 SECONDS)
+			C.KnockDown(10 SECONDS)
+			C.apply_damage(60, STAMINA)
+			C.flash_eyes(1, TRUE)
 			C.Stuttering(16 SECONDS)
 			C.CultSlur(20 SECONDS)
 			C.Jitter(16 SECONDS)
-			to_chat(user, "<span class='boldnotice'>Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!</span>")
+		to_chat(user, "<span class='boldnotice'>Stun mark applied! Stab them with a dagger, sword or blood spear to stun them fully!</span>")
 	user.do_attack_animation(target)
 	uses--
 	..()

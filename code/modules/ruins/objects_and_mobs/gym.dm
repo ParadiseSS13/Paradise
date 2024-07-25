@@ -14,7 +14,7 @@
 	if(.)
 		return
 	flick("[icon_state]2", src)
-	playsound(loc, pick(hit_sounds), 25, 1, -1)
+	playsound(loc, pick(hit_sounds), 25, TRUE, -1)
 
 
 /obj/structure/weightmachine

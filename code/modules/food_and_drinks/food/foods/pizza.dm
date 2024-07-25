@@ -548,7 +548,7 @@
 		var/chosen_wire = tgui_input_list(user, "OH GOD OH GOD", "WHAT WIRE?!", wires)
 		if(!in_range(src, user) || issilicon(usr) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained() || !chosen_wire)
 			return
-		playsound(src, I.usesound, 50, 1, 1)
+		playsound(src, I.usesound, 50, TRUE, 1)
 		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")
 		sleep(5)
 		if(chosen_wire == correct_wire)
@@ -570,7 +570,7 @@
 			return
 		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from [src].</span>")
 		if(do_after(user, 40 * I.toolspeed, target = src))
-			playsound(src, I.usesound, 50, 1, 1)
+			playsound(src, I.usesound, 50, TRUE, 1)
 			user.unEquip(src)
 			user.visible_message("<span class='notice'>[user] removes the insides of [src]!</span>")
 			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(src.loc)

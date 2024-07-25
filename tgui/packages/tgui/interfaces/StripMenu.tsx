@@ -4,9 +4,17 @@ import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Box, Button, Icon, Stack } from '../components';
 import { Window } from '../layouts';
+import { InfernoNode } from 'inferno';
 
 const ROWS = 5;
-const COLUMNS = 5;
+const COLUMNS = 9;
+
+const getColumnsAmount = (mode: number): number => {
+  if (mode === 0) {
+    return 5;
+  }
+  return 9;
+};
 
 const BUTTON_DIMENSIONS = '64px';
 
@@ -16,7 +24,7 @@ const getGridSpotKey = (spot: [number, number]): GridSpotKey => {
   return `${spot[0]}/${spot[1]}`;
 };
 
-const CornerText = (props: { align: 'left' | 'right'; children: string }): JSX.Element => {
+const CornerText = (props: { align: 'left' | 'right'; children: string }): InfernoNode => {
   const { align, children } = props;
 
   return (
@@ -82,7 +90,7 @@ const SLOTS: Record<
     displayName: string;
     gridSpot: GridSpotKey;
     image?: string;
-    additionalComponent?: JSX.Element;
+    additionalComponent?: InfernoNode;
   }
 > = {
   eyes: {
@@ -218,6 +226,148 @@ const SLOTS: Record<
   },
 };
 
+const ALTERNATIVE_SLOTS: Record<
+  string,
+  {
+    displayName: string;
+    gridSpot: GridSpotKey;
+    image?: string;
+    additionalComponent?: InfernoNode;
+  }
+> = {
+  eyes: {
+    displayName: 'eyewear',
+    gridSpot: getGridSpotKey([1, 0]),
+    image: 'inventory-glasses.png',
+  },
+
+  head: {
+    displayName: 'headwear',
+    gridSpot: getGridSpotKey([0, 1]),
+    image: 'inventory-head.png',
+  },
+
+  mask: {
+    displayName: 'mask',
+    gridSpot: getGridSpotKey([1, 1]),
+    image: 'inventory-mask.png',
+  },
+
+  pet_collar: {
+    displayName: 'collar',
+    gridSpot: getGridSpotKey([1, 1]),
+    image: 'inventory-collar.png',
+  },
+
+  right_ear: {
+    displayName: 'right ear',
+    gridSpot: getGridSpotKey([0, 2]),
+    image: 'inventory-ears.png',
+  },
+
+  left_ear: {
+    displayName: 'left ear',
+    gridSpot: getGridSpotKey([1, 2]),
+    image: 'inventory-ears.png',
+  },
+
+  parrot_headset: {
+    displayName: 'headset',
+    gridSpot: getGridSpotKey([1, 2]),
+    image: 'inventory-ears.png',
+  },
+
+  handcuffs: {
+    displayName: 'handcuffs',
+    gridSpot: getGridSpotKey([1, 3]),
+  },
+
+  legcuffs: {
+    displayName: 'legcuffs',
+    gridSpot: getGridSpotKey([1, 4]),
+  },
+
+  jumpsuit: {
+    displayName: 'uniform',
+    gridSpot: getGridSpotKey([2, 0]),
+    image: 'inventory-uniform.png',
+  },
+
+  suit: {
+    displayName: 'suit',
+    gridSpot: getGridSpotKey([2, 1]),
+    image: 'inventory-suit.png',
+  },
+
+  gloves: {
+    displayName: 'gloves',
+    gridSpot: getGridSpotKey([2, 2]),
+    image: 'inventory-gloves.png',
+  },
+
+  right_hand: {
+    displayName: 'right hand',
+    gridSpot: getGridSpotKey([4, 4]),
+    image: 'inventory-hand_r.png',
+    additionalComponent: <CornerText align="left">R</CornerText>,
+  },
+
+  left_hand: {
+    displayName: 'left hand',
+    gridSpot: getGridSpotKey([4, 5]),
+    image: 'inventory-hand_l.png',
+    additionalComponent: <CornerText align="right">L</CornerText>,
+  },
+
+  shoes: {
+    displayName: 'shoes',
+    gridSpot: getGridSpotKey([3, 1]),
+    image: 'inventory-shoes.png',
+  },
+
+  suit_storage: {
+    displayName: 'suit storage',
+    gridSpot: getGridSpotKey([4, 0]),
+    image: 'inventory-suit_storage.png',
+  },
+
+  id: {
+    displayName: 'ID',
+    gridSpot: getGridSpotKey([4, 1]),
+    image: 'inventory-id.png',
+  },
+
+  belt: {
+    displayName: 'belt',
+    gridSpot: getGridSpotKey([4, 2]),
+    image: 'inventory-belt.png',
+  },
+
+  back: {
+    displayName: 'backpack',
+    gridSpot: getGridSpotKey([4, 3]),
+    image: 'inventory-back.png',
+  },
+
+  left_pocket: {
+    displayName: 'left pocket',
+    gridSpot: getGridSpotKey([4, 7]),
+    image: 'inventory-pocket.png',
+  },
+
+  right_pocket: {
+    displayName: 'right pocket',
+    gridSpot: getGridSpotKey([4, 6]),
+    image: 'inventory-pocket.png',
+  },
+
+  pda: {
+    displayName: 'PDA',
+    gridSpot: getGridSpotKey([4, 8]),
+    image: 'inventory-pda.png',
+  },
+};
+
 enum ObscuringLevel {
   Completely = 1,
   Hidden = 2,
@@ -256,14 +406,21 @@ type StripMenuItem =
 type StripMenuData = {
   items: Record<keyof typeof SLOTS, StripMenuItem>;
   name: string;
+  show_mode: number;
 };
 
 export const StripMenu = (props, context) => {
   const { act, data } = useBackend<StripMenuData>(context);
 
   const gridSpots = new Map<GridSpotKey, string>();
-  for (const key of Object.keys(data.items)) {
-    gridSpots.set(SLOTS[key].gridSpot, key);
+  if (data.show_mode === 0) {
+    for (const key of Object.keys(data.items)) {
+      gridSpots.set(SLOTS[key].gridSpot, key);
+    }
+  } else {
+    for (const key of Object.keys(data.items)) {
+      gridSpots.set(ALTERNATIVE_SLOTS[key].gridSpot, key);
+    }
   }
 
   const get_button_color = (item) => {
@@ -287,13 +444,18 @@ export const StripMenu = (props, context) => {
   };
 
   return (
-    <Window title={`Stripping ${data.name}`} width={360} height={390} theme="nologo">
+    <Window
+      title={`Stripping ${data.name}`}
+      width={getColumnsAmount(data.show_mode) * 64 + 6 * (getColumnsAmount(data.show_mode) + 1)}
+      height={390}
+      theme="nologo"
+    >
       <Window.Content style={{ 'background-color': 'rgba(0, 0, 0, 0.5)' }}>
         <Stack fill vertical>
           {range(0, ROWS).map((row) => (
             <Stack.Item key={row}>
               <Stack fill>
-                {range(0, COLUMNS).map((column) => {
+                {range(0, getColumnsAmount(data.show_mode)).map((column) => {
                   const key = getGridSpotKey([row, column]);
                   const keyAtSpot = gridSpots.get(key);
 
