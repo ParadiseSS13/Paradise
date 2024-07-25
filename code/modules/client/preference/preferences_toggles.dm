@@ -274,7 +274,7 @@
 
 /datum/preference_toggle/toggle_disco
 	name = "Toggle Disco Machine Music"
-	description = "Toggles hearing musical instruments like the violin and piano"
+	description = "Toggles hearing and dancing to the radiant dance machine"
 	preftoggle_bitflag = SOUND_DISCO
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
