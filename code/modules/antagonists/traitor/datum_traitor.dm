@@ -136,29 +136,19 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  * Create and assign a single randomized human traitor objective.
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
-	var/datum/objective/objective_to_add
-
 	if(prob(50))
 		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-			objective_to_add = /datum/objective/destroy
-
+			add_antag_objective(/datum/objective/destroy)
 		else if(prob(5))
-			objective_to_add = /datum/objective/debrain
-
+			add_antag_objective(/datum/objective/debrain)
 		else if(prob(30))
-			objective_to_add = /datum/objective/maroon
-
+			add_antag_objective(/datum/objective/maroon)
 		else if(prob(30))
-			objective_to_add = /datum/objective/assassinateonce
-
+			add_antag_objective(/datum/objective/assassinateonce)
 		else
-			objective_to_add = /datum/objective/assassinate
+			add_antag_objective(/datum/objective/assassinate)
 	else
-		objective_to_add = /datum/objective/steal
-
-	if(delayed_objectives)
-		objective_to_add = new /datum/objective/delayed(objective_to_add)
-	add_antag_objective(objective_to_add)
+		add_antag_objective(/datum/objective/steal)
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
@@ -277,14 +267,3 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 /datum/antagonist/traitor/custom_blurb()
 	return "[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(owner.current, TRUE)]\nBEGIN_MISSION"
-
-/datum/antagonist/traitor/proc/reveal_delayed_objectives()
-	for(var/datum/objective/delayed/delayed_obj in objective_holder.objectives)
-		delayed_obj.reveal_objective()
-
-	if(!owner?.current)
-		return
-	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
-	var/list/messages = owner.prepare_announce_objectives()
-	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
-	delayed_objectives = FALSE
