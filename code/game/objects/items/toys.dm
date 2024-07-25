@@ -721,6 +721,68 @@
 	name = "tuxedo cat plushie"
 	icon_state = "tuxedocat"
 
+	//Everybody needs a teddy bear!
+
+/obj/item/toy/plushie/junibear
+	name = "Junibear"
+	icon_state = "junibear"
+
+/obj/item/toy/plushie/red_teddy_bear
+	name = "red teddy bear"
+	icon_state = "red_teddy_bear"
+
+/obj/item/toy/plushie/orange_teddy_bear
+	name = "orange teddy bear"
+	icon_state = "orange_teddy_bear"
+
+/obj/item/toy/plushie/yellow_teddy_bear
+	name = "yellow teddy bear"
+	icon_state = "yellow_teddy_bear"
+
+/obj/item/toy/plushie/green_teddy_bear
+	name = "green teddy bear"
+	icon_state = "green_teddy_bear"
+
+/obj/item/toy/plushie/cyan_teddy_bear
+	name = "cyan teddy bear"
+	icon_state = "cyan_teddy_bear"
+
+/obj/item/toy/plushie/blue_teddy_bear
+	name = "blue teddy bear"
+	icon_state = "blue_teddy_bear"
+
+/obj/item/toy/plushie/purple_teddy_bear
+	name = "purple teddy bear"
+	icon_state = "purple_teddy_bear"
+
+/obj/item/toy/plushie/pink_teddy_bear
+	name = "pink teddy bear"
+	icon_state = "pink_teddy_bear"
+
+/obj/item/toy/plushie/goth_teddy_bear
+	name = "goth teddy bear"
+	icon_state = "goth_teddy_bear"
+
+/obj/item/toy/plushie/striped_teddy_bear
+	name = "striped teddy bear"
+	icon_state = "striped_teddy_bear"
+
+/obj/item/toy/plushie/polkadot_teddy_bear
+	name = "polka-dot teddy bear"
+	icon_state = "polkadot_teddy_bear"
+
+/obj/item/toy/plushie/black_teddy_bear
+	name = "black teddy bear"
+	icon_state = "black_teddy_bear"
+
+/obj/item/toy/plushie/brown_teddy_bear
+	name = "brown teddy bear"
+	icon_state = "brown_teddy_bear"
+
+/obj/item/toy/plushie/white_teddy_bear
+	name = "white teddy bear"
+	icon_state = "white_teddy_bear"
+
 /obj/item/toy/plushie/greyplushie
 	name = "grey plushie"
 	desc = "A plushie of a grey wearing a sweatshirt. As a part of the 'The Alien' series, the doll features a sweater, an oversized head, and cartoonish eyes."
