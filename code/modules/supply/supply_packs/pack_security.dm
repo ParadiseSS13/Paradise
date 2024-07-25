@@ -298,14 +298,6 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "disabler smg crate"
 
-/datum/supply_packs/security/armory/securiblades
-	name = "Securiblade Crate"
-	contains = list(/obj/item/storage/belt/sheath/secsword,
-		/obj/item/storage/belt/sheath/secsword)
-	cost = 550
-	containertype = /obj/structure/closet/crate/secure/plasma
-	containername = "securiblade crate"
-
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield

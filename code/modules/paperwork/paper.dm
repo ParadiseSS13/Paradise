@@ -620,7 +620,7 @@
 
 /obj/item/paper/armory
 	name = "paper- 'Armory Inventory'"
-	info = "4 Barrier Grenades<br>4 Portable Flashers<br>1 Mechanical Toolbox<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Bio-chip Kit<br>1 Chemical Bio-chip Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>1 Lockbox of Mindshield Implants<br><br>3 Sets of Riot Equipment<br>2 Security Suit Storage Units<br>1 Ablative Armor Vest<br>3 Bulletproof Vests<br>3 Bulletproof Helmets<br><br>3 Boxes of Beanbag Shells<br>3 Boxes of Rubbershot Shells<br>1 Box of Tranquilizer Dart<br><br>3 Riot Shotguns<br>3 Laser Guns<br>3 Energy Guns<br>3 Disablers<br>1 Ion Rifle<br>1 Securiblade<br>1 Securiblade Sheath"
+	info = "4 Barrier Grenades<br>4 Portable Flashers<br>1 Mechanical Toolbox<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Bio-chip Kit<br>1 Chemical Bio-chip Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>1 Lockbox of Mindshield Implants<br><br>3 Sets of Riot Equipment<br>2 Security Suit Storage Units<br>1 Ablative Armor Vest<br>3 Bulletproof Vests<br>3 Bulletproof Helmets<br><br>3 Boxes of Beanbag Shells<br>3 Boxes of Rubbershot Shells<br>1 Box of Tranquilizer Dart<br><br>3 Riot Shotguns<br>3 Laser Guns<br>3 Energy Guns<br>3 Disablers<br>1 Ion Rifle"
 
 /obj/item/paper/firingrange
 	name = "paper- 'Firing Range Instructions'"
