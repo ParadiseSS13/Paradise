@@ -28,20 +28,10 @@ export const LatheCategory = (properties, context) => {
                 />
               </Table.Cell>
               <Table.Cell>
-                {can_build >= 5 ? (
-                  <Button
-                    content="x5"
-                    onClick={() => act(action, { id, amount: 5 })}
-                  />
-                ) : null}
+                {can_build >= 5 ? <Button content="x5" onClick={() => act(action, { id, amount: 5 })} /> : null}
               </Table.Cell>
               <Table.Cell>
-                {can_build >= 10 ? (
-                  <Button
-                    content="x10"
-                    onClick={() => act(action, { id, amount: 10 })}
-                  />
-                ) : null}
+                {can_build >= 10 ? <Button content="x10" onClick={() => act(action, { id, amount: 10 })} /> : null}
               </Table.Cell>
               <Table.Cell>
                 {materials.map((mat) => (

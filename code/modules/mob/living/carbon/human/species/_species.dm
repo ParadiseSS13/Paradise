@@ -574,7 +574,7 @@
 	if(target.absorb_stun(0))
 		target.visible_message("<span class='warning'>[target] is not affected by [user]'s disarm attempt!</span>")
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
-		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+		playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == MARTIAL_ARTS_ACT_SUCCESS)
 		return TRUE
@@ -590,7 +590,7 @@
 
 	var/shove_dir = get_dir(user.loc, target.loc)
 	var/turf/shove_to = get_step(target.loc, shove_dir)
-	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 	if(shove_to == user.loc)
 		return FALSE

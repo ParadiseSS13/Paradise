@@ -1,14 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  Collapsible,
-  Stack,
-  LabeledList,
-  NoticeBox,
-  Section,
-  Slider,
-  Box,
-} from '../components';
+import { Button, Collapsible, Stack, LabeledList, NoticeBox, Section, Slider, Box } from '../components';
 import { Window } from '../layouts';
 import { formatPower } from '../format';
 
@@ -32,18 +23,12 @@ export const BluespaceTap = (props, context) => {
     <Window width={650} height={450}>
       <Window.Content scrollable>
         <Stack fill vertical>
-          {!!emagged && (
-            <NoticeBox danger={1}>Safety Protocols disabled</NoticeBox>
-          )}
-          {!!(inputLevel > safeLevels) && (
-            <NoticeBox danger={1}>High Power, Instability likely</NoticeBox>
-          )}
+          {!!emagged && <NoticeBox danger={1}>Safety Protocols disabled</NoticeBox>}
+          {!!(inputLevel > safeLevels) && <NoticeBox danger={1}>High Power, Instability likely</NoticeBox>}
           <Collapsible title="Input Management">
             <Section fill title="Input">
               <LabeledList>
-                <LabeledList.Item label="Input Level">
-                  {inputLevel}
-                </LabeledList.Item>
+                <LabeledList.Item label="Input Level">{inputLevel}</LabeledList.Item>
                 <LabeledList.Item label="Desired Level">
                   <Stack inline width="100%">
                     <Stack.Item>
@@ -100,15 +85,9 @@ export const BluespaceTap = (props, context) => {
                     </Stack.Item>
                   </Stack>
                 </LabeledList.Item>
-                <LabeledList.Item label="Current Power Use">
-                  {formatPower(powerUse)}
-                </LabeledList.Item>
-                <LabeledList.Item label="Power for next level">
-                  {formatPower(nextLevelPower)}
-                </LabeledList.Item>
-                <LabeledList.Item label="Surplus Power">
-                  {formatPower(availablePower)}
-                </LabeledList.Item>
+                <LabeledList.Item label="Current Power Use">{formatPower(powerUse)}</LabeledList.Item>
+                <LabeledList.Item label="Power for next level">{formatPower(nextLevelPower)}</LabeledList.Item>
+                <LabeledList.Item label="Surplus Power">{formatPower(availablePower)}</LabeledList.Item>
               </LabeledList>
             </Section>
           </Collapsible>
@@ -117,12 +96,8 @@ export const BluespaceTap = (props, context) => {
               <Stack.Item>
                 <Box>
                   <LabeledList>
-                    <LabeledList.Item label="Available Points">
-                      {points}
-                    </LabeledList.Item>
-                    <LabeledList.Item label="Total Points">
-                      {totalPoints}
-                    </LabeledList.Item>
+                    <LabeledList.Item label="Available Points">{points}</LabeledList.Item>
+                    <LabeledList.Item label="Total Points">{totalPoints}</LabeledList.Item>
                   </LabeledList>
                 </Box>
               </Stack.Item>
@@ -130,15 +105,10 @@ export const BluespaceTap = (props, context) => {
                 <Box>
                   <LabeledList>
                     {product.map((singleProduct) => (
-                      <LabeledList.Item
-                        key={singleProduct.key}
-                        label={singleProduct.name}
-                      >
+                      <LabeledList.Item key={singleProduct.key} label={singleProduct.name}>
                         <Button
                           disabled={singleProduct.price >= points}
-                          onClick={() =>
-                            act('vend', { target: singleProduct.key })
-                          }
+                          onClick={() => act('vend', { target: singleProduct.key })}
                           content={singleProduct.price}
                         />
                       </LabeledList.Item>
