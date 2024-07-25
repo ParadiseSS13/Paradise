@@ -1763,3 +1763,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!cell)
 		return externally_powered
 	return cell.is_powered() || externally_powered
+
+/mob/living/silicon/robot/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
+	if(ourapc.hacked_by_ruin_AI || ourapc.aidisabled)
+		return FALSE
+	if(ourapc.malfai && !(src in ourapc.malfai.connected_robots))
+		return FALSE
+	return TRUE
