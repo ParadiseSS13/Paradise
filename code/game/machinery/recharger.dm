@@ -12,7 +12,7 @@
 	active_power_consumption = 200
 	pass_flags = PASSTABLE
 
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive, /obj/item/melee/secsword)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive)
 	var/recharge_coeff = 1
 
 	var/obj/item/charging = null // The item that is being charged
@@ -190,10 +190,6 @@
 	if(istype(I, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = I
 		return B.cell
-
-	if(istype(I, /obj/item/melee/secsword))
-		var/obj/item/melee/secsword/S = I
-		return S.cell
 
 	if(istype(I, /obj/item/rcs))
 		var/obj/item/rcs/R = I
