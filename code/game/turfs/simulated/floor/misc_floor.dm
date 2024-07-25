@@ -307,8 +307,3 @@
 			if(prob(50))
 				break_tile_to_plating()
 				hotspot_expose(1000,CELL_VOLUME)
-
-/turf/simulated/floor/catwalk/airless
-	oxygen = 0
-	nitrogen = 0
-	temperature = TCMB
