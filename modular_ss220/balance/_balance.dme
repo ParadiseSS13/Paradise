@@ -8,3 +8,4 @@
 #include "code/jobs/warden.dm"
 #include "code/mobs/aliens/larva.dm"
 #include "code/species/machine.dm"
+#include "code/species/skrell.dm"
