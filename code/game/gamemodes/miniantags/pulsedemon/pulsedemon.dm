@@ -804,6 +804,11 @@
 /mob/living/simple_animal/demon/pulse_demon/mob_has_gravity()
 	return TRUE
 
+/mob/living/simple_animal/demon/pulse_demon/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
+	if(ourapc.hacked_by_ruin_AI || ourapc.malfai || ourapc.malfhack)
+		return FALSE
+	return TRUE
+
 /obj/item/organ/internal/heart/demon/pulse
 	name = "perpetual pacemaker"
 	desc = "It still beats furiously, thousands of bright lights shine within it."

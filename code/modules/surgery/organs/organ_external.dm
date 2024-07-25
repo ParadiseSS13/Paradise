@@ -833,7 +833,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(company && istext(company))
-		set_company(company, owner.dna.species.sprite_sheet_name)
+		if(owner)
+			set_company(company, owner.dna.species.sprite_sheet_name)
+		else
+			set_company(company, "Human")
 
 	limb_flags |= CANNOT_BREAK
 	get_icon()
