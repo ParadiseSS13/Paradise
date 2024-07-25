@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/all_eyes = list()
 	var/next_text_announcement
 
-	//Used with the hotkeys on 2-5 to store locations.
+	//Used with the hotkeys on 2-0 to store locations.
 	var/list/stored_locations = list()
 	/// Set to true if the AI cracks it's camera by using the malf ability
 	var/cracked_camera = FALSE
@@ -238,7 +238,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
 
-	for(var/I in 1 to 4)
+	for(var/I in 1 to 9)
 		stored_locations += "unset" //This is checked in ai_keybinds.dm.
 
 	..()

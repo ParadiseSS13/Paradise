@@ -43,6 +43,31 @@
 	keys = list("Ctrl5")
 	location_number = 4
 
+/datum/keybinding/ai/store_location/five
+	name = "Store Location Five"
+	keys = list("Ctrl6")
+	location_number = 5
+
+/datum/keybinding/ai/store_location/six
+	name = "Store Location Six"
+	keys = list("Ctrl7")
+	location_number = 6
+
+/datum/keybinding/ai/store_location/seven
+	name = "Store Location Seven"
+	keys = list("Ctrl8")
+	location_number = 7
+
+/datum/keybinding/ai/store_location/eight
+	name = "Store Location Eight"
+	keys = list("Ctrl9")
+	location_number = 8
+
+/datum/keybinding/ai/store_location/nine
+	name = "Store Location Nine"
+	keys = list("Ctrl0")
+	location_number = 9
+
 /datum/keybinding/ai/to_location
 	var/location_number
 
@@ -76,9 +101,30 @@
 	keys = list("5")
 	location_number = 4
 
-/datum/keybinding/ai/switch_intent
-	name = "Switch Intents"
+/datum/keybinding/ai/to_location/five
+	name = "Jump to Location Five"
 	keys = list("6")
+	location_number = 5
+
+/datum/keybinding/ai/to_location/six
+	name = "Jump to Location Six"
+	keys = list("7")
+	location_number = 6
+
+/datum/keybinding/ai/to_location/seven
+	name = "Jump to Location Seven"
+	keys = list("8")
+	location_number = 7
+
+/datum/keybinding/ai/to_location/eight
+	name = "Jump to Location Eight"
+	keys = list("9")
+	location_number = 8
+
+/datum/keybinding/ai/to_location/nine
+	name = "Jump to Location Nine"
+	keys = list("0")
+	location_number = 9
 
 /datum/keybinding/ai/switch_intent/down(client/C)
 	. = ..()
