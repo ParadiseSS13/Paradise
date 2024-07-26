@@ -284,7 +284,6 @@
 	..()
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 
