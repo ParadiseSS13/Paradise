@@ -125,13 +125,6 @@
 	else
 		icon_state = "borgcharger0"
 
-/obj/machinery/recharge_station/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-
-	else
-		return ..()
-
 /obj/machinery/recharge_station/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
