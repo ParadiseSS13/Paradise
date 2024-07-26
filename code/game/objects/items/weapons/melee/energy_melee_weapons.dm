@@ -13,6 +13,7 @@
 /obj/item/melee/energy
 	name = "generic energy blade"
 	desc = "If you can see this and didn't spawn it in as an admin, make an issue report on GitHub."
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	var/active = FALSE
 	/// Damage done when active. Does not stack with force_off.
 	var/force_on = 30
