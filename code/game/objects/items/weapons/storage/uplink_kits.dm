@@ -30,9 +30,9 @@
 	name = "Agent 13 Bundle"
 	desc = "Find and eliminate your targets quietly and effectively with this kit."
 	items = list(
-		/obj/item/clothing/under/chameleon, // 1TC 10tc divided over 10 items.
+		/obj/item/clothing/under/chameleon, // 1TC. 10TC divided over 10 items from the chameleon kit.
 		/obj/item/card/id/syndicate, // 10TC
-		/obj/item/storage/box/syndie_kit/stechkin, // 26TC 20tc for stech, plus the 2 mags at 3 tc
+		/obj/item/storage/box/syndie_kit/stechkin, // 26TC. 20TC for stechkin, plus the 2 mags at 3TC
 		/obj/item/suppressor, // 5TC
 		/obj/item/ammo_box/magazine/m10mm,  // 3TC
 		/obj/item/ammo_box/magazine/m10mm/hp, // 7TC
@@ -64,7 +64,7 @@
 	items = list(
 		/obj/item/storage/briefcase/false_bottomed, // 10TC
 		/obj/item/suppressor, // 5TC
-		/obj/item/storage/box/syndie_kit/stechkin, // 26TC 20tc for stech, plus the 2 mags at 3 tc
+		/obj/item/storage/box/syndie_kit/stechkin, // 26TC. 20TC for stechkin, plus the 2 mags at 3TC
 		/obj/item/ammo_box/magazine/m10mm/ap, // 6TC
 		/obj/item/ammo_box/magazine/m10mm/ap, // 6TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
@@ -181,7 +181,7 @@
 	desc = "A variety of grenades and pyrotechnics to ensure you can blast your way through any situation."
 	items = list(
 		/obj/item/storage/belt/grenade/tactical, // ~60TC Contains 2 Frag and EMP grenades, 5 C4 Explosives, 5 Smoke and Gluon grenades and 1 Minibomb grenade
-		/obj/item/storage/box/syndie_kit/stechkin, // 26TC 20tc for stech, plus the 2 mags at 3 tc
+		/obj/item/storage/box/syndie_kit/stechkin, // 26TC. 20TC for stechkin, plus the 2 mags at 3TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 9TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 9TC
 		/obj/item/mod/control/pre_equipped/traitor, // 30TC
@@ -204,8 +204,8 @@
 		/obj/item/mod/module/sphere_transform, // 0TC
 		/obj/item/autosurgeon/organ/syndicate/oneuse/laser_arm, // 0TC
 		/obj/item/pinpointer/advpinpointer, // 10TC
-		/obj/item/autosurgeon/organ/syndicate/oneuse/hardened_heart, // 0TC decent stamina regen.
-		/obj/item/storage/belt/utility/full/multitool, // 0TC normal toolbelt, normal tools.
+		/obj/item/autosurgeon/organ/syndicate/oneuse/hardened_heart, // 0TC decent stamina regen, but no speed/healing.
+		/obj/item/storage/belt/utility/full/multitool, // 0TC
 		/obj/item/clothing/head/collectable/slime,  // 0TC priceless
 		/obj/item/encryptionkey/syndicate) // 10TC
 
@@ -219,13 +219,13 @@
 		/obj/item/gun/projectile/revolver,  // 65TC
 		/obj/item/ammo_box/a357, // 15TC
 		/obj/item/ammo_box/a357, // 15TC
-		/obj/item/encryptionkey/syndicate, // 10 TC
-		/obj/item/clothing/under/syndicate/combat, // 0TC
-		/obj/item/clothing/accessory/holster, // 0 TC
-		/obj/item/clothing/accessory/scarf/red, // 0TC
-		/obj/item/clothing/head/beret, // 0 TC
-		/obj/item/clothing/gloves/combat, // 0 TC
-		/obj/item/clothing/shoes/combat) // 0 TC
+		/obj/item/encryptionkey/syndicate, // 10TC
+		/obj/item/clothing/under/syndicate/combat, //0TC
+		/obj/item/clothing/accessory/holster, // 0TC
+		/obj/item/clothing/accessory/scarf/red, //0TC
+		/obj/item/clothing/head/beret, // 0TC
+		/obj/item/clothing/gloves/combat, // 0TC
+		/obj/item/clothing/shoes/combat) // 0TC
 
 // 147 TC
 /obj/item/storage/box/syndie_kit/bundle/operative
@@ -235,14 +235,14 @@
 		/obj/item/mod/control/pre_equipped/traitor, // 30TC
 		/obj/item/card/id/syndi_scan_only, // ~2TC?
 		/obj/item/encryptionkey/syndicate, // 10tc
-		/obj/item/melee/energy/sword/saber/red, // 40tc
-		/obj/item/shield/energy, // 40tc
-		/obj/item/pinpointer/advpinpointer, // 10tc, get dat fuckin disk
-		/obj/item/storage/belt/military, // 10tc
-		/obj/item/grenade/plastic/c4, // 5tc
-		/obj/item/bio_chip_implanter/proto_adrenalin, // 10tc
-		/obj/item/toy/figure/crew/syndie, // 0tc
-		/obj/item/clothing/under/syndicate // 0tc
+		/obj/item/melee/energy/sword/saber/red, // 40TC
+		/obj/item/shield/energy, // 40TC
+		/obj/item/pinpointer/advpinpointer, // 10TC, get dat fuckin disk
+		/obj/item/storage/belt/military, // 10TC
+		/obj/item/grenade/plastic/c4, // 5TC
+		/obj/item/bio_chip_implanter/proto_adrenalin, // 10TC
+		/obj/item/toy/figure/crew/syndie, // 0TC
+		/obj/item/clothing/under/syndicate // 0TC
 	)
 
 // 250 TC worth of credits
