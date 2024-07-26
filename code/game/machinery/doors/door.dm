@@ -350,7 +350,7 @@
 			else
 				flick("doorc1", src)
 		if("deny")
-			if(!stat)
+			if(stat == CONSCIOUS)
 				flick("door_deny", src)
 
 /obj/machinery/door/proc/open()
@@ -509,12 +509,12 @@
 	zap_flags &= ~ZAP_OBJ_DAMAGE
 	. = ..()
 
-/obj/machinery/door/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
-	if(QDELETED(caller))
+/obj/machinery/door/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(!locateUID(pass_info.caller_uid))
 		return ..()
-	if(caller.checkpass(PASSDOOR) && !locked)
+	if(pass_info.pass_flags & PASSDOOR && !locked)
 		return TRUE
-	if(caller.checkpass(PASSGLASS))
+	if(pass_info.pass_flags & PASSGLASS)
 		return !opacity
 	return ..()
 
@@ -537,9 +537,9 @@
 /obj/machinery/door/proc/update_bounds()
 	if(width <= 1)
 		return
-	
+
 	QDEL_LIST_CONTENTS(fillers)
-	
+
 	if(dir in list(EAST, WEST))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size

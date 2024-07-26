@@ -463,11 +463,12 @@
 	var/header
 	if(DA)
 		if(islist(DA))
+			var/list/debug_list = DA
 			var/index = name
 			if(value)
-				name = DA[name] // name is really the index until this line
+				name = debug_list[name] // name is really the index until this line
 			else
-				value = DA[name]
+				value = debug_list[name]
 			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
 		else
 			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
