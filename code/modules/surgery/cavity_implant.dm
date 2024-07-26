@@ -135,8 +135,8 @@
 /datum/surgery_step/cavity/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>",
-		"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>[user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.receive_damage(20)
@@ -166,8 +166,8 @@
 /datum/surgery_step/cavity/make_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] makes some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>",
-		"<span class='notice'> You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>",
+		"<span class='notice'>[user] makes some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>",
+		"<span class='notice'>You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -198,8 +198,8 @@
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>",
-		"<span class='notice'> You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>",
+		"<span class='notice'>[user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>",
+		"<span class='notice'>You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
