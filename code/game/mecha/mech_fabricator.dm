@@ -297,10 +297,10 @@
 /obj/machinery/mecha_part_fabricator/attackby(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "fab-o", "fab-idle", W))
 		return
-	if(exchange_parts(user, W))
-		return
+
 	if(default_deconstruction_crowbar(user, W))
 		return TRUE
+
 	return ..()
 
 /obj/machinery/mecha_part_fabricator/attack_ghost(mob/user)
