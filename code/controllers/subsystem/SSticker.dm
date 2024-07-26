@@ -225,7 +225,7 @@ SUBSYSTEM_DEF(ticker)
 			P.ready = FALSE
 
 	//Configure mode and assign player to special mode stuff
-	mode.pre_pre_setup()
+
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
 

@@ -43,6 +43,7 @@
 	BB.ammo_casing = src
 
 	if(target && get_dist(user, target) <= 1) //Point blank shot must always hit
+		BB.starting = curloc
 		BB.prehit(target)
 		target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)

@@ -45,6 +45,10 @@
 
 
 /datum/effect_system/smoke_spread/chem
+	var/eff_range = 2
+	var/eff_colour = "#12A5F4" // This is a random blue incase it doesnt get set right
+	var/process_count = 0
+	var/max_process_count = 10
 	var/obj/chemholder
 	var/list/smoked_atoms = list()
 
@@ -94,22 +98,21 @@
 
 
 /datum/effect_system/smoke_spread/chem/start(effect_range = 2)
-	set waitfor = FALSE
+	eff_colour = mix_color_from_reagents(chemholder.reagents.reagent_list)
+	eff_range = effect_range
+	START_PROCESSING(SSprocessing, src)
 
-	var/color = mix_color_from_reagents(chemholder.reagents.reagent_list)
+/datum/effect_system/smoke_spread/chem/process()
+	process_count++
+	if(eff_range < 3)
+		new /obj/effect/particle_effect/chem_smoke/small(location, eff_colour)
+	else
+		new /obj/effect/particle_effect/chem_smoke(location, eff_colour)
 
-	for(var/x in 0 to 99)
-		for(var/i = 0, i < rand(2, 6), i++)
-			if(effect_range < 3)
-				new /obj/effect/particle_effect/chem_smoke/small(location, color)
-			else
-				new /obj/effect/particle_effect/chem_smoke(location, color)
-
-		if(x % 10 == 0) //Once every 10 ticks.
-			INVOKE_ASYNC(src, PROC_REF(SmokeEm), effect_range)
-
-		sleep(1)
-	qdel(src)
+	INVOKE_ASYNC(src, PROC_REF(SmokeEm), eff_range)
+	if(process_count > max_process_count)
+		STOP_PROCESSING(SSprocessing, src)
+		qdel(src)
 
 
 /datum/effect_system/smoke_spread/chem/proc/SmokeEm(effect_range = 2)

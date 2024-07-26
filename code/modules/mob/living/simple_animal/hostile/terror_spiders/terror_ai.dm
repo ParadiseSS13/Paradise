@@ -77,7 +77,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/LoseTarget()
 	if(target && isliving(target))
 		var/mob/living/T = target
-		if(T.stat > 0)
+		if(T.stat != CONSCIOUS)
 			killcount++
 			regen_points += regen_points_per_kill
 	attackstep = 0

@@ -44,7 +44,7 @@
 
 /obj/item/wirecutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] [is_robotic_suicide(user) ? "wiring" : "arteries"] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, usesound, 50, 1, -1)
+	playsound(loc, usesound, 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/wirecutters/proc/is_robotic_suicide(mob/user)
