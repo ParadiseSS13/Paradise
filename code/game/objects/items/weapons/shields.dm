@@ -151,25 +151,22 @@
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		REMOVE_TRAIT(src,TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
-	else
-		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
-	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
-
-	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
-		force = 8
-		throwforce = 5
-		throw_speed = 2
-		w_class = WEIGHT_CLASS_BULKY
-		slot_flags = SLOT_FLAG_BACK
-		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
-	else
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = null
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+	else
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
+		force = 8
+		throwforce = 5
+		throw_speed = 2
+		w_class = WEIGHT_CLASS_BULKY
+		slot_flags = SLOT_FLAG_BACK
+		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
+	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
+	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()

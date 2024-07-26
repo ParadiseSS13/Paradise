@@ -79,9 +79,19 @@
 		user.take_organ_damage(5,5)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
+		force = force_off
+		throwforce = throwforce_off
+		hitsound = initial(hitsound)
+		throw_speed = initial(throw_speed)
+		if(length(attack_verb_on))
+			attack_verb = list()
+		icon_state = initial(icon_state)
+		w_class = initial(w_class)
+		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
+		set_light(0)
+		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	else
 		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
-	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		force = force_on
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/blade1.ogg'
@@ -97,18 +107,7 @@
 		w_class = w_class_on
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
-	else
-		force = force_off
-		throwforce = throwforce_off
-		hitsound = initial(hitsound)
-		throw_speed = initial(throw_speed)
-		if(length(attack_verb_on))
-			attack_verb = list()
-		icon_state = initial(icon_state)
-		w_class = initial(w_class)
-		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
-		set_light(0)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -403,9 +402,19 @@
 			H.take_organ_damage(10,10)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
+		force = force_off
+		throwforce = throwforce_off
+		hitsound = initial(hitsound)
+		throw_speed = initial(throw_speed)
+		if(length(attack_verb_on))
+			attack_verb = list()
+		icon_state = initial(icon_state)
+		w_class = initial(w_class)
+		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
+		set_light(0)
+		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
 	else
 		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
-	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		force = force_on
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/bladeslice.ogg'
@@ -421,18 +430,6 @@
 		w_class = w_class_on
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) * 30000))
 		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
-	else
-		force = force_off
-		throwforce = throwforce_off
-		hitsound = initial(hitsound)
-		throw_speed = initial(throw_speed)
-		if(length(attack_verb_on))
-			attack_verb = list()
-		icon_state = initial(icon_state)
-		w_class = initial(w_class)
-		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
-		set_light(0)
-		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
