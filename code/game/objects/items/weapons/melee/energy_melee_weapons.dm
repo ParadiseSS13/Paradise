@@ -322,7 +322,7 @@
 		return
 	var/datum/status_effect/saw_bleed/B = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
 	if(!B)
-		if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)) //This isn't in the above if-check so that the else doesn't care about active
+		if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)) //This isn't in the above if-check so that the else doesn't care about active
 			target.apply_status_effect(STATUS_EFFECT_SAWBLEED)
 	else
 		B.add_bleed(B.bleed_buildup)

@@ -81,7 +81,7 @@
 	var/time_since_parry = world.time - time_parried
 	if(requires_two_hands && !HAS_TRAIT(parent, TRAIT_WIELDED)) // If our item has special conditions before being able to parry.
 		return
-	if(!HAS_TRAIT(parent, TRAIT_ITEM_ACTIVE) && requires_activation) // If our item requires an activation to be able to parry. [E-sword / Teleshield, etc.]
+	if(requires_activation && !HAS_TRAIT(parent, TRAIT_ITEM_ACTIVE)) // If our item requires an activation to be able to parry. [E-sword / Teleshield, etc.]
 		return
 	if(time_since_parry < parry_cooldown) // stops spam
 		return
