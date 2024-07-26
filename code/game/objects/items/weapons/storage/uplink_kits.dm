@@ -245,11 +245,12 @@
 		/obj/item/clothing/under/syndicate // 0tc
 	)
 
-// 250 TC worth of credits
+// 250 TC worth of credits + 10 for the encryption key
 /obj/item/storage/box/syndie_kit/bundle/rich
 	name = "Big Spender Bundle"
 	desc = "It's money. I don't need to explain more."
 	items = list(
+		/obj/item/encryptionkey/syndicate, // 10tc
 		/obj/item/clothing/under/suit/really_black, // 0 TC
 		/obj/item/clothing/shoes/laceup, // 0 TC
 		/obj/item/clothing/glasses/monocle, // 0 TC
@@ -262,11 +263,12 @@
 		/obj/item/stack/spacecash/c10000
 	)
 
-// 211 TC of maint loot, higher than other bundles because it doesn't combo well
+// 211 TC of maint loot + 10 TC for the encryption key, higher than other bundles because it doesn't combo well
 /obj/item/storage/box/syndie_kit/bundle/maint_loot
 	name = "Maintenance Loot Bundle"
 	desc = "One of our interns found all of this lying in a Nanotrasen Maintenance tunnels. Reduce, Reuse, Recycle!"
 	items = list(
+		/obj/item/encryptionkey/syndicate, // 10tc
 		/obj/item/storage/bag/plasticbag, // 1 TC
 		/obj/item/grenade/clown_grenade, // 15 TC
 		/obj/item/seeds/ambrosia/cruciatus, // 5 TC
