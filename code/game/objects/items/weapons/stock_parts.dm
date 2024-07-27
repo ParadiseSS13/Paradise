@@ -1,5 +1,6 @@
-///////////////////////////////////////Stock Parts /////////////////////////////////
-
+////////////////////////////////////////
+// MARK: RPEDs
+////////////////////////////////////////
 /obj/item/storage/part_replacer
 	name = "Rapid Part Exchange Device"
 	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
@@ -21,11 +22,11 @@
 	display_contents_with_number = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
+	toolspeed = 1
+	usesound = 'sound/items/rped.ogg'
 	var/works_from_distance = FALSE
 	var/primary_sound = 'sound/items/rped.ogg'
 	var/alt_sound = null
-	toolspeed = 1
-	usesound = 'sound/items/rped.ogg'
 
 /obj/item/storage/part_replacer/Initialize(mapload)
 	. = ..()
@@ -34,6 +35,7 @@
 /obj/item/storage/part_replacer/can_be_inserted(obj/item/I, stop_messages = FALSE)
 	if(!istype(I, /obj/item/reagent_containers/glass/beaker))
 		return ..()
+
 	var/obj/item/reagent_containers/glass/beaker/B = I
 	if(B.reagents?.total_volume)
 		if(!stop_messages)
@@ -41,18 +43,26 @@
 		return FALSE
 	return ..()
 
-/obj/item/storage/part_replacer/afterattack(obj/machinery/M, mob/user, flag, params)
-	if(!flag && works_from_distance && istype(M))
-		// Make sure its in range
-		if(get_dist(src, M) <= (user.client.maxview() + 2))
-			if(M.component_parts)
-				M.exchange_parts(user, src)
-				user.Beam(M,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
-		else
-			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console. (Attempted range exploit)")
-			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
+/obj/item/storage/part_replacer/afterattack(obj/machinery/M, mob/user, proximity_flag, params)
+	if(!istype(M))
+		return ..()
 
+	if(!proximity_flag && !works_from_distance)
+		return
+
+	if(get_dist(src, M) <= (user.client.maxview() + 2))
+		if(M.component_parts)
+			M.exchange_parts(user, src)
+		if(works_from_distance)
+			user.Beam(M, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+	else
+		message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console (attempted range exploit).")
+		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+		to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
+
+////////////////////////////////////////
+// 		Bluespace Part Replacer
+////////////////////////////////////////
 /obj/item/storage/part_replacer/bluespace
 	name = "bluespace rapid part exchange device"
 	desc = "A version of the RPED that allows for replacement of parts and scanning from a distance, along with higher capacity for parts."
@@ -85,6 +95,9 @@
 	else
 		playsound(src, primary_sound, 40, 1)
 
+////////////////////////////////////////
+// MARK: Stock parts
+////////////////////////////////////////
 /obj/item/stock_parts
 	name = "stock part"
 	desc = "What?"

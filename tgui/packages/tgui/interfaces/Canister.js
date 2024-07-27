@@ -73,55 +73,37 @@ export const Canister = (props, context) => {
     paintSection = (
       <Section title="Paint">
         <LabeledControls>
-          <LabeledControls.Item
-            minWidth="110px"
-            label={colorContainer.prim.name}
-          >
+          <LabeledControls.Item minWidth="110px" label={colorContainer.prim.name}>
             <Dropdown
               over
               selected={preset_prim}
               disabled={!canLabel}
               options={array_prim}
               width="110px"
-              onSelected={(value) =>
-                act('recolor', { nc: array_prim.indexOf(value), ctype: 'prim' })
-              }
+              onSelected={(value) => act('recolor', { nc: array_prim.indexOf(value), ctype: 'prim' })}
             />
           </LabeledControls.Item>
-          <LabeledControls.Item
-            minWidth="110px"
-            label={colorContainer.sec.name}
-          >
+          <LabeledControls.Item minWidth="110px" label={colorContainer.sec.name}>
             <Dropdown
               over
               selected={preset_sec}
               disabled={!canLabel}
               options={array_sec}
               width="110px"
-              onSelected={(value) =>
-                act('recolor', { nc: array_sec.indexOf(value), ctype: 'sec' })
-              }
+              onSelected={(value) => act('recolor', { nc: array_sec.indexOf(value), ctype: 'sec' })}
             />
           </LabeledControls.Item>
-          <LabeledControls.Item
-            minWidth="110px"
-            label={colorContainer.ter.name}
-          >
+          <LabeledControls.Item minWidth="110px" label={colorContainer.ter.name}>
             <Dropdown
               over
               selected={preset_ter}
               disabled={!canLabel}
               options={array_ter}
               width="110px"
-              onSelected={(value) =>
-                act('recolor', { nc: array_ter.indexOf(value), ctype: 'ter' })
-              }
+              onSelected={(value) => act('recolor', { nc: array_ter.indexOf(value), ctype: 'ter' })}
             />
           </LabeledControls.Item>
-          <LabeledControls.Item
-            minWidth="110px"
-            label={colorContainer.quart.name}
-          >
+          <LabeledControls.Item minWidth="110px" label={colorContainer.quart.name}>
             <Dropdown
               over
               selected={preset_quart}
@@ -146,14 +128,7 @@ export const Canister = (props, context) => {
       <Window.Content>
         <Section
           title={name}
-          buttons={
-            <Button
-              icon="pencil-alt"
-              content="Relabel"
-              disabled={!canLabel}
-              onClick={() => act('relabel')}
-            />
-          }
+          buttons={<Button icon="pencil-alt" content="Relabel" disabled={!canLabel} onClick={() => act('relabel')} />}
         >
           <LabeledControls>
             <LabeledControls.Item minWidth="66px" label="Pressure">
@@ -220,24 +195,15 @@ export const Canister = (props, context) => {
                 width="50px"
                 lineHeight={2}
                 fontSize="11px"
-                color={
-                  valveOpen ? (hasHoldingTank ? 'caution' : 'danger') : null
-                }
+                color={valveOpen ? (hasHoldingTank ? 'caution' : 'danger') : null}
                 content={valveOpen ? 'Open' : 'Closed'}
                 onClick={() => act('valve')}
               />
             </LabeledControls.Item>
             <LabeledControls.Item mr={1} label="Port">
-              <Tooltip
-                content={portConnected ? 'Connected' : 'Disconnected'}
-                position="top"
-              >
+              <Tooltip content={portConnected ? 'Connected' : 'Disconnected'} position="top">
                 <Box position="relative">
-                  <Icon
-                    size={1.25}
-                    name={portConnected ? 'plug' : 'times'}
-                    color={portConnected ? 'good' : 'bad'}
-                  />
+                  <Icon size={1.25} name={portConnected ? 'plug' : 'times'} color={portConnected ? 'good' : 'bad'} />
                 </Box>
               </Tooltip>
             </LabeledControls.Item>
@@ -245,21 +211,11 @@ export const Canister = (props, context) => {
         </Section>
         <Section
           title="Holding Tank"
-          buttons={
-            !!hasHoldingTank && (
-              <Button
-                icon="eject"
-                content="Eject"
-                onClick={() => act('eject')}
-              />
-            )
-          }
+          buttons={!!hasHoldingTank && <Button icon="eject" content="Eject" onClick={() => act('eject')} />}
         >
           {!!hasHoldingTank && (
             <LabeledList>
-              <LabeledList.Item label="Label">
-                {holdingTank.name}
-              </LabeledList.Item>
+              <LabeledList.Item label="Label">{holdingTank.name}</LabeledList.Item>
               <LabeledList.Item label="Pressure">
                 <AnimatedNumber value={holdingTank.tankPressure} /> kPa
               </LabeledList.Item>

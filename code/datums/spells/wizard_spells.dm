@@ -362,7 +362,7 @@
 /datum/spell/fireball/update_spell_icon()
 	if(!action)
 		return
-	action.button_icon_state = "fireball[active]"
+	action.button_overlay_icon_state = "fireball[active]"
 	action.UpdateButtons()
 
 /datum/spell/fireball/cast(list/targets, mob/living/user = usr)
@@ -376,7 +376,7 @@
 	FB.current = get_turf(user)
 	FB.original = target
 	FB.firer = user
-	FB.preparePixelProjectile(target, get_turf(target), user)
+	FB.preparePixelProjectile(target, user)
 	FB.fire()
 	user.newtonian_move(get_dir(U, T))
 

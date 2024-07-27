@@ -1,16 +1,7 @@
 import { BooleanLike } from '../../common/react';
 import { InfernoNode } from 'inferno';
 import { useBackend } from '../backend';
-import {
-  Button,
-  Flex,
-  LabeledList,
-  NoticeBox,
-  Section,
-  Stack,
-  Table,
-  Tabs,
-} from '../components';
+import { Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
 interface PathogenSymptom {
@@ -45,12 +36,7 @@ interface PanDEMICData {
 
 export const PanDEMIC = (props, context) => {
   const { data } = useBackend<PanDEMICData>(context);
-  const {
-    beakerLoaded,
-    beakerContainsBlood,
-    beakerContainsVirus,
-    resistances = [],
-  } = data;
+  const { beakerLoaded, beakerContainsBlood, beakerContainsVirus, resistances = [] } = data;
 
   let emptyPlaceholder;
   if (!beakerLoaded) {
@@ -65,16 +51,14 @@ export const PanDEMIC = (props, context) => {
     <Window width={575} height={510}>
       <Window.Content>
         <Stack fill vertical>
-          {emptyPlaceholder && (
-            <Section
-              title="Container Information"
-              buttons={<CommonCultureActions />}
-            >
+          {emptyPlaceholder && !beakerContainsVirus ? (
+            <Section title="Container Information" buttons={<CommonCultureActions fill vertical />}>
               <NoticeBox>{emptyPlaceholder}</NoticeBox>
-              {resistances?.length > 0 && <ResistancesSection />}
             </Section>
+          ) : (
+            <CultureInformationSection />
           )}
-          {!!beakerContainsVirus && <CultureInformationSection />}
+          {resistances?.length > 0 && <ResistancesSection align="bottom" />}
         </Stack>
       </Window.Content>
     </Window>
@@ -86,12 +70,7 @@ const CommonCultureActions = (props, context) => {
   const { beakerLoaded } = data;
   return (
     <>
-      <Button
-        icon="eject"
-        content="Eject"
-        disabled={!beakerLoaded}
-        onClick={() => act('eject_beaker')}
-      />
+      <Button icon="eject" content="Eject" disabled={!beakerLoaded} onClick={() => act('eject_beaker')} />
       <Button.Confirm
         icon="trash-alt"
         confirmIcon="eraser"
@@ -104,10 +83,7 @@ const CommonCultureActions = (props, context) => {
   );
 };
 
-const StrainInformation = (
-  props: { strain: PathogenStrain; strainIndex: number },
-  context
-) => {
+const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }, context) => {
   const { act, data } = useBackend<PanDEMICData>(context);
   const { beakerContainsVirus } = data;
   const {
@@ -124,13 +100,7 @@ const StrainInformation = (
   const bloodInformation = (
     <>
       <LabeledList.Item label="Blood DNA">
-        {!bloodDNA ? (
-          'Undetectable'
-        ) : (
-          <span style={{ 'font-family': "'Courier New', monospace" }}>
-            {bloodDNA}
-          </span>
-        )}
+        {!bloodDNA ? 'Undetectable' : <span style={{ 'font-family': "'Courier New', monospace" }}>{bloodDNA}</span>}
       </LabeledList.Item>
       <LabeledList.Item label="Blood Type">
         {
@@ -150,11 +120,7 @@ const StrainInformation = (
 
   let nameButtons;
   if (isAdvanced) {
-    if (
-      commonName !== undefined &&
-      commonName !== null &&
-      commonName !== 'Unknown'
-    ) {
+    if (commonName !== undefined && commonName !== null && commonName !== 'Unknown') {
       nameButtons = (
         <Button
           icon="print"
@@ -172,9 +138,7 @@ const StrainInformation = (
         <Button
           icon="pen"
           content="Name Disease"
-          onClick={() =>
-            act('name_strain', { strain_index: props.strainIndex })
-          }
+          onClick={() => act('name_strain', { strain_index: props.strainIndex })}
           style={{ 'margin-left': 'auto' }}
         />
       );
@@ -189,17 +153,11 @@ const StrainInformation = (
           {nameButtons}
         </Stack>
       </LabeledList.Item>
-      {description && (
-        <LabeledList.Item label="Description">{description}</LabeledList.Item>
-      )}
+      {description && <LabeledList.Item label="Description">{description}</LabeledList.Item>}
       <LabeledList.Item label="Disease Agent">{diseaseAgent}</LabeledList.Item>
       {bloodInformation}
-      <LabeledList.Item label="Spread Vector">
-        {transmissionRoute ?? 'None'}
-      </LabeledList.Item>
-      <LabeledList.Item label="Possible Cures">
-        {possibleTreatments ?? 'None'}
-      </LabeledList.Item>
+      <LabeledList.Item label="Spread Vector">{transmissionRoute ?? 'None'}</LabeledList.Item>
+      <LabeledList.Item label="Possible Cures">{possibleTreatments ?? 'None'}</LabeledList.Item>
     </LabeledList>
   );
 };
@@ -230,14 +188,8 @@ const StrainInformationSection = (
 
   return (
     <Flex.Item>
-      <Section
-        title={props.sectionTitle ?? 'Strain Information'}
-        buttons={appliedSectionButtons}
-      >
-        <StrainInformation
-          strain={props.strain}
-          strainIndex={props.strainIndex}
-        />
+      <Section title={props.sectionTitle ?? 'Strain Information'} buttons={appliedSectionButtons}>
+        <StrainInformation strain={props.strain} strainIndex={props.strainIndex} />
       </Section>
     </Flex.Item>
   );
@@ -250,28 +202,17 @@ const CultureInformationSection = (props, context) => {
 
   if (strains.length === 0) {
     return (
-      <Stack fill vertical>
-        <Section
-          title="Container Information"
-          buttons={<CommonCultureActions />}
-        >
-          <NoticeBox>No disease detected in provided blood sample.</NoticeBox>
-        </Section>
-      </Stack>
+      <Section title="Container Information" buttons={<CommonCultureActions />}>
+        <NoticeBox>No disease detected in provided blood sample.</NoticeBox>
+      </Section>
     );
   }
 
   if (strains.length === 1) {
     return (
       <>
-        <StrainInformationSection
-          strain={strains[0]}
-          strainIndex={1}
-          sectionButtons={<CommonCultureActions />}
-        />
-        {strains[0].symptoms?.length > 0 && (
-          <StrainSymptomsSection strain={strains[0]} />
-        )}
+        <StrainInformationSection strain={strains[0]} strainIndex={1} sectionButtons={<CommonCultureActions />} />
+        {strains[0].symptoms?.length > 0 && <StrainSymptomsSection strain={strains[0]} />}
       </>
     );
   }
@@ -296,15 +237,9 @@ const CultureInformationSection = (props, context) => {
               ))}
             </Tabs>
           </Flex.Item>
-          <StrainInformationSection
-            strain={selectedStrain}
-            strainIndex={selectedStrainIndex}
-          />
+          <StrainInformationSection strain={selectedStrain} strainIndex={selectedStrainIndex} />
           {selectedStrain.symptoms?.length > 0 && (
-            <StrainSymptomsSection
-              className="remove-section-bottom-padding"
-              strain={selectedStrain}
-            />
+            <StrainSymptomsSection className="remove-section-bottom-padding" strain={selectedStrain} />
           )}
         </Flex>
       </Section>
@@ -316,10 +251,7 @@ const sum = (values: number[]) => {
   return values.reduce((r, value) => r + value, 0);
 };
 
-const StrainSymptomsSection = (props: {
-  className?: string;
-  strain: PathogenStrain;
-}) => {
+const StrainSymptomsSection = (props: { className?: string; strain: PathogenStrain }) => {
   const { symptoms } = props.strain;
   return (
     <Flex.Item grow>
@@ -347,9 +279,7 @@ const StrainSymptomsSection = (props: {
             <Table.Cell>{sum(symptoms.map((s) => s.stealth))}</Table.Cell>
             <Table.Cell>{sum(symptoms.map((s) => s.resistance))}</Table.Cell>
             <Table.Cell>{sum(symptoms.map((s) => s.stageSpeed))}</Table.Cell>
-            <Table.Cell>
-              {sum(symptoms.map((s) => s.transmissibility))}
-            </Table.Cell>
+            <Table.Cell>{sum(symptoms.map((s) => s.transmissibility))}</Table.Cell>
           </Table.Row>
         </Table>
       </Section>
@@ -371,9 +301,7 @@ const ResistancesSection = (props, context) => {
               <Button
                 icon={VaccineSynthesisIcons[i % VaccineSynthesisIcons.length]}
                 disabled={!!synthesisCooldown}
-                onClick={() =>
-                  act('clone_vaccine', { resistance_index: i + 1 })
-                }
+                onClick={() => act('clone_vaccine', { resistance_index: i + 1 })}
                 mr="0.5em"
               />
               {r}

@@ -7,7 +7,7 @@
 	name = "Spread Infestation"
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend. Costs 30 chemicals."
 	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Their orders can be changed via remote hivemind (Alt+Shift click)."
-	button_icon_state = "spread_infestation"
+	button_overlay_icon_state = "spread_infestation"
 	chemical_cost = 30
 	dna_cost = 4
 	/// This var keeps track of the changeling's spider count
