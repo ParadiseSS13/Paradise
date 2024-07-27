@@ -70,7 +70,7 @@
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 1
 	show_in_report = TRUE
-	report_message = "As part of Operation Magi, your station has been instated with three Nanotrasen Artificial Intelligence models. Try not to break them."
+	report_message = "As part of Operation Magi, your station has been equipped with three Nanotrasen Artificial Intelligence models. Please try not to break them."
 	trait_to_give = STATION_TRAIT_TRIAI
 
 /datum/station_trait/triple_ai/New()
