@@ -86,7 +86,6 @@
 	R.name = "Official Coroner's Report - [dead_name]"
 	R.info = "<b><center>[station_name()] - Coroner's Report</b></center><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [rank]<br><br><b>Time of Death:</b> [tod]<br><br><b>Cause of Death:</b> [cause]<br><br><b>Trace Chemicals:</b> [chems]<br><br><b>Additional Coroner's Notes:</b> [notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
-	sleep(1 SECONDS)
 	user.put_in_hands(R)
 
 /obj/item/autopsy_scanner/attack_self(mob/user)

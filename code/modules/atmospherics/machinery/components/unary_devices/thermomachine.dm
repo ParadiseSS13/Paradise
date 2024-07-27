@@ -123,11 +123,6 @@
 		change_power_mode(IDLE_POWER_USE)
 	return
 
-/obj/machinery/atmospherics/unary/thermomachine/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-	return ..()
-
 /obj/machinery/atmospherics/unary/thermomachine/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
