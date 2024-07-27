@@ -182,7 +182,7 @@
 					if(max_multiplier >= n)
 						t1 += " <a href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i];multiplier=[n]'>[n * R.res_amount]x</A>"
 				if(!(max_multiplier in multipliers))
-					t1 += " <a href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
+					t1 += " <a href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</a>"
 
 	var/datum/browser/popup = new(user, "stack", name, recipe_width, recipe_height)
 	popup.set_content(t1)
