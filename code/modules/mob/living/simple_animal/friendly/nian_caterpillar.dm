@@ -83,8 +83,8 @@
 
 	// Mind transfer to new worme.
 	M.transfer_to(adult)
-	// Doesn't allow cult or vampires to benefit from them fully, similar to "TRAIT_HOLY".
-	ADD_TRAIT(adult.mind, TRAIT_ENLIGHTENED_HUMAN, ROUNDSTART_TRAIT)
+	// [Caterpillar -> worme -> nian] is from xenobio (or cargo) and does not give vampires usuble blood and cannot be converted by cult.
+	ADD_TRAIT(adult.mind, TRAIT_XENOBIO_SPAWNED_HUMAN, ROUNDSTART_TRAIT)
 
 	// Worme is placed into cacoon.
 	adult.forceMove(C)
