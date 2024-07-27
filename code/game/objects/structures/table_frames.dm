@@ -112,7 +112,7 @@
 	framestack = /obj/item/stack/sheet/wood
 	framestackamount = 2
 	resistance_flags = FLAMMABLE
-	restrict_table_types = list(/obj/item/stack/tile/carpet = /obj/structure/table/wood/poker, /obj/item/stack/sheet/wood)
+	restrict_table_types = list(/obj/item/stack/tile/carpet = /obj/structure/table/wood/poker, /obj/item/stack/sheet/wood = /obj/item/stack/sheet/wood::table_type)
 
 /obj/structure/table_frame/brass
 	name = "brass table frame"
