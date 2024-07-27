@@ -186,6 +186,9 @@
 /obj/item/storage/bag/ore/holding
 	name = "mining satchel of holding"
 	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
+	icon = 'modular_ss220/objects/icons/mining.dmi'
+	icon_state = "satchel_bspace"
+	item_color = "satchel_bspace"
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=4;materials=3;engineering=3"
