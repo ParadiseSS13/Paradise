@@ -869,7 +869,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	restrict_table_types = list(/obj/item/stack/sheet/mineral/silver = /obj/machinery/optable/abductor, /obj/item/stack/sheet/mineral/abductor == /obj/item/stack/sheet/mineral/abductor::table_type)
+	restrict_table_types = list(/obj/item/stack/sheet/mineral/silver = /obj/machinery/optable/abductor, /obj/item/stack/sheet/mineral/abductor = /obj/item/stack/sheet/mineral/abductor::table_type)
 
 /obj/structure/table/abductor
 	name = "alien table"
