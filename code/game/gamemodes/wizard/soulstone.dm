@@ -317,7 +317,7 @@
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
-			if(T.stat == 0)
+			if(T.stat == CONSCIOUS)
 				to_chat(user, "<span class='danger'>Capture failed!</span> Kill or maim the victim first!")
 			else
 				if(!length(T.client_mobs_in_contents))

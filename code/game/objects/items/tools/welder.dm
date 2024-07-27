@@ -26,13 +26,20 @@
 	drop_sound = 'sound/items/handling/weldingtool_drop.ogg'
 	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
 	var/maximum_fuel = 20
-	var/requires_fuel = TRUE //Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier
-	var/refills_over_time = FALSE //Do we regenerate fuel?
+	/// Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier.
+	var/requires_fuel = TRUE 
+	/// If TRUE, fuel will regenerate over time.
+	var/refills_over_time = FALSE
+	/// Sound played when turned on.
 	var/activation_sound = 'sound/items/welderactivate.ogg'
+	/// Sound played when turned off.
 	var/deactivation_sound = 'sound/items/welderdeactivate.ogg'
+	/// The brightness of the active flame.
 	var/light_intensity = 2
-	var/low_fuel_changes_icon = TRUE//More than one icon_state due to low fuel?
-	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
+	/// Does the icon_state change if the fuel is low?
+	var/low_fuel_changes_icon = TRUE
+	/// How often does the tool flash the user's eyes?
+	var/progress_flash_divisor = 1 SECONDS
 
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()
@@ -255,7 +262,7 @@
 
 	user.visible_message("<span class='suicide'>[user] is tinkering with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 
-	to_chat(user, "<span class='notice'> You begin tinkering with [src]...")
+	to_chat(user, "<span class='notice'>You begin tinkering with [src]...")
 	user.Immobilize(10 SECONDS)
 	sleep(2 SECONDS)
 	add_fingerprint(user)

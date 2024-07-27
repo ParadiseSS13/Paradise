@@ -58,12 +58,14 @@
 	RefreshParts()
 
 /obj/machinery/plantgenes/Destroy()
+	for(var/atom/movable/A in contents)
+		A.forceMove(loc)
+	seed = null
+	disk = null
 	core_genes.Cut()
 	reagent_genes.Cut()
 	trait_genes.Cut()
 	target = null
-	QDEL_NULL(seed)
-	QDEL_NULL(disk)
 	return ..()
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
@@ -132,22 +134,23 @@
 	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
 		update_icon(UPDATE_OVERLAYS)
 		return
-	if(exchange_parts(user, I))
-		return
+
 	if(default_deconstruction_crowbar(user, I))
 		return
-	if(isrobot(user))
+
+	if(istype(I, /obj/item/unsorted_seeds))
+		to_chat(user, "<span class='warning'>You need to sort [I] first!</span>")
 		return
 
 	if(istype(I, /obj/item/seeds))
 		add_seed(I, user)
-	else if(istype(I, /obj/item/unsorted_seeds))
-		to_chat(user, "<span class='warning'>You need to sort [I] first!</span>")
-		return ..()
-	else if(istype(I, /obj/item/disk/plantgene) || istype(I, /obj/item/storage/box))
+		return
+
+	if(istype(I, /obj/item/disk/plantgene) || istype(I, /obj/item/storage/box))
 		add_disk(I, user)
-	else
-		return ..()
+		return
+
+	return ..()
 
 /obj/machinery/plantgenes/proc/add_seed(obj/item/seeds/new_seed, mob/user)
 	if(seed)
@@ -420,7 +423,7 @@
 					user.put_in_hands(D)
 					update_genes()
 					return
-			to_chat(user, "<span class='warning'> No Empty Disks to Eject!</span>")
+			to_chat(user, "<span class='warning'>No Empty Disks to Eject!</span>")
 		if("set_read_only")
 			var/obj/item/disk/plantgene/D = contents[text2num(params["index"])]
 			D.read_only = !D.read_only
