@@ -92,7 +92,7 @@
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/firefighting_tank,
+		/obj/item/mod/module/firefighting_tank
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
