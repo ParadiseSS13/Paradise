@@ -524,7 +524,8 @@
 
 /obj/item/chair/AltClick(mob/user)
 	. = ..()
-	plant(user)
+	if(Adjacent(user))
+		plant(user)
 
 /obj/item/chair/proc/plant(mob/user)
 	if(QDELETED(src))
@@ -582,7 +583,7 @@
 		return
 	..()
 
-/obj/item/examine(mob/user)
+/obj/item/chair/examine(mob/user)
 	. = ..()
 	. += "<span class='info'>You can <b>Alt-Click</b> [src] to place it down.</span>"
 
