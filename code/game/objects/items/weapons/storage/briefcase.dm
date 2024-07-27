@@ -42,10 +42,11 @@
 	return ..()
 
 /obj/item/storage/briefcase/false_bottomed/afterattack(atom/A, mob/user, flag, params)
-	..()
-	if(stored_item && isgun(stored_item) && !Adjacent(A))
+	if(stored_item && isgun(stored_item))
 		var/obj/item/gun/stored_gun = stored_item
 		stored_gun.afterattack(A, user, flag, params)
+		return
+	..()
 
 /obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user)
 	if(bottom_open)
