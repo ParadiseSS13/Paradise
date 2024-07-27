@@ -38,6 +38,11 @@
 
 /obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread, atom/firer_source_atom)
 	var/turf/curloc = get_turf(firer_source_atom)
+	var/obj/item/storage/briefcase/false_bottomed/B = user.get_active_hand()
+
+	if(istype(B, /obj/item/storage/briefcase/false_bottomed) && B.stored_item == firer_source_atom)
+		curloc = get_turf(B)
+
 	if(!istype(targloc) || !istype(curloc) || !BB)
 		return
 	BB.ammo_casing = src
