@@ -169,7 +169,7 @@
 				title += "[R.title]"
 			title += " ([R.req_amount] [src.singular_name]\s)"
 			if(can_build)
-				t1 += "<a href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i]'>[title]</A>  "
+				t1 += "<a href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i]'>[title]</a>  "
 			else
 				t1 += "[title]"
 				continue
@@ -180,7 +180,7 @@
 				var/list/multipliers = list(5, 10, 25)
 				for(var/n in multipliers)
 					if(max_multiplier >= n)
-						t1 += " <a href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i];multiplier=[n]'>[n * R.res_amount]x</A>"
+						t1 += " <a href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i];multiplier=[n]'>[n * R.res_amount]x</a>"
 				if(!(max_multiplier in multipliers))
 					t1 += " <a href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</a>"
 
