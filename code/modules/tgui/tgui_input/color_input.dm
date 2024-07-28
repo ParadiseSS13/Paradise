@@ -8,7 +8,7 @@
  * * timeout - The timeout of the picker, after which the modal will close and qdel itself. Set to zero for no timeout.
  * * autofocus - The bool that controls if this picker should grab window focus.
  */
-/proc/tgui_color_picker(mob/user, message, title, default = "#000000", timeout = 0, autofocus = TRUE)
+/proc/tgui_input_color(mob/user, message, title, default = "#000000", timeout = 0, autofocus = TRUE)
 	if (!user)
 		user = usr
 	if (!istype(user))
@@ -20,7 +20,7 @@
 	// Client does NOT have tgui_input on: Returns regular input
 	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
 		return input(user, message, title, default) as color|null
-	var/datum/tgui_color_picker/picker = new(user, message, title, default, timeout, autofocus)
+	var/datum/tgui_input_color/picker = new(user, message, title, default, timeout, autofocus)
 	picker.ui_interact(user)
 	picker.wait()
 	if (picker)
@@ -38,7 +38,7 @@
  * * timeout - The timeout of the picker, after which the modal will close and qdel itself. Set to zero for no timeout.
  * * autofocus - The bool that controls if this picker should grab window focus.
  */
-/proc/tgui_color_picker_async(mob/user, message, title, default = "#000000", datum/callback/callback, timeout = 0, autofocus = TRUE)
+/proc/tgui_input_color_async(mob/user, message, title, default = "#000000", datum/callback/callback, timeout = 0, autofocus = TRUE)
 	if (!user)
 		user = usr
 	if (!istype(user))
@@ -50,15 +50,15 @@
 	// Client does NOT have tgui_input on: Returns regular input
 	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
 		return input(user, message, title, default) as color|null
-	var/datum/tgui_color_picker/async/picker = new(user, message, title, default, callback, timeout, autofocus)
+	var/datum/tgui_input_color/async/picker = new(user, message, title, default, callback, timeout, autofocus)
 	picker.ui_interact(user)
 
 /**
- * # tgui_color_picker
+ * # tgui_input_color
  *
  * Datum used for instantiating and using a TGUI-controlled color picker.
  */
-/datum/tgui_color_picker
+/datum/tgui_input_color
 	/// The title of the TGUI window
 	var/title
 	/// The message to show the user
@@ -67,16 +67,16 @@
 	var/default
 	/// The color the user selected, null if no selection has been made
 	var/choice
-	/// The time at which the tgui_color_picker was created, for displaying timeout progress.
+	/// The time at which the tgui_input_color was created, for displaying timeout progress.
 	var/start_time
-	/// The lifespan of the tgui_color_picker, after which the window will close and delete itself.
+	/// The lifespan of the tgui_input_color, after which the window will close and delete itself.
 	var/timeout
 	/// The bool that controls if this modal should grab window focus
 	var/autofocus
-	/// Boolean field describing if the tgui_color_picker was closed by the user.
+	/// Boolean field describing if the tgui_input_color was closed by the user.
 	var/closed
 
-/datum/tgui_color_picker/New(mob/user, message, title, default, timeout, autofocus)
+/datum/tgui_input_color/New(mob/user, message, title, default, timeout, autofocus)
 	src.autofocus = autofocus
 	src.title = title
 	src.default = default
@@ -86,33 +86,33 @@
 		start_time = world.time
 		QDEL_IN(src, timeout)
 
-/datum/tgui_color_picker/Destroy(force, ...)
+/datum/tgui_input_color/Destroy(force, ...)
 	SStgui.close_uis(src)
 	. = ..()
 
 /**
- * Waits for a user's response to the tgui_color_picker's prompt before returning. Returns early if
+ * Waits for a user's response to the tgui_input_color's prompt before returning. Returns early if
  * the window was closed by the user.
  */
-/datum/tgui_color_picker/proc/wait()
+/datum/tgui_input_color/proc/wait()
 	while (!choice && !closed && !QDELETED(src))
 		stoplag(1)
 
-/datum/tgui_color_picker/ui_interact(mob/user, datum/tgui/ui)
+/datum/tgui_input_color/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ColorPickerModal")
 		ui.open()
 		ui.set_autoupdate(timeout > 0)
 
-/datum/tgui_color_picker/ui_close(mob/user)
+/datum/tgui_input_color/ui_close(mob/user)
 	. = ..()
 	closed = TRUE
 
-/datum/tgui_color_picker/ui_state(mob/user)
+/datum/tgui_input_color/ui_state(mob/user)
 	return GLOB.always_state
 
-/datum/tgui_color_picker/ui_static_data(mob/user)
+/datum/tgui_input_color/ui_static_data(mob/user)
 	. = list()
 	.["autofocus"] = autofocus
 	.["large_buttons"] = !user.client?.prefs || (user.client.prefs.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
@@ -121,7 +121,7 @@
 	.["default_color"] = default
 	.["message"] = message
 
-/datum/tgui_color_picker/ui_data(mob/user)
+/datum/tgui_input_color/ui_data(mob/user)
 	. = list()
 	if(timeout)
 		.["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))

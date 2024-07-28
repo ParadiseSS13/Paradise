@@ -1,3 +1,4 @@
+/* eslint-disable react/state-in-constructor */
 /**
  * @file
  * @copyright 2023 itsmeow
