@@ -796,7 +796,7 @@
 
 /obj/item/storage/belt/sheath/snakesfang/populate_contents()
 	new /obj/item/melee/snakesfang(src)
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 // -------------------------------------
 //     Bluespace Belt
