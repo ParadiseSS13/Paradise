@@ -32,8 +32,8 @@
 	var/output_level_max = 200000
 	/// Amount of power actually outputted. may be less than output_level if the powernet returns excess power
 	var/output_used = 0
-	var/name_tag = null
-	var/obj/machinery/power/terminal/terminal = null
+	/// The terminal that is connected to this SMES unit
+	var/obj/machinery/power/terminal/terminal
 
 /obj/machinery/power/smes/Initialize(mapload)
 	. = ..()
