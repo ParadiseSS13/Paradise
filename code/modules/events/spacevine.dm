@@ -489,7 +489,7 @@
 					B.take_damage(damage_dealt, I.damtype, MELEE, 1)
 				else
 					B.wither()
-			return .
+			return
 	if(I.sharp)
 		damage_dealt *= 4
 	if(I.damtype == BURN)
