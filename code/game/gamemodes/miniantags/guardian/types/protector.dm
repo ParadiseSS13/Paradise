@@ -141,6 +141,7 @@
 	if(I.force)
 		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
 	linked_guardian.apply_damage(I.force, I.damtype)
+	return TRUE
 
 /obj/effect/guardianshield/Destroy()
 	linked_guardian = null

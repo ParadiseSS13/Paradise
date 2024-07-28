@@ -297,7 +297,7 @@
 /obj/structure/chair/sofa/attacked_by(obj/item/I, mob/living/user)
 	. = ..()
 	if(!colorable)
-		return
+		return .
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
 		var/new_color = C.colour

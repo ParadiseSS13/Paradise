@@ -378,6 +378,7 @@
 	if(protected)
 		visible_message("<span class='warning'>[src]'s shield absorbs the blow!</span>")
 		core_shield.take_damage(I.force, I.damtype, MELEE, TRUE)
+		return TRUE
 	else
 		return ..()
 

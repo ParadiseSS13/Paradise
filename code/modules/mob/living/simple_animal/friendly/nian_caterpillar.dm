@@ -123,6 +123,7 @@
 		get_scooped(M)
 
 /mob/living/simple_animal/nian_caterpillar/attacked_by(obj/item/I, mob/living/user, def_zone)
+	. = TRUE
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
 		gib() // Commit die.
 	else

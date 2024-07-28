@@ -96,9 +96,10 @@
 	O.attacked_by(src, user)
 
 /atom/movable/proc/attacked_by()
-	return
+	return FALSE
 
 /obj/attacked_by(obj/item/I, mob/living/user)
+	. = TRUE
 	var/damage = I.force
 	if(I.force)
 		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
@@ -122,14 +123,17 @@
 				add_splatter_floor(location)
 				if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
 					user.add_mob_blood(src)
+	return TRUE
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
 	if(!I.force)
 		user.visible_message("<span class='warning'>[user] gently taps [src] with [I].</span>",\
 						"<span class='warning'>This weapon is ineffective, it does no damage!</span>")
+		return TRUE
 	else if(I.force < force_threshold || I.damtype == STAMINA)
 		visible_message("<span class='warning'>[I] bounces harmlessly off of [src].</span>",\
 					"<span class='warning'>[I] bounces harmlessly off of [src]!</span>")
+		return TRUE
 	else
 		return ..()
 

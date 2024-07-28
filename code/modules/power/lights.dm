@@ -593,7 +593,7 @@
 	qdel(src)
 
 /obj/machinery/light/attacked_by(obj/item/I, mob/living/user)
-	..()
+	. = ..()
 	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
 		if(on && (I.flags & CONDUCT))
 			if(prob(12))

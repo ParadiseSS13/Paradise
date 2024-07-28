@@ -156,6 +156,7 @@
 			to_chat(user, "<span class='notice'>Nothing happens.</span>")
 
 /obj/machinery/atmospherics/portable/attacked_by(obj/item/I, mob/user)
+	. = TRUE
 	if(I.force < 10 && !(stat & BROKEN))
 		take_damage(0)
 	else

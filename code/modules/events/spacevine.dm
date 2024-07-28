@@ -478,6 +478,7 @@
 		wither()
 
 /obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
+	. = TRUE
 	var/damage_dealt = I.force
 	if(istype(I, /obj/item/scythe))
 		var/obj/item/scythe/S = I
@@ -488,7 +489,7 @@
 					B.take_damage(damage_dealt, I.damtype, MELEE, 1)
 				else
 					B.wither()
-			return
+			return .
 	if(I.sharp)
 		damage_dealt *= 4
 	if(I.damtype == BURN)

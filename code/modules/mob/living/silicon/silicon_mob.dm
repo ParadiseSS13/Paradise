@@ -292,6 +292,7 @@
 			bonus_damage = H.physiology.melee_bonus
 		var/damage = run_armor(I.force + bonus_damage, I.damtype, MELEE, 0, I.armour_penetration_flat, I.armour_penetration_percentage)
 		apply_damage(damage, I.damtype, def_zone)
+	return TRUE
 
 ///returns the damage value of the attack after processing the silicons's various armor protections
 /mob/living/silicon/proc/run_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
