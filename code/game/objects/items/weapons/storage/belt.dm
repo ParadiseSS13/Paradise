@@ -785,7 +785,7 @@
 
 /obj/item/storage/belt/sheath/rapier/populate_contents()
 	new /obj/item/melee/rapier(src)
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/snakesfang
 	name = "snakesfang scabbard"
