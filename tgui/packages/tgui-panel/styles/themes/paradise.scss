@@ -30,10 +30,9 @@
     '~tgui/styles/components/Button.scss',
     $with: ('color-default': colors.$primary, 'color-selected': #bf6030, 'color-danger': #8c1eff)
   );
-  @include meta.load-css(
-    '~tgui/styles/components/Input.scss',
-    $with: ('border-color': #e65c2e, 'background-color': rgba(0, 0, 0, 0.25))
-  );
+  @include meta.load-css('../components/Input.scss', $with: ('border-color': $border-color));
+  @include meta.load-css('../components/TextArea.scss', $with: ('border-color': $border-color));
+  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': $border-color));
   @include meta.load-css('~tgui/styles/components/NumberInput.scss');
   @include meta.load-css('~tgui/styles/components/TextArea.scss');
   @include meta.load-css('~tgui/styles/components/Knob.scss');
