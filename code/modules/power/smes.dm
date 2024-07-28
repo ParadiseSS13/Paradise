@@ -285,7 +285,7 @@
 		if(outputting)
 			output_used = min( charge/SMESRATE, output_level)		// Limit output to that stored
 			if(produce_direct_power(output_used))				// Add output to powernet if it exists (smes side)
-				charge -= output_used*SMESRATE		// Reduce the storage (may be recovered in /restore() if excessive)
+				charge -= output_used * SMESRATE		// Reduce the storage (may be recovered in /restore() if excessive)
 			else
 				outputting = FALSE
 
