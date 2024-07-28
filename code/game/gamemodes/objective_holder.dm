@@ -59,9 +59,6 @@
  * Replace old_objective with new_objective
  */
 /datum/objective_holder/proc/replace_objective(datum/objective/old_objective, datum/objective/new_objective)
-	if(ispath(new_objective))
-		new_objective = new(null, old_objective.team, old_objective.owner)
-
 	new_objective = add_objective(new_objective, add_to_list = FALSE)
 
 	// Replace where the old objective was, with the new one
