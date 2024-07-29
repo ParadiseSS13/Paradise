@@ -387,7 +387,7 @@
 						active_character.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
 
 				if("h_grad_colour")
-					var/result = input(user, "Choose your character's hair gradient colour:", "Character Preference", active_character.h_grad_colour) as color|null
+					var/result = tgui_input_color(user, "Choose your character's hair gradient colour:", "Character Preference", active_character.h_grad_colour) as color|null
 					if(result)
 						active_character.h_grad_colour = result
 
@@ -400,7 +400,7 @@
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
 						var/input = "Choose the colour of your your character's head accessory:"
-						var/new_head_accessory = input(user, input, "Character Preference", active_character.hacc_colour) as color|null
+						var/new_head_accessory = tgui_input_color(user, input, "Character Preference", active_character.hacc_colour) as color|null
 						if(new_head_accessory)
 							active_character.hacc_colour = new_head_accessory
 

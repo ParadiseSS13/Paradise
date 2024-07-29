@@ -1097,7 +1097,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			message = strip_html(message, 500)
 
-			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
+			var/message_color = tgui_input_color(src, "Input your message color:", "Color Selector") as color|null
 			if(!message_color)
 				return
 
@@ -1179,7 +1179,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	message_admins("[key_name_admin(usr)] is visualising interesting atmos turfs. Server may lag.")
 
 	var/list/zlevel_turf_indexes = list()
-	
+
 	var/list/coords = get_interesting_atmos_tiles()
 	if(!length(coords))
 		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")

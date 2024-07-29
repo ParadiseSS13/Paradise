@@ -18,8 +18,8 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
-		return input(user, message, title, default) as color|null
+	// if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT))
+	// 	return input(user, message, title, default) as color|null
 	var/datum/tgui_input_color/picker = new(user, message, title, default, timeout, autofocus)
 	picker.ui_interact(user)
 	picker.wait()
@@ -48,9 +48,9 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
-		return input(user, message, title, default) as color|null
-	var/datum/tgui_input_color/async/picker = new(user, message, title, default, callback, timeout, autofocus)
+	// if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+	// 	return input(user, message, title, default) as color|null
+	var/datum/async_input/picker = new(user, message, title, default, callback, timeout, autofocus)
 	picker.ui_interact(user)
 
 /**
@@ -75,6 +75,8 @@
 	var/autofocus
 	/// Boolean field describing if the tgui_input_color was closed by the user.
 	var/closed
+	/// The TGUI UI state that will be returned in ui_state(). Default: always_state
+	var/datum/ui_state/state
 
 /datum/tgui_input_color/New(mob/user, message, title, default, timeout, autofocus)
 	src.autofocus = autofocus
@@ -112,11 +114,20 @@
 /datum/tgui_input_color/ui_state(mob/user)
 	return GLOB.always_state
 
+// /datum/tgui_input_color/ui_static_data(mob/user)
+// 	var/list/data = list()
+// 	data["autofocus"] = autofocus
+// 	data["large_buttons"] = !user.client?.prefs // || (user.client.prefs.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
+// 	data["swapped_buttons"] = !user.client?.prefs // || (user.client.prefs.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
+// 	data["title"] = title
+// 	data["default_color"] = default
+// 	data["message"] = message
+
 /datum/tgui_input_color/ui_static_data(mob/user)
 	. = list()
 	.["autofocus"] = autofocus
-	.["large_buttons"] = !user.client?.prefs || (user.client.prefs.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
-	.["swapped_buttons"] = !user.client?.prefs || (user.client.prefs.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
+	.["large_buttons"] = !user.client?.prefs //|| (user.client.prefs.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
+	.["swapped_buttons"] = !user.client?.prefs //|| (user.client.prefs.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
 	.["title"] = title
 	.["default_color"] = default
 	.["message"] = message
@@ -125,3 +136,25 @@
 	. = list()
 	if(timeout)
 		.["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))
+
+// /datum/tgui_input_color/ui_data(mob/user)
+// 	var/list/data = list()
+// 	if(timeout)
+// 		data["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))
+// 	return data
+
+/datum/tgui_input_color/ui_act(action, list/params)
+	. = ..()
+	if(.)
+		return
+
+	switch(action)
+		if("submit")
+			choice = params["entry"]
+			closed = TRUE
+			SStgui.close_uis(src)
+			return TRUE
+		if("cancel")
+			closed = TRUE
+			SStgui.close_uis(src)
+			return TRUE
