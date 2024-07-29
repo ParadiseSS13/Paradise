@@ -174,12 +174,14 @@
 		var/tank_one_icon_state = tank_one.icon_state
 		if(!(tank_one_icon_state in TTV_TANK_ICON_STATES)) //if no valid sprite fall back to an oxygen tank
 			tank_one_icon_state = "oxygen"
+			stack_trace("[tank_one] was inserted into a TTV with an invalid icon_state, \"[tank_one.icon_state]\"")
 		. += "[tank_one_icon_state]"
 
 	if(tank_two)
 		var/tank_two_icon_state = tank_two.icon_state
 		if(!(tank_two_icon_state in TTV_TANK_ICON_STATES)) //if no valid sprite fall back to an oxygen tank
 			tank_two_icon_state = "oxygen"
+			stack_trace("[tank_two] was inserted into a TTV with an invalid icon_state, \"[tank_two.icon_state]\"")
 		var/icon/tank_two_icon = new(icon, icon_state = tank_two_icon_state)
 		tank_two_icon.Shift(WEST, 13)
 		underlays += tank_two_icon
