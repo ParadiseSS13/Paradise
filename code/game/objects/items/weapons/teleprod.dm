@@ -16,5 +16,5 @@
 			"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		deductcharge(hitcost)
 		do_teleport(user, get_turf(user), 50)//honk honk
-	else if(iscarbon(M) && !M.anchored)
+	else if(isliving(M) && !M.anchored)
 		do_teleport(M, get_turf(M), 15)

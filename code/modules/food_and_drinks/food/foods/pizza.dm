@@ -550,7 +550,6 @@
 			return
 		playsound(src, I.usesound, 50, TRUE, 1)
 		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")
-		sleep(5)
 		if(chosen_wire == correct_wire)
 			audible_message("<span class='warning'>[bicon(src)] [src] suddenly stops beeping and seems lifeless.</span>")
 			to_chat(user, "<span class='notice'>You did it!</span>")
