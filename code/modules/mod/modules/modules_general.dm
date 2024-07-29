@@ -252,7 +252,7 @@
 /obj/item/mod/module/flashlight/configure_edit(key, value)
 	switch(key)
 		if("light_color")
-			value = tgui_input_color(usr, "Pick new light color", "Flashlight Color") as color|null
+			value = tgui_input_color(usr, "Pick new light color", "Flashlight Color", light_color) as color|null
 			if(!value)
 				return
 			if(is_color_dark(value, 50))

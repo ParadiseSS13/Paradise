@@ -1097,7 +1097,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			message = strip_html(message, 500)
 
-			var/message_color = tgui_input_color(src, "Input your message color:", "Color Selector") as color|null
+			var/message_color = tgui_input_color(src, "Input your message color:", "Admin Message - Color Selector") as color|null
 			if(!message_color)
 				return
 

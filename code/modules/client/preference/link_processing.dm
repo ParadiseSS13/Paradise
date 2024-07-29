@@ -329,8 +329,7 @@
 
 				if("hair")
 					if(!(S.bodyflags & BALD))
-						var/input = "Choose your character's hair colour:"
-						var/new_hair = tgui_input_color(user, input, "Character Preference", active_character.h_colour) as color|null
+						var/new_hair = tgui_input_color(user, "Choose your character's hair colour.", "Character Preference", active_character.h_colour) as color|null
 						if(new_hair)
 							active_character.h_colour = new_hair
 
@@ -338,7 +337,7 @@
 					if(!(S.bodyflags & BALD))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[active_character.h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-							var/new_hair = tgui_input_color(user, "Choose your character's secondary hair colour:", "Character Preference", active_character.h_sec_colour) as color|null
+							var/new_hair = tgui_input_color(user, "Choose your character's secondary hair colour.", "Character Preference", active_character.h_sec_colour) as color|null
 							if(new_hair)
 								active_character.h_sec_colour = new_hair
 
@@ -399,8 +398,7 @@
 
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
-						var/input = "Choose the colour of your your character's head accessory:"
-						var/new_head_accessory = tgui_input_color(user, input, "Character Preference", active_character.hacc_colour) as color|null
+						var/new_head_accessory = tgui_input_color(user, "Choose the colour of your your character's head accessory.", "Character Preference", active_character.hacc_colour) as color|null
 						if(new_head_accessory)
 							active_character.hacc_colour = new_head_accessory
 
@@ -477,8 +475,7 @@
 
 				if("m_head_colour")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-						var/input = "Choose the colour of your your character's head markings:"
-						var/new_markings = tgui_input_color(user, input, "Character Preference", active_character.m_colours["head"]) as color|null
+						var/new_markings = tgui_input_color(user, "Choose the colour of your your character's head markings.", "Character Preference", active_character.m_colours["head"]) as color|null
 						if(new_markings)
 							active_character.m_colours["head"] = new_markings
 
@@ -500,8 +497,7 @@
 
 				if("m_body_colour")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-						var/input = "Choose the colour of your your character's body markings:"
-						var/new_markings = tgui_input_color(user, input, "Character Preference", active_character.m_colours["body"]) as color|null
+						var/new_markings = tgui_input_color(user, "Choose the colour of your your character's body markings.", "Character Preference", active_character.m_colours["body"]) as color|null
 						if(new_markings)
 							active_character.m_colours["body"] = new_markings
 
@@ -529,8 +525,7 @@
 
 				if("m_tail_colour")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-						var/input = "Choose the colour of your your character's tail markings:"
-						var/new_markings = tgui_input_color(user, input, "Character Preference", active_character.m_colours["tail"]) as color|null
+						var/new_markings = tgui_input_color(user, "Choose the colour of your your character's tail markings.", "Character Preference", active_character.m_colours["tail"]) as color|null
 						if(new_markings)
 							active_character.m_colours["tail"] = new_markings
 
@@ -1007,7 +1002,7 @@
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")
-					var/UI_style_color_new = tgui_input_color(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
+					var/UI_style_color_new = tgui_input_color(user, "Choose your UI color, dark colors are not recommended!", "Game Preference", UI_style_color) as color|null
 					if(!UI_style_color_new) return
 					UI_style_color = UI_style_color_new
 
@@ -1140,7 +1135,7 @@
 					screentip_mode = desired_screentip_mode
 
 				if("screentip_color")
-					var/screentip_color_new = tgui_input_color(user, "Choose your screentip color", screentip_color) as color|null
+					var/screentip_color_new = tgui_input_color(user, "Choose your screentip color", "Game Preference", screentip_color) as color|null
 					if(screentip_color_new)
 						screentip_color = screentip_color_new
 
