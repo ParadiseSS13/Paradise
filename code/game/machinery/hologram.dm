@@ -149,11 +149,6 @@ GLOBAL_LIST_EMPTY(holopads)
 		holograph_range += 1 * B.rating
 	holo_range = holograph_range
 
-/obj/machinery/hologram/holopad/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-	return ..()
-
 /obj/machinery/hologram/holopad/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))

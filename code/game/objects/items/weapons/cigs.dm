@@ -522,8 +522,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 // Refill or light the pipe
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/food/snacks/grown))
-		var/obj/item/food/snacks/grown/O = I
+	if(istype(I, /obj/item/food/grown))
+		var/obj/item/food/grown/O = I
 		if(O.dry)
 			if(reagents.total_volume == reagents.maximum_volume)
 				to_chat(user, "<span class='warning'>[src] is full!</span>")
@@ -568,10 +568,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(!istype(target, /obj/item/food/snacks/grown))
+	if(!istype(target, /obj/item/food/grown))
 		return ..()
 
-	var/obj/item/food/snacks/grown/plant = target
+	var/obj/item/food/grown/plant = target
 	if(!plant.dry)
 		to_chat(user, "<span class='warning'>You need to dry this first!</span>")
 		return

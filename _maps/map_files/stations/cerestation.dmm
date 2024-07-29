@@ -23368,7 +23368,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/wall,
+/turf/simulated/floor/plating,
 /area/station/science/misc_lab)
 "czg" = (
 /turf/simulated/floor/plasteel{
@@ -26020,7 +26020,7 @@
 /area/station/maintenance/port)
 "cNg" = (
 /obj/structure/table,
-/obj/item/food/snacks/baguette,
+/obj/item/food/baguette,
 /obj/structure/sign/poster/official/the_owl{
 	pixel_y = 32
 	},
@@ -40487,7 +40487,7 @@
 /obj/item/reagent_containers/drinks/cans/cola{
 	pixel_x = 10
 	},
-/obj/item/food/snacks/chips{
+/obj/item/food/chips{
 	pixel_x = -5
 	},
 /obj/structure/railing,
@@ -47444,7 +47444,7 @@
 /area/station/turret_protected/aisat/interior/secondary)
 "ipE" = (
 /obj/structure/table,
-/obj/item/food/snacks/mint,
+/obj/item/food/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -50945,7 +50945,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/kitchen/knife,
-/obj/item/food/snacks/meat/human,
+/obj/item/food/meat/human,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "jtF" = (
@@ -59668,7 +59668,7 @@
 /area/station/hallway/primary/central/west)
 "lYT" = (
 /obj/structure/table,
-/obj/item/food/snacks/fried_vox,
+/obj/item/food/fried_vox,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "lYX" = (
@@ -61497,17 +61497,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/starboard/south)
-"mGE" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/apmaint)
 "mGK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -71981,7 +71970,7 @@
 "pXp" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/food/snacks/donkpocket,
+/obj/item/food/donkpocket,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "pXq" = (
@@ -82208,7 +82197,7 @@
 "tnY" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/bananalamp,
-/obj/item/food/snacks/pie,
+/obj/item/food/pie,
 /obj/machinery/light_switch{
 	dir = 8;
 	pixel_x = 24;
@@ -89895,8 +89884,8 @@
 /area/station/hallway/primary/fore/east)
 "vFa" = (
 /obj/structure/table,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/chili,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/chili,
 /obj/item/seeds/grape,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
@@ -123710,7 +123699,7 @@ ciG
 gPL
 nwv
 pQN
-mGE
+nta
 cGd
 pAi
 pAi

@@ -304,9 +304,11 @@
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
+
 		if(!user.drop_item())
-			to_chat(user, "[B] is stuck to you!")
+			to_chat(user, "<span class='warning'>[B] is stuck to you!</span>")
 			return
+
 		B.forceMove(src)
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
@@ -314,23 +316,24 @@
 		SStgui.update_uis(src)
 		return
 
-	if(exchange_parts(user, G))
-		return
-
 	if(istype(G, /obj/item/grab))
 		var/obj/item/grab/GG = G
 		if(panel_open)
-			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 			return
+
 		if(!ismob(GG.affecting))
 			return
+
 		if(GG.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[GG.affecting] will not fit into [src] because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.</span>")
 			return
+
 		var/mob/M = GG.affecting
 		if(put_mob(M))
 			qdel(GG)
 		return
+
 	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
