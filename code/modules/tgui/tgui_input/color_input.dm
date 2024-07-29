@@ -18,7 +18,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT))
+	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
 		return input(user, message, title, default) as color|null
 	var/datum/tgui_input_color/picker = new(user, message, title, default, timeout, autofocus)
 	picker.ui_interact(user)
@@ -48,7 +48,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT))
+	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
 		return input(user, message, title, default) as color|null
 	var/datum/async_input/picker = new(user, message, title, default, callback, timeout, autofocus)
 	picker.ui_interact(user)

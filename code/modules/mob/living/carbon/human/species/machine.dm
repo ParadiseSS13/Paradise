@@ -175,7 +175,7 @@
 		var/new_style = tgui_input_list(H, "Select a monitor display", "Monitor Display", hair)
 		if(!new_style)
 			return
-		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
+		var/new_color = tgui_input_color(H, "Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
 		if(H.incapacitated(TRUE, TRUE))
 			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")

@@ -800,7 +800,7 @@
 			M.change_gender(FEMALE)
 
 	if(eyes_organ)
-		var/new_eyes = input("Please select eye color.", "Character Generation", eyes_organ.eye_color) as null|color
+		var/new_eyes = tgui_input_color(user, "Please select eye color.", "Character Generation", eyes_organ.eye_color) as null|color
 		if(new_eyes)
 			M.change_eye_color(new_eyes)
 
@@ -820,13 +820,13 @@
 		if(new_style)
 			M.change_hair(new_style)
 
-		var/new_hair = input("Please select hair color.", "Character Generation", head_organ.hair_colour) as null|color
+		var/new_hair = tgui_input_color(user, "Please select hair color.", "Character Generation", head_organ.hair_colour) as null|color
 		if(new_hair)
 			M.change_hair_color(new_hair)
 
 		var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[head_organ.h_style]
 		if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-			new_hair = input("Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
+			new_hair = tgui_input_color(user, "Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
 			if(new_hair)
 				M.change_hair_color(new_hair, TRUE)
 
@@ -837,13 +837,13 @@
 		if(new_style)
 			M.change_facial_hair(new_style)
 
-		var/new_facial = input("Please select facial hair color.", "Character Generation", head_organ.facial_colour) as null|color
+		var/new_facial = tgui_input_color(user, "Please select facial hair color.", "Character Generation", head_organ.facial_colour) as null|color
 		if(new_facial)
 			M.change_facial_hair_color(new_facial)
 
 		var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
-			new_facial = input("Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour) as null|color
+			new_facial = tgui_input_color(user, "Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour) as null|color
 			if(new_facial)
 				M.change_facial_hair_color(new_facial, TRUE)
 
@@ -854,7 +854,7 @@
 			if(new_head_accessory)
 				M.change_head_accessory(new_head_accessory)
 
-			var/new_head_accessory_colour = input("Please select head accessory colour.", "Character Generation", head_organ.headacc_colour) as null|color
+			var/new_head_accessory_colour = tgui_input_color(user, "Please select head accessory colour.", "Character Generation", head_organ.headacc_colour) as null|color
 			if(new_head_accessory_colour)
 				M.change_head_accessory_color(new_head_accessory_colour)
 
@@ -875,7 +875,7 @@
 			if(new_marking)
 				M.change_markings(new_marking, "head")
 
-			var/new_marking_colour = input("Please select head marking colour.", "Character Generation", M.m_colours["head"]) as null|color
+			var/new_marking_colour = tgui_input_color(user, "Please select head marking colour.", "Character Generation", M.m_colours["head"]) as null|color
 			if(new_marking_colour)
 				M.change_marking_color(new_marking_colour, "head")
 
@@ -886,7 +886,7 @@
 		if(new_marking)
 			M.change_markings(new_marking, "body")
 
-		var/new_marking_colour = input("Please select body marking colour.", "Character Generation", M.m_colours["body"]) as null|color
+		var/new_marking_colour = tgui_input_color(user, "Please select body marking colour.", "Character Generation", M.m_colours["body"]) as null|color
 		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "body")
 	//Tail markings.
@@ -896,7 +896,7 @@
 		if(new_marking)
 			M.change_markings(new_marking, "tail")
 
-		var/new_marking_colour = input("Please select tail marking colour.", "Character Generation", M.m_colours["tail"]) as null|color
+		var/new_marking_colour = tgui_input_color(user, "Please select tail marking colour.", "Character Generation", M.m_colours["tail"]) as null|color
 		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "tail")
 
@@ -926,7 +926,7 @@
 
 	//Skin colour.
 	if(M.dna.species.bodyflags & HAS_SKIN_COLOR)
-		var/new_body_colour = input("Please select body colour.", "Character Generation", M.skin_colour) as null|color
+		var/new_body_colour = tgui_input_color(user, "Please select body colour.", "Character Generation", M.skin_colour) as null|color
 		if(new_body_colour)
 			M.change_skin_color(new_body_colour)
 

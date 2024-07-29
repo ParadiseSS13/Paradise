@@ -107,7 +107,7 @@
 
 		if("hair_gradient_colour")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_color = input("Please select gradient color.", "Hair Gradient", head_organ.h_grad_colour) as null|color
+				var/new_color = tgui_input_color(usr, "Please select gradient color.", "Hair Gradient", head_organ.h_grad_colour) as null|color
 				if(new_color)
 					owner.change_hair_gradient(color = new_color)
 
