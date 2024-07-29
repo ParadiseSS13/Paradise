@@ -112,8 +112,8 @@
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
+	if(istype(I, /obj/item/storage/part_replacer))
+		return ..()
 
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
@@ -123,10 +123,14 @@
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
+
 		I.forceMove(src)
 		if(beaker)
-			user.put_in_hands(beaker)
-			to_chat(user, "<span class='notice'>You swap [I] with [beaker] inside.</span>")
+			to_chat(usr, "<span class='notice'>You swap [I] with [beaker] inside.</span>")
+			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
+				user.put_in_hands(beaker)
+			else
+				beaker.forceMove(loc)
 		else
 			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 		beaker = I

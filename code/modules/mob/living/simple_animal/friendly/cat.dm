@@ -17,7 +17,7 @@
 	mob_size = MOB_SIZE_SMALL
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
-	butcher_results = list(/obj/item/food/snacks/meat = 3)
+	butcher_results = list(/obj/item/food/meat = 3)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -121,7 +121,7 @@
 	collar_type = "[initial(collar_type)]_sit"
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
-	if(!stat && !buckled)
+	if(stat == CONSCIOUS && !buckled)
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
 			lay_down()
@@ -233,8 +233,8 @@
 	butcher_results = list(
 		/obj/item/organ/internal/brain = 1,
 		/obj/item/organ/internal/heart = 1,
-		/obj/item/food/snacks/birthdaycakeslice = 3,
-		/obj/item/food/snacks/meat/slab = 2
+		/obj/item/food/birthdaycakeslice = 3,
+		/obj/item/food/meat/slab = 2
 	)
 	response_harm = "takes a bite out of"
 	attacked_sound = "sound/items/eatfood.ogg"
@@ -254,7 +254,7 @@
 	final_bites = 0
 	if(health < maxHealth)
 		adjustBruteLoss(-4)
-	for(var/obj/item/food/snacks/donut/D in range(1, src))
+	for(var/obj/item/food/donut/D in range(1, src))
 		if(D.icon_state != "donut2")
 			D.name = "frosted donut"
 			D.icon_state = "donut2"

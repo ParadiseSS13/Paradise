@@ -380,7 +380,8 @@
 		if(!M.client)
 			continue
 		if(issilicon(M))
-			M.Weaken(10 SECONDS)
+			var/mob/living/silicon/robot/R = M
+			R.flash_eyes(3, affect_silicon = TRUE) //Enough stamina damage to instantly force a reboot
 		else
 			M.Confused(45 SECONDS)
 		M.adjustBrainLoss(10)

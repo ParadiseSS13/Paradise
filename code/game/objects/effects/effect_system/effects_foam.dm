@@ -45,12 +45,13 @@
 		var/fraction = 5 / reagents.total_volume
 		reagents.reaction(A, REAGENT_TOUCH, fraction)
 
-	if(ismob(A) && !QDELETED(A))
-		var/mob/M = A
-		for(var/reagent_id in reagents.reagent_list)
-			var/amount = M.reagents.get_reagent_amount(reagent_id)
+	if(iscarbon(A) && !QDELETED(A))
+		var/mob/living/carbon/foamed = A
+		for(var/datum/reagent/R as anything in reagents.reagent_list)
+			var/amount = foamed.reagents?.get_reagent_amount(R.id)
+			var/foam_content_amount = reagents.get_reagent_amount(R.id)
 			if(amount < max_reagent_filling)
-				M.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
+				foamed.reagents?.add_reagent(R.id, min(round(foam_content_amount / 2), 15))
 
 /obj/effect/particle_effect/foam/proc/initial_process()
 	process()

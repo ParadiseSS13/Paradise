@@ -19,10 +19,10 @@
 					/obj/item/mixing_bowl,
 					/obj/item/reagent_containers/condiment/enzyme,
 					/obj/item/reagent_containers/condiment/sugar,
-					/obj/item/food/snacks/meat/monkey,
-					/obj/item/food/snacks/grown/banana,
-					/obj/item/food/snacks/grown/banana,
-					/obj/item/food/snacks/grown/banana)
+					/obj/item/food/meat/monkey,
+					/obj/item/food/grown/banana,
+					/obj/item/food/grown/banana,
+					/obj/item/food/grown/banana)
 	cost = 250
 	containername = "food crate"
 	announce_beacons = list("Kitchen" = list("Kitchen"))
@@ -40,18 +40,18 @@
 /// its a bit hacky...
 /datum/supply_packs/misc/randomised/ingredients
 	num_contained = 25
-	contains = list(/obj/item/food/snacks/grown/wheat,
-					/obj/item/food/snacks/grown/tomato,
-					/obj/item/food/snacks/grown/potato,
-					/obj/item/food/snacks/grown/carrot,
-					/obj/item/food/snacks/grown/pumpkin,
-					/obj/item/food/snacks/grown/chili,
-					/obj/item/food/snacks/grown/cocoapod,
-					/obj/item/food/snacks/grown/corn,
-					/obj/item/food/snacks/grown/eggplant,
-					/obj/item/food/snacks/grown/apple,
-					/obj/item/food/snacks/grown/banana,
-					/obj/item/food/snacks/grown/cherries)
+	contains = list(/obj/item/food/grown/wheat,
+					/obj/item/food/grown/tomato,
+					/obj/item/food/grown/potato,
+					/obj/item/food/grown/carrot,
+					/obj/item/food/grown/pumpkin,
+					/obj/item/food/grown/chili,
+					/obj/item/food/grown/cocoapod,
+					/obj/item/food/grown/corn,
+					/obj/item/food/grown/eggplant,
+					/obj/item/food/grown/apple,
+					/obj/item/food/grown/banana,
+					/obj/item/food/grown/cherries)
 	name = "Ingredient Crate"
 	cost = 300
 	containername = "ingredient crate"
