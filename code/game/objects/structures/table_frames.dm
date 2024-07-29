@@ -41,8 +41,7 @@
 		var/valid_stack_type = FALSE
 		for(var/obj/item/stack/current_stack as anything in restrict_table_types)
 			if(istype(stack, current_stack))
-				if(restrict_table_types[current_stack])
-					new_table_type = restrict_table_types[current_stack]
+				new_table_type = restrict_table_types[current_stack]
 				valid_stack_type = TRUE
 				break
 		if(!valid_stack_type)
@@ -124,7 +123,7 @@
 	framestack = /obj/item/stack/tile/brass
 	framestackamount = 1
 	construction_time = 2 SECONDS
-	restrict_table_types = list(/obj/item/stack/tile/brass)
+	restrict_table_types = list(/obj/item/stack/tile/brass = /obj/item/stack/tile/brass::table_type)
 
 /obj/structure/table_frame/brass/narsie_act()
 	..()
