@@ -1094,7 +1094,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		req_one_access.Cut()
 	req_access = list(ACCESS_SYNDICATE)
 	one_access = FALSE
-	pop_up()
+	set_raised_raising(TRUE, FALSE)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/syndicate/update_icon_state()
 	if(stat & BROKEN)
