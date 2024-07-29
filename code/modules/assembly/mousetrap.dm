@@ -29,7 +29,7 @@
 	update_icon()
 
 	if(usr)
-		playsound(usr.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
+		playsound(usr.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE, -3)
 
 
 /obj/item/assembly/mousetrap/update_icon_state()
@@ -94,7 +94,7 @@
 
 	armed = !armed
 	update_icon()
-	playsound(user.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
+	playsound(user.loc, 'sound/weapons/handcuffs.ogg', 30, TRUE, -3)
 
 /obj/item/assembly/mousetrap/attack_hand(mob/living/user)
 	if(armed)

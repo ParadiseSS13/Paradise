@@ -33,10 +33,10 @@
 
 			if(active_sound)
 				while(up)
-					playsound(src.loc, "[active_sound]", 100, 0, 4)
+					playsound(src.loc, "[active_sound]", 100, FALSE, 4)
 					sleep(15)
 			if(toggle_sound)
-				playsound(src.loc, "[toggle_sound]", 100, 0, 4)
+				playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"
@@ -155,6 +155,7 @@
 	flags = null
 	item_state = "thunderdome"
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD

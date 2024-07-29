@@ -467,7 +467,7 @@
 	loot = list(
 				/obj/item/shield/energy = 20,
 				/obj/item/gun/projectile/automatic/pistol = 50,
-				/obj/item/bio_chip/storage = 50,
+				/obj/item/bio_chip_implanter/storage = 50,
 				/obj/item/melee/knuckleduster/syndie = 50,
 				/obj/item/clothing/glasses/thermal/eyepatch = 50,
 				/obj/item/toy/syndicateballoon = 60,
@@ -631,7 +631,7 @@
 				/obj/item/organ/internal/cyberimp/arm/gun/laser = 10,
 				/obj/item/fireaxe = 10,
 				/obj/item/gun/projectile/revolver/nagant = 10,
-				/obj/item/bio_chip/storage = 10,
+				/obj/item/bio_chip_implanter/storage = 10,
 				/obj/item/rcd/combat = 10
 				)
 

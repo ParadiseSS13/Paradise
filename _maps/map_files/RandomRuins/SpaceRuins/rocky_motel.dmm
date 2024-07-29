@@ -283,9 +283,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "Ed" = (
-/obj/effect/spawner/airlock/w_to_e{
-	req_access_txt = 0
-	},
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall,
 /area/ruin/space/powered)
 "EQ" = (

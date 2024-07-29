@@ -825,9 +825,11 @@
 // explode the light
 
 /obj/machinery/light/proc/explode()
-	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
-	sleep(2)
+	addtimer(CALLBACK(src, PROC_REF(actually_explode)), 2)
+
+/obj/machinery/light/proc/actually_explode()
+	var/turf/T = get_turf(loc)
 	explosion(T, 0, 0, 2, 2)
 	qdel(src)
 
@@ -991,7 +993,7 @@
 		update()
 
 /obj/item/light/suicide_act(mob/living/carbon/human/user)
-	user.visible_message("<span class=suicide>[user] touches [src], burning [user.p_their()] hands off!</span>", "<span class=suicide>You touch [src], burning your hands off!</span>")
+	user.visible_message("<span class='suicide'>[user] touches [src], burning [user.p_their()] hands off!</span>", "<span class='suicide'>You touch [src], burning your hands off!</span>")
 
 	for(var/oname in list("l_hand", "r_hand"))
 		var/obj/item/organ/external/limb = user.get_organ(oname)

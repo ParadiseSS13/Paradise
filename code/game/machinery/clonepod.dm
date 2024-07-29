@@ -556,9 +556,6 @@
 
 //Attackby and x_acts
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-
 	if(I.is_open_container())
 		return
 
@@ -666,7 +663,7 @@
 	switch(action)
 		if("eject_organ")
 			var/obj/item/organ/O = locateUID(params["organ_ref"])
-			if(!istype(O)) //This shouldn't happen
+			if(!istype(O) || !O.in_contents_of(src)) //This shouldn't happen BUT JUST IN CASE
 				return FALSE
 			if(!ui.user.put_in_hands(O))
 				O.forceMove(loc)

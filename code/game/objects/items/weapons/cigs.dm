@@ -580,7 +580,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	user.unEquip(src, TRUE)
 	var/obj/item/clothing/mask/cigarette/rollie/custom/custom_rollie = new (get_turf(user))
 	custom_rollie.reagents.maximum_volume = plant.reagents.total_volume
-	plant.reagents.trans_to(custom_rollie, custom_rollie.reagents.total_volume)
+	plant.reagents.trans_to(custom_rollie, plant.reagents.total_volume)
 	custom_rollie.smoketime = custom_rollie.reagents.total_volume * 2.5
 
 	user.put_in_active_hand(custom_rollie)

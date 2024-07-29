@@ -122,7 +122,7 @@
 	return ..()
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I) || exchange_parts(user, I))
+	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I))
 		return
 	return ..()
 

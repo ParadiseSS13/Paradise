@@ -106,14 +106,12 @@
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
 		return
 
-	if(exchange_parts(user, P))
-		return
-
 	if(default_unfasten_wrench(user, P, time = 4 SECONDS))
 		return
 
 	if(default_deconstruction_crowbar(user, P))
 		return
+
 	return ..()
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user)

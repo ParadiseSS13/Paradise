@@ -2084,12 +2084,12 @@
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
-		var/logmsg = null
+		var/logmsg = "UNSET LOG MESSAGE: [punishment]"
 		switch(punishment)
 			// These smiting types are valid for all living mobs
 			if("Lightning bolt")
 				M.electrocute_act(5, "Lightning Bolt", flags = SHOCK_NOGLOVES)
-				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
+				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
 				M.adjustFireLoss(75)
 				M.Weaken(10 SECONDS)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
@@ -2223,6 +2223,7 @@
 				var/turf/start = locate(starting_turf_x, starting_turf_y, M.z)
 
 				new /obj/effect/immovablerod/smite(start, M)
+				logmsg = "a rod"
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")

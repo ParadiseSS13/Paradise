@@ -372,7 +372,7 @@
 		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='notice'>You hear the click of a button.</span>")
 		spawn(5) //gia said so
 			icon_state = "nuketoy"
-			playsound(src, 'sound/machines/alarm.ogg', 100, 0, 0)
+			playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 0)
 			sleep(135)
 			icon_state = "nuketoycool"
 			sleep(cooldown - world.time)
@@ -546,10 +546,10 @@
 	if(has_stuffing || grenade)
 		var/cuddle_verb = pick("hugs", "cuddles", "snugs")
 		user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
-		playsound(get_turf(src), poof_sound, 50, 1, -1)
+		playsound(get_turf(src), poof_sound, 50, TRUE, -1)
 		if(grenade && !grenade.active)
 			add_attack_logs(user, user, "activated a hidden grenade in [src].", ATKLOG_MOST)
-			playsound(loc, 'sound/weapons/armbomb.ogg', 10, 1, -3)
+			playsound(loc, 'sound/weapons/armbomb.ogg', 10, TRUE, -3)
 			//We call with grenade as argument, so cutting the grenade out doesn't magically defuse it
 			addtimer(CALLBACK(src, PROC_REF(explosive_betrayal), grenade), rand(1, 3) SECONDS)
 	else

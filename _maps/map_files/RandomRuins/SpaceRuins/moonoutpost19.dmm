@@ -122,11 +122,7 @@
 /area/ruin/space/moonbase19)
 "at" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8;
 	pixel_y = 8
 	},
@@ -262,11 +258,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 5;
 	pixel_y = -1;
 	pixel_x = -2
@@ -338,9 +330,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall";
 	dir = 6
@@ -698,9 +688,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "bY" = (
@@ -748,11 +736,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "cf" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 9;
 	pixel_y = -1;
 	pixel_x = 2
@@ -959,9 +943,7 @@
 	},
 /area/ruin/space/moonbase19)
 "cL" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "cM" = (
@@ -1193,9 +1175,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitecorner"
@@ -1239,9 +1219,7 @@
 "dK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -1294,9 +1272,7 @@
 /area/ruin/space/moonbase19)
 "dR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -1425,9 +1401,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "ep" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -1490,12 +1464,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/structure/sign/poster/official/dig{
 	pixel_x = 32
 	},
@@ -1632,11 +1601,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel{
@@ -2007,11 +1972,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 5;
 	pixel_y = 8;
 	pixel_x = 2
@@ -2044,9 +2005,7 @@
 /area/ruin/space/moonbase19)
 "gw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcornersiding";
 	dir = 8
@@ -2080,9 +2039,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "gA" = (
@@ -2218,11 +2175,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8;
 	pixel_y = 8
 	},
@@ -2265,11 +2218,7 @@
 /area/ruin/space/moonbase19)
 "hi" = (
 /obj/structure/falsewall/rock_ancient,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8;
 	pixel_y = 9
 	},
@@ -2518,9 +2467,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "hP" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "hQ" = (
@@ -2645,9 +2592,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ie" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -2803,11 +2748,7 @@
 /area/ruin/space/moonbase19)
 "iy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 10;
 	pixel_y = -1
 	},
@@ -2820,9 +2761,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/moonbase19)
 "iA" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2860,9 +2799,7 @@
 	},
 /area/ruin/space/moonbase19)
 "iE" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
@@ -3297,9 +3234,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -3532,12 +3467,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall";
 	dir = 4
@@ -4005,9 +3935,7 @@
 /area/ruin/space/moonbase19)
 "mz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -4028,12 +3956,7 @@
 	},
 /area/ruin/space/moonbase19)
 "mC" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall";
 	dir = 4
@@ -4169,12 +4092,7 @@
 	dir = 4;
 	network = list("MO19")
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel/stairs,
 /area/ruin/space/moonbase19)
 "nc" = (
@@ -4320,9 +4238,7 @@
 /area/ruin/space/moonbase19)
 "nG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -4526,11 +4442,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "oA" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 9;
 	pixel_y = 9
 	},
@@ -4586,11 +4498,7 @@
 /area/ruin/space/moonbase19)
 "oJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8;
 	pixel_y = 9
 	},
@@ -4664,9 +4572,7 @@
 	},
 /area/ruin/space/moonbase19)
 "oZ" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
 /obj/item/storage/bag/plasticbag{
 	pixel_y = -5;
@@ -5069,11 +4975,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "qA" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8;
 	pixel_y = 9
 	},
@@ -5276,9 +5178,7 @@
 "rs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
 	item_state = "facehugger_impregnated";
@@ -5349,11 +5249,7 @@
 	},
 /area/ruin/space/moonbase19)
 "rE" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -5419,9 +5315,7 @@
 /area/ruin/space/moonbase19)
 "rQ" = (
 /obj/structure/railing/cap,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 8
@@ -5503,9 +5397,7 @@
 /area/ruin/space/moonbase19)
 "sc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "se" = (
@@ -5755,11 +5647,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	pixel_y = 3;
 	pixel_x = 2
 	},
@@ -5767,11 +5655,7 @@
 /area/ruin/space/moonbase19)
 "tl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	pixel_y = 3;
 	pixel_x = 2
 	},
@@ -5872,9 +5756,7 @@
 /area/ruin/space/moonbase19)
 "tI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -5893,9 +5775,7 @@
 	},
 /area/ruin/space/moonbase19)
 "tV" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -6070,11 +5950,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "uR" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -6313,24 +6189,14 @@
 	},
 /area/ruin/space/moonbase19)
 "wb" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
 	},
 /area/ruin/space/moonbase19)
 "wc" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners";
 	dir = 4
@@ -6493,9 +6359,7 @@
 "wS" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
@@ -7094,11 +6958,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 9;
 	pixel_y = -1;
 	pixel_x = 2
@@ -7296,9 +7156,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Ap" = (
@@ -7334,11 +7192,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Av" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8;
 	pixel_y = 4
 	},
@@ -7391,11 +7245,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "AJ" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -7569,11 +7419,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Bu" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 5;
 	pixel_y = 3;
 	pixel_x = 2
@@ -7715,9 +7561,7 @@
 	},
 /area/ruin/space/moonbase19)
 "BZ" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -7866,12 +7710,7 @@
 /obj/structure/chair/stool/bar{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
@@ -7941,9 +7780,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
@@ -8048,12 +7885,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	req_access_txt = "271"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -8176,11 +8008,7 @@
 /obj/effect/decal/cleanable/blood/xeno{
 	color = "green"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -8516,9 +8344,7 @@
 "Ft" = (
 /obj/effect/turf_decal/stripes/corner,
 /mob/living/simple_animal/hostile/alien/sentinel,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -8691,11 +8517,7 @@
 /area/ruin/space/moonbase19)
 "Gp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -8721,12 +8543,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Gw" = (
@@ -8816,9 +8633,7 @@
 /area/ruin/space/moonbase19)
 "GL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 8
@@ -8918,9 +8733,7 @@
 /area/ruin/space/moonbase19)
 "Hm" = (
 /obj/structure/railing,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel/stairs{
 	dir = 8
@@ -9147,9 +8960,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "Ix" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner";
 	dir = 8
@@ -9226,12 +9037,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "IN" = (
@@ -9469,11 +9275,7 @@
 /area/ruin/space/moonbase19)
 "JS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 6;
 	pixel_y = 1;
 	pixel_x = 1
@@ -9524,12 +9326,7 @@
 /obj/item/chair{
 	pixel_y = -3
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/structure/sign/poster/official/ion_rifle{
 	pixel_x = 32
 	},
@@ -9663,11 +9460,7 @@
 /obj/structure/railing/cap{
 	dir = 9
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 9;
 	pixel_y = -1
 	},
@@ -9718,18 +9511,14 @@
 	dir = 8;
 	network = list("MO19")
 	},
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
 	},
 /area/ruin/space/moonbase19)
 "KQ" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -9737,9 +9526,7 @@
 /area/ruin/space/moonbase19)
 "KR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "KS" = (
@@ -9788,11 +9575,7 @@
 /area/ruin/space/moonbase19)
 "Ld" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 6;
 	pixel_y = 8;
 	pixel_x = 2
@@ -9841,9 +9624,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Ln" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
@@ -10265,9 +10046,7 @@
 	dir = 5;
 	network = list("MO19")
 	},
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
@@ -10330,11 +10109,7 @@
 	},
 /area/ruin/space/moonbase19)
 "NC" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 9;
 	pixel_y = -1;
 	pixel_x = 2
@@ -10447,9 +10222,7 @@
 /area/ruin/space/moonbase19)
 "Oc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -10485,11 +10258,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Oi" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 6;
 	pixel_y = 9
 	},
@@ -10511,11 +10280,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -10581,9 +10346,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
@@ -10847,12 +10610,7 @@
 	dir = 8
 	},
 /obj/item/stack/sheet/metal,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "PQ" = (
@@ -10881,9 +10639,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "PU" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
@@ -11048,12 +10804,7 @@
 /area/ruin/space/moonbase19)
 "Qz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "QB" = (
@@ -11244,9 +10995,7 @@
 /area/ruin/space/moonbase19)
 "Ri" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
@@ -11872,9 +11621,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Un" = (
@@ -11945,11 +11692,7 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -12005,11 +11748,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel{
@@ -12100,12 +11839,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner"
 	},
@@ -12324,9 +12058,7 @@
 /turf/template_noop,
 /area/ruin/space/moonbase19)
 "Wi" = (
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 8
@@ -12505,9 +12237,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
+/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Xb" = (
@@ -12611,12 +12341,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Xv" = (
@@ -12929,11 +12654,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
-	color = "red";
-	desc = "Your instincts say you shouldn't be following these.";
-	icon = 'icons/effects/blood.dmi';
-	icon_state = "tracks";
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	pixel_y = 3;
 	pixel_x = 2
 	},

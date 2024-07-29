@@ -34,15 +34,15 @@
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
 		if(!space_used)
-			. += "<span class='notice'> [src] is empty.</span>"
+			. += "<span class='notice'>[src] is empty.</span>"
 		else if(space_used <= max_combined_w_class * 0.6)
-			. += "<span class='notice'> [src] still has plenty of remaining space.</span>"
+			. += "<span class='notice'>[src] still has plenty of remaining space.</span>"
 		else if(space_used <= max_combined_w_class * 0.8)
-			. += "<span class='notice'> [src] is beginning to run out of space.</span>"
+			. += "<span class='notice'>[src] is beginning to run out of space.</span>"
 		else if(space_used < max_combined_w_class)
-			. += "<span class='notice'> [src] doesn't have much space left.</span>"
+			. += "<span class='notice'>[src] doesn't have much space left.</span>"
 		else
-			. += "<span class='notice'> [src] is full.</span>"
+			. += "<span class='notice'>[src] is full.</span>"
 
 /*
  * Backpack Types
@@ -70,7 +70,7 @@
 			user.visible_message("<span class='warning'>[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
 			if(do_after(user, 30, target=src))
 				investigate_log("has become a singularity. Caused by [user.key]","singulo")
-				user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing!</span>")
+				user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='danger'> You hear the sound of scientific evil brewing!</span>")
 				qdel(W)
 				var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
 				singulo.energy = 300 //To give it a small boost

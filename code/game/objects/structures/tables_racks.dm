@@ -247,7 +247,7 @@
 			if(slippery)
 				step_away(I, user)
 				visible_message("<span class='warning'>[I] slips right off [src]!</span>")
-				playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
+				playsound(loc, 'sound/misc/slip.ogg', 50, TRUE, -1)
 			else //Don't want slippery moving tables to have the item attached to them if it slides off.
 				item_placed(I)
 	else
@@ -343,26 +343,28 @@
 
 /obj/structure/table/proc/flip(direction)
 	if(flipped)
-		return 0
+		return FALSE
 
-	if(!straight_table_check(turn(direction,90)) || !straight_table_check(turn(direction,-90)))
-		return 0
+	if(!straight_table_check(turn(direction, 90)) || !straight_table_check(turn(direction, -90)))
+		return FALSE
 
 	dir = direction
 	if(dir != NORTH)
 		layer = 5
-	var/list/targets = list(get_step(src,dir),get_step(src,turn(dir, 45)),get_step(src,turn(dir, -45)))
+
+	var/list/targets = list(get_step(src, dir), get_step(src, turn(dir, 45)), get_step(src, turn(dir, -45)))
 	for(var/atom/movable/A in get_turf(src))
+		if(isobserver(A))
+			continue
 		if(!A.anchored)
-			spawn(0)
-				A.throw_at(pick(targets),1,1)
+			INVOKE_ASYNC(A, TYPE_PROC_REF(/atom/movable/, throw_at), pick(targets), 1, 1)
 
 	flipped = TRUE
 	smoothing_flags = NONE
 	flags |= ON_BORDER
 	for(var/D in list(turn(direction, 90), turn(direction, -90)))
-		if(locate(/obj/structure/table,get_step(src,D)))
-			var/obj/structure/table/T = locate(/obj/structure/table,get_step(src,D))
+		if(locate(/obj/structure/table, get_step(src, D)))
+			var/obj/structure/table/T = locate(/obj/structure/table, get_step(src, D))
 			T.flip(direction)
 	update_icon()
 
@@ -370,7 +372,7 @@
 	if(isturf(loc))
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 
-	return 1
+	return TRUE
 
 /obj/structure/table/proc/unflip()
 	if(!flipped)
@@ -805,7 +807,7 @@
 	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
 		return
 
-	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, 1, ignore_walls = FALSE)
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
 
 	var/atom/movable/held
 	for(var/held_uid in held_items)

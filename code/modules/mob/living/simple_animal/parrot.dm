@@ -697,7 +697,7 @@
 /mob/living/simple_animal/parrot/proc/parrot_hear(message)
 	if(!message || stat)
 		return
-	speech_buffer.Add(message)
+	speech_buffer.Add(strip_html_tags(message))
 
 /mob/living/simple_animal/parrot/proc/update_held_icon()
 	underlays.Cut()

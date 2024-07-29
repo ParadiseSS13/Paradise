@@ -363,7 +363,7 @@
 	user.do_attack_animation(src)
 	apply_damage(rand(15,30), BRUTE)
 	visible_message("<span class='danger'>[user] has slashed [src]!</span>")
-	playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+	playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 

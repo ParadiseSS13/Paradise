@@ -178,31 +178,43 @@
 	return ..()
 
 /obj/machinery/smartfridge/attackby(obj/item/O, mob/user)
-	if(exchange_parts(user, O))
+	if(istype(O, /obj/item/storage/part_replacer))
+		. = ..()
 		SStgui.update_uis(src)
 		return
+
 	if(stat & (BROKEN|NOPOWER))
-		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
+		to_chat(user, "<span class='notice'>[src] is unpowered and useless.</span>")
 		return
 
 	if(load(O, user))
-		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
+		user.visible_message(
+			"<span class='notice'>[user] has added [O] to [src].</span>",
+			"<span class='notice'>You add [O] to [src].</span>"
+		)
 		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
-	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
+		return
+
+	if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
 		var/obj/item/storage/P = O
 		var/items_loaded = 0
 		for(var/obj/G in P.contents)
 			if(load(G, user))
 				items_loaded++
 		if(items_loaded)
-			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
+			user.visible_message(
+				"<span class='notice'>[user] loads [src] with [P].</span>",
+				"<span class='notice'>You load [src] with [P].</span>"
+			)
 			SStgui.update_uis(src)
 			update_icon(UPDATE_OVERLAYS)
 		var/failed = length(P.contents)
 		if(failed)
 			to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
-	else if(!istype(O, /obj/item/card/emag))
+		return
+
+	if(!istype(O, /obj/item/card/emag))
 		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
 		return TRUE
 

@@ -189,16 +189,15 @@
 	return 0
 
 /obj/machinery/processor/attackby(obj/item/O, mob/user, params)
-
 	if(processing)
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
-		return 1
+		return TRUE
 
 	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
 		return
 
-	if(exchange_parts(user, O))
-		return
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
 
 	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
 		return

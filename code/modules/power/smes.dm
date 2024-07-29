@@ -120,10 +120,6 @@
 		update_icon()
 		return
 
-	//exchanging parts using the RPE
-	if(exchange_parts(user, I))
-		return
-
 	//building and linking a terminal
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/dir = get_dir(user,src)
@@ -216,6 +212,7 @@
 	//crowbarring it !
 	if(default_deconstruction_crowbar(user, I))
 		return
+
 	return ..()
 
 /obj/machinery/power/smes/disconnect_terminal()
@@ -244,7 +241,7 @@
 	return ..()
 
 /obj/machinery/power/smes/proc/chargedisplay()
-	return clamp(round(5.5 * charge / capacity), 0, 5)
+	return clamp(round(ceil(charge * 5 / capacity)), 0, 5)
 
 /obj/machinery/power/smes/process()
 	if(stat & BROKEN)

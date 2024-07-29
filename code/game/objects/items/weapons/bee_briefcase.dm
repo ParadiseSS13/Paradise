@@ -53,7 +53,7 @@
 	else if(istype(I, /obj/item/reagent_containers/spray/pestspray))
 		bees_left = max(0, (bees_left - 6))
 		to_chat(user, "You spray [I] into [src].")
-		playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
+		playsound(loc, 'sound/effects/spray3.ogg', 50, TRUE, -6)
 
 /obj/item/bee_briefcase/attack_self(mob/user)
 	var/bees_released

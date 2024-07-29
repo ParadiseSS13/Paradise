@@ -110,6 +110,7 @@
 		cell = null
 		turned_on = FALSE
 		update_icon(UPDATE_ICON_STATE)
+		return
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
 		update_icon()
@@ -182,9 +183,12 @@
 	var/mob/living/L = M
 
 	if(user.a_intent == INTENT_HARM)
+		. = ..() // Whack them too if in harm intent
+		if(.) // True is returned when blocked, false when not. I know.
+			return
 		if(turned_on)
-			baton_stun(L, user)
-		return ..() // Whack them too if in harm intent
+			baton_stun(L, user, ignore_shield_check = TRUE)
+		return
 
 	if(!turned_on)
 		user.do_attack_animation(L)
@@ -195,8 +199,8 @@
 	if(baton_stun(L, user))
 		user.do_attack_animation(L)
 
-/// returning false results in no baton attack animation, returning true results in an animation.
-/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
+/// returning false results in no baton attack animation, returning true results in an animation. If ignore_shield_check is true, the baton will not run check shields, and will hit if not on cooldown.
+/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE, ignore_shield_check = FALSE)
 	if(cooldown > world.time && !skip_cooldown)
 		return FALSE
 
@@ -207,7 +211,7 @@
 	cooldown = world.time + initial(cooldown) // tracks the world.time when hitting will be next available.
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
+		if(!ignore_shield_check && H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return FALSE
 		H.Confused(10 SECONDS)
@@ -310,6 +314,11 @@
 	QDEL_NULL(sparkler)
 	return ..()
 
-/obj/item/melee/baton/cattleprod/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
+/obj/item/melee/baton/cattleprod/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE, ignore_shield_check = FALSE)
 	if(sparkler.activate())
 		return ..()
+
+/obj/item/melee/baton/loaded/borg_stun_arm
+	name = "electrically-charged arm"
+	desc = "A piece of scrap metal wired directly to your power cell."
+	hitcost = 100
