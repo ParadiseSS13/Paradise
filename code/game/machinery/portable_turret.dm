@@ -1054,7 +1054,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	interact_offline = TRUE
 	power_state = NO_POWER_USE
 	has_cover = FALSE
-	raised = TRUE
 	scan_range = 9
 
 	faction = "syndicate"
@@ -1095,6 +1094,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		req_one_access.Cut()
 	req_access = list(ACCESS_SYNDICATE)
 	one_access = FALSE
+	pop_up()
 
 /obj/machinery/porta_turret/syndicate/update_icon_state()
 	if(stat & BROKEN)
