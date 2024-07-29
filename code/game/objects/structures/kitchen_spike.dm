@@ -79,7 +79,7 @@
 	if(has_buckled_mobs())
 		to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
 		return
-	if(!I.use_tool(src, user, 2 SECONDS, I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
 	deconstruct(TRUE)
