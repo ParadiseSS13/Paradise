@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/emagged = FALSE
 	/// Can the robot be emagged?
 	var/is_emaggable = TRUE
-	/// Is the robot protected from the visual portion of flashbangs and flashes(1)? Are they protected from laser pointer (2)?
+	/// Is the robot protected from the visual portion of flashbangs and flashes?
 	var/eye_protection = FALSE
 	/// Is the robot protected from the audio component of flashbangs? Prevents inflicting confusion.
 	var/ear_protection = FALSE
@@ -1764,7 +1764,5 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return externally_powered
 	return cell.is_powered() || externally_powered
 
-/mob/living/silicon/robot/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type)
-	if(affect_silicon && !eye_protection)
-		return ..()
-	return FALSE
+/mob/living/silicon/robot/can_be_flashed(intensity, override_blindness_check)
+	return eye_protection
