@@ -387,7 +387,7 @@
 			belt = null
 			backpack_contents = list()
 			if(prob(70))
-				backpack_contents += pick(/obj/item/stamp/clown, /obj/item/reagent_containers/spray/waterflower, /obj/item/food/snacks/grown/banana, /obj/item/megaphone)
+				backpack_contents += pick(/obj/item/stamp/clown, /obj/item/reagent_containers/spray/waterflower, /obj/item/food/grown/banana, /obj/item/megaphone)
 			if(prob(30))
 				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list(1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
