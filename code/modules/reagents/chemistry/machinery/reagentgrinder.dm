@@ -157,7 +157,8 @@
 	default_unfasten_wrench(user, I)
 
 /obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
+	if(istype(I, /obj/item/storage/part_replacer))
+		..()
 		SStgui.update_uis(src)
 		return
 
@@ -169,6 +170,7 @@
 		else
 			if(!user.drop_item())
 				return FALSE
+
 			beaker =  I
 			beaker.loc = src
 			update_icon(UPDATE_ICON_STATE)
@@ -206,6 +208,7 @@
 		if(length(B.contents) == original_contents_len)
 			to_chat(user, "<span class='warning'>Nothing in [B] can be put into the All-In-One grinder.</span>")
 			return FALSE
+
 		else if(!length(B.contents))
 			to_chat(user, "<span class='notice'>You empty all of [B]'s contents into the All-In-One grinder.</span>")
 		else
