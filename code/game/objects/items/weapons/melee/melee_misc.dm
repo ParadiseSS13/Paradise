@@ -62,7 +62,6 @@
 	attack_verb = list("slashed", "sliced", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
-	needs_permit = TRUE
 
 /obj/item/melee/snakesfang/Initialize(mapload)
 	. = ..()
