@@ -406,9 +406,9 @@
 	name = "combat bakery kit"
 
 /obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
-	new /obj/item/food/snacks/baguette/combat(src)
+	new /obj/item/food/baguette/combat(src)
 	for(var/i in 1 to 2)
-		new /obj/item/food/snacks/croissant/throwing(src)
+		new /obj/item/food/croissant/throwing(src)
 	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
@@ -556,3 +556,10 @@
 
 /obj/item/storage/box/syndie_kit/pen_bomb/populate_contents()
 	new /obj/item/grenade/syndieminibomb/pen(src)
+
+/obj/item/storage/box/syndie_kit/decoy
+	name = "\improper Decoy Grenade kit"
+
+/obj/item/storage/box/syndie_kit/decoy/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/grenade/firecracker/decoy(src)

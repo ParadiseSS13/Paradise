@@ -99,15 +99,12 @@
 	if(istype(W, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = W
 
-		to_chat(user, "You inject the solution into the power cell.")
-
 		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
-
+			to_chat(user, "You inject the solution into the power cell.")
 			rigged = TRUE
 
 			log_admin("LOG: [key_name(user)] injected a power cell with plasma, rigging it to explode.")
 			message_admins("LOG: [key_name_admin(user)] injected a power cell with plasma, rigging it to explode.")
-
 		S.reagents.clear_reagents()
 	else
 		return ..()
@@ -297,6 +294,9 @@
 	desc = "An experimental, self-charging, transdimensional power cell."
 	origin_tech =  "powerstorage=10;bluespace=10"
 	self_recharge = TRUE
+
+/obj/item/stock_parts/cell/bluespace/trapped
+	rigged = TRUE
 
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"

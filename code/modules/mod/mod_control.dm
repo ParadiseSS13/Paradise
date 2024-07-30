@@ -148,6 +148,7 @@
 		part.max_heat_protection_temperature = theme.max_heat_protection_temperature
 		part.min_cold_protection_temperature = theme.min_cold_protection_temperature
 		part.siemens_coefficient = theme.siemens_coefficient
+		part.flags_2 = theme.flag_2_flags
 	for(var/obj/item/part as anything in mod_parts)
 		RegisterSignal(part, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_part_destruction)) //look into
 		RegisterSignal(part, COMSIG_PARENT_QDELETING, PROC_REF(on_part_deletion))
@@ -252,6 +253,7 @@
 	if(!wearer || old_loc != wearer || loc == wearer)
 		return
 	clean_up()
+	bag?.update_viewers()
 
 /obj/item/mod/control/MouseDrop(atom/over_object)
 	if(iscarbon(usr))
@@ -296,7 +298,6 @@
 			return TRUE
 		if(!core)
 			return TRUE
-		wrench.play_tool_sound(src, 100)
 		core.forceMove(drop_location())
 		update_charge_alert()
 		return TRUE
@@ -314,7 +315,6 @@
 	if(screwdriver.use_tool(src, user, 1 SECONDS))
 		if(active || activating)
 			to_chat(user, "<span class='warning'>Deactivate the suit first!</span>")
-		screwdriver.play_tool_sound(src, 100)
 		to_chat(user, "<span class='notice'>Cover [open ? "closed" : "opened"]</span>")
 		open = !open
 	return TRUE
@@ -776,7 +776,3 @@
 	. = ..()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.extinguish_light(force)
-
-/obj/item/mod/control/Moved(atom/oldloc, dir, forced = FALSE)
-	. = ..()
-	bag?.update_viewers()

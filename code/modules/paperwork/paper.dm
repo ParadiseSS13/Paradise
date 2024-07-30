@@ -141,11 +141,11 @@
 		dist = get_dist(src, user.current)
 	else //cyborg or AI not seeing through a camera
 		dist = get_dist(src, user)
+
 	if(dist < 2)
 		show_content(user, forceshow = 1)
 	else
 		show_content(user, forcestars = 1)
-	return
 
 /obj/item/paper/attack(mob/living/carbon/M, mob/living/carbon/user, def_zone)
 	if(!ishuman(M))

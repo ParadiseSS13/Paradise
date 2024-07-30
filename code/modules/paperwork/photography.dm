@@ -494,6 +494,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/digital/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>A small screen shows that there are currently [length(saved_pictures)] pictures stored.</span>"
+	. += "<span class='info'><b>Alt-Shift-Click</b> [src] to print a specific photo.</span>"
+	. += "<span class='info'><b>Ctrl-Shift-Click</b> [src] to delete a specific photo.</span>"
 
 /obj/item/camera/digital/afterattack(atom/target, mob/user, flag)
 	if(!on || !pictures_left || ismob(target.loc))
@@ -529,11 +531,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag)
 	saved_pictures += P
-
-/obj/item/camera/digital/examine(mob/user)
-	. = ..()
-	. += "<span class='info'><b>Alt-Shift-Click</b> [src] to print a specific photo.</span>"
-	. += "<span class='info'><b>Ctrl-Shift-Click</b> [src] to delete a specific photo.</span>"
 
 /obj/item/camera/digital/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
