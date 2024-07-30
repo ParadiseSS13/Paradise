@@ -143,7 +143,7 @@
 
 		if(4) // Grille in place
 			if(iscrowbar(W))
-				to_chat(user, "You begin to pry off the grille from \the [src]...")
+				to_chat(user, "<span class='notice'>You begin to pry off the grille from [src]...</span>")
 				playsound(get_turf(src), W.usesound, 50, TRUE)
 				if(do_after(user, 3 SECONDS * W.toolspeed, target = src) && (build == 4))
 					new /obj/item/stack/rods(loc,2)
