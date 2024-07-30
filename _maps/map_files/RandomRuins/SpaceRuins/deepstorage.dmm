@@ -120,14 +120,6 @@
 /obj/structure/blob/normal/deepstorage,
 /turf/simulated/floor/plating,
 /area/ruin/space/deepstorage)
-"at" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable{
-	id_tag = "DS_Storage"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/deepstorage)
 "au" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/catwalk/airless,
@@ -196,12 +188,6 @@
 	id_tag = "DS_mostfrontshutter"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/deepstorage)
-"aE" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/ruin/space/deepstorage)
 "aF" = (
 /obj/structure/railing{
@@ -2642,17 +2628,6 @@
 	icon_state = "blackcorner"
 	},
 /area/ruin/space/deepstorage)
-"pb" = (
-/obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "512"
-	},
-/obj/machinery/door/poddoor/multi_tile/impassable{
-	id_tag = "DS_Tram"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/deepstorage)
 "pc" = (
 /obj/structure/railing/cap{
 	dir = 5
@@ -4131,7 +4106,7 @@
 /area/ruin/space/deepstorage)
 "zh" = (
 /obj/machinery/door/airlock/highsecurity{
-	name = "Crematorium";
+	name = "Incinerator";
 	req_access_txt = "512"
 	},
 /turf/simulated/floor/plasteel{
@@ -8854,7 +8829,7 @@ ab
 ab
 jB
 pJ
-cE
+Qh
 Vw
 Qh
 wb
@@ -10517,7 +10492,7 @@ sk
 sk
 jB
 jB
-aE
+Hx
 jB
 sk
 Fk
@@ -11078,7 +11053,7 @@ hW
 Qy
 uf
 Qy
-at
+hW
 Gl
 JV
 aY
@@ -12739,7 +12714,7 @@ bU
 Lq
 bU
 wh
-pb
+TK
 ty
 Lq
 Mr
