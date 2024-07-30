@@ -195,11 +195,6 @@
 			to_chat(user, "The vent is welded.")
 		return TRUE
 
-	if(iswrench(W))
-		if(!(stat & NOPOWER) && on)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
-			return TRUE
-
 	return ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/living/user, obj/item/I)
