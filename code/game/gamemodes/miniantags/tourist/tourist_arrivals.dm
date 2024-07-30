@@ -17,7 +17,6 @@
 	/// Chance of being antag
 	var/chance = 20
 
-
 /datum/event/tourist_arrivals/setup()
 	// Getting a list of players that are logged in and not dead.
 	// Checking if they're an antag or not and defining a 'max_antag' number.
@@ -30,17 +29,18 @@
 	max_antag = round(crew_count / 10, 1) + 1
 	if(SSticker && istype(SSticker.mode, /datum/game_mode/extended))
 		chance = 100
+
 /datum/event/tourist_arrivals/start()
 	// Let's just avoid trouble, sending people into those is probably bad.
 	if(GAMEMODE_IS_CULT || GAMEMODE_IS_WIZARD || GAMEMODE_IS_NUCLEAR)
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
 		EC.next_event_time = world.time + 1 MINUTES
-		message_admins("Tourist Arrivals roll canceled due to gamemode. Rolling another midround in 60 seconds.")
+		log_debug("Tourist Arrivals roll canceled due to gamemode. Rolling another midround in 60 seconds.")
 		return
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_GAMMA) // Who would send more people to somewhere that's not safe?
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
 		EC.next_event_time = world.time + 1 MINUTES
-		message_admins("Tourist Arrivals roll canceled due to heightened alert. Rolling another midround in 60 seconds.")
+		log_debug("Tourist Arrivals roll canceled due to heightened alert. Rolling another midround in 60 seconds.")
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(spawn_arrivals))
@@ -89,7 +89,7 @@
 		success_run = TRUE
 		spawned_in++
 	if(success_run)
-		message_admins("Tourist event made: [tot_number] traitors.")
+		log_debug("Tourist event made: [tot_number] traitors.")
 		var/raffle_name = pick("Galactic Getaway Raffle", "Cosmic Jackpot Raffle", "Nebula Nonsense Raffle", "Greytide Giveaway Raffle", "Toolbox Treasure Raffle")
 		GLOB.minor_announcement.Announce("The lucky winners of the Nanotrasen raffle, 'Nanotrasen [raffle_name],' are arriving at [station_name()] shortly. Please welcome them warmly, they'll be staying with you until the end of your shift!")
 
@@ -132,21 +132,28 @@
 /datum/tourist/human
 	tourist_species = /mob/living/carbon/human
 	tourist_outfit = /datum/outfit/admin/tourist
+
 /datum/tourist/unathi
 	tourist_species = /mob/living/carbon/human/unathi
 	tourist_outfit = /datum/outfit/admin/tourist
+
 /datum/tourist/vulp
 	tourist_species = /mob/living/carbon/human/vulpkanin
 	tourist_outfit = /datum/outfit/admin/tourist
+
 /datum/tourist/ipc
 	tourist_species = /mob/living/carbon/human/machine
 	tourist_outfit = /datum/outfit/admin/tourist
+
 /datum/tourist/skrell
 	tourist_species = /mob/living/carbon/human/skrell
 	tourist_outfit = /datum/outfit/admin/tourist
+
 /datum/tourist/grey
 	tourist_species = /mob/living/carbon/human/grey
 	tourist_outfit = /datum/outfit/admin/tourist
+
 /datum/tourist/nian
 	tourist_species = /mob/living/carbon/human/moth
 	tourist_outfit = /datum/outfit/admin/tourist
+
