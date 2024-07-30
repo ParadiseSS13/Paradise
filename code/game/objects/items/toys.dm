@@ -236,10 +236,7 @@
 /obj/item/toy/sword/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		if(isnull(cig))
-			return
-		else
-			return TRUE
+		return !isnull(cig)
 
 	if(!active)
 		to_chat(user, "<span class='warning'>You must activate [src] before you can light [cig] with it!</span>")
@@ -271,14 +268,14 @@
 	if(target == user)
 		user.visible_message(
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-			[user.p_their(TRUE)] [src] does hit [cig], however, knocking it out of [user.p_their()] mouth and dropping it to the floor. What an idiot!</span>",
+			[user.p_they(TRUE)] instead hit [cig], knocking it out of [user.p_their()] mouth and dropping it to the floor. What an idiot!</span>",
 			"<span class='warning'>You casually slash [src] at [cig], swatting it out of your mouth. Because it's not a real energy sword, dumbass!</span>",
 			"<span class='notice'>You hear a gentle tapping.</span>"
 		)
 	else
 		user.visible_message(
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
-			[target.p_their(TRUE)] [src] does hit [cig], however, knocking it out of [target.p_their()] mouth and dropping it to the floor. Wow, rude!</span>",
+			[user] does hit [cig], knocking it out of the mouth of [target] and dropping it to the floor. Wow, rude!</span>",
 			"<span class='warning'>You casually slash [src] at [cig] in the mouth of [target], swatting it to the floor!</span>",
 			"<span class='notice'>You hear a gentle tapping.</span>"
 		)

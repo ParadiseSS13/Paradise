@@ -64,10 +64,7 @@
 /obj/item/assembly/igniter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		if(isnull(cig))
-			return
-		else
-			return TRUE
+		return !isnull(cig)
 
 	if(target == user)
 		user.visible_message(

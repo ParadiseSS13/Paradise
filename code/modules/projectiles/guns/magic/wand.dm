@@ -213,10 +213,7 @@ CONTENTS:
 /obj/item/gun/magic/wand/fireball/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		if(isnull(cig))
-			return
-		else
-			return TRUE
+		return !isnull(cig)
 
 	if(!charges)
 		to_chat(user, "<span class='warning'>[src] is out of charge!</span>")

@@ -113,10 +113,7 @@
 		return cig
 
 	if(!cig)
-		if(isnull(cig))
-			return
-		else
-			return TRUE
+		return !isnull(cig)
 
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
@@ -192,10 +189,7 @@
 /obj/item/lighter/zippo/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		if(isnull(cig))
-			return
-		else
-			return TRUE
+		return !isnull(cig)
 
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
@@ -344,10 +338,7 @@
 		return cig
 
 	if(!cig)
-		if(isnull(cig))
-			return
-		else
-			return TRUE
+		return !isnull(cig)
 
 	if(!lit)
 		to_chat(user, "<span class='warning'>You need to light [src] before it can be used to light anything!</span>")
@@ -401,10 +392,7 @@
 /obj/item/match/unathi/cigarette_lighter_act(mob/living/target, mob/living/user, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
-		if(isnull(cig))
-			return
-		else
-			return TRUE
+		return !isnull(cig)
 
 	if(!lit)
 		to_chat(user, "<span class='userdanger'>If you can see this message, please make an issue report to GitHub, something bad has happened.</span>")
