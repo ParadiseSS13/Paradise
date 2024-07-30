@@ -132,7 +132,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	else if(istype(I, /obj/item/melee/energy/sword/saber))
 		var/obj/item/melee/energy/sword/saber/S = I
-		if(S.active)
+		if(HAS_TRAIT(S, TRAIT_ITEM_ACTIVE))
 			light("<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [name] with [S] in the process.</span>")
 
 	else if(istype(I, /obj/item/assembly/igniter))
