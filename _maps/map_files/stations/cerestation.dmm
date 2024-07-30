@@ -81990,6 +81990,9 @@
 	dir = 8;
 	location = "Security"
 	},
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -82003,9 +82006,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
 	dir = 4
-	},
-/obj/structure/plasticflaps{
-	opacity = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/security/range)
