@@ -66,7 +66,7 @@
 		return
 	var/selected = tgui_input_list(user, "Choose the decoy sound.", items = possible_sounds)
 	if(!user.Adjacent(src))
-		to_chat("<span class='warning'>You're too far from [src] to set the sound now!</span>")
+		to_chat(user, "<span class='warning'>You're too far from [src] to set the sound now!</span>")
 		return
 	if(selected)
 		selected_sound = selected
