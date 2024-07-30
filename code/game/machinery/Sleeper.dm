@@ -392,12 +392,10 @@
 	..()
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 	if(A == beaker)
 		beaker = null
-		updateUsrDialog()
 		SStgui.update_uis(src)
 
 /obj/machinery/sleeper/emp_act(severity)
