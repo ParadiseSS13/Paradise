@@ -78017,10 +78017,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "lYU" = (
-/obj/effect/spawner/airlock/w_to_e{
-	req_access_txt = "11,13";
-	door_name = "AI minisat access"
-	},
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall,
 /area/station/aisat)
 "lYX" = (
@@ -83722,6 +83719,15 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/lobby)
+"pgS" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/minisat,
+/turf/simulated/floor/plasteel/dark,
+/area/station/aisat)
 "pht" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -112818,7 +112824,7 @@ abj
 abj
 oUR
 tuT
-lwd
+pgS
 oUR
 hse
 kAw
