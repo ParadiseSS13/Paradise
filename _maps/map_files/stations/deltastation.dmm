@@ -61929,6 +61929,9 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
+"dNd" = (
+/turf/space,
+/area/merge_conflict_marker)
 "dNe" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/brflowers,
@@ -75635,30 +75638,12 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
 "kxY" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
 /obj/structure/cable,
 /obj/machinery/power/apc/important/directional/east,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4
-	},
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable,
-/obj/machinery/atmospherics/meter{
-	autolink_id = "wloop_atm_meter";
-	name = "Waste Loop"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -123092,7 +123077,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+dNd
 aaa
 aaa
 aaa
