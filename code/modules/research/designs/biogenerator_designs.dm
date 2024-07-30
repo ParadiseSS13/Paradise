@@ -56,7 +56,7 @@
 	id = "mcube"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/food/snacks/monkeycube
+	build_path = /obj/item/food/monkeycube
 	category = list("initial", "Food")
 
 /datum/design/farwa_cube
@@ -64,7 +64,7 @@
 	id = "fcube"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/food/snacks/monkeycube/farwacube
+	build_path = /obj/item/food/monkeycube/farwacube
 	category = list("initial", "Food")
 
 /datum/design/wolpin_cube
@@ -72,7 +72,7 @@
 	id = "wcube"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/food/snacks/monkeycube/wolpincube
+	build_path = /obj/item/food/monkeycube/wolpincube
 	category = list("initial", "Food")
 
 /datum/design/stok_cube
@@ -80,7 +80,7 @@
 	id = "scube"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/food/snacks/monkeycube/stokcube
+	build_path = /obj/item/food/monkeycube/stokcube
 	category = list("initial", "Food")
 
 /datum/design/neaera_cube
@@ -88,7 +88,7 @@
 	id = "ncube"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/food/snacks/monkeycube/neaeracube
+	build_path = /obj/item/food/monkeycube/neaeracube
 	category = list("initial", "Food")
 
 /datum/design/nian_wormecube
@@ -96,7 +96,7 @@
 	id = "nwcube"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/food/snacks/monkeycube/nian_wormecube
+	build_path = /obj/item/food/monkeycube/nian_wormecube
 	category = list("initial", "Food")
 
 /datum/design/ez_nut

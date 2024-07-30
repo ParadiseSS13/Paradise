@@ -331,7 +331,7 @@
 	desc = "Just like the ones you remember from childhood!"
 
 /obj/structure/snowman/built/Destroy()
-	new /obj/item/food/snacks/grown/carrot(drop_location())
+	new /obj/item/food/grown/carrot(drop_location())
 	new /obj/item/grown/log(drop_location())
 	new /obj/item/grown/log(drop_location())
 	return ..()

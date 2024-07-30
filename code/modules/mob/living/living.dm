@@ -1056,11 +1056,13 @@
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
 	var/blocked = getarmor(null, RAD)
-
+	if(blocked == INFINITY) // Full protection, go no further.
+		return
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)
 
-	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, blocked)
+
+	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, ARMOUR_VALUE_TO_PERCENTAGE(blocked))
 
 /mob/living/proc/fakefireextinguish()
 	return
@@ -1084,8 +1086,6 @@
 				GLOB.dead_mob_list += src
 	. = ..()
 	switch(var_name)
-		if("maxHealth")
-			updatehealth()
 		if("resize")
 			update_transform()
 		if("lighting_alpha")
@@ -1093,6 +1093,10 @@
 		if("advanced_bullet_dodge_chance")
 			UnregisterSignal(src, COMSIG_ATOM_PREHIT)
 			RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
+		if("maxHealth")
+			updatehealth("var edit")
+		if("resize")
+			update_transform()
 
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()
@@ -1160,3 +1164,7 @@
 	if(istype(mover, /obj/singularity/energy_ball))
 		dust()
 	return ..()
+
+/// Can a mob interact with the apc remotely like a pulse demon, cyborg, or AI?
+/mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
+	return FALSE
