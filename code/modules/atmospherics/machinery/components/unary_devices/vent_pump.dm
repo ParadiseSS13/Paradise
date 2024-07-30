@@ -40,6 +40,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This pumps the contents of the attached pipenet out into the atmosphere. Can be controlled from an Air Alarm.</span>"
+	if(welded)
+		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_pump/on
 	on = TRUE
@@ -242,11 +244,6 @@
 				if(istype(W, /obj/item/pipe))
 					continue
 				W.forceMove(get_turf(src))
-
-/obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
-	. = ..()
-	if(welded)
-		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_pump/power_change()
 	if(!..())

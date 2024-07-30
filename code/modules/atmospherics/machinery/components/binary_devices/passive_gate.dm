@@ -13,7 +13,7 @@
 
 	var/id = null
 
-/obj/machinery/atmospherics/binary/volume_pump/can_be_pulled(user, grab_state, force, show_message)
+/obj/machinery/atmospherics/binary/passive_gate/can_be_pulled(user, grab_state, force, show_message)
 	return FALSE
 
 /obj/machinery/atmospherics/binary/passive_gate/CtrlClick(mob/living/user)

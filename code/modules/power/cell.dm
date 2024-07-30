@@ -295,6 +295,9 @@
 	origin_tech =  "powerstorage=10;bluespace=10"
 	self_recharge = TRUE
 
+/obj/item/stock_parts/cell/bluespace/trapped
+	rigged = TRUE
+
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
