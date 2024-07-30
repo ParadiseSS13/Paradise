@@ -128,7 +128,7 @@
 
 /obj/item/crowbar/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
+	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/crowbar/power/attack_self(mob/user)

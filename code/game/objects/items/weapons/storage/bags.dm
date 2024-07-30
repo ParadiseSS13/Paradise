@@ -76,7 +76,7 @@
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
-	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
+	playsound(loc, 'sound/items/eatfood.ogg', 50, TRUE, -1)
 	return TOXLOSS
 
 /obj/item/storage/bag/trash/update_icon_state()
@@ -209,10 +209,10 @@
 	can_hold = list(
 		/obj/item/seeds,
 		/obj/item/unsorted_seeds,
-		/obj/item/food/snacks/grown,
+		/obj/item/food/grown,
 		/obj/item/grown,
-		/obj/item/food/snacks/grown/ash_flora,
-		/obj/item/food/snacks/honeycomb)
+		/obj/item/food/grown/ash_flora,
+		/obj/item/food/honeycomb)
 	cant_hold = list(/obj/item/grown/bananapeel/traitorpeel)
 	resistance_flags = FLAMMABLE
 
@@ -398,7 +398,7 @@
 	return ..()
 
 /obj/item/storage/bag/tray/cookies_tray
-	var/cookie = /obj/item/food/snacks/cookie
+	var/cookie = /obj/item/food/cookie
 
 /obj/item/storage/bag/tray/cookies_tray/populate_contents() // By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
@@ -407,7 +407,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
-	cookie = /obj/item/food/snacks/sugarcookie
+	cookie = /obj/item/food/sugarcookie
 
 ////////////////////////////////////////
 // MARK:	Chemistry bag
@@ -437,7 +437,7 @@
 	storage_slots = 25
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/slime_extract, /obj/item/food/snacks/monkeycube,
+	can_hold = list(/obj/item/slime_extract, /obj/item/food/monkeycube,
 					/obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/beaker,
 					/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/iv_bag,
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine)
@@ -481,7 +481,7 @@
 	name = "treasure satchel"
 	desc = "A satchel for storing scavenged salvage. There be treasure."
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "satchel" // placeholder
+	icon_state = "satchel"
 	origin_tech = "engineering=2"
 	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
 	w_class = WEIGHT_CLASS_NORMAL

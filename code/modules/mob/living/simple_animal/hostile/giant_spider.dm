@@ -14,7 +14,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	footstep_type = FOOTSTEP_MOB_CLAW
-	butcher_results = list(/obj/item/food/snacks/monstermeat/spidermeat = 2, /obj/item/food/snacks/monstermeat/spiderleg = 8)
+	butcher_results = list(/obj/item/food/monstermeat/spidermeat = 2, /obj/item/food/monstermeat/spiderleg = 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
@@ -65,7 +65,7 @@
 	icon_state = "nurse"
 	icon_living = "nurse"
 	icon_dead = "nurse_dead"
-	butcher_results = list(/obj/item/food/snacks/monstermeat/spidermeat = 2, /obj/item/food/snacks/monstermeat/spiderleg = 8, /obj/item/food/snacks/monstermeat/spidereggs = 4)
+	butcher_results = list(/obj/item/food/monstermeat/spidermeat = 2, /obj/item/food/monstermeat/spiderleg = 8, /obj/item/food/monstermeat/spidereggs = 4)
 
 	maxHealth = 40
 	health = 40
@@ -163,8 +163,8 @@
 
 /datum/action/innate/web_giant_spider
 	name = "Lay Web"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "stickyweb1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "stickyweb1"
 
 /datum/action/innate/web_giant_spider/Activate()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/user = owner
@@ -172,8 +172,8 @@
 
 /datum/action/innate/wrap_giant_spider
 	name = "Wrap"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "cocoon_large1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "cocoon_large1"
 
 /datum/action/innate/wrap_giant_spider/Activate()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/user = owner
@@ -181,8 +181,8 @@
 
 /datum/action/innate/lay_eggs_giant_spider
 	name = "Lay Eggs"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "eggs"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "eggs"
 
 /datum/action/innate/lay_eggs_giant_spider/Activate()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/user = owner

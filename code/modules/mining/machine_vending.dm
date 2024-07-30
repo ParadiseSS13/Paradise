@@ -91,12 +91,13 @@
 		EQUIPMENT("Alien Toy", /obj/item/clothing/mask/facehugger/toy, 300),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
 		EQUIPMENT("GAR Meson Scanners", /obj/item/clothing/glasses/meson/gar, 500),
+		EQUIPMENT("Hoverboard", /obj/item/melee/skateboard/hoverboard, 4000), //Cross lava rivers in a discounted style. To buying it in cargo. Still more than jump boots.
+		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 3500), //I want miners have to pay a lot to get this, but be set once they do.
 		EQUIPMENT("Laser Pointer", /obj/item/laser_pointer, 300),
 		EQUIPMENT("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000),
 		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 200),
 		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
-		EQUIPMENT("Whiskey", /obj/item/reagent_containers/drinks/bottle/whiskey, 100),
-		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 3500) //I want miners have to pay a lot to get this, but be set once they do.
+		EQUIPMENT("Whiskey", /obj/item/reagent_containers/drinks/bottle/whiskey, 100)
 	)
 	prize_list["Extra"] = list() // Used in child vendors
 
@@ -319,7 +320,7 @@
 		EQUIPMENT("Extra ID", /obj/item/card/id/golem, 250),
 		EQUIPMENT("Science Backpack", /obj/item/storage/backpack/science, 250),
 		EQUIPMENT("Full Toolbelt", /obj/item/storage/belt/utility/full/multitool, 250),
-		EQUIPMENT("Monkey Cube", /obj/item/food/snacks/monkeycube, 250),
+		EQUIPMENT("Monkey Cube", /obj/item/food/monkeycube, 250),
 		EQUIPMENT("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 500),
 		EQUIPMENT("Grey Slime Extract", /obj/item/slime_extract/grey, 1000),
 		EQUIPMENT("KA Trigger Modification Kit", /obj/item/borg/upgrade/modkit/trigger_guard, 1000),
@@ -355,9 +356,9 @@
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
 		EQUIPMENT("Box of matches", /obj/item/storage/fancy/matches, 50),
-		EQUIPMENT("Cheeseburger", /obj/item/food/snacks/burger/cheese, 150),
-		EQUIPMENT("Big Burger", /obj/item/food/snacks/burger/bigbite, 250),
-		EQUIPMENT("Recycled Prisoner", /obj/item/food/snacks/soylentgreen, 500),
+		EQUIPMENT("Cheeseburger", /obj/item/food/burger/cheese, 150),
+		EQUIPMENT("Big Burger", /obj/item/food/burger/bigbite, 250),
+		EQUIPMENT("Recycled Prisoner", /obj/item/food/soylentgreen, 500),
 		EQUIPMENT("Crayons", /obj/item/storage/fancy/crayons, 350),
 		EQUIPMENT("Plushie", /obj/random/plushie, 750),
 		EQUIPMENT("Dnd set", /obj/item/storage/box/characters, 500),

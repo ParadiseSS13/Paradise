@@ -217,7 +217,7 @@ FIRE ALARM
 /obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(.) //damage received
-		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0)
+		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0 && !emagged)
 			if(prob(33))
 				alarm()
 
@@ -335,6 +335,8 @@ FIRE ALARM
 	var/area/our_area = get_area(src)
 	LAZYREMOVE(our_area.firealarms, src)
 	return ..()
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 24, 24)
 
 /*
 FIRE ALARM CIRCUIT

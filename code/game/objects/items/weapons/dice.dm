@@ -226,7 +226,7 @@
 		if(11)
 			//Cookie
 			T.visible_message("<span class='userdanger'>A cookie appears out of thin air!</span>")
-			var/obj/item/food/snacks/cookie/C = new(drop_location())
+			var/obj/item/food/cookie/C = new(drop_location())
 			create_smoke(2)
 			C.name = "Cookie of Fate"
 		if(12)

@@ -180,3 +180,63 @@
 	name = "Cybersun Mobile Exosuit Factory"
 	apc_starts_off = TRUE
 	there_can_be_many = FALSE
+
+/area/ruin/space/powered/casino
+	name = "Dorian Casino"
+	there_can_be_many = FALSE
+	requires_power = TRUE
+
+/area/ruin/space/powered/casino/docked_ships
+	name = "Shuttle"
+	requires_power = FALSE
+
+/area/ruin/space/powered/casino/arrivals
+	name = "Arrivals"
+
+/area/ruin/space/powered/casino/kitchen
+	name = "Dining and Kitchen"
+
+/area/ruin/space/powered/casino/floor
+	name = "Casino Floor"
+
+/area/ruin/space/powered/casino/hall
+	name = "Main Hall"
+
+/area/ruin/space/powered/casino/engine
+	name = "Engine Room"
+
+/area/ruin/space/powered/casino/security
+	name = "Security"
+
+/area/ruin/space/powered/casino/teleporter
+	name = "Teleporter"
+
+/area/ruin/space/powered/casino/maints
+	name = "Service Tunnels"
+
+/// telecomms: Alternative telecomms sat
+/area/ruin/space/telecomms
+	name = "\improper Telecommunications Sat"
+	icon_state = "tcomms"
+	tele_proof = TRUE // No patrick, you can not syndicate teleport or hand teleport instantly into or out of this ruin
+
+/area/ruin/space/telecomms/powercontrol
+	name = "\improper Telecommunications Power Control"
+	icon_state = "engine_smes"
+
+/area/ruin/space/telecomms/tele
+	name = "\improper Tel3coMMunic@tions-SS-S KILL_Welcoming Room" // If you teleport to it. With a name like that. Thats on you.
+	icon_state = "teleporter"
+	tele_proof = FALSE // Oh, right. The teleporter room. The teleporter room for Kuzco, the poison chosen especially to teleport Kuzco, Kuzco's teleporter room. That teleporter room?
+
+/area/ruin/space/telecomms/foyer
+	name = "\improper Telecommunications Foyer"
+	icon_state = "entry"
+
+/area/ruin/space/telecomms/computer
+	name = "\improper Telecommunications Control Room"
+	icon_state = "bridge"
+
+/area/ruin/space/telecomms/chamber
+	name = "\improper Telecommunications Central Compartment"
+	icon_state = "ai_chamber"

@@ -51,7 +51,7 @@
 	pressure_resistance = 300
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	faction = list("undead") // did I mention ghost
-	loot = list(/obj/item/food/snacks/ectoplasm)
+	loot = list(/obj/item/food/ectoplasm)
 	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(check_drift = 0)

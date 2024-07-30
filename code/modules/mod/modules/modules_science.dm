@@ -77,7 +77,7 @@
 	if(!.)
 		return
 	var/turf/target_turf = get_turf(target)
-	if(!istype(target_turf) || target_turf.density || !(target_turf in view(9, mod.wearer))) //No. No camera bug shenanigins.
+	if(!istype(target_turf) || target_turf.density || !((target in view(9, mod.wearer)) || mod.wearer.sight & SEE_TURFS) || (get_dist(target_turf, get_turf(mod.wearer)) > 9)) //No. No camera bug shenanigins.
 		return
 	var/matrix/pre_matrix = matrix()
 	pre_matrix.Scale(4, 0.25)

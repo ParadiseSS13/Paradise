@@ -201,6 +201,7 @@
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	item_color = "ancient"
 	resistance_flags = FIRE_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = null
 
 /obj/item/clothing/suit/space/hardsuit/ancient
@@ -211,6 +212,7 @@
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	slowdown = 3
 	resistance_flags = FIRE_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = null
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	var/footstep = 1
@@ -464,11 +466,6 @@
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/ruin/ancientstation/space
-	name = "Exposed To Space"
-	icon_state = "teleporter"
-	has_gravity = FALSE
-
 /area/ruin/ancientstation/atmo
 	name = "Beta Station Atmospherics"
 	icon_state = "red"
@@ -478,10 +475,6 @@
 /area/ruin/ancientstation/betanorth
 	name = "Beta Station North Corridor"
 	icon_state = "purple"
-
-/area/ruin/ancientstation/solar
-	name = "Station Solar Array"
-	icon_state = "panelsAP"
 
 /area/ruin/ancientstation/engi
 	name = "Charlie Station Engineering"
@@ -519,3 +512,4 @@
 /area/ruin/ancientstation/hivebot
 	name = "Hivebot Mothership"
 	icon_state = "teleporter"
+	requires_power = FALSE

@@ -99,8 +99,8 @@
 	return TRUE
 
 /obj/machinery/r_n_d/experimentor/attackby(obj/item/O, mob/user, params)
-	if(exchange_parts(user, O))
-		return
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
 
 	if(!checkCircumstances(O))
 		to_chat(user, "<span class='warning'>[O] is not yet valid for [src] and must be completed!</span>")
@@ -118,12 +118,15 @@
 		if(!O.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
+
 		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
 		if(length(temp_tech) == 0)
 			to_chat(user, "<span class='warning'>You cannot experiment on this item!</span>")
 			return
+
 		if(!user.drop_item())
 			return
+
 		loaded_item = O
 		O.loc = src
 		to_chat(user, "<span class='notice'>You add [O] to the machine.</span>")
@@ -308,7 +311,7 @@
 			investigate_log("Experimentor has released [chosenchem] smoke.", "experimentor")
 			var/datum/effect_system/smoke_spread/chem/smoke = new
 			smoke.set_up(R, src, TRUE)
-			playsound(loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(R)
 			ejectItem(TRUE)
@@ -320,7 +323,7 @@
 			R.add_reagent(chosenchem , 15)
 			var/datum/effect_system/smoke_spread/chem/smoke = new
 			smoke.set_up(R, src, TRUE)
-			playsound(loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(R)
 			ejectItem(TRUE)
@@ -399,7 +402,7 @@
 			investigate_log("Experimentor has released frostoil gas.", "experimentor")
 			var/datum/effect_system/smoke_spread/chem/smoke = new
 			smoke.set_up(R, src, TRUE)
-			playsound(loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(R)
 			ejectItem(TRUE)
@@ -427,7 +430,7 @@
 				linked_materials.insert_amount( min((linked_materials.max_amount - linked_materials.total_amount), (exp_on.materials[material])), material)
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src]'s crusher goes way too many levels too high, crushing right through space-time!</span>")
-			playsound(loc, 'sound/effects/supermatter.ogg', 50, 1, -3)
+			playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -3)
 			investigate_log("Experimentor has triggered the 'throw things' reaction.", "experimentor")
 			for(var/atom/movable/AM in oview(7,src))
 				if(!AM.anchored)
@@ -436,7 +439,7 @@
 
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='danger'>[src]'s crusher goes one level too high, crushing right into space-time!</span>")
-			playsound(loc, 'sound/effects/supermatter.ogg', 50, 1, -3)
+			playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -3)
 			investigate_log("Experimentor has triggered the 'minor throw things' reaction.", "experimentor")
 			var/list/throwAt = list()
 			for(var/atom/movable/AM in oview(7,src))

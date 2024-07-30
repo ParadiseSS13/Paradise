@@ -194,6 +194,14 @@
 	cost = 5 // This is a chonky boy
 	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
 
+/datum/map_template/ruin/space/malftcommsat
+	id = "malftcommsat"
+	suffix = "telecomns_returns.dmm"
+	name = "D.V.O.R.A.K'S Telecommunications Satellite"
+	description = "Seems the telecomunication satellite that went dark 4 years ago finally re-appeared on scanners? Strange signals are coming from it."
+	cost = 5 // Huge. Large. In charge
+	allow_duplicates = FALSE // One sadistic malfunctioning AI is enough. Also unique apcs.
+
 /datum/map_template/ruin/space/clownmime
 	id = "clownmime"
 	suffix = "clownmime.dmm"
@@ -344,3 +352,10 @@
 	description = "A cozy little home nestled in an asteroid, perfect for one or two people!"
 	allow_duplicates = FALSE
 	cost = 1
+
+/datum/map_template/ruin/space/casino
+	id = "casino"
+	suffix = "casino.dmm"
+	name = "Dorian Casino"
+	description = "A swanky space casino."
+	allow_duplicates = FALSE

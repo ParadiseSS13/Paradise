@@ -5,7 +5,7 @@
 	icon_state = "seed-banana"
 	species = "banana"
 	plantname = "Banana Tree"
-	product = /obj/item/food/snacks/grown/banana
+	product = /obj/item/food/grown/banana
 	lifespan = 50
 	endurance = 30
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
@@ -14,7 +14,7 @@
 	mutatelist = list(/obj/item/seeds/banana/mime, /obj/item/seeds/banana/bluespace)
 	reagents_add = list("banana" = 0.1, "potassium" = 0.1, "vitamin" = 0.04, "plantmatter" = 0.02)
 
-/obj/item/food/snacks/grown/banana
+/obj/item/food/grown/banana
 	seed = /obj/item/seeds/banana
 	name = "banana"
 	desc = "It's an excellent prop for a clown."
@@ -26,13 +26,13 @@
 	distill_reagent = "bananahonk"
 	tastes = list("banana" = 1)
 
-/obj/item/food/snacks/grown/banana/Initialize(mapload)
+/obj/item/food/grown/banana/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
-/obj/item/food/snacks/grown/banana/suicide_act(mob/user)
+/obj/item/food/grown/banana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
+	playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE, -1)
 	sleep(25)
 	if(!user)
 		return OXYLOSS
@@ -70,7 +70,7 @@
 
 /obj/item/grown/bananapeel/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
+	playsound(loc, 'sound/misc/slip.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 
@@ -81,13 +81,13 @@
 	icon_state = "seed-mimana"
 	species = "mimana"
 	plantname = "Mimana Tree"
-	product = /obj/item/food/snacks/grown/banana/mime
+	product = /obj/item/food/grown/banana/mime
 	growthstages = 4
 	mutatelist = list()
 	reagents_add = list("nothing" = 0.1, "capulettium_plus" = 0.1, "nutriment" = 0.02)
 	rarity = 15
 
-/obj/item/food/snacks/grown/banana/mime
+/obj/item/food/grown/banana/mime
 	seed = /obj/item/seeds/banana/mime
 	name = "mimana"
 	desc = "It's an excellent prop for a mime."
@@ -110,13 +110,13 @@
 	species = "bluespacebanana"
 	icon_grow = "banana-grow"
 	plantname = "Bluespace Banana Tree"
-	product = /obj/item/food/snacks/grown/banana/bluespace
+	product = /obj/item/food/grown/banana/bluespace
 	mutatelist = list()
 	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list("singulo" = 0.2, "banana" = 0.1, "vitamin" = 0.04, "plantmatter" = 0.02)
 	rarity = 30
 
-/obj/item/food/snacks/grown/banana/bluespace
+/obj/item/food/grown/banana/bluespace
 	seed = /obj/item/seeds/banana/bluespace
 	name = "bluespace banana"
 	icon_state = "bluenana"

@@ -33,7 +33,7 @@
 	to_chat(user, "<span class='notice'>You draw a bit of power from [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>")
 
 /datum/middleClickOverride/badminClicker
-	var/summon_path = /obj/item/food/snacks/cookie
+	var/summon_path = /obj/item/food/cookie
 
 /datum/middleClickOverride/badminClicker/onClick(atom/A, mob/living/user)
 	var/atom/movable/newObject = new summon_path
@@ -53,13 +53,13 @@
 	if(!P)
 		return
 	if(world.time < P.last_shocked + P.shock_delay)
-		to_chat(user, "<span class='warning'>The gloves are still recharging.</span>")
+		to_chat(user, "<span class='warning'>The powerchip is still recharging.</span>")
 		return FALSE
 	var/turf/T = get_turf(user)
 	var/obj/structure/cable/C = locate() in T
 	if(!P.unlimited_power)
 		if(!C || !istype(C))
-			to_chat(user, "<span class='warning'>There is no cable here to power the gloves.</span>")
+			to_chat(user, "<span class='warning'>There is no cable here to power the bio-chip.</span>")
 			return FALSE
 	var/turf/target_turf = get_turf(A)
 	if(get_dist(T, target_turf) > P.shock_range)
@@ -75,7 +75,7 @@
 		beam_from.Beam(target_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 6)
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
-			var/powergrid = C.get_available_power() //We want available power, so the station being conservative doesn't mess with glove / dark bundle users
+			var/powergrid = C.get_available_power() //We want available power, so the station being conservative doesn't mess with the power biochip / dark bundle users
 			if(user.a_intent == INTENT_DISARM)
 				add_attack_logs(user, L, "shocked with power bio-chip.")
 				L.apply_damage(60, STAMINA)
