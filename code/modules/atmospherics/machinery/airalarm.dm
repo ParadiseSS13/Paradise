@@ -216,6 +216,9 @@
 	if(!building)
 		first_run()
 
+	if(!master_is_operating())
+		elect_master()
+
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
@@ -230,11 +233,6 @@
 /obj/machinery/alarm/proc/first_run()
 	apply_preset(AALARM_PRESET_HUMAN) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
-
-/obj/machinery/alarm/Initialize(mapload)
-	. = ..()
-	if(!master_is_operating())
-		elect_master()
 
 /obj/machinery/alarm/proc/master_is_operating()
 	if(!alarm_area)

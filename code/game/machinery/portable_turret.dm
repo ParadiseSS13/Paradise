@@ -962,16 +962,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				build_step = 6
 				return
 
-	if(is_pen(I))	//you can rename turrets like bots!
-		var/t = input(user, "Enter new turret name", name, finish_name) as text
-		t = sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
-		if(!t)
-			return
-		if(!in_range(src, usr) && loc != usr)
-			return
-
-		finish_name = t
-		return
 	..()
 
 /obj/machinery/porta_turret_construct/screwdriver_act(mob/living/user, obj/item/I)
@@ -1064,7 +1054,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	interact_offline = TRUE
 	power_state = NO_POWER_USE
 	has_cover = FALSE
-	raised = TRUE
 	scan_range = 9
 
 	faction = "syndicate"
@@ -1105,6 +1094,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		req_one_access.Cut()
 	req_access = list(ACCESS_SYNDICATE)
 	one_access = FALSE
+	set_raised_raising(TRUE, FALSE)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/syndicate/update_icon_state()
 	if(stat & BROKEN)

@@ -988,7 +988,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "cB" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -1090,7 +1090,7 @@
 	desc = "A sturdy armoury door. If you listen closely, you can barely make out a soviet marching tune coming from the other side of the door.";
 	name = "Armoury"
 	},
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "cO" = (
@@ -1823,7 +1823,7 @@
 /area/space/nearstation)
 "eB" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/peanuts,
+/obj/item/food/grown/peanuts,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -4086,10 +4086,10 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Central Annex"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -4100,10 +4100,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -4114,10 +4114,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -4131,7 +4131,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
@@ -5610,7 +5610,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "nS" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/soup/beetsoup,
+/obj/item/food/soup/beetsoup,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6384,11 +6384,11 @@
 	layer = 2.9
 	},
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -7534,9 +7534,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "Nv" = (
-/obj/effect/spawner/airlock{
-	req_access_txt = 0
-	},
+/obj/effect/spawner/airlock,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "NK" = (
@@ -7547,9 +7545,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Oh" = (
-/obj/effect/spawner/airlock/w_to_e{
-	req_access_txt = 0
-	},
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "PR" = (
@@ -7569,9 +7565,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "Ud" = (
-/obj/effect/spawner/airlock{
-	req_access_txt = 0
-	},
+/obj/effect/spawner/airlock,
 /turf/simulated/wall/mineral/titanium/nodecon,
 /area/ruin/space/derelict/arrival)
 "Xn" = (

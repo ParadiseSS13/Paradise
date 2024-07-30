@@ -45,6 +45,40 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
+// Traitor Sword
+/obj/item/melee/snakesfang
+	name = "snakesfang"
+	desc = "A uniquely curved, black and red sword. Extra-edgy and cutting-edge."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon_state = "snakesfang"
+	item_state = "snakesfang"
+	flags = CONDUCT
+	force = 25
+	throwforce = 10
+	w_class = WEIGHT_CLASS_BULKY
+	sharp = TRUE
+	origin_tech = "combat=6;syndicate=3"
+	attack_verb = list("slashed", "sliced", "chopped")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	materials = list(MAT_METAL = 1000)
+
+/obj/item/melee/snakesfang/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+
+/obj/item/melee/snakesfang/examine_more(mob/user)
+	. = ..()
+	. += "A uniquely curved, black and red sword. Extra-edgy and cutting-edge."
+	. += ""
+	. += "The MK-IV Enhanced Combat Blade, more colloquially known as the ‘Snakesfang’, is a vicious yet stylish weapon designed \
+	by a relatively unknown weapons forge with known ties to the Syndicate. With a wide, curved blade and dual points \
+	resembling the fangs of the organization’s serpent motif, the Snakesfang is a statement like no other."
+	. += ""
+	. += "While the benefits of its unique design are dubious at best, the Snakesfang is undoubtedly a perilous weapon, with a hardened \
+	plastitanium edge that can cause untold harm to a soft target. In the right hands, it can be a terrifying weapon to behold, \
+	and it’s said that blood runs down the blade in just the right way, to drip artfully from the twin ‘fangs’ at its apex."
+
 /obj/item/melee/icepick
 	name = "ice pick"
 	desc = "Used for chopping ice. Also excellent for mafia esque murders."

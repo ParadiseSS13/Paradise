@@ -45,6 +45,7 @@
 			var/mob/living/carbon/human/H = user
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
+
 	else if(istype(W, /obj/item/photo))
 		amount++
 		photos++
@@ -53,8 +54,10 @@
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(W)
 		W.loc = src
+
 	else if(W.get_heat())
 		burnpaper(W, user)
+
 	else if(istype(W, /obj/item/paper_bundle))
 		user.unEquip(W)
 		for(var/obj/O in W)
@@ -65,6 +68,7 @@
 				screen = 1
 		to_chat(user, "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		qdel(W)
+
 	else
 		if(is_pen(W) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
@@ -72,10 +76,6 @@
 		P.attackby(W, user, params)
 
 	update_icon()
-	if(winget(usr, "PaperBundle[UID()]", "is-visible") == "true") // NOT MY FAULT IT IS A BUILT IN PROC PLEASE DO NOT HIT ME
-		attack_self(usr) //Update the browsed page.
-	add_fingerprint(usr)
-	return
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/heating_object, mob/user)
 	var/class = "warning"
@@ -136,7 +136,6 @@
 /obj/item/paper_bundle/attack_self(mob/user as mob)
 	show_content(user)
 	add_fingerprint(usr)
-	return
 
 /obj/item/paper_bundle/Topic(href, href_list)
 	if(..())

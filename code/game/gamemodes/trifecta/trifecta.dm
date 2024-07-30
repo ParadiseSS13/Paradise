@@ -20,14 +20,16 @@
 	var/amount_vamp = 1
 	var/amount_cling = 1
 	var/amount_tot = 1
+	/// How many points did we get at roundstart
+	var/cost_at_roundstart
 
 /datum/game_mode/trifecta/announce()
 	to_chat(world, "<b>The current game mode is - Trifecta</b>")
 	to_chat(world, "<b>Vampires, traitors, and changelings, oh my! Stay safe as these forces work to bring down the station.</b>")
 
-
 /datum/game_mode/trifecta/pre_setup()
 	calculate_quantities()
+	cost_at_roundstart = num_players()
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
@@ -101,12 +103,38 @@
 /datum/game_mode/trifecta/post_setup()
 	for(var/datum/mind/vampire as anything in pre_vampires)
 		vampire.add_antag_datum(/datum/antagonist/vampire)
+
 	for(var/datum/mind/changeling as anything in pre_changelings)
 		changeling.add_antag_datum(/datum/antagonist/changeling)
+
 	for(var/datum/mind/traitor as anything in pre_traitors)
-		traitor.add_antag_datum(/datum/antagonist/traitor)
+		var/datum/antagonist/traitor/tot_datum = new()
+		tot_datum.delayed_objectives = TRUE
+		traitor.add_antag_datum(tot_datum)
+
+	if(length(pre_traitors))
+		var/random_time = rand(5 MINUTES, 15 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(fill_antag_slots)), random_time)
+
 	..()
 
+/datum/game_mode/trifecta/traitors_to_add()
+	. = 0
+	for(var/datum/mind/traitor_mind as anything in traitors)
+		if(!QDELETED(traitor_mind) && traitor_mind.current) // Explicitly no client check in case you happen to fall SSD when this gets ran
+			continue
+		.++
+		traitors -= traitor_mind
+
+	var/extra_points = num_players_started() - cost_at_roundstart
+	if(extra_points - TOT_COST < 0)
+		return 0 // Not enough new players to add extra tots
+
+	while(extra_points)
+		.++
+		if(extra_points < TOT_COST) // The leftover change is enough for us to buy another traitor with, what a deal!
+			return
+		extra_points -= TOT_COST
 
 #undef TOT_COST
 #undef VAMP_COST
