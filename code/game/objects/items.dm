@@ -994,7 +994,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /**
   * Handles the bulk of cigarette lighting interactions. You must call `light()` to actually light the cigarette.
   *
-  * The parent will return the target's cigarette (or the cigarette itself if attacked directly) if all checks are passed.
+  * Returns: the target's cigarette (or the cigarette itself if attacked directly) if all checks are passed.
   * If the cigarette is already lit, or is a fancy smokable being lit by anything other than a zippo or match, will return `FALSE`.
   * Otherwise it will return `null`.
   * Arguments:

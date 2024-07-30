@@ -199,7 +199,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "lit [name]"
 	attack_verb = list("burnt", "singed")
 	hitsound = 'sound/items/welder.ogg'
-	damtype = "fire"
+	damtype = BURN
 	force = 4
 	var/mob/M = loc
 
@@ -351,9 +351,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/cigbutt/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-10,10)
-	pixel_y = rand(-10,10)
-	transform = turn(transform,rand(0,360))
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
+	transform = turn(transform, rand(0, 360))
 
 /obj/item/cigbutt/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user))
