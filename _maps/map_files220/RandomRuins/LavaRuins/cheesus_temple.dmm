@@ -95,7 +95,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 9
 	},
-/obj/item/food/snacks/sliceable/cheesecake,
+/obj/item/food/sliceable/cheesecake,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "gV" = (
@@ -227,7 +227,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 6
 	},
-/obj/item/food/snacks/macncheese{
+/obj/item/food/macncheese{
 	pixel_y = 7
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -374,7 +374,7 @@
 "Hh" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/item/food/snacks/vulpix/cheese{
+/obj/item/food/vulpix/cheese{
 	pixel_y = 6;
 	pixel_x = -9
 	},
@@ -497,7 +497,7 @@
 	dir = 5
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/item/food/snacks/sliceable/cheesewheel,
+/obj/item/food/sliceable/cheesewheel,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "ZK" = (

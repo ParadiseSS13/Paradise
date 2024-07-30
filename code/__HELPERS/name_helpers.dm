@@ -132,22 +132,13 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 		. = ""
 	else
 		. = list()
-	var/words = pick(//How many words there will be. Minimum of two. 2, 4 and 5 have a lesser chance of being selected. 3 is the most likely.
-		50; 2,
-		200; 3,
-		50; 4,
+	var/words = pick(//How many words there will be. Minimum of three. 4 is the most likely.
+		100; 3,
+		150; 4,
 		25; 5
 	)
 
 	var/safety[] = list(1,2,3)//Tells the proc which options to remove later on.
-	// var/nouns[] = list("love","hate","anger","peace","pride","sympathy","bravery","loyalty","honesty","integrity","compassion","charity","success","courage","deceit","skill","beauty","brilliance","pain","misery","beliefs","dreams","justice","truth","faith","liberty","knowledge","thought","information","culture","trust","dedication","progress","education","hospitality","leisure","trouble","friendships", "relaxation")
-	// var/drinks[] = list("vodka and tonic","gin fizz","bahama mama","manhattan","black Russian","whiskey soda","long island tea","margarita","Irish coffee"," manly dwarf","Irish cream","doctor's delight","Beepksy Smash","tequila sunrise","brave bull","gargle blaster","bloody mary","whiskey cola","white Russian","vodka martini","martini","Cuba libre","kahlua","vodka","wine","moonshine")
-	// var/locations[] = length(SSmapping.teleportlocs) ? SSmapping.teleportlocs : drinks//if null, defaults to drinks instead.
-	// SS220 DELETE
-	var/names[] = list()
-	for(var/datum/data/record/t in GLOB.data_core.general)//Picks from crew manifest.
-		names += t.fields["name"]
-
 	var/maxwords = words//Extra var to check for duplicates.
 
 	for(words,words>0,words--)//Randomly picks from one of the choices below.
@@ -159,24 +150,15 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 
 		switch(pick(safety))//Chance based on the safety list.
 			if(1)//1 and 2 can only be selected once each to prevent more than two specific names/places/etc.
-				switch(rand(1, 2)) // Mainly to add more options later.
-					if(1)
-						if(length(names))
-							. += pick(names)
-					if(2)
-						. += pick(GLOB.jobs)//Returns a job. // SS220 EDIT - ORIGINAL: (GLOB.joblist)
+				. += pick(GLOB.jobs)//Returns a job. // SS220 EDIT - ORIGINAL: GLOB.joblist
 				safety -= 1
 			if(2)
-				switch(rand(1,2))//Places or things.
-					if(1)
-						. += pick(GLOB.cocktails) // SS220 EDIT - ORIGINAL: (drinks)
-					if(2)
-						. += pick(GLOB.locations) // SS220 EDIT - ORIGINAL: (locations)
+				. += pick(GLOB.locations) // SS220 EDIT - ORIGINAL: GLOB.codeword_locations
 				safety -= 2
 			if(3)
 				switch(rand(1, 3)) // Nouns, adjectives, verbs. Can be selected more than once.
 					if(1)
-						. += pick(GLOB.nouns) // SS220 EDIT - ORIGINAL: (nouns)
+						. += pick(GLOB.nouns) // SS220 EDIT - ORIGINAL:(GLOB.codeword_nouns
 					if(2)
 						. += pick(GLOB.adjectives)
 					if(3)

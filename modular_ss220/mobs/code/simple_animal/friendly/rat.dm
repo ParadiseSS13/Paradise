@@ -13,7 +13,7 @@
 	maxHealth = 15
 	health = 15
 	mob_size = MOB_SIZE_SMALL
-	butcher_results = list(/obj/item/food/snacks/meat/mouse = 2)
+	butcher_results = list(/obj/item/food/meat/mouse = 2)
 
 /mob/living/simple_animal/mouse/rat/white
 	name = "white rat"

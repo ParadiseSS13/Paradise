@@ -71,7 +71,7 @@
 	taste_description = "сухая приправа"
 
 // Slices
-/obj/item/food/snacks/cucumberslice
+/obj/item/food/cucumberslice
 	name = "ломтик огурца"
 	desc = "Нарезанный огурец, неожиданно, правда?"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -93,8 +93,8 @@
 /datum/recipe/microwave/tomato_sauce
 	reagents = list("water" = 15, "sodiumchloride" = 1, "blackpepper" = 1, "herbsmix" = 1)
 	items = list(
-		/obj/item/food/snacks/grown/garlic,
-		/obj/item/food/snacks/grown/tomato)
+		/obj/item/food/grown/garlic,
+		/obj/item/food/grown/tomato)
 	result = /obj/item/reagent_containers/condiment/tomato_sauce
 
 // Diablo Sauce
@@ -109,8 +109,8 @@
 /datum/recipe/microwave/diablo_sauce
 	reagents = list("water" = 15, "sodiumchloride" = 1, "blackpepper" = 2, "herbsmix" = 1)
 	items = list(
-		/obj/item/food/snacks/grown/tomato,
-		/obj/item/food/snacks/grown/chili)
+		/obj/item/food/grown/tomato,
+		/obj/item/food/grown/chili)
 	result = /obj/item/reagent_containers/condiment/diablo_sauce
 
 // Cheese Sauce
@@ -125,8 +125,8 @@
 /datum/recipe/microwave/cheese_sauce
 	reagents = list("milk" = 15, "cream" = 5)
 	items = list(
-		/obj/item/food/snacks/cheesewedge,
-		/obj/item/food/snacks/cheesewedge)
+		/obj/item/food/cheesewedge,
+		/obj/item/food/cheesewedge)
 	result = /obj/item/reagent_containers/condiment/cheese_sauce
 
 // Mushroom Sauce
@@ -141,8 +141,8 @@
 /datum/recipe/microwave/mushroom_sauce
 	reagents = list("milk" = 15, "cream" = 5, "sodiumchloride" = 1,)
 	items = list(
-		/obj/item/food/snacks/grown/onion,
-		/obj/item/food/snacks/grown/mushroom)
+		/obj/item/food/grown/onion,
+		/obj/item/food/grown/mushroom)
 	result = /obj/item/reagent_containers/condiment/mushroom_sauce
 
 // Garlic Sauce
@@ -157,8 +157,8 @@
 /datum/recipe/microwave/garlic_sauce
 	reagents = list("water" = 15, "sodiumchloride" = 1, "herbsmix" = 1)
 	items = list(
-		/obj/item/food/snacks/grown/garlic,
-		/obj/item/food/snacks/grown/cucumber)
+		/obj/item/food/grown/garlic,
+		/obj/item/food/grown/cucumber)
 	result = /obj/item/reagent_containers/condiment/garlic_sauce
 
 // Custard
@@ -172,7 +172,7 @@
 
 /datum/recipe/microwave/custard
 	reagents = list("sugar" = 10, "milk" = 10, "cream" = 5, "vanilla" = 5)
-	items = list(/obj/item/food/snacks/egg)
+	items = list(/obj/item/food/egg)
 	result = /obj/item/reagent_containers/condiment/custard
 
 // Herbs

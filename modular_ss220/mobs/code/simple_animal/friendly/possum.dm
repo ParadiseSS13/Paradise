@@ -34,7 +34,7 @@
 	turns_per_move = 10
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
-	butcher_results = list(/obj/item/food/snacks/meat = 2)
+	butcher_results = list(/obj/item/food/meat = 2)
 	holder_type = /obj/item/holder/possum
 
 /mob/living/simple_animal/possum/attackby(obj/item/O, mob/living/user)

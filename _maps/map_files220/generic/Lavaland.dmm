@@ -952,7 +952,7 @@
 /area/mine/outpost/storage)
 "cl" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/item/food/snacks/fortunecookie{
+/obj/item/food/fortunecookie{
 	pixel_y = -5;
 	pixel_x = -6
 	},
@@ -5258,7 +5258,7 @@
 "oB" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)

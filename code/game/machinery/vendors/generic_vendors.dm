@@ -866,9 +866,9 @@
 	icon_off = "nutri"
 	icon_panel = "thin_vendor"
 	category = VENDOR_TYPE_FOOD
-	products = list(/obj/item/food/snacks/tofu = 24,
+	products = list(/obj/item/food/tofu = 24,
 					/obj/item/reagent_containers/drinks/ice = 12,
-					/obj/item/food/snacks/candy/candy_corn = 6)
+					/obj/item/food/candy/candy_corn = 6)
 
 	contraband = list(/obj/item/kitchen/knife = 6,
 					/obj/item/reagent_containers/drinks/coffee = 12,
@@ -918,32 +918,32 @@
 	icon_off = "nutri"
 	icon_panel = "thin_vendor"
 	category = VENDOR_TYPE_FOOD
-	products = list(/obj/item/food/snacks/candy/candybar = 6,
+	products = list(/obj/item/food/candy/candybar = 6,
 					/obj/item/reagent_containers/drinks/dry_ramen = 6,
-					/obj/item/food/snacks/chips = 6,
-					/obj/item/food/snacks/twimsts = 6,
-					/obj/item/food/snacks/sosjerky = 6,
-					/obj/item/food/snacks/no_raisin = 6,
-					/obj/item/food/snacks/pistachios = 6,
-					/obj/item/food/snacks/spacetwinkie = 6,
-					/obj/item/food/snacks/cheesiehonkers = 6,
-					/obj/item/food/snacks/tastybread = 6,
-					/obj/item/food/snacks/stroopwafel = 2)
+					/obj/item/food/chips = 6,
+					/obj/item/food/twimsts = 6,
+					/obj/item/food/sosjerky = 6,
+					/obj/item/food/no_raisin = 6,
+					/obj/item/food/pistachios = 6,
+					/obj/item/food/spacetwinkie = 6,
+					/obj/item/food/cheesiehonkers = 6,
+					/obj/item/food/tastybread = 6,
+					/obj/item/food/stroopwafel = 2)
 
-	contraband = list(/obj/item/food/snacks/syndicake = 6)
+	contraband = list(/obj/item/food/syndicake = 6)
 
-	prices = list(/obj/item/food/snacks/candy/candybar = 64,
+	prices = list(/obj/item/food/candy/candybar = 64,
 				/obj/item/reagent_containers/drinks/dry_ramen = 32,
-				/obj/item/food/snacks/chips = 64,
-				/obj/item/food/snacks/twimsts = 64,
-				/obj/item/food/snacks/sosjerky = 64,
-				/obj/item/food/snacks/no_raisin = 80,
-				/obj/item/food/snacks/pistachios = 80,
-				/obj/item/food/snacks/spacetwinkie = 64,
-				/obj/item/food/snacks/cheesiehonkers = 64,
-				/obj/item/food/snacks/tastybread = 80,
-				/obj/item/food/snacks/stroopwafel = 100,
-				/obj/item/food/snacks/syndicake = 175) //syndicakes are genuinely kind of powerful
+				/obj/item/food/chips = 64,
+				/obj/item/food/twimsts = 64,
+				/obj/item/food/sosjerky = 64,
+				/obj/item/food/no_raisin = 80,
+				/obj/item/food/pistachios = 80,
+				/obj/item/food/spacetwinkie = 64,
+				/obj/item/food/cheesiehonkers = 64,
+				/obj/item/food/tastybread = 80,
+				/obj/item/food/stroopwafel = 100,
+				/obj/item/food/syndicake = 175) //syndicakes are genuinely kind of powerful
 
 	refill_canister = /obj/item/vending_refill/snack
 
@@ -961,19 +961,19 @@
 	icon_state = "chang"
 	icon_lightmask = "chang"
 	category = VENDOR_TYPE_FOOD
-	products = list(/obj/item/food/snacks/chinese/chowmein = 6,
-					/obj/item/food/snacks/chinese/tao = 6,
-					/obj/item/food/snacks/chinese/sweetsourchickenball = 6,
-					/obj/item/food/snacks/chinese/newdles = 6,
-					/obj/item/food/snacks/chinese/rice = 6,
-					/obj/item/food/snacks/fortunecookie = 6)
+	products = list(/obj/item/food/chinese/chowmein = 6,
+					/obj/item/food/chinese/tao = 6,
+					/obj/item/food/chinese/sweetsourchickenball = 6,
+					/obj/item/food/chinese/newdles = 6,
+					/obj/item/food/chinese/rice = 6,
+					/obj/item/food/fortunecookie = 6)
 
-	prices = list(/obj/item/food/snacks/chinese/chowmein = 125,
-				/obj/item/food/snacks/chinese/tao = 125,
-				/obj/item/food/snacks/chinese/sweetsourchickenball = 125,
-				/obj/item/food/snacks/chinese/newdles = 100,
-				/obj/item/food/snacks/chinese/rice = 100,
-				/obj/item/food/snacks/fortunecookie = 50)
+	prices = list(/obj/item/food/chinese/chowmein = 125,
+				/obj/item/food/chinese/tao = 125,
+				/obj/item/food/chinese/sweetsourchickenball = 125,
+				/obj/item/food/chinese/newdles = 100,
+				/obj/item/food/chinese/rice = 100,
+				/obj/item/food/fortunecookie = 50)
 
 	refill_canister = /obj/item/vending_refill/chinese
 

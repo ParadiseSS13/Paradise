@@ -535,7 +535,7 @@
 	pixel_x = 8
 	},
 /obj/item/toy/plushie/voxplushie,
-/obj/item/food/snacks/cheesepizzaslice{
+/obj/item/food/cheesepizzaslice{
 	pixel_y = -2;
 	pixel_x = -7
 	},

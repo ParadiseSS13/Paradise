@@ -957,7 +957,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "cV" = (
-/obj/machinery/cooking,
 /turf/simulated/floor/plasteel{
 	icon_state = "blueyellowfull"
 	},
@@ -985,8 +984,8 @@
 /area/awaymission/space_battle/syndicate)
 "da" = (
 /obj/structure/closet/cardboard,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
+/obj/item/food/beans,
+/obj/item/food/beans,
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/space_battle/storage)
@@ -1116,9 +1115,9 @@
 /area/awaymission/space_battle/hallway1)
 "dz" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/space_battle/kitchen)
 "dA" = (
@@ -1646,9 +1645,9 @@
 /area/awaymission/space_battle)
 "fn" = (
 /obj/structure/closet/crate/wooden/barrel,
-/obj/item/food/snacks/honeycomb,
-/obj/item/food/snacks/honeycomb,
-/obj/item/food/snacks/honeycomb,
+/obj/item/food/honeycomb,
+/obj/item/food/honeycomb,
+/obj/item/food/honeycomb,
 /turf/simulated/floor/wood/cherry,
 /area/awaymission/space_battle)
 "fo" = (
@@ -2941,9 +2940,8 @@
 /obj/machinery/door/airlock{
 	id_tag = "t3"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 1;
-	icon_state = "wheels2"
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel,
@@ -3539,9 +3537,8 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 4;
-	icon_state = "xeno2"
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/drip{
 	icon_state = "5"
@@ -3602,9 +3599,8 @@
 /obj/effect/decal/cleanable/blood/drip{
 	icon_state = "3"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 1;
-	icon_state = "paw2"
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 1
 	},
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner{
 	id = "toilet"
@@ -3632,8 +3628,8 @@
 /area/awaymission/space_battle/syndicate/syndicate6)
 "kR" = (
 /obj/structure/closet/cardboard,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
+/obj/item/food/beans,
+/obj/item/food/beans,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/space_battle/storage)
 "kS" = (
@@ -3659,7 +3655,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/space_battle/hallway4)
 "kX" = (
@@ -4084,7 +4080,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "mq" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -4249,9 +4245,8 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/space_battle/kitchen)
 "mX" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 4;
-	icon_state = "blood1"
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway3)
@@ -4466,9 +4461,7 @@
 	},
 /area/awaymission/space_battle/server)
 "nI" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	icon_state = "blood1"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway4)
 "nJ" = (
@@ -4508,7 +4501,7 @@
 	},
 /area/awaymission/space_battle/hallway11)
 "nN" = (
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -5512,7 +5505,7 @@
 	},
 /area/awaymission/space_battle/hallway11)
 "rc" = (
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -5874,7 +5867,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway1)
 "sl" = (
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -6122,9 +6115,8 @@
 /obj/machinery/door/airlock/security{
 	name = "Turret Room"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 4;
-	icon_state = "blood1"
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway6)
@@ -6312,9 +6304,9 @@
 /area/awaymission/space_battle/syndicate/syndicate1)
 "tH" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/space_battle/kitchen)
@@ -6668,9 +6660,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
 "uM" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 1;
-	icon_state = "blood2"
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
@@ -7819,9 +7810,8 @@
 	},
 /area/awaymission/space_battle/hallway10)
 "yv" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 1;
-	icon_state = "blood2"
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -8600,7 +8590,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/engine)
 "AY" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -8670,9 +8660,8 @@
 	},
 /area/awaymission/space_battle/hallway2)
 "Bg" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 8;
-	icon_state = "xeno2"
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/hallway10)
@@ -9287,7 +9276,7 @@
 /area/awaymission/space_battle/hallway5)
 "CU" = (
 /obj/effect/landmark/damageturf,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -10105,9 +10094,8 @@
 	},
 /area/awaymission/space_battle/hallway2)
 "Fs" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 4;
-	icon_state = "xeno2"
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -10798,7 +10786,7 @@
 	},
 /area/awaymission/space_battle/engine)
 "Hq" = (
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -11313,7 +11301,7 @@
 /turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/space_battle/engineering)
 "IS" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway8)
 "IT" = (
@@ -11441,9 +11429,8 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 8;
-	icon_state = "blood1"
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
@@ -11604,10 +11591,6 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
-"JQ" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/turf/simulated/floor/plasteel,
-/area/awaymission/space_battle/hallway4)
 "JR" = (
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plating,
@@ -12352,7 +12335,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/space_battle/turret2)
 "Mg" = (
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -14532,9 +14515,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
 "SS" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	dir = 8;
-	icon_state = "blood1"
+/obj/effect/decal/cleanable/blood/tracks/mapped{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -14993,7 +14975,7 @@
 /area/awaymission/space_battle/kitchen)
 "Ux" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/food/snacks/amanitajelly,
+/obj/item/food/amanitajelly,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/space_battle/kitchen)
 "Uy" = (
@@ -15061,9 +15043,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/space_battle/storage)
 "UI" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	icon_state = "blood1"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -15294,7 +15274,7 @@
 /obj/item/stack/rods{
 	amount = 15
 	},
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway4)
 "Vo" = (
@@ -15802,7 +15782,7 @@
 /obj/structure/table/reinforced,
 /obj/item/kitchen/rollingpin,
 /obj/item/kitchen/knife,
-/obj/item/food/snacks/carpmeat,
+/obj/item/food/carpmeat,
 /turf/simulated/floor/plasteel{
 	icon_state = "blueyellowfull"
 	},
@@ -15859,9 +15839,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway9)
 "Xf" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	icon_state = "xeno2"
-	},
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/effect/decal/cleanable/blood/drip{
 	icon_state = "3"
 	},
@@ -15945,7 +15923,7 @@
 	},
 /area/awaymission/space_battle/syndicate/syndicate1)
 "Xr" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 1
@@ -16132,7 +16110,7 @@
 /area/awaymission/space_battle/sec_storage)
 "XQ" = (
 /obj/machinery/door/airlock,
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway3)
 "XR" = (
@@ -16645,7 +16623,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -56065,7 +56043,7 @@ VC
 cf
 nK
 Vn
-JQ
+nI
 nI
 kW
 rh

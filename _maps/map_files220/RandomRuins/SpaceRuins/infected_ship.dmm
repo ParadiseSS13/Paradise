@@ -375,7 +375,7 @@
 	name = "microwave";
 	pixel_y = 9
 	},
-/obj/item/food/snacks/syndidonkpocket{
+/obj/item/food/syndidonkpocket{
 	pixel_x = -7
 	},
 /turf/simulated/floor/plasteel{
@@ -832,8 +832,8 @@
 /area/ruin/space/powered/requires_power_space)
 "sj" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/meat/corgi,
-/obj/item/food/snacks/meat/corgi,
+/obj/item/food/meat/corgi,
+/obj/item/food/meat/corgi,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/powered/requires_power_space)
@@ -1232,7 +1232,7 @@
 "Ge" = (
 /obj/structure/table/wood,
 /obj/item/trash/plate,
-/obj/item/food/snacks/syndidonkpocket{
+/obj/item/food/syndidonkpocket{
 	pixel_y = 14;
 	pixel_x = 6
 	},

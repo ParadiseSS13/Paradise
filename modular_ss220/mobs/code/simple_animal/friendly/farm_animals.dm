@@ -46,7 +46,7 @@
 	density = 0
 	speak_chance = 2
 	turns_per_move = 3
-	butcher_results = list(/obj/item/food/snacks/meat = 4)
+	butcher_results = list(/obj/item/food/meat = 4)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -110,7 +110,7 @@
 	icon_living = "gosling"
 	icon_dead = "gosling_dead"
 	icon_resting = "gosling_rest"
-	butcher_results = list(/obj/item/food/snacks/meat = 3)
+	butcher_results = list(/obj/item/food/meat = 3)
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	health = 20

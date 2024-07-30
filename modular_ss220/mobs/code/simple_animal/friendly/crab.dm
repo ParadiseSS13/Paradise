@@ -18,7 +18,7 @@
 	response_harm   = "щипает"
 	health = 50
 	maxHealth = 50
-	butcher_results = list(/obj/item/food/snacks/meat = 3)
+	butcher_results = list(/obj/item/food/meat = 3)
 
 /mob/living/simple_animal/crab/royal
 	name = "королевский краб"
@@ -32,7 +32,7 @@
 	response_harm   = "щипает без уважения"
 	health = 50
 	maxHealth = 50
-	butcher_results = list(/obj/item/food/snacks/meat = 5)
+	butcher_results = list(/obj/item/food/meat = 5)
 
 /mob/living/simple_animal/crab/evil
 	holder_type = /obj/item/holder/evilcrab

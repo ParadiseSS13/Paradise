@@ -116,7 +116,7 @@
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/pda/clown(src)
 	new /obj/item/storage/box/survival(src)
-	new /obj/item/food/snacks/grown/banana(src)
+	new /obj/item/food/grown/banana(src)
 	new /obj/item/stamp/clown(src)
 	new /obj/item/toy/crayon/rainbow(src)
 	new /obj/item/storage/fancy/crayons(src)
@@ -752,7 +752,7 @@
 			value += 1
 		if(8)
 			if(prob(25))
-				new /obj/item/food/snacks/grown/nymph_pod(src)
+				new /obj/item/food/grown/nymph_pod(src)
 				new /obj/item/slimepotion/sentience(src)
 			else
 				new /obj/item/paicard(src) //Still useful, not a point useful.
@@ -762,8 +762,8 @@
 			/obj/item/storage/box/syndidonkpockets, // Healing + speed
 			/obj/item/reagent_containers/drinks/bottle/dragonsbreath, // Killing
 			/obj/item/reagent_containers/drinks/bottle/immortality, // Super healing for 20 seconds
-			/obj/item/food/snacks/meatsteak/stimulating, //Healing + stun immunity
-			/obj/item/food/snacks/plum_pie ) // Great healing over long period of time
+			/obj/item/food/meatsteak/stimulating, //Healing + stun immunity
+			/obj/item/food/plum_pie ) // Great healing over long period of time
 	new pickedt(src)
 
 
@@ -793,13 +793,13 @@
 	volume = 5
 	list_reagents = list("adminordrazine" = 5)
 
-/obj/item/food/snacks/meatsteak/stimulating
+/obj/item/food/meatsteak/stimulating
 	name = "stimulating steak"
 	desc = "Stimulate your senses."
 	list_reagents = list("nutriment" = 5, "stimulants" = 25)
 	bitesize = 100
 
-/obj/item/food/snacks/plum_pie
+/obj/item/food/plum_pie
 	name = "perfect plum pie"
 	desc = "The Jack Horner brand of pie. 2 big thumbs up."
 	icon = 'icons/obj/food/bakedgoods.dmi'

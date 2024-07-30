@@ -1235,7 +1235,7 @@
 "pm" = (
 /obj/item/storage/bag/tray,
 /obj/effect/turf_decal/stripes/red/box,
-/obj/item/food/snacks/grown/watermelon{
+/obj/item/food/grown/watermelon{
 	pixel_y = 2;
 	pixel_x = 1
 	},
@@ -1575,16 +1575,16 @@
 /area/awaymission/beach)
 "va" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/salmonmeat,
-/obj/item/food/snacks/salmonmeat,
-/obj/item/food/snacks/salmonmeat,
-/obj/item/food/snacks/salmonmeat,
-/obj/item/food/snacks/salmonmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/salmonmeat,
+/obj/item/food/salmonmeat,
+/obj/item/food/salmonmeat,
+/obj/item/food/salmonmeat,
+/obj/item/food/salmonmeat,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "vq" = (
@@ -1617,7 +1617,7 @@
 	pixel_x = -6;
 	pixel_y = -5
 	},
-/obj/item/food/snacks/donut{
+/obj/item/food/donut{
 	pixel_x = 13
 	},
 /obj/item/folder/blue{
@@ -2144,11 +2144,11 @@
 /area/awaymission/beach)
 "Cf" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/watermelon{
+/obj/item/food/grown/watermelon{
 	pixel_y = 8;
 	pixel_x = 5
 	},
-/obj/item/food/snacks/grown/watermelon{
+/obj/item/food/grown/watermelon{
 	pixel_y = 3;
 	pixel_x = -3
 	},
@@ -2499,7 +2499,7 @@
 	pixel_y = 10;
 	pixel_x = 11
 	},
-/obj/item/food/snacks/donut/sprinkles{
+/obj/item/food/donut/sprinkles{
 	pixel_x = -8;
 	pixel_y = 4
 	},
@@ -2869,15 +2869,15 @@
 /area/awaymission/beach)
 "KK" = (
 /obj/structure/table/wood/fancy/orange,
-/obj/item/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_y = 8;
 	pixel_x = -4
 	},
-/obj/item/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_y = 6;
 	pixel_x = -1
 	},
-/obj/item/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_y = 4;
 	pixel_x = 3
 	},
@@ -2937,9 +2937,9 @@
 /obj/item/reagent_containers/condiment/flour,
 /obj/item/reagent_containers/condiment/rice,
 /obj/item/reagent_containers/condiment/rice,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "LM" = (
@@ -3871,12 +3871,12 @@
 /area/awaymission/beach)
 "XW" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/salmonmeat,
-/obj/item/food/snacks/salmonmeat,
-/obj/item/food/snacks/salmonmeat,
+/obj/item/food/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
+/obj/item/food/salmonmeat,
+/obj/item/food/salmonmeat,
+/obj/item/food/salmonmeat,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "Ya" = (
@@ -3949,11 +3949,11 @@
 /area/awaymission/beach)
 "Ze" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/watermelon{
+/obj/item/food/grown/watermelon{
 	pixel_y = 6;
 	pixel_x = 6
 	},
-/obj/item/food/snacks/watermelonslice{
+/obj/item/food/watermelonslice{
 	pixel_x = -6
 	},
 /turf/simulated/floor/beach/away/sand_alternative,

@@ -446,7 +446,7 @@
 	pixel_y = 10
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/item/food/snacks/grown/apple/poisoned,
+/obj/item/food/grown/apple/poisoned,
 /turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "bY" = (
@@ -1762,7 +1762,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "iy" = (
-/obj/item/food/snacks/grown/poppy{
+/obj/item/food/grown/poppy{
 	pixel_y = -15;
 	pixel_x = -5
 	},
@@ -2154,7 +2154,7 @@
 /area/awaymission/caves/build)
 "kC" = (
 /obj/effect/decal/remains/human,
-/obj/item/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /obj/item/clothing/suit/armor/riot/knight/red,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
@@ -2316,13 +2316,13 @@
 /area/awaymission/caves/build/reqpower_build)
 "lw" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/food/snacks/candy/cotton/poison,
-/obj/item/food/snacks/candy/jellybean/poison{
+/obj/item/food/candy/cotton/poison,
+/obj/item/food/candy/jellybean/poison{
 	pixel_x = -5;
 	pixel_y = 4
 	},
-/obj/item/food/snacks/candy/gummyworm/poison,
-/obj/item/food/snacks/candy/gummybear/poison{
+/obj/item/food/candy/gummyworm/poison,
+/obj/item/food/candy/gummybear/poison{
 	pixel_x = 5;
 	pixel_y = 5
 	},

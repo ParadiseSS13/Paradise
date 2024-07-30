@@ -1094,7 +1094,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return FALSE
 
 	var/fullness = nutrition + 10
-	if(istype(to_eat, /obj/item/food/snacks))
+	if(istype(to_eat, /obj/item/food))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) // We add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency)
 

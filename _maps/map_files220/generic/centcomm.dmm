@@ -1519,25 +1519,25 @@
 /area/centcom/ss220/admin2)
 "aUI" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/food/snacks/frozen/icecream/icecreamcone,
-/obj/item/food/snacks/frozen/icecream/icecreamcone,
-/obj/item/food/snacks/frozen/icecream/icecreamcone,
-/obj/item/food/snacks/frozen/icecream/icecreamcone,
-/obj/item/food/snacks/frozen/icecream,
-/obj/item/food/snacks/frozen/icecream,
-/obj/item/food/snacks/frozen/icecreamsandwich,
-/obj/item/food/snacks/frozen/icecreamsandwich,
-/obj/item/food/snacks/frozen/berryicecreamsandwich,
-/obj/item/food/snacks/frozen/berryicecreamsandwich,
-/obj/item/food/snacks/frozen/berryicecreamsandwich,
-/obj/item/food/snacks/frozen/berryicecreamsandwich,
-/obj/item/food/snacks/frozen/popsicle/frozenpineapple,
-/obj/item/food/snacks/frozen/popsicle/frozenpineapple,
-/obj/item/food/snacks/frozen/popsicle/frozenpineapple,
-/obj/item/food/snacks/frozen/popsicle/orangecream,
-/obj/item/food/snacks/frozen/popsicle/orangecream,
-/obj/item/food/snacks/frozen/popsicle/orangecream,
-/obj/item/food/snacks/frozen/popsicle/orangecream,
+/obj/item/food/frozen/icecream/icecreamcone,
+/obj/item/food/frozen/icecream/icecreamcone,
+/obj/item/food/frozen/icecream/icecreamcone,
+/obj/item/food/frozen/icecream/icecreamcone,
+/obj/item/food/frozen/icecream,
+/obj/item/food/frozen/icecream,
+/obj/item/food/frozen/icecreamsandwich,
+/obj/item/food/frozen/icecreamsandwich,
+/obj/item/food/frozen/berryicecreamsandwich,
+/obj/item/food/frozen/berryicecreamsandwich,
+/obj/item/food/frozen/berryicecreamsandwich,
+/obj/item/food/frozen/berryicecreamsandwich,
+/obj/item/food/frozen/popsicle/frozenpineapple,
+/obj/item/food/frozen/popsicle/frozenpineapple,
+/obj/item/food/frozen/popsicle/frozenpineapple,
+/obj/item/food/frozen/popsicle/orangecream,
+/obj/item/food/frozen/popsicle/orangecream,
+/obj/item/food/frozen/popsicle/orangecream,
+/obj/item/food/frozen/popsicle/orangecream,
 /turf/simulated/floor/plasteel/white,
 /area/centcom/ss220/evac)
 "aVi" = (
@@ -1574,7 +1574,7 @@
 /area/centcom/ss220/admin1)
 "aWC" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/geranium,
+/obj/item/food/grown/geranium,
 /turf/simulated/floor/carpet/green,
 /area/centcom/ss220/park)
 "aWI" = (
@@ -3726,20 +3726,20 @@
 /area/centcom/ss220/command)
 "cam" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/candy/cotton/blue,
-/obj/item/food/snacks/candy/cotton/pink,
-/obj/item/food/snacks/candy/cotton/rainbow,
-/obj/item/food/snacks/candy/cotton/yellow,
-/obj/item/food/snacks/candy/cotton/rainbow,
-/obj/item/food/snacks/candy/cotton/rainbow,
-/obj/item/food/snacks/candy/cotton/rainbow,
-/obj/item/food/snacks/candy/cotton/rainbow,
-/obj/item/food/snacks/candy/cotton/pink,
-/obj/item/food/snacks/candy/cotton/pink,
-/obj/item/food/snacks/candy/cotton/yellow,
-/obj/item/food/snacks/candy/cotton/yellow,
-/obj/item/food/snacks/candy/cotton/blue,
-/obj/item/food/snacks/candy/cotton/blue,
+/obj/item/food/candy/cotton/blue,
+/obj/item/food/candy/cotton/pink,
+/obj/item/food/candy/cotton/rainbow,
+/obj/item/food/candy/cotton/yellow,
+/obj/item/food/candy/cotton/rainbow,
+/obj/item/food/candy/cotton/rainbow,
+/obj/item/food/candy/cotton/rainbow,
+/obj/item/food/candy/cotton/rainbow,
+/obj/item/food/candy/cotton/pink,
+/obj/item/food/candy/cotton/pink,
+/obj/item/food/candy/cotton/yellow,
+/obj/item/food/candy/cotton/yellow,
+/obj/item/food/candy/cotton/blue,
+/obj/item/food/candy/cotton/blue,
 /turf/simulated/floor/plasteel/white,
 /area/centcom/ss220/evac)
 "cas" = (
@@ -5071,7 +5071,7 @@
 /area/centcom/ss220/admin1)
 "cRb" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/poppy,
+/obj/item/food/grown/poppy,
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/park)
 "cRs" = (
@@ -6316,7 +6316,7 @@
 /area/syndicate_mothership/cargo)
 "dzI" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/sliceable/chocolatecake,
+/obj/item/food/sliceable/chocolatecake,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "dzJ" = (
@@ -6833,7 +6833,7 @@
 /area/ghost_bar)
 "dLA" = (
 /obj/structure/table/glass/reinforced/titanium,
-/obj/item/food/snacks/meatbun,
+/obj/item/food/meatbun,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/general)
 "dLC" = (
@@ -7174,7 +7174,7 @@
 /area/centcom/ss220/admin2)
 "dXE" = (
 /obj/structure/table/glass/reinforced/titanium,
-/obj/item/food/snacks/junglesalad,
+/obj/item/food/junglesalad,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/general)
 "dXK" = (
@@ -8084,24 +8084,24 @@
 /area/shuttle/syndicate_elite)
 "eyi" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/sausage,
-/obj/item/food/snacks/sausage,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/spaghetti,
-/obj/item/food/snacks/spaghetti,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/sausage,
+/obj/item/food/sausage,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/spaghetti,
+/obj/item/food/spaghetti,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -8625,7 +8625,7 @@
 /area/syndicate_mothership)
 "eKK" = (
 /obj/structure/table/glass/reinforced/titanium,
-/obj/item/food/snacks/limecakeslice,
+/obj/item/food/limecakeslice,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/general)
 "eLW" = (
@@ -9226,7 +9226,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/sliceable/pizza/diablo,
+/obj/item/food/sliceable/pizza/diablo,
 /obj/machinery/computer/security/telescreen/entertainment/directional/south,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin1)
@@ -9666,25 +9666,25 @@
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	req_access = null
 	},
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/vanillapod,
-/obj/item/food/snacks/grown/vanillapod,
-/obj/item/food/snacks/grown/sugarcane,
-/obj/item/food/snacks/grown/sugarcane,
-/obj/item/food/snacks/grown/oat,
-/obj/item/food/snacks/grown/oat,
-/obj/item/food/snacks/grown/grapes,
-/obj/item/food/snacks/grown/grapes,
-/obj/item/food/snacks/grown/corn,
-/obj/item/food/snacks/grown/corn,
-/obj/item/food/snacks/grown/chili,
-/obj/item/food/snacks/grown/chili,
-/obj/item/food/snacks/grown/carrot,
-/obj/item/food/snacks/grown/apple,
-/obj/item/food/snacks/grown/ambrosia/vulgaris,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/carrot,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/vulgaris,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -10713,7 +10713,7 @@
 /area/centcom/ss220/admin1)
 "fOj" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/applepie,
+/obj/item/food/applepie,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
 "fOJ" = (
@@ -10877,7 +10877,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/onionrings,
+/obj/item/food/onionrings,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin1)
 "fTe" = (
@@ -11724,9 +11724,9 @@
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "gyx" = (
-/obj/item/food/snacks/grown/cannabis/rainbow,
-/obj/item/food/snacks/grown/cannabis/rainbow,
-/obj/item/food/snacks/grown/cannabis/rainbow,
+/obj/item/food/grown/cannabis/rainbow,
+/obj/item/food/grown/cannabis/rainbow,
+/obj/item/food/grown/cannabis/rainbow,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/trader_station/sol)
 "gyy" = (
@@ -11890,22 +11890,22 @@
 /area/syndicate_mothership/infteam)
 "gDl" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/whitebeet,
-/obj/item/food/snacks/grown/whitebeet,
-/obj/item/food/snacks/grown/tomato,
-/obj/item/food/snacks/grown/tomato,
-/obj/item/food/snacks/grown/rice,
-/obj/item/food/snacks/grown/rice,
-/obj/item/food/snacks/grown/icepepper,
-/obj/item/food/snacks/grown/icepepper,
-/obj/item/food/snacks/grown/citrus/lemon,
-/obj/item/food/snacks/grown/citrus/lime,
-/obj/item/food/snacks/grown/citrus/orange,
-/obj/item/food/snacks/grown/cherries,
-/obj/item/food/snacks/grown/apple,
-/obj/item/food/snacks/grown/ambrosia/deus,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/citrus/lemon,
+/obj/item/food/grown/citrus/lime,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/cherries,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/deus,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -13936,7 +13936,7 @@
 /area/abductor_ship)
 "hHu" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/burger/cheese{
+/obj/item/food/burger/cheese{
 	pixel_y = 3
 	},
 /obj/item/kitchen/utensil/fork{
@@ -15680,7 +15680,7 @@
 /area/shuttle/syndicate)
 "iwf" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/chocolatecakeslice,
+/obj/item/food/chocolatecakeslice,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "iwk" = (
@@ -17279,7 +17279,7 @@
 /area/syndicate_mothership/control)
 "jAn" = (
 /obj/machinery/kitchen_machine/oven,
-/obj/item/food/snacks/rawcookies/chocochips{
+/obj/item/food/rawcookies/chocochips{
 	pixel_x = -1;
 	pixel_y = 6
 	},
@@ -17923,7 +17923,7 @@
 /area/syndicate_mothership/elite_squad)
 "jRW" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/benedict,
+/obj/item/food/benedict,
 /obj/structure/light_fake{
 	dir = 1
 	},
@@ -18107,10 +18107,10 @@
 /area/centcom/ss220/admin1)
 "jZg" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/tofukebab,
-/obj/item/food/snacks/tofukebab,
-/obj/item/food/snacks/tofukebab,
-/obj/item/food/snacks/tofukebab,
+/obj/item/food/tofukebab,
+/obj/item/food/tofukebab,
+/obj/item/food/tofukebab,
+/obj/item/food/tofukebab,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -19276,8 +19276,8 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/sliceable/noel,
-/obj/item/food/snacks/smokedsausage,
+/obj/item/food/sliceable/noel,
+/obj/item/food/smokedsausage,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark_large"
 	},
@@ -21564,7 +21564,7 @@
 /area/syndicate_mothership/elite_squad)
 "lMX" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/benedict{
+/obj/item/food/benedict{
 	pixel_y = 6
 	},
 /obj/item/kitchen/utensil/fork{
@@ -23585,7 +23585,7 @@
 	amount = 115;
 	desc = null
 	},
-/obj/item/food/snacks/soup/beetsoup{
+/obj/item/food/soup/beetsoup{
 	desc = "Со вкусом политических убийств";
 	name = "Борщ";
 	pixel_y = 16
@@ -24002,11 +24002,11 @@
 /area/shuttle/syndicate)
 "nkM" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/burger/superbite,
-/obj/item/food/snacks/burger/superbite,
-/obj/item/food/snacks/burger/superbite,
-/obj/item/food/snacks/burger/superbite,
-/obj/item/food/snacks/burger/superbite,
+/obj/item/food/burger/superbite,
+/obj/item/food/burger/superbite,
+/obj/item/food/burger/superbite,
+/obj/item/food/burger/superbite,
+/obj/item/food/burger/superbite,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -25717,8 +25717,8 @@
 /area/ghost_bar)
 "olw" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/boiledpelmeni,
-/obj/item/food/snacks/boiledpelmeni{
+/obj/item/food/boiledpelmeni,
+/obj/item/food/boiledpelmeni{
 	pixel_y = 14
 	},
 /obj/item/kitchen/utensil/fork{
@@ -26421,7 +26421,7 @@
 /obj/structure/table/holotable/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/burger/cheese,
+/obj/item/food/burger/cheese,
 /turf/simulated/floor/carpet/black,
 /area/trader_station/sol)
 "oGr" = (
@@ -26527,8 +26527,8 @@
 /area/centcom/ss220/park)
 "oIC" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/boiledpelmeni,
-/obj/item/food/snacks/boiledpelmeni{
+/obj/item/food/boiledpelmeni,
+/obj/item/food/boiledpelmeni{
 	pixel_y = 14
 	},
 /obj/item/kitchen/utensil/fork{
@@ -27679,7 +27679,7 @@
 /area/syndicate_mothership)
 "prs" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/applecakeslice{
+/obj/item/food/applecakeslice{
 	pixel_y = 4
 	},
 /obj/item/kitchen/utensil/fork{
@@ -28703,8 +28703,8 @@
 /area/centcom/ss220/admin1)
 "pWT" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/boiledpelmeni,
-/obj/item/food/snacks/boiledpelmeni{
+/obj/item/food/boiledpelmeni,
+/obj/item/food/boiledpelmeni{
 	pixel_y = 14
 	},
 /obj/item/kitchen/utensil/fork{
@@ -29655,7 +29655,7 @@
 /area/shuttle/transport)
 "qDb" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/bbqribs,
+/obj/item/food/bbqribs,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/supply)
 "qDc" = (
@@ -30140,7 +30140,7 @@
 /area/ghost_bar)
 "qQI" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/applepie,
+/obj/item/food/applepie,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/supply)
 "qRh" = (
@@ -30808,7 +30808,7 @@
 /area/centcom/ss220/evac)
 "rjq" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/watermelonslice,
+/obj/item/food/watermelonslice,
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo11"
 	},
@@ -32842,7 +32842,7 @@
 	pixel_y = 10;
 	pixel_x = 4
 	},
-/obj/item/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_x = -4;
 	pixel_y = -6
 	},
@@ -33624,7 +33624,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/meatsteak,
+/obj/item/food/meatsteak,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin1)
 "sIl" = (
@@ -33909,7 +33909,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/sliceable/clowncake,
+/obj/item/food/sliceable/clowncake,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark_large"
 	},
@@ -34614,7 +34614,7 @@
 /obj/structure/table/holotable/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/sliceable/turkey,
+/obj/item/food/sliceable/turkey,
 /turf/simulated/floor/carpet/black,
 /area/trader_station/sol)
 "thG" = (
@@ -35688,7 +35688,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/sliceable/birthdaycake,
+/obj/item/food/sliceable/birthdaycake,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark_large"
 	},
@@ -35763,7 +35763,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/sliceable/pizza/macpizza,
+/obj/item/food/sliceable/pizza/macpizza,
 /obj/machinery/computer/security/telescreen/entertainment/directional/south,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin1)
@@ -35833,12 +35833,12 @@
 	},
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "tSy" = (
@@ -36138,7 +36138,7 @@
 /area/centcom/ss220/admin3)
 "uao" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/moonflower,
+/obj/item/food/grown/moonflower,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/park)
 "uaw" = (
@@ -36603,26 +36603,26 @@
 "ups" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/turf_decal/delivery/white,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
 /obj/structure/light_fake/spot{
 	dir = 1
 	},
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
-/obj/item/food/snacks/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
+/obj/item/food/pelmeni,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluefull"
 	},
@@ -36721,31 +36721,31 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/salad/herb,
+/obj/item/food/salad/herb,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin1)
 "usQ" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/food/snacks/grown/meatwheat,
-/obj/item/food/snacks/grown/meatwheat,
-/obj/item/food/snacks/grown/meatwheat,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/tomato,
-/obj/item/food/snacks/grown/tomato,
-/obj/item/food/snacks/grown/tomato,
-/obj/item/food/snacks/grown/tomato,
-/obj/item/food/snacks/grown/whitebeet,
-/obj/item/food/snacks/grown/redbeet,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/rice,
-/obj/item/food/snacks/grown/rice,
-/obj/item/food/snacks/grown/rice,
-/obj/item/food/snacks/grown/rice,
+/obj/item/food/grown/meatwheat,
+/obj/item/food/grown/meatwheat,
+/obj/item/food/grown/meatwheat,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/redbeet,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/rice,
 /obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluefull"
@@ -37852,7 +37852,7 @@
 /area/centcom/ss220/park)
 "vdd" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/boiledbuckwheat{
+/obj/item/food/boiledbuckwheat{
 	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/black,
@@ -39941,7 +39941,7 @@
 /area/centcom/ss220/bar)
 "whc" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/park)
 "whl" = (
@@ -41075,7 +41075,7 @@
 /area/syndicate_mothership/elite_squad)
 "wIW" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/burger/bigbite{
+/obj/item/food/burger/bigbite{
 	pixel_y = 8;
 	pixel_x = 3
 	},
@@ -41465,7 +41465,7 @@
 /area/shuttle/escape)
 "wTj" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/lily,
+/obj/item/food/grown/lily,
 /turf/simulated/floor/carpet/green,
 /area/centcom/ss220/park)
 "wTs" = (
@@ -41486,7 +41486,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/hotdog,
+/obj/item/food/hotdog,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin1)
 "wVB" = (
@@ -41518,7 +41518,7 @@
 /area/syndicate_mothership/infteam)
 "wWB" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/appletart{
+/obj/item/food/appletart{
 	pixel_y = -3
 	},
 /obj/item/kitchen/utensil/fork{
@@ -41678,7 +41678,7 @@
 /area/shuttle/syndicate)
 "xbg" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/bananacakeslice{
+/obj/item/food/bananacakeslice{
 	pixel_y = 4
 	},
 /obj/item/kitchen/utensil/fork{
@@ -42343,8 +42343,8 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/food/snacks/sliceable/pizza/bacon,
-/obj/item/food/snacks/lemoncakeslice,
+/obj/item/food/sliceable/pizza/bacon,
+/obj/item/food/lemoncakeslice,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark_large"
 	},
@@ -42473,8 +42473,8 @@
 /area/syndicate_mothership/control)
 "xtW" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/boiledpelmeni,
-/obj/item/food/snacks/boiledpelmeni{
+/obj/item/food/boiledpelmeni,
+/obj/item/food/boiledpelmeni{
 	pixel_y = 14
 	},
 /obj/item/kitchen/utensil/fork{
@@ -42751,8 +42751,8 @@
 /obj/structure/light_fake/spot{
 	dir = 1
 	},
-/obj/item/food/snacks/boiledpelmeni,
-/obj/item/food/snacks/boiledpelmeni{
+/obj/item/food/boiledpelmeni,
+/obj/item/food/boiledpelmeni{
 	pixel_y = 14
 	},
 /obj/item/kitchen/utensil/fork{
@@ -43658,7 +43658,7 @@
 /area/centcom/ss220/admin1)
 "ycd" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/benedict,
+/obj/item/food/benedict,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/supply)
 "ych" = (

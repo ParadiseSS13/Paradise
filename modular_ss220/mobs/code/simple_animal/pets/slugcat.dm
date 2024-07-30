@@ -21,7 +21,7 @@
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	can_collar = 1
-	butcher_results = list(/obj/item/food/snacks/meat = 5)
+	butcher_results = list(/obj/item/food/meat = 5)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"

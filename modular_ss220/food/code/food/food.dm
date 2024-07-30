@@ -1,7 +1,7 @@
 // Reagent Grinder
 /obj/machinery/reagentgrinder/Initialize(mapload)
 	. = ..()
-	blend_items = list(/obj/item/food/snacks/grown/buckwheat = list("buckwheat" = -5)) + blend_items
+	blend_items = list(/obj/item/food/grown/buckwheat = list("buckwheat" = -5)) + blend_items
 
 // Vending
 /obj/machinery/economy/vending/dinnerware/Initialize(mapload)
@@ -11,15 +11,15 @@
 
 /obj/machinery/economy/vending/snack/Initialize(mapload)
 	products += list(
-		/obj/item/food/snacks/doshik = 6,
-		/obj/item/food/snacks/doshik_spicy = 6,)
+		/obj/item/food/doshik = 6,
+		/obj/item/food/doshik_spicy = 6,)
 	prices += list(
-		/obj/item/food/snacks/doshik = 100,
-		/obj/item/food/snacks/doshik_spicy = 120,)
+		/obj/item/food/doshik = 100,
+		/obj/item/food/doshik_spicy = 120,)
 	. = ..()
 
 // Boiled Buckwheat
-/obj/item/food/snacks/boiledbuckwheat
+/obj/item/food/boiledbuckwheat
 	name = "варёная гречка"
 	desc = "Это просто варёная гречка, ничего необычного."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -31,10 +31,10 @@
 
 /datum/recipe/microwave/boiledbuckwheat
 	reagents = list("water" = 5, "buckwheat" = 10)
-	result = /obj/item/food/snacks/boiledbuckwheat
+	result = /obj/item/food/boiledbuckwheat
 
 // Merchant Buckwheat
-/obj/item/food/snacks/buckwheat_merchant
+/obj/item/food/buckwheat_merchant
 	name = "гречка по-купечески"
 	desc = "Тушёная гречка с овощами и мясом."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -47,13 +47,13 @@
 /datum/recipe/microwave/buckwheat_merchant
 	reagents = list("water" = 5, "buckwheat" = 10)
 	items = list(
-		/obj/item/food/snacks/grown/tomato,
-		/obj/item/food/snacks/grown/carrot,
-		/obj/item/food/snacks/meat)
-	result = /obj/item/food/snacks/buckwheat_merchant
+		/obj/item/food/grown/tomato,
+		/obj/item/food/grown/carrot,
+		/obj/item/food/meat)
+	result = /obj/item/food/buckwheat_merchant
 
 // Olivier Salad
-/obj/item/food/snacks/oliviersalad
+/obj/item/food/oliviersalad
 	name = "салат оливье"
 	desc = "Не трогай, это на новый год!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -67,15 +67,15 @@
 /datum/recipe/microwave/oliviersalad
 	reagents = list("cream" = 10, "sodiumchloride" = 5)
 	items = list(
-		/obj/item/food/snacks/pickles,
-		/obj/item/food/snacks/boiledegg,
-		/obj/item/food/snacks/grown/potato,
-		/obj/item/food/snacks/grown/carrot,
-		/obj/item/food/snacks/sausage)
-	result = /obj/item/food/snacks/oliviersalad
+		/obj/item/food/pickles,
+		/obj/item/food/boiledegg,
+		/obj/item/food/grown/potato,
+		/obj/item/food/grown/carrot,
+		/obj/item/food/sausage)
+	result = /obj/item/food/oliviersalad
 
 // Weird Olivier Salad
-/obj/item/food/snacks/weirdoliviersalad
+/obj/item/food/weirdoliviersalad
 	name = "странный салат оливье"
 	desc = "Что ты сделал с этим оливье, чудовище?"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -89,16 +89,16 @@
 /datum/recipe/microwave/weirdoliviersalad
 	reagents = list("cream" = 10, "sodiumchloride" = 5)
 	items = list(
-		/obj/item/food/snacks/pickles,
-		/obj/item/food/snacks/boiledegg,
-		/obj/item/food/snacks/grown/potato,
-		/obj/item/food/snacks/grown/carrot,
-		/obj/item/food/snacks/sausage,
-		/obj/item/food/snacks/grown/apple)
-	result = /obj/item/food/snacks/weirdoliviersalad
+		/obj/item/food/pickles,
+		/obj/item/food/boiledegg,
+		/obj/item/food/grown/potato,
+		/obj/item/food/grown/carrot,
+		/obj/item/food/sausage,
+		/obj/item/food/grown/apple)
+	result = /obj/item/food/weirdoliviersalad
 
 // Vegetable Salad
-/obj/item/food/snacks/vegisalad
+/obj/item/food/vegisalad
 	name = "овощной салат"
 	desc = "Идеальная комбинация томатов и огурцов."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -112,23 +112,23 @@
 /datum/recipe/microwave/vegisalad
 	reagents = list("cream" = 10, "sodiumchloride" = 5)
 	items = list(
-		/obj/item/food/snacks/grown/cucumber,
-		/obj/item/food/snacks/grown/tomato)
-	result = /obj/item/food/snacks/vegisalad
+		/obj/item/food/grown/cucumber,
+		/obj/item/food/grown/tomato)
+	result = /obj/item/food/vegisalad
 
 // Pickles
-/obj/item/food/snacks/pickles
+/obj/item/food/pickles
 	name = "маринованные огурцы"
 	desc = "Черт, тут много маринованных огурчиков."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "pickles"
-	trash = /obj/item/food/snacks/brine
+	trash = /obj/item/food/brine
 	filling_color = "#C2CFAB"
 	bitesize = 8
 	list_reagents = list("nutriment" = 2, "vitamin" = 1)
 	tastes = list("маринованые огурцы" = 1)
 
-/obj/item/food/snacks/brine
+/obj/item/food/brine
 	name = "рассол"
 	desc = "Самое то после бурной ночи."
 	consume_sound = 'sound/items/drink.ogg'
@@ -141,9 +141,9 @@
 
 /datum/crafting_recipe/pickles
 	name = "Маринованные огурцы"
-	result = list(/obj/item/food/snacks/pickles)
+	result = list(/obj/item/food/pickles)
 	reqs = list(
-		/obj/item/food/snacks/grown/cucumber = 3,
+		/obj/item/food/grown/cucumber = 3,
 		/datum/reagent/water = 10,
 		/datum/reagent/consumable/sodiumchloride = 10)
 	time = 1 SECONDS
@@ -151,7 +151,7 @@
 	subcategory = CAT_MISCFOOD
 
 // Pickle Soup
-/obj/item/food/snacks/soup/rassolnik
+/obj/item/food/soup/rassolnik
 	name = "рассольник"
 	desc = "Популярен в СССП."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -163,12 +163,12 @@
 /datum/recipe/microwave/rassolnik
 	reagents = list("water" = 10, "rice" = 5)
 	items = list(
-		/obj/item/food/snacks/grown/potato,
-		/obj/item/food/snacks/grown/cucumber)
-	result = /obj/item/food/snacks/soup/rassolnik
+		/obj/item/food/grown/potato,
+		/obj/item/food/grown/cucumber)
+	result = /obj/item/food/soup/rassolnik
 
 // Doner
-/obj/item/food/snacks/shawarma
+/obj/item/food/shawarma
 	name = "шаурма"
 	desc = "Великолепное сочетание мяса с гриля и свежих овощей. Не спрашивайте о мясе."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -180,17 +180,17 @@
 /datum/recipe/microwave/shawarma
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
-		/obj/item/food/snacks/meatsteak,
-		/obj/item/food/snacks/meatsteak,
-		/obj/item/food/snacks/grown/cabbage,
-		/obj/item/food/snacks/onion_slice,
-		/obj/item/food/snacks/grown/tomato,
-		/obj/item/food/snacks/grown/carrot,
-		/obj/item/food/snacks/sliceable/flatdough)
-	result = /obj/item/food/snacks/shawarma
+		/obj/item/food/meatsteak,
+		/obj/item/food/meatsteak,
+		/obj/item/food/grown/cabbage,
+		/obj/item/food/onion_slice,
+		/obj/item/food/grown/tomato,
+		/obj/item/food/grown/carrot,
+		/obj/item/food/sliceable/flatdough)
+	result = /obj/item/food/shawarma
 
 // Doner - Cheese
-/obj/item/food/snacks/doner_cheese
+/obj/item/food/doner_cheese
 	name = "сырная шаурма"
 	desc = "Фирменное блюдо от шеф-повара - мясо с гриля и свежие овощи с теплым сырным соусом. Вкусно!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -202,17 +202,17 @@
 /datum/recipe/microwave/doner_cheese
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
-		/obj/item/food/snacks/meatsteak,
-		/obj/item/food/snacks/meatsteak,
-		/obj/item/food/snacks/cheesewedge,
-		/obj/item/food/snacks/cheesewedge,
-		/obj/item/food/snacks/grown/cabbage,
-		/obj/item/food/snacks/grown/tomato,
-		/obj/item/food/snacks/sliceable/flatdough)
-	result = /obj/item/food/snacks/doner_cheese
+		/obj/item/food/meatsteak,
+		/obj/item/food/meatsteak,
+		/obj/item/food/cheesewedge,
+		/obj/item/food/cheesewedge,
+		/obj/item/food/grown/cabbage,
+		/obj/item/food/grown/tomato,
+		/obj/item/food/sliceable/flatdough)
+	result = /obj/item/food/doner_cheese
 
 // Doner - Mushroom
-/obj/item/food/snacks/doner_mushroom
+/obj/item/food/doner_mushroom
 	name = "шаурма с грибами"
 	desc = "Мясо с гриля, свежие овощи и грибы. Грибы немного вытеснили мясо, но всё так же вкусно!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -224,19 +224,19 @@
 /datum/recipe/microwave/doner_mushroom
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
-		/obj/item/food/snacks/meatsteak,
-		/obj/item/food/snacks/grown/mushroom,
-		/obj/item/food/snacks/grown/mushroom,
-		/obj/item/food/snacks/grown/mushroom,
-		/obj/item/food/snacks/grown/cabbage,
-		/obj/item/food/snacks/onion_slice,
-		/obj/item/food/snacks/grown/tomato,
-		/obj/item/food/snacks/grown/carrot,
-		/obj/item/food/snacks/sliceable/flatdough)
-	result = /obj/item/food/snacks/doner_mushroom
+		/obj/item/food/meatsteak,
+		/obj/item/food/grown/mushroom,
+		/obj/item/food/grown/mushroom,
+		/obj/item/food/grown/mushroom,
+		/obj/item/food/grown/cabbage,
+		/obj/item/food/onion_slice,
+		/obj/item/food/grown/tomato,
+		/obj/item/food/grown/carrot,
+		/obj/item/food/sliceable/flatdough)
+	result = /obj/item/food/doner_mushroom
 
 // Doner - Vegetable
-/obj/item/food/snacks/doner_vegan
+/obj/item/food/doner_vegan
 	name = "овощная шаурма"
 	desc = "Свежие овощи, завернутые в длинный рулет. Мясо в комплект не входит!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -248,30 +248,30 @@
 /datum/recipe/microwave/doner_vegan
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
-		/obj/item/food/snacks/grown/cabbage,
-		/obj/item/food/snacks/onion_slice,
-		/obj/item/food/snacks/onion_slice,
-		/obj/item/food/snacks/grown/tomato,
-		/obj/item/food/snacks/grown/tomato,
-		/obj/item/food/snacks/grown/carrot,
-		/obj/item/food/snacks/grown/carrot,
-		/obj/item/food/snacks/sliceable/flatdough)
-	result = /obj/item/food/snacks/doner_vegan
+		/obj/item/food/grown/cabbage,
+		/obj/item/food/onion_slice,
+		/obj/item/food/onion_slice,
+		/obj/item/food/grown/tomato,
+		/obj/item/food/grown/tomato,
+		/obj/item/food/grown/carrot,
+		/obj/item/food/grown/carrot,
+		/obj/item/food/sliceable/flatdough)
+	result = /obj/item/food/doner_vegan
 
 // Slime Pie
-/obj/item/food/snacks/sliceable/slimepie
+/obj/item/food/sliceable/slimepie
 	name = "слаймовый пирог"
 	desc = "Блюрп блоб блуп блеп блоп. Можно нарезать."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "slimepie"
-	slice_path = /obj/item/food/snacks/slimepieslice
+	slice_path = /obj/item/food/slimepieslice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#00d9ff"
 	list_reagents = list("nutriment" = 12, "vitamin" = 4)
 	tastes = list("слизь" = 5, "сладость" = 1, "желе" = 1)
 
-/obj/item/food/snacks/slimepieslice
+/obj/item/food/slimepieslice
 	name = "кусочек слаймового пирога"
 	desc = "Блюрп блоб блуп блеп блоп."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -283,10 +283,10 @@
 /datum/recipe/oven/slimepie
 	reagents = list("custard" = 1, "milk" = 5, "sugar" = 15)
 	items = list(/obj/item/organ/internal/brain/slime)
-	result = /obj/item/food/snacks/sliceable/slimepie
+	result = /obj/item/food/sliceable/slimepie
 
 // Kidan Ragu
-/obj/item/food/snacks/kidanragu
+/obj/item/food/kidanragu
 	name = "острое хитиновое рагу"
 	desc = "Рагу из очень жесткого хитинового мяса и тушеных овощей."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -298,25 +298,25 @@
 	reagents = list("water" = 10, "sodiumchloride" = 1)
 	items = list(
 		/obj/item/organ/internal/heart/kidan,
-		/obj/item/food/snacks/grown/potato,
-		/obj/item/food/snacks/grown/potato,
-		/obj/item/food/snacks/grown/carrot,
-		/obj/item/food/snacks/grown/tomato,
-		/obj/item/food/snacks/grown/chili)
-	result = /obj/item/food/snacks/kidanragu
+		/obj/item/food/grown/potato,
+		/obj/item/food/grown/potato,
+		/obj/item/food/grown/carrot,
+		/obj/item/food/grown/tomato,
+		/obj/item/food/grown/chili)
+	result = /obj/item/food/kidanragu
 
 // Fried Unathi Meat
-/obj/item/food/snacks/sliceable/lizard
+/obj/item/food/sliceable/lizard
 	name = "жареное мясо унатха"
 	desc = "Сочный стейк из мяса крупной ящерицы, вызывающий желание полежать на теплых камнях. Можно нарезать."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "lizard_steak"
-	slice_path = /obj/item/food/snacks/lizardslice
+	slice_path = /obj/item/food/lizardslice
 	slices_num = 5
 	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
 	tastes = list("мясо ящерицы" = 4, "курятина" = 2)
 
-/obj/item/food/snacks/lizardslice
+/obj/item/food/lizardslice
 	name = "стейк из унатха"
 	desc = "Порция мяса унатхи."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -327,7 +327,7 @@
 
 /datum/deepfryer_special/unathi
 	input = /obj/item/organ/external
-	output = /obj/item/food/snacks/sliceable/lizard
+	output = /obj/item/food/sliceable/lizard
 
 /datum/deepfryer_special/unathi/validate(obj/item/I)
 	if(!..())
@@ -336,7 +336,7 @@
 	return istype(E.dna.species, /datum/species/unathi)
 
 // Tajaroni
-/obj/item/food/snacks/tajaroni
+/obj/item/food/tajaroni
 	name = "таярони"
 	desc = "Острая вяленая колбаса с перцем и... Оно только что мяукнуло?"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -346,7 +346,7 @@
 
 /datum/deepfryer_special/tajaroni
 	input = /obj/item/organ/external
-	output = /obj/item/food/snacks/tajaroni
+	output = /obj/item/food/tajaroni
 
 /datum/deepfryer_special/tajaroni/validate(obj/item/I)
 	if(!..())
@@ -355,7 +355,7 @@
 	return istype(E.dna.species, /datum/species/tajaran)
 
 // Vulpixes
-/obj/item/food/snacks/vulpix
+/obj/item/food/vulpix
 	name = "вульпиксы"
 	desc = "Аппетитно выглядящие мясные шарики в тесте... Главное - не думать о том, из кого они сделаны!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -366,13 +366,13 @@
 /datum/recipe/oven/vuplix
 	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "tomato_sauce" = 1, "cream" = 5)
 	items = list(
-		/obj/item/food/snacks/dough,
-		/obj/item/food/snacks/meat,
+		/obj/item/food/dough,
+		/obj/item/food/meat,
 		/obj/item/organ/internal/liver/vulpkanin)
-	result = /obj/item/food/snacks/vulpix
+	result = /obj/item/food/vulpix
 
 // Cheese Vulpixes
-/obj/item/food/snacks/vulpix/cheese
+/obj/item/food/vulpix/cheese
 	name = "сырные вульпиксы"
 	desc = "Аппетитно выглядящие мясные шарики в тесте с начинкой из сыра... Главное - не думать о том, из кого они сделаны!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -383,14 +383,14 @@
 /datum/recipe/oven/vulpixcheese
 	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "cheese_sauce" = 1, "cream" = 5)
 	items = list(
-		/obj/item/food/snacks/dough,
-		/obj/item/food/snacks/meat,
+		/obj/item/food/dough,
+		/obj/item/food/meat,
 		/obj/item/organ/internal/liver/vulpkanin,
-		/obj/item/food/snacks/cheesewedge)
-	result = /obj/item/food/snacks/vulpix/cheese
+		/obj/item/food/cheesewedge)
+	result = /obj/item/food/vulpix/cheese
 
 // Bacon Vulpixes
-/obj/item/food/snacks/vulpix/bacon
+/obj/item/food/vulpix/bacon
 	name = "вульпиксы с беконом"
 	desc = "Аппетитно выглядящие мясные шарики в тесте с начинкой... Главное - не думать о том, из кого они сделаны!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -401,15 +401,15 @@
 /datum/recipe/oven/vulpixbacon
 	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "mushroom_sauce" = 1, "cream" = 5)
 	items = list(
-		/obj/item/food/snacks/dough,
-		/obj/item/food/snacks/meat,
+		/obj/item/food/dough,
+		/obj/item/food/meat,
 		/obj/item/organ/internal/liver/vulpkanin,
-		/obj/item/food/snacks/raw_bacon,
-		/obj/item/food/snacks/grown/mushroom)
-	result = /obj/item/food/snacks/vulpix/bacon
+		/obj/item/food/raw_bacon,
+		/obj/item/food/grown/mushroom)
+	result = /obj/item/food/vulpix/bacon
 
 // Chilli Vulpixes
-/obj/item/food/snacks/vulpix/chilli
+/obj/item/food/vulpix/chilli
 	name = "вульпиксы-чилли"
 	desc = "Аппетитно выглядящие мясные шарики в тесте... Главное - не думать о том, из кого они сделаны! Язык обжигает."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -420,24 +420,24 @@
 /datum/recipe/oven/vulpixchilli
 	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "diablo_sauce" = 1, "cream" = 5)
 	items = list(
-		/obj/item/food/snacks/dough,
-		/obj/item/food/snacks/meat,
+		/obj/item/food/dough,
+		/obj/item/food/meat,
 		/obj/item/organ/internal/liver/vulpkanin,
-		/obj/item/food/snacks/grown/chili)
-	result = /obj/item/food/snacks/vulpix/chilli
+		/obj/item/food/grown/chili)
+	result = /obj/item/food/vulpix/chilli
 
 // Seafood Pizza
-/obj/item/food/snacks/sliceable/pizza/seafood
+/obj/item/food/sliceable/pizza/seafood
 	name = "пицца с морепродуктами"
 	desc = "Дары космических озер, сыр и немного кислинки."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "fishpizza"
-	slice_path = /obj/item/food/snacks/seapizzaslice
+	slice_path = /obj/item/food/seapizzaslice
 	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15)
 	filling_color = "#ffe45d"
 	tastes = list("чеснок" = 1, "сыр" = 2, "морепродукты" = 1, "кислинка" = 1)
 
-/obj/item/food/snacks/seapizzaslice
+/obj/item/food/seapizzaslice
 	name = "кусочек пиццы с морепродуктами"
 	desc = "Аппетитный кусочек пиццы с морепродуктами и сыром..."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -448,26 +448,26 @@
 /datum/recipe/oven/seapizza
 	reagents = list("herbsmix" = 1, "garlic_sauce" = 1)
 	items = list(
-		/obj/item/food/snacks/sliceable/flatdough,
-		/obj/item/food/snacks/cheesewedge,
-		/obj/item/food/snacks/salmonmeat,
-		/obj/item/food/snacks/salmonmeat,
-		/obj/item/food/snacks/boiled_shrimp,
-		/obj/item/food/snacks/grown/citrus/lemon)
-	result = /obj/item/food/snacks/sliceable/pizza/seafood
+		/obj/item/food/sliceable/flatdough,
+		/obj/item/food/cheesewedge,
+		/obj/item/food/salmonmeat,
+		/obj/item/food/salmonmeat,
+		/obj/item/food/boiled_shrimp,
+		/obj/item/food/grown/citrus/lemon)
+	result = /obj/item/food/sliceable/pizza/seafood
 
 // Bacon Pizza
-/obj/item/food/snacks/sliceable/pizza/bacon
+/obj/item/food/sliceable/pizza/bacon
 	name = "пицца с беконом"
 	desc = "Классическая пицца, один из ингредиентов которой был заменен на жареный бекон."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "baconpizza"
-	slice_path = /obj/item/food/snacks/baconpizzaslice
+	slice_path = /obj/item/food/baconpizzaslice
 	list_reagents = list("nutriment" = 40, "vitamin" = 5, "protein" = 15)
 	filling_color = "#ffe45d"
 	tastes = list("грибы" = 1, "сыр" = 2, "бекон" = 1)
 
-/obj/item/food/snacks/baconpizzaslice
+/obj/item/food/baconpizzaslice
 	name = "кусочек пиццы с беконом"
 	desc = "Аппетитный кусок пиццы с беконом и грибами..."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -478,26 +478,26 @@
 /datum/recipe/oven/baconpizza
 	reagents = list("mushroom_sauce" = 1)
 	items = list(
-		/obj/item/food/snacks/sliceable/flatdough,
-		/obj/item/food/snacks/cheesewedge,
-		/obj/item/food/snacks/grown/mushroom,
-		/obj/item/food/snacks/grown/mushroom,
-		/obj/item/food/snacks/raw_bacon,
-		/obj/item/food/snacks/raw_bacon)
-	result = /obj/item/food/snacks/sliceable/pizza/bacon
+		/obj/item/food/sliceable/flatdough,
+		/obj/item/food/cheesewedge,
+		/obj/item/food/grown/mushroom,
+		/obj/item/food/grown/mushroom,
+		/obj/item/food/raw_bacon,
+		/obj/item/food/raw_bacon)
+	result = /obj/item/food/sliceable/pizza/bacon
 
 // Pizza Tajaroni
-/obj/item/food/snacks/sliceable/pizza/tajaroni
+/obj/item/food/sliceable/pizza/tajaroni
 	name = "пицца с таярони"
 	desc = "Острые колбаски таярони с сыром и оливками. Что из этого ужаснее, еще предстоит решить."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "tajarpizza"
-	slice_path = /obj/item/food/snacks/tajpizzaslice
+	slice_path = /obj/item/food/tajpizzaslice
 	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15)
 	filling_color = "#ffe45d"
 	tastes = list("томат" = 1, "сыр" = 2, "таярони" = 1, "оливки" = 1)
 
-/obj/item/food/snacks/tajpizzaslice
+/obj/item/food/tajpizzaslice
 	name = "кусочек пиццы с таярони"
 	desc = "Вкуснейший кусок пиццы с таярони и оливками..."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -508,25 +508,25 @@
 /datum/recipe/oven/tajarpizza
 	reagents = list("herbsmix" = 1, "tomato_sauce" = 1, "blackpepper" = 1)
 	items = list(
-		/obj/item/food/snacks/sliceable/flatdough,
-		/obj/item/food/snacks/cheesewedge,
-		/obj/item/food/snacks/cheesewedge,
-		/obj/item/food/snacks/tajaroni,
-		/obj/item/food/snacks/grown/olive,)
-	result = /obj/item/food/snacks/sliceable/pizza/tajaroni
+		/obj/item/food/sliceable/flatdough,
+		/obj/item/food/cheesewedge,
+		/obj/item/food/cheesewedge,
+		/obj/item/food/tajaroni,
+		/obj/item/food/grown/olive,)
+	result = /obj/item/food/sliceable/pizza/tajaroni
 
 // Diablo Pizza
-/obj/item/food/snacks/sliceable/pizza/diablo
+/obj/item/food/sliceable/pizza/diablo
 	name = "пицца 'Диабло'"
 	desc = "Невероятно жгучая пицца с кусочками мяса, некоторые утверждают, что она может отправить вас в рэдспейс."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "diablopizza"
-	slice_path = /obj/item/food/snacks/diablopizzaslice
+	slice_path = /obj/item/food/diablopizzaslice
 	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15, "capsaicin" = 15)
 	filling_color = "#ffe45d"
 	tastes = list("остроту" = 1, "сыр" = 2, "мясо" = 1, "специи" = 1)
 
-/obj/item/food/snacks/diablopizzaslice
+/obj/item/food/diablopizzaslice
 	name = "кусочек пиццы 'Диабло'"
 	desc = "Аппетитный кусок пиццы с соусом 'Диабло' и мясом..."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -537,16 +537,16 @@
 /datum/recipe/oven/diablopizza
 	reagents = list("herbsmix" = 1, "diablo_sauce" = 1)
 	items = list(
-		/obj/item/food/snacks/sliceable/flatdough,
-		/obj/item/food/snacks/cheesewedge,
-		/obj/item/food/snacks/grown/tomato,
-		/obj/item/food/snacks/grown/chili,
-		/obj/item/food/snacks/meatball,
-		/obj/item/food/snacks/meatball)
-	result = /obj/item/food/snacks/sliceable/pizza/diablo
+		/obj/item/food/sliceable/flatdough,
+		/obj/item/food/cheesewedge,
+		/obj/item/food/grown/tomato,
+		/obj/item/food/grown/chili,
+		/obj/item/food/meatball,
+		/obj/item/food/meatball)
+	result = /obj/item/food/sliceable/pizza/diablo
 
 // Doshik
-/obj/item/food/snacks/doshik
+/obj/item/food/doshik
 	name = "дошик"
 	desc = "Очень известная лапша быстрого приготовления. При открытии заваривается моментально. Вау."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -557,7 +557,7 @@
 	junkiness = 25
 	tastes = list("курятина" = 1, "лапша" = 1)
 
-/obj/item/food/snacks/doshik_spicy
+/obj/item/food/doshik_spicy
 	name = "острый дошик"
 	desc = "Очень известная лапша быстрого приготовления. При открытии заваривается моментально. Вау. Кажется, что в ней есть острые специи."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -575,19 +575,19 @@
 	desc = "Всё ещё вкусно пахнет."
 
 // Chocolate Cake
-/obj/item/food/snacks/sliceable/choccherrycake
+/obj/item/food/sliceable/choccherrycake
 	name = "шоколадно-вишневый торт"
 	desc = "Ещё один торт. Тем не менее."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "choccherrycake"
-	slice_path = /obj/item/food/snacks/choccherrycakeslice
+	slice_path = /obj/item/food/choccherrycakeslice
 	slices_num = 6
 	bitesize = 3
 	filling_color = "#5e1706"
 	tastes = list("вишня" = 5, "сладость" = 1, "шоколад" = 1)
 	list_reagents = list("nutriment" = 12, "sugar" = 4, "cocoa" = 4)
 
-/obj/item/food/snacks/choccherrycakeslice
+/obj/item/food/choccherrycakeslice
 	name = "кусочек шоколадно-вишневого торта"
 	desc = "Кусочек очередного торта. Подождите, что?"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -598,28 +598,28 @@
 /datum/recipe/oven/choccherrycake
 	reagents = list("milk" = 5, "flour" = 15)
 	items = list(
-		/obj/item/food/snacks/egg,
-		/obj/item/food/snacks/egg,
-		/obj/item/food/snacks/egg,
-		/obj/item/food/snacks/chocolatebar,
-		/obj/item/food/snacks/chocolatebar,
-		/obj/item/food/snacks/grown/cherries)
-	result = /obj/item/food/snacks/sliceable/choccherrycake
+		/obj/item/food/egg,
+		/obj/item/food/egg,
+		/obj/item/food/egg,
+		/obj/item/food/chocolatebar,
+		/obj/item/food/chocolatebar,
+		/obj/item/food/grown/cherries)
+	result = /obj/item/food/sliceable/choccherrycake
 
 // Noel
-/obj/item/food/snacks/sliceable/noel
+/obj/item/food/sliceable/noel
 	name = "Bûche de Noël"
 	desc = "Что?"
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "noel"
 	trash = /obj/item/trash/tray
-	slice_path = /obj/item/food/snacks/noelslice
+	slice_path = /obj/item/food/noelslice
 	slices_num = 5
 	filling_color = "#5e1706"
 	tastes = list("шоколад" = 3, "сладость" = 2, "яйца" = 1, "ягоды" = 2)
 	list_reagents = list("nutriment" = 6, "plantmatter" = 2, "cocoa" = 2, "cream" = 3, "sugar" = 3, "berryjuice" = 3)
 
-/obj/item/food/snacks/noelslice
+/obj/item/food/noelslice
 	name = "кусочек Noël"
 	desc = "Кусочек чего?"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -631,16 +631,16 @@
 /datum/recipe/oven/noel
 	reagents = list("flour" = 15, "cream" = 10, "milk" = 5)
 	items = list(
-		/obj/item/food/snacks/egg,
-		/obj/item/food/snacks/egg,
-		/obj/item/food/snacks/chocolatebar,
-		/obj/item/food/snacks/chocolatebar,
-		/obj/item/food/snacks/grown/berries,
-		/obj/item/food/snacks/grown/berries)
-	result = /obj/item/food/snacks/sliceable/noel
+		/obj/item/food/egg,
+		/obj/item/food/egg,
+		/obj/item/food/chocolatebar,
+		/obj/item/food/chocolatebar,
+		/obj/item/food/grown/berries,
+		/obj/item/food/grown/berries)
+	result = /obj/item/food/sliceable/noel
 
 // Sundae
-/obj/item/food/snacks/sundae
+/obj/item/food/sundae
 	name = "Сандей"
 	desc = "Сливочное удовольствие."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -653,13 +653,13 @@
 /datum/recipe/oven/sundae
 	reagents = list("cream" = 10)
 	items = list(
-		/obj/item/food/snacks/grown/cherries,
-		/obj/item/food/snacks/grown/banana,
-		/obj/item/food/snacks/doughslice)
-	result = /obj/item/food/snacks/sundae
+		/obj/item/food/grown/cherries,
+		/obj/item/food/grown/banana,
+		/obj/item/food/doughslice)
+	result = /obj/item/food/sundae
 
 // Bun-Bun
-/obj/item/food/snacks/bunbun
+/obj/item/food/bunbun
 	name = "Бун-Бун"
 	desc = "Маленькая хлебная обезьянка, сформованная из двух булочек для гамбургеров."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -670,12 +670,12 @@
 
 /datum/recipe/oven/bunbun
 	items = list(
-		/obj/item/food/snacks/bun,
-		/obj/item/food/snacks/bun)
-	result = /obj/item/food/snacks/bunbun
+		/obj/item/food/bun,
+		/obj/item/food/bun)
+	result = /obj/item/food/bunbun
 
 // Tortilla
-/obj/item/food/snacks/tortilla
+/obj/item/food/tortilla
 	name = "тортилья"
 	desc = "Hasta la vista, baby"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -688,11 +688,11 @@
 
 /datum/recipe/microwave/tortilla
 	reagents = list("flour" = 10)
-	items = list(/obj/item/food/snacks/grown/corn)
-	result = /obj/item/food/snacks/tortilla
+	items = list(/obj/item/food/grown/corn)
+	result = /obj/item/food/tortilla
 
 // Nachos
-/obj/item/food/snacks/nachos
+/obj/item/food/nachos
 	name = "начос"
 	desc = "Хола!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -705,11 +705,11 @@
 
 /datum/recipe/microwave/nachos
 	reagents = list("sodiumchloride" = 1)
-	items = list(/obj/item/food/snacks/tortilla)
-	result = /obj/item/food/snacks/nachos
+	items = list(/obj/item/food/tortilla)
+	result = /obj/item/food/nachos
 
 // Cheese Nachos
-/obj/item/food/snacks/cheesenachos
+/obj/item/food/cheesenachos
 	name = "сырные начос"
 	desc = "Сырное хола!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -723,12 +723,12 @@
 /datum/recipe/microwave/cheesenachos
 	reagents = list("sodiumchloride" = 1)
 	items = list(
-		/obj/item/food/snacks/tortilla,
-		/obj/item/food/snacks/cheesewedge)
-	result = /obj/item/food/snacks/cheesenachos
+		/obj/item/food/tortilla,
+		/obj/item/food/cheesewedge)
+	result = /obj/item/food/cheesenachos
 
 // Cuban Nachos
-/obj/item/food/snacks/cubannachos
+/obj/item/food/cubannachos
 	name = "кубинские начос"
 	desc = "Очень острое хола!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -741,13 +741,13 @@
 
 /datum/recipe/microwave/cubannachos
 	items = list(
-		/obj/item/food/snacks/tortilla,
-		/obj/item/food/snacks/grown/chili,
-		/obj/item/food/snacks/grown/chili)
-	result = /obj/item/food/snacks/cubannachos
+		/obj/item/food/tortilla,
+		/obj/item/food/grown/chili,
+		/obj/item/food/grown/chili)
+	result = /obj/item/food/cubannachos
 
 // Carne Buritto
-/obj/item/food/snacks/carneburrito
+/obj/item/food/carneburrito
 	name = "Carne de burrito asado"
 	desc = "Как классический буррито, но с мясом."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -759,14 +759,14 @@
 
 /datum/recipe/microwave/carneburrito
 	items = list(
-		/obj/item/food/snacks/tortilla,
-		/obj/item/food/snacks/grown/soybeans,
-		/obj/item/food/snacks/cutlet,
-		/obj/item/food/snacks/cutlet)
-	result = /obj/item/food/snacks/carneburrito
+		/obj/item/food/tortilla,
+		/obj/item/food/grown/soybeans,
+		/obj/item/food/cutlet,
+		/obj/item/food/cutlet)
+	result = /obj/item/food/carneburrito
 
 // Cheese Buritto
-/obj/item/food/snacks/cheeseburrito
+/obj/item/food/cheeseburrito
 	name = "сырное буритто"
 	desc = "Нужно ли здесь что-то говорить?"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -778,13 +778,13 @@
 
 /datum/recipe/microwave/cheeseburrito
 	items = list(
-		/obj/item/food/snacks/tortilla,
-		/obj/item/food/snacks/cheesewedge,
-		/obj/item/food/snacks/cheesewedge)
-	result = /obj/item/food/snacks/cheeseburrito
+		/obj/item/food/tortilla,
+		/obj/item/food/cheesewedge,
+		/obj/item/food/cheesewedge)
+	result = /obj/item/food/cheeseburrito
 
 // Plasma Buritto
-/obj/item/food/snacks/plasmaburrito
+/obj/item/food/plasmaburrito
 	name = "Fuego Plasma Burrito"
 	desc = "Очень острое, амигос."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -796,14 +796,14 @@
 
 /datum/recipe/microwave/plasmaburrito
 	items = list(
-		/obj/item/food/snacks/tortilla,
-		/obj/item/food/snacks/grown/soybeans,
-		/obj/item/food/snacks/grown/chili,
-		/obj/item/food/snacks/grown/chili)
-	result = /obj/item/food/snacks/plasmaburrito
+		/obj/item/food/tortilla,
+		/obj/item/food/grown/soybeans,
+		/obj/item/food/grown/chili,
+		/obj/item/food/grown/chili)
+	result = /obj/item/food/plasmaburrito
 
 // Pelmeni
-/obj/item/food/snacks/pelmeni
+/obj/item/food/pelmeni
 	name = "пельмени"
 	desc = "Мясо завёрнутое в тесто."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -813,16 +813,16 @@
 	bitesize = 2
 	tastes = list("сырое мясо" = 1, "сырое тесто" = 1)
 
-/obj/item/food/snacks/doughslice/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/food/snacks/rawcutlet))
-		new /obj/item/food/snacks/pelmeni(src)
+/obj/item/food/doughslice/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/food/rawcutlet))
+		new /obj/item/food/pelmeni(src)
 		to_chat(user, "Вы сделали немного пельменей.")
 		qdel(src)
 		qdel(I)
 	else
 		..()
 
-/obj/item/food/snacks/boiledpelmeni
+/obj/item/food/boiledpelmeni
 	name = "варёные пельмени"
 	desc = "Мы не знаем, какой была Сибирь, но эти вкусные пельмени определенно прибыли оттуда."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -835,11 +835,11 @@
 
 /datum/recipe/microwave/pelmeni
 	reagents = list("water" = 5)
-	items = list(/obj/item/food/snacks/pelmeni)
-	result = /obj/item/food/snacks/boiledpelmeni
+	items = list(/obj/item/food/pelmeni)
+	result = /obj/item/food/boiledpelmeni
 
 // Smoked Sausage
-/obj/item/food/snacks/smokedsausage
+/obj/item/food/smokedsausage
 	name = "копчёная колбаска"
 	desc = "Кусок копченой колбасы. Под пивко пойдёт."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -849,21 +849,21 @@
 
 /datum/recipe/oven/smokedsausage
 	reagents = list("sodiumchloride" = 5, "blackpepper" = 5)
-	items = list(/obj/item/food/snacks/sausage)
-	result = /obj/item/food/snacks/smokedsausage
+	items = list(/obj/item/food/sausage)
+	result = /obj/item/food/smokedsausage
 
 // Salami
-/obj/item/food/snacks/sliceable/salami
+/obj/item/food/sliceable/salami
 	name = "салями"
 	desc = "Не лучший выбор для сэндвича."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "salami"
-	slice_path = /obj/item/food/snacks/slice/salami
+	slice_path = /obj/item/food/slice/salami
 	slices_num = 6
 	list_reagents = list("protein" = 12)
 	tastes = list("мясо" = 3, "чеснок" = 1)
 
-/obj/item/food/snacks/slice/salami
+/obj/item/food/slice/salami
 	name = "ломтик салями"
 	desc = "Лучший выбор для сэндвича."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -872,11 +872,11 @@
 
 /datum/recipe/oven/salami
 	reagents = list("garlic_sauce" = 5)
-	items = list(/obj/item/food/snacks/smokedsausage)
-	result = /obj/item/food/snacks/sliceable/salami
+	items = list(/obj/item/food/smokedsausage)
+	result = /obj/item/food/sliceable/salami
 
 // Fruit Cup
-/obj/item/food/snacks/fruitcup
+/obj/item/food/fruitcup
 	name = "фруктовая кружка"
 	desc = "Фруктовый салат со съедобной кружкой."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -888,16 +888,16 @@
 
 /datum/recipe/microwave/fruitcup
 	items = list(
-		/obj/item/food/snacks/grown/apple,
-		/obj/item/food/snacks/grown/citrus/orange,
-		/obj/item/food/snacks/grown/ambrosia,
-		/obj/item/food/snacks/grown/banana,
-		/obj/item/food/snacks/grown/citrus/lemon,
-		/obj/item/food/snacks/grown/watermelon)
-	result = /obj/item/food/snacks/fruitcup
+		/obj/item/food/grown/apple,
+		/obj/item/food/grown/citrus/orange,
+		/obj/item/food/grown/ambrosia,
+		/obj/item/food/grown/banana,
+		/obj/item/food/grown/citrus/lemon,
+		/obj/item/food/grown/watermelon)
+	result = /obj/item/food/fruitcup
 
 // Jungle Salad
-/obj/item/food/snacks/junglesalad
+/obj/item/food/junglesalad
 	name = "салат 'Джунгли'"
 	desc = "Из глубин джунглей."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -908,14 +908,14 @@
 
 /datum/recipe/microwave/junglesalad
 	items = list(
-		/obj/item/food/snacks/grown/apple,
-		/obj/item/food/snacks/grown/banana,
-		/obj/item/food/snacks/grown/banana,
-		/obj/item/food/snacks/grown/watermelon)
-	result = /obj/item/food/snacks/junglesalad
+		/obj/item/food/grown/apple,
+		/obj/item/food/grown/banana,
+		/obj/item/food/grown/banana,
+		/obj/item/food/grown/watermelon)
+	result = /obj/item/food/junglesalad
 
 // Delight Salad
-/obj/item/food/snacks/delightsalad
+/obj/item/food/delightsalad
 	name = "cалат 'Восторг'"
 	desc = "Настоящий цитрусовый восторг."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -928,13 +928,13 @@
 
 /datum/recipe/microwave/delightsalad
 	items = list(
-		/obj/item/food/snacks/grown/citrus/lemon,
-		/obj/item/food/snacks/grown/citrus/orange,
-		/obj/item/food/snacks/grown/citrus/lime)
-	result = /obj/item/food/snacks/delightsalad
+		/obj/item/food/grown/citrus/lemon,
+		/obj/item/food/grown/citrus/orange,
+		/obj/item/food/grown/citrus/lime)
+	result = /obj/item/food/delightsalad
 
 // Chowmein
-/obj/item/food/snacks/chowmein
+/obj/item/food/chowmein
 	name = "чау-мейн"
 	desc = "Nihao!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -946,14 +946,14 @@
 
 /datum/recipe/microwave/chowmein
 	items = list(
-		/obj/item/food/snacks/boiledspaghetti,
-		/obj/item/food/snacks/cutlet,
-		/obj/item/food/snacks/grown/cabbage,
-		/obj/item/food/snacks/grown/carrot)
-	result = /obj/item/food/snacks/chowmein
+		/obj/item/food/boiledspaghetti,
+		/obj/item/food/cutlet,
+		/obj/item/food/grown/cabbage,
+		/obj/item/food/grown/carrot)
+	result = /obj/item/food/chowmein
 
 // Beef Noodles
-/obj/item/food/snacks/beefnoodles
+/obj/item/food/beefnoodles
 	name = "лапша с говядиной"
 	desc = "Так просто и так вкусно!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -965,14 +965,14 @@
 
 /datum/recipe/microwave/beefnoodles
 	items = list(
-		/obj/item/food/snacks/boiledspaghetti,
-		/obj/item/food/snacks/cutlet,
-		/obj/item/food/snacks/cutlet,
-		/obj/item/food/snacks/grown/cabbage)
-	result = /obj/item/food/snacks/beefnoodles
+		/obj/item/food/boiledspaghetti,
+		/obj/item/food/cutlet,
+		/obj/item/food/cutlet,
+		/obj/item/food/grown/cabbage)
+	result = /obj/item/food/beefnoodles
 
 // Father's Soup
-/obj/item/food/snacks/fathersoup
+/obj/item/food/fathersoup
 	name = "батин суп"
 	desc = "Адовое блюдо, усреднённый рецепт ибо вариаций масса. Ух бля."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -986,15 +986,15 @@
 /datum/recipe/oven/fathersoup
 	reagents = list("flour" = 10, "blackpepper" = 5)
 	items = list(
-		/obj/item/food/snacks/soup/tomatosoup,
-		/obj/item/food/snacks/grown/garlic,
-		/obj/item/food/snacks/grown/onion,
-		/obj/item/food/snacks/grown/ghost_chili,
-		/obj/item/food/snacks/grown/ghost_chili,
-		/obj/item/food/snacks/grown/tomato)
-	result = /obj/item/food/snacks/fathersoup
+		/obj/item/food/soup/tomatosoup,
+		/obj/item/food/grown/garlic,
+		/obj/item/food/grown/onion,
+		/obj/item/food/grown/ghost_chili,
+		/obj/item/food/grown/ghost_chili,
+		/obj/item/food/grown/tomato)
+	result = /obj/item/food/fathersoup
 
-/obj/item/food/snacks/fathersoup/On_Consume(mob/M, mob/user)
+/obj/item/food/fathersoup/On_Consume(mob/M, mob/user)
 	. = ..()
 	user.visible_message(span_notice("У [M] на лбу аж пот выступает."))
 	if(prob(33))
@@ -1020,11 +1020,11 @@
 /obj/item/pizzabox/infinite/attack_self(mob/living/user)
 	QDEL_NULL(pizza)
 	if(ishuman(user))
-		pizza = new /obj/item/food/snacks/sliceable/pizza/meatpizza(src)
+		pizza = new /obj/item/food/sliceable/pizza/meatpizza(src)
 	. = ..()
 
 // Disk croutons
-/obj/item/food/snacks/disk
+/obj/item/food/disk
 	name = "диск с сухариками"
 	desc = "Вкуснейшие сухарики с запахом дымка!"
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -1045,7 +1045,7 @@
 	item_state = "chips"
 
 // Plov
-/obj/item/food/snacks/plov
+/obj/item/food/plov
 	name = "плов с изюмом"
 	desc = "Плов по тому самому рецепту с Земли, так ещё и с изюмом! Объедение."
 	icon = 'modular_ss220/food/icons/food.dmi'
@@ -1058,11 +1058,11 @@
 /datum/recipe/oven/plov
 	reagents = list("blackpepper" = 1)
 	items = list(
-		/obj/item/food/snacks/boiledrice,
-		/obj/item/food/snacks/boiledrice,
-		/obj/item/food/snacks/grown/carrot,
-		/obj/item/food/snacks/meat,
-		/obj/item/food/snacks/meat,
-		/obj/item/food/snacks/grown/berries,
+		/obj/item/food/boiledrice,
+		/obj/item/food/boiledrice,
+		/obj/item/food/grown/carrot,
+		/obj/item/food/meat,
+		/obj/item/food/meat,
+		/obj/item/food/grown/berries,
 	)
-	result = /obj/item/food/snacks/plov
+	result = /obj/item/food/plov

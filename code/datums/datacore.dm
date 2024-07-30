@@ -362,6 +362,28 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 				face_s.Blend(h_marking_s, ICON_OVERLAY)
 
 	preview_icon.Blend(face_s, ICON_OVERLAY)
+	//Underwear
+	var/icon/underwear_standing = new /icon('icons/mob/clothing/underwear.dmi', "nude")
+	if(H.underwear && H.dna.species.clothing_flags & HAS_UNDERWEAR)
+		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[H.underwear]
+		if(U)
+			var/u_icon = U.sprite_sheets && (H.dna.species.sprite_sheet_name in U.sprite_sheets) ? U.sprite_sheets[H.dna.species.sprite_sheet_name] : U.icon //Species-fit the undergarment.
+			underwear_standing.Blend(new /icon(u_icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
+
+	if(H.undershirt && H.dna.species.clothing_flags & HAS_UNDERSHIRT)
+		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[H.undershirt]
+		if(U2)
+			var/u2_icon = U2.sprite_sheets && (H.dna.species.sprite_sheet_name in U2.sprite_sheets) ? U2.sprite_sheets[H.dna.species.sprite_sheet_name] : U2.icon
+			underwear_standing.Blend(new /icon(u2_icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
+
+	if(H.socks && H.dna.species.clothing_flags & HAS_SOCKS)
+		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[H.socks]
+		if(U3)
+			var/u3_icon = U3.sprite_sheets && (H.dna.species.sprite_sheet_name in U3.sprite_sheets) ? U3.sprite_sheets[H.dna.species.sprite_sheet_name] : U3.icon
+			underwear_standing.Blend(new /icon(u3_icon, "sk_[U3.icon_state]_s"), ICON_OVERLAY)
+
+	if(underwear_standing)
+		preview_icon.Blend(underwear_standing, ICON_OVERLAY)
 
 	var/icon/hands_icon = icon(preview_icon)
 	hands_icon.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask"), ICON_MULTIPLY)
@@ -555,6 +577,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
+		if("Naked")
+			clothes_s = null
 		else
 			if(H.mind && (H.mind.assigned_role in get_all_centcom_jobs()))
 				clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")

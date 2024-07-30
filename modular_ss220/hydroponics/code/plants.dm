@@ -17,10 +17,10 @@
 	species = "buckwheat"
 	icon_dead = "buckwheat-dead"
 	plantname = "Cтебли Гречки"
-	product = /obj/item/food/snacks/grown/buckwheat
+	product = /obj/item/food/grown/buckwheat
 	mutatelist = list()
 
-/obj/item/food/snacks/grown/buckwheat
+/obj/item/food/grown/buckwheat
 	seed = /obj/item/seeds/wheat/buckwheat
 	name = "гречка"
 	desc = "Finally, гречка."
@@ -40,7 +40,7 @@
 	icon_state = "seed-cucumber"
 	species = "cucumber"
 	plantname = "Огуречный Куст"
-	product = /obj/item/food/snacks/grown/cucumber
+	product = /obj/item/food/grown/cucumber
 	lifespan = 40
 	endurance = 70
 	potency = 30
@@ -54,14 +54,14 @@
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list("water" = 0.15, "kelotane" = 0.04, "plantmatter" = 0.05)
 
-/obj/item/food/snacks/grown/cucumber
+/obj/item/food/grown/cucumber
 	seed = /obj/item/seeds/cucumber
 	name = "огурец"
 	desc = "Сила земли!"
 	icon = 'modular_ss220/hydroponics/icons/plants.dmi'
 	icon_state = "cucumber"
 	splat_type = /obj/effect/decal/cleanable/plant_smudge
-	slice_path = /obj/item/food/snacks/cucumberslice
+	slice_path = /obj/item/food/cucumberslice
 	slices_num = 5
 	filling_color = "#47FF91"
 	tastes = list("огурец" = 1)
@@ -80,7 +80,7 @@
 	icon_state = "seed-charcolives"
 	species = "charcolives"
 	plantname = "Угливковое Деревце"
-	product = /obj/item/food/snacks/grown/olive/charcoal
+	product = /obj/item/food/grown/olive/charcoal
 	growing_icon = 'modular_ss220/hydroponics/icons/growing.dmi'
 	icon_grow = "charcolives-grow"
 	icon_dead = "charcolives-dead"
@@ -92,7 +92,7 @@
 	rarity = 30
 	reagents_add = list("charcoal" = 0.15, "plantmatter" = 0.05)
 
-/obj/item/food/snacks/grown/olive/charcoal
+/obj/item/food/grown/olive/charcoal
 	seed = /obj/item/seeds/olive/charcoal
 	name = "угливки"
 	desc = "Это... маслины?"
@@ -128,11 +128,11 @@
 	. = ..()
 	mutatelist |= list(/obj/item/seeds/soya/peas_shooter)
 
-/obj/item/food/snacks/grown/soybeans/Initialize(mapload)
+/obj/item/food/grown/soybeans/Initialize(mapload)
 	. = ..()
 	trash = /obj/item/ammo_casing/peas_shooter
 
-/obj/item/food/snacks/grown/soybeans/attack_self(mob/user)
+/obj/item/food/grown/soybeans/attack_self(mob/user)
 	. = ..()
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return

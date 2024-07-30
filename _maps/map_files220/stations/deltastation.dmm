@@ -23,7 +23,7 @@
 	dir = 9
 	},
 /obj/structure/table/glass,
-/obj/item/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_x = 6;
 	pixel_y = 4
 	},
@@ -1495,11 +1495,11 @@
 "alR" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
 /obj/item/reagent_containers/condiment/soymilk,
 /obj/item/reagent_containers/condiment/soymilk,
 /obj/item/reagent_containers/condiment/soymilk,
@@ -5420,7 +5420,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/food/snacks/baguette,
+/obj/item/food/baguette,
 /obj/item/flashlight/lamp/green/off{
 	pixel_x = 8;
 	pixel_y = -6
@@ -6918,14 +6918,14 @@
 /area/station/service/theatre)
 "aEB" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_y = 4;
 	pixel_x = -6
 	},
-/obj/item/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_x = -6
 	},
-/obj/item/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_y = -4;
 	pixel_x = -6
 	},
@@ -13798,8 +13798,8 @@
 /area/station/medical/storage/secondary)
 "bhH" = (
 /obj/structure/table/reinforced,
-/obj/item/food/snacks/dough,
-/obj/item/food/snacks/dough{
+/obj/item/food/dough,
+/obj/item/food/dough{
 	pixel_x = 2;
 	pixel_y = 2
 	},
@@ -15896,7 +15896,7 @@
 /obj/structure/table/reinforced,
 /obj/item/folder,
 /obj/item/pen,
-/obj/item/food/snacks/grown/apple,
+/obj/item/food/grown/apple,
 /obj/machinery/door/window/classic/normal{
 	dir = 8;
 	name = "Hydroponics Desk"
@@ -16332,9 +16332,9 @@
 /obj/item/seeds/lime,
 /obj/item/seeds/watermelon,
 /obj/item/seeds/grape,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/watermelon,
-/obj/item/food/snacks/grown/banana,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/banana,
 /obj/machinery/door/window/classic/reversed{
 	dir = 8;
 	name = "Hydroponics Desk"
@@ -31610,7 +31610,7 @@
 /area/station/public/locker)
 "cxf" = (
 /obj/structure/table/reinforced,
-/obj/item/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/reagent_containers/drinks/bottle/cream,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -45193,7 +45193,7 @@
 "dMg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/food/snacks/friedegg,
+/obj/item/food/friedegg,
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/starboard)
 "dMh" = (
@@ -46976,8 +46976,8 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/harebell,
-/obj/item/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
+/obj/item/food/grown/harebell,
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
@@ -50576,7 +50576,7 @@
 /area/station/hallway/primary/central/east)
 "eJW" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/redbeet,
+/obj/item/food/grown/redbeet,
 /obj/item/clothing/head/ushanka,
 /turf/simulated/floor/plating,
 /area/station/maintenance/old_kitchen)
@@ -51575,7 +51575,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/north,
 /obj/effect/landmark/start/prisoner,
-/obj/item/food/snacks/grown/pineapple{
+/obj/item/food/grown/pineapple{
 	name = "Старый ананас";
 	desc = "Довольно старый ананас. Интересно как он тут оказался и почему он так странно пахнет..."
 	},
@@ -52960,7 +52960,7 @@
 /turf/simulated/floor/wood/parquet,
 /area/station/service/library)
 "fwG" = (
-/obj/item/food/snacks/disk,
+/obj/item/food/disk,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
@@ -52983,7 +52983,7 @@
 	},
 /area/station/engineering/break_room)
 "fwP" = (
-/obj/item/food/snacks/disk{
+/obj/item/food/disk{
 	pixel_x = -6
 	},
 /obj/effect/decal/cleanable/dust,
@@ -56296,8 +56296,8 @@
 /area/station/maintenance/apmaint)
 "gAT" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
-/obj/item/food/snacks/meat/human,
-/obj/item/food/snacks/meat/human,
+/obj/item/food/meat/human,
+/obj/item/food/meat/human,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -71511,14 +71511,14 @@
 /area/station/maintenance/old_kitchen)
 "lkZ" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/food/snacks/frozen/icecream/icecreamcone,
-/obj/item/food/snacks/frozen/icecream/icecreamcone,
-/obj/item/food/snacks/frozen/icecream/icecreamcone,
-/obj/item/food/snacks/frozen/icecream/icecreamcone,
-/obj/item/food/snacks/frozen/icecream,
-/obj/item/food/snacks/frozen/icecream,
-/obj/item/food/snacks/frozen/icecreamsandwich,
-/obj/item/food/snacks/frozen/icecreamsandwich,
+/obj/item/food/frozen/icecream/icecreamcone,
+/obj/item/food/frozen/icecream/icecreamcone,
+/obj/item/food/frozen/icecream/icecreamcone,
+/obj/item/food/frozen/icecream/icecreamcone,
+/obj/item/food/frozen/icecream,
+/obj/item/food/frozen/icecream,
+/obj/item/food/frozen/icecreamsandwich,
+/obj/item/food/frozen/icecreamsandwich,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -73249,13 +73249,13 @@
 /area/station/maintenance/starboard2)
 "lLS" = (
 /obj/structure/closet/crate,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/onion,
-/obj/item/food/snacks/grown/onion,
+/obj/item/food/breadslice,
+/obj/item/food/breadslice,
+/obj/item/food/breadslice,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/onion,
+/obj/item/food/grown/onion,
 /obj/item/storage/box/donkpockets,
 /obj/item/reagent_containers/condiment/flour,
 /obj/item/reagent_containers/condiment/rice,
@@ -74490,8 +74490,8 @@
 /area/station/maintenance/dormitory_maintenance)
 "mhO" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/geranium,
-/obj/item/food/snacks/grown/lily{
+/obj/item/food/grown/geranium,
+/obj/item/food/grown/lily{
 	pixel_x = 4;
 	pixel_y = 5
 	},
@@ -74716,8 +74716,8 @@
 	name = "Kitchen Shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/item/food/snacks/burrito,
-/obj/item/food/snacks/burrito{
+/obj/item/food/burrito,
+/obj/item/food/burrito{
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -74843,10 +74843,10 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/item/food/snacks/disk{
+/obj/item/food/disk{
 	pixel_x = -6
 	},
-/obj/item/food/snacks/disk{
+/obj/item/food/disk{
 	pixel_x = 9;
 	pixel_y = 4
 	},
@@ -75558,8 +75558,8 @@
 /area/station/service/library)
 "mzE" = (
 /obj/structure/table/reinforced,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat{
+/obj/item/food/meat,
+/obj/item/food/meat{
 	pixel_x = 4
 	},
 /obj/item/reagent_containers/condiment/saltshaker{
@@ -81825,7 +81825,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/item/food/snacks/grown/redbeet,
+/obj/item/food/grown/redbeet,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood/oak,
@@ -90286,11 +90286,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "qVu" = (
-/obj/item/food/snacks/disk{
+/obj/item/food/disk{
 	pixel_y = -6;
 	pixel_x = 5
 	},
-/obj/item/food/snacks/disk{
+/obj/item/food/disk{
 	pixel_y = 10;
 	pixel_x = 8
 	},
@@ -90405,7 +90405,7 @@
 /area/station/service/hydroponics)
 "qXz" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /obj/structure/noticeboard{
 	pixel_y = 29
 	},
@@ -92925,7 +92925,7 @@
 /area/station/medical/storage)
 "rMZ" = (
 /obj/structure/table,
-/obj/item/food/snacks/beans,
+/obj/item/food/beans,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -93305,7 +93305,7 @@
 	dir = 5
 	},
 /obj/structure/table/glass,
-/obj/item/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_x = 6;
 	pixel_y = 4
 	},
@@ -95239,9 +95239,9 @@
 /area/station/maintenance/starboard2)
 "sxB" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
 "sxU" = (
@@ -100666,7 +100666,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/item/food/snacks/pie{
+/obj/item/food/pie{
 	pixel_y = 16
 	},
 /turf/simulated/floor/plasteel{
@@ -103449,7 +103449,7 @@
 "uYg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/item/food/snacks/meat,
+/obj/item/food/meat,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -103553,7 +103553,7 @@
 "vaT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/food/snacks/fries{
+/obj/item/food/fries{
 	pixel_y = 2
 	},
 /turf/simulated/floor/plating,
@@ -103760,7 +103760,7 @@
 /area/station/legal/lawoffice)
 "veB" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/geranium,
+/obj/item/food/grown/geranium,
 /obj/item/soap/deluxe,
 /obj/machinery/power/apc/critical/directional/east,
 /obj/structure/cable{
@@ -106868,7 +106868,7 @@
 "weH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/food/snacks/birthdaycakeslice,
+/obj/item/food/birthdaycakeslice,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "weO" = (
@@ -109861,9 +109861,9 @@
 /area/station/medical/virology/lab)
 "xcg" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/meat/human,
-/obj/item/food/snacks/meat/human,
-/obj/item/food/snacks/meat/human,
+/obj/item/food/meat/human,
+/obj/item/food/meat/human,
+/obj/item/food/meat/human,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;

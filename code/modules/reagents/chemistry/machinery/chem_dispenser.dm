@@ -235,20 +235,20 @@
 	add_fingerprint(usr)
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
+	if(istype(I, /obj/item/storage/part_replacer))
+		. = ..()
 		SStgui.update_uis(src)
 		return
-
-	//if(isrobot(user)) // SS220 EDIT
-	// 	return
 
 	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks)) && user.a_intent != INTENT_HARM)
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
+
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
+
 		I.forceMove(src)
 		if(beaker)
 			to_chat(usr, "<span class='notice'>You swap [I] with [beaker].</span>")

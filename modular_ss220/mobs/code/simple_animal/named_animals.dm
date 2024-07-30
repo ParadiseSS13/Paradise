@@ -5,7 +5,7 @@
 	icon_state = "pig_old"
 	icon_living = "pig_old"
 	icon_dead = "pig_old_dead"
-	butcher_results = list(/obj/item/food/snacks/meat/ham/old = 10)
+	butcher_results = list(/obj/item/food/meat/ham/old = 10)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	maxHealth = 80

@@ -130,7 +130,7 @@
 	pda = /obj/item/pda/clown
 	id = /obj/item/card/id/seclown
 	backpack_contents = list(
-		/obj/item/food/snacks/grown/banana = 1,
+		/obj/item/food/grown/banana = 1,
 		/obj/item/stamp/clown = 1,
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/storage/fancy/crayons = 1,
