@@ -38,7 +38,7 @@ const UnrestrictedAccess = (props, context) => {
               textAlign="center"
               icon="arrow-left"
               content="East"
-              selected={unrestricted_dir & EAST ? 'selected' : null}
+              selected={unrestricted_dir & EAST}
               onClick={() =>
                 act('unrestricted_access', {
                   unres_dir: EAST,
@@ -53,7 +53,7 @@ const UnrestrictedAccess = (props, context) => {
               textAlign="center"
               icon="arrow-up"
               content="South"
-              selected={unrestricted_dir & SOUTH ? 'selected' : null}
+              selected={unrestricted_dir & SOUTH}
               onClick={() =>
                 act('unrestricted_access', {
                   unres_dir: SOUTH,
@@ -67,7 +67,7 @@ const UnrestrictedAccess = (props, context) => {
               textAlign="center"
               icon="arrow-right"
               content="West"
-              selected={unrestricted_dir & WEST ? 'selected' : null}
+              selected={unrestricted_dir & WEST}
               onClick={() =>
                 act('unrestricted_access', {
                   unres_dir: WEST,
@@ -81,7 +81,7 @@ const UnrestrictedAccess = (props, context) => {
               textAlign="center"
               icon="arrow-down"
               content="North"
-              selected={unrestricted_dir & NORTH ? 'selected' : null}
+              selected={unrestricted_dir & NORTH}
               onClick={() =>
                 act('unrestricted_access', {
                   unres_dir: NORTH,

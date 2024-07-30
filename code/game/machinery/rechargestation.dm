@@ -85,7 +85,6 @@
 	..()
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recharge_station/narsie_act()
@@ -124,13 +123,6 @@
 			icon_state = "borgcharger2"
 	else
 		icon_state = "borgcharger0"
-
-/obj/machinery/recharge_station/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-
-	else
-		return ..()
 
 /obj/machinery/recharge_station/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -201,7 +193,6 @@
 	var/can_accept_user
 	if(isrobot(target))
 		var/mob/living/silicon/robot/R = target
-	
 		if(occupant)
 			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
 			return
@@ -215,13 +206,11 @@
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
-		if(!ismodcontrol(H.back))
-			if(!H.get_int_organ(/obj/item/organ/internal/cell))
-				return
-		can_accept_user = TRUE
+		if(ismodcontrol(H.back) || H.get_int_organ(/obj/item/organ/internal/cell))
+			can_accept_user = TRUE
 
 	if(!can_accept_user)
-		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
+		to_chat(user, "<span class='notice'>Only non-organics and people wearing modsuits may enter the recharger!</span>")
 		return
 
 	target.stop_pulling()

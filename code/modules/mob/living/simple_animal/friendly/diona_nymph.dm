@@ -213,7 +213,7 @@
 	return TRUE
 
 // Consumes plant matter other than weeds to evolve
-/mob/living/simple_animal/diona/proc/consume(obj/item/food/snacks/grown/G)
+/mob/living/simple_animal/diona/proc/consume(obj/item/food/grown/G)
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating plant items without evolving.
 		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
 	else
