@@ -161,9 +161,11 @@
 
 	if(href_list["reload_statbrowser"])
 		stat_panel.reinitialize()
+		return
 
 	if(href_list["reload_tguipanel"])
 		nuke_chat()
+		return
 
 	//byond bug ID:2256651
 	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
