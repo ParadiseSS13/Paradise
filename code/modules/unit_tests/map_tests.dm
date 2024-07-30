@@ -162,11 +162,11 @@
 	if(!pipe)
 		return
 	if(!pipe.node1 && !pipe.node2)
-		Fail(T, "pipe missing both nodes.")
+		Fail(T, "[pipe] ([pipe.type]) missing both nodes.")
 		return
 	if(istype(pipe, /obj/machinery/atmospherics/pipe/simple/heat_exchanging) && (pipe.node1 || pipe.node2))
 		return // H/E pipes only need one end, because they don't always become full loops
 	if(!pipe.node1)
-		Fail(T, "pipe missing node1.")
+		Fail(T, "[pipe] ([pipe.type]) missing node1. ([uppertext(dir2text(pipe.initialize_directions & ~(get_dir(pipe, pipe.node2))))])")
 	if(!pipe.node2)
-		Fail(T, "pipe missing node2.")
+		Fail(T, "[pipe] ([pipe.type]) missing node2. ([uppertext(dir2text(pipe.initialize_directions & ~(get_dir(pipe, pipe.node1))))])")
