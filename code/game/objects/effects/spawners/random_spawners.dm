@@ -265,7 +265,7 @@
 	spawn_inside = null
 	result = list(/datum/nothing = 1,
 		/obj/item/wrench = 1,
-		/obj/item/food/snacks/syndicake = 1,
+		/obj/item/food/syndicake = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1)
 

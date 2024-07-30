@@ -662,7 +662,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	ai_announcement()
 
-/mob/living/silicon/ai/check_eye(mob/user)
+/mob/living/silicon/ai/proc/check_holopad_eye(mob/user)
 	if(!current)
 		return null
 	user.reset_perspective(current)
@@ -1332,15 +1332,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/can_buckle()
 	return FALSE
-
-/mob/living/silicon/ai/switch_to_camera(obj/machinery/camera/C)
-	if(!C.can_use() || !is_in_chassis())
-		return FALSE
-
-	eyeobj.setLoc(get_turf(C))
-	client.eye = eyeobj
-	return TRUE
-
 
 /mob/living/silicon/ai/proc/can_see(atom/A)
 	if(isturf(loc)) //AI in core, check if on cameras

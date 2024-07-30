@@ -979,11 +979,15 @@
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
 	},
-/obj/item/food/snacks/appendix,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
+	},
+/area/ruin/space/deepstorage)
+"dL" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "whitered"
 	},
 /area/ruin/space/deepstorage)
 "dO" = (
@@ -1557,11 +1561,6 @@
 "hZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3151,7 +3150,6 @@
 /obj/structure/window/reinforced/polarized{
 	dir = 4
 	},
-/obj/item/food/snacks/beans,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -3715,17 +3713,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "white"
-	},
-/area/ruin/space/deepstorage)
-"wd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = "red"
-	},
-/obj/item/food/snacks/appendix,
-/turf/simulated/floor/plasteel{
-	icon_state = "white";
-	dir = 1
 	},
 /area/ruin/space/deepstorage)
 "we" = (
@@ -6155,11 +6142,6 @@
 	icon_state = "vault"
 	},
 /area/ruin/space/deepstorage)
-"NL" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whitered"
-	},
-/area/ruin/space/deepstorage)
 "NN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/partial,
@@ -7598,12 +7580,11 @@
 "Xu" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
-/obj/item/food/snacks/beans,
+/obj/item/food/beans,
+/obj/item/food/beans,
+/obj/item/food/beans,
+/obj/item/food/beans,
+/obj/item/food/beans,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -9843,7 +9824,7 @@ fS
 rf
 Pg
 rM
-NL
+dL
 ho
 Fi
 QF
@@ -9909,7 +9890,7 @@ jB
 lg
 ic
 jp
-wd
+nW
 XQ
 cs
 ir
