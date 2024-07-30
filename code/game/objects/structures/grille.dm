@@ -25,7 +25,10 @@
 	. = ..()
 	. += "<span class='notice'>A powered wire underneath this will cause the grille to shock anyone who touches the grill. An electric shock may leap forth if the grill is damaged.</span>"
 	. += "<span class='notice'>Use <b>wirecutters</b> to deconstruct this item.</span>"
-
+	if(anchored)
+		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
+	else
+		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
 /obj/structure/grille/fence
 	var/width = 3
@@ -63,13 +66,6 @@
 	if(ratio > 0.5)
 		return
 	icon_state = "grille50_[rand(0,3)]"
-
-/obj/structure/grille/examine(mob/user)
-	. = ..()
-	if(anchored)
-		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
-	if(!anchored)
-		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
 
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user))

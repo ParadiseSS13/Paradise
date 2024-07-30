@@ -100,6 +100,9 @@
 	/// Being hijacked by a pulse demon?
 	var/being_hijacked = FALSE
 
+	/// Are we immune to EMPS?
+	var/emp_proof = FALSE
+
 	/*** APC Malf AI Vars ****/
 	var/malfhack = FALSE //New var for my changes to AI malf. --NeoFite
 	var/mob/living/silicon/ai/malfai = null //See above --NeoFite
@@ -107,6 +110,9 @@
 	/// Was this APC built instead of already existing? Used for malfhack to keep borgs from building apcs in space
 	var/constructed = FALSE
 	var/overload = 1 //used for the Blackout malf module
+
+	/// Are we hacked by a ruins malf AI? If so, it will act like a malf AI hacked APC, but silicons and malf AI's will not be able to interface with it.
+	var/hacked_by_ruin_AI = FALSE
 
 	/*** APC Overlay Vars ***/
 	var/update_state = -1
@@ -485,12 +491,14 @@
 		return TRUE
 
 	autoflag = 5 //why the hell is this being set to 5, fucking malf code -sirryan
-	if(issilicon(user))
-		var/mob/living/silicon/ai/AI = user
-		var/mob/living/silicon/robot/robot = user
-		if(aidisabled || (malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent))) || (istype(robot) && malfai && !(robot in malfai.connected_robots))))
+	if(issilicon(user) || ispulsedemon(user))
+		if(hacked_by_ruin_AI)
+			to_chat(user, "<span class='danger'>The APC interface program has been completely corrupted, you are unable to interface with it!</span>")
+			return FALSE
+		var/mob/living/L = user
+		if(!L.can_remote_apc_interface(src))
 			if(!loud)
-				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
+				to_chat(user, "<span class='danger'>[src] has AI control disabled!</span>")
 			return FALSE
 	else
 		if((!in_range(src, user) || !isturf(loc)))
@@ -903,7 +911,6 @@
 		if(L.nightshift_allowed)
 			L.nightshift_enabled = nightshift_lights
 			L.update(FALSE, play_sound = FALSE)
-		CHECK_TICK
 
 /obj/machinery/power/apc/proc/relock_callback()
 	locked = TRUE
@@ -947,6 +954,8 @@
 ///    *************
 
 /obj/machinery/power/apc/emp_act(severity)
+	if(emp_proof)
+		return
 	if(cell)
 		cell.emp_act(severity)
 	if(occupier)

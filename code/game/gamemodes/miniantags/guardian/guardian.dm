@@ -29,7 +29,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
-	butcher_results = list(/obj/item/food/snacks/ectoplasm = 1)
+	butcher_results = list(/obj/item/food/ectoplasm = 1)
 	hud_type = /datum/hud/guardian
 	var/summoned = FALSE
 	var/cooldown = 0
@@ -146,19 +146,24 @@
 		if(hud_used)
 			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#efeeef'>[resulthealth]%</font></div>"
 
-/mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
+/mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage/healing to the summoner
 	var/damage = amount * damage_transfer
-	if(summoner)
-		if(loc == summoner)
-			return
-		summoner.adjustBruteLoss(damage)
-		if(damage)
-			to_chat(summoner, "<span class='danger'>Your [name] is under attack! You take damage!</span>")
-			if(!stealthy_deploying)
-				summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
-		if(summoner.stat == UNCONSCIOUS)
-			to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
-			summoner.adjustCloneLoss(damage/2)
+	if(!summoner)
+		return
+	if(loc == summoner)
+		return
+
+	summoner.adjustBruteLoss(damage)
+	if(damage < 0)
+		to_chat(summoner, "<span class='notice'>Your [name] is receiving healing. It heals you!</span>")
+	else
+		to_chat(summoner, "<span class='danger'>Your [name] is under attack! You take damage!</span>")
+		if(!stealthy_deploying)
+			summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
+
+	if(summoner.stat == UNCONSCIOUS)
+		to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
+		summoner.adjustCloneLoss(damage / 2)
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
 	switch(severity)

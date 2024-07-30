@@ -27,6 +27,10 @@
 	bot_purpose = "deliver crates and other packages between departments, as requested"
 	req_access = list(ACCESS_CARGO)
 
+	/// The maximum amount of tiles the MULE can search via SSpathfinder before giving up.
+	/// Stored as a variable to allow VVing if there's any weirdness.
+	var/maximum_pathfind_range = 350
+
 
 	suffix = ""
 
@@ -606,7 +610,7 @@
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
 	check_bot_access()
-	set_path(get_path_to(src, target, 250, access = access_card.access, exclude = avoid))
+	set_path(get_path_to(src, target, max_distance = maximum_pathfind_range, access = access_card.access, exclude = avoid))
 
 // sets the current destination
 // signals all beacons matching the delivery code
