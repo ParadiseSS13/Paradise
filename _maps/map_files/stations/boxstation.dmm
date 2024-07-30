@@ -41341,6 +41341,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -52029,6 +52030,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"dLj" = (
+/obj/machinery/door/poddoor/preopen{
+	name = "Biohazard Shutter";
+	id_tag = "RnDChem"
+	},
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/engine,
+/area/station/science/misc_lab)
 "dLF" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/preopen{
@@ -143852,7 +143862,7 @@ cDG
 cFU
 cHp
 cIF
-cJP
+dLj
 oEK
 cLe
 tWz
