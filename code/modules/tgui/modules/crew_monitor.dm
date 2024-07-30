@@ -9,13 +9,17 @@
 	var/viewing_current_z_level
 	/// If true, we'll see everyone, regardless of their suit sensors.
 	var/ignore_sensors = FALSE
+	/// The ID of the currently opened UI tab
 	var/tab_index = 0
+	/// The zoom level of the UI map view
 	var/zoom = 1
+	/// The X offset of the UI map
 	var/offset_x = 0
+	/// The Y offset of the UI map
 	var/offset_y = 0
-	// This is intentionally a list of displayed names and NOT ckeys, refs, or uids.
-	// Exposing any of the aforementioned to the client could allow an exploit to detect
-	// changelings that are on sensors.
+	/// A list of displayed names. Displayed names were intentionally chosen over ckeys,
+	/// refs, or uids, because exposing any of the aforementioned to the client could allow
+	/// an exploit to detect changelings on sensors.
 	var/highlighted_names = list()
 
 /datum/ui_module/crew_monitor/ui_act(action, params)
