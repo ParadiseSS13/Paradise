@@ -39611,12 +39611,12 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/door/window/reinforced/reversed{
-	dir = 1;
-	name = "AI Core Door"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/ai_upload{
 	dir = 1
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 1;
+	name = "AI Core Door"
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
