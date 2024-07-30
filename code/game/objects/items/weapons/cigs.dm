@@ -37,8 +37,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/fancy = FALSE
 	/// What trash item the cigarette makes when it burns out.
 	var/type_butt = /obj/item/cigbutt
-	/// How long does the cigarette last before going out?
-	var/smoketime = 150
+	/// How long does the cigarette last before going out? Decrements by 1 every cycle.
+	var/smoketime = 150 // 300 seconds.
 	/// The cigarette's total reagent capacity.
 	var/chem_volume = 60
 	/// A list of the types and amounts of reagents in the cigarette.
