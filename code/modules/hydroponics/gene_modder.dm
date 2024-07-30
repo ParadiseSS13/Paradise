@@ -688,7 +688,7 @@
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 
-	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
+	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && user.Adjacent(src))
 		. += "<span class='danger'>Yes, even closer examination confirms it's not a trick of the light, it really is just a regular plant disk.</span>"
 		. += "<span class='userdanger'>Now stop staring at this worthless fake and FIND THE REAL ONE!</span>"
 		return
