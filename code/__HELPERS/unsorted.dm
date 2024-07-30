@@ -390,8 +390,6 @@
 		moblist.Add(M)
 	for(var/mob/living/simple_animal/M in sortmob)
 		moblist.Add(M)
-	for(var/mob/camera/blob/M in sortmob)
-		moblist.Add(M)
 	return moblist
 
 // Format a power value in W, kW, MW, or GW.
