@@ -1,14 +1,5 @@
-/* CONTENTS
-* 1. DEFIBRILLATOR
-* 2. PADDLES
-* 3. COMPACT DEFIBRILLATOR
-* 4. COMBAT DEFIBRILLATOR
-* 5. ADVANCED COMPACT DEFIBRILLATOR
-* 6. BORG DEFIBTRILLATOR
-*/
-//////////////////////////////
-// MARK: DEFIBRILLATOR
-//////////////////////////////
+//backpack item
+
 /obj/item/defibrillator
 	name = "defibrillator"
 	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."
@@ -208,9 +199,87 @@
 			update_icon(UPDATE_OVERLAYS)
 			return FALSE
 
-//////////////////////////////
-// MARK: PADDLES
-//////////////////////////////
+/obj/item/defibrillator/compact
+	name = "compact defibrillator"
+	desc = "A belt-mounted defibrillator that can be rapidly deployed."
+	icon_state = "defibcompact"
+	item_state = "defibcompact"
+	sprite_sheets = null //Because Vox had the belt defibrillator sprites in back.dm
+	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = SLOT_FLAG_BELT
+	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
+	origin_tech = "biotech=5"
+
+/obj/item/defibrillator/compact/loaded/Initialize(mapload)
+	. = ..()
+	cell = new(src)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
+	if(slot == SLOT_HUD_BELT)
+		return TRUE
+
+/obj/item/defibrillator/compact/combat
+	name = "combat defibrillator"
+	desc = "A belt-mounted blood-red defibrillator that can be rapidly deployed. Does not have the restrictions or safeties of conventional defibrillators and can revive through space suits."
+	icon_state = "defibcombat"
+	item_state = "defibcombat"
+	paddle_type = /obj/item/shockpaddles/syndicate
+	combat = TRUE
+	safety = FALSE
+	heart_attack_probability = 100
+
+/obj/item/defibrillator/compact/combat/loaded/Initialize(mapload)
+	. = ..()
+	cell = new(src)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/defibrillator/compact/advanced
+	name = "advanced compact defibrillator"
+	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. The casing is EMP-shielded and heavily reinforced, making it immune to most sources of damage."
+	icon_state = "defibnt"
+	item_state = "defibnt"
+	paddle_type = /obj/item/shockpaddles/advanced
+	combat = TRUE
+	safety = TRUE
+	hardened = TRUE // EMP-proof (on the component), but not emag-proof.
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Objective item, better not have it destroyed.
+	heart_attack_probability = 10
+	/// To prevent spam from the emagging message on the advanced defibrillator.
+	var/next_emp_message 
+
+/obj/item/defibrillator/compact/advanced/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] uses an experimental self-charging cell, meaning that it will (probably) never stop working.</span>"
+	. += "<span class='notice'>The advanced paddles can be used to defibrillate through space suits.</span>"
+
+/obj/item/defibrillator/compact/advanced/examine_more(mob/user)
+	. = ..()
+	. += "The Advanced Compact Defibrillator is Nanotrasen Medical's greatest refinement of electroshock revival technology. Featuring heavy electromagnetic shielding and a reinforced plastitanium chassis, \
+	it is both lightweight and extremely resistant to abuse, easily able to handle the most hostile of environments."
+	. += ""
+	. += "The two standout features of the ACD are the experimental self-charging power source - which gives it an effectively unlimited endurance - and the special breakdown paddles, \
+	capable of transmitting a therapeutic shock through even thick hardsuit plating, allowing casualties to be revived without having to strip their equipment."
+	. += ""
+	. += "Whilst the ACD is currently too expensive for mass-market deployment, Nanotrasen hopes that later developments in its manufacturing capabilities will enable it to economically launch this product commercially."
+
+/obj/item/defibrillator/compact/advanced/screwdriver_act(mob/living/user, obj/item/I)
+	return // The cell is too strong roundstart and we dont want the adv defib to become useless
+
+/obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)
+	. = ..()
+	cell = new /obj/item/stock_parts/cell/bluespace/charging(src)
+	update_icon(UPDATE_OVERLAYS)
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
+/obj/item/defibrillator/compact/advanced/emp_act(severity)
+	if(world.time > next_emp_message)
+		atom_say("Warning: Electromagnetic pulse detected. Integrated shielding prevented all potential hardware damage.")
+		playsound(src, 'sound/machines/defib_saftyon.ogg', 50)
+		next_emp_message = world.time + 5 SECONDS
+
+//paddles
+
 /obj/item/shockpaddles
 	name = "defibrillator paddles"
 	desc = "A pair of plastic-gripped paddles with flat metal surfaces that are used to deliver powerful electric shocks."
@@ -323,111 +392,6 @@
 	else
 		return TRUE
 
-//////////////////////////////
-// MARK: COMPACT DEFIB
-//////////////////////////////
-/obj/item/defibrillator/compact
-	name = "compact defibrillator"
-	desc = "A belt-mounted defibrillator that can be rapidly deployed."
-	icon_state = "defibcompact"
-	item_state = "defibcompact"
-	sprite_sheets = null //Because Vox had the belt defibrillator sprites in back.dm
-	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_FLAG_BELT
-	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
-	origin_tech = "biotech=5"
-
-/obj/item/defibrillator/compact/loaded/Initialize(mapload)
-	. = ..()
-	cell = new(src)
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_HUD_BELT)
-		return TRUE
-
-//////////////////////////////
-// MARK: COMBAT DEFIB
-//////////////////////////////
-/obj/item/defibrillator/compact/combat
-	name = "combat defibrillator"
-	desc = "A belt-mounted blood-red defibrillator that can be rapidly deployed. Does not have the restrictions or safeties of conventional defibrillators and can revive through space suits."
-	icon_state = "defibcombat"
-	item_state = "defibcombat"
-	paddle_type = /obj/item/shockpaddles/syndicate
-	combat = TRUE
-	safety = FALSE
-	heart_attack_probability = 100
-
-/obj/item/defibrillator/compact/combat/loaded/Initialize(mapload)
-	. = ..()
-	cell = new(src)
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/shockpaddles/syndicate
-	name = "combat defibrillator paddles"
-	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
-	icon_state = "syndiepaddles0"
-	item_state = "syndiepaddles0"
-	base_icon_state = "syndiepaddles"
-
-//////////////////////////////
-// MARK: ADVANCED COMPACT DEFIB
-//////////////////////////////
-/obj/item/defibrillator/compact/advanced
-	name = "advanced compact defibrillator"
-	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. The casing is EMP-shielded and heavily reinforced, making it immune to most sources of damage."
-	icon_state = "defibnt"
-	item_state = "defibnt"
-	paddle_type = /obj/item/shockpaddles/advanced
-	combat = TRUE
-	safety = TRUE
-	hardened = TRUE // EMP-proof (on the component), but not emag-proof.
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Objective item, better not have it destroyed.
-	heart_attack_probability = 10
-	/// To prevent spam from the emagging message on the advanced defibrillator.
-	var/next_emp_message 
-
-/obj/item/defibrillator/compact/advanced/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>[src] uses an experimental self-charging cell, meaning that it will (probably) never stop working.</span>"
-	. += "<span class='notice'>The advanced paddles can be used to defibrillate through space suits.</span>"
-
-/obj/item/defibrillator/compact/advanced/examine_more(mob/user)
-	. = ..()
-	. += "The Advanced Compact Defibrillator is Nanotrasen Medical's greatest refinement of electroshock revival technology. Featuring heavy electromagnetic shielding and a reinforced plastitanium chassis, \
-	it is both lightweight and extremely resistant to abuse, easily able to handle the most hostile of environments."
-	. += ""
-	. += "The two standout features of the ACD are the experimental self-charging power source - which gives it an effectively unlimited endurance - and the special breakdown paddles, \
-	capable of transmitting a therapeutic shock through even thick hardsuit plating, allowing casualties to be revived without having to strip their equipment."
-	. += ""
-	. += "Whilst the ACD is currently too expensive for mass-market deployment, Nanotrasen hopes that later developments in its manufacturing capabilities will enable it to economically launch this product commercially."
-
-/obj/item/defibrillator/compact/advanced/screwdriver_act(mob/living/user, obj/item/I)
-	return // The cell is too strong roundstart and we dont want the adv defib to become useless
-
-/obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)
-	. = ..()
-	cell = new /obj/item/stock_parts/cell/bluespace/charging(src)
-	update_icon(UPDATE_OVERLAYS)
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
-
-/obj/item/defibrillator/compact/advanced/emp_act(severity)
-	if(world.time > next_emp_message)
-		atom_say("Warning: Electromagnetic pulse detected. Integrated shielding prevented all potential hardware damage.")
-		playsound(src, 'sound/machines/defib_saftyon.ogg', 50)
-		next_emp_message = world.time + 5 SECONDS
-
-/obj/item/shockpaddles/advanced
-	name = "advanced defibrillator paddles"
-	desc = "A pair of high-tech paddles with flat plasteel surfaces that are used to deliver powerful electric shocks. They possess the ability to penetrate armor to deliver shock."
-	icon_state = "ntpaddles0"
-	item_state = "ntpaddles0"
-	base_icon_state = "ntpaddles"
-
-//////////////////////////////
-// MARK: BORG DEFIB
-//////////////////////////////
 /obj/item/borg_defib
 	name = "defibrillator paddles"
 	desc = "A pair of paddles with flat metal surfaces that are used to deliver powerful electric shocks."
@@ -460,3 +424,17 @@
 	visible_message("<span class='notice'>[src] beeps: Defibrillation unit ready.</span>")
 	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/shockpaddles/syndicate
+	name = "combat defibrillator paddles"
+	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
+	icon_state = "syndiepaddles0"
+	item_state = "syndiepaddles0"
+	base_icon_state = "syndiepaddles"
+
+/obj/item/shockpaddles/advanced
+	name = "advanced defibrillator paddles"
+	desc = "A pair of high-tech paddles with flat plasteel surfaces that are used to deliver powerful electric shocks. They possess the ability to penetrate armor to deliver shock."
+	icon_state = "ntpaddles0"
+	item_state = "ntpaddles0"
+	base_icon_state = "ntpaddles"
