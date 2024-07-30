@@ -140,6 +140,9 @@
 	/// The category of this vendor. Used for announcing brand intelligence.
 	var/category = VENDOR_TYPE_GENERIC
 
+	/// How often will the vendor tip when you walk by it when aggressive is true?
+	var/aggressive_tilt_chance = 25
+
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
@@ -176,6 +179,8 @@
 	power_change()
 	RegisterSignal(src, COMSIG_MOVABLE_UNTILTED, PROC_REF(on_untilt))
 	RegisterSignal(src, COMSIG_MOVABLE_TRY_UNTILT, PROC_REF(on_try_untilt))
+	if(aggressive)
+		AddComponent(/datum/component/proximity_monitor)
 
 /obj/machinery/economy/vending/Destroy()
 	SStgui.close_uis(wires)
@@ -414,7 +419,7 @@
 	if(!aggressive || tilted || !tiltable)
 		return
 
-	if(isliving(AM) && prob(25))
+	if(isliving(AM) && prob(aggressive_tilt_chance))
 		AM.visible_message(
 			"<span class='danger'>[src] suddenly topples over onto [AM]!</span>",
 			"<span class='userdanger'>[src] topples over onto you without warning!</span>"

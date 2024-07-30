@@ -138,9 +138,6 @@
 /obj/effect/rend/singularity_pull()
 	return
 
-/obj/effect/rend/singularity_pull()
-	return
-
 /obj/item/veilrender/vealrender
 	name = "veal render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast farm."
@@ -886,6 +883,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = INFINITY, FIRE = 5, ACID = 5)
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	magical = TRUE
@@ -910,6 +908,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = INFINITY, FIRE = 5, ACID = 5)
 	flags_inv = HIDEJUMPSUIT | HIDESHOES | HIDETAIL | HIDESHOES
 	flags = THICKMATERIAL
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	magical = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',

@@ -5,7 +5,7 @@
 	icon_state = "seed-chili"
 	species = "chili"
 	plantname = "Chili Plants"
-	product = /obj/item/food/snacks/grown/chili
+	product = /obj/item/food/grown/chili
 	lifespan = 20
 	maturation = 5
 	production = 5
@@ -18,7 +18,7 @@
 	mutatelist = list(/obj/item/seeds/chili/ice, /obj/item/seeds/chili/ghost)
 	reagents_add = list("capsaicin" = 0.25, "vitamin" = 0.04, "plantmatter" = 0.04)
 
-/obj/item/food/snacks/grown/chili
+/obj/item/food/grown/chili
 	seed = /obj/item/seeds/chili
 	name = "chili"
 	desc = "It's spicy! Wait... IT'S BURNING ME!!"
@@ -35,7 +35,7 @@
 	icon_state = "seed-icepepper"
 	species = "chiliice"
 	plantname = "Chilly Pepper Plants"
-	product = /obj/item/food/snacks/grown/icepepper
+	product = /obj/item/food/grown/icepepper
 	lifespan = 25
 	maturation = 4
 	production = 4
@@ -43,7 +43,7 @@
 	mutatelist = list()
 	reagents_add = list("frostoil" = 0.25, "vitamin" = 0.02, "plantmatter" = 0.02)
 
-/obj/item/food/snacks/grown/icepepper
+/obj/item/food/grown/icepepper
 	seed = /obj/item/seeds/chili/ice
 	name = "chilly pepper"
 	desc = "It's a mutant strain of chili"
@@ -61,7 +61,7 @@
 	icon_state = "seed-chilighost"
 	species = "chilighost"
 	plantname = "Ghost Chili Plants"
-	product = /obj/item/food/snacks/grown/ghost_chili
+	product = /obj/item/food/grown/ghost_chili
 	endurance = 10
 	maturation = 10
 	production = 10
@@ -70,7 +70,7 @@
 	mutatelist = list()
 	reagents_add = list("condensedcapsaicin" = 0.3, "capsaicin" = 0.55, "plantmatter" = 0.04)
 
-/obj/item/food/snacks/grown/ghost_chili
+/obj/item/food/grown/ghost_chili
 	seed = /obj/item/seeds/chili/ghost
 	name = "ghost chili"
 	desc = "It seems to be vibrating gently."
