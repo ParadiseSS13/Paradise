@@ -411,8 +411,8 @@
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_FLAG_MASK
-	strip_delay = 40
-	put_on_delay = 40
+	strip_delay = 4 SECONDS
+	put_on_delay = 4 SECONDS
 	dyeable = FALSE
 
 	var/adjusted_flags = null
