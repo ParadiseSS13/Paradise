@@ -109,6 +109,10 @@
 	name = "butterfly crate"
 	content_mob = /mob/living/simple_animal/butterfly
 
+/obj/structure/closet/critter/nian_caterpillar
+	name = "nian caterpillar crate"
+	content_mob = /mob/living/simple_animal/nian_caterpillar
+
 /obj/structure/closet/critter/deer
 	name = "deer crate"
 	content_mob = /mob/living/simple_animal/deer

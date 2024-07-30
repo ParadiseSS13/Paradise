@@ -3,7 +3,7 @@
 //		Raw Meat	//
 //////////////////////
 
-/obj/item/food/snacks/meat
+/obj/item/food/meat
 	name = "meat"
 	desc = "A slab of meat."
 	icon = 'icons/obj/food/meat.dmi'
@@ -15,11 +15,11 @@
 	ingredient_name = "slab of meat"
 	ingredient_name_plural = "slabs of meat"
 
-/obj/item/food/snacks/meat/attackby(obj/item/W, mob/user, params)
+/obj/item/food/meat/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
-		new /obj/item/food/snacks/rawcutlet(src)
-		new /obj/item/food/snacks/rawcutlet(src)
-		new /obj/item/food/snacks/rawcutlet(src)
+		new /obj/item/food/rawcutlet(src)
+		new /obj/item/food/rawcutlet(src)
+		new /obj/item/food/rawcutlet(src)
 		user.visible_message( \
 			"<span class ='notice'>[user] cuts [src] with [W]!</span>", \
 			"<span class ='notice'>You cut [src] with [W]!</span>" \
@@ -28,53 +28,53 @@
 	else
 		..()
 
-/obj/item/food/snacks/meat/syntiflesh
+/obj/item/food/meat/syntiflesh
 	name = "synthetic meat"
 	desc = "A synthetic slab of flesh."
 
-/obj/item/food/snacks/meat/human
+/obj/item/food/meat/human
 	name = "-meat"
 	var/subjectname = ""
 	var/subjectjob = null
 	tastes = list("salty meat" = 1)
 
-/obj/item/food/snacks/meat/slab/meatproduct
+/obj/item/food/meat/slab/meatproduct
 	name = "meat product"
 	desc = "A slab of reclaimed and chemically processed meat product."
 
-/obj/item/food/snacks/meat/slab/gorilla
+/obj/item/food/meat/slab/gorilla
 	name = "gorilla meat"
 	desc = "Much meatier than monkey meat."
 	list_reagents = list("nutriment" = 5, "vitamin" = 1)
 
-/obj/item/food/snacks/meat/kangaroo
+/obj/item/food/meat/kangaroo
 	name = "kangaroo meat"
 	desc = "Extremely muscular and tender meat."
 	list_reagents = list("protein" = 4, "iron" = 5, "vitamin" = 1)
 	tastes = list("a punch in the face" = 1, "fowl" = 3)
 
-/obj/item/food/snacks/meat/monkey
+/obj/item/food/meat/monkey
 	//same as plain meat
 
-/obj/item/food/snacks/meat/corgi
+/obj/item/food/meat/corgi
 	name = "corgi meat"
 	desc = "Tastes like the Head of Personnel's hopes and dreams."
 
-/obj/item/food/snacks/meat/pug
+/obj/item/food/meat/pug
 	name = "pug meat"
 	desc = "Slightly less adorable in sliced form."
 
-/obj/item/food/snacks/meat/ham
+/obj/item/food/meat/ham
 	name = "ham"
 	desc = "For when you need to go ham."
 	list_reagents = list("protein" = 3, "porktonium" = 10)
 
-/obj/item/food/snacks/meat/chicken
+/obj/item/food/meat/chicken
 	name = "chicken meat"
 	desc = "Cluck cluck!"
 	icon_state = "birdmeat"
 
-/obj/item/food/snacks/meat/meatwheat
+/obj/item/food/meat/meatwheat
 	name = "meatwheat clump"
 	desc = "This doesn't look like meat, but your standards aren't <i>that</i> high to begin with."
 	list_reagents = list("nutriment" = 3, "vitamin" = 2, "blood" = 5)
@@ -82,7 +82,7 @@
 	icon_state = "meatwheat_clump"
 	bitesize = 4
 
-/obj/item/food/snacks/meat/tomatomeat
+/obj/item/food/meat/tomatomeat
 	name = "tomato meat slice"
 	desc = "A slice from a huge tomato."
 	icon_state = "tomatomeat"
@@ -91,7 +91,7 @@
 	list_reagents = list("protein" = 2)
 	tastes = list("tomato" = 1)
 
-/obj/item/food/snacks/rawcutlet
+/obj/item/food/rawcutlet
 	name = "raw cutlet"
 	desc = "A thin strip of raw meat."
 	icon = 'icons/obj/food/food_ingredients.dmi'
@@ -99,13 +99,13 @@
 	bitesize = 1
 	list_reagents = list("protein" = 1)
 
-/obj/item/food/snacks/rawcutlet/attackby(obj/item/W, mob/user, params)
+/obj/item/food/rawcutlet/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
 		user.visible_message( \
 			"<span class ='notice'>[user] cuts the raw cutlet with [W]!</span>", \
 			"<span class ='notice'>You cut the raw cutlet with [W]!</span>" \
 			)
-		var/obj/item/food/snacks/raw_bacon/bacon = new(get_turf(src))
+		var/obj/item/food/raw_bacon/bacon = new(get_turf(src))
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			qdel(src)
@@ -119,7 +119,7 @@
 
 // Cannot be used in the usual meat-based food recipies but can be used as cloning pod biomass.
 
-/obj/item/food/snacks/monstermeat
+/obj/item/food/monstermeat
 	// Abstract object used for inheritance. I don't see why you would want one.
 	// It's just a convenience to set all monstermeats as biomass-able at once,
 	// in the GLOB.cloner_biomass_items list.
@@ -129,7 +129,7 @@
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "bearmeat"
 
-/obj/item/food/snacks/monstermeat/bearmeat
+/obj/item/food/monstermeat/bearmeat
 	name = "bear meat"
 	desc = "A very manly slab of meat."
 	icon_state = "bearmeat"
@@ -138,7 +138,7 @@
 	list_reagents = list("protein" = 12, "methamphetamine" = 5, "vitamin" = 2)
 	tastes = list("meat" = 1, "salmon" = 1)
 
-/obj/item/food/snacks/monstermeat/xenomeat
+/obj/item/food/monstermeat/xenomeat
 	name = "meat"
 	desc = "A slab of meat. It's green!"
 	icon_state = "xenomeat"
@@ -147,7 +147,7 @@
 	list_reagents = list("protein" = 3, "vitamin" = 1)
 	tastes = list("meat" = 1, "acid" = 1)
 
-/obj/item/food/snacks/monstermeat/spidermeat
+/obj/item/food/monstermeat/spidermeat
 	name = "spider meat"
 	desc = "A slab of spider meat. Not very appetizing."
 	icon_state = "spidermeat"
@@ -155,7 +155,7 @@
 	list_reagents = list("protein" = 3, "toxin" = 3, "vitamin" = 1)
 	tastes = list("cobwebs" = 1)
 
-/obj/item/food/snacks/monstermeat/lizardmeat
+/obj/item/food/monstermeat/lizardmeat
 	name = "mutant lizard meat"
 	desc = "A peculiar slab of meat. It looks scaly and radioactive."
 	icon_state = "xenomeat"
@@ -164,14 +164,14 @@
 	list_reagents = list("protein" = 3, "toxin" = 3)
 	tastes = list("tough meat" = 1)
 
-/obj/item/food/snacks/monstermeat/spiderleg
+/obj/item/food/monstermeat/spiderleg
 	name = "spider leg"
 	desc = "A still twitching leg of a giant spider. You don't really want to eat this, do you?"
 	icon_state = "spiderleg"
 	list_reagents = list("protein" = 2, "toxin" = 2)
 	tastes = list("cobwebs" = 1, "creepy motion" = 1)
 
-/obj/item/food/snacks/raw_bacon
+/obj/item/food/raw_bacon
 	name = "raw bacon"
 	desc = "God's gift to man in uncooked form."
 	icon = 'icons/obj/food/meat.dmi'
@@ -179,30 +179,30 @@
 	list_reagents = list("nutriment" = 1, "porktonium" = 10)
 	tastes = list("bacon" = 1)
 
-/obj/item/food/snacks/monstermeat/spidereggs
+/obj/item/food/monstermeat/spidereggs
 	name = "spider eggs"
 	desc = "A cluster of juicy spider eggs. A great side dish for when you don't care about your health."
 	icon_state = "spidereggs"
 	list_reagents = list("protein" = 2, "toxin" = 2)
 	tastes = list("cobwebs" = 1, "spider juice" = 1)
 
-/obj/item/food/snacks/monstermeat/goliath
+/obj/item/food/monstermeat/goliath
 	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
 	icon_state = "goliathmeat"
 	list_reagents = list("protein" = 3, "toxin" = 5)
 	tastes = list("tough meat" = 1)
 
-/obj/item/food/snacks/monstermeat/goliath/burn()
+/obj/item/food/monstermeat/goliath/burn()
 	visible_message("<span class='notice'>[src] finishes cooking!</span>")
-	new /obj/item/food/snacks/goliath_steak(loc)
+	new /obj/item/food/goliath_steak(loc)
 	qdel(src)
 
 //////////////////////
 //	Cooked Meat		//
 //////////////////////
 
-/obj/item/food/snacks/meatsteak
+/obj/item/food/meatsteak
 	name = "meat steak"
 	desc = "A piece of hot spicy meat."
 	icon = 'icons/obj/food/meat.dmi'
@@ -214,13 +214,13 @@
 	tastes = list("meat" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/meatsteak/chicken
+/obj/item/food/meatsteak/chicken
 	name = "cooked chicken"
 	desc = "Cluck cluck!"
 	icon_state = "birdsteak"
 	tastes = list("chicken" = 1, "meat" = 1)
 
-/obj/item/food/snacks/bacon
+/obj/item/food/bacon
 	name = "bacon"
 	desc = "It looks crispy and tastes amazing! Mmm... Bacon."
 	icon = 'icons/obj/food/meat.dmi'
@@ -229,7 +229,7 @@
 	tastes = list("bacon" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/telebacon
+/obj/item/food/telebacon
 	name = "tele bacon"
 	desc = "It tastes a little odd but it's still delicious."
 	icon = 'icons/obj/food/meat.dmi'
@@ -239,21 +239,21 @@
 	tastes = list("bacon" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/telebacon/Initialize(mapload)
+/obj/item/food/telebacon/Initialize(mapload)
 	. = ..()
 	baconbeacon = new /obj/item/beacon/bacon(src)
 
-/obj/item/food/snacks/telebacon/Destroy()
+/obj/item/food/telebacon/Destroy()
 	QDEL_NULL(baconbeacon)
 	return ..()
 
-/obj/item/food/snacks/telebacon/On_Consume(mob/M, mob/user)
+/obj/item/food/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)
 		baconbeacon.forceMove(user)
 		baconbeacon.digest_delay()
 		baconbeacon = null
 
-/obj/item/food/snacks/meatball
+/obj/item/food/meatball
 	name = "meatball"
 	desc = "A great meal all round."
 	icon = 'icons/obj/food/meat.dmi'
@@ -262,7 +262,7 @@
 	list_reagents = list("protein" = 4, "vitamin" = 1)
 	tastes = list("meat" = 1)
 
-/obj/item/food/snacks/sausage
+/obj/item/food/sausage
 	name = "sausage"
 	desc = "A piece of mixed and cased meat."
 	icon = 'icons/obj/food/meat.dmi'
@@ -272,7 +272,7 @@
 	tastes = list("meat" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/cutlet
+/obj/item/food/cutlet
 	name = "cutlet"
 	desc = "A tasty meat slice."
 	icon = 'icons/obj/food/food_ingredients.dmi'
@@ -281,7 +281,7 @@
 	tastes = list("meat" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/spidereggsham
+/obj/item/food/spidereggsham
 	name = "green eggs and ham"
 	desc = "Would you eat them on a train? Would you eat them on a plane? Would you eat them on a state of the art corporate deathtrap floating through space?"
 	icon = 'icons/obj/food/meat.dmi'
@@ -292,7 +292,7 @@
 	tastes = list("cobwebs" = 1, "the colour green" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
-/obj/item/food/snacks/boiledspiderleg
+/obj/item/food/boiledspiderleg
 	name = "boiled spider leg"
 	desc = "A giant spider's leg that's still twitching after being cooked. Gross!"
 	icon = 'icons/obj/food/meat.dmi'
@@ -303,7 +303,7 @@
 	tastes = list("cobwebs" = 1, "hot peppers" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
-/obj/item/food/snacks/wingfangchu
+/obj/item/food/wingfangchu
 	name = "wing fang chu"
 	desc = "A savory dish of alien wing wang in soy. Wait, what?"
 	icon = 'icons/obj/food/soupsalad.dmi'
@@ -314,7 +314,7 @@
 	tastes = list("soy" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
-/obj/item/food/snacks/goliath_steak
+/obj/item/food/goliath_steak
 	name = "goliath steak"
 	desc = "A delicious, lava cooked steak."
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -325,7 +325,7 @@
 	tastes = list("meat" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
-/obj/item/food/snacks/fried_vox
+/obj/item/food/fried_vox
 	name = "Kentucky Fried Vox"
 	desc = "Bucket of voxxy, yaya!"
 	icon = 'icons/obj/food/meat.dmi'
@@ -339,7 +339,7 @@
 //		Cubes		//
 //////////////////////
 
-/obj/item/food/snacks/monkeycube
+/obj/item/food/monkeycube
 	name = "monkey cube"
 	desc = "Just add water!"
 	icon_state = "monkeycube"
@@ -350,17 +350,17 @@
 	list_reagents = list("nutriment" = 2)
 	tastes = list("the jungle" = 1, "bananas" = 1)
 
-/obj/item/food/snacks/monkeycube/water_act(volume, temperature, source, method = REAGENT_TOUCH)
+/obj/item/food/monkeycube/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	if(volume >= 1)
 		return Expand()
 
-/obj/item/food/snacks/monkeycube/wash(mob/user, atom/source)
+/obj/item/food/monkeycube/wash(mob/user, atom/source)
 	user.drop_item()
 	forceMove(get_turf(source))
 	return 1
 
-/obj/item/food/snacks/monkeycube/proc/Expand()
+/obj/item/food/monkeycube/proc/Expand()
 	if(LAZYLEN(SSmobs.cubemonkeys) >= GLOB.configuration.general.monkey_cube_cap)
 		return
 	if(!QDELETED(src))
@@ -380,22 +380,26 @@
 		SSmobs.cubemonkeys += creature
 		qdel(src)
 
-/obj/item/food/snacks/monkeycube/syndicate
+/obj/item/food/monkeycube/syndicate
 	faction = list("neutral", "syndicate")
 
-/obj/item/food/snacks/monkeycube/farwacube
+/obj/item/food/monkeycube/farwacube
 	name = "farwa cube"
 	monkey_type = /datum/species/monkey/tajaran
 
-/obj/item/food/snacks/monkeycube/wolpincube
+/obj/item/food/monkeycube/wolpincube
 	name = "wolpin cube"
 	monkey_type = /datum/species/monkey/vulpkanin
 
-/obj/item/food/snacks/monkeycube/stokcube
+/obj/item/food/monkeycube/nian_wormecube
+	name = "nian worme cube"
+	monkey_type = /datum/species/monkey/nian_worme
+
+/obj/item/food/monkeycube/stokcube
 	name = "stok cube"
 	monkey_type = /datum/species/monkey/unathi
 
-/obj/item/food/snacks/monkeycube/neaeracube
+/obj/item/food/monkeycube/neaeracube
 	name = "neaera cube"
 	monkey_type = /datum/species/monkey/skrell
 
@@ -404,7 +408,7 @@
 //		Eggs		//
 //////////////////////
 
-/obj/item/food/snacks/egg
+/obj/item/food/egg
 	name = "egg"
 	desc = "An egg!"
 	icon = 'icons/obj/food/breakfast.dmi'
@@ -414,7 +418,7 @@
 	tastes = list("egg" = 1)
 	var/amount_grown = 0
 
-/obj/item/food/snacks/egg/throw_impact(atom/hit_atom)
+/obj/item/food/egg/throw_impact(atom/hit_atom)
 	..()
 	var/turf/T = get_turf(hit_atom)
 	new/obj/effect/decal/cleanable/egg_smudge(T)
@@ -422,7 +426,7 @@
 		reagents.reaction(hit_atom, REAGENT_TOUCH)
 	qdel(src)
 
-/obj/item/food/snacks/egg/attackby(obj/item/W, mob/user, params)
+/obj/item/food/egg/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
 		var/clr = C.colourName
@@ -437,49 +441,49 @@
 	else
 		..()
 
-/obj/item/food/snacks/egg/blue
+/obj/item/food/egg/blue
 	icon_state = "egg-blue"
 	item_color = "blue"
 
-/obj/item/food/snacks/egg/green
+/obj/item/food/egg/green
 	icon_state = "egg-green"
 	item_color = "green"
 
-/obj/item/food/snacks/egg/mime
+/obj/item/food/egg/mime
 	icon_state = "egg-mime"
 	item_color = "mime"
 
-/obj/item/food/snacks/egg/orange
+/obj/item/food/egg/orange
 	icon_state = "egg-orange"
 	item_color = "orange"
 
-/obj/item/food/snacks/egg/purple
+/obj/item/food/egg/purple
 	icon_state = "egg-purple"
 	item_color = "purple"
 
-/obj/item/food/snacks/egg/rainbow
+/obj/item/food/egg/rainbow
 	icon_state = "egg-rainbow"
 	item_color = "rainbow"
 
-/obj/item/food/snacks/egg/red
+/obj/item/food/egg/red
 	icon_state = "egg-red"
 	item_color = "red"
 
-/obj/item/food/snacks/egg/yellow
+/obj/item/food/egg/yellow
 	icon_state = "egg-yellow"
 	item_color = "yellow"
 
-/obj/item/food/snacks/egg/gland
+/obj/item/food/egg/gland
 	desc = "An egg! It looks weird..."
 
-/obj/item/food/snacks/egg/gland/Initialize(mapload)
+/obj/item/food/egg/gland/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(get_random_reagent_id(), 15)
 
 	var/reagent_color = mix_color_from_reagents(reagents.reagent_list)
 	color = reagent_color
 
-/obj/item/food/snacks/friedegg
+/obj/item/food/friedegg
 	name = "fried egg"
 	desc = "A fried egg, with a touch of salt and pepper."
 	icon = 'icons/obj/food/breakfast.dmi'
@@ -490,7 +494,7 @@
 	tastes = list("egg" = 1, "salt" = 1, "pepper" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/boiledegg
+/obj/item/food/boiledegg
 	name = "boiled egg"
 	desc = "A hard boiled egg."
 	icon = 'icons/obj/food/breakfast.dmi'
@@ -499,7 +503,7 @@
 	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/chocolateegg
+/obj/item/food/chocolateegg
 	name = "chocolate egg"
 	desc = "Such sweet, fattening food."
 	icon = 'icons/obj/food/breakfast.dmi'
@@ -508,7 +512,7 @@
 	list_reagents = list("nutriment" = 4, "sugar" = 2, "cocoa" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/omelette
+/obj/item/food/omelette
 	name = "omelette du fromage"
 	desc = "That's all you can say!"
 	icon = 'icons/obj/food/breakfast.dmi'
@@ -520,7 +524,7 @@
 	tastes = list("egg" = 1, "cheese" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/benedict
+/obj/item/food/benedict
 	name = "eggs benedict"
 	desc = "There is only one egg on this, how rude."
 	icon = 'icons/obj/food/breakfast.dmi'
@@ -535,7 +539,7 @@
 //		Misc		//
 //////////////////////
 
-/obj/item/food/snacks/hotdog
+/obj/item/food/hotdog
 	name = "hotdog"
 	desc = "Not made with actual dogs. Hopefully."
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -545,7 +549,7 @@
 	tastes = list("bun" = 3, "meat" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/meatbun
+/obj/item/food/meatbun
 	name = "meat bun"
 	desc = "Has the potential to not be dog."
 	icon = 'icons/obj/food/meat.dmi'
@@ -555,18 +559,18 @@
 	tastes = list("bun" = 3, "meat" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/sliceable/turkey
+/obj/item/food/sliceable/turkey
 	name = "turkey"
 	desc = "A traditional turkey served with stuffing."
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "turkey"
-	slice_path = /obj/item/food/snacks/turkeyslice
+	slice_path = /obj/item/food/turkeyslice
 	slices_num = 6
 	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 5)
 	tastes = list("turkey" = 2, "stuffing" = 2)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/snacks/turkeyslice
+/obj/item/food/turkeyslice
 	name = "turkey serving"
 	desc = "A serving of some tender and delicious turkey."
 	icon = 'icons/obj/food/meat.dmi'
@@ -576,7 +580,7 @@
 	tastes = list("turkey" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/snacks/organ
+/obj/item/food/organ
 	name = "organ"
 	desc = "Technically qualifies as organic."
 	icon = 'icons/obj/surgery.dmi'
@@ -585,11 +589,11 @@
 	bitesize = 3
 	list_reagents = list("protein" = 4, "vitamin" = 4)
 
-/obj/item/food/snacks/organ/Initialize(mapload)
+/obj/item/food/organ/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent("nutriment", 5)
 
-/obj/item/food/snacks/appendix
+/obj/item/food/appendix
 //yes, this is the same as meat. I might do something different in future
 	name = "appendix"
 	desc = "An appendix which looks perfectly healthy."
@@ -599,13 +603,13 @@
 	bitesize = 3
 	list_reagents = list("protein" = 3, "vitamin" = 2)
 
-/obj/item/food/snacks/appendix/inflamed
+/obj/item/food/appendix/inflamed
 	name = "inflamed appendix"
 	desc = "An appendix which appears to be inflamed."
 	icon_state = "appendixinflamed"
 	filling_color = "#E00D7A"
 
-/obj/item/food/snacks/bbqribs
+/obj/item/food/bbqribs
 	name = "BBQ ribs"
 	desc = "Sweet, smokey, savory, and gets everywhere. Perfect for Grilling."
 	icon = 'icons/obj/food/meat.dmi'

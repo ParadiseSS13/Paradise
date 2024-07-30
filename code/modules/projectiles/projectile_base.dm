@@ -201,7 +201,7 @@
 				L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
 				if(istype(H))
 					for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
-						M.bloody_hands(H)
+						M.make_bloody_hands(H.get_blood_dna_list(), H.get_blood_color())
 						/* Uncomment when bloody_body stops randomly not transferring blood colour.
 						M.bloody_body(H) */
 		else if(impact_effect_type && !hitscan)
@@ -210,12 +210,12 @@
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
 		if(suppressed)
-			playsound(loc, hitsound, 5, 1, -1)
+			playsound(loc, hitsound, 5, TRUE, -1)
 			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, 1, -1)
+				playsound(loc, hitsound, volume, TRUE, -1)
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 		if(immolate)
@@ -288,7 +288,7 @@
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
-		playsound(loc, hitsound_wall, volume, 1, -1)
+		playsound(loc, hitsound_wall, volume, TRUE, -1)
 	else if(ishuman(A))
 		var/mob/living/carbon/human/H = A
 		var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
@@ -481,13 +481,16 @@
 
 /obj/item/projectile/set_angle(new_angle)
 	..()
+
 	Angle = new_angle
-	trajectory.set_angle(new_angle)
+	if(trajectory)
+		trajectory.set_angle(new_angle)
 	if(has_been_fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))
 		last_angle_set_hitscan_store = loc
 		var/datum/point/point_cache = new (src)
 		point_cache = trajectory.copy_to()
 		store_hitscan_collision(point_cache)
+	return TRUE
 
 /obj/item/projectile/proc/set_angle_centered(new_angle)
 	set_angle(new_angle)

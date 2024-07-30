@@ -314,8 +314,8 @@
 			if(metal_synthesis_cooldown >= 5)
 				to_chat(user, "<span class='notice'>Metal foam mix is still being synthesized.</span>")
 				return
-			var/obj/effect/particle_effect/foam/F = new /obj/effect/particle_effect/foam(get_turf(target), TRUE)
-			F.amount = 0
+			var/obj/effect/particle_effect/foam/metal/F = new /obj/effect/particle_effect/foam/metal(get_turf(target), TRUE)
+			F.spread_amount = 0
 			metal_synthesis_cooldown++
 			addtimer(CALLBACK(src, PROC_REF(metal_cooldown)), 10 SECONDS)
 

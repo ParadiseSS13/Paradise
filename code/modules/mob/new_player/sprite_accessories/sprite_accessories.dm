@@ -433,6 +433,31 @@
 /datum/sprite_accessory/undershirt/brightblue_striped
 	name = "Striped Bright Blue Shirt"
 	icon_state = "shirt_brightbluestripe"
+
+/datum/sprite_accessory/undershirt/shirt_trans
+	name = "Transgender Shirt"
+	icon_state = "shirt_trans"
+
+/datum/sprite_accessory/undershirt/shirt_nonbinary
+	name = "Nonbinary Shirt"
+	icon_state = "shirt_nonbinary"
+
+/datum/sprite_accessory/undershirt/shirt_bisexual
+	name = "Bisexual Shirt"
+	icon_state = "shirt_bisexual"
+
+/datum/sprite_accessory/undershirt/shirt_pansexual
+	name = "Pansexual Shirt"
+	icon_state = "shirt_pansexual"
+
+/datum/sprite_accessory/undershirt/shirt_asexual
+	name = "Asexual Shirt"
+	icon_state = "shirt_asexual"
+
+/datum/sprite_accessory/undershirt/shirt_rainbow
+	name = "Rainbow Shirt"
+	icon_state = "shirt_rainbow"
+
 //end graphic shirts
 
 //short sleeved

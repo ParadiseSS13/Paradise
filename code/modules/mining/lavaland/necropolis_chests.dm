@@ -12,7 +12,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
-	var/loot = rand(1, 23)
+	var/loot = rand(1, 24)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -61,7 +61,7 @@
 		if(19)
 			new /obj/item/gun/magic/hook(src)
 		if(20)
-			new /obj/item/grenade/clusterbuster/inferno(src)
+			new /obj/item/reagent_containers/drinks/everfull(src)
 		if(21)
 			new /obj/item/reagent_containers/drinks/bottle/holywater/hell(src)
 		if(22)
@@ -463,7 +463,7 @@
 /obj/item/organ/internal/cyberimp/arm/katana/Extend()
 	for(var/obj/item/cursed_katana/katana in contents)
 		if(katana.shattered)
-			to_chat(owner, "<span class='warning'> Your cursed katana has not reformed yet!</span>")
+			to_chat(owner, "<span class='warning'>Your cursed katana has not reformed yet!</span>")
 			return FALSE
 	return ..()
 

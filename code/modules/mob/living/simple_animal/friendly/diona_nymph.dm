@@ -56,8 +56,8 @@
 
 /datum/action/innate/diona/merge
 	name = "Merge with gestalt"
-	icon_icon = 'icons/mob/human_races/r_diona.dmi'
-	button_icon_state = "preview"
+	button_overlay_icon = 'icons/mob/human_races/r_diona.dmi'
+	button_overlay_icon_state = "preview"
 
 /datum/action/innate/diona/merge/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -65,8 +65,8 @@
 
 /datum/action/innate/diona/evolve
 	name = "Evolve"
-	icon_icon = 'icons/obj/cloning.dmi'
-	button_icon_state = "pod_cloning"
+	button_overlay_icon = 'icons/obj/cloning.dmi'
+	button_overlay_icon_state = "pod_cloning"
 
 /datum/action/innate/diona/evolve/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -74,8 +74,8 @@
 
 /datum/action/innate/diona/steal_blood
 	name = "Steal blood"
-	icon_icon = 'icons/goonstation/objects/iv.dmi'
-	button_icon_state = "bloodbag"
+	button_overlay_icon = 'icons/goonstation/objects/iv.dmi'
+	button_overlay_icon_state = "bloodbag"
 
 /datum/action/innate/diona/steal_blood/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -186,6 +186,9 @@
 
 	visible_message("<span class='danger'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.</span>","<span class='danger'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.</span>")
 
+	if(master_commander)
+		to_chat(src, "<span class='userdanger'>As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!</span>")
+
 	var/mob/living/carbon/human/diona/adult = new(get_turf(loc))
 	adult.set_species(/datum/species/diona)
 
@@ -210,13 +213,13 @@
 	return TRUE
 
 // Consumes plant matter other than weeds to evolve
-/mob/living/simple_animal/diona/proc/consume(obj/item/food/snacks/grown/G)
+/mob/living/simple_animal/diona/proc/consume(obj/item/food/grown/G)
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating plant items without evolving.
 		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
 	else
 		if(do_after_once(src, 20, target = G))
 			visible_message("[src] ravenously consumes [G].", "You ravenously devour [G].")
-			playsound(loc, 'sound/items/eatfood.ogg', 30, 0, frequency = 1.5)
+			playsound(loc, 'sound/items/eatfood.ogg', 30, FALSE, frequency = 1.5)
 			if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)
 				adjust_nutrition(2)
 			else

@@ -240,7 +240,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 		return
 
 	for(var/i in 1 to 5)
-		var/obj/item/food/snacks/warmdonkpocket_weak/W = new(src)
+		var/obj/item/food/warmdonkpocket_weak/W = new(src)
 		load(W)
 	if(prob(50))
 		var/obj/item/storage/bag/dice/D = new(src)

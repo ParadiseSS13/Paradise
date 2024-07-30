@@ -4,21 +4,10 @@ import { Button, LabeledList, NoticeBox, Section, Box } from '../../components';
 
 export const BotStatus = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    locked,
-    noaccess,
-    maintpanel,
-    on,
-    autopatrol,
-    canhack,
-    emagged,
-    remote_disabled,
-  } = data;
+  const { locked, noaccess, maintpanel, on, autopatrol, canhack, emagged, remote_disabled } = data;
   return (
     <>
-      <NoticeBox>
-        Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.
-      </NoticeBox>
+      <NoticeBox>Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.</NoticeBox>
       <Section title="General Settings">
         <LabeledList>
           <LabeledList.Item label="Status">
@@ -47,9 +36,7 @@ export const BotStatus = (props, context) => {
             </LabeledList.Item>
           )}
           <LabeledList.Item label="Safety System">
-            <Box color={emagged ? 'bad' : 'good'}>
-              {emagged ? 'DISABLED!' : 'Enabled'}
-            </Box>
+            <Box color={emagged ? 'bad' : 'good'}>{emagged ? 'DISABLED!' : 'Enabled'}</Box>
           </LabeledList.Item>
           {!!canhack && (
             <LabeledList.Item label="Hacking">
