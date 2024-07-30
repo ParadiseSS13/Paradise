@@ -41,6 +41,11 @@
 		to_chat(user, "<span class='notice'>You jam [I] into the battery compartment on [src].</span>")
 		qdel(I)
 		overcharged = TRUE
+		update_icon(UPDATE_OVERLAYS)
+
+/obj/item/flash/update_overlays()
+	. = ..()
+	if(overcharged)
 		add_overlay("overcharge")
 
 /obj/item/flash/screwdriver_act(mob/living/user, obj/item/I)
@@ -53,12 +58,6 @@
 		to_chat(user, "<span class='notice'>You open the battery compartment on [src].</span>")
 	battery_panel = !battery_panel
 	return TRUE
-
-/obj/item/flash/random/Initialize(mapload)
-	. = ..()
-	if(prob(25))
-		broken = TRUE
-		icon_state = "[initial(icon_state)]burnt"
 
 /obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
@@ -283,3 +282,9 @@
 /obj/item/flash/armimplant/Destroy()
 	implant = null
 	return ..()
+
+/obj/item/flash/random/Initialize(mapload)
+	. = ..()
+	if(prob(25))
+		broken = TRUE
+		icon_state = "[initial(icon_state)]burnt"
