@@ -159,7 +159,7 @@
 
 /datum/map_per_tile_test/missing_pipe_connection/CheckTile(turf/T)
 	var/obj/machinery/atmospherics/pipe/simple/pipe = locate() in T.contents
-	if(!pipe)
+	if(isnull(pipe))
 		return
 	if(!pipe.node1 && !pipe.node2)
 		Fail(T, "[pipe] ([pipe.type]) missing both nodes.")
@@ -170,3 +170,12 @@
 		Fail(T, "[pipe] ([pipe.type]) missing node1. ([uppertext(dir2text(pipe.initialize_directions & ~(get_dir(pipe, pipe.node2))))])")
 	if(!pipe.node2)
 		Fail(T, "[pipe] ([pipe.type]) missing node2. ([uppertext(dir2text(pipe.initialize_directions & ~(get_dir(pipe, pipe.node1))))])")
+
+/datum/map_per_tile_test/unary_device_connection
+
+/datum/map_per_tile_test/unary_device_connection/CheckTile(turf/T)
+	var/obj/machinery/atmospherics/unary/unary_device = locate() in T.contents
+	if(isnull(unary_device))
+		return
+	if(!unary_device.node)
+		Fail(T, "[pipe] ([pipe.type]) missing node. ([unary_device.dir])")
