@@ -1823,7 +1823,7 @@
 /area/space/nearstation)
 "eB" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/peanuts,
+/obj/item/food/grown/peanuts,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -5610,7 +5610,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "nS" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/soup/beetsoup,
+/obj/item/food/soup/beetsoup,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6384,11 +6384,11 @@
 	layer = 2.9
 	},
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -7534,9 +7534,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "Nv" = (
-/obj/effect/spawner/airlock{
-	req_access_txt = 0
-	},
+/obj/effect/spawner/airlock,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "NK" = (
@@ -7547,9 +7545,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Oh" = (
-/obj/effect/spawner/airlock/w_to_e{
-	req_access_txt = 0
-	},
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "PR" = (
@@ -7569,9 +7565,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "Ud" = (
-/obj/effect/spawner/airlock{
-	req_access_txt = 0
-	},
+/obj/effect/spawner/airlock,
 /turf/simulated/wall/mineral/titanium/nodecon,
 /area/ruin/space/derelict/arrival)
 "Xn" = (
