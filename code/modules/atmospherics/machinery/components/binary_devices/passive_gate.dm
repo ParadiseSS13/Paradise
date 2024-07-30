@@ -8,6 +8,7 @@
 	desc = "A one-way air valve that does not require power"
 
 	can_unwrench = TRUE
+	can_unwrench_while_on = FALSE
 
 	target_pressure = ONE_ATMOSPHERE
 
@@ -126,11 +127,3 @@
 			. = TRUE
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
-
-/obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/wrench))
-		return ..()
-	if(on)
-		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
-		return 1
-	return ..()
