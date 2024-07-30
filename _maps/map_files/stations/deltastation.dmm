@@ -78567,9 +78567,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
 "mnZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/suit_storage_unit/atmos/secure,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
@@ -78577,19 +78574,6 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/important/directional/west,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/suit_storage_unit/atmos/secure,
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/critical/directional/west,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "moa" = (
