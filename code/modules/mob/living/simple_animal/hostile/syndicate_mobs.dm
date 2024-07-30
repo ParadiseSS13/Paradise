@@ -38,12 +38,7 @@
 /mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	. = ..()
 	if(prob(50))
-		loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
-				/obj/item/salvage/loot/syndicate,
-				/obj/effect/decal/cleanable/blood/innards,
-				/obj/effect/decal/cleanable/blood,
-				/obj/effect/gibspawner/generic,
-				/obj/effect/gibspawner/generic)
+		loot += /obj/item/salvage/loot/syndicate
 
 /mob/living/simple_animal/hostile/syndicate/Aggro()
 	. = ..()
@@ -308,12 +303,7 @@
 		speed = 2
 		projectiletype = /obj/item/projectile/bullet/sniper/penetrator // Ignores cover.
 		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
-		loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster,
-					/obj/item/salvage/loot/syndicate,
-					/obj/effect/decal/cleanable/blood/innards,
-					/obj/effect/decal/cleanable/blood,
-					/obj/effect/gibspawner/generic,
-					/obj/effect/gibspawner/generic)
+		loot |= /obj/item/salvage/loot/syndicate
 	return INITIALIZE_HINT_LATELOAD
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
@@ -358,7 +348,6 @@
 	speed = 1.5
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-				/obj/item/salvage/loot/syndicate,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,
@@ -366,15 +355,6 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
-
-/mob/living/simple_animal/hostile/syndicate/melee/space/Initialize(mapload)
-	. = ..()
-	if(prob(50))
-		loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-				/obj/effect/decal/cleanable/blood/innards,
-				/obj/effect/decal/cleanable/blood,
-				/obj/effect/gibspawner/generic,
-				/obj/effect/gibspawner/generic)
 
 /mob/living/simple_animal/hostile/syndicate/ranged
 	ranged = TRUE
@@ -394,16 +374,6 @@
 	speed = 1.5
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
-				/obj/item/salvage/loot/syndicate,
-				/obj/effect/decal/cleanable/blood/innards,
-				/obj/effect/decal/cleanable/blood,
-				/obj/effect/gibspawner/generic,
-				/obj/effect/gibspawner/generic)
-
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Initialize(mapload)
-	. = ..()
-	if(prob(50))
-		loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando,
 				/obj/effect/decal/cleanable/blood/innards,
 				/obj/effect/decal/cleanable/blood,
 				/obj/effect/gibspawner/generic,

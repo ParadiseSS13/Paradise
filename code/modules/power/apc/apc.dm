@@ -911,7 +911,6 @@
 		if(L.nightshift_allowed)
 			L.nightshift_enabled = nightshift_lights
 			L.update(FALSE, play_sound = FALSE)
-		CHECK_TICK
 
 /obj/machinery/power/apc/proc/relock_callback()
 	locked = TRUE

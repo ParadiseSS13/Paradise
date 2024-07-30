@@ -1168,3 +1168,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		add_attack_logs(user, target, "vampirebit")
 		return TRUE
 		//end vampire codes
+
+/// Is this species able to be legion infested?
+/datum/species/proc/can_be_legion_infested()
+	return TRUE

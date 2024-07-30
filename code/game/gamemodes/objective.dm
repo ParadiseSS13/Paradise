@@ -849,4 +849,4 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return
 
 /datum/objective/delayed/proc/reveal_objective()
-	return holder.replace_objective(src, objective_to_replace_with)
+	return holder.replace_objective(src, new objective_to_replace_with(null, team, owner))
