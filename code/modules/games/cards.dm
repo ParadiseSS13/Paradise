@@ -222,17 +222,17 @@
 		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
 		user.visible_message(
-			"<span class='notice'>[user] deals [dcard] card(s) to [user.p_themselves()].</span>",
-			"<span class='notice'>You deal [dcard] card(s) to yourself.</span>",
+			"<span class='notice'>[user] deals [dcard] card\s to [user.p_themselves()].</span>",
+			"<span class='notice'>You deal [dcard] card\s to yourself.</span>",
 			"<span class='notice'>You hear cards being dealt.</span>"
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] deals [dcard] card(s) to [target].</span>",
-			"<span class='notice'>You deal [dcard] card(s) to [target].</span>",
+			"<span class='notice'>[user] deals [dcard] card\s to [target].</span>",
+			"<span class='notice'>You deal [dcard] card\s to [target].</span>",
 			"<span class='notice'>You hear cards being dealt.</span>"
 		)
-	H.throw_at(get_step(target,target.dir),3,1,null)
+	H.throw_at(get_step(target, target.dir), 3, 1, null)
 
 /obj/item/deck/attack_self()
 	deckshuffle()
