@@ -85356,7 +85356,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/command{
-	name = "Captain"
+	name = "Captain";
+	id_tag = "captainofficedoor"
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
