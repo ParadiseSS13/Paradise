@@ -105,7 +105,7 @@
 	else
 		flash_timer = null
 
-/obj/item/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 10 SECONDS, targeted = 1)
+/obj/item/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 10 SECONDS, targeted = TRUE)
 	if(user)
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(targeted)
