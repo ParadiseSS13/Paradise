@@ -4953,7 +4953,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "aFp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10;
@@ -21256,11 +21256,6 @@
 "cjR" = (
 /turf/simulated/wall,
 /area/station/public/quantum/security)
-"cjV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall/r_wall,
-/area/station/science/hallway)
 "cki" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -29702,7 +29697,7 @@
 	dir = 4;
 	icon_state = "whitepurplecorner"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "dhv" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
@@ -33624,9 +33619,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "dHO" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/bluegrid{
 	nitrogen = 500;
 	oxygen = 0;
@@ -34814,7 +34807,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "dZW" = (
 /obj/structure/lattice,
 /obj/structure/grille/broken,
@@ -36719,7 +36712,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/white,
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "eGC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -38208,7 +38201,7 @@
 	dir = 4;
 	icon_state = "whitepurple"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "fil" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -40760,8 +40753,8 @@
 	},
 /area/station/service/bar)
 "gaj" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
 	},
 /turf/simulated/floor/bluegrid{
 	nitrogen = 500;
@@ -42494,7 +42487,7 @@
 	dir = 8;
 	icon_state = "whitepurplecorner"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "gGR" = (
 /obj/structure/railing{
 	dir = 10
@@ -42701,7 +42694,7 @@
 	dir = 10;
 	icon_state = "whitepurple"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "gKS" = (
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
@@ -44094,7 +44087,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "hiA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -44153,7 +44146,7 @@
 	dir = 4;
 	icon_state = "whitepurple"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "hjp" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
@@ -48297,14 +48290,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/station/science/server)
-"ivj" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/science/misc_lab)
 "ivv" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
@@ -54086,6 +54071,14 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/station/command/bridge)
+"kgU" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/test_chamber)
 "kgV" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/mineral/ancient,
@@ -58206,7 +58199,7 @@
 	dir = 5;
 	icon_state = "whitepurple"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "lrd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -60060,7 +60053,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -60086,7 +60081,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "lTy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -60718,7 +60713,7 @@
 	dir = 4;
 	icon_state = "whitepurple"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "mcX" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8
@@ -60793,6 +60788,12 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/carpet/green,
 /area/station/service/library)
+"mdV" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/test_chamber)
 "mee" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
@@ -63033,6 +63034,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/genetics,
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
 "mSq" = (
@@ -67802,7 +67805,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "oqO" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -70276,7 +70279,7 @@
 	dir = 1;
 	icon_state = "whitepurplecorner"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "pfz" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -70943,7 +70946,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "pqr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -71630,7 +71633,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "pAt" = (
 /obj/structure/window{
 	dir = 4
@@ -74833,7 +74836,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "qvm" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -75238,6 +75241,11 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/explab/chamber)
+"qBm" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/test_chamber)
 "qBt" = (
 /obj/item/radio/intercom{
 	pixel_y = 28;
@@ -78053,7 +78061,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "rBk" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -90838,7 +90846,7 @@
 	dir = 1;
 	icon_state = "whitepurplecorner"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "vsu" = (
 /obj/structure/filingcabinet,
 /turf/simulated/floor/wood,
@@ -91610,7 +91618,7 @@
 	pixel_x = 0;
 	pixel_y = 0
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "vDC" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -92443,7 +92451,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/science/misc_lab)
+/area/station/science/test_chamber)
 "vPs" = (
 /obj/machinery/light{
 	dir = 8
@@ -118052,7 +118060,7 @@ alK
 vkl
 gtU
 vkl
-xTj
+vkl
 lyI
 lyI
 fPc
@@ -119347,7 +119355,7 @@ txf
 wMV
 kCg
 sEg
-cjV
+tHG
 ckC
 mII
 sOA
@@ -121691,7 +121699,7 @@ pfm
 rBg
 gGM
 gKO
-pon
+uyl
 lez
 fwi
 rNK
@@ -121936,19 +121944,19 @@ woF
 dyp
 fvB
 daR
-ivj
+sIR
 vlu
 pvl
 pon
 enS
 dhG
-pon
+uyl
 vrR
-fvB
+mdV
 pAr
-sIR
+kgU
 qvk
-pon
+uyl
 lez
 fwi
 rNK
@@ -122203,9 +122211,9 @@ eGv
 aFn
 dZA
 oqN
-vlu
+qBm
 vDm
-pon
+uyl
 lez
 fwi
 rNK
@@ -122456,13 +122464,13 @@ pSh
 pon
 pWf
 fNF
-pon
+uyl
 dhu
 vPj
-vlu
+qBm
 pqm
 lTx
-pon
+uyl
 lez
 fwi
 rNK
@@ -122713,13 +122721,13 @@ cGd
 cGd
 pWf
 cfN
-pon
+uyl
 lqS
 fig
 hjn
 mcB
 hiu
-pon
+uyl
 lez
 fwi
 rNK
@@ -122970,13 +122978,13 @@ iPr
 ftr
 qnS
 sKo
-pon
-pon
-pon
-pon
-pon
-pon
-pon
+uyl
+uyl
+uyl
+uyl
+uyl
+uyl
+uyl
 lez
 fwi
 rNK
@@ -123218,7 +123226,7 @@ uCn
 vld
 ylO
 lxm
-wQY
+vWk
 dHO
 wQY
 oQc
@@ -123475,7 +123483,7 @@ hKd
 wAG
 kvs
 vey
-vWk
+wQY
 gaj
 jyS
 hCq
