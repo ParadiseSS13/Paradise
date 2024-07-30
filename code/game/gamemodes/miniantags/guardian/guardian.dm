@@ -163,7 +163,7 @@
 
 	if(summoner.stat == UNCONSCIOUS)
 		to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
-		summoner.adjustCloneLoss(damage/2)
+		summoner.adjustCloneLoss(damage / 2)
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
 	switch(severity)
