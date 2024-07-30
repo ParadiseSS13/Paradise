@@ -466,7 +466,7 @@
 		return
 	user.visible_message(
 		"<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>",
-		"<span class='notice'>You take the [pickedcard] from your hand.</span>",
+		"<span class='notice'>You take \the [pickedcard] from your hand.</span>",
 		"<span class='notice'>You hear a card being drawn.</span>"
 	)
 	pickedcard = null
@@ -521,8 +521,8 @@
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(length(H.cards))
 			user.visible_message(
-				"<span class='notice'>[user] plays the [discarding].</span>",
-				"<span class='notice'>You play the [discarding].</span>",
+				"<span class='notice'>[user] plays \the [discarding].</span>",
+				"<span class='notice'>You play \the [discarding].</span>",
 				"<span class='notice'>You hear a card being played.</span>"
 			)
 		H.loc = get_step(user, user.dir)
