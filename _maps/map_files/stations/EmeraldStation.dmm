@@ -21531,6 +21531,10 @@
 "ekc" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
+"ekg" = (
+/obj/machinery/atmospherics/plasmavent,
+/turf/simulated/floor/lava/plasma/fuming,
+/area/station/engineering/atmos/asteroid_core)
 "eki" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -129946,7 +129950,7 @@ rYG
 pUV
 bIg
 rYG
-rYG
+ekg
 rYG
 rYG
 rYG
@@ -130198,7 +130202,7 @@ vPx
 rYG
 rYG
 rYG
-rYG
+ekg
 rYG
 pUV
 bIg
@@ -130974,11 +130978,11 @@ rYG
 pUV
 bIg
 rYG
+ekg
 rYG
 rYG
 rYG
-rYG
-rYG
+ekg
 rYG
 vPx
 vPx
@@ -131476,7 +131480,7 @@ vPx
 vPx
 rYG
 rYG
-rYG
+ekg
 rYG
 rYG
 iHA
@@ -132253,18 +132257,18 @@ rYG
 eaM
 jDz
 rYG
+ekg
 rYG
 rYG
 rYG
-rYG
-rYG
+ekg
 rYG
 rYG
 rYG
 pUV
 bIg
 rYG
-rYG
+ekg
 rYG
 rYG
 rYG
@@ -132505,7 +132509,7 @@ rYG
 rYG
 rYG
 rYG
-rYG
+ekg
 rYG
 eaM
 jDz
@@ -132758,7 +132762,7 @@ rYG
 rYG
 rYG
 rYG
-rYG
+ekg
 rYG
 rYG
 rYG
@@ -133026,11 +133030,11 @@ jDz
 rYG
 rYG
 rYG
-rYG
+ekg
 vPx
 vPx
 vPx
-rYG
+ekg
 rYG
 pUV
 xPf
@@ -134042,11 +134046,11 @@ rYG
 rYG
 rYG
 rYG
+ekg
 rYG
 rYG
 rYG
-rYG
-rYG
+ekg
 rYG
 oQw
 pKS
@@ -134294,7 +134298,7 @@ wPA
 vPx
 vPx
 rYG
-rYG
+ekg
 rYG
 vPx
 vPx
@@ -134309,7 +134313,7 @@ rYG
 eaM
 jDz
 rYG
-rYG
+ekg
 rYG
 vPx
 vPx

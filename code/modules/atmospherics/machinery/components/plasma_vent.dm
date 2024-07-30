@@ -7,16 +7,14 @@
 	icon_state = "plasma_vent"
 
 /obj/machinery/atmospherics/plasmavent/process_atmos()
-	to_chat(world, "making asteroid Milla proc")
 	var/datum/milla_safe/plasmavent/milla = new()
-	to_chat(world, "making asteroid async")
 	milla.invoke_async(src)
 
 /datum/milla_safe/plasmavent
 
-/datum/milla_safe/plasmavent/on_run(/obj/machinery/atmospherics/plasmavent/tile)
+/datum/milla_safe/plasmavent/on_run()
 	var/max_plasma = ONE_ATMOSPHERE
-	var/turf/T = get_turf(tile)
+	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = get_turf_air(T)
 	var/datum/gas_mixture/add_moles = new
 	var/environment_pressure = environment.return_pressure()

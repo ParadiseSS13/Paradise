@@ -1553,6 +1553,7 @@
 #include "code\modules\atmospherics\machinery\atmospherics.dm"
 #include "code\modules\atmospherics\machinery\datum_icon_manager.dm"
 #include "code\modules\atmospherics\machinery\datum_pipeline.dm"
+#include "code\modules\atmospherics\machinery\components\plasma_vent.dm"
 #include "code\modules\atmospherics\machinery\components\binary_devices\binary_atmos_base.dm"
 #include "code\modules\atmospherics\machinery\components\binary_devices\circulator.dm"
 #include "code\modules\atmospherics\machinery\components\binary_devices\passive_gate.dm"
