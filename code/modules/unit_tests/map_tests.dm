@@ -154,3 +154,19 @@
 			continue // same object, continue
 		if(cable.d1 == other_cable.d1 && cable.d2 == other_cable.d2)
 			Fail(T, "tile has duplicated cables.")
+
+/datum/map_per_tile_test/missing_pipe_connection
+
+/datum/map_per_tile_test/missing_pipe_connection/CheckTile(turf/T)
+	var/obj/machinery/atmospherics/pipe/simple/pipe = locate() in T.contents
+	if(!pipe)
+		return
+	if(!pipe.node1 && !pipe.node2)
+		Fail(T, "pipe missing both nodes.")
+		return
+	if(istype(pipe, /obj/machinery/atmospherics/pipe/simple/heat_exchanging) && (pipe.node1 || pipe.node2))
+		return // H/E pipes only need one end, because they don't always become full loops
+	if(!pipe.node1)
+		Fail(T, "pipe missing node1.")
+	if(!pipe.node2)
+		Fail(T, "pipe missing node2.")
