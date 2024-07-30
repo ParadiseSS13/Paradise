@@ -692,13 +692,13 @@
 /area/admin)
 "kQ" = (
 /obj/structure/table,
-/obj/item/food/snacks/grown/citrus/lemon,
-/obj/item/food/snacks/grown/berries,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/cherries,
-/obj/item/food/snacks/grown/citrus/orange,
-/obj/item/food/snacks/grown/corn,
-/obj/item/food/snacks/grown/mushroom/amanita,
+/obj/item/food/grown/citrus/lemon,
+/obj/item/food/grown/berries,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/cherries,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/mushroom/amanita,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "kT" = (

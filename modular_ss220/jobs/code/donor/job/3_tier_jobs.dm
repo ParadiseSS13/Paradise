@@ -296,10 +296,10 @@
 	id = /obj/item/card/id/migrant
 	backpack_contents = list(
 		/obj/item/reagent_containers/drinks/bottle/tequila = 1,
-		/obj/item/food/snacks/taco = 6,
-		/obj/item/food/snacks/nachos = 3,
-		/obj/item/food/snacks/cheesenachos = 3,
-		/obj/item/food/snacks/cubannachos = 3,
+		/obj/item/food/taco = 6,
+		/obj/item/food/nachos = 3,
+		/obj/item/food/cheesenachos = 3,
+		/obj/item/food/cubannachos = 3,
 		/obj/item/clothing/suit/poncho/red = 1,
 		/obj/item/clothing/suit/poncho/green = 1,
 		)
@@ -337,8 +337,8 @@
 	backpack_contents = list(
 		/obj/item/reagent_containers/drinks/bottle/vodka = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_random = 2,
-		/obj/item/food/snacks/doshik = 3,
-		/obj/item/food/snacks/doshik_spicy = 3,
+		/obj/item/food/doshik = 3,
+		/obj/item/food/doshik_spicy = 3,
 		/obj/item/clothing/suit/mantle/old = 1,
 		/obj/item/clothing/head/flatcap = 1,
 		/obj/item/clothing/suit/browntrenchcoat = 1,

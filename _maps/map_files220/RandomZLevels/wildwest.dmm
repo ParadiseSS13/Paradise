@@ -48,7 +48,7 @@
 "ap" = (
 /obj/effect/mine/dnascramble,
 /obj/item/stack/sheet/mineral/sandstone,
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "ar" = (
@@ -138,7 +138,7 @@
 /area/awaymission/wildwest/wildwest_refine)
 "bd" = (
 /obj/structure/table/holotable/wood,
-/obj/item/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/kitchen/utensil/fork,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
@@ -1974,7 +1974,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "sq" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "sr" = (
@@ -3410,7 +3410,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "GF" = (
 /obj/structure/table,
-/obj/item/food/snacks/carpmeat,
+/obj/item/food/carpmeat,
 /obj/item/kitchen/knife,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
@@ -3482,7 +3482,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Hj" = (
 /obj/structure/table/holotable/wood,
-/obj/item/food/snacks/mint,
+/obj/item/food/mint,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/wildwest/wildwest_mines)
 "Hm" = (
@@ -4230,7 +4230,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Pz" = (
 /obj/structure/table/holotable/wood,
-/obj/item/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/kitchen/utensil/spoon,
 /obj/item/kitchen/utensil/fork{
 	pixel_x = 6
@@ -4817,7 +4817,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "VG" = (
 /obj/structure/table/holotable/wood,
-/obj/item/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/kitchen/utensil/fork,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,

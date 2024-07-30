@@ -140,5 +140,5 @@
 // Display Cases
 /obj/structure/displaycase/hos
 	alert = TRUE
-	start_showpiece_type = /obj/item/food/snacks/donut/sprinkles
+	start_showpiece_type = /obj/item/food/donut/sprinkles
 	req_access = list(ACCESS_HOS)

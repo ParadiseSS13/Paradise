@@ -4,23 +4,23 @@
 /obj/effect/spawner/lootdrop/CCfood/desert
 	lootcount = 5
 	loot = list(
-		/obj/item/food/snacks/baguette=10,
-		/obj/item/food/snacks/applepie=10,
-		/obj/item/food/snacks/bananabreadslice=10,
-		/obj/item/food/snacks/bananacakeslice=10,
-		/obj/item/food/snacks/carrotcakeslice=10,
-		/obj/item/food/snacks/croissant=10,
+		/obj/item/food/baguette=10,
+		/obj/item/food/applepie=10,
+		/obj/item/food/bananabreadslice=10,
+		/obj/item/food/bananacakeslice=10,
+		/obj/item/food/carrotcakeslice=10,
+		/obj/item/food/croissant=10,
 		/obj/item/reagent_containers/drinks/cans/cola=10,""=70)
 
 /obj/effect/spawner/lootdrop/CCfood/meat
 	lootcount = 5
 	loot = list(
-		/obj/item/food/snacks/lasagna=10,
-		/obj/item/food/snacks/burger/bigbite=10,
-		/obj/item/food/snacks/fishandchips=10,
-		/obj/item/food/snacks/fishburger=10,
-		/obj/item/food/snacks/hotdog=10,
-		/obj/item/food/snacks/meatpie=10,
+		/obj/item/food/lasagna=10,
+		/obj/item/food/burger/bigbite=10,
+		/obj/item/food/fishandchips=10,
+		/obj/item/food/fishburger=10,
+		/obj/item/food/hotdog=10,
+		/obj/item/food/meatpie=10,
 		/obj/item/reagent_containers/drinks/cans/cola=10,""=70)
 
 /obj/effect/spawner/lootdrop/CCfood/alcohol
@@ -126,9 +126,9 @@
 		/obj/item/assembly/igniter,
 		/obj/item/storage/fancy/matches,
 		/obj/item/match,
-		/obj/item/food/snacks/donut,
-		/obj/item/food/snacks/candy/candybar,
-		/obj/item/food/snacks/tastybread,
+		/obj/item/food/donut,
+		/obj/item/food/candy/candybar,
+		/obj/item/food/tastybread,
 		/obj/item/reagent_containers/drinks/cans/dr_gibb,
 		/obj/item/pen,
 		/obj/item/screwdriver,

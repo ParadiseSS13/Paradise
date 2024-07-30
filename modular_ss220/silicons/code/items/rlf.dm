@@ -21,7 +21,7 @@
 	if(!receiver.client)
 		to_chat(user, span_warning("You offer lollipop to [receiver], but they don't seem to respond..."))
 		return
-	var/obj/item/I = new /obj/item/food/snacks/candy/sucker/lollipop
+	var/obj/item/I = new /obj/item/food/candy/sucker/lollipop
 	receiver.throw_alert("take item [I.UID()]", /atom/movable/screen/alert/take_item/RLF, alert_args = list(user, receiver, I))
 	to_chat(user, span_info("You offer lollipop to [receiver]."))
 
@@ -29,7 +29,7 @@
 	var/mob/living/receiver = locateUID(receiver_UID)
 	if(receiver.stat != CONSCIOUS)
 		return
-	var/obj/item/food/snacks/candy/sucker/I = locateUID(item_UID)
+	var/obj/item/food/candy/sucker/I = locateUID(item_UID)
 	if(receiver.r_hand && receiver.l_hand)
 		to_chat(receiver, span_warning("You need to have your hands free to accept [I]!"))
 		return
@@ -49,13 +49,13 @@
 	receiver.visible_message(span_notice("[giver] handed [I] to [receiver]."))
 	receiver.clear_alert("take item [item_UID]")
 
-/obj/item/food/snacks/candy/sucker/lollipop
+/obj/item/food/candy/sucker/lollipop
 	name = "lollipop"
 	desc = "For being such a courage patient!"
 	icon_state = "sucker"
 	filling_color = "#60A584"
 	list_reagents = list("sugar" = 4)
 
-/obj/item/food/snacks/candy/sucker/lollipop/New()
+/obj/item/food/candy/sucker/lollipop/New()
 	. = ..()
 	icon_state = pick("sucker_blue", "sucker_green", "sucker_orange", "sucker_purple", "sucker_red", "sucker_yellow")

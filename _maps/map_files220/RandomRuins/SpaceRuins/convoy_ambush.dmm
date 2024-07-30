@@ -732,9 +732,9 @@
 /obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/delivery/white,
 /obj/structure/closet/cardboard,
-/obj/item/food/snacks/chinese/chowmein,
-/obj/item/food/snacks/chinese/chowmein,
-/obj/item/food/snacks/chinese/rice,
+/obj/item/food/chinese/chowmein,
+/obj/item/food/chinese/chowmein,
+/obj/item/food/chinese/rice,
 /obj/item/stack/spacecash/c20,
 /obj/item/stack/spacecash/c10,
 /turf/simulated/floor/plasteel/airless{
@@ -799,8 +799,8 @@
 "HA" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/structure/closet/cardboard,
-/obj/item/food/snacks/chinese/rice,
-/obj/item/food/snacks/chinese/chowmein,
+/obj/item/food/chinese/rice,
+/obj/item/food/chinese/chowmein,
 /obj/item/reagent_containers/pill/methamphetamine,
 /obj/item/reagent_containers/pill/methamphetamine,
 /obj/item/reagent_containers/pill/methamphetamine,
@@ -1166,10 +1166,10 @@
 "UE" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/structure/closet/cardboard,
-/obj/item/food/snacks/chinese/rice,
-/obj/item/food/snacks/chinese/chowmein,
-/obj/item/food/snacks/chinese/chowmein,
-/obj/item/food/snacks/chinese/rice,
+/obj/item/food/chinese/rice,
+/obj/item/food/chinese/chowmein,
+/obj/item/food/chinese/chowmein,
+/obj/item/food/chinese/rice,
 /obj/item/stack/spacecash/c100,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"

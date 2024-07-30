@@ -12,7 +12,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/food/snacks/monstermeat/lizardmeat = 3, /obj/item/stack/sheet/animalhide/lizard = 1)
+	butcher_results = list(/obj/item/food/monstermeat/lizardmeat = 3, /obj/item/stack/sheet/animalhide/lizard = 1)
 	response_help  = "погладил"
 	response_disarm = "аккуратно оттолкнул"
 	response_harm   = "ударил"
@@ -42,7 +42,7 @@
 	icon_state = "gator"
 	icon_living = "gator"
 	icon_dead = "gator_dead"
-	butcher_results = list(/obj/item/food/snacks/monstermeat/lizardmeat = 7, /obj/item/stack/sheet/animalhide/lizard = 5)
+	butcher_results = list(/obj/item/food/monstermeat/lizardmeat = 7, /obj/item/stack/sheet/animalhide/lizard = 5)
 	speed = 4
 	maxHealth = 200
 	health = 200
@@ -56,7 +56,7 @@
 	icon_state = "steppy"
 	icon_living = "steppy"
 	icon_dead = "steppy_dead"
-	butcher_results = list(/obj/item/food/snacks/monstermeat/lizardmeat = 5, /obj/item/stack/sheet/animalhide/lizard = 3)
+	butcher_results = list(/obj/item/food/monstermeat/lizardmeat = 5, /obj/item/stack/sheet/animalhide/lizard = 3)
 	maxHealth = 100
 	health = 100
 	obj_damage = 80

@@ -1,38 +1,38 @@
 // Meat
-/obj/item/food/snacks/meat/dog
+/obj/item/food/meat/dog
 	name = "dog meat"
 	desc = "Не слишком питательно. Но говорят деликатес космокорейцев."
 	list_reagents = list("protein" = 2, "epinephrine" = 2)
 
-/obj/item/food/snacks/meat/security
+/obj/item/food/meat/security
 	name = "security meat"
 	desc = "Мясо наполненное чувством мужества и долга."
 	list_reagents = list("protein" = 3, "epinephrine" = 5)
 
-/obj/item/food/snacks/meat/pug
+/obj/item/food/meat/pug
 	name = "pug meat"
 	desc = "Чуть менее очарователен в нарезке."
 	list_reagents = list("protein" = 2, "epinephrine" = 2)
 
-/obj/item/food/snacks/meat/ham/old
+/obj/item/food/meat/ham/old
 	name = "жесткая ветчина"
 	desc = "Мясо почтенного хряка."
 	list_reagents = list("protein" = 2, "porktonium" = 10)
 
-/obj/item/food/snacks/meat/mouse
+/obj/item/food/meat/mouse
 	name = "мышатина"
 	desc = "На безрыбье и мышь мясо. Кто знает чем питался этот грызун до его подачи к столу."
 	icon = 'modular_ss220/mobs/icons/items.dmi'
 	icon_state = "meat_clear"
 	list_reagents = list("nutriment" = 2, "blood" = 3, "toxin" = 1)
 
-/obj/item/food/snacks/salmonmeat/snailmeat
+/obj/item/food/salmonmeat/snailmeat
 	name = "snail meat"
 	desc = "Сырая космо-улитка в собственном соку."
 	filling_color = "#6bb4a8"
 	list_reagents = list("protein" = 5, "vitamin" = 5)
 
-/obj/item/food/snacks/salmonmeat/turtlemeat
+/obj/item/food/salmonmeat/turtlemeat
 	name = "snail meat"
 	desc = "Сырая космо-улитка в собственном соку."
 	filling_color = "#2fa24c"

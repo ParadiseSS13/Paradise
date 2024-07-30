@@ -16,7 +16,7 @@
 	var/obj/item/inventory_head
 	var/obj/item/inventory_mask
 	footstep_type = FOOTSTEP_MOB_CLAW
-	butcher_results = list(/obj/item/food/snacks/meat/security = 3)
+	butcher_results = list(/obj/item/food/meat/security = 3)
 
 /mob/living/simple_animal/pet/dog/security/ranger
 	name = "Ranger"

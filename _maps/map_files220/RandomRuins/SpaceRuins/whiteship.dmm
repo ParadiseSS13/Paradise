@@ -76,10 +76,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -205,10 +205,10 @@
 /area/shuttle/abandoned)
 "dy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /obj/structure/barricade/wooden,
@@ -251,10 +251,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/undead/zombie/fast,
@@ -294,10 +294,10 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -433,7 +433,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -526,7 +526,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -547,7 +547,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	pixel_y = -19
 	},
 /turf/simulated/floor/plasteel{
@@ -618,7 +618,7 @@
 /obj/structure/fans/tiny,
 /obj/item/tank/internals/emergency_oxygen/empty,
 /obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "gnawed bones"
@@ -686,7 +686,7 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "gnawed bones"
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood,
@@ -710,10 +710,10 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -729,10 +729,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /obj/item/clothing/shoes/blue,
@@ -1243,7 +1243,7 @@
 	},
 /area/shuttle/abandoned)
 "Ep" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/machinery/door/airlock/medical/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -1390,10 +1390,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -1488,7 +1488,7 @@
 	},
 /obj/item/clothing/accessory/stethoscope,
 /obj/item/flashlight/pen,
-/obj/item/food/snacks/grown/apple{
+/obj/item/food/grown/apple{
 	desc = "An apple a day - keeps doctor away...";
 	pixel_x = 2;
 	pixel_y = 6
@@ -1523,10 +1523,10 @@
 /area/shuttle/abandoned)
 "Ll" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -1744,7 +1744,7 @@
 	locked = 1;
 	name = "External Airlock"
 	},
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "Qz" = (
@@ -1777,7 +1777,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /obj/machinery/door/airlock/medical,
@@ -1834,7 +1834,7 @@
 	name = "External Airlock"
 	},
 /obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "RU" = (
@@ -1853,7 +1853,7 @@
 	initialize_directions = 11
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -1964,7 +1964,7 @@
 	},
 /area/shuttle/abandoned)
 "Uy" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -1978,10 +1978,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -2018,7 +2018,7 @@
 	dir = 8
 	},
 /obj/item/soap,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{

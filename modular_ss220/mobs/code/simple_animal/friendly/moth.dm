@@ -20,6 +20,6 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY
-	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 1)
+	butcher_results = list(/obj/item/food/monstermeat/xenomeat = 1)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	holder_type = /obj/item/holder/moth
