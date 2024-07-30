@@ -617,7 +617,16 @@ emp_act
 	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 	return TRUE
 
-/mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color, amount=null)
+/*
+This proc makes human hands bloody, if you touch something, you will leave a blood trace
+
+blood_dna: list of blood DNAs stored in each atom in blood_DNA variable or in get_blood_dna_list() on carbons
+b_color: blood color, simple. If there will be null, the blood will be red, otherwise the color you pass
+amount: amount of "blood charges" you want to give, that will be used to make items/walls bloody.
+	You can make something bloody this amount - 1 times.
+	If this variable will be null, amount will be set randomly from 2 to 4
+*/
+/mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color, amount)
 	if(isnull(b_color))
 		b_color = "#A10808"
 	if(gloves)
