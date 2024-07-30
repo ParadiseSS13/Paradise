@@ -111,8 +111,8 @@
 	return FALSE
 
 /obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.stat)
-		return
+	if(user.incapacitated())
+		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
 /obj/machinery/dna_scannernew/AltClick(mob/user)
@@ -246,11 +246,6 @@
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE
-
-/obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.incapacitated())
-		return FALSE //maybe they should be able to get out with cuffs, but whatever
-	go_out()
 
 /obj/machinery/dna_scannernew/proc/put_in(mob/M)
 	M.forceMove(src)

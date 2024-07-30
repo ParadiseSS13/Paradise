@@ -11,6 +11,7 @@
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
+	. += "[get_ammo(0, 0)] of those are live rounds."
 	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to spin it's barrel.</span>"
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = 1)
@@ -79,10 +80,6 @@
 	if(magazine)
 		boolets += magazine.ammo_count(countempties)
 	return boolets
-
-/obj/item/gun/projectile/revolver/examine(mob/user)
-	. = ..()
-	. += "[get_ammo(0,0)] of those are live rounds."
 
 /obj/item/gun/projectile/revolver/fake
 

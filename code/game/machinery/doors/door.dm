@@ -140,11 +140,6 @@
 /obj/machinery/door/CanAtmosPass(direction)
 	return !density
 
-/obj/machinery/door/get_superconductivity(direction)
-	if(density)
-		return superconductivity
-	return ..()
-
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating)
 		return

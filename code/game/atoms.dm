@@ -1176,7 +1176,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if("color")
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
 
-
 /atom/vv_get_dropdown()
 	. = ..()
 	.["Manipulate Colour Matrix"] = "?_src_=vars;manipcolours=[UID()]"

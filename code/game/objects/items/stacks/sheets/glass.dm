@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 		if(!G && !RG && replace)
 			user.put_in_hands(RG)
 		return
-	
+
 	return ..()
 
 //////////////////////////////
