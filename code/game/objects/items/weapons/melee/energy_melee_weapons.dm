@@ -14,7 +14,6 @@
 	name = "generic energy blade"
 	desc = "If you can see this and didn't spawn it in as an admin, make an issue report on GitHub."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
-	var/active = FALSE
 	/// Damage done when active. Does not stack with force_off.
 	var/force_on = 30
 	/// Damage done when thrown while active. Does not stack with throwforce_off.
@@ -78,8 +77,21 @@
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_organ_damage(5,5)
-	active = !active
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
+		force = force_off
+		throwforce = throwforce_off
+		hitsound = initial(hitsound)
+		throw_speed = initial(throw_speed)
+		if(length(attack_verb_on))
+			attack_verb = list()
+		icon_state = initial(icon_state)
+		w_class = initial(w_class)
+		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
+		set_light(0)
+		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+	else
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 		force = force_on
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/blade1.ogg'
@@ -95,18 +107,7 @@
 		w_class = w_class_on
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
-	else
-		force = force_off
-		throwforce = throwforce_off
-		hitsound = initial(hitsound)
-		throw_speed = initial(throw_speed)
-		if(length(attack_verb_on))
-			attack_verb = list()
-		icon_state = initial(icon_state)
-		w_class = initial(w_class)
-		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
-		set_light(0)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -115,7 +116,9 @@
 	return
 
 /obj/item/melee/energy/get_heat()
-	return active * 3500
+	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+		return 3500
+	return 0
 
 /obj/item/melee/energy/proc/try_sharpen(obj/item/item, amount, max_amount)
 	SIGNAL_HANDLER // COMSIG_ITEM_SHARPEN_ACT
@@ -180,14 +183,14 @@
 	..()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES, _requires_activation = TRUE)
 
 /obj/item/melee/energy/sword/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Can parry melee attacks and sometimes blocks ranged energy attacks. Use in hand to turn off and on.</span>"
 
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return ..()
 	return FALSE
 
@@ -198,7 +201,7 @@
 /obj/item/melee/energy/sword/cyborg/attack(mob/M, mob/living/silicon/robot/R)
 	if(R.cell)
 		var/obj/item/stock_parts/cell/C = R.cell
-		if(active && !(C.use(hitcost)))
+		if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) && !(C.use(hitcost)))
 			attack_self(R)
 			to_chat(R, "<span class='notice'>It's out of charge!</span>")
 			return
@@ -251,7 +254,7 @@
 			item_color = "rainbow"
 			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
 
-			if(active)
+			if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 				icon_state = "swordrainbow"
 				// Updating overlays, copied from welder code.
 				// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
@@ -265,7 +268,7 @@
 
 
 /obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return FALSE
 	. = ..()
 	if(!.) // they did not block the attack
@@ -322,12 +325,15 @@
 	icon_state = "blade"
 	force = 30	//Normal attacks deal esword damage
 	hitsound = 'sound/weapons/blade1.ogg'
-	active = TRUE
 	throwforce = 1//Throwing or dropping the item deletes it.
 	throw_speed = 3
 	throw_range = 1
 	w_class = WEIGHT_CLASS_BULKY //So you can't hide it in your pocket or some such.
 	sharp = TRUE
+
+/obj/item/melee/energy/blade/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, ROUNDSTART_TRAIT)
 
 /obj/item/melee/energy/blade/attack_self(mob/user)
 	return
@@ -374,7 +380,7 @@
 		return
 	var/datum/status_effect/saw_bleed/B = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
 	if(!B)
-		if(!active) //This isn't in the above if-check so that the else doesn't care about active
+		if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)) //This isn't in the above if-check so that the else doesn't care about active
 			target.apply_status_effect(STATUS_EFFECT_SAWBLEED)
 	else
 		B.add_bleed(B.bleed_buildup)
@@ -394,8 +400,21 @@
 		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(50))
 			to_chat(H, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 			H.take_organ_damage(10,10)
-	active = !active
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
+		force = force_off
+		throwforce = throwforce_off
+		hitsound = initial(hitsound)
+		throw_speed = initial(throw_speed)
+		if(length(attack_verb_on))
+			attack_verb = list()
+		icon_state = initial(icon_state)
+		w_class = initial(w_class)
+		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
+		set_light(0)
+		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
+	else
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 		force = force_on
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/bladeslice.ogg'
@@ -409,20 +428,8 @@
 			icon_state = "sword[item_color]"
 			set_light(brightness_on, l_color=colormap[item_color])
 		w_class = w_class_on
-		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
+		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) * 30000))
 		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
-	else
-		force = force_off
-		throwforce = throwforce_off
-		hitsound = initial(hitsound)
-		throw_speed = initial(throw_speed)
-		if(length(attack_verb_on))
-			attack_verb = list()
-		icon_state = initial(icon_state)
-		w_class = initial(w_class)
-		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
-		set_light(0)
-		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -433,27 +440,27 @@
 
 /obj/item/melee/energy/cleaving_saw/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is [active ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].<br>\
+	. += "<span class='notice'>It is [HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].<br>\
 	Both modes will build up existing bleed effects, doing a burst of high damage if the bleed is built up high enough.<br>\
 	Transforming it immediately after an attack causes the next attack to come out faster.</span>"
 
 /obj/item/melee/energy/cleaving_saw/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] is [HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	transform_cooldown = 0
 	transform_weapon(user, TRUE)
 	return BRUTELOSS
 
 /obj/item/melee/energy/cleaving_saw/melee_attack_chain(mob/user, atom/target, params)
 	..()
-	if(!active)
+	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //when closed, it attacks very rapidly
 
 /obj/item/melee/energy/cleaving_saw/attack(mob/living/target, mob/living/carbon/human/user)
-	if(!active || swiping || !target.density || get_turf(target) == get_turf(user))
-		if(!active)
+	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) || swiping || !target.density || get_turf(target) == get_turf(user))
+		if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 			faction_bonus_force = 0
 		..()
-		if(!active)
+		if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 			faction_bonus_force = initial(faction_bonus_force)
 	else
 		var/turf/user_turf = get_turf(user)

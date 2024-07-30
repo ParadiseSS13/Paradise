@@ -140,11 +140,6 @@
 /obj/machinery/door/CanAtmosPass(direction)
 	return !density
 
-/obj/machinery/door/get_superconductivity(direction)
-	if(density)
-		return superconductivity
-	return ..()
-
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating)
 		return
@@ -457,12 +452,6 @@
 /obj/machinery/door/proc/update_freelook_sight()
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, 0)
-
-/obj/machinery/door/get_superconductivity(direction)
-	// Only heatproof airlocks block heat, currently only varedited doors have this
-	if(heat_proof && density)
-		return FALSE
-	return ..()
 
 /obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)

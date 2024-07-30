@@ -52,9 +52,7 @@
 
 /obj/machinery/computer/library/Initialize(mapload)
 	. = ..()
-	populate_booklist(async = FALSE)
-	//since ui_data screws up when SQL calls are made inside it,
-	//we must populate our booklist before ui_act is called for the first time
+	addtimer(CALLBACK(src, PROC_REF(populate_booklist)), 0)
 
 /obj/machinery/computer/library/attack_ai(mob/user)
 	return attack_hand(user)
@@ -538,11 +536,11 @@
   * internal proc that will refresh our cached booklist, it needs to be called everytime we are switching parameters
   * that will affect what books will be displayed in our TGUI player book archive.
  */
-/obj/machinery/computer/library/proc/populate_booklist(async = TRUE)
+/obj/machinery/computer/library/proc/populate_booklist()
 	cached_booklist = list() //clear old list
 	var/starting_book = (archive_page_num - 1) * LIBRARY_BOOKS_PER_PAGE
 	var/range = LIBRARY_BOOKS_PER_PAGE
-	for(var/datum/cachedbook/CB in GLOB.library_catalog.get_book_by_range(starting_book, range, user_data, async))
+	for(var/datum/cachedbook/CB in GLOB.library_catalog.get_book_by_range(starting_book, range, user_data))
 		//instead of just adding the datum to the cached_booklist, we want to make it an assoc list so we can just give it to the TGUI
 
 		var/list/book_data = list(
@@ -561,13 +559,13 @@
 				book_data["categories"] += book_category.description //we're displaying the cats onlys, so we don't need the ids
 
 		cached_booklist += list(book_data)
-	num_pages = getmaxpages(async)
+	num_pages = getmaxpages()
 	archive_page_num = clamp(archive_page_num, 1, num_pages)
 
 ///Returns the amount of pages we will need to hold all the book our DB has found
-/obj/machinery/computer/library/proc/getmaxpages(async = TRUE)
+/obj/machinery/computer/library/proc/getmaxpages()
 	//if get_total_books doesn't return anything, just set pages to 1 so we don't break stuff
-	var/book_count = max(1, GLOB.library_catalog.get_total_books(user_data, async))
+	var/book_count = max(1, GLOB.library_catalog.get_total_books(user_data))
 	var/page_count = round(book_count / LIBRARY_BOOKS_PER_PAGE)
 	//Since 'round' gets the floor value it's likely there will be 1 page more than
 	//the page count amount (almost guaranteed), we check for a remainder because of this

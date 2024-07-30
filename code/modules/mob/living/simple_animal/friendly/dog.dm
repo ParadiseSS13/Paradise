@@ -70,7 +70,7 @@
 	icon_state = "corgi"
 	icon_living = "corgi"
 	icon_dead = "corgi_dead"
-	butcher_results = list(/obj/item/food/snacks/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
+	butcher_results = list(/obj/item/food/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
@@ -435,7 +435,7 @@
 			stop_automated_movement = FALSE
 			var/obj/item/possible_target = null
 			for(var/I in snack_range)
-				if(istype(I, /obj/item/food/snacks)) // Noms
+				if(istype(I, /obj/item/food)) // Noms
 					possible_target = I
 					break
 				else if(istype(I, /obj/item/paper)) // Important noms
@@ -652,7 +652,7 @@
 	icon_state = "pug"
 	icon_living = "pug"
 	icon_dead = "pug_dead"
-	butcher_results = list(/obj/item/food/snacks/meat/pug = 3)
+	butcher_results = list(/obj/item/food/meat/pug = 3)
 	collar_type = "pug"
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()

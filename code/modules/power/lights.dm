@@ -825,9 +825,11 @@
 // explode the light
 
 /obj/machinery/light/proc/explode()
-	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
-	sleep(2)
+	addtimer(CALLBACK(src, PROC_REF(actually_explode)), 2)
+
+/obj/machinery/light/proc/actually_explode()
+	var/turf/T = get_turf(loc)
 	explosion(T, 0, 0, 2, 2)
 	qdel(src)
 
