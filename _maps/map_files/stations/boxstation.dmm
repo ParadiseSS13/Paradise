@@ -52106,10 +52106,6 @@
 	icon_state = "purplecorner"
 	},
 /area/station/hallway/primary/starboard/east)
-"dMK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall,
-/area/station/public/toilet/unisex)
 "dMM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -64148,8 +64144,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "jzZ" = (
@@ -79554,11 +79548,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
-"qRE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall,
-/area/station/command/meeting_room)
 "qRU" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 1;
@@ -124830,7 +124819,7 @@ aWZ
 thN
 xVe
 qcB
-dMK
+aUQ
 cts
 csD
 csD
@@ -125061,7 +125050,7 @@ brb
 bpt
 jju
 nvC
-qRE
+bxl
 bxl
 lOo
 lOo
