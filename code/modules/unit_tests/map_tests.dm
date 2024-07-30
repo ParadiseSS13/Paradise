@@ -178,4 +178,4 @@
 	if(isnull(unary_device))
 		return
 	if(!unary_device.node)
-		Fail(T, "[pipe] ([pipe.type]) missing node. ([unary_device.dir])")
+		Fail(T, "[unary_device] ([unary_device.type]) missing node. ([unary_device.dir])")
