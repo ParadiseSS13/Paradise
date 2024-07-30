@@ -9,6 +9,7 @@
 	power_state = ACTIVE_POWER_USE
 	idle_power_consumption = 10
 	active_power_consumption = 60
+	can_unwrench_while_on = FALSE
 
 	can_unwrench = TRUE
 
@@ -214,14 +215,6 @@
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
-
-/obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		if(!(stat & NOPOWER) && on)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
-			return TRUE
-
-	return ..()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
 	. = TRUE
