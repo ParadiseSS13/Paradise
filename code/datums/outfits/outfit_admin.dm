@@ -44,7 +44,7 @@
 		/obj/item/storage/box/engineer = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/card/emag = 1,
-		/obj/item/food/snacks/syndidonkpocket = 1
+		/obj/item/food/syndidonkpocket = 1
 	)
 
 	var/id_icon = "syndie"
@@ -97,7 +97,7 @@
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/crowbar/red = 1,
 		/obj/item/grenade/plastic/c4 = 1,
-		/obj/item/food/snacks/syndidonkpocket = 1,
+		/obj/item/food/syndidonkpocket = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/clothing/shoes/combat = 1
 	)
@@ -384,7 +384,7 @@
 	l_ear = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	id = /obj/item/card/id
-	l_pocket = /obj/item/food/snacks/grown/banana
+	l_pocket = /obj/item/food/grown/banana
 	r_pocket = /obj/item/bikehorn
 	r_hand = /obj/item/fireaxe
 	backpack_contents = list(
@@ -430,7 +430,7 @@
 		/obj/item/suppressor = 1,
 		/obj/item/card/emag = 1,
 		/obj/item/radio/uplink = 1,
-		/obj/item/food/snacks/syndidonkpocket = 1,
+		/obj/item/food/syndidonkpocket = 1,
 		/obj/item/flashlight = 1
 	)
 
@@ -1387,7 +1387,7 @@
 		/obj/item/stamp/clown = 1,
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/food/snacks/grown/banana = 1,
+		/obj/item/food/grown/banana = 1,
 	)
 
 	shoes = /obj/item/clothing/shoes/clown_shoes

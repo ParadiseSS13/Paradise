@@ -200,6 +200,15 @@
 	},
 /turf/space,
 /area/space)
+"ft" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/equipment,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/casino/engine)
 "fG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
@@ -389,9 +398,7 @@
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered/casino/docked_ships)
 "jh" = (
-/obj/machinery/light/small{
-	dir = 2
-	},
+/obj/machinery/light/small,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -595,7 +602,7 @@
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/powered/casino/hall)
 "od" = (
-/obj/item/food/snacks/grown/lily,
+/obj/item/food/grown/lily,
 /turf/simulated/floor/beach/away/water/deep,
 /area/ruin/space/powered/casino/hall)
 "oi" = (
@@ -1035,7 +1042,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "Aw" = (
-/obj/effect/spawner/airlock/engineer,
+/obj/effect/spawner/airlock,
 /turf/simulated/wall,
 /area/ruin/space/powered/casino/floor)
 "AF" = (
@@ -1166,7 +1173,6 @@
 /area/ruin/space/powered/casino/maints)
 "DL" = (
 /obj/machinery/light{
-	dir = 2;
 	brightness_color = "#FF0000";
 	color = "#FF0000"
 	},
@@ -3465,7 +3471,7 @@ mp
 Eq
 fG
 jS
-jS
+ft
 jS
 wo
 Xe

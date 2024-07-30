@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> July is a month of focus on "Quality releases", this means no new balance or feature PRs are permitted without prior approval.</br>
+> We are currently in a period of focus on "Quality releases", this means no new balance or feature PRs are permitted without prior approval.</br>
 > [For more info, see the following discord post on our public discord](https://discord.com/channels/145533722026967040/499000353312735233/1256632472196878337)
 
 <a href="#"><img src=".github/assets/paradise.png" alt="Paradise Station"></a>

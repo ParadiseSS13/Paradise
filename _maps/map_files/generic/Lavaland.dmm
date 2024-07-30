@@ -667,7 +667,7 @@
 /area/mine/outpost/storage)
 "cl" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/item/food/snacks/fortunecookie{
+/obj/item/food/fortunecookie{
 	pixel_y = -5;
 	pixel_x = -6
 	},
@@ -1020,7 +1020,7 @@
 "de" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -5773,7 +5773,7 @@
 "wm" = (
 /obj/structure/table,
 /obj/item/storage/bag/tray,
-/obj/item/food/snacks/tofu,
+/obj/item/food/tofu,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	autolink_id = "air_in";
 	dir = 4
