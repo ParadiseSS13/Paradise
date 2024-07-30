@@ -20,7 +20,7 @@
 #include "extinguisher\code\extinguisher.dm"
 #include "firealarm\code\firealarm.dm"
 #include "floors\code\floors.dm"
-#include "floors\code\tile_types.dm"
+#include "floors\code\wood.dm"
 #include "goonstation\code\items.dm"
 #include "hydroponics\code\hydroponics.dm"
 #include "intercom\code\intercom.dm"
