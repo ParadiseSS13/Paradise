@@ -234,7 +234,7 @@
 		/obj/item/stamp,
 		/obj/item/melee/knuckleduster/nanotrasen,
 		/obj/item/melee/rapier,
-		/obj/item/storage/belt/rapier,
+		/obj/item/storage/belt/sheath/rapier,
 		/obj/item/nuke_core,
 		/obj/item/nuke_core_container,
 		/obj/item/documents,

@@ -16,16 +16,16 @@ $color-transparent-text: rgba(255, 255, 255, 0.5) !default;
 $border-radius: base.$border-radius !default;
 $bg-map: colors.$bg-map !default;
 
-@mixin button-color($color) {
+@mixin button-color($color, $text-color: null) {
   // Adapt text color to background luminance to ensure high contast
   $luminance: luminance($color);
-  $text-color: if($luminance > 0.4, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+  $dynamic-text-color: if($luminance > 0.4, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
 
   transition:
     color 100ms,
     background-color 100ms;
   background-color: $color;
-  color: $text-color;
+  color: if($text-color != null, $text-color, $dynamic-text-color);
 
   &:focus {
     transition:
@@ -35,7 +35,7 @@ $bg-map: colors.$bg-map !default;
 
   &:hover {
     background-color: lighten($color, 25%);
-    color: $text-color;
+    color: $dynamic-text-color;
   }
 }
 
@@ -128,15 +128,11 @@ $bg-map: colors.$bg-map !default;
 }
 
 .Button--color--transparent {
-  background-color: rgba(base.$color-bg, 0);
-  color: $color-transparent-text;
-  @include button-color(base.$color-bg);
+  @include button-color(rgba(base.$color-bg, 0), $color-transparent-text);
 }
 
 .Button--color--translucent {
-  background-color: rgba(base.$color-bg, 0.6);
-  color: $color-transparent-text;
-  @include button-color(base.$color-bg);
+  @include button-color(rgba(base.$color-bg, 0.6), $color-transparent-text);
 }
 
 .Button--disabled {

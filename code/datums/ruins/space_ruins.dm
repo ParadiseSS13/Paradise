@@ -59,6 +59,7 @@
 		evidence of construction, hook it covertly into the \
 		telecommunications network and hope for the best."
 	cost = 2
+	allow_duplicates = FALSE // this shouldn't be spawning more than once anymore
 
 /datum/map_template/ruin/space/derelict1
 	id = "derelict1"

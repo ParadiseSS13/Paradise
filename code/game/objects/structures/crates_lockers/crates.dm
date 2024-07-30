@@ -77,10 +77,8 @@
 			continue
 		if(ismob(O) && !HAS_TRAIT(O, TRAIT_CONTORTED_BODY))
 			continue
-		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
-			var/obj/structure/bed/B = O
-			if(B.has_buckled_mobs())
-				continue
+		if(O.has_buckled_mobs()) // You can't put mobs into crates, so naturally if a mob is attached to something, it shouldn't be able to go in the crate
+			continue
 		O.forceMove(src)
 		itemcount++
 

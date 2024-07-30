@@ -241,6 +241,10 @@
 	name = "\improper Telecommunications Central Compartment"
 	icon_state = "ai_chamber"
 
+/area/ruin/space/deepstorage
+	name = "Derelict Facility"
+	apc_starts_off = TRUE
+
 /area/ruin/space/sec_shuttle
 	name = "Abandoned Security Shuttle"
 	apc_starts_off = TRUE
