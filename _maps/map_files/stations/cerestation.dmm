@@ -4816,33 +4816,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
-"aEo" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/apmaint)
 "aEq" = (
 /obj/structure/target_stake,
 /obj/machinery/magnetic_module,
@@ -33873,11 +33846,11 @@
 	pixel_x = -5;
 	pixel_y = -1
 	},
-/obj/item/food/snacks/grown/cannabis{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/food/grown/cannabis{
+	pixel_x = 6;
+	pixel_y = 4
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
@@ -35463,7 +35436,7 @@
 /obj/structure/sign/poster/contraband/ambrosia_vulgaris{
 	pixel_x = 32
 	},
-/obj/item/food/snacks/grown/cannabis,
+/obj/item/food/grown/cannabis,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -45736,12 +45709,13 @@
 /area/station/maintenance/storage)
 "hIM" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/pistachios{
-	pixel_x = 6;
-	pixel_y = 7
-	},
 /obj/item/poster/random_contraband,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/food/grown/cannabis,
+/obj/item/food/pistachios{
+	pixel_x = 4;
+	pixel_y = 11
+	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "hIU" = (
@@ -69324,20 +69298,10 @@
 /area/station/maintenance/gambling_den)
 "oQc" = (
 /obj/machinery/light/small,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /turf/simulated/floor/bluegrid{
 	nitrogen = 500;
 	oxygen = 0;
 	temperature = 80
-	},
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/turf/simulated/floor/plating,
-/turf/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /area/station/science/xenobiology)
 "oQn" = (
@@ -99690,7 +99654,6 @@
 	pixel_x = 6;
 	pixel_y = 14
 	},
-/obj/item/food/snacks/donut,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -126068,7 +126031,7 @@ ciG
 evV
 nwv
 izC
-aEo
+fFz
 sKh
 xPU
 wiG
