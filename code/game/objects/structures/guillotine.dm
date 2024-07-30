@@ -31,6 +31,10 @@
 /obj/structure/guillotine/Initialize(mapload)
 	LAZYINITLIST(buckled_mobs)
 	return ..()
+/obj/structure/guillotine/Destroy()
+	if(has_buckled_mobs())
+		unbuckle_all_mobs()
+	. = ..()
 
 /obj/structure/guillotine/examine(mob/user)
 	. = ..()
