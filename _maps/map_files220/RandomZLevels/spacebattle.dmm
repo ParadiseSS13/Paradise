@@ -957,7 +957,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "cV" = (
-/obj/machinery/cooking,
 /turf/simulated/floor/plasteel{
 	icon_state = "blueyellowfull"
 	},
