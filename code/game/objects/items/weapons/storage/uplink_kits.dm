@@ -274,7 +274,7 @@
 		/obj/item/ammo_box/magazine/m10mm, // 3TC
 		/obj/item/soap/syndie, // 5TC
 		/obj/item/suppressor, // 5TC
-		/obj/item/clothing/under/chameleon, // 1TC 10tc divided over 10 items.
+		/obj/item/clothing/under/chameleon, // 1TC. 10TC divided over 10 items.
 		/obj/item/clothing/shoes/chameleon/noslip, // 10TC
 		/obj/item/clothing/mask/chameleon/voice_change, // 10TC
 		/obj/item/dnascrambler, // 7TC
