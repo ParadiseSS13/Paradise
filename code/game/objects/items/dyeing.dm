@@ -25,7 +25,7 @@
 
 	// update the name/description
 	name = initial(target_type.name)
-	desc = "[initial(target_type.desc)] The colors look a little dodgy."
+	desc += "\nThe colors look a little dodgy."
 	update_appearance(ALL)
 	return target_type
 

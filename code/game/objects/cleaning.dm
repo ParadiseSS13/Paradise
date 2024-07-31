@@ -71,7 +71,7 @@
 
 	//Generic cleaning functionality
 	var/obj/effect/decal/cleanable/C = locate() in src
-	if(!isnull(C))
+	if(!QDELETED(C))
 		qdel(C)
 	clean_blood()
 

@@ -508,7 +508,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/shoes.dmi'
-		)
+	)
 
 	var/chained = FALSE
 	var/can_cut_open = FALSE

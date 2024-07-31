@@ -58,16 +58,16 @@
 
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's door is currently [door_open ? "open" : "closed"].</span>"
+	. += "<span class='notice'>Its door is currently [door_open ? "open" : "closed"].</span>"
 	if(washing)
-		. += "<span class='notice'>It is currently in it's wash cycle.</span>"
+		. += "<span class='notice'>It is currently in its wash cycle.</span>"
 	else
 		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle.</span>"
 	if(bloody_mess)
 		. += "<span class='warning'>The inside is covered in blood and gibs, you will need to clean it out with soap first.</span>"
 	else
 		var/total_contents = LAZYLEN(inserted_items) + LAZYLEN(inserted_mobs)
-		. += "<span class='notice'>There is [total_contents] item\s inside.</span>"
+		. += "<span class='notice'>It has [total_contents] item\s inside.</span>"
 
 /obj/machinery/washing_machine/AltClick(mob/user)
 	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -149,7 +149,7 @@
 /// Handles inserting mobs into the washing machines, checks machines capacity, does a do_after, and then applys appropriate signals and updates machines state
 /obj/machinery/washing_machine/proc/insert_mob_into_tub(mob/user, mob/living/mob_to_insert)
 	var/mob_content_size = mob_to_insert.mob_size
-	if(max_tub_capacity < ((mob_content_size * 2) + current_tub_capacity))
+	if(max_tub_capacity < (mob_content_size * 2) + current_tub_capacity)
 		to_chat(user, "<span class='warning'>You try to insert [mob_to_insert] into [src] but it is too full for [mob_to_insert.p_them()]!</span>")
 		return FALSE
 	to_chat(mob_to_insert, "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
@@ -255,8 +255,6 @@
 	door_open = !door_open
 	if(door_open)
 		eject_tub_contents()
-		update_washing_state()
-		return
 	update_washing_state()
 
 /// Attempts to locate stamps or crayons for dyeing purposes

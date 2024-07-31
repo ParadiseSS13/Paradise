@@ -968,8 +968,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			var/mob/living/carbon/human/H = loc
 			H.regenerate_icons()
 
-
-
 /obj/item/proc/get_heat()
 	return
 
