@@ -197,6 +197,8 @@
 	* This proc is called via COMSIG_PARENT_QDELETING for objects we put inside through the insert proc
 */
 /obj/machinery/washing_machine/proc/check_tub_contents()
+	SIGNAL_HANDLER
+
 	if(LAZYLEN(inserted_items))
 		for(var/obj/item/I in inserted_items)
 			if(QDELETED(I) || I.loc != src)
