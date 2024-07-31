@@ -1579,3 +1579,50 @@
 	qdel(H.GetComponent(/datum/component/footstep)) // they're literally stealth
 	var/datum/martial_art/cqc/CQC = new()
 	CQC.teach(H)
+
+/datum/outfit/admin/tourist
+	name = "Tourist"
+	uniform = /obj/item/clothing/under/misc/redhawaiianshirt
+	back = /obj/item/storage/backpack/satchel/withwallet
+	belt = /obj/item/storage/belt/fannypack
+	head = /obj/item/clothing/head/boaterhat
+	l_ear = /obj/item/radio/headset
+	glasses = /obj/item/clothing/glasses/sunglasses_fake
+	shoes = /obj/item/clothing/shoes/sandal
+	id = /obj/item/card/id/assistant
+	box = /obj/item/storage/box/survival
+	pda = /obj/item/pda/clear
+
+	backpack_contents = list(
+		/obj/item/camera = 1,
+		/obj/item/camera_film = 1,
+		/obj/item/stack/spacecash/c200 = 1,
+		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+		/obj/item/lighter/zippo = 1
+	)
+
+/datum/outfit/admin/tourist/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	// Sets the ID and secHUD icon!
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name, "tourist")
+		// Checking if the person has an account already
+		var/datum/money_account/account = H.mind.initial_account
+		if(!account)
+			// If they don't, we create a new one and get it's account number.
+			SSjobs.CreateMoneyAccount(H, null, null)
+			account = H.mind.initial_account
+			I.associated_account_number = account.account_number
+		I.associated_account_number = account.account_number
+	H.sec_hud_set_ID()
+
+	// PDA setup
+	var/obj/item/pda/P = H.wear_pda
+	if(istype(P))
+		P.owner = H.real_name
+		P.ownjob = "Tourist"
+		P.name = "PDA-[H.real_name] ([P.ownjob])"

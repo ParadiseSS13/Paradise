@@ -108,10 +108,10 @@
 	..()
 	if(A == beaker)
 		beaker = null
-		updateUsrDialog()
+		SStgui.update_uis(src)
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
+		SStgui.update_uis(src)
 		update_icon()
 
 /obj/machinery/atmospherics/unary/cryo_cell/on_deconstruction()
