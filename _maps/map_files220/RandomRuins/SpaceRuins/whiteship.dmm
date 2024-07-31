@@ -1074,7 +1074,7 @@
 /area/shuttle/abandoned)
 "Ag" = (
 /obj/structure/closet{
-	icon_closed = "white";
+	icon_opened = "generic_open";
 	icon_state = "white";
 	name = "Medical gear"
 	},
