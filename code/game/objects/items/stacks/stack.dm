@@ -75,10 +75,12 @@
 		merge(AM)
 	. = ..()
 
+/* SS220 REMOVAL
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
 		usr << browse(null, "window=stack")
 	return ..()
+*/
 
 /obj/item/stack/examine(mob/user)
 	. = ..()

@@ -48,12 +48,16 @@ $bg-map: colors.$bg-map !default;
 
 .ImageButton__horizontal {
   display: flex;
+  user-select: none;
+  -ms-user-select: none;
   width: 100%;
   align-items: center;
 }
 
 .ImageButton--horizontal {
   display: flex;
+  user-select: none;
+  -ms-user-select: none;
   margin-bottom: 0.5em;
 
   &:last-child {
