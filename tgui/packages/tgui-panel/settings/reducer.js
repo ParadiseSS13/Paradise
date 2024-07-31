@@ -24,7 +24,7 @@ const initialState = {
   fontSize: 13,
   fontFamily: FONTS[0],
   lineHeight: 1.2,
-  theme: 'dark',
+  theme: 'light',
   adminMusicVolume: 0.5,
   // Keep these two state vars for compatibility with other servers
   highlightText: '',

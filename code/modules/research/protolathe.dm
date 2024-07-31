@@ -77,13 +77,13 @@ Note: Must be placed west/left of and R&D console to function.
 	return A
 
 /obj/machinery/r_n_d/protolathe/attackby(obj/item/O as obj, mob/user as mob, params)
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", O))
 		if(linked_console)
 			linked_console.linked_lathe = null
 			linked_console = null
-		return FALSE
-
-	if(exchange_parts(user, O))
 		return FALSE
 
 	if(panel_open)
@@ -92,8 +92,8 @@ Note: Must be placed west/left of and R&D console to function.
 
 	if(O.is_open_container())
 		return FALSE
-	else
-		return ..()
+
+	return ..()
 
 /obj/machinery/r_n_d/protolathe/crowbar_act(mob/living/user, obj/item/I)
 	if(!panel_open)

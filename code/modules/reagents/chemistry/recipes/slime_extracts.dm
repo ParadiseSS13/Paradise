@@ -38,7 +38,7 @@
 /datum/chemical_reaction/slimemonkey/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	for(var/i = 1, i <= 3, i++)
-		var/obj/item/food/snacks/monkeycube/M = new /obj/item/food/snacks/monkeycube
+		var/obj/item/food/monkeycube/M = new /obj/item/food/monkeycube
 		M.forceMove(get_turf(holder.my_atom))
 
 //Green
@@ -149,37 +149,37 @@
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
 	var/list/blocked = list(
-		/obj/item/food/snacks,
-		/obj/item/food/snacks/breadslice,
-		/obj/item/food/snacks/sliceable,
-		/obj/item/food/snacks/sliceable/pizza,
-		/obj/item/food/snacks/margheritapizzaslice,
-		/obj/item/food/snacks/meatpizzaslice,
-		/obj/item/food/snacks/mushroompizzaslice,
-		/obj/item/food/snacks/vegetablepizzaslice,
-		/obj/item/food/snacks/cheesepizzaslice,
-		/obj/item/food/snacks/garlicpizzaslice,
-		/obj/item/food/snacks/donkpocketpizzaslice,
-		/obj/item/food/snacks/dankpizzaslice,
-		/obj/item/food/snacks/macpizzaslice,
-		/obj/item/food/snacks/firecrackerpizzaslice,
-		/obj/item/food/snacks/pestopizzaslice,
-		/obj/item/food/snacks/pepperonipizzaslice,
-		/obj/item/food/snacks/meat,
-		/obj/item/food/snacks/meat/slab,
-		/obj/item/food/snacks/grown,
-		/obj/item/food/snacks/grown/shell,
-		/obj/item/food/snacks/grown/mushroom,
-		/obj/item/food/snacks/deepfryholder,
-		/obj/item/food/snacks/chinese,
-		/obj/item/food/snacks/human,
-		/obj/item/food/snacks/monstermeat,
-		/obj/item/food/snacks/meatsteak/stimulating,
-		/obj/item/food/snacks/egg/watcher
+		/obj/item/food,
+		/obj/item/food/breadslice,
+		/obj/item/food/sliceable,
+		/obj/item/food/sliceable/pizza,
+		/obj/item/food/margheritapizzaslice,
+		/obj/item/food/meatpizzaslice,
+		/obj/item/food/mushroompizzaslice,
+		/obj/item/food/vegetablepizzaslice,
+		/obj/item/food/cheesepizzaslice,
+		/obj/item/food/garlicpizzaslice,
+		/obj/item/food/donkpocketpizzaslice,
+		/obj/item/food/dankpizzaslice,
+		/obj/item/food/macpizzaslice,
+		/obj/item/food/firecrackerpizzaslice,
+		/obj/item/food/pestopizzaslice,
+		/obj/item/food/pepperonipizzaslice,
+		/obj/item/food/meat,
+		/obj/item/food/meat/slab,
+		/obj/item/food/grown,
+		/obj/item/food/grown/shell,
+		/obj/item/food/grown/mushroom,
+		/obj/item/food/deepfryholder,
+		/obj/item/food/chinese,
+		/obj/item/food/human,
+		/obj/item/food/monstermeat,
+		/obj/item/food/meatsteak/stimulating,
+		/obj/item/food/egg/watcher
 		)
-	blocked |= typesof(/obj/item/food/snacks/customizable)
+	blocked |= typesof(/obj/item/food/customizable)
 
-	var/list/borks = typesof(/obj/item/food/snacks) - blocked
+	var/list/borks = typesof(/obj/item/food) - blocked
 	// BORK BORK BORK
 
 	playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)

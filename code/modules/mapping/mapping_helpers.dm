@@ -84,18 +84,20 @@
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
 	. = ..()
+
 	if(!mapload)
 		log_world("[src] spawned outside of mapload!")
-		return
+		return INITIALIZE_HINT_QDEL
 
+/obj/effect/mapping_helpers/airlock/LateInitialize()
+	. = ..()
 	if(!(locate(/obj/machinery/door) in get_turf(src)))
 		log_world("[src] failed to find an airlock at [AREACOORD(src)]")
 
 	for(var/obj/machinery/door/D in get_turf(src))
-		if(!is_type_in_list(D, blacklist))
-			payload(D)
+		payload(D)
 
-	return INITIALIZE_HINT_QDEL
+	qdel(src)
 
 /obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
 	return

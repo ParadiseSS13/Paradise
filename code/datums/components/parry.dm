@@ -16,6 +16,10 @@
 	var/no_parry_sound
 	/// Text to be shown to users who examine the parent. Will list which type of attacks it can parry.
 	var/examine_text
+	/// Does this item have a require a condition to meet before being able to parry? This is for two handed weapons that can parry. (Default: FALSE)
+	var/requires_two_hands = FALSE
+	/// Does this item require activation? This is for activation based items or energy weapons.
+	var/requires_activation = FALSE
 
 /datum/component/parry/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(equipped))
@@ -32,7 +36,7 @@
 	if(ismob(I.loc))
 		UnregisterSignal(I.loc, COMSIG_HUMAN_PARRY)
 
-/datum/component/parry/Initialize(_stamina_constant = 0, _stamina_coefficient = 0, _parry_time_out_time = PARRY_DEFAULT_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = 2 SECONDS, _no_parry_sound = FALSE)
+/datum/component/parry/Initialize(_stamina_constant = 0, _stamina_coefficient = 0, _parry_time_out_time = PARRY_DEFAULT_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = 2 SECONDS, _no_parry_sound = FALSE, _requires_two_hands = FALSE, _requires_activation = FALSE)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -41,6 +45,8 @@
 	stamina_coefficient = _stamina_coefficient
 	parry_cooldown = _parry_cooldown
 	no_parry_sound = _no_parry_sound
+	requires_two_hands = _requires_two_hands
+	requires_activation = _requires_activation
 	if(islist(_parryable_attack_types))
 		parryable_attack_types = _parryable_attack_types
 	else
@@ -73,6 +79,10 @@
 /datum/component/parry/proc/start_parry(mob/living/L)
 	SIGNAL_HANDLER
 	var/time_since_parry = world.time - time_parried
+	if(requires_two_hands && !HAS_TRAIT(parent, TRAIT_WIELDED)) // If our item has special conditions before being able to parry.
+		return
+	if(requires_activation && !HAS_TRAIT(parent, TRAIT_ITEM_ACTIVE)) // If our item requires an activation to be able to parry. [E-sword / Teleshield, etc.]
+		return
 	if(time_since_parry < parry_cooldown) // stops spam
 		return
 

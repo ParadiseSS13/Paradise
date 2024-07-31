@@ -449,6 +449,65 @@
 
 	return min(1,thermal_protection)
 
+//This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, UPPER_TORSO, LOWER_TORSO, etc. See setup.dm for the full list)
+/mob/living/carbon/human/proc/get_rad_protection_flags()
+	var/rad_protection_flags = 0
+	//Handle normal clothing
+	if(head)
+		if(head.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= head.body_parts_covered
+	if(wear_suit)
+		if(wear_suit.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= wear_suit.body_parts_covered
+	if(w_uniform)
+		if(w_uniform.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= w_uniform.body_parts_covered
+	if(shoes)
+		if(shoes.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= shoes.body_parts_covered
+	if(gloves)
+		if(gloves.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= gloves.body_parts_covered
+	if(wear_mask)
+		if(wear_mask.flags_2 & RAD_PROTECT_CONTENTS_2)
+			rad_protection_flags |= wear_mask.body_parts_covered
+
+	return rad_protection_flags
+
+/mob/living/carbon/human/proc/get_rad_protection()
+
+	if(HAS_TRAIT(src, TRAIT_RADIMMUNE))
+		return 1
+
+	var/rad_protection_flags = get_rad_protection_flags()
+
+	var/rad_protection = 0
+	if(rad_protection_flags)
+		if(rad_protection_flags & HEAD)
+			rad_protection += THERMAL_PROTECTION_HEAD //This is correct. This uses the same percent defines as thermal protection.
+		if(rad_protection_flags & UPPER_TORSO)
+			rad_protection += THERMAL_PROTECTION_UPPER_TORSO
+		if(rad_protection_flags & LOWER_TORSO)
+			rad_protection += THERMAL_PROTECTION_LOWER_TORSO
+		if(rad_protection_flags & LEG_LEFT)
+			rad_protection += THERMAL_PROTECTION_LEG_LEFT
+		if(rad_protection_flags & LEG_RIGHT)
+			rad_protection += THERMAL_PROTECTION_LEG_RIGHT
+		if(rad_protection_flags & FOOT_LEFT)
+			rad_protection += THERMAL_PROTECTION_FOOT_LEFT
+		if(rad_protection_flags & FOOT_RIGHT)
+			rad_protection += THERMAL_PROTECTION_FOOT_RIGHT
+		if(rad_protection_flags & ARM_LEFT)
+			rad_protection += THERMAL_PROTECTION_ARM_LEFT
+		if(rad_protection_flags & ARM_RIGHT)
+			rad_protection += THERMAL_PROTECTION_ARM_RIGHT
+		if(rad_protection_flags & HAND_LEFT)
+			rad_protection += THERMAL_PROTECTION_HAND_LEFT
+		if(rad_protection_flags & HAND_RIGHT)
+			rad_protection += THERMAL_PROTECTION_HAND_RIGHT
+
+
+	return min(1,rad_protection)
 
 /mob/living/carbon/human/proc/get_covered_bodyparts()
 	var/covered = 0

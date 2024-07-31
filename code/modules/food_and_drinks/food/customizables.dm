@@ -1,40 +1,40 @@
 #define MAKE_CUSTOM_FOOD(snack_to_add, user, type) \
 do {\
-	var/obj/item/food/snacks/customizable/custom_snack = new type(get_turf(user));\
+	var/obj/item/food/customizable/custom_snack = new type(get_turf(user));\
 	custom_snack.add_ingredient(snack_to_add, user); \
 	user.put_in_active_hand(custom_snack); \
 	qdel(src);\
 } while(FALSE)
 
-/obj/item/food/snacks/breadslice/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food/snacks) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/snacks/customizable/sandwich)
+/obj/item/food/breadslice/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
+		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/sandwich)
 		return
 	..()
 
-/obj/item/food/snacks/bun/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food/snacks) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/snacks/customizable/burger)
+/obj/item/food/bun/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
+		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/burger)
 		return
 	..()
 
-/obj/item/food/snacks/sliceable/flatdough/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food/snacks) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/snacks/customizable/pizza)
+/obj/item/food/sliceable/flatdough/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
+		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/pizza)
 		return
 	..()
 
 
-/obj/item/food/snacks/boiledspaghetti/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food/snacks) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/snacks/customizable/pasta)
+/obj/item/food/boiledspaghetti/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
+		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/pasta)
 		return
 	..()
 
 
 /obj/item/trash/plate/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food/snacks) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/snacks/customizable/fullycustom)
+	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
+		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/fullycustom)
 		return
 	..()
 
@@ -47,14 +47,14 @@ do {\
 	icon_state = "soup"
 
 /obj/item/trash/bowl/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/food/snacks) && !(I.flags & NODROP))
-		var/obj/item/food/snacks/customizable/soup/S = new(get_turf(user))
+	if(istype(I, /obj/item/food) && !(I.flags & NODROP))
+		var/obj/item/food/customizable/soup/S = new(get_turf(user))
 		S.attackby(I, user, params)
 		qdel(src)
 	else
 		..()
 
-/obj/item/food/snacks/customizable
+/obj/item/food/customizable
 	name = "sandwich"
 	desc = "A sandwich! A timeless classic."
 	icon = 'icons/obj/food/custom.dmi'
@@ -74,20 +74,20 @@ do {\
 	var/list/ingredients = list()
 	list_reagents = list("nutriment" = 8)
 
-/obj/item/food/snacks/customizable/Initialize(mapload)
+/obj/item/food/customizable/Initialize(mapload)
 	. = ..()
 	if(top)
 		top_image = new(icon, "[baseicon]_top")
 		add_overlay(top_image)
 
-/obj/item/food/snacks/customizable/sandwich
+/obj/item/food/customizable/sandwich
 	name = "sandwich"
 	desc = "A sandwich! A timeless classic."
 	icon_state = "sandwichcustom"
 	baseicon = "sandwichcustom"
 	basename = "sandwich"
 
-/obj/item/food/snacks/customizable/pizza
+/obj/item/food/customizable/pizza
 	name = "personal pizza"
 	desc = "A personalized pan pizza meant for only one person."
 	icon_state = "personal_pizza"
@@ -97,7 +97,7 @@ do {\
 	top = 0
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 
-/obj/item/food/snacks/customizable/pasta
+/obj/item/food/customizable/pasta
 	name = "spaghetti"
 	desc = "Noodles. With stuff. Delicious."
 	icon_state = "pasta_bot"
@@ -106,7 +106,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/cook/bread
+/obj/item/food/customizable/cook/bread
 	name = "bread"
 	desc = "Tasty bread."
 	icon_state = "breadcustom"
@@ -116,7 +116,7 @@ do {\
 	top = 0
 	tastes = list("bread" = 10)
 
-/obj/item/food/snacks/customizable/cook/pie
+/obj/item/food/customizable/cook/pie
 	name = "pie"
 	desc = "Tasty pie."
 	icon_state = "piecustom"
@@ -126,7 +126,7 @@ do {\
 	top = 0
 	tastes = list("pie" = 1)
 
-/obj/item/food/snacks/customizable/cook/cake
+/obj/item/food/customizable/cook/cake
 	name = "cake"
 	desc = "A popular band."
 	icon_state = "cakecustom"
@@ -136,7 +136,7 @@ do {\
 	top = 0
 	tastes = list("cake" = 1)
 
-/obj/item/food/snacks/customizable/cook/jelly
+/obj/item/food/customizable/cook/jelly
 	name = "jelly"
 	desc = "Totally jelly."
 	icon_state = "jellycustom"
@@ -145,7 +145,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/cook/donkpocket
+/obj/item/food/customizable/cook/donkpocket
 	name = "donk pocket"
 	desc = "You wanna put a bangin-Oh nevermind."
 	icon_state = "donkcustom"
@@ -154,7 +154,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/cook/kebab
+/obj/item/food/customizable/cook/kebab
 	name = "kebab"
 	desc = "Kebab or Kabab?"
 	icon_state = "kababcustom"
@@ -164,7 +164,7 @@ do {\
 	top = 0
 	tastes = list("meat" = 3, "metal" = 1)
 
-/obj/item/food/snacks/customizable/cook/salad
+/obj/item/food/customizable/cook/salad
 	name = "salad"
 	desc = "Very tasty."
 	icon_state = "saladcustom"
@@ -174,7 +174,7 @@ do {\
 	top = 0
 	tastes = list("leaves" = 1)
 
-/obj/item/food/snacks/customizable/cook/waffles
+/obj/item/food/customizable/cook/waffles
 	name = "waffles"
 	desc = "Made with love."
 	icon_state = "wafflecustom"
@@ -184,7 +184,7 @@ do {\
 	top = 0
 	tastes = list("waffles" = 1)
 
-/obj/item/food/snacks/customizable/candy/cookie
+/obj/item/food/customizable/candy/cookie
 	name = "cookie"
 	desc = "COOKIE!!1!"
 	icon_state = "cookiecustom"
@@ -194,7 +194,7 @@ do {\
 	top = 0
 	tastes = list("cookie" = 1)
 
-/obj/item/food/snacks/customizable/candy/cotton
+/obj/item/food/customizable/candy/cotton
 	name = "flavored cotton candy"
 	desc = "Who can take a sunrise, sprinkle it with dew,"
 	icon_state = "cottoncandycustom"
@@ -203,7 +203,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/candy/gummybear
+/obj/item/food/customizable/candy/gummybear
 	name = "flavored giant gummy bear"
 	desc = "Cover it in chocolate and a miracle or two,"
 	icon_state = "gummybearcustom"
@@ -212,7 +212,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/candy/gummyworm
+/obj/item/food/customizable/candy/gummyworm
 	name = "flavored giant gummy worm"
 	desc = "The Candy Man can 'cause he mixes it with love,"
 	icon_state = "gummywormcustom"
@@ -221,7 +221,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/candy/jellybean
+/obj/item/food/customizable/candy/jellybean
 	name = "flavored giant jelly bean"
 	desc = "And makes the world taste good."
 	icon_state = "jellybeancustom"
@@ -230,7 +230,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/candy/jawbreaker
+/obj/item/food/customizable/candy/jawbreaker
 	name = "flavored jawbreaker"
 	desc = "Who can take a rainbow, Wrap it in a sigh,"
 	icon_state = "jawbreakercustom"
@@ -239,7 +239,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/candy/candycane
+/obj/item/food/customizable/candy/candycane
 	name = "flavored candy cane"
 	desc = "Soak it in the sun and make strawberry-lemon pie,"
 	icon_state = "candycanecustom"
@@ -248,7 +248,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/candy/gum
+/obj/item/food/customizable/candy/gum
 	name = "flavored gum"
 	desc = "The Candy Man can 'cause he mixes it with love and makes the world taste good. And the world tastes good 'cause the Candy Man thinks it should..."
 	icon_state = "gumcustom"
@@ -257,7 +257,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/candy/donut
+/obj/item/food/customizable/candy/donut
 	name = "filled donut"
 	desc = "Donut eat this!" // kill me
 	icon_state = "donutcustom"
@@ -266,7 +266,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/candy/bar
+/obj/item/food/customizable/candy/bar
 	name = "flavored chocolate bar"
 	desc = "Made in a factory downtown."
 	icon_state = "barcustom"
@@ -275,7 +275,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/candy/sucker
+/obj/item/food/customizable/candy/sucker
 	name = "flavored sucker"
 	desc = "Suck suck suck."
 	icon_state = "suckercustom"
@@ -284,7 +284,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/candy/cash
+/obj/item/food/customizable/candy/cash
 	name = "flavored chocolate cash"
 	desc = "I got piles!"
 	icon_state = "cashcustom"
@@ -293,7 +293,7 @@ do {\
 	snack_overlays = 0
 	top = 0
 
-/obj/item/food/snacks/customizable/candy/coin
+/obj/item/food/customizable/candy/coin
 	name = "flavored chocolate coin"
 	desc = "Clink, clink, clink."
 	icon_state = "coincustom"
@@ -303,7 +303,7 @@ do {\
 	top = 0
 
 /// In the event you fuckers find something I forgot to add a customizable food for.
-/obj/item/food/snacks/customizable/fullycustom
+/obj/item/food/customizable/fullycustom
 	name = "on a plate"
 	desc = "A unique dish."
 	icon_state = "fullycustom"
@@ -314,7 +314,7 @@ do {\
 	ingredient_limit = 20
 	fullycustom = 1
 
-/obj/item/food/snacks/customizable/soup
+/obj/item/food/customizable/soup
 	name = "soup"
 	desc = "A bowl with liquid and... stuff in it."
 	icon_state = "soup"
@@ -326,7 +326,7 @@ do {\
 	top = 0
 	tastes = list("soup" = 1)
 
-/obj/item/food/snacks/customizable/burger
+/obj/item/food/customizable/burger
 	name = "burger bun"
 	desc = "A bun for a burger. Delicious."
 	icon_state = "burgercustom"
@@ -335,14 +335,14 @@ do {\
 	tastes = list("bun" = 4)
 
 
-/obj/item/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
+/obj/item/food/customizable/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
 		if(!isnull(new_name))
 			to_chat(user, "<span class='notice'>You declare this to be \a [name]. Delicious!</span>")
 			return
 
-	if(!istype(I, /obj/item/food/snacks))
+	if(!istype(I, /obj/item/food))
 		to_chat(user, "<span class='warning'>[I] isn't exactly something that you would want to eat.</span>")
 		return
 
@@ -354,14 +354,14 @@ do {\
  * Arguments:
  * * snack - The ingredient that will be added
  */
-/obj/item/food/snacks/customizable/proc/add_ingredient(obj/item/food/snacks/snack, mob/user)
+/obj/item/food/customizable/proc/add_ingredient(obj/item/food/snack, mob/user)
 	if(length(ingredients) > ingredient_limit)
 		to_chat(user, "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>")
 		return
 
 	// Fully custom snacks don't add the ingredients. So no need to check
-	if(!fullycustom && istype(snack, /obj/item/food/snacks/customizable))
-		var/obj/item/food/snacks/customizable/origin = snack
+	if(!fullycustom && istype(snack, /obj/item/food/customizable))
+		var/obj/item/food/customizable/origin = snack
 		if(length(ingredients) + length(origin.ingredients) > ingredient_limit)
 			to_chat(user, "<span class='warning'>Merging [snack] and [src] together is going to make a mess.</span>")
 			return
@@ -376,8 +376,8 @@ do {\
 	var/list/added_ingredients = list(snack)
 
 	// Only merge when it is not fullycustom. Else it looks weird
-	if(!fullycustom && istype(snack, /obj/item/food/snacks/customizable))
-		var/obj/item/food/snacks/customizable/origin = snack
+	if(!fullycustom && istype(snack, /obj/item/food/customizable))
+		var/obj/item/food/customizable/origin = snack
 		added_ingredients += origin.ingredients
 		origin.ingredients.Cut()
 		origin.name = initial(origin.name) // Reset the name for the examine text
@@ -394,12 +394,12 @@ do {\
  * Arguments:
  * * new_ingredients - The new ingredients to be added
  */
-/obj/item/food/snacks/customizable/proc/add_ingredients(list/new_ingredients)
+/obj/item/food/customizable/proc/add_ingredients(list/new_ingredients)
 	cut_overlay(top_image) // Remove the top image so we can change it again
 
 	var/ingredient_num = length(ingredients)
 	ingredients += new_ingredients
-	for(var/obj/item/food/snacks/food as anything in new_ingredients)
+	for(var/obj/item/food/food as anything in new_ingredients)
 		ingredient_num++
 		var/image/ingredient_image
 		if(!fullycustom)
@@ -425,20 +425,20 @@ do {\
 		add_overlay(top_image)
 
 
-/obj/item/food/snacks/customizable/Destroy()
+/obj/item/food/customizable/Destroy()
 	QDEL_LIST_CONTENTS(ingredients)
 	qdel(top_image)
 	return ..()
 
 
-/obj/item/food/snacks/customizable/examine(mob/user)
+/obj/item/food/customizable/examine(mob/user)
 	. = ..()
 	if(LAZYLEN(ingredients))
 		var/whatsinside = pick(ingredients)
-		. += "<span class='notice'> You think you can see [whatsinside] in there.</span>"
+		. += "<span class='notice'>You think you can see [whatsinside] in there.</span>"
 
 
-/obj/item/food/snacks/customizable/proc/newname()
+/obj/item/food/customizable/proc/newname()
 	var/unsorteditems[0]
 	var/sorteditems[0]
 	var/unsortedtypes[0]
@@ -456,8 +456,8 @@ do {\
 			continue
 
 
-		if(istype(ing, /obj/item/food/snacks/customizable))				// split the ingredients into ones with basenames (sandwich, burger, etc) and ones without, keeping track of how many of each there are
-			var/obj/item/food/snacks/customizable/gettype = ing
+		if(istype(ing, /obj/item/food/customizable))				// split the ingredients into ones with basenames (sandwich, burger, etc) and ones without, keeping track of how many of each there are
+			var/obj/item/food/customizable/gettype = ing
 			if(unsortedtypes[gettype.basename])
 				unsortedtypes[gettype.basename]++
 				if(unsortedtypes[gettype.basename] > ct)
@@ -518,7 +518,7 @@ do {\
 		sendback = "[pick("absurd", "colossal", "enormous", "ridiculous", "massive", "oversized", "cardiac-arresting", "pipe-clogging", "edible but sickening", "sickening", "gargantuan", "mega", "belly-burster", "chest-burster")] [basename]"
 	return sendback
 
-/obj/item/food/snacks/customizable/proc/sortlist(list/unsorted, highest)
+/obj/item/food/customizable/proc/sortlist(list/unsorted, highest)
 	var/sorted[0]
 	for(var/i = 1, i<= highest, i++)
 		for(var/it in unsorted)
