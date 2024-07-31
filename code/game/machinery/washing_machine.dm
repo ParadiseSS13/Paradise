@@ -152,19 +152,18 @@
 	if(max_tub_capacity < (mob_content_size * 2) + current_tub_capacity)
 		to_chat(user, "<span class='warning'>You try to insert [mob_to_insert] into [src] but it is too full for [mob_to_insert.p_them()]!</span>")
 		return FALSE
-	to_chat(mob_to_insert, "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
-	visible_message("<span class='warning'>[user] starts shoving [mob_to_insert] into [src]!</span>")
+	mob_to_insert.visible_message("<span class='warning'>[user] starts shoving [mob_to_insert] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
 	if(!do_after_once(user, (3 SECONDS * mob_content_size), target = src, attempt_cancel_message = "You stop inserting [mob_to_insert] into [src]."))
 		return FALSE
 	mob_to_insert.forceMove(src)
 	RegisterSignal(mob_to_insert, COMSIG_PARENT_QDELETING, PROC_REF(check_tub_contents))
+	RegisterSignal(mob_to_insert, COMSIG_MOVABLE_MOVED, PROC_REF(check_tub_contents))
 	LAZYADD(inserted_mobs, mob_to_insert)
 	calculate_tub_capacity()
 	update_washing_state()
 	add_attack_logs(user, mob_to_insert, "Shoved into washing machine.")
 	to_chat(mob_to_insert, "<span class='userdanger'>[user] shoves you into [src]. Oh shit!</span>")
-	to_chat(user, "<span class='danger'>You shove [mob_to_insert] into [src].</span>")
-	visible_message("<span class='danger'>[user] shoves [mob_to_insert] into [src].</span>")
+	mob_to_insert.visible_message("<span class='danger'>[user] shoves [mob_to_insert] into [src].</span>", "<span class='danger'>You shove [mob_to_insert] into [src].</span>")
 	return TRUE
 
 /// Handles inserting obj/items into the washing machines, checks machines capacity, does a do_after, and then applys appropriate signals and updates machines state
@@ -180,6 +179,7 @@
 		return FALSE
 	item_to_insert.forceMove(src)
 	RegisterSignal(item_to_insert, COMSIG_PARENT_QDELETING, PROC_REF(check_tub_contents))
+	RegisterSignal(item_to_insert, COMSIG_MOVABLE_MOVED, PROC_REF(check_tub_contents))
 	LAZYADD(inserted_items, item_to_insert)
 	calculate_tub_capacity()
 	update_washing_state()
@@ -202,12 +202,14 @@
 			if(QDELETED(I) || I.loc != src)
 				if(!QDELETED(I))
 					UnregisterSignal(I, COMSIG_PARENT_QDELETING)
+					UnregisterSignal(I, COMSIG_MOVABLE_MOVED)
 				LAZYREMOVE(inserted_items, I)
 	if(LAZYLEN(inserted_mobs))
 		for(var/mob/living/L in inserted_mobs)
 			if(QDELETED(L) || L.loc != src)
 				if(!QDELETED(L))
 					UnregisterSignal(L, COMSIG_PARENT_QDELETING)
+					UnregisterSignal(L, COMSIG_MOVABLE_MOVED)
 				LAZYREMOVE(inserted_mobs, L)
 	for(var/obj/item/I in contents)
 		if(!LAZYIN(inserted_items, I))
@@ -231,11 +233,13 @@
 				I.add_blood() // what a mess!
 			I.forceMove(loc)
 			UnregisterSignal(I, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(I, COMSIG_MOVABLE_MOVED)
 		LAZYNULL(inserted_items)
 	if(LAZYLEN(inserted_mobs))
 		for(var/mob/living/L in inserted_mobs)
 			L.forceMove(loc)
 			UnregisterSignal(L, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(L, COMSIG_MOVABLE_MOVED)
 		LAZYNULL(inserted_mobs)
 	calculate_tub_capacity()
 	update_washing_state()
@@ -320,7 +324,6 @@
 		return
 	else
 		L.forceMove(loc)
-		check_tub_contents()
 
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
