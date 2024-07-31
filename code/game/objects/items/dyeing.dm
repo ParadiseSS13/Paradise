@@ -1,4 +1,15 @@
-
+/**
+ * Updates an item's appearance to mimic the appearance of another item in the dye_registry's dictionary
+ * what types of items (beanie, jumpsuit, shoes, etc) src is dyed into depends on the dye_key unless an
+ * overidden dye_key is specified. For example if our dye_key is DYE_REGISTRY_UNDER and we specify to dye to
+ * DYE_RED, our item's appearance would then mimic /obj/item/clothing/under/color/red; see [dye_registry.dm] for this dictionary
+ *
+ * once everything is updated, the target type path that we dyed the item into is returned
+ *
+ * Arguments:
+ * - dye_color: the DYE_COLOR specifies which dye color we look up to copy apearances from in the dye_registry; cannot be null
+ * - dye_key_override: this overrides the items `dyeing_key` which allows you to force the proc to use a specific lookup key for the dye_registry; this can be null
+ */
 /obj/item/proc/dye_item(dye_color, dye_key_override)
 	if(!dyeable || !dye_color)
 		return
@@ -29,6 +40,7 @@
 	update_appearance(ALL)
 	return target_type
 
+/// Beanies use the color var for their appearance, we don't normally copy this over but we have to for beanies
 /obj/item/clothing/head/beanie/dye_item(dye_color, dye_key_override)
 	. = ..()
 	if(.)
