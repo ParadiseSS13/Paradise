@@ -204,6 +204,8 @@
 	. = ..()
 	var/datum/action/innate/communicate_overmind_blob/overmind_chat = new
 	overmind_chat.Grant(src)
+	if(name == "blobbernaut")
+		name = "blobbernaut ([rand(1, 1000)])"
 
 /datum/action/innate/communicate_overmind_blob
 	name = "Speak with the overmind"
@@ -227,11 +229,6 @@
 			adjustBruteLoss(0.2) // If you are at full health, you won't lose health. You'll need it. However the moment anybody sneezes on you, the decaying will begin.
 			adjustFireLoss(0.2)
 	..()
-
-/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
-	. = ..()
-	if(name == "blobbernaut")
-		name = "blobbernaut ([rand(1, 1000)])"
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	// Only execute the below if we successfully died

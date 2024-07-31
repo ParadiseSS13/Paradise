@@ -38,6 +38,10 @@
 
 /obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread, atom/firer_source_atom)
 	var/turf/curloc = get_turf(firer_source_atom)
+	if(!istype(curloc)) // False-bottomed briefcase check.
+		var/obj/item/holding = user.get_active_hand()
+		if(istype(holding, /obj/item/storage/briefcase/false_bottomed))
+			curloc = get_turf(holding)
 	if(!istype(targloc) || !istype(curloc) || !BB)
 		return
 	BB.ammo_casing = src

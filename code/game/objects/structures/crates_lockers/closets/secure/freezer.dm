@@ -44,7 +44,7 @@
 
 /obj/structure/closet/secure_closet/freezer/meat/populate_contents()
 	for(var/i in 1 to 4)
-		new /obj/item/food/snacks/meat/monkey(src)
+		new /obj/item/food/meat/monkey(src)
 
 /obj/structure/closet/secure_closet/freezer/meat/open
 	req_access = null
