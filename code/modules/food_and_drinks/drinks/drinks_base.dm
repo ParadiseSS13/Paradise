@@ -19,11 +19,11 @@
 
 /obj/item/reagent_containers/drinks/attack(mob/M, mob/user, def_zone)
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'> None of [src] left, oh no!</span>")
+		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		return FALSE
 
 	if(!is_drainable())
-		to_chat(user, "<span class='warning'> You need to open [src] first!</span>")
+		to_chat(user, "<span class='warning'>You need to open [src] first!</span>")
 		return FALSE
 
 	if(iscarbon(M))
@@ -62,15 +62,15 @@
 
 	if(target.is_refillable() && is_drainable()) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'> [src] is empty.</span>")
+			to_chat(user, "<span class='warning'>[src] is empty.</span>")
 			return FALSE
 
 		if(target.reagents.holder_full())
-			to_chat(user, "<span class='warning'> [target] is full.</span>")
+			to_chat(user, "<span class='warning'>[target] is full.</span>")
 			return FALSE
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
+		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [target].</span>")
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
@@ -93,16 +93,16 @@
 	. = ..()
 	if(in_range(user, src))
 		if(!reagents || reagents.total_volume == 0)
-			. += "<span class='notice'> \The [src] is empty!</span>"
+			. += "<span class='notice'>[src] is empty!</span>"
 		else if(reagents.total_volume <= volume/4)
-			. += "<span class='notice'> \The [src] is almost empty!</span>"
+			. += "<span class='notice'>[src] is almost empty!</span>"
 		else if(reagents.total_volume <= volume*0.66)
-			. += "<span class='notice'> \The [src] is half full!</span>"// We're all optimistic, right?!
+			. += "<span class='notice'>[src] is half full!</span>"// We're all optimistic, right?!
 
 		else if(reagents.total_volume <= volume*0.90)
-			. += "<span class='notice'> \The [src] is almost full!</span>"
+			. += "<span class='notice'>[src] is almost full!</span>"
 		else
-			. += "<span class='notice'> \The [src] is full!</span>"
+			. += "<span class='notice'>[src] is full!</span>"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Drinks. END

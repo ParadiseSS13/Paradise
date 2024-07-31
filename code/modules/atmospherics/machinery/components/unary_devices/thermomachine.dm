@@ -43,6 +43,10 @@
 /obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.</span>"
+	. += "<span class='notice'>The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).</span>"
+	if(in_range(user, src) || isobserver(user))
+		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.</span>"
+		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C - min_temperature) * -1]C - [(T0C-max_temperature) * -1]C)</b>.</span>"
 
 /obj/machinery/atmospherics/unary/thermomachine/proc/swap_function()
 	cooling = !cooling
@@ -84,14 +88,6 @@
 	else
 		icon_state = icon_state_off
 
-/obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).</span>"
-	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.</span>"
-		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C - min_temperature) * -1]C - [(T0C-max_temperature) * -1]C)</b>.</span>"
-
-
 /obj/machinery/atmospherics/unary/thermomachine/process_atmos()
 	if(!on)
 		return
@@ -123,11 +119,6 @@
 		change_power_mode(IDLE_POWER_USE)
 	return
 
-/obj/machinery/atmospherics/unary/thermomachine/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-	return ..()
-
 /obj/machinery/atmospherics/unary/thermomachine/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
@@ -140,10 +131,10 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
