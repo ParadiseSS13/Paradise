@@ -80,7 +80,7 @@
 	if(is_a_cleaving_saw)
 		return FALSE
 
-	if(!active)
+	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		to_chat(user, "<span class='warning'>You must activate [src] before you can light [cig] with it!</span>")
 		return TRUE
 
