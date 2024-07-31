@@ -1,12 +1,11 @@
 /*   CONTENTS:
-0. Generic Gripper
-1. Hug Module
-2. Gripper Types
-	2.1 Universal Gripper
-	2.2 Medical Gripper
-	2.3 Service Gripper
-	2.4 Mining Gripper
-	2.5 Engineering Gripper
+*	0. Generic Gripper
+*	1. Gripper Types
+*		1.1 Universal Gripper
+*		1.2 Medical Gripper
+*		1.3 Service Gripper
+*		1.4 Mining Gripper
+*		1.5 Engineering Gripper
 */
 
 // Generic gripper. This should never appear anywhere.
@@ -156,9 +155,6 @@
 	..()
 	return TRUE
 
-////////////////////////////////
-// MARK:	Hug Module
-////////////////////////////////
 /obj/item/gripper/attack(mob/living/M, mob/living/silicon/robot/user, params)
 	if(gripped_item)
 		return
