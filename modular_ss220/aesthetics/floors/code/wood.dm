@@ -8,8 +8,8 @@
 	floor_tile = ##tile/oak;\
 }\
 ##tile/oak {\
-	name = "oak wood floor tiles";\
-	singular_name = "oak wood floor tile";\
+	name = "oak floor tiles";\
+	singular_name = "oak floor tile";\
 	color = "#644526";\
 	turf_type = ##path/oak;\
 	merge_type = ##tile/oak;\
@@ -19,8 +19,8 @@
 	floor_tile = ##tile/birch;\
 }\
 ##tile/birch {\
-	name = "birch wood floor tiles";\
-	singular_name = "birch wood floor tile";\
+	name = "birch floor tiles";\
+	singular_name = "birch floor tile";\
 	color = "#FFECB3";\
 	turf_type = ##path/birch;\
 	merge_type = ##tile/birch;\
@@ -30,11 +30,55 @@
 	floor_tile = ##tile/cherry;\
 }\
 ##tile/cherry {\
-	name = "cherry wood floor tiles";\
-	singular_name = "cherry wood floor tile";\
+	name = "cherry floor tiles";\
+	singular_name = "cherry floor tile";\
 	color = "#643412";\
 	turf_type = ##path/cherry;\
 	merge_type = ##tile/cherry;\
+}\
+##path/amaranth {\
+	color = "#6B2E3E";\
+	floor_tile = ##tile/amaranth;\
+}\
+##tile/amaranth {\
+	name = "amaranth floor tiles";\
+	singular_name = "amaranth floor tile";\
+	color = "#6B2E3E";\
+	turf_type = ##path/amaranth;\
+	merge_type = ##tile/amaranth;\
+}\
+##path/ebonite {\
+	color = "#363649";\
+	floor_tile = ##tile/ebonite;\
+}\
+##tile/ebonite {\
+	name = "ebonite floor tiles";\
+	singular_name = "ebonite floor tile";\
+	color = "#363649";\
+	turf_type = ##path/ebonite;\
+	merge_type = ##tile/ebonite;\
+}\
+##path/pink_ivory {\
+	color = "#D78575";\
+	floor_tile = ##tile/pink_ivory;\
+}\
+##tile/pink_ivory {\
+	name = "pink ivory floor tiles";\
+	singular_name = "pink ivory floor tile";\
+	color = "#D78575";\
+	turf_type = ##path/pink_ivory;\
+	merge_type = ##tile/pink_ivory;\
+}\
+##path/guaiacum {\
+	color = "#5C6250";\
+	floor_tile = ##tile/guaiacum;\
+}\
+##tile/guaiacum {\
+	name = "guaiacum floor tiles";\
+	singular_name = "guaiacum floor tile";\
+	color = "#5C6250";\
+	turf_type = ##path/guaiacum;\
+	merge_type = ##tile/guaiacum;\
 }\
 
 // Wood
@@ -53,7 +97,7 @@ WOODEN_FLOOR_HELPER(/turf/simulated/floor/wood, /obj/item/stack/tile/wood)
 
 // Fancy Wood
 /obj/item/stack/tile/wood/fancy
-	name = "fancy light oak wood floor tiles"
+	name = "fancy wood floor tiles"
 	singular_name = "fancy wood floor tile"
 	icon_state = "tile-wood-fancy"
 	color = "#864A2D"
@@ -72,8 +116,8 @@ WOODEN_FLOOR_HELPER(/turf/simulated/floor/wood/fancy, /obj/item/stack/tile/wood/
 
 // Parquet
 /obj/item/stack/tile/wood/parquet
-	name = "parquet wood floor tiles"
-	singular_name = "wood parquet floor tile"
+	name = "parquet floor tiles"
+	singular_name = "parquet floor tile"
 	icon_state = "tile-wood-parquet"
 	color = "#864A2D"
 	turf_type = /turf/simulated/floor/wood/parquet
@@ -91,8 +135,8 @@ WOODEN_FLOOR_HELPER(/turf/simulated/floor/wood/parquet, /obj/item/stack/tile/woo
 
 // Tiled Parquet
 /obj/item/stack/tile/wood/parquet/tile
-	name = "tiled parquet wood floor tiles"
-	singular_name = "wood tiled parquet floor tile"
+	name = "tiled parquet floor tiles"
+	singular_name = "tiled parquet floor tile"
 	icon_state = "tile-wood-tile"
 	color = "#864A2D"
 	turf_type = /turf/simulated/floor/wood/parquet/tile
