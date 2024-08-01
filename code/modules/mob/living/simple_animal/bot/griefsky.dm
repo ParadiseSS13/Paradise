@@ -187,10 +187,10 @@
 	visible_message("<span class='boldannounceic'>[src] lets out a huge cough as it blows apart!</span>")
 	var/turf/explode_turf = get_turf(src)
 	new /obj/item/assembly/prox_sensor(explode_turf)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(explode_turf)
-	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
-	Sa.created_name = name
+	var/obj/item/secbot_assembly/pierced_helmet = new /obj/item/secbot_assembly(explode_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += "hs_hole"
+	pierced_helmet.created_name = name
 	if(prob(50))
 		new /obj/item/robot_parts/r_arm(explode_turf)
 	if(prob(50)) //most of the time weapon will be destroyed
@@ -209,10 +209,10 @@
 /mob/living/simple_animal/bot/secbot/griefsky/disassemble()
 	var/turf/disassemble_turf = get_turf(src)
 	new /obj/item/assembly/prox_sensor(disassemble_turf)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(disassemble_turf)
-	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
-	Sa.created_name = name
+	var/obj/item/secbot_assembly/pierced_helmet = new /obj/item/secbot_assembly(disassemble_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += "hs_hole"
+	pierced_helmet.created_name = name
 	drop_part(robot_arm, disassemble_turf)
 	if(weapon == /obj/item/melee/energy/sword/saber)
 		log_and_message_admins("[key_name(usr)] has dismantled [src] containing energy sword(s)!")
@@ -222,6 +222,7 @@
 	new weapon(disassemble_turf)
 	qdel(src)
 
+//this section is blocking attack
 /mob/living/simple_animal/bot/secbot/griefsky/proc/special_retaliate_after_attack(mob/user)
 	if(icon_state != spin_icon)
 		return
