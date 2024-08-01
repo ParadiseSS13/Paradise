@@ -170,7 +170,7 @@
 	uninstall_cell()
 
 /obj/item/mod/core/standard/proc/remove_cell()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
 	UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
 	cell = null
 
