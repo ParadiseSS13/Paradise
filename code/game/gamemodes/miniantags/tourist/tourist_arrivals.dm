@@ -74,7 +74,7 @@
 			M.change_gender(FEMALE)
 		set_appearance(M)
 		M.equipOutfit(T.tourist_outfit)
-		GLOB.data_core.manifest_inject(M)
+		GLOB.data_core.manifest_inject(M) // Proc checks if they have a special role before adding to the manifest, if they do, they aren't added. This needs to be done before adding the special role.
 		M.mind.special_role = SPECIAL_ROLE_TOURIST
 		// Rolls a 20% probability, checks if 3 tourists have been made into tot and check if there's space for a new tot!
 		// If any is false, we don't make a new tourist tot
