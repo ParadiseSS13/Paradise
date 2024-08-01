@@ -21739,6 +21739,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/chamber)
 "boo" = (
@@ -34921,7 +34925,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
@@ -35476,7 +35480,7 @@
 /obj/item/kirbyplants,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -37228,6 +37232,10 @@
 	},
 /obj/item/hand_tele,
 /obj/machinery/power/apc/directional/south,
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat)
 "ccy" = (
@@ -98125,6 +98133,16 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
+"xlE" = (
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/station/turret_protected/ai)
 "xlS" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/barricade/wooden,
@@ -109475,7 +109493,7 @@ brs
 btd
 btd
 btd
-bBd
+xlE
 bye
 bzA
 bBf
