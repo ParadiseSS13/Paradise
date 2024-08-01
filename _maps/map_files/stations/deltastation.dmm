@@ -92520,7 +92520,7 @@
 "uaS" = (
 /obj/machinery/economy/vending/cigarette,
 /obj/effect/turf_decal/delivery,
-/turf/simulated/wall,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "ubm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
