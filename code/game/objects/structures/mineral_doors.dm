@@ -70,6 +70,8 @@
 /obj/structure/mineral_door/proc/try_to_operate(atom/user)
 	if(is_operating)
 		return
+	if(foam_level)
+		return
 	if(isliving(user))
 		var/mob/living/M = user
 		if(M.client)
