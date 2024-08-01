@@ -109,7 +109,7 @@
 			new /obj/effect/particle_effect/chem_smoke/small(location, eff_colour)
 		else
 			new /obj/effect/particle_effect/chem_smoke(location, eff_colour)
-	if(process_count % 5 == 0) //Every 5 ticks, or 1 second.
+	if(process_count % 5 == 0) //Every 5 ssfastprocess, 10 ticks, or 1 second.
 		INVOKE_ASYNC(src, PROC_REF(SmokeEm), eff_range)
 	if(process_count > max_process_count)
 		STOP_PROCESSING(SSfastprocess, src)
