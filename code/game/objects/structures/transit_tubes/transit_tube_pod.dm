@@ -79,7 +79,7 @@
 	to_chat(user, "<span class='notice'>You uninstall [src].</span>")
 	qdel(src)
 
-/obj/structure/transit_tube/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube_pod/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	to_chat(user, "<span class='notice'>You must uninstall [src] before disassembling it!</span>")
 

@@ -386,6 +386,14 @@
 /mob/living/simple_animal/revive()
 	..()
 	density = initial(density)
+	health = maxHealth
+	icon = initial(icon)
+	icon_state = icon_living
+	density = initial(density)
+	flying = initial(flying)
+	if(collar_type)
+		collar_type = "[initial(collar_type)]"
+		regenerate_icons()
 
 /mob/living/simple_animal/death(gibbed)
 	// Only execute the below if we successfully died
@@ -464,17 +472,6 @@
 	overlays -= image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
 	if(on_fire)
 		overlays += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
-
-/mob/living/simple_animal/revive()
-	..()
-	health = maxHealth
-	icon = initial(icon)
-	icon_state = icon_living
-	density = initial(density)
-	flying = initial(flying)
-	if(collar_type)
-		collar_type = "[initial(collar_type)]"
-		regenerate_icons()
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	if(current_offspring >= max_offspring)
@@ -619,12 +616,6 @@
 /mob/living/simple_animal/proc/consider_wakeup()
 	if(pulledby || shouldwakeup)
 		toggle_ai(AI_ON)
-
-/mob/living/simple_animal/adjustHealth(amount, updating_health = TRUE)
-	. = ..()
-	if(!ckey && stat == CONSCIOUS)//Not unconscious
-		if(AIStatus == AI_IDLE)
-			toggle_ai(AI_ON)
 
 /mob/living/simple_animal/onTransitZ(old_z, new_z)
 	..()

@@ -54,7 +54,7 @@
 	origin_tech = "magnets=2"
 
 /obj/item/card/emag/magic_key/afterattack(atom/target, mob/user, proximity)
-	if(!istype(target, /obj/machinery/door))
+	if(!isairlock(target))
 		return
 	var/obj/machinery/door/D = target
 	D.locked = FALSE
