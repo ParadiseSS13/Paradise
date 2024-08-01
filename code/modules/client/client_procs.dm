@@ -80,7 +80,7 @@
 			return
 
 	var/stl = 10 // 10 topics a second
-	if(!holder && href_list["window_id"] != "statbrowser") // Admins are allowed to spam click, deal with it.
+	if(!holder && href_list["window_id"] != "statbrowser" && href_list["window_id"] != "chat_panel") // Admins are allowed to spam click, deal with it.
 		var/second = round(world.time, 10)
 		if(!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
@@ -161,9 +161,11 @@
 
 	if(href_list["reload_statbrowser"])
 		stat_panel.reinitialize()
+		return
 
 	if(href_list["reload_tguipanel"])
 		nuke_chat()
+		return
 
 	//byond bug ID:2256651
 	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
