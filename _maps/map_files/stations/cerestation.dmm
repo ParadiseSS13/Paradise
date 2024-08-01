@@ -31442,12 +31442,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/medbay)
-"dBP" = (
-/obj/structure/disposalpipe/segment{
-	color = "#954535"
-	},
-/turf/simulated/wall,
-/area/station/public/storage/tools/auxiliary)
 "dBQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -148257,7 +148251,7 @@ oLo
 vsv
 dDJ
 nEA
-dBP
+jUJ
 mQz
 uQs
 wKe
