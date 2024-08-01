@@ -73302,6 +73302,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "jfB" = (
@@ -77369,20 +77370,8 @@
 	},
 /area/station/medical/reception)
 "lBJ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/item/kirbyplants,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/item/kirbyplants,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -98214,7 +98203,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -107946,8 +107934,8 @@ btd
 btd
 btd
 bwG
-bxY
 byg
+bxY
 bBd
 bCU
 bwG
