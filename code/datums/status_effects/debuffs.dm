@@ -1353,6 +1353,52 @@
 	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(src), null, 10)
 	qdel(src)
 
+/datum/status_effect/c_foamed
+	id = "c_foamed up"
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 10 SECONDS
+	var/foam_level = 1
+	var/mutable_appearance/foam_overlay
+
+/datum/status_effect/c_foamed/on_apply()
+	. = ..()
+	foam_overlay = mutable_appearance('icons/obj/foam_blobs.dmi', "foamed_1")
+	owner.add_overlay(foam_overlay)
+	owner.next_move_modifier *= 1.5
+	owner.Slowed(10 SECONDS, 1.5)
+
+/datum/status_effect/c_foamed/Destroy()
+	if(owner)
+		owner.cut_overlay(foam_overlay)
+		owner.next_move_modifier /= 1.5
+
+	QDEL_NULL(foam_overlay)
+	return ..()
+
+/datum/status_effect/c_foamed/tick()
+	. = ..()
+	if(--foam_level <= 0)
+		qdel(src)
+	refresh_overlay()
+
+/datum/status_effect/c_foamed/refresh()
+	. = ..()
+	// Our max slow is 50 seconds
+	foam_level = min(foam_level + 1, 5)
+
+	refresh_overlay()
+
+	if(foam_level == 5)
+		owner.Paralyse(4 SECONDS)
+
+/datum/status_effect/c_foamed/proc/refresh_overlay()
+	// Refresh overlay
+	owner.cut_overlay(foam_overlay)
+	QDEL_NULL(foam_overlay)
+	foam_overlay = mutable_appearance('icons/obj/foam_blobs.dmi', "foamed_[foam_level]")
+	owner.add_overlay(foam_overlay)
+
 /datum/status_effect/judo_armbar
 	id = "armbar"
 	duration = 5 SECONDS

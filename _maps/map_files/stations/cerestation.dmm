@@ -35424,7 +35424,7 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
+	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/north)
 "emw" = (
@@ -49956,8 +49956,8 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/turf/simulated/floor/plating,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "iWF" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -80053,10 +80053,10 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "shh" = (
@@ -83034,18 +83034,6 @@
 	icon_state = "browncorner"
 	},
 /area/station/supply/office)
-"sZq" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	color = "#954535"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore/north)
 "sZz" = (
 /obj/effect/spawner/airlock/w_to_e,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -86029,9 +86017,7 @@
 	dir = 4;
 	color = "#954535"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "tXf" = (
 /obj/structure/cable/orange{
@@ -93290,20 +93276,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
-"weN" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	color = "#954535"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/fore/north)
 "weW" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "bridge"
@@ -100811,6 +100783,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
+"ykC" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore/north)
 "ykM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -135173,7 +135152,7 @@ tpA
 eMh
 dwE
 vuY
-sGY
+ykC
 cWn
 gXb
 cWn
@@ -136458,7 +136437,7 @@ abW
 aKp
 dwg
 dTC
-sZq
+qtB
 aKp
 npV
 npV
@@ -136715,7 +136694,7 @@ abW
 aKp
 dxt
 dQg
-weN
+qtB
 fXC
 fXC
 fXC
@@ -136972,7 +136951,7 @@ cMz
 cMz
 dxw
 dTI
-sZq
+qtB
 fXC
 gYN
 hUg
