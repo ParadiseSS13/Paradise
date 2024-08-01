@@ -564,11 +564,8 @@
 	var/turf/disassemble_turf = get_turf(src)
 
 	drop_medkit(disassemble_turf)
-
 	new /obj/item/assembly/prox_sensor(disassemble_turf)
-
 	new /obj/item/healthanalyzer(disassemble_turf)
-
 	drop_part(robot_arm, disassemble_turf)
 
 	if(reagent_glass)
