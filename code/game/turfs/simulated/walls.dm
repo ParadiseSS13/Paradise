@@ -3,7 +3,7 @@
 /turf/simulated/wall
 	name = "wall"
 	desc = "A huge chunk of metal used to separate rooms."
-	icon = 'icons/turf/walls/wall.dmi'
+	icon = 'icons/turf/walls/32x40wall.dmi'
 	icon_state = "wall-0"
 	base_icon_state = "wall"
 	smoothing_flags = SMOOTH_BITMASK
