@@ -74,3 +74,6 @@ $RECYCLE.BIN
 
 # Rust output.
 /milla/target/*
+
+# mkdocs output.
+site
