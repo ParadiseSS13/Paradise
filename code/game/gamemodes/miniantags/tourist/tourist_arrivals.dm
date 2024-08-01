@@ -74,13 +74,14 @@
 			M.change_gender(FEMALE)
 		set_appearance(M)
 		M.equipOutfit(T.tourist_outfit)
-		M.mind.special_role = SPECIAL_ROLE_TOURIST
 		GLOB.data_core.manifest_inject(M)
+		M.mind.special_role = SPECIAL_ROLE_TOURIST
 		// Rolls a 20% probability, checks if 3 tourists have been made into tot and check if there's space for a new tot!
 		// If any is false, we don't make a new tourist tot
-		if(prob(chance) && tot_number < 3 && antag_count < max_antag && !jobban_isbanned(M, SPECIAL_ROLE_TRAITOR))
-			tot_number++
-			M.mind.add_antag_datum(/datum/antagonist/traitor)
+		if(prob(chance) && tot_number < 3 && antag_count < max_antag && (SPECIAL_ROLE_TRAITOR in M.client.prefs.be_special) && !jobban_isbanned(M, SPECIAL_ROLE_TRAITOR))
+			if(player_old_enough_antag(M.client, ROLE_TRAITOR))
+				tot_number++
+				M.mind.add_antag_datum(/datum/antagonist/traitor)
 
 		// If they're a tot, they don't get tourist objectives neither the tourist greeting!
 		if(M.mind.special_role != SPECIAL_ROLE_TRAITOR)
