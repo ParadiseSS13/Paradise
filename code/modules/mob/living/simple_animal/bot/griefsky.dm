@@ -207,18 +207,7 @@
 
 //this section is blocking attack
 
-/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
-	retaliate(P.firer)
-	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[src] deflects [P] with its energy swords!")
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
-	else
-		..()
-
-/mob/living/simple_animal/bot/secbot/griefsky/proc/special_retaliate_after_attack(mob/user) //allows special actions to take place after being attacked.
-	return
-
-/mob/living/simple_animal/bot/secbot/griefsky/special_retaliate_after_attack(mob/user)
+/mob/living/simple_animal/bot/secbot/griefsky/proc/special_retaliate_after_attack(mob/user)
 	if(icon_state != spin_icon)
 		return
 	if(prob(block_chance_melee))

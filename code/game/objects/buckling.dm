@@ -151,15 +151,19 @@
 	. = buckle_mob(M, check_loc = check_loc)
 	if(.)
 		if(M == user)
-			M.visible_message("<span class='notice'>[M] buckles [M.p_themselves()] to [src].</span>",\
-				"<span class='notice'>You buckle yourself to [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='notice'>[M] buckles [M.p_themselves()] to [src].</span>",
+				"<span class='notice'>You buckle yourself to [src].</span>",
+				"<span class='notice'>You hear the click of a buckle being secured.</span>"
+			)
 			M.create_log(ATTACK_LOG, "Buckles [M.p_themselves()] to [src]", M)
 			log_attack(M, M, "Buckles themselves to [src]")
 		else
-			M.visible_message("<span class='warning'>[user] buckles [M] to [src]!</span>",\
-				"<span class='warning'>[user] buckles you to [src]!</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='warning'>[user] buckles [M] to [src]!</span>",
+				"<span class='warning'>[user] buckles you to [src]!</span>",
+				"<span class='notice'>You hear the click of a buckle being secured.</span>"
+			)
 			user.create_log(ATTACK_LOG, "[user] has buckled [M] to [src]", M)
 			M.create_log(DEFENSE_LOG, "[M] has been buckled by [user] to [src]", user)
 			log_attack(user, M, "Buckled to [src]")
@@ -169,16 +173,20 @@
 	var/mob/living/M = unbuckle_mob(buckled_mob)
 	if(M)
 		if(M != user)
-			M.visible_message("<span class='notice'>[user] unbuckles [M] from [src].</span>",\
-				"<span class='notice'>[user] unbuckles you from [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='notice'>[user] unbuckles [M] from [src].</span>",
+				"<span class='notice'>[user] unbuckles you from [src].</span>",
+				"<span class='notice'>You hear the click of a buckle being undone.</span>"
+			)
 			user.create_log(ATTACK_LOG, "[user] has unbuckled [M] from [src]", M)
 			M.create_log(DEFENSE_LOG, "[M] has been unbuckled by [user] from [src]", user)
 			log_attack(user, M, "Unbuckled from [src]")
 		else
-			M.visible_message("<span class='notice'>[M] unbuckles [M.p_themselves()] from [src].</span>",\
-				"<span class='notice'>You unbuckle yourself from [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='notice'>[M] unbuckles [M.p_themselves()] from [src].</span>",
+				"<span class='notice'>You unbuckle yourself from [src].</span>",
+				"<span class='notice'>You hear the click of a buckle being undone.</span>"
+			)
 			M.create_log(ATTACK_LOG, "Unbuckles [M.p_themselves()] from [src]", M)
 			log_attack(M, M, "Unbuckles themselves from [src]")
 		add_fingerprint(user)

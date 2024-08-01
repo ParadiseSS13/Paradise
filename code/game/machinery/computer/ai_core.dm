@@ -28,6 +28,7 @@
 				state = CIRCUIT_CORE
 				P.forceMove(src)
 				circuit = P
+				update_icon(UPDATE_ICON_STATE)
 				return
 		if(SCREWED_CORE)
 			if(istype(P, /obj/item/stack/cable_coil))
@@ -136,11 +137,13 @@
 			state = EMPTY_CORE
 			circuit.forceMove(loc)
 			circuit = null
+			update_icon(UPDATE_ICON_STATE)
 			return
 		if(GLASS_CORE)
 			to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 			state = CABLED_CORE
 			new /obj/item/stack/sheet/rglass(loc, 2)
+			update_icon(UPDATE_ICON_STATE)
 			return
 		if(CABLED_CORE)
 			if(brain)
