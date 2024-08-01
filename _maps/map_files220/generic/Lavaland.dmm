@@ -7250,8 +7250,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "AN" = (
 /obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	req_access_txt = "48"
+	id_tag = "s_docking_airlock"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/docking_port/mobile/mining,

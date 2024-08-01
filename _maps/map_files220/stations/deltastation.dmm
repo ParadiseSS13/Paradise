@@ -20401,14 +20401,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "bHO" = (
-/obj/machinery/door/airlock/security/glass,
+/obj/machinery/door/airlock/security,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
-	},
-/obj/effect/mapping_helpers/airlock/polarized{
-	id = "detective"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/forensics,
 /turf/simulated/floor/plasteel/dark,

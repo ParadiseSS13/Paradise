@@ -2120,14 +2120,11 @@
 /area/station/legal/lawoffice)
 "ald" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/lawyer/glass,
+/obj/machinery/door/airlock/lawyer,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
-	},
-/obj/effect/mapping_helpers/airlock/polarized{
-	id = "IAA"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -39032,6 +39029,7 @@
 "cWx" = (
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkblue"
 	},
 /area/station/engineering/ai_transit_tube)
@@ -40460,11 +40458,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"dbD" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluecorners"
-	},
-/area/station/engineering/ai_transit_tube)
 "dbI" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public,
@@ -43398,7 +43391,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbluecorners"
+	icon_state = "dark"
 	},
 /area/station/engineering/ai_transit_tube)
 "dmz" = (
@@ -59516,6 +59509,7 @@
 /obj/structure/transit_tube/station/reverse/flipped{
 	dir = 1
 	},
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -62265,13 +62259,11 @@
 /area/station/maintenance/aft)
 "jxo" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "75"
-	},
+/obj/machinery/door/airlock/hatch,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/science/minisat,
+/obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
+	icon_state = "dark"
 	},
 /area/station/engineering/ai_transit_tube)
 "jxs" = (
@@ -70066,11 +70058,8 @@
 /area/station/science/hallway)
 "miF" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/lawyer/glass,
+/obj/machinery/door/airlock/lawyer,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/polarized{
-	id = "IAA"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -104420,8 +104409,7 @@
 "yko" = (
 /obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+	icon_state = "darkbluefull"
 	},
 /area/station/engineering/ai_transit_tube)
 "ykt" = (
@@ -143538,7 +143526,7 @@ vic
 ogH
 sto
 tSu
-dbD
+cOe
 dmy
 jxo
 cOe

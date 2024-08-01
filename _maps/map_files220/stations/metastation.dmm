@@ -27096,6 +27096,13 @@
 	id = "psych"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/psychology,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Biohazard_medi";
+	name = "Quarantine Lockdown";
+	opacity = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -27528,8 +27535,7 @@
 /area/station/service/library)
 "bUK" = (
 /obj/machinery/door/morgue{
-	name = "Private Study";
-	req_access_txt = "37"
+	name = "Private Study"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/service/library,
 /turf/simulated/floor/plasteel{
@@ -48474,13 +48480,6 @@
 	id_tag = "psych_bolt"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
-	},
 /obj/effect/mapping_helpers/airlock/access/any/medical/psychology,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
