@@ -109,10 +109,12 @@
 	// Variables for bloom and exposure
 	var/glow_icon = 'icons/obj/lamps.dmi'
 	var/exposure_icon = 'icons/effects/exposures.dmi'
+
 	var/glow_icon_state
 	var/glow_colored = TRUE
 	var/exposure_icon_state
 	var/exposure_colored = TRUE
+
 	var/image/glow_overlay
 	var/image/exposure_overlay
 	/// The alternate appearances we own. Lazylist
@@ -157,6 +159,7 @@
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_NOT_SLEEP(TRUE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
@@ -187,6 +190,7 @@
 
 //called if Initialize returns INITIALIZE_HINT_LATELOAD
 /atom/proc/LateInitialize()
+	SHOULD_NOT_SLEEP(TRUE)
 	return
 
 /atom/proc/onCentcom()
@@ -299,9 +303,6 @@
 ///Return the air if we can analyze it
 /atom/proc/return_analyzable_air()
 	return null
-
-/atom/proc/check_eye(mob/user)
-	return
 
 /atom/proc/on_reagent_change()
 	return
@@ -1186,7 +1187,6 @@ amount: amount of "blood charges" you want to give to the gloves, that will be u
 			update_light()
 		if("color")
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
-
 
 /atom/vv_get_dropdown()
 	. = ..()

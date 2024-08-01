@@ -1831,11 +1831,11 @@
 /area/station/hallway/secondary/entry/south)
 "anA" = (
 /obj/structure/table/reinforced,
-/obj/item/food/snacks/meat/slab{
+/obj/item/food/meat/slab{
 	pixel_x = 6;
 	pixel_y = 11
 	},
-/obj/item/food/snacks/meat/slab,
+/obj/item/food/meat/slab,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
@@ -2120,9 +2120,7 @@
 /turf/simulated/floor/plasteel/white/side,
 /area/station/maintenance/fore2)
 "aog" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /obj/machinery/newscaster{
@@ -2143,9 +2141,7 @@
 /turf/simulated/floor/plasteel/white/side,
 /area/station/maintenance/fore2)
 "aoi" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -7759,9 +7755,9 @@
 /obj/structure/table,
 /obj/item/seeds/poppy/lily,
 /obj/item/seeds/poppy/geranium,
-/obj/item/food/snacks/grown/wheat,
+/obj/item/food/grown/wheat,
 /obj/item/grown/corncob,
-/obj/item/food/snacks/grown/apple,
+/obj/item/food/grown/apple,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
@@ -7783,9 +7779,9 @@
 /obj/structure/table,
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
-/obj/item/food/snacks/grown/tea,
-/obj/item/food/snacks/grown/grapes,
-/obj/item/food/snacks/grown/cherries,
+/obj/item/food/grown/tea,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/cherries,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
@@ -12966,7 +12962,7 @@
 /area/station/service/bar)
 "aRC" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/cheesiehonkers,
+/obj/item/food/cheesiehonkers,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -14816,7 +14812,7 @@
 /area/station/supply/miningdock)
 "aWg" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/chips,
+/obj/item/food/chips,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -17262,14 +17258,12 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -19043,7 +19037,7 @@
 /obj/item/reagent_containers/condiment/flour,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/item/food/snacks/dough,
+/obj/item/food/dough,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -19090,7 +19084,7 @@
 "bhR" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
-/obj/item/food/snacks/mint{
+/obj/item/food/mint{
 	pixel_y = 10
 	},
 /obj/item/reagent_containers/condiment/saltshaker{
@@ -20757,9 +20751,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "blR" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /obj/machinery/camera{
@@ -24717,10 +24709,10 @@
 /obj/item/seeds/wheat,
 /obj/item/seeds/potato,
 /obj/item/seeds/pumpkin,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/watermelon,
-/obj/item/food/snacks/grown/grapes,
-/obj/item/food/snacks/grown/tomato,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/tomato,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -25921,7 +25913,7 @@
 	dir = 9
 	},
 /obj/structure/displaycase{
-	start_showpiece_type = /obj/item/food/snacks/donut/sprinkles
+	start_showpiece_type = /obj/item/food/donut/sprinkles
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -31910,7 +31902,7 @@
 /area/station/engineering/ai_transit_tube)
 "bNY" = (
 /obj/item/kirbyplants,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -34317,7 +34309,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "bUd" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -34978,6 +34970,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small,
+/obj/effect/mapping_helpers/airlock/access/any/science/minisat,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "bVB" = (
@@ -50592,7 +50586,7 @@
 "cOp" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/bananalamp,
-/obj/item/food/snacks/pie,
+/obj/item/food/pie,
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	d2 = 4;
@@ -58076,6 +58070,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"drw" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/port)
 "drz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -61526,7 +61525,6 @@
 /area/station/service/chapel)
 "dKl" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/harebell,
 /obj/structure/noticeboard{
 	pixel_y = 29
 	},
@@ -62514,13 +62512,6 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/service/chapel)
-"dPL" = (
-/obj/structure/table/wood,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
-/turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
 "dPM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -64653,8 +64644,6 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/harebell,
-/obj/item/food/snacks/grown/harebell,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
 "dYU" = (
@@ -70734,6 +70723,10 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat)
+"hzm" = (
+/obj/effect/spawner/airlock/s_to_n,
+/turf/simulated/wall/r_wall,
+/area/station/security/permabrig)
 "hzo" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -72543,6 +72536,9 @@
 /obj/machinery/door/airlock/mining{
 	name = "Expedition Headquarters"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "iFv" = (
@@ -73234,9 +73230,7 @@
 /area/station/science/toxins/mixing)
 "iYu" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
 "iYX" = (
@@ -74122,9 +74116,7 @@
 /area/station/medical/virology)
 "jEE" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/w_to_e/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
 "jEI" = (
@@ -75350,7 +75342,7 @@
 	},
 /area/station/service/chapel)
 "knI" = (
-/obj/item/food/snacks/donut/jelly/cherryjelly,
+/obj/item/food/donut/jelly/cherryjelly,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -77411,9 +77403,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "lAO" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = 25
 	},
 /turf/simulated/floor/plating,
@@ -78557,6 +78547,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "mnr" = (
@@ -79418,9 +79409,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "mPU" = (
-/obj/effect/spawner/airlock/s_to_n{
-	req_access_txt = 32
-	},
+/obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/wall,
 /area/station/engineering/gravitygenerator)
 "mQc" = (
@@ -79783,12 +79772,6 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/starboard)
-"mVF" = (
-/obj/effect/spawner/airlock/s_to_n{
-	req_access_txt = 1
-	},
-/turf/simulated/wall/r_wall,
-/area/station/security/permabrig)
 "mWe" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -82552,6 +82535,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "ozw" = (
@@ -86088,6 +86072,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "qFT" = (
@@ -87581,9 +87566,7 @@
 /area/station/security/storage)
 "rtH" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "rtU" = (
@@ -88469,7 +88452,7 @@
 /obj/structure/table/reinforced,
 /obj/item/folder,
 /obj/item/pen,
-/obj/item/food/snacks/grown/apple,
+/obj/item/food/grown/apple,
 /obj/machinery/door/window/classic/normal{
 	dir = 8
 	},
@@ -90680,6 +90663,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
 "sVv" = (
@@ -90715,9 +90699,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "sWx" = (
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = "11,13"
-	},
+/obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/wall,
 /area/station/engineering/ai_transit_tube)
 "sWI" = (
@@ -91132,6 +91114,7 @@
 /area/station/medical/morgue)
 "tls" = (
 /obj/effect/turf_decal/delivery/hollow,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "tlz" = (
@@ -92610,9 +92593,7 @@
 /area/station/service/chapel/office)
 "uci" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/s_to_n{
-	req_access_txt = null
-	},
+/obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/west)
 "ucl" = (
@@ -92661,9 +92642,7 @@
 /area/station/medical/cloning)
 "udZ" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/w_to_e/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "uec" = (
@@ -94620,9 +94599,9 @@
 /obj/item/seeds/lime,
 /obj/item/seeds/watermelon,
 /obj/item/seeds/grape,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/watermelon,
-/obj/item/food/snacks/grown/banana,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/banana,
 /obj/machinery/door/window/classic/reversed{
 	dir = 8
 	},
@@ -94846,6 +94825,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
 "vzs" = (
@@ -97586,9 +97566,7 @@
 	},
 /area/station/maintenance/fsmaint)
 "wZD" = (
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
-	},
+/obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/wall,
 /area/station/maintenance/port)
 "wZK" = (
@@ -119605,7 +119583,7 @@ cTi
 hkk
 aaa
 cHA
-cCq
+drw
 cHA
 aaa
 aaa
@@ -136096,7 +136074,7 @@ dMW
 dJx
 mrY
 dRv
-dPL
+lKc
 lKc
 dSi
 dTs
@@ -157319,7 +157297,7 @@ ygH
 ygH
 ygH
 ygH
-mVF
+hzm
 bda
 aTM
 bdf

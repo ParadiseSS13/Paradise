@@ -65,7 +65,7 @@
 					GLOB.cooking_reagents[recipe_type] |= reagent
 			else
 				qdel(recipe)
-		GLOB.cooking_ingredients[recipe_type] |= /obj/item/food/snacks/grown
+		GLOB.cooking_ingredients[recipe_type] |= /obj/item/food/grown
 
 /*******************
 *   Item Adding
@@ -74,11 +74,13 @@
 /obj/machinery/kitchen_machine/attackby(obj/item/O, mob/user, params)
 	if(operating)
 		return
+
 	if(dirty < MAX_DIRT)
 		if(default_deconstruction_screwdriver(user, open_icon, off_icon, O))
 			return
-		if(exchange_parts(user, O))
-			return
+
+		if(istype(O, /obj/item/storage/part_replacer))
+			return ..()
 
 	default_deconstruction_crowbar(user, O)
 
@@ -91,13 +93,16 @@
 				update_icon(UPDATE_ICON_STATE)
 				container_type = OPENCONTAINER
 				return TRUE
+
 		else //Otherwise bad luck!!
 			to_chat(user, "<span class='alert'>It's dirty!</span>")
 			return TRUE
-	else if(is_type_in_list(O, GLOB.cooking_ingredients[recipe_type]) || istype(O, /obj/item/mixing_bowl))
+
+	if(is_type_in_list(O, GLOB.cooking_ingredients[recipe_type]) || istype(O, /obj/item/mixing_bowl))
 		if(length(contents) >= max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return TRUE
+
 		if(istype(O,/obj/item/stack))
 			var/obj/item/stack/S = O
 			if(S.get_amount() > 1)
@@ -111,16 +116,19 @@
 	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/drinks, /obj/item/reagent_containers/condiment)))
 		if(!O.reagents)
 			return TRUE
+
 		for(var/datum/reagent/R in O.reagents.reagent_list)
 			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
 				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
 				return TRUE
+
 	else if(istype(O, /obj/item/grab))
 		var/obj/item/grab/G = O
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='danger'>Slamming [G.affecting] into [src] might hurt them!</span>")
 			return
 		return special_attack_grab(G, user)
+
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
 		return TRUE
@@ -416,7 +424,7 @@
 		amount += reagents.total_volume
 	reagents.clear_reagents()
 	if(amount)
-		var/obj/item/food/snacks/badrecipe/mysteryfood = new(src)
+		var/obj/item/food/badrecipe/mysteryfood = new(src)
 		mysteryfood.reagents.add_reagent("carbon", amount / 2)
 		mysteryfood.reagents.add_reagent("????", amount / 15)
 		mysteryfood.forceMove(get_turf(src))

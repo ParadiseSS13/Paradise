@@ -7,7 +7,7 @@
 
 //Candy / Candy Ingredients
 //Subclass so we can pass on values
-/obj/item/food/snacks/candy
+/obj/item/food/candy
 	name = "generic candy"
 	desc = "It's placeholder flavored. This shouldn't be seen."
 	icon = 'icons/obj/food/candy.dmi'
@@ -19,7 +19,7 @@
 // Candy Ingredients / Flavorings / Byproduct
 // ***********************************************************
 
-/obj/item/food/snacks/candy/caramel
+/obj/item/food/candy/caramel
 	name = "caramel"
 	desc = "Chewy and dense, yet it practically melts in your mouth!"
 	icon_state = "caramel"
@@ -28,7 +28,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/candy/toffee
+/obj/item/food/candy/toffee
 	name = "toffee"
 	desc = "A hard, brittle candy with a distinctive taste."
 	icon_state = "toffee"
@@ -36,7 +36,7 @@
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/nougat
+/obj/item/food/candy/nougat
 	name = "nougat"
 	desc = "A soft, chewy candy commonly found in candybars."
 	icon_state = "nougat"
@@ -44,7 +44,7 @@
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/taffy
+/obj/item/food/candy/taffy
 	name = "saltwater taffy"
 	desc = "Old fashioned saltwater taffy. Chewy!"
 	icon_state = "candy1"
@@ -52,11 +52,11 @@
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/taffy/Initialize(mapload)
+/obj/item/food/candy/taffy/Initialize(mapload)
 	. = ..()
 	icon_state = pick("candy1", "candy2", "candy3", "candy4", "candy5")
 
-/obj/item/food/snacks/candy/fudge
+/obj/item/food/candy/fudge
 	name = "fudge"
 	desc = "Chocolate fudge, a timeless classic treat."
 	icon_state = "fudge"
@@ -65,21 +65,21 @@
 	list_reagents = list("cream" = 3, "chocolate" = 6)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/fudge/peanut
+/obj/item/food/candy/fudge/peanut
 	name = "peanut fudge"
 	desc = "Chocolate fudge, with bits of peanuts mixed in. People with nut allergies shouldn't eat this."
 	icon_state = "fudge_peanut"
 	filling_color = "#7D5F46"
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/fudge/cherry
+/obj/item/food/candy/fudge/cherry
 	name = "chocolate cherry fudge"
 	desc = "Chocolate fudge surrounding sweet cherries. Good for tricking kids into eating some fruit."
 	icon_state = "fudge_cherry"
 	filling_color = "#7D5F46"
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/fudge/cookies_n_cream
+/obj/item/food/candy/fudge/cookies_n_cream
 	name = "cookies 'n' cream fudge"
 	desc = "An extra creamy fudge with bits of real chocolate cookie mixed in. Crunchy!"
 	icon_state = "fudge_cookies_n_cream"
@@ -87,7 +87,7 @@
 	list_reagents = list("cream" = 6, "chocolate" = 6)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/fudge/turtle
+/obj/item/food/candy/fudge/turtle
 	name = "turtle fudge"
 	desc = "Chocolate fudge with caramel and nuts. It doesn't contain real turtles, thankfully."
 	icon_state = "fudge_turtle"
@@ -98,14 +98,14 @@
 // Candy Products (Pre-existing)
 // ***********************************************************
 
-/obj/item/food/snacks/candy/donor
+/obj/item/food/candy/donor
 	name = "donor candy"
 	desc = "A little treat for blood donors."
 	trash = /obj/item/trash/candy
 	bitesize = 5
 	list_reagents = list("nutriment" = 10, "sugar" = 3)
 
-/obj/item/food/snacks/candy/candy_corn
+/obj/item/food/candy/candy_corn
 	name = "candy corn"
 	desc = "It's a handful of candy corn. Cannot be stored in a detective's hat, alas."
 	icon_state = "candycorn"
@@ -117,7 +117,7 @@
 // Candy Products (plain / unflavored)
 // ***********************************************************
 
-/obj/item/food/snacks/candy/cotton
+/obj/item/food/candy/cotton
 	name = "cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_plain"
@@ -127,7 +127,7 @@
 	list_reagents = list("sugar" = 15)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/snacks/candy/candybar
+/obj/item/food/candy/candybar
 	name = "candy"
 	desc = "A chocolate candybar, wrapped in a bit of foil."
 	icon_state = "candy"
@@ -141,7 +141,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/candy/candycane
+/obj/item/food/candy/candycane
 	name = "candy cane"
 	desc = "A festive mint candy cane."
 	icon_state = "candycane"
@@ -149,7 +149,7 @@
 	list_reagents = list("minttoxin" = 1, "sugar" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummybear
+/obj/item/food/candy/gummybear
 	name = "gummy bear"
 	desc = "A small edible bear. It's squishy and chewy!"
 	icon_state = "gbear"
@@ -158,7 +158,7 @@
 	list_reagents = list("sugar" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/snacks/candy/gummyworm
+/obj/item/food/candy/gummyworm
 	name = "gummy worm"
 	desc = "An edible worm, made from gelatin."
 	icon_state = "gworm"
@@ -167,7 +167,7 @@
 	list_reagents = list("sugar" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/snacks/candy/jellybean
+/obj/item/food/candy/jellybean
 	name = "jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas."
 	icon_state = "jbean"
@@ -176,7 +176,7 @@
 	list_reagents = list("sugar" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/snacks/candy/jawbreaker
+/obj/item/food/candy/jawbreaker
 	name = "jawbreaker"
 	desc = "An unbelievably hard candy. The name is fitting."
 	icon_state = "jawbreaker"
@@ -185,7 +185,7 @@
 	list_reagents = list("sugar" = 10)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/cash
+/obj/item/food/candy/cash
 	name = "candy cash"
 	desc = "Not legal tender. Tasty though."
 	icon_state = "candy_cash"
@@ -195,7 +195,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/candy/coin
+/obj/item/food/candy/coin
 	name = "chocolate coin"
 	desc = "Probably won't work in the vending machines."
 	icon_state = "choc_coin"
@@ -206,7 +206,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/candy/gum
+/obj/item/food/candy/gum
 	name = "bubblegum"
 	desc = "Chewy!"
 	icon_state = "bubblegum"
@@ -216,7 +216,7 @@
 	list_reagents = list("sugar" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/sucker
+/obj/item/food/candy/sucker
 	name = "sucker"
 	desc = "For being such a good sport!"
 	icon_state = "sucker"
@@ -228,7 +228,7 @@
 // Gummy Bear Flavors
 // ***********************************************************
 
-/obj/item/food/snacks/candy/gummybear/red
+/obj/item/food/candy/gummybear/red
 	name = "red gummy bear"
 	desc = "A small edible bear. It's red!"
 	icon_state = "gbear_red"
@@ -236,7 +236,7 @@
 	list_reagents = list("sugar" = 10, "cherryjelly" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummybear/blue
+/obj/item/food/candy/gummybear/blue
 	name = "blue gummy bear"
 	desc = "A small edible bear. It's blue!"
 	icon_state = "gbear_blue"
@@ -244,14 +244,14 @@
 	list_reagents = list("sugar" = 10, "berryjuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummybear/poison
+/obj/item/food/candy/gummybear/poison
 	name = "blue gummy bear"
 	desc = "A small edible bear. It's blue!"
 	icon_state = "gbear_blue"
 	filling_color = "#863353"
 	list_reagents = list("poisonberryjuice" = 12)
 
-/obj/item/food/snacks/candy/gummybear/green
+/obj/item/food/candy/gummybear/green
 	name = "green gummy bear"
 	desc = "A small edible bear. It's green!"
 	icon_state = "gbear_green"
@@ -259,7 +259,7 @@
 	list_reagents = list("sugar" = 10, "limejuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummybear/yellow
+/obj/item/food/candy/gummybear/yellow
 	name = "yellow gummy bear"
 	desc = "A small edible bear. It's yellow!"
 	icon_state = "gbear_yellow"
@@ -267,7 +267,7 @@
 	list_reagents = list("sugar" = 10, "lemonjuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummybear/orange
+/obj/item/food/candy/gummybear/orange
 	name = "orange gummy bear"
 	desc = "A small edible bear. It's orange!"
 	icon_state = "gbear_orange"
@@ -275,7 +275,7 @@
 	list_reagents = list("sugar" = 10, "orangejuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummybear/purple
+/obj/item/food/candy/gummybear/purple
 	name = "purple gummy bear"
 	desc = "A small edible bear. It's purple!"
 	icon_state = "gbear_purple"
@@ -283,7 +283,7 @@
 	list_reagents = list("sugar" = 10, "grapejuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummybear/wtf
+/obj/item/food/candy/gummybear/wtf
 	name = "rainbow gummy bear"
 	desc = "A small bear. Wait... what?"
 	icon_state = "gbear_rainbow"
@@ -295,7 +295,7 @@
 // Gummy Worm Flavors
 // ***********************************************************
 
-/obj/item/food/snacks/candy/gummyworm/red
+/obj/item/food/candy/gummyworm/red
 	name = "red gummy worm"
 	desc = "An edible worm, made from gelatin. It's red!"
 	icon_state = "gworm_red"
@@ -303,7 +303,7 @@
 	list_reagents = list("sugar" = 10, "cherryjelly" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummyworm/blue
+/obj/item/food/candy/gummyworm/blue
 	name = "blue gummy worm"
 	desc = "An edible worm, made from gelatin. It's blue!"
 	icon_state = "gworm_blue"
@@ -311,14 +311,14 @@
 	list_reagents = list("sugar" = 10, "berryjuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummyworm/poison
+/obj/item/food/candy/gummyworm/poison
 	name = "blue gummy worm"
 	desc = "An edible worm, made from gelatin. It's blue!"
 	icon_state = "gworm_blue"
 	filling_color = "#863353"
 	list_reagents = list("poisonberryjuice" = 12)
 
-/obj/item/food/snacks/candy/gummyworm/green
+/obj/item/food/candy/gummyworm/green
 	name = "green gummy worm"
 	desc = "An edible worm, made from gelatin. It's green!"
 	icon_state = "gworm_green"
@@ -326,7 +326,7 @@
 	list_reagents = list("sugar" = 10, "limejuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummyworm/yellow
+/obj/item/food/candy/gummyworm/yellow
 	name = "yellow gummy worm"
 	desc = "An edible worm, made from gelatin. It's yellow!"
 	icon_state = "gworm_yellow"
@@ -334,7 +334,7 @@
 	list_reagents = list("sugar" = 10, "lemonjuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummyworm/orange
+/obj/item/food/candy/gummyworm/orange
 	name = "orange gummy worm"
 	desc = "An edible worm, made from gelatin. It's orange!"
 	icon_state = "gworm_orange"
@@ -342,7 +342,7 @@
 	list_reagents = list("sugar" = 10, "orangejuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummyworm/purple
+/obj/item/food/candy/gummyworm/purple
 	name = "purple gummy worm"
 	desc = "An edible worm, made from gelatin. It's purple!"
 	icon_state = "gworm_purple"
@@ -350,7 +350,7 @@
 	list_reagents = list("sugar" = 10, "grapejuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/gummyworm/wtf
+/obj/item/food/candy/gummyworm/wtf
 	name = "rainbow gummy worm"
 	desc = "An edible worm. Did it just move?"
 	icon_state = "gworm_rainbow"
@@ -362,7 +362,7 @@
 // Jelly Bean Flavors
 // ***********************************************************
 
-/obj/item/food/snacks/candy/jellybean/red
+/obj/item/food/candy/jellybean/red
 	name = "red jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's red!"
 	icon_state = "jbean_red"
@@ -370,7 +370,7 @@
 	list_reagents = list("sugar" = 10, "cherryjelly" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/jellybean/blue
+/obj/item/food/candy/jellybean/blue
 	name = "blue jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's blue!"
 	icon_state = "jbean_blue"
@@ -378,14 +378,14 @@
 	list_reagents = list("sugar" = 10, "berryjuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/jellybean/poison
+/obj/item/food/candy/jellybean/poison
 	name = "blue jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's blue!"
 	icon_state = "jbean_blue"
 	filling_color = "#863353"
 	list_reagents = list("poisonberryjuice" = 12)
 
-/obj/item/food/snacks/candy/jellybean/green
+/obj/item/food/candy/jellybean/green
 	name = "green jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's green!"
 	icon_state = "jbean_green"
@@ -393,7 +393,7 @@
 	list_reagents = list("sugar" = 10, "limejuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/jellybean/yellow
+/obj/item/food/candy/jellybean/yellow
 	name = "yellow jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's yellow!"
 	icon_state = "jbean_yellow"
@@ -401,7 +401,7 @@
 	list_reagents = list("sugar" = 10, "lemonjuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/jellybean/orange
+/obj/item/food/candy/jellybean/orange
 	name = "orange jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's orange!"
 	icon_state = "jbean_orange"
@@ -409,7 +409,7 @@
 	list_reagents = list("sugar" = 10, "orangejuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/jellybean/purple
+/obj/item/food/candy/jellybean/purple
 	name = "purple jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's purple!"
 	icon_state = "jbean_purple"
@@ -417,7 +417,7 @@
 	list_reagents = list("sugar" = 10, "grapejuice" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/jellybean/chocolate
+/obj/item/food/candy/jellybean/chocolate
 	name = "chocolate jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's chocolate!"
 	icon_state = "jbean_choc"
@@ -425,7 +425,7 @@
 	list_reagents = list("sugar" = 10, "chocolate" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/jellybean/popcorn
+/obj/item/food/candy/jellybean/popcorn
 	name = "popcorn jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's popcorn flavored!"
 	icon_state = "jbean_popcorn"
@@ -433,7 +433,7 @@
 	list_reagents = list("sugar" = 10, "nutriment" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/jellybean/cola
+/obj/item/food/candy/jellybean/cola
 	name = "cola jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's Cola flavored!"
 	icon_state = "jbean_cola"
@@ -441,7 +441,7 @@
 	list_reagents = list("sugar" = 10, "cola" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/jellybean/drgibb
+/obj/item/food/candy/jellybean/drgibb
 	name = "\improper Dr. Gibb jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's Dr. Gibb flavored!"
 	icon_state = "jbean_cola"
@@ -449,7 +449,7 @@
 	list_reagents = list("sugar" = 10, "dr_gibb" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/jellybean/coffee
+/obj/item/food/candy/jellybean/coffee
 	name = "coffee jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. It's Coffee flavored!"
 	icon_state = "jbean_choc"
@@ -457,7 +457,7 @@
 	list_reagents = list("sugar" = 10, "coffee" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/jellybean/wtf
+/obj/item/food/candy/jellybean/wtf
 	name = "rainbow jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas. You aren't sure what color it is."
 	icon_state = "jbean_rainbow"
@@ -469,7 +469,7 @@
 // Cotton Candy Flavors
 // ***********************************************************
 
-/obj/item/food/snacks/candy/cotton/red
+/obj/item/food/candy/cotton/red
 	name = "red cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_red"
@@ -478,7 +478,7 @@
 	list_reagents = list("sugar" = 15, "cherryjelly" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/cotton/blue
+/obj/item/food/candy/cotton/blue
 	name = "blue cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_blue"
@@ -487,7 +487,7 @@
 	list_reagents = list("sugar" = 15, "berryjuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/cotton/poison
+/obj/item/food/candy/cotton/poison
 	name = "blue cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_blue"
@@ -495,7 +495,7 @@
 	filling_color = "#863353"
 	list_reagents = list("poisonberryjuice" = 20)
 
-/obj/item/food/snacks/candy/cotton/green
+/obj/item/food/candy/cotton/green
 	name = "green cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_green"
@@ -504,7 +504,7 @@
 	list_reagents = list("sugar" = 15, "limejuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/cotton/yellow
+/obj/item/food/candy/cotton/yellow
 	name = "yellow cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_yellow"
@@ -513,7 +513,7 @@
 	list_reagents = list("sugar" = 15, "lemonjuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/cotton/orange
+/obj/item/food/candy/cotton/orange
 	name = "orange cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_orange"
@@ -522,7 +522,7 @@
 	list_reagents = list("sugar" = 15, "orangejuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/cotton/purple
+/obj/item/food/candy/cotton/purple
 	name = "purple cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_purple"
@@ -531,7 +531,7 @@
 	list_reagents = list("sugar" = 15, "grapejuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/cotton/pink
+/obj/item/food/candy/cotton/pink
 	name = "pink cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_pink"
@@ -540,7 +540,7 @@
 	list_reagents = list("sugar" = 15, "watermelonjuice" = 5)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/cotton/rainbow
+/obj/item/food/candy/cotton/rainbow
 	name = "rainbow cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_rainbow"
@@ -549,7 +549,7 @@
 	list_reagents = list("omnizine" = 20)
 	goal_difficulty = FOOD_GOAL_HARD
 
-/obj/item/food/snacks/candy/cotton/bad_rainbow
+/obj/item/food/candy/cotton/bad_rainbow
 	name = "rainbow cotton candy"
 	desc = "Light and fluffy, it's like eating a cloud made from sugar!"
 	icon_state = "cottoncandy_rainbow"
@@ -561,10 +561,10 @@
 // Candybar Flavors
 // ***********************************************************
 
-/obj/item/food/snacks/candy/confectionery
+/obj/item/food/candy/confectionery
 	list_reagents = list("nutriment" = 1, "chocolate" = 1)
 
-/obj/item/food/snacks/candy/confectionery/rice
+/obj/item/food/candy/confectionery/rice
 	name = "Asteroid Crunch Bar"
 	desc = "Crunchy rice deposits in delicious chocolate! A favorite of miners galaxy-wide."
 	icon_state = "asteroidcrunch"
@@ -572,28 +572,28 @@
 	filling_color = "#7D5F46"
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/confectionery/toffee
+/obj/item/food/candy/confectionery/toffee
 	name = "Yum-Baton Bar"
 	desc = "Chocolate and toffee in the shape of a baton. Security sure knows how to pound these down!"
 	icon_state = "yumbaton"
 	filling_color = "#7D5F46"
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/confectionery/caramel
+/obj/item/food/candy/confectionery/caramel
 	name = "Malper Bar"
 	desc = "A chocolate syringe filled with a caramel injection. Just what the doctor ordered!"
 	icon_state = "malper"
 	filling_color = "#7D5F46"
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/confectionery/caramel_nougat
+/obj/item/food/candy/confectionery/caramel_nougat
 	name = "Toxins Test Bar"
 	desc = "An explosive combination of chocolate, caramel, and nougat. Research has never been so tasty!"
 	icon_state = "toxinstest"
 	filling_color = "#7D5F46"
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candy/confectionery/nougat
+/obj/item/food/candy/confectionery/nougat
 	name = "Tool-erone Bar"
 	desc = "Chocolate-covered nougat, shaped like a wrench. Great for an engineer on the go!"
 	icon_state = "toolerone"
