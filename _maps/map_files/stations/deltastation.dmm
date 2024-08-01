@@ -17258,14 +17258,12 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -31904,7 +31902,7 @@
 /area/station/engineering/ai_transit_tube)
 "bNY" = (
 /obj/item/kirbyplants,
-/obj/machinery/atmospherics/unary/vent_pump/on{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -34311,7 +34309,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
 "bUd" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -72538,6 +72536,9 @@
 /obj/machinery/door/airlock/mining{
 	name = "Expedition Headquarters"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "iFv" = (
@@ -90698,7 +90699,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "sWx" = (
-/obj/effect/spawner/airlock/w_to_e,
+/obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/wall,
 /area/station/engineering/ai_transit_tube)
 "sWI" = (
