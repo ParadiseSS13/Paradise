@@ -449,26 +449,21 @@
 			var/obj/item/gun/energy/laser/tag/blue/ed_gun = new /obj/item/gun/energy/laser/tag/blue(disassemble_turf)
 			ed_gun.cell.charge = 0
 			ed_gun.update_icon()
+			new /obj/item/clothing/suit/bluetag(disassemble_turf)
 		if("r")
 			var/obj/item/gun/energy/laser/tag/red/ed_gun = new /obj/item/gun/energy/laser/tag/red(disassemble_turf)
 			ed_gun.cell.charge = 0
 			ed_gun.update_icon()
+			new /obj/item/clothing/suit/redtag(disassemble_turf)
 		else
 			var/obj/item/gun/energy/disabler/ed_gun = new /obj/item/gun/energy/disabler(disassemble_turf)
 			ed_gun.cell.charge = 0
 			ed_gun.update_icon()
+			new /obj/item/clothing/suit/armor/vest(disassemble_turf)
 
 	new /obj/item/robot_parts/l_leg(disassemble_turf)
 	new /obj/item/robot_parts/r_leg(disassemble_turf)
 	new /obj/item/clothing/head/helmet(disassemble_turf)
-
-	switch(lasercolor)
-		if("b")
-			new /obj/item/clothing/suit/bluetag(disassemble_turf)
-		if("r")
-			new /obj/item/clothing/suit/redtag(disassemble_turf)
-		else
-			new /obj/item/clothing/suit/armor/vest(disassemble_turf)
 	qdel(src)
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
