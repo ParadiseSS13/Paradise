@@ -8,7 +8,7 @@
 
 /obj/item/gun/projectile/c_foam_launcher
 	name = "\improper C-Foam launcher"
-	desc = "The C-Foam launcher. Shoots blobs of quickly hardening and growing foam. Can be used to slow down humans or block airlocks"
+	desc = "The C-Foam launcher. Shoots blobs of quickly hardening and growing foam. Can be used to slow down humanoids or block airlocks"
 	icon_state = "c_foam_launcher"
 	item_state = "c_foam_launcher"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -18,6 +18,9 @@
 	fire_sound = 'sound/effects/bamf.ogg'
 	fire_sound_text = "thunk"
 	mag_type = /obj/item/ammo_box/magazine/c_foam
+
+/obj/item/gun/projectile/c_foam_launcher/update_icon_state()
+	icon_state = "c_foam_launcher[magazine ? "_loaded" : ""]"
 
 /obj/item/projectile/c_foam
 	name = "blob of foam"
@@ -29,6 +32,14 @@
 	if(isairlock(target))
 		var/obj/machinery/door/airlock = target
 		airlock.foam_up()
+		return
+
+	if(istype(target, /obj/structure/mineral_door))
+		var/obj/structure/mineral_door/door = target
+		door.foam_up()
+		return
+
 	if(iscarbon(target)) // For that funny xeno foam action
 		var/mob/living/carbon/sticky = target
 		sticky.foam_up()
+		return

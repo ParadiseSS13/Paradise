@@ -497,6 +497,9 @@
 /obj/structure/barricade/foam/CanPass(atom/movable/mover, turf/target)
 	return istype(mover, /obj/item/projectile/c_foam) // Only c_foam blobs hit the airlock underneat/pass through the foam. The rest is hitting the barricade
 
+/obj/structure/barricade/foam/welder_act(mob/user, obj/item/I)
+	return FALSE
+
 #undef SINGLE
 #undef VERTICAL
 #undef HORIZONTAL
