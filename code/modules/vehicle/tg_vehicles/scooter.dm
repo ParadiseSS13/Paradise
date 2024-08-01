@@ -78,14 +78,11 @@
 
 /obj/tgvehicle/scooter/skateboard/post_buckle_mob(mob/living/M)//allows skateboards to be non-dense but still allows 2 skateboarders to collide with each other
 	set_density(TRUE)
-	if(!HAS_TRAIT_FROM(M, TRAIT_CANNOT_PULL, UID()))
-		ADD_TRAIT(M, TRAIT_CANNOT_PULL, UID())
 	return ..()
 
 /obj/tgvehicle/scooter/skateboard/post_unbuckle_mob(mob/living/M)
 	if(!has_buckled_mobs())
 		set_density(FALSE)
-	REMOVE_TRAIT(M, TRAIT_CANNOT_PULL, UID())
 	return ..()
 
 /obj/tgvehicle/scooter/skateboard/Bump(atom/bumped_thing)
