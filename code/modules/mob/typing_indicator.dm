@@ -92,19 +92,3 @@ GLOBAL_LIST_EMPTY(thinking_indicator)
 	set_typing_indicator(FALSE)
 	if(message)
 		me_verb(message)
-
-/client/verb/typing_indicator()
-	set name = "Typing Indicator"
-	set category = "Preferences.Show/Hide"
-	set desc = "Toggles showing a typing/thought indicator when you have TGUIsay open."
-	prefs.toggles ^= PREFTOGGLE_SHOW_TYPING
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_SHOW_TYPING) ? "no longer" : "now"] display a typing/thought indicator when you have TGUIsay open.")
-
-	// Clear out any existing typing indicator.
-	if(prefs.toggles & PREFTOGGLE_SHOW_TYPING)
-		if(istype(mob))
-			mob.set_typing_indicator(FALSE)
-			mob.set_thinking_indicator(FALSE)
-
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Typing Indicator (Speech)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

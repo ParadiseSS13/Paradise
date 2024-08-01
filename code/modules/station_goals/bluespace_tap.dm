@@ -116,7 +116,11 @@
 		/obj/item/bedsheet/cult = 2,
 		/obj/item/bedsheet/wiz = 2,
 		/obj/item/stack/sheet/mineral/tranquillite/fifty = 3,
-		/obj/item/clothing/gloves/combat = 5
+		/obj/item/clothing/gloves/combat = 5,
+		/obj/item/blank_tarot_card = 5,
+		/obj/item/tarot_card_pack = 5,
+		/obj/item/tarot_card_pack/jumbo = 3,
+		/obj/item/tarot_card_pack/mega = 2
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic
@@ -149,25 +153,25 @@
 	name = "fancy food"
 	lootcount = 3
 	loot = list(
-		/obj/item/food/snacks/wingfangchu,
-		/obj/item/food/snacks/hotdog,
-		/obj/item/food/snacks/sliceable/turkey,
-		/obj/item/food/snacks/plumphelmetbiscuit,
-		/obj/item/food/snacks/appletart,
-		/obj/item/food/snacks/sliceable/cheesecake,
-		/obj/item/food/snacks/sliceable/bananacake,
-		/obj/item/food/snacks/sliceable/chocolatecake,
-		/obj/item/food/snacks/soup/meatballsoup,
-		/obj/item/food/snacks/soup/mysterysoup,
-		/obj/item/food/snacks/soup/stew,
-		/obj/item/food/snacks/soup/hotchili,
-		/obj/item/food/snacks/burrito,
-		/obj/item/food/snacks/fishburger,
-		/obj/item/food/snacks/cubancarp,
-		/obj/item/food/snacks/fishandchips,
-		/obj/item/food/snacks/meatpie,
+		/obj/item/food/wingfangchu,
+		/obj/item/food/hotdog,
+		/obj/item/food/sliceable/turkey,
+		/obj/item/food/plumphelmetbiscuit,
+		/obj/item/food/appletart,
+		/obj/item/food/sliceable/cheesecake,
+		/obj/item/food/sliceable/bananacake,
+		/obj/item/food/sliceable/chocolatecake,
+		/obj/item/food/soup/meatballsoup,
+		/obj/item/food/soup/mysterysoup,
+		/obj/item/food/soup/stew,
+		/obj/item/food/soup/hotchili,
+		/obj/item/food/burrito,
+		/obj/item/food/fishburger,
+		/obj/item/food/cubancarp,
+		/obj/item/food/fishandchips,
+		/obj/item/food/meatpie,
 		/obj/item/pizzabox/hawaiian, //it ONLY gives hawaiian. MUHAHAHA
-		/obj/item/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
+		/obj/item/food/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
 #define kW *1000
@@ -401,7 +405,8 @@
 		input_level--
 		update_icon()
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
+		var/area/our_area = get_area(src)
+		GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [our_area.name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0

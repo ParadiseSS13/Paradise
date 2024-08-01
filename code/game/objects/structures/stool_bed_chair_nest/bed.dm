@@ -148,7 +148,7 @@
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))
 		if(has_buckled_mobs())
-			if(buckled_mobs.len > 1)
+			if(length(buckled_mobs) > 1)
 				unbuckle_all_mobs()
 				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [src].</span>")
 			else
@@ -244,7 +244,7 @@
 
 /obj/item/roller_holder/attack_self(mob/user as mob)
 	if(!held)
-		to_chat(user, "<span class='info'> The rack is empty.</span>")
+		to_chat(user, "<span class='info'>The rack is empty.</span>")
 		return
 
 	to_chat(user, "<span class='notice'>You deploy the roller bed.</span>")

@@ -2,12 +2,12 @@
 #define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent")
 
 /// Meats that can be used as biomass for the cloner.
-#define VALID_BIOMASSABLES list(/obj/item/food/snacks/meat, \
-								/obj/item/food/snacks/monstermeat, \
-								/obj/item/food/snacks/carpmeat, \
-								/obj/item/food/snacks/salmonmeat, \
-								/obj/item/food/snacks/catfishmeat, \
-								/obj/item/food/snacks/tofurkey)
+#define VALID_BIOMASSABLES list(/obj/item/food/meat, \
+								/obj/item/food/monstermeat, \
+								/obj/item/food/carpmeat, \
+								/obj/item/food/salmonmeat, \
+								/obj/item/food/catfishmeat, \
+								/obj/item/food/tofurkey)
 
 /// Internal organs the cloner will *never* accept for insertion.
 #define FORBIDDEN_INTERNAL_ORGANS list(/obj/item/organ/internal/regenerative_core, \
@@ -57,11 +57,11 @@
 /obj/machinery/clonepod
 	anchored = TRUE
 	name = "cloning pod"
-	desc = "An electronically-lockable pod for growing organic tissue."
+	desc = "A pod for growing organic tissue."
 	density = TRUE
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_idle"
-
+	req_access = list(ACCESS_MEDICAL)
 	//So that chemicals can be loaded into the pod.
 	container_type = OPENCONTAINER
 	/// The linked cloning console.
@@ -80,9 +80,6 @@
 	var/desc_flavor = "It doesn't seem to be doing anything right now."
 	/// The countdown.
 	var/obj/effect/countdown/clonepod/countdown
-	/// Whether or not the interface is locked.
-	var/locked = TRUE
-	req_access = list(ACCESS_MEDICAL)
 
 	/// The speed at which we clone. Each processing cycle will advance clone_progress by this amount.
 	var/speed_modifier = 1
@@ -165,17 +162,16 @@
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[desc_flavor]</span>"
-	. += "<span class='notice'>[src] is currently [locked ? "locked" : "unlocked"], and can be [locked ? "unlocked" : "locked"] by swiping an ID with medical access on it.</span>"
 
 /obj/machinery/clonepod/RefreshParts()
 	speed_modifier = 0 //Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
 	for(var/obj/item/stock_parts/SP as anything in component_parts)
-		if(istype(SP, /obj/item/stock_parts/matter_bin/)) //Matter bins for storage modifier
-			storage_modifier = round(10 * (SP.rating / 2)) //5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
+		if(istype(SP, /obj/item/stock_parts/matter_bin/)) // Matter bins for storage modifier
+			storage_modifier = round(10 * (SP.rating / 2)) // 5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
 		else if(istype(SP, /obj/item/stock_parts/scanning_module)) //Scanning modules for price modifier (more accurate scans = more efficient)
-			price_modifier = -(SP.rating / 10) + 1.2 //1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
+			price_modifier = -(SP.rating / 10) + 1.2 // 1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
 		else if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
-			speed_modifier += SP.rating / 2 //1 at tier 1, 2 at tier 2, et cetera
+			speed_modifier += SP.rating / 2 // 1 at tier 1, 2 at tier 2, et cetera
 
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		if(istype(B))
@@ -184,9 +180,7 @@
 	organ_storage_capacity = storage_modifier
 	biomass_storage_capacity = storage_modifier * 400
 
-
-
-//Process
+// Process
 /obj/machinery/clonepod/process()
 
 	//Basically just isolate_reagent() with extra functionality.
@@ -239,7 +233,7 @@
 				desc_flavor = "You see muscle quickly growing on a ribcage and skull inside [src]."
 				clone_progress += speed_modifier
 				return
-			if(11 to 90)
+			if(10 to 90)
 				clone_progress += speed_modifier
 				if(!clone)
 					create_clone()
@@ -282,7 +276,7 @@
 					clone.regenerate_icons()
 					return
 
-			if(91 to 100)
+			if(90 to 100)
 				if(length(limbs_to_grow) || current_limb) //This shouldn't happen, but just in case.. (no more feetless clones)
 					clone_progress -= 5
 				if(eject_clone())
@@ -291,11 +285,14 @@
 				desc_flavor = "You see [src] finalizing the cloning process."
 				clone_progress += speed_modifier
 				return
-			if(101 to INFINITY) //this state can be reached with an upgraded cloner
+			if(100 to INFINITY) //this state can be reached with an upgraded cloner
 				if(eject_clone())
 					return
 				clone.setCloneLoss(0) //get out of the pod!!
 				return
+
+			else
+				clone_progress += 1 // I don't know how we got here but we just keep incrementing
 
 //Clonepod-specific procs
 //This just begins the cloning process. Called by the cloning console.
@@ -316,7 +313,7 @@
 /obj/machinery/clonepod/proc/create_clone()
 	clone = new /mob/living/carbon/human(src, patient_data.genetic_info.species.type)
 
-	clone.change_dna(patient_data.genetic_info, FALSE, TRUE)
+	clone.change_dna(patient_data.genetic_info, FALSE)
 
 	for(var/obj/item/organ/external/limb in clone.bodyparts)
 		if(!(limb.limb_name in limbs_to_grow)) //if the limb was determined to be vital
@@ -357,6 +354,7 @@
 	clone.set_heartattack(FALSE) //you are not allowed to die
 	clone.adjustCloneLoss(25) //to punish early ejects
 	clone.Weaken(4 SECONDS)
+	ADD_TRAIT(clone, TRAIT_NOFIRE, "cloning") // Plasmamen shouldn't catch fire while cloning
 
 //Ejects a clone. The force var ejects even if there's still clone damage.
 /obj/machinery/clonepod/proc/eject_clone(force = FALSE)
@@ -375,6 +373,7 @@
 		patient_mind.transfer_to(clone)
 		clone.grab_ghost()
 		clone.update_revive()
+		REMOVE_TRAIT(clone, TRAIT_NOFIRE, "cloning")
 		to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 		to_chat(clone, "<span class='notice'>There's a bright flash of light, and you take your first breath once more.</span>")
 
@@ -385,14 +384,15 @@
 		return FALSE
 
 	clone.forceMove(loc)
-	new /obj/effect/gibspawner/generic(get_turf(src), clone)
+	new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
 	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
 	patient_mind.transfer_to(clone)
 	clone.grab_ghost()
 	clone.update_revive()
-	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
+	REMOVE_TRAIT(clone, TRAIT_NOFIRE, "cloning")
+	to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 	to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
 
 	reset_cloning()
@@ -556,18 +556,19 @@
 
 //Attackby and x_acts
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-
 	if(I.is_open_container())
 		return
 
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-		if(allowed(user))
-			locked = !locked
-			to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
-		else
+		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+			return
+
+		switch(tgui_alert(user, "Perform an emergency ejection of [src]?", "Cloning pod", list("Yes", "No")))
+			if("Yes")
+				eject_clone(TRUE) // GET OUT
+				to_chat(user, "<span class='warning'>You force [src] to eject its clone!</span>")
+				log_admin("[key_name(user)] has activated a cloning pod's emergency eject at [COORD(src)] (clone: [key_name(clone)])")
 		return
 
 	if(is_organ(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
@@ -635,12 +636,6 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!allowed(user) && locked && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-		if(ui)
-			ui.close()
-		return
-
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CloningPod", "Cloning Pod")
@@ -668,7 +663,7 @@
 	switch(action)
 		if("eject_organ")
 			var/obj/item/organ/O = locateUID(params["organ_ref"])
-			if(!istype(O)) //This shouldn't happen
+			if(!istype(O) || !O.in_contents_of(src)) //This shouldn't happen BUT JUST IN CASE
 				return FALSE
 			if(!ui.user.put_in_hands(O))
 				O.forceMove(loc)

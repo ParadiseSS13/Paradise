@@ -43,18 +43,11 @@
 	desc = "A keyring with a small steel key, and a pink fob reading \"Pussy Wagon\"."
 	icon_state = "keyjanitor"
 
-/obj/item/janiupgrade
-	name = "floor buffer upgrade"
-	desc = "An upgrade for mobile janicarts."
-	icon = 'icons/obj/vehicles.dmi'
-	icon_state = "upgrade"
-	origin_tech = "materials=3;engineering=4"
-
 /datum/action/floor_buffer
 	name = "Toggle Floor Buffer"
 	desc = "Movement speed is decreased while active."
-	icon_icon = 'icons/obj/vehicles.dmi'
-	button_icon_state = "upgrade"
+	button_overlay_icon = 'icons/obj/vehicles.dmi'
+	button_overlay_icon_state = "upgrade"
 
 /datum/action/floor_buffer/Trigger(left_click)
 	. = ..()
@@ -111,7 +104,7 @@
 		mybag = I
 		update_icon(UPDATE_OVERLAYS)
 		return
-	if(istype(I, /obj/item/janiupgrade))
+	if(istype(I, /obj/item/borg/upgrade/floorbuffer))
 		if(buffer_installed)
 			to_chat(user, fail_msg)
 			return

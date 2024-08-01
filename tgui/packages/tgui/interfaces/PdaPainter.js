@@ -20,12 +20,7 @@ const PdaInsert = (props, context) => {
         <Stack.Item bold grow textAlign="center" align="center" color="silver">
           <Icon name="download" size={5} mb="10px" />
           <br />
-          <Button
-            width="160px"
-            textAlign="center"
-            content="Insert PDA"
-            onClick={() => act('insert_pda')}
-          />
+          <Button width="160px" textAlign="center" content="Insert PDA" onClick={() => act('insert_pda')} />
         </Stack.Item>
       </Stack>
     </Section>
@@ -44,10 +39,7 @@ const PdaMenu = (props, context) => {
         <Section fill scrollable>
           <Table className="PdaPainter__list">
             {Object.keys(pda_colors).map((sprite_name) => (
-              <Table.Row
-                key={sprite_name}
-                onClick={() => act('choose_pda', { selectedPda: sprite_name })}
-              >
+              <Table.Row key={sprite_name} onClick={() => act('choose_pda', { selectedPda: sprite_name })}>
                 <Table.Cell collapsing>
                   <img
                     src={`data:image/png;base64,${pda_colors[sprite_name][0]}`}
@@ -56,7 +48,8 @@ const PdaMenu = (props, context) => {
                       width: '32px',
                       margin: '0px',
                       'margin-left': '0px',
-                      '-ms-interpolation-mode': 'nearest-neighbor',
+                      '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                      'image-rendering': 'pixelated',
                     }}
                   />
                 </Table.Cell>
@@ -83,24 +76,12 @@ const PdaImage = (props, context) => {
             width: '160px',
             margin: '0px',
             'margin-left': '0px',
-            '-ms-interpolation-mode': 'nearest-neighbor',
+            '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+            'image-rendering': 'pixelated',
           }}
         />
-        <Button
-          fluid
-          textAlign="center"
-          icon="eject"
-          content="Eject"
-          color="green"
-          onClick={() => act('eject_pda')}
-        />
-        <Button
-          fluid
-          textAlign="center"
-          icon="paint-roller"
-          content="Paint PDA"
-          onClick={() => act('paint_pda')}
-        />
+        <Button fluid textAlign="center" icon="eject" content="Eject" color="green" onClick={() => act('eject_pda')} />
+        <Button fluid textAlign="center" icon="paint-roller" content="Paint PDA" onClick={() => act('paint_pda')} />
       </Section>
       <Section title="Preview">
         <img
@@ -110,7 +91,8 @@ const PdaImage = (props, context) => {
             width: '160px',
             margin: '0px',
             'margin-left': '0px',
-            '-ms-interpolation-mode': 'nearest-neighbor',
+            '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+            'image-rendering': 'pixelated',
           }}
         />
       </Section>

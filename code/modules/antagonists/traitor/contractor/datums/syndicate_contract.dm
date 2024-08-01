@@ -23,8 +23,8 @@
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/coin/antagtoken/syndicate,
 		/obj/item/poster/syndicate_recruitment,
-		/obj/item/food/snacks/syndicake,
-		/obj/item/food/snacks/tatortot,
+		/obj/item/food/syndicake,
+		/obj/item/food/tatortot,
 		/obj/item/storage/box/fakesyndiesuit,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
 		/obj/item/toy/figure/crew/syndie,
@@ -419,10 +419,11 @@
 			H.equip_to_appropriate_slot(mask)
 			tank.toggle_internals(H, TRUE)
 
+	M.reagents.add_reagent("mutadone", 1) // 1u of mutadone for the Hulk:tm: experience
 	M.update_icons()
 
 	// Supply them with some chow. How generous is the Syndicate?
-	var/obj/item/food/snacks/breadslice/food = new(get_turf(M))
+	var/obj/item/food/breadslice/food = new(get_turf(M))
 	food.name = "stale bread"
 	food.desc = "Looks like your captors care for their prisoners as much as their bread."
 	food.trash = null

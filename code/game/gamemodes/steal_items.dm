@@ -2,9 +2,6 @@
 //
 // Separated into datums so we can prevent roles from getting certain objectives.
 
-#define THEFT_FLAG_SPECIAL 1//unused, maybe someone will use it some day, I'll leave it here for the children
-#define THEFT_FLAG_UNIQUE 2
-
 /datum/theft_objective
 	var/name = "this objective is impossible, yell at a coder"
 	var/typepath=/obj/effect/debugging
@@ -16,6 +13,8 @@
 	var/special_equipment = null
 	/// If a steal objective has forbidden jobs, and the forbidden jobs would not be in the possession of this item, set this to false
 	var/job_possession = TRUE
+	/// Any extra information about the objective
+	var/extra_information = ""
 
 /datum/theft_objective/proc/check_completion(datum/mind/owner)
 	if(!owner.current)
@@ -64,7 +63,7 @@
 	name = "a hand teleporter"
 	typepath = /obj/item/hand_tele
 	protected_jobs = list("Captain", "Research Director", "Chief Engineer")
-	location_override = "Teleporter"
+	location_override = "the AI Satellite, or the Captain's Office"
 
 /datum/theft_objective/defib
 	name = "the chief medical officer's advanced compact defibrillator"
@@ -84,6 +83,7 @@
 	protected_jobs = list("Chief Engineer")
 	altitems = list(/obj/item/photo)
 	location_override = "the Chief Engineer's Office"
+	extra_information = "Obtaining a photograph of the blueprints is also an option."
 
 /datum/theft_objective/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints/ce))
@@ -105,6 +105,11 @@
 	typepath = /obj/item/disk/nuclear
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
+
+/datum/theft_objective/nukedisc/check_special_completion(obj/item/I)
+	if(istype(I, /obj/item/disk/nuclear/training)) //Haha no
+		return FALSE
+	return TRUE
 
 /datum/theft_objective/reactive
 	name = "any type of reactive armor"

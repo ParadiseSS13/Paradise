@@ -14,7 +14,6 @@
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health
 
-
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	var/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
 	var/oxyloss = 0	//Oxygen depravation damage (no air in lungs)
@@ -26,8 +25,8 @@
 
 	var/last_special = 0 //Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 
-	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
-	var/incorporeal_move = 0 //0 is off, 1 is normal, 2 is for ninjas.
+	/// Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
+	var/incorporeal_move = NO_INCORPOREAL_MOVE
 
 	var/now_pushing = null
 
@@ -99,6 +98,9 @@
 
 	/// Famous last words -- if succumbing, what the user's last words were
 	var/last_words
+
+	///This variable is the chance for a mob to automatically dodge a bullet. Useful for admins, and applied to some mobs by default, such as the malfunctioning drone mobs.
+	var/advanced_bullet_dodge_chance = 0
 
 	/*
 	Taste Vars

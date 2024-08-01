@@ -99,7 +99,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	// I apologize in advance
 	var/list/splitlines = splittext(e.desc, "\n")
 	var/list/desclines = list()
-	if(splitlines.len > 2) // If there aren't at least three lines, there's no info
+	if(length(splitlines) > 2) // If there aren't at least three lines, there's no info
 		for(var/line in splitlines)
 			if(length(line) < 3)
 				continue // Blank line, skip it

@@ -1,7 +1,7 @@
 // Plant analyzer
 /obj/item/plant_analyzer
 	name = "plant analyzer"
-	desc = "A scanner used to evaluate a plant's various areas of growth."
+	desc = "A versatile scanner for analyzing plants, plant produce, and seeds. Can be used on a bag holding unsorted seeds to quickly and thorougly sort them into usable packs."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
 	item_state = "analyzer"
@@ -9,6 +9,24 @@
 	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "magnets=2;biotech=2"
 	materials = list(MAT_METAL = 210, MAT_GLASS = 40)
+
+/obj/item/plant_analyzer/pre_attack(atom/target, mob/user, params)
+	if(!istype(target, /obj/item))
+		return ..()
+
+	var/found_unsorted_seeds = FALSE
+	var/depth = 0
+	for(var/obj/item/unsorted_seeds/unsorted in target)
+		found_unsorted_seeds = TRUE
+		if(!use_tool(target, user, 0.5 SECONDS))
+			break
+		depth++
+		unsorted.sort(depth)
+
+	if(found_unsorted_seeds)
+		return FALSE
+	return ..()
+
 
 // *************************************
 // Hydroponics Tools
@@ -104,7 +122,7 @@
 
 /obj/item/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/hatchet/unathiknife
@@ -154,7 +172,7 @@
 		var/obj/item/organ/external/affecting = H.get_organ("head")
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
-			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, 1, -1)
+			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/scythe/pre_attack(atom/A, mob/living/user, params)
@@ -288,24 +306,30 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
-	desc = "Contains a fertilizer that causes mild mutations with each harvest."
+	desc = "Contains a basic fertilizer with no special traits."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
-	list_reagents = list("eznutriment" = 80)
+	list_reagents = list("eznutrient" = 80)
+
+/obj/item/reagent_containers/glass/bottle/nutrient/mut
+	name = "jug of Mutrient"
+	desc = "Contains a fertilizer that causes mild mutations with each harvest."
+	icon_state = "plastic_jug_mut"
+	list_reagents = list("mutrient" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
 	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
-	list_reagents = list("left4zednutriment" = 80)
+	list_reagents = list("left4zednutrient" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
 	desc = "Contains a fertilizer that increases the yield of a plant by 30% while causing no mutations."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_rh"
-	list_reagents = list("robustharvestnutriment" = 80)
+	list_reagents = list("robustharvestnutrient" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
 	icon = 'icons/obj/chemical.dmi'

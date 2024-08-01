@@ -185,13 +185,10 @@
 
 /mob/living/simple_animal/bot/ed209/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
-		return
-	if(!isscrewdriver(W) && !locked && (!target)) //If the target is locked, they are recieving damage from the screwdriver
-		if(W.force && W.damtype != STAMINA)//If force is non-zero and damage type isn't stamina.
-			retaliate(user)
-			if(lasercolor)//To make up for the fact that lasertag bots don't hunt
-				shootAt(user)
+	if(W.force && !target && W.damtype != STAMINA)
+		retaliate(user)
+		if(lasercolor)//To make up for the fact that lasertag bots don't hunt
+			shootAt(user)
 
 /mob/living/simple_animal/bot/ed209/emag_act(mob/user)
 	..()
@@ -205,6 +202,24 @@
 		set_weapon()
 
 /mob/living/simple_animal/bot/ed209/bullet_act(obj/item/projectile/Proj)
+	if(!disabled)
+		var/lasertag_check = FALSE
+		if(lasercolor == "b")
+			if(istype(Proj, /obj/item/projectile/beam/lasertag/redtag))
+				lasertag_check = TRUE
+
+		else if(lasercolor == "r")
+			if(istype(Proj, /obj/item/projectile/beam/lasertag/bluetag))
+				lasertag_check = TRUE
+
+		if(lasertag_check)
+			icon_state = "[lasercolor]ed2090"
+			disabled = TRUE
+			walk_to(src, 0)
+			target = null
+			addtimer(CALLBACK(src, PROC_REF(unset_disabled)), 10 SECONDS)
+			return TRUE
+
 	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health)
@@ -285,12 +300,11 @@
 				back_to_hunt()
 				return
 
-			if(no_handcuffs) // should we not cuff?
+			if(!(iscarbon(target) && target.canBeHandcuffed()))
 				back_to_idle()
 				return
 
-			if(!(iscarbon(target) && target.canBeHandcuffed()))
-				back_to_idle()
+			if(no_handcuffs) // should we not cuff?
 				return
 
 			if(currently_cuffing)
@@ -477,12 +491,12 @@
 		pulse2.anchored = TRUE
 		pulse2.dir = pick(GLOB.cardinal)
 		QDEL_IN(pulse2, 1 SECONDS)
-		var/list/mob/living/carbon/targets = new
+		var/list/mob/living/carbon/targets = list()
 		for(var/mob/living/carbon/C in view(12,src))
 			if(C.stat==2)
 				continue
 			targets += C
-		if(targets.len)
+		if(length(targets))
 			if(prob(50))
 				var/mob/toshoot = pick(targets)
 				if(toshoot)
@@ -496,37 +510,11 @@
 					else
 						shootAt(toshoot)
 			else if(prob(50))
-				if(targets.len)
+				if(length(targets))
 					var/mob/toarrest = pick(targets)
 					if(toarrest)
 						target = toarrest
 						mode = BOT_HUNT
-
-
-/mob/living/simple_animal/bot/ed209/bullet_act(obj/item/projectile/Proj)
-	if(!disabled)
-		var/lasertag_check = 0
-		if(lasercolor == "b")
-			if(istype(Proj, /obj/item/projectile/beam/lasertag/redtag))
-				lasertag_check++
-
-		else if(lasercolor == "r")
-			if(istype(Proj, /obj/item/projectile/beam/lasertag/bluetag))
-				lasertag_check++
-
-		if(lasertag_check)
-			icon_state = "[lasercolor]ed2090"
-			disabled = TRUE
-			walk_to(src, 0)
-			target = null
-			addtimer(CALLBACK(src, PROC_REF(unset_disabled)), 10 SECONDS)
-			return TRUE
-
-		else
-			..(Proj)
-
-	else
-		..(Proj)
 
 /mob/living/simple_animal/bot/ed209/proc/unset_disabled()
 	disabled = FALSE
@@ -579,7 +567,7 @@
 
 /mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
-	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
 

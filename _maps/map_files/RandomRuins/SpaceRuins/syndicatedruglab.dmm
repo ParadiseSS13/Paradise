@@ -59,7 +59,9 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "mA" = (
-/obj/machinery/power/apc/syndicate/off/directional/east,
+/obj/machinery/power/apc/syndicate/directional/east{
+	cell_type = 10000
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "mO" = (
@@ -98,11 +100,11 @@
 	pixel_x = 4
 	},
 /obj/item/paper/syndicate_druglab,
-/obj/item/pen,
 /obj/item/flashlight/lamp/green/off{
 	pixel_y = 12;
 	pixel_x = -6
 	},
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/syndicate_druglab)
 "qa" = (
@@ -138,6 +140,10 @@
 "sb" = (
 /turf/template_noop,
 /area/ruin/space/syndicate_druglab/asteroid)
+"st" = (
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
 "sD" = (
 /obj/structure/closet/crate/hydroponics,
 /obj/item/queen_bee/bought,
@@ -686,8 +692,8 @@ sb
 vZ
 xF
 vZ
-vZ
-vZ
+yI
+yI
 vZ
 vZ
 vZ
@@ -720,9 +726,9 @@ sb
 vZ
 vZ
 vZ
-vZ
-vZ
-vZ
+yI
+yI
+yI
 vZ
 vZ
 xF
@@ -769,10 +775,10 @@ vZ
 vZ
 vZ
 vZ
-vZ
-vZ
-vZ
-vZ
+yI
+yI
+yI
+yI
 vZ
 yI
 vZ
@@ -803,12 +809,12 @@ Nr
 Nr
 Nr
 vZ
-vZ
-vZ
-vZ
+yI
+yI
+yI
 xF
-vZ
-vZ
+yI
+yI
 yI
 yI
 sb
@@ -838,12 +844,12 @@ nP
 dL
 Nr
 vZ
-vZ
-vZ
+yI
+yI
 xF
 xF
 ue
-vZ
+yI
 vZ
 vZ
 sb
@@ -873,7 +879,7 @@ tL
 os
 Nr
 Nr
-vZ
+yI
 xF
 ue
 xF
@@ -908,7 +914,7 @@ os
 os
 en
 Nr
-vZ
+yI
 xF
 DG
 qf
@@ -943,8 +949,8 @@ os
 os
 Ue
 Nr
-vZ
-vZ
+yI
+yI
 Gm
 ue
 xF
@@ -979,7 +985,7 @@ tL
 Nr
 Nr
 vZ
-vZ
+yI
 Wd
 vZ
 vZ
@@ -1087,7 +1093,7 @@ ym
 te
 vz
 Nr
-vZ
+yI
 xF
 xF
 xF
@@ -1109,7 +1115,7 @@ vZ
 vZ
 Nr
 BD
-os
+st
 os
 gU
 SG
@@ -1122,7 +1128,7 @@ gI
 gI
 Oy
 Nr
-vZ
+yI
 xF
 QL
 xF
@@ -1157,7 +1163,7 @@ gI
 gI
 Oy
 Nr
-vZ
+yI
 xF
 xF
 xF

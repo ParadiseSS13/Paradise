@@ -284,10 +284,9 @@
 	storage_slots = 3
 
 /obj/item/storage/toolbox/fluff/lunchbox/populate_contents()
-	new /obj/item/food/snacks/sandwich(src)
-	new /obj/item/food/snacks/chips(src)
+	new /obj/item/food/customizable/sandwich(src)
+	new /obj/item/food/chips(src)
 	new /obj/item/reagent_containers/drinks/cans/cola(src)
-
 
 /obj/item/fluff/wingler_comb
 	name = "blue comb"
@@ -652,7 +651,7 @@
 	icon_state = "sparkyninja_beret"
 
 /// sigholtstarsong: Sigholt Starsong
-/obj/item/clothing/head/beret/fluff/sigholt
+/obj/item/clothing/head/fluff/sigholt
 	name = "Lieutenant Starsong's beret"
 	desc = "This beret bears insignia of the SOLGOV Marine Corps 417th Regiment, 2nd Battalion, Bravo Company. It looks meticulously maintained."
 	icon_state = "beret_hos"
@@ -680,7 +679,7 @@
 			H.Slur(6 SECONDS) //always slur
 
 /// Epic_Charger: Linda Clark
-/obj/item/clothing/head/beret/fluff/linda
+/obj/item/clothing/head/fluff/linda
 	name = "Green beret"
 	desc = "A beret, an artist's favorite headwear. This one has two holes cut on the edges."
 	icon = 'icons/obj/custom_items.dmi'
@@ -738,12 +737,12 @@
 			icon_state = new_state["icon_state"]
 			state = choice
 			to_chat(user, "You adjust the helmet.")
-			playsound(src.loc, "[toggle_sound]", 100, 0, 4)
+			playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
 			user.update_inv_head()
 			return 1
 
 /// V-Force_Bomber: E.L.O.
-/obj/item/clothing/head/beret/fluff/elo
+/obj/item/clothing/head/fluff/elo
 	name = "E.L.O.'s medical beret"
 	desc = "E.L.O.s personal medical beret, issued by Nanotrassen and awarded along with her medal."
 	icon = 'icons/obj/custom_items.dmi'
@@ -1831,6 +1830,14 @@
 	name = "lifetime ID card decal"
 	desc = "Make your ID look like the property of a nerd. Applies to any ID."
 	decal_icon_state = "lifetimeid"
+
+// TheFlagbearer: Colin Earle
+/obj/item/clothing/under/costume/rebeloutfit
+	name = "rebel outfit"
+	desc = "Made in Seattle, 2216."
+	icon_state = "colin_earle"
+	item_state = "colin_earle"
+	item_color = "colin_earle"
 
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT

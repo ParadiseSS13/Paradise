@@ -64,13 +64,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	for(var/category in uplink_items)
 		cats[++cats.len] = list("cat" = category, "items" = list())
 		for(var/datum/uplink_item/I in uplink_items[category])
-			if(I.job && I.job.len)
+			if(I.job && length(I.job))
 				if(!(I.job.Find(job)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
 			if(length(I.species))
 				if(!(I.species.Find(species)) && uplink_type != UPLINK_TYPE_ADMIN)
 					continue
-			cats[cats.len]["items"] += list(list(
+			cats[length(cats)]["items"] += list(list(
 				"name" = sanitize(I.name),
 				"desc" = sanitize(I.description()),
 				"cost" = I.cost,
@@ -88,10 +88,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	var/list/random_items = list()
 
-	for(var/IR in uplink_items)
-		var/datum/uplink_item/UI = uplink_items[IR]
-		if(UI.cost <= uses && UI.limited_stock != 0)
-			random_items += UI
+	for(var/uplink_section in uplink_items)
+		for(var/datum/uplink_item/UI in uplink_items[uplink_section])
+			if(UI.cost <= uses && UI.limited_stock != 0)
+				random_items += UI
 
 	return pick(random_items)
 
@@ -129,20 +129,31 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink/proc/refund(mob/user as mob)
 	var/obj/item/I = user.get_active_hand()
-	if(I) // Make sure there's actually something in the hand before even bothering to check
-		for(var/category in uplink_items)
-			for(var/item in uplink_items[category])
-				var/datum/uplink_item/UI = item
-				var/path = UI.refund_path || UI.item
-				var/cost = UI.refund_amount || UI.cost
-				if(I.type == path && UI.refundable && I.check_uplink_validity())
-					uses += cost
-					used_TC -= cost
-					to_chat(user, "<span class='notice'>[I] refunded.</span>")
-					qdel(I)
-					return
-		// If we are here, we didnt refund
+	if(!I) // Make sure there's actually something in the hand before even bothering to check
 		to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
+		return
+
+	for(var/category in uplink_items)
+		for(var/item in uplink_items[category])
+			var/datum/uplink_item/UI = item
+			var/path = UI.refund_path || UI.item
+			var/cost = UI.refund_amount || UI.cost
+
+			if(ispath(I.type, path) && UI.refundable && I.check_uplink_validity())
+				var/refund_amount = cost
+				if(istype(I, /obj/item/guardiancreator/tech))
+					var/obj/item/guardiancreator/tech/holopara = I
+					if(holopara.is_discounted && cost != holopara.refund_cost) // This has to be done because the normal holopara uplink datum precedes the discounted uplink datum
+						continue
+					refund_amount = holopara.refund_cost
+				uses += refund_amount
+				used_TC -= refund_amount
+				to_chat(user, "<span class='notice'>[I] refunded.</span>")
+				qdel(I)
+				return
+
+	// If we are here, we didnt refund
+	to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!
@@ -404,6 +415,15 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	..()
 	hidden_uplink = new(src)
 	icon_state = "radio"
+
+/obj/item/radio/uplink/AltClick()
+	return
+
+/obj/item/radio/uplink/CtrlShiftClick()
+	return
+
+/obj/item/radio/uplink/show_examine_hotkeys()
+	return list()
 
 /obj/item/radio/uplink/attack_self(mob/user as mob)
 	if(hidden_uplink)

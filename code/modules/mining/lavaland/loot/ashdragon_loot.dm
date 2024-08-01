@@ -77,7 +77,7 @@
 		return
 	to_chat(user, "You call out for aid, attempting to summon spirits to your side.")
 
-	notify_ghosts("[user] is raising [user.p_their()] [src], calling for your help!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = user, action = NOTIFY_FOLLOW)
+	notify_ghosts("[user] is raising [user.p_their()] [src], calling for your help!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = user, action = NOTIFY_FOLLOW)
 
 	summon_cooldown = world.time + 600
 
@@ -217,7 +217,7 @@
 		if(2)
 			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
 			if(user.mind)
-				var/obj/effect/proc_holder/spell/shapeshift/dragon/D = new
+				var/datum/spell/shapeshift/dragon/D = new
 				user.mind.AddSpell(D)
 		if(3)
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
@@ -300,7 +300,7 @@
 			timer = world.time + create_delay + 1
 			if(do_after(user, create_delay, target = T))
 				user.visible_message("<span class='danger'>[user] turns \the [T] into [transform_string]!</span>")
-				message_admins("[key_name_admin(user)] fired the lava staff at [get_area(target)] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>).")
+				message_admins("[key_name_admin(user)] fired the lava staff at [get_area(target)] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>).")
 				log_game("[key_name(user)] fired the lava staff at [get_area(target)] ([T.x], [T.y], [T.z]).")
 				T.TerraformTurf(turf_type, keep_icon = FALSE)
 				timer = world.time + create_cooldown

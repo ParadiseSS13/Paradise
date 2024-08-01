@@ -12,7 +12,7 @@
 
 /mob/living/simple_animal/hostile/guardian/punch/Initialize(mapload, mob/living/host)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/choose_battlecry(null))
+	AddSpell(new /datum/spell/choose_battlecry(null))
 
 /mob/living/simple_animal/hostile/guardian/punch/AttackingTarget()
 	. = ..()
@@ -21,10 +21,10 @@
 			visible_message("<span class='danger'>[src] punches [target]!</span>")
 		else
 			say("[battlecry][battlecry][battlecry][battlecry][battlecry]", TRUE)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
 
 /mob/living/simple_animal/hostile/guardian/punch/sealpunch
 	name = "Seal Sprit"

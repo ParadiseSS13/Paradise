@@ -28,7 +28,7 @@
 		if((player.mind in possible_vampires) && (player.client.prefs.active_character.species in secondary_protected_species))
 			possible_vampires -= player.mind
 
-	if(possible_vampires.len > 0)
+	if(length(possible_vampires) > 0)
 		for(var/I in possible_vampires)
 			if(length(pre_vampires) >= secondary_enemies)
 				break

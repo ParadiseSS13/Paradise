@@ -105,7 +105,7 @@
 	var/mob/dead/observer/harry = null
 	message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
 
-	if(!candidates.len)
+	if(!length(candidates))
 		message_admins("This is awkward, sleeping until another mage check..")
 		making_mage = FALSE
 		sleep(300)

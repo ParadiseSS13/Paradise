@@ -29,6 +29,9 @@
 	req_access = list(ACCESS_MIME)
 	icon_state = "mime"
 	open_door_sprite = "mime_door"
+	// It's silent!
+	open_sound = null
+	close_sound = null
 
 /obj/structure/closet/secure_closet/mime/populate_contents()
 	new /obj/item/clothing/head/beret(src)

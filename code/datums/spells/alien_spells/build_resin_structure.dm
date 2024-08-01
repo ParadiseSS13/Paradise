@@ -1,17 +1,22 @@
-/obj/effect/proc_holder/spell/alien_spell/build_resin
+#define RESIN_WALL "Resin Wall"
+#define RESIN_NEST "Resin Nest"
+#define RESIN_DOOR "Resin Door"
+#define REVIVAL_NEST "Revival Nest"
+
+/datum/spell/alien_spell/build_resin
 	name = "Build Resin Structure"
 	desc = "Allows you to create resin structures. Does not work while in space."
 	plasma_cost = 55
 	action_icon_state = "alien_resin"
 
-/obj/effect/proc_holder/spell/alien_spell/build_resin/create_new_targeting()
+/datum/spell/alien_spell/build_resin/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/alien_spell/build_resin/cast(list/targets, mob/living/carbon/user)
-	var/static/list/resin_buildings = list("Resin Wall" = image(icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi', icon_state = "resin_wall-0"),
-									"Resin Nest" = image(icon = 'icons/mob/alien.dmi', icon_state = "nest"),
-									"Resin Door" = image(icon = 'icons/obj/smooth_structures/alien/resin_door.dmi', icon_state = "resin"),
-									"Revival Nest" = image(icon = 'icons/mob/alien.dmi', icon_state = "placeholder_rejuv_nest"))
+/datum/spell/alien_spell/build_resin/cast(list/targets, mob/living/carbon/user)
+	var/static/list/resin_buildings = list(RESIN_WALL = image(icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi', icon_state = "resin_wall-0"),
+									RESIN_NEST = image(icon = 'icons/mob/alien.dmi', icon_state = "nest"),
+									RESIN_DOOR = image(icon = 'icons/obj/smooth_structures/alien/resin_door.dmi', icon_state = "resin"),
+									REVIVAL_NEST = image(icon = 'icons/mob/alien.dmi', icon_state = "placeholder_rejuv_nest"))
 	var/choice = show_radial_menu(user, user, resin_buildings, src, radius = 40)
 	var/turf/turf_to_spawn_at = user.loc
 	if(!choice)
@@ -29,18 +34,18 @@
 		to_chat(user, "<span class='danger'>There is already a resin construction here.</span>")
 		revert_cast(user)
 		return
-	visible_message("<span class='alertalien'>[user] vomits up a thick purple substance and shapes it!</span>")
+	user.visible_message("<span class='alertalien'>[user] vomits up a thick purple substance and shapes it!</span>")
 	switch(choice)
-		if("Resin Wall")
+		if(RESIN_WALL)
 			new /obj/structure/alien/resin/wall(turf_to_spawn_at)
-		if("Resin Nest")
+		if(RESIN_NEST)
 			new /obj/structure/bed/nest(turf_to_spawn_at)
-		if("Resin Door")
+		if(RESIN_DOOR)
 			new /obj/structure/alien/resin/door(turf_to_spawn_at)
-		if("Revival Nest")
+		if(REVIVAL_NEST)
 			new /obj/structure/bed/revival_nest(turf_to_spawn_at)
 
-/obj/effect/proc_holder/spell/touch/alien_spell/consume_resin
+/datum/spell/touch/alien_spell/consume_resin
 	name = "Consume resin structures"
 	desc = "Allows you to rip and tear straight through resin structures."
 	action_icon_state = "alien_resin"
@@ -80,3 +85,8 @@
 		user.add_plasma(-10)
 		qdel(target)
 		..()
+
+#undef RESIN_WALL
+#undef RESIN_NEST
+#undef RESIN_DOOR
+#undef REVIVAL_NEST

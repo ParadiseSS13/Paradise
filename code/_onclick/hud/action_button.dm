@@ -16,6 +16,10 @@
 	var/id
 	/// UID of the last thing we hovered over. Used for managing action button dragging.
 	var/last_hovered_ref
+	/// Whether or not this should be shown to observers
+	var/shown_to_observers = FALSE
+	/// Whether or not this button is locked, preventing it from being dragged.
+	var/locked = TRUE
 
 /atom/movable/screen/movable/action_button/Destroy()
 	. = ..()
@@ -30,15 +34,21 @@
 	return ..()
 
 /atom/movable/screen/movable/action_button/proc/can_use(mob/user)
+	if(isobserver(user))
+		var/mob/dead/observer/dead_mob = user
+		if(dead_mob.mob_observed) // Observers can only click on action buttons if they're not observing something
+			return FALSE
 	if(!linked_action)
 		return TRUE
+	if(linked_action.owner != user)
+		return FALSE
 	return !isnull(linked_action.viewers[user.hud_used])
 
 // Entered and Exited won't fire while you're dragging something, because you're still "holding" it
 // Very much byond logic, but I want nice behavior, so we fake it with drag
 /atom/movable/screen/movable/action_button/MouseDrag(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
-	if(!can_use(usr))
+	if(!can_use(usr) || locked)
 		return
 
 
@@ -58,12 +68,17 @@
 		last_hovered.MouseExited(over_location, over_control, params)
 		closeToolTip(usr)
 	last_hovered_ref = UID(over_object)
-	over_object.MouseEntered(over_location, over_control, params)
+	if(!isnull(over_object))
+		over_object.MouseEntered(over_location, over_control, params)
 
 /atom/movable/screen/movable/action_button/MouseDrop(over_object)
 	last_hovered_ref = null
 	if(!can_use(usr))
 		return
+	if(locked)
+		fire_action()
+		return
+
 	var/datum/hud/our_hud = usr.hud_used
 	if(over_object == src)
 		our_hud.hide_landings()
@@ -100,7 +115,15 @@
 	var/position_info = SCRN_OBJ_DEFAULT
 	user.hud_used.position_action(src, position_info)
 
+/atom/movable/screen/movable/action_button/proc/fire_action(left_click = TRUE)
+	linked_action.Trigger(left_click)
+	transform = transform.Scale(0.8, 0.8)
+	alpha = 200
+	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
+
 /atom/movable/screen/movable/action_button/Click(location, control, params)
+	if(!can_use(usr))
+		return FALSE
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"] && modifiers["shift"])
 		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
@@ -116,16 +139,21 @@
 		AltClick(usr)
 		return TRUE
 	if(modifiers["middle"])
-		linked_action.Trigger(left_click = FALSE)
+		fire_action(FALSE)
 		return TRUE
 	if(modifiers["ctrl"])
 		CtrlClick(usr)
 		return TRUE
-	linked_action.Trigger(TRUE)
-	transform = transform.Scale(0.8, 0.8)
-	alpha = 200
-	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
+
+	fire_action(TRUE)
 	return TRUE
+
+
+/atom/movable/screen/movable/action_button/CtrlClick(mob/user)
+	if(!can_use(user))
+		return
+	locked = !locked
+	to_chat(user, "<span class='notice'>[src]'s button has been [locked ? "":"un"]locked.</span>")
 
 
 /**
@@ -141,7 +169,7 @@
 	.["bg_state_active"] = "template_active"
 
 /atom/movable/screen/movable/action_button/proc/set_to_keybind(mob/user)
-	var/keybind_to_set_to = uppertext(input(user, "What keybind do you want to set this action button to?") as text)
+	var/keybind_to_set_to = tgui_input_keycombo(user, "What keybind do you want to set this action button to?")
 	if(keybind_to_set_to)
 		if(linked_keybind)
 			clean_up_keybinds(user)
@@ -215,7 +243,7 @@
 
 
 /atom/movable/screen/button_palette
-	desc = "<b>Drag</b> buttons to move them.<br><b>Shift-click</b> any button to reset it.<br><b>Alt-click</b> this to reset all buttons.<br><b>Ctrl-click</b> this to get a detailed explanation of how to use this."
+	desc = "<b>Drag</b> buttons to move them.<br><b>Shift-click</b> any button to reset it.<br><b>Alt-click</b> this to reset all buttons.<br><b>Ctrl-click</b> action buttons to lock or unlock them.<br><b>Ctrl-click</b> this to get a detailed explanation of how to use this."
 	icon = 'icons/hud/64x16_actions.dmi'
 	icon_state = "screen_gen_palette"
 	screen_loc = ui_action_palette
@@ -480,6 +508,8 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			listed_actions.insert_action(button)
 		if(SCRN_OBJ_IN_PALETTE)
 			palette_actions.insert_action(button)
+		if(SCRN_OBJ_CULT_LIST)
+			cult_actions.insert_action(button)
 		else // If we don't have it as a define, this is a screen_loc, and we should be floating
 			floating_actions += button
 			button.screen_loc = position
@@ -495,6 +525,8 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			listed_actions.insert_action(button, listed_actions.index_of(relative_to))
 		if(SCRN_OBJ_IN_PALETTE)
 			palette_actions.insert_action(button, palette_actions.index_of(relative_to))
+		if(SCRN_OBJ_CULT_LIST)
+			cult_actions.insert_action(button, cult_actions.index_of(relative_to))
 		if(SCRN_OBJ_FLOATING) // If we don't have it as a define, this is a screen_loc, and we should be floating
 			floating_actions += button
 			var/client/our_client = mymob.client
@@ -515,6 +547,8 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			floating_actions -= button
 		if(SCRN_OBJ_IN_LIST)
 			listed_actions.remove_action(button)
+		if(SCRN_OBJ_CULT_LIST)
+			cult_actions.remove_action(button)
 		if(SCRN_OBJ_IN_PALETTE)
 			palette_actions.remove_action(button)
 	button.screen_loc = null
@@ -523,11 +557,13 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 /datum/hud/proc/generate_landings(atom/movable/screen/movable/action_button/button)
 	listed_actions.generate_landing()
 	palette_actions.generate_landing()
+	cult_actions.generate_landing()
 
 /// Clears all currently visible landings
 /datum/hud/proc/hide_landings()
 	listed_actions.clear_landing()
 	palette_actions.clear_landing()
+	cult_actions.clear_landing()
 
 // Updates any existing "owned" visuals, ensures they continue to be visible
 /datum/hud/proc/update_our_owner()
@@ -535,6 +571,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	palette_down.refresh_owner()
 	palette_up.refresh_owner()
 	listed_actions.update_landing()
+	cult_actions.update_landing()
 	palette_actions.update_landing()
 
 /// Ensures all of our buttons are properly within the bounds of our client's view, moves them if they're not
@@ -542,6 +579,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 	var/our_view = mymob?.client?.view
 	if(!our_view)
 		return
+	cult_actions.check_against_view()
 	listed_actions.check_against_view()
 	palette_actions.check_against_view()
 	for(var/atom/movable/screen/movable/action_button/floating_button as anything in floating_actions)
@@ -551,6 +589,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 
 /// Generates and fills new action groups with our mob's current actions
 /datum/hud/proc/build_action_groups()
+	cult_actions = new(src)
 	listed_actions = new(src)
 	palette_actions = new(src)
 	floating_actions = list()
@@ -560,5 +599,48 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			action.ShowTo(mymob)
 			button = action.viewers[src]
 		position_action(button, button.location)
+
+
+/**
+ * Show (most) of the another mob's action buttons to this mob
+ *
+ * Used for observers viewing another mob's screen
+ */
+/mob/proc/show_other_mob_action_buttons(mob/take_from)
+	if(!hud_used || !client)
+		return
+
+	for(var/datum/action/action as anything in take_from.actions)
+		if(!action.show_to_observers)
+			continue
+		action.GiveAction(src)
+	RegisterSignal(take_from, COMSIG_MOB_GRANTED_ACTION, PROC_REF(on_observing_action_granted), override = TRUE)
+	RegisterSignal(take_from, COMSIG_MOB_REMOVED_ACTION, PROC_REF(on_observing_action_removed), override = TRUE)
+
+/**
+ * Hide another mob's action buttons from this mob
+ *
+ * Used for observers viewing another mob's screen
+ */
+/mob/proc/hide_other_mob_action_buttons(mob/take_from)
+	for(var/datum/action/action as anything in take_from.actions)
+		action.HideFrom(src)
+	UnregisterSignal(take_from, list(COMSIG_MOB_GRANTED_ACTION, COMSIG_MOB_REMOVED_ACTION))
+
+/// Signal proc for [COMSIG_MOB_GRANTED_ACTION] - If we're viewing another mob's action buttons,
+/// we need to update with any newly added buttons granted to the mob.
+/mob/proc/on_observing_action_granted(mob/living/source, datum/action/action)
+	SIGNAL_HANDLER  // COMSIG_MOB_GRANTED_ACTION
+
+	if(!action.show_to_observers)
+		return
+	action.GiveAction(src)
+
+/// Signal proc for [COMSIG_MOB_REMOVED_ACTION] - If we're viewing another mob's action buttons,
+/// we need to update with any removed buttons from the mob.
+/mob/proc/on_observing_action_removed(mob/living/source, datum/action/action)
+	SIGNAL_HANDLER  // COMSIG_MOB_REMOVED_ACTION
+
+	action.HideFrom(src)
 
 #undef AB_MAX_COLUMNS

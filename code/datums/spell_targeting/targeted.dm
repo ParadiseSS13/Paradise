@@ -9,7 +9,7 @@
 	/// Who to target when too many targets are found. Only matters when max_targets = 1
 	var/target_priority = SPELL_TARGET_CLOSEST
 
-/datum/spell_targeting/targeted/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
+/datum/spell_targeting/targeted/choose_targets(mob/user, datum/spell/spell, params, atom/clicked_atom)
 	var/list/targets = list()
 	var/list/possible_targets = list()
 	var/atom/spell_location = use_turf_of_user ? get_turf(user) : user

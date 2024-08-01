@@ -119,7 +119,6 @@
 	muzzle_type = /obj/effect/projectile/muzzle/pulse
 	tracer_type = /obj/effect/projectile/tracer/pulse
 	impact_type = /obj/effect/projectile/impact/pulse
-	impact_effect_type = null
 	hitscan_light_intensity = 3
 	hitscan_light_range = 0.75
 	hitscan_light_color_override = LIGHT_COLOR_DARKBLUE
@@ -336,3 +335,14 @@
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
+
+/obj/item/projectile/beam/laser/sparker
+	name = "sparker beam"
+	icon_state = "scatterlaser"
+	damage = 12.5
+	range = 12
+
+/obj/item/projectile/beam/laser/sparker/on_range()
+	new /obj/effect/particle_effect/sparks(get_turf(src))
+	return ..()
+

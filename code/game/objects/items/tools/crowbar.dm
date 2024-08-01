@@ -35,16 +35,6 @@
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/crowbar/abductor
-	name = "alien crowbar"
-	desc = "A hard-light crowbar. It appears to pry by itself, without any effort required."
-	icon = 'icons/obj/abductor.dmi'
-	usesound = 'sound/weapons/sonic_jackhammer.ogg'
-	icon_state = "crowbar"
-	toolspeed = 0.1
-	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "combat=4;engineering=4;abductor=3"
-
 /obj/item/crowbar/small
 	name = "miniature titanium crowbar"
 	desc = "A tiny, lightweight titanium crowbar. It fits handily in your pocket."
@@ -138,7 +128,7 @@
 
 /obj/item/crowbar/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
+	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/crowbar/power/attack_self(mob/user)

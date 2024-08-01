@@ -28,14 +28,14 @@
 		available_recipes = list()
 		acceptable_items = list()
 		//These are going to be acceptable even if they aren't in a recipe
-		acceptable_items |= /obj/item/food/snacks
+		acceptable_items |= /obj/item/food
 		acceptable_items |= /obj/item/reagent_containers/drinks/cans
 		//the rest is based on what is used in recipes so we don't have people destroying the nuke disc
 		for(var/type in subtypesof(/datum/bottler_recipe))
 			var/datum/bottler_recipe/recipe = new type
 			if(recipe.result) // Ignore recipe subtypes that lack a result
 				available_recipes += recipe
-				for(var/i = 1, i <= recipe.ingredients.len, i++)
+				for(var/i = 1, i <= length(recipe.ingredients), i++)
 					acceptable_items |= recipe.ingredients[i]
 			else
 				qdel(recipe)
@@ -45,8 +45,8 @@
 		to_chat(user, "<span class='warning'>[O] is stuck to your hand, you can't seem to put it down!</span>")
 		return 0
 	if(is_type_in_list(O,acceptable_items))
-		if(istype(O, /obj/item/food/snacks))
-			var/obj/item/food/snacks/S = O
+		if(istype(O, /obj/item/food))
+			var/obj/item/food/S = O
 			user.unEquip(S)
 			if(S.reagents && !S.reagents.total_volume)		//This prevents us from using empty foods, should one occur due to some sort of error
 				to_chat(user, "<span class='warning'>[S] is gone, oh no!</span>")
@@ -95,7 +95,7 @@
 		to_chat(user, "<span class='warning'>[src] is full, please remove or process the contents first.</span>")
 		return
 	var/slot_inserted = 0
-	for(var/i = 1, i <= slots.len, i++)
+	for(var/i = 1, i <= length(slots), i++)
 		if(!slots[i])
 			slots[i] = O
 			slot_inserted = i
@@ -111,7 +111,7 @@
 /obj/machinery/bottler/proc/eject_items(slot)
 	var/obj/item/O = null
 	if(!slot)
-		for(var/i = 1, i <= slots.len, i++)
+		for(var/i = 1, i <= length(slots), i++)
 			if(slots[i])
 				O = slots[i]
 				O.forceMove(loc)
@@ -205,7 +205,7 @@
 /obj/machinery/bottler/proc/select_recipe()
 	for(var/datum/bottler_recipe/recipe in available_recipes)
 		var/number_matches = 0
-		for(var/i = 1, i <= slots.len, i++)
+		for(var/i = 1, i <= length(slots), i++)
 			var/obj/item/O = slots[i]
 			if(istype(O, recipe.ingredients[i]))
 				number_matches++
@@ -270,7 +270,7 @@
 		//bad recipe, ruins the drink
 		var/contents = pick("thick goop", "pungent sludge", "unspeakable slurry", "gross-looking concoction", "eldritch abomination of liquids")
 		visible_message("<span class='warning'>The [con_type] fills with \an [contents]...</span>")
-		drink_container.reagents.add_reagent(pick("????", "toxic_slurry", "meatslurry", "glowing_slury", "fishwater"), pick(30, 50))
+		drink_container.reagents.add_reagent(pick("????", "toxic_slurry", "meatslurry", "glowing_slurry", "fishwater"), pick(30, 50))
 		drink_container.name = "Liquid Mistakes"
 		drink_container.desc = "WARNING: CONTENTS MAY BE AWFUL, DRINK AT OWN RISK."
 	else
@@ -315,15 +315,15 @@
 		dat += "</tr>"
 		dat += "<tr>"
 		if(containers["glass bottle"])
-			dat += "<td><A href='?src=[UID()];dispense=1'>Dispense</a></td>"
+			dat += "<td><A href='byond://?src=[UID()];dispense=1'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
 		if(containers["plastic bottle"])
-			dat += "<td><A href='?src=[UID()];dispense=2'>Dispense</a></td>"
+			dat += "<td><A href='byond://?src=[UID()];dispense=2'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
 		if(containers["metal can"])
-			dat += "<td><A href='?src=[UID()];dispense=3'>Dispense</a></td>"
+			dat += "<td><A href='byond://?src=[UID()];dispense=3'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
 		dat += "</tr>"
@@ -335,7 +335,7 @@
 		dat += "</tr>"
 
 		dat += "<tr>"
-		for(var/i = 1, i <= slots.len, i++)
+		for(var/i = 1, i <= length(slots), i++)
 			var/obj/O = slots[i]
 			if(O)
 				dat += "<td>[bicon(O)]<br>[O.name]</td>"
@@ -343,18 +343,18 @@
 				dat += "<td>Tray Empty</td>"
 
 		if(slots[1] && slots[2] && slots[3])
-			dat += "<td><A href='?src=[UID()];process=1'>Process Ingredients</a></td>"
+			dat += "<td><A href='byond://?src=[UID()];process=1'>Process Ingredients</a></td>"
 		else
 			dat += "<td>Insufficient Ingredients</td>"
 		dat += "</tr>"
 
 		dat += "<tr>"
-		for(var/i = 1, i <= slots.len, i++)
+		for(var/i = 1, i <= length(slots), i++)
 			if(slots[i])
-				dat += "<td><A href='?src=[UID()];eject=[i]'>Eject</a></td>"
+				dat += "<td><A href='byond://?src=[UID()];eject=[i]'>Eject</a></td>"
 			else
 				dat += "<td>N/A</td>"
-		dat += "<td><A href='?src=[UID()];eject=0'>Eject All</a></td>"
+		dat += "<td><A href='byond://?src=[UID()];eject=0'>Eject All</a></td>"
 		dat += "</tr>"
 		dat += "</table>"
 		dat += "<hr>"

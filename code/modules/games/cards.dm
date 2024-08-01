@@ -50,10 +50,16 @@
 
 /obj/item/deck/Initialize(mapload)
 	. = ..()
+	build_decks()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/deck/proc/build_decks()
+	if(length(cards))
+		// prevent building decks more than once
+		return
 	for(var/deck in 1 to deck_size)
 		build_deck()
 	deck_total = length(cards)
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/deck/proc/build_deck()
 	return
@@ -87,7 +93,7 @@
 // Datum actions
 /datum/action/item_action/draw_card
 	name = "Draw - Draw one card"
-	button_icon_state = "draw"
+	button_overlay_icon_state = "draw"
 	use_itemicon = FALSE
 
 /datum/action/item_action/draw_card/Trigger(left_click)
@@ -98,7 +104,7 @@
 
 /datum/action/item_action/deal_card
 	name = "Deal - deal one card to a person next to you"
-	button_icon_state = "deal_card"
+	button_overlay_icon_state = "deal_card"
 	use_itemicon = FALSE
 
 /datum/action/item_action/deal_card/Trigger(left_click)
@@ -109,7 +115,7 @@
 
 /datum/action/item_action/deal_card_multi
 	name = "Deal multiple card - Deal multiple card to a person next to you"
-	button_icon_state = "deal_card_multi"
+	button_overlay_icon_state = "deal_card_multi"
 	use_itemicon = FALSE
 
 /datum/action/item_action/deal_card_multi/Trigger(left_click)
@@ -120,7 +126,7 @@
 
 /datum/action/item_action/shuffle
 	name = "Shuffle - shuffle the deck"
-	button_icon_state = "shuffle"
+	button_overlay_icon_state = "shuffle"
 	use_itemicon = FALSE
 
 /datum/action/item_action/shuffle/Trigger(left_click)
@@ -157,7 +163,11 @@
 	H.parentdeck = src
 	H.update_values()
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draw a card.</span>")
+	user.visible_message(
+		"<span class='notice'>[user] draws a card.</span>",
+		"<span class='notice'>You draw a card.</span>",
+		"<span class='notice'>You hear a card being drawn.</span>"
+	)
 	to_chat(user,"<span class='notice'>It's the [P].</span>")
 
 /obj/item/deck/proc/deal_card()
@@ -191,8 +201,8 @@
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", max_value = length(cards))
-	if(!dcard)
+	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", 1, length(cards), 1)
+	if(isnull(dcard))
 		return
 	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
 	if(!usr || !src || !M || !Adjacent(usr))
@@ -211,11 +221,18 @@
 		H.concealed = TRUE
 		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
-		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [user.p_themselves()].</span>")
+		user.visible_message(
+			"<span class='notice'>[user] deals [dcard] card\s to [user.p_themselves()].</span>",
+			"<span class='notice'>You deal [dcard] card\s to yourself.</span>",
+			"<span class='notice'>You hear cards being dealt.</span>"
+		)
 	else
-		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [target].</span>")
-	H.throw_at(get_step(target,target.dir),3,1,H)
-
+		user.visible_message(
+			"<span class='notice'>[user] deals [dcard] card\s to [target].</span>",
+			"<span class='notice'>You deal [dcard] card\s to [target].</span>",
+			"<span class='notice'>You hear cards being dealt.</span>"
+		)
+	H.throw_at(get_step(target, target.dir), 3, 1, null)
 
 /obj/item/deck/attack_self()
 	deckshuffle()
@@ -227,8 +244,14 @@
 	var/mob/living/user = usr
 	if(cooldown < world.time - 1 SECONDS)
 		cards = shuffle(cards)
-		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
-		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
+
+		if(user)
+			user.visible_message(
+				"<span class='notice'>[user] shuffles [src].</span>",
+				"<span class='notice'>You shuffle [src].</span>",
+				"<span class='notice'>You hear cards being shuffled.</span>"
+			)
+			playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 		cooldown = world.time
 
 
@@ -236,6 +259,7 @@
 	var/mob/M = usr
 	if(M.incapacitated() || !Adjacent(M))
 		return
+
 	if(!ishuman(M))
 		return
 
@@ -270,7 +294,11 @@
 
 
 /obj/item/pack/attack_self(mob/user as mob)
-	user.visible_message("<span class='notice'>[name] rips open [src]!</span>", "<span class='notice'>You rip open [src]!</span>")
+	user.visible_message(
+		"<span class='notice'>[name] rips open [src]!</span>",
+		"<span class='notice'>You rip open [src]!</span>",
+		"<span class='notice'>You hear the sound of a packet being ripped open.</span>"
+	)
 	var/obj/item/cardhand/H = new(get_turf(user))
 
 	H.cards += cards
@@ -344,14 +372,18 @@
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
+	user.visible_message(
+		"<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>",
+		"<span class='notice'>You[concealed ? "conceal" : "reveal"] your hand.</span>",
+		"<span class='notice'>You hear a hand of cards being flipped over.</span>"
+	)
 
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
 	for(var/t in cards)
-		dat += "<a href='?src=[UID()];pick=[t]'>The [t]</a><br>"
+		dat += "<a href='byond://?src=[UID()];pick=[t]'>The [t]</a><br>"
 	dat += "Which card will you remove next?<br>"
-	dat += "<a href='?src=[UID()];pick=Turn'>Turn the hand over</a>"
+	dat += "<a href='byond://?src=[UID()];pick=Turn'>Turn the hand over</a>"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
 	popup.set_content(dat)
 	popup.open()
@@ -382,7 +414,7 @@
 
 /datum/action/item_action/remove_card
 	name = "Remove a card - Remove a single card from the hand."
-	button_icon_state = "remove_card"
+	button_overlay_icon_state = "remove_card"
 	use_itemicon = FALSE
 
 /datum/action/item_action/remove_card/IsAvailable()
@@ -401,7 +433,7 @@
 
 /datum/action/item_action/discard
 	name = "Discard - Place (a) card(s) from your hand in front of you."
-	button_icon_state = "discard"
+	button_overlay_icon_state = "discard"
 	use_itemicon = FALSE
 
 /datum/action/item_action/discard/Trigger(left_click)
@@ -432,7 +464,11 @@
 	var/datum/playingcard/card = pickablecards[pickedcard]
 	if(loc != user) // Don't want people teleporting cards
 		return
-	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [pickedcard] from your hand.</span>")
+	user.visible_message(
+		"<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>",
+		"<span class='notice'>You take \the [pickedcard] from your hand.</span>",
+		"<span class='notice'>You hear a card being drawn.</span>"
+	)
 	pickedcard = null
 
 	var/obj/item/cardhand/H = new(get_turf(src))
@@ -484,7 +520,11 @@
 		if(length(cards))
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(length(H.cards))
-			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
+			user.visible_message(
+				"<span class='notice'>[user] plays \the [discarding].</span>",
+				"<span class='notice'>You play \the [discarding].</span>",
+				"<span class='notice'>You hear a card being played.</span>"
+			)
 		H.loc = get_step(user, user.dir)
 
 	if(!length(cards))

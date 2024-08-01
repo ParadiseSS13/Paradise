@@ -1,10 +1,3 @@
-/proc/get_area(atom/A)
-	RETURN_TYPE(/area)
-	if(isarea(A))
-		return A
-	var/turf/T = get_turf(A)
-	return T ? T.loc : null
-
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
 	if(!A)
@@ -63,7 +56,7 @@
 /proc/circlerange(center=usr,radius=3)
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/atom/T in range(radius, centerturf))
@@ -78,7 +71,7 @@
 /proc/circleview(center=usr,radius=3)
 
 	var/turf/centerturf = get_turf(center)
-	var/list/atoms = new/list()
+	var/list/atoms = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/atom/A in view(radius, centerturf))
@@ -114,7 +107,7 @@
 /proc/circle_edge_turfs(center = usr, radius = 3) // Get the turfs on the edge of a circle. Currently only works for radius 3
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/turf/T in range(radius, centerturf))
@@ -129,7 +122,7 @@
 /proc/circleviewturfs(center = usr, radius = 3) // All the turfs in a circle of the radius
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/turf/T in view(radius, centerturf))
@@ -142,7 +135,7 @@
 /proc/circlerangeturfs(center = usr, radius = 3)
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius + 0.5)
 
 	for(var/turf/T in range(radius, centerturf))
@@ -159,30 +152,24 @@
 // It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
 // being unable to hear people due to being in a box within a bag.
 
-/proc/recursive_mob_check(atom/O,  list/L = list(), recursion_limit = 3, client_check = 1, sight_check = 1, include_radio = 1)
-
-	//GLOB.debug_mob += O.contents.len
+/proc/recursive_mob_check(atom/O,  list/L = list(), recursion_limit = 3, client_check = TRUE, sight_check = TRUE)
 	if(!recursion_limit)
 		return L
 	for(var/atom/A in O.contents)
-
 		if(ismob(A))
 			var/mob/M = A
 			if(client_check && !M.client)
-				L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check, include_radio)
+				L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check)
 				continue
 			if(sight_check && !isInSight(A, O))
 				continue
 			L |= M
+			for(var/mob/dead/observer/ghost in M.observers)
+				L |= ghost
 			//log_world("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 
-		else if(include_radio && isradio(A))
-			if(sight_check && !isInSight(A, O))
-				continue
-			L |= A
-
 		if(isobj(A) || ismob(A))
-			L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check, include_radio)
+			L |= recursive_mob_check(A, L, recursion_limit - 1, client_check, sight_check)
 	return L
 
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
@@ -197,22 +184,19 @@
 	if(!T)
 		return hear
 
-	var/list/range = hear(R, T)
-
-	for(var/atom/A in range)
+	for(var/atom/A in hear(R, T))
 		if(ismob(A))
 			var/mob/M = A
 			if(M.client || include_clientless)
 				hear += M
-			//log_world("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
-		else if(isradio(A))
-			hear += A
 
 		if(isobj(A) || ismob(A))
-			hear |= recursive_mob_check(A, hear, 3, 1, 0, 1)
+			hear |= recursive_mob_check(A, hear, 3, TRUE, FALSE)
 
 	return hear
 
+/proc/is_same_root_atom(atom/one, atom/two)
+	return get_atom_on_turf(one) == get_atom_on_turf(two)
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
@@ -233,19 +217,33 @@
 			var/turf/speaker = get_turf(R)
 			if(speaker)
 				for(var/turf/T in hear(R.canhear_range,speaker))
-					speaker_coverage[T] = T
-
+					var/obj/item/radio/oldR = speaker_coverage[T]
+					if(!istype(oldR))
+						speaker_coverage[T] = R
+						continue
+					if(oldR.canhear_range < R.canhear_range)
+						speaker_coverage[T] = R
 
 	// Try to find all the players who can hear the message
 	for(var/A in GLOB.player_list + GLOB.hear_radio_list)
 		var/mob/M = A
-		if(M)
-			var/turf/ear = get_turf(M)
-			if(ear)
-				// Ghostship is magic: Ghosts can hear radio chatter from anywhere
-				if(speaker_coverage[ear] || (isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO)))
-					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
-	return .
+		if(!M)
+			continue
+		var/turf/ear = get_turf(M)
+		if(!ear)
+			continue
+		// Ghostship is magic: Ghosts can hear radio chatter from anywhere
+		if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO))
+			. |= M
+			continue
+		if(!speaker_coverage[ear])
+			continue
+		var/obj/item/radio/R = speaker_coverage[ear]
+		if(!istype(R) || R.canhear_range > 0)
+			. |= M
+			continue
+		if(is_same_root_atom(M, speaker_coverage[ear]))
+			. |= M
 
 /proc/inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)
 	var/turf/T
@@ -317,7 +315,7 @@
 	var/roletext = get_roletext(be_special_type)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
-	while(!candidates.len && afk_bracket < 6000)
+	while(!length(candidates) && afk_bracket < 6000)
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
@@ -333,7 +331,7 @@
 	var/roletext = get_roletext(be_special_type)
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
-	while(!candidates.len && afk_bracket < 6000)
+	while(!length(candidates) && afk_bracket < 6000)
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
@@ -365,7 +363,7 @@
 /proc/get_active_player_count()
 	// Get active players who are playing in the round
 	var/active_players = 0
-	for(var/i = 1; i <= GLOB.player_list.len; i++)
+	for(var/i = 1; i <= length(GLOB.player_list); i++)
 		var/mob/M = GLOB.player_list[i]
 		if(M && M.client)
 			if(isnewplayer(M)) // exclude people in the lobby
@@ -377,64 +375,23 @@
 			active_players++
 	return active_players
 
-/datum/projectile_data
-	var/src_x
-	var/src_y
-	var/time
-	var/distance
-	var/power_x
-	var/power_y
-	var/dest_x
-	var/dest_y
-
-/datum/projectile_data/New(var/src_x, var/src_y, var/time, var/distance, \
-						var/power_x, var/power_y, var/dest_x, var/dest_y)
-	src.src_x = src_x
-	src.src_y = src_y
-	src.time = time
-	src.distance = distance
-	src.power_x = power_x
-	src.power_y = power_y
-	src.dest_x = dest_x
-	src.dest_y = dest_y
-
-/proc/projectile_trajectory(src_x, src_y, rotation, angle, power)
-
-	// returns the destination (Vx,y) that a projectile shot at [src_x], [src_y], with an angle of [angle],
-	// rotated at [rotation] and with the power of [power]
-	// Thanks to VistaPOWA for this function
-
-	var/power_x = power * cos(angle)
-	var/power_y = power * sin(angle)
-	var/time = 2* power_y / 10 //10 = g
-
-	var/distance = time * power_x
-
-	var/dest_x = src_x + distance*sin(rotation);
-	var/dest_y = src_y + distance*cos(rotation);
-
-	return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
-
-
 /proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
-	var/area/our_area = get_area(the_area)
 	for(var/mob/M in moblist)
 		if(client_needed && !M.client)
 			continue
-		if(our_area != get_area(M))
+		if(the_area != get_area(M))
 			continue
 		mobs_found += M
 	return mobs_found
 
 /proc/alone_in_area(area/the_area, mob/must_be_alone, check_type = /mob/living/carbon)
-	var/area/our_area = get_area(the_area)
 	for(var/C in GLOB.alive_mob_list)
 		if(!istype(C, check_type))
 			continue
 		if(C == must_be_alone)
 			continue
-		if(our_area == get_area(C))
+		if(the_area == get_area(C))
 			return 0
 	return 1
 
@@ -442,7 +399,7 @@
 	. = FALSE
 	if(!istype(T))
 		return
-	var/datum/gas_mixture/environment = T.return_air()
+	var/datum/gas_mixture/environment = T.get_readonly_air()
 	if(!istype(environment))
 		return
 	var/pressure = environment.return_pressure()
@@ -452,7 +409,7 @@
 /proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname)
 	var/list/willing_ghosts = SSghost_spawns.poll_candidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname)
 	var/list/selected_ghosts = list()
-	if(!willing_ghosts.len)
+	if(!length(willing_ghosts))
 		return selected_ghosts
 
 	var/list/candidate_ghosts = willing_ghosts.Copy()
@@ -464,7 +421,7 @@
 		else
 			candidate_ghosts -= G
 
-	for(var/i = max_slots, (i > 0 && candidate_ghosts.len), i--)
+	for(var/i = max_slots, (i > 0 && length(candidate_ghosts)), i--)
 		var/this_ghost = input("Pick players. This will go on until there either no more ghosts to pick from or the [i] remaining slot(s) are full.", "Candidates") as null|anything in candidate_ghosts
 		candidate_ghosts -= this_ghost
 		selected_ghosts += this_ghost

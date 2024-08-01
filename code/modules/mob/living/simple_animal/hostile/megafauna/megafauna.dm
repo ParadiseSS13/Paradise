@@ -27,7 +27,7 @@
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
-	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
+	mouse_opacity = MOUSE_OPACITY_ICON
 	dodging = FALSE // This needs to be false until someone fixes megafauna pathing so they dont lag-switch teleport at you (09-15-2023)
 	var/list/crusher_loot
 	var/medal_type
@@ -160,8 +160,8 @@
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	icon_icon = 'icons/mob/actions/actions_animal.dmi'
-	button_icon_state = ""
+	button_overlay_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_overlay_icon_state = ""
 	var/mob/living/simple_animal/hostile/megafauna/M
 	var/chosen_message
 	var/chosen_attack_num = 0

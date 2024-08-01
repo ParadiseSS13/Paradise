@@ -103,9 +103,21 @@ Difficulty: Hard
 	BL = new /mob/living/simple_animal/hostile/ancient_robot_leg(loc, src, BOTTOM_LEFT)
 	beam = new /obj/effect/abstract(loc)
 	mode = pick(BLUESPACE, GRAV, PYRO, FLUX, VORTEX, CRYO) //picks one of the 6 cores
-	if(mode == FLUX) // Main attack is shock, so flux makes it stronger
-		melee_damage_lower = 25
-		melee_damage_upper = 25
+	switch(mode)
+		if(BLUESPACE)
+			desc += " It emits sparks of blue energy."
+		if(GRAV)
+			desc += " Gravity seems to distort around it."
+		if(PYRO)
+			desc += " You see flames burning around it."
+		if(FLUX) // Main attack is shock, so flux makes it stronger
+			melee_damage_lower = 25
+			melee_damage_upper = 25
+			desc += " It seems to overflow with energy."
+		if(VORTEX)
+			desc += " You see space bend and distort around it."
+		if(CRYO)
+			desc += " The air surrounding it is cold and listless."
 	body_shield()
 	add_overlay("[mode]")
 	add_overlay("eyes")
@@ -228,7 +240,7 @@ Difficulty: Hard
 	. = ..()
 	var/newcolor = rgb(241, 137, 172)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
-	beam_it_up()
+	addtimer(CALLBACK(src, PROC_REF(beam_it_up)), 0)
 
 /obj/effect/vetus_laser/ex_act(severity)
 	return
@@ -475,7 +487,7 @@ Difficulty: Hard
 	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
 	walk(src, 0)
-	playsound(src,'sound/machines/alarm.ogg',100,0,5)
+	playsound(src,'sound/machines/alarm.ogg', 100, FALSE, 5)
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
@@ -581,7 +593,9 @@ Difficulty: Hard
 				var/turf/C = get_turf(src)
 				new /obj/effect/temp_visual/lava_warning(C, enraged ? 18 SECONDS : 6 SECONDS)
 				for(var/turf/T in range (1,src))
-					new /obj/effect/hotspot(T)
+					var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+					hotspot.temperature = 1000
+					hotspot.recolor()
 					T.hotspot_expose(700,50,1)
 			if(mode == VORTEX)
 				var/turf/T = get_turf(src)

@@ -15,9 +15,9 @@
 /obj/machinery/grey_autocloner/Initialize(mapload)
 	. = ..()
 	air_contents = new()
-	air_contents.oxygen = MOLES_O2STANDARD * 2
-	air_contents.nitrogen = MOLES_N2STANDARD
-	air_contents.temperature = T20C
+	air_contents.set_oxygen(MOLES_O2STANDARD * 2)
+	air_contents.set_nitrogen(MOLES_N2STANDARD)
+	air_contents.set_temperature(T20C)
 
 /obj/machinery/grey_autocloner/Destroy() //These will only be not null if deleted with someone in it
 	occupant = null
@@ -65,7 +65,7 @@
 
 	H.dna = R.dna.Clone()
 
-	H.set_species(/datum/species/grey) //This is a grey cloner after all. Funnier this way tbh
+	H.set_species(/datum/species/grey, skip_same_check = TRUE) //This is a grey cloner after all. Funnier this way tbh
 
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)

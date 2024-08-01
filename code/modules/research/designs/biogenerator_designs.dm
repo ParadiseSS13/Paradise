@@ -56,7 +56,7 @@
 	id = "mcube"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/food/snacks/monkeycube
+	build_path = /obj/item/food/monkeycube
 	category = list("initial", "Food")
 
 /datum/design/farwa_cube
@@ -64,7 +64,7 @@
 	id = "fcube"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/food/snacks/monkeycube/farwacube
+	build_path = /obj/item/food/monkeycube/farwacube
 	category = list("initial", "Food")
 
 /datum/design/wolpin_cube
@@ -72,7 +72,7 @@
 	id = "wcube"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/food/snacks/monkeycube/wolpincube
+	build_path = /obj/item/food/monkeycube/wolpincube
 	category = list("initial", "Food")
 
 /datum/design/stok_cube
@@ -80,7 +80,7 @@
 	id = "scube"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/food/snacks/monkeycube/stokcube
+	build_path = /obj/item/food/monkeycube/stokcube
 	category = list("initial", "Food")
 
 /datum/design/neaera_cube
@@ -88,7 +88,15 @@
 	id = "ncube"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/food/snacks/monkeycube/neaeracube
+	build_path = /obj/item/food/monkeycube/neaeracube
+	category = list("initial", "Food")
+
+/datum/design/nian_wormecube
+	name = "Nian worme cube"
+	id = "nwcube"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 250)
+	build_path = /obj/item/food/monkeycube/nian_wormecube
 	category = list("initial", "Food")
 
 /datum/design/ez_nut
@@ -98,6 +106,14 @@
 	materials = list(MAT_BIOMASS = 10)
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	category = list("initial","Botany Chemicals")
+
+/datum/design/mut_nut
+	name = "Mutrient"
+	id = "mut_nut"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 15)
+	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/mut
+	category = list("initial", "Botany Chemicals")
 
 /datum/design/l4z_nut
 	name = "Left 4 Zed"
@@ -211,10 +227,11 @@
 	build_path = /obj/item/clothing/accessory/holster
 	category = list("initial","Leather and Cloth")
 
-/datum/design/rice_hat
-	name = "Rice hat"
-	id = "rice_hat"
+/datum/design/seaweed
+	name = "Seaweed Sheet"
+	id = "seaweed"
 	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 300)
-	build_path = /obj/item/clothing/head/rice_hat
-	category = list("initial","Leather and Cloth")
+	materials = list(MAT_BIOMASS = 50)
+	build_path = /obj/item/stack/seaweed
+	category = list("initial", "Organic Materials")
+

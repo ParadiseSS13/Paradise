@@ -234,7 +234,7 @@
 /obj/effect/hallucination/delamination_alarm/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 	target.playsound_local(target, 'sound/machines/engine_alert2.ogg', 25, FALSE, 30, 30)
-	target.hear_radio(message_to_multilingual("Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(30, 50)]%"), vname = "supermatter crystal", part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
+	target.hear_radio(message_to_multilingual("<b>Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(30, 50)]%</b>"), vname = "supermatter crystal", part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 
 /**
   * # Hallucination - Plasma Flood
@@ -284,9 +284,9 @@
 		var/turf/source_turf = t
 		expand_queue -= source_turf
 		// Expand to each dir
-		for(var/dir in GLOB.cardinal)
-			var/turf/target_turf = get_step(source_turf, dir)
-			if(processed[target_turf] || !source_turf.CanAtmosPass(target_turf))
+		for(var/direction in GLOB.cardinal)
+			var/turf/target_turf = get_step(source_turf, direction)
+			if(processed[target_turf] || !source_turf.CanAtmosPass(direction) || !target_turf.CanAtmosPass(turn(direction, 180)))
 				continue
 			create_plasma(target_turf)
 			expand_queue += target_turf
@@ -344,7 +344,10 @@
 /obj/effect/hallucination/stunprodding/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/turf/T = pick(RANGE_TURFS(15, target))
+	var/list/possible_turfs = RANGE_TURFS(15, target)
+	if(!length(possible_turfs))
+		return INITIALIZE_HINT_QDEL
+	var/turf/T = pick(possible_turfs)
 	target.playsound_local(T, 'sound/weapons/egloves.ogg', 25, TRUE)
 	target.playsound_local(T, get_sfx("bodyfall"), 25, TRUE)
 	target.playsound_local(T, "sparks", 50, TRUE)
@@ -366,7 +369,10 @@
 /obj/effect/hallucination/energy_sword/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/turf/T = pick(RANGE_TURFS(15, target))
+	var/list/possible_turfs = RANGE_TURFS(15, target)
+	if(!length(possible_turfs))
+		return INITIALIZE_HINT_QDEL
+	var/turf/T = pick(possible_turfs)
 	forceMove(T)
 	target.playsound_local(T, 'sound/weapons/saberon.ogg', 20, TRUE)
 
@@ -398,7 +404,10 @@
 /obj/effect/hallucination/gunfire/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/turf/T = pick(RANGE_TURFS(15, target))
+	var/list/possible_turfs = RANGE_TURFS(15, target)
+	if(!length(possible_turfs))
+		return INITIALIZE_HINT_QDEL
+	var/turf/T = pick(possible_turfs)
 	forceMove(T)
 
 	var/gun_sound = pick('sound/weapons/gunshots/gunshot_pistol.ogg', 'sound/weapons/gunshots/gunshot_strong.ogg')

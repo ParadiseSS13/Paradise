@@ -77,27 +77,16 @@ export class ByondUi extends Component {
   shouldComponentUpdate(nextProps) {
     const { params: prevParams = {}, ...prevRest } = this.props;
     const { params: nextParams = {}, ...nextRest } = nextProps;
-    return (
-      shallowDiffers(prevParams, nextParams) ||
-      shallowDiffers(prevRest, nextRest)
-    );
+    return shallowDiffers(prevParams, nextParams) || shallowDiffers(prevRest, nextRest);
   }
 
   componentDidMount() {
-    // IE8: It probably works, but fuck you anyway.
-    if (Byond.IS_LTE_IE10) {
-      return;
-    }
     window.addEventListener('resize', this.handleResize);
     this.componentDidUpdate();
     this.handleResize();
   }
 
   componentDidUpdate() {
-    // IE8: It probably works, but fuck you anyway.
-    if (Byond.IS_LTE_IE10) {
-      return;
-    }
     const { params = {} } = this.props;
     const box = getBoundingBox(this.containerRef.current);
     logger.debug('bounding box', box);
@@ -110,10 +99,6 @@ export class ByondUi extends Component {
   }
 
   componentWillUnmount() {
-    // IE8: It probably works, but fuck you anyway.
-    if (Byond.IS_LTE_IE10) {
-      return;
-    }
     window.removeEventListener('resize', this.handleResize);
     this.byondUiElement.unmount();
   }

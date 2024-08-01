@@ -42,20 +42,23 @@
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)
 	if(times_fired % 2 == 1)
-		breathe() //Breathe every other tick, unless suffocating
+		var/datum/milla_safe/carbon_breathe/milla = new()
+		milla.invoke_async(src)
 	else
 		if(isobj(loc))
 			var/obj/location_as_object = loc
 			location_as_object.handle_internal_lifeform(src, 0)
 
+/datum/milla_safe/carbon_breathe
+
+/datum/milla_safe/carbon_breathe/on_run(mob/living/carbon/carbon)
+	var/turf/T = get_turf(carbon)
+	carbon.breathe(get_turf_air(T))
+
 //Second link in a breath chain, calls check_breath()
-/mob/living/carbon/proc/breathe()
+/mob/living/carbon/proc/breathe(datum/gas_mixture/environment)
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return
-
-	var/datum/gas_mixture/environment
-	if(loc)
-		environment = loc.return_air()
 
 	var/datum/gas_mixture/breath
 
@@ -77,14 +80,14 @@
 
 			if(isobj(loc)) //Breathe from loc as object
 				var/obj/loc_as_obj = loc
-				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME)
+				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME, environment)
 
 			else if(isturf(loc)) //Breathe from loc as turf
 				var/breath_moles = 0
 				if(environment)
 					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
 
-				breath = loc.remove_air(breath_moles)
+				breath = environment.remove(breath_moles)
 		else //Breathe from loc as obj again
 			if(isobj(loc))
 				var/obj/loc_as_obj = loc
@@ -93,9 +96,8 @@
 	check_breath(breath)
 
 	if(breath)
-		loc.assume_air(breath)
-		air_update_turf()
-		if(ishuman(src) && !internal && environment.temperature < 273 && environment.return_pressure() > 20) //foggy breath :^)
+		environment.merge(breath)
+		if(ishuman(src) && !internal && environment.temperature() < 273 && environment.return_pressure() > 20) //foggy breath :^)
 			new /obj/effect/frosty_breath(loc, src)
 
 //Third and last link in a breath chain
@@ -119,12 +121,12 @@
 	var/SA_para_min = 1
 	var/SA_sleep_min = 1
 	var/oxygen_used = 0
-	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature)/BREATH_VOLUME
+	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature())/BREATH_VOLUME
 
-	var/O2_partialpressure = (breath.oxygen/breath.total_moles())*breath_pressure
-	var/Toxins_partialpressure = (breath.toxins/breath.total_moles())*breath_pressure
-	var/CO2_partialpressure = (breath.carbon_dioxide/breath.total_moles())*breath_pressure
-	var/SA_partialpressure = (breath.sleeping_agent/breath.total_moles())*breath_pressure
+	var/O2_partialpressure = (breath.oxygen() / breath.total_moles()) * breath_pressure
+	var/Toxins_partialpressure = (breath.toxins() / breath.total_moles()) * breath_pressure
+	var/CO2_partialpressure = (breath.carbon_dioxide() / breath.total_moles()) * breath_pressure
+	var/SA_partialpressure = (breath.sleeping_agent() / breath.total_moles()) * breath_pressure
 
 	//OXYGEN
 	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
@@ -133,18 +135,18 @@
 		if(O2_partialpressure > 0)
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
-			oxygen_used = breath.oxygen*ratio
+			oxygen_used = breath.oxygen() * ratio
 		else
 			adjustOxyLoss(3)
 		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		adjustOxyLoss(-5)
-		oxygen_used = breath.oxygen
+		oxygen_used = breath.oxygen()
 		clear_alert("not_enough_oxy")
 
-	breath.oxygen -= oxygen_used
-	breath.carbon_dioxide += oxygen_used
+	breath.set_oxygen(breath.oxygen() - oxygen_used)
+	breath.set_carbon_dioxide(breath.carbon_dioxide() + oxygen_used)
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
@@ -163,14 +165,14 @@
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (breath.toxins/safe_tox_max) * 10
+		var/ratio = (breath.toxins() / safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 
 	//TRACE GASES
-	if(breath.sleeping_agent)
+	if(breath.sleeping_agent())
 		if(SA_partialpressure > SA_para_min)
 			Paralyse(6 SECONDS)
 			if(SA_partialpressure > SA_sleep_min)
@@ -209,7 +211,7 @@
 		if(prob(D.infectivity))
 			D.spread()
 
-		if(stat != DEAD)
+		if(stat != DEAD || D.allow_dead)
 			D.stage_act()
 
 //remember to remove the "proc" of the child procs of these.
@@ -248,12 +250,9 @@
 /mob/living/carbon/handle_status_effects()
 	..()
 	if(stam_regen_start_time <= world.time)
-		if(stam_paralyzed)
-			update_stamina()
 		if(staminaloss)
-			setStaminaLoss(0, FALSE)
+			setStaminaLoss(0)
 			SEND_SIGNAL(src, COMSIG_CARBON_STAMINA_REGENERATED)
-			update_health_hud()
 
 	// Keep SSD people asleep
 	if(player_logged)
@@ -285,6 +284,11 @@
 		else
 			healths.icon_state = "health7"
 
+
+
+/mob/living/carbon/perceived_stamina()
+	return staminaloss - shock_reduction()
+
 /mob/living/carbon/update_damage_hud()
 	if(!client)
 		return
@@ -313,7 +317,7 @@
 					severity = 9
 				if(-INFINITY to -95)
 					severity = 10
-			overlay_fullscreen("crit", /atom/movable/screen/fullscreen/crit, severity)
+			overlay_fullscreen("crit", /atom/movable/screen/fullscreen/stretch/crit, severity)
 	else if(stat == CONSCIOUS)
 		if(check_death_method())
 			clear_fullscreen("crit")
@@ -334,7 +338,7 @@
 						severity = 6
 					if(45 to INFINITY)
 						severity = 7
-				overlay_fullscreen("oxy", /atom/movable/screen/fullscreen/oxy, severity)
+				overlay_fullscreen("oxy", /atom/movable/screen/fullscreen/stretch/oxy, severity)
 			else
 				clear_fullscreen("oxy")
 
@@ -350,12 +354,12 @@
 				if(45 to 70) severity = 4
 				if(70 to 85) severity = 5
 				if(85 to INFINITY) severity = 6
-			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/stretch/brute, severity)
 		else
 			clear_fullscreen("brute")
 
 /mob/living/carbon/proc/handle_patches()
-	var/multiple_patch_multiplier = processing_patches.len > 1 ? (processing_patches.len * 1.5) : 1
+	var/multiple_patch_multiplier = length(processing_patches) > 1 ? (length(processing_patches) * 1.5) : 1
 	var/applied_amount = 0.35 * multiple_patch_multiplier
 
 	for(var/patch in processing_patches)

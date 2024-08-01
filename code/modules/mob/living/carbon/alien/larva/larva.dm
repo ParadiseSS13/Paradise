@@ -7,6 +7,7 @@
 
 	maxHealth = 25
 	health = 25
+	butcher_results = list(/obj/item/food/monstermeat/xenomeat = 1)
 	density = FALSE
 
 	var/temperature_resistance = T0C+75
@@ -25,7 +26,7 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
+	AddSpell(new /datum/spell/alien_spell/evolve_larva)
 	var/datum/action/innate/hide/alien_larva_hide/hide = new()
 	hide.Grant(src)
 
@@ -82,9 +83,6 @@
 
 // new damage icon system
 // now constructs damage icon for each organ from mask * damage field
-
-/mob/living/carbon/alien/larva/show_inv(mob/user as mob)
-	return
 
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE

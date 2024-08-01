@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	. = ..()
 	if(warming_up)
 		. += "+a[warming_up]"
-	if(fields.len)
+	if(length(fields))
 		. += "+on"
 	if(power_level)
 		. += "+p[power_level]"
@@ -77,33 +77,29 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	else
 		to_chat(user, "<span class='warning'>[src] needs to be firmly secured to the floor first!</span>")
 
-
-/obj/machinery/field/generator/attackby(obj/item/W, mob/user, params)
+/obj/machinery/field/generator/wrench_act(mob/living/user, obj/item/W)
+	. = TRUE
 	if(active)
 		to_chat(user, "<span class='warning'>[src] needs to be off!</span>")
 		return
-	else if(istype(W, /obj/item/wrench))
-		switch(state)
-			if(FG_UNSECURED)
-				if(isinspace()) return
-				state = FG_SECURED
-				playsound(loc, W.usesound, 75, 1)
-				user.visible_message("[user.name] secures [name] to the floor.", \
-					"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
-					"<span class='italics'>You hear ratchet.</span>")
-				anchored = TRUE
-			if(FG_SECURED)
-				state = FG_UNSECURED
-				playsound(loc, W.usesound, 75, 1)
-				user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
-					"<span class='notice'>You undo the external reinforcing bolts.</span>", \
-					"<span class='italics'>You hear ratchet.</span>")
-				anchored = FALSE
-			if(FG_WELDED)
-				to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor!</span>")
-	else
-		return ..()
-
+	switch(state)
+		if(FG_UNSECURED)
+			if(isinspace()) return
+			state = FG_SECURED
+			W.play_tool_sound(W, 75)
+			user.visible_message("[user.name] secures [name] to the floor.", \
+				"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
+				"<span class='italics'>You hear ratchet.</span>")
+			anchored = TRUE
+		if(FG_SECURED)
+			state = FG_UNSECURED
+			W.play_tool_sound(W, 75)
+			user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
+				"<span class='notice'>You undo the external reinforcing bolts.</span>", \
+				"<span class='italics'>You hear ratchet.</span>")
+			anchored = FALSE
+		if(FG_WELDED)
+			to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor!</span>")
 
 /obj/machinery/field/generator/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -182,7 +178,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 
 
 /obj/machinery/field/generator/proc/calc_power()
-	var/power_draw = 2 + fields.len
+	var/power_draw = 2 + length(fields)
 
 	if(draw_power(round(power_draw/2, 1)))
 		check_power_level()
@@ -333,11 +329,11 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 		O.last_warning = world.time
 
 /obj/machinery/field/generator/shock_field(mob/living/user)
-	if(fields.len)
+	if(length(fields))
 		..()
 
 /obj/machinery/field/generator/bump_field(atom/movable/AM as mob|obj)
-	if(fields.len)
+	if(length(fields))
 		..()
 
 #undef FG_UNSECURED

@@ -114,6 +114,8 @@
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(P, user.get_inactive_hand())))
+		P.wrench_act(user, user.get_inactive_hand())
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
@@ -125,6 +127,8 @@
 	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION_RIGHT) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
 		P.flip()
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(P, user.get_inactive_hand())))
+		P.attackby(user.get_inactive_hand(), user)
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_transit_tube(mob/user, turf/dest)
@@ -140,6 +144,8 @@
 			S.dir = iconrotation ? iconrotation : user.dir
 
 			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
+			if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(S, user.get_inactive_hand())))
+				S.wrench_act(user, user.get_inactive_hand())
 			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
@@ -330,8 +336,14 @@
 	T.rpd_act(user, src)
 
 /obj/item/rpd/attack_obj(obj/O, mob/living/user)
-	if(istype(O, /obj/machinery/atmospherics/pipe) && user.a_intent != INTENT_HARM)
-		return
+	if(user.a_intent != INTENT_HARM)
+		if(istype(O, /obj/machinery/atmospherics/pipe))
+			return
+		else if(istype(O, /obj/structure/disposalconstruct))
+			return
+		else if(istype(O, /obj/structure/transit_tube_construction))
+			return
+
 	return ..()
 
 #undef RPD_COOLDOWN_TIME

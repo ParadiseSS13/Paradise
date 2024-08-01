@@ -12,7 +12,7 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
-	var/loot = rand(1, 23)
+	var/loot = rand(1, 24)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -61,7 +61,7 @@
 		if(19)
 			new /obj/item/gun/magic/hook(src)
 		if(20)
-			new /obj/item/grenade/clusterbuster/inferno(src)
+			new /obj/item/reagent_containers/drinks/everfull(src)
 		if(21)
 			new /obj/item/reagent_containers/drinks/bottle/holywater/hell(src)
 		if(22)
@@ -69,6 +69,18 @@
 		if(23)
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
+		if(24)
+			switch(rand(1, 11))
+				if(1)
+					new /obj/item/blank_tarot_card(src)
+				if(2 to 5)
+					new /obj/item/tarot_card_pack(src)
+				if(6 to 8)
+					new /obj/item/tarot_card_pack/jumbo(src)
+				if(9, 10)
+					new /obj/item/tarot_card_pack/mega(src)
+				if(11)
+					new /obj/item/tarot_generator(src) // ~1/250? Seems reasonable
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disk
@@ -223,7 +235,7 @@
 /obj/item/clothing/head/hooded/berserker/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(berserk_active)
 		return
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.damage_type == STAMINA)
 			return //no disabler rage
@@ -451,7 +463,7 @@
 /obj/item/organ/internal/cyberimp/arm/katana/Extend()
 	for(var/obj/item/cursed_katana/katana in contents)
 		if(katana.shattered)
-			to_chat(owner, "<span class='warning'> Your cursed katana has not reformed yet!</span>")
+			to_chat(owner, "<span class='warning'>Your cursed katana has not reformed yet!</span>")
 			return FALSE
 	return ..()
 

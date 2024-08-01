@@ -33,7 +33,7 @@
 					to_chat(affected_mob, "<span class='danger'>You feel something in your throat!</span>")
 					affected_mob.emote("cough")
 				else
-					affected_mob.say(pick(list("Mew", "Meow!", "Nya!~")))
+					affected_mob.say(pick("Mew", "Meow!", "Nya!~"))
 		if(4)
 			if(prob(5))
 				if(istajaran(affected_mob))

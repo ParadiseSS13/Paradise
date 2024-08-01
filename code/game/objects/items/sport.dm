@@ -46,7 +46,7 @@
 	. = ..()
 	var/mob/living/carbon/human/M = hit_atom
 	if(ishuman(hit_atom) && (M.wear_suit?.type in suit_types))
-		if(M.r_hand == src || M.l_hand == src)
+		if(M.is_holding(src))
 			return
 		playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
 		M.KnockDown(6 SECONDS)
@@ -67,7 +67,7 @@
 	icon_state = "hoop"
 	anchored = TRUE
 	density = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 
 /obj/structure/holohoop/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/grab) && get_dist(src, user) <= 1)
@@ -86,8 +86,9 @@
 		return
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isitem(AM) && !istype(AM, /obj/item/projectile))
-		if(prob(50) || HAS_TRAIT(throwingdatum.thrower, TRAIT_BADASS))
+	if(isitem(AM) && !isprojectile(AM))
+		var/atom/movable/thrower = throwingdatum?.get_thrower()
+		if(prob(50) || HAS_TRAIT(thrower, TRAIT_BADASS))
 			AM.forceMove(get_turf(src))
 			visible_message("<span class='notice'>Swish! [AM] lands in [src].</span>")
 		else

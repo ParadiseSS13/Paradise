@@ -16,6 +16,8 @@ export const Teleporter = (props, context) => {
     teleporterhub,
     target,
     locked,
+    adv_beacon_allowed,
+    advanced_beacon_locking,
   } = data;
   return (
     <Window width={350} height={270}>
@@ -25,16 +27,38 @@ export const Teleporter = (props, context) => {
             {(!powerstation || !teleporterhub) && (
               <Section fill title="Error">
                 {teleporterhub}
-                {!powerstation && (
-                  <Box color="bad"> Powerstation not linked </Box>
-                )}
-                {powerstation && !teleporterhub && (
-                  <Box color="bad"> Teleporter hub not linked </Box>
-                )}
+                {!powerstation && <Box color="bad"> Powerstation not linked </Box>}
+                {powerstation && !teleporterhub && <Box color="bad"> Teleporter hub not linked </Box>}
               </Section>
             )}
             {powerstation && teleporterhub && (
-              <Section fill scrollable title="Status">
+              <Section
+                fill
+                scrollable
+                title="Status"
+                buttons={
+                  // eslint-disable-next-line react/jsx-no-useless-fragment
+                  <>
+                    {!!adv_beacon_allowed && (
+                      <>
+                        <Box inline color="label">
+                          Advanced Beacon Locking:&nbsp;
+                        </Box>
+                        <Button
+                          selected={advanced_beacon_locking}
+                          icon={advanced_beacon_locking ? 'toggle-on' : 'toggle-off'}
+                          content={advanced_beacon_locking ? 'Enabled' : 'Disabled'}
+                          onClick={() =>
+                            act('advanced_beacon_locking', {
+                              on: advanced_beacon_locking ? 0 : 1,
+                            })
+                          }
+                        />
+                      </>
+                    )}
+                  </>
+                }
+              >
                 <Stack mb={1}>
                   <Stack.Item width={8.5} color="label">
                     Teleport target:
@@ -47,6 +71,7 @@ export const Teleporter = (props, context) => {
                       <Dropdown
                         width={18.2}
                         selected={target}
+                        disabled={calibrating}
                         options={Object.keys(targetsTeleport)}
                         color={target !== 'None' ? 'default' : 'bad'}
                         onSelected={(val) =>
@@ -54,6 +79,7 @@ export const Teleporter = (props, context) => {
                             x: targetsTeleport[val]['x'],
                             y: targetsTeleport[val]['y'],
                             z: targetsTeleport[val]['z'],
+                            tptarget: targetsTeleport[val]['pretarget'],
                           })
                         }
                       />
@@ -62,6 +88,7 @@ export const Teleporter = (props, context) => {
                       <Dropdown
                         width={18.2}
                         selected={target}
+                        disabled={calibrating}
                         options={Object.keys(targetsTeleport)}
                         color={target !== 'None' ? 'default' : 'bad'}
                         onSelected={(val) =>
@@ -69,6 +96,7 @@ export const Teleporter = (props, context) => {
                             x: targetsTeleport[val]['x'],
                             y: targetsTeleport[val]['y'],
                             z: targetsTeleport[val]['z'],
+                            tptarget: targetsTeleport[val]['pretarget'],
                           })
                         }
                       />
@@ -97,9 +125,7 @@ export const Teleporter = (props, context) => {
                       tooltip="One-way teleport."
                       tooltipPosition="top"
                       color={regime === REGIME_TELEPORT ? 'good' : null}
-                      onClick={() =>
-                        act('setregime', { regime: REGIME_TELEPORT })
-                      }
+                      onClick={() => act('setregime', { regime: REGIME_TELEPORT })}
                     />
                   </Stack.Item>
                   <Stack.Item grow textAlign="center">
@@ -122,12 +148,8 @@ export const Teleporter = (props, context) => {
                     {target !== 'None' && (
                       <Stack fill>
                         <Stack.Item width={15.8} textAlign="center" mt={0.5}>
-                          {(calibrating && (
-                            <Box color="average">In Progress</Box>
-                          )) ||
-                            (calibrated && <Box color="good">Optimal</Box>) || (
-                              <Box color="bad">Sub-Optimal</Box>
-                            )}
+                          {(calibrating && <Box color="average">In Progress</Box>) ||
+                            (calibrated && <Box color="good">Optimal</Box>) || <Box color="bad">Sub-Optimal</Box>}
                         </Stack.Item>
                         <Stack.Item grow>
                           <Button
@@ -142,19 +164,12 @@ export const Teleporter = (props, context) => {
                         </Stack.Item>
                       </Stack>
                     )}
-                    {target === 'None' && (
-                      <Box lineHeight="21px">No target set</Box>
-                    )}
+                    {target === 'None' && <Box lineHeight="21px">No target set</Box>}
                   </Stack.Item>
                 </Stack>
               </Section>
             )}
-            {!!(
-              locked &&
-              powerstation &&
-              teleporterhub &&
-              regime === REGIME_GPS
-            ) && (
+            {!!(locked && powerstation && teleporterhub && regime === REGIME_GPS) && (
               <Section title="GPS">
                 <Stack>
                   <Button
@@ -163,12 +178,7 @@ export const Teleporter = (props, context) => {
                     icon="upload"
                     onClick={() => act('load')}
                   />
-                  <Button
-                    content="Eject"
-                    tooltip="Ejects the GPS device"
-                    icon="eject"
-                    onClick={() => act('eject')}
-                  />
+                  <Button content="Eject" tooltip="Ejects the GPS device" icon="eject" onClick={() => act('eject')} />
                 </Stack>
               </Section>
             )}

@@ -21,7 +21,7 @@
 	. = ..()
 	if(parts)
 		for(var/i in 1 to 2)
-			if(!parts.len)
+			if(!length(parts))
 				break
 			if(prob(60))
 				continue
@@ -53,7 +53,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(crowbar_salvage.len)
+	if(length(crowbar_salvage))
 		var/obj/S = pick(crowbar_salvage)
 		S.forceMove(user.drop_location())
 		user.visible_message("<span class='notice'>[user] pries [S] from [src].</span>", "<span class='notice'>You pry [S] from [src].</span>")

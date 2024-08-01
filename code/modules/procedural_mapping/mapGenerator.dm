@@ -83,7 +83,7 @@
 //Requests the mapGeneratorModule(s) to (re)generate
 /datum/mapGenerator/proc/generate()
 	syncModules()
-	if(!modules || !modules.len)
+	if(!modules || !length(modules))
 		return
 	for(var/datum/mapGeneratorModule/mod in modules)
 		spawn(0)
@@ -95,7 +95,7 @@
 	if(!T)
 		return
 	syncModules()
-	if(!modules || !modules.len)
+	if(!modules || !length(modules))
 		return
 	for(var/datum/mapGeneratorModule/mod in modules)
 		spawn(0)

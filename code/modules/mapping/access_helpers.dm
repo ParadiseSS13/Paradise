@@ -1,10 +1,13 @@
 /obj/effect/mapping_helpers/airlock/access
-	layer = DOOR_HELPER_LAYER
+	layer = SPLASHSCREEN_PLANE + 0.1 // Above even airlock spawners
 	icon_state = "access_helper"
 	var/access
 
 // These are mutually exclusive; can't have req_any and req_all
 /obj/effect/mapping_helpers/airlock/access/any/payload(obj/machinery/door/airlock/airlock)
+	if(is_type_in_list(airlock, blacklist))
+		return
+
 	if(airlock.req_access_txt == "0")
 		// Overwrite if there is no access set, otherwise add onto existing access
 		if(airlock.req_one_access_txt == "0")
@@ -15,6 +18,9 @@
 		log_world("[src] at [AREACOORD(src)] tried to set req_one_access, but req_access was already set!")
 
 /obj/effect/mapping_helpers/airlock/access/all/payload(obj/machinery/door/airlock/airlock)
+	if(is_type_in_list(airlock, blacklist))
+		return
+
 	if(airlock.req_one_access_txt == "0")
 		if(airlock.req_access_txt == "0")
 			airlock.req_access_txt = "[access]"
@@ -40,7 +46,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/command/eva
 	access = ACCESS_EVA
 
-/obj/effect/mapping_helpers/airlock/access/any/command/expedition
+/obj/effect/mapping_helpers/airlock/access/any/supply/expedition
 	access = ACCESS_EXPEDITION
 
 /obj/effect/mapping_helpers/airlock/access/any/command/hop
@@ -171,7 +177,7 @@
 	access = ACCESS_HOS
 
 /obj/effect/mapping_helpers/airlock/access/any/security/iaa
-	access = ACCESS_LAWYER
+	access = ACCESS_INTERNAL_AFFAIRS
 
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/access/any/service
@@ -259,7 +265,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/eva
 	access = ACCESS_EVA
 
-/obj/effect/mapping_helpers/airlock/access/all/command/expedition
+/obj/effect/mapping_helpers/airlock/access/all/supply/expedition
 	access = ACCESS_EXPEDITION
 
 /obj/effect/mapping_helpers/airlock/access/all/command/hop
@@ -390,7 +396,7 @@
 	access = ACCESS_HOS
 
 /obj/effect/mapping_helpers/airlock/access/all/security/iaa
-	access = ACCESS_LAWYER
+	access = ACCESS_INTERNAL_AFFAIRS
 
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/access/all/service
@@ -411,8 +417,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/service/chapel_office
 	access = ACCESS_CHAPEL_OFFICE
 
-/obj/effect/mapping_helpers/airlock/access/all/service/crematorium
-	access = ACCESS_CREMATORIUM
 
 /obj/effect/mapping_helpers/airlock/access/all/service/crematorium
 	access = ACCESS_CREMATORIUM

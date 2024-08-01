@@ -5,7 +5,7 @@
 	icon_state = "seed-cannabis"
 	species = "cannabis"
 	plantname = "Cannabis Plant"
-	product = /obj/item/food/snacks/grown/cannabis
+	product = /obj/item/food/grown/cannabis
 	maturation = 8
 	potency = 20
 	growthstages = 1
@@ -24,7 +24,7 @@
 	icon_state = "seed-megacannabis"
 	species = "megacannabis"
 	plantname = "Rainbow Weed"
-	product = /obj/item/food/snacks/grown/cannabis/rainbow
+	product = /obj/item/food/grown/cannabis/rainbow
 	mutatelist = list(/obj/item/seeds/cannabis/death,
 						/obj/item/seeds/cannabis/ultimate)
 	reagents_add = list("lsd" = 0.15, "thc" = 0.15, "cbd" = 0.15, "happiness" = 0.15)
@@ -36,7 +36,7 @@
 	icon_state = "seed-blackcannabis"
 	species = "blackcannabis"
 	plantname = "Deathweed"
-	product = /obj/item/food/snacks/grown/cannabis/death
+	product = /obj/item/food/grown/cannabis/death
 	mutatelist = list()
 	reagents_add = list("cyanide" = 0.35, "thc" = 0.15, "cbd" = 0.15)
 	rarity = 40
@@ -47,7 +47,7 @@
 	icon_state = "seed-whitecannabis"
 	species = "whitecannabis"
 	plantname = "Lifeweed"
-	product = /obj/item/food/snacks/grown/cannabis/white
+	product = /obj/item/food/grown/cannabis/white
 	mutatelist = list(/obj/item/seeds/cannabis/death,
 						/obj/item/seeds/cannabis/ultimate)
 	reagents_add = list("omnizine" = 0.35, "thc" = 0.15, "cbd" = 0.15)
@@ -60,7 +60,7 @@
 	icon_state = "seed-ocannabis"
 	species = "ocannabis"
 	plantname = "Omega Weed"
-	product = /obj/item/food/snacks/grown/cannabis/ultimate
+	product = /obj/item/food/grown/cannabis/ultimate
 	mutatelist = list()
 	reagents_add = list("lsd" = 0.05,
 						"suicider" = 0.05,
@@ -85,7 +85,7 @@
 
 // ---------------------------------------------------------------
 
-/obj/item/food/snacks/grown/cannabis
+/obj/item/food/grown/cannabis
 	seed = /obj/item/seeds/cannabis
 	icon = 'icons/goonstation/objects/hydroponics.dmi'
 	name = "cannabis leaf"
@@ -97,28 +97,28 @@
 	wine_power = 0.2
 
 
-/obj/item/food/snacks/grown/cannabis/rainbow
+/obj/item/food/grown/cannabis/rainbow
 	seed = /obj/item/seeds/cannabis/rainbow
 	name = "rainbow cannabis leaf"
 	desc = "Is it supposed to be glowing like that...?"
 	icon_state = "megacannabis"
 	wine_power = 0.6
 
-/obj/item/food/snacks/grown/cannabis/death
+/obj/item/food/grown/cannabis/death
 	seed = /obj/item/seeds/cannabis/death
 	name = "death cannabis leaf"
 	desc = "Looks a bit dark. Oh well."
 	icon_state = "blackcannabis"
 	wine_power = 0.4
 
-/obj/item/food/snacks/grown/cannabis/white
+/obj/item/food/grown/cannabis/white
 	seed = /obj/item/seeds/cannabis/white
 	name = "white cannabis leaf"
 	desc = "It feels smooth and nice to the touch."
 	icon_state = "whitecannabis"
 	wine_power = 0.1
 
-/obj/item/food/snacks/grown/cannabis/ultimate
+/obj/item/food/grown/cannabis/ultimate
 	seed = /obj/item/seeds/cannabis/ultimate
 	name = "omega cannibas leaf"
 	desc = "You feel dizzy looking at it. What the fuck?"

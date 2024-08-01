@@ -53,7 +53,7 @@
 	},
 /area/syndicate_depot/outer)
 "al" = (
-/obj/item/food/snacks/monstermeat/spiderleg,
+/obj/item/food/monstermeat/spiderleg,
 /obj/structure/spider,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -614,7 +614,7 @@
 /area/syndicate_depot/core)
 "bO" = (
 /obj/structure/table,
-/obj/item/food/snacks/syndicake,
+/obj/item/food/syndicake,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -665,7 +665,7 @@
 "bV" = (
 /obj/structure/table,
 /obj/item/folder/syndicate/yellow,
-/obj/item/pen,
+/obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1168,6 +1168,9 @@
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
+"Te" = (
+/turf/simulated/mineral/random/high_chance,
+/area/syndicate_depot/outer)
 
 (1,1,1) = {"
 aa
@@ -1500,8 +1503,8 @@ ad
 ad
 ad
 ad
-ad
-ad
+Te
+Te
 ad
 ad
 ad
@@ -1542,19 +1545,19 @@ ac
 ac
 ad
 ad
-ad
+Te
 ad
 af
-af
-ad
-ad
-ad
-ad
-ad
 af
 ad
 ad
 ad
+ad
+ad
+af
+Te
+Te
+Te
 ad
 ad
 ad
@@ -1592,7 +1595,7 @@ ac
 ac
 ad
 ad
-ad
+Te
 af
 am
 aU
@@ -1643,7 +1646,7 @@ ac
 ad
 ad
 ad
-ad
+Te
 af
 af
 aV
@@ -1972,8 +1975,8 @@ cM
 am
 dc
 af
-ad
-ad
+Te
+Te
 ad
 ac
 ac
@@ -2023,8 +2026,8 @@ af
 af
 af
 af
-ad
-ad
+Te
+Te
 ad
 ad
 ac
@@ -2075,7 +2078,7 @@ af
 af
 af
 af
-ad
+Te
 ad
 ad
 ad
@@ -2126,7 +2129,7 @@ af
 af
 ap
 af
-ad
+Te
 ad
 ad
 ac
@@ -2303,7 +2306,7 @@ ad
 ad
 ad
 ad
-ad
+Te
 ad
 ad
 ad
@@ -2355,8 +2358,8 @@ ad
 ad
 am
 af
-ad
-ad
+Te
+Te
 ad
 at
 aQ
@@ -2401,12 +2404,12 @@ ac
 ac
 ac
 ad
-ad
-ad
+Te
+Te
 ad
 an
 af
-ad
+Te
 ad
 ad
 at
@@ -2453,7 +2456,7 @@ ac
 ad
 ad
 ac
-ad
+Te
 ad
 af
 ap
@@ -2498,13 +2501,13 @@ aa
 (27,1,1) = {"
 ab
 ac
-ad
+Te
 ac
 ac
 ac
 ac
 ac
-ad
+Te
 ad
 af
 af
@@ -2537,7 +2540,7 @@ af
 af
 af
 ad
-ad
+Te
 ad
 ac
 ac
@@ -2587,8 +2590,8 @@ at
 af
 ap
 af
-ad
-ad
+Te
+Te
 ad
 ac
 ac
@@ -2755,7 +2758,7 @@ aa
 ac
 ac
 ac
-ad
+Te
 ac
 ac
 ac
@@ -2842,7 +2845,7 @@ aD
 at
 af
 af
-ad
+Te
 ad
 ad
 ad
@@ -2893,7 +2896,7 @@ bv
 at
 af
 af
-ad
+Te
 ad
 ac
 ad
@@ -2944,7 +2947,7 @@ at
 at
 cM
 af
-ad
+Te
 ad
 ac
 ac
@@ -3221,7 +3224,7 @@ ad
 ad
 ad
 ad
-ad
+Te
 ad
 ad
 ad
@@ -3241,9 +3244,9 @@ ad
 ad
 ad
 ad
-ad
-ad
-ad
+Te
+Te
+Te
 ad
 ad
 ad
@@ -3269,10 +3272,10 @@ ac
 ad
 ad
 ad
+Te
 ad
 ad
-ad
-ad
+Te
 ad
 ad
 ad
@@ -3291,8 +3294,8 @@ ad
 ad
 bf
 bf
-ad
-ad
+Te
+Te
 ad
 ad
 ad
@@ -3320,10 +3323,10 @@ ad
 ad
 ad
 ad
+Te
+Te
 ad
-ad
-ad
-ad
+Te
 ad
 ad
 ad
@@ -3371,13 +3374,13 @@ ac
 ad
 ad
 ad
+Te
+Te
+Te
+Te
 ad
 ad
-ad
-ad
-ad
-ad
-ad
+Te
 ad
 ad
 ad
@@ -3421,17 +3424,17 @@ ac
 ad
 ad
 ad
+Te
+Te
+Te
+Te
 ad
 ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
+Te
+Te
+Te
+Te
+Te
 ad
 bf
 bm
@@ -3472,16 +3475,16 @@ ad
 ad
 ad
 ad
+Te
+Te
+Te
 ad
 ad
 ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
+Te
+Te
+Te
+Te
 ad
 ad
 bf
@@ -3524,13 +3527,13 @@ ad
 ad
 ad
 ad
+Te
 ad
 ad
 ad
-ad
-ad
-ad
-ad
+Te
+Te
+Te
 ad
 ad
 ad
@@ -3580,7 +3583,7 @@ ad
 ad
 ad
 ad
-ad
+Te
 ad
 ad
 ad

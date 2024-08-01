@@ -2,7 +2,7 @@
   * # local_powernet
   *
   * Manages all power related mechanics for a single /area
-  * Machines in areas will directly register to this datum in order to recieve power
+  * Machines in areas will directly register to this datum in order to receive power
   *
   * Machine/Turf/Item -> Local Powernet -> APC -> Terminal -> Wirenet
   *
@@ -105,7 +105,9 @@
 		return FALSE
 	if(power_flags & PW_ALWAYS_POWERED) //if this powernet is always powered, we always return TRUE
 		return TRUE
-	if(powernet_apc?.stat & (BROKEN|MAINT)) //no working apc, no power
+	if(!powernet_apc)
+		return FALSE
+	if(powernet_apc.stat & (BROKEN|MAINT)) // no working apc, no power
 		return FALSE
 
 	switch(channel)

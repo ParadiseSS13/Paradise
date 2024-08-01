@@ -15,7 +15,7 @@
 
 /obj/item/holder/process()
 
-	if(isturf(loc) || !(contents.len))
+	if(isturf(loc) || !(length(contents)))
 
 		for(var/mob/M in contents)
 
@@ -29,9 +29,9 @@
 	for(var/mob/M in src.contents)
 		M.attackby(W,user, params)
 
-/obj/item/holder/proc/show_message(message, m_type)
+/obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)
-		M.show_message(message,m_type)
+		M.show_message(message, m_type, chat_message_type)
 
 /obj/item/holder/emp_act(intensity)
 	for(var/mob/living/M in contents)
@@ -94,6 +94,12 @@
 	desc = "It's a small maintenance robot."
 	icon_state = "drone"
 
+/obj/item/holder/nian_caterpillar
+	name = "nian caterpillar"
+	desc = "It's a tiny little itty bitty critter."
+	icon_state = "mothroach"
+	slot_flags = SLOT_FLAG_HEAD
+
 /obj/item/holder/drone/emagged
 	name = "maintenance drone"
 	icon_state = "drone-emagged"
@@ -120,3 +126,9 @@
 	desc = "Hopefully the eggs are good this season."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "chicken_brown"
+
+/obj/item/holder/chick
+	name = "chick"
+	desc = "You're one of this chick's favorite peeps."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "chick"

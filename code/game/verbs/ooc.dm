@@ -91,7 +91,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 						display_name = holder.fakekey
 
 			if(GLOB.configuration.general.enable_ooc_emoji)
-				msg = "<span class='emoji_enabled'>[msg]</span>"
+				msg = emoji_parse(msg)
 
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
 
@@ -105,61 +105,6 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 /proc/auto_toggle_ooc(on)
 	if(GLOB.configuration.general.auto_disable_ooc && GLOB.ooc_enabled != on)
 		toggle_ooc()
-
-/client/proc/set_ooc(newColor as color)
-	set name = "Set Player OOC Colour"
-	set desc = "Modifies the default player OOC color."
-	set category = "Server"
-
-	if(!check_rights(R_SERVER))	return
-
-	GLOB.normal_ooc_colour = newColor
-	message_admins("[key_name_admin(usr)] has set the default player OOC color to [newColor]")
-	log_admin("[key_name(usr)] has set the default player OOC color to [newColor]")
-
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Player OOC")
-
-/client/proc/reset_ooc()
-	set name = "Reset Player OOC Color"
-	set desc = "Returns the default player OOC color to default."
-	set category = "Server"
-
-	if(!check_rights(R_SERVER))	return
-
-	GLOB.normal_ooc_colour = DEFAULT_PLAYER_OOC_COLOUR
-	message_admins("[key_name_admin(usr)] has reset the default player OOC color")
-	log_admin("[key_name(usr)] has reset the default player OOC color")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reset Player OOC")
-
-/client/proc/colorooc()
-	set name = "Set Your OOC Color"
-	set desc = "Allows you to pick a custom OOC color."
-	set category = "Preferences"
-
-	if(!check_rights(R_ADMIN)) return
-
-	var/new_ooccolor = input(src, "Please select your OOC color.", "OOC color", prefs.ooccolor) as color|null
-	if(new_ooccolor)
-		prefs.ooccolor = new_ooccolor
-		prefs.save_preferences(src)
-		to_chat(usr, "Your OOC color has been set to [new_ooccolor].")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Own OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/resetcolorooc()
-	set name = "Reset Your OOC Color"
-	set desc = "Returns your OOC color to default."
-	set category = "Preferences"
-
-	if(!check_rights(R_ADMIN)) return
-
-	prefs.ooccolor = initial(prefs.ooccolor)
-	prefs.save_preferences(src)
-	to_chat(usr, "Your OOC color has been reset.")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reset Own OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/looc(msg = "" as text)
 	set name = "LOOC"
@@ -247,7 +192,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 					prefix = "(R)"
 
 			if(send)
-				to_chat(target, "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><EM>[display_name][admin_stuff]:</EM> <span class='message'>[msg]</span></span></span>")
+				to_chat(target, "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><em>[display_name][admin_stuff]:</em> <span class='message'>[msg]</span></span></span>", MESSAGE_TYPE_OOC)
 
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.

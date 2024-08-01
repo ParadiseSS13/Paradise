@@ -34,21 +34,21 @@
 	var/cell_charge = get_charge()
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
-	var/cabin_pressure = round(return_pressure(),0.01)
+	var/cabin_pressure = round(cabin_air.return_pressure(),0.01)
 	var/output = {"[report_internal_damage()]
 						[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]
 						[internal_damage&MECHA_INT_TEMP_CONTROL?"<font color='red'><b>CLOWN SUPPORT SYSTEM MALFUNCTION</b></font><br>":null]
 						[internal_damage&MECHA_INT_TANK_BREACH?"<font color='red'><b>GAS TANK HONK</b></font><br>":null]
-						[internal_damage&MECHA_INT_CONTROL_LOST?"<font color='red'><b>HONK-A-DOODLE</b></font> - <a href='?src=[UID()];repair_int_control_lost=1'>Recalibrate</a><br>":null]
+						[internal_damage&MECHA_INT_CONTROL_LOST?"<font color='red'><b>HONK-A-DOODLE</b></font> - <a href='byond://?src=[UID()];repair_int_control_lost=1'>Recalibrate</a><br>":null]
 						<b>IntegriHONK: </b> [integrity]%<br>
 						<b>PowerHONK charge: </b>[isnull(cell_charge)?"No powercell installed":"[cell.percent()]%"]<br>
 						<b>Air source: </b>[use_internal_tank?"Internal Airtank":"Environment"]<br>
 						<b>AirHONK pressure: </b>[tank_pressure]kPa<br>
 						<b>AirHONK temperature: </b>[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C<br>
 						<b>HONK pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? "<font color='red'>[cabin_pressure]</font>": cabin_pressure]kPa<br>
-						<b>HONK temperature: </b> [return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C<br>
+						<b>HONK temperature: </b> [cabin_air.temperature()]&deg;K|[cabin_air.temperature() - T0C]&deg;C<br>
 						<b>Lights: </b>[lights?"on":"off"]<br>
-						[dna?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna]</span> \[<a href='?src=[UID()];reset_dna=1'>Reset</a>\]<br>":null]
+						[dna?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna]</span> \[<a href='byond://?src=[UID()];reset_dna=1'>Reset</a>\]<br>":null]
 					"}
 	return output
 
@@ -111,7 +111,7 @@
 	var/output = {"<div class='wr'>
 						<div class='header'>Sounds of HONK:</div>
 						<div class='links'>
-						<a href='?src=[UID()];play_sound=sadtrombone'>Sad Trombone</a>
+						<a href='byond://?src=[UID()];play_sound=sadtrombone'>Sad Trombone</a>
 						</div>
 						</div>
 						"}
@@ -120,7 +120,7 @@
 
 
 /obj/mecha/combat/honker/get_equipment_list()
-	if(!equipment.len)
+	if(!length(equipment))
 		return
 	var/output = "<b>Honk-ON-Systems:</b><div style=\"margin-left: 15px;\">"
 	for(var/obj/item/mecha_parts/mecha_equipment/MT in equipment)
@@ -135,3 +135,11 @@
 			if("sadtrombone")
 				playsound(src, 'sound/misc/sadtrombone.ogg', 50)
 	return
+
+/obj/mecha/combat/honker/examine_more(mob/user)
+	. = ..()
+	. += "<i>A cheerful, colorful modification of a Durand chassis, the Honk mech is designed as heavy laughterfield support for producing mass honking casualties. \
+	Built and perfected by some of the most skilled Clowns ever known to the galaxy, with materials and labor provided by Donk Co, the Honk has somehow managed to have its design smuggled aboard almost ever Nanotrasen station, to the imminent laughter (screams) and joy (despair) of it's crew!</i>"
+	. += ""
+	. += "<i>Equipped with a massive HoNkER BlAsT 5000 horn and long range mortars capable of firing both slippery banana peels and dangerous mousetraps, the Honk is well equipped to provide a Clown with everything they need to 'entertain' a station's crew, and to draw the ire of any nearby Security. \
+	Honk!</i>"

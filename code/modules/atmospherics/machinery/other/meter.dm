@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 /obj/machinery/atmospherics/meter
 	name = "gas flow meter"
-	desc = "A gas flow meter"
+	desc = "A meter used by experienced atmospheric technicians to determine pressure and temperature in a pipe."
 	icon = 'icons/obj/meter.dmi'
 	icon_state = "meterX"
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
@@ -27,15 +27,6 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	return ..()
 
 /obj/machinery/atmospherics/meter/process_atmos()
-	if(!target || (stat & (BROKEN|NOPOWER)))
-		update_icon(UPDATE_ICON_STATE)
-		return
-
-	var/datum/gas_mixture/environment = target.return_air()
-	if(!environment)
-		update_icon(UPDATE_ICON_STATE)
-		return
-
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/meter/update_icon_state()
@@ -47,7 +38,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 		icon_state = "meter0"
 		return
 
-	var/datum/gas_mixture/environment = target.return_air()
+	var/datum/gas_mixture/environment = target.return_obj_air()
 	if(!environment)
 		icon_state = "meterX"
 		return
@@ -77,9 +68,9 @@ GLOBAL_LIST_EMPTY(gas_meters)
 		. += "<span class='danger'>The display is off.</span>"
 
 	else if(target)
-		var/datum/gas_mixture/environment = target.return_air()
+		var/datum/gas_mixture/environment = target.return_obj_air()
 		if(environment)
-			. += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C)"
+			. += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature(), 0.01)]K ([round(environment.temperature() - T0C, 0.01)]&deg;C)"
 		else
 			. += "The sensor error light is blinking."
 	else
@@ -92,17 +83,19 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 	return ..()
 
-/obj/machinery/atmospherics/meter/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(!iswrench(W))
-		return ..()
-	playsound(loc, W.usesound, 50, 1)
-	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-	if(do_after(user, 40 * W.toolspeed, target = src))
-		user.visible_message( \
-			"[user] unfastens \the [src].", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
-			"You hear ratchet.")
-		deconstruct(TRUE)
+/obj/machinery/atmospherics/meter/wrench_act(mob/living/user, obj/item/wrench/W)
+	// don't call parent here, we're kind of different
+	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
+	if(!W.use_tool(src, user, volume = W.tool_volume))
+		return
+
+	user.visible_message(
+		"[user] unfastens [src].",
+		"<span class='notice'>You have unfastened [src].</span>",
+		"You hear ratchet."
+	)
+	deconstruct(TRUE)
+	return TRUE
 
 /obj/machinery/atmospherics/meter/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

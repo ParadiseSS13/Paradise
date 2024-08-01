@@ -48,7 +48,10 @@
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
 /mob/proc/ClickOn(atom/A, params)
-	if(client.click_intercept)
+	if(QDELETED(A))
+		return
+
+	if(client?.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
@@ -106,7 +109,6 @@
 		return M.click_action(A, src, params)
 
 	if(restrained())
-		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)
 		return
 
@@ -498,10 +500,10 @@
 		var/mob/living/carbon/C = usr
 		C.swap_hand()
 	else
-		var/turf/T = params2turf(modifiers["screen-loc"], get_turf(usr))
-		params += "&catcher=1"
-		if(T)
-			T.Click(location, control, params)
+		var/turf/click_turf = parse_caught_click_modifiers(modifiers, get_turf(usr.client ? usr.client.eye : usr), usr.client)
+		if(click_turf)
+			modifiers["catcher"] = TRUE
+			click_turf.Click(location, control, list2params(modifiers))
 	. = 1
 
 #undef MAX_SAFE_BYOND_ICON_SCALE_TILES

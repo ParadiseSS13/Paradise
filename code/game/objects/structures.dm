@@ -3,11 +3,15 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	face_while_pulling = TRUE
+	flags_ricochet = RICOCHET_HARD
+	receive_ricochet_chance_mod = 0.6
 	var/climbable
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
 	var/mob/living/climber
 	var/broken = FALSE
+	/// How long this takes to unbuckle yourself from.
+	var/unbuckle_time = 0 SECONDS
 
 /obj/structure/New()
 	..()
@@ -116,7 +120,7 @@
 
 			var/obj/item/organ/external/affecting
 
-			switch(pick(list("ankle","wrist","head","knee","elbow")))
+			switch(pick("ankle","wrist","head","knee","elbow"))
 				if("ankle")
 					affecting = H.get_organ(pick("l_foot", "r_foot"))
 				if("knee")

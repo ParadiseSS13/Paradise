@@ -1,10 +1,9 @@
+#define XENO_TOTAL_LAYERS 6
 /mob/living/carbon/alien/humanoid
 	name = "alien"
 	icon_state = "alien_s"
 
-	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
-	var/obj/item/r_store = null
-	var/obj/item/l_store = null
+	butcher_results = list(/obj/item/food/monstermeat/xenomeat = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	var/caste = ""
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
@@ -13,8 +12,16 @@
 	var/alien_slash_damage = 20 //Aliens deal a good amount of damage on harm intent
 	var/alien_movement_delay = 0 //This can be + or -, how fast an alien moves
 	var/temperature_resistance = T0C+75
+	var/list/overlays_standing[XENO_TOTAL_LAYERS]
 	pass_flags = PASSTABLE
 	hud_type = /datum/hud/alien
+
+GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
+	/datum/strippable_item/hand/left,
+	/datum/strippable_item/hand/right,
+	/datum/strippable_item/mob_item_slot/handcuffs,
+	/datum/strippable_item/mob_item_slot/legcuffs,
+)))
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/Initialize(mapload)
@@ -23,21 +30,15 @@
 	real_name = name
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
+	AddSpell(new /datum/spell/alien_spell/regurgitate)
 	. = ..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
+	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(check_drift = 0)
 	if(..())
 		return TRUE
 	return FALSE
-
-/mob/living/carbon/alien/humanoid/emp_act(severity)
-	if(r_store)
-		r_store.emp_act(severity)
-	if(l_store)
-		l_store.emp_act(severity)
-	..()
 
 /mob/living/carbon/alien/humanoid/ex_act(severity)
 	..()
@@ -75,32 +76,10 @@
 	. = ..()
 	. += alien_movement_delay
 
-/mob/living/carbon/alien/humanoid/show_inv(mob/user as mob)
-	user.set_machine(src)
-
-	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
-
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_HEAD]'>[(head && !(head.flags&ABSTRACT)) ? html_encode(head) : "<font color=grey>Empty</font>"]</A></td></tr>"
-
-	dat += "<tr><td>&nbsp;</td></tr>"
-
-	dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_OUTER_SUIT]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? html_encode(wear_suit) : "<font color=grey>Empty</font>"]</A></td></tr>"
-	dat += "<tr><td><B>Pouches:</B></td><td><A href='?src=[UID()];item=pockets'>[((l_store && !(l_store.flags&ABSTRACT)) || (r_store && !(r_store.flags&ABSTRACT))) ? "Full" : "<font color=grey>Empty</font>"]</A>"
-
-	dat += {"</table>
-	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
-	"}
-
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
-	popup.set_content(dat)
-	popup.open()
-
-/mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I)
-	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
-	..(I, cuff_break = 1)
+/mob/living/carbon/alien/humanoid/resist_restraints(attempt_breaking)
+	playsound(src, 'sound/voice/hiss5.ogg', 40, TRUE, 1)  //Alien roars when starting to break free
+	attempt_breaking = TRUE
+	return ..()
 
 /mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset()
 	if(leaping)
@@ -120,3 +99,5 @@
 
 /mob/living/carbon/alien/humanoid/get_permeability_protection()
 	return 0.8
+
+#undef XENO_TOTAL_LAYERS

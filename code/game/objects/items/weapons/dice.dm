@@ -226,7 +226,7 @@
 		if(11)
 			//Cookie
 			T.visible_message("<span class='userdanger'>A cookie appears out of thin air!</span>")
-			var/obj/item/food/snacks/cookie/C = new(drop_location())
+			var/obj/item/food/cookie/C = new(drop_location())
 			create_smoke(2)
 			C.name = "Cookie of Fate"
 		if(12)
@@ -302,7 +302,7 @@
 				dust_if_respawnable(C)
 				to_chat(H, "<span class='notice'>You are a servant of [user.real_name]. You must do everything in your power to follow their orders.</span>")
 
-			var/obj/effect/proc_holder/spell/summonmob/S = new
+			var/datum/spell/summonmob/S = new
 			S.target_mob = H
 			user.mind.AddSpell(S)
 		if(17)

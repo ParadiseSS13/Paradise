@@ -6,6 +6,7 @@
 	icon_living = "shadow_demon"
 	move_resist = MOVE_FORCE_STRONG
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
+	see_in_dark = 10 // Below 10 `see_in_dark`, you'll not have full vision with fullscreen
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
 	death_sound = 'sound/shadowdemon/shadowdeath.ogg'
 	var/thrown_alert = FALSE
@@ -147,11 +148,11 @@
 
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
-	var/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/S = new
+	AddSpell(new /datum/spell/fireball/shadow_grapple)
+	var/datum/spell/bloodcrawl/shadow_crawl/S = new
 	AddSpell(S)
-	whisper_action.button_icon_state = "shadow_whisper"
-	whisper_action.background_icon_state = "shadow_demon_bg"
+	whisper_action.button_overlay_icon_state = "shadow_whisper"
+	whisper_action.button_background_icon_state = "shadow_demon_bg"
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		S.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
@@ -176,7 +177,7 @@
 	return lum_count
 
 
-/obj/effect/proc_holder/spell/fireball/shadow_grapple
+/datum/spell/fireball/shadow_grapple
 	name = "Shadow Grapple"
 	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure. Any light source hit with this will be disabled in a two tile radius."
 	base_cooldown = 10 SECONDS
@@ -187,13 +188,11 @@
 
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_grapple"
-	panel = "Demon"
-
 	sound = null
 	invocation_type = "none"
 	invocation = null
 
-/obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
+/datum/spell/fireball/shadow_grapple/update_spell_icon()
 	return
 
 /obj/item/projectile/magic/shadow_hand
@@ -239,9 +238,9 @@
 /obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
-		M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
+		M.mind.AddSpell(new /datum/spell/fireball/shadow_grapple)
 
 /obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
-		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/fireball/shadow_grapple)
+		M.mind.RemoveSpell(/datum/spell/fireball/shadow_grapple)

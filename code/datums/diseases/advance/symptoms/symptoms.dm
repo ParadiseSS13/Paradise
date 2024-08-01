@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 
 /datum/symptom/New()
 	var/list/S = GLOB.list_symptoms
-	for(var/i = 1; i <= S.len; i++)
+	for(var/i = 1; i <= length(S); i++)
 		if(type == S[i])
 			id = "[i]"
 			return

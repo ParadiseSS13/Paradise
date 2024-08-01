@@ -15,6 +15,7 @@
 	has_lid = TRUE
 	resistance_flags = ACID_PROOF
 	blocks_emissive = FALSE
+	usesound = 'sound/items/deconstruct.ogg'
 	var/label_text = ""
 
 /obj/item/reagent_containers/glass/Initialize(mapload)
@@ -290,8 +291,8 @@
 	list_reagents = list("methamphetamine" = 10)
 
 /obj/item/reagent_containers/glass/bucket
-	desc = "It's a bucket."
 	name = "bucket"
+	desc = "Useful for moving liquids, or having a helmet in the zombie apocalypse."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
 	item_state = "bucket"

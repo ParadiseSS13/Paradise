@@ -33,8 +33,7 @@ export const NumberInputModal = (props, context) => {
     setInput(value);
   };
   // Dynamically changes the window height based on the message.
-  const windowHeight =
-    120 + (message.length > 30 ? Math.ceil(message.length / 3) : 0);
+  const windowHeight = 140 + Math.max(Math.ceil(message.length / 3), message.length > 0 && large_buttons ? 5 : 0);
 
   return (
     <Window title={title} width={270} height={windowHeight}>
@@ -73,9 +72,7 @@ const InputArea = (props, context) => {
   const { act, data } = useBackend<NumberInputData>(context);
   const { min_value, max_value, init_value, round_value } = data;
   const { input, onClick, onChange } = props;
-  const split_value = Math.round(
-    input !== min_value ? Math.max(input / 2, min_value) : max_value / 2
-  );
+  const split_value = Math.round(input !== min_value ? Math.max(input / 2, min_value) : max_value / 2);
   const split_disabled = (input === min_value && min_value > 0) || input === 1;
   return (
     <Stack fill>

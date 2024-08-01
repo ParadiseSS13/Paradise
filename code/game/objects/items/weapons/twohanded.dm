@@ -29,6 +29,7 @@
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (10 / 3) SECONDS, _requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
 	AddComponent(/datum/component/two_handed, force_unwielded = force_unwielded, force_wielded = force_wielded, icon_wielded = "[base_icon_state]1")
 
 /obj/item/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
@@ -51,10 +52,6 @@
 	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
 	force_wielded = 23
 	needs_permit = TRUE
-
-/obj/item/fireaxe/boneaxe/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]1")
 
 /obj/item/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
@@ -109,7 +106,6 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
-
 	armour_penetration_flat = 10
 	armour_penetration_percentage = 50
 	origin_tech = "magnets=4;syndicate=5"
@@ -123,8 +119,6 @@
 	var/blade_color
 	var/brightness_on = 2
 	var/colormap = list(red = LIGHT_COLOR_RED, blue = LIGHT_COLOR_LIGHTBLUE, green = LIGHT_COLOR_GREEN, purple = LIGHT_COLOR_PURPLE, rainbow = LIGHT_COLOR_WHITE)
-
-
 	var/force_unwielded = 3
 	var/force_wielded = 34
 	var/wieldsound = 'sound/weapons/saberon.ogg'
@@ -134,7 +128,7 @@
 	. = ..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, force_unwielded = force_unwielded, wieldsound = wieldsound, unwieldsound = unwieldsound, wield_callback = CALLBACK(src, PROC_REF(on_wield)), unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), only_sharp_when_wielded = TRUE)
 
 /obj/item/dualsaber/update_icon_state()
@@ -261,6 +255,7 @@
 
 /obj/item/spear/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (10 / 3) SECONDS, _requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = force_wielded, \
 		force_unwielded = force_unwielded, \
@@ -321,6 +316,13 @@
 	throwforce = 22
 	armour_penetration_percentage = 15				//Enhanced armor piercing
 
+//Blatant imitation of spear, but all natural. Also not valid for explosive modification.
+/obj/item/spear/bamboo
+	name = "bamboo spear"
+	desc = "A haphazardly-constructed bamboo stick with a sharpened tip, ready to poke holes into unsuspecting people."
+	base_icon_state = "bamboo_spear"
+	icon_state = "bamboo_spear0"
+	throwforce = 22
 
 //GREY TIDE
 /obj/item/spear/grey_tide
@@ -393,13 +395,6 @@
 		mounted_head.forceMove(T)
 		mounted_head = null
 	qdel(src)
-
-/obj/item/spear/kidan
-	name = "\improper Kidan spear"
-	desc = "A spear brought over from the Kidan homeworld."
-	base_icon_state = "kindanspear"
-	icon_state = "kidanspear0"
-
 
 // DIY CHAINSAW
 /obj/item/chainsaw
@@ -513,7 +508,7 @@
 /obj/item/butcher_chainsaw/attack(mob/living/target, mob/living/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
+		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, TRUE, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
 		if(isnull(.)) //necessary check, successful attacks return null, without it target will drop any shields they may have before they get a chance to block
 			target.KnockDown(8 SECONDS)
 
@@ -565,7 +560,8 @@
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/singularityhammer/Initialize(mapload)
-	..()
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 40, \
 		force_unwielded = force, \
@@ -634,7 +630,8 @@
 	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/mjollnir/Initialize(mapload)
-	..()
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 25, \
 		force_unwielded = force, \
@@ -685,6 +682,7 @@
 /obj/item/knighthammer/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 30, \
 		force_unwielded = force, \
@@ -889,6 +887,7 @@
 
 /obj/item/push_broom/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 5) SECONDS, _requires_two_hands = TRUE)
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 12, \
 		force_unwielded = force, \
@@ -959,7 +958,7 @@
 
 /obj/item/push_broom/traitor/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	// parent component handles this
 	AddComponent(/datum/component/two_handed, force_wielded = 25, force_unwielded = force)
 
@@ -969,15 +968,6 @@
 		. += "<span class='warning'>When wielded, the broom has different effects depending on your intent, similar to a martial art. \
 			Help intent will sweep foes away from you, disarm intent sweeps their legs from under them, grab intent confuses \
 			and minorly fatigues them, and harm intent hits them normally.</span>"
-
-/obj/item/push_broom/traitor/wield(obj/item/source, mob/user)
-	ADD_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")
-	to_chat(user, "<span class='warning'>Your sweeping stance allows you to deflect projectiles.</span>")
-
-/obj/item/push_broom/traitor/unwield(obj/item/source, mob/user)
-	if(HAS_TRAIT_FROM(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")) //this check is needed because obj/item/twohanded calls unwield() on drop and you'd get the message even if you weren't wielding it before
-		REMOVE_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")
-		to_chat(user, "<span class='warning'>You stop reflecting projectiles.</span>")
 
 /obj/item/push_broom/traitor/attack(mob/target, mob/living/user)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
@@ -1056,7 +1046,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT) //so it can't be dusted by the SM
-	AddComponent(/datum/component/parry, _stamina_constant = 0, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, force_wielded = 40, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 
 /obj/item/supermatter_halberd/update_icon_state()

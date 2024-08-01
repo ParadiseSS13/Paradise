@@ -1,7 +1,7 @@
 /datum/action/changeling/absorbDNA
 	name = "Absorb DNA"
 	desc = "Absorb the DNA of our victim. Requires us to strangle them."
-	button_icon_state = "absorb_dna"
+	button_overlay_icon_state = "absorb_dna"
 	chemical_cost = 0
 	power_type = CHANGELING_INNATE_POWER
 	req_human = TRUE
@@ -64,8 +64,8 @@
 		//Recent as opposed to all because rounds tend to have a LOT of text.
 		var/list/recent_speech = list()
 
-		if(target.say_log.len > CHANGELING_ABSORB_RECENT_SPEECH)
-			recent_speech = target.say_log.Copy(target.say_log.len-CHANGELING_ABSORB_RECENT_SPEECH+1,0) //0 so len-LING_ARS+1 to end of list
+		if(length(target.say_log) > CHANGELING_ABSORB_RECENT_SPEECH)
+			recent_speech = target.say_log.Copy(length(target.say_log)-CHANGELING_ABSORB_RECENT_SPEECH+1,0) //0 so len-LING_ARS+1 to end of list
 		else
 			recent_speech = target.say_log.Copy()
 

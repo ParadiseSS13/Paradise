@@ -234,10 +234,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	var/strength = 0
 	var/desc_holder = null
 
-/obj/structure/particle_accelerator/examine(mob/user)
-	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to rotate it.</span>"
-
 /obj/machinery/particle_accelerator/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return

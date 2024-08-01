@@ -50,6 +50,8 @@
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
+#define isairlock(A) (istype(A, /obj/machinery/door))
+
 #define isapc(A) (istype(A, /obj/machinery/power/apc))
 
 #define ismecha(A) (istype(A, /obj/mecha))
@@ -57,6 +59,10 @@
 #define iseffect(A) (istype(A, /obj/effect))
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
+
+#define isprojectile(A) (istype(A, /obj/item/projectile))
+
+#define isgun(A) (istype(A, /obj/item/gun))
 
 #define is_pen(W) (istype(W, /obj/item/pen) || istype(W, /obj/item/flashlight/pen))
 
@@ -113,11 +119,14 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 // Areas
 //#define isarea(A, B, C...) BYOND proc, can test multiple arguments and only return TRUE if all are areas
 
+#define isspacearea(A)	(istype(A, /area/space))
+
 // Structures
 #define isstructure(A)	(istype((A), /obj/structure))
 
 // Vehicles
 #define isvehicle(A) istype(A, /obj/vehicle)
+#define istgvehicle(A) istype(A, /obj/tgvehicle)
 
 // Misc
 #define isclient(A) istype(A, /client)

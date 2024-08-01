@@ -207,7 +207,7 @@
 		if(log_info)
 			INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(log_connection), ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
 		qdel(query)
-		return .
+		return
 	qdel(query)
 
 	. = ..()	//default pager ban stuff
@@ -224,4 +224,3 @@
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["message"]]")
 			if(log_info)
 				INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(log_connection), ckey(key), address, computer_id, CONNECTION_TYPE_DROPPED_BANNED)
-	return .

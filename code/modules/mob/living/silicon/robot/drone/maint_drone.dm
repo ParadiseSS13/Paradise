@@ -147,18 +147,17 @@
 
 /mob/living/silicon/robot/drone/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The ever-loyal workers of Nanotrasen facilities. Known for their small and cute look, these drones seek only to repair damaged parts of the station, being lawed against hurting even a spiderling. These fine drones are programmed against interfering with any business of anyone, so they won't do anything you don't want them to.</span>"
 	if(isAntag(user))
-		. += "<span class='warning'>Clearly they're not loyal enough however, use of an emag will slave them to you for 5 minutes... until they explode in a shower of sparks.</span>"
+		. += "<span class='warning'>Using an emag on this drone will slave them to you for 5 minutes... until they explode in a shower of sparks.</span>"
+
+/mob/living/silicon/robot/drone/examine_more(mob/user)//I know examine_more is for lore but the length of this description is too much
+	. = ..()
+	. += "<span class='notice'><i>The ever-loyal workers of Nanotrasen facilities. Known for their small and cute look, these drones seek only to repair damaged parts of the station, being lawed against hurting even a spiderling. These fine drones are programmed against interfering with any business of anyone, so they won't do anything you don't want them to.</i></span>"
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/borg/upgrade))
 		to_chat(user, "<span class='warning'>The maintenance drone chassis is not compatible with [I].</span>")
-		return
-
-	else if(istype(I, /obj/item/crowbar))
-		to_chat(user, "<span class='warning'>The machine is hermetically sealed. You can't open the case.</span>")
 		return
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -205,6 +204,10 @@
 		return
 
 	..()
+
+/mob/living/silicon/robot/drone/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "<span class='warning'>The machine is hermetically sealed. You can't open the case.</span>")
 
 /mob/living/silicon/robot/drone/Destroy()
 	. = ..()
@@ -439,12 +442,8 @@
 
 	var/datum/pathfinding_mover/pathfind = new(src, target)
 
-	// I originally only wanted to make it use an ID if it couldnt pathfind otherwise, but that means it could take multiple minutes if both searches failed
-	var/obj/item/card/id/temp_id = new(src)
-	temp_id.access = get_all_accesses()
 	set_pathfinding(pathfind)
-	var/found_path = pathfind.generate_path(150, null, temp_id)
-	qdel(temp_id)
+	var/found_path = pathfind.generate_path(150, null, get_all_accesses())
 	if(!found_path)
 		set_pathfinding(null)
 		return FALSE

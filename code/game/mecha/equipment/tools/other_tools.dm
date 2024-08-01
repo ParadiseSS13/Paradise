@@ -92,7 +92,7 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/get_equip_info()
-	return "[..()] [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
+	return "[..()] [mode==1?"([locked||"Nothing"])":null] \[<a href='byond://?src=[UID()];mode=1'>S</a>|<a href='byond://?src=[UID()];mode=2'>P</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
 	..()
@@ -172,7 +172,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_equip_info()
 	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='byond://?src=[UID()];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
@@ -277,7 +277,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_equip_info()
 	if(!chassis) return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='byond://?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
@@ -346,42 +346,42 @@
 /obj/item/mecha_parts/mecha_equipment/generator/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+		return "[output] \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='byond://?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/generator/action(target)
 	if(chassis)
 		var/result = load_fuel(target)
 		if(result)
-			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+			send_byjax(chassis.occupant,"exosuit.browser", "\ref[src]", get_equip_info())
 
 /obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))
-		if(istype(I, /obj/item/stack/sheet))
-			var/obj/item/stack/sheet/P = I
-			var/to_load = max(max_fuel - P.amount*P.perunit,0)
-			if(to_load)
-				var/units = min(max(round(to_load / P.perunit),1),P.amount)
-				if(units)
-					var/added_fuel = units * P.perunit
-					fuel_amount += added_fuel
-					P.use(units)
-					occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
-					return added_fuel
-			else
-				occupant_message("Unit is full.")
-				return 0
-		else // Some other object containing our fuel's type, so we just eat it (ores mainly)
-			var/to_load = max(min(I.materials[fuel_type], max_fuel - fuel_amount),0)
+		if(!istype(I, /obj/item/stack/sheet)) // Some other object containing our fuel's type, so we just eat it (ores mainly)
+			var/to_load = clamp(I.materials[fuel_type], 0, max_fuel - fuel_amount)
 			if(to_load == 0)
-				return 0
+				return FALSE
 			fuel_amount += to_load
 			qdel(I)
-			return to_load
+			return 0
+
+		if(fuel_amount >= max_fuel)
+			occupant_message("Unit is full.")
+			return 0
+
+		var/obj/item/stack/sheet/P = I
+		var/to_load = max_fuel - fuel_amount
+
+		var/units = clamp(round(to_load / P.perunit), 1, P.amount)
+		if(units)
+			var/added_fuel = units * P.perunit
+			fuel_amount += added_fuel
+			P.use(units)
+			occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
+			return added_fuel
 
 	else if(istype(I, /obj/structure/ore_box))
 		var/fuel_added = 0
-		for(var/baz in I.contents)
-			var/obj/item/O = baz
+		for(var/obj/item/O as anything in I.contents)
 			if(fuel_type in O.materials)
 				fuel_added = load_fuel(O)
 				break

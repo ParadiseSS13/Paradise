@@ -10,7 +10,6 @@
  *		Toy Nuke
  *		Card Deck
  *		Therapy dolls
- *		Toddler doll
  *		Inflatable duck
  *		Foam armblade
  *		Mini Gibber
@@ -373,7 +372,7 @@
 		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='notice'>You hear the click of a button.</span>")
 		spawn(5) //gia said so
 			icon_state = "nuketoy"
-			playsound(src, 'sound/machines/alarm.ogg', 100, 0, 0)
+			playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 0)
 			sleep(135)
 			icon_state = "nuketoycool"
 			sleep(cooldown - world.time)
@@ -437,14 +436,6 @@
 /obj/item/toy/therapy/green
 	item_state = "egg3" // It's the green egg in items_left/righthand
 	item_color = "green"
-
-/obj/item/toddler
-	icon_state = "toddler"
-	name = "toddler"
-	desc = "This baby looks almost real. Wait, did it just burp?"
-	force = 5
-	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
 
 
 //This should really be somewhere else but I don't know where. w/e
@@ -555,10 +546,10 @@
 	if(has_stuffing || grenade)
 		var/cuddle_verb = pick("hugs", "cuddles", "snugs")
 		user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
-		playsound(get_turf(src), poof_sound, 50, 1, -1)
+		playsound(get_turf(src), poof_sound, 50, TRUE, -1)
 		if(grenade && !grenade.active)
 			add_attack_logs(user, user, "activated a hidden grenade in [src].", ATKLOG_MOST)
-			playsound(loc, 'sound/weapons/armbomb.ogg', 10, 1, -3)
+			playsound(loc, 'sound/weapons/armbomb.ogg', 10, TRUE, -3)
 			//We call with grenade as argument, so cutting the grenade out doesn't magically defuse it
 			addtimer(CALLBACK(src, PROC_REF(explosive_betrayal), grenade), rand(1, 3) SECONDS)
 	else
@@ -794,8 +785,8 @@
 	item_state = "plushie_ipc"
 
 /obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
-	if(istype(B, /obj/item/food/snacks/breadslice))
-		new /obj/item/food/snacks/toast(get_turf(loc))
+	if(istype(B, /obj/item/food/breadslice))
+		new /obj/item/food/toast(get_turf(loc))
 		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		qdel(B)
@@ -1376,6 +1367,12 @@
 	icon_state = "cargotech"
 	toysay = "For Cargonia!"
 
+/obj/item/toy/figure/crew/explorer
+	name = "\improper Explorer action figure"
+	desc = "The oblivious explorer, from Space Life's SS12 figurine collection."
+	icon_state = "explorer"
+	toysay = "I f-foun-nd-d it-t in-n s-spac-ce!"
+
 /obj/item/toy/figure/crew/ce
 	name = "\improper Chief Engineer action figure"
 	desc = "The expert Chief Engineer, from Space Life's SS12 figurine collection."
@@ -1460,10 +1457,10 @@
 	icon_state = "janitor"
 	toysay = "Look at the signs, you idiot."
 
-/obj/item/toy/figure/crew/lawyer
+/obj/item/toy/figure/crew/iaa
 	name = "\improper Internal Affairs Agent action figure"
 	desc = "The unappreciated Internal Affairs Agent, from Space Life's SS12 figurine collection."
-	icon_state = "lawyer"
+	icon_state = "internal_affairs"
 	toysay = "Standard Operating Procedure says they're guilty! Hacking is proof they're an Enemy of the Corporation!"
 
 /obj/item/toy/figure/crew/librarian

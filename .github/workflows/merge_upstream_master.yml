@@ -22,14 +22,17 @@ jobs:
           private-key: ${{ secrets.PRIVATE_KEY }}
 
       - run: echo "GH_TOKEN=${{ steps.create_token.outputs.token }}" >> "$GITHUB_ENV"
+      - run: echo "FAIL_NOTIFIED=false" >> "$GITHUB_ENV"
 
       - name: Like the comment
+        env:
+          BASE_REPOSITORY: ${{ github.repository }}
         run: |
           gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/ParadiseSS13/Paradise/issues/comments/${{ github.event.comment.id }}/reactions \
+            /repos/$BASE_REPOSITORY/issues/comments/${{ github.event.comment.id }}/reactions \
             -f content='+1'
 
       - name: PR Data
@@ -37,7 +40,8 @@ jobs:
           pr_json=$(curl -L -s --fail-with-body -H "Authorization: token ${{ github.token }}" ${{ github.event.issue.pull_request.url }})
           if [ `jq -r '.maintainer_can_modify' <<<$pr_json` == "false" ] ; then
             gh pr comment ${{ github.event.issue.html_url }} --body 'GitHub Actions can not push to the repository without "Allow edits and access to secrets by maintainers" checked.'
-            exit 0
+            echo "FAIL_NOTIFIED=true" >> "$GITHUB_ENV"
+            exit 1
           fi
           echo "PR_REPO=`jq -r '.head.repo.full_name' <<<$pr_json`" >> $GITHUB_ENV
           echo "PR_BRANCH=`jq -r '.head.ref' <<<$pr_json`" >> $GITHUB_ENV
@@ -89,6 +93,8 @@ jobs:
           chmod +x tools/hooks/*.merge tgui/bin/tgui
 
           # Actual Merge
+          git config user.name paradisess13[bot]
+          git config user.email "165046124+paradisess13[bot]@users.noreply.github.com"
           git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
 
           git fetch origin "$PR_BRANCH" --depth=$((ahead_by + 1))
@@ -98,32 +104,24 @@ jobs:
           latest_workflow_commit=$(git log -n 1 --pretty=format:"%H" upstream/$BASE_BRANCH -- .github/workflows)
           if ! git branch --contains $latest_workflow_commit | grep -q "$(git rev-parse --abbrev-ref HEAD)"; then
             gh pr comment ${{ github.event.issue.html_url }} --body "GitHub Actions can not push to this branch as workflow files have been changed since your branch was last updated. Please update your branch past https://github.com/ParadiseSS13/Paradise/commit/$latest_workflow_commit before using this command again."
-            exit 0
+            echo "FAIL_NOTIFIED=true" >> "$GITHUB_ENV"
+            exit 1
           fi
 
           git merge FETCH_HEAD
           git push origin
 
-      - name: Approve Workflows
+      - name: Rebuild TGUI
         run: |
-          # Get the list of pending workflow runs for paradisess13bot
-          runs=$(gh api \
-                  --method POST \
-                  -H "Accept: application/vnd.github+json" \
-                  -H "X-GitHub-Api-Version: 2022-11-28" \
-                  /repos/ParadiseSS13/Paradise/actions/runs?actor=paradisess13bot&status=action_required)
-          run_ids=$(echo $runs | jq -r '.workflow_runs[].id')
-
-          # Iterate over the run IDs, approving each one
-          for run_id in $run_ids; do
-              gh api \
-                --method POST \
-                -H "Accept: application/vnd.github+json" \
-                -H "X-GitHub-Api-Version: 2022-11-28" \
-                /repos/ParadiseSS13/Paradise/actions/runs/$run_id/approve
-          done
+          if git diff-tree --name-only -r $(git rev-parse HEAD~2) | grep "tgui/public/" ; then
+            bash tgui/bin/tgui
+            git commit -m "Rebuild TGUI"
+            git push origin
+          else
+            echo "No changes to rebuild TGUI"
+          fi
 
       - name: Notify Failure
-        if: failure()
+        if: failure() && env.FAIL_NOTIFIED != 'true'
         run: |
           gh pr comment ${{ github.event.issue.html_url }} -b 'Merging upstream failed, see the action run log for details: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'

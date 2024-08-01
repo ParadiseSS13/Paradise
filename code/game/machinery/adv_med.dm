@@ -12,7 +12,7 @@
 	var/mob/living/carbon/human/occupant
 	///What is the level of the stock parts in the body scanner. A scan_level of one detects organs of stealth_level 1 or below, while a scan level of 4 would detect 4 or below.
 	var/scan_level = 1
-	var/known_implants = list(/obj/item/bio_chip/chem, /obj/item/bio_chip/death_alarm, /obj/item/bio_chip/mindshield, /obj/item/bio_chip/tracking, /obj/item/bio_chip/health)
+	var/known_implants = list(/obj/item/bio_chip/chem, /obj/item/bio_chip/death_alarm, /obj/item/bio_chip/mindshield, /obj/item/bio_chip/tracking)
 
 /obj/machinery/bodyscanner/examine(mob/user)
 	. = ..()
@@ -65,26 +65,28 @@
 		icon_state = "bodyscanner-open"
 
 /obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
-	if(exchange_parts(user, I))
-		return
-
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/TYPECAST_YOUR_SHIT = I
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
+
 		if(!ishuman(TYPECAST_YOUR_SHIT.affecting))
 			return
+
 		if(occupant)
 			to_chat(user, "<span class='notice'>The scanner is already occupied!</span>")
 			return
+
 		if(TYPECAST_YOUR_SHIT.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[TYPECAST_YOUR_SHIT.affecting] will not fit into [src] because [TYPECAST_YOUR_SHIT.affecting.p_they()] [TYPECAST_YOUR_SHIT.affecting.p_have()] a fucking slime latched onto [TYPECAST_YOUR_SHIT.affecting.p_their()] head.</span>")
 			return
+
 		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
 			to_chat(user, "<span class='notice'>Subject may not hold anything in their hands.</span>")
 			return
+
 		M.forceMove(src)
 		occupant = M
 		playsound(src, 'sound/machines/podclose.ogg', 5)
@@ -217,7 +219,6 @@
 	..()
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/bodyscanner/narsie_act()
@@ -287,7 +288,7 @@
 				implantSubData["name"] = sanitize(I.name)
 				implantData.Add(list(implantSubData))
 		occupantData["implant"] = implantData
-		occupantData["implant_len"] = implantData.len
+		occupantData["implant_len"] = length(implantData)
 
 		var/extOrganData[0]
 		for(var/obj/item/organ/external/E in occupant.bodyparts)
@@ -310,11 +311,14 @@
 				shrapnelData.Add(list(shrapnelSubData))
 
 			organData["shrapnel"] = shrapnelData
-			organData["shrapnel_len"] = shrapnelData.len
+			organData["shrapnel_len"] = length(shrapnelData)
 
 			var/organStatus[0]
 			if(E.status & ORGAN_BROKEN)
-				organStatus["broken"] = E.broken_description
+				if(!E.broken_description)
+					organStatus["broken"] = "Broken"
+				else
+					organStatus["broken"] = E.broken_description
 			if(E.is_robotic())
 				organStatus["robotic"] = TRUE
 			if(E.status & ORGAN_SPLINTED)

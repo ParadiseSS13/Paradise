@@ -42,7 +42,7 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub/GiveTarget(new_target)
 	target = new_target
 	if(target != null)
-		if(istype(target, /obj/item/stack/ore) && loot.len < 10)
+		if(istype(target, /obj/item/stack/ore) && length(loot) < 10)
 			visible_message("<span class='notice'>[src] looks at [target.name] with hungry eyes.</span>")
 		else if(isliving(target))
 			Aggro()
@@ -68,7 +68,7 @@
 	visible_message("<span class='notice'>The ore was swallowed whole!</span>")
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Burrow()//Begin the chase to kill the goldgrub in time
-	if(!stat)
+	if(stat == CONSCIOUS)
 		visible_message("<span class='danger'>[src] buries into the ground, vanishing from sight!</span>")
 		qdel(src)
 

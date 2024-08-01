@@ -157,18 +157,23 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 /obj/item/organ/internal/vocal_cords/colossus/speak_with(message)
 	var/log_message = uppertext(message)
 	message = lowertext(message)
-	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, 1, 5)
+	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, TRUE, 5)
 
 	var/list/mob/living/listeners = list()
-	for(var/mob/living/L in get_mobs_in_view(8, owner, TRUE))
+	for(var/mob/living/L as anything in get_mobs_in_view(8, owner, TRUE))
 		if(L.can_hear() && !L.null_rod_check() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
 				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
-			listeners += L
+			if(istype(L, /mob/camera/aiEye))
+				var/mob/camera/aiEye/ai_eye = L
+				if(ai_eye.relay_speech && ai_eye.ai)
+					listeners += ai_eye.ai
+			else
+				listeners += L
 
-	if(!listeners.len)
+	if(!length(listeners))
 		next_command = world.time + cooldown_none
 		return
 
@@ -209,9 +214,9 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 			//Cut out the job so it doesn't trigger commands
 			found_string = L.mind.assigned_role
 
-	if(specific_listeners.len)
+	if(length(specific_listeners))
 		listeners = specific_listeners
-		power_multiplier *= (1 + (1/specific_listeners.len)) //2x on a single guy, 1.5x on two and so on
+		power_multiplier *= (1 + (1/length(specific_listeners))) //2x on a single guy, 1.5x on two and so on
 		message = copytext(message, 0, 1)+copytext(message, 1 + length(found_string), length(message) + 1)
 
 	//STUN

@@ -43,6 +43,10 @@
 /obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.</span>"
+	. += "<span class='notice'>The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).</span>"
+	if(in_range(user, src) || isobserver(user))
+		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.</span>"
+		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C - min_temperature) * -1]C - [(T0C-max_temperature) * -1]C)</b>.</span>"
 
 /obj/machinery/atmospherics/unary/thermomachine/proc/swap_function()
 	cooling = !cooling
@@ -84,43 +88,36 @@
 	else
 		icon_state = icon_state_off
 
-/obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>The thermostat is set to [target_temperature]K ([(T0C - target_temperature) * -1]C).</span>"
-	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Efficiency <b>[(heat_capacity / 5000) * 100]%</b>.</span>"
-		. += "<span class='notice'>Temperature range <b>[min_temperature]K - [max_temperature]K ([(T0C - min_temperature) * -1]C - [(T0C-max_temperature) * -1]C)</b>.</span>"
-
-
 /obj/machinery/atmospherics/unary/thermomachine/process_atmos()
-	..()
 	if(!on)
-		return 0
+		return
+
+	// Coolers don't heat.
+	if(air_contents.temperature() <= target_temperature && cooling)
+		return
+	// Heaters don't cool.
+	if(air_contents.temperature() >= target_temperature && !cooling)
+		return
 
 	var/air_heat_capacity = air_contents.heat_capacity()
 	var/combined_heat_capacity = heat_capacity + air_heat_capacity
-	var/old_temperature = air_contents.temperature
+	var/old_temperature = air_contents.temperature()
 
 	if(combined_heat_capacity > 0)
-		var/combined_energy = heat_capacity * target_temperature + air_heat_capacity * air_contents.temperature
-		air_contents.temperature = combined_energy / combined_heat_capacity
+		var/combined_energy = heat_capacity * target_temperature + air_heat_capacity * air_contents.temperature()
+		air_contents.set_temperature(combined_energy / combined_heat_capacity)
 
 	//todo: have current temperature affected. require power to bring down current temperature again
 
-	var/temperature_delta = abs(old_temperature - air_contents.temperature)
+	var/temperature_delta = abs(old_temperature - air_contents.temperature())
 	if(temperature_delta > 1)
-		var/new_active_consumption = (temperature_delta * 25) * min(log(10, air_contents.temperature) - 1, 1)
+		var/new_active_consumption = (temperature_delta * 25) * min(log(10, air_contents.temperature()) - 1, 1)
 		update_active_power_consumption(power_channel, new_active_consumption + idle_power_consumption)
 		change_power_mode(ACTIVE_POWER_USE)
 		parent.update = TRUE
 	else
 		change_power_mode(IDLE_POWER_USE)
-	return 1
-
-/obj/machinery/atmospherics/unary/thermomachine/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-	return ..()
+	return
 
 /obj/machinery/atmospherics/unary/thermomachine/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -134,10 +131,10 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
@@ -184,7 +181,7 @@
 	data["target"] = target_temperature
 	data["initial"] = initial(target_temperature)
 
-	data["temperature"] = air_contents.temperature
+	data["temperature"] = air_contents.temperature()
 	data["pressure"] = air_contents.return_pressure()
 	return data
 

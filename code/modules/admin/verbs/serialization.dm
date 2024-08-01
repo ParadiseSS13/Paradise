@@ -125,7 +125,7 @@
 	var/list/rows = list()
 	rows += "<table><tr><th scope='col' width='90%'>Slot</th><th scope='col' width='10%'>Actions</th></tr>"
 	for(var/slotname in slots)
-		rows += "<tr><td>[slotname]</td><td><a href='?src=[holder_uid];spawnjsondatum=[slots[slotname]]'>Spawn</a>&nbsp;&nbsp;<a href='?src=[holder_uid];deletejsondatum=[slots[slotname]]'>Delete</a></td></tr>"
+		rows += "<tr><td>[slotname]</td><td><a href='byond://?src=[holder_uid];spawnjsondatum=[slots[slotname]]'>Spawn</a>&nbsp;&nbsp;<a href='byond://?src=[holder_uid];deletejsondatum=[slots[slotname]]'>Delete</a></td></tr>"
 
 	rows += "</table>"
 

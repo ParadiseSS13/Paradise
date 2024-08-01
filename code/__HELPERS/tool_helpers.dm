@@ -1,40 +1,27 @@
 //Quick type checks for some tools
 
 // Why are these not defines?
-/proc/iswrench(O)
-	if(istype(O, /obj/item/wrench))
-		return TRUE
-	return FALSE
 
-/proc/iswelder(O)
-	if(istype(O, /obj/item/weldingtool))
-		return TRUE
-	return FALSE
+/proc/iswrench(obj/item/O)
+	return istype(O) && O.tool_behaviour == TOOL_WRENCH
 
-/proc/iswirecutter(O)
-	if(istype(O, /obj/item/wirecutters))
-		return TRUE
-	return FALSE
+/proc/iswelder(obj/item/O)
+	return istype(O) && O.tool_behaviour == TOOL_WELDER
 
-/proc/isscrewdriver(O)
-	if(istype(O, /obj/item/screwdriver))
-		return TRUE
-	return FALSE
+/proc/iswirecutter(obj/item/O)
+	return istype(O) && O.tool_behaviour == TOOL_WIRECUTTER
 
-/proc/ismultitool(O)
-	if(istype(O, /obj/item/multitool))
-		return TRUE
-	return FALSE
+/proc/isscrewdriver(obj/item/O)
+	return istype(O) && O.tool_behaviour == TOOL_SCREWDRIVER
 
-/proc/iscrowbar(O)
-	if(istype(O, /obj/item/crowbar))
-		return TRUE
-	return FALSE
+/proc/ismultitool(obj/item/O)
+	return istype(O) && O.tool_behaviour == TOOL_MULTITOOL
+
+/proc/iscrowbar(obj/item/O)
+	return istype(O) && O.tool_behaviour == TOOL_CROWBAR
 
 /proc/iscoil(O)
-	if(istype(O, /obj/item/stack/cable_coil))
-		return TRUE
-	return FALSE
+	return istype(O, /obj/item/stack/cable_coil)
 
 /proc/ispowertool(O)//used to check if a tool can force powered doors
 	if(istype(O, /obj/item/crowbar/power) || istype(O, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))

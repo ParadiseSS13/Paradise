@@ -18,30 +18,15 @@
 	return ..()
 
 /mob/living/brain/say_understands(other)//Goddamn is this hackish, but this say code is so odd
-	if(isAI(other))
-		if(!(container && istype(container, /obj/item/mmi)))
-			return 0
-		else
-			return 1
-	if(istype(other, /mob/living/silicon/decoy))
-		if(!(container && istype(container, /obj/item/mmi)))
-			return 0
-		else
-			return 1
-	if(ispAI(other))
-		if(!(container && istype(container, /obj/item/mmi)))
-			return 0
-		else
-			return 1
-	if(isrobot(other))
-		if(!(container && istype(container, /obj/item/mmi)))
-			return 0
-		else
-			return 1
+	if(issilicon(other))
+		return istype(container, /obj/item/mmi)
 	if(ishuman(other))
-		return 1
+		return TRUE
 	if(isslime(other))
-		return 1
+		return TRUE
+	if(isbrain(other))
+		return TRUE
+
 	return ..()
 
 /mob/living/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.

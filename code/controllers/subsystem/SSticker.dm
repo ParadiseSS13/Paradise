@@ -13,8 +13,6 @@ SUBSYSTEM_DEF(ticker)
 	var/round_start_time = 0
 	/// Time that the round started
 	var/time_game_started = 0
-	/// Default timeout for if world.Reboot() doesnt have a time specified
-	var/const/restart_timeout = 75 SECONDS
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
@@ -83,7 +81,8 @@ SUBSYSTEM_DEF(ticker)
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
-			round_start_time = world.time + (GLOB.configuration.general.lobby_time SECONDS)
+			pregame_timeleft = GLOB.configuration.general.lobby_time SECONDS
+			round_start_time = world.time + pregame_timeleft
 			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
 			to_chat(world, "Please, setup your character and select ready. Game will start in [GLOB.configuration.general.lobby_time] seconds")
 			current_state = GAME_STATE_PREGAME
@@ -96,12 +95,9 @@ SUBSYSTEM_DEF(ticker)
 				return
 
 			// This is so we dont have sleeps in controllers, because that is a bad, bad thing
-			if(!delay_end)
-				pregame_timeleft = max(0, round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed
-			else
-				pregame_timeleft = max(0, pregame_timeleft - wait) // If roundstart was delayed, we should resume the countdown where it left off
+			pregame_timeleft = max(0, round_start_time - world.time)
 
-			if(pregame_timeleft <= 600 && !tipped) // 60 seconds
+			if(pregame_timeleft <= 1 MINUTES && !tipped)
 				send_tip_of_the_round()
 				tipped = TRUE
 
@@ -145,6 +141,8 @@ SUBSYSTEM_DEF(ticker)
 				var/list/pickable_types = list()
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
+					if(istype(SSmapping.map_datum, M)) // Random will never choose the same map twice in a row.
+						continue
 					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
 						pickable_types += M
 
@@ -227,7 +225,7 @@ SUBSYSTEM_DEF(ticker)
 			P.ready = FALSE
 
 	//Configure mode and assign player to special mode stuff
-	mode.pre_pre_setup()
+
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
 
@@ -253,7 +251,7 @@ SUBSYSTEM_DEF(ticker)
 	SSjobs.DivideOccupations() //Distribute jobs
 
 	if(hide_mode)
-		var/list/modes = new
+		var/list/modes = list()
 		for(var/datum/game_mode/M in runnable_modes)
 			modes += M.name
 		modes = sortList(modes)
@@ -286,6 +284,12 @@ SUBSYSTEM_DEF(ticker)
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	// Generate the list of empty playable AI cores in the world
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_TRIAI))
+		for(var/obj/effect/landmark/tripai in GLOB.landmarks_list)
+			if(tripai.name == "tripai")
+				if(locate(/mob/living) in get_turf(tripai))
+					continue
+				GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(tripai))
 	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
 		if(locate(/mob/living) in get_turf(A))
 			continue
@@ -530,9 +534,9 @@ SUBSYSTEM_DEF(ticker)
 	else
 		var/list/randomtips = file2list("strings/tips.txt")
 		var/list/memetips = file2list("strings/sillytips.txt")
-		if(randomtips.len && prob(95))
+		if(length(randomtips) && prob(95))
 			m = pick(randomtips)
-		else if(memetips.len)
+		else if(length(memetips))
 			m = pick(memetips)
 
 	if(m)
@@ -707,8 +711,8 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/loc_type in subtypesof(/datum/trade_destination))
 		var/datum/trade_destination/D = new loc_type
-		GLOB.weighted_randomevent_locations[D] = D.viable_random_events.len
-		GLOB.weighted_mundaneevent_locations[D] = D.viable_mundane_events.len
+		GLOB.weighted_randomevent_locations[D] = length(D.viable_random_events)
+		GLOB.weighted_mundaneevent_locations[D] = length(D.viable_mundane_events)
 
 // Easy handler to make rebooting the world not a massive sleep in world/Reboot()
 /datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)
@@ -724,7 +728,7 @@ SUBSYSTEM_DEF(ticker)
 		delay = max(0, delay)
 	else
 		// Use default restart timeout
-		delay = restart_timeout
+		delay = max(0, GLOB.configuration.general.restart_timeout SECONDS)
 
 	to_chat(world, "<span class='boldannounceooc'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
 
@@ -783,7 +787,7 @@ SUBSYSTEM_DEF(ticker)
 		AR.handle_data(load_queries[ckey])
 		save_queries[ckey] = AR.get_save_query()
 
-		log_text += "<small>- <a href='?priv_msg=[ckey]'>[ckey]</a>: [AR.infraction_count]</small>"
+		log_text += "<small>- <a href='byond://?priv_msg=[ckey]'>[ckey]</a>: [AR.infraction_count]</small>"
 
 	log_text += "Investigation advised if there are a high number of infractions"
 
@@ -835,38 +839,45 @@ SUBSYSTEM_DEF(ticker)
 						if(ROUND_END_FORCED)
 							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, output)
 			if("Xenomorphs")
-				if(length(SSticker.mode.xenos) > 5)
+				var/living_xenos = count_xenomorps()
+				if(living_xenos > 5)
 					switch(outcome)
 						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno nuclear victories", 1, "Xenomorphs")
 						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno survives to normal round end", 1, "Xenomorphs")
 						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno survives to admin round end", 1, "Xenomorphs")
 				else
 					switch(outcome)
 						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno dies station nuked", 1, "Xenomorphs")
 						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno dies normal end", 1, "Xenomorphs")
 						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno dies admin round end", 1, "Xenomorphs")
 
 			if("Blob")
 				if(length(SSticker.mode.blob_overminds))
 					switch(outcome)
 						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob nuclear victories", 1, "Blob")
 						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob survives to normal round end", 1, "Blob")
 						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob survives to admin round end", 1, "Blob")
 				else
 					switch(outcome)
 						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob dies station nuked", 1, "Blob")
 						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob dies normal end", 1, "Blob")
 						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Blob")
+							SSblackbox.record_feedback("tally", "Blob dies admin round end", 1, "Blob")
 
+/datum/controller/subsystem/ticker/proc/count_xenomorps()
+	. = 0
+	for(var/datum/mind/xeno_mind as anything in SSticker.mode.xenos)
+		if(xeno_mind.current?.stat == DEAD)
+			continue
+		.++

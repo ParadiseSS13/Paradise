@@ -1,12 +1,13 @@
 /turf/simulated/floor/plasteel
 	icon_state = "floor"
 	floor_tile = /obj/item/stack/tile/plasteel
-	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	burnt_states = list("floorscorched1", "floorscorched2")
 
 /turf/simulated/floor/plasteel/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_regular_floor
+
+/turf/simulated/floor/plasteel/get_broken_states()
+	return list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 
 /turf/simulated/floor/plasteel/airless
 	name = "airless floor"
@@ -14,6 +15,13 @@
 	nitrogen = 0
 	temperature = TCMB
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_LATTICE)
+
+/turf/simulated/floor/plasteel/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/plasteel/airless/Initialize(mapload)
 	. = ..()

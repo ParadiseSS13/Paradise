@@ -74,7 +74,7 @@
 	switch(action)
 		if("Edit")
 			var/n = tgui_input_text(usr, "Please enter message", name, note, multiline = TRUE, encode = FALSE)
-			if(!n)
+			if(isnull(n))
 				return
 
 			if(pda.loc == usr)
@@ -103,21 +103,21 @@
 	var/list/results = list()
 	var/turf/T = get_turf(user.loc)
 	if(!isnull(T))
-		var/datum/gas_mixture/environment = T.return_air()
+		var/datum/gas_mixture/environment = T.get_readonly_air()
 
 		var/pressure = environment.return_pressure()
 		var/total_moles = environment.total_moles()
 
 		if(total_moles)
-			var/o2_level = environment.oxygen/total_moles
-			var/n2_level = environment.nitrogen/total_moles
-			var/co2_level = environment.carbon_dioxide/total_moles
-			var/plasma_level = environment.toxins/total_moles
-			var/n2o_level = environment.sleeping_agent/total_moles
-			var/unknown_level =  1-(o2_level+n2_level+co2_level+plasma_level+n2o_level)
+			var/o2_level = environment.oxygen()/total_moles
+			var/n2_level = environment.nitrogen() / total_moles
+			var/co2_level = environment.carbon_dioxide() / total_moles
+			var/plasma_level = environment.toxins() / total_moles
+			var/n2o_level = environment.sleeping_agent() / total_moles
+			var/unknown_level = 1 - (o2_level + n2_level + co2_level + plasma_level + n2o_level)
 			results = list(
 				list("entry" = "Pressure", "units" = "kPa", "val" = "[round(pressure,0.1)]", "bad_high" = 120, "poor_high" = 110, "poor_low" = 95, "bad_low" = 80),
-				list("entry" = "Temperature", "units" = "C", "val" = "[round(environment.temperature-T0C,0.1)]", "bad_high" = 35, "poor_high" = 25, "poor_low" = 15, "bad_low" = 5),
+				list("entry" = "Temperature", "units" = "C", "val" = "[round(environment.temperature()-T0C,0.1)]", "bad_high" = 35, "poor_high" = 25, "poor_low" = 15, "bad_low" = 5),
 				list("entry" = "Oxygen", "units" = "%", "val" = "[round(o2_level*100,0.1)]", "bad_high" = 140, "poor_high" = 135, "poor_low" = 19, "bad_low" = 17),
 				list("entry" = "Nitrogen", "units" = "%", "val" = "[round(n2_level*100,0.1)]", "bad_high" = 105, "poor_high" = 85, "poor_low" = 50, "bad_low" = 40),
 				list("entry" = "Carbon Dioxide", "units" = "%", "val" = "[round(co2_level*100,0.1)]", "bad_high" = 10, "poor_high" = 5, "poor_low" = 0, "bad_low" = 0),

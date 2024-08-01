@@ -199,6 +199,10 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/tcommsat)
+"lq" = (
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
 "my" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -239,6 +243,7 @@
 "oh" = (
 /obj/structure/table,
 /obj/item/taperecorder,
+/obj/item/salvage/ruin/nanotrasen,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "ok" = (
@@ -582,7 +587,7 @@
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
 "Nw" = (
-/obj/item/food/snacks/xenomeatbreadslice{
+/obj/item/food/xenomeatbreadslice{
 	name = "green mold bread slice"
 	},
 /turf/simulated/floor/plating/airless,
@@ -1978,7 +1983,7 @@ YW
 hg
 Wc
 jv
-Wc
+lq
 Wc
 Wc
 Wc

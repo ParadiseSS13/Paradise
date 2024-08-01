@@ -5,8 +5,8 @@
  */
 /datum/action/guardian
 	name = "Generic guardian host action"
-	icon_icon = 'icons/mob/guardian.dmi'
-	button_icon_state = "base"
+	button_background_icon = 'icons/mob/guardian.dmi'
+	button_overlay_icon_state = "base"
 	var/mob/living/simple_animal/hostile/guardian/guardian
 
 /datum/action/guardian/Grant(mob/M, mob/living/simple_animal/hostile/guardian/G)
@@ -24,7 +24,7 @@
 /datum/action/guardian/communicate
 	name = "Communicate"
 	desc = "Communicate telepathically with your guardian."
-	button_icon_state = "communicate"
+	button_overlay_icon_state = "communicate"
 
 /datum/action/guardian/communicate/Trigger(left_click)
 	var/input = tgui_input_text(owner, "Enter a message to tell your guardian:", "Message")
@@ -50,7 +50,7 @@
 /datum/action/guardian/recall
 	name = "Recall Guardian"
 	desc = "Forcibly recall your guardian."
-	button_icon_state = "recall"
+	button_overlay_icon_state = "recall"
 
 /datum/action/guardian/recall/Trigger(left_click)
 	guardian.Recall()
@@ -63,7 +63,7 @@
 /datum/action/guardian/reset_guardian
 	name = "Replace Guardian Player"
 	desc = "Replace your guardian's player with a ghost. This can only be done once."
-	button_icon_state = "reset"
+	button_overlay_icon_state = "reset"
 	var/cooldown_timer
 
 /datum/action/guardian/reset_guardian/IsAvailable()
@@ -102,19 +102,19 @@
 	dust_if_respawnable(new_stand)
 	qdel(src)
 
-/obj/effect/proc_holder/spell/summon_guardian_beacon
+/datum/spell/summon_guardian_beacon
 	name = "Place Teleportation Beacon"
 	desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon requires an anchor, will not work on space tiles."
 	clothes_req = FALSE
 	base_cooldown = 300 SECONDS
 	action_icon_state = "no_state"
+	action_background_icon = 'icons/mob/guardian.dmi'
 	action_background_icon_state = "reset"
-	action_icon = 'icons/mob/guardian.dmi'
 
-/obj/effect/proc_holder/spell/summon_guardian_beacon/create_new_targeting()
+/datum/spell/summon_guardian_beacon/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/summon_guardian_beacon/cast(list/targets, mob/living/user = usr)
+/datum/spell/summon_guardian_beacon/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1]
 	var/mob/living/simple_animal/hostile/guardian/healer/guardian_user = user
 	var/turf/beacon_loc = get_turf(target)
@@ -125,19 +125,19 @@
 
 	return TRUE
 
-/obj/effect/proc_holder/spell/surveillance_snare
+/datum/spell/surveillance_snare
 	name = "Set Surveillance Snare"
 	desc = "Places an invisible Surveillance Snare on the ground, if someone walks over it you'll be alerted. Max of 6 snares active at a time"
 	clothes_req = FALSE
 	base_cooldown = 3 SECONDS
 	action_icon_state = "no_state"
+	action_background_icon = 'icons/mob/guardian.dmi'
 	action_background_icon_state = "reset"
-	action_icon = 'icons/mob/guardian.dmi'
 
-/obj/effect/proc_holder/spell/surveillance_snare/create_new_targeting()
+/datum/spell/surveillance_snare/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/surveillance_snare/cast(list/targets, mob/living/user = usr)
+/datum/spell/surveillance_snare/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1]
 	var/mob/living/simple_animal/hostile/guardian/ranged/guardian_user = user
 	if(length(guardian_user.snares) < 6)
@@ -156,19 +156,19 @@
 			to_chat(user, "<span class='notice'>Snare disarmed.</span>")
 			revert_cast()
 
-/obj/effect/proc_holder/spell/choose_battlecry
+/datum/spell/choose_battlecry
 	name = "Change battlecry"
 	desc = "Changes your battlecry."
 	clothes_req = FALSE
 	base_cooldown = 1 SECONDS
 	action_icon_state = "no_state"
+	action_background_icon = 'icons/mob/guardian.dmi'
 	action_background_icon_state = "communicate"
-	action_icon = 'icons/mob/guardian.dmi'
 
-/obj/effect/proc_holder/spell/choose_battlecry/create_new_targeting()
+/datum/spell/choose_battlecry/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/choose_battlecry/cast(list/targets, mob/living/user = usr)
+/datum/spell/choose_battlecry/cast(list/targets, mob/living/user = usr)
 	var/mob/living/simple_animal/hostile/guardian/punch/guardian_user = user
 	var/input = tgui_input_text(guardian_user, "What do you want your battlecry to be? Max length of 6 characters.", "Change Battlecry", guardian_user.battlecry, 6)
 	if(!input)

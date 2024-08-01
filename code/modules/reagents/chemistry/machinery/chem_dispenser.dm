@@ -1,5 +1,6 @@
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
+	desc = "For making chemicals, medicine, and explosions."
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -60,9 +61,10 @@
 	dispensable_reagents = list(
 		"mutagen",
 		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
+		"eznutrient",
+		"mutrient",
+		"left4zednutrient",
+		"robustharvestnutrient",
 		"water",
 		"atrazine",
 		"pestkiller",
@@ -163,7 +165,7 @@
 
 	var/beakerContents[0]
 	var/beakerCurrentVolume = 0
-	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
+	if(beaker && beaker.reagents && length(beaker.reagents.reagent_list))
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beakerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
@@ -233,24 +235,27 @@
 	add_fingerprint(usr)
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
+	if(istype(I, /obj/item/storage/part_replacer))
+		. = ..()
 		SStgui.update_uis(src)
-		return
-
-	if(isrobot(user))
 		return
 
 	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/drinks)) && user.a_intent != INTENT_HARM)
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
+
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
+
 		I.forceMove(src)
 		if(beaker)
-			user.put_in_hands(beaker)
-			to_chat(user, "<span class='notice'>You swap [I] with [beaker].</span>")
+			to_chat(usr, "<span class='notice'>You swap [I] with [beaker].</span>")
+			if(Adjacent(usr) && !issilicon(usr)) //Prevents telekinesis from putting in hand
+				user.put_in_hands(beaker)
+			else
+				beaker.forceMove(loc)
 		else
 			to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		beaker = I
@@ -300,6 +305,12 @@
 	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
+	if(isdrone(user))
+		var/mob/living/silicon/robot/drone/drone = user
+		if(!drone.emagged)
+			// There's nothing a drone can do here that wouldn't violate their laws and/or the rules.
+			to_chat(user, "<span class='warning'>Your safety protocols refuse to connect to [src].</span>")
+			return
 	return attack_hand(user)
 
 /obj/machinery/chem_dispenser/attack_ghost(mob/user)
@@ -371,7 +382,7 @@
 	name = "booze dispenser"
 	ui_title = "Booze Portal 9001"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol")
+	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol", "lager", "stout")
 	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
 	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
@@ -421,7 +432,7 @@
 	var/recharge_rate = 1 // Keep this as an integer
 
 /obj/item/handheld_chem_dispenser/Initialize()
-	..()
+	. = ..()
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
 	current_reagent = pick(dispensable_reagents)
@@ -607,9 +618,10 @@
 	dispensable_reagents = list(
 		"mutagen",
 		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
+		"eznutrient",
+		"mutrient",
+		"left4zednutrient",
+		"robustharvestnutrient",
 		"water",
 		"atrazine",
 		"pestkiller",

@@ -5,15 +5,15 @@
 	icon_state = "seed-wheat"
 	species = "wheat"
 	plantname = "Wheat Stalks"
-	product = /obj/item/food/snacks/grown/wheat
+	product = /obj/item/food/grown/wheat
 	production = 1
 	yield = 4
-	potency = 15
+	potency = 30
 	icon_dead = "wheat-dead"
 	mutatelist = list(/obj/item/seeds/wheat/oat, /obj/item/seeds/wheat/meat)
 	reagents_add = list("plantmatter" = 0.04)
 
-/obj/item/food/snacks/grown/wheat
+/obj/item/food/grown/wheat
 	seed = /obj/item/seeds/wheat
 	name = "wheat"
 	desc = "Sigh... wheat... a-grain?"
@@ -31,10 +31,10 @@
 	icon_state = "seed-oat"
 	species = "oat"
 	plantname = "Oat Stalks"
-	product = /obj/item/food/snacks/grown/oat
+	product = /obj/item/food/grown/oat
 	mutatelist = list()
 
-/obj/item/food/snacks/grown/oat
+/obj/item/food/grown/oat
 	seed = /obj/item/seeds/wheat/oat
 	name = "oat"
 	desc = "Eat oats, do squats."
@@ -52,11 +52,11 @@
 	icon_state = "seed-rice"
 	species = "rice"
 	plantname = "Rice Stalks"
-	product = /obj/item/food/snacks/grown/rice
+	product = /obj/item/food/grown/rice
 	mutatelist = list()
 	growthstages = 3
 
-/obj/item/food/snacks/grown/rice
+/obj/item/food/grown/rice
 	seed = /obj/item/seeds/wheat/rice
 	name = "rice"
 	desc = "Rice to meet you."
@@ -74,11 +74,11 @@
 	icon_state = "seed-meatwheat"
 	species = "meatwheat"
 	plantname = "Meatwheat"
-	product = /obj/item/food/snacks/grown/meatwheat
+	product = /obj/item/food/grown/meatwheat
 	mutatelist = list()
 	reagents_add = list("protein" = 0.04)
 
-/obj/item/food/snacks/grown/meatwheat
+/obj/item/food/grown/meatwheat
 	name = "meatwheat"
 	desc = "Some blood-drenched wheat stalks. You can crush them into what passes for meat if you squint hard enough."
 	icon_state = "meatwheat"
@@ -89,10 +89,10 @@
 	tastes = list("meatwheat" = 1)
 	can_distill = FALSE
 
-/obj/item/food/snacks/grown/meatwheat/attack_self(mob/living/user)
+/obj/item/food/grown/meatwheat/attack_self(mob/living/user)
 	user.visible_message("<span class='notice'>[user] crushes [src] into meat.</span>", "<span class='notice'>You crush [src] into something that resembles meat.</span>")
 	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
-	var/obj/item/food/snacks/meat/meatwheat/M = new(get_turf(user))
+	var/obj/item/food/meat/meatwheat/M = new(get_turf(user))
 	user.drop_item()
 	qdel(src)
 	user.put_in_hands(M)

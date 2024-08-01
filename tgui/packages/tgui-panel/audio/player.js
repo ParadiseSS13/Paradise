@@ -10,10 +10,6 @@ const logger = createLogger('AudioPlayer');
 
 export class AudioPlayer {
   constructor() {
-    // Doesn't support HTMLAudioElement
-    if (Byond.IS_LTE_IE9) {
-      return;
-    }
     // Set up the HTMLAudioElement node
     this.node = document.createElement('audio');
     this.node.style.setProperty('display', 'none');
@@ -53,8 +49,7 @@ export class AudioPlayer {
       if (!this.playing) {
         return;
       }
-      const shouldStop =
-        this.options.end > 0 && this.node.currentTime >= this.options.end;
+      const shouldStop = this.options.end > 0 && this.node.currentTime >= this.options.end;
       if (shouldStop) {
         this.stop();
       }

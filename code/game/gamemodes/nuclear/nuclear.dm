@@ -1,8 +1,5 @@
 #define NUKESCALINGMODIFIER 6
 
-/datum/game_mode
-	var/list/datum/mind/syndicates = list()
-
 /proc/issyndicate(mob/living/M as mob)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.syndicates)
 
@@ -34,13 +31,13 @@
 	var/list/possible_syndicates = get_players_for_role(ROLE_OPERATIVE)
 	var/agent_number = 0
 
-	if(possible_syndicates.len < 1)
+	if(length(possible_syndicates) < 1)
 		return 0
 
 	if(LAZYLEN(possible_syndicates) > agents_possible)
 		agent_number = agents_possible
 	else
-		agent_number = possible_syndicates.len
+		agent_number = length(possible_syndicates)
 
 	var/n_players = num_players()
 	if(agent_number > n_players)
@@ -115,7 +112,7 @@
 		break
 
 	for(var/datum/mind/synd_mind in syndicates)
-		if(spawnpos > synd_spawn.len)
+		if(spawnpos > length(synd_spawn))
 			spawnpos = 2
 		synd_mind.current.loc = synd_spawn[spawnpos]
 		synd_mind.offstation_role = TRUE
@@ -151,8 +148,8 @@
 	var/player_tc
 	var/remainder
 
-	player_tc = round(total_tc / GLOB.nuclear_uplink_list.len) //round to get an integer and not floating point
-	remainder = total_tc % GLOB.nuclear_uplink_list.len
+	player_tc = round(total_tc / length(GLOB.nuclear_uplink_list)) //round to get an integer and not floating point
+	remainder = total_tc % length(GLOB.nuclear_uplink_list)
 
 	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
 		U.hidden_uplink.uses += player_tc
@@ -167,11 +164,12 @@
 	var/mob/living/carbon/human/M = synd_mind.current
 
 	M.set_species(/datum/species/human, TRUE)
+	M.dna.flavor_text = null
+	M.flavor_text = null
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
 	M.dna.species.create_organs(M)
 	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
-	M.flavor_text = null
 
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde

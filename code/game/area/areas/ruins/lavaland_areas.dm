@@ -18,10 +18,22 @@
 	icon_state = "yellow"
 
 /area/ruin/powered/golem_ship
-	name = "Free Golem Landing"
+	name = "Free Golem Ship"
 	icon_state = "yellow"
 
 /area/ruin/powered/greed
+	icon_state = "yellow"
+
+/area/ruin/powered/envy
+	icon_state = "yellow"
+
+/area/ruin/powered/sloth
+	icon_state = "yellow"
+
+/area/ruin/powered/fountain_hall
+	icon_state = "yellow"
+
+/area/ruin/powered/pizza_party
 	icon_state = "yellow"
 
 /area/ruin/unpowered/hierophant

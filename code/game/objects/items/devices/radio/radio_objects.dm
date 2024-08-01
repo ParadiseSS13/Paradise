@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(default_internal_channels, list(
 	num2text(SCI_FREQ) = list(ACCESS_RESEARCH),
 	num2text(SUP_FREQ) = list(ACCESS_CARGO),
 	num2text(SRV_FREQ) = list(ACCESS_HOP, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_JANITOR, ACCESS_CLOWN, ACCESS_MIME),
-	num2text(PROC_FREQ)= list(ACCESS_MAGISTRATE, ACCESS_NTREP, ACCESS_LAWYER)
+	num2text(PROC_FREQ)= list(ACCESS_MAGISTRATE, ACCESS_NTREP, ACCESS_INTERNAL_AFFAIRS)
 ))
 
 GLOBAL_LIST_INIT(default_medbay_channels, list(
@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	var/list/internal_channels
 
 	var/datum/radio_frequency/radio_connection
-	var/list/datum/radio_frequency/secure_radio_connections = new
+	var/list/datum/radio_frequency/secure_radio_connections = list()
 
 	var/requires_tcomms = FALSE // Does this device require tcomms to work.If TRUE it wont function at all without tcomms. If FALSE, it will work without tcomms, just slowly
 	var/instant = FALSE // Should this device instantly communicate if there isnt tcomms
@@ -107,9 +107,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	follow_target = null
 	return ..()
 
-
-/obj/item/radio/Initialize()
-	..()
+/obj/item/radio/Initialize(mapload)
+	. = ..()
 	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
 		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 	set_frequency(frequency)
@@ -130,6 +129,22 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		wires.Interact(user)
 		return
 	ui_interact(user)
+
+/obj/item/radio/AltClick(mob/user)
+	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	ToggleBroadcast()
+	to_chat(user, "<span class='notice'>You <b>[broadcasting ? "enable" : "disable"]</b> [src]'s hotmic.</span>")
+	add_fingerprint(user)
+
+/obj/item/radio/CtrlShiftClick(mob/user)
+	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	ToggleReception()
+	to_chat(user, "<span class='notice'>You <b>[listening ? "enable" : "disable"]</b> [src]'s speaker.</span>")
+	add_fingerprint(user)
 
 /obj/item/radio/ui_state(mob/user)
 	return GLOB.default_state
@@ -252,13 +267,15 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/proc/ToggleBroadcast()
 	broadcasting = !broadcasting && !(wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL))
+	if(broadcasting)
+		playsound(src, 'sound/items/radio_common.ogg', rand(4, 16) * 5, SOUND_RANGE_SET(3))
 
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, role = "Unknown", follow_target_override) //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
-	if(channel && channels && channels.len > 0)
+	if(channel && channels && length(channels) > 0)
 		if(channel == "department")
 			channel = channels[1]
 		connection = secure_radio_connections[channel]
@@ -266,7 +283,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		connection = radio_connection
 		channel = null
 
-	if(is_type_in_list(get_area(src), blacklisted_areas))
+	if(loc && is_type_in_list(get_area(src), blacklisted_areas))
 		// add a debug log so people testing things won't be fighting against a "broken" radio for too long.
 		log_debug("Radio message from [src] was used in restricted area [get_area(src)].")
 		return
@@ -274,10 +291,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 	if(!connection)
 		return
-	var/mob/living/automatedannouncer/A = new /mob/living/automatedannouncer(src)
-	A.name = from
-	A.role = role
-	A.message = message
 	var/jammed = FALSE
 	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
 		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
@@ -290,7 +303,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		// Make us a message datum!
 	var/datum/tcomms_message/tcm = new
 	tcm.connection = connection
-	tcm.sender = A
+	tcm.sender = src
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
@@ -312,29 +325,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		C.handle_message(tcm)
 	qdel(tcm) // Delete the message datum
-	qdel(A)
-
-// Just a dummy mob used for making announcements, so we don't create AIs to do this
-// I'm not sure who thought that was a good idea. -- Crazylemon
-/mob/living/automatedannouncer
-	var/role = ""
-	var/lifetime_timer
-	var/message = ""
-	universal_speak = TRUE
-
-/mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, PROC_REF(autocleanup)), 10 SECONDS, TIMER_STOPPABLE)
-	..()
-
-/mob/living/automatedannouncer/Destroy()
-	if(lifetime_timer)
-		deltimer(lifetime_timer)
-		lifetime_timer = null
-	return ..()
-
-/mob/living/automatedannouncer/proc/autocleanup()
-	stack_trace("An announcer somehow managed to outlive the radio! Deleting! (Message: [message])")
-	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/radio/proc/handle_message_mode(mob/living/M as mob, list/message_pieces, message_mode)
@@ -343,7 +333,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return radio_connection
 
 	// Otherwise, if a channel is specified, look for it.
-	if(channels && channels.len > 0)
+	if(channels && length(channels) > 0)
 		if(message_mode == "department") // Department radio shortcut
 			message_mode = channels[1]
 
@@ -527,7 +517,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
-	if(!freq) //recieved on main frequency
+	if(!freq) //received on main frequency
 		if(!listening)
 			return -1
 	else
@@ -541,11 +531,6 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		if(!accept)
 			return -1
 	return canhear_range
-
-/obj/item/radio/proc/send_hear(freq, level)
-	var/range = receive_range(freq, level)
-	if(range > -1)
-		return get_mobs_in_view(canhear_range, src)
 
 /obj/item/radio/proc/is_listening()
 	var/is_listening = TRUE
@@ -564,13 +549,24 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	return null
 
+/obj/item/radio/proc/show_examine_hotkeys()
+	. = list()
+	. += "<span class='notice'><b>Alt-Click</b> to toggle [src]'s hotmic.</span>"
+	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to toggle [src]'s speaker.</span>"
+
 /obj/item/radio/examine(mob/user)
 	. = ..()
+	. += show_examine_hotkeys()
+
 	if(in_range(src, user) || loc == user)
 		if(b_stat)
 			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
 		else
 			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
+
+/obj/item/radio/examine_more(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can transmit messages from [src] without the hotmic by using <b>:l</b> or <b>:r</b> whilst holding it in your left or right hand.</span>"
 
 /obj/item/radio/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -578,13 +574,12 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 
 	b_stat = !b_stat
-	if(!istype(src, /obj/item/radio/beacon))
-		if(b_stat)
-			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
-		else
-			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
+	if(b_stat)
+		user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
+	else
+		user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
 
-		updateDialog()
+	updateDialog()
 
 /obj/item/radio/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -823,7 +818,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	to_chat(hearer, "<span class='deadsay'><b>[speaker_name]</b> ([ghost_follow_link(subject, hearer)]) [message]</span>")
 
 /obj/item/radio/headset/deadsay/talk_into(mob/living/M, list/message_pieces, channel, verbage)
-	var/message = sanitize(copytext(multilingual_to_message(message_pieces), 1, MAX_MESSAGE_LEN))
+	var/message = copytext(multilingual_to_message(message_pieces), 1, MAX_MESSAGE_LEN)
 
 	if(!message)
 		return

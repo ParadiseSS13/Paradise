@@ -1,0 +1,105 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+$window-color: #2b0f0c;
+$background-color: #824b28;
+$paper-color: #f2f2f2;
+
+@use '../base.scss' with (
+  $color-bg: $window-color,
+  $color-bg-grad-spread: 0%
+);
+
+.theme-noticeboard {
+  // Atomic classes
+  @include meta.load-css('../atomic/color.scss');
+
+  // Components
+  @include meta.load-css('../components/Section.scss', $with: ('background-color': $paper-color));
+
+  // Layouts
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': $window-color, 'shadow-color': $window-color, 'shadow-color-core': $window-color)
+  );
+
+  .Layout,
+  .Layout * {
+    scrollbar-base-color: $paper-color;
+    scrollbar-face-color: #e1e1e1;
+    scrollbar-3dlight-color: $paper-color;
+    scrollbar-highlight-color: #c8c8c8;
+    scrollbar-track-color: $paper-color;
+    scrollbar-arrow-color: #969696;
+    scrollbar-shadow-color: $paper-color;
+  }
+
+  .Layout__content {
+    background-image: none;
+  }
+
+  .Window__contentPadding {
+    background-color: $background-color;
+    box-shadow: inset 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
+    border-radius: 1em;
+  }
+
+  .Stack--horizontal > .Stack__item {
+    margin-left: 1em;
+
+    &:last-child {
+      margin-right: 1em;
+    }
+  }
+
+  .Section {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-style: italic;
+    white-space: pre-wrap;
+    color: black;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 100px 100px 200px 200px / 10px 10px 10px 10px;
+    transition: all 100ms ease-in-out;
+
+    & > .Section__rest > .Section__content {
+      overflow-y: hidden;
+      overflow-x: hidden;
+    }
+
+    &__content {
+      margin-top: 0.25em;
+    }
+
+    &__title {
+      margin-top: 0.5em;
+      padding-bottom: 0;
+      border: 0;
+    }
+
+    &__titleText {
+      color: black;
+    }
+
+    &:hover {
+      transform: scale(1.15);
+      border-radius: 1em;
+      box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.33);
+      z-index: 2;
+    }
+
+    &:before {
+      content: ' ';
+      display: block;
+      width: 10px;
+      height: 10px;
+      background: linear-gradient(300deg, rgba(100, 0, 0, 1) 0%, rgba(255, 0, 0, 1) 75%, rgba(255, 125, 125, 1) 100%);
+      box-shadow: 1.5px 1.5px 5px rgba(0, 0, 0, 0.6);
+      border-radius: 100%;
+      position: absolute;
+      left: calc(50% - 12px);
+      margin-top: 0.25em;
+      transform: matrix(1, 0, 0.4, 0.9, 0, 0);
+    }
+  }
+}

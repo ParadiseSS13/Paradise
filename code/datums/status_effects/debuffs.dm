@@ -146,7 +146,7 @@
 		new /obj/effect/temp_visual/bleed/explode(T)
 		for(var/d in GLOB.alldirs)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
-		playsound(T, "desceration", 200, 1, -1)
+		playsound(T, "desceration", 200, TRUE, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
@@ -239,11 +239,10 @@
 
 /datum/status_effect/cult_stun_mark/on_apply()
 	. = ..()
-	if(!ishuman(owner))
+	if(!isliving(owner))
 		return
 	overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
-	var/mob/living/carbon/human/H = owner
-	H.add_overlay(overlay)
+	owner.add_overlay(overlay)
 
 /datum/status_effect/cult_stun_mark/on_remove()
 	owner.cut_overlay(overlay)
@@ -394,13 +393,13 @@
 /datum/status_effect/pepper_spray/on_apply()
 	. = ..()
 	to_chat(owner, "<span class='danger'>Your throat burns!</span>")
-	owner.AdjustConfused(12 SECONDS)
+	owner.AdjustConfused(12 SECONDS, bound_upper = 20 SECONDS)
 	owner.Slowed(4 SECONDS)
 	owner.apply_damage(40, STAMINA)
 
 /datum/status_effect/pepper_spray/refresh()
 	. = ..()
-	owner.AdjustConfused(12 SECONDS)
+	owner.AdjustConfused(12 SECONDS, bound_upper = 20 SECONDS)
 	owner.Slowed(4 SECONDS)
 	owner.apply_damage(20, STAMINA)
 
@@ -659,6 +658,11 @@
 			dreamer.adjustBruteLoss(-1, FALSE)
 			dreamer.adjustFireLoss(-1, FALSE)
 			dreamer.adjustToxLoss(-1)
+			dreamer.adjustOxyLoss(-1)
+			dreamer.adjustCloneLoss(-0.5)
+			if(dreamer.HasDisease(/datum/disease/critical/heart_failure) && prob(25))
+				for(var/datum/disease/critical/heart_failure/HF in dreamer.viruses)
+					HF.cure()
 	dreamer.handle_dreams()
 	dreamer.adjustStaminaLoss(-10)
 	var/comfort = 1
@@ -1023,7 +1027,7 @@
 /datum/status_effect/bubblegum_curse/on_creation(mob/living/new_owner, mob/living/source)
 	. = ..()
 	source_UID = source.UID()
-	owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/fog, 1)
+	owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/stretch/fog, 1)
 
 /datum/status_effect/bubblegum_curse/tick()
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
@@ -1031,7 +1035,7 @@
 		qdel(src)
 	if(attacker.health <= attacker.maxHealth / 2)
 		owner.clear_fullscreen("Bubblegum")
-		owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/fog, 2)
+		owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/stretch/fog, 2)
 	if(!coward_checking)
 		if(owner.z != attacker.z)
 			addtimer(CALLBACK(src, PROC_REF(onstation_coward_callback)), 12 SECONDS)
@@ -1322,3 +1326,81 @@
 			desc = "Real winners quit before they reach the ultimate prize."
 
 #undef DEFAULT_MAX_CURSE_COUNT
+
+/datum/status_effect/reversed_high_priestess
+	id = "reversed_high_priestess"
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 6 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/bubblegum_curse
+
+/datum/status_effect/reversed_high_priestess/tick()
+	. = ..()
+	new /obj/effect/bubblegum_warning(get_turf(owner))
+
+/obj/effect/bubblegum_warning
+	name = "bloody rift"
+	desc = "You feel like even being *near* this is a bad idea"
+	icon = 'icons/obj/biomass.dmi'
+	icon_state = "rift"
+	color = "red"
+
+/obj/effect/bubblegum_warning/Initialize()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(slap_someone)), 2.5 SECONDS) //A chance to run away
+
+/obj/effect/bubblegum_warning/proc/slap_someone()
+	new /obj/effect/abstract/bubblegum_rend_helper(get_turf(src), null, 10)
+	qdel(src)
+
+/datum/status_effect/c_foamed
+	id = "c_foamed up"
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 10 SECONDS
+	var/foam_level = 1
+	var/mutable_appearance/foam_overlay
+
+/datum/status_effect/c_foamed/on_apply()
+	. = ..()
+	foam_overlay = mutable_appearance('icons/obj/foam_blobs.dmi', "foamed_1")
+	owner.add_overlay(foam_overlay)
+	owner.next_move_modifier *= 1.5
+	owner.Slowed(10 SECONDS, 1.5)
+
+/datum/status_effect/c_foamed/Destroy()
+	if(owner)
+		owner.cut_overlay(foam_overlay)
+		owner.next_move_modifier /= 1.5
+
+	QDEL_NULL(foam_overlay)
+	return ..()
+
+/datum/status_effect/c_foamed/tick()
+	. = ..()
+	if(--foam_level <= 0)
+		qdel(src)
+	refresh_overlay()
+
+/datum/status_effect/c_foamed/refresh()
+	. = ..()
+	// Our max slow is 50 seconds
+	foam_level = min(foam_level + 1, 5)
+
+	refresh_overlay()
+
+	if(foam_level == 5)
+		owner.Paralyse(4 SECONDS)
+
+/datum/status_effect/c_foamed/proc/refresh_overlay()
+	// Refresh overlay
+	owner.cut_overlay(foam_overlay)
+	QDEL_NULL(foam_overlay)
+	foam_overlay = mutable_appearance('icons/obj/foam_blobs.dmi', "foamed_[foam_level]")
+	owner.add_overlay(foam_overlay)
+
+/datum/status_effect/judo_armbar
+	id = "armbar"
+	duration = 5 SECONDS
+	alert_type = null
+	status_type = STATUS_EFFECT_REPLACE

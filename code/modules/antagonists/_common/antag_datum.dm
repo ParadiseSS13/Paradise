@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/antagonist)
+
 GLOBAL_LIST_EMPTY(antagonists)
 
 #define SUCCESSFUL_DETACH "dont touch this string numbnuts"
@@ -52,6 +54,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/blurb_g = 0
 	var/blurb_b = 0
 	var/blurb_a = 0
+
+	/// Do we have delayed objective giving?
+	var/delayed_objectives = FALSE
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -234,14 +239,15 @@ GLOBAL_LIST_EMPTY(antagonists)
  * * explanation_text - the explanation text that will be passed into the objective's `New()` proc
  * * mob/target_override - a target for the objective
  */
-/datum/antagonist/proc/add_antag_objective(datum/objective/O, explanation_text, mob/target_override)
-	if(ispath(O))
-		O = new O()
-	if(O.owner)
-		stack_trace("[O], [O.type] was assigned as an objective to [owner] (mind), but already had an owner: [O.owner] (mind). Overriding.")
-	O.owner = owner
+/datum/antagonist/proc/add_antag_objective(datum/objective/objective_to_add, explanation_text, mob/target_override)
+	if(ispath(objective_to_add))
+		objective_to_add = new objective_to_add()
 
-	return objective_holder.add_objective(O, explanation_text, target_override)
+	if(objective_to_add.owner)
+		stack_trace("[objective_to_add], [objective_to_add.type] was assigned as an objective to [owner] (mind), but already had an owner: [objective_to_add.owner] (mind). Overriding.")
+	objective_to_add.owner = owner
+
+	return objective_holder.add_objective(objective_to_add, explanation_text, target_override)
 
 /**
  * Complement to add_antag_objective that removes the objective.
@@ -314,7 +320,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	owner.special_role = A.special_role
 
 /**
- * Checks if the person trying to recieve this datum is role banned from it.
+ * Checks if the person trying to receive this datum is role banned from it.
  */
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)

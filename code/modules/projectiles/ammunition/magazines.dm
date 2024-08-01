@@ -117,6 +117,11 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/shot/malf
+	name = "cyborg shotgun internal magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/lasershot
+	max_ammo = 8
+
 /obj/item/ammo_box/magazine/internal/shot/dual
 	name = "double-barrel shotgun internal magazine"
 	max_ammo = 2
@@ -618,4 +623,14 @@
 	return
 
 /obj/item/ammo_box/magazine/detective/speedcharger/attackby()
+	return
+
+/obj/item/ammo_box/magazine/c_foam
+	name = "\improper C-Foam canister"
+	desc = "A canister containing inert foam for the C-Foam launcher."
+	icon_state = "foam_canister"
+	ammo_type = /obj/item/ammo_casing/caseless/c_foam
+	max_ammo = 12
+
+/obj/item/ammo_box/magazine/c_foam/attack_self(mob/user)
 	return

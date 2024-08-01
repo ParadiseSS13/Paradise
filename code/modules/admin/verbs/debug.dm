@@ -64,13 +64,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!target)
 				to_chat(usr, "<font color='red'>Error: callproc(): owner of proc no longer exists.</font>")
 				return
-			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
-			log_admin("[key_name(src)] called [target]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"].")
+			message_admins("[key_name_admin(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
+			log_admin("[key_name(src)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
 			returnval = WrapAdminProcCall(target, procname, lst) // Pass the lst as an argument list to the proc
 		else
 			//this currently has no hascall protection. wasn't able to get it working.
-			message_admins("[key_name_admin(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-			log_admin("[key_name(src)] called [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+			message_admins("[key_name_admin(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+			log_admin("[key_name(src)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
 
 		to_chat(usr, "<font color='#EB4E00'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
@@ -173,8 +173,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!A || !IsValidSrc(A))
 		to_chat(src, "<span class='warning'>Error: callproc_datum(): owner of proc no longer exists.</span>")
 		return
-	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
-	log_admin("[key_name(src)] called [A]'s [procname]() with [lst.len ? "the arguments [list2params(lst)]":"no arguments"]")
+	message_admins("[key_name_admin(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
+	log_admin("[key_name(src)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
 
 	spawn()
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
@@ -262,13 +262,13 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!isturf(T))
 		return
 
-	var/datum/gas_mixture/env = T.return_air()
+	var/datum/gas_mixture/env = T.get_readonly_air()
 
 	var/t = ""
-	t+= "Nitrogen : [env.nitrogen]\n"
-	t+= "Oxygen : [env.oxygen]\n"
-	t+= "Plasma : [env.toxins]\n"
-	t+= "CO2: [env.carbon_dioxide]\n"
+	t+= "Nitrogen : [env.nitrogen()]\n"
+	t+= "Oxygen : [env.oxygen()]\n"
+	t+= "Plasma : [env.toxins()]\n"
+	t+= "CO2: [env.carbon_dioxide()]\n"
 
 	usr.show_message(t, 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -736,7 +736,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
-				Plasma.air_contents.toxins = 70
+				Plasma.air_contents.set_toxins(70)
 				Rad.drainratio = 0
 				Rad.loaded_tank = Plasma
 				Plasma.loc = Rad
@@ -800,6 +800,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(I.hard_deletes)
 			dellog += "<li>Total Hard Deletes [I.hard_deletes]</li>"
 			dellog += "<li>Time Spent Hard Deleting: [I.hard_delete_time]ms</li>"
+			dellog += "<li>Average References During Hardel: [I.reference_average] references.</li>"
 		if(I.slept_destroy)
 			dellog += "<li>Sleeps: [I.slept_destroy]</li>"
 		if(I.no_respect_force)
@@ -914,62 +915,38 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	GLOB.error_cache.showTo(usr)
 
-/client/proc/visualise_active_turfs()
+/client/proc/allow_browser_inspect()
 	set category = "Debug"
-	set name = "Visualise Active Turfs"
+	set name = "Allow Browser Inspect"
+	set desc = "Allow browser debugging via inspect"
 
-	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+	if(!check_rights(R_MAINTAINER) || !isclient(src))
 		return
 
-	// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
-	var/confirm = alert(usr, "WARNING: This process is lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", "Im sure", "Nope")
-	if(confirm != "Im sure")
+	if(byond_version < 516)
+		to_chat(src, "<span class='warning'>You can only use this on 516!</span>")
 		return
 
-	var/display_turfs_overlay = FALSE
-	var/do_display_turf_overlay = alert(usr, "Would you like to have all active turfs have a client side overlay applied as well?", "Optional", "Yep", "Nope")
-	if(do_display_turf_overlay == "Yep")
-		display_turfs_overlay = TRUE
+	to_chat(src, "<span class='info'>You can now right click to use inspect on browsers.</span>")
+	winset(src, "", "browser-options=byondstorage,find,devtools")
 
-	message_admins("[key_name_admin(usr)] is visualising active atmos turfs. Server may lag.")
+/client/proc/cmd_clean_radiation()
+	set name = "Remove All Radiation"
+	set desc = "Remove all radiation in the world."
+	set category = "Debug"
 
-	var/list/zlevel_turf_indexes = list()
+	if(!check_rights(R_DEBUG))
+		return
 
-	for(var/i in SSair.active_turfs)
-		var/turf/T = i
-		// ENSURE YOU USE STRING NUMBERS HERE, THIS IS A DICTIONARY KEY NOT AN INDEX!!!
-		if(!zlevel_turf_indexes["[T.z]"])
-			zlevel_turf_indexes["[T.z]"] = list()
-		zlevel_turf_indexes["[T.z]"] |= T
-		if(display_turfs_overlay)
-			usr.client.images += image('icons/effects/alphacolors.dmi', T, "red")
+	if(alert(src, "Are you sure you want to remove all radiation in the world? This may lag the server. Alternatively, use the radiation cleaning buildmode.", "Lag warning", "Yes, I'm sure", "No, I want to live") != "Yes, I'm sure")
+		return
+
+	log_and_message_admins("is decontaminating the world of all radiation. (This may be laggy!)")
+
+	var/counter = 0
+	for(var/datum/component/radioactive/rad as anything in SSradiation.all_radiations)
+		rad.admin_decontaminate()
+		counter++
 		CHECK_TICK
 
-	// Sort the keys
-	zlevel_turf_indexes = sortAssoc(zlevel_turf_indexes)
-
-	for(var/key in zlevel_turf_indexes)
-		to_chat(usr, "<span class='notice'>Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] ATs</b></span>")
-
-	var/z_to_view = input(usr, "A list of z-levels their ATs has appeared in chat. Please enter a Z to visualise. Enter 0 to cancel.", "Selection", 0) as num
-
-	if(!z_to_view)
-		return
-
-	// Do not combine these
-	var/list/ui_dat = list()
-	var/list/turf_markers = list()
-
-	var/datum/browser/vis = new(usr, "atvis", "Active Turfs (Z[z_to_view])", 300, 315)
-	ui_dat += "<center><canvas width=\"255px\" height=\"255px\" id=\"atmos\"></canvas></center>"
-	ui_dat += "<script>e=document.getElementById(\"atmos\");c=e.getContext('2d');c.fillStyle='#ffffff';c.fillRect(0,0,255,255);function s(x,y){var p=c.createImageData(1,1);p.data\[0]=255;p.data\[1]=0;p.data\[2]=0;p.data\[3]=255;c.putImageData(p,(x-1),255-Math.abs(y-1));}</script>"
-	// Now generate the other list
-	for(var/x in zlevel_turf_indexes["[z_to_view]"])
-		var/turf/T = x
-		turf_markers += "s([T.x],[T.y]);"
-		CHECK_TICK
-
-	ui_dat += "<script>[turf_markers.Join("")]</script>"
-
-	vis.set_content(ui_dat.Join(""))
-	vis.open(FALSE)
+	log_and_message_admins_no_usr("The world has been decontaminated of [counter] radiation components.")

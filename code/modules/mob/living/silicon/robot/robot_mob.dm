@@ -17,9 +17,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/sight_mode = 0
 	var/custom_name = ""
-	var/custom_sprite = FALSE //Due to all the sprites involved, a var for our custom borgs may be best
+	var/custom_sprite = FALSE // Due to all the sprites involved, a var for our custom borgs may be best.
 
-	//Hud stuff
+	// HUD stuff.
 	var/atom/movable/screen/hands = null
 	var/atom/movable/screen/inv1 = null
 	var/atom/movable/screen/inv2 = null
@@ -27,10 +27,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/atom/movable/screen/lamp_button = null
 	var/atom/movable/screen/thruster_button = null
 
-	var/shown_robot_modules = FALSE	//Used to determine whether they have the module menu shown or not
-	var/atom/movable/screen/robot_modules_background
-
-	//3 Modules can be activated at any one time.
+	// 3 Modules can be activated at any one time.
 	var/obj/item/robot_module/module = null
 	var/module_active = null
 	var/module_state_1 = null
@@ -42,81 +39,121 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/obj/item/stock_parts/cell/cell = null
 	var/obj/machinery/camera/camera = null
 
-	// Components are basically robot organs.
+	/// Components are basically robot organs.
 	var/list/components = list()
 
-	var/obj/item/robot_parts/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
+	/// Used for deconstruction to remember what the robot was constructed out of.
+	var/obj/item/robot_parts/robot_suit/robot_suit = null
+	/// Used for deconstruction to remember what the robot was constructed out of.
 	var/obj/item/mmi/mmi = null
 
 	var/obj/item/pda/silicon/robot/rbPDA = null
 
 	var/datum/wires/robot/wires = null
 
+	/// Is the robot's maintenance panel open?
 	var/opened = FALSE
+	/// Does the robot have a non-default sprite for an open service panel?
 	var/custom_panel = null
+	/// Robot skins with non-default sprites for an open service panel.
 	var/list/custom_panel_names = list("Cricket")
+	/// Robot skins with multiple variants for different modules. They require special handling to make their eyes display.
 	var/list/custom_eye_names = list("Cricket", "Standard")
-	var/emagged = 0
+	/// Has the robot been emagged?
+	var/emagged = FALSE
+	/// Can the robot be emagged?
 	var/is_emaggable = TRUE
-	var/eye_protection = 0
+	/// Is the robot protected from the visual portion of flashbangs and flashes?
+	var/eye_protection = FALSE
+	/// Is the robot protected from the audio component of flashbangs? Prevents inflicting confusion.
 	var/ear_protection = FALSE
+	/// All incoming damage has this number subtracted from it.
 	var/damage_protection = 0
+	/// Is the robot immune to EMPs?
 	var/emp_protection = FALSE
-	/// Value incoming brute damage to borgs is mutiplied by.
+	/// Incoming brute damage is multiplied by this number.
 	var/brute_mod = 1
-	/// Value incoming burn damage to borgs is multiplied by.
+	/// Incoming burn damage is multiplied by this number.
 	var/burn_mod = 1
-
+	///If the cyborg is rebooting from stamcrit
+	var/rebooting = FALSE
+	///If the cyborg is in a charger, or otherwise receiving power from an outside source.
+	var/externally_powered = FALSE
+	///What the cyborg's maximum slowdown penalty is, if it has one.
+	var/slowdown_cap = INFINITY
 	var/list/force_modules
+	/// Can a robot rename itself with the Namepick verb?
 	var/allow_rename = TRUE
+	/// Setting to TRUE unlocks a borg's Safety Override modules.
 	var/weapons_unlock = FALSE
 	var/static_radio_channels = FALSE
 
 	var/wiresexposed = FALSE
+	/// Is the robot's cover locked?
 	var/locked = TRUE
+	/// Determines the ID access needed to unlock the robot's cover.
 	var/list/req_one_access = list(ACCESS_ROBOTICS)
+	/// Used for robot access checks.
 	var/list/req_access
+	/// Used when generating the number in default robot names.
 	var/ident = 0
 	//var/list/laws = list()
 	var/viewalerts = FALSE
+	/// What specialisation the robot has.
 	var/modtype = "Default"
 	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
-	var/low_power_mode = FALSE //whether the robot has no charge left.
-	var/weapon_lock = FALSE
-	var/weaponlock_time = 120
-	var/lawupdate = TRUE //Cyborgs will sync their laws with their AI by default
-	var/lockcharge //Used when locking down a borg to preserve cell charge
-	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
-	var/scrambledcodes = FALSE // Used to determine if a borg shows up on the robotics console.  Setting to TRUE hides them.
-	var/can_lock_cover = FALSE //Used to set if a borg can re-lock its cover.
+	/// Has the robot's power cell run out of charge?
+	var/low_power_mode = FALSE
+	/// Determines if the robot tries to sync its laws to a connected AI.
+	var/lawupdate = TRUE
+	/// Used when locking down a robot to preserve cell charge.
+	var/lockcharge
+	/// Speed modifier. Positive numbers reduce speed, negative numbers increase it.
+	var/speed = 0
+	/// If set to TRUE, a robot will not be visible on the robotics control console.
+	var/scrambledcodes = FALSE
+	/// If set to TRUE, a robot can re-lock its own cover.
+	var/can_lock_cover = FALSE
+	/// Determines if a robot acts as a mobile security camera that can be observed through security consoles or by an AI.
 	var/has_camera = TRUE
-	var/pdahide = FALSE //Used to hide the borg from the messenger list
-	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
+	/// If set to TRUE, the robot will be hidden on the PDA messenger list.
+	var/pdahide = FALSE
+	/// The number of known entities currently accessing the internal camera.
+	var/tracking_entities = 0
+	/// Determines if the robot is referred to as an "Android", "Robot", or "Cyborg" based on the type of brain inside.
 	var/braintype = "Cyborg"
+	/// The default skin of some special robots.
 	var/base_icon = ""
+	/// If set to TRUE, the robot's 3 module slots will progressively become unusable as they take damage.
 	var/modules_break = TRUE
 
-	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
-	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
-	var/lamp_recharging = FALSE //Flag for if the lamp is on cooldown after being forcibly disabled.
+	/// Maximum brightness of a robot's headlamp. Set as a var for easy adjusting.
+	var/lamp_max = 10
+	/// Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power. Increments in steps of 2.
+	var/lamp_intensity = 0
+	/// Flag for if the headlamp is on cooldown after being forcibly disabled (e.g. by a shadow deamon).
+	var/lamp_recharging = FALSE
 
-	/// When the camera moved signal was send last. Avoid overdoing it
+	/// When the camera moved signal was sent last. Avoid overdoing it.
 	var/last_camera_update
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
 	var/default_cell_type = /obj/item/stock_parts/cell/high
-	var/ionpulse = FALSE // Jetpack-like effect.
-	var/ionpulse_on = FALSE // Jetpack-like effect.
-	/// Does it clean the tile under it?
+	/// Does the robot have ion thrusters installed?
+	var/ionpulse = FALSE
+	/// Are the robot's ion thrusters activated?
+	var/ionpulse_on = FALSE
+	/// Does the robot clean dirt under it when it moves onto a tile?
 	var/floorbuffer = FALSE
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
 
-	var/see_reagents = FALSE // Determines if the cyborg can see reagents
+	/// If set to TRUE, the robot can see the types and precice quantities of reagents in transparent containers, the % amount of different reagents in opaque containers, and can identify different blood types.
+	var/has_advanced_reagent_vision = FALSE
 
-	/// Integer used to determine self-mailing location, used only by drones and saboteur borgs
+	/// Integer used to determine self-mailing location, used only by drones and saboteur robots.
 	var/mail_destination = 1
 	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
 	var/datum/ui_module/destination_tagger/mail_setter
@@ -135,11 +172,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	add_language("Robot Talk", 1)
 
 	wires = new(src)
-
-	robot_modules_background = new()
-	robot_modules_background.icon_state = "block"
-	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer 20, UI should be just below it.
-	robot_modules_background.plane = HUD_PLANE
 
 	ident = rand(1, 999)
 	rename_character(null, get_default_name())
@@ -185,7 +217,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = new(src)
 	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
-
+	RegisterSignal(src, COMSIG_ENTERED_BORGCHARGER, PROC_REF(gain_external_power))
+	RegisterSignal(src, COMSIG_EXITED_BORGCHARGER, PROC_REF(lose_external_power))
 	robot_module_hat_offset(icon_state)
 
 /mob/living/silicon/robot/get_radio()
@@ -574,7 +607,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(camera && ("Robots" in camera.network))
 				camera.network += "Medical"
 			status_flags &= ~CANPUSH
-			see_reagents = TRUE
+			has_advanced_reagent_vision = TRUE
 		if("Mining")
 			module = new /obj/item/robot_module/miner(src)
 			module.channels = list("Supply" = 1)
@@ -583,7 +616,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
 			module.channels = list("Service" = 1)
-			see_reagents = TRUE
+			has_advanced_reagent_vision = TRUE
 			if(selected_sprite == "Bro")
 				module.module_type = "Brobot"
 		if("Combat")
@@ -628,9 +661,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/reset_module()
 	notify_ai(2)
-
-	shown_robot_modules = 0
-	client?.screen -= robot_modules_background
 	client?.screen -= hud_used.module_store_icon
 	uneq_all()
 	SStgui.close_user_uis(src)
@@ -660,8 +690,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
 	armor = getArmor(arglist(initial(armor)))
-
+	slowdown_cap = INFINITY
 	status_flags |= CANPUSH
+
+	hud_used.update_robot_modules_display()
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
@@ -742,7 +774,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				dat += "<NOBR>"
 				dat += "-- [area_name]"
 				dat += "</NOBR><BR>\n"
-		if(!L.len)
+		if(!length(L))
 			dat += "-- All Systems Nominal<BR>\n"
 		dat += "<BR>\n"
 
@@ -855,21 +887,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(istype(W, /obj/item/robot_parts/robot_component) && opened)
 		for(var/V in components)
 			var/datum/robot_component/C = components[V]
-			if(C.is_missing() && istype(W, C.external_type))
-				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>[W] seems to be stuck in your hand!</span>")
-					return
-				C.install(W)
-				W.loc = null
-
-				var/obj/item/robot_parts/robot_component/WC = W
-				if(istype(WC))
-					C.brute_damage = WC.brute
-					C.electronics_damage = WC.burn
-
-				to_chat(usr, "<span class='notice'>You install [W].</span>")
-
+			if(!C.is_missing() || !istype(W, C.external_type))
+				continue
+			if(!user.drop_item())
+				to_chat(user, "<span class='warning'>[W] seems to be stuck in your hand!</span>")
 				return
+			var/obj/item/robot_parts/robot_component/WC = W
+			C.brute_damage = WC.brute
+			C.electronics_damage = WC.burn
+			C.install(WC)
+			to_chat(usr, "<span class='notice'>You install [W].</span>")
+			return
 
 	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || isdrone(src)))
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -894,12 +922,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "There is a power cell already installed.")
 		else
 			user.drop_item()
-			W.loc = src
 			to_chat(user, "You insert the power cell.")
 			C.install(W)
-			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
-			C.brute_damage = 0
-			C.electronics_damage = 0
 
 			var/been_hijacked = FALSE
 			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
@@ -1066,7 +1090,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		thing.burn = C.electronics_damage
 
 	C.uninstall()
-	thing.loc = loc
+	thing.forceMove(loc)
 
 
 
@@ -1459,11 +1483,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(emp_protection)
 		return
 	..()
+	adjustStaminaLoss((30 / severity)) //They also get flashed for an additional 30
 	switch(severity)
-		if(1)
-			disable_component("comms", 160)
-		if(2)
-			disable_component("comms", 60)
+		if(EMP_HEAVY)
+			disable_random_component(2, 20 SECONDS)
+		if(EMP_LIGHT)
+			disable_random_component(1, 10 SECONDS)
 
 /mob/living/silicon/robot/deathsquad
 	base_icon = "nano_bloodhound"
@@ -1475,7 +1500,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = TRUE
 	pdahide = TRUE
-	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
+	eye_protection = TRUE // Immunity to flashes and the visual part of flashbangs
 	ear_protection = TRUE // Immunity to the audio part of flashbangs
 	damage_protection = 10 // Reduce all incoming damage by this number
 	allow_rename = FALSE
@@ -1484,7 +1509,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	is_emaggable = FALSE
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
-	see_reagents = TRUE
+	has_advanced_reagent_vision = TRUE
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
@@ -1517,7 +1542,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/super
 	var/eprefix = "Amber"
-	see_reagents = TRUE
+	has_advanced_reagent_vision = TRUE
 
 
 /mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
@@ -1567,13 +1592,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = TRUE
 	pdahide = TRUE
-	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
+	eye_protection = TRUE // Immunity to flashes and the visual part of flashbangs
 	ear_protection = TRUE // Immunity to the audio part of flashbangs
 	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
-	see_reagents = TRUE
+	has_advanced_reagent_vision = TRUE
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -1662,7 +1687,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /// Used in `robot.dm` when the user presses "Q" by default.
 /mob/living/silicon/robot/proc/on_drop_hotkey_press()
-	var/obj/item/gripper_engineering/G = get_active_hand()
+	var/obj/item/gripper/G = get_active_hand()
 	if(istype(G) && G.gripped_item)
 		G.drop_gripped_item() // if the active module is a gripper, try to drop its held item.
 	else
@@ -1692,8 +1717,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
 
-/mob/living/silicon/robot/can_see_reagents()
-	return see_reagents
+/mob/living/silicon/robot/advanced_reagent_vision()
+	return has_advanced_reagent_vision
 
 /mob/living/silicon/robot/verb/powerwarn()
 	set category = "Robot Commands"
@@ -1724,3 +1749,27 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		old_ai.connected_robots -= src
 	if(connected_ai)
 		connected_ai.connected_robots |= src
+
+/mob/living/silicon/robot/proc/gain_external_power()
+	SIGNAL_HANDLER //COMSIG_ENTERED_BORGCHARGER
+	externally_powered = TRUE
+
+/mob/living/silicon/robot/proc/lose_external_power()
+	SIGNAL_HANDLER //COMSIG_EXITED_BORGCHARGER
+	externally_powered = FALSE
+
+/mob/living/silicon/robot/proc/has_power_source()
+	var/datum/robot_component/cell/cell = get_cell_component()
+	if(!cell)
+		return externally_powered
+	return cell.is_powered() || externally_powered
+
+/mob/living/silicon/robot/can_be_flashed(intensity, override_blindness_check)
+	return eye_protection
+
+/mob/living/silicon/robot/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
+	if(ourapc.hacked_by_ruin_AI || ourapc.aidisabled)
+		return FALSE
+	if(ourapc.malfai && !(src in ourapc.malfai.connected_robots))
+		return FALSE
+	return TRUE
