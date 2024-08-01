@@ -148,29 +148,29 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  * Create and assign a single randomized human traitor objective.
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
-	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
-	if(organisation && length(organisation.objectives) && prob(organisation.focus))
-		add_antag_objective(pick(organisation.objectives))
-		return
 	var/datum/objective/objective_to_add
 
-	if(prob(50))
-		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-			objective_to_add = /datum/objective/destroy
-
-		else if(prob(5))
-			objective_to_add = /datum/objective/debrain
-
-		else if(prob(30))
-			objective_to_add = /datum/objective/maroon
-
-		else if(prob(30))
-			objective_to_add = /datum/objective/assassinateonce
-
-		else
-			objective_to_add = /datum/objective/assassinate
+	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
+	if(organisation && length(organisation.objectives) && prob(organisation.focus))
+		objective_to_add = pick(organisation.objectives)
 	else
-		objective_to_add = /datum/objective/steal
+		if(prob(50))
+			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
+				objective_to_add = /datum/objective/destroy
+
+			else if(prob(5))
+				objective_to_add = /datum/objective/debrain
+
+			else if(prob(30))
+				objective_to_add = /datum/objective/maroon
+
+			else if(prob(30))
+				objective_to_add = /datum/objective/assassinateonce
+
+			else
+				objective_to_add = /datum/objective/assassinate
+		else
+			objective_to_add = /datum/objective/steal
 
 	if(delayed_objectives)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
