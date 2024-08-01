@@ -104,7 +104,7 @@
 
 /datum/effect_system/smoke_spread/chem/process()
 	process_count++
-	for(var/i = 0, i < (2 * rand(2, 6)), i++) //Every 0.2 seconds, create 4-12 smoke particles. This keeps it consitant with the 2-6 every 0.1 seconds before
+	for(var/i in 1 to (2 * rand(2, 6))) // Every 0.2 seconds, create 4-12 smoke particles. This keeps it consitant with the 2-6 every 0.1 seconds before
 		if(eff_range < 3)
 			new /obj/effect/particle_effect/chem_smoke/small(location, eff_colour)
 		else
