@@ -28,6 +28,7 @@
 	target_department = DEPARTMENT_ENGINEERING
 
 /datum/objective/assassinateonce/animal_user
+	name = "Assassinate animal user"
 	target_jobs = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Bartender", "Chef", "Botanist", "Geneticist", "Virologist")
 
 /datum/objective/assassinateonce/command
