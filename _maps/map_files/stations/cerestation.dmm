@@ -49509,8 +49509,8 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/turf/simulated/floor/plating,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "iWF" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -78557,10 +78557,10 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "shh" = (
