@@ -595,8 +595,11 @@
 		if(sections[i])
 			out.Add(sections[i])
 
+	out.Add("<b>Organisation:</b> ")
+	for(var/datum/antagonist/D in antag_datums)
+		if(D.organisation)
+			out.Add("[D.organisation.name]")
 	out.Add(memory_edit_uplink())
-
 	out.Add("<b>Memory:</b>")
 	out.Add(memory)
 	out.Add("<a href='byond://?src=[UID()];memory_edit=1'>Edit memory</a><br>")

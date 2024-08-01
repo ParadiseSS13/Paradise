@@ -116,7 +116,10 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/can_succeed_if_dead = TRUE
 	// If our org has a forced objective, give it to us guaranteed.
 	if(organisation && organisation.forced_objective)
-		add_antag_objective(organisation.forced_objective)
+		var/datum/objective/forced_obj = organisation.forced_objective
+		if(!ispath(forced_obj, /datum/objective/hijack) && delayed_objectives)
+			forced_obj = new /datum/objective/delayed(forced_obj)
+		add_antag_objective(forced_obj)
 		iteration++
 
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
