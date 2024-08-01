@@ -27,8 +27,8 @@
 	name = "Assassinate engineering"
 	target_department = DEPARTMENT_ENGINEERING
 
-/datum/objective/assassinateonce/animal_user
-	name = "Assassinate animal user"
+/datum/objective/assassinateonce/arc
+	name = "Assassinate once (ARC)"
 	target_jobs = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Bartender", "Chef", "Botanist", "Geneticist", "Virologist")
 
 /datum/objective/assassinateonce/command

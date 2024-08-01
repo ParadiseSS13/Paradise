@@ -19,7 +19,7 @@
 	name = "Animal Rights Consortium"
 	intro_desc = "You are a member of the Animal Rights Consortium, here to violently protest the cruel treatment of animals by megacorporations like Nanotrasen. \
 		Teach them a lesson!"
-	objectives = list(/datum/objective/assassinateonce/animal_user)
+	objectives = list(/datum/objective/assassinateonce/arc)
 	chaos_level = ORG_CHAOS_MILD // Violent but never needs to permakill
 
 /datum/antag_org/syndicate/waffle // Assassination variants only
