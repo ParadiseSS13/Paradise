@@ -141,11 +141,11 @@
 	data["cloneable"] = 0 // On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned
 
 	if(type_mismatch || species_mismatch)
-		data["species"] = "Coagulated blood"
+		data["species"] = "Coagulated"
 		data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
 		data["species_only"] = species_unique
 	else if(!same_species) // Same blood type, species-agnostic, but we're still mixing blood of different species
-		data["species"] = "Mixed humanoid blood"
+		data["species"] = "Mixed Humanoid"
 
 	if(data["viruses"] || mix_data["viruses"])
 		var/list/mix1 = data["viruses"]

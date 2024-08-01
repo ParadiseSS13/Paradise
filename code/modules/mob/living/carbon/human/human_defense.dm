@@ -462,7 +462,7 @@ emp_act
 		return FALSE
 
 	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/food/snacks/meat/human/newmeat = new /obj/item/food/snacks/meat/human(get_turf(loc))
+		var/obj/item/food/meat/human/newmeat = new /obj/item/food/meat/human(get_turf(loc))
 		newmeat.name = real_name + newmeat.name
 		newmeat.subjectname = real_name
 		newmeat.subjectjob = job
@@ -498,12 +498,12 @@ emp_act
 
 	send_item_attack_message(I, user, hit_area)
 
+	if(!I.force)
+		return FALSE //item force is zero
+
 	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration_flat = I.armour_penetration_flat, armour_penetration_percentage = I.armour_penetration_percentage)
 	if(armor == INFINITY)
 		return FALSE
-
-	if(!I.force)
-		return TRUE // item force is zero, it deals no damage, we do not apply damage
 
 	var/weapon_sharp = I.sharp
 	// do not roll for random blunt if the target mob is dead for the ease of decaps
@@ -570,7 +570,6 @@ emp_act
 							update_inv_w_uniform()
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
-	return TRUE
 
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)

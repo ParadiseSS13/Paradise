@@ -111,6 +111,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/ammo_box/caps
 	cost = 30
 
+/datum/prize_item/firecracker
+	name = "Firecracker Grenade"
+	desc = "A loud and obnoxious firecracker. Hold away from ears and small children."
+	typepath = /obj/item/grenade/firecracker
+	cost = 50
+
 /datum/prize_item/wallet
 	name = "Cheap Wallet"
 	desc = "A cheap and big enough for standard issue ID cards."
