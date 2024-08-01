@@ -114,12 +114,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 /datum/antagonist/traitor/proc/forge_human_objectives()
 	var/iteration = 1
 	var/can_succeed_if_dead = TRUE
-	for(var/objective in owner.get_all_objectives())
-		var/datum/objective/O = objective
-		if(!O.martyr_compatible) // Check if we need to stay alive in order to accomplish our objectives (Steal item, etc)
-			can_succeed_if_dead  = FALSE
-			break
-
 	// If our org has a forced objective, give it to us guaranteed.
 	if(organisation && organisation.forced_objective)
 		add_antag_objective(organisation.forced_objective)
@@ -131,6 +125,12 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	// Will give objectives from our org or random objectives.
 	for(var/i in iteration to GLOB.configuration.gamemode.traitor_objectives_amount)
 		forge_single_human_objective()
+
+	for(var/objective in owner.get_all_objectives())
+		var/datum/objective/O = objective
+		if(!O.martyr_compatible) // Check if we need to stay alive in order to accomplish our objectives (Steal item, etc)
+			can_succeed_if_dead  = FALSE
+			break
 
 	// Give them an escape objective if they don't have one. 20 percent chance not to have escape if we can greentext without staying alive.
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
