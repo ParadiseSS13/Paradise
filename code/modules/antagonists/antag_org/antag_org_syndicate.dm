@@ -1,6 +1,6 @@
 /// Base syndicate org datum
 /datum/antag_org/syndicate
-	name = "Generic Syndicate Corp"
+	name = "Buggy Syndicate Corp, ahelp this please"
 	chaos_level = ORG_CHAOS_AVERAGE
 
 /datum/antag_org/syndicate/donk // Completely random objectives, default traitor
@@ -18,8 +18,8 @@
 /datum/antag_org/syndicate/arc // Only targets on-station Cargo/Service/Genetics/Virologist
 	name = "Animal Rights Consortium"
 	intro_desc = "You are a member of the Animal Rights Consortium, here to violently protest the cruel treatment of animals by megacorporations like Nanotrasen. \
-		Teach those animal abusers a lesson!"
-	objectives = list(/datum/objective/assassinateonce/animal_abuser)
+		Teach them a lesson!"
+	objectives = list(/datum/objective/assassinateonce/animal_user)
 	chaos_level = ORG_CHAOS_MILD // Violent but never needs to permakill
 
 /datum/antag_org/syndicate/waffle // Assassination variants only

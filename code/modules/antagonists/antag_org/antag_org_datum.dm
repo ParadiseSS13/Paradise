@@ -3,7 +3,7 @@
   */
 /datum/antag_org
 	/// Organisation's name
-	var/name = "Generic Bad Guys"
+	var/name = "Buggy Organisation, adminhelp this please"
 	/// Description given to the antagonist on spawn, below 'You are a Traitor!' or similar
 	var/intro_desc = "You are not meant to see this. Please tell admins/coders that the antag_org wasn't set properly."
 	/// Used for prob() for objectives. Higher focus means the org is less likely to diverge from their favorites.

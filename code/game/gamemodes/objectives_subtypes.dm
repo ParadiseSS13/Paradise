@@ -27,14 +27,8 @@
 	name = "Assassinate engineering"
 	target_department = DEPARTMENT_ENGINEERING
 
-/datum/objective/assassinateonce/animal_abuser
-	name = "Assassinate animal abuser once"
+/datum/objective/assassinateonce/animal_user
 	target_jobs = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Bartender", "Chef", "Botanist", "Geneticist", "Virologist")
-
-/datum/objective/assassinateonce/animal_abuser/update_explanation_text()
-	..()
-	if(target?.current)
-		explanation_text = "Teach [target.current.real_name], the animal abuser and alleged [target.assigned_role], a lesson they will not forget. The target only needs to die once for success."
 
 /datum/objective/assassinateonce/command
 	name = "Assassinate command once"
