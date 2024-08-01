@@ -450,11 +450,11 @@
 /turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "bY" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -718,7 +718,7 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 5
 	},
 /obj/effect/decal/cleanable/cobweb2,
@@ -859,7 +859,7 @@
 	pixel_y = 8
 	},
 /obj/item/flashlight/lamp,
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/neutral,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
@@ -1157,10 +1157,10 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "fq" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 4
 	},
 /obj/structure/coatrack,
@@ -1233,7 +1233,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "fN" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -1933,7 +1933,7 @@
 /area/awaymission/caves/build/reqpower_build)
 "js" = (
 /obj/structure/table_frame/wood,
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 10
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -1998,7 +1998,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "jL" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 8
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -3874,7 +3874,7 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -3982,7 +3982,7 @@
 /obj/structure/chair/sofa/corp{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -4151,7 +4151,7 @@
 /area/awaymission/caves/build/reqpower_build)
 "vC" = (
 /obj/structure/table,
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/neutral,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/light_construct/small/south,
 /obj/item/salvage/ruin/nanotrasen,
@@ -4210,7 +4210,7 @@
 /area/awaymission/caves/build/reqpower_build)
 "vQ" = (
 /obj/structure/closet/crate/can,
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 9
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -4566,13 +4566,13 @@
 	},
 /area/awaymission/caves/build)
 "xQ" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/turf_decal/siding/wood/neutral/corner,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
@@ -4599,13 +4599,13 @@
 	},
 /area/awaymission/caves/build)
 "yb" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/turf_decal/siding/wood/neutral/corner,
 /obj/structure/barricade/wooden,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/landmark/damageturf,
@@ -4812,7 +4812,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 4
 	},
 /obj/structure/table/wood,
@@ -5991,7 +5991,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/neutral,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
@@ -6619,10 +6619,10 @@
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build/reqpower_build)
 "IP" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -7191,7 +7191,7 @@
 	},
 /area/awaymission/caves)
 "LB" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/old,
@@ -7417,7 +7417,7 @@
 /area/awaymission/caves/build)
 "NA" = (
 /obj/structure/chair/comfy/black,
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -7538,7 +7538,7 @@
 	icon_keyboard = null;
 	density = 0
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /mob/living/simple_animal/mouse,
@@ -7710,7 +7710,7 @@
 /area/awaymission/caves/build/reqpower_build)
 "Pe" = (
 /obj/item/kirbyplants,
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 9
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -9291,10 +9291,10 @@
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build/reqpower_build)
 "Xb" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -9622,7 +9622,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "YH" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -9740,7 +9740,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "Zw" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 1
 	},
 /obj/structure/table/wood,

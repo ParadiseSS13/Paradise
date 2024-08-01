@@ -34,7 +34,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "as" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/neutral/half{
@@ -122,7 +122,7 @@
 	pixel_x = 1
 	},
 /obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 10
 	},
 /obj/structure/window/reinforced{
@@ -154,7 +154,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "co" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/item/stack/tickets{
@@ -284,7 +284,7 @@
 	name = "Room 3";
 	id_tag = "beach_room_3"
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -299,7 +299,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/beach)
 "dH" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /turf/simulated/wall/mineral/wood,
@@ -309,7 +309,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "dM" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half{
@@ -324,7 +324,7 @@
 	},
 /area/awaymission/beach)
 "dO" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy,
@@ -337,7 +337,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "eg" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 4
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -402,7 +402,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/awaymission/beach)
 "eA" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 10
 	},
 /turf/simulated/floor/beach/away/water{
@@ -435,7 +435,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "eX" = (
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/neutral,
 /obj/item/cigbutt{
 	pixel_y = -9;
 	pixel_x = 13
@@ -445,7 +445,7 @@
 	},
 /area/awaymission/beach)
 "fa" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /turf/simulated/floor/beach/away/water{
@@ -544,13 +544,13 @@
 	name = "Room 9";
 	id_tag = "beach_room_9"
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "gk" = (
-/obj/effect/turf_decal/siding/wood/alternative,
+/obj/effect/turf_decal/siding/wood/neutral,
 /obj/structure/sink/directional/east,
 /obj/machinery/shower{
 	pixel_y = 16
@@ -565,7 +565,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "gu" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 10
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -575,17 +575,13 @@
 	name = "Room 4";
 	id_tag = "beach_room_4"
 	},
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/neutral,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "gF" = (
 /obj/machinery/light/directional/north,
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/plasteel/freezer,
-/area/awaymission/beach)
-"gM" = (
-/obj/effect/turf_decal/siding/wood/alternative,
-/turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "gN" = (
 /obj/machinery/door_control/bolt_control/west{
@@ -637,7 +633,6 @@
 /area/awaymission/beach)
 "hG" = (
 /obj/machinery/door/poddoor/shutters{
-	dir = 4;
 	id_tag = "BeachGarage"
 	},
 /turf/simulated/floor/plating,
@@ -665,7 +660,7 @@
 /area/awaymission/beach)
 "hO" = (
 /obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -690,7 +685,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "hW" = (
-/obj/effect/turf_decal/siding/wood/alternative/corner,
+/obj/effect/turf_decal/siding/wood/corner,
 /obj/item/stack/tickets{
 	pixel_x = -7;
 	pixel_y = 12
@@ -734,14 +729,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
-"ir" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/turf/simulated/floor/beach/away/water{
-	water_overlay_image = null
-	},
-/area/awaymission/beach)
 "iy" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/item/reagent_containers/drinks/bottle/wine{
@@ -759,7 +746,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "iD" = (
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/neutral,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "iE" = (
@@ -774,7 +761,7 @@
 /area/awaymission/beach)
 "jf" = (
 /obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -783,7 +770,7 @@
 /obj/structure/chair/stool/bamboo{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/turf_decal/siding/wood/neutral/corner,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "jB" = (
@@ -791,7 +778,7 @@
 	pixel_y = -15;
 	pixel_x = -13
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 5
 	},
 /obj/structure/window/reinforced{
@@ -851,7 +838,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "kp" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 10
 	},
 /obj/machinery/economy/vending/cola/red,
@@ -870,8 +857,7 @@
 /area/awaymission/beach)
 "ky" = (
 /obj/effect/turf_decal/siding/dark_red/corner{
-	dir = 1;
-	pixel_y = 0
+	dir = 1
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
@@ -897,8 +883,8 @@
 /turf/simulated/floor/grass/no_creep,
 /area/awaymission/beach)
 "kT" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /turf/simulated/floor/beach/away/water{
@@ -922,7 +908,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "le" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half{
@@ -937,7 +923,7 @@
 /area/awaymission/beach)
 "ll" = (
 /obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/siding/wood/alternative/corner{
+/obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -961,7 +947,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "lF" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
 	},
 /obj/structure/window/reinforced{
@@ -1049,14 +1035,14 @@
 "mS" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/awaymission/beach)
 "mT" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /turf/simulated/floor/beach/away/water{
@@ -1118,7 +1104,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "nw" = (
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/neutral,
 /turf/simulated/floor/beach/away/water{
 	water_overlay_image = null
 	},
@@ -1135,7 +1121,7 @@
 	},
 /area/awaymission/beach)
 "nM" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -1190,13 +1176,13 @@
 	},
 /area/awaymission/beach)
 "oO" = (
-/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/turf_decal/siding/wood/neutral/corner,
 /turf/simulated/floor/beach/away/water{
 	water_overlay_image = null
 	},
 /area/awaymission/beach)
 "oP" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -1242,7 +1228,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "pn" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /obj/machinery/door/airlock/wood{
@@ -1308,8 +1294,7 @@
 /area/awaymission/beach)
 "qh" = (
 /obj/effect/turf_decal/siding/dark_red/corner{
-	dir = 4;
-	pixel_y = 0
+	dir = 4
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
@@ -1327,7 +1312,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "qn" = (
-/obj/effect/turf_decal/siding/wood/alternative/corner{
+/obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
 /turf/simulated/floor/beach/away/water{
@@ -1491,7 +1476,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "sP" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /obj/structure/railing{
@@ -1510,7 +1495,7 @@
 	name = "Room 11";
 	id_tag = "beach_room_11"
 	},
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/neutral,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "tt" = (
@@ -1519,7 +1504,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "tF" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/structure/railing/cap{
@@ -1530,7 +1515,7 @@
 	},
 /area/awaymission/beach)
 "tH" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /obj/structure/reagent_dispensers/fueltank,
@@ -1542,8 +1527,8 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "ud" = (
-/obj/effect/turf_decal/siding/wood/corner,
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner,
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 4
 	},
 /turf/simulated/floor/beach/away/water{
@@ -1552,7 +1537,7 @@
 /area/awaymission/beach)
 "up" = (
 /obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -1596,7 +1581,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "vw" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy,
@@ -1606,7 +1591,7 @@
 	name = "Room 2";
 	id_tag = "beach_room_2"
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -1657,7 +1642,7 @@
 	name = "Room 1";
 	id_tag = "beach_room_1"
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -1694,7 +1679,7 @@
 	name = "Room 12";
 	id_tag = "beach_room_12"
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -1725,7 +1710,7 @@
 /obj/structure/chair/stool/bamboo{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -1767,7 +1752,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "xJ" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /obj/machinery/door/airlock/wood{
@@ -1789,7 +1774,7 @@
 	},
 /area/awaymission/beach)
 "xY" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half{
@@ -1804,7 +1789,7 @@
 	},
 /area/awaymission/beach)
 "yh" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
 	},
 /obj/machinery/economy/vending/cigarette/beach,
@@ -1834,15 +1819,8 @@
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
-"yF" = (
-/obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/siding/wood/alternative{
-	dir = 8
-	},
-/turf/simulated/floor/beach/away/sand_alternative,
-/area/awaymission/beach)
 "yI" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /obj/machinery/door/airlock/wood{
@@ -1880,7 +1858,7 @@
 	},
 /area/awaymission/beach)
 "yT" = (
-/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/turf_decal/siding/wood/oak/corner,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "yY" = (
@@ -1897,7 +1875,7 @@
 	},
 /area/awaymission/beach)
 "zo" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy,
@@ -1938,7 +1916,7 @@
 /area/awaymission/beach)
 "An" = (
 /obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/siding/wood/alternative/corner{
+/obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -1955,7 +1933,7 @@
 /obj/structure/chair/stool/bamboo{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/turf_decal/siding/wood/neutral/corner,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "Av" = (
@@ -1963,13 +1941,13 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "AD" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "AG" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 8
 	},
 /turf/simulated/floor/beach/away/water{
@@ -2019,7 +1997,7 @@
 /turf/simulated/floor/wood/parquet,
 /area/awaymission/beach)
 "Ba" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 4
 	},
 /turf/simulated/floor/beach/away/water{
@@ -2035,7 +2013,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "Br" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 1
 	},
 /turf/simulated/floor/beach/away/water{
@@ -2064,7 +2042,7 @@
 	name = "Room 10";
 	id_tag = "beach_room_10"
 	},
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/neutral,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "BE" = (
@@ -2227,8 +2205,7 @@
 /area/awaymission/beach)
 "Do" = (
 /obj/effect/turf_decal/siding/dark_red/corner{
-	dir = 8;
-	pixel_y = 0
+	dir = 8
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
@@ -2257,7 +2234,7 @@
 /turf/simulated/floor/plasteel/stairs,
 /area/awaymission/beach)
 "DR" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy,
@@ -2352,7 +2329,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "EX" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 1
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -2385,7 +2362,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "Fr" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 6
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -2401,7 +2378,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "FX" = (
-/obj/effect/turf_decal/siding/wood/alternative,
+/obj/effect/turf_decal/siding/wood/neutral,
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 12;
@@ -2463,7 +2440,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/awaymission/beach)
 "Gw" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /turf/simulated/floor/beach/away/water{
@@ -2471,7 +2448,7 @@
 	},
 /area/awaymission/beach)
 "Gz" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /obj/item/clothing/mask/breath/medical{
@@ -2581,7 +2558,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "HE" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
 	},
 /obj/machinery/shower{
@@ -2602,7 +2579,7 @@
 /area/awaymission/beach)
 "HT" = (
 /obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -2612,7 +2589,7 @@
 	name = "Room 5";
 	id_tag = "beach_room_5"
 	},
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/neutral,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "Ia" = (
@@ -2653,7 +2630,7 @@
 /area/awaymission/beach)
 "IC" = (
 /obj/structure/table/wood,
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 9
 	},
 /obj/structure/window/reinforced{
@@ -2704,7 +2681,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "Jf" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 9
 	},
 /obj/machinery/shower{
@@ -2758,7 +2735,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "JK" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral/half{
@@ -2901,7 +2878,7 @@
 	},
 /area/awaymission/beach)
 "Lb" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters{
@@ -2912,7 +2889,7 @@
 	},
 /area/awaymission/beach)
 "Lm" = (
-/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/turf_decal/siding/wood/neutral/corner,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "Lv" = (
@@ -2920,7 +2897,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "LD" = (
-/obj/effect/turf_decal/siding/wood/alternative/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 8
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -2989,7 +2966,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "Mg" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/structure/railing{
@@ -3040,7 +3017,7 @@
 /area/awaymission/beach)
 "MJ" = (
 /obj/machinery/light/directional/east,
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy,
@@ -3092,7 +3069,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "Nr" = (
-/obj/effect/turf_decal/siding/wood/alternative/corner,
+/obj/effect/turf_decal/siding/wood/corner,
 /turf/simulated/floor/carpet/arcade,
 /area/awaymission/beach)
 "Nt" = (
@@ -3136,7 +3113,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/beach)
 "Of" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 4
 	},
 /turf/simulated/floor/beach/away/water{
@@ -3160,7 +3137,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "Op" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy,
@@ -3188,7 +3165,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "OQ" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /obj/structure/table/glass,
@@ -3334,7 +3311,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "Rj" = (
-/obj/effect/turf_decal/siding/wood/corner{
+/obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy,
@@ -3346,7 +3323,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "Rn" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -3377,10 +3354,10 @@
 /obj/machinery/door/airlock/command/glass{
 	name = "Admin"
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -3441,7 +3418,7 @@
 /area/awaymission/beach)
 "SS" = (
 /obj/effect/turf_decal/sand,
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -3509,7 +3486,7 @@
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "Un" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 5
 	},
 /turf/simulated/floor/beach/away/sand_alternative,
@@ -3585,7 +3562,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "Ve" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /obj/machinery/door_control/shutter/south{
@@ -3637,11 +3614,15 @@
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "Vz" = (
-/obj/effect/turf_decal/siding/wood/alternative/corner,
-/turf/simulated/floor/beach/away/sand_alternative,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/beach/away/water{
+	water_overlay_image = null
+	},
 /area/awaymission/beach)
 "VC" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 10
 	},
 /obj/machinery/shower{
@@ -3650,7 +3631,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "VJ" = (
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/neutral,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/awaymission/beach)
 "VL" = (
@@ -3722,13 +3703,13 @@
 /obj/machinery/door/airlock/wood{
 	name = "Changing Room"
 	},
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/beach)
 "WC" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
 	},
 /turf/simulated/floor/beach/away/water{
@@ -3777,7 +3758,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "WR" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
 	},
 /obj/machinery/door/airlock/wood{
@@ -3810,7 +3791,7 @@
 	pixel_y = 7;
 	pixel_x = 9
 	},
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "Xj" = (
@@ -3892,7 +3873,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "Yv" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
 /obj/machinery/shower{
@@ -3991,7 +3972,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/beach)
 "ZL" = (
-/obj/effect/turf_decal/siding/wood/alternative{
+/obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
 	},
 /obj/machinery/shower{
@@ -4001,7 +3982,7 @@
 /turf/simulated/floor/wood/parquet,
 /area/awaymission/beach)
 "ZM" = (
-/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "ZS" = (
@@ -4023,7 +4004,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/awaymission/beach)
 "ZZ" = (
-/obj/effect/turf_decal/siding/wood/alternative,
+/obj/effect/turf_decal/siding/wood,
 /obj/machinery/light/directional/east,
 /obj/item/kirbyplants,
 /turf/simulated/floor/carpet/arcade,
@@ -8590,25 +8571,25 @@ MW
 MW
 MW
 oO
-ir
-ir
-ir
+Of
+Of
+Of
 Ba
 MW
 oO
-ir
-ir
-ir
+Of
+Of
+Of
 ud
-ir
-ir
-ir
+Of
+Of
+Of
 Ba
 MW
 oO
-ir
-ir
-ir
+Of
+Of
+Of
 Ba
 MW
 MW
@@ -11191,7 +11172,7 @@ MW
 MW
 MW
 oO
-ir
+Of
 DZ
 DZ
 DZ
@@ -18488,7 +18469,7 @@ jP
 KN
 DZ
 DZ
-yF
+fA
 ll
 Xr
 Xr
@@ -19177,7 +19158,7 @@ CC
 Xr
 CC
 CC
-Vz
+yT
 DZ
 DZ
 QO
@@ -19314,7 +19295,7 @@ Xr
 Xr
 Xr
 Xr
-gM
+ZM
 GM
 Ir
 hg
@@ -19728,7 +19709,7 @@ Lv
 Xr
 JW
 DZ
-Of
+Vz
 qn
 MW
 MW

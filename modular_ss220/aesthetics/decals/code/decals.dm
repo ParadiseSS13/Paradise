@@ -1,26 +1,63 @@
-/* SIDING */
+#define WOODEN_DECAL_HELPER(path)\
+##path/end {\
+	icon_state = "siding_wood_end";\
+}\
+##path/corner {\
+	icon_state = "siding_wood_corner";\
+}\
+
+/* Wood Siding */
 /obj/effect/turf_decal/siding
 	icon = 'modular_ss220/aesthetics/decals/icons/siding.dmi'
 	icon_state = "siding_line"
 
 /obj/effect/turf_decal/siding/wood
 	icon_state = "siding_wood_line"
+	color = "#864A2D"
 
-/obj/effect/turf_decal/siding/wood/corner
-	icon_state = "siding_wood_corner"
+WOODEN_DECAL_HELPER(/obj/effect/turf_decal/siding/wood)
 
-/obj/effect/turf_decal/siding/wood/end
-	icon_state = "siding_wood_end"
+/obj/effect/turf_decal/siding/wood/neutral
+	color = null
 
-/obj/effect/turf_decal/siding/wood/alternative
-	icon_state = "siding_wood_line"
+WOODEN_DECAL_HELPER(/obj/effect/turf_decal/siding/wood/neutral)
 
-/obj/effect/turf_decal/siding/wood/alternative/corner
-	icon_state = "siding_wood_corner"
+/obj/effect/turf_decal/siding/wood/oak
+	color = "#644526";
 
-/obj/effect/turf_decal/siding/wood/alternative/end
-	icon_state = "siding_wood_end"
+WOODEN_DECAL_HELPER(/obj/effect/turf_decal/siding/wood/oak)
 
+/obj/effect/turf_decal/siding/wood/birch
+	color = "#FFECB3";
+
+WOODEN_DECAL_HELPER(/obj/effect/turf_decal/siding/wood/birch)
+
+/obj/effect/turf_decal/siding/wood/cherry
+	color = "#643412";
+
+WOODEN_DECAL_HELPER(/obj/effect/turf_decal/siding/wood/cherry)
+
+/obj/effect/turf_decal/siding/wood/amaranth
+	color = "#6B2E3E";
+
+WOODEN_DECAL_HELPER(/obj/effect/turf_decal/siding/wood/amaranth)
+
+/obj/effect/turf_decal/siding/wood/ebonite
+	color = "#363649";
+
+WOODEN_DECAL_HELPER(/obj/effect/turf_decal/siding/wood/ebonite)
+
+/obj/effect/turf_decal/siding/wood/pink_ivory
+	color = "#D78575";
+
+WOODEN_DECAL_HELPER(/obj/effect/turf_decal/siding/wood/pink_ivory)
+
+/obj/effect/turf_decal/siding/wood/guaiacum
+	color = "#5C6250";
+
+WOODEN_DECAL_HELPER(/obj/effect/turf_decal/siding/wood/guaiacum)
+
+/* SIDING */
 /obj/effect/turf_decal/siding/white
 	color = "#BCBCBC"
 
@@ -330,3 +367,5 @@ TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/neutral)
 	icon = 'icons/obj/smooth_structures/lattice.dmi'
 	icon_state = "lattice-255"
 	density = TRUE
+
+#undef WOODEN_DECAL_HELPER
