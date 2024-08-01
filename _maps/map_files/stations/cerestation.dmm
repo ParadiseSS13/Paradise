@@ -9693,9 +9693,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -9703,6 +9700,9 @@
 	name = "External Airlock Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/east)
 "bly" = (
@@ -23190,9 +23190,6 @@
 	},
 /area/station/medical/chemistry)
 "cFv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/morgue{
 	dir = 8
@@ -33710,7 +33707,7 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
+	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/north)
 "emw" = (
@@ -35855,6 +35852,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -35955,11 +35955,9 @@
 	},
 /area/station/security/checkpoint/secondary)
 "eZa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -38358,14 +38356,12 @@
 	dir = 4
 	},
 /obj/item/storage/fancy/donut_box,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "fRD" = (
@@ -45434,12 +45430,6 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/station/engineering/control)
-"ieP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/mineral/ancient,
-/area/station/maintenance/port2)
 "ieS" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -48333,8 +48323,8 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/turf/simulated/floor/plating,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "iWO" = (
 /obj/structure/cable/orange{
@@ -55959,7 +55949,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -60609,8 +60601,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "mHv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
 	name = "Psych Office"
@@ -61174,10 +61164,6 @@
 	icon_state = "wood-broken7"
 	},
 /area/station/service/bar)
-"mRO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall,
-/area/station/hallway/primary/central/east)
 "mRS" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/sign/securearea,
@@ -67493,9 +67479,6 @@
 	},
 /area/station/hallway/primary/fore/west)
 "oTn" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
-	},
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
@@ -70081,16 +70064,6 @@
 /obj/structure/closet,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"pIz" = (
-/obj/structure/morgue,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/landmark/spawner/rev,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/medical/morgue)
 "pIB" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -77803,10 +77776,10 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "shh" = (
@@ -80657,18 +80630,6 @@
 	icon_state = "dark"
 	},
 /area/station/telecomms/chamber)
-"sZq" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	color = "#954535"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/fore/north)
 "sZr" = (
 /obj/structure/closet/secure_closet/explorer,
 /turf/simulated/floor/plasteel{
@@ -83577,9 +83538,7 @@
 	dir = 4;
 	color = "#954535"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
 "tXf" = (
 /obj/structure/cable/orange{
@@ -91025,20 +90984,6 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/control)
-"weN" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	color = "#954535"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/fore/north)
 "weW" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "bridge"
@@ -93172,20 +93117,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/fore2)
-"wEY" = (
-/obj/machinery/atmospherics/meter,
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	dir = 1;
-	external_pressure_bound = 0;
-	autolink_id = "o2_out";
-	internal_pressure_bound = 4000;
-	pressure_checks = 2
-	},
-/turf/simulated/wall/r_wall,
-/area/station/engineering/atmos)
 "wFa" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/item/radio/intercom{
@@ -93870,9 +93801,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -98532,6 +98461,13 @@
 "ykj" = (
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonlockers)
+"ykC" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore/north)
 "ykM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -115757,7 +115693,7 @@ vkl
 vkl
 gtU
 vkl
-xTj
+vkl
 lyI
 lyI
 fPc
@@ -120310,7 +120246,7 @@ nIF
 xdr
 cEM
 cEM
-ieP
+cEM
 hoF
 xWx
 xWx
@@ -126774,7 +126710,7 @@ bPp
 bDR
 bNn
 vsE
-wEY
+bPp
 bDR
 bUl
 vsE
@@ -132879,7 +132815,7 @@ tpA
 eMh
 dwE
 vuY
-sGY
+ykC
 cWn
 gXb
 cWn
@@ -134164,7 +134100,7 @@ abW
 aKp
 dwg
 dTC
-sZq
+qtB
 aKp
 npV
 npV
@@ -134421,7 +134357,7 @@ abW
 aKp
 dxt
 dQg
-weN
+qtB
 fXC
 fXC
 fXC
@@ -134678,7 +134614,7 @@ cMz
 cMz
 dxw
 dTI
-sZq
+qtB
 fXC
 gYN
 hUg
@@ -135234,7 +135170,7 @@ dwz
 gzG
 dwz
 dwz
-mRO
+dwz
 uNG
 uNG
 uNG
@@ -150089,7 +150025,7 @@ aVN
 rNK
 rNK
 lCC
-uhW
+hqL
 hqL
 mAq
 hZS
@@ -153231,7 +153167,7 @@ bil
 wxI
 uyn
 uyn
-pIz
+lzO
 gGb
 biN
 ivK
