@@ -116,3 +116,53 @@
 /obj/item/clothing/shoes/shark/light
 	name = "светло-голубые акульи тапочки"
 	icon_state = "shark_light"
+
+/obj/item/clothing/shoes/clown_shoes/moffers
+	name = "moffers"
+	desc = "Ни одна моль не пострадала во время создания этих ботинок."
+	icon = 'modular_ss220/clothing/icons/object/shoes.dmi'
+	lefthand_file = 'modular_ss220/clothing/icons/inhands/left_hand.dmi'
+	righthand_file = 'modular_ss220/clothing/icons/inhands/right_hand.dmi'
+	icon_state = "moffers"
+	item_state = "moffers"
+	sprite_sheets = list(
+		"Human" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Tajaran" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Vulpkanin" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Kidan" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Skrell" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Nucleation" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Skeleton" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Slime People" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Unathi" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Grey" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Abductor" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Golem" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Machine" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Diona" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Nian" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Shadow" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Golem" = 'modular_ss220/clothing/icons/mob/shoes.dmi',
+		"Vox" = 'modular_ss220/clothing/icons/mob/species/vox/shoes.dmi',
+		"Drask" = 'modular_ss220/clothing/icons/mob/species/drask/shoes.dmi',
+	)
+
+/obj/item/clothing/shoes/clown_shoes/moffers/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('modular_ss220/clothing/sounds/moffstep01.ogg' = 1), 50, falloff_exponent = 20)
+
+/datum/crafting_recipe/moffers
+	name = "Moffers"
+	reqs = list(
+		/obj/item/clothing/shoes/clown_shoes = 1,
+		/obj/item/stack/sheet/animalhide/mothroach = 2,
+	)
+	result = list(/obj/item/clothing/shoes/clown_shoes/moffers = 1)
+	blacklist = list(
+		/obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes,
+		/obj/item/clothing/shoes/clown_shoes/magical,
+		/obj/item/clothing/shoes/clown_shoes/moffers,
+		/obj/item/clothing/shoes/clown_shoes/nodrop,
+		/obj/item/clothing/shoes/clown_shoes/slippers,
+	)
+	category = CAT_CLOTHING

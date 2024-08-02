@@ -237,3 +237,8 @@
 	name = "advanced emergency autoinjector"
 	desc = "Компания всегда ставит жизни и здоровье своих сотрудников превыше всего."
 	list_reagents = list("nanites" = 10)
+
+/obj/machinery/economy/vending/shoedispenser/Initialize(mapload)
+	contraband |= list(/obj/item/clothing/shoes/clown_shoes/moffers = 1)
+	prices |= list(/obj/item/clothing/shoes/clown_shoes/moffers = 80)
+	. = ..()

@@ -46,3 +46,4 @@
 #include "code/material_pouch.dm"
 #include "code/components.dm"
 #include "code/airlock_painter.dm"
+#include "code/animalhide.dm"
