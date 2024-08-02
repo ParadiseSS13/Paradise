@@ -313,6 +313,10 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	tiles_in_x_direction = 3
 	tiles_in_y_direction = 3
 
+/obj/effect/spawner/airlock/long/square/e_to_s/telecoms
+	door_name = "telecoms external access"
+	door_type = /obj/machinery/door/airlock/external
+
 #undef HALF_X
 #undef HALF_Y
 #undef CHAMBER_LONG

@@ -182,7 +182,7 @@
 /area/station/science/toxins/mixing)
 "adc" = (
 /obj/structure/closet/secure_closet/clown,
-/obj/item/food/snacks/pie,
+/obj/item/food/pie,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "adi" = (
@@ -2133,7 +2133,6 @@
 "aqc" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -3952,7 +3951,7 @@
 /area/station/maintenance/fore)
 "axH" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/item/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "axM" = (
@@ -19337,7 +19336,7 @@
 /area/station/hallway/secondary/entry/lounge)
 "btq" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/chips,
+/obj/item/food/chips,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -25109,6 +25108,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -25397,12 +25398,6 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -25415,6 +25410,12 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -32187,7 +32188,7 @@
 	},
 /area/station/science/rnd)
 "clv" = (
-/obj/item/food/snacks/monkeycube,
+/obj/item/food/monkeycube,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -33261,7 +33262,7 @@
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/item/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -36335,11 +36336,11 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
 /turf/simulated/floor/carpet,
 /area/station/service/chapel)
 "cCu" = (
@@ -37489,7 +37490,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -38269,7 +38270,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -40587,11 +40588,11 @@
 /area/station/maintenance/apmaint)
 "cSR" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
-/obj/item/food/snacks/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -43842,7 +43843,7 @@
 	name = "Kitchen Counter Shutters"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
-/obj/item/food/snacks/pie,
+/obj/item/food/pie,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -54490,11 +54491,11 @@
 /area/station/turret_protected/ai)
 "hLT" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/harebell,
-/obj/item/food/snacks/grown/harebell,
-/obj/item/food/snacks/grown/harebell,
-/obj/item/food/snacks/grown/harebell,
-/obj/item/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
+/obj/item/food/grown/harebell,
+/obj/item/food/grown/harebell,
+/obj/item/food/grown/harebell,
+/obj/item/food/grown/harebell,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -57884,17 +57885,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
-"jjG" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
-	dir = 8
-	},
-/obj/machinery/door/poddoor{
-	id_tag = "ToxinsVenting";
-	name = "Toxins Venting Bay Door";
-	power_state = 0
-	},
-/turf/space,
-/area/station/science/toxins/mixing)
 "jjL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -63078,15 +63068,15 @@
 "lpp" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced,
-/obj/item/food/snacks/muffin{
+/obj/item/food/muffin{
 	pixel_x = -4;
 	pixel_y = 8
 	},
-/obj/item/food/snacks/carrotcakeslice{
+/obj/item/food/carrotcakeslice{
 	pixel_x = 8;
 	pixel_y = -2
 	},
-/obj/item/food/snacks/poppypretzel{
+/obj/item/food/poppypretzel{
 	pixel_x = -8;
 	pixel_y = -3
 	},
@@ -75250,13 +75240,13 @@
 "qvp" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/breadslice,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/onion,
-/obj/item/food/snacks/grown/onion,
+/obj/item/food/breadslice,
+/obj/item/food/breadslice,
+/obj/item/food/breadslice,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/onion,
+/obj/item/food/grown/onion,
 /obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -77640,7 +77630,7 @@
 /area/station/engineering/engine/supermatter)
 "rwj" = (
 /obj/structure/safe/floor,
-/obj/item/food/snacks/fortunecookie,
+/obj/item/food/fortunecookie,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "rwk" = (
@@ -86975,7 +86965,7 @@
 /area/station/engineering/atmos)
 "vwA" = (
 /obj/structure/table/glass,
-/obj/item/food/snacks/chips{
+/obj/item/food/chips{
 	pixel_x = 8
 	},
 /obj/item/reagent_containers/drinks/cans/thirteenloko{
@@ -123657,7 +123647,7 @@ bMg
 mcw
 rfK
 cEK
-jjG
+agK
 agK
 nec
 cOp

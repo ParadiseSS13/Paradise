@@ -128,6 +128,7 @@
 	message_admins("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 
 	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range)
+	charge = 0 //Extra safety in the event the cell does not QDEL right
 	qdel(src)
 
 /obj/item/stock_parts/cell/proc/corrupt()
@@ -294,6 +295,9 @@
 	desc = "An experimental, self-charging, transdimensional power cell."
 	origin_tech =  "powerstorage=10;bluespace=10"
 	self_recharge = TRUE
+
+/obj/item/stock_parts/cell/bluespace/trapped
+	rigged = TRUE
 
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"

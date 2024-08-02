@@ -92,8 +92,8 @@
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
 				return
 
-			if(istype(P, /obj/item/wrench))
-				playsound(src.loc, P.usesound, 75, 1)
+			if(iswrench(P))
+				P.play_tool_sound(src)
 				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
 				deconstruct(TRUE)
 				return
