@@ -319,6 +319,11 @@
 		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
 		return TRUE
 	var/slices_lost = 0
+	var/initial_volume = 0 // the total some of reagents this food had initially
+	for(var/ingredient in list_reagents)
+		initial_volume += list_reagents[ingredient]
+	// we want to account for how much has been eaten already, reduce slices by how is left vs. how much food we started with
+	slices_num = clamp(slices_num * (reagents.total_volume / initial_volume), 1, slices_num)
 	if(!inaccurate)
 		user.visible_message("<span class='notice'>[user] slices [src]!</span>",
 		"<span class='notice'>You slice [src]!</span>")

@@ -109,12 +109,12 @@
 	// Variables for bloom and exposure
 	var/glow_icon = 'icons/obj/lamps.dmi'
 	var/exposure_icon = 'icons/effects/exposures.dmi'
-	
+
 	var/glow_icon_state
 	var/glow_colored = TRUE
 	var/exposure_icon_state
 	var/exposure_colored = TRUE
-	
+
 	var/image/glow_overlay
 	var/image/exposure_overlay
 	/// The alternate appearances we own. Lazylist
@@ -303,9 +303,6 @@
 ///Return the air if we can analyze it
 /atom/proc/return_analyzable_air()
 	return null
-
-/atom/proc/check_eye(mob/user)
-	return
 
 /atom/proc/on_reagent_change()
 	return
@@ -1178,7 +1175,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			update_light()
 		if("color")
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
-
 
 /atom/vv_get_dropdown()
 	. = ..()

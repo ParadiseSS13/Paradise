@@ -1,12 +1,10 @@
 import { useBackend } from '../../backend';
 import { Button, LabeledList, Section, Box } from '../../components';
-import { RndNavButton, RndRoute } from './index';
-import { SUBMENU } from '../RndConsole';
 
 const DISK_TYPE_DESIGN = 'design';
 const DISK_TYPE_TECH = 'tech';
 
-const TechSummary = (properties, context) => {
+const TechSummary = (props, context) => {
   const { data, act } = useBackend(context);
   const { disk_data } = data;
 
@@ -23,15 +21,13 @@ const TechSummary = (properties, context) => {
       </LabeledList>
       <Box mt="10px">
         <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_tech')} />
-        <Button content="Clear Disk" icon="trash" onClick={() => act('clear_tech')} />
-        <EjectDisk />
       </Box>
     </Box>
   );
 };
 
 // summarize a design disk contents from d_disk
-const LatheSummary = (properties, context) => {
+const LatheSummary = (props, context) => {
   const { data, act } = useBackend(context);
   const { disk_data } = data;
   if (!disk_data) {
@@ -63,79 +59,40 @@ const LatheSummary = (properties, context) => {
 
       <Box mt="10px">
         <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_design')} />
-        <Button content="Clear Disk" icon="trash" onClick={() => act('clear_design')} />
-        <EjectDisk />
       </Box>
     </Box>
   );
 };
 
-const EmptyDisk = (properties, context) => {
-  const { data } = useBackend(context);
-  const { disk_type } = data;
+const DiskSection = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { disk_data } = data;
   return (
-    <Box>
-      <Box>This disk is empty.</Box>
-      <Box mt="10px">
-        <RndNavButton
-          submenu={SUBMENU.DISK_COPY}
-          icon="arrow-down"
-          content={disk_type === DISK_TYPE_TECH ? 'Load Tech to Disk' : 'Load Design to Disk'}
-        />
-        <EjectDisk />
-      </Box>
-    </Box>
-  );
-};
-
-const EjectDisk = (properties, context) => {
-  const { data, act } = useBackend(context);
-  const { disk_type } = data;
-
-  if (!disk_type) {
-    return null;
-  }
-
-  return (
-    <Button
-      content="Eject Disk"
-      icon="eject"
-      onClick={() => {
-        const action = disk_type === DISK_TYPE_TECH ? 'eject_tech' : 'eject_design';
-        act(action);
-      }}
+    <Section
+      buttons={
+        <>
+          <Button.Confirm content="Erase" icon="eraser" disabled={!disk_data} onClick={() => act('erase_disk')} />
+          <Button
+            content="Eject"
+            icon="eject"
+            onClick={() => {
+              act('eject_disk');
+            }}
+          />
+        </>
+      }
+      {...props}
     />
   );
 };
 
-const ContentsSubmenu = (properties, context) => {
-  const {
-    data: { disk_data, disk_type },
-  } = useBackend(context);
-
-  const body = () => {
-    if (!disk_data) {
-      return <EmptyDisk />;
-    }
-    switch (disk_type) {
-      case DISK_TYPE_DESIGN:
-        return <LatheSummary />;
-      case DISK_TYPE_TECH:
-        return <TechSummary />;
-      default:
-        return null;
-    }
-  };
-
-  return <Section title="Data Disk Contents">{body()}</Section>;
-};
-
-const CopySubmenu = (properties, context) => {
+const CopySubmenu = (props, context) => {
   const { data, act } = useBackend(context);
   const { disk_type, to_copy } = data;
+  const { title } = props;
 
   return (
-    <Section>
+    <DiskSection title={title}>
       <Box overflowY="auto" overflowX="hidden" maxHeight="450px">
         <LabeledList>
           {to_copy
@@ -157,22 +114,38 @@ const CopySubmenu = (properties, context) => {
             ))}
         </LabeledList>
       </Box>
-    </Section>
+    </DiskSection>
   );
 };
 
-export const DataDiskMenu = (properties, context) => {
+export const DataDiskMenu = (props, context) => {
   const { data } = useBackend(context);
-  const { disk_type } = data;
+  const { disk_type, disk_data } = data;
 
   if (!disk_type) {
-    return null; // can't access menu without a disk
+    return <Section title="Data Disk">No disk loaded.</Section>;
   }
 
-  return (
-    <>
-      <RndRoute submenu={SUBMENU.MAIN} render={() => <ContentsSubmenu />} />
-      <RndRoute submenu={SUBMENU.DISK_COPY} render={() => <CopySubmenu />} />
-    </>
-  );
+  switch (disk_type) {
+    case DISK_TYPE_DESIGN:
+      return disk_data ? (
+        <DiskSection title="Design Disk">
+          <LatheSummary />
+        </DiskSection>
+      ) : (
+        <CopySubmenu title="Design Disk" />
+      );
+    case DISK_TYPE_TECH:
+      if (disk_data) {
+        return (
+          <DiskSection title="Technology Disk">
+            <TechSummary />
+          </DiskSection>
+        );
+      } else {
+        return <CopySubmenu title="Technology Disk" />;
+      }
+    default:
+      return <>UNRECOGNIZED DISK TYPE</>;
+  }
 };

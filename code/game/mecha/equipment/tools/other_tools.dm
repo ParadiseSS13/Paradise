@@ -352,36 +352,36 @@
 	if(chassis)
 		var/result = load_fuel(target)
 		if(result)
-			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+			send_byjax(chassis.occupant,"exosuit.browser", "\ref[src]", get_equip_info())
 
 /obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))
-		if(istype(I, /obj/item/stack/sheet))
-			var/obj/item/stack/sheet/P = I
-			var/to_load = max(max_fuel - P.amount*P.perunit,0)
-			if(to_load)
-				var/units = min(max(round(to_load / P.perunit),1),P.amount)
-				if(units)
-					var/added_fuel = units * P.perunit
-					fuel_amount += added_fuel
-					P.use(units)
-					occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
-					return added_fuel
-			else
-				occupant_message("Unit is full.")
-				return 0
-		else // Some other object containing our fuel's type, so we just eat it (ores mainly)
-			var/to_load = max(min(I.materials[fuel_type], max_fuel - fuel_amount),0)
+		if(!istype(I, /obj/item/stack/sheet)) // Some other object containing our fuel's type, so we just eat it (ores mainly)
+			var/to_load = clamp(I.materials[fuel_type], 0, max_fuel - fuel_amount)
 			if(to_load == 0)
-				return 0
+				return FALSE
 			fuel_amount += to_load
 			qdel(I)
-			return to_load
+			return 0
+
+		if(fuel_amount >= max_fuel)
+			occupant_message("Unit is full.")
+			return 0
+
+		var/obj/item/stack/sheet/P = I
+		var/to_load = max_fuel - fuel_amount
+
+		var/units = clamp(round(to_load / P.perunit), 1, P.amount)
+		if(units)
+			var/added_fuel = units * P.perunit
+			fuel_amount += added_fuel
+			P.use(units)
+			occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
+			return added_fuel
 
 	else if(istype(I, /obj/structure/ore_box))
 		var/fuel_added = 0
-		for(var/baz in I.contents)
-			var/obj/item/O = baz
+		for(var/obj/item/O as anything in I.contents)
 			if(fuel_type in O.materials)
 				fuel_added = load_fuel(O)
 				break

@@ -455,8 +455,6 @@
 		uniform = /obj/item/clothing/under/rank/civilian/mime/sexy
 		suit = /obj/item/clothing/mask/gas/sexymime
 
-/datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
 	if(visualsOnly)
 		return
 
