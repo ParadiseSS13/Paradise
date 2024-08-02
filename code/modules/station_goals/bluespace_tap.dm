@@ -233,7 +233,7 @@
 
 	// Tweak these and active_power_consumption to balance power generation
 
-	/// Max power input level, I don't expect this to be ever reached
+	/// Max power input level, I don't expect this to be ever reached. It has been reached.
 	var/max_level = 25
 	/// amount of points generated per level for the first 10 levels
 	var/base_points = BASE_POINTS
@@ -247,7 +247,7 @@
 	var/stabilizers = TRUE
 	/// Amount of power the stabilizers consume
 	var/stabilizer_power = 0
-	/// Amount of overhead in levels
+	/// Amount of overhead in levels. Each level of overhead allows stabilizing 15+overhead.
 	var/overhead = 0
 	/// When event triggers this will hold references to all portals so we can fix the sprite after they're broken
 	var/list/active_nether_portals = list()
@@ -405,13 +405,13 @@
 		return	// and no mining gets done
 	if(actual_power_usage)
 		consume_direct_power(actual_power_usage)
-
-		var/points_to_add = min(base_points * 10, base_points * input_level) + actual_power_usage * (conversion_ratio + emagged * 1e-6) //2 points per level up to level 10 and 4 points per MW or 5 when emmaged
+		//2 points per level up to level 10 and 4 points per MW (or 5 when emmaged).
+		var/points_to_add = min(base_points * 10, base_points * input_level) + actual_power_usage * (conversion_ratio + emagged * 1e-6)
 		points += points_to_add	// point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
-
-	overhead = input_level >= 18  ? get_surplus() * 1e-7 : get_surplus() * 2e-7 // 5MW of surplus per overhead level above 15 if under level 18. 10MW per level above 15 from level 18 onwards.
-	stabilizer_power = stabilizers && input_level > 15 ? input_level >= 18? min(get_surplus() , (input_level - 15) * 1e7) : min(get_surplus() , (input_level - 15) * 0.5e7) : 0
+	// Between levels 15 and 18 get one level of overhead per 5MW of surplus power. Above level 18 get 1 level per 10MW of surplus power.
+	overhead = input_level >= 18  ? get_surplus() * 1e-7 : get_surplus() * 2e-7
+	stabilizer_power = stabilizers && input_level > 15 ? input_level >= 18 ? min(get_surplus() , (input_level - 15) * 1e7) : min(get_surplus() , (input_level - 15) * 0.5e7) : 0
 	consume_direct_power(stabilizer_power)
 	// actual input level changes slowly
 	// holy shit every proccess this
@@ -421,13 +421,15 @@
 	else if(input_level > desired_level)
 		input_level--
 		update_icon()
-	if(prob(input_level - (safe_levels + overhead * 2) + (emagged * 5))) // at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
+	// Stabilizers reduce the chance of portals. prob with values less than 0 treat it as 0.
+	if(prob(input_level - (safe_levels + stabilizers * overhead) + (emagged * 5)))
 		var/area/our_area = get_area(src)
-		GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [our_area.name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
+		if(!length(active_nether_portals))
+			GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [our_area.name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : auto_shutdown ? "Emergency shutdown initiated." : "Automatic shutdown disabled."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
 		if(!emagged && auto_shutdown)
 			input_level = 0	//emergency shutdown unless it is disabled
 			desired_level = 0
-		start_nether_portaling(rand(1 , 3) + stabilizers * max((level - 15 - overhead) / 3 , 0))
+		start_nether_portaling(rand(1 , 3) + max((level - 15 - overhead) / 3 , 0))
 
 /obj/machinery/power/bluespace_tap/proc/start_nether_portaling(amount)
 	var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
@@ -435,7 +437,8 @@
 	amount--
 	active_nether_portals += P
 	P.linked_source_object = src
-	P.max_mobs += max((input_level - 15) / 2, 0)
+	// 1 Extra mob for each 2 levels above 15.
+	P.max_mobs = 5 + max((input_level - 15) / 2, 0)
 	update_icon()
 	if(amount)
 		addtimer(CALLBACK(src, PROC_REF(start_nether_portaling), amount), rand(3, 5) SECONDS)
