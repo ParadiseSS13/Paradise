@@ -139,9 +139,7 @@
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 	return TRUE
 
-//////////////////////////////
-// MARK: KRAV MAGA GLOVES
-//////////////////////////////
+// Krav Maga gloves
 /obj/item/clothing/gloves/color/black/krav_maga
 	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
@@ -166,9 +164,7 @@
 	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
 		style.remove(H)
 
-//////////////////////////////
 // Warden gloves
-//////////////////////////////
 /obj/item/clothing/gloves/color/black/krav_maga/sec
 	name = "Krav Maga gloves"
 	desc = "These gloves can teach you to perform Krav Maga using nanochips for as long as you're wearing them."
@@ -192,9 +188,7 @@
 	. += ""
 	. += "Because it is the gloves, and not the user that is handling the martial art, users return to previous proficiency when the gloves are removed."
 
-//////////////////////////////
-// Syndicate krav maga gloves
-//////////////////////////////
+// Syndicate Krav Maga gloves
 /obj/item/clothing/gloves/color/black/krav_maga/combat
 	name = "Combat gloves plus"
 	desc = "These combat gloves have been upgraded with nanochips that teach the wearer Krav Maga."

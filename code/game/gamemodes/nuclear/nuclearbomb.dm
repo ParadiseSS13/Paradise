@@ -671,9 +671,8 @@ GLOBAL_VAR(bomb_set)
 				return
 	return
 
-//////////////////////////////
-// MARK: DAT FUKKEN DISK
-//////////////////////////////
+// MARK: Nuclear Disk
+
 /obj/item/disk/nuclear
 	name = "nuclear authentication disk"
 	desc = "A floppy disk containing unique cryptographic identification data. Used along with a valid code to detonate the on-site nuclear fission explosive."
@@ -783,9 +782,8 @@ GLOBAL_VAR(bomb_set)
 		if(length(open_turfs))
 			return pick(open_turfs)
 
-//////////////////////////////
-// MARK: TRAINING NUKE
-//////////////////////////////
+// MARK: Training Nuke
+
 /obj/machinery/nuclearbomb/training
 	name = "training nuclear bomb"
 	desc = "A fake nuke used to practice nuclear device operations. \

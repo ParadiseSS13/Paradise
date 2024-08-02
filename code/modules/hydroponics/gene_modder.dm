@@ -560,9 +560,8 @@
 	seed.name = "experimental " + seed.name
 	seed.icon_state = "seed-x"
 
-//////////////////////////////
-// MARK: PLANT DISK
-//////////////////////////////
+// MARK: Plant Disk
+
 
 /obj/item/disk/plantgene
 	name = "plant data disk"
