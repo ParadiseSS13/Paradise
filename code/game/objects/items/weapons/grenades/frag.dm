@@ -6,7 +6,7 @@
 	icon_state = "frag"
 	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4"
-	/// How many fragments the grenade will launch.
+	/// How much shrapnel the grenade will launch.
 	var/shrapnel_contained = 20
 	/// The type of projectile that will fired.
 	var/embedded_type = /obj/item/projectile/bullet/shrapnel
