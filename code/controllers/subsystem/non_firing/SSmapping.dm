@@ -108,9 +108,11 @@ SUBSYSTEM_DEF(mapping)
 		var/list/pickable_turfs = list()
 		for(var/turf/turfs in AR)
 			pickable_turfs += turfs
+			CHECK_TICK
 		var/turf/picked = safepick(pickable_turfs)
 		if(picked && is_station_level(picked.z))
 			teleportlocs[AR.name] = AR
+		CHECK_TICK
 
 	teleportlocs = sortAssoc(teleportlocs)
 
@@ -121,8 +123,10 @@ SUBSYSTEM_DEF(mapping)
 		var/list/pickable_turfs = list()
 		for(var/turf/turfs in AR)
 			pickable_turfs += turfs
+			CHECK_TICK
 		if(length(pickable_turfs))
 			ghostteleportlocs[AR.name] = AR
+		CHECK_TICK
 
 	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
@@ -132,9 +136,11 @@ SUBSYSTEM_DEF(mapping)
 		var/list/pickable_turfs = list()
 		for(var/turf/turfs in AR)
 			pickable_turfs += turfs
+			CHECK_TICK
 		var/turf/picked = safepick(pickable_turfs)
 		if(picked && is_station_level(picked.z))
 			existing_station_areas += AR
+		CHECK_TICK
 
 	// World name
 	if(GLOB.configuration.general.server_name)
@@ -163,7 +169,7 @@ SUBSYSTEM_DEF(mapping)
 	)
 
 	for(var/z_level in space_z_levels)
-		var/list/turf/z_level_turfs = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
+		var/list/turf/z_level_turfs = block(1, 1, z_level, world.maxx, world.maxy, z_level)
 		for(var/z_level_turf in z_level_turfs)
 			var/turf/T = z_level_turf
 			var/area/A = get_area(T)

@@ -24,9 +24,6 @@
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
 	. += deconstruction_hints(user)
-
-/obj/structure/lattice/examine(mob/user)
-	. = ..()
 	. += "<span class='notice'>Add a floor tile to build a floor on top of the lattice.</span>"
 
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)

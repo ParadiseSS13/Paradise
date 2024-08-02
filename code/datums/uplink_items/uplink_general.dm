@@ -30,13 +30,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		var/datum/uplink_item/A = new I.type
 		var/discount = 0.5
 		A.limited_stock = 1
-		I.refundable = FALSE
-		A.refundable = FALSE
 		if(A.cost >= 100)
 			discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
-		A.cost = max(round(A.cost * (1-discount)),1)
+		A.cost = max(round(A.cost * (1 - discount)), 1)
 		A.category = "Discounted Gear"
-		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
+		A.name += " ([round(((initial(A.cost) - A.cost) / initial(A.cost)) * 100)]% off!)"
 		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
 		A.species = null //same as above for species speific items
 		A.reference = "DIS[newreference]"
@@ -106,6 +104,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(item && !uses_special_spawn)
 		return new item(loc)
 
+	if(limited_stock)
+		limited_stock -= 1 // In case we are handling discount items differently
 	return UPLINK_SPECIAL_SPAWNING
 
 /datum/uplink_item/proc/description()
@@ -205,6 +205,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/melee/energy/sword/saber
 	cost = 40
 
+/datum/uplink_item/dangerous/dsword
+	name = "Double Energy Sword"
+	desc = "A double-bladed energy sword. More damaging than a standard energy sword, and automatically parries incoming energy weapons fire. Bulk discount applied."
+	reference = "DSRD"
+	item = /obj/item/dualsaber
+	cost = 60
+
+/datum/uplink_item/dangerous/snakefang
+	name = "Snakesfang"
+	desc = "The snakesfang is a fork-tipped scimitar with a sharp edge and sharper bite. This sword cannot fit in your bag, but it does come with a scabbard you can attach to your belt."
+	reference = "SF"
+	item = /obj/item/storage/belt/sheath/snakesfang
+	cost = 25
+
 /datum/uplink_item/dangerous/powerfist
 	name = "Power Fist"
 	desc = "The power-fist is a metal gauntlet with a built-in piston-ram powered by an external gas supply. \
@@ -228,7 +242,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A universal gun kit, that can be combined with any weapon kit to make a functioning RND gun of your own. Uses built in allen keys to self assemble, just combine the kits by hitting them together."
 	reference = "IKEA"
 	item = /obj/item/weaponcrafting/gunkit/universal_gun_kit
-	cost = 25
+	cost = 20
 
 /datum/uplink_item/dangerous/batterer
 	name = "Mind Batterer"
@@ -503,6 +517,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/glasses/chameleon/thermal
 	cost = 15
 
+/datum/uplink_item/stealthy_tools/night
+	name = "Nightvision Chameleon Glasses"
+	desc = "These glasses are nightvision with Syndicate chameleon technology built into them. Lets you see clearer in the dark."
+	reference = "TNIG"
+	item = /obj/item/clothing/glasses/chameleon/night
+	cost = 5
+
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
 	desc = "Agent cards prevent artificial intelligences from tracking the wearer, and can copy access from other identification cards. The access is cumulative, so scanning one card does not erase the access gained from another."
@@ -647,6 +668,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/organ_extractor
 	cost = 20
 
+/datum/uplink_item/device_tools/c_foam_launcher
+	name = "C-Foam Launcher"
+	desc = "A gun that shoots blobs of foam. Will block airlocks, and slow down humanoids. Not rated for xenomorph usage."
+	reference = "CFOAM"
+	item = /obj/item/gun/projectile/c_foam_launcher
+	cost = 25
+
 /datum/uplink_item/device_tools/tar_spray
 	name = "Sticky Tar Applicator"
 	desc = "A spray bottle containing an extremely viscous fluid that will leave behind tar whenever it is sprayed, greatly slowing down anyone who tries to walk over it. \
@@ -720,6 +748,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/jammer
 	cost = 20
 
+/datum/uplink_item/device_tools/decoy_nade
+	name = "Decoy Grenade Kit"
+	desc = "A box of five grenades that can be configured to reproduce many suspicious sounds at varying rates."
+	reference = "DCY"
+	item = /obj/item/storage/box/syndie_kit/decoy
+	cost = 20
+
 ////////////////////////////////////////
 // MARK: SPACE SUITS AND HARDSUITS
 ////////////////////////////////////////
@@ -730,7 +765,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
-	desc = "This red and black syndicate space suit is less encumbering than Nanotrasen variants, \
+	desc = "This armoured red and black Syndicate space suit is less encumbering than Nanotrasen variants, \
 			fits inside bags, and has a weapon slot. Comes packaged with internals. Nanotrasen crewmembers are trained to report red space suit \
 			sightings, however. "
 	reference = "SS"
@@ -884,7 +919,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	on use, and will be quite visual as you are emaging the object. \
 	Will not show on unupgraded body scanners. Incompatible with the Qani-Laaca Sensory Computer."
 	reference = "HKR"
-	item = /obj/item/autosurgeon/organ/syndicate/hackerman_deck
+	item = /obj/item/autosurgeon/organ/syndicate/oneuse/hackerman_deck
 	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
 
 /datum/uplink_item/cyber_implants/razorwire
@@ -893,7 +928,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
 		even from a few steps away. However, results against anything more durable will heavily vary."
 	reference = "RZR"
-	item = /obj/item/autosurgeon/organ/syndicate/razorwire
+	item = /obj/item/autosurgeon/organ/syndicate/oneuse/razorwire
 	cost = 20
 
 /datum/uplink_item/cyber_implants/scope_eyes
@@ -902,8 +937,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	Many users find it disorienting, and find it hard to interact with things near them when active. \
 	This pair has been hardened for special operations personnel."
 	reference = "KOE"
-	item = /obj/item/autosurgeon/organ/syndicate/scope_eyes
-	cost = 20
+	item = /obj/item/autosurgeon/organ/syndicate/oneuse/scope_eyes
+	cost = 10
 
 
 ////////////////////////////////////////

@@ -138,6 +138,7 @@
 #define PASSFENCE		(1<<6)
 #define PASSDOOR		(1<<7)
 #define PASSGIRDER		(1<<8)
+#define PASSTAKE    	(1<<9)
 
 //turf-only flags
 #define BLESSED_TILE	(1<<0)
@@ -203,3 +204,13 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define MOBILITY_PULL	(1<<4)
 
 #define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_PULL)
+
+// Scope component flags
+/// Do we have the scope cancel on move?
+#define SCOPE_MOVEMENT_CANCELS 	(1<<0)
+/// Can we use scope from mechs, lockers, etc?
+#define SCOPE_TURF_ONLY 		(1<<1)
+/// Do we let the user scope and click on the middle of their screen?
+#define SCOPE_CLICK_MIDDLE 		(1<<2)
+/// Should the user hold the item in active hand to use it?
+#define SCOPE_NEED_ACTIVE_HAND 	(1<<3)

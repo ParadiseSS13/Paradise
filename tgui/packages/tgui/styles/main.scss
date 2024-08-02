@@ -50,7 +50,9 @@
 @include meta.load-css('./interfaces/BrigCells.scss');
 @include meta.load-css('./interfaces/CameraConsole.scss');
 @include meta.load-css('./interfaces/Contractor.scss');
+@include meta.load-css('./interfaces/CrewMonitor.scss');
 @include meta.load-css('./interfaces/ExosuitFabricator.scss');
+@include meta.load-css('./interfaces/GeneModder.scss');
 @include meta.load-css('./interfaces/KitchenMachine.scss');
 @include meta.load-css('./interfaces/LibraryComputer.scss');
 @include meta.load-css('./interfaces/ListInput.scss');

@@ -95,9 +95,6 @@
 		if(forced_look)
 			setDir()
 
-	if(machine)
-		machine.check_eye(src)
-
 	if(stat != DEAD)
 		return TRUE
 

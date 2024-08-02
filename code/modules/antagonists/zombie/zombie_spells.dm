@@ -42,7 +42,7 @@
 
 /obj/item/zombie_claw
 	name = "claws"
-	desc = "Claws extending from your rotting hands, perfect for ripping open brain_holders for brains."
+	desc = "Claws extending from your rotting hands, perfect for ripping skulls open for the brains inside."
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "vamp_claws"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
@@ -128,7 +128,7 @@
 
 
 /obj/item/zombie_claw/proc/try_infect(mob/living/carbon/human/target, mob/living/user)
-	if(!ishuman(target))
+	if(!ishuman(target) || HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
 		return
 	if(!(user.zone_selected in list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)))
 		to_chat(user, "<span class='warning zombie'>Our infection cannot spread without their head or chest.</span>")

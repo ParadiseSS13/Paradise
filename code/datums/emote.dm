@@ -213,7 +213,7 @@
 
 		if(isobserver(user))
 			for(var/mob/dead/observer/ghost in viewers(user))
-				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
+				ghost.show_message("<span class='deadsay'>[displayed_msg]</span>", EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		else if((emote_type & EMOTE_AUDIBLE) && !user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
@@ -275,12 +275,12 @@
 		// Vary needs to be true as otherwise frequency changes get ignored deep within playsound_local :(
 		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(H.dna.species.max_age) * alter_emote_pitch(user))
 	else
-		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = alter_emote_pitch(user))
+		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = alter_emote_pitch(user, FALSE))
 
-/datum/emote/proc/alter_emote_pitch(mob/user)
+/datum/emote/proc/alter_emote_pitch(mob/user, multiplicative = TRUE)
 	if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
 		return 0.7
-	return 1
+	return multiplicative
 
 /**
  * Send an emote to runechat for all (listening) users in the vicinity.

@@ -171,11 +171,7 @@
 	dir = 4
 	},
 /obj/item/kirbyplants,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -345,10 +341,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
 	},
@@ -420,10 +413,7 @@
 /area/mine/outpost/mechbay)
 "bG" = (
 /obj/structure/closet/secure_closet/miner,
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -665,11 +655,7 @@
 	},
 /area/mine/outpost/engineering)
 "ck" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -681,7 +667,7 @@
 /area/mine/outpost/storage)
 "cl" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/item/food/snacks/fortunecookie{
+/obj/item/food/fortunecookie{
 	pixel_y = -5;
 	pixel_x = -6
 	},
@@ -1034,7 +1020,7 @@
 "de" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -1254,11 +1240,7 @@
 	pixel_x = -2;
 	pixel_y = -1
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -1287,11 +1269,7 @@
 /area/mine/outpost/hallway/west)
 "dA" = (
 /obj/machinery/suit_storage_unit/lavaland,
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -1613,11 +1591,7 @@
 "ei" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -2874,11 +2848,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2985,9 +2955,7 @@
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "hl" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
+/obj/structure/sink/kitchen/old{
 	pixel_y = -10;
 	dir = 1
 	},
@@ -3099,10 +3067,7 @@
 	dir = 4;
 	pixel_x = -28
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -4692,11 +4657,7 @@
 /turf/simulated/floor/catwalk,
 /area/mine/laborcamp/security)
 "pa" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner";
@@ -5779,11 +5740,7 @@
 "we" = (
 /obj/structure/mopbucket/full,
 /obj/item/mop,
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -5816,7 +5773,7 @@
 "wm" = (
 /obj/structure/table,
 /obj/item/storage/bag/tray,
-/obj/item/food/snacks/tofu,
+/obj/item/food/tofu,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	autolink_id = "air_in";
 	dir = 4
@@ -6052,11 +6009,7 @@
 /area/lavaland/surface/outdoors)
 "yb" = (
 /obj/structure/table/glass,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/item/stack/medical/splint{
 	pixel_x = 5
 	},
@@ -6505,10 +6458,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/comms)
 "Ao" = (
@@ -6893,11 +6843,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Cw" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -7936,11 +7882,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "Jk" = (
@@ -8423,10 +8365,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -9164,11 +9103,7 @@
 /area/mine/laborcamp)
 "Rj" = (
 /obj/structure/closet/emcloset,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -9878,11 +9813,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "VV" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/item/kirbyplants,
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/item/radio/intercom{
@@ -10165,10 +10096,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"

@@ -50,6 +50,8 @@
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
+#define isairlock(A) (istype(A, /obj/machinery/door))
+
 #define isapc(A) (istype(A, /obj/machinery/power/apc))
 
 #define ismecha(A) (istype(A, /obj/mecha))
@@ -124,6 +126,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 // Vehicles
 #define isvehicle(A) istype(A, /obj/vehicle)
+#define istgvehicle(A) istype(A, /obj/tgvehicle)
 
 // Misc
 #define isclient(A) istype(A, /client)

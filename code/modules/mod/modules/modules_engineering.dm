@@ -120,7 +120,7 @@
 	var/obj/item/projectile/tether = new /obj/item/projectile/tether(get_turf(mod.wearer))
 	tether.original = target
 	tether.firer = mod.wearer
-	tether.preparePixelProjectile(target, get_turf(target), mod.wearer)
+	tether.preparePixelProjectile(target, mod.wearer)
 	tether.fire()
 	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
 	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/item/projectile/tether, make_chain))
@@ -248,8 +248,8 @@
 			if(reagents.total_volume < 10)
 				to_chat(user, "<span class='warning'>You need at least 10 units of water to use the metal foam synthesizer!</span>")
 				return
-			var/obj/effect/particle_effect/foam/F = new/obj/effect/particle_effect/foam(get_turf(target), 1)
-			F.amount = 0
+			var/obj/effect/particle_effect/foam/metal/F = new /obj/effect/particle_effect/foam/metal(get_turf(target), TRUE)
+			F.spread_amount = 0
 			reagents.remove_any(10)
 			metal_synthesis_charge--
 			addtimer(CALLBACK(src, PROC_REF(decrease_metal_charge)), 5 SECONDS)

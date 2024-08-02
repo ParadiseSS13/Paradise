@@ -341,6 +341,8 @@
 			feedback = list("text" = "Failed to sequence the patient's brain. Further attempts may succeed.", "color" = "average", "scan_succeeded" = FALSE)
 		if(SCANNER_BRAIN_ISSUE)
 			feedback = list("text" = "The patient's brain is inactive or missing.", "color" = "bad", "scan_succeeded" = FALSE)
+		if(SCANNER_POD_IN_PROGRESS)
+			feedback = list("text" = "The selected pod is currently cloning someone.", "color" = "average", "scan_succeeded" = FALSE)
 		else
 			var/datum/cloning_data/scan = scanner_result
 
