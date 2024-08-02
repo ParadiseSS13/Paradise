@@ -63362,6 +63362,9 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"mWT" = (
+/turf/simulated/wall,
+/area/mine/unexplored/cere/research)
 "mWU" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -76426,8 +76429,8 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "qVx" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
 /obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/station/maintenance/electrical_shop)
 "qVG" = (
@@ -124148,7 +124151,7 @@ rNK
 rNK
 rNK
 rWw
-rWw
+ccW
 ccW
 ccW
 ccW
@@ -124404,7 +124407,7 @@ rNK
 rNK
 rNK
 rNK
-cdb
+rWw
 rWw
 ccW
 ccW
@@ -124653,7 +124656,7 @@ uJT
 uJT
 aXn
 hUU
-bhO
+mic
 lzH
 lzH
 lzH
@@ -124661,7 +124664,7 @@ lzH
 lzH
 lzH
 lzH
-cdb
+mWT
 rWw
 ccW
 ccW
@@ -124918,7 +124921,7 @@ rNK
 rNK
 rNK
 rNK
-cdb
+rWw
 rWw
 ccW
 ccW
@@ -125176,7 +125179,7 @@ rNK
 rNK
 rNK
 rWw
-rWw
+ccW
 ccW
 ccW
 ccW
@@ -129329,7 +129332,7 @@ fIf
 jAx
 uWP
 lTN
-uvT
+qHC
 ccW
 rWw
 rNK
@@ -129827,7 +129830,7 @@ rWw
 rWw
 rWw
 rWw
-rWw
+tTD
 rfn
 eii
 xEi
@@ -129843,7 +129846,7 @@ bxf
 bxf
 mPp
 gOJ
-qHC
+flr
 rWw
 rNK
 rNK
@@ -130090,7 +130093,7 @@ jRK
 qRt
 kaD
 rfn
-flr
+raX
 flr
 flr
 flr
@@ -130101,7 +130104,7 @@ sPV
 sPV
 sPV
 flr
-tTD
+mWT
 lzH
 lzH
 lia
@@ -133168,7 +133171,7 @@ cYB
 hBQ
 hBQ
 hBQ
-ayb
+uwf
 lzH
 lzH
 lzH
@@ -134968,7 +134971,7 @@ cYB
 cYB
 cYB
 hBQ
-ayb
+rNK
 rNK
 rNK
 rNK
