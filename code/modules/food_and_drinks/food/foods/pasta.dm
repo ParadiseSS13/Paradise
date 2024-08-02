@@ -3,7 +3,7 @@
 //	Raw Pasta		//
 //////////////////////
 
-/obj/item/food/snacks/spaghetti
+/obj/item/food/spaghetti
 	name = "spaghetti"
 	desc = "A bundle of raw spaghetti."
 	icon = 'icons/obj/food/pasta.dmi'
@@ -12,7 +12,7 @@
 	list_reagents = list("nutriment" = 1, "vitamin" = 1)
 	tastes = list("raw pasta" = 1)
 
-/obj/item/food/snacks/macaroni
+/obj/item/food/macaroni
 	name = "macaroni twists"
 	desc = "These are little twists of raw macaroni."
 	icon = 'icons/obj/food/pasta.dmi'
@@ -26,7 +26,7 @@
 //	Pasta Dishes	//
 //////////////////////
 
-/obj/item/food/snacks/boiledspaghetti
+/obj/item/food/boiledspaghetti
 	name = "boiled spaghetti"
 	desc = "A plain dish of noodles. This sucks."
 	icon = 'icons/obj/food/pasta.dmi'
@@ -37,7 +37,7 @@
 	tastes = list("pasta" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/pastatomato
+/obj/item/food/pastatomato
 	name = "spaghetti"
 	desc = "Spaghetti and crushed tomatoes. Just like your abusive father used to make!"
 	icon = 'icons/obj/food/pasta.dmi'
@@ -49,7 +49,7 @@
 	tastes = list("pasta" = 1, "tomato" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/meatballspaghetti
+/obj/item/food/meatballspaghetti
 	name = "spaghetti & meatballs"
 	desc = "Now that's a nice'a meatball!"
 	icon = 'icons/obj/food/pasta.dmi'
@@ -60,7 +60,7 @@
 	tastes = list("pasta" = 1, "tomato" = 1, "meat" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/spesslaw
+/obj/item/food/spesslaw
 	name = "spesslaw"
 	desc = "A lawyer's favourite."
 	icon = 'icons/obj/food/pasta.dmi'
@@ -70,7 +70,7 @@
 	tastes = list("pasta" = 1, "tomato" = 1, "meat" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/macncheese
+/obj/item/food/macncheese
 	name = "mac 'n' cheese"
 	desc = "One of the most comforting foods in the world. Apparently."
 	trash = /obj/item/trash/snack_bowl
@@ -81,7 +81,7 @@
 	tastes = list("pasta" = 1, "cheese" = 1, "comfort" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/lasagna
+/obj/item/food/lasagna
 	name = "lasagna"
 	desc = "Tajara love to eat this, for some reason."
 	icon = 'icons/obj/food/pasta.dmi'

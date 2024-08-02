@@ -209,7 +209,7 @@
 		return FALSE
 	. = ..()
 	if(auto_door_open)
-		if(istype(M, /obj/machinery/door) && has_buckled_mobs())
+		if(isairlock(M) && has_buckled_mobs())
 			for(var/m in buckled_mobs)
 				M.Bumped(m)
 

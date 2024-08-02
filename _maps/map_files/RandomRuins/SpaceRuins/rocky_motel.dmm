@@ -210,7 +210,7 @@
 /area/ruin/space/powered)
 "ur" = (
 /obj/structure/table/glass/reinforced,
-/obj/item/food/snacks/grilledcheese{
+/obj/item/food/grilledcheese{
 	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel{
@@ -283,9 +283,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "Ed" = (
-/obj/effect/spawner/airlock/w_to_e{
-	req_access_txt = 0
-	},
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall,
 /area/ruin/space/powered)
 "EQ" = (

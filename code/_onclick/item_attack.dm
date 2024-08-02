@@ -81,7 +81,7 @@
 	M.lastattackerckey = user.ckey
 
 	user.do_attack_animation(M)
-	. = !M.attacked_by(src, user, def_zone)
+	. = M.attacked_by(src, user, def_zone)
 
 	add_fingerprint(user)
 
@@ -101,7 +101,12 @@
 /obj/attacked_by(obj/item/I, mob/living/user)
 	var/damage = I.force
 	if(I.force)
-		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
+		user.visible_message(
+			"<span class='danger'>[user] has hit [src] with [I]!</span>",
+			"<span class='danger'>You hit [src] with [I]!</span>",
+			"<span class='danger'>You hear something being struck by a weapon!</span>"
+		)
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		damage += H.physiology.melee_bonus
@@ -125,11 +130,19 @@
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
 	if(!I.force)
-		user.visible_message("<span class='warning'>[user] gently taps [src] with [I].</span>",\
-						"<span class='warning'>This weapon is ineffective, it does no damage!</span>")
+		user.visible_message(
+			"<span class='notice'>[user] gently taps [src] with [I].</span>",
+			"<span class='warning'>This weapon is ineffective, it does no damage!</span>",
+			"<span class='notice'>You hear a gentle tapping.</span>"
+		)
+
 	else if(I.force < force_threshold || I.damtype == STAMINA)
-		visible_message("<span class='warning'>[I] bounces harmlessly off of [src].</span>",\
-					"<span class='warning'>[I] bounces harmlessly off of [src]!</span>")
+		visible_message(
+			"<span class='warning'>[I] bounces harmlessly off of [src].</span>",
+			"<span class='warning'>[I] bounces harmlessly off of [src]!</span>",
+			"<span class='warning'>You hear something being struck by a weapon!</span>"
+		)
+
 	else
 		return ..()
 
@@ -159,6 +172,9 @@
 	var/attack_message = "[src] has been [message_verb][message_hit_area] with [I]."
 	if(user in viewers(src, null))
 		attack_message = "[user] has [message_verb] [src][message_hit_area] with [I]!"
-	visible_message("<span class='combat danger'>[attack_message]</span>",\
-		"<span class='combat userdanger'>[attack_message]</span>")
-	return 1
+	visible_message(
+		"<span class='combat danger'>[attack_message]</span>",
+		"<span class='combat userdanger'>[attack_message]</span>",
+		"<span class='combat danger'>You hear someone being attacked with a weapon!</span>"
+	)
+	return TRUE
