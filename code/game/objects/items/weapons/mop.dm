@@ -30,7 +30,7 @@
 
 /obj/item/mop/proc/wet_mop(obj/O, mob/user)
 	if(O.reagents.total_volume < 1)
-		to_chat(user, "[O] is empty!</span>")
+		to_chat(user, "<span class='notice'>[O] is empty!</span>")
 		if(istype(O, /obj/structure/mopbucket))
 			var/obj/structure/mopbucket/mopbucket = O
 			mopbucket.mopbucket_insert(user, O)
