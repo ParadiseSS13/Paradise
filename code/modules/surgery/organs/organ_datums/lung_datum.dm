@@ -249,6 +249,8 @@
 			TC = cold_level_1_damage
 		if(TC)
 			for(var/D in cold_damage_types)
+				if(HAS_TRAIT(H, TRAIT_DRASK_SUPERCOOL))
+					TC *= 4
 				H.apply_damage_type(TC * CM * cold_damage_types[D], D)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
@@ -306,7 +308,7 @@
 			linked_organ.owner.AdjustLoseBreath(10 SECONDS)
 
 
-/datum/organ/lungs/on_prepare_eat(obj/item/food/snacks/organ/snorgan)
+/datum/organ/lungs/on_prepare_eat(obj/item/food/organ/snorgan)
 	snorgan.reagents.add_reagent("salbutamol", 5)
 
 

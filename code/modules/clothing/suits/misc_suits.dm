@@ -430,6 +430,26 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
+
+/obj/item/clothing/suit/pimpcoat/white
+	name = "fashionable coat"
+	desc = "Very fluffy white coat, made out of quality synthetic fur."
+	icon_state = "pimpcoat_white"
+	item_state = "pimpcoat_white"
+
+/obj/item/clothing/suit/pimpcoat/tan
+	name = "coat of status"
+	desc = "Very fluffy tan coat, made out of the finest fur from the Earth. Gifted to Quartermaster of Nanotrasen. Has additional layer of protection against harsh environment of Lavaland and a strap to hold equipment of Quartermaster."
+	icon_state = "pimpcoat_tan"
+	item_state = "pimpcoat_tan"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, RAD = 0, FIRE = 15, ACID = 50)
+	allowed = list(/obj/item/paper, /obj/item/clipboard, /obj/item/gun/energy/kinetic_accelerator, /obj/item/melee/baton, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/melee/knuckleduster, /obj/item/rcs)
+
 /obj/item/clothing/suit/furcoat
 	name = "fur coat"
 	desc = "A trenchcoat made from fur. You could put an oxygen tank in one of the pockets."
@@ -1191,6 +1211,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL | NODROP
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
 	armor = list(MELEE = INFINITY, BULLET = INFINITY, LASER = INFINITY, ENERGY = INFINITY, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD

@@ -250,7 +250,7 @@
 		return
 	if(href_list["close"])
 		return
-	if(usr.stat > 0)
+	if(usr.stat != CONSCIOUS)
 		return
 	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
 	if(href_list["select_equip"])

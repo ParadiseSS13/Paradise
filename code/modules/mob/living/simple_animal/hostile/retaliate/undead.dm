@@ -1,21 +1,3 @@
-// This is important
-/mob/living/attack_ghost(mob/dead/observer/user)
-	if(prob(80)) return ..()
-	var/found = 0
-	for(var/mob/living/simple_animal/hostile/retaliate/R in range(4,src))
-		if(R.faction != "undead" || R == src || prob(50)) continue
-		found = 1
-		R.enemies ^= src
-		if(src in R.enemies)
-			R.visible_message("[R]'s head swivels eerily towards [src].")
-		else
-			R.visible_message("[R] stares at [src] for a minute before turning away.")
-			if(R.target == src)
-				R.target = null
-	if(!found)
-		return ..()
-
-
 /mob/living/simple_animal/hostile/retaliate/ghost
 	icon = 'icons/mob/mob.dmi'
 	name = "ghost"
@@ -51,7 +33,7 @@
 	pressure_resistance = 300
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	faction = list("undead") // did I mention ghost
-	loot = list(/obj/item/food/snacks/ectoplasm)
+	loot = list(/obj/item/food/ectoplasm)
 	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(check_drift = 0)

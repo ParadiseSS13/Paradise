@@ -288,9 +288,6 @@ CONTENTS:
 	if(!isabductor(user))
 		return
 
-	if(isrobot(target))
-		..()
-		return
 
 	if(!isliving(target))
 		return
@@ -298,6 +295,10 @@ CONTENTS:
 	var/mob/living/L = target
 
 	user.do_attack_animation(L)
+
+	if(isrobot(L))
+		L.apply_damage(120, STAMINA) //Force a reboot instantly
+		return
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
@@ -332,7 +333,7 @@ CONTENTS:
 
 	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
 							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
-	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
 	add_attack_logs(user, L, "Stunned with [src]")
 
@@ -340,7 +341,7 @@ CONTENTS:
 	if(L.IsStunned() || L.IsSleeping())
 		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
-		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		L.Sleeping(120 SECONDS)
 		add_attack_logs(user, L, "Put to sleep with [src]")
 	else
@@ -354,12 +355,12 @@ CONTENTS:
 		return
 	var/mob/living/carbon/C = L
 	if(!C.handcuffed)
-		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
+		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
 		if(do_mob(user, C, 30))
 			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
+				C.handcuffed = new /obj/item/restraints/handcuffs/energy(C)
 				C.update_handcuffed()
 				to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 				add_attack_logs(user, C, "Handcuffed ([src])")
@@ -392,16 +393,13 @@ CONTENTS:
 	desc = "A hard-light field restraining the hands."
 	icon_state = "cablecuff" // Needs sprite
 	breakouttime = 450
-	trashtype = /obj/item/restraints/handcuffs/energy/used
 	origin_tech = "materials=4;magnets=5;abductor=2"
-
-/obj/item/restraints/handcuffs/energy/used
-	desc = "energy discharge"
 	flags = DROPDEL
 
-/obj/item/restraints/handcuffs/energy/used/dropped(mob/user)
-	user.visible_message("<span class='danger'>[src] restraining [user] breaks in a discharge of energy!</span>", \
-							"<span class='userdanger'>[src] restraining [user] breaks in a discharge of energy!</span>")
+/obj/item/restraints/handcuffs/energy/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
+	user.visible_message("<span class='danger'>[src] restraining [user] breaks in a discharge of energy!</span>", "<span class='userdanger'>[src] restraining [user] breaks in a discharge of energy!</span>")
+	break_cuffs = TRUE
+	silent = TRUE
 	do_sparks(4, 0, user.loc)
 	. = ..()
 
@@ -871,27 +869,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-/obj/structure/table_frame/abductor/try_make_table(obj/item/stack/stack, mob/user)
-	if(!istype(stack, /obj/item/stack/sheet/mineral/abductor) && !istype(stack, /obj/item/stack/sheet/mineral/silver))
-		return FALSE
-
-	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
-		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
-		return TRUE
-
-	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
-
-	if(!(do_after(user, 50, target = src) && stack.use(1)))
-		return TRUE
-
-	if(istype(stack, /obj/item/stack/sheet/mineral/abductor)) //if it's not this then it's silver, so no need for an else afterwards
-		make_new_table(stack.table_type)
-		return TRUE
-
-	new /obj/machinery/optable/abductor(loc)
-	qdel(src)
-	return TRUE
+	restrict_table_types = list(/obj/item/stack/sheet/mineral/silver = /obj/machinery/optable/abductor, /obj/item/stack/sheet/mineral/abductor = /obj/item/stack/sheet/mineral/abductor::table_type)
 
 /obj/structure/table/abductor
 	name = "alien table"

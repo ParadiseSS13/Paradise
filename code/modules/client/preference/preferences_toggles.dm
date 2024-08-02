@@ -39,6 +39,9 @@
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+		if(PREFTOGGLE_LIGHT)
+			our_prefs.light ^= preftoggle_bitflag
+			to_chat(user, "<span class='notice'>[(our_prefs.light & preftoggle_bitflag) ? enable_message : disable_message]</span>")
 
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
 	our_prefs.save_preferences(user)
@@ -219,6 +222,16 @@
 	. = ..()
 	usr.hud_used?.update_parallax_pref()
 
+/datum/preference_toggle/toggle_strip_tgui_size
+	name = "Toggle TGUI strip menu size"
+	description = "Toggles TGUI strip menu size between miniature and full-size."
+	preftoggle_bitflag = PREFTOGGLE_2_BIG_STRIP_MENU
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will see full-size TGUI strip menu."
+	disable_message = "You will see minuature TGUI strip menu."
+	blackbox_message = "Toggle TGUI strip menu size"
+
 /datum/preference_toggle/toggle_white_noise
 	name = "Toggle White Noise"
 	description = "Toggles hearing White Noise"
@@ -261,7 +274,7 @@
 
 /datum/preference_toggle/toggle_disco
 	name = "Toggle Disco Machine Music"
-	description = "Toggles hearing musical instruments like the violin and piano"
+	description = "Toggles hearing and dancing to the radiant dance machine"
 	preftoggle_bitflag = SOUND_DISCO
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
@@ -387,16 +400,6 @@
 		if(istype(usr))
 			usr.set_typing_indicator(FALSE)
 			usr.set_thinking_indicator(FALSE)
-
-/datum/preference_toggle/toggle_tgui_input_lists
-	name = "Toggle TGUI Input"
-	description = "Switches input lists between the TGUI and the standard one"
-	preftoggle_bitflag = PREFTOGGLE_2_DISABLE_TGUI_INPUT
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You will now use TGUI Input."
-	disable_message = "You will no longer use TGUI Input."
-	blackbox_message = "Toggle TGUI Input"
 
 /datum/preference_toggle/toggle_admin_logs
 	name = "Toggle Admin Log Messages"
@@ -526,3 +529,80 @@
 			user.prefs.atklog = ATKLOG_NONE
 			to_chat(usr, "Your attack logs preference is now: show NO attack logs")
 	return ..()
+
+/datum/preference_toggle/toggle_new_lighting
+	name = "Toggle New Lighting"
+	description = "Toggles new lighting"
+	preftoggle_bitflag = LIGHT_NEW_LIGHTING
+	preftoggle_toggle = PREFTOGGLE_LIGHT
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You've enabled new lighting."
+	disable_message = "You've disabled new lighting."
+	blackbox_message = "New lighting toggled"
+
+/datum/preference_toggle/toggle_new_lighting/set_toggles(client/user)
+	. = ..()
+	if(length(user.screen))
+		var/atom/movable/screen/plane_master/exposure/exposure_master = locate() in user.screen
+		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = locate() in user.screen
+		var/atom/movable/screen/plane_master/lamps_glare/glare_master = locate() in user.screen
+
+		exposure_master.alpha = user.prefs.light & LIGHT_NEW_LIGHTING ? 255 : 0
+		exposure_master.backdrop(user.mob)
+		glow_master.backdrop(user.mob)
+		glare_master.backdrop(user.mob)
+
+/datum/preference_toggle/special_toggle/set_glow_level
+	name = "Set Glow Level"
+	description = "Changes glow level of light sources"
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	blackbox_message = "Changed glow level of light sources"
+
+/datum/preference_toggle/special_toggle/set_glow_level/set_toggles(client/user)
+	var/glow_levels = list(
+		"Disable" = GLOW_DISABLE,
+		"Low" = GLOW_LOW,
+		"Medium (Default)" = GLOW_MED,
+		"High" = GLOW_HIGH,
+	)
+	var/new_level = tgui_input_list(user, "Set glow level of light sources", "Glow Level", glow_levels)
+	if(!new_level)
+		return
+	user.prefs.glowlevel = glow_levels[new_level]
+	to_chat(usr, "Glow level: [new_level].")
+	if(length(user.screen))
+		var/atom/movable/screen/plane_master/lamps_selfglow/glow_master = locate() in user.screen
+		glow_master.backdrop(user.mob)
+	return ..()
+
+/datum/preference_toggle/toggle_lamp_exposure
+	name = "Toggle Lamp Exposure"
+	description = "Toggles lamp exposure"
+	preftoggle_bitflag = LIGHT_EXPOSURE
+	preftoggle_toggle = PREFTOGGLE_LIGHT
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You've enabled lamp exposure."
+	disable_message = "You've disabled lamp exposure."
+	blackbox_message = "Lamp exposure toggled"
+
+/datum/preference_toggle/toggle_lamp_exposure/set_toggles(client/user)
+	. = ..()
+	if(length(user.screen))
+		var/atom/movable/screen/plane_master/exposure/exposure_master = locate() in user.screen
+		exposure_master.backdrop(user.mob)
+
+/datum/preference_toggle/toggle_lamps_glare
+	name = "Toggle Lamp Glare"
+	description = "Toggles lamp glare"
+	preftoggle_bitflag = LIGHT_GLARE
+	preftoggle_toggle = PREFTOGGLE_LIGHT
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You've enabled lamp glare."
+	disable_message = "You've disabled lamp glare."
+	blackbox_message = "Lamp glare toggled"
+
+/datum/preference_toggle/toggle_lamps_glare/set_toggles(client/user)
+	. = ..()
+	if(length(user.screen))
+		var/atom/movable/screen/plane_master/lamps_glare/glare_master = locate() in user.screen
+		glare_master.backdrop(user.mob)
