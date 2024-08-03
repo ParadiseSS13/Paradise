@@ -241,7 +241,7 @@
 	var/conversion_ratio = BASE_ENERGY_CONVERSION
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 15
-	/// Whether or not autoshut down will engage when portals open
+	/// Whether or not auto shutdown will engage when portals open
 	var/auto_shutdown = TRUE
 	/// Whether or not stabilizers will engage to prevent or reduce the chance of portals opening
 	var/stabilizers = TRUE
