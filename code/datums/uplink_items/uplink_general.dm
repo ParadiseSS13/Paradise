@@ -15,33 +15,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				continue
 			if(length(I.excludefrom) && (U.uplink_type in I.excludefrom))
 				continue
+			//Add items to discount pool, checking job, species, and hijacker status
+			if(I.job && !(user.mind.assigned_role in I.job)) //If your job does not match, no discount
+				continue
+			if(I.species && !(user.dna?.species.name in I.species)) //If your species does not match, no discount
+				continue
+			if(I.hijack_only && !(locate(/datum/objective/hijack) in user.mind.get_all_objectives())) //If you aren't a hijacker, no hijack only items
+				continue
 
 			if(!uplink_items[I.category])
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
 
-			//Add items to discount pool, checking job, species, and hijacker status
-			var/job_check = FALSE
-			var/species_check = FALSE
-			var/hijacker_check = FALSE
-			if(I.job) //If your job does not match, no discount
-				if(user.mind.assigned_role in I.job)
-					job_check = TRUE
 
-			else
-				job_check = TRUE
-			if(I.species) //If your species does not match, no discount
-				if(user.dna?.species.name in I.species)
-					species_check = TRUE
-			else
-				species_check = TRUE
-			if(I.hijack_only && !(locate(/datum/objective/hijack) in user.mind.get_all_objectives())) //If you aren't a hijacker, no hijack only items
-				hijacker_check = TRUE
-			else if(!I.hijack_only)
-				hijacker_check = TRUE
-
-			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5 && job_check && species_check && hijacker_check)
+			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
 				sales_items += I
 
 	if(isnull(user)) //Handles surplus
