@@ -1871,7 +1871,6 @@
 "alM" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - HoP Office";
 	sort_type_txt = "15"
 	},
 /obj/machinery/light/small{
@@ -6469,7 +6468,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "disposal pipe - HoS";
 	sort_type_txt = "7"
 	},
 /turf/simulated/floor/plasteel{
@@ -17396,7 +17394,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - Atmospherics";
 	sort_type_txt = "6"
 	},
 /turf/simulated/floor/plating,
@@ -18205,7 +18202,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - CE Office";
 	sort_type_txt = "5"
 	},
 /turf/simulated/floor/plasteel{
@@ -21740,9 +21736,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
-	name = "disposal pipe - Medbay";
-	sort_type_txt = "9";
-	dir = 8
+	dir = 8;
+	sort_type_txt = "9"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -26172,7 +26167,6 @@
 "cNN" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - CMO Office";
 	sort_type_txt = "10"
 	},
 /turf/simulated/floor/plating,
@@ -29580,7 +29574,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - QM Office";
 	sort_type_txt = "3"
 	},
 /turf/simulated/floor/plasteel{
@@ -31107,7 +31100,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - RD Office";
 	sort_type_txt = "13"
 	},
 /obj/structure/cable/orange{
@@ -33654,7 +33646,6 @@
 "dGr" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "disposal pipe - Library";
 	sort_type_txt = "16"
 	},
 /turf/simulated/floor/plating,
@@ -33725,7 +33716,6 @@
 "dHs" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - Research";
 	sort_type_txt = "12"
 	},
 /turf/simulated/floor/plasteel{
@@ -34764,7 +34754,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "disposal pipe - Library";
 	sort_type_txt = "16"
 	},
 /turf/simulated/floor/carpet/green,
@@ -34911,7 +34900,6 @@
 "eag" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - Atmospherics";
 	sort_type_txt = "6"
 	},
 /obj/structure/grille/broken,
@@ -35494,7 +35482,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - Engineering";
 	sort_type_txt = "4"
 	},
 /turf/simulated/floor/plasteel{
@@ -36163,7 +36150,6 @@
 "exL" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - Medbay";
 	sort_type_txt = "9"
 	},
 /obj/item/wrench,
@@ -39151,7 +39137,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "disposal pipe - Robotics";
 	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plasteel/white,
@@ -43233,7 +43218,6 @@
 "gZc" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - Chemistry";
 	sort_type_txt = "11"
 	},
 /obj/structure/cable/orange{
@@ -43613,7 +43597,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "disposal pipe - Chapel";
 	sort_type_txt = "17"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -45543,7 +45526,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - Robotics";
 	sort_type_txt = "14"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -46693,7 +46675,6 @@
 "idV" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - CE Office";
 	sort_type_txt = "5"
 	},
 /turf/simulated/floor/plating,
@@ -47593,7 +47574,6 @@
 "ira" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "disposal pipe - Research";
 	sort_type_txt = "12"
 	},
 /obj/structure/cable/orange{
@@ -48168,7 +48148,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "disposal pipe - CMO Office";
 	sort_type_txt = "10"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -51640,7 +51619,6 @@
 "jCE" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - Kitchen";
 	sort_type_txt = "20"
 	},
 /turf/simulated/floor/plating{
@@ -53661,7 +53639,6 @@
 "klh" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "disposal pipe - Hydroponics";
 	sort_type_txt = "21"
 	},
 /obj/structure/cable/orange{
@@ -56232,7 +56209,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "disposal pipe - Morgue";
 	sort_type_txt = "25"
 	},
 /turf/simulated/floor/plating,
@@ -58028,7 +58004,6 @@
 "lye" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "disposal pipe - Morgue";
 	sort_type_txt = "25"
 	},
 /obj/structure/cable/orange{
@@ -58087,7 +58062,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - Research";
 	sort_type_txt = "12"
 	},
 /obj/structure/cable/orange{
@@ -58984,7 +58958,6 @@
 "lOw" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "disposal pipe - Chapel";
 	sort_type_txt = "17"
 	},
 /turf/simulated/floor/carpet/green,
@@ -62258,7 +62231,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - Hydroponics";
 	sort_type_txt = "21"
 	},
 /obj/structure/cable{
@@ -63542,7 +63514,6 @@
 "noS" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "disposal pipe - HoS";
 	sort_type_txt = "7"
 	},
 /turf/simulated/floor/plating,
@@ -65143,7 +65114,6 @@
 "nPH" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "disposal pipe - Kitchen";
 	sort_type_txt = "20"
 	},
 /turf/simulated/floor/plating,
@@ -66043,7 +66013,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "disposal pipe - Genetics";
 	sort_type_txt = "23"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -66198,7 +66167,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - Atmospherics";
 	sort_type_txt = "6"
 	},
 /turf/simulated/floor/plasteel{
@@ -66821,7 +66789,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "disposal pipe - Detective";
 	sort_type_txt = "24"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -70515,7 +70482,6 @@
 "pBh" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "disposal pipe - Robotics";
 	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plating,
@@ -70724,7 +70690,6 @@
 "pEA" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "disposal pipe - Bar";
 	sort_type_txt = "19"
 	},
 /turf/simulated/floor/plating,
@@ -72013,7 +71978,6 @@
 /obj/structure/grille,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - Custodials";
 	sort_type_txt = "22"
 	},
 /turf/simulated/floor/plating,
@@ -75453,7 +75417,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "disposal pipe - Captain's Office";
 	sort_type_txt = "18"
 	},
 /turf/simulated/floor/plasteel{
@@ -76159,7 +76122,6 @@
 "rpk" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "disposal pipe - Chapel";
 	sort_type_txt = "17"
 	},
 /turf/simulated/floor/plating,
@@ -76817,7 +76779,6 @@
 "rCJ" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - Genetics";
 	sort_type_txt = "23"
 	},
 /obj/structure/cable/orange{
@@ -77084,7 +77045,6 @@
 "rIJ" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - Captain's Office";
 	sort_type_txt = "18"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -77958,7 +77918,6 @@
 "rXV" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - Engineering";
 	sort_type_txt = "4"
 	},
 /turf/simulated/floor/plating,
@@ -79401,7 +79360,6 @@
 "stC" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "disposal pipe - Detective";
 	sort_type_txt = "24"
 	},
 /turf/simulated/floor/plating,
@@ -82284,7 +82242,6 @@
 "tqm" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - Chemistry";
 	sort_type_txt = "11"
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -82354,7 +82311,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - Engineering";
 	sort_type_txt = "4"
 	},
 /obj/item/assembly/mousetrap/armed,
@@ -82738,7 +82694,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "disposal pipe - HoP Office";
 	sort_type_txt = "15"
 	},
 /turf/simulated/floor/plasteel{
@@ -82937,7 +82892,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - Bar";
 	sort_type_txt = "19"
 	},
 /turf/simulated/floor/plasteel{
@@ -85360,7 +85314,6 @@
 "uqM" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "disposal pipe - Security";
 	sort_type_txt = "8"
 	},
 /obj/effect/decal/cleanable/cobweb,
@@ -85930,7 +85883,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "disposal pipe - Security";
 	sort_type_txt = "7"
 	},
 /turf/simulated/floor/plasteel{
@@ -86288,7 +86240,6 @@
 "uEm" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "disposal pipe - RD Office";
 	sort_type_txt = "13"
 	},
 /turf/simulated/floor/plating,
@@ -89869,7 +89820,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - Hydroponics";
 	sort_type_txt = "21"
 	},
 /turf/simulated/floor/plating{
@@ -90001,7 +89951,6 @@
 "vHe" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "disposal pipe - CMO Office";
 	sort_type_txt = "10"
 	},
 /turf/simulated/floor/plasteel{
@@ -92858,7 +92807,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "disposal pipe - Library";
 	sort_type_txt = "16"
 	},
 /turf/simulated/floor/plating{
@@ -94706,9 +94654,8 @@
 	pixel_y = 32
 	},
 /obj/structure/disposalpipe/sortjunction{
-	name = "disposal pipe - Custodials";
-	sort_type_txt = "22";
-	dir = 4
+	dir = 4;
+	sort_type_txt = "22"
 	},
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -95260,7 +95207,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - CE Office";
 	sort_type_txt = "5"
 	},
 /turf/simulated/floor/plating{
@@ -97144,7 +97090,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "disposal pipe - Kitchen";
 	sort_type_txt = "20"
 	},
 /turf/simulated/floor/plasteel{
