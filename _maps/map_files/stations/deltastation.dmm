@@ -61929,9 +61929,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
-"dNd" = (
-/turf/space,
-/area/merge_conflict_marker)
 "dNe" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/brflowers,
@@ -123077,7 +123074,7 @@ aaa
 aaa
 aaa
 aaa
-dNd
+aaa
 aaa
 aaa
 aaa
