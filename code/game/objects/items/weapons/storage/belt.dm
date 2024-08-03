@@ -798,6 +798,17 @@
 	new /obj/item/melee/snakesfang(src)
 	update_appearance(UPDATE_ICON_STATE)
 
+/obj/item/storage/belt/sheath/breach_cleaver
+	name = "breach cleaver scabbard"
+	desc = "Can hold massive cleavers."
+	icon_state = "breachcleaversheath"
+	item_state = "breachcleaversheath"
+	can_hold = list(/obj/item/melee/breach_cleaver)
+
+/obj/item/storage/belt/sheath/breach_cleaver/populate_contents()
+	new /obj/item/melee/breach_cleaver(src)
+	update_icon()
+
 // -------------------------------------
 //     Bluespace Belt
 // -------------------------------------
