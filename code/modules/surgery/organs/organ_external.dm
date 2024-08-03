@@ -62,6 +62,8 @@
 	var/can_stand
 
 	var/splinted_count = 0 //Time when this organ was last splinted
+	///If this organ's max HP is reduced by the IPC magnetic joints implant
+	var/fragile = FALSE
 
 /obj/item/organ/external/necrotize(update_sprite=TRUE, ignore_vital_death = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
@@ -222,7 +224,7 @@
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
 	var/max_limb_damage = max_damage
-	if(owner)
+	if(owner && fragile)
 		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
@@ -711,7 +713,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(!length(contents))
 			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
 			return
-		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 		user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
 			"<span class='notice'>You begin to cut open [src]...</span>")
 		if(do_after(user, 5.4 SECONDS, target = src))
@@ -831,7 +833,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(company && istext(company))
-		set_company(company)
+		if(owner)
+			set_company(company, owner.dna.species.sprite_sheet_name)
+		else
+			set_company(company, "Human")
 
 	limb_flags |= CANNOT_BREAK
 	get_icon()
@@ -841,11 +846,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 
-/obj/item/organ/external/proc/set_company(company)
+/obj/item/organ/external/proc/set_company(company, species_sheet_name)
 	model = company
 	var/datum/robolimb/R = GLOB.all_robolimbs[company]
 	if(R)
-		force_icon = R.icon
+		if(length(R.sprite_sheets) && R.sprite_sheets[species_sheet_name]) // Species specific augmented limbs
+			force_icon = R.sprite_sheets[species_sheet_name]
+		else
+			force_icon = R.icon
 		name = "[R.company] [initial(name)]"
 		desc = "[R.desc]"
 

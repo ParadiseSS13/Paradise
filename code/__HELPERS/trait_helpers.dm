@@ -184,6 +184,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EMOTE_MUTE		"emote_mute"
 #define TRAIT_HYPOSPRAY_IMMUNE	"hypospray_immune" // For making crew-accessable hyposprays not pierce your clothing
 #define TRAIT_RSG_IMMUNE		"rsgimmune" //prevents RSG syringes from piercing your clothing
+#define TRAIT_DRASK_SUPERCOOL	"drask_supercool"
 
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
@@ -243,6 +244,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NEVER_MISSES_DISPOSALS "trait_never_misses_disposals" // For janitors landing disposal throws
 #define TRAIT_SLEIGHT_OF_HAND "sleight_of_hand"
 #define TRAIT_KNOWS_COOKING_RECIPES "knows_cooking_recipes"
+#define TRAIT_XENOBIO_SPAWNED_HUMAN "xenobio_spawned_human" // The mob is from xenobio/cargo/botany that has evolved into their greater form. They do not give vampires usuble blood and cannot be converted by cult.
 
 /// used for dead mobs that are observing, but should not be afforded all the same platitudes as full ghosts.
 /// This is a mind trait because ghosts can be frequently deleted and we want to be sure this sticks.
@@ -267,6 +269,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_THROWN_MESSAGE "no_message_when_thrown"
 /// Makes the item not display a message on storage insertion
 #define TRAIT_SILENT_INSERTION "silent_insertion"
+/// Makes an item active, this is generally used by energy based weapons or toggle based items.
+#define TRAIT_ITEM_ACTIVE "item_active"
 
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL			"surgical_tool"
@@ -286,9 +290,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///An organ that was inserted into a dead mob, that has not been revived yet
 #define TRAIT_ORGAN_INSERTED_WHILE_DEAD "organ_inserted_while_dead"
 
+//****** OBJ TRAITS *****//
+
 ///An /obj that should not increase the "depth" of the search for adjacency,
 ///e.g. a storage container or a modsuit.
 #define TRAIT_ADJACENCY_TRANSPARENT "adjacency_transparent"
+
+/// A trait for items that will not break glass tables if the user is buckled to them.
+#define TRAIT_NO_BREAK_GLASS_TABLES "no_break_glass_tables"
 
 //****** ATOM/MOVABLE TRAITS *****//
 /// A trait for determining if a atom/movable is currently crossing into another z-level by using of /turf/space z-level "destination-xyz" transfers
@@ -388,6 +397,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_FORESTED "station_trait_forested"
 #define STATION_TRAIT_VENDING_SHORTAGE "station_trait_vending_shortage"
 #define STATION_TRAIT_MESSY "station_trait_messy"
+#define STATION_TRAIT_TRIAI "station_trait_triai"
 
 //***** TURF TRAITS *****//
 /// Removes slowdown while walking on these tiles.

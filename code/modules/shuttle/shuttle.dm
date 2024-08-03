@@ -500,13 +500,13 @@
 		var/list/L2 = list()
 		switch(S1.dir)
 			if(NORTH)
-				L2 = block(locate(S1.x-9, S1.y+36, S1.z), locate(S1.x+9, 255, S1.z))
+				L2 = block(S1.x-9, S1.y+36, S1.z, S1.x+9, 255, S1.z)
 			if(SOUTH)
-				L2 = block(locate(S1.x-9, 1, S1.z), locate(S1.x+9, S1.y-36, S1.z))
+				L2 = block(S1.x-9, 1, S1.z, S1.x+9, S1.y-36, S1.z)
 			if(EAST)
-				L2 = block(locate(S1.x+36, S1.y-9, S1.z), locate(255, S1.y+9, S1.z))
+				L2 = block(S1.x+36, S1.y-9, S1.z, 255, S1.y+9, S1.z)
 			if(WEST)
-				L2 = block(locate(1, S1.y-9, S1.z), locate(S1.x-36, S1.y+9, S1.z))
+				L2 = block(1, S1.y-9, S1.z, S1.x-36, S1.y+9, S1.z)
 		mobile_port.shuttle_smash(L2, S1)
 	mobile_port.roadkill(L0, L1, S1.dir)
 
@@ -640,6 +640,11 @@
 					var/obj/machinery/atmospherics/supermatter_crystal/bakoom = AM
 					addtimer(CALLBACK(bakoom, TYPE_PROC_REF(/obj/machinery/atmospherics/supermatter_crystal, explode), bakoom.combined_gas, bakoom.power, bakoom.gasmix_power_ratio), 1 SECONDS)
 				continue
+			// Your mech will not save you.
+			if(ismecha(AM))
+				var/obj/mecha/mech = AM
+				if(mech.occupant)
+					INVOKE_ASYNC(mech, TYPE_PROC_REF(/obj/mecha, get_out_and_die))
 			if(ismob(AM))
 				var/mob/M = AM
 				if(M.buckled)

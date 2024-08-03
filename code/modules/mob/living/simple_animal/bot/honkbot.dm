@@ -127,7 +127,7 @@
 			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits. It gives out an evil laugh!!</span>")
 			oldtarget_name = user.name
 		audible_message("<span class='danger'>[src] gives out an evil laugh!</span>")
-		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, 1, -1) // evil laughter
+		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 		update_icon()
 
 /mob/living/simple_animal/bot/honkbot/cmag_act(mob/user)
@@ -270,7 +270,7 @@
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
 				walk_to(src, 0)
-				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, 1, -1)
+				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, TRUE, -1)
 				back_to_idle()
 				return
 
@@ -386,7 +386,7 @@
 							"[C] topples over [src]!", \
 							"[C] leaps out of [src]'s way!")]</span>")
 			C.KnockDown(10 SECONDS)
-			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
+			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, TRUE, -1)
 			if(!client)
 				speak("Honk!")
 			sensor_blink()

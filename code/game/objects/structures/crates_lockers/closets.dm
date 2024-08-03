@@ -446,7 +446,7 @@
 	if(T.density)
 		return
 	for(var/atom/A in T.contents)
-		if(A.density && istype(A, /obj/machinery/door))
+		if(A.density && isairlock(A))
 			return
 	UpdateTransparency(src, NewLoc)
 	forceMove(NewLoc)

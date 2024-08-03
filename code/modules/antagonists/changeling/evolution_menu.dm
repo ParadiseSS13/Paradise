@@ -6,7 +6,7 @@
 /datum/action/changeling/evolution_menu
 	name = "Evolution Menu"
 	desc = "Choose our method of subjugation."
-	button_icon_state = "changelingsting"
+	button_overlay_icon_state = "changelingsting"
 	power_type = CHANGELING_INNATE_POWER
 	/// Which UI view will be displayed. Compact mode will show only power names, and will leave out their descriptions and helptext.
 	var/view_mode = EXPANDED_MODE

@@ -100,3 +100,11 @@
 
 #define CIRCULATOR_SIDE_LEFT WEST
 #define CIRCULATOR_SIDE_RIGHT EAST
+
+// Request Console configuration bitmask.
+/// [/obj/machinery/requests_console] can request assistance.
+#define RC_ASSIST (1<<0)
+/// [/obj/machinery/requests_console] can request supplies.
+#define RC_SUPPLY (1<<1)
+/// [/obj/machinery/requests_console] can relay anonymous information.
+#define RC_INFO   (1<<2)

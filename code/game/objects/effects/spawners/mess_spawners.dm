@@ -182,7 +182,7 @@
 /obj/effect/spawner/themed_mess/cooking/drop_object(turf/T)
 	var/extra_trash = pick(
 		/obj/item/trash/plate,
-		/obj/item/food/snacks/meat,
+		/obj/item/food/meat,
 		/obj/item/trash/snack_bowl,
 	)
 	var/obj/trash = new extra_trash(T)

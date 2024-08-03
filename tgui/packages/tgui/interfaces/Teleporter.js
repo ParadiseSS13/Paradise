@@ -27,12 +27,8 @@ export const Teleporter = (props, context) => {
             {(!powerstation || !teleporterhub) && (
               <Section fill title="Error">
                 {teleporterhub}
-                {!powerstation && (
-                  <Box color="bad"> Powerstation not linked </Box>
-                )}
-                {powerstation && !teleporterhub && (
-                  <Box color="bad"> Teleporter hub not linked </Box>
-                )}
+                {!powerstation && <Box color="bad"> Powerstation not linked </Box>}
+                {powerstation && !teleporterhub && <Box color="bad"> Teleporter hub not linked </Box>}
               </Section>
             )}
             {powerstation && teleporterhub && (
@@ -50,12 +46,8 @@ export const Teleporter = (props, context) => {
                         </Box>
                         <Button
                           selected={advanced_beacon_locking}
-                          icon={
-                            advanced_beacon_locking ? 'toggle-on' : 'toggle-off'
-                          }
-                          content={
-                            advanced_beacon_locking ? 'Enabled' : 'Disabled'
-                          }
+                          icon={advanced_beacon_locking ? 'toggle-on' : 'toggle-off'}
+                          content={advanced_beacon_locking ? 'Enabled' : 'Disabled'}
                           onClick={() =>
                             act('advanced_beacon_locking', {
                               on: advanced_beacon_locking ? 0 : 1,
@@ -133,9 +125,7 @@ export const Teleporter = (props, context) => {
                       tooltip="One-way teleport."
                       tooltipPosition="top"
                       color={regime === REGIME_TELEPORT ? 'good' : null}
-                      onClick={() =>
-                        act('setregime', { regime: REGIME_TELEPORT })
-                      }
+                      onClick={() => act('setregime', { regime: REGIME_TELEPORT })}
                     />
                   </Stack.Item>
                   <Stack.Item grow textAlign="center">
@@ -158,12 +148,8 @@ export const Teleporter = (props, context) => {
                     {target !== 'None' && (
                       <Stack fill>
                         <Stack.Item width={15.8} textAlign="center" mt={0.5}>
-                          {(calibrating && (
-                            <Box color="average">In Progress</Box>
-                          )) ||
-                            (calibrated && <Box color="good">Optimal</Box>) || (
-                              <Box color="bad">Sub-Optimal</Box>
-                            )}
+                          {(calibrating && <Box color="average">In Progress</Box>) ||
+                            (calibrated && <Box color="good">Optimal</Box>) || <Box color="bad">Sub-Optimal</Box>}
                         </Stack.Item>
                         <Stack.Item grow>
                           <Button
@@ -178,19 +164,12 @@ export const Teleporter = (props, context) => {
                         </Stack.Item>
                       </Stack>
                     )}
-                    {target === 'None' && (
-                      <Box lineHeight="21px">No target set</Box>
-                    )}
+                    {target === 'None' && <Box lineHeight="21px">No target set</Box>}
                   </Stack.Item>
                 </Stack>
               </Section>
             )}
-            {!!(
-              locked &&
-              powerstation &&
-              teleporterhub &&
-              regime === REGIME_GPS
-            ) && (
+            {!!(locked && powerstation && teleporterhub && regime === REGIME_GPS) && (
               <Section title="GPS">
                 <Stack>
                   <Button
@@ -199,12 +178,7 @@ export const Teleporter = (props, context) => {
                     icon="upload"
                     onClick={() => act('load')}
                   />
-                  <Button
-                    content="Eject"
-                    tooltip="Ejects the GPS device"
-                    icon="eject"
-                    onClick={() => act('eject')}
-                  />
+                  <Button content="Eject" tooltip="Ejects the GPS device" icon="eject" onClick={() => act('eject')} />
                 </Stack>
               </Section>
             )}

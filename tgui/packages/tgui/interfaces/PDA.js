@@ -31,9 +31,7 @@ export const PDA = (props, context) => {
     return (
       <Window width={350} height={105}>
         <Window.Content scrollable>
-          <Section title="Error">
-            No user data found. Please swipe an ID card.
-          </Section>
+          <Section title="Error">No user data found. Please swipe an ID card.</Section>
         </Window.Content>
       </Window>
     );
@@ -92,11 +90,7 @@ const PDAHeader = (props, context) => {
           icon="sd-card"
           color="transparent"
           onClick={() => act('Eject')}
-          content={
-            cartridge_name
-              ? ['Eject ' + cartridge_name]
-              : 'No Cartridge Inserted'
-          }
+          content={cartridge_name ? ['Eject ' + cartridge_name] : 'No Cartridge Inserted'}
         />
       </Stack.Item>
       <Stack.Item grow textAlign="right" bold mr={1} mt={0.5}>

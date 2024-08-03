@@ -166,8 +166,8 @@
 
 /datum/action/innate/demon/whisper
 	name = "Demonic Whisper"
-	button_icon_state = "demon_comms"
-	background_icon_state = "bg_demon"
+	button_overlay_icon_state = "demon_comms"
+	button_background_icon_state = "bg_demon"
 
 /datum/action/innate/demon/whisper/IsAvailable()
 	return ..()
@@ -297,7 +297,7 @@
 /mob/living/simple_animal/demon/slaughter/laughter/release_consumed(mob/living/M)
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
-		playsound(get_turf(src), feast_sound, 50, 1, -1)
+		playsound(get_turf(src), feast_sound, 50, TRUE, -1)
 		to_chat(M, "<span class='clown'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
 	..(M)
 

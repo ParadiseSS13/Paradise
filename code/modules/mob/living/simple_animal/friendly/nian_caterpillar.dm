@@ -10,7 +10,7 @@
 	mob_size = MOB_SIZE_SMALL
 	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	butcher_results = list(/obj/item/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	minbodytemp = 0
 
 	blood_color = "#b9ae9c"
@@ -64,6 +64,9 @@
 		to_chat(src, "<span class='warning'>You need to binge on food in order to have the energy to evolve...</span>")
 		return
 
+	if(master_commander)
+		to_chat(src, "<span class='userdanger'>As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!</span>")
+
 	// Worme is the lesser form of nian. The caterpillar evolves into this lesser form.
 	var/mob/living/carbon/human/nian_worme/adult = new(get_turf(loc))
 
@@ -80,6 +83,8 @@
 
 	// Mind transfer to new worme.
 	M.transfer_to(adult)
+	// [Caterpillar -> worme -> nian] is from xenobio (or cargo) and does not give vampires usuble blood and cannot be converted by cult.
+	ADD_TRAIT(adult.mind, TRAIT_XENOBIO_SPAWNED_HUMAN, ROUNDSTART_TRAIT)
 
 	// Worme is placed into cacoon.
 	adult.forceMove(C)
@@ -99,7 +104,7 @@
 	qdel(src)
 	return TRUE
 
-/mob/living/simple_animal/nian_caterpillar/proc/consume(obj/item/food/snacks/G)
+/mob/living/simple_animal/nian_caterpillar/proc/consume(obj/item/food/G)
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating food items without evolving.
 		return to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
 	visible_message("<span class='warning'>[src] ravenously consumes [G].</span>", "<span class='notice'>You ravenously devour [G].</span>")
@@ -128,8 +133,8 @@
 /datum/action/innate/nian_caterpillar_emerge
 	name = "Evolve"
 	desc = "Weave a cocoon around yourself to evolve into a greater form. The worme."
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "cocoon1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "cocoon1"
 
 /datum/action/innate/nian_caterpillar_emerge/proc/emerge(obj/structure/moth/cocoon/C)
 	for(var/mob/living/carbon/human/H in C)

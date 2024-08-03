@@ -22,7 +22,7 @@
 	mob_size = MOB_SIZE_SMALL
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
-	butcher_results = list(/obj/item/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_REPTILE
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -31,7 +31,7 @@
 	var/has_tail = TRUE
 
 /mob/living/simple_animal/lizard/handle_automated_action()
-	if(!stat && !buckled)
+	if(stat == CONSCIOUS && !buckled)
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("sticks out its tongue.", "wags its tail.", "lies down."))
 

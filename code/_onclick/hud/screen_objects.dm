@@ -400,7 +400,10 @@
 /atom/movable/screen/inventory/proc/add_overlays()
 	var/mob/user = hud?.mymob
 
-	if(!user || !slot_id || user != usr)
+	if(!user || user != usr)
+		return
+
+	if(!hud?.mymob || !slot_id || slot_id == SLOT_HUD_LEFT_HAND || slot_id == SLOT_HUD_RIGHT_HAND)
 		return
 
 	var/obj/item/holding = user.get_active_hand()
