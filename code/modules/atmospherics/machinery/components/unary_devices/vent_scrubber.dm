@@ -9,6 +9,7 @@
 	power_state = ACTIVE_POWER_USE
 	idle_power_consumption = 10
 	active_power_consumption = 60
+	can_unwrench_while_on = FALSE
 
 	can_unwrench = TRUE
 
@@ -44,17 +45,14 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This filters the atmosphere of harmful gas. Filtered gas goes straight into the connected pipenet. Controlled by an Air Alarm.</span>"
+	if(welded)
+		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
 	if(initial_loc)
 		initial_loc.scrubbers -= src
 
 	return ..()
-
-/obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
-	. = ..()
-	if(welded)
-		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_overlays()
 	. = ..()
@@ -217,14 +215,6 @@
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
-
-/obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		if(!(stat & NOPOWER) && on)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
-			return TRUE
-
-	return ..()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
 	. = TRUE

@@ -49,7 +49,7 @@
 
 	speak_chance = 1//1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
 	turns_per_move = 5
-	butcher_results = list(/obj/item/food/snacks/cracker = 3)
+	butcher_results = list(/obj/item/food/cracker = 3)
 
 	response_help = "pets"
 	response_disarm = "gently moves aside"
@@ -697,7 +697,7 @@
 /mob/living/simple_animal/parrot/proc/parrot_hear(message)
 	if(!message || stat)
 		return
-	speech_buffer.Add(message)
+	speech_buffer.Add(strip_html_tags(message))
 
 /mob/living/simple_animal/parrot/proc/update_held_icon()
 	underlays.Cut()
@@ -711,9 +711,6 @@
 	var/held_item_icon = image(held_item, pixel_y = -8)
 	animate(held_item_icon, transform = m180)
 	underlays += held_item_icon
-
-/mob/living/simple_animal/parrot/CanPathfindPassTo(ID, dir, obj/destination)
-	return is_type_in_typecache(destination, desired_perches)
 
 #undef PARROT_PERCH
 #undef PARROT_SWOOP

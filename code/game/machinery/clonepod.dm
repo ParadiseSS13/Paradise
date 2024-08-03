@@ -2,12 +2,12 @@
 #define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent")
 
 /// Meats that can be used as biomass for the cloner.
-#define VALID_BIOMASSABLES list(/obj/item/food/snacks/meat, \
-								/obj/item/food/snacks/monstermeat, \
-								/obj/item/food/snacks/carpmeat, \
-								/obj/item/food/snacks/salmonmeat, \
-								/obj/item/food/snacks/catfishmeat, \
-								/obj/item/food/snacks/tofurkey)
+#define VALID_BIOMASSABLES list(/obj/item/food/meat, \
+								/obj/item/food/monstermeat, \
+								/obj/item/food/carpmeat, \
+								/obj/item/food/salmonmeat, \
+								/obj/item/food/catfishmeat, \
+								/obj/item/food/tofurkey)
 
 /// Internal organs the cloner will *never* accept for insertion.
 #define FORBIDDEN_INTERNAL_ORGANS list(/obj/item/organ/internal/regenerative_core, \
@@ -556,9 +556,6 @@
 
 //Attackby and x_acts
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-
 	if(I.is_open_container())
 		return
 
@@ -666,7 +663,7 @@
 	switch(action)
 		if("eject_organ")
 			var/obj/item/organ/O = locateUID(params["organ_ref"])
-			if(!istype(O)) //This shouldn't happen
+			if(!istype(O) || !O.in_contents_of(src)) //This shouldn't happen BUT JUST IN CASE
 				return FALSE
 			if(!ui.user.put_in_hands(O))
 				O.forceMove(loc)

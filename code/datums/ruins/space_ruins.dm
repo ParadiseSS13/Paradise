@@ -59,6 +59,7 @@
 		evidence of construction, hook it covertly into the \
 		telecommunications network and hope for the best."
 	cost = 2
+	allow_duplicates = FALSE // this shouldn't be spawning more than once anymore
 
 /datum/map_template/ruin/space/derelict1
 	id = "derelict1"
@@ -193,6 +194,14 @@
 	description = "The remains of an old telecommunications satellite once utilised by Nanotrasen. It lays derelict, with quite a few pieces missing."
 	cost = 5 // This is a chonky boy
 	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
+
+/datum/map_template/ruin/space/malftcommsat
+	id = "malftcommsat"
+	suffix = "telecomns_returns.dmm"
+	name = "D.V.O.R.A.K'S Telecommunications Satellite"
+	description = "Seems the telecomunication satellite that went dark 4 years ago finally re-appeared on scanners? Strange signals are coming from it."
+	cost = 5 // Huge. Large. In charge
+	allow_duplicates = FALSE // One sadistic malfunctioning AI is enough. Also unique apcs.
 
 /datum/map_template/ruin/space/clownmime
 	id = "clownmime"

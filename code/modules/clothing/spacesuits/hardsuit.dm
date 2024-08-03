@@ -47,6 +47,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(soundloop)
+	suit = null
 	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
@@ -181,10 +182,6 @@
 	QDEL_NULL(jetpack)
 	return ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/Destroy()
-	suit = null
-	return ..()
-
 /obj/item/clothing/suit/space/hardsuit/proc/MakeHelmet()
 	if(!helmettype)
 		return
@@ -230,6 +227,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	..()
+	if(helmettype && slot != SLOT_HUD_OUTER_SUIT)
+		RemoveHelmet()
 	if(jetpack)
 		if(slot == SLOT_HUD_OUTER_SUIT)
 			for(var/X in jetpack.actions)
@@ -238,6 +237,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/dropped(mob/user)
 	..()
+	RemoveHelmet()
 	if(jetpack)
 		for(var/X in jetpack.actions)
 			var/datum/action/A = X
@@ -377,11 +377,13 @@
 //Strike team hardsuits
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
 	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 35, BOMB = 200, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	icon_state = "hardsuit0-sst"
 	item_color = "sst"
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
 	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 40, BOMB = 200, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	icon_state = "hardsuit0-sst"
 	item_color = "sst"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
@@ -488,6 +490,7 @@
 	item_state = "singuloth_helm"
 	item_color = "singuloth"
 	armor = list(MELEE = 35, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = null
 
 /obj/item/clothing/suit/space/hardsuit/singuloth
@@ -496,6 +499,7 @@
 	icon_state = "hardsuit-singuloth"
 	item_state = "singuloth_hardsuit"
 	flags = STOPSPRESSUREDMAGE
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	armor = list(MELEE = 35, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	sprite_sheets = null
