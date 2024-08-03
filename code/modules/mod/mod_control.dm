@@ -253,6 +253,7 @@
 	if(!wearer || old_loc != wearer || loc == wearer)
 		return
 	clean_up()
+	bag?.update_viewers()
 
 /obj/item/mod/control/MouseDrop(atom/over_object)
 	if(iscarbon(usr))
@@ -775,7 +776,3 @@
 	. = ..()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.extinguish_light(force)
-
-/obj/item/mod/control/Moved(atom/oldloc, dir, forced = FALSE)
-	. = ..()
-	bag?.update_viewers()

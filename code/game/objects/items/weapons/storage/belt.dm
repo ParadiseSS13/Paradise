@@ -300,7 +300,7 @@
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
-		/obj/item/food/snacks/donut,
+		/obj/item/food/donut,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
@@ -353,7 +353,7 @@
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
-		/obj/item/food/snacks/donut,
+		/obj/item/food/donut,
 		/obj/item/kitchen/knife/combat,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
@@ -785,18 +785,18 @@
 
 /obj/item/storage/belt/sheath/rapier/populate_contents()
 	new /obj/item/melee/rapier(src)
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
-/obj/item/storage/belt/sheath/breach_cleaver
-	name = "breach cleaver scabbard"
-	desc = "Can hold massive cleavers."
-	icon_state = "breachcleaversheath"
-	item_state = "breachcleaversheath"
-	can_hold = list(/obj/item/melee/breach_cleaver)
+/obj/item/storage/belt/sheath/snakesfang
+	name = "snakesfang scabbard"
+	desc = "Can hold scimitars."
+	icon_state = "snakesfangsheath"
+	item_state = "snakesfangsheath"
+	can_hold = list(/obj/item/melee/snakesfang)
 
-/obj/item/storage/belt/sheath/breach_cleaver/populate_contents()
-	new /obj/item/melee/breach_cleaver(src)
-	update_icon()
+/obj/item/storage/belt/sheath/snakesfang/populate_contents()
+	new /obj/item/melee/snakesfang(src)
+	update_appearance(UPDATE_ICON_STATE)
 
 // -------------------------------------
 //     Bluespace Belt
@@ -1025,6 +1025,6 @@
 		/obj/item/reagent_containers/drinks/bottle,
 		/obj/item/reagent_containers/drinks/cans,
 		/obj/item/reagent_containers/drinks/shaker,
-		/obj/item/food/snacks,
+		/obj/item/food,
 		/obj/item/reagent_containers/condiment,
 		/obj/item/reagent_containers/glass/beaker)

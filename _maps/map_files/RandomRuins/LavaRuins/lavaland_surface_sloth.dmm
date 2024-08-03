@@ -25,7 +25,7 @@
 /area/ruin/powered/sloth)
 "f" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/citrus/orange,
+/obj/item/food/grown/citrus/orange,
 /turf/simulated/floor/sepia{
 	slowdown = 10
 	},

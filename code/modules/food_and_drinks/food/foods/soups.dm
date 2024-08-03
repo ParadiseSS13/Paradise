@@ -4,7 +4,7 @@
 //////////////////////
 
 // Base object for soups, should never appear ingame.
-/obj/item/food/snacks/soup
+/obj/item/food/soup
 	name = "impossible soup"
 	desc = "This soup is so good, it shouldn't even exist!"
 	icon = 'icons/obj/food/soupsalad.dmi'
@@ -13,7 +13,7 @@
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
 
-/obj/item/food/snacks/soup/meatballsoup
+/obj/item/food/soup/meatballsoup
 	name = "meatball soup"
 	desc = "You've got balls kid, BALLS!"
 	icon_state = "meatballsoup"
@@ -22,7 +22,7 @@
 	tastes = list("meatball" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/soup/slimesoup
+/obj/item/food/soup/slimesoup
 	name = "slime soup"
 	desc = "If no water is available, you may substitute tears."
 	icon_state = "slimesoup"
@@ -31,7 +31,7 @@
 	tastes = list("slime" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/soup/bloodsoup
+/obj/item/food/soup/bloodsoup
 	name = "tomato soup"
 	desc = "Smells like copper."
 	icon_state = "tomatosoup"
@@ -40,7 +40,7 @@
 	tastes = list("iron" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/soup/clownstears
+/obj/item/food/soup/clownstears
 	name = "clown's tears"
 	desc = "Not very funny."
 	icon_state = "clownstears"
@@ -49,7 +49,7 @@
 	tastes = list("a bad joke" = 1)
 	goal_difficulty = FOOD_GOAL_EXCESSIVE
 
-/obj/item/food/snacks/soup/vegetablesoup
+/obj/item/food/soup/vegetablesoup
 	name = "vegetable soup"
 	desc = "A true vegan meal." //TODO
 	icon_state = "vegetablesoup"
@@ -58,7 +58,7 @@
 	tastes = list("vegetables" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/soup/nettlesoup
+/obj/item/food/soup/nettlesoup
 	name = "nettle soup"
 	desc = "To think, the botanist would've beaten you to death with one of these."
 	icon_state = "nettlesoup"
@@ -67,7 +67,7 @@
 	tastes = list("nettles" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/soup/mysterysoup
+/obj/item/food/soup/mysterysoup
 	name = "mystery soup"
 	desc = "The mystery is, why aren't you eating it?"
 	icon_state = "mysterysoup"
@@ -76,12 +76,12 @@
 	tastes = list("chaos" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/soup/mysterysoup/Initialize(mapload)
+/obj/item/food/soup/mysterysoup/Initialize(mapload)
 	. = ..()
 	extra_reagent = pick("capsaicin", "frostoil", "omnizine", "banana", "blood", "slimejelly", "toxin", "banana", "carbon", "oculine")
 	reagents.add_reagent("[extra_reagent]", 5)
 
-/obj/item/food/snacks/soup/wishsoup
+/obj/item/food/soup/wishsoup
 	name = "wish soup"
 	desc = "I wish this was soup."
 	icon_state = "wishsoup"
@@ -89,14 +89,14 @@
 	list_reagents = list("water" = 10)
 	tastes = list("wishes" = 1)
 
-/obj/item/food/snacks/soup/wishsoup/Initialize(mapload)
+/obj/item/food/soup/wishsoup/Initialize(mapload)
 	. = ..()
 	if(prob(25))
 		desc = "A wish come true!" // hue
 		reagents.add_reagent("nutriment", 9)
 		reagents.add_reagent("vitamin", 1)
 
-/obj/item/food/snacks/soup/tomatosoup
+/obj/item/food/soup/tomatosoup
 	name = "tomato soup"
 	desc = "Drinking this feels like being a vampire! A tomato vampire..."
 	icon_state = "tomatosoup"
@@ -105,7 +105,7 @@
 	tastes = list("tomato" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/soup/misosoup
+/obj/item/food/soup/misosoup
 	name = "miso soup"
 	desc = "The universe's best soup! Yum!!!"
 	icon_state = "misosoup"
@@ -113,7 +113,7 @@
 	tastes = list("miso" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/soup/mushroomsoup
+/obj/item/food/soup/mushroomsoup
 	name = "chantrelle soup"
 	desc = "A delicious and hearty mushroom soup."
 	icon_state = "mushroomsoup"
@@ -122,7 +122,7 @@
 	tastes = list("mushroom" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/soup/beetsoup
+/obj/item/food/soup/beetsoup
 	name = "beet soup"
 	desc = "Wait, how do you spell it again..?"
 	icon_state = "beetsoup"
@@ -131,11 +131,11 @@
 	tastes = list("beet" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/soup/beetsoup/Initialize(mapload)
+/obj/item/food/soup/beetsoup/Initialize(mapload)
 	. = ..()
 	name = pick("borsch", "bortsch", "borstch", "borsh", "borshch", "borscht")
 
-/obj/item/food/snacks/soup/eyesoup
+/obj/item/food/soup/eyesoup
 	name = "eyeball soup"
 	desc = "It looks back at you..."
 	icon_state = "eyeballsoup"
@@ -144,7 +144,7 @@
 	tastes = list("squirming" = 2, "tomato" = 2)
 	goal_difficulty = FOOD_GOAL_HARD
 
-/obj/item/food/snacks/soup/sweetpotatosoup
+/obj/item/food/soup/sweetpotatosoup
 	name = "sweet potato soup"
 	desc = "Delicious sweet potato in soup form."
 	icon_state = "sweetpotatosoup"
@@ -152,7 +152,7 @@
 	tastes = list("sweet potato" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/soup/redbeetsoup
+/obj/item/food/soup/redbeetsoup
 	name = "red beet soup"
 	desc = "Quite a delicacy."
 	icon_state = "redbeetsoup"
@@ -161,7 +161,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/frenchonionsoup
+/obj/item/food/soup/frenchonionsoup
 	name = "french onion soup"
 	desc = "Good enough to make a grown mime cry."
 	icon_state = "onionsoup"
@@ -170,7 +170,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/zurek
+/obj/item/food/soup/zurek
 	name = "zurek"
 	desc = "A traditional Polish soup composed of vegetables, meat, and an egg. Goes great with bread."
 	icon_state = "zurek"
@@ -179,7 +179,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/cullenskink
+/obj/item/food/soup/cullenskink
 	name = "cullen skink"
 	desc = "A thick Scottish soup made of smoked fish, potatoes and onions."
 	icon_state = "cullen_skink"
@@ -188,7 +188,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/chicken_noodle_soup
+/obj/item/food/soup/chicken_noodle_soup
 	name = "chicken noodle soup"
 	desc = "A hearty bowl of chicken noodle soup, perfect for when you're stuck at home and sick."
 	icon_state = "chicken_noodle_soup"
@@ -197,7 +197,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/cornchowder
+/obj/item/food/soup/cornchowder
 	name = "corn chowder"
 	desc = "A creamy bowl of corn chowder, with bacon bits and mixed vegetables. One bowl is never enough."
 	icon_state = "corn_chowder"
@@ -206,7 +206,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/meatball_noodles
+/obj/item/food/soup/meatball_noodles
 	name = "meatball noodle soup"
 	desc = "A hearty noodle soup made from meatballs and pasta in a rich broth. Commonly topped with a handful of chopped nuts."
 	icon_state = "meatball_noodles"
@@ -215,7 +215,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/seedsoup
+/obj/item/food/soup/seedsoup
 	name = "Misklmæsch" //miskl = seed, mæsch = soup
 	desc = "A seed based soup, made by germinating seeds and then boiling them. \
 		Produces a particularly bitter broth which is usually balanced by the addition of vinegar."
@@ -229,7 +229,7 @@
 //		Stews		//
 //////////////////////
 
-/obj/item/food/snacks/soup/stew
+/obj/item/food/soup/stew
 	name = "stew"
 	desc = "A nice and warm stew. Healthy and strong."
 	icon_state = "stew"
@@ -240,7 +240,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/stewedsoymeat
+/obj/item/food/stewedsoymeat
 	name = "stewed soy meat"
 	desc = "Even non-vegetarians will LOVE this!"
 	icon = 'icons/obj/food/soupsalad.dmi'
@@ -251,7 +251,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/beanstew
+/obj/item/food/soup/beanstew
 	name = "Prickeldröndolhaskl" //prickeld = spicy, röndol = bean, haskl = stew
 	desc = "A spicy bean stew with lots of veggies, commonly served aboard the fleet as a filling and satisfying meal with rice or bread."
 	icon_state = "moth_bean_stew"
@@ -260,7 +260,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/oatstew
+/obj/item/food/soup/oatstew
 	name = "Häfmisklhaskl" //häfmiskl = oat (häf from German hafer meaning oat, miskl meaning seed), haskl = stew
 	desc = "A spicy bean stew with lots of veggies, commonly served aboard the fleet as a filling and satisfying meal with rice or bread."
 	icon_state = "moth_oat_stew"
@@ -269,7 +269,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/hong_kong_borscht
+/obj/item/food/soup/hong_kong_borscht
 	name = "hong kong borscht"
 	desc = "Also known as luo song tang or Russian soup, this dish bears little to no resemblance to Eastern European borscht- indeed, it's a tomato-based soup with no beets in sight."
 	icon_state = "hong_kong_borscht"
@@ -278,7 +278,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/hong_kong_macaroni
+/obj/item/food/soup/hong_kong_macaroni
 	name = "hong kong macaroni"
 	desc = "A favourite from Hong Kong's Cha Chaan Tengs, this macaroni soup came to Mars with Cantonese settlers under Cybersun Industries, and has become as much of a breakfast staple there as it is in its homeland."
 	icon_state = "hong_kong_macaroni"
@@ -291,7 +291,7 @@
 //		Chili		//
 //////////////////////
 
-/obj/item/food/snacks/soup/hotchili
+/obj/item/food/soup/hotchili
 	name = "hot chili"
 	desc = "A five alarm Texan Chili!"
 	icon_state = "hotchili"
@@ -301,7 +301,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/coldchili
+/obj/item/food/soup/coldchili
 	name = "cold chili"
 	desc = "This slush is barely a liquid!"
 	icon_state = "coldchili"
@@ -311,7 +311,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/soup/clownchili
+/obj/item/food/soup/clownchili
 	name = "chili con carnival"
 	desc = "A delicious stew of meat, chiles, and salty, salty clown tears."
 	icon_state = "clownchili"

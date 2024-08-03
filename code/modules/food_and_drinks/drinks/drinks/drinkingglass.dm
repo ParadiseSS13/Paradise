@@ -16,8 +16,8 @@
 	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
 
 /obj/item/reagent_containers/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/food/snacks/egg)) //breaking eggs
-		var/obj/item/food/snacks/egg/E = I
+	if(istype(I, /obj/item/food/egg)) //breaking eggs
+		var/obj/item/food/egg/E = I
 		if(reagents)
 			if(reagents.total_volume >= reagents.maximum_volume)
 				to_chat(user, "<span class='notice'>[src] is full.</span>")

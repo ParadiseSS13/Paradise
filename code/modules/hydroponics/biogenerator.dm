@@ -32,10 +32,10 @@
 	var/static/list/acceptable_items = typecacheof(list(
 		/obj/item/seeds,
 		/obj/item/unsorted_seeds,
-		/obj/item/food/snacks/grown,
+		/obj/item/food/grown,
 		/obj/item/grown,
-		/obj/item/food/snacks/grown/ash_flora,
-		/obj/item/food/snacks/honeycomb))
+		/obj/item/food/grown/ash_flora,
+		/obj/item/food/honeycomb))
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
@@ -105,19 +105,23 @@
 /obj/machinery/biogenerator/attackby(obj/item/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(processing)
 		to_chat(user, "<span class='warning'>[src] is currently processing.</span>")
-		return
-	if(exchange_parts(user, O))
 		return
 
 	if(istype(O, /obj/item/reagent_containers/glass))
 		if(panel_open)
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 			return
+
 		if(container)
 			to_chat(user, "<span class='warning'>A container is already loaded into [src].</span>")
 			return
+
 		if(!user.drop_item())
 			return
 
@@ -128,7 +132,7 @@
 		SStgui.update_uis(src)
 		return TRUE
 
-	else if(istype(O, /obj/item/storage/bag/plants))
+	if(istype(O, /obj/item/storage/bag/plants))
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
@@ -149,7 +153,7 @@
 		SStgui.update_uis(src)
 		return TRUE
 
-	else if(is_type_in_typecache(O, acceptable_items))
+	if(is_type_in_typecache(O, acceptable_items))
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
@@ -162,7 +166,7 @@
 		SStgui.update_uis(src)
 		return TRUE
 
-	else if(istype(O, /obj/item/disk/design_disk))
+	if(istype(O, /obj/item/disk/design_disk))
 		user.visible_message("[user] begins to load [O] in [src]...",
 			"You begin to load a design from [O]...",
 			"You hear the chatter of a floppy drive.")
@@ -176,8 +180,8 @@
 		processing = FALSE
 		update_ui_product_list(user)
 		return TRUE
-	else
-		to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
+	
+	to_chat(user, "<span class='warning'>You cannot put [src] in [name]!</span>")
 
 /**
  * Builds/Updates the `product_list` used by the UI.
