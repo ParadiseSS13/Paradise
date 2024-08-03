@@ -62,7 +62,6 @@
 	attack_verb = list("slashed", "cleaved", "chopped")
 	hitsound = 'sound/weapons/swordhitheavy.ogg'
 	materials = list(MAT_METAL = 2000)
-	needs_permit = TRUE
 	///How much damage the sword does when wielded
 	var/force_wield = 40
 
