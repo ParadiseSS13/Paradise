@@ -282,7 +282,7 @@
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
-
+/*
 /turf/simulated/floor/lava/plasma/fuming/process_atmos()
 
 	to_chat(world, "making Milla proc")
@@ -310,6 +310,7 @@
 	else
 		to_chat(world, "pressure check: Over pressure")
 		return
+*/
 
 /turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()
