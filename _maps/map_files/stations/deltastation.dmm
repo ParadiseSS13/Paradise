@@ -406,9 +406,7 @@
 /area/station/hallway/secondary/entry/east)
 "aeF" = (
 /obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "aeI" = (
@@ -6225,9 +6223,7 @@
 	c_tag = "Janitor's Closet"
 	},
 /obj/structure/closet/l3closet/janitor,
-/obj/machinery/requests_console{
-	pixel_y = 29
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
@@ -8976,9 +8972,7 @@
 /obj/item/book/manual/barman_recipes,
 /obj/item/reagent_containers/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "aGE" = (
@@ -14314,9 +14308,7 @@
 /obj/machinery/camera{
 	c_tag = "Cargo Office"
 	},
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/item/storage/firstaid/regular,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -14468,9 +14460,7 @@
 /obj/machinery/computer/supplycomp{
 	dir = 8
 	},
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -17843,9 +17833,7 @@
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -20260,9 +20248,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -24179,9 +24165,7 @@
 /area/station/maintenance/starboard)
 "buG" = (
 /obj/structure/closet/secure_closet/engineering_personal,
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
@@ -24707,9 +24691,7 @@
 /obj/item/reagent_containers/spray/plantbgone,
 /obj/item/watertank,
 /obj/item/grenade/chem_grenade/antiweed,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -26742,9 +26724,7 @@
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -26855,9 +26835,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
@@ -27429,12 +27407,11 @@
 	pixel_x = 28;
 	pixel_y = 5
 	},
-/obj/machinery/requests_console{
-	pixel_y = 32;
-	pixel_x = 32
-	},
 /obj/item/radio/intercom/custom{
 	pixel_y = 25
+	},
+/obj/machinery/requests_console/directional/north{
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
@@ -29880,9 +29857,7 @@
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
 "bIS" = (
@@ -30872,9 +30847,7 @@
 /obj/machinery/computer/med_data{
 	dir = 8
 	},
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "bLv" = (
@@ -31171,9 +31144,7 @@
 /obj/machinery/computer/card/minor/ce{
 	dir = 4
 	},
-/obj/machinery/requests_console{
-	pixel_x = -32
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "bMh" = (
@@ -33611,9 +33582,7 @@
 /obj/machinery/computer/card{
 	dir = 4
 	},
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "bSP" = (
@@ -34461,9 +34430,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen,
 /obj/item/stamp/hop,
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bUT" = (
@@ -36190,9 +36157,7 @@
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "NT Representative's Office"
 	},
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "cae" = (
@@ -36229,9 +36194,7 @@
 /area/station/command/office/blueshield)
 "cal" = (
 /obj/structure/closet/secure_closet/blueshield,
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "cam" = (
@@ -38571,9 +38534,7 @@
 /area/station/legal/magistrate)
 "cgk" = (
 /obj/item/kirbyplants,
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -39044,9 +39005,7 @@
 /area/station/legal/lawoffice)
 "chP" = (
 /obj/structure/filingcabinet/security,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/wood,
 /area/station/legal/lawoffice)
 "chS" = (
@@ -41559,9 +41518,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "coQ" = (
@@ -41942,9 +41899,7 @@
 /obj/structure/table/wood,
 /obj/item/storage/bag/books,
 /obj/item/taperecorder,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/library)
 "cpN" = (
@@ -45737,10 +45692,7 @@
 /area/station/supply/expedition)
 "czW" = (
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/machinery/requests_console{
-	pixel_x = -30;
-	dir = 4
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "browncorner"
@@ -46162,9 +46114,7 @@
 	c_tag = "EVA Storage";
 	dir = 8
 	},
-/obj/machinery/requests_console{
-	pixel_x = 32
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cBl" = (
@@ -50286,9 +50236,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -53023,9 +52971,7 @@
 /area/station/aisat)
 "cYh" = (
 /obj/structure/closet/wardrobe/yellow,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -53355,9 +53301,7 @@
 	network = list("Research","SS13")
 	},
 /obj/machinery/reagentgrinder,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
@@ -54444,9 +54388,7 @@
 	dir = 8;
 	network = list("Research","SS13")
 	},
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -56476,9 +56418,7 @@
 	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
 	name = "Chemistry Cleaner"
 	},
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -57245,10 +57185,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/rd,
-/obj/machinery/requests_console{
-	pixel_x = -30;
-	pixel_y = -2
-	},
+/obj/machinery/requests_console/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -58079,9 +58016,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 50
 	},
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light_switch{
 	dir = 4;
@@ -64157,9 +64092,7 @@
 /area/station/science/genetics)
 "dYd" = (
 /obj/machinery/dna_scannernew,
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -68554,9 +68487,7 @@
 	pixel_x = -1;
 	pixel_y = -2
 	},
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -73056,9 +72987,7 @@
 	},
 /area/station/medical/medbay)
 "iWN" = (
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -77489,9 +77418,7 @@
 	},
 /area/station/security/main)
 "lFG" = (
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/structure/table,
 /obj/item/storage/firstaid/toxin{
 	pixel_x = 5;
@@ -80416,9 +80343,7 @@
 /area/station/service/kitchen)
 "nnV" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "nnW" = (
@@ -81238,9 +81163,7 @@
 	pixel_y = 5
 	},
 /obj/item/pen/multi,
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -81365,10 +81288,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
 "nRs" = (
-/obj/machinery/requests_console{
-	dir = 1;
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -81640,9 +81560,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "oar" = (
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -88697,9 +88615,7 @@
 	c_tag = "Rec Room Aft";
 	dir = 4
 	},
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -92096,10 +92012,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/requests_console{
-	dir = 8;
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/machinery/button/windowtint{
 	pixel_y = -27;
 	dir = 1;
@@ -92121,9 +92034,7 @@
 /area/station/engineering/atmos)
 "tNO" = (
 /obj/machinery/computer/crew,
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -98762,9 +98673,7 @@
 /obj/structure/reagent_dispensers/virusfood{
 	pixel_x = -30
 	},
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitegreen"
@@ -99240,9 +99149,7 @@
 /area/station/ai_monitored/storage/eva)
 "xPh" = (
 /obj/item/kirbyplants,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "xPn" = (

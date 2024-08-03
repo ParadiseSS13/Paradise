@@ -244,6 +244,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NEVER_MISSES_DISPOSALS "trait_never_misses_disposals" // For janitors landing disposal throws
 #define TRAIT_SLEIGHT_OF_HAND "sleight_of_hand"
 #define TRAIT_KNOWS_COOKING_RECIPES "knows_cooking_recipes"
+#define TRAIT_XENOBIO_SPAWNED_HUMAN "xenobio_spawned_human" // The mob is from xenobio/cargo/botany that has evolved into their greater form. They do not give vampires usuble blood and cannot be converted by cult.
 
 /// used for dead mobs that are observing, but should not be afforded all the same platitudes as full ghosts.
 /// This is a mind trait because ghosts can be frequently deleted and we want to be sure this sticks.
