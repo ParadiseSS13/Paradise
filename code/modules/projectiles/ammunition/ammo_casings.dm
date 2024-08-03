@@ -508,3 +508,12 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	icon_state = "lasercasing"
+
+/obj/item/ammo_casing/caseless/c_foam
+	name = "\improper C-Foam blob"
+	desc = "You shouldn't see this! Make an issue report on Github!"
+	caliber = "c_foam"
+	projectile_type = /obj/item/projectile/c_foam
+	muzzle_flash_strength = MUZZLE_FLASH_RANGE_WEAK
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
+	muzzle_flash_color = LIGHT_COLOR_DARKRED

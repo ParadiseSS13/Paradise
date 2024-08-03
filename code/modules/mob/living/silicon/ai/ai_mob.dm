@@ -662,7 +662,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	ai_announcement()
 
-/mob/living/silicon/ai/check_eye(mob/user)
+/mob/living/silicon/ai/proc/check_holopad_eye(mob/user)
 	if(!current)
 		return null
 	user.reset_perspective(current)
@@ -1247,27 +1247,22 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		C.Togglelight(1)
 		lit_cameras |= C
 
-
-/mob/living/silicon/ai/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		if(anchored)
-			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
-				return
-			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
-			anchored = FALSE
+/mob/living/silicon/ai/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(anchored)
+		user.visible_message("<span class='notice'>[user] starts to unbolt [src] from the plating...</span>")
+		if(!I.use_tool(src, user, 4 SECONDS, 0, 50))
+			user.visible_message("<span class='notice'>[user] decides not to unbolt [src].</span>")
 			return
-		else
-			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
-				return
-			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
-			anchored = TRUE
-			return
-	else
-		return ..()
+		user.visible_message("<span class='notice'>[user] finishes unfastening [src]!</span>")
+		anchored = FALSE
+		return
+	user.visible_message("<span class='notice'>[user] starts to bolt [src] to the plating...</span>")
+	if(!I.use_tool(src, user, 4 SECONDS, 0, 50))
+		user.visible_message("<span class='notice'>[user] decides not to bolt [src].</span>")
+		return FALSE
+	user.visible_message("<span class='notice'>[user] finishes fastening down [src]!</span>")
+	anchored = TRUE
 
 /mob/living/silicon/ai/welder_act()
 	return
@@ -1332,15 +1327,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/can_buckle()
 	return FALSE
-
-/mob/living/silicon/ai/switch_to_camera(obj/machinery/camera/C)
-	if(!C.can_use() || !is_in_chassis())
-		return FALSE
-
-	eyeobj.setLoc(get_turf(C))
-	client.eye = eyeobj
-	return TRUE
-
 
 /mob/living/silicon/ai/proc/can_see(atom/A)
 	if(isturf(loc)) //AI in core, check if on cameras

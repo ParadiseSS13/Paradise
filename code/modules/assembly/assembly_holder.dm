@@ -13,12 +13,6 @@
 	var/obj/item/assembly/a_left = null
 	var/obj/item/assembly/a_right = null
 
-/obj/item/assembly_holder/proc/attach(obj/item/D, obj/item/D2, mob/user)
-	return
-
-/obj/item/assembly_holder/proc/process_activation(obj/item/D)
-	return
-
 /obj/item/assembly_holder/IsAssemblyHolder()
 	return TRUE
 
@@ -29,7 +23,7 @@
 		a_right.holder = null
 	return ..()
 
-/obj/item/assembly_holder/attach(obj/item/D, obj/item/D2, mob/user)
+/obj/item/assembly_holder/proc/attach(obj/item/D, obj/item/D2, mob/user)
 	if(!D || !D2)
 		return FALSE
 	if(!isassembly(D) || !isassembly(D2))
@@ -191,7 +185,7 @@
 		qdel(src)
 
 
-/obj/item/assembly_holder/process_activation(obj/D, normal = TRUE, special = TRUE)
+/obj/item/assembly_holder/proc/process_activation(obj/D, normal = TRUE, special = TRUE)
 	if(!D)
 		return FALSE
 	if(normal && a_right && a_left)
