@@ -67080,10 +67080,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"ohV" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "ohY" = (
 /obj/structure/sign/custodian,
 /turf/simulated/wall,
@@ -83467,7 +83463,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon/dock_marker/collision,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "ths" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -113143,11 +113139,11 @@ vtY
 ccW
 ccW
 rWw
-ohV
+lzH
 cnR
 cfw
 cnR
-ohV
+lzH
 rNK
 biI
 cJu
