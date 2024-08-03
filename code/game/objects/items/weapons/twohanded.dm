@@ -946,10 +946,6 @@
 	trash.forceMove(storage)
 	storage.update_icon()
 
-/obj/item/push_broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
-	cart.mybroom = src
-	cart.put_in_cart(src, user)
-
 /obj/item/push_broom/traitor
 	name = "titanium push broom"
 	desc = "This is my BROOMSTICK! All of the functionality of a normal broom, but at least half again more robust."
