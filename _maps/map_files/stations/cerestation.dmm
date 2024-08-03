@@ -16130,20 +16130,8 @@
 	},
 /area/station/security/lobby)
 "bKq" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/r_n_d/protolathe,
 /obj/effect/turf_decal/stripes/line,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/requests_console/directional/west,
-/obj/machinery/r_n_d/circuit_imprinter,
-/obj/effect/turf_decal/stripes/line,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28661,13 +28649,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
-"dbP" = (
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -30
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "dbX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -49117,23 +49098,8 @@
 	},
 /area/station/hallway/primary/fore/north)
 "iKf" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Xenobiology";
-	departmentType = 5;
-	pixel_x = -30
-	},
 /obj/structure/disposalpipe/segment,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/requests_console/directional/west,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -50807,9 +50773,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
 "jjq" = (
-/obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -52512,13 +52480,6 @@
 "jGU" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/apmaint)
-"jGY" = (
-/obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "jHd" = (
 /obj/item/radio/intercom{
@@ -59972,10 +59933,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 28;
-	name = "custom placement"
-	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "lRJ" = (
@@ -63208,6 +63165,12 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port)
+"mUs" = (
+/obj/structure/closet/crate,
+/obj/item/pickaxe,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/apmaint)
 "mUu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -63610,10 +63573,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/cloning)
-"naN" = (
-/obj/item/assembly/mousetrap/armed,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "naP" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -72092,9 +72051,6 @@
 /turf/simulated/floor/carpet/green,
 /area/station/service/library)
 "pHG" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -72103,15 +72059,8 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/machinery/requests_console/directional/north,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
@@ -75576,12 +75525,6 @@
 "qHn" = (
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/west)
-"qHv" = (
-/obj/item/pickaxe,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/apmaint)
 "qHC" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -82252,9 +82195,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "sOx" = (
@@ -84596,13 +84537,9 @@
 	},
 /area/station/hallway/primary/fore/east)
 "tyF" = (
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	pixel_x = -30
-	},
 /obj/machinery/r_n_d/circuit_imprinter,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
@@ -89062,6 +88999,10 @@
 /area/station/hallway/primary/starboard/south)
 "uRn" = (
 /obj/machinery/computer/rdconsole/robotics,
+/obj/machinery/camera{
+	c_tag = "Robotics North";
+	network = list("SS13","RD")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -90151,9 +90092,9 @@
 /area/station/hallway/secondary/entry/north)
 "vgV" = (
 /obj/machinery/r_n_d/circuit_imprinter,
-/obj/machinery/camera{
-	c_tag = "Robotics North";
-	network = list("SS13","RD")
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -94599,6 +94540,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24;
+	name = "custom placement"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple";
 	dir = 4
@@ -113864,7 +113809,7 @@ oBP
 ftr
 jjq
 kXS
-jGY
+kXS
 ftr
 rNK
 biK
@@ -114372,10 +114317,10 @@ ccW
 ccW
 ccW
 wIq
-sKh
+azv
 bGB
-naN
-dbP
+wIq
+uaX
 wms
 adg
 fZa
@@ -114629,8 +114574,8 @@ ccW
 ccW
 ccW
 wIq
-wIq
-azv
+wsR
+rSX
 sKh
 mKh
 rza
@@ -114886,7 +114831,7 @@ rWw
 ccW
 ccW
 wIq
-wIq
+wsR
 wsR
 reb
 tzw
@@ -115142,14 +115087,14 @@ rNK
 rWw
 ccW
 ccW
-wIq
-qHv
+mUs
+wsR
 wsR
 wsR
 uuf
 xFi
-wIq
-wIq
+ftr
+ftr
 ftr
 wIq
 wIq
@@ -115402,7 +115347,7 @@ ccW
 wIq
 wIq
 wIq
-qlW
+hYF
 mDv
 bfg
 wIq
