@@ -128,6 +128,7 @@
 	message_admins("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 
 	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range)
+	charge = 0 //Extra safety in the event the cell does not QDEL right
 	qdel(src)
 
 /obj/item/stock_parts/cell/proc/corrupt()
