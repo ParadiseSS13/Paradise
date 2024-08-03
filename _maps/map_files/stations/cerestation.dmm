@@ -12041,7 +12041,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "bwA" = (
-/obj/structure/disposalpipe/segment/corner,
+/obj/structure/disposalpipe/junction,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -52238,11 +52238,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/structure/disposalpipe/junction/reversed,
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -94712,6 +94715,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -143644,8 +143650,8 @@ was
 bvt
 ljp
 xcW
-bvt
-bvt
+qcS
+qcS
 bwA
 qcS
 qcS
