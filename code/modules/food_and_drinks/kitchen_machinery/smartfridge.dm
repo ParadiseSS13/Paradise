@@ -512,7 +512,7 @@
   */
 /obj/machinery/smartfridge/secure/foodcart
 	name = "E.A.T."
-	desc = "Short for the Entrée Armoured Transport, this technological marvel by Donk Co. allows Chefs to hawk their food and drink wares around the station, just with a bit more security."
+	desc = "Short for the Entrée Armoured Transport, this technological marvel by Donk Co. allows Chefs to hawk their food and drink wares around the station, just with a bit more security. Swipe an authorised ID to engage the bluespace-plastitanium anchors."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "foodcart"
 	anchored = FALSE
@@ -526,7 +526,7 @@
 	. = ..()
 	req_one_access_txt = "[ACCESS_KITCHEN], [ACCESS_BAR]"
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/food/snacks,
+		/obj/item/food,
 		/obj/item/reagent_containers/drinks,
 		/obj/item/reagent_containers/condiment,
 	))
@@ -558,6 +558,7 @@
 			return FALSE
 		new_electronics.forceMove(src)
 		new /obj/item/airlock_electronics/destroyed(get_turf(user))
+		emagged = FALSE
 		to_chat(user, "<span class='notice'>You swap out the burnt out electronics in the ID scanner.</span>")
 		return TRUE
 	return ..()
