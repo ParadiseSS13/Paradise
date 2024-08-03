@@ -551,9 +551,10 @@
 	},
 /area/station/security/permabrig)
 "adg" = (
-/obj/effect/turf_decal/delivery/partial{
-	dir = 4
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "adh" = (
@@ -28669,6 +28670,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
+"dbP" = (
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -30
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "dbX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -40661,9 +40669,14 @@
 	},
 /area/station/maintenance/maintcentral)
 "fZa" = (
-/obj/structure/closet/emcloset,
-/obj/machinery/light/small,
-/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Research Escape Pod";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -47097,7 +47110,7 @@
 /obj/machinery/door/airlock/external/glass{
 	name = "Escape Pod Airlock"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "ifa" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -50791,6 +50804,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
+"jjq" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "jjw" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -52490,6 +52510,13 @@
 "jGU" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/apmaint)
+"jGY" = (
+/obj/machinery/light/small,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "jHd" = (
 /obj/item/radio/intercom{
@@ -56823,6 +56850,12 @@
 	icon_state = "dark"
 	},
 /area/station/hallway/primary/starboard/south)
+"kXS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "kXZ" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Port Asteroid Maintenance"
@@ -67047,6 +67080,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"ohV" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
 "ohY" = (
 /obj/structure/sign/custodian,
 /turf/simulated/wall,
@@ -83426,6 +83463,11 @@
 /mob/living/simple_animal/chicken/clucky,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
+"thi" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon/dock_marker/collision,
+/turf/space,
+/area/space)
 "ths" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -93894,14 +93936,9 @@
 	},
 /area/station/science/hallway)
 "wms" = (
-/obj/machinery/camera{
-	c_tag = "Research Escape Pod";
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -30
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -111571,8 +111608,8 @@ rNK
 rNK
 rNK
 rNK
-cdb
-cdb
+rNK
+rNK
 uCu
 gQc
 gQc
@@ -111827,9 +111864,9 @@ rNK
 rNK
 rNK
 rNK
-rNK
-cdb
-ccW
+lzH
+biI
+eVf
 uCu
 nyc
 hCt
@@ -112084,9 +112121,9 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-cdb
+biI
+cJu
+dcG
 uCu
 cni
 wbF
@@ -112341,9 +112378,9 @@ rNK
 rNK
 rNK
 rNK
-rNK
-biI
+biK
 eVf
+dcG
 uCu
 mQb
 pop
@@ -112597,8 +112634,8 @@ rNK
 rNK
 rNK
 rNK
+rNK
 biI
-bnQ
 cJu
 dcG
 uCu
@@ -112849,13 +112886,13 @@ ccW
 ccW
 ccW
 rWw
-rNK
-rNK
-rNK
-rNK
+thi
+cnR
+lxz
+cnR
+thi
 rNK
 biK
-bnQ
 eVf
 dcG
 uCu
@@ -113106,13 +113143,13 @@ vtY
 ccW
 ccW
 rWw
-rNK
+ohV
 cnR
-lxz
+cfw
 cnR
+ohV
 rNK
 biI
-bnQ
 cJu
 dcG
 uCu
@@ -113363,13 +113400,13 @@ vtY
 ccW
 ccW
 rWw
-rNK
+ftr
 cnR
-cfw
+cFN
 cnR
+ftr
 rNK
 biK
-bnQ
 eVf
 dcG
 uCu
@@ -113620,13 +113657,13 @@ wIq
 wIq
 wIq
 oBP
-rNK
-cnR
-cFN
-cnR
+ftr
+lsT
+hkG
+lsT
+ftr
 rNK
 biI
-bnQ
 cJu
 biK
 liC
@@ -113877,13 +113914,13 @@ pRU
 pVB
 jmG
 oBP
-rNK
-lsT
-hkG
-lsT
+ftr
+jjq
+kXS
+jGY
+ftr
 rNK
 biK
-bnQ
 bnQ
 bnQ
 ggZ
@@ -114134,14 +114171,14 @@ wIq
 sKh
 dEm
 oBP
-oBP
 ftr
+tLu
 ieY
-fdG
+tLu
+ftr
 oBP
-tLu
-tLu
-tLu
+oBP
+oBP
 oBP
 uCu
 uCu
@@ -114391,11 +114428,11 @@ wIq
 sKh
 bGB
 naN
-rza
+dbP
 wms
 adg
 fZa
-sKo
+fdG
 oUR
 sKh
 sKh
@@ -121363,7 +121400,7 @@ nnf
 pon
 pon
 sSG
-ftr
+sKo
 uyl
 uyl
 wZW
