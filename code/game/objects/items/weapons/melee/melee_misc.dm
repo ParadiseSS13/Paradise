@@ -103,21 +103,21 @@
 
 /obj/item/melee/breach_cleaver/attack_obj(obj/O, mob/living/user, params)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED)) // Only works good when wielded
-		. = ..()
-	else if(ismachinery(O) || isstructure(O)) // This sword hates doors
-		if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
-			return
-		if(flags & (NOBLUDGEON))
-			return
-		var/mob/living/carbon/human/H = user
-		H.changeNext_move(CLICK_CD_MELEE)
-		H.do_attack_animation(O)
-		H.visible_message("<span class='danger'>[H] has hit [O] with [src]!</span>", "<span class='danger'>You hit [O] with [src]!</span>")
-		var/damage = force_wield
-		damage += H.physiology.melee_bonus
-		O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
-	else
 		return ..()
+	if(!ismachinery(O) && !isstructure(O)) // This sword hates doors
+		return ..()
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
+		return
+	if(flags & (NOBLUDGEON))
+		return
+	var/mob/living/carbon/human/H = user
+	H.changeNext_move(CLICK_CD_MELEE)
+	H.do_attack_animation(O)
+	H.visible_message("<span class='danger'>[H] has hit [O] with [src]!</span>", "<span class='danger'>You hit [O] with [src]!</span>")
+	var/damage = force_wield
+	damage += H.physiology.melee_bonus
+	O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
+
 
 /obj/item/melee/breach_cleaver/attack(mob/target, mob/living/user)
 	armour_penetration_flat = 0
