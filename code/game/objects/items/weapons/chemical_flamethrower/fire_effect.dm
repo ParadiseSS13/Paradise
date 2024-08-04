@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 /obj/effect/fire/Initialize(mapload, reagent_temperature, reagent_duration, fire_applications)
 	. = ..()
 
-	if(!reagent_duration || !reagent_temperature) // There is no reason for this thing to exist
+	if(reagent_duration < 0 || reagent_temperature <= 0) // There is no reason for this thing to exist
 		qdel(src)
 		return
 
