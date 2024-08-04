@@ -38,9 +38,12 @@ GLOBAL_VAR(bomb_set)
 	/// Is the most recently inputted code correct?
 	var/yes_code = FALSE
 	var/safety = TRUE
+	/// The Nuclear Authentication Disk.
 	var/obj/item/disk/nuclear/auth = null
+	/// The plutonium core.
 	var/obj/item/nuke_core/plutonium/core = null
 	var/lastentered
+	/// Is this a nuke-ops bomb?
 	var/is_syndicate = FALSE
 	/// If this is true you cannot unbolt the NAD with tools, only the NAD
 	var/requires_NAD_to_unbolt = FALSE
@@ -668,10 +671,11 @@ GLOBAL_VAR(bomb_set)
 				return
 	return
 
-//==========DAT FUKKEN DISK===============
+// MARK: Nuclear Disk
+
 /obj/item/disk/nuclear
 	name = "nuclear authentication disk"
-	desc = "Better keep this safe."
+	desc = "A floppy disk containing unique cryptographic identification data. Used along with a valid code to detonate the on-site nuclear fission explosive."
 	icon_state = "nucleardisk"
 	max_integrity = 250
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 100, ACID = 100)
@@ -681,10 +685,25 @@ GLOBAL_VAR(bomb_set)
 	/// Is this a training disk?
 	var/training = FALSE
 
+/obj/item/disk/nuclear/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>You should keep this safe...</span>"
+
+/obj/item/disk/nuclear/examine_more(mob/user)
+	. = ..()
+	. += "Nuclear fission explosives are stored on all Nanotrasen stations in the system so that they may be rapidly destroyed, should the need arise."
+	. += ""
+	. += "Naturally, such a destructive capability requires robust safeguards to prevent accidental or malicious misuse. NT employs two mechanisms: an authorisation code from Central Command, \
+	and the nuclear authentication disk. Whilst the code is normally sufficient, enemies of Nanotrasen with sufficient resources may be able to spoof, steal, or otherwise crack the authorisation code. \
+	The NAD serves to protect against this. It is essentially a one-time pad that functions in tandem with the authorisation code to unlock the detonator of the fission explosive."
+
 /obj/item/disk/nuclear/unrestricted
 	name = "unrestricted nuclear authentication disk"
-	desc = "Seems to have been stripped of its safeties, you better not lose it."
 	restricted_to_station = FALSE
+
+/obj/item/disk/nuclear/unrestricted/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>This disk has had its safeties removed. It will not teleport back to the station if taken too far away.</span>"
 
 /obj/item/disk/nuclear/New()
 	..()
@@ -763,7 +782,7 @@ GLOBAL_VAR(bomb_set)
 		if(length(open_turfs))
 			return pick(open_turfs)
 
-/// MARK: TRAINING NUKE
+// MARK: Training Nuke
 
 /obj/machinery/nuclearbomb/training
 	name = "training nuclear bomb"
@@ -804,12 +823,17 @@ GLOBAL_VAR(bomb_set)
 	qdel(src)
 
 /obj/item/disk/nuclear/training
-	name = "training authentication disk"
+	name = "training nuclear authentication disk"
 	desc = "The code is 11111."
 	icon_state = "trainingdisk"
 	resistance_flags = null
 	restricted_to_station = FALSE
 	training = TRUE
+
+
+/obj/item/disk/nuclear/training/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>For training purposes, of course.</span>"
 
 #undef NUKE_INTACT
 #undef NUKE_COVER_OFF
