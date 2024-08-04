@@ -21,9 +21,9 @@
 			return
 		qdel(W)
 		var/turf/T = get_turf(loc)
-		var/mob/living/simple_animal/bot/cleanbot/A = new /mob/living/simple_animal/bot/cleanbot(T)
-		A.name = created_name
-		A.robot_arm = W.type
+		var/mob/living/simple_animal/bot/cleanbot/bot_assembly = new /mob/living/simple_animal/bot/cleanbot(T)
+		bot_assembly.name = created_name
+		bot_assembly.robot_arm = W.type
 		to_chat(user, "<span class='notice'>You add the robot arm to the bucket and sensor assembly. Beep boop!</span>")
 		user.unEquip(src, 1)
 		qdel(src)
@@ -317,9 +317,9 @@
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
 		qdel(W)
-		var/mob/living/simple_animal/bot/floorbot/A = new(get_turf(src), toolbox_color)
-		A.name = created_name
-		A.robot_arm = W.type
+		var/mob/living/simple_animal/bot/floorbot/bot_assembly = new(get_turf(src), toolbox_color)
+		bot_assembly.name = created_name
+		bot_assembly.robot_arm = W.type
 		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly. Boop beep!</span>")
 		user.unEquip(src, 1)
 		qdel(src)
@@ -336,18 +336,18 @@
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
 		return
 
-	var/obj/item/firstaid_arm_assembly/A = new /obj/item/firstaid_arm_assembly(loc, med_bot_skin)
+	var/obj/item/firstaid_arm_assembly/bot_assembly = new /obj/item/firstaid_arm_assembly(loc, med_bot_skin)
 
-	A.req_one_access = req_one_access
-	A.syndicate_aligned = syndicate_aligned
-	A.treatment_oxy = treatment_oxy
-	A.treatment_brute = treatment_brute
-	A.treatment_fire = treatment_fire
-	A.treatment_tox = treatment_tox
-	A.treatment_virus = treatment_virus
+	bot_assembly.req_one_access = req_one_access
+	bot_assembly.syndicate_aligned = syndicate_aligned
+	bot_assembly.treatment_oxy = treatment_oxy
+	bot_assembly.treatment_brute = treatment_brute
+	bot_assembly.treatment_fire = treatment_fire
+	bot_assembly.treatment_tox = treatment_tox
+	bot_assembly.treatment_virus = treatment_virus
 
 	qdel(I)
-	user.put_in_hands(A)
+	user.put_in_hands(bot_assembly)
 	to_chat(user, "<span class='notice'>You add the robot arm to the first aid kit.</span>")
 	user.unEquip(src, 1)
 	qdel(src)
@@ -452,8 +452,8 @@
 		to_chat(user, "<span class='notice'>[S] is secured.</span>")
 		return
 	qdel(S)
-	var/obj/item/secbot_assembly/A = new /obj/item/secbot_assembly
-	user.put_in_hands(A)
+	var/obj/item/secbot_assembly/bot_assembly = new /obj/item/secbot_assembly
+	user.put_in_hands(bot_assembly)
 	to_chat(user, "<span class='notice'>You add the signaler to the helmet.</span>")
 	user.unEquip(src, 1)
 	qdel(src)
@@ -506,8 +506,8 @@
 //General Griefsky
 
 	else if(iswrench(I) && build_step == 3)
-		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly(get_turf(src))
-		user.put_in_hands(A)
+		var/obj/item/griefsky_assembly/bot_assembly = new /obj/item/griefsky_assembly(get_turf(src))
+		user.put_in_hands(bot_assembly)
 		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!</span>")
 		user.unEquip(src, 1)
 		qdel(src)
@@ -563,6 +563,8 @@
 	item_state = "griefsky_assembly"
 	var/build_step = 0
 	var/toy_step = 0
+	var/right_arm_step = 0
+	var/left_arm_step = 0
 
 /obj/item/griefsky_assembly/attackby(obj/item/I, mob/user, params)
 	..()
@@ -628,9 +630,9 @@
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
 		return
 
-	var/obj/item/honkbot_arm_assembly/A = new /obj/item/honkbot_arm_assembly
+	var/obj/item/honkbot_arm_assembly/bot_assembly = new /obj/item/honkbot_arm_assembly
 	qdel(W)
-	user.put_in_hands(A)
+	user.put_in_hands(bot_assembly)
 	to_chat(user, "<span class='notice'>You add the robot arm to the honkbot.</span>")
 	user.unEquip(src, 1)
 	qdel(src)
@@ -668,8 +670,8 @@
 				return
 			to_chat(user, "<span class='notice'>You add the trombone to [src]! Heeeenk!</span>")
 			qdel(W)
-			var/mob/living/simple_animal/bot/honkbot/A = new /mob/living/simple_animal/bot/honkbot(get_turf(src))
-			A.robot_arm = robot_arm
+			var/mob/living/simple_animal/bot/honkbot/bot_assembly = new /mob/living/simple_animal/bot/honkbot(get_turf(src))
+			bot_assembly.robot_arm = robot_arm
 			qdel(src)
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
