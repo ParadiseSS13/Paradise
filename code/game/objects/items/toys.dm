@@ -268,8 +268,8 @@
 	if(target == user)
 		user.visible_message(
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
-			[user.p_they(TRUE)] instead hit [cig], knocking it out of [user.p_their()] mouth and dropping it to the floor. What an idiot!</span>",
-			"<span class='warning'>You casually slash [src] at [cig], swatting it out of your mouth. Because it's not a real energy sword, dumbass!</span>",
+			[user.p_they(TRUE)] instead hit [cig], knocking it out of [user.p_their()] mouth and dropping it to the floor.</span>",
+			"<span class='warning'>You casually slash [src] at [cig], swatting it out of your mouth.</span>",
 			"<span class='notice'>You hear a gentle tapping.</span>"
 		)
 	else
