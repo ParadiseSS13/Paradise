@@ -47797,8 +47797,8 @@
 	pixel_x = -24;
 	pixel_y = -6
 	},
-/obj/machinery/power/apc/directional/north,
 /obj/machinery/suit_storage_unit/atmos/secure,
+/obj/machinery/power/apc/important/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81519,7 +81519,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/directional/west,
+/obj/machinery/power/apc/important/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
