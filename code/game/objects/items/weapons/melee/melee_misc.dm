@@ -172,7 +172,7 @@
 			add_attack_logs(user, H, "Slammed by a breach cleaver. (Help intent, Stamina)", ATKLOG_ALL)
 
 		if(INTENT_DISARM) // Slams away
-			if(H.stat || IS_HORIZONTAL(H))
+			if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
 				return ..()
 
 			H.visible_message("<span class='danger'>[user] smashes [H] with the blade's tip!</span>", \
