@@ -237,7 +237,7 @@
 	bites_limit = 1
 	nutritional_value = 15
 
-/obj/item/radio/beacon/Initialize(mapload)
+/obj/item/beacon/Initialize(mapload)
 	. = ..()
 	material_type = MATERIAL_CLASS_TECH
 	bites_limit = 1

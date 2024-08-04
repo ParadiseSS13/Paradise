@@ -634,7 +634,7 @@
 	d1 = 1;
 	d2 = 4
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"

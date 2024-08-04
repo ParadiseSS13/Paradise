@@ -16075,7 +16075,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "bgI" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -19416,7 +19416,7 @@
 	},
 /area/station/ai_monitored/storage/eva)
 "bvC" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -61485,7 +61485,7 @@
 /area/station/engineering/hallway)
 "jhy" = (
 /obj/structure/table,
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/status_display/directional/north,
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel{
@@ -73042,7 +73042,7 @@
 	},
 /area/station/service/hydroponics)
 "nnC" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/stripes,
 /obj/machinery/camera{
 	c_tag = "Research Toxins Test Chamber Center";
@@ -92080,7 +92080,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "tWz" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)

@@ -7428,7 +7428,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "aKK" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -18197,7 +18197,7 @@
 	},
 /area/station/command/bridge)
 "bqi" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -21937,7 +21937,7 @@
 	},
 /area/station/engineering/smes)
 "bAQ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
@@ -26097,7 +26097,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "bPy" = (
@@ -30309,7 +30309,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "cdC" = (
@@ -33970,7 +33970,7 @@
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
 "cqM" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "cqN" = (
@@ -38390,7 +38390,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/research)
 "cGy" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

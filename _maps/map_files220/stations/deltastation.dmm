@@ -1218,7 +1218,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "ajd" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
@@ -23754,7 +23754,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/command/office/ce)
 "bSh" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -24304,7 +24304,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "bTQ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -30410,7 +30410,7 @@
 	},
 /area/station/hallway/secondary/bridge)
 "crF" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -75141,7 +75141,7 @@
 	},
 /area/station/hallway/primary/starboard)
 "msl" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -75215,7 +75215,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "mtx" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "mtz" = (
@@ -82817,7 +82817,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "oIJ" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "oIQ" = (
@@ -104382,7 +104382,7 @@
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
 "von" = (
-/obj/item/radio/beacon,
+/obj/item/beacon,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
