@@ -236,7 +236,7 @@
 	return TRUE
 
 /mob/living/carbon/human/get_runechat_color()
-	if(!dna) // Check for dna in the case we somehow don't have a DNA set for this human.
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
 		return ..()
 	return dna.chat_color
 
