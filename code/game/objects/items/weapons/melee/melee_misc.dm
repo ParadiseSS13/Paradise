@@ -182,7 +182,7 @@
 			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
 			playsound(get_turf(user), 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE, -1)
 			H.apply_damage(25, BRUTE, targetlimb, H.run_armor_check(targetlimb, MELEE))
-			var/atom/throw_target = get_edge_target_turf(H, get_dir(src, get_step_away(H, src)), TRUE)
+			var/atom/throw_target = get_edge_target_turf(H, user.dir, TRUE)
 			H.throw_at(throw_target, 4, 1)
 			add_attack_logs(user, H, "Smashed away by a breach cleaver. (Disarm intent, Knockback)", ATKLOG_ALL)
 
