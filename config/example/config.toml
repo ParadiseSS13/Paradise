@@ -174,7 +174,7 @@ ipc_screens = [
 # If you are running in production, you will want to be using a database
 
 # Enable/disable the database on a whole
-sql_enabled = true
+sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
 sql_version = 59
 # SQL server address. Can be an IP or DNS name
@@ -186,7 +186,7 @@ sql_database = "paradise_gamedb"
 # SQL server username
 sql_username = "root"
 # SQL server password
-sql_password = "root"
+sql_password = "please use something secure in a production environment"
 # Time in seconds for async queries to time out
 async_query_timeout = 10
 # How many threads is the async SQL engine allowed to open. 50 is normal. Trust me.
