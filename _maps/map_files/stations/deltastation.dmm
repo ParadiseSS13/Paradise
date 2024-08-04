@@ -23054,16 +23054,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
-"brG" = (
-/obj/machinery/suit_storage_unit/atmos/secure,
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/critical/directional/west,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "brH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -24519,21 +24509,6 @@
 	},
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "caution"
-	},
-/area/station/engineering/atmos/distribution)
-"bvJ" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4
-	},
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable,
-/obj/machinery/atmospherics/meter{
-	autolink_id = "wloop_atm_meter";
-	name = "Waste Loop"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "caution"
 	},
 /area/station/engineering/atmos/distribution)
@@ -75480,6 +75455,18 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
+"kxY" = (
+/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/machinery/power/apc/important/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "caution"
+	},
+/area/station/engineering/atmos/distribution)
 "kyq" = (
 /obj/machinery/light_switch{
 	dir = 4;
@@ -78460,6 +78447,16 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
+"mnZ" = (
+/obj/machinery/suit_storage_unit/atmos/secure,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/important/directional/west,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "moa" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -124562,7 +124559,7 @@ bpE
 brF
 btl
 but
-bvJ
+kxY
 bwU
 bys
 bzR
@@ -125073,7 +125070,7 @@ bkE
 bmB
 aOb
 bpG
-brG
+mnZ
 btm
 buu
 aOg

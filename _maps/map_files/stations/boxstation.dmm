@@ -39697,9 +39697,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/directional/north{
-	shock_proof = 1
-	},
+/obj/machinery/power/apc/important/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "cDm" = (
@@ -47409,14 +47407,12 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 6
 	},
-/obj/machinery/power/apc/directional/west{
-	shock_proof = 1
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/power/apc/important/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "deP" = (
