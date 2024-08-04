@@ -169,7 +169,7 @@
 			playsound(loc, 'sound/weapons/swordhit.ogg', 50, TRUE, -1)
 			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
 			H.apply_damage(40, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
-			add_attack_logs(user, H, "Slammed by a breach cleaver.", ATKLOG_ALL)
+			add_attack_logs(user, H, "Slammed by a breach cleaver. (Help intent, Stamina)", ATKLOG_ALL)
 
 		if(INTENT_DISARM) // Slams away
 			if(H.stat || IS_HORIZONTAL(H))
@@ -184,7 +184,7 @@
 			H.apply_damage(25, BRUTE, targetlimb, H.run_armor_check(targetlimb, MELEE))
 			var/atom/throw_target = get_edge_target_turf(H, get_dir(src, get_step_away(H, src)), TRUE)
 			H.throw_at(throw_target, 4, 1)
-			add_attack_logs(user, H, "Smashed away by a breach cleaver.", ATKLOG_ALL)
+			add_attack_logs(user, H, "Smashed away by a breach cleaver. (Disarm intent, Knockback)", ATKLOG_ALL)
 
 		if(INTENT_GRAB) // Knocks down
 			H.visible_message("<span class='danger'>[user] cleaves [H] with an overhead strike!</span>", \
@@ -195,7 +195,7 @@
 			playsound(get_turf(user), 'sound/weapons/armblade.ogg', 50, TRUE, -1)
 			H.apply_damage(30, BRUTE, targetlimb, H.run_armor_check(targetlimb, MELEE), TRUE)
 			H.KnockDown(4 SECONDS)
-			add_attack_logs(user, H, "Cleaved overhead with a breach cleaver.", ATKLOG_ALL)
+			add_attack_logs(user, H, "Cleaved overhead with a breach cleaver. (Grab intent, Knockdown)", ATKLOG_ALL)
 
 		if(INTENT_HARM)
 			armour_penetration_flat = 30
