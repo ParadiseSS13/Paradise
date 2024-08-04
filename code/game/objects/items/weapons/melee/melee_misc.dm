@@ -90,6 +90,7 @@
 	flags = CONDUCT
 	force = 5
 	throwforce = 5
+	armour_penetration_flat = 30
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	origin_tech = "combat=6;syndicate=5"
@@ -153,7 +154,6 @@
 	O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
 
 /obj/item/melee/breach_cleaver/attack(mob/target, mob/living/user)
-	armour_penetration_flat = 0
 	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
 		return ..()
 
@@ -198,7 +198,6 @@
 			add_attack_logs(user, H, "Cleaved overhead with a breach cleaver. (Grab intent, Knockdown)", ATKLOG_ALL)
 
 		if(INTENT_HARM)
-			armour_penetration_flat = 30
 			return ..()
 
 /obj/item/melee/icepick
