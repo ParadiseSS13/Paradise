@@ -82,7 +82,7 @@
 				"<span class='warning'>[user] holds [src] skywards as an orange beam travels into the sky!</span>",
 				"<span class='notice'>You hold [src] skyward, dispelling the storm!</span>"
 			)
-			playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
+			playsound(user, 'sound/magic/staff_change.ogg', 200, FALSE)
 			A.wind_down()
 			var/old_color = user.color
 			user.color = list(340/255, 240/255, 0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)

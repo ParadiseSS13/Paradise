@@ -1,4 +1,4 @@
-// MARK: BASIC LIGHTERS
+// MARK: LIGHTERS
 /obj/item/lighter
 	name = "cheap lighter"
 	desc = "A cheap cigarette lighter. It gets the job done, barely."
@@ -147,9 +147,8 @@
 /obj/item/lighter/get_heat()
 	return lit * 1500
 
-//////////////////////////////
-// MARK: ZIPPO LIGHTERS
-//////////////////////////////
+//  ZIPPO LIGHTERS
+
 /obj/item/lighter/zippo
 	name = "zippo lighter"
 	desc = "A premium cigarette lighter, for cool and distinguished individuals."
@@ -165,7 +164,7 @@
 			"<span class='rose'>Without breaking your stride, you flip open and light [src] in one smooth movement.</span>",
 			"<span class='rose'>You hear a zippo being lit.</span>"
 		)
-		playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
+		playsound(src.loc, 'sound/items/zippolight.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
 	else
 		to_chat(user, "<span class='notice'>You light [src].</span>")
@@ -177,14 +176,14 @@
 
 	if(world.time > next_off_message)
 		user.visible_message(
-			"<span class='rose'>You hear a quiet click as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.",
-			"<span class='rose'>You shut off [src] without even looking at what you're doing.",
-			"<span class='rose'>You hear a quiet click as a zippo lighter is shut off. Wow."
+			"<span class='rose'>You hear a quiet click as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.</span>",
+			"<span class='rose'>You shut off [src] without even looking at what you're doing.</span>",
+			"<span class='rose'>You hear a quiet click as a zippo lighter is shut off. Wow.</span>"
 		)
-		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
+		playsound(loc, 'sound/items/zippoclose.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>You shut off [src].")
+		to_chat(user, "<span class='notice'>You shut off [src].</span>")
 
 /obj/item/lighter/zippo/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -214,9 +213,6 @@
 /obj/item/lighter/zippo/attempt_light(mob/living/user)
 	return
 
-//////////////////////////////
-// MARK: EXTRA LIGHTERS
-//////////////////////////////
 /obj/item/lighter/zippo/nt_rep
 	name = "gold engraved zippo"
 	desc = "An engraved golden Zippo lighter with the letters \"NT\" engraved on the sides."
@@ -246,9 +242,8 @@
 	icon_state = "zippo-gonzo"
 	item_state = "zippo-red"
 
-//////////////////////////////
 // MARK: MATCHES
-//////////////////////////////
+
 /obj/item/match
 	name = "match"
 	desc = "A simple match stick, used for lighting fine smokables."
@@ -347,7 +342,7 @@
 	if(target == user)
 		user.visible_message(
 			"<span class='notice'>[user] lights [user.p_their()] [cig] with [src].</span>",
-			"<span class='notice'>You light [cig] with [src]</span>"
+			"<span class='notice'>You light [cig] with [src].</span>"
 		)
 	else
 		user.visible_message(

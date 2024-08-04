@@ -7,9 +7,8 @@
  */
 
 
-//////////////////////////////
-// MARK: PENS
-//////////////////////////////
+// PENS
+
 /obj/item/pen
 	desc = "It's a normal black ink pen."
 	name = "pen"
@@ -140,9 +139,8 @@
 	desc = "An expensive-looking pen only issued to heads of cargo."
 	icon_state = "pen_qm"
 
-//////////////////////////////
-// MARK: SLEEPYPENS
-//////////////////////////////
+//  SLEEPYPEN
+
 /obj/item/pen/sleepy
 	container_type = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
@@ -200,9 +198,8 @@
 	desc = "Used to stealthily inject targets. Comes loaded with ketamine but can be refilled with other chemicals. This one isn't disguised."
 	icon_state = "pen_syndie"
 
-//////////////////////////////
-// MARK: E-DAGGERS
-//////////////////////////////
+// E-DAGGER
+
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
 	var/active = FALSE
@@ -289,7 +286,7 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		embed_chance = 100 //rule of cool
 		throwforce = 35
-		playsound(user, 'sound/weapons/saberon.ogg', 2, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 2, TRUE)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 		set_light(brightness_on, 1)
 	set_sharpness(active)
@@ -306,9 +303,8 @@
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return
 
-//////////////////////////////
-// MARK: POISON PEN
-//////////////////////////////
+// POISON PEN
+
 /obj/item/pen/multi/poison
 	var/current_poison = null
 

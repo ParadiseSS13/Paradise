@@ -72,9 +72,8 @@ CONTENTS:
 	user.create_attack_log("<b>[key_name(user)]</b> zapped [user.p_themselves()] with a <b>[src]</b>")
 	add_attack_logs(user, user, "zapped [user.p_themselves()] with a [src]", ATKLOG_ALL)
 
-/////////////////////////////////////
-// MARK: WAND OF DEATH
-/////////////////////////////////////
+// WAND OF DEATH
+
 
 /obj/item/gun/magic/wand/death
 	name = "wand of death"
@@ -98,9 +97,7 @@ CONTENTS:
 		user.adjustFireLoss(6969)
 	user.death(FALSE)
 
-/////////////////////////////////////
-// MARK: WAND OF HEALING
-/////////////////////////////////////
+// WAND OF HEALING
 
 /obj/item/gun/magic/wand/resurrection
 	name = "wand of resurrection"
@@ -122,9 +119,8 @@ CONTENTS:
 	user.revive()
 	to_chat(user, "<span class='notice'>You feel great!</span>")
 
-/////////////////////////////////////
-// MARK: WAND OF POLYMORPH
-/////////////////////////////////////
+// WAND OF POLYMORPH
+
 
 /obj/item/gun/magic/wand/polymorph
 	name = "wand of polymorph"
@@ -140,9 +136,8 @@ CONTENTS:
 	wabbajack(user)
 	charges--
 
-/////////////////////////////////////
-// MARK: WAND OF TELEPORTATION
-/////////////////////////////////////
+// WAND OF TELEPORTATION
+
 
 /obj/item/gun/magic/wand/teleport
 	name = "wand of teleportation"
@@ -162,9 +157,8 @@ CONTENTS:
 	charges--
 	..()
 
-/////////////////////////////////////
-// MARK: WAND OF DOOR CREATION
-/////////////////////////////////////
+// WAND OF DOOR CREATION
+
 
 /obj/item/gun/magic/wand/door
 	name = "wand of door creation"
@@ -181,9 +175,8 @@ CONTENTS:
 	charges--
 	..()
 
-/////////////////////////////////////
-// MARK: WAND OF FIREBALL
-/////////////////////////////////////
+// WAND OF FIREBALL
+
 
 /obj/item/gun/magic/wand/fireball
 	name = "wand of fireball"
@@ -252,9 +245,8 @@ CONTENTS:
 		return
 	. = ..()
 
-/////////////////////////////////////
-// MARK: WAND OF SLIPPING
-/////////////////////////////////////
+// WAND OF SLIPPING
+
 /obj/item/gun/magic/wand/slipping
 	name = "wand of slipping"
 	desc = "This wand shoots... banana peels?"
@@ -268,9 +260,8 @@ CONTENTS:
 	charges--
 	..()
 
-/////////////////////////////////////
-// MARK: WAND OF CHAOS - Only spawned by the Staff of Chaos as a rare random effect
-/////////////////////////////////////
+// WAND OF CHAOS - Only spawned by the Staff of Chaos as a rare random effect
+
 /obj/item/gun/magic/wand/chaos
 	name = "wand of chaos"
 	desc = "Payback time!"
