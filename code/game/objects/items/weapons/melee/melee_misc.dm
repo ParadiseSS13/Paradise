@@ -152,7 +152,6 @@
 	damage += H.physiology.melee_bonus
 	O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
 
-
 /obj/item/melee/breach_cleaver/attack(mob/target, mob/living/user)
 	armour_penetration_flat = 0
 	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
