@@ -128,7 +128,7 @@
 			break // Whoops! No ammo!
 
 		if(T == previousturf)
-			continue	// So we don't burn the tile we be standin on
+			continue // So we don't burn the tile we be standin on
 
 		var/found_obstruction = FALSE
 		for(var/obj/thing in T)
