@@ -20,16 +20,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				continue
 			if(I.species && !(user.dna?.species.name in I.species)) //If your species does not match, no discount
 				continue
-			if(I.hijack_only && !(locate(/datum/objective/hijack) in user.mind.get_all_objectives())) //If you aren't a hijacker, no hijack only items
-				continue
 
 			if(!uplink_items[I.category])
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
 
-
-			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
+			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5 && !I.hijack_only)
 				sales_items += I
 
 	if(isnull(user)) //Handles surplus
@@ -90,7 +87,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/can_discount = TRUE
 	/// Can you only buy so many? -1 allows for infinite purchases
 	var/limited_stock = -1
-	/// Can this item be purchased only during hijackings?
+	/// Can this item be purchased only during hijackings? Hijack-only items are by default unable to be on sale.
 	var/hijack_only = FALSE
 	/// Can you refund this in the uplink?
 	var/refundable = FALSE
@@ -734,7 +731,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
-	can_discount = FALSE
 
 /datum/uplink_item/device_tools/advpinpointer
 	name = "Advanced Pinpointer"
