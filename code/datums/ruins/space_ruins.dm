@@ -360,3 +360,10 @@
 	name = "Dorian Casino"
 	description = "A swanky space casino."
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/abandoned_security_shuttle
+	id = "abandoned_sec_shuttle"
+	suffix = "abandoned_sec_shuttle.dmm"
+	name = "Abandoned Security Shuttle"
+	description = "A security shuttle that has been floating in space."
+	allow_duplicates = FALSE
