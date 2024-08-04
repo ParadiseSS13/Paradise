@@ -181,7 +181,7 @@
 	max_canisters = 2
 
 /obj/item/chemical_flamethrower/extended/nuclear
-	name = "Syndicate extended capacity chemical flamethrower"
+	name = "\improper Syndicate extended capacity chemical flamethrower"
 	desc = "A flamethrower that accepts two chemical cartridges to create lasting fires. As black as the ash of your enemies."
 
 /obj/item/chemical_flamethrower/extended/nuclear/Initialize(mapload)
