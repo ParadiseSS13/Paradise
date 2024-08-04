@@ -144,7 +144,6 @@
 	job = list("Chaplain")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
-	can_discount = FALSE
 
 //Janitor
 
@@ -691,7 +690,6 @@
 	cost = 40
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	can_discount = FALSE
 	hijack_only = TRUE
 
 /datum/uplink_item/explosives/emp_bomb
@@ -715,11 +713,10 @@
 	desc = "A box of two (2) grenades that cause large plasma fires. Can be used to deny access to a large area. Most useful if you have an atmospherics hardsuit."
 	reference = "APG"
 	item = /obj/item/storage/box/syndie_kit/atmosfiregrenades
-	hijack_only = TRUE
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	can_discount = FALSE
+	hijack_only = TRUE
 
 /datum/uplink_item/stealthy_tools/chameleon
 	name = "Chameleon Kit"
