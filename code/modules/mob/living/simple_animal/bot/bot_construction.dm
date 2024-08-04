@@ -566,27 +566,33 @@
 
 /obj/item/griefsky_assembly/attackby(obj/item/I, mob/user, params)
 	..()
-	if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3))
+	if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3) && (toy_step == 0))
 		if(!user.unEquip(I))
 			return
 		build_step++
-		to_chat(user, "<span class='notice'>You add an energy sword to [src]!.</span>")
+		to_chat(user, "<span class='notice'>You add an energy sword to [src]!</span>")
 		qdel(I)
+
+	else if((istype(I, /obj/item/melee/energy/sword)) && (toy_step > 0))
+		to_chat(user, "<span class='warning'>You already added a toy sword to [src]! You cannot mix and match different kinds of swords, it would be dangerous.</span>")
 
 	else if((istype(I, /obj/item/melee/energy/sword)) && (build_step == 3))
 		if(!user.unEquip(I))
 			return
-		to_chat(user, "<span class='notice'>You complete General Griefsky!.</span>")
+		to_chat(user, "<span class='notice'>You complete General Griefsky!</span>")
 		new /mob/living/simple_animal/bot/secbot/griefsky(get_turf(src))
 		qdel(I)
 		qdel(src)
 
-	else if((istype(I, /obj/item/toy/sword)) && (toy_step < 3))
+	else if((istype(I, /obj/item/toy/sword)) && (toy_step < 3) && (build_step == 0))
 		if(!user.unEquip(I))
 			return
 		toy_step++
 		to_chat(user, "<span class='notice'>You add a toy sword to [src]!.</span>")
 		qdel(I)
+
+	else if((istype(I, /obj/item/toy/sword)) && (build_step > 0))
+		to_chat(user, "<span class='warning'>You already added an energy sword to [src]!You cannot mix and match different kinds of swords, it would be inefficient.")
 
 	else if((istype(I, /obj/item/toy/sword)) && (toy_step == 3))
 		if(!user.unEquip(I))
