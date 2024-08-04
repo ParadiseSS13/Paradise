@@ -28304,10 +28304,10 @@
 	pixel_x = -8;
 	pixel_y = 4
 	},
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
 /obj/item/multitool{
 	pixel_x = 3
 	},
@@ -28937,10 +28937,10 @@
 	pixel_x = -8;
 	pixel_y = 4
 	},
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
 /obj/item/multitool{
 	pixel_x = 3
 	},
