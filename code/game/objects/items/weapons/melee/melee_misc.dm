@@ -96,7 +96,7 @@
 	attack_verb = list("slashed", "cleaved", "chopped")
 	hitsound = 'sound/weapons/swordhitheavy.ogg'
 	materials = list(MAT_METAL = 2000)
-	///How much damage the sword does when wielded
+	/// How much damage the sword does when wielded
 	var/force_wield = 40
 
 /obj/item/melee/breach_cleaver/Initialize(mapload)
