@@ -236,7 +236,7 @@
 	return TRUE
 
 /mob/living/carbon/human/get_runechat_color()
-	if (!dna)
+	if(!dna)
 		return ..()
 	return dna.chat_color
 
