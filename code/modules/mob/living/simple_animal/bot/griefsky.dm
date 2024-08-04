@@ -213,7 +213,10 @@
 	pierced_helmet.build_step = 1
 	pierced_helmet.overlays += "hs_hole"
 	pierced_helmet.created_name = name
-	drop_part(robot_arm, disassemble_turf)
+	new /obj/item/robot_parts/l_arm(disassemble_turf) //We do not check for what kind of arms the bot has because griefskies MUST be built with two of each arms
+	new /obj/item/robot_parts/l_arm(disassemble_turf)
+	new /obj/item/robot_parts/r_arm(disassemble_turf)
+	new /obj/item/robot_parts/r_arm(disassemble_turf)
 	if(weapon == /obj/item/melee/energy/sword/saber)
 		log_and_message_admins("[key_name(usr)] has dismantled [src] containing energy sword(s)!")
 	new weapon(disassemble_turf)
