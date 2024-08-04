@@ -68,7 +68,6 @@
 
 	canisters += I
 	I.forceMove(src)
-
 	update_canister_stats()
 
 /obj/item/chemical_flamethrower/proc/update_canister_stats()
