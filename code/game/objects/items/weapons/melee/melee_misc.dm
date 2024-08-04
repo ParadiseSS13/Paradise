@@ -107,7 +107,7 @@
 /obj/item/melee/breach_cleaver/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
-		. += "<span>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
+		. += "<span class='notice'>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
 			Help intent will strike with the flat, dealing stamina, disarm intent forces them away, grab intent knocks down the target, \
 			and harm intent deals heavy damage.</span>"
 
