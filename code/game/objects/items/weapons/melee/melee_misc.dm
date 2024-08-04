@@ -40,6 +40,19 @@
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
 
+/obj/item/melee/rapier/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The blade looks very well-suited for piercing armour.</span>"
+
+/obj/item/melee/rapier/examine_more(mob/user)
+	. = ..()
+	. += "Swords are a traditional ceremonial weapon carried by commanding officers of many armies and navies, even long after firearms and laserarms rendered them obsolete. \
+	Despite having no roots in such traditions, Nanotrasen participates in them, as these trappings of old tradition help to promote the air of authority the company wishes for its captains to possess."
+	. += ""
+	. += "Whilst not intended to actually be used in combat, these ceremonial rapiers are in-fact quite functional, \
+	able to both inflict grievous wounds on aggressors that get too close, whilst also elegantly parrying their blows (assuming the wielder is skilled with the blade). \
+	The thin, sharp point is also quite effective at at defeating even modern body armour, which tends to be designed to deal with ballistic and laser weapons rather than swords..."
+
 /obj/item/melee/rapier/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)

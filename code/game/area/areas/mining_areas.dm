@@ -48,6 +48,8 @@
 	name = "Mining Station"
 	icon_state = "mining"
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	request_console_name = "Mining Outpost"
+	request_console_flags = RC_SUPPLY
 
 /area/mine/outpost/airlock
 	name = "Mining Station Airlock"
@@ -122,6 +124,9 @@
 /area/mine/outpost/quartermaster
 	name = "Mining Station Quartermaster's Office"
 	icon_state = "qm"
+	request_console_flags = RC_ASSIST | RC_INFO
+	request_console_name = "Quartermaster's Desk"
+	request_console_announces = TRUE
 
 /area/mine/laborcamp
 	name = "Labor Camp"

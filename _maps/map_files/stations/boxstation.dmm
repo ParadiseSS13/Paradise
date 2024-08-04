@@ -672,9 +672,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/machinery/economy/vending/secdrobe,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -3116,9 +3114,7 @@
 	},
 /area/station/security/permabrig)
 "amt" = (
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/machinery/computer/brigcells{
 	dir = 8
 	},
@@ -3433,7 +3429,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	icon_state = "pipe-j2s";
-	name = "Sci Robotics";
 	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plasteel,
@@ -4176,9 +4171,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /obj/item/radio/intercom/department/security{
 	pixel_x = -28;
 	pixel_y = -10
@@ -6759,9 +6752,7 @@
 /area/space/nearstation)
 "axp" = (
 /obj/structure/bookcase/sop,
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -9577,9 +9568,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -9910,9 +9899,7 @@
 /area/station/legal/courtroom)
 "aGu" = (
 /obj/item/kirbyplants,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
 "aGw" = (
@@ -10269,9 +10256,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14984,9 +14969,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "aWh" = (
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15029,9 +15012,7 @@
 /obj/machinery/camera{
 	c_tag = "Primary Tool Storage"
 	},
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/item/assembly/igniter{
 	pixel_x = -8;
 	pixel_y = -4
@@ -15824,9 +15805,7 @@
 /obj/machinery/camera{
 	c_tag = "Medbay Paramedic"
 	},
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/medical/paramedic)
 "aYx" = (
@@ -17837,9 +17816,7 @@
 	},
 /area/station/hallway/primary/central/north)
 "bex" = (
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bey" = (
@@ -18095,9 +18072,7 @@
 	},
 /area/station/public/dorms)
 "bfk" = (
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/beer{
 	pixel_y = 8
@@ -22689,9 +22664,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "brI" = (
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23689,9 +23662,7 @@
 "buK" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -23867,10 +23838,7 @@
 /area/station/public/locker)
 "bvr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/requests_console{
-	dir = 4;
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -24495,9 +24463,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "bxX" = (
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/structure/table,
 /obj/item/folder/white,
 /obj/item/pen,
@@ -24865,9 +24831,7 @@
 /area/station/supply/sorting)
 "bzH" = (
 /obj/structure/table,
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/item/stack/tape_roll,
 /obj/item/destTagger{
 	pixel_x = 4;
@@ -26580,9 +26544,7 @@
 	},
 /area/station/science/robotics)
 "bGF" = (
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
@@ -27229,9 +27191,7 @@
 	},
 /area/station/supply/storage)
 "bIU" = (
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -27553,9 +27513,7 @@
 	},
 /area/station/medical/reception)
 "bJZ" = (
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/cans/dr_gibb,
 /obj/item/storage/box/patch_packs,
@@ -28345,10 +28303,10 @@
 	pixel_x = -8;
 	pixel_y = 4
 	},
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
 /obj/item/multitool{
 	pixel_x = 3
 	},
@@ -28978,10 +28936,10 @@
 	pixel_x = -8;
 	pixel_y = 4
 	},
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
+/obj/item/flash,
 /obj/item/multitool{
 	pixel_x = 3
 	},
@@ -30100,9 +30058,7 @@
 /area/station/hallway/primary/central/sw)
 "bTA" = (
 /obj/structure/table,
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /obj/machinery/camera{
 	c_tag = "Cargo Office";
 	dir = 4
@@ -30134,9 +30090,7 @@
 	c_tag = "Medbay Chemistry";
 	dir = 4
 	},
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -32478,9 +32432,7 @@
 /obj/machinery/computer/crew{
 	dir = 8
 	},
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -33523,9 +33475,7 @@
 /area/station/medical/psych)
 "cgE" = (
 /obj/machinery/economy/vending/plasmaresearch,
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -34508,9 +34458,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/machinery/newscaster{
 	dir = 4;
 	name = "west bump";
@@ -34816,9 +34764,7 @@
 	},
 /area/station/hallway/primary/aft/north)
 "clR" = (
-/obj/machinery/requests_console{
-	pixel_x = -32
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "clT" = (
@@ -39045,9 +38991,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "cAK" = (
-/obj/machinery/requests_console{
-	pixel_y = -32
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "cAL" = (
@@ -39752,9 +39696,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/directional/north{
-	shock_proof = 1
-	},
+/obj/machinery/power/apc/important/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "cDm" = (
@@ -40962,9 +40904,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -41846,9 +41786,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
 	},
@@ -43490,9 +43428,7 @@
 /area/station/engineering/equipmentstorage)
 "cQO" = (
 /obj/structure/table,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/item/stack/sheet/glass{
 	amount = 50
 	},
@@ -43943,9 +43879,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "cSf" = (
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -44614,9 +44548,7 @@
 /turf/simulated/floor/carpet,
 /area/station/public/mrchangs)
 "cUj" = (
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/structure/table,
 /obj/item/book/manual/wiki/engineering_guide,
 /obj/item/book/manual/engineering_particle_accelerator{
@@ -45159,9 +45091,7 @@
 /area/station/service/bar)
 "cWp" = (
 /obj/structure/table,
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /obj/item/stack/sheet/glass{
 	amount = 50
 	},
@@ -46171,9 +46101,7 @@
 "daf" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/evaguide,
-/obj/machinery/requests_console{
-	pixel_x = -32
-	},
+/obj/machinery/requests_console/directional/west,
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -47478,14 +47406,12 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 6
 	},
-/obj/machinery/power/apc/directional/west{
-	shock_proof = 1
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/power/apc/important/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "deP" = (
@@ -48222,9 +48148,7 @@
 /turf/space,
 /area/space/nearstation)
 "dig" = (
-/obj/machinery/requests_console{
-	pixel_x = -32
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "dii" = (
@@ -49549,7 +49473,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	icon_state = "pipe-j2s";
-	name = "Sci R&D";
 	sort_type_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -50031,9 +49954,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "dnH" = (
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/machinery/plantgenes,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -50980,15 +50901,14 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/requests_console{
-	pixel_y = -32;
-	pixel_x = 32
-	},
 /obj/effect/landmark/start/ai,
 /obj/machinery/newscaster/security_unit{
 	dir = 4;
 	name = "west bump";
 	pixel_x = -28
+	},
+/obj/machinery/requests_console/directional/south{
+	pixel_x = 30
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
@@ -52713,7 +52633,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Medbay Hall";
 	sort_type_txt = "9"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -53459,7 +53378,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Disposals Maint";
 	sort_type_txt = "1"
 	},
 /turf/simulated/floor/plasteel,
@@ -54114,7 +54032,6 @@
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Brig Equipment Storage";
 	sort_type_txt = "8"
 	},
 /obj/structure/cable{
@@ -54385,9 +54302,7 @@
 	pixel_x = -5
 	},
 /obj/item/storage/briefcase,
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "eNV" = (
@@ -54693,7 +54608,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Brig HoS Office";
 	sort_type_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -55665,7 +55579,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Detective";
 	sort_type_txt = "24"
 	},
 /turf/simulated/floor/plasteel{
@@ -56012,7 +55925,6 @@
 "fzc" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "Botany";
 	sort_type_txt = "21"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -57169,7 +57081,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "Eng Chief Engineer's Office";
 	sort_type_txt = "5"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -59176,9 +59087,7 @@
 /area/station/security/permabrig)
 "gXD" = (
 /obj/item/kirbyplants,
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "gYq" = (
@@ -60519,7 +60428,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Sorting Office";
 	sort_type_txt = "2"
 	},
 /turf/simulated/floor/plasteel,
@@ -60857,7 +60765,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "QM Office";
 	sort_type_txt = "3"
 	},
 /turf/simulated/floor/plasteel,
@@ -61469,9 +61376,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "iim" = (
@@ -61778,7 +61683,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	icon_state = "pipe-j2s";
-	name = "Med. CMO";
 	sort_type_txt = "10"
 	},
 /obj/machinery/light{
@@ -64501,7 +64405,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	icon_state = "pipe-j2s";
-	name = "Chapel";
 	sort_type_txt = "17"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -64995,7 +64898,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
-	name = "Bar";
 	sort_type_txt = "19"
 	},
 /turf/simulated/floor/plating,
@@ -65252,7 +65154,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Med Chemistry";
 	sort_type_txt = "11"
 	},
 /obj/structure/cable{
@@ -66361,9 +66262,7 @@
 	},
 /area/station/security/permabrig)
 "kFd" = (
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -67195,7 +67094,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "Sci Robotics";
 	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plasteel{
@@ -68162,9 +68060,7 @@
 /obj/item/camera_film,
 /obj/item/camera_film,
 /obj/item/camera/detective,
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -69818,9 +69714,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "mlz" = (
-/obj/machinery/requests_console{
-	pixel_y = 32
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -70258,9 +70152,7 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70338,7 +70230,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	icon_state = "pipe-j2s";
-	name = "Library";
 	sort_type_txt = "16"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -71001,9 +70892,7 @@
 "mQt" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bluered"
@@ -73585,7 +73474,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "Eng Atmospherics";
 	sort_type_txt = "6"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -73639,9 +73527,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -74121,7 +74007,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Sci R&D";
 	sort_type_txt = "12"
 	},
 /obj/structure/cable{
@@ -76123,7 +76008,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	icon_state = "pipe-j2s";
-	name = "Engineering Main";
 	sort_type_txt = "4"
 	},
 /obj/structure/railing/corner{
@@ -77430,9 +77314,7 @@
 /area/station/maintenance/fpmaint)
 "pZw" = (
 /obj/machinery/computer/security/mining,
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
@@ -77970,7 +77852,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	icon_state = "pipe-j2s";
-	name = "Sci RD Office 1";
 	sort_type_txt = "13"
 	},
 /obj/structure/cable{
@@ -79154,9 +79035,7 @@
 	},
 /area/station/medical/storage)
 "qId" = (
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -79824,7 +79703,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "Kitchen";
 	sort_type_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -83442,7 +83320,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Janitor";
 	sort_type_txt = "22"
 	},
 /turf/simulated/floor/plating,
@@ -83457,7 +83334,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Captain's Office";
 	sort_type_txt = "18"
 	},
 /turf/simulated/floor/plasteel,
@@ -84852,9 +84728,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "tFe" = (
-/obj/machinery/requests_console{
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /obj/machinery/camera/autoname{
 	dir = 10
 	},
@@ -84872,10 +84746,7 @@
 /obj/machinery/computer/robotics{
 	dir = 4
 	},
-/obj/machinery/requests_console{
-	pixel_x = -2;
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /obj/machinery/button/windowtint{
 	desc = "A remote control switch for polarized windows.  For culling the sight of the equipment-starved masses.";
 	id = "rdrobosurgery";
@@ -85329,7 +85200,6 @@
 "tQe" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "Sci RD Office 1";
 	sort_type_txt = "13"
 	},
 /turf/simulated/floor/plasteel{
@@ -86155,7 +86025,6 @@
 "ukw" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "Genetics";
 	sort_type_txt = "23"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -87164,9 +87033,7 @@
 /obj/structure/sign/poster/official/help_others{
 	pixel_y = -30
 	},
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkpurple"
@@ -89700,7 +89567,6 @@
 "wcQ" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "HoP Office";
 	sort_type_txt = "15"
 	},
 /turf/simulated/floor/plasteel,
@@ -91158,9 +91024,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "wQa" = (
-/obj/machinery/requests_console{
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -91505,9 +91369,7 @@
 /area/station/hallway/primary/aft/south)
 "xbn" = (
 /obj/vehicle/janicart,
-/obj/machinery/requests_console{
-	pixel_y = -29
-	},
+/obj/machinery/requests_console/directional/south,
 /obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
@@ -92228,10 +92090,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/machinery/requests_console{
-	pixel_y = -30;
-	dir = 1
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "xtZ" = (
@@ -92388,9 +92247,7 @@
 /area/station/maintenance/apmaint2)
 "xwJ" = (
 /obj/machinery/suit_storage_unit/captain/secure,
-/obj/machinery/requests_console{
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
 "xwU" = (

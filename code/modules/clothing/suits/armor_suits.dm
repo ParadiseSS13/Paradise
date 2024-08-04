@@ -396,6 +396,7 @@
 /obj/item/clothing/suit/armor/reactive
 	name = "reactive armor"
 	desc = "Doesn't seem to do much for some reason."
+	/// Is the armor turned on?
 	var/active = FALSE
 	/// Is the armor disabled, and prevented from reactivating temporarly?
 	var/disabled = FALSE
@@ -427,6 +428,14 @@
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>The armor is [round(cell.percent())]% charged.</span>"
+
+/obj/item/clothing/suit/armor/reactive/examine_more(mob/user)
+	. = ..()
+	. += "Reactive armours are one of the uses that Nanotasen has found for the anomaly cores that can be recovered from the bluespace phenomina that occur in the space in orbit of Lavaland. \
+	The effects of these armours can be unpredictable or undesirable in certain situations, so Nanotrasen advises only activating them when the user is in danger."
+	. += ""
+	. += "Outside of the strange effects caused by the anomaly core, the armour provides no protection against conventional attacks. \
+	Nanotrasen cannot be held liable for injury and/or death due to misuse or proper operation of the reactive armour."
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
