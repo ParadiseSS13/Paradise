@@ -632,6 +632,7 @@
 	duration = -1
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/breaching_and_cleaving
+	var/datum/armor/cleaving_armor_boost = new /datum/armor(0, 30, 30, 30, 0, 0, 50, 0, 0)
 
 /atom/movable/screen/alert/status_effect/breaching_and_cleaving
 	name = "Breaching and Cleaving!"
@@ -642,18 +643,16 @@
 	. = ..()
 	if(!. || !ishuman(owner))
 		return
-
 	var/mob/living/carbon/human/H = owner
-	var/datum/armor/cleaving_armor_boost = getArmor(0, 30, 30, 30, 0, 0, 50, 0, 0)
 	H.physiology.armor = H.physiology.armor.attachArmor(cleaving_armor_boost)
 	H.physiology.stamina_mod *= 0.8
 
 /datum/status_effect/breaching_and_cleaving/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		var/datum/armor/cleaving_armor_boost = getArmor(0, 30, 30, 30, 0, 0, 50, 0, 0)
 		H.physiology.armor = H.physiology.armor.detachArmor(cleaving_armor_boost)
 		H.physiology.stamina_mod /= 0.8
+	QDEL_NULL(cleaving_armor_boost)
 
 /datum/status_effect/hope
 	id = "hope"
