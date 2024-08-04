@@ -22,7 +22,7 @@
 	///How much charge is given every tick when recharging
 	var/chargerate = 100
 	///Whether it will recharge automatically
-	var/self_recharge = TRUE
+	var/self_recharge = FALSE
 	///Whether the description will include the maxcharge
 	var/ratingdesc = TRUE
 	///Additional overlay to signify battery being organic
