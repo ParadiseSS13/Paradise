@@ -204,10 +204,6 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(flags & NODECONSTRUCT)//We need to check for this early or the contents could be moved before it checks for the flag normally
-		return
-	for(var/obj/thing in contents) // in case there is something in the scanner
-		thing.forceMove(loc)
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/clonescanner/screwdriver_act(mob/user, obj/item/I)
