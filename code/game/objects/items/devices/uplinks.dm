@@ -26,19 +26,18 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
+	/// Whether or not the uplink has generated its stock and discounts
+	var/items_generated = FALSE
 
 /obj/item/uplink/ui_host()
 	return loc
 
 /obj/item/uplink/proc/update_uplink_type(new_uplink_type)
 	uplink_type = new_uplink_type
-	uplink_items = get_uplink_items(src)
 
 /obj/item/uplink/New()
 	..()
 	uses = 100
-	uplink_items = get_uplink_items(src)
-
 	GLOB.world_uplinks += src
 
 /obj/item/uplink/Destroy()
@@ -58,6 +57,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		job = user.mind.assigned_role
 	if(!species)
 		species = user.dna.species.name
+	if(!items_generated)
+		uplink_items = get_uplink_items(src, user)
+		items_generated = TRUE
 
 	var/list/cats = list()
 

@@ -10,14 +10,23 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	var/charge = 0	// note %age conveted to actual charge in New
+	///How much charge the battery currently has
+	var/charge = 0
+	///How much charge the battery can hold
 	var/maxcharge = 1000
+	///How much charge the battery should start with
+	var/starting_charge
 	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
-	var/rigged = FALSE		// true if rigged to explode
-	var/chargerate = 100 //how much power is given every tick in a recharger
-	var/self_recharge = 0 //does it self recharge, over time, or not?
+	///If the battery will explode
+	var/rigged = FALSE
+	///How much charge is given every tick when recharging
+	var/chargerate = 100
+	///Whether it will recharge automatically
+	var/self_recharge = FALSE
+	///Whether the description will include the maxcharge
 	var/ratingdesc = TRUE
-	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
+	///Additional overlay to signify battery being organic
+	var/grown_battery = FALSE
 
 /obj/item/stock_parts/cell/get_cell()
 	return src
@@ -25,7 +34,7 @@
 /obj/item/stock_parts/cell/New()
 	..()
 	START_PROCESSING(SSobj, src)
-	charge = maxcharge
+	charge = !isnull(starting_charge) ? starting_charge : maxcharge
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
 	update_icon(UPDATE_OVERLAYS)
@@ -164,9 +173,8 @@
 		return 0
 
 // Cell variants
-/obj/item/stock_parts/cell/empty/New()
-	..()
-	charge = 0
+/obj/item/stock_parts/cell/empty
+	starting_charge = 0
 
 /obj/item/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargeable AA battery"
@@ -175,10 +183,8 @@
 	materials = list(MAT_GLASS = 40)
 	rating = 2
 
-/obj/item/stock_parts/cell/crap/empty/New()
-	..()
-	charge = 0
-	update_icon(UPDATE_OVERLAYS)
+/obj/item/stock_parts/cell/crap/empty
+	starting_charge = 0
 
 /obj/item/stock_parts/cell/upgraded
 	name = "upgraded power cell"
@@ -200,10 +206,8 @@
 	materials = list(MAT_GLASS = 40)
 	rating = 2.5
 
-/obj/item/stock_parts/cell/secborg/empty/New()
-	..()
-	charge = 0
-	update_icon(UPDATE_OVERLAYS)
+/obj/item/stock_parts/cell/secborg/empty
+	starting_charge = 0
 
 /obj/item/stock_parts/cell/hos_gun
 	name = "\improper X-01 multiphase energy gun power cell"
@@ -242,10 +246,8 @@
 	maxcharge = 15000
 	chargerate = 2250
 
-/obj/item/stock_parts/cell/high/empty/New()
-	..()
-	charge = 0
-	update_icon(UPDATE_OVERLAYS)
+/obj/item/stock_parts/cell/high/empty
+	starting_charge = 0
 
 /obj/item/stock_parts/cell/super
 	name = "super-capacity power cell"
@@ -256,10 +258,8 @@
 	rating = 4
 	chargerate = 2000
 
-/obj/item/stock_parts/cell/super/empty/New()
-	..()
-	charge = 0
-	update_icon(UPDATE_OVERLAYS)
+/obj/item/stock_parts/cell/super/empty
+	starting_charge = 0
 
 /obj/item/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
@@ -270,10 +270,8 @@
 	rating = 5
 	chargerate = 3000
 
-/obj/item/stock_parts/cell/hyper/empty/New()
-	..()
-	charge = 0
-	update_icon(UPDATE_OVERLAYS)
+/obj/item/stock_parts/cell/hyper/empty
+	starting_charge = 0
 
 /obj/item/stock_parts/cell/bluespace
 	name = "bluespace power cell"
@@ -285,10 +283,8 @@
 	rating = 6
 	chargerate = 4000
 
-/obj/item/stock_parts/cell/bluespace/empty/New()
-	..()
-	charge = 0
-	update_icon(UPDATE_OVERLAYS)
+/obj/item/stock_parts/cell/bluespace/empty
+	starting_charge = 0
 
 /obj/item/stock_parts/cell/bluespace/charging
 	name = "self-charging bluespace power cell"
@@ -352,10 +348,8 @@
 	maxcharge = 500
 	rating = 3
 
-/obj/item/stock_parts/cell/emproof/empty/New()
-	..()
-	charge = 0
-	update_icon(UPDATE_OVERLAYS)
+/obj/item/stock_parts/cell/emproof/empty
+	starting_charge = 0
 
 /obj/item/stock_parts/cell/emproof/emp_act(severity)
 	return
