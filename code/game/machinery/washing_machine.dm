@@ -307,9 +307,7 @@
 	if(bloody_mess)
 		for(var/obj/item/I in inserted_items)
 			I.add_blood(I.blood_DNA)
-	if(color_source)
-		qdel(color_source)
-		color_source = null
+	QDEL_NULL(color_source)
 	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 	washing = FALSE
 	atom_say("Wash Cycle Complete!")
