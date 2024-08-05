@@ -145,6 +145,7 @@
 //////////////////////////////
 /obj/item/reagent_containers/hypospray/CMO
 	name = "advanced hypospray"
+	desc = "Nanotrasen's own, reverse-engineered and improved version of DeForest's hypospray."
 	list_reagents = list("omnizine" = 30)
 	volume = 100
 	can_pierce_hardsuits = TRUE
@@ -153,6 +154,16 @@
 /obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
+/obj/item/reagent_containers/hypospray/CMO/examine_more(mob/user)
+	. = ..()
+	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
+	. += ""
+	. += "Nanotrasen's version sports a chemical reserviour over 3 times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armour, this \
+	pressurised jet is automatically adjusted to ensure no harm comes to patients with thinner or absent clothing. \
+	It is also able to interface with the autoinjector ports found on mordern hardsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
+	. += ""
+	. += "These hyposprays are mostly kept under lock and key (with some being distributed to NT's CMOs on some stations), waiting for the exact moment that the patent protection on DeForest's design expires."
 
 //////////////////////////////
 // MARK: AUTOINJECTOR

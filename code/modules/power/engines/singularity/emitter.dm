@@ -147,7 +147,7 @@
 		step(src, get_dir(M, src))
 
 /obj/machinery/power/emitter/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/card/id) || !istype(I, /obj/item/pda))
+	if(!istype(I, /obj/item/card/id) && !istype(I, /obj/item/pda))
 		return ..()
 
 	if(emagged)

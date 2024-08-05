@@ -1,3 +1,7 @@
+/* CONTENTS:
+* .1 KRAV MAGA MARTIAL ART
+* .2 KRAV MAGA GLOVES
+*/
 /datum/martial_art/krav_maga
 	name = "Krav Maga"
 	weight = 7 //Higher weight, since you can choose to put on or take off the gloves
@@ -135,8 +139,7 @@
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 	return TRUE
 
-//Krav Maga Gloves
-
+// Krav Maga gloves
 /obj/item/clothing/gloves/color/black/krav_maga
 	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
@@ -161,9 +164,10 @@
 	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
 		style.remove(H)
 
-/obj/item/clothing/gloves/color/black/krav_maga/sec//more obviously named, given to sec
+// Warden gloves
+/obj/item/clothing/gloves/color/black/krav_maga/sec
 	name = "Krav Maga gloves"
-	desc = "These gloves can teach you to perform Krav Maga using nanochips."
+	desc = "These gloves can teach you to perform Krav Maga using nanochips for as long as you're wearing them."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
 
@@ -171,7 +175,20 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
-/// for nukies
+/obj/item/clothing/gloves/color/black/krav_maga/sec/examine_more(mob/user)
+	..()
+	. = list()
+	. += "These gloves are experimental combat gear developed by Nanotrasen R&D, capable of teaching the wearer the art of Krav Maga without prior training."
+	. += ""
+	. += "They function using embedded nanochips that host a non-sapient machine intelligence. Probes in the gloves allow the on-board intelligence limited control of the somatic nervous system, \
+	allowing it to direct the wearer's body in the correct manner to execute the selected move when it detects the corresponding activation motion."
+	. += ""
+	. += "Most users are not aware of their body being puppeted in this manner - it feels like a reflexive movement. Particularly observant individuals or unarmed combat specialists trained in a different martial art \
+	do report noticing their limbs being redirected, but they generally get used to it after sufficient exposure."
+	. += ""
+	. += "Because it is the gloves, and not the user that is handling the martial art, users return to previous proficiency when the gloves are removed."
+
+// Syndicate Krav Maga gloves
 /obj/item/clothing/gloves/color/black/krav_maga/combat
 	name = "Combat gloves plus"
 	desc = "These combat gloves have been upgraded with nanochips that teach the wearer Krav Maga."
@@ -186,3 +203,11 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)
+
+/obj/item/clothing/gloves/color/black/krav_maga/combat/examine_more(mob/user)
+	..()
+	. = list()
+	. += "These gloves are made using similar gloves stolen from Nanotrasen. The Syndicate has extensively dissected several stolen sets of such gloves, but the method of manufacture cannot be gleaned directly from them."
+	. += ""
+	. += "In light of this, Syndicate researchers simply transplanted the working components from the stolen gloves into proper combat gloves and declared it a sufficient upgrade. Because of this method of manufacture, \
+	these gloves are in very short supply - each set requiring one to be stolen from Nanotrasen to make."

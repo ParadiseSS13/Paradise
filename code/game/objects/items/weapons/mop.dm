@@ -28,19 +28,21 @@
 	GLOB.janitorial_equipment -= src
 	return ..()
 
-/obj/item/mop/proc/wet_mop(obj/o, mob/user)
-	if(o.reagents.total_volume < 1)
-		to_chat(user, "[o] is out of water!</span>")
-		if(istype(o, /obj/structure/mopbucket))
-			var/obj/structure/mopbucket/mopbucket = o
-			mopbucket.mopbucket_insert(user, o)
-		if(istype(o, /obj/structure/janitorialcart))
-			janicart_insert(user, o)
+/obj/item/mop/proc/wet_mop(obj/O, mob/user)
+	if(O.reagents.total_volume < 1)
+		to_chat(user, "<span class='notice'>[O] is empty!</span>")
+		if(istype(O, /obj/structure/mopbucket))
+			var/obj/structure/mopbucket/mopbucket = O
+			mopbucket.mopbucket_insert(user, O)
+		if(istype(O, /obj/structure/janitorialcart))
+			var/obj/structure/janitorialcart/janicart = O
+			if(!janicart.mymop)
+				janicart.put_in_cart(user, src)
 		return
 
-	o.reagents.trans_to(src, 6)
-	to_chat(user, "<span class='notice'>You wet [src] in [o].</span>")
-	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
+	O.reagents.trans_to(src, 6)
+	to_chat(user, "<span class='notice'>You wet [src] in [O].</span>")
+	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
 /obj/item/mop/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
@@ -72,10 +74,6 @@
 		return
 	else
 		return ..()
-
-/obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.mymop = src
-	J.put_in_cart(src, user)
 
 /obj/item/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)
@@ -125,8 +123,5 @@
 	return ..()
 
 /obj/item/mop/advanced/cyborg
-
-/obj/item/mop/advanced/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return
 
 #undef MOP_SOUND_CD
