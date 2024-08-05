@@ -275,13 +275,10 @@
 	playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE, -1)
 	M.adjustBruteLoss(15)
 
-////////////////////////////////
-// MARK:	Gripper Types
-////////////////////////////////
-////////////////////////////////
-//		Universal Gripper
-////////////////////////////////
-/// Universal gripper. Not supplied to any cyborg by default. Could be varedited onto a borg for event stuff. Functions almost like a real hand!
+// MARK: Gripper Types
+
+// Universal Gripper
+// Universal gripper. Not supplied to any cyborg by default. Could be varedited onto a borg for event stuff. Functions almost like a real hand!
 /obj/item/gripper/universal
 	name = "cyborg gripper"
 	desc = "A grasping tool for cyborgs. This one is not restricted by any restraining software, allowing it to handle any object the user wishes."
@@ -290,7 +287,6 @@
 	can_help_up = TRUE
 	can_hold_all_items = TRUE
 
-////////////////////////////////
 //		Medical Gripper
 ////////////////////////////////
 // For medical borgs, for doing medical stuff!
@@ -303,9 +299,7 @@
 	// REMOVE actions_types from here if you add a can_hold list for this gripper!
 	actions_types = list()
 
-////////////////////////////////
-//		Service Gripper
-////////////////////////////////
+// Service Gripper
 // For service borgs. To make them slightly better at their job.
 /obj/item/gripper/service
 	name = "service gripper"
@@ -322,9 +316,7 @@
 		/obj/item/toy/plushie
 	)
 
-////////////////////////////////
-//		Mining Gripper
-////////////////////////////////
+// Mining Gripper
 // For mining borgs. Mostly for self-application of goliath armour.
 /obj/item/gripper/mining
 	name = "mining gripper"
@@ -335,9 +327,7 @@
 		/obj/item/survivalcapsule
 	)
 
-////////////////////////////////
-//		Engineering Gripper
-////////////////////////////////
+//	Engineering Gripper
 // For engineering and sabotage borgs, and drones.
 /obj/item/gripper/engineering
 	name = "engineering gripper"

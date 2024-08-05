@@ -324,9 +324,7 @@
 /obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
 	return
 
-////////////////////////////////////////
-// MARK:		Medical
-////////////////////////////////////////
+// Medical
 /obj/item/robot_module/medical
 	name = "medical robot module"
 	module_type = "Medical"
@@ -443,9 +441,7 @@
 	if(emagged)
 		reagents.check_and_add("facid", volume, 2 * coeff)
 
-////////////////////////////////////////
-// MARK:		Engineering
-////////////////////////////////////////
+// Engineering
 /obj/item/robot_module/engineering
 	name = "engineering robot module"
 	module_type = "Engineer"
@@ -502,9 +498,7 @@
 		F.emag_act()
 	return ..()
 
-////////////////////////////////////////
-// MARK:		Security
-////////////////////////////////////////
+// Security
 /obj/item/robot_module/security
 	name = "security robot module"
 	module_type = "Security"
@@ -530,9 +524,7 @@
 	if(B)
 		B.link_new_cell(unlink_cell)
 
-////////////////////////////////////////
-// MARK:		Janitor
-////////////////////////////////////////
+// Janitor
 /obj/item/robot_module/janitor
 	name = "janitorial robot module"
 	module_type = "Janitor"
@@ -623,9 +615,7 @@
 	H.KnockDown(4 SECONDS)
 	add_attack_logs(user, H, "Leg swept with cyborg combat broom", ATKLOG_ALL)
 
-////////////////////////////////////////
-// MARK:		Service
-////////////////////////////////////////
+// Service
 /obj/item/robot_module/butler
 	name = "service robot module"
 	module_type = "Service"
@@ -700,9 +690,7 @@
 	R.add_language("Neo-Russkiya", 1)
 	R.add_language("Tkachi", 1)
 
-////////////////////////////////////////
-// MARK:		Mining
-////////////////////////////////////////
+// Mining
 /obj/item/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
@@ -753,9 +741,7 @@
 		return TRUE
 	return ..()
 
-////////////////////////////////////////
-// MARK:		Xeno Hunter
-////////////////////////////////////////
+// Xeno Hunter
 /obj/item/robot_module/alien/hunter
 	name = "alien hunter module"
 	module_type = "Standard"
@@ -776,9 +762,7 @@
 	. = ..()
 	R.add_language("xenocommon", 1)
 
-////////////////////////////////////////
-// MARK:		Maint Drone
-////////////////////////////////////////
+// Maintenance Drone
 /obj/item/robot_module/drone
 	name = "drone module"
 	module_type = "Engineer"
@@ -829,9 +813,6 @@
 		F.emag_act()
 	return ..()
 
-////////////////////////////////////////
-// MARK:	Syndicate
-////////////////////////////////////////
 // Sydicate assault cyborg module.
 /obj/item/robot_module/syndicate
 	name = "syndicate assault robot module"
@@ -931,9 +912,6 @@
 		F.emag_act()
 	return ..()
 
-////////////////////////////////////////
-// MARK:	CentComm
-////////////////////////////////////////
 // Gamma security module.
 /obj/item/robot_module/combat
 	name = "combat robot module"
