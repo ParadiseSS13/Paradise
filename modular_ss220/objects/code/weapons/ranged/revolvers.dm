@@ -191,5 +191,5 @@
 
 /obj/item/projectile/bullet/midbullet_r/peas_shooter/on_hit(mob/H)
 	. = ..()
-	if(prob(15))
+	if(ishuman(H) && prob(15))
 		H.emote("moan")
