@@ -85661,7 +85661,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},

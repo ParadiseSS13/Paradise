@@ -35833,6 +35833,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
 "bZj" = (
@@ -77419,6 +77420,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
 "lEL" = (
@@ -82620,6 +82622,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Court gallery"
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
 "oDZ" = (
