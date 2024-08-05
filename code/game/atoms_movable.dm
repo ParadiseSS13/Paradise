@@ -795,6 +795,9 @@
 		if(isliving(target))
 			var/mob/living/L = target
 
+			if(L.incorporeal_move)
+				continue
+
 			if(crit_case)
 				damage_to_deal *= crit_damage_factor
 			if(iscarbon(L))
