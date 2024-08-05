@@ -13,36 +13,26 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "ae" = (
 /turf/simulated/wall/mineral/titanium/nodecon/wizard,
 /area/ruin/space/powered)
 "af" = (
 /obj/structure/computerframe,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "ag" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "ah" = (
 /obj/structure/grille/broken,
 /obj/item/shard,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/ruin/space/powered)
-"ai" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "aj" = (
 /obj/structure/chair/comfy/shuttle{
@@ -94,9 +84,8 @@
 	dir = 1;
 	in_use = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "as" = (
 /obj/structure/window/reinforced{
@@ -127,11 +116,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
-"ax" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/ruin/space/powered)
 "ay" = (
 /obj/effect/decal/remains/robot,
 /obj/item/clothing/head/wizard,
@@ -141,11 +125,6 @@
 "az" = (
 /obj/item/spellbook/oneuse/emp/used,
 /turf/simulated/floor/wood,
-/area/ruin/space/powered)
-"aA" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
 /area/ruin/space/powered)
 "aB" = (
 /turf/simulated/floor/carpet,
@@ -261,9 +240,8 @@
 /area/ruin/space/powered)
 "aW" = (
 /obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "aY" = (
 /obj/machinery/light{
@@ -513,9 +491,8 @@
 "YM" = (
 /obj/structure/table/wood,
 /obj/item/blank_tarot_card,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 
 (1,1,1) = {"
@@ -825,14 +802,14 @@ ac
 ac
 ac
 aC
-ai
+ag
 ap
-ax
+ag
 aC
 aC
 aG
 aC
-aA
+ag
 aV
 aC
 aC
@@ -938,7 +915,7 @@ ac
 ae
 ae
 ar
-aA
+ag
 aC
 aC
 aC
