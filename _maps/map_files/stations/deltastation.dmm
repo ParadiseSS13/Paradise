@@ -6965,7 +6965,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Medbay Junction";
 	sort_type_txt = "9"
 	},
 /obj/structure/cable{
@@ -26101,7 +26100,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -27246,7 +27245,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "Bar Junction";
 	sort_type_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -57053,7 +57051,6 @@
 "dog" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Quartermaster Junction";
 	sort_type_txt = "3"
 	},
 /obj/machinery/navbeacon{
@@ -66004,7 +66001,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Detective";
 	sort_type_txt = "24"
 	},
 /turf/simulated/floor/plasteel{
@@ -67942,7 +67938,6 @@
 	dir = 5
 	},
 /obj/structure/disposalpipe/sortjunction{
-	name = "Atmospherics Junction";
 	sort_type_txt = "6"
 	},
 /turf/simulated/floor/plasteel{
@@ -67974,7 +67969,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Captain's Junction";
 	sort_type_txt = "18"
 	},
 /obj/structure/cable{
@@ -72197,7 +72191,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "HoS Junction";
 	sort_type_txt = "7"
 	},
 /turf/simulated/floor/plasteel{
@@ -73980,7 +73973,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "Library Junction";
 	sort_type_txt = "16"
 	},
 /turf/simulated/floor/plasteel,
@@ -75442,7 +75434,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Morgue";
 	sort_type_txt = "25"
 	},
 /turf/simulated/floor/plasteel/white,
@@ -76909,7 +76900,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "RD Junction 1";
 	sort_type_txt = "13"
 	},
 /turf/simulated/floor/plasteel/white,
@@ -77345,7 +77335,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "Genetics";
 	sort_type_txt = "23"
 	},
 /obj/effect/landmark/lightsout,
@@ -77936,7 +77925,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Medbay Hall";
 	sort_type_txt = "9"
 	},
 /turf/simulated/floor/plasteel/white,
@@ -80031,7 +80019,6 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/sortjunction{
-	name = "CE's Junction";
 	sort_type_txt = "5"
 	},
 /turf/simulated/floor/plasteel{
@@ -81065,7 +81052,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "Robotics Junction";
 	sort_type_txt = "14"
 	},
 /obj/effect/turf_decal/delivery,
@@ -81963,7 +81949,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Security Junction";
 	sort_type_txt = "8"
 	},
 /turf/simulated/floor/plasteel{
@@ -83317,7 +83302,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Kitchen Junction";
 	sort_type_txt = "20"
 	},
 /turf/simulated/floor/plasteel{
@@ -84269,7 +84253,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "Chapel Junction";
 	sort_type_txt = "17"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -85891,7 +85874,6 @@
 "qAH" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "Research Junction";
 	sort_type_txt = "12"
 	},
 /turf/simulated/floor/plasteel{
@@ -86341,7 +86323,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Medbay CMO";
 	sort_type_txt = "10"
 	},
 /turf/simulated/floor/plasteel/white,
@@ -87690,7 +87671,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "HoP Junction";
 	sort_type_txt = "15"
 	},
 /obj/structure/cable{
@@ -88784,7 +88764,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Chemistry";
 	sort_type_txt = "11"
 	},
 /obj/structure/chair{
@@ -89072,7 +89051,6 @@
 "sjA" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "Hydroponics Junction";
 	sort_type_txt = "21"
 	},
 /obj/structure/cable{
@@ -93992,7 +93970,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Disposals Maint";
 	sort_type_txt = "1"
 	},
 /turf/simulated/floor/plating,
@@ -96962,7 +96939,6 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/sortjunction{
-	name = "Engineering Junction";
 	sort_type_txt = "4"
 	},
 /turf/simulated/floor/plasteel,
@@ -99432,7 +99408,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Custodial Junction";
 	sort_type_txt = "22"
 	},
 /obj/structure/cable{
