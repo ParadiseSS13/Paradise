@@ -77286,14 +77286,6 @@
 /obj/item/taperecorder,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/starboard)
-"lAg" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/delivery,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/central/west)
 "lAz" = (
 /obj/machinery/camera{
 	c_tag = "Engineering Storage";
@@ -134916,7 +134908,7 @@ fcl
 fcl
 fcl
 fcl
-lAg
+gKs
 hzo
 bUL
 hzo
