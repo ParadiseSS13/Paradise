@@ -31,10 +31,6 @@
 	var/hitsound = 'sound/effects/Glasshit.ogg'
 	/// Used to restore colours from polarised glass
 	var/old_color
-	/// Used to define what file the edging sprite is contained within
-	var/edge_overlay_file
-	/// Tracks the edging appearence sprite
-	var/mutable_appearance/edge_overlay
 	/// Minimum environment smash level (found on simple animals) to break through this instantly
 	var/env_smash_level = ENVIRONMENT_SMASH_STRUCTURES
 	/// How well this window resists superconductivity.
@@ -452,12 +448,6 @@
 		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer + 0.01), appearance_flags = RESET_COLOR)
 		. += crack_overlay
 
-	if(!edge_overlay_file)
-		return
-
-	edge_overlay = mutable_appearance(edge_overlay_file, "[smoothing_junction]", layer + 0.1, appearance_flags = RESET_COLOR)
-	. += edge_overlay
-
 /obj/structure/window/smooth_icon()
 	..()
 	update_icon(UPDATE_OVERLAYS)
@@ -662,11 +652,10 @@
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
-	icon = 'icons/obj/smooth_structures/windows/window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40window.dmi'
 	icon_state = "window-0"
 	base_icon_state = "window"
 	max_integrity = 50
-	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
@@ -682,7 +671,7 @@
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
-	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
+
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
@@ -701,7 +690,7 @@
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
-	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
+
 	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
@@ -711,7 +700,7 @@
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
-	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40reinforced_window.dmi'
 	icon_state = "reinforced_window-0"
 	base_icon_state = "reinforced_window"
 	max_integrity = 100
@@ -721,7 +710,6 @@
 	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
-	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 
 /obj/structure/window/full/reinforced/polarized
 	name = "electrochromic window"
