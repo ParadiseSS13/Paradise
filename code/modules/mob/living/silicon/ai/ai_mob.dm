@@ -1251,7 +1251,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	. = TRUE
 	if(anchored)
 		user.visible_message("<span class='notice'>[user] starts to unbolt [src] from the plating...</span>")
-		if(I.use_tool(src, user, 4 SECONDS, 0, 50))
+		if(!I.use_tool(src, user, 4 SECONDS, 0, 50))
 			user.visible_message("<span class='notice'>[user] decides not to unbolt [src].</span>")
 			return
 		user.visible_message("<span class='notice'>[user] finishes unfastening [src]!</span>")

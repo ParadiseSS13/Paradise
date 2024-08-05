@@ -240,7 +240,7 @@
 	var/turf/replace_turf = get_turf(target)
 	if(!istype(replace_turf))
 		return
-	
+
 	if(get_dist(src, target) >= (U.client.maxview() + 2)) // To prevent people from using it over cameras
 		return
 
@@ -257,13 +257,6 @@
 
 	if(!used)
 		to_chat(U, "[src]'s refill light blinks red.")
-
-/obj/item/lightreplacer/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.myreplacer = src
-	J.put_in_cart(src, user)
-
-/obj/item/lightreplacer/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return
 
 /obj/item/lightreplacer/cyborg/cyborg_recharge(coeff, emagged)
 	for(var/I in 1 to coeff)

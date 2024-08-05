@@ -202,7 +202,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 					<A href='byond://?_src_=holder;makerobot=[M.UID()]'>Make Robot</A> |
 					<A href='byond://?_src_=holder;makealien=[M.UID()]'>Make Alien</A> |
 					<A href='byond://?_src_=holder;makeslime=[M.UID()]'>Make Slime</A> |
-					<A href='byond://?_src_=holder;makesuper=[M.UID()]'>Make Superhero</A>
+					<A href='byond://?_src_=holder;makesuper=[M.UID()]'>Make Superhero</A> |
 				"}
 
 			//Simple Animals
