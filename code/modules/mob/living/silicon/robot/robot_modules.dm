@@ -324,6 +324,7 @@
 /obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
 	return
 
+// MARK: Robot Modules
 // Medical
 /obj/item/robot_module/medical
 	name = "medical robot module"
@@ -813,7 +814,7 @@
 		F.emag_act()
 	return ..()
 
-// Sydicate assault cyborg module.
+// Sydicate Assault cyborg module.
 /obj/item/robot_module/syndicate
 	name = "syndicate assault robot module"
 	module_type = "Malf" // cuz it looks cool
@@ -827,7 +828,7 @@
 		/obj/item/pinpointer/operative,
 	)
 
-// Sydicate medical cyborg module.
+// Sydicate Medical cyborg module.
 /obj/item/robot_module/syndicate_medical
 	name = "syndicate medical robot module"
 	module_type = "Malf"
@@ -871,7 +872,7 @@
 		F.emag_act()
 	return ..()
 
-// Sydicate engineer/sabotuer cyborg module.
+// Sydicate Sabotuer/Engineering cyborg module.
 /obj/item/robot_module/syndicate_saboteur
 	name = "saboteur robot module" // Disguises are handled in the actual cyborg projector
 	module_type = "Malf"
@@ -934,7 +935,7 @@
 		/obj/item/gun/energy/immolator/multi/cyborg
 	)
 
-// Gamma+ security module.
+// Destroyer security module.
 /obj/item/robot_module/destroyer
 	name = "destroyer robot module"
 	module_type = "Malf"
