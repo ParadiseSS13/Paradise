@@ -38,10 +38,20 @@
 	var/prisoner_time
 	var/prisoner_hasrecord = FALSE
 
+/obj/machinery/door_timer/Initialize(mapload)
+	..()
+
+	GLOB.celltimers_list += src
+	Radio = new /obj/item/radio(src)
+	Radio.listening = FALSE
+	Radio.config(list("Security" = 0))
+	Radio.follow_target = src
+	return INITIALIZE_HINT_LATELOAD
+
 /obj/machinery/door_timer/Destroy()
+	QDEL_NULL(Radio)
 	targets.Cut()
 	prisoner = null
-	qdel(Radio)
 	GLOB.celltimers_list -= src
 	return ..()
 
@@ -113,16 +123,6 @@
 			return
 	atom_say("[src] beeps, \"[occupant]: [notifytext]\"")
 
-/obj/machinery/door_timer/Initialize(mapload)
-	..()
-
-	GLOB.celltimers_list += src
-	Radio = new /obj/item/radio(src)
-	Radio.listening = FALSE
-	Radio.config(list("Security" = 0))
-	Radio.follow_target = src
-	return INITIALIZE_HINT_LATELOAD
-
 /obj/machinery/door_timer/LateInitialize()
 	..()
 	for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
@@ -148,12 +148,6 @@
 	if(!length(targets))
 		stat |= BROKEN
 	update_icon(UPDATE_ICON_STATE)
-
-/obj/machinery/door_timer/Destroy()
-	QDEL_NULL(Radio)
-	targets.Cut()
-	prisoner = null
-	return ..()
 
 /obj/machinery/door_timer/proc/on_target_qdel(atom/target)
 	targets -= target

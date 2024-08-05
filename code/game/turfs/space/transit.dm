@@ -146,10 +146,6 @@
 /turf/space/transit/rpd_act()
 	return
 
-//Overwrite because we dont want people building rods in space.
-/turf/space/transit/attackby()
-	return
-
 /turf/space/transit/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
