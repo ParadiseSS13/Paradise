@@ -456,12 +456,15 @@
 	new /obj/item/assembly/prox_sensor(disassemble_turf)
 	new /obj/item/melee/baton(disassemble_turf)
 	drop_part(robot_arm, disassemble_turf)
-	if(istype(src, /mob/living/simple_animal/bot/secbot/beepsky))
-		new /obj/item/stock_parts/cell/potato(disassemble_turf)
-		var/obj/item/reagent_containers/drinks/drinkingglass/beepsky_glass = new(disassemble_turf)
-		beepsky_glass.reagents.add_reagent("whiskey", 15)
-		beepsky_glass.on_reagent_change()
 	qdel(src)
+
+/mob/living/simple_animal/bot/secbot/beepsky/disassemble()
+	var/turf/disassemble_turf = get_turf(src)
+	new /obj/item/stock_parts/cell/potato(disassemble_turf)
+	var/obj/item/reagent_containers/drinks/drinkingglass/beepsky_glass = new(disassemble_turf)
+	beepsky_glass.reagents.add_reagent("whiskey", 15)
+	beepsky_glass.on_reagent_change()
+	..() // make sure to call the parent, so all of the normal behavior happens
 
 /mob/living/simple_animal/bot/secbot/attack_alien(mob/living/carbon/alien/user as mob)
 	..()
