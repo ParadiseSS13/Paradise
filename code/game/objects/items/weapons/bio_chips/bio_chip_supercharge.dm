@@ -18,9 +18,9 @@
 	imp_in.stand_up(TRUE)
 	SEND_SIGNAL(imp_in, COMSIG_LIVING_CLEAR_STUNS)
 
+	imp_in.reagents.add_reagent("recal", 10)
 	imp_in.reagents.add_reagent("surge_plus", 10)
-	imp_in.reagents.add_reagent("liquid_solder", 10)
-	imp_in.reagents.add_reagent("combatlube", 10)
+	imp_in.reagents.add_reagent("synthetic_omnizine_no_addiction", 10)
 	if(!uses)
 		qdel(src)
 
