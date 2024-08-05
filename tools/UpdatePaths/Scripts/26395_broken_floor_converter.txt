@@ -1,2 +1,1 @@
-/turf/simulated/floor/wood{icon_state=@ANY} : /turf/simulated/floor/wood{@OLD;icon_state=@SKIP;broken=@SKIP} , /obj/effect/landmark/damageturf
-/turf/simulated/floor/wood/lavaland_air{icon_state=@ANY} : /turf/simulated/floor/wood/lavaland_air{@OLD;icon_state=@SKIP;broken=@SKIP} , /obj/effect/landmark/damageturf
+/turf/simulated/floor/wood/@SUBTYPES{icon_state=@ANY} : /turf/simulated/floor/wood/@SUBTYPES{@OLD;icon_state=@SKIP;broken=@SKIP} , /obj/effect/landmark/damageturf
