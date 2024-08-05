@@ -21532,7 +21532,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "ekg" = (
-/obj/machinery/atmospherics/plasmavent,
+/obj/structures/plasmageyser,
 /turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "eki" = (
@@ -130970,7 +130970,7 @@ rYG
 vPx
 vPx
 rYG
-rYG
+ekg
 rYG
 rYG
 rYG
@@ -130978,11 +130978,11 @@ rYG
 pUV
 bIg
 rYG
-ekg
 rYG
 rYG
 rYG
 ekg
+rYG
 rYG
 vPx
 vPx
@@ -131480,7 +131480,7 @@ vPx
 vPx
 rYG
 rYG
-ekg
+rYG
 rYG
 rYG
 iHA
@@ -132252,16 +132252,16 @@ vPx
 rYG
 rYG
 rYG
-rYG
+ekg
 rYG
 eaM
 jDz
 rYG
-ekg
-rYG
-rYG
 rYG
 ekg
+rYG
+rYG
+rYG
 rYG
 rYG
 rYG
@@ -132509,7 +132509,7 @@ rYG
 rYG
 rYG
 rYG
-ekg
+rYG
 rYG
 eaM
 jDz
@@ -132520,7 +132520,7 @@ rYG
 rYG
 rYG
 rYG
-rYG
+ekg
 rYG
 pUV
 bIg
@@ -132761,8 +132761,8 @@ vPx
 rYG
 rYG
 rYG
-rYG
 ekg
+rYG
 rYG
 rYG
 rYG
@@ -133030,11 +133030,11 @@ jDz
 rYG
 rYG
 rYG
-ekg
+rYG
 vPx
 vPx
 vPx
-ekg
+rYG
 rYG
 pUV
 xPf
@@ -133800,7 +133800,7 @@ eaM
 ayt
 lia
 rYG
-rYG
+ekg
 rYG
 vPx
 rYG
@@ -134050,7 +134050,7 @@ ekg
 rYG
 rYG
 rYG
-ekg
+rYG
 rYG
 oQw
 pKS
@@ -134308,12 +134308,12 @@ rYG
 rYG
 rYG
 rYG
-rYG
+ekg
 rYG
 eaM
 jDz
 rYG
-ekg
+rYG
 rYG
 vPx
 vPx
