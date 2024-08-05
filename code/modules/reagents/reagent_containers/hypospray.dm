@@ -145,6 +145,7 @@
 //////////////////////////////
 /obj/item/reagent_containers/hypospray/CMO
 	name = "advanced hypospray"
+	desc = "Nanotrasen's own, reverse-engineered and improved version of DeForest's hypospray."
 	list_reagents = list("omnizine" = 30)
 	volume = 100
 	can_pierce_hardsuits = TRUE
@@ -153,6 +154,16 @@
 /obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
+/obj/item/reagent_containers/hypospray/CMO/examine_more(mob/user)
+	. = ..()
+	. += "The DeForest Medical Corporation's hypospray is a highly successful medical device currently under patent protection. Naturally, this has not stopped Nanotrasen from taking the design and tinkering with it."
+	. += ""
+	. += "Nanotrasen's version sports a chemical reserviour over 3 times the size. The injector head is able to produce such a fine high-pressure stream that it can pierce through most armour, this \
+	pressurised jet is automatically adjusted to ensure no harm comes to patients with thinner or absent clothing. \
+	It is also able to interface with the autoinjector ports found on mordern hardsuits. As this is a prototype, it currently lacks safety features to prevent harmful chemicals being added."
+	. += ""
+	. += "These hyposprays are mostly kept under lock and key (with some being distributed to NT's CMOs on some stations), waiting for the exact moment that the patent protection on DeForest's design expires."
 
 //////////////////////////////
 // MARK: AUTOINJECTOR
@@ -246,9 +257,9 @@
 	name = "protoype nanite autoinjector"
 	desc = "A highly experimental prototype chemical designed to fully mend limbs and organs of soldiers in the field, shuts down body systems whilst aiding in repair.<br><span class='boldwarning'>WARNING: Side effects can cause temporary paralysis, loss of co-ordination and sickness. Do not use with any kind of stimulant or drugs. Serious damage can occur!</span>"
 	icon_state = "bonepen"
-	amount_per_transfer_from_this = 30
-	volume = 30
-	list_reagents = list("nanocalcium" = 30)
+	amount_per_transfer_from_this = 40
+	volume = 40
+	list_reagents = list("nanocalcium" = 30, "epinephrine" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())
@@ -281,3 +292,11 @@
 	name = "\improper Anti-Plague Sequence Omega autoinjector"
 	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Omega.  Cures all cases of the Necrotizing Plague. Also heals dead limbs."
 	list_reagents = list("zombiecure4" = 15)
+	
+/obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
+	name = "suspicious medipen"
+	desc = "A cheap-looking medipen containing what seems to be a mix of nearly every medicine stored in the recently raided Nanotrasen warehouse." 
+	icon_state = "hyperpen"
+	amount_per_transfer_from_this = 37
+	volume = 37
+	list_reagents = list("salglu_solution" = 3, "synthflesh" = 4, "omnizine" = 3, "weak_omnizine" = 3, "perfluorodecalin" = 2, "sal_acid" = 1, "bicaridine" = 4, "kelotane" = 4, "epinephrine" = 5, "lavaland_extract" = 2, "rezadone" = 1, "teporone" =  2, "menthol" = 1, "vitamin" = 2)

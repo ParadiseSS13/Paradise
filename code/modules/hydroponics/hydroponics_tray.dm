@@ -122,7 +122,7 @@
 	return ..()
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I) || exchange_parts(user, I))
+	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I))
 		return
 	return ..()
 
@@ -857,7 +857,7 @@
 	else if(istype(O, /obj/item/storage/bag/plants))
 		attack_hand(user)
 		var/obj/item/storage/bag/plants/S = O
-		for(var/obj/item/food/snacks/grown/G in locate(user.x,user.y,user.z))
+		for(var/obj/item/food/grown/G in locate(user.x,user.y,user.z))
 			if(!S.can_be_inserted(G))
 				return
 			S.handle_item_insertion(G, user, TRUE)

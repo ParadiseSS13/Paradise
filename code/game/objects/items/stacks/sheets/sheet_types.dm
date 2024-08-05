@@ -491,7 +491,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		var/atom/droploc = drop_location()
 		if(use(1))
-			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)
+			playsound(I, 'sound/items/bikehorn.ogg', 50, TRUE, -1)
 			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
 			new/obj/item/storage/box/clown(droploc) //bugfix
 	else
@@ -568,6 +568,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	. = ..()
 	icon_state = GET_CULT_DATA(runed_metal_icon_state, initial(icon_state))
 	item_state = GET_CULT_DATA(runed_metal_item_state, initial(item_state))
+	recipes = GLOB.cult_recipes
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(!IS_CULTIST(user))
@@ -596,10 +597,6 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 
 /obj/item/stack/sheet/runed_metal/fifty
 	amount = 50
-
-/obj/item/stack/sheet/runed_metal/New(loc, amount=null)
-	recipes = GLOB.cult_recipes
-	return ..()
 
 //////////////////////////////
 // MARK: BRASS

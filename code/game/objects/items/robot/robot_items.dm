@@ -5,6 +5,10 @@
 	icon = 'icons/mob/robot_items.dmi'
 	var/powerneeded // Percentage of power remaining required to run item
 
+/*
+The old, instant-stun borg arm.
+Keeping it in for adminabuse but the malf one is /obj/item/melee/baton/borg_stun_arm
+*/
 /obj/item/borg/stun
 	name = "electrically-charged arm"
 	icon_state = "elecarm"
@@ -28,7 +32,7 @@
 	M.visible_message("<span class='danger'>[user] has prodded [M] with [src]!</span>", \
 					"<span class='userdanger'>[user] has prodded you with [src]!</span>")
 
-	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	add_attack_logs(user, M, "Stunned with [src] ([uppertext(user.a_intent)])")
 
 #define CYBORG_HUGS 0
@@ -136,8 +140,3 @@
 #undef CYBORG_HUG
 #undef CYBORG_SHOCK
 #undef CYBORG_CRUSH
-
-/obj/item/borg/overdrive
-	name = "Overdrive"
-	icon = 'icons/obj/decals.dmi'
-	icon_state = "shock"

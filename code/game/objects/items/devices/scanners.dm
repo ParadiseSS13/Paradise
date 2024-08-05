@@ -429,7 +429,7 @@ SLIME SCANNER
 		if("robot")
 			var/burn = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
 			var/brute = M.getBruteLoss() > 50 	? 	"<b>[M.getBruteLoss()]</b>" 	: M.getBruteLoss()
-			msgs += "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health]% functional"]</span>"
+			msgs += "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [M.stat == DEAD ? "fully disabled" : "[M.health]% functional"]</span>"
 			msgs += "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
 			msgs += "\t Damage Specifics: <font color='#FFA500'>[burn]</font> - <font color='red'>[brute]</font>"
 			if(M.timeofdeath && M.stat == DEAD)
@@ -460,7 +460,7 @@ SLIME SCANNER
 		if("prosthetics")
 			var/mob/living/carbon/human/H = M
 			var/is_ipc = ismachineperson(H)
-			msgs += "<span class='notice'>Analyzing Results for [M]: [is_ipc ? "\n\t Overall Status: [H.stat > 1 ? "fully disabled" : "[H.health]% functional"]</span><hr>" : "<hr>"]" //for the record im sorry
+			msgs += "<span class='notice'>Analyzing Results for [M]: [is_ipc ? "\n\t Overall Status: [H.stat == DEAD ? "fully disabled" : "[H.health]% functional"]</span><hr>" : "<hr>"]" //for the record im sorry
 			msgs += "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
 			msgs += "<span class='notice'>External prosthetics:</span>"
 			var/organ_found
@@ -502,7 +502,7 @@ SLIME SCANNER
 			var/mob/living/silicon/ai/A = M
 			var/burn = A.getFireLoss() > 50 	? 	"<b>[A.getFireLoss()]</b>" 		: A.getFireLoss()
 			var/brute = A.getBruteLoss() > 50 	? 	"<b>[A.getBruteLoss()]</b>" 	: A.getBruteLoss()
-			msgs += "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [A.stat > 1 ? "fully disabled" : "[A.health]% functional"]</span>"
+			msgs += "<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [A.stat == DEAD ? "fully disabled" : "[A.health]% functional"]</span>"
 			msgs += "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
 			msgs += "\t Damage Specifics: <font color='#FFA500'>[burn]</font> - <font color='red'>[brute]</font>"
 
@@ -746,7 +746,7 @@ SLIME SCANNER
 					dat += "<br>[TAB]<span class='notice'>[R] [details ? ":([R.volume / one_percent]%)" : ""]</span>"
 				else
 					blood_type = R.data["blood_type"]
-					dat += "<br>[TAB]<span class='notice'>[blood_type ? "[blood_type]" : ""] [R.name] [details ? ":([R.volume / one_percent]%)" : ""]</span>"
+					dat += "<br>[TAB]<span class='notice'>[blood_type ? "[blood_type]" : ""] [R.data["species"]] [R.name] [details ? ":([R.volume / one_percent]%)" : ""]</span>"
 		if(dat)
 			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
 			datatoprint = dat

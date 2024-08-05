@@ -1,48 +1,48 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/simulated/wall/indestructible/riveted,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/sloth)
 "b" = (
 /turf/simulated/floor/lava/mapping_lava,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/sloth)
 "c" = (
 /obj/item/paper/fluff/stations/lavaland/sloth/note,
 /turf/simulated/floor/sepia{
 	slowdown = 10
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/sloth)
 "d" = (
 /turf/simulated/floor/sepia{
 	slowdown = 10
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/sloth)
 "e" = (
 /obj/machinery/door/airlock/wood,
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/sepia{
 	slowdown = 10
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/sloth)
 "f" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/grown/citrus/orange,
+/obj/item/food/grown/citrus/orange,
 /turf/simulated/floor/sepia{
 	slowdown = 10
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/sloth)
 "g" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /turf/simulated/floor/sepia{
 	slowdown = 10
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/sloth)
 "h" = (
 /obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/sepia{
 	slowdown = 10
 	},
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/sloth)
 
 (1,1,1) = {"
 a

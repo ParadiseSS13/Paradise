@@ -140,7 +140,7 @@
 	base_icon_state = "sandbags"
 	max_integrity = 280
 	proj_pass_rate = 20
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	bar_material = SAND
 	climbable = TRUE
 	smoothing_flags = SMOOTH_BITMASK
@@ -261,7 +261,7 @@
 	directional_list += dir_1
 	directional_list += dir_2
 	if(dir_2)
-		icon_state = "[dir2text(dir_1 + dir_2)]"
+		icon_state = "[dir2text(dir_1)][dir2text(dir_1 + dir_2)]"
 	else
 		icon_state = "[dir2text(dir_1)]"
 
@@ -358,7 +358,7 @@
 	anchored = TRUE
 	protected = TRUE
 	addtimer(CALLBACK(src, PROC_REF(power_out)), uptime)
-	timer_overlay_proc(uptime/10)
+	timer_overlay_proc(1)
 
 	connected_shields += new barricade_type(get_turf(loc), src, TRUE, direction)
 	core_shield = connected_shields[1]
@@ -406,13 +406,12 @@
 	new /obj/item/used_dropwall(get_turf(src))
 	qdel(src)
 
-/obj/structure/dropwall_generator/proc/timer_overlay_proc(uptime) // This proc will make the timer on the generator tick down like a clock, over 12 equally sized portions (12 times over 12 seconds, every second by default)
-	var/cycle = DROPWALL_UPTIME + 1 - uptime
-	add_overlay("[cycle]")
-	if(cycle != 1)
-		cut_overlay("[(cycle - 1)]")
-	if(cycle < 12)
-		addtimer(CALLBACK(src, PROC_REF(timer_overlay_proc), uptime - 1), DROPWALL_UPTIME / 12 SECONDS)
+/obj/structure/dropwall_generator/proc/timer_overlay_proc(loops) // This proc will make the timer on the generator tick down like a clock, over 12 equally sized portions (12 times over 60 seconds, every 5 seconds by default)
+	add_overlay("[loops]")
+	if(loops != 1)
+		cut_overlay("[(loops - 1)]")
+	if(loops < 12)
+		addtimer(CALLBACK(src, PROC_REF(timer_overlay_proc), loops + 1), DROPWALL_UPTIME / 12)
 
 
 /obj/item/used_dropwall
@@ -422,7 +421,6 @@
 	icon_state = "dropwall_dead"
 	item_state = "grenade"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 300) //plasma burned up for power or something, plus not that much to reclaim
-
 
 /obj/item/storage/box/syndie_kit/dropwall
 	name = "dropwall generator box"
@@ -474,6 +472,33 @@
 	var/obj/machinery/porta_turret/inflatable_turret/turret = new(get_turf(loc))
 	turret.owner_uid = owner_uid
 	qdel(src)
+
+/obj/structure/barricade/foam
+	name = "foam blockage"
+	desc = "This foam blocks the airlock from being opened."
+	icon = 'icons/obj/foam_blobs.dmi'
+	icon_state = "foamed_1"
+	layer = DOOR_HELPER_LAYER
+	// The integrity goes up with 25 per level, with an extra 25 when going from 4 to 5
+	obj_integrity = 25
+	max_integrity = 25
+	/// What level is the foam at?
+	var/foam_level = 1
+
+/obj/structure/barricade/foam/Destroy()
+	for(var/obj/machinery/door/airlock in loc.contents)
+		airlock.foam_level = 0
+	return ..()
+
+/obj/structure/barricade/foam/examine(mob/user)
+	. = ..()
+	. += "It would need [(5 - foam_level)] more blobs of foam to fully block the airlock."
+
+/obj/structure/barricade/foam/CanPass(atom/movable/mover, turf/target)
+	return istype(mover, /obj/item/projectile/c_foam) // Only c_foam blobs hit the airlock underneat/pass through the foam. The rest is hitting the barricade
+
+/obj/structure/barricade/foam/welder_act(mob/user, obj/item/I)
+	return FALSE
 
 #undef SINGLE
 #undef VERTICAL
