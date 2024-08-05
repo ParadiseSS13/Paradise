@@ -55,7 +55,7 @@
 
 /datum/pathfind/jps
 	/// The movable we are pathing
-	var/atom/movable/caller_
+	var/atom/movable/requester
 	/// The turf we're trying to path to (note that this won't track a moving target)
 	var/turf/end
 	/// The open list/stack we pop nodes out from (TODO: make this a normal list and macro-ize the heap operations to reduce proc overhead)
@@ -72,9 +72,9 @@
 	///Defines how we handle diagonal moves. See __DEFINES/path.dm
 	var/diagonal_handling = DIAGONAL_REMOVE_CLUNKY
 
-/datum/pathfind/jps/proc/setup(atom/movable/caller_, list/access, max_distance, simulated_only, avoid, list/datum/callback/on_finish, atom/goal, mintargetdist, skip_first, diagonal_handling)
-	src.caller_ = caller_
-	src.pass_info = new(caller_, access)
+/datum/pathfind/jps/proc/setup(atom/movable/requester, list/access, max_distance, simulated_only, avoid, list/datum/callback/on_finish, atom/goal, mintargetdist, skip_first, diagonal_handling)
+	src.requester = requester
+	src.pass_info = new(requester, access)
 	src.max_distance = max_distance
 	src.simulated_only = simulated_only
 	src.avoid = avoid
@@ -88,12 +88,12 @@
 
 /datum/pathfind/jps/Destroy(force)
 	. = ..()
-	caller_ = null
+	requester = null
 	end = null
 	open = null
 
 /datum/pathfind/jps/start()
-	start = start || get_turf(caller_)
+	start = start || get_turf(requester)
 	. = ..()
 	if(!.)
 		return .
@@ -115,7 +115,7 @@
 	. = ..()
 	if(!.)
 		return .
-	if(QDELETED(caller_))
+	if(QDELETED(requester))
 		return FALSE
 
 	while(!open.IsEmpty() && !path)
