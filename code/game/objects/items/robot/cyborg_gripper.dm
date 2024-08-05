@@ -277,8 +277,11 @@
 
 // MARK: Gripper Types
 
-// Universal Gripper
-// Universal gripper. Not supplied to any cyborg by default. Could be varedited onto a borg for event stuff. Functions almost like a real hand!
+/* Universal Gripper
+* Not supplied to any cyborg by default. 
+* Can be varedited onto a borg for event stuff. 
+* Functions almost like a real hand!
+*/
 /obj/item/gripper/universal
 	name = "cyborg gripper"
 	desc = "A grasping tool for cyborgs. This one is not restricted by any restraining software, allowing it to handle any object the user wishes."
@@ -287,8 +290,7 @@
 	can_help_up = TRUE
 	can_hold_all_items = TRUE
 
-//		Medical Gripper
-////////////////////////////////
+// Medical Gripper
 // For medical borgs, for doing medical stuff!
 // Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
 /obj/item/gripper/medical
