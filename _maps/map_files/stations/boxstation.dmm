@@ -6674,9 +6674,8 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "awO" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -7821,10 +7820,8 @@
 /obj/structure/chair/stool/bar{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "aAc" = (
 /obj/structure/grille/broken,
@@ -8152,10 +8149,8 @@
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "aBf" = (
 /obj/structure/chair/wood/wings{
@@ -8356,16 +8351,12 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "aBV" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "aBW" = (
 /obj/structure/sink/kitchen{
@@ -8374,10 +8365,8 @@
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "aBX" = (
 /obj/item/trash/liquidfood,
@@ -8695,10 +8684,8 @@
 /area/station/maintenance/abandonedbar)
 "aCS" = (
 /obj/item/lighter/random,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "aCT" = (
 /obj/effect/spawner/window/reinforced,
@@ -9089,10 +9076,8 @@
 "aEa" = (
 /obj/structure/table/wood,
 /obj/item/trash/can,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "aEc" = (
 /obj/machinery/economy/vending/boozeomat,
@@ -9332,10 +9317,8 @@
 "aEH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/spawner/xeno,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint2)
 "aEI" = (
 /obj/structure/chair/comfy/black,
@@ -9406,10 +9389,8 @@
 "aEX" = (
 /obj/item/trash/pistachios,
 /obj/machinery/light_construct,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "aEY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9428,10 +9409,8 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "aFb" = (
 /obj/structure/table/wood,
@@ -9788,10 +9767,8 @@
 /obj/structure/mineral_door/wood{
 	name = "Abandoned Bar"
 	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/abandonedbar)
 "aGd" = (
 /obj/effect/decal/cleanable/fungus,
@@ -9827,9 +9804,8 @@
 /obj/structure/chair/stool{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "aGm" = (
 /obj/structure/chair/stool{
@@ -9856,9 +9832,8 @@
 /area/station/maintenance/fpmaint)
 "aGp" = (
 /obj/machinery/economy/vending/coffee,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "aGq" = (
 /obj/structure/chair,
@@ -10133,9 +10108,8 @@
 "aHm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint2)
 "aHn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -10484,9 +10458,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "aIy" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint2)
 "aIA" = (
 /obj/structure/cable{
@@ -10542,11 +10515,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
-"aIH" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/station/maintenance/fpmaint2)
 "aIJ" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -10561,9 +10529,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint2)
 "aIN" = (
 /obj/structure/disposalpipe/segment,
@@ -10903,9 +10870,8 @@
 "aJW" = (
 /mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "aJX" = (
 /obj/structure/chair/stool{
@@ -11476,9 +11442,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "aLM" = (
 /obj/structure/table,
@@ -12676,10 +12641,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "aPr" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "aPs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -26347,9 +26310,8 @@
 /area/station/public/storage/tools/auxiliary)
 "bGb" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/port)
 "bGc" = (
 /turf/simulated/floor/plasteel{
@@ -27171,9 +27133,8 @@
 "bIP" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/port)
 "bIR" = (
 /obj/machinery/navbeacon{
@@ -32925,9 +32886,8 @@
 /area/station/maintenance/asmaint2)
 "ceK" = (
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint2)
 "ceM" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -34603,9 +34563,8 @@
 	},
 /area/station/medical/patients_rooms_secondary)
 "clg" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint2)
 "clh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -34790,16 +34749,13 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint2)
 "clX" = (
 /obj/structure/fermenting_barrel,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint2)
 "clY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -35202,9 +35158,8 @@
 /area/station/command/office/ntrep)
 "cnv" = (
 /obj/item/seeds/berry,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint2)
 "cnw" = (
 /obj/structure/disposalpipe/segment,
@@ -35498,9 +35453,8 @@
 /area/station/medical/storage/secondary)
 "coA" = (
 /obj/item/seeds/apple,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint2)
 "coH" = (
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
@@ -36070,12 +36024,6 @@
 /area/station/medical/virology)
 "cri" = (
 /turf/simulated/floor/wood,
-/area/station/maintenance/asmaint2)
-"crj" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
 /area/station/maintenance/asmaint2)
 "crm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -36879,11 +36827,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/science/explab)
-"ctv" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
-/area/station/maintenance/asmaint2)
 "ctw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -41181,9 +41124,8 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/control)
 "cIj" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "cIl" = (
 /obj/effect/decal/cleanable/dirt,
@@ -41837,11 +41779,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"cKS" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/station/maintenance/aft)
 "cKT" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -52881,10 +52818,8 @@
 /obj/structure/sign/poster/contraband/red_rum{
 	pixel_y = 30
 	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "efD" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -54015,9 +53950,8 @@
 /obj/structure/chair/stool{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "eGZ" = (
 /obj/structure/disposalpipe/segment{
@@ -57949,9 +57883,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint2)
 "gyt" = (
 /obj/structure/toilet{
@@ -58061,9 +57994,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "gAJ" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/port)
 "gAK" = (
 /obj/structure/chair/sofa/corp/left{
@@ -58309,9 +58241,8 @@
 /area/station/maintenance/assembly_line)
 "gIn" = (
 /obj/item/lighter/random,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "gIp" = (
 /obj/effect/landmark/spawner/rev,
@@ -58870,13 +58801,6 @@
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
-"gTV" = (
-/obj/structure/fermenting_barrel,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/station/maintenance/asmaint2)
 "gUm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -59389,9 +59313,8 @@
 /area/station/science/robotics/chargebay)
 "hgb" = (
 /obj/structure/chair,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "hgj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -59698,11 +59621,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
-"hqi" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/station/maintenance/port)
 "hqo" = (
 /obj/item/stack/sheet/mineral/plasma{
 	pixel_x = -2;
@@ -62142,11 +62060,6 @@
 	icon_state = "darkpurple"
 	},
 /area/station/command/office/rd)
-"iDX" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/station/maintenance/aft)
 "iEg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible,
@@ -63806,9 +63719,8 @@
 /area/station/hallway/primary/aft/north)
 "jtP" = (
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "jum" = (
 /obj/machinery/shower{
@@ -66207,9 +66119,8 @@
 /area/station/maintenance/aft)
 "kEe" = (
 /obj/machinery/economy/vending/coffee,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "kEs" = (
 /obj/effect/decal/cleanable/dirt,
@@ -69386,10 +69297,8 @@
 /obj/item/food/grown/cannabis,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/cigarette/medical_marijuana,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "med" = (
 /obj/effect/decal/cleanable/dirt,
@@ -69525,9 +69434,8 @@
 /obj/machinery/floodlight{
 	light_power = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "mhC" = (
 /obj/machinery/door/window/classic/reversed{
@@ -69898,9 +69806,8 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "mrw" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -70855,12 +70762,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
-"mPM" = (
-/obj/structure/fermenting_barrel,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/station/maintenance/asmaint2)
 "mPT" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
@@ -73540,9 +73441,8 @@
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "ojT" = (
 /obj/structure/cable{
@@ -78146,9 +78046,8 @@
 	dir = 8;
 	name = "Glass Door"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint2)
 "qqk" = (
 /obj/structure/barricade/wooden,
@@ -79620,9 +79519,8 @@
 /area/station/security/permabrig)
 "qYC" = (
 /obj/item/pen/fancy,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "qYE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -79962,9 +79860,8 @@
 /area/station/maintenance/aft)
 "rfh" = (
 /obj/item/clothing/under/misc/assistantformal,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "rfn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -80964,9 +80861,8 @@
 /turf/simulated/wall,
 /area/station/maintenance/apmaint2)
 "rFc" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "rFe" = (
 /obj/structure/chair/sofa/bench{
@@ -82989,9 +82885,8 @@
 /area/station/service/chapel/office)
 "sJC" = (
 /obj/machinery/economy/slot_machine,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "sJQ" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -83362,9 +83257,8 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "sSb" = (
 /obj/structure/cable/yellow{
@@ -84270,9 +84164,8 @@
 /area/station/maintenance/fsmaint)
 "tue" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "tum" = (
 /turf/simulated/floor/plasteel,
@@ -86062,9 +85955,8 @@
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = -5
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "ulE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -86970,10 +86862,8 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "uMu" = (
 /obj/machinery/light/small{
@@ -88438,9 +88328,8 @@
 /area/station/medical/morgue)
 "vyw" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "vyx" = (
 /obj/structure/cable{
@@ -93917,9 +93806,8 @@
 "yhY" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance/three,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
 "yif" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -109245,7 +109133,7 @@ bqr
 bqr
 bqr
 bIP
-hqi
+gAJ
 blQ
 bst
 bCk
@@ -109983,7 +109871,7 @@ aDz
 aEG
 aFV
 aHk
-aIH
+aIy
 aGn
 aLu
 aLm
@@ -138561,8 +138449,8 @@ fQr
 vDR
 bGG
 lqd
-gTV
-mPM
+clX
+clX
 nbx
 nbx
 cuQ
@@ -138823,9 +138711,9 @@ clX
 cnv
 dlD
 lqd
-crj
+clg
 huo
-ctv
+clg
 bWg
 bIi
 cpI
@@ -139129,7 +139017,7 @@ chf
 nbC
 eGX
 cIm
-iDX
+cIj
 cIm
 vnY
 rEz
@@ -139644,7 +139532,7 @@ ntr
 juH
 tNc
 xOM
-cKS
+cIj
 bZZ
 chf
 chf
