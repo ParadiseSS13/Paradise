@@ -8,7 +8,7 @@
  */
 /datum/element/body_temperature
 	element_flags = ELEMENT_BESPOKE
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 
 	/// Min body temp
 	var/min_body_temp = NONCARBON_DEFAULT_MIN_BODY_TEMP
