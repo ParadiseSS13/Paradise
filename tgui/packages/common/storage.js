@@ -6,8 +6,16 @@
  * @license MIT
  */
 
-export const IMPL_HUB_STORAGE = 0;
-export const IMPL_INDEXED_DB = 1;
+/**
+ * ФАЙЛ БЫЛ ПОЛНОСТЬЮ ОТКАЧЕН ДО ВЕРСИИ ТГ!!!
+ * СДЕЛАНО ЭТО БЫЛО РАДИ ФИКСА СИНИХ ЭКРАНОВ СМЕРТИ У ЮЗЕРОВ!
+ * В СЛУЧАЕ ЛЮБЫХ ИЗМЕНЕНИЙ ЭТОГО ФАЙЛА НА АПСТРИМЕ - НЕ ПРИНИМАТЬ ИЗМЕНЕНИЯ!
+ *
+ * После выхода Byond 516 - заменить апстримовской версией.
+ */
+export const IMPL_MEMORY = 0;
+export const IMPL_LOCAL_STORAGE = 1;
+export const IMPL_INDEXED_DB = 2;
 
 const INDEXED_DB_VERSION = 1;
 const INDEXED_DB_NAME = 'para-tgui';
@@ -24,42 +32,69 @@ const testGeneric = (testFn) => () => {
   }
 };
 
-const testHubStorage = testGeneric(() => window.hubStorage && window.hubStorage.getItem);
+// Localstorage can sometimes throw an error, even if DOM storage is not
+// disabled in IE11 settings.
+// See: https://superuser.com/questions/1080011
+// prettier-ignore
+const testLocalStorage = testGeneric(() => (
+  window.localStorage && window.localStorage.getItem
+));
 
-// TODO: Remove with 516
 // prettier-ignore
 const testIndexedDb = testGeneric(() => (
   (window.indexedDB || window.msIndexedDB)
   && (window.IDBTransaction || window.msIDBTransaction)
 ));
 
-class HubStorageBackend {
+class MemoryBackend {
   constructor() {
-    this.impl = IMPL_HUB_STORAGE;
+    this.impl = IMPL_MEMORY;
+    this.store = {};
   }
 
   get(key) {
-    const value = window.hubStorage.getItem('paradise-' + key);
+    return this.store[key];
+  }
+
+  set(key, value) {
+    this.store[key] = value;
+  }
+
+  remove(key) {
+    this.store[key] = undefined;
+  }
+
+  clear() {
+    this.store = {};
+  }
+}
+
+class LocalStorageBackend {
+  constructor() {
+    this.impl = IMPL_LOCAL_STORAGE;
+  }
+
+  get(key) {
+    const value = localStorage.getItem(key);
     if (typeof value === 'string') {
       return JSON.parse(value);
     }
   }
 
   set(key, value) {
-    window.hubStorage.setItem('paradise-' + key, JSON.stringify(value));
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
   remove(key) {
-    window.hubStorage.removeItem('paradise-' + key);
+    localStorage.removeItem(key);
   }
 
   clear() {
-    window.hubStorage.clear();
+    localStorage.clear();
   }
 }
 
 class IndexedDbBackend {
-  // TODO: Remove with 516
   constructor() {
     this.impl = IMPL_INDEXED_DB;
     /** @type {Promise<IDBDatabase>} */
@@ -129,18 +164,17 @@ class IndexedDbBackend {
 class StorageProxy {
   constructor() {
     this.backendPromise = (async () => {
-      if (Byond.TRIDENT) {
-        // fuckin IE users, TODO: Remove with 516
-        if (testIndexedDb()) {
-          try {
-            const backend = new IndexedDbBackend();
-            await backend.dbPromise;
-            return backend;
-          } catch {}
-        }
-      } else if (testHubStorage()) {
-        return new HubStorageBackend();
+      if (testIndexedDb()) {
+        try {
+          const backend = new IndexedDbBackend();
+          await backend.dbPromise;
+          return backend;
+        } catch {}
       }
+      if (testLocalStorage()) {
+        return new LocalStorageBackend();
+      }
+      return new MemoryBackend();
     })();
   }
 
