@@ -277,7 +277,8 @@
 
 // MARK: Gripper Types
 
-/* Universal Gripper
+/* 
+* Universal Gripper
 * Not supplied to any cyborg by default. 
 * Can be varedited onto a borg for event stuff. 
 * Functions almost like a real hand!
