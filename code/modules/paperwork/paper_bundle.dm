@@ -97,8 +97,8 @@
 
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
-	. += "<span class='info'><b>Alt-Shift-Click</b> [src] to undo the paper bundle.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
+	. += "<span class='notice'><b>Alt-Shift-Click</b> [src] to undo the paper bundle.</span>"
 	if(in_range(user, src))
 		show_content(user)
 	else
