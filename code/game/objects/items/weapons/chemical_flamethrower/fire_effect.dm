@@ -25,11 +25,10 @@ GLOBAL_LIST_EMPTY(flame_effects)
 	temperature = reagent_temperature
 	application_stacks = max(application_stacks, fire_applications)
 
-	for(var/obj/effect/fire/flame as anything in GLOB.flame_effects)
-		if(flame == src)
+	for(var/obj/effect/fire/flame in get_turf(src))
+		if(!istype(flame) || flame == src)
 			continue
-		if(get_dist(src, flame) < 1) // It's on the same turf
-			merge_flames(flame)
+		merge_flames(flame)
 
 	GLOB.flame_effects += src
 	START_PROCESSING(SSprocessing, src)

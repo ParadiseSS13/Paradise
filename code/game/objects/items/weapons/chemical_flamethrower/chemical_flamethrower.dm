@@ -1,9 +1,8 @@
 /obj/item/chemical_flamethrower
 	name = "chemical flamethrower"
 	desc = "I love the smell of napalm in the morning."
-	icon = 'icons/obj/flamethrower.dmi'
-	icon_state = "flamethrower1"
-	item_state = "flamethrower_0"
+	icon = 'icons/obj/chemical_flamethrower.dmi'
+	icon_state = "chem_flamethrower"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags = CONDUCT
@@ -12,6 +11,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = SLOT_FLAG_BACK
 	materials = list(MAT_METAL = 5000)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
@@ -29,6 +29,8 @@
 	var/canister_burn_duration = 10 SECONDS
 	/// How many firestacks will our reagent apply
 	var/canister_fire_applications = 1
+	/// Is this a syndicate flamethrower
+	var/syndicate = FALSE
 
 /obj/item/chemical_flamethrower/Initialize(mapload)
 	. = ..()
@@ -39,6 +41,9 @@
 /obj/item/chemical_flamethrower/Destroy()
 	QDEL_LIST_CONTENTS(canisters)
 	return ..()
+
+/obj/item/chemical_flamethrower/update_icon_state()
+	icon_state = "chem_flamethrower[max_canisters == 2 ? "_2" : ""][syndicate ? "_s" : ""]"
 
 /obj/item/chemical_flamethrower/attack_self(mob/user)
 	. = ..()
@@ -177,12 +182,13 @@
 
 /obj/item/chemical_flamethrower/extended
 	name = "extended capacity chemical flamethrower"
-	desc = "A flamethrower that accepts two chemical cartridges to create lasting fires."
+	desc = "A flamethrower that accepts two chemical canisters to create lasting fires."
 	max_canisters = 2
 
 /obj/item/chemical_flamethrower/extended/nuclear
 	name = "\improper Syndicate extended capacity chemical flamethrower"
-	desc = "A flamethrower that accepts two chemical cartridges to create lasting fires. As black as the ash of your enemies."
+	desc = "A flamethrower that accepts two chemical canisters to create lasting fires. As black as the ash of your enemies."
+	syndicate = TRUE
 
 /obj/item/chemical_flamethrower/extended/nuclear/Initialize(mapload)
 	. = ..()
