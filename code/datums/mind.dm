@@ -595,10 +595,10 @@
 		if(sections[i])
 			out.Add(sections[i])
 
-	out.Add("<b>Organisation:</b> ")
+	out.Add("<b>Organization:</b> ")
 	for(var/datum/antagonist/D in antag_datums)
-		if(D.organisation)
-			out.Add("[D.organisation.name]")
+		if(D.organization)
+			out.Add("[D.organization.name]")
 	out.Add(memory_edit_uplink())
 	out.Add("<b>Memory:</b>")
 	out.Add(memory)

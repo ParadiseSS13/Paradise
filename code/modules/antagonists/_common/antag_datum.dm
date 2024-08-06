@@ -41,8 +41,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_text_span_class = "boldnotice"
 	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name]
 	var/wiki_page_name
-	/// The organisation, if any, this antag is associated with
-	var/datum/antag_org/organisation
+	/// The organization, if any, this antag is associated with
+	var/datum/antag_org/organization
 
 	//Blurb stuff
 	/// Intro Blurbs text colour
@@ -169,10 +169,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 	return L
 
 /**
- * Selects and set the organisation this antag is associated with.
+ * Selects and set the organization this antag is associated with.
  * Base proc, override as needed
  */
-/datum/antagonist/proc/select_organisation()
+/datum/antagonist/proc/select_organization()
 	return
 
 /**
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/on_gain()
 	owner.special_role = special_role
 	add_owner_to_gamemode()
-	select_organisation()
+	select_organization()
 	if(give_objectives)
 		give_objectives()
 	var/list/messages = list()
@@ -362,8 +362,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	. = messages
 	if(owner && owner.current)
 		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
-		if(organisation && organisation.intro_desc)
-			messages.Add("<span class='boldnotice'>[organisation.intro_desc]</span>")
+		if(organization && organization.intro_desc)
+			messages.Add("<span class='boldnotice'>[organization.intro_desc]</span>")
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"

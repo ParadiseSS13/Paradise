@@ -84,7 +84,7 @@ GLOBAL_LIST(contractors)
 #define SYNDICATE_TARGET		(1<<2)
 
 /**
- * Antag organisations
+ * Antag organizations
  */
 
 /// Antag hunting antag. Might help security overall.

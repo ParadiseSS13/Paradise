@@ -80,12 +80,12 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 	return ..()
 
-/datum/antagonist/traitor/select_organisation()
+/datum/antagonist/traitor/select_organization()
 	var/chaos = pickweight(list(ORG_CHAOS_HUNTER = ORG_PROB_HUNTER, ORG_CHAOS_MILD = ORG_PROB_MILD, ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE, ORG_CHAOS_HIJACK = ORG_PROB_HIJACK))
 	for(var/org_type in shuffle(subtypesof(/datum/antag_org/syndicate)))
 		var/datum/antag_org/org = org_type
 		if(initial(org.chaos_level) == chaos)
-			organisation = new org_type(src)
+			organization = new org_type(src)
 			return
 
 /datum/antagonist/traitor/add_owner_to_gamemode()
@@ -115,8 +115,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/iteration = 1
 	var/can_succeed_if_dead = TRUE
 	// If our org has forced objectives, give them to us guaranteed.
-	if(organisation && length(organisation.forced_objectives))
-		for(var/forced_objectives in organisation.forced_objectives)
+	if(organization && length(organization.forced_objectives))
+		for(var/forced_objectives in organization.forced_objectives)
 			var/datum/objective/forced_obj = forced_objectives
 			if(!ispath(forced_obj, /datum/objective/hijack) && delayed_objectives) //Hijackers know their objective immediately
 				forced_obj = new /datum/objective/delayed(forced_obj)
@@ -155,8 +155,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/datum/objective/objective_to_add
 
 	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
-	if(organisation && length(organisation.objectives) && prob(organisation.focus))
-		objective_to_add = pick(organisation.objectives)
+	if(organization && length(organization.objectives) && prob(organization.focus))
+		objective_to_add = pick(organization.objectives)
 	else
 		if(prob(50))
 			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
@@ -185,8 +185,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  */
 /datum/antagonist/traitor/finalize_antag()
 	var/list/messages = list()
-	if(organisation)
-		antag_memory += "<b>Organisation</b>: [organisation.name]<br>"
+	if(organization)
+		antag_memory += "<b>Organization</b>: [organization.name]<br>"
 	if(give_codewords)
 		messages.Add(give_codewords())
 	if(isAI(owner.current))
