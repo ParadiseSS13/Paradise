@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			return
 
 
-		var/obj/I = spawn_item(get_turf(user), U)
+		var/obj/I = spawn_item(get_turf(user), U, user)
 
 		if(!I || I == UPLINK_SPECIAL_SPAWNING)
 			return // Failed to spawn, or we handled it with special spawning
