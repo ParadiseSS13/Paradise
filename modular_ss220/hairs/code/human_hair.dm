@@ -76,7 +76,7 @@
 	species_allowed = list("Human", "Slime People", "Tajaran", "Vulpkanin")
 
 /datum/sprite_accessory/hair/beehive
-	species_allowed = list("Human", "Slime People", "Tajaran", "Vulpkanin")
+	species_allowed = list("Human", "Slime People", "Tajaran", "Vulpkanin", "Unathi")
 
 /datum/sprite_accessory/hair/bobcurl
 	species_allowed = list("Human", "Slime People", "Tajaran", "Vulpkanin")

@@ -339,3 +339,16 @@
 /obj/item/clothing/suit/armor/vest/ert/janitor
 	icon_state = "ember_jan"
 	item_state = "ember_jan"
+
+/obj/item/clothing/suit/storage/browntrenchcoat
+	name = "старое коричневое пальто"
+	desc = "Поношенное пальто старого фасона."
+	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
+	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
+	icon_state = "brtrenchcoat"
+	item_state = "brtrenchcoat"
+
+	sprite_sheets = list(
+		"Vox"			 = 'modular_ss220/clothing/icons/mob/species/vox/suits.dmi',
+		"Monkey"		 = 'modular_ss220/clothing/icons/mob/species/monkey/suits.dmi',
+		)
