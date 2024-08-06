@@ -3,7 +3,7 @@
  */
 /datum/element/shatters_when_thrown
 	element_flags = ELEMENT_BESPOKE
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 	/// What type of item is spawned as a 'shard' once the shattering happens
 	var/obj/item/shard_type
 	/// How many shards total are made when the thing we're attached to shatters
