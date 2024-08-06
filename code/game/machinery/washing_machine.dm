@@ -333,7 +333,7 @@
 	qdel(src)
 
 /obj/machinery/washing_machine/AllowDrop()
-	return TRUE // so gibs and dropped items end up
+	return TRUE // so gibs and dropped items end up inside of the washing machine instead when dropped
 
 /obj/machinery/washing_machine/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
 	. = ..()
