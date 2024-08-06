@@ -10,8 +10,8 @@
 
 	if(mode == IDCOMPUTER_SCREEN_TRANSFER) // JOB TRANSFER
 		if(modify && scan && !target_dept)
-			var/list/list_skins = GLOB.card_skins_ss220 + (is_centcom() ? GLOB.card_skins_donor_ss220 : list())
-			data["card_skins"] |= format_card_skins(list_skins)
+			var/list/list_skins = GLOB.card_skins_ss220 + (is_centcom() ? (GLOB.card_skins_donor_ss220 + GLOB.card_skins_special_ss220) : list())
+			data["card_skins"] = format_card_skins(list_skins)
 			data["jobs_security"] = GLOB.active_security_positions - (is_centcom() ? list() : GLOB.security_donor_jobs)
 			data["jobs_service"] = GLOB.service_positions - (is_centcom() ? list() : GLOB.service_donor_jobs)
 			data["jobs_supply"] = GLOB.supply_positions - (is_centcom() ? list() : GLOB.supply_donor_jobs)
@@ -26,7 +26,7 @@
 			if(!modify)
 				return FALSE
 			var/skin = params["skin_target"]
-			var/list/list_skins = GLOB.card_skins_ss220 + (is_centcom() ? GLOB.card_skins_donor_ss220 : list())
+			var/list/list_skins = GLOB.card_skins_ss220 + (is_centcom() ? (GLOB.card_skins_donor_ss220 + GLOB.card_skins_special_ss220) : list())
 			if(!skin || !(skin in list_skins))
 				return FALSE
 
