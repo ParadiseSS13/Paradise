@@ -13,7 +13,7 @@
 	/// List of objectives favored by this org
 	var/list/objectives
 	/// Department(s) targeted by this organization if any
-	var/list/targeted_department
+	var/list/targeted_departments
 	/// List of theft targets favored by this organization if any
 	var/list/theft_targets
 	/// Estimation of how much trouble this antag will be for security.

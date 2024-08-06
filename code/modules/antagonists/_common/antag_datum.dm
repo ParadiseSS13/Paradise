@@ -252,6 +252,12 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(ispath(objective_to_add))
 		objective_to_add = new objective_to_add()
 
+	// Roll to see if we target a specific department or random one
+	if(organization && prob(organization.focus))
+		if(organization.targeted_departments)
+			objective_to_add.target_department = pick(organization.targeted_departments)
+			objective_to_add.steal_list = organization.theft_targets
+
 	if(objective_to_add.owner)
 		stack_trace("[objective_to_add], [objective_to_add.type] was assigned as an objective to [owner] (mind), but already had an owner: [objective_to_add.owner] (mind). Overriding.")
 	objective_to_add.owner = owner

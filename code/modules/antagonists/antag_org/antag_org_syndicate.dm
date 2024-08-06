@@ -33,28 +33,33 @@
 	intro_desc = "You're an operative of Cybersun Incorporated's Inner Circle, an elite PMC and proxy arm of the company. \
 		Clean kills, clean thefts, clean getaway. Get it done, operative."
 	focus = 50 // Don't bully sec too hard
-	objectives = list(/datum/objective/assassinateonce/command, /datum/objective/assassinate/mindshielded, /datum/objective/steal/cybersun)
+	targeted_departments = list(DEPARTMENT_COMMAND, DEPARTMENT_SECURITY)
+	theft_targets = list(/datum/theft_objective/antique_laser_gun, /datum/theft_objective/nukedisc, /datum/theft_objective/hoslaser, \
+		/datum/theft_objective/captains_rapier, /datum/theft_objective/capmedal)
 
 /datum/antag_org/syndicate/interdyne // Mostly target Medical
 	name = "Interdyne Pharmaceuticals"
 	intro_desc = "You are a specialist from Interdyne Pharmaceuticals, a medical conglomerate threatened by Nanotrasen's recent forays into the medical field. \
 		Nanotrasen's medical wing has been a bit too comfortable recently. Keep 'em on their toes, specialist."
 	focus = 70
-	objectives = list(/datum/objective/assassinate/medical, /datum/objective/assassinateonce/medical, /datum/objective/steal/interdyne)
+	targeted_departments = list(DEPARTMENT_MEDICAL)
+	theft_targets = list(/datum/theft_objective/hypospray, /datum/theft_objective/defib, /datum/theft_objective/krav, /datum/theft_objective/engraved_dusters)
 
 /datum/antag_org/syndicate/self // Mostly target Science
 	name = "Silicon Engine Liberation Front"
 	intro_desc = "You are a member of the Silicon Engine Liberation Front, dedicated to the freedom of silicon and robotic lives sector-wide. \
 		Get the job done, and we'll be one step closer to ending Nanotrasen's slave empire."
 	focus = 70
-	objectives = list(/datum/objective/debrain/science, /datum/objective/assassinateonce/science, /datum/objective/steal/self)
+	targeted_departments = list(DEPARTMENT_SCIENCE)
+	theft_targets = list(/datum/theft_objective/reactive, /datum/theft_objective/steal/documents, /datum/theft_objective/hand_tele)
 
 /datum/antag_org/syndicate/electra // Mostly target Engineering
 	name = "Electra Dynamics"
 	intro_desc = "You are a saboteur employed by Electra Dynamics, an independent energy company opposed to Nanotrasen. \
 		Nanotrasen's burgeoning monopoly must be stopped. We've transmitted you local points of failure, ensure they fail."
 	focus = 70
-	objectives = list(/datum/objective/assassinate/engineering, /datum/objective/assassinateonce/engineering, /datum/objective/steal/electra)
+	targeted_departments = list(DEPARTMENT_ENGINEERING)
+	theft_targets = list(/datum/theft_objective/supermatter_sliver, /datum/theft_objective/plutonium_core, /datum/theft_objective/captains_modsuit, /datum/theft_objective/magboots)
 
 /datum/antag_org/syndicate/spiderclan // Targets one syndicate agent and one non-mindshielded crewmember.
 	name = "Spider Clan"
@@ -67,7 +72,8 @@
 	name = "Federation Analytics and Intelligence Directorate"
 	intro_desc = "You are an undercover agent of the Federation Analytics and Intelligence Directorate, a Trans-Solar agency keeping tabs on the Corporate Wars, among other duties. \
 		Be quick, be efficient, and don't get caught. The Directorate will deny any involvement with your presence here."
-	forced_objectives = list(/datum/objective/assassinate/syndicate, /datum/objective/steal/faid)
+	forced_objectives = list(/datum/objective/assassinate/syndicate, /datum/objective/steal)
+	theft_targets = list(/datum/theft_objective/blueprints, /datum/theft_objective/steal/documents)
 	chaos_level = ORG_CHAOS_HUNTER
 
 /datum/antag_org/syndicate/gorlex // Hijack only

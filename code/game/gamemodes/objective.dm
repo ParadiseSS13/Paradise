@@ -36,6 +36,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/list/target_jobs = list()
 	/// The department that'll be targeted by this objective. If set, fills target_jobs with jobs from that department.
 	var/target_department
+	/// If set, steal targets will be pulled from this list
+	var/list/steal_list = list()
 	/// Contains the flags needed to meet the conditions of a valid target, such as mindshielded or syndicate agent.
 	var/flags_target
 	var/datum/objective_holder/holder
@@ -576,8 +578,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = FALSE
 	delayed_objective_text = "Your objective is to steal a high-value item. You will receive further information in a few minutes."
 	var/theft_area
-	/// If set, steal targets will be pulled from this list
-	var/list/steal_list = list()
 	var/datum/theft_objective/steal_target
 
 /datum/objective/steal/found_target()
@@ -896,4 +896,4 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return
 
 /datum/objective/delayed/proc/reveal_objective()
-	return holder.replace_objective(src, new objective_to_replace_with(null, team, owner))
+	return holder.replace_objective(src, new objective_to_replace_with(null, team, owner), target_department, steal_list)
