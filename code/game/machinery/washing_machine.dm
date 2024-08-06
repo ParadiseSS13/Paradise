@@ -336,9 +336,13 @@
 	return TRUE // so gibs and dropped items end up inside of the washing machine instead when dropped
 
 /obj/machinery/washing_machine/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
+	if(washing)
+		to_chat(user, "<span class='warning'>[src]'s door is shut, you will need to wait until the end of the cycle to clean it out.</span>")
+		return
 	. = ..()
-	if(.)
+	if(. && !washing)
 		bloody_mess = FALSE
+		update_washing_state()
 
 /obj/item/machine_wash(obj/machinery/washing_machine/washer)
 	. = ..()
