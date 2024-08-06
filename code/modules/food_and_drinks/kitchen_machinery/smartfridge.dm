@@ -512,7 +512,7 @@
   */
 /obj/machinery/smartfridge/secure/foodcart
 	name = "E.A.T."
-	desc = "Short for the Entrée Armoured Transport, this technological marvel by Donk Co. allows Chefs to hawk their food and drink wares around the station, just with a bit more security. Swipe an authorised ID to engage the bluespace-plastitanium anchors."
+	desc = "Short for the Entrée Armored Transport, this technological marvel by Donk Co. allows Chefs to hawk their food and drink wares around the station, just with a bit more security. Swipe an authorized ID to engage the bluespace-plastitanium anchors."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "foodcart"
 	anchored = FALSE
