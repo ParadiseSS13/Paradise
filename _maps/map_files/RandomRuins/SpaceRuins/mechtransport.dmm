@@ -299,7 +299,7 @@
 /area/ruin/space/mech_transport)
 "uU" = (
 /obj/structure/table,
-/obj/item/food/snacks/cornchips{
+/obj/item/food/cornchips{
 	pixel_y = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red/airless,

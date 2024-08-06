@@ -52,7 +52,7 @@
 	var/contents_log = reagents.reagent_list.Join(", ")
 	INVOKE_ASYNC(src, PROC_REF(spray), A)
 
-	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
+	playsound(loc, 'sound/effects/spray2.ogg', 50, TRUE, -6)
 	user.changeNext_move(delay)
 	user.newtonian_move(get_dir(A, user))
 

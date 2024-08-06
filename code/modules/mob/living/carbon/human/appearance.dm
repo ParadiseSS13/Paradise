@@ -235,6 +235,19 @@
 		update_body()
 	return TRUE
 
+/mob/living/carbon/human/get_runechat_color()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.chat_color
+
+/mob/living/carbon/human/proc/change_runechat_color(colour = "#000000")
+	if(!dna)
+		return
+	if(colour == dna.chat_color)
+		return
+	dna.chat_color = colour
+	update_dna()
+
 /mob/living/carbon/human/proc/get_eye_color()
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
@@ -498,3 +511,10 @@
 		valid_alt_heads += alternate_head
 
 	return sortTim(valid_alt_heads, GLOBAL_PROC_REF(cmp_text_asc))
+
+/mob/living/carbon/human/proc/get_blood_color()
+	var/bloodcolor = "#A10808"
+	var/list/b_data = get_blood_data(get_blood_id())
+	if(b_data)
+		bloodcolor = b_data["blood_color"]
+	return bloodcolor

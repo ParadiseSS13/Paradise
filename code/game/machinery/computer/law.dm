@@ -35,8 +35,7 @@
 		return
 	if(!emagged) //non-emag law change
 		var/obj/item/aiModule/M = O
-		M.install(src)
-		return
+		return M.install(src)
 	apply_emag_laws(user)
 	return
 
@@ -46,7 +45,7 @@
 		to_chat(user, "<span class='danger'>No AI selected. Please choose a target before proceeding with upload.</span>")
 		return FALSE
 	var/turf/T = get_turf(current)
-	if(!atoms_share_level(T, src))//off Z level
+	if(!atoms_share_level(T, get_turf(src))) // off Z level
 		to_chat(user, "<span class='danger'>Unable to establish a connection: You're too far away from the target silicon!</span>")
 		return FALSE
 	return TRUE

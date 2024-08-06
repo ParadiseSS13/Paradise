@@ -35,7 +35,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	var/datum/objective_holder/holder
 
-/datum/objective/New(text, datum/team/team_to_join)
+	/// What is the text we show when our objective is delayed?
+	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
+
+/datum/objective/New(text, datum/team/team_to_join, datum/mind/_owner)
 	. = ..()
 	SHOULD_CALL_PARENT(TRUE)
 	GLOB.all_objectives += src
@@ -43,6 +46,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = text
 	if(team_to_join)
 		team = team_to_join
+	if(_owner)
+		owner = _owner
 
 /datum/objective/Destroy()
 	GLOB.all_objectives -= src
@@ -120,7 +125,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 		possible_targets += possible_target
 
-
 	if(length(possible_targets) > 0)
 		target = pick(possible_targets)
 
@@ -160,6 +164,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinate
 	name = "Assassinate"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to assassinate another crewmember. You will receive further information in a few minutes."
 
 /datum/objective/assassinate/update_explanation_text()
 	if(target?.current)
@@ -181,6 +186,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/assassinateonce
 	name = "Assassinate once"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to teach another crewmember a lesson. You will receive further information in a few minutes."
 	var/won = FALSE
 
 /datum/objective/assassinateonce/update_explanation_text()
@@ -244,6 +250,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/maroon
 	name = "Maroon"
 	martyr_compatible = FALSE
+	delayed_objective_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. You will receive further information in a few minutes."
 
 /datum/objective/maroon/update_explanation_text()
 	if(target?.current)
@@ -265,11 +272,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TRUE
 	return TRUE
 
-
 /// I want braaaainssss
 /datum/objective/debrain
 	name = "Debrain"
 	martyr_compatible = FALSE
+	delayed_objective_text = "Your objective is to steal another crewmember's brain. You will receive further information in a few minutes."
 
 /datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
 	. = ..()
@@ -385,8 +392,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/block
 	name = "Silicon hijack"
-	explanation_text = "Hijack the shuttle with no loyalist Nanotrasen crew on board and free. \
-	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive. \
+	explanation_text = "Hijack the shuttle by alt-clicking on the shuttle console. Do not let the crew wipe you off of it! \
+	Crew and agents can be on the shuttle when you do this, and may try to wipe you! \
 	Using the doomsday device successfully is also an option."
 	martyr_compatible = FALSE
 	needs_target = FALSE
@@ -396,6 +403,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!M.current || !issilicon(M.current))
 			return FALSE
 	if(SSticker.mode.station_was_nuked)
+		return TRUE
+	if(SSshuttle.emergency.aihacked)
 		return TRUE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return FALSE
@@ -430,7 +439,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return FALSE
 
 	return TRUE
-
 
 /datum/objective/escape/escape_with_identity
 	name = null
@@ -524,9 +532,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal
 	name = "Steal Item"
-	var/datum/theft_objective/steal_target
 	martyr_compatible = FALSE
+	delayed_objective_text = "Your objective is to steal a high-value item. You will receive further information in a few minutes."
 	var/theft_area
+	var/datum/theft_objective/steal_target
 
 /datum/objective/steal/found_target()
 	return steal_target
@@ -550,7 +559,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			continue
 		if(!O.check_objective_conditions())
 			continue
-		if(O.flags & 2) // THEFT_FLAG_UNIQUE
+		if(O.flags & THEFT_FLAG_UNIQUE)
 			continue
 
 		steal_target = O
@@ -590,7 +599,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/update_explanation_text()
 	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
 	if(length(steal_target.protected_jobs) && steal_target.job_possession)
-		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]."
+		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]. "
+	explanation_text += steal_target.extra_information
 
 /datum/objective/steal/check_completion()
 	if(!steal_target)
@@ -646,7 +656,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		to_chat(failed_receiver, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
 		message_admins("[ADMIN_LOOKUPFLW(failed_receiver)] Failed to spawn with their [item_path] theft kit.")
 
-
 /datum/objective/absorb
 	name = "Absorb DNA"
 	needs_target = FALSE
@@ -688,6 +697,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/destroy
 	name = "Destroy AI"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to destroy an Artificial Intelligence. You will receive further information in a few minutes."
 
 /datum/objective/destroy/find_target(list/target_blacklist)
 	var/list/possible_targets = active_ais(1)
@@ -820,3 +830,23 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Hunger grows within us, we need to feast on the brains of the uninfected. Scratch, bite, and spread the plague."
 	needs_target = FALSE
 	completed = TRUE
+
+// Placeholder objectives that will replace themselves
+
+/datum/objective/delayed
+	needs_target = FALSE
+	var/datum/objective/objective_to_replace_with
+
+/datum/objective/delayed/New(datum/objective/delayed_objective)
+	..()
+	if(!ispath(delayed_objective))
+		stack_trace("A delayed objective has been given a non-path. Given was instead [delayed_objective]")
+		return
+	objective_to_replace_with = delayed_objective
+	explanation_text = initial(delayed_objective.delayed_objective_text)
+
+/datum/objective/delayed/update_explanation_text()
+	return
+
+/datum/objective/delayed/proc/reveal_objective()
+	return holder.replace_objective(src, new objective_to_replace_with(null, team, owner))

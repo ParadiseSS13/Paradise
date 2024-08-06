@@ -9,7 +9,7 @@
 
 //Corporate Judo Belt
 
-/obj/item/judobelt
+/obj/item/storage/belt/judobelt
 	name = "\improper Corporate Judo Belt"
 	desc = "Teaches the wearer NT Corporate Judo."
 	icon = 'icons/obj/clothing/belts.dmi'
@@ -17,16 +17,31 @@
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	icon_state = "judobelt"
 	item_state = "judo"
-	slot_flags = SLOT_FLAG_BELT
-	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	w_class = WEIGHT_CLASS_BULKY
+	storage_slots = 3
+	max_combined_w_class = 6
 	var/datum/martial_art/judo/style
+	can_hold = list(
+		/obj/item/grenade/flashbang,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/food/donut,
+		/obj/item/flashlight/seclite,
+		/obj/item/holosign_creator/security,
+		/obj/item/holosign_creator/detective,
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/detective_scanner)
 
-/obj/item/judobelt/Initialize()
+/obj/item/storage/belt/judobelt/update_weight()
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/storage/belt/judobelt/Initialize()
 	. = ..()
 	style = new()
 
-/obj/item/judobelt/equipped(mob/user, slot)
+/obj/item/storage/belt/judobelt/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
 	if(slot == SLOT_HUD_BELT)
@@ -39,7 +54,7 @@
 		to_chat(H, "<span class='danger'>See the martial arts tab for an explanation of combos.</span>")
 		return
 
-/obj/item/judobelt/dropped(mob/user)
+/obj/item/storage/belt/judobelt/dropped(mob/user)
 	..()
 	if(!ishuman(user))
 		return

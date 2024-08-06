@@ -119,7 +119,7 @@
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mob_spawn/human/corpse/seed_vault_diona,
 /obj/item/pickaxe/mini,
-/obj/item/food/snacks/grown/mushroom/glowshroom{
+/obj/item/food/grown/mushroom/glowshroom{
 	pixel_x = 8;
 	pixel_y = -8
 	},
@@ -379,9 +379,6 @@
 /area/lavaland/surface/outdoors)
 "Nt" = (
 /obj/structure/table/wood,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
-	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "OL" = (

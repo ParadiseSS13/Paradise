@@ -40,10 +40,6 @@
 	if(powernet)
 		disconnect_from_network()
 
-/obj/machinery/power/teg/Initialize()
-	. = ..()
-	connect()
-
 /obj/machinery/power/teg/proc/connect()
 	connect_to_network()
 

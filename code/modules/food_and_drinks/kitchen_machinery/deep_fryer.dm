@@ -40,7 +40,7 @@
 	cooktime = (200 - (E * 20))		//Effectively each laser improves cooktime by 20 per rating beyond the first (200 base, 80 max upgrade)
 
 /obj/machinery/cooker/deepfryer/gettype()
-	var/obj/item/food/snacks/deepfryholder/type = new(get_turf(src))
+	var/obj/item/food/deepfryholder/type = new(get_turf(src))
 	return type
 
 /obj/machinery/cooker/deepfryer/attackby(obj/item/I, mob/user, params)
@@ -118,10 +118,11 @@
 		create_reagents()
 	// the cooking oil should spread through the foam.
 	// when it gets added, it's at 1000 degrees so it quickly fireflashes and reacts to form inert cooking oil.
-	reagents.add_reagent("cooking_oil", ice_amount * 2, reagtemp = 1000)
+	reagents.add_reagent("cooking_oil", ice_amount * 2, reagtemp = 1000, no_react = TRUE)
 	reagents.chem_temp = 1000
-	var/datum/effect_system/foam_spread/S = new()
+	var/datum/effect_system/foam_spread/oil/S = new()
 	S.set_up(ice_amount * 2, loc, reagents, FALSE)
+	S.temperature = 1000
 	S.start()
 
 
@@ -156,44 +157,44 @@
 	return istype(I, input)
 
 /datum/deepfryer_special/shrimp
-	input = /obj/item/food/snacks/shrimp
-	output = /obj/item/food/snacks/fried_shrimp
+	input = /obj/item/food/shrimp
+	output = /obj/item/food/fried_shrimp
 
 /datum/deepfryer_special/banana
-	input = /obj/item/food/snacks/grown/banana
-	output = /obj/item/food/snacks/friedbanana
+	input = /obj/item/food/grown/banana
+	output = /obj/item/food/friedbanana
 
 /datum/deepfryer_special/fries
-	input = /obj/item/food/snacks/rawsticks
-	output = /obj/item/food/snacks/fries
+	input = /obj/item/food/rawsticks
+	output = /obj/item/food/fries
 
 /datum/deepfryer_special/corn_chips
-	input = /obj/item/food/snacks/grown/corn
-	output = /obj/item/food/snacks/cornchips
+	input = /obj/item/food/grown/corn
+	output = /obj/item/food/cornchips
 
 /datum/deepfryer_special/fried_tofu
-	input = /obj/item/food/snacks/tofu
-	output = /obj/item/food/snacks/fried_tofu
+	input = /obj/item/food/tofu
+	output = /obj/item/food/fried_tofu
 
 /datum/deepfryer_special/chimichanga
-	input = /obj/item/food/snacks/burrito
-	output = /obj/item/food/snacks/chimichanga
+	input = /obj/item/food/burrito
+	output = /obj/item/food/chimichanga
 
 /datum/deepfryer_special/potato_chips
-	input = /obj/item/food/snacks/grown/potato/wedges
-	output = /obj/item/food/snacks/chips
+	input = /obj/item/food/grown/potato/wedges
+	output = /obj/item/food/chips
 
 /datum/deepfryer_special/carrotfries
-	input = /obj/item/food/snacks/grown/carrot/wedges
-	output = /obj/item/food/snacks/carrotfries
+	input = /obj/item/food/grown/carrot/wedges
+	output = /obj/item/food/carrotfries
 
 /datum/deepfryer_special/onionrings
-	input = /obj/item/food/snacks/onion_slice
-	output = /obj/item/food/snacks/onionrings
+	input = /obj/item/food/onion_slice
+	output = /obj/item/food/onionrings
 
 /datum/deepfryer_special/fried_vox
 	input = /obj/item/organ/external
-	output = /obj/item/food/snacks/fried_vox
+	output = /obj/item/food/fried_vox
 
 /datum/deepfryer_special/fried_vox/validate(obj/item/I)
 	if(!..())

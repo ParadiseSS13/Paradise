@@ -90,7 +90,7 @@
 			log_game("[key_name(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse")
 
 		plastic_overlay.layer = HIGH_OBJ_LAYER
-		if(isturf(target) || istype(target, /obj/machinery/door))
+		if(isturf(target) || isairlock(target))
 			plastic_overlay_target = new /obj/effect/plastic(get_turf(user))
 		else
 			plastic_overlay_target = target

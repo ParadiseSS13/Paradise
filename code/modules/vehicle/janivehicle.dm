@@ -46,8 +46,8 @@
 /datum/action/floor_buffer
 	name = "Toggle Floor Buffer"
 	desc = "Movement speed is decreased while active."
-	icon_icon = 'icons/obj/vehicles.dmi'
-	button_icon_state = "upgrade"
+	button_overlay_icon = 'icons/obj/vehicles.dmi'
+	button_overlay_icon_state = "upgrade"
 
 /datum/action/floor_buffer/Trigger(left_click)
 	. = ..()

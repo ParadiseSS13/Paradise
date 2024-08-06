@@ -156,7 +156,10 @@
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
 	if(R && R.id == reagent_id)
-		name = R.name
+		if(reagent_id == "holywater")
+			name = "Holy Water"
+		else
+			name = R.name
 
 /datum/plant_gene/reagent/New(reag_id = null, reag_rate = 0)
 	..()
@@ -173,6 +176,8 @@
 
 /datum/plant_gene/reagent/can_add(obj/item/seeds/S)
 	if(!..())
+		return FALSE
+	if(!S)
 		return FALSE
 	for(var/datum/plant_gene/reagent/R in S.genes)
 		if(R.reagent_id == reagent_id)
@@ -195,7 +200,8 @@
 /datum/plant_gene/trait/can_add(obj/item/seeds/S)
 	if(!..())
 		return FALSE
-
+	if(!S)
+		return FALSE
 	for(var/datum/plant_gene/trait/R in S.genes)
 		if(trait_id && R.trait_id == trait_id)
 			return FALSE
@@ -203,7 +209,7 @@
 			return FALSE
 	return TRUE
 
-/datum/plant_gene/trait/proc/on_new(obj/item/food/snacks/grown/G)
+/datum/plant_gene/trait/proc/on_new(obj/item/food/grown/G)
 	if(!origin_tech) // This ugly code segment adds RnD tech levels to resulting plants.
 		return
 
@@ -218,19 +224,19 @@
 	else
 		G.origin_tech = list2params(origin_tech)
 
-/datum/plant_gene/trait/proc/on_consume(obj/item/food/snacks/grown/G, mob/living/carbon/target)
+/datum/plant_gene/trait/proc/on_consume(obj/item/food/grown/G, mob/living/carbon/target)
 	return
 
-/datum/plant_gene/trait/proc/on_slip(obj/item/food/snacks/grown/G, mob/living/carbon/target)
+/datum/plant_gene/trait/proc/on_slip(obj/item/food/grown/G, mob/living/carbon/target)
 	return
 
-/datum/plant_gene/trait/proc/on_squash(obj/item/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/proc/on_squash(obj/item/food/grown/G, atom/target)
 	return
 
-/datum/plant_gene/trait/proc/on_attackby(obj/item/food/snacks/grown/G, obj/item/I, mob/user)
+/datum/plant_gene/trait/proc/on_attackby(obj/item/food/grown/G, obj/item/I, mob/user)
 	return
 
-/datum/plant_gene/trait/proc/on_throw_impact(obj/item/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/proc/on_throw_impact(obj/item/food/grown/G, atom/target)
 	return
 
 /datum/plant_gene/trait/squash
@@ -250,7 +256,7 @@
 	examine_line = "<span class='info'>It has a very slippery skin.</span>"
 	dangerous = TRUE
 
-/datum/plant_gene/trait/slip/on_new(obj/item/food/snacks/grown/G)
+/datum/plant_gene/trait/slip/on_new(obj/item/food/grown/G)
 	. = ..()
 	if(istype(G) && ispath(G.trash, /obj/item/grown))
 		return
@@ -274,19 +280,19 @@
 	origin_tech = list("powerstorage" = 5)
 	dangerous = TRUE
 
-/datum/plant_gene/trait/cell_charge/on_slip(obj/item/food/snacks/grown/G, mob/living/carbon/C)
+/datum/plant_gene/trait/cell_charge/on_slip(obj/item/food/grown/G, mob/living/carbon/C)
 	var/power = G.seed.potency*rate
 	if(prob(power))
 		C.electrocute_act(round(power), G, 1, SHOCK_NOGLOVES)
 
-/datum/plant_gene/trait/cell_charge/on_squash(obj/item/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/cell_charge/on_squash(obj/item/food/grown/G, atom/target)
 	if(isliving(target))
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
 			C.electrocute_act(round(power), G, 1, SHOCK_NOGLOVES)
 
-/datum/plant_gene/trait/cell_charge/on_consume(obj/item/food/snacks/grown/G, mob/living/carbon/target)
+/datum/plant_gene/trait/cell_charge/on_consume(obj/item/food/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
 		var/batteries_recharged = 0
 		for(var/obj/item/stock_parts/cell/C in target.GetAllContents())
@@ -319,7 +325,7 @@
 /datum/plant_gene/trait/glow/proc/glow_power(obj/item/seeds/S)
 	return max(S.potency*(rate + 0.01), 0.1)
 
-/datum/plant_gene/trait/glow/on_new(obj/item/food/snacks/grown/G)
+/datum/plant_gene/trait/glow/on_new(obj/item/food/grown/G)
 	..()
 	G.set_light(glow_range(G.seed), glow_power(G.seed), glow_color)
 
@@ -350,7 +356,7 @@
 	origin_tech = list("bluespace" = 5)
 	dangerous = TRUE
 
-/datum/plant_gene/trait/teleport/on_squash(obj/item/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/teleport/on_squash(obj/item/food/grown/G, atom/target)
 	if(isliving(target))
 		var/mob/living/L = target
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
@@ -359,7 +365,7 @@
 		do_teleport(L, T, teleport_radius)
 		L.apply_status_effect(STATUS_EFFECT_TELEPORTSICK)
 
-/datum/plant_gene/trait/teleport/on_slip(obj/item/food/snacks/grown/G, mob/living/carbon/C)
+/datum/plant_gene/trait/teleport/on_slip(obj/item/food/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
 	if(do_teleport(C, T, teleport_radius))
@@ -380,7 +386,7 @@
 	name = "Densified Chemicals"
 	rate = 2
 
-/datum/plant_gene/trait/maxchem/on_new(obj/item/food/snacks/grown/G)
+/datum/plant_gene/trait/maxchem/on_new(obj/item/food/grown/G)
 	..()
 	G.reagents.maximum_volume *= rate
 
@@ -397,7 +403,7 @@
 /datum/plant_gene/trait/battery
 	name = "Capacitive Cell Production"
 
-/datum/plant_gene/trait/battery/on_attackby(obj/item/food/snacks/grown/G, obj/item/I, mob/user)
+/datum/plant_gene/trait/battery/on_attackby(obj/item/food/grown/G, obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(5))
@@ -426,7 +432,7 @@
 	name = "Hypodermic Prickles"
 	dangerous = TRUE
 
-/datum/plant_gene/trait/stinging/on_throw_impact(obj/item/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/stinging/on_throw_impact(obj/item/food/grown/G, atom/target)
 	if(isliving(target) && G.reagents && G.reagents.total_volume)
 		var/mob/living/L = target
 		// It would be nice to inject the body part the original thrower aimed at,
@@ -443,7 +449,7 @@
 	name = "Gaseous Decomposition"
 	dangerous = TRUE
 
-/datum/plant_gene/trait/smoke/on_squash(obj/item/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/smoke/on_squash(obj/item/food/grown/G, atom/target)
 	var/datum/effect_system/smoke_spread/chem/plant/S = new()
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
@@ -458,7 +464,7 @@
 	if(!(S.resistance_flags & FIRE_PROOF))
 		S.resistance_flags |= FIRE_PROOF
 
-/datum/plant_gene/trait/fire_resistance/on_new(obj/item/food/snacks/grown/G)
+/datum/plant_gene/trait/fire_resistance/on_new(obj/item/food/grown/G)
 	if(!(G.resistance_flags & FIRE_PROOF))
 		G.resistance_flags |= FIRE_PROOF
 

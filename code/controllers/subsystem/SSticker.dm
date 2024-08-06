@@ -225,7 +225,7 @@ SUBSYSTEM_DEF(ticker)
 			P.ready = FALSE
 
 	//Configure mode and assign player to special mode stuff
-	mode.pre_pre_setup()
+
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
 
@@ -284,6 +284,12 @@ SUBSYSTEM_DEF(ticker)
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	// Generate the list of empty playable AI cores in the world
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_TRIAI))
+		for(var/obj/effect/landmark/tripai in GLOB.landmarks_list)
+			if(tripai.name == "tripai")
+				if(locate(/mob/living) in get_turf(tripai))
+					continue
+				GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(tripai))
 	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
 		if(locate(/mob/living) in get_turf(A))
 			continue
@@ -837,22 +843,23 @@ SUBSYSTEM_DEF(ticker)
 						if(ROUND_END_FORCED)
 							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, output)
 			if("Xenomorphs")
-				if(length(SSticker.mode.xenos) > 5)
+				var/living_xenos = count_xenomorps()
+				if(living_xenos > 5)
 					switch(outcome)
 						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno nuclear victories", 1, "Xenomorphs")
 						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno survives to normal round end", 1, "Xenomorphs")
 						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno survives to admin round end", 1, "Xenomorphs")
 				else
 					switch(outcome)
 						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno dies station nuked", 1, "Xenomorphs")
 						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno dies normal end", 1, "Xenomorphs")
 						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Xenomorphs")
+							SSblackbox.record_feedback("tally", "Xeno dies admin round end", 1, "Xenomorphs")
 
 			if("Blob")
 				if(length(SSticker.mode.blob_overminds))
@@ -872,3 +879,9 @@ SUBSYSTEM_DEF(ticker)
 						if(ROUND_END_FORCED)
 							SSblackbox.record_feedback("tally", "Blob dies admin round end", 1, "Blob")
 
+/datum/controller/subsystem/ticker/proc/count_xenomorps()
+	. = 0
+	for(var/datum/mind/xeno_mind as anything in SSticker.mode.xenos)
+		if(xeno_mind.current?.stat == DEAD)
+			continue
+		.++

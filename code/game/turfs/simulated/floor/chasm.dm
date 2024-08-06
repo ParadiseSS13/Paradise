@@ -34,7 +34,9 @@
 		/obj/effect/projectile_lighting,
 		/obj/effect/dummy/slaughter, //no bloodcrawlers into chasms.
 		/obj/effect/dummy/spell_jaunt, //No jaunters into chasms either.
-		/mob/living/simple_animal/hostile/megafauna //failsafe
+		/mob/living/simple_animal/hostile/megafauna, //failsafe
+		/obj/tgvehicle/scooter/skateboard/hoverboard,
+		/obj/machinery/light // lights hanging on walls shouldn't get chasm'd
 		))
 	var/drop_x = 1
 	var/drop_y = 1
@@ -49,11 +51,11 @@
 	if(!drop_stuff())
 		STOP_PROCESSING(SSprocessing, src)
 
-/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(!isliving(caller))
+/turf/simulated/floor/chasm/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(!pass_info.is_living)
 		return TRUE
-	var/mob/living/L = caller
-	return (L.flying || ismegafauna(caller))
+
+	return pass_info.is_flying || pass_info.is_megafauna
 
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
@@ -129,6 +131,8 @@
 	if(isliving(AM))
 		var/mob/living/M = AM
 		if(M.flying || M.floating)
+			return FALSE
+		if(istype(M.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
 			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
@@ -291,3 +295,51 @@
 	drop_y = y
 	var/list/target_z = levels_by_trait(SPAWN_RUINS)
 	drop_z = pick(target_z)
+
+/turf/simulated/floor/chasm/space_ruin
+	/// Used to keep count of how many times we checked if our target turf was valid.
+	var/times_turfs_checked = 0
+	/// List of all eligible Z levels.
+	var/list/target_z
+	/// Target turf that atoms will be teleported to.
+	var/turf/T
+
+/turf/simulated/floor/chasm/space_ruin/proc/pick_a_turf(atom/movable/AM)
+	if(times_turfs_checked <= 2)
+		target_z = levels_by_trait(SPAWN_RUINS)
+		target_z -= AM.z // excluding the one atom was already in from possible z levels
+		T = locate(rand(TRANSITIONEDGE + 1, world.maxx - TRANSITIONEDGE - 1), rand(TRANSITIONEDGE + 1, world.maxy - TRANSITIONEDGE - 1), pick(target_z))
+		check_turf(AM)
+	else
+		// If we still fail to pick a random valid turf after 2 attempts, we just send the atom to somewhere valid for certain
+		T = locate(TRANSITIONEDGE + 1, TRANSITIONEDGE + 1, pick(target_z))
+
+
+/turf/simulated/floor/chasm/space_ruin/proc/check_turf(atom/movable/AM)
+	times_turfs_checked++
+	if(istype(get_area(T), /area/space))
+		return
+	else
+		pick_a_turf(AM)
+
+/turf/simulated/floor/chasm/space_ruin/drop(atom/movable/AM)
+	//Make sure the item is still there after our sleep
+	if(!AM || QDELETED(AM))
+		return
+	falling_atoms[AM] = TRUE
+	pick_a_turf(AM)
+	if(T)
+		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>GAH! Ah... where are you?</span>")
+		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
+		AM.forceMove(T)
+		if(isliving(AM))
+			var/mob/living/L = AM
+			L.Weaken(10 SECONDS)
+			L.adjustBruteLoss(30)
+		times_turfs_checked = 0 // We successfully teleported the atom, let's reset the count
+	falling_atoms -= AM
+
+/turf/simulated/floor/chasm/space_ruin/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
