@@ -118,7 +118,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	if(organization && length(organization.forced_objectives))
 		for(var/forced_objectives in organization.forced_objectives)
 			var/datum/objective/forced_obj = forced_objectives
-			if(!ispath(forced_obj, /datum/objective/hijack) && delayed_objectives) //Hijackers know their objective immediately
+			if(!ispath(forced_obj, /datum/objective/hijack) && delayed_objectives) // Hijackers know their objective immediately
 				forced_obj = new /datum/objective/delayed(forced_obj)
 			add_antag_objective(forced_obj)
 			iteration++

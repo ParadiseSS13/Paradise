@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			continue
 		possible_targets += possible_target
 
-	if(!length(possible_targets)) //If we can't find anyone, try with less restrictions
+	if(!length(possible_targets)) // If we can't find anyone, try with less restrictions
 		for(var/datum/mind/possible_target in SSticker.minds)
 			if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 				continue
