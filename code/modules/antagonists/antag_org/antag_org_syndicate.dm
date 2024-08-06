@@ -60,21 +60,19 @@
 	name = "Spider Clan"
 	intro_desc = "You are an initiate of the elusive Spider Clan, an insular cult of assassins and rogues styling themselves after ancient ninjas from Earth. \
 		This is your final test, Initiate. Terminate the selected targets by any means necessary and you will have earned your place within the Clan."
-	forced_objective = /datum/objective/assassinate/syndicate
-	objectives = list(/datum/objective/assassinate/nomindshield)
+	forced_objectives = list(/datum/objective/assassinate/syndicate, /datum/objective/assassinate/nomindshield)
 	chaos_level = ORG_CHAOS_HUNTER
 
 /datum/antag_org/syndicate/faid // Targets one syndicate agent and steal station intel.
 	name = "Federation Analytics and Intelligence Directorate"
 	intro_desc = "You are an undercover agent of the Federation Analytics and Intelligence Directorate, a Trans-Solar agency keeping tabs on the Corporate Wars, among other duties. \
 		Be quick, be efficient, and don't get caught. The Directorate will deny any involvement with your presence here."
-	forced_objective = /datum/objective/assassinate/syndicate
-	objectives = list(/datum/objective/steal/faid)
+	forced_objectives = list(/datum/objective/assassinate/syndicate, /datum/objective/steal/faid)
 	chaos_level = ORG_CHAOS_HUNTER
 
 /datum/antag_org/syndicate/gorlex // Hijack only
 	name = "Gorlex Marauders"
 	intro_desc = "You are an operative of the infamous Gorlex Marauders, a brutal and merciless gang of pirates and cutthroats. \
 		Get in, fuck shit up, get out with a fancy new shuttle. You know the drill."
-	forced_objective = /datum/objective/hijack
+	forced_objectives = list(/datum/objective/hijack)
 	chaos_level = ORG_CHAOS_HIJACK

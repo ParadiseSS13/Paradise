@@ -114,13 +114,14 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 /datum/antagonist/traitor/proc/forge_human_objectives()
 	var/iteration = 1
 	var/can_succeed_if_dead = TRUE
-	// If our org has a forced objective, give it to us guaranteed.
-	if(organisation && organisation.forced_objective)
-		var/datum/objective/forced_obj = organisation.forced_objective
-		if(!ispath(forced_obj, /datum/objective/hijack) && delayed_objectives)
-			forced_obj = new /datum/objective/delayed(forced_obj)
-		add_antag_objective(forced_obj)
-		iteration++
+	// If our org has forced objectives, give them to us guaranteed.
+	if(organisation && length(organisation.forced_objectives))
+		for(var/forced_objectives in organisation.forced_objectives)
+			var/datum/objective/forced_obj = forced_objectives
+			if(!ispath(forced_obj, /datum/objective/hijack) && delayed_objectives) //Hijackers know their objective immediately
+				forced_obj = new /datum/objective/delayed(forced_obj)
+			add_antag_objective(forced_obj)
+			iteration++
 
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
 		return //Hijackers only get hijack.
