@@ -350,7 +350,7 @@
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	. = ..()
 
-	if(E && ((E.status & ORGAN_DEAD) || E.is_broken()) || !. )
+	if(E && ((E.status & ORGAN_DEAD) || E.is_broken()) || !.)
 		return FALSE
 
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
