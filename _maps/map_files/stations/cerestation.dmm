@@ -4635,6 +4635,11 @@
 "aEU" = (
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
+"aFd" = (
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation/disposals)
 "aFe" = (
 /obj/machinery/light/small,
 /obj/structure/cable/orange{
@@ -33038,11 +33043,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"ebk" = (
-/obj/structure/lattice,
-/obj/structure/railing,
-/turf/space,
-/area/space/nearstation)
 "ebn" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -36573,14 +36573,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/warden)
-"fjq" = (
-/obj/structure/railing{
-	dir = 8;
-	pixel_y = 9
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation/disposals)
 "fjw" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
@@ -65075,22 +65067,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central/north)
-"nPu" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/structure/railing/corner{
-	dir = 1;
-	pixel_y = 11
-	},
-/turf/space,
-/area/space/nearstation/disposals)
 "nPG" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -66756,7 +66732,6 @@
 	dir = 4;
 	network = list("Toxins","Research","SS13")
 	},
-/obj/structure/railing,
 /turf/space,
 /area/space/nearstation)
 "oqs" = (
@@ -83145,16 +83120,6 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
-"tmG" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/railing,
-/turf/space,
-/area/space/nearstation)
 "tmM" = (
 /obj/machinery/conveyor/counterclockwise{
 	dir = 9;
@@ -90314,6 +90279,11 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/station/legal/magistrate)
+"vqQ" = (
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "vrl" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/machinery/light/small{
@@ -103069,7 +103039,7 @@ aad
 aad
 lzH
 lzH
-lzH
+rNK
 rNK
 rNK
 rNK
@@ -103327,7 +103297,7 @@ aad
 aad
 lzH
 lzH
-lzH
+rNK
 rNK
 rNK
 rNK
@@ -103583,7 +103553,7 @@ sWf
 sWf
 aad
 aad
-aad
+lzH
 lzH
 rNK
 rNK
@@ -103841,7 +103811,7 @@ sWf
 sWf
 aad
 aad
-rNK
+lzH
 rNK
 rNK
 rNK
@@ -104097,7 +104067,7 @@ sWf
 sWf
 sWf
 sWf
-xko
+aad
 rNK
 rNK
 rNK
@@ -104354,7 +104324,7 @@ sWf
 sWf
 kth
 pxX
-aad
+xko
 rNK
 rNK
 rNK
@@ -104868,7 +104838,7 @@ sWf
 aad
 aad
 aad
-tJe
+aad
 rNK
 rNK
 rNK
@@ -105896,7 +105866,7 @@ aad
 lNn
 aad
 tJe
-rNK
+tJe
 rNK
 rNK
 rNK
@@ -106144,13 +106114,13 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
+lzH
+lzH
 rNK
 rNK
 rNK
 oql
-tmG
+ylg
 lzH
 rNK
 rNK
@@ -106401,13 +106371,13 @@ rNK
 rNK
 rNK
 lzH
+lzH
+lzH
 rNK
 rNK
 rNK
-rNK
-rNK
-ebk
-tmG
+lzH
+ylg
 lzH
 rNK
 rNK
@@ -106658,13 +106628,13 @@ rNK
 rNK
 rNK
 lzH
+lzH
+lzH
 rNK
 rNK
 rNK
-rNK
-rNK
-ebk
-tmG
+lzH
+ylg
 lzH
 rNK
 rNK
@@ -106915,13 +106885,13 @@ rNK
 rNK
 rNK
 lzH
+lzH
+lzH
 rNK
 rNK
 rNK
-rNK
-rNK
-ebk
-tmG
+lzH
+ylg
 lzH
 rNK
 rNK
@@ -107172,13 +107142,13 @@ rNK
 rNK
 rNK
 lzH
+lzH
+lzH
 rNK
 rNK
 rNK
-rNK
-rNK
-ebk
-tmG
+lzH
+ylg
 lzH
 rNK
 rNK
@@ -107429,13 +107399,13 @@ rNK
 rNK
 rNK
 lzH
+lzH
+lzH
 rNK
 rNK
 rNK
-rNK
-rNK
-ebk
-tmG
+lzH
+ylg
 lzH
 rNK
 rNK
@@ -107686,13 +107656,13 @@ rNK
 rNK
 rNK
 lzH
+lzH
+lzH
 rNK
 rNK
 rNK
-rNK
-rNK
-ebk
-tmG
+lzH
+ylg
 lzH
 rNK
 rNK
@@ -107943,13 +107913,13 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
+lzH
+lzH
 rNK
 dcv
 rNK
-ebk
-tmG
+lzH
+ylg
 lzH
 rNK
 rNK
@@ -108200,13 +108170,13 @@ rNK
 rNK
 rNK
 lzH
+lzH
+lzH
+vqQ
 rNK
-rNK
-rNK
-rNK
-rNK
-ebk
-tmG
+vqQ
+lzH
+ylg
 lzH
 rNK
 rNK
@@ -108457,13 +108427,13 @@ xhf
 xhf
 xhf
 xhf
-tlq
-xhf
-tlq
+hiC
+hiC
+hiC
 rNK
 hiC
-fjq
-nPu
+hiC
+sMa
 xhf
 xhf
 xhf
@@ -108714,11 +108684,11 @@ xBm
 xBm
 xBm
 tlq
-xBm
-xBm
-xBm
+hiC
+hiC
+aFd
 rNK
-rNK
+aFd
 hiC
 sMa
 tlq
@@ -108971,8 +108941,8 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -109228,8 +109198,8 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -109485,8 +109455,8 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -109742,8 +109712,8 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -109999,8 +109969,8 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
+lzH
+lzH
 mjo
 iEw
 mjo
@@ -110256,8 +110226,8 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
+lzH
+lzH
 mjo
 iXt
 cmg
@@ -110513,8 +110483,8 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
+lzH
+lzH
 vDC
 iXt
 eBL
@@ -110770,8 +110740,8 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
+lzH
+lzH
 mjo
 fkR
 wuD
@@ -111027,8 +110997,8 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
+lzH
+lzH
 mjo
 mjo
 lgC
@@ -111284,9 +111254,9 @@ rNK
 rNK
 rNK
 lzH
-rNK
-rNK
-rNK
+lzH
+lzH
+lzH
 eLS
 xyC
 rgy
