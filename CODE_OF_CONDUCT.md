@@ -28,11 +28,15 @@ Headcoders may close your PR at their discretion if your PR history has little f
 
 ### PR Expectations
 
+Contributors may only have a maximum of **2** feature or balance Pull Requests open at any given time. Any additional Pull Requests beyond this limit will be closed at the discretion of the Headcoders. The Headcoders may grant an exemption to this limit on a case-by-case basis, as the need arises.
+
 All Pull Requests are expected to be tested prior to submission. If a submitted Pull Request fails to pass CI checks, the likelihood of it being merged will be significantly lower. If you can't take the time to compile/test your Pull Request, do not expect a warm reception.
 
 It is expected that contributors discuss larger changes on the forums or repository discussion tab prior to starting work on a Pull Request. The amount of time spent on any given Pull Request is not relevant. Repo staff are not responsible for contributors wasting their time creating features nobody asked for. Be sure to inform the corresponding teams about the forum post or discussion.
 
 In addition, discussing any change with the relevant teams is strongly advised. For large changes, changes which have a lot of impact (balance or design), species changes (however minor), or other changes that might be controversial, you should always discuss this with the relevant teams. Failure to do so might result in your PR being closed.
+
+For changes to antagonist or security content, contributors **must** obtain prior approval from a member of either the balance or design team (depending on which team is more relevant to the changes) before opening their Pull Request. This approval must be displayed in the pull request description body in the form of a screenshot. The Headcoders may grant an exemption to this requirement on a case-by-case basis, as the need arises.
 
 Barring highly specific circumstances (such as single line changes, submissions from advanced users, or changes to repo documentation), we will not accept Pull Requests utilising the web editor.
 
