@@ -63,7 +63,7 @@ class HubStorageBackend {
   }
 
   async get(key) {
-    const value = window.hubStorage.getItem('paradise-' + key);
+    const value = await window.hubStorage.getItem('paradise-' + key);
     if (typeof value === 'string') {
       return JSON.parse(value);
     }
