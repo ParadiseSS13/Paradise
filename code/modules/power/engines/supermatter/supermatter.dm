@@ -684,19 +684,19 @@
 			countdown()
 	return 1
 
-/obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/item/projectile/proj)
 	var/turf/L = loc
 	if(!istype(L))
 		return FALSE
-	if(!istype(Proj.firer, /obj/machinery/power/emitter) && power_changes)
-		investigate_log("has been hit by [Proj] fired by [key_name(Proj.firer)]", "supermatter")
-	if(Proj.flag != BULLET)
+	if(!istype(proj, /obj/item/projectile/beam/emitter/hitscan) && power_changes)
+		investigate_log("has been hit by [proj] fired by [key_name(proj.firer)]", "supermatter")
+	if(proj.flag != BULLET)
 		if(power_changes) //This needs to be here I swear
-			power += Proj.damage * bullet_energy
+			power += proj.damage * bullet_energy
 			if(!has_been_powered)
 				enable_for_the_first_time()
 	else if(takes_damage)
-		damage += Proj.damage * bullet_energy
+		damage += proj.damage * bullet_energy
 	return FALSE
 
 /obj/machinery/atmospherics/supermatter_crystal/singularity_act()

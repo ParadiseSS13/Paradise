@@ -55,8 +55,3 @@
 			"s" = list("z", "zs", "zzz", "zzsz")
 		)
 	autohiss_exempt = list("Chittin")
-
-
-/datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
-	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-	return E ? E.eye_color : flesh_color
