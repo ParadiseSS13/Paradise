@@ -31888,14 +31888,12 @@
 	pixel_x = -5;
 	pixel_y = -1
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/item/food/grown/cannabis{
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "dKM" = (
 /obj/structure/cable{
@@ -49504,9 +49502,8 @@
 /area/station/science/storage)
 "jiI" = (
 /obj/machinery/computer/security/telescreen/entertainment/television,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "jiO" = (
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -55568,6 +55565,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "kVq" = (
@@ -58291,6 +58289,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/south)
+"lJE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "lJM" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -60479,9 +60482,8 @@
 /obj/machinery/floodlight{
 	light_power = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "msB" = (
 /obj/machinery/door_control{
@@ -65422,9 +65424,8 @@
 /area/station/science/storage)
 "nWq" = (
 /obj/item/cigbutt/roach,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "nWA" = (
 /obj/machinery/power/apc/directional/west,
@@ -67047,12 +67048,11 @@
 	pixel_y = -10
 	},
 /obj/item/trash/pistachios,
+/obj/item/cigbutt/roach,
+/obj/item/cigbutt/roach,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/cigbutt/roach,
-/obj/item/cigbutt/roach,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "ovQ" = (
 /obj/structure/cable{
@@ -81629,9 +81629,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken2"
-	},
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "sRh" = (
 /obj/structure/disposalpipe/segment{
@@ -82595,9 +82593,8 @@
 	pixel_y = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "tfR" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -97679,6 +97676,7 @@
 	pixel_y = 0
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "xwy" = (
@@ -116618,7 +116616,7 @@ ccW
 pDu
 iSN
 ubP
-lMW
+lJE
 dKL
 sQl
 wIq
