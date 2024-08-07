@@ -180,7 +180,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 582206
+sql_version = 592206
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -660,8 +660,6 @@ enable_space_ruins = false
 minimum_zlevels = 2
 # Maximum number of extra zlevels to generate and fill with ruins
 maximum_zlevels = 4
-# List of all space ruins that can generate in the world
-# Commenting something out in here DISABLES IT FROM SPAWNING
 active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/way_home.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/asteroid1.dmm",
@@ -697,6 +695,7 @@ active_space_ruins = [
 	"_maps/map_files/RandomRuins/SpaceRuins/telecomns_returns.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/casino.dmm",
 	"_maps/map_files/RandomRuins/SpaceRuins/rocky_motel.dmm",
+	"_maps/map_files/RandomRuins/SpaceRuins/abandoned_sec_shuttle.dmm",
 	## SS220 Ruins
 	"_maps/map_files220/RandomRuins/SpaceRuins/mechtransport_new.dmm",
 	"_maps/map_files220/RandomRuins/SpaceRuins/destroyed_infiltrator.dmm",
@@ -705,7 +704,6 @@ active_space_ruins = [
 	"_maps/map_files220/RandomRuins/SpaceRuins/convoy_ambush.dmm",
 	"_maps/map_files220/RandomRuins/SpaceRuins/voxraiders_1.dmm",
 	"_maps/map_files220/RandomRuins/SpaceRuins/spacehotel.dmm",
-
 
 	### The following ruins are based from past pre-spawned Zlevel content ###
 	"_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
@@ -728,7 +726,8 @@ active_space_ruins = [
 	# The following is a force-spawned ruin consisting mostly of empty space with a shuttle docking port for the free golem shuttle
 	# Disabling it will lead to the free golem shuttle sometimes being stuck on lavaland.
 	"_maps/map_files/RandomRuins/SpaceRuins/golemtarget.dmm",
-]
+] # List of all space ruins that can generate in the world
+# Commenting something out in here DISABLES IT FROM SPAWNING
 # List of all ruins that can generate on lavaland
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_lava_ruins = [

@@ -296,9 +296,8 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "bo" = (
 /obj/structure/curtain/black,
@@ -321,9 +320,8 @@
 /obj/structure/door_assembly/door_assembly_min{
 	anchored = 1
 	},
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "bw" = (
 /obj/structure{
@@ -478,9 +476,8 @@
 	desc = "A witch!";
 	maxbodytemp = 500
 	},
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "ci" = (
 /obj/structure/computerframe{
@@ -1404,9 +1401,8 @@
 /area/awaymission/caves/build)
 "gC" = (
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken"
-	},
+/turf/simulated/floor/wood/lavaland_air,
+/obj/effect/landmark/damageturf,
 /area/awaymission/caves)
 "gI" = (
 /obj/item/rack_parts,
@@ -2328,9 +2324,8 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "lx" = (
 /obj/structure/closet/emcloset,
@@ -2372,9 +2367,8 @@
 "lJ" = (
 /obj/item/organ/external/chest,
 /obj/item/kitchen/knife/butcher,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "lL" = (
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -2536,9 +2530,8 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 3.01
 	},
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "mJ" = (
 /obj/structure/cable{
@@ -2589,12 +2582,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/carpet/purple,
 /area/awaymission/caves/build/reqpower_build)
-"mZ" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken5"
-	},
-/area/awaymission/caves)
 "na" = (
 /obj/item/folder/yellow,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -2610,9 +2597,8 @@
 /obj/effect/decal/cleanable/generic,
 /obj/machinery/light_construct/small/east,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "ng" = (
 /obj/effect/turf_decal/miscellaneous/goldensiding,
@@ -2627,9 +2613,8 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "nh" = (
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken7"
-	},
+/turf/simulated/floor/wood/lavaland_air,
+/obj/effect/landmark/damageturf,
 /area/awaymission/caves)
 "nj" = (
 /obj/structure/chair/wood/wings{
@@ -3048,9 +3033,8 @@
 "ps" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/item/salvage/ruin/brick,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "pt" = (
 /obj/structure/cable{
@@ -3210,9 +3194,8 @@
 "qt" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/item/stack/rods,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "qx" = (
 /obj/machinery/suit_storage_unit/lavaland{
@@ -3308,9 +3291,8 @@
 /area/awaymission/caves)
 "qZ" = (
 /obj/structure/mineral_door/wood,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "ra" = (
 /obj/structure/door_assembly/door_assembly_med,
@@ -3418,9 +3400,8 @@
 	icon_state = "candle1_flicker"
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "rA" = (
 /obj/structure/statue{
@@ -3550,9 +3531,8 @@
 /obj/structure/spider/stickyweb,
 /obj/machinery/light_construct/small/east,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "sy" = (
 /obj/structure/closet/crate/miningcar,
@@ -4648,11 +4628,6 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
-"yq" = (
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken6"
-	},
-/area/awaymission/caves)
 "yt" = (
 /obj/structure/spider/stickyweb,
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -4706,9 +4681,8 @@
 	pixel_y = -3;
 	pixel_x = 8
 	},
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "yJ" = (
 /obj/structure/extinguisher_cabinet/empty{
@@ -4826,9 +4800,8 @@
 	pixel_y = 18
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "zk" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
@@ -4840,9 +4813,8 @@
 /area/awaymission/caves/build/reqpower_build)
 "zl" = (
 /obj/item/organ/external/arm,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "zm" = (
 /obj/item/stack/sheet/metal,
@@ -4889,9 +4861,8 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "zx" = (
 /obj/structure/table,
@@ -5222,9 +5193,8 @@
 /obj/item/soulstone/anybody/purified,
 /obj/item/storage/bible,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "Bo" = (
 /obj/structure/stone_tile/cracked{
@@ -5537,9 +5507,8 @@
 /obj/structure/closet,
 /obj/item/clothing/mask/breath,
 /obj/item/gun/energy/kinetic_accelerator,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "CO" = (
 /obj/structure/flora/ash/stem_shroom,
@@ -5548,29 +5517,21 @@
 "CP" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "CQ" = (
 /obj/structure/chair/wood/wings{
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "CU" = (
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build)
-"CW" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken6"
-	},
-/area/awaymission/caves)
 "CZ" = (
 /obj/item/kinetic_crusher,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -6507,18 +6468,11 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
-"If" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken7"
-	},
-/area/awaymission/caves)
 "Ih" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "Ii" = (
 /obj/effect/decal/cleanable/generic,
@@ -6589,9 +6543,8 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "IK" = (
 /obj/structure/stone_tile/slab/cracked{
@@ -6862,9 +6815,8 @@
 /obj/effect/decal/cleanable/shreds,
 /obj/machinery/light_construct/small/east,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "Kc" = (
 /obj/machinery/shield{
@@ -7186,9 +7138,8 @@
 "Lz" = (
 /obj/machinery/light_construct/small/east,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "LB" = (
 /obj/effect/turf_decal/siding/wood/neutral/corner{
@@ -7597,12 +7548,6 @@
 /obj/effect/spawner/random_spawners/wall_rusted_probably,
 /turf/simulated/wall/indestructible,
 /area/awaymission/caves/build)
-"Ow" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken3"
-	},
-/area/awaymission/caves)
 "Ox" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
@@ -7945,12 +7890,6 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
-"Qo" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken4"
-	},
-/area/awaymission/caves)
 "Qp" = (
 /obj/machinery/atmospherics/portable/canister,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -8279,9 +8218,8 @@
 /mob/living/simple_animal/hostile/hellhound/tear,
 /obj/effect/gibspawner/human,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "Su" = (
 /obj/structure/cable{
@@ -8348,12 +8286,6 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build/reqpower_build)
-"SN" = (
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken2"
-	},
-/area/awaymission/caves)
 "SO" = (
 /obj/item/stack/sheet/metal,
 /obj/effect/landmark/damageturf,
@@ -9361,9 +9293,8 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "Xx" = (
 /obj/machinery/porta_turret{
@@ -9483,9 +9414,8 @@
 /area/awaymission/caves)
 "XS" = (
 /obj/structure/bookcase/random,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "XT" = (
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -9531,9 +9461,8 @@
 	icon_state = "conduit-red"
 	},
 /obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/wood/lavaland_air{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/lavaland_air,
 /area/awaymission/caves)
 "Yf" = (
 /obj/structure/grille/broken,
@@ -11735,7 +11664,7 @@ LU
 LU
 En
 zg
-SN
+zA
 uc
 En
 LU
@@ -11974,7 +11903,7 @@ En
 En
 gl
 UH
-Qo
+zA
 UH
 Bn
 En
@@ -12201,10 +12130,10 @@ En
 UH
 cg
 UH
-mZ
+zA
 bB
-SN
-gC
+zA
+zA
 UH
 Sr
 XS
@@ -12439,9 +12368,9 @@ UH
 TM
 Me
 UH
-CW
+zA
 qZ
-CW
+zA
 UH
 En
 cC
@@ -12663,7 +12592,7 @@ LU
 LU
 En
 Ip
-gC
+zA
 zq
 En
 Ye
@@ -12674,7 +12603,7 @@ En
 En
 En
 UH
-Ow
+zA
 mI
 zl
 KQ
@@ -12905,7 +12834,7 @@ tk
 En
 lw
 tJ
-mZ
+zA
 UH
 En
 En
@@ -13137,9 +13066,9 @@ En
 En
 bX
 CQ
-If
+zA
 UH
-CW
+zA
 En
 TK
 TK
@@ -23009,7 +22938,7 @@ qE
 CP
 gc
 CH
-Ow
+zA
 qi
 Nj
 CN
@@ -23237,7 +23166,7 @@ TK
 TK
 TK
 qi
-If
+zA
 Rq
 CM
 UH
@@ -23475,7 +23404,7 @@ qi
 oM
 XW
 gc
-Qo
+zA
 LI
 EI
 nQ
@@ -23938,7 +23867,7 @@ bL
 ai
 MY
 UH
-nh
+sh
 bt
 bO
 bO
@@ -24167,7 +24096,7 @@ ZJ
 ZL
 UH
 UF
-Qo
+zA
 UH
 HD
 aV
@@ -24402,7 +24331,7 @@ nc
 ck
 UH
 eE
-yq
+sh
 Wq
 ZJ
 gc
@@ -26027,7 +25956,7 @@ gc
 Mi
 lG
 qi
-CW
+zA
 UH
 qi
 TK

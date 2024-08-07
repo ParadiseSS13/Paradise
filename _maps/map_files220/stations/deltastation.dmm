@@ -4931,7 +4931,6 @@
 "axz" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Brig HoS Office";
 	sort_type_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -6422,7 +6421,6 @@
 "aCI" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "QM Office";
 	sort_type_txt = "3"
 	},
 /obj/structure/cable{
@@ -10743,7 +10741,6 @@
 "aUO" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "Sorting Office";
 	sort_type_txt = "2"
 	},
 /turf/simulated/floor/plasteel,
@@ -33832,7 +33829,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "HoP Office";
 	sort_type_txt = "15"
 	},
 /obj/effect/landmark/lightsout,
@@ -37444,7 +37440,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Med Chemistry";
 	sort_type_txt = "11"
 	},
 /turf/simulated/floor/plasteel{
@@ -38551,7 +38546,6 @@
 /area/station/medical/storage)
 "daX" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
-	name = "Medbay Hall";
 	sort_type_txt = "9";
 	dir = 1
 	},
@@ -43129,7 +43123,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Sci Robotics";
 	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plasteel,
@@ -50857,7 +50850,6 @@
 "eOm" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Captain's Office";
 	sort_type_txt = "18"
 	},
 /obj/structure/cable{
@@ -51278,7 +51270,6 @@
 "eTq" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "Genetics";
 	sort_type_txt = "23"
 	},
 /obj/structure/cable{
@@ -59088,7 +59079,6 @@
 /area/station/hallway/secondary/exit/maintenance)
 "hvJ" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
-	name = "Sci R&D";
 	sort_type_txt = "12"
 	},
 /obj/structure/cable{
@@ -60060,7 +60050,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Chapel Junction";
 	sort_type_txt = "17"
 	},
 /turf/simulated/floor/plasteel,
@@ -60299,7 +60288,6 @@
 "hMZ" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Sci RD Office";
 	sort_type_txt = "13"
 	},
 /obj/structure/cable{
@@ -62176,7 +62164,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Disposals Maint";
 	sort_type_txt = "1"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -67956,7 +67943,6 @@
 "kdH" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Kitchen";
 	sort_type_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -74131,7 +74117,6 @@
 /area/station/maintenance/fsmaint)
 "mbp" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
-	name = "Morgue";
 	sort_type_txt = "25";
 	dir = 1
 	},
@@ -77513,7 +77498,6 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/sortjunction{
-	name = "CE's Junction";
 	sort_type_txt = "5"
 	},
 /obj/structure/cable{
@@ -88247,7 +88231,6 @@
 "qtU" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "Library";
 	sort_type_txt = "16"
 	},
 /obj/structure/cable{
@@ -90091,7 +90074,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/sortjunction{
-	name = "Atmospherics Junction";
 	sort_type_txt = "6"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
@@ -96240,7 +96222,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "Warden's Office";
 	sort_type_txt = "8"
 	},
 /obj/structure/cable{
@@ -97087,7 +97068,6 @@
 "tad" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "CMO's Junction";
 	sort_type_txt = "10"
 	},
 /obj/structure/cable{
@@ -103640,7 +103620,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
-	name = "Engineering Junction";
 	sort_type_txt = "4"
 	},
 /obj/structure/cable{
