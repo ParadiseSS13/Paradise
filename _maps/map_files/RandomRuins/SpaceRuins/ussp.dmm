@@ -745,9 +745,8 @@
 	},
 /area/ruin/space/derelict/arrival)
 "bV" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "bW" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -916,10 +915,8 @@
 /obj/structure/rack,
 /obj/item/reagent_containers/drinks/bottle/vodka/badminka,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
 "ct" = (
 /obj/machinery/light/spot,
@@ -1831,9 +1828,8 @@
 /area/ruin/space/derelict/crew_quarters)
 "eC" = (
 /obj/structure/chair/wood,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eD" = (
 /turf/simulated/floor/wood,
@@ -1859,9 +1855,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "eH" = (
 /obj/machinery/newscaster{
@@ -2254,9 +2249,8 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fx" = (
 /obj/structure/cable{
@@ -2275,9 +2269,8 @@
 /area/ruin/space/derelict/crew_quarters)
 "fz" = (
 /obj/structure/mopbucket,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2435,9 +2428,8 @@
 /obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "fU" = (
 /obj/item/trash/spentcasing,
@@ -2594,9 +2586,8 @@
 /area/ruin/space/derelict/crew_quarters)
 "gn" = (
 /obj/structure/chair/stool/bar,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "go" = (
 /obj/structure/table/reinforced,
@@ -7568,17 +7559,6 @@
 /obj/effect/spawner/airlock,
 /turf/simulated/wall/mineral/titanium/nodecon,
 /area/ruin/space/derelict/arrival)
-"Xn" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/ruin/space/derelict/crew_quarters)
 "XQ" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -13431,7 +13411,7 @@ fx
 fd
 fd
 fd
-Xn
+eG
 fd
 hE
 hS
