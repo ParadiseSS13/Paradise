@@ -30581,7 +30581,6 @@
 "ceq" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "HoS Junction";
 	sort_type_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -49644,7 +49643,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "Kitchen Junction";
 	sort_type_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -51546,7 +51544,6 @@
 "gEt" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "RD Junction";
 	sort_type_txt = "13"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -54818,7 +54815,6 @@
 "hZy" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Disposals Junction";
 	sort_type_txt = "1"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -62108,7 +62104,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "CMO's Junction";
 	sort_type_txt = "10"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -67137,7 +67132,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "Hydroponics Junction";
 	sort_type_txt = "21"
 	},
 /turf/simulated/floor/plasteel,
@@ -67466,7 +67460,6 @@
 "nIs" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "Chapel";
 	sort_type_txt = "17"
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -68467,7 +68460,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "Security Junction";
 	sort_type_txt = "8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -72890,7 +72882,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "Bar Junction";
 	sort_type_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -80640,7 +80631,6 @@
 "ugy" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "Security Junction";
 	sort_type_txt = "8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -82827,7 +82817,6 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
-	name = "Detective";
 	sort_type_txt = "24";
 	dir = 4
 	},
@@ -88559,7 +88548,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "Library Junction";
 	sort_type_txt = "16"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -89035,7 +89023,6 @@
 "ylO" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "Atmospherics Junction";
 	sort_type_txt = "6"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{

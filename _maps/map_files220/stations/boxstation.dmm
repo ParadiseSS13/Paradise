@@ -7005,7 +7005,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "Chapel";
 	sort_type_txt = "17"
 	},
 /turf/simulated/floor/plasteel{
@@ -16710,7 +16709,6 @@
 "bjz" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "Bar";
 	sort_type_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -19772,7 +19770,6 @@
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "HoP Office";
 	sort_type_txt = "15"
 	},
 /turf/simulated/floor/plasteel{
@@ -23189,10 +23186,6 @@
 	pixel_x = -8;
 	pixel_y = 4
 	},
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
 /obj/item/multitool{
 	pixel_x = 3
 	},
@@ -23797,10 +23790,6 @@
 	pixel_x = -8;
 	pixel_y = 4
 	},
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
-/obj/item/flash/synthetic,
 /obj/item/multitool{
 	pixel_x = 3
 	},
@@ -27905,7 +27894,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Captain's Office";
 	sort_type_txt = "18"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -50508,7 +50496,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Detective";
 	sort_type_txt = "24"
 	},
 /turf/simulated/floor/plasteel{
@@ -67363,7 +67350,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "Library";
 	sort_type_txt = "16"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -75213,7 +75199,6 @@
 "obX" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "Botany";
 	sort_type_txt = "21"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -78640,7 +78625,6 @@
 "pjc" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Morgue";
 	sort_type_txt = "25"
 	},
 /obj/structure/cable{
@@ -78751,7 +78735,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Med Chemistry";
 	sort_type_txt = "11"
 	},
 /obj/structure/cable{
@@ -83137,7 +83120,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Bar";
 	sort_type_txt = "19"
 	},
 /turf/simulated/floor/plasteel{
@@ -86576,7 +86558,6 @@
 "sbs" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Sci Robotics";
 	sort_type_txt = "14"
 	},
 /obj/structure/cable{
@@ -97066,7 +97047,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Medbay Hall";
 	sort_type_txt = "9"
 	},
 /turf/simulated/floor/plasteel{
@@ -101736,7 +101716,6 @@
 "xrq" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "Kitchen";
 	sort_type_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -103312,7 +103291,6 @@
 "xRV" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Sci RD Office 1";
 	sort_type_txt = "13"
 	},
 /obj/structure/cable{

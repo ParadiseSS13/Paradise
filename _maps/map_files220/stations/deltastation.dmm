@@ -4931,7 +4931,6 @@
 "axz" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Brig HoS Office";
 	sort_type_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -37444,7 +37443,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Med Chemistry";
 	sort_type_txt = "11"
 	},
 /turf/simulated/floor/plasteel{
@@ -43129,7 +43127,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Sci Robotics";
 	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plasteel,
@@ -60060,7 +60057,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Chapel Junction";
 	sort_type_txt = "17"
 	},
 /turf/simulated/floor/plasteel,
@@ -60299,7 +60295,6 @@
 "hMZ" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Sci RD Office";
 	sort_type_txt = "13"
 	},
 /obj/structure/cable{
@@ -62176,7 +62171,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Disposals Maint";
 	sort_type_txt = "1"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -77513,7 +77507,6 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/sortjunction{
-	name = "CE's Junction";
 	sort_type_txt = "5"
 	},
 /obj/structure/cable{
@@ -90091,7 +90084,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/sortjunction{
-	name = "Atmospherics Junction";
 	sort_type_txt = "6"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
@@ -97087,7 +97079,6 @@
 "tad" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "CMO's Junction";
 	sort_type_txt = "10"
 	},
 /obj/structure/cable{
@@ -103640,7 +103631,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
-	name = "Engineering Junction";
 	sort_type_txt = "4"
 	},
 /obj/structure/cable{

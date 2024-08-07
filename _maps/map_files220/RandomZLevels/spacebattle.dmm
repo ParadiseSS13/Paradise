@@ -16589,11 +16589,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
-"Zi" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "blueyellowfull"
-	},
-/area/awaymission/space_battle/kitchen)
 "Zj" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "neutral";
@@ -48059,9 +48054,9 @@ CB
 Fz
 VC
 NS
-Zi
-Zi
-Zi
+cV
+cV
+cV
 FK
 dY
 dY
@@ -48317,8 +48312,8 @@ ij
 VC
 CO
 KH
-Zi
-Zi
+cV
+cV
 KO
 KO
 KO
@@ -49089,7 +49084,7 @@ VC
 he
 WU
 cV
-Zi
+cV
 KO
 Ux
 JB
