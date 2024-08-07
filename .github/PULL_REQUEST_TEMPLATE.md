@@ -2,6 +2,7 @@
 
 <!-- Write **BELOW** The Headers and **ABOVE** The comments else it may not be viewable. -->
 <!-- You can view Contributing.MD for a detailed description of the pull request process. -->
+
 ## What Does This PR Do
 <!-- Include a small to medium description of what your PR changes. -->
 <!-- Document all changes, as not doing this may delay reviews or even discourage maintainers from merging your PR! -->
@@ -20,7 +21,8 @@
 
 ### Declaration
 - [ ] I confirm that I either do not require design and/or balance pre-approval for this PR, or I have obtained such approval and have included a screenshot to demonstrate this below.
-<!-- Replace the box with [x] to mark as complete-->
+<!-- A list of PR types requiring pre-approval can be found here: https://github.com/ParadiseSS13/Paradise/blob/master/CODE_OF_CONDUCT.md#pr-expectations -->
+<!-- Replace the box with [x] to mark as complete. -->
 <hr>
 
 ## Changelog
