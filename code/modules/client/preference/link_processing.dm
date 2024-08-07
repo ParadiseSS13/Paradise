@@ -1053,7 +1053,7 @@
 				if("hear_midis")
 					sound ^= SOUND_MIDI
 
-				if("hear_end_of_round")
+				if("mute_end_of_round")
 					sound ^= SOUND_MUTE_END_OF_ROUND
 
 				if("lobby_music")
