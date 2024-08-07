@@ -1211,7 +1211,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "tW" = (
-/obj/machinery/r_n_d/server/upgraded,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault";

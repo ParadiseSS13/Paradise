@@ -42,10 +42,10 @@
 	},
 /area/station/hallway/primary/port/east)
 "aar" = (
-/obj/machinery/r_n_d/server/core,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/plasteel/dark/telecomms{
 	icon_state = "bcircuit"
 	},
@@ -32232,6 +32232,10 @@
 	},
 /area/station/hallway/primary/fore/west)
 "dNS" = (
+/obj/machinery/computer/rnd_backup/station{
+	dir = 8
+	},
+/obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowcorners"
 	},
@@ -58080,7 +58084,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/mecha_part_fabricator,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -58088,6 +58091,7 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "lRJ" = (
@@ -62007,10 +62011,10 @@
 	},
 /area/station/hallway/primary/aft/west)
 "nfq" = (
-/obj/machinery/r_n_d/server/robotics,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/plasteel/dark/telecomms{
 	icon_state = "bcircuit"
 	},
@@ -63168,13 +63172,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/mecha_part_fabricator,
 /obj/structure/cable/orange{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/alarm/directional/west,
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "nzI" = (
@@ -82484,7 +82488,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/computer/rdservercontrol{
+/obj/machinery/computer/rnd_network_controller/station{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark/telecomms,
@@ -86554,7 +86558,7 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "uRn" = (
-/obj/machinery/computer/rdconsole/robotics,
+/obj/machinery/computer/rdconsole/core,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"

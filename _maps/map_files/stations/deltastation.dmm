@@ -58032,8 +58032,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dsL" = (
-/obj/machinery/mecha_part_fabricator,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dsM" = (
@@ -58679,12 +58679,12 @@
 /area/station/science/server)
 "dwj" = (
 /obj/machinery/alarm/directional/west,
-/obj/machinery/computer/rdservercontrol{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
+	},
+/obj/machinery/computer/rnd_network_controller/station{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
@@ -59408,10 +59408,10 @@
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "dBd" = (
-/obj/machinery/r_n_d/server/core,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
 	name = "Mainframe Floor";
@@ -59434,10 +59434,10 @@
 	},
 /area/station/science/server)
 "dBf" = (
-/obj/machinery/r_n_d/server/robotics,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
 	name = "Mainframe Floor";
@@ -61737,13 +61737,13 @@
 /obj/structure/window/reinforced/polarized{
 	id = "RoboSurgery"
 	},
-/obj/machinery/computer/rdconsole/robotics{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/computer/rdconsole/core{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "dOd" = (
@@ -63851,6 +63851,10 @@
 	network = list("Research","SS13");
 	pixel_y = -22
 	},
+/obj/machinery/computer/rnd_backup/station{
+	dir = 4
+	},
+/obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"

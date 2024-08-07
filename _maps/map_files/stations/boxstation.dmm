@@ -28262,7 +28262,7 @@
 	},
 /area/station/science/robotics/chargebay)
 "bNj" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -28966,7 +28966,7 @@
 	},
 /area/station/science/server)
 "bPy" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29425,7 +29425,7 @@
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "bRp" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole/core{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -35078,6 +35078,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -36949,6 +36950,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -64546,6 +64548,10 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/machinery/computer/rnd_backup/station{
+	dir = 4
+	},
+/obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -84874,9 +84880,6 @@
 	},
 /area/station/hallway/primary/starboard/west)
 "tIl" = (
-/obj/machinery/computer/rdservercontrol{
-	dir = 4
-	},
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
@@ -84884,6 +84887,9 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
+	},
+/obj/machinery/computer/rnd_network_controller/station{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -87920,16 +87926,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay2)
-"vns" = (
-/obj/machinery/r_n_d/server/robotics,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery/white/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
-/area/station/science/server/coldroom)
 "vnw" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -88791,7 +88787,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "vIO" = (
-/obj/machinery/r_n_d/server/core,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
@@ -139849,7 +139844,7 @@ ten
 mMB
 vwC
 cbd
-vns
+vIO
 ukV
 crR
 vIO

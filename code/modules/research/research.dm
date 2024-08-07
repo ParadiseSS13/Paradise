@@ -44,16 +44,21 @@ research holder datum.
 **	Includes all the helper procs and basic tech processing.  **
 ***************************************************************/
 
-/// Holder for all the existing, archived, and known tech. Individual to console.
+/// Holder for all the existing, archived, and known tech. Individual to each network controller.
 /datum/research
+	// These lists hold datum/tech
 
-									//Datum/tech go here.
-									// Possible is a list of direct datum references
-									// known is a list of id -> datum mappings
-	var/list/possible_tech = list()			//List of all tech in the game that players have access to (barring special events).
-	var/list/known_tech = list()				//List of locally known tech.
-	var/list/possible_designs = list()		//List of all designs
-	var/list/known_designs = list()			//List of available designs
+
+	// Possible is a list of direct datum references known is a list of id -> datum mappings
+	var/list/possible_tech = list()
+	/// List of locally known tech.
+	var/list/known_tech = list()
+
+
+	/// List of all designs
+	var/list/possible_designs = list()
+	/// List of available designs
+	var/list/known_designs = list()
 	/// List of designs that have been blacklisted by the server controller
 	var/list/blacklisted_designs = list()
 	/// Used during the rnd sync system, to ensure that blacklists are reverted, then cleared.
