@@ -400,7 +400,6 @@
 		beaker =  I
 		beaker.loc = src
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
-		updateUsrDialog()
 		SStgui.update_uis(src, TRUE)
 		icon_state = "pandemic1"
 	else

@@ -102,7 +102,7 @@
 /area/ruin/powered/snow_cabin)
 "ax" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/beans,
+/obj/item/food/beans,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "ay" = (

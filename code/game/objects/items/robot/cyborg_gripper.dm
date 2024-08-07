@@ -96,7 +96,7 @@
 			I.forceMove(src)
 			gripped_item = I
 			return
-		
+
 		to_chat(user, "<span class='warning'>You hold your gripper over [target], but no matter how hard you try, you cannot make yourself grab it.</span>")
 		return
 
@@ -291,6 +291,10 @@
 	can_help_up = TRUE
 	can_hold_all_items = TRUE
 
+/obj/item/gripper/universal/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src,TRAIT_SURGICAL_OPEN_HAND, ROUNDSTART_TRAIT)
+
 // Medical Gripper
 // For medical borgs, for doing medical stuff!
 // Not giving this anything to hold yet, but stuff may be added in the future. Organs/implants are currently viewed as too strong to hold.
@@ -301,6 +305,10 @@
 	can_help_up = TRUE
 	// REMOVE actions_types from here if you add a can_hold list for this gripper!
 	actions_types = list()
+
+/obj/item/gripper/medical/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src,TRAIT_SURGICAL_OPEN_HAND, ROUNDSTART_TRAIT)
 
 // Service Gripper
 // For service borgs. To make them slightly better at their job.

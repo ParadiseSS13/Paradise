@@ -397,6 +397,11 @@
 						return
 					active_character.h_grad_alpha = clamp(result, 0, 255)
 
+				if("runechat_color")
+					var/result = input(user, "Choose your character's runechat color:", "Character Preference", active_character.runechat_color) as color|null
+					if(result)
+						active_character.runechat_color = result
+
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
 						var/input = "Choose the colour of your your character's head accessory:"

@@ -89,36 +89,36 @@
 /////OBJECT RECIPIES/////
 /////////////////////////
 /datum/food_processor_process/meat
-	input = /obj/item/food/snacks/meat
-	output = /obj/item/food/snacks/meatball
+	input = /obj/item/food/meat
+	output = /obj/item/food/meatball
 
 /datum/food_processor_process/potato
-	input = /obj/item/food/snacks/grown/potato
-	output = /obj/item/food/snacks/rawsticks
+	input = /obj/item/food/grown/potato
+	output = /obj/item/food/rawsticks
 
 /datum/food_processor_process/rawsticks
-	input = /obj/item/food/snacks/rawsticks
-	output = /obj/item/food/snacks/tatortot
+	input = /obj/item/food/rawsticks
+	output = /obj/item/food/tatortot
 
 /datum/food_processor_process/soybeans
-	input = /obj/item/food/snacks/grown/soybeans
-	output = /obj/item/food/snacks/soydope
+	input = /obj/item/food/grown/soybeans
+	output = /obj/item/food/soydope
 
 /datum/food_processor_process/spaghetti
-	input = /obj/item/food/snacks/doughslice
-	output = /obj/item/food/snacks/spaghetti
+	input = /obj/item/food/doughslice
+	output = /obj/item/food/spaghetti
 
 /datum/food_processor_process/macaroni
-	input = /obj/item/food/snacks/spaghetti
-	output = /obj/item/food/snacks/macaroni
+	input = /obj/item/food/spaghetti
+	output = /obj/item/food/macaroni
 
 /datum/food_processor_process/parsnip
-	input = /obj/item/food/snacks/grown/parsnip
-	output = /obj/item/food/snacks/roastparsnip
+	input = /obj/item/food/grown/parsnip
+	output = /obj/item/food/roastparsnip
 
 /datum/food_processor_process/carrot
-	input =  /obj/item/food/snacks/grown/carrot
-	output = /obj/item/food/snacks/grown/carrot/wedges
+	input =  /obj/item/food/grown/carrot
+	output = /obj/item/food/grown/carrot/wedges
 
 /datum/food_processor_process/towercap
 	input = /obj/item/grown/log
@@ -189,16 +189,15 @@
 	return 0
 
 /obj/machinery/processor/attackby(obj/item/O, mob/user, params)
-
 	if(processing)
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
-		return 1
+		return TRUE
 
 	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
 		return
 
-	if(exchange_parts(user, O))
-		return
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
 
 	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
 		return
