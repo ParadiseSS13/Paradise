@@ -44,6 +44,6 @@ In addition, discussing any change with the relevant teams is strongly advised. 
 
 For changes to certain content listed below, contributors **must** obtain approval from a member of either the balance, design, mapping, or sprite team (depending on which teams are relevant to the changes) before opening their Pull Request. This approval must be displayed in the Pull Request description body in the form of a screenshot. The Headcoders may grant an exemption to this requirement on a case-by-case basis, as the need arises.
 
-### Currently, changes to the following types of content reuires pre-approval:
+### Currently, changes to the following types of content requires pre-approval:
   - Security content (excluding fixes, code improvement, refactors, sprites, and mapping changes)
   - Antagonist content (excluding fixes, code improvement, refactors, sprites, and mapping changes)
