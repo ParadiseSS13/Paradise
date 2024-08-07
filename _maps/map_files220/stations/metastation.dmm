@@ -1054,7 +1054,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
-	name = "Engineering Junction";
 	sort_type_txt = "4"
 	},
 /obj/effect/landmark/start/engineer,
@@ -47268,7 +47267,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "HoP Junction";
 	sort_type_txt = "15"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -47951,7 +47949,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/sortjunction{
-	name = "CE's Junction";
 	sort_type_txt = "5"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -52399,7 +52396,6 @@
 "gXp" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Quartermaster Junction";
 	sort_type_txt = "3"
 	},
 /turf/simulated/floor/plasteel,
@@ -58601,7 +58597,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Custodial Junction";
 	sort_type_txt = "22"
 	},
 /turf/simulated/floor/plasteel,
@@ -63271,7 +63266,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Chemistry Junction";
 	sort_type_txt = "11"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -67568,7 +67562,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Research Junction";
 	sort_type_txt = "12"
 	},
 /obj/structure/cable/yellow{
@@ -82353,7 +82346,6 @@
 "uXA" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Robotics Junction";
 	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plasteel{
@@ -86958,7 +86950,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
-	name = "Captain's Junction";
 	sort_type_txt = "18"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{

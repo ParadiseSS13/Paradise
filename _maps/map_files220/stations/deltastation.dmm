@@ -6421,7 +6421,6 @@
 "aCI" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "QM Office";
 	sort_type_txt = "3"
 	},
 /obj/structure/cable{
@@ -10742,7 +10741,6 @@
 "aUO" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "Sorting Office";
 	sort_type_txt = "2"
 	},
 /turf/simulated/floor/plasteel,
@@ -33831,7 +33829,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "HoP Office";
 	sort_type_txt = "15"
 	},
 /obj/effect/landmark/lightsout,
@@ -38549,7 +38546,6 @@
 /area/station/medical/storage)
 "daX" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
-	name = "Medbay Hall";
 	sort_type_txt = "9";
 	dir = 1
 	},
@@ -50854,7 +50850,6 @@
 "eOm" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Captain's Office";
 	sort_type_txt = "18"
 	},
 /obj/structure/cable{
@@ -51275,7 +51270,6 @@
 "eTq" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "Genetics";
 	sort_type_txt = "23"
 	},
 /obj/structure/cable{
@@ -59085,7 +59079,6 @@
 /area/station/hallway/secondary/exit/maintenance)
 "hvJ" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
-	name = "Sci R&D";
 	sort_type_txt = "12"
 	},
 /obj/structure/cable{
@@ -67950,7 +67943,6 @@
 "kdH" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Kitchen";
 	sort_type_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -74125,7 +74117,6 @@
 /area/station/maintenance/fsmaint)
 "mbp" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
-	name = "Morgue";
 	sort_type_txt = "25";
 	dir = 1
 	},
@@ -88240,7 +88231,6 @@
 "qtU" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "Library";
 	sort_type_txt = "16"
 	},
 /obj/structure/cable{
@@ -96232,7 +96222,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	name = "Warden's Office";
 	sort_type_txt = "8"
 	},
 /obj/structure/cable{
