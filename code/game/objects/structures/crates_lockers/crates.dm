@@ -597,9 +597,9 @@
 
 /obj/structure/closet/crate/surplus
 
-/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost)
+/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost, mob/user)
 	. = ..()
-	var/list/temp_uplink_list = get_uplink_items(U)
+	var/list/temp_uplink_list = get_uplink_items(U, user)
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
