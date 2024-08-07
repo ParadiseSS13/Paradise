@@ -661,11 +661,11 @@
 	var/crate_value = 250
 	uses_special_spawn = TRUE
 
-/datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
+/datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U, mob/user)
 	if(..() != UPLINK_SPECIAL_SPAWNING)
 		return FALSE
 
-	new /obj/structure/closet/crate/surplus(loc, U, crate_value, cost)
+	new /obj/structure/closet/crate/surplus(loc, U, crate_value, cost, user)
 
 // -----------------------------------
 // PRICES OVERRIDEN FOR NUCLEAR AGENTS
