@@ -60,7 +60,6 @@
 	INVOKE_ASYNC(src, PROC_REF(try_ring), null, TRUE) // user=null, from_signaler=TRUE (if nobody broke it)
 
 /obj/item/desk_bell/proc/try_ring(mob/user, from_signaler = FALSE)
-	//WARNING: signal handler depends on user and from_signaler being the first two arguments (in that order)
 	if(ring_cooldown > world.time || !anchored)
 		return TRUE
 	if(!ring_bell(user, from_signaler) && user)
