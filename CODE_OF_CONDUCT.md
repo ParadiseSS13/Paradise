@@ -32,14 +32,18 @@ Contributors may only have a maximum of **2** feature or balance Pull Requests o
 
 All Pull Requests are expected to be tested prior to submission. If a submitted Pull Request fails to pass CI checks, the likelihood of it being merged will be significantly lower. If you can't take the time to compile/test your Pull Request, do not expect a warm reception.
 
-It is expected that contributors discuss larger changes on the forums or repository discussion tab prior to starting work on a Pull Request. The amount of time spent on any given Pull Request is not relevant. Repo staff are not responsible for contributors wasting their time creating features nobody asked for. Be sure to inform the corresponding teams about the forum post or discussion.
-
-In addition, discussing any change with the relevant teams is strongly advised. For large changes, changes which have a lot of impact (balance or design), species changes (however minor), or other changes that might be controversial, you should always discuss this with the relevant teams. Failure to do so might result in your PR being closed.
-
-For changes to antagonist or security content, contributors **must** obtain prior approval from a member of either the balance or design team (depending on which team is more relevant to the changes) before opening their Pull Request. This approval must be displayed in the pull request description body in the form of a screenshot. The Headcoders may grant an exemption to this requirement on a case-by-case basis, as the need arises.
-
 Barring highly specific circumstances (such as single line changes, submissions from advanced users, or changes to repo documentation), we will not accept Pull Requests utilising the web editor.
 
 Pull Requests regarding heavy-handed nerfs, particularly immediately after said mechanic was used, will be tagged with `I ded pls nerf`. A bad experience with a particular mechanic is not a justification for nerfing it.
 
 Reactionary revert PRs are not tolerated under any circumstances. Posting a revert immediately after a Pull Request is merged will result in a repoban.
+
+It is expected that contributors discuss larger changes on the forums or repository discussion tab prior to starting work on a Pull Request. The amount of time spent on any given Pull Request is not relevant. Repo staff are not responsible for contributors wasting their time creating features nobody asked for. Be sure to inform the corresponding teams about the forum post or discussion.
+
+In addition, discussing any change with the relevant teams is strongly advised. For large changes, changes which have a lot of impact (balance or design), species changes (however minor), or other changes that might be controversial, you should always discuss this with the relevant teams. Failure to do so might result in your PR being closed.
+
+For changes to certain content, contributors **must** obtain prior approval from a member of either the balance or design team (depending on which team is more relevant to the changes) before opening their Pull Request. This approval must be displayed in the pull request description body in the form of a screenshot. The Headcoders may grant an exemption to this requirement on a case-by-case basis, as the need arises.
+
+### Currently, changes to the following types of content reuires pre-approval:
+  - Security content (excluding fixes, code improvement, refactors, sprites, and mapping changes)
+  - Antagonist content (excluding fixes, code improvement, refactors, sprites, and mapping changes)
