@@ -38,7 +38,7 @@ Pull Requests regarding heavy-handed nerfs, particularly immediately after said 
 
 Reactionary revert PRs are not tolerated under any circumstances. Posting a revert immediately after a Pull Request is merged will result in a repoban.
 
-It is expected that contributors discuss larger changes on the forums or repository discussion tab prior to starting work on a Pull Request. The amount of time spent on any given Pull Request is not relevant. Repo staff are not responsible for contributors wasting their time creating features nobody asked for. Be sure to inform the corresponding teams about the forum post or discussion.
+It is expected that contributors discuss larger changes on the [Paradise Station forums](https://www.paradisestation.org/forum/91-code-discussion/), [GitHub discussions tab](https://github.com/ParadiseSS13/Paradise/discussions), or the [Discord project-discussion forum](https://discord.com/channels/145533722026967040/1110966752898207824) prior to starting work on a Pull Request. The amount of time spent on any given Pull Request is not relevant. Repo staff are not responsible for contributors wasting their time creating features nobody asked for. Be sure to inform the corresponding teams about the forum post or discussion.
 
 In addition, discussing any change with the relevant teams is strongly advised. For large changes, changes which have a lot of impact (balance or design), species changes (however minor), or other changes that might be controversial, you should always discuss this with the relevant teams. Failure to do so might result in your PR being closed.
 
