@@ -252,7 +252,7 @@
 	build_path = /obj/item/circuitboard/rnd_network_controller
 	category = list("Computer Boards")
 
-/datum/design/rdservercontrol
+/datum/design/rdbackup
 	name = "Console Board (R&D Backup)"
 	desc = "The circuit board for a R&D Backup Console"
 	id = "rdbackup"
