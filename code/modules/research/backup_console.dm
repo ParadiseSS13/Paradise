@@ -274,7 +274,7 @@
 
 /obj/item/disk/rnd_backup_disk/examine(mob/user)
 	. = ..()
-	if (last_backup_time)
+	if(last_backup_time)
 		. += "The timestamp label reads '[last_backup_time]'."
 	else
 		. += "The timestamp label is empty."
