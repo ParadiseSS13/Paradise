@@ -38,5 +38,5 @@ export const LinkMenu = (properties, context) => {
         </Section>
       </Window.Content>
     </Window>
-  )
+  );
 };

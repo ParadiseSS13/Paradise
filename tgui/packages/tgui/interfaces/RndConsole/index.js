@@ -55,7 +55,7 @@ export const RndConsole = (properties, context) => {
   const { act, data } = useBackend(context);
 
   if (!data.linked) {
-    return <LinkMenu />
+    return <LinkMenu />;
   }
 
   const { menu, linked_destroy, linked_lathe, linked_imprinter, wait_message } = data;

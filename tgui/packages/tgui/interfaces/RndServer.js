@@ -21,11 +21,7 @@ export const RndServer = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Link status">
-              {network_name === null ? (
-                <Box color="red">Unlinked</Box>
-                ) : (
-                <Box color="green">Linked</Box>
-              )}
+              {network_name === null ? <Box color="red">Unlinked</Box> : <Box color="green">Linked</Box>}
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -41,16 +37,9 @@ const LinkedView = (_properties, context) => {
   return (
     <Section title="Network Info">
       <LabeledList>
-        <LabeledList.Item label="Connected network ID">
-          {network_name}
-        </LabeledList.Item>
+        <LabeledList.Item label="Connected network ID">{network_name}</LabeledList.Item>
         <LabeledList.Item label="Unlink">
-          <Button
-            content="Unlink"
-            icon="unlink"
-            color="red"
-            onClick={() => act('unlink')}
-          />
+          <Button content="Unlink" icon="unlink" color="red" onClick={() => act('unlink')} />
         </LabeledList.Item>
       </LabeledList>
     </Section>

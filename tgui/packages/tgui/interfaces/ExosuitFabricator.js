@@ -1,7 +1,20 @@
 import { classes } from '../../common/react';
 import { createSearch } from '../../common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Divider, Dropdown, Icon, Input, ProgressBar, Section, Stack, Table, Modal, LabeledList, } from '../components';
+import {
+  Box,
+  Button,
+  Divider,
+  Dropdown,
+  Icon,
+  Input,
+  ProgressBar,
+  Section,
+  Stack,
+  Table,
+  Modal,
+  LabeledList,
+} from '../components';
 import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
 
@@ -18,7 +31,7 @@ export const ExosuitFabricator = (properties, context) => {
   const { building, linked } = data;
 
   if (!linked) {
-    return <LinkMenu />
+    return <LinkMenu />;
   }
 
   return (
@@ -108,11 +121,7 @@ const Designs = (properties, context) => {
     return design.name;
   });
   const filteredDesigns = designs.filter(searcher);
-  const [showLevelsModal, setShowLevelsModal] = useLocalState(
-    context,
-    'levelsModal',
-    false
-  );
+  const [showLevelsModal, setShowLevelsModal] = useLocalState(context, 'levelsModal', false);
   return (
     <Section
       fill
@@ -133,17 +142,8 @@ const Designs = (properties, context) => {
       buttons={
         <Box mt="2px">
           <Button icon="plus" content="Queue all" onClick={() => act('queueall')} />
-          <Button
-            icon="info"
-            content="Show current tech levels"
-            onClick={() => setShowLevelsModal(true)}
-          />
-          <Button
-            icon="unlink"
-            color="red"
-            tooltip="Disconnect from R&D network"
-            onClick={() => act('unlink')}
-          />
+          <Button icon="info" content="Show current tech levels" onClick={() => setShowLevelsModal(true)} />
+          <Button icon="unlink" color="red" tooltip="Disconnect from R&D network" onClick={() => act('unlink')} />
         </Box>
       }
     >
@@ -349,7 +349,6 @@ const Design = (properties, context) => {
   );
 };
 
-
 const LinkMenu = (properties, context) => {
   const { act, data } = useBackend(context);
 
@@ -386,27 +385,18 @@ const LinkMenu = (properties, context) => {
         </Section>
       </Window.Content>
     </Window>
-  )
+  );
 };
 
 const LevelsModal = (properties, context) => {
   const { act, data } = useBackend(context);
   const { tech_levels } = data;
 
-  const [showLevelsModal, setShowLevelsModal] = useLocalState(
-    context,
-    'levelsModal',
-    false
-  );
+  const [showLevelsModal, setShowLevelsModal] = useLocalState(context, 'levelsModal', false);
 
-  if(showLevelsModal) {
+  if (showLevelsModal) {
     return (
-      <Modal
-        maxWidth="75%"
-        width={window.innerWidth + 'px'}
-        maxHeight={window.innerHeight * 0.75 + 'px'}
-        mx="auto"
-      >
+      <Modal maxWidth="75%" width={window.innerWidth + 'px'} maxHeight={window.innerHeight * 0.75 + 'px'} mx="auto">
         <Section
           title="Current tech levels"
           buttons={
@@ -427,8 +417,8 @@ const LevelsModal = (properties, context) => {
           </LabeledList>
         </Section>
       </Modal>
-    )
+    );
   } else {
     return null;
   }
-}
+};

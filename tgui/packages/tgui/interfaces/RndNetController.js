@@ -1,37 +1,24 @@
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Box,
-  Section,
-  NoticeBox,
-  Tabs,
-  Icon,
-  Table,
-} from '../components';
+import { Button, LabeledList, Box, Section, NoticeBox, Tabs, Icon, Table } from '../components';
 import { Window } from '../layouts';
 
 export const RndNetController = (props, context) => {
-  const {act, data} = useBackend(context);
+  const { act, data } = useBackend(context);
 
   const [filterType, setFilterType] = useLocalState(context, 'filterType', 'ALL');
 
-  const {
-    network_password,
-    network_name,
-    devices
-  } = data;
+  const { network_password, network_name, devices } = data;
 
   let filters = [];
   filters.push(filterType);
 
-  if (filterType === "MSC") {
-    filters.push("BCK");
-    filters.push("PGN");
+  if (filterType === 'MSC') {
+    filters.push('BCK');
+    filters.push('PGN');
   }
 
-  const filtered_devices = (filterType === 'ALL' ? devices : devices.filter(x => filters.indexOf(x.dclass) > -1));
+  const filtered_devices = filterType === 'ALL' ? devices : devices.filter((x) => filters.indexOf(x.dclass) > -1);
 
   return (
     <Window width={900} height={600}>
@@ -61,8 +48,8 @@ export const RndNetController = (props, context) => {
           <Tabs>
             <Tabs.Tab
               key="AllDevices"
-              selected={filterType === "ALL"}
-              onClick={() => setFilterType("ALL")}
+              selected={filterType === 'ALL'}
+              onClick={() => setFilterType('ALL')}
               icon="network-wired"
             >
               All Devices
@@ -70,8 +57,8 @@ export const RndNetController = (props, context) => {
 
             <Tabs.Tab
               key="RNDServers"
-              selected={filterType === "SRV"}
-              onClick={() => setFilterType("SRV")}
+              selected={filterType === 'SRV'}
+              onClick={() => setFilterType('SRV')}
               icon="server"
             >
               R&D Servers
@@ -79,8 +66,8 @@ export const RndNetController = (props, context) => {
 
             <Tabs.Tab
               key="RDConsoles"
-              selected={filterType === "RDC"}
-              onClick={() => setFilterType("RDC")}
+              selected={filterType === 'RDC'}
+              onClick={() => setFilterType('RDC')}
               icon="desktop"
             >
               R&D Consoles
@@ -88,19 +75,14 @@ export const RndNetController = (props, context) => {
 
             <Tabs.Tab
               key="Mechfabs"
-              selected={filterType === "MFB"}
-              onClick={() => setFilterType("MFB")}
+              selected={filterType === 'MFB'}
+              onClick={() => setFilterType('MFB')}
               icon="industry"
             >
               Exosuit Fabricators
             </Tabs.Tab>
 
-            <Tabs.Tab
-              key="Misc"
-              selected={filterType === "MSC"}
-              onClick={() => setFilterType("MSC")}
-              icon="microchip"
-            >
+            <Tabs.Tab key="Misc" selected={filterType === 'MSC'} onClick={() => setFilterType('MSC')} icon="microchip">
               Miscellaneous Devices
             </Tabs.Tab>
           </Tabs>
@@ -123,7 +105,7 @@ export const RndNetController = (props, context) => {
                     onClick={() =>
                       act('unlink_device', {
                         dclass: d.dclass,
-                        uid: d.id
+                        uid: d.id,
                       })
                     }
                   />
@@ -135,4 +117,4 @@ export const RndNetController = (props, context) => {
       </Window.Content>
     </Window>
   );
-}
+};
