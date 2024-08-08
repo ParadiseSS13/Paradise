@@ -3,8 +3,8 @@
 	name = "Plasma Vent"
 	desc = "A spire of basalt rock, erupting with bubbling molten plasma. It constantly emits toxic fumes."
 	anchored = TRUE
-	icon = 'icons/obj/atmospherics/plasma_vent.dmi'
-	icon_state = "plasma_vent"
+	icon = 'icons/obj/lavaland/geyser.dmi'
+	icon_state = "geyser_plasma"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	armor = list(MELEE = 60, BULLET = 80, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100, ACID = 100)
 
