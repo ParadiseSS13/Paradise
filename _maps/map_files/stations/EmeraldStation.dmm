@@ -1351,6 +1351,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
+"ape" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
+	dir = 4
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/asteroid_filtering)
 "apk" = (
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 1;
@@ -1580,12 +1587,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
-"ars" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/basalt/plasma,
-/area/station/engineering/atmos/asteroid_core)
 "arJ" = (
 /turf/simulated/wall/r_wall,
 /area/station/public/sleep)
@@ -39291,9 +39292,6 @@
 	},
 /area/station/medical/medbay2)
 "hEl" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Asteroid Core Central";
 	dir = 9
@@ -46137,6 +46135,15 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/break_room)
+"iZB" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4;
+	initialize_directions = 11
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "iZC" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -52251,6 +52258,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 6
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "kjE" = (
@@ -56922,8 +56930,7 @@
 /area/station/service/hydroponics)
 "lia" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins{
-	name = "Toxins Scrubber";
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins_siphon{
 	dir = 1
 	},
 /turf/simulated/floor/lava/plasma/fuming,
@@ -57228,8 +57235,7 @@
 /area/station/maintenance/fsmaint)
 "llu" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins{
-	name = "Toxins Scrubber";
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins_siphon{
 	dir = 8
 	},
 /turf/simulated/floor/lava/plasma/fuming,
@@ -62016,7 +62022,6 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 8
 	},
-/obj/machinery/atmospherics/meter,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -73692,6 +73697,7 @@
 /area/station/hallway/primary/central/sw)
 "own" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/asteroid_maint)
 "owB" = (
@@ -75773,9 +75779,7 @@
 /area/station/command/office/rd)
 "oQw" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins{
-	name = "Toxins Scrubber"
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins_siphon,
 /turf/simulated/floor/lava/plasma/fuming,
 /area/station/engineering/atmos/asteroid_core)
 "oQA" = (
@@ -88724,9 +88728,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "roh" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Asteroid Core South";
 	dir = 9
@@ -94510,6 +94511,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 8
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "stK" = (
@@ -97725,6 +97727,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/aft)
 "sZi" = (
@@ -115071,8 +115074,7 @@
 /area/station/hallway/primary/central/south)
 "wsd" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins{
-	name = "Toxins Scrubber";
+/obj/machinery/atmospherics/unary/vent_scrubber/on/toxins_siphon{
 	dir = 4
 	},
 /turf/simulated/floor/lava/plasma/fuming,
@@ -135072,7 +135074,7 @@ wPA
 vPx
 vPx
 jOk
-ars
+vPx
 sdA
 vPx
 vPx
@@ -137646,7 +137648,7 @@ gaC
 duF
 icr
 kQl
-icr
+ape
 mkt
 kQl
 icr
@@ -143177,7 +143179,7 @@ uPm
 pDR
 xVW
 gPh
-gPh
+iZB
 xaq
 oeh
 uBC

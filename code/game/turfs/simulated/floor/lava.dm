@@ -266,15 +266,16 @@
 //special turf for the asteroid core on EmeraldStation
 /turf/simulated/floor/lava/plasma/fuming
 	name = "liquid plasma"
-	desc = "A bubbling pit of liquid plasma. It constantly emits toxic fumes."
+	desc = "A bubbling pit of liquid plasma. It bubbles ominously."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
 	icon_state = "liquidplasma-255"
 	base_icon_state = "liquidplasma"
 	baseturf = /turf/simulated/floor/lava/plasma/fuming
 	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
 
 	//Hot Ass Plasma lava
-	temperature = 500
+	temperature = 1000
 	oxygen = 0
 	nitrogen = 0
 	toxins = 10
@@ -282,35 +283,6 @@
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
-/*
-/turf/simulated/floor/lava/plasma/fuming/process_atmos()
-
-	to_chat(world, "making Milla proc")
-	var/datum/milla_safe/lava_fuming/milla = new()
-	to_chat(world, "making milla async")
-	milla.invoke_async(src)
-
-/datum/milla_safe/lava_fuming
-
-/datum/milla_safe/lava_fuming/on_run(turf/simulated/floor/lava/plasma/fuming/tile)
-	var/max_plasma = ONE_ATMOSPHERE
-	var/turf/T = get_turf(tile)
-	var/datum/gas_mixture/environment = get_turf_air(T)
-	var/datum/gas_mixture/add_moles = new
-	var/environment_pressure = environment.return_pressure()
-	var/pressure_delta = min(max_plasma - environment_pressure, (max_plasma - environment_pressure) / 2)
-
-	//only add gas if below max_plasma
-	to_chat(world,"Checking For Pressure")
-	if (environment_pressure <= max_plasma)
-		to_chat(world, "Pressure Check: Adding plasma")
-		add_moles.set_toxins(pressure_delta * environment_pressure / (R_IDEAL_GAS_EQUATION))
-		add_moles.set_agent_b((pressure_delta * environment_pressure / (R_IDEAL_GAS_EQUATION)) / 100)
-		environment.merge(add_moles)
-	else
-		to_chat(world, "pressure check: Over pressure")
-		return
-*/
 
 /turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()
