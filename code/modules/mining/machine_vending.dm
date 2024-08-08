@@ -27,8 +27,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/Initialize(mapload)
-	. = ..()
 	prize_list = list()
 	prize_list["Gear"] = list(
 		EQUIPMENT("Advanced Scanner", /obj/item/t_scanner/adv_mining_scanner, 800),
@@ -313,14 +311,12 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/golem/Initialize()
-	. = ..()
 	desc += "\nIt seems a few selections have been added."
 	prize_list["Extra"] += list(
 		EQUIPMENT("Extra ID", /obj/item/card/id/golem, 250),
 		EQUIPMENT("Science Backpack", /obj/item/storage/backpack/science, 250),
 		EQUIPMENT("Full Toolbelt", /obj/item/storage/belt/utility/full/multitool, 250),
-		EQUIPMENT("Monkey Cube", /obj/item/food/snacks/monkeycube, 250),
+		EQUIPMENT("Monkey Cube", /obj/item/food/monkeycube, 250),
 		EQUIPMENT("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 500),
 		EQUIPMENT("Grey Slime Extract", /obj/item/slime_extract/grey, 1000),
 		EQUIPMENT("KA Trigger Modification Kit", /obj/item/borg/upgrade/modkit/trigger_guard, 1000),
@@ -344,8 +340,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/labor/Initialize()
-	. = ..()
 	prize_list = list()
 	prize_list["Scum"] += list(
 		EQUIPMENT("Trauma Kit", /obj/item/stack/medical/bruise_pack/advanced, 150),
@@ -356,9 +350,9 @@
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
 		EQUIPMENT("Box of matches", /obj/item/storage/fancy/matches, 50),
-		EQUIPMENT("Cheeseburger", /obj/item/food/snacks/burger/cheese, 150),
-		EQUIPMENT("Big Burger", /obj/item/food/snacks/burger/bigbite, 250),
-		EQUIPMENT("Recycled Prisoner", /obj/item/food/snacks/soylentgreen, 500),
+		EQUIPMENT("Cheeseburger", /obj/item/food/burger/cheese, 150),
+		EQUIPMENT("Big Burger", /obj/item/food/burger/bigbite, 250),
+		EQUIPMENT("Recycled Prisoner", /obj/item/food/soylentgreen, 500),
 		EQUIPMENT("Crayons", /obj/item/storage/fancy/crayons, 350),
 		EQUIPMENT("Plushie", /obj/random/plushie, 750),
 		EQUIPMENT("Dnd set", /obj/item/storage/box/characters, 500),
@@ -388,8 +382,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/explorer/Initialize(mapload)
-	. = ..()
 	prize_list = list()
 	prize_list["Equipment"] = list(
 		EQUIPMENT("Advanced Scanner", /obj/item/t_scanner/adv_mining_scanner, 800),

@@ -88,6 +88,12 @@
 	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
 	icon_state = "streetjudgearmor"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+	)
+
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield's security armor"
 	desc = "An armored vest with the badge of a Blueshield."
@@ -390,6 +396,7 @@
 /obj/item/clothing/suit/armor/reactive
 	name = "reactive armor"
 	desc = "Doesn't seem to do much for some reason."
+	/// Is the armor turned on?
 	var/active = FALSE
 	/// Is the armor disabled, and prevented from reactivating temporarly?
 	var/disabled = FALSE
@@ -421,6 +428,14 @@
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>The armor is [round(cell.percent())]% charged.</span>"
+
+/obj/item/clothing/suit/armor/reactive/examine_more(mob/user)
+	. = ..()
+	. += "Reactive armours are one of the uses that Nanotasen has found for the anomaly cores that can be recovered from the bluespace phenomina that occur in the space in orbit of Lavaland. \
+	The effects of these armours can be unpredictable or undesirable in certain situations, so Nanotrasen advises only activating them when the user is in danger."
+	. += ""
+	. += "Outside of the strange effects caused by the anomaly core, the armour provides no protection against conventional attacks. \
+	Nanotrasen cannot be held liable for injury and/or death due to misuse or proper operation of the reactive armour."
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
@@ -619,7 +634,7 @@
 				continue
 			owner.Beam(M,icon_state="lightning[rand(1, 12)]",icon='icons/effects/effects.dmi',time=5)
 			M.adjustFireLoss(20)
-			playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
+			playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 			add_attack_logs(owner, M, "[M] was shocked by [owner]'s [src]", ATKLOG_ALMOSTALL)
 		disable(rand(2, 5)) // let's not have buckshot set it off 4 times and do 80 burn damage.
 		return TRUE
@@ -696,6 +711,7 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	sprite_sheets = null
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
+	flags_2 = RAD_PROTECT_CONTENTS_2
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
@@ -706,6 +722,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
 	flags = THICKMATERIAL
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
@@ -716,6 +733,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	flags = THICKMATERIAL
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	hide_tail_by_species = list("Vox")

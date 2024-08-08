@@ -34,8 +34,11 @@
 	QDEL_NULL(myreplacer)
 	return ..()
 
-/obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
-	user.drop_item()
+/obj/structure/janitorialcart/proc/put_in_cart(mob/user, obj/item/I)
+	if(!user.unEquip(I)) // We can do this here because everything below wants to
+		to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+		return
+
 	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	update_icon(UPDATE_OVERLAYS)
@@ -45,52 +48,51 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
-	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
+	if(I.is_robot_module())
+		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
+		return
 
-	if(!I.is_robot_module())
-		if(istype(I, /obj/item/mop))
-			var/obj/item/mop/m=I
-			if(m.reagents.total_volume < m.reagents.maximum_volume)
-				m.wet_mop(src, user)
-				return
-			if(!mymop)
-				m.janicart_insert(user, src)
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/push_broom))
-			if(!mybroom)
-				var/obj/item/push_broom/B = I
-				B.janicart_insert(user, src)
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/storage/bag/trash))
-			if(!mybag)
-				var/obj/item/storage/bag/trash/t=I
-				t.janicart_insert(user, src)
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/reagent_containers/spray/cleaner))
-			if(!myspray)
-				myspray = I
-				put_in_cart(I, user)
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/lightreplacer))
-			if(!myreplacer)
-				var/obj/item/lightreplacer/l=I
-				l.janicart_insert(user,src)
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/caution))
-			if(signs < max_signs)
-				signs++
-				put_in_cart(I, user)
-			else
-				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
-		else if(mybag)
-			mybag.attackby(I, user, params)
+	if(istype(I, /obj/item/mop))
+		var/obj/item/mop/M = I
+		if(M.reagents.total_volume < M.reagents.maximum_volume)
+			M.wet_mop(src, user)
+			return
+		if(!mymop)
+			mymop = I
+			put_in_cart(user, I)
+			return
+		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
+
+	else if(istype(I, /obj/item/push_broom) && !mybroom)
+		mybroom = I
+		put_in_cart(user, I)
+
+	else if(istype(I, /obj/item/storage/bag/trash) && !mybag)
+		mybag = I
+		put_in_cart(user, I)
+
+	else if(istype(I, /obj/item/reagent_containers/spray/cleaner) && !myspray)
+		myspray = I
+		put_in_cart(user, I)
+
+	else if(istype(I, /obj/item/lightreplacer) && !myreplacer)
+		myreplacer = I
+		put_in_cart(user, I)
+
+	else if(istype(I, /obj/item/caution))
+		if(signs < max_signs)
+			signs++
+			put_in_cart(user, I)
+		else
+			to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
+
+		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
+
+	else if(mybag)
+		mybag.attackby(I, user, params)
+
 	else
-		to_chat(usr, "<span class='warning'>You cannot interface your modules with [src]!</span>")
+		to_chat(user, "<span class='notice'>There is already one of those in [src].</span>")
 
 /obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE

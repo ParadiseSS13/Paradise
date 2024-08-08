@@ -161,7 +161,7 @@
 
 		gripper.gripped_item.forceMove(src)
 		user.visible_message(
-			"<span class='notice'>[user] places [gripper.gripped_item] into the disposal unit.</span>", 
+			"<span class='notice'>[user] places [gripper.gripped_item] into the disposal unit.</span>",
 			"<span class='notice'>You place [gripper.gripped_item] into the disposal unit.</span>",
 			"<span class='notice'>You hear someone dropping something into a disposal unit.</span>"
 		)
@@ -216,11 +216,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	
+
 	if(length(contents) > 0)
 		to_chat(user, "<span class='warning'>You need to empty the contents of the disposal unit first!</span>")
 		return
-	
+
 	if(mode == DISPOSALS_OFF) // It's off but still not unscrewed
 		mode = DISPOSALS_UNSCREWED
 	else if(mode == DISPOSALS_UNSCREWED)
@@ -558,7 +558,7 @@
 
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
+		playsound(src, 'sound/machines/disposalflush.ogg', 50, FALSE, 0)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
 
@@ -593,7 +593,7 @@
 
 	var/turf/target
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
+		playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
 		last_sound = world.time
 
 	if(H) // Somehow, someone managed to flush a window which broke mid-transit and caused the disposal to go in an infinite loop trying to expel null, hopefully this fixes it
@@ -635,11 +635,6 @@
 
 	else
 		return ..(mover, target, height)
-
-
-/obj/machinery/disposal/singularity_pull(S, current_size)
-	if(current_size >= STAGE_FIVE)
-		qdel(src)
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
@@ -816,7 +811,7 @@
 		for(var/mob/M in hearers(loc.loc))
 			to_chat(M, "<FONT size=[max(0, 5 - get_dist(src, M))]>CLONG, clong!</FONT>")
 
-	playsound(loc, 'sound/effects/clang.ogg', 50, 0, 0)
+	playsound(loc, 'sound/effects/clang.ogg', 50, FALSE, 0)
 
 	// called to vent all gas in holder to a location
 /obj/structure/disposalholder/proc/vent_gas(turf/location)
@@ -960,7 +955,7 @@
 			target = get_ranged_target_turf(T, direction, 10)
 
 		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
+			playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
 			last_sound = world.time
 
 		if(H)
@@ -978,7 +973,7 @@
 	else	// no specified direction, so throw in random direction
 
 		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
+			playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
 			last_sound = world.time
 		if(H)
 			for(var/atom/movable/AM in H)
@@ -1201,7 +1196,7 @@
 	updatedir()
 	if(mapload)
 		parse_sort_destinations()
-	update_appearance(UPDATE_DESC)
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
 	update()
 	return
 
@@ -1540,10 +1535,10 @@
 			play_sound = TRUE
 			last_sound = world.time
 		if(play_sound)
-			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, FALSE)
+			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, FALSE, FALSE)
 		sleep(20)	//wait until correct animation frame
 		if(play_sound)
-			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
+			playsound(src, 'sound/machines/hiss.ogg', 50, FALSE, FALSE)
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(loc)
 		AM.pipe_eject(dir)

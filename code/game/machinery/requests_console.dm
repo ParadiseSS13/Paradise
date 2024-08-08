@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	var/area/containing_area = get_area(src)
 	if(isnull(department))
-		department = containing_area.request_console_name || containing_area.name
+		department = containing_area.request_console_name || trimtext(replacetext(containing_area.name, "\improper", ""))
 	if(isnull(departmentType))
 		departmentType = containing_area.request_console_flags
 	announcementConsole = containing_area.request_console_announces
@@ -398,6 +398,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if(goal.requester_name == id.registered_name && !goal.completed)
 			return TRUE
 	return FALSE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console, 30, 30)
 
 /proc/send_requests_console_message(message, sender, recipient, stamped, verified, priority, obj/item/radio/radio)
 	if(!message)

@@ -145,8 +145,6 @@
 			stat |= BROKEN
 		return
 
-	if(exchange_parts(user, I))
-		return
 	return ..()
 
 /obj/machinery/power/compressor/crowbar_act(mob/user, obj/item/I)
@@ -352,11 +350,9 @@
 			stat |= BROKEN
 		return
 
-	if(exchange_parts(user, I))
-		return
-
 	if(default_deconstruction_crowbar(user, I))
 		return
+
 	return ..()
 
 /obj/machinery/power/turbine/attack_hand(mob/user)

@@ -1,4 +1,4 @@
-#define DRYING_TIME 5 * 60 * 10 //for 1 unit of depth in puddle (amount var)
+#define DRYING_TIME 5 MINUTES //for 1 unit of depth in puddle (amount var)
 #define ALWAYS_IN_GRAVITY 2
 
 /obj/effect/decal/cleanable/blood
@@ -227,7 +227,7 @@
 	return TRUE
 
 /obj/effect/decal/cleanable/blood/writing
-	icon_state = "tracks"
+	icon_state = "writing1"
 	desc = "It looks like a writing in blood."
 	gender = NEUTER
 	random_icon_states = list("writing1", "writing2", "writing3", "writing4", "writing5")

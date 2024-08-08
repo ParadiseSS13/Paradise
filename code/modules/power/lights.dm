@@ -167,6 +167,8 @@
 	desc = "Industrial-grade light fixture for brightening up dark corners of the station."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube1"
+	glow_icon_state = "tube"
+	exposure_icon_state = "cone"
 	anchored = TRUE
 	layer = 5
 	max_integrity = 100
@@ -233,6 +235,8 @@
 	icon_state = "bulb1"
 	desc = "A compact and cheap light fixture, perfect for keeping maintenance tunnels appropriately spooky."
 	fitting = "bulb"
+	glow_icon_state = "bulb"
+	exposure_icon_state = "circle"
 	base_state = "bulb"
 	brightness_range = 4
 	brightness_color = "#a0a080"
@@ -821,9 +825,11 @@
 // explode the light
 
 /obj/machinery/light/proc/explode()
-	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
-	sleep(2)
+	addtimer(CALLBACK(src, PROC_REF(actually_explode)), 2)
+
+/obj/machinery/light/proc/actually_explode()
+	var/turf/T = get_turf(loc)
 	explosion(T, 0, 0, 2, 2)
 	qdel(src)
 
@@ -887,6 +893,7 @@
 	base_state = "ltube"
 	item_state = "c_tube"
 	brightness_range = 8
+	brightness_color = "#ffffff"
 
 /obj/item/light/tube/large
 	w_class = WEIGHT_CLASS_SMALL
@@ -986,7 +993,7 @@
 		update()
 
 /obj/item/light/suicide_act(mob/living/carbon/human/user)
-	user.visible_message("<span class=suicide>[user] touches [src], burning [user.p_their()] hands off!</span>", "<span class=suicide>You touch [src], burning your hands off!</span>")
+	user.visible_message("<span class='suicide'>[user] touches [src], burning [user.p_their()] hands off!</span>", "<span class='suicide'>You touch [src], burning your hands off!</span>")
 
 	for(var/oname in list("l_hand", "r_hand"))
 		var/obj/item/organ/external/limb = user.get_organ(oname)

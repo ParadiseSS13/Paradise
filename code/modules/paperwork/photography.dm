@@ -45,7 +45,7 @@
 		if(!txt)
 			return
 		txt = copytext(txt, 1, 128)
-		if(loc == user && user.stat == 0)
+		if(loc == user && user.stat == CONSCIOUS)
 			scribble = txt
 	else if(P.get_heat())
 		burnphoto(P, user)
@@ -144,7 +144,7 @@
 		var/mob/M = usr
 		if(!is_screen_atom(over_object))
 			return ..()
-		playsound(loc, "rustle", 50, 1, -5)
+		playsound(loc, "rustle", 50, TRUE, -5)
 		if((!M.restrained() && !M.stat && M.back == src))
 			switch(over_object.name)
 				if("r_hand")
@@ -369,7 +369,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 	captureimage(target, user, flag)
 
-	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
+	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
 	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	pictures_left--
@@ -494,13 +494,15 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/digital/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>A small screen shows that there are currently [length(saved_pictures)] pictures stored.</span>"
+	. += "<span class='info'><b>Alt-Shift-Click</b> [src] to print a specific photo.</span>"
+	. += "<span class='info'><b>Ctrl-Shift-Click</b> [src] to delete a specific photo.</span>"
 
 /obj/item/camera/digital/afterattack(atom/target, mob/user, flag)
 	if(!on || !pictures_left || ismob(target.loc))
 		return
 
 	captureimage(target, user, flag)
-	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
+	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
 
 	icon_state = icon_off
 	on = FALSE
@@ -529,11 +531,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag)
 	saved_pictures += P
-
-/obj/item/camera/digital/examine(mob/user)
-	. = ..()
-	. += "<span class='info'><b>Alt-Shift-Click</b> [src] to print a specific photo.</span>"
-	. += "<span class='info'><b>Ctrl-Shift-Click</b> [src] to delete a specific photo.</span>"
 
 /obj/item/camera/digital/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))

@@ -10,7 +10,7 @@
 	emote_see = list("clacks")
 	speak_chance = 1
 	turns_per_move = 5
-	butcher_results = list(/obj/item/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stomps"
@@ -23,7 +23,7 @@
 
 /mob/living/simple_animal/crab/handle_automated_movement()
 	//CRAB movement
-	if(!stat || !isturf(loc) || IS_HORIZONTAL(src) || buckled)
+	if(stat == CONSCIOUS || !isturf(loc) || IS_HORIZONTAL(src) || buckled)
 		return
 
 	turns_since_move++

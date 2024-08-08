@@ -133,6 +133,9 @@
 /obj/item/wormhole_jaunter/contractor/activate(mob/user)
 	if(!turf_check(user))
 		return
+	if(istype(get_area(src), /area/ruin/space/telecomms)) //It should work in the depot, because it's syndicate, but I don't want someone lighting the flare in the middle of telecomms and calling it a day.
+		to_chat(user, "<span class='warning'>Error! Unknown jamming system blocking teleportation in this area!</span>")
+		return
 	if(!destination)
 		var/list/L = get_destinations(user)
 		if(!length(L))
