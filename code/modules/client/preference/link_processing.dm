@@ -329,7 +329,7 @@
 
 				if("hair")
 					if(!(S.bodyflags & BALD))
-						var/new_hair = tgui_input_color(user, "Choose your character's hair colour.", "Character Preference", active_character.h_colour) as color|null
+						var/new_hair = tgui_input_color(user, "Choose your character's hair colour.", "Character Preference", active_character.h_colour)
 						if(new_hair)
 							active_character.h_colour = new_hair
 
@@ -337,7 +337,7 @@
 					if(!(S.bodyflags & BALD))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[active_character.h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-							var/new_hair = tgui_input_color(user, "Choose your character's secondary hair colour.", "Character Preference", active_character.h_sec_colour) as color|null
+							var/new_hair = tgui_input_color(user, "Choose your character's secondary hair colour.", "Character Preference", active_character.h_sec_colour)
 							if(new_hair)
 								active_character.h_sec_colour = new_hair
 
@@ -386,7 +386,7 @@
 						active_character.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
 
 				if("h_grad_colour")
-					var/result = tgui_input_color(user, "Choose your character's hair gradient colour:", "Character Preference", active_character.h_grad_colour) as color|null
+					var/result = tgui_input_color(user, "Choose your character's hair gradient colour:", "Character Preference", active_character.h_grad_colour)
 					if(result)
 						active_character.h_grad_colour = result
 
@@ -397,13 +397,13 @@
 					active_character.h_grad_alpha = clamp(result, 0, 255)
 
 				if("runechat_color")
-					var/result = input(user, "Choose your character's runechat color:", "Character Preference", active_character.runechat_color) as color|null
+					var/result = input(user, "Choose your character's runechat color:", "Character Preference", active_character.runechat_color)
 					if(result)
 						active_character.runechat_color = result
 
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
-						var/new_head_accessory = tgui_input_color(user, "Choose the colour of your your character's head accessory.", "Character Preference", active_character.hacc_colour) as color|null
+						var/new_head_accessory = tgui_input_color(user, "Choose the colour of your your character's head accessory.", "Character Preference", active_character.hacc_colour)
 						if(new_head_accessory)
 							active_character.hacc_colour = new_head_accessory
 
@@ -480,7 +480,7 @@
 
 				if("m_head_colour")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-						var/new_markings = tgui_input_color(user, "Choose the colour of your your character's head markings.", "Character Preference", active_character.m_colours["head"]) as color|null
+						var/new_markings = tgui_input_color(user, "Choose the colour of your your character's head markings.", "Character Preference", active_character.m_colours["head"])
 						if(new_markings)
 							active_character.m_colours["head"] = new_markings
 
@@ -502,7 +502,7 @@
 
 				if("m_body_colour")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-						var/new_markings = tgui_input_color(user, "Choose the colour of your your character's body markings.", "Character Preference", active_character.m_colours["body"]) as color|null
+						var/new_markings = tgui_input_color(user, "Choose the colour of your your character's body markings.", "Character Preference", active_character.m_colours["body"])
 						if(new_markings)
 							active_character.m_colours["body"] = new_markings
 
@@ -530,7 +530,7 @@
 
 				if("m_tail_colour")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-						var/new_markings = tgui_input_color(user, "Choose the colour of your your character's tail markings.", "Character Preference", active_character.m_colours["tail"]) as color|null
+						var/new_markings = tgui_input_color(user, "Choose the colour of your your character's tail markings.", "Character Preference", active_character.m_colours["tail"])
 						if(new_markings)
 							active_character.m_colours["tail"] = new_markings
 
@@ -557,7 +557,7 @@
 
 				if("facial")
 					if(!(S.bodyflags & SHAVED))
-						var/new_facial = tgui_input_color(user, "Choose your character's facial-hair colour:", "Character Preference", active_character.f_colour) as color|null
+						var/new_facial = tgui_input_color(user, "Choose your character's facial-hair colour:", "Character Preference", active_character.f_colour)
 						if(new_facial)
 							active_character.f_colour = new_facial
 
@@ -565,7 +565,7 @@
 					if(!(S.bodyflags & SHAVED))
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[active_character.f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
-							var/new_facial = tgui_input_color(user, "Choose your character's secondary facial-hair colour:", "Character Preference", active_character.f_sec_colour) as color|null
+							var/new_facial = tgui_input_color(user, "Choose your character's secondary facial-hair colour:", "Character Preference", active_character.f_sec_colour)
 							if(new_facial)
 								active_character.f_sec_colour = new_facial
 
@@ -650,7 +650,7 @@
 						active_character.socks = new_socks
 
 				if("eyes")
-					var/new_eyes = tgui_input_color(user, "Choose your character's eye colour:", "Character Preference", active_character.e_colour) as color|null
+					var/new_eyes = tgui_input_color(user, "Choose your character's eye colour:", "Character Preference", active_character.e_colour)
 					if(new_eyes)
 						active_character.e_colour = new_eyes
 
@@ -670,12 +670,12 @@
 
 				if("skin")
 					if((S.bodyflags & HAS_SKIN_COLOR) || GLOB.body_accessory_by_species[active_character.species] || check_rights(R_ADMIN, 0, user))
-						var/new_skin = tgui_input_color(user, "Choose your character's skin colour: ", "Character Preference", active_character.s_colour) as color|null
+						var/new_skin = tgui_input_color(user, "Choose your character's skin colour: ", "Character Preference", active_character.s_colour)
 						if(new_skin)
 							active_character.s_colour = new_skin
 
 				if("ooccolor")
-					var/new_ooccolor = tgui_input_color(user, "Choose your OOC colour:", "Game Preference", ooccolor) as color|null
+					var/new_ooccolor = tgui_input_color(user, "Choose your OOC colour:", "Game Preference", ooccolor)
 					if(new_ooccolor)
 						ooccolor = new_ooccolor
 
@@ -1007,7 +1007,7 @@
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")
-					var/UI_style_color_new = tgui_input_color(user, "Choose your UI color, dark colors are not recommended!", "Game Preference", UI_style_color) as color|null
+					var/UI_style_color_new = tgui_input_color(user, "Choose your UI color, dark colors are not recommended!", "Game Preference", UI_style_color)
 					if(!UI_style_color_new) return
 					UI_style_color = UI_style_color_new
 
@@ -1140,7 +1140,7 @@
 					screentip_mode = desired_screentip_mode
 
 				if("screentip_color")
-					var/screentip_color_new = tgui_input_color(user, "Choose your screentip color", "Game Preference", screentip_color) as color|null
+					var/screentip_color_new = tgui_input_color(user, "Choose your screentip color", "Game Preference", screentip_color)
 					if(screentip_color_new)
 						screentip_color = screentip_color_new
 

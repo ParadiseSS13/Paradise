@@ -41,7 +41,7 @@
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/toy/crayon))
-		color = tgui_input_color(user,"Please choose a color.", "Curtain Color") as color
+		color = tgui_input_color(user,"Please choose a color.", "Curtain Color")
 		return
 	return ..()
 

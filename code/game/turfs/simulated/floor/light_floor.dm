@@ -69,7 +69,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!light_broken)
-		var/new_color = tgui_input_color(user, "Select a bulb color", "Select a bulb color", color) as color|null
+		var/new_color = tgui_input_color(user, "Select a bulb color", "Select a bulb color", color)
 		if(!new_color)
 			return
 
