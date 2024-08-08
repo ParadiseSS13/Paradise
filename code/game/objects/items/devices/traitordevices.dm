@@ -510,6 +510,6 @@
 		if(min_dist > test_range)
 			range++
 		else
-			playsound(user, 'sound/effects/ping_hit.ogg', vol = 75, vary = TRUE)
+			playsound(user, 'sound/effects/ping_hit.ogg', 75, TRUE)
 			break
 	to_chat(user, "<span class='notice'>[range_messages[range]]</span>")
