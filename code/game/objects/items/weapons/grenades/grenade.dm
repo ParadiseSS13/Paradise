@@ -17,6 +17,8 @@
 	var/det_time = 5 SECONDS
 	/// Does the grenade show the fuze's time setting on examine?
 	var/display_timer = TRUE
+	/// Can the grenade's fuze time be changed?
+	var/modifiable_timer = TRUE
 
 /obj/item/grenade/examine(mob/user)
 	. = ..()
@@ -27,7 +29,11 @@
 		. += "<span class='notice'>The fuze is set to [det_time / 10] second\s.</span>"
 	else
 		. += "<span class='warning'>[src] is set for instant detonation.</span>"
-	. += "<span class='notice'>Use a screwdriver to modify the time on the fuze.</span>"
+	
+	if(modifiable_timer)
+		. += "<span class='notice'>Use a screwdriver to modify the time on the fuze.</span>"
+	else
+		. += "<span class='notice'>The fuze's time cannot be modified.</span>"
 
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
@@ -79,8 +85,7 @@
 		M.unEquip(src)
 
 /obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
-	// Grenades without this all are made to have fixed fuze lengths.
-	if(display_timer)
+	if(!modifiable_timer)
 		return
 
 	switch(det_time)

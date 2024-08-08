@@ -4,14 +4,10 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "smoke"
 	det_time = 2 SECONDS
-	display_timer = FALSE
+	modifiable_timer = FALSE
 	item_state = "smoke"
 	slot_flags = SLOT_FLAG_BELT
 	var/datum/effect_system/smoke_spread/bad/smoke
-
-/obj/item/grenade/smokebomb/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>The fuze is set to 2 seconds. It cannot be modified.</span>"
 
 /obj/item/grenade/smokebomb/Initialize(mapload)
 	. = ..()

@@ -14,6 +14,7 @@
 	active = FALSE
 	det_time = 5 SECONDS
 	display_timer = FALSE
+	modifiable_timer = FALSE
 	var/list/times
 
 /obj/item/grenade/iedcasing/examine(mob/user)
