@@ -40,19 +40,3 @@
 	add_moles.set_toxins(toxins_modifier)
 	add_moles.set_temperature(target_temp)
 	environment.merge(add_moles)
-/*
-	//keep asteroid toasty
-	if(environment.temperature() >= target_temp)
-		return
-	for(var/turf/simulated/tiles in adjacent_turfs)
-		T = get_turf(tiles)
-		environment = get_turf_air(tiles)
-		var/datum/gas_mixture/removed = environment.remove(environment.total_moles())
-		if(!removed)
-			return
-		var/heat_capacity = removed.heat_capacity()
-		if(heat_capacity)
-			if(removed.temperature() < 1000)
-				removed.set_temperature(min(removed.temperature() + 200, 1000))
-			environment.merge(removed)
-*/

@@ -169,8 +169,7 @@
 	toxins = 10
 	agent_b = 0.1
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/plasma
-	atmos_mode = ATMOS_MODE_SEALED
-	atmos_environment = null
+	atmos_mode = ATMOS_MODE_NO_DECAY
 
 /turf/simulated/floor/plating/asteroid/airless
 	temperature = TCMB

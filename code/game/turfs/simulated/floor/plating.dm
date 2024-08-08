@@ -314,8 +314,7 @@
 	nitrogen = 0
 	toxins = 10
 	agent_b = 0.1
-	atmos_environment = null
-	atmos_mode = ATMOS_MODE_SEALED
+	atmos_mode = ATMOS_MODE_NO_DECAY
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	..()

@@ -271,8 +271,7 @@
 	icon_state = "liquidplasma-255"
 	base_icon_state = "liquidplasma"
 	baseturf = /turf/simulated/floor/lava/plasma/fuming
-	atmos_mode = ATMOS_MODE_SEALED
-	atmos_environment = null
+	atmos_mode = ATMOS_MODE_NO_DECAY
 
 	//Hot Ass Plasma lava
 	temperature = 1000
