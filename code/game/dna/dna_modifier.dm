@@ -139,7 +139,7 @@
 
 /obj/machinery/dna_scannernew/update_icon_state()
 	if(panel_open)
-		icon_state = "scanner" + (occupant ? "" : "_open") + "_maintenance"
+		icon_state = "scanner_[occupant ? "" : "open_"]maintenance"
 		return
 	if(stat & NOPOWER)
 		icon_state = "scanner"
