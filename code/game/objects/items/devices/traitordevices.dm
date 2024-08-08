@@ -485,8 +485,14 @@
 		"Weak signal detected. Range: Within 30 meters.",
 		"No signal detected."
 	)
+	var/last_use = 0
 
 /obj/item/syndi_scanner/attack_self(mob/user)
+	if(last_use > world.time - 10 SECONDS)
+		to_chat(user, "<span class='warning'>[src] is recharging!</span>")
+		return
+
+	last_use = world.time
 	var/turf/user_turf = get_turf(user)
 	var/min_dist = INFINITY
 	for(var/mob/living/player in GLOB.player_list)
@@ -503,5 +509,6 @@
 		if(min_dist > test_range)
 			range++
 		else
+			playsound(user, 'sound/effects/ping_hit.ogg', vol = 75, vary = TRUE)
 			break
 	to_chat(user, "<span class='notice'>[range_messages[range]]</span>")
