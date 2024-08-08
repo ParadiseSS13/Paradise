@@ -1,7 +1,7 @@
 # Pull Request Testing Requirements
 
 Testing is a critical aspect of the pull request process for the development
-process here at Paradise. Bugs often arise due to insufficient testing, which
+here at Paradise. Bugs often arise due to insufficient testing, which
 can compromise the hard work of our contributors and development team members.
 It is mandatory that all pull requests undergo thorough testing before merging.
 Failure to comply may result in closure of the pull request and possible
@@ -10,6 +10,7 @@ disciplinary action.
 ## Testing Procedures
 
 ### Local Testing
+
 1. Compile and Run: Ensure the code compiles without errors.
 
 2. Game Loading: Use your preferred debugging method to load the game and verify
@@ -19,6 +20,7 @@ disciplinary action.
    smoothly with existing functionality.
 
 ### Validation
+
 1. Feature Integrity: Confirm that new additions do not break existing game
    features.
 
@@ -26,12 +28,14 @@ disciplinary action.
    meet acceptable standards.
 
 ### Comprehensive Review
+
 1. Edge Cases: Test edge cases to ensure robustness of the code.
 
 2. Error Handling: Verify error handling mechanisms are effective and
    informative.
 
 ### Documentation and Reporting
+
 1. Update Documentation: If changes impact user-facing features or developer
    documentation, update them accordingly.
 
@@ -39,6 +43,7 @@ disciplinary action.
    testing outcomes and any discovered issues.
 
 ### Test Merging Into Production
+
 1. Additional Testing: If further validation is necessary, a test merge into
    production may be scheduled to assess the code in a live environment. It is
    imperative that the code functions correctly before proceeding with a test
@@ -66,7 +71,7 @@ these steps, we can ensure a streamlined process when implementing changes.
 
 Do you need some help with testing your Pull Request? You can ask questions to
 the development team on the [Paradise Station Discord][discord]. We also have a
-handy guide about testing Pull Requests here! Thank you for reviewing these
-rules and guidelines. Happy contributing!
+[guide about testing pull requests here!][testing-guide]
 
 [discord]: https://discord.gg/YJDsXFE
+[testing-guide]: testing_guide.md
