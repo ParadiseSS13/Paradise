@@ -33,6 +33,7 @@ type LabeledListItemProps = {
   /** @deprecated */
   content?: any;
   children?: InfernoNode;
+  labelStyle?: Record<string | symbol, any>;
 };
 
 const LabeledListItem = (props: LabeledListItemProps) => {
@@ -47,10 +48,16 @@ const LabeledListItem = (props: LabeledListItemProps) => {
     content,
     children,
     preserveWhitespace,
+    labelStyle,
   } = props;
   let listItem = (
     <tr className={classes(['LabeledList__row', className])}>
-      <Box as="td" color={labelColor} className={classes(['LabeledList__cell', 'LabeledList__label'])}>
+      <Box
+        as="td"
+        color={labelColor}
+        className={classes(['LabeledList__cell', 'LabeledList__label'])}
+        style={labelStyle}
+      >
         {label ? label + ':' : null}
       </Box>
       <Box

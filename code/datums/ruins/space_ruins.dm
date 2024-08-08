@@ -59,6 +59,7 @@
 		evidence of construction, hook it covertly into the \
 		telecommunications network and hope for the best."
 	cost = 2
+	allow_duplicates = FALSE // this shouldn't be spawning more than once anymore
 
 /datum/map_template/ruin/space/derelict1
 	id = "derelict1"
@@ -358,4 +359,11 @@
 	suffix = "casino.dmm"
 	name = "Dorian Casino"
 	description = "A swanky space casino."
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/abandoned_security_shuttle
+	id = "abandoned_sec_shuttle"
+	suffix = "abandoned_sec_shuttle.dmm"
+	name = "Abandoned Security Shuttle"
+	description = "A security shuttle that has been floating in space."
 	allow_duplicates = FALSE

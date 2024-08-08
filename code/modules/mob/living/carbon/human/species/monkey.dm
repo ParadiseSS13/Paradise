@@ -64,7 +64,7 @@
 	..()
 	H.real_name = get_random_name()
 	H.name = H.real_name
-	H.butcher_results = list(/obj/item/food/snacks/meat/monkey = 5)
+	H.butcher_results = list(/obj/item/food/meat/monkey = 5)
 
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
