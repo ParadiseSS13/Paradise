@@ -97,7 +97,7 @@
  * the window was closed by the user.
  */
 /datum/tgui_input_color/proc/wait()
-	while (!choice && !closed && !QDELETED(src))
+	while(!choice && !closed && !QDELETED(src))
 		stoplag(1)
 
 /datum/tgui_input_color/ui_interact(mob/user, datum/tgui/ui)
