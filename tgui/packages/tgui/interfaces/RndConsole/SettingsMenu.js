@@ -16,35 +16,13 @@ const MainSettings = (props, context) => {
     <Section title="Settings">
       <Flex direction="column" align="flex-start">
         <Button
-          content="Sync Database with Network"
-          icon="sync"
-          disabled={!sync}
-          onClick={() => {
-            act('sync');
-          }}
-        />
-
-        <Button
-          content="Connect to Research Network"
-          icon="plug"
-          disabled={sync}
-          onClick={() => {
-            act('togglesync');
-          }}
-        />
-
-        <Button
-          disabled={!sync}
+          color="red"
           icon="unlink"
           content="Disconnect from Research Network"
           onClick={() => {
-            act('togglesync');
+            act('unlink');
           }}
         />
-
-        {admin === 1 ? (
-          <Button icon="exclamation" content="[ADMIN] Maximize Research Levels" onClick={() => act('maxresearch')} />
-        ) : null}
       </Flex>
     </Section>
   );

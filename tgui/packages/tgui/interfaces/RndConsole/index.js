@@ -4,6 +4,7 @@ import { Box, Button, Icon, LabeledList, NoticeBox, Section, Table, Tabs } from 
 import { classes } from 'common/react';
 import { DataDiskMenu } from './DataDiskMenu';
 import { LatheMenu } from './LatheMenu';
+import { LinkMenu } from './LinkMenu';
 import { SettingsMenu } from './SettingsMenu';
 import { DeconstructionMenu } from './DeconstructionMenu';
 
@@ -52,6 +53,11 @@ const ConsoleTab = (props, context) => {
 
 export const RndConsole = (properties, context) => {
   const { act, data } = useBackend(context);
+
+  if (!data.linked) {
+    return <LinkMenu />;
+  }
+
   const { menu, linked_destroy, linked_lathe, linked_imprinter, wait_message } = data;
 
   return (

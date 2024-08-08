@@ -19585,9 +19585,6 @@
 	},
 /area/station/command/bridge)
 "bub" = (
-/obj/structure/filingcabinet/chestdrawer{
-	pixel_y = 3
-	},
 /obj/machinery/alarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -19605,6 +19602,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/computer/rnd_backup/station,
+/obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -52715,7 +52714,6 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "hdR" = (
-/obj/machinery/r_n_d/server/robotics,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
@@ -52723,6 +52721,7 @@
 /obj/effect/turf_decal/siding{
 	dir = 8
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
 "heq" = (
@@ -54146,9 +54145,6 @@
 	},
 /area/station/service/hydroponics)
 "hGS" = (
-/obj/machinery/computer/rdservercontrol{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -54157,6 +54153,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/directional/west,
+/obj/machinery/computer/rnd_network_controller/station{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -56333,13 +56332,11 @@
 	},
 /area/station/medical/medbay)
 "iAO" = (
-/obj/machinery/mecha_part_fabricator{
-	output_dir = 4
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "iAS" = (
@@ -69614,7 +69611,7 @@
 	},
 /area/station/legal/magistrate)
 "oco" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole/core{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -74968,13 +74965,13 @@
 	},
 /area/station/aisat)
 "qub" = (
-/obj/machinery/r_n_d/server/core,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
 /obj/effect/turf_decal/siding{
 	dir = 4
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/bluegrid/telecomms/server,
 /area/station/science/server/coldroom)
 "quh" = (
@@ -85727,6 +85724,9 @@
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
+	},
+/obj/structure/filingcabinet/chestdrawer{
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
