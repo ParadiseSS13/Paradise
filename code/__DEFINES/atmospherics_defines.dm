@@ -156,6 +156,7 @@
 #define ATMOS_MODE_SPACE 0
 #define ATMOS_MODE_SEALED 1
 #define ATMOS_MODE_EXPOSED_TO_ENVIRONMENT 2
+#define ATMOS_MODE_NO_DECAY 3
 
 /// Lavaland environment: hot, low pressure.
 #define ENVIRONMENT_LAVALAND "lavaland"
