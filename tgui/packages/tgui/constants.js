@@ -140,6 +140,13 @@ export const RADIO_CHANNELS = [
     freq: 1459,
     color: '#1ecc43',
   },
+  // SS220 ADD - Start
+  {
+    name: 'VoxCom',
+    freq: 1220,
+    color: '#952aa5',
+  },
+  // SS220 ADD - End
 ];
 
 const GASES = [
