@@ -469,7 +469,7 @@
 /// An admin-spawn item that will tell you roughly how close the nearest loyal Nanotrasen crewmember is.
 /obj/item/syndi_scanner
 	name = "syndicate scanner"
-	desc = "The Syndicate seem to have modified this T-ray scanner to a more nefarious purpose, allowing it to detect all loyal Nanotrasen crew."
+	desc = "The Syndicate seem to have modified this T-ray scanner for a more nefarious purpose, allowing it to detect all loyal Nanotrasen crew."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-scanner"
 	throwforce = 5
