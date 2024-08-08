@@ -9,10 +9,10 @@
  * * autofocus - The bool that controls if this picker should grab window focus.
  */
 /proc/tgui_input_color(mob/user, message, title, default = "#000000", timeout = 0, autofocus = TRUE)
-	if (!user)
+	if(!user)
 		user = usr
-	if (!istype(user))
-		if (istype(user, /client))
+	if(!istype(user))
+		if(istype(user, /client))
 			var/client/client = user
 			user = client.mob
 		else
@@ -23,7 +23,7 @@
 	var/datum/tgui_input_color/picker = new(user, message, title, default, timeout, autofocus)
 	picker.ui_interact(user)
 	picker.wait()
-	if (picker)
+	if(picker)
 		. = picker.choice
 		qdel(picker)
 
@@ -39,10 +39,10 @@
  * * autofocus - The bool that controls if this picker should grab window focus.
  */
 /proc/tgui_input_color_async(mob/user, message, title, default = "#000000", datum/callback/callback, timeout = 0, autofocus = TRUE)
-	if (!user)
+	if(!user)
 		user = usr
-	if (!istype(user))
-		if (istype(user, /client))
+	if(!istype(user))
+		if(istype(user, /client))
 			var/client/client = user
 			user = client.mob
 		else
@@ -83,7 +83,7 @@
 	src.title = title
 	src.default = default
 	src.message = message
-	if (timeout)
+	if(timeout)
 		src.timeout = timeout
 		start_time = world.time
 		QDEL_IN(src, timeout)
