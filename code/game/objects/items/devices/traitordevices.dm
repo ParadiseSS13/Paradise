@@ -465,3 +465,43 @@
 	GLOB.mirrors -= src
 	QDEL_NULL(appearance_changer_holder)
 	return ..()
+
+/// An admin-spawn item that will tell you roughly how close the nearest loyal Nanotrasen crewmember is.
+/obj/item/syndi_scanner
+	name = "syndicate scanner"
+	desc = "The Syndicate seem to have modified this T-ray scanner to a more nefarious purpose, allowing it to detect all loyal Nanotrasen crew."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "syndi-scanner"
+	throwforce = 5
+	w_class = WEIGHT_CLASS_SMALL
+	throw_speed = 4
+	throw_range = 10
+	flags = CONDUCT
+	item_state = "electronic"
+	var/list/ranges = list(5, 15, 30)
+	var/list/range_messages = list(
+		"Very strong signal detected. Range: Within 5 meters.",
+		"Strong signal detected. Range: Within 15 meters.",
+		"Weak signal detected. Range: Within 30 meters.",
+		"No signal detected."
+	)
+
+/obj/item/syndi_scanner/attack_self(mob/user)
+	var/turf/user_turf = get_turf(user)
+	var/min_dist = INFINITY
+	for(var/mob/living/player in GLOB.player_list)
+		if(player.stat == DEAD || isnull(player.mind))
+			continue
+		if(!isnull(player.mind.special_role))
+			continue
+		var/turf/target_turf = get_turf(player)
+		if(target_turf.z != user_turf.z)
+			continue
+		min_dist = min(min_dist, get_dist(target_turf, user_turf))
+	var/range = 1
+	for(var/test_range in ranges)
+		if(min_dist > test_range)
+			range++
+		else
+			break
+	to_chat(user, "<span class='notice'>[range_messages[range]]</span>")
