@@ -486,9 +486,10 @@
 		"No signal detected."
 	)
 	var/last_use = 0
+	var/cooldown = 10 SECONDS
 
 /obj/item/syndi_scanner/attack_self(mob/user)
-	if(last_use > world.time - 10 SECONDS)
+	if(last_use > world.time - cooldown)
 		to_chat(user, "<span class='warning'>[src] is recharging!</span>")
 		return
 
