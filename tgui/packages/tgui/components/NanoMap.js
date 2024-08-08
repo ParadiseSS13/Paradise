@@ -116,7 +116,7 @@ export class NanoMap extends Component {
     const { dragging, offsetX, offsetY, zoom = 1 } = this.state;
     const { children } = this.props;
 
-    const mapUrl = config.map + '_nanomap_z1.png';
+    const mapUrl = this.props.mapUrl || config.map + '_nanomap_z1.png';
     const mapSize = MAP_SIZE * zoom + 'px';
     const newStyle = {
       width: mapSize,
@@ -151,6 +151,7 @@ export class NanoMap extends Component {
           <Box>{children}</Box>
         </Box>
         <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} onReset={this.handleReset} />
+        <NanoMapZSelector />
       </Box>
     );
   }
@@ -280,3 +281,17 @@ class NanoButton extends Component {
   }
 }
 NanoMap.NanoButton = NanoButton;
+
+const NanoMapZSelector = (props, context) => {
+  const { act, data } = useBackend(context);
+  return (
+    <Box className="NanoMap__zchooser">
+      <Box>
+        <Button icon={'chevron-up'} tooltip={'Уровнем выше'} onClick={() => act('switch_z_level', { z_dir: 1 })} />
+      </Box>
+      <Box>
+        <Button icon={'chevron-down'} tooltip={'Уровнем ниже'} onClick={() => act('switch_z_level', { z_dir: -1 })} />
+      </Box>
+    </Box>
+  );
+};

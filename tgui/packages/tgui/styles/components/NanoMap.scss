@@ -23,6 +23,17 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
 .NanoMap__button:hover {
   background-color: greenyellow;
 }
+
+.NanoMap__zchooser {
+  z-index: 21;
+  background-color: $background-color;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  padding: 0.5rem;
+  width: 3%;
+}
+
 // SS220 ADDITION - END
 
 .NanoMap__zoomer {
