@@ -91,7 +91,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	///Range to search for rnd devices in proximity to console
 	var/range = 3
 
-	req_access = list(ACCESS_TOX, ACCESS_ROBOTICS)
+	req_one_access = list(ACCESS_TOX, ACCESS_ROBOTICS)
 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function

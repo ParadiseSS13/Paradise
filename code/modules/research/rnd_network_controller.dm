@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 
 
 /obj/machinery/computer/rnd_network_controller/screwdriver_act(mob/user, obj/item/I)
-	var/areyousure = alert(user, "Disassembling this console will wipe its networks RnD progress from this round. If you are doing this as a non-antag, expect a bollocking.\n\nAre you sure?", "Think for a moment", "Yes", "No")
+	var/areyousure = tgui_alert(user, "Disassembling this console will wipe its networks RnD progress from this round. If you are doing this as a non-antag, expect a bollocking.\n\nAre you sure?", "Think for a moment", "Yes", "No")
 	if(areyousure != "Yes")
 		return TRUE // Dont attack the console, pretend we did something
 
@@ -155,6 +155,23 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 
 	data["devices"] = devices
 
+	var/list/designs = list()
+
+	// Handle design blacklisting and unblacklisting
+	for(var/datum/design/D in research_files.possible_designs)
+		if(!(D.id in research_files.known_designs) && !(D.id in research_files.blacklisted_designs))
+			continue
+
+		var/list/design_data = list()
+		design_data["name"] = D.name
+		design_data["id"] = D.id
+		design_data["blacklisted"] = (D.id in research_files.blacklisted_designs)
+		design_data["uid"] = D.UID()
+
+		designs += list(design_data)
+
+	data["designs"] = designs
+
 	return data
 
 
@@ -167,7 +184,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 	switch(action)
 		// Set network name
 		if("network_name")
-			var/new_name = input(usr, "Please enter a new network ID", "Network ID", network_name)
+			var/new_name = tgui_input_text(usr, "Please enter a new network ID", "Network ID", network_name)
 			if(!Adjacent(usr) || !new_name)
 				return
 
@@ -183,9 +200,45 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 			to_chat(usr, "<span class='notice'>Network name changed from <code>[network_name]</code> to <code>[new_name]</code>.</span>")
 			network_name = new_name
 
+		if("blacklist_design")
+			var/design_uid = params["d_uid"]
+			var/datum/design/D = locateUID(design_uid)
+
+			// If null design, ignore
+			if(!istype(D, /datum/design))
+				return
+
+			// If not one of our designs, disallow
+			if(!(D.id in research_files.known_designs))
+				return
+
+			message_admins("[key_name_admin(usr)] blacklisted [D.name] from the R&D network [network_name].")
+			log_game("[key_name(usr)] blacklisted [D.name] from the R&D network [network_name].")
+			research_files.known_designs -= D.id
+			research_files.blacklisted_designs += D.id
+			research_files.RefreshResearch()
+
+		if("unblacklist_design")
+			var/design_uid = params["d_uid"]
+			var/datum/design/D = locateUID(design_uid)
+
+			// If null design, ignore
+			if(!istype(D, /datum/design))
+				return
+
+			// If not one of our designs, disallow
+			if(!(D.id in research_files.blacklisted_designs))
+				return
+
+			message_admins("[key_name_admin(usr)] unblacklisted [D.name] from the R&D network [network_name].")
+			log_game("[key_name(usr)] unblacklisted [D.name] from the R&D network [network_name].")
+			research_files.unblacklisted_designs += D.id
+			research_files.blacklisted_designs -= D.id
+			research_files.RefreshResearch()
+
 		// Set network password
 		if("network_password")
-			var/new_password = input(usr, "Please enter a new network ID", "Network ID", network_password)
+			var/new_password = tgui_input_text(usr, "Please enter a new network ID", "Network ID", network_password)
 			if(!Adjacent(usr))
 				return
 			to_chat(usr, "<span class='notice'>Network password changed from <code>[network_password]</code> to <code>[new_password]</code>.</span>")
@@ -199,7 +252,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 						message_admins("[key_name_admin(usr)] attempted a href exploit with [src]")
 						return
 
-					var/choice = alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
+					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
 					if(choice != "Yes" || !Adjacent(usr))
 						return
 
@@ -215,7 +268,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 						message_admins("[key_name_admin(usr)] attempted a href exploit with [src]")
 						return
 
-					var/choice = alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
+					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
 					if(choice != "Yes" || !Adjacent(usr))
 						return
 
@@ -231,7 +284,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 						message_admins("[key_name_admin(usr)] attempted a href exploit with [src]")
 						return
 
-					var/choice = alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
+					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
 					if(choice != "Yes" || !Adjacent(usr))
 						return
 
@@ -247,7 +300,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 						message_admins("[key_name_admin(usr)] attempted a href exploit with [src]")
 						return
 
-					var/choice = alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
+					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
 					if(choice != "Yes" || !Adjacent(usr))
 						return
 

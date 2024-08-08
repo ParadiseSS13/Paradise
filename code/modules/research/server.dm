@@ -106,7 +106,7 @@
 		if("unlink")
 			if(!network_manager_uid)
 				return
-			var/choice = alert(usr, "Are you SURE you want to unlink this server?\nYou wont be able to re-link without the network password", "Unlink","Yes","No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this server?\nYou wont be able to re-link without the network password", "Unlink","Yes","No")
 			if(choice == "Yes")
 				// To the person who asks "Why not call unlink() here"
 				// Well, all it does is null the network manager UID and update the ui
@@ -127,7 +127,7 @@
 				if(!atoms_share_level(RNC, src))
 					return
 
-				var/wifi_pass = input(usr, "Please enter network password","Password Entry") // ayo whats your wifi pass
+				var/wifi_pass = tgui_input_text(usr, "Please enter network password","Password Entry") // ayo whats your wifi pass
 				// Check the password
 				if(wifi_pass == RNC.network_password)
 					network_manager_uid = RNC.UID()
