@@ -225,7 +225,7 @@
 /datum/gear/hat/beret_job/med
 	display_name = "Beret, medical"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Coroner", "Paramedic")
 
 /datum/gear/hat/beret_job/eng
 	display_name = "Beret, engineering"
