@@ -29,8 +29,8 @@
 		if("barbarian")
 			//equip barb outfit
 			messages += "<b>You are a Barbarian, equipped with fireproof armor, an axe, a whetstone, a short-range fire spray, and a fire extinguisher. Sharpen your axe, and charge at your enemies!</b>"
-		if("warrior")
-			//equip warrior outfit
-			messages += "<b>You are a Warrior, equipped with reinforced riot armor and a variety of combat gear including a stun baton and riot shotgun. Get in the fight!</b>"
+		if("fighter")
+			//equip fighter outfit
+			messages += "<b>You are a Fighter, equipped with reinforced riot armor and a variety of combat gear including a stun baton and riot shotgun. Get in the fight!</b>"
 
 	return messages
