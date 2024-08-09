@@ -81,7 +81,7 @@
 .Layout__content {
   // From 'packages/tgui/assets/bg-nanotrasen.svg', converted to base64 manually to stop webpack exploding
   background-image: url('../assets/bg-nanotrasen.svg');
-  background-size: 70%;
+  background-size: 70% 70%;
   background-position: center;
   background-repeat: no-repeat;
 }
