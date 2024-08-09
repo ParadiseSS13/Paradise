@@ -26,11 +26,11 @@
 
 	/* Passive consumption vars, only change when machines are added/removed from the powernet (not if the power channel turns on/off) */
 	/// The amount of power consumed by equipment in every power cycle
-	var/passive_equipment_consumption = 0
+	VAR_PRIVATE/passive_equipment_consumption = 0
 	/// The amount of power consumed by lighting in every power cycle
-	var/passive_lighting_consumption = 0
+	VAR_PRIVATE/passive_lighting_consumption = 0
 	/// The amount of power consumed by environment in every power cycle
-	var/passive_environment_consumption = 0
+	VAR_PRIVATE/passive_environment_consumption = 0
 
 	/* Active consumption vars, changed when machines need spurts of power, unlike passive consumption these reset to 0 every process() cycle */
 	/// The amount of power consumed by equipment in this power cycle
@@ -41,8 +41,6 @@
 	var/environment_consumption = 0
 
 	/* Total consumption vars, tracking vars that only count aggregate consumption from active power channels */
-	/// The amount of the total power consumed passively in power cycles (i.e, each cycle), does not include power channels that are off
-	var/passive_consumption = 0
 	/// The amount of total power consumed consumed in only this cycle
 	var/active_consumption = 0
 
@@ -85,17 +83,14 @@
 		if(PW_CHANNEL_EQUIPMENT)
 			if(equipment_powered == new_state)
 				return
-			passive_consumption += (passive_equipment_consumption * (new_state ? 1 : -1))
 			equipment_powered = new_state
 		if(PW_CHANNEL_LIGHTING)
 			if(lighting_powered == new_state)
 				return
-			passive_consumption += (passive_lighting_consumption * (new_state ? 1 : -1))
 			lighting_powered = new_state
 		if(PW_CHANNEL_ENVIRONMENT)
 			if(environment_powered == new_state)
 				return
-			passive_consumption += (passive_environment_consumption * (new_state ? 1 : -1))
 			environment_powered = new_state
 	power_change()
 
@@ -150,12 +145,11 @@
 			passive_environment_consumption += amount
 		else
 			return FALSE
-	if(has_power(channel)) // our total consumption vars don't track unpowered channels, so don't change the var if there's no power
-		passive_consumption += amount
 	return TRUE
 
+/// Returns the local powernets total power usage between all three of its channels, only includes usage on currently powered channels
 /datum/local_powernet/proc/get_total_usage()
-	return passive_consumption + active_consumption
+	return get_channel_usage(PW_CHANNEL_EQUIPMENT) + get_channel_usage(PW_CHANNEL_LIGHTING) + get_channel_usage(PW_CHANNEL_ENVIRONMENT)
 
 /// returns active + passive power of a channel, if the channel is not powered it returns 0 watts
 /datum/local_powernet/proc/get_channel_usage(channel)
