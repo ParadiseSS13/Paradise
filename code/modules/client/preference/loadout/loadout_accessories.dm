@@ -213,7 +213,7 @@
 /datum/gear/accessory/armband_job/emt
 	display_name = "Armband, EMT"
 	path = /obj/item/clothing/accessory/armband/medgreen
-	allowed_roles = list("Paramedic")
+	allowed_roles = list("Chief Medical Officer", "Paramedic")
 
 /datum/gear/accessory/armband_job/engineering
 	display_name = "Armband, engineering"
