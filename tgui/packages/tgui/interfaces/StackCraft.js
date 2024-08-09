@@ -5,20 +5,6 @@ import { createSearch } from 'common/string';
 import { Window } from '../layouts';
 import { Box, Section, NoticeBox, Collapsible, Input, ImageButton, Button } from '../components';
 
-type Data = {
-  amount: number;
-  recipes: Recipe[];
-};
-
-type Recipe = {
-  uid: string;
-  title: string;
-  image: string;
-  required_amount: number;
-  result_amount: number;
-  max_result_amount: number;
-};
-
 export const StackCraft = () => {
   return (
     <Window width={350} height={500}>
@@ -30,14 +16,11 @@ export const StackCraft = () => {
 };
 
 const Recipes = (props, context) => {
-  const { data } = useBackend<Data>(context);
+  const { data } = useBackend(context);
   const { amount, recipes } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
-  const filteredRecipes = filterRecipeList(
-    recipes,
-    createSearch(searchText, (item: string) => item)
-  );
+  const filteredRecipes = filterRecipeList(recipes, createSearch(searchText, item));
   const [searchActive, setSearchActive] = useLocalState(context, '', false);
 
   return (
@@ -209,14 +192,16 @@ const RecipeListBox = (props, context) => {
 };
 
 const RecipeBox = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+  const { act, data } = useBackend(context);
   const { amount } = data;
   const { title, recipe } = props;
   const { result_amount, required_amount, max_result_amount, uid, image } = recipe;
 
   const resAmountLabel = result_amount > 1 ? `${result_amount}x ` : '';
+  const sheetSuffix = required_amount > 1 ? 's' : '';
   const buttonName = `${resAmountLabel}${title}`;
-  const tooltipContent = `${required_amount}`;
+  const tooltipContent = `${required_amount} sheet${sheetSuffix}`;
+
   const max_possible_multiplier = calculateMultiplier(recipe, amount);
 
   return (
