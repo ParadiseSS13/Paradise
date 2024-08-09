@@ -722,6 +722,11 @@
 	name = "paper - 'Delivery Note'"
 	info = "<i>Hey sweetie! The boss wants you to have some friends. I couldn't get you a real suit, but I found this in a cosplay shop! The bees surely won't see through your IMPECCABLE disguise!<br><br>xoxo,<br>george ♥</i><br><br>- What the fuck. I'm airlocking him tomorrow."
 
+/obj/item/paper/atmos_asteroid
+	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
+	name = "Lava Field Observations"
+	info = "<center>Asteroid Core Observation Log 306</center><hr><br><i>We took some additional samples of the deep layers of the molten core of the asteroid. Undetermined trace elements were able to be identified in the solution. Its possible this is how the plasma remains so stable at these temperatures. None of our current filter methods have been able to properly extract it as of yet, but we're certain a breakthrough is on the horizon. We did it before, we can do it again.</i>"
+
 /obj/item/paper/zombie_cure
 	name = "paper - 'Research on Zombies'"
 

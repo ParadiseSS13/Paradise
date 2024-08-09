@@ -49,6 +49,10 @@
 	name = "Central Maintenance"
 	icon_state = "maintcentral"
 
+/area/station/maintenance/maintcentral2
+	name = "Central Maintenance Secondary"
+	icon_state = "maintcentral"
+
 /area/station/maintenance/fore
 	name = "Fore Maintenance"
 	icon_state = "fmaint"
@@ -155,6 +159,11 @@
 	icon_state = "ass_line"
 	apc_starts_off = TRUE
 
+/area/station/maintenance/abandoned_office
+	name = "\improper Abandoned Office"
+	icon_state = "abandoned_office"
+	apc_starts_off = TRUE
+
 /area/station/maintenance/abandoned_garden
 	name = "\improper Abandoned Garden"
 	icon_state = "hydro"
@@ -203,3 +212,18 @@
 
 /area/station/maintenance/disposal/external/north
 	name = "Northern External Waste Belt"
+
+// Emerald Station
+
+/area/station/maintenance/dorms
+	name = "Dorms Maintenance"
+	icon_state = "dorms_maint"
+/area/station/maintenance/dorms/port
+	name = "Dorms Port Maintenance"
+	icon_state = "dorms_maint_port"
+/area/station/maintenance/dorms/starboard
+	name = "Dorms Starboard Maintenance"
+	icon_state = "dorms_maint_starboard"
+/area/station/maintenance/dorms/aft
+	name = "Dorms Aft Maintenance"
+	icon_state = "dorms_maint_aft"

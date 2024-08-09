@@ -86,8 +86,15 @@
 /area/station/hallway/primary/central/se
 
 /area/station/hallway/spacebridge
-	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	icon_state = "hall_space"
+
+/area/station/hallway/spacebridge/dorms/west
+	icon_state = "hall_space"
+	name = "\improper Dorms West Space Bridge"
+
+/area/station/hallway/spacebridge/dorms/south
+	icon_state = "hall_space"
+	name = "\improper Dorms South Space Bridge"
 
 /area/station/hallway/spacebridge/dockmed
 	name = "Docking-Medical Bridge"
@@ -253,3 +260,7 @@
 
 /area/station/public/quantum/medbay
 	name = "Medbay Quantum Pad"
+
+/area/station/public/park
+	name = "Public Nature Reserve"
+	icon_state = "park"

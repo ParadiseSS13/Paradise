@@ -307,6 +307,14 @@
 	nitrogen = 0
 	temperature = TCMB
 
+/turf/simulated/floor/engine/asteroid
+	temperature = 1000
+	oxygen = 0
+	nitrogen = 0
+	toxins = 10
+	agent_b = 0.1
+	atmos_mode = ATMOS_MODE_NO_DECAY
+
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
