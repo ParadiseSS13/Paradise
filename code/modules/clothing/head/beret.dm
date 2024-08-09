@@ -84,7 +84,7 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/beret/sec
 
-/obj/item/clothing/head/beret/sec/warden
+/obj/item/clothing/head/beret/warden
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
 	icon_state = "beret_warden"
