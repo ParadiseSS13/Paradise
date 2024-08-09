@@ -278,7 +278,10 @@
 				drop.overlays |= I
 
 				drop.transfer_mob_blood_dna(src)
-				drop.basecolor = b_data["blood_color"]
+				if(b_data && !isnull(b_data["blood_color"]))
+					drop.basecolor = b_data["blood_color"]
+				else
+					drop.basecolor = "#A10808"
 				drop.update_icon()
 			else
 				temp_blood_DNA = list()
@@ -287,7 +290,10 @@
 		else
 			drop = new(T)
 			drop.transfer_mob_blood_dna(src)
-			drop.basecolor = b_data["blood_color"]
+			if(b_data && !isnull(b_data["blood_color"]))
+				drop.basecolor = b_data["blood_color"]
+			else
+				drop.basecolor = "#A10808"
 			drop.update_icon()
 			if(emittor_intertia)
 				drop.newtonian_move(emittor_intertia)
