@@ -187,6 +187,16 @@
 	path = /obj/item/clothing/head/beret/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
+/datum/gear/hat/beret_job/warden
+	display_name = "Beret, warden"
+	path = /obj/item/clothing/head/beret/warden
+	allowed_roles = list("Warden")
+
+/datum/gear/hat/beret_job/hos
+	display_name = "Beret, head of security"
+	path = /obj/item/clothing/head/beret/hos
+	allowed_roles = list("Head of Security")
+
 /datum/gear/hat/beret_job/jani
 	display_name = "Beret, janitor"
 	path = /obj/item/clothing/head/beret/janitor
