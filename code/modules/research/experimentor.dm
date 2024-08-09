@@ -68,8 +68,8 @@
 			if(initial(tempCheck.icon_state) != null)
 				critical_items += I
 
-/obj/machinery/r_n_d/experimentor/Initialize(mapload)
-	..()
+/obj/machinery/r_n_d/experimentor/Initialize(mapload) // DIEEEEEEEEEEEEEEEEEEEEEEE
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/experimentor(src)
 	component_parts += new /obj/item/stock_parts/scanning_module(src)
@@ -99,8 +99,8 @@
 	return TRUE
 
 /obj/machinery/r_n_d/experimentor/attackby(obj/item/O, mob/user, params)
-	if(exchange_parts(user, O))
-		return
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
 
 	if(!checkCircumstances(O))
 		to_chat(user, "<span class='warning'>[O] is not yet valid for [src] and must be completed!</span>")
@@ -118,12 +118,15 @@
 		if(!O.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
+
 		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
 		if(length(temp_tech) == 0)
 			to_chat(user, "<span class='warning'>You cannot experiment on this item!</span>")
 			return
+
 		if(!user.drop_item())
 			return
+
 		loaded_item = O
 		O.loc = src
 		to_chat(user, "<span class='notice'>You add [O] to the machine.</span>")
@@ -308,7 +311,7 @@
 			investigate_log("Experimentor has released [chosenchem] smoke.", "experimentor")
 			var/datum/effect_system/smoke_spread/chem/smoke = new
 			smoke.set_up(R, src, TRUE)
-			playsound(loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(R)
 			ejectItem(TRUE)
@@ -320,7 +323,7 @@
 			R.add_reagent(chosenchem , 15)
 			var/datum/effect_system/smoke_spread/chem/smoke = new
 			smoke.set_up(R, src, TRUE)
-			playsound(loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(R)
 			ejectItem(TRUE)
@@ -367,16 +370,8 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, melting [exp_on] and leaking hot air!</span>")
-			var/datum/gas_mixture/env = loc.return_air()
-			var/transfer_moles = 0.25 * env.total_moles()
-			var/datum/gas_mixture/removed = env.remove(transfer_moles)
-			if(removed)
-				var/heat_capacity = removed.heat_capacity()
-				if(heat_capacity == 0 || heat_capacity == null)
-					heat_capacity = 1
-				removed.temperature = min((removed.temperature*heat_capacity + 100000)/heat_capacity, 1000)
-			env.merge(removed)
-			air_update_turf()
+			var/datum/milla_safe/experimentor_temperature/milla = new()
+			milla.invoke_async(src, 100000, 1000)
 			investigate_log("Experimentor has released hot air.", "experimentor")
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
@@ -407,22 +402,14 @@
 			investigate_log("Experimentor has released frostoil gas.", "experimentor")
 			var/datum/effect_system/smoke_spread/chem/smoke = new
 			smoke.set_up(R, src, TRUE)
-			playsound(loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(R)
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, shattering [exp_on] and leaking cold air!</span>")
-			var/datum/gas_mixture/env = loc.return_air()
-			var/transfer_moles = 0.25 * env.total_moles()
-			var/datum/gas_mixture/removed = env.remove(transfer_moles)
-			if(removed)
-				var/heat_capacity = removed.heat_capacity()
-				if(heat_capacity == 0 || heat_capacity == null)
-					heat_capacity = 1
-				removed.temperature = (removed.temperature*heat_capacity - 75000)/heat_capacity
-			env.merge(removed)
-			air_update_turf()
+			var/datum/milla_safe/experimentor_temperature/milla = new()
+			milla.invoke_async(src, -75000, 1000, TCMB)
 			investigate_log("Experimentor has released cold air.", "experimentor")
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
@@ -443,7 +430,7 @@
 				linked_materials.insert_amount( min((linked_materials.max_amount - linked_materials.total_amount), (exp_on.materials[material])), material)
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src]'s crusher goes way too many levels too high, crushing right through space-time!</span>")
-			playsound(loc, 'sound/effects/supermatter.ogg', 50, 1, -3)
+			playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -3)
 			investigate_log("Experimentor has triggered the 'throw things' reaction.", "experimentor")
 			for(var/atom/movable/AM in oview(7,src))
 				if(!AM.anchored)
@@ -452,7 +439,7 @@
 
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='danger'>[src]'s crusher goes one level too high, crushing right into space-time!</span>")
-			playsound(loc, 'sound/effects/supermatter.ogg', 50, 1, -3)
+			playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -3)
 			investigate_log("Experimentor has triggered the 'minor throw things' reaction.", "experimentor")
 			var/list/throwAt = list()
 			for(var/atom/movable/AM in oview(7,src))
@@ -528,6 +515,21 @@
 	spawn(resetTime)
 		icon_state = "h_lathe"
 		recentlyExperimented = 0
+
+/datum/milla_safe/experimentor_temperature
+
+/datum/milla_safe/experimentor_temperature/on_run(obj/machinery/r_n_d/experimentor/experimentor, delta, min_new_temp)
+	var/turf/T = get_turf(experimentor)
+	var/datum/gas_mixture/env = get_turf_air(T)
+
+	var/transfer_moles = 0.25 * env.total_moles()
+	var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	if(removed)
+		var/heat_capacity = removed.heat_capacity()
+		if(heat_capacity == 0 || heat_capacity == null)
+			heat_capacity = 1
+		removed.set_temperature(max(min_new_temp, (removed.temperature() * heat_capacity + delta) / heat_capacity))
+	env.merge(removed)
 
 /obj/machinery/r_n_d/experimentor/Topic(href, href_list)
 	if(..())

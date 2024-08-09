@@ -147,7 +147,7 @@
 			explosion(get_turf(H), 1, 1, 1, cause = "staff of chaos lethal explosion effect")
 		if("cheese morphed")
 			H.visible_message("<span class='chaosverybad'>[H] transforms into cheese!</span>", "<span class='chaosverybad'>You've been transformed into cheese!</span>")
-			new /obj/item/food/snacks/cheesewedge(get_turf(H))
+			new /obj/item/food/cheesewedge(get_turf(H))
 			qdel(H)
 		if("supermattered")
 			var/obj/machinery/atmospherics/supermatter_crystal/supercrystal = GLOB.main_supermatter_engine
@@ -266,7 +266,7 @@
 		chaos_effect = pick("recolor", "bark", "confetti", "smoke", "wand of nothing", "bike horn")
 	else
 		chaos_effect = pick("bark", "smoke", "spin", "flip", "confetti", "slip", "wand of nothing", \
-			"help maint", "fake callout", "bike horn")
+			"help maint", "fake callout", "bike horn", "tarot card")
 	switch(chaos_effect)
 		if("recolor") //non-humans only because recoloring humans is kinda meh
 			target.color = pick(GLOB.random_color_list)
@@ -301,12 +301,19 @@
 		if("bike horn")
 			item_to_summon = /obj/item/bikehorn
 			explosion_amount = rand(2, 3)
-
+		if("tarot card")
+			if(ishuman(target) && target.mind)
+				var/mob/living/carbon/human/H = target
+				var/obj/item/magic_tarot_card/spawned_card = new /obj/item/magic_tarot_card(H)
+				H.visible_message("<span class='chaosneutral'>[H] is forced to use [spawned_card]!</span>", "<span class='chaosneutral'>[spawned_card] appears in front of you and glows bright!</span>")
+				spawned_card.pre_activate(H)
+			else
+				target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
 /**
   * Picks a random gift to be given to mob/living/target. Should be mildly useful and/or funny.
   */
 /obj/item/projectile/magic/chaos/proc/apply_gift_effect(mob/living/target)
-	chaos_effect = pick("toy sword", "toy revolver", "cheese", "food", "medkit", \
+	chaos_effect = pick("toy sword", "toy revolver", "cheese", "food", "medkit", "tarot pack", \
 		"insulated gloves", "wand of doors", "golden bike horn", "ban hammer", "banana")
 	switch(chaos_effect)
 		if("toy sword")
@@ -314,18 +321,20 @@
 		if("toy revolver")
 			item_to_summon = /obj/item/gun/projectile/revolver/capgun/chaosprank
 		if("cheese")
-			item_to_summon = /obj/item/food/snacks/cheesewedge
+			item_to_summon = /obj/item/food/cheesewedge
 			explosion_amount = rand(5, 10)
 		if("food")
 			target.visible_message("<span class='chaosneutral'>Food scatters around [target]!</span>", "<span class='chaosneutral'>A bunch of food scatters around you!</span>")
 			var/limit = rand(5, 10)
 			for(var/i in 1 to limit)
-				var/type = pick(typesof(/obj/item/food/snacks))
+				var/type = pick(typesof(/obj/item/food))
 				var/obj/item/I = new type(get_turf(target))
 				INVOKE_ASYNC(I, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
 
 		if("medkit")
 			item_to_summon = pick(/obj/item/storage/firstaid/brute, /obj/item/storage/firstaid/fire, /obj/item/storage/firstaid/adv)
+		if("tarot pack")
+			item_to_summon = pick(/obj/item/tarot_card_pack, /obj/item/tarot_card_pack/jumbo, /obj/item/tarot_card_pack/mega)
 		if("insulated gloves")
 			item_to_summon = /obj/item/clothing/gloves/color/yellow
 			explosion_amount = rand(2, 5)
@@ -338,13 +347,13 @@
 			item_to_summon = /obj/item/banhammer
 			explosion_amount = rand(2, 5)
 		if("banana")
-			item_to_summon = /obj/item/food/snacks/grown/banana
+			item_to_summon = /obj/item/food/grown/banana
 
 /**
   * Picks a random gift to be given to mob/living/target. Should be valuable and/or threatening to the wizard.
   */
 /obj/item/projectile/magic/chaos/proc/apply_great_gift_effect(mob/living/target)
-	chaos_effect = pick("esword", "emag", "chaos wand", "revolver", "aeg", \
+	chaos_effect = pick("esword", "emag", "chaos wand", "revolver", "aeg", "tarot deck", \
 		"bluespace banana", "banana grenade", "disco ball", "syndicate minibomb", "crystal ball")
 	switch(chaos_effect)
 		if("esword")
@@ -357,8 +366,10 @@
 			item_to_summon = /obj/item/gun/projectile/revolver
 		if("aeg")
 			item_to_summon = /obj/item/gun/energy/gun/nuclear
+		if("tarot deck")
+			item_to_summon = /obj/item/tarot_generator
 		if("bluespace banana")
-			item_to_summon = /obj/item/food/snacks/grown/banana/bluespace
+			item_to_summon = /obj/item/food/grown/banana/bluespace
 		if("banana grenade")
 			item_to_summon = /obj/item/grenade/clown_grenade
 		if("disco ball")

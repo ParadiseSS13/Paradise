@@ -445,11 +445,27 @@
 					chest.receive_damage(50, sharp = TRUE)
 
 			doHeal(user)
-	else
-		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
-		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-		qdel(the_item)
-		doHeal(user)
+
+		return
+
+	if(ismob(the_item.loc) && isitem(the_item))
+		var/obj/item/eaten = the_item
+		var/mob/the_owner = the_item.loc
+		if(!the_owner.unEquip(eaten, FALSE, TRUE))
+			to_chat(user, "<span class='warning'>You can't eat [the_item], it won't go down your throat!</span>")
+			return
+	user.visible_message("<span class='danger'>[user] eats [the_item].</span>")
+	playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/external/chest/target_place = H.get_organ(BODY_ZONE_CHEST)
+		if(istype(target_place))
+			the_item.forceMove(target_place)
+			doHeal(user)
+			return
+
+	qdel(the_item)
+	doHeal(user)
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -493,7 +509,7 @@
 		if(user.restrained())//Why being pulled while cuffed prevents you from moving
 			for(var/mob/living/M in range(user, 1))
 				if(M.pulling == user)
-					if(!M.restrained() && M.stat == 0 && !(M.mobility_flags & MOBILITY_STAND) && user.Adjacent(M))
+					if(!M.restrained() && M.stat == CONSCIOUS && !(M.mobility_flags & MOBILITY_STAND) && user.Adjacent(M))
 						failure = TRUE
 					else
 						M.stop_pulling()
@@ -669,7 +685,7 @@
 			to_chat(user, "<span class='warning'>You can't see into [M.name]'s mind at all!</span>")
 			return
 
-		if(M.stat == 2)
+		if(M.stat == DEAD)
 			to_chat(user, "<span class='warning'>[M.name] is dead and cannot have [M.p_their()] mind read.</span>")
 			return
 		if(M.health < 0)

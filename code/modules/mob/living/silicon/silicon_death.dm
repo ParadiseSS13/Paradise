@@ -46,3 +46,5 @@
 	if(. && !gibbed)
 		if(death_sound)
 			playsound(get_turf(src), death_sound, 200, 1)
+	if(gibbed)
+		drop_hat()

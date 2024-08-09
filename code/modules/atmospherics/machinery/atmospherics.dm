@@ -50,6 +50,9 @@ Pipelines + Other Objects -> Pipe network
 	/// ID for automatic linkage of stuff. This is used to assist in connections at mapload. Dont try use it for other stuff
 	var/autolink_id = null
 
+	/// Whether or not this can be unwrenched while on.
+	var/can_unwrench_while_on = TRUE
+
 
 /obj/machinery/atmospherics/Initialize(mapload)
 	. = ..()
@@ -65,6 +68,8 @@ Pipelines + Other Objects -> Pipe network
 		pipe_color = null
 
 /obj/machinery/atmospherics/proc/process_atmos() //If you dont use process why are you here
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
 	return PROCESS_KILL
 
 /obj/machinery/atmospherics/proc/atmos_init()
@@ -73,7 +78,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/Destroy()
 	SSair.atmos_machinery -= src
-	SSair.deferred_pipenet_rebuilds -= src
+	SSair.pipenets_to_build -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
@@ -175,10 +180,10 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/build_network(remove_deferral = FALSE)
 	// Called to build a network from this node
 	if(remove_deferral)
-		SSair.deferred_pipenet_rebuilds -= src
+		SSair.pipenets_to_build -= src
 
 /obj/machinery/atmospherics/proc/defer_build_network()
-	SSair.deferred_pipenet_rebuilds += src
+	SSair.pipenets_to_build += src
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
 	return
@@ -187,63 +192,73 @@ Pipelines + Other Objects -> Pipe network
 	if(P)
 		P.other_atmosmch -= src
 
+/obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/wrench/W)
+	var/turf/T = get_turf(src)
+	if(!can_unwrench_while_on && !(stat & NOPOWER) && on)
+		to_chat(user, "<span class='alert'>You cannot unwrench this [name], turn it off first.</span>")
+		return TRUE
+	if(!can_unwrench)
+		return FALSE
+	. = TRUE
+	if(level == 1 && T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		return
+	if(level == 1 && isturf(T) && T.intact)
+		to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
+		return
+	var/datum/gas_mixture/int_air = return_obj_air()
+	var/datum/gas_mixture/env_air = T.get_readonly_air()
+	add_fingerprint(user)
+
+
+	var/unsafe_wrenching = FALSE
+	var/safefromgusts = FALSE
+	var/I = int_air ? int_air.return_pressure() : 0
+	var/E = env_air ? env_air.return_pressure() : 0
+	var/internal_pressure = I - E
+
+	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
+
+	if(HAS_TRAIT(user, TRAIT_MAGPULSE))
+		safefromgusts = TRUE
+
+	if(internal_pressure > 2 * ONE_ATMOSPHERE)
+		unsafe_wrenching = TRUE //Oh dear oh dear
+		if(internal_pressure > 1750 && !safefromgusts) // 1750 is the pressure limit to do 60 damage when thrown
+			to_chat(user, "<span class='userdanger'>As you struggle to unwrench [src] a huge gust of gas blows in your face! This seems like a terrible idea!</span>")
+		else
+			to_chat(user, "<span class='warning'>As you begin unwrenching [src] a gust of air blows in your face... maybe you should reconsider?</span>")
+
+	if(!W.use_tool(src, user, 4 SECONDS, volume = 50) || QDELETED(src))
+		return
+
+	safefromgusts = FALSE
+
+	if(HAS_TRAIT(user, TRAIT_MAGPULSE))
+		safefromgusts = TRUE
+
+	user.visible_message(
+		"<span class='notice'>[user] unfastens [src].</span>",
+		"<span class='notice'>You have unfastened [src].</span>",
+		"<span class='italics'>You hear ratcheting.</span>"
+	)
+	investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+
+	//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
+	if(unsafe_wrenching)
+		if(safefromgusts)
+			to_chat(user, "<span class='notice'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
+		else
+			unsafe_pressure_release(user,internal_pressure)
+	deconstruct(TRUE)
+
 //(De)construction
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
-	if(can_unwrench && istype(W, /obj/item/wrench))
-		if(level == 1 && T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
-			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-			return
-		if(level == 1 && isturf(T) && T.intact)
-			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
-			return
-		var/datum/gas_mixture/int_air = return_air()
-		var/datum/gas_mixture/env_air = loc.return_air()
-		add_fingerprint(user)
-
-		var/unsafe_wrenching = FALSE
-		var/safefromgusts = FALSE
-		var/I = int_air ? int_air.return_pressure() : 0
-		var/E = env_air ? env_air.return_pressure() : 0
-		var/internal_pressure = I - E
-
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-
-		if(HAS_TRAIT(user, TRAIT_MAGPULSE))
-			safefromgusts = TRUE
-
-		if(internal_pressure > 2 * ONE_ATMOSPHERE)
-			unsafe_wrenching = TRUE //Oh dear oh dear
-			if(internal_pressure > 1750 && !safefromgusts) // 1750 is the pressure limit to do 60 damage when thrown
-				to_chat(user, "<span class='userdanger'>As you struggle to unwrench [src] a huge gust of gas blows in your face! This seems like a terrible idea!</span>")
-			else
-				to_chat(user, "<span class='warning'>As you begin unwrenching [src] a gust of air blows in your face... maybe you should reconsider?</span>")
-
-		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
-			safefromgusts = FALSE
-
-			if(HAS_TRAIT(user, TRAIT_MAGPULSE))
-				safefromgusts = TRUE
-
-			user.visible_message( \
-				"<span class='notice'>[user] unfastens [src].</span>", \
-				"<span class='notice'>You have unfastened [src].</span>", \
-				"<span class='italics'>You hear ratcheting.</span>")
-			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
-
-			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
-			if(unsafe_wrenching)
-				if(safefromgusts)
-					to_chat(user, "<span class='notice'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
-				else
-					unsafe_pressure_release(user,internal_pressure)
-			deconstruct(TRUE)
-	else
-		if(T.transparent_floor)
-			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-			return TRUE
-		return ..()
+	if(T.transparent_floor)
+		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		return TRUE
+	return ..()
 
 //Called when an atmospherics object is unwrenched while having a large pressure difference
 //with it's locs air contents.
@@ -252,11 +267,15 @@ Pipelines + Other Objects -> Pipe network
 		return
 
 	if(!pressures)
-		var/datum/gas_mixture/int_air = return_air()
-		var/datum/gas_mixture/env_air = loc.return_air()
+		var/datum/gas_mixture/int_air = return_obj_air()
+		var/turf/T = get_turf(src)
+		var/datum/gas_mixture/env_air = T.get_readonly_air()
 		pressures = int_air.return_pressure() - env_air.return_pressure()
 
 	var/fuck_you_dir = get_dir(src, user)
+	if(!fuck_you_dir)
+		fuck_you_dir = pick(GLOB.alldirs)
+
 	var/turf/general_direction = get_edge_target_turf(user, fuck_you_dir)
 	user.visible_message("<span class='danger'>[user] is sent flying by pressure!</span>","<span class='userdanger'>The pressure sends you flying!</span>")
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
@@ -325,7 +344,7 @@ Pipelines + Other Objects -> Pipe network
 			user.forceMove(target_move)
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 				user.last_played_vent = world.time
-				playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
+				playsound(src, 'sound/machines/ventcrawl.ogg', 50, TRUE, -3)
 	else
 		if((direction & initialize_directions) || is_type_in_list(src, GLOB.ventcrawl_machinery)) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 			user.remove_ventcrawl()
@@ -343,6 +362,10 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return TRUE
+
+/obj/machinery/atmospherics/extinguish_light(force)
+	set_light(0)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/proc/change_color(new_color)
 	//only pass valid pipe colors please ~otherwise your pipe will turn invisible

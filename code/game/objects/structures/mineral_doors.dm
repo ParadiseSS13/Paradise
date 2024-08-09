@@ -22,16 +22,18 @@
 	var/open_sound = 'sound/effects/stonedoor_openclose.ogg'
 	var/close_sound = 'sound/effects/stonedoor_openclose.ogg'
 	var/damageSound = null
+	/// How much foam is on the door. Max 5 levels.
+	var/foam_level = 0
 
 /obj/structure/mineral_door/Initialize()
 	. = ..()
 	initial_state = icon_state
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -20, 10)
 
 /obj/structure/mineral_door/Destroy()
 	density = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/mineral_door/Move()
@@ -62,11 +64,13 @@
 		return !opacity
 	return !density
 
-/obj/structure/mineral_door/CanAtmosPass(turf/T)
+/obj/structure/mineral_door/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/mineral_door/proc/try_to_operate(atom/user)
 	if(is_operating)
+		return
+	if(foam_level)
 		return
 	if(isliving(user))
 		var/mob/living/M = user
@@ -98,7 +102,7 @@
 	density = !density
 	opacity = !opacity
 	state_open = !state_open
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 
@@ -168,7 +172,7 @@
 /obj/structure/mineral_door/transparent/operate_update()
 	density = !density
 	state_open = !state_open
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 
@@ -216,3 +220,29 @@
 /obj/structure/mineral_door/wood/Initialize()
 	. = ..()
 	AddComponent(/datum/component/debris, DEBRIS_WOOD, -20, 10)
+
+#define MAX_FOAM_LEVEL 5
+// Adds foam to the airlock, which will block it from being opened
+/obj/structure/mineral_door/proc/foam_up()
+	if(!foam_level)
+		new /obj/structure/barricade/foam(get_turf(src))
+		foam_level++
+		return
+
+	if(foam_level == MAX_FOAM_LEVEL)
+		return
+
+	for(var/obj/structure/barricade/foam/blockage in loc.contents)
+		blockage.foam_level = min(++blockage.foam_level, 5)
+		// The last level will increase the integrity by 50 instead of 25
+		if(foam_level == 4)
+			blockage.obj_integrity += 50
+			blockage.max_integrity += 50
+		else
+			blockage.obj_integrity += 25
+			blockage.max_integrity += 25
+		foam_level++
+		blockage.icon_state = "foamed_[foam_level]"
+		blockage.update_icon_state()
+
+#undef MAX_FOAM_LEVEL

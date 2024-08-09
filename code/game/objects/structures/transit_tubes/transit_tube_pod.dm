@@ -29,9 +29,9 @@
 /obj/structure/transit_tube_pod/Initialize(mapload)
 	. = ..()
 
-	air_contents.oxygen = MOLES_O2STANDARD * 2
-	air_contents.nitrogen = MOLES_N2STANDARD
-	air_contents.temperature = T20C
+	air_contents.set_oxygen(MOLES_O2STANDARD * 2)
+	air_contents.set_nitrogen(MOLES_N2STANDARD)
+	air_contents.set_temperature(T20C)
 
 	for(var/obj/structure/transit_tube/tube in loc)
 		dir = pick(tube.directions())
@@ -79,7 +79,7 @@
 	to_chat(user, "<span class='notice'>You uninstall [src].</span>")
 	qdel(src)
 
-/obj/structure/transit_tube/wrench_act(mob/living/user, obj/item/I)
+/obj/structure/transit_tube_pod/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	to_chat(user, "<span class='notice'>You must uninstall [src] before disassembling it!</span>")
 
@@ -91,7 +91,7 @@
 
 	var/move_result = move_animation(current_move_anim_mode)
 	if(isnull(move_result))
-		if(isnull(current_tube) || (!(dir in current_tube.directions()) && !(reverse_direction(dir) in current_tube.directions())))
+		if(isnull(current_tube) || (!(dir in current_tube.directions()) && !(REVERSE_DIR(dir) in current_tube.directions())))
 			outside_tube()
 		return PROCESS_KILL
 
@@ -171,32 +171,30 @@
 	else
 		moving = FALSE
 
-// Should I return a copy here? If the caller edits or qdel()s the returned
-//  datum, there might be problems if I don't...
-/obj/structure/transit_tube_pod/return_air()
+/obj/structure/transit_tube_pod/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
-	var/datum/gas_mixture/GM = new()
-	GM.copy_from(air_contents)
-	return GM
-
-// For now, copying what I found in an unused FEA file (and almost identical in a
-//  used ZAS file). Means that assume_air and remove_air don't actually alter the
-//  air contents.
-/obj/structure/transit_tube_pod/assume_air(datum/gas_mixture/giver)
-	return air_contents.merge(giver)
-
-/obj/structure/transit_tube_pod/remove_air(amount)
-	return air_contents.remove(amount)
-
-
+	return air_contents
 
 // Called when a pod arrives at, and before a pod departs from a station,
 //  giving it a chance to mix its internal air supply with the turf it is
 //  currently on.
 /obj/structure/transit_tube_pod/proc/mix_air()
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/datum/milla_safe/transit_pod_mix/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/transit_pod_mix
+
+/datum/milla_safe/transit_pod_mix/on_run(obj/structure/transit_tube_pod/pod)
+	var/datum/gas_mixture/environment = null
+	if(isobj(pod.loc))
+		var/obj/O = pod.loc
+		environment = O.return_obj_air()
+	if(isnull(environment))
+		var/turf/T = get_turf(pod)
+		environment = get_turf_air(T)
+
 	var/env_pressure = environment.return_pressure()
-	var/int_pressure = air_contents.return_pressure()
+	var/int_pressure = pod.air_contents.return_pressure()
 	var/total_pressure = env_pressure + int_pressure
 
 	if(total_pressure == 0)
@@ -211,11 +209,11 @@
 	var/transfer_in = max(0.1, 0.5 * (env_pressure - int_pressure) / total_pressure)
 	var/transfer_out = max(0.1, 0.3 * (int_pressure - env_pressure) / total_pressure)
 
-	var/datum/gas_mixture/from_env = loc.remove_air(environment.total_moles() * transfer_in)
-	var/datum/gas_mixture/from_int = air_contents.remove(air_contents.total_moles() * transfer_out)
+	var/datum/gas_mixture/from_env = environment.remove(environment.total_moles() * transfer_in)
+	var/datum/gas_mixture/from_int = pod.air_contents.remove(pod.air_contents.total_moles() * transfer_out)
 
-	loc.assume_air(from_int)
-	air_contents.merge(from_env)
+	environment.merge(from_int)
+	pod.air_contents.merge(from_env)
 
 
 

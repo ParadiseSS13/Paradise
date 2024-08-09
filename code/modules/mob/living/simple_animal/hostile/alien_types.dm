@@ -11,7 +11,7 @@
 	response_disarm = "shoves"
 	response_harm = "hits"
 	speed = 0
-	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat= 3, /obj/item/stack/sheet/animalhide/xeno = 1)
+	butcher_results = list(/obj/item/food/monstermeat/xenomeat= 3, /obj/item/stack/sheet/animalhide/xeno = 1)
 	maxHealth = 125
 	health = 125
 	harm_intent_damage = 5
@@ -35,6 +35,15 @@
 	death_sound = 'sound/voice/hiss6.ogg'
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	footstep_type = FOOTSTEP_MOB_CLAW
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/xeno/limb, /obj/effect/decal/cleanable/blood/gibs/xeno/core, /obj/effect/decal/cleanable/blood/xeno/splatter, /obj/effect/decal/cleanable/blood/gibs/xeno/body, /obj/effect/decal/cleanable/blood/gibs/xeno/down)
+
+/mob/living/simple_animal/hostile/alien/ListTargetsLazy()
+	return ListTargets()
+
+/mob/living/simple_animal/hostile/alien/Aggro()
+	. = ..()
+	if(target)
+		playsound(loc, 'sound/voice/hiss4.ogg', 70, TRUE)
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"
@@ -83,7 +92,7 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	move_to_delay = 4
-	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat= 4, /obj/item/stack/sheet/animalhide/xeno = 1)
+	butcher_results = list(/obj/item/food/monstermeat/xenomeat= 4, /obj/item/stack/sheet/animalhide/xeno = 1)
 	projectiletype = /obj/item/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
 	status_flags = 0
@@ -131,7 +140,7 @@
 	move_to_delay = 4
 	maxHealth = 400
 	health = 400
-	butcher_results = list(/obj/item/food/snacks/monstermeat/xenomeat= 10, /obj/item/stack/sheet/animalhide/xeno = 2)
+	butcher_results = list(/obj/item/food/monstermeat/xenomeat= 10, /obj/item/stack/sheet/animalhide/xeno = 2)
 	mob_size = MOB_SIZE_LARGE
 
 /obj/item/projectile/neurotox

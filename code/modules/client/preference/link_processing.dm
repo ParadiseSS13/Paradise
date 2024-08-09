@@ -397,6 +397,11 @@
 						return
 					active_character.h_grad_alpha = clamp(result, 0, 255)
 
+				if("runechat_color")
+					var/result = input(user, "Choose your character's runechat color:", "Character Preference", active_character.runechat_color) as color|null
+					if(result)
+						active_character.runechat_color = result
+
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
 						var/input = "Choose the colour of your your character's head accessory:"
@@ -896,7 +901,6 @@
 						return
 					switch(newgender)
 						if("Male")
-
 							active_character.gender = MALE
 						if("Female")
 							active_character.gender = FEMALE
@@ -953,6 +957,22 @@
 
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
+
+				if("enablelighting")
+					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/toggle_new_lighting]
+					toggle.set_toggles(user.client)
+
+				if("glowlevel")
+					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/special_toggle/set_glow_level]
+					toggle.set_toggles(user.client)
+
+				if("exposure")
+					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/toggle_lamp_exposure]
+					toggle.set_toggles(user.client)
+
+				if("glare")
+					var/datum/preference_toggle/special_toggle/toggle = GLOB.preference_toggles[/datum/preference_toggle/toggle_lamps_glare]
+					toggle.set_toggles(user.client)
 
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
@@ -1048,9 +1068,6 @@
 
 				if("ghost_radio")
 					toggles ^= PREFTOGGLE_CHAT_GHOSTRADIO
-					if(isobserver(user))
-						var/mob/dead/observer/dead_dude = user
-						dead_dude.update_dead_radio()
 
 				if("ghost_pda")
 					toggles ^= PREFTOGGLE_CHAT_GHOSTPDA
@@ -1117,6 +1134,9 @@
 				if("parallax_darkness")
 					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
 					parent.mob?.hud_used?.update_parallax_pref()
+
+				if("tgui_strip_menu")
+					toggles2 ^= PREFTOGGLE_2_BIG_STRIP_MENU
 
 				if("screentip_mode")
 					var/desired_screentip_mode = tgui_input_number(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size", screentip_mode, 20, 0)

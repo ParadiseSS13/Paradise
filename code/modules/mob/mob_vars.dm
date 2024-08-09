@@ -1,13 +1,14 @@
 /mob
 	density = TRUE
 	layer = MOB_LAYER
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
 	pressure_resistance = 8
 	throwforce = 10
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
+	/// Is this mob alive, unconscious or dead?
+	var/stat = CONSCIOUS // TODO: Move to /mob/living
 
 	/// The zone this mob is currently targeting
 	var/zone_selected = null
@@ -27,6 +28,7 @@
 	*/
 	var/atom/movable/screen/leap_icon = null
 	var/atom/movable/screen/healthdoll/healthdoll = null
+	var/atom/movable/screen/nutrition/nutrition_display = null
 
 	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0

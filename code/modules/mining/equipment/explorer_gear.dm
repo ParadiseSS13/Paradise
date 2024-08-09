@@ -53,6 +53,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS|FEET
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	slowdown = 0
 	armor = list(MELEE = 120, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/melee/spellblade)
@@ -90,7 +91,7 @@
 	heat_protection = HEAD
 	armor = list(MELEE = 120, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
-
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
@@ -109,7 +110,7 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.50
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/extinguisher)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
 	slowdown = 1
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, RAD = 10, FIRE = 50, ACID = 50)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
@@ -119,7 +120,6 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	strip_delay = 60
 	put_on_delay = 60
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
 	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 

@@ -84,7 +84,6 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	var/datum/hud/hud = mob_override.hud_used
 	if(hud?.vampire_blood_display)
 		hud.remove_vampire_hud()
-	mob_override.dna?.species.hunger_type = initial(mob_override.dna.species.hunger_type)
 	mob_override.dna?.species.hunger_icon = initial(mob_override.dna.species.hunger_icon)
 	owner.current.alpha = 255
 	REMOVE_TRAITS_IN(owner.current, "vampire")
@@ -115,7 +114,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
 
-		if(H.stat != DEAD || H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
+		if((H.stat != DEAD || H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)) && !HAS_MIND_TRAIT(H, TRAIT_XENOBIO_SPAWNED_HUMAN))
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)
 				adjust_blood(H, blood * BLOOD_GAINED_MODIFIER)
@@ -131,7 +130,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		else
 			to_chat(owner.current, "<span class='warning'>You have bled your victim dry!</span>")
 			break
-		if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
+		if((!H.ckey && !H.player_ghosted) || HAS_MIND_TRAIT(H, TRAIT_XENOBIO_SPAWNED_HUMAN)) //Only runs if there is no ckey and the body has not being ghosted while alive, also runs if the victim is an evolved caterpillar or diona nymph.
 			to_chat(owner.current, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
 			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 		else
@@ -354,7 +353,6 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		owner.som = new()
 		owner.som.masters += owner
 
-	mob_override.dna?.species.hunger_type = "vampire"
 	mob_override.dna?.species.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 	check_vampire_upgrade(FALSE)
 

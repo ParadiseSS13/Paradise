@@ -125,7 +125,7 @@ SUBSYSTEM_DEF(ticker)
 				current_state = GAME_STATE_FINISHED
 		if(GAME_STATE_FINISHED)
 			if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME && !mode.station_was_nuked)
-				event_blackbox(outcome = ROUND_END_CREW_TRANSFER)
+				record_biohazard_results()
 			current_state = GAME_STATE_FINISHED
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
@@ -141,6 +141,8 @@ SUBSYSTEM_DEF(ticker)
 				var/list/pickable_types = list()
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
+					if(istype(SSmapping.map_datum, M)) // Random will never choose the same map twice in a row.
+						continue
 					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
 						pickable_types += M
 
@@ -223,7 +225,7 @@ SUBSYSTEM_DEF(ticker)
 			P.ready = FALSE
 
 	//Configure mode and assign player to special mode stuff
-	mode.pre_pre_setup()
+
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
 
@@ -249,7 +251,7 @@ SUBSYSTEM_DEF(ticker)
 	SSjobs.DivideOccupations() //Distribute jobs
 
 	if(hide_mode)
-		var/list/modes = new
+		var/list/modes = list()
 		for(var/datum/game_mode/M in runnable_modes)
 			modes += M.name
 		modes = sortList(modes)
@@ -282,6 +284,12 @@ SUBSYSTEM_DEF(ticker)
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	// Generate the list of empty playable AI cores in the world
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_TRIAI))
+		for(var/obj/effect/landmark/tripai in GLOB.landmarks_list)
+			if(tripai.name == "tripai")
+				if(locate(/mob/living) in get_turf(tripai))
+					continue
+				GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(tripai))
 	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
 		if(locate(/mob/living) in get_turf(A))
 			continue
@@ -793,76 +801,44 @@ SUBSYSTEM_DEF(ticker)
 	records.Cut()
 	flagged_antag_rollers.Cut()
 
-/// This proc is for recording biohazard events, and blackboxing if they lived, died, or ended the round. This currently applies to: Terror spiders, Xenomorphs, and Blob.
-/datum/controller/subsystem/ticker/proc/event_blackbox(outcome = ROUND_END_CREW_TRANSFER)
-	for(var/I in SSevents.biohazards_this_round)
-		switch(I)
-			if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_PRINCE_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
-				var/output = "unknown spider type"
-				switch(I)
-					if(TS_INFESTATION_GREEN_SPIDER)
-						output = "Green Terrors"
-					if(TS_INFESTATION_PRINCE_SPIDER)
-						output = "Prince Terror"
-					if(TS_INFESTATION_WHITE_SPIDER)
-						output = "White Terrors"
-					if(TS_INFESTATION_PRINCESS_SPIDER)
-						output = "Princess Terrors"
-					if(TS_INFESTATION_QUEEN_SPIDER)
-						output = "Queen Terrors"
-				var/spiders = 0
-				for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
-					if(S.ckey)
-						spiders++
-				if(spiders >= 5 || (output == "Prince Terror" && spiders == 1)) //If a prince lives, record as win.
-					switch(outcome)
-						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, output)
-						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, output)
-						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, output)
-				else
-					switch(outcome)
-						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, output)
-						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, output)
-						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, output)
-			if("Xenomorphs")
-				if(length(SSticker.mode.xenos) > 5)
-					switch(outcome)
-						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard nuclear victories", 1, "Xenomorphs")
-						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard survives to normal round end", 1, "Xenomorphs")
-						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard survives to admin round end", 1, "Xenomorphs")
-				else
-					switch(outcome)
-						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Biohazard dies station nuked", 1, "Xenomorphs")
-						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Biohazard dies normal end", 1, "Xenomorphs")
-						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Biohazard dies admin round end", 1, "Xenomorphs")
+/// This proc is for recording biohazard events, and blackboxing if they lived,
+/// died, or ended the round. This currently applies to: Terror spiders,
+/// Xenomorphs, and Blob.
+///
+/// This code is predicated on the assumption that multiple midrounds
+/// of the same type are either extremely rare or impossible. We don't want to get
+/// into the insanity of trying to record if the first xeno biohazard was defeated
+/// but the second xeno biohazard was nuked.
+/datum/controller/subsystem/ticker/proc/record_biohazard_results()
+	for(var/biohazard in SSevents.biohazards_this_round)
+		if(biohazard_active_threat(biohazard))
+			SSblackbox.record_feedback("nested tally", "biohazards", 1, list("survived", biohazard))
+		else
+			SSblackbox.record_feedback("nested tally", "biohazards", 1, list("defeated", biohazard))
 
-			if("Blob")
-				if(length(SSticker.mode.blob_overminds))
-					switch(outcome)
-						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Blob nuclear victories", 1, "Blob")
-						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Blob survives to normal round end", 1, "Blob")
-						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Blob survives to admin round end", 1, "Blob")
-				else
-					switch(outcome)
-						if(ROUND_END_NUCLEAR)
-							SSblackbox.record_feedback("tally", "Blob dies station nuked", 1, "Blob")
-						if(ROUND_END_CREW_TRANSFER)
-							SSblackbox.record_feedback("tally", "Blob dies normal end", 1, "Blob")
-						if(ROUND_END_FORCED)
-							SSblackbox.record_feedback("tally", "Blob dies admin round end", 1, "Blob")
+/datum/controller/subsystem/ticker/proc/count_xenomorps()
+	. = 0
+	for(var/datum/mind/xeno_mind as anything in SSticker.mode.xenos)
+		if(xeno_mind.current?.stat == DEAD)
+			continue
+		.++
 
+/// Return whether or not a given biohazard is an active threat.
+/// For blobs, this is simply if there are any overminds left. For terrors and
+/// xenomorphs, this is whether they have overwhelming numbers.
+/datum/controller/subsystem/ticker/proc/biohazard_active_threat(biohazard)
+	switch(biohazard)
+		if(TS_INFESTATION_GREEN_SPIDER, TS_INFESTATION_WHITE_SPIDER, TS_INFESTATION_PRINCESS_SPIDER, TS_INFESTATION_QUEEN_SPIDER)
+			var/spiders = 0
+			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
+				if(S.ckey)
+					spiders++
+			return spiders >= 5
+		if(TS_INFESTATION_PRINCE_SPIDER)
+			return length(GLOB.ts_spiderlist)
+		if(BIOHAZARD_XENO)
+			return count_xenomorps() > 5
+		if(BIOHAZARD_BLOB)
+			return length(SSticker.mode.blob_overminds)
+
+	return FALSE

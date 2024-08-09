@@ -4,7 +4,7 @@
 #define ATM_SCREEN_LOGS      3
 
 #define PRINT_DELAY  (30 SECONDS)
-#define LOCKOUT_TIME (10 SECONDS)
+#define LOCKOUT_TIME (10 MINUTES)
 
 /obj/machinery/economy/atm
 	name = "Nanotrasen automatic teller machine"
@@ -214,7 +214,6 @@
 	. = TRUE
 
 /obj/machinery/economy/atm/proc/attempt_login(account_number, account_pin, mob/user)
-
 	var/account_to_attempt = account_number ? account_number : held_card?.associated_account_number
 	if(!account_to_attempt)
 		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure: Account number not found.</span>")
@@ -224,6 +223,14 @@
 	if(!user_account)
 		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure: User Account Not Found.</span>")
 		return FALSE
+
+	if(login_attempts >= 3)
+		if(lockout_time < world.time)
+			login_attempts = 0
+		else
+			account_database.log_account_action(user_account, 0, "Unauthorised login attempt", name, log_on_database = FALSE)
+			unauthorized(user)
+			return FALSE
 
 	if(attempt_account_authentification(user_account, account_pin, user))
 		authenticated_account = user_account
@@ -235,14 +242,19 @@
 		return TRUE
 
 	//else failed login
-
 	login_attempts++
 	account_database.log_account_action(user_account, 0, "Unauthorised login attempt", name, log_on_database = FALSE)
-	to_chat(user, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [3 - login_attempts] attempt\s remaining.</span>")
 	if(login_attempts >= 3)
-		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
-		view_screen = ATM_SCREEN_DEFAULT
+		unauthorized(user)
 		lockout_time = world.time + LOCKOUT_TIME
+	else
+		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
+		to_chat(user, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [3 - login_attempts] attempt\s remaining.</span>")
+
+/obj/machinery/economy/atm/proc/unauthorized(user)
+	to_chat(user, "[bicon(src)]<span class='warning'>Account is locked due to too many incorrect login attempts. Try again later.</span>")
+	playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
+	view_screen = ATM_SCREEN_DEFAULT
 
 /obj/machinery/economy/atm/proc/logout()
 	clear_account()

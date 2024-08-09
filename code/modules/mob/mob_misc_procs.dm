@@ -580,12 +580,6 @@
 		return FALSE
 	return TRUE
 
-/mob/proc/switch_to_camera(obj/machinery/camera/C)
-	if(!C.can_use() || incapacitated() || (get_dist(C, src) > 1 || machine != src || !has_vision()))
-		return FALSE
-	check_eye(src)
-	return TRUE
-
 /mob/proc/rename_character(oldname, newname)
 	if(!newname)
 		return FALSE
@@ -593,7 +587,7 @@
 	name = newname
 	if(mind)
 		mind.name = newname
-		if(mind.initial_account?.account_name == oldname)
+		if(!isnull(oldname) && mind?.initial_account?.account_name == oldname)
 			mind.initial_account.account_name = newname
 	if(dna)
 		dna.real_name = real_name

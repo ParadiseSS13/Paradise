@@ -63,11 +63,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
 	var/sound = SOUND_DEFAULT
+	var/light = LIGHT_DEFAULT
+	/// Glow level for the lighting. Takes values from GLOW_HIGH to GLOW_DISABLE.
+	var/glowlevel = GLOW_MED
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
 	var/clientfps = 63
 	var/atklog = ATKLOG_ALL
-	var/fuid							// forum userid
+	/// Forum userid
+	var/fuid
 
 	/// Volume mixer, indexed by channel as TEXT (numerical indexes will not work). Volume goes from 0 to 100.
 	var/list/volume_mixer = list(
@@ -202,6 +206,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Gender:</b> <a href='byond://?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a><br>"
 			dat += "<b>Body Type:</b> <a href='byond://?_src_=prefs;preference=body_type'>[active_character.body_type == MALE ? "Masculine" : "Feminine"]</a>"
 			dat += "<br>"
+			dat += "<b>Runechat Color:</b> "
+			dat += "<a href='byond://?_src_=prefs;preference=runechat_color;task=input'>Color</a> [color_square(active_character.runechat_color)]<br>"
 			if(active_character.species == "Vox") // Purge these bastards
 				dat += "<b>N2 Tank:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			if(active_character.species == "Plasmaman")
@@ -410,7 +416,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Donator Publicity:</b> <a href='byond://?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 			dat += "<b>FPS:</b>	 <a href='byond://?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
 			dat += "<b>Ghost Ears:</b> <a href='byond://?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
-			dat += "<b>Ghost Radio:</b> <a href='byond://?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "All Chatter" : "No Chatter"]</b></a><br>"
+			dat += "<b>Ghost Radio:</b> <a href='byond://?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
 			dat += "<b>Ghost Sight:</b> <a href='byond://?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost PDA:</b> <a href='byond://?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
@@ -431,12 +437,30 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "High"
 			dat += "</a><br>"
 			dat += "<b>Parallax in darkness:</b> <a href='byond://?_src_=prefs;preference=parallax_darkness'>[toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>TGUI strip menu size:</b> <a href='byond://?_src_=prefs;preference=tgui_strip_menu'>[toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? "Full-size" : "Miniature"]</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='byond://?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='byond://?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='byond://?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>View Range:</b> <a href='byond://?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
 			dat += "<b>Window Flashing:</b> <a href='byond://?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Modsuit Activation Method:</b> <a href='byond://?_src_=prefs;preference=mam'>[(toggles2 & PREFTOGGLE_2_MOD_ACTIVATION_METHOD) ? "Middle Click" : "Alt Click"]</a><br>"
+			dat += "<b>Lighting settings:</b><br>"
+			dat += "<b> - New Lighting:</b> <a href='byond://?_src_=prefs;preference=enablelighting'>[(light & LIGHT_NEW_LIGHTING) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - Glow Level:</b> <a href='byond://?_src_=prefs;preference=glowlevel'>"
+			switch(glowlevel)
+				if(GLOW_LOW)
+					dat += "Low"
+				if(GLOW_MED)
+					dat += "Medium"
+				if(GLOW_HIGH)
+					dat += "High"
+				if(GLOW_DISABLE)
+					dat += "Disabled"
+				else
+					dat += "Medium"
+			dat += "</a><br>"
+			dat += "<b> - Lamp Exposure:</b> <a href='byond://?_src_=prefs;preference=exposure'>[(light & LIGHT_EXPOSURE) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - Lamp Glare:</b> <a href='byond://?_src_=prefs;preference=glare'>[(light & LIGHT_GLARE) ? "Yes" : "No"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Interface Settings</h2>"
@@ -603,7 +627,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			var/static/list/pref_toggles_by_category
 			if(!pref_toggles_by_category)
 				pref_toggles_by_category = list()
-				for(var/datum/preference_toggle/toggle as anything in GLOB.preference_toggles)
+				for(var/toggle_type in GLOB.preference_toggles)
+					var/datum/preference_toggle/toggle = GLOB.preference_toggles[toggle_type]
 					pref_toggles_by_category["[toggle.preftoggle_category]"] += list(toggle)
 
 			for(var/category in GLOB.preference_toggle_groups)
@@ -627,6 +652,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
 						if(PREFTOGGLE_SOUND)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+						if(PREFTOGGLE_LIGHT)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(light & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
 

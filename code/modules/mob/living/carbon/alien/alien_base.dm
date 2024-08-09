@@ -72,11 +72,11 @@
 /mob/living/carbon/alien/check_eye_prot()
 	return 2
 
-/mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
+/mob/living/carbon/alien/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
 		return
 
-	var/loc_temp = get_temperature(environment)
+	var/loc_temp = get_temperature(readonly_environment)
 
 	if(!on_fire) // If you're on fire, ignore local air temperature
 		if(loc_temp > bodytemperature)
@@ -163,14 +163,6 @@
 		threatcount -= 1
 
 	return threatcount
-
-/mob/living/carbon/alien/death(gibbed)
-	. = ..()
-	if(!.)
-		return
-
-	deathrattle()
-
 
 /mob/living/carbon/alien/proc/deathrattle()
 	var/alien_message = deathrattle_message()

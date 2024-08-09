@@ -42,6 +42,16 @@
 
 /client/vv_edit_var(var_name, var_value) //called whenever a var is edited
 	switch(var_name)
+		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
+		// But guess what, if I have the ability to overengineer something, I am going to do it
+		if("tos_consent")
+			return FALSE
+		// Dont fuck with this
+		if("cui_entries")
+			return FALSE
+		// or this
+		if("jbh")
+			return FALSE
 		if("vars")
 			return FALSE
 		if("var_edited")
@@ -463,11 +473,12 @@
 	var/header
 	if(DA)
 		if(islist(DA))
+			var/list/debug_list = DA
 			var/index = name
 			if(value)
-				name = DA[name] // name is really the index until this line
+				name = debug_list[name] // name is really the index until this line
 			else
-				value = DA[name]
+				value = debug_list[name]
 			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
 		else
 			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "
@@ -517,7 +528,7 @@
 				var/val
 				if(IS_NORMAL_LIST(L) && !isnum(key))
 					val = L[key]
-				if(!val)
+				if(isnull(val))
 					val = key
 					key = i
 
@@ -952,7 +963,7 @@
 					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
 
 	else if(href_list["editreagents"])
-		if(!check_rights(R_DEBUG|R_ADMIN))	
+		if(!check_rights(R_DEBUG|R_ADMIN))
 			return
 
 		var/atom/A = locateUID(href_list["editreagents"])
@@ -1045,7 +1056,7 @@
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.add_language(new_language))
+		if(H.add_language(new_language, TRUE))
 			to_chat(usr, "Added [new_language] to [H].")
 			message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] the language [new_language]")
 			log_admin("[key_name(usr)] has given [key_name(H)] the language [new_language]")
@@ -1073,7 +1084,7 @@
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.remove_language(rem_language.name))
+		if(H.remove_language(rem_language.name, TRUE))
 			to_chat(usr, "Removed [rem_language] from [H].")
 			message_admins("[key_name_admin(usr)] has removed language [rem_language] from [key_name_admin(H)]")
 			log_admin("[key_name(usr)] has removed language [rem_language] from [key_name(H)]")

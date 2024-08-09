@@ -85,14 +85,6 @@
 	name = "\improper Thunderdome Arena"
 	icon_state = "thunder"
 
-/area/tdome/tdome1
-	name = "\improper Thunderdome (Team 1)"
-	icon_state = "green"
-
-/area/tdome/tdome2
-	name = "\improper Thunderdome (Team 2)"
-	icon_state = "yellow"
-
 /area/tdome/tdomeadmin
 	name = "\improper Thunderdome (Admin.)"
 	icon_state = "purple"
@@ -135,7 +127,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/trader_station/sol
-	name = "Jupiter Station 6"
+	name = "Trading Satellite"
 
 /area/ghost_bar
 	name = "Ghost Bar"

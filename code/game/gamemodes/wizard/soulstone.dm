@@ -116,7 +116,7 @@
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
 		return ..()
 
-	if(M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT)
+	if((M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(M, TRAIT_XENOBIO_SPAWNED_HUMAN))
 		to_chat(user, "<span class='warning'>This being's soul seems worthless. Not even the stone will absorb it.</span>")
 		return ..()
 
@@ -317,7 +317,7 @@
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
-			if(T.stat == 0)
+			if(T.stat == CONSCIOUS)
 				to_chat(user, "<span class='danger'>Capture failed!</span> Kill or maim the victim first!")
 			else
 				if(!length(T.client_mobs_in_contents))
@@ -389,13 +389,17 @@
 /mob/living/simple_animal/hostile/construct/proc/init_construct(mob/living/simple_animal/shade/shade, obj/item/soulstone/SS, obj/structure/constructshell/shell)
 	if(shade.mind)
 		shade.mind.transfer_to(src)
+	if(SS.usability)
+		// Replace regular soulstone summoning with anyuse soulstones
+		if(is_type_in_list(/datum/spell/aoe/conjure/build/soulstone, mob_spell_list))
+			RemoveSpell(/datum/spell/aoe/conjure/build/soulstone)
+			AddSpell(new /datum/spell/aoe/conjure/build/soulstone/any)
 	if(SS.purified)
 		make_holy()
 		// Replace regular soulstone summoning with purified soulstones
 		if(is_type_in_list(/datum/spell/aoe/conjure/build/soulstone, mob_spell_list))
 			RemoveSpell(/datum/spell/aoe/conjure/build/soulstone)
 			AddSpell(new /datum/spell/aoe/conjure/build/soulstone/holy)
-
 	else if(mind.has_antag_datum(/datum/antagonist/cultist)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
 		var/datum/action/innate/cult/check_progress/D = new

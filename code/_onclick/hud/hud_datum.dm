@@ -39,6 +39,8 @@
 	var/atom/movable/screen/palette_scroll/up/palette_up
 	/// the groups of actions, such as palette (previously normal) actions
 	var/datum/action_group/palette/palette_actions
+	/// action group for cult spell actions
+	var/datum/action_group/listed/cult/cult_actions
 	/// action group for expanded actions, the normal action set
 	var/datum/action_group/listed/listed_actions
 	/// A list of action buttons which aren't owned by any action group, and are just floating somewhere on the hud.
@@ -77,6 +79,7 @@
 	var/list/all_action_buttons = list()
 	all_action_buttons += palette_actions.actions
 	all_action_buttons += listed_actions.actions
+	all_action_buttons += cult_actions.actions
 	return all_action_buttons
 
 /datum/hud/New(mob/owner)
@@ -110,6 +113,7 @@
 	QDEL_NULL(palette_up)
 	QDEL_NULL(palette_actions)
 	QDEL_NULL(listed_actions)
+	QDEL_NULL(cult_actions)
 	QDEL_LIST_CONTENTS(floating_actions)
 
 	QDEL_NULL(module_store_icon)
@@ -131,6 +135,7 @@
 	mymob.healths = null
 	mymob.healthdoll = null
 	mymob.pullin = null
+	mymob.nutrition_display = null
 
 	//clear the rest of our reload_fullscreen
 	lingchemdisplay = null

@@ -153,10 +153,12 @@
 	cell = new_cell
 	cell.forceMove(src)
 	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
+	RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(remove_cell))
 
 /obj/item/mod/core/standard/proc/uninstall_cell()
 	if(!cell)
 		return
+	UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
 	cell = null
 	UnregisterSignal(src, COMSIG_ATOM_EXITED)
 
@@ -166,6 +168,11 @@
 	if(!istype(cell) || cell.loc == src)
 		return
 	uninstall_cell()
+
+/obj/item/mod/core/standard/proc/remove_cell()
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+	UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+	cell = null
 
 /obj/item/mod/core/standard/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER

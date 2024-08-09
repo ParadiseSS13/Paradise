@@ -63,7 +63,7 @@
 
 /obj/item/envelope/security
 	icon_state = "mail_sec"
-	possible_contents = list(/obj/item/food/snacks/donut/sprinkles,
+	possible_contents = list(/obj/item/food/donut/sprinkles,
 							/obj/item/megaphone,
 							/obj/item/clothing/mask/whistle,
 							/obj/item/poster/random_official,
@@ -107,10 +107,11 @@
 							/obj/item/clothing/mask/cigarette/cigar,
 							/obj/item/stack/wrapping_paper,
 							/obj/item/toy/figure/crew/cargotech,
+							/obj/item/toy/figure/crew/explorer,
 							/obj/item/toy/figure/crew/qm,
 							/obj/item/toy/figure/crew/miner,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner")
+	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
 
 /obj/item/envelope/medical
 	icon_state = "mail_med"
@@ -120,8 +121,9 @@
 							/obj/item/reagent_containers/applicator/brute,
 							/obj/item/reagent_containers/applicator/burn,
 							/obj/item/clothing/glasses/sunglasses,
-							/obj/item/food/snacks/fortunecookie,
+							/obj/item/food/fortunecookie,
 							/obj/item/scalpel/laser/laser1,
+							/obj/item/surgical_drapes,
 							/obj/item/toy/figure/crew/cmo,
 							/obj/item/toy/figure/crew/chemist,
 							/obj/item/toy/figure/crew/geneticist,
@@ -134,7 +136,7 @@
 	icon_state = "mail_eng"
 	possible_contents = list(/obj/item/airlock_electronics,
 							/obj/item/reagent_containers/drinks/cans/beer,
-							/obj/item/food/snacks/candy/confectionery/nougat,
+							/obj/item/food/candy/confectionery/nougat,
 							/obj/item/mod/module/storage/large_capacity,
 							/obj/item/weldingtool/hugetank,
 							/obj/item/geiger_counter,
@@ -190,10 +192,10 @@
 							/obj/item/book/manual/wiki/sop_command,
 							/obj/item/reagent_containers/patch/synthflesh,
 							/obj/item/paper_bin/nanotrasen,
-							/obj/item/food/snacks/spesslaw,
+							/obj/item/food/spesslaw,
 							/obj/item/clothing/head/collectable/petehat,
 							/obj/item/toy/figure/crew/captain,
-							/obj/item/toy/figure/crew/lawyer,
+							/obj/item/toy/figure/crew/iaa,
 							/obj/item/toy/figure/crew/dsquad,
 							/obj/item/storage/box/scratch_cards)
 	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent")
@@ -211,7 +213,7 @@
 							/obj/item/toy/figure/owl,
 							/obj/item/toy/figure/griffin,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Assistant", "Explorer")
+	job_list = list("Assistant")
 
 
 	/*//////////////////////\/

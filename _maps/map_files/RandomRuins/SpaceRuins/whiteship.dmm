@@ -18,9 +18,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
 "em" = (
-/obj/effect/spawner/airlock/w_to_e/long/square{
-	req_access_txt = null
-	},
+/obj/effect/spawner/airlock/w_to_e/long/square,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "eo" = (
@@ -95,9 +93,7 @@
 /area/shuttle/abandoned)
 "nC" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_y = 0
-	},
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
 "oh" = (
@@ -121,7 +117,7 @@
 /area/shuttle/abandoned)
 "qK" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/energy/laser/retro,
+/obj/item/whiteship_port_generator,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "ri" = (
@@ -214,6 +210,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
+"xz" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/abandoned)
 "ys" = (
 /obj/structure/table,
 /obj/item/storage/box/lights/mixed,
@@ -269,6 +272,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "Ct" = (
@@ -400,6 +404,11 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
+"YH" = (
+/obj/structure/table/wood/poker,
+/obj/item/gun/energy/laser/retro,
+/turf/simulated/floor/wood,
+/area/shuttle/abandoned)
 
 (1,1,1) = {"
 zM
@@ -435,8 +444,8 @@ zM
 zM
 zO
 Gs
-SS
-SS
+xz
+xz
 qK
 zO
 zM
@@ -545,7 +554,7 @@ zO
 zO
 Pe
 sK
-sK
+YH
 zO
 vB
 vB

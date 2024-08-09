@@ -1332,9 +1332,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 32;
+/obj/machinery/economy/vending/wallmed/directional/north{
 	power_state = 0
 	},
 /obj/item/clipboard,
@@ -1466,24 +1464,24 @@
 /area/shuttle/administration)
 "fF" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/sausage,
-/obj/item/food/snacks/sausage,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/spaghetti,
-/obj/item/food/snacks/spaghetti,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/sausage,
+/obj/item/food/sausage,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/spaghetti,
+/obj/item/food/spaghetti,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2361,9 +2359,8 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "ip" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ghost_bar)
 "iq" = (
 /obj/machinery/door/poddoor/impassable{
@@ -3127,13 +3124,13 @@
 /area/syndicate_mothership)
 "kR" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 8
 	},
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 4
 	},
-/obj/item/radio/beacon/syndicate/bomb,
+/obj/item/beacon/syndicate/bomb,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kS" = (
@@ -3279,6 +3276,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
+"lq" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/supply)
 "lr" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -3594,7 +3594,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/suit/blacktrenchcoat,
-/obj/item/clothing/suit/jacket{
+/obj/item/clothing/suit/jacket/bomber{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -4100,6 +4100,12 @@
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
+"nE" = (
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
 "nF" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -4226,7 +4232,7 @@
 /area/centcom/suppy)
 "nY" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/mushroompizzaslice{
+/obj/item/food/mushroompizzaslice{
 	pixel_x = -5;
 	pixel_y = 5
 	},
@@ -4387,11 +4393,6 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
-"oH" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
-/area/ghost_bar)
 "oI" = (
 /obj/effect/spawner/lootdrop/trade_sol/civ,
 /obj/structure/closet,
@@ -4454,7 +4455,7 @@
 	},
 /area/centcom/control)
 "oP" = (
-/obj/machinery/teleport/station,
+/obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -4462,7 +4463,7 @@
 /area/centcom/specops)
 "oQ" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
-	name = "Jupiter Station Central Access"
+	name = "Trading Satellite Central Access"
 	},
 /turf/simulated/floor/plating/airless,
 /area/trader_station/sol)
@@ -4485,6 +4486,15 @@
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
+"oV" = (
+/obj/effect/turf_decal{
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
 "oW" = (
 /obj/machinery/computer/shuttle/white_ship,
 /turf/simulated/floor/plasteel{
@@ -5128,13 +5138,13 @@
 /area/admin)
 "ro" = (
 /obj/structure/table,
-/obj/item/food/snacks/grown/citrus/lemon,
-/obj/item/food/snacks/grown/berries,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/cherries,
-/obj/item/food/snacks/grown/citrus/orange,
-/obj/item/food/snacks/grown/corn,
-/obj/item/food/snacks/grown/mushroom/amanita,
+/obj/item/food/grown/citrus/lemon,
+/obj/item/food/grown/berries,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/cherries,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/mushroom/amanita,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "rp" = (
@@ -5197,7 +5207,7 @@
 	name = "Nanotrasen Asset Protection Shutters";
 	pixel_x = -8;
 	pixel_y = 30;
-	req_access_txt = "114"
+	req_access_txt = "109"
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -5467,7 +5477,7 @@
 /area/tdome/arena_source)
 "st" = (
 /obj/structure/table/wood,
-/obj/item/clothing/accessory/lawyers_badge{
+/obj/item/clothing/accessory/legal_badge{
 	desc = "A badge of upmost glory.";
 	name = "thunderdome badge"
 	},
@@ -5705,10 +5715,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tt" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 30
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tv" = (
@@ -5717,9 +5724,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tw" = (
-/obj/machinery/economy/vending/wallmed/syndicate{
-	pixel_x = -30
-	},
+/obj/machinery/economy/vending/wallmed/syndicate/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tx" = (
@@ -5873,7 +5878,7 @@
 	dwidth = 4;
 	height = 11;
 	id = "trade_sol_base";
-	name = "docking bay 2 at Jupiter Station";
+	name = "docking bay at Trading Satellite";
 	width = 9
 	},
 /obj/structure/fans/tiny,
@@ -6016,10 +6021,10 @@
 /area/shuttle/syndicate)
 "ur" = (
 /obj/structure/table,
-/obj/item/radio/beacon/syndicate/bomb{
+/obj/item/beacon/syndicate/bomb{
 	pixel_y = 5
 	},
-/obj/item/radio/beacon/syndicate/bomb,
+/obj/item/beacon/syndicate/bomb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "us" = (
@@ -6153,6 +6158,10 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/gamma/space)
+"uS" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "uT" = (
 /obj/machinery/teleport/hub/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -6218,9 +6227,8 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "vh" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken2"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "vj" = (
 /obj/effect/decal/cleanable/blood,
@@ -6696,7 +6704,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "wK" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/supply)
 "wM" = (
 /obj/structure/closet/wardrobe/xenos,
@@ -6851,7 +6859,7 @@
 /area/admin)
 "xf" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
@@ -7183,22 +7191,22 @@
 /area/holodeck/source_boxingcourt)
 "zj" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/whitebeet,
-/obj/item/food/snacks/grown/whitebeet,
-/obj/item/food/snacks/grown/tomato,
-/obj/item/food/snacks/grown/tomato,
-/obj/item/food/snacks/grown/rice,
-/obj/item/food/snacks/grown/rice,
-/obj/item/food/snacks/grown/icepepper,
-/obj/item/food/snacks/grown/icepepper,
-/obj/item/food/snacks/grown/citrus/lemon,
-/obj/item/food/snacks/grown/citrus/lime,
-/obj/item/food/snacks/grown/citrus/orange,
-/obj/item/food/snacks/grown/cherries,
-/obj/item/food/snacks/grown/apple,
-/obj/item/food/snacks/grown/ambrosia/deus,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/citrus/lemon,
+/obj/item/food/grown/citrus/lime,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/cherries,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/deus,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7600,7 +7608,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "AR" = (
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/supply)
 "AU" = (
 /obj/machinery/door/airlock/centcom{
@@ -7641,10 +7652,11 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Bd" = (
-/obj/machinery/light/spot{
-	dir = 1
+/obj/machinery/status_display{
+	name = "cargo display";
+	pixel_y = 32
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/catwalk,
 /area/shuttle/supply)
 "Be" = (
 /obj/machinery/door/airlock/centcom{
@@ -7823,15 +7835,12 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "BL" = (
-/obj/machinery/light/spot{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/supply)
-"BO" = (
-/obj/machinery/light/spot{
+/obj/effect/turf_decal{
 	dir = 4
 	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"BO" = (
 /obj/machinery/door_control/no_emag{
 	id = "QMLoaddoor2";
 	layer = 3;
@@ -7846,7 +7855,10 @@
 	pixel_x = 24;
 	pixel_y = -8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "BT" = (
 /obj/effect/landmark/spawner/tdomeobserve,
@@ -8697,11 +8709,6 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/carpet,
 /area/centcom/control)
-"EX" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/ghost_bar)
 "EZ" = (
 /obj/machinery/computer/bsa_control/admin,
 /turf/simulated/floor/carpet,
@@ -8722,8 +8729,7 @@
 	},
 /area/ghost_bar)
 "Fc" = (
-/obj/machinery/light/spot,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/catwalk,
 /area/shuttle/supply)
 "Fd" = (
 /obj/structure/table/reinforced,
@@ -9095,7 +9101,7 @@
 "Gs" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost")
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -9928,22 +9934,22 @@
 /area/shuttle/escape)
 "Jl" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/potato,
-/obj/item/food/snacks/grown/whitebeet,
-/obj/item/food/snacks/grown/whitebeet,
-/obj/item/food/snacks/grown/tomato,
-/obj/item/food/snacks/grown/tomato,
-/obj/item/food/snacks/grown/rice,
-/obj/item/food/snacks/grown/rice,
-/obj/item/food/snacks/grown/icepepper,
-/obj/item/food/snacks/grown/icepepper,
-/obj/item/food/snacks/grown/citrus/lemon,
-/obj/item/food/snacks/grown/citrus/lime,
-/obj/item/food/snacks/grown/citrus/orange,
-/obj/item/food/snacks/grown/cherries,
-/obj/item/food/snacks/grown/apple,
-/obj/item/food/snacks/grown/ambrosia/deus,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/citrus/lemon,
+/obj/item/food/grown/citrus/lime,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/cherries,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/deus,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -10019,24 +10025,24 @@
 /area/centcom/specops)
 "JB" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/raw_bacon,
-/obj/item/food/snacks/sausage,
-/obj/item/food/snacks/sausage,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/catfishmeat,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/rawcutlet,
-/obj/item/food/snacks/spaghetti,
-/obj/item/food/snacks/spaghetti,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/sausage,
+/obj/item/food/sausage,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/spaghetti,
+/obj/item/food/spaghetti,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -10217,7 +10223,7 @@
 "Kd" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -10307,25 +10313,25 @@
 /area/centcom/evac)
 "Kw" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/vanillapod,
-/obj/item/food/snacks/grown/vanillapod,
-/obj/item/food/snacks/grown/sugarcane,
-/obj/item/food/snacks/grown/sugarcane,
-/obj/item/food/snacks/grown/oat,
-/obj/item/food/snacks/grown/oat,
-/obj/item/food/snacks/grown/grapes,
-/obj/item/food/snacks/grown/grapes,
-/obj/item/food/snacks/grown/corn,
-/obj/item/food/snacks/grown/corn,
-/obj/item/food/snacks/grown/chili,
-/obj/item/food/snacks/grown/chili,
-/obj/item/food/snacks/grown/carrot,
-/obj/item/food/snacks/grown/apple,
-/obj/item/food/snacks/grown/ambrosia/vulgaris,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/carrot,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/vulgaris,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -10492,7 +10498,7 @@
 "Lb" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
@@ -10658,7 +10664,7 @@
 	},
 /area/ghost_bar)
 "LH" = (
-/obj/machinery/economy/vending/cigarette/free,
+/obj/machinery/economy/vending/cigarette/beach/centcomm,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
@@ -11441,6 +11447,12 @@
 /obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
+"Oh" = (
+/obj/effect/turf_decal{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/supply)
 "Oi" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/fernybush,
@@ -11450,25 +11462,25 @@
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	req_access = null
 	},
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/banana,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/wheat,
-/obj/item/food/snacks/grown/vanillapod,
-/obj/item/food/snacks/grown/vanillapod,
-/obj/item/food/snacks/grown/sugarcane,
-/obj/item/food/snacks/grown/sugarcane,
-/obj/item/food/snacks/grown/oat,
-/obj/item/food/snacks/grown/oat,
-/obj/item/food/snacks/grown/grapes,
-/obj/item/food/snacks/grown/grapes,
-/obj/item/food/snacks/grown/corn,
-/obj/item/food/snacks/grown/corn,
-/obj/item/food/snacks/grown/chili,
-/obj/item/food/snacks/grown/chili,
-/obj/item/food/snacks/grown/carrot,
-/obj/item/food/snacks/grown/apple,
-/obj/item/food/snacks/grown/ambrosia/vulgaris,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/carrot,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/vulgaris,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -11858,11 +11870,6 @@
 	icon_state = "darkred"
 	},
 /area/centcom/gamma)
-"Pt" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
-/area/centcom/evac)
 "Pu" = (
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
@@ -12776,6 +12783,15 @@
 	icon_state = "browncorner"
 	},
 /area/shuttle/escape)
+"SS" = (
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
 "ST" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
@@ -12878,7 +12894,7 @@
 /area/shuttle/transport)
 "Tu" = (
 /obj/machinery/door/airlock/centcom/glass{
-	name = "Jupiter Station Central Access"
+	name = "Trading Satellite Central Access"
 	},
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
@@ -13645,7 +13661,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Wx" = (
-/obj/machinery/teleport/station,
+/obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Wy" = (
@@ -13982,10 +13998,11 @@
 /area/centcom/specops)
 "Xo" = (
 /obj/machinery/door_control/no_emag/no_cyborg{
+	desc = "A remote control switch to connect the ready room to the rest of Centcom.";
+	id = "SPECOPS";
 	name = "Nanotrasen Asset Protection Shutters";
-	req_access_txt = "114";
 	pixel_y = -24;
-	id = "SPECOPS"
+	req_access_txt = "109"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -14305,7 +14322,7 @@
 "Yu" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost","ERT","CentComm","Thunderdome")
+	network = list("SS13","Telecomms","Research  Outpost","Mining  Outpost","ERT","CentComm","Thunderdome")
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
@@ -34972,9 +34989,9 @@ wK
 wK
 wK
 wK
-wK
-wK
-wK
+uS
+uS
+uS
 wK
 wK
 wK
@@ -35226,16 +35243,16 @@ aN
 aN
 aN
 wK
-AR
-AR
-AR
-AR
+oV
 BL
-AR
-AR
-AR
-AR
-wK
+BL
+BL
+BL
+BL
+BL
+oV
+Oh
+lq
 GX
 aN
 Zr
@@ -35483,15 +35500,15 @@ aN
 aN
 aN
 wK
-AR
-AR
-AR
-AR
-AR
-AR
-AR
-AR
-AR
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
 Gf
 GY
 aN
@@ -35741,13 +35758,13 @@ aN
 Db
 wK
 Bd
-AR
-AR
-AR
-AR
-AR
-AR
-AR
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
 Fc
 Gf
 GY
@@ -35997,15 +36014,15 @@ aN
 aN
 aN
 wK
-AR
-AR
-AR
-AR
-AR
-AR
-AR
-AR
-AR
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
+Fc
 Gf
 GY
 aN
@@ -36254,16 +36271,16 @@ aN
 aN
 aN
 wK
-AR
-AR
-AR
-AR
+SS
+nE
+nE
+nE
 BO
+nE
+nE
+SS
 AR
-AR
-AR
-AR
-wK
+lq
 Ha
 aN
 Zr
@@ -45795,7 +45812,7 @@ nC
 Il
 Ng
 Ng
-Pt
+vh
 Ng
 El
 Xx
@@ -72277,11 +72294,11 @@ vd
 vd
 rf
 Me
-EX
+ip
 Jy
 Jy
 Jy
-oH
+ip
 Jy
 Jy
 Jy

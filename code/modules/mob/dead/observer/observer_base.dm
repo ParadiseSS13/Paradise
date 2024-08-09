@@ -40,7 +40,6 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	var/gas_scan = FALSE
 	///toggle for ghost plant analyzer
 	var/plant_analyzer = FALSE
-	var/datum/orbit_menu/orbit_menu
 	/// The "color" their runechat would have had
 	var/alive_runechat_color = "#FFFFFF"
 	/// UID of the mob which we are currently observing
@@ -116,9 +115,6 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
-	if(orbit_menu)
-		SStgui.close_uis(orbit_menu)
-		QDEL_NULL(orbit_menu)
 	if(seerads)
 		STOP_PROCESSING(SSobj, src)
 	remove_observer_verbs()
@@ -238,7 +234,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(HAS_TRAIT(M, TRAIT_RESPAWNABLE))
-		ghostize(1)
+		if(isdrone(M))//We do not punish maint drones for leaving early, *but* we don't want them ghosting, finding damage, respawning / rentering over and over.
+			var/mob/dead/observer/ghost = ghostize(TRUE) // Keep them respawnable
+			ghost.can_reenter_corpse = FALSE // but keep them out of their old body
+			ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
+			return
+		ghostize(TRUE)
+		return
+	if(isbrain(M))
+		// let a brain ghost out if they want to, but also let them freely re-enter their brain.
+		var/response = tgui_alert(src, "Ghosting from this brain means you'll be respawnable but will be kicked out of your brain, which someone else could take over. Is this what you want?", "Ghost", list("Stay in Brain", "Ghost"))
+		if(response == "Ghost")
+			ghostize(TRUE)
+			log_admin("[key_name(M)] has ghosted as a brain-mob, but is keeping respawnability.")
 		return
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
@@ -267,11 +275,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(warningmsg)
 		// Not respawnable
-		var/mob/dead/observer/ghost = ghostize(0)	// 0 parameter stops them re-entering their body
+		var/mob/dead/observer/ghost = ghostize(FALSE)	// FALSE parameter stops them re-entering their body
 		ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
 	else
 		// Respawnable
-		ghostize(1)
+		ghostize(TRUE)
 
 	// If mob in cryopod, despawn mob
 	if(P)
@@ -495,10 +503,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
 
-	if(!orbit_menu)
-		orbit_menu = new(src)
-
-	orbit_menu.ui_interact(src)
+	GLOB.orbit_menu.ui_interact(src)
 
 /mob/dead/observer/verb/crew_monitor()
 	set category = "Ghost"
@@ -951,12 +956,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(HAS_MIND_TRAIT(src, TRAIT_MENTOR_OBSERVING))
 		log_debug("[key_name(src)] ended up in regular cleanup_observe rather than the mentor cleanup observe despite having TRAIT_MENTOR_OBSERVING. This is likely a bug and may result in them being stuck outside of their bodies.")
 	cleanup_observe()
-
-/mob/dead/observer/proc/update_dead_radio()
-	if(get_preference(PREFTOGGLE_CHAT_GHOSTRADIO))
-		GLOB.deadchat_radio.listeners |= src
-	else
-		GLOB.deadchat_radio.listeners -= src
 
 #undef GHOST_CAN_REENTER
 #undef GHOST_IS_OBSERVER

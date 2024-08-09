@@ -120,7 +120,7 @@
 	if(owner)
 		owner.adjustBrainLoss(amount)
 
-/obj/item/organ/internal/brain/necrotize(update_sprite = TRUE) //Brain also has special handling for when it necrotizes
+/obj/item/organ/internal/brain/necrotize(update_sprite = TRUE, ignore_vital_death = FALSE) //Brain also has special handling for when it necrotizes
 	damage = max_damage
 	status |= ORGAN_DEAD
 	STOP_PROCESSING(SSobj, src)
@@ -205,10 +205,6 @@
 	desc = "A tightly furled roll of paper, covered with indecipherable runes."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
-
-/obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
-	QDEL_NULL(brainmob)
-	return ..()
 
 /obj/item/organ/internal/brain/cluwne
 

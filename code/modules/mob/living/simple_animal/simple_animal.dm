@@ -289,20 +289,22 @@
 						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 
 
-/mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
+/mob/living/simple_animal/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
+		return
 	var/atmos_suitable = 1
 
-	var/areatemp = get_temperature(environment)
+	var/areatemp = get_temperature(readonly_environment)
 
 	if(abs(areatemp - bodytemperature) > 5 && !HAS_TRAIT(src, TRAIT_NOBREATH))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		bodytemperature += diff
 
-	var/tox = environment.toxins
-	var/oxy = environment.oxygen
-	var/n2 = environment.nitrogen
-	var/co2 = environment.carbon_dioxide
+	var/tox = readonly_environment.toxins()
+	var/oxy = readonly_environment.oxygen()
+	var/n2 = readonly_environment.nitrogen()
+	var/co2 = readonly_environment.carbon_dioxide()
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = 0
@@ -384,6 +386,14 @@
 /mob/living/simple_animal/revive()
 	..()
 	density = initial(density)
+	health = maxHealth
+	icon = initial(icon)
+	icon_state = icon_living
+	density = initial(density)
+	flying = initial(flying)
+	if(collar_type)
+		collar_type = "[initial(collar_type)]"
+		regenerate_icons()
 
 /mob/living/simple_animal/death(gibbed)
 	// Only execute the below if we successfully died
@@ -462,17 +472,6 @@
 	overlays -= image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
 	if(on_fire)
 		overlays += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
-
-/mob/living/simple_animal/revive()
-	..()
-	health = maxHealth
-	icon = initial(icon)
-	icon_state = icon_living
-	density = initial(density)
-	flying = initial(flying)
-	if(collar_type)
-		collar_type = "[initial(collar_type)]"
-		regenerate_icons()
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	if(current_offspring >= max_offspring)
@@ -617,12 +616,6 @@
 /mob/living/simple_animal/proc/consider_wakeup()
 	if(pulledby || shouldwakeup)
 		toggle_ai(AI_ON)
-
-/mob/living/simple_animal/adjustHealth(amount, updating_health = TRUE)
-	. = ..()
-	if(!ckey && !stat)//Not unconscious
-		if(AIStatus == AI_IDLE)
-			toggle_ai(AI_ON)
 
 /mob/living/simple_animal/onTransitZ(old_z, new_z)
 	..()
