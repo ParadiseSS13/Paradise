@@ -157,7 +157,8 @@
 
 /obj/item/gun/medbeam/damaged/examine(mob/user) //The 8 Trials of Asclepius
 	. = ..()
-	. += "<span class= 'warning'>This ones cooling systems are damaged beyond repair, and will over heat rapidly.</span>"
+	. += "<span class= 'warning'>This ones cooling systems are damaged beyond repair, and will overheat rapidly. \
+	Despite the damged cooling system, its still mostly functional, however if overheated it will need to be repaired.</span>"
 	if(broken)
 		. += "<span class='notice'>It is broken, and will not function without repairs.</span>"
 	switch(broken)
