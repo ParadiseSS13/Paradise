@@ -181,7 +181,7 @@
 
 /obj/item/pipe/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Alt-click it to rotate, Alt-Shift-click it to flip!</span>"
+	. += "<span class='notice'>Alt-click it to rotate, Alt-Shift-click it to flip!</span>"
 
 /obj/item/pipe/proc/update(obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"

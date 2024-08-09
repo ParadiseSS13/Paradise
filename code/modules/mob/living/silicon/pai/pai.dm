@@ -366,7 +366,7 @@
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
 
-	var/msg = "<span class='info'>"
+	var/msg = "<span class='notice'>"
 
 	switch(stat)
 		if(CONSCIOUS)

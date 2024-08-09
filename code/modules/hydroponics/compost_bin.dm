@@ -86,14 +86,14 @@
 				break
 
 		if(biomass >= biomass_capacity)
-			to_chat(user, "<span class='info'>You fill [src] to its capacity.</span>")
+			to_chat(user, "<span class='notice'>You fill [src] to its capacity.</span>")
 		else
-			to_chat(user, "<span class='info'>You empty [PB] into [src].</span>")
+			to_chat(user, "<span class='notice'>You empty [PB] into [src].</span>")
 
 		if(potassium == potassium_capacity)
-			to_chat(user, "<span class='info'>You have saturated the contents of [src] with potassium.</span>")
+			to_chat(user, "<span class='notice'>You have saturated the contents of [src] with potassium.</span>")
 		else if(potassium >= potassium_capacity * 0.95)
-			to_chat(user, "<span class='info'>You have very nearly saturated the contents of [src] with potassium.</span>")
+			to_chat(user, "<span class='notice'>You have very nearly saturated the contents of [src] with potassium.</span>")
 
 		SStgui.update_uis(src)
 		update_icon_state()
@@ -108,7 +108,7 @@
 
 		O.forceMove(src)
 		make_biomass(O)
-		to_chat(user, "<span class='info'>You put [O] in [src].</span>")
+		to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
 		SStgui.update_uis(src)
 		update_icon_state()
 		return TRUE
@@ -140,18 +140,18 @@
 			B.reagents.remove_reagent(R.id, R.volume * proportion)
 
 		if(proportion == 1)
-			to_chat(user, "<span class='info'>You empty [B] into [src].</span>")
+			to_chat(user, "<span class='notice'>You empty [B] into [src].</span>")
 		else
-			to_chat(user, "<span class='info'>You pour some of [B] into [src].</span>")
+			to_chat(user, "<span class='notice'>You pour some of [B] into [src].</span>")
 		if(potassium == potassium_capacity)
-			to_chat(user, "<span class='info'>You have saturated the contents of [src] with potassium.</span>")
+			to_chat(user, "<span class='notice'>You have saturated the contents of [src] with potassium.</span>")
 		else if(potassium >= potassium_capacity * 0.95)
-			to_chat(user, "<span class='info'>You have very nearly saturated the contents of [src] with potassium.</span>")
+			to_chat(user, "<span class='notice'>You have very nearly saturated the contents of [src] with potassium.</span>")
 
 		if(potash == potash_capacity)
-			to_chat(user, "<span class='info'>[src] has been filled with potash.</span>")
+			to_chat(user, "<span class='notice'>[src] has been filled with potash.</span>")
 		else if(potash >= potash_capacity * 0.95)
-			to_chat(user, "<span class='info'>[src] has been nearly filled with potash.</span>")
+			to_chat(user, "<span class='notice'>[src] has been nearly filled with potash.</span>")
 
 		SStgui.update_uis(src)
 		update_icon_state()

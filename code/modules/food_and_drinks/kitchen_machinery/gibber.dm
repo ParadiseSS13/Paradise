@@ -40,7 +40,7 @@
 
 /obj/machinery/gibber/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to empty it.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to empty it.</span>"
 
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)

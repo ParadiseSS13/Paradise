@@ -31,7 +31,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
+	. += "<span class='notice'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
 
 /obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

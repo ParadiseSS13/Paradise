@@ -393,7 +393,7 @@
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>This is \a <span class='name'>[src].</span></span>")
+		to_chat(user, "<span class='notice'>This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, "<span class='notice'>[text]</span>")
@@ -648,7 +648,7 @@
 
 /obj/item/unsorted_seeds/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>This is \a <span class='name'>[src].</span></span>")
+		to_chat(user, "<span class='notice'>This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, "<span class='notice'>[text]</span>")

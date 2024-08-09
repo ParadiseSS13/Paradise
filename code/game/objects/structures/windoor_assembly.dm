@@ -47,8 +47,8 @@
 			else
 				. += "<span class='notice'>The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.</span>"
 
-	. += "<span class='info'><b>Alt-Click</b> to rotate it.</span>"
-	. += "<span class='info'><b>Alt-Shift-Click</b> to flip it.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
+	. += "<span class='notice'><b>Alt-Shift-Click</b> to flip it.</span>"
 
 /obj/structure/windoor_assembly/Initialize(mapload, set_dir)
 	. = ..()

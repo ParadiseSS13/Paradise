@@ -282,7 +282,7 @@
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180)))
 				if(occupant)
-					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
+					to_chat(occupant, "<span class='notice'>You push off of [backup] to propel yourself.</span>")
 		return TRUE
 
 /obj/mecha/relaymove(mob/user, direction)

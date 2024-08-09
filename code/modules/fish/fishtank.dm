@@ -518,8 +518,8 @@
 
 	//Finally, report the full examine_message constructed from the above reports
 	. += "<span class='notice'>[examine_message]</span>"
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to open/close its lid.</span>"
-	. += "<span class='info'>You can <b>Alt-Shift-Click</b> [src] to enable/disable its light.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to open/close its lid.</span>"
+	. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to enable/disable its light.</span>"
 
 //////////////////////////////
 //		ATTACK PROCS		//

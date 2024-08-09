@@ -178,10 +178,10 @@
 		user.client.active_keybindings[keybind_to_set_to] += list(triggerer)
 		linked_keybind = triggerer
 		triggerer.binded_to = keybind_to_set_to
-		to_chat(user, "<span class='info'>[src] has been binded to [keybind_to_set_to]!</span>")
+		to_chat(user, "<span class='notice'>[src] has been binded to [keybind_to_set_to]!</span>")
 	else if(linked_keybind)
 		clean_up_keybinds(user)
-		to_chat(user, "<span class='info'>Your active keybinding on [src] has been cleared.</span>")
+		to_chat(user, "<span class='notice'>Your active keybinding on [src] has been cleared.</span>")
 
 /atom/movable/screen/movable/action_button/AltClick(mob/user)
 	return linked_action.AltTrigger()

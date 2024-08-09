@@ -55,7 +55,7 @@
 	. = ..()
 	if(panel_open)
 		. += "<span class='notice'>The maintenance panel is open.</span>"
-	. += "<span class='info'><b>Alt-Click</b> to rotate [src].</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to rotate [src].</span>"
 
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120

@@ -45,7 +45,7 @@
 	return TRUE
 
 /obj/machinery/economy/proc/pay_with_card(obj/item/card/id/I, amount, purpose, transactor, mob/user, datum/money_account/target)
-	visible_message("<span class='info'>[user] swipes a card through [src].</span>")
+	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
 	return pay_with_account(I.get_card_account(), amount, purpose, transactor, user, target)
 
 /obj/machinery/economy/proc/pay_with_account(datum/money_account/customer_account, amount, purpose, transactor, mob/user, datum/money_account/target)
@@ -77,7 +77,7 @@
 	if(amount > cash_money.amount)
 		return
 	var/amount_to_insert = amount ? amount : cash_money.amount
-	visible_message("<span class='info'>[user] inserts [amount_to_insert == 1 ? "[amount_to_insert] credit" : "[amount_to_insert] credits"]  into [src].</span>")
+	visible_message("<span class='notice'>[user] inserts [amount_to_insert == 1 ? "[amount_to_insert] credit" : "[amount_to_insert] credits"]  into [src].</span>")
 	cash_stored += amount_to_insert
 	cash_transaction += amount_to_insert
 	cash_money.use(amount_to_insert)
@@ -101,7 +101,7 @@
 	var/stacks_to_dispense = min(CEILING(amount / MAX_STACKABLE_CASH, 1), 10)
 	var/remaining_cash = amount
 
-	visible_message("<span class='info'>[src] spits out [stacks_to_dispense == 1 ? "1 wad" : "[stacks_to_dispense] wads"] of cash.</span>")
+	visible_message("<span class='notice'>[src] spits out [stacks_to_dispense == 1 ? "1 wad" : "[stacks_to_dispense] wads"] of cash.</span>")
 	for(var/i in 1 to stacks_to_dispense)
 		if(remaining_cash >= MAX_STACKABLE_CASH)
 			remaining_cash -= MAX_STACKABLE_CASH

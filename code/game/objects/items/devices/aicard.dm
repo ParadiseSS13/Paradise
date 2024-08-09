@@ -125,7 +125,7 @@
 
 	if(!GetComponent(/datum/component/ducttape) && AI.builtInCamera)
 		. += "<span class='notice'>You see a small [AI]'s camera staring at you.</span>"
-		. += "<span class='info'>You can use a <b>tape roll</b> on [src] to tape the camera lens.</span>"
+		. += "<span class='notice'>You can use a <b>tape roll</b> on [src] to tape the camera lens.</span>"
 
 /obj/item/aicard/proc/wipe_ai()
 	var/mob/living/silicon/ai/AI = locate() in src

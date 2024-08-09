@@ -19,7 +19,7 @@
 
 /obj/item/reagent_containers/applicator/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to empty it.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to empty it.</span>"
 
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
 	if(!emagged)

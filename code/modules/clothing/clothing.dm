@@ -242,7 +242,7 @@
 
 /obj/item/clothing/glasses/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to adjust if it fits over or under your mask.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to adjust if it fits over or under your mask.</span>"
 
 /obj/item/clothing/glasses/AltClick(mob/living/carbon/human/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
@@ -963,15 +963,15 @@
 			if(SUIT_SENSOR_TRACKING)
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 		if(has_sensor == 1)
-			. += "<span class='info'>Alt-click to toggle the sensors mode.</span>"
+			. += "<span class='notice'>Alt-click to toggle the sensors mode.</span>"
 	else
 		. += "This suit does not have any sensors."
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
-	. += "<span class='info'>Alt-Shift-Click to remove an accessory.</span>"
-	. += "<span class='info'>Ctrl-Shift-Click to roll down this jumpsuit.</span>"
+	. += "<span class='notice'>Alt-Shift-Click to remove an accessory.</span>"
+	. += "<span class='notice'>Ctrl-Shift-Click to roll down this jumpsuit.</span>"
 
 
 /obj/item/clothing/under/CtrlShiftClick(mob/living/carbon/human/user)

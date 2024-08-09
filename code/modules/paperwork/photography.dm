@@ -84,7 +84,7 @@
 		show(user)
 	else
 		. += "<span class='notice'>It is too far away.</span>"
-	. += "<span class='info'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
 
 /obj/item/photo/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -199,7 +199,7 @@
 	. = ..()
 	if(!digital)
 		. += "<span class='notice'>There is [pictures_left] photos left.</span>"
-	. += "<span class='info'><b>Alt-Click</b> [src] to change the photo size.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> [src] to change the photo size.</span>"
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)
 	..()
@@ -494,8 +494,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/camera/digital/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>A small screen shows that there are currently [length(saved_pictures)] pictures stored.</span>"
-	. += "<span class='info'><b>Alt-Shift-Click</b> [src] to print a specific photo.</span>"
-	. += "<span class='info'><b>Ctrl-Shift-Click</b> [src] to delete a specific photo.</span>"
+	. += "<span class='notice'><b>Alt-Shift-Click</b> [src] to print a specific photo.</span>"
+	. += "<span class='notice'><b>Ctrl-Shift-Click</b> [src] to delete a specific photo.</span>"
 
 /obj/item/camera/digital/afterattack(atom/target, mob/user, flag)
 	if(!on || !pictures_left || ismob(target.loc))

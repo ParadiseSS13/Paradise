@@ -90,7 +90,7 @@
 
 /mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
-		to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
+		to_chat(user, "<span class='notice'>You instruct [src] to drop any collected ore.</span>")
 		DropOre()
 		return
 	if(istype(I, /obj/item/borg/upgrade/modkit))
@@ -116,7 +116,7 @@
 	if(!I.tool_use_check(user, 1))
 		return
 	if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
-		to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
+		to_chat(user, "<span class='notice'>[src] is moving around too much to repair!</span>")
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, 15, 1, volume = I.tool_volume) && health != maxHealth)
@@ -137,9 +137,9 @@
 		toggle_mode()
 		switch(mode)
 			if(MINEDRONE_COLLECT)
-				to_chat(M, "<span class='info'>[src] has been set to search and store loose ore.</span>")
+				to_chat(M, "<span class='notice'>[src] has been set to search and store loose ore.</span>")
 			if(MINEDRONE_ATTACK)
-				to_chat(M, "<span class='info'>[src] has been set to attack hostile wildlife.</span>")
+				to_chat(M, "<span class='notice'>[src] has been set to attack hostile wildlife.</span>")
 		return
 	..()
 
@@ -164,7 +164,7 @@
 	minimum_distance = 1
 	retreat_distance = null
 	icon_state = "mining_drone"
-	to_chat(src, "<span class='info'>You are set to collect mode. You can now collect loose ore.</span>")
+	to_chat(src, "<span class='notice'>You are set to collect mode. You can now collect loose ore.</span>")
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetOffenseBehavior()
 	mode = MINEDRONE_ATTACK
@@ -175,7 +175,7 @@
 	retreat_distance = 2
 	minimum_distance = 1
 	icon_state = "mining_drone_offense"
-	to_chat(src, "<span class='info'>You are set to attack mode. You can now attack from range.</span>")
+	to_chat(src, "<span class='notice'>You are set to attack mode. You can now attack from range.</span>")
 
 /mob/living/simple_animal/hostile/mining_drone/AttackingTarget()
 	if(istype(target, /obj/item/stack/ore) && mode == MINEDRONE_COLLECT)

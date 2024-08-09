@@ -271,7 +271,7 @@
 	if(stat == DEAD)
 		if(++final_bites >= total_final_bites)
 			visible_message("<span class='danger'>[L] finished eating [src], there's nothing left!</span>")
-			to_chat(L, "<span class='info'>Whoa, that last bite tasted weird.</span>")
+			to_chat(L, "<span class='notice'>Whoa, that last bite tasted weird.</span>")
 			L.reagents.add_reagent("teslium", 5)
 			qdel(src)
 

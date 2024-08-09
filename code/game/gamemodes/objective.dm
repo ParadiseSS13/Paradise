@@ -637,7 +637,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!where)
 			continue
 
-		to_chat(kit_receiver, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+		to_chat(kit_receiver, "<br><br><span class='notice'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
 		for(var/datum/mind/objective_owner as anything in objective_owners)
 			if(kit_receiver_mind == objective_owner || !objective_owner.current)
 				continue

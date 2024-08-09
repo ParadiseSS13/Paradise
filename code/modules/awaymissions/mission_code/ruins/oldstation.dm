@@ -346,9 +346,9 @@
 	anchored = locked
 
 	if(anchored)
-		to_chat(user, "<span class='info'>The crate reanchors itself to the ground.</span>")
+		to_chat(user, "<span class='notice'>The crate reanchors itself to the ground.</span>")
 	else
-		to_chat(user, "<span class='info'>The crate unanchors itself from the ground.</span>")
+		to_chat(user, "<span class='notice'>The crate unanchors itself from the ground.</span>")
 
 /obj/structure/closet/crate/secure/oldstation/emag_act(mob/user)
 	// var/can_be_emaged works in mysterious ways so screw it

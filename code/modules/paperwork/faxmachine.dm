@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> [src] to remove its currently stored ID.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> [src] to remove its currently stored ID.</span>"
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")
