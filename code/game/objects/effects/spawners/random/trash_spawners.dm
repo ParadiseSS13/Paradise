@@ -1,0 +1,48 @@
+/obj/effect/spawner/random/trash
+	icon = 'icons/effects/random_spawners.dmi'
+	icon_state = "trash"
+
+	name = "Trash spawner"
+	loot = list(
+		/obj/item/ammo_casing/c10mm,
+		/obj/item/broken_bottle,
+		/obj/item/cigbutt,
+		/obj/item/cigbutt/roach,
+		/obj/item/flashlight/flare/glowstick/used,
+		/obj/item/flashlight/flare/used,
+		/obj/item/paper/crumpled,
+		/obj/item/reagent_containers/glass/beaker/waterbottle/empty,
+		/obj/item/shard,
+		/obj/item/trash/bowl,
+		/obj/item/trash/candle,
+		/obj/item/trash/candy,
+		/obj/item/trash/cheesie,
+		/obj/item/trash/chips,
+		/obj/item/trash/fried_vox,
+		/obj/item/trash/gum,
+		/obj/item/trash/liquidfood,
+		/obj/item/trash/pistachios,
+		/obj/item/trash/plate,
+		/obj/item/trash/popcorn,
+		/obj/item/trash/popsicle_stick,
+		/obj/item/trash/raisins,
+		/obj/item/trash/semki,
+		/obj/item/trash/snack_bowl,
+		/obj/item/trash/sosjerky,
+		/obj/item/trash/spacetwinkie,
+		/obj/item/trash/spentcasing,
+		/obj/item/trash/syndi_cakes,
+		/obj/item/trash/tapetrash,
+		/obj/item/trash/tastybread,
+		/obj/item/trash/tray,
+		/obj/item/trash/twimsts,
+		/obj/item/trash/waffles,
+	)
+
+	// TODO: Random spawner scatter behavior doesn't work well with items in
+	// containers or on dense objects like racks. Fix up so we can scatter trash.
+	spawn_random_offset = TRUE
+	spawn_random_offset_max_pixels = 8
+
+/obj/effect/spawner/random/trash/record_item(type_path_to_make)
+	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/trash]")
