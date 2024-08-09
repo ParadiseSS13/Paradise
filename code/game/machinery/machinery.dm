@@ -13,9 +13,9 @@
 
 	/// How is this machine currently passively consuming power?
 	var/power_state = IDLE_POWER_USE
-	/// How much power does this machine consume when it is idling
+	/// How much power does this machine consume when it is idling. This should not be set manually, use the helper procs!
 	var/idle_power_consumption = 0
-	/// How much power does this machine consume when it is in use
+	/// How much power does this machine consume when it is in use. This should not be set manually, use the helper procs!
 	var/active_power_consumption = 0
 	/// The power channel this machine uses, idle/passive power consumption will pull from this channel and machine won't work if power channel has no power
 	var/power_channel = PW_CHANNEL_EQUIPMENT

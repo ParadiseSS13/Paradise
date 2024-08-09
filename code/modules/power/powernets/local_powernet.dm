@@ -26,11 +26,11 @@
 
 	/* Passive consumption vars, only change when machines are added/removed from the powernet (not if the power channel turns on/off) */
 	/// The amount of power consumed by equipment in every power cycle
-	var/passive_equipment_consumption = 0
+	VAR_PRIVATE/passive_equipment_consumption = 0
 	/// The amount of power consumed by lighting in every power cycle
-	var/passive_lighting_consumption = 0
+	VAR_PRIVATE/passive_lighting_consumption = 0
 	/// The amount of power consumed by environment in every power cycle
-	var/passive_environment_consumption = 0
+	VAR_PRIVATE/passive_environment_consumption = 0
 
 	/* Active consumption vars, changed when machines need spurts of power, unlike passive consumption these reset to 0 every process() cycle */
 	/// The amount of power consumed by equipment in this power cycle
