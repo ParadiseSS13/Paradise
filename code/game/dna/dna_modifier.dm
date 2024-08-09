@@ -138,10 +138,16 @@
 			M.forceMove(get_turf(src))
 
 /obj/machinery/dna_scannernew/update_icon_state()
-	if(occupant)
-		icon_state = "scanner_occupied"
-	else
+	if(panel_open)
+		icon_state = "scanner_[occupant ? "" : "open_"]maintenance"
+		return
+	if(stat & NOPOWER)
+		icon_state = "scanner"
+		return
+	if(!occupant)
 		icon_state = "scanner_open"
+		return
+	icon_state = "scanner_occupied"
 
 /obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user)
 	if(!istype(O))
