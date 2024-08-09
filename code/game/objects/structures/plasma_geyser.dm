@@ -12,7 +12,7 @@
 	START_PROCESSING(SSprocessing, src)
 	. = ..()
 
-//for sanity checks
+// for sanity checks
 /obj/structures/plasmageyser/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
 	. = ..()
