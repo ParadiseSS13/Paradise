@@ -1,12 +1,14 @@
 #define DEFAULT_SHRAPNEL_RANGE 5
 
 /obj/item/grenade/frag
-	name = "frag grenade"
-	desc = "Fire in the hole."
+	name = "fragmentation grenade"
+	desc = "A grenade with a specially designed casing that will launch lethal fragments in all directions upon detonation. Fire in the hole!"
 	icon_state = "frag"
 	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4"
+	/// How much shrapnel the grenade will launch.
 	var/shrapnel_contained = 20
+	/// The type of projectile that will fired.
 	var/embedded_type = /obj/item/projectile/bullet/shrapnel
 
 /obj/item/grenade/frag/prime()
