@@ -44,6 +44,7 @@
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	var/is_a_cleaving_saw = FALSE
 
 /obj/item/melee/energy/Initialize(mapload)
 	. = ..()
@@ -55,7 +56,10 @@
 	UnregisterSignal(src, COMSIG_ITEM_SHARPEN_ACT)
 	return ..()
 
-/obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/energy/attack(mob/living/target, mob/living/user)
+	if(cigarette_lighter_act(user, target))
+		return
+
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
 		for(var/F in target.faction)
@@ -67,6 +71,37 @@
 	. = ..()
 	if(nemesis_faction)
 		force -= faction_bonus_force
+
+/obj/item/melee/energy/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(is_a_cleaving_saw)
+		return FALSE
+
+	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+		to_chat(user, "<span class='warning'>You must activate [src] before you can light [cig] with it!</span>")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process.</span>",
+			"<span class='notice'>You casually slash [src] at [cig], lighting it with the blade.</span>",
+			"<span class='danger'>You hear an energy blade slashing something!</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+			[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process.</span>",
+			"<span class='notice'>You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade.</span>",
+			"<span class='danger'>You hear an energy blade slashing something!</span>"
+		)
+	user.do_attack_animation(target)
+	playsound(user.loc, hitsound, 50, TRUE)
+	cig.light(user, target)
+	return TRUE
 
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
@@ -374,6 +409,7 @@
 	nemesis_factions = list("mining", "boss")
 	var/transform_cooldown
 	var/swiping = FALSE
+	is_a_cleaving_saw = TRUE
 
 /obj/item/melee/energy/cleaving_saw/nemesis_effects(mob/living/user, mob/living/target)
 	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite)) // you get the bonus damage, but the bleed buildup is too much.

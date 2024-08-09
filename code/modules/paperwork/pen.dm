@@ -1,14 +1,14 @@
 /* Pens!
- * Contains:
- *		Pens
- *		Sleepy Pens
- *		Edaggers
+ * CONTENTS:
+ *	1. PENS
+ *	2. SLEEPYPENS
+ *	3. E-DAGGERS
+	4. POISON PEN
  */
 
 
-/*
- * Pens
- */
+// PENS
+
 /obj/item/pen
 	desc = "It's a normal black ink pen."
 	name = "pen"
@@ -139,14 +139,12 @@
 	desc = "An expensive-looking pen only issued to heads of cargo."
 	icon_state = "pen_qm"
 
-/*
- * Sleepypens
- */
+//  SLEEPYPEN
+
 /obj/item/pen/sleepy
 	container_type = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
 	var/transfer_amount = 50
-
 
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
 	if(!istype(M))
@@ -168,7 +166,6 @@
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	return TRUE
-
 
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
@@ -201,12 +198,11 @@
 	desc = "Used to stealthily inject targets. Comes loaded with ketamine but can be refilled with other chemicals. This one isn't disguised."
 	icon_state = "pen_syndie"
 
-/*
- * (Alan) Edaggers
- */
+// E-DAGGER
+
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
-	var/on = FALSE
+	var/active = FALSE
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
 	var/backstab_sound = 'sound/items/unsheath.ogg'
@@ -215,14 +211,20 @@
 	throw_speed = 4
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
+	if(cigarette_lighter_act(user, M))
+		return
+
 	var/extra_force_applied = FALSE
-	if(on && user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)
+	if(active && user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)
 		force += backstab_damage
 		extra_force_applied = TRUE
 		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
 		M.apply_damage(40, STAMINA) //Just enough to slow
 		M.KnockDown(2 SECONDS)
-		M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")
+		M.visible_message(
+			"<span class='warning'>[user] stabs [M] in the back!</span>",
+			"<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>"
+		)
 
 		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
 	else
@@ -231,13 +233,40 @@
 	if(extra_force_applied)
 		force -= backstab_damage
 
-/obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
-	return 0
+/obj/item/pen/edagger/cigarette_lighter_act(mob/living/user, mob/living/carbon/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
 
+	if(!active)
+		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process.</span>",
+			"<span class='notice'>You casually slash [src] at [cig], lighting it with the blade.</span>",
+			"<span class='danger'>You hear an energy blade slashing something!</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+			[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process.</span>",
+			"<span class='notice'>You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade.</span>",
+			"<span class='danger'>You hear an energy blade slashing something!</span>"
+		)
+	user.do_attack_animation(target)
+	playsound(user.loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
+	cig.light(user, target)
+	return TRUE
+
+/obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
+	return FALSE
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
-	if(on)
-		on = FALSE
+	if(active)
+		active = FALSE
 		force = initial(force)
 		w_class = initial(w_class)
 		name = initial(name)
@@ -249,7 +278,7 @@
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
 		set_light(0)
 	else
-		on = TRUE
+		active = TRUE
 		force = 18
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
@@ -257,14 +286,14 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		embed_chance = 100 //rule of cool
 		throwforce = 35
-		playsound(user, 'sound/weapons/saberon.ogg', 2, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 2, TRUE)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 		set_light(brightness_on, 1)
-	set_sharpness(on)
+	set_sharpness(active)
 	update_icon()
 
 /obj/item/pen/edagger/update_icon_state()
-	if(on)
+	if(active)
 		icon_state = "edagger"
 		item_state = "edagger"
 	else
@@ -273,6 +302,8 @@
 
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return
+
+// POISON PEN
 
 /obj/item/pen/multi/poison
 	var/current_poison = null

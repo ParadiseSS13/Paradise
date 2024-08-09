@@ -211,7 +211,7 @@
 	..()
 	if(istype(W, /obj/item/toy/sword))
 		if(W == src)
-			to_chat(user, "<span class='notice'>You try to attach the end of the plastic sword to... itself. You're not very smart, are you?</span>")
+			to_chat(user, "<span class='notice'>You try to attach the end of the plastic sword to... Itself. You're not very smart, are you?</span>")
 			if(ishuman(user))
 				user.adjustBrainLoss(10)
 		else if((W.flags & NODROP) || (flags & NODROP))
@@ -229,10 +229,64 @@
 	/// Sets to TRUE once the character using it hits something and realises it's not a real energy sword
 	var/pranked = FALSE
 
+/obj/item/toy/sword/attack(mob/target, mob/living/user)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/toy/sword/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!active)
+		to_chat(user, "<span class='warning'>You must activate [src] before you can light [cig] with it!</span>")
+		return TRUE
+
+	user.do_attack_animation(target)
+
+	// 1% chance to light the cig. Somehow...
+	if(prob(1))
+		if(target == user)
+			user.visible_message(
+				"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+				[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process. Somehow...</span>",
+				"<span class='notice'>You casually slash [src] at [cig], lighting it with the blade. Somehow...</span>",
+				"<span class='danger'>You hear an energy blade slashing something!</span>"
+			)
+		else
+			user.visible_message(
+				"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+				[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process. Somehow...</span>",
+				"<span class='notice'>You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade. Somehow...</span>",
+				"<span class='danger'>You hear an energy blade slashing something!</span>"
+			)
+		playsound(user.loc, 'sound/weapons/blade1.ogg', 50, TRUE)
+		cig.light(user, target)
+		return TRUE
+
+	// Else, bat it out of the target's mouth.
+	if(target == user)
+		user.visible_message(
+			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
+			[user.p_they(TRUE)] instead hit [cig], knocking it out of [user.p_their()] mouth and dropping it to the floor.</span>",
+			"<span class='warning'>You casually slash [src] at [cig], swatting it out of your mouth.</span>",
+			"<span class='notice'>You hear a gentle tapping.</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='warning'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
+			[user] does hit [cig], knocking it out of the mouth of [target] and dropping it to the floor. Wow, rude!</span>",
+			"<span class='warning'>You casually slash [src] at [cig] in the mouth of [target], swatting it to the floor!</span>",
+			"<span class='notice'>You hear a gentle tapping.</span>"
+		)
+	playsound(loc, 'sound/weapons/tap.ogg', vary = TRUE)
+	target.unEquip(cig, TRUE)
+	return TRUE
+
 /obj/item/toy/sword/chaosprank/afterattack(mob/living/target, mob/living/user, proximity)
 	..()
 	if(!pranked)
-		to_chat(user, "<span class='chaosverybad'>Oh... it's a fake.</span>")
+		to_chat(user, "<span class='chaosverybad'>Oh... It's a fake.</span>")
 		name = "toy sword"
 		pranked = TRUE
 
@@ -241,7 +295,7 @@
  */
 /obj/item/dualsaber/toy
 	name = "double-bladed toy sword"
-	desc = "A cheap, plastic replica of TWO energy swords.  Double the fun!"
+	desc = "A cheap, plastic replica of TWO energy swords. Double the fun!"
 	force = 0
 	throwforce = 0
 	throw_speed = 3
@@ -280,7 +334,10 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/toy/katana/suicide_act(mob/user)
-	var/dmsg = pick("[user] tries to stab \the [src] into [user.p_their()] abdomen, but it shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to stab \the [src] into [user.p_their()] abdomen, but \the [src] bends and breaks in half! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to slice [user.p_their()] own throat, but the plastic blade has no sharpness, causing [user.p_them()] to lose [user.p_their()] balance, slip over, and break [user.p_their()] neck with a loud snap!")
+	var/dmsg = pick(
+		"[user] tries to stab [src] into [user.p_their()] abdomen, but it shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.",
+		"[user] tries to stab [src] into [user.p_their()] abdomen, but [src] bends and breaks in half! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.",
+		"[user] tries to slice [user.p_their()] own throat, but the plastic blade has no sharpness, causing [user.p_them()] to lose [user.p_their()] balance, slip over, and break [user.p_their()] neck with a loud snap!")
 	user.visible_message("<span class='suicide'>[dmsg] It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
