@@ -204,15 +204,16 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				return
 			message = new_message
 			screen = RCS_MESSAUTH
-			switch(params["priority"])
-				if(num2text(RQ_LOWPRIORITY))
+			var/new_priority = text2num(params["priority"])
+			switch(new_priority)
+				if(RQ_LOWPRIORITY)
 					priority = RQ_LOWPRIORITY
-				if(num2text(RQ_NORMALPRIORITY))
+				if(RQ_NORMALPRIORITY)
 					priority = RQ_NORMALPRIORITY
-				if(num2text(RQ_HIGHPRIORITY))
+				if(RQ_HIGHPRIORITY)
 					priority = RQ_HIGHPRIORITY
 				else
-					priority = RQ_NONEW_MESSAGES
+					return
 
 		if("writeAnnouncement")
 			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", message, multiline = TRUE, encode = FALSE)
