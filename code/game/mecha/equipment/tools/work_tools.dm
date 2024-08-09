@@ -492,7 +492,7 @@
 		if(item == selected_item)
 			. += "|<b>[short_name]</b> "
 		else
-			. += "|<a href='?src=[UID()];select=[item.UID()]'>[short_name]</a>"
+			. += "|<a href='byond://?src=[UID()];select=[item.UID()]'>[short_name]</a>"
 	. += "|"
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/Topic(href,href_list)
