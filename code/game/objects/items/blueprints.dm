@@ -3,7 +3,8 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprints"
 	attack_verb = list("attacked", "bapped", "hit")
-	var/fluffnotice = "Nobody's gonna read this stuff!"
+	/// Extra text added to the description.
+	var/fluffnotice = "If you can read this, make an issue report on GitHub. Something done goofed!"
 
 	var/const/AREA_ERRNONE = 0
 	var/const/AREA_STATION = 1
@@ -88,10 +89,10 @@
 //Station blueprints!!!
 /obj/item/areaeditor/blueprints
 	name = "station blueprints"
-	desc = "Blueprints of the station. There is a \"Classified\" stamp and several coffee stains on it."
+	desc = "Blueprints of the station. There is a \"<b>CONFIDENTIAL</b>\" stamp and several coffee stains on it."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprints"
-	fluffnotice = "Property of Nanotrasen. For heads of staff only. Store in high-secure storage."
+	fluffnotice = "Property of Nanotrasen. For heads of staff only. Store in high-security storage."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_NORMAL
 	var/list/showing = list()
@@ -175,7 +176,6 @@
 		/area/shuttle,
 		/area/admin,
 		/area/centcom,
-		/area/asteroid,
 		/area/tdome,
 		/area/wizard_station
 	)
@@ -291,7 +291,7 @@
 
 
 /obj/item/areaeditor/proc/detect_room(turf/first)
-	var/list/turf/found = new
+	var/list/turf/found = list()
 	var/list/turf/pending = list(first)
 	while(length(pending))
 		if(found.len+length(pending) > 300)

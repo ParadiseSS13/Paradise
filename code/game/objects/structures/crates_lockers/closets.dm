@@ -92,6 +92,10 @@
 	if(throwing)
 		throwing.finalize(FALSE)
 
+/obj/structure/closet/extinguish_light(force)
+	for(var/atom/A in contents)
+		A.extinguish_light(force)
+
 /obj/structure/closet/proc/open()
 	if(opened)
 		return FALSE
@@ -442,7 +446,7 @@
 	if(T.density)
 		return
 	for(var/atom/A in T.contents)
-		if(A.density && istype(A, /obj/machinery/door))
+		if(A.density && isairlock(A))
 			return
 	UpdateTransparency(src, NewLoc)
 	forceMove(NewLoc)

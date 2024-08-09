@@ -1,7 +1,7 @@
 /obj
 	//var/datum/module/mod		//not used
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
-	animate_movement = 2
+	animate_movement = SLIDE_STEPS
 	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/sharp = FALSE		// whether this object cuts
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
@@ -39,17 +39,6 @@
 	var/list/req_one_access = null
 	var/req_one_access_txt = "0"
 
-/obj/New()
-	..()
-	if(obj_integrity == null)
-		obj_integrity = max_integrity
-	if(on_blueprints && isturf(loc))
-		var/turf/T = loc
-		if(force_blueprints)
-			T.add_blueprints(src)
-		else
-			T.add_blueprints_preround(src)
-
 /obj/Initialize(mapload)
 	. = ..()
 	if(islist(armor))
@@ -61,6 +50,15 @@
 	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
 
+	if(obj_integrity == null)
+		obj_integrity = max_integrity
+	if(on_blueprints && isturf(loc))
+		var/turf/T = loc
+		if(force_blueprints)
+			T.add_blueprints(src)
+		else
+			T.add_blueprints_preround(src)
+
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
@@ -69,69 +67,40 @@
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
 	if(ui_status(usr, state, href_list) == UI_INTERACTIVE)
-		CouldUseTopic(usr)
+		var/atom/host = ui_host()
+		host.add_fingerprint(usr)
 		return FALSE
 
-	CouldNotUseTopic(usr)
 	return TRUE
-
-/obj/proc/CouldUseTopic(mob/user)
-	var/atom/host = ui_host()
-	host.add_fingerprint(user)
-
-/obj/proc/CouldNotUseTopic(mob/user)
-	return
 
 /obj/Destroy()
 	if(!ismachinery(src))
 		if(!speed_process)
 			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
+			// AA 2024-05-20 - processing var?????
 		else
 			STOP_PROCESSING(SSfastprocess, src)
 	return ..()
-
-//user: The mob that is suiciding
-//damagetype: The type of damage the item will inflict on the user
-//BRUTELOSS = 1
-//FIRELOSS = 2
-//TOXLOSS = 4
-//OXYLOSS = 8
-//SHAME = 16
-//OBLITERATION = 32
 
 //Output a creative message and then return the damagetype done
 /obj/proc/suicide_act(mob/user)
 	return FALSE
 
-/obj/assume_air(datum/gas_mixture/giver)
-	if(loc)
-		return loc.assume_air(giver)
-	else
-		return null
-
-/obj/remove_air(amount)
-	if(loc)
-		return loc.remove_air(amount)
-	else
-		return null
-
-/obj/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
-	if(loc)
-		return loc.return_air()
-	else
-		return null
-
-/obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
+/obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request, datum/gas_mixture/environment)
 	//Return: (NONSTANDARD)
 	//		null if object handles breathing logic for lifeform
 	//		datum/air_group to tell lifeform to process using that breath return
 	//DEFAULT: Take air from turf to give to have mob process
 
 	if(breath_request > 0)
-		var/datum/gas_mixture/environment = return_air()
-		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
-		return remove_air(environment.total_moles() * breath_percentage)
+		var/datum/gas_mixture/air = return_obj_air()
+		if(isnull(air))
+			air = environment
+		if(isnull(air))
+			return
+
+		var/breath_percentage = BREATH_VOLUME / air.return_volume()
+		return air.remove(air.total_moles() * breath_percentage)
 	else
 		return null
 
@@ -179,12 +148,8 @@
 /mob/proc/unset_machine()
 	if(machine)
 		UnregisterSignal(machine, COMSIG_PARENT_QDELETING)
-		machine.on_unset_machine(src)
 		machine = null
 
-//called when the user unsets the machine.
-/atom/movable/proc/on_unset_machine(mob/user)
-	return
 
 /mob/proc/set_machine(obj/O)
 	if(src.machine)
@@ -316,3 +281,17 @@
 		C.Weaken(3 SECONDS)
 	else
 		C.KnockDown(3 SECONDS)
+
+/obj/handle_ricochet(obj/item/projectile/P)
+	. = ..()
+	if(. && receive_ricochet_damage_coeff)
+		// pass along receive_ricochet_damage_coeff damage to the structure for the ricochet
+		take_damage(P.damage * receive_ricochet_damage_coeff, P.damage_type, P.flag, 0, REVERSE_DIR(P.dir), P.armour_penetration_flat, P.armour_penetration_percentage)
+
+/obj/proc/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	if(isobj(loc))
+		var/obj/O = loc
+		return O.return_obj_air()
+	else
+		return null

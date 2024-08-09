@@ -157,7 +157,7 @@
 	if(target)
 		if(!path || !length(path)) //No path, need a new one
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
-			path = get_path_to(src, target, 30, id=access_card)
+			path = get_path_to(src, target, 30, access = access_card.access)
 			if(!bot_move(target))
 				ignore_job -= target.UID()
 				add_to_ignore(target)
@@ -230,7 +230,7 @@
 /mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
 	if(..())
 		return
-	if(topic_denied(usr))
+	if(action != "area" && topic_denied(usr))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
 		return
 	add_fingerprint(usr)

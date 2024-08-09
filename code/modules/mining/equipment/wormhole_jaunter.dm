@@ -25,7 +25,7 @@
 /obj/item/wormhole_jaunter/proc/get_destinations(mob/user)
 	var/list/destinations = list()
 
-	for(var/obj/item/radio/beacon/B in GLOB.global_radios)
+	for(var/obj/item/beacon/B in GLOB.beacons)
 		var/turf/T = get_turf(B)
 		if(is_station_level(T.z))
 			destinations += B
@@ -41,7 +41,7 @@
 		to_chat(user, "<span class='notice'>[src] found no beacons in the world to anchor a wormhole to.</span>")
 		return
 	var/chosen_beacon = pick(L)
-	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100, user)
+	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), chosen_beacon, src, 100, user)
 	J.emagged = emagged
 	if(adjacent)
 		try_move_adjacent(J)
@@ -109,7 +109,7 @@
 	var/list/L = list()
 	var/list/areaindex = list()
 
-	for(var/obj/item/radio/beacon/R in GLOB.beacons)
+	for(var/obj/item/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
@@ -132,6 +132,9 @@
 
 /obj/item/wormhole_jaunter/contractor/activate(mob/user)
 	if(!turf_check(user))
+		return
+	if(istype(get_area(src), /area/ruin/space/telecomms)) //It should work in the depot, because it's syndicate, but I don't want someone lighting the flare in the middle of telecomms and calling it a day.
+		to_chat(user, "<span class='warning'>Error! Unknown jamming system blocking teleportation in this area!</span>")
 		return
 	if(!destination)
 		var/list/L = get_destinations(user)
@@ -162,7 +165,7 @@
 
 /obj/item/storage/box/syndie_kit/escape_flare/populate_contents()
 	new /obj/item/wormhole_jaunter/contractor(src)
-	new /obj/item/radio/beacon/emagged(src)
+	new /obj/item/beacon/emagged(src)
 
 /obj/effect/portal/advanced/getaway
 	one_use = TRUE
@@ -197,7 +200,7 @@
 /obj/item/grenade/jaunter_grenade/prime()
 	update_mob()
 	var/list/destinations = list()
-	for(var/obj/item/radio/beacon/B in GLOB.global_radios)
+	for(var/obj/item/beacon/B in GLOB.beacons)
 		var/turf/BT = get_turf(B)
 		if(is_station_level(BT.z))
 			destinations += BT

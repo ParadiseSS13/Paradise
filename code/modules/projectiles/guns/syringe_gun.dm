@@ -15,7 +15,7 @@
 	var/max_syringes = 1
 
 /obj/item/gun/syringe/Initialize()
-	..()
+	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 
 /obj/item/gun/syringe/process_chamber()
@@ -279,7 +279,7 @@
 		// Running out of syringes is just handled by *click*
 		to_chat(user, "<span class='[alarmed ? "danger" : "userdanger"]'>[src] [alarmed ? "beeps" : "whines"]: Internal chemical reservoir empty!</span>")
 		if(!alarmed)
-			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 25, 1, frequency = 60000)
+			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 25, TRUE, frequency = 60000)
 			alarmed = TRUE
 		// always send the to_chat so there's still feedback if the gun tries to fire
 

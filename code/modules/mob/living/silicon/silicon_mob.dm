@@ -230,10 +230,8 @@
 	switch(severity)
 		if(EMP_HEAVY)
 			take_organ_damage(20)
-			Stun(16 SECONDS)
 		if(EMP_LIGHT)
 			take_organ_damage(10)
-			Stun(6 SECONDS)
 	flash_eyes(affect_silicon = 1)
 	to_chat(src, "<span class='danger'>*BZZZT*</span>")
 	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
@@ -590,11 +588,6 @@
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null
-
-/mob/living/silicon/death(gibbed)
-	if(gibbed)
-		drop_hat()
-	. = ..()
 
 /mob/living/silicon/examine(mob/user)
 	. = ..()

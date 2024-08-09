@@ -102,7 +102,7 @@
 /area/ruin/powered/snow_cabin)
 "ax" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/beans,
+/obj/item/food/beans,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "ay" = (
@@ -290,11 +290,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/pod/dark{
-	oxygen = 8;
-	nitrogen = 14;
-	temperature = 500
-	},
+/turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/snow_biodome)
 "jE" = (
 /obj/effect/decal/cleanable/blood/drip,

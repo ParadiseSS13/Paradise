@@ -175,7 +175,7 @@
 		stage = WIRED
 		update_icon(UPDATE_ICON_STATE)
 
-	else if(stage == WIRED && istype(I, /obj/item/wrench))
+	else if(stage == WIRED && iswrench(I))
 		to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
 		stage = EMPTY
 		payload_name = null
@@ -221,7 +221,7 @@
 		return TRUE
 
 	else if(stage == READY && !nadeassembly)
-		det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
+		det_time = det_time == 5 SECONDS ? 3 SECONDS : 5 SECONDS	// Toggle between 3 and 5 seconds.
 		to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
 		return TRUE
 
@@ -234,7 +234,7 @@
 		nadeassembly.HasProximity(AM)
 
 /obj/item/grenade/chem_grenade/Move() // prox sensors and infrared care about this
-	..()
+	. = ..()
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
@@ -402,7 +402,7 @@
 			unit_spread += 25
 		else
 			unit_spread = 5
-	to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
+	to_chat(user, "<span class='notice'>You set the time release to [unit_spread] units per detonation.</span>")
 
 /obj/item/grenade/chem_grenade/adv_release/prime()
 	if(stage != READY)
@@ -590,6 +590,24 @@
 
 	beakers += B1
 	beakers += B2
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/grenade/chem_grenade/tar
+	payload_name = "sticky tar"
+	desc = "For spreading sticky tar. Become the anti-janitor!"
+	stage = READY
+
+/obj/item/grenade/chem_grenade/tar/Initialize(mapload)
+	. = ..()
+	var/obj/item/reagent_containers/glass/beaker/beaker_1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/beaker_2 = new(src)
+
+	beaker_1.reagents.add_reagent("sticky_tar", 15)
+	beaker_1.reagents.add_reagent("potassium", 10)
+	beaker_2.reagents.add_reagent("phosphorus", 10)
+	beaker_2.reagents.add_reagent("sugar", 10)
+	beakers += beaker_1
+	beakers += beaker_2
 	update_icon(UPDATE_ICON_STATE)
 
 #undef EMPTY

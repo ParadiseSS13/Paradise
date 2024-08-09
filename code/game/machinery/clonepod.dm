@@ -2,12 +2,12 @@
 #define VALID_REAGENTS list("sanguine_reagent", "osseous_reagent")
 
 /// Meats that can be used as biomass for the cloner.
-#define VALID_BIOMASSABLES list(/obj/item/food/snacks/meat, \
-								/obj/item/food/snacks/monstermeat, \
-								/obj/item/food/snacks/carpmeat, \
-								/obj/item/food/snacks/salmonmeat, \
-								/obj/item/food/snacks/catfishmeat, \
-								/obj/item/food/snacks/tofurkey)
+#define VALID_BIOMASSABLES list(/obj/item/food/meat, \
+								/obj/item/food/monstermeat, \
+								/obj/item/food/carpmeat, \
+								/obj/item/food/salmonmeat, \
+								/obj/item/food/catfishmeat, \
+								/obj/item/food/tofurkey)
 
 /// Internal organs the cloner will *never* accept for insertion.
 #define FORBIDDEN_INTERNAL_ORGANS list(/obj/item/organ/internal/regenerative_core, \
@@ -57,11 +57,11 @@
 /obj/machinery/clonepod
 	anchored = TRUE
 	name = "cloning pod"
-	desc = "An electronically-lockable pod for growing organic tissue."
+	desc = "A pod for growing organic tissue."
 	density = TRUE
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_idle"
-
+	req_access = list(ACCESS_MEDICAL)
 	//So that chemicals can be loaded into the pod.
 	container_type = OPENCONTAINER
 	/// The linked cloning console.
@@ -80,9 +80,6 @@
 	var/desc_flavor = "It doesn't seem to be doing anything right now."
 	/// The countdown.
 	var/obj/effect/countdown/clonepod/countdown
-	/// Whether or not the interface is locked.
-	var/locked = TRUE
-	req_access = list(ACCESS_MEDICAL)
 
 	/// The speed at which we clone. Each processing cycle will advance clone_progress by this amount.
 	var/speed_modifier = 1
@@ -165,7 +162,6 @@
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[desc_flavor]</span>"
-	. += "<span class='notice'>[src] is currently [locked ? "locked" : "unlocked"], and can be [locked ? "unlocked" : "locked"] by swiping an ID with medical access on it.</span>"
 
 /obj/machinery/clonepod/RefreshParts()
 	speed_modifier = 0 //Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
@@ -317,7 +313,7 @@
 /obj/machinery/clonepod/proc/create_clone()
 	clone = new /mob/living/carbon/human(src, patient_data.genetic_info.species.type)
 
-	clone.change_dna(patient_data.genetic_info, FALSE, TRUE)
+	clone.change_dna(patient_data.genetic_info, FALSE)
 
 	for(var/obj/item/organ/external/limb in clone.bodyparts)
 		if(!(limb.limb_name in limbs_to_grow)) //if the limb was determined to be vital
@@ -560,9 +556,6 @@
 
 //Attackby and x_acts
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-
 	if(I.is_open_container())
 		return
 
@@ -571,13 +564,11 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
 
-		switch(tgui_alert(user, "Change access restrictions or perform an emergency ejection of [src]?", "Cloning pod", list("Change access", "Emergency ejection")))
-			if("Change access")
-				locked = !locked
-				to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled" : "disabled"].</span>")
-			if("Emergency ejection")
+		switch(tgui_alert(user, "Perform an emergency ejection of [src]?", "Cloning pod", list("Yes", "No")))
+			if("Yes")
 				eject_clone(TRUE) // GET OUT
 				to_chat(user, "<span class='warning'>You force [src] to eject its clone!</span>")
+				log_admin("[key_name(user)] has activated a cloning pod's emergency eject at [COORD(src)] (clone: [key_name(clone)])")
 		return
 
 	if(is_organ(I) || is_type_in_list(I, ALLOWED_ROBOT_PARTS)) //fun fact, robot parts aren't organs!
@@ -645,12 +636,6 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!allowed(user) && locked && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-		if(ui)
-			ui.close()
-		return
-
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CloningPod", "Cloning Pod")
@@ -678,7 +663,7 @@
 	switch(action)
 		if("eject_organ")
 			var/obj/item/organ/O = locateUID(params["organ_ref"])
-			if(!istype(O)) //This shouldn't happen
+			if(!istype(O) || !O.in_contents_of(src)) //This shouldn't happen BUT JUST IN CASE
 				return FALSE
 			if(!ui.user.put_in_hands(O))
 				O.forceMove(loc)

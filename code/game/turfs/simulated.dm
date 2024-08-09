@@ -19,18 +19,17 @@
 	var/excited = 0
 	/// Was this turf recently activated? Probably not needed anymore
 	var/recently_active = 0
-	/// The air mixture that this turf controls.
-	var/datum/gas_mixture/air
 	var/archived_cycle = 0
 	var/current_cycle = 0
 	/// The active hotspot on this turf. The fact this is done through a literal object is painful
 	var/obj/effect/hotspot/active_hotspot
-	/// Air will revert to its initial mix over time. It's probably a good idea to just make it so that these turfs don't process atmos as this doesn't really do anything
-	var/planetary_atmos = FALSE
 	/// The temp we were when we got archived
 	var/temperature_archived
-	// Current gas overlay. Can be set to plasma or sleeping_gas
+	/// Current gas overlay. Can be set to plasma or sleeping_gas
 	var/atmos_overlay_type = null
+	/// If a fire is ongoing, how much fuel did we burn last tick?
+	/// Value is not updated while below PLASMA_MINIMUM_BURN_TEMPERATURE.
+	var/fuel_burnt = 0
 
 /turf/simulated/proc/break_tile()
 	return
@@ -56,13 +55,27 @@
 	if(volume >= 3)
 		MakeSlippery()
 
-	var/hotspot = (locate(/obj/effect/hotspot) in src)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = remove_air(air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
-		lowertemp.react()
-		assume_air(lowertemp)
+	quench(1000, 2)
+
+/// Quenches any fire on the turf, and if it does, cools down the turf's air by the given parameters.
+/turf/simulated/proc/quench(delta, divisor)
+	var/found = FALSE
+	for(var/obj/effect/hotspot/hotspot in src)
 		qdel(hotspot)
+		found = TRUE
+
+	if(!found)
+		return
+
+	var/datum/milla_safe/turf_cool/milla = new()
+	milla.invoke_async(src, delta, divisor)
+
+/datum/milla_safe/turf_cool
+
+/datum/milla_safe/turf_cool/on_run(turf/T, delta, divisor)
+	var/datum/gas_mixture/air = get_turf_air(T)
+	air.set_temperature(max(min(air.temperature()-delta * divisor,air.temperature() / divisor), TCMB))
+	air.react()
 
 /*
  * Makes a turf slippery using the given parameters

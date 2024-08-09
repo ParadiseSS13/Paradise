@@ -400,7 +400,10 @@
 /atom/movable/screen/inventory/proc/add_overlays()
 	var/mob/user = hud?.mymob
 
-	if(!user || !slot_id || user != usr)
+	if(!user || user != usr)
+		return
+
+	if(!hud?.mymob || !slot_id || slot_id == SLOT_HUD_LEFT_HAND || slot_id == SLOT_HUD_RIGHT_HAND)
 		return
 
 	var/obj/item/holding = user.get_active_hand()
@@ -555,6 +558,12 @@
 	if(ishuman(usr) && usr.stat != DEAD)
 		var/mob/living/carbon/H = usr
 		H.check_self_for_injuries()
+
+/atom/movable/screen/nutrition
+	name = "nutrition"
+	icon = 'icons/mob/screen_hunger.dmi'
+	icon_state = null
+	screen_loc = ui_nutrition
 
 /atom/movable/screen/component_button
 	var/atom/movable/screen/parent

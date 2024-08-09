@@ -68,7 +68,7 @@
 	//make sure the air can transmit speech - hearer's side
 	var/turf/T = get_turf(src)
 	if(T && !isobserver(src))
-		var/datum/gas_mixture/environment = T.return_air()
+		var/datum/gas_mixture/environment = T.get_readonly_air()
 		var/pressure = environment ? environment.return_pressure() : 0
 		if(pressure < SOUND_MINIMUM_PRESSURE && get_dist(speaker, src) > 1)
 			return FALSE
@@ -106,7 +106,7 @@
 	if(speaker == src)
 		for(var/datum/multilingual_say_piece/SP in message_pieces)
 			if(SP.speaking && SP.speaking.flags & INNATE)
-				custom_emote(EMOTE_AUDIBLE, message_clean, TRUE)
+				emote("me", EMOTE_AUDIBLE, message_clean, TRUE)
 				return
 
 	if(!can_hear())

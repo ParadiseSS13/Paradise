@@ -53,7 +53,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/eva
 	access = ACCESS_EVA
 
-/obj/effect/mapping_helpers/airlock/windoor/access/any/command/expedition
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/expedition
 	access = ACCESS_EXPEDITION
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/hop
@@ -181,7 +181,7 @@
 	access = ACCESS_HOS
 
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/iaa
-	access = ACCESS_LAWYER
+	access = ACCESS_INTERNAL_AFFAIRS
 
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service
@@ -262,7 +262,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/eva
 	access = ACCESS_EVA
 
-/obj/effect/mapping_helpers/airlock/windoor/access/all/command/expedition
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/expedition
 	access = ACCESS_EXPEDITION
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/hop
@@ -390,7 +390,7 @@
 	access = ACCESS_HOS
 
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/iaa
-	access = ACCESS_LAWYER
+	access = ACCESS_INTERNAL_AFFAIRS
 
 // -------------------- Service access helpers
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service

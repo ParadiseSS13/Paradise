@@ -33,7 +33,7 @@
 	var/Angle = null
 	var/original_angle = null //Angle at firing
 	var/spread = 0			//amount (in degrees) of projectile spread
-	animate_movement = 0
+	animate_movement = NO_STEPS
 
 	var/ignore_source_check = FALSE
 
@@ -66,9 +66,6 @@
 	var/immolate = 0
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
-	var/ricochets = 0
-	var/ricochets_max = 2
-	var/ricochet_chance = 30
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 
@@ -113,6 +110,27 @@
 	var/impact_light_range = 2
 	var/impact_light_color_override
 	var/hitscan_duration = 0.3 SECONDS
+
+	/// how many times we've ricochet'd so far (instance variable, not a stat)
+	var/ricochets = 0
+	/// how many times we can ricochet max
+	var/ricochets_max = 0
+	/// how many times we have to ricochet min (unless we hit an atom we can ricochet off)
+	var/min_ricochets = 0
+	/// 0-100 (or more, I guess), the base chance of ricocheting, before being modified by the atom we shoot and our chance decay
+	var/ricochet_chance = 0
+	/// 0-1 (or more, I guess) multiplier, the ricochet_chance is modified by multiplying this after each ricochet
+	var/ricochet_decay_chance = 0.7
+	/// 0-1 (or more, I guess) multiplier, the projectile's damage is modified by multiplying this after each ricochet
+	var/ricochet_decay_damage = 0.7
+	/// On ricochet, if nonzero, we consider all mobs within this range of our projectile at the time of ricochet to home in on like Revolver Ocelot, as governed by ricochet_auto_aim_angle
+	var/ricochet_auto_aim_range = 0
+	/// On ricochet, if ricochet_auto_aim_range is nonzero, we'll consider any mobs within this range of the normal angle of incidence to home in on, higher = more auto aim
+	var/ricochet_auto_aim_angle = 30
+	/// the angle of impact must be within this many degrees of the struck surface, set to 0 to allow any angle
+	var/ricochet_incidence_leeway = 40
+	/// Can our ricochet autoaim hit our firer?
+	var/ricochet_shoots_firer = TRUE
 
 /obj/item/projectile/New()
 	return ..()
@@ -183,7 +201,7 @@
 				L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
 				if(istype(H))
 					for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
-						M.bloody_hands(H)
+						M.make_bloody_hands(H.get_blood_dna_list(), H.get_blood_color())
 						/* Uncomment when bloody_body stops randomly not transferring blood colour.
 						M.bloody_body(H) */
 		else if(impact_effect_type && !hitscan)
@@ -192,12 +210,12 @@
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
 		if(suppressed)
-			playsound(loc, hitsound, 5, 1, -1)
+			playsound(loc, hitsound, 5, TRUE, -1)
 			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, 1, -1)
+				playsound(loc, hitsound, volume, TRUE, -1)
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 		if(immolate)
@@ -270,7 +288,7 @@
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
-		playsound(loc, hitsound_wall, volume, 1, -1)
+		playsound(loc, hitsound_wall, volume, TRUE, -1)
 	else if(ishuman(A))
 		var/mob/living/carbon/human/H = A
 		var/obj/item/organ/external/organ = H.get_organ(check_zone(def_zone))
@@ -341,6 +359,8 @@
 		trajectory.increment(trajectory_multiplier)
 		var/turf/T = trajectory.return_turf()
 		if(!istype(T))
+			// if we've gone off of the map, we need to step back once so that hitscanning projectiles have a valid end turf
+			trajectory.increment(-trajectory_multiplier)
 			qdel(src)
 			return
 		if(T.z != loc.z)
@@ -429,7 +449,21 @@
 
 
 /obj/item/projectile/proc/on_ricochet(atom/A)
-	return
+	if(!ricochet_auto_aim_angle || !ricochet_auto_aim_range)
+		return
+
+	var/mob/living/unlucky_sob
+	var/best_angle = ricochet_auto_aim_angle
+	for(var/mob/living/L in range(ricochet_auto_aim_range, src.loc))
+		if(L.stat == DEAD || !isInSight(src, L) || (!ricochet_shoots_firer && L == firer))
+			continue
+		var/our_angle = abs(closer_angle_difference(Angle, get_angle(src.loc, L.loc)))
+		if(our_angle < best_angle)
+			best_angle = our_angle
+			unlucky_sob = L
+
+	if(unlucky_sob)
+		set_angle(get_angle(src, unlucky_sob.loc))
 
 /obj/item/projectile/proc/check_ricochet()
 	if(prob(ricochet_chance))
@@ -437,19 +471,26 @@
 	return FALSE
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if(A.flags_2 & CHECK_RICOCHET_2)
+	if((flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
+
+	if((flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
+		return TRUE
+
 	return FALSE
 
 /obj/item/projectile/set_angle(new_angle)
 	..()
+
 	Angle = new_angle
-	trajectory.set_angle(new_angle)
+	if(trajectory)
+		trajectory.set_angle(new_angle)
 	if(has_been_fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))
 		last_angle_set_hitscan_store = loc
 		var/datum/point/point_cache = new (src)
 		point_cache = trajectory.copy_to()
 		store_hitscan_collision(point_cache)
+	return TRUE
 
 /obj/item/projectile/proc/set_angle_centered(new_angle)
 	set_angle(new_angle)
@@ -463,7 +504,7 @@
 	return TRUE
 
 /obj/item/projectile/experience_pressure_difference()
-	return
+	return // Immune to gas flow.
 
 /obj/item/projectile/forceMove(atom/target)
 	. = ..()

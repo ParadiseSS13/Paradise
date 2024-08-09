@@ -15,54 +15,78 @@
 	origin_tech = "combat=1"
 	needs_permit = TRUE
 	attack_verb = list("struck", "hit", "bashed")
-
+	/// Sound played when a projectile is fired.
 	var/fire_sound = "gunshot"
+	/// Sound played when inserting a new magazine.
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
+	/// Sound played when ejecting a magazine.
 	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
-	var/fire_sound_text = "gunshot" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
-	var/suppressed = FALSE					//whether or not a message is displayed when fired
+	/// The fire sound that shows in chat messages: laser blast, gunshot, etc.
+	var/fire_sound_text = "gunshot"
+	/// Whether or not a message is displayed when fired.
+	var/suppressed = FALSE
+	/// Whether or not a suppressor can be attached to the gun.
 	var/can_suppress = FALSE
+	/// Whether or not an attached suppressor can be removed from the gun.
 	var/can_unsuppress = TRUE
-	var/recoil = 0						//boom boom shake the room
+	/// Screen shake when firing.
+	var/recoil = 0
+	/// Checks to see if the user has the clumsy trait.
 	var/clumsy_check = TRUE
+	/// Is there currently a bullet in the chamber?
 	var/obj/item/ammo_casing/chambered = null
-	var/trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
-	var/sawn_desc = null				//description change if weapon is sawn-off
+	/// Trigger guard on the gun, hulks and ash walkers can't fire them with their big meaty fingers.
+	var/trigger_guard = TRIGGER_GUARD_NORMAL
+	/// Description change if gun is sawn-off.
+	var/sawn_desc = null
+	/// Whether or not the gun has been sawn-off.
 	var/sawn_state = SAWN_INTACT
-	var/burst_size = 1					//how large a burst is
-	var/fire_delay = 0					//rate of fire for burst firing and semi auto
-	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
-	var/semicd = 0						//cooldown handler
+	/// The number of bullets in a trigger pull.
+	var/burst_size = 1
+	/// Rate of fire for burst firing and semi auto.
+	var/fire_delay = 0
+	/// Prevent the gun from firing again while already firing.
+	var/firing_burst = 0
+	/// Cooldown handler.
+	var/semicd = 0
+	/// How long it takes to perform an execution with the gun.
 	var/execution_speed = 6 SECONDS
+	/// When dual wielding, accuracy will decrease based on weapon weight. WEAPON_HEAVY makes a weapon require two hands to fire, unless the user has TRAIT_BADASS.
 	var/weapon_weight = WEAPON_LIGHT
 	/// Additional spread when dual wielding.
 	var/dual_wield_spread = 24
+	/// Restrict what species can fire this gun.
 	var/list/restricted_species
-
+	/// Bigger values make shots less precise.
 	var/spread = 0
-
-	var/unique_rename = TRUE //allows renaming with a pen
-	var/unique_reskin = FALSE //allows one-time reskinning
-	var/current_skin = null //the skin choice if we had a reskin
+	/// If TRUE, allows the gun to be renamed with a pen.
+	var/unique_rename = TRUE
+	/// Allows one-time reskinning.
+	var/unique_reskin = FALSE
+	/// The skin choice if we had a reskin.
+	var/current_skin = null
+	/// List of reskin options.
 	var/list/options = list()
 
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 
+	/// Whether or not the gun has a flashlight.
 	var/obj/item/flashlight/gun_light = null
+	/// Whether or not a flashlight can be attached to the gun.
 	var/can_flashlight = FALSE
-
-	var/can_bayonet = FALSE //if a bayonet can be added or removed if it already has one.
+	/// Whether or not a knife can be attached to the gun.
+	var/can_bayonet = FALSE
 	var/obj/item/kitchen/knife/bayonet
 	var/mutable_appearance/knife_overlay
 	var/knife_x_offset = 0
 	var/knife_y_offset = 0
-
-	var/can_holster = FALSE  // Anything that can be holstered should be manually set
-
+	/// Whether or not the gun fits in a shoulder holster.
+	var/can_holster = FALSE
+	/// Weapon modifications (except bayonets, flashlights, and suppressors - these are tracked seperately).
 	var/list/upgrades = list()
 
-	var/ammo_x_offset = 0 //used for positioning ammo count overlay on sprite
+	var/ammo_x_offset = 0 // Used for positioning ammo count overlay on sprite.
 	var/ammo_y_offset = 0
 	var/flight_x_offset = 0
 	var/flight_y_offset = 0
@@ -96,7 +120,6 @@
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
-
 /obj/item/gun/proc/process_chamber()
 	return 0
 
@@ -127,9 +150,17 @@
 		playsound(user, fire_sound, 50, 1)
 		if(message)
 			if(pointblank)
-				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
+				user.visible_message(
+					"<span class='danger'>[user] fires [src] point blank at [target]!</span>",
+					"<span class='danger'>You fire [src] point blank at [target]!</span>",
+					"<span class='danger'>You hear \a [fire_sound_text]!</span>"
+				)
 			else
-				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
+				user.visible_message(
+					"<span class='danger'>[user] fires [src]!</span>",
+					"<span class='danger'>You fire [src]!</span>",
+					"<span class='danger'>You hear \a [fire_sound_text]!</span>"
+				)
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
@@ -170,7 +201,11 @@
 	if(flag)
 		if(user.zone_selected == "mouth")
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS)) // Check if we are blowing smoke off of our own gun, otherwise we are trying to execute someone
-				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
+				user.visible_message(
+					"<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>",
+					"<span class='danger'>You blow smoke off of [src]'s barrel.</span>",
+					"<span class='danger'>You hear someone blowing over a hollow tube.</span>"
+				)
 			else
 				handle_suicide(user, target, params)
 			return
@@ -450,11 +485,15 @@
 	if(user == target)
 		if(!ishuman(user))	// Borg suicide needs a refactor for this to work.
 			return
-		target.visible_message("<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>", \
-		"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
+		target.visible_message(
+			"<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>",
+			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>"
+		)
 	else
-		target.visible_message("<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>", \
-			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>")
+		target.visible_message(
+			"<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>",
+			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>"
+		)
 
 	semicd = 1
 
@@ -463,13 +502,19 @@
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided life was worth living.</span>")
 			else if(target && target.Adjacent(user))
-				target.visible_message("<span class='notice'>[user] has decided to spare [target]'s life.</span>", "<span class='notice'>[user] has decided to spare your life!</span>")
+				target.visible_message(
+					"<span class='notice'>[user] has decided to spare [target]'s life.</span>",
+					"<span class='userdanger'>[user] has decided to spare your life!</span>"
+				)
 		semicd = 0
 		return
 
 	semicd = 0
 
-	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
+	target.visible_message(
+		"<span class='warning'>[user] pulls the trigger!</span>",
+		"<span class='userdanger'>[user] pulls the trigger!</span>"
+	)
 
 	if(chambered && chambered.BB)
 		chambered.BB.damage *= 5

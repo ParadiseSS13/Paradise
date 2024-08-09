@@ -14,7 +14,7 @@
 	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, RAD = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
-	var/list/cargo = new
+	var/list/cargo = list()
 	var/cargo_capacity = 15
 
 	/// How many goliath hides does the Ripley have? Does not stack with other armor
@@ -47,8 +47,17 @@
 		new /obj/item/stack/sheet/animalhide/armor_plate(get_turf(src))
 	for(var/i in 1 to drake_hides)
 		new /obj/item/stack/sheet/animalhide/ashdrake(get_turf(src))
+	for(var/mob/M in src)
+		if(M == occupant)
+			continue
+		M.loc = get_turf(src)
+		M.loc.Entered(M)
+		step_rand(M)
 	for(var/atom/movable/A in cargo)
-		A.forceMove(get_turf(src))
+		A.loc = get_turf(src)
+		var/turf/T = get_turf(A)
+		if(T)
+			T.Entered(A)
 		step_rand(A)
 	cargo.Cut()
 	return ..()
@@ -120,6 +129,16 @@
 		else if(drake_hides == DRAKE_HIDES_COVERED_SLIGHT)
 			. += occupant ? "ripley-d" : "ripley-d-open"
 
+/obj/mecha/working/ripley/examine_more(mob/user)
+	. = ..()
+	. += "<i>The Ripley is a robust, venerable utility exosuit originally produced by Hephaestus Industries. \
+	It now sees widespread use in and around the Orion sector, being one of the most pervasive mechs ever produced. \
+	Shortly after initial production, Hephaestus licensed production rights for the Ripley to other corporations, earning royalties as the exosuit grew more popular.</i>"
+	. += ""
+	. += "<i>Depending on the configuration, the Ripley can be used for many purposes, including mining, construction, and even goods transport. \
+	To this day, it remains one of the most valuable mechs ever produced, and Hephaestus enjoys a substantial profit from sales of this aging but rugged design. \
+	As with all station-side mechs, Nanotrasen has purchased the license to make the Ripley in their facilities.</i>"
+
 /obj/mecha/working/ripley/firefighter
 	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."
 	name = "APLU \"Firefighter\""
@@ -129,9 +148,18 @@
 	max_integrity = 250
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	lights_power = 7
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
+
+/obj/mecha/working/ripley/firefighter/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>Based on the venerable Ripley chassis, designed initially by Hephaestus Industries, the Firefighter is a retrofit created by Nanotrasen as their mining operations expanded, and a robust, fireproof exosuit was needed. \
+	Adapted to fit heat-resistant shielding, the Firefighter became a popular mech for mining teams in dangerous environments.</i>"
+	. += ""
+	. += "<i>Since Nanotrasen's expansion into Epsilon Eridani and their mining operations on Lavaland, the Firefighter has grown more popular among seasoned miners looking for a safer, armored way to mine in even the hottest of biomes. \
+	Additionally, it has seen some use among atmospherics crews and is admired for its ability to control even the toughest of plasmafires while protecting its pilot.</i>"
 
 /obj/mecha/working/ripley/deathripley
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
@@ -154,6 +182,16 @@
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
 	return
+
+/obj/mecha/working/ripley/deathripley/examine_more(mob/user)
+	..()
+	. = list()
+	. += "<i>A functioning, well-made collectable for the popular Nanotrasen-Funded holovid show, 'Deathsquad'. \
+	A retrofitted and repainted Ripley chassis, the Death Ripley was created and used by the leader of the Deathsquad, Master Sergeant Killjoy, during the climactic battle with the Spider Queen “Xerxes” at the end of Season 4. \
+	The mech bears the signature mark of the team's engineer, Corporal Ironhead, who assisted Killjoy in its construction.</i>"
+	. += ""
+	. += "<i>Replicas such as this are sought-after collectibles among the biggest fans of Deathsquad. \
+	An altercation even occurred where an individual dressed in a poorly-made Killjoy costume attempted to kill a collector to gain a Death Ripley, who was later sent to a mental institution after screaming, “THE DEATHSQUAD IS REAL.</i>"
 
 /obj/mecha/working/ripley/mining
 	desc = "An old, dusty mining ripley."
@@ -207,8 +245,6 @@
 			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - length(cargo)]")
 	return
 
-
-
 /obj/mecha/working/ripley/get_stats_part()
 	var/output = ..()
 	output += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
@@ -219,21 +255,6 @@
 		output += "Nothing"
 	output += "</div>"
 	return output
-
-/obj/mecha/working/ripley/Destroy()
-	for(var/mob/M in src)
-		if(M == occupant)
-			continue
-		M.loc = get_turf(src)
-		M.loc.Entered(M)
-		step_rand(M)
-	for(var/atom/movable/A in cargo)
-		A.loc = get_turf(src)
-		var/turf/T = get_turf(A)
-		if(T)
-			T.Entered(A)
-		step_rand(A)
-	return ..()
 
 /obj/mecha/working/ripley/ex_act(severity)
 	..()

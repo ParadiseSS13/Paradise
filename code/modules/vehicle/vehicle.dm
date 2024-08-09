@@ -149,10 +149,11 @@
 	handle_vehicle_offsets()
 
 /obj/vehicle/bullet_act(obj/item/projectile/Proj)
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			buckled_mob.bullet_act(Proj)
+	if(!has_buckled_mobs())
+		return ..()
+	for(var/m in buckled_mobs)
+		var/mob/living/buckled_mob = m
+		buckled_mob.bullet_act(Proj)
 
 //MOVEMENT
 /obj/vehicle/relaymove(mob/user, direction)
@@ -184,7 +185,7 @@
 			if(issimulatedturf(loc))
 				var/turf/simulated/T = loc
 				if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
-					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
+					playsound(src, 'sound/misc/slip.ogg', 50, TRUE, -3)
 					for(var/m in buckled_mobs)
 						var/mob/living/buckled_mob = m
 						buckled_mob.KnockDown(10 SECONDS)
@@ -208,7 +209,7 @@
 		return FALSE
 	. = ..()
 	if(auto_door_open)
-		if(istype(M, /obj/machinery/door) && has_buckled_mobs())
+		if(isairlock(M) && has_buckled_mobs())
 			for(var/m in buckled_mobs)
 				M.Bumped(m)
 

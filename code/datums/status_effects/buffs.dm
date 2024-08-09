@@ -439,16 +439,20 @@
 				return
 
 /atom/movable/screen/alert/status_effect/regenerative_core
-	name = "Reinforcing Tendrils"
+	name = "Regenerative Core Tendrils"
 	desc = "You can move faster than your broken body could normally handle!"
 	icon_state = "regenerative_core"
-	name = "Regenerative Core Tendrils"
 
 /datum/status_effect/regenerative_core
 	id = "Regenerative Core"
 	duration = 1 MINUTES
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
+	var/regen_type_applied
+
+/datum/status_effect/regenerative_core/on_creation(mob/living/new_owner, incoming_type)
+	regen_type_applied = incoming_type
+	return ..()
 
 /datum/status_effect/regenerative_core/on_apply()
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
@@ -458,13 +462,24 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
-		if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
-			for(var/obj/item/organ/external/E in H.bodyparts)
-				E.fix_internal_bleeding()
-				E.fix_burn_wound()
-				E.mend_fracture()
-		else
-			to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
+		if(regen_type_applied == "Legion")
+			if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
+				for(var/obj/item/organ/external/E in H.bodyparts)
+					E.fix_internal_bleeding()
+					E.fix_burn_wound()
+					E.mend_fracture()
+			else
+				to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
+			return TRUE
+		if(regen_type_applied == "Hivelord")
+			var/area/A = get_area(H)
+			if(isspaceturf(get_turf(H)) || isspacearea(A) || istype(A, /area/syndicate_depot) || istype(A, /area/ruin/space) || istype(A, /area/shuttle))
+				for(var/obj/item/organ/external/E in H.bodyparts)
+					E.fix_internal_bleeding()
+					E.fix_burn_wound()
+					E.mend_fracture()
+			else
+				to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the stars to absorb solar radiation...</span>")
 	else
 		owner.bodytemperature = BODYTEMP_NORMAL
 	return TRUE
@@ -611,6 +626,33 @@
 		H.physiology.brute_mod /= 0.8
 		H.physiology.burn_mod /=0.8
 		H.physiology.stamina_mod /= 0.8
+
+/datum/status_effect/breaching_and_cleaving
+	id = "breaching_and_cleaving"
+	duration = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/breaching_and_cleaving
+	var/datum/armor/cleaving_armor_boost = new /datum/armor(0, 30, 30, 30, 0, 0, 50, 0, 0)
+
+/atom/movable/screen/alert/status_effect/breaching_and_cleaving
+	name = "Breaching and Cleaving!"
+	desc = "<span class='danger'>Doors, people, machines... nothing will stand before your martial prowess!</span>"
+	icon_state = "breachcleaver"
+
+/datum/status_effect/breaching_and_cleaving/on_apply()
+	. = ..()
+	if(!. || !ishuman(owner))
+		return
+	var/mob/living/carbon/human/H = owner
+	H.physiology.armor = H.physiology.armor.attachArmor(cleaving_armor_boost)
+	H.physiology.stamina_mod *= 0.8
+
+/datum/status_effect/breaching_and_cleaving/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.physiology.armor = H.physiology.armor.detachArmor(cleaving_armor_boost)
+		H.physiology.stamina_mod /= 0.8
+	QDEL_NULL(cleaving_armor_boost)
 
 /datum/status_effect/hope
 	id = "hope"

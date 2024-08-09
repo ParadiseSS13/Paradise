@@ -16,6 +16,7 @@
 	can_suppress = FALSE
 	burst_size = 1
 	spread = 7
+	fire_delay = 0
 
 /obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
 	. = ..()
@@ -97,7 +98,9 @@
 	..()
 	var/turf/location = get_turf(src)
 	if(location)
-		new /obj/effect/hotspot(location)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
+		hotspot.temperature = 1000
+		hotspot.recolor()
 		location.hotspot_expose(700, 50, 1)
 
 //magazines//

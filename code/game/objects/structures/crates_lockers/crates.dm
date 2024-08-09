@@ -77,10 +77,8 @@
 			continue
 		if(ismob(O) && !HAS_TRAIT(O, TRAIT_CONTORTED_BODY))
 			continue
-		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
-			var/obj/structure/bed/B = O
-			if(B.has_buckled_mobs())
-				continue
+		if(O.has_buckled_mobs()) // You can't put mobs into crates, so naturally if a mob is attached to something, it shouldn't be able to go in the crate
+			continue
 		O.forceMove(src)
 		itemcount++
 
@@ -216,16 +214,18 @@
 /obj/structure/closet/crate/secure/proc/togglelock(mob/user)
 	if(opened)
 		to_chat(user, "<span class='notice'>Close the crate first.</span>")
-		return
+		return FALSE
 	if(broken)
 		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
-		return
+		return FALSE
 	if(allowed(user))
 		locked = !locked
 		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
+		return TRUE
 	else
 		to_chat(user, "<span class='notice'>Access Denied.</span>")
+		return FALSE
 
 /obj/structure/closet/crate/secure/AltClick(mob/user)
 	if(Adjacent(user) && !opened)
@@ -383,23 +383,25 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-/obj/structure/closet/crate/freezer/return_air()
+/obj/structure/closet/crate/freezer/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
-	var/datum/gas_mixture/gas = (..())
-	if(!gas)	return null
+	var/datum/gas_mixture/gas = ..()
+	if(!gas)
+		var/turf/T = get_turf(src)
+		gas = T.get_readonly_air()
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
-	newgas.oxygen = gas.oxygen
-	newgas.carbon_dioxide = gas.carbon_dioxide
-	newgas.nitrogen = gas.nitrogen
-	newgas.toxins = gas.toxins
+	newgas.set_oxygen(gas.oxygen())
+	newgas.set_carbon_dioxide(gas.carbon_dioxide())
+	newgas.set_nitrogen(gas.nitrogen())
+	newgas.set_toxins(gas.toxins())
 	newgas.volume = gas.volume
-	newgas.temperature = gas.temperature
-	if(newgas.temperature <= target_temp)	return
+	newgas.set_temperature(gas.temperature())
+	if(newgas.temperature() <= target_temp)	return
 
-	if((newgas.temperature - cooling_power) > target_temp)
-		newgas.temperature -= cooling_power
+	if((newgas.temperature() - cooling_power) > target_temp)
+		newgas.set_temperature(newgas.temperature() - cooling_power)
 	else
-		newgas.temperature = target_temp
+		newgas.set_temperature(target_temp)
 	return newgas
 
 /obj/structure/closet/crate/freezer/iv_storage
@@ -517,6 +519,12 @@
 	icon_opened = "scicrate_open"
 	icon_closed = "scicrate"
 
+/obj/structure/closet/crate/sci/robo
+	desc = "A science crate. Contain various mech parts."
+	icon_state = "scicrate_mech"
+	icon_opened = "scicrate_mech_open"
+	icon_closed = "scicrate_mech"
+
 /obj/structure/closet/crate/secure/scisec
 	name = "secure science crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
@@ -589,9 +597,9 @@
 
 /obj/structure/closet/crate/surplus
 
-/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost)
+/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost, mob/user)
 	. = ..()
-	var/list/temp_uplink_list = get_uplink_items(U)
+	var/list/temp_uplink_list = get_uplink_items(U, user)
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
@@ -670,3 +678,24 @@
 	log_admin(msg)
 
 #undef RECURSION_PANIC_AMOUNT
+
+/obj/structure/closet/crate/secure/sec_shuttle_ruin
+	name = "locked crate"
+	desc = "The side of the crate has a slot for a keycard to be swiped."
+	can_be_emaged = FALSE
+
+/obj/structure/closet/crate/secure/sec_shuttle_ruin/allowed(mob/user)
+	if(!user)
+		return
+
+	var/obj/item/card/sec_shuttle_ruin/keycard = user.get_active_hand()
+	if(!istype(keycard))
+		return
+
+	to_chat(user, "<span class='notice'>You swipe [keycard] in [src]'s keycard slot.</span>")
+	return TRUE
+
+/obj/item/card/sec_shuttle_ruin
+	name = "warden's card"
+	desc = "A card used by the warden to unlock their crate."
+	icon_state = "data"

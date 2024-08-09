@@ -59,6 +59,7 @@
 		evidence of construction, hook it covertly into the \
 		telecommunications network and hope for the best."
 	cost = 2
+	allow_duplicates = FALSE // this shouldn't be spawning more than once anymore
 
 /datum/map_template/ruin/space/derelict1
 	id = "derelict1"
@@ -82,6 +83,7 @@
 	name = "Derelict 3"
 	description = "These hulks were once part of a larger structure, where \
 		the three great \[REDACTED\] were forged."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/derelict4
 	id = "derelict4"
@@ -146,7 +148,8 @@
 		No tabs. No violence in the inside areas. That's it. Welcome to the \
 		Rampant Golem and Yellow Hound. Can I take your order?"
 	allow_duplicates = FALSE //it spawn ship docking, no more than one to avoid duplication in console.
-	cost = 2
+	always_place = TRUE
+	cost = 0
 
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"
@@ -191,6 +194,14 @@
 	description = "The remains of an old telecommunications satellite once utilised by Nanotrasen. It lays derelict, with quite a few pieces missing."
 	cost = 5 // This is a chonky boy
 	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
+
+/datum/map_template/ruin/space/malftcommsat
+	id = "malftcommsat"
+	suffix = "telecomns_returns.dmm"
+	name = "D.V.O.R.A.K'S Telecommunications Satellite"
+	description = "Seems the telecomunication satellite that went dark 4 years ago finally re-appeared on scanners? Strange signals are coming from it."
+	cost = 5 // Huge. Large. In charge
+	allow_duplicates = FALSE // One sadistic malfunctioning AI is enough. Also unique apcs.
 
 /datum/map_template/ruin/space/clownmime
 	id = "clownmime"
@@ -334,3 +345,25 @@
 	description = "A derelict operating base for NT engineering crew."
 	allow_duplicates = FALSE
 	cost = 1
+
+/datum/map_template/ruin/space/rocky_motel
+	id = "rocky_motel"
+	suffix = "rocky_motel.dmm"
+	name = "Rocky Motel"
+	description = "A cozy little home nestled in an asteroid, perfect for one or two people!"
+	allow_duplicates = FALSE
+	cost = 1
+
+/datum/map_template/ruin/space/casino
+	id = "casino"
+	suffix = "casino.dmm"
+	name = "Dorian Casino"
+	description = "A swanky space casino."
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/abandoned_security_shuttle
+	id = "abandoned_sec_shuttle"
+	suffix = "abandoned_sec_shuttle.dmm"
+	name = "Abandoned Security Shuttle"
+	description = "A security shuttle that has been floating in space."
+	allow_duplicates = FALSE

@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	flavour_text = "You are a ghost bar occupant. You've gotten sick of being dead and decided to meet up with some of your fellow haunting brothers. Take a seat, grab a beer, and chat it out."
 	assignedrole = "Ghost Bar Occupant"
 	death_cooldown = 1 MINUTES
+	restrict_antagban = FALSE
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/create(ckey, flavour = TRUE, name, mob/user = usr) // So divorced from the normal proc it's just being overriden
 	var/datum/character_save/save_to_load
@@ -46,6 +47,8 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	I.implant(H, null)
 	for(var/gear in save_to_load.loadout_gear)
 		var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
+		if(isnull(G))
+			continue
 		if(G.allowed_roles) // Fix due to shitty HUD code
 			continue
 		if(G.slot)

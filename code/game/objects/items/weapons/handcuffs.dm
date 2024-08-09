@@ -3,7 +3,38 @@
 	desc = "Should not exist. Report me to a(n) coder/admin!"
 	icon = 'icons/obj/restraints.dmi'
 	var/cuffed_state = "handcuff"
+	///How long it will take to break out of restraints
+	var/breakouttime
 
+/obj/item/restraints/proc/attempt_resist_restraints(mob/living/carbon/user, break_cuffs, effective_breakout_time, silent)
+	if(effective_breakout_time)
+		if(!silent)
+			user.visible_message("<span class='warning'>[user] attempts to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_cuffs ? "break" : "remove"] [src]...</span>")
+		to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
+
+	if(!do_after(user, effective_breakout_time, FALSE, user))
+		user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
+		to_chat(user, "<span class='warning'>You fail to [break_cuffs ? "break" : "remove"] [src]!</span>")
+		return
+
+	user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
+	if(loc != user || user.buckled)
+		return
+
+	finish_resist_restraints(user, break_cuffs)
+
+/obj/item/restraints/proc/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
+	if(!silent)
+		user.visible_message("<span class='danger'>[user] manages to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_cuffs ? "break" : "remove"] [src].</span>")
+	user.unEquip(src)
+
+	if(break_cuffs)
+		qdel(src)
+		return TRUE
+
+//////////////////////////////
+// MARK: HANDCUFFS
+//////////////////////////////
 /obj/item/restraints/handcuffs
 	name = "handcuffs"
 	desc = "Use this to keep prisoners in line."
@@ -20,9 +51,11 @@
 	origin_tech = "engineering=3;combat=3"
 	breakouttime = 1 MINUTES
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+	/// Sound made when cuffing someone.
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
-	// Icon state for cuffed overlay on a mob
-	var/trashtype = null //For disposable cuffs
+	/// Trash item generated when cuffs are broken (for disposable cuffs).
+	var/trashtype
+	/// If set to TRUE, people with the TRAIT_CLUMSY won't cuff themselves when trying to cuff others.
 	var/ignoresClumsy = FALSE
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
@@ -58,7 +91,7 @@
 		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
 							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
 
-		playsound(loc, cuffsound, 15, 1, -10)
+		playsound(loc, cuffsound, 15, TRUE, -10)
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
@@ -88,6 +121,21 @@
 		target.update_handcuffed()
 		return
 
+//////////////////////////////
+// MARK: CUFF SKINS
+//////////////////////////////
+/obj/item/restraints/handcuffs/alien
+	icon_state = "handcuffAlien"
+
+/obj/item/restraints/handcuffs/pinkcuffs
+	name = "fluffy pink handcuffs"
+	desc = "Use this to keep prisoners in line, they are really itchy."
+	icon_state = "pinkcuffs"
+	cuffed_state = "pinkcuff"
+
+//////////////////////////////
+// MARK: SINEW CUFFS
+//////////////////////////////
 /obj/item/restraints/handcuffs/sinew
 	name = "sinew restraints"
 	desc = "A pair of restraints fashioned from long strands of flesh."
@@ -98,6 +146,9 @@
 	breakouttime = 30 SECONDS
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
+//////////////////////////////
+// MARK: CABLE CUFFS
+//////////////////////////////
 /obj/item/restraints/handcuffs/cable
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
@@ -152,46 +203,9 @@
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	return color
 
-/obj/item/restraints/handcuffs/alien
-	icon_state = "handcuffAlien"
-
-/obj/item/restraints/handcuffs/pinkcuffs
-	name = "fluffy pink handcuffs"
-	desc = "Use this to keep prisoners in line, they are really itchy."
-	icon_state = "pinkcuffs"
-	cuffed_state = "pinkcuff"
-
-/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user as mob, params)
-	..()
-	if(istype(I, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = I
-		if(R.use(1))
-			var/obj/item/wirerod/W = new /obj/item/wirerod
-			if(!remove_item_from_storage(user))
-				user.unEquip(src)
-			user.put_in_hands(W)
-			to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
-			qdel(src)
-		else
-			to_chat(user, "<span class='warning'>You need one rod to make a wired rod!</span>")
-	else if(istype(I, /obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/M = I
-		if(M.amount < 6)
-			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
-			return
-		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(do_after(user, 35 * M.toolspeed, target = src))
-			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
-			M.use(6)
-			user.put_in_hands(S)
-			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
-			if(!remove_item_from_storage(user))
-				user.unEquip(src)
-			qdel(src)
-	else if(istype(I, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = I
-		cable_color(C.colourName)
-
+//////////////////////////////
+// MARK: ZIPTIES
+//////////////////////////////
 /obj/item/restraints/handcuffs/cable/zipties
 	name = "zipties"
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
@@ -218,6 +232,9 @@
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return
 
+//////////////////////////////
+// MARK: TWIMSTS
+//////////////////////////////
 /obj/item/restraints/handcuffs/twimsts
 	name = "twimsts cuffs"
 	desc = "Liquorice twist candy made into cable cuffs, tasty but it can't actually hold anyone."
@@ -229,3 +246,63 @@
 	throwforce = 0
 	breakouttime = 0
 	cuffsound = 'sound/weapons/cablecuff.ogg'
+
+/obj/item/restraints/handcuffs/twimsts/finish_resist_restraints(mob/living/carbon/user, break_cuffs)
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(!human_user.check_has_mouth()) // I have no mouth but I must eat twimsts
+			break_cuffs = TRUE
+			return ..()
+
+	visible_message("<span class='danger'>[user] manages to eat through [src]!</span>", "<span class='notice'>You successfully eat through [src].</span>")
+
+	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
+	if(reagents && length(reagents.reagent_list))
+		user.taste(reagents)
+		reagents.reaction(user, REAGENT_INGEST)
+		reagents.trans_to(user, reagents.total_volume)
+	qdel(src)
+
+//////////////////////////////
+// MARK: CRAFTING
+//////////////////////////////
+/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
+	..()
+	// Don't allow borgs to send their their ziptie module to the shadow realm.
+	if(istype(src, /obj/item/restraints/handcuffs/cable/zipties/cyborg))
+		return
+
+	if(istype(I, /obj/item/stack/rods))
+		var/obj/item/stack/rods/R = I
+		if(!R.use(1))
+			to_chat(user, "<span class='warning'>[R.amount > 1 ? "These rods" : "This rod"] somehow can't be used for crafting!</span>")
+			return
+		if(!user.unEquip(src))
+			return
+		var/obj/item/wirerod/W = new /obj/item/wirerod(get_turf(src))
+		if(!remove_item_from_storage(user))
+			user.put_in_hands(W)
+		to_chat(user, "<span class='notice'>You wrap the cable restraint around the top of the rod.</span>")
+		qdel(src)
+		return
+
+	if(istype(I, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/M = I
+		if(M.amount < 6)
+			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
+			return
+
+		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
+		if(do_after(user, 3.5 SECONDS * M.toolspeed, target = src))
+			if(!M.use(6) || !user.unEquip(src))
+				return
+			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(get_turf(src))
+			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
+			if(!remove_item_from_storage(user))
+				user.put_in_hands(S)
+			qdel(src)
+		return
+
+	if(istype(I, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = I
+		cable_color(C.colourName)

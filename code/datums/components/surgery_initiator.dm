@@ -24,6 +24,13 @@
 	/// Also, note that for anything sharp, SURGERY_INITIATOR_ORGANIC should be set as well.
 	var/valid_starting_types = SURGERY_INITIATOR_ORGANIC
 
+	/// How effective this is at preventing infections.
+	/// 0 = preventing nothing, 1 = preventing any infection
+	var/germ_prevention_quality = 0
+
+	/// The sound to play when starting surgeries
+	var/surgery_start_sound = null
+
 	// Replace any other surgery initiator
 	dupe_type = /datum/component/surgery_initiator
 
@@ -43,10 +50,16 @@
 /datum/component/surgery_initiator/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(initiate_surgery_moment))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS, PROC_REF(on_parent_sharpness_change))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE_MORE, PROC_REF(on_parent_examine_more))
 
 /datum/component/surgery_initiator/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK)
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS)
+	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE_MORE)
+
+/datum/component/surgery_initiator/proc/on_parent_examine_more(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER  // COMSIG_PARENT_EXAMINE_MORE
+	examine_list += "<span class='notice'>You can use this on someone who is laying down to begin surgery on them.</span>"
 
 /// Keep tabs on the attached item's sharpness.
 /// This component gets added in atoms when they're made sharp as well.
@@ -134,7 +147,13 @@
 	if(!procedure)
 		return
 
+	if(!on_surgery_selection(user, target, procedure))
+		return
+
 	return try_choose_surgery(user, target, procedure)
+
+/datum/component/surgery_initiator/proc/on_surgery_selection(mob/user, mob/living/target, datum/surgery/target_surgery)
+	return TRUE
 
 /datum/component/surgery_initiator/proc/get_available_surgeries(mob/user, mob/living/target)
 	var/list/available_surgeries = list()
@@ -150,16 +169,19 @@
 
 	return available_surgeries
 
+/datum/component/surgery_initiator/proc/cancel_unstarted_surgery_fluff(datum/surgery/the_surgery, mob/living/patient, mob/user, selected_zone)
+	user.visible_message(
+		"<span class='notice'>[user] stops the surgery on [patient]'s [parse_zone(selected_zone)] with [parent].</span>",
+		"<span class='notice'>You stop the surgery on [patient]'s [parse_zone(selected_zone)] with [parent].</span>",
+	)
+
 /// Does the surgery de-initiation.
 /datum/component/surgery_initiator/proc/attempt_cancel_surgery(datum/surgery/the_surgery, mob/living/patient, mob/user)
 	var/selected_zone = user.zone_selected
 	/// We haven't even started yet. Any surgery can be cancelled at this point.
 	if(the_surgery.step_number == 1)
 		patient.surgeries -= the_surgery
-		user.visible_message(
-			"<span class='notice'>[user] stops the surgery on [patient]'s [parse_zone(selected_zone)] with [parent].</span>",
-			"<span class='notice'>You stop the surgery on [patient]'s [parse_zone(selected_zone)] with [parent].</span>",
-		)
+		cancel_unstarted_surgery_fluff(the_surgery, patient, user, selected_zone)
 
 		qdel(the_surgery)
 		return TRUE
@@ -288,9 +310,16 @@
 
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)
 
+
+	RegisterSignal(procedure, COMSIG_SURGERY_BLOOD_SPLASH, PROC_REF(on_blood_splash))
+
+	procedure.germ_prevention_quality = germ_prevention_quality
+
 	show_starting_message(user, target, procedure)
 
 	log_attack(user, target, "operated on (OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
+
+	return procedure
 
 /datum/component/surgery_initiator/proc/surgery_needs_exposure(datum/surgery/surgery, mob/living/target)
 	return !surgery.ignore_clothes && !get_location_accessible(target, target.zone_selected)
@@ -302,6 +331,14 @@
 		"<span class='notice'>You hold [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for \an [procedure.name].</span>",
 	)
 
+/datum/component/surgery_initiator/proc/on_prevent_germs()
+	SIGNAL_HANDLER  //
+	return
+
+/datum/component/surgery_initiator/proc/on_blood_splash()
+	SIGNAL_HANDLER  // COMSIG_SURGERY_BLOOD_SPLASH
+	return
+
 /datum/component/surgery_initiator/limb
 	can_cancel = FALSE  // don't let a leg cancel a surgery
 
@@ -310,3 +347,50 @@
 
 /datum/component/surgery_initiator/robo/sharp
 	valid_starting_types = SURGERY_INITIATOR_ORGANIC | SURGERY_INITIATOR_ROBOTIC
+
+/datum/component/surgery_initiator/cloth
+	can_cancel = FALSE
+	surgery_start_sound = "rustle"
+
+/datum/component/surgery_initiator/cloth/show_starting_message(mob/user, mob/living/target, datum/surgery/procedure)
+	user.visible_message(
+		"<span class='notice'>[user] drapes [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for surgery.</span>",
+		"<span class='notice'>You drape [parent] over [target]'s [parse_zone(user.zone_selected)] to prepare for \an [procedure.name].</span>",
+	)
+
+/datum/component/surgery_initiator/cloth/try_choose_surgery(mob/user, mob/living/target, datum/surgery/surgery)
+	var/datum/surgery/new_procedure = ..()
+	if(!istype(new_procedure))
+		return
+
+	new_procedure.started_with_drapes = TRUE
+
+/datum/component/surgery_initiator/cloth/on_surgery_selection(mob/user, mob/living/target, datum/surgery/target_surgery)
+	user.visible_message(
+		"<span class='notice'>[user] starts to apply [parent] onto [target].</span>",
+		"<span class='notice'>You start to apply [parent] onto [target].</span>",
+	)
+
+	if(!isnull(surgery_start_sound))
+		playsound(src, surgery_start_sound, 50, TRUE)
+
+	playsound(src, surgery_start_sound)
+	if(!do_after_once(user, 3 SECONDS, TRUE, target))
+		user.visible_message(
+			"<span class='warning'>[user] stops applying [parent] onto [target].</span>",
+			"<span class='warning'>You stop applying [parent] onto [target].</span>"
+		)
+		return
+
+
+	if(!isnull(surgery_start_sound))
+		playsound(src, surgery_start_sound, 50, TRUE)
+
+	return TRUE
+
+/datum/component/surgery_initiator/cloth/on_blood_splash(datum/surgery, mob/user, mob/target, zone, obj/item/tool)
+	if(prob(90 * germ_prevention_quality))
+		target.visible_message("<span class='notice'>Blood splashes onto the dressing.</span>")
+		var/obj/item/I = parent  // safety: this component can only go onto an item
+		I.add_mob_blood(target)
+		return COMPONENT_BLOOD_SPLASH_HANDLED

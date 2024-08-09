@@ -165,9 +165,10 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				/obj/item/clothing/suit/jacket/syndicatebomber = 5,
+				/obj/item/clothing/suit/jacket/bomber/syndicate = 5,
 				/obj/item/clothing/suit/storage/iaa/blackjacket/armored = 2, // More armored than bomber and has pockets, so it is rarer
 				/obj/item/melee/knuckleduster/syndie = 2,
+				/obj/item/reagent_containers/spray/sticky_tar = 1,
 				"" = 61 // This should be a decently high number for chances where no loot will spawn
 				)
 
@@ -449,7 +450,7 @@
 	name = "11. cybersun industries small gear"
 	loot = list(
 				/obj/item/storage/box/syndidonkpockets = 50,
-				/obj/item/clothing/suit/jacket/syndicatebomber = 50,
+				/obj/item/clothing/suit/jacket/bomber/syndicate = 50,
 				/obj/item/storage/box/syndie_kit/space = 50,
 				/obj/item/clothing/glasses/meson/sunglasses = 50,
 				/obj/item/storage/pill_bottle/zoom = 50,
@@ -460,13 +461,13 @@
 				)
 
 // Damn near all of this is illegal. Gives officers something to do on a shift quiet enough to spawn traders.
-/obj/effect/spawner/lootdrop/trade_sol/cybersun_major 
+/obj/effect/spawner/lootdrop/trade_sol/cybersun_major
 	name = "12. cybersun industries large gear"
 	lootcount = 3
 	loot = list(
 				/obj/item/shield/energy = 20,
 				/obj/item/gun/projectile/automatic/pistol = 50,
-				/obj/item/bio_chip/storage = 50,
+				/obj/item/bio_chip_implanter/storage = 50,
 				/obj/item/melee/knuckleduster/syndie = 50,
 				/obj/item/clothing/glasses/thermal/eyepatch = 50,
 				/obj/item/toy/syndicateballoon = 60,
@@ -485,7 +486,7 @@
 				/obj/item/clothing/under/new_soviet = 50,
 				/obj/item/clothing/suit/sovietcoat = 50,
 				/obj/item/clothing/head/ushanka = 50,
-				/obj/item/food/snacks/grown/potato = 50,
+				/obj/item/food/grown/potato = 50,
 				/obj/item/reagent_containers/drinks/bottle/vodka/badminka = 50,
 				/obj/item/clothing/head/sovietsidecap = 50,
 				/obj/item/flag/ussp = 30,
@@ -494,7 +495,7 @@
 				)
 
 // Lots of things to write permits for. Gives officers something to do on a shift quiet enough to spawn traders.
-/obj/effect/spawner/lootdrop/trade_sol/ussp_major 
+/obj/effect/spawner/lootdrop/trade_sol/ussp_major
 	name = "12. USSP large gear"
 	lootcount = 2 //Lots of dangerous stuff here - reduced amount
 	loot = list(
@@ -630,7 +631,7 @@
 				/obj/item/organ/internal/cyberimp/arm/gun/laser = 10,
 				/obj/item/fireaxe = 10,
 				/obj/item/gun/projectile/revolver/nagant = 10,
-				/obj/item/bio_chip/storage = 10,
+				/obj/item/bio_chip_implanter/storage = 10,
 				/obj/item/rcd/combat = 10
 				)
 
@@ -744,20 +745,20 @@
 	lootcount = 3
 	lootdoubles = FALSE
 	var/soups = list(
-			/obj/item/food/snacks/soup/beetsoup,
-			/obj/item/food/snacks/soup/stew,
-			/obj/item/food/snacks/soup/hotchili,
-			/obj/item/food/snacks/soup/nettlesoup,
-			/obj/item/food/snacks/soup/meatballsoup)
+			/obj/item/food/soup/beetsoup,
+			/obj/item/food/soup/stew,
+			/obj/item/food/soup/hotchili,
+			/obj/item/food/soup/nettlesoup,
+			/obj/item/food/soup/meatballsoup)
 	var/salads = list(
-			/obj/item/food/snacks/salad/herb,
-			/obj/item/food/snacks/salad/valid,
-			/obj/item/food/snacks/salad/aesir)
+			/obj/item/food/salad/herb,
+			/obj/item/food/salad/valid,
+			/obj/item/food/salad/aesir)
 	var/mains = list(
-			/obj/item/food/snacks/enchiladas,
-			/obj/item/food/snacks/stewedsoymeat,
-			/obj/item/food/snacks/burger/bigbite,
-			/obj/item/food/snacks/burger/superbite)
+			/obj/item/food/enchiladas,
+			/obj/item/food/stewedsoymeat,
+			/obj/item/food/burger/bigbite,
+			/obj/item/food/burger/superbite)
 
 /obj/effect/spawner/lootdrop/three_course_meal/Initialize(mapload)
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)

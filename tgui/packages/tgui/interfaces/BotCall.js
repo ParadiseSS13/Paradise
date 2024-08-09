@@ -4,18 +4,22 @@ import { Window } from '../layouts';
 
 const BotStatus = (mode) => {
   const statusMap = [
+    // magic numbers are from bots.dm under mode defines
     { modes: [0], label: 'Idle', color: 'green' },
     { modes: [1, 2, 3], label: 'Arresting', color: 'yellow' },
     { modes: [4, 5], label: 'Patrolling', color: 'average' },
+    { modes: [9], label: 'Moving', color: 'average' },
     { modes: [6, 11], label: 'Responding', color: 'green' },
     { modes: [12], label: 'Delivering Cargo', color: 'blue' },
     { modes: [13], label: 'Returning Home', color: 'blue' },
-    { modes: [7, 14, 15, 16, 17, 18, 19], label: 'Working', color: 'blue' },
+    {
+      modes: [7, 8, 10, 14, 15, 16, 17, 18, 19],
+      label: 'Working',
+      color: 'blue',
+    },
   ];
 
-  const matchedStatus = statusMap.find((mapping) =>
-    mapping.modes.includes(mode)
-  );
+  const matchedStatus = statusMap.find((mapping) => mapping.modes.includes(mode));
 
   return <Box color={matchedStatus.color}> {matchedStatus.label} </Box>;
 };
@@ -46,11 +50,7 @@ export const BotCall = (props, context) => {
           <Stack.Item>
             <Tabs fluid textAlign="center">
               {Array.from({ length: 6 }).map((_, index) => (
-                <Tabs.Tab
-                  key={index}
-                  selected={tabIndex === index}
-                  onClick={() => setTabIndex(index)}
-                >
+                <Tabs.Tab key={index} selected={tabIndex === index} onClick={() => setTabIndex(index)}>
                   {botNames[index]}
                 </Tabs.Tab>
               ))}
@@ -104,21 +104,13 @@ const MapBot = (props, context) => {
             <Table.Row key={bot.UID}>
               <Table.Cell>{bot.name}</Table.Cell>
               <Table.Cell>{bot.model}</Table.Cell>
-              <Table.Cell>
-                {bot.on ? BotStatus(bot.status) : <Box color="red">Off</Box>}
-              </Table.Cell>
+              <Table.Cell>{bot.on ? BotStatus(bot.status) : <Box color="red">Off</Box>}</Table.Cell>
               <Table.Cell>{bot.location}</Table.Cell>
               <Table.Cell>
-                <Button
-                  content="Interface"
-                  onClick={() => act('interface', { botref: bot.UID })}
-                />
+                <Button content="Interface" onClick={() => act('interface', { botref: bot.UID })} />
               </Table.Cell>
               <Table.Cell>
-                <Button
-                  content="Call"
-                  onClick={() => act('call', { botref: bot.UID })}
-                />
+                <Button content="Call" onClick={() => act('call', { botref: bot.UID })} />
               </Table.Cell>
             </Table.Row>
           ))}

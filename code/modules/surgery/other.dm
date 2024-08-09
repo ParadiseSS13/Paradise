@@ -101,15 +101,15 @@
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	affected.fix_internal_bleeding()
 	if(ishuman(user) && prob(40))
 		var/mob/living/carbon/human/U = user
-		U.bloody_hands(target, 0)
+		U.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color())
 
 	return SURGERY_STEP_CONTINUE
 
@@ -186,6 +186,7 @@
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
 		/obj/item/kitchen/knife = 90,
+		/obj/item/kitchen/knife/shiv = 70,
 		/obj/item/shard = 60
 	)
 
@@ -207,8 +208,8 @@
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_OPEN
@@ -291,8 +292,8 @@
 			target.update_body()
 
 		user.visible_message(
-			"<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>",
-			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>",
+			"<span class='notice'>[user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>",
+			"<span class='notice'>You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>",
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 

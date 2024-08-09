@@ -56,7 +56,7 @@
 /proc/circlerange(center=usr,radius=3)
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/atom/T in range(radius, centerturf))
@@ -71,7 +71,7 @@
 /proc/circleview(center=usr,radius=3)
 
 	var/turf/centerturf = get_turf(center)
-	var/list/atoms = new/list()
+	var/list/atoms = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/atom/A in view(radius, centerturf))
@@ -107,7 +107,7 @@
 /proc/circle_edge_turfs(center = usr, radius = 3) // Get the turfs on the edge of a circle. Currently only works for radius 3
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/turf/T in range(radius, centerturf))
@@ -122,7 +122,7 @@
 /proc/circleviewturfs(center = usr, radius = 3) // All the turfs in a circle of the radius
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius+0.5)
 
 	for(var/turf/T in view(radius, centerturf))
@@ -135,7 +135,7 @@
 /proc/circlerangeturfs(center = usr, radius = 3)
 
 	var/turf/centerturf = get_turf(center)
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/rsq = radius * (radius + 0.5)
 
 	for(var/turf/T in range(radius, centerturf))
@@ -200,20 +200,50 @@
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
-	// Returns a list of mobs who can hear any of the radios
+	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()
 	for(var/obj/item/radio/R in radios)
-		var/obj/item/radio/borg/BR = R
-		if(istype(BR) && BR.myborg)
-			if(!BR.myborg.is_component_functioning("radio"))
-				continue //No power.
+		if(R)
+			//Cyborg checks. Receiving message uses a bit of cyborg's charge.
+			var/obj/item/radio/borg/BR = R
+			if(istype(BR) && BR.myborg)
+				var/mob/living/silicon/robot/borg = BR.myborg
+				var/datum/robot_component/CO = borg.get_component("radio")
+				if(!CO)
+					continue //No radio component (Shouldn't happen)
+				if(!borg.is_component_functioning("radio"))
+					continue //No power.
 
-		for(var/mob/listener in R.listeners)
-			speaker_coverage |= listener
-		
-		if(ismob(R.loc))
-			speaker_coverage |= R.loc
-	return speaker_coverage
+			var/turf/speaker = get_turf(R)
+			if(speaker)
+				for(var/turf/T in hear(R.canhear_range,speaker))
+					var/obj/item/radio/oldR = speaker_coverage[T]
+					if(!istype(oldR))
+						speaker_coverage[T] = R
+						continue
+					if(oldR.canhear_range < R.canhear_range)
+						speaker_coverage[T] = R
+
+	// Try to find all the players who can hear the message
+	for(var/A in GLOB.player_list + GLOB.hear_radio_list)
+		var/mob/M = A
+		if(!M)
+			continue
+		var/turf/ear = get_turf(M)
+		if(!ear)
+			continue
+		// Ghostship is magic: Ghosts can hear radio chatter from anywhere
+		if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO))
+			. |= M
+			continue
+		if(!speaker_coverage[ear])
+			continue
+		var/obj/item/radio/R = speaker_coverage[ear]
+		if(!istype(R) || R.canhear_range > 0)
+			. |= M
+			continue
+		if(is_same_root_atom(M, speaker_coverage[ear]))
+			. |= M
 
 /proc/inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)
 	var/turf/T
@@ -345,45 +375,6 @@
 			active_players++
 	return active_players
 
-/datum/projectile_data
-	var/src_x
-	var/src_y
-	var/time
-	var/distance
-	var/power_x
-	var/power_y
-	var/dest_x
-	var/dest_y
-
-/datum/projectile_data/New(var/src_x, var/src_y, var/time, var/distance, \
-						var/power_x, var/power_y, var/dest_x, var/dest_y)
-	src.src_x = src_x
-	src.src_y = src_y
-	src.time = time
-	src.distance = distance
-	src.power_x = power_x
-	src.power_y = power_y
-	src.dest_x = dest_x
-	src.dest_y = dest_y
-
-/proc/projectile_trajectory(src_x, src_y, rotation, angle, power)
-
-	// returns the destination (Vx,y) that a projectile shot at [src_x], [src_y], with an angle of [angle],
-	// rotated at [rotation] and with the power of [power]
-	// Thanks to VistaPOWA for this function
-
-	var/power_x = power * cos(angle)
-	var/power_y = power * sin(angle)
-	var/time = 2* power_y / 10 //10 = g
-
-	var/distance = time * power_x
-
-	var/dest_x = src_x + distance*sin(rotation);
-	var/dest_y = src_y + distance*cos(rotation);
-
-	return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
-
-
 /proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
 	for(var/mob/M in moblist)
@@ -408,7 +399,7 @@
 	. = FALSE
 	if(!istype(T))
 		return
-	var/datum/gas_mixture/environment = T.return_air()
+	var/datum/gas_mixture/environment = T.get_readonly_air()
 	if(!istype(environment))
 		return
 	var/pressure = environment.return_pressure()

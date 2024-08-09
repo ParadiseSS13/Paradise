@@ -72,7 +72,7 @@
 	var/list/organ_data = list()
 	var/list/rlimb_data = list()
 
-	var/list/player_alt_titles = new()		// the default name of a job like "Medical Doctor"
+	var/list/player_alt_titles = list()		// the default name of a job like "Medical Doctor"
 	var/flavor_text = ""
 	var/med_record = ""
 	var/sec_record = ""
@@ -106,6 +106,8 @@
 	var/h_grad_alpha = 255
 	/// Custom emote text ("name" = "emote text")
 	var/list/custom_emotes = list()
+	/// Runechat color
+	var/runechat_color = "#FFFFFF"
 
 // Fuckery to prevent null characters
 /datum/character_save/New()
@@ -195,6 +197,7 @@
 					hair_gradient_colour=:h_grad_colour,
 					hair_gradient_alpha=:h_grad_alpha,
 					custom_emotes=:custom_emotes,
+					runechat_color=:runechat_color,
 					cyborg_brain_type=:cyborg_brain_type,
 					body_type=:body_type
 					WHERE ckey=:ckey
@@ -257,6 +260,7 @@
 						"h_grad_colour" = h_grad_colour,
 						"h_grad_alpha" = h_grad_alpha,
 						"custom_emotes" = json_encode(custom_emotes),
+						"runechat_color" = runechat_color,
 						"cyborg_brain_type" = cyborg_brain_type,
 						"ckey" = C.ckey,
 						"slot" = slot_number
@@ -298,7 +302,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, cyborg_brain_type, body_type)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, runechat_color, cyborg_brain_type, body_type)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -325,7 +329,7 @@
 			:playertitlelist,
 			:disabilities, :organ_list, :rlimb_list, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :cyborg_brain_type, :body_type)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :runechat_color, :cyborg_brain_type, :body_type)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -387,6 +391,7 @@
 		"h_grad_colour" = h_grad_colour,
 		"h_grad_alpha" = h_grad_alpha,
 		"custom_emotes" = json_encode(custom_emotes),
+		"runechat_color" = runechat_color,
 		"cyborg_brain_type" = cyborg_brain_type
 	))
 
@@ -477,10 +482,11 @@
 	h_grad_colour = query.item[53]
 	h_grad_alpha = query.item[54]
 	var/custom_emotes_tmp = query.item[55]
-	physique = query.item[56]
-	height = query.item[57]
-	cyborg_brain_type = query.item[58]
-	body_type = query.item[59]
+	runechat_color = query.item[56]
+	physique = query.item[57]
+	height = query.item[58]
+	cyborg_brain_type = query.item[59]
+	body_type = query.item[60]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -566,6 +572,7 @@
 	loadout_gear = sanitize_json(loadout_gear)
 	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
 	custom_emotes = init_custom_emotes(custom_emotes_tmp)
+	runechat_color = sanitize_hexcolor(runechat_color)
 	cyborg_brain_type = sanitize_inlist(cyborg_brain_type, GLOB.borg_brain_choices, initial(cyborg_brain_type))
 	if(!player_alt_titles)
 		player_alt_titles = new()
@@ -1142,7 +1149,7 @@
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-explorer"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
-			if(JOB_LAWYER)
+			if(JOB_INTERNAL_AFFAIRS)
 				clothes_s = new /icon('icons/mob/clothing/under/procedure.dmi', "iaa_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/inhands/items_righthand.dmi', "briefcase"), ICON_UNDERLAY)
@@ -1188,15 +1195,17 @@
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_EXPLORER)
-				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "orange_s")
-				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "workboots"), ICON_UNDERLAY)
+				clothes_s = new /icon('icons/mob/clothing/under/cargo.dmi', "expedition_s")
+				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
 				has_gloves = TRUE
+				if(prob(1))
+					clothes_s.Blend(new /icon('icons/mob/clothing/under/syndicate.dmi', "tactifool_s"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "explorerpack"), ICON_OVERLAY)
 					if(3)
-						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-norm"), ICON_OVERLAY)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-explorer"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 	else if(job_medsci_high)
@@ -1471,7 +1480,7 @@
 				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "grey_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "straight_jacket"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "cardborg_h"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head/cardborg.dmi', "cardborg_h"), ICON_OVERLAY)
 				if(backbag == 2)
 					clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
 				else if(backbag == 3 || backbag == 4)
@@ -1479,8 +1488,8 @@
 			if(JOB_CYBORG)
 				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "grey_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "cardborg"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "cardborg_h"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/suits/cardborg.dmi', "cardborg"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head/cardborg.dmi', "cardborg_h"), ICON_OVERLAY)
 				if(backbag == 2)
 					clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
 				else if(backbag == 3 || backbag == 4)
@@ -1907,6 +1916,11 @@
 
 	character.change_eye_color(e_colour, skip_icons = TRUE)
 	character.original_eye_color = e_colour
+	character.dna.flavor_text = flavor_text
+
+	// Runechat Color
+	character.dna.chat_color = runechat_color
+	character.change_runechat_color(runechat_color)
 
 	if(disabilities & DISABILITY_FLAG_FAT)
 		character.dna.SetSEState(GLOB.fatblock, TRUE, TRUE)

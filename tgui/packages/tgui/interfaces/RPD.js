@@ -64,9 +64,7 @@ const AtmosPipeContent = (props, context) => {
               key={p.category}
               textAlign="center"
               selected={p.pipemode === pipe_category}
-              onClick={() =>
-                act('pipe_category', { pipe_category: p.pipemode })
-              }
+              onClick={() => act('pipe_category', { pipe_category: p.pipemode })}
             >
               {p.category}
             </Tabs.Tab>
@@ -90,9 +88,7 @@ const AtmosPipeContent = (props, context) => {
                           content={p.pipe_name}
                           icon="cog"
                           selected={p.pipe_id === whatpipe}
-                          onClick={() =>
-                            act('whatpipe', { whatpipe: p.pipe_id })
-                          }
+                          onClick={() => act('whatpipe', { whatpipe: p.pipe_id })}
                           style={{ 'margin-bottom': '2px' }}
                         />
                       </Box>
@@ -106,12 +102,7 @@ const AtmosPipeContent = (props, context) => {
               <Grid>
                 <Grid.Column>
                   {pipelist
-                    .filter(
-                      (p) =>
-                        p.pipe_type === 1 &&
-                        p.pipe_id === whatpipe &&
-                        p.orientations !== 1
-                    )
+                    .filter((p) => p.pipe_type === 1 && p.pipe_id === whatpipe && p.orientations !== 1)
                     .map((p) => (
                       <Box key={p.pipe_id}>
                         <Box>
@@ -120,9 +111,7 @@ const AtmosPipeContent = (props, context) => {
                             textAlign="center"
                             content="Orient automatically"
                             selected={iconrotation === 0}
-                            onClick={() =>
-                              act('iconrotation', { iconrotation: 0 })
-                            }
+                            onClick={() => act('iconrotation', { iconrotation: 0 })}
                             style={{ 'margin-bottom': '5px' }}
                           />
                         </Box>
@@ -135,17 +124,8 @@ const AtmosPipeContent = (props, context) => {
                                   textAlign="center"
                                   color="translucent"
                                   selected={iconrotation === 4}
-                                  content={
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `southeast-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                  onClick={() =>
-                                    act('iconrotation', { iconrotation: 4 })
-                                  }
+                                  content={<Box className={classes(['rpd32x32', `southeast-${p.pipe_icon}`])} />}
+                                  onClick={() => act('iconrotation', { iconrotation: 4 })}
                                   style={{ 'margin-bottom': '5px' }}
                                 />
                               </Grid.Column>
@@ -155,17 +135,8 @@ const AtmosPipeContent = (props, context) => {
                                   textAlign="center"
                                   color="translucent"
                                   selected={iconrotation === 2}
-                                  content={
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `southwest-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                  onClick={() =>
-                                    act('iconrotation', { iconrotation: 2 })
-                                  }
+                                  content={<Box className={classes(['rpd32x32', `southwest-${p.pipe_icon}`])} />}
+                                  onClick={() => act('iconrotation', { iconrotation: 2 })}
                                   style={{ 'margin-bottom': '5px' }}
                                 />
                               </Grid.Column>
@@ -177,17 +148,8 @@ const AtmosPipeContent = (props, context) => {
                                   textAlign="center"
                                   color="translucent"
                                   selected={iconrotation === 1}
-                                  content={
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `northeast-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                  onClick={() =>
-                                    act('iconrotation', { iconrotation: 1 })
-                                  }
+                                  content={<Box className={classes(['rpd32x32', `northeast-${p.pipe_icon}`])} />}
+                                  onClick={() => act('iconrotation', { iconrotation: 1 })}
                                   style={{ 'margin-bottom': '5px' }}
                                 />
                               </Grid.Column>
@@ -197,17 +159,8 @@ const AtmosPipeContent = (props, context) => {
                                   textAlign="center"
                                   color="translucent"
                                   selected={iconrotation === 8}
-                                  content={
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `northwest-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                  onClick={() =>
-                                    act('iconrotation', { iconrotation: 8 })
-                                  }
+                                  content={<Box className={classes(['rpd32x32', `northwest-${p.pipe_icon}`])} />}
+                                  onClick={() => act('iconrotation', { iconrotation: 8 })}
                                   style={{ 'margin-bottom': '5px' }}
                                 />
                               </Grid.Column>
@@ -222,17 +175,8 @@ const AtmosPipeContent = (props, context) => {
                                   textAlign="center"
                                   color="translucent"
                                   selected={iconrotation === 1}
-                                  content={
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `north-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                  onClick={() =>
-                                    act('iconrotation', { iconrotation: 1 })
-                                  }
+                                  content={<Box className={classes(['rpd32x32', `north-${p.pipe_icon}`])} />}
+                                  onClick={() => act('iconrotation', { iconrotation: 1 })}
                                   style={{ 'margin-bottom': '5px' }}
                                 />
                               </Grid.Column>
@@ -242,17 +186,8 @@ const AtmosPipeContent = (props, context) => {
                                   textAlign="center"
                                   color="translucent"
                                   selected={iconrotation === 4}
-                                  content={
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `east-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                  onClick={() =>
-                                    act('iconrotation', { iconrotation: 4 })
-                                  }
+                                  content={<Box className={classes(['rpd32x32', `east-${p.pipe_icon}`])} />}
+                                  onClick={() => act('iconrotation', { iconrotation: 4 })}
                                   style={{ 'margin-bottom': '5px' }}
                                 />
                               </Grid.Column>
@@ -265,17 +200,8 @@ const AtmosPipeContent = (props, context) => {
                                     textAlign="center"
                                     color="translucent"
                                     selected={iconrotation === 2}
-                                    content={
-                                      <Box
-                                        className={classes([
-                                          'rpd32x32',
-                                          `south-${p.pipe_icon}`,
-                                        ])}
-                                      />
-                                    }
-                                    onClick={() =>
-                                      act('iconrotation', { iconrotation: 2 })
-                                    }
+                                    content={<Box className={classes(['rpd32x32', `south-${p.pipe_icon}`])} />}
+                                    onClick={() => act('iconrotation', { iconrotation: 2 })}
                                     style={{ 'margin-bottom': '5px' }}
                                   />
                                 </Grid.Column>
@@ -285,17 +211,8 @@ const AtmosPipeContent = (props, context) => {
                                     textAlign="center"
                                     color="translucent"
                                     selected={iconrotation === 8}
-                                    content={
-                                      <Box
-                                        className={classes([
-                                          'rpd32x32',
-                                          `west-${p.pipe_icon}`,
-                                        ])}
-                                      />
-                                    }
-                                    onClick={() =>
-                                      act('iconrotation', { iconrotation: 8 })
-                                    }
+                                    content={<Box className={classes(['rpd32x32', `west-${p.pipe_icon}`])} />}
+                                    onClick={() => act('iconrotation', { iconrotation: 8 })}
                                     style={{ 'margin-bottom': '5px' }}
                                   />
                                 </Grid.Column>
@@ -336,9 +253,7 @@ const DisposalPipeContent = (props, context) => {
                         content={p.pipe_name}
                         icon="cog"
                         selected={p.pipe_id === whatdpipe}
-                        onClick={() =>
-                          act('whatdpipe', { whatdpipe: p.pipe_id })
-                        }
+                        onClick={() => act('whatdpipe', { whatdpipe: p.pipe_id })}
                         style={{ 'margin-bottom': '2px' }}
                       />
                     </Box>
@@ -352,12 +267,7 @@ const DisposalPipeContent = (props, context) => {
             <Grid>
               <Grid.Column>
                 {pipelist
-                  .filter(
-                    (p) =>
-                      p.pipe_type === 2 &&
-                      p.pipe_id === whatdpipe &&
-                      p.orientations !== 1
-                  )
+                  .filter((p) => p.pipe_type === 2 && p.pipe_id === whatdpipe && p.orientations !== 1)
                   .map((p) => (
                     <Stack.Item key={p.pipe_id}>
                       <Box>
@@ -366,9 +276,7 @@ const DisposalPipeContent = (props, context) => {
                           textAlign="center"
                           content="Orient automatically"
                           selected={iconrotation === 0}
-                          onClick={() =>
-                            act('iconrotation', { iconrotation: 0 })
-                          }
+                          onClick={() => act('iconrotation', { iconrotation: 0 })}
                           style={{ 'margin-bottom': '5px' }}
                         />
                       </Box>
@@ -379,17 +287,8 @@ const DisposalPipeContent = (props, context) => {
                             color="translucent"
                             textAlign="center"
                             selected={iconrotation === 1}
-                            content={
-                              <Box
-                                className={classes([
-                                  'rpd32x32',
-                                  `north-${p.pipe_icon}`,
-                                ])}
-                              />
-                            }
-                            onClick={() =>
-                              act('iconrotation', { iconrotation: 1 })
-                            }
+                            content={<Box className={classes(['rpd32x32', `north-${p.pipe_icon}`])} />}
+                            onClick={() => act('iconrotation', { iconrotation: 1 })}
                             style={{ 'margin-bottom': '5px' }}
                           />
                         </Grid.Column>
@@ -399,17 +298,8 @@ const DisposalPipeContent = (props, context) => {
                             color="translucent"
                             textAlign="center"
                             selected={iconrotation === 4}
-                            content={
-                              <Box
-                                className={classes([
-                                  'rpd32x32',
-                                  `east-${p.pipe_icon}`,
-                                ])}
-                              />
-                            }
-                            onClick={() =>
-                              act('iconrotation', { iconrotation: 4 })
-                            }
+                            content={<Box className={classes(['rpd32x32', `east-${p.pipe_icon}`])} />}
+                            onClick={() => act('iconrotation', { iconrotation: 4 })}
                             style={{ 'margin-bottom': '5px' }}
                           />
                         </Grid.Column>
@@ -422,17 +312,8 @@ const DisposalPipeContent = (props, context) => {
                               color="translucent"
                               textAlign="center"
                               selected={iconrotation === 2}
-                              content={
-                                <Box
-                                  className={classes([
-                                    'rpd32x32',
-                                    `south-${p.pipe_icon}`,
-                                  ])}
-                                />
-                              }
-                              onClick={() =>
-                                act('iconrotation', { iconrotation: 2 })
-                              }
+                              content={<Box className={classes(['rpd32x32', `south-${p.pipe_icon}`])} />}
+                              onClick={() => act('iconrotation', { iconrotation: 2 })}
                               style={{ 'margin-bottom': '5px' }}
                             />
                           </Grid.Column>
@@ -442,17 +323,8 @@ const DisposalPipeContent = (props, context) => {
                               color="translucent"
                               textAlign="center"
                               selected={iconrotation === 8}
-                              content={
-                                <Box
-                                  className={classes([
-                                    'rpd32x32',
-                                    `west-${p.pipe_icon}`,
-                                  ])}
-                                />
-                              }
-                              onClick={() =>
-                                act('iconrotation', { iconrotation: 8 })
-                              }
+                              content={<Box className={classes(['rpd32x32', `west-${p.pipe_icon}`])} />}
+                              onClick={() => act('iconrotation', { iconrotation: 8 })}
                               style={{ 'margin-bottom': '5px' }}
                             />
                           </Grid.Column>
@@ -539,9 +411,7 @@ const TransitTubeContent = (props, context) => {
                         content={p.pipe_name}
                         icon="cog"
                         selected={p.pipe_id === whatttube}
-                        onClick={() =>
-                          act('whatttube', { whatttube: p.pipe_id })
-                        }
+                        onClick={() => act('whatttube', { whatttube: p.pipe_id })}
                         style={{ 'margin-bottom': '2px' }}
                       />
                     </Box>
@@ -555,12 +425,7 @@ const TransitTubeContent = (props, context) => {
             <Grid>
               <Grid.Column>
                 {pipelist
-                  .filter(
-                    (p) =>
-                      p.pipe_type === transit_pipe_type &&
-                      p.pipe_id === whatttube &&
-                      p.orientations !== 1
-                  )
+                  .filter((p) => p.pipe_type === transit_pipe_type && p.pipe_id === whatttube && p.orientations !== 1)
                   .map((p) => (
                     <Stack.Item key={p.pipe_id}>
                       <Grid>
@@ -570,17 +435,8 @@ const TransitTubeContent = (props, context) => {
                             color="translucent"
                             textAlign="center"
                             selected={iconrotation === 1}
-                            content={
-                              <Box
-                                className={classes([
-                                  'rpd32x32',
-                                  `north-${p.pipe_icon}`,
-                                ])}
-                              />
-                            }
-                            onClick={() =>
-                              act('iconrotation', { iconrotation: 1 })
-                            }
+                            content={<Box className={classes(['rpd32x32', `north-${p.pipe_icon}`])} />}
+                            onClick={() => act('iconrotation', { iconrotation: 1 })}
                             style={{ 'margin-bottom': '5px' }}
                           />
                         </Grid.Column>
@@ -590,17 +446,8 @@ const TransitTubeContent = (props, context) => {
                             color="translucent"
                             textAlign="center"
                             selected={iconrotation === 4}
-                            content={
-                              <Box
-                                className={classes([
-                                  'rpd32x32',
-                                  `east-${p.pipe_icon}`,
-                                ])}
-                              />
-                            }
-                            onClick={() =>
-                              act('iconrotation', { iconrotation: 4 })
-                            }
+                            content={<Box className={classes(['rpd32x32', `east-${p.pipe_icon}`])} />}
+                            onClick={() => act('iconrotation', { iconrotation: 4 })}
                             style={{ 'margin-bottom': '5px' }}
                           />
                         </Grid.Column>
@@ -613,17 +460,8 @@ const TransitTubeContent = (props, context) => {
                               color="translucent"
                               textAlign="center"
                               selected={iconrotation === 2}
-                              content={
-                                <Box
-                                  className={classes([
-                                    'rpd32x32',
-                                    `south-${p.pipe_icon}`,
-                                  ])}
-                                />
-                              }
-                              onClick={() =>
-                                act('iconrotation', { iconrotation: 2 })
-                              }
+                              content={<Box className={classes(['rpd32x32', `south-${p.pipe_icon}`])} />}
+                              onClick={() => act('iconrotation', { iconrotation: 2 })}
                               style={{ 'margin-bottom': '5px' }}
                             />
                           </Grid.Column>
@@ -633,17 +471,8 @@ const TransitTubeContent = (props, context) => {
                               color="translucent"
                               textAlign="center"
                               selected={iconrotation === 8}
-                              content={
-                                <Box
-                                  className={classes([
-                                    'rpd32x32',
-                                    `west-${p.pipe_icon}`,
-                                  ])}
-                                />
-                              }
-                              onClick={() =>
-                                act('iconrotation', { iconrotation: 8 })
-                              }
+                              content={<Box className={classes(['rpd32x32', `west-${p.pipe_icon}`])} />}
+                              onClick={() => act('iconrotation', { iconrotation: 8 })}
                               style={{ 'margin-bottom': '5px' }}
                             />
                           </Grid.Column>

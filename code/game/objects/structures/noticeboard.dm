@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/mounted/noticeboard/do_build(turf/on_wall, mob/user)
-	new /obj/structure/noticeboard(get_turf(user), get_dir(on_wall, user), building = TRUE)
+	new /obj/structure/noticeboard(get_turf(user), get_dir(on_wall, user), TRUE)
 	qdel(src)
 
 /obj/structure/noticeboard
@@ -21,21 +21,21 @@
 	max_integrity = 150
 	var/notices = 0
 
-/obj/structure/noticeboard/New(turf/loc, direction, building = FALSE)
+/obj/structure/noticeboard/Initialize(mapload, direction, building = FALSE)
 	. = ..()
+
 	if(building)
 		setDir(direction)
 		set_pixel_offsets_from_dir(-32, 32, -30, 30)
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/noticeboard/Initialize()
-	. = ..()
 	for(var/obj/item/paper in loc)
 		if(notices >= MAX_NOTICES)
 			break
 		if(istype(paper, /obj/item/paper))
 			paper.loc = src
 			notices++
+
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/noticeboard/update_icon_state()
@@ -85,7 +85,7 @@
 			if(usr.stat || usr.restrained())
 				return
 			var/obj/item/paper/paper = locate(params["paper"])
-			if(!paper && paper.loc != src)
+			if(!istype(paper) || paper.loc != src)
 				return
 			var/obj/item/held_item = usr.get_active_hand()
 			if(is_pen(held_item))
