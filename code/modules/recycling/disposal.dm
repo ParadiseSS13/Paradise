@@ -1196,7 +1196,7 @@
 	updatedir()
 	if(mapload)
 		parse_sort_destinations()
-	update_appearance(UPDATE_DESC)
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
 	update()
 	return
 
