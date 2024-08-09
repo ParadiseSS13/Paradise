@@ -77,10 +77,8 @@
 			continue
 		if(ismob(O) && !HAS_TRAIT(O, TRAIT_CONTORTED_BODY))
 			continue
-		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
-			var/obj/structure/bed/B = O
-			if(B.has_buckled_mobs())
-				continue
+		if(O.has_buckled_mobs()) // You can't put mobs into crates, so naturally if a mob is attached to something, it shouldn't be able to go in the crate
+			continue
 		O.forceMove(src)
 		itemcount++
 
@@ -599,9 +597,9 @@
 
 /obj/structure/closet/crate/surplus
 
-/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost)
+/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost, mob/user)
 	. = ..()
-	var/list/temp_uplink_list = get_uplink_items(U)
+	var/list/temp_uplink_list = get_uplink_items(U, user)
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
@@ -680,3 +678,24 @@
 	log_admin(msg)
 
 #undef RECURSION_PANIC_AMOUNT
+
+/obj/structure/closet/crate/secure/sec_shuttle_ruin
+	name = "locked crate"
+	desc = "The side of the crate has a slot for a keycard to be swiped."
+	can_be_emaged = FALSE
+
+/obj/structure/closet/crate/secure/sec_shuttle_ruin/allowed(mob/user)
+	if(!user)
+		return
+
+	var/obj/item/card/sec_shuttle_ruin/keycard = user.get_active_hand()
+	if(!istype(keycard))
+		return
+
+	to_chat(user, "<span class='notice'>You swipe [keycard] in [src]'s keycard slot.</span>")
+	return TRUE
+
+/obj/item/card/sec_shuttle_ruin
+	name = "warden's card"
+	desc = "A card used by the warden to unlock their crate."
+	icon_state = "data"

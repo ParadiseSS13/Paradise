@@ -5,7 +5,7 @@
 	if(..())
 		if(buckled)
 			handle_feeding()
-		if(!stat) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
+		if(stat == CONSCIOUS) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
 			handle_nutrition()
 			if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
 				return
@@ -152,7 +152,7 @@
 
 /mob/living/simple_animal/slime/handle_status_effects()
 	..()
-	if(prob(30) && !stat)
+	if(prob(30) && stat == CONSCIOUS)
 		adjustBruteLoss(-1)
 
 /mob/living/simple_animal/slime/proc/handle_feeding()
@@ -436,7 +436,7 @@
 				phrases += "What happened?"
 			if(!slimes_near)
 				phrases += "Lonely..."
-			if(!stat)
+			if(stat == CONSCIOUS)
 				say (pick(phrases))
 
 /mob/living/simple_animal/slime/proc/get_max_nutrition() // Can't go above it

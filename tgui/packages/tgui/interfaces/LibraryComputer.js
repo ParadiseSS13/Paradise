@@ -1,23 +1,8 @@
 import { useBackend, useLocalState } from '../backend';
 import { Fragment } from 'inferno';
-import {
-  Box,
-  Button,
-  Dropdown,
-  Stack,
-  Icon,
-  LabeledList,
-  Section,
-  Table,
-  Tabs,
-  NoticeBox,
-} from '../components';
+import { Box, Button, Dropdown, Stack, Icon, LabeledList, Section, Table, Tabs, NoticeBox } from '../components';
 import { Window } from '../layouts';
-import {
-  ComplexModal,
-  modalOpen,
-  modalRegisterBodyOverride,
-} from './common/ComplexModal';
+import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 
 export const LibraryComputer = (props, context) => {
   return (
@@ -44,17 +29,13 @@ const expandModalBodyOverride = (modal, context) => {
       <LabeledList>
         <LabeledList.Item label="Title">{expandinfo.title}</LabeledList.Item>
         <LabeledList.Item label="Author">{expandinfo.author}</LabeledList.Item>
-        <LabeledList.Item label="Summary">
-          {expandinfo.summary}
-        </LabeledList.Item>
+        <LabeledList.Item label="Summary">{expandinfo.summary}</LabeledList.Item>
         <LabeledList.Item label="Rating">
           {expandinfo.rating}
           <Icon name="star" color="yellow" verticalAlign="top" />
         </LabeledList.Item>
         {!expandinfo.isProgrammatic && (
-          <LabeledList.Item label="Categories">
-            {expandinfo.categories.join(', ')}
-          </LabeledList.Item>
+          <LabeledList.Item label="Categories">{expandinfo.categories.join(', ')}</LabeledList.Item>
         )}
       </LabeledList>
       <br />
@@ -104,16 +85,9 @@ const reportModalBodyOverride = (modal, context) => {
   const { selected_report, report_categories, user_ckey } = data;
 
   return (
-    <Section
-      level={2}
-      m="-1rem"
-      pb="1.5rem"
-      title="Report this book for Rule Violations"
-    >
+    <Section level={2} m="-1rem" pb="1.5rem" title="Report this book for Rule Violations">
       <LabeledList>
-        <LabeledList.Item label="Title">
-          {report_content.title}
-        </LabeledList.Item>
+        <LabeledList.Item label="Title">{report_content.title}</LabeledList.Item>
         <LabeledList.Item label="Reasons">
           <Box>
             {report_categories.map((report_categories, index) => (
@@ -190,9 +164,7 @@ const rateModalBodyOverride = (modal, context) => {
     <Section level={2} m="-1rem" pb="1.5rem">
       <LabeledList>
         <LabeledList.Item label="Title">{rate_content.title}</LabeledList.Item>
-        <LabeledList.Item label="Author">
-          {rate_content.author}
-        </LabeledList.Item>
+        <LabeledList.Item label="Author">{rate_content.author}</LabeledList.Item>
         <LabeledList.Item label="Rating">
           {rate_content.current_rating ? rate_content.current_rating : 0}
           <Icon name="star" color="yellow" ml={0.5} verticalAlign="middle" />
@@ -271,9 +243,7 @@ const SearchTools = (properties, context) => {
 
   let categoryMap = [];
   {
-    book_categories.map(
-      (category) => (categoryMap[category.description] = category.category_id)
-    );
+    book_categories.map((category) => (categoryMap[category.description] = category.category_id));
   }
 
   return (
@@ -327,12 +297,7 @@ const SearchTools = (properties, context) => {
       </Stack.Item>
       <Stack.Item width="40%">
         <Box fontSize="1.2rem" m=".5em" bold>
-          <Icon
-            name="clipboard-list"
-            verticalAlign="middle"
-            size={1.5}
-            mr="1rem"
-          />
+          <Icon name="clipboard-list" verticalAlign="middle" size={1.5} mr="1rem" />
           Book Categories
         </Box>
         <LabeledList>
@@ -353,9 +318,7 @@ const SearchTools = (properties, context) => {
         </LabeledList>
         <br />
         {book_categories
-          .filter((category) =>
-            searchcontent.categories.includes(category.category_id)
-          )
+          .filter((category) => searchcontent.categories.includes(category.category_id))
           .map((book_categories) => (
             <Button
               key={book_categories.category_id}
@@ -372,19 +335,10 @@ const SearchTools = (properties, context) => {
       </Stack.Item>
       <Stack.Item>
         <Box fontSize="1.2rem" m=".5em" bold>
-          <Icon
-            name="search-plus"
-            verticalAlign="middle"
-            size={1.5}
-            mr="1rem"
-          />
+          <Icon name="search-plus" verticalAlign="middle" size={1.5} mr="1rem" />
           Search Actions
         </Box>
-        <Button
-          content="Clear Search"
-          icon="eraser"
-          onClick={() => act('clear_search')}
-        />
+        <Button content="Clear Search" icon="eraser" onClick={() => act('clear_search')} />
         {searchcontent.ckey ? (
           <Button
             mb={0.5}
@@ -412,8 +366,7 @@ const SearchTools = (properties, context) => {
 const LibraryBooksList = (properties, context) => {
   const { act, data } = useBackend(context);
 
-  const { external_booklist, archive_pagenumber, num_pages, login_state } =
-    data;
+  const { external_booklist, archive_pagenumber, num_pages, login_state } = data;
 
   return (
     <Section
@@ -427,16 +380,8 @@ const LibraryBooksList = (properties, context) => {
             disabled={archive_pagenumber === 1}
             onClick={() => act('deincrementpagemax')}
           />
-          <Button
-            icon="chevron-left"
-            disabled={archive_pagenumber === 1}
-            onClick={() => act('deincrementpage')}
-          />
-          <Button
-            bold
-            content={archive_pagenumber}
-            onClick={() => modalOpen(context, 'setpagenumber')}
-          />
+          <Button icon="chevron-left" disabled={archive_pagenumber === 1} onClick={() => act('deincrementpage')} />
+          <Button bold content={archive_pagenumber} onClick={() => modalOpen(context, 'setpagenumber')} />
           <Button
             icon="chevron-right"
             disabled={archive_pagenumber === num_pages}
@@ -477,16 +422,9 @@ const LibraryBooksList = (properties, context) => {
             </Table.Cell>
             <Table.Cell>
               {external_booklist.rating}
-              <Icon
-                name="star"
-                ml={0.5}
-                color="yellow"
-                verticalAlign="middle"
-              />
+              <Icon name="star" ml={0.5} color="yellow" verticalAlign="middle" />
             </Table.Cell>
-            <Table.Cell>
-              {external_booklist.categories.join(', ').substr(0, 45)}
-            </Table.Cell>
+            <Table.Cell>{external_booklist.categories.join(', ').substr(0, 45)}</Table.Cell>
             <Table.Cell textAlign="right">
               {login_state === 1 && (
                 <Button
@@ -536,9 +474,7 @@ const ProgramatticBooks = (properties, context) => {
               <Icon name="book" mr={2} />
               {programmatic_booklist.title}
             </Table.Cell>
-            <Table.Cell textAlign="left">
-              {programmatic_booklist.author}
-            </Table.Cell>
+            <Table.Cell textAlign="left">{programmatic_booklist.author}</Table.Cell>
             <Table.Cell textAlign="right">
               {login_state === 1 && (
                 <Button
@@ -573,9 +509,7 @@ const UploadBooks = (properties, context) => {
 
   let categoryMap = [];
   {
-    book_categories.map(
-      (category) => (categoryMap[category.description] = category.category_id)
-    );
+    book_categories.map((category) => (categoryMap[category.description] = category.category_id));
   }
 
   return (
@@ -599,10 +533,7 @@ const UploadBooks = (properties, context) => {
       }
     >
       {selectedbook.copyright ? (
-        <NoticeBox color="red">
-          WARNING: You cannot upload or modify the attributes of a copyrighted
-          book
-        </NoticeBox>
+        <NoticeBox color="red">WARNING: You cannot upload or modify the attributes of a copyrighted book</NoticeBox>
       ) : (
         <br />
       )}
@@ -649,9 +580,7 @@ const UploadBooks = (properties, context) => {
           </LabeledList>
           <br />
           {book_categories
-            .filter((category) =>
-              selectedbook.categories.includes(category.category_id)
-            )
+            .filter((category) => selectedbook.categories.includes(category.category_id))
             .map((book_categories) => (
               <Button
                 key={book_categories.category_id}
@@ -707,9 +636,7 @@ const PatronManager = (properties, context) => {
               {checkout_data.patron_name}
             </Table.Cell>
             <Table.Cell textAlign="left">{checkout_data.title}</Table.Cell>
-            <Table.Cell>
-              {checkout_data.timeleft >= 0 ? checkout_data.timeleft : 'LATE'}
-            </Table.Cell>
+            <Table.Cell>{checkout_data.timeleft >= 0 ? checkout_data.timeleft : 'LATE'}</Table.Cell>
             <Table.Cell textAlign="left">
               <Button
                 content="Mark Lost"
@@ -751,9 +678,7 @@ const Inventory = (properties, context) => {
               <Icon name="book" /> {inventory_list.title}
             </Table.Cell>
             <Table.Cell textAlign="left">{inventory_list.author}</Table.Cell>
-            <Table.Cell textAlign="left">
-              {inventory_list.checked_out ? 'Checked Out' : 'Available'}
-            </Table.Cell>
+            <Table.Cell textAlign="left">{inventory_list.checked_out ? 'Checked Out' : 'Available'}</Table.Cell>
           </Table.Row>
         ))}
       </Table>

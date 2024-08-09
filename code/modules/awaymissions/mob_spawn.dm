@@ -379,6 +379,20 @@
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
 
+/obj/effect/mob_spawn/human/corpse/skeleton/security_officer
+	outfit = /datum/outfit/job/officer
+	id_access = "Assistant" //no brig access for explorers
+
+/obj/effect/mob_spawn/human/corpse/skeleton/prisoner
+	uniform = /obj/item/clothing/under/color/orange/prison
+	shoes = /obj/item/clothing/shoes/orange
+
+/obj/effect/mob_spawn/human/corpse/skeleton/prisoner/equip(mob/living/carbon/human/prisoner) //put cuffs on the corpse
+	. = ..()
+	var/obj/item/restraints/handcuffs/cuffs = new(prisoner)
+	prisoner.handcuffed = cuffs
+	prisoner.update_handcuffed()
+
 //////////Corpses, they can be used for "decoration" purpose.//////////
 
 //Default Abductor corpse.
@@ -587,6 +601,52 @@
 	mob_name = "skeleton"
 	mob_species = /datum/species/skeleton/brittle
 	mob_gender = NEUTER
+
+/datum/outfit/randomizer
+	name = "randomizer"
+
+/datum/outfit/randomizer/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	// Add picks for more slots as necessary for your needs
+	if(islist(uniform))
+		uniform = pick(uniform)
+	if(islist(shoes))
+		shoes = pick(shoes)
+
+/datum/outfit/randomizer/gambler
+	name = "gambler"
+	shoes = list(
+		/obj/item/clothing/shoes/laceup,
+		/obj/item/clothing/shoes/leather
+	)
+	uniform = list(
+		/obj/item/clothing/under/suit/navy,
+		/obj/item/clothing/under/suit/really_black,
+		/obj/item/clothing/under/suit/checkered,
+	)
+
+/obj/effect/mob_spawn/human/corpse/random_species/Initialize(mapload)
+	mob_species = pick(
+		/datum/species/human,
+		/datum/species/unathi,
+		/datum/species/moth,
+		/datum/species/skrell,
+		/datum/species/vox,
+		/datum/species/vulpkanin,
+		/datum/species/tajaran,
+		/datum/species/slime,
+		/datum/species/kidan,
+		/datum/species/drask,
+		/datum/species/grey,
+		/datum/species/diona,
+	)
+
+	return ..()
+
+/obj/effect/mob_spawn/human/corpse/random_species/gambler
+	name = "Gambler"
+	mob_name = "Gambler"
+	outfit = /datum/outfit/randomizer/gambler
 
 /obj/effect/mob_spawn/human/alive/zombie
 	name = "NPC Zombie (Infectious)"

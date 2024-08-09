@@ -1,11 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Box,
-  AnimatedNumber,
-  Section,
-} from '../components';
+import { Button, LabeledList, Box, AnimatedNumber, Section } from '../components';
 import { Window } from '../layouts';
 
 export const TankDispenser = (props, context) => {

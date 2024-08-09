@@ -157,7 +157,7 @@
 /obj/item/gun/throw/crossbow/french
 	name = "french powered crossbow"
 	icon_state = "fcrossbow"
-	valid_projectile_type = /obj/item/food/snacks/baguette
+	valid_projectile_type = /obj/item/food/baguette
 
 /obj/item/gun/throw/crossbow/french/modify_projectile(obj/item/I, on_chamber = 0)
 	return

@@ -51,9 +51,7 @@ export const Panel = (props, context) => {
                 <Button
                   icon={settings.visible ? 'times' : 'cog'}
                   selected={settings.visible}
-                  tooltip={
-                    settings.visible ? 'Close settings' : 'Open settings'
-                  }
+                  tooltip={settings.visible ? 'Close settings' : 'Open settings'}
                   tooltipPosition="bottom-start"
                   onClick={() => settings.toggle()}
                 />
@@ -81,15 +79,13 @@ export const Panel = (props, context) => {
             <Notifications>
               {game.connectionLostAt && (
                 <Notifications.Item rightSlot={<ReconnectButton />}>
-                  You are either AFK, experiencing lag or the connection has
-                  closed.
+                  You are either AFK, experiencing lag or the connection has closed.
                 </Notifications.Item>
               )}
               {game.roundRestartedAt && (
                 <Notifications.Item>
-                  The connection has been closed because the server is
-                  restarting. <br /> Please wait while you automatically
-                  reconnect.
+                  The connection has been closed because the server is restarting. <br /> Please wait while you
+                  automatically reconnect.
                 </Notifications.Item>
               )}
             </Notifications>
@@ -117,9 +113,7 @@ const HoboPanel = (props, context) => {
         >
           Settings
         </Button>
-        {(settings.visible && <SettingsPanel />) || (
-          <ChatPanel lineHeight={settings.lineHeight} />
-        )}
+        {(settings.visible && <SettingsPanel />) || <ChatPanel lineHeight={settings.lineHeight} />}
       </Pane.Content>
     </Pane>
   );

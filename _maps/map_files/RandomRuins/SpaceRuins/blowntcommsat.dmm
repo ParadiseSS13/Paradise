@@ -587,7 +587,7 @@
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
 "Nw" = (
-/obj/item/food/snacks/xenomeatbreadslice{
+/obj/item/food/xenomeatbreadslice{
 	name = "green mold bread slice"
 	},
 /turf/simulated/floor/plating/airless,
