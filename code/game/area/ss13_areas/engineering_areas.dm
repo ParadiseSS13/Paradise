@@ -26,6 +26,7 @@
 	name = "Asteroid"
 	icon_state = "asteroid"
 	sound_environment = SOUND_AREA_SPACE
+	apc_starts_off = TRUE
 
 /area/station/engineering/atmos/asteroid_filtering
 	name = "Asteroid Filtering"
