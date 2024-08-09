@@ -195,23 +195,24 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 	switch(action)
 		if("writeInput")
-			if(reject_bad_text(params["write"]))
-				recipient = params["write"] //write contains the string of the receiving department's name
-				var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
-				if(isnull(new_message))
-					reset_message(FALSE)
-					return
-				message = new_message
-				screen = RCS_MESSAUTH
-				switch(params["priority"])
-					if(num2text(RQ_LOWPRIORITY))
-						priority = RQ_LOWPRIORITY
-					if(num2text(RQ_NORMALPRIORITY))
-						priority = RQ_NORMALPRIORITY
-					if(num2text(RQ_HIGHPRIORITY))
-						priority = RQ_HIGHPRIORITY
-					else
-						priority = RQ_NONEW_MESSAGES
+			if(!reject_bad_text(params["write"]))
+				return
+			recipient = params["write"] //write contains the string of the receiving department's name
+			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
+			if(isnull(new_message))
+				reset_message(FALSE)
+				return
+			message = new_message
+			screen = RCS_MESSAUTH
+			switch(params["priority"])
+				if(num2text(RQ_LOWPRIORITY))
+					priority = RQ_LOWPRIORITY
+				if(num2text(RQ_NORMALPRIORITY))
+					priority = RQ_NORMALPRIORITY
+				if(num2text(RQ_HIGHPRIORITY))
+					priority = RQ_HIGHPRIORITY
+				else
+					priority = RQ_NONEW_MESSAGES
 
 		if("writeAnnouncement")
 			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", message, multiline = TRUE, encode = FALSE)
