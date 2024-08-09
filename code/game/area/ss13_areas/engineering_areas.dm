@@ -22,7 +22,6 @@
 	name = "Atmospherics Transit Tube"
 	icon_state = "atmos_transit"
 
-
 /area/station/engineering/atmos/asteroid
 	name = "Asteroid"
 	icon_state = "asteroid"
