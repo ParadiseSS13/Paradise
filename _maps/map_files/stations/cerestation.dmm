@@ -11872,11 +11872,6 @@
 	},
 /area/station/medical/morgue)
 "bvM" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -31465,31 +31460,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/west)
-"dCS" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/starboard)
-"dCT" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/starboard)
 "dCU" = (
 /obj/structure/closet/emcloset,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -59897,11 +59867,6 @@
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/hop)
 "meS" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -157562,7 +157527,7 @@ dAi
 tPV
 bfr
 bil
-dCS
+gFg
 dCU
 fqw
 biN
@@ -158333,7 +158298,7 @@ bil
 bil
 itf
 gSQ
-dCS
+gFg
 gSQ
 gSQ
 gSQ
@@ -158590,7 +158555,7 @@ eNg
 vFQ
 vFQ
 vFQ
-dCT
+vFQ
 vFQ
 vFQ
 xTb
