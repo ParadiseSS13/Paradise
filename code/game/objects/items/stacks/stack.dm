@@ -216,8 +216,7 @@
 			var/multiplier = text2num(params["multiplier"])
 			if(!recipe.try_build(user, material, multiplier))
 				return
-
-			recipe.do_build(user, material, multiplier)
+			return recipe.do_build(user, material, multiplier)
 
 /obj/item/stack/proc/recursively_build_recipes(list/recipes_to_iterate)
 	var/list/recipes_data = list()
@@ -315,6 +314,7 @@
 	material.copy_evidences(src)
 	material.add(transfer)
 	use(transfer)
+	SStgui.update_uis(material)
 	return transfer
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/material)

@@ -119,6 +119,7 @@
 	O.setDir(user.dir)
 	S.use(req_amount * multiplier)
 	S.updateUsrDialog()
+	SStgui.update_uis(S)
 	return O
 
 /// What should be done after the object is built? obj/item/stack/O might not actually be a stack, but this proc needs access to merge() to work, which is on obj/item/stack, so declare it as obj/item/stack anyways.
