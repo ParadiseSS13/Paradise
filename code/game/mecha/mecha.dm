@@ -264,7 +264,7 @@
 
 
 //////////////////////////////////
-////////  MARK: Movement procs  
+////////  MARK: Movement procs
 //////////////////////////////////
 
 /obj/mecha/Process_Spacemove(movement_dir = 0)
@@ -819,7 +819,7 @@
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && occupant()))
+	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && occupant))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
