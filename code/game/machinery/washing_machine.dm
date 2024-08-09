@@ -1,11 +1,10 @@
-#define OPEN_EMPTY		1
-#define CLOSED_EMPTY	2
-#define OPEN_FULL		3
-#define CLOSED_FULL		4
-#define RUNNING			5
-//#define OPEN_BLOODY	6 is tied to an unused icon state
-#define CLOSED_BLOODY	7
-#define RUNNING_BLOODY	8
+#define DEFAULT_TUB_CAPACITY 20
+
+#define WM_STATE_EMPTY				1
+#define WM_STATE_FULL				2
+#define WM_STATE_RUNNING			3
+#define WM_STATE_BLOODY				4
+#define WM_STATE_RUNNING_BLOODY		5
 
 /obj/machinery/washing_machine
 	name = "washing machine"
@@ -14,306 +13,383 @@
 	icon_state = "wm_10"
 	density = TRUE
 	anchored = TRUE
-	/// Integer ID corresponding to whether the machine can accept more items, is running, will produce gibs, etc.
-	var/state = OPEN_EMPTY
-	var/panel = FALSE
-	var/gibs_ready = FALSE
-	var/obj/crayon
-	/// Typecache of washable items
-	var/list/can_be_washed = list(
-		/obj/item/stack/sheet/hairlesshide,
-		/obj/item/clothing/under,
-		/obj/item/clothing/mask,
-		/obj/item/clothing/head,
-		/obj/item/clothing/gloves,
-		/obj/item/clothing/shoes,
-		/obj/item/clothing/suit,
-		/obj/item/bedsheet
-	)
-	/// Typecache of items that do not fit, overrides the whitelist
-	var/list/does_not_fit = list(
-		/obj/item/clothing/under/plasmaman,
-		/obj/item/clothing/suit/space,
-		/obj/item/clothing/suit/syndicatefake,
-		/obj/item/clothing/suit/cyborg_suit,
-		/obj/item/clothing/suit/bomb_suit,
-		/obj/item/clothing/suit/armor,
-		/obj/item/clothing/mask/gas,
-		/obj/item/clothing/mask/cigarette,
-		/obj/item/clothing/head/syndicatefake,
-		/obj/item/clothing/head/helmet,
-		/obj/item/clothing/gloves/furgloves
-	)
 
-/obj/machinery/washing_machine/Initialize(mapload)
-	. = ..()
+	var/washing_state = WM_STATE_EMPTY
 
-	can_be_washed = typecacheof(can_be_washed)
-	does_not_fit = typecacheof(does_not_fit)
+	/// LAZYLIST of insert obj/item's inside the washer tub
+	var/list/inserted_items
+	/// LAZYLIST of inserted mob/living's inside the washer tube
+	var/list/inserted_mobs
+
+	/// Is the washer in the middle of a wash cycle? Used to regulate certain interactions with the washer
+	var/washing = FALSE
+	/// Is the washer currently open?
+	var/door_open = FALSE
+	/// How much shit is currently in this laundry machine? Used to cap how much stuff you can put in here
+	var/current_tub_capacity = 0
+	/// The cap for how much stuff you can shove in here
+	var/max_tub_capacity = DEFAULT_TUB_CAPACITY
+	/// Is the washing machine tub filled with gibs/blood? Effects the sprite it uses
+	var/bloody_mess = FALSE
+	/// Where is our DYE color coming from?
+	var/obj/item/color_source
+	/// What DYE color are we dyeing stuff?
+	var/wash_color
+
+/obj/machinery/washing_machine/Destroy()
+	eject_tub_contents() // cleans up refs & signals
+	return ..()
+
+/obj/machinery/washing_machine/update_icon_state()
+	icon_state = "wm_[washing_state][door_open ? 1 : 0][panel_open ? "_panel" : ""]"
+
+/// Determines which "WM state" to apply based on if the machine is a bloody mess, full/empty, washing, etc and then updates the icon state accordingly
+/obj/machinery/washing_machine/proc/update_washing_state()
+	if(bloody_mess)
+		washing_state = washing ? WM_STATE_RUNNING_BLOODY : WM_STATE_BLOODY
+		update_appearance(UPDATE_ICON_STATE)
+		return
+	if(washing)
+		washing_state = WM_STATE_RUNNING
+		update_appearance(UPDATE_ICON_STATE)
+		return
+	washing_state = current_tub_capacity ? WM_STATE_FULL : WM_STATE_EMPTY
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle."
+	. += "<span class='notice'>Its door is currently [door_open ? "open" : "closed"].</span>"
+	if(washing)
+		. += "<span class='notice'>It is currently in its wash cycle.</span>"
+	else
+		. += "<span class='notice'>You can <b>Alt-Click</b> [src] to start its washing cycle.</span>"
+	if(bloody_mess)
+		. += "<span class='warning'>The inside is covered in blood and gibs, you will need to clean it out with soap first.</span>"
+	else
+		var/total_contents = LAZYLEN(inserted_items) + LAZYLEN(inserted_mobs)
+		. += "<span class='notice'>It has [total_contents] item\s inside.</span>"
 
 /obj/machinery/washing_machine/AltClick(mob/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	start(user)
-
-/obj/machinery/washing_machine/proc/start(mob/user)
-	if(state != CLOSED_FULL)
-		to_chat(user, "<span class='notice'>The washing machine cannot run in this state.</span>")
+	if(stat & (NOPOWER|BROKEN))
 		return
-
-	if(locate(/mob) in src)
-		state = RUNNING_BLOODY
-	else
-		state = RUNNING
-	update_icon(UPDATE_ICON_STATE)
-	sleep(200)
-	for(var/atom/A in src)
-		A.clean_blood()
-
-	//Tanning!
-	for(var/obj/item/stack/sheet/hairlesshide/HH in src)
-		new /obj/item/stack/sheet/wetleather(src, HH.amount)
-		qdel(HH)
-
-
-	if(crayon)
-		var/wash_color
-		if(istype(crayon, /obj/item/toy/crayon))
-			var/obj/item/toy/crayon/CR = crayon
-			wash_color = CR.colourName
-		else if(istype(crayon, /obj/item/stamp))
-			var/obj/item/stamp/ST = crayon
-			wash_color = ST.item_color
-
-		if(wash_color)
-			var/new_jumpsuit_icon_state
-			var/new_jumpsuit_item_state
-			var/new_jumpsuit_name
-			var/new_glove_icon_state
-			var/new_glove_item_state
-			var/new_glove_name
-			var/new_bandana_icon_state
-			var/new_bandana_item_state
-			var/new_bandana_name
-			var/new_shoe_icon_state
-			var/new_shoe_name
-			var/new_sheet_icon_state
-			var/new_sheet_name
-			var/new_sheet_item_state
-			var/new_softcap_icon_state
-			var/new_softcap_name
-			var/new_desc = "The colors are a bit dodgy."
-			for(var/T in typesof(/obj/item/clothing/under))
-				var/obj/item/clothing/under/J = new T
-				if(wash_color == J.item_color)
-					new_jumpsuit_icon_state = J.icon_state
-					new_jumpsuit_item_state = J.item_state
-					new_jumpsuit_name = J.name
-					qdel(J)
-					break
-				qdel(J)
-			for(var/T in typesof(/obj/item/clothing/gloves/color))
-				var/obj/item/clothing/gloves/color/G = new T
-				if(wash_color == G.item_color)
-					new_glove_icon_state = G.icon_state
-					new_glove_item_state = G.item_state
-					new_glove_name = G.name
-					qdel(G)
-					break
-				qdel(G)
-			for(var/T in typesof(/obj/item/clothing/shoes))
-				var/obj/item/clothing/shoes/S = new T
-				if(wash_color == S.item_color)
-					new_shoe_icon_state = S.icon_state
-					new_shoe_name = S.name
-					qdel(S)
-					break
-				qdel(S)
-			for(var/T in typesof(/obj/item/clothing/mask/bandana))
-				var/obj/item/clothing/mask/bandana/M = new T
-				if(wash_color == M.item_color)
-					new_bandana_icon_state = M.icon_state
-					new_bandana_item_state = M.item_state
-					new_bandana_name = M.name
-					qdel(M)
-					break
-				qdel(M)
-			for(var/T in typesof(/obj/item/bedsheet))
-				var/obj/item/bedsheet/B = new T
-				if(wash_color == B.item_color)
-					new_sheet_icon_state = B.icon_state
-					new_sheet_name = B.name
-					new_sheet_item_state = B.item_state
-					qdel(B)
-					break
-				qdel(B)
-			for(var/T in typesof(/obj/item/clothing/head/soft))
-				var/obj/item/clothing/head/soft/H = new T
-				if(wash_color == H.item_color)
-					new_softcap_icon_state = H.icon_state
-					new_softcap_name = H.name
-					qdel(H)
-					break
-				qdel(H)
-			if(new_jumpsuit_icon_state && new_jumpsuit_item_state && new_jumpsuit_name)
-				for(var/obj/item/clothing/under/J in src)
-					if(!J.dyeable)
-						continue
-					J.item_state = new_jumpsuit_item_state
-					J.icon_state = new_jumpsuit_icon_state
-					J.item_color = wash_color
-					J.name = new_jumpsuit_name
-					J.desc = new_desc
-			if(new_glove_icon_state && new_glove_item_state && new_glove_name)
-				for(var/obj/item/clothing/gloves/color/G in src)
-					if(!G.dyeable)
-						continue
-					G.item_state = new_glove_item_state
-					G.icon_state = new_glove_icon_state
-					G.item_color = wash_color
-					G.name = new_glove_name
-					if(!istype(G, /obj/item/clothing/gloves/color/black/thief))
-						G.desc = new_desc
-			if(new_shoe_icon_state && new_shoe_name)
-				for(var/obj/item/clothing/shoes/S in src)
-					if(!S.dyeable)
-						continue
-					if(S.chained)
-						S.chained = FALSE
-						S.slowdown = SHOES_SLOWDOWN
-						new /obj/item/restraints/handcuffs(src)
-					S.icon_state = new_shoe_icon_state
-					S.item_color = wash_color
-					S.name = new_shoe_name
-					S.desc = new_desc
-			if(new_bandana_icon_state && new_bandana_name)
-				for(var/obj/item/clothing/mask/bandana/M in src)
-					if(!M.dyeable)
-						continue
-					M.item_state = new_bandana_item_state
-					M.icon_state = new_bandana_icon_state
-					M.item_color = wash_color
-					M.name = new_bandana_name
-					M.desc = new_desc
-			if(new_sheet_icon_state && new_sheet_name)
-				for(var/obj/item/bedsheet/B in src)
-					B.icon_state = new_sheet_icon_state
-					B.item_color = wash_color
-					B.item_state = new_sheet_item_state
-					B.name = new_sheet_name
-					B.desc = new_desc
-			if(new_softcap_icon_state && new_softcap_name)
-				for(var/obj/item/clothing/head/soft/H in src)
-					if(!H.dyeable)
-						continue
-					H.icon_state = new_softcap_icon_state
-					H.item_color = wash_color
-					H.name = new_softcap_name
-					H.desc = new_desc
-		QDEL_NULL(crayon)
-
-
-	if(locate(/mob) in src)
-		state = CLOSED_BLOODY
-		gibs_ready = TRUE
-	else
-		state = CLOSED_FULL
-	update_icon(UPDATE_ICON_STATE)
-
-/obj/machinery/washing_machine/update_icon_state()
-	icon_state = "wm_[state][panel]"
-
-/obj/machinery/washing_machine/attackby(obj/item/W, mob/user, params)
-	if(default_unfasten_wrench(user, W))
-		return
-	if(istype(W, /obj/item/toy/crayon) || istype(W, /obj/item/stamp))
-		if(state in list(OPEN_EMPTY, OPEN_FULL))
-			if(!crayon)
-				user.drop_item()
-				crayon = W
-				crayon.forceMove(src)
-				update_icon(UPDATE_ICON_STATE)
-			else
-				return ..()
-		else
-			return ..()
-	else if(istype(W, /obj/item/grab))
-		if(state == OPEN_EMPTY)
-			var/obj/item/grab/G = W
-			if(ishuman(G.assailant) && iscorgi(G.affecting))
-				G.affecting.forceMove(src)
-				qdel(G)
-				state = OPEN_FULL
-			update_icon(UPDATE_ICON_STATE)
-		else
-			return ..()
-	else if(is_type_in_typecache(W, can_be_washed))
-		if(is_type_in_typecache(W, does_not_fit))
-			to_chat(user, "<span class='warning'>This item does not fit.</span>")
-			return
-		if(istype(W, /obj/item/clothing/gloves/color/black/krav_maga/sec))
-			to_chat(user, "<span class='warning'>Washing these gloves would fry the electronics!</span>")
-			return
-		if(W.flags & NODROP)
-			to_chat(user, "<span class='warning'>[W] is stuck to your hand!</span>")
-			return
-
-		if(length(contents) < 5)
-			if(state in list(OPEN_EMPTY, OPEN_FULL))
-				user.drop_item()
-				W.forceMove(src)
-				state = OPEN_FULL
-			else
-				to_chat(user, "<span class='warning'>The door is closed!</span>")
-		else
-			to_chat(user, "<span class='warning'>[src] is full!</span>")
-		update_icon(UPDATE_ICON_STATE)
-	else
-		return ..()
+	if(!washing && !door_open)
+		start_wash_cycle()
 
 /obj/machinery/washing_machine/attack_hand(mob/user)
-	switch(state)
-		if(OPEN_EMPTY)
-			state = CLOSED_EMPTY
-		if(CLOSED_EMPTY)
-			for(var/atom/movable/O in src)
-				O.forceMove(loc)
-			crayon = null
-			state = OPEN_EMPTY
-		if(OPEN_FULL)
-			state = CLOSED_FULL
-		if(CLOSED_FULL)
-			for(var/atom/movable/O in src)
-				O.forceMove(loc)
-			crayon = null
-			state = OPEN_EMPTY
-		if(RUNNING)
-			to_chat(user, "<span class='warning'>[src] is busy.</span>")
-		if(CLOSED_BLOODY)
-			if(gibs_ready)
-				gibs_ready = FALSE
-				if(locate(/mob) in src)
-					var/mob/M = locate() in src
-					M.gib()
-			for(var/atom/movable/O in src)
-				O.forceMove(loc)
-			crayon = null
-			state = OPEN_EMPTY
+	if(washing && !door_open)
+		to_chat(user, "<span class='warning'>[src]'s door is shut, you will need to wait until the end of the cycle.</span>")
+		return
+	toggle_door()
 
-	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/washing_machine/attackby(obj/item/W, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(default_unfasten_wrench(user, W))
+		return
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
+		update_appearance(UPDATE_ICON_STATE)
+		return
+	if(default_deconstruction_crowbar(user, W, FALSE))
+		return
+	if(istype(W, /obj/item/soap))
+		return ..() // need to be able to clean washing machine without putting stuff into the washing machine :D
+	if(istype(W, /obj/item/grab))
+		var/obj/item/grab/G = W
+		if(isliving(G.assailant))
+			if(attempt_insert(user, G.affecting))
+				qdel(G)
+		return
+	if(istype(W))
+		if(attempt_insert(user, W))
+			return
+	return ..()
+
+
+/*
+	* # attempt_insert
+	*
+	* First part in the insert chain for putting items into the laundry machine, does some sanity checks on both the user and atom
+	* moveable that's about to be shoved inside. Makes sure the user can actually perform this action and then calls the next proper
+	* proc in the insert chain depending if they're a mob or obj/item
+*/
+/obj/machinery/washing_machine/proc/attempt_insert(mob/user, atom/movable/atom_to_insert)
+	if(!anchored || (stat & BROKEN) || (stat & NOPOWER))
+		return FALSE
+	if(!door_open)
+		to_chat(user, "<span class='warning'>[src]'s door is closed!</span>")
+		return FALSE // simply not possible (or is it?)
+	if(!istype(atom_to_insert) || !istype(user))
+		return FALSE
+	if(user.stat != CONSCIOUS || !Adjacent(user) || !atom_to_insert.Adjacent(user))
+		return FALSE
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='notice'>You try to insert [atom_to_insert] into [src] but your hands are blocked!</span>")
+		return FALSE
+	if(isliving(atom_to_insert)) // not ismob() b/c we only want living creatures, ghosts could just float out of the washing machine whenever they wanted
+		var/mob/living/sacrifice = atom_to_insert
+		if(sacrifice.mob_size >= MOB_SIZE_HUMAN) // prevents some most mobs from being washed even if it would be really really funny
+			to_chat(user, "<span class='notice'>You try to insert [sacrifice] into [src] but [sacrifice.p_theyre()] too large to fit inside!</span>")
+			return FALSE
+		if(sacrifice.buckled)
+			to_chat(user, "<span class='notice'>You try to insert [sacrifice] into [src] but [sacrifice.p_theyre()] still buckled to something!</span>")
+			return FALSE
+		return insert_mob_into_tub(user, sacrifice)
+	if(isitem(atom_to_insert)) // Restricting this to only item types prevents a lot of issues, you really only wanna shove items in here anyway...
+		var/obj/item/item_to_insert = atom_to_insert
+		if(item_to_insert.anchored)
+			return FALSE
+		if(item_to_insert.w_class >= WEIGHT_CLASS_HUGE)
+			to_chat(user, "<span class='notice'>You try to insert [item_to_insert] into [src] but [item_to_insert.p_them()] is too large to fit inside!</span>")
+			return FALSE
+		return insert_item_into_tub(user, item_to_insert)
+
+/// Handles inserting mobs into the washing machines, checks machines capacity, does a do_after, and then applys appropriate signals and updates machines state
+/obj/machinery/washing_machine/proc/insert_mob_into_tub(mob/user, mob/living/mob_to_insert)
+	var/mob_content_size = mob_to_insert.mob_size
+	if(max_tub_capacity < (mob_content_size * 2) + current_tub_capacity)
+		to_chat(user, "<span class='warning'>You try to insert [mob_to_insert] into [src] but it is too full for [mob_to_insert.p_them()]!</span>")
+		return FALSE
+	mob_to_insert.visible_message("<span class='warning'>[user] starts shoving [mob_to_insert] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
+	if(!do_after_once(user, (3 SECONDS * mob_content_size), target = src, attempt_cancel_message = "You stop inserting [mob_to_insert] into [src]."))
+		return FALSE
+	mob_to_insert.forceMove(src)
+	RegisterSignal(mob_to_insert, COMSIG_PARENT_QDELETING, PROC_REF(check_tub_contents))
+	RegisterSignal(mob_to_insert, COMSIG_MOVABLE_MOVED, PROC_REF(check_tub_contents))
+	LAZYADD(inserted_mobs, mob_to_insert)
+	calculate_tub_capacity()
+	update_washing_state()
+	add_attack_logs(user, mob_to_insert, "Shoved into washing machine.")
+	to_chat(mob_to_insert, "<span class='userdanger'>[user] shoves you into [src]. Oh shit!</span>")
+	mob_to_insert.visible_message("<span class='danger'>[user] shoves [mob_to_insert] into [src].</span>", "<span class='danger'>You shove [mob_to_insert] into [src].</span>")
+	return TRUE
+
+/// Handles inserting obj/items into the washing machines, checks machines capacity, does a do_after, and then applys appropriate signals and updates machines state
+/obj/machinery/washing_machine/proc/insert_item_into_tub(mob/user, obj/item/item_to_insert)
+	var/item_content_size = item_to_insert.w_class
+	if(max_tub_capacity < (item_content_size + current_tub_capacity))
+		to_chat(user, "<span class='warning'>You try to insert [item_to_insert] into [src] but [src] is too full for [item_to_insert.p_them()]!</span>")
+		return FALSE
+	if(!do_after_once(user, (1 SECONDS * (item_to_insert.w_class / 3)), target = src, attempt_cancel_message = "You stop inserting [item_to_insert] into [src]."))
+		return FALSE
+	if(!user.drop_item())
+		to_chat(user, "<span class='warning'>[item_to_insert] is stuck to your hand!</span>")
+		return FALSE
+	item_to_insert.forceMove(src)
+	RegisterSignal(item_to_insert, COMSIG_PARENT_QDELETING, PROC_REF(check_tub_contents))
+	RegisterSignal(item_to_insert, COMSIG_MOVABLE_MOVED, PROC_REF(check_tub_contents))
+	LAZYADD(inserted_items, item_to_insert)
+	calculate_tub_capacity()
+	update_washing_state()
+	to_chat(user, "<span class='notice'>You insert [item_to_insert] into [src].</span>")
+	return TRUE
+
+/*
+	* # check_tub_contents()
+	*
+	* Managing tons of contents inside the object is messy business, you never know when something is deleted, teleported, or moved into your obj
+	* without your machine knowing, this clears bad references for GC/tracking purposes and adds references when something is added randomly to
+	* our contents. This ensures we don't nullspace shit (such as a mob dropping a wrench or something) and spit it all back out afterwards even
+	* if we didn't add it our selves!
+	*
+	* This proc is called via COMSIG_PARENT_QDELETING for objects we put inside through the insert proc
+*/
+/obj/machinery/washing_machine/proc/check_tub_contents()
+	SIGNAL_HANDLER
+
+	if(LAZYLEN(inserted_items))
+		for(var/obj/item/I in inserted_items)
+			if(QDELETED(I) || I.loc != src)
+				if(!QDELETED(I))
+					UnregisterSignal(I, COMSIG_PARENT_QDELETING)
+					UnregisterSignal(I, COMSIG_MOVABLE_MOVED)
+				LAZYREMOVE(inserted_items, I)
+	if(LAZYLEN(inserted_mobs))
+		for(var/mob/living/L in inserted_mobs)
+			if(QDELETED(L) || L.loc != src)
+				if(!QDELETED(L))
+					UnregisterSignal(L, COMSIG_PARENT_QDELETING)
+					UnregisterSignal(L, COMSIG_MOVABLE_MOVED)
+				LAZYREMOVE(inserted_mobs, L)
+	for(var/obj/item/I in contents)
+		if(!LAZYIN(inserted_items, I))
+			LAZYADD(inserted_items, I)
+			RegisterSignal(I, COMSIG_PARENT_QDELETING, PROC_REF(check_tub_contents))
+	for(var/mob/living/L in contents)
+		if(!LAZYIN(inserted_mobs, L))
+			LAZYADD(inserted_mobs, L)
+			RegisterSignal(L, COMSIG_PARENT_QDELETING, PROC_REF(check_tub_contents))
+	calculate_tub_capacity()
+	update_washing_state()
+
+/// Moves all Items/Mobs out of the laundry machine onto the Washing Machine's Loc, unregisters signals, then nulls the tracking lists
+/obj/machinery/washing_machine/proc/eject_tub_contents()
+	if(bloody_mess)
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
+	check_tub_contents() // one last time, we wanna make sure nothing got teleported out
+	if(LAZYLEN(inserted_items))
+		for(var/obj/item/I in inserted_items)
+			if(bloody_mess)
+				I.add_blood() // what a mess!
+			I.forceMove(loc)
+			UnregisterSignal(I, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(I, COMSIG_MOVABLE_MOVED)
+		LAZYNULL(inserted_items)
+	if(LAZYLEN(inserted_mobs))
+		for(var/mob/living/L in inserted_mobs)
+			L.forceMove(loc)
+			UnregisterSignal(L, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(L, COMSIG_MOVABLE_MOVED)
+		LAZYNULL(inserted_mobs)
+	calculate_tub_capacity()
+	update_washing_state()
+
+/// Calculates the total capacity of the contents of the tub,
+/obj/machinery/washing_machine/proc/calculate_tub_capacity()
+	var/new_capacity = 0
+	if(LAZYLEN(inserted_items))
+		for(var/obj/item/I in inserted_items)
+			new_capacity += I.w_class
+	if(LAZYLEN(inserted_mobs))
+		for(var/mob/living/L in inserted_mobs)
+			new_capacity += L.mob_size * 2
+	current_tub_capacity = new_capacity
+
+/obj/machinery/washing_machine/proc/toggle_door()
+	door_open = !door_open
+	if(door_open)
+		eject_tub_contents()
+	update_washing_state()
+
+/// Attempts to locate stamps or crayons for dyeing purposes
+/obj/machinery/washing_machine/proc/locate_color_source()
+	var/list/color_sources = list()
+	for(var/obj/item/toy/crayon/C in contents)
+		color_sources += C
+	for(var/obj/item/stamp/S in contents)
+		color_sources += S
+	if(!length(color_sources))
+		return
+	color_source = pick(color_sources)
+	if(istype(color_source, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = color_source
+		wash_color = C.dye_color
+	if(istype(color_source, /obj/item/stamp))
+		var/obj/item/stamp/S = color_source
+		wash_color = S.dye_color
+
+/obj/machinery/washing_machine/proc/start_wash_cycle()
+	if(stat & (NOPOWER|BROKEN))
+		return
+	locate_color_source()
+	washing = TRUE
+	playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
+	atom_say("Beginning Wash Cycle!")
+	sleep(1 SECONDS)
+	update_washing_state()
+	use_power(100)
+	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(wash_cycle)), 15 SECONDS)
+
+/obj/machinery/washing_machine/proc/wash_cycle()
+	for(var/obj/item/I in inserted_items)
+		I.machine_wash(src)
+	for(var/mob/living/L in inserted_mobs)
+		L.machine_wash(src)
+	update_washing_state()
+	use_power(50 * current_tub_capacity)
+	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(end_wash_cycle)), 15 SECONDS)
+
+/obj/machinery/washing_machine/proc/end_wash_cycle()
+	if(bloody_mess)
+		for(var/obj/item/I in inserted_items)
+			I.add_blood(I.blood_DNA)
+	QDEL_NULL(color_source)
+	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
+	washing = FALSE
+	atom_say("Wash Cycle Complete!")
+	sleep(1 SECONDS)
+	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
+	update_washing_state()
+
+/obj/machinery/washing_machine/container_resist(mob/living/L)
+	. = ..()
+	if(washing)
+		return
+	if(!door_open)
+		toggle_door()
+		return
+	else
+		L.forceMove(loc)
+
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/metal(drop_location(), 2)
+	eject_tub_contents()
+	new /obj/item/stack/sheet/metal(drop_location(), 5)
+	new /obj/item/circuitboard/washing_machine(drop_location(), 2)
 	qdel(src)
 
-#undef OPEN_EMPTY
-#undef CLOSED_EMPTY
-#undef OPEN_FULL
-#undef CLOSED_FULL
-#undef RUNNING
-#undef CLOSED_BLOODY
-#undef RUNNING_BLOODY
+/obj/machinery/washing_machine/AllowDrop()
+	return TRUE // so gibs and dropped items end up inside of the washing machine instead when dropped
+
+/obj/machinery/washing_machine/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
+	if(washing)
+		to_chat(user, "<span class='warning'>[src]'s door is shut, you will need to wait until the end of the cycle to clean it out.</span>")
+		return
+	. = ..()
+	if(. && !washing)
+		bloody_mess = FALSE
+		update_washing_state()
+
+/obj/item/machine_wash(obj/machinery/washing_machine/washer)
+	. = ..()
+	if(washer.color_source)
+		dye_item(washer.wash_color)
+
+/obj/item/holder/machine_wash(obj/machinery/washing_machine/washer)
+	. = ..()
+	for(var/mob/living/held_mob in contents)
+		held_mob.machine_wash(washer)
+
+/obj/item/stack/sheet/hairlesshide/machine_wash(obj/machinery/washing_machine/washer)
+	. = ..()
+	new /obj/item/stack/sheet/wetleather(loc, amount)
+	qdel(src)
+
+/mob/living/simple_animal/machine_wash(obj/machinery/washing_machine/washer)
+	if(mob_size >= MOB_SIZE_HUMAN)
+		return
+	washer.bloody_mess = TRUE
+	add_attack_logs(washer, src, "gibbed by washing machine")
+	gib() //warcrime time!
+
+#undef DEFAULT_TUB_CAPACITY
+#undef WM_STATE_EMPTY
+#undef WM_STATE_FULL
+#undef WM_STATE_RUNNING
+#undef WM_STATE_BLOODY
+#undef WM_STATE_RUNNING_BLOODY
+
+//
+//    , ,, ,
+//    | || |    ,/  _____  \.
+//    \_||_/    ||_/     \_||
+//      ||       \_| . . |_/
+//      ||         |  L  |
+//     ,||         |`==='|
+//     |>|      ___`>  -<'___
+//     |>|\    /             |
+//    \>| \   /  ,    .    .  |
+//      ||  \/  /| .  |  . |  |
+//      ||\  ` / | ___|___ |  |     (
+//   (( || `--'  | _______ |  |     ))  (
+// (  )\|| (  )\ | - --- - | -| (  ( \  ))
+// (\/  || ))/ ( | -- - -- |  | )) )  \((
+//  ( ()||((( ())|         |  |( (( () )hjm
+//
+//	"Allow this Devil to stand testament to the
+//    the shitcode that once haunted this file"
+//

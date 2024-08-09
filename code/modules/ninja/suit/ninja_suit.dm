@@ -15,6 +15,7 @@ Contents:
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/melee/baton, /obj/item/tank/internals, /obj/item/stock_parts/cell)
 	slowdown = 0
 	armor = list(MELEE = 75, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
+	dyeable = FALSE
 
 	var/suitActive = 0
 	var/suitBusy = 0

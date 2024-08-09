@@ -305,4 +305,4 @@
 
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
-		cable_color(C.colourName)
+		cable_color(C.dye_color)

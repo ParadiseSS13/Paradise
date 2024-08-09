@@ -27,7 +27,7 @@
 
 	uniform = /obj/item/clothing/under/rank/engineering/chief_engineer
 	belt = /obj/item/storage/belt/utility/chief/full
-	gloves = /obj/item/clothing/gloves/color/black/ce
+	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/hardhat/white
 	l_ear = /obj/item/radio/headset/heads/ce
