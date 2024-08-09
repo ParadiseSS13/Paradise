@@ -32839,9 +32839,8 @@
 	},
 /area/station/hallway/spacebridge/dockmed)
 "dUZ" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "dVe" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -32982,9 +32981,8 @@
 /area/station/hallway/primary/aft/east)
 "dXP" = (
 /obj/machinery/computer/arcade,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "dXT" = (
 /obj/structure/table/reinforced,
@@ -34363,9 +34361,8 @@
 /area/station/hallway/primary/fore/west)
 "ewN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/service/bar)
 "exv" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -39735,9 +39732,8 @@
 /turf/simulated/floor/plating,
 /area/station/supply/warehouse)
 "gpZ" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "gqH" = (
 /obj/structure/cable/orange{
@@ -40002,12 +39998,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/maintcentral)
-"gvx" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/station/maintenance/starboard)
 "gvI" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -44019,9 +44009,8 @@
 "hIU" = (
 /obj/structure/cable/orange,
 /obj/machinery/power/apc/directional/south,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "hIX" = (
 /obj/machinery/atmospherics/meter,
@@ -47614,11 +47603,6 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"iNe" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/station/maintenance/starboard)
 "iNj" = (
 /obj/machinery/computer/shuttle/mining{
 	dir = 1
@@ -49269,9 +49253,8 @@
 	pixel_x = -28;
 	name = "custom placement"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "jmc" = (
 /obj/structure/disposalpipe/segment,
@@ -53401,9 +53384,8 @@
 /area/station/maintenance/apmaint)
 "kwq" = (
 /obj/structure/chair/stool/bar,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "kwu" = (
 /obj/structure/chair/office/dark{
@@ -57631,11 +57613,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/south)
-"lJL" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/station/maintenance/asmaint)
 "lJM" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -60403,9 +60380,8 @@
 /obj/structure/table/wood/poker,
 /obj/item/gun/projectile/revolver/russian,
 /obj/effect/landmark/spawner/rev,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "mFk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -60986,9 +60962,8 @@
 /obj/machinery/barsign{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "mPz" = (
 /obj/structure/table,
@@ -61082,9 +61057,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/service/bar)
 "mRS" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -65698,9 +65672,8 @@
 "opD" = (
 /obj/machinery/kitchen_machine/microwave,
 /obj/structure/table,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "opP" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
@@ -66127,11 +66100,6 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
-"owP" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/station/maintenance/starboard)
 "owY" = (
 /obj/machinery/washing_machine,
 /obj/structure/disposalpipe/segment{
@@ -68222,9 +68190,8 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "pfm" = (
 /obj/effect/turf_decal/stripes/line{
@@ -73094,9 +73061,8 @@
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "qDR" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "qDS" = (
 /obj/structure/table/glass,
@@ -76521,9 +76487,8 @@
 	layer = 2.9
 	},
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "rNw" = (
 /obj/structure/barricade/wooden,
@@ -80201,9 +80166,8 @@
 	pixel_y = -32;
 	random_basetype = /obj/structure/sign/poster/contraband
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "sUK" = (
 /obj/machinery/conveyor/auto{
@@ -80701,9 +80665,8 @@
 /area/station/hallway/primary/port/south)
 "tcs" = (
 /obj/item/chair,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "tcw" = (
 /obj/structure/closet/crate,
@@ -81288,12 +81251,6 @@
 /obj/structure/cable/orange,
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/station/science/server)
-"tlk" = (
-/obj/structure/chair/stool/bar,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/station/maintenance/starboard)
 "tlq" = (
 /obj/structure/lattice,
 /obj/structure/railing{
@@ -84149,9 +84106,8 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/asmaint)
 "uix" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "uiD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -87766,9 +87722,8 @@
 /area/station/maintenance/port)
 "vjB" = (
 /obj/structure/chair/wood,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
 "vjI" = (
 /obj/machinery/suit_storage_unit/mime/secure,
@@ -88054,12 +88009,6 @@
 	icon_state = "tranquillite"
 	},
 /area/station/service/mime)
-"voe" = (
-/obj/structure/chair/stool/bar,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
-/area/station/maintenance/starboard)
 "vok" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -98075,11 +98024,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/patients_rooms)
-"yhf" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
-/area/station/maintenance/asmaint)
 "yhg" = (
 /obj/item/t_scanner/adv_mining_scanner/lesser,
 /obj/structure/rack,
@@ -139953,7 +139897,7 @@ mnl
 ncF
 fbs
 imG
-lJL
+gpZ
 hAJ
 aXn
 wLr
@@ -140208,7 +140152,7 @@ hhs
 qkF
 qkF
 uxS
-lJL
+gpZ
 nca
 per
 jty
@@ -140722,7 +140666,7 @@ vjB
 tWA
 pfe
 fbs
-yhf
+gpZ
 rNo
 bDF
 opD
@@ -154063,9 +154007,9 @@ itf
 sbg
 itf
 mSF
-iNe
-owP
-gvx
+dUZ
+dUZ
+dUZ
 fMl
 rNK
 rNK
@@ -154577,8 +154521,8 @@ gFg
 oXz
 jPu
 gFg
-tlk
-voe
+kwq
+kwq
 kwq
 fMl
 rNK
@@ -155091,7 +155035,7 @@ aLH
 itf
 itf
 gFg
-iNe
+dUZ
 jsE
 mqm
 bDv
@@ -155349,7 +155293,7 @@ itf
 itf
 qkR
 jsE
-gvx
+dUZ
 pep
 bDv
 rNK
@@ -155604,7 +155548,7 @@ pXp
 itf
 itf
 itf
-gvx
+dUZ
 dUZ
 gFg
 nEw

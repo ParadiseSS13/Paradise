@@ -5,23 +5,17 @@ and in-game systems, there are several guidelines that must be followed.
 
 ## Technical Standards
 
+### Atmospherics and Cables
+
 1. Unless absolutely necessary, do not run atmospherics pipes or disposals pipes
    under wall turfs. **NEVER** run cables under wall turfs.
 
-2. Every station area (`/area/station` subtypes) should contain only one APC and
-   air alarm.
-
-3. Critical infrastructure rooms (such as the engine, arrivals, and medbay
-   areas) should be given an APC with a larger power cell. Use the
-   `/obj/machinery/power/apc/important` and `/obj/machinery/power/apc/critical`
-   mapping helpers for this purpose.
-
-4. Every room should contain at least one air vent and scrubber. Use the
+2. Every room should contain at least one air vent and scrubber. Use the
    following "on" subtype of vents and scrubbers as opposed to varediting:
    `/obj/machinery/atmospherics/unary/vent_scrubber/on` and
    `/obj/machinery/atmospherics/unary/vent_pump/on`.
 
-5.  Run air pipes together where possible. The first example below is to be
+3.  Run air pipes together where possible. The first example below is to be
     avoided, the second is optimal:
 
     ![](./images/atmos_pipes_unaligned.png) ![](./images/atmos_pipes_aligned.png)
@@ -31,92 +25,108 @@ and in-game systems, there are several guidelines that must be followed.
 
     ![](./images/complex_pipes.png)
 
-6. Every room should contain at least one fire alarm. Fire alarms should not be
+4. External areas, or areas where depressurisation is expected and normal,
+   should use airless turf variants to prevent additional atmospherics load.
+
+5. Tiny fans (`/obj/structure/fans/tiny`) can be used to block airflow into
+   problematic areas, but are not a substitute for proper door and firelock
+   combinations. They are useful under blast doors that lead to space when
+   opened.
+
+### Wall Mounts
+
+1. Every station area (`/area/station` subtypes) should contain only one APC and
+   air alarm.
+
+2. Critical infrastructure rooms (such as the engine, arrivals, and medbay
+   areas) should be given an APC with a larger power cell. Use the
+   `/obj/machinery/power/apc/important` and `/obj/machinery/power/apc/critical`
+   mapping helpers for this purpose.
+
+3. Every room should contain at least one fire alarm. Fire alarms should not be
    placed next to expected heat sources.
 
-7. Every room should contain at least one station intercom. Intercoms should be
+4. Every room should contain at least one station intercom. Intercoms should be
    set to frequency `145.9`, and be speaker ON Microphone OFF. This is so radio
    signals can reach people even without headsets on. Larger rooms will require
    more than one at a time.
 
-8. Every room should have at least one security camera with the caveats listed
+5. Every room should have at least one security camera with the caveats listed
    in the [Design Guide](design.md). Larger rooms may require more than one
    security camera. All security cameras should have a descriptive name that
    makes it easy to find on a camera console. A good example would be the
    template \[Department name\] - \[Area\], so Brig - Cell 1, or Medbay -
    Treatment Center. Consistency is key to good camera naming.
 
-9. Every room should have at least one light switch. When possible, light
+6. Every room should have at least one light switch. When possible, light
    switches should be placed in such a position that a player can activate them
    while standing on the same tile as the room's airlock. Players should not
    have to wander through a dark room to find the light switch.
 
-10. Head of Staff offices should contain a requests console, using the
-    `/obj/machinery/requests_console/directional` helpers. Console department
-    names and types should not be varedited.
+7. Head of Staff offices should contain a requests console, using the
+   `/obj/machinery/requests_console/directional` helpers. Console department
+   names and types should not be varedited.
 
-11. Electrochromic windows (`/obj/structure/window/reinforced/polarized`) and
-    doors/windoors (using the `/obj/effect/mapping_helpers/airlock/polarized`
-    helper) are preferred over shutters as the method of restricting view to a
-    room through windows. Shutters are sill appropriate in industrial/hazardous
-    areas of the station (engine rooms, HoP line, science test chamber, etc.).
-    Electrochromic window/windoor/door sets require a unique ID var, and a
-    window tint button (`/obj/machinery/button/windowtint`) with a matching ID
-    var. The default `range` of the button is 7 tiles but can be amended with a
-    varedit.
+8. Use lights sparingly. They draw a significant amount of power.
 
-12. Tiny fans (`/obj/structure/fans/tiny`) can be used to block airflow into
-    problematic areas, but are not a substitute for proper door and firelock
-    combinations. They are useful under blast doors that lead to space when
-    opened.
+### Windows, Walls, and Floors
 
-13. Firelocks should be used at area boundaries over doors and windoors, but not
-    windows. Firelocks can also be used to break up hallways at reasonable
-    intervals. Double firelocks are not permitted. Maintenance access doors
-    should never have firelocks placed over them.
+1. Electrochromic windows (`/obj/structure/window/reinforced/polarized`) and
+   doors/windoors (using the `/obj/effect/mapping_helpers/airlock/polarized`
+   helper) are preferred over shutters as the method of restricting view to a
+   room through windows. Shutters are sill appropriate in industrial/hazardous
+   areas of the station (engine rooms, HoP line, science test chamber, etc.).
+   Electrochromic window/windoor/door sets require a unique ID var, and a
+   window tint button (`/obj/machinery/button/windowtint`) with a matching ID
+   var. The default `range` of the button is 7 tiles but can be amended with a
+   varedit.
 
-14. Windows to secure areas or external areas should be reinforced. Windows in
-    engine areas should be reinforced plasma glass. Windows in high security
-    areas, such as the brig, bridge, and head of staff offices, should be
-    electrified by placing a wire node under the window.
+2. Windows to secure areas or external areas should be reinforced. Windows in
+   engine areas should be reinforced plasma glass. Windows in high security
+   areas, such as the brig, bridge, and head of staff offices, should be
+   electrified by placing a wire node under the window.
 
-15. Use lights sparingly. They draw a significant amount of power.
+3. Engine areas, or areas with a high probability of receiving explosions,
+   should use reinforced flooring if appropriate.
 
-16. Door and windoor access must be correctly set by the
-    `/obj/effect/mapping_helpers/airlock/access` and
-    `/obj/effect/mapping_helpers/airlock/windoor/access` [helpers][],
-	respectively. Pay attention to the `any` and `all` subtypes; the `any`
-    subtype allows someone with any of the accesses on the airlock to use it,
-    and the `all` subtypes requires the user to have all of the access on the
-    airlock to use it.
+### Airlocks, Windoors, and Firelocks
 
-	For example, on the Cerebron (Metastation), miners must walk through the
+1. Firelocks should be used at area boundaries over doors and windoors, but not
+   windows. Firelocks can also be used to break up hallways at reasonable
+   intervals. Double firelocks are not permitted. Maintenance access doors
+   should never have firelocks placed over them.
+
+2. Door and windoor access must be correctly set by the
+   `/obj/effect/mapping_helpers/airlock/access` and
+   `/obj/effect/mapping_helpers/airlock/windoor/access` [helpers][],
+   respectively. Pay attention to the `any` and `all` subtypes; the `any`
+   subtype allows someone with any of the accesses on the airlock to use it,
+   and the `all` subtypes requires the user to have all of the access on the
+   airlock to use it.
+
+    For example, on the Cerebron (Metastation), miners must walk through the
     Cargo Bay to access the Mining Dock. They do not have Cargo Bay access,
     rather the Cargo Bay airlocks have two access helpers on them:
 
-	- `/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay`
-	- `/obj/effect/mapping_helpers/airlock/access/any/supply/mining`
+    - `/obj/effect/mapping_helpers/airlock/access/any/supply/cargo_bay`
+    - `/obj/effect/mapping_helpers/airlock/access/any/supply/mining`
 
     This allows both cargo technicians and miners to use those airlocks.
 
     Old doors that use var edited access should be updated to use the correct
     access helper, and the var edit on the door should be cleaned.
 
-17. Edits in mapping tools should almost always be possible to replicate
-    in-game. For this reason, avoid stacking multiple structures on the same
-    tile (e.g. placing a light and an APC on the same wall).
+### Other
 
-18. Engine areas, or areas with a high probability of receiving explosions,
-    should use reinforced flooring if appropriate.
+1. Edits in mapping tools should almost always be possible to replicate
+   in-game. For this reason, avoid stacking multiple structures on the same
+   tile (e.g. placing a light and an APC on the same wall).
 
-19. External areas, or areas where depressurisation is expected and normal,
-    should use airless turf variants to prevent additional atmospherics load.
-
-20. When adding new shuttles, or remapping departures areas, contributors must
-    ensure that all existing and new shuttles continue to fit and dock to the
-    correct airlocks as expected. Any time docking ports are edited, the author
-    needs to confirm the `width`, `height`, and `dwidth` variables between the
-    two permanent ports and mobile port are compatible.
+2. When adding new shuttles, or remapping departures areas, contributors must
+   ensure that all existing and new shuttles continue to fit and dock to the
+   correct airlocks as expected. Any time docking ports are edited, the author
+   needs to confirm the `width`, `height`, and `dwidth` variables between the
+   two permanent ports and mobile port are compatible.
 
 [helpers]: https://github.com/ParadiseSS13/Paradise/blob/master/code/modules/mapping/access_helpers.dm
 
@@ -175,11 +185,11 @@ department, must be justified with clear, specific reasons.
 
 Before committing a map change, you **MUST** run Mapmerge to normalise your
 changes. You can do this manually before every commit with
-`"\tools\mapmerge2\Run Before Committing.bat"` or by letting the [git hooks](./quickstart.md#mapmerge)
-do it for you. Failure to run Mapmerge on a map after editing greatly increases
-the risk of the map's key dictionary becoming corrupted by future edits after
-running map merge. Resolving the corruption issue involves rebuilding the map's
-key dictionary.
+`tools\mapmerge2\Run Before Committing.bat` or by letting the
+[git hooks](./quickstart.md#mapmerge) do it for you. Failure to run Mapmerge on
+a map after editing greatly increases the risk of the map's key dictionary
+becoming corrupted by future edits after running map merge. Resolving the
+corruption issue involves rebuilding the map's key dictionary.
 
 If you are making non-minor edits to an area or room, (non-minor being anything
 more than moving a few objects or fixing small bugs) then you should ensure the

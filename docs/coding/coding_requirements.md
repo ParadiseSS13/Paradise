@@ -11,11 +11,9 @@ must be object-oriented when possible in order to be more flexible when adding
 content to it. If you don't know what "object-oriented" means, we highly
 recommend you do some light research to grasp the basics.
 
-## All BYOND paths must contain the full path
+## Use absolute pathing
 
-(i.e. absolute pathing)
-
-DM will allow you nest almost any type keyword into a block, such as:
+DM will allow you nest almost any type keyword into a block, as in the following:
 
 ```dm
 datum
@@ -88,7 +86,7 @@ if(thing == TRUE)
 	return "bleh"
 var/other_thing = pick(TRUE, FALSE)
 if(other_thing == FALSE)
-    return "meh"
+	return "meh"
 
 // Good
 var/thing = pick(TRUE, FALSE)
@@ -96,12 +94,12 @@ if(thing)
 	return "bleh"
 var/other_thing = pick(TRUE, FALSE)
 if(!other_thing)
-    return "meh"
+	return "meh"
 ```
 
 ## Use `pick(x, y, z)`, not `pick(list(x, y, z))`
 
-`pick()` will happily take a fixed set of options. Wrapping them in a list is
+`pick()` takes a fixed set of options. Wrapping them in a list is
 redundant and slightly less efficient.
 
 ```dm
@@ -127,10 +125,12 @@ purely for OOC actions (Such as character creation, or anything admin related)
 
 ## No overriding type safety checks
 
-The use of the `:` operator to override type safety checks is not allowed. You
-must cast the variable to the proper type.
+The use of the [`:`][colon] "runtime search" operator to override type safety
+checks is not allowed. Variables must be casted to the proper type.
 
-## Do not access return value vars directly from functions
+[colon]: http://www.byond.com/docs/ref/#/operator/:
+
+## Do not chain proc calls and variable access
 
 The use of the pointer operator, `.`, should not be used to access the return
 values of functions directly. This can cause unintended behavior and is
@@ -446,12 +446,12 @@ Look for code examples on how to properly use it.
 ```dm
 //Bad
 /datum/datum1/proc/proc1(target)
-    spawn(5 SECONDS)
-    target.dothing(arg1, arg2, arg3)
+	spawn(5 SECONDS)
+	target.dothing(arg1, arg2, arg3)
 
 //Good
 /datum/datum1/proc/proc1(target)
-    addtimer(CALLBACK(target, PROC_REF(dothing), arg1, arg2, arg3), 5 SECONDS)
+	addtimer(CALLBACK(target, PROC_REF(dothing), arg1, arg2, arg3), 5 SECONDS)
 ```
 
 ## Signals
@@ -473,12 +473,12 @@ separate them with a `+`.
 
 ```dm
 /atom/movable/proc/when_moved(atom/movable/A)
-    SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
-    do_something()
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
+	do_something()
 
 /datum/component/foo/proc/on_enter(datum/source, atom/enterer)
-    SIGNAL_HANDLER  // COMSIG_ATOM_ENTERED + COMSIG_ATOM_INITIALIZED_ON
-    do_something_else()
+	SIGNAL_HANDLER  // COMSIG_ATOM_ENTERED + COMSIG_ATOM_INITIALIZED_ON
+	do_something_else()
 ```
 
 If your proc does have something that needs to sleep (such as a `do_after()`),
@@ -487,8 +487,8 @@ do not simply omit the `SIGNAL_HANDLER`. Instead, call the sleeping code with
 
 ```dm
 /atom/movable/proc/when_moved(atom/movable/A)
-    SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
-    INVOKE_ASYNC(src, PROC_REF(thing_that_sleeps), arg1)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
+	INVOKE_ASYNC(src, PROC_REF(thing_that_sleeps), arg1)
 ```
 
 ## Operators
@@ -512,12 +512,12 @@ do not simply omit the `SIGNAL_HANDLER`. Instead, call the sleeping code with
   bitfield`. Both are valid, but the latter is confusing and nonstandard.
 - Associated lists declarations must have their key value quoted if it's a string.
 
-```DM
-    //Bad
-    list(a = "b")
+```dm
+//Bad
+list(a = "b")
 
-    //Good
-    list("a" = "b")
+//Good
+list("a" = "b")
 ```
 
 ### Bitflags
@@ -525,26 +525,26 @@ do not simply omit the `SIGNAL_HANDLER`. Instead, call the sleeping code with
 Bitshift operators are mandatory, opposed to directly typing out the value:
 
 ```dm
-    #define MACRO_ONE (1<<0)
-    #define MACRO_TWO (1<<1)
-    #define MACRO_THREE (1<<2)
+#define MACRO_ONE (1<<0)
+#define MACRO_TWO (1<<1)
+#define MACRO_THREE (1<<2)
 ```
 
 Is accepted, whereas the following is not:
 
 ```dm
-    #define MACRO_ONE 1
-    #define MACRO_TWO 2
-    #define MACRO_THREE 4
+#define MACRO_ONE 1
+#define MACRO_TWO 2
+#define MACRO_THREE 4
 ```
 
 While it may initially look intimidating, `(1<<x)` is actually very simple and,
 as the name implies, shifts the bits of a given binary number over by one digit.
 
 ```dm
-    000100 (4, or (1<<2))
-    <<
-    001000 (8, or (1<<3))
+000100 (4, or (1<<2))
+<<
+001000 (8, or (1<<3))
 ```
 
 Using this system makes the code more readable and less prone to error.
@@ -558,12 +558,12 @@ of common legacy trends which are no longer acceptable:
   `visible_message()`.
 
 ```dm
-    //Bad
-    for(var/mob/M in viewers(user))
-        M.show_message("<span class='warning'>Arbitrary text</span>")
+//Bad
+for(var/mob/M in viewers(user))
+	M.show_message("<span class='warning'>Arbitrary text</span>")
 
-    //Good
-    user.visible_message("<span class='warning'>Arbitrary text</span>")
+//Good
+user.visible_message("<span class='warning'>Arbitrary text</span>")
 ```
 
 - You should not use color macros (`\red, \blue, \green, \black`) to color text,
@@ -571,22 +571,22 @@ of common legacy trends which are no longer acceptable:
   `<span class='notice'>Blue text</span>`.
 
 ```dm
-    //Bad
-    to_chat(user, "\red Red text \black Black text")
+//Bad
+to_chat(user, "\red Red text \black Black text")
 
-    //Good
-    to_chat(user, "<span class='warning'>Red text</span>Black text")
+//Good
+to_chat(user, "<span class='warning'>Red text</span>Black text")
 ```
 
 - To use variables in strings, you should **never** use the `text()` operator,
   use embedded expressions directly in the string.
 
 ```dm
-    //Bad
-    to_chat(user, text("[] is leaking []!", name, liquid_type))
+//Bad
+to_chat(user, text("[] is leaking []!", name, liquid_type))
 
-    //Good
-    to_chat(user, "[name] is leaking [liquid_type]!")
+//Good
+to_chat(user, "[name] is leaking [liquid_type]!")
 ```
 
 - To reference a variable/proc on the src object, you should **not** use
@@ -594,13 +594,13 @@ of common legacy trends which are no longer acceptable:
   just use `var`/`proc()`.
 
 ```dm
-   //Bad
-   var/user = src.interactor
-   src.fill_reserves(user)
+//Bad
+var/user = src.interactor
+src.fill_reserves(user)
 
-   //Good
-   var/user = interactor
-   fill_reserves(user)
+//Good
+var/user = interactor
+fill_reserves(user)
 ```
 
 ## Develop Secure Code
@@ -616,13 +616,13 @@ of common legacy trends which are no longer acceptable:
   injection.
 
 ```dm
-  //Bad
-  var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
+//Bad
+var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
 
-  //Good
-  var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey=:target_ckey", list(
-    "target_ckey" = target_ckey
-  )) // Note the use of parameters on the above line and :target_ckey in the query.
+//Good
+var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey=:target_ckey", list(
+	"target_ckey" = target_ckey
+)) // Note the use of parameters on the above line and :target_ckey in the query.
 ```
 
 - All calls to topics must be checked for correctness. Topic href calls can be
@@ -753,8 +753,8 @@ DM's standard syntax, hence why this is considered a quirk. Take a look at this:
 var/list/bag_of_items = list(sword1, apple, coinpouch, sword2, sword3)
 var/obj/item/sword/best_sword
 for(var/obj/item/sword/S in bag_of_items)
-    if(!best_sword || S.damage > best_sword.damage)
-        best_sword = S
+	if(!best_sword || S.damage > best_sword.damage)
+		best_sword = S
 ```
 
 The above is a simple proc for checking all swords in a container and returning
@@ -769,8 +769,8 @@ swords, or only SUBTYPES of swords, then the above is inefficient. For example:
 var/list/bag_of_swords = list(sword1, sword2, sword3, sword4)
 var/obj/item/sword/best_sword
 for(var/obj/item/sword/S in bag_of_swords)
-    if(!best_sword || S.damage > best_sword.damage)
-      best_sword = S
+	if(!best_sword || S.damage > best_sword.damage)
+		best_sword = S
 ```
 
 The above code specifies a type for DM to filter by.
@@ -788,9 +788,9 @@ such:
 var/list/bag_of_swords = list(sword, sword, sword, sword)
 var/obj/item/sword/best_sword
 for(var/s in bag_of_swords)
-    var/obj/item/sword/S = s
-    if(!best_sword || S.damage > best_sword.damage)
-      best_sword = S
+	var/obj/item/sword/S = s
+	if(!best_sword || S.damage > best_sword.damage)
+		best_sword = S
 ```
 
 Of course, if the list contains data of a mixed type, then the above
@@ -828,7 +828,7 @@ types. For instance:
 
 ```dm
 /mob
-    var/global/thing = TRUE
+	var/global/thing = TRUE
 ```
 
 This does **not** mean that you can access it everywhere like a global var. Instead, it means that that var will only exist once for all instances of its type, in this case that var will only exist once for all mobs - it's shared across everything in its type. (Much more like the keyword `static` in other languages like PHP/C++/C#/Java)

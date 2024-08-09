@@ -144,7 +144,7 @@ Time to go look for a reference to the actual bomb as `/obj/item/assembly/infra`
 is just the mechanism used by the bomb. `/obj/item/assembly/infra` itself is a
 subtype of `/obj/item/assembly` which is the base type that is used for bomb
 mechanisms. So we best look at the definition of `/obj/item/assembly`. We do
-this by CTRL clicking on the `assembly` part of `/obj/item/assembly/infra`.
+this by `Ctrl`-clicking on the `assembly` part of `/obj/item/assembly/infra`.
 
 ![image](./images/debug_assembly_def.png)
 

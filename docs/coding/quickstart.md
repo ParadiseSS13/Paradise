@@ -28,7 +28,7 @@ you feel like you are missing some info.
 
 The [DM reference guide](http://www.byond.com/docs/ref/) is also great when you
 want to look up how a proc or such works. VS Code does have a build-in reference
-guide for you to use as well. Just CTRL-click on any BYOND proc or variable to
+guide for you to use as well. Just `Ctrl`-click on any BYOND proc or variable to
 see the reference on it.
 
 ### Objects and Inheritance
@@ -81,7 +81,9 @@ As with other languages you can also override the behaviour of a proc.
 Here the proc `attack_self` is overridden with new behaviour. It will call
 `select_colour` with as a parameter the given `user`.
 
-When overriding a proc you can also call the parents implementation. This is
+#### Overriding Procs
+
+When overriding a proc you can also call the parent's implementation. This is
 especially handy when you want to extend the existing behaviour with new
 behaviour.
 
@@ -106,7 +108,7 @@ of the proc then `.` will be returned.
 
 This will return `"No"` since you explicitly state to return `"No"`.
 
-Small tip. You can also CTRL + Click on `..()` to go to the parent's definition.
+Small tip. You can also `Ctrl`-click on `..()` to go to the parent's definition.
 
 ### Putting values easily in strings
 
@@ -270,13 +272,13 @@ with `obj/item/multitool` for example:
 
 We know that we are looking for a multitool and that a multitool is an item so
 it looks like this is what we want to find. When hovering over the `multitool`
-part of `obj/item/multitool` and holding the CTRL key you will see the
+part of `obj/item/multitool` and holding the `Ctrl` key you will see the
 definition of the object.
 
 ![image](./images/quickstart_ctrl_key.png)
 
 Perfect! This is the one we need. How how do we get to that definition? Simple
-you click on `multitool` when holding CTRL. This will send you to the definition
+you click on `multitool` when holding `Ctrl`. This will send you to the definition
 of the object.
 
 Most of the times the file containing the definition will also include the
@@ -353,7 +355,7 @@ is. "That depends" Fun, isn't it? Every problem has its own way of solving it. I
 will list some of the more common solutions to a problem down here. This list
 will of course not be complete.
 
-A great hotkey for building your code quick is CTRL SHIFT B. Then press enter to
+A great hotkey for building your code quick is `Ctrl` + `Shift` + `B`. Then press enter to
 select to build via Byond. This will start building your code in the console at
 the bottom of your screen (by default). It will also show any errors in the
 build process.
@@ -502,9 +504,9 @@ developing our codebase.
   not only help you get your code running but will also show you are interested
   and will help you improve your skills.
 
-- Learn the VS Code shortcuts. This really saves you a lot of time. `CTRL` + `SHIFT` + `B`
-  will build your project. `F5` will run it in debug mode. `CTRL` + `SHIFT` + `F`
-  will global search. `CTRL` + `P` will find definitions of things (super handy).
+- Learn the VS Code shortcuts. This really saves you a lot of time. `Ctrl` + `Shift` + `B`
+  will build your project. `F5` will run it in debug mode. `Ctrl` + `Shift` + `F`
+  will global search. `Ctrl` + `P` will find definitions of things (super handy).
 
 - Use find references when right-clicking on a variable or proc. This will list
   all the uses of this var/proc so you can see what it is actually used for or
