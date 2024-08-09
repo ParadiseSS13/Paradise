@@ -15,20 +15,13 @@ $paper-color: #f2f2f2;
   @include meta.load-css('../atomic/color.scss');
 
   // Components
-  @include meta.load-css(
-    '../components/Section.scss',
-    $with: ('background-color': $paper-color)
-  );
+  @include meta.load-css('../components/Section.scss', $with: ('background-color': $paper-color));
 
   // Layouts
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: (
-      'background-color': $window-color,
-      'shadow-color': $window-color,
-      'shadow-color-core': $window-color
-    )
+    $with: ('background-color': $window-color, 'shadow-color': $window-color, 'shadow-color-core': $window-color)
   );
 
   .Layout,
@@ -100,12 +93,7 @@ $paper-color: #f2f2f2;
       display: block;
       width: 10px;
       height: 10px;
-      background: linear-gradient(
-        300deg,
-        rgba(100, 0, 0, 1) 0%,
-        rgba(255, 0, 0, 1) 75%,
-        rgba(255, 125, 125, 1) 100%
-      );
+      background: linear-gradient(300deg, rgba(100, 0, 0, 1) 0%, rgba(255, 0, 0, 1) 75%, rgba(255, 125, 125, 1) 100%);
       box-shadow: 1.5px 1.5px 5px rgba(0, 0, 0, 0.6);
       border-radius: 100%;
       position: absolute;

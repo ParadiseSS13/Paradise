@@ -95,7 +95,7 @@
 
 /datum/component/riding/vehicle/scooter/skateboard
 	vehicle_move_delay = 1.5
-	ride_check_flags = RIDER_NEEDS_LEGS | UNBUCKLE_DISABLED_RIDER
+	ride_check_flags = RIDER_NEEDS_LEGS | UNBUCKLE_DISABLED_RIDER | RIDER_CARBON_OR_SILICON_NO_LARGE_MOBS
 	///If TRUE, the vehicle will be slower (but safer) to ride on walk intent.
 	var/can_slow_down = TRUE
 
@@ -123,23 +123,37 @@
 	if(can_slow_down)
 		RegisterSignal(rider, COMSIG_MOVE_INTENT_TOGGLED, PROC_REF(toggle_move_delay))
 		toggle_move_delay(rider)
+	RegisterSignal(rider, COMSIG_ATOM_BULLET_ACT, PROC_REF(check_knockoff))
 
 /datum/component/riding/vehicle/scooter/skateboard/handle_unbuckle(mob/living/rider)
 	. = ..()
 	if(can_slow_down)
 		toggle_move_delay(rider)
 		UnregisterSignal(rider, COMSIG_MOVE_INTENT_TOGGLED)
+	UnregisterSignal(rider, COMSIG_ATOM_BULLET_ACT)
 
 /datum/component/riding/vehicle/scooter/skateboard/proc/toggle_move_delay(mob/living/rider)
-	SIGNAL_HANDLER //COMSIG_MOVE_INTENT_TOGGLED
+	SIGNAL_HANDLER // COMSIG_MOVE_INTENT_TOGGLED
 	vehicle_move_delay = initial(vehicle_move_delay)
 	if(rider.m_intent == MOVE_INTENT_WALK)
 		vehicle_move_delay += 0.6
 
+/datum/component/riding/vehicle/scooter/skateboard/proc/check_knockoff(datum/source, obj/item/projectile)
+	SIGNAL_HANDLER // COMSIG_ATOM_BULLET_ACT
+	if(!istype(parent, /obj/tgvehicle/scooter/skateboard))
+		return
+	var/obj/tgvehicle/scooter/skateboard/S = parent
+	for(var/mob/living/L in S.return_occupants()) // Only one on a skateboard unless an admin var edits it. If an admin var edits it, that is on them.
+		if((L.staminaloss >= 60 || L.health <= 40) && !L.absorb_stun(0)) // Only injured people can be shot off. Hulks and people on stimulants can not be shot off.
+			S.unbuckle_mob(L)
+			L.KnockDown(2 SECONDS)
+			L.visible_message("<span class='warning'>[L] gets shot off [S] by [projectile]!</span>",
+				"<span class='warning'>You get shot off [S] by [projectile]!</span>")
+
 /datum/component/riding/vehicle/scooter/skateboard/pro
 	vehicle_move_delay = 1
 
-///This one lets the rider ignore gravity, move in zero g and son on, but only on ground turfs or at most one z-level above them.
+/// This one lets the rider ignore gravity, move in zero g and so on, but only on ground turfs or at most one z-level above them.
 /datum/component/riding/vehicle/scooter/skateboard/hover
 	vehicle_move_delay = 1
 	override_allow_spacemove = TRUE

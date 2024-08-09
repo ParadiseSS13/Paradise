@@ -1,17 +1,7 @@
 import { classes } from '../../common/react';
 import { createSearch } from '../../common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Divider,
-  Dropdown,
-  Icon,
-  Input,
-  ProgressBar,
-  Section,
-  Stack,
-} from '../components';
+import { Box, Button, Divider, Dropdown, Icon, Input, ProgressBar, Section, Stack } from '../components';
 import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
 
@@ -131,35 +121,22 @@ const Designs = (properties, context) => {
       }
       buttons={
         <Box mt="2px">
-          <Button
-            icon="plus"
-            content="Queue all"
-            onClick={() => act('queueall')}
-          />
+          <Button icon="plus" content="Queue all" onClick={() => act('queueall')} />
           <Button
             disabled={syncing}
             iconSpin={syncing}
             icon="sync-alt"
-            content={
-              syncing ? 'Synchronizing...' : 'Synchronize with R&D servers'
-            }
+            content={syncing ? 'Synchronizing...' : 'Synchronize with R&D servers'}
             onClick={() => act('sync')}
           />
         </Box>
       }
     >
-      <Input
-        placeholder="Search by name..."
-        mb="0.5rem"
-        width="100%"
-        onInput={(_e, value) => setSearchText(value)}
-      />
+      <Input placeholder="Search by name..." mb="0.5rem" width="100%" onInput={(_e, value) => setSearchText(value)} />
       {filteredDesigns.map((design) => (
         <Design key={design.id} design={design} />
       ))}
-      {filteredDesigns.length === 0 && (
-        <Box color="label">No designs found.</Box>
-      )}
+      {filteredDesigns.length === 0 && <Box color="label">No designs found.</Box>}
     </Section>
   );
 };
@@ -169,11 +146,7 @@ const Building = (properties, context) => {
   const { building, buildStart, buildEnd, worldTime } = data;
   return (
     <Section className="Exofab__building" stretchContents>
-      <ProgressBar.Countdown
-        start={buildStart}
-        current={worldTime}
-        end={buildEnd}
-      >
+      <ProgressBar.Countdown start={buildStart} current={worldTime} end={buildEnd}>
         <Stack>
           <Stack.Item>
             <Icon name="cog" spin />
@@ -181,12 +154,7 @@ const Building = (properties, context) => {
           <Stack.Item>
             Building {building}
             &nbsp;(
-            <Countdown
-              current={worldTime}
-              timeLeft={buildEnd - worldTime}
-              format={(v, f) => f.substr(3)}
-            />
-            )
+            <Countdown current={worldTime} timeLeft={buildEnd - worldTime} format={(v, f) => f.substr(3)} />)
           </Stack.Item>
         </Stack>
       </ProgressBar.Countdown>
@@ -197,9 +165,7 @@ const Building = (properties, context) => {
 const Queue = (properties, context) => {
   const { act, data } = useBackend(context);
   const { queue, processingQueue } = data;
-  const queueDeficit = Object.entries(data.queueDeficit).filter(
-    (a) => a[1] < 0
-  );
+  const queueDeficit = Object.entries(data.queueDeficit).filter((a) => a[1] < 0);
   const queueTime = queue.reduce((a, b) => a + b.time, 0);
   return (
     <Section
@@ -215,12 +181,7 @@ const Queue = (properties, context) => {
             content="Process"
             onClick={() => act('process')}
           />
-          <Button
-            disabled={queue.length === 0}
-            icon="eraser"
-            content="Clear"
-            onClick={() => act('unqueueall')}
-          />
+          <Button disabled={queue.length === 0} icon="eraser" content="Clear" onClick={() => act('unqueueall')} />
         </Box>
       }
     >
@@ -273,9 +234,7 @@ const Queue = (properties, context) => {
                 Processing time:
                 <Icon name="clock" mx="0.5rem" />
                 <Box inline bold>
-                  {new Date((queueTime / 10) * 1000)
-                    .toISOString()
-                    .substr(14, 5)}
+                  {new Date((queueTime / 10) * 1000).toISOString().substr(14, 5)}
                 </Box>
               </Stack.Item>
             )}
@@ -307,14 +266,7 @@ const MaterialCount = (properties, context) => {
   }
   const insufficient = amount && amount > storedAmount;
   return (
-    <Stack
-      align="center"
-      className={classes([
-        'Exofab__material',
-        lineDisplay && 'Exofab__material--line',
-      ])}
-      {...rest}
-    >
+    <Stack align="center" className={classes(['Exofab__material', lineDisplay && 'Exofab__material--line'])} {...rest}>
       {!lineDisplay ? (
         <>
           <Stack.Item basis="content">
@@ -325,8 +277,7 @@ const MaterialCount = (properties, context) => {
           <Stack.Item grow="1">
             <Box className="Exofab__material--name">{id}</Box>
             <Box className="Exofab__material--amount">
-              {curAmount.toLocaleString('en-US')} cm³ (
-              {Math.round((curAmount / MINERAL_MATERIAL_AMOUNT) * 10) / 10}{' '}
+              {curAmount.toLocaleString('en-US')} cm³ ({Math.round((curAmount / MINERAL_MATERIAL_AMOUNT) * 10) / 10}{' '}
               sheets)
             </Box>
           </Stack.Item>
@@ -334,12 +285,7 @@ const MaterialCount = (properties, context) => {
       ) : (
         <>
           <Stack.Item className={classes(['materials32x32', id])} />
-          <Stack.Item
-            className="Exofab__material--amount"
-            color={insufficient && 'bad'}
-            ml={0}
-            mr={1}
-          >
+          <Stack.Item className="Exofab__material--amount" color={insufficient && 'bad'} ml={0} mr={1}>
             {curAmount.toLocaleString('en-US')}
           </Stack.Item>
         </>

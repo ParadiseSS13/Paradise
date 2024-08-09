@@ -41,21 +41,20 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define RESET_RESEARCH_DELAY 20
 #define IMPRINTER_DELAY 16
 
-// SUBMENU_MAIN also used by other menus
-// MENU_LEVELS is not accessible normally
 #define MENU_MAIN 0
-#define MENU_LEVELS 1
 #define MENU_DISK 2
 #define MENU_DESTROY 3
 #define MENU_LATHE 4
 #define MENU_IMPRINTER 5
 #define MENU_SETTINGS 6
-#define SUBMENU_MAIN 0
-#define SUBMENU_DISK_COPY 1
-#define SUBMENU_LATHE_CATEGORY 1
-#define SUBMENU_LATHE_MAT_STORAGE 2
-#define SUBMENU_LATHE_CHEM_STORAGE 3
-#define SUBMENU_SETTINGS_DEVICES 1
+#define MIN_MENU MENU_MAIN
+#define MAX_MENU MENU_SETTINGS
+#define SUBMENU_PRINTER_MAIN 0
+#define SUBMENU_PRINTER_SEARCH 1
+#define SUBMENU_PRINTER_MATERIALS 2
+#define SUBMENU_PRINTER_CHEMICALS 3
+#define MIN_SUBMENU_PRINTER SUBMENU_PRINTER_MAIN
+#define MAX_SUBMENU_PRINTER SUBMENU_PRINTER_CHEMICALS
 
 #define BUILD_POWER 2000
 #define DECONSTRUCT_POWER 250
@@ -74,8 +73,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/machinery/r_n_d/protolathe/linked_lathe = null				//Linked Protolathe
 	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null	//Linked Circuit Imprinter
 
+	/// The ID of the top-level menu, such as protolathe, analyzer, etc.
 	var/menu = MENU_MAIN
-	var/submenu = SUBMENU_MAIN
+	/// The ID of the protolathe submenu, such as materials, chemicals, crafting etc.
+	var/submenu_protolathe = SUBMENU_PRINTER_MAIN
+	/// The ID of the circuit imprinter submenu. Shares the same submenus as the protolathe.
+	var/submenu_imprinter = SUBMENU_PRINTER_MAIN
 	var/wait_message = 0
 	var/wait_message_timer = 0
 
@@ -205,18 +208,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 		return TRUE
 
-/obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
-	switch(next_menu)
-		if(MENU_MAIN, MENU_LEVELS, MENU_DESTROY)
-			return next_submenu in list(SUBMENU_MAIN)
-		if(MENU_DISK)
-			return next_submenu in list(SUBMENU_MAIN, SUBMENU_DISK_COPY)
-		if(MENU_LATHE, MENU_IMPRINTER)
-			return next_submenu in list(SUBMENU_MAIN, SUBMENU_LATHE_CATEGORY, SUBMENU_LATHE_MAT_STORAGE, SUBMENU_LATHE_CHEM_STORAGE)
-		if(MENU_SETTINGS)
-			return next_submenu in list(SUBMENU_MAIN, SUBMENU_SETTINGS_DEVICES)
-	return FALSE
-
 /obj/machinery/computer/rdconsole/proc/prompt_eject_sheets(obj/machinery/r_n_d/machine, material_id, amount)
 	if(!machine)
 		return
@@ -241,8 +232,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	if(d_disk && d_disk.blueprint)
 		files.AddDesign2Known(d_disk.blueprint)
-	else if(t_disk && t_disk.stored)
-		files.AddTech2Known(t_disk.stored)
+	else if(t_disk && t_disk.tech_id)
+		var/datum/tech/tech = files.find_possible_tech_with_id(t_disk.tech_id)
+		if(!isnull(tech))
+			tech.level = t_disk.tech_level
 	SStgui.update_uis(src)
 	griefProtection() //Update centcom too
 
@@ -355,7 +348,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	linked_destroy.busy = FALSE
 	use_power(DECONSTRUCT_POWER)
 	menu = MENU_DESTROY
-	submenu = SUBMENU_MAIN
 	SStgui.update_uis(src)
 
 
@@ -467,30 +459,38 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/ui_act(action, list/params)
+/obj/machinery/computer/rdconsole/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
-	if(!allowed(usr) && !isobserver(usr))
+	if(!allowed(ui.user) && !isobserver(ui.user))
 		return
 
-	add_fingerprint(usr)
+	add_fingerprint(ui.user)
 
 
 	switch(action)
 		if("nav") //Switches menu screens. Converts a sent text string into a number. Saves a LOT of code.
 			var/next_menu = text2num(params["menu"])
-			var/next_submenu = text2num(params["submenu"])
-			if(valid_nav(next_menu, next_submenu))
-				menu = next_menu
-				submenu = next_submenu
+			if(isnull(next_menu) || !ISINTEGER(next_menu) || !ISINRANGE(next_menu, MIN_MENU, MAX_MENU))
+				return
+			menu = next_menu
+
+		if("nav_protolathe")
+			var/new_menu = text2num(params["menu"])
+			if(isnull(new_menu) || !ISINTEGER(new_menu) || !ISINRANGE(new_menu, MIN_SUBMENU_PRINTER, MAX_SUBMENU_PRINTER))
+				return
+			submenu_protolathe = new_menu
+
+		if("nav_imprinter")
+			var/new_menu = text2num(params["menu"])
+			if(isnull(new_menu) || !ISINTEGER(new_menu) || !ISINRANGE(new_menu, MIN_SUBMENU_PRINTER, MAX_SUBMENU_PRINTER))
+				return
+			submenu_imprinter = new_menu
 
 		if("setCategory")
 			var/next_category = params["category"]
 			var/compare
-
-			if(submenu != SUBMENU_MAIN)
-				return FALSE
 
 			if(menu == MENU_LATHE)
 				compare = PROTOLATHE
@@ -511,7 +511,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					continue
 				if(next_category in D.category)
 					matching_designs.Add(D)
-			submenu = SUBMENU_LATHE_CATEGORY
+			if(menu == MENU_LATHE)
+				submenu_protolathe = SUBMENU_PRINTER_SEARCH
+				if(submenu_imprinter == SUBMENU_PRINTER_SEARCH)
+					submenu_imprinter = SUBMENU_PRINTER_MAIN
+			else if(menu == MENU_IMPRINTER)
+				submenu_imprinter = SUBMENU_PRINTER_SEARCH
+				if(submenu_protolathe == SUBMENU_PRINTER_SEARCH)
+					submenu_protolathe = SUBMENU_PRINTER_MAIN
 
 			selected_category = "Viewing Category [next_category]"
 
@@ -519,79 +526,69 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			add_wait_message("Updating Database...", TECH_UPDATE_DELAY)
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), TECH_UPDATE_DELAY)
 
-		if("clear_tech") //Erase data on the technology disk.
-			if(t_disk)
-				t_disk.wipe_tech()
-
-		if("eject_tech") //Eject the technology disk.
+		if("eject_disk")
 			if(t_disk)
 				t_disk.forceMove(loc)
-				if(Adjacent(usr) && !issilicon(usr))
-					usr.put_in_hands(t_disk)
+				if(Adjacent(ui.user) && !issilicon(ui.user))
+					ui.user.put_in_hands(t_disk)
 				t_disk = null
-			menu = MENU_MAIN
-			submenu = SUBMENU_MAIN
+			if(d_disk)
+				d_disk.forceMove(loc)
+				if(Adjacent(ui.user) && !issilicon(ui.user))
+					ui.user.put_in_hands(d_disk)
+				d_disk = null
+
+		if("erase_disk")
+			if(t_disk && d_disk)
+				to_chat(ui.user, "<span class='warning'>Can not simultaneously wipe tech disk and design disk.</span>")
+				return FALSE
+			if(t_disk)
+				t_disk.wipe_tech()
+			if(d_disk)
+				d_disk.wipe_blueprint()
 
 		if("copy_tech") //Copy some technology data from the research holder to the disk.
 			// Somehow this href makes me very nervous
 			var/datum/tech/known = files.known_tech[params["id"]]
 			if(t_disk && known)
 				t_disk.load_tech(known)
-			menu = MENU_DISK
-			submenu = SUBMENU_MAIN
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), DESIGN_UPDATE_DELAY)
-
-		if("clear_design") //Erases data on the design disk.
-			if(d_disk)
-				d_disk.wipe_blueprint()
-
-		if("eject_design") //Eject the design disk.
-			if(d_disk)
-				d_disk.forceMove(loc)
-				if(Adjacent(usr) && !issilicon(usr))
-					usr.put_in_hands(d_disk)
-				d_disk = null
-			menu = MENU_MAIN
-			submenu = SUBMENU_MAIN
 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
 			var/datum/design/design = files.known_designs[params["id"]]
 			if(design && d_disk && can_copy_design(design))
 				d_disk.blueprint = design
-			menu = MENU_DISK
-			submenu = SUBMENU_MAIN
 
 		if("eject_item") //Eject the item inside the destructive analyzer.
 			if(linked_destroy)
 				if(linked_destroy.busy)
-					to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+					to_chat(ui.user, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
 
 				else if(linked_destroy.loaded_item)
 					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
 					linked_destroy.loaded_item = null
 					linked_destroy.icon_state = "d_analyzer"
-					menu = MENU_DESTROY
 
 		if("maxresearch")
 			if(!check_rights(R_ADMIN))
 				return
-			if(tgui_alert(usr, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No")) != "Yes")
+			if(tgui_alert(ui.user, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No")) != "Yes")
 				return
-			log_admin("[key_name(usr)] has maximized the research levels.")
-			message_admins("[key_name_admin(usr)] has maximized the research levels.")
+			log_admin("[key_name(ui.user)] has maximized the research levels.")
+			message_admins("[key_name_admin(ui.user)] has maximized the research levels.")
 			Maximize()
 			griefProtection() //Update centcomm too
 
 		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
-			start_destroyer(usr)
+			start_destroyer(ui.user)
 
 		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+				to_chat(ui.user, "<span class='danger'>You must connect to the network first!</span>")
 			else
 				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
 				addtimer(CALLBACK(src, PROC_REF(sync_research)), SYNC_RESEARCH_DELAY)
@@ -641,14 +638,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					if(linked_lathe)
 						linked_lathe.linked_console = null
 						linked_lathe = null
+						submenu_protolathe = SUBMENU_PRINTER_MAIN
 				if("imprinter")
 					if(linked_imprinter)
 						linked_imprinter.linked_console = null
 						linked_imprinter = null
+						submenu_imprinter = SUBMENU_PRINTER_MAIN
 
 		if("reset") //Reset the R&D console's database.
 			griefProtection()
-			var/choice = tgui_alert(usr, "Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", list("Continue", "Cancel"))
+			var/choice = tgui_alert(ui.user, "Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", list("Continue", "Cancel"))
 			if(choice == "Continue")
 				add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
 				addtimer(CALLBACK(src, PROC_REF(reset_research)), RESET_RESEARCH_DELAY)
@@ -673,7 +672,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					continue
 				if(findtext(D.name, query))
 					matching_designs.Add(D)
-			submenu = SUBMENU_LATHE_CATEGORY
+			if(menu == MENU_LATHE)
+				submenu_protolathe = SUBMENU_PRINTER_SEARCH
+				if(submenu_imprinter == SUBMENU_PRINTER_SEARCH)
+					submenu_imprinter = SUBMENU_PRINTER_MAIN
+			else if(menu == MENU_IMPRINTER)
+				submenu_imprinter = SUBMENU_PRINTER_SEARCH
+				if(submenu_protolathe == SUBMENU_PRINTER_SEARCH)
+					submenu_protolathe = SUBMENU_PRINTER_MAIN
 
 			selected_category = "Search Results for '[query]'"
 
@@ -722,56 +728,58 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/coeff = machine.efficiency_coeff
 
-	if(submenu == SUBMENU_LATHE_CATEGORY)
-		for(var/datum/design/D in matching_designs)
-			var/list/design_list = list()
-			designs_list[++designs_list.len] = design_list
-			var/list/design_materials_list = list()
-			design_list["materials"] = design_materials_list
-			design_list["id"] = D.id
-			design_list["name"] = D.name
-			var/can_build = is_imprinter ? 1 : 50
+	if(menu == MENU_LATHE || menu == MENU_IMPRINTER)
+		var/submenu = menu == MENU_LATHE ? submenu_protolathe : submenu_imprinter
+		if(submenu == SUBMENU_PRINTER_SEARCH)
+			for(var/datum/design/D in matching_designs)
+				var/list/design_list = list()
+				designs_list[++designs_list.len] = design_list
+				var/list/design_materials_list = list()
+				design_list["materials"] = design_materials_list
+				design_list["id"] = D.id
+				design_list["name"] = D.name
+				var/can_build = is_imprinter ? 1 : 50
 
-			for(var/M in D.materials)
-				var/list/material_list = list()
-				design_materials_list[++design_materials_list.len] = material_list
-				material_list["name"] = CallMaterialName(M)
-				material_list["amount"] = D.materials[M] * coeff
-				var/t = machine.check_mat(D, M)
-				material_list["is_red"] = t < 1
-				can_build = min(can_build, t)
+				for(var/M in D.materials)
+					var/list/material_list = list()
+					design_materials_list[++design_materials_list.len] = material_list
+					material_list["name"] = CallMaterialName(M)
+					material_list["amount"] = D.materials[M] * coeff
+					var/t = machine.check_mat(D, M)
+					material_list["is_red"] = t < 1
+					can_build = min(can_build, t)
 
-			for(var/R in D.reagents_list)
-				var/list/material_list = list()
-				design_materials_list[++design_materials_list.len] = material_list
-				material_list["name"] = CallMaterialName(R)
-				material_list["amount"] = D.reagents_list[R] * coeff
-				var/t = machine.check_mat(D, R)
-				material_list["is_red"] = t < 1
-				can_build = min(can_build, t)
+				for(var/R in D.reagents_list)
+					var/list/material_list = list()
+					design_materials_list[++design_materials_list.len] = material_list
+					material_list["name"] = CallMaterialName(R)
+					material_list["amount"] = D.reagents_list[R] * coeff
+					var/t = machine.check_mat(D, R)
+					material_list["is_red"] = t < 1
+					can_build = min(can_build, t)
 
-			design_list["can_build"] = can_build
+				design_list["can_build"] = can_build
 
-	else if(submenu == SUBMENU_LATHE_MAT_STORAGE)
-		materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = machine.materials.amount(MAT_METAL))
-		materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = machine.materials.amount(MAT_GLASS))
-		materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = machine.materials.amount(MAT_GOLD))
-		materials_list[++materials_list.len] = list("name" = "Silver", "id" = MAT_SILVER, "amount" = machine.materials.amount(MAT_SILVER))
-		materials_list[++materials_list.len] = list("name" = "Solid Plasma", "id" = MAT_PLASMA, "amount" = machine.materials.amount(MAT_PLASMA))
-		materials_list[++materials_list.len] = list("name" = "Uranium", "id" = MAT_URANIUM, "amount" = machine.materials.amount(MAT_URANIUM))
-		materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
-		materials_list[++materials_list.len] = list("name" = "Bananium", "id" = MAT_BANANIUM, "amount" = machine.materials.amount(MAT_BANANIUM))
-		materials_list[++materials_list.len] = list("name" = "Tranquillite", "id" = MAT_TRANQUILLITE, "amount" = machine.materials.amount(MAT_TRANQUILLITE))
-		materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = machine.materials.amount(MAT_TITANIUM))
-		materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = machine.materials.amount(MAT_PLASTIC))
-		materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = machine.materials.amount(MAT_BLUESPACE))
-	else if(submenu == SUBMENU_LATHE_CHEM_STORAGE)
-		for(var/datum/reagent/R in machine.reagents.reagent_list)
-			var/list/loaded_chemical = list()
-			loaded_chemicals[++loaded_chemicals.len] = loaded_chemical
-			loaded_chemical["name"] = R.name
-			loaded_chemical["volume"] = R.volume
-			loaded_chemical["id"] = R.id
+		else if(submenu == SUBMENU_PRINTER_MATERIALS)
+			materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = machine.materials.amount(MAT_METAL))
+			materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = machine.materials.amount(MAT_GLASS))
+			materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = machine.materials.amount(MAT_GOLD))
+			materials_list[++materials_list.len] = list("name" = "Silver", "id" = MAT_SILVER, "amount" = machine.materials.amount(MAT_SILVER))
+			materials_list[++materials_list.len] = list("name" = "Solid Plasma", "id" = MAT_PLASMA, "amount" = machine.materials.amount(MAT_PLASMA))
+			materials_list[++materials_list.len] = list("name" = "Uranium", "id" = MAT_URANIUM, "amount" = machine.materials.amount(MAT_URANIUM))
+			materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
+			materials_list[++materials_list.len] = list("name" = "Bananium", "id" = MAT_BANANIUM, "amount" = machine.materials.amount(MAT_BANANIUM))
+			materials_list[++materials_list.len] = list("name" = "Tranquillite", "id" = MAT_TRANQUILLITE, "amount" = machine.materials.amount(MAT_TRANQUILLITE))
+			materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = machine.materials.amount(MAT_TITANIUM))
+			materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = machine.materials.amount(MAT_PLASTIC))
+			materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = machine.materials.amount(MAT_BLUESPACE))
+		else if(submenu == SUBMENU_PRINTER_CHEMICALS)
+			for(var/datum/reagent/R in machine.reagents.reagent_list)
+				var/list/loaded_chemical = list()
+				loaded_chemicals[++loaded_chemicals.len] = loaded_chemical
+				loaded_chemical["name"] = R.name
+				loaded_chemical["volume"] = R.volume
+				loaded_chemical["id"] = R.id
 
 
 /obj/machinery/computer/rdconsole/proc/can_copy_design(datum/design/D)
@@ -793,7 +801,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	files.RefreshResearch()
 
 	data["menu"] = menu
-	data["submenu"] = submenu
+	data["submenu_protolathe"] = submenu_protolathe
+	data["submenu_imprinter"] = submenu_imprinter
 	data["wait_message"] = wait_message
 	data["src_ref"] = UID()
 
@@ -807,7 +816,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["loaded_item"] = null
 	data["category"] = selected_category
 
-	if(menu == MENU_MAIN || menu == MENU_LEVELS)
+	if(menu == MENU_MAIN)
 		var/list/tech_levels = list()
 		data["tech_levels"] = tech_levels
 		for(var/v in files.known_tech)
@@ -815,83 +824,93 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(T.level <= 0)
 				continue
 			var/list/this_tech_list = list()
+			this_tech_list["id"] = T.id
 			this_tech_list["name"] = T.name
 			this_tech_list["level"] = T.level
 			this_tech_list["desc"] = T.desc
+			this_tech_list["ui_icon"] = T.ui_icon
 			tech_levels[++tech_levels.len] = this_tech_list
 
 	else if(menu == MENU_DISK)
 
-		if(t_disk != null && t_disk.stored != null && submenu == SUBMENU_MAIN)
-			var/list/disk_data = list()
-			data["disk_data"] = disk_data
-			disk_data["name"] = t_disk.stored.name
-			disk_data["level"] = t_disk.stored.level
-			disk_data["desc"] = t_disk.stored.desc
+		if(t_disk != null)
+			if(t_disk.tech_id == null)
+				var/list/to_copy = list()
+				data["to_copy"] = to_copy
+				for(var/v in files.known_tech)
+					var/datum/tech/T = files.known_tech[v]
+					if(T.level <= 0)
+						continue
+					var/list/item = list()
+					to_copy[++to_copy.len] = item
+					item["name"] = T.name
+					item["id"] = T.id
+			else
+				var/datum/tech/stored_tech = files.find_possible_tech_with_id(t_disk.tech_id)
+				var/list/disk_data = list()
+				data["disk_data"] = disk_data
+				if(isnull(stored_tech))
+					disk_data["name"] = "Unknown"
+					disk_data["level"] = 0
+					disk_data["desc"] = "Unrecognized technology detected in disk."
+				else
+					disk_data["name"] = stored_tech.name
+					disk_data["level"] = stored_tech.level
+					disk_data["desc"] = stored_tech.desc
 
-		else if(t_disk != null && submenu == SUBMENU_DISK_COPY)
-			var/list/to_copy = list()
-			data["to_copy"] = to_copy
-			for(var/v in files.known_tech)
-				var/datum/tech/T = files.known_tech[v]
-				if(T.level <= 0)
-					continue
-				var/list/item = list()
-				to_copy[++to_copy.len] = item
-				item["name"] = T.name
-				item["id"] = T.id
-
-		else if(d_disk != null && d_disk.blueprint != null && submenu == SUBMENU_MAIN)
-			var/list/disk_data = list()
-			data["disk_data"] = disk_data
-			disk_data["name"] = d_disk.blueprint.name
-			var/b_type = d_disk.blueprint.build_type
-			var/list/lathe_types = list()
-			disk_data["lathe_types"] = lathe_types
-			if(b_type)
-				if(b_type & IMPRINTER) lathe_types += "Circuit Imprinter"
-				if(b_type & PROTOLATHE) lathe_types += "Protolathe"
-				if(b_type & AUTOLATHE) lathe_types += "Autolathe"
-				if(b_type & MECHFAB) lathe_types += "Mech Fabricator"
-				if(b_type & BIOGENERATOR) lathe_types += "Biogenerator"
-				if(b_type & SMELTER) lathe_types += "Smelter"
-			var/list/materials = list()
-			disk_data["materials"] = materials
-			for(var/M in d_disk.blueprint.materials)
-				var/list/material = list()
-				materials[++materials.len] = material
-				material["name"] = CallMaterialName(M)
-				material["amount"] = d_disk.blueprint.materials[M]
-
-		else if(d_disk != null && submenu == SUBMENU_DISK_COPY)
-			var/list/to_copy = list()
-			data["to_copy"] = to_copy
-			for(var/v in files.known_designs)
-				var/datum/design/D = files.known_designs[v]
-				if(!can_copy_design(D))
-					continue
-				var/list/item = list()
-				to_copy[++to_copy.len] = item
-				item["name"] = D.name
-				item["id"] = D.id
+		else if(d_disk != null)
+			if(d_disk.blueprint == null)
+				var/list/to_copy = list()
+				data["to_copy"] = to_copy
+				for(var/v in files.known_designs)
+					var/datum/design/D = files.known_designs[v]
+					if(!can_copy_design(D))
+						continue
+					var/list/item = list()
+					to_copy[++to_copy.len] = item
+					item["name"] = D.name
+					item["id"] = D.id
+			else
+				var/list/disk_data = list()
+				data["disk_data"] = disk_data
+				disk_data["name"] = d_disk.blueprint.name
+				var/b_type = d_disk.blueprint.build_type
+				var/list/lathe_types = list()
+				disk_data["lathe_types"] = lathe_types
+				if(b_type)
+					if(b_type & IMPRINTER) lathe_types += "Circuit Imprinter"
+					if(b_type & PROTOLATHE) lathe_types += "Protolathe"
+					if(b_type & AUTOLATHE) lathe_types += "Autolathe"
+					if(b_type & MECHFAB) lathe_types += "Mech Fabricator"
+					if(b_type & BIOGENERATOR) lathe_types += "Biogenerator"
+					if(b_type & SMELTER) lathe_types += "Smelter"
+				var/list/materials = list()
+				disk_data["materials"] = materials
+				for(var/M in d_disk.blueprint.materials)
+					var/list/material = list()
+					materials[++materials.len] = material
+					material["name"] = CallMaterialName(M)
+					material["amount"] = d_disk.blueprint.materials[M]
 
 	else if(menu == MENU_DESTROY && linked_destroy && linked_destroy.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
 		loaded_item_list["name"] = linked_destroy.loaded_item.name
 		var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
-		var/list/tech_list = list()
-		loaded_item_list["origin_tech"] = tech_list
-		for(var/T in temp_tech)
-			var/list/tech_item = list()
-			tech_list[++tech_list.len] = tech_item
-			tech_item["name"] = CallTechName(T)
-			tech_item["object_level"] = temp_tech[T]
-			for(var/v in files.known_tech)
-				var/datum/tech/F = files.known_tech[v]
-				if(F.name == CallTechName(T))
-					tech_item["current_level"] = F.level
-					break
+		var/list/tech_levels = list()
+		data["tech_levels"] = tech_levels
+		for(var/v in files.known_tech)
+			var/datum/tech/T = files.known_tech[v]
+			if(T.level <= 0)
+				continue
+			var/list/this_tech_list = list()
+			this_tech_list["id"] = T.id
+			this_tech_list["name"] = T.name
+			this_tech_list["level"] = T.level
+			this_tech_list["desc"] = T.desc
+			this_tech_list["ui_icon"] = T.ui_icon
+			this_tech_list["object_level"] = temp_tech[T.id]
+			tech_levels[++tech_levels.len] = this_tech_list
 
 	else if(menu == MENU_LATHE && linked_lathe)
 		ui_machine_data(linked_lathe, data)
@@ -956,17 +975,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #undef RESET_RESEARCH_DELAY
 #undef IMPRINTER_DELAY
 #undef MENU_MAIN
-#undef MENU_LEVELS
 #undef MENU_DISK
 #undef MENU_DESTROY
 #undef MENU_LATHE
 #undef MENU_IMPRINTER
 #undef MENU_SETTINGS
-#undef SUBMENU_MAIN
-#undef SUBMENU_DISK_COPY
-#undef SUBMENU_LATHE_CATEGORY
-#undef SUBMENU_LATHE_MAT_STORAGE
-#undef SUBMENU_LATHE_CHEM_STORAGE
-#undef SUBMENU_SETTINGS_DEVICES
+#undef MIN_MENU
+#undef MAX_MENU
+#undef SUBMENU_PRINTER_MAIN
+#undef SUBMENU_PRINTER_SEARCH
+#undef SUBMENU_PRINTER_MATERIALS
+#undef SUBMENU_PRINTER_CHEMICALS
+#undef MIN_SUBMENU_PRINTER
+#undef MAX_SUBMENU_PRINTER
 #undef BUILD_POWER
 #undef DECONSTRUCT_POWER

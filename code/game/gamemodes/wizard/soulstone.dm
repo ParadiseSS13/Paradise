@@ -116,7 +116,7 @@
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
 		return ..()
 
-	if(M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT)
+	if((M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(M, TRAIT_XENOBIO_SPAWNED_HUMAN))
 		to_chat(user, "<span class='warning'>This being's soul seems worthless. Not even the stone will absorb it.</span>")
 		return ..()
 
@@ -317,7 +317,7 @@
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
-			if(T.stat == 0)
+			if(T.stat == CONSCIOUS)
 				to_chat(user, "<span class='danger'>Capture failed!</span> Kill or maim the victim first!")
 			else
 				if(!length(T.client_mobs_in_contents))
