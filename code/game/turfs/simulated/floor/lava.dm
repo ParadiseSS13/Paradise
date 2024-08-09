@@ -273,7 +273,7 @@
 	baseturf = /turf/simulated/floor/lava/plasma/fuming
 	atmos_mode = ATMOS_MODE_NO_DECAY
 
-	//Hot Ass Plasma lava
+	// Hot Ass Plasma lava
 	temperature = 1000
 	oxygen = 0
 	nitrogen = 0
