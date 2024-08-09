@@ -27,7 +27,7 @@
 	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
 	var/maximum_fuel = 20
 	/// Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier.
-	var/requires_fuel = TRUE 
+	var/requires_fuel = TRUE
 	/// If TRUE, fuel will regenerate over time.
 	var/refills_over_time = FALSE
 	/// Sound played when turned on.
@@ -305,6 +305,13 @@
 	toolspeed = 0.5
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
+
+/obj/item/weldingtool/mecha
+	name = "integrated welding tool"
+	desc = "An advanced welder designed to be used in robotic systems."
+	maximum_fuel = 80
+	light_intensity = 0
+	toolspeed = 0.5
 
 /obj/item/weldingtool/experimental/brass
 	name = "brass welding tool"
