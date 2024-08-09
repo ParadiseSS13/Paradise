@@ -3,10 +3,10 @@
 /turf/simulated/wall/indestructible/hierophant,
 /area/tdome/arena)
 "I" = (
-/turf/simulated/floor/indestructible/hierophant/two,
+/turf/simulated/floor/indestructible/hierophant/two/normal_air,
 /area/tdome/arena)
 "R" = (
-/turf/simulated/floor/indestructible/hierophant,
+/turf/simulated/floor/indestructible/hierophant/normal_air,
 /area/tdome/arena)
 
 (1,1,1) = {"
