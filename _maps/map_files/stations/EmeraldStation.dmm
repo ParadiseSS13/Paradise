@@ -866,7 +866,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "Captain's Junction";
 	sort_type_txt = "18"
 	},
 /turf/simulated/floor/plasteel,
@@ -4981,10 +4980,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "bat" = (
@@ -5826,11 +5822,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "bkq" = (
@@ -8526,10 +8518,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "bIR" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -8774,11 +8763,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral2)
 "bKW" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"
@@ -14201,11 +14186,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "cOY" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -14780,7 +14761,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	name = "Recycling";
 	req_access_txt = null;
 	sort_type_txt = "1"
 	},
@@ -24397,12 +24377,6 @@
 "eMv" = (
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
-"eMC" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/grille/broken,
-/turf/space,
-/area/space/nearstation)
 "eMJ" = (
 /obj/machinery/light{
 	dir = 8
@@ -30430,11 +30404,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/south)
 "fSe" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28;
-	pixel_x = 5
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -27
@@ -30515,11 +30485,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/vault)
 "fTr" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -31294,7 +31260,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "gdG" = (
-/obj/structure/table/reinforced,
 /obj/structure/table/reinforced,
 /obj/item/megaphone,
 /turf/simulated/floor/plasteel,
@@ -36066,8 +36031,7 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 10;
-	c_tag = "Surgery Observation West";
-	req_access_txt = s
+	c_tag = "Surgery Observation West"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -36312,7 +36276,7 @@
 /area/station/engineering/break_room)
 "haU" = (
 /obj/structure/displaycase{
-	start_showpiece_type = /obj/item/food/snacks/donut/sprinkles
+	start_showpiece_type = /obj/item/food/donut/sprinkles
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -37164,7 +37128,6 @@
 	},
 /area/station/security/main)
 "hjz" = (
-/obj/machinery/door/airlock/command/glass,
 /obj/machinery/door/airlock/command/glass,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "bridge blast south";
@@ -38570,7 +38533,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "HoP Junction";
 	sort_type_txt = "15"
 	},
 /turf/simulated/floor/plasteel,
@@ -45926,8 +45888,7 @@
 	name = "Ian Effigy"
 	},
 /obj/item/decorations/sticky_decorations/flammable/heart_chain{
-	pixel_y = 11;
-	allowed = sss
+	pixel_y = 11
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/wood,
@@ -49305,7 +49266,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Eng Atmospherics";
 	sort_type_txt = "6"
 	},
 /obj/machinery/hologram/holopad,
@@ -51942,7 +51902,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "keZ" = (
-/obj/structure/lattice,
 /obj/item/stack/cable_coil{
 	amount = 1;
 	pixel_y = 4;
@@ -55111,11 +55070,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/medbay2)
-"kMs" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "kMA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/cigbutt/roach,
@@ -59510,7 +59464,6 @@
 /area/station/maintenance/incinerator)
 "lEA" = (
 /obj/structure/table/wood,
-/obj/structure/table/wood,
 /obj/item/ashtray/glass{
 	pixel_x = -4;
 	pixel_y = -4
@@ -60667,10 +60620,7 @@
 "lRS" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/three,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "lRY" = (
@@ -60763,7 +60713,6 @@
 	},
 /area/station/command/office/captain/bedroom)
 "lSC" = (
-/obj/structure/table,
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
@@ -62701,8 +62650,7 @@
 /area/station/security/evidence)
 "mos" = (
 /obj/item/decorations/sticky_decorations/flammable/heart_chain{
-	pixel_y = 11;
-	allowed = sss
+	pixel_y = 11
 	},
 /obj/item/decorations/sticky_decorations/flammable/arrowed_heart,
 /obj/item/organ/internal/heart/vulpkanin,
@@ -64066,10 +64014,7 @@
 	pixel_x = -9;
 	pixel_y = 11
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -67824,8 +67769,7 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 1;
-	c_tag = "Surgery Observation West";
-	req_access_txt = s
+	c_tag = "Surgery Observation West"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -68479,11 +68423,6 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
 /area/station/public/dorms)
-"nwl" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "nws" = (
 /obj/machinery/dye_generator,
 /turf/simulated/floor/plasteel{
@@ -70055,10 +69994,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "nJr" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "nJz" = (
@@ -71572,10 +71508,7 @@
 	pixel_x = 3
 	},
 /obj/machinery/light,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "nYF" = (
@@ -79024,7 +78957,7 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/turf_decal/delivery/blue/hollow,
 /obj/machinery/camera/motion{
-	c_tag = "EVA Motion Sesssnsor"
+	c_tag = "EVA Motion Sensor"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -84318,10 +84251,7 @@
 /area/space/nearstation)
 "qvm" = (
 /obj/item/kirbyplants,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkgreen"
@@ -85016,10 +84946,7 @@
 /obj/structure/chair/sofa/bench/right{
 	dir = 4
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /obj/machinery/camera{
 	c_tag = "Medbay Corridor North West";
 	dir = 4
@@ -85984,10 +85911,7 @@
 /turf/simulated/floor/plating,
 /area/station/supply/office)
 "qMp" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "qMr" = (
@@ -87153,8 +87077,7 @@
 	pixel_y = 32
 	},
 /obj/item/decorations/sticky_decorations/flammable/heart_chain{
-	pixel_y = 11;
-	allowed = sss
+	pixel_y = 11
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -87947,7 +87870,6 @@
 /area/station/security/warden)
 "reU" = (
 /obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
 /obj/machinery/light{
 	dir = 4
@@ -88116,10 +88038,7 @@
 	},
 /area/station/medical/virology)
 "rgr" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -89346,10 +89265,7 @@
 	},
 /area/station/medical/medbay2)
 "rsC" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -91254,11 +91170,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "rMe" = (
@@ -91918,10 +91830,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/dorms/port)
 "rRO" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /obj/machinery/camera{
 	c_tag = "Medbay Corridor Central";
 	dir = 6
@@ -94304,7 +94213,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
@@ -95950,7 +95858,6 @@
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	name = "Eng Chief Engineer's Office";
 	sort_type_txt = "5"
 	},
 /turf/simulated/floor/plating,
@@ -98087,10 +97994,9 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 6
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
@@ -98489,9 +98395,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
-/area/station/engineering/break_room{
-	name = s
-	})
+/area/station/engineering/break_room)
 "tei" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/lifestar,
@@ -98931,10 +98835,7 @@
 /area/space/nearstation)
 "tiv" = (
 /obj/machinery/light,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "tiw" = (
@@ -99726,8 +99627,7 @@
 	pixel_y = 32
 	},
 /obj/item/decorations/sticky_decorations/flammable/heart_chain{
-	pixel_y = 11;
-	allowed = sss
+	pixel_y = 11
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
@@ -100894,7 +100794,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "tBm" = (
@@ -103238,7 +103137,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Engineering Chief Engineer's Officsssse";
+	c_tag = "Engineering Chief Engineer's Office";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -104698,10 +104597,7 @@
 /area/station/hallway/primary/starboard)
 "umP" = (
 /obj/structure/closet/secure_closet/security,
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -108423,19 +108319,6 @@
 	icon_state = "yellow"
 	},
 /area/station/command/office/ce)
-"vaN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "vaW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -110621,7 +110504,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	name = "Bar Junction";
 	sort_type_txt = "19"
 	},
 /turf/simulated/floor/plating,
@@ -115600,11 +115482,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "wuD" = (
-/obj/machinery/economy/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -116948,10 +116826,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-c"
@@ -117249,10 +117124,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "wLE" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -122510,10 +122382,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "xOJ" = (
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
+/obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "xOL" = (
@@ -142879,7 +142748,7 @@ jnP
 jnP
 jnP
 jnP
-kMs
+aZS
 aZS
 aZS
 aZS
@@ -145290,7 +145159,7 @@ pdx
 uPm
 jnP
 jnP
-kMs
+aZS
 jnP
 jnP
 aZS
@@ -148265,7 +148134,7 @@ aZS
 aGR
 fXb
 kvi
-kMs
+aZS
 aZS
 aZS
 uAl
@@ -157074,7 +156943,7 @@ nuk
 laX
 rkL
 aZS
-kMs
+aZS
 aZS
 xmm
 obO
@@ -161276,7 +161145,7 @@ jnP
 jnP
 jnP
 jnP
-uSX
+jnP
 jnP
 jnP
 jnP
@@ -164454,7 +164323,7 @@ jnP
 aZS
 jnP
 jnP
-kMs
+aZS
 jnP
 aZS
 aZS
@@ -172581,7 +172450,7 @@ tHM
 tHM
 tHM
 tHM
-nwl
+tHM
 tHM
 tHM
 tHM
@@ -174456,7 +174325,7 @@ wXf
 wXf
 wXf
 wXf
-eMC
+uAl
 wXf
 wXf
 wXf
@@ -176394,7 +176263,7 @@ bph
 bph
 dJl
 sZW
-vaN
+bph
 soA
 tAZ
 prg
@@ -178821,7 +178690,7 @@ wXf
 jnP
 jnP
 aZS
-kMs
+aZS
 aZS
 aZS
 aZS
@@ -179515,7 +179384,7 @@ wAq
 aZS
 bPq
 aZS
-kMs
+aZS
 jnP
 jnP
 aZS
@@ -179677,7 +179546,7 @@ aZh
 jnP
 jnP
 aZS
-kMs
+aZS
 aZS
 jnP
 qpE
