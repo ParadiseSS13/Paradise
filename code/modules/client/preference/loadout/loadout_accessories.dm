@@ -238,4 +238,4 @@
 /datum/gear/accessory/armband_job/service
 	display_name = "Armband, service"
 	path = /obj/item/clothing/accessory/armband/service
-	allowed_roles = list("Head of Personnel", "Chaplain", "Janitor", "Botanist", "Chef", "Bartender", "Clown", "Mime", "Librarian", "Barber")
+	allowed_roles = list("Head of Personnel", "Chaplain", "Janitor", "Botanist", "Chef", "Bartender", "Clown", "Mime", "Librarian")
