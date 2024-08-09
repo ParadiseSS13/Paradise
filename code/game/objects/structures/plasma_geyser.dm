@@ -33,7 +33,7 @@
 	var/datum/gas_mixture/add_moles = new()
 	var/environment_pressure = environment.return_pressure()
 
-	//adds gas and agent B to the environment if below max_pressure
+	// adds gas and agent B to the environment if below max_pressure
 	if (environment_pressure >= max_pressure)
 		return
 	add_moles.set_agent_b(agentb_modifier)
