@@ -455,6 +455,99 @@
 	last_piece = NC
 	return TRUE
 
+/obj/item/mecha_parts/mecha_equipment/eng_toolset
+	name = "engineering toolset"
+	desc = "Equipment for engineering exosuits. Gives a set of good tools."
+	icon_state = "mecha_toolset"
+	item_state = "artistic_toolbox"
+	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
+	hitsound = 'sound/weapons/smash.ogg'
+	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+	force = 10
+	equip_cooldown = 0.8 SECONDS
+	energy_drain = 50
+	harmful = TRUE
+	var/list/items_list = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/mecha,
+		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg) //0.5 toolspeed all
+	var/obj/item/selected_item
+	var/emag_item = /obj/item/kitchen/knife/combat/cyborg/mecha
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/New()
+	..()
+	for(var/obj/item/item as anything in items_list)
+		item.flags |= NODROP
+		item.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+		item.slot_flags = null
+		item.w_class = WEIGHT_CLASS_HUGE
+		item.materials = null
+		item.tool_enabled = TRUE
+	selected_item = pick(items_list)
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/get_equip_info()
+	. = ..()
+	for(var/obj/item/item as anything in items_list)
+		var/short_name = uppertext(item.name[1])
+		if(item == selected_item)
+			. += "|<b>[short_name]</b> "
+		else
+			. += "|<a href='?src=[UID()];select=[item.UID()]'>[short_name]</a>"
+	. += "|"
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/Topic(href,href_list)
+	..()
+	if(href_list["select"])
+		selected_item = locateUID(href_list["select"])
+		if(!istype(selected_item))
+			return
+		occupant_message("<span class='notice'>Switched to [selected_item].</span>")
+		update_equip_info()
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/action(atom/target)
+	if(!action_checks(target))
+		return
+	selected_item.melee_attack_chain(chassis.occupant, target)
+	if(isliving(target))
+		chassis.do_attack_animation(target)
+	chassis.use_power(energy_drain)
+	return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/self_occupant_attack()
+	radial_menu(chassis.occupant)
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/check_menu(mob/living/carbon/user)
+	return (user && chassis.occupant == user && user.stat != DEAD)
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/radial_menu(mob/living/carbon/user)
+	var/list/choices = list()
+	for(var/obj/item/I as anything in items_list)
+		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
+	var/choice = show_radial_menu(user, chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	if(!check_menu(user))
+		return
+	var/obj/item/selected
+	for(var/obj/item/item as anything in items_list)
+		if(item.name == choice)
+			selected = item
+			break
+	if(selected)
+		extend(selected)
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/extend(obj/item/selected)
+	if(selected in items_list)
+		selected_item = selected
+		occupant_message("<span class='notice'>Switched to [selected_item].</span>")
+		update_equip_info()
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/emag_act(mob/user)
+	if(!emagged)
+		items_list.Add(new emag_item)
+		emagged = TRUE
+		user.visible_message("<span class='warning'>Sparks fly out of [name]!</span>", "<span class='notice'>You short out the safeties on [name].</span>")
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		update_equip_info()
+
 #undef MECH_RCD_MODE_DECONSTRUCT
 #undef MECH_RCD_MODE_WALL_OR_FLOOR
 #undef MECH_RCD_MODE_AIRLOCK

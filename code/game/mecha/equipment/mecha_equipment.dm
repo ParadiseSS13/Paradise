@@ -157,3 +157,6 @@
 /obj/item/mecha_parts/mecha_equipment/proc/log_message(message)
 	if(chassis)
 		chassis.log_message("<i>[src]:</i> [message]")
+
+/obj/item/mecha_parts/mecha_equipment/proc/self_occupant_attack()
+	return
