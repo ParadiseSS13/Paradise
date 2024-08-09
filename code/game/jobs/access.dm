@@ -409,7 +409,8 @@
 /proc/get_all_special_jobs()
 	return list(
 		"Deathsquad",
-		"Emergency Response Clown")
+		"Emergency Response Clown",
+		"Tourist")
 
 /proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + get_all_ERT_jobs() + list("Prisoner")

@@ -48,8 +48,12 @@
 	var/polarized_glass = FALSE
 	var/polarized_on
 
+	/// How many levels of foam do we have on us? Capped at 5
+	var/foam_level = 0
+
 	/// How much this door reduces superconductivity to when closed.
 	var/superconductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
+
 
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
@@ -93,7 +97,7 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
-	if(operating || emagged)
+	if(operating || emagged || foam_level)
 		return
 	if(ismob(AM))
 		var/mob/B = AM
@@ -150,6 +154,9 @@
 		return
 	add_fingerprint(user)
 
+	if(foam_level)
+		return
+
 	if(density && !emagged)
 		if(allowed(user))
 			if(HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -172,8 +179,12 @@
 	if(isterrorspider(user))
 		return
 
+	if(foam_level)
+		return
+
 	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
 		return FALSE
+
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
 		if(!V.bloodusable)
@@ -209,7 +220,7 @@
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user)
 	add_fingerprint(user)
-	if(operating || emagged)
+	if(operating || emagged || foam_level)
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
@@ -574,3 +585,29 @@
 
 	for(var/obj/airlock_filler_object/filler as anything in fillers)
 		filler.set_opacity(opacity)
+
+#define MAX_FOAM_LEVEL 5
+// Adds foam to the airlock, which will block it from being opened
+/obj/machinery/door/proc/foam_up()
+	if(!foam_level)
+		new /obj/structure/barricade/foam(get_turf(src))
+		foam_level++
+		return
+
+	if(foam_level == MAX_FOAM_LEVEL)
+		return
+
+	for(var/obj/structure/barricade/foam/blockage in loc.contents)
+		blockage.foam_level = min(++blockage.foam_level, 5)
+		// The last level will increase the integrity by 50 instead of 25
+		if(foam_level == 4)
+			blockage.obj_integrity += 50
+			blockage.max_integrity += 50
+		else
+			blockage.obj_integrity += 25
+			blockage.max_integrity += 25
+		foam_level++
+		blockage.icon_state = "foamed_[foam_level]"
+		blockage.update_icon_state()
+
+#undef MAX_FOAM_LEVEL

@@ -420,6 +420,9 @@
 		return
 
 	if(isliving(AM) && prob(aggressive_tilt_chance))
+		var/mob/living/to_be_tipped = AM
+		if(to_be_tipped.incorporeal_move) // OooOooOoo spooky ghosts
+			return
 		AM.visible_message(
 			"<span class='danger'>[src] suddenly topples over onto [AM]!</span>",
 			"<span class='userdanger'>[src] topples over onto you without warning!</span>"

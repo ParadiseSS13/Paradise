@@ -10,17 +10,19 @@
 	anchored = TRUE
 	max_integrity = 200
 
+/obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/I)
+	if(!I.tool_use_check(user, 0))
+		return FALSE
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+		return TRUE
+	TOOL_DISMANTLE_SUCCESS_MESSAGE
+	deconstruct(TRUE)
+	return TRUE
+
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
-	if(istype(I, /obj/item/wrench))
-		if(!I.tool_use_check(user, 0))
-			return
-		TOOL_ATTEMPT_DISMANTLE_MESSAGE
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
-			return
-		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		deconstruct(TRUE)
-	else if(istype(I, /obj/item/stack/rods))
+	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
 			R.use(4)

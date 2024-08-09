@@ -27,8 +27,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/Initialize(mapload)
-	. = ..()
 	prize_list = list()
 	prize_list["Gear"] = list(
 		EQUIPMENT("Advanced Scanner", /obj/item/t_scanner/adv_mining_scanner, 800),
@@ -313,8 +311,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/golem/Initialize()
-	. = ..()
 	desc += "\nIt seems a few selections have been added."
 	prize_list["Extra"] += list(
 		EQUIPMENT("Extra ID", /obj/item/card/id/golem, 250),
@@ -344,8 +340,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/labor/Initialize()
-	. = ..()
 	prize_list = list()
 	prize_list["Scum"] += list(
 		EQUIPMENT("Trauma Kit", /obj/item/stack/medical/bruise_pack/advanced, 150),
@@ -388,8 +382,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/explorer/Initialize(mapload)
-	. = ..()
 	prize_list = list()
 	prize_list["Equipment"] = list(
 		EQUIPMENT("Advanced Scanner", /obj/item/t_scanner/adv_mining_scanner, 800),
