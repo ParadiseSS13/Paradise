@@ -41,6 +41,8 @@
 /datum/supply_packs/emergency/glowstick/premium
 	name = "Premium Glowstick Crate"
 	contains = list(/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium,
+					/obj/item/storage/box/glowstick/premium,
 					/obj/item/storage/box/glowstick/premium)
 	cost = 200
 	containertype = /obj/structure/closet/crate
