@@ -208,7 +208,7 @@
 /datum/gear/accessory/armband_job/medical
 	display_name = "Armband, medical"
 	path = /obj/item/clothing/accessory/armband/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Paramedic")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Geneticist", "Paramedic")
 
 /datum/gear/accessory/armband_job/emt
 	display_name = "Armband, EMT"
@@ -228,7 +228,7 @@
 /datum/gear/accessory/armband_job/sci
 	display_name = "Armband, science"
 	path = /obj/item/clothing/accessory/armband/science
-	allowed_roles = list("Research Director","Scientist", "Roboticist")
+	allowed_roles = list("Research Director","Scientist", "Roboticist", "Geneticist")
 
 /datum/gear/accessory/armband_job/procedure
 	display_name = "Armband, procedure"
