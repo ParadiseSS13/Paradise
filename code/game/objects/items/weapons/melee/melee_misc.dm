@@ -92,6 +92,127 @@
 	plastitanium edge that can cause untold harm to a soft target. In the right hands, it can be a terrifying weapon to behold, \
 	and it’s said that blood runs down the blade in just the right way, to drip artfully from the twin ‘fangs’ at its apex."
 
+// Unathi Sword
+/obj/item/melee/breach_cleaver
+	name = "breach cleaver"
+	desc = "Massive, heavy, and utterly impractical. This sharpened chunk of steel is too big and too heavy to be called a sword."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	base_icon_state = "breach_cleaver"
+	icon_state = "breach_cleaver0"
+	flags = CONDUCT
+	force = 5
+	throwforce = 5
+	armour_penetration_flat = 30
+	w_class = WEIGHT_CLASS_BULKY
+	sharp = TRUE
+	origin_tech = "combat=6;syndicate=5"
+	attack_verb = list("slashed", "cleaved", "chopped")
+	hitsound = 'sound/weapons/swordhitheavy.ogg'
+	materials = list(MAT_METAL = 2000)
+	/// How much damage the sword does when wielded
+	var/force_wield = 40
+
+/obj/item/melee/breach_cleaver/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_wielded = force_wield, force_unwielded = force, icon_wielded = "[base_icon_state]1", wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield)))
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+
+/obj/item/melee/breach_cleaver/examine(mob/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='notice'>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
+			Help intent will strike with the flat, dealing stamina, disarm intent forces them away, grab intent knocks down the target, \
+			and harm intent deals heavy damage.</span>"
+
+/obj/item/melee/breach_cleaver/examine_more(mob/user)
+	. = ..()
+	. += "Massive, heavy, and utterly impractical. This sharpened chunk of steel is too big and too heavy to be called a sword."
+	. += ""
+	. += "The Unathi Breach Cleaver is a weapon the scaled, warlike race favours for its impressive weight and myriad combat applications. \
+	The pinnacle of Moghes' combat technology, it combines all of this knowledge into a massive, heavy slab of alloyed metal that most \
+	species find difficult to lift, let alone use in any sort of fight."
+	. += ""
+	. += "Actually a little lightweight for its size, a Breach Cleaver is unmatched in combat utility as a weapon, a tool for getting into\
+	places and as a slab of armour for the wielder. The leather of the Kar'oche beast, a predator native to Moghes, binds the hilt, \
+	allowing it to be gripped securely by its warrior. The wide blade is often etched with scenes depicting military victories or great hunts."
+
+/obj/item/melee/breach_cleaver/update_icon_state()
+	icon_state = "[base_icon_state]0"
+
+/obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/living/carbon/human/user)
+	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
+	user.apply_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
+	update_icon_state()
+
+/obj/item/melee/breach_cleaver/proc/unwield(obj/item/source, mob/living/carbon/human/user)
+	user.remove_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
+	update_icon_state()
+
+/obj/item/melee/breach_cleaver/attack_obj(obj/O, mob/living/user, params)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED)) // Only works good when wielded
+		return ..()
+	if(!ismachinery(O) && !isstructure(O)) // This sword hates doors
+		return ..()
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
+		return
+	if(flags & (NOBLUDGEON))
+		return
+	var/mob/living/carbon/human/H = user
+	H.changeNext_move(CLICK_CD_MELEE)
+	H.do_attack_animation(O)
+	H.visible_message("<span class='danger'>[H] has hit [O] with [src]!</span>", "<span class='danger'>You hit [O] with [src]!</span>")
+	var/damage = force_wield
+	damage += H.physiology.melee_bonus
+	O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
+
+/obj/item/melee/breach_cleaver/attack(mob/target, mob/living/user)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
+		return ..()
+
+	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
+
+	switch(user.a_intent)
+		if(INTENT_HELP) // Stamina damage
+			H.visible_message("<span class='danger'>[user] slams [H] with the flat of the blade!</span>", \
+							"<span class='userdanger'>[user] slams you with the flat of the blade!</span>", \
+							"<span class='italics'>You hear a thud.</span>")
+			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
+			playsound(loc, 'sound/weapons/swordhit.ogg', 50, TRUE, -1)
+			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
+			H.apply_damage(40, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
+			add_attack_logs(user, H, "Slammed by a breach cleaver. (Help intent, Stamina)", ATKLOG_ALL)
+
+		if(INTENT_DISARM) // Slams away
+			if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
+				return ..()
+
+			H.visible_message("<span class='danger'>[user] smashes [H] with the blade's tip!</span>", \
+							"<span class='userdanger'>[user] smashes you with the blade's tip!</span>", \
+							"<span class='italics'>You hear crushing.</span>")
+
+			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
+			playsound(get_turf(user), 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE, -1)
+			H.apply_damage(25, BRUTE, targetlimb, H.run_armor_check(targetlimb, MELEE))
+			var/atom/throw_target = get_edge_target_turf(H, user.dir, TRUE)
+			H.throw_at(throw_target, 4, 1)
+			add_attack_logs(user, H, "Smashed away by a breach cleaver. (Disarm intent, Knockback)", ATKLOG_ALL)
+
+		if(INTENT_GRAB) // Knocks down
+			H.visible_message("<span class='danger'>[user] cleaves [H] with an overhead strike!</span>", \
+							"<span class='userdanger'>[user] cleaves you with an overhead strike!</span>", \
+							"<span class='italics'>You hear a chopping noise.</span>")
+
+			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
+			playsound(get_turf(user), 'sound/weapons/armblade.ogg', 50, TRUE, -1)
+			H.apply_damage(30, BRUTE, targetlimb, H.run_armor_check(targetlimb, MELEE), TRUE)
+			H.KnockDown(4 SECONDS)
+			add_attack_logs(user, H, "Cleaved overhead with a breach cleaver. (Grab intent, Knockdown)", ATKLOG_ALL)
+
+		if(INTENT_HARM)
+			return ..()
+
 /obj/item/melee/icepick
 	name = "ice pick"
 	desc = "Used for chopping ice. Also excellent for mafia esque murders."
