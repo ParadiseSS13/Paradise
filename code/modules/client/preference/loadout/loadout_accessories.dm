@@ -203,7 +203,7 @@
 /datum/gear/accessory/armband_job/cargo
 	display_name = "Armband, cargo"
 	path = /obj/item/clothing/accessory/armband/cargo
-	allowed_roles = list("Quartermaster","Cargo Technician", "Shaft Miner")
+	allowed_roles = list("Quartermaster","Cargo Technician", "Shaft Miner", "Explorer")
 
 /datum/gear/accessory/armband_job/medical
 	display_name = "Armband, medical"
