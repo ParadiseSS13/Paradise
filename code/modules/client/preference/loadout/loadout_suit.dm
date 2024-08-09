@@ -41,12 +41,12 @@
 /datum/gear/suit/coat/job/med
 	display_name = "Winter coat, medical"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner", "Geneticist")
 
 /datum/gear/suit/coat/job/sci
 	display_name = "Winter coat, science"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
-	allowed_roles = list("Scientist", "Research Director")
+	allowed_roles = list("Scientist", "Research Director", "Geneticist")
 
 /datum/gear/suit/coat/job/engi
 	display_name = "Winter coat, engineering"
