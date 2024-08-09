@@ -1,12 +1,19 @@
-///////////////////////////////////////Stock Parts /////////////////////////////////
-
+////////////////////////////////////////
+// MARK: RPEDs
+////////////////////////////////////////
 /obj/item/storage/part_replacer
 	name = "Rapid Part Exchange Device"
 	desc = "Special mechanical module made to store, sort, and apply standard machine parts."
 	icon_state = "RPED"
 	item_state = "RPED"
 	w_class = WEIGHT_CLASS_HUGE
-	can_hold = list(/obj/item/stock_parts)
+	can_hold = list(
+		/obj/item/stock_parts,
+		// This type is part of can_hold, but is added separately in Initialize to avoid picking up unwanted subtypes.
+		// /obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/beaker/large,
+		/obj/item/reagent_containers/glass/beaker/bluespace
+		)
 	storage_slots = 50
 	use_to_pickup = TRUE
 	allow_quick_gather = TRUE
@@ -15,24 +22,47 @@
 	display_contents_with_number = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
+	toolspeed = 1
+	usesound = 'sound/items/rped.ogg'
 	var/works_from_distance = FALSE
 	var/primary_sound = 'sound/items/rped.ogg'
 	var/alt_sound = null
-	toolspeed = 1
-	usesound = 'sound/items/rped.ogg'
 
-/obj/item/storage/part_replacer/afterattack(obj/machinery/M, mob/user, flag, params)
-	if(!flag && works_from_distance && istype(M))
-		// Make sure its in range
-		if(get_dist(src, M) <= (user.client.maxview() + 2))
-			if(M.component_parts)
-				M.exchange_parts(user, src)
-				user.Beam(M,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
-		else
-			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console. (Attempted range exploit)")
-			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
+/obj/item/storage/part_replacer/Initialize(mapload)
+	. = ..()
+	can_hold[/obj/item/reagent_containers/glass/beaker] = TRUE
 
+/obj/item/storage/part_replacer/can_be_inserted(obj/item/I, stop_messages = FALSE)
+	if(!istype(I, /obj/item/reagent_containers/glass/beaker))
+		return ..()
+
+	var/obj/item/reagent_containers/glass/beaker/B = I
+	if(B.reagents?.total_volume)
+		if(!stop_messages)
+			to_chat(usr, "<span class='warning'>[src] cannot hold [I] while it contains liquid.</span>")
+		return FALSE
+	return ..()
+
+/obj/item/storage/part_replacer/afterattack(obj/machinery/M, mob/user, proximity_flag, params)
+	if(!istype(M))
+		return ..()
+
+	if(!proximity_flag && !works_from_distance)
+		return
+
+	if(get_dist(src, M) <= (user.client.maxview() + 2))
+		if(M.component_parts)
+			M.exchange_parts(user, src)
+			if(works_from_distance)
+				user.Beam(M, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+	else
+		message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console (attempted range exploit).")
+		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+		to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
+
+////////////////////////////////////////
+// 		Bluespace Part Replacer
+////////////////////////////////////////
 /obj/item/storage/part_replacer/bluespace
 	name = "bluespace rapid part exchange device"
 	desc = "A version of the RPED that allows for replacement of parts and scanning from a distance, along with higher capacity for parts."
@@ -56,6 +86,7 @@
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/scanning_module/triphasic(src)
 		new /obj/item/stock_parts/cell/bluespace(src)
+		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
@@ -64,11 +95,9 @@
 	else
 		playsound(src, primary_sound, 40, 1)
 
-//Sorts stock parts inside an RPED by their rating.
-//Only use /obj/item/stock_parts/ with this sort proc!
-/proc/cmp_rped_sort(obj/item/stock_parts/A, obj/item/stock_parts/B)
-	return B.rating - A.rating
-
+////////////////////////////////////////
+// MARK: Stock parts
+////////////////////////////////////////
 /obj/item/stock_parts
 	name = "stock part"
 	desc = "What?"
@@ -204,7 +233,7 @@
 
 /obj/item/stock_parts/capacitor/quadratic
 	name = "quadratic capacitor"
-	desc = "An capacity capacitor used in the construction of a variety of devices."
+	desc = "An ultra-high capacity capacitor used in the construction of a variety of devices."
 	icon_state = "quadratic_capacitor"
 	origin_tech = "powerstorage=5;materials=4;engineering=4"
 	rating = 4

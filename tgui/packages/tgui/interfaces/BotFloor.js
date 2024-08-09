@@ -5,39 +5,28 @@ import { BotStatus } from './common/BotStatus';
 
 export const BotFloor = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    noaccess,
-    painame,
-    hullplating,
-    replace,
-    eat,
-    make,
-    fixfloor,
-    nag_empty,
-    magnet,
-    tiles_amount,
-  } = data;
+  const { noaccess, painame, hullplating, replace, eat, make, fixfloor, nag_empty, magnet, tiles_amount } = data;
   return (
     <Window width={500} height={510}>
       <Window.Content scrollable>
         <BotStatus />
         <Section title="Floor Settings">
           <Box mb="5px">
-            <LabeledList.Item label="Tiles Left">
-              {tiles_amount}
-            </LabeledList.Item>
+            <LabeledList.Item label="Tiles Left">{tiles_amount}</LabeledList.Item>
           </Box>
           <Button.Checkbox
             fluid
             checked={hullplating}
             content="Add tiles to new hull plating"
+            tooltip="Fixing a plating requires the removal of floor tile. This will place it back after repairing. Same goes for hull breaches"
             disabled={noaccess}
             onClick={() => act('autotile')}
           />
           <Button.Checkbox
             fluid
             checked={replace}
-            content="Replace floor tiles"
+            content="Add floor tiles on exposed hull plating"
+            tooltip="Example: It will add tiles to maintenance"
             disabled={noaccess}
             onClick={() => act('replacetiles')}
           />
@@ -81,13 +70,7 @@ export const BotFloor = (props, context) => {
         </Section>
         {painame && (
           <Section title="pAI">
-            <Button.Checkbox
-              fluid
-              icon="eject"
-              content={painame}
-              disabled={noaccess}
-              onClick={() => act('ejectpai')}
-            />
+            <Button.Checkbox fluid icon="eject" content={painame} disabled={noaccess} onClick={() => act('ejectpai')} />
           </Section>
         )}
       </Window.Content>

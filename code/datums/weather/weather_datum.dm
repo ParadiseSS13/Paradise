@@ -32,7 +32,7 @@
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
 
-	var/stage = END_STAGE //The stage of the weather, from 1-4
+	var/stage = WEATHER_END_STAGE //The stage of the weather, from 1-4
 
 	// These are read by the weather subsystem and used to determine when and where to run the weather.
 	var/probability = 0 // Weight amongst other eligible weather. If zero, will never happen randomly.
@@ -57,9 +57,9 @@
 			impacted_areas |= A
 
 /datum/weather/proc/telegraph()
-	if(stage == STARTUP_STAGE)
+	if(stage == WEATHER_STARTUP_STAGE)
 		return
-	stage = STARTUP_STAGE
+	stage = WEATHER_STARTUP_STAGE
 	generate_area_list()
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)
 	START_PROCESSING(SSweather, src)
@@ -74,9 +74,9 @@
 	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
 
 /datum/weather/proc/start()
-	if(stage >= MAIN_STAGE)
+	if(stage >= WEATHER_MAIN_STAGE)
 		return
-	stage = MAIN_STAGE
+	stage = WEATHER_MAIN_STAGE
 	update_areas()
 	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
@@ -88,9 +88,9 @@
 	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 
 /datum/weather/proc/wind_down()
-	if(stage >= WIND_DOWN_STAGE)
+	if(stage >= WEATHER_WIND_DOWN_STAGE)
 		return
-	stage = WIND_DOWN_STAGE
+	stage = WEATHER_WIND_DOWN_STAGE
 	update_areas()
 	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
@@ -102,15 +102,15 @@
 	addtimer(CALLBACK(src, PROC_REF(end)), end_duration)
 
 /datum/weather/proc/end()
-	if(stage == END_STAGE)
+	if(stage == WEATHER_END_STAGE)
 		return 1
-	stage = END_STAGE
+	stage = WEATHER_END_STAGE
 	STOP_PROCESSING(SSweather, src)
 	update_areas()
 
 /datum/weather/proc/can_weather_act(mob/living/L) //Can this weather impact a mob?
 	var/turf/mob_turf = get_turf(L)
-	if(!istype(L))
+	if(!istype(L) || !mob_turf)
 		return FALSE
 	if(mob_turf && !(mob_turf.z in impacted_z_levels))
 		return FALSE
@@ -132,13 +132,13 @@
 		N.invisibility = 0
 		N.color = weather_color
 		switch(stage)
-			if(STARTUP_STAGE)
+			if(WEATHER_STARTUP_STAGE)
 				N.icon_state = telegraph_overlay
-			if(MAIN_STAGE)
+			if(WEATHER_MAIN_STAGE)
 				N.icon_state = weather_overlay
-			if(WIND_DOWN_STAGE)
+			if(WEATHER_WIND_DOWN_STAGE)
 				N.icon_state = end_overlay
-			if(END_STAGE)
+			if(WEATHER_END_STAGE)
 				N.color = null
 				N.icon_state = ""
 				N.icon = 'icons/turf/areas.dmi'

@@ -3,11 +3,15 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	face_while_pulling = TRUE
+	flags_ricochet = RICOCHET_HARD
+	receive_ricochet_chance_mod = 0.6
 	var/climbable
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
 	var/mob/living/climber
 	var/broken = FALSE
+	/// How long this takes to unbuckle yourself from.
+	var/unbuckle_time = 0 SECONDS
 
 /obj/structure/New()
 	..()
@@ -77,7 +81,7 @@
 	if(!isturf(loc))
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_TABLE_LEAP))
+	if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
 		user.visible_message("<span class='warning'>[user] gets ready to vault up onto [src]!</span>")
 		if(!do_after(user, 0.5 SECONDS, target = src))
 			return FALSE
@@ -91,7 +95,7 @@
 
 	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		if(HAS_TRAIT(user, TRAIT_TABLE_LEAP))
+		if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
 			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
 		else
 			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
@@ -116,7 +120,7 @@
 
 			var/obj/item/organ/external/affecting
 
-			switch(pick(list("ankle","wrist","head","knee","elbow")))
+			switch(pick("ankle","wrist","head","knee","elbow"))
 				if("ankle")
 					affecting = H.get_organ(pick("l_foot", "r_foot"))
 				if("knee")
@@ -154,6 +158,9 @@
 		return FALSE
 	return TRUE
 
+/obj/structure/proc/get_climb_text()
+	return "<span class='info'>You can <b>Click-Drag</b> yourself to [src] to climb on top of it after a short delay.</span>"
+
 /obj/structure/examine(mob/user)
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
@@ -165,7 +172,7 @@
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on the table after a short delay.</span>"
+		. += get_climb_text()
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100

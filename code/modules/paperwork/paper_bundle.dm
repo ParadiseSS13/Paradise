@@ -45,6 +45,7 @@
 			var/mob/living/carbon/human/H = user
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
+
 	else if(istype(W, /obj/item/photo))
 		amount++
 		photos++
@@ -53,8 +54,10 @@
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(W)
 		W.loc = src
+
 	else if(W.get_heat())
 		burnpaper(W, user)
+
 	else if(istype(W, /obj/item/paper_bundle))
 		user.unEquip(W)
 		for(var/obj/O in W)
@@ -65,6 +68,7 @@
 				screen = 1
 		to_chat(user, "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		qdel(W)
+
 	else
 		if(is_pen(W) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
@@ -72,10 +76,6 @@
 		P.attackby(W, user, params)
 
 	update_icon()
-	if(winget(usr, "PaperBundle[UID()]", "is-visible") == "true") // NOT MY FAULT IT IS A BUILT IN PROC PLEASE DO NOT HIT ME
-		attack_self(usr) //Update the browsed page.
-	add_fingerprint(usr)
-	return
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/heating_object, mob/user)
 	var/class = "warning"
@@ -105,20 +105,20 @@
 		. += "<span class='notice'>It is too far away.</span>"
 
 /obj/item/paper_bundle/proc/show_content(mob/user as mob)
-	var/dat
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	var/obj/item/W = src[page]
 	switch(screen)
 		if(0)
 			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:right; width:33.33333%'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
+			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
+			dat+= "<DIV STYLE='float:left; text-align:right; width:33.33333%'><A href='byond://?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
 		if(1)
-			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:right; width:33.33333%'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
+			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'><A href='byond://?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
+			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
+			dat+= "<DIV STYLE='float:left; text-align:right; width:33.33333%'><A href='byond://?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
 		if(2)
-			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV><BR><HR>"
+			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'><A href='byond://?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
+			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV><BR><HR>"
 			dat+= "<DIV STYLE='float;left; text-align:right; with:33.33333%'></DIV>"
 	if(istype(src[page], /obj/item/paper))
 		var/obj/item/paper/P = W
@@ -127,7 +127,7 @@
 	else if(istype(src[page], /obj/item/photo))
 		var/obj/item/photo/P = W
 		usr << browse_rsc(P.img, "tmp_photo.png")
-		usr << browse(dat + "<html><head><title>[P.name]</title></head>" \
+		usr << browse(dat + "<html><meta charset='utf-8'><head><title>[P.name]</title></head>" \
 		+ "<body style='overflow:hidden'>" \
 		+ "<div> <img src='tmp_photo.png' width = '180'" \
 		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ""]"\
@@ -136,7 +136,6 @@
 /obj/item/paper_bundle/attack_self(mob/user as mob)
 	show_content(user)
 	add_fingerprint(usr)
-	return
 
 /obj/item/paper_bundle/Topic(href, href_list)
 	if(..())
@@ -201,10 +200,10 @@
 	. = ..()
 
 /obj/item/paper_bundle/proc/rename(mob/user)
-	var/n_name = sanitize(copytext(input(user, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
-	if((loc == user && !user.stat))
-		name = "[(n_name ? "[n_name]" : "paper bundle")]"
-
+	var/n_name = tgui_input_text(user, "What would you like to label the bundle?", "Bundle Labelling", name)
+	if(!Adjacent(user) || !n_name || user.stat)
+		return
+	name = "[(n_name ? "[n_name]" : "paper bundle")]"
 	add_fingerprint(user)
 
 /obj/item/paper_bundle/AltShiftClick(mob/user)

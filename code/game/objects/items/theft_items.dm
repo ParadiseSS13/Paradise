@@ -39,7 +39,8 @@
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS
 
-/obj/item/nuke_core/plutonium //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
+/// The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
+/obj/item/nuke_core/plutonium
 
 //nuke core box, for carrying the core
 /obj/item/nuke_core_container
@@ -209,8 +210,8 @@
 	var/mob/living/victim = hit_atom
 	if(victim.incorporeal_move || victim.status_flags & GODMODE || HAS_TRAIT(victim, TRAIT_SUPERMATTER_IMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
-	if(throwingdatum?.thrower)
-		var/mob/user = throwingdatum.thrower
+	var/mob/user = throwingdatum?.get_thrower()
+	if(user)
 		add_attack_logs(user, victim, "[victim] consumed by [src] thrown by [user] ")
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)], thrown by [key_name_admin(user)].")
 		investigate_log("has consumed [key_name(victim)], thrown by [key_name(user)]", "supermatter")

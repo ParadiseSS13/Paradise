@@ -34,9 +34,10 @@
     )
   );
   @include meta.load-css(
-    '../components/NumberInput.scss',
-    $with: ('border-color': #fff)
+    '../components/ImageButton.scss',
+    $with: ('color-default': #117039, 'color-disabled': #363636, 'color-selected': #9d0808)
   );
+  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #fff));
   @include meta.load-css(
     '../components/ProgressBar.scss',
     $with: ('background-color': rgba(0, 0, 0, 0.5), 'color-disabled': #363636)
@@ -46,10 +47,7 @@
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: ('background-color': #381608)
-  );
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #381608));
 
   .Button {
     border: base.em(2px) solid #fff;

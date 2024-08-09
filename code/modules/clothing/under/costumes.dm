@@ -15,13 +15,6 @@
 	item_state = "captain_fly"
 	item_color = "captain_fly"
 
-/obj/item/clothing/under/costume/rebeloutfit
-	name = "rebel outfit"
-	desc = "Made in Seattle, 2216."
-	icon_state = "colin_earle"
-	item_state = "colin_earle"
-	item_color = "colin_earle"
-
 /obj/item/clothing/under/costume/patriotsuit
 	name = "Patriotic Suit"
 	desc = "Motorcycle not included."
@@ -138,7 +131,8 @@
 	item_state = "psyamp"
 	item_color = "psyamp"
 
-/obj/item/clothing/under/psysuit //Don't modify the path, used by a fluff item
+/// Don't modify the path, used by a fluff item
+/obj/item/clothing/under/psysuit
 	name = "dark undersuit"
 	desc = "A thick, layered grey undersuit lined with power cables. Feels a little like wearing an electrical storm."
 	icon_state = "psysuit"
@@ -178,7 +172,6 @@
 /obj/item/clothing/under/costume/tourist_suit
 	name = "tourist outfit"
 	desc = "A light blue shirt with brown shorts. Feels oddly spooky."
-	icon_state = "tourist"
 	icon_state = "tourist"
 	item_color = "tourist"
 

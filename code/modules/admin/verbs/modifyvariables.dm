@@ -282,9 +282,9 @@ GLOBAL_PROTECT(VVmaint_only)
 	if(!ispath(type))
 		return
 	var/list/subtypes = subtypesof(type)
-	if(!subtypes || !subtypes.len)
+	if(!subtypes || !length(subtypes))
 		return FALSE
-	if(subtypes && subtypes.len)
+	if(subtypes && length(subtypes))
 		switch(alert("Strict object type detection?", "Type detection", "Strictly this type","This type and subtypes", "Cancel"))
 			if("Strictly this type")
 				return FALSE
@@ -356,7 +356,7 @@ GLOBAL_PROTECT(VVmaint_only)
 
 	L += var_value
 
-	switch(alert("Would you like to associate a value with the list entry?",,"Yes","No"))
+	switch(alert("Would you like to associate a value with the list entry?", null,"Yes","No"))
 		if("Yes")
 			L[var_value] = mod_list_add_ass(O) //hehe
 	if(O)
@@ -374,7 +374,7 @@ GLOBAL_PROTECT(VVmaint_only)
 		to_chat(src, "Not a List.")
 		return
 
-	if(L.len > 1000)
+	if(length(L) > 1000)
 		var/confirm = alert(src, "The list you're trying to edit is very long, continuing may crash the server.", "Warning", "Continue", "Abort")
 		if(confirm != "Continue")
 			return
@@ -382,7 +382,7 @@ GLOBAL_PROTECT(VVmaint_only)
 
 
 	var/list/names = list()
-	for(var/i in 1 to L.len)
+	for(var/i in 1 to length(L))
 		var/key = L[i]
 		var/value
 		if(IS_NORMAL_LIST(L) && !isnum(key))

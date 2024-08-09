@@ -82,7 +82,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/food/snacks/grown,
+		/obj/item/food/grown,
 		/obj/item/seeds,
 		/obj/item/grown,
 	))
@@ -178,31 +178,43 @@
 	return ..()
 
 /obj/machinery/smartfridge/attackby(obj/item/O, mob/user)
-	if(exchange_parts(user, O))
+	if(istype(O, /obj/item/storage/part_replacer))
+		. = ..()
 		SStgui.update_uis(src)
 		return
+
 	if(stat & (BROKEN|NOPOWER))
-		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
+		to_chat(user, "<span class='notice'>[src] is unpowered and useless.</span>")
 		return
 
 	if(load(O, user))
-		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
+		user.visible_message(
+			"<span class='notice'>[user] has added [O] to [src].</span>",
+			"<span class='notice'>You add [O] to [src].</span>"
+		)
 		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
-	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
+		return
+
+	if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
 		var/obj/item/storage/P = O
 		var/items_loaded = 0
 		for(var/obj/G in P.contents)
 			if(load(G, user))
 				items_loaded++
 		if(items_loaded)
-			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
+			user.visible_message(
+				"<span class='notice'>[user] loads [src] with [P].</span>",
+				"<span class='notice'>You load [src] with [P].</span>"
+			)
 			SStgui.update_uis(src)
 			update_icon(UPDATE_OVERLAYS)
 		var/failed = length(P.contents)
 		if(failed)
 			to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
-	else if(!istype(O, /obj/item/card/emag))
+		return
+
+	if(!istype(O, /obj/item/card/emag))
 		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
 		return TRUE
 
@@ -407,6 +419,7 @@
 /obj/machinery/smartfridge/secure/emag_act(mob/user)
 	emagged = TRUE
 	to_chat(user, "<span class='notice'>You short out the product lock on \the [src].</span>")
+	return TRUE
 
 /obj/machinery/smartfridge/secure/emp_act(severity)
 	if(!emagged && prob(40 / severity))
@@ -426,10 +439,10 @@
 // Syndicate Druglab Ruin
 /obj/machinery/smartfridge/food/syndicate_druglab
 	starting_items = list(
-		/obj/item/food/snacks/boiledrice = 2,
-		/obj/item/food/snacks/macncheese = 1,
-		/obj/item/food/snacks/syndicake = 3,
-		/obj/item/food/snacks/beans = 4,
+		/obj/item/food/boiledrice = 2,
+		/obj/item/food/macncheese = 1,
+		/obj/item/food/syndicake = 3,
+		/obj/item/food/beans = 4,
 		/obj/item/reagent_containers/glass/beaker/waterbottle/large = 7,
 		/obj/item/reagent_containers/drinks/bottle/kahlua = 1,
 		/obj/item/reagent_containers/drinks/bottle/orangejuice = 2)
@@ -464,7 +477,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "foodcart"
 	anchored = FALSE
-	requires_power = FALSE
+	interact_offline = TRUE
 	power_state = NO_POWER_USE
 	visible_contents = FALSE
 	face_while_pulling = FALSE
@@ -474,7 +487,7 @@
 /obj/machinery/smartfridge/foodcart/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/food/snacks,
+		/obj/item/food,
 		/obj/item/reagent_containers/drinks,
 		/obj/item/reagent_containers/condiment,
 	))
@@ -681,39 +694,6 @@
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate/Initialize(mapload)
 	. = ..()
 	req_access = list(ACCESS_SYNDICATE)
-
-/**
-  * # Disk Compartmentalizer
-  *
-  * Disk variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  */
-/obj/machinery/smartfridge/disks
-	name = "disk compartmentalizer"
-	desc = "A machine capable of storing a variety of disks. Denoted by most as the DSU (disk storage unit)."
-	icon_state = "disktoaster"
-	icon_lightmask = "disktoaster"
-	pass_flags = PASSTABLE
-	visible_contents = TRUE
-	board_type = /obj/machinery/smartfridge/disks
-
-/obj/machinery/smartfridge/disks/Initialize(mapload)
-	. = ..()
-	accepted_items_typecache = typecacheof(list(
-		/obj/item/disk,
-	))
-
-/obj/machinery/smartfridge/disks/update_fridge_contents()
-	switch(length(contents))
-		if(0)
-			fill_level = null
-		if(1)
-			fill_level = 1
-		if(2)
-			fill_level = 2
-		if(3)
-			fill_level = 3
-		if(4 to INFINITY)
-			fill_level = 4
 /obj/machinery/smartfridge/id
 	name = "identification card compartmentalizer"
 	desc = "A machine capable of storing identification cards and PDAs. It's great for lost and terminated cards."
@@ -766,7 +746,8 @@
 		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
-		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1
+		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1,
+		/obj/item/storage/lockbox/vials = 2
 	)
 	. = ..()
 
@@ -820,7 +801,7 @@
 	desc = "A wooden contraption, used to dry plant products, food and leather."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "drying_rack"
-	requires_power = FALSE
+	interact_offline = TRUE
 	can_dry = TRUE
 	visible_contents = FALSE
 	light_range_on = null
@@ -835,7 +816,7 @@
 	component_parts = null
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/food/snacks,
+		/obj/item/food,
 		/obj/item/stack/sheet/wetleather,
 	))
 
@@ -884,8 +865,8 @@
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
 	. = ..()
 	// If it's a food, reject non driable ones
-	if(istype(O, /obj/item/food/snacks))
-		var/obj/item/food/snacks/S = O
+	if(istype(O, /obj/item/food))
+		var/obj/item/food/S = O
 		if(!S.dried_type)
 			return FALSE
 
@@ -906,7 +887,7 @@
   * Called in [/obj/machinery/smartfridge/drying_rack/process] to dry the contents.
   */
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry()
-	for(var/obj/item/food/snacks/S in contents)
+	for(var/obj/item/food/S in contents)
 		if(S.dried_type == S.type)//if the dried type is the same as the object's type, don't bother creating a whole new item...
 			S.color = "#ad7257"
 			S.dry = TRUE

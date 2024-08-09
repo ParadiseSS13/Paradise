@@ -35,7 +35,8 @@
 		var/mob/living/user = loc
 		user.update_inv_r_hand()
 		user.update_inv_l_hand()
-	loc.assume_air(air_contents)
+	var/turf/T = get_turf(src)
+	T.blind_release_air(air_contents)
 
 /obj/item/latexballon/ex_act(severity)
 	burst()
@@ -61,5 +62,5 @@
 		var/obj/item/tank/T = W
 		blow(T, user)
 		return
-	if(is_sharp(W) || W.get_heat() || is_pointed(W))
+	if(W.sharp || W.get_heat() || is_pointed(W))
 		burst()

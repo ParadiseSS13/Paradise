@@ -49,7 +49,7 @@
 	if(HAS_TRAIT(src, TRAIT_LASEREYES) && a_intent == INTENT_HARM)
 		LaserEyes(A)
 
-	if(HAS_TRAIT(src, TRAIT_TELEKINESIS))
+	if(HAS_TRAIT(src, TRAIT_TELEKINESIS) && telekinesis_range_check(src, A))
 		A.attack_tk(src)
 
 	if(isturf(A) && get_dist(src, A) <= 1)
@@ -111,6 +111,9 @@
 */
 /mob/new_player/ClickOn()
 	return
+
+/mob/new_player/can_use_clickbinds()
+	return FALSE
 
 // pAIs are not intended to interact with anything in the world
 /mob/living/silicon/pai/UnarmedAttack(atom/A)

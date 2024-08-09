@@ -38,14 +38,7 @@ const store = configureStore({
     settings: settingsReducer,
   }),
   middleware: {
-    pre: [
-      chatMiddleware,
-      pingMiddleware,
-      telemetryMiddleware,
-      settingsMiddleware,
-      audioMiddleware,
-      gameMiddleware,
-    ],
+    pre: [chatMiddleware, pingMiddleware, telemetryMiddleware, settingsMiddleware, audioMiddleware, gameMiddleware],
   },
 });
 
@@ -84,7 +77,7 @@ const setupApp = () => {
   });
 
   // Unhide the panel
-  Byond.winset('browseroutput', {
+  Byond.winset('chat_panel', {
     'is-visible': true,
     'is-disabled': false,
     'pos': '0x0',
@@ -93,7 +86,7 @@ const setupApp = () => {
 
   // Resize the panel to match the non-browser output
   Byond.winget('output').then((output) => {
-    Byond.winset('browseroutput', {
+    Byond.winset('chat_panel', {
       'size': output.size,
     });
   });
@@ -102,16 +95,7 @@ const setupApp = () => {
   if (module.hot) {
     setupHotReloading();
     module.hot.accept(
-      [
-        './audio',
-        './chat',
-        './game',
-        './Notifications',
-        './Panel',
-        './ping',
-        './settings',
-        './telemetry',
-      ],
+      ['./audio', './chat', './game', './Notifications', './Panel', './ping', './settings', './telemetry'],
       () => {
         renderApp();
       }

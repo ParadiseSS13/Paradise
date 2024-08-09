@@ -27,7 +27,7 @@
 		return
 	if(dummy_active || !isitem(target))
 		return
-	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
+	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
 	to_chat(user, "<span class='notice'>Scanned [target].</span>")
 	saved_name = target.name
 	saved_desc = target.desc
@@ -43,7 +43,7 @@
 /obj/item/chameleon_counterfeiter/proc/matter_toggle(mob/living/user)
 	if(!can_use || !saved_name)
 		return
-	playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
+	playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
 	if(dummy_active)
 		matter_deactivate()
 		to_chat(user, "<span class='notice'>You deactivate [src].</span>")

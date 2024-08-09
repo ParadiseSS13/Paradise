@@ -6,11 +6,12 @@
 /obj/item/organ/internal/eyes/vulpkanin
 	name = "vulpkanin eyeballs"
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
+	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix and darksight parameters that the mob will receive when they get the disability.
 	replace_colours = PROTANOPIA_COLOR_REPLACE
 	see_in_dark = 4
 
-/obj/item/organ/internal/eyes/vulpkanin/wolpin //Being the lesser form of Vulpkanin, Wolpins have an utterly incurable version of their colourblindness.
+/// Being the lesser form of Vulpkanin, Wolpins have an utterly incurable version of their colourblindness.
+/obj/item/organ/internal/eyes/vulpkanin/wolpin
 	name = "wolpin eyeballs"
 	colourmatrix = MATRIX_VULP_CBLIND
 	see_in_dark = 3

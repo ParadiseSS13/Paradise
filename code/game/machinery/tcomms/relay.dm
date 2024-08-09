@@ -54,6 +54,11 @@
   */
 /obj/machinery/tcomms/relay/LateInitialize()
 	. = ..()
+
+	// It's also possible the relay's APC's Initialize was called after this one.
+	// Take the opportunity here to re-check the equipment channel.
+	power_change()
+
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		if(C.network_id == autolink_id)
 			AddLink(C)
@@ -205,7 +210,7 @@
 		if("unlink")
 			if(!linked)
 				return
-			var/choice = alert(usr, "Are you SURE you want to unlink this relay?\nYou wont be able to re-link without the core password", "Unlink","Yes","No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this relay?\nYou wont be able to re-link without the core password", "Unlink", list("Yes", "No"))
 			if(choice == "Yes")
 				log_action(usr, "Unlinked [network_id] from [linked_core.network_id]")
 				Reset()

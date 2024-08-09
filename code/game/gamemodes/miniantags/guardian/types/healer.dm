@@ -36,7 +36,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload, mob/living/host)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/summon_guardian_beacon(null))
+	AddSpell(new /datum/spell/summon_guardian_beacon(null))
 
 /mob/living/simple_animal/hostile/guardian/healer/Destroy()
 	QDEL_NULL(beacon)
@@ -47,13 +47,13 @@
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
 
-/mob/living/simple_animal/hostile/guardian/healer/Stat()
-	..()
-	if(statpanel("Status"))
-		if(beacon_cooldown >= world.time)
-			stat(null, "Bluespace Beacon Cooldown Remaining: [max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
-		if(surgical_cooldown >= world.time)
-			stat(null, "Surgical Cooldown Remaining: [max(round((surgical_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
+/mob/living/simple_animal/hostile/guardian/healer/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(beacon_cooldown >= world.time)
+		status_tab_data[++status_tab_data.len] = list("Bluespace Beacon Cooldown Remaining:", "[max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
+	if(surgical_cooldown >= world.time)
+		status_tab_data[++status_tab_data.len] = list("Surgical Cooldown Remaining:", "[max(round((surgical_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	. = ..()
@@ -63,12 +63,13 @@
 	if(toggle == HEALING)
 		if(iscarbon(target))
 			changeNext_move(1.5 SECONDS)
-			if(heal_cooldown <= world.time && !stat)
+			if(heal_cooldown <= world.time && stat == CONSCIOUS)
 				var/mob/living/carbon/human/C = target
 				C.adjustBruteLoss(-5, robotic=1)
 				C.adjustFireLoss(-5, robotic=1)
 				C.adjustOxyLoss(-5)
 				C.adjustToxLoss(-5)
+				C.adjustCloneLoss(-1)
 				heal_cooldown = world.time + 1.5 SECONDS
 				if(C == summoner)
 					med_hud_set_health()
@@ -77,7 +78,7 @@
 		if(!iscarbon(target))
 			return
 		var/mob/living/carbon/human/C = target
-		if(surgical_cooldown <= world.time && !stat)
+		if(surgical_cooldown <= world.time && stat == CONSCIOUS)
 			to_chat(src, "<span class='notice'>You begin to do a mass repair on [C], keep them still!</span>")
 			surgical_cooldown  = world.time + 10 SECONDS
 			if(!do_after_once(src, 10 SECONDS, target = src))
@@ -132,7 +133,7 @@
 	if(!Adjacent(A))
 		to_chat(src, "<span class='danger'>You must be adjacent to your target!</span>")
 		return
-	if((A.anchored))
+	if(A.anchored)
 		to_chat(src, "<span class='danger'>Your target can not be anchored!</span>")
 		return
 	to_chat(src, "<span class='danger'>You begin to warp [A]</span>")

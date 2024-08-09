@@ -297,10 +297,10 @@
 /obj/machinery/mecha_part_fabricator/attackby(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "fab-o", "fab-idle", W))
 		return
-	if(exchange_parts(user, W))
-		return
+
 	if(default_deconstruction_crowbar(user, W))
 		return TRUE
+
 	return ..()
 
 /obj/machinery/mecha_part_fabricator/attack_ghost(mob/user)
@@ -458,7 +458,7 @@
 			var/datum/material/M = materials.materials[id]
 			if(!M || !M.amount)
 				return
-			var/num_sheets = input(usr, "How many sheets do you want to withdraw?", "Withdrawing [M.name]") as num|null
+			var/num_sheets = tgui_input_number(usr, "How many sheets do you want to withdraw?", "Withdrawing [M.name]", max_value = round(M.amount / 2000))
 			if(isnull(num_sheets) || num_sheets <= 0)
 				return
 			materials.retrieve_sheets(num_sheets, id)

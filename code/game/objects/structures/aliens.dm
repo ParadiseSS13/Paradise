@@ -55,7 +55,7 @@
 	var/is_alien = TRUE
 
 /obj/structure/alien/resin/Initialize(mapload)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	if(!is_alien)
 		return ..()
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
@@ -69,14 +69,14 @@
 	var/turf/T = get_turf(src)
 	playsound(loc, 'sound/effects/alien_resin_break2.ogg', 100, TRUE)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/alien/resin/Move()
 	var/turf/T = loc
 	..()
 	move_update_air(T)
 
-/obj/structure/alien/resin/CanAtmosPass()
+/obj/structure/alien/resin/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/user)
@@ -96,8 +96,8 @@
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
-/obj/structure/alien/resin/wall/BlockSuperconductivity()
-	return TRUE
+/obj/structure/alien/resin/wall/get_superconductivity(direction)
+	return FALSE
 
 /*
  *Resin-Door - Borrows its code from Mineral-Door, not a subtype due to needing many overrides if so
@@ -111,7 +111,7 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin"
 	base_icon_state = "resin"
-	max_integrity = 100
+	max_integrity = 60
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
@@ -135,7 +135,7 @@
 /obj/structure/alien/resin/door/Destroy()
 	density = FALSE
 	QUEUE_SMOOTH_NEIGHBORS(src)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/alien/resin/door/Move()
@@ -153,10 +153,10 @@
 	if(user.can_advanced_admin_interact())
 		operate()
 
-/obj/structure/alien/resin/door/CanAtmosPass(turf/T)
+/obj/structure/alien/resin/door/CanAtmosPass(direction)
 	return !density
 
-/obj/structure/alien/resin/door/proc/try_to_operate(mob/user)
+/obj/structure/alien/resin/door/proc/try_to_operate(mob/user, bumped_open = FALSE)
 	if(is_operating)
 		return
 	if(!iscarbon(user))
@@ -164,7 +164,7 @@
 	var/mob/living/carbon/C = user
 	if(C.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 		if(!C.handcuffed)
-			operate()
+			operate(bumped_open)
 		return
 	to_chat(user, "<span class='noticealien'>Your lack of connection to the hive prevents the resin door from opening</span>")
 /*
@@ -178,7 +178,7 @@
 		return
 	operate()
 
-/obj/structure/alien/resin/door/proc/operate()
+/obj/structure/alien/resin/door/proc/operate(bumped_open = FALSE)
 	is_operating = TRUE
 	if(!state_open)
 		playsound(loc, open_sound, 50, TRUE)
@@ -194,14 +194,14 @@
 	density = !density
 	opacity = !opacity
 	state_open = !state_open
-	addtimer(CALLBACK(src, PROC_REF(operate_update)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(operate_update), bumped_open), 1 SECONDS)
 
-/obj/structure/alien/resin/door/proc/operate_update()
-	air_update_turf(1)
+/obj/structure/alien/resin/door/proc/operate_update(bumped_open)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 
-	if(state_open)
+	if(state_open && bumped_open)
 		addtimer(CALLBACK(src, PROC_REF(mobless_try_to_operate)), close_delay)
 
 /obj/structure/alien/resin/door/update_icon_state()
@@ -219,7 +219,7 @@
 /obj/structure/alien/resin/door/Bumped(atom/user)
 	..()
 	if(!state_open)
-		return try_to_operate(user)
+		return try_to_operate(user, TRUE)
 
 /*
  * Weeds

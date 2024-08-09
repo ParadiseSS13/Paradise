@@ -19,7 +19,7 @@
 	SSair.atmos_machinery += src
 
 	air_contents.volume = volume
-	air_contents.temperature = T20C
+	air_contents.set_temperature(T20C)
 
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
@@ -103,6 +103,9 @@
 	if(holding_tank)
 		. += "<span class='notice'>\The [src] contains [holding_tank]. Alt-click [src] to remove it.</span>"
 
+/obj/machinery/atmospherics/portable/return_analyzable_air()
+	return air_contents
+
 /obj/machinery/atmospherics/portable/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
 	if(holding_tank)
 		holding_tank.forceMove(drop_location())
@@ -128,9 +131,6 @@
 			T.loc = src
 			holding_tank = T
 			update_icon()
-		return
-	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
-		atmosanalyzer_scan(air_contents, user)
 		return
 	return ..()
 

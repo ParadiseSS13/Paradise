@@ -20,6 +20,14 @@
 	fire_damage = 3
 	var/mob/camera/blob/overmind = null
 
+/mob/living/simple_animal/hostile/blob/Initialize(mapload)
+	. = ..()
+	GLOB.blob_minions |= src
+
+/mob/living/simple_animal/hostile/blob/Destroy()
+	GLOB.blob_minions -= src
+	return ..()
+
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(a_color)
 	if(a_color)
 		color = a_color
@@ -76,6 +84,7 @@
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
+	GLOB.spores_active++
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
@@ -143,6 +152,7 @@
 	if(oldguy)
 		oldguy.forceMove(get_turf(src))
 		oldguy = null
+	GLOB.spores_active--
 	return ..()
 
 
@@ -194,11 +204,13 @@
 	. = ..()
 	var/datum/action/innate/communicate_overmind_blob/overmind_chat = new
 	overmind_chat.Grant(src)
+	if(name == "blobbernaut")
+		name = "blobbernaut ([rand(1, 1000)])"
 
 /datum/action/innate/communicate_overmind_blob
 	name = "Speak with the overmind"
-	icon_icon = 'icons/mob/guardian.dmi'
-	button_icon_state = "communicate"
+	button_overlay_icon = 'icons/mob/guardian.dmi'
+	button_overlay_icon_state = "communicate"
 
 /datum/action/innate/communicate_overmind_blob/Activate()
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/user = owner
@@ -218,11 +230,6 @@
 			adjustFireLoss(0.2)
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
-	. = ..()
-	if(name == "blobbernaut")
-		name = "blobbernaut ([rand(1, 1000)])"
-
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..()
@@ -231,7 +238,7 @@
 	flick("blobbernaut_death", src)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
-	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
+	var/message = tgui_input_text(usr, "Announce to the overmind", "Blob Telepathy")
 	var/rendered
 	var/follow_text
 	if(message)

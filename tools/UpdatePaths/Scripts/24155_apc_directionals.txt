@@ -1,0 +1,35 @@
+/obj/machinery/power/apc/off_station/empty_charge{pixel_x=-24} : /obj/machinery/power/apc/off_station/empty_charge/directional/west{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/off_station/empty_charge{pixel_x=24} : /obj/machinery/power/apc/off_station/empty_charge/directional/east{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/off_station/empty_charge{pixel_y=-24} : /obj/machinery/power/apc/off_station/empty_charge/directional/south{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/off_station/empty_charge{pixel_y=24} : /obj/machinery/power/apc/off_station/empty_charge/directional/north{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/off_station{name="Bunker APC";pixel_x=-24} : /obj/machinery/power/apc/off_station/directional/west{@OLD;dir=@SKIP;keep_preset_name=1;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/off_station{name="Worn-out APC";pixel_y=-24} : /obj/machinery/power/apc/worn_out/directional/south{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/off_station{pixel_x=-24} : /obj/machinery/power/apc/off_station/directional/west{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/off_station{pixel_x=24;req_access=list(150)} : /obj/machinery/power/apc/syndicate/directional/east{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/off_station{pixel_x=24} : /obj/machinery/power/apc/off_station/directional/east{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/off_station{pixel_y=-24} : /obj/machinery/power/apc/off_station/directional/south{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/off_station{pixel_y=24} : /obj/machinery/power/apc/off_station/directional/north{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/syndicate/east : /obj/machinery/power/apc/syndicate/directional/east{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/syndicate/north : /obj/machinery/power/apc/syndicate/directional/north{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/syndicate/off{pixel_x=24} : /obj/machinery/power/apc/syndicate/off/directional/east{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/syndicate/south : /obj/machinery/power/apc/syndicate/directional/south{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/syndicate/west : /obj/machinery/power/apc/syndicate/directional/west{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/worn_out{pixel_x=-24} : /obj/machinery/power/apc/worn_out/directional/west{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc/worn_out{pixel_y=-24} : /obj/machinery/power/apc/worn_out/directional/south{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=15000;pixel_x=-24} : /obj/machinery/power/apc/important/directional/west{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=15000;pixel_x=24} : /obj/machinery/power/apc/important/directional/east{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=15000;pixel_y=-24} : /obj/machinery/power/apc/important/directional/south{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=15000;pixel_y=24} : /obj/machinery/power/apc/important/directional/north{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=25000;pixel_x=-24} : /obj/machinery/power/apc/critical/directional/west{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=25000;pixel_x=24} : /obj/machinery/power/apc/critical/directional/east{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=25000;pixel_y=-24} : /obj/machinery/power/apc/critical/directional/south{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=25000;pixel_y=24} : /obj/machinery/power/apc/critical/directional/north{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=5000;pixel_x=-24} : /obj/machinery/power/apc/important/directional/west{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=5000;pixel_x=24} : /obj/machinery/power/apc/important/directional/east{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=5000;pixel_y=-24} : /obj/machinery/power/apc/important/directional/south{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{cell_type=5000;pixel_y=24} : /obj/machinery/power/apc/important/directional/north{@OLD;cell_type=@SKIP;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{name="Worn-out APC";pixel_y=24} : /obj/machinery/power/apc/worn_out/directional/north{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{pixel_x=-24} : /obj/machinery/power/apc/directional/west{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{pixel_x=24} : /obj/machinery/power/apc/directional/east{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_x=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{pixel_y=-24} : /obj/machinery/power/apc/directional/south{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}
+/obj/machinery/power/apc{pixel_y=24} : /obj/machinery/power/apc/directional/north{@OLD;dir=@SKIP;keep_preset_name=@SKIP;name=@SKIP;pixel_y=@SKIP;req_access=@SKIP}

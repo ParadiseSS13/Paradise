@@ -5,11 +5,7 @@
 #define X_R_HAND_LAYER			4
 #define X_TARGETED_LAYER			5
 #define X_FIRE_LAYER			6
-#define X_TOTAL_LAYERS			6
 /////////////////////////////////
-
-/mob/living/carbon/alien/humanoid
-	var/list/overlays_standing[X_TOTAL_LAYERS]
 
 /mob/living/carbon/alien/humanoid/update_icons()
 	overlays.Cut()
@@ -28,8 +24,6 @@
 	else if(stat == UNCONSCIOUS || IsWeakened())
 		icon_state = "alien[caste]_unconscious"
 		pixel_y = 0
-	else if(leap_on_click)
-		icon_state = "alien[caste]_pounce"
 
 	else if(IS_HORIZONTAL(src))
 		icon_state = "alien[caste]_sleep"
@@ -38,21 +32,12 @@
 	else
 		icon_state = "alien[caste]_s"
 
-	if(leaping)
-		if(alt_icon == initial(alt_icon))
-			var/old_icon = icon
-			icon = alt_icon
-			alt_icon = old_icon
-		icon_state = "alien[caste]_leap"
-		pixel_x = -32
-		pixel_y = -32
-	else
-		if(alt_icon != initial(alt_icon))
-			var/old_icon = icon
-			icon = alt_icon
-			alt_icon = old_icon
-		pixel_x = get_standard_pixel_x_offset()
-		pixel_y = get_standard_pixel_y_offset()
+	if(alt_icon != initial(alt_icon))
+		var/old_icon = icon
+		icon = alt_icon
+		alt_icon = old_icon
+	pixel_x = get_standard_pixel_x_offset()
+	pixel_y = get_standard_pixel_y_offset()
 
 /mob/living/carbon/alien/humanoid/regenerate_icons()
 	..()
@@ -83,11 +68,11 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_wear_suit()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
 		inv.update_icon()
 
 	if(wear_suit)
-		if(client && hud_used && hud_used.hud_shown)
+		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(hud_used.inventory_shown)					//if the inventory is open ...
 				wear_suit.screen_loc = ui_oclothing	//TODO	//...draw the item in the inventory screen
 			client.screen += wear_suit						//Either way, add the item to the HUD
@@ -125,15 +110,6 @@
 		overlays_standing[X_HEAD_LAYER]	= null
 	update_icons()
 
-
-/mob/living/carbon/alien/humanoid/update_inv_pockets()
-	if(l_store)
-		l_store.screen_loc = ui_storage1
-	if(r_store)
-		r_store.screen_loc = ui_storage2
-	update_icons()
-
-
 /mob/living/carbon/alien/humanoid/update_inv_r_hand()
 	..()
 	if(r_hand)
@@ -164,4 +140,3 @@
 #undef X_R_HAND_LAYER
 #undef X_TARGETED_LAYER
 #undef X_FIRE_LAYER
-#undef X_TOTAL_LAYERS

@@ -1,3 +1,4 @@
+RESTRICT_TYPE(/datum/antagonist/rev/head)
 
 /datum/antagonist/rev/head
 	name = "Head Revolutionary"
@@ -57,8 +58,7 @@
 
 /datum/antagonist/rev/head/proc/demote()
 	var/datum/mind/old_owner = owner
-	silent = TRUE
-	owner.remove_antag_datum(/datum/antagonist/rev/head)
+	owner.remove_antag_datum(/datum/antagonist/rev/head, silent_removal = TRUE)
 
 	var/datum/antagonist/rev/demoted = new()
 	demoted.silent = TRUE

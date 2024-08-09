@@ -1,10 +1,12 @@
 /*
  * Fireaxe
  */
-/obj/item/fireaxe  // DEM AXES MAN, marker -Agouri
+/// DEM AXES MAN, marker -Agouri
+/obj/item/fireaxe
 	base_icon_state = "fireaxe"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "fireaxe0"
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
@@ -27,6 +29,7 @@
 /obj/item/fireaxe/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (10 / 3) SECONDS, _requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
 	AddComponent(/datum/component/two_handed, force_unwielded = force_unwielded, force_wielded = force_wielded, icon_wielded = "[base_icon_state]1")
 
 /obj/item/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
@@ -41,17 +44,14 @@
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
 
-/obj/item/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
+/// Blatant imitation of the fireaxe, but made out of bone.
+/obj/item/fireaxe/boneaxe
 	icon_state = "bone_axe0"
 	base_icon_state = "bone_axe"
 	name = "bone axe"
 	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
 	force_wielded = 23
 	needs_permit = TRUE
-
-/obj/item/fireaxe/boneaxe/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, icon_wielded = "[base_icon_state]1")
 
 /obj/item/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
@@ -96,7 +96,7 @@
 /obj/item/dualsaber
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
-	icon = 'icons/obj/energy_melee.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "dualsaber0"
@@ -106,7 +106,6 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
-
 	armour_penetration_flat = 10
 	armour_penetration_percentage = 50
 	origin_tech = "magnets=4;syndicate=5"
@@ -120,8 +119,6 @@
 	var/blade_color
 	var/brightness_on = 2
 	var/colormap = list(red = LIGHT_COLOR_RED, blue = LIGHT_COLOR_LIGHTBLUE, green = LIGHT_COLOR_GREEN, purple = LIGHT_COLOR_PURPLE, rainbow = LIGHT_COLOR_WHITE)
-
-
 	var/force_unwielded = 3
 	var/force_wielded = 34
 	var/wieldsound = 'sound/weapons/saberon.ogg'
@@ -131,7 +128,7 @@
 	. = ..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, force_unwielded = force_unwielded, wieldsound = wieldsound, unwieldsound = unwieldsound, wield_callback = CALLBACK(src, PROC_REF(on_wield)), unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), only_sharp_when_wielded = TRUE)
 
 /obj/item/dualsaber/update_icon_state()
@@ -233,7 +230,7 @@
 /obj/item/spear
 	name = "spear"
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
-	icon = 'icons/obj/spear.dmi'
+	icon = 'icons/obj/weapons/spears.dmi'
 	base_icon_state = "spearglass"
 	icon_state = "spearglass0"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
@@ -258,6 +255,7 @@
 
 /obj/item/spear/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (10 / 3) SECONDS, _requires_two_hands = TRUE) // 2.3333 seconds of cooldown for 30% uptime
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = force_wielded, \
 		force_unwielded = force_unwielded, \
@@ -306,7 +304,8 @@
 		explosive.prime()
 		qdel(src)
 
-/obj/item/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
+/// Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
+/obj/item/spear/bonespear
 	name = "bone spear"
 	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
 	base_icon_state = "bone_spear"
@@ -317,6 +316,13 @@
 	throwforce = 22
 	armour_penetration_percentage = 15				//Enhanced armor piercing
 
+//Blatant imitation of spear, but all natural. Also not valid for explosive modification.
+/obj/item/spear/bamboo
+	name = "bamboo spear"
+	desc = "A haphazardly-constructed bamboo stick with a sharpened tip, ready to poke holes into unsuspecting people."
+	base_icon_state = "bamboo_spear"
+	icon_state = "bamboo_spear0"
+	throwforce = 22
 
 //GREY TIDE
 /obj/item/spear/grey_tide
@@ -390,19 +396,13 @@
 		mounted_head = null
 	qdel(src)
 
-/obj/item/spear/kidan
-	name = "\improper Kidan spear"
-	desc = "A spear brought over from the Kidan homeworld."
-	base_icon_state = "kindanspear"
-	icon_state = "kidanspear0"
-
-
 // DIY CHAINSAW
 /obj/item/chainsaw
 	name = "chainsaw"
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "gchainsaw_off"
 	flags = CONDUCT
 	force = 13
@@ -443,7 +443,7 @@
 		user.update_inv_r_hand()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/chainsaw/attack_hand(mob/user)
 	. = ..()
@@ -475,6 +475,7 @@
 	desc = "Perfect for felling trees or fellow spacemen."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	base_icon_state = "chainsaw"
 	icon_state = "chainsaw0"
 	force = 15
@@ -507,7 +508,7 @@
 /obj/item/butcher_chainsaw/attack(mob/living/target, mob/living/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
+		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, TRUE, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
 		if(isnull(.)) //necessary check, successful attacks return null, without it target will drop any shields they may have before they get a chance to block
 			target.KnockDown(8 SECONDS)
 
@@ -519,6 +520,8 @@
 	if(isrobot(target)) //no buff from attacking robots
 		return
 	if(!isliving(target)) //no buff from attacking inanimate objects
+		return
+	if(user.reagents.get_reagent_amount("mephedrone") > 15) // No patrick, you do not get to be chainsaw stun immune and bullet immune at once
 		return
 	if(target.stat != DEAD) //no buff from attacking dead targets
 		user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
@@ -542,6 +545,7 @@
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "singulohammer0"
 	base_icon_state = "singulohammer"
 	flags = CONDUCT
@@ -556,7 +560,8 @@
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/singularityhammer/Initialize(mapload)
-	..()
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 40, \
 		force_unwielded = force, \
@@ -613,6 +618,7 @@
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "mjollnir0"
 	base_icon_state = "mjollnir"
 	flags = CONDUCT
@@ -624,7 +630,8 @@
 	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/mjollnir/Initialize(mapload)
-	..()
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 25, \
 		force_unwielded = force, \
@@ -660,6 +667,7 @@
 	desc = "A hammer made of sturdy metal with a golden skull adorned with wings on either side of the head. <br>This weapon causes devastating damage to those it hits due to a power field sustained by a mini-singularity inside of the hammer."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "knighthammer0"
 	base_icon_state = "knighthammer"
 	flags = CONDUCT
@@ -674,6 +682,7 @@
 /obj/item/knighthammer/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 30, \
 		force_unwielded = force, \
@@ -728,6 +737,7 @@
 	desc = "The power of the sun, in the claws of your hand."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	icon_state = "pyro_claws"
 	flags = ABSTRACT | NODROP | DROPDEL
 	force = 22
@@ -877,6 +887,7 @@
 
 /obj/item/push_broom/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 5) SECONDS, _requires_two_hands = TRUE)
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 12, \
 		force_unwielded = force, \
@@ -916,7 +927,7 @@
 		var/obj/item/storage/bag/trash/bag = jani_vehicle?.mybag || jani_cart?.mybag
 		var/obj/trashed_into
 		if(bag?.can_be_inserted(garbage, TRUE))
-			bag.handle_item_insertion(garbage, TRUE)
+			bag.handle_item_insertion(garbage, user, TRUE)
 			trashed_into = bag
 		else if(target_bin)
 			move_into_storage(user, target_bin, garbage)
@@ -935,10 +946,6 @@
 	trash.forceMove(storage)
 	storage.update_icon()
 
-/obj/item/push_broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
-	cart.mybroom = src
-	cart.put_in_cart(src, user)
-
 /obj/item/push_broom/traitor
 	name = "titanium push broom"
 	desc = "This is my BROOMSTICK! All of the functionality of a normal broom, but at least half again more robust."
@@ -947,7 +954,7 @@
 
 /obj/item/push_broom/traitor/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	// parent component handles this
 	AddComponent(/datum/component/two_handed, force_wielded = 25, force_unwielded = force)
 
@@ -957,15 +964,6 @@
 		. += "<span class='warning'>When wielded, the broom has different effects depending on your intent, similar to a martial art. \
 			Help intent will sweep foes away from you, disarm intent sweeps their legs from under them, grab intent confuses \
 			and minorly fatigues them, and harm intent hits them normally.</span>"
-
-/obj/item/push_broom/traitor/wield(obj/item/source, mob/user)
-	ADD_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")
-	to_chat(user, "<span class='warning'>Your sweeping stance allows you to deflect projectiles.</span>")
-
-/obj/item/push_broom/traitor/unwield(obj/item/source, mob/user)
-	if(HAS_TRAIT_FROM(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")) //this check is needed because obj/item/twohanded calls unwield() on drop and you'd get the message even if you weren't wielding it before
-		REMOVE_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, "pushbroom")
-		to_chat(user, "<span class='warning'>You stop reflecting projectiles.</span>")
 
 /obj/item/push_broom/traitor/attack(mob/target, mob/living/user)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED) || !ishuman(target))
@@ -1008,7 +1006,7 @@
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 50, TRUE, -1)
 			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS) //no stacking infinitely
-			H.adjustStaminaLoss(15)
+			H.apply_damage(15, STAMINA)
 
 			add_attack_logs(user, H, "Swept with the brush of the titanium push broom", ATKLOG_ALL)
 
@@ -1017,11 +1015,13 @@
 
 #undef BROOM_PUSH_LIMIT
 
-/obj/item/supermatter_halberd  //Supermatter Halberd, used by Oblivion Enforcers
+/// Supermatter Halberd, used by Oblivion Enforcers
+/obj/item/supermatter_halberd
 	name = "supermatter halberd"
 	desc = "The revered weapon of Oblivion Enforcers, used to enforce the Order's will."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "smhalberd0"
 	base_icon_state = "smhalberd"
 	force = 5
@@ -1042,7 +1042,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT) //so it can't be dusted by the SM
-	AddComponent(/datum/component/parry, _stamina_constant = 0, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 	AddComponent(/datum/component/two_handed, force_wielded = 40, force_unwielded = force, icon_wielded = "[base_icon_state]1")
 
 /obj/item/supermatter_halberd/update_icon_state()

@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ab" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/lava/mapping_lava,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "ac" = (
@@ -102,7 +102,7 @@
 /area/ruin/powered/snow_cabin)
 "ax" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/beans,
+/obj/item/food/beans,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "ay" = (
@@ -250,6 +250,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
+"bJ" = (
+/mob/living/simple_animal/hostile/bear/polar,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
 "bM" = (
 /obj/machinery/light,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -286,11 +290,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/pod/dark{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/snow_biodome)
 "jE" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -1267,7 +1267,7 @@ aB
 ak
 ak
 aC
-ak
+bJ
 Wg
 QI
 tb

@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/emplosion
+/datum/spell/emplosion
 	name = "Emplosion"
 	desc = "This spell emplodes an area."
 
@@ -7,12 +7,12 @@
 
 	action_icon_state = "emp"
 
-/obj/effect/proc_holder/spell/emplosion/create_new_targeting()
+/datum/spell/emplosion/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/emplosion/cast(list/targets, mob/user = usr)
+/datum/spell/emplosion/cast(list/targets, mob/user = usr)
 
 	for(var/mob/living/target in targets)
-		empulse(target.loc, emp_heavy, emp_light, 1)
+		empulse(target.loc, emp_heavy, emp_light, TRUE)
 
 	return

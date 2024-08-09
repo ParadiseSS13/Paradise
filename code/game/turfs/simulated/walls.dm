@@ -1,5 +1,3 @@
-#define WALL_DENT_HIT 1
-#define WALL_DENT_SHOT 2
 #define MAX_DENT_DECALS 15
 
 /turf/simulated/wall
@@ -26,6 +24,7 @@
 	explosion_block = 1
 
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	flags_ricochet = RICOCHET_HARD
 	rad_insulation = RAD_MEDIUM_INSULATION
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
@@ -63,6 +62,7 @@
 			underlay_appearance.icon_state = fixed_underlay["icon_state"]
 		fixed_underlay = string_assoc_list(fixed_underlay)
 		underlays += underlay_appearance
+	AddComponent(/datum/component/debris, DEBRIS_SPARKS, -20, 10, 1)
 
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
@@ -118,9 +118,9 @@
 		. += dent_decals
 		return
 
-	var/overlay = round(damage / damage_cap * damage_overlays.len) + 1
-	if(overlay > damage_overlays.len)
-		overlay = damage_overlays.len
+	var/overlay = round(damage / damage_cap * length(damage_overlays)) + 1
+	if(overlay > length(damage_overlays))
+		overlay = length(damage_overlays)
 
 	if(length(dent_decals))
 		. += dent_decals
@@ -129,9 +129,9 @@
 	. += dent_decals
 
 /turf/simulated/wall/proc/generate_overlays()
-	var/alpha_inc = 256 / damage_overlays.len
+	var/alpha_inc = 256 / length(damage_overlays)
 
-	for(var/i = 1; i <= damage_overlays.len; i++)
+	for(var/i = 1; i <= length(damage_overlays); i++)
 		var/image/img = image(icon = 'icons/turf/walls.dmi', icon_state = "overlay_damage")
 		img.blend_mode = BLEND_MULTIPLY
 		img.alpha = (i * alpha_inc) - 1
@@ -154,17 +154,6 @@
 		dismantle_wall()
 	else
 		update_icon()
-
-/turf/simulated/wall/handle_ricochet(obj/item/projectile/P)			//A huge pile of shitcode!
-	var/turf/p_turf = get_turf(P)
-	var/face_direction = get_dir(src, p_turf)
-	var/face_angle = dir2angle(face_direction)
-	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
-	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
-		return FALSE
-	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-	P.set_angle(new_angle_s)
-	return TRUE
 
 /turf/simulated/wall/dismantle_wall(devastated = FALSE, explode = FALSE)
 	if(devastated)
@@ -210,7 +199,7 @@
 	if(prob(50))
 		dismantle_wall()
 	else
-		add_dent(WALL_DENT_HIT)
+		add_dent(PROJECTILE_IMPACT_WALL_DENT_HIT)
 
 /turf/simulated/wall/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_ATMOS_MODE)
@@ -235,7 +224,7 @@
 				dismantle_wall(1)
 				playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 			else
-				add_dent(WALL_DENT_HIT)
+				add_dent(PROJECTILE_IMPACT_WALL_DENT_HIT)
 		if(BURN)
 			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 		if(TOX)
@@ -333,7 +322,7 @@
 		dismantle_wall(TRUE)
 	else
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		add_dent(WALL_DENT_HIT)
+		add_dent(PROJECTILE_IMPACT_WALL_DENT_HIT)
 		to_chat(user, "<span class='notice'>You punch the wall.</span>")
 	return TRUE
 
@@ -370,8 +359,8 @@
 
 	if(try_wallmount(I, user, params))
 		return
-	// The magnetic gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper_engineering))
+	// The cyborg gripper does a separate attackby, so bail from this one
+	if(istype(I, /obj/item/gripper))
 		return
 
 	return ..()
@@ -423,7 +412,7 @@
 			dismantle_wall()
 
 /turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
-	if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
+	if((!I.sharp && I.force >= 10) || I.force >= 20)
 		to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
 		dismantle_wall(1)
 		return TRUE
@@ -470,6 +459,14 @@
 			to_chat(user, "<span class='notice'>Your [I.name] melts the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] melts [src]!</span>","<span class='warning'>You hear the hissing of steam.</span>")
+		return TRUE
+
+	else if(istype(I, /obj/item/zombie_claw))
+		to_chat(user, "<span class='notice'>You begin to claw apart the wall.</span>")
+		if(do_after(user, isdiamond ? 2 MINUTES * I.toolspeed : 1 MINUTES * I.toolspeed, target = src)) // 120/60 seconds by default
+			to_chat(user, "<span class='notice'>Your [I.name] rip apart the reinforced plating.</span>")
+			dismantle_wall()
+			visible_message("<span class='warning'>[user] claws through [src]!</span>","<span class='warning'>You hear the grinding of metal and bone.</span>")
 		return TRUE
 	return FALSE
 
@@ -544,9 +541,9 @@
 
 	var/mutable_appearance/decal = mutable_appearance('icons/effects/effects.dmi', "", BULLET_HOLE_LAYER)
 	switch(denttype)
-		if(WALL_DENT_SHOT)
+		if(PROJECTILE_IMPACT_WALL_DENT_SHOT)
 			decal.icon_state = "bullet_hole"
-		if(WALL_DENT_HIT)
+		if(PROJECTILE_IMPACT_WALL_DENT_HIT)
 			decal.icon_state = "impact[rand(1, 3)]"
 
 	decal.pixel_x = x

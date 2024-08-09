@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	name = "Hivemind Access"
 	desc = "Allows us to upload or absorb DNA in the airwaves. Does not count towards absorb objectives. Allows us to speak over the Changeling Hivemind using :g. Costs 10 chemicals."
 	helptext = "Tunes our chemical receptors for hivemind communication, which passively grants us access to the Changeling Hivemind."
-	button_icon_state = "hive_absorb"
+	button_overlay_icon_state = "hive_absorb"
 	chemical_cost = 10
 	dna_cost = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	to_chat(user, "<span class='notice'>We feel our consciousness become capable of communion with the hivemind.</span>")
 
 /datum/action/changeling/hivemind_pick/sting_action(mob/user)
-	var/channel_pick = alert("Upload or Absorb DNA?", "Channel Select", "Upload", "Absorb")
+	var/channel_pick = tgui_alert(user, "Upload or Absorb DNA?", "Channel Select", list("Upload", "Absorb"))
 
 	if(channel_pick == "Upload")
 		dna_upload(user)

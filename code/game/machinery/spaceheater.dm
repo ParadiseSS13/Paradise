@@ -96,21 +96,21 @@
 		var/dat
 		dat = "Power cell: "
 		if(cell)
-			dat += "<A href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=cellremove'>Installed</a><br>"
 		else
-			dat += "<A href='byond://?src=[UID()];op=cellinstall'>Removed</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=cellinstall'>Removed</a><br>"
 
-		dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>"
+		dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<br><br>"
 
 		dat += "Set Temperature: "
 
-		dat += "<A href='?src=[UID()];op=temp;val=-5'>-</A>"
+		dat += "<a href='byond://?src=[UID()];op=temp;val=-5'>-</a>"
 
 		dat += " [set_temperature]&deg;C "
-		dat += "<A href='?src=[UID()];op=temp;val=5'>+</A><BR>"
+		dat += "<a href='byond://?src=[UID()];op=temp;val=5'>+</a><br>"
 
 		user.set_machine(src)
-		user << browse("<HEAD><TITLE>Space Heater Control Panel</TITLE></HEAD><TT>[dat]</TT>", "window=spaceheater")
+		user << browse("<!DOCTYPE html><meta charset='utf-8'><head><title>Space Heater Control Panel</title></head><tt>[dat]</tt>", "window=spaceheater")
 		onclose(user, "spaceheater")
 
 	else
@@ -163,27 +163,35 @@
 
 
 /obj/machinery/space_heater/process()
-	if(on)
-		if(cell && cell.charge > 0)
-			var/turf/simulated/L = loc
-			if(istype(L))
-				var/datum/gas_mixture/env = L.return_air()
-				if(env.temperature != set_temperature + T0C)
-					var/transfer_moles = 0.25 * env.total_moles()
+	var/datum/milla_safe/space_heater_process/milla = new()
+	milla.invoke_async(src)
 
-					var/datum/gas_mixture/removed = env.remove(transfer_moles)
+/datum/milla_safe/space_heater_process
 
-					if(removed)
-						var/heat_capacity = removed.heat_capacity()
+/datum/milla_safe/space_heater_process/on_run(obj/machinery/space_heater/heater)
+	if(heater.on)
+		if(heater.cell && heater.cell.charge > 0)
+			var/turf/simulated/L = get_turf(heater)
+			if(!istype(L))
+				return
+			var/datum/gas_mixture/env = get_turf_air(L)
+			if(env.temperature() == heater.set_temperature + T0C)
+				return
+			var/transfer_moles = 0.25 * env.total_moles()
 
-						if(heat_capacity) // Added check to avoid divide by zero (oshi-) runtime errors -- TLE
-							if(removed.temperature < set_temperature + T0C)
-								removed.temperature = min(removed.temperature + heating_power/heat_capacity, 1000) // Added min() check to try and avoid wacky superheating issues in low gas scenarios -- TLE
-							else
-								removed.temperature = max(removed.temperature - heating_power/heat_capacity, TCMB)
-							cell.use(heating_power/20000)
-					env.merge(removed)
-					air_update_turf()
+			var/datum/gas_mixture/removed = env.remove(transfer_moles)
+
+			if(!removed)
+				return
+			var/heat_capacity = removed.heat_capacity()
+
+			if(heat_capacity)
+				if(removed.temperature() < heater.set_temperature + T0C)
+					removed.set_temperature(min(removed.temperature() + heater.heating_power / heat_capacity, 1000))
+				else
+					removed.set_temperature(max(removed.temperature() - heater.heating_power / heat_capacity, TCMB))
+				heater.cell.use(heater.heating_power / 20000)
+			env.merge(removed)
 		else
-			on = FALSE
-			update_icon()
+			heater.on = FALSE
+			heater.update_icon()

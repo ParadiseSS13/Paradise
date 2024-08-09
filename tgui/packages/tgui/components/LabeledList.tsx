@@ -8,6 +8,7 @@ import { BooleanLike, classes, pureComponentHooks } from 'common/react';
 import { InfernoNode } from 'inferno';
 import { Box, unit } from './Box';
 import { Divider } from './Divider';
+import { Tooltip } from './Tooltip';
 
 type LabeledListProps = {
   children: InfernoNode;
@@ -27,9 +28,12 @@ type LabeledListItemProps = {
   color?: string | BooleanLike;
   textAlign?: string | BooleanLike;
   buttons?: InfernoNode;
+  tooltip?: string | BooleanLike;
+  preserveWhitespace?: BooleanLike;
   /** @deprecated */
   content?: any;
   children?: InfernoNode;
+  labelStyle?: Record<string | symbol, any>;
 };
 
 const LabeledListItem = (props: LabeledListItemProps) => {
@@ -40,15 +44,19 @@ const LabeledListItem = (props: LabeledListItemProps) => {
     color,
     textAlign,
     buttons,
+    tooltip,
     content,
     children,
+    preserveWhitespace,
+    labelStyle,
   } = props;
-  return (
+  let listItem = (
     <tr className={classes(['LabeledList__row', className])}>
       <Box
         as="td"
         color={labelColor}
         className={classes(['LabeledList__cell', 'LabeledList__label'])}
+        style={labelStyle}
       >
         {label ? label + ':' : null}
       </Box>
@@ -58,15 +66,20 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         textAlign={textAlign}
         className={classes(['LabeledList__cell', 'LabeledList__content'])}
         colSpan={buttons ? undefined : 2}
+        preserveWhitespace={preserveWhitespace}
       >
         {content}
         {children}
       </Box>
-      {buttons && (
-        <td className="LabeledList__cell LabeledList__buttons">{buttons}</td>
-      )}
+      {buttons && <td className="LabeledList__cell LabeledList__buttons">{buttons}</td>}
     </tr>
   );
+
+  if (tooltip) {
+    listItem = <Tooltip content={tooltip}>{listItem}</Tooltip>;
+  }
+
+  return listItem;
 };
 
 LabeledListItem.defaultHooks = pureComponentHooks;

@@ -1,9 +1,9 @@
 #define CHALLENGE_TELECRYSTALS 1400
-#define CHALLENGE_TIME_LIMIT 6000
+#define CHALLENGE_TIME_LIMIT 10 MINUTES
 #define CHALLENGE_SCALE_PLAYER 1 // How many player per scaling bonus
 #define CHALLENGE_SCALE_BONUS 10 // How many TC per scaling bonus
-#define CHALLENGE_MIN_PLAYERS 50
-#define CHALLENGE_SHUTTLE_DELAY 18000 //30 minutes, so the ops have at least 10 minutes before the shuttle is callable. Gives the nuke ops at least 15 minutes before shuttle arrive.
+#define CHALLENGE_MIN_PLAYERS 30
+#define CHALLENGE_SHUTTLE_DELAY 30 MINUTES // So the ops have at least 10 minutes before the shuttle is callable. Gives the nuke ops at least 15 minutes before shuttle arrive.
 
 /obj/item/nuclear_challenge
 	name = "Declaration of War (Challenge Mode)"
@@ -21,20 +21,20 @@
 		return
 
 	declaring_war = TRUE
-	var/are_you_sure = alert(user, "Consult your team carefully before you declare war on [station_name()]. Are you sure you want to alert the enemy crew? You have [-round((world.time-SSticker.round_start_time - CHALLENGE_TIME_LIMIT)/10)] seconds to decide.", "Declare war?", "Yes", "No")
+	var/are_you_sure = tgui_alert(user, "Consult your team carefully before you declare war on [station_name()]. Are you sure you want to alert the enemy crew? You have [-round((world.time-SSticker.round_start_time - CHALLENGE_TIME_LIMIT)/10)] seconds to decide.", "Declare war?", list("Yes", "No"))
 	declaring_war = FALSE
 
 	if(!check_allowed(user))
 		return
 
-	if(are_you_sure == "No")
+	if(are_you_sure != "Yes")
 		to_chat(user, "On second thought, the element of surprise isn't so bad after all.")
 		return
 
 	var/war_declaration = "[user.real_name] has declared [user.p_their()] intent to utterly destroy [station_name()] with a nuclear device, and dares the crew to try and stop them."
 
 	declaring_war = TRUE
-	var/custom_threat = alert(user, "Do you want to customize your declaration?", "Customize?", "Yes", "No")
+	var/custom_threat = tgui_alert(user, "Do you want to customize your declaration?", "Customize?", list("Yes", "No"))
 	declaring_war = FALSE
 
 	if(!check_allowed(user))
@@ -42,7 +42,7 @@
 
 	if(custom_threat == "Yes")
 		declaring_war = TRUE
-		war_declaration = stripped_input(user, "Insert your custom declaration", "Declaration")
+		war_declaration = tgui_input_text(user, "Insert your custom declaration", "Declaration")
 		declaring_war = FALSE
 
 	if(!check_allowed(user) || !war_declaration)
@@ -68,8 +68,8 @@
 	var/player_tc
 	var/remainder
 
-	player_tc = round(total_tc / GLOB.nuclear_uplink_list.len) //round to get an integer and not floating point
-	remainder = total_tc % GLOB.nuclear_uplink_list.len
+	player_tc = round(total_tc / length(GLOB.nuclear_uplink_list)) //round to get an integer and not floating point
+	remainder = total_tc % length(GLOB.nuclear_uplink_list)
 
 	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
 		U.hidden_uplink.uses += player_tc
@@ -84,7 +84,7 @@
 	if(declaring_war)
 		to_chat(user, "You are already in the process of declaring war! Make your mind up.")
 		return FALSE
-	if(GLOB.player_list.len < CHALLENGE_MIN_PLAYERS)
+	if(length(get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE)) < CHALLENGE_MIN_PLAYERS)
 		to_chat(user, "The enemy crew is too small to be worth declaring war on.")
 		return FALSE
 	if(!is_admin_level(user.z))

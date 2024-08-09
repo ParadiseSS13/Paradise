@@ -21,11 +21,6 @@
 /datum/proc/deserialize(list/data)
 	return
 
-/atom
-	// This var isn't actually used for anything, but is present so that
-	// DM's map reader doesn't forfeit on reading a JSON-serialized map
-	var/map_json_data
-
 // This is so specific atoms can override these, and ignore certain ones
 /atom/proc/vars_to_save()
 	return list("color","dir","icon","icon_state","name","pixel_x","pixel_y")

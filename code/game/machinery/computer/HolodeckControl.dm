@@ -201,6 +201,7 @@
 	to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
 	to_chat(user, "Warning! Automatic shutoff and derezing protocols have been corrupted. Please call Nanotrasen maintenance and do not use the simulator.")
 	log_game("[key_name(user)] emagged the Holodeck Control Computer")
+	return TRUE
 
 /obj/machinery/computer/HolodeckControl/emp_act(severity)
 	emergency_shutdown()
@@ -232,7 +233,6 @@
 	icon_state = "carpet-255"
 	base_icon_state = "carpet"
 	floor_tile = /obj/item/stack/tile/carpet
-	broken_states = list("damaged")
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET)
@@ -250,6 +250,9 @@
 		return 0
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
+
+/turf/simulated/floor/holofloor/carpet/get_broken_states()
+	return list("damaged")
 
 /turf/simulated/floor/holofloor/grass
 	name = "Lush Grass"
@@ -336,6 +339,7 @@
 	desc = "What are you standing around staring at this for? Get to killing!"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "claymore"
 	item_state = "claymore"
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -360,7 +364,7 @@
 /obj/item/holo/esword
 	name = "holographic energy sword"
 	desc = "This looks like a real energy sword!"
-	icon = 'icons/obj/energy_melee.dmi'
+	icon = 'icons/obj/weapons/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sword0"

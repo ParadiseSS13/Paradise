@@ -17,10 +17,12 @@
 /obj/item/pda/detective
 	default_cartridge = /obj/item/cartridge/detective
 	icon_state = "pda-security"
+	default_pen = /obj/item/pen/multi
 
 /obj/item/pda/warden
 	default_cartridge = /obj/item/cartridge/security
 	icon_state = "pda-warden"
+	default_pen = /obj/item/pen/multi
 
 /obj/item/pda/janitor
 	default_cartridge = /obj/item/cartridge/janitor
@@ -55,44 +57,54 @@
 /obj/item/pda/heads/hop
 	default_cartridge = /obj/item/cartridge/hop
 	icon_state = "pda-hop"
+	default_pen = /obj/item/pen/hop
 
 /obj/item/pda/heads/hos
 	default_cartridge = /obj/item/cartridge/hos
 	icon_state = "pda-hos"
+	default_pen = /obj/item/pen/hos
 
 /obj/item/pda/heads/ce
 	default_cartridge = /obj/item/cartridge/ce
 	icon_state = "pda-ce"
+	default_pen = /obj/item/pen/ce
 
 /obj/item/pda/heads/cmo
 	default_cartridge = /obj/item/cartridge/cmo
 	icon_state = "pda-cmo"
+	default_pen = /obj/item/pen/cmo
 
 /obj/item/pda/heads/rd
 	default_cartridge = /obj/item/cartridge/rd
 	icon_state = "pda-rd"
+	default_pen = /obj/item/pen/rd
 
 /obj/item/pda/captain
 	default_cartridge = /obj/item/cartridge/captain
 	icon_state = "pda-captain"
 	detonate = FALSE
+	default_pen = /obj/item/pen/cap
 	//toff = 1
 
 /obj/item/pda/heads/ntrep
 	default_cartridge = /obj/item/cartridge/supervisor
 	icon_state = "pda-h"
+	default_pen = /obj/item/pen/multi/fountain
 
 /obj/item/pda/heads/magistrate
 	default_cartridge = /obj/item/cartridge/supervisor
 	icon_state = "pda-h"
+	default_pen = /obj/item/pen/multi/gold
 
 /obj/item/pda/heads/blueshield
 	default_cartridge = /obj/item/cartridge/hos
 	icon_state = "pda-h"
+	default_pen = /obj/item/pen/fancy
 
 /obj/item/pda/heads/ert
 	default_cartridge = /obj/item/cartridge/centcom
 	detonate = FALSE
+	default_pen = /obj/item/pen/multi/fountain
 
 /obj/item/pda/heads/ert/engineering
 	icon_state = "pda-engineer"
@@ -116,15 +128,20 @@
 /obj/item/pda/quartermaster
 	default_cartridge = /obj/item/cartridge/qm
 	icon_state = "pda-qm"
+	default_pen = /obj/item/pen/qm
 
 /obj/item/pda/shaftminer
 	icon_state = "pda-miner"
+
+/obj/item/pda/explorer
+	icon_state = "pda-exp"
 
 /obj/item/pda/syndicate
 	default_cartridge = /obj/item/cartridge/syndicate/nuclear
 	icon_state = "pda-syndi"
 	name = "Military PDA"
 	owner = "John Doe"
+	default_pen = /obj/item/pen/multi/syndicate
 
 /obj/item/pda/syndicate/New()
 	..()
@@ -136,10 +153,11 @@
 	icon_state = "pda-chaplain"
 	ttone = "holy"
 
-/obj/item/pda/lawyer
-	default_cartridge = /obj/item/cartridge/lawyer
-	icon_state = "pda-lawyer"
+/obj/item/pda/iaa
+	default_cartridge = /obj/item/cartridge/iaa
+	icon_state = "pda-iaa"
 	ttone = "..."
+	default_pen = /obj/item/pen/multi
 
 /obj/item/pda/botanist
 	//default_cartridge = /obj/item/cartridge/botanist
@@ -153,6 +171,7 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a WGW-11 series e-reader."
 	model_name = "Thinktronic 5290 WGW-11 Series E-reader and Personal Data Assistant"
 	silent = TRUE
+	default_pen = /obj/item/pen/multi
 
 /obj/item/pda/clear
 	icon_state = "pda-transp"
@@ -180,6 +199,7 @@
 /obj/item/pda/centcom
 	default_cartridge = /obj/item/cartridge/centcom
 	icon_state = "pda-h"
+	default_pen = /obj/item/pen/multi/gold
 
 /obj/item/pda/centcom/New()
 	..()

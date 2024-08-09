@@ -10,9 +10,9 @@
 
 // /datum/element flags
 /// Causes the detach proc to be called when the host object is being deleted
-#define ELEMENT_DETACH		(1 << 0)
+#define ELEMENT_DETACH_ON_HOST_DESTROY		(1 << 0)
 /**
-  * Only elements created with the same arguments given after `id_arg_index` share an element instance
+  * Only elements created with the same arguments given after `argument_hash_start_idx` share an element instance
   * The arguments are the same when the text and number values are the same and all other values have the same ref
   */
 #define ELEMENT_BESPOKE		(1 << 1)

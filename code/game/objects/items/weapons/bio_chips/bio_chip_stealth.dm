@@ -18,8 +18,8 @@
 	name = "Deploy Box"
 	desc = "Find inner peace, here, in the box."
 	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
-	background_icon_state = "bg_agent"
-	button_icon_state = "deploy_box"
+	button_background_icon_state = "bg_agent"
+	button_overlay_icon_state = "deploy_box"
 	use_itemicon = FALSE
 	/// If TRUE, the box can't be deployed
 	var/on_cooldown = FALSE
@@ -63,11 +63,11 @@
 	SIGNAL_HANDLER
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(end_cooldown)), 10 SECONDS)
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/item_action/agent_box/proc/end_cooldown()
 	on_cooldown = FALSE
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/item_action/agent_box/IsAvailable()
 	if(..() && !on_cooldown)

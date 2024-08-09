@@ -34,7 +34,6 @@
 	QDEL_LIST_ASSOC_VAL(organ_datums) // The removal from internal_organ_datums should be handled when the organ is removed
 	. = ..()
 
-
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
@@ -60,6 +59,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		parent = H.get_organ(check_zone(parent_organ))
+		H.update_int_organs()
 		if(!istype(parent))
 			stack_trace("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]")
 		else
@@ -71,6 +71,10 @@
 	if(vital)
 		M.update_stat("Vital organ inserted")
 	STOP_PROCESSING(SSobj, src)
+	if(owner.stat == DEAD)
+		ADD_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
+		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_revival))
+
 
 // Removes the given organ from its owner.
 // Returns the removed object, which is usually just itself
@@ -79,6 +83,9 @@
 	if(!owner)
 		stack_trace("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]")
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN)
+	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
+	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
+
 	owner = null
 	if(M)
 		M.internal_organs -= src
@@ -126,6 +133,17 @@
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
+
+	var/we_done = FALSE
+	for(var/organ_tag in organ_datums)
+		var/datum/organ/borgan = organ_datums[organ_tag]
+		if(borgan.on_successful_emp())
+			we_done = TRUE
+
+	if(we_done)
+		return
+
+	// No EMP handling was done, lets just give em damage
 	switch(severity)
 		if(1)
 			receive_damage(20, 1)
@@ -135,7 +153,7 @@
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target)
 	insert(target)
 
-/obj/item/organ/internal/necrotize(update_sprite)
+/obj/item/organ/internal/necrotize(update_sprite, ignore_vital_death = FALSE)
 	for(var/organ_tag in organ_datums) // let the organ datums handle first
 		var/datum/organ/dead_organ = organ_datums[organ_tag]
 		dead_organ.on_necrotize()
@@ -157,7 +175,7 @@
 /obj/item/organ/internal/proc/prepare_eat()
 	if(is_robotic())
 		return //no eating cybernetic implants!
-	var/obj/item/food/snacks/organ/S = new
+	var/obj/item/food/organ/S = new
 	S.name = name
 	S.desc = desc
 	S.icon = icon
@@ -181,19 +199,10 @@
 /obj/item/organ/internal/proc/render()
 	return
 
-/obj/item/food/snacks/organ
-	name = "appendix"
-	icon_state = "appendix"
-	icon = 'icons/obj/surgery.dmi'
-
-/obj/item/food/snacks/organ/Initialize(mapload)
-	. = ..()
-	reagents.add_reagent("nutriment", 5)
-
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/food/snacks/S = prepare_eat()
+		var/obj/item/food/S = prepare_eat()
 		if(S)
 			H.drop_item()
 			H.put_in_active_hand(S)
@@ -370,28 +379,13 @@
 			head_organ.facial_colour = "#D8C078"
 			H.update_fhair()
 
-/obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-
-	var/we_done = FALSE
-	for(var/organ_tag in organ_datums)
-		var/datum/organ/borgan = organ_datums[organ_tag]
-		if(borgan.on_successful_emp())
-			we_done = TRUE
-
-	if(we_done)
-		return
-
-	// No EMP handling was done, lets just give em damage
-	switch(severity)
-		if(1)
-			receive_damage(20, 1)
-		if(2)
-			receive_damage(7, 1)
-
 /obj/item/organ/internal/handle_germs()
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3))	//about once every 30 seconds
 			receive_damage(1, silent = prob(30))
+
+/obj/item/organ/internal/proc/on_revival() //The goal of this proc / trait is to prevent one implanting organs in a corpse, in order to remove them with the organ extractor. Has to be legitimently implanted, or on just a living person, which has risk
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
+	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)

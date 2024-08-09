@@ -1,6 +1,7 @@
 /*****************Pickaxes & Drills & Shovels****************/
 /obj/item/pickaxe
 	name = "pickaxe"
+	desc = "A tool for digging rock and stone. Better get to work."
 	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "pickaxe"
 	flags = CONDUCT
@@ -105,7 +106,8 @@
 	origin_tech = "materials=6;powerstorage=4;engineering=4"
 	toolspeed = 0.2
 
-/obj/item/pickaxe/drill/cyborg/diamond //This is the BORG version!
+/// This is the BORG version!
+/obj/item/pickaxe/drill/cyborg/diamond
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP flag, and easier to change borg specific drill mechanics.
 	icon_state = "diamonddrill"
 	toolspeed = 0.2
@@ -120,6 +122,7 @@
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	toolspeed = 0.1 //the epitome of powertools. extremely fast mining, laughs at puny walls
+	force = 20 //This thing breaks rwalls, it should be able to hit harder than a DIY bone pickaxe.
 
 /obj/item/shovel
 	name = "shovel"

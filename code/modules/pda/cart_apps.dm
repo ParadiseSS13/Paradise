@@ -25,9 +25,13 @@
 			if(params["msgnum"])
 				switch(text2num(params["msgnum"]))
 					if(1)
-						message1 = clean_input("Line 1", "Enter Message Text", message1)
+						message1 = tgui_input_text(usr, "Line 1", "Enter Message Text", message1, encode = FALSE)
+						if(isnull(message1))
+							return
 					if(2)
-						message2 = clean_input("Line 2", "Enter Message Text", message2)
+						message2 = tgui_input_text(usr, "Line 2", "Enter Message Text", message2, encode = FALSE)
+						if(isnull(message2))
+							return
 
 		if("Status")
 			switch(text2num(params["statdisp"]))
@@ -229,7 +233,8 @@
 		for(var/mob/living/simple_animal/bot/B in bots)
 			botsCount++
 			if(B.loc)
-				botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(get_area(B).name), "uid" = "[B.UID()]")
+				var/area/our_area = get_area(B)
+				botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(our_area.name), "uid" = "[B.UID()]")
 
 		if(!length(botsData))
 			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
@@ -305,9 +310,10 @@
 		for(var/mob/living/simple_animal/bot/mulebot/B in GLOB.bots_list)
 			mulebotsCount++
 			if(B.loc)
-				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = get_area(B).name, "uid" = "[B.UID()]")
+				var/area/our_area = get_area(B)
+				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = our_area.name, "uid" = "[B.UID()]")
 
-		if(!mulebotsData.len)
+		if(!length(mulebotsData))
 			mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 
 		muleData["bots"] = mulebotsData
@@ -372,7 +378,7 @@
 		supplyOrderCount++
 		supplyOrderData[++supplyOrderData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
 
-	if(!supplyOrderData.len)
+	if(!length(supplyOrderData))
 		supplyOrderData[++supplyOrderData.len] = list("Number" = null, "Name" = null, "OrderedBy"=null)
 
 	supplyData["approved"] = supplyOrderData
@@ -385,7 +391,7 @@
 		requestCount++
 		requestData[++requestData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
 
-	if(!requestData.len)
+	if(!length(requestData))
 		requestData[++requestData.len] = list("Number" = null, "Name" = null, "orderedBy" = null, "Comment" = null)
 
 	supplyData["requests"] = requestData
@@ -445,8 +451,19 @@
 			var/direction = get_dir(pda,B)
 			CartData[++CartData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
-	JaniData["mops"] = MopData.len ? MopData : null
-	JaniData["buckets"] = BucketData.len ? BucketData : null
-	JaniData["cleanbots"] = CbotData.len ? CbotData : null
-	JaniData["carts"] = CartData.len ? CartData : null
+	var/list/JaniCartData = list()
+	for(var/obj/vehicle/janicart/janicart in GLOB.janitorial_equipment)
+		var/turf/janicart_loc = get_turf(janicart )
+		if(janicart_loc)
+			if(janicart_loc.z != cl.z)
+				continue
+			var/direction_from_user = get_dir(pda, janicart)
+			JaniCartData[++JaniCartData.len] = list("x" = janicart_loc.x, "y" = janicart_loc.y, "direction_from_user" = uppertext(dir2text(direction_from_user)))
+
+	JaniData["mops"] = length(MopData) ? MopData : null
+	JaniData["buckets"] = length(BucketData) ? BucketData : null
+	JaniData["cleanbots"] = length(CbotData) ? CbotData : null
+	JaniData["carts"] = length(CartData) ? CartData : null
+	JaniData["janicarts"] = length(JaniCartData) ? JaniCartData : null
 	data["janitor"] = JaniData
+

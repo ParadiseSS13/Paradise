@@ -18,6 +18,8 @@
 	var/const/max_brain_damage = 60
 	/// Which direction has unrestricted access to the airlock (e.g. medbay doors from the inside)
 	var/unres_access_from = null
+	/// Is this electronic installed in a door?
+	var/is_installed = FALSE
 
 /obj/item/airlock_electronics/Initialize(mapload)
 	. = ..()
@@ -37,7 +39,6 @@
 			to_chat(user, "<span class='warning'>You forget how to use [src].</span>")
 			return
 	ui_interact(user)
-
 
 // tgui\packages\tgui\interfaces\AirlockElectronics.js
 /obj/item/airlock_electronics/ui_state(mob/user)

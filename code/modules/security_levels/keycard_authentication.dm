@@ -120,7 +120,7 @@
 	. = TRUE
 	switch(action)
 		if("ert")
-			ert_reason = input(usr, "Reason for ERT Call:", "", "") // we strip this later in ERT_Announce
+			ert_reason = tgui_input_text(usr, "Reason for ERT Call:", "Call ERT", encode = FALSE) // we strip this later in ERT_Announce
 		if("reset")
 			reset()
 		if("triggerevent")

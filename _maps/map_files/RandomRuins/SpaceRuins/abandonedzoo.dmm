@@ -46,8 +46,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -223,8 +222,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
@@ -281,8 +279,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -345,10 +342,7 @@
 	},
 /area/ruin/space/unpowered)
 "aS" = (
-/obj/machinery/power/apc/worn_out{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -545,7 +539,7 @@
 /area/ruin/space/unpowered)
 "bn" = (
 /obj/structure/table/reinforced,
-/obj/item/food/snacks/carrotfries,
+/obj/item/food/carrotfries,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -563,8 +557,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable,
 /obj/structure/cable{
@@ -648,17 +641,15 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "by" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
 "bz" = (
 /obj/machinery/space_heater,
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /obj/machinery/light{
 	dir = 8
@@ -753,8 +744,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,

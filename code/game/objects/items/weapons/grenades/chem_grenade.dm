@@ -134,7 +134,7 @@
 				to_chat(user, "You remove the label from [src].")
 				return 1
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
-		if(beakers.len == 2)
+		if(length(beakers) == 2)
 			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
 			return
 		else
@@ -175,7 +175,7 @@
 		stage = WIRED
 		update_icon(UPDATE_ICON_STATE)
 
-	else if(stage == WIRED && istype(I, /obj/item/wrench))
+	else if(stage == WIRED && iswrench(I))
 		to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
 		stage = EMPTY
 		payload_name = null
@@ -184,7 +184,7 @@
 			nadeassembly.forceMove(get_turf(src))
 			nadeassembly.master = null
 			nadeassembly = null
-		if(beakers.len)
+		if(length(beakers))
 			for(var/obj/O in beakers)
 				O.forceMove(get_turf(src))
 			beakers = list()
@@ -221,7 +221,7 @@
 		return TRUE
 
 	else if(stage == READY && !nadeassembly)
-		det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
+		det_time = det_time == 5 SECONDS ? 3 SECONDS : 5 SECONDS	// Toggle between 3 and 5 seconds.
 		to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
 		return TRUE
 
@@ -234,7 +234,7 @@
 		nadeassembly.HasProximity(AM)
 
 /obj/item/grenade/chem_grenade/Move() // prox sensors and infrared care about this
-	..()
+	. = ..()
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
@@ -280,7 +280,7 @@
 
 	if(!chem_splash(get_turf(src), affected_area, reactants, ignition_temp, threatscale) && !no_splash)
 		playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
-		if(beakers.len)
+		if(length(beakers))
 			for(var/obj/O in beakers)
 				O.forceMove(get_turf(src))
 			beakers = list()
@@ -293,9 +293,9 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z]) [contained]")
-		investigate_log("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.", INVESTIGATE_BOMB)
+		investigate_log("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.", INVESTIGATE_BOMB)
 		add_attack_logs(last, src, "has armed for detonation", ATKLOG_FEW)
 	update_mob()
 
@@ -366,14 +366,16 @@
 	else
 		return ..()
 
-/obj/item/grenade/chem_grenade/cryo // Intended for rare cryogenic mixes. Cools the area moderately upon detonation.
+/// Intended for rare cryogenic mixes. Cools the area moderately upon detonation.
+/obj/item/grenade/chem_grenade/cryo
 	name = "cryo grenade"
 	desc = "A custom made cryogenic grenade. It rapidly cools its contents upon detonation."
 	icon_state = "cryog"
 	affected_area = 2
 	ignition_temp = -100
 
-/obj/item/grenade/chem_grenade/pyro // Intended for pyrotechnical mixes. Produces a small fire upon detonation, igniting potentially flammable mixtures.
+/// Intended for pyrotechnical mixes. Produces a small fire upon detonation, igniting potentially flammable mixtures.
+/obj/item/grenade/chem_grenade/pyro
 	name = "pyro grenade"
 	desc = "A custom made pyrotechnical grenade. It heats up and ignites its contents upon detonation."
 	icon_state = "pyrog"
@@ -381,7 +383,8 @@
 	affected_area = 3
 	ignition_temp = 500 // This is enough to expose a hotspot.
 
-/obj/item/grenade/chem_grenade/adv_release // Intended for weaker, but longer lasting effects. Could have some interesting uses.
+/// Intended for weaker, but longer lasting effects. Could have some interesting uses.
+/obj/item/grenade/chem_grenade/adv_release
 	name = "advanced release grenade"
 	desc = "A custom made advanced release grenade. It is able to be detonated more than once. Can be configured using a multitool."
 	icon_state = "timeg"
@@ -399,7 +402,7 @@
 			unit_spread += 25
 		else
 			unit_spread = 5
-	to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
+	to_chat(user, "<span class='notice'>You set the time release to [unit_spread] units per detonation.</span>")
 
 /obj/item/grenade/chem_grenade/adv_release/prime()
 	if(stage != READY)
@@ -424,9 +427,9 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
-		investigate_log("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.", INVESTIGATE_BOMB)
+		investigate_log("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.", INVESTIGATE_BOMB)
 		add_attack_logs(last, src, "has armed for detonation", ATKLOG_FEW)
 	else
 		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
@@ -587,6 +590,24 @@
 
 	beakers += B1
 	beakers += B2
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/grenade/chem_grenade/tar
+	payload_name = "sticky tar"
+	desc = "For spreading sticky tar. Become the anti-janitor!"
+	stage = READY
+
+/obj/item/grenade/chem_grenade/tar/Initialize(mapload)
+	. = ..()
+	var/obj/item/reagent_containers/glass/beaker/beaker_1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/beaker_2 = new(src)
+
+	beaker_1.reagents.add_reagent("sticky_tar", 15)
+	beaker_1.reagents.add_reagent("potassium", 10)
+	beaker_2.reagents.add_reagent("phosphorus", 10)
+	beaker_2.reagents.add_reagent("sugar", 10)
+	beakers += beaker_1
+	beakers += beaker_2
 	update_icon(UPDATE_ICON_STATE)
 
 #undef EMPTY

@@ -261,6 +261,13 @@
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/injector
 
+/datum/design/module/mod_monitor
+	name = "Crew Monitor Module"
+	id = "mod_monitor"
+	req_tech = list("biotech" = 3, "materials" = 5, "magnets" = 4)
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 3000)
+	build_path = /obj/item/mod/module/monitor
+
 /datum/design/module/defibrillator
 	name = "Defibrillator Module"
 	id = "mod_defib"
@@ -337,6 +344,13 @@
 	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 3)
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
 	build_path = /obj/item/mod/module/plasma_stabilizer
+
+/datum/design/module/smoke_grenade
+	name = "Smoke Grenade Module"
+	id = "mod_smokegrenade"
+	req_tech = list("materials" = 5, "engineering" = 6, "syndicate" = 2)
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12050, MAT_GOLD = 2000, MAT_PLASMA = 5000)
+	build_path = /obj/item/mod/module/dispenser/smoke
 
 /datum/design/module/plate_compression
 	name = "Plate Compression Module"

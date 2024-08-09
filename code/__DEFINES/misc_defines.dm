@@ -12,7 +12,6 @@
 //Click cooldowns, in tenths of a second
 #define CLICK_CD_MELEE 8
 #define CLICK_CD_RANGE 4
-#define CLICK_CD_HANDCUFFED 10
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
 #define CLICK_CD_RESIST 8
@@ -33,6 +32,7 @@
 #define INFECTION_LEVEL_ONE		100
 #define INFECTION_LEVEL_TWO		500
 #define INFECTION_LEVEL_THREE	1000
+#define INFECTION_LEVEL_FOUR	1500
 
 // Damage above this value must be repaired with surgery.
 #define ROBOLIMB_SELF_REPAIR_CAP 60
@@ -51,6 +51,9 @@
 #define CRAYON_FONT "Comic Sans MS"
 #define PRINTER_FONT "Times New Roman"
 #define SIGNFONT "Times New Roman"
+
+/// Emoji icon set
+#define EMOJI_SET 'icons/ui_icons/emoji.dmi'
 
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
@@ -91,6 +94,7 @@
 #define AI_TRANS_TO_CARD	1 //Downloading AI to InteliCard.
 #define AI_TRANS_FROM_CARD	2 //Uploading AI from InteliCard
 #define AI_MECH_HACK		3 //Malfunctioning AI hijacking mecha
+#define AI_SHUTTLE_HACK		4 //Malfunctioning AI hijacking shuttle
 
 //singularity defines
 #define STAGE_ONE 1
@@ -107,18 +111,17 @@
 
 #define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
 	block( \
-	locate(max(CENTER.x-(H_RADIUS),1),          max(CENTER.y-(V_RADIUS),1),          CENTER.z), \
-	locate(min(CENTER.x+(H_RADIUS),world.maxx), min(CENTER.y+(V_RADIUS),world.maxy), CENTER.z) \
+	max(CENTER.x - (H_RADIUS), 1),          max(CENTER.y - (V_RADIUS), 1),          CENTER.z, \
+	min(CENTER.x + (H_RADIUS), world.maxx), min(CENTER.y + (V_RADIUS), world.maxy), CENTER.z \
 	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
 // order of the additions: top edge + bottom edge + left edge + right edge
 #define RANGE_EDGE_TURFS(RADIUS, CENTER)\
-	(CENTER.y + RADIUS < world.maxy ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z)) : list()) +\
-	(CENTER.y - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z)) : list()) +\
-	(CENTER.x - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list()) +\
-	(CENTER.x + RADIUS < world.maxx ? block(locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list())
-
+	(CENTER.y + RADIUS < world.maxy ? 	block(max(CENTER.x - RADIUS, 1), 			min(CENTER.y + RADIUS, world.maxy), 	CENTER.z, min(CENTER.x + RADIUS, world.maxx), 	min(CENTER.y + RADIUS, world.maxy), CENTER.z) : list()) +\
+	(CENTER.y - RADIUS > 1 ? 			block(max(CENTER.x - RADIUS, 1), 			max(CENTER.y - RADIUS, 1), 				CENTER.z, min(CENTER.x + RADIUS, world.maxx), 	max(CENTER.y - RADIUS, 1), 			CENTER.z) : list()) +\
+	(CENTER.x - RADIUS > 1 ? 			block(max(CENTER.x - RADIUS, 1), 			min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, max(CENTER.x - RADIUS, 1), 			max(CENTER.y - RADIUS + 1, 1), 		CENTER.z) : list()) +\
+	(CENTER.x + RADIUS < world.maxx ? 	block(min(CENTER.x + RADIUS, world.maxx), 	min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), 	max(CENTER.y - RADIUS + 1, 1), 		CENTER.z) : list())
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
@@ -137,6 +140,9 @@
 
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
+
+/// Grabs the area of a supplied object. Passing an area in to this will result in an error
+#define get_area(T) ((get_step(T, 0)?.loc))
 
 //check_target_facings() return defines
 #define FACING_FAILED											0
@@ -161,29 +167,46 @@
 
 // Metal foam states
 // teehee no one will find these here
-#define MFOAM_ALUMINUM 	1
-#define MFOAM_IRON 		2
+#define METAL_FOAM_ALUMINUM 	1
+#define METAL_FOAM_IRON 		2
+
+// Defines for foam
+
+/// The chemicals in the foam (if any) will never react.
+#define FOAM_REACT_NEVER			(1<<0)
+/// Chemicals in the foam will only react when the foam dissipates.
+#define FOAM_REACT_ON_DISSIPATE		(1<<1)
+/// Chemicals in the foam will react while the foam is still processing.
+#define FOAM_REACT_DURING_SPREAD	(1<<2)
+/// Chemicals in the foam will react when the foam first reaches a tile.
+#define FOAM_REACT_BEFORE_SPREAD	(1<<3)
 
 //Human Overlays Indexes/////////
-#define EYES_OVERLAY_LAYER		42
-#define WING_LAYER				41
-#define WING_UNDERLIMBS_LAYER	40
-#define MUTANTRACE_LAYER		39
-#define TAIL_UNDERLIMBS_LAYER	38	//Tail split-rendering.
-#define LIMBS_LAYER				37
-#define INTORGAN_LAYER			36
-#define MARKINGS_LAYER			35
-#define UNDERWEAR_LAYER			34
-#define MUTATIONS_LAYER			33
-#define H_DAMAGE_LAYER			32
-#define UNIFORM_LAYER			31
-#define ID_LAYER				30
-#define HANDS_LAYER				29	//Exists to overlay hands over jumpsuits
-#define SHOES_LAYER				28
-#define GLOVES_LAYER			27
-#define EARS_LAYER				26
+#define EYES_OVERLAY_LAYER		48
+#define WING_LAYER				47
+#define WING_UNDERLIMBS_LAYER	46
+#define MUTANTRACE_LAYER		45
+#define TAIL_UNDERLIMBS_LAYER	44	//Tail split-rendering.
+#define LIMBS_LAYER				43
+#define MARKINGS_LAYER			42
+#define INTORGAN_LAYER			41
+#define UNDERWEAR_LAYER			40
+#define MUTATIONS_LAYER			39
+#define H_DAMAGE_LAYER			38
+#define UNIFORM_LAYER			37
+#define ID_LAYER				36
+#define HANDS_LAYER				35	//Exists to overlay hands over jumpsuits
+#define SHOES_LAYER				34
+#define L_FOOT_BLOOD_LAYER		33	// Blood overlay separation Left-Foot
+#define R_FOOT_BLOOD_LAYER		32	// Blood overlay separation Right-Foot
+#define GLOVES_LAYER			31
+#define L_HAND_BLOOD_LAYER		30	// Blood overlay separation Left-Hand
+#define R_HAND_BLOOD_LAYER		29	// Blood overlay separation Right-Hand
+#define LEFT_EAR_LAYER			28
+#define RIGHT_EAR_LAYER			27
+#define BELT_LAYER				26	//Possible make this an overlay of something required to wear a belt?
 #define SUIT_LAYER				25
-#define BELT_LAYER				24	//Possible make this an overlay of somethign required to wear a belt?
+#define SPECIAL_BELT_LAYER		24
 #define SUIT_STORE_LAYER		23
 #define BACK_LAYER				22
 #define HEAD_ACCESSORY_LAYER	21
@@ -207,7 +230,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			42
+#define TOTAL_LAYERS			48
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -243,6 +266,10 @@
 #define MATRIX_TAJ_CBLIND list(0.4,0.2,0.4,\
 							0.4,0.6,0.0,\
 							0.2,0.2,0.6)
+
+#define MATRIX_STANDARD list(1.0,0.0,0.0,\
+							0.0,1.0,0.0,\
+							0.0,0.0,1.0)
 
 /*
 	Used for wire name appearances. Replaces the color name on the left with the one on the right.
@@ -390,14 +417,15 @@
 #define INVESTIGATE_RENAME "renames"
 
 #define INVESTIGATE_BOMB "bombs"
+#define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 53
+#define SQL_VERSION 59
 
 // Vending machine stuff
-#define CAT_NORMAL 1
-#define CAT_HIDDEN 2
-#define CAT_COIN   4
+#define CAT_NORMAL (1<<0)
+#define CAT_HIDDEN (1<<1)
+#define CAT_COIN   (1<<2)
 
 // Jobs
 // used for alternate_option
@@ -411,11 +439,6 @@
 // Area selection defines
 #define AREASELECT_CORNERA "corner A"
 #define AREASELECT_CORNERB "corner B"
-
-//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
-#define MOUSE_OPACITY_TRANSPARENT 0
-#define MOUSE_OPACITY_ICON 1
-#define MOUSE_OPACITY_OPAQUE 2
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
@@ -481,9 +504,10 @@
 #define COLD_WATER_TEMPERATURE 283.15 // 10 degrees celsius
 
 // Parallax
+/// About 0.05 Seconds of delay
 #define PARALLAX_DELAY_DEFAULT	world.tick_lag
-#define PARALLAX_DELAY_MED		1
-#define PARALLAX_DELAY_LOW		2
+#define PARALLAX_DELAY_MED		0.1 SECONDS
+#define PARALLAX_DELAY_LOW		0.2 SECONDS
 #define PARALLAX_LOOP_TIME		25
 
 // Engine types
@@ -498,16 +522,16 @@
 #define SYMPTOM_ACTIVATION_PROB 3
 
 // Atmos stuff that fucking terrifies me
-#define LINDA_SPAWN_HEAT 1
-#define LINDA_SPAWN_20C 2
-#define LINDA_SPAWN_TOXINS 4
-#define LINDA_SPAWN_OXYGEN 8
-#define LINDA_SPAWN_CO2 16
-#define LINDA_SPAWN_NITROGEN 32
-#define LINDA_SPAWN_N2O 64
-#define LINDA_SPAWN_AGENT_B 128
-#define LINDA_SPAWN_AIR 256
-#define LINDA_SPAWN_COLD 512
+#define LINDA_SPAWN_HEAT 		(1<<0)
+#define LINDA_SPAWN_20C 		(1<<1)
+#define LINDA_SPAWN_TOXINS 		(1<<2)
+#define LINDA_SPAWN_OXYGEN 		(1<<3)
+#define LINDA_SPAWN_CO2 		(1<<4)
+#define LINDA_SPAWN_NITROGEN 	(1<<5)
+#define LINDA_SPAWN_N2O 		(1<<6)
+#define LINDA_SPAWN_AGENT_B 	(1<<7)
+#define LINDA_SPAWN_AIR 		(1<<8)
+#define LINDA_SPAWN_COLD 		(1<<9)
 
 // Throwing these defines here for the TM to minimise conflicts
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
@@ -601,8 +625,109 @@
 #define ROUND_END_CREW_TRANSFER 2
 #define ROUND_END_FORCED 3
 
-#define TS_INFESTATION_GREEN_SPIDER 1
-#define TS_INFESTATION_PRINCE_SPIDER 2
-#define TS_INFESTATION_WHITE_SPIDER 3
-#define TS_INFESTATION_PRINCESS_SPIDER 4
-#define TS_INFESTATION_QUEEN_SPIDER 5
+// These used to be integer values but they were never used numerically or even
+// stored in SSblackbox using their numeric values, and constantly converting
+// them to the actual terror name was redundant and annoying
+#define TS_INFESTATION_GREEN_SPIDER		"Green Terrors"
+#define TS_INFESTATION_PRINCE_SPIDER	"Prince Terror"
+#define TS_INFESTATION_WHITE_SPIDER		"White Terrors"
+#define TS_INFESTATION_PRINCESS_SPIDER	"Princess Terrors"
+#define TS_INFESTATION_QUEEN_SPIDER		"Queen Terrors"
+
+#define BIOHAZARD_BLOB	"Blob"
+#define BIOHAZARD_XENO	"Xenomorphs"
+
+#define MAX_ALLOWED_TELEPORTS_PER_PROCESS 20
+
+#define CONSTRUCTION_PATH_FORWARDS -1
+#define CONSTRUCTION_PATH_BACKWARDS 1
+#define CONSTRUCTION_TOOL_BEHAVIOURS list(TOOL_CROWBAR, TOOL_SCREWDRIVER, TOOL_WELDER, TOOL_WRENCH)
+
+#define WEATHER_STARTUP_STAGE 1
+#define WEATHER_MAIN_STAGE 2
+#define WEATHER_WIND_DOWN_STAGE 3
+#define WEATHER_END_STAGE 4
+
+/**
+ * I dont recommend touching these map generator defines unless you know what you're doing with maze generators.
+ */
+#define LOG_MAZE_PROGRESS(proc2run, opname) \
+do { \
+	var/timer = start_watch(); \
+	proc2run ;\
+	log_debug("\[MAZE] Operation '[opname]' on maze at [x],[y],[z] took [stop_watch(timer)]s"); \
+} while(FALSE)
+
+//clusterCheckFlags defines
+//All based on clusterMin and clusterMax as guides
+
+//Individual defines
+#define MAP_GENERATOR_CLUSTER_CHECK_NONE				0  //No checks are done, cluster as much as possible
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS	(1<<1)  //Don't let turfs of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS	(1<<2)  //Don't let atoms of DIFFERENT types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS		(1<<3)  //Don't let turfs of the SAME type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS		(1<<4) //Don't let atoms of the SAME type cluster
+
+//Combined defines
+#define MAP_GENERATOR_CLUSTER_CHECK_SAMES				(MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let any of the same type cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_DIFFERENTS		(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS) //Don't let any of different types cluster
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_TURFS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_TURFS | MAP_GENERATOR_CLUSTER_CHECK_SAME_TURFS) //Don't let ANY turfs cluster same and different types
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL_ATOMS			(MAP_GENERATOR_CLUSTER_CHECK_DIFFERENT_ATOMS | MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS) //Don't let ANY atoms cluster same and different types
+
+//All
+#define MAP_GENERATOR_CLUSTER_CHECK_ALL				((1<<4) - 2) //Don't let anything cluster, like, at all.  -2 because we skipped <<1 for some odd reason.
+
+// Buffer datatype flags.
+#define DNA2_BUF_UI (1<<0)
+#define DNA2_BUF_UE (1<<1)
+#define DNA2_BUF_SE (1<<2)
+
+#define CLONER_BIOMASS_REQUIRED 150
+
+#define SOLAR_MACHINERY_MAX_DIST 40
+
+#define AMMO_BOX_MULTI_SPRITE_STEP_NONE null
+#define AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF -1
+
+/// Detective's mode on pinpointers
+#define PINPOINTER_MODE_DET 7
+
+/// How frequently disposals can make sounds, to prevent huge sound stacking
+#define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
+
+/// The different kinds of voting
+#define VOTE_RESULT_TYPE_MAJORITY "Majority"
+
+#define HOLOPAD_MAX_DIAL_TIME 200
+
+#define PROJECTILE_IMPACT_WALL_DENT_HIT 1
+#define PROJECTILE_IMPACT_WALL_DENT_SHOT 2
+
+#define ASSEMBLY_WIRE_RECEIVE		(1<<0)	//Allows pulse(0) to call Activate()
+#define ASSEMBLY_WIRE_PULSE			(1<<1)	//Allows pulse(0) to act on the holder
+#define ASSEMBLY_WIRE_PULSE_SPECIAL	(1<<2)	//Allows pulse(0) to act on the holders special assembly
+#define ASSEMBLY_WIRE_RADIO_RECEIVE	(1<<3)	//Allows pulse(1) to call Activate()
+#define ASSEMBLY_WIRE_RADIO_PULSE	(1<<4)	//Allows pulse(1) to send a radio message
+
+
+//Types of usual spacevine mutations mutations
+#define	SPACEVINE_MUTATION_POSITIVE 			1
+#define	SPACEVINE_MUTATION_NEGATIVE			2
+#define	SPACEVINE_MUTATION_MINOR_NEGATIVE		3
+
+#define RETURN_PRECISE_POSITION(A) new /datum/position(A)
+#define RETURN_PRECISE_POINT(A) new /datum/point_precise(A)
+
+#define RETURN_POINT_VECTOR(ATOM, ANGLE, SPEED) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED))
+#define RETURN_POINT_VECTOR_INCREMENT(ATOM, ANGLE, SPEED, AMT) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED, AMT))
+
+#define TEAM_ADMIN_ADD_OBJ_SUCCESS				(1<<0)
+#define TEAM_ADMIN_ADD_OBJ_CANCEL_LOG 			(1<<1)
+#define TEAM_ADMIN_ADD_OBJ_PURPOSEFUL_CANCEL 	(1<<2)
+
+/// A helper used by `restrict_file_types.py` to identify types to restrict in a file. Not used by byond at all.
+#define RESTRICT_TYPE(type) // do nothing
+
+#define INGREDIENT_CHECK_EXACT 1
+#define INGREDIENT_CHECK_FAILURE 0
+#define INGREDIENT_CHECK_SURPLUS -1

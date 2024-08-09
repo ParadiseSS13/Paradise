@@ -1,9 +1,8 @@
 /turf/simulated/floor/light
-	name = "\improper light floor"
+	name = "light floor"
 	light_range = 0
 	icon_state = "light_off"
 	floor_tile = /obj/item/stack/tile/light
-	broken_states = list("light_off")
 	/// Are we on
 	var/on = FALSE
 	/// Are we broken
@@ -46,6 +45,8 @@
 
 /turf/simulated/floor/light/attack_hand(mob/user)
 	if(!can_modify_colour)
+		return
+	if(user.a_intent != INTENT_HELP)
 		return
 	toggle_light(!on)
 
@@ -112,6 +113,9 @@
 	..()
 	color = color_save
 
+/turf/simulated/floor/light/get_broken_states()
+	return list("light_off")
+
 // These tiles change color every now and then
 /turf/simulated/floor/light/disco
 	floor_tile = /obj/item/stack/tile/disco_light
@@ -150,3 +154,11 @@
 /turf/simulated/floor/light/disco/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/turf/simulated/floor/light/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+

@@ -5,10 +5,6 @@
 	valid_territory = FALSE
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
-/area/station/maintenance/atmos_control
-	name = "Atmospherics Maintenance"
-	icon_state = "fpmaint"
-
 /area/station/maintenance/engimaint
 	name = "Engineering Maintenance"
 	icon_state = "engimaint"
@@ -51,10 +47,6 @@
 
 /area/station/maintenance/maintcentral
 	name = "Central Maintenance"
-	icon_state = "maintcentral"
-
-/area/station/maintenance/maintcentral2
-	name = "Central Secondary Maintenance"
 	icon_state = "maintcentral"
 
 /area/station/maintenance/fore
@@ -105,10 +97,6 @@
 	name = "Waste Disposal"
 	icon_state = "disposals"
 
-/area/station/maintenance/genetics
-	name = "Genetics Maintenance"
-	icon_state = "asmaint"
-
 /area/station/maintenance/electrical
 	name = "Electrical Maintenance"
 	icon_state = "elect"
@@ -141,10 +129,6 @@
 	name = "Gambling Den"
 	icon_state = "yellow"
 
-/area/station/maintenance/consarea
-	name = "Alternate Construction Area"
-	icon_state = "construction"
-
 /area/station/maintenance/auxsolarport
 	name = "\improper Fore Port Solar Maintenance"
 	icon_state = "FPctrl"
@@ -165,7 +149,8 @@
 	name = "\improper Fore Starboard Solar Maintenance"
 	icon_state = "FSctrl"
 
-/area/station/maintenance/assembly_line //Derelict Assembly Line
+/// Derelict Assembly Line
+/area/station/maintenance/assembly_line
 	name = "\improper Assembly Line"
 	icon_state = "ass_line"
 	apc_starts_off = TRUE
@@ -215,9 +200,6 @@
 
 /area/station/maintenance/disposal/external/southeast
 	name = "South-Eastern External Waste Belt"
-
-/area/station/maintenance/disposal/external/east
-	name="Eastern External Waste Belt"
 
 /area/station/maintenance/disposal/external/north
 	name = "Northern External Waste Belt"

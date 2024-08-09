@@ -44,8 +44,8 @@
 			break
 
 	if(A)
-		if(A.stage != END_STAGE)
-			if(A.stage == WIND_DOWN_STAGE)
+		if(A.stage != WEATHER_END_STAGE)
+			if(A.stage == WEATHER_WIND_DOWN_STAGE)
 				to_chat(user, "<span class='warning'>The storm is already ending! It would be a waste to use the staff now.</span>")
 				return
 			user.visible_message("<span class='warning'>[user] holds [src] skywards as an orange beam travels into the sky!</span>", \

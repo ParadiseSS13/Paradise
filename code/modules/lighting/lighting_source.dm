@@ -41,6 +41,10 @@
 
 	source_turf = top_atom
 	pixel_turf = get_turf_pixel(top_atom) || source_turf
+	if(!pixel_turf)
+		stack_trace("[src] had no pixel turf assigned to it")
+		qdel(src)
+		return // Get us out of here before we do unneded operations
 
 	light_power = source_atom.light_power
 	light_range = source_atom.light_range
@@ -53,6 +57,7 @@
 /datum/light_source/Destroy(force)
 	remove_lum()
 	if(source_atom)
+		source_atom.delete_lights()
 		LAZYREMOVE(source_atom.light_sources, src)
 
 	if(top_atom)
@@ -213,6 +218,8 @@
 	if(update)
 		needs_update = LIGHTING_CHECK_UPDATE
 		applied = TRUE
+		if(source_atom)
+			source_atom.update_bloom()
 	else if(needs_update == LIGHTING_CHECK_UPDATE)
 		return //nothing's changed
 

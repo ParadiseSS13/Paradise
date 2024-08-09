@@ -34,7 +34,6 @@
 	default_hair = "Blue IPC Screen"
 	dies_at_threshold = TRUE
 	can_revive_by_healing = 1
-	has_gender = FALSE
 	reagent_tag = PROCESS_SYN
 	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
 	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
@@ -45,7 +44,6 @@
 	butt_sprite = "machine"
 
 	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
-	hunger_type = "machine"
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
@@ -140,7 +138,7 @@
 /datum/action/innate/change_monitor
 	name = "Change Monitor"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "scan_mode"
+	button_overlay_icon_state = "scan_mode"
 
 /datum/action/innate/change_monitor/Activate()
 	var/mob/living/carbon/human/H = owner

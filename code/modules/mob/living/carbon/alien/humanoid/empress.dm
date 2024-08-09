@@ -8,7 +8,6 @@
 	loudspeaker = TRUE
 	mob_size = MOB_SIZE_LARGE
 	bubble_icon = "alienroyal"
-	large = 1
 	ventcrawler = VENTCRAWLER_NONE
 	move_resist = MOVE_FORCE_STRONG //Yes, big benos is huge and heavy
 	alien_disarm_damage = 60 //Empress do higher disarm stamina damage than normal aliens
@@ -37,16 +36,7 @@
 /mob/living/carbon/alien/humanoid/empress/Initialize(mapload)
 	. = ..()
 	//there should only be one queen
-	for(var/mob/living/carbon/alien/humanoid/empress/E in GLOB.alive_mob_list)
-		if(E == src)
-			continue
-		if(E.stat == DEAD)
-			continue
-		if(E.client)
-			name = "alien grand princess ([rand(1, 999)])"	//if this is too cutesy feel free to change it/remove it.
-			break
-
-	real_name = name
+	ADD_TRAIT(src, TRAIT_FORCE_DOORS, UNIQUE_TRAIT_SOURCE(src))
 
 /mob/living/carbon/alien/humanoid/empress/get_caste_organs()
 	. = ..()

@@ -15,7 +15,6 @@
 	var/throw_range = 7
 	var/no_spin = FALSE
 	var/no_spin_thrown = FALSE
-	var/moved_recently = FALSE
 	var/mob/pulledby = null
 	var/atom/movable/pulling
 	/// Face towards the atom while pulling it
@@ -37,6 +36,33 @@
 	var/atom/movable/emissive_blocker/em_block
 	/// Icon state for thought bubbles. Normally set by mobs.
 	var/thought_bubble_image = "thought_bubble"
+
+	// Atmos
+	var/pressure_resistance = 10
+	var/last_high_pressure_movement_air_cycle = 0
+
+	/// UID for the atom which the current atom is orbiting
+	var/orbiting_uid = null
+
+	/*
+	Buckling Vars
+	*/
+	var/can_buckle = FALSE
+	/// Bed-like behaviour, forces the mob to lie down if buckle_lying != -1
+	var/buckle_lying = -1
+	/// Require people to be handcuffed before being able to buckle. eg: pipes
+	var/buckle_requires_restraints = 0
+	/// Lazylist of the mobs buckled to this object.
+	var/list/buckled_mobs = null
+	/// The Pixel_y to offset the buckled mob by
+	var/buckle_offset = 0
+	/// The max amount of mobs that can be buckled to this object. Currently set to 1 on every movable
+	var/max_buckled_mobs = 1
+	/// Can we pull the mob while they're buckled. Currently set to false on every movable
+	var/buckle_prevents_pull = FALSE
+
+	/// Used for icon smoothing. Won't smooth if it ain't anchored and can be unanchored. Only set to true on windows
+	var/can_be_unanchored = FALSE
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -77,6 +103,13 @@
 	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
+
+	var/turf/T = loc
+	if(opacity && istype(T))
+		var/old_has_opaque_atom = T.has_opaque_atom
+		T.recalc_atom_opacity()
+		if(old_has_opaque_atom != T.has_opaque_atom)
+			T.reconsider_lights()
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
@@ -173,61 +206,37 @@
 	Moved(old_loc, direction, TRUE)
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
-	if(!loc || !newloc) return 0
+	if(!loc || !newloc)
+		return FALSE
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
 		if(movetime > 0)
 			glide_for(movetime)
-		if(!(direct & (direct - 1))) //Cardinal move
+		if(IS_DIR_CARDINAL(direct))
 			. = ..(newloc, direct) // don't pass up movetime
 			setDir(direct)
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
-			var/first_step_dir
-			// The `&& moving_diagonally` checks are so that a forceMove taking
-			// place due to a Crossed, Bumped, etc. call will interrupt
-			// the second half of the diagonal movement, or the second attempt
-			// at a first half if the cardinal Move() fails because we hit something.
-			if(direct & NORTH)
-				if(direct & EAST)
-					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
-						first_step_dir = NORTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  EAST),  EAST)
-					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
-						first_step_dir = EAST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  NORTH),  NORTH)
-				else if(direct & WEST)
-					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
-						first_step_dir = NORTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  WEST),  WEST)
-					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
-						first_step_dir = WEST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  NORTH),  NORTH)
-			else if(direct & SOUTH)
-				if(direct & EAST)
-					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
-						first_step_dir = SOUTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  EAST),  EAST)
-					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
-						first_step_dir = EAST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  SOUTH),  SOUTH)
-				else if(direct & WEST)
-					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
-						first_step_dir = SOUTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  WEST),  WEST)
-					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
-						first_step_dir = WEST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = Move(get_step(src,  SOUTH),  SOUTH)
-			if(moving_diagonally == SECOND_DIAG_STEP)
+			var/first_step_dir = 0
+			// For each diagonal direction, we try moving NORTH/SOUTH first, and if it fails, we try moving EAST/WEST first.
+			// As long as either succeeds, we try the other.
+			var/direct_NS = direct & (NORTH | SOUTH)
+			var/direct_EW = direct & (EAST | WEST)
+			var/first_step_target = get_step(src, direct_NS)
+			Move(first_step_target, direct_NS)
+			if(loc == first_step_target)
+				first_step_dir = direct_NS
+				moving_diagonally = SECOND_DIAG_STEP
+				. = Move(get_step(src, direct_EW), direct_EW)
+			else if(loc == oldloc)
+				first_step_target = get_step(src, direct_EW)
+				Move(first_step_target, direct_EW)
+				if(loc == first_step_target)
+					first_step_dir = direct_EW
+					moving_diagonally = SECOND_DIAG_STEP
+					. = Move(get_step(src, direct_NS), direct_NS)
+			if(first_step_dir != 0)
 				if(!.)
 					setDir(first_step_dir)
 					Moved(oldloc, first_step_dir)
@@ -249,7 +258,7 @@
 	l_move_time = world.time
 
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, movetime)) //movement failed due to buckled mob
-		. = 0
+		. = FALSE
 
 // Called after a successful Move(). By this point, we've already moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
@@ -285,15 +294,15 @@
 /atom/movable/Uncrossed(atom/movable/AM)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UNCROSSED, AM)
 
-/atom/movable/Bump(atom/A, yes) //the "yes" arg is to differentiate our Bump proc from byond's, without it every Bump() call would become a double Bump().
-	if(A && yes)
-		SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, A)
-		if(throwing)
-			throwing.hit_atom(A)
-			. = 1
-			if(!A || QDELETED(A))
+/atom/movable/Bump(atom/bumped_atom, yes) //the "yes" arg is to differentiate our Bump proc from byond's, without it every Bump() call would become a double Bump(). // suffering
+	if(bumped_atom && yes)
+		SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, bumped_atom)
+		if(!QDELETED(throwing))
+			throwing.finalize(TRUE, bumped_atom)
+			. = TRUE
+			if(QDELETED(bumped_atom))
 				return
-		A.Bumped(src)
+		bumped_atom.Bumped(src)
 
 /atom/movable/proc/forceMove(atom/destination)
 	var/turf/old_loc = loc
@@ -320,7 +329,7 @@
 
 	Moved(old_loc, NONE)
 
-	return 1
+	return TRUE
 
 /atom/movable/proc/onTransitZ(old_z,new_z)
 	for(var/item in src) // Notify contents of Z-transition. This can be overridden if we know the items contents do not care.
@@ -347,43 +356,46 @@
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below
-//Return 0 to have src start/keep drifting in a no-grav area and 1 to stop/not start drifting
-//Mobs should return 1 if they should be able to move of their own volition, see client/Move() in mob_movement.dm
+//return FALSE to have src start/keep drifting in a no-grav area and TRUE to stop/not start drifting
+//Mobs should return TRUE if they should be able to move of their own volition, see client/Move() in mob_movement.dm
 //movement_dir == 0 when stopping or any dir when trying to move
 /atom/movable/proc/Process_Spacemove(movement_dir = 0)
 	if(has_gravity(src))
-		return 1
+		return TRUE
 
 	if(pulledby && !pulledby.pulling)
-		return 1
+		return TRUE
+
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir) & COMSIG_MOVABLE_STOP_SPACEMOVE)
+		return TRUE
 
 	if(throwing)
-		return 1
+		return TRUE
 
 	if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 /atom/movable/proc/newtonian_move(direction) //Only moves the object if it's under no gravity
 	if(!loc || Process_Spacemove(0))
 		inertia_dir = 0
-		return 0
+		return FALSE
 
 	inertia_dir = direction
 	if(!direction)
-		return 1
+		return TRUE
 
 	inertia_last_loc = loc
 	SSspacedrift.processing[src] = src
-	return 1
+	return TRUE
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
-	set waitfor = 0
+	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
 	if(!QDELETED(hit_atom))
-		return hit_atom.hitby(src)
+		return hit_atom.hitby(src, throwingdatum=throwingdatum)
 
 /// called after an items throw is ended.
 /atom/movable/proc/end_throw()
@@ -394,9 +406,12 @@
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE, block_movement = TRUE)
+	if(QDELETED(src))
+		CRASH("Qdeleted thing being thrown around.")
+
 	if(!target || (flags & NODROP) || speed <= 0)
-		return 0
+		return FALSE
 
 	if(pulledby)
 		pulledby.stop_pulling()
@@ -424,17 +439,13 @@
 			if(speed <= 0)
 				return //no throw speed, the user was moving too fast.
 
-	var/datum/thrownthing/TT = new()
-	TT.thrownthing = src
-	TT.target = target
-	TT.target_turf = get_turf(target)
-	TT.init_dir = get_dir(src, target)
-	TT.maxrange = range
-	TT.speed = speed
-	TT.thrower = thrower
-	TT.diagonals_first = diagonals_first
-	TT.callback = callback
-	TT.dodgeable = dodgeable
+	var/target_zone
+	if(QDELETED(thrower))
+		thrower = null //Let's not pass a qdeleting reference if any.
+	else
+		target_zone = thrower.zone_selected
+
+	var/datum/thrownthing/thrown_thing = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, dodgeable, block_movement, target_zone)
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -442,7 +453,7 @@
 	var/dy = (target.y > src.y) ? NORTH : SOUTH
 
 	if(dist_x == dist_y)
-		TT.pure_diagonal = 1
+		thrown_thing.pure_diagonal = 1
 
 	else if(dist_x <= dist_y)
 		var/olddist_x = dist_x
@@ -451,25 +462,32 @@
 		dist_y = olddist_x
 		dx = dy
 		dy = olddx
-	TT.dist_x = dist_x
-	TT.dist_y = dist_y
-	TT.dx = dx
-	TT.dy = dy
-	TT.diagonal_error = dist_x / 2 - dist_y
-	TT.start_time = world.time
+	thrown_thing.dist_x = dist_x
+	thrown_thing.dist_y = dist_y
+	thrown_thing.dx = dx
+	thrown_thing.dy = dy
+	thrown_thing.diagonal_error = dist_x / 2 - dist_y
+	thrown_thing.start_time = world.time
 
 	if(pulledby)
 		pulledby.stop_pulling()
 
-	throwing = TT
+	throwing = thrown_thing
 	if(spin && !no_spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, TT, spin)
-	SSthrowing.processing[src] = TT
-	TT.tick()
+	SEND_SIGNAL(src, COMSIG_MOVABLE_POST_THROW, thrown_thing, spin)
+	SSthrowing.processing[src] = thrown_thing
+	thrown_thing.tick()
 
 	return TRUE
+
+/// This proc is recursive, and calls itself to constantly set the glide size of an atom/movable
+/atom/movable/proc/set_glide_size(target = 8)
+	glide_size = target
+
+	for(var/mob/buckled_mob as anything in buckled_mobs)
+		buckled_mob.set_glide_size(target)
 
 //Overlays
 /atom/movable/overlay
@@ -498,8 +516,8 @@
 			last_move = buckled_mob.last_move
 			inertia_dir = last_move
 			buckled_mob.inertia_dir = last_move
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -518,9 +536,10 @@
 	return FALSE
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(mover in buckled_mobs)
-		return 1
-	return ..()
+	// This condition is copied from atom to avoid an extra parent call, because this is a very hot proc.
+	if(!density || !height)
+		return TRUE
+	return LAZYIN(buckled_mobs, mover)
 
 /atom/movable/proc/get_spacemove_backup()
 	var/atom/movable/dense_object_backup
@@ -667,6 +686,8 @@
 
 //Update the screentip to reflect what we're hovering over
 /atom/movable/MouseEntered(location, control, params)
+	if(invisibility > usr.see_invisible)
+		return
 	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
 	var/screentip_mode = usr.client.prefs.screentip_mode
 	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
@@ -674,9 +695,11 @@
 		return
 	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
 	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[name]</span>"
+	usr.client.moused_over = UID()
 
 /atom/movable/MouseExited(location, control, params)
 	usr.hud_used.screentip_text.maptext = ""
+	usr.client.moused_over = null
 
 /atom/movable/proc/choose_crush_crit(mob/living/carbon/victim)
 	if(!length(GLOB.tilt_crits))
@@ -771,6 +794,9 @@
 
 		if(isliving(target))
 			var/mob/living/L = target
+
+			if(L.incorporeal_move)
+				continue
 
 			if(crit_case)
 				damage_to_deal *= crit_damage_factor

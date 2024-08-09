@@ -2,14 +2,14 @@
 	name = "Corporate Judo"
 	has_explaination_verb = TRUE
 	no_baton = TRUE
-	combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/wheelthrow)
+	combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/wheelthrow, /datum/martial_combo/judo/goldenblast)
 	weight = 5 //takes priority over boxing and drunkneness, less priority than krav or CQC/carp
 	no_baton_reason = "<span class='warning'>The baton feels off balance in your hand due to your judo training!</span>"
 	can_horizontally_grab = FALSE
 
 //Corporate Judo Belt
 
-/obj/item/judobelt
+/obj/item/storage/belt/judobelt
 	name = "\improper Corporate Judo Belt"
 	desc = "Teaches the wearer NT Corporate Judo."
 	icon = 'icons/obj/clothing/belts.dmi'
@@ -17,16 +17,31 @@
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	icon_state = "judobelt"
 	item_state = "judo"
-	slot_flags = SLOT_FLAG_BELT
-	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	w_class = WEIGHT_CLASS_BULKY
+	storage_slots = 3
+	max_combined_w_class = 6
 	var/datum/martial_art/judo/style
+	can_hold = list(
+		/obj/item/grenade/flashbang,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/food/donut,
+		/obj/item/flashlight/seclite,
+		/obj/item/holosign_creator/security,
+		/obj/item/holosign_creator/detective,
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/detective_scanner)
 
-/obj/item/judobelt/Initialize()
+/obj/item/storage/belt/judobelt/update_weight()
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/storage/belt/judobelt/Initialize()
 	. = ..()
 	style = new()
 
-/obj/item/judobelt/equipped(mob/user, slot)
+/obj/item/storage/belt/judobelt/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
 	if(slot == SLOT_HUD_BELT)
@@ -39,7 +54,7 @@
 		to_chat(H, "<span class='danger'>See the martial arts tab for an explanation of combos.</span>")
 		return
 
-/obj/item/judobelt/dropped(mob/user)
+/obj/item/storage/belt/judobelt/dropped(mob/user)
 	..()
 	if(!ishuman(user))
 		return
@@ -68,35 +83,5 @@
 /datum/martial_art/judo/explaination_header(user)
 	to_chat(user, "<b><i>You recall the teachings of Corporate Judo.</i></b>")
 
-/datum/martial_art/cqc/explaination_footer(user)
+/datum/martial_art/judo/explaination_footer(user)
 	to_chat(user, "<b>Your unarmed strikes hit about twice as hard as your peers, on average.</b>")
-
-/datum/martial_art/judo/under_siege
-	name = "Professional Bodyguarding"
-	var/static/list/areas_under_siege = typecacheof(list(/area/station/service/kitchen, /area/station/service/bar))
-
-/datum/martial_art/judo/under_siege/teach(mob/living/carbon/human/H, make_temporary)
-	RegisterSignal(H, COMSIG_AREA_ENTERED, PROC_REF(bar_check))
-	return ..()
-
-/datum/martial_art/judo/under_siege/remove(mob/living/carbon/human/H)
-	UnregisterSignal(H, COMSIG_AREA_ENTERED)
-	return ..()
-
-/datum/martial_art/judo/under_siege/proc/bar_check(mob/living/carbon/human/H, area/entered_area)
-	SIGNAL_HANDLER
-	if(!is_type_in_typecache(entered_area, areas_under_siege))
-		var/list/held_items = list(H.get_active_hand(), H.get_inactive_hand())
-		for(var/obj/item/slapper/parry/smacking_hand in held_items)
-			qdel(smacking_hand)
-		can_parry = FALSE
-		weight = 0
-	else
-		can_parry = TRUE
-		weight = 5
-
-/datum/martial_art/judo/under_siege/can_use(mob/living/carbon/human/H)
-	var/area/A = get_area(H)
-	if(!(is_type_in_typecache(A, areas_under_siege)))
-		return FALSE
-	return ..()

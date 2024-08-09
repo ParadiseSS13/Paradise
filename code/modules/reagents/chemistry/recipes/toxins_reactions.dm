@@ -34,6 +34,14 @@
 		if(C.can_breathe_gas())
 			C.reagents.add_reagent("cyanide", 7)
 
+/datum/chemical_reaction/pancuronium
+	name = "Pancuronium"
+	id = "pancuronium"
+	result = "pancuronium"
+	required_reagents = list("cyanide" = 1, "bromine" = 1, "capulettium" = 1)
+	result_amount = 3
+	mix_message = "The mixture deepens to a dark blue, leaving no smell."
+
 /datum/chemical_reaction/itching_powder
 	name = "Itching Powder"
 	id = "itching_powder"
@@ -108,7 +116,8 @@
 	result_amount = 3
 	mix_message = "The mixture gives off a harsh odor"
 
-/datum/chemical_reaction/pestkiller // To-Do make this more realistic
+/// To-Do make this more realistic
+/datum/chemical_reaction/pestkiller
 	name = "Pest Killer"
 	id = "pestkiller"
 	result = "pestkiller"

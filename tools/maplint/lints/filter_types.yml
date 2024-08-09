@@ -1,0 +1,5 @@
+help: "Gas filters filter type must be one of the defines in `filter.dm`."
+/obj/machinery/atmospherics/trinary/filter:
+  banned_variables:
+    filter_type:
+      allow: { pattern: '^-?\d+' }

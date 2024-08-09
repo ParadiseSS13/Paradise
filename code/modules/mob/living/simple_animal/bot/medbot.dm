@@ -273,11 +273,11 @@
 /mob/living/simple_animal/bot/medbot/process_scan(mob/living/carbon/human/H)
 	if(buckled)
 		if((last_warning + 300) < world.time)
-			speak("<span class='danger'>Movement restrained! Unit on standby!</span>")
+			speak("Movement restrained! Unit on standby!")
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, FALSE)
 			last_warning = world.time
 		return
-	if(H.stat == 2)
+	if(H.stat == DEAD)
 		return
 
 	if((H == oldpatient) && (world.time < last_found + 200))
@@ -335,10 +335,10 @@
 		return
 
 	if(patient && !length(path) && (get_dist(src,patient) > 1))
-		path = get_path_to(src, patient, 30,id=access_card)
+		path = get_path_to(src, patient, 30, access = access_card.access)
 		mode = BOT_MOVING
 		if(!length(path)) //try to get closer if you can't reach the patient directly
-			path = get_path_to(src, patient, 30,1,id=access_card)
+			path = get_path_to(src, patient, 30, 1, access = access_card.access)
 			if(!length(path)) //Do not chase a patient we cannot reach.
 				soft_reset()
 
@@ -568,3 +568,8 @@
 	spawn(200) //Twenty seconds
 		declare_cooldown = FALSE
 
+
+#undef MEDBOT_MIN_HEALING_THRESHOLD
+#undef MEDBOT_MAX_HEALING_THRESHOLD
+#undef MEDBOT_MIN_INJECTION_AMOUNT
+#undef MEDBOT_MAX_INJECTION_AMOUNT

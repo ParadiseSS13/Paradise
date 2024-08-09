@@ -1,16 +1,9 @@
 
-// Defines below to be used with the `power_type` var.
-/// Denotes that this power is free and should be given to all changelings by default.
-#define CHANGELING_INNATE_POWER			1
-/// Denotes that this power can only be obtained by purchasing it.
-#define CHANGELING_PURCHASABLE_POWER	2
-/// Denotes that this power can not be obtained normally. Primarily used for base types such as [/datum/action/changeling/weapon].
-#define CHANGELING_UNOBTAINABLE_POWER	3
 
 /datum/action/changeling
 	name = "Prototype Sting"
 	desc = "" // Fluff
-	background_icon_state = "bg_changeling"
+	button_background_icon_state = "bg_changeling"
 	/// A reference to the changeling's changeling antag datum.
 	var/datum/antagonist/changeling/cling
 	/// Datum path used to determine the location and name of the power in changeling evolution menu UI
@@ -31,7 +24,7 @@
 	var/req_stat = CONSCIOUS
 	/// If this power is active or not. Used for toggleable abilities.
 	var/active = FALSE
-	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
+	/// If this power can be used while the changeling has the `TRAIT_FAKEDEATH` trait.
 	var/bypass_fake_death = FALSE
 
 /*

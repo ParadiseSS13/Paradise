@@ -56,8 +56,8 @@
 
 /datum/action/innate/diona/merge
 	name = "Merge with gestalt"
-	icon_icon = 'icons/mob/human_races/r_diona.dmi'
-	button_icon_state = "preview"
+	button_overlay_icon = 'icons/mob/human_races/r_diona.dmi'
+	button_overlay_icon_state = "preview"
 
 /datum/action/innate/diona/merge/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -65,8 +65,8 @@
 
 /datum/action/innate/diona/evolve
 	name = "Evolve"
-	icon_icon = 'icons/obj/cloning.dmi'
-	button_icon_state = "pod_cloning"
+	button_overlay_icon = 'icons/obj/cloning.dmi'
+	button_overlay_icon_state = "pod_cloning"
 
 /datum/action/innate/diona/evolve/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -74,8 +74,8 @@
 
 /datum/action/innate/diona/steal_blood
 	name = "Steal blood"
-	icon_icon = 'icons/goonstation/objects/iv.dmi'
-	button_icon_state = "bloodbag"
+	button_overlay_icon = 'icons/goonstation/objects/iv.dmi'
+	button_overlay_icon_state = "bloodbag"
 
 /datum/action/innate/diona/steal_blood/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -107,8 +107,8 @@
 		if(isdiona(M))
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
-			throw_alert(GESTALT_ALERT, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
-			M.throw_alert(NYMPH_ALERT, /obj/screen/alert/gestalt, new_master = src)
+			throw_alert(GESTALT_ALERT, /atom/movable/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+			M.throw_alert(NYMPH_ALERT, /atom/movable/screen/alert/gestalt, new_master = src)
 			forceMove(M)
 		else if(isrobot(M))
 			M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
@@ -127,11 +127,11 @@
 			continue
 		choices += H
 
-	if(!choices.len)
+	if(!length(choices))
 		to_chat(src, "<span class='warning'>No suitable diona nearby.</span>")
 		return FALSE
 
-	var/mob/living/M = input(src,"Who do you wish to merge with?") in null|choices
+	var/mob/living/M = tgui_input_list(src, "Who do you wish to merge with?", "Nymph Merging", choices)
 
 	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE
@@ -141,8 +141,8 @@
 		M.status_flags |= PASSEMOTES
 		to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 		forceMove(M)
-		throw_alert(GESTALT_ALERT, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
-		M.throw_alert(NYMPH_ALERT, /obj/screen/alert/gestalt, new_master = src)
+		throw_alert(GESTALT_ALERT, /atom/movable/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+		M.throw_alert(NYMPH_ALERT, /atom/movable/screen/alert/gestalt, new_master = src)
 		return TRUE
 	else
 		return FALSE
@@ -173,7 +173,7 @@
 	if(stat != CONSCIOUS)
 		return FALSE
 
-	if(donors.len < evolve_donors)
+	if(length(donors) < evolve_donors)
 		to_chat(src, "<span class='warning'>You need more blood in order to ascend to a new state of consciousness...</span>")
 		return FALSE
 
@@ -185,6 +185,9 @@
 		return FALSE
 
 	visible_message("<span class='danger'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.</span>","<span class='danger'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.</span>")
+
+	if(master_commander)
+		to_chat(src, "<span class='userdanger'>As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!</span>")
 
 	var/mob/living/carbon/human/diona/adult = new(get_turf(loc))
 	adult.set_species(/datum/species/diona)
@@ -202,6 +205,8 @@
 	adult.real_name = adult.name
 	adult.ckey = ckey
 	adult.real_name = adult.dna.species.get_random_name()	//I hate this being here of all places but unfortunately dna is based on real_name!
+	// [Nymph -> Diona] is from xenobio (or botany) and does not give vampires usuble blood and cannot be converted by cult.
+	ADD_TRAIT(adult.mind, TRAIT_XENOBIO_SPAWNED_HUMAN, ROUNDSTART_TRAIT)
 
 	for(var/obj/item/W in contents)
 		unEquip(W)
@@ -210,13 +215,13 @@
 	return TRUE
 
 // Consumes plant matter other than weeds to evolve
-/mob/living/simple_animal/diona/proc/consume(obj/item/food/snacks/grown/G)
+/mob/living/simple_animal/diona/proc/consume(obj/item/food/grown/G)
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating plant items without evolving.
 		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
 	else
 		if(do_after_once(src, 20, target = G))
 			visible_message("[src] ravenously consumes [G].", "You ravenously devour [G].")
-			playsound(loc, 'sound/items/eatfood.ogg', 30, 0, frequency = 1.5)
+			playsound(loc, 'sound/items/eatfood.ogg', 30, FALSE, frequency = 1.5)
 			if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)
 				adjust_nutrition(2)
 			else
@@ -232,11 +237,11 @@
 		if(Adjacent(H) && H.dna && !(NO_BLOOD in H.dna.species.species_traits))
 			choices += H
 
-	if(!choices.len)
+	if(!length(choices))
 		to_chat(src, "<span class='warning'>No suitable blood donors nearby.</span>")
 		return FALSE
 
-	var/mob/living/carbon/human/M = input(src,"Who do you wish to take a sample from?") in null|choices
+	var/mob/living/carbon/human/M = tgui_input_list(src, "Who do you wish to take a sample from?", "Blood Sampling", choices)
 
 	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE
@@ -259,12 +264,12 @@
 		update_progression()
 
 /mob/living/simple_animal/diona/proc/update_progression()
-	if(stat != CONSCIOUS || !donors.len)
+	if(stat != CONSCIOUS || !length(donors))
 		return FALSE
 
-	if(donors.len == evolve_donors)
+	if(length(donors) == evolve_donors)
 		to_chat(src, "<span class='noticealien'>You feel ready to move on to your next stage of growth.</span>")
-	else if(donors.len == awareness_donors)
+	else if(length(donors) == awareness_donors)
 		universal_understand = TRUE
 		to_chat(src, "<span class='noticealien'>You feel your awareness expand, and realize you know how to understand the creatures around you.</span>")
 	else

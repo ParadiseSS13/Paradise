@@ -57,12 +57,6 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
-	if(exchange_parts(user, I))
-		return
-	return ..()
-
 /obj/machinery/recycler/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
@@ -93,6 +87,7 @@
 			update_icon(UPDATE_ICON_STATE)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
+		return TRUE
 
 /obj/machinery/recycler/update_icon_state()
 	var/is_powered = !(stat & (BROKEN|NOPOWER))
@@ -224,3 +219,5 @@
 	info = "<h2>New Assignment</h2> You have been assigned to collect garbage from trash bins, located around the station. The crewmembers will put their trash into it and you will collect the said trash.<br><br>There is a recycling machine near your closet, inside maintenance; use it to recycle the trash for a small chance to get useful minerals. Then deliver these minerals to cargo or engineering. You are our last hope for a clean station, do not screw this up!"
 
 #undef SOUND_COOLDOWN
+
+#undef SAFETY_COOLDOWN

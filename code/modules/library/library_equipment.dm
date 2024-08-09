@@ -149,7 +149,10 @@
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
-	var/list/books = GLOB.library_catalog.get_random_book(book_count, doAsync = FALSE)
+	addtimer(CALLBACK(src, PROC_REF(load_books)), 0)
+
+/obj/structure/bookcase/random/proc/load_books()
+	var/list/books = GLOB.library_catalog.get_random_book(book_count)
 	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(src, book, TRUE, FALSE)
 	update_icon(UPDATE_ICON_STATE)
@@ -159,6 +162,7 @@
  */
 /obj/machinery/bookbinder
 	name = "Book Binder"
+	desc = "Used by authors, poets, and librarians to scan papers and print copies of their fanfics."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "binder"
 	anchored = TRUE
@@ -411,11 +415,11 @@
 		if(BARCODE_MODE_CHECKOUT)
 			var/confirm
 			if(!computer.user_data.patron_account)
-				confirm = alert("Warning: patron does not have an associated account number! Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", "Yes", "No")
+				confirm = tgui_alert(user, "Warning: patron does not have an associated account number! Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", list("Yes", "No"))
 			else
-				confirm = alert("Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", "Yes", "No")
+				confirm = tgui_alert(user, "Are you sure you want to checkout [B] to [computer.user_data.patron_name]?", "Confirm Checkout", list("Yes", "No"))
 
-			if(confirm == "No")
+			if(confirm != "Yes")
 				return
 			if(computer.checkout(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
@@ -438,3 +442,8 @@
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 		to_chat(user, "<span class='notice'>Please reconnect [src] to a library computer.</span>")
 		return FALSE
+
+#undef BARCODE_MODE_SCAN_SELECT
+#undef BARCODE_MODE_SCAN_INVENTORY
+#undef BARCODE_MODE_CHECKOUT
+#undef BARCODE_MODE_CHECKIN

@@ -8,3 +8,4 @@
 	// And fire
 	SSinstancing.execute_command(data["src"], data["cmd"], data["args"])
 	#endif
+	return // we need this so that the proc isnt empty when on non-multi-instance

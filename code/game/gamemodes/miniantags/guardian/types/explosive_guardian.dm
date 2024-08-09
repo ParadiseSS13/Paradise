@@ -10,11 +10,11 @@
 	var/bomb_cooldown = 0
 	var/default_bomb_cooldown = 20 SECONDS
 
-/mob/living/simple_animal/hostile/guardian/bomb/Stat()
-	..()
-	if(statpanel("Status"))
-		if(bomb_cooldown >= world.time)
-			stat(null, "Bomb Cooldown Remaining: [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds")
+/mob/living/simple_animal/hostile/guardian/bomb/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(bomb_cooldown >= world.time)
+		status_tab_data[++status_tab_data.len] = list("Bomb Cooldown Remaining:", "[max(round((bomb_cooldown - world.time) * 0.1, 0.1), 0)] seconds")
 
 /mob/living/simple_animal/hostile/guardian/bomb/AltClickOn(atom/movable/A)
 	if(!istype(A))
@@ -23,7 +23,7 @@
 		to_chat(src, "<span class='danger'>You're too far from [A] to disguise it as a bomb.</span>")
 		return
 	if(isobj(A) && can_plant(A))
-		if(bomb_cooldown <= world.time && !stat)
+		if(bomb_cooldown <= world.time && stat == CONSCIOUS)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
 			to_chat(src, "<span class='danger'>Success! Bomb on [A] armed!</span>")

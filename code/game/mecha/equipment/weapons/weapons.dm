@@ -50,7 +50,7 @@
 				spread = round((rand() - 0.5) * variance)
 			else
 				spread = round((i / projectiles_per_shot - 0.5) * variance)
-		A.preparePixelProjectile(target, targloc, chassis.occupant, params, spread)
+		A.preparePixelProjectile(target, chassis.occupant, params2list(params), spread)
 
 		chassis.use_power(energy_drain)
 		projectiles--
@@ -101,10 +101,10 @@
 	desc = "An ion shotgun, that when fired gives the mecha a second of EMP shielding with the excess energy from the discharge."
 	icon_state = "mecha_ion"
 	origin_tech = "materials=4;combat=5;magnets=4"
-	energy_drain = 300 // This is per shot + 1x cost, so 1500 per shotgun shot
+	energy_drain = 215 // This is per shot + 1x cost, so ~1500 per shotgun shot
 	projectile = /obj/item/projectile/ion/weak
-	projectiles_per_shot = 4
-	variance = 35
+	projectiles_per_shot = 6
+	variance = 40
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion/action()
@@ -256,7 +256,7 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_equip_info()
-	return "[..()]\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='?src=[UID()];rearm=1'>Rearm</a>":null]"
+	return "[..()]\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='byond://?src=[UID()];rearm=1'>Rearm</a>":null]"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/proc/rearm()
 	if(projectiles < initial(projectiles))
@@ -386,7 +386,7 @@
 	size=1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_equip_info()//Limited version of the clusterbang launcher that can't reload
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='?src=[chassis.UID()];select_equip=\ref[src]'>"][name][chassis.selected==src?"</b>":"</a>"]\[[projectiles]\]"
+	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='byond://?src=[chassis.UID()];select_equip=\ref[src]'>"][name][chassis.selected==src?"</b>":"</a>"]\[[projectiles]\]"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/rearm()
 	return//Extra bit of security
@@ -424,7 +424,7 @@
 	equip_cooldown = 1 SECONDS
 	name = "mousetrap mortar"
 	icon_state = "mecha_mousetrapmrtr"
-	projectile = /obj/item/assembly/mousetrap
+	projectile = /obj/item/assembly/mousetrap/armed
 	fire_sound = 'sound/items/bikehorn.ogg'
 	projectiles = 15
 	missile_speed = 1.5
@@ -441,9 +441,9 @@
 	if(!action_checks(target))
 		return
 	set_ready_state(0)
-	var/obj/item/assembly/mousetrap/M = new projectile(chassis.loc)
+	var/obj/item/assembly/mousetrap/armed/M = new projectile(chassis.loc)
 	M.secured = TRUE
-	playsound(chassis, fire_sound, 60, 1)
+	playsound(chassis, fire_sound, 60, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")
@@ -495,6 +495,28 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/working))
-		if(M.equipment.len<M.max_equip)
+		if(length(M.equipment)<M.max_equip)
+			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade
+	name = "\improper \"Little boy\" Mining Grenade Launcher"
+	icon_state = "mining_launcher"
+	origin_tech = "combat=5;materials=4;engineering=4"
+	projectile = /obj/item/projectile/bullet/reusable/mining_bomb/mecha
+	fire_sound = 'sound/effects/bang.ogg'
+	energy_drain = 150 // cost a lot, but powerful miner tool
+	equip_cooldown = 2 SECONDS
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade/action()
+	if(!lavaland_equipment_pressure_check(get_turf(chassis)))
+		to_chat(chassis.occupant, "<span class='warning'>ERROR, OVER PRESSURE!</span>") // no station terror(yet)
+		playsound(chassis.occupant, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
+		return FALSE
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/mining_grenade/can_attach(obj/mecha/M)
+	if(istype(M, /obj/mecha/working))
+		if(length(M.equipment) < M.max_equip)
 			return TRUE
 	return FALSE

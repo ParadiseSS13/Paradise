@@ -32,34 +32,20 @@
     )
   );
   @include meta.load-css(
-    '../components/Input.scss',
-    $with: ('border-color': #87ce87)
+    '../components/ImageButton.scss',
+    $with: ('color-default': darken(colors.$primary, 20%), 'color-disabled': #363636, 'color-selected': #9d0808)
   );
-  @include meta.load-css(
-    '../components/NoticeBox.scss',
-    $with: ('background-color': #910101)
-  );
-  @include meta.load-css(
-    '../components/NumberInput.scss',
-    $with: ('border-color': #87ce87)
-  );
-  @include meta.load-css(
-    '../components/ProgressBar.scss',
-    $with: ('background-color': rgba(0, 0, 0, 0.5))
-  );
+  @include meta.load-css('../components/Input.scss', $with: ('border-color': #87ce87));
+  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': #910101));
+  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #87ce87));
+  @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
   @include meta.load-css('../components/Section.scss');
-  @include meta.load-css(
-    '../components/Tooltip.scss',
-    $with: ('background-color': #4a0202)
-  );
+  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #4a0202));
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: ('background-color': #910101)
-  );
+  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #910101));
 
   .Layout__content {
     // From 'packages/tgui/assets/bg-syndicate.svg', converted to base64 manually to stop webpack exploding

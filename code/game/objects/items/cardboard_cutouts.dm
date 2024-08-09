@@ -47,9 +47,9 @@
 	if(I.flags & NOBLUDGEON)
 		return
 	if(!I.force)
-		playsound(loc, 'sound/weapons/tap.ogg', 20, 1, -1)
+		playsound(loc, 'sound/weapons/tap.ogg', 20, TRUE, -1)
 	else if(I.hitsound)
-		playsound(loc, I.hitsound, 20, 1, -1)
+		playsound(loc, I.hitsound, 20, TRUE, -1)
 
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -186,5 +186,6 @@
 /obj/item/cardboard_cutout/setDir()
 	dir = SOUTH
 
-/obj/item/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
+/// Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
+/obj/item/cardboard_cutout/adaptive
 	deceptive = TRUE

@@ -16,6 +16,7 @@
 	icon_dead = "towercap-dead"
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
 	mutatelist = list(/obj/item/seeds/tower/steel)
+	reagents_add = list("carbon" = 0.2)
 
 /obj/item/seeds/tower/steel
 	name = "pack of steel-cap mycelium"
@@ -25,10 +26,8 @@
 	plantname = "Steel Caps"
 	product = /obj/item/grown/log/steel
 	mutatelist = list()
+	reagents_add = list("iron" = 0.5)
 	rarity = 20
-
-
-
 
 /obj/item/grown/log
 	seed = /obj/item/seeds/tower
@@ -44,14 +43,14 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	var/plank_type = /obj/item/stack/sheet/wood
 	var/plank_name = "wooden planks"
-	var/static/list/accepted = typecacheof(list(/obj/item/food/snacks/grown/tobacco,
-	/obj/item/food/snacks/grown/tea,
-	/obj/item/food/snacks/grown/ambrosia/vulgaris,
-	/obj/item/food/snacks/grown/ambrosia/deus,
-	/obj/item/food/snacks/grown/wheat))
+	var/static/list/accepted = typecacheof(list(/obj/item/food/grown/tobacco,
+	/obj/item/food/grown/tea,
+	/obj/item/food/grown/ambrosia/vulgaris,
+	/obj/item/food/grown/ambrosia/deus,
+	/obj/item/food/grown/wheat))
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
-	if(is_sharp(W))
+	if(W.sharp)
 		if(in_inventory)
 			to_chat(user, "<span class='warning'>You need to place [src] on a flat surface to make [plank_name].</span>")
 			return
@@ -69,7 +68,7 @@
 		qdel(src)
 
 	if(CheckAccepted(W))
-		var/obj/item/food/snacks/grown/leaf = W
+		var/obj/item/food/grown/leaf = W
 		if(leaf.dry)
 			user.show_message("<span class='notice'>You wrap \the [W] around the log, turning it into a torch!</span>")
 			var/obj/item/flashlight/flare/torch/T = new /obj/item/flashlight/flare/torch(user.loc)
@@ -102,6 +101,26 @@
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
 	return FALSE
 
+/*
+ * Punji sticks
+ */
+/obj/structure/punji_sticks
+	name = "punji sticks"
+	desc = "Don't step on this."
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+	icon_state = "punji"
+	resistance_flags = FLAMMABLE
+	max_integrity = 30
+	anchored = TRUE
+
+/obj/structure/punji_sticks/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/caltrop, 20, 30, 100, 6 SECONDS, CALTROP_BYPASS_SHOES)
+
+/obj/structure/punji_sticks/spikes
+	name = "wooden spikes"
+	icon_state = "woodspike"
+
 /////////BONFIRES//////////
 
 /obj/structure/bonfire
@@ -119,7 +138,8 @@
 /obj/structure/bonfire/dense
 	density = TRUE
 
-/obj/structure/bonfire/lit //haha empty define
+/// haha empty define
+/obj/structure/bonfire/lit
 
 /obj/structure/bonfire/lit/dense
 	density = TRUE
@@ -157,9 +177,11 @@
 	..()
 
 
+/// Check if we're standing in an oxygenless environment
 /obj/structure/bonfire/proc/CheckOxygen()
-	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(G.oxygen > 13)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/G = T.get_readonly_air()
+	if(G.oxygen() > 13)
 		return 1
 	return 0
 

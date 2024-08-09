@@ -1,4 +1,4 @@
-/obj/screen/screentip
+/atom/movable/screen/screentip
 	icon = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = "TOP,LEFT"
@@ -7,12 +7,14 @@
 	maptext_y = -50
 	maptext = ""
 
-/obj/screen/screentip/Initialize(mapload, _hud)
+/atom/movable/screen/screentip/Initialize(mapload, _hud)
 	. = ..()
 	hud = _hud
 	update_view()
 
-/obj/screen/screentip/proc/update_view(datum/source)
-	if(!hud) //Might not have been initialized by now
+/atom/movable/screen/screentip/proc/update_view(datum/source)
+	if(!hud?.mymob?.client) //Might not have been initialized by now
 		return
-	maptext_width = getviewsize(hud.mymob.client.view)[1] * world.icon_size
+	var/list/view_size = getviewsize(hud.mymob.client.view)
+	var/view = "[view_size[1]]x[view_size[2]]"
+	maptext_width = view_to_pixels(view)[1]

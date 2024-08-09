@@ -14,11 +14,11 @@
 	teleport_target = null
 	return ..()
 
-/obj/item/gun/energy/telegun/attack_self(mob/living/user as mob)
+/obj/item/gun/energy/telegun/attack_self(mob/living/user)
 	var/list/L = list()
 	var/list/areaindex = list()
 
-	for(var/obj/item/radio/beacon/R in GLOB.beacons)
+	for(var/obj/item/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		var/turf/M = get_turf(user)
 		if(!T)
@@ -34,7 +34,9 @@
 			areaindex[tmpname] = 1
 		L[tmpname] = R
 
-	var/desc = input("Please select a location to lock in.", "Telegun Target Interface") in L
+	var/desc = tgui_input_list(user, "Please select a location to lock in.", "Telegun Target Selection", L)
+	if(!desc)
+		return
 	teleport_target = L[desc]
 	to_chat(user, "<span class='notice'>The [src] is now set to [desc].</span>")
 	//Process the shot without draining the cell

@@ -3,7 +3,11 @@
 // intentionally (if there's a lot of legitimate map errors), or accidentally if
 // a test condition is written incorrectly and starts e.g. logging failures for
 // every single tile.
+#ifdef LOCAL_UNIT_TESTS
+#define MAX_MAP_TEST_FAILURE_COUNT 100
+#else
 #define MAX_MAP_TEST_FAILURE_COUNT 20
+#endif
 
 /datum/test_runner
 	var/datum/unit_test/current_test
@@ -29,7 +33,7 @@
 		test_logs[I] = list()
 		durations[I] = 0
 
-	for(var/turf/T in block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level)))
+	for(var/turf/T in block(1, 1, z_level, world.maxx, world.maxy, z_level))
 		for(var/datum/map_per_tile_test/test in tests)
 			if(test.failure_count < MAX_MAP_TEST_FAILURE_COUNT)
 				var/duration = REALTIMEOFDAY
@@ -38,6 +42,8 @@
 
 				if(test.failure_count >= MAX_MAP_TEST_FAILURE_COUNT)
 					test.Fail(T, "failure threshold reached at this tile")
+
+		CHECK_TICK
 
 	for(var/datum/map_per_tile_test/test in tests)
 		if(!test.succeeded)
@@ -76,6 +82,11 @@
 /datum/test_runner/proc/Finalize(emit_failures = FALSE)
 	var/time = world.timeofday
 	set waitfor = FALSE
+
+	#ifdef LOCAL_UNIT_TESTS
+	emit_failures = TRUE
+	#endif
+
 	var/list/fail_reasons
 	if(GLOB)
 		if(GLOB.total_runtimes != 0)
@@ -112,3 +123,5 @@
 
 	sleep(0)	//yes, 0, this'll let Reboot finish and prevent byond memes
 	del(world)	//shut it down
+
+#undef MAX_MAP_TEST_FAILURE_COUNT

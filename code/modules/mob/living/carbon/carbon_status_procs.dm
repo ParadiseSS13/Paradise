@@ -8,10 +8,12 @@
 		return
 	if(!IsWeakened())
 		to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
+	SEND_SIGNAL(src, COMSIG_CARBON_ENTER_STAMINACRIT)
+	stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stamina_regen_block_modifier)
 	var/prev = stam_paralyzed
 	stam_paralyzed = TRUE
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "stam_crit") // make defines later
-	ADD_TRAIT(src, TRAIT_FLOORED, "stam_crit")
-	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, "stam_crit")
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAM_CRIT)
+	ADD_TRAIT(src, TRAIT_FLOORED, STAM_CRIT)
+	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAM_CRIT)
 	if(!prev && getStaminaLoss() < 120) // Puts you a little further into the initial stamcrit, makes stamcrit harder to outright counter with chems.
 		adjustStaminaLoss(30, FALSE)

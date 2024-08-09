@@ -65,7 +65,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 
 /obj/item/clothing/glasses/meson/engine/attack_self(mob/user)
 	toggle_mode(user, TRUE)
@@ -101,7 +101,8 @@
 			user.update_inv_l_hand()
 			user.update_inv_r_hand()
 
-/obj/item/clothing/glasses/meson/engine/tray //atmos techs have lived far too long without tray goggles while those damned engineers get their dual-purpose gogles all to themselves
+/// atmos techs have lived far too long without tray goggles while those damned engineers get their dual-purpose gogles all to themselves
+/obj/item/clothing/glasses/meson/engine/tray
 	name = "optical t-ray scanner"
 	icon_state = "trayson-t-ray"
 	item_state = "trayson-t-ray"

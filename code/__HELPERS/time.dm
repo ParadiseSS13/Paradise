@@ -5,9 +5,9 @@
 // So you can be all 10 SECONDS
 #define SECONDS *10
 
-#define MINUTES SECONDS*60
+#define MINUTES *600
 
-#define HOURS MINUTES*60
+#define HOURS *36000
 
 #define TICKS *world.tick_lag
 
@@ -29,6 +29,10 @@
 /proc/worldtime2text()
 	return gameTimestamp("hh:mm:ss", world.time)
 
+//Returns the world time in english
+/proc/roundtime2text()
+	return gameTimestamp("hh:mm:ss", world.time - SSticker.time_game_started)
+
 // This is ISO-8601
 // If anything that uses this proc shouldn't be ISO-8601, change that thing, not this proc. This is important for logging.
 /proc/time_stamp()
@@ -40,6 +44,15 @@
 	if(wtime == null)
 		wtime = world.time
 	return time2text(wtime - GLOB.timezoneOffset, format)
+
+/proc/deciseconds_to_time_stamp(deciseconds)
+	if(istext(deciseconds))
+		deciseconds = text2num(deciseconds)
+	var/hour_calc = round(deciseconds / 36000) < 10 ? add_zero(round(deciseconds / 36000), 1) : round(deciseconds / 36000)
+	var/minute_calc = round((deciseconds % 36000) / 600) < 10 ? add_zero(round((deciseconds % 36000) / 600), 1) : round((deciseconds % 36000) / 600)
+	var/second_calc = round(((deciseconds % 36000) % 600) / 10) < 10 ? add_zero(round(((deciseconds % 36000) % 600) / 10), 1) : round(((deciseconds % 36000) % 600) / 10)
+
+	return "[hour_calc]:[minute_calc]:[second_calc]"
 
 // max hh:mm:ss supported
 /proc/timeStampToNum(timestamp)

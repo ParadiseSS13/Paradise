@@ -10,9 +10,6 @@ In all, this is a lot like the monkey code.
 This code could certainly use with a touch of TLC, but it functions alright. Bit odd aliens attacking other aliens are like, full logged though
 */
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/M)
-	if(isturf(loc) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
 	switch(M.a_intent)
 		if(INTENT_HELP)
 			AdjustSleeping(-10 SECONDS)
@@ -29,7 +26,7 @@ This code could certainly use with a touch of TLC, but it functions alright. Bit
 		else
 			if(health > 0)
 				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
 						"<span class='userdanger'>[M.name] bites [src]!</span>")
 				adjustBruteLoss(1)
@@ -82,9 +79,9 @@ This code could certainly use with a touch of TLC, but it functions alright. Bit
 
 /mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M) // This is very RNG based, maybe come back to this later - GDN
 	if(..()) //successful slime attack
-		var/damage = rand(5, 35)
+		var/damage = 10
 		if(M.is_adult)
-			damage = rand(10, 40)
+			damage = 15
 		adjustBruteLoss(damage)
 		add_attack_logs(M, src, "Slime'd for [damage] damage")
 		updatehealth("slime attack")

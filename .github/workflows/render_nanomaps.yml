@@ -9,19 +9,23 @@ on:
     - cron: "0 0 * * *"
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 jobs:
   generate_maps:
-    permissions:
-      contents: write  # for Git to git push
-      pull-requests: write  # for repo-sync/pull-request to create pull requests
     name: 'Generate NanoMaps'
     runs-on: ubuntu-22.04
     steps:
+    - id: create_token
+      uses: actions/create-github-app-token@v1
+      with:
+        app-id: ${{ secrets.APP_ID }}
+        private-key: ${{ secrets.PRIVATE_KEY }}
+
+    - run: echo "GH_TOKEN=${{ steps.create_token.outputs.token }}" >> "$GITHUB_ENV"
+
     - name: 'Update Branch'
       uses: actions/checkout@v4
+      with:
+        token: ${{ steps.create_token.outputs.token }}
 
     - name: Branch
       run: |
@@ -32,20 +36,14 @@ jobs:
     - name: 'Generate Maps'
       run: './tools/github-actions/nanomap-renderer-invoker.sh'
 
-    - name: 'Commit Maps'
+    - name: 'Commit Maps and open PR'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "NanoMap Generation"
         git pull origin master
         git commit -m "NanoMap Auto-Update (`date`)" -a || true
         git push -f -u origin nanomap-render
-
-    - name: Create Pull Request
-      uses: repo-sync/pull-request@v2
-      with:
-        source_branch: "nanomap-render"
-        destination_branch: "master"
-        pr_title: "Automatic NanoMap Update"
-        pr_body: "This pull request updates the server NanoMaps. Please review the diff images before merging."
-        pr_label: "NanoMaps"
-        pr_allow_empty: false
+        result=$(gh pr create -t "Automatic NanoMap Update" -b "This pull request updates the server NanoMaps. Please review the diff images before merging." -l "NanoMaps" -H "nanomap-render" -B "master")
+        if echo "$result" | grep -q "No commits between master and nanomap-render"
+          echo "No NanoMaps update required, skipping."
+          exit 78

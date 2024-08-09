@@ -27,6 +27,8 @@
 
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
+#define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
+
 // Simple animals
 
 #define issimple_animal(A) (istype(A, /mob/living/simple_animal))
@@ -48,6 +50,8 @@
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
+#define isairlock(A) (istype(A, /obj/machinery/door))
+
 #define isapc(A) (istype(A, /obj/machinery/power/apc))
 
 #define ismecha(A) (istype(A, /obj/mecha))
@@ -55,6 +59,10 @@
 #define iseffect(A) (istype(A, /obj/effect))
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
+
+#define isprojectile(A) (istype(A, /obj/item/projectile))
+
+#define isgun(A) (istype(A, /obj/item/gun))
 
 #define is_pen(W) (istype(W, /obj/item/pen) || istype(W, /obj/item/flashlight/pen))
 
@@ -111,8 +119,14 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 // Areas
 //#define isarea(A, B, C...) BYOND proc, can test multiple arguments and only return TRUE if all are areas
 
+#define isspacearea(A)	(istype(A, /area/space))
+
 // Structures
 #define isstructure(A)	(istype((A), /obj/structure))
+
+// Vehicles
+#define isvehicle(A) istype(A, /obj/vehicle)
+#define istgvehicle(A) istype(A, /obj/tgvehicle)
 
 // Misc
 #define isclient(A) istype(A, /client)
@@ -131,3 +145,5 @@ GLOBAL_LIST_INIT(turfs_pass_meteor, typecacheof(list(
 )))
 
 #define ispassmeteorturf(A) (is_type_in_typecache(A, GLOB.turfs_pass_meteor))
+
+#define is_screen_atom(A) istype(A, /atom/movable/screen)

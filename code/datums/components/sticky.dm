@@ -15,18 +15,22 @@
 
 /datum/component/sticky/Destroy(force, silent)
 	// we dont want the falling off visible message if this component is getting destroyed because parent is getting destroyed
-	if(!QDELETED(parent) && isitem(parent) && attached_to)
-		var/obj/item/I = parent
-		I.visible_message("<span class='notice'>[parent] falls off of [attached_to].</span>")
-	pick_up(parent)
+	if(attached_to)
+		if(!QDELETED(parent) && isitem(parent))
+			var/obj/item/I = parent
+			I.visible_message("<span class='notice'>[parent] falls off of [attached_to].</span>")
+		pick_up(parent)
+
 	move_to_the_thing(parent, get_turf(parent))
 	return ..()
 
 /datum/component/sticky/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(stick_to_it))
+	RegisterSignal(parent, COMSIG_MOVABLE_IMPACT, PROC_REF(stick_to_it_throwing))
 
 /datum/component/sticky/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_PRE_ATTACK)
+	UnregisterSignal(parent, COMSIG_MOVABLE_IMPACT)
 
 /datum/component/sticky/proc/stick_to_it(obj/item/I, atom/target, mob/user, params)
 	SIGNAL_HANDLER
@@ -58,8 +62,23 @@
 	overlay.Shift(EAST, clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2))
 	overlay.Shift(NORTH, clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2))
 
+	attach_signals(I)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/component/sticky/proc/stick_to_it_throwing(obj/item/thrown_item, atom/hit_target, throwingdatum, params)
+	SIGNAL_HANDLER
+	if(hit_target.GetComponent(/datum/component/sticky))
+		return
+
+	attached_to = hit_target
+	move_to_the_thing(parent)
+
+	overlay = icon(thrown_item.icon, thrown_item.icon_state)
+	attach_signals(thrown_item)
+
+/datum/component/sticky/proc/attach_signals(obj/item/attached)
 	attached_to.add_overlay(overlay, priority = TRUE)
-	I.invisibility = INVISIBILITY_ABSTRACT
+	attached.invisibility = INVISIBILITY_ABSTRACT
 
 	RegisterSignal(attached_to, COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY, PROC_REF(pick_up))
 	RegisterSignal(attached_to, COMSIG_PARENT_EXAMINE, PROC_REF(add_sticky_text))
@@ -67,7 +86,6 @@
 	if(ismovable(attached_to))
 		RegisterSignal(attached_to, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 		START_PROCESSING(SSobj, src)
-	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/sticky/proc/pick_up(atom/A, mob/living/carbon/human/user)
 	SIGNAL_HANDLER

@@ -2,7 +2,7 @@
 
 /datum/action/chameleon_outfit
 	name = "Select Chameleon Outfit"
-	button_icon_state = "chameleon_outfit"
+	button_overlay_icon_state = "chameleon_outfit"
 	var/list/outfit_options //By default, this list is shared between all instances. It is not static because if it were, subtypes would not be able to have their own. If you ever want to edit it, copy it first.
 
 /datum/action/chameleon_outfit/New()
@@ -94,10 +94,14 @@
 			qdel(O)
 	..()
 
-/datum/action/item_action/chameleon/change/proc/initialize_disguises()
-	if(button)
+/datum/action/item_action/chameleon/change/UpdateButton(atom/movable/screen/movable/action_button/button, status_only, force)
+	. = ..()
+	if(.)
 		button.name = "Change [chameleon_name] Appearance"
 
+
+/datum/action/item_action/chameleon/change/proc/initialize_disguises()
+	UpdateButtons()
 	chameleon_blacklist |= typecacheof(target.type)
 	for(var/V in typesof(chameleon_type))
 		if(ispath(V) && ispath(V, /obj/item))
@@ -141,7 +145,7 @@
 		update_item(picked_item)
 		var/obj/item/thing = target
 		thing.update_slot_icon()
-	UpdateButtonIcon()
+	UpdateButtons()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
 	target.name = initial(picked_item.name)
@@ -328,6 +332,12 @@
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	prescription_upgradable = TRUE
 
+/obj/item/clothing/glasses/chameleon/night
+	origin_tech = "magnets=3;syndicate=1"
+	see_in_dark = 8
+	prescription_upgradable = TRUE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
 /obj/item/clothing/glasses/hud/security/chameleon
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
 	flash_protect = FLASH_PROTECTION_FLASH
@@ -411,6 +421,8 @@
 /obj/item/clothing/head/chameleon
 	name = "grey cap"
 	desc = "It's a baseball hat in a tasteful grey colour."
+	icon = 'icons/obj/clothing/head/softcap.dmi'
+	icon_override = 'icons/mob/clothing/head/softcap.dmi'
 	icon_state = "greysoft"
 	item_color = "grey"
 
@@ -418,7 +430,7 @@
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head/softcap.dmi'
 	)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -465,8 +477,6 @@
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
 	)
 
-	var/obj/item/voice_changer/voice_changer
-
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/mask/chameleon/Initialize(mapload)
@@ -478,10 +488,7 @@
 	chameleon_action.chameleon_blacklist = list()
 	chameleon_action.initialize_disguises()
 
-	voice_changer = new(src)
-
 /obj/item/clothing/mask/chameleon/Destroy()
-	QDEL_NULL(voice_changer)
 	QDEL_NULL(chameleon_action)
 	return ..()
 
@@ -492,6 +499,23 @@
 /obj/item/clothing/mask/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/mask/chameleon/voice_change
+	name = "gas mask"
+	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow."
+	icon_state = "swat"
+	item_state = "swat"
+
+	var/obj/item/voice_changer/voice_changer
+
+/obj/item/clothing/mask/chameleon/voice_change/Destroy()
+	QDEL_NULL(voice_changer)
+	return ..()
+
+/obj/item/clothing/mask/chameleon/voice_change/Initialize(mapload)
+	. = ..()
+
+	voice_changer = new(src)
 
 /obj/item/clothing/shoes/chameleon
 	name = "black shoes"
@@ -648,3 +672,31 @@
 /obj/item/stamp/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
+
+/datum/action/item_action/chameleon/change/modsuit/update_item(obj/item/picked_item)
+	. = ..()
+	if(ismodcontrol(target))
+		var/obj/item/mod/control/C = target
+		if(C.current_disguise) //backup check
+			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
+				toreturn.return_look()
+			return
+		C.current_disguise = TRUE
+		C.item_state = initial(picked_item.item_state)
+		for(var/obj/item/mod/module/chameleon/tosignal in C.contents)
+			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look))
+
+/datum/action/item_action/chameleon/change/modsuit/select_look(mob/user)
+	if(ismodcontrol(target))
+		var/obj/item/mod/control/C = target
+		if(C.current_disguise) //backup check
+			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
+				toreturn.return_look()
+				return
+		if(C.active || C.activating)
+			to_chat(C.wearer, "<span class='warning'>Your suit is already active!</span>")
+			return
+	..()
+
+
+#undef EMP_RANDOMISE_TIME

@@ -2,12 +2,16 @@
 //Clusterbang
 ////////////////////
 /obj/item/grenade/clusterbuster
-	desc = "Use of this weapon may constitute a war crime in your area, consult your local captain."
 	name = "clusterbang"
+	desc = "Use of this weapon may constitute a war crime in your area, consult your local captain."
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang"
 	item_state = "flashbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
+
+/obj/item/grenade/clusterbuster/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Upon detonating, this grenade will explode into a shower of bomblets that will all explode individually. Be ready to run away very fast.</span>"
 
 /obj/item/grenade/clusterbuster/prime()
 	update_mob()
@@ -24,7 +28,7 @@
 
 	new /obj/effect/payload_spawner(loc, payload, numspawned)//Launches payload
 
-	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 
 	qdel(src)
 
@@ -33,8 +37,8 @@
 //Clusterbang segment
 //////////////////////
 /obj/item/grenade/clusterbuster/segment
-	desc = "A smaller segment of a clusterbang. Better run."
-	name = "clusterbang segment"
+	name = "clusterbang bomblet"
+	desc = "A bomblet released by a clusterbang. Better run!"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
@@ -52,7 +56,7 @@
 
 	new /obj/effect/payload_spawner(loc, payload, rand(4,8))
 
-	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 
 	qdel(src)
 
@@ -170,14 +174,14 @@
 	payload = /obj/singularity
 
 /obj/item/grenade/clusterbuster/tools
-	name = "\improper Quick Repair Grenade"
-	desc = "An assistant's every dream."
-	payload = /obj/random/tool
-
-/obj/item/grenade/clusterbuster/tools
 	name = "\improper Engineering Deployment Platfom"
 	desc = "For the that time when gearing up was just too hard."
 	payload = /obj/random/tech_supply
+
+/obj/item/grenade/clusterbuster/tide
+	name = "\improper Quick Repair Grenade"
+	desc = "An assistant's every dream."
+	payload = /obj/random/tool
 
 /obj/item/grenade/clusterbuster/toys
 	name = "\improper Toy Delivery System"
@@ -227,14 +231,26 @@
 	desc = "For when you need to knock out EVERYONE."
 	payload = /obj/item/grenade/gas/knockout
 
+/obj/item/grenade/clusterbuster/ied
+	name = "\improper IED Cluster Grenade"
+	desc = "For when you need to do something between everything and nothing."
+	payload = /obj/item/grenade/iedcasing
+
+/obj/item/grenade/clusterbuster/tar
+	name = "\improper Sticky Tar Cluster Grenade"
+	desc = "Speed limit enforced by goop."
+	payload = /obj/item/grenade/chem_grenade/tar
+
 ////////////Clusterbuster of Clusterbusters////////////
 //As a note: be extrodinarily careful about make the payload clusterbusters as it can quickly destroy the MC/Server
 
 /obj/item/grenade/clusterbuster/mega_bang
 	name = "For when stunlocking is just too short."
+	desc = "Simply owning one of these makes you an active war criminal in all Nian jurisdictions."
 	payload = /obj/item/grenade/clusterbuster
 
 /obj/item/grenade/clusterbuster/mega_syndieminibomb
 	name = "Mega SyndiWrath."
+	desc = "Proving once and for all that the maximum bomb explosion radius is just a suggestion."
 	payload = /obj/item/grenade/clusterbuster/syndieminibomb
 

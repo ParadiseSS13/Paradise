@@ -20,6 +20,7 @@ Thus, the two variables affect pump operation are set in New():
 	desc = "A volumetric pump"
 
 	can_unwrench = TRUE
+	can_unwrench_while_on = FALSE
 
 	var/transfer_rate = 200
 
@@ -68,7 +69,6 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node2, dir)
 
 /obj/machinery/atmospherics/binary/volume_pump/process_atmos()
-	..()
 	if((stat & (NOPOWER|BROKEN)) || !on)
 		return 0
 
@@ -156,10 +156,5 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/W, mob/user, params)
 	if(is_pen(W))
 		rename_interactive(user, W)
-		return
-	else if(!istype(W, /obj/item/wrench))
-		return ..()
-	if(!(stat & NOPOWER) && on)
-		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
-		return 1
+		return TRUE
 	return ..()

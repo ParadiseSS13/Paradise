@@ -101,7 +101,7 @@
 									"SECRET TECHNIQUE: TABLE AND DISPOSAL!",
 									// Borers got removed but the below reference stays because its hilarious
 									"[pick("MY BROTHER", " MY DOG", "MY BEST FRIEND", "THE BORER", "GEORGE MELONS", "BADMINS")] DID IT!",
-									";s WHATS SPACE LAW?!",
+									"; WHATS SPACE LAW?!",
 									"I BOUGHT THESE GLOVES, NOT STEAL THEM",
 									"THIS DOOR WAS SHOCKED WHEN I GOT HERE",
 									"ANIMALS ARE NOT CREW")

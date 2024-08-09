@@ -1,7 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/vampires = list()
-	var/list/datum/mind/vampire_enthralled = list() //those controlled by a vampire
-
 /datum/game_mode/vampire
 	name = "vampire"
 	config_tag = "vampire"

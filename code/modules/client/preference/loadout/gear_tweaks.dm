@@ -81,14 +81,14 @@
 
 /datum/gear_tweak/contents/get_default()
 	. = list()
-	for(var/i = 1 to valid_contents.len)
+	for(var/i = 1 to length(valid_contents))
 		. += "Random"
 
 /datum/gear_tweak/contents/get_metadata(user, list/metadata)
 	. = list()
-	for(var/i = metadata.len to valid_contents.len)
+	for(var/i = length(metadata) to length(valid_contents))
 		metadata += "Random"
-	for(var/i = 1 to valid_contents.len)
+	for(var/i = 1 to length(valid_contents))
 		var/entry = input(user, "Choose an entry.", "Character Preference", metadata[i]) as null|anything in (valid_contents[i] + list("Random", "None"))
 		if(entry)
 			. += entry
@@ -96,9 +96,9 @@
 			return metadata
 
 /datum/gear_tweak/contents/tweak_item(obj/item/I, list/metadata)
-	if(metadata.len != valid_contents.len)
+	if(length(metadata) != length(valid_contents))
 		return
-	for(var/i = 1 to valid_contents.len)
+	for(var/i = 1 to length(valid_contents))
 		var/path
 		var/list/contents = valid_contents[i]
 		if(metadata[i] == "Random")

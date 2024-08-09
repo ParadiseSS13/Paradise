@@ -32,7 +32,7 @@
 /obj/machinery/sleeper/examine(mob/user)
 	. = ..()
 	if(occupant)
-		if(occupant.is_dead())
+		if(occupant.stat == DEAD)
 			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
 		else
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
@@ -317,19 +317,19 @@
 			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
 			return
 
-	if(exchange_parts(user, I))
-		return
-
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
+
 		if(!ismob(G.affecting))
 			return
+
 		if(occupant)
 			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
+
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[G.affecting] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
 			return
@@ -340,8 +340,10 @@
 			if(occupant)
 				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 				return
+
 			if(!G || !G.affecting)
 				return
+
 			var/mob/M = G.affecting
 			M.forceMove(src)
 			occupant = M
@@ -390,12 +392,10 @@
 	..()
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 	if(A == beaker)
 		beaker = null
-		updateUsrDialog()
 		SStgui.update_uis(src)
 
 /obj/machinery/sleeper/emp_act(severity)
@@ -502,6 +502,7 @@
 		add_fingerprint(user)
 		if(user.pulling == L)
 			user.stop_pulling()
+		QDEL_LIST_CONTENTS(L.grabbed_by)
 		SStgui.update_uis(src)
 
 /obj/machinery/sleeper/proc/permitted_check(atom/movable/O, mob/user)

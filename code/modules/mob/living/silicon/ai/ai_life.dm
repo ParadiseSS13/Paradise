@@ -22,8 +22,9 @@
 	if(!eyeobj || QDELETED(eyeobj) || !eyeobj.loc)
 		view_core()
 
-	if(machine)
-		machine.check_eye(src)
+	// Do holopad AI checks
+	if(istype(machine, /obj/machinery/hologram))
+		check_holopad_eye()
 
 	if(malfhack && malfhack.aidisabled)
 		to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")
@@ -148,3 +149,8 @@
 /mob/living/silicon/ai/rejuvenate()
 	..()
 	add_ai_verbs(src)
+
+#undef POWER_RESTORATION_OFF
+#undef POWER_RESTORATION_START
+#undef POWER_RESTORATION_SEARCH_APC
+#undef POWER_RESTORATION_APC_FOUND

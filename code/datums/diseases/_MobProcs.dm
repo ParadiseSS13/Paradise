@@ -2,13 +2,13 @@
 /mob/proc/HasDisease(datum/disease/D)
 	for(var/thing in viruses)
 		var/datum/disease/DD = thing
-		if(D.IsSame(DD))
-			return 1
-	return 0
+		if(DD.IsSame(D))
+			return TRUE
+	return FALSE
 
 
 /mob/proc/CanContractDisease(datum/disease/D)
-	if(stat == DEAD)
+	if(stat == DEAD && !D.allow_dead)
 		return FALSE
 
 	if(D.GetDiseaseID() in resistances)
@@ -30,6 +30,7 @@
 	if(!CanContractDisease(D))
 		return 0
 	AddDisease(D)
+	return TRUE
 
 
 /mob/proc/AddDisease(datum/disease/D, respect_carrier = FALSE)
@@ -127,6 +128,7 @@
 
 	if(passed)
 		AddDisease(D)
+	return passed
 
 
 /**

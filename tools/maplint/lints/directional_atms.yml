@@ -1,0 +1,9 @@
+help: "Use the directional subtypes for this ATM."
+/obj/machinery/economy/atm:
+  banned_variables:
+  - pixel_x
+  - pixel_y
+=/obj/machinery/economy/atm:
+  banned: true
+=/obj/machinery/economy/atm/directional:
+  banned: true

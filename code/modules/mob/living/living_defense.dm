@@ -18,7 +18,7 @@
 		return armor
 	if(armor <= 0)
 		return armor
-	if(!armour_penetration_flat && armour_penetration_percentage <= 0)
+	if(!armour_penetration_flat && !armour_penetration_percentage)
 		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
 		return armor
 
@@ -51,6 +51,29 @@
 			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, def_zone)
 
+/// Tries to dodge incoming bullets if we aren't disabled for any reasons. Advised to overide with advanced effects, this is as basic example admins can apply.
+/mob/living/proc/advanced_bullet_dodge(mob/living/source, obj/item/projectile/hitting_projectile)
+	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(source, TRAIT_IMMOBILIZED))
+		return NONE
+	if(source.stat != CONSCIOUS)
+		return NONE
+	if(!prob(advanced_bullet_dodge_chance))
+		return NONE
+
+	source.visible_message(
+		"<span class='danger'>[source] [pick("dodges","jumps out of the way of","evades","dives out of the way of")] [hitting_projectile]!</span>",
+		"<span class='userdanger'>You evade [hitting_projectile]!</span>",
+	)
+	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+	// Chance to dodge multiple shotgun spreads, but not likely. Mainly: Infinite loop prevention from admins setting it to 100 and doing something stupid.
+	// If you want to set your dodge chance to 100 on a subtype, no issue: Just make sure the subtype does not step in a direction, otherwise you'll have the mob move a large distance to dodge rubbershot.
+	if(prob(50))
+		addtimer(VARSET_CALLBACK(src, advanced_bullet_dodge_chance, advanced_bullet_dodge_chance), 0.25 SECONDS) // Returns fast enough for multiple laser shots.
+		advanced_bullet_dodge_chance = 0
+	return ATOM_PREHIT_FAILURE
+
 /mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	return 0
 
@@ -73,10 +96,10 @@
 				"<span class='danger'>[src] was arc flashed by \the [source]!</span>",
 				"<span class='userdanger'>\The [source] arc flashes and electrocutes you!</span>",
 				"<span class='italics'>You hear a lightning-like crack!</span>")
-			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
+			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
 			explosion(loc, -1, 0, 2, 2)
 	else
-		adjustStaminaLoss(shock_damage)
+		apply_damage(shock_damage, STAMINA)
 	visible_message(
 		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
@@ -118,7 +141,7 @@
 		if(!thrown_item.throwforce)
 			return
 		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration_flat, armour_penetration_percentage = thrown_item.armour_penetration_percentage)
-		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, is_sharp(thrown_item), thrown_item)
+		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, thrown_item.sharp, thrown_item)
 		if(QDELETED(src)) //Damage can delete the mob.
 			return
 		return ..()
@@ -163,7 +186,7 @@
 		on_fire = TRUE
 		visible_message("<span class='warning'>[src] catches fire!</span>", "<span class='userdanger'>You're set on fire!</span>")
 		set_light(light_range + 3,l_color = "#ED9200")
-		throw_alert("fire", /obj/screen/alert/fire)
+		throw_alert("fire", /atom/movable/screen/alert/fire)
 		update_fire()
 		SEND_SIGNAL(src, COMSIG_LIVING_IGNITED)
 		return TRUE
@@ -200,12 +223,12 @@
 	else
 		ExtinguishMob()
 		return FALSE
-	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(G.oxygen < 1)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/G = T?.get_readonly_air() // Check if we're standing in an oxygenless environment
+	if(!G || G.oxygen() < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return FALSE
-	var/turf/location = get_turf(src)
-	location.hotspot_expose(700, 50, 1)
+	T.hotspot_expose(700, 50, 1)
 	SEND_SIGNAL(src, COMSIG_LIVING_FIRE_TICK)
 	return TRUE
 
@@ -288,7 +311,7 @@
 	G.synch()
 	LAssailant = user
 
-	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	/*if(user.dir == src.dir)
 		G.state = GRAB_AGGRESSIVE
 		G.last_upgrade = world.time
@@ -330,7 +353,7 @@
 		return FALSE
 
 	if(M.attack_sound)
-		playsound(loc, M.attack_sound, 50, 1, 1)
+		playsound(loc, M.attack_sound, 50, TRUE, 1)
 	M.do_attack_animation(src)
 	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
 					"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
@@ -353,7 +376,7 @@
 				add_attack_logs(L, src, "Larva attacked")
 				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
 						"<span class='userdanger'>[L.name] bites [src]!</span>")
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 				return 1
 			else
 				visible_message("<span class='danger'>[L.name] has attempted to bite [src]!</span>", \

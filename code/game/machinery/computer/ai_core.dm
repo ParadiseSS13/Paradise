@@ -28,6 +28,7 @@
 				state = CIRCUIT_CORE
 				P.forceMove(src)
 				circuit = P
+				update_icon(UPDATE_ICON_STATE)
 				return
 		if(SCREWED_CORE)
 			if(istype(P, /obj/item/stack/cable_coil))
@@ -136,11 +137,13 @@
 			state = EMPTY_CORE
 			circuit.forceMove(loc)
 			circuit = null
+			update_icon(UPDATE_ICON_STATE)
 			return
 		if(GLASS_CORE)
 			to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 			state = CABLED_CORE
 			new /obj/item/stack/sheet/rglass(loc, 2)
+			update_icon(UPDATE_ICON_STATE)
 			return
 		if(CABLED_CORE)
 			if(brain)
@@ -168,16 +171,18 @@
 			log_game("[key_name(usr)] has completed an AI core in [R]: [COORD(loc)].")
 			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 			if(!brain)
-				var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
+				var/open_for_latejoin = tgui_alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", list("Yes", "No")) == "Yes"
 				var/obj/structure/AIcore/deactivated/D = new(loc)
 				if(open_for_latejoin)
 					GLOB.empty_playable_ai_cores += D
 			else
 				if(brain.brainmob.mind)
-					SSticker.mode.remove_cultist(brain.brainmob.mind, 1)
+					brain.brainmob.mind.remove_antag_datum(/datum/antagonist/cultist)
 					SSticker.mode.remove_revolutionary(brain.brainmob.mind, 1)
 
 				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
+				// Stop holding onto the laws so we don't qdel them and make the AI randomly lose its laws when GC gives up and hard deletes them.
+				laws = null
 				if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
 					A.rename_self("AI", 1)
 			SSblackbox.record_feedback("amount", "ais_created", 1)
@@ -271,7 +276,7 @@
 	for(var/obj/structure/AIcore/deactivated/D in world)
 		cores["[D] ([D.loc.loc])"] = D
 
-	if(!cores.len)
+	if(!length(cores))
 		to_chat(src, "No deactivated AI cores were found.")
 
 	var/id = input("Which core?", "Toggle AI Core Latejoin", null) as null|anything in cores

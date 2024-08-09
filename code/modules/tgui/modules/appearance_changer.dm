@@ -141,6 +141,11 @@
 				if(new_eyes && (!..()) && owner.change_eye_color(new_eyes))
 					update_dna()
 
+		if("runechat_color")
+			var/new_runechat_color = input("Please select runechat color.", "Runechat Color", owner.dna.chat_color) as color|null
+			if(new_runechat_color && (!..()))
+				owner.change_runechat_color(new_runechat_color)
+
 		if("head_accessory")
 			if(can_change_head_accessory() && (params["head_accessory"] in valid_head_accessories))
 				if(owner.change_head_accessory(params["head_accessory"]))
@@ -214,7 +219,6 @@
 
 	data["specimen"] = owner.dna.species.name
 	data["gender"] = owner.gender
-	data["has_gender"] = owner.dna.species.has_gender
 	data["change_race"] = can_change(APPEARANCE_RACE)
 	if(data["change_race"])
 		var/list/species = list()
@@ -226,6 +230,7 @@
 	data["change_skin_tone"] = can_change_skin_tone()
 	data["change_skin_color"] = can_change_skin_color()
 	data["change_eye_color"] = can_change(APPEARANCE_EYE_COLOR)
+	data["change_runechat_color"] = TRUE
 	data["change_head_accessory"] = can_change_head_accessory()
 	if(data["change_head_accessory"])
 		var/list/head_accessory_styles = list()

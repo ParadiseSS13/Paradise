@@ -9,7 +9,6 @@
 	supervisors = "the admins"
 	selection_color = "#ffdddd"
 	access = list()
-	minimal_access = list()
 	admin_only = TRUE
 	outfit = /datum/outfit/job/ntnavyofficer
 
@@ -42,10 +41,8 @@
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
 
-/datum/outfit/job/ntnavyofficer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/ntnavyofficer/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
-	if(visualsOnly)
-		return
 	H.mind.offstation_role = TRUE
 
 // CC Officials who lead ERTs, Death Squads, etc.
@@ -58,7 +55,6 @@
 	supervisors = "the admins"
 	selection_color = "#ffdddd"
 	access = list()
-	minimal_access = list()
 	admin_only = TRUE
 	spawn_ert = 1
 	outfit = /datum/outfit/job/ntspecops
@@ -86,7 +82,8 @@
 	box = /obj/item/storage/box/centcomofficer
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/storage/box/zipties = 1
+		/obj/item/storage/box/zipties = 1,
+		/obj/item/melee/skateboard/hoverboard/admin = 1 //How do you do, fellow kids?
 	)
 	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
@@ -99,10 +96,8 @@
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
 
-/datum/outfit/job/ntspecops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/ntspecops/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
-	if(visualsOnly)
-		return
 	H.mind.offstation_role = TRUE
 
 /datum/job/ntspecops/solgovspecops
@@ -123,4 +118,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access(name), name, "lifetimeid")
 	H.sec_hud_set_ID()
+
+/datum/outfit/job/ntspecops/solgovspecops/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
 	H.mind.offstation_role = TRUE

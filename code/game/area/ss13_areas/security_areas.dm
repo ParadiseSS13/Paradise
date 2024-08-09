@@ -6,6 +6,8 @@
 /area/station/security/main
 	name = "\improper Security Office"
 	icon_state = "securityoffice"
+	request_console_flags = RC_ASSIST | RC_INFO
+	request_console_name = "Security"
 
 /area/station/security/lobby
 	name = "\improper Security Lobby"
@@ -14,6 +16,8 @@
 /area/station/security/brig
 	name = "\improper Brig"
 	icon_state = "brig"
+	request_console_flags = RC_ASSIST | RC_INFO
+	request_console_name = "Security"
 
 /area/station/security/brig/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
@@ -51,14 +55,6 @@
 	name = "\improper Prison Cell Block A"
 	icon_state = "brigcella"
 
-/area/station/security/prison/cell_block/B
-	name = "\improper Prison Cell Block B"
-	icon_state = "brigcellb"
-
-/area/station/security/prison/cell_block/C
-	name = "\improper Prison Cell Block C"
-	icon_state = "brig"
-
 /area/station/security/execution
 	name = "Execution"
 	icon_state = "execution"
@@ -77,11 +73,8 @@
 /area/station/security/storage
 	name = "Security Equipment Storage"
 	icon_state = "securityequipmentstorage"
-
-/area/station/security/interrogation/observation
-	name = "Interrogation Observation"
-	icon_state = "security"
-	can_get_auto_cryod = FALSE
+	request_console_flags = RC_ASSIST | RC_INFO
+	request_console_name = "Security"
 
 /area/station/security/evidence
 	name = "\improper Evidence Room"
@@ -101,6 +94,8 @@
 	name = "\improper Warden's Office"
 	icon_state = "Warden"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
+	request_console_flags = RC_ASSIST | RC_SUPPLY | RC_INFO
+	request_console_name = "Warden"
 
 /area/station/security/armory
 	name = "\improper Armory"
@@ -109,19 +104,23 @@
 /area/station/security/armory/secure
 	name = "\improper Secure Armory"
 	icon_state = "secarmory"
-
-/area/station/security/securehallway
-	name = "\improper Brig Secure Hallway"
-	icon_state = "securehall"
+	request_console_flags = RC_ASSIST | RC_SUPPLY | RC_INFO
+	request_console_name = "Warden"
 
 /area/station/security/detective
 	name = "\improper Detective's Office"
 	icon_state = "detective"
 	ambientsounds = list('sound/ambience/ambidet1.ogg', 'sound/ambience/ambidet2.ogg')
+	request_console_flags = RC_ASSIST | RC_INFO
+	request_console_name = "Detective"
 
 /area/station/security/range
 	name = "\improper Firing Range"
 	icon_state = "firingrange"
+
+/area/station/security/defusal
+	name = "\improper Defusal Workshop"
+	icon_state = "defusal"
 
 // Checkpoints
 
@@ -132,22 +131,8 @@
 /area/station/security/checkpoint/secondary
 	name = "\improper Security Checkpoint"
 	icon_state = "checkpoint1"
-
-/area/station/security/checkpoint/supply
-	name = "Security Post - Cargo Bay"
-	icon_state = "checkpoint1"
-
-/area/station/security/checkpoint/engineering
-	name = "Security Post - Engineering"
-	icon_state = "checkpoint1"
-
-/area/station/security/checkpoint/medical
-	name = "Security Post - Medbay"
-	icon_state = "checkpoint1"
-
-/area/station/security/checkpoint/science
-	name = "Security Post - Science"
-	icon_state = "checkpoint1"
+	request_console_flags = RC_ASSIST | RC_INFO
+	request_console_name = "Security"
 
 // Solitary
 /area/station/security/permasolitary

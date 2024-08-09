@@ -68,7 +68,7 @@
 
 /datum/action/innate/teleport_in
 	name = "Send To"
-	button_icon_state = "beam_down"
+	button_overlay_icon_state = "beam_down"
 
 /datum/action/innate/teleport_in/Activate()
 	if(!target || !iscarbon(owner))
@@ -82,18 +82,20 @@
 
 /datum/action/innate/teleport_out
 	name = "Retrieve"
-	button_icon_state = "beam_up"
+	button_overlay_icon_state = "beam_up"
 
 /datum/action/innate/teleport_out/Activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/obj/machinery/abductor/console/console = target
 
-	console.TeleporterRetrieve()
+	if(!console.TeleporterRetrieve())
+		to_chat(owner, "<span class='warning'>Error, unable to recall target. Please ensure they are not buckled, and that you have waited the required 10000 milliseconds!</span>")
+		playsound(owner, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 
 /datum/action/innate/teleport_self
 	name = "Send Self"
-	button_icon_state = "beam_down"
+	button_overlay_icon_state = "beam_down"
 
 /datum/action/innate/teleport_self/Activate()
 	if(!target || !iscarbon(owner))
@@ -107,7 +109,7 @@
 
 /datum/action/innate/vest_mode_swap
 	name = "Switch Vest Mode"
-	button_icon_state = "vest_mode"
+	button_overlay_icon_state = "vest_mode"
 
 /datum/action/innate/vest_mode_swap/Activate()
 	if(!target || !iscarbon(owner))
@@ -118,17 +120,17 @@
 
 /datum/action/innate/vest_disguise_swap
 	name = "Switch Vest Disguise"
-	button_icon_state = "vest_disguise"
+	button_overlay_icon_state = "vest_disguise"
 
 /datum/action/innate/vest_disguise_swap/Activate()
 	if(!target || !iscarbon(owner))
 		return
 	var/obj/machinery/abductor/console/console = target
-	console.SelectDisguise(remote=1)
+	console.SelectDisguise(TRUE, usr)
 
 /datum/action/innate/set_droppoint
 	name = "Set Experiment Release Point"
-	button_icon_state = "set_drop"
+	button_overlay_icon_state = "set_drop"
 
 /datum/action/innate/set_droppoint/Activate()
 	if(!target || !iscarbon(owner))

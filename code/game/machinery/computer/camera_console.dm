@@ -15,10 +15,10 @@
 	// Stuff needed to render the map
 	var/map_name
 	var/const/default_map_size = 15
-	var/obj/screen/map_view/cam_screen
+	var/atom/movable/screen/map_view/cam_screen
 	/// All the plane masters that need to be applied.
 	var/list/cam_plane_masters
-	var/obj/screen/background/cam_background
+	var/atom/movable/screen/background/cam_background
 
 	// Parent object this camera is assigned to. Used for camera bugs
 	var/atom/movable/parent
@@ -39,19 +39,14 @@
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
 	cam_plane_masters = list()
-	for(var/plane in subtypesof(/obj/screen/plane_master))
-		var/obj/screen/instance = new plane()
-		instance.assigned_map = map_name
-		instance.del_on_map_removal = FALSE
-		instance.screen_loc = "[map_name]:CENTER"
-		cam_plane_masters += instance
+	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
+		cam_plane_masters += plane
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
 
 /obj/machinery/computer/security/Destroy()
 	qdel(cam_screen)
-	QDEL_LIST_CONTENTS(cam_plane_masters)
 	qdel(cam_background)
 	return ..()
 
@@ -79,7 +74,13 @@
 		// Register map objects
 		user.client.register_map_obj(cam_screen)
 		for(var/plane in cam_plane_masters)
-			user.client.register_map_obj(plane)
+			var/atom/movable/screen/plane_master/instance = new plane()
+			instance.assigned_map = map_name
+			instance.del_on_map_removal = FALSE
+			instance.screen_loc = "[map_name]:CENTER"
+			instance.backdrop(user)
+
+			user.client.register_map_obj(instance)
 		user.client.register_map_obj(cam_background)
 		// Open UI
 		ui = new(user, src, "CameraConsole", name)
@@ -161,7 +162,7 @@
 			stack_trace("Camera in a cameranet has a non-list camera network")
 			continue
 		var/list/tempnetwork = C.network & network
-		if(tempnetwork.len)
+		if(length(tempnetwork))
 			D["[C.c_tag]"] = C
 	return D
 

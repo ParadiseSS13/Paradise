@@ -28,19 +28,18 @@
 		add_underlay(T, node, dir)
 
 /obj/machinery/atmospherics/unary/portables_connector/process_atmos()
-	..()
 	if(!connected_device)
 		return 0
 	parent.update = 1
 
-/obj/machinery/atmospherics/unary/portables_connector/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		if(connected_device)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], detach [connected_device] first.</span>")
-			return 1
+/obj/machinery/atmospherics/unary/portables_connector/wrench_act(mob/living/user, obj/item/wrench/W)
+	if(connected_device)
+		to_chat(user, "<span class='danger'>You cannot unwrench this [name], detach [connected_device] first.</span>")
+		return TRUE
 	return ..()
 
 /obj/machinery/atmospherics/unary/portables_connector/portableConnectorReturnAir()
 	return connected_device.portableConnectorReturnAir()
 
 /obj/proc/portableConnectorReturnAir()
+	return

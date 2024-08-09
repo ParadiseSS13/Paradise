@@ -118,7 +118,7 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.mind?.has_antag_datum(/datum/antagonist/vampire))
+		if(C.mind?.has_antag_datum(/datum/antagonist/vampire) && data["blood_type"] != BLOOD_TYPE_FAKE_BLOOD)
 			C.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, C.nutrition + 10))
 			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 	..()
@@ -141,11 +141,11 @@
 	data["cloneable"] = 0 // On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned
 
 	if(type_mismatch || species_mismatch)
-		data["species"] = "Coagulated blood"
+		data["species"] = "Coagulated"
 		data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
 		data["species_only"] = species_unique
 	else if(!same_species) // Same blood type, species-agnostic, but we're still mixing blood of different species
-		data["species"] = "Mixed humanoid blood"
+		data["species"] = "Mixed Humanoid"
 
 	if(data["viruses"] || mix_data["viruses"])
 		var/list/mix1 = data["viruses"]
@@ -260,7 +260,7 @@
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(8 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
 		M.Dizzy(10 SECONDS)
-		if(iscultist(M))
+		if(IS_CULTIST(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
@@ -278,14 +278,18 @@
 		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
+
 			holder.remove_reagent(id, volume)
 			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
-		if(iscultist(M))
-			SSticker.mode.remove_cultist(M.mind, TRUE, TRUE)
+		if(IS_CULTIST(M))
+			var/datum/antagonist/cultist/cultist = IS_CULTIST(M)
+			cultist.remove_gear_on_removal = TRUE
+			M.mind.remove_antag_datum(/datum/antagonist/cultist)
+
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
 			M.SetStuttering(0)
@@ -363,7 +367,8 @@
 			qdel(R)
 	T.Bless()
 
-/datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
+/// if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
+/datum/reagent/fuel/unholywater
 	name = "Unholy Water"
 	id = "unholywater"
 	description = "Something that shouldn't exist on this plane of existence."
@@ -373,7 +378,7 @@
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(iscultist(M))
+	if(IS_CULTIST(M))
 		M.AdjustDrowsy(-10 SECONDS)
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-4 SECONDS)
@@ -421,7 +426,7 @@
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		playsound(T, 'sound/effects/splat.ogg', 50, TRUE, -3)
 
 /datum/reagent/lye
 	name = "Lye"
@@ -456,3 +461,20 @@
 	reagent_state = LIQUID
 	color = "#29262b"
 	taste_description = "burnt dirt"
+
+/datum/reagent/tar_compound
+	name = "Sticky tar"
+	id = "sticky_tar"
+	description = "A sticky compound that creates tar on contact with surfaces."
+	reagent_state = LIQUID
+	color = "#4B4B4B"
+	harmless = FALSE
+	taste_description = "processed sludge"
+
+/datum/reagent/tar_compound/reaction_turf(turf/simulated/T, volume)
+	if(volume < 1 || !issimulatedturf(T))
+		return
+	var/obj/effect/decal/cleanable/tar/C = locate() in T
+	if(C) // We don't want the slowdown to stack
+		return
+	new /obj/effect/decal/cleanable/tar(T)

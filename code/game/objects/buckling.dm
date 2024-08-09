@@ -1,19 +1,9 @@
-/atom/movable
-	var/can_buckle = FALSE
-	var/buckle_lying = -1 //bed-like behaviour, forces mob.lying = buckle_lying if != -1
-	var/buckle_requires_restraints = 0 //require people to be handcuffed before being able to buckle. eg: pipes
-	var/list/buckled_mobs = null //list()
-	var/buckle_offset = 0
-	var/max_buckled_mobs = 1
-	var/buckle_prevents_pull = FALSE
-	var/can_be_unanchored = FALSE
-
 //Interaction
 /atom/movable/attack_hand(mob/living/user)
 	. = ..()
 	if(can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
+			var/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle Who?", buckled_mobs)
 			if(user_unbuckle_mob(unbuckled,user))
 				return TRUE
 		else
@@ -33,8 +23,8 @@
 	. = ..()
 	if(can_buckle && has_buckled_mobs() && Adjacent(user)) // attack_robot is called on all ranges, so the Adjacent check is needed
 		if(length(buckled_mobs) > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
-			if(user_unbuckle_mob(unbuckled,user))
+			var/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle Who?", buckled_mobs)
+			if(user_unbuckle_mob(unbuckled, user))
 				return TRUE
 		else
 			if(user_unbuckle_mob(buckled_mobs[1], user))
@@ -57,6 +47,15 @@
 
 	if((!can_buckle && !force) || M.buckled || (length(buckled_mobs) >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
 		return FALSE
+
+	// This signal will check if the mob is mounting this atom to ride it. There are 3 possibilities for how this goes
+	// 1. This movable doesn't have a ridable element and can't be ridden, so nothing gets returned, so continue on
+	// 2. There's a ridable element but we failed to mount it for whatever reason (maybe it has no seats left, for example), so we cancel the buckling
+	// 3. There's a ridable element and we were successfully able to mount, so keep it going and continue on with buckling
+	var/signal_result = SEND_SIGNAL(src, COMSIG_MOVABLE_PREBUCKLE, M, force)
+	if(signal_result & COMPONENT_BLOCK_BUCKLE)
+		return FALSE
+
 	M.buckling = src
 
 	if(!M.can_buckle() && !force)
@@ -90,7 +89,7 @@
 	M.setDir(dir)
 	buckled_mobs |= M
 	ADD_TRAIT(M, TRAIT_IMMOBILIZED, BUCKLING_TRAIT)
-	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
+	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
 	post_buckle_mob(M)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE
@@ -149,26 +148,44 @@
 	. = buckle_mob(M, check_loc = check_loc)
 	if(.)
 		if(M == user)
-			M.visible_message("<span class='notice'>[M] buckles [M.p_themselves()] to [src].</span>",\
-				"<span class='notice'>You buckle yourself to [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='notice'>[M] buckles [M.p_themselves()] to [src].</span>",
+				"<span class='notice'>You buckle yourself to [src].</span>",
+				"<span class='notice'>You hear the click of a buckle being secured.</span>"
+			)
+			M.create_log(ATTACK_LOG, "Buckles [M.p_themselves()] to [src]", M)
+			log_attack(M, M, "Buckles themselves to [src]")
 		else
-			M.visible_message("<span class='warning'>[user] buckles [M] to [src]!</span>",\
-				"<span class='warning'>[user] buckles you to [src]!</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='warning'>[user] buckles [M] to [src]!</span>",
+				"<span class='warning'>[user] buckles you to [src]!</span>",
+				"<span class='notice'>You hear the click of a buckle being secured.</span>"
+			)
+			user.create_log(ATTACK_LOG, "[user] has buckled [M] to [src]", M)
+			M.create_log(DEFENSE_LOG, "[M] has been buckled by [user] to [src]", user)
+			log_attack(user, M, "Buckled to [src]")
 		M.pulledby?.stop_pulling()
 
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	var/mob/living/M = unbuckle_mob(buckled_mob)
 	if(M)
 		if(M != user)
-			M.visible_message("<span class='notice'>[user] unbuckles [M] from [src].</span>",\
-				"<span class='notice'>[user] unbuckles you from [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='notice'>[user] unbuckles [M] from [src].</span>",
+				"<span class='notice'>[user] unbuckles you from [src].</span>",
+				"<span class='notice'>You hear the click of a buckle being undone.</span>"
+			)
+			user.create_log(ATTACK_LOG, "[user] has unbuckled [M] from [src]", M)
+			M.create_log(DEFENSE_LOG, "[M] has been unbuckled by [user] from [src]", user)
+			log_attack(user, M, "Unbuckled from [src]")
 		else
-			M.visible_message("<span class='notice'>[M] unbuckles [M.p_themselves()] from [src].</span>",\
-				"<span class='notice'>You unbuckle yourself from [src].</span>",\
-				"<span class='italics'>You hear metal clanking.</span>")
+			M.visible_message(
+				"<span class='notice'>[M] unbuckles [M.p_themselves()] from [src].</span>",
+				"<span class='notice'>You unbuckle yourself from [src].</span>",
+				"<span class='notice'>You hear the click of a buckle being undone.</span>"
+			)
+			M.create_log(ATTACK_LOG, "Unbuckles [M.p_themselves()] from [src]", M)
+			log_attack(M, M, "Unbuckles themselves from [src]")
 		add_fingerprint(user)
 	return M
 

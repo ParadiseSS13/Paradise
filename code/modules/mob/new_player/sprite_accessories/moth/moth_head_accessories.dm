@@ -2,7 +2,7 @@
 	icon = 'icons/mob/sprite_accessories/moth/moth_head_accessories.dmi'
 	species_allowed = list("Nian")
 	over_hair = TRUE
-	do_colouration = FALSE
+	do_colouration = TRUE
 
 /datum/sprite_accessory/head_accessory/moth/plain
 	name = "Plain Antennae"
@@ -68,6 +68,30 @@
 	name = "Mothra Antennae"
 	icon_state = "mothra"
 
-/datum/sprite_accessory/head_accessory/moth/mothra
+/datum/sprite_accessory/head_accessory/moth/snow
 	name = "Snow Antennae"
 	icon_state = "snow"
+
+/datum/sprite_accessory/head_accessory/moth/lightbearer
+	name = "Lightbearer Antennae"
+	icon_state = "lightbearer"
+
+/datum/sprite_accessory/head_accessory/moth/rosy
+	name = "Rosy Antennae"
+	icon_state = "rosy"
+
+/datum/sprite_accessory/head_accessory/moth/feathery
+	name = "Feathery Antennae"
+	icon_state = "feathery"
+
+/datum/sprite_accessory/head_accessory/moth/brown
+	name = "Brown Antennae"
+	icon_state = "brown"
+
+/datum/sprite_accessory/head_accessory/moth/plasmafire
+	name = "Plasmafire Antennae"
+	icon_state = "plasmafire"
+
+/datum/sprite_accessory/head_accessory/moth/bluespace
+	name = "Bluespace Antennae"
+	icon_state = "bluespace"

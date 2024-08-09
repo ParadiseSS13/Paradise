@@ -1,3 +1,4 @@
+RESTRICT_TYPE(/datum/antagonist/mindslave)
 
 // For Mindslaves and Zealots
 /datum/antagonist/mindslave
@@ -13,6 +14,8 @@
 	var/datum/mind/master
 	/// Custom greeting text if you don't want to use the basic greeting. Specify this when making a new mindslave datum with `New()`.
 	var/greet_text
+	///The hudicon for the mindslaves master
+	var/master_hud_name = "master"
 
 /datum/antagonist/mindslave/New(datum/mind/_master, _greet_text)
 	if(!_master)
@@ -45,8 +48,8 @@
 	// Basically a copy and paste of what's in [/datum/antagonist/proc/add_antag_hud] in case the master doesn't have a traitor datum.
 	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
 	hud.join_hud(master.current)
-	set_antag_hud(master.current, "hudmaster")
-	slaved.add_serv_hud(master, "master")
+	set_antag_hud(master.current, "hud[master_hud_name]")
+	slaved.add_serv_hud(master, master_hud_name)
 	return ..()
 
 /datum/antagonist/mindslave/add_owner_to_gamemode()
@@ -87,7 +90,3 @@
 	slaved.serv -= owner
 	slaved.leave_serv_hud(owner)
 	owner.som = null
-
-// Helper proc that determines if a mob is a mindslave.
-/proc/ismindslave(mob/living/carbon/human/H)
-	return istype(H) && H.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE)

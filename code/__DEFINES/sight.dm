@@ -7,10 +7,12 @@
 
 #define SEE_INVISIBLE_LIVING_AI 24
 
+// Normal cult runes
+#define INVISIBILITY_RUNES 25
 #define SEE_INVISIBLE_LIVING 25
 
 // Hidden cult runes
-#define INVISIBILITY_HIDDEN_RUNES  30
+#define INVISIBILITY_HIDDEN_RUNES 30
 #define SEE_INVISIBLE_HIDDEN_RUNES 30
 
 #define SEE_INVISIBLE_LEVEL_ONE 35	//Used by some stuff in code. It's really poorly organized.
@@ -32,9 +34,9 @@
 //Some mob defines below
 #define AI_CAMERA_LUMINOSITY 6
 
-#define BORGMESON 1
-#define BORGTHERM 2
-#define BORGXRAY  4
+#define BORGMESON (1<<0)
+#define BORGTHERM (1<<1)
+#define BORGXRAY  (1<<2)
 
 #define SECHUD 1
 #define MEDHUD 2

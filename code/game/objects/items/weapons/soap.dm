@@ -31,6 +31,9 @@
 			return
 	target.cleaning_act(user, src, cleanspeed)
 
+/obj/item/soap/add_blood(list/blood_dna, b_color)
+	return
+
 /obj/item/soap/proc/eat_soap(mob/living/carbon/human/drask/user)
 	times_eaten++
 	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
@@ -96,13 +99,13 @@
 					if(!istype(carried_item, /obj/item/bio_chip))//If it's not an implant.
 						carried_item.add_mob_blood(target)//Oh yes, there will be blood...
 				var/mob/living/carbon/human/H = target
-				H.bloody_hands(target,0)
+				H.make_bloody_hands(H.get_blood_dna_list(), H.get_blood_color())
 				H.bloody_body(target)
 
 	return
 
 /obj/item/soap/deluxe
-	desc = "A deluxe Waffle Co. brand bar of soap. Smells of comdoms."
+	desc = "A luxury bar of soap. Smells of honey."
 	icon_state = "soapdeluxe"
 	cleanspeed = 40 //slightly better because deluxe -- captain gets one of these
 

@@ -59,8 +59,11 @@
 		hair_gradient_colour,
 		hair_gradient_alpha,
 		custom_emotes,
+		runechat_color,
 		physique,
-		height
+		height,
+		cyborg_brain_type,
+		body_type
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))

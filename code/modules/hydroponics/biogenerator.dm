@@ -29,6 +29,13 @@
 	var/list/product_list = list()
 	/// The [/datum/design]'s categories which can be produced by this machine and can be uploaded via a disk.
 	var/static/list/categories = list("Food", "Botany Chemicals", "Organic Materials", "Leather and Cloth")
+	var/static/list/acceptable_items = typecacheof(list(
+		/obj/item/seeds,
+		/obj/item/unsorted_seeds,
+		/obj/item/food/grown,
+		/obj/item/grown,
+		/obj/item/food/grown/ash_flora,
+		/obj/item/food/honeycomb))
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
@@ -98,19 +105,23 @@
 /obj/machinery/biogenerator/attackby(obj/item/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(processing)
 		to_chat(user, "<span class='warning'>[src] is currently processing.</span>")
-		return
-	if(exchange_parts(user, O))
 		return
 
 	if(istype(O, /obj/item/reagent_containers/glass))
 		if(panel_open)
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 			return
+
 		if(container)
 			to_chat(user, "<span class='warning'>A container is already loaded into [src].</span>")
 			return
+
 		if(!user.drop_item())
 			return
 
@@ -121,17 +132,18 @@
 		SStgui.update_uis(src)
 		return TRUE
 
-	else if(istype(O, /obj/item/storage/bag/plants))
+	if(istype(O, /obj/item/storage/bag/plants))
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
 
 		var/obj/item/storage/bag/plants/PB = O
-		for(var/obj/item/food/snacks/grown/G in PB.contents)
+		for(var/obj/item/P in PB.contents)
+			// No need to filter here, because plant bags should have the same list of acceptable items we do.
 			if(length(stored_plants) >= max_storable_plants)
 				break
-			PB.remove_from_storage(G, src)
-			stored_plants += G
+			PB.remove_from_storage(P, src)
+			stored_plants += P
 
 		if(length(stored_plants) < max_storable_plants)
 			to_chat(user, "<span class='info'>You empty [PB] into [src].</span>")
@@ -141,7 +153,7 @@
 		SStgui.update_uis(src)
 		return TRUE
 
-	else if(istype(O, /obj/item/food/snacks/grown))
+	if(is_type_in_typecache(O, acceptable_items))
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
@@ -154,7 +166,7 @@
 		SStgui.update_uis(src)
 		return TRUE
 
-	else if(istype(O, /obj/item/disk/design_disk))
+	if(istype(O, /obj/item/disk/design_disk))
 		user.visible_message("[user] begins to load [O] in [src]...",
 			"You begin to load a design from [O]...",
 			"You hear the chatter of a floppy drive.")
@@ -168,8 +180,8 @@
 		processing = FALSE
 		update_ui_product_list(user)
 		return TRUE
-	else
-		to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
+	
+	to_chat(user, "<span class='warning'>You cannot put [src] in [name]!</span>")
 
 /**
  * Builds/Updates the `product_list` used by the UI.
@@ -266,15 +278,17 @@
 	update_icon(UPDATE_ICON_STATE)
 
 	var/plants_processed = length(stored_plants)
+	var/new_biomass = 0
 	for(var/obj/plant as anything in stored_plants)
-		var/plant_biomass = plant.reagents.get_reagent_amount("nutriment") + plant.reagents.get_reagent_amount("plantmatter")
-		biomass += max(plant_biomass, 0.1) * 10 * productivity
+		var/plant_biomass = plant.reagents?.get_reagent_amount("nutriment") + plant.reagents?.get_reagent_amount("plantmatter")
+		new_biomass += max(plant_biomass, 0.1)
 		qdel(plant)
+	biomass += new_biomass * 10 * productivity
 
 	stored_plants.Cut()
-	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
+	playsound(loc, 'sound/machines/blender.ogg', 50, TRUE)
 	use_power(plants_processed * 150)
-	addtimer(CALLBACK(src, PROC_REF(end_processing)), (plants_processed * 5) / productivity)
+	addtimer(CALLBACK(src, PROC_REF(end_processing)), min(20 SECONDS, new_biomass))
 
 /obj/machinery/biogenerator/proc/end_processing()
 	processing = FALSE
@@ -340,7 +354,7 @@
 		for(var/R in D.make_reagents)
 			container.reagents.add_reagent(R, D.make_reagents[R] * amount)
 
-	// Creating all other items, such as monkey cubes or nutriment bottles.
+	// Creating all other items, such as monkey cubes or nutrient bottles.
 	else
 		if(!check_cost(D, amount))
 			return

@@ -7,7 +7,7 @@
 
 /obj/item/inflatable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Use this item in hand</b> to create an inflatible wall.</span>"
+	. += "<span class='notice'><b>Use this item in hand</b> to create an inflatable wall.</span>"
 
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
@@ -31,21 +31,21 @@
 
 /obj/structure/inflatable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Shift-Click</b> to deflate [src].</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to deflate [src].</span>"
 
 /obj/structure/inflatable/Initialize(location)
 	..()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
 	return
 
-/obj/structure/inflatable/CanAtmosPass(turf/T)
+/obj/structure/inflatable/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/inflatable/attack_hand(mob/user)
@@ -96,7 +96,8 @@
 	R.add_fingerprint(user)
 	qdel(src)
 
-/obj/structure/inflatable/door //Based on mineral door code
+/// Based on mineral door code
+/obj/structure/inflatable/door
 	name = "inflatable door"
 	icon_state = "door_closed"
 	torn = /obj/item/inflatable/door/torn
@@ -120,7 +121,7 @@
 		return !opacity
 	return !density
 
-/obj/structure/inflatable/door/CanAtmosPass(turf/T)
+/obj/structure/inflatable/door/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/inflatable/door/proc/try_to_operate(atom/user)
@@ -147,11 +148,10 @@
 		flick("door_closing",src)
 	sleep(10)
 	density = !density
-	opacity = !opacity
 	state_open = !state_open
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/door/update_icon_state()
 	if(state_open)

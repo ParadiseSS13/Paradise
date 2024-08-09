@@ -19,7 +19,7 @@
 	if(target.mind)
 		if(target.mind.has_antag_datum(/datum/antagonist/rev))
 			SSticker.mode.remove_revolutionary(target.mind)
-		if(target.mind in SSticker.mode.cult)
+		if(IS_CULTIST(target))
 			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
 		return TRUE
 

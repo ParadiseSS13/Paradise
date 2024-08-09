@@ -17,12 +17,12 @@
 
 /datum/action/item_action/organ_action/toggle/headpocket
 	use_itemicon = FALSE
-	button_icon_state = "skrell_headpocket_in"
+	button_overlay_icon_state = "skrell_headpocket_in"
 
 /obj/item/organ/internal/headpocket/proc/update_button_state()
 	for(var/datum/action/item_action/T in actions)
-		T.button_icon_state = "skrell_headpocket[held_item ? "_out" : "_in"]"
-		T.UpdateButtonIcon()
+		T.button_overlay_icon_state = "skrell_headpocket[held_item ? "_out" : "_in"]"
+		T.UpdateButtons()
 
 /obj/item/organ/internal/headpocket/Destroy()
 	empty_contents()
@@ -87,7 +87,7 @@
 
 /obj/item/organ/internal/heart/skrell
 	name = "skrell heart"
-	desc = "A stream lined heart"
+	desc = "A stream lined heart."
 	icon = 'icons/obj/species_organs/skrell.dmi'
 
 /obj/item/organ/internal/brain/skrell

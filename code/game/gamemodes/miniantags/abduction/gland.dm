@@ -226,7 +226,8 @@
 	return A
 
 
-/obj/item/organ/internal/heart/gland/emp //TODO : Replace with something more interesting
+/// TODO : Replace with something more interesting
+/obj/item/organ/internal/heart/gland/emp
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
 	cooldown_low = 800
 	cooldown_high = 1200
@@ -263,7 +264,7 @@
 
 /obj/item/organ/internal/heart/gland/egg/activate()
 	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
-	new /obj/item/food/snacks/egg/gland(get_turf(owner))
+	new /obj/item/food/egg/gland(get_turf(owner))
 
 /obj/item/organ/internal/heart/gland/electric
 	cooldown_low = 800

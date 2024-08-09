@@ -14,6 +14,7 @@
 
 	if(self_message)
 		to_chat(user, self_message)
+// So, brains can't really see their own emotes so we'll probably just want to send an extra message
 
 /datum/emote/living/brain/can_run_emote(mob/user, status_check, intentional)
 	. = ..()
@@ -24,8 +25,6 @@
 
 	if(!(B.container && istype(B.container, /obj/item/mmi)))  // No MMI, no emotes
 		return FALSE
-
-// So, brains can't really see their own emotes so we'll probably just want to send an extra message
 
 /datum/emote/living/brain/alarm
 	key = "alarm"

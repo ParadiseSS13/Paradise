@@ -16,7 +16,7 @@
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
-	butcher_results = list(/obj/item/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
@@ -92,7 +92,7 @@
 	..()
 
 /mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
-	if(istype(AM, /obj/item/food/snacks/cheesewedge))
+	if(istype(AM, /obj/item/food/cheesewedge))
 		return ..() // Get dem
 	if(show_message)
 		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
@@ -100,7 +100,7 @@
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))
-		if(!stat)
+		if(stat == CONSCIOUS)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
@@ -157,6 +157,17 @@
 	. = ..()
 	// Tom fears no cable.
 	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
+
+/mob/living/simple_animal/mouse/white/Brain
+	name = "Brain"
+	real_name = "Brain"
+	response_harm = "splats"
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/mouse/white/Brain/update_desc()
+	. = ..()
+	desc = "Gee Virology, what are we going to do tonight? The same thing we do every night, try to take over the world!"
 
 /mob/living/simple_animal/mouse/blobinfected
 	maxHealth = 100

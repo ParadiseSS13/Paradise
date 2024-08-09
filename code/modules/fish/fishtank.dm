@@ -35,8 +35,7 @@
 	icon_state = "bowl1"
 	density = FALSE				// Small enough to not block stuff
 	anchored = FALSE			// Small enough to move even when filled
-	pass_flags = PASSTABLE | LETPASSTHROW // Just like at the county fair, you can't seem to throw the ball in to win the goldfish, and it's small enough to pull onto a table
-
+	pass_flags = PASSTABLE // Just like at the county fair, you can't seem to throw the ball in to win the goldfish, and it's small enough to pull onto a table
 	tank_type = "bowl"
 	water_capacity = 50			// Not very big, therefore it can't hold much
 	max_fish = 1				// What a lonely fish
@@ -52,7 +51,7 @@
 	icon_state = "tank1"
 	density = TRUE
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags = null
 
 	tank_type = "tank"
 	water_capacity = 200		// Decent sized, holds almost 2 full buckets
@@ -161,7 +160,7 @@
 //////////////////////////////
 
 //Stops atmos from passing wall tanks, since they are effectively full-windows.
-/obj/machinery/fishtank/wall/CanAtmosPass(turf/T)
+/obj/machinery/fishtank/wall/CanAtmosPass(direction)
 	return FALSE
 
 /obj/machinery/fishtank/process()
@@ -296,7 +295,7 @@
 		if(egg != /obj/item/fish_eggs) 				// Don't harvest duds
 			egg = new egg(get_turf(user))			//Spawn the egg at the user's feet
 			if(fish_bag?.can_be_inserted(egg))
-				fish_bag.handle_item_insertion(egg)
+				fish_bag.handle_item_insertion(egg, user)
 		else
 			duds++
 		egg_list.Remove(egg)						//Remove the egg from the egg_list
@@ -350,7 +349,7 @@
 	if(fish_item)
 		var/obj/item/I = new fish_item(get_turf(user))
 		if(fish_bag?.can_be_inserted(I))
-			fish_bag.handle_item_insertion(I)
+			fish_bag.handle_item_insertion(I, user)
 	user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
 	kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
 

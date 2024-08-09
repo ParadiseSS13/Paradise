@@ -1,79 +1,100 @@
-#define AB_CHECK_RESTRAINED		(1<<0)
-#define AB_CHECK_STUNNED		(1<<1)
-#define AB_CHECK_LYING			(1<<2)
-#define AB_CHECK_CONSCIOUS		(1<<3)
-#define AB_CHECK_TURF			(1<<4)
-#define AB_CHECK_HANDS_BLOCKED	(1<<5)
-#define AB_CHECK_IMMOBILE		(1<<6)
-
 
 /datum/action
 	var/name = "Generic Action"
 	var/desc = null
 	var/obj/target = null
 	var/check_flags = 0
-	var/obj/screen/movable/action_button/button = null
-	var/button_icon = 'icons/mob/actions/actions.dmi'
-	var/background_icon_state = "bg_default"
+	/// Icon that our button screen object overlay and background
+	var/button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	/// Icon state of screen object overlay
+	var/button_overlay_icon_state = ACTION_BUTTON_DEFAULT_OVERLAY
+	/// Icon that our button screen object background will have
+	var/button_background_icon = 'icons/mob/actions/actions.dmi'
+	/// Icon state of screen object background
+	var/button_background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
 	var/buttontooltipstyle = ""
-	var/icon_icon = 'icons/mob/actions/actions.dmi'
-	var/button_icon_state = "default"
+	var/transparent_when_unavailable = TRUE
 	var/mob/owner
+	/// Where any buttons we create should be by default. Accepts screen_loc and location defines
+	var/default_button_position = SCRN_OBJ_IN_LIST
+	/// Map of huds viewing a button with our action -> their button
+	var/list/viewers = list()
+	/// Whether or not this will be shown to observers
+	var/show_to_observers = TRUE
+
 
 /datum/action/New(Target)
 	target = Target
-	button = new
-	button.linked_action = src
-	button.name = name
-	button.actiontooltipstyle = buttontooltipstyle
-	var/list/our_description = list()
-	our_description += desc
-	our_description += button.desc
-	button.desc = our_description.Join(" ")
+
+/datum/action/proc/should_draw_cooldown()
+	return !IsAvailable()
+
+/datum/action/proc/clear_ref(datum/ref)
+	SIGNAL_HANDLER
+	if(ref == owner)
+		Remove(owner)
+	if(ref == target)
+		qdel(src)
 
 /datum/action/Destroy()
 	if(owner)
 		Remove(owner)
 	if(target)
 		target = null
-	QDEL_NULL(button)
+	QDEL_LIST_ASSOC_VAL(viewers) // Qdel the buttons in the viewers list **NOT THE HUDS**
 	return ..()
 
 /datum/action/proc/Grant(mob/M)
+	if(!M)
+		Remove(owner)
+		return
 	if(owner)
 		if(owner == M)
 			return
 		Remove(owner)
 	owner = M
-	M.actions += src
-	if(M.client)
-		M.client.screen += button
-		button.locked = TRUE
-	M.update_action_buttons()
+	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
+	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
+	SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
+	GiveAction(M)
 
-/datum/action/proc/Remove(mob/M)
-	owner = null
-	if(!M)
+/datum/action/proc/Remove(mob/remove_from)
+	for(var/datum/hud/hud in viewers)
+		if(!hud.mymob)
+			continue
+		HideFrom(hud.mymob)
+
+	remove_from?.actions -= src // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
+	viewers = list()
+	// owner = null
+
+	if(isnull(owner))
 		return
-	if(M.client)
-		M.client.screen -= button
-		button.clean_up_keybinds(M)
-	button.moved = FALSE //so the button appears in its normal position when given to another owner.
-	button.locked = FALSE
-	M.actions -= src
-	M.update_action_buttons()
+
+	SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
+	SEND_SIGNAL(owner, COMSIG_MOB_REMOVED_ACTION, src)
+
+	if(target == owner)
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(clear_ref), override = TRUE)
+	if(owner == remove_from)
+		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+		owner = null
+
+/datum/action/proc/UpdateButtons(status_only, force)
+	for(var/datum/hud/hud in viewers)
+		var/atom/movable/screen/movable/button = viewers[hud]
+		UpdateButton(button, status_only, force)
 
 /datum/action/proc/Trigger(left_click = TRUE)
 	if(!IsAvailable())
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
 		return FALSE
 	return TRUE
 
 /datum/action/proc/AltTrigger()
 	Trigger()
 	return FALSE
-
-/datum/action/proc/override_location() // Override to set coordinates manually
-	return
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
@@ -103,36 +124,111 @@
 			return FALSE
 	return TRUE
 
-/datum/action/proc/UpdateButtonIcon()
+/datum/action/proc/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+	if(!button)
+		return
+	if(!status_only)
+		button.name = name
+		if(desc)
+			button.desc = "[desc] [initial(button.desc)]"
+		if(owner?.hud_used && button_background_icon_state == ACTION_BUTTON_DEFAULT_BACKGROUND)
+			var/list/settings = owner.hud_used.get_action_buttons_icons()
+			if(button.icon != settings["bg_icon"])
+				button.icon = settings["bg_icon"]
+			if(button.icon_state != settings["bg_state"])
+				button.icon_state = settings["bg_state"]
+		else
+			if(button.icon != button_background_icon)
+				button.icon = button_background_icon
+			if(button.icon_state != button_background_icon_state)
+				button.icon_state = button_background_icon_state
+
+		apply_button_overlay(button, force)
+
+	if(should_draw_cooldown())
+		apply_unavailable_effect(button)
+	else
+		return TRUE
+
+//Give our action button to the player
+/datum/action/proc/GiveAction(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	if(viewers[our_hud]) // Already have a copy of us? go away
+		return
+	viewer.actions |= src // Move this in
+	ShowTo(viewer)
+
+//Adds our action button to the screen of a player
+/datum/action/proc/ShowTo(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	if(!our_hud || viewers[our_hud]) // There's no point in this if you have no hud in the first place
+		return
+
+
+	var/atom/movable/screen/movable/action_button/button = CreateButton()
+	SetId(button, viewer)
+
+	button.our_hud = our_hud
+	viewers[our_hud] = button
+	if(viewer.client)
+		viewer.client.screen += button
+
+	button.load_position(viewer)
+	viewer.update_action_buttons()
+
+
+//Removes our action button from the screen of a player
+/datum/action/proc/HideFrom(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	var/atom/movable/screen/movable/action_button/button = viewers[our_hud]
+	viewer.actions -= src
 	if(button)
-		if(owner && owner.client && background_icon_state == "bg_default") // If it's a default action background, apply the custom HUD style
-			button.alpha = owner.client.prefs.UI_style_alpha
-			button.color = owner.client.prefs.UI_style_color
-			button.icon = ui_style2icon(owner.client.prefs.UI_style)
-			button.icon_state = "template"
-		else
-			button.icon = button_icon
-			button.icon_state = background_icon_state
+		button.clean_up_keybinds(viewer)
+		qdel(button)
 
-		ApplyIcon(button)
-		var/obj/effect/proc_holder/spell/S = target
-		if(istype(S) && S.cooldown_handler.should_draw_cooldown() || !IsAvailable())
-			apply_unavailable_effect()
-		else
-			return TRUE
 
-/datum/action/proc/apply_unavailable_effect()
+/datum/action/proc/CreateButton()
+	var/atom/movable/screen/movable/action_button/button = new()
+	button.linked_action = src
+	button.name = name
+	button.actiontooltipstyle = buttontooltipstyle
+	var/list/our_description = list()
+	our_description += desc
+	our_description += button.desc
+	button.desc = our_description.Join(" ")
+	return button
+
+
+/datum/action/proc/SetId(atom/movable/screen/movable/action_button/our_button, mob/owner)
+	//button id generation
+	var/bitfield = 0
+	for(var/datum/action/action in owner.actions)
+		if(action == src) // This could be us, which is dumb
+			continue
+		var/atom/movable/screen/movable/action_button/button = action.viewers[owner.hud_used]
+		if(action.name == name && button?.id)
+			bitfield |= button.id
+
+	bitfield = ~bitfield // Flip our possible ids, so we can check if we've found a unique one
+	for(var/i in 0 to 23) // We get 24 possible bitflags in dm
+		var/bitflag = 1 << i // Shift us over one
+		if(bitfield & bitflag)
+			our_button.id = bitflag
+			return
+
+/datum/action/proc/apply_unavailable_effect(atom/movable/screen/movable/action_button/B)
 	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
 	img.alpha = 200
 	img.appearance_flags = RESET_COLOR | RESET_ALPHA
 	img.color = "#000000"
 	img.plane = FLOAT_PLANE + 1
-	button.add_overlay(img)
+	B.add_overlay(img)
 
-/datum/action/proc/ApplyIcon(obj/screen/movable/action_button/current_button)
+
+/datum/action/proc/apply_button_overlay(atom/movable/screen/movable/action_button/current_button)
 	current_button.cut_overlays()
-	if(icon_icon && button_icon_state)
-		var/image/img = image(icon_icon, current_button, button_icon_state)
+	if(button_overlay_icon && button_overlay_icon_state)
+		var/image/img = image(button_overlay_icon, current_button, button_overlay_icon_state)
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
 		img.pixel_x = 0
 		img.pixel_y = 0
@@ -149,12 +245,14 @@
 	I.actions += src
 	if(custom_icon && custom_icon_state)
 		use_itemicon = FALSE
-		icon_icon = custom_icon
-		button_icon_state = custom_icon_state
+		button_overlay_icon = custom_icon
+		button_overlay_icon_state = custom_icon_state
+	UpdateButtons()
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
-	I.actions -= src
+	if(islist(I?.actions))
+		I.actions -= src
 	return ..()
 
 /datum/action/item_action/Trigger(left_click = TRUE, attack_self = TRUE) //Maybe we don't want to click the thing itself
@@ -165,7 +263,7 @@
 		I.ui_action_click(owner, type, left_click)
 	return TRUE
 
-/datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/item_action/apply_button_overlay(atom/movable/screen/movable/action_button/current_button)
 	if(use_itemicon)
 		if(target)
 			var/obj/item/I = target
@@ -201,7 +299,7 @@
 
 /datum/action/item_action/print_forensic_report
 	name = "Print Report"
-	button_icon_state = "scanner_print"
+	button_overlay_icon_state = "scanner_print"
 	use_itemicon = FALSE
 
 /datum/action/item_action/clear_records
@@ -225,13 +323,14 @@
 /datum/action/item_action/set_internals
 	name = "Set Internals"
 
-/datum/action/item_action/set_internals/UpdateButtonIcon()
-	if(..()) //button available
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			if(target == C.internal)
-				button.icon = 'icons/mob/actions/actions.dmi'
-				button.icon_state = "bg_default_on"
+/datum/action/item_action/set_internals/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force)
+	if(!..()) // no button available
+		return
+	if(!iscarbon(owner))
+		return
+	var/mob/living/carbon/C = owner
+	if(target == C.internal)
+		button.icon_state = "template_active"
 
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"
@@ -259,29 +358,27 @@
 /datum/action/item_action/toggle_unfriendly_fire
 	name = "Toggle Friendly Fire \[ON\]"
 	desc = "Toggles if the club's blasts cause friendly fire."
-	button_icon_state = "vortex_ff_on"
+	button_overlay_icon_state = "vortex_ff_on"
 
 /datum/action/item_action/toggle_unfriendly_fire/Trigger(left_click)
 	if(..())
-		UpdateButtonIcon()
+		UpdateButtons()
 
-/datum/action/item_action/toggle_unfriendly_fire/UpdateButtonIcon()
+/datum/action/item_action/toggle_unfriendly_fire/UpdateButtons()
 	if(istype(target, /obj/item/hierophant_club))
 		var/obj/item/hierophant_club/H = target
 		if(H.friendly_fire_check)
-			button_icon_state = "vortex_ff_off"
+			button_overlay_icon_state = "vortex_ff_off"
 			name = "Toggle Friendly Fire \[OFF\]"
-			button.name = name
 		else
-			button_icon_state = "vortex_ff_on"
+			button_overlay_icon_state = "vortex_ff_on"
 			name = "Toggle Friendly Fire \[ON\]"
-			button.name = name
 	..()
 
 /datum/action/item_action/vortex_recall
 	name = "Vortex Recall"
 	desc = "Recall yourself, and anyone nearby, to an attuned hierophant beacon at any time.<br>If the beacon is still attached, will detach it."
-	button_icon_state = "vortex_recall"
+	button_overlay_icon_state = "vortex_recall"
 
 /datum/action/item_action/vortex_recall/IsAvailable()
 	if(istype(target, /obj/item/hierophant_club))
@@ -298,28 +395,24 @@
 /datum/action/item_action/toggle/New(Target)
 	..()
 	name = "Toggle [target.name]"
-	button.name = name
 
 /datum/action/item_action/openclose
 
 /datum/action/item_action/openclose/New(Target)
 	..()
 	name = "Open/Close [target.name]"
-	button.name = name
 
 /datum/action/item_action/button
 
 /datum/action/item_action/button/New(Target)
 	..()
 	name = "Button/Unbutton [target.name]"
-	button.name = name
 
 /datum/action/item_action/zipper
 
 /datum/action/item_action/zipper/New(Target)
 	..()
 	name = "Zip/Unzip [target.name]"
-	button.name = name
 
 /datum/action/item_action/halt
 	name = "HALT!"
@@ -360,7 +453,6 @@
 /datum/action/item_action/adjust/New(Target)
 	..()
 	name = "Adjust [target.name]"
-	button.name = name
 
 /datum/action/item_action/pontificate
 	name = "Pontificate Evilly"
@@ -423,7 +515,7 @@
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
-	button_icon_state = "scan_mode"
+	button_overlay_icon_state = "scan_mode"
 
 /datum/action/item_action/toggle_research_scanner/Trigger(left_click)
 	if(IsAvailable())
@@ -436,16 +528,16 @@
 		owner.research_scanner = FALSE
 	..()
 
-/datum/action/item_action/toggle_research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/item_action/toggle_research_scanner/apply_button_overlay(atom/movable/screen/movable/action_button/current_button)
 	current_button.cut_overlays()
-	if(button_icon && button_icon_state)
-		var/image/img = image(button_icon, current_button, "scan_mode")
+	if(button_overlay_icon && button_overlay_icon_state)
+		var/image/img = image(button_overlay_icon, current_button, "scan_mode")
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
 		current_button.overlays += img
 
 /datum/action/item_action/instrument
 	name = "Use Instrument"
-	desc = "Use the instrument specified"
+	desc = "Use the instrument specified."
 
 /datum/action/item_action/instrument/Trigger(left_click)
 	if(istype(target, /obj/item/instrument))
@@ -465,14 +557,14 @@
 /datum/action/item_action/slipping
 	name = "Tactical Slip"
 	desc = "Activates the clown shoes' ankle-stimulating module, allowing the user to do a short slip forward going under anyone."
-	button_icon_state = "clown"
+	button_overlay_icon_state = "clown"
 
 // Jump boots
 /datum/action/item_action/bhop
 	name = "Activate Jump Boots"
 	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "jetboot"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	button_overlay_icon_state = "jetboot"
 	use_itemicon = FALSE
 
 
@@ -486,7 +578,6 @@
 
 	var/obj/item/clothing/shoes/magboots/gravity/G = target
 	G.dash(usr)
-
 
 ///prset for organ actions
 /datum/action/item_action/organ_action
@@ -503,17 +594,14 @@
 /datum/action/item_action/organ_action/toggle/New(Target)
 	..()
 	name = "Toggle [target.name]"
-	button.name = name
 
 /datum/action/item_action/organ_action/use/New(Target)
 	..()
 	name = "Use [target.name]"
-	button.name = name
 
 /datum/action/item_action/organ_action/use/eyesofgod/New(target)
 	..()
 	name = "See with the Eyes of the Gods"
-	button.name = name
 
 /datum/action/item_action/voice_changer/toggle
 	name = "Toggle Voice Changer"
@@ -551,58 +639,61 @@
 
 /datum/action/item_action/accessory/herald
 	name = "Mirror Walk"
-	desc = "Use near a mirror to enter it"
+	desc = "Use near a mirror to enter it."
 
 //Preset for spells
 /datum/action/spell_action
 	check_flags = 0
-	background_icon_state = "bg_spell"
+	button_background_icon_state = "bg_spell"
 	var/recharge_text_color = "#FFFFFF"
 
 /datum/action/spell_action/New(Target)
 	..()
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	S.action = src
 	name = S.name
-	var/list/our_description = list()
-	our_description += S.desc
-	our_description += button.desc
-	button.desc = our_description.Join(" ")
-	button_icon = S.action_icon
-	button_icon_state = S.action_icon_state
-	background_icon_state = S.action_background_icon_state
-	button.name = name
+	desc = S.desc
+	button_overlay_icon = S.action_icon
+	button_background_icon = S.action_background_icon
+	button_overlay_icon_state = S.action_icon_state
+	button_background_icon_state = S.action_background_icon_state
+	UpdateButtons()
+
 
 /datum/action/spell_action/Destroy()
-	var/obj/effect/proc_holder/spell/S = target
+	var/datum/spell/S = target
 	S.action = null
 	return ..()
+
+/datum/action/spell_action/should_draw_cooldown()
+	var/datum/spell/S = target
+	return S.cooldown_handler.should_draw_cooldown()
 
 /datum/action/spell_action/Trigger(left_click)
 	if(!..())
 		return FALSE
 	if(target)
-		var/obj/effect/proc_holder/spell = target
+		var/datum/spell/spell = target
 		spell.Click()
 		return TRUE
 
 /datum/action/spell_action/AltTrigger()
 	if(target)
-		var/obj/effect/proc_holder/spell/spell = target
+		var/datum/spell/spell = target
 		spell.AltClick(usr)
 		return TRUE
 
 /datum/action/spell_action/IsAvailable()
 	if(!target)
 		return FALSE
-	var/obj/effect/proc_holder/spell/spell = target
+	var/datum/spell/spell = target
 
 	if(owner)
-		return spell.can_cast(owner)
+		return spell.can_cast(owner, show_message = TRUE)
 	return FALSE
 
-/datum/action/spell_action/apply_unavailable_effect()
-	var/obj/effect/proc_holder/spell/S = target
+/datum/action/spell_action/apply_unavailable_effect(atom/movable/screen/movable/action_button/button)
+	var/datum/spell/S = target
 	if(!istype(S))
 		return ..()
 
@@ -617,22 +708,9 @@
 	// Make a holder for the charge text
 	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
 	count_down_holder.plane = FLOAT_PLANE + 1.1
-	var/text = S.cooldown_handler.statpanel_info()
+	var/text = S.cooldown_handler.cooldown_info()
 	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
 	button.add_overlay(count_down_holder)
-
-/*
-/datum/action/spell_action/alien
-
-/datum/action/spell_action/alien/IsAvailable()
-	if(!target)
-		return 0
-	var/obj/effect/proc_holder/alien/ab = target
-
-	if(owner)
-		return ab.cost_check(ab.check_turf, owner, 1)
-	return 0
-*/
 
 //Preset for general and toggled actions
 /datum/action/innate

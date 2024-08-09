@@ -154,7 +154,8 @@
 					/obj/item/bonegel,
 					/obj/item/retractor,
 					/obj/item/bonesetter,
-					/obj/item/circular_saw)
+					/obj/item/circular_saw,
+					/obj/item/surgical_drapes)
 	cost = 400
 	containertype = /obj/structure/closet/crate/secure
 	containername = "surgery crate"
@@ -168,3 +169,9 @@
 					/obj/item/clothing/gloves/color/latex/nitrile)
 	cost = 200
 	containername = "nitrile glove crate"
+
+/datum/supply_packs/medical/omnizine
+	name = "Omnizine Shipment Crate"
+	contains = list(/obj/item/reagent_containers/glass/bottle/reagent/omnizine)
+	cost = 300
+	containername = "omnizine shipment crate"

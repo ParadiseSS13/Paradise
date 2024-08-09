@@ -62,6 +62,7 @@
 	strip_delay = 40
 	body_parts_covered = ARMS
 	cold_protection = ARMS
+	heat_protection = ARMS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
@@ -79,6 +80,24 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 115, ACID = 20)
+
+/obj/item/clothing/gloves/janitor
+	name = "janitorial gloves"
+	desc = "Gloves designed to offer minor protection against messes. The rubber doesn't feel thick enough to protect you from shocks."
+	icon_state = "janitorial"
+	item_state = "janitorial"
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/hands.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi'
+		)
+
 
 /obj/item/clothing/gloves/handwraps
 	name = "cloth handwraps"
@@ -133,7 +152,7 @@
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
 				do_sparks(5, 0, loc)
-				playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
 				add_attack_logs(H, C, "Touched with stun gloves")
@@ -197,7 +216,7 @@
 	else
 		click_speed_modifier = initial(click_speed_modifier) // 2
 
-	if((L.a_intent in accepted_intents))
+	if(L.a_intent in accepted_intents)
 		L.changeNext_move(click_speed_modifier)
 
 	return FALSE

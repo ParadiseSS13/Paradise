@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(overlays)
 		priority_overlays.Cut()
 
 	//If not already queued for work and there are overlays to remove
-	if(NOT_QUEUED_ALREADY && remove_overlays.len)
+	if(NOT_QUEUED_ALREADY && length(remove_overlays))
 		QUEUE_FOR_COMPILE
 
 /atom/proc/cut_overlay(list/overlays, priority)
@@ -123,9 +123,9 @@ SUBSYSTEM_DEF(overlays)
 	LAZYINITLIST(add_overlays) //always initialized after this point
 	LAZYINITLIST(priority_overlays)
 	LAZYINITLIST(remove_overlays)
-	var/a_len = add_overlays.len
-	var/r_len = remove_overlays.len
-	var/p_len = priority_overlays.len
+	var/a_len = length(add_overlays)
+	var/r_len = length(remove_overlays)
+	var/p_len = length(priority_overlays)
 	remove_overlays += overlays
 	add_overlays -= overlays
 
@@ -133,9 +133,9 @@ SUBSYSTEM_DEF(overlays)
 		var/list/cached_priority = priority_overlays
 		LAZYREMOVE(cached_priority, overlays)
 
-	var/fa_len = add_overlays.len
-	var/fr_len = remove_overlays.len
-	var/fp_len = priority_overlays.len
+	var/fa_len = length(add_overlays)
+	var/fr_len = length(remove_overlays)
+	var/fp_len = length(priority_overlays)
 
 	//If not already queued and there is work to be done
 	if(NOT_QUEUED_ALREADY && (fa_len != a_len || fr_len != r_len || fp_len != p_len))
@@ -149,17 +149,17 @@ SUBSYSTEM_DEF(overlays)
 
 	LAZYINITLIST(add_overlays) //always initialized after this point
 	LAZYINITLIST(priority_overlays)
-	var/a_len = add_overlays.len
-	var/p_len = priority_overlays.len
+	var/a_len = length(add_overlays)
+	var/p_len = length(priority_overlays)
 
 	if(priority)
 		priority_overlays += overlays  //or in the image. Can we use [image] = image?
-		var/fp_len = priority_overlays.len
+		var/fp_len = length(priority_overlays)
 		if(NOT_QUEUED_ALREADY && fp_len != p_len)
 			QUEUE_FOR_COMPILE
 	else
 		add_overlays += overlays
-		var/fa_len = add_overlays.len
+		var/fa_len = length(add_overlays)
 		if(NOT_QUEUED_ALREADY && fa_len != a_len)
 			QUEUE_FOR_COMPILE
 
@@ -200,7 +200,7 @@ SUBSYSTEM_DEF(overlays)
 
 	var/list/cached_other = other.overlays.Copy()
 	if(cached_other)
-		if(cut_old || !overlays.len)
+		if(cut_old || !length(overlays))
 			overlays = cached_other
 		else
 			overlays |= cached_other

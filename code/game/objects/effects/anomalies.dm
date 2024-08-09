@@ -232,23 +232,40 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
+	///Do we teleport everything around us to a beacon when despawning?
 	var/mass_teleporting = TRUE
+	///Do we have a smaller mob and object grab range, and 4 seconds of mercy?
+	var/supermatter_spawned = FALSE
+	///What is the range we will grab mobs to teleport from
+	var/mob_range = 4
+	///What is the range we will grab objects to teleport from
+	var/other_range = 4
+	///Used by supermatter anomalies. If fully active, behaves like normal. Otherwise, will not teleport people, to keep them being telefragged into the SM
+	var/fully_active = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/bluespace
 
-/obj/effect/anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE)
+/obj/effect/anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE, _supermatter_spawned = FALSE)
 	. = ..()
 	mass_teleporting = _mass_teleporting
+	supermatter_spawned = _supermatter_spawned
+	if(supermatter_spawned)
+		mob_range = 1
+		other_range = 3
+		fully_active = FALSE
+		addtimer(VARSET_CALLBACK(src, fully_active, TRUE), 4 SECONDS)
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
+	if(!fully_active)
+		return
 	..()
-	for(var/mob/living/M in range(4, src))
-		do_teleport(M, locate(M.x, M.y, M.z), 4, do_effect = drops_core)
-	for(var/obj/O in range (4, src))
+	for(var/mob/living/M in range(mob_range, src))
+		do_teleport(M, locate(M.x, M.y, M.z), 4, do_effect = drops_core || supermatter_spawned)
+	for(var/obj/O in range (other_range, src))
 		if(!O.anchored && O.invisibility == 0 && prob(50))
-			do_teleport(O, locate(O.x, O.y, O.z), 6, do_effect = drops_core )
+			do_teleport(O, locate(O.x, O.y, O.z), 6, do_effect = drops_core || supermatter_spawned)
 
 /obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
-	if(isliving(AM))
+	if(isliving(AM) && fully_active)
 		do_teleport(AM, locate(AM.x, AM.y, AM.z), 8)
 
 /obj/effect/anomaly/bluespace/detonate()
@@ -257,9 +274,9 @@
 	var/turf/T = pick(get_area_turfs(impact_area))
 	if(T)
 		// Calculate new position (searches through beacons in world)
-		var/obj/item/radio/beacon/chosen
+		var/obj/item/beacon/chosen
 		var/list/possible = list()
-		for(var/obj/item/radio/beacon/W in GLOB.beacons)
+		for(var/obj/item/beacon/W in GLOB.beacons)
 			if(!is_station_level(W.z))
 				continue
 			possible += W
@@ -283,7 +300,7 @@
 			var/y_distance = turf_to.y - turf_from.y
 			var/x_distance = turf_to.x - turf_from.x
 			for(var/atom/movable/A in urange(BLUESPACE_MASS_TELEPORT_RANGE, turf_from)) // iterate thru list of mobs in the area
-				if(istype(A, /obj/item/radio/beacon))
+				if(istype(A, /obj/item/beacon))
 					continue // don't teleport beacons because that's just insanely stupid
 				if(A.anchored || A.move_resist == INFINITY)
 					continue
@@ -338,7 +355,11 @@
 		ticks = 0
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 20)
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(1000)
+		air.set_toxins(20)
+		air.set_oxygen(20)
+		T.blind_release_air(air)
 
 /obj/effect/anomaly/pyro/detonate()
 	if(produces_slime)
@@ -347,7 +368,12 @@
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 500) //Make it hot and burny for the new slime
+		//Make it hot and burny for the new slime
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(1000)
+		air.set_toxins(500)
+		air.set_oxygen(500)
+		T.blind_release_air(air)
 	var/new_colour = pick("red", "orange")
 	var/mob/living/simple_animal/slime/S = new(T, new_colour)
 	S.rabid = TRUE
@@ -392,7 +418,11 @@
 
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
-			T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_N2O | LINDA_SPAWN_CO2, 20)
+			var/datum/gas_mixture/air = new()
+			air.set_temperature(TCMB)
+			air.set_sleeping_agent(20)
+			air.set_carbon_dioxide(20)
+			T.blind_release_air(air)
 
 	if(prob(10))
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
@@ -419,7 +449,11 @@
 /obj/effect/anomaly/cryo/detonate()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T) && drops_core)
-		T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_CO2, 1000)
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(TCMB)
+		air.set_sleeping_agent(1000)
+		air.set_carbon_dioxide(1000)
+		T.blind_release_air(air)
 
 /////////////////////
 

@@ -44,7 +44,8 @@
 /obj/item/mod/core/proc/update_charge_alert()
 	mod.wearer.clear_alert("mod_charge")
 
-/obj/item/mod/core/infinite //Admin only.
+/// Admin only.
+/obj/item/mod/core/infinite
 	name = "MOD infinite core"
 	icon_state = "mod-core-infinite"
 	desc = "A fusion core using the rare Infinium to sustain enough energy for the lifetime of the MOD's user. \
@@ -130,20 +131,20 @@
 /obj/item/mod/core/standard/update_charge_alert()
 	var/obj/item/stock_parts/cell/charge_source = charge_source()
 	if(!charge_source)
-		mod.wearer.throw_alert("mod_charge", /obj/screen/alert/nocell)
+		mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/nocell)
 		return
 	var/remaining_cell = charge_amount() / max_charge_amount()
 	switch(remaining_cell)
 		if(0.75 to INFINITY)
 			mod.wearer.clear_alert("mod_charge")
 		if(0.5 to 0.75)
-			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/lowcell, 1)
+			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 1)
 		if(0.25 to 0.5)
-			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/lowcell, 2)
+			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 2)
 		if(0.01 to 0.25)
-			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/lowcell, 3)
+			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 3)
 		else
-			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/emptycell)
+			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/emptycell)
 
 /obj/item/mod/core/standard/emp_act(severity)
 	cell?.emp_act(severity)
@@ -152,10 +153,12 @@
 	cell = new_cell
 	cell.forceMove(src)
 	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
+	RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(remove_cell))
 
 /obj/item/mod/core/standard/proc/uninstall_cell()
 	if(!cell)
 		return
+	UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
 	cell = null
 	UnregisterSignal(src, COMSIG_ATOM_EXITED)
 
@@ -165,6 +168,11 @@
 	if(!istype(cell) || cell.loc == src)
 		return
 	uninstall_cell()
+
+/obj/item/mod/core/standard/proc/remove_cell()
+	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING
+	UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+	cell = null
 
 /obj/item/mod/core/standard/proc/on_examine(datum/source, mob/examiner, list/examine_text)
 	SIGNAL_HANDLER
@@ -233,7 +241,7 @@
 	mod.update_charge_alert()
 
 /obj/item/mod/core/plasma
-	name = "MOD plasma core"
+	name = "\improper MOD plasma core"
 	desc = "Nanotrasen's attempt at capitalizing on their plasma research. These plasma cores are refueled \
 		through plasma fuel, allowing for easy continued use by their mining squads."
 	icon_state = "mod-core-plasma"
@@ -275,13 +283,13 @@
 		if(0.75 to INFINITY)
 			mod.wearer.clear_alert("mod_charge")
 		if(0.5 to 0.75)
-			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/lowcell, 1)
+			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 1)
 		if(0.25 to 0.5)
-			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/lowcell, 2)
+			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 2)
 		if(0.01 to 0.25)
-			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/lowcell, 3)
+			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 3)
 		else
-			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/emptycell)
+			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/emptycell)
 
 /obj/item/mod/core/plasma/on_attackby(obj/item/attacking_item, mob/user, params)
 	charge_plasma(attacking_item, user)
@@ -290,6 +298,10 @@
 	var/charge_given = is_type_in_list(plasma, charger_list)
 	if(!charge_given)
 		return FALSE
+	if(charge_amount() == max_charge_amount())
+		to_chat(user, "<span class='notice'>[src] is already fully charged!</span>")
+		// We didn't succeed but we don't want to treat it as an attackby
+		return TRUE
 	var/uses_needed = min(plasma.amount, ((max_charge_amount() - charge_amount()) / 2000))
 	if(!plasma.use(uses_needed))
 		return FALSE

@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import { capitalize } from 'common/string';
 import { toFixed } from 'common/math';
 import { useLocalState } from 'tgui/backend';
 import { useDispatch, useSelector } from 'common/redux';
@@ -12,7 +13,6 @@ import {
   Button,
   ColorBox,
   Divider,
-  Dropdown,
   Input,
   LabeledList,
   NumberInput,
@@ -20,6 +20,7 @@ import {
   Stack,
   Tabs,
   TextArea,
+  Collapsible,
 } from 'tgui/components';
 import { ChatPageSettings } from '../chat';
 import { clearChat, rebuildChat, saveChatToDisk } from '../chat/actions';
@@ -32,12 +33,7 @@ import {
   updateHighlightSetting,
 } from './actions';
 import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
-import {
-  selectActiveTab,
-  selectSettings,
-  selectHighlightSettings,
-  selectHighlightSettingById,
-} from './selectors';
+import { selectActiveTab, selectSettings, selectHighlightSettings, selectHighlightSettingById } from './selectors';
 
 export const SettingsPanel = (props, context) => {
   const activeTab = useSelector(context, selectActiveTab);
@@ -75,119 +71,149 @@ export const SettingsPanel = (props, context) => {
 };
 
 export const SettingsGeneral = (props, context) => {
-  const { theme, fontFamily, fontSize, lineHeight } = useSelector(
-    context,
-    selectSettings
-  );
+  const { theme, fontFamily, fontSize, lineHeight } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
   return (
-    <Section height="150px">
-      <LabeledList>
-        <LabeledList.Item label="Theme">
-          <Dropdown
-            selected={theme}
-            options={THEMES}
-            onSelected={(value) =>
-              dispatch(
-                updateSettings({
-                  theme: value,
-                })
-              )
-            }
-          />
-        </LabeledList.Item>
-        <LabeledList.Item label="Font style">
-          <Stack inline align="baseline">
+    <Section fill>
+      <Stack fill vertical>
+        <LabeledList>
+          <LabeledList.Item label="Theme">
+            {THEMES.map((THEME) => (
+              <Button
+                key={THEME}
+                content={capitalize(THEME)}
+                selected={theme === THEME}
+                color="transparent"
+                onClick={() =>
+                  dispatch(
+                    updateSettings({
+                      theme: THEME,
+                    })
+                  )
+                }
+              />
+            ))}
+          </LabeledList.Item>
+          <LabeledList.Item label="Font style">
             <Stack.Item>
               {(!freeFont && (
-                <Dropdown
-                  selected={fontFamily}
-                  options={FONTS}
-                  onSelected={(value) =>
-                    dispatch(
-                      updateSettings({
-                        fontFamily: value,
-                      })
-                    )
+                <Collapsible
+                  title={fontFamily}
+                  width={'100%'}
+                  buttons={
+                    <Button
+                      content="Custom font"
+                      icon={freeFont ? 'lock-open' : 'lock'}
+                      color={freeFont ? 'good' : 'bad'}
+                      onClick={() => {
+                        setFreeFont(!freeFont);
+                      }}
+                    />
                   }
-                />
+                >
+                  {FONTS.map((FONT) => (
+                    <Button
+                      key={FONT}
+                      content={FONT}
+                      fontFamily={FONT}
+                      selected={fontFamily === FONT}
+                      color="transparent"
+                      onClick={() =>
+                        dispatch(
+                          updateSettings({
+                            fontFamily: FONT,
+                          })
+                        )
+                      }
+                    />
+                  ))}
+                </Collapsible>
               )) || (
-                <Input
-                  value={fontFamily}
-                  onChange={(e, value) =>
-                    dispatch(
-                      updateSettings({
-                        fontFamily: value,
-                      })
-                    )
-                  }
-                />
+                <Stack>
+                  <Input
+                    width={'100%'}
+                    value={fontFamily}
+                    onChange={(e, value) =>
+                      dispatch(
+                        updateSettings({
+                          fontFamily: value,
+                        })
+                      )
+                    }
+                  />
+                  <Button
+                    ml={0.5}
+                    content="Custom font"
+                    icon={freeFont ? 'lock-open' : 'lock'}
+                    color={freeFont ? 'good' : 'bad'}
+                    onClick={() => {
+                      setFreeFont(!freeFont);
+                    }}
+                  />
+                </Stack>
               )}
             </Stack.Item>
-            <Stack.Item>
-              <Button
-                content="Custom font"
-                icon={freeFont ? 'lock-open' : 'lock'}
-                color={freeFont ? 'good' : 'bad'}
-                onClick={() => {
-                  setFreeFont(!freeFont);
-                }}
-              />
-            </Stack.Item>
-          </Stack>
-        </LabeledList.Item>
-        <LabeledList.Item label="Font size">
-          <NumberInput
-            width="4.2em"
-            step={1}
-            stepPixelSize={10}
-            minValue={8}
-            maxValue={32}
-            value={fontSize}
-            unit="px"
-            format={(value) => toFixed(value)}
-            onChange={(e, value) =>
-              dispatch(
-                updateSettings({
-                  fontSize: value,
-                })
-              )
-            }
-          />
-        </LabeledList.Item>
-        <LabeledList.Item label="Line height">
-          <NumberInput
-            width="4.2em"
-            step={0.01}
-            stepPixelSize={2}
-            minValue={0.8}
-            maxValue={5}
-            value={lineHeight}
-            format={(value) => toFixed(value, 2)}
-            onDrag={(e, value) =>
-              dispatch(
-                updateSettings({
-                  lineHeight: value,
-                })
-              )
-            }
-          />
-        </LabeledList.Item>
-      </LabeledList>
-      <Divider />
-      <Button
-        mt={0.25}
-        content="Save chat log"
-        icon="save"
-        onClick={() => dispatch(saveChatToDisk())}
-      />
-      <Button.Confirm
-        icon="trash"
-        confirmContent="Are you sure?"
-        content="Clear chat"
-        onClick={() => dispatch(clearChat())}
-      />
+          </LabeledList.Item>
+          <LabeledList.Item label="Font size">
+            <NumberInput
+              width="4.2em"
+              step={1}
+              stepPixelSize={10}
+              minValue={8}
+              maxValue={32}
+              value={fontSize}
+              unit="px"
+              format={(value) => toFixed(value)}
+              onChange={(e, value) =>
+                dispatch(
+                  updateSettings({
+                    fontSize: value,
+                  })
+                )
+              }
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Line height">
+            <NumberInput
+              width="4.2em"
+              step={0.01}
+              stepPixelSize={2}
+              minValue={0.8}
+              maxValue={5}
+              value={lineHeight}
+              format={(value) => toFixed(value, 2)}
+              onDrag={(e, value) =>
+                dispatch(
+                  updateSettings({
+                    lineHeight: value,
+                  })
+                )
+              }
+            />
+          </LabeledList.Item>
+        </LabeledList>
+        <Divider />
+        <Stack>
+          <Stack.Item grow>
+            <Button
+              content="Save chat log"
+              icon="save"
+              tooltip="Export current tab history into HTML file"
+              onClick={() => dispatch(saveChatToDisk())}
+            />
+          </Stack.Item>
+          <Stack.Item>
+            <Button.Confirm
+              icon="trash"
+              confirmContent="Are you sure?"
+              content="Clear chat"
+              tooltip="Erase current tab history"
+              onClick={() => dispatch(clearChat())}
+            />
+          </Stack.Item>
+        </Stack>
+      </Stack>
     </Section>
   );
 };
@@ -200,11 +226,7 @@ const TextHighlightSettings = (props, context) => {
       <Section>
         <Stack vertical>
           {highlightSettings.map((id, i) => (
-            <TextHighlightSetting
-              key={i}
-              id={id}
-              mb={i + 1 === highlightSettings.length ? 0 : '10px'}
-            />
+            <TextHighlightSetting key={i} id={id} mb={i + 1 === highlightSettings.length ? 0 : '10px'} />
           ))}
           {highlightSettings.length < MAX_HIGHLIGHT_SETTINGS && (
             <Stack.Item>
@@ -237,13 +259,7 @@ const TextHighlightSetting = (props, context) => {
   const { id, ...rest } = props;
   const highlightSettingById = useSelector(context, selectHighlightSettingById);
   const dispatch = useDispatch(context);
-  const {
-    highlightColor,
-    highlightText,
-    highlightWholeMessage,
-    matchWord,
-    matchCase,
-  } = highlightSettingById[id];
+  const { highlightColor, highlightText, highlightWholeMessage, matchWord, matchCase } = highlightSettingById[id];
   return (
     <Stack.Item {...rest}>
       <Stack mb={1} color="label" align="baseline">

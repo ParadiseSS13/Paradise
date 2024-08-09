@@ -56,9 +56,9 @@
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, mob/living/creator)
 	. = ..()
 	// Give spells
-	AddSpell(new /obj/effect/proc_holder/spell/aoe/flicker_lights(null))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe/blindness(null))
-	AddSpell(new /obj/effect/proc_holder/spell/night_vision(null))
+	AddSpell(new /datum/spell/aoe/flicker_lights(null))
+	AddSpell(new /datum/spell/aoe/blindness(null))
+	AddSpell(new /datum/spell/night_vision(null))
 
 	// Set creator
 	if(creator)
@@ -160,7 +160,7 @@
 // Statue powers
 
 // Flicker lights
-/obj/effect/proc_holder/spell/aoe/flicker_lights
+/datum/spell/aoe/flicker_lights
 	name = "Flicker Lights"
 	desc = "You will trigger a large amount of lights around you to flicker."
 
@@ -168,19 +168,18 @@
 	clothes_req = FALSE
 	aoe_range = 14
 
-/obj/effect/proc_holder/spell/aoe/flicker_lights/create_new_targeting()
+/datum/spell/aoe/flicker_lights/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/targeting = new()
 	targeting.range = aoe_range
 	return targeting
 
-/obj/effect/proc_holder/spell/aoe/flicker_lights/cast(list/targets, mob/user = usr)
+/datum/spell/aoe/flicker_lights/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/light/L in T)
-			L.flicker()
-	return
+			L.forced_flicker()
 
 //Blind AOE
-/obj/effect/proc_holder/spell/aoe/blindness
+/datum/spell/aoe/blindness
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
@@ -189,19 +188,17 @@
 	clothes_req = FALSE
 	aoe_range = 10
 
-/obj/effect/proc_holder/spell/aoe/blindness/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/targeting = new()
+/datum/spell/aoe/blindness/create_new_targeting()
+	var/datum/spell_targeting/aoe/targeting = new()
 	targeting.range = aoe_range
+	targeting.allowed_type = /mob/living
 	return targeting
 
-/obj/effect/proc_holder/spell/aoe/blindness/cast(list/targets, mob/user = usr)
-	for(var/mob/living/L in GLOB.alive_mob_list)
-		if(L == user)
+/datum/spell/aoe/blindness/cast(list/targets, mob/user = usr)
+	for(var/mob/living/L in targets)
+		if(istype(L, /mob/living/simple_animal/hostile/statue))
 			continue
-		var/turf/T = get_turf(L.loc)
-		if(T && (T in targets))
-			L.EyeBlind(8 SECONDS)
-	return
+		L.EyeBlind(8 SECONDS)
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"
@@ -209,4 +206,4 @@
 /mob/living/simple_animal/hostile/statue/restrained()
 	. = ..()
 	if(can_be_seen(loc))
-		return 1
+		return TRUE

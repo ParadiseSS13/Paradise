@@ -1,11 +1,11 @@
 /datum/action/innate/cult
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
-	background_icon_state = "bg_cult"
+	button_overlay_icon = 'icons/mob/actions/actions_cult.dmi'
+	button_background_icon_state = "bg_cult"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS
 	buttontooltipstyle = "cult"
 
 /datum/action/innate/cult/IsAvailable()
-	if(!iscultist(owner))
+	if(!IS_CULTIST(owner))
 		return FALSE
 	return ..()
 
@@ -14,11 +14,11 @@
 /datum/action/innate/cult/comm
 	name = "Communion"
 	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
-	button_icon_state = "cult_comms"
+	button_overlay_icon_state = "cult_comms"
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/comm/Activate()
-	var/input = stripped_input(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
+	var/input = tgui_input_text(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", encode = FALSE)
 	if(!input || !IsAvailable())
 		return
 	cultist_commune(usr, input)
@@ -55,7 +55,7 @@
 
 	living_message = "<span class='cult[(large ? "large" : "speech")]'>[title]: [message]</span>"
 	for(var/mob/M in GLOB.player_list)
-		if(iscultist(M))
+		if(IS_CULTIST(M))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
 			to_chat(M, "<span class='cult[(large ? "large" : "speech")]'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
@@ -78,7 +78,7 @@
 	living_message = "<span class='cultlarge'>[title]: [message]</span>"
 
 	for(var/mob/M in GLOB.player_list)
-		if(iscultist(M))
+		if(IS_CULTIST(M))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
 			to_chat(M, "<span class='cultlarge'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
@@ -87,25 +87,22 @@
 //Objectives
 /datum/action/innate/cult/check_progress
 	name = "Study the Veil"
-	button_icon_state = "tome"
+	button_overlay_icon_state = "tome"
 	desc = "Check your cult's current progress and objective."
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/check_progress/New()
-	if(SSticker.mode)
-		button_icon_state = SSticker.cultdat.tome_icon
+	button_overlay_icon_state = GET_CULT_DATA(tome_icon, "tome")
 	..()
 
 /datum/action/innate/cult/check_progress/IsAvailable()
-	if(iscultist(owner) || isobserver(owner))
-		return TRUE
-	return FALSE
+	return IS_CULTIST(owner) || isobserver(owner)
 
 /datum/action/innate/cult/check_progress/Activate()
 	if(!IsAvailable())
 		return
-	if(SSticker && SSticker.mode)
-		SSticker.mode.cult_objs.study(usr, TRUE)
+	if(SSticker?.mode?.cult_team)
+		SSticker.mode.cult_team.study_objectives(usr, TRUE)
 	else
 		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
 
@@ -114,17 +111,12 @@
 /datum/action/innate/cult/use_dagger
 	name = "Draw Blood Rune"
 	desc = "Use the ritual dagger to create a powerful blood rune"
-	button_icon_state = "blood_dagger"
+	button_overlay_icon_state = "blood_dagger"
+	default_button_position = "10:29,4:-2"
 
 /datum/action/innate/cult/use_dagger/Grant()
-	if(SSticker.mode)
-		button_icon_state = SSticker.cultdat.dagger_icon
+	button_overlay_icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
 	..()
-
-/datum/action/innate/cult/use_dagger/override_location()
-	button.ordered = FALSE
-	button.screen_loc = "6:157,4:-2"
-	button.moved = "6:157,4:-2"
 
 /datum/action/innate/cult/use_dagger/Activate()
 	var/obj/item/melee/cultblade/dagger/D = owner.find_item(/obj/item/melee/cultblade/dagger)

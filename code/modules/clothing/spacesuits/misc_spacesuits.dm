@@ -44,6 +44,7 @@
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 	see_in_dark = 8
@@ -60,29 +61,33 @@
 	flags_inv = HIDESHOES | HIDEJUMPSUIT | HIDETAIL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
 /obj/item/clothing/suit/space/deathsquad/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_PUNCTURE_IMMUNE, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer beret"
 	desc = "An armored beret commonly used by special operations officers."
+	icon = 'icons/obj/clothing/head/beret.dmi'
 	icon_state = "beret_officer"
+	item_state = 'icons/mob/clothing/head/beret.dmi'
+	icon_override = 'icons/mob/clothing/head/beret.dmi'
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_inv = null
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi'
 		)
-
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
 	name = "\improper Trans-Solar Federation commander's beret"
 	desc = "A camouflaged beret adorned with the star of the Trans-Solar Federation, worn by generals of the Trans-Solar Federation."
-	icon_state = "solgovceliteberet"
+	icon_state = "beret_solgovcelite"
 
 /obj/item/clothing/suit/space/deathsquad/officer
 	name = "officer jacket"
@@ -94,6 +99,7 @@
 	slowdown = 0
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov

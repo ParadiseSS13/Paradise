@@ -1,13 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Stack,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Slider,
-} from '../components';
+import { Box, Button, Stack, LabeledList, ProgressBar, Section, Slider } from '../components';
 import { formatPower } from '../format';
 import { Window } from '../layouts';
 
@@ -25,16 +17,15 @@ export const Smes = (props, context) => {
     inputLevel,
     inputLevelMax,
     inputAvailable,
+    outputPowernet,
     outputAttempt,
     outputting,
     outputLevel,
     outputLevelMax,
     outputUsed,
   } = data;
-  const inputState =
-    (capacityPercent >= 100 && 'good') || (inputting && 'average') || 'bad';
-  const outputState =
-    (outputting && 'good') || (charge > 0 && 'average') || 'bad';
+  const inputState = (capacityPercent >= 100 && 'good') || (inputting && 'average') || 'bad';
+  const outputState = (outputting && 'good') || (charge > 0 && 'average') || 'bad';
   return (
     <Window width={340} height={345}>
       <Window.Content>
@@ -64,9 +55,7 @@ export const Smes = (props, context) => {
                 }
               >
                 <Box color={inputState}>
-                  {(capacityPercent >= 100 && 'Fully Charged') ||
-                    (inputting && 'Charging') ||
-                    'Not Charging'}
+                  {(capacityPercent >= 100 && 'Fully Charged') || (inputting && 'Charging') || 'Not Charging'}
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Target Input">
@@ -129,9 +118,7 @@ export const Smes = (props, context) => {
                   </Stack.Item>
                 </Stack>
               </LabeledList.Item>
-              <LabeledList.Item label="Available">
-                {formatPower(inputAvailable)}
-              </LabeledList.Item>
+              <LabeledList.Item label="Available">{formatPower(inputAvailable)}</LabeledList.Item>
             </LabeledList>
           </Section>
           <Section fill title="Output">
@@ -149,11 +136,13 @@ export const Smes = (props, context) => {
                 }
               >
                 <Box color={outputState}>
-                  {outputting
-                    ? 'Sending'
-                    : charge > 0
-                      ? 'Not Sending'
-                      : 'No Charge'}
+                  {outputPowernet
+                    ? outputting
+                      ? 'Sending'
+                      : charge > 0
+                        ? 'Not Sending'
+                        : 'No Charge'
+                    : 'Not Connected'}
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Target Output">
@@ -215,9 +204,7 @@ export const Smes = (props, context) => {
                   </Stack.Item>
                 </Stack>
               </LabeledList.Item>
-              <LabeledList.Item label="Outputting">
-                {formatPower(outputUsed)}
-              </LabeledList.Item>
+              <LabeledList.Item label="Outputting">{formatPower(outputUsed)}</LabeledList.Item>
             </LabeledList>
           </Section>
         </Stack>

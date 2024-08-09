@@ -20,17 +20,12 @@ $nanotrasen: #384e68;
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: (
-      'color-default': $nanotrasen,
-      'color-transparent-text': rgba(227, 240, 255, 0.75)
-    )
+    $with: ('color-default': $nanotrasen, 'color-transparent-text': rgba(227, 240, 255, 0.75))
   );
+  @include meta.load-css('../components/ImageButton.scss', $with: ('color-default': darken($nanotrasen, 15%)));
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: (
-      'color-default-fill': $nanotrasen,
-      'background-color': rgba(0, 0, 0, 0.5)
-    )
+    $with: ('color-default-fill': $nanotrasen, 'background-color': rgba(0, 0, 0, 0.5))
   );
   @include meta.load-css('../components/Section.scss');
 

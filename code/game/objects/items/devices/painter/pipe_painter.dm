@@ -1,7 +1,7 @@
 /datum/painter/pipe
 	module_name = "pipe painter"
 	module_state = "pipe_painter"
-	var/static/list/blacklisted_pipes = list(/obj/machinery/atmospherics/pipe/simple/heat_exchanging, /obj/machinery/atmospherics/pipe/simple/insulated)
+	var/static/list/blacklisted_pipes = list(/obj/machinery/atmospherics/pipe/simple/heat_exchanging)
 	var/static/list/modes = list()
 
 /datum/painter/pipe/New()

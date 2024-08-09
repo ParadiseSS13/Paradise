@@ -1,13 +1,14 @@
 /client/proc/cmd_admin_say(msg as text)
-	set category = "Admin"
 	set name = "Asay" //Gave this shit a shorter name so you only have to time out "asay" rather than "admin say" to use it --NeoFite
 	set hidden = 1
-	if(!check_rights(R_ADMIN))	return
+	if(!check_rights(R_ADMIN))
+		return
 
-	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
-	if(!msg)	return
+	msg = emoji_parse(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
+	if(!msg)
+		return
 
-	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	var/datum/say/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
 	GLOB.asays += asay
 	log_adminsay(msg, src)
 
@@ -17,7 +18,7 @@
 			var/list/data = list()
 			data["author"] = usr.ckey
 			data["source"] = GLOB.configuration.system.instance_id
-			data["message"] = msg
+			data["message"] = html_decode(msg)
 			SSredis.publish("byond.asay", json_encode(data))
 
 		for(var/client/C in GLOB.admins)
@@ -45,15 +46,26 @@
 		cmd_mentor_say(msg)
 
 /client/proc/cmd_mentor_say(msg as text)
-	set category = "Admin"
 	set name = "Msay"
 	set hidden = 1
 
-	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+	if(check_rights(R_MENTOR, FALSE)) // Mentor detected, check if the verb has been disabled for mentors
+		var/msay_found = FALSE
+		for(var/procs as anything in GLOB.admin_verbs_mentor)
+			if(procs == /client/proc/cmd_mentor_say)
+				msay_found = TRUE
+				break
+		if(!msay_found)
+			to_chat(src, "<b>Mentor chat has been disabled.</b>")
+			return
+
+	else if(!check_rights(R_ADMIN|R_MOD)) // Catch any other non-admins trying to use this proc
 		return
 
-	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
+	msg = emoji_parse(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
 	log_mentorsay(msg, src)
+	var/datum/say/msay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	GLOB.msays += msay
 	mob.create_log(OOC_LOG, "MSAY: [msg]")
 
 	if(!msg)
@@ -64,7 +76,7 @@
 		var/list/data = list()
 		data["author"] = usr.ckey
 		data["source"] = GLOB.configuration.system.instance_id
-		data["message"] = msg
+		data["message"] = html_decode(msg)
 		SSredis.publish("byond.msay", json_encode(data))
 
 	for(var/client/C in GLOB.admins)
@@ -104,10 +116,10 @@
 		if(!check_rights(R_MENTOR, 0, C.mob))
 			continue
 		if(enabling)
-			C.verbs += msay
+			add_verb(C, msay)
 			to_chat(C, "<b>Mentor chat has been enabled.</b> Use 'msay' to speak in it.")
 		else
-			C.verbs -= msay
+			remove_verb(C, msay)
 			to_chat(C, "<b>Mentor chat has been disabled.</b>")
 
 	log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")

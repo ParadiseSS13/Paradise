@@ -45,22 +45,12 @@ export class Section extends Component<SectionProps> {
   }
 
   render() {
-    const {
-      className,
-      title,
-      buttons,
-      fill,
-      fitted,
-      scrollable,
-      children,
-      ...rest
-    } = this.props;
+    const { className, title, buttons, fill, fitted, scrollable, children, ...rest } = this.props;
     const hasTitle = canRender(title) || canRender(buttons);
     return (
       <div
         className={classes([
           'Section',
-          Byond.IS_LTE_IE8 && 'Section--iefix',
           fill && 'Section--fill',
           fitted && 'Section--fitted',
           scrollable && 'Section--scrollable',

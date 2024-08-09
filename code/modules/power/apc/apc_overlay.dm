@@ -1,31 +1,31 @@
 //update_state
-#define UPSTATE_CELL_IN 1
-#define UPSTATE_OPENED1 2
-#define UPSTATE_OPENED2 4
-#define UPSTATE_MAINT 8
-#define UPSTATE_BROKE 16
-#define UPSTATE_BLUESCREEN 32
-#define UPSTATE_WIREEXP 64
-#define UPSTATE_ALLGOOD 128
+#define UPSTATE_CELL_IN		(1<<0)
+#define UPSTATE_OPENED1		(1<<1)
+#define UPSTATE_OPENED2		(1<<2)
+#define UPSTATE_MAINT		(1<<3)
+#define UPSTATE_BROKE		(1<<4)
+#define UPSTATE_BLUESCREEN	(1<<5)
+#define UPSTATE_WIREEXP		(1<<6)
+#define UPSTATE_ALLGOOD		(1<<7)
 
 
 
 
 
 //update_overlay
-#define APC_UPOVERLAY_CHARGEING0 1
-#define APC_UPOVERLAY_CHARGEING1 2
-#define APC_UPOVERLAY_CHARGEING2 4
-#define APC_UPOVERLAY_EQUIPMENT0 8
-#define APC_UPOVERLAY_EQUIPMENT1 16
-#define APC_UPOVERLAY_EQUIPMENT2 32
-#define APC_UPOVERLAY_LIGHTING0 64
-#define APC_UPOVERLAY_LIGHTING1 128
-#define APC_UPOVERLAY_LIGHTING2 256
-#define APC_UPOVERLAY_ENVIRON0 512
-#define APC_UPOVERLAY_ENVIRON1 1024
-#define APC_UPOVERLAY_ENVIRON2 2048
-#define APC_UPOVERLAY_LOCKED 4096
+#define APC_UPOVERLAY_CHARGEING0	(1<<0)
+#define APC_UPOVERLAY_CHARGEING1	(1<<1)
+#define APC_UPOVERLAY_CHARGEING2	(1<<2)
+#define APC_UPOVERLAY_EQUIPMENT0	(1<<3)
+#define APC_UPOVERLAY_EQUIPMENT1	(1<<4)
+#define APC_UPOVERLAY_EQUIPMENT2	(1<<5)
+#define APC_UPOVERLAY_LIGHTING0		(1<<6)
+#define APC_UPOVERLAY_LIGHTING1		(1<<7)
+#define APC_UPOVERLAY_LIGHTING2		(1<<8)
+#define APC_UPOVERLAY_ENVIRON0		(1<<9)
+#define APC_UPOVERLAY_ENVIRON1		(1<<10)
+#define APC_UPOVERLAY_ENVIRON2		(1<<11)
+#define APC_UPOVERLAY_LOCKED		(1<<12)
 
 #define APC_UPDATE_ICON_COOLDOWN 20 SECONDS // 20 seconds
 
@@ -151,7 +151,7 @@
 			update_state |= UPSTATE_OPENED1
 		if(opened == APC_COVER_OFF)
 			update_state |= UPSTATE_OPENED2
-	else if(emagged || malfai || being_hijacked)
+	else if(emagged || malfai || being_hijacked || hacked_by_ruin_AI)
 		update_state |= UPSTATE_BLUESCREEN
 	else if(panel_open)
 		update_state |= UPSTATE_WIREEXP
@@ -171,23 +171,23 @@
 
 		if(!equipment_channel)
 			update_overlay |= APC_UPOVERLAY_EQUIPMENT0
-		else if(equipment_channel == CHANNEL_SETTING_AUTO_OFF)
+		else if(equipment_channel == APC_CHANNEL_SETTING_AUTO_OFF)
 			update_overlay |= APC_UPOVERLAY_EQUIPMENT1
-		else if(equipment_channel == CHANNEL_SETTING_ON)
+		else if(equipment_channel == APC_CHANNEL_SETTING_ON)
 			update_overlay |= APC_UPOVERLAY_EQUIPMENT2
 
 		if(!lighting_channel)
 			update_overlay |= APC_UPOVERLAY_LIGHTING0
-		else if(lighting_channel == CHANNEL_SETTING_AUTO_OFF)
+		else if(lighting_channel == APC_CHANNEL_SETTING_AUTO_OFF)
 			update_overlay |= APC_UPOVERLAY_LIGHTING1
-		else if(lighting_channel == CHANNEL_SETTING_ON)
+		else if(lighting_channel == APC_CHANNEL_SETTING_ON)
 			update_overlay |= APC_UPOVERLAY_LIGHTING2
 
 		if(!environment_channel)
 			update_overlay |= APC_UPOVERLAY_ENVIRON0
-		else if(environment_channel == CHANNEL_SETTING_AUTO_OFF)
+		else if(environment_channel == APC_CHANNEL_SETTING_AUTO_OFF)
 			update_overlay |= APC_UPOVERLAY_ENVIRON1
-		else if(environment_channel == CHANNEL_SETTING_ON)
+		else if(environment_channel == APC_CHANNEL_SETTING_ON)
 			update_overlay |= APC_UPOVERLAY_ENVIRON2
 
 	var/results = 0
@@ -218,13 +218,6 @@
 		addtimer(CALLBACK(src, PROC_REF(flicker), TRUE), 1)
 		cut_overlays()
 		managed_overlays = null
-		// APC power distruptions have a chance to propogate to other machines on its network
-		for(var/obj/machinery/M in apc_area)
-			// Please don't cascade, thanks
-			if(M == src)
-				continue
-			if(prob(10))
-				M.flicker()
 	else
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), TRUE), 10)
@@ -232,3 +225,25 @@
 	return TRUE
 
 #undef APC_UPDATE_ICON_COOLDOWN
+
+#undef UPSTATE_CELL_IN
+#undef UPSTATE_OPENED1
+#undef UPSTATE_OPENED2
+#undef UPSTATE_MAINT
+#undef UPSTATE_BROKE
+#undef UPSTATE_BLUESCREEN
+#undef UPSTATE_WIREEXP
+#undef UPSTATE_ALLGOOD
+#undef APC_UPOVERLAY_CHARGEING0
+#undef APC_UPOVERLAY_CHARGEING1
+#undef APC_UPOVERLAY_CHARGEING2
+#undef APC_UPOVERLAY_EQUIPMENT0
+#undef APC_UPOVERLAY_EQUIPMENT1
+#undef APC_UPOVERLAY_EQUIPMENT2
+#undef APC_UPOVERLAY_LIGHTING0
+#undef APC_UPOVERLAY_LIGHTING1
+#undef APC_UPOVERLAY_LIGHTING2
+#undef APC_UPOVERLAY_ENVIRON0
+#undef APC_UPOVERLAY_ENVIRON1
+#undef APC_UPOVERLAY_ENVIRON2
+#undef APC_UPOVERLAY_LOCKED

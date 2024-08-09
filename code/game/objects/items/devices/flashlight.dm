@@ -39,7 +39,7 @@
 	update_brightness()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		A.UpdateButtons()
 	return TRUE
 
 /obj/item/flashlight/attack(mob/living/M as mob, mob/living/user as mob)
@@ -253,8 +253,8 @@
 	blocks_emissive = FALSE
 
 /obj/item/flashlight/flare/glowstick/Initialize()
+	. = ..()
 	light_color = color
-	..()
 
 /obj/item/flashlight/flare/glowstick/update_icon_state()
 	if(!fuel)
@@ -398,7 +398,8 @@
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
 	return
 
-/obj/item/flashlight/spotlight //invisible lighting source
+/// invisible lighting source
+/obj/item/flashlight/spotlight
 	name = "disco light"
 	desc = "Groovy..."
 	icon_state = null
