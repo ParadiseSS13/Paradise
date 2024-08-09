@@ -513,42 +513,44 @@
 		return TRUE
 	return FALSE
 
+/mob/living/simple_animal/bot/medbot/proc/drop_medkit(drop_turf)
+
+	switch(skin)
+		if("ointment")
+			new /obj/item/storage/firstaid/fire/empty(drop_turf)
+		if("tox")
+			new /obj/item/storage/firstaid/toxin/empty(drop_turf)
+		if("o2")
+			new /obj/item/storage/firstaid/o2/empty(drop_turf)
+		if("brute")
+			new /obj/item/storage/firstaid/brute/empty(drop_turf)
+		if("adv")
+			new /obj/item/storage/firstaid/adv/empty(drop_turf)
+		if("bezerk")
+			new /obj/item/storage/firstaid/tactical/empty(drop_turf)
+		if("fish")
+			new /obj/item/storage/firstaid/aquatic_kit(drop_turf)
+		if("machine")
+			new /obj/item/storage/firstaid/machine/empty(drop_turf)
+		else
+			new /obj/item/storage/firstaid(drop_turf)
+
 /mob/living/simple_animal/bot/medbot/explode()
-	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
+	var/turf/explode_turf = get_turf(src)
 
 	if(drops_parts)
-		switch(skin)
-			if("ointment")
-				new /obj/item/storage/firstaid/fire/empty(Tsec)
-			if("tox")
-				new /obj/item/storage/firstaid/toxin/empty(Tsec)
-			if("o2")
-				new /obj/item/storage/firstaid/o2/empty(Tsec)
-			if("brute")
-				new /obj/item/storage/firstaid/brute/empty(Tsec)
-			if("adv")
-				new /obj/item/storage/firstaid/adv/empty(Tsec)
-			if("bezerk")
-				var/obj/item/storage/firstaid/tactical/empty/T = new(Tsec)
-				T.syndicate_aligned = syndicate_aligned //This is a special case since Syndicate medibots and the mysterious medibot look the same; we also dont' want crew building Syndicate medibots if the mysterious medibot blows up.
-			if("fish")
-				new /obj/item/storage/firstaid/aquatic_kit(Tsec)
-			if("machine")
-				new /obj/item/storage/firstaid/machine/empty(Tsec)
-			else
-				new /obj/item/storage/firstaid(Tsec)
+		drop_medkit(explode_turf)
 
-		new /obj/item/assembly/prox_sensor(Tsec)
+		new /obj/item/assembly/prox_sensor(explode_turf)
 
-		new /obj/item/healthanalyzer(Tsec)
+		new /obj/item/healthanalyzer(explode_turf)
 
 		if(prob(50))
-			drop_part(robot_arm, Tsec)
+			drop_part(robot_arm, explode_turf)
 
 	if(reagent_glass)
-		reagent_glass.forceMove(Tsec)
+		reagent_glass.forceMove(explode_turf)
 		reagent_glass = null
 
 	if(emagged && prob(25))
@@ -556,6 +558,24 @@
 
 	do_sparks(3, TRUE, src)
 	..()
+
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/medbot/disassemble()
+	var/turf/disassemble_turf = get_turf(src)
+
+	drop_medkit(disassemble_turf)
+	new /obj/item/assembly/prox_sensor(disassemble_turf)
+	new /obj/item/healthanalyzer(disassemble_turf)
+	drop_part(robot_arm, disassemble_turf)
+
+	if(reagent_glass)
+		reagent_glass.forceMove(disassemble_turf)
+		reagent_glass = null
+
+	if(emagged) //If emagged the medibots will always insult the player upon being disassembled
+		playsound(loc, 'sound/voice/minsult.ogg', 50, FALSE)
+
+	qdel(src)
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)
 	if(declare_cooldown)

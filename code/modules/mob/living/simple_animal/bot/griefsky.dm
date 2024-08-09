@@ -185,28 +185,47 @@
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
 	walk_to(src,0)
 	visible_message("<span class='boldannounceic'>[src] lets out a huge cough as it blows apart!</span>")
-	var/turf/Tsec = get_turf(src)
-	new /obj/item/assembly/prox_sensor(Tsec)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
-	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
-	Sa.created_name = name
+	var/turf/explode_turf = get_turf(src)
+	new /obj/item/assembly/prox_sensor(explode_turf)
+	var/obj/item/secbot_assembly/pierced_helmet = new /obj/item/secbot_assembly(explode_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += "hs_hole"
+	pierced_helmet.created_name = name
 	if(prob(50))
-		new /obj/item/robot_parts/r_arm(Tsec)
+		new /obj/item/robot_parts/r_arm(explode_turf)
 	if(prob(50)) //most of the time weapon will be destroyed
-		new weapon(Tsec)
+		new weapon(explode_turf)
 	if(prob(25))
-		new weapon(Tsec)
+		new weapon(explode_turf)
 	if(prob(10))
-		new weapon(Tsec)
+		new weapon(explode_turf)
 	if(prob(5))
-		new weapon(Tsec)
+		new weapon(explode_turf)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
-	..()
+	qdel(src)
+
+///Disassembling the bot in a civilized manner with a multitool
+/mob/living/simple_animal/bot/secbot/griefsky/disassemble()
+	var/turf/disassemble_turf = get_turf(src)
+	new /obj/item/assembly/prox_sensor(disassemble_turf)
+	var/obj/item/secbot_assembly/pierced_helmet = new /obj/item/secbot_assembly(disassemble_turf)
+	pierced_helmet.build_step = 1
+	pierced_helmet.overlays += "hs_hole"
+	pierced_helmet.created_name = name
+	new /obj/item/robot_parts/l_arm(disassemble_turf) //We do not check for what kind of arms the bot has because griefskies MUST be built with two of each arms
+	new /obj/item/robot_parts/l_arm(disassemble_turf)
+	new /obj/item/robot_parts/r_arm(disassemble_turf)
+	new /obj/item/robot_parts/r_arm(disassemble_turf)
+	if(weapon == /obj/item/melee/energy/sword/saber)
+		log_and_message_admins("[key_name(usr)] has dismantled [src] containing energy sword(s)!")
+	new weapon(disassemble_turf)
+	new weapon(disassemble_turf)
+	new weapon(disassemble_turf)
+	new weapon(disassemble_turf)
+	qdel(src)
 
 //this section is blocking attack
-
 /mob/living/simple_animal/bot/secbot/griefsky/proc/special_retaliate_after_attack(mob/user)
 	if(icon_state != spin_icon)
 		return
