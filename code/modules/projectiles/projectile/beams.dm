@@ -133,9 +133,9 @@
 
 /obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
 	if(isreinforcedwallturf(target) && weakened_against_rwalls)
-		target.ex_act(3)
+		target.ex_act(EXPLODE_LIGHT)
 	else if(isturf(target) || isstructure(target) || ismachinery(target))
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
 	..()
 
 /obj/item/projectile/beam/pulse/shot
