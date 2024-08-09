@@ -249,6 +249,70 @@
 	construction_time = 13 SECONDS
 	category = list("Odysseus")
 
+//Nkarrdem
+/datum/design/nkarrdem_chassis
+	name = "Exosuit Chassis (\"Nkarrdem\")"
+	id = "nkarrdem_chassis"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/chassis/nkarrdem
+	materials = list(MAT_METAL=20000)
+	construction_time = 10 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_torso
+	name = "Exosuit Torso (\"Nkarrdem\")"
+	id = "nkarrdem_torso"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_torso
+	materials = list(MAT_METAL=12000)
+	construction_time = 18 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_head
+	name = "Exosuit Head (\"Nkarrdem\")"
+	id = "nkarrdem_head"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_head
+	materials = list(MAT_METAL=6000,MAT_GLASS=10000)
+	construction_time = 10 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_left_arm
+	name = "Exosuit Left Arm (\"Nkarrdem\")"
+	id = "nkarrdem_left_arm"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_left_arm
+	materials = list(MAT_METAL=6000)
+	construction_time = 12 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_right_arm
+	name = "Exosuit Right Arm (\"Nkarrdem\")"
+	id = "nkarrdem_right_arm"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_right_arm
+	materials = list(MAT_METAL=6000)
+	construction_time = 12 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_left_leg
+	name = "Exosuit Left Leg (\"Nkarrdem\")"
+	id = "nkarrdem_left_leg"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_left_leg
+	materials = list(MAT_METAL=12000)
+	construction_time = 13 SECONDS
+	category = list("Nkarrdem")
+
+/datum/design/nkarrdem_right_leg
+	name = "Exosuit Right Leg (\"Nkarrdem\")"
+	id = "nkarrdem_right_leg"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/part/nkarrdem_right_leg
+	materials = list(MAT_METAL=12000)
+	construction_time = 13 SECONDS
+	category = list("Nkarrdem")
+
 //Gygax
 /datum/design/gygax_chassis
 	name = "Exosuit Chassis (\"Gygax\")"

@@ -43,6 +43,27 @@
 	build_path = /obj/item/circuitboard/mecha/odysseus/peripherals
 	category = list("Exosuit Modules")
 
+// Nkarrdem
+/datum/design/nkarrdem_main
+	name = "Exosuit Board (\"Nkarrdem\" Central Control module)"
+	desc = "Allows for the construction of a \"Nkarrdem\" Central Control module."
+	id = "nkarrdem_main"
+	req_tech = list("programming" = 3,"biotech" = 3, "engineering" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/odysseus/main
+	category = list("Exosuit Modules")
+
+/datum/design/nkarrdem_peri
+	name = "Exosuit Board (\"Nkarrdem\" Peripherals Control module)"
+	desc = "Allows for the construction of a \"Nkarrdem\" Peripheral Control module."
+	id = "nkarrdem_peri"
+	req_tech = list("programming" = 3,"biotech" = 3, "engineering" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/odysseus/peripherals
+	category = list("Exosuit Modules")
+
 // Gygax
 /datum/design/gygax_main
 	name = "Exosuit Board (\"Gygax\" Central Control module)"
