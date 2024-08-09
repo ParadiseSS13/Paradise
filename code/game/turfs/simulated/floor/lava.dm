@@ -263,7 +263,7 @@
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
-//special turf for the asteroid core on EmeraldStation
+// special turf for the asteroid core on EmeraldStation
 /turf/simulated/floor/lava/plasma/fuming
 	name = "liquid plasma"
 	desc = "A bubbling pit of liquid plasma. It bubbles ominously."
