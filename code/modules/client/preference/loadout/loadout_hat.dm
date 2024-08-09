@@ -210,7 +210,7 @@
 /datum/gear/hat/beret_job/cargo
 	display_name = "Beret, cargo"
 	path = /obj/item/clothing/head/beret/cargo
-	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner")
+	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Explorer")
 
 /datum/gear/hat/beret_job/qm
 	display_name = "Beret, quartermaster"
