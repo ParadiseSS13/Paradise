@@ -471,7 +471,7 @@
 		if(!(C.department in supply_consoles))
 			continue
 		if(!supply_consoles[C.department] || length(supply_consoles[C.department] - mats_in_stock))
-			C.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, RQ_NORMALPRIORITY)
+			C.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, RQ_LOWPRIORITY)
 
 /obj/machinery/mineral/ore_redemption/proc/try_refill_storage(mob/living/silicon/robot/robot)
 	. = FALSE
