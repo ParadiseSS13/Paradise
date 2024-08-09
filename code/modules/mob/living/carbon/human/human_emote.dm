@@ -31,6 +31,35 @@
 			return TRUE
 	return ..()
 
+/datum/emote/living/carbon/human/hiss
+	key = "hiss"
+	key_third_person = "hisses"
+	message = "hisses."
+	message_mime = "hisses silently."
+	message_param = "hisses at %t."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("weak hissing", "irritated")
+
+/datum/emote/living/carbon/human/hiss/get_sound(mob/living/user)
+	var/mob/living/carbon/human/H = user
+	if(!istype(H) || H.mind?.miming)
+		return
+	return H.dna.species.hiss_sound
+
+/datum/emote/living/carbon/human/hiss/burn_hiss
+	key = "burn_hiss"
+	key_third_person = "burn_hisses"
+	message = "hisses as their skin peels off!"
+	message_mime = "grimaces as their skin peels off!."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	muzzled_noises = list("pained hissing")
+
+/datum/emote/living/carbon/human/burn_hiss/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	var/mob/living/carbon/human/H = user
+	if(!istype(H) || !intentional)
+		return
+
 /datum/emote/living/carbon/human/airguitar
 	key = "airguitar"
 	message = "is strumming the air and headbanging like a safari chimp."
@@ -696,18 +725,6 @@
 	message = "rumbles."
 	message_param = "rumbles at %t."
 
-/datum/emote/living/carbon/human/hiss
-	key = "hiss"
-	key_third_person = "hisses"
-	message = "hisses."
-	message_param = "hisses at %t."
-	species_type_whitelist_typecache = list(/datum/species/unathi)
-	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-	age_based = TRUE
-	// Credit to Jamius (freesound.org) for the sound.
-	sound = "sound/effects/unathihiss.ogg"
-	muzzled_noises = list("weak hissing")
-
 /datum/emote/living/carbon/human/creak
 	key = "creak"
 	key_third_person = "creaks"
@@ -794,15 +811,6 @@
 	volume = 80
 	muzzled_noises = list("annoyed")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-
-/datum/emote/living/carbon/human/hiss/tajaran
-	message_mime = "hisses silently."
-	species_type_whitelist_typecache = list(/datum/species/tajaran)
-	sound = "sound/effects/tajaranhiss.ogg"
-	volume = 80
-	muzzled_noises = list("irritated")
-	// catHisses1.wav by Zabuhailo. Edited.
-	// https://freesound.org/people/Zabuhailo/sounds/146963/
 
 /datum/emote/living/carbon/human/rattle
 	key = "rattle"

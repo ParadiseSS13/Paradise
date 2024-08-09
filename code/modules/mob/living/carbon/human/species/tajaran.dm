@@ -6,6 +6,7 @@
 	tail = "tajtail"
 	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
+	hiss_sound = 'sound/effects/tajaranhiss.ogg' 	// catHisses1.wav by Zabuhailo. Edited. https://freesound.org/people/Zabuhailo/sounds/146963/
 
 	blurb = "Tajaran hail from the mineral-rich arctic moon of Ahdomai. \
 	They were introduced into the galactic scene after the Skrellian discovery and were elevated to be associates to the Solar-Central Compact.<br/><br/> \
