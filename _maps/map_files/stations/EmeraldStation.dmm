@@ -76337,10 +76337,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block)
-"oTe" = (
-/obj/machinery/porta_turret/ai_turret,
-/turf/space,
-/area/space)
 "oTg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{
@@ -175355,7 +175351,7 @@ jnP
 jnP
 jnP
 jnP
-oTe
+jnP
 aZS
 jnP
 jnP
