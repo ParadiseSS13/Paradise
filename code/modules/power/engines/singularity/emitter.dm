@@ -302,6 +302,7 @@
 	else
 		fire_delay = rand(minimum_fire_delay, maximum_fire_delay)
 		shot_number = 0
+
 	P.setDir(dir)
 	P.starting = loc
 	P.Angle = null

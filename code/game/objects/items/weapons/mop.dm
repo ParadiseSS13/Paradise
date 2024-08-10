@@ -37,6 +37,7 @@
 		if(istype(O, /obj/structure/janitorialcart))
 			var/obj/structure/janitorialcart/janicart = O
 			if(!janicart.mymop)
+				janicart.mymop = src
 				janicart.put_in_cart(user, src)
 		return
 

@@ -217,9 +217,7 @@
 
 	var/success = FALSE
 	if(accept_hand)
-		if(!tool)
-			success = TRUE
-		if(isrobot(user) && istype(tool, /obj/item/gripper/medical))
+		if(!tool || HAS_TRAIT(tool, TRAIT_SURGICAL_OPEN_HAND))
 			success = TRUE
 
 	if(accept_any_item)
