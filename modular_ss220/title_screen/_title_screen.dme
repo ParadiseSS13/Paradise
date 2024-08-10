@@ -1,10 +1,11 @@
 #include "_title_screen.dm"
 
 #include "code/_title_screen_defines.dm"
+#include "code/asset_lobby.dm"
 #include "code/dead.dm"
 #include "code/living.dm"
-#include "code/asset_lobby.dm"
-#include "code/title_screen_datum.dm"
 #include "code/new_player.dm"
+#include "code/title_screen_configuration.dm"
 #include "code/title_screen_controls.dm"
+#include "code/title_screen_datum.dm"
 #include "code/title_screen_subsystem.dm"

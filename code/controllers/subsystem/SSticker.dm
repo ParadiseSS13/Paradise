@@ -348,7 +348,10 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
-			N.new_player_panel_proc()
+			// SS220 EDIT START - TITLE SCREEN REPLACEMENT
+			// N.new_player_panel_proc() // Old New Player panel
+			SStitle.show_title_screen_to(N.client) // New Title Screen
+			// SS220 EDIT END
 
 	SSnightshift.check_nightshift(TRUE)
 
