@@ -177,6 +177,8 @@
 #define kW *1000
 #define MW kW *1000
 #define GW MW *1000
+#define BASE_ENERGY_CONVERSION 4e-6
+#define BASE_POINTS 2
 
 /**
   * # Bluespace Harvester
@@ -231,12 +233,22 @@
 
 	// Tweak these and active_power_consumption to balance power generation
 
-	/// Max power input level, I don't expect this to be ever reached
+	/// Max power input level, I don't expect this to be ever reached. It has been reached.
 	var/max_level = 25
-	/// Amount of points to give per mining level
-	var/base_points = 4
+	/// amount of points generated per level for the first 10 levels
+	var/base_points = BASE_POINTS
+	/// amount of points generated per process cycle per unit of energy consumed
+	var/conversion_ratio = BASE_ENERGY_CONVERSION
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 15
+	/// Whether or not auto shutdown will engage when portals open
+	var/auto_shutdown = TRUE
+	/// Whether or not stabilizers will engage to prevent or reduce the chance of portals opening
+	var/stabilizers = TRUE
+	/// Amount of power the stabilizers consume
+	var/stabilizer_power = 0
+	/// Amount of overhead in levels. Each level of overhead allows stabilizing 15+overhead.
+	var/overhead = 0
 	/// When event triggers this will hold references to all portals so we can fix the sprite after they're broken
 	var/list/active_nether_portals = list()
 
@@ -393,24 +405,31 @@
 		return	// and no mining gets done
 	if(actual_power_usage)
 		consume_direct_power(actual_power_usage)
-		var/points_to_add = (input_level + emagged) * base_points
-		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
+		//2 points per level up to level 10 and 4 points per MW (or 5 when emmaged).
+		var/points_to_add = min(base_points * 10, base_points * input_level) + actual_power_usage * (conversion_ratio + emagged * 1e-6)
+		points += points_to_add	// point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
+	// Between levels 15 and 18 get one level of overhead per 5MW of surplus power. Above level 18 get 1 level per 10MW of surplus power.
+	overhead = input_level >= 18  ? get_surplus() * 1e-7 : get_surplus() * 2e-7
+	stabilizer_power = stabilizers && input_level > 15 ? input_level >= 18 ? min(get_surplus() , (input_level - 15) * 1e7) : min(get_surplus() , (input_level - 15) * 0.5e7) : 0
+	consume_direct_power(stabilizer_power)
 	// actual input level changes slowly
-	//holy shit every proccess this
-	if(input_level < desired_level && (get_surplus() >= get_power_use(input_level + 1)))
+	// holy shit every proccess this
+	if(input_level < desired_level && (get_surplus() + get_power_use(input_level) + stabilizer_power >= get_power_use(input_level + 1)))
 		input_level++
 		update_icon()
 	else if(input_level > desired_level)
 		input_level--
 		update_icon()
-	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
+	// Stabilizers reduce the chance of portals. prob with values less than 0 treat it as 0.
+	if(prob(input_level - (safe_levels + stabilizers * overhead) + (emagged * 5)))
 		var/area/our_area = get_area(src)
-		GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [our_area.name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
-		if(!emagged)
-			input_level = 0	//emergency shutdown unless we're sabotaged
+		if(!length(active_nether_portals))
+			GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [our_area.name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : auto_shutdown ? "Emergency shutdown initiated." : "Automatic shutdown disabled."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
+		if(!emagged && auto_shutdown)
+			input_level = 0	//emergency shutdown unless it is disabled
 			desired_level = 0
-		start_nether_portaling(rand(1, 3))
+		start_nether_portaling(rand(1 , 3) + max((level - 15 - overhead) / 3 , 0))
 
 /obj/machinery/power/bluespace_tap/proc/start_nether_portaling(amount)
 	var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
@@ -418,6 +437,8 @@
 	amount--
 	active_nether_portals += P
 	P.linked_source_object = src
+	// 1 Extra mob for each 2 levels above 15.
+	P.max_mobs = 5 + max((input_level - 15) / 2, 0)
 	update_icon()
 	if(amount)
 		addtimer(CALLBACK(src, PROC_REF(start_nether_portaling), amount), rand(3, 5) SECONDS)
@@ -429,12 +450,16 @@
 	data["inputLevel"] = input_level
 	data["points"] = points
 	data["totalPoints"] = total_points
-	data["powerUse"] = actual_power_usage
+	data["powerUse"] = actual_power_usage + stabilizer_power
 	data["availablePower"] = get_surplus()
 	data["maxLevel"] = max_level
 	data["emagged"] = emagged
 	data["safeLevels"] = safe_levels
 	data["nextLevelPower"] = get_power_use(input_level + 1)
+	data["autoShutown"] = auto_shutdown
+	data["overhead"] = overhead
+	data["stabilizers"] = stabilizers
+	data["stabilizerPower"] = stabilizer_power
 
 	/// A list of lists, each inner list equals a datum
 	var/list/listed_items = list()
@@ -498,6 +523,10 @@
 		if("vend")//it's not really vending as producing, but eh
 			var/key = text2num(params["target"])
 			produce(key)
+		if("auto_shutdown")
+			auto_shutdown = !auto_shutdown
+		if("stabilizers")
+			stabilizers = !stabilizers
 
 /obj/machinery/power/bluespace_tap/ui_state(mob/user)
 	return GLOB.default_state
@@ -513,14 +542,15 @@
 	if(emagged)
 		return
 	emagged = TRUE
+	desired_level = max_level
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+		user.visible_message("<span class='warning'>[user] disables the [src]'s safeties'.</span>", "<span class='warning'>You disable the [src]'s safeties'.</span>")
 	return TRUE
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS
-	max_mobs = 5		//Dont' want them overrunning the station
+	max_mobs = 5 // Don't want them overrunning the station
 	max_integrity = 250
 	/// the BSH that spawned this portal
 	var/obj/machinery/power/bluespace_tap/linked_source_object
@@ -556,3 +586,5 @@
 #undef kW
 #undef MW
 #undef GW
+#undef BASE_ENERGY_CONVERSION
+#undef BASE_POINTS

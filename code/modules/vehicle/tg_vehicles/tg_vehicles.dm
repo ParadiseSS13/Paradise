@@ -227,7 +227,6 @@
 /obj/tgvehicle/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!force && occupant_amount() >= max_occupants)
 		return FALSE
-
 	return ..()
 
 /obj/tgvehicle/zap_act(power, zap_flags)
