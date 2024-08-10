@@ -3954,7 +3954,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "azN" = (
 /obj/machinery/light/small,
 /obj/machinery/firealarm/directional/south,
@@ -14450,7 +14450,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "bGx" = (
 /obj/structure/bookcase/random{
 	name = "Forbidden Knowledge"
@@ -19014,7 +19014,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "ccF" = (
 /obj/structure/table,
 /obj/item/storage/box/evidence,
@@ -20516,7 +20516,7 @@
 	amount = 2
 	},
 /turf/space,
-/area/station/engineering/solar/starboard/aft)
+/area/station/engineering/solar/starboard)
 "cmo" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
@@ -26627,7 +26627,7 @@
 	icon_state = "0-2"
 	},
 /turf/space,
-/area/station/engineering/solar/starboard/aft)
+/area/station/engineering/solar/starboard)
 "cXJ" = (
 /turf/simulated/wall/r_wall,
 /area/station/hallway/spacebridge/cargocom)
@@ -27884,7 +27884,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/station/engineering/solar/starboard/aft)
+/area/station/engineering/solar/starboard)
 "dhu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
@@ -31943,7 +31943,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "dLh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -32830,6 +32830,14 @@
 	icon_state = "purple"
 	},
 /area/station/hallway/primary/aft/west)
+"dWQ" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/space,
+/area/station/engineering/solar/starboard)
 "dXx" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -35300,7 +35308,7 @@
 /obj/item/solar_assembly,
 /obj/item/tracker_electronics,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "eMc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -35820,7 +35828,7 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "eWa" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -36688,7 +36696,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/station/engineering/solar/starboard/aft)
+/area/station/engineering/solar/starboard)
 "fms" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -46463,6 +46471,9 @@
 /obj/structure/closet/secure_closet/research_reagents,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
+"iqA" = (
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/starboardsolar)
 "iqJ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
@@ -52368,7 +52379,7 @@
 	},
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "jVa" = (
 /obj/machinery/conveyor/auto{
 	dir = 4
@@ -53420,7 +53431,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/station/engineering/solar/starboard/aft)
+/area/station/engineering/solar/starboard)
 "knI" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/chef_recipes,
@@ -54875,7 +54886,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
 /turf/space,
-/area/station/engineering/solar/starboard/aft)
+/area/station/engineering/solar/starboard)
 "kLV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -56298,7 +56309,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "lht" = (
 /obj/structure/grille/broken,
 /obj/structure/disposalpipe/segment{
@@ -61596,7 +61607,7 @@
 /obj/structure/lattice,
 /obj/item/wirecutters,
 /turf/space,
-/area/station/engineering/solar/starboard/aft)
+/area/station/engineering/solar/starboard)
 "mLz" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 1;
@@ -64750,7 +64761,7 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "nLc" = (
 /obj/machinery/light{
 	dir = 8
@@ -67535,6 +67546,14 @@
 /obj/structure/sign/cargo,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
+"oEP" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboardsolar)
 "oEV" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plating,
@@ -69662,7 +69681,7 @@
 "plQ" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "pmA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -69701,7 +69720,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "pnd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -72003,7 +72022,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/station/engineering/solar/starboard/aft)
+/area/station/engineering/solar/starboard)
 "pWc" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -73053,7 +73072,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/station/engineering/solar/starboard/aft)
+/area/station/engineering/solar/starboard)
 "qke" = (
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
@@ -79673,6 +79692,10 @@
 	icon_state = "chapel"
 	},
 /area/station/service/chapel)
+"sox" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboardsolar)
 "soK" = (
 /obj/structure/closet,
 /obj/item/pickaxe,
@@ -82626,7 +82649,7 @@
 "tgI" = (
 /obj/structure/lattice,
 /turf/space,
-/area/station/engineering/solar/starboard/aft)
+/area/station/engineering/solar/starboard)
 "tgP" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -85078,7 +85101,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/station/engineering/solar/starboard/aft)
+/area/station/engineering/solar/starboard)
 "tVb" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "cell1";
@@ -97754,7 +97777,7 @@
 /obj/effect/spawner/airlock/e_to_w,
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar/aft)
+/area/station/maintenance/starboardsolar)
 "xxt" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -98792,6 +98815,10 @@
 	},
 /turf/space,
 /area/station/engineering/solar/starboard/aft)
+"xJR" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/station/engineering/solar/starboard)
 "xJW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -137623,15 +137650,15 @@ rNK
 rNK
 cmn
 tgI
-skB
-skB
-skB
+xJR
+xJR
+xJR
 cXC
 qkc
 qkc
 kLA
 tUG
-skB
+xJR
 rNK
 rNK
 rNK
@@ -137882,7 +137909,7 @@ pVK
 pVK
 pVK
 tgI
-xJM
+dWQ
 tgI
 knD
 pVK
@@ -138652,8 +138679,8 @@ rNK
 rNK
 rNK
 rNK
-eyH
-vUb
+sox
+oEP
 xxg
 bhO
 bhO
@@ -138909,9 +138936,9 @@ rNK
 rNK
 rNK
 rNK
-eyH
-vUb
-eyH
+sox
+oEP
+sox
 bhO
 bhO
 bhO
@@ -139165,11 +139192,11 @@ rNK
 rNK
 rNK
 bhO
-eyH
-eyH
-vUb
-eyH
-eyH
+sox
+sox
+oEP
+sox
+sox
 bhO
 hUU
 hUU
@@ -139422,7 +139449,7 @@ rNK
 rNK
 aXn
 bhO
-dGU
+iqA
 eVY
 dLb
 nKY
@@ -139936,11 +139963,11 @@ bhO
 bhO
 bhO
 bhO
-dGU
+iqA
 pnb
 eLX
 bGk
-dGU
+iqA
 pue
 mJk
 mJk
@@ -140193,8 +140220,8 @@ bhO
 bhO
 bhO
 bhO
-dGU
-dGU
+iqA
+iqA
 plQ
 plQ
 plQ
