@@ -161,11 +161,12 @@
 /datum/antagonist/mindflayer/proc/add_ability(datum/spell/flayer/to_add, set_owner = null, upgrade_type)
 	if(!to_add)
 		return
-	if(!has_ability(to_add))
+	var/datum/spell/flayer/spell = has_spell(to_add)
+	if(!spell)
 		log_debug("[to_add] not found in spell list, adding")
 		force_add_ability(to_add, set_owner)
 		return
-	force_upgrade_ability(to_add, upgrade_type)
+	force_upgrade_ability(spell, upgrade_type)
 
 /**
 * Adds a passive to a mindflayer if they don't already have it, upgrades it if they do.
@@ -176,11 +177,12 @@
 /datum/antagonist/mindflayer/proc/add_passive(datum/mindflayer_passive/to_add, upgrade_type) //Passives always need to have their owners set
 	if(!to_add)
 		return
-	if(!has_passive(to_add))
+	var/datum/mindflayer_passive/passive = has_passive(to_add)
+	if(!passive)
 		log_debug("[to_add] not found in spell list, adding")
 		force_add_passive(to_add)
 		return
-	force_upgrade_ability(to_add, upgrade_type)
+	force_upgrade_passive(passive, upgrade_type)
 /**
 * Adds an ability to a mindflayer, and sets the owner.
 * Arguments:
@@ -232,19 +234,25 @@
 /**
 * Checks if a mindflayer has a given spell already
 * * Arguments: to_get - Some datum/spell/flayer to check if a mindflayer has
-* * Returns: TRUE if the mindflayer has the power already, FALSE otherwise
+* * Returns: The datum/spell/mindflayer if the mindflayer has the power already, null otherwise
 */
-/datum/antagonist/mindflayer/proc/has_ability(datum/spell/flayer/to_get) // Still gotta test if this works as expected, but I think it does?
+/datum/antagonist/mindflayer/proc/has_spell(datum/spell/flayer/to_get) // Still gotta test if this works as expected, but I think it does?
 	log_debug("checking if [src] has [to_get]")
-	return (to_get in powers)
+	for(var/datum/spell/flayer/spell in powers)
+		if(to_get.name == spell.name)
+			return spell
+	return null
 /**
 * Checks if a mindflayer has a given passive already
 * * Arguments: to_get - Some datum/mindflayer_passive to check if a mindflayer has
-* * Returns: TRUE if the mindflayer has the passive already, FALSE otherwise
+* * Returns: The datum/mindflayer_passive if the mindflayer has the passive already, null otherwise
 */
 /datum/antagonist/mindflayer/proc/has_passive(datum/mindflayer_passive/to_get)
 	log_debug("checking if [src] has [to_get]")
-	return (to_get in powers)
+	for(var/datum/mindflayer_passive/spell in powers)
+		if(to_get.name == spell.name)
+			return spell
+	return null
 /*
 /datum/hud/proc/remove_mindflayer_hud() TODO: make this remove the mindflayer hud
 	static_inventory -= vampire_blood_display
@@ -261,4 +269,4 @@
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 			hud.static_inventory += hud.vampire_blood_display
 			hud.show_hud(hud.hud_version)
-		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color=[COLOR_PURPLE]>[usable_swarms]</font></div>"
+		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color=[COLOR_BLUE_LIGHT]>[usable_swarms]</font></div>"

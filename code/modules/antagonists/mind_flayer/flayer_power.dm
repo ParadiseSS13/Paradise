@@ -18,10 +18,11 @@
 	/// A reference to the owner mindflayer's antag datum.
 	var/datum/antagonist/mindflayer/flayer
 	var/level = 0
+	var/max_level = 1
 	/// Determines whether the power is always given to the mind flayer or if it must be purchased.
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
 	/// The cost of purchasing the power.
-	var/swarm_cost = 0
+	var/current_cost = 0
 	/// What `stat` value the mind flayer needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.
 	var/req_stat = CONSCIOUS
 	/// The class that this spell is for or CATEGORY_GENERAL to make it unrelated to a specific tree
@@ -78,9 +79,8 @@
 
 */
 
-/datum/spell/flayer/self/augment_menu/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
-	if(..())
-		return
+/datum/spell/flayer/self/augment_menu/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 
 /datum/spell/flayer/self/augment_menu/ui_data(mob/user)
 	var/datum/antagonist/mindflayer/MF = user.mind.has_antag_datum(/datum/antagonist/mindflayer)
@@ -90,7 +90,7 @@
 	return data
 
 /datum/spell/flayer/self/augment_menu/ui_static_data(mob/user)
-	var/list/data = flayer
+	var/list/data = flayer.ability_list
 	return data
 /*
 * Given a path, return TRUE if the path is a mindflayer spell, or FALSE otherwise. Only used to sort passives from spells.
@@ -106,16 +106,21 @@
 */
 
 /datum/antagonist/mindflayer/proc/try_purchase_spell(datum/spell/flayer/to_add)
-	if(to_add.swarm_cost > get_swarms())
-		send_swarm_message("We need more sustenance for this...")
-		return FALSE
+	var/datum/spell/flayer/existing_spell = has_spell(to_add)
+	if(existing_spell)
+		if(existing_spell.level >= to_add.max_level)
+			send_swarm_message("That function is already at it's strongest.")
+			return FALSE
+		to_add.current_cost = existing_spell.current_cost
 	if(category_stage[to_add.category] < to_add.stage)
 		send_swarm_message("We do not have all the knowledge needed for this...")
 		return FALSE
 	else if (category_stage[to_add.category] == to_add.stage)
 		category_stage[to_add.category] += 1
-
-	adjust_swarms(-to_add.swarm_cost)
+	if(to_add.current_cost > get_swarms())
+		send_swarm_message("We need more sustenance for this...")
+		return FALSE
+	adjust_swarms(-to_add.current_cost)
 	add_ability(to_add, src)
 	return TRUE
 
@@ -124,16 +129,21 @@
 * otherwise, returns FALSE
 */
 /datum/antagonist/mindflayer/proc/try_purchase_passive(datum/mindflayer_passive/to_add)
-	if(to_add.swarm_cost > get_swarms())
-		send_swarm_message("We need more sustenance for this...")
-		return FALSE
+	var/datum/mindflayer_passive/existing_passive = has_passive(to_add)
+	if(existing_passive)
+		if(existing_passive.level >= to_add.max_level)
+			send_swarm_message("That function is already at it's strongest.")
+			return FALSE
+		to_add.current_cost = existing_passive.current_cost
 	if(category_stage[to_add.category] < to_add.stage)
 		send_swarm_message("We do not have all the knowledge needed for this...")
 		return FALSE
 	else if (category_stage[to_add.category] == to_add.stage)
 		category_stage[to_add.category] += 1
-
-	adjust_swarms(-to_add.swarm_cost)
+	if(to_add.current_cost > get_swarms())
+		send_swarm_message("We need more sustenance for this...")
+		return FALSE
+	adjust_swarms(-to_add.current_cost)
 	add_passive(to_add, src)
 	return TRUE
 /*

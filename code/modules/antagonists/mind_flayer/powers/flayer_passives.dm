@@ -17,8 +17,10 @@
 	var/gain_text = "Someone forgot to add this text"
 	///Uses a power type define, should be FLAYER_UNOBTAINABLE_POWER, FLAYER_PURCHASABLE_POWER, or FLAYER_INNATE_POWER
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
-	///How much it will cost to buy a passive. Upgrading an ability increases the cost to the initial cost times the level.
-	var/swarm_cost = 30
+	///How much it will currently cost to buy a passive. Upgrading an ability increases the cost to the initial cost times the level.
+	var/current_cost = 30
+	///The base cost of an ability, used to calculate how much upgrades should cost.
+	var/base_cost
 	///If the passive is for a specific class, or CATEGORY_GENERAL if not
 	var/category = CATEGORY_GENERAL
 	///If the passive requires prerequisites, currently only important for badass.
@@ -33,20 +35,18 @@
 
 /datum/mindflayer_passive/processed/New()
 	START_PROCESSING(SSobj, src)
+	base_cost = current_cost
 
 /datum/mindflayer_passive/processed/Destroy(force, ...)
 	..()
 	STOP_PROCESSING(SSobj, src)
 
-///Returns false if it couldn't get upgraded, Call if(!..()) at the start of every passive's on_apply to properly apply the level check
+///This is where most passive's effects get applied
 /datum/mindflayer_passive/proc/on_apply()
 	SHOULD_CALL_PARENT(TRUE)
-	if(level >= max_level)
-		flayer.send_swarm_message("We cannot upgrade this aspect further.")
-		return FALSE
 	flayer.send_swarm_message("[level ? upgrade_text : gain_text]") //This will only be false when level = 0, when first bought
 	level = level + 1
-	swarm_cost = initial(swarm_cost) * level
+	current_cost = base_cost * (level + 1)
 	log_debug("[src] purchased at level [level], max level is [max_level]")
 	return TRUE
 
@@ -67,8 +67,7 @@
 	var/armor_value = 0
 
 /datum/mindflayer_passive/armored_plating/on_apply()
-	if(!..())
-		return FALSE
+	..()
 	var/owner_armor = owner.dna.species.armor
 	var/temp_armor_value = owner_armor - (5 * (level - 1)) // We store our current armor value here just in case they already have armor
 	armor_value = temp_armor_value + 5 * level
@@ -86,8 +85,7 @@
 	max_level = 2
 
 /datum/mindflayer_passive/fluid_feet/on_apply()
-	if(!..())
-		return FALSE
+	..()
 	switch(level)
 		if(POWER_LEVEL_ONE)
 			qdel(owner.GetComponent(/datum/component/footstep))
@@ -107,8 +105,7 @@
 	category = CATEGORY_DESTROYER
 
 /datum/mindflayer_passive/new_crit/on_apply()
-	if(!..())
-		return FALSE
+	..()
 	owner.dna.species.dies_at_threshold = FALSE
 
 /datum/mindflayer_passive/badass
@@ -117,12 +114,11 @@
 	gain_text = "Engaging explosion apathy protocols."
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_DESTROYER
-	swarm_cost = 100
+	current_cost = 100
 	stage = 2
 
 /datum/mindflayer_passive/badass/on_apply()
-	if(!..())
-		return FALSE
+	..()
 	ADD_TRAIT(owner, TRAIT_BADASS, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/badass/on_remove()
@@ -137,8 +133,7 @@
 	max_level = 2
 
 /datum/mindflayer_passive/emp_resist/on_apply()
-	if(!..())
-		return FALSE
+	..()
 	switch(level)
 		if(1)
 			ADD_TRAIT(owner, TRAIT_EMP_RESIST, UNIQUE_TRAIT_SOURCE(src))
@@ -157,8 +152,7 @@
 	max_level = 1
 
 /datum/mindflayer_passive/shock_resist/on_apply()
-	if(!..())
-		return FALSE
+	..()
 	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/shock_resist/on_remove()
@@ -185,11 +179,10 @@
 	upgrade_text = "Increasing visible wavelength to infrared."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
-	swarm_cost = 40
+	current_cost = 40
 
 /datum/mindflayer_passive/eye_enhancement/on_apply()
-	if(!..())
-		return FALSE
+	..()
 	switch(level)
 		if(1)
 			ADD_TRAIT(owner, TRAIT_NIGHT_VISION, UNIQUE_TRAIT_SOURCE(src))
@@ -211,11 +204,10 @@
 	upgrade_text = "MORE EFFICIENCY IS MORE GOOD WIP"
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
-	swarm_cost = 50
+	current_cost = 50
 
 /datum/mindflayer_passive/drain_speed/on_apply()
-	if(!..())
-		return FALSE
+	..()
 	flayer.drain_multiplier++
 
 /datum/mindflayer_passive/drain_speed/on_remove()
@@ -226,11 +218,10 @@
 	purchase_text = "Prevents your limbs from falling off due to damage."
 	gain_text = "Makes joints gooder"
 	max_level = 1
-	swarm_cost = 50
+	current_cost = 50
 
 /datum/mindflayer_passive/improved_joints/on_apply()
-	if(!..())
-		return FALSE
+	..()
 	ADD_TRAIT(owner, TRAIT_IPC_JOINTS_SEALED, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/improved_joints/on_remove()
