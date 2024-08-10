@@ -172,7 +172,7 @@ alter through varediting. For example changing the `pixel_x` variable from 23 to
 Unless they require custom placement, when placing the following items use the
 relevant directional mapper, as it has predefined pixel offsets and directions
 that are standardised: APC, Air alarm, Fire alarm, station intercom, newscaster,
-extinguisher cabient, light switches.
+extinguisher cabinet, light switches.
 
 ## Mapper Contribution Guidelines
 

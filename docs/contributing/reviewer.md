@@ -47,7 +47,7 @@ as developers suggesting changes to the authors proposed changes or providing
 critical review of a code structure; Ultimately, review is just a conversation
 between two developers. Feedback, questions, and advice are all **valid and
 necessary** parts of the code review as much as a code suggestion or comment may
-be. Infact, it may be even more important than suggesting the author change a
+be. In fact, it may be even more important than suggesting the author change a
 `src.loc` to a `loc`. Questions such as "What does X do?" or "I know that Y has
 done this before, what happens when Z?" ask the author to take a closer look at
 their own code and help you understand their intention and goals. Please note:
@@ -188,7 +188,7 @@ called. However, we know that `mob/user` will always be the user we need here
 Next, our first `to_chat` call is miss a span class definition. We will add that
 in `<span class='notice'>` and close it with `</span>` within the parentheses.
 With that in mind, we also notice that the second `to_chat` forgot to close
-their span, so we will do that aswell.
+their span, so we will do that as well.
 
 ```dm
 /obj/item/omega/attack_self(mob/user)
@@ -234,7 +234,7 @@ Lets make those corrections
 ```
 
 Now lets looks at the big picture, you may have noticed that we perform the same
-`istype` check **twice**. The author appears to have accidently added redundant
+`istype` check **twice**. The author appears to have accidentally added redundant
 code in their if check. Let's fix that for them:
 
 ```dm
@@ -314,4 +314,4 @@ should be treated as a learning experience.
 
 **This is the end of the guide**, I do hope to write an intermediate guide in
 the future but I hope this serves well as an entry into reviewing. As always,
-questions are always welcome (and criticism/reccomendations to this guide).
+questions are always welcome (and criticism/recommendations to this guide).

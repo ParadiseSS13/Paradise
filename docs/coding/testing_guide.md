@@ -100,7 +100,7 @@ buttons are very sparsely used, and likely not needed in your case).
 
 The runtime viewer interface is a menu that displays every runtime that
 occurred during the current round. It is available by clicking the *View
-Runtimes* verb under the debub tab.
+Runtimes* verb under the "Debug" tab.
 
 ![](./images/Runtime_Viewer.png)
 

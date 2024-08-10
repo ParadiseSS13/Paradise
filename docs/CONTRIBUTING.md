@@ -141,7 +141,7 @@ on Linux, you built one already to run the server.
 
 If you make changes to MILLA, you'll want to rebuild. This will be very similar
 to RUSTG: https://github.com/ParadiseSS13/rust-g The only difference is that you
-run `cargo` from the `milla/` directory, and don't need to speify
+run `cargo` from the `milla/` directory, and don't need to specify
 `--all-features` (though it doesn't hurt).
 
 The server will automatically detect that you have a local build, and use that

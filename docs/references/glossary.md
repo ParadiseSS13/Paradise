@@ -62,7 +62,11 @@ are shared by all DM objects."
 ## Baseturf
 An SS13 variable that saves the data of what is underneath if that that is
 removed. For example, under station floors there would be a space turf and under
-lavaland turfs there would be lava.
+Lavaland turfs there would be lava.
+
+## Buff
+A buff is a change to a gameplay mechanic that makes it more powerful or more
+useful. Generally the opposite of a [nerf](#nerf).
 
 ## Commit
 A record of files changed and how they were changed, they are each assigned a
@@ -76,9 +80,9 @@ to copy this from the config/example folder if you haven't already.
 From the [BYOND documentation](https://secure.byond.com/docs/ref/#/datum/):
 
 > "The datum object is the ancestor of all other data types in DM. (The only
-exceptions are currently /world, /client, /list, and /savefile, but those will
-be brought into conformance soon.) That means that the variables and procedures
-of /datum are inherited by all other types of objects."
+exceptions are currently `/world`, `/client`, `/list`, and `/savefile`, but
+those will be brought into conformance soon.) That means that the variables and
+procedures of /datum are inherited by all other types of objects."
 
 Datums are useful to represent abstractions that don't physically exist in the
 game world, such as information about a spell or a Syndicate uplink item. They
@@ -145,6 +149,11 @@ The process of merging master into your PR's branch, often to update it.
 ## Mob
 Mobs are "mobile objects", these include players and animals. This does not
 include stuff like conveyors.
+
+## Nerf
+Nerfs are changes to a gameplay mechanic that make it less powerful or decreases
+its utility, typically done for the sake of improving game balance and
+enjoyability. Generally the opposite of a [buff](#buff).
 
 ## NPFC
 "No Player-Facing Changes", used in the changelog of a PR, most often in

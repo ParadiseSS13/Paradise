@@ -13,7 +13,7 @@ Feedback data can be useful, depending on how you use it. You need to be careful
 with what you record to make sure you are not saving useless data. Examples of
 good things to record:
 
-- Antagonist win/loss rates if a new gamemode or antagonist is being added
+- Antagonist win/loss rates if a new game mode or antagonist is being added
 - Department performance (IE: Slime cores produced in science)
 - Basically anything which has actual meaning
 
@@ -29,7 +29,7 @@ for data *anyone* on the server can see, such as round end antagonist reports.
 
 ## Feedback Data Recording
 
-Feedback data can be reocrded in 5 formats. `amount`, `associative`, `nested
+Feedback data can be recorded in 5 formats. `amount`, `associative`, `nested
 tally`, `tally` and `text`.
 
 ### Amount
@@ -98,7 +98,7 @@ consistency.
 
 ### Nested Tally
 
-`nested tally` is used to track the number of occurances of structured
+`nested tally` is used to track the number of occurrences of structured
 semi-relational values (e.g.: the results of arcade machines). You can think of
 it as a running total, with the key being a list of strings (rather than a
 single string), with elements incrementally identifying the entity in question.
@@ -179,7 +179,7 @@ break when parsing.
 
 ### Tally
 
-`tally` is used to track the number of occurances of multiple related values
+`tally` is used to track the number of occurrences of multiple related values
 (e.g.: how many times each type of gun is fired). Further calls to the same key
 will add or subtract from the saved value of the data key if it already exists,
 and append the key and it's value if it doesn't exist.

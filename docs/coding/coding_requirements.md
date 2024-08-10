@@ -212,7 +212,7 @@ for addressing all forms of pronouns. This is useful in a number of ways;
 - BYOND's `\his` macro can be unpredictable on what object it references. Take
   this example: `"[user] waves \his [user.weapon] around, hitting \his
   opponents!"`. This will end up referencing the user's gender in the first
-  occurence, but what about the second? It'll actually print the gender set on
+  occurrence, but what about the second? It'll actually print the gender set on
   the weapon he's carrying, which is unintended - and there's no way around
   this.
 - It always prints the real `gender` variable of the atom it's referencing. This
@@ -276,7 +276,7 @@ spaces.
 
 Hacky code, such as adding specific checks (ex: `istype(src, /obj/whatever)`),
 is highly discouraged and only allowed when there is **_no_** other option.
-(Protip: 'I couldn't immediately think of a proper way so thus there must be no
+(Pro-tip: 'I couldn't immediately think of a proper way so thus there must be no
 other option' is not gonna cut it here! If you can't think of anything else, say
 that outright and admit that you need help with it. Maintainers, PR Reviewers,
 and other contributors who can help you exist for exactly that reason.)

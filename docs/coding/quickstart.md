@@ -378,8 +378,8 @@ More cases might be added later.
 #### Typo Or Grammar
 The easiest of them all if you can properly speak English. Say the multitool
 description text is: `"Used for pusling wires to test which to cut. Not
-recommended by doctors."` Then you can easily fix the typo by just changing the
-value of the string to the correct spelling.
+recommended by doctors."` Then you can easily fix the typo ("pusling" to
+"pulsing") by just changing the value of the string to the correct spelling.
 
 #### Wrong Logic
 This one really depends on the context. But let us take the following example.

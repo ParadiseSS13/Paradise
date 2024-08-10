@@ -28,7 +28,7 @@ We also recommend that when you touch older code, you document the functions tha
 have touched in the process of updating that code
 
 ### Specification
-A class *should* always be autodocumented, and all public functions *should* be
+A class *should* always be auto-documented, and all public functions *should* be
 documented.
 
 All class level defined variables *should* be documented.
@@ -60,7 +60,7 @@ the proc to jump to it's definition
 ### Documenting Classes
 We first give the name of the class as a header, this can be omitted if the name
 is just going to be the typepath of the class, as dmdoc uses that by default.
-Then we give a short oneline description of the class. Finally we give a longer
+Then we give a short one-line description of the class. Finally we give a longer
 multi paragraph description of the class and it's details.
 
 ```dm

@@ -295,7 +295,7 @@ can change these settings under `ruin_configuration`:
 ### Enabling or disabling station traits
 
 You can control whether roundstart station traits roll with the
-`add_random_station_traits` setting unde the `gamemode_configuration` section.
+`add_random_station_traits` setting under the `gamemode_configuration` section.
 
 ## Publishing Changes
 

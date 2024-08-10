@@ -33,7 +33,7 @@ The BYOND tick proceeds as follows:
 6. After SendMaps ends, client verbs sent to the server are executed, and it's
    the last major step before the next tick begins. During the course of the
    tick, a client can send a command to the server saying that they have
-   executed any verb. The actual code defined for that /verb/name() proc isnt
+   executed any verb. The actual code defined for that /verb/name() proc isn't
    executed until this point, and the way the MC is designed makes this
    especially likely to make verbs "overrun" the bounds of the tick they
    executed in, stopping the other tick from starting and thus delaying the MC

@@ -115,9 +115,10 @@ specific station layout to gain unique advantages over other players.
    but is not limited to: having a primary path that allows navigability from
    all entrances; providing ways for security to flank antagonists and
    coordinate ambushes at maintenance entrances; ensuring that the majority of
-   the primary corridors are 2 tiles wide to allow for serpentining and avoiding
-   projectiles; ensuring that dead ends are rare; and providing places for
-   antagonists to hide using hidden walls or similarly difficult to find places.
+   the primary corridors are 2 tiles wide to allow for serpentine movement and
+   avoiding projectiles; ensuring that dead ends are rare; and providing places
+   for antagonists to hide using hidden walls or similarly difficult to find
+   places.
 
 8. ***Allow for escape routes and antag break-in routes.*** Departments should
    be connected to maintenance through a back or side door. This lets players
