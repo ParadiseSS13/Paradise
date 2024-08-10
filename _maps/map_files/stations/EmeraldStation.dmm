@@ -15571,9 +15571,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/bluegrid,
 /area/station/telecomms/computer)
 "daX" = (
 /obj/structure/cable{
@@ -39818,13 +39816,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "hJb" = (
-/obj/structure/table,
-/obj/item/storage/box/donkpockets,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/tcomms/core/station,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit"
 	},
 /area/station/telecomms/computer)
 "hJc" = (
@@ -48289,6 +48286,9 @@
 "jvz" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/gravitygenerator)
+"jvB" = (
+/turf/simulated/floor/bluegrid,
+/area/station/telecomms/computer)
 "jvI" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -75463,10 +75463,20 @@
 	},
 /area/station/medical/virology/lab)
 "oLp" = (
-/obj/machinery/computer/message_monitor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/table,
+/obj/item/ashtray/glass{
+	pixel_x = -4;
+	pixel_y = -4
 	},
+/obj/item/phone{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_random{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/bluegrid,
 /area/station/telecomms/computer)
 "oLv" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -80327,13 +80337,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "pHA" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -3;
-	pixel_y = 6
+/obj/machinery/computer/message_monitor{
+	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit"
 	},
 /area/station/telecomms/computer)
 "pHB" = (
@@ -81347,9 +81355,6 @@
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/obj/structure/chair{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81639,6 +81644,14 @@
 	icon_state = "blackcorner"
 	},
 /area/station/public/storage/tools)
+"pUh" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/telecomms/computer)
 "pUk" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder{
@@ -84896,7 +84909,11 @@
 /obj/structure/sign/nosmoking_1{
 	pixel_y = 30
 	},
-/obj/machinery/tcomms/core/station,
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94430,25 +94447,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/aisat/breakroom)
 "sqy" = (
-/obj/structure/table,
-/obj/item/ashtray/glass{
-	pixel_x = -4;
-	pixel_y = -4
-	},
-/obj/item/phone{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/storage/fancy/cigarettes/cigpack_random{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/blackbox_recorder,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit"
 	},
 /area/station/telecomms/computer)
 "sqB" = (
@@ -102069,6 +102070,12 @@
 	dir = 1
 	},
 /area/station/science/test_chamber)
+"tMb" = (
+/obj/structure/filingcabinet,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/telecomms/computer)
 "tMm" = (
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
@@ -104836,6 +104843,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"uoX" = (
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/telecomms/computer)
 "uoY" = (
 /obj/structure/table,
 /obj/structure/sign/poster/official/random{
@@ -106776,9 +106792,7 @@
 /area/station/medical/psych)
 "uJm" = (
 /obj/machinery/porta_turret/ai_turret,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/bluegrid,
 /area/station/telecomms/computer)
 "uJn" = (
 /obj/machinery/door/airlock/multi_tile{
@@ -114515,9 +114529,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/bluegrid,
 /area/station/telecomms/computer)
 "wiZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -173810,13 +173822,13 @@ und
 ykW
 oEy
 und
-ykW
+uoX
 baF
 ykW
 uJm
 ykW
 dNk
-ykW
+tMb
 und
 aTO
 aTO
@@ -174068,9 +174080,9 @@ oyW
 oyW
 und
 qBl
+jvB
 ykW
-ykW
-ykW
+jvB
 ykW
 daQ
 wqP
@@ -174326,9 +174338,9 @@ aZS
 und
 oLp
 pRO
-ykW
-ykW
-ykW
+jvB
+pUh
+jvB
 fLI
 wiW
 und
