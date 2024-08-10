@@ -10,6 +10,7 @@
 	category = CATEGORY_INTRUDER
 	centcom_cancast = FALSE
 	var/obj/machinery/computer/marked_computer = null
+	stage = 2
 
 /datum/spell/flayer/computer_recall/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -42,6 +43,7 @@
 	animate(user, 0.5 SECONDS, 0, transform = shrank, pixel_x = 32 * direction_signs[1], pixel_y = 32 * direction_signs[2], dir = direction, easing = BACK_EASING|EASE_IN) //Blue skadoo, we can too!
 	user.Immobilize(0.5 SECONDS)
 	sleep(0.5 SECONDS)
+	user.Beam(marked_computer, icon_state = "purple_lightning", icon ='icons/effects/effects.dmi', time = 1 SECONDS, maxdistance = INFINITY)
 	user.forceMove(end_turf)
 	user.pixel_x = 0 //Snap back to the center, then animate the un-shrinking
 	user.pixel_y = 0
