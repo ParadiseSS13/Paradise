@@ -927,12 +927,13 @@ blood_dna: list of blood DNAs stored in each atom in blood_DNA variable or in ge
 b_color: blood color, simple. If there will be null, the blood will be red, otherwise the color you pass
 amount: amount of "blood charges" you want to give to the gloves, that will be used to make items/walls bloody.
 	You can make something bloody this amount - 1 times.
-	If this variable will be null, amount will be set randomly from 2 to 4
+	If this variable will be null, amount will be set randomly from 2 to max_amount
+max_amount: if amount is not set, amount will be random from 2 to this value, default 4
 */
-/obj/item/clothing/gloves/add_blood(list/blood_dna, b_color, amount)
+/obj/item/clothing/gloves/add_blood(list/blood_dna, b_color, amount, max_amount = 4)
 	. = ..()
 	if(isnull(amount))
-		transfer_blood = rand(2, 4)
+		transfer_blood = rand(2, max_amount)
 	else
 		transfer_blood = max(1, amount)
 

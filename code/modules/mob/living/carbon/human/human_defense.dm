@@ -623,17 +623,18 @@ blood_dna: list of blood DNAs stored in each atom in blood_DNA variable or in ge
 b_color: blood color, simple. If there will be null, the blood will be red, otherwise the color you pass
 amount: amount of "blood charges" you want to give, that will be used to make items/walls bloody.
 	You can make something bloody this amount - 1 times.
-	If this variable will be null, amount will be set randomly from 2 to 4
+	If this variable will be null, amount will be set randomly from 2 to max_amount
+max_amount: if amount is not set, amount will be random from 2 to this value, default 4
 */
-/mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color, amount)
+/mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color, amount, max_amount = 4)
 	if(isnull(b_color))
 		b_color = "#A10808"
 	if(gloves)
-		gloves.add_blood(blood_dna, blood_color, amount)
+		gloves.add_blood(blood_dna, blood_color, amount, max_amount)
 	else
 		hand_blood_color = b_color
 		if(isnull(amount))
-			bloody_hands = rand(2, 4)
+			bloody_hands = rand(2, max_amount)
 		else
 			bloody_hands = max(1, amount)
 		transfer_blood_dna(blood_dna)
