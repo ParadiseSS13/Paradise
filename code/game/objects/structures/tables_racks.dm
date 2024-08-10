@@ -325,7 +325,7 @@
 	return T.straight_table_check(direction)
 
 /obj/structure/table/AltShiftClick(mob/living/carbon/human/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped || is_ventcrawling(user))
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped || is_ventcrawling(user) || !istype(mob))
 		return
 
 	if(!flipped)
@@ -333,7 +333,7 @@
 			to_chat(user, "<span class='notice'>It won't budge.</span>")
 			return
 
-		user.visible_message("<span class='warning'>[user] flips \the [src]!</span>")
+		user.visible_message("<span class='warning'>[user] flips [src]!</span>")
 
 		if(climbable)
 			structure_shaken()
