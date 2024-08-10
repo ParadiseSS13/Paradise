@@ -325,28 +325,59 @@
 	return T.straight_table_check(direction)
 
 /obj/structure/table/AltShiftClick(mob/living/carbon/human/user)
-	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped || is_ventcrawling(user) || !istype(mob))
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped || is_ventcrawling(user))
 		return
 
+	var/flip_speed = get_flip_speed(user)
+
 	if(!flipped)
+
+		if(flip_speed > 0)
+			user.visible_message("<span class='warning'[user] starts trying to flip [src]!</span>")
+			if(!do_after(user, flip_speed, TRUE, src))
+				user.visible_message("<span class='notice'[user] gives up on trying to flip [src].</span>")
+				return
 		if(!flip(get_cardinal_dir(user, src)))
 			to_chat(user, "<span class='notice'>It won't budge.</span>")
 			return
+
+
 
 		user.visible_message("<span class='warning'>[user] flips [src]!</span>")
 
 		if(climbable)
 			structure_shaken()
 	else
+		if(flip_speed > 0)
+			user.visible_message("<span class='warning'[user] starts trying to right [src]!</span>")
+			if(!do_after(user, flip_speed, TRUE, src))
+				user.visible_message("<span class='notice'[user] gives up on trying to right [src].</span>")
+				return
 		if(!unflip())
 			to_chat(user, "<span class='notice'>It won't budge.</span>")
+		user.visible_message("<span class='warning'>[user] rights [src]!</span>")
+
+
+/obj/structure/table/proc/get_flip_speed(mob/living/flipper)
+	if(!istype(flipper))
+		return 0  // sure
+	if(!issimple_animal(flipper))
+		return 0
+	switch(flipper.mob_size)
+		if(MOB_SIZE_TINY)
+			return 30 SECONDS  // you can do it but you gotta *really* work for it
+		if(MOB_SIZE_SMALL)
+			return 5 SECONDS  // not gonna terrorize anything
+		else
+			return 1 SECONDS
+
 
 /obj/structure/table/proc/flip(direction)
 	if(flipped)
-		return 0
+		return FALSE
 
 	if(!straight_table_check(turn(direction,90)) || !straight_table_check(turn(direction,-90)))
-		return 0
+		return FALSE
 
 	dir = direction
 	if(dir != NORTH)
@@ -370,7 +401,7 @@
 	if(isturf(loc))
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 
-	return 1
+	return TRUE
 
 /obj/structure/table/proc/unflip()
 	if(!flipped)
