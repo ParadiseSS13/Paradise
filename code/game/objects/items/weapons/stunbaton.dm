@@ -359,7 +359,7 @@
 /obj/item/melee/baton/flayerprod/attack_self(mob/user)
 	return
 
-/obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown)
+/obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown, ignore_shield_check = FALSE)
 	if(..())
 		disable_radio(L)
 		addtimer(CALLBACK(src, PROC_REF(enable_radio), L), 6 SECONDS) //Currently, the baton disables radio on hit for 6 seconds, values can be tweaked
