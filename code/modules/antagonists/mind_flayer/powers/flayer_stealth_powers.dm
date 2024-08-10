@@ -62,3 +62,15 @@
 	to_chat(user, "<span class='notice'>Use this power again to return to revert the changes.</span>")
 	return TRUE
 
+/datum/spell/flayer/self/dump_coolant
+	name = "Dump Coolant"
+	desc = "Smoke for running away"
+	power_type = FLAYER_PURCHASABLE_POWER
+	category = CATEGORY_INTRUDER
+	base_cooldown = 15 SECONDS
+
+/datum/spell/flayer/self/dump_coolant/cast(list/targets, mob/living/user)
+	var/datum/effect_system/smoke_spread/smoke = new
+	smoke.set_up(15, FALSE, user)
+	smoke.start()
+
