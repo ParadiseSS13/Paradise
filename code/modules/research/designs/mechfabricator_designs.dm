@@ -771,7 +771,7 @@
 	name = "Exosuit Janitorial Equipment (Cleaning Grenade Launcher)"
 	id = "mech_cleaning_grenade_launcher"
 	build_type = MECHFAB
-	req_tech = list("toxins" = 7, "engineering" = 7, "plasmatech" = 6)
+	req_tech = list("toxins" = 7, "engineering" = 7, "plasmatech" = 6, "combat" = 6)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner
 	materials = list(MAT_METAL=5000,MAT_GLASS=3000,MAT_SILVER=4000,MAT_GOLD=6000)
 	construction_time = 10 SECONDS
