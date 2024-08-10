@@ -1,6 +1,6 @@
 
 /obj/structures/plasmageyser
-	name = "Plasma Vent"
+	name = "Plasma Geyser"
 	desc = "A mound of basalt rock, erupting with bubbling molten plasma. It constantly emits toxic fumes."
 	anchored = TRUE
 	icon = 'icons/obj/lavaland/geyser.dmi'

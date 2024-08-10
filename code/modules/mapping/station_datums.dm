@@ -27,7 +27,7 @@
 	fluff_name = "NSS Seraphim"
 	technical_name = "EmeraldStation"
 	map_path = "_maps/map_files/stations/emeraldstation.dmm"
-	webmap_url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUIcmlja3JvbGw%3D"
+	webmap_url = "https://affectedarc07.co.uk/emerald.html"
 
 /datum/map/test_tiny
 	fluff_name = "test_tiny"
