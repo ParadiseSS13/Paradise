@@ -43,7 +43,9 @@
 	animate(user, 0.5 SECONDS, 0, transform = shrank, pixel_x = 32 * direction_signs[1], pixel_y = 32 * direction_signs[2], dir = direction, easing = BACK_EASING|EASE_IN) //Blue skadoo, we can too!
 	user.Immobilize(0.5 SECONDS)
 	sleep(0.5 SECONDS)
-	user.Beam(marked_computer, icon_state = "purple_lightning", icon ='icons/effects/effects.dmi', time = 1 SECONDS, maxdistance = INFINITY)
+	target.Beam(marked_computer, icon_state = "rped_upgrade", icon ='icons/effects/effects.dmi', time = 3 SECONDS, maxdistance = INFINITY)
+	playsound(start_turf, 'sound/items/pshoom.ogg', 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(end_turf, 'sound/items/pshoom.ogg', 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	user.forceMove(end_turf)
 	user.pixel_x = 0 //Snap back to the center, then animate the un-shrinking
 	user.pixel_y = 0
