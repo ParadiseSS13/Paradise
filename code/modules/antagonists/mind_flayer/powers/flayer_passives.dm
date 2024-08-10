@@ -21,6 +21,8 @@
 	var/swarm_cost = 30
 	///If the passive is for a specific class, or CATEGORY_GENERAL if not
 	var/category = CATEGORY_GENERAL
+	///If the passive requires prerequisites, currently only important for badass.
+	var/stage = 0
 
 ///For passives that need to use SSObj
 /datum/mindflayer_passive/processed
@@ -116,6 +118,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_DESTROYER
 	swarm_cost = 100
+	stage = 2
 
 /datum/mindflayer_passive/badass/on_apply()
 	if(!..())

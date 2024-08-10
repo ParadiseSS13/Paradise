@@ -16,6 +16,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 40 SECONDS //25% uptime
 	category = CATEGORY_DESTROYER
+	stage = 2
 
 /datum/spell/flayer/self/adaptive_coating/cast(list/targets, mob/user)
 	ADD_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, UID())

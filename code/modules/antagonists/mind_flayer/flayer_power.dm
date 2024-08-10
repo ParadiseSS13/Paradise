@@ -24,8 +24,6 @@
 	var/swarm_cost = 0
 	/// What `stat` value the mind flayer needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.
 	var/req_stat = CONSCIOUS
-	/// If it's only unlocked after buying a different ability, or abilities. Should be a list of ability paths required for purchase.
-	var/list/prerequisite = list()
 	/// The class that this spell is for or CATEGORY_GENERAL to make it unrelated to a specific tree
 	var/category = CATEGORY_GENERAL
 	/// The current `stage` that we are on for our powers. Currently only hides powers of a higher stage. TODO: IMPLEMENT CORRECTLY WHEN TGUI IS ROLLING
@@ -41,7 +39,7 @@
 	flayer = null
 	return ..()
 
-///The shop for purchasing and upgrading abilities
+///The shop for purchasing and upgrading abilities, from here on the rest of the file is just handling shopping. Specific powers are in the powers subfolder.
 /datum/spell/flayer/self/augment_menu
 	name = "Self-Augment Operations"
 	desc = "Choose how we will upgrade ourselves."
@@ -74,55 +72,82 @@
 	var/path = tgui_input_list(user, "whaddya wanna buy", "Buy power", all_powers)
 	if(!path)
 		return
-	on_purchase(user, flayer, path)
+	on_purchase(user, path)
 
 /* This is all the TGUI stuff that will need to be fleshed out once I figure out all the stuff I need to get the data working
+
+*/
 
 /datum/spell/flayer/self/augment_menu/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
 	if(..())
 		return
 
 /datum/spell/flayer/self/augment_menu/ui_data(mob/user)
-	var/datum/antagonist/mindflayer/MF = user.has_antag_datum(/datum/antagonist/mindflayer)
+	var/datum/antagonist/mindflayer/MF = user.mind.has_antag_datum(/datum/antagonist/mindflayer)
 	var/list/data = list(
 		"usable_swarms" = MF.usable_swarms,
 		"purchased_abilities" = MF.powers)
 	return data
 
 /datum/spell/flayer/self/augment_menu/ui_static_data(mob/user)
-	var/list/data = flayer.purchasable_abilities
+	var/list/data = flayer
 	return data
-*/
-
 /*
 * Given a path, return TRUE if the path is a mindflayer spell, or FALSE otherwise. Only used to sort passives from spells.
 */
 /datum/antagonist/mindflayer/proc/is_path_spell(path)
 	var/spell = new path() //No need to give it an owner since we're just checking the type
 	return isspell(spell)
+
+
+/*Given a spell, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
+* If so it adds the ability and increments the category stage if needed, then returns TRUE
+* otherwise, returns FALSE
+*/
+
+/datum/antagonist/mindflayer/proc/try_purchase_spell(datum/spell/flayer/to_add)
+	if(to_add.swarm_cost > get_swarms())
+		send_swarm_message("We need more sustenance for this...")
+		return FALSE
+	if(category_stage[to_add.category] < to_add.stage)
+		send_swarm_message("We do not have all the knowledge needed for this...")
+		return FALSE
+	else if (category_stage[to_add.category] == to_add.stage)
+		category_stage[to_add.category] += 1
+
+	adjust_swarms(-to_add.swarm_cost)
+	add_ability(to_add, src)
+	return TRUE
+
+/*Given a passive, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
+* If so it adds the ability and increments the category stage if needed, then returns TRUE
+* otherwise, returns FALSE
+*/
+/datum/antagonist/mindflayer/proc/try_purchase_passive(datum/mindflayer_passive/to_add)
+	if(to_add.swarm_cost > get_swarms())
+		send_swarm_message("We need more sustenance for this...")
+		return FALSE
+	if(category_stage[to_add.category] < to_add.stage)
+		send_swarm_message("We do not have all the knowledge needed for this...")
+		return FALSE
+	else if (category_stage[to_add.category] == to_add.stage)
+		category_stage[to_add.category] += 1
+
+	adjust_swarms(-to_add.swarm_cost)
+	add_passive(to_add, src)
+	return TRUE
 /*
- * Mindflayer code relies on on_purchase to grant powers. It first splits up whether the path bought was a passive or spell, then checks if the flayer can afford it.
+ * Mindflayer code relies on on_purchase to grant powers and passives. It first splits up whether the path bought was a passive or spell, then checks if the flayer can afford it.
  * Returns TRUE if an ability was added, FALSE otherwise
  */
 
-/datum/spell/flayer/proc/on_purchase(mob/user, datum/antagonist/mindflayer/C, datum/path)
+/datum/spell/flayer/proc/on_purchase(mob/user, datum/path)
 	SHOULD_CALL_PARENT(TRUE)
-	if(!user || !user.mind || !C)
+	if(!user || !user.mind || !flayer)
 		qdel(src)
 		return FALSE
-	var/is_spell = C.is_path_spell(path)
-	if(is_spell)
+	if(flayer.is_path_spell(path))
 		var/datum/spell/flayer/to_add = new path(user)
-		if(to_add.swarm_cost > flayer.get_swarms())
-			flayer.send_swarm_message("We need more sustenance for this...")
-			return FALSE
-		flayer.adjust_swarms(-to_add.swarm_cost)
-		flayer.add_ability(to_add, flayer)
-		return TRUE
+		return flayer.try_purchase_spell(to_add)
 	var/datum/mindflayer_passive/to_add = new path(user) //If its not a spell, it's a passive
-	if(to_add.swarm_cost > flayer.get_swarms())
-		flayer.send_swarm_message("We need more sustenance for this...")
-		return FALSE
-	flayer.adjust_swarms(-to_add.swarm_cost)
-	flayer.add_passive(to_add)
-	return TRUE
+	return flayer.try_purchase_passive(to_add)
