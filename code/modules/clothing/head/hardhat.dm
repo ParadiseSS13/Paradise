@@ -104,3 +104,9 @@
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
+
+/obj/item/clothing/head/hardhat/atmos/runed
+	name = "runed firefighting helmet"
+	desc = "A firefighter's helmet, able to keep the user cool in any situation. Runes engraved on the inside reinforces its armor."
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	resistance_flags = FIRE_PROOF | ACID_PROOF

@@ -345,6 +345,17 @@
 		new /obj/item/reagent_containers/pill/lazarus_reagent(src)
 		new /obj/item/reagent_containers/pill/rezadone(src)
 
+/obj/item/storage/pill_bottle/cleric
+	wrapper_color = COLOR_BLUE_LIGHT
+
+/obj/item/storage/pill_bottle/cleric/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/pill/salbutamol(src)
+		new /obj/item/reagent_containers/pill/pentetic(src)
+		new /obj/item/reagent_containers/pill/mannitol(src)
+		new /obj/item/reagent_containers/pill/lazarus_reagent(src)
+		new /obj/item/reagent_containers/pill/hydrocodone(src)
+
 /obj/item/storage/pill_bottle/MouseDrop(obj/over_object) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(over_object))
 		var/mob/living/carbon/C = over_object
@@ -435,3 +446,11 @@
 	for(var/I in 1 to 5)
 		new /obj/item/reagent_containers/patch/silver_sulf/small(src)
 		new /obj/item/reagent_containers/patch/styptic/small(src)
+
+/obj/item/storage/pill_bottle/patch_pack/cleric
+	wrapper_color = COLOR_BLUE_LIGHT
+
+/obj/item/storage/pill_bottle/patch_pack/cleric/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/reagent_containers/patch/silver_sulf(src)
+		new /obj/item/reagent_containers/patch/styptic(src)

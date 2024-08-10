@@ -180,6 +180,13 @@
 	if(emagged)
 		reagents.check_and_add("lube", volume, 2 * coeff)
 
+//CLF3 spray
+/obj/item/reagent_containers/spray/clf3
+	name = "fire spray"
+	desc = "A spray bottle full of fiery goodness."
+	list_reagents = list("clf3" = 250)
+	icon_state = "fire_spray"
+
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
 	name = "spray tan"

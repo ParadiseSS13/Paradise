@@ -634,7 +634,16 @@
 	item_path = /obj/item/contract
 	category = "Summons"
 	limit = 1
-	is_ragin_restricted = TRUE //We have enough wizards already! Sheesh!
+	is_ragin_restricted = TRUE // We have enough wizards already! Sheesh!
+
+/datum/spellbook_entry/item/summonpartymember
+	name = "Summon Party Member"
+	desc = "Reinforce your party with your choice of Cleric, Barbarian, or Warrior! Due to lack of staffing, we've 'convinced' Nanotrasen's HR department to help us out. \
+		Three party members can be summoned."
+	item_path = /obj/item/contract/partymember
+	category = "Summons"
+	limit = 3
+	cost = 1
 
 /datum/spellbook_entry/item/tarotdeck
 	name = "Guardian Deck"
@@ -738,11 +747,20 @@
 	if(istype(O, /obj/item/contract))
 		var/obj/item/contract/contract = O
 		if(contract.used)
-			to_chat(user, "<span class='warning'>The contract has been used, you can't get your points back now!</span>")
-		else
-			to_chat(user, "<span class='notice'>You feed the contract back into the spellbook, refunding your points.</span>")
-			uses+=2
-			qdel(O)
+			to_chat(user, "<span class='warning'>The contract has been used, or is in the process of summoning!</span>")
+			return
+		if(istype(contract,	/obj/item/contract))
+			uses += 2
+			for(var/datum/spellbook_entry/item/contract/entry in entries)
+				if(!isnull(entry.limit))
+					entry.limit++
+		if(istype(contract,	/obj/item/contract/partymember))
+			uses += 1
+			for(var/datum/spellbook_entry/item/summonpartymember/entry in entries)
+				if(!isnull(entry.limit))
+					entry.limit++
+		to_chat(user, "<span class='notice'>You feed the contract back into the spellbook, refunding your points.</span>")
+		qdel(O)
 		return
 
 	if(istype(O, /obj/item/antag_spawner/slaughter_demon))

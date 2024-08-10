@@ -58,6 +58,13 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/fire/atmos/runed
+	name = "runed firesuit"
+	desc = "An expensive firesuit that protects against even the most deadly of station fires. Glowing runes on the inside of the suit keep it lightweight and slightly reinforces its armor."
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	slowdown = 0
+
 /*
  * Bomb protection
  */

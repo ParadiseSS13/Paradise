@@ -182,6 +182,16 @@
 	new /obj/item/stack/cable_coil(src, 30, COLOR_BLUE)
 	update_icon()
 
+/obj/item/storage/belt/utility/barbarian/populate_contents()
+	new /obj/item/screwdriver(src)
+	new /obj/item/wrench(src)
+	new /obj/item/weldingtool(src)
+	new /obj/item/crowbar/power(src)
+	new /obj/item/multitool(src)
+	new /obj/item/extinguisher/mini(src)
+	new /obj/item/stack/cable_coil/random(src, 30)
+	update_icon()
+
 /obj/item/storage/belt/medical
 	name = "medical belt"
 	desc = "Can hold various medical equipment."

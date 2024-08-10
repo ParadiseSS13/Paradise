@@ -278,6 +278,12 @@
 	icon_state = "riot-sec"
 	item_state = "swat_suit"
 
+/obj/item/clothing/suit/armor/riot/runed
+	name = "runed riot suit"
+	desc = "A suit of armor with heavy padding to protect against melee attacks. Glowing runes on the inside reinforces its armor."
+	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
 	desc = "A classic suit of plate armour, highly effective at stopping melee attacks."

@@ -96,6 +96,12 @@
 	strip_delay = 80
 	dog_fashion = null
 
+/obj/item/clothing/head/helmet/riot/runed
+	name = "runed riot helmet"
+	desc = "It's a helmet specifically designed to protect against close range attacks. Runes on the inside reinforces its armor."
+	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
 /obj/item/clothing/head/helmet/riot/knight
 	name = "medieval helmet"
 	desc = "A classic metal helmet."

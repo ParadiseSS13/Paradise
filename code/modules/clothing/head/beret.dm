@@ -145,6 +145,12 @@
 	desc = "A white beret with a green cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "beret_med"
 
+/obj/item/clothing/head/beret/med/runed
+	name = "runed beret"
+	desc = "A white beret with a green cross finely threaded into it. Protectives runes are drawn on its side."
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
 //Cargo
 /obj/item/clothing/head/beret/qm
 	name = "quartermaster's beret"

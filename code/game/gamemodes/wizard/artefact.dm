@@ -4,11 +4,15 @@
 	name = "contract"
 	desc = "A magic contract previously signed by an apprentice. In exchange for instruction in the magical arts, they are bound to answer your call for aid."
 	icon = 'icons/obj/wizard.dmi'
-	icon_state ="scroll2"
+	icon_state = "scroll2"
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE
+	var/tgui_window = "WizardApprenticeContract"
+	var/datum_to_spawn = /datum/antagonist/wizard/apprentice
+	var/poll_question = "Do you want to play as the wizard apprentice?"
+	var/poll_role = "wizard apprentice"
 
 /obj/item/contract/ui_state(mob/user)
 	return GLOB.inventory_state
@@ -16,7 +20,7 @@
 /obj/item/contract/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "WizardApprenticeContract", name)
+		ui = new(user, src, tgui_window, name)
 		ui.open()
 
 /obj/item/contract/ui_data(mob/user)
@@ -39,12 +43,15 @@
 	var/mob/living/carbon/human/H = user
 	used = TRUE
 
+	poll_role = "[action] [poll_role]"
+	poll_question = "Do you want to play as the [poll_role] of [H.real_name]?"
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, TRUE, source = source)
+	var/list/candidates = SSghost_spawns.poll_candidates(poll_question, ROLE_WIZARD, TRUE, role_cleanname = poll_role, source = source)
 
 	if(!length(candidates))
 		used = FALSE
-		to_chat(H, "<span class='warning'>Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
+		poll_role = initial(poll_role)
+		to_chat(H, "<span class='warning'>Unable to summon! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
 		return
 	new /obj/effect/particle_effect/smoke(get_turf(H))
 
@@ -52,7 +59,7 @@
 	var/mob/living/carbon/human/M = new /mob/living/carbon/human(get_turf(H))
 	M.key = C.key
 
-	var/datum/antagonist/wizard/apprentice/apprentice = new /datum/antagonist/wizard/apprentice()
+	var/datum/antagonist/wizard/apprentice/apprentice = new datum_to_spawn()
 	apprentice.my_teacher = H
 	apprentice.class_type = action
 	M.mind.add_antag_datum(apprentice)
@@ -64,11 +71,20 @@
 		return
 
 	if(used)
-		to_chat(user, "<span class='warning'>You've already summoned an apprentice or you are in process of summoning one.</span>")
+		to_chat(user, "<span class='warning'>You've already used this scroll or you are in process of using it.</span>")
 		return
 
 	ui_interact(user)
 
+/////////Party Member Contract//////////
+
+/obj/item/contract/partymember
+	name = "party member contract"
+	desc = "A magic contract summoning a party member to assist you."
+	tgui_window = "WizardPartyMemberContract"
+	datum_to_spawn = /datum/antagonist/wizard/apprentice/partymember
+	poll_question = "Do you want to play as the wizard's party member?"
+	poll_role = "party member"
 
 ///////////////////////////Veil Render//////////////////////
 
