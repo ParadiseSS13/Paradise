@@ -145,14 +145,14 @@
 	var/datum/tarot/our_tarot
 	/// Our fancy description given to use by the tarot datum.
 	var/card_desc = "Untold answers... wait what? This is a bug, report this as an issue on github!"
+	/// Used for examine_more, for what cards do
+	var/card_extended_desc = "will make the user report this as an bug on the github!"
 	/// Is the card face down? Shows the card back, hides the examine / name.
 	var/face_down = FALSE
 	/// Will this card automatically disappear if thrown at a non-mob?
 	var/needs_mob_target = TRUE
 	/// Has the card been activated? If it has, don't activate it again
 	var/has_been_activated = FALSE
-	/// Used for examine_more, for what cards do
-	var/card_extended_desc = "will make you report this as an bug on the github!"
 
 /obj/item/magic_tarot_card/Initialize(mapload, obj/item/tarot_generator/source, datum/tarot/chosen_tarot)
 	. = ..()
@@ -266,7 +266,7 @@
 	/// Desc used for the card description of the card
 	var/desc = "Untold answers... wait what? This is a bug, report this as an issue on github!"
 	/// Extended desc for the cards. For what they do
-	var/extended_desc = "Asks you to report this as a bug on the github!"
+	var/extended_desc = "asks you to report this as a bug on the github!"
 	/// What icon is used for the card?
 	var/card_icon = "the_unknown"
 	/// Are we reversed? Used for the card back.
@@ -294,7 +294,7 @@
 /datum/tarot/the_magician
 	name = "I - The Magician"
 	desc = "May you never miss your goal."
-	extended_desc = "makes the user feel extraordinarily <b>badass</b> for a couple of minutes"
+	extended_desc = "makes the user feel extraordinarily badass for a couple of minutes."
 	card_icon = "the_magician"
 
 /datum/tarot/the_magician/activate(mob/living/target)
@@ -529,7 +529,7 @@
 /datum/tarot/the_tower
 	name = "XVI - The Tower"
 	desc = "Destruction brings creation."
-	extended_desc = "contains the raw power of the grey tide within. Summons a primed cluster IED"
+	extended_desc = "contains the raw power of the grey tide within. Summons a primed cluster IED."
 	card_icon = "the_tower"
 
 /datum/tarot/the_tower/activate(mob/living/target)
@@ -698,7 +698,7 @@
 /datum/tarot/reversed/the_empress
 	name = "III - The Empress?"
 	desc = "May your love bring protection."
-	extended_desc = "will leave anyone within range unable to commit an act of violence, aside from the user."
+	extended_desc = "will leave anyone within range unable to commit an act of violence for 40 seconds, aside from the user."
 	card_icon = "the_empress?"
 
 /datum/tarot/reversed/the_empress/activate(mob/living/target)
