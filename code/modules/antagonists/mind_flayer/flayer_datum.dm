@@ -49,6 +49,9 @@
 		var/difference = usable_swarms - old_swarm_amount
 		total_swarms_gathered += difference
 
+/*
+* amount - The positive or negative number to adjust the swarm count by, result clamped above 0
+*/
 /datum/antagonist/mindflayer/proc/adjust_swarms(amount, bound_lower = 0, bound_upper = INFINITY)
 	set_swarms(directional_bounded_sum(usable_swarms, amount, bound_lower, bound_upper), TRUE)
 
@@ -70,7 +73,7 @@
 		send_swarm_message("This brain does not contain the spark that feeds us. Find more suitable prey.")
 		return FALSE
 **/
-	if(brain.damage >= 119)
+	if(brain.damage >= 120)
 		send_swarm_message("We detect no neural activity to harvest from this brain.")
 		return FALSE
 	var/unique_drain_id = H.UID()
@@ -88,9 +91,16 @@
 	var/drain_total_damage = 0
 	var/obj/item/organ/internal/brain/drained_brain = H.get_int_organ(/obj/item/organ/internal/brain)
 	var/unique_drain_id = H.UID()
-	owner.current.visible_message("<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting their brain!</span>", "<span class='sinister'>We begin our harvest on [H]</span>", "<span class='notice'>You hear the hum of electricity.</span>")
-	while(do_mob(owner.current, H, time = DRAIN_TIME, progress = FALSE) && check_valid_harvest(H))
-		H.Beam(owner.current, icon_state = "drain_life", icon ='icons/effects/effects.dmi', time = DRAIN_TIME)
+	owner.current.visible_message("<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>", "<span class='sinister'>We begin our harvest on [H]</span>", "<span class='notice'>You hear the hum of electricity.</span>")
+	if(!do_mob(owner.current, H, time = 2 SECONDS))
+		send_swarm_message("Our connection was incomplete...")
+		harvesting = null
+		return
+	while(do_mob(owner.current, H, time = DRAIN_TIME, progress = FALSE))
+		if(!check_valid_harvest(H))
+			harvesting = null
+			return
+		H.Beam(owner.current, icon_state = "drain_life", icon ='icons/effects/effects.dmi', time = DRAIN_TIME, beam_color = COLOR_ASSEMBLY_PURPLE)
 		var/damage_to_deal = (1/2 * drain_multiplier * H.dna.species.brain_mod) // Change that first fraction for adjusting the balance of how much damage per tick there is
 		H.adjustBrainLoss(damage_to_deal, use_brain_mod = FALSE) //No need to use brain damage modification since we already got it from the previous line
 		adjust_swarms(damage_to_deal)
@@ -152,6 +162,7 @@
 	if(!to_add)
 		return
 	if(!has_ability(to_add))
+		log_debug("[to_add] not found in spell list, adding")
 		force_add_ability(to_add, set_owner)
 		return
 	force_upgrade_ability(to_add, upgrade_type)
@@ -166,6 +177,7 @@
 	if(!to_add)
 		return
 	if(!has_passive(to_add))
+		log_debug("[to_add] not found in spell list, adding")
 		force_add_passive(to_add)
 		return
 	force_upgrade_ability(to_add, upgrade_type)
@@ -223,6 +235,7 @@
 * * Returns: TRUE if the mindflayer has the power already, FALSE otherwise
 */
 /datum/antagonist/mindflayer/proc/has_ability(datum/spell/flayer/to_get) // Still gotta test if this works as expected, but I think it does?
+	log_debug("checking if [src] has [to_get]")
 	return (to_get in powers)
 /**
 * Checks if a mindflayer has a given passive already
@@ -230,6 +243,7 @@
 * * Returns: TRUE if the mindflayer has the passive already, FALSE otherwise
 */
 /datum/antagonist/mindflayer/proc/has_passive(datum/mindflayer_passive/to_get)
+	log_debug("checking if [src] has [to_get]")
 	return (to_get in powers)
 /*
 /datum/hud/proc/remove_mindflayer_hud() TODO: make this remove the mindflayer hud
@@ -241,10 +255,10 @@
 	if(owner.current.hud_used)
 		var/datum/hud/hud = owner.current.hud_used
 		if(!hud.vampire_blood_display)
-			hud.vampire_blood_display = new /obj/screen()
+			hud.vampire_blood_display = new /atom/movable/screen()
 			hud.vampire_blood_display.name = "Usable Swarms"
 			hud.vampire_blood_display.icon_state = "blood_display"
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 			hud.static_inventory += hud.vampire_blood_display
 			hud.show_hud(hud.hud_version)
-		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[usable_swarms]</font></div>"
+		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color=[COLOR_PURPLE]>[usable_swarms]</font></div>"
