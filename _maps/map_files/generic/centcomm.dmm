@@ -2359,9 +2359,8 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "ip" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ghost_bar)
 "iq" = (
 /obj/machinery/door/poddoor/impassable{
@@ -4394,11 +4393,6 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
-"oH" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
-/area/ghost_bar)
 "oI" = (
 /obj/effect/spawner/lootdrop/trade_sol/civ,
 /obj/structure/closet,
@@ -6164,6 +6158,10 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/gamma/space)
+"uS" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
 "uT" = (
 /obj/machinery/teleport/hub/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -6229,9 +6227,8 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "vh" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken2"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "vj" = (
 /obj/effect/decal/cleanable/blood,
@@ -8712,11 +8709,6 @@
 /obj/structure/chair/comfy/black,
 /turf/simulated/floor/carpet,
 /area/centcom/control)
-"EX" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/ghost_bar)
 "EZ" = (
 /obj/machinery/computer/bsa_control/admin,
 /turf/simulated/floor/carpet,
@@ -11878,11 +11870,6 @@
 	icon_state = "darkred"
 	},
 /area/centcom/gamma)
-"Pt" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
-/area/centcom/evac)
 "Pu" = (
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
@@ -35002,9 +34989,9 @@ wK
 wK
 wK
 wK
-wK
-wK
-wK
+uS
+uS
+uS
 wK
 wK
 wK
@@ -45825,7 +45812,7 @@ nC
 Il
 Ng
 Ng
-Pt
+vh
 Ng
 El
 Xx
@@ -72307,11 +72294,11 @@ vd
 vd
 rf
 Me
-EX
+ip
 Jy
 Jy
 Jy
-oH
+ip
 Jy
 Jy
 Jy
