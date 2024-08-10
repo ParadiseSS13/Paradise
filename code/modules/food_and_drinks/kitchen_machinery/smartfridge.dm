@@ -713,7 +713,7 @@
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/disk
-		))
+	))
 
 /obj/machinery/smartfridge/disks/update_fridge_contents()
 	switch(length(contents))
