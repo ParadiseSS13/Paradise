@@ -190,7 +190,7 @@
 		if(60 to 74) // i want it to be in the 'smoke' range at ~40 heat so as magic smoke is sudden but quick reaction time can stop it
 			. += "<span class='warning'>[src] is so hot it hurts to hold.</span>"
 		if(75 to INFINITY)
-			. += "<span class='warning'>[src] is emitting it's magic smoke, and is practically melting.</span>"
+			. += "<span class='warning'>[src] is emitting its magic smoke and is practically melting.</span>"
 
 /obj/item/gun/medbeam/damaged/process()
 	. = ..()
