@@ -25,6 +25,7 @@ BONUS
 	transmittable = 0
 	level = 1
 	severity = 1
+	treatments = list("hydrocodone", "morphine", "sal_acid")
 
 /datum/symptom/headache/Activate(datum/disease/advance/A)
 	..()

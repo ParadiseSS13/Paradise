@@ -25,6 +25,7 @@ Bonus
 	transmittable = -1
 	level = 4
 	severity = 2
+	treatments = list("antihol" , "ephedrine")
 
 /datum/symptom/dizzy/Activate(datum/disease/advance/A)
 	..()

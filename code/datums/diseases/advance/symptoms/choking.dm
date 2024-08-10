@@ -24,6 +24,7 @@ Bonus
 	transmittable = -4
 	level = 3
 	severity = 3
+	treatments = list("perfluorodecalin")
 
 /datum/symptom/choking/Activate(datum/disease/advance/A)
 	..()

@@ -13,7 +13,7 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana",
 					"nothing","potato","milk","soymilk","cream","coffee","tea","icecoffee",
 					"icetea","cola","nuka_cola","spacemountainwind","thirteenloko","dr_gibb",
-					"space_up","lemon_lime","beer","whiskey","gin","rum","vodka","holywater",
+					"space_up","lemon_lime","triple_citrus","beer","whiskey","gin","rum","vodka","holywater",
 					"tequila","vermouth","wine","tonic","kahlua","cognac","ale","sodawater",
 					"ice","bilk","atomicbomb","threemileisland","goldschlager","patron","gintonic",
 					"cubalibre","whiskeycola","martini","vodkamartini","whiterussian","screwdrivercocktail",
@@ -28,6 +28,7 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 					"arnold_palmer","gimlet","sidecar","whiskeysour","mintjulep","pinacolada","sontse","ahdomaieclipse",
 					"beachfeast","fyrsskartears","junglevox","slimemold","dieseife","aciddreams","islaywhiskey","ultramatter",
 					"howler", "dionasmash"))
+
 
 //Liver Toxins list
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))

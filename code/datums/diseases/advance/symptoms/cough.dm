@@ -24,6 +24,7 @@ BONUS
 	transmittable = 2
 	level = 1
 	severity = 1
+	treatments = list("salbutamol", "perfluorodecalin")
 
 /datum/symptom/cough/Activate(datum/disease/advance/A)
 	..()

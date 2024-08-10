@@ -23,6 +23,7 @@ Bonus
 	stage_speed = -4
 	transmittable = -4
 	level = 6
+	treatments = list("frostoil")
 
 /datum/symptom/heal/Activate(datum/disease/advance/A)
 	..()

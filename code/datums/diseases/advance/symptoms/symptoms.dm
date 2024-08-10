@@ -15,6 +15,7 @@ GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 	var/severity = 0
 	// The hash tag for our diseases, we will add it up with our other symptoms to get a unique id! ID MUST BE UNIQUE!!!
 	var/id = ""
+	var/list/treatments = list()
 
 /datum/symptom/New()
 	var/list/S = GLOB.list_symptoms

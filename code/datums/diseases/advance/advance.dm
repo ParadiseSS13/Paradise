@@ -1,3 +1,6 @@
+// A 1 in 30 chance of new strain every 600 cycles.
+#define STRAIN_CHANCE 0.000057
+
 /*
 
 	Advance Disease is a system for Virologist to Engineer their own disease with symptoms that have effects and properties
@@ -9,12 +12,26 @@
 GLOBAL_LIST_EMPTY(archive_diseases)
 
 // The order goes from easy to cure to hard to cure.
-GLOBAL_LIST_INIT(advance_cures, list(
+GLOBAL_LIST_INIT(standard_cures, list(
 									"sodiumchloride", "sugar", "orangejuice",
 									"spaceacillin", "salglu_solution", "ethanol",
 									"teporone", "diphenhydramine", "lipolicide",
 									"silver", "gold"
 ))
+
+GLOBAL_LIST_INIT(advanced_cures, list(
+									"atropine", "mitocholide", "lazarus_reagent",
+									"cryoxadone", "pen_acid", "haloperidol",
+									"degreaser", "perfluorodecalin"
+))
+
+GLOBAL_LIST_INIT(plant_cures,list(
+									"bicaridine", "kelotane", "omnizine",
+ 									"synaptizine", "weak_omnizine", "morphine",
+									"cbd", "thc", "nicotine" , "psilocybin"
+))
+
+
 
 /*
 
@@ -37,6 +54,8 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
 	var/processing = FALSE
+	/// A unique id for the strain. Uses the unique_datum_id of the first virus datum that is of that strain.
+	var/strain = ""
 
 /*
 
@@ -47,17 +66,27 @@ GLOBAL_LIST_INIT(advance_cures, list(
 /datum/disease/advance/New(process = 1, datum/disease/advance/D)
 	if(!istype(D))
 		D = null
+
+	// whether to generate a new cure or not
+	var/new_cure = TRUE
+
 	// Generate symptoms if we weren't given any.
-
 	if(!symptoms || !length(symptoms))
-
 		if(!D || !D.symptoms || !length(D.symptoms))
 			symptoms = GenerateSymptoms(0, 2)
 		else
 			for(var/datum/symptom/S in D.symptoms)
 				symptoms += new S.type
+	// Copy cure and strain if we are given one
+	if(D && length(D.cures))
+		for(var/r in D.cures)
+			cures += r
+			cure_text = D.cure_text
+		strain = D.strain
+		new_cure = FALSE
 
-	Refresh()
+	Refresh(FALSE, FALSE , new_cure)
+
 	..(process, D)
 	return
 
@@ -72,14 +101,21 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	if(!..())
 		return FALSE
 	if(symptoms && length(symptoms))
-
+		var/list/mob_reagents = list()
+		for(var/datum/reagent/chem in affected_mob.reagents.reagent_list)
+			mob_reagents += chem.id
 		if(!processing)
 			processing = TRUE
 			for(var/datum/symptom/S in symptoms)
 				S.Start(src)
-
+		var/treated = FALSE
 		for(var/datum/symptom/S in symptoms)
-			S.Activate(src)
+			treated = FALSE
+			for(var/treatment in S.treatments)
+				if(treatment in mob_reagents)
+					treated = TRUE
+			if(!treated)
+				S.Activate(src)
 	else
 		CRASH("We do not have any symptoms during stage_act()!")
 	return TRUE
@@ -177,9 +213,9 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	return generated
 
-/datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE)
+/datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE, new_cure = TRUE)
 	var/list/properties = GenerateProperties()
-	AssignProperties(properties)
+	AssignProperties(properties, new_cure)
 	id = null
 
 	if(!GLOB.archive_diseases[GetDiseaseID()])
@@ -210,8 +246,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	return properties
 
 // Assign the properties that are in the list.
-/datum/disease/advance/proc/AssignProperties(list/properties = list())
-
+/datum/disease/advance/proc/AssignProperties(list/properties = list(), new_cure = TRUE)
 	if(properties && length(properties))
 		switch(properties["stealth"])
 			if(2)
@@ -225,7 +260,8 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
 		stage_prob = max(properties["stage rate"], 2)
 		SetSeverity(properties["severity"])
-		GenerateCure(properties)
+		if(new_cure)
+			GenerateCure(properties)
 	else
 		CRASH("Our properties were empty or null!")
 
@@ -264,18 +300,26 @@ GLOBAL_LIST_INIT(advance_cures, list(
 			severity = "Unknown"
 
 
+/datum/disease/advance/proc/CurePick(list/curelist = list())
+	var/list/options = curelist - cures
+	return pick(options)
+
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
+	strain = unique_datum_id
 	if(properties && length(properties))
-		var/res = clamp(properties["resistance"] - (length(symptoms) / 2), 1, length(GLOB.advance_cures))
-//		to_chat(world, "Res = [res]")
-		cures = list(GLOB.advance_cures[res])
-
-		// Get the cure name from the cure_id
-		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
-		cure_text = D.name
-
-
+		var/res = clamp((properties["resistance"] - length(symptoms) / 2) / 2 , 1 , length(GLOB.advanced_cures))
+		cures = list()
+		cure_text = ""
+		cures += pick(GLOB.standard_cures)
+		if(res > 1)
+			cures += prob(50) ? CurePick(GLOB.advanced_cures) : CurePick(GLOB.plant_cures)
+		if(res > 2)
+			cures += prob(50) ? CurePick(GLOB.plant_cures) : CurePick(GLOB.drinks)
+		for(var/cure in cures)
+			// Get the cure name from the cure_id
+			var/datum/reagent/D = GLOB.chemical_reagents_list[cure]
+			cure_text += cure_text == "" ? "[D.name]" : ", [D.name]"
 	return
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
@@ -306,7 +350,11 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		var/list/L = list()
 		for(var/datum/symptom/S in symptoms)
 			L += S.id
-		L = sortList(L) // Sort the list so it doesn't matter which order the symptoms are in.
+		L = sortList(L) // Sort the list so it doesn't matter which order the symptoms are in and add the strain to the end
+		if(strain)
+			L += strain
+		else
+			L += "origin"
 		var/result = jointext(L, ":")
 		id = result
 	return id

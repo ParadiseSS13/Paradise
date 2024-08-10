@@ -24,6 +24,7 @@ Bonus
 	transmittable = -3
 	level = 5
 	severity = 4
+	treatments = list("occuline")
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
 	..()
