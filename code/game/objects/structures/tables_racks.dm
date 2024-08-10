@@ -333,7 +333,7 @@
 	if(!flipped)
 
 		if(flip_speed > 0)
-			user.visible_message("<span class='warning'[user] starts trying to flip [src]!</span>")
+			user.visible_message("<span class='warning'[user] starts trying to flip [src]!</span>", "<span class='warning'>You start trying to flip [src][flip_speed >= 5 SECONDS ? " (it'll take about [flip_speed / 10] seconds)." : ""].</span>")
 			if(!do_after(user, flip_speed, TRUE, src))
 				user.visible_message("<span class='notice'[user] gives up on trying to flip [src].</span>")
 				return
@@ -349,7 +349,7 @@
 			structure_shaken()
 	else
 		if(flip_speed > 0)
-			user.visible_message("<span class='warning'[user] starts trying to right [src]!</span>")
+			user.visible_message("<span class='warning'[user] starts trying to right [src]!</span>", "<span class='warning'>You start trying to right [src][flip_speed >= 5 SECONDS ? " (it'll take about [flip_speed / 10] seconds)." : ""]</span>")
 			if(!do_after(user, flip_speed, TRUE, src))
 				user.visible_message("<span class='notice'[user] gives up on trying to right [src].</span>")
 				return
