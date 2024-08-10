@@ -187,11 +187,9 @@
 	desc = "An arm-mounted cannon that can shoot concentrated bursts, or a spread shot of flak."
 	flags = ABSTRACT | NODROP
 	requires_tank = FALSE
-	max_weight_class = 5
+	max_weight_class = 6 //Lets you load upto 3 shrapnel at once
 	pressure_setting = 2
-	var/charge_time = 15 SECONDS
-	///If the cannon is going to condense the shots, or focus them on one turf
-	var/spread_shot = FALSE
+	var/charge_time = 5 SECONDS
 	COOLDOWN_DECLARE(charge_cooldown)
 
 /obj/item/pneumatic_cannon/flayer/New()
@@ -202,18 +200,13 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/pneumatic_cannon/flayer/attack_self(mob/user)
-	spread_shot = !(spread_shot)
-	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
-	to_chat(user, "<span class='notice'>You switch the cannon to [spread_shot ? "spread" : "focus"]-shot mode.</span>")
-
 /obj/item/pneumatic_cannon/flayer/process()
 	if(!COOLDOWN_FINISHED(src, charge_cooldown))
 		return
-	if(loaded_weight_class >= max_weight_class)
-		return
+	if(loaded_weight_class >= max_weight_class) //LOOK AT THIS GIANT BLOCK OF COMMENTS ITS IMPORTANT
+		return //									ME AND I BOTH KNOW THAT IF THERE ISN'T A BIG NOTICEABLE THING I MIGHT FORGET
 	COOLDOWN_START(src, charge_cooldown, 1 SECONDS) //TODO ONLY FOR DEBUGGING!!!!!!!!!!!!
-	var/obj/item/shrapnel/to_load = new /obj/item/shrapnel()
+	var/obj/item/shrapnel/to_load = new /obj/item/shrapnel() //DONT MISS THE TODO
 	load_item(to_load)
 
 /obj/item/pneumatic_cannon/flayer/load_item(obj/item/I)
@@ -221,21 +214,6 @@
 	loaded_weight_class += I.w_class
 	I.forceMove(src)
 
-/obj/item/pneumatic_cannon/flayer/fire(mob/living/carbon/human/user, atom/target)
-	if(spread_shot)
-		var/target_range = (get_dist_euclidian(user, target) + 2) //Get a turf slightly behind the target
-		var/left_target = get_ranged_target_turf_direct(user.loc, target, target_range, -40) //-40 degrees, slightly below a full cone
-		var/right_target = get_ranged_target_turf_direct(user.loc, target, target_range, 40) //40 degrees
-		var/list/line = get_line(left_target, right_target) //the COOOOOOOOONE!
-		playsound(loc, 'sound/weapons/resonator_fire.ogg', 50, TRUE)
-		for(var/obj/item/loaded_item in loaded_items)
-			var/turf_to_throw_at = pick(line)
-			loaded_items.Remove(loaded_item)
-			loaded_weight_class -= loaded_item.w_class
-			loaded_item.forceMove(get_turf(src))
-			loaded_item.throw_at(turf_to_throw_at, target_range, 3, user)
-	else
-		..()
 
 /obj/item/pneumatic_cannon/flayer/wrench_act(mob/living/user, obj/item/I)
 	return FALSE
