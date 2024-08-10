@@ -15,7 +15,7 @@
 	action_background_icon_state = "bg_vampire" // TODO: flayer background
 	human_req = TRUE
 	clothes_req = FALSE
-	/// A reference to the mind flayer's antag datum.
+	/// A reference to the owner mindflayer's antag datum.
 	var/datum/antagonist/mindflayer/flayer
 	var/level = 0
 	/// Determines whether the power is always given to the mind flayer or if it must be purchased.
@@ -75,7 +75,6 @@
 	if(!path)
 		return
 	on_purchase(user, flayer, path)
-	flayer.send_swarm_message("nice one dude")
 
 /* This is all the TGUI stuff that will need to be fleshed out once I figure out all the stuff I need to get the data working
 
@@ -102,20 +101,28 @@
 	var/spell = new path() //No need to give it an owner since we're just checking the type
 	return isspell(spell)
 /*
- * Mindflayer code relies on on_purchase to grant powers.
- * The same goes for Remove(). if you override Remove(), call parent or else your power wont be removed on respec TODO: make Remove()
+ * Mindflayer code relies on on_purchase to grant powers. It first splits up whether the path bought was a passive or spell, then checks if the flayer can afford it.
+ * Returns TRUE if an ability was added, FALSE otherwise
  */
 
 /datum/spell/flayer/proc/on_purchase(mob/user, datum/antagonist/mindflayer/C, datum/path)
 	SHOULD_CALL_PARENT(TRUE)
 	if(!user || !user.mind || !C)
 		qdel(src)
-		return
+		return FALSE
 	var/is_spell = C.is_path_spell(path)
 	if(is_spell)
 		var/datum/spell/flayer/to_add = new path(user)
-		flayer.add_ability(to_add, C)
+		if(to_add.swarm_cost > flayer.get_swarms())
+			flayer.send_swarm_message("We need more sustenance for this...")
+			return FALSE
+		flayer.adjust_swarms(-to_add.swarm_cost)
+		flayer.add_ability(to_add, flayer)
 		return TRUE
 	var/datum/mindflayer_passive/to_add = new path(user) //If its not a spell, it's a passive
+	if(to_add.swarm_cost > flayer.get_swarms())
+		flayer.send_swarm_message("We need more sustenance for this...")
+		return FALSE
+	flayer.adjust_swarms(-to_add.swarm_cost)
 	flayer.add_passive(to_add)
 	return TRUE

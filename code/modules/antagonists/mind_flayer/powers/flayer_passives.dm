@@ -18,7 +18,7 @@
 	///Uses a power type define, should be FLAYER_UNOBTAINABLE_POWER, FLAYER_PURCHASABLE_POWER, or FLAYER_INNATE_POWER
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
 	///How much it will cost to buy a passive. Upgrading an ability increases the cost to the initial cost times the level.
-	var/cost = 30
+	var/swarm_cost = 30
 	///If the passive is for a specific class, or CATEGORY_GENERAL if not
 	var/category = CATEGORY_GENERAL
 
@@ -44,7 +44,8 @@
 		return FALSE
 	flayer.send_swarm_message("[level ? upgrade_text : gain_text]") //This will only be false when level = 0, when first bought
 	level = level + 1
-	cost = initial(cost) * level
+	swarm_cost = initial(swarm_cost) * level
+	log_debug("[src] purchased at level [level], max level is [max_level]")
 	return TRUE
 
 /datum/mindflayer_passive/proc/on_remove()
@@ -114,7 +115,7 @@
 	gain_text = "Engaging explosion apathy protocols."
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_DESTROYER
-	cost = 100
+	swarm_cost = 100
 
 /datum/mindflayer_passive/badass/on_apply()
 	if(!..())
@@ -181,7 +182,7 @@
 	upgrade_text = "Increasing visible wavelength to infrared."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
-	cost = 40
+	swarm_cost = 40
 
 /datum/mindflayer_passive/eye_enhancement/on_apply()
 	if(!..())
@@ -207,7 +208,7 @@
 	upgrade_text = "MORE EFFICIENCY IS MORE GOOD WIP"
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
-	cost = 50
+	swarm_cost = 50
 
 /datum/mindflayer_passive/drain_speed/on_apply()
 	if(!..())
@@ -222,7 +223,7 @@
 	purchase_text = "Prevents your limbs from falling off due to damage."
 	gain_text = "Makes joints gooder"
 	max_level = 1
-	cost = 50
+	swarm_cost = 50
 
 /datum/mindflayer_passive/improved_joints/on_apply()
 	if(!..())
