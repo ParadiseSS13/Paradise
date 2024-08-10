@@ -299,7 +299,7 @@
 		return
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/action(atom/target)
-	if(istype(target, /obj/machinery/disposal)) //Emptying stuff into disposals
+	if(istype(target, /obj/machinery/disposal)) // Emptying stuff into disposals
 		chassis.occupant.visible_message(
 			"<span class='notice'>[chassis.occupant] empties [src] into the disposal unit.</span>",
 			"<span class='notice'>You empty [src] into disposal unit.</span>",
