@@ -48,6 +48,8 @@
 
 	/// All machines registered to this local powernet, strictly typed to machines, everything else needs to register power change signals
 	var/list/registered_machines = list()
+	/// A log of various tracking info on the powernet, only used for debugging purposes by coders when needed (Not for use on prod)
+	var/list/powernet_log = list()
 
 /// tethers a machine to this local powernet
 /datum/local_powernet/proc/register_machine(obj/machinery/machine)
@@ -178,3 +180,30 @@
 	if(prob(MACHINE_FLICKER_CHANCE))
 		powernet_apc?.flicker()
 
+/// Add some info to our powernet log, used for debug purposes only
+/datum/local_powernet/proc/log_powernet(log)
+	if(!log)
+		return
+	powernet_log += log
+
+/datum/local_powernet/proc/channel_to_name(channel)
+	SHOULD_BE_PURE(TRUE)
+	. = "None"
+	switch(channel)
+		if(PW_CHANNEL_EQUIPMENT)
+			. = "Equipment"
+		if(PW_CHANNEL_LIGHTING)
+			. = "Lighting"
+		if(PW_CHANNEL_ENVIRONMENT)
+			. = "Environment"
+
+/datum/local_powernet/proc/state_to_name(state)
+	SHOULD_BE_PURE(TRUE)
+	. = "None"
+	switch(state)
+		if(NO_POWER_USE)
+			. = "No Power Use"
+		if(IDLE_POWER_USE)
+			. = "Idle Power Use"
+		if(ACTIVE_POWER_USE)
+			. = "Active Power Use"

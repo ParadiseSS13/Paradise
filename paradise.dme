@@ -2535,6 +2535,7 @@
 #include "code\modules\power\cables\cable.dm"
 #include "code\modules\power\cables\cable_coil.dm"
 #include "code\modules\power\cables\terminal.dm"
+#include "code\modules\power\debug\power_debugger.dm"
 #include "code\modules\power\engines\singularity\collector.dm"
 #include "code\modules\power\engines\singularity\containment_field.dm"
 #include "code\modules\power\engines\singularity\emitter.dm"

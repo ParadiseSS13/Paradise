@@ -165,6 +165,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/datum/proc/qdel_then_find_references,
 	/datum/proc/qdel_then_if_fail_find_references,
 	#endif
+	/client/proc/powernet_debugger,
 	/client/proc/dmapi_debug,
 	/client/proc/dmapi_log,
 	/client/proc/timer_log,
@@ -1179,7 +1180,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	message_admins("[key_name_admin(usr)] is visualising interesting atmos turfs. Server may lag.")
 
 	var/list/zlevel_turf_indexes = list()
-	
+
 	var/list/coords = get_interesting_atmos_tiles()
 	if(!length(coords))
 		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
