@@ -1,5 +1,6 @@
-GLOBAL_VAR_INIT(BSACooldown, 0)
-GLOBAL_VAR_INIT(nologevent, 0)
+GLOBAL_VAR_INIT(BSACooldown, FALSE)
+GLOBAL_VAR_INIT(nologevent, FALSE)
+GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 ////////////////////////////////
 /proc/message_admins(msg)
