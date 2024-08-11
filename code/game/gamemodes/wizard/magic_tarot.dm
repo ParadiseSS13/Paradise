@@ -775,7 +775,7 @@
 /datum/tarot/reversed/justice
 	name = "VIII - Justice?"
 	desc = "May your sins come back to torment you."
-	extended_desc = "creates a random crate from cargo. This can include stuff they would otherwise not have access to at the time."
+	extended_desc = "creates a random cargo crate. This can include crates cargo would otherwise not have access to at the time."
 	card_icon = "justice?"
 
 /datum/tarot/reversed/justice/activate(mob/living/target)
