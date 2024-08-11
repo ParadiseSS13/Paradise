@@ -364,7 +364,7 @@
 /obj/item/mecha_parts/part/nkarrdem_torso
 	name = "\improper Nkarrdem torso"
 	desc = "A torso part of Nkarrdem. Contains power unit, processing core and life support systems."
-	icon_state = "nkarrdem_torso"
+	icon_state = "nkarrdem_harness"
 	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
 
 /obj/item/mecha_parts/part/nkarrdem_left_arm
