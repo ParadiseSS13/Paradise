@@ -13,6 +13,7 @@
 *.md text eol=lf
 *.bat text eol=lf
 *.svg text eol=lf
+*.map text eol=lf
 yarn.lock text eol=lf
 bin/tgui text eol=lf
 
