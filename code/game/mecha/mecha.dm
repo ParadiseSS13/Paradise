@@ -835,7 +835,7 @@
 		user.visible_message("<span class='notice'>[user] begins levering out the driver from the [src].</span>", "<span class='notice'>You begin to lever out the driver from the [src].</span>")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
 		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
-			user.visible_message("<span class='notice'>[user] pries the driver out of the [src]!", "<span class='notice'>You finish removing the driver from the [src]!</span>")
+			user.visible_message("<span class='notice'>[user] pries the driver out of the [src]!</span>", "<span class='notice'>You finish removing the driver from the [src]!</span>")
 			go_out()
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
