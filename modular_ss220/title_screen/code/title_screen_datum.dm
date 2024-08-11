@@ -52,7 +52,7 @@
 
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
 	if(screen_image_url)
-		html += {"<img src="[screen_image_url]" class="bg" alt="">"}
+		html += {"<img class="bg" src="[screen_image_url]">"}
 
 	if(notice)
 		html += {"
@@ -88,9 +88,20 @@
 		<a class="menu_button" href='byond://?src=[player.UID()];show_preferences=1'>Настройка персонажа</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];game_preferences=1'>Настройки игры</a>
 		<hr>
-		<a class="menu_button" href='byond://?src=[player.UID()];swap_server=1'>Сменить сервер</a>
 	"}
-	html += {"</div>"}
+
+	if(check_rights_client(R_EVENT, FALSE, viewer))
+		html += {"
+			<a class="menu_button admin" href='byond://?src=[player.UID()];change_picture=1'>Изменить изображение</a>
+			<a class="menu_button admin" href='byond://?src=[player.UID()];leave_notice=1'>Оставить уведомление</a>
+			<hr>
+		"}
+
+	html += {"
+		<a class="menu_button" href='byond://?src=[player.UID()];swap_server=1'>Сменить сервер</a>
+		</div>
+	"}
+
 	html += {"
 		<div class="container_links">
 			<a class="link_button" href='byond://?src=[player.UID()];wiki=1'><i class="fab fa-wikipedia-w"></i></a>
@@ -145,6 +156,16 @@
 			function update_current_character(name) {
 				character_name_slot.textContent = name;
 			}
+
+			/* Return focus to Byond after click */
+			function reFocus() {
+				var focus = new XMLHttpRequest();
+				focus.open("GET", "?src=[player.UID()];focus=1");
+				focus.send();
+			}
+
+			document.addEventListener('mouseup', reFocus);
+			document.addEventListener('keyup', reFocus);
 		</script>
 		"}
 

@@ -19,6 +19,12 @@
 	else if(href_list["game_preferences"])
 		client.setup_character()
 
+	else if(href_list["change_picture"])
+		client.admin_change_title_screen()
+
+	else if(href_list["leave_notice"])
+		client.change_title_screen_notice()
+
 	else if(href_list["swap_server"])
 		swap_server()
 
@@ -34,6 +40,10 @@
 
 	else if(href_list["changelog"])
 		SSchangelog.OpenChangelog(client)
+
+	else if(href_list["focus"])
+		winset(client, "paramapwindow.map", "focus=true")
+		return
 
 /mob/new_player/proc/swap_server()
 	var/list/servers =  GLOB.configuration.ss220_misc.cross_server_list
