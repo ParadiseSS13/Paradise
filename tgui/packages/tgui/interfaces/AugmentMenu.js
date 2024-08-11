@@ -27,7 +27,7 @@ const Abilities = (props, context) => {
             key = {i}
             textAlign = "center"
             grow = {1}>
-              <Section
+              <Section // TODO fix spells not getting their descriptions
                 title = {ability.name}
                 >
                 {ability.desc}
