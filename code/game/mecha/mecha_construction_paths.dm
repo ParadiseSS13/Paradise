@@ -1840,7 +1840,6 @@
 	qdel(src)
 	return
 
-
 /datum/construction/reversible/mecha/nkarrdem
 	result = "/obj/mecha/janitor/nkarrdem"
 	steps = list(
@@ -1873,53 +1872,58 @@
 		list(
 			"key" = /obj/item/stack/sheet/metal,
 			"backkey" = TOOL_SCREWDRIVER,
-			"desc" = "Peripherals control module is secured."),
+			"desc" = "Floor buffer is secured."),
 		//7
 		list(
 			"key" = TOOL_SCREWDRIVER,
 			"backkey" = TOOL_CROWBAR,
-			"desc" = "Peripherals control module is installed."),
+			"desc" = "Floor buffer is installed."),
 		//8
+		list(
+			"key" = /obj/item/borg/upgrade/floorbuffer,
+			"backkey" = TOOL_SCREWDRIVER,
+			"desc" = "Peripherals control module is secured."),
+		//9
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"backkey" = TOOL_CROWBAR,
+			"desc" = "Peripherals control module is installed."),
+		//10
 		list(
 			"key" = /obj/item/circuitboard/mecha/nkarrdem/peripherals,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "Central control module is secured."),
 
-		//9
+		//11
 		list(
 			"key" = TOOL_SCREWDRIVER,
 			"backkey" = TOOL_CROWBAR,
 			"desc" = "Central control module is installed."),
-		//10
+		//12
 		list(
 			"key" = /obj/item/circuitboard/mecha/nkarrdem/main,
 			"backkey" = TOOL_SCREWDRIVER,
-			"desc" = "The floor buffer is installed."),
-		//11
-		list(
-			"key" = /obj/item/borg/upgrade/floorbuffer,
-			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The wiring is adjusted."),
-		//12
+		//13
 		list(
 			"key" = /obj/item/wirecutters,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The wiring is added."),
-		//13
+		//14
 		list(
 			"key" = /obj/item/stack/cable_coil,
 			"backkey" = TOOL_SCREWDRIVER,
 			"desc" = "The hydraulic systems are active."),
-		//14
+		//15
 		list(
 			"key" = TOOL_SCREWDRIVER,
 			"backkey" = TOOL_WRENCH,
 			"desc" = "The hydraulic systems are connected."),
-		//15
+		//16
 		list(
 			"key" = TOOL_WRENCH,
 			"desc" = "The hydraulic systems are disconnected.")
-					)
+	)
 
 /datum/construction/reversible/mecha/nkarrdem/action(atom/used_atom,mob/user as mob)
 	return check_step(used_atom,user)
