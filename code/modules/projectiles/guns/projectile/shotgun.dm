@@ -21,6 +21,8 @@
 
 /obj/item/gun/projectile/shotgun/examine(mob/user)
 	. = ..()
+	if(chambered)
+		. += "A [chambered.BB ? "live" : "spent"] one is in the chamber."
 	. += get_shotgun_info()
 
 /obj/item/gun/projectile/shotgun/proc/get_shotgun_info()
@@ -72,11 +74,6 @@
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
 	chambered = AC
 
-/obj/item/gun/projectile/shotgun/examine(mob/user)
-	. = ..()
-	if(chambered)
-		. += "A [chambered.BB ? "live" : "spent"] one is in the chamber."
-
 /obj/item/gun/projectile/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
 
@@ -97,7 +94,7 @@
 		sawoff(user)
 	if(istype(A, /obj/item/melee/energy))
 		var/obj/item/melee/energy/W = A
-		if(W.active)
+		if(HAS_TRAIT(W, TRAIT_ITEM_ACTIVE))
 			sawoff(user)
 	if(istype(A, /obj/item/pipe))
 		unsaw(A, user)

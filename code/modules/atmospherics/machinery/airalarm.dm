@@ -216,6 +216,9 @@
 	if(!building)
 		first_run()
 
+	if(!master_is_operating())
+		elect_master()
+
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
@@ -230,11 +233,6 @@
 /obj/machinery/alarm/proc/first_run()
 	apply_preset(AALARM_PRESET_HUMAN) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
-
-/obj/machinery/alarm/Initialize(mapload)
-	. = ..()
-	if(!master_is_operating())
-		elect_master()
 
 /obj/machinery/alarm/proc/master_is_operating()
 	if(!alarm_area)
@@ -656,7 +654,7 @@
 /obj/machinery/alarm/ui_data(mob/user)
 	var/list/data = list()
 
-	data["name"] = sanitize(name)
+	data["name"] = name
 	data["air"] = ui_air_status()
 	data["alarmActivated"] = alarmActivated || danger_level == ATMOS_ALARM_DANGER
 	data["thresholds"] = generate_thresholds_menu()
@@ -696,7 +694,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
 			var/list/vent_info = list()
 			vent_info["id_tag"] = P.UID()
-			vent_info["name"] = sanitize(P.name)
+			vent_info["name"] = P.name
 			vent_info["power"] = P.on
 			vent_info["direction"] = P.releasing
 			vent_info["checks"] = P.pressure_checks
@@ -709,7 +707,7 @@
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
 			var/list/scrubber_info = list()
 			scrubber_info["id_tag"] = S.UID()
-			scrubber_info["name"] = sanitize(S.name)
+			scrubber_info["name"] = S.name
 			scrubber_info["power"] = S.on
 			scrubber_info["scrubbing"] = S.scrubbing
 			scrubber_info["widenet"] = S.widenet
@@ -724,11 +722,11 @@
 
 /obj/machinery/alarm/proc/get_console_data(mob/user)
 	var/list/data = list()
-	data["name"] = sanitize(name)
+	data["name"] = name
 	data["ref"] = "\ref[src]"
 	data["danger"] = max(danger_level, alarm_area.atmosalm)
 	var/area/A = get_area(src)
-	data["area"] = sanitize(A.name)
+	data["area"] = A.name
 	var/turf/T = get_turf(src)
 	data["x"] = T.x
 	data["y"] = T.y
