@@ -52291,10 +52291,7 @@
 	pixel_x = 5;
 	pixel_y = -2
 	},
-/obj/effect/spawner/lootdrop/maintenance{
-	pixel_x = -4;
-	pixel_y = 2
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "jUz" = (
