@@ -468,13 +468,15 @@
 	force = 10
 	equip_cooldown = 0.8 SECONDS
 	energy_drain = 50
-	harmful = TRUE
+	/// list of items inside a toolbox
 	var/list/items_list = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/mecha,
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg) //0.5 toolspeed all
+	/// item we choose
 	var/obj/item/selected_item
+	/// after emag, reveal 25 dmg machete
 	var/emag_item = /obj/item/kitchen/knife/combat/cyborg/mecha
 
-/obj/item/mecha_parts/mecha_equipment/eng_toolset/New()
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/Initialize(mapload)
 	..()
 	for(var/obj/item/item as anything in items_list)
 		item.flags |= NODROP
@@ -499,7 +501,7 @@
 	..()
 	if(href_list["select"])
 		selected_item = locateUID(href_list["select"])
-		if(!istype(selected_item))
+		if(!(selected_item in items_list))
 			return
 		occupant_message("<span class='notice'>Switched to [selected_item].</span>")
 		update_equip_info()
@@ -516,15 +518,16 @@
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/self_occupant_attack()
 	radial_menu(chassis.occupant)
 
-/obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/check_menu(mob/living/carbon/user)
+/// you cant check menu being dead and not in exosuit
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/open_radial_menu(mob/living/carbon/user)
 	return (user && chassis.occupant == user && user.stat != DEAD)
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/radial_menu(mob/living/carbon/user)
 	var/list/choices = list()
 	for(var/obj/item/I as anything in items_list)
 		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
-	var/choice = show_radial_menu(user, chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
-	if(!check_menu(user))
+	var/choice = show_radial_menu(user, chassis, choices, custom_check = CALLBACK(src, PROC_REF(open_radial_menu), user))
+	if(!open_radial_menu(user))
 		return
 	var/obj/item/selected
 	for(var/obj/item/item as anything in items_list)
@@ -534,6 +537,7 @@
 	if(selected)
 		extend(selected)
 
+/// extend item from selection list from our toolbox
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/extend(obj/item/selected)
 	if(selected in items_list)
 		selected_item = selected
@@ -547,6 +551,7 @@
 		user.visible_message("<span class='warning'>Sparks fly out of [name]!</span>", "<span class='notice'>You short out the safeties on [name].</span>")
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		update_equip_info()
+		harmful = TRUE // we now have a real weapon, this need to be logged
 
 #undef MECH_RCD_MODE_DECONSTRUCT
 #undef MECH_RCD_MODE_WALL_OR_FLOOR

@@ -51,7 +51,7 @@
 							"Red" = image(icon = 'icons/obj/roulette.dmi', icon_state = colors[5]),
 							"Purple" = image(icon = 'icons/obj/roulette.dmi', icon_state = colors[6])
 							)
-	var/choice = show_radial_menu(user, src, radials, radius = 38,  custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE)
+	var/choice = show_radial_menu(user, src, radials, radius = 38,  custom_check = CALLBACK(src, PROC_REF(open_radial_menu), user), require_near = TRUE)
 	switch(choice)
 		if("Blue")
 			options[1] = input("Customise the blue option:", name, options[1]) as text
@@ -66,7 +66,7 @@
 		if("Purple")
 			options[6] = input("Customise the purple option:", name, options[6]) as text
 
-/obj/structure/roulette/proc/check_menu(mob/living/user)
+/obj/structure/roulette/proc/open_radial_menu(mob/living/user)
 	return (istype(user) && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 
 #undef SPINNING_DURATION

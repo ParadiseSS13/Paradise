@@ -1591,8 +1591,8 @@
 		choices[MT.name] = MA
 		choices_to_refs[MT.name] = MT
 
-	var/choice = show_radial_menu(L, L, choices, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_menu), L))
-	if(!check_menu(L) || choice == "Cancel / No Change")
+	var/choice = show_radial_menu(L, L, choices, radius = 48, custom_check = CALLBACK(src, PROC_REF(open_radial_menu), L))
+	if(!open_radial_menu(L) || choice == "Cancel / No Change")
 		return
 
 	var/obj/item/mecha_parts/mecha_equipment/new_sel = LAZYACCESS(choices_to_refs, choice)
@@ -1602,7 +1602,7 @@
 		visible_message("[src] raises [selected]")
 		send_byjax(occupant, "exosuit.browser", "eq_list", get_equipment_list())
 
-/obj/mecha/proc/check_menu(mob/living/L)
+/obj/mecha/proc/open_radial_menu(mob/living/L)
 	if(L != occupant || !istype(L))
 		return FALSE
 	if(L.incapacitated())

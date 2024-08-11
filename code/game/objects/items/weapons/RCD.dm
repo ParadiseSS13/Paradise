@@ -358,13 +358,13 @@
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(!afterattack(suicide_tile, user, TRUE))
-		flags &= ~NODROP  
+		flags &= ~NODROP
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
-	flags &= ~NODROP  
+	flags &= ~NODROP
 	user.gib()
-	return OBLITERATION	
-	
+	return OBLITERATION
+
 /**
  * Creates and returns a base64 icon of the given `airlock_type`.
  *
@@ -390,7 +390,7 @@
  * Arguments:
  * * user - the mob trying to open the radial menu.
  */
-/obj/item/rcd/proc/check_menu(mob/living/user)
+/obj/item/rcd/proc/open_radial_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
 	if(user.incapacitated() || !user.Adjacent(src))
@@ -425,7 +425,7 @@
  * * user - the mob trying to open the RCD radial.
  */
 /obj/item/rcd/proc/radial_menu(mob/user)
-	if(!check_menu(user))
+	if(!open_radial_menu(user))
 		return
 	var/list/choices = list(
 		MODE_AIRLOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "airlock"),
@@ -440,8 +440,8 @@
 			"Change Airlock Type" = image(icon = 'icons/obj/interface.dmi', icon_state = "airlocktype")
 		)
 	choices -= mode // Get rid of the current mode, clicking it won't do anything.
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
-	if(!check_menu(user))
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(open_radial_menu), user))
+	if(!open_radial_menu(user))
 		return
 	switch(choice)
 		if(MODE_AIRLOCK, MODE_DECON, MODE_WINDOW, MODE_TURF)

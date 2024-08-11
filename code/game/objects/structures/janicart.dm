@@ -143,7 +143,7 @@
 	if(!length(cart_items))
 		return
 
-	var/pick = show_radial_menu(user, src, cart_items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE)
+	var/pick = show_radial_menu(user, src, cart_items, custom_check = CALLBACK(src, PROC_REF(open_radial_menu), user), require_near = TRUE)
 
 	if(!pick)
 		return
@@ -192,7 +192,7 @@
 
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/janitorialcart/proc/check_menu(mob/living/user)
+/obj/structure/janitorialcart/proc/open_radial_menu(mob/living/user)
 	return (istype(user) && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 
 /obj/structure/janitorialcart/update_overlays()

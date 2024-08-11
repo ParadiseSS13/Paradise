@@ -164,15 +164,15 @@
 	else
 		Retract()
 
-/obj/item/organ/internal/cyberimp/arm/proc/check_menu(mob/user)
+/obj/item/organ/internal/cyberimp/arm/proc/open_radial_menu(mob/user)
 	return (owner && owner == user && owner.stat != DEAD && (src in owner.internal_organs) && !holder)
 
 /obj/item/organ/internal/cyberimp/arm/proc/radial_menu(mob/user)
 	var/list/choices = list()
 	for(var/obj/I in items_list)
 		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
-	var/choice = show_radial_menu(user, user, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
-	if(!check_menu(user))
+	var/choice = show_radial_menu(user, user, choices, custom_check = CALLBACK(src, PROC_REF(open_radial_menu), user))
+	if(!open_radial_menu(user))
 		return
 	var/obj/item/selected
 	for(var/obj/item in items_list)

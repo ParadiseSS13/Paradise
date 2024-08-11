@@ -251,7 +251,7 @@
 			mode = isnum(params[action]) ? params[action] : text2num(params[action])
 
 //RPD radial menu
-/obj/item/rpd/proc/check_menu(mob/living/user)
+/obj/item/rpd/proc/open_radial_menu(mob/living/user)
 	if(!istype(user))
 		return
 	if(user.incapacitated())
@@ -261,7 +261,7 @@
 	return TRUE
 
 /obj/item/rpd/proc/radial_menu(mob/user)
-	if(!check_menu(user))
+	if(!open_radial_menu(user))
 		to_chat(user, "<span class='notice'>You can't do that right now!</span>")
 		return
 	var/list/choices = list(
@@ -270,8 +270,8 @@
 		RPD_MENU_DELETE = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_delete"),
 		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
 	)
-	var/selected_mode = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
-	if(!check_menu(user))
+	var/selected_mode = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(open_radial_menu), user))
+	if(!open_radial_menu(user))
 		return
 	if(selected_mode == "UI")
 		ui_interact(user)
