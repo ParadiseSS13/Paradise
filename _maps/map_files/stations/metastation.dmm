@@ -29043,10 +29043,7 @@
 /area/station/maintenance/port)
 "caj" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/trash/pistachios,
 /obj/item/trash/raisins,
 /obj/item/trash/gum,
