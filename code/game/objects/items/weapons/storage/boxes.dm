@@ -355,7 +355,7 @@
 
 /obj/item/storage/box/glowstick/premium/populate_contents()
 	for(var/i in 1 to 5)
-		new /obj/item/flashlight/flare/glowstick(src))
+		new /obj/item/flashlight/flare/glowstick(src)
 
 /obj/item/storage/box/flares
 	name = "emergency flare box"
