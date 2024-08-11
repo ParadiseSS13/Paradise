@@ -88513,6 +88513,7 @@
 	c_tag = "Robotics North";
 	network = list("SS13","RD")
 	},
+/obj/machinery/computer/rdconsole/core,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
