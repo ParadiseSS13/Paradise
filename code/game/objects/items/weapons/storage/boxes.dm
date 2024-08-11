@@ -346,21 +346,8 @@
 	desc = "A large box filled to the brim with cheap emergency glowsticks."
 
 /obj/item/storage/box/large/glowstick/emergency/populate_contents()
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	for(var/i in 1 to 15)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/glowstick/premium
 	name = "premium glowstick box"
