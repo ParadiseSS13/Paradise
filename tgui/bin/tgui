@@ -214,7 +214,6 @@ fi
 
 ## Continuous integration scenario
 if [[ ${1} == "--ci" ]]; then
-  task-clean
   task-install
   task-prettier
   task-test "${@}"
