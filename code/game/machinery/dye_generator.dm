@@ -45,6 +45,8 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	var/temp = tgui_input_color(usr, "Please select a dye color", "Dye Color")
+	if(isnull(temp))
+		return
 	dye_color = temp
 	set_light(2, l_color = temp)
 

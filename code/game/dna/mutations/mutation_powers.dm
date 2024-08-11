@@ -801,8 +801,9 @@
 
 	if(eyes_organ)
 		var/new_eyes = tgui_input_color(user, "Please select eye color.", "Character Generation", eyes_organ.eye_color)
-		if(new_eyes)
-			M.change_eye_color(new_eyes)
+		if(isnull(new_eyes))
+			return
+		M.change_eye_color(new_eyes)
 
 	if(istype(head_organ))
 		//Alt heads.

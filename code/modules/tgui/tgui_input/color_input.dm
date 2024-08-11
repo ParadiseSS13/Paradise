@@ -12,14 +12,18 @@
 	if(!user)
 		user = usr
 	if(!istype(user))
-		if(istype(user, /client))
-			var/client/client = user
-			user = client.mob
-		else
-			return
+		if(!isclient(user))
+			CRASH("We passed something that wasn't a user/client in a TGUI Input Color! The passed thing was [user]!")
+		var/client/client = user
+		user = client.mob
+	
+	if(isnull(user.client))
+		return
+
 	// Client does NOT have tgui_input on: Returns regular input
 	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
 		return input(user, message, title, default) as color|null
+
 	var/datum/tgui_input_color/picker = new(user, message, title, default, timeout, autofocus)
 	picker.ui_interact(user)
 	picker.wait()
@@ -54,7 +58,7 @@
 	picker.ui_interact(user)
 
 /**
- * # tgui_input_color
+ * tgui_input_color
  *
  * Datum used for instantiating and using a TGUI-controlled color picker.
  */
@@ -75,6 +79,8 @@
 	var/autofocus
 	/// Boolean field describing if the tgui_input_color was closed by the user.
 	var/closed
+	/// The attached timer that handles this objects timeout deletion
+	var/deletion_timer
 	/// The TGUI UI state that will be returned in ui_state(). Default: always_state
 	var/datum/ui_state/state
 
@@ -83,14 +89,17 @@
 	src.title = title
 	src.default = default
 	src.message = message
+	
 	if(timeout)
 		src.timeout = timeout
 		start_time = world.time
-		QDEL_IN(src, timeout)
+		deletion_timer = QDEL_IN(src, timeout)
 
 /datum/tgui_input_color/Destroy(force, ...)
 	SStgui.close_uis(src)
-	. = ..()
+	state = null
+	deltimer(deletion_timer)
+	return ..()
 
 /**
  * Waits for a user's response to the tgui_input_color's prompt before returning. Returns early if
@@ -108,7 +117,6 @@
 		ui.set_autoupdate(timeout > 0)
 
 /datum/tgui_input_color/ui_close(mob/user)
-	. = ..()
 	closed = TRUE
 
 /datum/tgui_input_color/ui_state(mob/user)

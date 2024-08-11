@@ -70,7 +70,7 @@
 		return
 	if(!light_broken)
 		var/new_color = tgui_input_color(user, "Select a bulb color", "Select a bulb color", color)
-		if(!new_color)
+		if(isnull(new_color))
 			return
 
 		// Cancel if they walked away
