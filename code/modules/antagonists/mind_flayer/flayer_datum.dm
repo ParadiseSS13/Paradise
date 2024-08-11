@@ -10,7 +10,7 @@
 	var/total_swarms_gathered = 0
 	///The current person being drained
 	var/mob/living/carbon/human/harvesting
-	///The list of all purchased spells
+	///The list of all purchased spell and passive objects
 	var/list/powers = list()
 	/// A list of all powers and passives mindflayers can buy
 	var/list/ability_list = list()

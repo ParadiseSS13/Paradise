@@ -48,50 +48,62 @@
 	base_cooldown = 2 SECONDS
 	power_type = FLAYER_INNATE_POWER
 
-/datum/spell/flayer/self/augment_menu/cast(mob/user) //For now I'm just gonna make it a menu list, for testing
-	//ui_interact(user)
-	var/list/categories = list(CATEGORY_GENERAL, CATEGORY_DESTROYER, CATEGORY_INTRUDER, CATEGORY_SWARMER)
-	var/power_category = tgui_input_list(user, "What category do you want to buy from", "Choose category", categories)
-	offer_power_choices(user, power_category)
+/datum/spell/flayer/self/augment_menu/ui_state(mob/user)
+	return GLOB.always_state
 
-/datum/spell/flayer/self/augment_menu/proc/offer_power_choices(mob/user, power_category)
-	var/list/possible_powers = list()
-	var/list/all_powers = flayer.ability_list.Copy()
-	for(var/i in 1 to length(all_powers))
-		var/datum/spell/flayer/spell = all_powers[i]
-		if(spell.category != power_category)
-			continue
-		if(spell.stage > flayer.category_stage[power_category])
-			continue
-		possible_powers += spell
-	open_shop(user, possible_powers, power_category)
+/datum/spell/flayer/self/augment_menu/cast(mob/user)
+	ui_interact(user)
 
-/datum/spell/flayer/self/augment_menu/proc/open_shop(mob/user, list/all_powers = list(), power_category)
-	if(!length(all_powers))
-		flayer.send_swarm_message("Either you bought all the powers, or something went terribly wrong. Contact a coder or admin if you should have powers to buy.")
-		return
-	var/path = tgui_input_list(user, "whaddya wanna buy", "Buy power", all_powers)
-	if(!path)
-		return
-	on_purchase(user, path)
-
-/* This is all the TGUI stuff that will need to be fleshed out once I figure out all the stuff I need to get the data working
-
-*/
-
-/datum/spell/flayer/self/augment_menu/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open)
+/datum/spell/flayer/self/augment_menu/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AugmentMenu", name)
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+/datum/spell/flayer/self/augment_menu/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+	var/mob/user = ui.user
+	if(user.stat)
+		return
+
+	switch(action)
+		if("purchase")
+			var/path = text2path(params["ability_path"])
+			on_purchase(user, path)
 
 /datum/spell/flayer/self/augment_menu/ui_data(mob/user)
-	var/datum/antagonist/mindflayer/MF = user.mind.has_antag_datum(/datum/antagonist/mindflayer)
-	var/list/data = list(
-		"usable_swarms" = MF.usable_swarms,
-		"purchased_abilities" = MF.powers)
+	var/list/data = list()
+	data["usable_swarms"] = flayer.usable_swarms
+	data["known_powers"] = flayer.powers
 	return data
 
 /datum/spell/flayer/self/augment_menu/ui_static_data(mob/user)
-	var/list/data = flayer.ability_list
-	return data
+	var/list/list/static_data = list()
+	var/list/abilities = list()
+	for(var/path in flayer.ability_list)
+		if(isspell(path))
+			var/datum/spell/flayer/spell = path
+			abilities += list(list(
+				"name" = spell.name,
+				"desc" = spell.desc,
+				"cost" = spell.current_cost,
+				"stage" = spell.stage,
+				"category" = spell.category,
+				"ability_path" = spell.type,
+				"current_level"))
+		else
+			var/datum/mindflayer_passive/passive = path
+			abilities += list(list(
+				"name" = passive.name,
+				"desc" = passive.purchase_text,
+				"cost" = passive.current_cost,
+				"stage" = passive.stage,
+				"category" = passive.category,
+				"ability_path" = passive.type))
+	static_data["abilities"] = abilities
+	return static_data
 /*
 * Given a path, return TRUE if the path is a mindflayer spell, or FALSE otherwise. Only used to sort passives from spells.
 */
