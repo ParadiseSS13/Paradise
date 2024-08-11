@@ -2944,7 +2944,8 @@
 	},
 /obj/machinery/power/tracker,
 /obj/structure/lattice/catwalk,
-/turf/space)
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "alG" = (
 /obj/machinery/economy/vending/cigarette,
 /obj/machinery/status_display{
@@ -72488,14 +72489,6 @@
 /obj/structure/transit_tube/horizontal,
 /turf/space,
 /area/space/nearstation)
-"nPl" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space)
 "nPm" = (
 /obj/structure/railing{
 	dir = 4
@@ -135297,8 +135290,8 @@ aaa
 alv
 aab
 alD
-nPl
-nPl
+axq
+axq
 ann
 aoK
 apn

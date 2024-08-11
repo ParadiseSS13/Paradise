@@ -103,7 +103,7 @@
 	icon_state = "aft_solars"
 
 /area/station/engineering/solar/aft_starboard
-	name = "\improper Aft-Port Solar Array"
+	name = "\improper Aft-Starboard Solar Array"
 	icon_state = "aft_starboard_solars"
 
 /area/station/engineering/solar/aft_port
