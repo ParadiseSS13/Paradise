@@ -1,9 +1,10 @@
 /obj/item/grenade/smokebomb
-	desc = "It is set to detonate in 2 seconds."
 	name = "smoke bomb"
+	desc = "A grenade filled with chemical agents that will turn into a dense smoke when detonated, making it impossible to see through without specialised optics."
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "smoke"
-	det_time = 20
+	det_time = 2 SECONDS
+	modifiable_timer = FALSE
 	item_state = "smoke"
 	slot_flags = SLOT_FLAG_BELT
 	var/datum/effect_system/smoke_spread/bad/smoke
@@ -18,7 +19,7 @@
 	return ..()
 
 /obj/item/grenade/smokebomb/prime()
-	playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+	playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 	smoke.set_up(10, FALSE)
 	spawn(0)
 		src.smoke.start()

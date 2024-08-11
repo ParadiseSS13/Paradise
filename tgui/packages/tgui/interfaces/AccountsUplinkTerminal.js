@@ -1,15 +1,6 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  Icon,
-  Input,
-  LabeledList,
-  Section,
-  Stack,
-  Table,
-  Tabs,
-} from '../components';
+import { Button, Icon, Input, LabeledList, Section, Stack, Table, Tabs } from '../components';
 import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
@@ -63,18 +54,10 @@ const AccountsUplinkTerminalNavigation = (properties, context) => {
     <Stack vertical mb={1}>
       <Stack.Item>
         <Tabs>
-          <Tabs.Tab
-            icon="list"
-            selected={0 === tabIndex}
-            onClick={() => setTabIndex(0)}
-          >
+          <Tabs.Tab icon="list" selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
             User Accounts
           </Tabs.Tab>
-          <Tabs.Tab
-            icon="list"
-            selected={1 === tabIndex}
-            onClick={() => setTabIndex(1)}
-          >
+          <Tabs.Tab icon="list" selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
             Department Accounts
           </Tabs.Tab>
         </Tabs>
@@ -117,13 +100,7 @@ const AccountsRecordList = (properties, context) => {
               .filter(
                 createSearch(searchText, (account) => {
                   return (
-                    account.owner_name +
-                    '|' +
-                    account.account_number +
-                    '|' +
-                    account.suspended +
-                    '|' +
-                    account.money
+                    account.owner_name + '|' + account.account_number + '|' + account.suspended + '|' + account.money
                   );
                 })
               )
@@ -134,9 +111,7 @@ const AccountsRecordList = (properties, context) => {
               .map((account) => (
                 <Table.Row
                   key={account.account_number}
-                  className={
-                    'AccountsUplinkTerminal__listRow--' + account.suspended
-                  }
+                  className={'AccountsUplinkTerminal__listRow--' + account.suspended}
                   onClick={() =>
                     act('view_account_detail', {
                       account_num: account.account_number,
@@ -175,9 +150,7 @@ const DepartmentAccountsList = (properties, context) => {
             {department_accounts.map((account) => (
               <Table.Row
                 key={account.account_number}
-                className={
-                  'AccountsUplinkTerminal__listRow--' + account.suspended
-                }
+                className={'AccountsUplinkTerminal__listRow--' + account.suspended}
                 onClick={() =>
                   act('view_account_detail', {
                     account_num: account.account_number,
@@ -218,9 +191,7 @@ const SortButton = (properties, context) => {
         }}
       >
         {children}
-        {sortId === id && (
-          <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
-        )}
+        {sortId === id && <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />}
       </Button>
     </Table.Cell>
   );
@@ -233,11 +204,7 @@ const AccountsActions = (properties, context) => {
   return (
     <Stack>
       <Stack.Item>
-        <Button
-          content="New Account"
-          icon="plus"
-          onClick={() => act('create_new_account')}
-        />
+        <Button content="New Account" icon="plus" onClick={() => act('create_new_account')} />
       </Stack.Item>
       <Stack.Item grow>
         <Input
@@ -252,37 +219,17 @@ const AccountsActions = (properties, context) => {
 
 const DetailedAccountInfo = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    account_number,
-    owner_name,
-    money,
-    suspended,
-    transactions,
-    account_pin,
-    is_department_account,
-  } = data;
+  const { account_number, owner_name, money, suspended, transactions, account_pin, is_department_account } = data;
   return (
     <Stack fill vertical>
       <Stack.Item>
         <Section
           title={'#' + account_number + ' / ' + owner_name}
-          buttons={
-            <Button
-              icon="arrow-left"
-              content="Back"
-              onClick={() => act('back')}
-            />
-          }
+          buttons={<Button icon="arrow-left" content="Back" onClick={() => act('back')} />}
         >
           <LabeledList>
-            <LabeledList.Item label="Account Number">
-              #{account_number}
-            </LabeledList.Item>
-            {!!is_department_account && (
-              <LabeledList.Item label="Account Pin">
-                {account_pin}
-              </LabeledList.Item>
-            )}
+            <LabeledList.Item label="Account Number">#{account_number}</LabeledList.Item>
+            {!!is_department_account && <LabeledList.Item label="Account Pin">{account_pin}</LabeledList.Item>}
             <LabeledList.Item label="Account Pin Actions">
               <Button
                 ml={1}
@@ -296,14 +243,9 @@ const DetailedAccountInfo = (properties, context) => {
                 }
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Account Holder">
-              {owner_name}
-            </LabeledList.Item>
+            <LabeledList.Item label="Account Holder">{owner_name}</LabeledList.Item>
             <LabeledList.Item label="Account Balance">{money}</LabeledList.Item>
-            <LabeledList.Item
-              label="Account Status"
-              color={suspended ? 'red' : 'green'}
-            >
+            <LabeledList.Item label="Account Status" color={suspended ? 'red' : 'green'}>
               {suspended ? 'Suspended' : 'Active'}
               <Button
                 ml={1}
@@ -328,9 +270,7 @@ const DetailedAccountInfo = (properties, context) => {
               <Table.Row key={t}>
                 <Table.Cell>{t.time}</Table.Cell>
                 <Table.Cell>{t.purpose}</Table.Cell>
-                <Table.Cell color={t.is_deposit ? 'green' : 'red'}>
-                  ${t.amount}
-                </Table.Cell>
+                <Table.Cell color={t.is_deposit ? 'green' : 'red'}>${t.amount}</Table.Cell>
                 <Table.Cell>{t.target_name}</Table.Cell>
               </Table.Row>
             ))}
@@ -346,24 +286,13 @@ const CreateAccount = (properties, context) => {
   const [accName, setAccName] = useLocalState(context, 'accName', '');
   const [accDeposit, setAccDeposit] = useLocalState(context, 'accDeposit', '');
   return (
-    <Section
-      title="Create Account"
-      buttons={
-        <Button icon="arrow-left" content="Back" onClick={() => act('back')} />
-      }
-    >
+    <Section title="Create Account" buttons={<Button icon="arrow-left" content="Back" onClick={() => act('back')} />}>
       <LabeledList>
         <LabeledList.Item label="Account Holder">
-          <Input
-            placeholder="Name Here"
-            onChange={(e, value) => setAccName(value)}
-          />
+          <Input placeholder="Name Here" onChange={(e, value) => setAccName(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Initial Deposit">
-          <Input
-            placeholder="0"
-            onChange={(e, value) => setAccDeposit(value)}
-          />
+          <Input placeholder="0" onChange={(e, value) => setAccDeposit(value)} />
         </LabeledList.Item>
       </LabeledList>
       <Button

@@ -154,16 +154,23 @@
 	. = ..()
 	if(!in_range(A, user))
 		return
+
 	if(!isobj(A))
 		return
-	var/obj/target = A
 
+	var/obj/target = A
 	if(is_type_in_list(target, no_wrap))
 		return
+	
+	if(istype(target, /obj/item/stack/packageWrap) && user.a_intent != INTENT_HARM)
+		return
+
 	if(is_type_in_list(A.loc, list(/obj/item/smallDelivery, /obj/structure/bigDelivery)))
 		return
+
 	if(target.anchored)
 		return
+
 	if(target in user)
 		return
 
@@ -171,6 +178,7 @@
 		var/obj/item/O = target
 		if(!use(1))
 			return FALSE
+
 		var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(get_turf(O.loc)) //Aaannd wrap it up!
 		if(!isturf(O.loc))
 			if(user.client)
@@ -198,9 +206,11 @@
 			return FALSE
 		D.init_welded = C.welded
 		C.welded = TRUE
+
 	else if(target.GetComponent(/datum/component/two_handed))
 		to_chat(user, "<span class='notice'>[target] is too unwieldy to wrap effectively.</span>")
 		return FALSE
+
 	else
 		to_chat(user, "<span class='notice'>The object you are trying to wrap is unsuitable for the sorting machinery.</span>")
 		return FALSE
@@ -287,6 +297,14 @@
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
 	if(isprojectile(AM)	|| isAI(AM) || QDELETED(AM))
 		return
+
+	// We may already contain the object because thrown objects
+	// call CanPass which has a chance to immediately forceMove
+	// them into us.
+	if(AM.loc == src)
+		flush()
+		return
+
 	switch(dir)
 		if(NORTH)
 			if(AM.loc.y != loc.y + 1) return
@@ -324,7 +342,7 @@
 
 	sleep(10)
 	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, FALSE)
+		playsound(src, 'sound/machines/disposalflush.ogg', 50, FALSE, FALSE)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
 

@@ -15,11 +15,7 @@ export const Safe = (properties, context) => {
             <Box className="Safe--engraving--hinge" top="25%" />
             <Box className="Safe--engraving--hinge" top="75%" />
           </Box>
-          <Icon
-            className="Safe--engraving--arrow"
-            name="long-arrow-alt-down"
-            size="3"
-          />
+          <Icon className="Safe--engraving--arrow" name="long-arrow-alt-down" size="3" />
           <br />
           {open ? (
             <Contents />
@@ -72,9 +68,7 @@ const Dialer = (properties, context) => {
         onClick={() => act('open')}
       />
       <br />
-      <Box position="absolute">
-        {[dialButton(50), dialButton(10), dialButton(1)]}
-      </Box>
+      <Box position="absolute">{[dialButton(50), dialButton(10), dialButton(1)]}</Box>
       <Box className="Safe--dialer--right" position="absolute" right="5px">
         {[dialButton(1, true), dialButton(10, true), dialButton(50, true)]}
       </Box>
@@ -98,13 +92,7 @@ const Contents = (properties, context) => {
               })
             }
           >
-            <Box
-              as="img"
-              src={item.sprite + '.png'}
-              verticalAlign="middle"
-              ml="-6px"
-              mr="0.5rem"
-            />
+            <Box as="img" src={item.sprite + '.png'} verticalAlign="middle" ml="-6px" mr="0.5rem" />
             {item.name}
           </Button>
           <br />
@@ -116,23 +104,17 @@ const Contents = (properties, context) => {
 
 const Help = (properties, context) => {
   return (
-    <Section
-      className="Safe--help"
-      title="Safe opening instructions (because you all keep forgetting)"
-    >
+    <Section className="Safe--help" title="Safe opening instructions (because you all keep forgetting)">
       <Box>
         1. Turn the dial left to the first number.
         <br />
         2. Turn the dial right to the second number.
         <br />
-        3. Continue repeating this process for each number, switching between
-        left and right each time.
+        3. Continue repeating this process for each number, switching between left and right each time.
         <br />
         4. Open the safe.
       </Box>
-      <Box bold>
-        To lock fully, turn the dial to the left after closing the safe.
-      </Box>
+      <Box bold>To lock fully, turn the dial to the left after closing the safe.</Box>
     </Section>
   );
 };

@@ -2,14 +2,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
 // Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
 
-/proc/get_uplink_items(obj/item/uplink/U)
+/proc/get_uplink_items(obj/item/uplink/U, mob/user)
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
 	if(!length(uplink_items))
-
 		for(var/path in GLOB.uplink_items)
-
 			var/datum/uplink_item/I = new path
 			if(!I.item)
 				continue
@@ -17,32 +15,39 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				continue
 			if(length(I.excludefrom) && (U.uplink_type in I.excludefrom))
 				continue
+			//Add items to discount pool, checking job, species, and hijacker status
+			if(I.job && !(user.mind.assigned_role in I.job)) //If your job does not match, no discount
+				continue
+			if(I.species && !(user.dna?.species.name in I.species)) //If your species does not match, no discount
+				continue
 
 			if(!uplink_items[I.category])
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
-			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5)
+
+			if(I.limited_stock < 0 && I.can_discount && I.item && I.cost > 5 && !I.hijack_only)
 				sales_items += I
 
+	if(isnull(user)) //Handles surplus
+		return uplink_items
+
 	for(var/i in 1 to 3)
-		var/datum/uplink_item/I = pick_n_take(sales_items)
-		var/datum/uplink_item/A = new I.type
+		var/datum/uplink_item/sale_item = pick_n_take(sales_items)
+		var/datum/uplink_item/A = new sale_item.type
 		var/discount = 0.5
 		A.limited_stock = 1
-		I.refundable = FALSE
+		sale_item.refundable = FALSE
 		A.refundable = FALSE
 		if(A.cost >= 100)
 			discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
-		A.cost = max(round(A.cost * (1-discount)),1)
+		A.cost = max(round(A.cost * (1 - discount)), 1)
 		A.category = "Discounted Gear"
-		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
-		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
-		A.species = null //same as above for species speific items
+		A.name += " ([round(((initial(A.cost) - A.cost) / initial(A.cost)) * 100)]% off!)"
 		A.reference = "DIS[newreference]"
 		A.desc += " Limit of [A.limited_stock] per uplink. Normally costs [initial(A.cost)] TC."
-		A.surplus = 0 // stops the surplus crate potentially giving out a bit too much
-		A.item = I.item
+		A.surplus = 0 //No freebies
+		A.item = sale_item.item
 		newreference++
 		if(!uplink_items[A.category])
 			uplink_items[A.category] = list()
@@ -82,7 +87,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/can_discount = TRUE
 	/// Can you only buy so many? -1 allows for infinite purchases
 	var/limited_stock = -1
-	/// Can this item be purchased only during hijackings?
+	/// Can this item be purchased only during hijackings? Hijack-only items are by default unable to be on sale.
 	var/hijack_only = FALSE
 	/// Can you refund this in the uplink?
 	var/refundable = FALSE
@@ -106,6 +111,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(item && !uses_special_spawn)
 		return new item(loc)
 
+	if(limited_stock)
+		limited_stock -= 1 // In case we are handling discount items differently
 	return UPLINK_SPECIAL_SPAWNING
 
 /datum/uplink_item/proc/description()
@@ -131,7 +138,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			return
 
 
-		var/obj/I = spawn_item(get_turf(user), U)
+		var/obj/I = spawn_item(get_turf(user), U, user)
 
 		if(!I || I == UPLINK_SPECIAL_SPAWNING)
 			return // Failed to spawn, or we handled it with special spawning
@@ -204,6 +211,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "ES"
 	item = /obj/item/melee/energy/sword/saber
 	cost = 40
+
+/datum/uplink_item/dangerous/dsword
+	name = "Double Energy Sword"
+	desc = "A double-bladed energy sword. More damaging than a standard energy sword, and automatically parries incoming energy weapons fire. Bulk discount applied."
+	reference = "DSRD"
+	item = /obj/item/dualsaber
+	cost = 60
+
+/datum/uplink_item/dangerous/snakefang
+	name = "Snakesfang"
+	desc = "The snakesfang is a fork-tipped scimitar with a sharp edge and sharper bite. This sword cannot fit in your bag, but it does come with a scabbard you can attach to your belt."
+	reference = "SF"
+	item = /obj/item/storage/belt/sheath/snakesfang
+	cost = 25
 
 /datum/uplink_item/dangerous/powerfist
 	name = "Power Fist"
@@ -503,6 +524,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/glasses/chameleon/thermal
 	cost = 15
 
+/datum/uplink_item/stealthy_tools/night
+	name = "Nightvision Chameleon Glasses"
+	desc = "These glasses are nightvision with Syndicate chameleon technology built into them. Lets you see clearer in the dark."
+	reference = "TNIG"
+	item = /obj/item/clothing/glasses/chameleon/night
+	cost = 5
+
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
 	desc = "Agent cards prevent artificial intelligences from tracking the wearer, and can copy access from other identification cards. The access is cumulative, so scanning one card does not erase the access gained from another."
@@ -647,6 +675,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/organ_extractor
 	cost = 20
 
+/datum/uplink_item/device_tools/c_foam_launcher
+	name = "C-Foam Launcher"
+	desc = "A gun that shoots blobs of foam. Will block airlocks, and slow down humanoids. Not rated for xenomorph usage."
+	reference = "CFOAM"
+	item = /obj/item/gun/projectile/c_foam_launcher
+	cost = 25
+
 /datum/uplink_item/device_tools/tar_spray
 	name = "Sticky Tar Applicator"
 	desc = "A spray bottle containing an extremely viscous fluid that will leave behind tar whenever it is sprayed, greatly slowing down anyone who tries to walk over it. \
@@ -696,7 +731,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
-	can_discount = FALSE
 
 /datum/uplink_item/device_tools/advpinpointer
 	name = "Advanced Pinpointer"
@@ -720,6 +754,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/jammer
 	cost = 20
 
+/datum/uplink_item/device_tools/decoy_nade
+	name = "Decoy Grenade Kit"
+	desc = "A box of five grenades that can be configured to reproduce many suspicious sounds at varying rates."
+	reference = "DCY"
+	item = /obj/item/storage/box/syndie_kit/decoy
+	cost = 20
+
 ////////////////////////////////////////
 // MARK: SPACE SUITS AND HARDSUITS
 ////////////////////////////////////////
@@ -730,7 +771,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
-	desc = "This red and black syndicate space suit is less encumbering than Nanotrasen variants, \
+	desc = "This armoured red and black Syndicate space suit is less encumbering than Nanotrasen variants, \
 			fits inside bags, and has a weapon slot. Comes packaged with internals. Nanotrasen crewmembers are trained to report red space suit \
 			sightings, however. "
 	reference = "SS"
@@ -903,7 +944,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	This pair has been hardened for special operations personnel."
 	reference = "KOE"
 	item = /obj/item/autosurgeon/organ/syndicate/oneuse/scope_eyes
-	cost = 20
+	cost = 10
 
 
 ////////////////////////////////////////

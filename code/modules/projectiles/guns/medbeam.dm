@@ -79,7 +79,7 @@
 		return
 
 	if(current_target)
-		on_beam_tick(current_target)
+		on_beam_tick(source, current_target)
 
 /obj/item/gun/medbeam/proc/los_check(mob/user,mob/target)
 	var/turf/user_turf = user.loc
@@ -105,7 +105,7 @@
 	qdel(dummy)
 	return TRUE
 
-/obj/item/gun/medbeam/proc/on_beam_tick(mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_tick(mob/living/user, mob/living/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.adjustBruteLoss(-4, robotic = TRUE)
@@ -124,3 +124,224 @@
 
 /obj/effect/ebeam/medical
 	name = "medical beam"
+
+//Damaged beamgun loot, DO NOT let it break
+#define SCREWDRIVER_OPEN 8
+#define REMOVE_OLD_PARTS 7
+#define WELD_SHELL 6
+#define INSTALL_LENS 5
+#define INSTALL_ELECTRONICS 4
+#define INSTALL_CELL 3
+#define MULTITOOL_ELECTRONICS 2
+#define SCREWDRIVER_CLOSED 1
+
+/obj/item/gun/medbeam/damaged
+	name = "damaged beamgun"
+	desc = "Delivers volatile medical nanites in a focused beam. Don't cross the beams! It is damaged and will rapidly overheat."
+	///How hot the beamgun is, if it hits max heat it will break
+	var/current_heat = 0
+	///How much heat the beamgun needs to break
+	var/max_heat = 50
+	///when current_heat / max_heat > damaging_heat_percent, it will burn the wielders hands
+	var/damaging_heat_percent = 0.6
+	///If the gun has overheated and broke down
+	var/broken = FALSE
+	///If the gun is still too hot to repair
+	var/overheated = FALSE
+	var/obj/effect/abstract/particle_holder/fire_particles
+
+/obj/item/gun/medbeam/damaged/Destroy()
+	. = ..()
+	if(fire_particles)
+		QDEL_NULL(fire_particles)
+
+/obj/item/gun/medbeam/damaged/examine(mob/user) //The 8 Trials of Asclepius
+	. = ..()
+	if(!broken)
+		return
+
+	. += "<span class='notice'>It is broken, and will not function without repairs.</span>"
+	switch(broken)
+		if(SCREWDRIVER_OPEN)
+			. += "<span class='notice'>The panel can be <b>screwed</b> open to access the internals.</span>"
+		if(REMOVE_OLD_PARTS)
+			. += "<span class='notice'>The old fried electronics and melted lens have to be <b>pried</b> out.</span>"
+		if(WELD_SHELL)
+			. += "<span class='notice'>The distorted shell needs to be <b>welded</b> back to form.</span>"
+		if(INSTALL_LENS)
+			. += "<span class='notice'>It needs a new <b>glass</b> lens.</span>"
+		if(INSTALL_ELECTRONICS)
+			. += "<span class='notice'>It needs new <b>cabling</b> for the electronics.</span>"
+		if(INSTALL_CELL)
+			. += "<span class='notice'>It needs a fully charged specialized <b>battery</b> to function."
+		if(MULTITOOL_ELECTRONICS)
+			. += "<span class='notice'>The electronics need to be tested and reactivated with a <b>multitool</b>.</span>"
+		if(SCREWDRIVER_CLOSED)
+			. += "<span class='notice'>The panel needs to be <b>screwed</b> shut before it is usable.</span>"
+
+/obj/item/gun/medbeam/damaged/process()
+	. = ..()
+	if(current_target)
+		return
+
+	current_heat = max(current_heat - 1, 0)
+
+/obj/item/gun/medbeam/damaged/can_trigger_gun(mob/living/user)
+	if(broken)
+		to_chat(user, "<span class='warning'>[src] fails to start! It's broken!</span>")
+		return FALSE
+	return ..()
+
+/obj/item/gun/medbeam/damaged/on_beam_tick(mob/living/user, mob/living/target)
+	. = ..()
+	if(current_heat >= max_heat)
+		user.visible_message("<span class='warning'>[src] pops as it shuts off!</span>", "<span class='warning'>[src] pops and hisses as it shuts off. It is broken.</span>")
+		broken = SCREWDRIVER_OPEN
+		user.adjust_fire_stacks(20)
+		user.IgniteMob()
+		LoseTarget()
+		update_fire_overlay(COLOR_ORANGE)
+		overheated = TRUE
+		return
+
+	if(current_heat / max_heat > damaging_heat_percent)
+		to_chat(user, "<span class='warning'>[src] burns to hold!</span>")
+		user.adjustFireLoss(0.1 * (current_heat / max_heat))
+
+	current_heat = min(current_heat + 1, max_heat)
+
+/obj/item/gun/medbeam/damaged/attackby(obj/item/attacking_item, mob/user, params)
+	. = ..()
+
+	if(broken == INSTALL_CELL)
+		if(istype(attacking_item, /obj/item/stock_parts/cell/medbeam))
+			var/obj/item/stock_parts/cell/medbeam/battery = attacking_item
+			if(battery.charge != battery.maxcharge)
+				to_chat(user, "<span class='warning'>[src] won't function without a fully charged [battery].</span>")
+				return
+			to_chat(user, "<span class='notice'>You start replacing [src]'s battery.</span>")
+			attempt_repair(user, attacking_item, MULTITOOL_ELECTRONICS)
+			return
+
+	if(broken == INSTALL_ELECTRONICS)
+		if(istype(attacking_item, /obj/item/stack/cable_coil))
+			to_chat(user, "<span class='notice'>You start replacing the fried electronics in [src].</span>")
+			attempt_repair(user, attacking_item, INSTALL_CELL)
+			return
+
+	if(broken == INSTALL_LENS)
+		if(istype(attacking_item, /obj/item/stack/sheet/glass))
+			to_chat(user, "<span class='notice'>You start replacing the broken lens in [src].</span>")
+			attempt_repair(user, attacking_item, INSTALL_ELECTRONICS)
+			return
+
+/obj/item/gun/medbeam/damaged/screwdriver_act(mob/user, obj/item/screwdriver)
+	if(broken == SCREWDRIVER_OPEN)
+		if(overheated)
+			to_chat(user,  "<span class='warning'>[src] is still too hot for the screws to be safely removed from it.</span>")
+			return
+		to_chat(user, "<span class='notice'>You start removing the screws from [src]'s shell.</span>")
+		attempt_repair(user, screwdriver, REMOVE_OLD_PARTS)
+		return TRUE
+
+	if(broken == SCREWDRIVER_CLOSED)
+		to_chat(user, "<span class='notice'>You start replacing the screws on [src]'s shell.</span>")
+		attempt_repair(user, screwdriver, FALSE)
+		return TRUE
+
+/obj/item/gun/medbeam/damaged/crowbar_act(mob/living/user, obj/item/crowbar)
+	if(broken == REMOVE_OLD_PARTS)
+		to_chat(user, "<span class='notice'>You start prying out the old electronics and lens from [src].</span>")
+		attempt_repair(user, crowbar, WELD_SHELL)
+		return TRUE
+
+/obj/item/gun/medbeam/damaged/welder_act(mob/living/user, obj/item/welder)
+	. = ..()
+	if(broken == WELD_SHELL)
+		if(!welder.tool_start_check(src, user, 1))
+			to_chat(user, "<span class='warning'>[welder] isn't functioning.</span>")
+			return
+		to_chat(user, "<span class='notice'>You start welding [src] back to form.</span>")
+		attempt_repair(user, welder, INSTALL_LENS)
+		return TRUE
+
+/obj/item/gun/medbeam/damaged/multitool_act(mob/living/user, obj/item/multitool)
+	if(broken == MULTITOOL_ELECTRONICS)
+		if(user.electrocute_act(rand(1, 10), src))
+			do_sparks(6, FALSE, user)
+			return TRUE
+		to_chat(user, "<span class='notice'>You start to activate the electronics in [src].</span>")
+		attempt_repair(user, multitool, SCREWDRIVER_CLOSED)
+		return TRUE
+
+/obj/item/gun/medbeam/damaged/proc/update_fire_overlay(new_color)
+	if(!fire_particles)
+		fire_particles = new(src, /particles/fire_particles)
+		fire_particles.color = COLOR_RED
+
+	animate(fire_particles, 20 SECONDS, color = COLOR_ORANGE)
+	animate(fire_particles, 10 SECONDS, color = COLOR_GRAY, delay = 20 SECONDS)
+	addtimer(VARSET_CALLBACK(src, overheated, FALSE), 30 SECONDS)
+
+/obj/item/gun/medbeam/damaged/proc/attempt_repair(mob/living/user, obj/item/tool_used, next_broken_state)
+	if(!do_after_once(user, 5 SECONDS, TRUE, src))
+		to_chat(user, "<span class='notice'>You stop repairing [src].</span>")
+		return
+
+	if(!user.Adjacent(src))
+		return
+
+	if(!user.get_active_hand() == tool_used)
+		return
+
+	switch(broken)
+		if(REMOVE_OLD_PARTS)
+			user.put_in_hands(new /obj/item/stock_parts/cell/medbeam)
+
+		if(WELD_SHELL)
+			if(!tool_used.tool_use_check(user, 1))
+				return
+
+		if(INSTALL_LENS)
+			var/obj/item/stack/sheet/glass/lens = tool_used
+			if(!istype(lens))
+				return
+			if(!lens.use(5))
+				to_chat(user, "<span class='warning'>You need [5 - lens.get_amount()] more [lens] to repair [src]'s electronics.</span>")
+				return
+
+		if(INSTALL_ELECTRONICS)
+			var/obj/item/stack/cable_coil/cable = tool_used
+			if(!istype(cable))
+				return
+			if(!cable.use(10))
+				to_chat(user, "<span class='warning'>You need [10 - cable.get_amount()] more [cable] to repair [src]'s electronics.</span>")
+				return
+
+		if(INSTALL_CELL)
+			var/obj/item/stock_parts/cell/medbeam/battery = tool_used
+			if(!istype(battery))
+				return
+			if(!user.get_active_hand() == battery)
+				to_chat(user, "<span class='warning'>You lost [src]'s battery.</span>")
+				return
+			qdel(battery)
+
+		if(SCREWDRIVER_CLOSED)
+			QDEL_NULL(fire_particles)
+
+	broken = next_broken_state
+
+#undef SCREWDRIVER_OPEN
+#undef REMOVE_OLD_PARTS
+#undef WELD_SHELL
+#undef INSTALL_LENS
+#undef INSTALL_ELECTRONICS
+#undef INSTALL_CELL
+#undef MULTITOOL_ELECTRONICS
+#undef SCREWDRIVER_CLOSED
+
+/obj/item/stock_parts/cell/medbeam
+	name = "beamgun cell"
+	desc = "A cell that fell out of a beamgun. It cannot be reused until fully charged. Only this brand of battery is compatible with medical beamguns."
+	starting_charge = 0

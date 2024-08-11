@@ -3,7 +3,7 @@
 //		Mexican		//
 //////////////////////
 
-/obj/item/food/snacks/taco
+/obj/item/food/taco
 	name = "taco"
 	desc = "Take a bite!"
 	icon_state = "taco"
@@ -12,7 +12,7 @@
 	tastes = list("taco" = 4, "meat" = 2, "cheese" = 2, "lettuce" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/burrito
+/obj/item/food/burrito
 	name = "burrito"
 	desc = "Meat, beans, cheese, and rice wrapped up as an easy-to-hold meal."
 	icon_state = "burrito"
@@ -23,7 +23,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 
-/obj/item/food/snacks/chimichanga
+/obj/item/food/chimichanga
 	name = "chimichanga"
 	desc = "Time to eat a chimi-f***ing-changa."
 	icon_state = "chimichanga"
@@ -32,7 +32,7 @@
 	list_reagents = list("omnizine" = 4, "cheese" = 2) //Deadpool reference. Deal with it.
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/enchiladas
+/obj/item/food/enchiladas
 	name = "enchiladas"
 	desc = "Viva la Mexico!"
 	icon_state = "enchiladas"
@@ -43,7 +43,7 @@
 	tastes = list("hot peppers" = 1, "meat" = 3, "cheese" = 1, "sour cream" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/cornchips
+/obj/item/food/cornchips
 	name = "corn chips"
 	desc = "Goes great with salsa! OLE!"
 	icon_state = "chips"
@@ -58,7 +58,7 @@
 //		Chinese		//
 //////////////////////
 
-/obj/item/food/snacks/chinese/chowmein
+/obj/item/food/chinese/chowmein
 	name = "chow mein"
 	desc = "What is in this anyways?"
 	icon_state = "chinese1"
@@ -67,7 +67,7 @@
 	list_reagents = list("nutriment" = 1, "beans" = 3, "msg" = 4, "sugar" = 2)
 	tastes = list("noodle" = 1, "vegetables" = 1)
 
-/obj/item/food/snacks/chinese/sweetsourchickenball
+/obj/item/food/chinese/sweetsourchickenball
 	name = "sweet & sour chicken balls"
 	desc = "Is this chicken cooked? The odds are better than wok paper scissors."
 	icon = 'icons/obj/food/meat.dmi'
@@ -77,7 +77,7 @@
 	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2)
 	tastes = list("chicken" = 1, "sweetness" = 1)
 
-/obj/item/food/snacks/chinese/tao
+/obj/item/food/chinese/tao
 	name = "Admiral Yamamoto carp"
 	desc = "Tastes like chicken."
 	icon_state = "chinese2"
@@ -86,7 +86,7 @@
 	list_reagents = list("nutriment" = 1, "protein" = 1, "msg" = 4, "sugar" = 4)
 	tastes = list("chicken" = 1)
 
-/obj/item/food/snacks/chinese/newdles
+/obj/item/food/chinese/newdles
 	name = "chinese newdles"
 	desc = "Made fresh, weekly!"
 	icon_state = "chinese3"
@@ -95,7 +95,7 @@
 	list_reagents = list("nutriment" = 1, "msg" = 4, "sugar" = 3)
 	tastes = list("noodles" = 1)
 
-/obj/item/food/snacks/chinese/rice
+/obj/item/food/chinese/rice
 	name = "fried rice"
 	desc = "A timeless classic."
 	icon_state = "chinese4"
@@ -110,7 +110,7 @@
 //	Japanese		//
 //////////////////////
 
-/obj/item/food/snacks/chawanmushi
+/obj/item/food/chawanmushi
 	name = "chawanmushi"
 	desc = "A legendary egg custard that makes friends out of enemies. Probably too hot for a cat to eat."
 	icon_state = "chawanmushi"
@@ -120,7 +120,7 @@
 	tastes = list("custard" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/yakiimo
+/obj/item/food/yakiimo
 	name = "yaki imo"
 	desc = "Made with roasted sweet potatoes!"
 	icon_state = "yakiimo"
@@ -135,7 +135,7 @@
 //	Middle Eastern	//
 //////////////////////
 
-/obj/item/food/snacks/meatkebab
+/obj/item/food/meatkebab
 	name = "meat-kebab"
 	desc = "Delicious meat, on a stick."
 	icon_state = "kebab"
@@ -144,7 +144,7 @@
 	list_reagents = list("nutriment" = 8)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/syntikebab
+/obj/item/food/syntikebab
 	name = "synthimeat-kebab"
 	desc = "Delicious synthetic meat, on a stick."
 	icon_state = "kebab"
@@ -152,7 +152,7 @@
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
 
-/obj/item/food/snacks/human/kebab
+/obj/item/food/human/kebab
 	name = "-kebab"
 	desc = "Human meat, on a stick."
 	icon_state = "kebab"
@@ -160,7 +160,7 @@
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
 
-/obj/item/food/snacks/tofukebab
+/obj/item/food/tofukebab
 	name = "tofu-kebab"
 	desc = "Vegan meat, on a stick."
 	icon_state = "kebab"
@@ -169,7 +169,7 @@
 	list_reagents = list("nutriment" = 8)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/picoss_kebab
+/obj/item/food/picoss_kebab
 	name = "picoss-kebab"
 	desc = "A popular Moghes street food consisting of vinegar-marinated space carp on a skewer with onion and chillis."
 	icon_state = "picoss_skewer"

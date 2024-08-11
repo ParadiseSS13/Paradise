@@ -100,13 +100,11 @@
 		rider.stop_pulling()
 	RegisterSignal(rider, COMSIG_LIVING_TRY_PULL, PROC_REF(on_rider_try_pull))
 
-/// This proc is called when the rider attempts to grab the thing they're riding, preventing them from doing so.
+/// This proc is called when the rider attempts to grab something, preventing them from doing so.
 /datum/component/riding/proc/on_rider_try_pull(mob/living/rider_pulling, atom/movable/target, force)
 	SIGNAL_HANDLER // COMSIG_LIVING_TRY_PULL
-	if(target == parent)
-		var/mob/living/ridden = parent
-		to_chat(ridden, "<span class='warning'>You can't pull [target]!</span>")
-		return COMSIG_LIVING_CANCEL_PULL
+	to_chat(rider_pulling, "<span class='warning'>You can't pull [target]!</span>")
+	return COMSIG_LIVING_CANCEL_PULL
 
 /// Some ridable atoms may want to only show on top of the rider in certain directions, like wheelchairs
 /datum/component/riding/proc/handle_vehicle_layer(dir)

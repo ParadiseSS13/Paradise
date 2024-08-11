@@ -534,7 +534,6 @@
 		I.maptext = ""
 	I.on_exit_storage(src)
 	update_icon()
-	I.mouse_opacity = initial(I.mouse_opacity)
 	return TRUE
 
 /obj/item/storage/Exited(atom/A, loc)
