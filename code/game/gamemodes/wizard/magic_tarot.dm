@@ -387,7 +387,7 @@
 /datum/tarot/the_lovers
 	name = "VI - The Lovers"
 	desc = "May you prosper and be in good health."
-	extended_desc = "knits the user's wounds, repairs burnt flesh, restores blood, and gives their breath back. Works on non-organic limbs as well." // I cant think of a better way of explaining this in a ic sense, please give feedback on this
+	extended_desc = "will mend both brute and burn damage, restores blood, clears toxins form their blood, and helps them get their breath back."
 	card_icon = "the_lovers"
 
 /datum/tarot/the_lovers/activate(mob/living/target)
@@ -566,7 +566,7 @@
 /datum/tarot/the_moon
 	name = "XVIII - The Moon"
 	desc = "May you find all you have lost."
-	extended_desc = "warps the user to a random place of intrest for miners and explorers, within the sector they're in first."
+	extended_desc = "teleports the user to a random place of interest for miners and explorers, starting with the sector the user is in first."
 	card_icon = "the_moon"
 
 /datum/tarot/the_moon/activate(mob/living/target)
@@ -654,7 +654,7 @@
 /datum/tarot/reversed/the_magician
 	name = "I - The Magician?"
 	desc = "May no harm come to you."
-	extended_desc = "grants the user the power of a powerful mage upon use, throwing everything away from the user."
+	extended_desc = "contains the power of a great mage, apon use the user will repulse everything away from them."
 	card_icon = "the_magician?"
 
 /datum/tarot/reversed/the_magician/activate(mob/living/target)
@@ -688,7 +688,7 @@
 /datum/tarot/reversed/the_high_priestess
 	name = "II - The High Priestess?"
 	desc = "Run."
-	extended_desc = "summons Bubblegum to tear portals open, that will chase the user, and grab people at random, causing major damage."
+	extended_desc = "summons Bubblegum to tear portals open around the user, that she will use to grab at them, and people around them at random, causing major damage." // iirc bubblegum is a she
 	card_icon = "the_high_priestess?"
 
 /datum/tarot/reversed/the_high_priestess/activate(mob/living/target)
@@ -886,7 +886,7 @@
 /datum/tarot/reversed/the_tower
 	name = "XVI - The Tower?"
 	desc = "Creation brings destruction."
-	extended_desc = "makes stone containing minerals to shoot from the ground."
+	extended_desc = "will create large stone walls that erupt from the ground around the user."
 	card_icon = "the_tower?"
 
 /datum/tarot/reversed/the_tower/activate(mob/living/target)
@@ -902,7 +902,7 @@
 /datum/tarot/reversed/the_stars
 	name = "XVII - The Stars?"
 	desc = "May your loss bring fortune."
-	extended_desc = "will deal heavy genetic damage to the user, as well as giving a random limb either a fracture, IB, or a burn wound. However the user will also draw two additional cards."
+	extended_desc = "will deal a large ammount of genetic damage to the user, as well as giving a random limb either a fracture, internal bleeding, or a burn wound. However, such cost is rewarding, as the user will draw two additional cards."
 	card_icon = "the_stars?"
 
 /datum/tarot/reversed/the_stars/activate(mob/living/target) //Heavy clone damage hit, but gain 2 cards. Not teathered to the card producer. Could lead to card stacking, but would require the sun to fix easily
