@@ -362,11 +362,8 @@
 	desc = "A box full of magnesium signal flares."
 
 /obj/item/storage/box/flares/populate_contents()
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/flashlight/flare(src)
+	for(var/i in 1 to 5)
+		new /obj/item/flashlight/flare(src)
 
 
 //////////////////
