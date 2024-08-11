@@ -1,7 +1,7 @@
 /datum/spell/ethereal_jaunt/proc/create_jaunt_holder(turf/mobloc, mob/living/target)
 	return new jaunt_type_path(mobloc)
 
-//Basically shadow anchor, but with computers. I'm not in your walls I'm in your PC
+//Basically shadow anchor, but the entry and exit point must be computers. I'm not in your walls I'm in your PC
 /datum/spell/flayer/computer_recall
 	name = "Data Transfer"
 	desc = "Cast once to mark a computer, then cast this next to a different computer to recall yourself back to the first. Alt click to check your current mark."
@@ -11,6 +11,7 @@
 	centcom_cancast = FALSE
 	var/obj/machinery/computer/marked_computer = null
 	stage = 2
+	current_cost = 150
 
 /datum/spell/flayer/computer_recall/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -60,4 +61,52 @@
 		to_chat(user, "<span class='notice'>You do not current have a marked computer.</span>")
 		return
 	to_chat(user, "<span class='notice'>Your current mark is [marked_computer].</span>")
+
+/datum/spell/flayer/grapple_arm
+	name = "Integrated Grappling Mechanism"
+	desc = "EXTENDO ARMMMM!"
+	base_cooldown = 30 SECONDS
+	category = CATEGORY_DESTROYER
+	power_type = FLAYER_PURCHASABLE_POWER
+	stage = 2
+	current_cost = 75
+
+/obj/item/projectile/tether/flayer
+	name = "Grapple Arm"
+	range = 10
+	damage = 15
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "hook"
+	chain_icon_state = "chain"
+	hitsound = 'sound/effects/hit_punch.ogg'
+	hitsound_wall = 'sound/effects/grillehit.ogg'
+	speed = 3
+	yank_speed = 2
+	var/datum/antagonist/mindflayer/flayer
+
+/obj/item/projectile/tether/flayer/on_hit(atom/target)
+	. = ..()
+	if(isliving(target))
+		var/mob/user = flayer.owner
+		var/mob/living/creature = target
+		creature.visible_message(
+			"<span class = 'notice'>[user] uses [creature] to pull [user.p_themselves()] over!</span>",
+			"<span class = 'danger'>You feel a strong tug as [user] yanks [user.p_themselves()] over to you!</span>")
+		creature.KnockDown(1 SECONDS)
+
+/datum/spell/flayer/grapple_arm/create_new_targeting()
+	var/datum/spell_targeting/clicked_atom/external/C = new()
+	C.range = 15
+	return C
+
+/datum/spell/flayer/grapple_arm/cast(list/targets, mob/user)
+	var/atom/target = targets[1]
+	var/obj/item/projectile/tether/flayer/tether = new /obj/item/projectile/tether/flayer(get_turf(user))
+	tether.original = target
+	tether.firer = user
+	tether.flayer = flayer
+	tether.preparePixelProjectile(target, user)
+	tether.fire()
+	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
+	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/item/projectile/tether, make_chain))
 
