@@ -139,32 +139,34 @@
 	throw_speed = 3
 	throw_range = 4
 	w_class = WEIGHT_CLASS_NORMAL
-	var/active = FALSE
+
+/obj/item/shield/riot/tele/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS, _requires_activation = TRUE)
 
 /obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return ..()
 	return FALSE // by not calling the parent the hit_reaction signal is never sent
 
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
-	active = !active
-	icon_state = "teleriot[active]"
-	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
-
-	if(active)
-		force = 8
-		throwforce = 5
-		throw_speed = 2
-		w_class = WEIGHT_CLASS_BULKY
-		slot_flags = SLOT_FLAG_BACK
-		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
-	else
+	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+		REMOVE_TRAIT(src,TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = null
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+	else
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
+		force = 8
+		throwforce = 5
+		throw_speed = 2
+		w_class = WEIGHT_CLASS_BULKY
+		slot_flags = SLOT_FLAG_BACK
+		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
+	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
+	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()

@@ -10,12 +10,11 @@ import { addScrollableNode, removeScrollableNode } from '../events';
 
 export const Layout = (props) => {
   const { className, theme = 'nanotrasen', children, ...rest } = props;
+  document.documentElement.className = `theme-${theme}`;
+
   return (
     <div className={'theme-' + theme}>
-      <div
-        className={classes(['Layout', className, ...computeBoxClassName(rest)])}
-        {...computeBoxProps(rest)}
-      >
+      <div className={classes(['Layout', className, ...computeBoxClassName(rest)])} {...computeBoxProps(rest)}>
         {children}
       </div>
     </div>

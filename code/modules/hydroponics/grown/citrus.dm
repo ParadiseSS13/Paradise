@@ -1,5 +1,5 @@
 // Citrus - base type
-/obj/item/food/snacks/grown/citrus
+/obj/item/food/grown/citrus
 	seed = /obj/item/seeds/lime
 	name = "citrus"
 	desc = "It's so sour, your face will twist."
@@ -14,7 +14,7 @@
 	icon_state = "seed-lime"
 	species = "lime"
 	plantname = "Lime Tree"
-	product = /obj/item/food/snacks/grown/citrus/lime
+	product = /obj/item/food/grown/citrus/lime
 	lifespan = 55
 	endurance = 50
 	yield = 4
@@ -24,7 +24,7 @@
 	mutatelist = list(/obj/item/seeds/orange)
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
 
-/obj/item/food/snacks/grown/citrus/lime
+/obj/item/food/grown/citrus/lime
 	seed = /obj/item/seeds/lime
 	name = "lime"
 	desc = "It's so sour, your face will twist."
@@ -39,7 +39,7 @@
 	icon_state = "seed-orange"
 	species = "orange"
 	plantname = "Orange Tree"
-	product = /obj/item/food/snacks/grown/citrus/orange
+	product = /obj/item/food/grown/citrus/orange
 	lifespan = 60
 	endurance = 50
 	yield = 5
@@ -51,7 +51,7 @@
 	mutatelist = list(/obj/item/seeds/lime)
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
 
-/obj/item/food/snacks/grown/citrus/orange
+/obj/item/food/grown/citrus/orange
 	seed = /obj/item/seeds/orange
 	name = "orange"
 	desc = "It's an tangy fruit."
@@ -67,7 +67,7 @@
 	icon_state = "seed-lemon"
 	species = "lemon"
 	plantname = "Lemon Tree"
-	product = /obj/item/food/snacks/grown/citrus/lemon
+	product = /obj/item/food/grown/citrus/lemon
 	lifespan = 55
 	endurance = 45
 	yield = 4
@@ -78,7 +78,7 @@
 	mutatelist = list(/obj/item/seeds/firelemon)
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
 
-/obj/item/food/snacks/grown/citrus/lemon
+/obj/item/food/grown/citrus/lemon
 	seed = /obj/item/seeds/lemon
 	name = "lemon"
 	desc = "When life gives you lemons, make lemonade."
@@ -94,7 +94,7 @@
 	icon_state = "seed-firelemon"
 	species = "firelemon"
 	plantname = "Combustible Lemon Tree"
-	product = /obj/item/food/snacks/grown/firelemon
+	product = /obj/item/food/grown/firelemon
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "lime-grow"
 	icon_dead = "lime-dead"
@@ -104,7 +104,7 @@
 	yield = 4
 	reagents_add = list("plantmatter" = 0.05)
 
-/obj/item/food/snacks/grown/firelemon
+/obj/item/food/grown/firelemon
 	seed = /obj/item/seeds/firelemon
 	name = "combustible lemon"
 	desc = "Made for burning houses down."
@@ -114,7 +114,7 @@
 	tastes = list("burning lemon" = 1)
 	wine_flavor = "fire"
 
-/obj/item/food/snacks/grown/firelemon/attack_self(mob/living/user)
+/obj/item/food/grown/firelemon/attack_self(mob/living/user)
 	var/area/A = get_area(user)
 	user.visible_message("<span class='warning'>[user] primes [src]!</span>", "<span class='userdanger'>You prime [src]!</span>")
 	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
@@ -124,22 +124,22 @@
 		var/mob/living/carbon/C = user
 		C.throw_mode_on()
 	icon_state = "firelemon_active"
-	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
 
-/obj/item/food/snacks/grown/firelemon/burn()
+/obj/item/food/grown/firelemon/burn()
 	prime()
 	..()
 
-/obj/item/food/snacks/grown/firelemon/proc/update_mob()
+/obj/item/food/grown/firelemon/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
 		M.unEquip(src)
 
-/obj/item/food/snacks/grown/firelemon/ex_act(severity)
+/obj/item/food/grown/firelemon/ex_act(severity)
 	qdel(src) //Ensuring that it's deleted by its own explosion
 
-/obj/item/food/snacks/grown/firelemon/proc/prime()
+/obj/item/food/grown/firelemon/proc/prime()
 	switch(seed.potency) //Combustible lemons are alot like IEDs, lots of flame, very little bang.
 		if(0 to 30)
 			update_mob()

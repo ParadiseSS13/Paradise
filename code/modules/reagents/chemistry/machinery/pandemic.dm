@@ -315,6 +315,8 @@
 	D = GLOB.archive_diseases[D.GetDiseaseID()]
 	if(!(printing) && D)
 		var/reason = tgui_input_text(user,"Enter a reason for the release", "Write", multiline = TRUE)
+		if(!reason)
+			return
 		reason += "<span class=\"paper_field\"></span>"
 		var/english_symptoms = list()
 		for(var/I in D.symptoms)
@@ -398,7 +400,6 @@
 		beaker =  I
 		beaker.loc = src
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
-		updateUsrDialog()
 		SStgui.update_uis(src, TRUE)
 		icon_state = "pandemic1"
 	else

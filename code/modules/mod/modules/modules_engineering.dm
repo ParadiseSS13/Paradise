@@ -114,6 +114,9 @@
 	return ..()
 
 /obj/item/mod/module/tether/on_select_use(atom/target)
+	if(get_turf(target) == get_turf(src)) // Put this check before the parent call so the cooldown won't start if it fails
+		return FALSE
+
 	. = ..()
 	if(!.)
 		return
@@ -248,7 +251,7 @@
 			if(reagents.total_volume < 10)
 				to_chat(user, "<span class='warning'>You need at least 10 units of water to use the metal foam synthesizer!</span>")
 				return
-			var/obj/effect/particle_effect/foam/F = new/obj/effect/particle_effect/foam(get_turf(target), 1)
+			var/obj/effect/particle_effect/foam/metal/F = new /obj/effect/particle_effect/foam/metal(get_turf(target), TRUE)
 			F.spread_amount = 0
 			reagents.remove_any(10)
 			metal_synthesis_charge--

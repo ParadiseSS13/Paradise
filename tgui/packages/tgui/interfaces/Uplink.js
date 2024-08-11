@@ -2,15 +2,7 @@ import { filter, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Input,
-  Section,
-  Stack,
-  Tabs,
-  LabeledList,
-} from '../components';
+import { Box, Button, Input, Section, Stack, Tabs, LabeledList } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -61,8 +53,7 @@ export const Uplink = (props, context) => {
                 }}
                 icon="shopping-cart"
               >
-                View Shopping Cart{' '}
-                {cart && cart.length ? '(' + cart.length + ')' : ''}
+                View Shopping Cart {cart && cart.length ? '(' + cart.length + ')' : ''}
               </Tabs.Tab>
               <Tabs.Tab
                 key="ExploitableInfo"
@@ -96,11 +87,7 @@ const ItemsPage = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { crystals, cats } = data;
   // Default to first
-  const [uplinkItems, setUplinkItems] = useLocalState(
-    context,
-    'uplinkItems',
-    cats[0].items
-  );
+  const [uplinkItems, setUplinkItems] = useLocalState(context, 'uplinkItems', cats[0].items);
 
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const SelectEquipment = (cat, searchText = '') => {
@@ -119,9 +106,7 @@ const ItemsPage = (_properties, context) => {
     if (value === '') {
       return setUplinkItems(cats[0].items);
     }
-    setUplinkItems(
-      SelectEquipment(cats.map((category) => category.items).flat(), value)
-    );
+    setUplinkItems(SelectEquipment(cats.map((category) => category.items).flat(), value));
   };
 
   const [showDesc, setShowDesc] = useLocalState(context, 'showDesc', 1);
@@ -139,16 +124,8 @@ const ItemsPage = (_properties, context) => {
                   checked={showDesc}
                   onClick={() => setShowDesc(!showDesc)}
                 />
-                <Button
-                  content="Random Item"
-                  icon="question"
-                  onClick={() => act('buyRandom')}
-                />
-                <Button
-                  content="Refund Currently Held Item"
-                  icon="undo"
-                  onClick={() => act('refund')}
-                />
+                <Button content="Random Item" icon="question" onClick={() => act('buyRandom')} />
+                <Button content="Refund Currently Held Item" icon="undo" onClick={() => act('refund')} />
               </>
             }
           >
@@ -186,16 +163,8 @@ const ItemsPage = (_properties, context) => {
           <Section fill scrollable>
             <Stack vertical>
               {uplinkItems.map((i) => (
-                <Stack.Item
-                  key={decodeHtmlEntities(i.name)}
-                  p={1}
-                  backgroundColor={'rgba(255, 0, 0, 0.1)'}
-                >
-                  <UplinkItem
-                    i={i}
-                    showDecription={showDesc}
-                    key={decodeHtmlEntities(i.name)}
-                  />
+                <Stack.Item key={decodeHtmlEntities(i.name)} p={1} backgroundColor={'rgba(255, 0, 0, 0.1)'}>
+                  <UplinkItem i={i} showDecription={showDesc} key={decodeHtmlEntities(i.name)} />
                 </Stack.Item>
               ))}
             </Stack>
@@ -221,17 +190,8 @@ const CartPage = (_properties, context) => {
           title={'Current Balance: ' + crystals + 'TC'}
           buttons={
             <>
-              <Button.Checkbox
-                content="Show Descriptions"
-                checked={showDesc}
-                onClick={() => setShowDesc(!showDesc)}
-              />
-              <Button
-                content="Empty Cart"
-                icon="trash"
-                onClick={() => act('empty_cart')}
-                disabled={!cart}
-              />
+              <Button.Checkbox content="Show Descriptions" checked={showDesc} onClick={() => setShowDesc(!showDesc)} />
+              <Button content="Empty Cart" icon="trash" onClick={() => act('empty_cart')} disabled={!cart} />
               <Button
                 content={'Purchase Cart (' + cart_price + 'TC)'}
                 icon="shopping-cart"
@@ -244,17 +204,8 @@ const CartPage = (_properties, context) => {
           <Stack vertical>
             {cart ? (
               cart.map((i) => (
-                <Stack.Item
-                  key={decodeHtmlEntities(i.name)}
-                  p={1}
-                  mr={1}
-                  backgroundColor={'rgba(255, 0, 0, 0.1)'}
-                >
-                  <UplinkItem
-                    i={i}
-                    showDecription={showDesc}
-                    buttons={<CartButtons i={i} />}
-                  />
+                <Stack.Item key={decodeHtmlEntities(i.name)} p={1} mr={1} backgroundColor={'rgba(255, 0, 0, 0.1)'}>
+                  <UplinkItem i={i} showDecription={showDesc} buttons={<CartButtons i={i} />} />
                 </Stack.Item>
               ))
             ) : (
@@ -277,27 +228,14 @@ const Advert = (_properties, context) => {
         fill
         scrollable
         title="Suggested Purchases"
-        buttons={
-          <Button
-            icon="dice"
-            content="See more suggestions"
-            onClick={() => act('shuffle_lucky_numbers')}
-          />
-        }
+        buttons={<Button icon="dice" content="See more suggestions" onClick={() => act('shuffle_lucky_numbers')} />}
       >
         <Stack wrap>
           {lucky_numbers
             .map((number) => cats[number.cat].items[number.item])
             .filter((item) => item !== undefined && item !== null)
             .map((item, index) => (
-              <Stack.Item
-                key={index}
-                p={1}
-                mb={1}
-                ml={1}
-                width={34}
-                backgroundColor={'rgba(255, 0, 0, 0.15)'}
-              >
+              <Stack.Item key={index} p={1} mb={1} ml={1} width={34} backgroundColor={'rgba(255, 0, 0, 0.15)'}>
                 <UplinkItem grow i={item} />
               </Stack.Item>
             ))}
@@ -308,18 +246,10 @@ const Advert = (_properties, context) => {
 };
 
 const UplinkItem = (props, context) => {
-  const {
-    i,
-    showDecription = 1,
-    buttons = <UplinkItemButtons i={i} />,
-  } = props;
+  const { i, showDecription = 1, buttons = <UplinkItemButtons i={i} /> } = props;
 
   return (
-    <Section
-      title={decodeHtmlEntities(i.name)}
-      showBottom={showDecription}
-      buttons={buttons}
-    >
+    <Section title={decodeHtmlEntities(i.name)} showBottom={showDecription} buttons={buttons}>
       {showDecription ? <Box italic>{decodeHtmlEntities(i.desc)}</Box> : null}
     </Section>
   );
@@ -345,9 +275,7 @@ const UplinkItemButtons = (props, context) => {
         disabled={i.cost > crystals}
       />
       <Button
-        content={
-          'Buy (' + i.cost + 'TC)' + (i.refundable ? ' [Refundable]' : '')
-        }
+        content={'Buy (' + i.cost + 'TC)' + (i.refundable ? ' [Refundable]' : '')}
         color={i.hijack_only === 1 && 'red'}
         // Yes I care this much about both of these being able to render at the same time
         tooltip={i.hijack_only === 1 && 'Hijack Agents Only!'}
@@ -427,11 +355,7 @@ const ExploitableInfoPage = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { exploitable } = data;
   // Default to first
-  const [selectedRecord, setSelectedRecord] = useLocalState(
-    context,
-    'selectedRecord',
-    exploitable[0]
-  );
+  const [selectedRecord, setSelectedRecord] = useLocalState(context, 'selectedRecord', exploitable[0]);
 
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
@@ -454,19 +378,10 @@ const ExploitableInfoPage = (_properties, context) => {
     <Stack fill>
       <Stack.Item width="30%">
         <Section fill scrollable title="Exploitable Records">
-          <Input
-            fluid
-            mb={1}
-            placeholder="Search Crew"
-            onInput={(e, value) => setSearchText(value)}
-          />
+          <Input fluid mb={1} placeholder="Search Crew" onInput={(e, value) => setSearchText(value)} />
           <Tabs vertical>
             {crew.map((r) => (
-              <Tabs.Tab
-                key={r}
-                selected={r === selectedRecord}
-                onClick={() => setSelectedRecord(r)}
-              >
+              <Tabs.Tab key={r} selected={r === selectedRecord} onClick={() => setSelectedRecord(r)}>
                 {r.name}
               </Tabs.Tab>
             ))}
@@ -476,21 +391,11 @@ const ExploitableInfoPage = (_properties, context) => {
       <Stack.Item grow>
         <Section fill scrollable title={selectedRecord.name}>
           <LabeledList>
-            <LabeledList.Item label="Age">
-              {selectedRecord.age}
-            </LabeledList.Item>
-            <LabeledList.Item label="Fingerprint">
-              {selectedRecord.fingerprint}
-            </LabeledList.Item>
-            <LabeledList.Item label="Rank">
-              {selectedRecord.rank}
-            </LabeledList.Item>
-            <LabeledList.Item label="Sex">
-              {selectedRecord.sex}
-            </LabeledList.Item>
-            <LabeledList.Item label="Species">
-              {selectedRecord.species}
-            </LabeledList.Item>
+            <LabeledList.Item label="Age">{selectedRecord.age}</LabeledList.Item>
+            <LabeledList.Item label="Fingerprint">{selectedRecord.fingerprint}</LabeledList.Item>
+            <LabeledList.Item label="Rank">{selectedRecord.rank}</LabeledList.Item>
+            <LabeledList.Item label="Sex">{selectedRecord.sex}</LabeledList.Item>
+            <LabeledList.Item label="Species">{selectedRecord.species}</LabeledList.Item>
           </LabeledList>
         </Section>
       </Stack.Item>
