@@ -478,7 +478,9 @@
 	throw_range = 10
 	flags = CONDUCT
 	item_state = "electronic"
+	/// Split points for range_messages.
 	var/list/ranges = list(5, 15, 30)
+	/// Messages to output to the user.
 	var/list/range_messages = list(
 		"Very strong signal detected. Range: Within 5 meters.",
 		"Strong signal detected. Range: Within 15 meters.",
@@ -486,13 +488,16 @@
 		"No signal detected."
 	)
 	var/last_use = 0
-	var/cooldown = 10 SECONDS
+	var/cooldown_length = 10 SECONDS
+	COOLDOWN_DECLARE(scan_cooldown)
+	var/on_hit_sound = 'sound/effects/ping_hit.ogg'
 
 /obj/item/syndi_scanner/attack_self(mob/user)
-	if(last_use > world.time - cooldown)
+	if(!COOLDOWN_FINISHED(src, scan_cooldown))
 		to_chat(user, "<span class='warning'>[src] is recharging!</span>")
 		return
 
+	COOLDOWN_START(src, scan_cooldown, cooldown_length)
 	last_use = world.time
 	var/turf/user_turf = get_turf(user)
 	var/min_dist = INFINITY
@@ -505,11 +510,15 @@
 		if(target_turf.z != user_turf.z)
 			continue
 		min_dist = min(min_dist, get_dist(target_turf, user_turf))
-	var/range = 1
+
+	// By default, we're in the first range, less than any split point.
+	var/range_index = 1
 	for(var/test_range in ranges)
 		if(min_dist > test_range)
-			range++
+			// Past this split point, move to the next.
+			range_index++
 		else
-			playsound(user, 'sound/effects/ping_hit.ogg', 75, TRUE)
+			// Found the right split point, and we're not past all of them, so play the on-hit sound effect.
+			playsound(user, on_hit_sound, 75, TRUE)
 			break
-	to_chat(user, "<span class='notice'>[range_messages[range]]</span>")
+	to_chat(user, "<span class='notice'>[range_messages[range_index]]</span>")
