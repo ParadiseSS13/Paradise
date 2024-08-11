@@ -292,9 +292,9 @@
 		if("filter_pipes")
 			filter_pipes = !filter_pipes
 
-#undef PW_DEBUG_SCREEN_POWERNETS	1
-#undef PW_DEBUG_SCREEN_DETAILS		2
-#undef PW_MIN_CABLE_COUNT			5
+#undef PW_DEBUG_SCREEN_POWERNETS
+#undef PW_DEBUG_SCREEN_DETAILS
+#undef PW_MIN_CABLE_COUNT
 
 //
 //		  "Death to Powernet Bugs"
