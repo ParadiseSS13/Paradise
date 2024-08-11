@@ -60915,9 +60915,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/permabrig)
-"mzI" = (
-/obj/structure/lattice/catwalk,
-/turf/space)
 "mAb" = (
 /obj/structure/toilet{
 	dir = 8
@@ -151425,7 +151422,7 @@ lzH
 lzH
 lzH
 lzH
-mzI
+pbR
 lzH
 lzH
 lzH
