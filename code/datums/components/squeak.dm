@@ -71,25 +71,34 @@
 	else
 		steps++
 
-/datum/component/squeak/proc/play_squeak_crossed(atom/movable/AM)
-	if(isitem(AM))
-		var/obj/item/I = AM
+/datum/component/squeak/proc/play_squeak_crossed(atom/source, atom/movable/crossing)
+	if(istype(crossing, /obj/effect))
+		return
+	if(isitem(crossing))
+		var/obj/item/I = source
 		if(I.flags & ABSTRACT)
 			return
-		else if(isprojectile(AM))
-			var/obj/item/projectile/P = AM
-			if(P.original != parent)
-				return
-	if(ismob(AM))
-		var/mob/M = AM
+	if(isprojectile(crossing))
+		var/obj/item/projectile/P = crossing
+		if(P.original != parent)
+			return
+	if(ismob(source))
+		var/mob/M = source
 		if(M.flying)
 			return
-		if(isliving(AM))
+		if(isliving(source))
 			var/mob/living/L = M
 			if(L.floating)
 				return
-	var/atom/current_parent = parent
-	if(isturf(current_parent.loc))
+	if(ismob(crossing))
+		var/mob/M = crossing
+		if(M.flying)
+			return
+		if(isliving(crossing))
+			var/mob/living/L = M
+			if(L.floating)
+				return
+	if(isturf(source.loc))
 		play_squeak()
 
 /datum/component/squeak/proc/use_squeak()
