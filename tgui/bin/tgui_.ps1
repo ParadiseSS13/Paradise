@@ -75,7 +75,7 @@ function task-clean {
   ## Build artifacts
   Write-Output "tgui: cleaning build artifacts"
   Remove-Quiet -Recurse -Force "public\.tmp"
-  Remove-Quiet -Force "public\*.map"
+  Remove-Quiet -Recurse -Force "packages\tgui\public"
   Remove-Quiet -Force "public\*.hot-update.*"
   Write-Output "tgui: cleaning Yarn artifacts"
   ## Yarn artifacts
@@ -94,11 +94,12 @@ function task-clean {
 }
 
 ## Validates current build against the build stored in git
-function task-validate-build {
-  $diff = git diff --text public/*
+function task-validate-build() {
+  $diff = git diff --name-only -- "public/*" # Get differing files as an array
   if ($diff) {
-    Write-Output "Error: our build differs from the build committed into git."
-    Write-Output "Please rebuild tgui."
+    Write-Output "Error: The following built bundles differ from the committed version:"
+    Write-Output ($diff | Out-String)  # Print the names of differing files
+    Write-Output "You likely failed to rebuild after making changes. Please rebuild tgui."
     exit 1
   }
   Write-Output "tgui: build is ok"

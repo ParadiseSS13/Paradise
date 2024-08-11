@@ -91,7 +91,7 @@ module.exports = (env = {}, argv) => {
     performance: {
       hints: false,
     },
-    devtool: false,
+    devtool: 'source-map',
     cache: {
       type: 'filesystem',
       cacheLocation: path.resolve(__dirname, `.yarn/webpack/${mode}`),
@@ -112,12 +112,6 @@ module.exports = (env = {}, argv) => {
       }),
     ],
   };
-
-  // Add a bundle analyzer to the plugins array
-  if (argv.analyze) {
-    const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-    config.plugins = [...config.plugins, new BundleAnalyzerPlugin()];
-  }
 
   // Production build specific options
   if (argv.mode === 'production') {

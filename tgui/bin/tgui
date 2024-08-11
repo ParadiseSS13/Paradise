@@ -87,7 +87,7 @@ task-clean() {
   echo "tgui: cleaning build artifacts"
   ## Build artifacts
   rm -rf public/.tmp
-  rm -f public/*.map
+  rm -rf packages/tgui/public
   rm -f public/*.hot-update.*
   echo "tgui: cleaning Yarn artifacts"
   ## Yarn artifacts
@@ -104,14 +104,17 @@ task-clean() {
   echo "tgui: All artifacts cleaned"
 }
 
-## Validates current build against the build stored in git
+# Validates current build against the build stored in git
 task-validate-build() {
   cd "${base_dir}"
   local diff
-  diff="$(git diff --text public/*)"
-  if [[ -n ${diff} ]]; then
-    echo "Error: our build differs from the build committed into git."
-    echo "Please rebuild tgui."
+  diff="$(git diff --name-only -- "public/*")" # Get differing files
+  if [[ -n "$diff" ]]; then
+    # Loop through each differing file and print error message when running in GitHub CI
+    for file in $diff; do
+      echo "::error file=$file,title=Bundle Error::Built bundle '$file' differs from the committed version."
+    done
+    echo "You likely failed to rebuild after making changes. Please rebuild tgui."
     exit 1
   fi
   echo "tgui: build is ok"
