@@ -62,6 +62,8 @@
 	var/can_stand
 
 	var/splinted_count = 0 //Time when this organ was last splinted
+	///If this organ's max HP is reduced by the IPC magnetic joints implant
+	var/fragile = FALSE
 
 /obj/item/organ/external/necrotize(update_sprite=TRUE, ignore_vital_death = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
@@ -222,7 +224,7 @@
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
 	var/max_limb_damage = max_damage
-	if(owner)
+	if(owner && fragile)
 		max_limb_damage -= (HAS_TRAIT(owner, TRAIT_IPC_JOINTS_MAG) ? max_damage * 0.25 : 0)
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
@@ -487,19 +489,19 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 		if(prob(5))
 			var/list/messages = list(
-				"You feel something uncomfortable in [src].",
-				"A sharp pain seems to spread out from [src].",
-				"[src] feels like it's burning from the inside out!",
-				"[src] seems to be turning a nasty color.",
+				"You feel something uncomfortable in your [name].",
+				"A sharp pain seems to spread out from your [name].",
+				"Your [name] feels like it's burning from the inside out!",
+				"Your [name] seems to be turning a nasty color.",
 			)
 			to_chat(owner, "<span class='danger'>[pick(messages)]</span>")
 
 	if(germ_level >= INFECTION_LEVEL_THREE)
 		if(vital)
 			var/list/messages = list(
-				"[src] oozes with pus!",
-				"[src] starts to go numb.",
-				"[src] feels dreadful, it feels like you're dying!"
+				"Your [name] oozes with pus!",
+				"Your [name] starts to go numb.",
+				"Your [name] feels dreadful, it feels like you're dying!"
 			)
 			// kill them fast, but don't drop them dead.
 			if(prob(5))
@@ -831,7 +833,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(company && istext(company))
-		set_company(company, owner.dna.species.sprite_sheet_name)
+		if(owner)
+			set_company(company, owner.dna.species.sprite_sheet_name)
+		else
+			set_company(company, "Human")
 
 	limb_flags |= CANNOT_BREAK
 	get_icon()

@@ -42,7 +42,7 @@
 
 /obj/item/zombie_claw
 	name = "claws"
-	desc = "Claws extending from your rotting hands, perfect for ripping open brain_holders for brains."
+	desc = "Claws extending from your rotting hands, perfect for ripping skulls open for the brains inside."
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "vamp_claws"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'

@@ -91,10 +91,10 @@
 /datum/crafting_recipe/throwing_croissant
 	name = "Throwing croissant"
 	reqs = list(
-		/obj/item/food/snacks/croissant = 1,
+		/obj/item/food/croissant = 1,
 		/obj/item/stack/rods = 1
 	)
-	result = list(/obj/item/food/snacks/croissant/throwing)
+	result = list(/obj/item/food/croissant/throwing)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	always_available = FALSE
@@ -924,7 +924,7 @@
 	name = "Snowman"
 	result = list(/obj/structure/snowman/built)
 	reqs = list(/obj/item/snowball = 10,
-				/obj/item/food/snacks/grown/carrot = 1,
+				/obj/item/food/grown/carrot = 1,
 				/obj/item/grown/log = 2)
 	time = 50
 	category = CAT_MISC

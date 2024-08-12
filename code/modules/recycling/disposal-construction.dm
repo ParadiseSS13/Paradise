@@ -137,10 +137,41 @@
 // wrench: (un)anchor
 // weldingtool: convert to real pipe
 
-/obj/structure/disposalconstruct/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalconstruct/wrench_act(mob/living/user, obj/item/I)
+	var/ispipe = is_pipe()
+	var/nicetype = get_nice_name()
+	if(anchored)
+		anchored = FALSE
+		if(ispipe)
+			level = 2
+			density = FALSE
+		else
+			density = TRUE
+		to_chat(user, "You detach the [nicetype] from the underfloor.")
+	else
+		anchored = TRUE
+		if(ispipe)
+			level = 1 // We don't want disposal bins to disappear under the floors
+			density = FALSE
+		else
+			density = TRUE // We don't want disposal bins or outlets to go density 0
+		to_chat(user, "You attach the [nicetype] to the underfloor.")
+	I.play_tool_sound(src, I.tool_volume)
+	update()
+	return TRUE
+
+/obj/structure/disposalconstruct/proc/is_pipe()
+	switch(ptype)
+		// lewtodo: this sucks
+		if(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)
+			return FALSE
+		if(PIPE_DISPOSALS_SORT_RIGHT, PIPE_DISPOSALS_SORT_LEFT)
+			return TRUE
+		else
+			return TRUE
+
+/obj/structure/disposalconstruct/proc/get_nice_name()
 	var/nicetype = "pipe"
-	var/ispipe = 0 // Indicates if we should change the level of this pipe
-	src.add_fingerprint(user)
 	switch(ptype)
 		if(PIPE_DISPOSALS_BIN)
 			nicetype = "disposal bin"
@@ -150,37 +181,18 @@
 			nicetype = "delivery chute"
 		if(PIPE_DISPOSALS_SORT_RIGHT, PIPE_DISPOSALS_SORT_LEFT)
 			nicetype = "sorting pipe"
-			ispipe = 1
-		else
-			nicetype = "pipe"
-			ispipe = 1
+	return nicetype
+
+/obj/structure/disposalconstruct/attackby(obj/item/I, mob/user, params)
+	var/nicetype = get_nice_name()
+	var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
+	add_fingerprint(user)
+
 
 	var/turf/T = src.loc
 	if(T.intact)
 		to_chat(user, "You can only attach the [nicetype] if the floor plating is removed.")
 		return
-
-	if(istype(I, /obj/item/wrench))
-		if(anchored)
-			anchored = FALSE
-			if(ispipe)
-				level = 2
-				density = FALSE
-			else
-				density = TRUE
-			to_chat(user, "You detach the [nicetype] from the underfloor.")
-		else
-			anchored = TRUE
-			if(ispipe)
-				level = 1 // We don't want disposal bins to disappear under the floors
-				density = FALSE
-			else
-				density = TRUE // We don't want disposal bins or outlets to go density 0
-			to_chat(user, "You attach the [nicetype] to the underfloor.")
-		playsound(src.loc, I.usesound, 100, 1)
-		update()
-		return
-
 
 	if(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)) // Disposal or outlet
 		var/obj/structure/disposalpipe/trunk/CP = locate() in T
