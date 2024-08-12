@@ -1,42 +1,45 @@
-
 /*
  * Recipe datum
  */
 /datum/stack_recipe
 	/// Visible title of recipe
 	var/title = "ERROR"
-
+	/// Cached recipe result base64 image
+	var/image
 	/// Resulting typepath of crafted atom
 	var/result_type
-
 	/// Required stack amount to make
 	var/req_amount = 1
-
 	/// Amount of atoms made
 	var/res_amount = 1
-
 	/// Maximum amount of atoms made
 	var/max_res_amount = 1
-
 	/// Time to make
 	var/time = 0
-
 	/// Only one resulting atom is allowed per turf
 	var/one_per_turf = FALSE
-
 	/// Requires a floor underneath to make
 	var/on_floor = FALSE
-
 	/// Requires a floor OR lattice underneath to make
 	var/on_floor_or_lattice = FALSE
-
 	/// Requires a valid window location to make
 	var/window_checks = FALSE
-
 	/// Resulting atom is a cult structure
 	var/cult_structure = FALSE
 
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = FALSE, on_floor = FALSE, on_floor_or_lattice = FALSE, window_checks = FALSE, cult_structure = FALSE)
+/datum/stack_recipe/New(
+		title,
+		result_type,
+		req_amount = 1,
+		res_amount = 1,
+		max_res_amount = 1,
+		time = 0,
+		one_per_turf = FALSE,
+		on_floor = FALSE,
+		on_floor_or_lattice = FALSE,
+		window_checks = FALSE,
+		cult_structure = FALSE
+	)
 	src.title = title
 	src.result_type = result_type
 	src.req_amount = req_amount
@@ -48,6 +51,16 @@
 	src.on_floor_or_lattice = on_floor_or_lattice
 	src.window_checks = window_checks
 	src.cult_structure = cult_structure
+
+	var/obj/item/result = result_type
+	var/icon/result_icon = icon(result::icon, result::icon_state, SOUTH, 1)
+	var/paint = result::color
+
+	result_icon.Scale(32, 32)
+	if(!isnull(paint) && paint != COLOR_WHITE)
+		result_icon.Blend(paint, ICON_MULTIPLY)
+
+	src.image = "[icon2base64(result_icon)]"
 
 /// Returns TRUE if the recipe can be built, otherwise returns FALSE. This proc is only meant as a series of tests to check if construction is possible; the actual creation of the resulting atom should be handled in do_build()
 /datum/stack_recipe/proc/try_build(mob/user, obj/item/stack/S, multiplier)
