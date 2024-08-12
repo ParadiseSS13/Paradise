@@ -556,7 +556,7 @@
 "ase" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Блокпост";
-	req_one_access_txt = "101"
+	req_one_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -688,7 +688,7 @@
 	color = "red";
 	icon_state = "rightsecure";
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access_txt = "153"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1331,12 +1331,12 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/admin2)
 "aQv" = (
-/obj/machinery/computer/crew{
-	layer = 4
-	},
 /obj/structure/platform{
 	dir = 1;
 	anchored = 1
+	},
+/obj/machinery/computer/crew/advanced{
+	layer = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -2175,6 +2175,20 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/general)
+"blM" = (
+/obj/structure/light_fake{
+	dir = 4
+	},
+/obj/machinery/computer/teleporter{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/white/corners{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkredfull"
+	},
+/area/centcom/ss220/supply)
 "blX" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/rock/jungle,
@@ -5277,7 +5291,7 @@
 "cYV" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Офицерское Хранилище";
-	req_access = list(113)
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark_large"
@@ -6430,7 +6444,7 @@
 /obj/machinery/door_control/no_emag/west{
 	id = "СС_BD_Interior_1";
 	name = "Blast Door Open";
-	req_one_access_txt = "101"
+	req_one_access_txt = "104"
 	},
 /obj/machinery/door/airlock/centcom{
 	id_tag = "CC_Interior_1";
@@ -7166,7 +7180,7 @@
 	},
 /area/centcom/ss220/supply)
 "dXq" = (
-/obj/machinery/computer/crew{
+/obj/machinery/computer/crew/advanced{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -7659,6 +7673,8 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
+/obj/item/clothing/suit/space/deathsquad/officer/field/cloak_nt,
+/obj/item/clothing/suit/space/deathsquad/officer/field/cloak_nt/coat_nt,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "enX" = (
@@ -8071,7 +8087,7 @@
 	},
 /area/centcom/ss220/admin2)
 "eya" = (
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew/advanced,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/general)
 "eyg" = (
@@ -8379,7 +8395,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "СС_BD_Cargo_Interior_1";
 	name = "Blast Door Open";
-	req_one_access_txt = "101";
+	req_one_access_txt = "104";
 	pixel_y = 24
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -9460,6 +9476,11 @@
 "fhh" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/box,
+/obj/item/CQC_manual,
+/obj/item/CQC_manual,
+/obj/item/CQC_manual,
+/obj/item/CQC_manual,
+/obj/item/CQC_manual,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "fhp" = (
@@ -10204,6 +10225,41 @@
 "fyL" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
+"fyW" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/box,
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints,
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints,
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints,
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed,
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed,
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed,
+/obj/item/organ/internal/cyberimp/chest/ipc_repair,
+/obj/item/organ/internal/cyberimp/chest/ipc_repair,
+/obj/item/organ/internal/cyberimp/chest/ipc_repair,
+/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+/obj/item/organ/internal/cyberimp/chest/reviver,
+/obj/item/organ/internal/cyberimp/chest/reviver,
+/obj/item/organ/internal/cyberimp/chest/reviver,
+/obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
+/obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
+/obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
+/obj/item/organ/internal/cyberimp/eyes/hud/hydroponic,
+/obj/item/organ/internal/cyberimp/eyes/hud/hydroponic,
+/obj/item/organ/internal/cyberimp/eyes/hud/hydroponic,
+/obj/item/organ/internal/cyberimp/eyes/hud/jani,
+/obj/item/organ/internal/cyberimp/eyes/hud/jani,
+/obj/item/organ/internal/cyberimp/eyes/hud/jani,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/medical,
+/obj/item/organ/internal/cyberimp/eyes/hud/security,
+/obj/item/organ/internal/cyberimp/eyes/hud/security,
+/obj/item/organ/internal/cyberimp/eyes/hud/security,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/ss220/supply)
 "fzb" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/wood/oak,
@@ -11532,8 +11588,14 @@
 /obj/structure/closet/crate/trashcart{
 	name = "Специальная доставка с ЦК"
 	},
+/obj/effect/turf_decal/box/white/corners{
+	dir = 4
+	},
 /obj/effect/turf_decal/box/white/corners,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	dir = 1;
+	icon_state = "darkredalt"
+	},
 /area/centcom/ss220/supply)
 "gsX" = (
 /obj/structure/chair/comfy/corp,
@@ -12925,7 +12987,7 @@
 	color = "red";
 	icon_state = "rightsecure";
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access_txt = "153"
 	},
 /obj/structure/curtain/black{
 	pixel_y = 32;
@@ -13014,6 +13076,16 @@
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/general)
+"hfJ" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/box,
+/obj/item/storage/part_replacer/bluespace/tier4,
+/obj/item/storage/part_replacer/bluespace/tier4,
+/obj/item/storage/part_replacer/bluespace/tier4,
+/obj/item/storage/part_replacer/bluespace/tier4,
+/obj/item/storage/part_replacer/bluespace/tier4,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/ss220/supply)
 "hfQ" = (
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark_large"
@@ -13574,7 +13646,7 @@
 "hvB" = (
 /obj/machinery/door/airlock/multi_tile/command/glass{
 	name = "Командный Центр";
-	req_one_access_txt = "113"
+	req_one_access_txt = "114"
 	},
 /turf/simulated/floor/plasteel/stairs/left{
 	color = "gray"
@@ -14472,6 +14544,14 @@
 	icon_state = "dark"
 	},
 /area/shuttle/syndicate)
+"hRX" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Блокпост";
+	req_one_access_txt = "104"
+	},
+/obj/effect/turf_decal/delivery/blue,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/ss220/admin1)
 "hSb" = (
 /obj/structure/table/glass/reinforced/titanium,
 /obj/item/paper_bin/nanotrasen{
@@ -14760,11 +14840,11 @@
 	},
 /area/shuttle/escape)
 "icd" = (
-/obj/structure/closet/crate/trashcart{
-	name = "Специальная доставка с ЦК"
-	},
 /obj/effect/turf_decal/box/white/corners{
 	dir = 4
+	},
+/obj/structure/closet/crate/trashcart{
+	name = "Специальная доставка с ЦК"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -15196,9 +15276,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "inN" = (
-/turf/simulated/floor/plasteel{
-	color = "gray";
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/stairs/medium{
+	color = "gray"
 	},
 /area/centcom/ss220/admin3)
 "inP" = (
@@ -15261,6 +15340,12 @@
 	},
 /obj/structure/light_fake{
 	dir = 1
+	},
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the Special Ops.";
+	name = "Special Ops. Monitor";
+	network = list("ERT");
+	pixel_y = 27
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
@@ -15969,6 +16054,29 @@
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"iJr" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/box,
+/obj/item/organ/internal/cyberimp/brain/anti_drop,
+/obj/item/organ/internal/cyberimp/brain/anti_drop,
+/obj/item/organ/internal/cyberimp/brain/anti_drop,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep,
+/obj/item/organ/internal/cyberimp/brain/anti_sleep,
+/obj/item/organ/internal/cyberimp/brain/anti_stam,
+/obj/item/organ/internal/cyberimp/brain/anti_stam,
+/obj/item/organ/internal/cyberimp/brain/anti_stam,
+/obj/item/organ/internal/cyberimp/brain/clown_voice,
+/obj/item/organ/internal/cyberimp/brain/clown_voice,
+/obj/item/organ/internal/cyberimp/brain/clown_voice,
+/obj/item/organ/internal/cyberimp/brain/speech_translator,
+/obj/item/organ/internal/cyberimp/brain/speech_translator,
+/obj/item/organ/internal/cyberimp/brain/speech_translator,
+/obj/item/organ/internal/cyberimp/brain/wire_interface,
+/obj/item/organ/internal/cyberimp/brain/wire_interface,
+/obj/item/organ/internal/cyberimp/brain/wire_interface,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/ss220/supply)
 "iJu" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 10;
@@ -16116,6 +16224,8 @@
 /obj/item/autosurgeon,
 /obj/item/autosurgeon,
 /obj/item/autosurgeon,
+/obj/item/autosurgeon,
+/obj/item/autosurgeon,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "iOD" = (
@@ -16170,6 +16280,10 @@
 	name = "Dress shoes"
 	},
 /obj/item/clothing/mask/holo_cigar,
+/obj/item/clothing/suit/space/deathsquad/officer/field/cloak_nt/coat_nt,
+/obj/item/clothing/suit/space/deathsquad/officer/field/cloak_nt/coat_nt,
+/obj/item/clothing/suit/space/deathsquad/officer/field/cloak_nt,
+/obj/item/clothing/suit/space/deathsquad/officer/field/cloak_nt,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "iOY" = (
@@ -17873,11 +17987,11 @@
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/bar)
 "jPg" = (
-/obj/structure/closet/crate/trashcart{
-	name = "Специальная доставка с ЦК"
-	},
 /obj/effect/turf_decal/box/white/corners{
 	dir = 1
+	},
+/obj/structure/closet/crate/trashcart{
+	name = "Специальная доставка с ЦК"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -18746,6 +18860,12 @@
 	req_one_access = list(101)
 	},
 /obj/structure/window/reinforced,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the Special Ops.";
+	name = "Special Ops. Monitor";
+	network = list("ERT");
+	pixel_x = -30
+	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin3)
 "ktJ" = (
@@ -22188,6 +22308,15 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/syndicate_mothership/control)
+"meK" = (
+/obj/structure/closet/crate/trashcart{
+	name = "Специальная доставка с ЦК"
+	},
+/obj/effect/turf_decal/box/white/corners,
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkredalt"
+	},
+/area/centcom/ss220/supply)
 "meX" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -22242,6 +22371,12 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"mhu" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/ss220/supply)
 "mhw" = (
 /obj/structure/light_fake{
 	dir = 8
@@ -24149,7 +24284,8 @@
 /area/centcom/ss220/general)
 "nox" = (
 /obj/machinery/newscaster/security_unit/north,
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/computer/crew/advanced,
+/turf/simulated/floor/carpet,
 /area/centcom/ss220/admin3)
 "noE" = (
 /obj/effect/turf_decal/siding/brown{
@@ -24503,6 +24639,15 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/syndicate_mothership/control)
+"nyK" = (
+/obj/effect/turf_decal/caution/white{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark{
+	dir = 4;
+	icon_state = "darkredalt"
+	},
+/area/centcom/ss220/supply)
 "nze" = (
 /obj/structure/curtain/medical,
 /turf/simulated/wall/indestructible/fakeglass,
@@ -24765,7 +24910,8 @@
 /area/centcom/ss220/admin2)
 "nGF" = (
 /obj/machinery/newscaster/directional/north,
-/turf/simulated/floor/plasteel/dark,
+/obj/machinery/computer/crew/advanced,
+/turf/simulated/floor/carpet,
 /area/centcom/ss220/admin3)
 "nHq" = (
 /obj/structure/disposalpipe/segment,
@@ -25119,6 +25265,26 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
+"nPU" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white/corners,
+/obj/structure/rack,
+/obj/item/bio_chip_case/mindshield,
+/obj/item/bio_chip_case/mindshield,
+/obj/item/bio_chip_case/mindshield,
+/obj/item/bio_chip_case/mindshield,
+/obj/item/bio_chip_case/mindshield,
+/obj/item/bio_chip_case/mindshield,
+/obj/item/bio_chip_case/mindshield,
+/obj/item/bio_chip_case/mindshield,
+/obj/item/bio_chip_case/mindshield,
+/obj/item/bio_chip_case/mindshield,
+/obj/item/bio_chip_implanter,
+/obj/item/bio_chip_implanter,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/ss220/supply)
 "nRk" = (
 /obj/machinery/kitchen_machine/oven/upgraded,
 /turf/simulated/floor/plating{
@@ -26121,6 +26287,12 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the Special Ops.";
+	name = "Special Ops. Monitor";
+	network = list("ERT");
+	pixel_x = 30
+	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin3)
 "oyn" = (
@@ -26505,7 +26677,7 @@
 /obj/machinery/door/window/brigdoor{
 	color = "red";
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access_txt = "153"
 	},
 /obj/structure/curtain/black{
 	pixel_y = 32;
@@ -27716,7 +27888,7 @@
 /obj/machinery/door/window/brigdoor{
 	color = "red";
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access_txt = "153"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27887,6 +28059,48 @@
 	},
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
+"pzE" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 1
+	},
+/obj/effect/turf_decal/box/white/corners{
+	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/bio_chip_case/death_alarm,
+/obj/item/bio_chip_case/death_alarm,
+/obj/item/bio_chip_case/death_alarm,
+/obj/item/bio_chip_case/death_alarm,
+/obj/item/bio_chip_case/death_alarm,
+/obj/item/bio_chip_case/adrenaline,
+/obj/item/bio_chip_case/adrenaline,
+/obj/item/bio_chip_case/adrenaline,
+/obj/item/bio_chip_case/adrenaline,
+/obj/item/bio_chip_case/adrenaline,
+/obj/item/bio_chip_case/dust,
+/obj/item/bio_chip_case/dust,
+/obj/item/bio_chip_case/dust,
+/obj/item/bio_chip_case/dust,
+/obj/item/bio_chip_case/dust,
+/obj/item/bio_chip_case/freedom,
+/obj/item/bio_chip_case/freedom,
+/obj/item/bio_chip_case/freedom,
+/obj/item/bio_chip_case/freedom,
+/obj/item/bio_chip_case/freedom,
+/obj/item/bio_chip_case/krav_maga,
+/obj/item/bio_chip_case/krav_maga,
+/obj/item/bio_chip_case/krav_maga,
+/obj/item/bio_chip_case/krav_maga,
+/obj/item/bio_chip_case/krav_maga,
+/obj/item/bio_chip_case/sad_trombone,
+/obj/item/bio_chip_case/sad_trombone,
+/obj/item/bio_chip_case/sad_trombone,
+/obj/item/bio_chip_case/sad_trombone,
+/obj/item/bio_chip_case/sad_trombone,
+/obj/item/bio_chip_implanter,
+/obj/item/bio_chip_implanter,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/ss220/supply)
 "pAE" = (
 /obj/machinery/pdapainter,
 /obj/structure/curtain/black{
@@ -28610,6 +28824,15 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
+"pTs" = (
+/obj/effect/turf_decal/delivery/red,
+/obj/machinery/teleport/hub/upgraded{
+	admin_usage = 1
+	},
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkredfull"
+	},
+/area/centcom/ss220/supply)
 "pTT" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "SST_to_ATOM"
@@ -28782,7 +29005,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "СС_BD_Cargo_Exterior_1";
 	name = "Blast Door Open";
-	req_one_access_txt = "101";
+	req_one_access_txt = "104";
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -28792,9 +29015,15 @@
 	name = "Специальная доставка с ЦК"
 	},
 /obj/effect/turf_decal/box/white/corners{
+	dir = 1
+	},
+/obj/effect/turf_decal/box/white/corners{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel/dark{
+	dir = 1;
+	icon_state = "darkredalt"
+	},
 /area/centcom/ss220/supply)
 "qab" = (
 /obj/machinery/economy/vending/wallmed/emergency_ntmed/directional/north,
@@ -29829,7 +30058,7 @@
 "qHy" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Зона ЦК";
-	req_one_access_txt = "101"
+	req_one_access_txt = "104"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -30608,6 +30837,17 @@
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"rdp" = (
+/obj/structure/closet/crate/trashcart{
+	name = "Специальная доставка с ЦК"
+	},
+/obj/effect/turf_decal/box/white/corners{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkredalt"
+	},
+/area/centcom/ss220/supply)
 "rdx" = (
 /obj/structure/ninjatele{
 	pixel_y = 25
@@ -33077,9 +33317,8 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	color = "gray";
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/stairs/right{
+	color = "gray"
 	},
 /area/centcom/ss220/admin3)
 "smv" = (
@@ -33191,9 +33430,8 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	color = "gray";
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/stairs/left{
+	color = "gray"
 	},
 /area/centcom/ss220/admin3)
 "sqw" = (
@@ -33763,7 +34001,7 @@
 /obj/machinery/door_control/no_emag/west{
 	id = "СС_BD_Exterior_2";
 	name = "Blast Door Open";
-	req_one_access_txt = "101"
+	req_one_access_txt = "104"
 	},
 /obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plasteel/dark,
@@ -34107,7 +34345,7 @@
 /obj/machinery/door_control/no_emag/west{
 	id = "СС_BD_Exterior_1";
 	name = "Blast Door Open";
-	req_one_access_txt = "101"
+	req_one_access_txt = "104"
 	},
 /obj/machinery/door/airlock/centcom{
 	id_tag = "CC_Exterior_1";
@@ -34752,13 +34990,11 @@
 /turf/simulated/floor/fakespace,
 /area/centcom/ss220/bar)
 "tnM" = (
-/obj/structure/closet/crate/trashcart{
-	name = "Специальная доставка с ЦК"
+/obj/effect/turf_decal/box/white/corners,
+/obj/machinery/teleport/station/upgraded,
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkredfull"
 	},
-/obj/structure/light_fake{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "tnT" = (
 /obj/structure/sink/directional/south,
@@ -35106,7 +35342,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "СС_BD_Shitspawn_Interior_1";
 	name = "Blast Door Open";
-	req_one_access_txt = "101";
+	req_one_access_txt = "114";
 	pixel_x = 24
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -35156,7 +35392,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "СС_BD_Shitspawn_Exterior_1";
 	name = "Blast Door Open";
-	req_one_access_txt = "101";
+	req_one_access_txt = "114";
 	pixel_x = 24
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -35373,6 +35609,12 @@
 	icon_state = "darkneutralfull"
 	},
 /area/syndicate_mothership)
+"tDv" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/ss220/supply)
 "tDK" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/carpet/blue,
@@ -36117,12 +36359,12 @@
 /area/centcom/ss220/bar)
 "tZB" = (
 /obj/structure/closet/emcloset,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
+/obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
 	icon_state = "vault"
@@ -36451,6 +36693,16 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
+"ulG" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/box,
+/obj/item/lightreplacer/bluespace,
+/obj/item/lightreplacer/bluespace,
+/obj/item/lightreplacer/bluespace,
+/obj/item/lightreplacer/bluespace,
+/obj/item/lightreplacer/bluespace,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/ss220/supply)
 "ulL" = (
 /obj/effect/landmark/spawner/syndieprisonwarp,
 /turf/simulated/floor/plasteel{
@@ -37385,6 +37637,14 @@
 /obj/effect/turf_decal/siding/blue,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/ss220/bar)
+"uOi" = (
+/obj/structure/closet/crate/trashcart{
+	name = "Специальная доставка с ЦК"
+	},
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkredalt"
+	},
+/area/centcom/ss220/supply)
 "uOr" = (
 /obj/structure/curtain/black{
 	pixel_y = 32;
@@ -38404,6 +38664,26 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/admin2)
+"vsC" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/box,
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
+/obj/item/organ/internal/cyberimp/arm/surgery,
+/obj/item/organ/internal/cyberimp/arm/surgery,
+/obj/item/organ/internal/cyberimp/arm/surgery,
+/obj/item/organ/internal/cyberimp/arm/toolset,
+/obj/item/organ/internal/cyberimp/arm/toolset,
+/obj/item/organ/internal/cyberimp/arm/toolset,
+/obj/item/organ/internal/cyberimp/arm/medibeam,
+/obj/item/organ/internal/cyberimp/arm/medibeam,
+/obj/item/organ/internal/cyberimp/arm/medibeam,
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/ss220/supply)
 "vsH" = (
 /obj/effect/decal/nanotrasen_logo/n5,
 /turf/simulated/floor/plasteel/dark,
@@ -39675,6 +39955,15 @@
 /obj/effect/spawner/lootdrop/CCfood/alcohol,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/bar)
+"wbu" = (
+/obj/structure/closet/crate/trashcart{
+	name = "Специальная доставка с ЦК"
+	},
+/turf/simulated/floor/plasteel/dark{
+	dir = 1;
+	icon_state = "darkredalt"
+	},
+/area/centcom/ss220/supply)
 "wbL" = (
 /obj/structure/rack,
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw,
@@ -40775,7 +41064,7 @@
 /obj/machinery/door_control/no_emag/west{
 	id = "СС_BD_Interior_2";
 	name = "Blast Door Open";
-	req_one_access_txt = "101"
+	req_one_access_txt = "104"
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "СС_BD_Interior_2";
@@ -42395,7 +42684,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/computer/crew{
+/obj/machinery/computer/crew/advanced{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -55162,9 +55451,9 @@ gYi
 sUd
 kcW
 fjA
-fhh
-fhh
-fjA
+vsC
+iJr
+pzE
 egO
 fjA
 lsn
@@ -55419,9 +55708,9 @@ kvF
 sUd
 kcW
 uQl
-fhh
+fyW
 iOx
-uQl
+nPU
 egO
 uQl
 vPk
@@ -55938,8 +56227,8 @@ bai
 kUR
 egO
 gxy
-fhh
-fhh
+hfJ
+ulG
 fhh
 bcg
 rzI
@@ -59782,10 +60071,10 @@ xCL
 rzI
 rzI
 jPg
-wMG
-wMG
-wMG
-wMG
+rdp
+mhu
+egO
+tDv
 pZL
 qZz
 xOp
@@ -60039,11 +60328,11 @@ kvF
 bcb
 rzI
 wMG
-wMG
-wMG
-wMG
-wMG
-wMG
+uOi
+nyK
+nyK
+nyK
+wbu
 bWW
 xOp
 qYl
@@ -60296,9 +60585,9 @@ gYi
 vry
 rzI
 icd
-tnM
-wMG
-wMG
+meK
+blM
+pTs
 tnM
 gsT
 gIs
@@ -66500,7 +66789,7 @@ nFI
 fGI
 qos
 fGI
-aic
+hRX
 mmG
 tTm
 lvt
@@ -66785,7 +67074,7 @@ fdO
 wem
 ciP
 qhu
-wpy
+syd
 dkD
 jiu
 hBJ
@@ -67042,7 +67331,7 @@ fdO
 mpy
 ciP
 eBi
-syd
+wpy
 fsG
 jiu
 ljw
@@ -69612,7 +69901,7 @@ htH
 ejM
 ciP
 uSO
-syd
+wpy
 xYQ
 jiu
 hBJ
@@ -69869,7 +70158,7 @@ sFV
 kwM
 ciP
 bgH
-wpy
+syd
 ukh
 jiu
 ljw
