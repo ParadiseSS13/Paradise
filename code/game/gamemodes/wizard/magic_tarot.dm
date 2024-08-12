@@ -304,7 +304,7 @@
 /datum/tarot/the_high_priestess
 	name = "II - The High Priestess"
 	desc = "Mother is watching you."
-	extended_desc = "alerts Bubblegum to the user, allowing them to rend them, dealing heavy damage, and imobilizing them."
+	extended_desc = "alerts Bubblegum to the user, allowing her to rend the effected user, dealing heavy damage, and imobilizing the user for a short time."
 	card_icon = "the_high_priestess"
 
 /datum/tarot/the_high_priestess/activate(mob/living/target)
@@ -688,7 +688,7 @@
 /datum/tarot/reversed/the_high_priestess
 	name = "II - The High Priestess?"
 	desc = "Run."
-	extended_desc = "summons Bubblegum to tear portals open around the user, that she will use to grab at them, and people around them at random, causing major damage." // iirc bubblegum is a she
+	extended_desc = "summons Bubblegum to tear portals open around the user that she will use to grab at them, and people around them at random. This will often be lethal." // iirc bubblegum is a she
 	card_icon = "the_high_priestess?"
 
 /datum/tarot/reversed/the_high_priestess/activate(mob/living/target)
