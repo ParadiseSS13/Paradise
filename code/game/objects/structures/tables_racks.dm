@@ -369,7 +369,7 @@
 		if(MOB_SIZE_SMALL)
 			return 5 SECONDS  // not gonna terrorize anything
 		else
-			return 1 SECONDS
+			return 0
 
 
 /obj/structure/table/proc/flip(direction)
