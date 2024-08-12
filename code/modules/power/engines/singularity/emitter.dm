@@ -147,7 +147,7 @@
 		step(src, get_dir(M, src))
 
 /obj/machinery/power/emitter/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/card/id) || !istype(I, /obj/item/pda))
+	if(!istype(I, /obj/item/card/id) && !istype(I, /obj/item/pda))
 		return ..()
 
 	if(emagged)
@@ -302,6 +302,7 @@
 	else
 		fire_delay = rand(minimum_fire_delay, maximum_fire_delay)
 		shot_number = 0
+
 	P.setDir(dir)
 	P.starting = loc
 	P.Angle = null
