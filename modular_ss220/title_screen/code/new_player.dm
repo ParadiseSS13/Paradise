@@ -26,7 +26,7 @@
 		client.change_title_screen_notice()
 
 	else if(href_list["swap_server"])
-		swap_server()
+		client.swap_server()
 
 	else if(href_list["wiki"])
 		if(tgui_alert(usr, "Хотите открыть нашу вики?", "Вики", list("Да", "Нет")) != "Да")
@@ -45,7 +45,9 @@
 		winset(client, "paramapwindow.map", "focus=true")
 		return
 
-/mob/new_player/proc/swap_server()
+/client/verb/swap_server()
+	set category = "OOC"
+	set name = "Swap Server"
 	var/list/servers =  GLOB.configuration.ss220_misc.cross_server_list
 	if(length(servers) == 0)
 		return
@@ -62,12 +64,12 @@
 		server_name = servers[1]
 		server_ip = servers[server_name]
 
-	var/confirm = tgui_alert(src, "Вы уверены что хотите перейти на [server_name] ([server_ip])?", "Смена сервера!", list("Поехали", "Побуду тут..."))
+	var/confirm = tgui_alert(usr, "Вы уверены что хотите перейти на [server_name] ([server_ip])?", "Смена сервера!", list("Поехали", "Побуду тут..."))
 	if(confirm != "Поехали")
 		return
 
-	to_chat_immediate(src, "Удачной охоты, сталкер.")
-	client << link(server_ip)
+	to_chat_immediate(usr, "Удачной охоты, сталкер.")
+	src << link(server_ip)
 
 /datum/preferences/process_link(mob/user, list/href_list)
 	. = ..()
