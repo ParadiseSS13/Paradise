@@ -260,7 +260,7 @@
 
 /datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/food/snacks/meat/slab/meatproduct(location)
+	new /obj/item/food/meat/slab/meatproduct(location)
 
 /datum/chemical_reaction/lye
 	name = "lye"

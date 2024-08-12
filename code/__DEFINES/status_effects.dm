@@ -58,6 +58,8 @@
 
 #define STATUS_EFFECT_CHAINSAW_SLAYING /datum/status_effect/chainsaw_slaying // Stun immunity, very slight damage resistance
 
+#define STATUS_EFFECT_BREACH_AND_CLEAVE /datum/status_effect/breaching_and_cleaving // Stamina damage resist, Additional ranged armor
+
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
 
 #define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback // Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.
@@ -125,6 +127,8 @@
 #define STATUS_EFFECT_PEPPERSPRAYED /datum/status_effect/pepper_spray
 
 #define STATUS_EFFECT_REVERSED_HIGH_PRIESTESS /datum/status_effect/reversed_high_priestess //Bubblegum will chase the person hit by the effect, grabbing people at random. This can and WILL include the caster.
+
+#define STATUS_EFFECT_C_FOAMED /datum/status_effect/c_foamed
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured

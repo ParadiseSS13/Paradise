@@ -67,18 +67,11 @@
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
 	if(ui_status(usr, state, href_list) == UI_INTERACTIVE)
-		CouldUseTopic(usr)
+		var/atom/host = ui_host()
+		host.add_fingerprint(usr)
 		return FALSE
 
-	CouldNotUseTopic(usr)
 	return TRUE
-
-/obj/proc/CouldUseTopic(mob/user)
-	var/atom/host = ui_host()
-	host.add_fingerprint(user)
-
-/obj/proc/CouldNotUseTopic(mob/user)
-	return
 
 /obj/Destroy()
 	if(!ismachinery(src))
@@ -88,15 +81,6 @@
 		else
 			STOP_PROCESSING(SSfastprocess, src)
 	return ..()
-
-//user: The mob that is suiciding
-//damagetype: The type of damage the item will inflict on the user
-//BRUTELOSS = 1
-//FIRELOSS = 2
-//TOXLOSS = 4
-//OXYLOSS = 8
-//SHAME = 16
-//OBLITERATION = 32
 
 //Output a creative message and then return the damagetype done
 /obj/proc/suicide_act(mob/user)
@@ -164,12 +148,8 @@
 /mob/proc/unset_machine()
 	if(machine)
 		UnregisterSignal(machine, COMSIG_PARENT_QDELETING)
-		machine.on_unset_machine(src)
 		machine = null
 
-//called when the user unsets the machine.
-/atom/movable/proc/on_unset_machine(mob/user)
-	return
 
 /mob/proc/set_machine(obj/O)
 	if(src.machine)

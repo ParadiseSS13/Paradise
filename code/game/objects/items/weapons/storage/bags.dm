@@ -96,13 +96,6 @@
 
 /obj/item/storage/bag/trash/cyborg
 
-/obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.mybag = src
-	J.put_in_cart(src, user)
-
-/obj/item/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return
-
 /obj/item/storage/bag/trash/bluespace
 	name = "trash bag of holding"
 	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
@@ -114,9 +107,6 @@
 	flags_2 = NO_MAT_REDEMPTION_2
 
 /obj/item/storage/bag/trash/bluespace/cyborg
-
-/obj/item/storage/bag/trash/bluespace/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return
 
 ////////////////////////////////////////
 // MARK:	Plastic bag
@@ -209,10 +199,10 @@
 	can_hold = list(
 		/obj/item/seeds,
 		/obj/item/unsorted_seeds,
-		/obj/item/food/snacks/grown,
+		/obj/item/food/grown,
 		/obj/item/grown,
-		/obj/item/food/snacks/grown/ash_flora,
-		/obj/item/food/snacks/honeycomb)
+		/obj/item/food/grown/ash_flora,
+		/obj/item/food/honeycomb)
 	cant_hold = list(/obj/item/grown/bananapeel/traitorpeel)
 	resistance_flags = FLAMMABLE
 
@@ -398,7 +388,7 @@
 	return ..()
 
 /obj/item/storage/bag/tray/cookies_tray
-	var/cookie = /obj/item/food/snacks/cookie
+	var/cookie = /obj/item/food/cookie
 
 /obj/item/storage/bag/tray/cookies_tray/populate_contents() // By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
@@ -407,7 +397,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
-	cookie = /obj/item/food/snacks/sugarcookie
+	cookie = /obj/item/food/sugarcookie
 
 ////////////////////////////////////////
 // MARK:	Chemistry bag
@@ -437,7 +427,7 @@
 	storage_slots = 25
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/slime_extract, /obj/item/food/snacks/monkeycube,
+	can_hold = list(/obj/item/slime_extract, /obj/item/food/monkeycube,
 					/obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/beaker,
 					/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/iv_bag,
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine)

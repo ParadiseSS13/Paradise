@@ -5,13 +5,6 @@
 	..()
 	ToggleHelmet()
 
-/obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
-	if(!helmettype)
-		return
-	if(slot != SLOT_HUD_OUTER_SUIT)
-		RemoveHelmet()
-	..()
-
 /obj/item/clothing/suit/space/hardsuit/proc/RemoveHelmet()
 	if(!helmet)
 		return
@@ -27,10 +20,6 @@
 		playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	else
 		helmet.forceMove(src)
-
-/obj/item/clothing/suit/space/hardsuit/dropped()
-	..()
-	RemoveHelmet()
 
 /obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet()
 	var/mob/living/carbon/human/H = src.loc

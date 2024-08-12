@@ -95,8 +95,8 @@
 /area/ruin/unpowered/BMPship/Delta)
 "ax" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -104,7 +104,7 @@
 /area/ruin/unpowered/BMPship/Delta)
 "ay" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/meat,
+/obj/item/food/meat,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -517,7 +517,7 @@
 "cb" = (
 /obj/structure/table,
 /obj/item/kitchen/knife/butcher,
-/obj/item/food/snacks/meat,
+/obj/item/food/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -600,7 +600,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/unpowered/BMPship/Aft)
 "cp" = (
-/obj/item/food/snacks/hugemushroomslice,
+/obj/item/food/hugemushroomslice,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -699,7 +699,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "cH" = (
-/obj/item/food/snacks/hugemushroomslice,
+/obj/item/food/hugemushroomslice,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Midship)
 "cI" = (
@@ -739,8 +739,8 @@
 /area/ruin/unpowered/BMPship/Aft)
 "cP" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/meat,
+/obj/item/food/meat,
+/obj/item/food/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -835,7 +835,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "di" = (
-/obj/item/food/snacks/meat,
+/obj/item/food/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -1819,7 +1819,7 @@
 /area/ruin/unpowered/BMPship/Fore)
 "fS" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/meat,
+/obj/item/food/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -2252,7 +2252,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hn" = (
-/obj/item/food/snacks/chips,
+/obj/item/food/chips,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "ho" = (
@@ -2354,8 +2354,8 @@
 /area/ruin/unpowered/BMPship/Midship)
 "IM" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/snacks/meat,
-/obj/item/food/snacks/hugemushroomslice,
+/obj/item/food/meat,
+/obj/item/food/hugemushroomslice,
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},

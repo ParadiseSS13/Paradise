@@ -39,21 +39,24 @@
 	user.remote_control = null
 
 	current_user = null
-	user.unset_machine()
+	remove_eye(user)
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, 0)
 
-/obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if((stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || !user.has_vision() || user.incapacitated())
-		user.unset_machine()
+/obj/machinery/computer/camera_advanced/process()
+	if(!current_user)
+		return
+
+	if((stat & (NOPOWER|BROKEN)) || (!Adjacent(current_user) && !current_user.has_unlimited_silicon_privilege) || !current_user.has_vision() || current_user.incapacitated())
+		remove_eye(current_user)
 
 /obj/machinery/computer/camera_advanced/Destroy()
 	if(current_user)
-		current_user.unset_machine()
+		remove_eye(current_user)
 	QDEL_NULL(eyeobj)
 	QDEL_LIST_CONTENTS(actions)
 	return ..()
 
-/obj/machinery/computer/camera_advanced/on_unset_machine(mob/M)
+/obj/machinery/computer/camera_advanced/proc/remove_eye(mob/M)
 	if(M == current_user)
 		remove_eye_control(M)
 
@@ -65,7 +68,6 @@
 		return
 	if(..())
 		return
-	user.set_machine(src)
 
 	if(!eyeobj)
 		CreateEye()
@@ -85,7 +87,7 @@
 		else
 			// An abberant case - silent failure is obnoxious
 			to_chat(user, "<span class='warning'>ERROR: No linked and active camera network found.</span>")
-			user.unset_machine()
+			remove_eye(user)
 	else
 		give_eye_control(user)
 		eyeobj.setLoc(eyeobj.loc)

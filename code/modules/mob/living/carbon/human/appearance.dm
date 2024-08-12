@@ -235,6 +235,19 @@
 		update_body()
 	return TRUE
 
+/mob/living/carbon/human/get_runechat_color()
+	if(!dna) // Check for DNA in the case we somehow don't have a DNA set for this human.
+		return ..()
+	return dna.chat_color
+
+/mob/living/carbon/human/proc/change_runechat_color(colour = "#000000")
+	if(!dna)
+		return
+	if(colour == dna.chat_color)
+		return
+	dna.chat_color = colour
+	update_dna()
+
 /mob/living/carbon/human/proc/get_eye_color()
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)

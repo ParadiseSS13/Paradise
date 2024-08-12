@@ -564,6 +564,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_fire()
 	update_icons()
 	update_emissive_block()
+	if(player_logged) //make sure the SSD overlay stays
+		overlays += image('icons/effects/effects.dmi', icon_state = "zzz_glow")
 
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv

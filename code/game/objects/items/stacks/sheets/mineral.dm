@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += "Its high flammability makes it very dangerous to handle, and it is also toxic and carcinogenic to most species. Veteran miners often begin to suffer from health problems caused by chronic exposure to plasma dust."
 	. += ""
 	. += "Despite its flammability, plasma-enhanced materials such as plasteel or plasma glass generally possess extreme fire resistance, ultra-low thermal conductivity, and a high emissivity. \
-	This allows, for example, a relatively thin pane of plasma glass to be cool to the touch even when a massive inferno is bruning on the other side."
+	This allows, for example, a relatively thin pane of plasma glass to be cool to the touch even when a massive inferno is burning on the other side."
 
 /obj/item/stack/sheet/mineral/plasma/New()
 	..()

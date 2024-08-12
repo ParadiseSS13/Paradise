@@ -197,3 +197,18 @@
 
 /obj/machinery/clonescanner/force_eject_occupant(mob/target)
 	remove_mob()
+
+/obj/machinery/clonescanner/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/clonescanner/screwdriver_act(mob/user, obj/item/I)
+	if(occupant)
+		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		return TRUE
+	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
+		return TRUE
