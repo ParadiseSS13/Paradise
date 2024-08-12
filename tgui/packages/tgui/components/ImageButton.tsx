@@ -85,7 +85,7 @@ export const ImageButton = (props: Props) => {
     return (
       <Stack height={`${imageSize}px`} width={`${imageSize}px`}>
         <Stack.Item grow textAlign="center" align="center">
-          <Icon spin={iconSpin} name={iconName} color="gray" style={{ fontSize: `calc(${imageSize}px * 0.75)` }} />
+          <Icon spin={iconSpin} name={iconName} color="gray" style={{ 'font-size': `calc(${imageSize}px * 0.75)` }} />
         </Stack.Item>
       </Stack>
     );
@@ -173,7 +173,7 @@ export const ImageButton = (props: Props) => {
               : fluid && 'buttonsContainerColor__default',
           ])}
           style={{
-            width: buttonsAlt ? `calc(${imageSize}px + 0.5em)` : 'auto',
+            width: buttonsAlt ? `calc(${imageSize}px + ${fluid ? 0 : 0.5}em)` : 'auto',
           }}
         >
           {buttons}

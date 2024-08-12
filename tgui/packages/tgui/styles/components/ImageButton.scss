@@ -174,7 +174,6 @@ $bg-map: colors.$bg-map !default;
     flex: 1;
     -ms-user-select: none;
     user-select: none;
-    margin: 0 0.5em;
   }
 
   .title {
@@ -182,6 +181,7 @@ $bg-map: colors.$bg-map !default;
     padding: 0.5em;
 
     &.divider {
+      margin: 0 0.5em;
       border-bottom: Divider.$thickness solid Divider.$color;
     }
   }
@@ -227,11 +227,6 @@ $bg-map: colors.$bg-map !default;
       height: 100%;
       border-left: 1px solid rgba(255, 255, 255, 0.075);
       border-top: 1px solid rgba(255, 255, 255, 0.075);
-      opacity: 1;
-
-      & > * {
-        opacity: 0.33;
-      }
 
       &:first-child {
         border-top: 0;

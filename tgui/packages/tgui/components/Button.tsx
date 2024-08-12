@@ -17,6 +17,7 @@ const logger = createLogger('Button');
 
 export type ButtonProps = BoxProps & {
   fluid?: boolean;
+  translucent?: boolean;
   icon?: string;
   iconRotation?: number;
   iconSpin?: BooleanLike;
@@ -42,6 +43,7 @@ export const Button = (props: ButtonProps) => {
   const {
     className,
     fluid,
+    translucent,
     icon,
     iconRotation,
     iconSpin,
@@ -84,15 +86,17 @@ export const Button = (props: ButtonProps) => {
       className={classes([
         'Button',
         fluid && 'Button--fluid',
-        disabled && 'Button--disabled',
-        selected && 'Button--selected',
+        disabled && 'Button--disabled' + (translucent ? '--translucent' : ''),
+        selected && 'Button--selected' + (translucent ? '--translucent' : ''),
         hasContent && 'Button--hasContent',
         ellipsis && 'Button--ellipsis',
         circular && 'Button--circular',
         compact && 'Button--compact',
         iconRight && 'Button--iconRight',
         multiLine && 'Button--multiLine',
-        color && typeof color === 'string' ? 'Button--color--' + color : 'Button--color--default',
+        color && typeof color === 'string'
+          ? 'Button--color--' + color + (translucent ? '--translucent' : '')
+          : 'Button--color--default' + (translucent ? '--translucent' : ''),
         className,
       ])}
       tabIndex={!disabled && '0'}
@@ -333,21 +337,3 @@ export class ButtonInput extends Component<ButtonInputProps, ButtonInputState> {
 }
 
 Button.Input = ButtonInput;
-
-export const ButtonTranslucent = (props: ButtonProps) => {
-  const { ...rest } = props;
-  return (
-    <Button
-      className={classes([
-        props.disabled && 'Button--translucent--disabled',
-        props.selected && 'Button--translucent--selected',
-        props.color && typeof props.color === 'string'
-          ? 'Button--translucent--color--' + props.color
-          : 'Button--translucent--color--default',
-      ])}
-      {...rest}
-    />
-  );
-};
-
-Button.Translucent = ButtonTranslucent;

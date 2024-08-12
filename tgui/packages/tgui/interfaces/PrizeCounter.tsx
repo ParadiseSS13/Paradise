@@ -20,6 +20,7 @@ export const PrizeCounter = (props, context) => {
   const { act, data } = useBackend<PrizeData>(context);
   const { tickets, prizes = [] } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [toggleSearch, setToggleSearch] = useLocalState(context, 'toggleSearch', false);
   const filteredPrizes = prizes.filter((prize) => prize.name.toLowerCase().includes(searchText.toLowerCase()));
   return (
     <Window width={450} height={585} title="Arcade Ticket Exchange">
@@ -32,15 +33,17 @@ export const PrizeCounter = (props, context) => {
               title="Available Prizes"
               buttons={
                 <Stack>
-                  <Stack.Item>
-                    <Input
-                      mt={0.1}
-                      width={12.5}
-                      placeholder="Search for a prize"
-                      value={searchText}
-                      onInput={(e, value) => setSearchText(value)}
-                    />
-                  </Stack.Item>
+                  {toggleSearch && (
+                    <Stack.Item>
+                      <Input
+                        mt={0.1}
+                        width={12.5}
+                        placeholder="Search for a prize"
+                        value={searchText}
+                        onInput={(e, value) => setSearchText(value)}
+                      />
+                    </Stack.Item>
+                  )}
                   <Stack.Item>
                     <Button
                       fluid
@@ -49,6 +52,15 @@ export const PrizeCounter = (props, context) => {
                       disabled={!tickets}
                       content={<>Tickets: {<b>{tickets}</b>}</>}
                       onClick={() => act('eject')}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Button
+                      icon="search"
+                      tooltip="Toggle search"
+                      tooltipPosition="bottom-end"
+                      selected={toggleSearch}
+                      onClick={() => setToggleSearch(!toggleSearch)}
                     />
                   </Stack.Item>
                 </Stack>
@@ -64,17 +76,18 @@ export const PrizeCounter = (props, context) => {
                     title={prize.name}
                     buttonsAlt
                     buttons={
-                      <Button.Translucent
+                      <Button
                         bold
+                        translucent
+                        color="transparent"
                         fontSize={1.5}
-                        textColor={disabled && 'gray'}
-                        textAlign="center"
                         tooltip={disabled && 'Not enough tickets'}
                         disabled={disabled}
                         onClick={() => act('purchase', { 'purchase': prize.itemID })}
                       >
-                        {prize.cost} <br /> <Icon name="ticket" color={disabled ? 'bad' : 'good'} size={1.6} />
-                      </Button.Translucent>
+                        {prize.cost}
+                        <Icon m={0} mt={0.25} name="ticket" color={disabled ? 'bad' : 'good'} size={1.6} />
+                      </Button>
                     }
                   >
                     {prize.desc}
