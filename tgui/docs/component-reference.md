@@ -8,53 +8,56 @@ This table of contents must be manually maintained.
 Make sure to add new items to this list if you document new components.
 -->
 
-- [General Concepts](#general-concepts)
-- [`tgui/components`](#tguicomponents)
-  - [`AnimatedNumber`](#animatednumber)
-  - [`BlockQuote`](#blockquote)
-  - [`Box`](#box)
-  - [`Button`](#button)
-  - [`Button.Checkbox`](#buttoncheckbox)
-  - [`Button.Confirm`](#buttonconfirm)
-  - [`Button.Input`](#buttoninput)
-  - [`ByondUi`](#byondui)
-  - [`Collapsible`](#collapsible)
-  - [`ColorBox`](#colorbox)
-  - [`Dimmer`](#dimmer)
-  - [`Divider`](#divider)
-  - [`Dropdown`](#dropdown)
-  - [`Flex`](#flex)
-  - [`Flex.Item`](#flexitem)
-  - [`Grid`](#grid)
-  - [`Grid.Column`](#gridcolumn)
-  - [`Icon`](#icon)
-  - [`Icon.Stack`](#iconstack)
-  - [`ImageButton`](#imagebutton)
-  - [`ImageButton.Item`](#imagebuttonitem)
-  - [`Input`](#input)
-  - [`Knob`](#knob)
-  - [`LabeledControls`](#labeledcontrols)
-  - [`LabeledControls.Item`](#labeledcontrolsitem)
-  - [`LabeledList`](#labeledlist)
-  - [`LabeledList.Item`](#labeledlistitem)
-  - [`LabeledList.Divider`](#labeledlistdivider)
-  - [`Modal`](#modal)
-  - [`NoticeBox`](#noticebox)
-  - [`NumberInput`](#numberinput)
-  - [`ProgressBar`](#progressbar)
-  - [`RoundGauge`](#roundgauge)
-  - [`Section`](#section)
-  - [`Slider`](#slider)
-  - [`Stack`](#stack)
-  - [`Table`](#table)
-  - [`Table.Row`](#tablerow)
-  - [`Table.Cell`](#tablecell)
-  - [`Tabs`](#tabs)
-  - [`Tabs.Tab`](#tabstab)
-  - [`Tooltip`](#tooltip)
-- [`tgui/layouts`](#tguilayouts)
-  - [`Window`](#window)
-  - [`Window.Content`](#windowcontent)
+- [Component Reference](#component-reference)
+  - [General Concepts](#general-concepts)
+  - [`tgui/components`](#tguicomponents)
+    - [`AnimatedNumber`](#animatednumber)
+    - [`BlockQuote`](#blockquote)
+    - [`Box`](#box)
+    - [`Button`](#button)
+    - [`Button.Checkbox`](#buttoncheckbox)
+    - [`Button.Confirm`](#buttonconfirm)
+    - [`Button.Input`](#buttoninput)
+    - [`ByondUi`](#byondui)
+    - [`Collapsible`](#collapsible)
+    - [`ColorBox`](#colorbox)
+    - [`Dimmer`](#dimmer)
+    - [`Divider`](#divider)
+    - [`Dropdown`](#dropdown)
+    - [`Flex`](#flex)
+    - [`Flex.Item`](#flexitem)
+    - [`Grid`](#grid)
+    - [`Grid.Column`](#gridcolumn)
+    - [`Icon`](#icon)
+    - [`Icon.Stack`](#iconstack)
+    - [`ImageButton`](#imagebutton)
+    - [`ImageButton.Item`](#imagebuttonitem)
+    - [`Input`](#input)
+    - [`Knob`](#knob)
+    - [`Popper`](#popper)
+    - [`LabeledControls`](#labeledcontrols)
+    - [`LabeledControls.Item`](#labeledcontrolsitem)
+    - [`LabeledList`](#labeledlist)
+    - [`LabeledList.Item`](#labeledlistitem)
+    - [`LabeledList.Divider`](#labeledlistdivider)
+    - [`Modal`](#modal)
+    - [`NoticeBox`](#noticebox)
+    - [`NumberInput`](#numberinput)
+    - [`ProgressBar`](#progressbar)
+    - [`RoundGauge`](#roundgauge)
+    - [`Section`](#section)
+    - [`Slider`](#slider)
+    - [`Stack`](#stack)
+    - [`Stack.Item`](#stackitem)
+    - [`Table`](#table)
+    - [`Table.Row`](#tablerow)
+    - [`Table.Cell`](#tablecell)
+    - [`Tabs`](#tabs)
+    - [`Tabs.Tab`](#tabstab)
+    - [`Tooltip`](#tooltip)
+  - [`tgui/layouts`](#tguilayouts)
+    - [`Window`](#window)
+    - [`Window.Content`](#windowcontent)
 
 ## General Concepts
 
@@ -550,36 +553,36 @@ Renders children icons on top of each other in order to make your own icon.
 ### `ImageButton`
 
 A Robust button is specifically for sticking a picture in it.
-Has support for base64, spritesheets and URLs.
 
 **Props:**
 
 - See inherited props: [Box](#box)
-- `asset: boolean` - Enables spritesheets support.
-- `vertical: boolean` - Makes the button a inlined vertical rectangle.
-- `color: string` - By default, the button is semi-transparent. You can change the overall colour,
-all colours are available in KitchenSink in the corresponding section.
-- `title: string` - The top text, it will always be bold, and also adds a divider between title and content.
-Disabled if there is no content.
-- `content: string|any` - All main content, usually text, but you can put in other components if you like.
-Makes the vertical button square if empty.
-- `selected: boolean` - Makes button selected (green) if true.
-- `disabled: boolean` - Makes button disabled (red) if true. Also disables onClick.
-- `disabledContent: string` - If button disabled and disabledContent filled, it will be used instead content.
-- `image: string` - Base64 image, simple. Disabled if asset support enabled.
-- `imageUrl: string` - PNG image or other asset. Make sure you use existing simple asset! Example: imageUrl={'image.png'}
-- `imageAsset: string` - If you have enabled asset support, write here which spritesheet to use.
-Example: imageAsset={'spritesheet_name64x64'}
-- `imageSize: string` - Sets the size of the image and adjusts the size of the button itself accordingly.
-Example: imageSize={'64px'}
+- `asset: string` - Asset cache. Example: `asset={['assetname32x32', thing.key]}`
+- `base64: string` - Classic way to put images.
+- `buttons: any` - Special section for any component, or, content.
+  Quite a small area at the bottom of the image.
+  Has a style overrides, best to use [Button](#button) inside.
+- `buttonsAlt: boolean` - Enables alternative buttons layout.
+  With fluid, makes buttons like a humburger.
+  Without, moves it to top, and disables pointer-events.
+- `children: any` - Content under image.
+  With `fluid`, have `justify-content: space-betwen`
+- `className: string` - Applies a CSS class to the element.
+- `color: string` - Color of the button, but without `transparent`; see [Button](#button)
+- `disabled: boolean` - Makes button disabled and dark red if true.
+  Also disables onClick.
+- `selected: boolean` - Makes button selected and green if true.
+- `fluid: boolean` - Changes the layout of the button, making it fill the entire horizontally available space.
+  Allows the use of `title`
+- `imageSize: number` - Parameter responsible for the size of the image, component and standard "stubs".
+  Measured in pixels. `imageSize={64}` = 64px.
+- `imageSrc: string` - Prop `src` of <img>. Example: `imageSrc={resolveAsset(thing.image)}`
+- `onClick: (e) => void` - Called when button is clicked with LMB.
+- `onRightClick: (e) => void` - Called when button is clicked with RMB.
+- `title: string` - Requires `fluid` for work. Bold text with divider betwen content.
 - `tooltip: string` - A fancy, boxy tooltip, which appears when hovering
 over the button.
 - `tooltipPosition: string` - Position of the tooltip. See [`Popper`](#Popper) for valid options.
-- `ellipsis: boolean` - If button width is constrained, button text will
-be truncated with an ellipsis. Be careful however, because this prop breaks
-the baseline alignment.
-- `children: ImageButton.Item|any` - Items that are added to the right of the horizontal button.
-- `onClick: function` - Called when element is clicked. Also enables hover effects.
 
 ### `ImageButton.Item`
 

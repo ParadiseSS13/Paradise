@@ -9,6 +9,7 @@
 
 $color-default: colors.bg(colors.$primary) !default;
 $color-disabled: #999999 !default;
+$color-disabled-translucent: #631d1d !default;
 $color-selected: colors.bg(colors.$green) !default;
 $color-caution: colors.bg(colors.$yellow) !default;
 $color-danger: colors.bg(colors.$red) !default;
@@ -16,25 +17,19 @@ $color-transparent-text: rgba(255, 255, 255, 0.5) !default;
 $border-radius: base.$border-radius !default;
 $bg-map: colors.$bg-map !default;
 
-@mixin button-color($color, $text-color: null) {
+@mixin button-color($color, $text-color: null, $translucent: false) {
   // Adapt text color to background luminance to ensure high contast
   $luminance: luminance($color);
   $dynamic-text-color: if($luminance > 0.4, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
 
-  transition:
-    color 100ms,
-    background-color 100ms;
-  background-color: $color;
+  background-color: rgba($color, if($translucent, 0.2, 1));
   color: if($text-color != null, $text-color, $dynamic-text-color);
-
-  &:focus {
-    transition:
-      color 250ms,
-      background-color 250ms;
-  }
+  transition:
+    color 200ms,
+    background-color 200ms;
 
   &:hover {
-    background-color: lighten($color, 25%);
+    background-color: rgba(lighten($color, 25%), if($translucent, 0.33, 1));
     color: $dynamic-text-color;
   }
 }
@@ -113,34 +108,54 @@ $bg-map: colors.$bg-map !default;
   .Button--color--#{$color-name} {
     @include button-color($color-value);
   }
+
+  .Button--translucent--color--#{$color-name} {
+    @include button-color($color-value, $translucent: true);
+  }
 }
 
 .Button--color--default {
   @include button-color($color-default);
 }
 
+.Button--color--transparent {
+  @include button-color(rgba(base.$color-bg, 0), $color-transparent-text);
+}
+
+.Button--translucent--color--default {
+  @include button-color($color-default, $translucent: true);
+}
+
 .Button--color--caution {
   @include button-color($color-caution);
+}
+
+.Button--translucent--color--caution {
+  @include button-color($color-caution, $translucent: true);
 }
 
 .Button--color--danger {
   @include button-color($color-danger);
 }
 
-.Button--color--transparent {
-  @include button-color(rgba(base.$color-bg, 0), $color-transparent-text);
-}
-
-.Button--color--translucent {
-  @include button-color(rgba(base.$color-bg, 0.6), $color-transparent-text);
+.Button--translucent--color--danger {
+  @include button-color($color-danger, $translucent: true);
 }
 
 .Button--disabled {
   background-color: $color-disabled !important;
 }
 
+.Button--translucent--disabled {
+  background-color: rgba($color-disabled-translucent, 0.33) !important;
+}
+
 .Button--selected {
   @include button-color($color-selected);
+}
+
+.Button--translucent--selected {
+  @include button-color($color-selected, $translucent: true);
 }
 
 .Button--modal {

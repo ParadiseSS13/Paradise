@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Stack, ImageButton, Input } from '../components';
+import { Button, Section, Stack, ImageButton, Input, Icon } from '../components';
 import { Window } from '../layouts';
 
 type Prize = {
@@ -58,26 +58,26 @@ export const PrizeCounter = (props, context) => {
                 const disabled = prize.cost > tickets;
                 return (
                   <ImageButton
+                    fluid
                     key={prize.name}
-                    asset
-                    imageAsset={'prize_counter64x64'}
-                    image={prize.imageID}
+                    asset={['prize_counter64x64', prize.imageID]}
                     title={prize.name}
-                    content={prize.desc}
+                    buttonsAlt
+                    buttons={
+                      <Button.Translucent
+                        bold
+                        fontSize={1.5}
+                        textColor={disabled && 'gray'}
+                        textAlign="center"
+                        tooltip={disabled && 'Not enough tickets'}
+                        disabled={disabled}
+                        onClick={() => act('purchase', { 'purchase': prize.itemID })}
+                      >
+                        {prize.cost} <br /> <Icon name="ticket" color={disabled ? 'bad' : 'good'} size={1.6} />
+                      </Button.Translucent>
+                    }
                   >
-                    <ImageButton.Item
-                      bold
-                      width={'64px'}
-                      fontSize={1.5}
-                      textColor={disabled && 'gray'}
-                      content={prize.cost}
-                      icon={'ticket'}
-                      iconSize={1.6}
-                      iconColor={disabled ? 'bad' : 'good'}
-                      tooltip={disabled && 'Not enough tickets'}
-                      disabled={disabled}
-                      onClick={() => act('purchase', { 'purchase': prize.itemID })}
-                    />
+                    {prize.desc}
                   </ImageButton>
                 );
               })}

@@ -333,3 +333,21 @@ export class ButtonInput extends Component<ButtonInputProps, ButtonInputState> {
 }
 
 Button.Input = ButtonInput;
+
+export const ButtonTranslucent = (props: ButtonProps) => {
+  const { ...rest } = props;
+  return (
+    <Button
+      className={classes([
+        props.disabled && 'Button--translucent--disabled',
+        props.selected && 'Button--translucent--selected',
+        props.color && typeof props.color === 'string'
+          ? 'Button--translucent--color--' + props.color
+          : 'Button--translucent--color--default',
+      ])}
+      {...rest}
+    />
+  );
+};
+
+Button.Translucent = ButtonTranslucent;
