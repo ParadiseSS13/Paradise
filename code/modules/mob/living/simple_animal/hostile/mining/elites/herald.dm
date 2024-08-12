@@ -289,7 +289,7 @@
 		if(istype(i, /obj/structure/mirror))
 			var/obj/structure/mirror/B = i
 			if(B.broken)
-				return
+				continue
 		var/tmpname = T.loc.name
 		if(areaindex[tmpname])
 			tmpname = "[tmpname] ([++areaindex[tmpname]])"
