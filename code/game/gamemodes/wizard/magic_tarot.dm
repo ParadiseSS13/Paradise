@@ -654,7 +654,7 @@
 /datum/tarot/reversed/the_magician
 	name = "I - The Magician?"
 	desc = "May no harm come to you."
-	extended_desc = "contains the power of a great mage, apon use the user will repulse everything away from them."
+	extended_desc = "contains the power of a great mage, upon use the user will repulse everything away from them."
 	card_icon = "the_magician?"
 
 /datum/tarot/reversed/the_magician/activate(mob/living/target)
