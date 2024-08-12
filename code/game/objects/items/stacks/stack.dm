@@ -218,6 +218,12 @@
 				return
 			return recipe.do_build(user, material, multiplier)
 
+
+/**
+ * Recursively builds the recipes data for the given list of recipes, iterating through each recipe.
+ * If recipe is of type /datum/stack_recipe, it adds the recipe data to the recipes_data list with the title as the key.
+ * If recipe is of type /datum/stack_recipe_list, it recursively calls itself, scanning the entire list and adding each recipe to its category.
+ */
 /obj/item/stack/proc/recursively_build_recipes(list/recipes_to_iterate)
 	var/list/recipes_data = list()
 	for(var/recipe in recipes_to_iterate)
