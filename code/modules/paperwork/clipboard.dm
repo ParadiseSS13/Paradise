@@ -40,7 +40,7 @@
 
 /obj/item/clipboard/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to remove its pen.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to remove its pen.</span>"
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
 

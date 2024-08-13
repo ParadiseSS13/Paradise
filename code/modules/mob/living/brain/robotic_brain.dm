@@ -140,7 +140,7 @@
 	. = ..()
 	. += "Its speaker is turned [silenced ? "off" : "on"]."
 
-	var/list/msg = list("<span class='info'>")
+	var/list/msg = list("<span class='notice'>")
 
 	if(brainmob && brainmob.key)
 		switch(brainmob.stat)
