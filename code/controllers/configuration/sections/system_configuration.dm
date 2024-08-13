@@ -25,7 +25,7 @@
 	/// Are we using an external handler for TOS
 	var/external_tos_handler = FALSE
 	/// Map datum of the map to use, overriding the defaults, and `data/next_map.txt`
-	var/override_map = "/datum/map/test_tiny"
+	var/override_map = null
 	/// Assoc list of region names and their server IPs. Used for geo-routing.
 	var/list/region_map = list()
 	/// Send a system toast on init completion?
