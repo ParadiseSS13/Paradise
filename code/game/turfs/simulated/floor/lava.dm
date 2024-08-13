@@ -263,6 +263,13 @@
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
+/turf/simulated/floor/lava/mapping_lava/normal_air
+	oxygen = MOLES_O2STANDARD
+	nitrogen = MOLES_N2STANDARD
+	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
+
 /turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD //Lateload is needed, otherwise atmos does not setup right on the turf roundstart, leading it to be vacume. This is bad.
