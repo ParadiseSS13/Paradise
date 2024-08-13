@@ -487,7 +487,6 @@
 		"Weak signal detected. Range: Within 30 meters.",
 		"No signal detected."
 	)
-	var/last_use = 0
 	var/cooldown_length = 10 SECONDS
 	COOLDOWN_DECLARE(scan_cooldown)
 	var/on_hit_sound = 'sound/effects/ping_hit.ogg'
@@ -498,7 +497,6 @@
 		return
 
 	COOLDOWN_START(src, scan_cooldown, cooldown_length)
-	last_use = world.time
 	var/turf/user_turf = get_turf(user)
 	var/min_dist = INFINITY
 	for(var/mob/living/player in GLOB.player_list)
