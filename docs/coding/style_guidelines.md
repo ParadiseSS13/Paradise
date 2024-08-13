@@ -5,7 +5,7 @@ for future contributions. By following these guidelines, we can reduce the
 overhead during the review process and pave the way for future content, fixes,
 and more.
 
-### Variables
+## Variables
 
 Variable conventions and naming are an important part of the development
 process. We have a few rules for variable naming, some dictated by BYOND itself.
@@ -24,9 +24,9 @@ spaced by an underscore while remaining lowercase.
 var/example_variable
 ```
 
-### Strings and Messages
+## Strings and Messages
 
-#### Strings
+### Strings
 
 When it comes to strings, they should be enclosed in double quotations. Like the
 naming convention for variables, American English spelling is to be used.
@@ -59,12 +59,12 @@ var/item_count = 20
 var/good_example_string = "There are [item_count] items in the box."
 ```
 
-#### Messages
+### Messages
 
 Messages are anything that is sent to the chat window. This can include system
 messages, messages to the user, as well as messages between users.
 
-##### Sending to chat
+#### Sending to chat
 
 Though there are multiple ways to send a message to the chat window, only
 certain methods will be accepted. Avoid using `<<` when sending information to
@@ -86,7 +86,7 @@ user.visible_message(
 )
 ```
 
-##### Common Classes
+#### Common Classes
 
 - ``'notice'``: used to convey anything the player should be aware of, including
   actions, successes, and other pertinent information that is non-threatening.
@@ -108,14 +108,14 @@ You are not limited to the styles listed above. It is important, however, to
 evaluate and choose the right style accordingly. You can find additional styles
 located within the chat style sheets.
 
-### Comments
+## Comments
 
 Comments are essential for documenting your code. They help others understand
 what the code does by explaining its behavior and providing useful details. Use
 comments where needed, even if the code seems clear. Proper commenting keeps the
 codebase organized and provides valuable context for development.
 
-#### Single-Line Comments
+### Single-Line Comments
 
 Single-line comments are used for brief explanations or notes about the code.
 They provide quick, straightforward context to help clarify the code’s purpose
@@ -125,7 +125,7 @@ or functionality.
 // This is a single-line comment
 ```
 
-#### Multi-Line Comments
+### Multi-Line Comments
 
 Used for longer explanations or comments spanning multiple lines. Good for
 documenting parameters of procs.
@@ -137,20 +137,22 @@ documenting parameters of procs.
  */
 ```
 
-#### Autodoc Comments
+### Autodoc Comments
 
-Used for documenting variables, procs, and other elements that require
-additional clarification. This is a useful tool, as it allows a coder to see
-additional information about a variable or proc without having to navigate to
-its declaration. To apply properly, an Autodoc comment should be used **BEFORE**
-the actual declaration of a variable or proc.
+[Autodoc][] is used for documenting variables, procs, and other elements that
+require additional clarification. This is a useful tool, as it allows a coder to
+see additional information about a variable or proc without having to navigate
+to its declaration. To apply properly, an Autodoc comment should be used
+**BEFORE** the actual declaration of a variable or proc.
 
 ```dm
 /// This is an Autodoc example
 var/example_variable = TRUE
 ```
 
-#### Define Comments
+[Autodoc]: ../references/autodoc.md
+
+### Define Comments
 
 When documenting single-line macros such as constants, use the "enclosing
 comment format", `//!`. This prevents issues with macro expansion:
@@ -168,7 +170,7 @@ enclosing their names in brackets:
 	...
 ```
 
-#### Mark Comments
+### Mark Comments
 
 Used to delineate distinct sections within a file when necessary. It should only
 be used for that purpose. Avoid using it for items, procs, or datums.
@@ -177,7 +179,7 @@ be used for that purpose. Avoid using it for items, procs, or datums.
 // MARK: [Section Name]
 ```
 
-#### Commented Out Code
+### Commented Out Code
 
 Commented out code is generally not permitted within the code base unless it is
 used for the purpose of debugging. Code that is commented out during a
@@ -185,7 +187,7 @@ contribution should be removed prior to creating a pull request. If you are
 unsure whether or not something should be left commented out, please contact a
 development team member.
 
-### Multi-Line Procs and List Formatting
+## Multi-Line Procs and List Formatting
 
 When calling procs with very long arguments (such as list or proc definitions
 with multiple or especially dense arguments), it may sometimes be preferable to
@@ -223,7 +225,7 @@ user.visible_message(
 var/list/letters = list("a", "b", "c")
 ```
 
-### Indentation
+## Indentation
 
 Indentation in DM is used to define code blocks and scopes. Our code base
 requiress tab spacing. Singular spacing to the length of four spaces will not be
@@ -252,9 +254,9 @@ Not only is it easier to write, but the DM compiler also optimizes the preferred
 method to run faster than the bad example. Using the DM style loop enhances
 readability and aligns with the language’s conventions.
 
-### Operators
+## Operators
 
-#### Spacing
+### Spacing
 
 Code readability is an important aspect of developing on a large-scale project,
 especially when it comes to open-source. As emphasized by other places in this
@@ -276,7 +278,8 @@ var/example_variable = 5
 example_variable = example_variable * 2
 ```
 
-### Boolean Defines
+## Boolean Defines
+
 Use `TRUE` and `FALSE` instead of 1 and 0 for booleans. This improves
 readability and clarity, making it clear that values represent true or false
 conditions.
@@ -293,9 +296,9 @@ var/example = TRUE
 		example_proc()
 ```
 
-### File Naming and References
+## File Naming and References
 
-#### Naming
+### Naming
 
 When naming files, it is important to keep readability in mind. Use these
 guidelines when creating a new file.
@@ -304,7 +307,7 @@ guidelines when creating a new file.
 - Do not add spaces. Use underscores to separate words.
 - Do not include special characters such as: " / \ [ ] : ; | = , < ? > & $ # ! ' { } *.
 
-#### References
+### References
 
 When referencing files, use single quotes (') around the file name instead of
 double quotes.
@@ -317,7 +320,7 @@ var/sound_effect = "sounds/machines/wooden_closet_open.ogg"
 var/sound_effect = 'sounds/machines/wooden_closet_open.ogg'
 ```
 
-### HTML Tag Format
+## HTML Tag Format
 
 Though uppercase or mixing cases will work, we prefer to follow the W3 standard
 for writing HTML tags. This means tags should be written in lowercase. This
@@ -331,7 +334,7 @@ makes code more readable and it just looks better.
 <b>This is an example of how it should be.</b>
 ```
 
-### A Final Note
+## A Final Note
 
 These guidelines are subject to change, and this document may be expanded on in
 the future. Contributors and reviewers should take note of it and reference it

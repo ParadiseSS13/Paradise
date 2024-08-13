@@ -67,6 +67,7 @@ nav:
     - 'Coding Quickstart': './coding/quickstart.md'
     - 'Guide to Testing': './coding/testing_guide.md'
     - 'Guide to Debugging': './coding/debugging.md'
+    - 'Style Guidelines': './coding/style_guidelines.md'
     - 'Coding Requirements': './coding/coding_requirements.md'
     - 'Testing Requirements': './coding/testing_requirements.md'
 
