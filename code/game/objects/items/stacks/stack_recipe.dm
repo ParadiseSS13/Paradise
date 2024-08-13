@@ -138,7 +138,7 @@
 			qdel(thing)
 	// BubbleWrap END
 
-/* Special Recipes */
+// Special Recipes
 /datum/stack_recipe/cable_restraints
 /datum/stack_recipe/cable_restraints/post_build(mob/user, obj/item/stack/S, obj/result)
 	if(istype(result, /obj/item/restraints/handcuffs/cable))
