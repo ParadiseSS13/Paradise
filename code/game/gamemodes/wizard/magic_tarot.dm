@@ -225,7 +225,7 @@
 /obj/item/magic_tarot_card/proc/pre_activate(mob/user)
 	has_been_activated = TRUE
 	forceMove(user)
-	var/obj/effect/temp_visual/tarot_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, "tarot_[our_tarot.card_icon]")
+	var/obj/effect/temp_visual/card_preview/tarot/draft = new /obj/effect/temp_visual/card_preview/tarot(user, "tarot_[our_tarot.card_icon]")
 	user.vis_contents += draft
 	user.visible_message("<span class='hierophant'>[user] holds up [src]!</span>")
 	addtimer(CALLBACK(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user), 0.5 SECONDS)

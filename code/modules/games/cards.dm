@@ -458,7 +458,7 @@
 		return
 
 	var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
-	user.vis_contents += draft
+	usr.vis_contents += draft
 
 	QDEL_IN(draft, 0.6 SECONDS)
 
