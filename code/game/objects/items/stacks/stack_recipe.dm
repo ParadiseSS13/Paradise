@@ -123,7 +123,7 @@
 	material.updateUsrDialog()
 	return result
 
-/// What should be done after the object is built? obj/item/stack/O might not actually be a stack, but this proc needs access to merge() to work, which is on obj/item/stack, so declare it as obj/item/stack anyways.
+/// What should be done after the object is built? obj/item/stack/result might not actually be a stack, but this proc needs access to merge() to work, which is on obj/item/stack, so declare it as obj/item/stack anyways.
 /datum/stack_recipe/proc/post_build(mob/user, obj/item/stack/material, obj/item/stack/result)
 	result.add_fingerprint(user)
 
