@@ -32,8 +32,10 @@ reproduction. Without one we'd only be guessing as to where it goes wrong
 exactly. Here a tripwire mine activates when it is in a container such as a
 closed locker or a bag.
 
-This gives us the hint that the trigger mechanism does not check if the object is directly on a turf.
-Using this hint we go look for the proc which causes the trigger to happen. Using [my previous guides advice](https://github.com/ParadiseSS13/Paradise/discussions/15881) we quickly find `/obj/item/assembly/infra`.
+This gives us the hint that the trigger mechanism does not check if the object
+is directly on a turf. Using this hint we go look for the proc which causes the
+trigger to happen. Using [my previous guide's advice][contrib]
+we quickly find `/obj/item/assembly/infra`.
 
 ![image](./images/debug_infra_search_results.png)
 
@@ -67,6 +69,8 @@ All References`
 So now we know what is causing the triggering of the bomb. We know that beams
 are sent when the bomb is active. And we functionally know that these beams are
 also sent when the bomb is hidden in a locker or bag.
+
+[contrib]: ./quickstart.md
 
 ### Breakpoints
 Now we know what is happening we can start debugging. I have a suspicion already
