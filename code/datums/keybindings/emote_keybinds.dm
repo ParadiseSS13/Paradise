@@ -602,6 +602,10 @@
 	linked_emote = /datum/emote/living/silicon/no
 	name = "No"
 
+/datum/keybinding/emote/silicon/sad
+	linked_emote = /datum/emote/living/silicon/sad
+	name = "Sad"
+
 /datum/keybinding/emote/silicon/law
 	linked_emote = /datum/emote/living/silicon/law
 	name = "Law"
