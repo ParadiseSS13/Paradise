@@ -139,9 +139,8 @@
 		ui_interact(user)
 
 /obj/item/stack/attackby(obj/item/thing, mob/user, params)
-	if((parent_stack && !istype(thing, merge_type)) || (parent_stack && thing.type != type))
-		..()
-		return
+	if((!parent_stack && !istype(thing, merge_type)) || (parent_stack && thing.type != type))
+		return ..()
 
 	var/obj/item/stack/material = thing
 	merge(material)
