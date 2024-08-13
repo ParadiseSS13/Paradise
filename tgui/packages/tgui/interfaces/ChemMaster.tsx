@@ -459,7 +459,8 @@ const ChemMasterProductionGeneric = (props: { productionData: ProductionData }, 
       <SpriteStyleButton
         key={id}
         icon={sprite}
-        color="translucent"
+        translucent
+        color="transparent"
         onClick={() => act('set_sprite_style', { production_mode: modeId, style: id })}
         selected={set_sprite === id}
       />

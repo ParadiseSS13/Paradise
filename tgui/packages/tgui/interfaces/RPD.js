@@ -84,7 +84,8 @@ const AtmosPipeContent = (props, context) => {
                       <Box key={p.pipe_name}>
                         <Button
                           fluid
-                          color="translucent"
+                          translucent
+                          color="transparent"
                           content={p.pipe_name}
                           icon="cog"
                           selected={p.pipe_id === whatpipe}
@@ -122,7 +123,8 @@ const AtmosPipeContent = (props, context) => {
                                 <Button
                                   fluid
                                   textAlign="center"
-                                  color="translucent"
+                                  translucent
+                                  color="transparent"
                                   selected={iconrotation === 4}
                                   content={<Box className={classes(['rpd32x32', `southeast-${p.pipe_icon}`])} />}
                                   onClick={() => act('iconrotation', { iconrotation: 4 })}
@@ -133,7 +135,8 @@ const AtmosPipeContent = (props, context) => {
                                 <Button
                                   fluid
                                   textAlign="center"
-                                  color="translucent"
+                                  translucent
+                                  color="transparent"
                                   selected={iconrotation === 2}
                                   content={<Box className={classes(['rpd32x32', `southwest-${p.pipe_icon}`])} />}
                                   onClick={() => act('iconrotation', { iconrotation: 2 })}
@@ -146,7 +149,8 @@ const AtmosPipeContent = (props, context) => {
                                 <Button
                                   fluid
                                   textAlign="center"
-                                  color="translucent"
+                                  translucent
+                                  color="transparent"
                                   selected={iconrotation === 1}
                                   content={<Box className={classes(['rpd32x32', `northeast-${p.pipe_icon}`])} />}
                                   onClick={() => act('iconrotation', { iconrotation: 1 })}
@@ -157,7 +161,8 @@ const AtmosPipeContent = (props, context) => {
                                 <Button
                                   fluid
                                   textAlign="center"
-                                  color="translucent"
+                                  translucent
+                                  color="transparent"
                                   selected={iconrotation === 8}
                                   content={<Box className={classes(['rpd32x32', `northwest-${p.pipe_icon}`])} />}
                                   onClick={() => act('iconrotation', { iconrotation: 8 })}
@@ -173,7 +178,8 @@ const AtmosPipeContent = (props, context) => {
                                 <Button
                                   fluid
                                   textAlign="center"
-                                  color="translucent"
+                                  translucent
+                                  color="transparent"
                                   selected={iconrotation === 1}
                                   content={<Box className={classes(['rpd32x32', `north-${p.pipe_icon}`])} />}
                                   onClick={() => act('iconrotation', { iconrotation: 1 })}
@@ -184,7 +190,8 @@ const AtmosPipeContent = (props, context) => {
                                 <Button
                                   fluid
                                   textAlign="center"
-                                  color="translucent"
+                                  translucent
+                                  color="transparent"
                                   selected={iconrotation === 4}
                                   content={<Box className={classes(['rpd32x32', `east-${p.pipe_icon}`])} />}
                                   onClick={() => act('iconrotation', { iconrotation: 4 })}
@@ -198,7 +205,8 @@ const AtmosPipeContent = (props, context) => {
                                   <Button
                                     fluid
                                     textAlign="center"
-                                    color="translucent"
+                                    translucent
+                                    color="transparent"
                                     selected={iconrotation === 2}
                                     content={<Box className={classes(['rpd32x32', `south-${p.pipe_icon}`])} />}
                                     onClick={() => act('iconrotation', { iconrotation: 2 })}
@@ -209,7 +217,8 @@ const AtmosPipeContent = (props, context) => {
                                   <Button
                                     fluid
                                     textAlign="center"
-                                    color="translucent"
+                                    translucent
+                                    color="transparent"
                                     selected={iconrotation === 8}
                                     content={<Box className={classes(['rpd32x32', `west-${p.pipe_icon}`])} />}
                                     onClick={() => act('iconrotation', { iconrotation: 8 })}
@@ -249,7 +258,8 @@ const DisposalPipeContent = (props, context) => {
                     <Box key={p.pipe_name}>
                       <Button
                         fluid
-                        color="translucent"
+                        translucent
+                        color="transparent"
                         content={p.pipe_name}
                         icon="cog"
                         selected={p.pipe_id === whatdpipe}
@@ -284,7 +294,8 @@ const DisposalPipeContent = (props, context) => {
                         <Grid.Column>
                           <Button
                             fluid
-                            color="translucent"
+                            translucent
+                            color="transparent"
                             textAlign="center"
                             selected={iconrotation === 1}
                             content={<Box className={classes(['rpd32x32', `north-${p.pipe_icon}`])} />}
@@ -295,7 +306,8 @@ const DisposalPipeContent = (props, context) => {
                         <Grid.Column>
                           <Button
                             fluid
-                            color="translucent"
+                            translucent
+                            color="transparent"
                             textAlign="center"
                             selected={iconrotation === 4}
                             content={<Box className={classes(['rpd32x32', `east-${p.pipe_icon}`])} />}
@@ -309,7 +321,8 @@ const DisposalPipeContent = (props, context) => {
                           <Grid.Column>
                             <Button
                               fluid
-                              color="translucent"
+                              translucent
+                              color="transparent"
                               textAlign="center"
                               selected={iconrotation === 2}
                               content={<Box className={classes(['rpd32x32', `south-${p.pipe_icon}`])} />}
@@ -320,7 +333,8 @@ const DisposalPipeContent = (props, context) => {
                           <Grid.Column>
                             <Button
                               fluid
-                              color="translucent"
+                              translucent
+                              color="transparent"
                               textAlign="center"
                               selected={iconrotation === 8}
                               content={<Box className={classes(['rpd32x32', `west-${p.pipe_icon}`])} />}
@@ -407,7 +421,8 @@ const TransitTubeContent = (props, context) => {
                     <Box key={p.pipe_name}>
                       <Button
                         fluid
-                        color="translucent"
+                        translucent
+                        color="transparent"
                         content={p.pipe_name}
                         icon="cog"
                         selected={p.pipe_id === whatttube}
@@ -432,7 +447,8 @@ const TransitTubeContent = (props, context) => {
                         <Grid.Column>
                           <Button
                             fluid
-                            color="translucent"
+                            translucent
+                            color="transparent"
                             textAlign="center"
                             selected={iconrotation === 1}
                             content={<Box className={classes(['rpd32x32', `north-${p.pipe_icon}`])} />}
@@ -443,7 +459,8 @@ const TransitTubeContent = (props, context) => {
                         <Grid.Column>
                           <Button
                             fluid
-                            color="translucent"
+                            translucent
+                            color="transparent"
                             textAlign="center"
                             selected={iconrotation === 4}
                             content={<Box className={classes(['rpd32x32', `east-${p.pipe_icon}`])} />}
@@ -457,7 +474,8 @@ const TransitTubeContent = (props, context) => {
                           <Grid.Column>
                             <Button
                               fluid
-                              color="translucent"
+                              translucent
+                              color="transparent"
                               textAlign="center"
                               selected={iconrotation === 2}
                               content={<Box className={classes(['rpd32x32', `south-${p.pipe_icon}`])} />}
@@ -468,7 +486,8 @@ const TransitTubeContent = (props, context) => {
                           <Grid.Column>
                             <Button
                               fluid
-                              color="translucent"
+                              translucent
+                              color="transparent"
                               textAlign="center"
                               selected={iconrotation === 8}
                               content={<Box className={classes(['rpd32x32', `west-${p.pipe_icon}`])} />}

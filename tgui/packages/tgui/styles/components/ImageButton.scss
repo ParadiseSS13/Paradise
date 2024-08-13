@@ -139,6 +139,7 @@ $bg-map: colors.$bg-map !default;
     & > * {
       /* I know !important is bad, but here's no other way */
       margin: 0 !important;
+      padding: 0 0.2em !important;
       border-radius: 0 !important;
       transition-duration: 0.2s !important;
     }
@@ -215,6 +216,14 @@ $bg-map: colors.$bg-map !default;
       overflow: hidden;
       pointer-events: auto;
       top: inherit;
+
+      & > * {
+        border-top: 1px solid rgba(255, 255, 255, 0.075);
+
+        &:first-child {
+          border-top: 0;
+        }
+      }
     }
 
     & > * {
@@ -226,11 +235,6 @@ $bg-map: colors.$bg-map !default;
       line-height: base.em(14px);
       height: 100%;
       border-left: 1px solid rgba(255, 255, 255, 0.075);
-      border-top: 1px solid rgba(255, 255, 255, 0.075);
-
-      &:first-child {
-        border-top: 0;
-      }
     }
   }
 }
