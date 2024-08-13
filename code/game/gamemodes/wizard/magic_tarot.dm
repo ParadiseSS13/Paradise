@@ -225,23 +225,36 @@
 /obj/item/magic_tarot_card/proc/pre_activate(mob/user)
 	has_been_activated = TRUE
 	forceMove(user)
-	var/obj/effect/temp_visual/tarot_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
+	var/obj/effect/temp_visual/tarot_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, "tarot_[our_tarot.card_icon]")
 	user.vis_contents += draft
 	user.visible_message("<span class='hierophant'>[user] holds up [src]!</span>")
 	addtimer(CALLBACK(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user), 0.5 SECONDS)
 	QDEL_IN(src, 0.6 SECONDS)
 
-/obj/effect/temp_visual/tarot_preview
+/obj/effect/temp_visual/card_preview
+	name = "a card"
+	icon = 'icons/obj/playing_cards.dmi'
+	pixel_y = 20
+	duration = 1.5 SECONDS
+
+/obj/effect/temp_visual/card_preview/Initialize(atom/mapload, new_icon_state)
+	. = ..()
+	if(new_icon_state)
+		icon_state = new_icon_state
+
+	flourish()
+
+/obj/effect/temp_visual/card_preview/proc/flourish()
+	animate(offset = 0, time = duration)
+
+/obj/effect/temp_visual/card_preview/tarot
 	name = "a tarot card"
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "tarot_the_unknown"
 	pixel_y = 20
 	duration = 1.5 SECONDS
 
-/obj/effect/temp_visual/tarot_preview/Initialize(atom/mapload, new_icon_state)
-	. = ..()
-	if(new_icon_state)
-		icon_state = "tarot_[new_icon_state]"
+/obj/effect/temp_visual/card_preview/tarot/flourish()
 	var/new_filter = isnull(get_filter("ray"))
 	ray_filter_helper(1, 40,"#fcf3dc", 6, 20)
 	if(new_filter)

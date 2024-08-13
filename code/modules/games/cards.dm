@@ -53,6 +53,24 @@
 	build_decks()
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/deck/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It contains <b>[length(cards) ? length(cards) : "no"] card\s.</span>"
+	. += "<span class='notice'>Examine this again to see some shortcuts for interacting with it.</span>"
+
+/obj/item/deck/examine_more(mob/user)
+	. = ..()
+	. += "<span class='notice'>With cards in your active hand...</span>"
+	. += "\t<span class='notice'><b>Click</b> with cards to place them on the top of the deck.</span>"
+	. += "\t<span class='notice'><b>Alt-click</b> with cards to place them on the bottom of the deck.</span>"
+	. += "\t<span class='notice'><b>Ctrl-click</b> with cards to shuffle them into the deck.</span>"
+	. += ""
+	. += "<span class='notice'>With an empty hand...</span>"
+	. += "\t<span class='notice'><b>Click</b> to draw from the top of the deck.</span>"
+	. += "\t<span class='notice'><b>Alt-Click</b> to draw from the bottom of the deck.</span>"
+	. += "\t<span class='notice'><b>Alt-Shift-Click</b> to shuffle the deck.</span>"
+
+
 /obj/item/deck/proc/build_decks()
 	if(length(cards))
 		// prevent building decks more than once
@@ -65,30 +83,80 @@
 	return
 
 /obj/item/deck/attackby(obj/O, mob/user)
-	if(istype(O, /obj/item/cardhand))
-		var/obj/item/cardhand/H = O
-		if(H.parentdeck != src)
-			to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
-			return
-
-		if(length(H.cards) > 1)
-			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", list("Yes", "No"))
-			if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-				return
-		for(var/datum/playingcard/P in H.cards)
-			cards += P
-		qdel(H)
-		to_chat(user, "<span class='notice'>You place your cards on the bottom of [src].</span>")
-		update_icon(UPDATE_ICON_STATE)
+	if(!istype(O, /obj/item/cardhand))
+		return ..()
+	var/obj/item/cardhand/H = O
+	if(H.parentdeck != src)
+		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
 		return
-	..()
 
-/obj/item/deck/examine(mob/user)
+	if(length(H.cards) > 1)
+		var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] card\s on top of the deck?", "Put hand on top", list("Yes", "No"))
+		if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			return
+	// on top
+	cards = H.cards + cards
+	qdel(H)
+	to_chat(user, "<span class='notice'>You place your cards on the bottom of [src].</span>")
+	update_icon(UPDATE_ICON_STATE)
+	return
+
+/obj/item/deck/AltShiftClick(mob/user)
 	. = ..()
-	. +="<span class='notice'>It contains [length(cards) ? length(cards) : "no"] cards</span>"
+	var/confirm = tgui_alert(user, "Are you sure you want to shuffle the deck?", "Shuffle the Deck", list("Yes", "No"))
+	if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	deckshuffle()
+
 
 /obj/item/deck/attack_hand(mob/user as mob)
 	draw_card(user)
+
+/obj/item/deck/AltClick(mob/living/carbon/human/user)
+	if(!istype(user))
+		return
+	var/obj/item/cardhand/hand = user.get_active_hand()
+
+	if(isnull(hand))
+		// empty hand
+
+
+	if(!istype(hand))
+		return ..()
+
+	if(hand.parentdeck != src)
+		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
+		return
+
+	if(length(hand.cards) > 1)
+		var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] card\s into the bottom of the deck?", "Return Hand to Bottom", list("Yes", "No"))
+		if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			return
+
+	// bottom
+	cards += hand.cards
+	qdel(hand)
+	to_chat(user, "<span class='notice'>You place your cards on the bottom of [src].</span>")
+	update_icon(UPDATE_ICON_STATE)
+
+// /obj/item/deck/CtrlClick(mob/living/carbon/human/user)
+// 	if(!istype(user))
+// 		return
+
+// 	var/obj/item/cardhand/hand = user.get_active_hand()
+// 	if(!istype(hand))
+// 		return ..()
+
+// 	if(hand.parentdeck != src)
+// 		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
+// 		return
+
+// 	if(length(hand.cards) > 1)
+// 		var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] card\s into the bottom of the deck?", "Return Hand to Bottom", list("Yes", "No"))
+// 		if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+// 			return
+
 
 // Datum actions
 /datum/action/item_action/draw_card
@@ -137,10 +205,18 @@
 
 // Datum actions
 
-/obj/item/deck/proc/draw_card(mob/user)
+
+/**
+ * Draw a card from this deck.
+ * Arguments:
+ * * user - The mob drawing the card.
+ * * public - If true, the drawn card will be displayed to people around the table.
+ * * draw_from_top - If true, the card will be drawn from the top of the deck.
+ */
+/obj/item/deck/proc/draw_card(mob/user, public = FALSE, draw_from_top = TRUE)
 	var/mob/living/carbon/human/M = user
 
-	if(user.incapacitated() || !Adjacent(user))
+	if(user.incapacitated() || !Adjacent(user) || !istype(user))
 		return
 
 	if(!length(cards))
@@ -156,15 +232,21 @@
 		H = new(get_turf(src))
 		user.put_in_hands(H)
 
-	var/datum/playingcard/P = cards[1]
+	var/datum/playingcard/P = draw_from_top ? cards[1] : cards[length(cards)]
 	H.cards += P
 	cards -= P
 	update_icon(UPDATE_ICON_STATE)
 	H.parentdeck = src
 	H.update_values()
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draw a card.</span>")
-	to_chat(user,"<span class='notice'>It's the [P].</span>")
+	user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>")
+	if(public)
+		var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(user, P.card_icon)
+		user.vis_contents += draft
+		QDEL_IN(draft, 0.6 SECONDS)
+		user.visible_message("<span class='danger'>It's [P]!</span>", "<span class='danger'>You draw [P]!</span>")
+	else
+		to_chat(user, "<span class='notice'>It's [P].</span>")
 
 /obj/item/deck/proc/deal_card()
 	if(usr.incapacitated() || !Adjacent(usr))
@@ -363,6 +445,22 @@
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
 	popup.set_content(dat)
 	popup.open()
+
+/obj/item/cardhand/point_at(atom/pointed_atom)
+
+	if(!isturf(loc))
+		return
+
+	if(length(cards) != 1)
+		return ..()
+
+	if(!(pointed_atom in src) && !(pointed_atom.loc in src))
+		return
+
+	var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
+	user.vis_contents += draft
+
+	QDEL_IN(draft, 0.6 SECONDS)
 
 /obj/item/cardhand/Topic(href, href_list)
 	if(..())
