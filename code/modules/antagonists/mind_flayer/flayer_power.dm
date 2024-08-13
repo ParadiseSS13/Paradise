@@ -77,24 +77,24 @@
 	var/list/list/data = list()
 	var/list/known_abilities = list()
 	data["usable_swarms"] = flayer.usable_swarms
-	for(var/datum/mindflayer_passive/passive in flayer.powers)
-		known_abilities += list(list(
-			"name" = passive.name,
-			"current_level" = passive.level
-		))
-	for(var/datum/spell/flayer/spell in flayer.powers)
-		known_abilities += list(list(
-			"name" = spell.name,
-			"current_level" = spell.level
-		))
-	data["known_abilities"] = known_abilities
+//	for(var/datum/mindflayer_passive/passive in flayer.powers)
+//		known_abilities += list(list(
+//			"name" = passive.name,
+//			"current_level" = passive.level
+//		))
+//	for(var/datum/spell/flayer/spell in flayer.powers)
+//		known_abilities += list(list(
+//			"name" = spell.name,
+//			"current_level" = spell.level
+//		))
+//	data["known_abilities"] = known_abilities
 	return data
 
 /datum/spell/flayer/self/augment_menu/ui_static_data(mob/user)
 	var/list/list/static_data = list()
 	var/list/abilities = list()
 	for(var/path in flayer.ability_list)
-		if(isspell(path))
+		if(flayer.is_path_spell(path))
 			var/datum/spell/flayer/spell = path
 			abilities += list(list(
 				"name" = spell.name,
@@ -103,8 +103,7 @@
 				"stage" = spell.stage,
 				"category" = spell.category,
 				"max_level" = spell.max_level,
-				"ability_path" = spell.type,
-				"current_level"))
+				"ability_path" = spell.type))
 		else
 			var/datum/mindflayer_passive/passive = path
 			abilities += list(list(

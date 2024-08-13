@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 
 export const AugmentMenu = (props, context) => {
   return (
-    <Window width={700} height={660} title="Augment Menu">
+    <Window width={700} height={700} title="Augment Menu">
       <Window.Content>
         <Stack fill vertical>
           <Abilities/>
@@ -27,7 +27,7 @@ const Abilities = (props, context) => {
             key = {i}
             textAlign = "center"
             grow = {1}>
-              <Section // TODO fix spells not getting their descriptions
+              <Section
                 title = {ability.name}
                 >
                 {ability.desc}
