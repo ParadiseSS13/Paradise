@@ -103,7 +103,7 @@
 	log_admin("[key_name(user)] created a whiteship dock named '[name]' at [COORD(port)].")
 
 	if(dock_count < max_docks)
-		to_chat(user, "<span class='info'>Landing zone set.</span>")
+		to_chat(user, "<span class='notice'>Landing zone set.</span>")
 	else
-		to_chat(user, "<span class='info'>Landing zone set. The signaller vanishes!</span>")
+		to_chat(user, "<span class='notice'>Landing zone set. The signaller vanishes!</span>")
 		qdel(src)

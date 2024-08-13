@@ -632,7 +632,7 @@ GLOBAL_VAR(bomb_set)
 	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 5)
 	if(SSticker && SSticker.mode)
 		SSticker.mode.explosion_in_progress = TRUE
-		SSticker.event_blackbox(outcome = ROUND_END_NUCLEAR)
+		SSticker.record_biohazard_results()
 	sleep(100)
 
 	GLOB.enter_allowed = 0

@@ -17,6 +17,14 @@
 ## Testing
 <!-- How did you test the PR, if at all? -->
 
+<hr>
+
+### Declaration
+- [ ] I confirm that I either do not require [pre-approval](https://github.com/ParadiseSS13/Paradise/blob/feature_freeze/CODE_OF_CONDUCT.md#currently-changes-to-the-following-types-of-content-reuires-pre-approval) for this PR, or I have obtained such approval and have included a screenshot to demonstrate this below.
+<!-- A list of PR types requiring pre-approval can be found here: https://github.com/ParadiseSS13/Paradise/blob/feature_freeze/CODE_OF_CONDUCT.md#currently-changes-to-the-following-types-of-content-reuires-pre-approval -->
+<!-- Replace the box with [x] to mark as complete. -->
+<hr>
+
 ## Changelog
 :cl:
 add: Added new things

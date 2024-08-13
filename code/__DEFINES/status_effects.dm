@@ -58,6 +58,8 @@
 
 #define STATUS_EFFECT_CHAINSAW_SLAYING /datum/status_effect/chainsaw_slaying // Stun immunity, very slight damage resistance
 
+#define STATUS_EFFECT_BREACH_AND_CLEAVE /datum/status_effect/breaching_and_cleaving // Stamina damage resist, Additional ranged armor
+
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
 
 #define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback // Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.

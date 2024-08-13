@@ -124,7 +124,7 @@
 	. = ..()
 	if(. && M.environment_smash >= env_smash_level)
 		deconstruct(FALSE)
-		to_chat(M, "<span class='info'>You smash through the wall.</span>")
+		to_chat(M, "<span class='notice'>You smash through the wall.</span>")
 
 /obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
 	if(opening)
