@@ -121,16 +121,12 @@ $bg-map: colors.$bg-map !default;
   }
 }
 
-.Button--color--default {
-  @include button-color($color-default);
-
-  &--translucent {
-    @include button-color($color-default, $color-transparent-text, $translucent: true);
-  }
-}
-
 .Button--color--transparent {
   @include button-color(rgba(base.$color-bg, 0), $color-transparent-text);
+}
+
+.Button--color--default {
+  @include button-color($color-default);
 
   &--translucent {
     @include button-color(lighten(base.$color-bg, 10%), $color-transparent-text, $translucent: true);

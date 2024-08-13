@@ -69,7 +69,6 @@ export const CoinMint = (props, context) => {
                       translucent
                       m={0.2}
                       textAlign={'center'}
-                      color={'transparent'}
                       selected={material.id === data.chosenMaterial}
                       tooltip={material.name}
                       content={

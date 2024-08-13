@@ -95,7 +95,6 @@ const MainMenu = (props, context) => {
             fluid
             translucent
             lineHeight={3}
-            color="transparent"
             content="View Messages"
             icon={newmessagepriority > 0 ? 'envelope-open-text' : 'envelope'}
             onClick={() => act('setScreen', { setScreen: 6 })}
@@ -106,7 +105,6 @@ const MainMenu = (props, context) => {
             fluid
             translucent
             lineHeight={3}
-            color="transparent"
             content="Request Assistance"
             icon="hand-paper"
             onClick={() => act('setScreen', { setScreen: 1 })}
@@ -116,7 +114,6 @@ const MainMenu = (props, context) => {
               fluid
               translucent
               lineHeight={3}
-              color="transparent"
               content="Request Supplies"
               icon="box"
               onClick={() => act('setScreen', { setScreen: 2 })}
@@ -125,7 +122,6 @@ const MainMenu = (props, context) => {
               fluid
               translucent
               lineHeight={3}
-              color="transparent"
               content="Request Secondary Goal"
               icon="clipboard-list"
               onClick={() => act('setScreen', { setScreen: 11 })}
@@ -134,7 +130,6 @@ const MainMenu = (props, context) => {
               fluid
               translucent
               lineHeight={3}
-              color="transparent"
               content="Relay Anonymous Information"
               icon="comment"
               onClick={() => act('setScreen', { setScreen: 3 })}
@@ -147,7 +142,6 @@ const MainMenu = (props, context) => {
               fluid
               translucent
               lineHeight={3}
-              color="transparent"
               content="Print Shipping Label"
               icon="tag"
               onClick={() => act('setScreen', { setScreen: 9 })}
@@ -156,7 +150,6 @@ const MainMenu = (props, context) => {
               fluid
               translucent
               lineHeight={3}
-              color="transparent"
               content="View Shipping Logs"
               icon="clipboard-list"
               onClick={() => act('setScreen', { setScreen: 10 })}
@@ -169,7 +162,6 @@ const MainMenu = (props, context) => {
               fluid
               translucent
               lineHeight={3}
-              color="transparent"
               content="Send Station-Wide Announcement"
               icon="bullhorn"
               onClick={() => act('setScreen', { setScreen: 8 })}

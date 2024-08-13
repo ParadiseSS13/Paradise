@@ -246,7 +246,6 @@ const AirlockTypeList = (props, context) => {
             <Button
               fluid
               translucent
-              color="transparent"
               selected={door_type === entry.type}
               content={
                 <>

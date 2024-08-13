@@ -437,7 +437,7 @@ export const StripMenu = (props, context) => {
     if (item?.interacting) {
       return 'average';
     }
-    return 'transparent';
+    return null;
   };
 
   const disable_background_hover = (item) => {

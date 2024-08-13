@@ -132,7 +132,6 @@ const Multipliers = (props, context) => {
         <Button
           bold
           translucent
-          color="transparent"
           fontSize={0.85}
           width={'32px'}
           content={multiplier * recipe.result_amount + 'x'}
@@ -152,7 +151,6 @@ const Multipliers = (props, context) => {
       <Button
         bold
         translucent
-        color="transparent"
         fontSize={0.85}
         width={'32px'}
         content={max_available_multiplier * recipe.result_amount + 'x'}

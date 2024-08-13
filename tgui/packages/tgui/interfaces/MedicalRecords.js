@@ -167,27 +167,10 @@ const MedicalRecordsMaintenance = (_properties, context) => {
     <Stack.Item grow textAlign="center">
       <Section fill>
         <Stack.Item grow>
-          <Button
-            fluid
-            translucent
-            lineHeight={3}
-            color="transparent"
-            icon="download"
-            content="Backup to Disk"
-            disabled
-          />
+          <Button fluid translucent lineHeight={3} icon="download" content="Backup to Disk" disabled />
         </Stack.Item>
         <Stack.Item grow>
-          <Button
-            fluid
-            translucent
-            lineHeight={3}
-            color="transparent"
-            icon="upload"
-            content="Upload from Disk"
-            my="0.5rem"
-            disabled
-          />{' '}
+          <Button fluid translucent lineHeight={3} icon="upload" content="Upload from Disk" my="0.5rem" disabled />{' '}
         </Stack.Item>
         <Stack.Item grow>
           <Button.Confirm
@@ -195,7 +178,6 @@ const MedicalRecordsMaintenance = (_properties, context) => {
             translucent
             lineHeight={3}
             icon="trash"
-            color="transparent"
             content="Delete All Medical Records"
             onClick={() => act('del_all_med_records')}
           />

@@ -19,7 +19,6 @@ export const VotePanel = (props, context) => {
                 fluid
                 translucent
                 lineHeight={3}
-                color="transparent"
                 multiLine={choice}
                 content={choice + (show_counts ? ' (' + (counts[choice] || 0) + ')' : '')}
                 onClick={() => act('vote', { 'target': choice })}

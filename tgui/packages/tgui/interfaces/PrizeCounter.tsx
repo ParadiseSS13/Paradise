@@ -79,7 +79,6 @@ export const PrizeCounter = (props, context) => {
                       <Button
                         bold
                         translucent
-                        color="transparent"
                         fontSize={1.5}
                         tooltip={disabled && 'Not enough tickets'}
                         disabled={disabled}
