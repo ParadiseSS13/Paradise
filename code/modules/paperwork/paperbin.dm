@@ -73,7 +73,7 @@
 			P = papers[length(papers)]
 			papers.Remove(P)
 		else
-			var/choice = tgui_alert(user, "Choose a style", "Paperbin", list("Letterhead","Blank", "Cancel"))
+			var/choice = tgui_alert(user, "Choose a style", "Paperbin", list("Letterhead", "Blank", "Cancel"))
 			if(isnull(choice) || !Adjacent(user))
 				return
 			switch(choice)
