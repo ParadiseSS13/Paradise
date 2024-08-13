@@ -120,7 +120,9 @@
 
 	if(isnull(hand))
 		// empty hand
-
+		// lewtodo: when should drawing/playing a card be loud? Would it make sense to set up config on decks?
+		draw_card(user, FALSE, FALSE)
+		return
 
 	if(!istype(hand))
 		return ..()
@@ -130,7 +132,7 @@
 		return
 
 	if(length(hand.cards) > 1)
-		var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] card\s into the bottom of the deck?", "Return Hand to Bottom", list("Yes", "No"))
+		var/confirm = tgui_alert(user, "Are you sure you want to put your [length(hand.cards)] card\s into the bottom of the deck?", "Return Hand to Bottom", list("Yes", "No"))
 		if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return
 
@@ -308,8 +310,6 @@
 /obj/item/deck/attack_self()
 	deckshuffle()
 
-/obj/item/deck/AltClick()
-	deckshuffle()
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr
@@ -384,8 +384,20 @@
 	/// Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
 	var/direction = NORTH
 	var/parentdeck = null
-	/// The player's picked card they want to take out. Stored in the hand so it can be passed onto the verb
-	var/pickedcard = null
+
+/obj/item/cardhand/examine(mob/user)
+	. = ..()
+	if(!concealed && length(cards))
+		. += "<span class='notice'>It contains:</span>"
+		for(var/datum/playingcard/P in cards)
+			. += "<span class='notice'>the [P.name].</span>"
+
+	if(Adjacent(user))
+		. += "<span class='notice'><b>Click</b> this in-hand to select a card to draw.</span>"
+		. += "<span class='notice'><b>Ctrl-Click</b> this in-hand to flip it.</span>"
+		. += "<span class='notice'><b>Alt-Click</b> this in-hand to see the legacy interaction menu.</span>"
+
+
 
 /obj/item/cardhand/proc/update_values()
 	if(!parentdeck)
@@ -428,8 +440,29 @@
 	if(length(cards) == 1)
 		turn_hand(user)
 		return
+	if(user.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || user.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
+		var/card = select_card_radial(user)
+		remove_card(card)
+
+/obj/item/cardhand/AltClick(mob/user)
+	. = ..()
 	user.set_machine(src)
 	interact(user)
+
+/obj/item/cardhand/proc/select_card_radial(mob/user)
+	var/list/options = list()
+	for(var/datum/playingcard/P in cards)
+		// lewtodo: figure out how to add the number underneath, like how some items in inventory get them
+		// check botany
+		if(isnull(options[P]))
+			options[P] = image(icon = 'icons/obj/playing_cards.dmi', icon_state = P.card_icon)
+
+	var/choice = show_radial_menu(user, src, options)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.stat != CONSCIOUS || isnull(choice))
+		return
+
+	return choice
+
 
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
@@ -454,10 +487,12 @@
 	if(length(cards) != 1)
 		return ..()
 
+	var/datum/playingcard/card = cards[1]
+
 	if(!(pointed_atom in src) && !(pointed_atom.loc in src))
 		return
 
-	var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
+	var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(usr, card.card_icon)
 	usr.vis_contents += draft
 
 	QDEL_IN(draft, 0.6 SECONDS)
@@ -473,16 +508,10 @@
 			turn_hand(usr)
 		else
 			if(cardUser.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || cardUser.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
-				pickedcard = href_list["pick"]
-				Removecard()
+				var/picked_card = href_list["pick"]
+				remove_card(picked_card)
 		cardUser << browse(null, "window=cardhand")
 
-/obj/item/cardhand/examine(mob/user)
-	. = ..()
-	if(!concealed && length(cards))
-		. +="<span class='notice'>It contains:</span>"
-		for(var/datum/playingcard/P in cards)
-			. +="<span class='notice'>the [P.name].</span>"
 
 // Datum action here
 
@@ -502,7 +531,7 @@
 		return
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/C = target
-		return C.Removecard()
+		return C.remove_card()
 	return ..()
 
 /datum/action/item_action/discard
@@ -518,7 +547,7 @@
 
 // No more datum action here
 
-/obj/item/cardhand/proc/Removecard()
+/obj/item/cardhand/proc/remove_card(datum/playingcard/pickedcard)
 	var/mob/living/carbon/user = usr
 
 	if(user.incapacitated() || !Adjacent(user))
@@ -539,7 +568,6 @@
 	if(loc != user) // Don't want people teleporting cards
 		return
 	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [pickedcard] from your hand.</span>")
-	pickedcard = null
 
 	var/obj/item/cardhand/H = new(get_turf(src))
 	user.put_in_hands(H)
