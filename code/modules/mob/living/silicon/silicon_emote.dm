@@ -78,6 +78,14 @@
 	emote_type = EMOTE_AUDIBLE
 	sound = "sound/machines/synth_no.ogg"
 
+/datum/emote/living/silicon/sad
+	key = "sad"
+	key_third_person = "plays a sad trombone"
+	message = "plays a sad trombone."
+	message_param = "makes a sad noise at %t!"
+	emote_type = EMOTE_AUDIBLE
+	sound = "sound/misc/sadtrombone.ogg"
+
 /datum/emote/living/silicon/law
 	key = "law"
 	message = "shows its legal authorization barcode."
