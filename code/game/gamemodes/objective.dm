@@ -447,7 +447,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	/// If the objective has an assassinate objective tied to it.
 	var/has_assassinate_objective = FALSE
 
-/datum/objective/escape/escape_with_identity/New(text, datum/team/team_to_join, datum/objective/assassinate/assassinate)
+/datum/objective/escape/escape_with_identity/New(text, datum/team/team_to_join, datum/mind/_owner, datum/objective/assassinate/assassinate)
 	..()
 	if(!assassinate)
 		return

@@ -3267,9 +3267,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "avD" = (
 /obj/structure/dispenser,
@@ -7566,9 +7565,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/service/bar)
 "aLD" = (
 /obj/structure/table,
@@ -14817,9 +14815,8 @@
 "bgV" = (
 /obj/item/kirbyplants/plant22,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "bgW" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -20727,9 +20724,8 @@
 /turf/space,
 /area/space/nearstation)
 "bwO" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/service/bar)
 "bwP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -25501,9 +25497,8 @@
 "bNf" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/rag,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "bNg" = (
 /obj/machinery/door/firedoor,
@@ -26329,9 +26324,8 @@
 /area/station/hallway/secondary/bridge)
 "bQu" = (
 /obj/machinery/economy/slot_machine,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "bQy" = (
 /obj/structure/table/wood,
@@ -27440,9 +27434,8 @@
 /area/station/science/research)
 "bUz" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "bUA" = (
 /obj/item/apc_electronics,
@@ -27647,9 +27640,8 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "bVe" = (
 /obj/machinery/alarm/directional/east,
@@ -27788,9 +27780,8 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "bVN" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -28131,9 +28122,8 @@
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "bWJ" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "bWK" = (
 /obj/structure/table/wood,
@@ -28805,9 +28795,8 @@
 	},
 /area/station/ai_monitored/storage/eva)
 "bYT" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "bYW" = (
 /obj/structure/cable{
@@ -29054,10 +29043,7 @@
 /area/station/maintenance/port)
 "caj" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/trash/pistachios,
 /obj/item/trash/raisins,
 /obj/item/trash/gum,
@@ -31594,11 +31580,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
-"cjm" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken4"
-	},
-/area/station/maintenance/apmaint)
 "cjn" = (
 /obj/structure/sign/vacuum/external{
 	pixel_y = 32
@@ -31733,9 +31714,8 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cjH" = (
 /obj/structure/disposalpipe/segment{
@@ -33267,9 +33247,8 @@
 /area/station/maintenance/aft)
 "cqi" = (
 /obj/item/shovel/spade,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "cqj" = (
 /obj/machinery/hologram/holopad,
@@ -33377,9 +33356,8 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/vending_refill/hydroseeds,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "cqK" = (
 /turf/simulated/floor/engine/n2,
@@ -34668,9 +34646,8 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cvS" = (
 /obj/effect/turf_decal/delivery/blue/hollow,
@@ -35252,9 +35229,8 @@
 /obj/item/seeds/banana,
 /obj/item/seeds/chanter,
 /obj/item/seeds/chili,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "cyf" = (
 /obj/structure/table,
@@ -35321,9 +35297,8 @@
 "cyx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cyy" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -35732,11 +35707,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/cloning)
-"cAn" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
-/area/station/maintenance/apmaint)
 "cAq" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 1
@@ -36242,11 +36212,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/virology)
-"cCn" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
-/area/station/maintenance/apmaint)
 "cCo" = (
 /obj/structure/closet,
 /obj/machinery/light/small{
@@ -37558,9 +37523,8 @@
 	pixel_x = -32
 	},
 /obj/structure/bed/dogbed,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cHf" = (
 /obj/structure/cable{
@@ -40338,9 +40302,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken4"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "cSg" = (
 /obj/structure/disposalpipe/segment{
@@ -42410,9 +42373,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "dcd" = (
 /obj/effect/turf_decal/stripes/line{
@@ -47072,9 +47034,8 @@
 	},
 /area/station/hallway/secondary/entry/lounge)
 "ePK" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard2)
 "ePT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -49945,9 +49906,8 @@
 	},
 /area/station/science/lobby)
 "fTV" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "fUf" = (
 /obj/structure/rack,
@@ -54864,9 +54824,8 @@
 "hTl" = (
 /obj/item/book/manual/random,
 /obj/machinery/light/small,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "hTx" = (
 /obj/machinery/shower{
@@ -60539,11 +60498,6 @@
 	icon_state = "red"
 	},
 /area/station/security/main)
-"kry" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/station/maintenance/starboard)
 "krF" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -69398,9 +69352,8 @@
 /area/station/maintenance/starboard)
 "nXk" = (
 /obj/structure/bookcase,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "nXr" = (
 /obj/machinery/light{
@@ -106534,7 +106487,7 @@ cMR
 cMR
 cMR
 ckK
-cjm
+bYT
 qFz
 tIb
 tIb
@@ -106789,7 +106742,7 @@ cdN
 cdN
 ceW
 cAx
-cCn
+bYT
 bYT
 cJO
 cMR
@@ -107303,7 +107256,7 @@ ckK
 cjE
 oqk
 cMR
-cAn
+bYT
 cMR
 cMR
 cJO
@@ -107562,7 +107515,7 @@ csv
 crG
 cMR
 cMR
-cAn
+bYT
 cMR
 tIb
 tIb
@@ -107812,7 +107765,7 @@ cAq
 bZP
 cfb
 cAx
-cAn
+bYT
 cMR
 cMR
 crG
@@ -108072,7 +108025,7 @@ bWH
 cMR
 lGp
 cMR
-cjm
+bYT
 cBd
 cMR
 cMR
@@ -132731,7 +132684,7 @@ axh
 axh
 bgV
 hdc
-kry
+fTV
 fTV
 bZH
 aoG
@@ -132989,7 +132942,7 @@ axh
 cyv
 kQF
 bZH
-kry
+fTV
 nXk
 aoG
 aAL
