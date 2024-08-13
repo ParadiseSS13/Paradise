@@ -181,7 +181,7 @@
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
+	. += "<span class='notice'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
 	if(!I.is_open_container())
