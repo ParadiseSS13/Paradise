@@ -77,17 +77,17 @@
 	var/list/list/data = list()
 	var/list/known_abilities = list()
 	data["usable_swarms"] = flayer.usable_swarms
-//	for(var/datum/mindflayer_passive/passive in flayer.powers)
-//		known_abilities += list(list(
-//			"name" = passive.name,
-//			"current_level" = passive.level
-//		))
-//	for(var/datum/spell/flayer/spell in flayer.powers)
-//		known_abilities += list(list(
-//			"name" = spell.name,
-//			"current_level" = spell.level
-//		))
-//	data["known_abilities"] = known_abilities
+	for(var/datum/mindflayer_passive/passive in flayer.powers)
+		known_abilities += list(list(
+			"name" = passive.name,
+			"current_level" = passive.level
+		))
+	for(var/datum/spell/flayer/spell in flayer.powers)
+		known_abilities += list(list(
+			"name" = spell.name,
+			"current_level" = spell.level
+		))
+	data["known_abilities"] = known_abilities
 	return data
 
 /datum/spell/flayer/self/augment_menu/ui_static_data(mob/user)

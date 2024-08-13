@@ -16,22 +16,20 @@ export const AugmentMenu = (props, context) => {
 
 const Abilities = (props, context) => {
   const { act, data } = useBackend(context);
-  const {usable_swarms, abilities = []} = data;
+  const {usable_swarms, abilities} = data;
   return(
     abilities.map((ability, i) => {
-    return(
+    return (
         <Stack
           key = {i}
           title = {ability.name}>
           <Stack.Item p={1}
-            key = {i}
             textAlign = "center"
             grow = {1}>
               <Section
                 title = {ability.name}
                 >
                 {ability.desc}
-                {ability}
           <Button
             content = {ability.cost} // TODO: Make this change when you buy it
             icon = "minus"
