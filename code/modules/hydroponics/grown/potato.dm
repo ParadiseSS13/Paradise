@@ -18,6 +18,9 @@
 	mutatelist = list(/obj/item/seeds/potato/sweet)
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
 
+/obj/item/seeds/potato/bigpotato
+	potency = 40
+
 /obj/item/food/grown/potato
 	seed = /obj/item/seeds/potato
 	name = "potato"
@@ -27,6 +30,10 @@
 	tastes = list("potato" = 1)
 	bitesize = 100
 	distill_reagent = "vodka"
+
+//for decoration on emeraldstation
+/obj/item/food/grown/potato/bigpotato
+	seed = /obj/item/seeds/potato/bigpotato
 
 
 /obj/item/food/grown/potato/wedges
