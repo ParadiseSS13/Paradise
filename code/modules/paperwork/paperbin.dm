@@ -74,13 +74,15 @@
 			papers.Remove(P)
 		else
 			var/choice = tgui_alert(user, "Choose a style", "Paperbin", list("Letterhead","Blank", "Cancel"))
-			if(!choice || (choice == "Cancel") || !Adjacent(user))
+			if(isnull(choice) || (choice == "Cancel") || !Adjacent(user))
 				return
 			switch(choice)
 				if("Letterhead")
 					P = new letterhead_type
 				if("Blank")
 					P = new /obj/item/paper
+				if("Cancel")
+					return
 
 			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
 				if(prob(30))
