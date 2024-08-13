@@ -139,7 +139,7 @@
 		ui_interact(user)
 
 /obj/item/stack/attackby(obj/item/thing, mob/user, params)
-	if((parent_stack && !istype(thing, merge_type)) || (parent_stack && thing.type != type))
+	if((!parent_stack && !istype(thing, merge_type)) || (parent_stack && thing.type != type))
 		..()
 		return
 
