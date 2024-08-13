@@ -50,8 +50,8 @@ const Story = (props, context) => {
             <LabeledList>
               {addImage ? (
                 <LabeledList.Item label="base64">
-                    <Input value={base64} onInput={(e, value) => setbase64(value)} />
-                  </LabeledList.Item>
+                  <Input value={base64} onInput={(e, value) => setbase64(value)} />
+                </LabeledList.Item>
               ) : (
                 <>
                   <LabeledList.Item label="Title">
@@ -108,7 +108,7 @@ const Story = (props, context) => {
             buttons={
               <Button
                 fluid
-                translucent
+                translucent={fluid1}
                 compact={!fluid1}
                 color={!fluid1 && 'transparent'}
                 selected={addImage}
