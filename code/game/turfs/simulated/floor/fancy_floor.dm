@@ -59,6 +59,10 @@
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
+/turf/simulated/floor/wood/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
 // Grass
 /turf/simulated/floor/grass
 	name = "grass patch"
@@ -221,6 +225,11 @@
 	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
+
+/turf/simulated/floor/carpet/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
 //End of carpets
 
 // Bamboo mats
