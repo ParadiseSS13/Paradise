@@ -12,6 +12,7 @@
 	if(newback_icon)
 		back_icon = newback_icon
 
+// lewtodo make unum decks stack on top of the actual deck itself
 /obj/item/deck
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/playing_cards.dmi'
@@ -56,6 +57,7 @@
 /obj/item/deck/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It contains <b>[length(cards) ? length(cards) : "no"] card\s.</span>"
+	. += "<span class='notice'>Drag [src] to yourself to pick it up.</span>"
 	. += "<span class='notice'>Examine this again to see some shortcuts for interacting with it.</span>"
 
 /obj/item/deck/examine_more(mob/user)
@@ -83,6 +85,7 @@
 	return
 
 /obj/item/deck/attackby(obj/O, mob/user)
+	// clicking is for drawing
 	if(!istype(O, /obj/item/cardhand))
 		return ..()
 	var/obj/item/cardhand/H = O
@@ -90,40 +93,96 @@
 		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
 		return
 
-	if(length(H.cards) > 1)
-		var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] card\s on top of the deck?", "Put hand on top", list("Yes", "No"))
-		if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-			return
-	// on top
-	cards = H.cards + cards
-	qdel(H)
-	to_chat(user, "<span class='notice'>You place your cards on the bottom of [src].</span>")
-	update_icon(UPDATE_ICON_STATE)
-	return
+	draw_card()
+
+// lewtodo: add the ability for decks to be split
 
 /obj/item/deck/AltShiftClick(mob/user)
 	. = ..()
-	var/confirm = tgui_alert(user, "Are you sure you want to shuffle the deck?", "Shuffle the Deck", list("Yes", "No"))
-	if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	deckshuffle()
+	// todo: allow for splitting the deck so we can have a discard pile
 
 
-/obj/item/deck/attack_hand(mob/user as mob)
+/obj/item/deck/attack_hand(mob/user)
 	draw_card(user)
 
 /obj/item/deck/AltClick(mob/living/carbon/human/user)
+	// alt-clicking is for putting back
+	return_hand_click(user, TRUE)
+
+/obj/item/deck/AltShiftClick(mob/user)
+	return_hand_click(user, FALSE)
+
+/obj/item/deck/proc/return_hand_click(mob/user, on_top = TRUE)
+	// alt-shift-click is for putting on the bottom
 	if(!istype(user))
 		return
-	var/obj/item/cardhand/hand = user.get_active_hand()
-
-	if(isnull(hand))
-		// empty hand
-		// lewtodo: when should drawing/playing a card be loud? Would it make sense to set up config on decks?
-		draw_card(user, FALSE, FALSE)
+	var/obj/item/cardhand/hand = get_user_card_hand(user)
+	if(!istype(hand))
 		return
 
+	if(length(hand.cards == 1))
+		return_cards(user, hand, on_top)
+	var/selected_card = hand.select_card_radial(user)
+	if(isnull(selected_card))
+		return
+	return_cards(user, hand, on_top)
+
+/obj/item/deck/MouseDrop_T(obj/item/I, mob/user)
+	if(!istype(I, /obj/item/cardhand))
+		return
+	if(!Adjacent(user) || !user.Adjacent(I))
+		return
+	var/choice = tgui_alert(user, "Where would you like to return your hand to the deck?", "Return Hand", list("Top", "Bottom", "Cancel"))
+	if(!Adjacent(user) || !user.Adjacent(I) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isnull(choice) || choice == "Cancel")
+		return
+
+	return_cards(user, I, choice == "Top")
+// lewtodo add click-drag interaction for returning whole deck
+// is this getting too complicated?
+
+
+
+/proc/get_user_card_hand(mob/living/carbon/human/user)
+	var/obj/item/cardhand/hand = user.get_active_hand()
+	if(!istype(hand))
+		hand = user.get_inactive_hand()
+	if(istype(hand))
+		return hand
+
+/obj/item/deck/proc/return_cards(mob/living/carbon/human/user, obj/item/cardhand/hand, place_on_top = TRUE)
+
+	if(!istype(hand))
+		return
+
+	if(hand.parentdeck != src)
+		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
+		return
+
+	var/side = place_on_top ? "top" : "bottom"
+
+	if(length(hand.cards) > 1)
+		var/confirm = tgui_alert(user, "Are you sure you want to put your [length(hand.cards)] card\s into the [side] of the deck?", "Return Hand to Bottom", list("Yes", "No"))
+		if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			return
+
+	if(place_on_top)
+		cards = hand.cards + cards
+	else
+		// equiv to += but here for clarity
+		cards = cards + hand.cards
+	if(length(hand) == 1 && !hand.concealed)
+		user.visible_message("<span class='notice'>[user] places [hand.cards[1]] on the [side] of [src].</span>", "<span class='notice'>You place [hand.cards[1]] on the [side] of [src].</span>")
+	else
+		user.visible_message("<span class='notice'>[user] returns [length(hand.cards)] card\s to the [side] of [src].</span>", "<span class='notice'>You return [length(hand.cards)] card\s to the [side] of [src].</span>")
+
+	qdel(hand)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/deck/CtrlClick(mob/living/carbon/human/user)
+	if(!istype(user))
+		return
+
+	var/obj/item/cardhand/hand = user.get_active_hand()
 	if(!istype(hand))
 		return ..()
 
@@ -135,29 +194,6 @@
 		var/confirm = tgui_alert(user, "Are you sure you want to put your [length(hand.cards)] card\s into the bottom of the deck?", "Return Hand to Bottom", list("Yes", "No"))
 		if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return
-
-	// bottom
-	cards += hand.cards
-	qdel(hand)
-	to_chat(user, "<span class='notice'>You place your cards on the bottom of [src].</span>")
-	update_icon(UPDATE_ICON_STATE)
-
-// /obj/item/deck/CtrlClick(mob/living/carbon/human/user)
-// 	if(!istype(user))
-// 		return
-
-// 	var/obj/item/cardhand/hand = user.get_active_hand()
-// 	if(!istype(hand))
-// 		return ..()
-
-// 	if(hand.parentdeck != src)
-// 		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
-// 		return
-
-// 	if(length(hand.cards) > 1)
-// 		var/confirm = tgui_alert(user, "Are you sure you want to put your [length(H.cards)] card\s into the bottom of the deck?", "Return Hand to Bottom", list("Yes", "No"))
-// 		if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-// 			return
 
 
 // Datum actions
@@ -397,7 +433,8 @@
 		. += "<span class='notice'><b>Ctrl-Click</b> this in-hand to flip it.</span>"
 		. += "<span class='notice'><b>Alt-Click</b> this in-hand to see the legacy interaction menu.</span>"
 
-
+/obj/item/cardhand/proc/single()
+	return length(cards) == 1
 
 /obj/item/cardhand/proc/update_values()
 	if(!parentdeck)
