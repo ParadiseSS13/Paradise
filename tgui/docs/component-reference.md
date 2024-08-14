@@ -31,7 +31,6 @@ Make sure to add new items to this list if you document new components.
     - [`Icon`](#icon)
     - [`Icon.Stack`](#iconstack)
     - [`ImageButton`](#imagebutton)
-    - [`ImageButton.Item`](#imagebuttonitem)
     - [`Input`](#input)
     - [`Knob`](#knob)
     - [`Popper`](#popper)
@@ -557,20 +556,19 @@ A Robust button is specifically for sticking a picture in it.
 **Props:**
 
 - See inherited props: [Box](#box)
-- `asset: string` - Asset cache. Example: `asset={['assetname32x32', thing.key]}`
-- `base64: string` - Classic way to put images.
+- `asset: string[]` - Asset cache. Example: `asset={`assetname32x32, ${thing.key}`}`
+- `base64: string` - Classic way to put images. Example: `base64={thing.image}`
 - `buttons: any` - Special section for any component, or, content.
-  Quite a small area at the bottom of the image.
+  Quite a small area at the bottom of the image in non-fluid mode.
   Has a style overrides, best to use [Button](#button) inside.
 - `buttonsAlt: boolean` - Enables alternative buttons layout.
   With fluid, makes buttons like a humburger.
   Without, moves it to top, and disables pointer-events.
 - `children: any` - Content under image.
-  With `fluid`, have `justify-content: space-betwen`
 - `className: string` - Applies a CSS class to the element.
 - `color: string` - Color of the button, but without `transparent`; see [Button](#button)
 - `disabled: boolean` - Makes button disabled and dark red if true.
-  Also disables onClick.
+  Also disables onClick & onRightClick.
 - `selected: boolean` - Makes button selected and green if true.
 - `fluid: boolean` - Changes the layout of the button, making it fill the entire horizontally available space.
   Allows the use of `title`
@@ -583,33 +581,6 @@ A Robust button is specifically for sticking a picture in it.
 - `tooltip: string` - A fancy, boxy tooltip, which appears when hovering
 over the button.
 - `tooltipPosition: string` - Position of the tooltip. See [`Popper`](#Popper) for valid options.
-
-### `ImageButton.Item`
-
-Additional button/s for ImageButton.
-
-> Try not to add ImageButton.Item in large quantities. They reduce rendering speed very much
-> Available only in horizontal mode, if you try add it to vertical, you're gonna be disappointed
-
-**Props:**
-- See inherited props: [Box](#box)
-- `color: string` - By default, the button is semi-transparent. You can change the overall colour,
-all colours are available in KitchenSink in the corresponding section.
-- `content: string|any` - All main content, usually text, but you can put in other components if you like.
-Try to not make it too long.
-- `selected: boolean` - Makes button selected (green) if true.
-- `disabled: boolean` - Makes button disabled (red) if true. Also disables onClick.
-- `disabledContent: string` - If button disabled and disabledContent filled, it will be used instead content.
-- `tooltip: string` - A fancy, boxy tooltip, which appears when hovering
-over the button.
-- `tooltipPosition: string` - Position of the tooltip. See [`Popper`](#Popper) for valid options.
-- `icon: string` - Adds an icon to the button. By default it will be under content.
-- `iconColor: string` - Paints icon if it used.
-- `iconPosition: string` - You can make an icon above the content.
-Example: iconPosition={'top'}
-- `iconSize: number` - Adjusts the size of the icon.
-- `children: any` - Similar to content.
-- `onClick: function` - Called when element is clicked.
 
 ### `Input`
 

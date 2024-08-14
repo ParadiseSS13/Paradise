@@ -25,7 +25,7 @@ type Props = Partial<{
    * Example: `buttons={<Button>Send</Button>}`
    */
   buttons: InfernoNode;
-  /** Enables alternate buttons container. */
+  /** Enables alternate buttons container. Disables pointer-events on buttons if non-fluid. */
   buttonsAlt: boolean;
   /** Content under image. Or on the right if fluid. */
   children: InfernoNode;
@@ -42,7 +42,7 @@ type Props = Partial<{
   fluid: boolean;
   /** Parameter responsible for the size of the image, component and standard "stubs". */
   imageSize: number;
-  /** Prop `src` of Image component. Example: `imageSrc={resolveAsset(thing.image}` */
+  /** Prop `src` of <img>. Example: `imageSrc={resolveAsset(thing.image}` */
   imageSrc: string;
   /** Called when button is clicked with LMB. */
   onClick: (e: any) => void;
