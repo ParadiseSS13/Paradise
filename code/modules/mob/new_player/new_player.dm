@@ -273,6 +273,8 @@
 		return FALSE
 	if(job.get_exp_restrictions(client))
 		return FALSE
+	if(job.mentor_only && !check_rights(R_MENTOR, FALSE))
+		return FALSE
 
 	if(GLOB.configuration.jobs.assistant_limit)
 		if(job.title == "Assistant")

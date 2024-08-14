@@ -357,3 +357,32 @@
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+
+
+/datum/job/nanotrasentrainer
+	title = "Nanotrasen Career Trainer"
+	flag = JOB_NANO
+	department_flag = JOBCAT_ENGSEC
+	total_positions = 1
+	spawn_positions = 1
+	supervisors = "the Nanotrasen Representative"
+	department_head = list("Captain")
+	selection_color = "#ddddff"
+	req_admin_notify = TRUE
+	mentor_only = TRUE
+	job_department_flags = DEP_FLAG_COMMAND
+	transfer_allowed = FALSE
+	access = list(
+		ACCESS_ALL_PERSONAL_LOCKERS,
+		ACCESS_CARGO,
+		ACCESS_CONSTRUCTION,
+		ACCESS_COURT,
+		ACCESS_EVA,
+		ACCESS_HEADS,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MEDICAL,
+		ACCESS_RESEARCH,
+		ACCESS_SEC_DOORS,
+		ACCESS_THEATRE,
+	)
+	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
