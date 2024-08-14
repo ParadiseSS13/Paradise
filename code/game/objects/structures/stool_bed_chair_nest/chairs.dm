@@ -24,7 +24,7 @@
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to rotate it.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to rotate it.</span>"
 
 /obj/structure/chair/narsie_act()
 	if(prob(20))
@@ -585,7 +585,7 @@
 
 /obj/item/chair/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to place it down.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to place it down.</span>"
 
 /obj/item/chair/wood
 	name = "wooden chair"
