@@ -144,14 +144,14 @@
 				var/obj/item/card/id/C = I
 				if((ACCESS_CENT_COMMANDER in C.access) || (ACCESS_HOP in C.access) || (ACCESS_CAPTAIN in C.access))
 					access_code = 0
-					to_chat(user, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
+					to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to 0.</span>")
 			else if(istype(I, /obj/item/card/emag))
 				access_code = 0
-				to_chat(user, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
+				to_chat(user, "[bicon(src)]<span class='notice'>Access code reset to 0.</span>")
 
 
 /obj/item/eftpos/proc/scan_card(obj/item/card/id/C, mob/user, secured = TRUE)
-	visible_message("<span class='info'>[user] swipes a card through [src].</span>")
+	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
 
 	if(!transaction_locked || transaction_paid || !secured)
 		return
