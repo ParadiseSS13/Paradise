@@ -203,7 +203,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 				to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
 				return
 			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against melee attacks.</span>")
 		else
 			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
 	else if(istype(target, /obj/mecha/working/ripley))
@@ -216,7 +216,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
+			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against attacks.</span>")
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
@@ -229,7 +229,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 					to_chat(user, "<span class='notice'>You dont have enough [src] for this!</span>")
 					return
 				R.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
-				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+				to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			else
 				to_chat(user, "<span class='warning'>You can't improve [R] any further!</span>")
 		else
@@ -259,7 +259,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 7, 60))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 4, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 4, 50))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
+			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against attacks.</span>")
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
@@ -294,7 +294,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 13, 80))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
+			to_chat(user, "<span class='notice'>You strengthen [target], improving its resistance against attacks.</span>")
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
