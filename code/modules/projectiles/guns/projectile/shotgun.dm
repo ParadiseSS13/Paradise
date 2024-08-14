@@ -106,7 +106,7 @@
 		to_chat(user, "<span class='warning'>[src] has already been shortened!</span>")
 		return
 	if(isstorage(loc))	//To prevent inventory exploits
-		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
+		to_chat(user, "<span class='notice'>How do you plan to modify [src] while it's in a bag.</span>")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
@@ -147,7 +147,7 @@
 		to_chat(user, "<span class='warning'>[src] has not been shortened!</span>")
 		return
 	if(isstorage(loc))	//To prevent inventory exploits
-		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
+		to_chat(user, "<span class='notice'>How do you plan to modify [src] while it's in a bag.</span>")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
