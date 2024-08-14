@@ -39348,7 +39348,6 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
 "fYy" = (
-/obj/structure/table/wood,
 /obj/item/storage/bible,
 /obj/structure/table/wood/fancy/red,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -49104,10 +49103,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
-"iOX" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/mine/unexplored/cere/civilian)
 "iPa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -72201,7 +72196,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "pDJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -101957,7 +101951,6 @@
 	},
 /area/station/science/genetics)
 "yau" = (
-/obj/structure/table/wood,
 /obj/structure/table/wood/fancy/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -126862,7 +126855,7 @@ rNK
 rNK
 hUU
 hUU
-iOX
+mic
 hUU
 rNK
 euP
