@@ -74,7 +74,7 @@
 	html += {"<div class="container_buttons">"}
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
-		html += {"<a class="menu_button bad" id="ready" href='byond://?src=[player.UID()];ready=1'>[player.ready ? "Готов" : "Не готов"]</a>"}
+		html += {"<a class="menu_button [player.ready ? "good" : "bad"]" id="ready" href='byond://?src=[player.UID()];ready=1'>[player.ready ? "Готов" : "Не готов"]</a>"}
 	else
 		html += {"
 			<a class="menu_button" href='byond://?src=[player.UID()];late_join=1'>Присоединиться</a>
@@ -84,7 +84,7 @@
 	html += {"<a class="menu_button" href='byond://?src=[player.UID()];observe=1'>Наблюдать</a>"}
 	html += {"
 		<hr>
-		<a class="menu_button good" id="be_antag" href='byond://?src=[player.UID()];skip_antag=1'>[viewer.skip_antag ? "Антагонисты: Выкл." : "Антагонисты: Вкл."]</a>
+		<a class="menu_button [viewer.skip_antag ? "bad" : "good"]" id="be_antag" href='byond://?src=[player.UID()];skip_antag=1'>[viewer.skip_antag ? "Антагонисты: Выкл." : "Антагонисты: Вкл."]</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];show_preferences=1'>Настройка персонажа</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];game_preferences=1'>Настройки игры</a>
 		<hr>
