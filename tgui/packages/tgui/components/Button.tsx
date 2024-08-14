@@ -100,7 +100,7 @@ export const Button = (props: ButtonProps) => {
         className,
       ])}
       tabIndex={!disabled && '0'}
-      color={textColor || 'unset'}
+      color={textColor}
       onKeyDown={(e) => {
         const keyCode = window.event ? e.which : e.keyCode;
         // Simulate a click when pressing space or enter.

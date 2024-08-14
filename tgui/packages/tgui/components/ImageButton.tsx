@@ -116,15 +116,15 @@ export const ImageButton = (props: Props) => {
       style={{ width: !fluid ? `calc(${imageSize}px + 0.5em + 2px)` : 'auto' }}
     >
       <div className={classes(['image'])}>
-        {base64 || asset || imageSrc ? (
+        {(base64 || imageSrc) && !asset ? (
           <img
-            className={classes(!base64 && !imageSrc && asset)}
             src={base64 ? `data:image/jpeg;base64,${base64}` : imageSrc}
             height={`${imageSize}px`}
             width={`${imageSize}px`}
-            // @ts-ignore // Delete -ms-interpolation-mode with 516
-            style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'image-rendering': 'pixelated' }}
           />
+        ) : asset ? (
+          /* Not a <img> cause assets made some shit with it on Byond 516 */
+          <div className={classes(asset)} />
         ) : (
           getFallback('question', false)
         )}
@@ -174,6 +174,7 @@ export const ImageButton = (props: Props) => {
           ])}
           style={{
             width: buttonsAlt ? `calc(${imageSize}px + ${fluid ? 0 : 0.5}em)` : 'auto',
+            'max-width': !fluid && !buttonsAlt && `calc(${imageSize}px +  0.5em)`,
           }}
         >
           {buttons}
