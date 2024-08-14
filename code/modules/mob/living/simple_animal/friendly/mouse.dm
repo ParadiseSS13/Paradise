@@ -43,6 +43,9 @@
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
+#ifdef UNIT_TESTS
+	return
+#else
 	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
 		if(istype(F) && !F.intact)
@@ -56,6 +59,7 @@
 					visible_message("<span class='warning'>[src] chews through [C].</span>")
 				investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
 				C.deconstruct()
+#endif
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
