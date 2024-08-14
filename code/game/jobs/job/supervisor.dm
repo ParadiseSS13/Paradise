@@ -361,7 +361,7 @@
 
 /datum/job/nanotrasentrainer
 	title = "Nanotrasen Career Trainer"
-	flag = JOB_NANO
+	flag = JOB_INSTRUCTOR
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1

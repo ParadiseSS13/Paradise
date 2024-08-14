@@ -15,6 +15,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Nanotrasen Representative",
 	"Magistrate",
 	"Blueshield"
+	"Nanotrasen Career Trainer"
 ))
 
 /// Only roles that are command of departments, for revolution and similar stuff

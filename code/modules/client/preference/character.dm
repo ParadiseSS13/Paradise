@@ -2029,6 +2029,10 @@
 			if(job.hidden_from_job_prefs)
 				continue
 
+			if(job.mentor_only)
+				if(!check_rights(R_MENTOR || R_ADMIN, FALSE, user))
+					continue
+
 			index += 1
 			if((index >= limit) || (job.title in splitJobs))
 				if((index < limit) && (lastJob != null))
@@ -2051,9 +2055,7 @@
 			if(jobban_isbanned(user, job.title))
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td></tr>"
 				continue
-			if(job.mentor_only && !check_rights(R_MENTOR || R_ADMIN, FALSE, user))
-				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[MENTOR ONLY]</b></td></tr>"
-				continue
+
 			var/restrictions = job.get_exp_restrictions(user.client)
 			if(restrictions)
 				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[[restrictions]]</b></td></tr>"
