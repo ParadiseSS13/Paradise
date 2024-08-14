@@ -239,6 +239,7 @@ pub(crate) fn internal_set_tile(
                     };
                 }
             }
+			3 => tile.mode = AtmosMode::NoDecay,
             _ => return Err(eyre!("Invalid atmos_mode: {}", value)),
         }
     }
