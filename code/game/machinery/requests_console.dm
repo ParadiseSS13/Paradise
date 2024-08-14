@@ -213,7 +213,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				if(RQ_HIGHPRIORITY)
 					priority = RQ_HIGHPRIORITY
 				else
-					return
+					// Forcibly update UI state
+					return TRUE
 
 		if("writeAnnouncement")
 			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", message, multiline = TRUE, encode = FALSE)
