@@ -33,7 +33,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
+/area/station/maintenance/auxsolarstarboard)
 "aan" = (
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
@@ -8487,7 +8487,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/station/engineering/solar/port)
+/area/station/engineering/solar/auxstarboard)
 "beJ" = (
 /obj/machinery/economy/vending/autodrobe,
 /turf/simulated/floor/plasteel{
@@ -21647,7 +21647,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
+/area/station/maintenance/auxsolarstarboard)
 "cxb" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
@@ -26959,24 +26959,6 @@
 	icon_state = "darkfull"
 	},
 /area/station/supply/sorting)
-"dcC" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/item/assembly/mousetrap/armed,
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/gambling_den)
 "dcG" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -27044,7 +27026,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/station/engineering/solar/port)
+/area/station/engineering/solar/auxstarboard)
 "ddk" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -35510,7 +35492,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/station/engineering/solar/port)
+/area/station/engineering/solar/auxstarboard)
 "eLS" = (
 /obj/machinery/status_display{
 	layer = 4
@@ -35649,7 +35631,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
+/area/station/maintenance/auxsolarstarboard)
 "eNa" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -37677,6 +37659,14 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation/disposals)
+"fwr" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/space,
+/area/station/engineering/solar/auxstarboard)
 "fxd" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -43867,7 +43857,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/station/engineering/solar/port)
+/area/station/engineering/solar/auxstarboard)
 "hvs" = (
 /obj/machinery/camera{
 	c_tag = "Cargo Quantum Pad";
@@ -48334,7 +48324,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/station/engineering/solar/port)
+/area/station/engineering/solar/auxstarboard)
 "iDa" = (
 /obj/item/chair,
 /obj/machinery/light/small{
@@ -48512,7 +48502,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/station/engineering/solar/port)
+/area/station/engineering/solar/auxstarboard)
 "iFY" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/effect/turf_decal/woodsiding{
@@ -50266,6 +50256,10 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/secondary/entry/east)
+"jdD" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/maintenance/auxsolarstarboard)
 "jdL" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -51874,10 +51868,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
-"jzp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/mineral/ancient,
-/area/station/service/library)
 "jzq" = (
 /obj/item/seeds/chili,
 /turf/simulated/floor/grass,
@@ -55418,7 +55408,7 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
+/area/station/maintenance/auxsolarstarboard)
 "kAn" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -55894,7 +55884,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
+/area/station/maintenance/auxsolarstarboard)
 "kJM" = (
 /obj/structure/sign/security,
 /turf/simulated/wall/r_wall,
@@ -57869,7 +57859,7 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
+/area/station/maintenance/auxsolarstarboard)
 "lmb" = (
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/wood,
@@ -64883,7 +64873,7 @@
 	icon_state = "0-8"
 	},
 /turf/space,
-/area/station/engineering/solar/port)
+/area/station/engineering/solar/auxstarboard)
 "nqG" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -66808,7 +66798,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
+/area/station/maintenance/auxsolarstarboard)
 "nWk" = (
 /obj/machinery/door/airlock/titanium/glass,
 /obj/structure/fans/tiny,
@@ -68969,6 +68959,15 @@
 /obj/structure/sign/cargo,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
+"oEL" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/station/engineering/solar/auxstarboard)
 "oEV" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plating,
@@ -70721,7 +70720,7 @@
 	icon_state = "0-4"
 	},
 /turf/space,
-/area/station/engineering/solar/port)
+/area/station/engineering/solar/auxstarboard)
 "php" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -72474,6 +72473,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
+"pGk" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/auxsolarstarboard)
 "pGv" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -75381,6 +75388,10 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/grass,
 /area/station/hallway/spacebridge/scidock)
+"qvJ" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/station/engineering/solar/auxstarboard)
 "qvP" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Criminal Delivery Chute"
@@ -76665,7 +76676,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/station/engineering/solar/port)
+/area/station/engineering/solar/auxstarboard)
 "qOY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/wood,
@@ -80059,7 +80070,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/station/engineering/solar/port)
+/area/station/engineering/solar/auxstarboard)
 "rUd" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/structure/closet/emcloset,
@@ -80990,7 +81001,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
+/area/station/maintenance/auxsolarstarboard)
 "sgH" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -82109,6 +82120,9 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior)
+"svS" = (
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/auxsolarstarboard)
 "svZ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -82335,8 +82349,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -83301,7 +83315,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
+/area/station/maintenance/auxsolarstarboard)
 "sNr" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -98215,7 +98229,7 @@
 	network = list("SS13","CE")
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
+/area/station/maintenance/auxsolarstarboard)
 "wVM" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -98550,7 +98564,7 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/effect/spawner/airlock/e_to_w,
 /turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
+/area/station/maintenance/auxsolarstarboard)
 "xbh" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
@@ -101589,7 +101603,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/station/engineering/solar/port)
+/area/station/engineering/solar/auxstarboard)
 "xVu" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable/orange{
@@ -110176,7 +110190,7 @@ rNK
 rNK
 rNK
 rNK
-ycG
+oEL
 rNK
 rNK
 rNK
@@ -111204,7 +111218,7 @@ lzH
 lzH
 lzH
 lzH
-lAv
+qvJ
 lzH
 lzH
 lzH
@@ -111461,7 +111475,7 @@ iCT
 iCT
 iCT
 iCT
-lAv
+qvJ
 iCT
 iCT
 iCT
@@ -112232,7 +112246,7 @@ lzH
 lzH
 lzH
 lzH
-lAv
+qvJ
 lzH
 lzH
 lzH
@@ -112489,7 +112503,7 @@ iCT
 iCT
 iCT
 iCT
-lAv
+qvJ
 iCT
 iCT
 iCT
@@ -113260,7 +113274,7 @@ rNK
 rNK
 rNK
 rNK
-peG
+fwr
 rNK
 rNK
 rNK
@@ -113516,8 +113530,8 @@ rNK
 rNK
 rNK
 rNK
-oyl
-jrJ
+jdD
+pGk
 xaV
 rNK
 rNK
@@ -113773,9 +113787,9 @@ rNK
 rNK
 rNK
 rNK
-oyl
-jrJ
-oyl
+jdD
+pGk
+jdD
 rNK
 rNK
 rNK
@@ -114029,11 +114043,11 @@ rNK
 rNK
 rNK
 rNK
-oyl
-oyl
-jrJ
-oyl
-oyl
+jdD
+jdD
+pGk
+jdD
+jdD
 rNK
 hUU
 hUU
@@ -114286,11 +114300,11 @@ rNK
 rNK
 hUU
 hUU
-rfn
+svS
 kzU
 nWj
 llU
-rfn
+svS
 hUU
 hUU
 pXy
@@ -114543,11 +114557,11 @@ lzH
 lzH
 mic
 hUU
-rfn
+svS
 sNq
 cwV
 wVJ
-rfn
+svS
 aXn
 aXn
 aXn
@@ -114800,11 +114814,11 @@ rNK
 hUU
 hUU
 hUU
-rfn
+svS
 sgG
 eMY
 kJv
-rfn
+svS
 aXn
 aXn
 uCK
@@ -115057,11 +115071,11 @@ hUU
 hUU
 aXn
 aXn
-rfn
-rfn
+svS
+svS
 aah
-rfn
-rfn
+svS
+svS
 pXy
 pXy
 vtY
@@ -117142,7 +117156,7 @@ wzC
 aEe
 aEe
 aEe
-jzp
+aEe
 aEe
 aEe
 aEe
@@ -124873,7 +124887,7 @@ wpF
 wpF
 wpl
 jrM
-dcC
+cqO
 cqO
 cqO
 cqO
@@ -125133,7 +125147,7 @@ qQx
 caw
 wYw
 caw
-wph
+wEB
 caw
 caw
 caw
