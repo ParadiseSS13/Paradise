@@ -100,7 +100,7 @@
 
 /obj/item/wormhole_jaunter/contractor/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to change its destination!</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to change its destination!</span>"
 
 /obj/item/wormhole_jaunter/contractor/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
