@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Quartermaster",
 	"Nanotrasen Representative",
 	"Magistrate",
-	"Blueshield"
+	"Blueshield",
 	"Nanotrasen Career Trainer"
 ))
 
