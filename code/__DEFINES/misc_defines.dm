@@ -600,7 +600,7 @@
 // Request console message priority defines
 
 #define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
-#define RQ_LOWPRIORITY 1		// RQ_NORMALPRIORITY = low priority
+#define RQ_LOWPRIORITY 1		// RQ_LOWPRIORITY = low priority
 #define RQ_NORMALPRIORITY 2		// RQ_NORMALPRIORITY = normal priority
 #define RQ_HIGHPRIORITY 3		// RQ_HIGHPRIORITY = high priority
 
