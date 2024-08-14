@@ -45,7 +45,7 @@
 /mob/living/simple_animal/mouse/handle_automated_action()
 #ifdef UNIT_TESTS // DO NOT EAT MY CABLES DURING UNIT TESTS
 	return
-#else
+#endif
 	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
 		if(istype(F) && !F.intact)
@@ -59,7 +59,6 @@
 					visible_message("<span class='warning'>[src] chews through [C].</span>")
 				investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
 				C.deconstruct()
-#endif
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
