@@ -340,7 +340,7 @@
 /datum/tarot/the_empress
 	name = "III - The Empress"
 	desc = "May your rage bring power."
-	extended_desc = "gives the user a mixture of powerful reagents that allow them to move and interact with things at inhuman speeds."
+	extended_desc = "gives the user a temporary boost of speed. This includes attack speed"
 	card_icon = "the_empress"
 
 /datum/tarot/the_empress/activate(mob/living/target)
