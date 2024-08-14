@@ -304,7 +304,7 @@
 /datum/tarot/the_high_priestess
 	name = "II - The High Priestess"
 	desc = "Mother is watching you."
-	extended_desc = "alerts Bubblegum to the user, allowing her to rend the effected user, dealing heavy damage, and imobilizing the user for a short time."
+	extended_desc = "alerts bubblegum to the user, allowing him to strike them down, dealing heavy damage and immobilizing them."
 	card_icon = "the_high_priestess"
 
 /datum/tarot/the_high_priestess/activate(mob/living/target)
@@ -940,7 +940,7 @@
 /datum/tarot/reversed/the_sun
 	name = "XIX - The Sun?"
 	desc = "May the darkness swallow all around you."
-	extended_desc = "grants the user a weakened version of an umbral vampire's eternal darkness ability for one minute. However, the user will also become nearsighted for the duration."
+	extended_desc = "makes the user emit darkness, freezing anyone nearby. They will also become nearsighted for the duration, however."
 	card_icon = "the_sun?"
 
 /datum/tarot/reversed/the_sun/activate(mob/living/target)
