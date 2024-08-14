@@ -130,8 +130,6 @@ pub(crate) enum AtmosMode {
     Sealed,
     /// Tile is exposed to the given environment.
     ExposedTo { environment_id: u8 },
-	// Tile will not bleed heat
-	NoDecay,
 }
 
 impl From<AtmosMode> for ByondValue {
