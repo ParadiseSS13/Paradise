@@ -46,11 +46,11 @@
 #ifdef UNIT_TESTS
 	return
 #else
-	if(prob(100) && isturf(loc))
+	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
 		if(istype(F) && !F.intact)
 			var/obj/structure/cable/C = locate() in F
-			if(C && prob(100))
+			if(C && prob(15))
 				if(C.get_available_power() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
 					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
