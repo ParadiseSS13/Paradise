@@ -890,13 +890,13 @@
  * Useful for weighted random choices (loot tables, syllables in languages, etc.)
  */
 /proc/fill_with_ones(list/list_to_pad)
-	if (!islist(list_to_pad))
+	if(!islist(list_to_pad))
 		return list_to_pad
 
 	var/list/final_list = list()
 
-	for (var/key in list_to_pad)
-		if (list_to_pad[key])
+	for(var/key in list_to_pad)
+		if(list_to_pad[key])
 			final_list[key] = list_to_pad[key]
 		else
 			final_list[key] = 1

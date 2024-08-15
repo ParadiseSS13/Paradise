@@ -78,16 +78,16 @@
 				var/atom/movable/spawned_loot = make_item(spawn_loc, lootspawn)
 				spawned_loot.setDir(dir)
 
-				if (!spawn_loot_split && !spawn_random_offset)
-					if (pixel_x != 0)
+				if(!spawn_loot_split && !spawn_random_offset)
+					if(pixel_x != 0)
 						spawned_loot.pixel_x = pixel_x
-					if (pixel_y != 0)
+					if(pixel_y != 0)
 						spawned_loot.pixel_y = pixel_y
-				else if (spawn_random_offset)
+				else if(spawn_random_offset)
 					spawned_loot.pixel_x = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
 					spawned_loot.pixel_y = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
-				else if (spawn_loot_split)
-					if (loot_spawned)
+				else if(spawn_loot_split)
+					if(loot_spawned)
 						var/column = FLOOR(loot_spawned / pixel_divider, 1)
 						spawned_loot.pixel_x = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider) + (column * spawn_loot_split_pixel_offsets)
 						spawned_loot.pixel_y = spawn_loot_split_pixel_offsets * (loot_spawned % pixel_divider)
