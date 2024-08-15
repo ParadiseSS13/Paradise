@@ -1,12 +1,12 @@
 /obj/mecha/janitor/nkarrdem
 	desc = "A heavy duty sanitation exosuit; optimized for the removal of mass amounts of dirt, grime, and grease."
 	name = "Nkarrdem"
-	icon_state = "odysseus"
-	initial_icon = "odysseus"
+	icon_state = "nkarrdem"
+	initial_icon = "nkarrdem"
 	step_in = 3
 	max_temperature = 10000
 	max_integrity = 110
-	wreckage = /obj/structure/mecha_wreckage/odysseus
+	wreckage = /obj/structure/mecha_wreckage/nkarrdem
 	internal_damage_threshold = 35
 	deflect_chance = 15
 	step_energy_drain = 6

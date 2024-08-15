@@ -112,8 +112,7 @@
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer
 	name = "NT-12 illuminator"
 	desc = "A modified light replacer fit for an exosuit that zaps lights into place."
-	icon = 'icons/obj/janitor.dmi'
-	icon_state = "lightreplacer_blue0"
+	icon_state = "mecha_light_replacer"
 	equip_cooldown = 15
 	energy_drain = 100
 	range = MECHA_MELEE | 15
@@ -154,8 +153,7 @@
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray
 	name = "JS-33 super spray"
 	desc = "A spray bottle, upscaled for an exosuit. Capable of mass sanitation."
-	icon = 'icons/obj/janitor.dmi'
-	icon_state = "cleaner"
+	icon_state = "mecha_spray"
 	equip_cooldown = 15
 	energy_drain = 200
 	range = MECHA_MELEE | MECHA_RANGED
@@ -255,8 +253,7 @@
 	name = "WA1E Garbage Magnet"
 	desc = "Bluespace technology integrated with an oversized garbage bag and heavy duty magnets allows this device to pick up all manner of litter. \
 	The complex technology prevents users from directly looking inside the bag."
-	icon = 'icons/obj/janitor.dmi'
-	icon_state = "bluetrashbag"
+	icon_state = "mecha_trash_magnet"
 	equip_cooldown = 15
 	energy_drain = 5
 	range = MECHA_MELEE | MECHA_RANGED
