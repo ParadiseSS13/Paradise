@@ -1,6 +1,8 @@
 /datum/playingcard
 	var/name = "playing card"
+	/// The front of the card, with all the fun stuff.
 	var/card_icon = "card_back"
+	/// The back of the card, shown when face-down.
 	var/back_icon = "card_back"
 
 /datum/playingcard/New(newname, newcard_icon, newback_icon)
@@ -52,13 +54,13 @@
 /obj/item/deck/Initialize(mapload)
 	. = ..()
 	build_decks()
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It contains <b>[length(cards) ? length(cards) : "no"]</b> card\s.</span>"
 	. += "<span class='notice'>Drag [src] to yourself to pick it up.</span>"
-	. += "<span class='notice'>If you draw or return cards with<span class='danger'>harm</span> intent, your plays will be public!</span>"
+	. += "<span class='notice'>If you draw or return cards with <span class='danger'>harm</span> intent, your plays will be public!</span>"
 	. += "<span class='notice'>Examine this again to see some shortcuts for interacting with it.</span>"
 
 /obj/item/deck/examine_more(mob/user)
@@ -145,8 +147,6 @@
 
 // is this getting too complicated?
 
-
-
 /proc/get_user_card_hand(mob/living/carbon/human/user)
 	var/obj/item/cardhand/hand = user.get_active_hand()
 	if(!istype(hand))
@@ -194,7 +194,7 @@
 	else
 		user.visible_message("<span class='notice'>[user] returns [length(chosen_cards)] card\s to the [side] of [src].</span>", "<span class='notice'>You return [length(chosen_cards)] card\s to the [side] of [src].</span>")
 
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/deck/CtrlClick(mob/living/carbon/human/user)
 	if(!istype(user))
@@ -291,7 +291,7 @@
 	var/datum/playingcard/P = draw_from_top ? cards[1] : cards[length(cards)]
 	H.cards += P
 	cards -= P
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	H.parentdeck = src
 	H.update_values()
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
@@ -351,7 +351,7 @@
 	for(var/i in 1 to dcard)
 		H.cards += cards[1]
 		cards -= cards[1]
-		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 		H.parentdeck = src
 		H.update_values()
 		H.concealed = TRUE
@@ -377,6 +377,7 @@
 			playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 		cooldown = world.time
 
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
 /obj/item/deck/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	var/mob/M = usr
