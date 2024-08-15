@@ -927,7 +927,7 @@
 	name = "Nanotrasen Career Trainer ID"
 	registered_name = "NT Career Trainer"
 	icon_state = "nctrainer"
-	access = list(ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_CARGO, ACCESS_CONSTRUCTION, ACCESS_COURT, ACCESS_EVA, ACCESS_HEADS, ACCESS_MAINT_TUNNELS,
+	access = list(ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_CARGO, ACCESS_CONSTRUCTION, ACCESS_COURT, ACCESS_EVA, ACCESS_TRAINER, ACCESS_MAINT_TUNNELS,
 						ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_SEC_DOORS, ACCESS_THEATRE)
 /obj/item/card/id/blueshield
 	name = "Blueshield ID"
@@ -1083,6 +1083,44 @@
 /obj/item/card/id/data
 	icon_state = "data"
 
+/obj/item/card/id/nct_data_chip
+	var/registered_user = null
+	var/trainee = null
+	name = "NCT Trainee Access Chip"
+	assignment = "Nanotrasen Career Trainer"
+	desc = "A small electronic access token that allows its user to copy the access of their Trainee. Only accessible by NT Career Trainers!"
+	icon_state = "nct_chip"
+
+/obj/item/card/id/nct_data_chip/examine(mob/user)
+	. = ..()
+	. += "<br>The current registered Trainee is: <b>[trainee]</b>"
+
+/obj/item/card/id/nct_data_chip/attack_self(mob/user as mob)
+	if(trainee)
+		switch(alert(user,"Would you like to remove [trainee] as your current active Trainee?","Choose","Yes","No"))
+			if("Yes")
+				trainee = null
+				icon_state = "nct_chip"
+				access = list()
+			if("No")
+				return
+
+/obj/item/card/id/nct_data_chip/afterattack(obj/item/O as obj, mob/user as mob, proximity)
+	if(!proximity)
+		return
+	if(istype(O, /obj/item/card/id))
+		var/obj/item/card/id/I = O
+		if(isliving(user) && user.mind)
+			if(user.mind.current == registered_user)
+				to_chat(usr, "<span class='notice'>The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access.</span>")
+				src.access = I.access
+				trainee = I.registered_name
+				icon_state = "nct_chip_active"
+			else
+				to_chat(usr, "<span class='notice'>You do not have access to use this NCT Trainee Access Chip!</span>")
+				return
+
+
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"
@@ -1136,7 +1174,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
+	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","nct","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","blueshield","magistrate","ntrep","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","ERT_paranormal","deathsquad","commander","syndie","TDred","TDgreen")
@@ -1160,6 +1198,8 @@
 			return "Security Officer"
 		if("internalaffairsagent")
 			return "Internal Affairs Agent"
+		if("nct")
+			return "Nanotrasen Career Trainer"
 		if("atmostech")
 			return "Life Support Specialist"
 		if("HoP")

@@ -853,3 +853,31 @@
 				/obj/item/clothing/accessory/armband/procedure = 20)
 
 	refill_canister = /obj/item/vending_refill/lawdrobe
+
+/obj/machinery/economy/vending/traindrobe
+	name = "\improper TrainDrobe"
+	desc = "This wardrobe dispenses the attire of Nanotrasen's finest teaching force."
+	icon_state = "traindrobe"
+	icon_lightmask = "base_drobe"
+	icon_panel = "drobe"
+	icon_broken = "base_drobe"
+	icon_off = "base_drobe"
+	category = VENDOR_TYPE_CLOTHING
+	ads_list = list("You're gonna LEARN today!")
+	vend_reply = "Thank you for using the TrainDrobe!"
+	products = list(
+		/obj/item/clothing/gloves/color/white = 2,
+		/obj/item/clothing/gloves/color/black = 2,
+		/obj/item/clothing/shoes/laceup = 2,
+		/obj/item/clothing/shoes/black = 2,
+		/obj/item/clothing/shoes/brown = 2,
+		/obj/item/clothing/head/beret/sec = 2,
+		/obj/item/clothing/head/beret/med = 2,
+		/obj/item/clothing/head/beret/sci = 2,
+		/obj/item/clothing/head/beret/eng = 2,
+		/obj/item/clothing/head/beret/atmos = 2,
+		/obj/item/clothing/head/beret/cargo = 2,
+		/obj/item/clothing/head/beret/black = 2,
+	)
+	prices = list()
+	refill_canister = /obj/item/vending_refill/traindrobe

@@ -31,7 +31,8 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 		"Clear Cache" = "To fix a blank screen, go to the 'Special Verbs' tab and press 'Reload UI Resources'. If that fails, clear your BYOND cache (instructions provided with 'Reload UI Resources'). If that still fails, please ask for help again, stating you have already done these steps.",
 		"Experiment!" = "Experiment! Part of the joy of this game is trying out various things, and dealing with the consequences if/when they go horribly wrong.",
 		"How to Objectives" = "There are lots of ways to accomplish your objectives as an antagonist. A direct frontal assault may work, provided you can get in and out before backup arrives. Sneaking in can work, too, as long as you're quick and avoid prying eyes. But don't forget roleplaying methods!  Tricking your target into a maze of bear traps is much more interesting than just shooting them with a gun. Even if it fails, you and your target (or its guardians) are likely to have more fun this way, and that's the most important part.",
-		"MHelp was in Russian" = "Привет! Ты попал на английский Paradise сервер. Возможно, ты ошибся. Русский имеет такое название: SS220\[RU]."
+		"MHelp was in Russian" = "Привет! Ты попал на английский Paradise сервер. Возможно, ты ошибся. Русский имеет такое название: SS220\[RU].",
+		"Career Trainer Dispatch" = "A Nanotrasen Career Trainer will be assisting you in-game. You should be able to identify them by their green uniform and black coat."
 	)
 
 	if(GLOB.configuration.url.github_url)
@@ -71,6 +72,22 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	if(message_key == null)
 		T.staffAssigned = null //if they cancel we dont need to hold this ticket anymore
 		return
+	if(message_key == "NCT Dispatch")
+		var/mob/living/carbon/human/trainee
+		var/mob/living/carbon/human/nct
+		trainee = get_mob_by_ckey(T.client_ckey)
+		for(var/mob/living/carbon/human/I in GLOB.player_list)
+			if(!I.mind)
+				continue
+			if(I.mind.assigned_role == "Nanotrasen Career Trainer")
+				nct = I
+				break
+
+		if(!istype(nct.l_ear, /obj/item/radio/headset) && !istype(nct.r_ear, /obj/item/radio/headset))
+			to_chat(usr, "NCT contact failed. Perhaps they're not wearing their headset?")
+			return
+		to_chat(nct, "<span class = 'notice'>Incoming priority transmission from Nanotrasen Training Center.  Request information as follows: </span><span class = 'specialnotice'>Career Trainer, we've received a request from an employee. They're called [trainee.real_name], they're a [trainee.mind.assigned_role]. See if they need any help.</span>")
+		SEND_SOUND(nct, 'sound/effects/headset_message.ogg')
 
 	SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
 	to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with:</span> <span class='adminticketalt'>[response_phrases[message_key]]</span>") //for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
