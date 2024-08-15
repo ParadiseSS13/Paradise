@@ -54,9 +54,9 @@
 	. += deconstruction_hints(user)
 	if(can_be_flipped)
 		if(flipped)
-			. += "<span class='info'><b>Alt-Shift-Click</b> to right the table again.</span>"
+			. += "<span class='notice'><b>Alt-Shift-Click</b> to right the table again.</span>"
 		else
-			. += "<span class='info'><b>Alt-Shift-Click</b> to flip over the table.</span>"
+			. += "<span class='notice'><b>Alt-Shift-Click</b> to flip over the table.</span>"
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"

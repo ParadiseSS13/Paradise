@@ -386,7 +386,7 @@
 		message_admins("[key_name(user)][ADMIN_QUE(user,"?")] has primed a [name] for detonation at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[bombarea] (JMP)</a>.")
 		log_game("[key_name(user)] has primed a [name] for detonation at [bombarea] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 
-		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
+		to_chat(user, "<span class='notice'>You light [src] on fire.</span>")
 		if(!is_glass)
 			spawn(50)
 				if(active)
@@ -407,6 +407,6 @@
 		if(!is_glass)
 			to_chat(user, "<span class='danger'>The flame's spread too far on it!</span>")
 			return
-		to_chat(user, "<span class='info'>You snuff out the flame on \the [src].</span>")
+		to_chat(user, "<span class='notice'>You snuff out the flame on \the [src].</span>")
 		active = FALSE
 		update_icon(UPDATE_OVERLAYS)

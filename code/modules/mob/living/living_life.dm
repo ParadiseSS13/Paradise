@@ -116,7 +116,8 @@
 /mob/living/proc/handle_random_events()
 	return
 
-/mob/living/proc/handle_environment(datum/gas_mixture/environment)
+/// Handle temperature/pressure differences between body and environment
+/mob/living/proc/handle_environment()
 	return
 
 /mob/living/proc/update_pulling()

@@ -48,6 +48,8 @@ $bg-map: colors.$bg-map !default;
 
 .ImageButton__horizontal {
   display: flex;
+  user-select: none;
+  -ms-user-select: none;
   width: 100%;
   align-items: center;
 }
@@ -55,9 +57,11 @@ $bg-map: colors.$bg-map !default;
 .ImageButton--horizontal {
   display: flex;
   margin-bottom: 0.5em;
+  user-select: none;
+  -ms-user-select: none;
 
   &:last-child {
-    margin-bottom: 0.4em;
+    margin-bottom: 0;
   }
 }
 
