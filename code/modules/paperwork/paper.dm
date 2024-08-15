@@ -64,7 +64,7 @@
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
 	if(user.is_literate())
 		if(in_range(user, src) || isobserver(user))
 			show_content(user)
