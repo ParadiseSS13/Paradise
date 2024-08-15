@@ -19,6 +19,12 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/playing_cards.dmi'
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
+
+	throw_speed = 3
+	throw_range = 10
+	throwforce = 0
+	force = 0
+
 	var/list/cards = list()
 	/// To prevent spam shuffle
 	var/cooldown = 0
@@ -32,10 +38,6 @@
 	var/deck_style = null
 	/// For decks without a full set of sprites
 	var/simple_deck = FALSE
-	throw_speed = 3
-	throw_range = 10
-	throwforce = 0
-	force = 0
 	/// Inherited card hit sound
 	var/card_hitsound
 	/// Inherited card force
@@ -50,11 +52,19 @@
 	var/card_attack_verb
 	/// Inherited card resistance
 	var/card_resistance_flags = FLAMMABLE
+	/// Deck ID, used for splitting and re-joining decks.
+	var/main_deck_id = -1
 
-/obj/item/deck/Initialize(mapload)
+/obj/item/deck/Initialize(mapload, parent_deck_id = -1)
 	. = ..()
 	build_decks()
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	if(parent_deck_id == -1)
+		// we're our own deck
+		main_deck_id = rand(1, 99999)
+	else
+		main_deck_id = parent_deck_id
+
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
@@ -91,9 +101,23 @@
 
 /obj/item/deck/attackby(obj/O, mob/user)
 	// clicking is for drawing
+	if(istype(O, /obj/item/deck))
+		var/obj/item/deck/other_deck = O
+		if(other_deck.main_deck_id != main_deck_id)
+			to_chat(user, "<span class='warning'>These aren't the same deck!</span>")
+			return
+
+		merge_deck(user, O)
+		return
+
+	if(istype(O, /obj/item/pen))
+		rename_interactive(user, O)
+		return
+
 	if(!istype(O, /obj/item/cardhand))
 		return ..()
 	var/obj/item/cardhand/H = O
+	// lewtodo: parent deck ID needs to work in a way that allows for merging cards
 	if(H.parentdeck != src)
 		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
 		return
@@ -102,10 +126,27 @@
 
 // lewtodo: add the ability for decks to be split
 
-/obj/item/deck/AltShiftClick(mob/user)
+/obj/item/deck/CtrlShiftClick(mob/user)
 	. = ..()
 	// todo: allow for splitting the deck so we can have a discard pile
+	if(length(cards) <= 1)
+		to_chat(user, "<span class='notice'>You can't split this deck, it's too small!</span>")
+		return
 
+	// split it off, with our deck ID.
+	var/obj/item/deck/new_deck = new src.type(get_turf(src), main_deck_id)
+	QDEL_LIST_CONTENTS(new_deck.cards)
+	new_deck.cards = cards.Copy(length(cards) / 2, length(cards))
+	cards.Cut(length(cards) / 2, length(cards))
+	user.put_in_any_hand_if_possible(new_deck)
+	user.visible_message("<span class='notice'>[user] splits [src] in two.</span>", "<span class='notice'>You split [src] in two.</span>")
+
+/obj/item/deck/proc/merge_deck(mob/user, obj/item/deck/other_deck)
+	for(var/card in other_deck.cards)
+		cards += card
+		other_deck -= card
+	qdel(other_deck)
+	user.visible_message("<span class='notice'>[user] mixes the two decks together.</span>", "<span class='notice'>You merge the two decks together.</span>")
 
 /obj/item/deck/attack_hand(mob/user)
 	draw_card(user)
@@ -113,9 +154,6 @@
 /obj/item/deck/AltClick(mob/living/carbon/human/user)
 	// alt-clicking is for putting back
 	return_hand_click(user, TRUE)
-
-/obj/item/deck/AltShiftClick(mob/user)
-	return_hand_click(user, FALSE)
 
 /obj/item/deck/proc/return_hand_click(mob/user, on_top = TRUE)
 	// alt-shift-click is for putting on the bottom
@@ -440,7 +478,7 @@
 	var/list/cards = list()
 	/// Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
 	var/direction = NORTH
-	var/parentdeck = null
+	var/parent_deck_id = null
 
 /obj/item/cardhand/examine(mob/user)
 	. = ..()
