@@ -383,6 +383,23 @@
 		ACCESS_MEDICAL,
 		ACCESS_RESEARCH,
 		ACCESS_SEC_DOORS,
-		ACCESS_THEATRE,
+		ACCESS_THEATRE
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
+	outfit = /datum/outfit/job/nct
+
+/datum/outfit/job/nct
+	name = "Nanotrasen Career Trainer"
+	jobtype = /datum/job/nanotrasentrainer
+	uniform = /obj/item/clothing/under/rank/procedure/nct
+	suit = /obj/item/clothing/suit/storage/nct
+	shoes = /obj/item/clothing/shoes/centcom
+	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
+	l_ear = /obj/item/radio/headset/heads/ntrep
+	id = /obj/item/card/id/ntrep
+	l_pocket = /obj/item/lighter/zippo/nt_rep
+	pda = /obj/item/pda/heads/ntrep
+	backpack_contents = list(
+		/obj/item/melee/classic_baton/ntcane = 1
+	)
+	bio_chips = list(/obj/item/bio_chip/mindshield)

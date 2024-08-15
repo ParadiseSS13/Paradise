@@ -193,3 +193,34 @@
 	desc = "A cap coroners wear during autopsies. Keeps their hair from falling into the cadavers. It is as dark as the coroner's humor."
 	icon_state = "surgcap_black"
 	dog_fashion = /datum/dog_fashion/head/surgery
+
+// NT Career Trainer
+/obj/item/clothing/head/beret/nct/black
+	name = "nt career trainer's beret"
+	desc = "A beret worn by the mentors and trainers of the Career Training Team. This one is black!"
+	icon_state = "beret_trainerblack"
+
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+	)
+
+/obj/item/clothing/head/beret/nct/green
+	name = "nt career trainer's beret"
+	desc = "A beret worn by the mentors and trainers of the Career Training Team. This one is green!"
+	icon_state = "beret_trainergreen"
+
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+	)
+
+/obj/item/clothing/head/drilltrainer
+	name = "trainer campaign hat"
+	desc = "A wide-brimmed campaign hat with a drill sergeant feel, worn by Career Trainers to project knowledge and guide new employees with classic style"
+	icon_state = "trainercampaign"
+	item_state = "trainercampaign"
+
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
