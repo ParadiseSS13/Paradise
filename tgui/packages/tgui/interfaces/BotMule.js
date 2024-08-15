@@ -7,7 +7,6 @@ import {
   Section,
   Tabs,
   Stack,
-  Flex,
   NoticeBox,
   Icon,
   IconStack,
@@ -60,29 +59,15 @@ const MuleMain = (props, context) => {
   return (
     <Window width={500} height={500}>
       <Window.Content>
-        <Stack fill vertical fillPositionedParent>
-          <Stack.Item>
-            <Tabs>
-              <Tabs.Tab
-                key="BotStatus"
-                icon="signal"
-                selected={0 === tabIndex}
-                onClick={() => setTabIndex(0)}
-              >
-                Status
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="CargoLoad"
-                icon="truck"
-                selected={1 === tabIndex}
-                onClick={() => setTabIndex(1)}
-              >
-                Cargo
-              </Tabs.Tab>
-            </Tabs>
-          </Stack.Item>
-          {decideTab(tabIndex)}
-        </Stack>
+        <Tabs>
+          <Tabs.Tab key="BotStatus" icon="signal" selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
+            Status
+          </Tabs.Tab>
+          <Tabs.Tab key="CargoLoad" icon="truck" selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
+            Cargo
+          </Tabs.Tab>
+        </Tabs>
+        {decideTab(tabIndex)}
       </Window.Content>
     </Window>
   );
@@ -90,19 +75,9 @@ const MuleMain = (props, context) => {
 
 const MuleStatus = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    noaccess,
-    mode,
-    destination,
-    auto_pickup,
-    auto_return,
-    sethome,
-    unload,
-    bot_suffix,
-    set_home,
-  } = data;
+  const { noaccess, mode, destination, auto_pickup, auto_return, sethome, unload, bot_suffix, set_home } = data;
   return (
-    <Section fill scrollable>
+    <Section>
       <BotStatus />
       <Section title="Delivery Settings">
         <Button.Checkbox
@@ -119,11 +94,7 @@ const MuleStatus = (props, context) => {
           disabled={noaccess}
           onClick={() => act('auto_return')}
         />
-        <Button.Checkbox
-          fluid
-          content="Change ID"
-          onClick={() => act('setid')}
-        />
+        <Button.Checkbox fluid content="Change ID" onClick={() => act('setid')} />
         <Button.Checkbox fluid content="Set Home" />
         <LabeledList mb={1}>
           <LabeledList.Item label="Home">{set_home}</LabeledList.Item>
@@ -137,7 +108,7 @@ const MuleLoad = (props, context) => {
   const { act, data } = useBackend(context);
   const { noaccess, mode, load, destination, cargo_IMG } = data;
   return (
-    <Section fill scrollable>
+    <Box>
       {cargo_IMG !== undefined ? (
         <img
           src={`data:image/jpeg;base64,${cargo_IMG}`}
@@ -162,37 +133,42 @@ const MuleLoad = (props, context) => {
         />
       </Section>
       <Section title="Movement Settings">
-        <Stack direction="row">
-          <Button
-            icon="location-arrow"
-            content="Go"
-            disabled={noaccess}
-            onClick={() => act('go')}
-          />
-          <Button
-            icon="home"
-            content="Return Home"
-            disabled={noaccess}
-            onClick={() => act('home')}
-          />
-          <Button
-            icon="stop"
-            content="Stop"
-            disabled={noaccess}
-            color="bad"
-            onClick={() => act('stop')}
-          />
-        </Stack>
-        <Stack>
-          <Button
-            icon="stop"
-            content="Unload"
-            disabled={noaccess || load === 'None'}
-            color="bad"
-            onClick={() => act('unload')}
-          />
+        <Stack fill>
+          <Stack.Item>
+            <Button fluid icon="location-arrow" content="Go" disabled={noaccess} onClick={() => act('go')} />
+          </Stack.Item>
+          <Stack.Item>
+            <Button fluid icon="home" content="Return" disabled={noaccess} onClick={() => act('home')} />
+          </Stack.Item>
+          <Stack.Item>
+            <Button fluid icon="stop" content="Stop" disabled={noaccess} color="bad" onClick={() => act('stop')} />
+          </Stack.Item>
         </Stack>
       </Section>
-    </Section>
+      <Section title="Cargo Settings">
+        <Stack fill>
+          <Stack.Item>
+            <Button
+              fluid
+              icon="stop"
+              content="Load"
+              disabled={noaccess || load === 'None'}
+              color="bad"
+              onClick={() => act('unload')}
+            />
+          </Stack.Item>
+          <Stack.Item>
+            <Button
+              fluid
+              icon="stop"
+              content="Unload"
+              disabled={noaccess || load === 'None'}
+              color="bad"
+              onClick={() => act('unload')}
+            />
+          </Stack.Item>
+        </Stack>
+      </Section>
+    </Box>
   );
 };
