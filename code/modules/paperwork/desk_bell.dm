@@ -57,7 +57,7 @@
 
 /obj/item/desk_bell/proc/on_signal()
 	SIGNAL_HANDLER  // COMSIG_ASSEMBLY_PULSED
-	INVOKE_ASYNC(src, PROC_REF(try_ring), null, TRUE) // user=null, from_signaler=TRUE (if nobody broke it)
+	INVOKE_ASYNC(src, PROC_REF(try_ring), null, TRUE)
 
 /obj/item/desk_bell/proc/try_ring(mob/user, from_signaler = FALSE)
 	if(ring_cooldown > world.time || !anchored)
