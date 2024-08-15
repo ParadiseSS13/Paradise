@@ -181,7 +181,6 @@
 	nitrogen = 0
 	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
-
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 #define SPAWN_BUBBLEGUM 6
 
