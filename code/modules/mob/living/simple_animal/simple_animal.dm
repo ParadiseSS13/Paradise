@@ -193,8 +193,10 @@
 	if(unsuitable_atmos_damage == 0)
 		return
 
-	// String assoc list returns a cached list, so this is like a static list to
-	// pass into the element below.
+	/*
+	*  String associated list returns a cached list. 
+	*  This is like a static list to pass into the element below.
+	*/
 	atmos_requirements = string_assoc_list(atmos_requirements)
 	AddElement(/datum/element/atmos_requirements, atmos_requirements, unsuitable_atmos_damage)
 
