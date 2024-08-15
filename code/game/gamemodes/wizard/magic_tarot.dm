@@ -245,7 +245,12 @@
 	flourish()
 
 /obj/effect/temp_visual/card_preview/proc/flourish()
-	animate(offset = 0, time = duration)
+	var/new_filter = isnull(get_filter("ray"))
+	ray_filter_helper(1, 40,"#fcf3dc", 6, 20)
+	if(new_filter)
+		animate(get_filter("ray"), alpha = 0, offset = 10, time = duration, loop = -1)
+		animate(offset = 0, time = duration)
+	// todo this is literally just the tarot stuff copy pasted
 
 /obj/effect/temp_visual/card_preview/tarot
 	name = "a tarot card"

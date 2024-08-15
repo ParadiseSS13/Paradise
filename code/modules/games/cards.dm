@@ -56,14 +56,17 @@
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It contains <b>[length(cards) ? length(cards) : "no"] card\s.</span>"
+	. += "<span class='notice'>It contains <b>[length(cards) ? length(cards) : "no"]</b> card\s.</span>"
 	. += "<span class='notice'>Drag [src] to yourself to pick it up.</span>"
+	. += "<span class='notice'>If you draw or return cards with<span class='danger'>harm</span> intent, your plays will be public!</span>"
 	. += "<span class='notice'>Examine this again to see some shortcuts for interacting with it.</span>"
 
 /obj/item/deck/examine_more(mob/user)
 	. = ..()
+	. += "<span class='notice'><b>Click</b> to draw a card.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to place a card.</span>"
 	. += "<span class='notice'>With cards in your active hand...</span>"
-	. += "\t<span class='notice'><b>Click</b> with cards to place them on the top of the deck.</span>"
+	. += "\t<span class='notice'><b>Click</b> to draw a card into your hand.</span>"
 	. += "\t<span class='notice'><b>Alt-click</b> with cards to place them on the bottom of the deck.</span>"
 	. += "\t<span class='notice'><b>Ctrl-click</b> with cards to shuffle them into the deck.</span>"
 	. += ""
@@ -93,7 +96,7 @@
 		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
 		return
 
-	draw_card()
+	draw_card(user, user.a_intent == INTENT_HARM)
 
 // lewtodo: add the ability for decks to be split
 
@@ -120,12 +123,14 @@
 	if(!istype(hand))
 		return
 
-	if(length(hand.cards == 1))
-		return_cards(user, hand, on_top)
+	if(length(hand.cards) == 1)
+		// we need to put this into a new list, otherwise things get funky if they reference both the hand list and this other list
+		return_cards(user, hand, on_top, hand.cards.Copy())
+		return
 	var/selected_card = hand.select_card_radial(user)
 	if(isnull(selected_card))
 		return
-	return_cards(user, hand, on_top)
+	return_cards(user, hand, on_top, list(selected_card))
 
 /obj/item/deck/MouseDrop_T(obj/item/I, mob/user)
 	if(!istype(I, /obj/item/cardhand))
@@ -137,7 +142,7 @@
 		return
 
 	return_cards(user, I, choice == "Top")
-// lewtodo add click-drag interaction for returning whole deck
+
 // is this getting too complicated?
 
 
@@ -149,7 +154,7 @@
 	if(istype(hand))
 		return hand
 
-/obj/item/deck/proc/return_cards(mob/living/carbon/human/user, obj/item/cardhand/hand, place_on_top = TRUE)
+/obj/item/deck/proc/return_cards(mob/living/carbon/human/user, obj/item/cardhand/hand, place_on_top = TRUE, chosen_cards = list())
 
 	if(!istype(hand))
 		return
@@ -160,22 +165,35 @@
 
 	var/side = place_on_top ? "top" : "bottom"
 
-	if(length(hand.cards) > 1)
-		var/confirm = tgui_alert(user, "Are you sure you want to put your [length(hand.cards)] card\s into the [side] of the deck?", "Return Hand to Bottom", list("Yes", "No"))
-		if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-			return
+	// if we have chosen cards, we can skip confirmation since that should have probably happened before us
+	if(!length(chosen_cards))
+		if(length(hand.cards) > 1)
+			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(hand.cards)] card\s into the [side] of the deck?", "Return Hand to Bottom", list("Yes", "No"))
+			if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+				return
+		chosen_cards = hand.cards
 
 	if(place_on_top)
-		cards = hand.cards + cards
+		cards = chosen_cards + cards
 	else
 		// equiv to += but here for clarity
-		cards = cards + hand.cards
-	if(length(hand) == 1 && !hand.concealed)
-		user.visible_message("<span class='notice'>[user] places [hand.cards[1]] on the [side] of [src].</span>", "<span class='notice'>You place [hand.cards[1]] on the [side] of [src].</span>")
+		cards = cards + chosen_cards
+	hand.cards -= chosen_cards
+	if(!length(hand.cards))
+		qdel(hand)
 	else
-		user.visible_message("<span class='notice'>[user] returns [length(hand.cards)] card\s to the [side] of [src].</span>", "<span class='notice'>You return [length(hand.cards)] card\s to the [side] of [src].</span>")
+		hand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+	if(length(chosen_cards) == 1 && !hand.concealed)
+		var/datum/playingcard/P = chosen_cards[1]
+		if(user.a_intent == INTENT_HARM)
+			var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(user, P.card_icon)
+			user.vis_contents += draft
+			QDEL_IN(draft, 1 SECONDS)
+			sleep(1 SECONDS)  // todo maybe do away with this sleep
+		user.visible_message("<span class='notice'>[user] places [P] on the [side] of [src].</span>", "<span class='notice'>You place [P] on the [side] of [src].</span>")
+	else
+		user.visible_message("<span class='notice'>[user] returns [length(chosen_cards)] card\s to the [side] of [src].</span>", "<span class='notice'>You return [length(chosen_cards)] card\s to the [side] of [src].</span>")
 
-	qdel(hand)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/deck/CtrlClick(mob/living/carbon/human/user)
@@ -277,13 +295,15 @@
 	H.parentdeck = src
 	H.update_values()
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>")
+
 	if(public)
+		user.visible_message("<span class='danger'>[user] draws [P]!</span>", "<span class='danger'>You draw [P]!</span>")
 		var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(user, P.card_icon)
 		user.vis_contents += draft
-		QDEL_IN(draft, 0.6 SECONDS)
-		user.visible_message("<span class='danger'>It's [P]!</span>", "<span class='danger'>You draw [P]!</span>")
+		QDEL_IN(draft, 1 SECONDS)
+		sleep(1 SECONDS)
 	else
+		user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>")
 		to_chat(user, "<span class='notice'>It's [P].</span>")
 
 /obj/item/deck/proc/deal_card()
@@ -432,6 +452,7 @@
 		. += "<span class='notice'><b>Click</b> this in-hand to select a card to draw.</span>"
 		. += "<span class='notice'><b>Ctrl-Click</b> this in-hand to flip it.</span>"
 		. += "<span class='notice'><b>Alt-Click</b> this in-hand to see the legacy interaction menu.</span>"
+		. += "<span class='notice'><b>Drag</b> this to its associated deck to return all cards at once to it.</span>"
 
 /obj/item/cardhand/proc/single()
 	return length(cards) == 1
@@ -584,32 +605,51 @@
 
 // No more datum action here
 
-/obj/item/cardhand/proc/remove_card(datum/playingcard/pickedcard)
+/// Create a new card-hand from a list of cards in the other hand.
+/obj/item/cardhand/proc/split(list/cards_in_new_hand)
+	if(length(cards) == 0 || length(cards_in_new_hand) == 0)
+		return
+
+	var/obj/item/cardhand/new_hand = new()
+	for(var/datum/playingcard/card in cards_in_new_hand)
+		new_hand.cards += card
+		cards -= card
+
+	new_hand.parentdeck = parentdeck
+	new_hand.update_values()
+	new_hand.concealed = concealed
+	new_hand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+
+	return new_hand
+
+/// Draw a card from a card hand.
+/obj/item/cardhand/proc/remove_card(datum/playingcard/picked_card)
 	var/mob/living/carbon/user = usr
 
 	if(user.incapacitated() || !Adjacent(user))
 		return
 
-	var/pickablecards = list()
-	for(var/datum/playingcard/P in cards)
-		pickablecards[P.name] = P
-	if(!pickedcard)
-		pickedcard = tgui_input_list(usr, "Which card do you want to remove from the hand?", "Remove Card", pickablecards)
-		if(!pickedcard)
+	if(!picked_card)
+		var/pickablecards = list()
+		for(var/datum/playingcard/P in cards)
+			pickablecards[P.name] = P
+		var/selected_card = tgui_input_list(usr, "Which card do you want to remove from the hand?", "Remove Card", pickablecards)
+		picked_card = pickablecards[selected_card]
+		if(!picked_card)
 			return
 
 	if(QDELETED(src))
 		return
 
-	var/datum/playingcard/card = pickablecards[pickedcard]
+
 	if(loc != user) // Don't want people teleporting cards
 		return
-	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [pickedcard] from your hand.</span>")
+	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [picked_card] from your hand.</span>")
 
 	var/obj/item/cardhand/H = new(get_turf(src))
 	user.put_in_hands(H)
-	H.cards += card
-	cards -= card
+	H.cards += picked_card
+	cards -= picked_card
 	H.parentdeck = parentdeck
 	H.update_values()
 	H.concealed = concealed
