@@ -481,7 +481,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/escape/escape_with_identity/proc/assassinate_found_target(datum/source, datum/mind/new_target)
 	SIGNAL_HANDLER
 	if(new_target)
-		target_real_name = new_target.current.real_name
+		target = new_target
+		update_explanation_text()
 		return
 	// The assassinate objective was unable to find a new target after the old one cryo'd as was qdel'd. We're on our own.
 	find_target()
