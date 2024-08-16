@@ -37,25 +37,6 @@ export const SettingsStatPanel = (props, context) => {
                 </Button>
               ))}
             </LabeledList.Item>
-            <LabeledList.Item label="Font size">
-              <Stack.Item grow>
-                {statLinked ? (
-                  <LinkedToChat />
-                ) : (
-                  <Slider
-                    width="100%"
-                    step={1}
-                    stepPixelSize={20}
-                    minValue={8}
-                    maxValue={32}
-                    value={statFontSize}
-                    unit="px"
-                    format={(value) => toFixed(value)}
-                    onChange={(e, value) => dispatch(updateSettings({ statFontSize: value }))}
-                  />
-                )}
-              </Stack.Item>
-            </LabeledList.Item>
             <LabeledList.Item label="Font style">
               {statLinked ? (
                 <LinkedToChat />
@@ -122,6 +103,25 @@ export const SettingsStatPanel = (props, context) => {
                   )}
                 </Stack.Item>
               )}
+            </LabeledList.Item>
+            <LabeledList.Item label="Font size">
+              <Stack.Item grow>
+                {statLinked ? (
+                  <LinkedToChat />
+                ) : (
+                  <Slider
+                    width="100%"
+                    step={1}
+                    stepPixelSize={20}
+                    minValue={8}
+                    maxValue={32}
+                    value={statFontSize}
+                    unit="px"
+                    format={(value) => toFixed(value)}
+                    onChange={(e, value) => dispatch(updateSettings({ statFontSize: value }))}
+                  />
+                )}
+              </Stack.Item>
             </LabeledList.Item>
           </LabeledList>
         </Stack.Item>

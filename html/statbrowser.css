@@ -17,6 +17,7 @@ body {
 }
 
 a {
+	cursor: pointer;
 	color: #003399;
 	text-decoration: none;
 }
@@ -70,7 +71,7 @@ table {
 
 #menu.tabs-classic .button {
 	min-width: 3em;
-	min-height: unset;
+	min-height: auto;
 	line-height: 1.667em;
 	margin: 0.1em;
 	border: 0;
@@ -82,10 +83,13 @@ table {
 	color: white;
 }
 
+#menu.tabs-classic ~ #under-menu {
+	height: 0;
+}
+
 .button {
 	display: inline-flex;
 	align-items: center;
-	justify-content: space-between;
 	flex-shrink: 0;
 	cursor: pointer;
 	user-select: none;
@@ -94,7 +98,6 @@ table {
 	white-space: nowrap;
 	min-width: 4em;
 	min-height: 2.25em;
-	background-color: transparent;
 	color: rgba(0, 0, 0, 0.5);
 	border-top: 0.1667em solid transparent;
 	border-bottom: 0.1667em solid transparent;
@@ -124,7 +127,7 @@ table {
 
 #statcontent {
 	flex: 1;
-	padding: 0.75em 0.5em;
+	padding: 0.5em;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
@@ -162,15 +165,12 @@ table {
 	border-radius: 0.25em;
 }
 
-.grid-item:hover .grid-item-text {
-	display: inline-table;
+.grid-item:hover .grid-item-text,
+.grid-item:active .grid-item-text {
+	height: 100%;
 	overflow: visible;
 	white-space: normal;
 	background-color: #ececec;
-}
-
-.grid-item:active .grid-item-text {
-	background-color: #dfdfdf;
 }
 
 @media only screen and (min-width: 300px) {
@@ -195,6 +195,17 @@ table {
 	.grid-item {
 		width: 20%;
 	}
+}
+
+.listedturf_link {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	border-radius: 0.25em;
+}
+
+.listedturf_link:hover {
+	background-color: #ececec;
 }
 
 /**
@@ -257,14 +268,14 @@ body.dark {
 	color: #b2c4dd;
 }
 
-.dark .grid-item:hover .grid-item-text {
+.dark .grid-item:hover .grid-item-text,
+.dark .grid-item:active .grid-item-text {
 	background-color: #252525;
 	color: #80bfff;
 }
 
-.dark .grid-item:active .grid-item-text {
-	background-color: #313131;
-	color: #80bfff;
+.dark .listedturf_link:hover {
+	background-color: #252525;
 }
 
 /**
@@ -325,14 +336,14 @@ body.ntos {
 	color: #b2c4dd;
 }
 
-.ntos .grid-item:hover .grid-item-text {
+.ntos .grid-item:hover .grid-item-text,
+.ntos .grid-item:active .grid-item-text {
 	background-color: #242a32;
 	color: #80bfff;
 }
 
-.ntos .grid-item:active .grid-item-text {
-	background-color: #30363e;
-	color: #80bfff;
+.ntos .listedturf_link:hover {
+	background-color: #242a32;
 }
 
 /**
@@ -393,14 +404,14 @@ body.syndicate {
 	color: #e4cdcd;
 }
 
-.syndicate .grid-item:hover .grid-item-text {
+.syndicate .grid-item:hover .grid-item-text,
+.syndicate .grid-item:active .grid-item-text {
 	background-color: #3b1414;
 	color: #f5bcbc;
 }
 
-.syndicate .grid-item:active .grid-item-text {
-	background-color: #462121;
-	color: #f5bcbc;
+.syndicate .listedturf_link:hover {
+	background-color: #3b1414;
 }
 
 /**
@@ -421,7 +432,7 @@ body.paradise {
 	scrollbar-shadow-color: #99103d;
 }
 
-.dark a {
+.paradise a {
 	color: #6699ff;
 }
 
@@ -461,12 +472,12 @@ body.paradise {
 	color: #e4d7cd;
 }
 
-.paradise .grid-item:hover .grid-item-text {
+.paradise .grid-item:hover .grid-item-text,
+.paradise .grid-item:active .grid-item-text {
 	background-color: #4e1435;
 	color: #f5d5bc;
 }
 
-.paradise .grid-item:active .grid-item-text {
-	background-color: #582140;
-	color: #f5d5bc;
+.paradise .listedturf_link:hover {
+	background-color: #4e1435;
 }
