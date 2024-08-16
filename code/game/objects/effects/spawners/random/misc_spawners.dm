@@ -78,3 +78,15 @@
 		/obj/item/mod/module/balloon = 1,
 		/obj/item/mod/module/stamp = 1
 	)
+
+/obj/effect/spawner/random/janitor/supplies
+	icon = 'icons/effects/random_spawners.dmi'
+	icon_state = "mopbucket"
+	name = "janitorial supplies spawner"
+	loot = list(
+		/obj/item/storage/box/mousetraps,
+		/obj/item/storage/box/lights/tubes,
+		/obj/item/storage/box/lights/mixed,
+		/obj/item/storage/box/lights/bulbs,
+	)
+
