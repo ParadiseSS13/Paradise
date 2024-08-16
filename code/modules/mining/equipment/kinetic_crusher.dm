@@ -113,6 +113,8 @@
 		return
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = user.loc
+		if(ismecha(user.loc))
+			proj_turf = user.loc?.loc
 		if(!isturf(proj_turf))
 			return
 		var/obj/item/projectile/destabilizer/D = new /obj/item/projectile/destabilizer(proj_turf)

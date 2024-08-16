@@ -162,12 +162,18 @@
 	return cell
 
 /obj/mecha/proc/grant_vision()
+	if(!occupant)
+		return
 	for(var/mode in vision_modes)
 		ADD_TRAIT(occupant, mode, "mech[UID()]")
+	occupant.update_sight()
 
 /obj/mecha/proc/remove_vision()
+	if(!occupant)
+		return
 	for(var/mode in vision_modes)
 		REMOVE_TRAIT(occupant, mode, "mech[UID()]")
+	occupant.update_sight()
 
 /obj/mecha/proc/add_airtank()
 	internal_tank = new /obj/machinery/atmospherics/portable/canister/air(src)
@@ -666,6 +672,7 @@
 /obj/mecha/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	if(occupant)
+		remove_vision()
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
 	for(var/mob/M in src) //Let's just be ultra sure
@@ -1187,6 +1194,7 @@
 		H.forceMove(src)
 		add_fingerprint(H)
 		GrantActions(H, human_occupant = 1)
+		grant_vision()
 		forceMove(loc)
 		log_append_to_last("[H] moved in as pilot.")
 		icon_state = reset_icon()
@@ -1260,6 +1268,7 @@
 		if(!hasInternalDamage())
 			SEND_SOUND(occupant, sound(nominalsound, volume = 50))
 		GrantActions(brainmob)
+		grant_vision()
 		return TRUE
 	else
 		return FALSE
@@ -1284,6 +1293,7 @@
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
 		return
+	remove_vision()
 	var/atom/movable/mob_container
 	occupant.clear_alert("charge")
 	occupant.clear_alert("locked")

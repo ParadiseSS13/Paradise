@@ -1,5 +1,5 @@
 
-//Hydraulic clamp, Kill clamp, Extinguisher, RCD, Mime RCD, Cable layer.
+//Hydraulic clamp, Kill clamp, Extinguisher, RCD, Mime RCD, Cable layer, toolkit.
 
 #define MECH_RCD_MODE_DECONSTRUCT 0
 #define MECH_RCD_MODE_WALL_OR_FLOOR 1
@@ -44,7 +44,8 @@
 			target.Bumped(chassis)
 			return
 		if(istype(target, /obj/machinery/door))
-			if(door.bolted || door.welded)
+			var/obj/machinery/door/door = target
+			if(door.locked || door.welded)
 				occupant_message("<span class='warning'>\The [target] is locked shut, you can't force it open!</span>")
 				return
 			occupant_message("<span class='notice'>You start forcing [target] open!</span>")
@@ -53,7 +54,7 @@
 				if(!(door.density))
 					occupant_message(("<span class='notice'>\The [target] is already open!</span>"))
 					return
-				if(door.bolted || door.welded)
+				if(door.locked || door.welded)
 					occupant_message(("<span class='notice'>\The [target] is locked shut!</span>"))
 					return
 				occupant_message("<span class='notice'>You force \the [target] open!</span>")
@@ -477,6 +478,110 @@
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
 	return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/mech_toolkit
+	name = "exosuit toolkit"
+	desc = "Equipment for engineering exosuits.Has a set of all the tools needed for construction projects."
+	icon_state = "mecha_realtool"
+	equip_cooldown = 8
+	energy_drain = 100
+	harmful = TRUE
+	range = MECHA_MELEE
+	/// arranged by what gets used most frequently first.
+	var/list/integrated_tools = list(
+		/obj/item/crowbar/mecha,
+		/obj/item/welder/mecha,
+		/obj/item/wrench/mecha,
+		/obj/item/screwdriver/mecha,
+		/obj/item/multitool/mecha,
+		/obj/item/wirecutters/mecha
+	)
+
+/*
+/- Mecha tool defines
+*/
+
+/obj/item/crowbar/mecha
+	name = "hydraulic crowbar"
+	toolspeed = 0.1
+
+/obj/item/welder/mecha
+	name = "arc welder"
+	toolspeed = 0.3
+
+/obj/item/wrench/mecha
+	name = "hydraulic wrench"
+	toolspeed = 0.1
+
+/obj/item/screwdriver/mecha
+	name = "hydraulic screwdriver"
+	toolspeed = 0.1
+
+/obj/item/multitool/mecha
+	name = "internal multitool"
+	toolspeed = 0.6
+
+/obj/item/wirecutters/mecha
+	name = "hydraulic wirecutters"
+	toolspeed = 0.1
+
+/obj/item/mecha_parts/mecha_equipment/mech_toolkit/Initialize(mapload)
+	. = ..()
+	var/list/replacement = list()
+	for(var/path in integrated_tools)
+		replacement.Add(new path(src))
+
+	for(var/obj/item/tool in replacement)
+		replacement[tool] = image(tool.icon, null, tool.icon_state, null, SOUTH, 0, 0)
+
+	integrated_tools = replacement
+
+/obj/item/mecha_parts/mecha_equipment/mech_toolkit/action(atom/target)
+	if(!action_checks(target))
+		return
+	if(!(chassis.occupant))
+		return
+	var/obj/item/choice = show_radial_menu(chassis.occupant, chassis, integrated_tools)
+	if(choice in integrated_tools)
+		target.tool_act(chassis.occupant, choice, choice.tool_behaviour)
+		chassis.visible_message("[chassis] uses \the [src] on \the [target], it pulls out its [choice]")
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher
+	name = "exosuit crusher"
+	desc = "A mech mounted crusher. For crushing bigger things."
+	icon_state = "mecha_crusher"
+	equip_cooldown = 15
+	energy_drain = 3000
+	harmful = TRUE
+	range = MECHA_MELEE | MECHA_RANGED
+	var/obj/item/kinetic_crusher/mecha/internal_crusher = new
+
+/obj/item/kinetic_crusher/mecha
+	force = 15
+	force_wielded = 30
+	armour_penetration_flat = 15
+	detonation_damage = 90
+	backstab_bonus = 50
+
+/obj/item/kinetic_crusher/mecha/Initialize(mapload)
+	. = ..()
+	var/datum/component/unwanted = GetComponent(/datum/component/parry)
+	unwanted?.RemoveComponent()
+	unwanted = GetComponent(/datum/component/two_handed)
+	unwanted?.RemoveComponent()
+	ADD_TRAIT(src, TRAIT_WIELDED, "mech[UID()]")
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/action(atom/target)
+	if(!action_checks(target))
+		return
+	if(!chassis.occupant)
+		return
+	if(chassis.Adjacent(target))
+		if(ismob(target))
+			internal_crusher.attack(target, chassis.occupant)
+		internal_crusher.afterattack(target, chassis.occupant, TRUE, null)
+	else
+		internal_crusher.afterattack(target, chassis.occupant, FALSE, null)
 
 #undef MECH_RCD_MODE_DECONSTRUCT
 #undef MECH_RCD_MODE_WALL_OR_FLOOR

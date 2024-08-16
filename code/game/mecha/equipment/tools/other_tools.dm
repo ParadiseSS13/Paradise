@@ -486,10 +486,10 @@
 	M.grant_vision()
 
 /obj/item/mecha_parts/mecha_equipment/vision/detach(atom/moveto)
-	M.remove_vision()
-	M.vision_modes -= vision_traits
+	chassis.remove_vision()
+	chassis.vision_modes -= vision_traits
 	. = ..()
-	M.grant_vision()
+	chassis.grant_vision()
 
 /obj/item/mecha_parts/mecha_equipment/vision/meson_scanner
 	name = "exosuit meson scanner"
@@ -502,7 +502,7 @@
 /obj/item/mecha_parts/mecha_equipment/vision/thermal_scanner
 	name = "exosuit thermal scanner"
 	desc = "An exosuit module that integrates a thermal scanner."
-	icon_state = "mecha_meson"
+	icon_state = "mecha_thermal"
 	origin_tech = "engineering=7;covert=2;"
 	energy_drain = 100
 	vision_traits = list(TRAIT_THERMAL_VISION)
