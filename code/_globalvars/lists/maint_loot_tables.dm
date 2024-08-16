@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tables, list(
 		GLOB.maintenance_loot_tier_1 = 275,
 		GLOB.maintenance_loot_tier_2 = 204,
 		GLOB.maintenance_loot_tier_3 =   6,
-	) = 65,
+	) = 75,
 
-	/obj/effect/spawner/random/trash = 35,
+	/obj/effect/spawner/random/trash = 25,
 ))
