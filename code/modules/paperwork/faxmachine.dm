@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	/// Next world.time at which this fax machine can send a message to CC/syndicate
 	var/sendcooldown = 0
 	/// After sending a message to CC/syndicate, cannot send another to them for this many deciseconds
-	var/cooldown_time = 0
+	var/cooldown_time = 1800
 
 	/// Our department, determines whether this machine gets faxes sent to a department
 	var/department = "Unknown"
