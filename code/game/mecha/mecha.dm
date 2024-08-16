@@ -1029,6 +1029,9 @@
 			if(OPTION_INTERACT_WIRING)
 				internal_wiring.Interact(user)
 
+#undef OPTION_INTERACT_WIRING
+#undef OPTION_HACK_DNA
+
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(!has_charge(melee_energy_drain))
 		return FALSE
