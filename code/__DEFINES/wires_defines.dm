@@ -13,8 +13,6 @@
 
 /// The power supply!
 #define WIRE_MECH_POWER "Mech power supply"
-/// Resets the DNA lock.
-#define WIRE_MECH_DNA "Mech DNA Authorization"
 /// Walks foward
 #define WIRE_MECH_WALK "Mech walk"
 /// Random direction
