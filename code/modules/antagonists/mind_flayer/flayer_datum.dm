@@ -27,13 +27,13 @@
 /datum/antagonist/mindflayer/New()
 	. = ..()
 	if(!length(ability_list))
-		ability_list = get_powers_of_type(FLAYER_PURCHASABLE_POWER)
+		ability_list = get_spells_of_type(FLAYER_PURCHASABLE_POWER)
 		ability_list += get_passives_of_type(FLAYER_PURCHASABLE_POWER)
 
 // This proc adds extra things, and base abilities that the mindflayer should get upon becoming a mindflayer
 /datum/antagonist/mindflayer/on_gain()
 	. = ..()
-	var/list/innate_powers = get_powers_of_type(FLAYER_INNATE_POWER)
+	var/list/innate_powers = get_spells_of_type(FLAYER_INNATE_POWER)
 	for(var/power_path as anything in innate_powers)
 		var/datum/spell/flayer/to_add = new power_path
 		add_ability(to_add, src)
@@ -119,24 +119,24 @@
 	to_chat(owner.current, dat)
 
 /**
- * Gets a list of mind flayer spell typepaths based on the passed in `power_type`. (Thanks for the code SteelSlayer)
+ * Gets a list of mind flayer spell typepaths based on the passed in `spell_type`. (Thanks for the code SteelSlayer)
  *
  * Arguments:
- * * power_type - should be a define related to [/datum/spell/flayer/power_type].
+ * * spell_type - should be a define related to [/datum/spell/flayer/spell_type].
  */
-/datum/antagonist/mindflayer/proc/get_powers_of_type(power_type)
-	var/list/powers = list()
-	for(var/power_path in subtypesof(/datum/spell/flayer))
-		var/datum/spell/flayer/power = power_path
-		if(initial(power.power_type) != power_type)
+/datum/antagonist/mindflayer/proc/get_spells_of_type(spell_type)
+	var/list/spells = list()
+	for(var/spell_path in subtypesof(/datum/spell/flayer))
+		var/datum/spell/flayer/spell = spell_path
+		if(initial(spell.spell_type) != spell_type)
 			continue
-		powers += power_path
-	return powers
+		spells += spell_path
+	return spells
 /**
- * Gets a list of mind flayer passive typepaths based on the passed in `power_type`.
+ * Gets a list of mind flayer passive typepaths based on the passed in `passive_type`.
  *
  * Arguments:
- * * power_type - should be a define related to [/datum/spell/flayer/power_type].
+ * * passive_type - should be a define related to [/datum/spell/flayer/passive_type].
  */
 /datum/antagonist/mindflayer/proc/get_passives_of_type(passive_type)
 	var/list/passives = list()
