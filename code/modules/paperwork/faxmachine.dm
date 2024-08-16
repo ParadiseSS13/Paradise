@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	/// Next world.time at which this fax machine can send a message to CC/syndicate
 	var/sendcooldown = 0
 	/// After sending a message to CC/syndicate, cannot send another to them for this many deciseconds
-	var/cooldown_time = 1800
+	var/cooldown_time = 0
 
 	/// Our department, determines whether this machine gets faxes sent to a department
 	var/department = "Unknown"
@@ -339,6 +339,30 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	use_power(active_power_consumption)
 
+/obj/machinery/photocopier/faxmachine/proc/log_fax(mob/sender, destination)
+	// Logging for sending photos
+	if(istype(copyitem, /obj/item/photo))
+		log_admin("[key_name(sender)] has sent a photo by fax to [destination]")
+		return
+
+	// Logging for single paper message
+	if(istype(copyitem, /obj/item/paper))
+		var/obj/item/paper/fax_message = copyitem
+		log_admin("[key_name(sender)] has sent a message by fax to [destination] reading [fax_message.info]")
+		return
+
+	// Logging for paper bundle messages
+	if(istype(copyitem, /obj/item/paper_bundle))
+		var/obj/item/paper_bundle/paper_bundle = copyitem
+		// Incremented by one for each paper in the bundle
+		var/page_count = 1
+
+		// Loop through the contents of the paper bundle and grab the message from each page
+		for(var/obj/item/paper/page in paper_bundle.contents)
+			log_admin("[key_name(sender)] has sent a bundled message by fax to [destination] - Page [page_count]: [page.info]")
+			page_count ++
+		return
+
 /obj/machinery/photocopier/faxmachine/proc/send_admin_fax(mob/sender, destination)
 	use_power(active_power_consumption)
 
@@ -365,6 +389,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if(F.department == destination)
 			F.receivefax(copyitem)
 	visible_message("[src] beeps, \"Message transmitted successfully.\"")
+	log_fax(sender, destination)
 
 /obj/machinery/photocopier/faxmachine/proc/cooldown_seconds()
 	if(sendcooldown < world.time)
