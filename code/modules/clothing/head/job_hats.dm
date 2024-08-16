@@ -201,8 +201,8 @@
 	icon_state = "beret_trainerblack"
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-	"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
 	)
 
 /obj/item/clothing/head/beret/nct/green
@@ -211,8 +211,8 @@
 	icon_state = "beret_trainergreen"
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-	"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi'
 	)
 
 /obj/item/clothing/head/drilltrainer
