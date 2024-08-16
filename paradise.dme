@@ -642,6 +642,7 @@
 #include "code\datums\wires\autolathe_wires.dm"
 #include "code\datums\wires\camera_wires.dm"
 #include "code\datums\wires\explosive.dm"
+#include "code\datums\wires\mech_wires.dm"
 #include "code\datums\wires\mod_wires.dm"
 #include "code\datums\wires\mulebot_wires.dm"
 #include "code\datums\wires\nuclearbomb_wires.dm"

@@ -11,6 +11,25 @@
 #define WIRE_ELECTRIFY "Electrification"
 #define WIRE_SAFETY "Safety"
 
+/// The power supply!
+#define WIRE_MECH_POWER "Mech power supply"
+/// Resets the DNA lock.
+#define WIRE_MECH_DNA "Mech DNA Authorization"
+/// Walks foward
+#define WIRE_MECH_WALK "Mech walk"
+/// Random direction
+#define WIRE_MECH_DIRECTION "Mech direction"
+/// Toggles strafing
+#define WIRE_MECH_STRAFE "Mech strafe"
+/// Random since you aren't the internal computer telling it how to do stuff
+#define WIRE_MECH_SELECT_MODULE "Mech module selection"
+/// Random turfs infront of the mech (a ton or few depending on the range)
+#define WIRE_MECH_USE_MODULE "Mech use module"
+/// Radio transmission
+#define WIRE_MECH_RADIO "Mech radio"
+/// Visual modifiers
+#define WIRE_MECH_VISUALDATA "Mech visuals"
+
 // Vendors and smartfridges
 #define WIRE_THROW_ITEM "Item Throw"
 #define WIRE_CONTRABAND "Contraband"
