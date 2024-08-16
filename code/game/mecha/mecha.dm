@@ -36,6 +36,8 @@
 	var/add_req_access = 1
 	var/maint_access = 1
 	var/dna	//dna-locking the mech
+	/// Wheter the DNA wire was cut , this is handled differently from all other wires
+	var/dna_cut = FALSE
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
@@ -953,6 +955,74 @@
 			to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
 	repairing = FALSE
 
+#define OPTION_INTERACT_WIRING "Interact with wiring"
+#define OPTION_REPAIR_DNA "Repair DNA wire"
+#define OPTION_CUT_DAN "Cut DNA wire"
+
+/obj/mecha/wirecutter_act(mob/living/user, obj/item/I)
+	if(state != MECHA_OPEN_HATCH)
+		return
+	var/list/choices = list(
+		OPTION_INTERACT_WIRING = image(icon = 'icons/obj/power.dmi', icon_state = "coil")
+		)
+	var/image/dna_wire_visual = image(icon = 'icons/obj/module.dmi', icon_state = "datadisk0")
+	if(dna_cut)
+		dna_wire_visual.color = COLOR_RED
+		choices[OPTION_REPAIR_DNA] = dna_wire_visual
+	else
+		dna_wire_visual.color = COLOR_GREEN
+		choices[OPTION_CUT_DAN] = dna_wire_visual
+
+	var/choice = show_radial_menu(user, src, choices, require_near = TRUE)
+	switch(choice)
+		if(OPTION_CUT_DAN)
+			user.visible_message("<span class='danger'>[user] begins cutting the tough DNA lock wire on \the [src].</span>", "<span class='notice'>You start cutting down the extremely tough DNA lock wire on \the [src]</span>")
+			var/list/cutting_timers = list()
+			cutting_timers += addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), get_turf(src), 'sound/items/wirecutter.ogg', 80*(1+I.tool_volume/100), FALSE), 30 SECONDS, TIMER_STOPPABLE)
+			cutting_timers += addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), get_turf(src), 'sound/items/wirecutter.ogg', 80*(1+I.tool_volume/100), FALSE), 60 SECONDS, TIMER_STOPPABLE)
+			cutting_timers += addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), get_turf(src), 'sound/items/wirecutter.ogg', 80*(1+I.tool_volume/100), FALSE), 120 SECONDS, TIMER_STOPPABLE)
+			cutting_timers += addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), get_turf(src), 'sound/items/wirecutter.ogg', 60*(1+I.tool_volume/100), FALSE), 200 SECONDS, TIMER_STOPPABLE)
+			cutting_timers += addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), get_turf(src), 'sound/items/wirecutter.ogg', 40*(1+I.tool_volume/100), FALSE), 210 SECONDS, TIMER_STOPPABLE)
+			cutting_timers += addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), get_turf(src), 'sound/items/wirecutter.ogg', 30*(1+I.tool_volume/100), FALSE), 230 SECONDS, TIMER_STOPPABLE)
+			if(I.use_tool(src, user, 4 MINUTES, volume = I.tool_volume))
+				user.visible_message("<span class='danger'>[user] cuts the DNA lock wire on \the [src].</span>", "<span class='notice'>You succesfully cut down the DNA lock wire on \the [src]</span>")
+				dna_cut = TRUE
+			else
+				for(var/timer in cutting_timers)
+					deltimer(timer)
+		if(OPTION_REPAIR_DNA)
+			user.visible_message("<span class='notice'>[user] begins repairing the DNA lock wire on \the [src].</span>", "<span class='notice'>You start repairing the DNA lock wire on \the [src]</span>")
+			if(do_after_once(user, 1 MINUTES, TRUE, src))
+				user.visible_message("<span class='notice'>[user] repairs the DNA lock wire on \the [src].</span>", "<span class='notice'>You succesfully repair the DNA lock wire on \the [src]</span>")
+				dna_cut = FALSE
+		if(OPTION_INTERACT_WIRING)
+			internal_wiring.Interact(user)
+
+#undef OPTION_REPAIR_DNA
+#undef OPTION_CUT_DAN
+#define OPTION_HACK_DNA "Reset DNA lock"
+
+/obj/mecha/multitool_act(mob/living/user, obj/item/I)
+	if(state != MECHA_OPEN_HATCH)
+		return
+	var/list/choices = list(
+		OPTION_INTERACT_WIRING = image(icon = 'icons/obj/power.dmi', icon_state = "coil")
+		)
+	if(!dna_cut)
+		choices[OPTION_HACK_DNA] = image(icon = 'icons/obj/module.dmi', icon_state = "datadisk0")
+	if(length(choices) == 1)
+		internal_wiring.Interact(user)
+	else
+		var/choice = show_radial_menu(user, src, choices, require_near = TRUE)
+		switch(choice)
+			if(OPTION_HACK_DNA)
+				user.visible_message("<span class='danger'>[user] begins pulsing the DNA lock wire on \the [src].</span>", "<span class='notice'>You start resetting the DNA lock on \the [src]</span>")
+				if(I.use_tool(src, user, 3 MINUTES, volume = I.tool_volume))
+					user.visible_message("<span class='danger'>[user] resets the DNA lock on \the [src].</span>", "<span class='notice'>You succesfully reset the DNA lock on \the [src]</span>")
+					dna = null
+			if(OPTION_INTERACT_WIRING)
+				internal_wiring.Interact(user)
+
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(!has_charge(melee_energy_drain))
 		return FALSE
@@ -1050,7 +1120,7 @@
 			else if(AI.stat || !AI.client)
 				to_chat(user, "<span class='warning'>[AI.name] is currently unresponsive, and cannot be uploaded.</span>")
 				return
-			else if(occupant || (dna && !internal_wiring.is_cut(WIRE_MECH_DNA))) //Normal AIs cannot steal mechs!
+			else if(occupant || (dna && !dna_cut)) //Normal AIs cannot steal mechs!
 				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].")
 				return
 			AI.control_disabled = FALSE
@@ -1163,7 +1233,7 @@
 		log_append_to_last("Permission denied.")
 		return TRUE
 	var/passed
-	if(dna && !internal_wiring.is_cut(WIRE_MECH_DNA))
+	if(dna && !dna_cut)
 		if(ishuman(user))
 			if(user.dna.unique_enzymes == dna)
 				passed = TRUE
@@ -1236,7 +1306,7 @@
 	else if(occupant)
 		to_chat(user, "<span class='warning'>Occupant detected!</span>")
 		return FALSE
-	else if(dna && !internal_wiring.is_cut(WIRE_MECH_DNA) && dna != mmi_as_oc.brainmob.dna.unique_enzymes)
+	else if(dna && !dna_cut && dna != mmi_as_oc.brainmob.dna.unique_enzymes)
 		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
 		return FALSE
 	else if(!operation_allowed(user))
@@ -1644,6 +1714,10 @@
 	if(occupant != L || !istype(L))
 		return ..()
 
+	if(internal_wiring.is_cut(WIRE_MECH_SELECT_MODULE))
+		occupant_message("<span class='notice'>Error , can't select module")
+		return
+
 	var/list/choices = list("Cancel / No Change" = mutable_appearance(icon = 'icons/mob/screen_gen.dmi', icon_state = "x"))
 	var/list/choices_to_refs = list()
 
@@ -1657,6 +1731,8 @@
 	var/choice = show_radial_menu(L, L, choices, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_menu), L))
 	if(!check_menu(L) || choice == "Cancel / No Change")
 		return
+
+
 
 	var/obj/item/mecha_parts/mecha_equipment/new_sel = LAZYACCESS(choices_to_refs, choice)
 	if(istype(new_sel))

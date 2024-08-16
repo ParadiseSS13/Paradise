@@ -505,9 +505,11 @@
 	name = "hydraulic crowbar"
 	toolspeed = 0.1
 
-/obj/item/welder/mecha
+/obj/item/weldingtool/mecha
 	name = "arc welder"
-	toolspeed = 0.3
+	requires_fuel = FALSE
+	tool_enabled = TRUE
+	toolspeed = 0.4
 
 /obj/item/wrench/mecha
 	name = "hydraulic wrench"
