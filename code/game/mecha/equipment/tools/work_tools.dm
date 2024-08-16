@@ -490,7 +490,7 @@
 	/// arranged by what gets used most frequently first.
 	var/list/integrated_tools = list(
 		/obj/item/crowbar/mecha,
-		/obj/item/welder/mecha,
+		/obj/item/weldingtool/mecha,
 		/obj/item/wrench/mecha,
 		/obj/item/screwdriver/mecha,
 		/obj/item/multitool/mecha,
