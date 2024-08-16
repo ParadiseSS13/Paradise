@@ -41,7 +41,6 @@ var imageFirstRetryDelay = 50;
 var imageRetryDelay = 500;
 var imageRetryLimit = 50;
 var menu = document.getElementById('menu');
-var under_menu = document.getElementById('under_menu');
 var statcontentdiv = document.getElementById('statcontent');
 var split_admin_tabs = false;
 
@@ -64,23 +63,26 @@ function createStatusTab(name) {
 	if (!verb_tabs.includes(name) && !permanent_tabs.includes(name)) {
 		return;
 	}
-	var B = document.createElement('BUTTON');
-	B.onclick = function () {
+	var button = document.createElement('DIV');
+	var button_text = document.createElement('DIV');
+	button.onclick = function () {
 		tab_change(name);
 		this.blur();
+		statcontentdiv.focus();
 	};
-	B.id = name;
-	B.textContent = name;
-	B.className = 'button';
+	button.id = name;
+	button.className = 'button';
+	button_text.textContent = name;
+	button_text.className = 'button-text';
 	//ORDERING ALPHABETICALLY
-	B.style.order = name.charCodeAt(0);
+	button.style.order = name.charCodeAt(0);
 	if (name == 'Status' || name == 'MC') {
-		B.style.order = name == 'Status' ? 1 : 2;
+		button.style.order = name == 'Status' ? 1 : 2;
 	}
 	//END ORDERING
-	menu.appendChild(B);
+	button.appendChild(button_text);
+	menu.appendChild(button);
 	SendTabToByond(name);
-	under_menu.style.height = menu.clientHeight + 'px';
 }
 
 function removeStatusTab(name) {
@@ -94,7 +96,6 @@ function removeStatusTab(name) {
 	}
 	menu.removeChild(document.getElementById(name));
 	TakeTabFromByond(name);
-	under_menu.style.height = menu.clientHeight + 'px';
 }
 
 function sortVerbs() {
@@ -108,10 +109,6 @@ function sortVerbs() {
 		return 0;
 	});
 }
-
-window.onresize = function () {
-	under_menu.style.height = menu.clientHeight + 'px';
-};
 
 function addPermanentTab(name) {
 	if (!permanent_tabs.includes(name)) {
@@ -703,6 +700,32 @@ function set_theme(which) {
 		document.body.className = 'syndicate';
 		document.documentElement.className = 'syndicate';
 		set_style_sheet('chat_panel_syndicate');
+	}
+}
+
+function set_font_size(fontSize) {
+	document.body.style.setProperty('font-size', fontSize);
+}
+
+function set_font_style(fontFamily) {
+	/* Yes, null is a string here. Live with that. */
+	if (fontFamily !== 'null') {
+		document.body.style.setProperty('font-family', fontFamily);
+	} else {
+		document.body.style.removeProperty('font-family');
+	}
+}
+
+function set_tabs_style(style) {
+	if (style == 'default') {
+		menu.classList.add('menu-wrap');
+		menu.classList.remove('tabs-classic');
+	} else if (style == 'classic') {
+		menu.classList.add('menu-wrap');
+		menu.classList.add('tabs-classic');
+	} else if (style == 'scrollable') {
+		menu.classList.remove('menu-wrap');
+		menu.classList.remove('tabs-classic');
 	}
 }
 
