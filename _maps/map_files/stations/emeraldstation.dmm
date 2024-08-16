@@ -11403,15 +11403,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
-"ckZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/dorms/starboard)
 "clf" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -17858,6 +17849,14 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/morgue)
+"dCA" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/dorms/starboard)
 "dCK" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -23127,6 +23126,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
@@ -49935,15 +49939,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/aisat/hall)
-"jNZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/apmaint2)
 "jOh" = (
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel,
@@ -73968,6 +73963,14 @@
 	icon_state = "darkgrey"
 	},
 /area/station/security/execution)
+"oFv" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/dorms/starboard)
 "oFw" = (
 /obj/structure/rack,
 /obj/item/wrench,
@@ -81442,6 +81445,11 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "qdy" = (
@@ -82270,6 +82278,11 @@
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"qmJ" = (
+/obj/machinery/power/apc/directional/south,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/station/maintenance/dorms/port)
 "qmT" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -91127,11 +91140,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
@@ -91650,6 +91667,10 @@
 /area/station/science/lobby)
 "sdw" = (
 /obj/machinery/power/apc/directional/east,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "sdA" = (
@@ -103902,6 +103923,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
@@ -142362,7 +142388,7 @@ cBD
 uQO
 rAU
 tyf
-jNZ
+fMB
 uPm
 uPm
 uPm
@@ -150298,7 +150324,7 @@ dsL
 ecU
 vIV
 rXs
-kGy
+qmJ
 fwH
 sUe
 iSc
@@ -157222,7 +157248,7 @@ pJD
 xFf
 tZO
 kcb
-ckZ
+loV
 vAZ
 ctU
 ctU
@@ -157479,7 +157505,7 @@ tZO
 tZO
 tZO
 kcb
-ckZ
+loV
 vAZ
 vAZ
 vAZ
@@ -157736,9 +157762,9 @@ kcb
 iIw
 kcb
 kcb
-uxe
-ssZ
-ssZ
+tCr
+flZ
+flZ
 eFo
 vAZ
 ogB
@@ -157996,7 +158022,7 @@ iIw
 qlt
 qlt
 kcb
-ckZ
+loV
 vAZ
 xrP
 axA
@@ -158253,7 +158279,7 @@ qDY
 vUj
 qIf
 kcb
-ckZ
+loV
 vAZ
 xYF
 xsJ
@@ -158510,7 +158536,7 @@ wJR
 khA
 qlt
 kcb
-ckZ
+loV
 vAZ
 vAZ
 vAZ
@@ -159024,7 +159050,7 @@ lWJ
 uFc
 gTE
 kcb
-kcb
+dCA
 kcb
 kcb
 kcb
@@ -159281,7 +159307,7 @@ sQj
 vYs
 iIw
 sdw
-kcb
+oFv
 kcb
 kcb
 kcb
