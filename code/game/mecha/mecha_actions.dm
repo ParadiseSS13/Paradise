@@ -6,6 +6,8 @@
 	stats_action.Grant(user, src)
 	if(locate(/obj/item/mecha_parts/mecha_equipment/thrusters) in equipment)
 		add_thrusters()
+	if(strafing_flags)
+		strafing_action.Grant(user, src)
 	for(var/obj/item/mecha_parts/mecha_equipment/equipment_mod in equipment)
 		equipment_mod.give_targeted_action()
 
@@ -16,6 +18,7 @@
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	thrusters_action.Remove(user)
+	strafing_action.Remove(user)
 	for(var/obj/item/mecha_parts/mecha_equipment/equipment_mod in equipment)
 		equipment_mod.remove_targeted_action()
 
@@ -241,3 +244,24 @@
 	chassis.occupant_message("<span class='notice'>You switch to [equipment.name].</span>")
 	chassis.visible_message("[chassis] raises [equipment.name]")
 	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())
+
+/datum/action/innate/mecha/mech_strafing_mode
+	name = "Toggle strafing"
+	button_overlay_icon_state = "strafe"
+
+/datum/action/innate/mecha/mech_strafing_mode/Grant(mob/living/L, obj/mecha/M)
+	. = ..()
+	button_overlay_icon_state = "[initial(button_overlay_icon_state)]_[M.strafing ? "on" : "off"]"
+	UpdateButtons()
+
+/datum/action/innate/mecha/mech_strafing_mode/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	if(chassis.strafing)
+		chassis.occupant_message("You toggle off \the [chassis]'s strafing mode")
+		chassis.strafing = FALSE
+	else
+		chassis.occupant_message("You toggle on \the [chassis]'s strafing mode")
+		chassis.strafing = TRUE
+	button_overlay_icon_state = "[initial(button_overlay_icon_state)]_[chassis.strafing ? "on" : "off"]"
+	UpdateButtons()

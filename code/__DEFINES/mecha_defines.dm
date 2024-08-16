@@ -20,3 +20,6 @@
 #define MECHA_BOLTS_UP          2
 #define MECHA_OPEN_HATCH        3
 #define MECHA_BATTERY_UNSCREW   4
+
+#define MECH_STRAFING_BACKWARDS (1<<0)
+#define MECH_STRAFING_SIDEWAYS (1<<1)

@@ -43,6 +43,29 @@
 			chassis.occupant.dust()
 			target.Bumped(chassis)
 			return
+		if(istype(target, /obj/machinery/door))
+			if(door.bolted || door.welded)
+				occupant_message("<span class='warning'>\The [target] is locked shut, you can't force it open!</span>")
+				return
+			occupant_message("<span class='notice'>You start forcing [target] open!</span>")
+			chassis.visible_message("\The [chassis] starts forcing open \the [target] using their [src]!")
+			if(do_after_mecha(target, 5 SECONDS))
+				if(!(door.density))
+					occupant_message(("<span class='notice'>\The [target] is already open!</span>"))
+					return
+				if(door.bolted || door.welded)
+					occupant_message(("<span class='notice'>\The [target] is locked shut!</span>"))
+					return
+				occupant_message("<span class='notice'>You force \the [target] open!</span>")
+				chassis.visible_message("\The [chassis] forcefully opens \the [target] using their [src]!")
+				/// detach ourselves from door sleeping.
+				spawn(0)
+					door.open()
+			else
+				chassis.visible_message("\The [chassis] retracts their [src] from \the [target].")
+				return
+
+
 		if(O.anchored)
 			occupant_message("<span class='warning'>[target] is firmly secured!</span>")
 			return
