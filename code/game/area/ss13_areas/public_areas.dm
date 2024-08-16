@@ -88,13 +88,17 @@
 /area/station/hallway/spacebridge
 	icon_state = "hall_space"
 
-/area/station/hallway/spacebridge/dorms/west
+/area/station/hallway/spacebridge/security
 	icon_state = "hall_space"
-	name = "\improper Dorms West Space Bridge"
+	name = "\improper Security Space Bridge"
 
-/area/station/hallway/spacebridge/dorms/south
+/area/station/hallway/spacebridge/security/west
 	icon_state = "hall_space"
-	name = "\improper Dorms South Space Bridge"
+	name = "\improper Security West Space Bridge"
+
+/area/station/hallway/spacebridge/security/south
+	icon_state = "hall_space"
+	name = "\improper Security South Space Bridge"
 
 /area/station/hallway/spacebridge/dockmed
 	name = "Docking-Medical Bridge"
@@ -264,3 +268,7 @@
 /area/station/public/park
 	name = "Public Nature Reserve"
 	icon_state = "park"
+
+/area/station/public/shops
+	name = "Dorms Public Storefront"
+	icon_state = "shop"

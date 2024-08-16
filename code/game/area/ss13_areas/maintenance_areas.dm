@@ -230,3 +230,19 @@
 /area/station/maintenance/dorms/aft
 	name = "Dorms Aft Maintenance"
 	icon_state = "dorms_maint_aft"
+
+/area/station/maintenance/security
+	name = "Security Maintenance"
+	icon_state = "sec_maint"
+
+/area/station/maintenance/security/fore
+	name = "Security Maintenance Fore"
+	icon_state = "sec_maint_fore"
+
+/area/station/maintenance/security/aft_port
+	name = "Security Maintenance Aft Port"
+	icon_state = "sec_maint_ap"
+
+/area/station/maintenance/security/aft_starboard
+	name = "Security Maintenance Aft Starboard"
+	icon_state = "sec_maint_as"
