@@ -1,6 +1,6 @@
 /datum/keybinding/mob/use_held_object
 	name = "Использовать вещь в руке"
-	keys = list("Y", "Z", "Southeast")
+	keys = list("Z", "Southeast")
 
 /datum/keybinding/mob/equip_held_object
 	name = "Экипировать вещь"
