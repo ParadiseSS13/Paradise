@@ -15,6 +15,7 @@
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 75)
 	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
+	var/datum/wires/mech/internal_wiring
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
@@ -150,6 +151,8 @@
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
 
+	internal_wiring = new(src)
+
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
 	qdel(V)
@@ -163,6 +166,8 @@
 
 /obj/mecha/proc/grant_vision()
 	if(!occupant)
+		return
+	if(internal_wiring.is_cut(WIRE_MECH_VISUALDATA))
 		return
 	for(var/mode in vision_modes)
 		ADD_TRAIT(occupant, mode, "mech[UID()]")
@@ -220,6 +225,8 @@
 			. += "[bicon(ME)] [ME]"
 
 /obj/mecha/hear_talk(mob/M, list/message_pieces)
+	if(internal_wiring.is_cut(WIRE_MECH_RADIO))
+		return
 	if(M == occupant && radio.broadcasting)
 		radio.talk_into(M, message_pieces)
 
@@ -227,6 +234,9 @@
 	if(!occupant || occupant != user)
 		return
 	if(user.incapacitated())
+		return
+	if(internal_wiring.is_cut(WIRE_MECH_USE_MODULE))
+		occupant_message("<span class='warning'>Error transmitting command to module")
 		return
 	if(phasing)
 		occupant_message("<span class='warning'>Unable to interact with objects while phasing.</span>")
@@ -309,6 +319,9 @@
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
 		return
+	if(internal_wiring.is_cut(WIRE_MECH_WALK))
+		to_chat(user , "<span class='notice'>Error transmitting command to actuators.")
+		return
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
 		to_chat(user, "<span class='notice'>You climb out from [src].</span>")
@@ -351,7 +364,13 @@
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
 	else if(dir != direction)
+		if(internal_wiring.is_cut(WIRE_MECH_DIRECTION))
+			to_chat(occupant, "<span class='notice'>Error transmitting direction-switch command to actuators.")
+			return
 		if(strafing)
+			if(internal_wiring.is_cut(WIRE_MECH_STRAFE))
+				to_chat(occupant, "<span class='notice'>Unable to strafe. No movement vectors received from onboard S-CPU")
+				return
 			var/old_dir = dir
 			if(strafing_flags & MECH_STRAFING_BACKWARDS && direction == REVERSE_DIR(dir))
 				move_result = mechstep(direction)
@@ -1037,7 +1056,7 @@
 			else if(AI.stat || !AI.client)
 				to_chat(user, "<span class='warning'>[AI.name] is currently unresponsive, and cannot be uploaded.</span>")
 				return
-			else if(occupant || dna) //Normal AIs cannot steal mechs!
+			else if(occupant || (dna && !internal_wiring.is_cut(WIRE_MECH_DNA))) //Normal AIs cannot steal mechs!
 				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].")
 				return
 			AI.control_disabled = FALSE
@@ -1150,7 +1169,7 @@
 		log_append_to_last("Permission denied.")
 		return TRUE
 	var/passed
-	if(dna)
+	if(dna && !internal_wiring.is_cut(WIRE_MECH_DNA))
 		if(ishuman(user))
 			if(user.dna.unique_enzymes == dna)
 				passed = TRUE
@@ -1223,7 +1242,7 @@
 	else if(occupant)
 		to_chat(user, "<span class='warning'>Occupant detected!</span>")
 		return FALSE
-	else if(dna && dna != mmi_as_oc.brainmob.dna.unique_enzymes)
+	else if(dna && !internal_wiring.is_cut(WIRE_MECH_DNA) && dna != mmi_as_oc.brainmob.dna.unique_enzymes)
 		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
 		return FALSE
 	else if(!operation_allowed(user))
@@ -1417,6 +1436,8 @@
 	return (get_charge()>=amount)
 
 /obj/mecha/proc/get_charge()
+	if(internal_wiring.is_cut(WIRE_MECH_POWER))
+		return 0
 	for(var/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/R in equipment)
 		var/relay_charge = R.get_charge()
 		if(relay_charge)
@@ -1425,6 +1446,8 @@
 		return max(0, cell.charge)
 
 /obj/mecha/proc/use_power(amount)
+	if(internal_wiring.is_cut(WIRE_MECH_POWER))
+		return FALSE
 	if(get_charge())
 		cell.use(amount)
 		if(occupant)
@@ -1433,6 +1456,8 @@
 	return FALSE
 
 /obj/mecha/proc/give_power(amount)
+	if(internal_wiring.is_cut(WIRE_MECH_POWER))
+		return FALSE
 	if(!isnull(get_charge()))
 		cell.give(amount)
 		if(occupant)
@@ -1443,6 +1468,8 @@
 /obj/mecha/proc/update_cell()
 	if(cell)
 		var/cellcharge = cell.charge/cell.maxcharge
+		if(internal_wiring.is_cut(WIRE_MECH_POWER))
+			cellcharge = 0
 		switch(cellcharge)
 			if(0.75 to INFINITY)
 				occupant.clear_alert("charge")

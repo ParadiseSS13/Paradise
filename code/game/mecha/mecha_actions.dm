@@ -240,6 +240,9 @@
 /datum/action/innate/mecha/select_module/Activate()
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
+	if(chassis.internal_wiring.is_cut(WIRE_MECH_SELECT_MODULE))
+		chassis.occupant_message("<span class='notice'>Error, no response from module.</span>")
+		return
 	chassis.selected = equipment
 	chassis.occupant_message("<span class='notice'>You switch to [equipment.name].</span>")
 	chassis.visible_message("[chassis] raises [equipment.name]")
