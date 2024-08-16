@@ -120,4 +120,4 @@
 
 	// Items that have no valid possible_transfer_amounts shouldn't say their transfer rate is variable
 	if(possible_transfer_amounts)
-		. += "<span class='info'><b>Alt-Click</b> to change the transfer amount.</span>"
+		. += "<span class='notice'><b>Alt-Click</b> to change the transfer amount.</span>"

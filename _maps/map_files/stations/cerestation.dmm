@@ -21995,8 +21995,7 @@
 	pixel_y = 2
 	},
 /obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = 0
+	pixel_x = 3
 	},
 /obj/item/assembly/timer{
 	pixel_x = 5;
@@ -25523,18 +25522,15 @@
 	},
 /obj/structure/sign/directions/evac{
 	dir = 4;
-	pixel_x = 0;
 	pixel_y = 24
 	},
 /obj/structure/sign/directions/medical{
 	dir = 4;
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/structure/sign/directions/cargo{
 	dir = 4;
-	pixel_y = 40;
-	pixel_x = 0
+	pixel_y = 40
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -35531,29 +35527,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"eQy" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/obj/item/radio/intercom{
-	pixel_x = -28;
-	name = "custom placement"
-	},
-/turf/space,
-/area/station/engineering/solar/fore_starboard)
 "eQA" = (
 /obj/machinery/alarm/directional/north,
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
@@ -36478,8 +36451,7 @@
 	},
 /obj/structure/sign/directions/engineering{
 	dir = 1;
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /obj/structure/sign/directions/evac{
 	pixel_y = -8;
@@ -50894,8 +50866,7 @@
 	},
 /obj/structure/table,
 /obj/item/book/manual/wiki/sop_science{
-	pixel_x = -6;
-	pixel_y = 0
+	pixel_x = -6
 	},
 /obj/item/book/manual/wiki/sop_command,
 /obj/item/paper/monitorkey,
@@ -52320,10 +52291,7 @@
 	pixel_x = 5;
 	pixel_y = -2
 	},
-/obj/effect/spawner/lootdrop/maintenance{
-	pixel_x = -4;
-	pixel_y = 2
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "jUz" = (
@@ -53978,18 +53946,15 @@
 	},
 /obj/structure/sign/directions/evac{
 	dir = 4;
-	pixel_x = 0;
 	pixel_y = 24
 	},
 /obj/structure/sign/directions/medical{
 	dir = 4;
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/structure/sign/directions/cargo{
 	dir = 4;
-	pixel_y = 40;
-	pixel_x = 0
+	pixel_y = 40
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54062,8 +54027,7 @@
 	},
 /obj/structure/sign/directions/security{
 	dir = 1;
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /obj/structure/sign/directions/service{
 	dir = 1;
@@ -62743,13 +62707,6 @@
 /obj/structure/sign/securearea,
 /turf/simulated/wall,
 /area/station/engineering/tech_storage)
-"nde" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating{
-	pixel_x = 0;
-	pixel_y = 0
-	},
-/area/station/maintenance/disposal/south)
 "ndl" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "rd"
@@ -66555,8 +66512,7 @@
 	},
 /obj/structure/sign/directions/security{
 	dir = 1;
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -69031,8 +68987,7 @@
 	pixel_y = 1
 	},
 /obj/item/assembly/igniter{
-	pixel_x = 3;
-	pixel_y = 0
+	pixel_x = 3
 	},
 /obj/item/assembly/igniter{
 	pixel_y = -1;
@@ -69051,7 +69006,6 @@
 /obj/machinery/door_control{
 	id = "maintcham";
 	name = "Containment Control";
-	pixel_y = 0;
 	pixel_x = 26
 	},
 /turf/simulated/floor/plating,
@@ -74911,7 +74865,6 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkpurplecorners"
 	},
 /area/station/maintenance/electrical_shop)
@@ -84813,18 +84766,15 @@
 	},
 /obj/structure/sign/directions/security{
 	dir = 8;
-	pixel_x = 0;
 	pixel_y = 40
 	},
 /obj/structure/sign/directions/engineering{
 	dir = 8;
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /obj/structure/sign/directions/service{
 	pixel_y = 24;
-	dir = 8;
-	pixel_x = 0
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -91044,9 +90994,7 @@
 "vDm" = (
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	pixel_x = 0;
-	pixel_y = 0
+	icon_state = "whitepurple"
 	},
 /area/station/science/test_chamber)
 "vDC" = (
@@ -91405,8 +91353,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/box/syringes{
-	pixel_x = 5;
-	pixel_y = 0
+	pixel_x = 5
 	},
 /obj/item/reagent_containers/glass/beaker/large{
 	pixel_x = -12;
@@ -92697,7 +92644,6 @@
 /obj/machinery/door_control{
 	id = "maintcham2";
 	name = "Containment Control";
-	pixel_y = 0;
 	pixel_x = 26
 	},
 /turf/simulated/floor/plating,
@@ -95572,8 +95518,7 @@
 	pixel_y = 11
 	},
 /obj/item/storage/box/beakers{
-	pixel_x = 10;
-	pixel_y = 0
+	pixel_x = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -97672,8 +97617,7 @@
 	pixel_y = 10
 	},
 /obj/item/lighter{
-	pixel_x = 9;
-	pixel_y = 0
+	pixel_x = 9
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -100162,7 +100106,6 @@
 /obj/item/mmi,
 /obj/item/mmi,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "darkpurplecorners"
 	},
 /area/station/science/robotics)
@@ -115341,7 +115284,7 @@ sKo
 ftr
 bbw
 qkb
-nde
+xxU
 qDH
 dXN
 eBJ
@@ -155023,7 +154966,7 @@ oXu
 uyA
 xUa
 xUa
-eQy
+xUa
 uvI
 rNK
 aVN

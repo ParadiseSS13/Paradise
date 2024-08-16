@@ -77,7 +77,7 @@
 /obj/item/holosign_creator/janitor/examine(mob/user)
 	. = ..()
 	if(ishuman(user))
-		. += "<span class='info'>Alt Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.</span>"
+		. += "<span class='notice'>Alt Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.</span>"
 
 
 /obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag)

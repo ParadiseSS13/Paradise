@@ -4666,10 +4666,15 @@
 "aAM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aAO" = (
 /obj/structure/closet/crate/freezer,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -7603,12 +7608,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock,
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/wood,
 /area/station/legal/courtroom)
 "aLM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -8221,7 +8221,7 @@
 	id = "Courtroom"
 	},
 /turf/simulated/floor/plating,
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aNs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -9614,6 +9614,11 @@
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
 "aSz" = (
@@ -10198,8 +10203,13 @@
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/wood,
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aUt" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
@@ -10695,7 +10705,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aVE" = (
 /obj/structure/chair{
 	dir = 1
@@ -10703,7 +10713,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aVF" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Arrivals Expansion Area"
@@ -10716,7 +10726,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aVH" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -11182,7 +11192,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aXd" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=16-Fore";
@@ -11192,10 +11202,20 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aXi" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -11609,7 +11629,7 @@
 "aYA" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /turf/simulated/floor/plating,
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aYC" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -11617,7 +11637,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aYD" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -12066,17 +12086,14 @@
 	},
 /area/station/hallway/primary/central/west)
 "aZT" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/power/apc/directional/south,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aZU" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -12088,15 +12105,10 @@
 	},
 /area/station/legal/courtroom)
 "aZV" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aZW" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law{
@@ -12116,7 +12128,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "aZY" = (
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
@@ -12410,7 +12422,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "baU" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -13154,16 +13166,13 @@
 	},
 /area/station/hallway/primary/central/se)
 "bde" = (
+/obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2"
+	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central/north)
+/turf/simulated/floor/wood,
+/area/station/legal/courtroom)
 "bdi" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -13807,11 +13816,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -14193,6 +14197,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
@@ -29037,10 +29046,7 @@
 /area/station/maintenance/port)
 "caj" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/trash/pistachios,
 /obj/item/trash/raisins,
 /obj/item/trash/gum,
@@ -35752,10 +35758,15 @@
 /area/station/hallway/primary/aft/north)
 "cAB" = (
 /obj/machinery/hologram/holopad,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "cAD" = (
 /obj/structure/chair{
 	dir = 4
@@ -45969,7 +45980,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "erC" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -55656,14 +55667,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "imC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/public/locker)
+/turf/simulated/wall,
+/area/station/legal/courtroom/gallery)
 "imD" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 5
@@ -60510,10 +60515,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "krN" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -61631,11 +61641,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
-"kQx" = (
-/obj/item/kirbyplants/plant11,
-/obj/machinery/requests_console/directional/west,
-/turf/simulated/floor/wood,
-/area/station/legal/courtroom)
 "kQB" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
@@ -66527,6 +66532,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
 "mQb" = (
@@ -67031,7 +67041,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "mZJ" = (
 /obj/structure/reflector/single{
 	anchored = 1;
@@ -70163,6 +70173,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -74739,6 +74754,11 @@
 "qnu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
 "qnY" = (
@@ -77018,6 +77038,11 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "rnE" = (
@@ -77404,6 +77429,12 @@
 	icon_state = "darkblue"
 	},
 /area/station/security/armory)
+"ruY" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/legal/courtroom/gallery)
 "ruZ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
@@ -79317,10 +79348,15 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "sjz" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -81195,7 +81231,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "sYJ" = (
 /obj/effect/landmark/start/botanist,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -86612,10 +86648,15 @@
 	},
 /obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "vrO" = (
 /obj/machinery/access_button{
 	autolink_id = "atmossouth_btn_ext";
@@ -88411,6 +88452,11 @@
 "wma" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom)
@@ -91195,10 +91241,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/legal/courtroom)
+/area/station/legal/courtroom/gallery)
 "xyb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -92484,6 +92535,12 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/storage)
+"yah" = (
+/obj/item/kirbyplants/plant11,
+/obj/machinery/alarm/directional/south,
+/obj/machinery/requests_console/directional/west,
+/turf/simulated/floor/wood,
+/area/station/legal/courtroom)
 "yaj" = (
 /obj/machinery/camera{
 	c_tag = "Teleporter Room";
@@ -120830,11 +120887,11 @@ aMk
 toL
 aMk
 aMk
-aMk
+imC
 aYA
 aXb
 aYA
-aMk
+imC
 bZi
 lDm
 fHQ
@@ -121086,12 +121143,12 @@ aNu
 uWQ
 aOQ
 aRD
-kQx
-aMk
+yah
+imC
 aVD
-aNC
-aNC
-aMk
+aZV
+aZV
+imC
 beH
 oPf
 mFG
@@ -121348,7 +121405,7 @@ aNq
 aVE
 mZH
 aYC
-aMk
+imC
 beD
 nGC
 xuG
@@ -121596,8 +121653,8 @@ etp
 qAR
 avT
 aMk
-aOQ
-aOQ
+bde
+aLL
 wma
 fCn
 aTb
@@ -121605,7 +121662,7 @@ aNq
 aVE
 sYp
 baO
-aMk
+imC
 beR
 rEF
 xuG
@@ -121861,9 +121918,9 @@ aTd
 aNq
 aVE
 sYp
-baL
-aMk
-aMk
+ruY
+imC
+imC
 rEF
 xuG
 wkn
@@ -122120,7 +122177,7 @@ aAM
 aXd
 cAB
 aZT
-aMk
+imC
 fgN
 pQD
 wkn
@@ -122375,8 +122432,8 @@ aTd
 aNq
 aVE
 xxA
-aNC
-aZU
+aZV
+aZV
 aYA
 rEF
 bRr
@@ -122632,10 +122689,10 @@ bjb
 aNq
 aVE
 xxA
-aNC
 aZV
-aLL
-bde
+aZV
+aXb
+rEF
 beu
 rZk
 bhw
@@ -122890,7 +122947,7 @@ aNq
 aVE
 sjx
 erv
-aNC
+aZV
 aYA
 rEF
 pCy
@@ -123143,12 +123200,12 @@ aOS
 aOQ
 aOQ
 aWi
-aMk
+imC
 aVG
 krK
-aNC
+aZV
 aZW
-aMk
+imC
 rEF
 xuG
 bfY
@@ -123400,12 +123457,12 @@ aMk
 aMk
 aMk
 aMk
-aMk
-aMk
+imC
+imC
 vrH
 aYA
-aMk
-aMk
+imC
+imC
 qmI
 hdw
 uSx
@@ -123916,7 +123973,7 @@ krF
 krF
 aHW
 aQC
-imC
+ilf
 aTo
 aTo
 bby

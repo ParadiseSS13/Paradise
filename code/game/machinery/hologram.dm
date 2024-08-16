@@ -37,10 +37,10 @@ GLOBAL_LIST_EMPTY(holopads)
 
 /**
  * A stationary holopad for projecting hologram and making and receiving holocalls.
- * 
+ *
  * Holopads are floor-plane machines similar, in appearance and interactive function, to quantum pads. They can be
  * used by crew members to make and answer holocalls, or by the AI to project holograms autonomously.
- * 
+ *
  * Holopads are machines which can project a hologram up to `holo_range` tiles away. They do this in one of two modes:
  * holocalls, and AI holograms. Holocalls require a user to stand on a holopad, use its menu to select a remote holopad,
  * and make a call. Holocalls must be answered by the receiving holopad, or they will fail. Holopads can be configured
@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	/// Holoray-mob link.
 	var/list/holorays = list()
 	/// Last request time, to prevent request spam. ~Carn
-	var/last_request = 0 
+	var/last_request = 0
 	/// The range, in tiles, that a holopad can project a hologram.
 	var/holo_range = 5
 	var/temp = ""
@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		var/datum/holocall/HC = I
 		HC.Disconnect(src)
 
-/obj/machinery/hologram/holopad/interact(mob/living/user) 
+/obj/machinery/hologram/holopad/interact(mob/living/user)
 	if(!istype(user))
 		return
 	if(!anchored)
@@ -251,7 +251,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, "<span class='info'>Your presence is requested at <a href='byond://?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
+				to_chat(AI, "<span class='notice'>Your presence is requested at <a href='byond://?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
 		else
 			temp = "A request for AI presence was already sent recently.<br>"
 			temp += "<a href='byond://?src=[UID()];mainmenu=1'>Main Menu</a>"
