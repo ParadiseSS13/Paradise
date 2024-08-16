@@ -47,6 +47,8 @@
 	var/strafing = FALSE
 	/// The available modes of strafing
 	var/strafing_flags = MECH_STRAFING_SIDEWAYS
+	/// a list of all vision traits to give to the occupant.
+	var/list/vision_modes = list()
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -158,6 +160,14 @@
 
 /obj/mecha/get_cell()
 	return cell
+
+/obj/mecha/proc/grant_vision()
+	for(var/mode in vision_modes)
+		ADD_TRAIT(occupant, mode, "mech[UID()]")
+
+/obj/mecha/proc/remove_vision()
+	for(var/mode in vision_modes)
+		REMOVE_TRAIT(occupant, mode, "mech[UID()]")
 
 /obj/mecha/proc/add_airtank()
 	internal_tank = new /obj/machinery/atmospherics/portable/canister/air(src)

@@ -1,5 +1,5 @@
 // Teleporter, Gravitational catapult, Armor booster modules,
-// Repair droid, Tesla Energy relay, Generators
+// Repair droid, Tesla Energy relay, Generators, meson module
 
 #define MECH_GRAVCAT_MODE_GRAVSLING 1
 #define MECH_GRAVCAT_MODE_GRAVPUSH 2
@@ -471,6 +471,41 @@
 /obj/mecha/proc/remove_thrusters()
 	if(occupant && !thruster_count)
 		thrusters_action.Remove(occupant)
+
+/// Subtype for vision-granting equipments
+/obj/item/mecha_parts/mecha_equipment/vision
+	name = "vision trait giver subtype module for exosuits"
+	desc = "you shouldn't be seeing this."
+	selectable = FALSE
+	var/list/vision_traits
+
+/obj/item/mecha_parts/mecha_equipment/vision/attach(obj/mecha/M)
+	. = ..()
+	M.remove_vision()
+	M.vision_modes |= vision_traits
+	M.grant_vision()
+
+/obj/item/mecha_parts/mecha_equipment/vision/detach(atom/moveto)
+	M.remove_vision()
+	M.vision_modes -= vision_traits
+	. = ..()
+	M.grant_vision()
+
+/obj/item/mecha_parts/mecha_equipment/vision/meson_scanner
+	name = "exosuit meson scanner"
+	desc = "An exosuit module that integrates a meson scanner."
+	icon_state = "mecha_meson"
+	origin_tech = "engineering=3;"
+	energy_drain = 100
+	vision_traits = list(TRAIT_MESON_VISION)
+
+/obj/item/mecha_parts/mecha_equipment/vision/thermal_scanner
+	name = "exosuit thermal scanner"
+	desc = "An exosuit module that integrates a thermal scanner."
+	icon_state = "mecha_meson"
+	origin_tech = "engineering=7;covert=2;"
+	energy_drain = 100
+	vision_traits = list(TRAIT_THERMAL_VISION)
 
 #undef MECH_GRAVCAT_MODE_GRAVSLING
 #undef MECH_GRAVCAT_MODE_GRAVPUSH
