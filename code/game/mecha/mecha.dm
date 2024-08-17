@@ -363,12 +363,15 @@
 		step_in = initial(step_in)
 	var/move_result = 0
 	var/move_type = 0
+	var/step_malus = 0
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
 	else if(dir != direction)
 		if(internal_wiring.is_cut(WIRE_MECH_DIRECTION))
-			to_chat(occupant, "<span class='notice'>Error transmitting direction-switch command to actuators.")
+			if(world.time - last_message > 2 SECONDS)
+				to_chat(occupant, "<span class='notice'>Error transmitting direction-switch command to actuators.")
+				last_message = world.time
 			return
 		if(strafing)
 			if(internal_wiring.is_cut(WIRE_MECH_STRAFE))
@@ -379,10 +382,12 @@
 				move_result = mechstep(direction)
 				move_type = MECHAMOVE_STEP
 				dir = old_dir
+				step_malus = step_in
 			else if(strafing_flags & MECH_STRAFING_SIDEWAYS && direction & (turn(dir,90) | turn(dir,-90)))
 				move_result = mechstep(direction)
 				move_type = MECHAMOVE_STEP
 				dir = old_dir
+				step_malus = step_in * 0.5
 		else
 			move_result = mechturn(direction)
 			move_type = MECHAMOVE_TURN
@@ -392,7 +397,7 @@
 
 	if(move_result && move_type)
 		aftermove(move_type)
-		can_move = world.time + step_in
+		can_move = world.time + step_in + step_malus
 		return TRUE
 	return FALSE
 
