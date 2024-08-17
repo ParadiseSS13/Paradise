@@ -544,7 +544,7 @@
 	if(!(chassis.occupant))
 		return
 	var/obj/item/choice = show_radial_menu(chassis.occupant, chassis, integrated_tools)
-	if(choice in integrated_tools)
+	if(choice in integrated_tools && chassis.Adjacent(target))
 		target.tool_act(chassis.occupant, choice, choice.tool_behaviour)
 		chassis.visible_message("[chassis] uses \the [src] on \the [target], it pulls out its [choice]")
 
