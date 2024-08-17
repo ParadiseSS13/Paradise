@@ -66,7 +66,7 @@
 
 	if(!length(possible))
 		if(user)
-			to_chat(user, "<span class='info'>No goals available for [department]. Goals are currently available for [english_list(departments)].</span>")
+			to_chat(user, "<span class='notice'>No goals available for [department]. Goals are currently available for [english_list(departments)].</span>")
 		return
 
 	var/datum/station_goal/secondary/picked = pick(possible)

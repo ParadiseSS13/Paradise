@@ -20,8 +20,7 @@
 <hr>
 
 ### Declaration
-- [ ] I confirm that I either do not require [pre-approval](https://github.com/ParadiseSS13/Paradise/blob/feature_freeze/CODE_OF_CONDUCT.md#currently-changes-to-the-following-types-of-content-reuires-pre-approval) for this PR, or I have obtained such approval and have included a screenshot to demonstrate this below.
-<!-- A list of PR types requiring pre-approval can be found here: https://github.com/ParadiseSS13/Paradise/blob/feature_freeze/CODE_OF_CONDUCT.md#currently-changes-to-the-following-types-of-content-reuires-pre-approval -->
+- [ ] I confirm that I either do not require [pre-approval](/CODE_OF_CONDUCT.md#types-of-changes-that-need-approval) for this PR, or I have obtained such approval and have included a screenshot to demonstrate this below.
 <!-- Replace the box with [x] to mark as complete. -->
 <hr>
 
