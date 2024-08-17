@@ -1973,6 +1973,9 @@
 /area/station/maintenance/apmaint2)
 "auh" = (
 /obj/item/kirbyplants,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -13904,6 +13907,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/apmaint)
+"cIU" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/wood,
+/area/station/public/fitness)
 "cJa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -17070,6 +17079,9 @@
 "dqX" = (
 /obj/structure/chair/sofa,
 /obj/effect/landmark/start/assistant,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/carpet,
 /area/station/public/dorms)
 "drk" = (
@@ -19700,6 +19712,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/station/maintenance/starboard)
+"dPQ" = (
+/obj/structure/closet/secure_closet/evidence,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/station/security/evidence)
 "dPS" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -21137,6 +21159,20 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
+"ege" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkredcorners"
+	},
+/area/station/security/brig)
 "egs" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
@@ -28717,6 +28753,15 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
+"fAd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/kill_syndicate{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/security/range)
 "fAs" = (
 /obj/machinery/ai_status_display{
 	pixel_x = -32;
@@ -32145,6 +32190,9 @@
 "gig" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -36463,6 +36511,9 @@
 "haF" = (
 /obj/structure/table/wood,
 /obj/item/stack/tape_roll,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -36696,6 +36747,9 @@
 "hcy" = (
 /obj/structure/chair{
 	dir = 4
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -42151,6 +42205,9 @@
 "ieL" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -42711,6 +42768,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
+"ijH" = (
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "ijM" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "mining_home";
@@ -45733,7 +45799,6 @@
 "iOp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Foyer"
@@ -54027,6 +54092,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/sign/poster/official/space_cops{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -66462,6 +66530,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -68617,6 +68688,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"npy" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/security/prisonlockers)
 "npA" = (
 /obj/structure/chair{
 	dir = 8
@@ -74049,6 +74131,14 @@
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
 /area/station/maintenance/security/aft_port)
+"ooY" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredcorners"
+	},
+/area/station/security/main)
 "opk" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -74105,6 +74195,15 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/public/pet_store)
+"opF" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "opJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -75529,6 +75628,15 @@
 	icon_state = "dark"
 	},
 /area/station/telecomms/computer)
+"oET" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/kill_syndicate{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/security/range)
 "oEY" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -78266,6 +78374,9 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/warden,
+/obj/structure/sign/poster/official/kill_syndicate{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -85614,6 +85725,9 @@
 /area/station/maintenance/dorms/starboard)
 "qDZ" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -94979,6 +95093,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -99774,6 +99891,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
+"tlu" = (
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "tlw" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -102322,6 +102448,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
+"tKg" = (
+/obj/machinery/computer/arcade/battle{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "tKl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop{
@@ -103416,6 +103551,9 @@
 "tVT" = (
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/sign/poster/official/religious{
+	pixel_y = 32
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
@@ -110696,6 +110834,9 @@
 /obj/structure/chair/sofa/bench/right{
 	dir = 4
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -111142,6 +111283,15 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/execution)
+"vuS" = (
+/obj/item/kirbyplants,
+/obj/structure/sign/poster/official/religious{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/chapel)
 "vuW" = (
 /obj/machinery/light{
 	dir = 1
@@ -111530,6 +111680,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
+"vzw" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "vzC" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -114753,6 +114911,15 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/research)
+"wdQ" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkredcorners"
+	},
+/area/station/security/main)
 "wdV" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -118884,6 +119051,9 @@
 /obj/structure/chair/sofa/bench{
 	dir = 4
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -118974,6 +119144,17 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/primary/starboard/south)
+"wXz" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/structure/sign/poster/official/enlist{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredcorners"
+	},
+/area/station/security/lobby)
 "wXH" = (
 /turf/simulated/wall/r_wall,
 /area/station/medical/virology/lab)
@@ -119107,6 +119288,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "wYQ" = (
@@ -119234,6 +119418,14 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
+"xaC" = (
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreycheck"
+	},
+/area/station/security/main)
 "xaE" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
@@ -121162,6 +121354,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "xsW" = (
@@ -151530,7 +151725,7 @@ mac
 rIB
 uJr
 tyb
-bvA
+vzw
 mbN
 sRm
 arS
@@ -153852,7 +154047,7 @@ nXh
 nXh
 giS
 nXh
-nXh
+ijH
 iUr
 jvO
 nXh
@@ -154097,7 +154292,7 @@ uJr
 uJr
 wFI
 uJr
-wmQ
+vuS
 uJr
 tyb
 bvA
@@ -155401,7 +155596,7 @@ pUT
 mWL
 pGn
 gvQ
-gbQ
+cIU
 pjm
 aiM
 rBI
@@ -155901,7 +156096,7 @@ cnI
 usO
 bvA
 qQg
-sRm
+opF
 pjm
 uof
 rGA
@@ -157979,7 +158174,7 @@ eUn
 eUn
 eUn
 neS
-eUn
+tlu
 xjx
 tfk
 eUn
@@ -158482,7 +158677,7 @@ nXh
 nXh
 iuw
 iUr
-nXh
+ijH
 icD
 nXh
 gcl
@@ -159745,7 +159940,7 @@ kcb
 rfc
 eUC
 goH
-goH
+tKg
 goH
 wrT
 eUC
@@ -160009,7 +160204,7 @@ fiL
 pBi
 uaW
 eUC
-bvA
+vzw
 urb
 sRm
 soz
@@ -167934,12 +168129,12 @@ oFr
 jSs
 mFM
 ekE
-iSa
+ooY
 sIm
 mmj
 lPD
 tSV
-arJ
+oET
 qGJ
 jrp
 cVe
@@ -169481,7 +169676,7 @@ sIm
 qAW
 lWb
 dtU
-arJ
+fAd
 vAT
 jrp
 tIK
@@ -172822,7 +173017,7 @@ vnL
 vnL
 foo
 nUZ
-mHn
+wdQ
 kbj
 raW
 mlC
@@ -173070,7 +173265,7 @@ xEt
 gjn
 xpb
 cEd
-iXn
+xaC
 vGN
 gbL
 byv
@@ -173611,7 +173806,7 @@ eVL
 wXJ
 pyy
 pyy
-pyy
+wXz
 ejl
 ikM
 fqn
@@ -174354,7 +174549,7 @@ gBG
 jDu
 lyp
 lyp
-jbn
+npy
 aGu
 jSh
 wiu
@@ -174607,7 +174802,7 @@ xic
 snD
 bYD
 sxU
-lRS
+ege
 tmX
 vhj
 kUB
@@ -177964,7 +178159,7 @@ bMG
 gPn
 hes
 ihH
-rkL
+dPQ
 mUI
 uLO
 rkL
