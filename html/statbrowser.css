@@ -125,6 +125,11 @@ table {
 	background-color: #eeeeee;
 }
 
+#under-content {
+	height: calc(0.5em - 4px);
+	background-color: #eeeeee;
+}
+
 #statcontent {
 	flex: 1;
 	padding: 0.5em;
@@ -260,7 +265,8 @@ body.dark {
 	border-bottom-color: #d4dfec;
 }
 
-.dark #under-menu {
+.dark #under-menu,
+.dark #under-content {
 	background-color: #202020;
 }
 
@@ -328,7 +334,8 @@ body.ntos {
 	border-bottom-color: #d4dfec;
 }
 
-.ntos #under-menu {
+.ntos #under-menu,
+.ntos #under-content {
 	background-color: #1b2633;
 }
 
@@ -396,7 +403,8 @@ body.syndicate {
 	border-bottom-color: #d4dfec;
 }
 
-.syndicate #under-menu {
+.syndicate #under-menu,
+.syndicate #under-content {
 	background-color: #4d0202;
 }
 
@@ -464,7 +472,8 @@ body.paradise {
 	border-bottom-color: #d4dfec;
 }
 
-.paradise #under-menu {
+.paradise #under-menu,
+.paradise #under-content {
 	background-color: #800448;
 }
 
