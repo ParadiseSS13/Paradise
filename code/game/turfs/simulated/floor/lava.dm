@@ -273,7 +273,7 @@
 // special turf for the asteroid core on EmeraldStation
 /turf/simulated/floor/lava/plasma/fuming
 	name = "liquid plasma"
-	desc = "A bubbling pit of liquid plasma. It bubbles ominously."
+	desc = "A swirling pit of liquid plasma. It bubbles ominously."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
 	icon_state = "liquidplasma-255"
 	base_icon_state = "liquidplasma"
