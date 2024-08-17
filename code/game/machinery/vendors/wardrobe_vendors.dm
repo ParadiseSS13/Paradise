@@ -863,7 +863,7 @@
 	icon_broken = "base_drobe"
 	icon_off = "base_drobe"
 	category = VENDOR_TYPE_CLOTHING
-	ads_list = list("You're gonna LEARN today!")
+	ads_list = list("You're gonna LEARN today!", "What am I supposed to do?")
 	vend_reply = "Thank you for using the TrainDrobe!"
 	products = list(
 		/obj/item/clothing/gloves/color/white = 2,

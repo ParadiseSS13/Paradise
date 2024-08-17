@@ -358,7 +358,6 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
-
 /datum/job/nanotrasentrainer
 	title = "Nanotrasen Career Trainer"
 	flag = JOB_INSTRUCTOR
@@ -403,11 +402,13 @@
 	r_pocket = /obj/item/flash
 	pda = /obj/item/pda/heads/ntrep
 	backpack = /obj/item/storage/backpack/satchel
+
 	backpack_contents = list(
 		/obj/item/pinpointer/crew = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/laser_pointer/blue = 1
 	)
+
 	bio_chips = list(/obj/item/bio_chip/mindshield)
 
 /datum/outfit/job/nct/post_equip(mob/living/carbon/human/H, visualsOnly)

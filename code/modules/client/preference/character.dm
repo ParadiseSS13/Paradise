@@ -2030,7 +2030,7 @@
 				continue
 
 			if(job.mentor_only)
-				if(!check_rights(R_MENTOR || R_ADMIN, FALSE, user))
+				if(!check_rights(R_MENTOR | R_ADMIN, FALSE, user))
 					continue
 
 			index += 1
