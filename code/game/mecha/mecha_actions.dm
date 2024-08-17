@@ -258,7 +258,7 @@
 	UpdateButtons()
 
 /datum/action/innate/mecha/mech_strafing_mode/Activate(force = FALSE)
-	if(force)
+	if(force && chassis)
 		chassis.strafing = !chassis.strafing
 		button_overlay_icon_state = "[initial(button_overlay_icon_state)]_[chassis.strafing ? "on" : "off"]"
 		UpdateButtons()

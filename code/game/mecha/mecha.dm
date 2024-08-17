@@ -882,25 +882,29 @@
 				if(I.use_tool(src, user, 12 SECONDS, volume = I.tool_volume))
 					to_chat(user, "<span class='notice'>You bend the hatches on \the [src], you can now heat up the security screws.</span>")
 					maintenance_panel_status = MECHA_PANEL_2
-				return
+					return TRUE
+				return FALSE
 			if(MECHA_PANEL_2)
 				to_chat(user, "<span class='notice'>You begin repairing the hatches on \the [src]</span>")
 				if(I.use_tool(src, user, 12 SECONDS, volume = I.tool_volume))
 					to_chat(user, "<span class='notice'>You repair the hatches on \the [src].</span>")
 					maintenance_panel_status = MECHA_PANEL_0
-				return
-			if(MECHA_PANEL_4)
-				to_chat(user, "<span class='notice'>You begin removing the security screws on [src]'s hatch</span>")
+					return TRUE
+				return FALSE
+			if(MECHA_PANEL_3)
+				to_chat(user, "<span class='notice'>You begin removing the security pins on [src]'s hatch</span>")
 				if(I.use_tool(src, user, 12 SECONDS, volume = I.tool_volume))
-					to_chat(user, "<span class='notice'>You remove the security screws on \the [src].</span>")
+					to_chat(user, "<span class='notice'>You remove the security pins on \the [src].</span>")
 					maintenance_panel_status = MECHA_PANEL_5
-				return
-			if(MECHA_PANEL_5)
-				to_chat(user, "<span class='notice'>You begin replacing the security screws on [src]'s hatch</span>")
+					return TRUE
+				return FALSE
+			if(MECHA_PANEL_4)
+				to_chat(user, "<span class='notice'>You begin replacing the security pins on [src]'s hatch</span>")
 				if(I.use_tool(src, user, 12 SECONDS, volume = I.tool_volume))
-					to_chat(user, "<span class='notice'>You replace the security screws on \the [src]'s hatch.</span>")
+					to_chat(user, "<span class='notice'>You replace the security pins on \the [src]'s hatch.</span>")
 					maintenance_panel_status = MECHA_PANEL_2
-				return
+					return TRUE
+				return FALSE
 
 	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && occupant))
 		return
@@ -971,13 +975,15 @@
 				if(I.use_tool(src, user, 12 SECONDS, volume = I.tool_volume))
 					to_chat(user, "<span class='notice'>You heat up the hatches on \the [src], they can now be pried out of place.</span>")
 					maintenance_panel_status = MECHA_PANEL_1
-				return
+					return TRUE
+				return FALSE
 			if(MECHA_PANEL_2)
 				to_chat(user, "<span class='notice'>You begin softening the security pins on \the [src]</span>")
 				if(I.use_tool(src, user, 12 SECONDS, volume = I.tool_volume))
 					to_chat(user, "<span class='notice'>You soften the security pins on \the [src], they can now be pried out</span>")
 					maintenance_panel_status = MECHA_PANEL_3
-				return
+					return TRUE
+				return FALSE
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -1011,21 +1017,22 @@
 				if(I.use_tool(src, user, 12 SECONDS, volume = I.tool_volume))
 					to_chat(user, "<span class='notice'>You cut \the [src]'s locking mechanism apart. The maintenance wiring panel is now accesible.</span>")
 					maintenance_panel_status = MECHA_PANEL_6
-				return
+					return TRUE
+				return FALSE
 			if(MECHA_PANEL_6)
 				to_chat(user, "<span class='notice'>You begin repairing the [src]'s locking mechanism.</span>")
 				if(I.use_tool(src, user, 12 SECONDS, volume = I.tool_volume))
 					to_chat(user, "<span class='notice'>You repair \the [src]'s locking mechanism . The maintenance wiring panel is no longer accesible.</span>")
-					maintenance_panel_status = MECHA_PANEL_6
-				return
+					maintenance_panel_status = MECHA_PANEL_4
+					return TRUE
+				return FALSE
 
 	if(state != MECHA_OPEN_HATCH && maintenance_panel_status != MECHA_PANEL_6)
 		return
 	if(emag_proof)
 		return
 	internal_wiring.Interact(user)
-
-
+	return TRUE
 
 /obj/mecha/multitool_act(mob/living/user, obj/item/I)
 	if(state != MECHA_OPEN_HATCH && maintenance_panel_status != MECHA_PANEL_6)
@@ -1033,6 +1040,7 @@
 	if(emag_proof)
 		return
 	internal_wiring.Interact(user)
+	return TRUE
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(!has_charge(melee_energy_drain))

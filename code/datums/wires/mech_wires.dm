@@ -10,7 +10,7 @@
 
 /datum/wires/mech/interactable(mob/user)
 	var/obj/mecha/A = holder
-	if(A.state == MECHA_OPEN_HATCH)
+	if(A.state == MECHA_OPEN_HATCH || A.maintenance_panel_status == MECHA_PANEL_6)
 		return TRUE
 	return FALSE
 
@@ -67,11 +67,12 @@
 		if(WIRE_MECH_POWER)
 			return
 		if(WIRE_MECH_SELECT_MODULE)
-			var/obj/item/mecha_parts/mecha_equipment/thing = pick(A.equipment)
-			if(!thing.selectable)
-				thing = null
-			A.selected = thing
-			return
+			if(length(A.equipment))
+				var/obj/item/mecha_parts/mecha_equipment/thing = pick(A.equipment)
+				if(!thing.selectable)
+					thing = null
+				A.selected = thing
+				return
 		if(WIRE_MECH_STRAFE)
 			if(A.strafing_flags)
 				A.strafing_action.Activate(force = TRUE)
