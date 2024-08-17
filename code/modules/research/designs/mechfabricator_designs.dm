@@ -606,6 +606,33 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_toolkit
+	name = "Exosuit Engineering Equipment (Mounted toolkit)"
+	id = "mech_toolkit"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/mech_toolkit
+	materials = list(MAT_METAL= 23000, MAT_TITANIUM = 1000)
+	construction_time = 25 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_meson
+	name = "Exosuit Engineering Equipment (Mounted meson scanner)"
+	id = "mech_mesonscanner"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/vision/meson_scanner
+	materials = list(MAT_METAL= 2500, MAT_GLASS = 3500)
+	construction_time = 15 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_meson
+	name = "Exosuit Equipment (Mounted night vision scanner)"
+	id = "mech_mesonscanner"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/vision/nightvision
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2400, MAT_PLASMA = 1500, MAT_URANIUM = 3000)
+	construction_time = 15 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_drill
 	name = "Exosuit Engineering Equipment (Drill)"
 	id = "mech_drill"
@@ -613,6 +640,15 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/drill
 	materials = list(MAT_METAL=10000)
 	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_cruser
+	name = "Exosuit Mining Equipment (Mounted crusher)"
+	id = "mech_crusher"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/mech_crusher
+	materials = list(MAT_METAL= 23000, MAT_TITANIUM = 8000)
+	construction_time = 25 SECONDS
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_extinguisher

@@ -100,7 +100,7 @@
 			A.selected.action(pick(targets))
 			return
 		if(WIRE_MECH_WALK)
-			A.mechstep(A.dir)
+			A.domove(A.dir)
 			return
 		if(WIRE_MECH_RADIO)
 			A.radio.broadcasting = !A.radio.broadcasting

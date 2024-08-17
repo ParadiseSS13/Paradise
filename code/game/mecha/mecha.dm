@@ -375,7 +375,9 @@
 			return
 		if(strafing)
 			if(internal_wiring.is_cut(WIRE_MECH_STRAFE))
-				to_chat(occupant, "<span class='notice'>Unable to strafe. No movement vectors received from onboard S-CPU")
+				if(world.time - last_message > 2 SECONDS)
+					to_chat(occupant, "<span class='notice'>Unable to strafe. No movement vectors received from onboard S-CPU")
+					last_message = world.time
 				return
 			var/old_dir = dir
 			if(strafing_flags & MECH_STRAFING_BACKWARDS && direction == REVERSE_DIR(dir))
@@ -387,7 +389,7 @@
 				move_result = mechstep(direction)
 				move_type = MECHAMOVE_STEP
 				dir = old_dir
-				step_malus = step_in * 0.5
+				step_malus = step_in * 0.6
 		else
 			move_result = mechturn(direction)
 			move_type = MECHAMOVE_TURN
