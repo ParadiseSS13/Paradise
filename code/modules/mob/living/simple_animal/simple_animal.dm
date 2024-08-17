@@ -162,6 +162,9 @@
 		AddComponent(/datum/component/footstep, footstep_type)
 	add_strippable_element()
 
+	apply_atmos_requirements()
+	AddElement(/datum/element/body_temperature, minbodytemp, maxbodytemp, cold_damage_per_tick, heat_damage_per_tick)
+
 /mob/living/simple_animal/Destroy()
 	/// We need to clear the reference to where we're walking to properly GC
 	walk_to(src, 0)
@@ -181,7 +184,24 @@
 	if(T && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 
+	remove_atmos_requirements()
+	RemoveElement(/datum/element/body_temperature)
+
 	return ..()
+
+/mob/living/simple_animal/proc/apply_atmos_requirements()
+	if(unsuitable_atmos_damage == 0)
+		return
+
+	/*
+	*  String associated list returns a cached list. 
+	*  This is like a static list to pass into the element below.
+	*/
+	atmos_requirements = string_assoc_list(atmos_requirements)
+	AddElement(/datum/element/atmos_requirements, atmos_requirements, unsuitable_atmos_damage)
+
+/mob/living/simple_animal/proc/remove_atmos_requirements()
+	RemoveElement(/datum/element/atmos_requirements)
 
 /mob/living/simple_animal/handle_atom_del(atom/A)
 	if(A == pcollar)
@@ -288,64 +308,8 @@
 					else
 						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 
-
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/readonly_environment)
-	if(!readonly_environment)
-		return
-	var/atmos_suitable = 1
-
-	var/areatemp = get_temperature(readonly_environment)
-
-	if(abs(areatemp - bodytemperature) > 5 && !HAS_TRAIT(src, TRAIT_NOBREATH))
-		var/diff = areatemp - bodytemperature
-		diff = diff / 5
-		bodytemperature += diff
-
-	var/tox = readonly_environment.toxins()
-	var/oxy = readonly_environment.oxygen()
-	var/n2 = readonly_environment.nitrogen()
-	var/co2 = readonly_environment.carbon_dioxide()
-
-	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
-		atmos_suitable = 0
-		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
-	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
-		atmos_suitable = 0
-		throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy)
-	else
-		clear_alert("not_enough_oxy")
-		clear_alert("too_much_oxy")
-
-	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
-		atmos_suitable = 0
-		throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
-	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
-		atmos_suitable = 0
-		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
-	else
-		clear_alert("too_much_tox")
-		clear_alert("not_enough_tox")
-
-	if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
-		atmos_suitable = 0
-	else if(atmos_requirements["max_n2"] && n2 > atmos_requirements["max_n2"])
-		atmos_suitable = 0
-
-	if(atmos_requirements["min_co2"] && co2 < atmos_requirements["min_co2"])
-		atmos_suitable = 0
-	else if(atmos_requirements["max_co2"] && co2 > atmos_requirements["max_co2"])
-		atmos_suitable = 0
-
-	if(!atmos_suitable)
-		adjustHealth(unsuitable_atmos_damage)
-
-	handle_temperature_damage()
-
-/mob/living/simple_animal/proc/handle_temperature_damage()
-	if(bodytemperature < minbodytemp)
-		adjustHealth(cold_damage_per_tick)
-	else if(bodytemperature > maxbodytemp)
-		adjustHealth(heat_damage_per_tick)
+	SEND_SIGNAL(src, COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT, readonly_environment)
 
 /mob/living/simple_animal/gib()
 	if(icon_gib)
