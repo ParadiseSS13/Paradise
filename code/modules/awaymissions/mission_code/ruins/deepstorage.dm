@@ -283,6 +283,27 @@
 	name = "portal"
 	desc = "Good luck."
 
+// loot spawners
+
+/obj/effect/spawner/lootdrop/deepstorage_reward
+	name = "warehouse fashion reward"
+	lootcount = 1
+	loot = list(
+			/obj/item/storage/box/syndie_kit/chameleon,
+			/obj/item/clothing/suit/pimpcoat,
+			/obj/item/melee/skateboard/hoverboard,
+			/obj/item/clothing/glasses/sunglasses/yeah
+	)
+
+/obj/effect/spawner/lootdrop/deepstorage_reward/main
+	name = "warehouse main reward"
+	loot = list(
+			/obj/item/storage/belt/champion/wrestling,
+			/obj/item/storage/box/weaver_kit,
+			/obj/item/gun/medbeam,
+			/obj/item/storage/lockbox/experimental_weapon
+	)
+
 // paper stuff & lore
 
 /obj/item/paper/fluff/ruins/deepstorage/log1
