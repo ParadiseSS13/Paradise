@@ -362,8 +362,8 @@
 	title = "Nanotrasen Career Trainer"
 	flag = JOB_INSTRUCTOR
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	supervisors = "the Nanotrasen Representative"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
