@@ -9,6 +9,8 @@
 	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
 
 */
+GLOBAL_VAR_INIT(next_unique_strain, 1)
+
 GLOBAL_LIST_EMPTY(archive_diseases)
 
 // The order goes from easy to cure to hard to cure.
@@ -66,10 +68,9 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /datum/disease/advance/New(process = 1, datum/disease/advance/D)
 	if(!istype(D))
 		D = null
-
+	strain = "origin"
 	// whether to generate a new cure or not
 	var/new_cure = TRUE
-
 	// Generate symptoms if we weren't given any.
 	if(!symptoms || !length(symptoms))
 		if(!D || !D.symptoms || !length(D.symptoms))
@@ -78,14 +79,15 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			for(var/datum/symptom/S in D.symptoms)
 				symptoms += new S.type
 	// Copy cure and strain if we are given one
-	if(D && length(D.cures))
+	if(D)
+		stage = D.stage
 		for(var/r in D.cures)
 			cures += r
 			cure_text = D.cure_text
 		strain = D.strain
 		new_cure = FALSE
 
-	Refresh(FALSE, FALSE , new_cure)
+	Refresh(FALSE, FALSE , new_cure, FALSE)
 
 	..(process, D)
 	return
@@ -213,7 +215,9 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 	return generated
 
-/datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE, new_cure = TRUE)
+/datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE, new_cure = TRUE, new_strain = TRUE)
+	if(new_strain)
+		strain = "strain_[num2text(GLOB.next_unique_strain++, 8)]"
 	var/list/properties = GenerateProperties()
 	AssignProperties(properties, new_cure)
 	id = null
@@ -306,7 +310,6 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
-	strain = unique_datum_id
 	if(properties && length(properties))
 		var/res = clamp((properties["resistance"] - length(symptoms) / 2) / 2 , 1 , length(GLOB.advanced_cures))
 		cures = list()
@@ -351,10 +354,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		for(var/datum/symptom/S in symptoms)
 			L += S.id
 		L = sortList(L) // Sort the list so it doesn't matter which order the symptoms are in and add the strain to the end
-		if(strain)
-			L += strain
-		else
-			L += "origin"
+		L += strain
 		var/result = jointext(L, ":")
 		id = result
 	return id
@@ -410,7 +410,9 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		diseases -= D1
 
 		var/datum/disease/advance/D2 = pick(diseases)
-		D2.Mix(D1)
+		// So that we don't mix a virus with itself
+		if(D2.GetDiseaseID() != D1.GetDiseaseID())
+			D2.Mix(D1)
 
 	// Should be only 1 entry left, but if not let's only return a single entry
 	// to_chat(world, "END MIXING!!!!!")

@@ -1,3 +1,8 @@
+/// list of known advanced disease ids. If an advanced disease isn't here it will display as unknown disease on scanners
+/// Initialized with the id of the flu and cold samples from the virologist's fridge
+GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
+))
+
 /obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 2200"
 	desc = "Used to work with viruses."
