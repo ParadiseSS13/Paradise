@@ -1202,13 +1202,13 @@ so that different stomachs can handle things in different ways VB*/
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
 		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/blind)
-		ADD_TRAIT(src, TRAIT_BLIND, "tint")
+		become_blind("tint")
 	else if(tinttotal >= TINT_IMPAIR)
 		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/impaired, 2)
-		REMOVE_TRAIT(src, TRAIT_BLIND, "tint")
+		cure_blind("tint")
 	else
 		clear_fullscreen("tint", 0)
-		REMOVE_TRAIT(src, TRAIT_BLIND, "tint")
+		cure_blind("tint")
 
 /mob/living/carbon/proc/get_total_tint()
 	. = 0
