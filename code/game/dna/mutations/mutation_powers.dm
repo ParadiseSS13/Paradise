@@ -822,13 +822,13 @@
 			M.change_hair(new_style)
 
 		var/new_hair = tgui_input_color(user, "Please select hair color.", "Character Generation", head_organ.hair_colour)
-		if(new_hair)
+		if(!isnull(new_hair))
 			M.change_hair_color(new_hair)
 
 		var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[head_organ.h_style]
 		if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 			new_hair = tgui_input_color(user, "Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour)
-			if(new_hair)
+			if(!isnull(new_hair))
 				M.change_hair_color(new_hair, TRUE)
 
 		// facial hair
@@ -839,24 +839,24 @@
 			M.change_facial_hair(new_style)
 
 		var/new_facial = tgui_input_color(user, "Please select facial hair color.", "Character Generation", head_organ.facial_colour)
-		if(new_facial)
+		if(!isnull(new_facial))
 			M.change_facial_hair_color(new_facial)
 
 		var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 			new_facial = tgui_input_color(user, "Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour)
-			if(new_facial)
+			if(!isnull(new_facial))
 				M.change_facial_hair_color(new_facial, TRUE)
 
 		//Head accessory.
 		if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 			var/list/valid_head_accessories = M.generate_valid_head_accessories()
 			var/new_head_accessory = tgui_input_list(user, "Please select head accessory style", "Character Generation", valid_head_accessories)
-			if(new_head_accessory)
+			if(!isnull(new_head_accessory))
 				M.change_head_accessory(new_head_accessory)
 
 			var/new_head_accessory_colour = tgui_input_color(user, "Please select head accessory colour.", "Character Generation", head_organ.headacc_colour)
-			if(new_head_accessory_colour)
+			if(!isnull(new_head_accessory_colour))
 				M.change_head_accessory_color(new_head_accessory_colour)
 
 
@@ -865,7 +865,7 @@
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
 		if(length(valid_body_accessories) > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
 			var/new_body_accessory = tgui_input_list(user, "Please select body accessory style", "Character Generation", valid_body_accessories)
-			if(new_body_accessory)
+			if(!isnull(new_body_accessory))
 				M.change_body_accessory(new_body_accessory)
 
 	if(istype(head_organ))
@@ -873,32 +873,32 @@
 		if(M.dna.species.bodyflags & HAS_HEAD_MARKINGS)
 			var/list/valid_head_markings = M.generate_valid_markings("head")
 			var/new_marking = tgui_input_list(user, "Please select head marking style", "Character Generation", valid_head_markings)
-			if(new_marking)
+			if(!isnull(new_marking))
 				M.change_markings(new_marking, "head")
 
 			var/new_marking_colour = tgui_input_color(user, "Please select head marking colour.", "Character Generation", M.m_colours["head"])
-			if(new_marking_colour)
+			if(!isnull(new_marking_colour))
 				M.change_marking_color(new_marking_colour, "head")
 
 	//Body markings.
 	if(M.dna.species.bodyflags & HAS_BODY_MARKINGS)
 		var/list/valid_body_markings = M.generate_valid_markings("body")
 		var/new_marking = tgui_input_list(user, "Please select body marking style", "Character Generation", valid_body_markings)
-		if(new_marking)
+		if(!isnull(new_marking))
 			M.change_markings(new_marking, "body")
 
 		var/new_marking_colour = tgui_input_color(user, "Please select body marking colour.", "Character Generation", M.m_colours["body"])
-		if(new_marking_colour)
+		if(!isnull(new_marking_colour))
 			M.change_marking_color(new_marking_colour, "body")
 	//Tail markings.
 	if(M.dna.species.bodyflags & HAS_TAIL_MARKINGS)
 		var/list/valid_tail_markings = M.generate_valid_markings("tail")
 		var/new_marking = tgui_input_list("Please select tail marking style", "Character Generation", valid_tail_markings)
-		if(new_marking)
+		if(!isnull(new_marking))
 			M.change_markings(new_marking, "tail")
 
 		var/new_marking_colour = tgui_input_color(user, "Please select tail marking colour.", "Character Generation", M.m_colours["tail"])
-		if(new_marking_colour)
+		if(!isnull(new_marking_colour))
 			M.change_marking_color(new_marking_colour, "tail")
 
 	//Skin tone.
@@ -928,7 +928,7 @@
 	//Skin colour.
 	if(M.dna.species.bodyflags & HAS_SKIN_COLOR)
 		var/new_body_colour = tgui_input_color(user, "Please select body colour.", "Character Generation", M.skin_colour)
-		if(new_body_colour)
+		if(!isnull(new_body_colour))
 			M.change_skin_color(new_body_colour)
 
 	M.update_dna()

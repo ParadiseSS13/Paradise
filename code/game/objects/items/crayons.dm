@@ -292,6 +292,8 @@
 		return
 	if(href_list["color"])
 		var/temp = tgui_input_color(usr, "Please select crayon colour.", "Crayon colour")
+		if(isnull(temp))
+			return
 		colour = temp
 		update_window(usr)
 	else
@@ -327,6 +329,8 @@
 			..()
 		if("Change Color")
 			colour = tgui_input_color(user,"Please select a paint color.","Spray Can Color")
+			if(isnull(colour))
+				return
 			update_icon()
 
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)

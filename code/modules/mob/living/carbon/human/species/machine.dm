@@ -156,7 +156,7 @@
 		if(H.incapacitated(TRUE, TRUE))
 			to_chat(H, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
 			return
-		if(optic_colour)
+		if(!isnull(optic_colour))
 			H.change_markings(optic_colour, "head")
 
 	else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
@@ -183,7 +183,7 @@
 
 		if(new_style)
 			H.change_hair(new_style, 1)							// The 1 is to enable custom sprites
-		if(new_color)
+		if(!isnull(new_color))
 			H.change_hair_color(new_color)
 
 /datum/species/machine/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff, flags)

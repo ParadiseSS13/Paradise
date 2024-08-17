@@ -16,7 +16,7 @@
 			CRASH("We passed something that wasn't a user/client in a TGUI Input Color! The passed thing was [user]!")
 		var/client/client = user
 		user = client.mob
-	
+
 	if(isnull(user.client))
 		return
 
@@ -30,32 +30,6 @@
 	if(picker)
 		. = picker.choice
 		qdel(picker)
-
-/**
- * Creates an asynchronous TGUI color picker window with an associated callback.
- *
- * This proc should be used to create a color picker that invokes a callback with the user's chosen option.
- * Arguments:
- * * user - The user to show the picker to.
- * * title - The of the picker modal, shown on the top of the TGUI window.
- * * callback - The callback to be invoked when a choice is made.
- * * timeout - The timeout of the picker, after which the modal will close and qdel itself. Set to zero for no timeout.
- * * autofocus - The bool that controls if this picker should grab window focus.
- */
-/proc/tgui_input_color_async(mob/user, message, title, default = "#000000", datum/callback/callback, timeout = 0, autofocus = TRUE)
-	if(!user)
-		user = usr
-	if(!istype(user))
-		if(istype(user, /client))
-			var/client/client = user
-			user = client.mob
-		else
-			return
-	// Client does NOT have tgui_input on: Returns regular input
-	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
-		return input(user, message, title, default) as color|null
-	var/datum/async_input/picker = new(user, message, title, default, callback, timeout, autofocus)
-	picker.ui_interact(user)
 
 /**
  * tgui_input_color
@@ -89,7 +63,7 @@
 	src.title = title
 	src.default = default
 	src.message = message
-	
+
 	if(timeout)
 		src.timeout = timeout
 		start_time = world.time
@@ -122,15 +96,6 @@
 /datum/tgui_input_color/ui_state(mob/user)
 	return GLOB.always_state
 
-// /datum/tgui_input_color/ui_static_data(mob/user)
-// 	var/list/data = list()
-// 	data["autofocus"] = autofocus
-// 	data["large_buttons"] = !user.client?.prefs // || (user.client.prefs.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
-// 	data["swapped_buttons"] = !user.client?.prefs // || (user.client.prefs.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
-// 	data["title"] = title
-// 	data["default_color"] = default
-// 	data["message"] = message
-
 /datum/tgui_input_color/ui_static_data(mob/user)
 	. = list()
 	.["autofocus"] = autofocus
@@ -144,12 +109,6 @@
 	. = list()
 	if(timeout)
 		.["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))
-
-// /datum/tgui_input_color/ui_data(mob/user)
-// 	var/list/data = list()
-// 	if(timeout)
-// 		data["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))
-// 	return data
 
 /datum/tgui_input_color/ui_act(action, list/params)
 	. = ..()
