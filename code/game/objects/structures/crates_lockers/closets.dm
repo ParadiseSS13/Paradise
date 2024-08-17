@@ -358,7 +358,7 @@
 
 
 	spawn(0)
-		if(do_after(L,(breakout_time*60*10), target = src)) //minutes * 60seconds * 10deciseconds
+		if(do_after(L,(breakout_time*60*10), target = src, allow_moving = TRUE, allow_moving_target = TRUE)) //minutes * 60seconds * 10deciseconds
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				return
 
