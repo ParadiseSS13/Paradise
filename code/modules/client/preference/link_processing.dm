@@ -1025,10 +1025,10 @@
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
-						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [GLOB.configuration.afk.auto_cryo_minutes] minutes. \
+						to_chat(user, "<span class='notice'>You will now get put into cryo dorms after [GLOB.configuration.afk.auto_cryo_minutes] minutes. \
 								Then after [GLOB.configuration.afk.auto_despawn_minutes] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
 					else
-						to_chat(user, "<span class='info'>Automatic cryoing turned off.</span>")
+						to_chat(user, "<span class='notice'>Automatic cryoing turned off.</span>")
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")

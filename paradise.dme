@@ -24,9 +24,7 @@
 #include "code\__DEFINES\_protection.dm"
 #include "code\__DEFINES\_readme.dm"
 #include "code\__DEFINES\_spacemandmm.dm"
-// SS220 ADDITION START : MODPACK TOGGLING
 #include "code\__DEFINES\_ss220.dm"
-// SS220 ADDITION END
 #include "code\__DEFINES\_tgs_defines.dm"
 #include "code\__DEFINES\_tick.dm"
 #include "code\__DEFINES\_versions.dm"
@@ -508,6 +506,8 @@
 #include "code\datums\diseases\advance\symptoms\weight.dm"
 #include "code\datums\diseases\advance\symptoms\youth.dm"
 #include "code\datums\elements\_element.dm"
+#include "code\datums\elements\atmos_requirements.dm"
+#include "code\datums\elements\body_temperature.dm"
 #include "code\datums\elements\bombable_turf.dm"
 #include "code\datums\elements\earhealing.dm"
 #include "code\datums\elements\rad_insulation.dm"

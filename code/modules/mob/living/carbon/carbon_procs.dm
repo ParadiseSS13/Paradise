@@ -342,9 +342,9 @@
 		status_list += "<span class='danger'>You are bleeding!</span>"
 	if(staminaloss)
 		if(staminaloss > 30)
-			status_list += "<span class='info'>You're completely exhausted.</span>"
+			status_list += "<span class='notice'>You're completely exhausted.</span>"
 		else
-			status_list += "<span class='info'>You feel fatigued.</span>"
+			status_list += "<span class='notice'>You feel fatigued.</span>"
 
 	to_chat(src, chat_box_examine(status_list.Join("\n")))
 
@@ -355,7 +355,7 @@
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	. = ..()
 
-	if((E && (E.status & ORGAN_DEAD)) || !. || E.is_broken())
+	if((E?.status & ORGAN_DEAD) || E?.is_broken() || !.)
 		return FALSE
 
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
@@ -1206,14 +1206,13 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/update_tint()
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/blind)
-		ADD_TRAIT(src, TRAIT_BLIND, "tint")
+		become_blind("tint")
 	else if(tinttotal >= TINT_IMPAIR)
 		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/impaired, 2)
-		REMOVE_TRAIT(src, TRAIT_BLIND, "tint")
+		cure_blind("tint")
 	else
 		clear_fullscreen("tint", 0)
-		REMOVE_TRAIT(src, TRAIT_BLIND, "tint")
+		cure_blind("tint")
 
 /mob/living/carbon/proc/get_total_tint()
 	. = 0

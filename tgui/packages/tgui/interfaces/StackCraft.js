@@ -5,7 +5,7 @@ import { createSearch } from 'common/string';
 import { Window } from '../layouts';
 import { Box, Section, NoticeBox, Collapsible, Input, ImageButton, Button } from '../components';
 
-export const StackCraft220 = (props, context) => {
+export const StackCraft = () => {
   return (
     <Window width={350} height={500}>
       <Window.Content>
@@ -20,30 +20,27 @@ const Recipes = (props, context) => {
   const { amount, recipes } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
-  const filteredRecipes = filterRecipeList(
-    recipes,
-    createSearch(searchText, (item) => item)
-  );
+  const filteredRecipes = filterRecipeList(recipes, createSearch(searchText));
   const [searchActive, setSearchActive] = useLocalState(context, '', false);
 
   return (
     <Section
       fill
       scrollable
-      title={'Количество: ' + amount}
+      title={'Amount: ' + amount}
       buttons={
         <>
           {searchActive && (
             <Input
               width={12.5}
               value={searchText}
-              placeholder={'Найти рецепт'}
+              placeholder={'Find recipe'}
               onInput={(e, value) => setSearchText(value)}
             />
           )}
           <Button
             ml={0.5}
-            tooltip="Поиск"
+            tooltip="Search"
             tooltipPosition="bottom-end"
             icon="magnifying-glass"
             selected={searchActive}
@@ -201,19 +198,9 @@ const RecipeBox = (props, context) => {
   const { result_amount, required_amount, max_result_amount, uid, image } = recipe;
 
   const resAmountLabel = result_amount > 1 ? `${result_amount}x ` : '';
-
-  const sheetSuffix = ((number) => {
-    if (number % 10 === 1 && number % 100 !== 11) {
-      return 'лист';
-    } else if (number % 10 >= 2 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) {
-      return 'листа';
-    } else {
-      return 'листов';
-    }
-  })(required_amount);
-
+  const sheetSuffix = required_amount > 1 ? 's' : '';
   const buttonName = `${resAmountLabel}${title}`;
-  const tooltipContent = `${required_amount} ${sheetSuffix}`;
+  const tooltipContent = `${required_amount} sheet${sheetSuffix}`;
 
   const max_possible_multiplier = calculateMultiplier(recipe, amount);
 

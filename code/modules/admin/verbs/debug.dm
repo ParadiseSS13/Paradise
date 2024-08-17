@@ -927,7 +927,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		to_chat(src, "<span class='warning'>You can only use this on 516!</span>")
 		return
 
-	to_chat(src, "<span class='info'>You can now right click to use inspect on browsers.</span>")
+	to_chat(src, "<span class='notice'>You can now right click to use inspect on browsers.</span>")
 	winset(src, "", "browser-options=byondstorage,find,devtools")
 
 /client/proc/cmd_clean_radiation()

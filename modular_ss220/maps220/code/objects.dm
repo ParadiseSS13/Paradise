@@ -124,7 +124,7 @@
 /obj/structure/shuttle/engine/large
 	name = "engine"
 	opacity = 1
-	icon = 'modular_ss220/maps220/icons/2x2.dmi'
+	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
 	desc = "A very large bluespace engine used to propel very large ships."
 //	bound_width = 64
@@ -179,8 +179,6 @@
 	icon_closed = "tac"
 	icon_opened = "tac_open"
 	open_door_sprite = "syndicate_door"
-
-
 
 /obj/structure/closet/secure_closet/syndicate/medbay/populate_contents()
 	new /obj/item/storage/backpack/duffel/syndie/med/surgery

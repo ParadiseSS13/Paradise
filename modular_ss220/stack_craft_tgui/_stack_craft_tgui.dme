@@ -1,5 +1,0 @@
-#include "_stack_craft_tgui.dm"
-
-#include "code/stack.dm"
-#include "code/stack_ui.dm"
-#include "code/stack_recipe.dm"
