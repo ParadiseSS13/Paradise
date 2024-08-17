@@ -2,7 +2,7 @@
 /datum/wires/mech
 	holder_type = /obj/mecha
 	wire_count = 12 // 8 actual, 4 duds
-	proper_name = "Mecha wiring"
+	proper_name = "Mecha"
 
 /datum/wires/mech/New(atom/_holder)
 	wires = list(WIRE_MECH_DIRECTION, WIRE_MECH_DNA, WIRE_MECH_POWER , WIRE_MECH_SELECT_MODULE, WIRE_MECH_STRAFE, WIRE_MECH_USE_MODULE, WIRE_MECH_WALK, WIRE_MECH_RADIO , WIRE_MECH_VISUALDATA)
@@ -63,6 +63,9 @@
 	switch(wire)
 		if(WIRE_MECH_DIRECTION)
 			A.mechturn(pick(NORTH, SOUTH , EAST, WEST, SOUTHEAST , SOUTHWEST, NORTHEAST, NORTHWEST))
+			return
+		if(WIRE_MECH_DNA)
+			A.dna = null
 			return
 		if(WIRE_MECH_POWER)
 			return
