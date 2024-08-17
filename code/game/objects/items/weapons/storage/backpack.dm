@@ -70,10 +70,9 @@
 			user.visible_message("<span class='warning'>[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
 			if(do_after(user, 30, target=src))
 				if(GLOB.disable_explosions)
-					if(istype(user, /mob/living/carbon/human))
+					if(istype(user))
 						to_chat(user, "<span class='userdanger'>You seem to stuff yourself into the quantum hellscape between the two bags. That wasn't wise.</span>")
-						var/mob/living/carbon/human/H = user
-						H.gib()
+						user.gib()
 
 					return
 
