@@ -880,7 +880,8 @@
 		/obj/item/clothing/head/beret/eng = 2,
 		/obj/item/clothing/head/beret/atmos = 2,
 		/obj/item/clothing/head/beret/cargo = 2,
-		/obj/item/clothing/head/beret/black = 2,
-	)
+		/obj/item/clothing/head/beret/black = 2)
+
 	prices = list()
+
 	refill_canister = /obj/item/vending_refill/traindrobe
