@@ -1,18 +1,12 @@
-/obj/effect/spawner/random/trash
+/// Food trash spawner, for when you specifically want it to look like someone
+/// didn't clean up after themselves after lunch.
+/obj/effect/spawner/random/food_trash
 	icon = 'icons/effects/random_spawners.dmi'
-	icon_state = "trash"
+	icon_state = "tray"
 
-	name = "Trash spawner"
+	name = "Food trash spawner"
 	loot = list(
-		/obj/item/ammo_casing/c10mm,
-		/obj/item/broken_bottle,
-		/obj/item/cigbutt,
-		/obj/item/cigbutt/roach,
-		/obj/item/flashlight/flare/glowstick/used,
-		/obj/item/flashlight/flare/used,
-		/obj/item/paper/crumpled,
 		/obj/item/reagent_containers/glass/beaker/waterbottle/empty,
-		/obj/item/shard,
 		/obj/item/trash/bowl,
 		/obj/item/trash/candle,
 		/obj/item/trash/candy,
@@ -30,13 +24,32 @@
 		/obj/item/trash/snack_bowl,
 		/obj/item/trash/sosjerky,
 		/obj/item/trash/spacetwinkie,
-		/obj/item/trash/spentcasing,
 		/obj/item/trash/syndi_cakes,
-		/obj/item/trash/tapetrash,
 		/obj/item/trash/tastybread,
 		/obj/item/trash/tray,
 		/obj/item/trash/twimsts,
 		/obj/item/trash/waffles,
+	)
+
+/obj/effect/spawner/random/trash
+	icon = 'icons/effects/random_spawners.dmi'
+	icon_state = "trash"
+
+	name = "Trash spawner"
+	loot = list(
+		// Include food trash
+		/obj/effect/spawner/random/food_trash = 5,
+
+		/obj/item/ammo_casing/c10mm,
+		/obj/item/broken_bottle,
+		/obj/item/cigbutt,
+		/obj/item/cigbutt/roach,
+		/obj/item/flashlight/flare/glowstick/used,
+		/obj/item/flashlight/flare/used,
+		/obj/item/paper/crumpled,
+		/obj/item/shard,
+		/obj/item/trash/spentcasing,
+		/obj/item/trash/tapetrash,
 	)
 
 	// TODO: Random spawner scatter behavior doesn't work well with items in
