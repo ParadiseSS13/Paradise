@@ -400,11 +400,10 @@
 	l_ear = /obj/item/radio/headset/headset_nct
 	id = /obj/item/card/id/nct
 	l_pocket = /obj/item/card/id/nct_data_chip
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/flash
 	pda = /obj/item/pda/heads/ntrep
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
-		/obj/item/flash = 1,
 		/obj/item/pinpointer/crew = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/laser_pointer/blue = 1

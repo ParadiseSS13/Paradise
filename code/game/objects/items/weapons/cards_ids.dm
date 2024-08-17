@@ -1112,8 +1112,14 @@
 		var/obj/item/card/id/I = O
 		if(isliving(user) && user.mind)
 			if(user.mind.current == registered_user)
+				if(istype(O, /obj/item/card/id/ert))
+					to_chat(usr, "<span class='warning'>The chip's screen blink red as you attempt scanning this ID.</span>")
+					return
 				to_chat(usr, "<span class='notice'>The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access.</span>")
 				src.access = I.access
+				access.Remove(ACCESS_AI_UPLOAD, ACCESS_ARMORY, ACCESS_CAPTAIN, ACCESS_CE, ACCESS_RD, ACCESS_HOP, ACCESS_QM, ACCESS_CMO, ACCESS_HOS, ACCESS_NTREP,
+									ACCESS_MAGISTRATE, ACCESS_BLUESHIELD, ACCESS_HEADS_VAULT, ACCESS_KEYCARD_AUTH, ACCESS_RC_ANNOUNCE,
+									ACCESS_CHANGE_IDS, ACCESS_MINISAT)
 				trainee = I.registered_name
 				icon_state = "nct_chip_active"
 			else
