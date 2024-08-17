@@ -16,8 +16,13 @@
 	else if(href_list["skip_antag"])
 		client << output(client.skip_antag, "title_browser:skip_antag")
 
+	else if(href_list["char_preferences"])
+		client.prefs.current_tab = TAB_CHAR
+		client.prefs.ShowChoices(user)
+
 	else if(href_list["game_preferences"])
-		client.setup_character()
+		client.prefs.current_tab = TAB_GAME
+		client.prefs.ShowChoices(user)
 
 	else if(href_list["change_picture"])
 		client.admin_change_title_screen()

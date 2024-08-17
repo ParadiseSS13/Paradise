@@ -85,7 +85,7 @@
 	html += {"
 		<hr>
 		<a class="menu_button [viewer.skip_antag ? "bad" : "good"]" id="be_antag" href='byond://?src=[player.UID()];skip_antag=1'>[viewer.skip_antag ? "Антагонисты: Выкл." : "Антагонисты: Вкл."]</a>
-		<a class="menu_button" href='byond://?src=[player.UID()];show_preferences=1'>Настройка персонажа</a>
+		<a class="menu_button" href='byond://?src=[player.UID()];char_preferences=1'>Настройка персонажа</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];game_preferences=1'>Настройки игры</a>
 		<hr>
 	"}
