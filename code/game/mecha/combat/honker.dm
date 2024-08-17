@@ -15,6 +15,7 @@
 	add_req_access = 0
 	max_equip = 3
 	starting_voice = /obj/item/mecha_modkit/voice/honk
+	strafing_flags = MECH_STRAFING_BACKWARDS | MECH_STRAFING_SIDEWAYS
 
 /obj/mecha/combat/honker/Initialize(mapload)
 	. = ..()

@@ -12,6 +12,7 @@
 	infra_luminosity = 8
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
+	strafing_flags = MECH_STRAFING_BACKWARDS
 
 /obj/mecha/combat/durand/GrantActions(mob/living/user, human_occupant = 0)
 	..()

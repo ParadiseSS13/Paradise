@@ -624,12 +624,12 @@
 	construction_time = 15 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_meson
+/datum/design/mech_nightvision
 	name = "Exosuit Equipment (Mounted night vision scanner)"
 	id = "mech_mesonscanner"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/vision/nightvision
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 2400, MAT_PLASMA = 1500, MAT_URANIUM = 3000)
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 2400, MAT_PLASMA = 1500, MAT_URANIUM = 1500)
 	construction_time = 15 SECONDS
 	category = list("Exosuit Equipment")
 

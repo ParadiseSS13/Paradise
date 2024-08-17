@@ -19,6 +19,7 @@
 	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
 	destruction_sleep_duration = 2 SECONDS
 	emag_proof = TRUE //no stealing CC mechs.
+	strafing_flags = MECH_STRAFING_BACKWARDS | MECH_STRAFING_SIDEWAYS
 
 /obj/mecha/combat/marauder/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
