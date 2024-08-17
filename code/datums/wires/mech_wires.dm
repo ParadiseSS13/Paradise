@@ -5,7 +5,7 @@
 	proper_name = "Mecha wiring"
 
 /datum/wires/mech/New(atom/_holder)
-	wires = list(WIRE_MECH_DIRECTION, WIRE_MECH_POWER , WIRE_MECH_SELECT_MODULE, WIRE_MECH_STRAFE, WIRE_MECH_USE_MODULE, WIRE_MECH_WALK, WIRE_MECH_RADIO , WIRE_MECH_VISUALDATA)
+	wires = list(WIRE_MECH_DIRECTION, WIRE_MECH_DNA, WIRE_MECH_POWER , WIRE_MECH_SELECT_MODULE, WIRE_MECH_STRAFE, WIRE_MECH_USE_MODULE, WIRE_MECH_WALK, WIRE_MECH_RADIO , WIRE_MECH_VISUALDATA)
 	return ..()
 
 /datum/wires/mech/interactable(mob/user)
@@ -16,7 +16,6 @@
 
 /datum/wires/mech/get_status()
 	. = ..()
-	var/obj/mecha/A = holder
 	. += "The high-voltage power indicator blinks [is_cut(WIRE_MECH_POWER) ? "red" : "green"]"
 	. += "The module selection data-bus indicator is [is_cut(WIRE_MECH_SELECT_MODULE) ? "off" : "on"]"
 	. += "The strafe CPU data-bus light is [is_cut(WIRE_MECH_STRAFE) ? "not blinking" : "blinking"]"
@@ -25,8 +24,7 @@
 	. += "The internal gyroscope-direction assembly wire is [is_cut(WIRE_MECH_DIRECTION) ? "cut" : "intact"]"
 	. += "The wire leading to the mech actuators is [is_cut(WIRE_MECH_WALK) ? "cut" : "intact"]"
 	. += "The wire leading to the internal display screens is [is_cut(WIRE_MECH_VISUALDATA) ? "cut" : "intact"]"
-	// DNA wire is special.
-	. += "The DNA lock light is [A.dna_cut ? "blinking red" : "showing green"]"
+	. += "The DNA lock light is [is_cut(WIRE_MECH_DNA) ? "blinking red" : "showing green"]"
 
 /datum/wires/mech/on_cut(wire, mend)
 	var/obj/mecha/A = holder

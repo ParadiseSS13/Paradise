@@ -391,7 +391,7 @@
 		if(occupant && !iscarbon(occupant))
 			to_chat(occupant, "<span class='danger'>You do not have any DNA!</span>")
 			return
-		if(dna_cut)
+		if(internal_wiring.is_cut(WIRE_MECH_DNA))
 			to_chat(occupant, "<span class='danger'>Error communicating with DNA machinery!</span>")
 			return
 		dna = occupant.dna.unique_enzymes
@@ -399,7 +399,7 @@
 		return
 	if(href_list["reset_dna"])
 		if(usr != occupant)	return
-		if(dna_cut)
+		if(internal_wiring.is_cut(WIRE_MECH_DNA))
 			to_chat(occupant, "<span class='danger'>Error communicating with DNA machinery!</span>")
 			return
 		dna = null

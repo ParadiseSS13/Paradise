@@ -15,6 +15,8 @@
 #define WIRE_MECH_POWER "Mech power supply"
 /// Walks foward
 #define WIRE_MECH_WALK "Mech walk"
+/// DNA wire
+#define WIRE_MECH_DNA "Wire DNA"
 /// Random direction
 #define WIRE_MECH_DIRECTION "Mech direction"
 /// Toggles strafing

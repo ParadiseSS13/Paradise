@@ -21,5 +21,14 @@
 #define MECHA_OPEN_HATCH        3
 #define MECHA_BATTERY_UNSCREW   4
 
+/// Defines for mecha panel dismantling states
+#define MECHA_PANEL_0 "untarnished"
+#define MECHA_PANEL_1 "welded1" // welder
+#define MECHA_PANEL_2 "crowbared1" // crowbar
+#define MECHA_PANEL_3 "welded2" // welder
+#define MECHA_PANEL_4 "crowbared2" // crowbar
+#define MECHA_PANEL_5 "wirecutter" // wirecutter
+#define MECHA_PANEL_6 "opened"
+
 #define MECH_STRAFING_BACKWARDS (1<<0)
 #define MECH_STRAFING_SIDEWAYS (1<<1)
