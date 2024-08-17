@@ -95,7 +95,7 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype: ['/datum/map/boxstation', '/datum/map/deltastation', '/datum/map/metastation', '/datum/map/cerestation']
+        maptype: ['/datum/map/boxstation', '/datum/map/deltastation', '/datum/map/metastation', '/datum/map/cerestation', '/datum/map/emeraldstation']
         byondtype: ['STABLE']
     services:
       mariadb:
