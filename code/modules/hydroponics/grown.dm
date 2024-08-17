@@ -211,7 +211,7 @@
 	set_light(0)
 
 /obj/item/food/grown/proc/send_plant_details(mob/user)
-	var/msg = "<span class='info'>This is \a </span><span class='name'>[src].</span>\n"
+	var/msg = "<span class='notice'>This is \a </span><span class='name'>[src].</span>\n"
 	if(seed)
 		msg += seed.get_analyzer_text()
 	var/reag_txt = ""
@@ -219,7 +219,7 @@
 		for(var/reagent_id in seed.reagents_add)
 			var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 			var/amt = reagents.get_reagent_amount(reagent_id)
-			reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
+			reag_txt += "\n<span class='notice'>- [R.name]: [amt]</span>"
 
 	if(reag_txt)
 		msg += reag_txt

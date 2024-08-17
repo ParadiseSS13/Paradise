@@ -8,9 +8,8 @@
 "ci" = (
 /obj/machinery/door/airlock,
 /obj/structure/fans/tiny,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "cx" = (
 /turf/simulated/floor/plasteel{
@@ -76,17 +75,15 @@
 /area/ruin/space/powered)
 "gP" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "gY" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "hB" = (
 /turf/simulated/floor/plasteel,
@@ -246,9 +243,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Cq" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "Cw" = (
 /obj/structure/disposalpipe/trunk{

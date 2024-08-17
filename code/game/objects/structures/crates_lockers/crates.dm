@@ -597,9 +597,9 @@
 
 /obj/structure/closet/crate/surplus
 
-/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost)
+/obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost, mob/user)
 	. = ..()
-	var/list/temp_uplink_list = get_uplink_items(U)
+	var/list/temp_uplink_list = get_uplink_items(U, user)
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
@@ -678,3 +678,24 @@
 	log_admin(msg)
 
 #undef RECURSION_PANIC_AMOUNT
+
+/obj/structure/closet/crate/secure/sec_shuttle_ruin
+	name = "locked crate"
+	desc = "The side of the crate has a slot for a keycard to be swiped."
+	can_be_emaged = FALSE
+
+/obj/structure/closet/crate/secure/sec_shuttle_ruin/allowed(mob/user)
+	if(!user)
+		return
+
+	var/obj/item/card/sec_shuttle_ruin/keycard = user.get_active_hand()
+	if(!istype(keycard))
+		return
+
+	to_chat(user, "<span class='notice'>You swipe [keycard] in [src]'s keycard slot.</span>")
+	return TRUE
+
+/obj/item/card/sec_shuttle_ruin
+	name = "warden's card"
+	desc = "A card used by the warden to unlock their crate."
+	icon_state = "data"
