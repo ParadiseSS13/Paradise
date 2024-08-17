@@ -624,11 +624,17 @@
 #define ROUND_END_CREW_TRANSFER 2
 #define ROUND_END_FORCED 3
 
-#define TS_INFESTATION_GREEN_SPIDER 1
-#define TS_INFESTATION_PRINCE_SPIDER 2
-#define TS_INFESTATION_WHITE_SPIDER 3
-#define TS_INFESTATION_PRINCESS_SPIDER 4
-#define TS_INFESTATION_QUEEN_SPIDER 5
+// These used to be integer values but they were never used numerically or even
+// stored in SSblackbox using their numeric values, and constantly converting
+// them to the actual terror name was redundant and annoying
+#define TS_INFESTATION_GREEN_SPIDER		"Green Terrors"
+#define TS_INFESTATION_PRINCE_SPIDER	"Prince Terror"
+#define TS_INFESTATION_WHITE_SPIDER		"White Terrors"
+#define TS_INFESTATION_PRINCESS_SPIDER	"Princess Terrors"
+#define TS_INFESTATION_QUEEN_SPIDER		"Queen Terrors"
+
+#define BIOHAZARD_BLOB	"Blob"
+#define BIOHAZARD_XENO	"Xenomorphs"
 
 #define MAX_ALLOWED_TELEPORTS_PER_PROCESS 20
 

@@ -59,9 +59,11 @@ $bg-map: colors.$bg-map !default;
   user-select: none;
   -ms-user-select: none;
   margin-bottom: 0.5em;
+  user-select: none;
+  -ms-user-select: none;
 
   &:last-child {
-    margin-bottom: 0.4em;
+    margin-bottom: 0;
   }
 }
 
