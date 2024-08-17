@@ -1097,7 +1097,7 @@
 
 /obj/item/card/id/nct_data_chip/attack_self(mob/user as mob)
 	if(trainee)
-		switch(alert(user,"Would you like to remove [trainee] as your current active Trainee?","Choose","Yes","No"))
+		switch(tgui_alert(user, "Would you like to remove [trainee] as your current active Trainee?", "Choose", list("Yes", "No")))
 			if("Yes")
 				trainee = null
 				icon_state = "nct_chip"
