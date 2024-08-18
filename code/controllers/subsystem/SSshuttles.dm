@@ -38,6 +38,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/custom_escape_shuttle_loading = FALSE
 	/// Whether or not a shuttle is currently being loaded at the template landmark, if it exists.
 	var/loading_shuttle_at_preview_template = FALSE
+	/// Have we locked in the emergency shuttle, to prevent people from breaking things / wasting player money?
+	var/emergency_locked_in = FALSE
 
 /datum/controller/subsystem/shuttle/Initialize()
 	if(!emergency)
@@ -246,7 +248,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/get_dock_overlap(x0, y0, x1, y1, z)
 	. = list()
 	var/list/stationary_cache = stationary
-	for(var/i in 1 to stationary_cache.len)
+	for(var/i in 1 to length(stationary_cache))
 		var/obj/docking_port/port = stationary_cache[i]
 		if(!port || port.z != z)
 			continue
@@ -254,7 +256,7 @@ SUBSYSTEM_DEF(shuttle)
 		var/list/overlap = get_overlap(x0, y0, x1, y1, bounds[1], bounds[2], bounds[3], bounds[4])
 		var/list/xs = overlap[1]
 		var/list/ys = overlap[2]
-		if(xs.len && ys.len)
+		if(length(xs) && length(ys))
 			.[port] = overlap
 
 /datum/controller/subsystem/shuttle/proc/update_hidden_docking_ports(list/remove_turfs, list/add_turfs)
@@ -272,7 +274,7 @@ SUBSYSTEM_DEF(shuttle)
 		for(var/V in add_turfs)
 			var/turf/T = V
 			var/image/I
-			if(remove_images.len)
+			if(length(remove_images))
 				//we can just reuse any images we are about to delete instead of making new ones
 				I = remove_images[1]
 				remove_images.Cut(1, 2)
@@ -315,6 +317,8 @@ SUBSYSTEM_DEF(shuttle)
 	// load shuttle template, centred at shuttle import landmark,
 	if(loading_shuttle_at_preview_template)
 		CRASH("A shuttle was already loading at the preview template when another was loaded")
+
+	S.preload()
 
 	loading_shuttle_at_preview_template = TRUE
 	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import"))
@@ -377,6 +381,8 @@ SUBSYSTEM_DEF(shuttle)
 		timer = emergency.timer
 		mode = emergency.mode
 		dock = emergency.get_docked()
+		if(!dock) //lance moment
+			dock = getDock("emergency_away")
 	else
 		dock = loaded_shuttle.findRoundstartDock()
 

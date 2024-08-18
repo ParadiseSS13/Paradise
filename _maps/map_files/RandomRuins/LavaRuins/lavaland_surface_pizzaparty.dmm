@@ -11,69 +11,41 @@
 /area/lavaland/surface/outdoors)
 "d" = (
 /turf/simulated/wall,
-/area/ruin/unpowered/misc_lavaruin)
+/area/ruin/powered/pizza_party)
 "e" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/powered/pizza_party)
 "f" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/cups,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "g" = (
 /obj/structure/reagent_dispensers/water_cooler/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "h" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "i" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "j" = (
-/obj/item/food/snacks/mushroompizzaslice,
+/obj/item/food/mushroompizzaslice,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/powered/pizza_party)
 "k" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "l" = (
 /obj/machinery/light{
 	dir = 4
@@ -82,57 +54,33 @@
 /obj/effect/spawner/lootdrop/pizzaparty,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "m" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/powered/pizza_party)
 "n" = (
 /obj/structure/glowshroom,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "o" = (
 /obj/item/trash/plate,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "p" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "q" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "r" = (
 /obj/structure/chair/wood/wings,
 /obj/effect/decal/remains/human,
@@ -140,36 +88,20 @@
 	desc = "A festive party hat with the name 'timmy' scribbled on the front.";
 	name = "party hat"
 	},
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "s" = (
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "t" = (
 /obj/structure/chair/wood/wings,
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "u" = (
 /obj/structure/glowshroom,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "v" = (
 /obj/structure/lattice,
 /obj/item/chair/wood/wings,
@@ -178,161 +110,93 @@
 "w" = (
 /obj/item/kitchen/utensil/fork,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "x" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/pizzaparty,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "y" = (
 /obj/structure/table/wood,
 /obj/item/trash/plate,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "z" = (
 /obj/structure/table/wood,
 /obj/structure/glowshroom,
 /obj/item/a_gift,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "A" = (
 /obj/structure/table/wood,
 /obj/item/trash/plate,
 /obj/item/kitchen/utensil/fork,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "B" = (
 /obj/effect/baseturf_helper/lava/mapping_lava,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "C" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/powered/pizza_party)
 "D" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/margheritapizzaslice,
+/obj/item/food/margheritapizzaslice,
 /obj/item/trash/plate,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "E" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/meatpizzaslice,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/obj/item/food/meatpizzaslice,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "F" = (
 /obj/structure/table/wood,
-/obj/item/food/snacks/sliceable/birthdaycake,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/obj/item/food/sliceable/birthdaycake,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "G" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "H" = (
 /obj/item/chair/wood/wings,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "I" = (
 /obj/item/kitchen/utensil/fork,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/powered/pizza_party)
 "J" = (
 /obj/structure/glowshroom,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/powered/pizza_party)
 "K" = (
 /obj/structure/chair/wood/wings{
 	dir = 1
 	},
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "L" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/powered/pizza_party)
 "M" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/a_gift,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "N" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
@@ -341,30 +205,18 @@
 "O" = (
 /obj/item/kitchen/knife,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "P" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/powered/pizza_party)
 "Q" = (
-/turf/simulated/floor/plating{
-	nitrogen = 14;
-	oxygen = 8;
-	temperature = 500
-	},
-/area/ruin/unpowered/misc_lavaruin)
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/powered/pizza_party)
 
 (1,1,1) = {"
 a

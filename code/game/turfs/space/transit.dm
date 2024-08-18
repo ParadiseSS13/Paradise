@@ -1,6 +1,8 @@
 /turf/space/transit
 	var/pushdirection // push things that get caught in the transit tile this direction
 	plane = PLANE_SPACE
+	icon_state = "black"
+	dir = SOUTH
 
 //Overwrite because we dont want people building rods in space.
 /turf/space/transit/attackby(obj/O as obj, mob/user as mob, params)
@@ -107,10 +109,6 @@
 	icon_state = "speedspace_ew_15"
 //-tg- stuff
 
-/turf/space/transit
-	icon_state = "black"
-	dir = SOUTH
-
 /turf/space/transit/horizontal
 	dir = WEST
 
@@ -146,10 +144,6 @@
 
 
 /turf/space/transit/rpd_act()
-	return
-
-//Overwrite because we dont want people building rods in space.
-/turf/space/transit/attackby()
 	return
 
 /turf/space/transit/Initialize(mapload)

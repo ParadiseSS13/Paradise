@@ -23,9 +23,12 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 /datum/dna
 	// READ-ONLY, GETS OVERWRITTEN
 	// DO NOT FUCK WITH THESE OR BYOND WILL EAT YOUR FACE
-	var/uni_identity = "" // Encoded UI
-	var/struc_enzymes = "" // Encoded SE
-	var/unique_enzymes = "" // MD5 of player name
+	/// Encoded UI
+	var/uni_identity = ""
+	/// Encoded SE
+	var/struc_enzymes = ""
+	/// MD5 of player name
+	var/unique_enzymes = ""
 
 	// Original Encoded SE, for use with Ryetalin
 	var/struc_enzymes_original = "" // Encoded SE
@@ -41,11 +44,16 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/list/UI[DNA_UI_LENGTH]
 
 	// From old dna.
-	var/blood_type = "A+"  // Should probably change to an integer => string map but I'm lazy.
-	var/real_name          // Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
-
-	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
-	var/list/default_blocks = list() //list of all blocks toggled at roundstart
+	/// The blood type of the mob.
+	var/blood_type = "A+"
+	/// Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
+	var/real_name
+	/// The type of mutant race the player is if applicable (i.e. potato-man)
+	var/datum/species/species = new /datum/species/human
+	/// list of all blocks toggled at roundstart
+	var/list/default_blocks = list()
+	/// The flavor text of the person. We store this here for polymorph and changelings.
+	var/flavor_text
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -57,6 +65,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	new_dna.blood_type = blood_type
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
+	new_dna.flavor_text = flavor_text
 
 	for(var/b = 1; b <= DNA_SE_LENGTH; b++)
 		new_dna.SE[b]=SE[b]
@@ -126,15 +135,21 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
-	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		GLOB.marking_styles_list.len,		1)
-	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		GLOB.marking_styles_list.len,		1)
-	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		GLOB.marking_styles_list.len,		1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(GLOB.marking_styles_list),		1)
 
 	SetUIValueRange(DNA_UI_PHYSIQUE, GLOB.character_physiques.Find(character.physique),	length(GLOB.character_physiques), 1)
 	SetUIValueRange(DNA_UI_HEIGHT, GLOB.character_heights.Find(character.height),	length(GLOB.character_heights), 1)
 
 	var/list/bodyacc = GLOB.body_accessory_by_name.Find(character.body_accessory?.name || "None")
 	SetUIValueRange(DNA_UI_BACC_STYLE, bodyacc, length(GLOB.body_accessory_by_name), 1)
+
+	switch(character.body_type)
+		if(FEMALE)
+			SetUIState(DNA_UI_BODY_TYPE, DNA_GENDER_FEMALE, TRUE)
+		if(MALE)
+			SetUIState(DNA_UI_BODY_TYPE, DNA_GENDER_MALE, TRUE)
 
 	//Set the Gender
 	switch(character.gender)
@@ -393,7 +408,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 //  Just checks our character has all the crap it needs.
 /datum/dna/proc/check_integrity(mob/living/carbon/human/character)
 	if(character)
-		if(UI.len != DNA_UI_LENGTH)
+		if(length(UI) != DNA_UI_LENGTH)
 			ResetUIFrom(character)
 
 		if(length(struc_enzymes)!= 3 * DNA_SE_LENGTH)
@@ -433,6 +448,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	// Because old DNA coders were insane or something
 	data["blood_type"] = blood_type
 	data["real_name"] = real_name
+	data["flavor_text"] = flavor_text
 	return data
 
 /datum/dna/deserialize(data)
@@ -446,6 +462,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	species = new S
 	blood_type = data["blood_type"]
 	real_name = data["real_name"]
+	flavor_text = data["flavor_text"]
 
 /datum/dna/proc/transfer_identity(mob/living/carbon/human/destination)
 	if(!istype(destination))

@@ -10,17 +10,19 @@
 	anchored = TRUE
 	max_integrity = 200
 
+/obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/I)
+	if(!I.tool_use_check(user, 0))
+		return FALSE
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+		return TRUE
+	TOOL_DISMANTLE_SUCCESS_MESSAGE
+	deconstruct(TRUE)
+	return TRUE
+
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
-	if(istype(I, /obj/item/wrench))
-		if(!I.tool_use_check(user, 0))
-			return
-		TOOL_ATTEMPT_DISMANTLE_MESSAGE
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
-			return
-		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		deconstruct(TRUE)
-	else if(istype(I, /obj/item/stack/rods))
+	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
 			R.use(4)
@@ -68,20 +70,21 @@
 		..()
 
 /obj/structure/kitchenspike/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/crowbar))
-		if(!has_buckled_mobs())
-			playsound(loc, I.usesound, 100, 1)
-			if(do_after(user, 20 * I.toolspeed, target = src))
-				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
-				deconstruct(TRUE)
-		else
-			to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
-		return
-	else if(istype(I, /obj/item/grab))
+	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(G.affecting && isliving(G.affecting))
 			start_spike(G.affecting, user)
 	return ..()
+
+/obj/structure/kitchenspike/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(has_buckled_mobs())
+		to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
+		return
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
+	deconstruct(TRUE)
 
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
 	if(!user.Adjacent(src) || !user.Adjacent(victim) || isAI(user) || !ismob(victim))

@@ -77,9 +77,14 @@
 /mob/dead/observer/MiddleShiftControlClickOn(atom/A)
 	return
 
-/atom/proc/attack_ghost(mob/user)
+/atom/proc/attack_ghost(mob/dead/observer/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the health_scan var.
+		return FALSE
+	if(user.client)
+		if(user.gas_scan && atmos_scan(user=user, target=src, silent=TRUE))
+			return TRUE
 
 // health + machine analyzer for ghosts
 /mob/living/attack_ghost(mob/dead/observer/user)
@@ -102,18 +107,3 @@
 		var/obj/machinery/computer/teleporter/com = S.teleporter_console
 		if(com && com.target)
 			user.forceMove(get_turf(com.target))
-
-/obj/effect/portal/attack_ghost(mob/user as mob)
-	if(target)
-		user.forceMove(get_turf(target))
-
-/obj/machinery/atmospherics/attack_ghost(mob/dead/observer/user)
-	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle gas analyzer var.
-		return
-	if(user.gas_analyzer)
-		if(istype(src, /obj/machinery/atmospherics/pipe))
-			var/obj/machinery/atmospherics/pipe/T = src
-			atmosanalyzer_scan(T.parent.air, user, T)
-		else if(istype(src, /obj/machinery/atmospherics/unary))
-			var/obj/machinery/atmospherics/unary/T = src
-			atmosanalyzer_scan(T.air_contents, user, T)

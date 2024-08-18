@@ -121,9 +121,9 @@
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "epsilonalert"
 	lowering_to_announcement_title = "Attention! Epsilon security level activated!"
-	lowering_to_announcement_text = "Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated."
+	lowering_to_announcement_text = "Central Command has ordered the Epsilon security level on the station."
 	elevating_to_announcement_title = "Attention! Epsilon security level activated!"
-	elevating_to_announcement_text = "Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated."
+	elevating_to_announcement_text = "Central Command has ordered the Epsilon security level on the station. Nanotrasen Representative, please prepare to abandon station. Consider all contracts terminated."
 
 /datum/security_level/epsilon/pre_change()
 	sound_to_playing_players_on_station_level(S = sound('sound/effects/powerloss.ogg'))
@@ -142,4 +142,4 @@
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "deltaalert"
 	elevating_to_announcement_title = "Attention! Delta security level reached!"
-	elevating_to_announcement_text = "The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
+	elevating_to_announcement_text = "The station's self-destruct mechanism has been engaged. All crew are instructed to abandon the station immediately. This is not a drill."

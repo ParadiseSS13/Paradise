@@ -26,7 +26,6 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS | HAS_BODYACC_COLOR | SHAVED | BALD
 	dietflags = DIET_HERB
-	has_gender = FALSE
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#a598ad"
 	blood_color = "#A200FF"
@@ -90,6 +89,4 @@
 
 /datum/species/grey/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-	if(E)
-		return E.eye_color
-	return flesh_color
+	return E ? E.eye_color : flesh_color

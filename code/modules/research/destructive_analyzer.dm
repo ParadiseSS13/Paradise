@@ -49,6 +49,9 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 
 /obj/machinery/r_n_d/destructive_analyzer/attackby(obj/item/O as obj, mob/user as mob, params)
+	if(istype(O, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(default_deconstruction_screwdriver(user, "d_analyzer_t", "d_analyzer", O))
 		if(linked_console)
 			linked_console.linked_destroy = null
@@ -73,17 +76,21 @@ Note: Must be placed within 3 tiles of the R&D Console
 		if(!O.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
+
 		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
-		if(temp_tech.len == 0)
+		if(length(temp_tech) == 0)
 			to_chat(user, "<span class='warning'>You cannot deconstruct this item!</span>")
 			return
+
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
 			return
+
 		busy = TRUE
 		loaded_item = O
 		O.loc = src
 		to_chat(user, "<span class='notice'>You add [O] to [src]!</span>")
+		SStgui.update_uis(linked_console)
 		flick("d_analyzer_la", src)
 		spawn(10)
 			icon_state = "d_analyzer_l"

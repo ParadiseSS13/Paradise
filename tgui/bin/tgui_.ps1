@@ -54,7 +54,7 @@ function task-dev-server {
 function task-lint {
   yarn run tsc
   Write-Output "tgui: type check passed"
-  yarn run eslint packages --ext ".js,.jsx,.ts,.tsx,.cjs,.mjs" @Args
+  yarn run eslint packages @Args
   Write-Output "tgui: eslint check passed"
 }
 
@@ -63,7 +63,7 @@ function task-test {
 }
 
 function task-prettier {
-  npx prettier --check packages --write @Args
+  npx prettier --check packages @Args
 }
 
 function task-polyfill {
@@ -107,7 +107,7 @@ function task-validate-build {
 ## Installs merge drivers and git hooks
 function task-install-git-hooks () {
     Set-Location $global:basedir
-    git config --replace-all merge.tgui-merge-bundle.driver "tgui/bin/tgui --merge=bundle %P %O %A %B %L"
+    git config --replace-all merge.tgui-merge-bundle.driver "tgui/bin/tgui --merge=bundle %P %A"
     Write-Output "tgui: Merge drivers have been successfully installed!"
 }
 
@@ -177,7 +177,7 @@ if ($Args.Length -gt 0) {
   ## ## Run prettier
   if ($Args[0] -eq "--prettier") {
     $Rest = $Args | Select-Object -Skip 1
-    task-prettier @Rest
+    task-prettier --write
     exit 0
   }
 
@@ -194,7 +194,6 @@ if ($Args.Length -gt 0) {
 if ($Args.Length -eq 0) {
   task-install
   task-lint --fix
-  task-prettier
   task-webpack --mode=production
   exit 0
 }

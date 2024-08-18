@@ -141,11 +141,11 @@
 	data["cloneable"] = 0 // On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned
 
 	if(type_mismatch || species_mismatch)
-		data["species"] = "Coagulated blood"
+		data["species"] = "Coagulated"
 		data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
 		data["species_only"] = species_unique
 	else if(!same_species) // Same blood type, species-agnostic, but we're still mixing blood of different species
-		data["species"] = "Mixed humanoid blood"
+		data["species"] = "Mixed Humanoid"
 
 	if(data["viruses"] || mix_data["viruses"])
 		var/list/mix1 = data["viruses"]
@@ -426,7 +426,7 @@
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		playsound(T, 'sound/effects/splat.ogg', 50, TRUE, -3)
 
 /datum/reagent/lye
 	name = "Lye"
@@ -461,3 +461,20 @@
 	reagent_state = LIQUID
 	color = "#29262b"
 	taste_description = "burnt dirt"
+
+/datum/reagent/tar_compound
+	name = "Sticky tar"
+	id = "sticky_tar"
+	description = "A sticky compound that creates tar on contact with surfaces."
+	reagent_state = LIQUID
+	color = "#4B4B4B"
+	harmless = FALSE
+	taste_description = "processed sludge"
+
+/datum/reagent/tar_compound/reaction_turf(turf/simulated/T, volume)
+	if(volume < 1 || !issimulatedturf(T))
+		return
+	var/obj/effect/decal/cleanable/tar/C = locate() in T
+	if(C) // We don't want the slowdown to stack
+		return
+	new /obj/effect/decal/cleanable/tar(T)

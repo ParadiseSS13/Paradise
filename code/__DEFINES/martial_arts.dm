@@ -14,4 +14,4 @@
 #define MARTIAL_COMBO_STEP_HELP		"Help"
 
 // A check used for all act types. Such as disarm_act
-#define MARTIAL_ARTS_ACT_CHECK if((. = ..()) != FALSE) return .
+#define MARTIAL_ARTS_ACT_CHECK if((. = ..()) != FALSE) return

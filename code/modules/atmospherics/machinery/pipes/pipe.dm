@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/pipe
-	var/datum/gas_mixture/air_temporary //used when reconstructing a pipeline that broke
+	var/datum/gas_mixture/ghost_pipeline // used when reconstructing a pipeline that broke
 	var/datum/pipeline/parent
 	var/volume = 0
 	force = 20
@@ -22,10 +22,12 @@
 		level = 1
 
 /obj/machinery/atmospherics/pipe/Destroy()
-	releaseAirToTurf()
-	QDEL_NULL(air_temporary)
+	var/turf/T = get_turf(src)
+	if(ghost_pipeline)
+		var/datum/gas_mixture/ghost_copy = new()
+		ghost_copy.copy_from(ghost_pipeline)
+		T.blind_release_air(ghost_copy.remove(volume / ghost_pipeline.volume))
 
-	var/turf/T = loc
 	for(var/obj/machinery/atmospherics/meter/meter in T)
 		if(meter.target == src)
 			var/obj/item/pipe_meter/PM = new (T)
@@ -33,7 +35,7 @@
 			qdel(meter)
 
 	// if we're somehow by ourself
-	if(parent && !QDELETED(parent) && parent.members.len == 1 && parent.members[1] == src)
+	if(parent && !QDELETED(parent) && length(parent.members) == 1 && parent.members[1] == src)
 		qdel(parent)
 	parent = null
 
@@ -46,25 +48,18 @@
 	. = ..()
 	. += "<span class='notice'>This pipe can be disconnected from a pipenet using a wrench. If the pipe's pressure is too high, you'll end up flying.</span>"
 
-/obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/analyzer))
-		atmosanalyzer_scan(parent.air, user)
-		return
-	return ..()
-
 /obj/machinery/atmospherics/proc/pipeline_expansion()
 	return null
 
-/obj/machinery/atmospherics/pipe/proc/releaseAirToTurf()
-	if(air_temporary)
-		var/turf/T = loc
-		T.assume_air(air_temporary)
-		air_update_turf()
-
-/obj/machinery/atmospherics/pipe/return_air()
+/obj/machinery/atmospherics/pipe/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	if(!parent)
 		return 0
+	return parent.air
+
+/obj/machinery/atmospherics/pipe/return_analyzable_air()
+	if(!parent)
+		return null
 	return parent.air
 
 /obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)

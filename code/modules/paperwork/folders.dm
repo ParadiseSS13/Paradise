@@ -1,6 +1,6 @@
 /obj/item/folder
 	name = "folder"
-	desc = "A folder."
+	desc = "A folder for keeping all your important papers and photos."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "folder"
 	w_class = WEIGHT_CLASS_SMALL
@@ -14,24 +14,24 @@
 		A.emp_act(severity)
 
 /obj/item/folder/blue
-	desc = "A blue folder."
+	desc = "A blue folder for keeping all the blueprints of your great ideas."
 	icon_state = "folder_blue"
 
 /obj/item/folder/red
-	desc = "A red folder."
+	desc = "A red folder for storing all the documents you've \"acquired\"."
 	icon_state = "folder_red"
 
 /obj/item/folder/yellow
-	desc = "A yellow folder."
+	desc = "A yellow folder for keeping all your very important court forms."
 	icon_state = "folder_yellow"
 
 /obj/item/folder/white
-	desc = "A white folder."
+	desc = "A white folder for holding medical records, if anyone ever prints any."
 	icon_state = "folder_white"
 
 /obj/item/folder/update_overlays()
 	. = ..()
-	if(contents.len)
+	if(length(contents))
 		. += "folder_paper"
 
 /obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -46,16 +46,16 @@
 		return ..()
 
 /obj/item/folder/attack_self(mob/user as mob)
-	var/dat = {"<meta charset="UTF-8"><title>[name]</title>"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><title>[name]</title>"}
 
 	for(var/obj/item/paper/P in src)
-		dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a> - <a href='?src=[UID()];read=\ref[P]'>[P.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];remove=\ref[P]'>Remove</a> - <a href='byond://?src=[UID()];read=\ref[P]'>[P.name]</a><br>"
 	for(var/obj/item/photo/Ph in src)
-		dat += "<A href='?src=[UID()];remove=\ref[Ph]'>Remove</A> - <A href='?src=[UID()];look=\ref[Ph]'>[Ph.name]</A><BR>"
+		dat += "<A href='byond://?src=[UID()];remove=\ref[Ph]'>Remove</A> - <A href='byond://?src=[UID()];look=\ref[Ph]'>[Ph.name]</A><BR>"
 	for(var/obj/item/paper_bundle/Pa in src)
-		dat += "<A href='?src=[UID()];remove=\ref[Pa]'>Remove</A> - <A href='?src=[UID()];browse=\ref[Pa]'>[Pa.name]</A><BR>"
+		dat += "<A href='byond://?src=[UID()];remove=\ref[Pa]'>Remove</A> - <A href='byond://?src=[UID()];browse=\ref[Pa]'>[Pa.name]</A><BR>"
 	for(var/obj/item/documents/doc in src)
-		dat += "<A href='?src=[UID()];remove=\ref[doc]'>Remove</A> - <A href='?src=[UID()];look=\ref[doc]'>[doc.name]</A><BR>"
+		dat += "<A href='byond://?src=[UID()];remove=\ref[doc]'>Remove</A> - <A href='byond://?src=[UID()];look=\ref[doc]'>[doc.name]</A><BR>"
 	user << browse(dat, "window=folder")
 	onclose(user, "folder")
 	add_fingerprint(usr)

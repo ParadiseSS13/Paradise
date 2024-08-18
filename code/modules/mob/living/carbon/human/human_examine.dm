@@ -137,10 +137,11 @@
 			if(E.is_robotic())
 				msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(E.limb_name)] is open!</b>\n"
 			else
-				msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
+				msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] [E.open != ORGAN_ORGANIC_VIOLENT_OPEN ? "has an open incision" : "has been violently split open"]!</b>\n"
 
 		for(var/obj/item/I in E.embedded_objects)
-			msg += "<b>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</b>\n"
+			// we cant just use \a here, as we want it to appear before the bicon
+			msg += "<b>[p_they(TRUE)] [p_have()] [I.p_a()] [bicon(I)] [I.name] embedded in [p_their()] [E.name]!</b>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
@@ -208,11 +209,11 @@
 						medical = R.fields["p_stat"]
 						mental = R.fields["m_stat"]
 
-		var/medical_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='?src=[UID()];medical=1'>\[[medical]\]</a>" : "\[[medical]\]"
-		var/mental_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='?src=[UID()];mental=1'>\[[mental]\]</a>" : "\[[mental]\]"
+		var/medical_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>" : "\[[medical]\]"
+		var/mental_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='byond://?src=[UID()];mental=1'>\[[mental]\]</a>" : "\[[mental]\]"
 		msg += "<span class='deptradio'>Physical status: </span>[medical_status]\n"
 		msg += "<span class='deptradio'>Mental Status: </span>[mental_status]\n"
-		msg += "<span class='deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
+		msg += "<span class='deptradio'>Medical records:</span> <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(TRUE)
@@ -227,15 +228,15 @@
 							criminal = R.fields["criminal"]
 							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
 								var/list/comments = R.fields["comments"]
-								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
+								commentLatest = LAZYACCESS(comments, length(comments)) //get the latest entry from the comment log
 								if(islist(commentLatest))
 									commentLatest = "[commentLatest["header"]]: [commentLatest["text"]]"
 							else
 								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
 
-			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
+			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='byond://?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
 			msg += "<span class='deptradio'>Criminal status:</span> [criminal_status]\n"
-			msg += "<span class='deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class='deptradio'>Security records:</span> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 			msg += "<span class='deptradio'>Latest entry:</span> [commentLatest]\n"
 
 

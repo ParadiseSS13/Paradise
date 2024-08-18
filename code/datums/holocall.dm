@@ -34,7 +34,7 @@
 			LAZYADD(H.holo_calls, src)
 			H.atom_say("[area] pad beeps: Incoming call from [caller]!")
 
-	if(!dialed_holopads.len)
+	if(!length(dialed_holopads))
 		calling_holopad.atom_say("Connection failure.")
 		qdel(src)
 		return
@@ -105,7 +105,7 @@
 
 	LAZYREMOVE(H.holo_calls, src)
 	dialed_holopads -= H
-	if(!dialed_holopads.len)
+	if(!length(dialed_holopads))
 		if(graceful)
 			calling_holopad.atom_say("Call rejected.")
 		qdel(src)
@@ -176,7 +176,7 @@
 
 /datum/action/innate/end_holocall
 	name = "End Holocall"
-	button_icon_state = "camera_off"
+	button_overlay_icon_state = "camera_off"
 	var/datum/holocall/hcall
 
 /datum/action/innate/end_holocall/New(Target, datum/holocall/HC)

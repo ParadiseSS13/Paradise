@@ -1,15 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Divider,
-  Stack,
-  Icon,
-  LabeledList,
-  NumberInput,
-  Section,
-} from '../components';
+import { Box, Button, Divider, Stack, Icon, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 import { createLogger } from '../logging';
 
@@ -45,53 +36,8 @@ const IdDisk = (properties, context) => {
       </Box>
       <Divider />
       <LabeledList>
-        <LabeledList.Item label="ID card">
-          {id ? (
-            <Button
-              selected
-              bold
-              verticalAlign="middle"
-              icon="eject"
-              content={id.name}
-              tooltip="Ejects the ID card."
-              onClick={() => act('eject_id')}
-              style={{
-                'white-space': 'pre-wrap',
-              }}
-            />
-          ) : (
-            <Button
-              icon="sign-in-alt"
-              content="Insert"
-              tooltip="Hold the ID card in your hand to insert."
-              onClick={() => act('insert_id')}
-            />
-          )}
-        </LabeledList.Item>
-        {id && (
-          <LabeledList.Item label="Current Mining Points">
-            <Box bold>{formatPoints(id.points)}</Box>
-          </LabeledList.Item>
-        )}
-        {id && (
-          <LabeledList.Item label="Total Mining Points">
-            <Box bold>{formatPoints(id.total_points)}</Box>
-          </LabeledList.Item>
-        )}
-        <LabeledList.Item
-          label="Unclaimed Points"
-          color={points > 0 ? 'good' : 'grey'}
-          bold={points > 0 && 'good'}
-        >
+        <LabeledList.Item label="Unclaimed Points" color={points > 0 ? 'good' : 'grey'} bold={points > 0 && 'good'}>
           {formatPoints(points)}
-        </LabeledList.Item>
-        <LabeledList.Item>
-          <Button
-            disabled={!id}
-            icon="hand-holding-usd"
-            content="Claim"
-            onClick={() => act('claim')}
-          />
         </LabeledList.Item>
       </LabeledList>
       <Divider />
@@ -115,9 +61,7 @@ const IdDisk = (properties, context) => {
             />
           </LabeledList.Item>
           <LabeledList.Item label="Stored design">
-            <Box color={disk.design && (disk.compatible ? 'good' : 'bad')}>
-              {disk.design || 'N/A'}
-            </Box>
+            <Box color={disk.design && (disk.compatible ? 'good' : 'bad')}>{disk.design || 'N/A'}</Box>
           </LabeledList.Item>
         </LabeledList>
       ) : (
@@ -187,13 +131,7 @@ const OreHeader = (properties, context) => {
       <Stack fill>
         <Stack.Item grow>{properties.title}</Stack.Item>
         {properties.columns?.map((col) => (
-          <Stack.Item
-            key={col}
-            basis={col[1]}
-            textAlign="center"
-            color="label"
-            bold
-          >
+          <Stack.Item key={col} basis={col[1]} textAlign="center" color="label" bold>
             {col[0]}
           </Stack.Item>
         ))}
@@ -209,11 +147,7 @@ const OreHeader = (properties, context) => {
 const SheetLine = (properties, context) => {
   const { act } = useBackend(context);
   const { ore } = properties;
-  if (
-    ore.value &&
-    ore.amount <= 0 &&
-    !(['metal', 'glass'].indexOf(ore.id) > -1)
-  ) {
+  if (ore.value && ore.amount <= 0 && !(['metal', 'glass'].indexOf(ore.id) > -1)) {
     return;
   }
   return (
@@ -237,12 +171,7 @@ const SheetLine = (properties, context) => {
         <Stack.Item basis="20%" textAlign="center" align="center">
           {ore.value}
         </Stack.Item>
-        <Stack.Item
-          basis="20%"
-          textAlign="center"
-          align="center"
-          lineHeight="32px"
-        >
+        <Stack.Item basis="20%" textAlign="center" align="center" lineHeight="32px">
           <NumberInput
             width="40%"
             value={0}
@@ -278,12 +207,7 @@ const AlloyLine = (properties, context) => {
         <Stack.Item basis="30%" textAlign="middle" align="center">
           {ore.name}
         </Stack.Item>
-        <Stack.Item
-          basis="35%"
-          textAlign="middle"
-          color={ore.amount >= 1 ? 'good' : 'gray'}
-          align="center"
-        >
+        <Stack.Item basis="35%" textAlign="middle" color={ore.amount >= 1 ? 'good' : 'gray'} align="center">
           {ore.description}
         </Stack.Item>
         <Stack.Item
@@ -295,12 +219,7 @@ const AlloyLine = (properties, context) => {
         >
           {ore.amount.toLocaleString('en-US')}
         </Stack.Item>
-        <Stack.Item
-          basis="20%"
-          textAlign="center"
-          align="center"
-          lineHeight="32px"
-        >
+        <Stack.Item basis="20%" textAlign="center" align="center" lineHeight="32px">
           <NumberInput
             width="40%"
             value={0}

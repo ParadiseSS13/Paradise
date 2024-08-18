@@ -183,6 +183,11 @@
 	path = /obj/item/clothing/under/rank/cargo/tech/skirt
 	allowed_roles = list("Quartermaster","Cargo Technician")
 
+/datum/gear/uniform/skirt/job/expedition
+	display_name = "Skirt, expedition"
+	path = /obj/item/clothing/under/rank/cargo/expedition/skirt
+	allowed_roles = list("Quartermaster", "Explorer")
+
 /datum/gear/uniform/skirt/job/qm
 	display_name = "Skirt, quartermaster"
 	path = /obj/item/clothing/under/rank/cargo/qm/skirt
@@ -256,8 +261,8 @@
 	main_typepath = /datum/gear/uniform/cargo
 
 /datum/gear/uniform/cargo/delivery
-	display_name = "Uniform, delivery boy"
-	path = /obj/item/clothing/under/rank/cargo/deliveryboy
+	display_name = "Cargo uniform, delivery"
+	path = /obj/item/clothing/under/rank/cargo/tech/delivery
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/uniform/sec
@@ -361,6 +366,11 @@
 	display_name = "Tacticool turtleneck"
 	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
 	path = /obj/item/clothing/under/syndicate/tacticool
+
+/datum/gear/uniform/suit/greyman
+	display_name = "Greyman Henley"
+	description = "Khaki henley paired up with some grey cargo pants (WARNING DOES NOT HAVE SUIT SENSORS)"
+	path = /obj/item/clothing/under/syndicate/greyman
 
 /datum/gear/uniform/suit/assistantformal
 	display_name = "Assistant's Formal Uniform"

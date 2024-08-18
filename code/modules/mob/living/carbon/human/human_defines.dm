@@ -32,6 +32,8 @@
 	var/height = "average height"
 	/// Players physique (even MORE fluff)
 	var/physique = "average"
+	/// The body type associated with the body
+	var/body_type = MALE
 
 	var/underwear = "Nude"	//Which underwear the player wants
 	var/undershirt = "Nude"	//Which undershirt the player wants

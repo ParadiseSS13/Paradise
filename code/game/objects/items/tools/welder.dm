@@ -26,16 +26,23 @@
 	drop_sound = 'sound/items/handling/weldingtool_drop.ogg'
 	pickup_sound =  'sound/items/handling/weldingtool_pickup.ogg'
 	var/maximum_fuel = 20
-	var/requires_fuel = TRUE //Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier
-	var/refills_over_time = FALSE //Do we regenerate fuel?
+	/// Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier.
+	var/requires_fuel = TRUE 
+	/// If TRUE, fuel will regenerate over time.
+	var/refills_over_time = FALSE
+	/// Sound played when turned on.
 	var/activation_sound = 'sound/items/welderactivate.ogg'
+	/// Sound played when turned off.
 	var/deactivation_sound = 'sound/items/welderdeactivate.ogg'
+	/// The brightness of the active flame.
 	var/light_intensity = 2
-	var/low_fuel_changes_icon = TRUE//More than one icon_state due to low fuel?
-	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
+	/// Does the icon_state change if the fuel is low?
+	var/low_fuel_changes_icon = TRUE
+	/// How often does the tool flash the user's eyes?
+	var/progress_flash_divisor = 1 SECONDS
 
 /obj/item/weldingtool/Initialize(mapload)
-	..()
+	. = ..()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
@@ -149,7 +156,7 @@
 /obj/item/weldingtool/attack(mob/living/carbon/M, mob/living/carbon/user)
 	// For lighting other people's cigarettes.
 	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || !tool_enabled) 
+	if(!istype(cig) || user.zone_selected != "mouth" || !tool_enabled)
 		return ..()
 
 	if(M == user)
@@ -255,7 +262,7 @@
 
 	user.visible_message("<span class='suicide'>[user] is tinkering with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 
-	to_chat(user, "<span class='notice'> You begin tinkering with [src]...")
+	to_chat(user, "<span class='notice'>You begin tinkering with [src]...")
 	user.Immobilize(10 SECONDS)
 	sleep(2 SECONDS)
 	add_fingerprint(user)
@@ -273,19 +280,6 @@
 	maximum_fuel = 10
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
-	low_fuel_changes_icon = FALSE
-
-/obj/item/weldingtool/abductor
-	name = "alien welding tool"
-	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "welder"
-	toolspeed = 0.1
-	w_class = WEIGHT_CLASS_SMALL
-	light_intensity = 0
-	origin_tech = "plasmatech=5;engineering=5;abductor=3"
-	requires_fuel = FALSE
-	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
 
 /obj/item/weldingtool/hugetank

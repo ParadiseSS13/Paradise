@@ -2,8 +2,8 @@
 
 /datum/action/innate/terrorspider/web
 	name = "Web"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "stickyweb1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "stickyweb1"
 
 /datum/action/innate/terrorspider/web/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
@@ -11,8 +11,8 @@
 
 /datum/action/innate/terrorspider/wrap
 	name = "Wrap"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "cocoon_large1"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "cocoon_large1"
 
 /datum/action/innate/terrorspider/wrap/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
@@ -23,8 +23,8 @@
 
 /datum/action/innate/terrorspider/greeneggs
 	name = "Lay Green Eggs"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "eggs"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "eggs"
 
 /datum/action/innate/terrorspider/greeneggs/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/green/user = owner
@@ -35,8 +35,8 @@
 
 /datum/action/innate/terrorspider/ventsmash
 	name = "Smash Welded Vent"
-	icon_icon = 'icons/atmos/vent_pump.dmi'
-	button_icon_state = "map_vent"
+	button_overlay_icon = 'icons/atmos/vent_pump.dmi'
+	button_overlay_icon_state = "map_vent"
 
 /datum/action/innate/terrorspider/ventsmash/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
@@ -44,8 +44,8 @@
 
 /datum/action/innate/terrorspider/remoteview
 	name = "Remote View"
-	icon_icon = 'icons/obj/eyes.dmi'
-	button_icon_state = "heye"
+	button_overlay_icon = 'icons/obj/eyes.dmi'
+	button_overlay_icon_state = "heye"
 
 /datum/action/innate/terrorspider/remoteview/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
@@ -56,8 +56,8 @@
 
 /datum/action/innate/terrorspider/mother/royaljelly
 	name = "Lay Royal Jelly"
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "spiderjelly"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	button_overlay_icon_state = "spiderjelly"
 
 /datum/action/innate/terrorspider/mother/royaljelly/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
@@ -65,8 +65,8 @@
 
 /datum/action/innate/terrorspider/mother/gatherspiderlings
 	name = "Gather Spiderlings"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "spiderling"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "spiderling"
 
 /datum/action/innate/terrorspider/mother/gatherspiderlings/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
@@ -74,8 +74,8 @@
 
 /datum/action/innate/terrorspider/mother/incubateeggs
 	name = "Incubate Eggs"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "eggs"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "eggs"
 
 /datum/action/innate/terrorspider/mother/incubateeggs/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
@@ -85,8 +85,8 @@
 
 /datum/action/innate/terrorspider/queen/queennest
 	name = "Nest"
-	icon_icon = 'icons/mob/terrorspider.dmi'
-	button_icon_state = "terror_queen"
+	button_overlay_icon = 'icons/mob/terrorspider.dmi'
+	button_overlay_icon_state = "terror_queen"
 
 /datum/action/innate/terrorspider/queen/queennest/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/user = owner
@@ -94,8 +94,8 @@
 
 /datum/action/innate/terrorspider/queen/queensense
 	name = "Hive Sense"
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "mindswap"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	button_overlay_icon_state = "mindswap"
 
 /datum/action/innate/terrorspider/queen/queensense/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/user = owner
@@ -103,8 +103,8 @@
 
 /datum/action/innate/terrorspider/queen/queeneggs
 	name = "Lay Queen Eggs"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "eggs"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "eggs"
 
 /datum/action/innate/terrorspider/queen/queeneggs/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/user = owner
@@ -115,8 +115,8 @@
 
 /datum/action/innate/terrorspider/queen/empress/empresserase
 	name = "Empress Erase Brood"
-	icon_icon = 'icons/effects/blood.dmi'
-	button_icon_state = "mgibbl1"
+	button_overlay_icon = 'icons/effects/blood.dmi'
+	button_overlay_icon_state = "mgibbl1"
 
 /datum/action/innate/terrorspider/queen/empress/empresserase/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/user = owner
@@ -124,8 +124,8 @@
 
 /datum/action/innate/terrorspider/queen/empress/empresslings
 	name = "Empresss Spiderlings"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "spiderling"
+	button_overlay_icon = 'icons/effects/effects.dmi'
+	button_overlay_icon_state = "spiderling"
 
 /datum/action/innate/terrorspider/queen/empress/empresslings/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/user = owner
@@ -181,7 +181,7 @@
 		if(!(M.mobility_flags & MOBILITY_MOVE))
 			return TRUE
 		return prob(80)
-	if(istype(mover, /obj/item/projectile))
+	if(isprojectile(mover))
 		return prob(20)
 	return ..()
 

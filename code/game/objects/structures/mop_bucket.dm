@@ -23,28 +23,33 @@
 	GLOB.janitorial_equipment -= src
 	return ..()
 
-/obj/structure/mopbucket/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/mop))
-		var/obj/item/mop/M = W
-		if(M.reagents.total_volume < M.reagents.maximum_volume)
-			M.wet_mop(src, user)
-			return
-		if(!stored_mop)
-			M.mopbucket_insert(user, src)
-			return
-		to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")
+/obj/structure/mopbucket/attackby(obj/item/W, mob/user, params)
+	if(W.is_robot_module())
+		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
 		return
 
-/obj/structure/mopbucket/proc/put_in_cart(obj/item/mop/I, mob/user)
-	user.drop_item()
+	if(istype(W, /obj/item/mop))
+		var/obj/item/mop/attacking_mop = W
+		if(attacking_mop.reagents.total_volume < attacking_mop.reagents.maximum_volume)
+			attacking_mop.wet_mop(src, user)
+			return
+
+		if(!user.unEquip(attacking_mop))
+			to_chat(user, "<span class='notice'>[attacking_mop] is stuck to your hand!</span>")
+			return
+
+		if(!stored_mop)
+			mopbucket_insert(user, attacking_mop)
+			return
+
+		to_chat(user, "<span class='notice'>There is already a mop in the mopbucket.</span>")
+
+/obj/structure/mopbucket/proc/mopbucket_insert(mob/user, obj/item/mop/I)
+	stored_mop = I
 	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	update_icon(UPDATE_OVERLAYS)
 	return
-
-/obj/item/mop/proc/mopbucket_insert(mob/user, obj/structure/mopbucket/J)
-	J.stored_mop = src
-	J.put_in_cart(src, user)
 
 /obj/structure/mopbucket/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)

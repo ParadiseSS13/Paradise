@@ -1,6 +1,6 @@
 #define GIBBER_ANIMATION_DELAY 16
 /obj/machinery/gibber
-	name = "Gibber"
+	name = "\improper Gibber"
 	desc = "The name isn't descriptive enough?"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
@@ -106,14 +106,12 @@
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
 		return
 
-	if(exchange_parts(user, P))
-		return
-
 	if(default_unfasten_wrench(user, P, time = 4 SECONDS))
 		return
 
 	if(default_deconstruction_crowbar(user, P))
 		return
+
 	return ..()
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user)
@@ -219,7 +217,7 @@
 
 /obj/machinery/gibber/proc/startgibbing(mob/user, UserOverride=0)
 	if(!istype(user) && !UserOverride)
-		log_debug("Some shit just went down with the gibber at X[x], Y[y], Z[z] with an invalid user. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+		log_debug("Some shit just went down with the gibber at X[x], Y[y], Z[z] with an invalid user. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		return
 
 	if(UserOverride)
@@ -233,6 +231,10 @@
 		visible_message("<span class='danger'>You hear a loud metallic grinding sound.</span>")
 		return
 
+	if(HAS_TRAIT(occupant, TRAIT_CLING_BURSTING))
+		visible_message("<span class='warning'>[src] jams up as [occupant]'s corpse rapidly grows in size...</span>")
+		return
+
 	use_power(1000)
 	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
 
@@ -242,14 +244,14 @@
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
 
 	var/slab_name = occupant.name
-	var/slab_count = 3
-	var/slab_type = /obj/item/food/snacks/meat/human //gibber can only gib humans on paracode, no need to check meat type
+	var/slab_count = 6
+	var/slab_type = /obj/item/food/meat/human //gibber can only gib humans on paracode, no need to check meat type
 	var/slab_nutrition = occupant.nutrition / 15
 
 	slab_nutrition /= slab_count
 
 	for(var/i=1 to slab_count)
-		var/obj/item/food/snacks/meat/new_meat = new slab_type(src)
+		var/obj/item/food/meat/new_meat = new slab_type(src)
 		new_meat.name = "[slab_name] [new_meat.name]"
 		new_meat.reagents.add_reagent("nutriment", slab_nutrition)
 
@@ -321,7 +323,8 @@
 		operating = FALSE
 		update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
-
+/obj/machinery/gibber/force_eject_occupant(mob/target)
+	go_out()
 
 /* AUTOGIBBER */
 
@@ -349,7 +352,7 @@
 	RefreshParts()
 
 /obj/machinery/gibber/autogibber/process()
-	if(!lturf || occupant || locked || operating || victim_targets.len)
+	if(!lturf || occupant || locked || operating || length(victim_targets))
 		return
 
 	if(acceptdir != lastacceptdir)
@@ -362,7 +365,7 @@
 	for(var/mob/living/carbon/human/H in lturf)
 		victim_targets += H
 
-	if(victim_targets.len)
+	if(length(victim_targets))
 		visible_message({"<span class='danger'>\The [src] states, "Food detected!"</span>"})
 		sleep(consumption_delay)
 		for(var/mob/living/carbon/H in victim_targets)

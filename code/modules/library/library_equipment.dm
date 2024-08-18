@@ -149,7 +149,10 @@
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
-	var/list/books = GLOB.library_catalog.get_random_book(book_count, doAsync = FALSE)
+	addtimer(CALLBACK(src, PROC_REF(load_books)), 0)
+
+/obj/structure/bookcase/random/proc/load_books()
+	var/list/books = GLOB.library_catalog.get_random_book(book_count)
 	for(var/datum/cachedbook/book as anything in books)
 		new /obj/item/book(src, book, TRUE, FALSE)
 	update_icon(UPDATE_ICON_STATE)
@@ -159,6 +162,7 @@
  */
 /obj/machinery/bookbinder
 	name = "Book Binder"
+	desc = "Used by authors, poets, and librarians to scan papers and print copies of their fanfics."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "binder"
 	anchored = TRUE

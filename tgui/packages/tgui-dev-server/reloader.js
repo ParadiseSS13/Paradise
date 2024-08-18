@@ -83,21 +83,13 @@ export const reloadByondCache = async (bundleDir) => {
     return;
   }
   // Get dreamseeker instances
-  const pids = cacheDirs.map((cacheDir) =>
-    parseInt(cacheDir.split('/cache/tmp').pop(), 10),
-  );
+  const pids = cacheDirs.map((cacheDir) => parseInt(cacheDir.split('/cache/tmp').pop(), 10));
   const dssPromise = DreamSeeker.getInstancesByPids(pids);
   // Copy assets
-  const assets = await resolveGlob(
-    bundleDir,
-    './*.+(bundle|chunk|hot-update).*',
-  );
+  const assets = await resolveGlob(bundleDir, './*.+(bundle|chunk|hot-update).*');
   for (let cacheDir of cacheDirs) {
     // Clear garbage
-    const garbage = await resolveGlob(
-      cacheDir,
-      './*.+(bundle|chunk|hot-update).*',
-    );
+    const garbage = await resolveGlob(cacheDir, './*.+(bundle|chunk|hot-update).*');
     try {
       // Plant a dummy browser window file, we'll be using this to avoid world topic. For byond 515.
       fs.closeSync(fs.openSync(cacheDir + '/dummy', 'w'));
@@ -121,10 +113,14 @@ export const reloadByondCache = async (bundleDir) => {
   if (dss.length > 0) {
     logger.log(`notifying dreamseeker`);
     for (let dreamseeker of dss) {
-      dreamseeker.topic({
-        tgui: 1,
-        type: 'cacheReloaded',
-      });
+      try {
+        await dreamseeker.topic({
+          tgui: 1,
+          type: 'cacheReloaded',
+        });
+      } catch (error) {
+        logger.error(`Unable to broadcast reload to ${dreamseeker.addr}@${dreamseeker.pid}`, error);
+      }
     }
   }
 };

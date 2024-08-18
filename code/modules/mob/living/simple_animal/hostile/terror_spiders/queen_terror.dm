@@ -136,7 +136,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_special_action()
-	if(!stat && !ckey)
+	if(stat == CONSCIOUS && !ckey)
 		switch(neststep)
 			if(0)
 				// No nest. If current location is eligible for nesting, advance to step 1.
@@ -366,12 +366,12 @@
 
 /obj/structure/spider/terrorweb/queen/Initialize(mapload)
 	. = ..()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
-/obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/T)
+/obj/structure/spider/terrorweb/queen/CanAtmosPass(direction)
 	return FALSE
 
 /obj/structure/spider/terrorweb/queen/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()

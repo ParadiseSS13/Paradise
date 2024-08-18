@@ -132,7 +132,7 @@
 		investigate_log("turned <font color='green'>on</font> by [key_name(user)]", "singulo")
 
 	to_chat(user, "You turn [src] [toggle].")
-	message_admins("Emitter turned [toggle] by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	message_admins("Emitter turned [toggle] by [key_name_admin(user)] in ([x], [y], [z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	log_game("Emitter turned [toggle] by [key_name(user)] in [x], [y], [z]")
 	update_icon()
 
@@ -147,25 +147,23 @@
 		step(src, get_dir(M, src))
 
 /obj/machinery/power/emitter/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-		if(emagged)
-			to_chat(user, "<span class='warning'>The lock seems to be broken.</span>")
-			return
-		if(allowed(user))
-			if(active)
-				locked = !locked
-				to_chat(user, "<span class='notice'>The controls are now [locked ? "locked" : "unlocked"].</span>")
-			else
-				locked = FALSE //just in case it somehow gets locked
-				to_chat(user, "<span class='warning'>The controls can only be locked when [src] is online!</span>")
-		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+	if(!istype(I, /obj/item/card/id) || !istype(I, /obj/item/pda))
+		return ..()
+
+	if(emagged)
+		to_chat(user, "<span class='warning'>The lock seems to be broken.</span>")
 		return
 
-	if(exchange_parts(user, I))
+	if(!allowed(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
-	return ..()
+	if(active)
+		locked = !locked
+		to_chat(user, "<span class='notice'>The controls are now [locked ? "locked" : "unlocked"].</span>")
+	else
+		locked = FALSE //just in case it somehow gets locked
+		to_chat(user, "<span class='warning'>The controls can only be locked when [src] is online!</span>")
 
 /obj/machinery/power/emitter/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE

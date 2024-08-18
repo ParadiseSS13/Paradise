@@ -24,7 +24,6 @@
 	s.start()
 	holder.clear_reagents()
 
-
 /datum/chemical_reaction/metalfoam
 	name = "Metal Foam"
 	id = "metalfoam"
@@ -37,10 +36,9 @@
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, MFOAM_ALUMINUM)
+	var/datum/effect_system/foam_spread/metal/s = new()
+	s.set_up(created_volume, location, holder, METAL_FOAM_ALUMINUM)
 	s.start()
-
 
 /datum/chemical_reaction/ironfoam
 	name = "Iron Foam"
@@ -54,10 +52,9 @@
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, MFOAM_IRON)
+	var/datum/effect_system/foam_spread/metal/s = new()
+	s.set_up(created_volume, location, holder, METAL_FOAM_IRON)
 	s.start()
-
 
 	// Synthesizing these three chemicals is pretty complex in real life, but fuck it, it's just a game!
 /datum/chemical_reaction/ammonia
@@ -263,7 +260,7 @@
 
 /datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/food/snacks/meat/slab/meatproduct(location)
+	new /obj/item/food/meat/slab/meatproduct(location)
 
 /datum/chemical_reaction/lye
 	name = "lye"
@@ -492,3 +489,100 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.Devolve()
+
+// Someday, maybe add some version of doing science on patient zero to discover the recipees.
+/datum/chemical_reaction/zombie
+	name = "Anti-Plague Sequence Alpha"
+	id = "zombiecure1"
+	result = "zombiecure1"
+	result_amount = 1
+	required_reagents = list("blood" = 1, "diphenhydramine" = 1)
+	mix_message = "The mixture into a dark green paste."
+	/// The cure level of the reagent, level 4 cure requires level 3 cure, which requires level 2 cure, etc
+	var/cure_level = 1
+	/// The amount of reagents to pick from get_possible_cures()
+	var/amt_req_cures = 1
+	/// A virus symptom required to complete this chemical reaction
+	var/datum/symptom/required_symptom
+
+/datum/chemical_reaction/zombie/New()
+	. = ..()
+	var/possible_cures = get_possible_cures()
+	if(!length(possible_cures))
+		return
+	required_reagents = list()
+	required_reagents["blood"] = 1
+	for(var/i in 1 to amt_req_cures)
+		if(!length(possible_cures))
+			return
+		var/next_cure = pick_n_take(possible_cures)
+		required_reagents[next_cure] = 1
+
+/datum/chemical_reaction/zombie/last_can_react_check(datum/reagents/holder)
+	var/datum/reagent/blood/blood = locate(/datum/reagent/blood) in holder.reagent_list
+	if(!blood || !blood.data)
+		return FALSE
+	var/datum/disease/zombie/zomb = locate(/datum/disease/zombie) in blood.data["viruses"]
+	if(!zomb)
+		return FALSE
+	if(zomb.cure_stage + 1 > cure_level) // Virus has already been cured to this level
+		return FALSE
+	if(!required_symptom)
+		return TRUE
+
+	for(var/datum/disease/advance/advanced in blood.data["viruses"])
+		for(var/datum/symptom/symptom as anything in advanced.symptoms)
+			if(istype(symptom, required_symptom))
+				return TRUE
+	return FALSE
+
+/datum/chemical_reaction/zombie/proc/get_possible_cures()
+	return list()
+
+/datum/chemical_reaction/zombie/second
+	name = "Anti-Plague Sequence Beta"
+	id = "zombiecure2"
+	result = "zombiecure2"
+	cure_level = 2
+	amt_req_cures = 3
+
+/datum/chemical_reaction/zombie/second/get_possible_cures()
+	return list("salglu_solution", "toxin", "atropine", "lye", "sodawater", "happiness", "morphine", "teporone")
+
+/datum/chemical_reaction/zombie/third
+	name = "Anti-Plague Sequence Gamma"
+	id = "zombiecure3"
+	result = "zombiecure3"
+	cure_level = 3
+	amt_req_cures = 3
+	required_symptom = /datum/symptom/flesh_eating
+
+/datum/chemical_reaction/zombie/third/get_possible_cures()
+	return list("vomit", "jenkem", "charcoal", "egg", "sacid", "facid", "surge", "ultralube", "mitocholide")
+
+/datum/chemical_reaction/zombie/four
+	name = "Anti-Plague Sequence Omega"
+	id = "zombiecure4"
+	result = "zombiecure4"
+	cure_level = 4
+	amt_req_cures = 2
+	required_symptom = /datum/symptom/heal/metabolism
+
+/datum/chemical_reaction/zombie/four/get_possible_cures()
+	return list("colorful_reagent", "bacchus_blessing", "pen_acid", "glyphosate", "lazarus_reagent", "omnizine", "sarin", "ants", "clf3", "sorium", "????", "aranesp")
+	// Heres some ideas for making this harder if people ever get too good at curing zombies some day
+	// return list("entpoly", "tinlux", "earthsblood", "bath_salts", "rezadone", "rotatium", "krokodil", "fliptonium")
+
+/datum/chemical_reaction/dupe_zomb_cure
+	name = "Duplicate Zombie Cure"
+	id = "dupe_zomb_cure"
+	required_reagents = list("sulfonal" = 1, "sugar" = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/dupe_zomb_cure/last_can_react_check(datum/reagents/holder)
+	for(var/possible in list("zombiecure4", "zombiecure3", "zombiecure2", "zombiecure1"))
+		if(holder.has_reagent(possible))
+			result = possible // real time bullshit
+			return TRUE
+	return FALSE
+

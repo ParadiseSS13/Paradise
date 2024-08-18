@@ -30,18 +30,14 @@
 
 /obj/structure/spider/spiderling/terror_spiderling/Destroy()
 	GLOB.ts_spiderling_list -= src
+	for(var/obj/structure/spider/spiderling/terror_spiderling/S in view(7, src))
+		S.immediate_ventcrawl = TRUE
 	return ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/Bump(obj/O)
 	if(istype(O, /obj/structure/table))
 		forceMove(O.loc)
 	. = ..()
-
-
-/obj/structure/spider/spiderling/terror_spiderling/Destroy()
-	for(var/obj/structure/spider/spiderling/terror_spiderling/S in view(7, src))
-		S.immediate_ventcrawl = TRUE
-	return ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/proc/score_surroundings(atom/A = src)
 	var/safety_score = 0
@@ -111,7 +107,7 @@
 				if(temp_vent.welded) // no point considering a vent we can't even use
 					continue
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if(!length(vents))
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)

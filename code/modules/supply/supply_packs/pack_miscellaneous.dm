@@ -82,6 +82,18 @@
 	contains = list(/obj/item/stack/tile/carpet/twenty)
 	containername = "carpet crate"
 
+/datum/supply_packs/misc/personal_crates
+	name = "Personal Crates Pack"
+	cost = 100
+	containertype = /obj/structure/largecrate
+	contains = list(/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal,
+					/obj/structure/closet/crate/secure/personal)
+	containername = "personal crates pack"
+
 
 ///////////// Paper Work
 
@@ -510,8 +522,15 @@
 /datum/supply_packs/misc/vending/clothingvendor/cargo
 	name = "Cargo Clothing Vendors Crate"
 	cost = 50
-	contains = list(/obj/item/vending_refill/cargodrobe)
+	contains = list(/obj/item/vending_refill/cargodrobe,
+					/obj/item/vending_refill/exploredrobe)
 	containername = "cargo clothing vendor crate"
+
+/datum/supply_packs/misc/hoverboard
+	name = "Hoverboard Crate"
+	contains = list(/obj/item/melee/skateboard/hoverboard)
+	cost = 999 // Price of cool. Also under 1000 so it's not grand theft if stolen, lmao
+	containername = "hoverboard crate"
 
 ///////////// Station Goals
 

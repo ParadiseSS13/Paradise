@@ -44,7 +44,7 @@
 
 /obj/item/wirecutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] [is_robotic_suicide(user) ? "wiring" : "arteries"] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, usesound, 50, 1, -1)
+	playsound(loc, usesound, 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/wirecutters/proc/is_robotic_suicide(mob/user)
@@ -97,19 +97,6 @@
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-/obj/item/wirecutters/abductor
-	name = "alien wirecutters"
-	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "cutters"
-	toolspeed = 0.1
-	origin_tech = "materials=5;engineering=4;abductor=3"
-	random_color = FALSE
-
-/obj/item/wirecutters/abductor/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
 
 /obj/item/wirecutters/cyborg
 	name = "wirecutters"

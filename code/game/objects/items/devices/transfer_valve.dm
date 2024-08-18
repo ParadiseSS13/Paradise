@@ -1,3 +1,6 @@
+///if the icon_state for the TTV's tank is in assemblies.dmi
+#define TTV_TANK_ICON_STATES list("anesthetic", "emergency", "emergency_double", "emergency_engi", "emergency_sleep", "jetpack", "jetpack_black", "jetpack_void", "oxygen", "oxygen_f", "oxygen_fr", "plasma")
+
 /obj/item/transfer_valve
 	icon = 'icons/obj/assemblies.dmi'
 	name = "tank transfer valve"
@@ -166,12 +169,23 @@
 	underlays.Cut()
 	if(!tank_one && !tank_two && !attached_device)
 		return
+
 	if(tank_one)
-		. += "[tank_one.icon_state]"
+		var/tank_one_icon_state = tank_one.icon_state
+		if(!(tank_one_icon_state in TTV_TANK_ICON_STATES)) //if no valid sprite fall back to an oxygen tank
+			tank_one_icon_state = "oxygen"
+			stack_trace("[tank_one] was inserted into a TTV with an invalid icon_state, \"[tank_one.icon_state]\"")
+		. += "[tank_one_icon_state]"
+
 	if(tank_two)
-		var/icon/J = new(icon, icon_state = "[tank_two.icon_state]")
-		J.Shift(WEST, 13)
-		underlays += J
+		var/tank_two_icon_state = tank_two.icon_state
+		if(!(tank_two_icon_state in TTV_TANK_ICON_STATES)) //if no valid sprite fall back to an oxygen tank
+			tank_two_icon_state = "oxygen"
+			stack_trace("[tank_two] was inserted into a TTV with an invalid icon_state, \"[tank_two.icon_state]\"")
+		var/icon/tank_two_icon = new(icon, icon_state = tank_two_icon_state)
+		tank_two_icon.Shift(WEST, 13)
+		underlays += tank_two_icon
+
 	if(attached_device)
 		. += "device"
 
@@ -210,7 +224,7 @@
 		var/mob/mob = get_mob_by_key(src.fingerprintslast)
 
 		investigate_log("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", INVESTIGATE_BOMB)
-		message_admins("Bomb valve opened at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
+		message_admins("Bomb valve opened at <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
 		log_game("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]")
 		if(user)
 			add_attack_logs(user, src, "Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", ATKLOG_FEW)
@@ -225,3 +239,5 @@
 		split_gases()
 		valve_open = FALSE
 		update_icon()
+
+#undef TTV_TANK_ICON_STATES

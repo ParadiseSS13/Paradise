@@ -1,7 +1,5 @@
 //Damage things	//TODO: merge these down to reduce on defines
 //Way to waste perfectly good damagetype names (BRUTE) on this... If you were really worried about case sensitivity, you could have just used lowertext(damagetype) in the proc...
-#define CUT 		"cut"
-#define BRUISE		"bruise"
 #define BRUTE		"brute"
 #define BURN		"fire"
 #define TOX			"tox"
@@ -22,6 +20,7 @@
 #define MAGIC		"magic"
 
 #define STUN		"stun"
+#define STAM_CRIT   "stam_crit"
 #define WEAKEN		"weaken"
 #define KNOCKDOWN	"knockdown"
 #define PARALYZE	"paralize"
@@ -157,3 +156,10 @@
 #define STATUS_EFFECT_CONSTANT * 20
 
 #define IS_HORIZONTAL(x) x.body_position
+
+/// Compatible firemode is in the gun. Wait until it's held in the user hands.
+#define AUTOFIRE_STAT_IDLE (1<<0)
+/// Gun is active and in the user hands. Wait until user does a valid click.
+#define AUTOFIRE_STAT_ALERT	(1<<1)
+/// Gun is shooting.
+#define AUTOFIRE_STAT_FIRING (1<<2)

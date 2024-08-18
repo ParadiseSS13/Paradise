@@ -9,7 +9,7 @@
 
 	track.cameras.Cut()
 
-	if(src.stat == 2)
+	if(stat == DEAD)
 		return
 
 	var/list/L = list()
@@ -22,7 +22,7 @@
 
 	for(var/obj/machinery/camera/C in L)
 		var/list/tempnetwork = C.network & src.network
-		if(tempnetwork.len)
+		if(length(tempnetwork))
 			T[text("[][]", C.c_tag, (C.can_use() ? null : " (Deactivated)"))] = C
 
 	track.cameras = T
@@ -33,7 +33,7 @@
 	set category = "AI Commands"
 	set name = "Show Camera List"
 
-	if(src.stat == 2)
+	if(stat == DEAD)
 		to_chat(src, "You can't list the cameras because you are dead!")
 		return
 
@@ -60,7 +60,7 @@
 	track.humans.Cut()
 	track.others.Cut()
 
-	if(usr.stat == 2)
+	if(usr.stat == DEAD)
 		return list()
 
 	for(var/mob/living/M in GLOB.mob_list)
@@ -110,7 +110,7 @@
 	to_chat(src, "Follow camera mode [forced ? "terminated" : "ended"].")
 	cameraFollow = null
 
-/mob/living/silicon/ai/proc/ai_actual_track(mob/living/target)
+/mob/living/silicon/ai/proc/ai_actual_track(mob/living/target, doubleclick = FALSE)
 	if(!istype(target))
 		return
 	var/mob/living/silicon/ai/U = usr
@@ -119,7 +119,8 @@
 	U.tracking = TRUE
 
 	to_chat(U, "<span class='notice'>Attempting to track [target.get_visible_name()]...</span>")
-	sleep(min(30, get_dist(target, U.eyeobj) / 4))
+	if(!doubleclick)
+		sleep(1.5 SECONDS) // Gives antags a brief window to get out of dodge before the eye of sauron decends upon them when someone yells ;HALP
 	spawn(15) //give the AI a grace period to stop moving.
 		U.tracking = FALSE
 
@@ -195,7 +196,7 @@
 	var/obj/machinery/camera/a
 	var/obj/machinery/camera/b
 
-	for(var/i = L.len, i > 0, i--)
+	for(var/i = length(L), i > 0, i--)
 		for(var/j = 1 to i - 1)
 			a = L[j]
 			b = L[j + 1]

@@ -7,7 +7,7 @@
 	var/list/elements
 	var/floor_type = /turf/simulated/floor/vault/lavaland_air
 	var/finished = FALSE
-	var/reward_type = /obj/item/food/snacks/cookie
+	var/reward_type = /obj/item/food/cookie
 	var/element_type = /obj/structure/puzzle_element
 	var/auto_setup = TRUE
 	var/empty_tile_id
@@ -57,7 +57,7 @@
 	if(finished)
 		return
 
-	if(elements.len < 8) //Someone broke it
+	if(length(elements) < 8) //Someone broke it
 		qdel(src)
 
 	//Check if everything is in place
@@ -98,9 +98,9 @@
 		current_ordering += E.id
 
 	var/swap_tally = 0
-	for(var/i in 1 to current_ordering.len)
+	for(var/i in 1 to length(current_ordering))
 		var/checked_value = current_ordering[i]
-		for(var/j in i to current_ordering.len)
+		for(var/j in i to length(current_ordering))
 			if(current_ordering[j] < checked_value)
 				swap_tally++
 

@@ -47,7 +47,7 @@ GLOBAL_LIST(contractors)
 /// Denotes that this power can not be obtained normally. Primarily used for base types such as [/datum/action/changeling/weapon].
 #define CHANGELING_UNOBTAINABLE_POWER	3
 
-#define CHANGELING_FAKEDEATH_TIME					50 SECONDS
+#define CHANGELING_FAKEDEATH_TIME				50 SECONDS
 #define CHANGELING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
 
 /**
@@ -61,3 +61,17 @@ GLOBAL_LIST(contractors)
  * Pulse Demon
  */
 #define PULSEDEMON_SOURCE_DRAIN_INVALID (-1)
+
+/**
+ * Objectives
+ */
+#define THEFT_FLAG_SPECIAL 1 // Unused, maybe someone will use it some day, I'll leave it here for the children
+#define THEFT_FLAG_UNIQUE 2
+
+/**
+ * IS_ANTAG defines
+ */
+#define IS_CHANGELING(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/changeling))
+
+#define IS_MINDSLAVE(mob) (ishuman(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindslave, FALSE))
+

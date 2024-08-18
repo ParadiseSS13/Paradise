@@ -20,6 +20,8 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	blocks_emissive = FALSE // Ghosts are transparent, duh
+	hud_type = /datum/hud/ghost
+	speaks_ooc = TRUE
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
@@ -35,11 +37,13 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
 	///toggle for ghost gas analyzer
-	var/gas_analyzer = FALSE
-	var/datum/orbit_menu/orbit_menu
+	var/gas_scan = FALSE
+	///toggle for ghost plant analyzer
+	var/plant_analyzer = FALSE
 	/// The "color" their runechat would have had
 	var/alive_runechat_color = "#FFFFFF"
-	hud_type = /datum/hud/ghost
+	/// UID of the mob which we are currently observing
+	var/mob_observed
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -53,7 +57,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 		/mob/dead/observer/proc/open_spawners_menu))
 
 	// Our new boo spell.
-	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
+	AddSpell(new /datum/spell/boo(null))
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
@@ -111,12 +115,11 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
-	if(orbit_menu)
-		SStgui.close_uis(orbit_menu)
-		QDEL_NULL(orbit_menu)
 	if(seerads)
 		STOP_PROCESSING(SSobj, src)
 	remove_observer_verbs()
+	if(mob_observed)
+		cleanup_observe()
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -181,25 +184,37 @@ Works together with spawning an observer, noted above.
 	return 1
 
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER, user_color, ghost_name)
-	if(key)
-		if(player_logged) //if they have disconnected we want to remove their SSD overlay
-			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
-		if(GLOB.non_respawnable_keys[ckey])
-			flags &= ~GHOST_CAN_REENTER
-		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
-		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
-		if(ghost.can_reenter_corpse)
-			ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
-		else
-			GLOB.non_respawnable_keys[ckey] = 1
-		if(user_color)
-			add_atom_colour(user_color, ADMIN_COLOUR_PRIORITY)
-			ghost.color = user_color
-		if(ghost_name)
-			ghost.name = ghost_name
-		ghost.key = key
-		ghost.client?.init_verbs()
-		return ghost
+	if(!key)
+		return
+	if(player_logged) // if they have disconnected we want to remove their SSD overlay
+		overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
+	if(GLOB.non_respawnable_keys[ckey])
+		flags &= ~GHOST_CAN_REENTER
+	var/mob/dead/observer/ghost = new(src, flags) // Transfer safety to observer spawning proc.
+	ghost.timeofdeath = src.timeofdeath // BS12 EDIT
+	if(ghost.can_reenter_corpse)
+		ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
+	else
+		GLOB.non_respawnable_keys[ckey] = 1
+
+	// mods, mentors, and the like will have admin observe anyway, so this is moot
+	if(((key in GLOB.antag_hud_users) || (key in GLOB.roundstart_observer_keys)) && !check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
+		ghost.verbs |= /mob/dead/observer/proc/do_observe
+		ghost.verbs |= /mob/dead/observer/proc/observe
+	if(user_color)
+		add_atom_colour(user_color, ADMIN_COLOUR_PRIORITY)
+		ghost.color = user_color
+	if(ghost_name)
+		ghost.name = ghost_name
+	ghost.key = key
+
+	ghost.client?.init_verbs()
+
+	for(var/mob/dead/observer/obs in observers)
+		obs.cleanup_observe()
+
+
+	return ghost
 
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
@@ -214,12 +229,24 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/obj/machinery/cryopod/P = istype(loc, /obj/machinery/cryopod) && loc
 
 	if(frozen)
-		to_chat(src, "<span class='warning'>You cannot do this while admin frozen.</span>")
+		to_chat(src, "<span class='warning'>You cannot do this while admin frozen.</span>", MESSAGE_TYPE_WARNING)
 		message_admins("[key_name_admin(src)] tried to ghost while admin frozen")
 		return
 
 	if(HAS_TRAIT(M, TRAIT_RESPAWNABLE))
-		ghostize(1)
+		if(isdrone(M))//We do not punish maint drones for leaving early, *but* we don't want them ghosting, finding damage, respawning / rentering over and over.
+			var/mob/dead/observer/ghost = ghostize(TRUE) // Keep them respawnable
+			ghost.can_reenter_corpse = FALSE // but keep them out of their old body
+			ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
+			return
+		ghostize(TRUE)
+		return
+	if(isbrain(M))
+		// let a brain ghost out if they want to, but also let them freely re-enter their brain.
+		var/response = tgui_alert(src, "Ghosting from this brain means you'll be respawnable but will be kicked out of your brain, which someone else could take over. Is this what you want?", "Ghost", list("Stay in Brain", "Ghost"))
+		if(response == "Ghost")
+			ghostize(TRUE)
+			log_admin("[key_name(M)] has ghosted as a brain-mob, but is keeping respawnability.")
 		return
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
@@ -248,11 +275,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(warningmsg)
 		// Not respawnable
-		var/mob/dead/observer/ghost = ghostize(0)	// 0 parameter stops them re-entering their body
+		var/mob/dead/observer/ghost = ghostize(FALSE)	// FALSE parameter stops them re-entering their body
 		ghost.timeofdeath = world.time	// Because the living mob won't have a time of death and we want the respawn timer to work properly.
 	else
 		// Respawnable
-		ghostize(1)
+		ghostize(TRUE)
 
 	// If mob in cryopod, despawn mob
 	if(P)
@@ -329,7 +356,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.overlays += source
 				source.layer = old_layer
 				source.plane = old_plane
-	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
+	to_chat(src, "<span class='ghostalert'><a href=byond://?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
 		SEND_SOUND(src, sound(sound))
 
@@ -476,10 +503,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
 
-	if(!orbit_menu)
-		orbit_menu = new(src)
-
-	orbit_menu.ui_interact(src)
+	GLOB.orbit_menu.ui_interact(src)
 
 /mob/dead/observer/verb/crew_monitor()
 	set category = "Ghost"
@@ -489,52 +513,67 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	GLOB.ghost_crew_monitor.ui_interact(src)
 
 /mob/dead/observer/proc/add_observer_verbs()
-	verbs.Add(/mob/dead/observer/proc/ManualFollow)
+	verbs.Add(
+		/mob/dead/observer/proc/ManualFollow,
+	)
 
 /mob/dead/observer/proc/remove_observer_verbs()
-	verbs.Remove(/mob/dead/observer/proc/ManualFollow)
+	verbs.Remove(
+		/mob/dead/observer/proc/ManualFollow,
+		// these might not necessarily be here, but we want to make sure they're gonezo anyway
+		/mob/dead/observer/proc/observe,
+		/mob/dead/observer/proc/do_observe
+	)
 
-// This is the ghost's follow verb with an argument
+// This is the ghost's follow verb with an argument.
+// We need to do the usr check on this verb itself, but the logic follows.
 /mob/dead/observer/proc/ManualFollow(atom/movable/target)
 	set name = "\[Observer\] Orbit"
 	set desc = "Orbits the specified movable atom."
 	set category = null
 
-	if(!target || !isobserver(usr))
+	// this usr check is apparently necessary for security
+	if(!isobserver(usr))
 		return
 
+	return do_manual_follow(target)
+
+// We need to check usr when calling the verb, but we still want this logic to be accessible elsewhere
+/mob/dead/observer/proc/do_manual_follow(atom/movable/target)
 	if(!get_turf(target))
 		return
 
-	if(target != src)
-		if(src in target.get_orbiters())
-			return
+	if(!target || target == src)
+		return
 
-		var/icon/I = icon(target.icon,target.icon_state,target.dir)
+	if(src in target.get_orbiters())
+		return
 
-		var/orbitsize = (I.Width()+I.Height())*0.5
+	var/icon/I = icon(target.icon, target.icon_state, target.dir)
 
-		if(orbitsize == 0)
-			orbitsize = 40
+	var/orbitsize = (I.Width() + I.Height())*0.5
 
-		orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+	if(orbitsize == 0)
+		orbitsize = 40
 
-		var/rot_seg
+	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
 
-		switch(ghost_orbit)
-			if(GHOST_ORBIT_TRIANGLE)
-				rot_seg = 3
-			if(GHOST_ORBIT_SQUARE)
-				rot_seg = 4
-			if(GHOST_ORBIT_PENTAGON)
-				rot_seg = 5
-			if(GHOST_ORBIT_HEXAGON)
-				rot_seg = 6
-			else //Circular
-				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
+	var/rot_seg
 
-		to_chat(src, "<span class='notice'>Now following [target].</span>")
-		orbit(target,orbitsize, FALSE, 20, rot_seg)
+	switch(ghost_orbit)
+		if(GHOST_ORBIT_TRIANGLE)
+			rot_seg = 3
+		if(GHOST_ORBIT_SQUARE)
+			rot_seg = 4
+		if(GHOST_ORBIT_PENTAGON)
+			rot_seg = 5
+		if(GHOST_ORBIT_HEXAGON)
+			rot_seg = 6
+		else // Circular
+			rot_seg = 36 // 360/10 bby, smooth enough aproximation of a circle
+
+	to_chat(src, "<span class='notice'>Now following [target].</span>")
+	orbit(target, orbitsize, FALSE, 20, rot_seg)
 
 /mob/dead/observer/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lock_in_orbit = FALSE, force_move = FALSE, orbit_layer = GHOST_LAYER)
 	setDir(2)//reset dir so the right directional sprites show up
@@ -572,73 +611,28 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='notice'>Health scan enabled.</span>")
 		health_scan = TRUE
 
-/mob/dead/observer/verb/toggle_gas_anaylzer()
-	set name = "Toggle Gas Analyzer"
-	set desc = "Toggles wether you can anaylze gas contents on click"
+/mob/dead/observer/verb/toggle_gas_scan()
+	set name = "Toggle Gas Scan"
+	set desc = "Toggles whether you analyze gas contents on click"
 	set category = "Ghost"
 
-	if(gas_analyzer)
-		to_chat(src, "<span class='notice'>Gas Analyzer disabled.</span>")
-		gas_analyzer = FALSE
+	gas_scan = !gas_scan
+	if(gas_scan)
+		to_chat(src, "<span class='notice'>Gas scan enabled.</span>")
 	else
-		to_chat(src, "<span class='notice'>Gas Analyzer enabled. Click on a pipe to analyze.</span>")
-		gas_analyzer = TRUE
+		to_chat(src, "<span class='notice'>Gas scan disabled.</span>")
 
-/mob/dead/observer/verb/analyze_air()
-	set name = "Analyze Air"
+/mob/dead/observer/verb/toggle_plant_anaylzer()
+	set name = "Toggle Plant Analyzer"
+	set desc = "Toggles wether you can anaylze plants and seeds on click"
 	set category = "Ghost"
 
-	if(!isobserver(usr))
-		return
-
-	// Shamelessly copied from the Gas Analyzers
-	if(!isturf(usr.loc))
-		return
-
-	var/datum/gas_mixture/environment = usr.loc.return_air()
-
-	var/pressure = environment.return_pressure()
-	var/total_moles = environment.total_moles()
-
-	to_chat(src, "<span class='boldnotice'>Results:</span>")
-	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(src, "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>")
+	if(plant_analyzer)
+		to_chat(src, "<span class='notice'>Plant Analyzer disabled.</span>")
+		plant_analyzer = FALSE
 	else
-		to_chat(src, "<span class='warning'>Pressure: [round(pressure, 0.1)] kPa</span>")
-	if(total_moles)
-		var/o2_concentration = environment.oxygen / total_moles
-		var/n2_concentration = environment.nitrogen / total_moles
-		var/co2_concentration = environment.carbon_dioxide / total_moles
-		var/plasma_concentration = environment.toxins / total_moles
-		var/n2o_concentration = environment.sleeping_agent / total_moles
-
-		var/unknown_concentration = 1 - (o2_concentration + n2_concentration + co2_concentration + plasma_concentration + n2o_concentration)
-		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(src, "<span class='notice'>Nitrogen: [round(n2_concentration * 100)]% ([round(environment.nitrogen, 0.01)] moles)</span>")
-		else
-			to_chat(src, "<span class='warning'>Nitrogen: [round(n2_concentration * 100)]% ([round(environment.nitrogen, 0.01)] moles)</span>")
-
-		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(src, "<span class='notice'>Oxygen: [round(o2_concentration * 100)]% ([round(environment.oxygen, 0.01)] moles)</span>")
-		else
-			to_chat(src, "<span class='warning'>Oxygen: [round(o2_concentration * 100)]% ([round(environment.oxygen, 0.01)] moles)</span>")
-
-		if(co2_concentration > 0.01)
-			to_chat(src, "<span class='warning'>CO2: [round(co2_concentration * 100)]% ([round(environment.carbon_dioxide, 0.01)] moles)</span>")
-		else
-			to_chat(src, "<span class='notice'>CO2: [round(co2_concentration * 100)]% ([round(environment.carbon_dioxide, 0.01)] moles)</span>")
-
-		if(plasma_concentration > 0.01)
-			to_chat(src, "<span class='warning'>Plasma: [round(plasma_concentration * 100)]% ([round(environment.toxins, 0.01)] moles)</span>")
-
-		if(n2o_concentration > 0.01)
-			to_chat(src, "<span class='warning'>N2O: [round(n2o_concentration * 100)]% ([round(environment.sleeping_agent, 0.01)] moles)</span>")
-
-		if(unknown_concentration > 0.01)
-			to_chat(src, "<span class='warning'>Unknown: [round(unknown_concentration * 100)]% ([round(unknown_concentration * total_moles, 0.01)] moles)</span>")
-
-		to_chat(src, "<span class='notice'>Temperature: [round(environment.temperature - T0C, 0.1)]&deg;C</span>")
-		to_chat(src, "<span class='notice'>Heat Capacity: [round(environment.heat_capacity(), 0.1)]</span>")
+		to_chat(src, "<span class='notice'>Plant Analyzer enabled. Click on a plant or seed to analyze.</span>")
+		plant_analyzer = TRUE
 
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
@@ -747,7 +741,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	updateghostimages()
 
-/mob/dead/observer/can_see_reagents()
+/mob/dead/observer/advanced_reagent_vision()	// Ghosts can see all the reagents inside things.
 	return TRUE
 
 /proc/updateallghostimages()
@@ -866,6 +860,102 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/get_runechat_color()
 	return alive_runechat_color
+
+/mob/dead/observer/proc/observe()
+	set name = "Observe"
+	set desc = "Observe a mob."
+	set category = "Ghost"
+
+	var/list/possible_targets = list()
+	for(var/mob/living/L in GLOB.player_list)
+		if(!L.mind)
+			continue
+		possible_targets.Add(L)
+
+	if(!length(possible_targets))
+		to_chat(src, "<span class='warning'>There's nobody for you to observe!</span>")
+		return
+
+	var/mob/target = tgui_input_list(usr, "Please, select a player!", "Observe", possible_targets)
+	if(!istype(target) || QDELETED(target))
+		return
+	do_observe(target)
+
+/mob/dead/observer/proc/do_observe(mob/mob_eye)
+	set name = "\[Observer\] Observe"
+	set desc = "Observe the target mob."
+	set category = null
+
+	if(isnewplayer(mob_eye))
+		to_chat(src, "<span class='warning'>You can't observe someone in the lobby.</span>")
+		return
+
+	if(isobserver(mob_eye))
+		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
+		return
+
+	if(!mob_eye.mind)
+		to_chat(src, "<span class='notice'>You can only observe mobs that have been or are being inhabited by a player!</span>")
+		return
+
+	if(mob_eye == src)
+		to_chat(src, "<span class='warning'>You can't observe yourself!</span>")
+		return
+
+	if(mob_observed)
+		// clean up first
+		stop_orbit()
+		cleanup_observe()
+
+	// Istype so we filter out points of interest that are not mobs
+	if(client && ismob(mob_eye))
+		// follow the mob so they're technically right there for visible messages n stuff
+		// call the sub-proc since the base one checks for usr
+		do_manual_follow(mob_eye)
+		client.set_eye(mob_eye)
+		add_attack_logs(src, mob_eye, "observed", ATKLOG_ALMOSTALL)
+		client.perspective = EYE_PERSPECTIVE
+		if(mob_eye.hud_used)
+			client.clear_screen()
+			LAZYOR(mob_eye.observers, src)
+			mob_eye.hud_used?.show_hud(mob_eye.hud_used.hud_version, src)
+			mob_observed = mob_eye.UID()
+
+
+		// mentor observing grants you this trait, and provides its own signal handler for this
+		if(!HAS_MIND_TRAIT(src, TRAIT_MENTOR_OBSERVING))
+			RegisterSignal(src, COMSIG_ATOM_ORBITER_STOP, PROC_REF(on_observer_orbit_end), override = TRUE)
+		else
+			if(!check_rights(R_MENTOR, FALSE, src))
+				log_debug("[key_name(src)] has the the mobserve trait while observing, but isn't a mentor. This is likely an error, and may result in them getting stuck")
+
+/// Clean up observing
+/mob/dead/observer/proc/cleanup_observe()
+	if(isnull(mob_observed))
+		return
+
+	var/mob/target = locateUID(mob_observed)
+	add_attack_logs(src, target, "un-observed", ATKLOG_ALL)
+	mob_observed = null
+	reset_perspective(null)
+	client?.perspective = initial(client.perspective)
+	set_sight(initial(sight))
+	UnregisterSignal(src, COMSIG_ATOM_ORBITER_STOP)
+
+	if(s_active)
+		var/obj/item/storage/bag = s_active
+		s_active = null
+		bag.update_viewers(src)
+
+	if(!QDELETED(target) && istype(target))
+		hide_other_mob_action_buttons(target)
+		target.observers -= src
+
+/mob/dead/observer/proc/on_observer_orbit_end(mob/follower, atom)
+	SIGNAL_HANDLER	// COMSIG_ATOM_ORBITER_STOP
+	if(HAS_MIND_TRAIT(src, TRAIT_MENTOR_OBSERVING))
+		log_debug("[key_name(src)] ended up in regular cleanup_observe rather than the mentor cleanup observe despite having TRAIT_MENTOR_OBSERVING. This is likely a bug and may result in them being stuck outside of their bodies.")
+	cleanup_observe()
 
 #undef GHOST_CAN_REENTER
 #undef GHOST_IS_OBSERVER

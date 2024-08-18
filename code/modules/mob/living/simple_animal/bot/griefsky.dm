@@ -7,7 +7,8 @@
 	maxHealth = 100
 	base_icon = "griefsky"
 	window_name = "Automatic Security Unit v3.0"
-
+	bot_type = GRIEF_BOT
+	model = "Griefsky"
 	var/spin_icon = "griefsky-c"  // griefsky and griefsky junior have dif icons
 	var/weapon = /obj/item/melee/energy/sword/saber
 	var/block_chance = 50   //block attacks
@@ -41,7 +42,7 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/back_to_idle()
 	..()
-	playsound(loc, 'sound/weapons/saberoff.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/saberoff.ogg', 50, TRUE, -1)
 
 /mob/living/simple_animal/bot/secbot/griefsky/emag_act(mob/user)
 	..()
@@ -73,13 +74,13 @@
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
 		visible_message("[src] deflects [P] with its energy swords!")
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, 0)
 	else
 		..()
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/sword_attack(mob/living/carbon/C)     // esword attack
 	do_attack_animation(C)
-	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 	addtimer(CALLBACK(src, PROC_REF(do_sword_attack), C), 2)
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/do_sword_attack(mob/living/carbon/C)
@@ -118,7 +119,7 @@
 				mode = BOT_START_PATROL	// switch to patrol mode
 		if(BOT_HUNT)		// hunting for perp
 			icon_state = spin_icon
-			playsound(loc,'sound/effects/spinsabre.ogg',50,1,-1)
+			playsound(loc,'sound/effects/spinsabre.ogg',50, TRUE,-1)
 			if(frustration >= frustration_number) // general beepsky doesn't give up so easily, jedi scum
 				walk_to(src,0)
 				set_path(null)
@@ -206,18 +207,7 @@
 
 //this section is blocking attack
 
-/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
-	retaliate(P.firer)
-	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[src] deflects [P] with its energy swords!")
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
-	else
-		..()
-
-/mob/living/simple_animal/bot/secbot/griefsky/proc/special_retaliate_after_attack(mob/user) //allows special actions to take place after being attacked.
-	return
-
-/mob/living/simple_animal/bot/secbot/griefsky/special_retaliate_after_attack(mob/user)
+/mob/living/simple_animal/bot/secbot/griefsky/proc/special_retaliate_after_attack(mob/user)
 	if(icon_state != spin_icon)
 		return
 	if(prob(block_chance_melee))

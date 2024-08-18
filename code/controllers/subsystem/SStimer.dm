@@ -341,7 +341,7 @@ SUBSYSTEM_DEF(timer)
 		return
 
 	// Sort it first
-	var/list/sorted = sortTim(GLOB.timers_by_type, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
+	var/list/sorted = sortTim(GLOB.timers_by_proc, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 
 	// DOOMP EET
 	var/timer_json_file = file("[GLOB.log_directory]/timers.json")
@@ -571,14 +571,14 @@ SUBSYSTEM_DEF(timer)
 			CRASH("this timer is attached to no object, the attempted proc to call was [callBack.delegate]")
 		. = "[callBack.object.type]"
 
-GLOBAL_LIST_EMPTY(timers_by_type)
+GLOBAL_LIST_EMPTY(timers_by_proc)
 // Allows us to track what types generate the most timers. Just invokes the global addtimer
 /datum/proc/addtimer(datum/callback/callback, wait = 0, flags = 0)
-	var/tt = "[type]"
-	if(tt in GLOB.timers_by_type)
-		GLOB.timers_by_type[tt]++
+	var/timer_function = "[type][callback.delegate]"
+	if(timer_function in GLOB.timers_by_proc)
+		GLOB.timers_by_proc[timer_function]++
 	else
-		GLOB.timers_by_type[tt] = 1
+		GLOB.timers_by_proc[timer_function] = 1
 	return global.addtimer(callback, wait, flags)
 
 /**
@@ -594,7 +594,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return
 
-	var/list/sorted = sortTim(GLOB.timers_by_type, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
+	var/list/sorted = sortTim(GLOB.timers_by_proc, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 	var/list/text = list("<h1>Timer Log</h1>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"

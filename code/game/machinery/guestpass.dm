@@ -33,6 +33,7 @@
 
 /obj/machinery/computer/guestpass
 	name = "guest pass terminal"
+	desc = "This console allows staff to give out temporary access to their coworkers."
 	icon_state = "guest"
 	icon_screen = "pass"
 	icon_keyboard = null
@@ -62,7 +63,7 @@
 			if(user.drop_item())
 				I.forceMove(src)
 				scan = I
-				updateUsrDialog()
+				SStgui.update_uis(src)
 		else
 			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
 		return
@@ -231,6 +232,7 @@
 
 /obj/machinery/computer/guestpass/hop
 	name = "\improper HoP guest pass terminal"
+	desc = "The Head of Personnel's guest pass terminal allows the HoP to temporarily allow anyone into places they probably shouldn't be."
 
 /obj/machinery/computer/guestpass/hop/get_changeable_accesses()
 	. = ..()

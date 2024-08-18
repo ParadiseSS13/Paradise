@@ -146,7 +146,7 @@
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
-	if(crit_fail || (!holder && !contents.len))
+	if(crit_fail || (!holder && !length(contents)))
 		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
 		return
 
@@ -157,7 +157,7 @@
 
 	if(!holder || (holder in src))
 		holder = null
-		if(contents.len == 1)
+		if(length(contents) == 1)
 			Extend(contents[1])
 		else
 			radial_menu(owner)
@@ -240,7 +240,7 @@
 	return FALSE
 
 /obj/item/organ/internal/cyberimp/arm/toolset_abductor
-	name = "Alien Toolset implant"
+	name = "alien toolset implant"
 	desc = "An alien toolset, designed to be installed on subject's arm."
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=3"
 	contents = newlist(/obj/item/screwdriver/abductor, /obj/item/wirecutters/abductor, /obj/item/crowbar/abductor, /obj/item/wrench/abductor, /obj/item/weldingtool/abductor, /obj/item/multitool/abductor)
@@ -248,6 +248,28 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
 
 /obj/item/organ/internal/cyberimp/arm/toolset_abductor/l
+	parent_organ = "l_arm"
+
+/obj/item/organ/internal/cyberimp/arm/janitorial_abductor
+	name = "alien janitorial toolset implant"
+	desc = "A set of alien janitorial tools, designed to be installed on subject's arm."
+	origin_tech = "materials=5;engineering=5;biotech=5;powerstorage=4;abductor=3"
+	contents = newlist(/obj/item/mop/advanced/abductor, /obj/item/soap/syndie/abductor, /obj/item/lightreplacer/bluespace/abductor, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter/abductor, /obj/item/reagent_containers/spray/cleaner/safety/abductor)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt_abductor")
+
+/obj/item/organ/internal/cyberimp/arm/janitorial_abductor/l
+	parent_organ = "l_arm"
+
+/obj/item/organ/internal/cyberimp/arm/surgical_abductor
+	name = "alien surgical toolset implant"
+	desc = "An alien surgical toolset, designed to be installed on the subject's arm."
+	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=2"
+	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/FixOVein/alien, /obj/item/surgicaldrill/alien)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
+
+/obj/item/organ/internal/cyberimp/arm/surgical_abductor/l
 	parent_organ = "l_arm"
 
 /obj/item/organ/internal/cyberimp/arm/esword
@@ -467,7 +489,7 @@
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
-	icon_state = "razorwire_weapon"
+	icon_state = "razorwire"
 	item_state = "razorwire"
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
@@ -476,6 +498,24 @@
 	reach = 2
 	hitsound = 'sound/weapons/whip.ogg'
 	attack_verb = list("slashes", "whips", "lashes", "lacerates")
+	///List of skins for the razorwire.
+	var/list/razorwire_skin_options = list()
+
+/obj/item/melee/razorwire/Initialize(mapload)
+	. = ..()
+	var/random_colour = pick("razorwire", "razorwire_teal", "razorwire_yellow", "razorwire_purple", "razorwire_green")
+	icon_state = random_colour
+	item_state = random_colour
+	update_icon()
+	razorwire_skin_options["Reliable Red"] = "razorwire"
+	razorwire_skin_options["Troubling Teal"] = "razorwire_teal"
+	razorwire_skin_options["Yearning Yellow"] = "razorwire_yellow"
+	razorwire_skin_options["Plasma Purple"] = "razorwire_purple"
+	razorwire_skin_options["Great Green"] = "razorwire_green"
+
+/obj/item/melee/razorwire/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Alt-click it to reskin it.</span>"
 
 /obj/item/melee/razorwire/examine_more(mob/user)
 	. = ..()
@@ -489,6 +529,35 @@
 	with a hand and wrist replacement made of the same durable material used to contain energy weapons. They would call it, the Razorwire.</i>"
 	. += "<i>Favored by assassins for their stealth and efficiency, Cybersun exercises discretion in its distribution, favoring clients in their good graces. \
 	It falls behind other energy weapons due to its thinner and more loose pressure, however it is praised more as a side-arm for unarmored soft targets.</i>"
+
+/obj/item/melee/razorwire/AltClick(mob/user)
+	..()
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(loc == user)
+		reskin(user)
+
+/obj/item/melee/razorwire/proc/reskin(mob/M)
+	var/list/skins = list()
+	for(var/I in razorwire_skin_options)
+		skins[I] = image(icon, icon_state = razorwire_skin_options[I])
+	var/choice = show_radial_menu(M, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), M), require_near = TRUE)
+
+	if(choice && reskin_radial_check(M))
+		icon_state = razorwire_skin_options[choice]
+		item_state = razorwire_skin_options[choice]
+		update_icon()
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
+
+/obj/item/melee/razorwire/proc/reskin_radial_check(mob/user)
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	if(!src || !H.is_in_hands(src) || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/razorwire
 	name = "razorwire spool implant"
@@ -673,7 +742,7 @@
 	force = initial(force)
 
 /obj/item/shield/v1_arm/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
 
 /obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(disabled)
@@ -690,7 +759,7 @@
 	set_light(3)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.25 SECONDS)
 
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
 			return FALSE

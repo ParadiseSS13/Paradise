@@ -18,7 +18,7 @@
 
 		if(!IS_HORIZONTAL(src) && world.time - l_move_time < 15)
 		//Moving around with fractured ribs won't do you any good
-			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
+			if(E.is_broken() && E.internal_organs && length(E.internal_organs) && prob(15))
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
 				E.custom_pain("You feel broken bones moving in your [E.name]!")
 				I.receive_damage(rand(3, 5))
@@ -48,6 +48,8 @@
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
 		var/obj/item/organ/external/E = bodyparts_by_name[limb_tag]
 		if(!E || (E.status & ORGAN_DEAD) || E.is_malfunctioning() || !E.properly_attached)
+			if(E?.status & ORGAN_DEAD && HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
+				continue
 			if(E && !E.properly_attached && life_tick % 24 == 0)
 				to_chat(src, "<span class='danger'>Your [E] is hanging on by a thread! You need someone to surgically attach it for you!</span>")
 			// let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs.

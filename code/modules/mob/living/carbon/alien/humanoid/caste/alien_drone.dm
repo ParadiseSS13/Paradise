@@ -9,7 +9,7 @@
 	. = ..()
 	name = "alien drone ([rand(1, 1000)])"
 	real_name = name
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_queen)
+	AddSpell(new /datum/spell/alien_spell/evolve_queen)
 
 /mob/living/carbon/alien/humanoid/drone/get_caste_organs()
 	. = ..()

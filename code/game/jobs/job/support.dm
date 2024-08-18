@@ -22,12 +22,13 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MINING_STATION,
 		ACCESS_MINING,
-		ACCESS_MINT,
 		ACCESS_QM,
 		ACCESS_RC_ANNOUNCE,
 		ACCESS_SEC_DOORS,
 		ACCESS_SUPPLY_SHUTTLE,
-		ACCESS_WEAPONS
+		ACCESS_WEAPONS,
+		ACCESS_TELEPORTER,
+		ACCESS_EXPEDITION
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
@@ -103,7 +104,6 @@
 		ACCESS_MINERAL_STOREROOM,
 		ACCESS_MINING_STATION,
 		ACCESS_MINING,
-		ACCESS_MINT,
 	)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
@@ -161,7 +161,45 @@
 	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	mask = /obj/item/clothing/mask/breath
 
+/datum/job/explorer
+	title = "Explorer"
+	flag = JOB_EXPLORER
+	department_flag = JOBCAT_SUPPORT
+	job_department_flags = DEP_FLAG_SUPPLY
+	total_positions = 4
+	spawn_positions = 4
+	supervisors = "the quartermaster"
+	department_head = list("Quartermaster")
+	selection_color = "#eeddbe"
+	access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_EXPEDITION,
+		ACCESS_EVA,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_TELEPORTER,
+		ACCESS_CARGO,
+		ACCESS_CARGO_BAY,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_SUPPLY_SHUTTLE,
+		ACCESS_MINING_STATION
+	)
+	alt_titles = list("Salvage Technician", "Scavenger")
+	outfit = /datum/outfit/job/explorer
 
+/datum/outfit/job/explorer
+	name = "Explorer"
+	jobtype = /datum/job/explorer
+	l_ear = /obj/item/radio/headset/headset_cargo/expedition
+	head = /obj/item/clothing/head/soft/expedition
+	uniform = /obj/item/clothing/under/rank/cargo/expedition
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/storage/belt/utility/expedition
+	id = /obj/item/card/id/explorer
+	pda = /obj/item/pda/explorer
+	backpack = /obj/item/storage/backpack/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	box = /obj/item/storage/box/survival_mining
 
 //Food
 /datum/job/bartender
@@ -202,6 +240,9 @@
 	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
+
+/datum/outfit/job/bartender/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
 	ADD_TRAIT(H.mind, TRAIT_SLEIGHT_OF_HAND, ROUNDSTART_TRAIT)
 
@@ -236,14 +277,14 @@
 		/obj/item/paper/chef=1,\
 		/obj/item/book/manual/wiki/chef_recipes=1)
 
-/datum/outfit/job/chef/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
+/datum/outfit/job/chef/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
 	var/datum/martial_art/cqc/under_siege/justacook = new
-	justacook.teach(H)
+	justacook.teach(H) // requires mind
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
-
+	ADD_TRAIT(H.mind, TRAIT_KNOWS_COOKING_RECIPES, ROUNDSTART_TRAIT)
+	if(H.mind)
+		H.mind.AddSpell(new /datum/spell/chef/expert_chef)
 
 /datum/job/hydro
 	title = "Botanist"
@@ -304,7 +345,7 @@
 	id = /obj/item/card/id/clown
 	pda = /obj/item/pda/clown
 	backpack_contents = list(
-		/obj/item/food/snacks/grown/banana = 1,
+		/obj/item/food/grown/banana = 1,
 		/obj/item/stamp/clown = 1,
 		/obj/item/toy/crayon/rainbow = 1,
 		/obj/item/storage/fancy/crayons = 1,
@@ -350,14 +391,14 @@
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy
 	name = "Toggle Clown Clumsy"
-	button_icon_state = "clown"
+	button_overlay_icon_state = "clown"
 
 /datum/action/innate/toggle_clumsy/Activate()
 	var/mob/living/carbon/human/H = owner
 	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
 	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = TRUE
-	background_icon_state = "bg_spell"
+	button_background_icon_state = "bg_spell"
 	UpdateButtons()
 	to_chat(H, "<span class='notice'>You start acting clumsy to throw suspicions off. Focus again before using weapons.</span>")
 
@@ -366,7 +407,7 @@
 	H.dna.SetSEState(GLOB.clumsyblock, FALSE)
 	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = FALSE
-	background_icon_state = "bg_default"
+	button_background_icon_state = "bg_default"
 	UpdateButtons()
 	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
 
@@ -414,16 +455,16 @@
 		uniform = /obj/item/clothing/under/rank/civilian/mime/sexy
 		suit = /obj/item/clothing/mask/gas/sexymime
 
-/datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
 	if(visualsOnly)
 		return
 
-	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
-		H.mind.miming = 1
 	qdel(H.GetComponent(/datum/component/footstep))
+
+/datum/outfit/job/mime/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	H.mind.AddSpell(new /datum/spell/aoe/conjure/build/mime_wall(null))
+	H.mind.AddSpell(new /datum/spell/mime/speak(null))
+	H.mind.miming = TRUE
 
 /datum/job/janitor
 	title = "Janitor"
@@ -488,33 +529,10 @@
 
 /datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
-	if(!H.mind)
+	if(visualsOnly)
 		return
 	for(var/la in GLOB.all_languages)
 		var/datum/language/new_language = GLOB.all_languages[la]
 		if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
 			continue
 		H.add_language(la)
-
-/datum/job/explorer
-	title = "Explorer"
-	flag = JOB_EXPLORER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 4
-	spawn_positions = 4
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_EXPEDITION, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	outfit = /datum/outfit/job/explorer
-
-/datum/outfit/job/explorer
-	name = "Explorer"
-	jobtype = /datum/job/explorer
-	uniform = /obj/item/clothing/under/color/orange
-	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/workboots
-	glasses = /obj/item/clothing/glasses/welding
-	belt = /obj/item/storage/belt/utility
-	l_pocket = /obj/item/gps
-	id = /obj/item/card/id/explorer

@@ -16,6 +16,17 @@
 	var/max_items = 7
 	var/obj/item/storage/backpack/modstorage/bag
 
+/obj/item/mod/module/storage/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
+	var/obj/item/storage/backpack/modstorage/S = new(src)
+	bag = S
+	bag.max_w_class = max_w_class
+	bag.max_combined_w_class = max_combined_w_class
+	bag.storage_slots = max_items
+	bag.source = src
+	bag.forceMove(src)
+
 /obj/item/mod/module/storage/serialize()
 	var/list/data = ..()
 	data["bag"] = bag.serialize()
@@ -27,41 +38,21 @@
 	bag = list_to_object(data["bag"], src)
 	bag.source = src
 
-/obj/item/mod/module/storage/Initialize(mapload)
-	. = ..()
-	var/obj/item/storage/backpack/modstorage/S = new(src)
-	bag = S
-	bag.max_w_class = max_w_class
-	bag.max_combined_w_class = max_combined_w_class
-	bag.storage_slots = max_items
-	bag.source = src
-
 /obj/item/mod/module/storage/Destroy()
 	QDEL_NULL(bag)
 	return ..()
 
-
 /obj/item/mod/module/storage/on_install()
 	mod.bag = bag
-	bag.forceMove(mod)
 
 /obj/item/mod/module/storage/on_uninstall(deleting = FALSE)
 	if(!deleting)
 		for(var/obj/I in bag.contents)
 			I.forceMove(get_turf(loc))
-		bag.forceMove(src)
 		mod.bag = null
 		return
 	qdel(bag)
 	UnregisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP)
-
-/obj/item/mod/module/storage/on_suit_deactivation(deleting)
-	. = ..()
-	bag.forceMove(src) //So the pinpointer doesnt lie.
-
-/obj/item/mod/module/storage/on_unequip()
-	. = ..()
-	bag.forceMove(src)
 
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"
@@ -117,16 +108,6 @@
 /obj/item/storage/backpack/modstorage/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
-/obj/item/storage/backpack/modstorage/process()
-	update_viewers()
-
-/obj/item/storage/backpack/modstorage/update_viewers()
-	for(var/_M in mobs_viewing)
-		var/mob/M = _M
-		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)) && (source.mod.loc == _M || (M in range(1, source.mod)))) //This ensures someone isn't taking it away from the mod unit
-			continue
-		hide_from(M)
 
 
 ///Ion Jetpack - Lets the user fly freely through space using battery charge.
@@ -303,7 +284,7 @@
 	incompatible_modules = list(/obj/item/mod/module/dispenser)
 	cooldown_time = 5 SECONDS
 	/// Path we dispense.
-	var/dispense_type = /obj/item/food/snacks/burger/cheese
+	var/dispense_type = /obj/item/food/burger/cheese
 	/// Time it takes for us to dispense.
 	var/dispense_time = 0 SECONDS
 

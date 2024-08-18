@@ -204,7 +204,7 @@
 		return
 
 	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
-		if(S.contents[S.contents.len] == I) // No point moving them at the end if they're already there!
+		if(S.contents[length(S.contents)] == I) // No point moving them at the end if they're already there!
 			return
 
 		var/list/new_contents = S.contents.Copy()
@@ -367,6 +367,8 @@
 	screen_loc = ui_crafting
 
 /atom/movable/screen/craft/Click()
+	if(!isliving(usr))
+		return
 	var/mob/living/M = usr
 	M.OpenCraftingMenu()
 
@@ -396,24 +398,29 @@
 	object_overlays.Cut()
 
 /atom/movable/screen/inventory/proc/add_overlays()
-	var/mob/user = hud.mymob
+	var/mob/user = hud?.mymob
 
-	if(hud && user && slot_id)
-		var/obj/item/holding = user.get_active_hand()
+	if(!user || user != usr)
+		return
 
-		if(!holding || user.get_item_by_slot(slot_id))
-			return
+	if(!hud?.mymob || !slot_id || slot_id == SLOT_HUD_LEFT_HAND || slot_id == SLOT_HUD_RIGHT_HAND)
+		return
 
-		var/image/item_overlay = image(holding)
-		item_overlay.alpha = 92
+	var/obj/item/holding = user.get_active_hand()
 
-		if(!user.can_equip(holding, slot_id, disable_warning = TRUE))
-			item_overlay.color = "#ff0000"
-		else
-			item_overlay.color = "#00ff00"
+	if(!holding || user.get_item_by_slot(slot_id))
+		return
 
-		object_overlays += item_overlay
-		add_overlay(object_overlays)
+	var/image/item_overlay = image(holding)
+	item_overlay.alpha = 92
+
+	if(!user.can_equip(holding, slot_id, TRUE))
+		item_overlay.color = "#ff0000"
+	else
+		item_overlay.color = "#00ff00"
+
+	object_overlays += item_overlay
+	add_overlay(object_overlays)
 
 /atom/movable/screen/inventory/MouseDrop(atom/over)
 	cut_overlay(object_overlays)
@@ -486,9 +493,9 @@
 		var/mob/M = usr
 		switch(name)
 			if("right hand", "r_hand")
-				M.activate_hand("r")
+				M.activate_hand(HAND_BOOL_RIGHT)
 			if("left hand", "l_hand")
-				M.activate_hand("l")
+				M.activate_hand(HAND_BOOL_LEFT)
 	return TRUE
 
 /atom/movable/screen/swap_hand
@@ -552,6 +559,12 @@
 		var/mob/living/carbon/H = usr
 		H.check_self_for_injuries()
 
+/atom/movable/screen/nutrition
+	name = "nutrition"
+	icon = 'icons/mob/screen_hunger.dmi'
+	icon_state = null
+	screen_loc = ui_nutrition
+
 /atom/movable/screen/component_button
 	var/atom/movable/screen/parent
 
@@ -562,3 +575,7 @@
 /atom/movable/screen/component_button/Click(params)
 	if(parent)
 		parent.component_click(src, params)
+
+/atom/movable/screen/healths/stamina
+	icon_state = "stamina_0"
+	screen_loc = ui_stamina

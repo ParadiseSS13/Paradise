@@ -9,7 +9,7 @@ emp_act
 
 
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
-	if(!dna.species.bullet_act(P, src))
+	if(!dna.species.bullet_act(P, src, def_zone))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		P.reflect_back(src) //It has to be here, not on species. Why? Who knows. Testing showed me no reason why it doesn't work on species, and neither did tracing. It has to be here, or it gets qdel'd by bump.
 		return -1
@@ -93,6 +93,9 @@ emp_act
 		return
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
+		if(ismachineperson(src))
+			to_chat(user, "<span class='notice'>[p_they(TRUE)] [p_are()] missing that limb!</span>")
+			return TRUE
 		return
 	if(!S.is_robotic() || S.open == ORGAN_SYNTHETIC_OPEN)
 		return
@@ -459,7 +462,7 @@ emp_act
 		return FALSE
 
 	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/food/snacks/meat/human/newmeat = new /obj/item/food/snacks/meat/human(get_turf(loc))
+		var/obj/item/food/meat/human/newmeat = new /obj/item/food/meat/human(get_turf(loc))
 		newmeat.name = real_name + newmeat.name
 		newmeat.subjectname = real_name
 		newmeat.subjectjob = job
@@ -474,9 +477,11 @@ emp_act
 			return FALSE
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
+
+	// if the targeted limb doesn't exist, pick a new one at random so you don't have to swap target zone
 	if(!affecting)
-		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
-		return FALSE
+		affecting = pick(bodyparts)
+
 	var/hit_area = parse_zone(affecting.limb_name)
 
 	if(user != src)
@@ -526,7 +531,7 @@ emp_act
 				if(get_dist(H, src) <= 1) //people with TK won't get smeared with blood
 					H.add_mob_blood(src)
 
-		if(!stat)
+		if(stat == CONSCIOUS)
 			switch(hit_area)
 				if("head")//Harder to score a stun but if you do it lasts a bit longer
 					if(stat == CONSCIOUS && armor < 50)
@@ -594,25 +599,33 @@ emp_act
 
 	else if(I)
 		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
-			if(can_embed(I))
-				if(prob(I.embed_chance) && !HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-					var/obj/item/organ/external/L = pick(bodyparts)
-					L.add_embedded_object(I)
-					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
-					L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
-					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
-					hitpush = FALSE
-					skipcatch = TRUE //can't catch the now embedded item
+			if(try_embed_object(I))
+				hitpush = FALSE
+				skipcatch = TRUE //can't catch the now embedded item
 	return ..()
 
-/mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
+/mob/living/carbon/human/proc/try_embed_object(obj/item/I)
+	if(!can_embed(I))
+		return FALSE
+	if(!prob(I.embed_chance) || HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
+		return FALSE
+	var/obj/item/organ/external/L = pick(bodyparts)
+	L.add_embedded_object(I)
+	I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
+	L.receive_damage(I.w_class * I.embedded_impact_pain_multiplier)
+	visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
+	return TRUE
 
+/mob/living/carbon/human/proc/make_bloody_hands(list/blood_dna, b_color)
+	if(isnull(b_color))
+		b_color = "#A10808"
 	if(gloves)
-		gloves.add_mob_blood(source)
-		gloves:transfer_blood = amount
+		gloves.add_blood(blood_dna, blood_color)
 	else
-		add_mob_blood(source)
-		bloody_hands = amount
+		hand_blood_color = b_color
+		bloody_hands = rand(2, 4)
+		transfer_blood_dna(blood_dna)
+		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(mob/living/source)
@@ -633,7 +646,8 @@ emp_act
 		if(check_shields(user, 15, "the [hulk_verb]ing"))
 			return
 		..(user, TRUE)
-		playsound(loc, user.dna.species.unarmed.attack_sound, 25, 1, -1)
+		var/datum/unarmed_attack/unarmed = user.get_unarmed_attack()
+		playsound(loc, unarmed.attack_sound, 25, TRUE, -1)
 		var/message = "[user] has [hulk_verb]ed [src]!"
 		visible_message("<span class='danger'>[message]</span>", "<span class='userdanger'>[message]</span>")
 		adjustBruteLoss(15)
@@ -645,6 +659,10 @@ emp_act
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		dna.species.spec_attack_hand(H, src)
+
+	if(bleed_rate && ishuman(user))
+		var/mob/living/carbon/human/attacker = user
+		attacker.make_bloody_hands(get_blood_dna_list(), get_blood_color())
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
@@ -679,10 +697,10 @@ emp_act
 		if(M.a_intent == INTENT_DISARM) //If not absorbed, you get disarmed, knocked down, and hit with stamina damage.
 			if(absorb_stun(0))
 				visible_message("<span class='warning'>[src] is not affected by [M]'s disarm attempt!</span>")
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 				return FALSE
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 			apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
 			M.changeNext_move(1.6 SECONDS)
 			apply_damage(M.alien_disarm_damage, STAMINA)
@@ -760,10 +778,10 @@ emp_act
 	else
 		..()
 
-/mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
+/mob/living/carbon/human/experience_pressure_difference(flow_x, flow_y)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
 	if(HAS_TRAIT(src, TRAIT_NOSLIP))
-		return FALSE
+		return // Immune to gas flow.
 	return ..()
 
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)

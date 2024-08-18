@@ -1,14 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Box,
-  Section,
-  Collapsible,
-  Input,
-  Stack,
-  Dropdown,
-} from '../components';
+import { Button, LabeledList, Box, Section, Collapsible, Input, Stack, Dropdown } from '../components';
 import { Window } from '../layouts';
 
 const PickWindow = (index) => {
@@ -86,17 +77,13 @@ const AuthBlock = (props, context) => {
       <Stack.Item>
         <Section title="Authentication">
           <LabeledList>
-            {(hideLogButton && (
-              <LabeledList.Item label="Access">{authReadable}</LabeledList.Item>
-            )) || (
+            {(hideLogButton && <LabeledList.Item label="Access">{authReadable}</LabeledList.Item>) || (
               <LabeledList.Item label="Actions">
                 <Button
                   icon={authenticated ? 'sign-out-alt' : 'id-card'}
                   selected={authenticated}
                   disabled={noauthbutton}
-                  content={
-                    authenticated ? 'Log Out (' + authReadable + ')' : 'Log In'
-                  }
+                  content={authenticated ? 'Log Out (' + authReadable + ')' : 'Log In'}
                   onClick={() => act('auth')}
                 />
               </LabeledList.Item>
@@ -108,9 +95,7 @@ const AuthBlock = (props, context) => {
         {!!esc_section && (
           <Section fill title="Escape Shuttle">
             <LabeledList>
-              {!!esc_status && (
-                <LabeledList.Item label="Status">{esc_status}</LabeledList.Item>
-              )}
+              {!!esc_status && <LabeledList.Item label="Status">{esc_status}</LabeledList.Item>}
               {!!esc_callable && (
                 <LabeledList.Item label="Options">
                   <Button
@@ -131,11 +116,7 @@ const AuthBlock = (props, context) => {
                   />
                 </LabeledList.Item>
               )}
-              {!!lastCallLoc && (
-                <LabeledList.Item label="Last Call/Recall From">
-                  {lastCallLoc}
-                </LabeledList.Item>
-              )}
+              {!!lastCallLoc && <LabeledList.Item label="Last Call/Recall From">{lastCallLoc}</LabeledList.Item>}
             </LabeledList>
           </Section>
         )}
@@ -157,24 +138,14 @@ const MainPage = (props, context) => {
 
 const AdminPage = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    is_admin,
-    gamma_armory_location,
-    admin_levels,
-    authenticated,
-    ert_allowed,
-  } = data;
+  const { is_admin, gamma_armory_location, admin_levels, authenticated, ert_allowed } = data;
 
   return (
     <Stack.Item>
       <Section title="CentComm Actions">
         <LabeledList>
           <LabeledList.Item label="Change Alert">
-            <MappedAlertLevelButtons
-              levels={admin_levels}
-              required_access={is_admin}
-              use_confirm={1}
-            />
+            <MappedAlertLevelButtons levels={admin_levels} required_access={is_admin} use_confirm={1} />
           </LabeledList.Item>
           <LabeledList.Item label="Announcement">
             <Button
@@ -193,22 +164,11 @@ const AdminPage = (props, context) => {
             )}
           </LabeledList.Item>
           <LabeledList.Item label="Response Team">
-            <Button
-              icon="ambulance"
-              content="Dispatch ERT"
-              disabled={!is_admin}
-              onClick={() => act('dispatch_ert')}
-            />
+            <Button icon="ambulance" content="Dispatch ERT" disabled={!is_admin} onClick={() => act('dispatch_ert')} />
             <Button.Checkbox
               checked={ert_allowed}
-              content={
-                ert_allowed ? 'ERT calling enabled' : 'ERT calling disabled'
-              }
-              tooltip={
-                ert_allowed
-                  ? 'Command can request an ERT'
-                  : 'ERTs cannot be requested'
-              }
+              content={ert_allowed ? 'ERT calling enabled' : 'ERT calling disabled'}
+              tooltip={ert_allowed ? 'Command can request an ERT' : 'ERTs cannot be requested'}
               disabled={!is_admin}
               onClick={() => act('toggle_ert_allowed')}
               selected={null}
@@ -225,28 +185,14 @@ const AdminPage = (props, context) => {
           <LabeledList.Item label="Gamma Armory">
             <Button.Confirm
               icon="biohazard"
-              content={
-                gamma_armory_location
-                  ? 'Send Gamma Armory'
-                  : 'Recall Gamma Armory'
-              }
+              content={gamma_armory_location ? 'Send Gamma Armory' : 'Recall Gamma Armory'}
               disabled={!is_admin}
               onClick={() => act('move_gamma_armory')}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Other">
-            <Button
-              icon="coins"
-              content="View Economy"
-              disabled={!is_admin}
-              onClick={() => act('view_econ')}
-            />
-            <Button
-              icon="fax"
-              content="Fax Manager"
-              disabled={!is_admin}
-              onClick={() => act('view_fax')}
-            />
+            <Button icon="coins" content="View Economy" disabled={!is_admin} onClick={() => act('view_econ')} />
+            <Button icon="fax" content="Fax Manager" disabled={!is_admin} onClick={() => act('view_fax')} />
           </LabeledList.Item>
         </LabeledList>
       </Section>
@@ -289,17 +235,11 @@ const PlayerPage = (props, context) => {
       <Stack.Item grow>
         <Section fill title="Captain-Only Actions">
           <LabeledList>
-            <LabeledList.Item
-              label="Current Alert"
-              color={security_level_color}
-            >
+            <LabeledList.Item label="Current Alert" color={security_level_color}>
               {str_security_level}
             </LabeledList.Item>
             <LabeledList.Item label="Change Alert">
-              <MappedAlertLevelButtons
-                levels={levels}
-                required_access={authcapt}
-              />
+              <MappedAlertLevelButtons levels={levels} required_access={authcapt} />
             </LabeledList.Item>
             <LabeledList.Item label="Announcement">
               <Button
@@ -350,12 +290,7 @@ const PlayerPage = (props, context) => {
         <Section fill title="Command Staff Actions">
           <LabeledList>
             <LabeledList.Item label="Displays">
-              <Button
-                icon="tv"
-                content="Change Status Displays"
-                disabled={!authhead}
-                onClick={() => act('status')}
-              />
+              <Button icon="tv" content="Change Status Displays" disabled={!authhead} onClick={() => act('status')} />
             </LabeledList.Item>
             <LabeledList.Item label="Incoming Messages">
               <Button
@@ -363,14 +298,6 @@ const PlayerPage = (props, context) => {
                 content={'View (' + messages.length + ')'}
                 disabled={!authhead}
                 onClick={() => act('messagelist')}
-              />
-            </LabeledList.Item>
-            <LabeledList.Item label="Misc">
-              <Button
-                icon="sync-alt"
-                content="Restart Nano-Mob Hunter GO! Server"
-                disabled={!authhead}
-                onClick={() => act('RestartNanoMob')}
               />
             </LabeledList.Item>
           </LabeledList>
@@ -413,13 +340,7 @@ const StatusScreens = (props, context) => {
       <Section
         fill
         title="Modify Status Screens"
-        buttons={
-          <Button
-            icon="arrow-circle-left"
-            content="Back To Main Menu"
-            onClick={() => act('main')}
-          />
-        }
+        buttons={<Button icon="arrow-circle-left" content="Back To Main Menu" onClick={() => act('main')} />}
       >
         <LabeledList>
           <LabeledList.Item label="Presets">{presetButtons}</LabeledList.Item>
@@ -449,13 +370,7 @@ const StatusScreens = (props, context) => {
 const MessageView = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    authhead,
-    current_message_title,
-    current_message,
-    messages,
-    security_level,
-  } = data;
+  const { authhead, current_message_title, current_message, messages, security_level } = data;
 
   let messageView;
   if (current_message_title) {
@@ -498,13 +413,7 @@ const MessageView = (props, context) => {
     messageView = (
       <Section
         title="Messages Received"
-        buttons={
-          <Button
-            icon="arrow-circle-left"
-            content="Back To Main Menu"
-            onClick={() => act('main')}
-          />
-        }
+        buttons={<Button icon="arrow-circle-left" content="Back To Main Menu" onClick={() => act('main')} />}
       >
         <LabeledList>{messageRows}</LabeledList>
       </Section>
@@ -566,13 +475,7 @@ const AdminAnnouncePage = (props, context) => {
     <Stack.Item>
       <Section
         title="Central Command Report"
-        buttons={
-          <Button
-            icon="arrow-circle-left"
-            content="Back To Main Menu"
-            onClick={() => act('main')}
-          />
-        }
+        buttons={<Button icon="arrow-circle-left" content="Back To Main Menu" onClick={() => act('main')} />}
       >
         <Input
           placeholder="Enter Subtitle here."
@@ -630,11 +533,7 @@ const AdminAnnouncePage = (props, context) => {
               checked={classified}
               content="Classified"
               fluid
-              tooltip={
-                classified
-                  ? 'Sent to station communications consoles'
-                  : 'Publically announced'
-              }
+              tooltip={classified ? 'Sent to station communications consoles' : 'Publically announced'}
               onClick={() => setClassified(!classified)}
             />
           </Stack.Item>

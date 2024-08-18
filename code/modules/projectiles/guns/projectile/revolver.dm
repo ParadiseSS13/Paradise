@@ -11,6 +11,7 @@
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
+	. += "[get_ammo(0, 0)] of those are live rounds."
 	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to spin it's barrel.</span>"
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = 1)
@@ -80,10 +81,6 @@
 		boolets += magazine.ammo_count(countempties)
 	return boolets
 
-/obj/item/gun/projectile/revolver/examine(mob/user)
-	. = ..()
-	. += "[get_ammo(0,0)] of those are live rounds."
-
 /obj/item/gun/projectile/revolver/fake
 
 /obj/item/gun/projectile/revolver/fake/examine(mob/user)
@@ -130,7 +127,7 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	clumsy_check = FALSE //Stole your uplink! Honk!
 	needs_permit = FALSE //go away beepsky
-	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
+	var/datum/spell/mime/fingergun/parent_spell
 
 /obj/item/gun/projectile/revolver/fingergun/Destroy()
 	if(parent_spell)
@@ -360,7 +357,7 @@
 		return ..()
 	if(istype(A, /obj/item/melee/energy))
 		var/obj/item/melee/energy/W = A
-		if(W.active)
+		if(HAS_TRAIT(W, TRAIT_ITEM_ACTIVE))
 			sawoff(user)
 			item_state = icon_state
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))

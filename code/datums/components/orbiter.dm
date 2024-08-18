@@ -163,6 +163,7 @@
 		orbiter.animate_movement = SLIDE_STEPS
 		if(!QDELETED(parent))
 			SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
+		SEND_SIGNAL(orbiter, COMSIG_ATOM_ORBITER_STOP, parent)
 
 		orbiter.transform = get_cached_transform(orbiter)
 		orbiter.layer = get_orbiter_layer(orbiter)

@@ -118,7 +118,7 @@
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
 	var/damage = rand(A.dna.species.punchdamagelow, A.dna.species.punchdamagehigh)
-	var/datum/unarmed_attack/attack = A.dna.species.unarmed
+	var/datum/unarmed_attack/attack = A.get_unarmed_attack()
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
 	if(IS_HORIZONTAL(D))
@@ -131,14 +131,14 @@
 			A.do_attack_animation(D, attack.animation_type)
 
 	if(!damage)
-		playsound(D.loc, attack.miss_sound, 25, 1, -1)
+		playsound(D.loc, attack.miss_sound, 25, TRUE, -1)
 		D.visible_message("<span class='warning'>[A] has attempted to [atk_verb] [D]!</span>")
 		return FALSE
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 
-	playsound(D.loc, attack.attack_sound, 25, 1, -1)
+	playsound(D.loc, attack.attack_sound, 25, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] has [atk_verb]ed [D]!</span>", \
 								"<span class='userdanger'>[A] has [atk_verb]ed [D]!</span>")
 
@@ -239,7 +239,7 @@
 
 /datum/action/defensive_stance
 	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
-	button_icon_state = "block"
+	button_overlay_icon_state = "block"
 
 /datum/action/defensive_stance/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
@@ -256,33 +256,9 @@
 	else
 		to_chat(H, "<span class='warning'>Your hands are full.</span>")
 
-//ITEMS
-
-/obj/item/clothing/gloves/boxing
-	var/datum/martial_art/boxing/style
-
-/obj/item/clothing/gloves/boxing/Initialize()
-	. = ..()
-	style = new()
-
-/obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
-	if(!ishuman(user))
-		return
-	if(slot == SLOT_HUD_GLOVES)
-		var/mob/living/carbon/human/H = user
-		style.teach(H, TRUE)
-	return
-
-/obj/item/clothing/gloves/boxing/dropped(mob/user)
-	..()
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
-		style.remove(H)
-
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
+	layer_over_suit = TRUE
 	var/datum/martial_art/wrestling/style
 
 /obj/item/storage/belt/champion/wrestling/Initialize()
@@ -341,7 +317,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(ischangeling(user))
+		if(IS_CHANGELING(user))
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -365,7 +341,7 @@
 	if(!istype(user) || !user)
 		return
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
-		if(ischangeling(user))
+		if(IS_CHANGELING(user))
 			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
 			return
 		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
@@ -444,7 +420,7 @@
 										"[user] twirls and slams [H] with [src]!")
 			H.visible_message("<span class='warning'>[pick(fluffmessages)]</span>", \
 								"<span class='userdanger'>[pick(fluffmessages)]</span>")
-			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
+			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, TRUE, -1)
 			H.apply_damage(rand(13,20), STAMINA)
 			if(prob(10))
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \

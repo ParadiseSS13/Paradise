@@ -62,10 +62,9 @@
 		"blue" = list(0.5, 0.5, 1),
 		"yellow" = list(1, 1, 0))
 	var/pen_colour_iconstate = "pencolor"
-	var/pen_colour_shift = 3
 
 /obj/item/pen/multi/Initialize(mapload)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/pen/multi/proc/select_colour(mob/user as mob)
@@ -83,8 +82,6 @@
 	var/icon/colour_overlay = new(icon, pen_colour_iconstate)
 	var/list/colours = colour_choices[colour]
 	colour_overlay.SetIntensity(colours[1], colours[2], colours[3])
-	if(pen_colour_shift)
-		colour_overlay.Shift(SOUTH, pen_colour_shift)
 	. += colour_overlay
 
 /obj/item/pen/fancy
@@ -93,16 +90,54 @@
 	icon_state = "fancypen"
 
 /obj/item/pen/multi/gold
-	name = "Gilded Pen"
+	name = "gilded pen"
 	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'Nanotrasen' is etched on the clip of the pen."
 	icon_state = "goldpen"
-	pen_colour_shift = 0
 
 /obj/item/pen/multi/fountain
-	name = "Engraved Fountain Pen"
-	desc = "An expensive looking pen."
+	name = "engraved fountain pen"
+	desc = "An expensive-looking pen typically issued to Nanotrasen employees."
 	icon_state = "fountainpen"
-	pen_colour_shift = 0
+
+/obj/item/pen/multi/syndicate
+	name = "syndicate fountain pen"
+	desc = "A suspicious-looking pen issued to Syndicate staff."
+	icon_state = "pen_syndie"
+
+/obj/item/pen/cap
+	name = "captain's fountain pen"
+	desc = "An expensive pen only issued to station captains."
+	icon_state = "pen_cap"
+
+/obj/item/pen/hop
+	name = "head of personnel's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of service."
+	icon_state = "pen_hop"
+
+/obj/item/pen/hos
+	name = "head of security's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of security."
+	icon_state = "pen_hos"
+
+/obj/item/pen/cmo
+	name = "chief medical officer's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of medical."
+	icon_state = "pen_cmo"
+
+/obj/item/pen/ce
+	name = "chief engineer's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of engineering."
+	icon_state = "pen_ce"
+
+/obj/item/pen/rd
+	name = "research director's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of research."
+	icon_state = "pen_rd"
+
+/obj/item/pen/qm
+	name = "quartermaster's fountain pen"
+	desc = "An expensive-looking pen only issued to heads of cargo."
+	icon_state = "pen_qm"
 
 /*
  * Sleepypens
@@ -160,6 +195,11 @@
 
 /obj/item/pen/sleepy/love/fill_pen()
 	reagents.add_reagent("love", 100)
+
+/obj/item/pen/sleepy/undisguised
+	name = "sleepy pen"
+	desc = "Used to stealthily inject targets. Comes loaded with ketamine but can be refilled with other chemicals. This one isn't disguised."
+	icon_state = "pen_syndie"
 
 /*
  * (Alan) Edaggers

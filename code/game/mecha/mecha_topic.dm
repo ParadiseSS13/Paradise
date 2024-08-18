@@ -55,7 +55,7 @@
 										"[MECHA_INT_FIRE]" = "<font color='red'><b>INTERNAL FIRE</b></font>",
 										"[MECHA_INT_TEMP_CONTROL]" = "<font color='red'><b>LIFE SUPPORT SYSTEM MALFUNCTION</b></font>",
 										"[MECHA_INT_TANK_BREACH]" = "<font color='red'><b>GAS TANK BREACH</b></font>",
-										"[MECHA_INT_CONTROL_LOST]" = "<font color='red'><b>COORDINATION SYSTEM CALIBRATION FAILURE</b></font> - <a href='?src=[UID()];repair_int_control_lost=1'>Recalibrate</a>",
+										"[MECHA_INT_CONTROL_LOST]" = "<font color='red'><b>COORDINATION SYSTEM CALIBRATION FAILURE</b></font> - <a href='byond://?src=[UID()];repair_int_control_lost=1'>Recalibrate</a>",
 										"[MECHA_INT_SHORT_CIRCUIT]" = "<font color='red'><b>SHORT CIRCUIT</b></font>"
 										)
 	for(var/tflag in dam_reports)
@@ -63,7 +63,7 @@
 		if(hasInternalDamage(intdamflag))
 			output += dam_reports[tflag]
 			output += "<br />"
-	if(return_pressure() > WARNING_HIGH_PRESSURE)
+	if(cabin_air.return_pressure() > WARNING_HIGH_PRESSURE)
 		output += "<font color='red'><b>DANGEROUSLY HIGH CABIN PRESSURE</b></font><br />"
 	return output
 
@@ -74,7 +74,7 @@
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
 	var/tank_temperature_c = internal_tank ? internal_tank.return_temperature() - T0C : "Unknown"
-	var/cabin_pressure = round(return_pressure(),0.01)
+	var/cabin_pressure = round(cabin_air.return_pressure(), 0.01)
 	. = "[report_internal_damage()]"
 	. += "[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]"
 	. += "<b>Integrity: </b> [integrity]%<br>"
@@ -83,9 +83,9 @@
 	. += "<b>Airtank pressure: </b>[tank_pressure]kPa<br>"
 	. += "<b>Airtank temperature: </b>[tank_temperature]&deg;K|[tank_temperature_c]&deg;C<br>"
 	. += "<b>Cabin pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? "<font color='red'>[cabin_pressure]</font>": cabin_pressure]kPa<br>"
-	. += "<b>Cabin temperature: </b> [return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C<br>"
+	. += "<b>Cabin temperature: </b> [cabin_air.temperature()]&deg;K|[cabin_air.temperature() - T0C]&deg;C<br>"
 	. += "<b>Lights: </b>[lights?"on":"off"]<br>"
-	. += "[dna ? "<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna]</span> \[<a href='?src=[UID()];reset_dna=1'>Reset</a>\]<br>" : ""]"
+	. += "[dna ? "<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna]</span> \[<a href='byond://?src=[UID()];reset_dna=1'>Reset</a>\]<br>" : ""]"
 	. += "[defense_action.owner ? "<b>Defence Mode: </b> [defence_mode ? "Enabled" : "Disabled"]<br>" : ""]"
 	. += "[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"]<br>" : ""]"
 	. += "[thrusters_action.owner ? "<b>Thrusters: </b> [thrusters_active ? "Enabled" : "Disabled"]<br>" : ""]"
@@ -97,51 +97,51 @@
 	. = "<div class='wr'>"
 	. += "<div class='header'>Electronics</div>"
 	. += "<div class='links'>"
-	. += "<a href='?src=[UID()];toggle_lights=1'>Toggle Lights</a><br>"
+	. += "<a href='byond://?src=[UID()];toggle_lights=1'>Toggle Lights</a><br>"
 	. += "<b>Radio settings:</b><br>"
-	. += "Microphone: <a href='?src=[UID()];rmictoggle=1'><span id='rmicstate'>[radio.broadcasting?"Engaged":"Disengaged"]</span></a><br>"
-	. += "Speaker: <a href='?src=[UID()];rspktoggle=1'><span id='rspkstate'>[radio.listening?"Engaged":"Disengaged"]</span></a><br>"
+	. += "Microphone: <a href='byond://?src=[UID()];rmictoggle=1'><span id='rmicstate'>[radio.broadcasting?"Engaged":"Disengaged"]</span></a><br>"
+	. += "Speaker: <a href='byond://?src=[UID()];rspktoggle=1'><span id='rspkstate'>[radio.listening?"Engaged":"Disengaged"]</span></a><br>"
 	. += "Frequency:"
-	. += "<a href='?src=[UID()];rfreq=-10'>-</a>"
-	. += "<a href='?src=[UID()];rfreq=-2'>-</a>"
+	. += "<a href='byond://?src=[UID()];rfreq=-10'>-</a>"
+	. += "<a href='byond://?src=[UID()];rfreq=-2'>-</a>"
 	. += "<span id='rfreq'>[format_frequency(radio.frequency)]</span>"
-	. += "<a href='?src=[UID()];rfreq=2'>+</a>"
-	. += "<a href='?src=[UID()];rfreq=10'>+</a><br>"
+	. += "<a href='byond://?src=[UID()];rfreq=2'>+</a>"
+	. += "<a href='byond://?src=[UID()];rfreq=10'>+</a><br>"
 	. += "</div>"
 	. += "</div>"
 	. += "<div class='wr'>"
 	. += "<div class='header'>Airtank</div>"
 	. += "<div class='links'>"
-	. += "<a href='?src=[UID()];toggle_airtank=1'>Toggle Internal Airtank Usage</a><br>"
+	. += "<a href='byond://?src=[UID()];toggle_airtank=1'>Toggle Internal Airtank Usage</a><br>"
 	. += "</div>"
 	. += "</div>"
 	. += "<div class='wr'>"
 	. += "<div class='header'>Permissions & Logging</div>"
 	. += "<div class='links'>"
-	. += "<a href='?src=[UID()];toggle_id_upload=1'><span id='t_id_upload'>[add_req_access?"L":"Unl"]ock ID upload panel</span></a><br>"
-	. += "<a href='?src=[UID()];toggle_maint_access=1'><span id='t_maint_access'>[maint_access?"Forbid":"Permit"] maintenance protocols</span></a><br>"
-	. += "<a href='?src=[UID()];dna_lock=1'>DNA-lock</a><br>"
-	. += "<a href='?src=[UID()];view_log=1'>View internal log</a><br>"
-	. += "<a href='?src=[UID()];change_name=1'>Change exosuit name</a><br>"
+	. += "<a href='byond://?src=[UID()];toggle_id_upload=1'><span id='t_id_upload'>[add_req_access?"L":"Unl"]ock ID upload panel</span></a><br>"
+	. += "<a href='byond://?src=[UID()];toggle_maint_access=1'><span id='t_maint_access'>[maint_access?"Forbid":"Permit"] maintenance protocols</span></a><br>"
+	. += "<a href='byond://?src=[UID()];dna_lock=1'>DNA-lock</a><br>"
+	. += "<a href='byond://?src=[UID()];view_log=1'>View internal log</a><br>"
+	. += "<a href='byond://?src=[UID()];change_name=1'>Change exosuit name</a><br>"
 	. += "</div>"
 	. += "</div>"
 	. += "<div id='equipment_menu'>[get_equipment_menu()]</div>"
 	. += "<hr>"
-	. += "<a href='?src=[UID()];eject=1'>Eject</a><br>"
+	. += "<a href='byond://?src=[UID()];eject=1'>Eject</a><br>"
 
 /obj/mecha/proc/get_equipment_menu() //outputs mecha html equipment menu
 	. = ""
-	if(equipment.len)
+	if(length(equipment))
 		. += "<div class='wr'>"
 		. += "<div class='header'>Equipment</div>"
 		. += "<div class='links'>"
 		for(var/obj/item/mecha_parts/mecha_equipment/W in equipment)
-			. += "[W.name] <a href='?src=[W.UID()];detach=1'>Detach</a><br>"
-		. += "<b>Available equipment slots:</b> [max_equip-equipment.len]"
+			. += "[W.name] <a href='byond://?src=[W.UID()];detach=1'>Detach</a><br>"
+		. += "<b>Available equipment slots:</b> [max_equip-length(equipment)]"
 		. += "</div></div>"
 
 /obj/mecha/proc/get_equipment_list() //outputs mecha equipment list in html
-	if(!equipment.len)
+	if(!length(equipment))
 		return
 	. = "<b>Equipment:</b><div style=\"margin-left: 15px;\">"
 	for(var/obj/item/mecha_parts/mecha_equipment/MT in equipment)
@@ -179,19 +179,19 @@
 						<body>
 						<h1>Following keycodes are present in this system:</h1>"}
 	for(var/a in operation_req_access)
-		output += "[get_access_desc(a)] - <a href='?src=[UID()];del_req_access=[a];user=\ref[user];id_card=\ref[id_card]'>Delete</a><br>"
+		output += "[get_access_desc(a)] - <a href='byond://?src=[UID()];del_req_access=[a];user=\ref[user];id_card=\ref[id_card]'>Delete</a><br>"
 
-	output += "<a href='?src=[UID()];del_all_req_access=1;user=\ref[user];id_card=\ref[id_card]'><br><b>Delete All</b></a><br>"
+	output += "<a href='byond://?src=[UID()];del_all_req_access=1;user=\ref[user];id_card=\ref[id_card]'><br><b>Delete All</b></a><br>"
 
 	output += "<hr><h1>Following keycodes were detected on portable device:</h1>"
 	for(var/a in id_card.access)
 		if(a in operation_req_access) continue
 		if(!get_access_desc(a))
 			continue //there's some strange access without a name
-		output += "[get_access_desc(a)] - <a href='?src=[UID()];add_req_access=[a];user=\ref[user];id_card=\ref[id_card]'>Add</a><br>"
+		output += "[get_access_desc(a)] - <a href='byond://?src=[UID()];add_req_access=[a];user=\ref[user];id_card=\ref[id_card]'>Add</a><br>"
 
-	output += "<a href='?src=[UID()];add_all_req_access=1;user=\ref[user];id_card=\ref[id_card]'><br><b>Add All</b></a><br>"
-	output += "<hr><a href='?src=[UID()];finish_req_access=1;user=\ref[user]'>Finish</a> <font color='red'>(Warning! The ID upload panel will be locked. It can be unlocked only through Exosuit Interface.)</font>"
+	output += "<a href='byond://?src=[UID()];add_all_req_access=1;user=\ref[user];id_card=\ref[id_card]'><br><b>Add All</b></a><br>"
+	output += "<hr><a href='byond://?src=[UID()];finish_req_access=1;user=\ref[user]'>Finish</a> <font color='red'>(Warning! The ID upload panel will be locked. It can be unlocked only through Exosuit Interface.)</font>"
 	output += "</body></html>"
 	user << browse(output, "window=exosuit_add_access")
 	onclose(user, "exosuit_add_access")
@@ -207,9 +207,9 @@
 						</style>
 						</head>
 						<body>
-						[add_req_access?"<a href='?src=[UID()];req_access=1;id_card=\ref[id_card];user=\ref[user]'>Edit operation keycodes</a>":null]
-						[maint_access?"<a href='?src=[UID()];maint_access=1;id_card=\ref[id_card];user=\ref[user]'>Initiate/Stop maintenance protocol</a>":null]
-						[(state>0) ?"<a href='?src=[UID()];set_internal_tank_valve=1;user=\ref[user]'>Set Cabin Air Pressure</a>":null]
+						[add_req_access?"<a href='byond://?src=[UID()];req_access=1;id_card=\ref[id_card];user=\ref[user]'>Edit operation keycodes</a>":null]
+						[maint_access?"<a href='byond://?src=[UID()];maint_access=1;id_card=\ref[id_card];user=\ref[user]'>Initiate/Stop maintenance protocol</a>":null]
+						[(state>0) ?"<a href='byond://?src=[UID()];set_internal_tank_valve=1;user=\ref[user]'>Set Cabin Air Pressure</a>":null]
 						</body>
 						</html>"}
 	user << browse(output, "window=exosuit_maint_console")
@@ -229,11 +229,11 @@
 
 /obj/mecha/proc/log_message(message as text,red=null)
 	log.len++
-	log[log.len] = list("time"=world.timeofday,"message"="[red?"<font color='red'>":null][message][red?"</font>":null]")
-	return log.len
+	log[length(log)] = list("time"=world.timeofday,"message"="[red?"<font color='red'>":null][message][red?"</font>":null]")
+	return length(log)
 
 /obj/mecha/proc/log_append_to_last(message as text,red=null)
-	var/list/last_entry = log[log.len]
+	var/list/last_entry = log[length(log)]
 	last_entry["message"] += "<br>[red?"<font color='red'>":null][message][red?"</font>":null]"
 	return
 
@@ -250,7 +250,7 @@
 		return
 	if(href_list["close"])
 		return
-	if(usr.stat > 0)
+	if(usr.stat != CONSCIOUS)
 		return
 	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
 	if(href_list["select_equip"])
@@ -327,19 +327,19 @@
 		if(!in_range(src, usr))	return
 		var/mob/user = afilter.getMob("user")
 		if(user)
-			if(state==0)
-				state = 1
+			if(state == MECHA_MAINT_OFF)
+				state = MECHA_MAINT_ON
 				to_chat(user, "The securing bolts are now exposed.")
 				if(occupant)
 					occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
-			else if(state==1)
-				state = 0
+			else if(state == MECHA_MAINT_ON)
+				state = MECHA_MAINT_OFF
 				to_chat(user, "The securing bolts are now hidden.")
 				if(occupant)
 					occupant.clear_alert("locked")
 			output_maintenance_dialog(afilter.getObj("id_card"),user)
 		return
-	if(href_list["set_internal_tank_valve"] && state >=1)
+	if(href_list["set_internal_tank_valve"] && state >= MECHA_MAINT_ON)
 		if(!in_range(src, usr))	return
 		var/mob/user = afilter.getMob("user")
 		if(user)

@@ -74,7 +74,7 @@
 /mob/living/carbon/human/get_screen_colour() //Fetch the colour matrix from wherever (e.g. eyes) so it can be compared to client.color.
 	. = ..()
 	if(.)
-		return .
+		return
 
 	var/obj/item/clothing/glasses/worn_glasses = glasses
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
@@ -580,12 +580,6 @@
 		return FALSE
 	return TRUE
 
-/mob/proc/switch_to_camera(obj/machinery/camera/C)
-	if(!C.can_use() || incapacitated() || (get_dist(C, src) > 1 || machine != src || !has_vision()))
-		return FALSE
-	check_eye(src)
-	return TRUE
-
 /mob/proc/rename_character(oldname, newname)
 	if(!newname)
 		return FALSE
@@ -593,7 +587,7 @@
 	name = newname
 	if(mind)
 		mind.name = newname
-		if(mind.initial_account?.account_name == oldname)
+		if(!isnull(oldname) && mind?.initial_account?.account_name == oldname)
 			mind.initial_account.account_name = newname
 	if(dna)
 		dna.real_name = real_name

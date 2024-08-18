@@ -133,7 +133,7 @@
 	return
 
 /mob/living/silicon/proc/queueAlarm(message, type, incoming = TRUE)
-	var/in_cooldown = (alarms_to_show.len > 0 || alarms_to_clear.len > 0)
+	var/in_cooldown = (length(alarms_to_show) > 0 || length(alarms_to_clear) > 0)
 	if(incoming)
 		alarms_to_show += message
 		alarm_types_show[type] += 1
@@ -147,7 +147,7 @@
 	addtimer(CALLBACK(src, PROC_REF(show_alarms)), 3 SECONDS)
 
 /mob/living/silicon/proc/show_alarms()
-	if(alarms_to_show.len < 5)
+	if(length(alarms_to_show) < 5)
 		for(var/msg in alarms_to_show)
 			to_chat(src, msg)
 	else if(length(alarms_to_show))
@@ -169,15 +169,15 @@
 		if(alarm_types_show["Power"])
 			msg += "POWER: [alarm_types_show["Power"]] alarms detected. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<A href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
 
-	if(alarms_to_clear.len < 3)
+	if(length(alarms_to_clear) < 3)
 		for(var/msg in alarms_to_clear)
 			to_chat(src, msg)
 
-	else if(alarms_to_clear.len)
+	else if(length(alarms_to_clear))
 		var/list/msg = list("--- ")
 
 		if(alarm_types_clear["Motion"])
@@ -192,7 +192,7 @@
 		if(alarm_types_clear["Power"])
 			msg += "POWER: [alarm_types_clear["Power"]] alarms cleared. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<A href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
@@ -230,10 +230,8 @@
 	switch(severity)
 		if(EMP_HEAVY)
 			take_organ_damage(20)
-			Stun(16 SECONDS)
 		if(EMP_LIGHT)
 			take_organ_damage(10)
-			Stun(6 SECONDS)
 	flash_eyes(affect_silicon = 1)
 	to_chat(src, "<span class='danger'>*BZZZT*</span>")
 	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
@@ -447,7 +445,7 @@
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
 
-/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/noise)
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/stretch/flash/noise)
 	if(affect_silicon)
 		return ..()
 
@@ -590,11 +588,6 @@
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null
-
-/mob/living/silicon/death(gibbed)
-	if(gibbed)
-		drop_hat()
-	. = ..()
 
 /mob/living/silicon/examine(mob/user)
 	. = ..()

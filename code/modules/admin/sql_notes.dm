@@ -112,7 +112,8 @@
 		adminckey = query_find_note_del.item[3]
 	qdel(query_find_note_del)
 
-	var/datum/db_query/query_del_note = SSdbcore.NewQuery("DELETE FROM notes WHERE id=:note_id", list(
+	var/datum/db_query/query_del_note = SSdbcore.NewQuery("UPDATE notes SET deleted=1, deletedby=:ckey WHERE id=:note_id", list(
+		"ckey" = usr.ckey,
 		"note_id" = note_id
 	))
 	if(!query_del_note.warn_execute())
@@ -175,24 +176,25 @@
 /proc/show_note(target_ckey, index, linkless = 0)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-	var/output
-	var/navbar
-	var/ruler
-	ruler = "<hr style='background:#000000; border:0; height:3px'>"
-	navbar = "<meta charset='UTF-8'><a href='?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='?_src_=holder;nonalpha=2'>\[#\]</a>"
+	var/list/output = list("<!DOCTYPE html>")
+	var/list/navbar = list()
+	var/ruler = "<hr style='background:#000000; border:0; height:3px'>"
+
+	navbar = "<meta charset='UTF-8'><a href='byond://?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='byond://?_src_=holder;nonalpha=2'>\[#\]</a>"
 	for(var/letter in GLOB.alphabet)
-		navbar += "|<a href='?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
+		navbar += "|<a href='byond://?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
+
 	navbar += "<br><form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='notessearch' value='[index]'>\
 	<input type='submit' value='Search'></form>"
 	if(!linkless)
-		output = navbar
+		output += navbar
 	if(target_ckey)
 		var/target_sql_ckey = ckey(target_ckey)
 		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
 			SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime, round_id, automated
-			FROM notes WHERE ckey=:targetkey ORDER BY timestamp"}, list(
+			FROM notes WHERE ckey=:targetkey AND deleted=0 ORDER BY timestamp"}, list(
 				"targetkey" = target_sql_ckey
 			))
 		if(!query_get_notes.warn_execute())
@@ -200,7 +202,7 @@
 			return
 		output += "<h2><center>Notes of [target_ckey]</center></h2>"
 		if(!linkless)
-			output += "<center><a href='?_src_=holder;addnote=[target_ckey]'>\[Add Note\]</a></center>"
+			output += "<center><a href='byond://?_src_=holder;addnote=[target_ckey]'>\[Add Note\]</a></center>"
 		output += ruler
 		while(query_get_notes.NextRow())
 			var/id = query_get_notes.item[1]
@@ -219,15 +221,15 @@
 			output += "</b>"
 
 			if(!linkless)
-				output += " <a href='?_src_=holder;removenote=[id]'>\[Remove Note\]</a> [automated ? "\[Automated Note\]" : "<a href='?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"]"
+				output += " <a href='byond://?_src_=holder;removenote=[id]'>\[Remove Note\]</a> [automated ? "\[Automated Note\]" : "<a href='byond://?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"]"
 				if(last_editor)
-					output += " <font size='2'>Last edit by [last_editor] <a href='?_src_=holder;noteedits=[id]'>(Click here to see edit log)</a></font>"
+					output += " <font size='2'>Last edit by [last_editor] <a href='byond://?_src_=holder;noteedits=[id]'>(Click here to see edit log)</a></font>"
 			output += "<br>[replacetext(notetext, "\n", "<br>")]<hr style='background:#000000; border:0; height:1px'>"
 		qdel(query_get_notes)
 	else if(index)
 		var/index_ckey
 		var/search
-		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
+		output += "<center><a href='byond://?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
 		switch(index)
 			if(1)
@@ -246,12 +248,12 @@
 		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]
-			output += "<a href='?_src_=holder;shownoteckey=[index_ckey]'>[index_ckey]</a><br>"
+			output += "<a href='byond://?_src_=holder;shownoteckey=[index_ckey]'>[index_ckey]</a><br>"
 			CHECK_TICK
 		qdel(query_list_notes)
 		message_admins("The note search started by [usr.ckey] has completed. CPU should return to normal.")
 	else
-		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
+		output += "<center><a href='byond://?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
-	usr << browse(output, "window=show_notes;size=900x500")
+	usr << browse(output.Join(""), "window=show_notes;size=900x500")
 

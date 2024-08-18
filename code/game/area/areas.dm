@@ -35,8 +35,6 @@
 
 	var/has_gravity = TRUE
 
-	var/no_air = null
-
 	var/air_doors_activated = FALSE
 
 	var/tele_proof = FALSE
@@ -93,6 +91,14 @@
 	/// Turrets use this list to see if individual power/lethal settings are allowed. Contains the /obj/machinery/turretid for this area
 	var/list/turret_controls = list()
 
+	/// The flags applied to request consoles spawned in this area.
+	/// See [RC_ASSIST], [RC_SUPPLY], [RC_INFO].
+	var/request_console_flags = 0
+	/// The name for any spawned request consoles. Defaults to the area name.
+	var/request_console_name
+	/// Whether request consoles in this area can send announcements.
+	var/request_console_announces = FALSE
+
 	/*
 	Lighting Vars
 	*/
@@ -102,13 +108,13 @@
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
 		GLOB.all_unique_areas[type] = src
-	..()
+	GLOB.all_areas += src
+	return ..()
 
 /area/Initialize(mapload)
 	if(is_station_level(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
-	GLOB.all_areas += src
 	icon_state = ""
 	layer = AREA_LAYER
 	uid = ++global_uid
@@ -510,7 +516,9 @@
 
 /proc/has_gravity(atom/AT, turf/T)
 	if(!T)
-		T = get_turf(AT)
+		T = get_turf(AT) // If we still don't have a turf, don't process the other stuff
+		if(!T)
+			return
 	var/area/A = get_area(T)
 	if(isspaceturf(T)) // Turf never has gravity
 		return 0
@@ -530,6 +538,8 @@
 		INVOKE_ASYNC(temp_airlock, TYPE_PROC_REF(/obj/machinery/door/airlock, prison_open))
 	for(var/obj/machinery/door/window/temp_windoor in src)
 		INVOKE_ASYNC(temp_windoor, TYPE_PROC_REF(/obj/machinery/door, open))
+	for(var/obj/machinery/door/poddoor/temp_poddoor in src)
+		INVOKE_ASYNC(temp_poddoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
 /area/AllowDrop()
 	CRASH("Bad op: area/AllowDrop() called")

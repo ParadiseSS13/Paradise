@@ -5,6 +5,8 @@
 	var/list/atom/movable/screen/movable/action_button/actions
 	/// The initial vertical offset of our action buttons
 	var/north_offset = 0
+	/// The initial horizontal offset of our action buttons
+	var/west_offset = 0
 	/// The pixel vertical offset of our action buttons
 	var/pixel_north_offset = 0
 	/// The pixel horizontal offset of our action buttons
@@ -57,7 +59,7 @@
 	row_offset = clamp(row_offset, 0, total_rows) // You're not allowed to offset so far that we have a row of blank space
 
 	var/button_number = 0
-	for(var/atom/movable/screen/button as anything in actions)
+	for(var/atom/movable/screen/button in actions)
 		var/postion = ButtonNumberToScreenCoords(button_number)
 		button.screen_loc = postion
 		button_number++
@@ -88,10 +90,10 @@
 	var/visual_row = row + north_offset
 	var/coord_row = visual_row ? "-[visual_row]" : "+0"
 
-	var/visual_column = number % column_max
+	var/visual_column = west_offset + number % column_max
 	var/coord_col = "+[visual_column]"
-	var/coord_col_offset = 4 + 2 * (visual_column + 1)
-	var/coord_row_offset = pixel_north_offset + 2 * (1 * visual_row)
+	var/coord_col_offset = pixel_horiz_offset + 2 * (number % column_max + 1)
+	var/coord_row_offset = pixel_north_offset + 2 * (1 * row)
 	return "WEST[coord_col]:[coord_col_offset],NORTH[coord_row]:-[coord_row_offset]"
 
 /datum/action_group/proc/check_against_view()
@@ -214,6 +216,7 @@
 
 
 /datum/action_group/listed
+	pixel_horiz_offset = 4
 	pixel_north_offset = 6
 	column_max = 10
 	location = SCRN_OBJ_IN_LIST
@@ -221,3 +224,12 @@
 /datum/action_group/listed/refresh_actions()
 	. = ..()
 	owner?.palette_actions.refresh_actions() // We effect them, so we gotta refresh em
+
+/datum/action_group/listed/cult
+	north_offset = 11
+	pixel_north_offset = 2
+	west_offset = 6
+	pixel_horiz_offset = -29
+	column_max = 4
+	location = SCRN_OBJ_CULT_LIST
+	max_rows = 2

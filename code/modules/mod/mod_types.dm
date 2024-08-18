@@ -45,6 +45,14 @@
 		/obj/item/mod/module/flashlight,
 	)
 
+/obj/item/mod/control/pre_equipped/standard/explorer
+	applied_modules = list(
+		/obj/item/mod/module/storage/large_capacity,
+		/obj/item/mod/module/welding,
+		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/jetpack
+	)
+
 /obj/item/mod/control/pre_equipped/engineering
 	theme = /datum/mod_theme/engineering
 	applied_modules = list(
@@ -151,6 +159,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/injector,
 		/obj/item/mod/module/defibrillator,
+		/obj/item/mod/module/monitor,
 	)
 	default_pins = list(
 		/obj/item/mod/module/defibrillator,
@@ -201,6 +210,18 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
+	)
+
+/obj/item/mod/control/pre_equipped/praetorian
+	theme = /datum/mod_theme/praetorian
+	applied_cell = /obj/item/stock_parts/cell/super
+	applied_modules = list(
+		/obj/item/mod/module/storage/large_capacity,
+		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/monitor,
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack,
 	)
 
 /obj/item/mod/control/pre_equipped/magnate
@@ -284,6 +305,10 @@
 		/obj/item/mod/module/jetpack/advanced,
 	)
 
+/obj/item/mod/control/pre_equipped/nuclear/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/mod/control/pre_equipped/elite
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/bluespace
@@ -300,6 +325,10 @@
 		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/jetpack/advanced,
 	)
+
+/obj/item/mod/control/pre_equipped/elite/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/prototype
 	theme = /datum/mod_theme/prototype
@@ -350,6 +379,10 @@
 	insignia_type = /obj/item/mod/module/insignia/security
 	additional_module = /obj/item/mod/module/anomaly_locked/firewall/prebuilt //Defence and flaming hot offence. Good for reflective blob, xenos, antagonists with guns
 
+/obj/item/mod/control/pre_equipped/responsory/security/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
 	additional_module = list(/obj/item/mod/module/anomaly_locked/kinesis/prebuilt, /obj/item/mod/module/firefighting_tank) //This can only end well.
@@ -357,6 +390,10 @@
 /obj/item/mod/control/pre_equipped/responsory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
 	additional_module = /obj/item/mod/module/defibrillator
+
+/obj/item/mod/control/pre_equipped/responsory/medic/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/responsory/janitor
 	insignia_type = /obj/item/mod/module/insignia/janitor
@@ -407,6 +444,10 @@
 		/obj/item/mod/module/magboot/advanced,
 	)
 
+/obj/item/mod/control/pre_equipped/apocryphal/Initialize(mapload, new_theme, new_skin, new_core, new_access)
+	. = ..()
+	ADD_TRAIT(chestplate, TRAIT_RSG_IMMUNE, ROUNDSTART_TRAIT)
+
 /obj/item/mod/control/pre_equipped/apocryphal/officer
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
@@ -422,7 +463,6 @@
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/power_kick, //If you are not drop kicking a xenomorph, what are you doing as an DS commander?
 	)
-
 
 /obj/item/mod/control/pre_equipped/corporate
 	theme = /datum/mod_theme/corporate

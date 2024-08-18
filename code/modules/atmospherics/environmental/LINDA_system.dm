@@ -1,39 +1,22 @@
-/turf/proc/CanAtmosPass(turf/T)
-	if(!istype(T))	return 0
-	var/R
-	if(blocks_air || T.blocks_air)
-		R = 1
+/turf/proc/CanAtmosPass(direction, consider_objects = TRUE)
+	if(blocks_air)
+		return FALSE
+
+	if(!consider_objects)
+		return TRUE
 
 	for(var/obj/O in contents)
-		if(!O.CanAtmosPass(T))
-			R = 1
-			if(O.BlockSuperconductivity()) 	//the direction and open/closed are already checked on CanAtmosPass() so there are no arguments
-				var/D = get_dir(src, T)
-				atmos_supeconductivity |= D
-				D = get_dir(T, src)
-				T.atmos_supeconductivity |= D
-				return 0						//no need to keep going, we got all we asked
+		if(istype(O, /obj/item))
+			// Items can't block atmos.
+			continue
 
-	for(var/obj/O in T.contents)
-		if(!O.CanAtmosPass(src))
-			R = 1
-			if(O.BlockSuperconductivity())
-				var/D = get_dir(src, T)
-				atmos_supeconductivity |= D
-				D = get_dir(T, src)
-				T.atmos_supeconductivity |= D
-				return 0
+		if(!O.CanAtmosPass(direction))
+			return FALSE
 
-	var/D = get_dir(src, T)
-	atmos_supeconductivity &= ~D
-	D = get_dir(T, src)
-	T.atmos_supeconductivity &= ~D
-
-	if(!R)
-		return 1
+	return TRUE
 
 /atom/movable/proc/CanAtmosPass()
-	return 1
+	return TRUE
 
 /atom/proc/CanPass(atom/movable/mover, turf/target, height=1.5)
 	return (!density || !height)
@@ -57,20 +40,17 @@
 
 		return 1
 
-/atom/movable/proc/BlockSuperconductivity() // objects that block air and don't let superconductivity act. Only firelocks atm.
-	return 0
+/atom/movable/proc/get_superconductivity(direction)
+	return OPEN_HEAT_TRANSFER_COEFFICIENT
 
-/turf/proc/CalculateAdjacentTurfs()
-	for(var/direction in GLOB.cardinal)
-		var/turf/T = get_step(src, direction)
-		if(!istype(T))
-			continue
-		if(CanAtmosPass(T))
-			atmos_adjacent_turfs |= T
-			T.atmos_adjacent_turfs |= src
-		else
-			atmos_adjacent_turfs -= T
-			T.atmos_adjacent_turfs -= src
+/atom/movable/proc/recalculate_atmos_connectivity()
+	for(var/turf/T in locs) // used by double wide doors and other nonexistant multitile structures
+		T.recalculate_atmos_connectivity()
+
+/atom/movable/proc/move_update_air(turf/T)
+	if(isturf(T))
+		T.recalculate_atmos_connectivity()
+	recalculate_atmos_connectivity()
 
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share
@@ -79,89 +59,87 @@
 	if(!issimulatedturf(src))
 		return list()
 
-	var/adjacent_turfs = atmos_adjacent_turfs.Copy()
+	var/adjacent_turfs = list()
+	for(var/turf/T in RANGE_EDGE_TURFS(1, src))
+		var/direction = get_dir(src, T)
+		if(!CanAtmosPass(direction))
+			continue
+		if(!T.CanAtmosPass(turn(direction, 180)))
+			continue
+		adjacent_turfs += T
+
 	if(!alldir)
 		return adjacent_turfs
-	var/turf/simulated/curloc = src
-	for(var/direction in GLOB.diagonals)
-		var/matchingDirections = 0
-		var/turf/simulated/S = get_step(curloc, direction)
 
-		for(var/checkDirection in GLOB.cardinal)
-			var/turf/simulated/checkTurf = get_step(S, checkDirection)
-			if(!(checkTurf in S.atmos_adjacent_turfs))
+	for(var/turf/T in RANGE_TURFS(1, src))
+		var/direction = get_dir(src, T)
+		if(IS_DIR_CARDINAL(direction))
+			continue
+		// check_direction is the first way we move, from src
+		for(var/check_direction in GLOB.cardinal)
+			if(!(check_direction & direction))
+				// Wrong way.
 				continue
 
-			if(checkTurf in adjacent_turfs)
-				matchingDirections++
+			var/turf/intermediate = get_step(src, check_direction)
+			if(!(intermediate in adjacent_turfs))
+				continue
 
-			if(matchingDirections >= 2)
-				adjacent_turfs += S
-				break
+			// other_direction is the second way we move, from intermediate.
+			var/other_direction = direction & ~check_direction
+
+			// We already know we can reach intermediate, so now we just need to check the second step.
+			if(!intermediate.CanAtmosPass(other_direction))
+				continue
+			if(!T.CanAtmosPass(turn(other_direction, 180)))
+				continue
+
+			adjacent_turfs += T
+			break
 
 	return adjacent_turfs
 
-/atom/movable/proc/air_update_turf(command = 0)
-	if(!isturf(loc) && command)
-		return
-	for(var/turf/T in locs) // used by double wide doors and other nonexistant multitile structures
-		T.air_update_turf(command)
-
-/turf/proc/air_update_turf(command = 0)
-	if(command)
-		CalculateAdjacentTurfs()
-	if(SSair)
-		SSair.add_to_active(src,command)
-
-/atom/movable/proc/move_update_air(turf/T)
-	if(isturf(T))
-		T.air_update_turf(1)
-	air_update_turf(1)
-
-
-
-/atom/movable/proc/atmos_spawn_air(text, amount) //because a lot of people loves to copy paste awful code lets just make a easy proc to spawn your plasma fires
+/atom/movable/proc/atmos_spawn_air(flag, amount) //because a lot of people loves to copy paste awful code lets just make a easy proc to spawn your plasma fires
 	var/turf/simulated/T = get_turf(src)
 	if(!istype(T))
 		return
-	T.atmos_spawn_air(text, amount)
+	T.atmos_spawn_air(flag, amount)
 
 /turf/simulated/proc/atmos_spawn_air(flag, amount)
-	if(!text || !amount || !air)
+	if(!flag || !amount || blocks_air)
 		return
 
-	var/datum/gas_mixture/G = new
+	var/datum/gas_mixture/G = new()
 
 	if(flag & LINDA_SPAWN_20C)
-		G.temperature = T20C
+		G.set_temperature(T20C)
 
 	if(flag & LINDA_SPAWN_HEAT)
-		G.temperature += 1000
+		G.set_temperature(G.temperature() + 1000)
 
 	if(flag & LINDA_SPAWN_COLD)
-		G.temperature = TCMB
+		G.set_temperature(TCMB)
 
 	if(flag & LINDA_SPAWN_TOXINS)
-		G.toxins += amount
+		G.set_toxins(G.toxins() + amount)
 
 	if(flag & LINDA_SPAWN_OXYGEN)
-		G.oxygen += amount
+		G.set_oxygen(G.oxygen() + amount)
 
 	if(flag & LINDA_SPAWN_CO2)
-		G.carbon_dioxide += amount
+		G.set_carbon_dioxide(G.carbon_dioxide() + amount)
 
 	if(flag & LINDA_SPAWN_NITROGEN)
-		G.nitrogen += amount
+		G.set_nitrogen(G.nitrogen() + amount)
 
 	if(flag & LINDA_SPAWN_N2O)
-		G.sleeping_agent += amount
+		G.set_sleeping_agent(G.sleeping_agent() + amount)
 
 	if(flag & LINDA_SPAWN_AGENT_B)
-		G.agent_b += amount
+		G.set_agent_b(G.agent_b() + amount)
 
 	if(flag & LINDA_SPAWN_AIR)
-		G.oxygen += MOLES_O2STANDARD * amount
-		G.nitrogen += MOLES_N2STANDARD * amount
+		G.set_oxygen(G.oxygen() + MOLES_O2STANDARD * amount)
+		G.set_nitrogen(G.nitrogen() + MOLES_N2STANDARD * amount)
 
-	air.merge(G)
-	SSair.add_to_active(src, 0)
+	blind_release_air(G)

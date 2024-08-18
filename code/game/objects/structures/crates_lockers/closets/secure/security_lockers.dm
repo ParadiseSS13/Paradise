@@ -14,7 +14,7 @@
 	new /obj/item/storage/bag/garment/captain(src)
 	new /obj/item/cartridge/captain(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
-	new /obj/item/storage/belt/rapier(src)
+	new /obj/item/storage/belt/sheath/rapier(src)
 	new /obj/item/gun/energy/gun(src)
 	new /obj/item/flash(src)
 	new /obj/item/door_remote/captain(src)
@@ -140,6 +140,7 @@
 	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/storage/bag/garment/blueshield(src)
+	new /obj/item/sensor_device(src)
 
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
@@ -228,6 +229,44 @@
 	new /obj/item/card/id/prisoner/random(src)
 	new /obj/item/radio/headset(src)
 
+/obj/structure/closet/secure_closet/brig/temp
+	desc = "A locker connected to the cell's timer system, used to store prisoner belongings. It unlocks automatically once the sentence has been served."
+
+/obj/structure/closet/secure_closet/brig/temp/populate_contents()
+	return
+
+/obj/structure/closet/secure_closet/brig/temp/cell_1
+	name = "Cell 1 Locker"
+	id = "Cell 1"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_2
+	name = "Cell 2 Locker"
+	id = "Cell 2"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_3
+	name = "Cell 3 Locker"
+	id = "Cell 3"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_4
+	name = "Cell 4 Locker"
+	id = "Cell 4"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_5
+	name = "Cell 5 Locker"
+	id = "Cell 5"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_6
+	name = "Cell 6 Locker"
+	id = "Cell 6"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_7
+	name = "Cell 7 Locker"
+	id = "Cell 7"
+
+/obj/structure/closet/secure_closet/brig/temp/cell_8
+	name = "Cell 8 Locker"
+	id = "Cell 8"
+
 /obj/structure/closet/secure_closet/brig/gulag
 	name = "labor camp locker"
 	desc = "A special locker designed to store prisoner belongings, allows access when prisoners meet their point quota."
@@ -277,12 +316,12 @@
 	new /obj/item/gavelblock(src)
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/accessory/medal/legal(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/clothing/accessory/legal_badge(src)
 	new /obj/item/storage/bag/garment/magistrate(src)
 
 /obj/structure/closet/secure_closet/iaa
 	name = "internal affairs locker"
-	req_access = list(ACCESS_LAWYER)
+	req_access = list(ACCESS_INTERNAL_AFFAIRS)
 	icon_opened = "magi_open"
 	icon_state = "iaa"
 	open_door_sprite = "chaplain_door"
@@ -296,3 +335,4 @@
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/radio/headset/headset_iaa(src)
 	new /obj/item/radio/headset/headset_iaa(src)
+	new /obj/item/clothing/accessory/legal_badge/iaa(src)

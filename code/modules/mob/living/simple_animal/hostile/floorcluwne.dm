@@ -151,7 +151,7 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Acquire_Victim(specific)
 	var/list/players_copy = GLOB.player_list.Copy()
-	while(players_copy.len)
+	while(length(players_copy))
 		var/mob/living/carbon/human/H = pick_n_take(players_copy)
 		if(!ishuman(H))
 			continue
@@ -338,7 +338,7 @@
 
 		if(do_after(src, 10, target = H))
 			step_towards(H, src)
-			playsound(H, pick('sound/effects/bodyscrape-01.ogg', 'sound/effects/bodyscrape-02.ogg'), 20, 1, -4)
+			playsound(H, pick('sound/effects/bodyscrape-01.ogg', 'sound/effects/bodyscrape-02.ogg'), 20, TRUE, -4)
 			H.emote("scream")
 			if(prob(25))
 				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg', 'sound/items/bikehorn.ogg'), 50, 1)
@@ -402,7 +402,7 @@
 	if(prob(2))
 		switch_stage = max(switch_stage * 0.75, switch_stage_min) //he gets a chance to be faster after each feast
 	if(smiting)
-		playsound(loc, 'sound/spookoween/scary_horn2.ogg', 100, 0, -4)
+		playsound(loc, 'sound/spookoween/scary_horn2.ogg', 100, FALSE, -4)
 		qdel(src)
 	else
 		Acquire_Victim()

@@ -118,8 +118,8 @@
 /datum/vote/proc/announce(start_text)
 	to_chat(world, chat_box_purple(
 		"<span><font color='purple'><b>[start_text]</b></br></br>\
-		<a href='?src=[SSvote.UID()];vote=open'>Click here or type <code>Vote</code> to place your vote.</a></br>\
-		You have [GLOB.configuration.vote.vote_time / 10] seconds to vote.</span>"))
+		<a href='byond://?src=[SSvote.UID()];vote=open'>Click here or type <code>Vote</code> to place your vote.</a></br>\
+		You have [GLOB.configuration.vote.vote_time / 10] seconds to vote.</span>"), MESSAGE_TYPE_OOC)
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 
 

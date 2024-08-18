@@ -6,6 +6,8 @@
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
 	GLOB.mob_living_list += src
+	if(advanced_bullet_dodge_chance)
+		RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
 
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
@@ -51,6 +53,7 @@
 	QDEL_NULL(middleClickOverride)
 	if(mind?.current == src)
 		mind.current = null
+	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
@@ -118,6 +121,8 @@
 	if(a_intent == INTENT_HELP) // Help intent doesn't mob swap a mob pulling a structure
 		if(isstructure(M.pulling) || isstructure(pulling))
 			return TRUE
+	//Let us check if the person has riot equipment. We should not move past them or push them, unless they are on *walk* intent. This is so officers batoning on help can't me moved past.
+	var/riot_equipment_used = (M.r_hand?.GetComponent(/datum/component/parry) || M.l_hand?.GetComponent(/datum/component/parry))
 
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
@@ -125,7 +130,7 @@
 		if(length(M.grabbed_by) && a_intent == INTENT_GRAB)
 			mob_swap = TRUE
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
-		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
+		else if(((M.restrained() || M.a_intent == INTENT_HELP) && !(riot_equipment_used && M.m_intent == MOVE_INTENT_RUN)) && (restrained() || a_intent == INTENT_HELP))
 			mob_swap = TRUE
 		if(mob_swap)
 			//switch our position with M
@@ -156,7 +161,7 @@
 	if(!(M.status_flags & CANPUSH))
 		return TRUE
 	//anti-riot equipment is also anti-push
-	if(M.r_hand?.GetComponent(/datum/component/parry) || M.l_hand?.GetComponent(/datum/component/parry))
+	if(riot_equipment_used)
 		return TRUE
 
 //Called when we bump into an obj
@@ -207,7 +212,7 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
-/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/mob/living/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE // Unless you're a mule, something's trying to run you over.
 
 /mob/living/proc/can_track(mob/living/user)
@@ -276,7 +281,7 @@
 	if(A.loc in src)
 		pointed_object += " inside [A.loc]"
 
-	visible_message("<b>[src]</b> points to [pointed_object]")
+	visible_message("<b>[src]</b> points to [pointed_object].")
 	return TRUE
 
 /mob/living/verb/succumb()
@@ -354,6 +359,7 @@
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
+	update_stamina_hud()
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
@@ -413,6 +419,10 @@
 		L += contents
 		for(var/obj/item/storage/S in contents)	//Check for storage items
 			L += get_contents(S)
+		for(var/obj/item/mod/control/C in contents) //Check for modsuit storage
+			for(var/obj/item/mod/module/storage/MS in C.contents)
+				for(var/obj/item/storage/MSB in MS.contents)
+					L += get_contents(MSB)
 		for(var/obj/item/clothing/suit/storage/S in contents)//Check for labcoats and jackets
 			L += get_contents(S)
 		for(var/obj/item/clothing/accessory/storage/S in contents)//Check for holsters
@@ -594,9 +604,6 @@
 		step_count++
 		pull_pulled(old_loc, pullee, movetime)
 
-	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
-		pulledby.stop_pulling()
-
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
@@ -664,7 +671,7 @@
 	else
 		return pick("trails_1", "trails_2")
 
-/mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
+/mob/living/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
 	if(buckled)
 		return
 	if(client && client.move_delay >= world.time + world.tick_lag * 2)
@@ -673,6 +680,16 @@
 	var/list/turfs_to_check = list()
 
 	if(has_limbs)
+		var/direction = 0
+		if(flow_x > 100)
+			direction |= EAST
+		if(flow_x < -100)
+			direction |= WEST
+		if(flow_y > 100)
+			direction |= NORTH
+		if(flow_y < -100)
+			direction |= SOUTH
+
 		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
 		if(T)
 			turfs_to_check += T
@@ -691,7 +708,7 @@
 					pressure_resistance_prob_delta -= 20
 					break
 
-	..(pressure_difference, direction, pressure_resistance_prob_delta)
+	..(flow_x, flow_y, pressure_resistance_prob_delta)
 
 /*//////////////////////
 	START RESIST PROCS
@@ -827,7 +844,7 @@
 	return TRUE
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/flash)
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
 	if(can_be_flashed(intensity, override_blindness_check))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
@@ -838,51 +855,6 @@
 
 /mob/living/proc/check_ear_prot()
 	return
-
-/**
- * Returns the name override, if any, for the slot somebody is trying to strip
- */
-/mob/living/proc/get_strip_slot_name_override(slot)
-	switch(slot)
-		if(SLOT_HUD_WEAR_PDA)
-			return "PDA"
-
-// The src mob is trying to strip an item from someone
-// Override if a certain type of mob should be behave differently when stripping items (can't, for example)
-/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = 0)
-	var/item_name = get_strip_slot_name_override(where) || what.name
-	if(what.flags & NODROP)
-		to_chat(src, "<span class='warning'>You can't remove \the [item_name], it appears to be stuck!</span>")
-		return
-	if(!silent)
-		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [item_name].</span>", \
-						"<span class='userdanger'>[src] tries to remove [who]'s [item_name].</span>")
-	what.add_fingerprint(src)
-	if(do_mob(src, who, what.strip_delay))
-		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			who.unEquip(what)
-			if(silent)
-				put_in_hands(what)
-			add_attack_logs(src, who, "Stripped of [what]")
-
-// The src mob is trying to place an item on someone
-// Override if a certain mob should be behave differently when placing items (can't, for example)
-/mob/living/stripPanelEquip(obj/item/what, mob/who, where, silent = 0)
-	what = get_active_hand()
-	if(what && (what.flags & NODROP))
-		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
-		return
-	if(what)
-		if(!what.mob_can_equip(who, where, 1))
-			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
-			return
-		if(!silent)
-			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
-		if(do_mob(src, who, what.put_on_delay))
-			if(what && Adjacent(who) && !(what.flags & NODROP))
-				unEquip(what)
-				who.equip_to_slot_if_possible(what, where, FALSE, TRUE)
-				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
 	investigate_log("([key_name(src)]) has been consumed by the singularity.","singulo") //Oh that's where the clown ended up!
@@ -923,10 +895,14 @@
 	var/loc_temp = T0C
 	if(ismecha(loc))
 		var/obj/mecha/M = loc
-		loc_temp =  M.return_temperature()
+		var/datum/gas_mixture/cabin = M.return_obj_air()
+		if(cabin)
+			loc_temp = cabin.temperature()
+		else
+			loc_temp = environment.temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
-		loc_temp = environment.temperature
+		loc_temp = environment.temperature()
 
 	else if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
@@ -936,12 +912,12 @@
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
 
 		if(C.air_contents.total_moles() < 10)
-			loc_temp = environment.temperature
+			loc_temp = environment.temperature()
 		else
-			loc_temp = C.air_contents.temperature
+			loc_temp = C.air_contents.temperature()
 
 	else
-		loc_temp = environment.temperature
+		loc_temp = environment.temperature()
 
 	return loc_temp
 
@@ -1024,6 +1000,8 @@
 		return FALSE
 	if(incapacitated())
 		return
+	if(SEND_SIGNAL(src, COMSIG_LIVING_TRY_PULL, AM, force) & COMSIG_LIVING_CANCEL_PULL)
+		return FALSE
 	// If we're pulling something then drop what we're currently pulling and pull this instead.
 	AM.add_fingerprint(src)
 	if(pulling)
@@ -1055,7 +1033,7 @@
 		if(client)
 			if(new_z)
 				SSmobs.clients_by_zlevel[new_z] += src
-				for(var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+				for(var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance)
 					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
 					if(SA)
 						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
@@ -1078,11 +1056,13 @@
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
 	var/blocked = getarmor(null, RAD)
-
+	if(blocked == INFINITY) // Full protection, go no further.
+		return
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)
 
-	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, blocked)
+
+	apply_effect((amount * RAD_MOB_COEFFICIENT) / max(1, (radiation ** 2) * RAD_OVERDOSE_REDUCTION), IRRADIATE, ARMOUR_VALUE_TO_PERCENTAGE(blocked))
 
 /mob/living/proc/fakefireextinguish()
 	return
@@ -1106,12 +1086,17 @@
 				GLOB.dead_mob_list += src
 	. = ..()
 	switch(var_name)
-		if("maxHealth")
-			updatehealth()
 		if("resize")
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+		if("advanced_bullet_dodge_chance")
+			UnregisterSignal(src, COMSIG_ATOM_PREHIT)
+			RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
+		if("maxHealth")
+			updatehealth("var edit")
+		if("resize")
+			update_transform()
 
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()
@@ -1174,3 +1159,12 @@
 	. = ..()
 	for(var/obj/O in src)
 		O.on_mob_move(Dir, src)
+
+/mob/living/Crossed(atom/movable/mover)
+	if(istype(mover, /obj/singularity/energy_ball))
+		dust()
+	return ..()
+
+/// Can a mob interact with the apc remotely like a pulse demon, cyborg, or AI?
+/mob/living/proc/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
+	return FALSE

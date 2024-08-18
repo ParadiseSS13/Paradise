@@ -1,14 +1,14 @@
 //////////////////////////////Construct Spells/////////////////////////
 
-/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser
+/datum/spell/aoe/conjure/construct/lesser
 	base_cooldown = 1800
 	action_icon_state = "artificer"
 	action_background_icon_state = "bg_cult"
 
-/obj/effect/proc_holder/spell/aoe/conjure/build
+/datum/spell/aoe/conjure/build
 	aoe_range = 0
 
-/obj/effect/proc_holder/spell/aoe/conjure/build/floor
+/datum/spell/aoe/conjure/build/floor
 	name = "Summon Cult Floor"
 	desc = "This spell constructs a cult floor"
 	action_icon_state = "floorconstruct"
@@ -22,7 +22,7 @@
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
-/obj/effect/proc_holder/spell/aoe/conjure/build/wall
+/datum/spell/aoe/conjure/build/wall
 	name = "Summon Cult Wall"
 	desc = "This spell constructs a cult wall"
 	action_icon_state = "cultforcewall"
@@ -36,7 +36,7 @@
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
-/obj/effect/proc_holder/spell/aoe/conjure/build/wall/reinforced
+/datum/spell/aoe/conjure/build/wall/reinforced
 	name = "Greater Construction"
 	desc = "This spell constructs a reinforced metal wall"
 	school = "conjuration"
@@ -50,7 +50,7 @@
 
 	summon_type = list(/turf/simulated/wall/r_wall)
 
-/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone
+/datum/spell/aoe/conjure/build/soulstone
 	name = "Summon Soulstone"
 	desc = "This spell uses vile sorcery to create a spirit-trapping soulstone."
 	action_icon_state = "summonsoulstone"
@@ -64,12 +64,15 @@
 
 	summon_type = list(/obj/item/soulstone)
 
-/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone/holy
+/datum/spell/aoe/conjure/build/soulstone/holy
 	action_icon_state = "summonsoulstone_holy"
 
 	summon_type = list(/obj/item/soulstone/anybody/purified)
 
-/obj/effect/proc_holder/spell/aoe/conjure/build/pylon
+/datum/spell/aoe/conjure/build/soulstone/any
+	summon_type = list(/obj/item/soulstone/anybody)
+
+/datum/spell/aoe/conjure/build/pylon
 	name = "Cult Pylon"
 	desc = "This spell uses dark magic to craft an unholy beacon. Heals cultists, and makes a handy light source."
 	action_icon_state = "pylon"
@@ -84,7 +87,7 @@
 	summon_type = list(/obj/structure/cult/functional/pylon)
 
 
-/obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall
+/datum/spell/aoe/conjure/build/lesserforcewall
 	name = "Shield"
 	desc = "This spell creates a temporary forcefield to shield yourself and allies from incoming fire"
 	action_icon_state = "cultforcewall"
@@ -105,7 +108,7 @@
 	icon_state = "m_shield_cult"
 	light_color = LIGHT_COLOR_PURE_RED
 
-/obj/effect/proc_holder/spell/ethereal_jaunt/shift
+/datum/spell/ethereal_jaunt/shift
 	name = "Phase Shift"
 	desc = "This spell allows you to pass through walls"
 	action_icon_state = "phaseshift"
@@ -118,8 +121,9 @@
 	jaunt_in_time = 12
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
+	jaunt_type_path = /obj/effect/dummy/spell_jaunt/wraith
 
-/obj/effect/proc_holder/spell/ethereal_jaunt/shift/do_jaunt(mob/living/target)
+/datum/spell/ethereal_jaunt/shift/do_jaunt(mob/living/target)
 	target.set_light(0)
 	..()
 	if(isconstruct(target))
@@ -129,10 +133,10 @@
 		else
 			C.set_light(2, 3, l_color = GET_CULT_DATA(construct_glow, LIGHT_COLOR_BLOOD_MAGIC))
 
-/obj/effect/proc_holder/spell/ethereal_jaunt/shift/jaunt_steam(mobloc)
+/datum/spell/ethereal_jaunt/shift/jaunt_steam(mobloc)
 	return
 
-/obj/effect/proc_holder/spell/projectile/magic_missile/lesser
+/datum/spell/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 	action_background_icon_state = "bg_cult"
@@ -144,20 +148,21 @@
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	proj_lifespan = 10
 	proj_step_delay = 5
-	proj_type = "/obj/effect/proc_holder/spell/inflict_handler/magic_missile/lesser"
+	proj_type = /obj/item/projectile/magic/magic_missile/lesser
 
-/obj/effect/proc_holder/spell/projectile/magic_missile/lesser/create_new_targeting()
+/datum/spell/projectile/magic_missile/lesser/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
 	T.allowed_type = /mob/living
 	T.random_target = TRUE
 	T.max_targets = 6
 	return T
 
-/obj/effect/proc_holder/spell/inflict_handler/magic_missile/lesser
-	amt_knockdown = 6 SECONDS
-	amt_weakened = 0
+/obj/item/projectile/magic/magic_missile/lesser
+	name = "lesser magic missile"
+	knockdown = 6 SECONDS
+	weaken = 0
 
-/obj/effect/proc_holder/spell/smoke/disable
+/datum/spell/smoke/disable
 	name = "Paralysing Smoke"
 	desc = "This spell spawns a cloud of paralysing smoke."
 	action_icon_state = "parasmoke"

@@ -436,7 +436,7 @@
 					continue
 				if(!C.stat)
 					M.visible_message("<span class='notice'>[M] gives [C] a [pick("hug","warm embrace")].</span>")
-					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 					break
 	return ..()
 
@@ -591,40 +591,51 @@
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 
-/datum/reagent/plantnutriment
-	name = "Generic nutriment"
-	id = "plantnutriment"
-	description = "Some kind of nutriment. You can't really tell what it is. You should probably report it, along with how you obtained it."
+/datum/reagent/plantnutrient
+	name = "Generic nutrient"
+	id = "plantnutrient"
+	description = "Some kind of nutrient. You can't really tell what it is. You should probably report it, along with how you obtained it."
 	color = "#000000" // RBG: 0, 0, 0
 	var/tox_prob = 0
+	var/mutation_level = 0
 	taste_description = "puke"
 
-/datum/reagent/plantnutriment/on_mob_life(mob/living/M)
+/datum/reagent/plantnutrient/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(tox_prob))
 		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/plantnutriment/eznutriment
+/datum/reagent/plantnutrient/eznutrient
 	name = "E-Z-Nutrient"
-	id = "eznutriment"
-	description = "Cheap and extremely common type of plant nutriment."
-	color = "#376400" // RBG: 50, 100, 0
-	tox_prob = 10
+	id = "eznutrient"
+	description = "Cheap and boring nutrition for plants."
+	color = "#504700" // RBG: 80, 70, 0
+	tox_prob = 5
 	taste_description = "obscurity and toil"
 
-/datum/reagent/plantnutriment/left4zednutriment
+/datum/reagent/plantnutrient/mut
+	name = "Mutrient"
+	id = "mutrient"
+	description = "Plant nutrient designed to trigger mild genetic drift."
+	color = "#376400" // RBG: 50, 100, 0
+	tox_prob = 10
+	mutation_level = 10
+	taste_description = "change"
+
+/datum/reagent/plantnutrient/left4zednutrient
 	name = "Left 4 Zed"
-	id = "left4zednutriment"
-	description = "Unstable nutriment that makes plants mutate more often than usual."
+	id = "left4zednutrient"
+	description = "Unstable nutrient that makes plants mutate strongly at the cost of minimal yield."
 	color = "#2A1680" // RBG: 42, 128, 22
 	tox_prob = 25
+	mutation_level = 15
 	taste_description = "evolution"
 
-/datum/reagent/plantnutriment/robustharvestnutriment
+/datum/reagent/plantnutrient/robustharvestnutrient
 	name = "Robust Harvest"
-	id = "robustharvestnutriment"
-	description = "Very potent nutriment that prevents plants from mutating."
+	id = "robustharvestnutrient"
+	description = "Very potent nutrient that increases yield."
 	color = "#9D9D00" // RBG: 157, 157, 0
 	tox_prob = 15
 	taste_description = "bountifulness"

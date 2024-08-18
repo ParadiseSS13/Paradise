@@ -36,9 +36,17 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 		spawner_list += loc
 		return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/spawner/soltrader
-	name = "traderstart_sol"
+/obj/effect/landmark/spawner/trader
+	name = "traderstart"
 	icon_state = "Trader"
+
+/obj/effect/landmark/spawner/tradergearminor
+	name = "traderstart_specificgear_minor"
+	icon_state = "questionmark"
+
+/obj/effect/landmark/spawner/tradergearmajor
+	name = "traderstart_specificgear_major"
+	icon_state = "questionmark"
 
 /obj/effect/landmark/spawner/ert
 	name = "Response Team"
@@ -227,6 +235,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/spawner/nuke_code
 	name = "nukecode"
 
+/obj/effect/landmark/spawner/roundstart_observer
+	name = "Roundstart Observer"
+	icon_state = "spooky"
+
+/obj/effect/landmark/spawner/roundstart_observer/Initialize(mapload)
+	spawner_list = GLOB.roundstart_observer_start
+	return ..()
+	
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
 	..()
@@ -406,7 +422,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "Warden"
 	icon_state = "Warden"
 
-
 /obj/effect/landmark/start/set_tag()
 	tag = "start*[name]"
 
@@ -416,7 +431,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 /obj/effect/landmark/costume/random/Initialize(mapload) //costume spawner, selects a random subclass and disappears
 	. = ..()
 	var/list/options = (typesof(/obj/effect/landmark/costume) - /obj/effect/landmark/costume/random)
-	var/PICK= options[rand(1,options.len)]
+	var/PICK= options[rand(1,length(options))]
 	new PICK(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -580,7 +595,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	var/datum/map_template/ruin/ruin_template
 
 /obj/effect/landmark/ruin/New(loc, my_ruin_template)
-	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
+	name = "ruin_[length(GLOB.ruin_landmarks) + 1]"
 	..(loc)
 	ruin_template = my_ruin_template
 	GLOB.ruin_landmarks |= src
@@ -662,9 +677,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	. = ..()
 	var/turf/simulated/T = get_turf(src)
 	T.burn_tile()
-
-/obj/effect/landmark/battle_mob_point
-	name = "Nanomob Battle Avatar Spawn Point"
 
 /obj/effect/landmark/free_golem_spawn
 	name = "Free Golem Spawn Point"

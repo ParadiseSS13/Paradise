@@ -1,3 +1,5 @@
+RESTRICT_TYPE(/datum/antagonist/changeling)
+
 /datum/antagonist/changeling
 	name = "Changeling"
 	roundend_category = "changelings"
@@ -79,9 +81,9 @@
 
 /datum/antagonist/changeling/Destroy()
 	SSticker.mode.changelings -= owner
-	chosen_sting = null
 	QDEL_LIST_CONTENTS(acquired_powers)
 	STOP_PROCESSING(SSobj, src)
+	chosen_sting = null
 	return ..()
 
 /datum/antagonist/changeling/greet()
@@ -241,12 +243,24 @@
  * * power_type - should be a define related to [/datum/action/changeling/var/power_type].
  */
 /datum/antagonist/changeling/proc/get_powers_of_type(power_type)
+	var/list/station_trait_restrictions = list(
+		// "Station trait" = Replace 1st with 2nd when trait active
+		STATION_TRAIT_CYBERNETIC_REVOLUTION = list(/datum/action/changeling/dissonant_shriek, /datum/action/changeling/dissonant_shriek/cyberrev)
+	)
+
 	var/list/powers = list()
 	for(var/power_path in subtypesof(/datum/action/changeling))
 		var/datum/action/changeling/power = power_path
 		if(initial(power.power_type) != power_type)
 			continue
 		powers += power_path
+
+	for(var/trait in station_trait_restrictions)
+		if(HAS_TRAIT(SSstation, trait))
+			powers -= station_trait_restrictions[trait][1]
+		else
+			powers -= station_trait_restrictions[trait][2]
+
 	return powers
 
 /**
@@ -262,6 +276,22 @@
 		genetic_points -= power.dna_cost
 	acquired_powers += power
 	power.on_purchase(changeling || owner.current, src)
+
+/**
+ * Removes all `power_type` abilities that the changeling has. Refunds the cost of the power from our genetic points.
+ *
+ * Arugments:
+ * * datum/action/changeling/power - the typepath power to remove from the changeling.
+ * * refund_cost - if we should refund genetic points when giving the power
+ */
+/datum/antagonist/changeling/proc/remove_specific_power(datum/action/changeling/power_type, refund_cost = TRUE)
+	for(var/datum/action/changeling/power in acquired_powers)
+		if(!istype(power, power_type))
+			continue
+		if(refund_cost)
+			genetic_points -= power.dna_cost
+		acquired_powers -= power
+		qdel(power)
 
 /**
  * Store the languages from the `new_languages` list into the `absorbed_languages` list. Teaches the changeling the new languages.
@@ -411,8 +441,7 @@
 		to_chat(user, "<span class='warning'>This creature does not have DNA!</span>")
 		return FALSE
 	if(get_dna(target.dna))
-		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
-		return FALSE
+		to_chat(user, "<span class='warning'>We already have this DNA in storage.</span>")
 	return TRUE
 
 /datum/antagonist/changeling/proc/on_death(mob/living/L, gibbed)
@@ -427,9 +456,6 @@
 		to_chat(L, "<span class='notice'>The brain is a useless organ to us, we are able to regenerate!</span>")
 	else
 		to_chat(L, "<span class='notice'>While our current form may be lifeless, this is not the end for us as we can still regenerate!</span>")
-
-/proc/ischangeling(mob/M)
-	return M.mind?.has_antag_datum(/datum/antagonist/changeling)
 
 /datum/antagonist/changeling/custom_blurb()
 	return "We awaken on the [station_name()], [get_area_name(owner.current, TRUE)]...\nWe have our tasks to attend to..."

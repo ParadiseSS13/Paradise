@@ -32,6 +32,13 @@
 /mob/proc/is_holding(obj/item/I)
 	return istype(I) && (I == r_hand || I == l_hand)
 
+//Checks if we're holding an item of type: typepath
+/mob/proc/is_holding_item_of_type(typepath)
+	. = FALSE
+	if(istype(l_hand, typepath))
+		return l_hand
+	if(istype(r_hand, typepath))
+		return r_hand
 
 //Returns the thing in our inactive hand
 /mob/proc/get_inactive_hand()
@@ -51,6 +58,13 @@
 // Because there's several different places it's stored.
 /mob/proc/get_multitool(if_active=0)
 	return null
+
+/mob/proc/put_in_hand(obj/item/I, slot)
+	switch(slot)
+		if(SLOT_HUD_LEFT_HAND)
+			return put_in_l_hand(I)
+		if(SLOT_HUD_RIGHT_HAND)
+			return put_in_r_hand(I)
 
 //Puts the item into your l_hand if possible and calls all necessary triggers/updates. returns 1 on success.
 /mob/proc/put_in_l_hand(obj/item/W, skip_blocked_hands_check = FALSE)
@@ -86,6 +100,8 @@
 
 /mob/proc/put_in_hand_check(obj/item/W, skip_blocked_hands_check)
 	if(!istype(W) || QDELETED(W))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_ABSTRACT_HANDS) && !(W.flags & ABSTRACT))
 		return FALSE
 	return TRUE
 

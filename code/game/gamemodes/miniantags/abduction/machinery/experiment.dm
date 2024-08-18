@@ -166,11 +166,11 @@
 	H.Sleeping(16 SECONDS)
 	if(console && console.pad && console.pad.teleport_target)
 		H.forceMove(console.pad.teleport_target)
-		H.uncuff()
+		H.clear_restraints()
 		return
 	//Area not chosen / It's not safe area - teleport to arrivals
 	H.forceMove(pick(GLOB.latejoin))
-	H.uncuff()
+	H.clear_restraints()
 	return
 
 /obj/machinery/abductor/experiment/attackby(obj/item/G, mob/user)
@@ -215,6 +215,38 @@
 	occupant.forceMove(get_turf(src))
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/abductor/experiment/relaymove()
+	if(!occupant)
+		return
+	to_chat(occupant, "<span class='warning'>You start trying to break free!</span>")
+	if(!do_after(occupant, 20 SECONDS, FALSE, src))
+		return
+	var/list/possible_results = list(
+		CALLBACK(src, PROC_REF(electrocute_abductee)) = 1,
+		CALLBACK(src, PROC_REF(sedate_abductee)) = 1,
+		CALLBACK(src, PROC_REF(eject_abductee)) = 2
+	)
+	var/datum/callback/result = pickweight(possible_results)
+	result.Invoke()
+
+/obj/machinery/abductor/experiment/proc/electrocute_abductee()
+	if(!occupant)
+		return
+	to_chat(occupant, "<span class='warning'>Something is electrifying you!</span>")
+	sleep(1 SECONDS)
+	occupant.electrocute_act(10, src)
+	do_sparks(5, TRUE, src)
+
+/obj/machinery/abductor/experiment/proc/sedate_abductee()
+	if(!occupant)
+		return
+	to_chat(occupant, "<span class='warning'>Something is stabbing you in the back!</span>")
+	occupant.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
+	occupant.reagents.add_reagent("ether", 5)
+
+/obj/machinery/abductor/experiment/force_eject_occupant(mob/target)
+	eject_abductee()
 
 /obj/machinery/abductor/experiment/broken
 	stat = BROKEN

@@ -52,7 +52,7 @@
 		return FALSE
 
 	var/turf/target
-	if(GLOB.portals.len)
+	if(length(GLOB.portals))
 		var/obj/effect/portal/P = pick(GLOB.portals)
 		if(P && isturf(P.loc))
 			target = P.loc

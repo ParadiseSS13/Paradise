@@ -149,7 +149,7 @@
 	else if(isturf(T) && T.density)
 		if(!(istype(T, /turf/simulated/wall/indestructible)))
 			CreateDoor(T)
-	else if(istype(target, /obj/machinery/door))
+	else if(isairlock(target))
 		OpenDoor(target)
 	else if(istype(target, /obj/structure/closet))
 		OpenCloset(target)
@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 				qdel(src)
 		else
 			var/obj/O = change
-			if(istype(O, /obj/item/gun))
+			if(isgun(O))
 				new /mob/living/simple_animal/hostile/mimic/copy/ranged(O.loc, O, firer)
 			else
 				new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)
