@@ -2,6 +2,31 @@
 "a" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/supply)
+"b" = (
+/obj/effect/turf_decal{
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"c" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
+"d" = (
+/obj/machinery/camera{
+	c_tag = "Cargo Shuttle"
+	},
+/turf/simulated/floor/catwalk,
+/area/shuttle/supply)
 "e" = (
 /obj/effect/turf_decal{
 	dir = 8
@@ -9,27 +34,24 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "f" = (
-/obj/machinery/status_display{
-	name = "cargo display";
-	pixel_y = 32
+/obj/machinery/light/spot{
+	dir = 4
 	},
-/turf/simulated/floor/catwalk,
+/obj/machinery/computer{
+	name = "nav"
+	},
+/obj/machinery/computer{
+	name = "nav"
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "g" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
-	},
-/obj/structure/plasticflaps/mining,
-/turf/simulated/floor/plating,
+/obj/effect/anomaly/grav,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/supply)
 "h" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "i" = (
 /obj/effect/turf_decal{
@@ -38,35 +60,19 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "j" = (
-/obj/machinery/door_control{
-	id = "QMLoaddoor2";
-	layer = 3;
-	name = "Loading Doors";
-	pixel_x = 24;
-	pixel_y = 8
-	},
-/obj/machinery/door_control{
-	id = "QMLoaddoor";
-	layer = 3;
-	name = "Loading Doors";
-	pixel_x = 24;
-	pixel_y = -8
-	},
 /obj/effect/turf_decal{
 	dir = 8
 	},
+/obj/machinery/computer/supplycomp,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "k" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
+	id_tag = "supply_home";
+	locked = 1;
+	name = "Cargo Docking Hatch"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/obj/docking_port/mobile/supply{
-	timid = 1
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "l" = (
 /obj/machinery/conveyor{
@@ -79,11 +85,15 @@
 "o" = (
 /turf/simulated/floor/catwalk,
 /area/shuttle/supply)
+"q" = (
+/obj/structure/sign/poster/random,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/supply)
 "r" = (
-/obj/effect/turf_decal{
-	dir = 4
+/obj/machinery/computer{
+	name = "fuel monitor"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "t" = (
 /obj/structure/window/reinforced{
@@ -91,6 +101,10 @@
 	},
 /obj/structure/shuttle/engine/heater,
 /turf/simulated/floor/plating/airless,
+/area/shuttle/supply)
+"u" = (
+/obj/structure/window/reinforced,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "v" = (
 /turf/space,
@@ -111,18 +125,57 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/supply)
+"z" = (
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating,
+/area/shuttle/supply)
+"D" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/catwalk,
+/area/shuttle/supply)
 "H" = (
-/obj/effect/turf_decal{
-	dir = 8
-	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/obj/effect/turf_decal/delivery/red,
+/obj/merge_conflict_marker,
+/turf/simulated/floor/catwalk,
 /area/shuttle/supply)
 "I" = (
-/obj/effect/turf_decal{
-	dir = 4
-	},
 /obj/machinery/light/spot{
 	dir = 8
+	},
+/obj/machinery/computer{
+	name = "Cargo Hold Storage Monitor"
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"J" = (
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"N" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"O" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"P" = (
+/obj/structure/window/reinforced,
+/obj/machinery/camera{
+	c_tag = "Cargo Shuttle Cockpit";
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"Q" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
@@ -135,8 +188,25 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
+"S" = (
+/obj/effect/anomaly,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
 "U" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/supply)
+"V" = (
+/obj/effect/turf_decal{
+	dir = 4
+	},
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"W" = (
+/obj/machinery/door/window/classic/normal{
+	name = "Cargo Shuttle Cockpit"
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/supply)
 
 (1,1,1) = {"
@@ -146,7 +216,7 @@ a
 a
 a
 a
-a
+q
 a
 a
 a
@@ -154,84 +224,84 @@ a
 v
 "}
 (2,1,1) = {"
-a
+z
 I
+O
+u
+N
 i
 i
-i
-i
-i
-i
-I
-r
+V
+b
+U
 U
 w
 "}
 (3,1,1) = {"
-a
+z
+r
+Q
+W
+h
 o
 o
 o
 o
-o
-o
-o
-o
-o
+H
 t
 x
 "}
 (4,1,1) = {"
-a
+z
 f
+Q
+P
+h
+o
+D
 o
 o
-o
-o
-o
-o
-o
-o
+H
 t
 x
 "}
 (5,1,1) = {"
 a
+a
+a
+a
+a
+d
 o
 o
 o
-o
-o
-o
-o
-o
-o
+H
 t
 x
 "}
 (6,1,1) = {"
 a
-R
-e
-e
-e
+S
+g
+S
+a
 j
-e
+J
 e
 R
-H
+U
 U
 y
 "}
 (7,1,1) = {"
 a
+c
 a
+l
 a
-g
-h
 a
 k
-l
+k
 a
 a
 a
