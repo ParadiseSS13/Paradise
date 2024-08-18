@@ -259,27 +259,30 @@
 	tastes = list("cake" = 5, "sweetness" = 1, "apple" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/snacks/sliceable/angelcake
+/obj/item/food/sliceable/angelcake
 
-/obj/item/food/snacks/sliceable/chocolateberrycake
+/obj/item/food/sliceable/chocolateberrycake
 
-/obj/item/food/snacks/sliceable/vanillaberrycake
+/obj/item/food/sliceable/vanillaberrycake
 
-/obj/item/food/snacks/sliceable/energycake
+/obj/item/food/sliceable/energycake
 
-/obj/item/food/snacks/sliceable/circuitcake
+/obj/item/food/sliceable/circuitcake
 
-/obj/item/food/snacks/sliceable/plumcake
+/obj/item/food/sliceable/plumcake
 
-/obj/item/food/snacks/sliceable/poundcake
+/obj/item/food/sliceable/poundcake
 
-/obj/item/food/snacks/sliceable/pumpkinspicecake
+/obj/item/food/sliceable/pumpkinspicecake
 
-/obj/item/food/snacks/sliceable/slimecake
+/obj/item/food/sliceable/slimecake
 
-/obj/item/food/snacks/sliceable/spacemancake
+/obj/item/food/sliceable/spacemancake
 
-/obj/item/food/snacks/sliceable/vanillacake
+/obj/item/food/sliceable/vanillacake
+
+/obj/item/food/sliceable/mothmallow
+
 
 //////////////////////
 //		Cookies		//
@@ -316,11 +319,11 @@
 	tastes = list("sweetness" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/snacks/oatmealcookie
+/obj/item/food/oatmealcookie
 
-/obj/item/food/snacks/raisincookie
+/obj/item/food/raisincookie
 
-/obj/item/food/snacks/peanutbuttercookie
+/obj/item/food/peanutbuttercookie
 
 //////////////////////
 //		Pies		//
@@ -455,15 +458,15 @@
 	tastes = list("pie" = 1, "pumpkin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/bearypie
+/obj/item/food/bearypie
 
-/obj/item/food/snacks/berrypie
+/obj/item/food/berrypie
 
-/obj/item/food/snacks/blumpkinpie
+/obj/item/food/blumpkinpie
 
-/obj/item/food/snacks/frenchsilkpie
+/obj/item/food/frenchsilkpie
 
-/obj/item/food/snacks/frostypie
+/obj/item/food/frostypie
 
 //////////////////////
 //		Donuts		//
@@ -548,7 +551,7 @@
 	icon_state = "jdonut1"
 	extra_reagent = "cherryjelly"
 
-/obj/item/food/snacks/donut/apple
+/obj/item/food/donut/apple
 	name = "donut"
 	desc = "Goes great with Robust Coffee."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -558,19 +561,19 @@
 	filling_color = "#D2691E"
 	tastes = list("donut" = 1)
 
-/obj/item/food/snacks/donut/apple/jelly
+/obj/item/food/donut/apple/jelly
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/snacks/donut/apple/slime
+/obj/item/food/donut/apple/slime
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 
-/obj/item/food/snacks/donut/pink
+/obj/item/food/donut/pink
 	name = "donut"
 	desc = "Goes great with Robust Coffee."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -580,19 +583,19 @@
 	filling_color = "#D2691E"
 	tastes = list("donut" = 1)
 
-/obj/item/food/snacks/donut/pink/jelly
+/obj/item/food/donut/pink/jelly
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/snacks/donut/pink/slime
+/obj/item/food/donut/pink/slime
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 
-/obj/item/food/snacks/donut/blumpkin
+/obj/item/food/donut/blumpkin
 	name = "donut"
 	desc = "Goes great with Robust Coffee."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -602,19 +605,19 @@
 	filling_color = "#D2691E"
 	tastes = list("donut" = 1)
 
-/obj/item/food/snacks/donut/blumpkin/jelly
+/obj/item/food/donut/blumpkin/jelly
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/snacks/donut/blumpkin/slime
+/obj/item/food/donut/blumpkin/slime
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 
-/obj/item/food/snacks/donut/caramel
+/obj/item/food/donut/caramel
 	name = "donut"
 	desc = "Goes great with Robust Coffee."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -624,19 +627,19 @@
 	filling_color = "#D2691E"
 	tastes = list("donut" = 1)
 
-/obj/item/food/snacks/donut/caramel/jelly
+/obj/item/food/donut/caramel/jelly
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/snacks/donut/caramel/slime
+/obj/item/food/donut/caramel/slime
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 
-/obj/item/food/snacks/donut/chocolate
+/obj/item/food/donut/chocolate
 	name = "donut"
 	desc = "Goes great with Robust Coffee."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -646,19 +649,19 @@
 	filling_color = "#D2691E"
 	tastes = list("donut" = 1)
 
-/obj/item/food/snacks/donut/chocolate/jelly
+/obj/item/food/donut/chocolate/jelly
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/snacks/donut/chocolate/slime
+/obj/item/food/donut/chocolate/slime
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 
-/obj/item/food/snacks/donut/matcha
+/obj/item/food/donut/matcha
 	name = "donut"
 	desc = "Goes great with Robust Coffee."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -668,19 +671,19 @@
 	filling_color = "#D2691E"
 	tastes = list("donut" = 1)
 
-/obj/item/food/snacks/donut/matcha/jelly
+/obj/item/food/donut/matcha/jelly
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/snacks/donut/matcha/slime
+/obj/item/food/donut/matcha/slime
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 
-/obj/item/food/snacks/donut/bungo
+/obj/item/food/donut/bungo
 	name = "donut"
 	desc = "Goes great with Robust Coffee."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -690,19 +693,19 @@
 	filling_color = "#D2691E"
 	tastes = list("donut" = 1)
 
-/obj/item/food/snacks/donut/bungo/jelly
+/obj/item/food/donut/bungo/jelly
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/snacks/donut/bungo/slime
+/obj/item/food/donut/bungo/slime
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 
-/obj/item/food/snacks/donut/spaceman
+/obj/item/food/donut/spaceman
 	name = "donut"
 	desc = "Goes great with Robust Coffee."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -712,19 +715,19 @@
 	filling_color = "#D2691E"
 	tastes = list("donut" = 1)
 
-/obj/item/food/snacks/donut/spaceman/jelly
+/obj/item/food/donut/spaceman/jelly
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/snacks/donut/spaceman/slime
+/obj/item/food/donut/spaceman/slime
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 
-/obj/item/food/snacks/donut/meat
+/obj/item/food/donut/meat
 	name = "donut"
 	desc = "Goes great with Robust Coffee."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -795,6 +798,12 @@
 	tastes = list("muffin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/berrymuffin
+
+/obj/item/food/booberrymuffin
+
+/obj/item/food/moffin
+
 /obj/item/food/berryclafoutis
 	name = "berry clafoutis"
 	desc = "No black birds, this is a good sign."
@@ -846,7 +855,27 @@
 	tastes = list("pie" = 1, "apple" = 1, "expensive metal" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/cherrycupcake
+/obj/item/food/grapetart
+
+/obj/item/food/mimetart
+
+/obj/item/food/cherrycupcake
+
+/obj/item/food/bluecherrycupcake
+
+/obj/item/food/honeybun
+
+/obj/item/food/cannoli
+
+/obj/item/food/chocolatelavatart
+
+/obj/item/food/chocolatecornet
+
+/obj/item/food/dulcedebatata
+
+/obj/item/food/redporridge
+
+/obj/item/food/cheeseballs
 
 /obj/item/food/cracker
 	name = "cracker"

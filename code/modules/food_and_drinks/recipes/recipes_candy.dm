@@ -90,37 +90,37 @@
 /datum/recipe/candy/candiedpineapple
 	reagents = list("sugar" = 2, "water" = 2)
 	items = list(
-		/obj/item/food/snacks/pineappleslice
+		/obj/item/food/pineappleslice
 	)
-	result = /obj/item/food/snacks/candiedapple
+	result = /obj/item/food/candy/candiedpineapple
 
 /datum/recipe/candy/chocolateorange
 	items = list(
-		/obj/item/food/snacks/grown/citrus/orange,
-		/obj/item/food/snacks/chocolatebar
+		/obj/item/food/grown/citrus/orange,
+		/obj/item/food/chocolatebar
 	)
-	result = /obj/item/food/snacks/chocolateorange
+	result = /obj/item/food/candy/chocolateorange
 
 /datum/recipe/candy/chocolatecoin
 	items = list(
 		/obj/item/coin,
-		/obj/item/food/snacks/chocolatebar
+		/obj/item/food/chocolatebar
 	)
-	result = /obj/item/food/snacks/chocolatecoin
+	result = /obj/item/food/candy/chocolatecoin
 
 /datum/recipe/candy/chocolatebunny
 	reagents = list("sugar" = 2)
 	items = list(
-		/obj/item/food/snacks/chocolatebar
+		/obj/item/food/chocolatebar
 	)
-	result = /obj/item/food/snacks/chocolatebunny
+	result = /obj/item/food/candy/chocolatebunny
 
 /datum/recipe/candy/fudgedice
 	items = list(
 		/obj/item/dice,
-		/obj/item/food/snacks/chocolatebar
+		/obj/item/food/chocolatebar
 	)
-	result = /obj/item/food/snacks/fudgedice
+	result = /obj/item/food/candy/fudgedice
 
 // ***********************************************************
 // Base Candy Recipes (unflavored / plain)

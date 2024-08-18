@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine
 GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood", "xenomicrobes"))
 // Drinks
 GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","limejuice","carrotjuice",
-					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana",
+					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana", "bungojuice",
 					"nothing","potato","milk","soymilk","cream","coffee","tea","icecoffee",
 					"icetea","cola","nuka_cola","spacemountainwind","thirteenloko","dr_gibb",
 					"space_up","lemon_lime","beer","whiskey","gin","rum","vodka","holywater",

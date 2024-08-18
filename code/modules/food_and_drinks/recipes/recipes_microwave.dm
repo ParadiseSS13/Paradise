@@ -55,177 +55,177 @@
 /datum/recipe/microwave/appledonut
 	reagents = list("applejuice" = 3)
 	items = list(
-		/obj/item/food/snacks/donut
+		/obj/item/food/donut
 	)
-	result = /obj/item/food/snacks/donut/apple
+	result = /obj/item/food/donut/apple
 
 /datum/recipe/microwave/appledonut/jelly
 	reagents = list("applejuice" = 3)
 	items = list(
-		/obj/item/food/snacks/donut/jelly
+		/obj/item/food/donut/jelly
 	)
-	result = /obj/item/food/snacks/donut/apple/jelly
+	result = /obj/item/food/donut/apple/jelly
 
 /datum/recipe/microwave/appledonut/slime
 	reagents = list("applejuice" = 3)
 	items = list(
-		/obj/item/food/snacks/donut/jelly/slimejelly
+		/obj/item/food/donut/jelly/slimejelly
 	)
-	result = /obj/item/food/snacks/donut/apple/slime
+	result = /obj/item/food/donut/apple/slime
 
 /datum/recipe/microwave/pinkdonut
 	reagents = list("berryjuice" = 3)
 	items = list(
-		/obj/item/food/snacks/donut
+		/obj/item/food/donut
 	)
-	result = /obj/item/food/snacks/donut/pink
+	result = /obj/item/food/donut/pink
 
 /datum/recipe/microwave/pinkdonut/jelly
 	reagents = list("berryjuice" = 3)
 	items = list(
-		/obj/item/food/snacks/donut/jelly
+		/obj/item/food/donut/jelly
 	)
-	result = /obj/item/food/snacks/donut/pink/jelly
+	result = /obj/item/food/donut/pink/jelly
 
 /datum/recipe/microwave/pinkdonut/slime
 	reagents = list("berryjuice" = 3)
 	items = list(
-		/obj/item/food/snacks/donut/jelly/slimejelly
+		/obj/item/food/donut/jelly/slimejelly
 	)
-	result = /obj/item/food/snacks/donut/pink/slime
+	result = /obj/item/food/donut/pink/slime
 
 /datum/recipe/microwave/blumpkindonut
 	reagents = list("blumpkinjuice" = 3)
 	items = list(
-		/obj/item/food/snacks/donut
+		/obj/item/food/donut
 	)
-	result = /obj/item/food/snacks/donut/blumpkin
+	result = /obj/item/food/donut/blumpkin
 
 /datum/recipe/microwave/blumpkindonut/jelly
 	reagents = list("blumpkinjuice" = 3)
 	items = list(
-		/obj/item/food/snacks/donut/jelly
+		/obj/item/food/donut/jelly
 	)
-	result = /obj/item/food/snacks/donut/blumpkin/jelly
+	result = /obj/item/food/donut/blumpkin/jelly
 
 /datum/recipe/microwave/blumpkindonut/slime
 	reagents = list("blumpkinjuice" = 3)
 	items = list(
-		/obj/item/food/snacks/donut/jelly/slimejelly
+		/obj/item/food/donut/jelly/slimejelly
 	)
-	result = /obj/item/food/snacks/donut/blumpkin/slime
+	result = /obj/item/food/donut/blumpkin/slime
 
 /datum/recipe/microwave/bungodonut
 	reagents = list("bungojuice" = 3, "coldsauce" = 5)
 	items = list(
-		/obj/item/food/snacks/donut
+		/obj/item/food/donut
 	)
-	result = /obj/item/food/snacks/donut/bungo
+	result = /obj/item/food/donut/bungo
 
 /datum/recipe/microwave/bungodonut/jelly
 	reagents = list("bungojuice" = 3, "coldsauce" = 5)
 	items = list(
-		/obj/item/food/snacks/donut/jelly
+		/obj/item/food/donut/jelly
 	)
-	result = /obj/item/food/snacks/donut/bungo/jelly
+	result = /obj/item/food/donut/bungo/jelly
 
 /datum/recipe/microwave/bungodonut/slime
 	reagents = list("bungojuice" = 3, "coldsauce" = 5)
 	items = list(
-		/obj/item/food/snacks/donut/jelly/slimejelly
+		/obj/item/food/donut/jelly/slimejelly
 	)
-	result = /obj/item/food/snacks/donut/bungo/slime
+	result = /obj/item/food/donut/bungo/slime
 
 /datum/recipe/microwave/carameldonut
 	items = list(
-		/obj/item/food/snacks/donut,
-		/obj/item/food/snacks/candy/caramel
+		/obj/item/food/donut,
+		/obj/item/food/candy/caramel
 	)
-	result = /obj/item/food/snacks/donut/caramel
+	result = /obj/item/food/donut/caramel
 
 /datum/recipe/microwave/carameldonut/jelly
 	items = list(
-		/obj/item/food/snacks/donut/jelly,
-		/obj/item/food/snacks/candy/caramel
+		/obj/item/food/donut/jelly,
+		/obj/item/food/candy/caramel
 	)
-	result = /obj/item/food/snacks/donut/caramel/jelly
+	result = /obj/item/food/donut/caramel/jelly
 
 /datum/recipe/microwave/carameldonut/slime
 	items = list(
-		/obj/item/food/snacks/donut/jelly/slimejelly,
-		/obj/item/food/snacks/candy/caramel
+		/obj/item/food/donut/jelly/slimejelly,
+		/obj/item/food/candy/caramel
 	)
-	result = /obj/item/food/snacks/donut/caramel/slime
+	result = /obj/item/food/donut/caramel/slime
 
 /datum/recipe/microwave/chocolatedonut
 	items = list(
-		/obj/item/food/snacks/donut,
-		/obj/item/food/snacks/chocolatebar
+		/obj/item/food/donut,
+		/obj/item/food/chocolatebar
 	)
-	result = /obj/item/food/snacks/donut/chocolate
+	result = /obj/item/food/donut/chocolate
 
 /datum/recipe/microwave/chocolatedonut/jelly
 	items = list(
-		/obj/item/food/snacks/donut/jelly,
-		/obj/item/food/snacks/chocolatebar
+		/obj/item/food/donut/jelly,
+		/obj/item/food/chocolatebar
 	)
-	result = /obj/item/food/snacks/donut/chocolate/jelly
+	result = /obj/item/food/donut/chocolate/jelly
 
 /datum/recipe/microwave/chocolatedonut/slime
 	items = list(
-		/obj/item/food/snacks/donut/jelly/slimejelly,
-		/obj/item/food/snacks/chocolatebar
+		/obj/item/food/donut/jelly/slimejelly,
+		/obj/item/food/chocolatebar
 	)
-	result = /obj/item/food/snacks/donut/chocolate/slime
+	result = /obj/item/food/donut/chocolate/slime
 
 /datum/recipe/microwave/matchadonut
 	reagents = list("teapowder" = 3)
 	items = list(
-		/obj/item/food/snacks/donut
+		/obj/item/food/donut
 	)
-	result = /obj/item/food/snacks/donut/matcha
+	result = /obj/item/food/donut/matcha
 
 /datum/recipe/microwave/matchadonut/jelly
 	reagents = list("teapowder" = 3)
 	items = list(
-		/obj/item/food/snacks/donut/jelly
+		/obj/item/food/donut/jelly
 	)
-	result = /obj/item/food/snacks/donut/matcha/jelly
+	result = /obj/item/food/donut/matcha/jelly
 
 /datum/recipe/microwave/matchadonut/slime
 	reagents = list("teapowder" = 3)
 	items = list(
-		/obj/item/food/snacks/donut/jelly/slimejelly
+		/obj/item/food/donut/jelly/slimejelly
 	)
-	result = /obj/item/food/snacks/donut/matcha/slime
+	result = /obj/item/food/donut/matcha/slime
 
 /datum/recipe/microwave/meatdonut
 	items = list(
-		/obj/item/food/snacks/cookiedough,
-		/obj/item/food/snacks/meat
+		/obj/item/food/cookiedough,
+		/obj/item/food/meat
 	)
-	result = /obj/item/food/snacks/donut/meat
+	result = /obj/item/food/donut/meat
 
 /datum/recipe/microwave/spacemandonut
 	items = list(
-		/obj/item/food/snacks/donut,
-//		/obj/item/food/grown/trumpet
+		/obj/item/food/donut,
+		/obj/item/food/grown/trumpet
 	)
-	result = /obj/item/food/snacks/donut/spaceman
+	result = /obj/item/food/donut/spaceman
 
 /datum/recipe/microwave/spacemandonut/jelly
 	items = list(
-		/obj/item/food/snacks/donut/jelly,
-//		/obj/item/food/grown/trumpet
+		/obj/item/food/donut/jelly,
+		/obj/item/food/grown/trumpet
 	)
-	result = /obj/item/food/snacks/donut/spaceman/jelly
+	result = /obj/item/food/donut/spaceman/jelly
 
 /datum/recipe/microwave/spacemandonut/slime
 	items = list(
-		/obj/item/food/snacks/donut/jelly/slimejelly,
-//		/obj/item/food/grown/trumpet
+		/obj/item/food/donut/jelly/slimejelly,
+		/obj/item/food/grown/trumpet
 	)
-	result = /obj/item/food/snacks/donut/spaceman/slime
+	result = /obj/item/food/donut/spaceman/slime
 
 /datum/recipe/microwave/human/burger
 	items = list(
@@ -1322,25 +1322,25 @@
 /datum/recipe/microwave/cheeseballs
 	reagents = list("flour" = 5, "sugar" = 5, "honey" = 5)
 	items = list(
-		/obj/item/food/snacks/curdcheese,
-		/obj/item/food/snacks/chocolatebar
+		/obj/item/food/curdcheese,
+		/obj/item/food/chocolatebar
 	)
-	result = /obj/item/food/snacks/cheeseballs
+	result = /obj/item/food/cheeseballs
 
 /datum/recipe/microwave/redporridge
 	reagents = list("vanilla" = 5, "sugar" = 5, "yoghurt" = 10)
 	items = list(
-		/obj/item/food/snacks/grown/redbeet
+		/obj/item/food/grown/redbeet
 	)
-	result = /obj/item/food/snacks/redporridge
+	result = /obj/item/food/redporridge
 
 /datum/recipe/microwave/dulcedebatata
 	reagents = list("vanilla" = 5, "water" = 5)
 	items = list(
-		/obj/item/food/snacks/grown/potato/sweet,
-		/obj/item/food/snacks/grown/potato/sweet
+		/obj/item/food/grown/potato/sweet,
+		/obj/item/food/grown/potato/sweet
 	)
-	result = /obj/item/food/snacks/dulcedebatata
+	result = /obj/item/food/dulcedebatata
 
 /datum/recipe/microwave/berryicecreamsandwich
 	reagents = list("ice" = 5, "cream" = 5)

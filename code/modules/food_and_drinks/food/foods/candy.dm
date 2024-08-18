@@ -94,13 +94,50 @@
 	filling_color = "#7D5F46"
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/chocolateorange
+/obj/item/food/candy/chocolateorange
+	name = "chocolate orange"
+	desc = "A festive chocolate orange."
+	icon_state = "chocoorange"
+	filling_color = "#7D5F46"
+	list_reagents = list("nutriment" = 3, "sugar" = 1)
+	tastes = list("chocolate" = 3, "oranges" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/chocolatecoin
+/obj/item/food/candy/candiedpineapple
+	name = "candied pineapple"
+	desc = "A chunk of pineapple coated in sugar and dried into a chewy treat."
+	icon_state = "candied_pineapple"
+	filling_color = "#ffbd35"
+	list_reagents = list("nutriment" = 3, "vitamin" = 3)
+	tastes = list("sugar" = 2, "chewy pineapple" = 4)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/chocolatebunny
+/obj/item/food/candy/chocolatecoin
+	name = "chocolate coin"
+	desc = "A completely edible but non-flippable festive coin."
+	icon_state = "chococoin"
+	filling_color = "#7D5F46"
+	list_reagents = list("nutriment" = 4, "sugar" = 1, "cocoa" = 1, "vitamin" = 1)
+	tastes = list("chocolate" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/fudgedice
+/obj/item/food/candy/chocolatebunny
+	name = "chocolate bunny"
+	desc = "Contains less than 10% real rabbit!"
+	icon_state = "chocolatebunny"
+	filling_color = "#7D5F46"
+	list_reagents = list("nutriment" = 4, "sugar" = 1, "cocoa" = 1)
+	tastes = list("chocolate" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
+/obj/item/food/candy/fudgedice
+	name = "fudge dice"
+	desc = "A little cube of chocolate that tends to have a less intense taste if you eat too many at once."
+	icon_state = "chocodice"
+	filling_color = "#7D5F46"
+	list_reagents = list("nutriment" = 3, "sugar" = 1, "cocoa" = 1)
+	tastes = list("fudge" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 // ***********************************************************
 // Candy Products (Pre-existing)
