@@ -68,6 +68,12 @@
 	filling_color = "#00FF33"
 	list_reagents = list("mercury" = 5, "lsd" = 5, "ethanol" = 5, "weird_cheese" = 5)
 
+/obj/item/food/snacks/curdcheese
+	name = "cheese curds"
+	desc = "Known by many names throughout human cuisine, curd cheese is useful for a wide variety of dishes."
+	icon_state = "cheesewheel"
+	filling_color = "#FFF700"
+	list_reagents = list("cheesecurd" = 4, "nutriment" = 3, "vitamin" = 1)
 
 //////////////////////
 //		Plants		//

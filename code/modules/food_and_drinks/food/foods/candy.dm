@@ -92,6 +92,14 @@
 	icon_state = "fudge_turtle"
 	filling_color = "#7D5F46"
 
+/obj/item/food/snacks/chocolateorange
+
+/obj/item/food/snacks/chocolatecoin
+
+/obj/item/food/snacks/chocolatebunny
+
+/obj/item/food/snacks/fudgedice
+
 // ***********************************************************
 // Candy Products (Pre-existing)
 // ***********************************************************

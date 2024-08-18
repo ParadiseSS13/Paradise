@@ -26,7 +26,6 @@
 	filling_color = "#FFD675"
 	tastes = list("cake" = 5, "sweetness" = 2, "carrot" = 1)
 
-
 /obj/item/food/snacks/sliceable/braincake
 	name = "brain cake"
 	desc = "A squishy cake-thing."
@@ -237,6 +236,27 @@
 	filling_color = "#EBF5B8"
 	tastes = list("cake" = 5, "sweetness" = 1, "apple" = 1)
 
+/obj/item/food/snacks/sliceable/angelcake
+
+/obj/item/food/snacks/sliceable/chocolateberrycake
+
+/obj/item/food/snacks/sliceable/vanillaberrycake
+
+/obj/item/food/snacks/sliceable/energycake
+
+/obj/item/food/snacks/sliceable/circuitcake
+
+/obj/item/food/snacks/sliceable/plumcake
+
+/obj/item/food/snacks/sliceable/poundcake
+
+/obj/item/food/snacks/sliceable/pumpkinspicecake
+
+/obj/item/food/snacks/sliceable/slimecake
+
+/obj/item/food/snacks/sliceable/spacemancake
+
+/obj/item/food/snacks/sliceable/vanillacake
 
 //////////////////////
 //		Cookies		//
@@ -270,6 +290,11 @@
 	list_reagents = list("nutriment" = 1, "sugar" = 3)
 	tastes = list("sweetness" = 1)
 
+/obj/item/food/snacks/oatmealcookie
+
+/obj/item/food/snacks/raisincookie
+
+/obj/item/food/snacks/peanutbuttercookie
 
 //////////////////////
 //		Pies		//
@@ -351,7 +376,6 @@
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
 	tastes = list("pie" = 1, "meat" = 1, "acid" = 1)
 
-
 /obj/item/food/snacks/applepie
 	name = "apple pie"
 	desc = "A pie containing sweet sweet love... or apple."
@@ -361,7 +385,6 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
 	tastes = list("pie" = 1, "apple" = 1)
-
 
 /obj/item/food/snacks/cherrypie
 	name = "cherry pie"
@@ -393,6 +416,16 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#F5B951"
 	tastes = list("pie" = 1, "pumpkin" = 1)
+
+/obj/item/food/snacks/bearypie
+
+/obj/item/food/snacks/berrypie
+
+/obj/item/food/snacks/blumpkinpie
+
+/obj/item/food/snacks/frenchsilkpie
+
+/obj/item/food/snacks/frostypie
 
 //////////////////////
 //		Donuts		//
@@ -474,6 +507,193 @@
 	icon_state = "jdonut1"
 	extra_reagent = "cherryjelly"
 
+/obj/item/food/snacks/donut/apple
+	name = "donut"
+	desc = "Goes great with Robust Coffee."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "donut1"
+	bitesize = 5
+	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1)
+
+/obj/item/food/snacks/donut/apple/jelly
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/snacks/donut/apple/slime
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/snacks/donut/pink
+	name = "donut"
+	desc = "Goes great with Robust Coffee."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "donut1"
+	bitesize = 5
+	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1)
+
+/obj/item/food/snacks/donut/pink/jelly
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/snacks/donut/pink/slime
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/snacks/donut/blumpkin
+	name = "donut"
+	desc = "Goes great with Robust Coffee."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "donut1"
+	bitesize = 5
+	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1)
+
+/obj/item/food/snacks/donut/blumpkin/jelly
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/snacks/donut/blumpkin/slime
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/snacks/donut/caramel
+	name = "donut"
+	desc = "Goes great with Robust Coffee."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "donut1"
+	bitesize = 5
+	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1)
+
+/obj/item/food/snacks/donut/caramel/jelly
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/snacks/donut/caramel/slime
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/snacks/donut/chocolate
+	name = "donut"
+	desc = "Goes great with Robust Coffee."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "donut1"
+	bitesize = 5
+	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1)
+
+/obj/item/food/snacks/donut/chocolate/jelly
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/snacks/donut/chocolate/slime
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/snacks/donut/matcha
+	name = "donut"
+	desc = "Goes great with Robust Coffee."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "donut1"
+	bitesize = 5
+	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1)
+
+/obj/item/food/snacks/donut/matcha/jelly
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/snacks/donut/matcha/slime
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/snacks/donut/bungo
+	name = "donut"
+	desc = "Goes great with Robust Coffee."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "donut1"
+	bitesize = 5
+	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1)
+
+/obj/item/food/snacks/donut/bungo/jelly
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/snacks/donut/bungo/slime
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/snacks/donut/spaceman
+	name = "donut"
+	desc = "Goes great with Robust Coffee."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "donut1"
+	bitesize = 5
+	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1)
+
+/obj/item/food/snacks/donut/spaceman/jelly
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "berryjuice"
+
+/obj/item/food/snacks/donut/spaceman/slime
+	name = "jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
+	extra_reagent = "slimejelly"
+
+/obj/item/food/snacks/donut/meat
+	name = "donut"
+	desc = "Goes great with Robust Coffee."
+	icon = 'icons/obj/food/bakedgoods.dmi'
+	icon_state = "donut1"
+	bitesize = 5
+	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
+	tastes = list("donut" = 1)
+
+
 //////////////////////
 //		Pancakes	//
 //////////////////////
@@ -530,6 +750,32 @@
 	list_reagents = list("nutriment" = 6)
 	tastes = list("muffin" = 1)
 
+/obj/item/food/snacks/berrymuffin
+
+/obj/item/food/snacks/booberrymuffin
+
+/obj/item/food/snacks/moffin
+
+/obj/item/food/snacks/chocolatecornet
+
+/obj/item/food/snacks/honeybun
+
+/obj/item/food/snacks/cannoli
+
+/obj/item/food/snacks/chocolatelavatart
+
+/obj/item/food/snacks/grapetart
+
+/obj/item/food/snacks/mimetart
+
+/obj/item/food/snacks/redporridge
+
+/obj/item/food/snacks/dulcedebatata
+
+/obj/item/food/snacks/cheeseballs
+
+/obj/item/food/snacks/mothmallow
+
 /obj/item/food/snacks/berryclafoutis
 	name = "berry clafoutis"
 	desc = "No black birds, this is a good sign."
@@ -539,7 +785,6 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "berryjuice" = 5, "vitamin" = 2)
 	tastes = list("pie" = 1, "blackberries" = 1)
-
 
 /obj/item/food/snacks/poppypretzel
 	name = "poppy pretzel"
@@ -577,6 +822,9 @@
 	list_reagents = list("nutriment" = 8, "gold" = 5, "vitamin" = 4)
 	tastes = list("pie" = 1, "apple" = 1, "expensive metal" = 1)
 
+/obj/item/food/snacks/cherrycupcake
+
+/obj/item/food/snacks/bluecherrycupcake
 
 /obj/item/food/snacks/cracker
 	name = "cracker"

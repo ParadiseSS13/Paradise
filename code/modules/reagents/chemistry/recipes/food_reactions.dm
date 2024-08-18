@@ -88,7 +88,7 @@
 /datum/chemical_reaction/curdcheese/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
-		new /obj/item/reagent_containers/food/snacks/curdcheese(location)
+		new /obj/item/food/snacks/curdcheese(location)
 
 /datum/chemical_reaction/yoghurt
 	name = "Yoghurt"
