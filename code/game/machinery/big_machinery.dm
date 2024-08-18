@@ -19,8 +19,6 @@
 
 	for(var/turf/filler_turf as anything in RANGE_TURFS(2, src))
 		iterator++
-		var/obj/item/bikehorn/rubberducky/duck = new(filler_turf)
-		duck.name = "[iterator] and [numerator]"
 
 		if(iterator == 6)
 			numerator++
@@ -29,7 +27,6 @@
 		if(filler_locations[5 - numerator][6 - iterator])
 			var/obj/structure/filler/filler = new(filler_turf)
 			all_fillers += filler
-			duck.color = COLOR_GREEN
 
 /obj/machinery/big/Destroy()
 	. = ..()
