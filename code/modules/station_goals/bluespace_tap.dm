@@ -228,9 +228,6 @@
 	/// How much power the machine needs per processing tick at the current level.
 	var/actual_power_usage = 0
 
-	/// A list with all filler structures. Gets cleared out on `Destroy()
-	var/list/filler_structures = list()
-
 	// Tweak these and active_power_consumption to balance power generation
 
 	/// Max power input level, I don't expect this to be ever reached. It has been reached.
@@ -261,14 +258,6 @@
 		component_parts += new /obj/item/stack/ore/bluespace_crystal()
 	if(!powernet)
 		connect_to_network()
-
-	for(var/direction in list(NORTH, NORTHEAST, NORTHWEST, EAST, WEST, SOUTHEAST, SOUTHWEST))
-		var/obj/structure/filler/filler = new(get_step(src, direction))
-		filler_structures += filler
-
-/obj/machinery/power/bluespace_tap/Destroy()
-	. = ..()
-	QDEL_LIST_CONTENTS(filler_structures)
 
 /obj/machinery/power/bluespace_tap/update_icon_state()
 	. = ..()
@@ -303,7 +292,6 @@
 		if(light)
 			underlays += emissive_appearance(icon, "light_mask")
 
-
 /obj/machinery/power/bluespace_tap/proc/get_icon_state_number()
 	switch(input_level)
 		if(0)
@@ -318,6 +306,15 @@
 			return 4
 		if(16 to INFINITY)
 			return 5
+
+/obj/machinery/power/bluespace_tap/set_filler_map()
+	filler_locations = list(
+							list(0, 0, 		0,   	0, 0),
+							list(0, 1, 		1,   	1, 0),
+							list(0, 1, MACH_CENTER, 1, 0),
+							list(0, 1, 		0,   	1, 0),
+							list(0, 0, 		0,   	0, 0)
+						)
 
 /obj/machinery/power/bluespace_tap/power_change()
 	. = ..()

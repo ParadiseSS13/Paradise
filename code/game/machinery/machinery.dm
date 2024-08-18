@@ -33,6 +33,22 @@
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
 
+	/// A list of all fillers we have placed down around us
+	var/list/all_fillers = list()
+	/// Should this piece of machinery put down filler structures to emulate being bigger than a single turf?
+	var/list/filler_locations = list()
+/*
+  * These should all be done in this style. It represents a coordinate map of a 5x5 grid around `src`.
+  * This map has to be set in `set_filler_map()`
+  	var/list/filler_locations = list(
+									list(0, 0, 		0,   	0, 0),
+									list(0, 0, 		0,   	0, 0),
+									list(0, 0, MACH_CENTER, 0, 0),
+									list(0, 0, 		0,   	0, 0),
+									list(0, 0, 		0,   	0, 0)
+								)
+ */
+
 /obj/machinery/Initialize(mapload)
 	. = ..()
 	GLOB.machines += src
@@ -59,6 +75,26 @@
 
 	power_change()
 
+	// This piece of code handles the placement of the filler structures
+	set_filler_map()
+	if(!length(filler_locations))
+		return
+	var/iterator = 0
+	var/numerator = 0
+
+	for(var/turf/filler_turf as anything in RANGE_TURFS(2, src))
+		iterator++
+
+		// We can't take the modulus here because our nested lists never have more than 5 entries
+		if(iterator == 6)
+			numerator++
+			iterator = 1
+
+		// Because the `block()` proc always works from the bottom left to the top right, we have to loop through our nested lists in reverse
+		if(filler_locations[5 - numerator][6 - iterator])
+			var/obj/structure/filler/filler = new(filler_turf)
+			all_fillers += filler
+
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
 	if(speed_process)
@@ -79,6 +115,7 @@
 	change_power_mode(NO_POWER_USE) //we want to clear our static power usage on the local powernet
 	machine_powernet?.unregister_machine(src)
 	GLOB.machines.Remove(src)
+	QDEL_LIST_CONTENTS(all_fillers)
 	if(!speed_process)
 		STOP_PROCESSING(SSmachines, src)
 	else
@@ -595,3 +632,7 @@
 
 /obj/machinery/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable, block_interactions)
 	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, should_rotate = TRUE, rightable = TRUE, block_interactions_until_righted = TRUE)
+
+/// This proc sets the map for our filler structures. Has to be overridden.
+/obj/machinery/proc/set_filler_map()
+	return

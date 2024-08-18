@@ -150,14 +150,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	pixel_y = -64
 	luminosity = 1
 
-	filler_locations = list(
-							list(0, 0, 		0,   	0, 0),
-							list(0, 0, 		0,   	0, 0),
-							list(0, 1, MACH_CENTER, 1, 0),
-							list(0, 1, 		0,   	1, 0),
-							list(0, 1, 		0,   	1, 0)
-						)
-
 	//High defaults so it's not completed automatically if there's no station goal
 	var/animals_max = 100
 	var/plants_max = 100
@@ -312,6 +304,15 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
 			H.next_move_modifier = 0.5
 	power_lottery[H] = list()
+
+/obj/machinery/big/dna_vault/set_filler_map()
+	filler_locations = list(
+							list(0, 0, 		0,   	0, 0),
+							list(0, 0, 		0,   	0, 0),
+							list(0, 1, MACH_CENTER, 1, 0),
+							list(0, 1, 		0,   	1, 0),
+							list(0, 1, 		0,   	1, 0)
+						)
 
 #undef VAULT_TOXIN
 #undef VAULT_NOBREATH
