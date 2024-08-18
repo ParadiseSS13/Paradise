@@ -2,6 +2,11 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Box, Section, Stack, Blink } from '../components';
 import { Window } from '../layouts';
 
+const RQ_NONEW_MESSAGES = 0;
+const RQ_LOWPRIORITY = 1;
+const RQ_NORMALPRIORITY = 2;
+const RQ_HIGHPRIORITY = 3;
+
 export const RequestConsole = (props, context) => {
   const { act, data } = useBackend(context);
   const { screen, announcementConsole } = data;
@@ -52,13 +57,13 @@ const MainMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { newmessagepriority, announcementConsole, silent } = data;
   let messageInfo;
-  if (newmessagepriority === 1) {
+  if (newmessagepriority >= RQ_NONEW_MESSAGES) {
     messageInfo = (
       <Box color="red" bold mb={1}>
         There are new messages
       </Box>
     );
-  } else if (newmessagepriority === 2) {
+  } else if (newmessagepriority === RQ_HIGHPRIORITY) {
     messageInfo = (
       <Blink>
         <Box color="red" bold mb={1}>
@@ -96,7 +101,7 @@ const MainMenu = (props, context) => {
             lineHeight={3}
             color="translucent"
             content="View Messages"
-            icon={newmessagepriority > 0 ? 'envelope-open-text' : 'envelope'}
+            icon={newmessagepriority > RQ_NONEW_MESSAGES ? 'envelope-open-text' : 'envelope'}
             onClick={() => act('setScreen', { setScreen: 6 })}
           />
         </Stack.Item>
@@ -209,12 +214,12 @@ const DepartmentList = (props, context) => {
                 <Button
                   content="Message"
                   icon="envelope"
-                  onClick={() => act('writeInput', { write: d, priority: '1' })}
+                  onClick={() => act('writeInput', { write: d, priority: RQ_NORMALPRIORITY })}
                 />
                 <Button
                   content="High Priority"
                   icon="exclamation-circle"
-                  onClick={() => act('writeInput', { write: d, priority: '2' })}
+                  onClick={() => act('writeInput', { write: d, priority: RQ_HIGHPRIORITY })}
                 />
               </LabeledList.Item>
             ))}

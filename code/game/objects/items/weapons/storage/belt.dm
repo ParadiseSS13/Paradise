@@ -591,7 +591,7 @@
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
 	desc = "A bandolier for holding shotgun ammunition."
-	icon_state = "bandolier"
+	icon_state = "bandolier_0"
 	item_state = "bandolier"
 	storage_slots = 16
 	max_combined_w_class = 16
@@ -608,7 +608,7 @@
 		new /obj/item/ammo_casing/shotgun/rubbershot(src)
 
 /obj/item/storage/belt/bandolier/update_icon_state()
-	icon_state = "[initial(icon_state)]_[min(length(contents), 8)]"
+	icon_state = "bandolier_[min(length(contents), 8)]"
 
 /obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user)
 	var/amount = length(contents)
@@ -797,6 +797,17 @@
 /obj/item/storage/belt/sheath/snakesfang/populate_contents()
 	new /obj/item/melee/snakesfang(src)
 	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/storage/belt/sheath/breach_cleaver
+	name = "breach cleaver scabbard"
+	desc = "Can hold massive cleavers."
+	icon_state = "breachcleaversheath"
+	item_state = "breachcleaversheath"
+	can_hold = list(/obj/item/melee/breach_cleaver)
+
+/obj/item/storage/belt/sheath/breach_cleaver/populate_contents()
+	new /obj/item/melee/breach_cleaver(src)
+	update_icon()
 
 // -------------------------------------
 //     Bluespace Belt

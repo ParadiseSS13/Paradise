@@ -55,7 +55,7 @@
 	. = ..()
 	if(panel_open)
 		. += "<span class='notice'>The maintenance panel is open.</span>"
-	. += "<span class='info'><b>Alt-Click</b> to rotate [src].</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to rotate [src].</span>"
 
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120
@@ -302,6 +302,7 @@
 	else
 		fire_delay = rand(minimum_fire_delay, maximum_fire_delay)
 		shot_number = 0
+
 	P.setDir(dir)
 	P.starting = loc
 	P.Angle = null

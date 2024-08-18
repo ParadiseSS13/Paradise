@@ -84,7 +84,7 @@
 /obj/singularity/narsie/proc/godsmack(atom/A)
 	if(isobj(A))
 		var/obj/O = A
-		O.ex_act(1)
+		O.ex_act(EXPLODE_DEVASTATE)
 		if(O) qdel(O)
 
 	else if(isturf(A))

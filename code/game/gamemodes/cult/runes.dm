@@ -940,6 +940,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 			continue
 		if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE) || QDELETED(src) || QDELETED(O))
 			continue
+		if(!O.mind)
+			continue
 		if(O.mind.current && HAS_TRAIT(O.mind.current, SCRYING))
 			continue
 		ghosts_on_rune += O
