@@ -1,6 +1,5 @@
-/// Evoltion chance each cycle in percents.
-/// a value of 0.0057% corresponds to a 1 in 30 chance of new strain every 600 cycles or 20 minutes.
-#define EVOLUTION_CHANCE 0.0057
+// A 1 in 30 chance of new strain every 600 cycles.
+#define STRAIN_CHANCE 0.000057
 
 /*
 
@@ -103,18 +102,6 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /datum/disease/advance/stage_act()
 	if(!..())
 		return FALSE
-	if(prob(EVOLUTION_CHANCE))
-		var/min = rand(1,6)
-		var/max = rand(min,6)
-		var/lastStrain = strain
-		if(prob(95))
-			Evolve(min, max)
-		else
-			to_chat(world, "devolve")
-			Devolve()
-		//create a new strain even if we didn't gain or lose symptoms
-		if(lastStrain == strain)
-			Refresh()
 	if(symptoms && length(symptoms))
 		var/list/mob_reagents = list()
 		for(var/datum/reagent/chem in affected_mob.reagents.reagent_list)
@@ -523,5 +510,3 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		var/datum/symptom/S = i
 		total_transmittable += S.transmittable
 	return total_transmittable
-
-#undef EVOLUTION_CHANCE
