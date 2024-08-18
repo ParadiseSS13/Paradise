@@ -179,7 +179,7 @@
 	drink_desc = "The raw essence of a banana. HONK"
 	taste_description = "banana juice"
 
-/datum/reagent/consumable/drink/banana/on_mob_life(mob/carbon/human/M)
+/datum/reagent/consumable/drink/banana/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
@@ -196,7 +196,7 @@
 	drink_desc = "Absolutely nothing."
 	taste_description = "nothing... how?"
 
-/datum/reagent/consumable/drink/nothing/on_mob_life(mob/carbon/human/M)
+/datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && M.mind && M.mind.miming)
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
@@ -409,7 +409,7 @@
 	drink_desc = "A drink from Banana Heaven."
 	taste_description = "HONK"
 
-/datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/carbon/human/M)
+/datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
@@ -427,7 +427,7 @@
 	drink_desc = "A drink from mime Heaven."
 	taste_description = "mphhhh"
 
-/datum/reagent/consumable/drink/silencer/on_mob_life(mob/carbon/human/M)
+/datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && (M.job in list("Mime")))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
