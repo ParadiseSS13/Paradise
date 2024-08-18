@@ -197,8 +197,6 @@
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -32
-	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
-	var/list/obj/structure/fillers = list()
 	power_state = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
@@ -230,6 +228,8 @@
 	/// How much power the machine needs per processing tick at the current level.
 	var/actual_power_usage = 0
 
+	/// A list with all filler structures. Gets cleared out on `Destroy()
+	var/list/filler_structures = list()
 
 	// Tweak these and active_power_consumption to balance power generation
 
@@ -254,23 +254,21 @@
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
-	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
-	//TODO: Replace this,bsa and gravgen with some big machinery datum
-	var/list/occupied = list()
-	for(var/direct in list(NORTH, NORTHEAST, NORTHWEST, EAST, WEST, SOUTHEAST, SOUTHWEST))
-		occupied += get_step(src, direct)
-
-	for(var/T in occupied)
-		var/obj/structure/filler/F = new(T)
-		F.parent = src
-		fillers += F
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/machine/bluespace_tap(null)
-	for(var/i = 1 to 5)	//five of each
-		component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
-		component_parts += new /obj/item/stack/ore/bluespace_crystal(null)
+	component_parts += new /obj/item/circuitboard/machine/bluespace_tap()
+	for(var/i in 1 to 5)	//five of each
+		component_parts += new /obj/item/stock_parts/capacitor/quadratic()
+		component_parts += new /obj/item/stack/ore/bluespace_crystal()
 	if(!powernet)
 		connect_to_network()
+
+	for(var/direction in list(NORTH, NORTHEAST, NORTHWEST, EAST, WEST, SOUTHEAST, SOUTHWEST))
+		var/obj/structure/filler/filler = new(get_step(src, direction))
+		filler_structures += filler
+
+/obj/machinery/power/bluespace_tap/Destroy()
+	. = ..()
+	QDEL_LIST_CONTENTS(filler_structures)
 
 /obj/machinery/power/bluespace_tap/update_icon_state()
 	. = ..()
@@ -340,10 +338,6 @@
 	. = ..()
 	if(.)
 		update_icon()
-
-/obj/machinery/power/bluespace_tap/Destroy()
-	QDEL_LIST_CONTENTS(fillers)
-	return ..()
 
 /**
   * Increases the desired mining level

@@ -52,7 +52,7 @@
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/dna_vault/V in GLOB.machines)
+	for(var/obj/machinery/big/dna_vault/V in GLOB.machines)
 		if(length(V.animals) >= animal_count && length(V.plants) >= plant_count && length(V.dna) >= human_count && is_station_contact(V.z))
 			return TRUE
 	return FALSE
@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 /obj/item/circuitboard/machine/dna_vault
 	board_name = "DNA Vault"
 	icon_state = "command"
-	build_path = /obj/machinery/dna_vault
+	build_path = /obj/machinery/big/dna_vault
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
 							/obj/item/stock_parts/capacitor/super = 5,
@@ -134,16 +134,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	density = TRUE
 	anchored = TRUE
 	invisibility = 101
-	var/obj/machinery/parent
-
-/obj/structure/filler/Destroy()
-	parent = null
-	return ..()
 
 /obj/structure/filler/ex_act()
 	return
 
-/obj/machinery/dna_vault
+/obj/machinery/big/dna_vault
 	name = "DNA Vault"
 	desc = "Break glass in case of apocalypse."
 	icon = 'icons/obj/machines/dna_vault.dmi'
@@ -154,6 +149,14 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	pixel_x = -32
 	pixel_y = -64
 	luminosity = 1
+
+	filler_locations = list(
+							list(0, 0, 0,   0, 0),
+							list(0, 0, 0,   0, 0),
+							list(0, 1, SRC, 1, 0),
+							list(0, 1, 0,   1, 0),
+							list(0, 1, 0,   1, 0)
+						)
 
 	//High defaults so it's not completed automatically if there's no station goal
 	var/animals_max = 100
@@ -166,22 +169,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	var/completed = FALSE
 	var/static/list/power_lottery = list()
 
-	var/list/obj/structure/fillers = list()
-
-/obj/machinery/dna_vault/Initialize(mapload)
+/obj/machinery/big/dna_vault/Initialize(mapload)
 	. = ..()
-	//TODO: Replace this,bsa and gravgen with some big machinery datum
-	var/list/occupied = list()
-	for(var/direct in list(EAST,WEST,SOUTHEAST,SOUTHWEST))
-		occupied += get_step(src,direct)
-	occupied += locate(x+1,y-2,z)
-	occupied += locate(x-1,y-2,z)
-
-	for(var/T in occupied)
-		var/obj/structure/filler/F = new(T)
-		F.parent = src
-		fillers += F
-
 	if(SSticker.mode)
 		for(var/datum/station_goal/dna_vault/G in SSticker.mode.station_goals)
 			animals_max = G.animal_count
@@ -189,43 +178,38 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			dna_max = G.human_count
 			break
 
-/obj/machinery/dna_vault/update_icon_state()
+/obj/machinery/big/dna_vault/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "vaultoff"
 		return
 	icon_state = "vault"
 
-/obj/machinery/dna_vault/power_change()
+/obj/machinery/big/dna_vault/power_change()
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
 
-
-/obj/machinery/dna_vault/Destroy()
-	QDEL_LIST_CONTENTS(fillers)
-	return ..()
-
-/obj/machinery/dna_vault/attack_ghost(mob/user)
+/obj/machinery/big/dna_vault/attack_ghost(mob/user)
 	if(stat & (BROKEN|MAINT))
 		return
 	return ui_interact(user)
 
-/obj/machinery/dna_vault/attack_hand(mob/user)
+/obj/machinery/big/dna_vault/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/dna_vault/ui_state(mob/user)
+/obj/machinery/big/dna_vault/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/dna_vault/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/big/dna_vault/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		roll_powers(user)
 		ui = new(user, src, "DnaVault", name)
 		ui.open()
 
-/obj/machinery/dna_vault/proc/roll_powers(mob/user)
+/obj/machinery/big/dna_vault/proc/roll_powers(mob/user)
 	if(user in power_lottery)
 		return
 	var/list/L = list()
@@ -234,7 +218,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	L += pick_n_take(possible_powers)
 	power_lottery[user] = L
 
-/obj/machinery/dna_vault/ui_data(mob/user)
+/obj/machinery/big/dna_vault/ui_data(mob/user)
 	var/list/data = list(
 		"plants" = length(plants),
 		"plants_max" = plants_max,
@@ -257,7 +241,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			data["used"] = TRUE
 	return data
 
-/obj/machinery/dna_vault/ui_act(action, params)
+/obj/machinery/big/dna_vault/ui_act(action, params)
 	if(..())
 		return
 
@@ -267,11 +251,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 				upgrade(usr, params["choice"])
 				return TRUE
 
-/obj/machinery/dna_vault/proc/check_goal()
+/obj/machinery/big/dna_vault/proc/check_goal()
 	if(length(plants) >= plants_max && length(animals) >= animals_max && length(dna) >= dna_max)
 		completed = TRUE
 
-/obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
+/obj/machinery/big/dna_vault/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/dna_probe))
 		var/obj/item/dna_probe/P = I
 		var/uploaded = 0
@@ -292,7 +276,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	else
 		return ..()
 
-/obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
+/obj/machinery/big/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
 	if(!(upgrade_type in power_lottery[H]))
 		return
 	if(!completed)
