@@ -425,8 +425,8 @@ function listedturf_fill_row(row, item_index) {
 	img.id = object_info[1];
 	img.src = object_info[2];
 	img.style.verticalAlign = 'middle';
-	img.style.width = `2.66em`;
-	img.style.height = `2.66em`;
+	img.style.width = '2.66em';
+	img.style.height = '2.66em';
 	img.onerror = (function (object_info) {
 		return function () {
 			let delay = imageRetryDelay;
