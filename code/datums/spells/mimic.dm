@@ -23,7 +23,7 @@
 		/obj/effect,
 		/mob/living/simple_animal/hostile/megafauna,
 		/atom/movable/lighting_object,
-		/obj/machinery/big/dna_vault,
+		/obj/machinery/dna_vault,
 		/obj/machinery/power/bluespace_tap,
 		/obj/machinery/barsign,
 		/obj/machinery/atmospherics/unary/cryo_cell,
