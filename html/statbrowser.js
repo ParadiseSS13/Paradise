@@ -374,9 +374,6 @@ function draw_mc() {
 
 function listedturf_add_row(table, table_index, true_index) {
 	let row = table.insertRow(table_index);
-	row.style.height = turf_row_inner_height + 'px';
-	row.style.padding = '0px';
-	row.style.margin = '0px';
 	turf_rows[true_index] = row;
 	turf_incomplete_rows[true_index] = true_index + 1;
 }
@@ -388,9 +385,6 @@ function listedturf_fill_row(row, item_index) {
 	}
 
 	let cell = document.createElement('td');
-	cell.style.height = turf_row_inner_height + 'px';
-	cell.style.padding = '0px';
-	cell.style.margin = '0px';
 	row.appendChild(cell);
 
 	var button = document.createElement('div');
@@ -431,6 +425,8 @@ function listedturf_fill_row(row, item_index) {
 	img.id = object_info[1];
 	img.src = object_info[2];
 	img.style.verticalAlign = 'middle';
+	img.style.width = `2.66em`;
+	img.style.height = `2.66em`;
 	img.onerror = (function (object_info) {
 		return function () {
 			let delay = imageRetryDelay;
@@ -454,7 +450,7 @@ function listedturf_fill_row(row, item_index) {
 	button.appendChild(img);
 
 	var label = document.createElement('span');
-	label.style.marginLeft = '5px';
+	label.style.marginLeft = '0.5em';
 	label.textContent = object_info[0];
 	button.appendChild(label);
 
