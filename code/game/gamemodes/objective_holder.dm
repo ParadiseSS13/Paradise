@@ -58,9 +58,9 @@
 /**
  * Replace old_objective with new_objective
  */
-/datum/objective_holder/proc/replace_objective(datum/objective/old_objective, datum/objective/new_objective, datum/orig_target_department, list/orig_steal_list)
-	new_objective.target_department = orig_target_department
-	new_objective.steal_list = orig_steal_list
+/datum/objective_holder/proc/replace_objective(datum/objective/old_objective, datum/objective/new_objective, datum/original_target_department, list/original_steal_list)
+	new_objective.target_department = original_target_department
+	new_objective.steal_list = original_steal_list
 	new_objective = add_objective(new_objective, add_to_list = FALSE)
 	// Replace where the old objective was, with the new one
 	objectives.Insert(objectives.Find(old_objective), new_objective)

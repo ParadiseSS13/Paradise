@@ -79,8 +79,11 @@ GLOBAL_LIST(contractors)
  * Objective targeting flags
  */
 
+/// Objective target must be mindshielded if possible
 #define MINDSHIELDED_TARGET		(1<<0)
+/// Objective target must be non-mindshielded if possible
 #define UNMINDSHIELDED_TARGET	(1<<1)
+/// Objective target must be a syndicate agent if possible
 #define SYNDICATE_TARGET		(1<<2)
 
 /**
@@ -100,3 +103,6 @@ GLOBAL_LIST(contractors)
 #define ORG_PROB_MILD 20
 #define ORG_PROB_AVERAGE 60
 #define ORG_PROB_HIJACK 10
+
+// Chance that a traitor will receive a 'You are being targeted by another syndicate agent' notification regardless of being an actual target
+#define ORG_PROB_PARANOIA 5

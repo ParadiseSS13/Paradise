@@ -14,6 +14,9 @@
 	..()
 	if(target?.current)
 		explanation_text = "Assassinate [target.current.real_name], the Syndicate agent undercover as the [target.assigned_role]."
+		if(target && length(target.antag_datums))
+			for(var/datum/antagonist/A in target.antag_datums)
+				A.targeted_by_antag = TRUE
 
 /datum/objective/assassinateonce/arc
 	name = "Assassinate once (ARC)"

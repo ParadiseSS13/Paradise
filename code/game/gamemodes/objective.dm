@@ -188,6 +188,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(!target_department)
 		return
 	var/list/L = list()
+	. = list()
 	switch(target_department)
 		if(DEPARTMENT_COMMAND)
 			L = GLOB.command_head_positions.Copy()
@@ -203,7 +204,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			L = GLOB.supply_positions.Copy()
 		if(DEPARTMENT_SERVICE)
 			L = GLOB.service_positions.Copy()
-	return L
 
 /datum/objective/assassinate
 	name = "Assassinate"
