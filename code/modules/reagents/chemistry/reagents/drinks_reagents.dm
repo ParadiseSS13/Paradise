@@ -179,7 +179,7 @@
 	drink_desc = "The raw essence of a banana. HONK"
 	taste_description = "banana juice"
 
-/datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/banana/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
