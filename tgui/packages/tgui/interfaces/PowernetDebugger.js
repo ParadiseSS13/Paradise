@@ -20,13 +20,13 @@ const DebuggerNavigation = (properties, context) => {
   return (
     <Tabs>
       <Tabs.Tab
+        icon="list"
         selected={'powernets' === tabIndex}
         onClick={() => {
           setTabIndex('powernets');
           act('set_page', { 'page': 1 });
         }}
       >
-        <Icon name="list" />
         Global Powernet List
       </Tabs.Tab>
       {selected_nets.map((net) => (
