@@ -151,11 +151,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	luminosity = 1
 
 	filler_locations = list(
-							list(0, 0, 0,   0, 0),
-							list(0, 0, 0,   0, 0),
-							list(0, 1, SRC, 1, 0),
-							list(0, 1, 0,   1, 0),
-							list(0, 1, 0,   1, 0)
+							list(0, 0, 		0,   	0, 0),
+							list(0, 0, 		0,   	0, 0),
+							list(0, 1, MACH_CENTER, 1, 0),
+							list(0, 1, 		0,   	1, 0),
+							list(0, 1, 		0,   	1, 0)
 						)
 
 	//High defaults so it's not completed automatically if there's no station goal

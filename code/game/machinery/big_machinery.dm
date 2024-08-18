@@ -2,11 +2,11 @@
 	/// A list that represents a 5x5 grid. 1 for a filler, 0 for no filler.
 	/// This explicitly uses 0 and 1 for booleans because it is more readable.
 	var/list/filler_locations = list(
-									list(0, 0, 0,   0, 0),
-									list(0, 0, 0,   0, 0),
-									list(0, 0, SRC, 0, 0),
-									list(0, 0, 0,   0, 0),
-									list(0, 0, 0,   0, 0)
+									list(0, 0, 		0,   	0, 0),
+									list(0, 0, 		0,   	0, 0),
+									list(0, 0, MACH_CENTER, 0, 0),
+									list(0, 0, 		0,   	0, 0),
+									list(0, 0, 		0,   	0, 0)
 								)
 	/// A list containing all filler structures. Cleared on `Destroy()`
 	var/list/all_fillers = list()
