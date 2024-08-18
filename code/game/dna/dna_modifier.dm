@@ -69,8 +69,8 @@
 
 /obj/machinery/dna_scannernew/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to eject its occupant.</span>"
-	. += "<span class='info'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to eject its occupant.</span>"
+	. += "<span class='notice'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
 
 /obj/machinery/dna_scannernew/Initialize(mapload)
 	. = ..()
@@ -111,8 +111,8 @@
 	return FALSE
 
 /obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.stat)
-		return
+	if(user.incapacitated())
+		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
 /obj/machinery/dna_scannernew/AltClick(mob/user)
@@ -138,10 +138,16 @@
 			M.forceMove(get_turf(src))
 
 /obj/machinery/dna_scannernew/update_icon_state()
-	if(occupant)
-		icon_state = "scanner_occupied"
-	else
+	if(panel_open)
+		icon_state = "scanner_[occupant ? "" : "open_"]maintenance"
+		return
+	if(stat & NOPOWER)
+		icon_state = "scanner"
+		return
+	if(!occupant)
 		icon_state = "scanner_open"
+		return
+	icon_state = "scanner_occupied"
 
 /obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user)
 	if(!istype(O))
@@ -247,11 +253,6 @@
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE
 
-/obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.incapacitated())
-		return FALSE //maybe they should be able to get out with cuffs, but whatever
-	go_out()
-
 /obj/machinery/dna_scannernew/proc/put_in(mob/M)
 	M.forceMove(src)
 	occupant = M
@@ -284,7 +285,6 @@
 	..()
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 

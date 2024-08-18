@@ -591,7 +591,7 @@
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
 	desc = "A bandolier for holding shotgun ammunition."
-	icon_state = "bandolier"
+	icon_state = "bandolier_0"
 	item_state = "bandolier"
 	storage_slots = 16
 	max_combined_w_class = 16
@@ -608,7 +608,7 @@
 		new /obj/item/ammo_casing/shotgun/rubbershot(src)
 
 /obj/item/storage/belt/bandolier/update_icon_state()
-	icon_state = "[initial(icon_state)]_[min(length(contents), 8)]"
+	icon_state = "bandolier_[min(length(contents), 8)]"
 
 /obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user)
 	var/amount = length(contents)
@@ -725,9 +725,9 @@
 	icon_state = "fannypack_yellow"
 	item_state = "fannypack_yellow"
 
-/obj/item/storage/belt/rapier
-	name = "rapier sheath"
-	desc = "Can hold rapiers."
+/obj/item/storage/belt/sheath
+	name = "sword sheath"
+	desc = "Can hold swords. If you see this, it is a bug. Please report this on GitHub."
 	icon_state = "sheath"
 	item_state = "sheath"
 	storage_slots = 1
@@ -737,11 +737,7 @@
 	layer_over_suit = TRUE
 	large = TRUE
 
-/obj/item/storage/belt/rapier/populate_contents()
-	new /obj/item/melee/rapier(src)
-	update_icon()
-
-/obj/item/storage/belt/rapier/attack_hand(mob/user)
+/obj/item/storage/belt/sheath/attack_hand(mob/user)
 	if(loc != user)
 		return ..()
 
@@ -759,26 +755,59 @@
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 
-/obj/item/storage/belt/rapier/handle_item_insertion(obj/item/W, mob/user, prevent_warning)
+/obj/item/storage/belt/sheath/handle_item_insertion(obj/item/W, mob/user, prevent_warning)
 	if(!..())
 		return
 	playsound(src, 'sound/weapons/blade_sheath.ogg', 20)
 
-/obj/item/storage/belt/rapier/remove_from_storage(obj/item/W, atom/new_location)
+/obj/item/storage/belt/sheath/remove_from_storage(obj/item/W, atom/new_location)
 	if(!..())
 		return
 	playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
 
-/obj/item/storage/belt/rapier/update_icon_state()
+/obj/item/storage/belt/sheath/update_icon_state()
 	if(length(contents))
-		icon_state = "[icon_state]-rapier"
-		item_state = "[item_state]-rapier"
+		icon_state = "[icon_state]-sword"
+		item_state = "[item_state]-sword"
 	else
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
 	if(isliving(loc))
 		var/mob/living/L = loc
 		L.update_inv_belt()
+
+/obj/item/storage/belt/sheath/rapier
+	name = "rapier sheath"
+	desc = "Can hold rapiers."
+	icon_state = "sheath"
+	item_state = "sheath"
+	can_hold = list(/obj/item/melee/rapier)
+
+/obj/item/storage/belt/sheath/rapier/populate_contents()
+	new /obj/item/melee/rapier(src)
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/storage/belt/sheath/snakesfang
+	name = "snakesfang scabbard"
+	desc = "Can hold scimitars."
+	icon_state = "snakesfangsheath"
+	item_state = "snakesfangsheath"
+	can_hold = list(/obj/item/melee/snakesfang)
+
+/obj/item/storage/belt/sheath/snakesfang/populate_contents()
+	new /obj/item/melee/snakesfang(src)
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/storage/belt/sheath/breach_cleaver
+	name = "breach cleaver scabbard"
+	desc = "Can hold massive cleavers."
+	icon_state = "breachcleaversheath"
+	item_state = "breachcleaversheath"
+	can_hold = list(/obj/item/melee/breach_cleaver)
+
+/obj/item/storage/belt/sheath/breach_cleaver/populate_contents()
+	new /obj/item/melee/breach_cleaver(src)
+	update_icon()
 
 // -------------------------------------
 //     Bluespace Belt

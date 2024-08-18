@@ -201,15 +201,16 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	density = TRUE
 	pixel_y = -32
 
-/obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
-						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			new /obj/item/gps(loc)
-			qdel(src)
-			return ..()
+/obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
+						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
+		return
+	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+				"<span class='notice'>You disassemble [src].</span>", "You hear clanking and banging noises.")
+	new /obj/item/gps(loc)
+	qdel(src)
 
 /obj/item/gps/computer/attack_hand(mob/user)
 	attack_self(user)
@@ -296,14 +297,15 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 			new buildstacktype(loc, buildstackamount)
 	qdel(src)
 
-/obj/structure/fans/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
-							"<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			deconstruct()
-			return ..()
+/obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", \
+						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	if(!I.use_tool(src, user, 2 SECONDS, volume = 50))
+		return
+	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+						"<span class='notice'>You disassemble [src].</span>", "You hear something fall on the floor.")
+	deconstruct()
 
 /obj/structure/fans/tiny
 	name = "tiny fan"
@@ -343,15 +345,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	layer = MOB_LAYER - 0.2
 	density = FALSE
 
-/obj/structure/tubes/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-							"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 20 * W.toolspeed, target = src))
-			new /obj/item/stack/rods(loc)
-			qdel(src)
-			return ..()
+/obj/structure/tubes/wrench_act(mob/living/user, obj/item/W)
+	. = TRUE
+	user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+						"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	if(!W.use_tool(src, user, 2 SECONDS, volume = 50))
+		return
+	new /obj/item/stack/rods(loc)
+	qdel(src)
 
 /obj/item/fakeartefact
 	name = "expensive forgery"

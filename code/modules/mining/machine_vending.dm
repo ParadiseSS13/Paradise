@@ -27,8 +27,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/Initialize(mapload)
-	. = ..()
 	prize_list = list()
 	prize_list["Gear"] = list(
 		EQUIPMENT("Advanced Scanner", /obj/item/t_scanner/adv_mining_scanner, 800),
@@ -290,7 +288,7 @@
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
 	do_sparks(5, TRUE, src)
-	if(prob(50 / severity) && severity < 3)
+	if(prob(50 / severity) && severity < EXPLODE_LIGHT)
 		qdel(src)
 
 /obj/machinery/mineral/equipment_vendor/Destroy()
@@ -313,8 +311,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/golem/Initialize()
-	. = ..()
 	desc += "\nIt seems a few selections have been added."
 	prize_list["Extra"] += list(
 		EQUIPMENT("Extra ID", /obj/item/card/id/golem, 250),
@@ -344,8 +340,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/labor/Initialize()
-	. = ..()
 	prize_list = list()
 	prize_list["Scum"] += list(
 		EQUIPMENT("Trauma Kit", /obj/item/stack/medical/bruise_pack/advanced, 150),
@@ -388,8 +382,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/explorer/Initialize(mapload)
-	. = ..()
 	prize_list = list()
 	prize_list["Equipment"] = list(
 		EQUIPMENT("Advanced Scanner", /obj/item/t_scanner/adv_mining_scanner, 800),
@@ -502,10 +494,10 @@
 		if(points)
 			var/obj/item/card/id/C = I
 			C.mining_points += points
-			to_chat(user, "<span class='info'>You transfer [points] points to [C].</span>")
+			to_chat(user, "<span class='notice'>You transfer [points] points to [C].</span>")
 			points = 0
 		else
-			to_chat(user, "<span class='info'>There's no points left on [src].</span>")
+			to_chat(user, "<span class='notice'>There's no points left on [src].</span>")
 	..()
 
 /obj/item/card/mining_point_card/examine(mob/user)

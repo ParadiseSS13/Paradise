@@ -116,10 +116,10 @@
 /obj/machinery/computer/emp_act(severity)
 	..()
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			if(prob(50))
 				obj_break(ENERGY)
-		if(2)
+		if(EMP_LIGHT)
 			if(prob(10))
 				obj_break(ENERGY)
 

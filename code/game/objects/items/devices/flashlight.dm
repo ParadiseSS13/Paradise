@@ -393,7 +393,7 @@
 			var/mob/M = A
 			add_attack_logs(user, M, "Hit with EMP-light")
 		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
-		A.emp_act(1)
+		A.emp_act(EMP_HEAVY)
 	else
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
 	return

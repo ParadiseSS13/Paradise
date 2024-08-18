@@ -116,7 +116,7 @@
 		if(BARSIGN_WIRED)
 			. += "<span class='notice'>The frame lacks a <i>glass screen</i> and is filled with wires that could be <b>cut</b>.</span>"
 		if(BARSIGN_COMPLETE)
-			. += "<span class='info'><b>Alt-Click</b> to toggle its power.</span>"
+			. += "<span class='notice'><b>Alt-Click</b> to toggle its power.</span>"
 			if(panel_open)
 				. += "<span class='notice'>It is disabled by its <i>unscrewed</i> maintenance panel that exposes an area from which the screen could be <b>pried out</b>.</span>"
 

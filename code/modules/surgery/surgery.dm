@@ -217,9 +217,7 @@
 
 	var/success = FALSE
 	if(accept_hand)
-		if(!tool)
-			success = TRUE
-		if(isrobot(user) && istype(tool, /obj/item/gripper/medical))
+		if(!tool || HAS_TRAIT(tool, TRAIT_SURGICAL_OPEN_HAND))
 			success = TRUE
 
 	if(accept_any_item)
@@ -454,7 +452,7 @@
 		switch(blood_level)
 			if(SURGERY_BLOODSPREAD_HANDS)
 				target.visible_message("<span class='notice'>Blood splashes onto [user]'s hands.</span>")
-				H.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color())
+				H.make_bloody_hands(target.get_blood_dna_list(), target.get_blood_color(), 0)
 			if(SURGERY_BLOODSPREAD_FULLBODY)
 				target.visible_message("<span class='notice'>A spray of blood coats [user].</span>")
 				H.bloody_body(target)

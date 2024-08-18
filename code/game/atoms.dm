@@ -109,12 +109,12 @@
 	// Variables for bloom and exposure
 	var/glow_icon = 'icons/obj/lamps.dmi'
 	var/exposure_icon = 'icons/effects/exposures.dmi'
-	
+
 	var/glow_icon_state
 	var/glow_colored = TRUE
 	var/exposure_icon_state
 	var/exposure_colored = TRUE
-	
+
 	var/image/glow_overlay
 	var/image/exposure_overlay
 	/// The alternate appearances we own. Lazylist
@@ -303,9 +303,6 @@
 ///Return the air if we can analyze it
 /atom/proc/return_analyzable_air()
 	return null
-
-/atom/proc/check_eye(mob/user)
-	return
 
 /atom/proc/on_reagent_change()
 	return
@@ -872,7 +869,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/L)
 	..(L)
 	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
+	if(b_data && !isnull(b_data["blood_color"]))
 		basecolor = b_data["blood_color"]
 	else
 		basecolor = "#A10808"
@@ -881,7 +878,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
 	..(L)
 	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
+	if(b_data && !isnull(b_data["blood_color"]))
 		basecolor = b_data["blood_color"]
 	else
 		basecolor = "#A10808"
@@ -923,9 +920,22 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		add_blood_overlay()
 	return TRUE //we applied blood to the item
 
-/obj/item/clothing/gloves/add_blood(list/blood_dna, b_color)
+/*
+	* This proc makes src gloves bloody, if you touch something with them you will leave a blood trace
+
+	* blood_dna: list of blood DNAs stored in each atom in blood_DNA variable or in get_blood_dna_list() on carbons
+	* b_color: blood color, simple. If there will be null, the blood will be red, otherwise the color you pass
+	* amount: amount of "blood charges" you want to give to the gloves, that will be used to make items/walls bloody.
+		You can make something bloody this amount - 1 times.
+		If this variable will be null, amount will be set randomly from 2 to max_amount
+	* max_amount: if amount is not set, amount will be random from 2 to this value, default 4
+*/
+/obj/item/clothing/gloves/add_blood(list/blood_dna, b_color, amount, max_amount = 4)
 	. = ..()
-	transfer_blood = rand(2, 4)
+	if(isnull(amount))
+		transfer_blood = rand(2, max_amount)
+	else
+		transfer_blood = max(1, amount)
 
 /turf/add_blood(list/blood_dna, b_color)
 	if(isnull(b_color))
@@ -1178,7 +1188,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			update_light()
 		if("color")
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
-
 
 /atom/vv_get_dropdown()
 	. = ..()
