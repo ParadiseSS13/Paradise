@@ -131,11 +131,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
-		if(flags_target & MINDSHIELDED_TARGET && !ismindshielded(possible_target.current))
+		if((flags_target & MINDSHIELDED_TARGET) && !ismindshielded(possible_target.current))
 			continue
-		if(flags_target & UNMINDSHIELDED_TARGET && ismindshielded(possible_target.current))
+		if((flags_target & UNMINDSHIELDED_TARGET) && ismindshielded(possible_target.current))
 			continue
-		if(flags_target & SYNDICATE_TARGET && possible_target.special_role != SPECIAL_ROLE_TRAITOR)
+		if((flags_target & SYNDICATE_TARGET) && possible_target.special_role != SPECIAL_ROLE_TRAITOR)
 			continue
 		if(length(target_jobs) && !(possible_target.assigned_role in target_jobs))
 			continue
