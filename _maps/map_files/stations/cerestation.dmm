@@ -14357,6 +14357,11 @@
 "bFU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -53574,11 +53579,6 @@
 /obj/item/assembly/mousetrap/armed,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "kpx" = (
@@ -55447,9 +55447,9 @@
 "kSI" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/break_room)
@@ -56573,11 +56573,6 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "ljN" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay Maintenance"
 	},
@@ -58609,11 +58604,6 @@
 /turf/simulated/floor/carpet/green,
 /area/station/service/library)
 "lOy" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -77530,15 +77520,6 @@
 /obj/structure/cable/orange,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
-"rHq" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/medical/break_room)
 "rHs" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "CargoWaste"
@@ -79980,9 +79961,16 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
+/obj/structure/cable/orange{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/directional/north,
+/obj/effect/turf_decal/stripes/asteroid/end,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/fsmaint)
 "ssW" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -82531,18 +82519,13 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior/secondary)
 "tdk" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -86362,11 +86345,6 @@
 	},
 /area/station/science/robotics)
 "ukC" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -86904,14 +86882,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block/A)
-"utF" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "utP" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4;
@@ -89490,17 +89460,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
-"vdN" = (
-/obj/machinery/power/apc/directional/south,
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/obj/structure/cable/orange{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "vdZ" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=ArrivalsWest";
@@ -148216,7 +148175,7 @@ cFu
 bCg
 mqf
 bMz
-vdN
+vHH
 aZN
 itf
 cQy
@@ -148731,7 +148690,7 @@ bCg
 ovW
 tiG
 jeX
-ssT
+jeX
 tiG
 wRa
 wRa
@@ -148988,7 +148947,7 @@ bCg
 vWu
 cKk
 jXm
-utF
+vHH
 gFg
 gFg
 gFg
@@ -149951,7 +149910,7 @@ fue
 qWL
 vct
 owf
-mdT
+ssT
 eOi
 aRx
 gNQ
@@ -150016,7 +149975,7 @@ bKZ
 bME
 bME
 kSI
-rHq
+bME
 yfZ
 rwg
 teW
