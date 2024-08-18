@@ -198,9 +198,9 @@
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
 	var/turf/point = get_front_turf()
 	for(var/turf/T in get_line(get_step(point,dir),get_target_turf()))
-		T.ex_act(1)
+		T.ex_act(EXPLODE_DEVASTATE)
 		for(var/atom/A in T)
-			A.ex_act(1)
+			A.ex_act(EXPLODE_DEVASTATE)
 
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)

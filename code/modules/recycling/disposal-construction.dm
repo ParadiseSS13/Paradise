@@ -26,7 +26,7 @@
 
 /obj/structure/disposalconstruct/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b></span>"
+	. += "<span class='notice'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b></span>"
 
 	// update iconstate and dpdir due to dir and type
 /obj/structure/disposalconstruct/proc/update()

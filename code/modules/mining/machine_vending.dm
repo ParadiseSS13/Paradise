@@ -288,7 +288,7 @@
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
 	do_sparks(5, TRUE, src)
-	if(prob(50 / severity) && severity < 3)
+	if(prob(50 / severity) && severity < EXPLODE_LIGHT)
 		qdel(src)
 
 /obj/machinery/mineral/equipment_vendor/Destroy()
@@ -494,10 +494,10 @@
 		if(points)
 			var/obj/item/card/id/C = I
 			C.mining_points += points
-			to_chat(user, "<span class='info'>You transfer [points] points to [C].</span>")
+			to_chat(user, "<span class='notice'>You transfer [points] points to [C].</span>")
 			points = 0
 		else
-			to_chat(user, "<span class='info'>There's no points left on [src].</span>")
+			to_chat(user, "<span class='notice'>There's no points left on [src].</span>")
 	..()
 
 /obj/item/card/mining_point_card/examine(mob/user)
