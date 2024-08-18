@@ -308,7 +308,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 					backupconsoles -= params["uid"]
 					if(RB)
 						RB.unlink()
-						to_chat(usr, "<span class='notice'>Successfully unlinked <code>[RB.name]</code> from the network <code>[network_name]</code>")
+						to_chat(usr, "<span class='notice'>Successfully unlinked <code>[RB.name]</code> from the network <code>[network_name]</code></span>")
 						return
 
 

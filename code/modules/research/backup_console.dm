@@ -40,7 +40,7 @@
 
 		O.forceMove(src)
 		inserted_disk = O
-		to_chat(user, "<span class='notice'>You insert [O] into [src].</span<")
+		to_chat(user, "<span class='notice'>You insert [O] into [src].</span>")
 		SStgui.update_uis(src)
 		return TRUE
 

@@ -445,7 +445,7 @@
 				return
 			var/obj/machinery/computer/rnd_network_controller/C = locateUID(params["target_controller"])
 			if(istype(C, /obj/machinery/computer/rnd_network_controller))
-				var/user_pass = input(usr, "Please enter network password", "Password Entry")
+				var/user_pass = tgui_input_text(usr, "Please enter network password", "Password Entry")
 				// Check the password
 				if(user_pass == C.network_password)
 					network_manager_uid = C.UID()
