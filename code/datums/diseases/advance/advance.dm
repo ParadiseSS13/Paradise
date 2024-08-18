@@ -1,5 +1,6 @@
-// A 1 in 30 chance of new strain every 600 cycles.
-#define STRAIN_CHANCE 0.000057
+/// Evoltion chance each cycle in percents.
+/// a value of 0.0057% corresponds to a 1 in 30 chance of new strain every 600 cycles or 20 minutes.
+#define EVOLUTION_CHANCE 0.0057
 
 /*
 
@@ -53,10 +54,16 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 	// NEW VARS
 
-	var/list/symptoms = list() // The symptoms of the disease.
+	/// Can the virus spotaneously evolve?
+	var/evolution_chance = EVOLUTION_CHANCE
+	/// The symptoms of the disease.
+	var/list/symptoms = list()
+	/// A unique ID for the strain and symptoms.
 	var/id = ""
+	/// Saves an ID. If that ID is analyzed the virus will be automatically analyzed when inserted into the PANDEMIC
+	var/tracker = ""
 	var/processing = FALSE
-	/// A unique id for the strain. Uses the unique_datum_id of the first virus datum that is of that strain.
+	/// A unique ID for the strain. Uses the unique_datum_id of the first virus datum that is of that strain.
 	var/strain = ""
 
 /*
@@ -78,9 +85,11 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		else
 			for(var/datum/symptom/S in D.symptoms)
 				symptoms += new S.type
-	// Copy cure and strain if we are given one
+	// Copy cure, evolution ability and strain if we are copying an existing disease
 	if(D)
 		stage = D.stage
+		evolution_chance = D.evolution_chance
+		tracker = D.tracker
 		for(var/r in D.cures)
 			cures += r
 			cure_text = D.cure_text
@@ -102,6 +111,18 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /datum/disease/advance/stage_act()
 	if(!..())
 		return FALSE
+	if(prob(evolution_chance))
+		var/min = rand(1,6)
+		var/max = rand(min,6)
+		var/lastStrain = strain
+		if(prob(95))
+			Evolve(min, max)
+		else
+			to_chat(world, "devolve")
+			Devolve()
+		//create a new strain even if we didn't gain or lose symptoms
+		if(lastStrain == strain)
+			Refresh()
 	if(symptoms && length(symptoms))
 		var/list/mob_reagents = list()
 		for(var/datum/reagent/chem in affected_mob.reagents.reagent_list)
@@ -218,6 +239,10 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE, new_cure = TRUE, new_strain = TRUE)
 	if(new_strain)
 		strain = "adv_[num2text(GLOB.next_unique_strain++, 8)]"
+		evolution_chance = EVOLUTION_CHANCE
+
+	if(evolution_chance)
+		evolution_chance = EVOLUTION_CHANCE
 	var/list/properties = GenerateProperties()
 	AssignProperties(properties, new_cure)
 	id = null
@@ -240,7 +265,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
 
 	for(var/datum/symptom/S in symptoms)
-
+		if(istype(S, /datum/symptom/viralevolution))
+			evolution_chance *= 1.5
 		properties["resistance"] += S.resistance
 		properties["stealth"] += S.stealth
 		properties["stage rate"] += S.stage_speed
@@ -264,6 +290,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
 		stage_prob = max(properties["stage rate"], 2)
 		SetSeverity(properties["severity"])
+		evolution_chance *= (1 + sqrtor0(properties["stage rate"]) / 3)
 		if(new_cure)
 			GenerateCure(properties)
 	else
@@ -510,3 +537,5 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		var/datum/symptom/S = i
 		total_transmittable += S.transmittable
 	return total_transmittable
+
+#undef EVOLUTION_CHANCE

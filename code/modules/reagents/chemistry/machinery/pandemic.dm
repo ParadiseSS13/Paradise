@@ -119,6 +119,10 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 	var/stealth_init = FALSE
 	var/stealth = 0
 	for(var/datum/disease/advance/AD in R.data["viruses"])
+		//automatically analyze if the tracker stores the ID of an analyzed disease
+		if(AD.tracker && (AD.tracker in GLOB.known_advanced_diseases))
+			if(!(AD.GetDiseaseID() in GLOB.known_advanced_diseases))
+				GLOB.known_advanced_diseases += list(AD.GetDiseaseID())
 		if(AD.GetDiseaseID() in GLOB.known_advanced_diseases)
 			return
 		if(AD.strain != current_strain || current_strain == "")
@@ -138,7 +142,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 			stage_amount++
 			stages += AD.stage
 
-	analysisTime = (max(((max(stealth , 0) + 1.05) - stage_amount) , 0) MINUTES) + accumulatedError
+	analysisTime = (max(((max(stealth * 0.5 , 0) + 1.2) - stage_amount * 0.7) , 0) MINUTES) + accumulatedError
 	SStgui.update_uis(src, TRUE)
 
 
@@ -159,7 +163,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 		if(!i || i == "No Guess")
 			continue
 		if(i in names)
-			analysisTime = max(0, analysisTime - 0.3 MINUTES)
+			analysisTime = max(0, analysisTime - 0.5 MINUTES)
 		else
 			analysisTime = max(0, analysisTime + 1 MINUTES)
 			accumulatedError += 1 MINUTES
@@ -209,7 +213,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 			if(!ispath(type))
 				var/datum/disease/advance/A = GLOB.archive_diseases[type]
 				if(A)
-					D = new A.type(0, A)
+					D = virus.Copy()
 			else if(type)
 				if(type in GLOB.diseases) // Make sure this is a disease
 					D = new type(0, null)
@@ -512,6 +516,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			if(R.id == "blood")
 				find_analysis_time(R)
+				SStgui.update_uis(src, TRUE)
 				break
 
 

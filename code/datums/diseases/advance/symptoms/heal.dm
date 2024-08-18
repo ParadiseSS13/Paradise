@@ -56,6 +56,7 @@ Bonus
 //////////////////////////////////////
 */
 
+/*
 /datum/symptom/heal/metabolism
 
 	name = "Anti-Bodies Metabolism"
@@ -89,6 +90,7 @@ Bonus
 					M.resistances -= res
 		to_chat(M, "<span class='warning'>You feel weaker.</span>")
 
+*/
 /*
 //////////////////////////////////////
 
