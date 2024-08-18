@@ -180,6 +180,9 @@
 	taste_description = "banana juice"
 
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
+	var/mob/living/carbon/human/H = M
+	if(!istype(H))
+		return
 	var/update_flags = STATUS_UPDATE_NONE
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
@@ -197,6 +200,9 @@
 	taste_description = "nothing... how?"
 
 /datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/M)
+	var/mob/living/carbon/human/H = M
+	if(!istype(H))
+    	return
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && M.mind && M.mind.miming)
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
@@ -410,6 +416,9 @@
 	taste_description = "HONK"
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
+	var/mob/living/carbon/human/H = M
+	if(!istype(H))
+    	return
 	var/update_flags = STATUS_UPDATE_NONE
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
@@ -428,6 +437,9 @@
 	taste_description = "mphhhh"
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/M)
+	var/mob/living/carbon/human/H = M
+	if(!istype(H))
+    	return
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && (M.job in list("Mime")))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
