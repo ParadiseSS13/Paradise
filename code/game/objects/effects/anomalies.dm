@@ -91,12 +91,9 @@
 
 	qdel(src)
 
-
 /obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/analyzer))
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
-
-///////////////////////
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
@@ -173,8 +170,8 @@
 	if(T && length(GLOB.gravity_generators["[T.z]"]))
 		var/obj/machinery/gravity_generator/main/G = pick(GLOB.gravity_generators["[T.z]"])
 		G.set_broken() //Requires engineering to fix the gravity generator, as it gets overloaded by the anomaly.
-
-/////////////////////
+	if(drops_core)
+		log_and_message_admins("A [name] has detonated a gravity generator")
 
 /obj/effect/anomaly/flux
 	name = "flux wave anomaly"
@@ -333,9 +330,6 @@
 	M.client.screen -= blueeffect
 	qdel(blueeffect)
 
-
-/////////////////////
-
 /obj/effect/anomaly/pyro
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
@@ -370,6 +364,9 @@
 /obj/effect/anomaly/pyro/detonate()
 	if(produces_slime)
 		INVOKE_ASYNC(src, PROC_REF(makepyroslime))
+	if(drops_core)
+		message_admins("A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
+		log_admin("A [name] has detonated at [impact_area]")
 
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)
@@ -395,8 +392,6 @@
 		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
 		dust_if_respawnable(chosen)
 		log_game("[key_name(S.key)] was made into a slime by pyroclastic anomaly at [AREACOORD(T)].")
-
-/////////////////////
 
 /obj/effect/anomaly/cryo
 	name = "cryogenic anomaly"
@@ -460,8 +455,9 @@
 		air.set_sleeping_agent(1000)
 		air.set_carbon_dioxide(1000)
 		T.blind_release_air(air)
-
-/////////////////////
+	if(drops_core)
+		message_admins("A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
+		log_admin("A [name] has detonated at [impact_area]")
 
 /obj/effect/anomaly/bhole
 	name = "vortex anomaly"
