@@ -13,6 +13,16 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 	circuit = /obj/item/circuitboard/pandemic
 	idle_power_consumption = 20
 	resistance_flags = ACID_PROOF
+	/// Amount of time it takes to analyze an advanced disease. units are 2 seconds
+	var/analysisTime = -1
+	/// Amount of time to add to the analysis time. resets upon successful analysis. units are 2 seconds
+	var/accumulatedError = 0
+	/// Whether the PANDEMIC is currently analyzing an advanced disease
+	var/analyzing = FALSE
+	/// ID of the disease being analyzed
+	var/analyzed_ID = ""
+	/// list of all symptoms. Gets filled in Initialize().
+	var/symptomlist = list()
 	var/temp_html = ""
 	var/printing = null
 	var/wait = null
@@ -22,6 +32,14 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 /obj/machinery/computer/pandemic/Initialize(mapload)
 	. = ..()
 	GLOB.pandemics |= src
+	var/datum/symptom/S
+	symptomlist += list("No Guess")
+	for(var/i in GLOB.list_symptoms)
+		//I don't know a way to access the names of types that have no instances.
+		S = new i()
+		symptomlist += list(S.name)
+		qdel(S)
+
 	update_icon()
 
 /obj/machinery/computer/pandemic/Destroy()
@@ -92,6 +110,76 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 	replicator_cooldown(cooldown)
 	B.name = "[name] [bottle_type] bottle"
 	return B
+
+/obj/machinery/computer/pandemic/proc/find_analysis_time(datum/reagent/R)
+	var/strains = 0
+	var/stage_amount = 0
+	var/list/stages = list()
+	var/current_strain = ""
+	var/stealth_init = FALSE
+	var/stealth = 0
+	for(var/datum/disease/advance/AD in R.data["viruses"])
+		if(AD.GetDiseaseID() in GLOB.known_advanced_diseases)
+			return
+		if(AD.strain != current_strain || current_strain == "")
+			strains++
+			if(strains > 1)
+				analysisTime = - 2
+				SStgui.update_uis(src, TRUE)
+				return
+			current_strain = AD.strain
+
+		if(!stealth_init)
+			for(var/datum/symptom/S in AD.symptoms)
+				stealth += S.stealth
+			stealth_init = TRUE
+
+		if(!(AD.stage in stages))
+			stage_amount++
+			stages += AD.stage
+
+	analysisTime = (max(((max(stealth , 0) + 1.05) - stage_amount) , 0) MINUTES) + accumulatedError
+	SStgui.update_uis(src, TRUE)
+
+
+/obj/machinery/computer/pandemic/proc/stop_analysis()
+	analysisTime = -1
+	analyzing = FALSE
+	analyzed_ID = ""
+
+/obj/machinery/computer/pandemic/proc/analyze(disease_ID, symptoms)
+	analyzing = TRUE
+	analyzed_ID = disease_ID
+	var/names = list()
+	var/guesses = list()
+	for(var/i in symptoms)
+		names += list(i["name"])
+		guesses += list(i["guess"])
+	for(var/i in guesses)
+		if(!i || i == "No Guess")
+			continue
+		if(i in names)
+			analysisTime = max(0, analysisTime - 0.3 MINUTES)
+		else
+			analysisTime = max(0, analysisTime + 1 MINUTES)
+			accumulatedError += 1 MINUTES
+
+
+/obj/machinery/computer/pandemic/process()
+	. = ..()
+	if(analyzing)
+		if(analysisTime < 0)
+			analyzing = FALSE
+			return
+
+		if(analysisTime > 0)
+			analysisTime -= clamp(1 , 0 , max(analysisTime , 0))
+
+		if(analysisTime == 0)
+			GLOB.known_advanced_diseases += analyzed_ID
+			analyzing = FALSE
+			analysisTime = -1
+			SStgui.update_uis(src, TRUE)
 
 /obj/machinery/computer/pandemic/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -167,6 +255,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 			var/obj/item/reagent_containers/glass/bottle/B = create_culture(vaccine_name, "vaccine", 200)
 			B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
 		if("eject_beaker")
+			stop_analysis()
 			eject_beaker()
 			update_static_data(ui.user)
 		if("destroy_eject_beaker")
@@ -220,6 +309,8 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 				atom_say("Unable to find requested strain.")
 				return
 			selected_strain_index = strain_index;
+		if("analyze_strain")
+			analyze(params["strain_id"], params["symptoms"])
 		else
 			return FALSE
 
@@ -247,6 +338,9 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 		"beakerContainsBlood" = Blood ? TRUE : FALSE,
 		"beakerContainsVirus" = length(Blood?.data["viruses"]) != 0,
 		"selectedStrainIndex" = selected_strain_index,
+		"analysisTime" = analysisTime,
+		"analyzing" = analyzing,
+		"sympton_names" = symptomlist,
 	)
 
 	return data
@@ -265,33 +359,40 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 
 	var/list/strains = list()
 	for(var/datum/disease/D in GetViruses())
+		var/known = FALSE
 		if(D.visibility_flags & HIDDEN_PANDEMIC)
 			continue
 
 		var/list/symptoms = list()
+		var/datum/disease/advance/A = D
 		if(istype(D, /datum/disease/advance))
-			var/datum/disease/advance/A = D
+			known = (A.GetDiseaseID() in GLOB.known_advanced_diseases)
 			D = GLOB.archive_diseases[A.GetDiseaseID()]
 			if(!D)
 				CRASH("We weren't able to get the advance disease from the archive.")
 			for(var/datum/symptom/S in A.symptoms)
 				symptoms += list(list(
 					"name" = S.name,
-					"stealth" = S.stealth,
-					"resistance" = S.resistance,
-					"stageSpeed" = S.stage_speed,
-					"transmissibility" = S.transmittable,
-					"complexity" = S.level,
+					"stealth" = known ? S.stealth : "UNKNOWN",
+					"resistance" = known ? S.resistance : "UNKNOWN",
+					"stageSpeed" = known ? S.stage_speed : "UNKNOWN",
+					"transmissibility" = known ? S.transmittable : "UNKNOWN",
+					"complexity" = known ? S.level : "UNKNOWN",
 				))
-
+		else
+			known = TRUE
 		strains += list(list(
-			"commonName" = D.name,
-			"description" = D.desc,
+			"commonName" = known ? D.name : "Unknown strain",
+			"description" = known ? D.desc : "Unknown strain",
+			"strainID" = istype(D, /datum/disease/advance) ? A.strain : D.name,
+			"diseaseID" = istype(D, /datum/disease/advance) ? A.id : D.name,
+			"sample_stage" = D.stage,
+			"known" = known,
 			"bloodDNA" = Blood.data["blood_DNA"],
 			"bloodType" = Blood.data["blood_type"],
 			"diseaseAgent" = D.agent,
-			"possibleTreatments" = D.cure_text,
-			"transmissionRoute" = D.spread_text,
+			"possibleTreatments" = known ? D.cure_text : "Unknown strain",
+			"transmissionRoute" = known ? D.spread_text : "Unknown strain",
 			"symptoms" = symptoms,
 			"isAdvanced" = istype(D, /datum/disease/advance),
 		))
@@ -308,6 +409,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 			if(D)
 				resistances += list(D.name)
 	data["resistances"] = resistances
+	data["analysisTime"] = analysisTime
 
 /obj/machinery/computer/pandemic/proc/eject_beaker()
 	beaker.forceMove(loc)
@@ -407,6 +509,12 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
 		SStgui.update_uis(src, TRUE)
 		icon_state = "pandemic1"
+		for(var/datum/reagent/R in beaker.reagents.reagent_list)
+			if(R.id == "blood")
+				find_analysis_time(R)
+				break
+
+
 	else
 		return ..()
 

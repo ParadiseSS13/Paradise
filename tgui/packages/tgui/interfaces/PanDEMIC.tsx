@@ -1,7 +1,7 @@
 import { BooleanLike } from '../../common/react';
 import { InfernoNode } from 'inferno';
 import { useBackend } from '../backend';
-import { Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
+import { Button, Dropdown, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
 interface PathogenSymptom {
@@ -10,11 +10,16 @@ interface PathogenSymptom {
   resistance: number;
   stageSpeed: number;
   transmissibility: number;
+  guess: string;
 }
 
 interface PathogenStrain {
   commonName?: string;
   description?: string;
+  strainID?: string;
+  diseaseID?: string;
+  sample_stage?: number;
+  known?: BooleanLike;
   bloodDNA?: string;
   bloodType?: string;
   diseaseAgent: string;
@@ -32,6 +37,9 @@ interface PanDEMICData {
   selectedStrainIndex: number;
   strains?: PathogenStrain[];
   resistances?: string[];
+  analysisTime: number;
+  analyzing: BooleanLike;
+  sympton_names: string[];
 }
 
 export const PanDEMIC = (props, context) => {
@@ -85,10 +93,13 @@ const CommonCultureActions = (props, context) => {
 
 const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }, context) => {
   const { act, data } = useBackend<PanDEMICData>(context);
-  const { beakerContainsVirus } = data;
+  const { beakerContainsVirus, analysisTime, analyzing } = data;
   const {
     commonName,
     description,
+    strainID,
+    sample_stage,
+    known,
     diseaseAgent,
     bloodDNA,
     bloodType,
@@ -125,6 +136,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
         <Button
           icon="print"
           content="Print Release Forms"
+          disabled={!known}
           onClick={() =>
             act('print_release_forms', {
               strain_index: props.strainIndex,
@@ -138,11 +150,22 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
         <Button
           icon="pen"
           content="Name Disease"
+          disabled={!known}
           onClick={() => act('name_strain', { strain_index: props.strainIndex })}
           style={{ 'margin-left': 'auto' }}
         />
       );
     }
+  }
+  let analyzeButton;
+  if (isAdvanced) {
+    analyzeButton = (
+      <Button
+        content="Analyze Strain"
+        disabled={analysisTime < 0 || analyzing}
+        onClick={() => act('analyze_strain', { strain_id: props.strain.diseaseID, symptoms: props.strain.symptoms })}
+      />
+    );
   }
 
   return (
@@ -151,9 +174,21 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
         <Stack horizontal align="center">
           {commonName ?? 'Unknown'}
           {nameButtons}
+          {analyzeButton}
         </Stack>
       </LabeledList.Item>
+      {
+        <LabeledList.Item label="Analysis Time">
+          {analysisTime >= 0
+            ? Math.floor(analysisTime / 30) + ':' + Math.floor((analysisTime * 2) % 60)
+            : analysisTime === -1
+              ? 'Strain Data Is Present In Database'
+              : 'Multiple Strains Detected. Analysis Impossible'}
+        </LabeledList.Item>
+      }
       {description && <LabeledList.Item label="Description">{description}</LabeledList.Item>}
+      <LabeledList.Item label="Strain ID">{strainID}</LabeledList.Item>
+      <LabeledList.Item label="Sample Stage">{sample_stage}</LabeledList.Item>
       <LabeledList.Item label="Disease Agent">{diseaseAgent}</LabeledList.Item>
       {bloodInformation}
       <LabeledList.Item label="Spread Vector">{transmissionRoute ?? 'None'}</LabeledList.Item>
@@ -251,23 +286,34 @@ const sum = (values: number[]) => {
   return values.reduce((r, value) => r + value, 0);
 };
 
-const StrainSymptomsSection = (props: { className?: string; strain: PathogenStrain }) => {
-  const { symptoms } = props.strain;
+const StrainSymptomsSection = (props: { className?: string; strain: PathogenStrain }, context) => {
+  const { act, data } = useBackend<PanDEMICData>(context);
+  const { sympton_names, analyzing, analysisTime } = data;
+  const { symptoms, known } = props.strain;
+
   return (
     <Flex.Item grow>
       <Section title="Infection Symptoms" fill className={props.className}>
         <Table className="symptoms-table">
           <Table.Row>
             <Table.Cell>Name</Table.Cell>
-            <Table.Cell>Stealth</Table.Cell>
+            <Table.Cell>{known ? 'Stealth' : 'Guess'}</Table.Cell>
             <Table.Cell>Resistance</Table.Cell>
             <Table.Cell>Stage Speed</Table.Cell>
             <Table.Cell>Transmissibility</Table.Cell>
           </Table.Row>
           {symptoms.map((symptom, index) => (
             <Table.Row key={index}>
-              <Table.Cell>{symptom.name}</Table.Cell>
-              <Table.Cell>{symptom.stealth}</Table.Cell>
+              <Table.Cell>{known ? symptom.name : 'UNKNOWN'}</Table.Cell>
+              {known ? (
+                <Table.Cell>{symptom.stealth}</Table.Cell>
+              ) : (
+                <Dropdown
+                  options={sympton_names}
+                  disabled={analyzing || analysisTime === -2}
+                  onSelected={(val) => (symptom.guess = val)}
+                />
+              )}
               <Table.Cell>{symptom.resistance}</Table.Cell>
               <Table.Cell>{symptom.stageSpeed}</Table.Cell>
               <Table.Cell>{symptom.transmissibility}</Table.Cell>
@@ -276,10 +322,10 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
           <Table.Row className="table-spacer" />
           <Table.Row>
             <Table.Cell style={{ 'font-weight': 'bold' }}>Total</Table.Cell>
-            <Table.Cell>{sum(symptoms.map((s) => s.stealth))}</Table.Cell>
-            <Table.Cell>{sum(symptoms.map((s) => s.resistance))}</Table.Cell>
-            <Table.Cell>{sum(symptoms.map((s) => s.stageSpeed))}</Table.Cell>
-            <Table.Cell>{sum(symptoms.map((s) => s.transmissibility))}</Table.Cell>
+            <Table.Cell>{known ? sum(symptoms.map((s) => s.stealth)) : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? sum(symptoms.map((s) => s.resistance)) : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? sum(symptoms.map((s) => s.stageSpeed)) : 'UNKNOWN'}</Table.Cell>
+            <Table.Cell>{known ? sum(symptoms.map((s) => s.transmissibility)) : 'UNKNOWN'}</Table.Cell>
           </Table.Row>
         </Table>
       </Section>

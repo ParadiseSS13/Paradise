@@ -157,7 +157,6 @@
 		var/list/stages = list()
 
 		for(var/datum/disease/advance/AD in mix1)
-			to_chat(world,"mix 1 id: ([AD.GetDiseaseID()]) stage: [AD.stage]")
 			if(!(AD.GetDiseaseID() in disease_ids))
 				disease_ids += AD.GetDiseaseID()
 				stages[AD.GetDiseaseID()] = list(AD.stage)
@@ -165,11 +164,8 @@
 			if(!(AD.stage in stages[AD.GetDiseaseID()]))
 				stages[AD.GetDiseaseID()] += list(AD.stage)
 				to_mix += AD
-			for(var/i in stages[AD.GetDiseaseID()])
-				to_chat(world,"id:[AD.GetDiseaseID()] stag: [i]")
 
 		for(var/datum/disease/advance/AD in mix2)
-			to_chat(world,"mix 2 id: ([AD.GetDiseaseID()]) stage: [AD.stage]")
 			if(!(AD.GetDiseaseID() in disease_ids))
 				disease_ids += AD.GetDiseaseID()
 				stages[AD.GetDiseaseID()] = list(AD.stage)
@@ -177,11 +173,8 @@
 			if(!(AD.stage in stages[AD.GetDiseaseID()]))
 				stages[AD.GetDiseaseID()] += list(AD.stage)
 				to_mix += AD
-			for(var/i in stages[AD.GetDiseaseID()])
-				to_chat(world,"id:[AD.GetDiseaseID()] stag: [i]")
 
 		var/list/result_diseases = list()
-		to_chat(world, "id amount [num2text(length(disease_ids))]")
 		if(length(disease_ids) == 1)
 			for(var/datum/disease/advance/AD in to_mix)
 				result_diseases += AD.Copy()

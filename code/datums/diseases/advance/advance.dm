@@ -217,7 +217,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 /datum/disease/advance/proc/Refresh(new_name = FALSE, archive = FALSE, new_cure = TRUE, new_strain = TRUE)
 	if(new_strain)
-		strain = "strain_[num2text(GLOB.next_unique_strain++, 8)]"
+		strain = "adv_[num2text(GLOB.next_unique_strain++, 8)]"
 	var/list/properties = GenerateProperties()
 	AssignProperties(properties, new_cure)
 	id = null
@@ -253,10 +253,10 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /datum/disease/advance/proc/AssignProperties(list/properties = list(), new_cure = TRUE)
 	if(properties && length(properties))
 		switch(properties["stealth"])
-			if(2)
+			if(0 to 2)
+				visibility_flags = 0
+			if(2 to INFINITY)
 				visibility_flags = HIDDEN_SCANNER
-			if(3 to INFINITY)
-				visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
 
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
 		SetSpread(clamp(2 ** (properties["transmittable"] - length(symptoms)), BLOOD, AIRBORNE))
