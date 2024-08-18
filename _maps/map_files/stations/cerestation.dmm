@@ -32544,7 +32544,6 @@
 /area/station/supply/storage)
 "dSn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/morgue{
 	name = "Private Study";
 	req_access_txt = "37"
