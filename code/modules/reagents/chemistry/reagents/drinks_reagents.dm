@@ -173,7 +173,7 @@
 	id = "banana"
 	description = "The raw essence of a banana."
 	color = "#F6F834"
-	var/is_robot = ((process_flags & SYNTHETIC) > 0)
+	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "banana"
 	drink_name = "Glass of banana juice"
 	drink_desc = "The raw essence of a banana. HONK"
