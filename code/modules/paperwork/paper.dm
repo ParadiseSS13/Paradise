@@ -673,6 +673,24 @@
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
 
+/obj/item/paper/nanotrasen/confessional
+	name = "Confession agreement"
+	info =  "<center><b>Confessional agreement form</b></center><HR> \
+		I hereby plead guilty to all of the listed charges below. I have been read all of my rights in accordance to space law and I am aware that I may decline to sign this form to proceed with normal court procedures.<br> \
+		By signing this form I waive my rights to a court hearing in return for reduced sentencing. I will be charged in accordance to the listed charges below, and waive my right to later appeal.<br> \
+		My charges are listed as below: <hr> \
+		502: Murder of the Kerikya the Research Director<br> \
+		407: Theft of a highly destructive experimental science prototype weapon<br> \
+		400: Releasing of toxic plasmagas into the primary hallway<br> \
+		308: Tresspass into the Research Directors office<br> \
+		305: Arming and inciting crew to resist security efforts to pacify the area.<br> \
+		304: Possession of a stun baton and Energy weapon assembly kits<br> \
+		302: Utilizing stun batons and energy wepaons on security personnel<br> \
+		203: Distribution of Methamphetamine and Pump-up to crew<br> \
+		105: Refusing to put on pants<hr> \
+		Projected Sentence: 5 life sentences<br> \
+		Accused Signature: <i> Fuck you im not signing shit</i>"
+
 /obj/item/paper/nuclear_guide_operating
 	name = "nuclear guide : 'Operating the Nuclear Device'"
 	info = "<b>ARMING THE NUCLEAR DEVICE</b><hr /> \
