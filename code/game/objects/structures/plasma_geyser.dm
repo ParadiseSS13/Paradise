@@ -9,13 +9,13 @@
 	armor = list(MELEE = 30, BULLET = 80, LASER = 90, ENERGY = 90, BOMB = 80, RAD = 100, FIRE = 100, ACID = 100)
 
 /obj/structures/plasmageyser/Initialize()
-	START_PROCESSING(SSprocessing, src)
 	. = ..()
+	START_PROCESSING(SSprocessing, src)
 
 // for sanity checks
 /obj/structures/plasmageyser/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
-	. = ..()
+	return ..()
 
 /obj/structures/plasmageyser/process()
 	var/datum/milla_safe/plasmageyser/milla = new()
