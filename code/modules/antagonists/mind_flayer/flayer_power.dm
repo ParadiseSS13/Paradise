@@ -12,7 +12,7 @@
 /datum/spell/flayer
 //	panel = "Vampire"
 //	school = "vampire"
-	action_background_icon_state = "bg_vampire" // TODO: flayer background
+	action_background_icon_state = "bg_technology" // TODO: flayer background
 	human_req = TRUE
 	clothes_req = FALSE
 	/// A reference to the owner mindflayer's antag datum.
@@ -72,6 +72,47 @@
 		if("purchase")
 			var/path = text2path(params["ability_path"])
 			on_purchase(user, path)
+			ui.send_update()
+/*
+	Takes in a category name and grabs the paths of all the spells/passives specific to that category. Used for TGUI
+*/
+/datum/antagonist/mindflayer/proc/get_powers_of_category(var/category)
+	var/list/list/powers = list()
+	for(var/path in ability_list)
+		if(is_path_spell(path))
+			var/datum/spell/flayer/spell = path
+			if(spell.category == category)
+				powers += list(list(
+					"name" = spell.name,
+					"desc" = spell.desc,
+					"max_level" = spell.max_level,
+					"cost" = spell.current_cost,
+					"stage" = spell.stage,
+					"ability_path" = spell.type
+				))
+		else
+			var/datum/mindflayer_passive/passive = path
+			if(passive.category == category)
+				powers += list(list(
+					"name" = passive.name,
+					"desc" = passive.purchase_text,
+					"max_level" = passive.max_level,
+					"cost" = passive.current_cost,
+					"stage" = passive.stage,
+					"ability_path" = passive.type
+				))
+
+	return powers
+
+/datum/antagonist/mindflayer/proc/build_ability_tabs()
+	var/list/list/ability_tabs = list()
+	for(var/category in category_stage)
+		ability_tabs += list(list(
+			"category_name" = category,
+			"category_stage" = category_stage[category],
+			"abilities" = get_powers_of_category(category)
+			))
+	return ability_tabs
 
 /datum/spell/flayer/self/augment_menu/ui_data(mob/user)
 	var/list/list/data = list()
@@ -92,28 +133,7 @@
 
 /datum/spell/flayer/self/augment_menu/ui_static_data(mob/user)
 	var/list/list/static_data = list()
-	var/list/abilities = list()
-	for(var/path in flayer.ability_list)
-		if(flayer.is_path_spell(path))
-			var/datum/spell/flayer/spell = path
-			abilities += list(list(
-				"name" = spell.name,
-				"desc" = spell.desc,
-				"cost" = spell.current_cost,
-				"stage" = spell.stage,
-				"category" = spell.category,
-				"max_level" = spell.max_level,
-				"ability_path" = spell.type))
-		else
-			var/datum/mindflayer_passive/passive = path
-			abilities += list(list(
-				"name" = passive.name,
-				"desc" = passive.purchase_text,
-				"cost" = passive.current_cost,
-				"stage" = passive.stage,
-				"category" = passive.category,
-				"ability_path" = passive.type))
-	static_data["abilities"] = abilities
+	static_data["ability_tabs"] = flayer.build_ability_tabs()
 	return static_data
 /*
 * Given a path, return TRUE if the path is a mindflayer spell, or FALSE otherwise. Only used to sort passives from spells.
@@ -145,6 +165,7 @@
 		return FALSE
 	adjust_swarms(-to_add.current_cost)
 	add_ability(to_add, src)
+	to_add.level += 1
 	return TRUE
 
 /*Given a passive, checks if a mindflayer is able to afford, and has the prerequisites for that spell.

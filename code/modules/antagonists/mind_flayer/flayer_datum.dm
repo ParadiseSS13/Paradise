@@ -122,13 +122,13 @@
  * Gets a list of mind flayer spell typepaths based on the passed in `spell_type`. (Thanks for the code SteelSlayer)
  *
  * Arguments:
- * * spell_type - should be a define related to [/datum/spell/flayer/spell_type].
+ * * spell_type - should be a define related to [/datum/spell/flayer/power_type].
  */
 /datum/antagonist/mindflayer/proc/get_spells_of_type(spell_type)
 	var/list/spells = list()
 	for(var/spell_path in subtypesof(/datum/spell/flayer))
 		var/datum/spell/flayer/spell = spell_path
-		if(initial(spell.spell_type) != spell_type)
+		if(initial(spell.power_type) != spell_type)
 			continue
 		spells += spell_path
 	return spells
