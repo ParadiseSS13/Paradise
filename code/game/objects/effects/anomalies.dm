@@ -170,7 +170,6 @@
 	if(T && length(GLOB.gravity_generators["[T.z]"]))
 		var/obj/machinery/gravity_generator/main/G = pick(GLOB.gravity_generators["[T.z]"])
 		G.set_broken() //Requires engineering to fix the gravity generator, as it gets overloaded by the anomaly.
-	if(drops_core)
 		log_and_message_admins("A [name] has detonated a gravity generator")
 
 /obj/effect/anomaly/flux
@@ -224,9 +223,8 @@
 /obj/effect/anomaly/flux/detonate()
 	if(explosive)
 		explosion(src, 1, 4, 16, 18, FALSE) // Set adminlog to FALSE for custom logging
-		if(drops_core)
-			message_admins("A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
-			log_admin("A [name] has detonated at [impact_area]")
+		message_admins("A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
+		log_admin("A [name] has detonated at [impact_area]")
 	else
 		new /obj/effect/particle_effect/sparks(loc)
 
@@ -455,7 +453,6 @@
 		air.set_sleeping_agent(1000)
 		air.set_carbon_dioxide(1000)
 		T.blind_release_air(air)
-	if(drops_core)
 		message_admins("A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
 		log_admin("A [name] has detonated at [impact_area]")
 
