@@ -3793,15 +3793,6 @@
 /obj/machinery/computer/communications,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
-"ayw" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/port)
 "ayz" = (
 /obj/structure/table/wood,
 /obj/item/storage/lockbox/medal,
@@ -3877,26 +3868,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonlockers)
-"azm" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/port)
 "azs" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/wall,
@@ -12272,6 +12243,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -42875,12 +42849,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "hfR" = (
@@ -49748,6 +49716,25 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
+"iXg" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/port)
 "iXl" = (
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -55875,9 +55862,11 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/central/north)
 "kFE" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
@@ -57621,7 +57610,6 @@
 /obj/structure/sign/poster/official/safety_internals{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -62873,22 +62861,20 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "mHH" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -69265,7 +69251,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
+	dir = 4
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -69788,22 +69774,21 @@
 /area/station/hallway/primary/fore/north)
 "oMF" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+	dir = 4
 	},
 /obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port)
 "oMG" = (
 /obj/machinery/computer/guestpass{
 	pixel_y = -30
@@ -72925,6 +72910,28 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
+"pFD" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/port)
 "pFE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -74072,12 +74079,6 @@
 	},
 /area/station/public/sleep/secondary)
 "pVV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -82246,15 +82247,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/science/hallway)
-"smz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/carpet/black,
-/area/station/service/chapel/office)
 "smJ" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Port Asteroid Maintenance"
@@ -84530,6 +84522,12 @@
 	icon_state = "cafeteria"
 	},
 /area/station/command/office/rd)
+"sTq" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/abandonedbar)
 "sTt" = (
 /obj/machinery/camera{
 	c_tag = "Xenobiology Chamber 6";
@@ -85017,7 +85015,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/mine/unexplored/cere/civilian)
+/area/station/maintenance/port)
 "taM" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -89210,16 +89208,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
-"uko" = (
-/obj/item/assembly/mousetrap/armed,
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/port)
 "ukB" = (
 /obj/machinery/button/windowtint{
 	dir = 8;
@@ -90937,6 +90925,17 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -92685,17 +92684,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
+/obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -99624,6 +99613,31 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
+"xbS" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/port)
 "xcc" = (
 /obj/structure/girder,
 /obj/structure/grille,
@@ -113536,7 +113550,7 @@ qUT
 qUT
 tFs
 byf
-old
+sTq
 xWH
 aXn
 aXn
@@ -114061,7 +114075,7 @@ aWk
 mgN
 tDK
 oUr
-smz
+oUr
 oUr
 cfF
 dQL
@@ -116605,8 +116619,8 @@ mYN
 lQG
 tZL
 gyt
-tZL
-jRY
+xbS
+bVF
 mHH
 wzC
 aEe
@@ -116862,10 +116876,10 @@ uCK
 uCK
 dQD
 aBa
-cME
+pFD
 vjL
-azm
-wzC
+xaR
+ijD
 aEe
 dsc
 kgy
@@ -117120,9 +117134,9 @@ eTI
 pAV
 pXy
 oMF
-azm
-ayw
-uko
+wzC
+eCI
+aXn
 xOy
 dsc
 ybP
@@ -117377,9 +117391,9 @@ aXn
 aXn
 aXn
 taC
-ayw
-ijD
-vtY
+wzC
+aXn
+aXn
 xOy
 xfK
 qYN
@@ -117890,7 +117904,7 @@ oIt
 scc
 ulK
 eMs
-wzC
+iXg
 wzC
 vvY
 eCI
