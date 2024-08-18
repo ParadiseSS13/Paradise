@@ -181,10 +181,9 @@
 
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/is_robot = ((process_flags & SYNTHETIC) > 0)
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
-		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = is_robot)
-		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = is_robot)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/nothing
@@ -199,10 +198,9 @@
 
 /datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/is_robot = ((process_flags & SYNTHETIC) > 0)
 	if(ishuman(M) && M.mind && M.mind.miming)
-		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = is_robot)
-		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = is_robot)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/potato_juice
@@ -413,10 +411,9 @@
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/is_robot = ((process_flags & SYNTHETIC) > 0)
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
-		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = is_robot)
-		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = is_robot)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/silencer
@@ -432,10 +429,9 @@
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/is_robot = ((process_flags & SYNTHETIC) > 0)
 	if(ishuman(M) && (M.job in list("Mime")))
-		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = is_robot)
-		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = is_robot)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/chocolatepudding
