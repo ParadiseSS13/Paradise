@@ -54,9 +54,9 @@
 	. += deconstruction_hints(user)
 	if(can_be_flipped)
 		if(flipped)
-			. += "<span class='info'><b>Alt-Shift-Click</b> to right the table again.</span>"
+			. += "<span class='notice'><b>Alt-Shift-Click</b> to right the table again.</span>"
 		else
-			. += "<span class='info'><b>Alt-Shift-Click</b> to flip over the table.</span>"
+			. += "<span class='notice'><b>Alt-Shift-Click</b> to flip over the table.</span>"
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
@@ -343,26 +343,28 @@
 
 /obj/structure/table/proc/flip(direction)
 	if(flipped)
-		return 0
+		return FALSE
 
-	if(!straight_table_check(turn(direction,90)) || !straight_table_check(turn(direction,-90)))
-		return 0
+	if(!straight_table_check(turn(direction, 90)) || !straight_table_check(turn(direction, -90)))
+		return FALSE
 
 	dir = direction
 	if(dir != NORTH)
 		layer = 5
-	var/list/targets = list(get_step(src,dir),get_step(src,turn(dir, 45)),get_step(src,turn(dir, -45)))
+
+	var/list/targets = list(get_step(src, dir), get_step(src, turn(dir, 45)), get_step(src, turn(dir, -45)))
 	for(var/atom/movable/A in get_turf(src))
+		if(isobserver(A))
+			continue
 		if(!A.anchored)
-			spawn(0)
-				A.throw_at(pick(targets),1,1)
+			INVOKE_ASYNC(A, TYPE_PROC_REF(/atom/movable/, throw_at), pick(targets), 1, 1)
 
 	flipped = TRUE
 	smoothing_flags = NONE
 	flags |= ON_BORDER
 	for(var/D in list(turn(direction, 90), turn(direction, -90)))
-		if(locate(/obj/structure/table,get_step(src,D)))
-			var/obj/structure/table/T = locate(/obj/structure/table,get_step(src,D))
+		if(locate(/obj/structure/table, get_step(src, D)))
+			var/obj/structure/table/T = locate(/obj/structure/table, get_step(src, D))
 			T.flip(direction)
 	update_icon()
 
@@ -370,7 +372,7 @@
 	if(isturf(loc))
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 
-	return 1
+	return TRUE
 
 /obj/structure/table/proc/unflip()
 	if(!flipped)

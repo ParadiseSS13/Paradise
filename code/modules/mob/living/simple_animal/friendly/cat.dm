@@ -17,7 +17,7 @@
 	mob_size = MOB_SIZE_SMALL
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
-	butcher_results = list(/obj/item/food/snacks/meat = 3)
+	butcher_results = list(/obj/item/food/meat = 3)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -233,8 +233,8 @@
 	butcher_results = list(
 		/obj/item/organ/internal/brain = 1,
 		/obj/item/organ/internal/heart = 1,
-		/obj/item/food/snacks/birthdaycakeslice = 3,
-		/obj/item/food/snacks/meat/slab = 2
+		/obj/item/food/birthdaycakeslice = 3,
+		/obj/item/food/meat/slab = 2
 	)
 	response_harm = "takes a bite out of"
 	attacked_sound = "sound/items/eatfood.ogg"
@@ -254,7 +254,7 @@
 	final_bites = 0
 	if(health < maxHealth)
 		adjustBruteLoss(-4)
-	for(var/obj/item/food/snacks/donut/D in range(1, src))
+	for(var/obj/item/food/donut/D in range(1, src))
 		if(D.icon_state != "donut2")
 			D.name = "frosted donut"
 			D.icon_state = "donut2"
@@ -271,7 +271,7 @@
 	if(stat == DEAD)
 		if(++final_bites >= total_final_bites)
 			visible_message("<span class='danger'>[L] finished eating [src], there's nothing left!</span>")
-			to_chat(L, "<span class='info'>Whoa, that last bite tasted weird.</span>")
+			to_chat(L, "<span class='notice'>Whoa, that last bite tasted weird.</span>")
 			L.reagents.add_reagent("teslium", 5)
 			qdel(src)
 

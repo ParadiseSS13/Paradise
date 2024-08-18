@@ -59,7 +59,7 @@
 	icon_state = "reindeer"
 	icon_living = "reindeer"
 	icon_dead = "reindeer-dead"
-	butcher_results = list(/obj/item/food/snacks/meat = 3)
+	butcher_results = list(/obj/item/food/meat = 3)
 	maxHealth = 80
 	health = 80
 	melee_damage_lower = 5

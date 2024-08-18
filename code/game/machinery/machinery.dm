@@ -13,14 +13,16 @@
 
 	/// How is this machine currently passively consuming power?
 	var/power_state = IDLE_POWER_USE
-	/// How much power does this machine consume when it is idling
+	/// How much power does this machine consume when it is idling. This should not be set manually, use the helper procs!
 	var/idle_power_consumption = 0
-	/// How much power does this machine consume when it is in use
+	/// How much power does this machine consume when it is in use. This should not be set manually, use the helper procs!
 	var/active_power_consumption = 0
 	/// The power channel this machine uses, idle/passive power consumption will pull from this channel and machine won't work if power channel has no power
 	var/power_channel = PW_CHANNEL_EQUIPMENT
 	/// The powernet this machine is connected to
 	var/datum/local_powernet/machine_powernet = null
+	/// Has power been initialized on this machine? Set in Initialize(), prevents all power updates to the local powernet until this is TRUE to avoid weird numbers.
+	var/power_initialized = FALSE
 
 	/// how badly will it shock you?
 	var/siemens_strength = 0.7
@@ -45,9 +47,10 @@
 		machine_powernet.register_machine(src)
 		switch(power_state)
 			if(IDLE_POWER_USE)
-				add_static_power(power_channel, idle_power_consumption)
+				_add_static_power(power_channel, idle_power_consumption)
 			if(ACTIVE_POWER_USE)
-				add_static_power(power_channel, active_power_consumption)
+				_add_static_power(power_channel, active_power_consumption)
+		power_initialized = TRUE
 
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
@@ -102,17 +105,21 @@
 
 // use active power from the local powernet
 /obj/machinery/proc/use_power(amount, channel)
-	if(!has_power())
+	if(!has_power() || !power_initialized)
 		return FALSE
 	if(!channel)
 		channel = power_channel
 	return machine_powernet.use_active_power(channel, amount)
 
-/obj/machinery/proc/add_static_power(channel, amount)
-	machine_powernet.adjust_static_power(channel, amount)
+/// Helper proc to positively adjust static power tracking on the machine's powernet, not meant for general use!
+/obj/machinery/proc/_add_static_power(channel, amount)
+	PRIVATE_PROC(TRUE)
+	machine_powernet?.adjust_static_power(channel, amount)
 
-/obj/machinery/proc/remove_static_power(channel, amount)
-	machine_powernet.adjust_static_power(channel, -amount)
+/// Helper proc to negatively adjust static power tracking on the machine's powernet, not meant for general use!
+/obj/machinery/proc/_remove_static_power(channel, amount)
+	PRIVATE_PROC(TRUE)
+	machine_powernet?.adjust_static_power(channel, -amount)
 
 /*
 	* # power_change()
@@ -143,26 +150,34 @@
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
 	if(isnull(use_type) || use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
 		return
+	if(!power_initialized)
+		return FALSE // we set static power values in Initialize(), do not update static consumption until after initialization or you will get weird values on powernet
 	switch(power_state)
 		if(IDLE_POWER_USE)
-			remove_static_power(power_channel, idle_power_consumption)
+			_remove_static_power(power_channel, idle_power_consumption)
 		if(ACTIVE_POWER_USE)
-			remove_static_power(power_channel, active_power_consumption)
+			_remove_static_power(power_channel, active_power_consumption)
 
 	switch(use_type)
 		if(IDLE_POWER_USE)
-			add_static_power(power_channel, idle_power_consumption)
+			_add_static_power(power_channel, idle_power_consumption)
 		if(ACTIVE_POWER_USE)
-			add_static_power(power_channel, active_power_consumption)
+			_add_static_power(power_channel, active_power_consumption)
 
 	power_state = use_type
 
+/// Safely changes the static power on the local powernet based on an adjustment in idle power
 /obj/machinery/proc/update_idle_power_consumption(channel = power_channel, amount)
+	if(!power_initialized)
+		return FALSE // we set static power values in Initialize(), do not update static consumption until after initialization or you will get weird values on powernet
 	if(power_state == IDLE_POWER_USE)
 		machine_powernet.adjust_static_power(power_channel, amount - idle_power_consumption)
 	idle_power_consumption = amount
 
+/// Safely changes the static power on the local powernet based on an adjustment in active power
 /obj/machinery/proc/update_active_power_consumption(channel = power_channel, amount)
+	if(!power_initialized)
+		return FALSE // we set static power values in Initialize(), do not update static consumption until after initialization or you will get weird values on powernet
 	if(power_state == ACTIVE_POWER_USE)
 		machine_powernet.adjust_static_power(power_channel, amount - active_power_consumption)
 	active_power_consumption = amount
@@ -192,13 +207,6 @@
 		return UI_CLOSE
 
 	return ..()
-
-/obj/machinery/CouldUseTopic(mob/user)
-	..()
-	user.set_machine(src)
-
-/obj/machinery/CouldNotUseTopic(mob/user)
-	usr.unset_machine()
 
 /obj/machinery/proc/dropContents()//putting for swarmers, occupent code commented out, someone can use later.
 	var/turf/T = get_turf(src)
@@ -344,28 +352,37 @@
 		power_change()
 
 /obj/machinery/attackby(obj/item/O, mob/user, params)
+	if(exchange_parts(user, O))
+		return
+
 	if(istype(O, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = O
 		if(stat & BROKEN)
 			to_chat(user, "<span class='notice'>[src] is too damaged to be fixed with nanopaste!</span>")
 			return
+
 		if(obj_integrity == max_integrity)
 			to_chat(user, "<span class='notice'>[src] is fully intact.</span>")
 			return
+
 		if(being_repaired)
 			return
+
 		if(N.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>")
 			return
+
 		to_chat(user, "<span class='notice'>You start applying [O] to [src].</span>")
 		being_repaired = TRUE
 		var/result = do_after(user, 3 SECONDS, target = src)
 		being_repaired = FALSE
 		if(!result)
 			return
+
 		if(!N.use(1))
 			to_chat(user, "<span class='warning'>You don't have enough to complete this task!</span>") // this is here, as we don't want to use nanopaste until you finish applying
 			return
+
 		obj_integrity = min(obj_integrity + 50, max_integrity)
 		user.visible_message("<span class='notice'>[user] applied some [O] at [src]'s damaged areas.</span>",\
 			"<span class='notice'>You apply some [O] at [src]'s damaged areas.</span>")
@@ -376,57 +393,58 @@
 	var/shouldplaysound = 0
 	if(flags & NODECONSTRUCT)
 		return FALSE
-	if(istype(W) && component_parts)
-		if(panel_open || W.works_from_distance)
-			var/obj/item/circuitboard/CB = locate(/obj/item/circuitboard) in component_parts
-			var/P
-			if(W.works_from_distance)
-				to_chat(user, display_parts(user))
-			for(var/obj/item/stock_parts/A in component_parts)
-				for(var/D in CB.req_components)
-					if(ispath(A.type, D))
-						P = D
-						break
-				for(var/obj/item/stock_parts/B in W.contents)
-					if(istype(B, P) && istype(A, P))
-						//If it's cell - check: 1) Max charge is better? 2) Max charge same but current charge better? - If both NO -> next content
-						if(ispath(B.type, /obj/item/stock_parts/cell))
-							var/obj/item/stock_parts/cell/tA = A
-							var/obj/item/stock_parts/cell/tB = B
-							if(!(tB.maxcharge > tA.maxcharge) && !((tB.maxcharge == tA.maxcharge) && (tB.charge > tA.charge)))
-								continue
-						//If it's not cell and not better -> next content
-						else if(B.rating <= A.rating)
+
+	if(!istype(W) || !component_parts)
+		return FALSE
+
+	if(panel_open || W.works_from_distance)
+		var/obj/item/circuitboard/CB = locate(/obj/item/circuitboard) in component_parts
+		var/P
+		if(W.works_from_distance)
+			to_chat(user, display_parts(user))
+		for(var/obj/item/stock_parts/A in component_parts)
+			for(var/D in CB.req_components)
+				if(ispath(A.type, D))
+					P = D
+					break
+			for(var/obj/item/stock_parts/B in W.contents)
+				if(istype(B, P) && istype(A, P))
+					//If it's cell - check: 1) Max charge is better? 2) Max charge same but current charge better? - If both NO -> next content
+					if(ispath(B.type, /obj/item/stock_parts/cell))
+						var/obj/item/stock_parts/cell/tA = A
+						var/obj/item/stock_parts/cell/tB = B
+						if(!(tB.maxcharge > tA.maxcharge) && !((tB.maxcharge == tA.maxcharge) && (tB.charge > tA.charge)))
 							continue
-						W.remove_from_storage(B, src)
-						W.handle_item_insertion(A, user, TRUE)
-						component_parts -= A
-						component_parts += B
-						B.loc = null
-						to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
-						shouldplaysound = TRUE
-						break
-			for(var/obj/item/reagent_containers/glass/beaker/A in component_parts)
-				for(var/obj/item/reagent_containers/glass/beaker/B in W.contents)
-					// If it's not better -> next content
-					if(B.reagents.maximum_volume <= A.reagents.maximum_volume)
+					//If it's not cell and not better -> next content
+					else if(B.rating <= A.rating)
 						continue
 					W.remove_from_storage(B, src)
-					W.handle_item_insertion(A, TRUE)
+					W.handle_item_insertion(A, user, TRUE)
 					component_parts -= A
 					component_parts += B
 					B.loc = null
 					to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
 					shouldplaysound = TRUE
 					break
-			RefreshParts()
-		else
-			to_chat(user, display_parts(user))
-		if(shouldplaysound)
-			W.play_rped_sound()
-		return 1
+		for(var/obj/item/reagent_containers/glass/beaker/A in component_parts)
+			for(var/obj/item/reagent_containers/glass/beaker/B in W.contents)
+				// If it's not better -> next content
+				if(B.reagents.maximum_volume <= A.reagents.maximum_volume)
+					continue
+				W.remove_from_storage(B, src)
+				W.handle_item_insertion(A, TRUE)
+				component_parts -= A
+				component_parts += B
+				B.loc = null
+				to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
+				shouldplaysound = TRUE
+				break
+		RefreshParts()
 	else
-		return 0
+		to_chat(user, display_parts(user))
+	if(shouldplaysound)
+		W.play_rped_sound()
+	return TRUE
 
 /obj/machinery/proc/display_parts(mob/user)
 	. = list("<span class='notice'>Following parts detected in the machine:</span>")

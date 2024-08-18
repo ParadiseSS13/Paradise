@@ -201,6 +201,7 @@
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	item_color = "ancient"
 	resistance_flags = FIRE_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = null
 
 /obj/item/clothing/suit/space/hardsuit/ancient
@@ -211,6 +212,7 @@
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	slowdown = 3
 	resistance_flags = FIRE_PROOF
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = null
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	var/footstep = 1
@@ -344,9 +346,9 @@
 	anchored = locked
 
 	if(anchored)
-		to_chat(user, "<span class='info'>The crate reanchors itself to the ground.</span>")
+		to_chat(user, "<span class='notice'>The crate reanchors itself to the ground.</span>")
 	else
-		to_chat(user, "<span class='info'>The crate unanchors itself from the ground.</span>")
+		to_chat(user, "<span class='notice'>The crate unanchors itself from the ground.</span>")
 
 /obj/structure/closet/crate/secure/oldstation/emag_act(mob/user)
 	// var/can_be_emaged works in mysterious ways so screw it

@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "E" = (
-/turf/simulated/floor/chasm/straight_down,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
 /area/tdome/arena)
 "R" = (
 /turf/simulated/floor/catwalk,

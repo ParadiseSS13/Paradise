@@ -32,37 +32,24 @@
 	density = TRUE
 	anchored = TRUE
 
+/obj/machinery/bsa/wrench_act(mob/living/user, obj/item/I)
+	default_unfasten_wrench(user, I, 1 SECONDS)
+	return TRUE
+
+/obj/machinery/bsa/multitool_act(mob/living/user, obj/item/multitool/M)
+	M.buffer = src
+	to_chat(user, "<span class='notice'>You store linkage information in [M]'s buffer.</span>")
+	return TRUE
+
 /obj/machinery/bsa/back
 	name = "Bluespace Artillery Generator"
 	desc = "Generates cannon pulse. Needs to be linked with a fusor. "
 	icon_state = "power_box"
 
-/obj/machinery/bsa/back/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
-
 /obj/machinery/bsa/front
 	name = "Bluespace Artillery Bore"
 	desc = "Do not stand in front of cannon during operation. Needs to be linked with a fusor."
 	icon_state = "emitter_center"
-
-/obj/machinery/bsa/front/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
@@ -71,23 +58,19 @@
 	var/obj/machinery/bsa/back/back
 	var/obj/machinery/bsa/front/front
 
-/obj/machinery/bsa/middle/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		if(M.buffer)
-			if(istype(M.buffer,/obj/machinery/bsa/back))
-				back = M.buffer
-				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
-			else if(istype(M.buffer,/obj/machinery/bsa/front))
-				front = M.buffer
-				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
-	else if(istype(W, /obj/item/wrench))
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
+/obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/multitool/M)
+	. = TRUE
+	if(!M.buffer)
+		to_chat(user, "<span class='warning'>[M]'s buffer is empty!</span>")
+		return
+	if(istype(M.buffer,/obj/machinery/bsa/back))
+		back = M.buffer
+		M.buffer = null
+		to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
+	else if(istype(M.buffer,/obj/machinery/bsa/front))
+		front = M.buffer
+		M.buffer = null
+		to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)
@@ -215,9 +198,9 @@
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
 	var/turf/point = get_front_turf()
 	for(var/turf/T in get_line(get_step(point,dir),get_target_turf()))
-		T.ex_act(1)
+		T.ex_act(EXPLODE_DEVASTATE)
 		for(var/atom/A in T)
-			A.ex_act(1)
+			A.ex_act(EXPLODE_DEVASTATE)
 
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
