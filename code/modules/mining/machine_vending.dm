@@ -288,7 +288,7 @@
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
 	do_sparks(5, TRUE, src)
-	if(prob(50 / severity) && severity < 3)
+	if(prob(50 / severity) && severity < EXPLODE_LIGHT)
 		qdel(src)
 
 /obj/machinery/mineral/equipment_vendor/Destroy()
