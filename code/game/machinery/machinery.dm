@@ -40,7 +40,7 @@
 /*
   * These should all be done in this style. It represents a coordinate map of a 5x5 grid around `src`.
   * This map has to be set in `set_filler_map()`
-  	var/list/filler_locations = list(
+  *	var/list/filler_locations = list(
 									list(0, 0, 		0,   	0, 0),
 									list(0, 0, 		0,   	0, 0),
 									list(0, 0, MACH_CENTER, 0, 0),
