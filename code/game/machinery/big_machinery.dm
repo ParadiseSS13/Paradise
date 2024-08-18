@@ -10,7 +10,6 @@
 								)
 	/// A list containing all filler structures. Cleared on `Destroy()`
 	var/list/all_fillers = list()
-	var/list/nested = list(list("a", "b"), list("v","s"))
 
 /obj/machinery/big/Initialize(mapload)
 	. = ..()
