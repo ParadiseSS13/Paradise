@@ -932,10 +932,6 @@
 "afd" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/permabrig)
-"afe" = (
-/obj/structure/closet/masks,
-/turf/simulated/floor/plasteel,
-/area/station/public/fitness)
 "afn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -40111,6 +40107,13 @@
 /obj/structure/sign/security,
 /turf/simulated/wall/r_wall,
 /area/station/security/prison/cell_block/A)
+"gor" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Fore Asteroid Maintenance Access"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/simulated/floor/plating,
+/area/station/public/fitness)
 "got" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
@@ -42164,10 +42167,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/east)
 "gUU" = (
-/obj/item/kirbyplants,
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
+/obj/structure/closet/masks,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "gUW" = (
@@ -133049,8 +133052,8 @@ vOI
 uuF
 nJA
 gUU
-afe
 xho
+cFF
 aJm
 aKl
 kWu
@@ -133307,7 +133310,7 @@ kWu
 kWu
 kWu
 kWu
-kWu
+gor
 kWu
 kWu
 kWu
@@ -133562,8 +133565,8 @@ aUi
 vXM
 biO
 aEE
-vrQ
 bCM
+vrQ
 tbe
 iUb
 bXu
