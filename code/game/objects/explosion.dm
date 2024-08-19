@@ -13,6 +13,19 @@
 	if(!epicenter)
 		return
 
+	// If we are in end round, make explosions gib the user
+	// Why? Its funny
+	if(GLOB.disable_explosions && usr && istype(usr, /mob/living/carbon/human))
+		to_chat(usr, "<span class='userdanger'>Your explosive backfires!</span>")
+		var/mob/living/carbon/human/H = usr
+		H.gib() // lol
+		return
+
+	// If explosions are disabled, and there isnt a user, or the user isnt an admin, abort
+	// Admins can still ruin things :P
+	if(GLOB.disable_explosions && ((!usr) || !is_admin(usr)))
+		return
+
 	// Archive the uncapped explosion for the doppler array
 	var/orig_dev_range = devastation_range
 	var/orig_heavy_range = heavy_impact_range
@@ -182,7 +195,7 @@
 					if(breach)
 						T.ex_act(dist)
 					else
-						T.ex_act(3)
+						T.ex_act(EXPLODE_LIGHT)
 
 			CHECK_TICK
 
@@ -206,7 +219,7 @@
 
 /proc/secondaryexplosion(turf/epicenter, range)
 	for(var/turf/tile in spiral_range_turfs(range, epicenter))
-		tile.ex_act(2)
+		tile.ex_act(EXPLODE_HEAVY)
 
 /client/proc/check_bomb_impacts()
 	set name = "Check Bomb Impact"

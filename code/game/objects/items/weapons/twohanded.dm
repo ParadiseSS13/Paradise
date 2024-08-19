@@ -722,12 +722,12 @@
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
 			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
-				Z.ex_act(2)
+				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
-				Z.ex_act(2)
+				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 
@@ -808,6 +808,8 @@
 	icon_state = "pyro"
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
+	dyeable = FALSE
+
 	var/on_cooldown = FALSE
 	var/obj/item/assembly/signaler/anomaly/pyro/core
 	var/next_spark_time
