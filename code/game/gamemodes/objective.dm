@@ -806,6 +806,30 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return FALSE
 
 
+/datum/objective/swarms
+	name = "Gain swarms"
+	needs_target = FALSE
+
+/datum/objective/swarms/New()
+	gen_amount_goal()
+	. = ..()
+
+/datum/objective/swarms/proc/gen_amount_goal(low = 130, high = 400)
+	target_amount = rand(low,high)
+	target_amount = round(round(target_amount/5)*5)
+	update_explanation_text()
+	return target_amount
+
+/datum/objective/swarms/update_explanation_text()
+	explanation_text = "Accumulate at least [target_amount] worth of swarms."
+
+/datum/objective/swarms/check_completion()
+	for(var/datum/mind/M in get_owners())
+		var/datum/antagonist/mindflayer/MF = M.has_antag_datum(/datum/antagonist/mindflayer)
+		if(MF.total_swarms_gathered >= target_amount)
+			return TRUE
+		else
+			return FALSE
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
 

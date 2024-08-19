@@ -39,6 +39,10 @@
 		add_ability(to_add, src)
 	owner.current.faction += list("flayer") // In case our robot is mindlessly spawned in somehow, and they won't accidentally kill us
 
+/datum/antagonist/mindflayer/give_objectives()
+	add_antag_objective(/datum/objective/swarms)
+	forge_basic_objectives()
+
 /datum/antagonist/mindflayer/proc/get_swarms()
 	return usable_swarms
 
