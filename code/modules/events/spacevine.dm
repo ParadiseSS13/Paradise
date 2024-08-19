@@ -103,7 +103,7 @@
 	return
 
 /turf/simulated/floor/vines/ex_act(severity)
-	if(severity < 3)
+	if(severity < EXPLODE_LIGHT)
 		ChangeTurf(baseturf)
 
 /turf/simulated/floor/vines/narsie_act()
@@ -209,7 +209,7 @@
 	nofun = TRUE
 
 /datum/spacevine_mutation/explosive/on_explosion(explosion_severity, obj/structure/spacevine/holder)
-	if(explosion_severity < 3)
+	if(explosion_severity < EXPLODE_LIGHT)
 		qdel(holder)
 	else
 		addtimer(CALLBACK(holder, TYPE_PROC_REF(/obj/structure/spacevine, wither)), 5)
