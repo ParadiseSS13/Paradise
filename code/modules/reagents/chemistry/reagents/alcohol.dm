@@ -120,6 +120,7 @@
 	id = "hooch"
 	description = "Either someone's failure at cocktail making or attempt in alcohol production. In any case, do you really want to drink that?"
 	color = "#664300" // rgb: 102, 67, 0
+	process_flags = ORGANIC | SYNTHETIC
 	dizzy_adj = 14 SECONDS
 	alcohol_perc = 1
 	drink_icon = "glass_brown2"
@@ -128,11 +129,12 @@
 	taste_description = "pure resignation"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
-/datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/human/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(M.mind && M.mind.assigned_role == "Assistant")
-		M.heal_organ_damage(1, 1)
-		. = 1
-	return ..() || .
+		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/rum
 	name = "Rum"
