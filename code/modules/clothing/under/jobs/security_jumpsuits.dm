@@ -139,6 +139,8 @@
 	icon_state = "hos_skirt"
 	item_state = "r_suit"
 	item_color = "hos_skirt"
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/security/head_of_security/corporate
 	icon_state = "hos_corporate"

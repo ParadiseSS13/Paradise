@@ -188,7 +188,7 @@
 		return
 	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
 						"<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
-	owner.emp_act(2)
+	owner.emp_act(EMP_LIGHT)
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(empulse), owner, 2, 5, TRUE, "cult")
 	owner.whisper(invocation)
 	charges--
@@ -418,11 +418,6 @@
 		uses = 0
 		qdel(src)
 		return
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
-			playsound(M, 'sound/weapons/genhit.ogg', 50, TRUE)
-			return TRUE
 	add_attack_logs(user, M, "used a cult spell ([src]) on")
 	M.lastattacker = user.real_name
 

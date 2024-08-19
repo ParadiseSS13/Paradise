@@ -489,19 +489,19 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 		if(prob(5))
 			var/list/messages = list(
-				"You feel something uncomfortable in [src].",
-				"A sharp pain seems to spread out from [src].",
-				"[src] feels like it's burning from the inside out!",
-				"[src] seems to be turning a nasty color.",
+				"You feel something uncomfortable in your [name].",
+				"A sharp pain seems to spread out from your [name].",
+				"Your [name] feels like it's burning from the inside out!",
+				"Your [name] seems to be turning a nasty color.",
 			)
 			to_chat(owner, "<span class='danger'>[pick(messages)]</span>")
 
 	if(germ_level >= INFECTION_LEVEL_THREE)
 		if(vital)
 			var/list/messages = list(
-				"[src] oozes with pus!",
-				"[src] starts to go numb.",
-				"[src] feels dreadful, it feels like you're dying!"
+				"Your [name] oozes with pus!",
+				"Your [name] starts to go numb.",
+				"Your [name] feels dreadful, it feels like you're dying!"
 			)
 			// kill them fast, but don't drop them dead.
 			if(prob(5))

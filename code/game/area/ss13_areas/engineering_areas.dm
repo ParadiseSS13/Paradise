@@ -61,7 +61,7 @@
 	icon_state = "gravgen"
 
 /area/station/engineering/ai_transit_tube
-	name = "\improper Ai Minisat Tranit Tube"
+	name = "\improper AI Minisat Tranit Tube"
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
@@ -78,31 +78,47 @@
 //Solars
 
 /area/station/engineering/solar
+	name = "\improper Solar Array"
+	icon_state = "general_solars"
 	requires_power = FALSE
 	valid_territory = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 
-/area/station/engineering/solar/auxport
-	name = "\improper Fore Port Solar Array"
-	icon_state = "FPsolars"
+/area/station/engineering/solar/fore
+	name = "\improper Fore Solar Array"
+	icon_state = "fore_solars"
 
-/area/station/engineering/solar/auxstarboard
-	name = "\improper Fore Starboard Solar Array"
-	icon_state = "FSsolars"
+/area/station/engineering/solar/fore_starboard
+	name = "\improper Fore-Starboard Solar Array"
+	icon_state = "fore_starboard_solars"
+
+/area/station/engineering/solar/fore_port
+	name = "\improper Fore-Port Solar Array"
+	icon_state = "fore_port_solars"
+
+/area/station/engineering/solar/aft
+	name = "\improper Aft Solar Array"
+	icon_state = "aft_solars"
+
+/area/station/engineering/solar/aft_starboard
+	name = "\improper Aft-Starboard Solar Array"
+	icon_state = "aft_starboard_solars"
+
+/area/station/engineering/solar/aft_port
+	name = "\improper Aft-Port Solar Array"
+	icon_state = "aft_port_solars"
 
 /area/station/engineering/solar/starboard
 	name = "\improper Starboard Solar Array"
-	icon_state = "Ssolars"
-
-/area/station/engineering/solar/starboard/aft
-	name = "\improper Aft Starboard Solar Array"
-	icon_state = "ASsolars"
+	icon_state = "starboard_solars"
 
 /area/station/engineering/solar/port
-	name = "\improper Aft Port Solar Array"
-	icon_state = "APsolars"
+	name = "\improper Port Solar Array"
+	icon_state = "port_solars"
+
+// Other
 
 /area/station/engineering/secure_storage
 	name = "Engineering Secure Storage"
