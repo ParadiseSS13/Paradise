@@ -74,3 +74,10 @@
 	smoke.set_up(15, FALSE, user)
 	smoke.start()
 
+
+/datum/spell/flayer/self/skin_suit
+	name = "Skin Suit"
+	desc = "Look like someone else"
+	power_type = FLAYER_PURCHASABLE_POWER
+	category = CATEGORY_INTRUDER
+

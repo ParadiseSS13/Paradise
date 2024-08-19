@@ -2,7 +2,7 @@
 
 /datum/spell/flayer/self/rejuv
 	name = "Rejuvenate"
-	desc = "Add me!"
+	desc = "Heal and remove any incapacitating effects from yourself."
 	power_type = FLAYER_INNATE_POWER
 
 /datum/spell/flayer/self/rejuv/cast(list/targets, mob/user)
@@ -10,17 +10,14 @@
 	var/mob/living/caster = user
 	caster.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV)
 
-/datum/spell/flayer/self/adaptive_coating
-	name = "Adaptive Coating"
-	desc = "We temporarily increase the elasticity of our armor by a factor of 100, allowing us to deflect projectiles."
+/datum/spell/flayer/self/quicksilver_form
+	name = "Quicksilver Form"
+	desc = "WIP something about becoming liquid mercury."
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 40 SECONDS //25% uptime
 	category = CATEGORY_DESTROYER
 	stage = 2
 
-/datum/spell/flayer/self/adaptive_coating/cast(list/targets, mob/user)
-	ADD_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, UID())
-	addtimer(CALLBACK(src, PROC_REF(end_effect), user), 10 SECONDS)
-
-/datum/spell/flayer/self/adaptive_coating/proc/end_effect(mob/user)
-	REMOVE_TRAIT(user, TRAIT_DEFLECTS_PROJECTILES, UID())
+/datum/spell/flayer/self/quicksilver_form/cast(list/targets, mob/user)
+	var/mob/living/carbon/caster = user
+	caster.apply_status_effect(STATUS_EFFECT_QUICKSILVER_FORM)

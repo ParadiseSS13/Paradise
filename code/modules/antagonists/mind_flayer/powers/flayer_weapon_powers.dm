@@ -2,6 +2,8 @@
 	name = "Create weapon"
 	desc = "This really shouldn't be here"
 	power_type = FLAYER_UNOBTAINABLE_POWER
+	action_icon = 'icons/mob/robot_items.dmi'
+	action_icon_state = "lollipop"
 	base_cooldown = 1 SECONDS //This just handles retracting and deploying the weapon, weapon charge will be fully separate
 	///Typepath of the weapon
 	var/weapon_type
@@ -46,12 +48,15 @@
 /datum/spell/flayer/self/weapon/swarmprod
 	name = "Swarmprod"
 	desc = "Add me!"
+	action_icon_state = "elecarm"
 	power_type = FLAYER_INNATE_POWER
 	weapon_type = /obj/item/melee/baton/flayerprod
 
 /datum/spell/flayer/self/weapon/laser
 	name = "Laser Arm Augementation"
 	desc = "Our hand melts away, replaced with the barrel of a laser gun."
+	action_icon = 'icons/obj/guns/energy.dmi'
+	action_icon_state = "laser"
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/gun/energy/laser/mounted
 	category = CATEGORY_DESTROYER
@@ -60,6 +65,8 @@
 /datum/spell/flayer/self/weapon/flak_gun //Addressing the lack of FTL references in this game
 	name = "Pneumatic Flak Gun"
 	desc = "WIP"
+	action_icon = 'icons/obj/pneumaticCannon.dmi'
+	action_icon_state = "pneumaticCannon"
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/pneumatic_cannon/flayer
 	category = CATEGORY_DESTROYER

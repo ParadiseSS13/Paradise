@@ -76,6 +76,8 @@
 
 #define STATUS_EFFECT_FLAYER_REJUV /datum/status_effect/flayer_rejuv
 
+#define STATUS_EFFECT_QUICKSILVER_FORM /datum/status_effect/quicksilver_form
+
 /////////////
 // DEBUFFS //
 /////////////

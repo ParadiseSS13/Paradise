@@ -12,7 +12,7 @@
 /datum/spell/flayer
 //	panel = "Vampire"
 //	school = "vampire"
-	action_background_icon_state = "bg_technology" // TODO: flayer background
+	action_background_icon_state = "bg_tech_blue" // TODO: flayer background
 	human_req = TRUE
 	clothes_req = FALSE
 	/// A reference to the owner mindflayer's antag datum.
@@ -202,6 +202,8 @@
 		return FALSE
 	if(flayer.is_path_spell(path))
 		var/datum/spell/flayer/to_add = new path(user)
-		return flayer.try_purchase_spell(to_add)
-	var/datum/mindflayer_passive/to_add = new path(user) //If its not a spell, it's a passive
-	return flayer.try_purchase_passive(to_add)
+		. = flayer.try_purchase_spell(to_add)
+	else
+		var/datum/mindflayer_passive/to_add = new path(user) //If its not a spell, it's a passive
+		. =  flayer.try_purchase_passive(to_add)
+	SSblackbox.record_feedback("tally", "power_purchased", 1, "[path]")

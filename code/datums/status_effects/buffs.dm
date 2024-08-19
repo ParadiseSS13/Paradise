@@ -919,12 +919,13 @@
 				P.damage *= 0.85
 
 /datum/status_effect/flayer_rejuv
+	id = "rejuvination"
 	duration = 5 SECONDS
 	tick_interval = 1 SECONDS
-	alert_type = /obj/screen/alert/status_effect/flayer_rejuv
+	alert_type = /atom/movable/screen/alert/status_effect/flayer_rejuv
 	var/heal_amount = 10 // 50 total healing of both brute and burn
 
-/obj/screen/alert/status_effect/flayer_rejuv
+/atom/movable/screen/alert/status_effect/flayer_rejuv
 	name = "Regenerating"
 	desc = "A ray of hope beyond dispair."
 	icon_state = "drunk2"
@@ -946,3 +947,27 @@
 		flayer.adjustBruteLoss(-heal_amount, robotic = TRUE)
 		flayer.adjustFireLoss(-heal_amount, robotic = TRUE)
 		flayer.updatehealth()
+
+/datum/status_effect/quicksilver_form
+	duration = 10 SECONDS
+	tick_interval = 0
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/quicksilver_form
+	var/temporary_flag_storage
+
+/atom/movable/screen/alert/status_effect/quicksilver_form
+	name = "Quicksilver body"
+	desc = "Your body is much less solid."
+	icon_state = "high"
+
+/datum/status_effect/quicksilver_form/on_apply()
+	ADD_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
+	temporary_flag_storage = owner.pass_flags
+	owner.pass_flags |= (PASSTABLE | PASSGRILLE | PASSMOB | PASSFENCE | PASSGIRDER | PASSGLASS | PASSTAKE)
+	owner.color = COLOR_ALUMINIUM
+	return TRUE
+
+/datum/status_effect/quicksilver_form/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
+	owner.pass_flags = temporary_flag_storage
+	owner.color = null
