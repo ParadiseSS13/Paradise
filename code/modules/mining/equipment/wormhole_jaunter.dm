@@ -296,7 +296,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 
 /obj/item/wormhole_jaunter/wormhole_weaver/activate(mob/user)
 	if(wcell.charge < chargecost)
-		to_chat(user, "<span class='warning'>Device isn't charged enough to be used this time.</span>")
+		to_chat(user, "<span class='warning'>Device isn't charged enough to be used at this time.</span>")
 		return
 
 	if(inactive || emp_inflicted)
