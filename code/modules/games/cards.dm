@@ -52,7 +52,7 @@
 	var/card_attack_verb
 	/// Inherited card resistance
 	var/card_resistance_flags = FLAMMABLE
-	/// Deck ID, used for splitting and re-joining decks.
+	/// ID used to track the decks and cardhands that can be combined into one another.
 	var/main_deck_id = -1
 
 /obj/item/deck/Initialize(mapload, parent_deck_id = -1)
@@ -86,6 +86,7 @@
 	. += "\t<span class='notice'><b>Click</b> to draw from the top of the deck.</span>"
 	. += "\t<span class='notice'><b>Alt-Click</b> to draw from the bottom of the deck.</span>"
 	. += "\t<span class='notice'><b>Alt-Shift-Click</b> to shuffle the deck.</span>"
+	. += "You also notice a little number on the corner of [src]: it's tagged [main_deck_id]."
 
 
 /obj/item/deck/proc/build_decks()
@@ -118,7 +119,7 @@
 		return ..()
 	var/obj/item/cardhand/H = O
 	// lewtodo: parent deck ID needs to work in a way that allows for merging cards
-	if(H.parentdeck != src)
+	if(H.parent_deck_id != main_deck_id)
 		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
 		return
 
@@ -197,7 +198,7 @@
 	if(!istype(hand))
 		return
 
-	if(hand.parentdeck != src)
+	if(hand.parent_deck_id != main_deck_id)
 		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
 		return
 
@@ -242,7 +243,7 @@
 	if(!istype(hand))
 		return ..()
 
-	if(hand.parentdeck != src)
+	if(hand.parent_deck_id != main_deck_id)
 		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
 		return
 
@@ -318,7 +319,7 @@
 		return
 
 	var/obj/item/cardhand/H = M.is_in_hands(/obj/item/cardhand)
-	if(H && (H.parentdeck != src))
+	if(H && (H.parent_deck_id != main_deck_id))
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 		return
 
@@ -330,8 +331,8 @@
 	H.cards += P
 	cards -= P
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
-	H.parentdeck = src
-	H.update_values()
+	H.parent_deck_id = main_deck_id
+	H.update_values_from_deck(src)
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
 	if(public)
@@ -384,16 +385,17 @@
 
 	deal_at(usr, M, dcard)
 
+
 /obj/item/deck/proc/deal_at(mob/user, mob/target, dcard) // Take in the no. of card to be dealt
 	var/obj/item/cardhand/H = new(get_step(user, user.dir))
 	for(var/i in 1 to dcard)
 		H.cards += cards[1]
 		cards -= cards[1]
 		update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
-		H.parentdeck = src
-		H.update_values()
-		H.concealed = TRUE
-		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+	H.parent_deck_id = main_deck_id
+	H.update_values_from_deck(src)
+	H.concealed = TRUE
+	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
 		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [user.p_themselves()].</span>")
 	else
@@ -493,13 +495,16 @@
 		. += "<span class='notice'><b>Alt-Click</b> this in-hand to see the legacy interaction menu.</span>"
 		. += "<span class='notice'><b>Drag</b> this to its associated deck to return all cards at once to it.</span>"
 
+/obj/item/cardhand/examine_more(mob/user)
+	. = ..()
+	. += "You notice a little number on the corner of [src]: it's tagged [parent_deck_id]."
+
 /obj/item/cardhand/proc/single()
 	return length(cards) == 1
 
-/obj/item/cardhand/proc/update_values()
-	if(!parentdeck)
+/obj/item/cardhand/proc/update_values_from_deck(obj/item/deck/D)
+	if(!parent_deck_id)
 		return
-	var/obj/item/deck/D = parentdeck
 	hitsound = D.card_hitsound
 	force = D.card_force
 	throwforce = D.card_throwforce
@@ -508,21 +513,34 @@
 	attack_verb = D.card_attack_verb
 	resistance_flags = D.card_resistance_flags
 
+/// Update our own card values to reflect that of some source hand
+/obj/item/cardhand/proc/update_values_from_cards(obj/item/cardhand/source)
+	if(isnull(source) || !istype(source))
+		return
+
+	hitsound = source.hitsound
+	force = source.force
+	throwforce = source.throwforce
+	throw_speed = source.throw_speed
+	throw_range = source.throw_range
+	attack_verb = source.attack_verb
+	resistance_flags = source.resistance_flags
+
 /obj/item/cardhand/attackby(obj/O, mob/user)
 	if(length(cards) == 1 && is_pen(O))
 		var/datum/playingcard/P = cards[1]
 		if(P.name != "Blank Card")
 			to_chat(user,"<span class='notice'>You cannot write on that card.</span>")
 			return
-		var/t = rename_interactive(user, P, use_prefix = FALSE, actually_rename = FALSE)
+		var/t = rename_interactive(user, O, use_prefix = FALSE, actually_rename = FALSE)
 		if(t && P.name == "Blank Card")
 			P.name = t
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		P.card_icon = "cag_white_card"
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	else if(istype(O,/obj/item/cardhand))
+	else if(istype(O, /obj/item/cardhand))
 		var/obj/item/cardhand/H = O
-		if(H.parentdeck == parentdeck)
+		if(H.parent_deck_id == parent_deck_id)
 			H.concealed = concealed
 			cards.Add(H.cards)
 			qdel(H)
@@ -566,6 +584,7 @@
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
 
+/// old-school browser UI for card interations
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
 	for(var/t in cards)
@@ -575,6 +594,23 @@
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
 	popup.set_content(dat)
 	popup.open()
+
+
+/obj/item/cardhand/Topic(href, href_list)
+	if(..())
+		return
+	if(usr.stat || !ishuman(usr))
+		return
+	var/mob/living/carbon/human/cardUser = usr
+	if(href_list["pick"])
+		if(href_list["pick"] == "Turn")
+			turn_hand(usr)
+		else
+			if(cardUser.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || cardUser.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
+				var/picked_card = href_list["pick"]
+				remove_card(picked_card)
+		cardUser << browse(null, "window=cardhand")
+
 
 /obj/item/cardhand/point_at(atom/pointed_atom)
 
@@ -593,21 +629,6 @@
 	usr.vis_contents += draft
 
 	QDEL_IN(draft, 0.6 SECONDS)
-
-/obj/item/cardhand/Topic(href, href_list)
-	if(..())
-		return
-	if(usr.stat || !ishuman(usr))
-		return
-	var/mob/living/carbon/human/cardUser = usr
-	if(href_list["pick"])
-		if(href_list["pick"] == "Turn")
-			turn_hand(usr)
-		else
-			if(cardUser.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || cardUser.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
-				var/picked_card = href_list["pick"]
-				remove_card(picked_card)
-		cardUser << browse(null, "window=cardhand")
 
 
 // Datum action here
@@ -654,8 +675,8 @@
 		new_hand.cards += card
 		cards -= card
 
-	new_hand.parentdeck = parentdeck
-	new_hand.update_values()
+	new_hand.parent_deck_id = parent_deck_id
+	new_hand.update_values_from_cards(src)
 	new_hand.concealed = concealed
 	new_hand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
@@ -689,8 +710,8 @@
 	user.put_in_hands(H)
 	H.cards += picked_card
 	cards -= picked_card
-	H.parentdeck = parentdeck
-	H.update_values()
+	H.parent_deck_id = parent_deck_id
+	H.update_values_from_cards(src)
 	H.concealed = concealed
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(!length(cards))
@@ -727,8 +748,8 @@
 		H.cards += card
 		cards -= card
 		H.concealed = FALSE
-		H.parentdeck = parentdeck
-		H.update_values()
+		H.parent_deck_id = parent_deck_id
+		H.update_values_from_cards(src)
 		H.direction = user.dir
 		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(length(cards))
