@@ -247,7 +247,7 @@
 	)
 	result = /obj/item/food/donut/matcha/jelly/slimejelly
 
-/datum/recipe/microwave/blumpkindonut/jelly/cherry
+/datum/recipe/microwave/matchadonut/jelly/cherry
 	reagents = list("teapowder" = 5, "cherryjelly" = 5)
 	items = list(
 		/obj/item/food/donut
