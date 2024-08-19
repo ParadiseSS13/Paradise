@@ -66,7 +66,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_INFO,
     name: 'Info',
     description: 'Non-urgent messages from the game and items',
-    selector: '.notice:not(.pm), .adminnotice, .info, .sinister, .cult, .interface',
+    selector: '.notice:not(.pm), .adminnotice, .info, .sinister, .cult',
   },
   {
     type: MESSAGE_TYPE_WARNING,
@@ -84,7 +84,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_OOC,
     name: 'OOC',
     description: 'The bluewall of global OOC messages',
-    selector: '.ooc, .adminooc',
+    selector: '.ooc, .adminooc, .interface',
   },
   {
     type: MESSAGE_TYPE_ADMINPM,
