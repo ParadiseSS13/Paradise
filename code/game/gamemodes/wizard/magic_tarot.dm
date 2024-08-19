@@ -304,7 +304,7 @@
 /datum/tarot/the_high_priestess
 	name = "II - The High Priestess"
 	desc = "Mother is watching you."
-	extended_desc = "alerts bubblegum to the user, allowing him to strike them down, dealing heavy damage and immobilizing them."
+	extended_desc = "alerts bubblegum to the user, who will strike them down. The user will receive heavy damage and will be immobilized."
 	card_icon = "the_high_priestess"
 
 /datum/tarot/the_high_priestess/activate(mob/living/target)
