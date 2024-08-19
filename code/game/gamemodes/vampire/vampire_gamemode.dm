@@ -4,12 +4,9 @@
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
 	protected_species = list("Machine")
-	required_players = 15
+	required_players = 1 //TODO DEBUG ONLY
 	required_enemies = 1
 	recommended_enemies = 4
-
-	///list of minds of soon to be vampires
-	var/list/datum/mind/pre_vampires = list()
 
 /datum/game_mode/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Vampires!</B>")
@@ -29,9 +26,13 @@
 			if(!length(possible_vampires))
 				break
 			var/datum/mind/vampire = pick_n_take(possible_vampires)
+			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+			if(vampire.current.client.prefs.active_character.species in protected_species)
+				pre_mindflayers += vampire
+				vampire.special_role = SPECIAL_ROLE_MIND_FLAYER
+				continue
 			pre_vampires += vampire
 			vampire.special_role = SPECIAL_ROLE_VAMPIRE
-			vampire.restricted_roles = restricted_jobs
 
 		..()
 		return TRUE
