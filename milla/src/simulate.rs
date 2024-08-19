@@ -437,6 +437,7 @@ pub(crate) fn apply_tile_mode(
                 my_inactive_tile.thermal_energy *= 1.0 - SPACE_COOLING_FACTOR;
             }
         }
+		AtmosMode::NoDecay => {} // No special interactions
     }
     Ok(())
 }

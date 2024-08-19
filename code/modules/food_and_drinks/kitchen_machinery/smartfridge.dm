@@ -694,6 +694,40 @@
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate/Initialize(mapload)
 	. = ..()
 	req_access = list(ACCESS_SYNDICATE)
+
+/**
+  * # Disk Compartmentalizer
+  *
+  * Disk variant of the [Smart Fridge][/obj/machinery/smartfridge].
+  */
+/obj/machinery/smartfridge/disks
+	name = "disk compartmentalizer"
+	desc = "A machine capable of storing a variety of disks. Denoted by most as the DSU (disk storage unit)."
+	icon_state = "disktoaster"
+	icon_lightmask = "disktoaster"
+	pass_flags = PASSTABLE
+	visible_contents = TRUE
+	board_type = /obj/machinery/smartfridge/disks
+
+/obj/machinery/smartfridge/disks/Initialize(mapload)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/disk
+	))
+
+/obj/machinery/smartfridge/disks/update_fridge_contents()
+	switch(length(contents))
+		if(0)
+			fill_level = null
+		if(1)
+			fill_level = 1
+		if(2)
+			fill_level = 2
+		if(3)
+			fill_level = 3
+		if(4 to INFINITY)
+			fill_level = 4
+
 /obj/machinery/smartfridge/id
 	name = "identification card compartmentalizer"
 	desc = "A machine capable of storing identification cards and PDAs. It's great for lost and terminated cards."
