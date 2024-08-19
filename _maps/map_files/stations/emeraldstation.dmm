@@ -76180,7 +76180,6 @@
 	},
 /area/station/medical/surgery/primary)
 "ovT" = (
-/obj/machinery/power/apc/directional/south,
 /obj/machinery/camera{
 	c_tag = "Fore Primary Hall";
 	dir = 1
@@ -96402,11 +96401,6 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/ce)
