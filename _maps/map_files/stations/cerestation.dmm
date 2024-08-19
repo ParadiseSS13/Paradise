@@ -4841,8 +4841,8 @@
 /area/station/maintenance/apmaint)
 "aHk" = (
 /obj/machinery/door_control{
-	id = "bridge";
-	name = "Bridge Lockdown";
+	id = "bridge_lower";
+	name = "Lower Bridge Lockdown";
 	pixel_y = 24;
 	req_one_access_txt = "19;14"
 	},
@@ -4850,6 +4850,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/door_control{
+	id = "bridge_upper";
+	name = "Upper Bridge Lockdown";
+	pixel_y = 32;
+	req_one_access_txt = "19;14"
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/bridge)
@@ -20847,15 +20853,15 @@
 /area/station/command/bridge)
 "cpk" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge";
-	layer = 2.6;
-	name = "Emergency Blast Door"
-	},
 /obj/machinery/door/airlock/command/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "bridge_upper";
+	layer = 2.6;
+	name = "Emergency Blast Door"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24214,11 +24220,6 @@
 /area/station/command/office/hop)
 "cMa" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge";
-	layer = 2.6;
-	name = "Emergency Blast Door"
-	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Foyer"
 	},
@@ -24227,6 +24228,11 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "bridge"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "bridge_lower";
+	layer = 2.6;
+	name = "Emergency Blast Door"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -24242,11 +24248,6 @@
 /turf/simulated/floor/plating,
 /area/station/legal/magistrate)
 "cMm" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge";
-	layer = 2.6;
-	name = "Emergency Blast Door"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Foyer"
@@ -24256,6 +24257,11 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "bridge"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "bridge_lower";
+	layer = 2.6;
+	name = "Emergency Blast Door"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -67267,13 +67273,13 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge";
+	id_tag = "bridge_upper";
 	layer = 2.6;
 	name = "Emergency Blast Door"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "oxO" = (
@@ -71567,16 +71573,16 @@
 	},
 /area/station/service/barber)
 "pOl" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge";
-	layer = 2.6;
-	name = "Emergency Blast Door"
-	},
 /obj/machinery/door/airlock/command/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "bridge_upper";
+	layer = 2.6;
+	name = "Emergency Blast Door"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74900,7 +74906,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge";
+	id_tag = "bridge_lower";
 	layer = 2.6;
 	name = "Emergency Blast Door"
 	},
@@ -88671,7 +88677,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge";
+	id_tag = "bridge_upper";
 	layer = 2.6;
 	name = "Emergency Blast Door"
 	},
@@ -92816,7 +92822,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge";
+	id_tag = "bridge_lower";
 	layer = 2.6;
 	name = "Emergency Blast Door"
 	},
@@ -99119,6 +99125,19 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
+"xPq" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/orange{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "bridge_upper";
+	layer = 2.6;
+	name = "Emergency Blast Door"
+	},
+/turf/simulated/floor/plating,
+/area/station/command/bridge)
 "xPv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -133969,7 +133988,7 @@ bYn
 cdf
 tpA
 oKm
-eMh
+xPq
 djy
 pGv
 kOs
