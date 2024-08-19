@@ -30,6 +30,12 @@
 		ability_list = get_spells_of_type(FLAYER_PURCHASABLE_POWER)
 		ability_list += get_passives_of_type(FLAYER_PURCHASABLE_POWER)
 
+/datum/antagonist/mindflayer/Destroy(force, ...)
+	QDEL_NULL(owner.current.hud_used.vampire_blood_display)
+	remove_all_abilities()
+	remove_all_passives()
+	..()
+
 // This proc adds extra things, and base abilities that the mindflayer should get upon becoming a mindflayer
 /datum/antagonist/mindflayer/on_gain()
 	. = ..()
@@ -84,7 +90,7 @@
 	if(!(drained_humans[unique_drain_id]))
 		drained_humans[unique_drain_id] = 0
 	else
-		return drained_humans[unique_drain_id] <= BRAIN_DRAIN_LIMIT //TODO better feedback on trying to drain past the limit
+		return drained_humans[unique_drain_id] < BRAIN_DRAIN_LIMIT //TODO better feedback on trying to drain past the limit
 	return TRUE
 
 /**
