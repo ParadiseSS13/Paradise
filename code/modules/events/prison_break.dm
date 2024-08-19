@@ -46,7 +46,7 @@
 		var/my_department = "[station_name()] firewall subroutines"
 		var/rc_message = "An unknown malicious program has been detected in the [english_list(areaName)] lighting and airlock control systems at [station_time_timestamp()]. Systems will be fully compromised within approximately one minute. Direct intervention is required immediately.<br>"
 		for(var/obj/machinery/message_server/MS in GLOB.machines)
-			MS.send_rc_message("Engineering", my_department, rc_message, "", "", 2)
+			MS.send_rc_message("Engineering", my_department, rc_message, "", "", RQ_HIGHPRIORITY)
 	else
 		stack_trace("Could not initiate grey-tide. Unable to find suitable containment area.")
 		kill()

@@ -21,6 +21,8 @@
 	desc = "Feminine fashion for the style conscious RD."
 	icon_state = "dress_rd"
 	item_color = "dress_rd"
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/rnd/scientist
 	name = "scientist's jumpsuit"

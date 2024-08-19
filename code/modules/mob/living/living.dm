@@ -306,7 +306,10 @@
 	if(stat == DEAD)
 		// cancel em out if they died while they had the message box up
 		last_words = null
-
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
+		last_words = null
+		return
 	if(!isnull(last_words))
 		create_log(MISC_LOG, "gave their final words, [last_words]")
 		src.last_words = last_words  // sorry

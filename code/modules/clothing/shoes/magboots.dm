@@ -3,6 +3,12 @@
 	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
 	icon_state = "magboots0"
 	origin_tech = "materials=3;magnets=4;engineering=4"
+	dyeable = FALSE
+	actions_types = list(/datum/action/item_action/toggle)
+	strip_delay = 7 SECONDS
+	put_on_delay = 7 SECONDS
+	resistance_flags = FIRE_PROOF
+
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -10,10 +16,6 @@
 	var/magpulse_name = "mag-pulse traction system"
 	///If a pair of magboots has different icons for being on or off
 	var/multiple_icons = TRUE
-	actions_types = list(/datum/action/item_action/toggle)
-	strip_delay = 70
-	put_on_delay = 70
-	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/shoes/magboots/water_act(volume, temperature, source, method)
 	. = ..()
