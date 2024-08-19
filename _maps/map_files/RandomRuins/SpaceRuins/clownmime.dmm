@@ -5,11 +5,11 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "aU" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "bz" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/bananium,
@@ -18,16 +18,16 @@
 /obj/effect/spawner/window/shuttle,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "cB" = (
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "cD" = (
 /obj/machinery/power/smes,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "cJ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -38,25 +38,26 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "ex" = (
 /obj/structure/shuttle/engine/huge{
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "eQ" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "fo" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "fN" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -69,29 +70,32 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "gE" = (
-/obj/structure/largecrate,
 /obj/item/grenade/bananade,
 /obj/item/reagent_containers/drinks/bottle/bottleofbanana,
+/obj/structure/closet/crate/freezer,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"gS" = (
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
 "hk" = (
 /obj/effect/landmark/damageturf,
 /obj/item/clothing/head/helmet/space/eva/clown,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "hu" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "hz" = (
 /obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "hC" = (
 /obj/machinery/computer/nonfunctional,
 /obj/structure/window/reinforced{
@@ -101,37 +105,45 @@
 /area/ruin/space/powered)
 "hD" = (
 /obj/structure/cable{
-	icon_state = "0-8"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "ie" = (
 /obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "ii" = (
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "ik" = (
 /obj/item/stack/sheet/wood,
 /obj/effect/landmark/burnturf,
 /obj/machinery/light,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "in" = (
 /obj/effect/mob_spawn/human/corpse/clown,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "iK" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "jW" = (
 /obj/structure/chair/comfy/shuttle{
@@ -142,7 +154,7 @@
 "ku" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "kv" = (
 /obj/machinery/door/airlock/external/glass,
 /turf/simulated/floor/mineral/tranquillite,
@@ -152,30 +164,28 @@
 	name = "Bridge"
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "lS" = (
-/obj/effect/mob_spawn/human/corpse/clown{
-	name = "Clown Pilot"
-	},
-/obj/effect/spawner/random_spawners/blood_often,
 /obj/machinery/light,
+/obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "me" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "mp" = (
-/obj/effect/mob_spawn/human/corpse/clown,
 /obj/effect/decal/cleanable/blood/old,
+/obj/effect/mob_spawn/human/corpse/mime,
+/obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "mG" = (
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "mX" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1
@@ -183,7 +193,7 @@
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/cap,
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "nF" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -195,22 +205,31 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"nL" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
 "nN" = (
 /obj/machinery/power/terminal{
 	dir = 8
 	},
 /obj/structure/cable{
+	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"nX" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/space/clown_mime_ruin)
 "ok" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "on" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -218,7 +237,7 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "pj" = (
 /obj/effect/landmark/damageturf,
 /obj/item/stack/sheet/wood,
@@ -226,10 +245,10 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "pB" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "qc" = (
 /obj/effect/decal/cleanable/blood,
@@ -237,9 +256,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "qf" = (
-/obj/structure/largecrate,
 /obj/item/stack/ore/bananium,
 /obj/item/stack/ore/bananium,
 /obj/item/stack/ore/bananium,
@@ -250,48 +268,50 @@
 /obj/item/stack/ore/bananium,
 /obj/item/stack/ore/bananium,
 /obj/item/stack/ore/bananium,
+/obj/structure/closet/crate,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "qh" = (
 /turf/template_noop,
 /area/template_noop)
 "qp" = (
-/obj/structure/largecrate,
 /obj/item/stock_parts/cell/high,
 /obj/item/stack/cable_coil,
 /obj/item/multitool,
+/obj/structure/closet/crate/engineering,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "qw" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "qE" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "qJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "qV" = (
 /obj/machinery/atmospherics/unary/tank/toxins{
 	dir = 4
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "qW" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "rg" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -301,12 +321,19 @@
 	},
 /turf/simulated/floor/mineral/tranquillite,
 /area/ruin/space/powered)
+"ri" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
 "rR" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "rY" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -320,12 +347,14 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
+/obj/effect/mob_spawn/human/corpse/mime,
+/obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "sZ" = (
 /obj/machinery/door/airlock/external/glass,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "tg" = (
 /obj/item/flag/mime,
 /turf/simulated/floor/mineral/tranquillite,
@@ -336,13 +365,13 @@
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "tI" = (
-/obj/structure/largecrate,
 /obj/item/reagent_containers/drinks/bottle/bottleofnothing,
 /obj/item/reagent_containers/drinks/bottle/bottleofnothing,
+/obj/structure/closet/crate/freezer,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "tN" = (
 /turf/simulated/wall/mineral/plastitanium/interior,
 /area/ruin/space/powered)
@@ -350,25 +379,44 @@
 /obj/effect/landmark/damageturf,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "uE" = (
-/obj/effect/mob_spawn/human/corpse/clown/officer,
 /obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/mob_spawn/human/corpse/mime{
+	name = "Mime Pilot"
+	},
 /turf/simulated/floor/mineral/tranquillite,
 /area/ruin/space/powered)
 "vu" = (
 /obj/effect/decal/cleanable/blood/gibs/robot,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "vz" = (
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"vC" = (
+/obj/effect/mob_spawn/human/corpse/clown{
+	name = "Clown Pilot"
+	},
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
 "wb" = (
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"wp" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
+"wL" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
 "wP" = (
-/obj/structure/largecrate,
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
@@ -379,10 +427,10 @@
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare/glowstick/random,
 /obj/item/flashlight/flare/glowstick/random,
+/obj/structure/closet/crate,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "wU" = (
-/obj/structure/largecrate,
 /obj/item/stack/ore/tranquillite,
 /obj/item/stack/ore/tranquillite,
 /obj/item/stack/ore/tranquillite,
@@ -393,8 +441,15 @@
 /obj/item/stack/ore/tranquillite,
 /obj/item/stack/ore/tranquillite,
 /obj/item/stack/ore/tranquillite,
+/obj/structure/closet/crate,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"xm" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/mob_spawn/human/corpse/clown,
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
 "xB" = (
 /turf/simulated/floor/mineral/tranquillite,
 /area/ruin/space/powered)
@@ -411,12 +466,17 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "zy" = (
 /obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/landmark/burnturf,
+/obj/item/gun/energy/clown,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"zz" = (
+/obj/effect/landmark/damageturf,
+/obj/structure/largecrate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
 "Ab" = (
 /turf/simulated/floor/plasteel/stairs{
 	dir = 1
@@ -427,7 +487,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Au" = (
 /obj/machinery/door/airlock/external/glass,
 /turf/simulated/floor/mineral/bananium,
@@ -441,26 +501,32 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "AT" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/off_station/empty_charge/directional/east,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Bb" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "BE" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
+/obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "BW" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "BZ" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -472,34 +538,29 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "Cs" = (
-/turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
-"CK" = (
 /obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Dj" = (
-/obj/structure/largecrate,
 /obj/item/toy/AI,
 /obj/item/toy/plushie/lizardplushie,
 /obj/item/toy/plushie/voxplushie,
 /obj/item/toy/plushie/greyplushie,
+/obj/structure/closet/crate/plastic,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "DZ" = (
-/obj/structure/largecrate,
 /obj/item/pickaxe,
 /obj/item/t_scanner/adv_mining_scanner/lesser,
 /obj/item/shovel,
 /obj/item/storage/box/emptysandbags,
+/obj/structure/closet/crate,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Ee" = (
-/obj/structure/largecrate,
 /obj/item/beach_ball/baseball,
 /obj/item/clothing/shoes/black,
 /obj/item/clothing/under/color/white,
@@ -508,48 +569,54 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/closet/crate,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "EY" = (
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "Fm" = (
-/turf/simulated/wall/mineral/titanium/nosmooth,
-/area/ruin/space/unpowered)
+/turf/simulated/wall/mineral/titanium/interior,
+/area/ruin/space/clown_mime_ruin)
 "FW" = (
 /obj/effect/mob_spawn/human/corpse/mime,
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Gq" = (
 /obj/machinery/light,
 /obj/machinery/computer/nonfunctional{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Gx" = (
 /obj/effect/landmark/damageturf,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "GS" = (
-/obj/effect/landmark/damageturf,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"Ht" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/mineral/titanium,
+/area/ruin/space/clown_mime_ruin)
 "HP" = (
-/obj/structure/chair/comfy/shuttle,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/bananium,
 /area/ruin/space/powered)
 "Il" = (
@@ -557,33 +624,35 @@
 	name = "Engineering"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"IR" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
 "IU" = (
 /obj/item/flag/clown,
 /turf/simulated/floor/mineral/bananium,
 /area/ruin/space/powered)
 "Kk" = (
 /obj/machinery/light,
+/obj/structure/largecrate,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Ln" = (
 /obj/machinery/atmospherics/unary/tank/toxins{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"Lp" = (
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "LC" = (
-/obj/effect/mob_spawn/human/corpse/mime{
-	name = "Mime Pilot"
-	},
-/obj/effect/landmark/damageturf,
 /obj/effect/landmark/burnturf,
+/obj/effect/mob_spawn/human/corpse/clown/officer,
+/obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "LF" = (
 /turf/simulated/wall/mineral/plastitanium/interior,
 /area/ruin/space/unpowered)
@@ -593,30 +662,32 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "MF" = (
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "MI" = (
+/obj/effect/landmark/burnturf,
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "MP" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "NL" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Oc" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Oz" = (
 /obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/mineral/tranquillite,
@@ -624,37 +695,48 @@
 "OK" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Pt" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "QS" = (
 /obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"RY" = (
+/turf/template_noop,
+/area/space/nearstation)
 "Se" = (
 /obj/effect/decal/cleanable/blood/slime/streak,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "SH" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "TC" = (
 /obj/effect/landmark/damageturf,
 /obj/effect/landmark/burnturf,
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"TG" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
 "UC" = (
 /turf/simulated/floor/mineral/bananium,
 /area/ruin/space/powered)
@@ -664,6 +746,11 @@
 	},
 /turf/simulated/floor/mineral/tranquillite,
 /area/ruin/space/powered)
+"Vh" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
 "Vo" = (
 /obj/machinery/computer/nonfunctional{
 	dir = 1
@@ -674,49 +761,62 @@
 /obj/effect/landmark/damageturf,
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "VH" = (
 /obj/effect/landmark/damageturf,
 /obj/item/clothing/head/helmet/space/eva/mime,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "VL" = (
 /obj/effect/mob_spawn/human/corpse/mime,
+/obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Wh" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Xb" = (
 /obj/effect/mob_spawn/human/corpse/clown/soldier,
-/obj/effect/landmark/burnturf,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/landmark/burnturf,
+/obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/mineral/titanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Xi" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay"
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
 "Xq" = (
-/turf/simulated/wall/mineral/titanium/nosmooth,
+/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/ruin/space/powered)
-"Yq" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/random_spawners/blood_often,
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/unpowered)
-"YN" = (
+"Xu" = (
 /obj/effect/mob_spawn/human/corpse/mime,
-/obj/effect/decal/cleanable/blood/slime,
+/obj/effect/landmark/damageturf,
+/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/mineral/plastitanium,
-/area/ruin/space/unpowered)
+/area/ruin/space/clown_mime_ruin)
+"Yq" = (
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
+"YN" = (
+/obj/effect/decal/cleanable/blood/slime,
+/obj/effect/mob_spawn/human/corpse/clown,
+/obj/effect/landmark/damageturf,
+/obj/effect/spawner/random_spawners/blood_often,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/clown_mime_ruin)
 
 (1,1,1) = {"
 qh
@@ -838,14 +938,14 @@ qh
 qh
 Fm
 Fm
-Fm
+nX
 mG
-Oc
-zy
+wL
+Ht
 hz
 aU
 ie
-Fm
+nX
 Fm
 Fm
 qh
@@ -865,16 +965,16 @@ qh
 qh
 qh
 Fm
-Fm
-Fm
-Fm
-Fm
+nX
+nX
+nX
+nX
 kQ
 kQ
-Fm
-Fm
-Fm
-Fm
+nX
+nX
+nX
+nX
 Fm
 qh
 qh
@@ -892,18 +992,18 @@ qh
 qh
 qh
 qh
-Fm
+nX
 vz
-vz
+Bb
 YN
-Fm
-CK
+nX
+Cs
 OK
-Fm
+nX
 wP
 Bb
 TC
-Fm
+nX
 tN
 tN
 tN
@@ -920,15 +1020,15 @@ qh
 qh
 qh
 qh
-Fm
+nX
 vz
 qp
 Dj
-Fm
+nX
 OK
 OK
-Fm
-Bb
+nX
+zz
 Gx
 tN
 tN
@@ -948,14 +1048,14 @@ qh
 qh
 qh
 qh
-Fm
+nX
 mp
 vz
 Kk
-Fm
+nX
 Se
 lS
-Fm
+nX
 pj
 Gx
 kv
@@ -976,12 +1076,12 @@ qh
 qh
 qh
 qh
-Fm
+nX
 gE
 ii
 Vq
 BW
-Cs
+gS
 hz
 BW
 Aj
@@ -1005,17 +1105,17 @@ tN
 tN
 tN
 Xq
-Gx
+Bb
 Bb
 ub
 Xi
-Cs
-Cs
+vC
+gS
 Xi
 tz
 VH
 Gx
-Fm
+nX
 tN
 tN
 tN
@@ -1034,16 +1134,16 @@ Vo
 tN
 tN
 tN
-Gx
-ub
+Bb
+Vh
 Xi
-Cs
-Cs
+gS
+gS
 Xi
 qc
 VL
 DZ
-Fm
+nX
 qh
 qh
 qh
@@ -1062,7 +1162,7 @@ UC
 UC
 UC
 Au
-Gx
+Bb
 GS
 BW
 hz
@@ -1071,7 +1171,7 @@ BW
 ok
 vz
 vz
-Fm
+nX
 qh
 qh
 qh
@@ -1090,16 +1190,16 @@ IU
 LF
 tN
 tN
-Gx
+Bb
 ik
-Fm
+nX
 FW
-CK
-Fm
+Cs
+nX
 Ee
-vz
+wp
 tI
-Fm
+nX
 qh
 qh
 qh
@@ -1117,17 +1217,17 @@ tN
 tN
 tN
 Xq
-Gx
+xm
 hk
 qf
-Fm
-Cs
+nX
+gS
 OK
-Fm
+nX
 wU
-vz
-vz
-Fm
+wp
+Xu
+nX
 qh
 qh
 qh
@@ -1144,18 +1244,18 @@ qh
 qh
 qh
 qh
-Fm
+nX
 qf
 qf
-Fm
-Fm
-Cs
-Cs
-Fm
-Fm
+nX
+nX
+gS
+gS
+nX
+nX
 wU
 wU
-Fm
+nX
 qh
 qh
 qh
@@ -1172,18 +1272,18 @@ qh
 qh
 qh
 qh
-Fm
-Fm
-Fm
-Fm
+nX
+nX
+nX
+nX
 Xb
-zy
-Cs
+Ht
+gS
 qw
-Fm
-Fm
-Fm
-Fm
+nX
+nX
+nX
+nX
 qh
 qh
 qh
@@ -1204,10 +1304,10 @@ sZ
 qJ
 wb
 sZ
-zy
-CK
-OK
+Ht
 Cs
+OK
+gS
 sZ
 wb
 qE
@@ -1229,12 +1329,12 @@ qh
 qh
 qh
 sZ
-qJ
-me
+ri
+IR
 sZ
-Cs
+gS
 OK
-Cs
+gS
 Cs
 sZ
 me
@@ -1256,18 +1356,18 @@ qh
 qh
 qh
 qh
-Fm
-Fm
-Fm
-Fm
+nX
+nX
+nX
+nX
 Il
 bM
 BW
 Il
-Fm
-Fm
-Fm
-Fm
+nX
+nX
+nX
+nX
 qh
 qh
 qh
@@ -1284,8 +1384,8 @@ qh
 qh
 qh
 qh
-Fm
-Fm
+nX
+nX
 qV
 eQ
 cB
@@ -1294,8 +1394,8 @@ cD
 MI
 cS
 Ln
-Fm
-Fm
+nX
+nX
 qh
 qh
 qh
@@ -1316,10 +1416,10 @@ rR
 mX
 MP
 cB
-Lp
+nL
 nN
 nN
-MI
+nL
 MI
 sJ
 Ax
@@ -1344,12 +1444,12 @@ rR
 mX
 MP
 in
-Lp
+MI
 Yq
 hD
 MI
-MI
-sJ
+nL
+TG
 Ax
 ku
 qh
@@ -1368,8 +1468,8 @@ qh
 qh
 qh
 qh
-Fm
-Fm
+nX
+nX
 on
 qW
 ax
@@ -1378,8 +1478,8 @@ AT
 BE
 SH
 fo
-Fm
-Fm
+nX
+nX
 qh
 qh
 qh
@@ -1397,16 +1497,16 @@ qh
 qh
 qh
 qh
-Fm
+nX
 nF
 nF
 nF
-Fm
-Fm
+nX
+nX
 nF
 nF
 nF
-Fm
+nX
 qh
 qh
 qh
@@ -1429,8 +1529,8 @@ Fm
 MF
 MF
 ex
-Fm
-Fm
+nX
+nX
 MF
 MF
 ex
@@ -1457,8 +1557,8 @@ Fm
 MF
 MF
 MF
-Fm
-Fm
+nX
+nX
 MF
 MF
 MF
@@ -1482,14 +1582,14 @@ qh
 qh
 qh
 qh
+RY
+RY
+RY
 qh
 qh
-qh
-qh
-qh
-qh
-qh
-qh
+RY
+RY
+RY
 qh
 qh
 qh
