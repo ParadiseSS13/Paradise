@@ -20,7 +20,7 @@ const Recipes = (props, context) => {
   const { amount, recipes } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
-  const filteredRecipes = filterRecipeList(recipes, createSearch(searchText, item));
+  const filteredRecipes = filterRecipeList(recipes, createSearch(searchText));
   const [searchActive, setSearchActive] = useLocalState(context, '', false);
 
   return (

@@ -160,12 +160,10 @@
 	if(!brainmob)
 		return
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			brainmob.emp_damage += rand(20, 30)
-		if(2)
+		if(EMP_LIGHT)
 			brainmob.emp_damage += rand(10, 20)
-		if(3)
-			brainmob.emp_damage += rand(0, 10)
 	..()
 
 /obj/item/mmi/robotic_brain/New()
