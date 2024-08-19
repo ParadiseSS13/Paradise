@@ -181,10 +181,6 @@
 	var/on = FALSE
 	/// Is the light currently turning on?
 	var/turning_on = FALSE
-	/// If the light state has changed since the last 'update()', also update the power requirements
-	var/light_state = FALSE
-	/// How much power does it use?
-	var/static_power_used = 0
 	/// Light range (Also used in power calculation)
 	var/brightness_range = 8
 	/// Light intensity
@@ -371,17 +367,10 @@
 	else if(!turned_off())
 		set_emergency_lights()
 	else // Turning off
-		change_power_mode(IDLE_POWER_USE)
+		change_power_mode(NO_POWER_USE)
 		set_light(0)
 	update_icon()
-	active_power_consumption = (brightness_range * 10)
-	if(on != light_state) // Light was turned on/off, so update the power usage
-		light_state = on
-		if(on)
-			static_power_used = brightness_range * 20 //20W per unit of luminosity
-			add_static_power(PW_CHANNEL_LIGHTING, static_power_used)
-		else
-			remove_static_power(PW_CHANNEL_LIGHTING, static_power_used)
+	update_active_power_consumption(PW_CHANNEL_LIGHTING, brightness_range * 10)
 
 
 /**

@@ -159,7 +159,7 @@
 	return TRUE
 
 /obj/structure/proc/get_climb_text()
-	return "<span class='info'>You can <b>Click-Drag</b> yourself to [src] to climb on top of it after a short delay.</span>"
+	return "<span class='notice'>You can <b>Click-Drag</b> yourself to [src] to climb on top of it after a short delay.</span>"
 
 /obj/structure/examine(mob/user)
 	. = ..()

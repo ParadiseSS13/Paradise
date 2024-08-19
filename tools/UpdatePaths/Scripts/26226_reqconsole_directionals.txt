@@ -1,0 +1,17 @@
+/obj/machinery/requests_console{department="Security";departmentType=5;pixel_x=30} : /obj/machinery/requests_console/directional/east{department="Security";departmentType=5}
+/obj/machinery/requests_console{dir=1;pixel_y=-30} : /obj/machinery/requests_console/directional/south
+/obj/machinery/requests_console{dir=4;pixel_x=-30} : /obj/machinery/requests_console/directional/west
+/obj/machinery/requests_console{dir=8;pixel_x=30} : /obj/machinery/requests_console/directional/east
+/obj/machinery/requests_console{pixel_x=-30} : /obj/machinery/requests_console/directional/west
+/obj/machinery/requests_console{pixel_x=-32} : /obj/machinery/requests_console/directional/west
+/obj/machinery/requests_console{pixel_x=30} : /obj/machinery/requests_console/directional/east
+/obj/machinery/requests_console{pixel_x=32;pixel_y=-32} : /obj/machinery/requests_console/directional/east{pixel_y=-30}
+/obj/machinery/requests_console{pixel_x=32;pixel_y=32} : /obj/machinery/requests_console/directional/east{pixel_y=30}
+/obj/machinery/requests_console{pixel_x=32} : /obj/machinery/requests_console/directional/east
+/obj/machinery/requests_console{pixel_y=-28} : /obj/machinery/requests_console/directional/south
+/obj/machinery/requests_console{pixel_y=-29} : /obj/machinery/requests_console/directional/south
+/obj/machinery/requests_console{pixel_y=-30} : /obj/machinery/requests_console/directional/south
+/obj/machinery/requests_console{pixel_y=-32} : /obj/machinery/requests_console/directional/south
+/obj/machinery/requests_console{pixel_y=29} : /obj/machinery/requests_console/directional/north
+/obj/machinery/requests_console{pixel_y=30} : /obj/machinery/requests_console/directional/north
+/obj/machinery/requests_console{pixel_y=32} : /obj/machinery/requests_console/directional/north

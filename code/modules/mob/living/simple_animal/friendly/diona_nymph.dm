@@ -205,6 +205,8 @@
 	adult.real_name = adult.name
 	adult.ckey = ckey
 	adult.real_name = adult.dna.species.get_random_name()	//I hate this being here of all places but unfortunately dna is based on real_name!
+	// [Nymph -> Diona] is from xenobio (or botany) and does not give vampires usuble blood and cannot be converted by cult.
+	ADD_TRAIT(adult.mind, TRAIT_XENOBIO_SPAWNED_HUMAN, ROUNDSTART_TRAIT)
 
 	for(var/obj/item/W in contents)
 		unEquip(W)

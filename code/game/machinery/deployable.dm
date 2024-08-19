@@ -397,7 +397,7 @@
 		qdel(src)
 
 /obj/structure/dropwall_generator/ex_act(severity)
-	if(protected && severity > 1) //We would throw the explosion at the shield, but it is already getting hit
+	if(protected && severity > EXPLODE_DEVASTATE) //We would throw the explosion at the shield, but it is already getting hit
 		return
 	qdel(src)
 

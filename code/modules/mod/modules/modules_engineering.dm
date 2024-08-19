@@ -114,6 +114,9 @@
 	return ..()
 
 /obj/item/mod/module/tether/on_select_use(atom/target)
+	if(get_turf(target) == get_turf(src)) // Put this check before the parent call so the cooldown won't start if it fails
+		return FALSE
+
 	. = ..()
 	if(!.)
 		return
