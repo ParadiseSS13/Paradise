@@ -26,6 +26,15 @@
 /area/ruin/space/clown_mime_ruin)
 "cD" = (
 /obj/machinery/power/smes,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "cJ" = (
@@ -113,6 +122,11 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
@@ -477,6 +491,14 @@
 /obj/structure/largecrate,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
+"zU" = (
+/obj/machinery/power/smes,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
 "Ab" = (
 /turf/simulated/floor/plasteel/stairs{
 	dir = 1
@@ -572,6 +594,15 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
+"EQ" = (
+/obj/effect/landmark/damageturf,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
 "EY" = (
 /obj/structure/window/reinforced,
 /obj/structure/shuttle/engine/heater{
@@ -581,6 +612,15 @@
 /area/ruin/space/powered)
 "Fm" = (
 /turf/simulated/wall/mineral/titanium/interior,
+/area/ruin/space/clown_mime_ruin)
+"Fq" = (
+/obj/effect/landmark/burnturf,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/clown_mime_ruin)
 "FW" = (
 /obj/effect/mob_spawn/human/corpse/mime,
@@ -636,6 +676,15 @@
 /obj/item/flag/clown,
 /turf/simulated/floor/mineral/bananium,
 /area/ruin/space/powered)
+"Ke" = (
+/obj/effect/landmark/burnturf,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/clown_mime_ruin)
 "Kk" = (
 /obj/machinery/light,
 /obj/structure/largecrate,
@@ -1389,9 +1438,9 @@ nX
 qV
 eQ
 cB
+zU
 cD
-cD
-MI
+Fq
 cS
 Ln
 nX
@@ -1419,7 +1468,7 @@ cB
 nL
 nN
 nN
-nL
+EQ
 MI
 sJ
 Ax
@@ -1447,7 +1496,7 @@ in
 MI
 Yq
 hD
-MI
+Ke
 nL
 TG
 Ax
