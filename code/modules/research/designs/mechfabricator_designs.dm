@@ -615,6 +615,24 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_toolkit
+	name = "Exosuit Engineering Equipment (Mounted toolkit)"
+	id = "mech_toolkit"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/mech_toolkit
+	materials = list(MAT_METAL= 23000, MAT_TITANIUM = 1000)
+	construction_time = 25 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_cruser
+	name = "Exosuit Mining Equipment (Mounted crusher)"
+	id = "mech_crusher"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/mech_crusher
+	materials = list(MAT_METAL= 23000, MAT_TITANIUM = 8000)
+	construction_time = 25 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_extinguisher
 	name = "Exosuit Engineering Equipment (Extinguisher)"
 	id = "mech_extinguisher"
