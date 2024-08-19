@@ -19,8 +19,6 @@
 #define WIRE_MECH_DNA "Wire DNA"
 /// Random direction
 #define WIRE_MECH_DIRECTION "Mech direction"
-/// Toggles strafing
-#define WIRE_MECH_STRAFE "Mech strafe"
 /// Random since you aren't the internal computer telling it how to do stuff
 #define WIRE_MECH_SELECT_MODULE "Mech module selection"
 /// Random turfs infront of the mech (a ton or few depending on the range)

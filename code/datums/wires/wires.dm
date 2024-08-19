@@ -167,13 +167,8 @@
 		// Toggles the cut/mend status.
 		if("cut")
 			if(!istype(I, /obj/item/wirecutters) && !user.can_admin_interact())
-				if(ismecha(user.loc))
-					var/obj/mecha/mech = user.loc
-					if(!mech.equipment.Find(/obj/item/mecha_parts/mecha_equipment/mech_toolkit))
-						return
-				else
-					to_chat(user, "<span class='error'>You need wirecutters!</span>")
-					return
+				to_chat(user, "<span class='error'>You need wirecutters!</span>")
+				return
 
 			if(istype(I))
 				playsound(holder, I.usesound, 20, 1)
@@ -183,13 +178,8 @@
 		// Pulse a wire.
 		if("pulse")
 			if(!istype(I, /obj/item/multitool) && !user.can_admin_interact())
-				if(ismecha(user.loc))
-					var/obj/mecha/mech = user.loc
-					if(!mech.equipment.Find(/obj/item/mecha_parts/mecha_equipment/mech_toolkit))
-						return
-				else
-					to_chat(user, "<span class='error'>You need a multitool!</span>")
-					return
+				to_chat(user, "<span class='error'>You need a multitool!</span>")
+				return
 
 			playsound(holder, 'sound/weapons/empty.ogg', 20, 1)
 			pulse_color(color)

@@ -17,7 +17,6 @@
 	maxsize = 2
 	step_energy_drain = 3
 	normal_step_energy_drain = 3
-	strafing_flags = MECH_STRAFING_SIDEWAYS | MECH_STRAFING_BACKWARDS
 
 /obj/mecha/combat/gygax/GrantActions(mob/living/user, human_occupant = 0)
 	..()

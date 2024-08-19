@@ -5,7 +5,7 @@
 	proper_name = "Mecha"
 
 /datum/wires/mech/New(atom/_holder)
-	wires = list(WIRE_MECH_DIRECTION, WIRE_MECH_DNA, WIRE_MECH_POWER , WIRE_MECH_SELECT_MODULE, WIRE_MECH_STRAFE, WIRE_MECH_USE_MODULE, WIRE_MECH_WALK, WIRE_MECH_RADIO , WIRE_MECH_VISUALDATA)
+	wires = list(WIRE_MECH_DIRECTION, WIRE_MECH_DNA, WIRE_MECH_POWER , WIRE_MECH_SELECT_MODULE, WIRE_MECH_USE_MODULE, WIRE_MECH_WALK, WIRE_MECH_RADIO , WIRE_MECH_VISUALDATA)
 	return ..()
 
 /datum/wires/mech/interactable(mob/user)
@@ -18,7 +18,6 @@
 	. = ..()
 	. += "The high-voltage power indicator blinks [is_cut(WIRE_MECH_POWER) ? "red" : "green"]"
 	. += "The module selection data-bus indicator is [is_cut(WIRE_MECH_SELECT_MODULE) ? "off" : "on"]"
-	. += "The strafe CPU data-bus light is [is_cut(WIRE_MECH_STRAFE) ? "not blinking" : "blinking"]"
 	. += "The module data-transfer data-bus light is [is_cut(WIRE_MECH_USE_MODULE) ? "not blinking" : "blinking"]"
 	. += "The internal radio wire is [is_cut(WIRE_MECH_RADIO) ? "cut" : "intact"]"
 	. += "The internal gyroscope-direction assembly wire is [is_cut(WIRE_MECH_DIRECTION) ? "cut" : "intact"]"
@@ -34,8 +33,6 @@
 		if(WIRE_MECH_POWER)
 			return
 		if(WIRE_MECH_SELECT_MODULE)
-			return
-		if(WIRE_MECH_STRAFE)
 			return
 		if(WIRE_MECH_USE_MODULE)
 			return
@@ -76,10 +73,6 @@
 					thing = null
 				A.selected = thing
 				return
-		if(WIRE_MECH_STRAFE)
-			if(A.strafing_flags)
-				A.strafing_action.Activate(force = TRUE)
-			return
 		if(WIRE_MECH_USE_MODULE)
 			if(!A.selected)
 				return

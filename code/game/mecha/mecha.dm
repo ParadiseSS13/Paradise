@@ -44,10 +44,6 @@
 	var/repairing = FALSE
 	var/emp_proof = FALSE //If it is immune to emps
 	var/emag_proof = FALSE //If it is immune to emagging. Used by CC mechs.
-	/// Wheter the mech moves in a strafing motion
-	var/strafing = FALSE
-	/// The available modes of strafing
-	var/strafing_flags = MECH_STRAFING_SIDEWAYS
 	/// a list of all vision traits to give to the occupant.
 	var/list/vision_modes = list()
 	/// The current status of the mech maintenance panel , theres 5 states of progression (welder ,crowbar, welder ,crowbar , wirecutter) to forcing it open.
@@ -120,7 +116,6 @@
 	var/datum/action/innate/mecha/mech_view_stats/stats_action = new
 	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
 	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
-	var/datum/action/innate/mecha/mech_strafing_mode/strafing_action = new
 	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
 	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
 	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
@@ -373,26 +368,8 @@
 				to_chat(occupant, "<span class='notice'>Error transmitting direction-switch command to actuators.")
 				last_message = world.time
 			return
-		if(strafing)
-			if(internal_wiring.is_cut(WIRE_MECH_STRAFE))
-				if(world.time - last_message > 2 SECONDS)
-					to_chat(occupant, "<span class='notice'>Unable to strafe. No movement vectors received from onboard S-CPU")
-					last_message = world.time
-				return
-			var/old_dir = dir
-			if(strafing_flags & MECH_STRAFING_BACKWARDS && direction == REVERSE_DIR(dir))
-				move_result = mechstep(direction)
-				move_type = MECHAMOVE_STEP
-				dir = old_dir
-				step_malus = step_in
-			else if(strafing_flags & MECH_STRAFING_SIDEWAYS && direction & (turn(dir,90) | turn(dir,-90)))
-				move_result = mechstep(direction)
-				move_type = MECHAMOVE_STEP
-				dir = old_dir
-				step_malus = step_in * 0.6
-		else
-			move_result = mechturn(direction)
-			move_type = MECHAMOVE_TURN
+		move_result = mechturn(direction)
+		move_type = MECHAMOVE_TURN
 	else
 		move_result = mechstep(direction)
 		move_type = MECHAMOVE_STEP
