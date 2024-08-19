@@ -384,16 +384,6 @@
 	)
 	result = /obj/item/food/bearypie
 
-/datum/recipe/oven/grapetart
-	reagents = list("milk" = 5, "sugar" = 5)
-	items = list(
-		/obj/item/food/sliceable/flatdough,
-		/obj/item/food/grown/berries,
-		/obj/item/food/grown/berries,
-		/obj/item/food/grown/berries
-	)
-	result = /obj/item/food/grapetart
-
 /datum/recipe/oven/blumpkinpie
 	reagents = list("milk" = 5, "sugar" = 5)
 	items = list(
