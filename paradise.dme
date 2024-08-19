@@ -687,6 +687,7 @@
 #include "code\game\area\ss13_areas\legal_areas.dm"
 #include "code\game\area\ss13_areas\maintenance_areas.dm"
 #include "code\game\area\ss13_areas\medical_areas.dm"
+#include "code\game\area\ss13_areas\procedure_areas.dm"
 #include "code\game\area\ss13_areas\public_areas.dm"
 #include "code\game\area\ss13_areas\science_areas.dm"
 #include "code\game\area\ss13_areas\security_areas.dm"

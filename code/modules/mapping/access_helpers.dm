@@ -467,3 +467,10 @@
 
 /obj/effect/mapping_helpers/airlock/access/all/supply/mule_bot
 	access = ACCESS_CARGO_BOT
+
+// -------------------- Procedure access helpers
+/obj/effect/mapping_helpers/airlock/access/all/procedure
+	icon_state = "access_helper_pro"
+
+/obj/effect/mapping_helpers/airlock/access/all/procedure/trainer
+	access = ACCESS_TRAINER
