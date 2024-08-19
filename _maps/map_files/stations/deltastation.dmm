@@ -27351,9 +27351,6 @@
 /obj/item/radio/intercom/custom{
 	pixel_y = 25
 	},
-/obj/machinery/requests_console/directional/north{
-	pixel_x = 30
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
 "bCY" = (
@@ -81536,6 +81533,10 @@
 	icon_state = "darkred"
 	},
 /area/station/security/brig)
+"nYK" = (
+/obj/machinery/requests_console/directional/south,
+/turf/simulated/floor/plasteel/dark,
+/area/station/turret_protected/ai)
 "nYW" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -109471,7 +109472,7 @@ bBf
 bBf
 bIl
 bip
-bBf
+nYK
 bNM
 bPJ
 bRD
