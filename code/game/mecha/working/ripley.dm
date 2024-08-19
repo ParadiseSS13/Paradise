@@ -26,6 +26,9 @@
 	/// How many plates does the Ripley have? Does not stack with other armor
 	var/plates = 0
 
+
+	strafing_flags = MECH_STRAFING_SIDEWAYS
+
 /obj/mecha/working/ripley/Move()
 	. = ..()
 	if(.)
@@ -151,6 +154,7 @@
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
+	strafing_flags = MECH_STRAFING_SIDEWAYS | MECH_STRAFING_BACKWARDS
 
 /obj/mecha/working/ripley/firefighter/examine_more(mob/user)
 	..()
@@ -176,6 +180,7 @@
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 	normal_step_energy_drain = 0
+	strafing_flags = MECH_STRAFING_SIDEWAYS | MECH_STRAFING_BACKWARDS
 
 /obj/mecha/working/ripley/deathripley/Initialize(mapload)
 	. = ..()

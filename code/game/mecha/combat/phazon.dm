@@ -19,6 +19,7 @@
 	force = 15
 	phase_state = "phazon-phase"
 	max_equip = 3
+	strafing_flags = MECH_STRAFING_SIDEWAYS | MECH_STRAFING_BACKWARDS
 
 /obj/mecha/combat/phazon/GrantActions(mob/living/user, human_occupant = 0)
 	..()

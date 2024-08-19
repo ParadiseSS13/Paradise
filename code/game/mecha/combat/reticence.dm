@@ -19,6 +19,7 @@
 	stepsound = null
 	turnsound = null
 	starting_voice = /obj/item/mecha_modkit/voice/silent
+	strafing_flags = MECH_STRAFING_SIDEWAYS | MECH_STRAFING_BACKWARDS
 
 /obj/mecha/combat/reticence/loaded/Initialize(mapload)
 	. = ..()

@@ -44,6 +44,11 @@
 	var/emp_proof = FALSE //If it is immune to emps
 	var/emag_proof = FALSE //If it is immune to emagging. Used by CC mechs.
 
+	/// Wheter the mech moves in a strafing motion
+	var/strafing = FALSE
+	/// The available modes of strafing
+	var/strafing_flags = MECH_STRAFING_SIDEWAYS
+
 	//inner atmos
 	var/use_internal_tank = 0
 	var/internal_tank_valve = ONE_ATMOSPHERE
@@ -109,6 +114,7 @@
 	var/datum/action/innate/mecha/mech_toggle_lights/lights_action = new
 	var/datum/action/innate/mecha/mech_view_stats/stats_action = new
 	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
+	var/datum/action/innate/mecha/mech_strafing_mode/strafing_action = new
 	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
 	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
 	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
@@ -326,19 +332,33 @@
 		step_in = initial(step_in)
 	var/move_result = 0
 	var/move_type = 0
+	var/step_malus = 0
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
 	else if(dir != direction)
-		move_result = mechturn(direction)
-		move_type = MECHAMOVE_TURN
+		if(strafing)
+			var/old_dir = dir
+			if(strafing_flags & MECH_STRAFING_BACKWARDS && direction == REVERSE_DIR(dir))
+				move_result = mechstep(direction)
+				move_type = MECHAMOVE_STEP
+				dir = old_dir
+				step_malus = step_in
+			else if(strafing_flags & MECH_STRAFING_SIDEWAYS && direction & (turn(dir,90) | turn(dir,-90)))
+				move_result = mechstep(direction)
+				move_type = MECHAMOVE_STEP
+				dir = old_dir
+				step_malus = step_in * 0.6
+		else
+			move_result = mechturn(direction)
+			move_type = MECHAMOVE_TURN
 	else
 		move_result = mechstep(direction)
 		move_type = MECHAMOVE_STEP
 
 	if(move_result && move_type)
 		aftermove(move_type)
-		can_move = world.time + step_in
+		can_move = world.time + step_in + step_malus
 		return TRUE
 	return FALSE
 
