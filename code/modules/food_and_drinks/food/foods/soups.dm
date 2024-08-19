@@ -224,6 +224,15 @@
 	tastes = list("bitterness" = 1, "sourness" = 1, "nature" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
+/obj/item/food/soup/redporridge
+	name = "Eltsløsk ül a priktæolk" //eltsløsk = red porridge, ül a = with, prikt = sour, æolk = cream
+	desc = "Red porridge with yoghurt. The name and vegetable ingredients obscure the sweet nature of the dish, which is commonly served as a dessert aboard the fleet."
+	icon_state = "red_porridge"
+	filling_color = "#b36e40"
+	list_reagents = list("nutriment" = 6, "vitamin" = 2, "sugar" = 2, "yoghurt" = 2)
+	tastes = list("sweet beets" = 1, "sugar" = 1, "sweetened yoghurt" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
+
 
 //////////////////////
 //		Stews		//

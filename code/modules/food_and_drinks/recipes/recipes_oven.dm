@@ -102,16 +102,16 @@
 	)
 	result = /obj/item/food/moffin
 
-/datum/recipe/oven/angelcake
+/datum/recipe/oven/holy_cake
 	reagents = list("milk" = 5, "sugar" = 15, "holywater" = 15)
 	items = list(
 		/obj/item/food/dough,
 		/obj/item/food/dough,
 		/obj/item/food/dough
 	)
-	result = /obj/item/food/sliceable/angelcake
+	result = /obj/item/food/sliceable/holy_cake
 
-/datum/recipe/oven/chocolateberrycake
+/datum/recipe/oven/liarscake
 	reagents = list("milk" = 5, "sugar" = 15)
 	items = list(
 		/obj/item/food/dough,
@@ -125,7 +125,7 @@
 		/obj/item/food/chocolatebar,
 		/obj/item/food/chocolatebar
 	)
-	result = /obj/item/food/sliceable/chocolateberrycake
+	result = /obj/item/food/sliceable/liarscake
 
 /datum/recipe/oven/vanillaberrycake
 	reagents = list("milk" = 5, "sugar" = 15)
@@ -141,17 +141,7 @@
 	)
 	result = /obj/item/food/sliceable/vanillaberrycake
 
-/datum/recipe/oven/energycake
-	reagents = list("milk" = 5, "sugar" = 15)
-	items = list(
-		/obj/item/food/dough,
-		/obj/item/food/dough,
-		/obj/item/food/dough,
-		/obj/item/melee/energy/sword/saber
-	)
-	result = /obj/item/food/sliceable/energycake
-
-/datum/recipe/oven/circuitcake
+/datum/recipe/oven/hardware
 	reagents = list("milk" = 5, "sugar" = 15, "sacid" = 5)
 	items = list(
 		/obj/item/food/dough,
@@ -160,7 +150,7 @@
 		/obj/item/circuitboard,
 		/obj/item/circuitboard
 	)
-	result = /obj/item/food/sliceable/circuitcake
+	result = /obj/item/food/sliceable/hardwarecake
 
 /datum/recipe/oven/plumcake
 	reagents = list("milk" = 5, "sugar" = 15)
@@ -168,8 +158,8 @@
 		/obj/item/food/dough,
 		/obj/item/food/dough,
 		/obj/item/food/dough,
-//		/obj/item/food/grown/plum,
-//		/obj/item/food/grown/plum
+		/obj/item/food/grown/plum,
+		/obj/item/food/grown/plum
 	)
 	result = /obj/item/food/sliceable/plumcake
 
@@ -333,13 +323,13 @@
 	)
 	result = /obj/item/food/cherrycupcake
 
-/datum/recipe/oven/bluecherrycupcake
+/datum/recipe/oven/cherrycupcake/blue
 	reagents = list("milk" = 5, "sugar" = 5)
 	items = list(
 		/obj/item/food/dough,
 		/obj/item/food/grown/bluecherries
 	)
-	result = /obj/item/food/bluecherrycupcake
+	result = /obj/item/food/cherrycupcake/blue
 
 /datum/recipe/oven/oatmealcookie
 	reagents = list("milk" = 5, "sugar" = 5)
@@ -394,7 +384,7 @@
 	)
 	result = /obj/item/food/bearypie
 
-/datum/recipe/oven/berrytart
+/datum/recipe/oven/grapetart
 	reagents = list("milk" = 5, "sugar" = 5)
 	items = list(
 		/obj/item/food/sliceable/flatdough,
@@ -402,7 +392,7 @@
 		/obj/item/food/grown/berries,
 		/obj/item/food/grown/berries
 	)
-	result = /obj/item/food/berrypie
+	result = /obj/item/food/grapetart
 
 /datum/recipe/oven/blumpkinpie
 	reagents = list("milk" = 5, "sugar" = 5)
@@ -410,7 +400,7 @@
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/pumpkin/blumpkin
 	)
-	result = /obj/item/food/blumpkinpie
+	result = /obj/item/food/sliceable/blumpkinpie
 
 /datum/recipe/oven/chocolatelavatart
 	reagents = list("milk" = 5, "sugar" = 5)
@@ -430,14 +420,14 @@
 		/obj/item/food/chocolatebar,
 		/obj/item/food/chocolatebar
 	)
-	result = /obj/item/food/frenchsilkpie
+	result = /obj/item/food/sliceable/frenchsilkpie
 
 /datum/recipe/oven/frostypie
 	items = list(
 		/obj/item/food/sliceable/flatdough,
 		/obj/item/food/grown/bluecherries
 	)
-	result = /obj/item/food/frostypie
+	result = /obj/item/food/sliceable/frostypie
 
 /datum/recipe/oven/grapetart
 	reagents = list("milk = 5", "sugar" = 5)

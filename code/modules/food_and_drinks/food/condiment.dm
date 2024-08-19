@@ -30,6 +30,7 @@
 	"sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"),
 	"vinegar" = list("vinegar", "vinegar", "Perfect for chips, if you're feeling Space British."),
 	"mayonnaise" = list("mayonnaise", "mayonnaise bottle", "An oily condiment made from egg yolks."),
+	"yoghurt" = list("yoghurt", "yoghurt tub", "Some yoghurt, produced by bacterial fermentation of milk. Yum."),
 	"cherryjelly" = list("cherryjelly", "cherry jelly jar", "A sweet jelly made out of red cherries."),
 	"peanutbutter" = list("peanutbutter", "peanut butter jar", "A smooth, nutty spread. Perfect for sandwiches."),
 	"honey" = list("honey", "honey jar", "A sweet substance produced by bees."),
@@ -224,6 +225,13 @@
 	name = "mayonnaise"
 	desc = "An oily condiment made from egg yolks."
 	icon_state = "mayonnaise"
+	list_reagents = list("mayonnaise" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/condiment/yoghurt
+	name = "yoghurt"
+	desc = "Some yoghurt, produced by bacterial fermentation of milk. Yum."
+	icon_state = "yoghurt"
 	list_reagents = list("mayonnaise" = 50)
 	possible_states = list()
 

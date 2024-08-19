@@ -19,7 +19,7 @@
 	seed = /obj/item/seeds/plum
 	name = "plum"
 	desc = "A poet's favorite fruit. Noice."
-	icon_state = "plum
+	icon_state = "plum"
 	filling_color = "#F6CB0B"
 	bitesize = 100
 	tastes = list("plum" = 1)

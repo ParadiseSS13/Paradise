@@ -72,7 +72,7 @@
 /obj/item/food/curdcheese
 	name = "cheese curds"
 	desc = "Known by many names throughout human cuisine, curd cheese is useful for a wide variety of dishes."
-	icon_state = "cheesewheel"
+	icon_state = "cheese_curds"
 	filling_color = "#FFF700"
 	list_reagents = list("cheesecurd" = 4, "nutriment" = 3, "vitamin" = 1)
 
