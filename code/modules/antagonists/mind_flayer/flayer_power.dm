@@ -47,7 +47,16 @@
 	flayer = null
 	return ..()
 
-/datum/spell/flayer/can_cast(mob/user, charge_check, show_message)
+/datum/spell/flayer/create_new_handler()
+	var/datum/spell_handler/flayer/handler = new()
+	handler.checks_nullification = checks_nullification
+	return handler
+
+/datum/spell_handler/flayer
+	/// Do we check for nullification
+	var/checks_nullification = TRUE
+
+/datum/spell_handler/flayer/can_cast(mob/user, charge_check, show_message, datum/spell/spell)
 	var/datum/antagonist/mindflayer/flayer_datum = user.mind.has_antag_datum(/datum/antagonist/mindflayer)
 
 	if(!flayer_datum)
