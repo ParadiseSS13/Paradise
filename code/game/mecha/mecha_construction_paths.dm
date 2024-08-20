@@ -1930,7 +1930,7 @@
 
 /datum/construction/reversible/mecha/nkarrdem/custom_action(index, diff, atom/used_atom, mob/user)
 	if(!..())
-		return 0
+		return FALSE
 
 	//TODO: better messages.
 	switch(index)
