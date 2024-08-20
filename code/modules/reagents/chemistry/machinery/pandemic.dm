@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 			stage_amount++
 			stages += AD.stage
 
-	analysisTime = (max(((max(stealth * 0.5 , 0) + 1.2) - stage_amount * 0.7) , 0) MINUTES) + accumulatedError
+	analysisTime = max(max(6 * (stealth ^ 0.7) , 0) + 1.1 - stage_amount ^ 2 , 0) MINUTES + accumulatedError
 	SStgui.update_uis(src, TRUE)
 
 
@@ -163,10 +163,10 @@ GLOBAL_LIST_INIT(known_advanced_diseases, list("4:origin", "25:origin"
 		if(!i || i == "No Guess")
 			continue
 		if(i in names)
-			analysisTime = max(0, analysisTime - 0.5 MINUTES)
+			analysisTime = max(0, analysisTime - 2 MINUTES)
 		else
-			analysisTime = max(0, analysisTime + 1 MINUTES)
-			accumulatedError += 1 MINUTES
+			analysisTime = max(0, analysisTime + 2 MINUTES)
+			accumulatedError += 2 MINUTES
 
 
 /obj/machinery/computer/pandemic/process()
