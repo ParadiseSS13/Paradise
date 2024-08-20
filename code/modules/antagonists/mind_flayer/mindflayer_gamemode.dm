@@ -50,6 +50,6 @@
 		else
 			text += "<br><font color='red'><b>The [special_role_text] has failed!</b></font>"
 			SSblackbox.record_feedback("tally", "mindflayer_success", 1, "FAIL")
-	to_chat(world, text)
-	return TRUE
+
+	return text.Join("")
 
