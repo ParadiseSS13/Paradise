@@ -5,6 +5,7 @@
 	desc = "A frame to create a reflector.\n<span class='notice'>Use <b>5</b> sheets of <b>glass</b> to create a 1 way reflector.\nUse <b>10</b> sheets of <b>reinforced glass</b> to create a 2 way reflector.\nUse <b>1 diamond</b> to create a reflector cube.</span>"
 	anchored = FALSE
 	density = TRUE
+	max_integrity = 50
 	layer = 3
 	var/finished = FALSE
 	var/obj/item/stack/sheet/build_stack_type
@@ -17,7 +18,7 @@
 	if(!istype(P, /obj/item/projectile/beam))
 		return ..()
 	var/new_dir = get_reflection(dir, P.dir)
-	if(new_dir)
+	if(new_dir && anchored)
 		reflect_turf = get_step(reflect_turf, new_dir)
 	else
 		visible_message("<span class='notice'>[src] is hit by [P]!</span>")
