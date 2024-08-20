@@ -205,6 +205,7 @@
 
 /obj/item/flash/cyborg
 	origin_tech = null
+	can_overcharge = FALSE
 
 /obj/item/flash/cyborg/attack(mob/living/M, mob/user)
 	..()
