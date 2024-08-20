@@ -27708,10 +27708,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
-"fkH" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/station/security/permabrig)
 "fkI" = (
 /obj/structure/table,
 /obj/item/dice/d20,
@@ -177196,7 +177192,7 @@ jnP
 jnP
 jnP
 aZS
-fkH
+fjJ
 fjJ
 umW
 fnn
