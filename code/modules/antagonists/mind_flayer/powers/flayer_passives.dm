@@ -27,30 +27,25 @@
 	var/stage = 0
 	///A brief description of what the ability's upgrades do
 	var/upgrade_info = "TODO add upgrade text for this passive"
+	/// Does this passive need to process
+	var/should_process = TRUE
 
 /datum/mindflayer_passive/New()
+	. = ..()
 	current_cost = base_cost
-
-///For passives that need to use SSObj
-/datum/mindflayer_passive/processed
+	if(should_process)
+		START_PROCESSING(SSobj, src)
 
 /datum/mindflayer_passive/Destroy(force, ...)
-	..()
+	. = ..()
 	on_remove()
-
-/datum/mindflayer_passive/processed/New()
-	..()
-	START_PROCESSING(SSobj, src)
-
-/datum/mindflayer_passive/processed/Destroy(force, ...)
-	..()
 	STOP_PROCESSING(SSobj, src)
 
 ///This is where most passive's effects get applied
 /datum/mindflayer_passive/proc/on_apply()
 	SHOULD_CALL_PARENT(TRUE)
-	flayer.send_swarm_message("[level ? upgrade_text : gain_text]") //This will only be false when level = 0, when first bought
-	level = level + 1
+	flayer.send_swarm_message(level ? upgrade_text : gain_text) //This will only be false when level = 0, when first bought
+	level++
 	current_cost = base_cost * (level + 1)
 	log_debug("[src] purchased at level [level], max level is [max_level]")
 	return TRUE
@@ -142,9 +137,9 @@
 /datum/mindflayer_passive/emp_resist/on_apply()
 	..()
 	switch(level)
-		if(1)
+		if(POWER_LEVEL_ONE)
 			ADD_TRAIT(owner, TRAIT_EMP_RESIST, UNIQUE_TRAIT_SOURCE(src))
-		if(2)
+		if(POWER_LEVEL_TWO)
 			ADD_TRAIT(owner, TRAIT_EMP_IMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/emp_resist/on_remove()
@@ -165,7 +160,7 @@
 /datum/mindflayer_passive/shock_resist/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
-/datum/mindflayer_passive/processed/regen
+/datum/mindflayer_passive/regen
 	name = "Regeneration"
 	purchase_text = "Gain a passive repairing effect."
 	upgrade_info = "Heal an extra 1 brute and burn per tick."
@@ -173,8 +168,9 @@
 	gain_text = "Diverting resources to repairing chassis."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
+	should_process = TRUE
 
-/datum/mindflayer_passive/processed/regen/process()
+/datum/mindflayer_passive/regen/process()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/flayer = owner
 		flayer.adjustBruteLoss(-level, robotic = TRUE)
@@ -193,9 +189,9 @@
 /datum/mindflayer_passive/eye_enhancement/on_apply()
 	..()
 	switch(level)
-		if(1)
+		if(POWER_LEVEL_ONE)
 			ADD_TRAIT(owner, TRAIT_NIGHT_VISION, UNIQUE_TRAIT_SOURCE(src))
-		if(2)
+		if(POWER_LEVEL_TWO)
 			ADD_TRAIT(owner, TRAIT_THERMAL_VISION, UNIQUE_TRAIT_SOURCE(src))
 	var/mob/living/carbon/human/to_enhance = owner //Gotta make sure it calls the right update_sight()
 	to_enhance.update_sight()

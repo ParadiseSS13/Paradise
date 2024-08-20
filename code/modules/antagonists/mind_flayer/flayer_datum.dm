@@ -70,7 +70,7 @@
 
 //This is mostly for flavor, for framing messages as coming from the swarm itself. The other reason is so I can type "span" less.
 /datum/antagonist/mindflayer/proc/send_swarm_message(message)
-	to_chat(owner.current, "<span class='sinister'>\"" + message + "\"</span>")
+	to_chat(owner.current, "<span class='sinister'>[message]</span>")
 
 /**
 	Checks for any reason that you should not be able to drain someone for.
@@ -90,10 +90,11 @@
 		send_swarm_message("We detect no neural activity to harvest from this brain.")
 		return FALSE
 	var/unique_drain_id = H.UID()
-	if(!(drained_humans[unique_drain_id]))
+	if(isnull(drained_humans[unique_drain_id]))
 		drained_humans[unique_drain_id] = 0
-	else
-		return drained_humans[unique_drain_id] < BRAIN_DRAIN_LIMIT //TODO better feedback on trying to drain past the limit
+	else if(drained_humans[unique_drain_id] > BRAIN_DRAIN_LIMIT)
+		send_swarm_message("You have drained most of the life force from [H]'s brain, and you will get no more swarms from them!")
+		return FALSE
 	return TRUE
 
 /**

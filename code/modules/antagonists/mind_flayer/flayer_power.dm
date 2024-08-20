@@ -202,11 +202,11 @@
 	adjust_swarms(-to_add.current_cost)
 	add_passive(to_add, src)
 	return TRUE
+
 /*
  * Mindflayer code relies on on_purchase to grant powers and passives. It first splits up whether the path bought was a passive or spell, then checks if the flayer can afford it.
  * Returns TRUE if an ability was added, FALSE otherwise
  */
-
 /datum/spell/flayer/proc/on_purchase(mob/user, datum/path)
 	SHOULD_CALL_PARENT(TRUE)
 	if(!user || !user.mind || !flayer)

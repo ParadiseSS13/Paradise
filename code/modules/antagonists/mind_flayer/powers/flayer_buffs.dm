@@ -5,10 +5,9 @@
 	desc = "Heal and remove any incapacitating effects from yourself."
 	power_type = FLAYER_INNATE_POWER
 
-/datum/spell/flayer/self/rejuv/cast(list/targets, mob/user)
+/datum/spell/flayer/self/rejuv/cast(list/targets, mob/living/user)
 	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
-	var/mob/living/caster = user
-	caster.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV)
+	user.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV)
 
 /datum/spell/flayer/self/quicksilver_form
 	name = "Quicksilver Form"
@@ -18,6 +17,5 @@
 	category = CATEGORY_DESTROYER
 	stage = 2
 
-/datum/spell/flayer/self/quicksilver_form/cast(list/targets, mob/user)
-	var/mob/living/carbon/caster = user
-	caster.apply_status_effect(STATUS_EFFECT_QUICKSILVER_FORM)
+/datum/spell/flayer/self/quicksilver_form/cast(list/targets, mob/living/user)
+	user.apply_status_effect(STATUS_EFFECT_QUICKSILVER_FORM)
