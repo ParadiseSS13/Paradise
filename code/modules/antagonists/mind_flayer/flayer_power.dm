@@ -32,7 +32,7 @@
 	/// The current `stage` that we are on for our powers. Currently only hides powers of a higher stage. TODO: IMPLEMENT CORRECTLY WHEN TGUI IS ROLLING
 	var/stage = 1
 	///A brief description of what the spell's upgrades do
-	var/upgrade_information = "TODO add upgrade text for this spell"
+	var/upgrade_info = "TODO add upgrade text for this spell"
 
 /datum/spell/flayer/self/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -128,7 +128,7 @@
 			"current_level" = passive.level,
 			"max_level" = passive.max_level,
 			"cost" = passive.current_cost,
-			"upgrade_text" = passive.upgrade_information,
+			"upgrade_text" = passive.upgrade_info,
 			"ability_path" = passive.type
 		))
 	for(var/datum/spell/flayer/spell in flayer.powers)
@@ -137,7 +137,7 @@
 			"current_level" = spell.level,
 			"max_level" = spell.max_level,
 			"cost" = spell.current_cost,
-			"upgrade_text" = spell.upgrade_information,
+			"upgrade_text" = spell.upgrade_info,
 			"ability_path" = spell.type
 		))
 	data["known_abilities"] = known_abilities

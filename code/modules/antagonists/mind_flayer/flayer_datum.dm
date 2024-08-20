@@ -18,6 +18,8 @@
 	var/list/drained_humans = list()
 	///How fast the flayer's touch drains
 	var/drain_multiplier = 1
+	///The base brain damage dealt per tick of the drain
+	var/drain_amount = 0.5
 	///A list of the categories and their associated stages of the power
 	var/list/category_stage = list(CATEGORY_GENERAL = 1, CATEGORY_DESTROYER = 1, CATEGORY_INTRUDER = 1, CATEGORY_SWARMER = 1)
 
@@ -112,7 +114,7 @@
 			harvesting = null
 			return
 		H.Beam(owner.current, icon_state = "drain_life", icon ='icons/effects/effects.dmi', time = DRAIN_TIME, beam_color = COLOR_ASSEMBLY_PURPLE)
-		var/damage_to_deal = (1/2 * drain_multiplier * H.dna.species.brain_mod) // Change that first fraction for adjusting the balance of how much damage per tick there is
+		var/damage_to_deal = (drain_amount * drain_multiplier * H.dna.species.brain_mod) // Change that first fraction for adjusting the balance of how much damage per tick there is
 		H.adjustBrainLoss(damage_to_deal, use_brain_mod = FALSE) //No need to use brain damage modification since we already got it from the previous line
 		adjust_swarms(damage_to_deal)
 		drained_humans[unique_drain_id] += damage_to_deal

@@ -26,7 +26,7 @@
 	///If the passive requires prerequisites, currently only important for badass.
 	var/stage = 0
 	///A brief description of what the ability's upgrades do
-	var/upgrade_information = "TODO add upgrade text for this passive"
+	var/upgrade_info = "TODO add upgrade text for this passive"
 
 /datum/mindflayer_passive/New()
 	current_cost = base_cost
@@ -64,9 +64,10 @@
 //SELF-BUFF PASSIVES
 /datum/mindflayer_passive/armored_plating
 	name = "Armored Plating"
-	purchase_text = "Increase your natural armor."
+	purchase_text = "Increases our natural armor."
 	upgrade_text = "The swarm adds more layers of armored nanites, strengthening the plating even more."
-	gain_text = "You feel your plating being reinforced by the swarm."
+	upgrade_info = "Further increases base armor by 10"
+	gain_text = "You feel your chassis being reinforced by the swarm."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
 	var/armor_value = 0
@@ -86,6 +87,7 @@
 	purchase_text = "Mute your footsteps, then upgrade to become mostly unslippable."
 	upgrade_text = "Your feet become even more malleable, seemingly melting into the floor; you feel oddly stable."
 	gain_text = "Your limbs start slowly melting into the floor."
+	upgrade_info = "Become nearly unslippable."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
 
@@ -102,10 +104,9 @@
 	REMOVE_TRAIT(owner, TRAIT_NOSLIP, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/new_crit
-	name = "NEW CRIT WHOOPEE!"
-	purchase_text = "I give up, IPCs are based now"
-	upgrade_text = "Add this later"
-	gain_text = "Ayyyy lmao"
+	name = ""
+	purchase_text = "We remove our limiters, allowing us to remain active while severely damaged."
+	gain_text = "Advanced urgent protocols engaged."
 	power_type = FLAYER_PURCHASABLE_POWER //Just for testing
 	category = CATEGORY_DESTROYER
 
@@ -131,8 +132,9 @@
 
 /datum/mindflayer_passive/emp_resist
 	name = "Internal Faraday Cage"
-	purchase_text = "Resist EMP effects, level 2 negates them entirely."
+	purchase_text = "Resist EMP effects."
 	upgrade_text = "Faraday cage at max efficiency."
+	upgrade_info = "Become completely immune to EMPs."
 	gain_text = "Faraday cage operational."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
@@ -165,7 +167,8 @@
 
 /datum/mindflayer_passive/processed/regen
 	name = "Regeneration"
-	purchase_text = "Regain HP passively, level scales the amount healed."
+	purchase_text = "Gain a passive repairing effect."
+	upgrade_info = "Heal an extra 1 brute and burn per tick."
 	upgrade_text = "Our repair accelerates."
 	gain_text = "Diverting resources to repairing chassis."
 	power_type = FLAYER_PURCHASABLE_POWER
@@ -179,8 +182,9 @@
 
 /datum/mindflayer_passive/eye_enhancement
 	name = "Enhanced Optical Sensitivity"
-	purchase_text = "Level 1 grants night vision, level 2 lets you see creatures through walls."
+	purchase_text = "Adjust our optical sensors to see better in the dark."
 	gain_text = "Focusing optics lens apeture."
+	upgrade_info = "Gain the ability to see prey through walls"
 	upgrade_text = "Increasing visible wavelength to infrared."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
@@ -205,11 +209,12 @@
 /datum/mindflayer_passive/drain_speed
 	name = "Swarm Absorbtion Efficiency"
 	purchase_text = "Adds a multiplier to the amount of swarms you drain per second."
-	gain_text = "something something efficiency WIP"
-	upgrade_text = "MORE EFFICIENCY IS MORE GOOD WIP"
+	gain_text = "Our mental siphons grow stronger."
+	upgrade_text = "Energy transfer rate increased by 100%"
+	upgrade_info = "Further increase the rate of swarm siphoning."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
-	base_cost = 50
+	base_cost = 75
 
 /datum/mindflayer_passive/drain_speed/on_apply()
 	..()
@@ -221,7 +226,7 @@
 /datum/mindflayer_passive/improved_joints
 	name = "Reinforced Joints"
 	purchase_text = "Prevents your limbs from falling off due to damage."
-	gain_text = "Makes joints gooder"
+	gain_text = "Artificial skeletal structure reinforced."
 	max_level = 1
 	base_cost = 50
 

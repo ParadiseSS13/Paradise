@@ -144,11 +144,12 @@ const Upgrades = (props, context) => {
               {ability.upgrade_text}
             </Stack.Item>
             <Stack.Item>
+              CURRENT LEVEL: {ability.current_level} MAX LEVEL:{ability.max_level}
               <Button
                 content = {ability.cost}
                   icon = "minus"
                   disabled = {ability.cost > usable_swarms}
-                  tooltip = "Purchase this ability?"
+                  tooltip = "Upgrade this ability?"
                   onClick={() => act("purchase", {ability_path: ability.ability_path}
                       )}
                   textAlign = "right"/>
