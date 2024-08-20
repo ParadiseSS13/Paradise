@@ -237,24 +237,6 @@
 
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
-/obj/item/deck/CtrlClick(mob/living/carbon/human/user)
-	if(!istype(user))
-		return
-
-	var/obj/item/cardhand/hand = user.get_active_hand()
-	if(!istype(hand))
-		return ..()
-
-	if(hand.parent_deck_id != main_deck_id)
-		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
-		return
-
-	if(length(hand.cards) > 1)
-		var/confirm = tgui_alert(user, "Are you sure you want to put your [length(hand.cards)] card\s into the bottom of the deck?", "Return Hand to Bottom", list("Yes", "No"))
-		if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-			return
-
-
 // Datum actions
 /datum/action/item_action/draw_card
 	name = "Draw - Draw one card"
@@ -338,14 +320,14 @@
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
 	if(public)
-		user.visible_message("<span class='danger'>[user] draws [P]!</span>", "<span class='danger'>You draw [P]!</span>")
+		user.visible_message("<span class='danger'>[user] draws \a [P.name]!</span>", "<span class='danger'>You draw \a [P]!</span>")
 		var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(user, P.card_icon)
 		user.vis_contents += draft
 		QDEL_IN(draft, 1 SECONDS)
 		sleep(1 SECONDS)
 	else
 		user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>")
-		to_chat(user, "<span class='notice'>It's \a [P].</span>")
+		to_chat(user, "<span class='notice'>It's \a [P.name].</span>")
 
 /obj/item/deck/proc/deal_card()
 	if(usr.incapacitated() || !Adjacent(usr))
@@ -359,7 +341,6 @@
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	//players -= usr
 
 	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal a card to?", "Deal Card", players)
 	if(!usr || !src || !M)
@@ -622,6 +603,18 @@
 
 /obj/item/cardhand/CtrlClick(mob/user)
 	turn_hand(user)
+
+/obj/item/cardhand/AltShiftClick(mob/user)
+	. = ..()
+	if(!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	shuffle_inplace(cards)
+	playsound(user, 'sound/items/cardshuffle.ogg', 30, TRUE)
+	user.visible_message(
+		"<span class='notice'>[user] shuffles [user.p_their()] hand.</span>",
+		"<span class='notice'>You shuffle your hand.</span>"
+	)
+
 
 /obj/item/cardhand/proc/select_card_radial(mob/user)
 	var/list/options = list()
