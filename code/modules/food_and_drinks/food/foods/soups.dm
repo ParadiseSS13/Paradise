@@ -224,7 +224,7 @@
 	tastes = list("bitterness" = 1, "sourness" = 1, "nature" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/soup/redporridge
+/obj/item/food/soup/red_porridge
 	name = "Eltsløsk ül a priktæolk" //eltsløsk = red porridge, ül a = with, prikt = sour, æolk = cream
 	desc = "Red porridge with yoghurt. The name and vegetable ingredients obscure the sweet nature of the dish, which is commonly served as a dessert aboard the fleet."
 	icon_state = "red_porridge"

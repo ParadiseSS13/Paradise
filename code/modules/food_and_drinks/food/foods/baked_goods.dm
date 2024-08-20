@@ -282,12 +282,12 @@
 	tastes = list("cake" = 5, "sweetness" = 1, "clouds" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/liarscake
+/obj/item/food/sliceable/liars_cake
 	name = "strawberry chocolate cake"
 	desc = "A chocolate cake with five strawberries on top. For some reason, this configuration of cake is particularly aesthetically pleasing to AIs in SELF."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "liars_cake"
-	slice_path = /obj/item/food/liarsslice
+	slice_path = /obj/item/food/liars_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#240606c7"
@@ -295,7 +295,7 @@
 	tastes = list("blackberry" = 2, "strawberries" = 2, "chocolate" = 2, "sweetness" = 2, "cake" = 3)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/liarsslice
+/obj/item/food/liars_slice
 	name = "strawberry chocolate cake slice"
 	desc = "Just a slice of cake with five strawberries on top. \
 		For some reason, this configuration of cake is particularly aesthetically pleasing to AIs in SELF."
@@ -306,12 +306,12 @@
 	tastes = list("strawberries" = 2, "chocolate" = 2, "sweetness" = 2, "cake" = 3)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/vanillaberrycake
+/obj/item/food/sliceable/vanilla_berry_cake
 	name = "blackberry and strawberry vanilla cake"
 	desc = "A plain cake, filled with assortment of blackberries and strawberries!"
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "vanillaberrycake"
-	slice_path = /obj/item/food/vanillaberrycakeslice
+	icon_state = "vanilla_berry_cake"
+	slice_path = /obj/item/food/vanilla_berry_cake_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#f0e3e3c7"
@@ -319,22 +319,22 @@
 	tastes = list("blackberry" = 2, "strawberries" = 2, "vanilla" = 2, "sweetness" = 2, "cake" = 3)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/vanillaberrycakeslice
+/obj/item/food/vanilla_berry_cake_slice
 	name = "blackberry and strawberry vanilla cake slice"
 	desc = "Just a slice of cake  filled with assortment of blackberries and strawberries!"
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "vanillaberrycakeslice"
+	icon_state = "vanilla_berry_cake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#ffffff"
 	tastes = list("blackberry" = 2, "strawberries" = 2, "vanilla" = 2, "sweetness" = 2, "cake" = 3)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/hardwarecake
+/obj/item/food/sliceable/hardware_cake
 	name = "hardware cake"
 	desc = "A \"cake\" that is made with electronic boards and leaks acid..."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "hardware_cake"
-	slice_path = /obj/item/food/hardwarecakeslice
+	slice_path = /obj/item/food/hardware_cake_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#4ac25e"
@@ -342,7 +342,7 @@
 	tastes = list("acid" = 3, "metal" = 4, "glass" = 5)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/hardwarecakeslice
+/obj/item/food/hardware_cake_slice
 	name = "hardware cake slice"
 	desc = "A slice of electronic boards and some acid."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -352,12 +352,12 @@
 	tastes = list("acid" = 3, "metal" = 4, "glass" = 5)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/plumcake
+/obj/item/food/sliceable/plum_cake
 	name = "plum cake"
 	desc = "A cake centred with Plums."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "plumcake"
-	slice_path = /obj/item/food/plumcakeslice
+	icon_state = "plum_cake"
+	slice_path = /obj/item/food/plum_cake_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#a128c5"
@@ -365,22 +365,22 @@
 	tastes = list("cake" = 5, "sweetness" = 1, "plum" = 2)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/plumcakeslice
+/obj/item/food/plum_cake_slice
 	name = "plum cake slice"
 	desc = "A slice of plum cake."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "plumcakeslice"
+	icon_state = "plum_cake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#a128c5"
 	tastes = list("cake" = 5, "sweetness" = 1, "plum" = 2)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/poundcake
+/obj/item/food/sliceable/pound_cake
 	name = "pound cake"
 	desc = "A condensed cake made for filling people up quickly."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "pound_cake"
-	slice_path = /obj/item/food/poundcakeslice
+	slice_path = /obj/item/food/pound_cake_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#c4cab7"
@@ -388,7 +388,7 @@
 	tastes = list("cake" = 5, "sweetness" = 5, "batter" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/poundcakeslice
+/obj/item/food/pound_cake_slice
 	name = "pound cake slice"
 	desc = "A slice of condensed cake made for filling people up quickly."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -398,12 +398,12 @@
 	tastes = list("cake" = 5, "sweetness" = 5, "batter" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/pumpkinspicecake
+/obj/item/food/sliceable/pumpkin_spice_cake
 	name = "pumpkin spice cake"
 	desc = "A hollow cake with real pumpkin."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "pumpkinspicecake"
-	slice_path = /obj/item/food/pumpkinspicecakeslice
+	icon_state = "pumpkin_spice_cake"
+	slice_path = /obj/item/food/pumpkin_spice_cake_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#ee710a"
@@ -411,22 +411,22 @@
 	tastes = list("cake" = 5, "sweetness" = 1, "pumpkin" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/pumpkinspicecakeslice
+/obj/item/food/pumpkin_spice_cake_slice
 	name = "pumpkin spice cake slice"
 	desc = "A spicy slice of pumpkin goodness."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "pumpkinspicecakeslice"
+	icon_state = "pumpkin_spice_cake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#ee710a"
 	tastes = list("cake" = 5, "sweetness" = 1, "pumpkin" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/slimecake
+/obj/item/food/sliceable/slime_cake
 	name = "Slime cake"
 	desc = "A cake made of slimes. Probably not electrified."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "slimecake"
-	slice_path = /obj/item/food/slimecakeslice
+	icon_state = "slime_cake"
+	slice_path = /obj/item/food/slime_cake_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#0adfee"
@@ -434,22 +434,22 @@
 	tastes = list("cake" = 5, "sweetness" = 1, "slime" = 1)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/slimecakeslice
+/obj/item/food/slime_cake_slice
 	name = "slime cake slice"
 	desc = "A slice of slime cake."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "slimecake_slice"
+	icon_state = "slime_cake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#0adfee"
 	tastes = list("cake" = 5, "sweetness" = 1, "slime" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/spacemancake
+/obj/item/food/sliceable/spaceman_cake
 	name = "spaceman's cake"
 	desc = "A spaceman's trumpet frosted cake."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "trumpetcake"
-	slice_path = /obj/item/food/spacemancakeslice
+	icon_state = "trumpet_cake"
+	slice_path = /obj/item/food/spaceman_cake_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#610977"
@@ -457,22 +457,22 @@
 	tastes = list("cake" = 4, "violets" = 2, "jam" = 2)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/spacemancakeslice
+/obj/item/food/spaceman_cake_slice
 	name = "spaceman's cake slice"
 	desc = "A slice of spaceman's trumpet frosted cake."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "trumpetcakeslice"
+	icon_state = "trumpet_cake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#610977"
 	tastes = list("cake" = 4, "violets" = 2, "jam" = 2)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/sliceable/vanillacake
+/obj/item/food/sliceable/vanilla_cake
 	name = "vanilla cake"
 	desc = "A vanilla frosted cake."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "vanillacake"
-	slice_path = /obj/item/food/vanillacakeslice
+	icon_state = "vanilla_cake"
+	slice_path = /obj/item/food/vanilla_cake_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#ece7ee"
@@ -480,11 +480,11 @@
 	tastes = list("cake" = 1, "sugar" = 1, "vanilla" = 10)
 	goal_difficulty = FOOD_GOAL_DUPLICATE
 
-/obj/item/food/vanillacakeslice
+/obj/item/food/vanilla_cake_slice
 	name = "vanilla cake slice"
 	desc = "A slice of vanilla frosted cake."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "vanillacake_slice"
+	icon_state = "vanilla_cake_slice"
 	filling_color = "#ece7ee"
 	tastes = list("cake" = 1, "sugar" = 1, "vanilla" = 10)
 	goal_difficulty = FOOD_GOAL_EASY
@@ -548,25 +548,25 @@
 	tastes = list("sweetness" = 1)
 	goal_difficulty = FOOD_GOAL_EASY
 
-/obj/item/food/oatmealcookie
+/obj/item/food/oatmeal_cookie
 	name = "oatmeal cookie"
 	desc = "The best of both cookie and oat."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "oatmealcookie"
+	icon_state = "oatmeal_cookie"
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 	tastes = list("cookie" = 2, "oat" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/raisincookie
+/obj/item/food/raisin_cookie
 	name = "raisin cookie"
 	desc = "Why would you put raisins on a cookie?"
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "raisincookie"
+	icon_state = "raisin_cookie"
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 	tastes = list("cookie" = 1, "raisins" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/peanutbuttercookie
+/obj/item/food/peanut_butter_cookie
 	name = "peanut butter cookie"
 	desc = "A tasty, chewy peanut butter cookie."
 	icon = 'icons/obj/food/bakedgoods.dmi'
@@ -708,22 +708,22 @@
 	tastes = list("pie" = 1, "pumpkin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/bearypie
+/obj/item/food/beary_pie
 	name = "beary pie"
 	desc = "No brown bears, this is a good sign."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "bearypie"
+	icon_state = "beary_pie"
 	filling_color = "#F5B951"
 	list_reagents = list("nutriment" = 12, "vitamin" = 5, "protein" = 5)
 	tastes = list("pie" = 1, "meat" = 1, "salmon" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/sliceable/blumpkinpie
+/obj/item/food/sliceable/blumpkin_pie
 	name = "blumpkin pie"
 	desc = "An odd blue pie made with toxic blumpkin."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "blumpkinpie"
-	slice_path = /obj/item/food/blumpkinpieslice
+	icon_state = "blumpkin_pie"
+	slice_path = /obj/item/food/blumpkin_pie_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#102d8b"
@@ -731,22 +731,22 @@
 	tastes = list("pie" = 1, "a mouthful of pool water" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/blumpkinpieslice
+/obj/item/food/blumpkin_pie_slice
 	name = "blumpkin pie slice"
 	desc = "A slice of blumpkin pie, with whipped cream on top. Is this edible?"
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "blumpkinpieslice"
+	icon_state = "blumpkin_pie_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#102d8b"
 	tastes = list("pie" = 1, "a mouthful of pool water" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/sliceable/frenchsilkpie
+/obj/item/food/sliceable/french_silk_pie
 	name = "french silk pie"
 	desc = "A decadent pie made of a creamy chocolate mousse filling topped with a layer of whipped cream and chocolate shavings. Sliceable."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "frenchsilkpie"
-	slice_path = /obj/item/food/frenchsilkpieslice
+	icon_state = "french_silk_pie"
+	slice_path = /obj/item/food/french_silk_pie_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#5e4337"
@@ -754,22 +754,22 @@
 	tastes = list("pie" = 1, "smooth chocolate" = 1, "whipped cream" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/frenchsilkpieslice
+/obj/item/food/french_silk_pie_slice
 	name = "french silk pie slice"
 	desc = "A slice of french silk pie, filled with a chocolate mousse and topped with a layer of whipped cream and chocolate shavings. Delicious enough to make you cry."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "frenchsilkpieslice"
+	icon_state = "french_silk_pie_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#5e4337"
 	tastes = list("pie" = 1, "smooth chocolate" = 1, "whipped cream" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/sliceable/frostypie
+/obj/item/food/sliceable/frosty_pie
 	name = "frosty pie"
 	desc = "Tastes like blue and cold."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "frostypie"
-	slice_path = /obj/item/food/frostypieslice
+	icon_state = "frosty_pie"
+	slice_path = /obj/item/food/frosty_pie_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#5e4337"
@@ -777,11 +777,11 @@
 	tastes = list("mint" = 1, "pie" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/frostypieslice
+/obj/item/food/frosty_pie_slice
 	name = "frosty pie slice"
 	desc = "Tasty blue, like my favourite crayon!"
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "frostypie_slice"
+	icon_state = "frosty_pie_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#338cb6"
 	tastes = list("mint" = 1, "pie" = 1)
@@ -1156,22 +1156,22 @@
 	tastes = list("muffin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/berrymuffin
-	name = "berrymuffin"
+/obj/item/food/berry_muffin
+	name = "berry_muffin"
 	desc = "A delicious and spongy little cake, with berries."
 	icon = 'icons/obj/food/breakfast.dmi'
-	icon_state = "berrymuffin"
+	icon_state = "berry_muffin"
 	filling_color = "#ad2bbe"
 	list_reagents = list("nutriment" = 6, "berryjuice" = 2)
 	tastes = list("muffin" = 3, "berry" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/booberrymuffin
+/obj/item/food/booberry_muffin
 	name = "booberrymuffin"
 	desc = "My stomach is a graveyard! No living being can quench my bloodthirst!"
 	icon = 'icons/obj/food/breakfast.dmi'
 	alpha = 125
-	icon_state = "berrymuffin"
+	icon_state = "berry_muffin"
 	filling_color = "#d9b6f5"
 	list_reagents = list("nutriment" = 6)
 	tastes = list("muffin" = 3, "spookiness" = 1)
@@ -1238,11 +1238,11 @@
 	tastes = list("pie" = 1, "apple" = 1, "expensive metal" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/grapetart
+/obj/item/food/grape_tart
 	name = "grape tart"
 	desc = "A tasty dessert that reminds you of the wine you didn't make."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "grapetart"
+	icon_state = "grape_tart"
 	trash = /obj/item/trash/plate
 	filling_color = "#8c00ff"
 	bitesize = 3
@@ -1250,11 +1250,11 @@
 	tastes = list("pie" = 1, "grape" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/mimetart
+/obj/item/food/mime_tart
 	name = "mime tart"
 	desc = "..."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "mimetart"
+	icon_state = "mime_tart"
 	trash = /obj/item/trash/plate
 	filling_color = "#8c00ff"
 	bitesize = 3
@@ -1262,20 +1262,20 @@
 	tastes = list("nothing" = 3)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/cherrycupcake
+/obj/item/food/cherry_cupcake
 	name = "cherry cupcake"
 	desc = "A sweet cupcake with cherry bits."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "cherrycupcake"
+	icon_state = "cherry_cupcake"
 	filling_color = "#8b1236"
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 	tastes = list("cake" = 3, "cherry" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/cherrycupcake/blue
+/obj/item/food/cherry_cupcake/blue
 	name = "blue cherry cupcake"
 	desc = "Blue cherries inside a delicious cupcake."
-	icon_state = "bluecherrycupcake"
+	icon_state = "bluecherry_cupcake"
 	filling_color = "#0d1694"
 	tastes = list("cake" = 3, "bluecherry" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -1300,32 +1300,32 @@
 	tastes = list("pastry" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/chocolatelavatart
+/obj/item/food/chocolate_lava_tart
 	name = "chocolate lava tart"
 	desc = "A tasty dessert made of chocolate, with a liquid core."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "cocolavatart"
+	icon_state = "coco_lava_tart"
 	filling_color = "#411b02"
 	list_reagents = list("nutriment" = 4, "vitamin" = 4)
 	tastes = list("pie" = 1, "dark chocolate" = 3)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/chocolatecornet
+/obj/item/food/chocolate_cornet
 	name = "chocolate cornet"
 	desc = "Which side's the head, the fat end or the thin end?"
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "chococornet"
+	icon_state = "choco_cornet"
 	filling_color = "#411b02"
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 	tastes = list("biscuit" = 3, "chocolate" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/sliceable/dulcedebatata
+/obj/item/food/sliceable/dulce_de_batata
 	name = "dulce de batata"
 	desc = "A delicious jelly made with sweet potatoes."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "dulcedebatata"
-	slice_path = /obj/item/food/dulcedebatataslice
+	icon_state = "dulce_de_batata"
+	slice_path = /obj/item/food/dulce_de_batata_slice
 	slices_num = 5
 	bitesize = 3
 	filling_color = "#411b02"
@@ -1333,11 +1333,11 @@
 	tastes = list("jelly" = 1, "sweet potato" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/dulcedebatataslice
+/obj/item/food/dulce_de_batata_slice
 	name = "dulcedebatata slice"
 	desc = "Tasty blue, like my favourite crayon!"
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "dulcedebatataslice"
+	icon_state = "dulce_de_batata_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#411b02"
 	tastes = list("jelly" = 1, "sweet potato" = 1)
