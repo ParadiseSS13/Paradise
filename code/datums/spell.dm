@@ -273,7 +273,6 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 
 ///Lets the spell have a special effect applied to it when upgraded. By default, does nothing.
 /datum/spell/proc/on_purchase_upgrade()
-	log_debug("[src] attempted an upgrade!")
 	return
 
 /**

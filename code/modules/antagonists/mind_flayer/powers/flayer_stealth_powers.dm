@@ -4,6 +4,8 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS // DEBUGGGG ONLY
+	base_cost = 40
+	stage = 2
 	/// An internal camera bug
 	var/obj/item/camera_bug/internal_camera
 	/// How many computers can we have hacked at most?
@@ -51,6 +53,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS
+	base_cost = 75
 
 /datum/spell/flayer/self/voice_synthesizer/cast(list/targets, mob/living/user)
 	if(flayer.mimicking)
@@ -75,6 +78,8 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
 	base_cooldown = 15 SECONDS
+	base_cost = 100
+	stage = 3 //TODO make this spell into like hot steam that burns the ops or smth cool like that
 
 /datum/spell/flayer/self/dump_coolant/cast(list/targets, mob/living/user)
 	var/datum/effect_system/smoke_spread/smoke = new()
@@ -82,11 +87,14 @@
 	smoke.start()
 
 /datum/spell/flayer/self/skin_suit
-	name = "Skin Suit"
-	desc = "Look like someone else"
+	name = "Flesh Facsimile"
+	desc = "Choose someone we see, and rearrange our surface to resemble theirs."
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
 	base_cooldown = 120 SECONDS
+	base_cost = 100
+	stage = 2
 
 /datum/spell/flayer/self/skin_suit/cast(list/targets, mob/living/user)
-	user.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE)
+	user.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE) //TODO make this pass in a target you pick on screen
+

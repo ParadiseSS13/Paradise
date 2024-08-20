@@ -236,3 +236,10 @@
 		var/datum/mindflayer_passive/to_add = new path(user) //If its not a spell, it's a passive
 		. =  flayer.try_purchase_passive(to_add)
 	SSblackbox.record_feedback("tally", "power_purchased", 1, "[path]")
+
+///This is the proc that handles spell upgrades, override this to have upgrades change duration/strength etc
+/datum/spell/flayer/on_purchase_upgrade()
+	if(level >= max_level)
+		return FALSE
+	level += 1
+	return TRUE

@@ -61,7 +61,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/gun/energy/laser/mounted
 	category = CATEGORY_DESTROYER
-	current_cost = 100
+	base_cost = 100
 
 /datum/spell/flayer/self/weapon/flak_gun //Addressing the lack of FTL references in this game
 	name = "Pneumatic Flak Gun"
@@ -71,4 +71,4 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/pneumatic_cannon/flayer
 	category = CATEGORY_DESTROYER
-	current_cost = 100
+	base_cost = 100

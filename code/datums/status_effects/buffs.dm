@@ -923,12 +923,19 @@
 	duration = 5 SECONDS
 	tick_interval = 1 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/flayer_rejuv
-	var/heal_amount = 10 // 50 total healing of both brute and burn
+	var/heal_amount = 5 // 25 total healing of both brute and burn at base
 
 /atom/movable/screen/alert/status_effect/flayer_rejuv
 	name = "Regenerating"
 	desc = "A ray of hope beyond dispair."
 	icon_state = "drunk2"
+
+/datum/status_effect/flayer_rejuv/on_creation(mob/living/new_owner, extra_duration, extra_heal_amount)
+	if(isnum(extra_duration))
+		duration += extra_duration
+	if(isnum(extra_heal_amount))
+		heal_amount += extra_heal_amount
+	. = ..()
 
 /datum/status_effect/flayer_rejuv/on_apply()
 	owner.SetWeakened(0)
@@ -960,11 +967,16 @@
 	desc = "Your body is much less solid."
 	icon_state = "high"
 
+/datum/status_effect/quicksilver_form/on_creation(mob/living/new_owner, extra_duration)
+	if(isnum(extra_duration))
+		duration += extra_duration
+	. = ..()
+
 /datum/status_effect/quicksilver_form/on_apply()
 	ADD_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
 	temporary_flag_storage = owner.pass_flags
 	owner.pass_flags |= (PASSTABLE | PASSGRILLE | PASSMOB | PASSFENCE | PASSGIRDER | PASSGLASS | PASSTAKE)
-	owner.color = COLOR_ALUMINIUM
+	owner.color = COLOR_WHITE
 	return TRUE
 
 /datum/status_effect/quicksilver_form/on_remove()
