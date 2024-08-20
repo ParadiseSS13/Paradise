@@ -9,7 +9,7 @@
 
 /obj/item/deck/unum/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>When held in hand, <b>Alt-Shift-Click</b>"
+	. += "<span class='notice'>When held in hand, <b>Alt-Shift-Click</b> to flip [src].</span>"
 
 /obj/item/deck/unum/AltShiftClick(mob/user)
 	if(!Adjacent(user) || (user.get_active_hand() != src) && (user.get_inactive_hand() != src))

@@ -70,6 +70,7 @@
 	. = ..()
 	. += "<span class='notice'>It contains <b>[length(cards) ? length(cards) : "no"]</b> card\s.</span>"
 	. += "<span class='notice'>Drag [src] to yourself to pick it up.</span>"
+	. += "<span class='notice'><b>Ctrl-Shift-Click</b> [src] to split it.</span>"
 	. += "<span class='notice'>If you draw or return cards with <span class='danger'>harm</span> intent, your plays will be public!</span>"
 	. += "<span class='notice'>Examine this again to see some shortcuts for interacting with it.</span>"
 
@@ -78,14 +79,8 @@
 	. += "<span class='notice'><b>Click</b> to draw a card.</span>"
 	. += "<span class='notice'><b>Alt-Click</b> to place a card.</span>"
 	. += "<span class='notice'>With cards in your active hand...</span>"
-	. += "\t<span class='notice'><b>Click</b> to draw a card into your hand.</span>"
-	. += "\t<span class='notice'><b>Alt-click</b> with cards to place them on the bottom of the deck.</span>"
-	. += "\t<span class='notice'><b>Ctrl-click</b> with cards to shuffle them into the deck.</span>"
+	. += "\t<span class='notice'><b>Ctrl-Click</b> with cards to place them at the bottom of the deck.</span>"
 	. += ""
-	. += "<span class='notice'>With an empty hand...</span>"
-	. += "\t<span class='notice'><b>Click</b> to draw from the top of the deck.</span>"
-	. += "\t<span class='notice'><b>Alt-Click</b> to draw from the bottom of the deck.</span>"
-	. += "\t<span class='notice'><b>Alt-Shift-Click</b> to shuffle the deck.</span>"
 	. += "You also notice a little number on the corner of [src]: it's tagged [main_deck_id]."
 
 
@@ -129,28 +124,35 @@
 
 /obj/item/deck/CtrlShiftClick(mob/user)
 	. = ..()
-	// todo: allow for splitting the deck so we can have a discard pile
+	if(!Adjacent(user))
+		return
 	if(length(cards) <= 1)
 		to_chat(user, "<span class='notice'>You can't split this deck, it's too small!</span>")
+		return
+
+	var/num_cards = tgui_input_number(user, "How many cards would you like the new split deck to have?", "Split Deck", length(cards) / 2, length(cards), 0)
+	if(isnull(num_cards) || !Adjacent(user))
 		return
 
 	// split it off, with our deck ID.
 	var/obj/item/deck/new_deck = new src.type(get_turf(src), main_deck_id)
 	QDEL_LIST_CONTENTS(new_deck.cards)
-	new_deck.cards = cards.Copy(length(cards) / 2, length(cards))
-	cards.Cut(length(cards) / 2, length(cards))
+	new_deck.cards = cards.Copy(1, num_cards)
+	cards.Cut(1, num_cards)
 	user.put_in_any_hand_if_possible(new_deck)
 	user.visible_message("<span class='notice'>[user] splits [src] in two.</span>", "<span class='notice'>You split [src] in two.</span>")
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+	new_deck.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/deck/proc/merge_deck(mob/user, obj/item/deck/other_deck)
 	for(var/card in other_deck.cards)
 		cards += card
-		other_deck -= card
+		other_deck.cards -= card
 	qdel(other_deck)
 	user.visible_message("<span class='notice'>[user] mixes the two decks together.</span>", "<span class='notice'>You merge the two decks together.</span>")
 
 /obj/item/deck/attack_hand(mob/user)
-	draw_card(user)
+	draw_card(user, user.a_intent == INTENT_HARM)
 
 /obj/item/deck/AltClick(mob/living/carbon/human/user)
 	// alt-clicking is for putting back
@@ -284,7 +286,7 @@
 /datum/action/item_action/deal_card_multi/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
-		return D.deal_card_multi()
+		return D.deal_card_multi(owner)
 	return ..()
 
 /datum/action/item_action/shuffle
@@ -343,7 +345,7 @@
 		sleep(1 SECONDS)
 	else
 		user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>")
-		to_chat(user, "<span class='notice'>It's [P].</span>")
+		to_chat(user, "<span class='notice'>It's \a [P].</span>")
 
 /obj/item/deck/proc/deal_card()
 	if(usr.incapacitated() || !Adjacent(usr))
@@ -360,31 +362,31 @@
 	//players -= usr
 
 	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal a card to?", "Deal Card", players)
-	if(!usr || !src || !M) return
+	if(!usr || !src || !M)
+		return
 
 	deal_at(usr, M, 1)
 
-/obj/item/deck/proc/deal_card_multi()
-	if(usr.incapacitated() || !Adjacent(usr))
+/obj/item/deck/proc/deal_card_multi(mob/user)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!length(cards))
-		to_chat(usr,"<span class='notice'>There are no cards in the deck.</span>")
+		to_chat(user, "<span class='notice'>There are no cards in the deck.</span>")
 		return
 
 	var/list/players = list()
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", 1, length(cards), 1)
+	var/dcard = tgui_input_number(user, "How many card(s) do you wish to deal? You may deal up to [length(cards)] card\s.", "Deal Cards", 1, length(cards), 1)
 	if(isnull(dcard))
 		return
-	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
-	if(!usr || !src || !M || !Adjacent(usr))
+	var/mob/living/M = tgui_input_list(user, "Who do you wish to deal [dcard] card\s?", "Deal Card", players)
+	if(!user || !src || !M || !Adjacent(user))
 		return
 
-	deal_at(usr, M, dcard)
-
+	deal_at(user, M, dcard)
 
 /obj/item/deck/proc/deal_at(mob/user, mob/target, dcard) // Take in the no. of card to be dealt
 	var/obj/item/cardhand/H = new(get_step(user, user.dir))
@@ -397,15 +399,13 @@
 	H.concealed = TRUE
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
-		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [user.p_themselves()].</span>")
+		user.visible_message("<span class='notice'>[user] deals [dcard] card\s to [user.p_themselves()].</span>")
 	else
-		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [target].</span>")
+		user.visible_message("<span class='notice'>[user] deals [dcard] card\s to [target].</span>")
 	H.throw_at(get_step(target, target.dir), 3, 1, null)
-
 
 /obj/item/deck/attack_self()
 	deckshuffle()
-
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr
@@ -494,6 +494,7 @@
 		. += "<span class='notice'><b>Ctrl-Click</b> this in-hand to flip it.</span>"
 		. += "<span class='notice'><b>Alt-Click</b> this in-hand to see the legacy interaction menu.</span>"
 		. += "<span class='notice'><b>Drag</b> this to its associated deck to return all cards at once to it.</span>"
+		. += "<span class='notice'><b>Enable throw mode</b> to automatically fill matching cards into your hand.</span>"
 
 /obj/item/cardhand/examine_more(mob/user)
 	. = ..()
@@ -501,6 +502,61 @@
 
 /obj/item/cardhand/proc/single()
 	return length(cards) == 1
+
+/obj/item/deck/hitby(atom/movable/thrown, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+
+	if(!istype(thrown, /obj/item/cardhand))
+		return ..()
+
+	var/obj/item/cardhand/hand = thrown
+
+	if(hand.parent_deck_id != main_deck_id)
+		return ..()
+
+	// you can only throw single cards in this way
+	if(length(hand.cards) > 1)
+		return ..()
+
+	if(hand.concealed)
+		visible_message("<span class='warning'>A card lands on top of [src].</span>")
+	else
+		var/datum/playingcard/C = hand.cards[1]
+		visible_message("<span class='warning'>[C] lands atop [src]!</span>")
+
+	cards = hand.cards + cards
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+	hand.cards.Cut()
+	qdel(hand)
+
+/obj/item/cardhand/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(!ishuman(hit_atom))
+		return ..()
+
+	var/mob/living/carbon/human/M = hit_atom
+
+
+	var/obj/item/cardhand/hand = M.is_in_hands(/obj/item/cardhand)
+	if(!istype(hand) || !M.in_throw_mode || hand.parent_deck_id != parent_deck_id)
+		return ..()
+
+	M.visible_message(
+		"<span class='warning'>[M] catches [hand] and adds it to [M.p_their()] hand!</span>",
+		"<span class='danger'>You catch [hand] and add it to your existing hand!</span>"
+	)
+	merge_into(hand)
+
+/// Merge the target cardhand into the current cardhand
+/obj/item/cardhand/proc/merge_into(obj/item/cardhand/hand)
+	if(!parent_deck_id == hand.parent_deck_id)
+		stack_trace("merge_into tried to merge two different parent decks together!")
+		return
+
+	for(var/card in hand.cards)
+		cards += card
+		hand.cards -= card
+
+	qdel(hand)
+
 
 /obj/item/cardhand/proc/update_values_from_deck(obj/item/deck/D)
 	if(!parent_deck_id)
@@ -549,7 +605,7 @@
 		else
 			to_chat(user, "<span class='notice'>You cannot mix cards from other decks!</span>")
 			return
-	..()
+	return ..()
 
 /obj/item/cardhand/attack_self(mob/user)
 	if(length(cards) == 1)
@@ -563,6 +619,9 @@
 	. = ..()
 	user.set_machine(src)
 	interact(user)
+
+/obj/item/cardhand/CtrlClick(mob/user)
+	turn_hand(user)
 
 /obj/item/cardhand/proc/select_card_radial(mob/user)
 	var/list/options = list()
@@ -681,6 +740,8 @@
 	new_hand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
 	return new_hand
+
+
 
 /// Draw a card from a card hand.
 /obj/item/cardhand/proc/remove_card(datum/playingcard/picked_card)
