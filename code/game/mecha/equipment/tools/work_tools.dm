@@ -523,7 +523,6 @@
 	if(choice in integrated_tools && chassis.Adjacent(target))
 		chassis.visible_message("[chassis] uses \the [src] on \the [target], it pulls out its [choice]")
 		target.tool_act(chassis.occupant, choice, choice.tool_behaviour)
-		chassis.visible_message("[chassis] uses \the [src] on \the [target], it pulls out its [choice]")
 
 /obj/item/mecha_parts/mecha_equipment/mech_crusher
 	name = "exosuit crusher"
