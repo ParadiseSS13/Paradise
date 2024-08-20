@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_1, list(
 	list(
 		/obj/item/storage/wallet,
 		/obj/item/storage/wallet/random,
-	) = 10,
+	) = 5,
 
 	list(
 		// Small chance of tier 1 stock parts
@@ -115,7 +115,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_1, list(
 		// Coins
 		/obj/item/coin/silver,
 		/obj/item/coin/twoheaded,
-	) = 5,
+	) = 2,
 ))
 
 GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
@@ -195,9 +195,9 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_3, list(
 
 GLOBAL_LIST_INIT(maintenance_loot_tables, list(
 	list(
-		GLOB.maintenance_loot_tier_0 = 465,
-		GLOB.maintenance_loot_tier_1 = 275,
-		GLOB.maintenance_loot_tier_2 = 204,
+		GLOB.maintenance_loot_tier_0 = 490,
+		GLOB.maintenance_loot_tier_1 = 390,
+		GLOB.maintenance_loot_tier_2 = 114,
 		GLOB.maintenance_loot_tier_3 =   6,
 	) = 75,
 

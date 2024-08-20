@@ -40,19 +40,26 @@
 
 	name = "Trash spawner"
 	loot = list(
-		// Include food trash
-		/obj/effect/spawner/random/food_trash = 5,
+		// Food litter often
+		/obj/effect/spawner/random/food_trash = 8,
 
-		/obj/item/ammo_casing/c10mm,
-		/obj/item/broken_bottle,
-		/obj/item/cigbutt,
-		/obj/item/cigbutt/roach,
-		/obj/item/flashlight/flare/glowstick/used,
-		/obj/item/flashlight/flare/used,
-		/obj/item/paper/crumpled,
-		/obj/item/shard,
-		/obj/item/trash/spentcasing,
-		/obj/item/trash/tapetrash,
+		// Some regular trash
+		list(
+			/obj/item/broken_bottle,
+			/obj/item/cigbutt,
+			/obj/item/cigbutt/roach,
+			/obj/item/flashlight/flare/glowstick/used,
+			/obj/item/flashlight/flare/used,
+			/obj/item/paper/crumpled,
+			/obj/item/shard,
+			/obj/item/trash/tapetrash,
+		) = 5,
+
+		// Ammo casings rarely
+		list(
+			/obj/item/ammo_casing/c10mm,
+			/obj/item/trash/spentcasing,
+		) = 1,
 	)
 
 	// TODO: Random spawner scatter behavior doesn't work well with items in
