@@ -1,12 +1,19 @@
-///Hack computer cameras to use them as a secret camera network
+/// Hack computer cameras to use them as a secret camera network
 /datum/spell/flayer/surveilance_monitor
 	name = "Camfecting Bug"
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
-	base_cooldown = 1 SECONDS //DEBUGGGG ONLY
+	base_cooldown = 1 SECONDS // DEBUGGGG ONLY
+	/// An internal camera bug
 	var/obj/item/camera_bug/internal_camera
+	/// How many computers can we have hacked at most?
 	var/maximum_hacked_computers = 6
+	/// List of references to the bugs inside the computers that we hacked
 	var/list/active_bugs = list()
+
+/datum/spell/flayer/surveilance_monitor/Destroy(force, ...)
+	. = ..()
+	active_bugs = null
 
 /datum/spell/flayer/surveilance_monitor/AltClick(mob/user)
 	if(!internal_camera)
@@ -57,9 +64,9 @@
 		return FALSE
 
 	flayer.mimicking = mimic_voice
-	user.extra_message_range = 5 //Artificially extend the range of your voice to lure out victims
-	to_chat(user, "<span class='notice'>We adjust the parameters of our voicebox to mimic <b>[mimic_voice]</b>.</span>")
-	to_chat(user, "<span class='notice'>Use this power again to return to revert the changes.</span>")
+	user.extra_message_range = 5 // Artificially extend the range of your voice to lure out victims
+	flayer.send_swarm_message("We adjust the parameters of our voicebox to mimic <b>[mimic_voice]</b>.")
+	flayer.send_swarm_message("Use this power again to return to your original voice.")
 	return TRUE
 
 /datum/spell/flayer/self/dump_coolant
@@ -70,10 +77,9 @@
 	base_cooldown = 15 SECONDS
 
 /datum/spell/flayer/self/dump_coolant/cast(list/targets, mob/living/user)
-	var/datum/effect_system/smoke_spread/smoke = new
+	var/datum/effect_system/smoke_spread/smoke = new()
 	smoke.set_up(15, FALSE, user)
 	smoke.start()
-
 
 /datum/spell/flayer/self/skin_suit
 	name = "Skin Suit"
@@ -82,7 +88,5 @@
 	category = CATEGORY_INTRUDER
 	base_cooldown = 120 SECONDS
 
-/datum/spell/flayer/self/skin_suit/cast(list/targets, mob/user)
-	var/mob/living/caster = user
-	caster.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE)
-
+/datum/spell/flayer/self/skin_suit/cast(list/targets, mob/living/user)
+	user.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE)

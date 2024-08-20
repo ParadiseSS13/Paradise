@@ -4,6 +4,9 @@
  * offered to dchat, override the `spawn_the_mob` proc
  */
 
+
+/* Dgamer Note on 20/8 - this code is most likely very bad and should be updated. View at your own sanity's risk */
+
 /datum/spell/flayer/self/summon
 	name = "Summon minion"
 	desc = "This really shouldn't be here"
