@@ -1823,9 +1823,9 @@
 
 /datum/construction/mecha/nkarrdem_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
-	holder.overlays += used_atom.icon_state+"+o"
+	holder.overlays += used_atom.icon_state + "+o"
 	qdel(used_atom)
-	return 1
+	return TRUE
 
 /datum/construction/mecha/nkarrdem_chassis/action(atom/used_atom,mob/user as mob)
 	return check_all_steps(used_atom,user)
