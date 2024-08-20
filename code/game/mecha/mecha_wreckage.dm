@@ -228,4 +228,5 @@
 			/obj/item/mecha_parts/part/nkarrdem_left_arm,
 			/obj/item/mecha_parts/part/nkarrdem_right_arm,
 			/obj/item/mecha_parts/part/nkarrdem_left_leg,
-			/obj/item/mecha_parts/part/nkarrdem_right_leg)
+			/obj/item/mecha_parts/part/nkarrdem_right_leg
+	)
