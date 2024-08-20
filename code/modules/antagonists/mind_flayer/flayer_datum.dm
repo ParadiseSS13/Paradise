@@ -42,6 +42,7 @@
 	var/list/innate_powers = get_spells_of_type(FLAYER_INNATE_POWER)
 	for(var/power_path as anything in innate_powers)
 		var/datum/spell/flayer/to_add = new power_path
+		to_add.level += 1 //These have to have their level manually ticked up since we aren't buying it
 		add_ability(to_add, src)
 	owner.current.faction += list("flayer") // In case our robot is mindlessly spawned in somehow, and they won't accidentally kill us
 

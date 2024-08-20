@@ -17,14 +17,19 @@
 	var/gain_text = "Someone forgot to add this text"
 	///Uses a power type define, should be FLAYER_UNOBTAINABLE_POWER, FLAYER_PURCHASABLE_POWER, or FLAYER_INNATE_POWER
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
-	///How much it will currently cost to buy a passive. Upgrading an ability increases the cost to the initial cost times the level.
-	var/current_cost = 30
 	///The base cost of an ability, used to calculate how much upgrades should cost.
-	var/base_cost
+	var/base_cost = 30
+	///How much it will cost to upgrade this passive.
+	var/current_cost
 	///If the passive is for a specific class, or CATEGORY_GENERAL if not
 	var/category = CATEGORY_GENERAL
 	///If the passive requires prerequisites, currently only important for badass.
 	var/stage = 0
+	///A brief description of what the ability's upgrades do
+	var/upgrade_information = "TODO add upgrade text for this passive"
+
+/datum/mindflayer_passive/New()
+	current_cost = base_cost
 
 ///For passives that need to use SSObj
 /datum/mindflayer_passive/processed
@@ -34,8 +39,8 @@
 	on_remove()
 
 /datum/mindflayer_passive/processed/New()
+	..()
 	START_PROCESSING(SSobj, src)
-	base_cost = current_cost
 
 /datum/mindflayer_passive/processed/Destroy(force, ...)
 	..()
@@ -114,7 +119,7 @@
 	gain_text = "Engaging explosion apathy protocols."
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_DESTROYER
-	current_cost = 100
+	base_cost = 100
 	stage = 2
 
 /datum/mindflayer_passive/badass/on_apply()
@@ -179,7 +184,7 @@
 	upgrade_text = "Increasing visible wavelength to infrared."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
-	current_cost = 40
+	base_cost = 40
 
 /datum/mindflayer_passive/eye_enhancement/on_apply()
 	..()
@@ -204,7 +209,7 @@
 	upgrade_text = "MORE EFFICIENCY IS MORE GOOD WIP"
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
-	current_cost = 50
+	base_cost = 50
 
 /datum/mindflayer_passive/drain_speed/on_apply()
 	..()
@@ -218,7 +223,7 @@
 	purchase_text = "Prevents your limbs from falling off due to damage."
 	gain_text = "Makes joints gooder"
 	max_level = 1
-	current_cost = 50
+	base_cost = 50
 
 /datum/mindflayer_passive/improved_joints/on_apply()
 	..()

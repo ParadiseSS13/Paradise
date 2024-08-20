@@ -21,7 +21,9 @@
 	var/max_level = 1
 	/// Determines whether the power is always given to the mind flayer or if it must be purchased.
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
-	/// The cost of purchasing the power.
+	/// The initial cost of purchasing the spell.
+	var/base_cost = 0
+	/// The current price to upgrade the spell
 	var/current_cost = 0
 	/// What `stat` value the mind flayer needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.
 	var/req_stat = CONSCIOUS
@@ -29,6 +31,8 @@
 	var/category = CATEGORY_GENERAL
 	/// The current `stage` that we are on for our powers. Currently only hides powers of a higher stage. TODO: IMPLEMENT CORRECTLY WHEN TGUI IS ROLLING
 	var/stage = 1
+	///A brief description of what the spell's upgrades do
+	var/upgrade_information = "TODO add upgrade text for this spell"
 
 /datum/spell/flayer/self/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -86,7 +90,7 @@
 					"name" = spell.name,
 					"desc" = spell.desc,
 					"max_level" = spell.max_level,
-					"cost" = spell.current_cost,
+					"cost" = spell.base_cost,
 					"stage" = spell.stage,
 					"ability_path" = spell.type
 				))
@@ -97,7 +101,7 @@
 					"name" = passive.name,
 					"desc" = passive.purchase_text,
 					"max_level" = passive.max_level,
-					"cost" = passive.current_cost,
+					"cost" = passive.base_cost,
 					"stage" = passive.stage,
 					"ability_path" = passive.type
 				))
@@ -121,12 +125,20 @@
 	for(var/datum/mindflayer_passive/passive in flayer.powers)
 		known_abilities += list(list(
 			"name" = passive.name,
-			"current_level" = passive.level
+			"current_level" = passive.level,
+			"max_level" = passive.max_level,
+			"cost" = passive.current_cost,
+			"upgrade_text" = passive.upgrade_information,
+			"ability_path" = passive.type
 		))
 	for(var/datum/spell/flayer/spell in flayer.powers)
 		known_abilities += list(list(
 			"name" = spell.name,
-			"current_level" = spell.level
+			"current_level" = spell.level,
+			"max_level" = spell.max_level,
+			"cost" = spell.current_cost,
+			"upgrade_text" = spell.upgrade_information,
+			"ability_path" = spell.type
 		))
 	data["known_abilities"] = known_abilities
 	return data
@@ -161,7 +173,7 @@
 	else if (category_stage[to_add.category] == to_add.stage)
 		category_stage[to_add.category] += 1
 	if(to_add.current_cost > get_swarms())
-		send_swarm_message("We need more sustenance for this...")
+		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarms for this...")
 		return FALSE
 	adjust_swarms(-to_add.current_cost)
 	add_ability(to_add, src)
@@ -185,7 +197,7 @@
 	else if (category_stage[to_add.category] == to_add.stage)
 		category_stage[to_add.category] += 1
 	if(to_add.current_cost > get_swarms())
-		send_swarm_message("We need more sustenance for this...")
+		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarms for this...")
 		return FALSE
 	adjust_swarms(-to_add.current_cost)
 	add_passive(to_add, src)

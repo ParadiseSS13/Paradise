@@ -4,13 +4,17 @@ import { Window } from '../layouts';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { createSearch } from 'common/string';
-
+/*
+* Abandon all hope ye who enter here whom know what good javascript looks like
+*/
 export const AugmentMenu = (props, context) => {
   return (
     <Window width={700} height={700} theme="changeling">
       <Window.Content>
         <Stack fill vertical>
           <Abilities/>
+          <Upgrades // Not sure if I'll be lazy and keep upgrades down here, or move them into a separate tab
+          />
         </Stack>
       </Window.Content>
     </Window>
@@ -83,9 +87,6 @@ const Abilities = (props, context) => {
         {tab.category_name}
       </Tabs.Tab>
     ))}
-    <Tabs.Tab>
-      Upgrades
-    </Tabs.Tab>
     </Tabs>
     {abilities.map((ability, i) => {
     return (
@@ -101,7 +102,7 @@ const Abilities = (props, context) => {
                 {ability.desc}
                 <Stack.Item textAlign = "right">
                   <Button
-                    content = "Purchase" // TODO: Make this change when you buy it
+                    content = {ability.cost}
                     icon = "minus"
                     disabled = {ability.cost > usable_swarms}
                     tooltip = "Purchase this ability?"
@@ -116,5 +117,47 @@ const Abilities = (props, context) => {
   })}
     </Section>
   </Stack.Item>
+  );
+}
+const Upgrades = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {usable_swarms, known_abilities} = data;
+  return(
+    <Stack.Item grow>
+      <Section
+      fill
+      scrollable
+      title = "Potential Upgrades">
+      {known_abilities.map((ability, i) =>{
+        return(
+          ability.current_level < ability.max_level && // Putting this logic expression here means itll only render if this is true
+        <Box
+        key = {i}>
+          <Stack>
+            <Stack.Item
+            bold>
+              {ability.name}
+            </Stack.Item>
+            <Stack.Item
+            fontSize = {1.2}
+            >
+              {ability.upgrade_text}
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                content = {ability.cost}
+                  icon = "minus"
+                  disabled = {ability.cost > usable_swarms}
+                  tooltip = "Purchase this ability?"
+                  onClick={() => act("purchase", {ability_path: ability.ability_path}
+                      )}
+                  textAlign = "right"/>
+            </Stack.Item>
+          </Stack>
+        </Box>
+      );
+      })}
+      </Section>
+    </Stack.Item>
   );
 }

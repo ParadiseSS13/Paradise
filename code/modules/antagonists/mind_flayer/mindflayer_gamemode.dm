@@ -3,7 +3,7 @@
 	if(!length(mindflayers))
 		return
 
-	var/text = "<font size='2'><b>The mindflayers were:</b></font>"
+	var/list/text = list("<font size='2'><b>The mindflayers were:</b></font>")
 	for(var/datum/mind/mindflayer in mindflayers)
 		var/traitorwin = TRUE
 		text += "<br>[mindflayer.get_display_key()] was [mindflayer.name] ("
