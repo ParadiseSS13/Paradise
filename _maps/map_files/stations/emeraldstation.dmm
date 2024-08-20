@@ -11932,17 +11932,6 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
-"cjZ" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "purplecorner"
-	},
-/area/station/hallway/primary/starboard/south)
 "ckc" = (
 /obj/structure/chair/sofa{
 	dir = 1;
@@ -13702,16 +13691,6 @@
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
-"cCZ" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bluecorner"
-	},
-/area/station/hallway/primary/fore)
 "cDa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
@@ -20266,15 +20245,6 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry)
-"dPH" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24;
-	pixel_y = -8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/se)
 "dPL" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard{
@@ -23278,10 +23248,6 @@
 "evu" = (
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29673,11 +29639,6 @@
 /area/station/supply/storage)
 "fCl" = (
 /obj/machinery/light,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -33827,14 +33788,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"gpN" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/sw)
 "gpO" = (
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
@@ -35905,14 +35858,6 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
-"gKU" = (
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24;
-	name = "west bump"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/public/locker)
 "gKV" = (
 /obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/light{
@@ -37006,16 +36951,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"gWN" = (
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/west)
 "gWT" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -44630,14 +44565,6 @@
 	icon_state = "cult"
 	},
 /area/station/legal/magistrate)
-"isu" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/ne)
 "isx" = (
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -58031,15 +57958,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
-"kRH" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump";
-	pixel_x = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/nw)
 "kRN" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "cautioncorner"
@@ -61450,11 +61368,6 @@
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
-	},
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -73289,13 +73202,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/ne)
-"nOl" = (
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/west)
 "nOr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -74997,16 +74903,6 @@
 	icon_state = "greenblue"
 	},
 /area/station/hallway/secondary/garden)
-"odw" = (
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "custom placement";
-	pixel_x = 24;
-	pixel_y = -8
-	},
-/obj/item/flag/nt,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/north)
 "odz" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -79433,10 +79329,6 @@
 /area/station/engineering/engine)
 "oSZ" = (
 /obj/item/kirbyplants,
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -86382,11 +86274,6 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "qiA" = (
@@ -90264,19 +90151,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
-"qWB" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/station/hallway/secondary/entry/lounge)
 "qWD" = (
 /obj/structure/chair/comfy/beige,
 /obj/effect/landmark/start/assistant,
@@ -97572,11 +97446,6 @@
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /turf/simulated/floor/carpet,
 /area/station/hallway/secondary/entry/lounge)
 "skF" = (
@@ -104313,12 +104182,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24;
-	pixel_y = 5
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "twC" = (
@@ -105987,17 +105850,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
-"tMP" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24;
-	pixel_x = -4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bluecorner"
-	},
-/area/station/hallway/primary/starboard)
 "tMS" = (
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
@@ -109206,15 +109058,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
-"utA" = (
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/station/public/dorms)
 "utC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -124628,10 +124471,6 @@
 /area/space/nearstation)
 "xpF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -126402,18 +126241,6 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/primary/central/se)
-"xGU" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24;
-	pixel_y = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft)
 "xGV" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular{
@@ -152797,7 +152624,7 @@ fQY
 snX
 snX
 snX
-gpN
+snX
 snX
 cxL
 snX
@@ -153804,7 +153631,7 @@ qmI
 gmL
 nwf
 nwf
-nOl
+fGF
 kpe
 pdm
 arS
@@ -155588,7 +155415,7 @@ eAO
 nAP
 rEz
 nmP
-kRH
+bvh
 tyb
 wmQ
 uJr
@@ -156712,7 +156539,7 @@ eCX
 oRn
 sfU
 cPY
-gWN
+yiN
 kgB
 dPe
 oPx
@@ -161593,7 +161420,7 @@ aAD
 koA
 rHw
 uln
-qWB
+qjt
 eUQ
 dHa
 vGk
@@ -161742,7 +161569,7 @@ rmE
 oQM
 qxy
 teK
-cCZ
+mJS
 pKn
 gQg
 gLI
@@ -162014,7 +161841,7 @@ hna
 ckv
 vli
 ckv
-odw
+lIe
 qlt
 kov
 vAZ
@@ -162086,7 +161913,7 @@ uCq
 ppu
 ndW
 ppu
-xGU
+vfQ
 sEQ
 ppu
 ppu
@@ -163128,7 +162955,7 @@ rJh
 cFf
 cFf
 dTi
-gKU
+cFf
 saa
 nwE
 dJq
@@ -163568,7 +163395,7 @@ eUC
 cJB
 cJB
 vAZ
-utA
+bvA
 urb
 sRm
 tZO
@@ -167702,7 +167529,7 @@ jOu
 icb
 dbu
 adx
-dPH
+jOu
 dZF
 xfI
 jOu
@@ -168181,7 +168008,7 @@ uBv
 nOk
 oWo
 dUF
-isu
+soN
 aaV
 aUe
 soN
@@ -171573,7 +171400,7 @@ xyC
 eDy
 iWE
 muy
-cjZ
+muy
 pJV
 giM
 pcZ
@@ -173336,7 +173163,7 @@ scq
 iro
 kyA
 uci
-tMP
+rZB
 bVb
 bmi
 cUb
