@@ -14,8 +14,6 @@
 
 
 /datum/spell/flayer/self/weapon/cast(list/targets, mob/user)
-	if(!..())
-		return FALSE
 	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
 		retract(user, TRUE)
 		return
@@ -33,7 +31,7 @@
 	return weapon_ref
 
 /datum/spell/flayer/self/weapon/proc/retract(mob/owner, any_hand = TRUE)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_MOB_WILLINGLY_DROP + COMSIG_MOB_WEAPON_APPEARS
 	if(!any_hand && !istype(owner.get_active_hand(), weapon_type))
 		return
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, unEquip), weapon_ref, TRUE)

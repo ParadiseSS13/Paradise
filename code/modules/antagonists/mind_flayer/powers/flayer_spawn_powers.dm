@@ -30,8 +30,6 @@
 	var/max_mob_hp = 100
 
 /datum/spell/flayer/self/summon/cast(list/targets, mob/user)
-	if(!..())
-		return FALSE
 	if(length(current_mobs) < max_summons)
 		check_for_ghosts(user)
 	else

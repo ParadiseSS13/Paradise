@@ -102,8 +102,6 @@
 	return C
 
 /datum/spell/flayer/grapple_arm/cast(list/targets, mob/user)
-	if(!..())
-		return FALSE
 	var/atom/target = targets[1]
 	var/obj/item/projectile/tether/flayer/tether = new /obj/item/projectile/tether/flayer(get_turf(user))
 	tether.original = target

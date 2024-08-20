@@ -46,14 +46,19 @@
 	flayer.powers -= src
 	flayer = null
 	return ..()
-/*
-* Putting if(!..()) at the start of every spell means they'll check to see if the mindflayer is nullified, and thus is allowed to cast their spells
-*/
-/datum/spell/flayer/cast(list/targets, mob/user = usr)
-	SHOULD_CALL_PARENT(TRUE)
-	..() // This parent call does nothing and is only here cause the compiler complains if it's gone. Hmmm, I wonder why.
+
+/datum/spell/flayer/can_cast(mob/user, charge_check, show_message)
+	var/datum/antagonist/mindflayer/flayer_datum = user.mind.has_antag_datum(/datum/antagonist/mindflayer)
+
+	if(!flayer_datum)
+		return FALSE
+
+	if(user.stat >= DEAD) // TODO check if needed
+		if(show_message)
+			to_chat(user, "<span class='warning'>Not while you're dead!</span>")
+		return FALSE
+
 	if(checks_nullification && HAS_TRAIT(user, TRAIT_MINDFLAYER_NULLIFIED))
-		flayer.send_swarm_message("We cannot manifest that right now...")
 		return FALSE
 	return TRUE
 
@@ -70,8 +75,6 @@
 	return GLOB.always_state
 
 /datum/spell/flayer/self/augment_menu/cast(mob/user)
-	if(!..())
-		return FALSE
 	ui_interact(user)
 
 /datum/spell/flayer/self/augment_menu/ui_interact(mob/user, datum/tgui/ui)
@@ -82,8 +85,6 @@
 		ui.open()
 
 /datum/spell/flayer/self/augment_menu/ui_act(action, list/params, datum/tgui/ui)
-	if(..())
-		return
 	var/mob/user = ui.user
 	if(user.stat)
 		return
