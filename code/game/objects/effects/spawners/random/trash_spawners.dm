@@ -31,6 +31,9 @@
 		/obj/item/trash/waffles,
 	)
 
+/obj/effect/spawner/random/food_trash/record_item(type_path_to_make)
+	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/trash]")
+
 /obj/effect/spawner/random/trash
 	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "trash"
@@ -58,4 +61,7 @@
 	spawn_random_offset_max_pixels = 8
 
 /obj/effect/spawner/random/trash/record_item(type_path_to_make)
+	if(istype(type_path_to_make, /obj/effect/spawner))
+		return
+
 	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/trash]")
