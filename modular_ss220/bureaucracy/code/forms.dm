@@ -456,8 +456,10 @@ GLOBAL_LIST_INIT(bureaucratic_forms, list())
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	req_access = ACCESS_CENT_GENERAL
-	text = "\[small\]Станция — \[b\]Центральное командование\[/b\]\[br\]Год: 2568\[br\]Время: \[time\]\[/small\]\[br\]\[i\]\[large\]\[b\]\[field\] \[b\]\[/large\]\[/i\]\[/grid\]\[hr\]\[center\]Приветствую экипаж и руководство \[station\]!\[/center\]\[br\]\[br\]\[field\]\[br\]\[small\]\[i\]\[br\]Подпись: \[sign\]\[/i\],   в должности: \[i\]\[field\].\[/i\]\[/small\]"
 	footer = footer_confidential
+
+/datum/bureaucratic_form/NT_COM_00/New()
+	text = "\[small\]Станция — \[b\]Центральное командование\[/b\]\[br\]Год: [GLOB.game_year]\[br\]Время: \[time\]\[/small\]\[br\]\[i\]\[large\]\[b\]\[field\] \[b\]\[/large\]\[/i\]\[/grid\]\[hr\]\[center\]Приветствую экипаж и руководство \[station\]!\[/center\]\[br\]\[br\]\[field\]\[br\]\[small\]\[i\]\[br\]Подпись: \[sign\]\[/i\],   в должности: \[i\]\[field\].\[/i\]\[/small\]"
 
 /datum/bureaucratic_form/NT_COM_01
 	name = "Форма NT-COM-01"
