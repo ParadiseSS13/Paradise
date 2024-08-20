@@ -67,11 +67,6 @@
 /obj/machinery/mineral/equipment_vendor/golem,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
-"r" = (
-/obj/machinery/door/airlock/titanium,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/shuttle/freegolem)
 "s" = (
 /obj/machinery/light{
 	dir = 8
@@ -258,6 +253,11 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/freegolem)
+"W" = (
+/obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/shuttle/freegolem)
 
 (1,1,1) = {"
 a
@@ -301,12 +301,12 @@ a
 a
 b
 b
-r
+W
 b
 x
 D
 b
-r
+W
 b
 b
 a

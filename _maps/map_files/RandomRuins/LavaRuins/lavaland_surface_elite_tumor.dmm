@@ -26,107 +26,67 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"V" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/template_noop,
-/area/template_noop)
 
 (1,1,1) = {"
 a
 a
+u
 a
 a
 a
-a
-a
-a
-a
+u
 "}
 (2,1,1) = {"
 a
-V
-V
-V
-V
-V
-V
-V
-a
-"}
-(3,1,1) = {"
-a
-V
 u
 E
 u
 u
 u
-V
 a
 "}
-(4,1,1) = {"
-a
-V
+(3,1,1) = {"
+u
 u
 u
 u
 u
 q
-V
-a
+u
 "}
-(5,1,1) = {"
-a
-V
+(4,1,1) = {"
+u
 u
 u
 k
 u
 u
-V
 a
 "}
-(6,1,1) = {"
+(5,1,1) = {"
 a
-V
 u
 M
 u
 u
 u
-V
+u
+"}
+(6,1,1) = {"
+a
+a
+u
+a
+u
+u
 a
 "}
 (7,1,1) = {"
 a
-V
+u
+a
 u
 u
-u
-u
-u
-V
-a
-"}
-(8,1,1) = {"
-a
-V
-V
-V
-V
-V
-V
-V
-a
-"}
-(9,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
 a
 a
 "}
