@@ -70,6 +70,8 @@
 
 //This is mostly for flavor, for framing messages as coming from the swarm itself. The other reason is so I can type "span" less.
 /datum/antagonist/mindflayer/proc/send_swarm_message(message)
+	if(HAS_TRAIT(owner.current, TRAIT_MINDFLAYER_NULLIFIED))
+		message = stutter(message, 0, TRUE)
 	to_chat(owner.current, "<span class='sinister'>[message]</span>")
 
 /**
@@ -77,6 +79,10 @@
 	Returns either true or false, if the harvest will work or not.
 */
 /datum/antagonist/mindflayer/proc/check_valid_harvest(mob/living/carbon/human/H)
+	if(HAS_TRAIT(owner.current, TRAIT_MINDFLAYER_NULLIFIED))
+		send_swarm_message("We do not have the energy for this...")
+		return FALSE
+
 	var/obj/item/organ/internal/brain/brain = H.get_int_organ(/obj/item/organ/internal/brain)
 	if(!brain)
 		send_swarm_message("This entity has no brain to harvest from.")
@@ -105,7 +111,7 @@
 	var/drain_total_damage = 0
 	var/obj/item/organ/internal/brain/drained_brain = H.get_int_organ(/obj/item/organ/internal/brain)
 	var/unique_drain_id = H.UID()
-	owner.current.visible_message("<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>", "<span class='sinister'>We begin our harvest on [H]</span>", "<span class='notice'>You hear the hum of electricity.</span>")
+	owner.current.visible_message("<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>", "<span class='sinister'>We begin our harvest on [H].</span>", "<span class='notice'>You hear the hum of electricity.</span>")
 	if(!do_mob(owner.current, H, time = 2 SECONDS))
 		send_swarm_message("Our connection was incomplete.")
 		harvesting = null

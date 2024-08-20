@@ -224,6 +224,7 @@
 	purchase_text = "Prevents your limbs from falling off due to damage."
 	gain_text = "Artificial skeletal structure reinforced."
 	max_level = 1
+	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 50
 
 /datum/mindflayer_passive/improved_joints/on_apply()

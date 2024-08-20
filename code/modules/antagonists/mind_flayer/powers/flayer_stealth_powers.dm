@@ -28,6 +28,8 @@
 	return C
 
 /datum/spell/flayer/surveilance_monitor/cast(list/targets, mob/user)
+	if(!..())
+		return FALSE //You can still look at your internal camera, but cant make new ones if nullified
 	if(!internal_camera)
 		internal_camera = new /obj/item/camera_bug(user)
 	if(length(active_bugs) >= maximum_hacked_computers)
@@ -58,7 +60,8 @@
 		user.extra_message_range = 0
 		to_chat(user, "<span class='notice'>We turn our vocal modulator to its original settings.</span>")
 		return FALSE
-
+	if(!..())
+		return FALSE
 	var/mimic_voice = tgui_input_text(user, "Enter a name to mimic.", "Mimic Voice", max_length = MAX_NAME_LEN)
 	if(!mimic_voice)
 		return FALSE
@@ -77,6 +80,8 @@
 	base_cooldown = 15 SECONDS
 
 /datum/spell/flayer/self/dump_coolant/cast(list/targets, mob/living/user)
+	if(!..())
+		return FALSE
 	var/datum/effect_system/smoke_spread/smoke = new()
 	smoke.set_up(15, FALSE, user)
 	smoke.start()
@@ -89,4 +94,6 @@
 	base_cooldown = 120 SECONDS
 
 /datum/spell/flayer/self/skin_suit/cast(list/targets, mob/living/user)
+	if(!..())
+		return FALSE
 	user.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE)

@@ -808,6 +808,20 @@
 	owner.physiology.stamina_mod /= 1.15
 	return ..()
 
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification
+	name = "Nanite Pacifier"
+	desc = "This implant acts on mindflayer nanobots like smoke does to bees, rendering them significantly more docile."
+	implant_color = COLOR_BLACK
+	origin_tech = "materials=4;programming=5;biotech=5;combat=5;"
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification/insert(mob/living/carbon/M, special)
+	..()
+	ADD_TRAIT(M, TRAIT_MINDFLAYER_NULLIFIED, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification/remove(mob/living/carbon/M, special)
+	REMOVE_TRAIT(M, TRAIT_MINDFLAYER_NULLIFIED, UNIQUE_TRAIT_SOURCE(src))
+	return ..()
+
 //BOX O' IMPLANTS
 
 /obj/item/storage/box/cyber_implants

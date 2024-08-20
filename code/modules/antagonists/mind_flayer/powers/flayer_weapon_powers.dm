@@ -14,16 +14,19 @@
 
 
 /datum/spell/flayer/self/weapon/cast(list/targets, mob/user)
+	if(!..())
+		return FALSE
 	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
 		retract(user, TRUE)
 		return
-	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
 	if(!user.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand!")
 		return FALSE
 	if(!weapon_ref)
 		weapon_ref = new weapon_type(user, src)
+	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
 	user.put_in_hands(weapon_ref)
+	weapon_ref.flags |= NODROP
 	playsound(get_turf(user), 'sound/mecha/mechmove03.ogg', 50, TRUE)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), user)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), user)
@@ -47,7 +50,7 @@
 
 /datum/spell/flayer/self/weapon/swarmprod
 	name = "Swarmprod"
-	desc = "Add me!"
+	desc = "We shape our arm into an extended mass of sparking nanites."
 	action_icon_state = "elecarm"
 	power_type = FLAYER_INNATE_POWER
 	weapon_type = /obj/item/melee/baton/flayerprod

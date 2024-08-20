@@ -4,8 +4,11 @@
 	name = "Rejuvenate"
 	desc = "Heal and remove any incapacitating effects from yourself."
 	power_type = FLAYER_INNATE_POWER
+	checks_nullification = FALSE
 
 /datum/spell/flayer/self/rejuv/cast(list/targets, mob/living/user)
+	if(!..())
+		return FALSE
 	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
 	user.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV)
 
@@ -18,4 +21,6 @@
 	stage = 2
 
 /datum/spell/flayer/self/quicksilver_form/cast(list/targets, mob/living/user)
+	if(!..())
+		return FALSE
 	user.apply_status_effect(STATUS_EFFECT_QUICKSILVER_FORM)

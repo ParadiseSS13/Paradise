@@ -1,4 +1,4 @@
-//POWERS// OOORAAAH WE HAVE POWERS
+// POWERS// OOORAAAH WE HAVE POWERS
 #define POWER_LEVEL_ZERO	0 // Only used for mobs to check what powers they should have // TODO: figure out wtf I meant with this comment // Okay so I think I meant this as a define to use in comparison with something, to check if it's bought or not?
 #define POWER_LEVEL_ONE		1
 #define POWER_LEVEL_TWO		2
@@ -13,6 +13,7 @@
 //	panel = "Vampire"
 //	school = "vampire"
 	action_background_icon_state = "bg_tech_blue" // TODO: flayer background
+	desc = "This spell needs a description!"
 	human_req = TRUE
 	clothes_req = FALSE
 	/// A reference to the owner mindflayer's antag datum.
@@ -31,8 +32,10 @@
 	var/category = CATEGORY_GENERAL
 	/// The current `stage` that we are on for our powers. Currently only hides powers of a higher stage. TODO: IMPLEMENT CORRECTLY WHEN TGUI IS ROLLING
 	var/stage = 1
-	///A brief description of what the spell's upgrades do
-	var/upgrade_info = "TODO add upgrade text for this spell"
+	/// A brief description of what the spell's upgrades do
+	var/upgrade_info = "This spell needs upgrade info!"
+	/// If the spell checks for a nullification implant/effect, set to FALSE to make it castable despite nullification
+	var/checks_nullification = TRUE
 
 /datum/spell/flayer/self/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -43,19 +46,32 @@
 	flayer.powers -= src
 	flayer = null
 	return ..()
+/*
+* Putting if(!..()) at the start of every spell means they'll check to see if the mindflayer is nullified, and thus is allowed to cast their spells
+*/
+/datum/spell/flayer/cast(list/targets, mob/user = usr)
+	SHOULD_CALL_PARENT(TRUE)
+	..() // This parent call does nothing and is only here cause the compiler complains if it's gone. Hmmm, I wonder why.
+	if(checks_nullification && HAS_TRAIT(user, TRAIT_MINDFLAYER_NULLIFIED))
+		flayer.send_swarm_message("We cannot manifest that right now...")
+		return FALSE
+	return TRUE
 
-///The shop for purchasing and upgrading abilities, from here on the rest of the file is just handling shopping. Specific powers are in the powers subfolder.
+/// The shop for purchasing and upgrading abilities, from here on the rest of the file is just handling shopping. Specific powers are in the powers subfolder.
 /datum/spell/flayer/self/augment_menu
 	name = "Self-Augment Operations"
 	desc = "Choose how we will upgrade ourselves."
 	action_icon_state = "choose_module"
 	base_cooldown = 2 SECONDS
 	power_type = FLAYER_INNATE_POWER
+	checks_nullification = FALSE
 
 /datum/spell/flayer/self/augment_menu/ui_state(mob/user)
 	return GLOB.always_state
 
 /datum/spell/flayer/self/augment_menu/cast(mob/user)
+	if(!..())
+		return FALSE
 	ui_interact(user)
 
 /datum/spell/flayer/self/augment_menu/ui_interact(mob/user, datum/tgui/ui)
