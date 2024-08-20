@@ -346,7 +346,7 @@
 	if(length(contents) >= cargo_slots)
 		if(!stop_messages)
 			to_chat(chassis.occupant, "<span class='warning'>[I] won't fit in [src], make some space!</span>")
-		return FALSE //Storage item is full
+		return FALSE // Storage item is full
 
 	if(is_type_in_typecache(I, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
