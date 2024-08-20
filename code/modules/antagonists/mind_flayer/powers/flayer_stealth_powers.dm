@@ -80,4 +80,9 @@
 	desc = "Look like someone else"
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
+	base_cooldown = 120 SECONDS
+
+/datum/spell/flayer/self/skin_suit/cast(list/targets, mob/user)
+	var/mob/living/caster = user
+	caster.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE)
 
