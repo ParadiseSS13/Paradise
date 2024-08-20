@@ -73,10 +73,20 @@
 			P = papers[length(papers)]
 			papers.Remove(P)
 		else
-			if(letterhead_type && alert("Choose a style", null,"Letterhead","Blank")=="Letterhead")
-				P = new letterhead_type
-			else
-				P = new /obj/item/paper
+			var/choice = tgui_alert(user, "Choose a style", "Paperbin", list("Letterhead", "Blank", "Cancel"))
+			if(isnull(choice) || !Adjacent(user))
+				return
+			switch(choice)
+				if("Letterhead")
+					P = new letterhead_type
+				if("Blank")
+					P = new /obj/item/paper
+				if("Cancel")
+					return
+
+			if(isnull(P))
+				return
+
 			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
 				if(prob(30))
 					P.info = "<font face=\"[P.crayonfont]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
