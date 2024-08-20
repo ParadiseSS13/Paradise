@@ -353,7 +353,7 @@
 			to_chat(chassis.occupant, "<span class='warning'>[src] cannot hold [I].</span>")
 		return FALSE
 
-	if(length(cant_hold) && isstorage(I)) //Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
+	if(length(cant_hold) && isstorage(I)) // Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
 		var/obj/item/storage/S = I
 		for(var/obj/A in S.return_inv())
 			if(is_type_in_typecache(A, cant_hold))
