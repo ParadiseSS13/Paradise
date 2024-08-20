@@ -454,14 +454,14 @@
 	if(A.being_hijacked)
 		return PULSEDEMON_SOURCE_DRAIN_INVALID
 	//CELLRATE is the conversion ratio between a watt tick and powercell energy storage units
-	var/amount_to_drain = clamp(A.cell.charge / GLOB.CELLRATE, 0, power_drain_rate * multiplier)
+	var/amount_to_drain = clamp(A.cell.charge / GLOB.CELLRATE, 0, power_drain_rate * WATT_TICK_TO_JOULE * multiplier)
 	A.cell.use(min(amount_to_drain * GLOB.CELLRATE, maxcharge - charge)) // calculated seperately because the apc charge multiplier shouldn't affect the actual consumption
-	return adjust_charge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER * WATT_TICK_TO_JOULE)
+	return adjust_charge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/drain_SMES(obj/machinery/power/smes/S, multiplier = 1)
 	//CELLRATE is the conversion ratio between a watt tick and powercell energy storage units.
-	var/amount_to_drain = clamp(S.charge / GLOB.CELLRATE, 0, power_drain_rate * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
-	var/drained = adjust_charge(amount_to_drain * WATT_TICK_TO_JOULE)
+	var/amount_to_drain = clamp(S.charge / GLOB.CELLRATE, 0, power_drain_rate * WATT_TICK_TO_JOULE * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
+	var/drained = adjust_charge(amount_to_drain)
 	S.charge -= drained * GLOB.CELLRATE
 	return drained
 
