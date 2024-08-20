@@ -16757,10 +16757,6 @@
 	},
 /area/station/science/toxins/mixing)
 "bSM" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
 /obj/structure/cable/orange{
 	d1 = 2;
 	d2 = 4;
@@ -16771,6 +16767,9 @@
 	},
 /obj/structure/closet/firecloset/full,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -59222,17 +59221,6 @@
 "lEz" = (
 /turf/simulated/mineral/ancient,
 /area/station/maintenance/disposal/north)
-"lEF" = (
-/obj/structure/disposalpipe/segment{
-	color = "#954535"
-	},
-/obj/structure/disposalpipe/segment{
-	color = "#954535"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/port/south)
 "lEG" = (
 /obj/machinery/status_display{
 	layer = 4
@@ -99715,10 +99703,6 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port2)
 "xha" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 4;
@@ -99729,6 +99713,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -102070,12 +102057,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /obj/structure/table/wood,
 /obj/item/kitchen/utensil/fork,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "xPU" = (
@@ -120078,7 +120064,7 @@ wYn
 abv
 jbe
 gaB
-lEF
+wGo
 wGo
 nbB
 kQS
