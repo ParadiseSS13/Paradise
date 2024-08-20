@@ -40,3 +40,4 @@
 #define APC_FULLY_CHARGED 2
 
 #define KW *1000
+#define KJ *1000
