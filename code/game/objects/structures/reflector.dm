@@ -91,13 +91,13 @@
 		return
 	if(anchored)
 		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 			return
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		anchored = FALSE
 	else
 		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
-		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 			return
 		WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 		anchored = TRUE
