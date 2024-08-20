@@ -409,7 +409,7 @@
 		return
 	set_ready_state(0)
 	var/obj/item/grenade/chem_grenade/cleaner/grenade = new projectile(chassis.loc)
-	playsound(chassis, fire_sound, 50, 1)
+	playsound(chassis, fire_sound, 50, TRUE)
 	grenade.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
