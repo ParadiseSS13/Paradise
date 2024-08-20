@@ -137,7 +137,7 @@
 
 /obj/item/gun/medbeam/damaged
 	name = "damaged beamgun"
-	desc = "Delivers volatile medical nanites in a focused beam. Don't cross the beams! It is damaged and will rapidly overheat."
+	desc = "Delivers volatile medical nanites in a focused beam. Don't cross the beams!"
 	///How hot the beamgun is, if it hits max heat it will break
 	var/current_heat = 0
 	///How much heat the beamgun needs to break
@@ -157,10 +157,10 @@
 
 /obj/item/gun/medbeam/damaged/examine(mob/user) //The 8 Trials of Asclepius
 	. = ..()
-	if(!broken)
-		return
-
-	. += "<span class='notice'>It is broken, and will not function without repairs.</span>"
+	. += "<span class= 'warning'>This ones cooling systems are damaged beyond repair, and will overheat rapidly. \
+	Despite the damaged cooling system, it's still mostly functional. However, if overheated, it will need to be repaired.</span>"
+	if(broken)
+		. += "<span class='notice'>It is broken, and will not function without repairs.</span>"
 	switch(broken)
 		if(SCREWDRIVER_OPEN)
 			. += "<span class='notice'>The panel can be <b>screwed</b> open to access the internals.</span>"
@@ -178,6 +178,19 @@
 			. += "<span class='notice'>The electronics need to be tested and reactivated with a <b>multitool</b>.</span>"
 		if(SCREWDRIVER_CLOSED)
 			. += "<span class='notice'>The panel needs to be <b>screwed</b> shut before it is usable.</span>"
+
+	if(!in_range(src, user))
+		return
+	var/heat_percent = (current_heat / max_heat) * 100
+	switch(heat_percent)
+		if(20 to 39)
+			. += "<span class='notice'>[src] feels warm.</span>"
+		if(40 to 59)
+			. += "<span class='notice'>[src] feels hot.</span>"
+		if(60 to 74) // i want it to be in the 'smoke' range at ~40 heat so as magic smoke is sudden but quick reaction time can stop it
+			. += "<span class='warning'>[src] is so hot it hurts to hold.</span>"
+		if(75 to INFINITY)
+			. += "<span class='warning'>[src] is emitting its magic smoke and is practically melting.</span>"
 
 /obj/item/gun/medbeam/damaged/process()
 	. = ..()
@@ -197,6 +210,8 @@
 	if(current_heat >= max_heat)
 		user.visible_message("<span class='warning'>[src] pops as it shuts off!</span>", "<span class='warning'>[src] pops and hisses as it shuts off. It is broken.</span>")
 		broken = SCREWDRIVER_OPEN
+		playsound(src, 'sound/effects/snap.ogg', 70, TRUE) // that didn't sound good...
+		user.adjustFireLoss(30) // you do NOT want to be holding this if it breaks. 5 more damage than hive lord cores heal, so not /thattt/ bad
 		user.adjust_fire_stacks(20)
 		user.IgniteMob()
 		LoseTarget()
