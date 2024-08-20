@@ -338,7 +338,7 @@
 		return
 
 	if(loc == I)
-		return FALSE //Means the item is already in the storage item
+		return FALSE // Means the item is already in the storage item
 
 	if(!I.can_enter_storage(src, usr))
 		return FALSE
