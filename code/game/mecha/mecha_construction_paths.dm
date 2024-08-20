@@ -1813,13 +1813,13 @@
 // NKARRDEM
 
 /datum/construction/mecha/nkarrdem_chassis
-	steps = list(list("key"=/obj/item/mecha_parts/part/nkarrdem_torso),//1
-		list("key"=/obj/item/mecha_parts/part/nkarrdem_head),//2
-		list("key"=/obj/item/mecha_parts/part/nkarrdem_left_arm),//3
-		list("key"=/obj/item/mecha_parts/part/nkarrdem_right_arm),//4
-		list("key"=/obj/item/mecha_parts/part/nkarrdem_left_leg),//5
-		list("key"=/obj/item/mecha_parts/part/nkarrdem_right_leg)//6
-					)
+	steps = list(list("key"=/obj/item/mecha_parts/part/nkarrdem_torso), // 1
+		list("key"=/obj/item/mecha_parts/part/nkarrdem_head), // 2
+		list("key"=/obj/item/mecha_parts/part/nkarrdem_left_arm), // 3
+		list("key"=/obj/item/mecha_parts/part/nkarrdem_right_arm), // 4
+		list("key"=/obj/item/mecha_parts/part/nkarrdem_left_leg), // 5
+		list("key"=/obj/item/mecha_parts/part/nkarrdem_right_leg) // 6
+	)
 
 /datum/construction/mecha/nkarrdem_chassis/custom_action(step, atom/used_atom, mob/user)
 	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
