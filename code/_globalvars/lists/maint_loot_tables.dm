@@ -24,6 +24,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_0, list(
 		/obj/item/poster/random_official,
 		/obj/item/reagent_containers/drinks/drinkingglass,
 		/obj/item/reagent_containers/glass/beaker/waterbottle,
+		/obj/item/reagent_containers/glass/beaker/waterbottle/empty,
 		/obj/item/scissors,
 		/obj/item/storage/box,
 		/obj/item/storage/fancy/crayons,

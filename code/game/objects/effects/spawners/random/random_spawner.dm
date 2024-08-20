@@ -31,6 +31,8 @@
 	var/spawn_random_offset = FALSE
 	/// Maximum offset distance for random pixel offsets.
 	var/spawn_random_offset_max_pixels = 16
+	/// Whether the spawned items should be rotated randomly.
+	var/spawn_random_angle = FALSE
 
 // Brief explanation:
 // Rather then setting up and then deleting spawners, we block all atomlike setup
@@ -103,6 +105,11 @@
 	var/result = new type_path_to_make(spawn_loc)
 
 	record_item(type_path_to_make)
+
+	var/atom/item = result
+	if(spawn_random_angle && istype(item))
+		item.transform = turn(item.transform, rand(0, 360))
+
 	return result
 
 /obj/effect/spawner/random/proc/record_item(type_path_to_make)

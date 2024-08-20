@@ -3,10 +3,8 @@
 /obj/effect/spawner/random/food_trash
 	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "tray"
-
 	name = "Food trash spawner"
 	loot = list(
-		/obj/item/reagent_containers/glass/beaker/waterbottle/empty,
 		/obj/item/trash/bowl,
 		/obj/item/trash/candle,
 		/obj/item/trash/candy,
@@ -30,6 +28,8 @@
 		/obj/item/trash/twimsts,
 		/obj/item/trash/waffles,
 	)
+
+	spawn_random_angle = TRUE
 
 /obj/effect/spawner/random/food_trash/record_item(type_path_to_make)
 	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/trash]")
@@ -64,6 +64,7 @@
 
 	// TODO: Random spawner scatter behavior doesn't work well with items in
 	// containers or on dense objects like racks. Fix up so we can scatter trash.
+	spawn_random_angle = TRUE
 	spawn_random_offset = TRUE
 	spawn_random_offset_max_pixels = 8
 
