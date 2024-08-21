@@ -12,14 +12,10 @@
 	var/extra_healing = 0
 
 /datum/spell/flayer/self/rejuv/cast(list/targets, mob/living/user)
-	if(!..())
-		return FALSE
 	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
 	user.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV, extra_duration, extra_healing)
 
 /datum/spell/flayer/self/rejuv/on_purchase_upgrade()
-	if(!..())
-		return FALSE
 	cooldown_handler.recharge_duration -= 5 SECONDS
 	extra_duration += 2 SECONDS
 	extra_healing += 2
@@ -31,17 +27,22 @@
 	base_cooldown = 40 SECONDS //25% uptime at base
 	category = CATEGORY_DESTROYER
 	stage = 2
-	base_cost = 120
+	base_cost = 100
 	max_level = 3
+	/// Do we get bullet reflection
+	var/should_get_reflection = FALSE
+	/// Extra duration we gain from upgrading
 	var/extra_duration = 0 // Base duration is 10 seconds
 
 /datum/spell/flayer/self/quicksilver_form/cast(list/targets, mob/living/user)
-	user.apply_status_effect(STATUS_EFFECT_QUICKSILVER_FORM, extra_duration)
+	user.apply_status_effect(STATUS_EFFECT_QUICKSILVER_FORM, extra_duration, should_get_reflection)
 
 /datum/spell/flayer/self/quicksilver_form/on_purchase_upgrade()
-	if(!..())
-		return FALSE
-	extra_duration += 5 SECONDS
+	switch(level)
+		if(POWER_LEVEL_TWO)
+			should_get_reflection = TRUE
+		if(POWER_LEVEL_THREE)
+			extra_duration += 10 SECONDS
 
 /datum/spell/flayer/self/terminator_form
 	name = "T.E.R.M.I.N.A.T.O.R. Form"
@@ -51,5 +52,5 @@
 	category = CATEGORY_DESTROYER
 	stage = 3 // TODO: figure out if this is the right stage
 	base_cost = 250
-	static_upgrade_increase = 100 // Total cost of 1050 swarms
+	static_upgrade_increase = 50 // Total cost of 900 swarms
 	max_level = 3

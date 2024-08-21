@@ -960,26 +960,32 @@
 	tick_interval = 0
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/quicksilver_form
+	/// Temporary storage of the owner's flags to restore them properly after the ability is over
 	var/temporary_flag_storage
+	/// Do we also reflect projectiles
+	var/should_deflect = FALSE
 
 /atom/movable/screen/alert/status_effect/quicksilver_form
 	name = "Quicksilver body"
 	desc = "Your body is much less solid."
 	icon_state = "high"
 
-/datum/status_effect/quicksilver_form/on_creation(mob/living/new_owner, extra_duration)
+/datum/status_effect/quicksilver_form/on_creation(mob/living/new_owner, extra_duration, reflect_projectiles)
 	if(isnum(extra_duration))
 		duration += extra_duration
-	. = ..()
+	should_deflect = reflect_projectiles
+	return ..()
 
 /datum/status_effect/quicksilver_form/on_apply()
-	ADD_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
+	if(should_deflect)
+		ADD_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
 	temporary_flag_storage = owner.pass_flags
 	owner.pass_flags |= (PASSTABLE | PASSGRILLE | PASSMOB | PASSFENCE | PASSGIRDER | PASSGLASS | PASSTAKE)
 	owner.color = COLOR_WHITE
 	return TRUE
 
 /datum/status_effect/quicksilver_form/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
+	if(should_deflect)
+		REMOVE_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
 	owner.pass_flags = temporary_flag_storage
 	owner.color = null

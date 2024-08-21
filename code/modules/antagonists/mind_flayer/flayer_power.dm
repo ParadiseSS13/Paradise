@@ -230,14 +230,17 @@
 			send_swarm_message("That function is already at it's strongest.")
 			return FALSE
 		to_add.current_cost = existing_passive.current_cost
+
 	if(category_stage[to_add.category] < to_add.stage)
 		send_swarm_message("We do not have all the knowledge needed for this...")
 		return FALSE
 	else if (category_stage[to_add.category] == to_add.stage)
 		category_stage[to_add.category] += 1
+
 	if(to_add.current_cost > get_swarms())
 		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarms for this...")
 		return FALSE
+
 	adjust_swarms(-to_add.current_cost)
 	add_passive(to_add, src)
 	return TRUE
