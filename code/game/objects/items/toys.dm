@@ -1052,7 +1052,7 @@
 	hitsound = "swing_hit"
 
 /obj/item/toy/pet_rock/attack_self(mob/user)
-	var/cuddle_verb = pick("admires","respects", "cherises", "appreciates")
+	var/cuddle_verb = pick("admires", "respects", "cherises", "appreciates")
 	user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
 
 /obj/item/toy/pet_rock/fred
