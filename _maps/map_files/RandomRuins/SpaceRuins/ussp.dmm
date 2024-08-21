@@ -1,8 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aa" = (
-/obj/effect/landmark/burnturf,
-/turf/simulated/wall/indestructible/titanium/soviet/nosmooth,
-/area/ruin/space/derelict/hallway/primary)
 "ab" = (
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -2901,7 +2897,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/wall/indestructible/titanium/soviet/nosmooth,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "hi" = (
 /obj/effect/landmark/burnturf,
@@ -3652,9 +3648,6 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
-"jh" = (
-/turf/simulated/wall/indestructible/titanium/soviet/nosmooth,
-/area/ruin/space/derelict/hallway/primary)
 "ji" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -5416,7 +5409,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/wall/indestructible/titanium/soviet/nosmooth,
+/turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/hallway/primary)
 "nA" = (
 /obj/machinery/hydroponics,
@@ -6062,9 +6055,6 @@
 	icon_state = "orange"
 	},
 /area/ruin/space/derelict/crew_quarters)
-"pj" = (
-/turf/simulated/wall/indestructible/titanium/soviet/nosmooth,
-/area/ruin/space/derelict/crew_quarters)
 "pk" = (
 /turf/simulated/wall/indestructible/titanium/soviet,
 /area/space/nearstation)
@@ -6430,9 +6420,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/ruin/space/derelict/arrival)
-"qk" = (
-/turf/simulated/wall/indestructible/titanium/soviet/nosmooth,
 /area/ruin/space/derelict/arrival)
 "ql" = (
 /obj/machinery/economy/vending/cigarette/free{
@@ -7491,10 +7478,6 @@
 	icon_state = "red"
 	},
 /area/ruin/space/derelict/arrival)
-"Ud" = (
-/obj/effect/spawner/airlock,
-/turf/simulated/wall/indestructible/titanium/soviet,
-/area/ruin/space/derelict/arrival)
 "XQ" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -8016,14 +7999,14 @@ ac
 ac
 ac
 ac
-qk
+bn
 bn
 jm
 bn
 bn
 lu
 bn
-qk
+bn
 ac
 ac
 ac
@@ -8377,7 +8360,7 @@ ac
 aW
 bn
 bn
-qk
+bn
 gq
 gK
 ha
@@ -8647,7 +8630,7 @@ ac
 ac
 ac
 aW
-qk
+bn
 ed
 en
 eI
@@ -8738,7 +8721,7 @@ ac
 ac
 ac
 aW
-qk
+bn
 dU
 do
 do
@@ -8931,7 +8914,7 @@ de
 fE
 fZ
 gs
-qk
+bn
 bn
 aW
 ac
@@ -9292,7 +9275,7 @@ dB
 do
 do
 dR
-qk
+bn
 dF
 aW
 ac
@@ -9383,7 +9366,7 @@ dq
 dC
 do
 dR
-qk
+bn
 aW
 ac
 ac
@@ -9466,7 +9449,7 @@ ac
 ac
 ac
 aW
-qk
+bn
 cm
 cA
 cM
@@ -9474,7 +9457,7 @@ cA
 do
 dD
 dM
-qk
+bn
 aW
 ac
 ac
@@ -9557,7 +9540,7 @@ ac
 ac
 ac
 aW
-qk
+bn
 bS
 cn
 cB
@@ -9852,7 +9835,7 @@ ac
 ac
 dW
 eL
-jh
+eg
 hw
 hN
 eP
@@ -10033,7 +10016,7 @@ ac
 ac
 ac
 dW
-jh
+eg
 gt
 gP
 fk
@@ -10072,7 +10055,7 @@ iy
 rb
 qM
 rx
-qk
+bn
 aW
 ac
 ac
@@ -10124,7 +10107,7 @@ ac
 ac
 ag
 dW
-jh
+eg
 ga
 gu
 gQ
@@ -10157,7 +10140,7 @@ ac
 ac
 ac
 aW
-qk
+bn
 qv
 hY
 qM
@@ -10314,7 +10297,7 @@ fj
 fJ
 fR
 hx
-jh
+eg
 eL
 dW
 ac
@@ -10322,7 +10305,7 @@ jy
 km
 lb
 ac
-jh
+eg
 ml
 ii
 ii
@@ -10342,7 +10325,7 @@ ac
 ac
 ac
 aW
-qk
+bn
 qF
 hY
 re
@@ -10398,7 +10381,7 @@ ac
 ac
 ac
 dW
-jh
+eg
 fi
 eP
 fj
@@ -10587,7 +10570,7 @@ fj
 fJ
 eP
 gw
-jh
+eg
 eL
 dW
 ag
@@ -10688,7 +10671,7 @@ ac
 dW
 eg
 kn
-jh
+eg
 ii
 ac
 ac
@@ -10778,7 +10761,7 @@ ag
 ac
 dW
 eg
-jh
+dW
 iE
 ii
 ii
@@ -10869,7 +10852,7 @@ ac
 ag
 dW
 eg
-jh
+dW
 iE
 ko
 ii
@@ -10904,7 +10887,7 @@ hY
 rO
 bn
 bn
-Ud
+Nv
 ac
 ac
 jO
@@ -10960,7 +10943,7 @@ ac
 ac
 ac
 eg
-jh
+dW
 iE
 jz
 ii
@@ -11150,7 +11133,7 @@ jA
 ii
 ld
 iE
-jh
+dW
 eg
 ac
 ac
@@ -11241,7 +11224,7 @@ ii
 iE
 kp
 iE
-jh
+dW
 eg
 dW
 ac
@@ -11272,7 +11255,7 @@ hY
 rS
 rZ
 bn
-aW
+bn
 ac
 ac
 jO
@@ -11330,9 +11313,9 @@ ac
 iq
 iY
 iZ
-jh
+dW
 kq
-jh
+dW
 eg
 dW
 ac
@@ -11421,7 +11404,7 @@ ac
 ac
 ak
 ac
-jh
+eg
 eg
 kr
 eg
@@ -11507,7 +11490,7 @@ fs
 fQ
 eP
 gA
-aa
+gy
 eL
 dW
 ac
@@ -11686,7 +11669,7 @@ ac
 ac
 ag
 dW
-jh
+eg
 ft
 eP
 fs
@@ -11786,7 +11769,7 @@ gB
 fQ
 eP
 hB
-jh
+eg
 eL
 dW
 ac
@@ -11814,7 +11797,7 @@ ac
 ac
 ac
 aW
-qk
+bn
 qt
 hY
 hY
@@ -11871,7 +11854,7 @@ ag
 ag
 ag
 dW
-jh
+eg
 fS
 gj
 fJ
@@ -11997,7 +11980,7 @@ ac
 ac
 ac
 aW
-qk
+bn
 qt
 hY
 hY
@@ -12096,7 +12079,7 @@ hY
 hY
 hY
 rC
-qk
+bn
 aW
 ac
 ac
@@ -12150,7 +12133,7 @@ ac
 ac
 ac
 dW
-jh
+eg
 gU
 hl
 hC
@@ -12244,7 +12227,7 @@ ac
 ac
 dW
 eL
-jh
+eg
 hD
 hR
 eP
@@ -13089,7 +13072,7 @@ ac
 ac
 aV
 dH
-pj
+bm
 ng
 ng
 ng
@@ -13554,7 +13537,7 @@ ol
 ol
 ol
 pc
-pj
+bm
 aV
 ac
 ac
@@ -13644,7 +13627,7 @@ ng
 nX
 om
 oC
-pj
+bm
 bm
 pk
 ac
@@ -14089,11 +14072,11 @@ ac
 ac
 ac
 ac
-aV
+bm
 lo
 bm
 lo
-aV
+bm
 ag
 ag
 ac
