@@ -5507,18 +5507,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
-"bbN" = (
-/obj/machinery/magnetic_controller{
-	autolink = 1;
-	name = "Firing Range Control Console";
-	path = "w;e;e;w;s;n;n;s";
-	pixel_y = -23
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
-/area/station/security/range)
 "bbP" = (
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
@@ -31712,7 +31700,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
 /area/station/medical/surgery/secondary)
 "fVX" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -35329,6 +35320,9 @@
 /obj/item/paper_bin{
 	pixel_x = 4;
 	pixel_y = 3
+	},
+/obj/structure/reagent_dispensers/virusfood{
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -44835,6 +44829,15 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
+"ivG" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/structure/sign/directions/security{
+	dir = 4;
+	pixel_y = 25;
+	pixel_x = -32
+	},
+/turf/simulated/wall,
+/area/station/maintenance/fpmaint)
 "ivK" = (
 /obj/structure/closet/crate,
 /obj/item/stack/cable_coil,
@@ -67530,7 +67533,7 @@
 	pixel_y = 32
 	},
 /obj/structure/sign/directions/security{
-	dir = 1;
+	dir = 4;
 	pixel_y = 25;
 	pixel_x = 32
 	},
@@ -72745,6 +72748,19 @@
 /obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
+"nLa" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/sign/directions/security{
+	dir = 4;
+	pixel_y = -25;
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/fore/north)
 "nLd" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -84889,7 +84905,7 @@
 	pixel_x = 32
 	},
 /obj/structure/sign/directions/security{
-	dir = 1;
+	dir = 4;
 	pixel_y = 39;
 	pixel_x = 32
 	},
@@ -90884,6 +90900,11 @@
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=ESC";
 	location = "SH"
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 25;
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -104185,6 +104206,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "txh" = (
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 25;
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -109909,6 +109935,15 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/engine)
+"uBo" = (
+/obj/machinery/magnetic_controller{
+	autolink = 1;
+	name = "Firing Range Control Console";
+	path = "w;e;e;w;s;n;n;s";
+	pixel_y = 6
+	},
+/turf/simulated/wall,
+/area/station/security/range)
 "uBs" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -113879,6 +113914,11 @@
 	dir = 8;
 	pixel_x = -32;
 	pixel_y = 32
+	},
+/obj/structure/sign/directions/security{
+	dir = 4;
+	pixel_y = 25;
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -154315,7 +154355,7 @@ uZF
 hQU
 mIP
 hQU
-vyj
+ivG
 tCS
 lRo
 aeT
@@ -161760,7 +161800,7 @@ lef
 tao
 xYY
 wfQ
-wfQ
+nLa
 rQZ
 rNe
 dZY
@@ -172556,8 +172596,8 @@ jox
 wKo
 sBe
 tTt
-bbN
-sIm
+arJ
+uBo
 sIm
 sIm
 sIm
