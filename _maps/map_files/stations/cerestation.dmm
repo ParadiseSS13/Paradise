@@ -64897,9 +64897,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/serveng)
-"npz" = (
-/turf/space,
-/area/mine/unexplored/cere/civilian)
 "npC" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/wood,
@@ -120669,7 +120666,7 @@ rNK
 hUU
 aXn
 aXn
-npz
+aXn
 bav
 bav
 bav
