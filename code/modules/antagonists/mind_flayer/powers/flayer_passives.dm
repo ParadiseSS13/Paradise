@@ -171,6 +171,8 @@
 	should_process = TRUE
 
 /datum/mindflayer_passive/regen/process()
+	if(isspaceturf(get_turf(owner))) // No healing in space
+		return
 	if(ishuman(owner) && owner.stat == CONSCIOUS)
 		var/mob/living/carbon/human/flayer = owner
 		flayer.adjustBruteLoss(-level, robotic = TRUE)
