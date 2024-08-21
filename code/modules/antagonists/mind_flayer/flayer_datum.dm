@@ -200,6 +200,7 @@
 		force_add_passive(to_add)
 		return
 	force_upgrade_passive(passive, upgrade_type)
+
 /**
 * Adds an ability to a mindflayer, and sets the owner.
 * Arguments:
@@ -215,6 +216,7 @@
 	to_add.current_cost = to_add.static_upgrade_increase ? to_add.static_upgrade_increase : (to_add.base_cost * (to_add.level + 1)) // This is always gonna be base cost * 2 but it standardizes how this looks elsewhere
 	owner.AddSpell(to_add)
 	powers += to_add
+
 /**
 * Adds a passive to a mindflayer, and sets the owner.
 * Arguments:
