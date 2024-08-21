@@ -28,7 +28,6 @@ const Abilities = (props, context) => {
   const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', ability_tabs[0]);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const [abilities, setAbilities] = useLocalState(context, 'abilities', ability_tabs[0].abilities);
-  const newCategory = ability_tabs[0].abilities;
 
   const selectAbilities = (abilities, searchText = '') => {
     if (!abilities || abilities.length === 0) {
@@ -54,7 +53,8 @@ const Abilities = (props, context) => {
 
   const handleTabChange = (selectedTab) => {
     setSelectedTab(selectedTab);
-    setAbilities(selectedTab.abilities);
+    const abilitiesToDisplay = selectedTab.abilities.filter(ability => ability.stage <= selectedTab.category_stage)
+    setAbilities(abilitiesToDisplay);
     setSearchText('');
   };
 
@@ -107,7 +107,7 @@ const Abilities = (props, context) => {
                     disabled = {ability.cost > usable_swarms}
                     tooltip = "Purchase this ability?"
                     onClick={() => act("purchase", {ability_path: ability.ability_path}
-                      )}
+                      )} // This should really also update the contents of the tab, but idk how to make buttons do two things at once
                     textAlign = "right"/>
                   </Stack.Item>
                 </Stack>
