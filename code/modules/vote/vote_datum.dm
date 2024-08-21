@@ -88,7 +88,7 @@
 			for(var/res in results)
 				if(res in winning_options)
 					// Make it stand out
-					to_chat(world, "<span class='notice'><code>[res]</code> - [results[res]] vote\s</span>")
+					to_chat(world, "<span class='interface'><code>[res]</code> - [results[res]] vote\s</span>")
 				else
 					// Make it normal
 					to_chat(world, "<span class='interface'><code>[res]</code> - [results[res]] vote\s</span>")

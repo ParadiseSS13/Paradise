@@ -49726,6 +49726,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/structure/sink{
+	pixel_y = 24
+	},
 /turf/simulated/floor/grass,
 /area/station/science/genetics)
 "iXM" = (
