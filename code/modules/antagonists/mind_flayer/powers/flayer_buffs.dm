@@ -31,7 +31,7 @@
 	base_cooldown = 40 SECONDS //25% uptime at base
 	category = CATEGORY_DESTROYER
 	stage = 2
-	base_cost = 120
+	base_cost = 100
 	max_level = 3
 	/// Do we get bullet reflection
 	var/should_get_reflection = FALSE
