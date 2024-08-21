@@ -127305,10 +127305,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/station/medical/surgery)
-"xSm" = (
-/obj/machinery/power/apc/important/directional/south,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/east)
 "xSw" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -164717,7 +164713,7 @@ rXN
 jFj
 oSZ
 vuu
-xSm
+vEk
 amn
 amn
 amn
