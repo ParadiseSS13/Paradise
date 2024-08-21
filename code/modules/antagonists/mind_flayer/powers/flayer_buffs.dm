@@ -43,3 +43,12 @@
 		return FALSE
 	extra_duration += 5 SECONDS
 
+/datum/spell/flayer/self/terminator_form
+	name = "T.E.R.M.I.N.A.T.O.R. Form"
+	desc = "For a short time, transcend your limits and pursue your target through hell."
+	power_type = FLAYER_PURCHASABLE_POWER
+	base_cooldown = 5 MINUTES // Base uptime is 20%
+	category = CATEGORY_DESTROYER
+	stage = 3 // TODO: figure out if this is the right stage
+	base_cost = 300 // Capstone ability. Two upgrades, quite expensive but worth it
+	max_level = 3
