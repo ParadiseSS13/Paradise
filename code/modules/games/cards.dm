@@ -14,7 +14,6 @@
 	if(newback_icon)
 		back_icon = newback_icon
 
-// lewtodo make unum decks stack on top of the actual deck itself
 /obj/item/deck
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/playing_cards.dmi'
@@ -26,11 +25,11 @@
 	force = 0
 
 	var/list/cards = list()
-	/// To prevent spam shuffle
-	var/cooldown = 0
-	/// Decks default to a single pack, setting it higher will multiply them by that number
+	/// How often the deck can be shuffled.
+	var/shuffle_cooldown = 0
+	/// How many copies of the base deck (built in build_deck()) should be added?
 	var/deck_size = 1
-	/// The total number of cards. Set on init after the deck is fully built
+	/// The number of cards in a full deck. Set on init after all cards are created/added.
 	var/deck_total = 0
 	/// Styling for the cards, if they have multiple sets of sprites
 	var/card_style = null
@@ -83,7 +82,8 @@
 	. += ""
 	. += "You also notice a little number on the corner of [src]: it's tagged [main_deck_id]."
 
-
+/// Fill the deck with all the specified cards.
+/// Uses deck_size to determine how many times to call build_deck()
 /obj/item/deck/proc/build_decks()
 	if(length(cards))
 		// prevent building decks more than once
@@ -92,6 +92,7 @@
 		build_deck()
 	deck_total = length(cards)
 
+/// Stub, override this to define how a base deck should be filled and built.
 /obj/item/deck/proc/build_deck()
 	return
 
@@ -120,7 +121,10 @@
 
 	draw_card(user, user.a_intent == INTENT_HARM)
 
-// lewtodo: add the ability for decks to be split
+/obj/item/deck/proc/in_play_range(mob/user)
+	var/turf/user_turf = get_turf(user)
+	var/turf/card_turf = get_turf(src)
+	return get_dist(user_turf, card_turf) <= 2
 
 /obj/item/deck/CtrlShiftClick(mob/user)
 	. = ..()
@@ -149,7 +153,8 @@
 		cards += card
 		other_deck.cards -= card
 	qdel(other_deck)
-	user.visible_message("<span class='notice'>[user] mixes the two decks together.</span>", "<span class='notice'>You merge the two decks together.</span>")
+	if(user)
+		user.visible_message("<span class='notice'>[user] mixes the two decks together.</span>", "<span class='notice'>You merge the two decks together.</span>")
 
 /obj/item/deck/attack_hand(mob/user)
 	draw_card(user, user.a_intent == INTENT_HARM)
@@ -158,11 +163,11 @@
 	// alt-clicking is for putting back
 	return_hand_click(user, TRUE)
 
-/obj/item/deck/proc/return_hand_click(mob/user, on_top = TRUE)
-	// alt-shift-click is for putting on the bottom
+/// Return a single card to the deck.
+/obj/item/deck/proc/return_hand_click(mob/living/carbon/human/user, on_top = TRUE)
 	if(!istype(user))
 		return
-	var/obj/item/cardhand/hand = get_user_card_hand(user)
+	var/obj/item/cardhand/hand = user.is_in_hands(/obj/item/cardhand)
 	if(!istype(hand))
 		return
 
@@ -188,13 +193,15 @@
 
 // is this getting too complicated?
 
-/proc/get_user_card_hand(mob/living/carbon/human/user)
-	var/obj/item/cardhand/hand = user.get_active_hand()
-	if(!istype(hand))
-		hand = user.get_inactive_hand()
-	if(istype(hand))
-		return hand
-
+/**
+ * Return a number of cards to a deck.
+ *
+ * Arguments:
+ * * user - The mob returning the cards.
+ * * hand - The hand from which the cards are being returned.
+ * * place_on_top - If true, cards will be placed on the top of the deck. Otherwise, they'll be placed on the bottom.
+ * * chosen_cards - If not empty, will essentially override any selection dialogs and force these cards to be returned.
+ */
 /obj/item/deck/proc/return_cards(mob/living/carbon/human/user, obj/item/cardhand/hand, place_on_top = TRUE, chosen_cards = list())
 
 	if(!istype(hand))
@@ -237,7 +244,7 @@
 
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
-// Datum actions
+// deck datum actions
 /datum/action/item_action/draw_card
 	name = "Draw - Draw one card"
 	button_overlay_icon_state = "draw"
@@ -257,7 +264,7 @@
 /datum/action/item_action/deal_card/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
-		return D.deal_card()
+		return D.deal_card(owner)
 	return ..()
 
 /datum/action/item_action/deal_card_multi
@@ -279,11 +286,8 @@
 /datum/action/item_action/shuffle/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
-		return D.deckshuffle()
+		return D.deckshuffle(owner)
 	return ..()
-
-// Datum actions
-
 
 /**
  * Draw a card from this deck.
@@ -307,7 +311,7 @@
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 		return
 
-	if(!H)
+	if(isnull(H))
 		H = new(get_turf(src))
 		user.put_in_hands(H)
 
@@ -329,21 +333,21 @@
 		user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>")
 		to_chat(user, "<span class='notice'>It's \a [P.name].</span>")
 
-/obj/item/deck/proc/deal_card()
-	if(usr.incapacitated() || !Adjacent(usr))
+// Classic action
+/obj/item/deck/proc/deal_card(mob/user)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!length(cards))
-		to_chat(usr,"<span class='notice'>There are no cards in the deck.</span>")
+		to_chat(user, "<span class='notice'>There are no cards in the deck.</span>")
 		return
 
 	var/list/players = list()
 	for(var/mob/living/player in viewers(3))
-		if(!player.incapacitated())
-			players += player
+		players += player
 
-	var/mob/living/M = tgui_input_list(usr, "Who do you wish to deal a card to?", "Deal Card", players)
-	if(!usr || !src || !M)
+	var/mob/living/M = tgui_input_list(user, "Who do you wish to deal a card to?", "Deal Card", players)
+	if(QDELETED(user) || QDELETED(src) || QDELETED(M) || !Adjacent(user))
 		return
 
 	deal_at(usr, M, 1)
@@ -385,18 +389,17 @@
 		user.visible_message("<span class='notice'>[user] deals [dcard] card\s to [target].</span>")
 	H.throw_at(get_step(target, target.dir), 3, 1, null)
 
-/obj/item/deck/attack_self()
-	deckshuffle()
+/obj/item/deck/attack_self(mob/user)
+	deckshuffle(user)
 
-/obj/item/deck/proc/deckshuffle()
-	var/mob/living/user = usr
-	if(cooldown < world.time - 1 SECONDS)
+/obj/item/deck/proc/deckshuffle(mob/user)
+	if(shuffle_cooldown < world.time - 1 SECONDS)
 		cards = shuffle(cards)
 
 		if(user)
 			user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
 			playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
-		cooldown = world.time
+		shuffle_cooldown = world.time
 
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
@@ -468,7 +471,7 @@
 	if(!concealed && length(cards))
 		. += "<span class='notice'>It contains:</span>"
 		for(var/datum/playingcard/P in cards)
-			. += "<span class='notice'>the [P.name].</span>"
+			. += "\t<span class='notice'>the [P.name].</span>"
 
 	if(Adjacent(user))
 		. += "<span class='notice'><b>Click</b> this in-hand to select a card to draw.</span>"
@@ -538,7 +541,7 @@
 
 	qdel(hand)
 
-
+/// Update our card values based on those set on a deck
 /obj/item/cardhand/proc/update_values_from_deck(obj/item/deck/D)
 	if(!parent_deck_id)
 		return
@@ -564,14 +567,15 @@
 	resistance_flags = source.resistance_flags
 
 /obj/item/cardhand/attackby(obj/O, mob/user)
+	// Augh I really don't like this
 	if(length(cards) == 1 && is_pen(O))
 		var/datum/playingcard/P = cards[1]
 		if(P.name != "Blank Card")
-			to_chat(user,"<span class='notice'>You cannot write on that card.</span>")
+			to_chat(user,"<span class='notice'>You cannot write on this card.</span>")
 			return
-		var/t = rename_interactive(user, O, use_prefix = FALSE, actually_rename = FALSE)
-		if(t && P.name == "Blank Card")
-			P.name = t
+		var/card_text = rename_interactive(user, O, use_prefix = FALSE, actually_rename = FALSE)
+		if(card_text && P.name == "Blank Card")
+			P.name = card_text
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		P.card_icon = "cag_white_card"
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
@@ -580,6 +584,7 @@
 		if(H.parent_deck_id == parent_deck_id)
 			H.concealed = concealed
 			cards.Add(H.cards)
+			H.cards.Cut()
 			qdel(H)
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 			return
@@ -592,9 +597,11 @@
 	if(length(cards) == 1)
 		turn_hand(user)
 		return
-	if(user.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || user.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
-		var/card = select_card_radial(user)
-		remove_card(card)
+	// if(user.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || user.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
+	var/card = select_card_radial(user)
+	if(isnull(card))
+		return
+	remove_card(card)
 
 /obj/item/cardhand/AltClick(mob/user)
 	. = ..()
@@ -609,18 +616,19 @@
 	if(!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	shuffle_inplace(cards)
+	update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 	playsound(user, 'sound/items/cardshuffle.ogg', 30, TRUE)
 	user.visible_message(
 		"<span class='notice'>[user] shuffles [user.p_their()] hand.</span>",
 		"<span class='notice'>You shuffle your hand.</span>"
 	)
 
-
+/// Open a radial menu to select a single card from a hand.
 /obj/item/cardhand/proc/select_card_radial(mob/user)
+	if(!length(cards) || !user)
+		return
 	var/list/options = list()
 	for(var/datum/playingcard/P in cards)
-		// lewtodo: figure out how to add the number underneath, like how some items in inventory get them
-		// check botany
 		if(isnull(options[P]))
 			options[P] = image(icon = 'icons/obj/playing_cards.dmi', icon_state = P.card_icon)
 
