@@ -77,9 +77,9 @@
 	name = "Grapple Arm"
 	range = 10
 	damage = 15
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "hook"
-	chain_icon_state = "chain"
+	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
+	icon_state = "flayer_claw"
+	chain_icon_state = "flayer_tether"
 	hitsound = 'sound/effects/hit_punch.ogg'
 	hitsound_wall = 'sound/effects/grillehit.ogg'
 	speed = 3
