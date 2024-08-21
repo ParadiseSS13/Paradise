@@ -66971,9 +66971,6 @@
 /obj/structure/cable/orange,
 /turf/simulated/floor/plating,
 /area/station/security/warden)
-"nYB" = (
-/turf/simulated/mineral/ancient/outer,
-/area/space/nearstation)
 "nYM" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
@@ -78165,9 +78162,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
-"rdT" = (
-/turf/simulated/mineral/ancient/outer,
-/area/space)
 "reb" = (
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/plating{
@@ -99381,9 +99375,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
-"xah" = (
-/turf/simulated/wall,
-/area/space/nearstation)
 "xas" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -128390,8 +128381,8 @@ aXn
 aXn
 aXn
 aXn
-rdT
-rdT
+hUU
+hUU
 rNK
 rNK
 rNK
@@ -128644,10 +128635,10 @@ aXn
 aXn
 aXn
 aXn
-rdT
-nYB
-rdT
-rdT
+hUU
+hUU
+hUU
+hUU
 rNK
 rNK
 rNK
@@ -128900,10 +128891,10 @@ hUU
 aXn
 hUU
 hUU
-rdT
-rdT
-xah
-rdT
+hUU
+hUU
+mic
+hUU
 rNK
 rNK
 rNK
