@@ -10,7 +10,7 @@
 	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
-	//Cell charge rate (Watts)
+	/// Cell charge rate (Watts)
 	var/charge_rate = 500
 
 /obj/machinery/cell_charger/Initialize(mapload)

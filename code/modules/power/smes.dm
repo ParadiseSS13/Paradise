@@ -1,6 +1,6 @@
 #define SMESMAXCHARGELEVEL 200000
 #define SMESMAXOUTPUT 200000
-///Convertion ratio between a Watt-tick and SMES capacity units(should be the same as powercells)
+/// Conversion ratio between a Watt-tick and SMES capacity units (should be the same as power cells)
 #define SMESRATE GLOB.CELLRATE
 
 /obj/machinery/power/smes
