@@ -105,7 +105,7 @@
 	/// How much speed the mech loses while the buffer is active
 	var/buffer_delay = 1
 	/// Does it clean the tile under it?
-	var/floorbuffer = FALSE
+	var/floor_buffer = FALSE
 
 	//Action datums
 	var/datum/action/innate/mecha/mech_eject/eject_action = new

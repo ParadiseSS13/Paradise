@@ -1932,7 +1932,6 @@
 	if(!..())
 		return FALSE
 
-	//TODO: better messages.
 	switch(index)
 		if(16)
 			user.visible_message("[user] connects the [holder] hydraulic systems", "You connect the [holder] hydraulic systems.")

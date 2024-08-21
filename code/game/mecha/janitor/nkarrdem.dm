@@ -64,7 +64,7 @@
 // Moving has to clean floors if the buffer is active
 /obj/mecha/janitor/nkarrdem/Move()
 	. = ..()
-	if(floorbuffer)
+	if(floor_buffer)
 		var/turf/tile = loc
 		if(isturf(tile))
 			tile.clean_blood()
