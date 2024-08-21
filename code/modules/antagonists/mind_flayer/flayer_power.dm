@@ -189,10 +189,7 @@
 /datum/antagonist/mindflayer/proc/try_purchase_spell(datum/spell/flayer/to_add)
 	var/datum/spell/flayer/existing_spell = has_spell(to_add)
 	if(existing_spell)
-		if(existing_spell.level >= to_add.max_level)
-			send_swarm_message("That function is already at it's strongest.")
-			return FALSE
-		to_add.current_cost = existing_spell.current_cost
+		return try_upgrade_spell(existing_spell)
 	if(category_stage[to_add.category] < to_add.stage)
 		send_swarm_message("We do not have all the knowledge needed for this...")
 		return FALSE
@@ -202,8 +199,22 @@
 		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarms for this...")
 		return FALSE
 	adjust_swarms(-to_add.current_cost)
-	add_ability(to_add, src)
-	to_add.level += 1
+	add_ability(to_add, src) //Level gets set to 1 when AddSpell is called later, it also handles the cost
+	return TRUE // The reason we do this is cause we don't have the spell object that will get added to the mindflayer yet
+/*
+* Given a spell, checks to see if the mindflayer has all the prerequisites to upgrade a spell. Returns FALSE if the spell was not upgrade, TRUE if it was.
+*/
+/datum/antagonist/mindflayer/proc/try_upgrade_spell(datum/spell/flayer/to_upgrade)
+	if(to_upgrade.level >= to_upgrade.max_level)
+		send_swarm_message("That function is already at it's strongest.")
+		return FALSE
+	if(to_upgrade.current_cost > get_swarms())
+		send_swarm_message("We need [to_upgrade.current_cost - get_swarms()] more swarms for this...")
+		return FALSE
+	adjust_swarms(-to_upgrade.current_cost)
+	to_upgrade.level += 1
+	to_upgrade.current_cost = to_upgrade.base_cost * (to_upgrade.level + 1)
+	add_ability(to_upgrade, src)
 	return TRUE
 
 /*Given a passive, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
@@ -248,7 +259,4 @@
 
 ///This is the proc that handles spell upgrades, override this to have upgrades change duration/strength etc
 /datum/spell/flayer/on_purchase_upgrade()
-	if(level >= max_level)
-		return FALSE
-	level += 1
-	return TRUE
+	return

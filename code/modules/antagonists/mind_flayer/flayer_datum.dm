@@ -44,7 +44,6 @@
 	var/list/innate_powers = get_spells_of_type(FLAYER_INNATE_POWER)
 	for(var/power_path as anything in innate_powers)
 		var/datum/spell/flayer/to_add = new power_path
-		to_add.level += 1 //These have to have their level manually ticked up since we aren't buying it
 		add_ability(to_add, src)
 	owner.current.faction += list("flayer") // In case our robot is mindlessly spawned in somehow, and they won't accidentally kill us
 
@@ -183,7 +182,6 @@
 		return
 	var/datum/spell/flayer/spell = has_spell(to_add)
 	if(!spell)
-		log_debug("[to_add] not found in spell list, adding")
 		force_add_ability(to_add, set_owner)
 		return
 	force_upgrade_ability(spell, upgrade_type)
@@ -199,7 +197,6 @@
 		return
 	var/datum/mindflayer_passive/passive = has_passive(to_add)
 	if(!passive)
-		log_debug("[to_add] not found in spell list, adding")
 		force_add_passive(to_add)
 		return
 	force_upgrade_passive(passive, upgrade_type)
@@ -214,6 +211,8 @@
 		return
 	if(set_owner)
 		to_add.flayer = src
+	to_add.level = 1
+	to_add.current_cost = (to_add.base_cost * (to_add.level + 1)) // This is always gonna be base cost * 2 but it standardizes how this looks elsewhere
 	owner.AddSpell(to_add)
 	powers += to_add
 /**

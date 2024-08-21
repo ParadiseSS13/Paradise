@@ -139,13 +139,17 @@ const Upgrades = (props, context) => {
               {ability.name}
             </Stack.Item>
             <Stack.Item
-            fontSize = {1.2}
+            fontSize = {1}
             >
               {ability.upgrade_text}
             </Stack.Item>
             <Stack.Item>
-              <Box>
-              CURRENT LEVEL: {ability.current_level} MAX LEVEL:{ability.max_level}
+            <Box
+            bold>
+              Level: {ability.current_level} / {ability.max_level}
+              </Box>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 content = {ability.cost}
                   icon = "minus"
@@ -154,8 +158,7 @@ const Upgrades = (props, context) => {
                   onClick={() => act("purchase", {ability_path: ability.ability_path}
                       )}
                   textAlign = "right"/>
-                </Box>
-            </Stack.Item>
+                  </Stack.Item>
           </Stack>
         </Box>
       );

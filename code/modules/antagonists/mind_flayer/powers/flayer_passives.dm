@@ -99,7 +99,7 @@
 	REMOVE_TRAIT(owner, TRAIT_NOSLIP, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/new_crit
-	name = ""
+	name = "Release Limiters"
 	purchase_text = "We remove our limiters, allowing us to remain active while severely damaged."
 	gain_text = "Advanced urgent protocols engaged."
 	power_type = FLAYER_PURCHASABLE_POWER //Just for testing
@@ -171,7 +171,7 @@
 	should_process = TRUE
 
 /datum/mindflayer_passive/regen/process()
-	if(ishuman(owner))
+	if(ishuman(owner) && owner.stat)
 		var/mob/living/carbon/human/flayer = owner
 		flayer.adjustBruteLoss(-level, robotic = TRUE)
 		flayer.adjustFireLoss(-level, robotic = TRUE)
