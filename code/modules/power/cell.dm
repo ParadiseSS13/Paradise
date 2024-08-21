@@ -10,16 +10,16 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	///Battery's current state of charge (Kilo Joules)
+	/// Battery's current state of charge (kilojoules)
 	var/charge = 0
-	///Battery's maximum state of charge (Kilo Joules)
+	/// Battery's maximum state of charge (kilojoules)
 	var/maxcharge = 1000
-	///Battery's starting state of charge should start with
+	/// How much energy the cell starts with (kilojoules)
 	var/starting_charge
 	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
 	///If the battery will explode
 	var/rigged = FALSE
-	///How much energy is given every tick when recharging (Kilo Joules / Tick)
+	/// How much energy is given to a recharging cell every tick (kilojoules / tick)
 	var/chargerate = 100
 	///Whether it will recharge automatically
 	var/self_recharge = FALSE
@@ -36,7 +36,7 @@
 	START_PROCESSING(SSobj, src)
 	charge = !isnull(starting_charge) ? starting_charge : maxcharge
 	if(ratingdesc)
-		//state of charge is in KJ so we multiply it by 1000 to get Joules
+		// State of charge is in kJ so we multiply it by 1000 to get Joules
 		desc += " This one has a power rating of [DisplayJoules(maxcharge * 1000)], and you should not swallow it."
 	update_icon(UPDATE_OVERLAYS)
 

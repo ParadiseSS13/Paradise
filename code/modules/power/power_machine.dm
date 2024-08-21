@@ -13,7 +13,7 @@
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
 	return ..()
-//produce power(watts)
+// Produce power (Watts)
 /obj/machinery/power/proc/produce_direct_power(amount)
 	if(powernet)
 		powernet.queued_power_production += amount

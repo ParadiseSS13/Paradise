@@ -9,7 +9,7 @@
 	icon_state = "smes"
 	density = TRUE
 
-	/// Maximum charge level of the SMES (Kilo Joules)
+	/// Maximum amount of energy the SMES can store (kilojoules)
 	var/capacity = 0.2e6
 	/// Current charge level
 	var/charge = 0
@@ -17,7 +17,7 @@
 	var/input_attempt = TRUE
 	/// Set TRUE if SMES is inputting, FALSE if not
 	var/inputting = TRUE
-	/// Amount of power the SMES attempts to charge by (Watts)
+	/// How much power the SMES will draw from the grid to recharge itself (Watts)
 	var/input_level = 50000
 	/// Maximum input level (Watts)
 	var/input_level_max = 200000
