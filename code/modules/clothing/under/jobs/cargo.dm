@@ -88,14 +88,15 @@
 
 /obj/item/clothing/under/rank/cargo/expedition
 	name = "expedition jumpsuit"
-	desc = "An brown jumpsuit with Nanotrasen markings for identification, and a black safety harness for their space suits."
+	desc = "An armored brown jumpsuit with Nanotrasen markings for identification, and a black safety harness for their space suits."
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	icon_state = "expedition"
 	item_state = "expedition"
 	item_color = "expedition"
 
 /obj/item/clothing/under/rank/cargo/expedition/skirt
 	name = "expedition jumpskirt"
-	desc = "An brown jumpskirt with Nanotrasen markings for identification, and a black safety harness for their space suits."
+	desc = "An armoured brown jumpskirt with Nanotrasen markings for identification, and a black safety harness for their space suits."
 	icon_state = "expedition_skirt"
 	item_state = "expedition_skirt"
 	item_color = "expedition_skirt"

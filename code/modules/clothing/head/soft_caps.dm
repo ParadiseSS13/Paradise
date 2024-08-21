@@ -110,6 +110,7 @@
 	desc = "It's a baseball hat in the brown and blue markings of the expedition team."
 	icon_state = "expeditionsoft"
 	item_color = "expedition"
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 
 /obj/item/clothing/head/soft/janitorgrey
 	name = "grey janitor's cap"
