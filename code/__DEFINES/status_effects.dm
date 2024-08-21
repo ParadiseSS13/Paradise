@@ -78,6 +78,8 @@
 
 #define STATUS_EFFECT_QUICKSILVER_FORM /datum/status_effect/quicksilver_form
 
+#define STATUS_EFFECT_TERMINATOR_FORM /datum/status_effect/terminator_form
+
 /////////////
 // DEBUFFS //
 /////////////

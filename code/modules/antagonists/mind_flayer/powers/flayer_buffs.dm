@@ -54,3 +54,6 @@
 	base_cost = 250
 	static_upgrade_increase = 50 // Total cost of 900 swarms
 	max_level = 3
+
+/datum/spell/flayer/self/terminator_form/cast(list/targets, mob/living/user)
+	user.apply_status_effect(STATUS_EFFECT_TERMINATOR_FORM)

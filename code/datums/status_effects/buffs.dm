@@ -989,3 +989,25 @@
 		REMOVE_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
 	owner.pass_flags = temporary_flag_storage
 	owner.color = null
+
+/datum/status_effect/terminator_form
+	duration = 1 MINUTES
+	tick_interval = 0
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/terminator_form
+
+/atom/movable/screen/alert/status_effect/terminator_form
+	name = "Terminator form"
+	desc = "Your body can surpass it's limits briefly. You have to repair yourself before it ends however."
+	icon_state = "high"
+
+/datum/status_effect/terminator_form/on_apply()
+	if(owner.status_flags & TERMINATOR_FORM)
+		qdel(src)
+		return
+	owner.status_flags |= TERMINATOR_FORM
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, UNIQUE_TRAIT_SOURCE(src))
+
+/datum/status_effect/terminator_form/on_remove()
+	owner.status_flags &= ~TERMINATOR_FORM
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, UNIQUE_TRAIT_SOURCE(src))

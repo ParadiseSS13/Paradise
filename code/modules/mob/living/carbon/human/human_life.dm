@@ -611,6 +611,9 @@
 	if(status_flags & GODMODE)
 		return 0
 
+	if(status_flags & TERMINATOR_FORM)
+		return FALSE
+
 	var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
 
 	if(getBrainLoss() >= 120 || (guaranteed_death_threshold) <= -500)
