@@ -31,8 +31,10 @@
 	. += "<span class='notice'>The thunderbolts are boosted if in an area with weather effects.</span>"
 
 /obj/item/storm_staff/attack(mob/living/target, mob/living/user)
-	if(!cigarette_lighter_act(user, target))
-		return ..()
+	if(cigarette_lighter_act(user, target))
+		return TRUE
+
+	return ..()
 
 /obj/item/storm_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
