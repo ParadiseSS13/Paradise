@@ -24,6 +24,8 @@
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
 	/// The initial cost of purchasing the spell.
 	var/base_cost = 0
+	/// Should this spell's cost increase by a static amount every purchase? 0 means it will multiply the base cost by the level + 1.
+	var/static_upgrade_increase = 0
 	/// The current price to upgrade the spell
 	var/current_cost = 0
 	/// What `stat` value the mind flayer needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.

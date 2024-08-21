@@ -50,5 +50,6 @@
 	base_cooldown = 5 MINUTES // Base uptime is 20%
 	category = CATEGORY_DESTROYER
 	stage = 3 // TODO: figure out if this is the right stage
-	base_cost = 300 // Capstone ability. Two upgrades, quite expensive but worth it
+	base_cost = 250
+	static_upgrade_increase = 100 // Total cost of 1050 swarms
 	max_level = 3
