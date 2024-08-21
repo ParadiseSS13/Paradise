@@ -171,7 +171,7 @@
 	should_process = TRUE
 
 /datum/mindflayer_passive/regen/process()
-	if(ishuman(owner) && owner.stat)
+	if(ishuman(owner) && owner.stat == CONSCIOUS)
 		var/mob/living/carbon/human/flayer = owner
 		flayer.adjustBruteLoss(-level, robotic = TRUE)
 		flayer.adjustFireLoss(-level, robotic = TRUE)
