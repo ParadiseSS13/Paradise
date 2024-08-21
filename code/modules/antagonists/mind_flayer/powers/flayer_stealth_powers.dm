@@ -72,19 +72,30 @@
 	flayer.send_swarm_message("Use this power again to return to your original voice.")
 	return TRUE
 
-/datum/spell/flayer/self/dump_coolant
-	name = "Dump Coolant"
-	desc = "Smoke for running away"
+/datum/spell/flayer/self/vent_smog
+	name = "Vent Smog"
+	desc = "Vent the excess smog from our internals, disorienting and poisoning attackers."
+	upgrade_info = "5 extra plumes of steam and 5 less seconds between exhalations."
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
-	base_cooldown = 15 SECONDS
+	base_cooldown = 30 SECONDS
 	base_cost = 100
 	stage = 3 //TODO make this spell into like hot steam that burns the ops or smth cool like that
+	max_level = 3
+	var/datum/reagents/smoke_reagents = null
+	var/smoke_effects_spawned = 10
 
-/datum/spell/flayer/self/dump_coolant/cast(list/targets, mob/living/user)
-	var/datum/effect_system/smoke_spread/smoke = new()
-	smoke.set_up(15, FALSE, user)
+/datum/spell/flayer/self/vent_smog/cast(list/targets, mob/living/user)
+	smoke_reagents = new /datum/reagents(smoke_effects_spawned * 4)
+	smoke_reagents.add_reagent("toxin", smoke_effects_spawned * 2, null)
+	var/datum/effect_system/smoke_spread/bad/smoke = new()
+	user.smoke_delay = TRUE //Gives the user a second to get out before the steam affects them too
+	smoke.set_up(smoke_effects_spawned, FALSE, user, null, smoke_reagents)
 	smoke.start()
+
+/datum/spell/flayer/self/vent_smog/on_purchase_upgrade()
+	cooldown_handler.recharge_duration -= 5 SECONDS
+	smoke_effects_spawned += 5
 
 /datum/spell/flayer/self/skin_suit
 	name = "Flesh Facsimile"

@@ -70,6 +70,7 @@
 		return FALSE
 
 	if(checks_nullification && HAS_TRAIT(user, TRAIT_MINDFLAYER_NULLIFIED))
+		flayer_datum.send_swarm_message("We do not have the energy to manifest that currently...")
 		return FALSE
 	return TRUE
 
@@ -104,7 +105,7 @@
 		if("purchase")
 			var/path = text2path(params["ability_path"])
 			on_purchase(user, path)
-			ui.send_update()
+			ui.send_full_update()
 /*
 	Takes in a category name and grabs the paths of all the spells/passives specific to that category. Used for TGUI
 */
@@ -200,6 +201,7 @@
 	if(to_add.current_cost > get_swarms())
 		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarms for this...")
 		return FALSE
+	to_add.current_cost = to_add.base_cost
 	adjust_swarms(-to_add.current_cost)
 	add_ability(to_add, src) //Level gets set to 1 when AddSpell is called later, it also handles the cost
 	return TRUE // The reason we do this is cause we don't have the spell object that will get added to the mindflayer yet
