@@ -12,14 +12,10 @@
 	var/extra_healing = 0
 
 /datum/spell/flayer/self/rejuv/cast(list/targets, mob/living/user)
-	if(!..())
-		return FALSE
 	to_chat(user, "<span class='notice'>We begin to heal rapidly.</span>")
 	user.apply_status_effect(STATUS_EFFECT_FLAYER_REJUV, extra_duration, extra_healing)
 
 /datum/spell/flayer/self/rejuv/on_purchase_upgrade()
-	if(!..())
-		return FALSE
 	cooldown_handler.recharge_duration -= 5 SECONDS
 	extra_duration += 2 SECONDS
 	extra_healing += 2
@@ -42,8 +38,6 @@
 	user.apply_status_effect(STATUS_EFFECT_QUICKSILVER_FORM, extra_duration, should_get_reflection)
 
 /datum/spell/flayer/self/quicksilver_form/on_purchase_upgrade()
-	if(!..())
-		return FALSE
 	switch(level)
 		if(POWER_LEVEL_TWO)
 			should_get_reflection = TRUE

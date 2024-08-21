@@ -21,8 +21,6 @@
 	return T
 
 /datum/spell/flayer/computer_recall/cast(list/targets, mob/living/user)
-	if(!..())
-		return FALSE
 	var/obj/machinery/computer/target = targets[1]
 	if(!marked_computer)
 		marked_computer = target
