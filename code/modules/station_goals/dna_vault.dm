@@ -312,15 +312,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			H.next_move_modifier = 0.5
 	power_lottery[H] = list()
 
-/obj/machinery/dna_vault/set_filler_map()
-	filler_locations = list(
-							list(0, 0, 		0,   	0, 0),
-							list(0, 0, 		0,   	0, 0),
-							list(0, 1, MACH_CENTER, 1, 0),
-							list(0, 1, 		0,   	1, 0),
-							list(0, 1, 		0,   	1, 0)
-						)
-
 #undef VAULT_TOXIN
 #undef VAULT_NOBREATH
 #undef VAULT_FIREPROOF

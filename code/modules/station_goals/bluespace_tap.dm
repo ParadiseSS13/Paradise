@@ -313,15 +313,6 @@
 		if(16 to INFINITY)
 			return 5
 
-/obj/machinery/power/bluespace_tap/set_filler_map()
-	filler_locations = list(
-							list(0, 0, 		0,   	0, 0),
-							list(0, 1, 		1,   	1, 0),
-							list(0, 1, MACH_CENTER, 1, 0),
-							list(0, 1, 		0,   	1, 0),
-							list(0, 0, 		0,   	0, 0)
-						)
-
 /obj/machinery/power/bluespace_tap/power_change()
 	. = ..()
 	if(stat & (BROKEN|NOPOWER))
