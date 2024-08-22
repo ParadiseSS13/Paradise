@@ -348,6 +348,7 @@
 	flags = ABSTRACT | NODROP
 	turned_on = TRUE
 	cell = /obj/item/stock_parts/cell/flayerprod
+	var/radio_disable_time = 6 SECONDS
 
 /obj/item/melee/baton/flayerprod/update_icon_state()
 	return
@@ -364,7 +365,7 @@
 /obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown, ignore_shield_check = FALSE)
 	if(..())
 		disable_radio(L)
-		addtimer(CALLBACK(src, PROC_REF(enable_radio), L), 6 SECONDS) //Currently, the baton disables radio on hit for 6 seconds, values can be tweaked
+		addtimer(CALLBACK(src, PROC_REF(enable_radio), L), radio_disable_time)
 		return TRUE
 	return FALSE
 

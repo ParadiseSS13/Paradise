@@ -50,8 +50,18 @@
 	name = "Swarmprod"
 	desc = "We shape our arm into an extended mass of sparking nanites."
 	action_icon_state = "elecarm"
+	max_level = 3
+	base_cost = 60
+	upgrade_info = "Increase the rate at which this recharges."
 	power_type = FLAYER_INNATE_POWER
 	weapon_type = /obj/item/melee/baton/flayerprod
+
+/datum/spell/flayer/self/weapon/swarmprod/on_purchase_upgrade()
+	if(!weapon_ref)
+		weapon_ref = new weapon_type(flayer.owner.current, src)
+	var/obj/item/melee/baton/flayerprod/prod = weapon_ref
+	var/obj/item/stock_parts/cell/flayerprod/cell = prod.cell
+	cell.chargerate += 200
 
 /datum/spell/flayer/self/weapon/laser
 	name = "Laser Arm Augementation"
@@ -62,6 +72,14 @@
 	weapon_type = /obj/item/gun/energy/laser/mounted
 	category = CATEGORY_DESTROYER
 	base_cost = 100
+	max_level = 3
+	upgrade_info = "The internal power cell recharges faster."
+
+/datum/spell/flayer/self/weapon/laser/on_purchase_upgrade()
+	if(!weapon_ref)
+		weapon_ref = new weapon_type(flayer.owner.current, src)
+	var/obj/item/gun/energy/laser/mounted/laser = weapon_ref
+	laser.charge_delay -= 1
 
 /datum/spell/flayer/self/weapon/flak_gun //Addressing the lack of FTL references in this game
 	name = "Pneumatic Flak Gun"
@@ -71,4 +89,13 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/pneumatic_cannon/flayer
 	category = CATEGORY_DESTROYER
-	base_cost = 100
+	base_cost = 75
+	max_level = 3
+	upgrade_info = "Reduces the time needed for us to recycle scrap into ammo."
+
+/datum/spell/flayer/self/weapon/flak_gun/on_purchase_upgrade()
+	if(!weapon_ref)
+		weapon_ref = new weapon_type(flayer.owner.current, src)
+	var/obj/item/pneumatic_cannon/flayer/cannon = weapon_ref
+	cannon.charge_time -= 2 SECONDS
+
