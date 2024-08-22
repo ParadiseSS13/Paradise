@@ -23,12 +23,13 @@
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	if(parent.x + distance_from_center > world.maxx || parent.x - distance_from_center < 1)
+	var/atom/owner = parent
+	if(owner.x + distance_from_center > world.maxx || owner.x - distance_from_center < 1)
 		var/obj/machinery/machine = parent
 		machine.deconstruct()
 		return COMPONENT_INCOMPATIBLE
 
-	if(parent.y + distance_from_center > world.maxy || parent.y - distance_from_center < 1)
+	if(owner.y + distance_from_center > world.maxy || owner.y - distance_from_center < 1)
 		var/obj/machinery/machine = parent
 		machine.deconstruct()
 		return COMPONENT_INCOMPATIBLE
