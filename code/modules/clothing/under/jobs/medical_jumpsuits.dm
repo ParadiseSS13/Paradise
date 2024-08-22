@@ -24,6 +24,8 @@
 	icon_state = "cmof"
 	item_color = "cmof"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/medical/doctor
 	name = "medical doctor's jumpsuit"
