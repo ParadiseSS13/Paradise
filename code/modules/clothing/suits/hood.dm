@@ -21,6 +21,10 @@
 		W.suit = src
 		hood = W
 
+/obj/item/clothing/suit/hooded/clean_blood(radiation_clean)
+	. = ..()
+	hood.clean_blood()
+
 /obj/item/clothing/suit/hooded/ui_action_click()
 	ToggleHood()
 

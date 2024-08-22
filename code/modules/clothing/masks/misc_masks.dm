@@ -405,6 +405,7 @@
 	adjusted_flags = SLOT_FLAG_HEAD
 	icon_state = "bandbotany"
 	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_BANDANA
 	can_toggle = TRUE
 
 	sprite_sheets = list(
