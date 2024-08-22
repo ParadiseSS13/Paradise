@@ -3,7 +3,7 @@
 
 //Basically shadow anchor, but the entry and exit point must be computers. I'm not in your walls I'm in your PC
 /datum/spell/flayer/computer_recall
-	name = "Data Transfer"
+	name = "Traceroute"
 	desc = "Cast once to mark a computer, then cast this next to a different computer to recall yourself back to the first. Alt click to check your current mark."
 	base_cooldown = 5 SECONDS //TODO change this back to 60 seconds when testing is done
 	power_type = FLAYER_PURCHASABLE_POWER
