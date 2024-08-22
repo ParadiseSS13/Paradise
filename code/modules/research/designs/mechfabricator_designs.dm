@@ -624,7 +624,7 @@
 	construction_time = 25 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_cruser
+/datum/design/mech_crusher
 	name = "Exosuit Mining Equipment (Mounted crusher)"
 	id = "mech_crusher"
 	build_type = MECHFAB
