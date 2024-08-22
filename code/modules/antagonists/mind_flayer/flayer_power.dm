@@ -1,13 +1,4 @@
 // POWERS// OOORAAAH WE HAVE POWERS
-#define POWER_LEVEL_ZERO	0 // Only used for mobs to check what powers they should have // TODO: figure out wtf I meant with this comment // Okay so I think I meant this as a define to use in comparison with something, to check if it's bought or not?
-#define POWER_LEVEL_ONE		1
-#define POWER_LEVEL_TWO		2
-#define POWER_LEVEL_THREE	3
-#define POWER_LEVEL_FOUR	4
-
-// These defines are used
-#define RANGED_ATTACK_BASE "base ranged attack"
-#define MELEE_ATTACK_BASE "base melee attack"
 
 /datum/spell/flayer
 //	panel = "Vampire"
@@ -193,14 +184,23 @@
 	var/datum/spell/flayer/existing_spell = has_spell(to_add)
 	if(existing_spell)
 		return try_upgrade_spell(existing_spell)
-	if(category_stage[to_add.category] < to_add.stage)
-		send_swarm_message("We do not have all the knowledge needed for this.")
-		return FALSE
-	else if (category_stage[to_add.category] == to_add.stage)
-		category_stage[to_add.category] += 1
+
 	if(to_add.current_cost > get_swarms())
 		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarms for this...")
 		return FALSE
+
+	if(category_stage[to_add.category] < to_add.stage)
+		send_swarm_message("We do not have all the knowledge needed for this.")
+		return FALSE
+	if(category_stage[to_add.category] == CAPSTONE_STAGE)
+		if(!can_pick_capstone)
+			send_swarm_message("We have already forsaken that knowledge.")
+			return FALSE
+		can_pick_capstone = FALSE
+		send_swarm_message("We evolve to the ultimate being.")
+	if (category_stage[to_add.category] == to_add.stage)
+		category_stage[to_add.category] += 1
+
 	to_add.current_cost = to_add.base_cost
 	adjust_swarms(-to_add.current_cost)
 	add_ability(to_add, src) //Level gets set to 1 when AddSpell is called later, it also handles the cost
@@ -233,15 +233,24 @@
 			return FALSE
 		to_add.current_cost = existing_passive.current_cost
 
-	if(category_stage[to_add.category] < to_add.stage)
-		send_swarm_message("We do not have all the knowledge needed for this...")
-		return FALSE
-	else if (category_stage[to_add.category] == to_add.stage)
-		category_stage[to_add.category] += 1
-
 	if(to_add.current_cost > get_swarms())
 		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarms for this...")
 		return FALSE
+
+	if(category_stage[to_add.category] < to_add.stage)
+		send_swarm_message("We do not have all the knowledge needed for this...")
+		return FALSE
+
+	if(category_stage[to_add.category] == CAPSTONE_STAGE)
+		if(!can_pick_capstone)
+			send_swarm_message("We have already forsaken that knowledge.")
+			return FALSE
+
+		can_pick_capstone = FALSE
+		send_swarm_message("We evolve to the ultimate being.")
+
+	if (category_stage[to_add.category] == to_add.stage)
+		category_stage[to_add.category] += 1
 
 	adjust_swarms(-to_add.current_cost)
 	add_passive(to_add, src)
