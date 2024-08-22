@@ -4,8 +4,11 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS // DEBUGGGG ONLY
-	base_cost = 40
-	stage = 2
+	base_cost = 50
+	static_upgrade_increase = 15
+	stage = 1
+	max_level = 4
+	upgrade_info = "Increase the amount of computers you can hack by 6."
 	/// An internal camera bug
 	var/obj/item/camera_bug/internal_camera
 	/// How many computers can we have hacked at most?
@@ -26,7 +29,7 @@
 	var/datum/spell_targeting/click/C = new()
 	C.try_auto_target = FALSE
 	C.allowed_type = /obj/machinery/computer
-	C.range = 5
+	C.range = 6
 	return C
 
 /datum/spell/flayer/surveilance_monitor/cast(list/targets, mob/user)
@@ -46,6 +49,9 @@
 	active_bugs += nanobot
 	flayer.send_swarm_message("Surveilance unit #[internal_camera.connections] deployed.")
 	return TRUE
+
+/datum/spell/flayer/surveilance_monitor/on_purchase_upgrade()
+	maximum_hacked_computers += 6
 
 /datum/spell/flayer/self/voice_synthesizer
 	name = "Enhanced Voice Mod"
@@ -79,8 +85,8 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
 	base_cooldown = 30 SECONDS
-	base_cost = 100
-	stage = 3 //TODO make this spell into like hot steam that burns the ops or smth cool like that
+	base_cost = 80
+	stage = 3
 	max_level = 3
 	var/datum/reagents/smoke_reagents = null
 	var/smoke_effects_spawned = 10
@@ -104,7 +110,10 @@
 	category = CATEGORY_INTRUDER
 	base_cooldown = 120 SECONDS // Debug blah blah blah
 	base_cost = 100
+	static_upgrade_increase = 50
 	stage = 2
+	max_level = 3
+	upgrade_info = "Decrease the time between castings by 30 seconds."
 
 /datum/spell/flayer/skin_suit/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -118,3 +127,6 @@
 /datum/spell/flayer/skin_suit/cast(list/targets, mob/living/user)
 	var/mob/living/target = targets[1]
 	user.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE, target)
+
+/datum/spell/flayer/skin_suit/on_purchase_upgrade()
+	cooldown_handler.recharge_duration -= 30 SECONDS
