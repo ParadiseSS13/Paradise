@@ -343,24 +343,24 @@
 /obj/item/dnainjector/antiinsulation/GetInitBlock()
 	return GLOB.shockimmunityblock
 
-/obj/item/dnainjector/dwarf
+/obj/item/dnainjector/small_size
 	name = "DNA-Injector (Small Size)"
 	desc = "Makes you shrink."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/dwarf/GetInitBlock()
+/obj/item/dnainjector/small_size/GetInitBlock()
 	return GLOB.smallsizeblock
 
-/obj/item/dnainjector/antidwarf
+/obj/item/dnainjector/anti_small_size
 	name = "DNA-Injector (Anti-Small Size)"
 	desc = "Makes you grow. But not too much."
 	datatype = DNA2_BUF_SE
 	value = 0x001
 	forcedmutation = TRUE
 
-/obj/item/dnainjector/antidwarf/GetInitBlock()
+/obj/item/dnainjector/anti_small_size/GetInitBlock()
 	return GLOB.smallsizeblock
 
 /obj/item/dnainjector/eatmut
