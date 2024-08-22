@@ -22,6 +22,17 @@
 
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
+
+	if(parent.x + distance_from_center > world.maxx || parent.x - distance_from_center < 1)
+		var/obj/machinery/machine = parent
+		machine.deconstruct()
+		return COMPONENT_INCOMPATIBLE
+
+	if(parent.y + distance_from_center > world.maxy || parent.y - distance_from_center < 1)
+		var/obj/machinery/machine = parent
+		machine.deconstruct()
+		return COMPONENT_INCOMPATIBLE
+
 	var/atom/parent_atom = parent
 
 	var/max_height = length(new_filler_map)
