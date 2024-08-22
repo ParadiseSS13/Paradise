@@ -265,7 +265,7 @@
 
 /datum/mindflayer_passive/ultimate_drain/on_apply()
 	..()
-	flayer.drain_amount *= 20 // 0.5 becomes 10 brain damage per tick, stacks with the multiplier
+	flayer.drain_amount *= 10 // 0.5 becomes 5 brain damage per tick, stacks with the multiplier
 
 /datum/mindflayer_passive/ultimate_drain/on_remove()
 	flayer.drain_amount = 0.5
