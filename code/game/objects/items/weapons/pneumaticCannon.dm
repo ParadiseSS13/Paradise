@@ -189,7 +189,7 @@
 	requires_tank = FALSE
 	max_weight_class = 6 //Lets you load upto 3 shrapnel at once
 	pressure_setting = 2
-	var/charge_time = 5 SECONDS
+	var/charge_time = 10 SECONDS
 	COOLDOWN_DECLARE(charge_cooldown)
 
 /obj/item/pneumatic_cannon/flayer/New()
@@ -205,7 +205,7 @@
 		return
 	if(loaded_weight_class >= max_weight_class) //LOOK AT THIS GIANT BLOCK OF COMMENTS ITS IMPORTANT
 		return //									ME AND I BOTH KNOW THAT IF THERE ISN'T A BIG NOTICEABLE THING I MIGHT FORGET
-	COOLDOWN_START(src, charge_cooldown, 1 SECONDS) //TODO ONLY FOR DEBUGGING!!!!!!!!!!!!
+	COOLDOWN_START(src, charge_cooldown, charge_time)
 	var/obj/item/shrapnel/to_load = new /obj/item/shrapnel() //DONT MISS THE TODO
 	load_item(to_load)
 
