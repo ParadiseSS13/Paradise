@@ -68,12 +68,18 @@
 	category = CATEGORY_DESTROYER
 	stage = 3
 	max_level = 3
+	base_cost = 150
+	static_upgrade_increase = 50
 	upgrade_info = "Improve your heat sinks, making you heat up slower."
-	var/heat_per_tick = 25
+	var/heat_per_tick = 20
 
 /datum/spell/flayer/self/overclock/cast(list/targets, mob/living/user)
 	if(user.has_status_effect(STATUS_EFFECT_OVERCLOCK))
 		user.remove_status_effect(STATUS_EFFECT_OVERCLOCK)
 		return
 	user.apply_status_effect(STATUS_EFFECT_OVERCLOCK, heat_per_tick)
+
+/datum/spell/flayer/self/overclock/on_purchase_upgrade()
+	heat_per_tick -= 5
+
 
