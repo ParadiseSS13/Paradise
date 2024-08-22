@@ -236,10 +236,27 @@
 /datum/mindflayer_passive/improved_joints/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IPC_JOINTS_SEALED, UNIQUE_TRAIT_SOURCE(src))
 
+/datum/mindflayer_passive/telescopic_eyes
+	name = "Telescopic Eyes"
+	purchase_text = "Allows you to expand your sight range, as if you were using a scope."
+	gain_text = "Precise optics control engaged."
+	max_level = 1
+	power_type = FLAYER_PURCHASABLE_POWER
+	base_cost = 50
+	var/obj/item/scope_holder
+
+/datum/mindflayer_passive/telescopic_eyes/on_apply()
+	. = ..()
+	scope_holder = new(flayer.owner.current) //TODO make this actually give you a scope lol
+	scope_holder.AddComponent(/datum/component/scope, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
+
+/datum/mindflayer_passive/telescopic_eyes/on_remove()
+	scope_holder = null
+
 /datum/mindflayer_passive/ultimate_drain
 	name = "Perfect Symbiosis"
-	purchase_text = "Become one with the swarm, and ."
-	gain_text = "We have become one."
+	purchase_text = "Become a living siphon that drains victim's energy incredibly quickly."
+	gain_text = "This vessel serves us well."
 	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 400
