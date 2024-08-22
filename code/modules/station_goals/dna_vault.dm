@@ -189,6 +189,13 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			dna_max = G.human_count
 			break
 
+	AddComponent(/datum/component/multitile, 2, list(
+		list(0, 0,		 0,	   0, 0),
+		list(0, 0,		 0,	   0, 0),
+		list(0, 1, MACH_CENTER, 1, 0),
+		list(0, 1,		 0,	   1, 0),
+		list(0, 1,		 0,	   1, 0)
+	))
 /obj/machinery/dna_vault/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "vaultoff"
