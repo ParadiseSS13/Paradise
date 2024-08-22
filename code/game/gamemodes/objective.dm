@@ -826,7 +826,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/swarms/check_completion()
 	for(var/datum/mind/M in get_owners())
 		var/datum/antagonist/mindflayer/MF = M.has_antag_datum(/datum/antagonist/mindflayer)
-		if(MF.total_swarms_gathered >= target_amount)
+		if(MF && MF.total_swarms_gathered >= target_amount)
 			return TRUE
 		else
 			return FALSE

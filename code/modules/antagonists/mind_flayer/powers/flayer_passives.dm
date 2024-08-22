@@ -236,4 +236,21 @@
 /datum/mindflayer_passive/improved_joints/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IPC_JOINTS_SEALED, UNIQUE_TRAIT_SOURCE(src))
 
+/datum/mindflayer_passive/ultimate_drain
+	name = "Perfect Symbiosis"
+	purchase_text = "Become one with the swarm, and ."
+	gain_text = "We have become one."
+	max_level = 1
+	power_type = FLAYER_PURCHASABLE_POWER
+	base_cost = 400
+	stage = 4
+	category = CATEGORY_INTRUDER
+
+/datum/mindflayer_passive/ultimate_drain/on_apply()
+	..()
+	flayer.drain_amount *= 20 // 0.5 becomes 10 brain damage per tick, stacks with the multiplier
+
+/datum/mindflayer_passive/ultimate_drain/on_remove()
+	flayer.drain_amount = 0.5
+
 
