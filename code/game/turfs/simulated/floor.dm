@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	return
 
 /turf/simulated/floor/burn_down()
-	ex_act(2)
+	ex_act(EXPLODE_HEAVY)
 
 /turf/simulated/floor/is_shielded()
 	for(var/obj/structure/A in contents)
