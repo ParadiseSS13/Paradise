@@ -463,7 +463,7 @@
 	energy_drain = 100
 	harmful = TRUE
 	range = MECHA_MELEE
-	/// arranged by what gets used most frequently first.
+	// arranged by what gets used most frequently first.
 	var/list/integrated_tools = list(
 		/obj/item/crowbar/mecha,
 		/obj/item/weldingtool/mecha,
