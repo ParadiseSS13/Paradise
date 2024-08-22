@@ -4,24 +4,26 @@
 	antag_hud_name = "hudflayer"
 	special_role = SPECIAL_ROLE_MIND_FLAYER
 	wiki_page_name = "Mind Flayer"
-	///The current amount of swarms the mind flayer has access to purchase with
+	/// The current amount of swarms the mind flayer has access to purchase with
 	var/usable_swarms = 0
-	///The total points of brain damage the flayer has harvested, only used for logging purposes.
+	/// The total points of brain damage the flayer has harvested, only used for logging purposes.
 	var/total_swarms_gathered = 0
-	///The current person being drained
+	/// The current person being drained
 	var/mob/living/carbon/human/harvesting
-	///The list of all purchased spell and passive objects
+	/// The list of all purchased spell and passive objects
 	var/list/powers = list()
 	/// A list of all powers and passives mindflayers can buy
 	var/list/ability_list = list()
 	///List for keeping track of who has already been drained
 	var/list/drained_humans = list()
-	///How fast the flayer's touch drains
+	/// How fast the flayer's touch drains
 	var/drain_multiplier = 1
-	///The base brain damage dealt per tick of the drain
+	/// The base brain damage dealt per tick of the drain
 	var/drain_amount = 0.5
-	///A list of the categories and their associated stages of the power
+	/// A list of the categories and their associated stages of the power
 	var/list/category_stage = list(CATEGORY_GENERAL = 1, CATEGORY_DESTROYER = 1, CATEGORY_INTRUDER = 1, CATEGORY_SWARMER = 1)
+	/// If the mindflayer can still pick a stage 4 ability
+	var/can_pick_capstone = TRUE
 
 /proc/ismindflayer(mob/M)
 	return M.mind?.has_antag_datum(/datum/antagonist/mindflayer)
