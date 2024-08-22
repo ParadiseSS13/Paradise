@@ -203,8 +203,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/emag_act(user as mob)
 	if(!emagged)
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
-		req_access = list()
+		playsound(get_turf(src), 'sound/effects/sparks4.ogg', 75, 1)
+		req_one_access = list()
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 		return TRUE
@@ -983,15 +983,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/experiment
 	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
-	desc = "A console used to interface with R&D tools."
 	autolink_id = "station_rnd"
 	range = 5
 	circuit = /obj/item/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"
-	desc = "A console used to interface with R&D tools."
-	req_access = list()
+	req_one_access = list()
 	circuit = /obj/item/circuitboard/rdconsole/public
 
 #undef TECH_UPDATE_DELAY
