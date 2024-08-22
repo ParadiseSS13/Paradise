@@ -34,15 +34,13 @@
 		machine.deconstruct()
 		return COMPONENT_INCOMPATIBLE
 
-	var/atom/parent_atom = parent
-
 	var/max_height = length(new_filler_map)
 	var/max_width = length(new_filler_map[1]) //it should have the same length on every row
 
 	var/current_height = 0
 	var/current_width = 0
 
-	for(var/turf/filler_turf as anything in RANGE_TURFS(distance_from_center, parent_atom))
+	for(var/turf/filler_turf as anything in RANGE_TURFS(distance_from_center, owner))
 		if(new_filler_map[max_height - current_height][max_width - current_width]) // Because the `block()` proc always works from the bottom left to the top right, we have to loop through our nested lists in reverse
 			var/obj/structure/filler/new_filler = new(filler_turf)
 			all_fillers += new_filler
