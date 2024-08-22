@@ -29,6 +29,7 @@
 	stage = 2
 	base_cost = 100
 	max_level = 3
+	upgrade_info = "At level 2, you also deflect projectiles shot at you. Level 3 doubles the duration of the effect."
 	/// Do we get bullet reflection
 	var/should_get_reflection = FALSE
 	/// Extra duration we gain from upgrading
@@ -50,7 +51,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 5 MINUTES // Base uptime is 20%
 	category = CATEGORY_DESTROYER
-	stage = 3 // TODO: figure out if this is the right stage
+	stage = 4
 	base_cost = 250
 	static_upgrade_increase = 50 // Total cost of 900 swarms
 	max_level = 3

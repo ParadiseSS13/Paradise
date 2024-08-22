@@ -17,3 +17,14 @@
 #define CATEGORY_DESTROYER "destroyer"
 #define CATEGORY_INTRUDER "intruder"
 #define CATEGORY_SWARMER "swarmer"
+
+#define POWER_LEVEL_ZERO	0
+#define POWER_LEVEL_ONE		1
+#define POWER_LEVEL_TWO		2
+#define POWER_LEVEL_THREE	3
+#define POWER_LEVEL_FOUR	4
+
+#define CAPSTONE_STAGE 4
+
+#define RANGED_ATTACK_BASE "base ranged attack"
+#define MELEE_ATTACK_BASE "base melee attack"
