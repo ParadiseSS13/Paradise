@@ -97,15 +97,24 @@
 	cooldown_handler.recharge_duration -= 5 SECONDS
 	smoke_effects_spawned += 5
 
-/datum/spell/flayer/self/skin_suit
+/datum/spell/flayer/skin_suit
 	name = "Flesh Facsimile"
 	desc = "Choose someone we see, and rearrange our surface to resemble theirs."
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
-	base_cooldown = 120 SECONDS
+	base_cooldown = 120 SECONDS // Debug blah blah blah
 	base_cost = 100
 	stage = 2
 
-/datum/spell/flayer/self/skin_suit/cast(list/targets, mob/living/user)
-	user.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE) //TODO make this pass in a target you pick on screen
+/datum/spell/flayer/skin_suit/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.include_user = FALSE
+	T.allowed_type = /mob/living
+	T.try_auto_target = TRUE
+	T.click_radius = -1
+	T.selection_type = SPELL_SELECTION_VIEW
+	return T
 
+/datum/spell/flayer/skin_suit/cast(list/targets, mob/living/user)
+	var/mob/living/target = targets[1]
+	user.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE, target)
