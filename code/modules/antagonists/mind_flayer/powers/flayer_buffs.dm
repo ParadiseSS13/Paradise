@@ -51,7 +51,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 5 MINUTES // Base uptime is 20%
 	category = CATEGORY_DESTROYER
-	stage = 4
+	stage = 2 // MAKE CAPSTONE WHEN ON LIVE TODO
 	base_cost = 250
 	static_upgrade_increase = 50 // Total cost of 900 swarms
 	max_level = 3
