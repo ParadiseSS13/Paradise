@@ -38,6 +38,7 @@
 	// update the name/description
 	name = initial(target_obj.name)
 	desc += "\nThe colors look a little dodgy."
+	qdel(target_obj)
 	update_appearance(ALL)
 	return target_type
 
