@@ -141,9 +141,10 @@
 
 // Krav Maga gloves
 /obj/item/clothing/gloves/color/black/krav_maga
-	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
 	resistance_flags = NONE
+	dyeable = TRUE
+	var/datum/martial_art/krav_maga/style
 
 /obj/item/clothing/gloves/color/black/krav_maga/Initialize()
 	. = ..()
@@ -170,6 +171,7 @@
 	desc = "These gloves can teach you to perform Krav Maga using nanochips for as long as you're wearing them."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
+	dyeable = FALSE
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec/Initialize(mapload)
 	. = ..()
