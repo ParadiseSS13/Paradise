@@ -365,6 +365,8 @@
 	if(..())
 		disable_radio(L)
 		addtimer(CALLBACK(src, PROC_REF(enable_radio), L), 6 SECONDS) //Currently, the baton disables radio on hit for 6 seconds, values can be tweaked
+		return TRUE
+	return FALSE
 
 /obj/item/melee/baton/flayerprod/proc/disable_radio(mob/living/L)
 	var/list/all_items = L.GetAllContents()
