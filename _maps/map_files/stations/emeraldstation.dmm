@@ -14365,8 +14365,9 @@
 	},
 /area/station/security/warden)
 "cJB" = (
+/obj/item/chair,
 /turf/simulated/floor/plating,
-/area/station/public/dorms)
+/area/station/maintenance/dorms/starboard)
 "cJE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -27451,6 +27452,7 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
+/obj/item/toy/figure/crew/captain,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "fiV" = (
@@ -29281,6 +29283,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -44258,10 +44261,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
-"ipG" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
-/area/station/public/dorms)
 "ipM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -103257,6 +103256,22 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/robotics)
+"tnT" = (
+/obj/structure/table,
+/obj/item/decorations/sticky_decorations/flammable/heart_chain{
+	pixel_y = 11
+	},
+/obj/item/clothing/head/flower_crown,
+/obj/item/toy/figure/crew/captain{
+	pixel_y = 1;
+	pixel_x = -4
+	},
+/obj/item/toy/figure/crew/scientist{
+	pixel_y = 1;
+	pixel_x = 3
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/dorms/starboard)
 "tnX" = (
 /obj/machinery/door/window/classic/reversed{
 	dir = 4;
@@ -163122,10 +163137,10 @@ lEX
 tUY
 kWP
 oDm
-ipG
-vAZ
-vAZ
-vAZ
+bsr
+qlt
+qlt
+qlt
 vwq
 irs
 sRm
@@ -163380,9 +163395,9 @@ eUC
 eUC
 eUC
 eUC
+tnT
 cJB
-cJB
-vAZ
+qlt
 bvA
 urb
 sRm
