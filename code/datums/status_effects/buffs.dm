@@ -1038,8 +1038,8 @@
 
 /datum/status_effect/overclock/tick()
 	owner.bodytemperature += heat_per_tick
-	owner.adjust_fire_stacks(1)
 	if(owner.bodytemperature >= COMBUSTION_TEMPERATURE)
+		owner.adjust_fire_stacks(5)
 		owner.IgniteMob()
 		to_chat(owner, "<span class = 'userdanger'>Your components can't handle the heat and combust!</span>")
 		qdel(src)
