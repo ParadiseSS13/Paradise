@@ -1004,7 +1004,7 @@
 /datum/status_effect/terminator_form/on_apply()
 	if(owner.status_flags & TERMINATOR_FORM)
 		qdel(src)
-		return
+		return FALSE
 	owner.status_flags |= TERMINATOR_FORM
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, UNIQUE_TRAIT_SOURCE(src))
 	return TRUE
