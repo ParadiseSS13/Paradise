@@ -426,6 +426,7 @@
 #include "code\datums\components\label.dm"
 #include "code\datums\components\largeobjecttransparency.dm"
 #include "code\datums\components\material_container.dm"
+#include "code\datums\components\multitile.dm"
 #include "code\datums\components\orbiter.dm"
 #include "code\datums\components\paintable.dm"
 #include "code\datums\components\parry.dm"
