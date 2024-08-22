@@ -183,6 +183,15 @@
 	var/spell = new path() //No need to give it an owner since we're just checking the type
 	return isspell(spell)
 
+///Returns the highest non-general category, used to check if a mindflayer already has a subclass
+/datum/antagonist/mindflayer/proc/get_highest_category()
+	var/highest = 1
+	var/chosen_category = null
+	for(var/category in category_stage)
+		if(category_stage[category] > highest && category != CATEGORY_GENERAL) // *cough
+			highest = category_stage[category]
+			chosen_category = category
+	return chosen_category
 
 /*Given a spell, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
 * If so it adds the ability and increments the category stage if needed, then returns TRUE
@@ -190,11 +199,16 @@
 */
 
 /datum/antagonist/mindflayer/proc/try_purchase_spell(datum/spell/flayer/to_add)
+	var/current_category = get_highest_category()
+	if(current_category)
+		if(to_add.category != CATEGORY_GENERAL && to_add.category != current_category)
+			send_swarm_message("We have already forsaken this knowledge.")
+			return FALSE
 	var/datum/spell/flayer/existing_spell = has_spell(to_add)
 	if(existing_spell)
 		return try_upgrade_spell(existing_spell)
 	if(category_stage[to_add.category] < to_add.stage)
-		send_swarm_message("We do not have all the knowledge needed for this...")
+		send_swarm_message("We do not have all the knowledge needed for this.")
 		return FALSE
 	else if (category_stage[to_add.category] == to_add.stage)
 		category_stage[to_add.category] += 1
@@ -226,6 +240,11 @@
 * otherwise, returns FALSE
 */
 /datum/antagonist/mindflayer/proc/try_purchase_passive(datum/mindflayer_passive/to_add)
+	var/current_category = get_highest_category()
+	if(current_category)
+		if(to_add.category != CATEGORY_GENERAL && to_add.category != current_category)
+			send_swarm_message("We have already forsaken this knowledge.")
+			return FALSE
 	var/datum/mindflayer_passive/existing_passive = has_passive(to_add)
 	if(existing_passive)
 		if(existing_passive.level >= to_add.max_level)
