@@ -1007,7 +1007,46 @@
 		return
 	owner.status_flags |= TERMINATOR_FORM
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, UNIQUE_TRAIT_SOURCE(src))
+	return TRUE
 
 /datum/status_effect/terminator_form/on_remove()
 	owner.status_flags &= ~TERMINATOR_FORM
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, UNIQUE_TRAIT_SOURCE(src))
+
+#define COMBUSTION_TEMPERATURE 500
+/datum/status_effect/overclock
+	duration = -1
+	tick_interval = 1 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/overclock
+	var/heat_per_tick = 5
+
+/datum/status_effect/overclock/on_creation(mob/living/new_owner, new_heating)
+	if(isnum(new_heating))
+		heat_per_tick = new_heating
+	..()
+
+
+/datum/status_effect/overclock/on_apply()
+	ADD_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, UNIQUE_TRAIT_SOURCE(src))
+	owner.next_move_modifier -= 0.3 //Same attack speed buff as mephedrone
+	return TRUE
+
+/datum/status_effect/overclock/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, UNIQUE_TRAIT_SOURCE(src))
+	owner.next_move_modifier += 0.3
+
+/datum/status_effect/overclock/tick()
+	owner.bodytemperature += heat_per_tick
+	owner.adjust_fire_stacks(1)
+	if(owner.bodytemperature >= COMBUSTION_TEMPERATURE)
+		owner.IgniteMob()
+		to_chat(owner, "<span class = 'userdanger'>Your components can't handle the heat and combust!</span>")
+		qdel(src)
+
+/atom/movable/screen/alert/status_effect/overclock
+	name = "Overclocked"
+	desc = "You feel ontop of the world."
+	icon_state = "high"
+
+#undef COMBUSTION_TEMPERATURE

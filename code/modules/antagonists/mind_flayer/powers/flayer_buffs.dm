@@ -58,3 +58,22 @@
 
 /datum/spell/flayer/self/terminator_form/cast(list/targets, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_TERMINATOR_FORM)
+
+/// A toggle ability, high risk/high reward by making you move and attack faster, but you heat up over time and ignite if you get too hot.
+/datum/spell/flayer/self/overclock
+	name = "Overclock"
+	desc = "WIP"
+	power_type = FLAYER_PURCHASABLE_POWER
+	base_cooldown = 15 SECONDS
+	category = CATEGORY_DESTROYER
+	stage = 3
+	max_level = 3
+	upgrade_info = "Improve your heat sinks, making you heat up slower."
+	var/heat_per_tick = 25
+
+/datum/spell/flayer/self/overclock/cast(list/targets, mob/living/user)
+	if(user.has_status_effect(STATUS_EFFECT_OVERCLOCK))
+		user.remove_status_effect(STATUS_EFFECT_OVERCLOCK)
+		return
+	user.apply_status_effect(STATUS_EFFECT_OVERCLOCK, heat_per_tick)
+
