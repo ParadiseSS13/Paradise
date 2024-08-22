@@ -10,9 +10,9 @@
 #    label:       | Box title |
 #    description: | Box small text - Description |
 #
-name: "Issue Report"
+name: 'Issue Report'
 #title: "[Bug]: " | if you want to have a have it automatically say [Bug] when they start the form
-description: "Доложите о проблемах или багах, что бы мы могли их исправить."
+description: 'Доложите о проблемах или багах, что бы мы могли их исправить.'
 #labels: "Баг"
 
 body:
@@ -24,7 +24,9 @@ body:
     id: version
     attributes:
       label: BYOND Version
-      description: "На какой версии BYOND встретился баг. (Если уверены, что не связано, можно пропустить)"
+      description: 'На какой версии BYOND встретился баг. (Если уверены, что не связано, можно пропустить)'
+    validations:
+      required: true
 
   - type: textarea
     id: description

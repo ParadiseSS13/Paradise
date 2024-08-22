@@ -520,6 +520,8 @@ SUBSYSTEM_DEF(jobs)
 				continue
 			if(locate(/mob/living) in sloc.loc)
 				continue
+			if(drunken_spawning && sloc.name == "AI")
+				continue
 			S = sloc
 			break
 		if(!S)
