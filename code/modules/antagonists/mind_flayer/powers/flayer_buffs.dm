@@ -8,6 +8,7 @@
 	action_icon_state = "vampire_rejuvinate"
 	max_level = 4
 	base_cooldown = 30 SECONDS
+	stat_allowed = UNCONSCIOUS
 	base_cost = 75 // Upgrading this past the base form costs a ton but is very rewarding
 	var/extra_duration = 0 // The base spell is 5 brute/burn healing a second for 5 seconds
 	var/extra_healing = 0
@@ -47,7 +48,7 @@
 		if(POWER_LEVEL_THREE)
 			extra_duration += 10 SECONDS
 
-/// A toggle ability, high risk/high reward by making you move and attack faster, but you heat up over time and ignite if you get too hot.
+/// A toggle ability that makes you speedy and attack faster while heating up, level one cast is guaranteed to hurt a bit.
 /datum/spell/flayer/self/overclock
 	name = "Overclock"
 	desc = "Put extra strain on your motors to move and attack faster, at the cost of heating up a dangerous amount."
