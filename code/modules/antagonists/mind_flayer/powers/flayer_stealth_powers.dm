@@ -1,9 +1,12 @@
 /// Hack computer cameras to use them as a secret camera network
 /datum/spell/flayer/surveilance_monitor
 	name = "Camfecting Bug"
+	desc = "Cast on a computer to hack its webcam, then alt-click the spell to access all your hacked cameras."
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
-	base_cooldown = 1 SECONDS // DEBUGGGG ONLY
+	base_cooldown = 1 SECONDS
+	action_icon = 'icons/obj/device.dmi'
+	action_icon_state = "camera_bug"
 	base_cost = 50
 	static_upgrade_increase = 15
 	stage = 1
@@ -55,11 +58,13 @@
 
 /datum/spell/flayer/self/voice_synthesizer
 	name = "Enhanced Voice Mod"
-	desc = "Name changer"
+	desc = "Configure your vocal modulator to sound like a different person, and amplify your voice slightly."
+	action_icon = 'icons/obj/clothing/masks.dmi'
+	action_icon_state = "voice_modulator"
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS
-	base_cost = 75
+	base_cost = 60
 
 /datum/spell/flayer/self/voice_synthesizer/cast(list/targets, mob/living/user)
 	if(flayer.mimicking)
@@ -82,6 +87,7 @@
 	name = "Vent Smog"
 	desc = "Vent the excess smog from our internals, disorienting and poisoning attackers."
 	upgrade_info = "5 extra plumes of steam and 5 less seconds between exhalations."
+	action_icon_state = "smoke"
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
 	base_cooldown = 30 SECONDS
@@ -106,6 +112,7 @@
 /datum/spell/flayer/skin_suit
 	name = "Flesh Facsimile"
 	desc = "Choose someone we see, and rearrange our surface to resemble theirs."
+	action_icon_state = "genetic_poly"
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
 	base_cooldown = 120 SECONDS // Debug blah blah blah
