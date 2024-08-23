@@ -45,20 +45,6 @@
 		if(POWER_LEVEL_THREE)
 			extra_duration += 10 SECONDS
 
-/datum/spell/flayer/self/terminator_form
-	name = "T.E.R.M.I.N.A.T.O.R. Form"
-	desc = "For a short time, transcend your limits and pursue your target through hell."
-	power_type = FLAYER_PURCHASABLE_POWER
-	base_cooldown = 5 MINUTES // Base uptime is 20%
-	category = CATEGORY_DESTROYER
-	stage = 2 // MAKE CAPSTONE WHEN ON LIVE TODO
-	base_cost = 250
-	static_upgrade_increase = 50 // Total cost of 900 swarms
-	max_level = 3
-
-/datum/spell/flayer/self/terminator_form/cast(list/targets, mob/living/user)
-	user.apply_status_effect(STATUS_EFFECT_TERMINATOR_FORM)
-
 /// A toggle ability, high risk/high reward by making you move and attack faster, but you heat up over time and ignite if you get too hot.
 /datum/spell/flayer/self/overclock
 	name = "Overclock"
@@ -82,4 +68,16 @@
 /datum/spell/flayer/self/overclock/on_purchase_upgrade()
 	heat_per_tick -= 5
 
+/datum/spell/flayer/self/terminator_form
+	name = "T.E.R.M.I.N.A.T.O.R. Form"
+	desc = "For a short time, transcend your limits and pursue your target through hell."
+	power_type = FLAYER_PURCHASABLE_POWER
+	base_cooldown = 5 MINUTES // Base uptime is 20%
+	category = CATEGORY_DESTROYER
+	stage = CAPSTONE_STAGE
+	base_cost = 250
+	static_upgrade_increase = 50 // Total cost of 900 swarms
+	max_level = 3
 
+/datum/spell/flayer/self/terminator_form/cast(list/targets, mob/living/user)
+	user.apply_status_effect(STATUS_EFFECT_TERMINATOR_FORM)
