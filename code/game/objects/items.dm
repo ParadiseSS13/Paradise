@@ -78,6 +78,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Since any item can now be a piece of clothing, this has to be put here so all items share it.
 	/// This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
 	var/flags_inv
+	/// The associated key to the dye registry GLOB list, used to transform/color this piece of clothing through dyeing
+	var/dyeing_key
+	/// If this item is put into a washing machine to be dyed, can objects of this type be dyed into a different color/icon?
+	var/dyeable = FALSE
 	var/item_color
 	/// What bodyflags does this item cover? See setup.dm for appropriate bit flags
 	var/body_parts_covered = 0
@@ -307,7 +311,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
-	if(!user) 
+	if(!user)
 		return FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

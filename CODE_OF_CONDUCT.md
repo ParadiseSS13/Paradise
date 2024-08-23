@@ -42,10 +42,14 @@ It is expected that contributors discuss larger changes on the [Paradise Station
 
 For changes to content listed below, contributors **must** obtain approval from a headcoder or a member of either the balance, design, mapping, or sprite team (depending on which teams are relevant to the changes) before opening their Pull Request. This approval must be displayed in the Pull Request description body in the form of a screenshot. The Headcoders may grant an exemption to this requirement on a case-by-case basis, as the need arises.
 
-### Currently, changes to the following types of content requires pre-approval:
-  - Security content (excluding fixes, code improvement, refactors, sprites, and mapping changes)
-  - Antagonist content (excluding fixes, code improvement, refactors, sprites, and mapping changes)
-  - Species content (excluding fixes, code improvement, and refactors)
-  - Large changes (for example PRs that touch multiple systems, many files, many lines of code)
-  - Changes that might be controversial
-  - Changes with wide-ranging balance or design implications
+<!-- Add a fixed link so that changing the heading name doesn't break the link. -->
+<a id="types-of-changes-that-need-approval"></a>
+
+> [!IMPORTANT]
+> ### Currently, changes to the following types of content requires pre-approval:
+>  - **Security content (excluding fixes, code improvement, refactors, sprites, and mapping changes)**
+>  - **Antagonist content (excluding fixes, code improvement, refactors, sprites, and mapping changes)**
+>  - **Species content (excluding fixes, code improvement, and refactors)**
+>  - **Large changes (for example PRs that touch multiple systems, many files, many lines of code)**
+>  - **Changes that might be controversial**
+>  - **Changes with wide-ranging balance or design implications**
