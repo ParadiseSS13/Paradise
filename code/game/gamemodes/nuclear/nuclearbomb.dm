@@ -796,7 +796,7 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/training/Initialize()
 	. = ..()
 	r_code = 11111 //Uuh.. one!
-	qdel(core)
+	QDEL_NULL(core)
 
 /obj/machinery/nuclearbomb/training/process()
 	if(timing)
