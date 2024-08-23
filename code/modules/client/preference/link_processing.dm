@@ -86,31 +86,8 @@
 			active_character.SetRecords(user)
 
 	if(href_list["preference"] == "gear")
-		if(href_list["toggle_gear"])
-			var/datum/gear/TG = GLOB.gear_datums[text2path(href_list["toggle_gear"])]
-			if(TG && (TG.type in active_character.loadout_gear))
-				active_character.loadout_gear -= TG.type
-			else
-				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
-					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
-					return
-				build_loadout(TG)
-
-		else if(href_list["gear"] && href_list["tweak"]) // NYI
-			var/datum/gear/gear = GLOB.gear_datums[text2path(href_list["gear"])]
-			var/datum/gear_tweak/tweak = locate(href_list["tweak"])
-			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
-				return
-			var/metadata = tweak.get_metadata(user, active_character.get_tweak_metadata(gear, tweak))
-			if(!metadata)
-				return
-			active_character.set_tweak_metadata(gear, tweak, metadata)
-		else if(href_list["select_category"])
-			gear_tab = href_list["select_category"]
-		else if(href_list["clear_loadout"])
-			active_character.loadout_gear.Cut()
-
-		ShowChoices(user)
+		var/datum/ui_module/loadout/loadout = new(user)
+		loadout.ui_interact(user)
 		return
 
 	switch(href_list["task"])
@@ -691,6 +668,11 @@
 					var/new_backbag = tgui_input_list(user, "Choose your character's style of bag", "Character Preference", GLOB.backbaglist)
 					if(new_backbag)
 						active_character.backbag = new_backbag
+
+				if("loadout")
+					var/datum/ui_module/loadout/loadout = new()
+					loadout.ui_interact(user)
+					return FALSE
 
 				if("nt_relation")
 					var/new_relation = tgui_input_list(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference", list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed"))

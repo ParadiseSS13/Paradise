@@ -1,13 +1,4 @@
-GLOBAL_LIST_EMPTY(loadout_categories)
 GLOBAL_LIST_EMPTY(gear_datums)
-
-/datum/loadout_category
-	var/category = ""
-	var/list/gear = list()
-
-/datum/loadout_category/New(cat)
-	category = cat
-	..()
 
 /datum/gear
 	/// Displayed name of the item listing.
