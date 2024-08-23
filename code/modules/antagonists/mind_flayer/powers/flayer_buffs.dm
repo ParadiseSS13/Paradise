@@ -5,6 +5,7 @@
 	desc = "Heal and remove any incapacitating effects from yourself."
 	power_type = FLAYER_INNATE_POWER
 	checks_nullification = FALSE
+	action_icon_state = "vampire_rejuvinate"
 	max_level = 4
 	base_cooldown = 30 SECONDS
 	base_cost = 75 // Upgrading this past the base form costs a ton but is very rewarding
@@ -23,6 +24,7 @@
 /datum/spell/flayer/self/quicksilver_form
 	name = "Quicksilver Form"
 	desc = "WIP something about becoming liquid mercury."
+	action_icon_state = "blink"
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 40 SECONDS //25% uptime at base
 	category = CATEGORY_DESTROYER
@@ -52,6 +54,7 @@
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 15 SECONDS
 	category = CATEGORY_DESTROYER
+	action_icon_state = "strained_muscles"
 	stage = 3
 	max_level = 3
 	base_cost = 150
