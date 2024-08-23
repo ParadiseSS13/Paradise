@@ -44,7 +44,7 @@
 	var/emp_proof = FALSE //If it is immune to emps
 	var/emag_proof = FALSE //If it is immune to emagging. Used by CC mechs.
 
-	/// Wheter the mech moves in a strafing motion
+	/// Whether the mech moves in a strafing motion
 	var/strafing = FALSE
 	/// The available modes of strafing
 	var/strafing_flags = MECH_STRAFING_SIDEWAYS
