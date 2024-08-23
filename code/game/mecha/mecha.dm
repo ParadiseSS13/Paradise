@@ -339,7 +339,7 @@
 	else if(dir != direction)
 		if(strafing)
 			var/old_dir = dir
-			if(strafing_flags & MECH_STRAFING_BACKWARDS && direction == REVERSE_DIR(dir))
+			if((strafing_flags & MECH_STRAFING_BACKWARDS) && direction == REVERSE_DIR(dir))
 				move_result = mechstep(direction)
 				move_type = MECHAMOVE_STEP
 				dir = old_dir
