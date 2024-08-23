@@ -67903,6 +67903,7 @@
 "mRF" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "mRL" = (
@@ -86599,7 +86600,6 @@
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
 	},
-/obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "qmT" = (
@@ -96048,6 +96048,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
 "rXv" = (
