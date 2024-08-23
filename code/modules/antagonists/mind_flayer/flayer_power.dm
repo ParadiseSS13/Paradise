@@ -242,14 +242,12 @@
 		send_swarm_message("We do not have all the knowledge needed for this...")
 		return FALSE
 
-	if(category_stage[to_add.category] == CAPSTONE_STAGE)
+	if(to_add.stage == CAPSTONE_STAGE)
 		if(!can_pick_capstone)
 			send_swarm_message("We have already forsaken that knowledge.")
 			return FALSE
-
 		can_pick_capstone = FALSE
 		send_swarm_message("We evolve to the ultimate being.")
-
 	if (category_stage[to_add.category] == to_add.stage)
 		category_stage[to_add.category] += 1
 
