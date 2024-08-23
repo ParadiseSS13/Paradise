@@ -121,6 +121,10 @@
 	if(!watching_client || (watching_client in watching))
 		return
 
+	// Do not show credits if it's disabled for the client and not forced.
+	if(istype(src, /datum/cinematic/credits) && !GLOB.credits_forced && !(watching_client.prefs.toggles220 & PREFTOGGLE_220_WATCH_CREDITS))
+		return
+
 	watching += watching_client
 	watching_mob.overlay_fullscreen("cinematic", backdrop_type)
 	watching_client.screen += screen

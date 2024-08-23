@@ -1,5 +1,6 @@
 #include "code\SScredits.dm"
 #include "code\credits.dm"
+#include "code\admin_procs.dm"
 #include "code\halloween_credits.dm"
 #include "code\new_year_credits.dm"
 #include "code\aprils_fool_credits.dm"
