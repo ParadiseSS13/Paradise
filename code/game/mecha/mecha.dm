@@ -344,7 +344,7 @@
 				move_type = MECHAMOVE_STEP
 				dir = old_dir
 				step_malus = step_in
-			else if(strafing_flags & MECH_STRAFING_SIDEWAYS && direction & (turn(dir,90) | turn(dir,-90)))
+			else if((strafing_flags & MECH_STRAFING_SIDEWAYS) && (direction & (turn(dir, 90) | turn(dir, -90))))
 				move_result = mechstep(direction)
 				move_type = MECHAMOVE_STEP
 				dir = old_dir
