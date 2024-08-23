@@ -215,7 +215,7 @@
 	if(set_owner)
 		to_add.flayer = src
 	to_add.level = 1
-	to_add.current_cost = to_add.static_upgrade_increase ? to_add.static_upgrade_increase : (to_add.base_cost * (to_add.level + 1)) // This is always gonna be base cost * 2 but it standardizes how this looks elsewhere
+	to_add.current_cost = to_add.static_upgrade_increase ? (to_add.static_upgrade_increase + to_add.current_cost) : (to_add.base_cost * (to_add.level + 1)) // This is always gonna be base cost * 2 but it standardizes how this looks elsewhere
 	owner.AddSpell(to_add)
 	powers += to_add
 

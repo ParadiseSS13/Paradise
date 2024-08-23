@@ -218,7 +218,7 @@
 		return FALSE
 	adjust_swarms(-to_upgrade.current_cost)
 	to_upgrade.level += 1
-	to_upgrade.current_cost = to_upgrade.static_upgrade_increase ? to_upgrade.static_upgrade_increase : (to_upgrade.base_cost * (to_upgrade.level + 1))
+	to_upgrade.current_cost = to_upgrade.static_upgrade_increase ? (to_upgrade.static_upgrade_increase + to_upgrade.current_cost) : (to_upgrade.base_cost * (to_upgrade.level + 1))
 	add_ability(to_upgrade, src)
 	return TRUE
 
