@@ -2021,9 +2021,7 @@
 /area/station/command/bridge)
 "aua" = (
 /obj/effect/spawner/window/reinforced/tinted,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/station/service/chapel)
 "aub" = (
 /obj/effect/decal/cleanable/dirt,
@@ -12605,7 +12603,7 @@
 	},
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/station/hallway/primary/central/sw)
 "crP" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Door"
@@ -24336,6 +24334,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
+/mob/living/simple_animal/hostile/retaliate/araneus,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -29283,7 +29282,6 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -51312,7 +51310,7 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/turf/space,
+/turf/simulated/floor/plating,
 /area/station/public/shops)
 "jFi" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -66109,7 +66107,7 @@
 /obj/machinery/door/morgue{
 	name = "Confession Booth"
 	},
-/turf/space,
+/turf/simulated/floor/plating,
 /area/station/service/chapel)
 "mxC" = (
 /obj/structure/table,
@@ -71616,9 +71614,7 @@
 	name = "Confession Booth (Chaplain)";
 	req_access_txt = "22"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating,
 /area/station/service/chapel)
 "nAH" = (
 /obj/effect/decal/cleanable/dirt,
@@ -88685,7 +88681,7 @@
 "qHX" = (
 /obj/structure/sign/securearea{
 	pixel_y = -32;
-	name = "\improper TOXIC ENVRIONMENT AHED"
+	name = "\improper TOXIC ENVRIONMENT AHEAD"
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -118538,7 +118534,7 @@
 /area/station/aisat/service)
 "wgc" = (
 /obj/effect/spawner/window/reinforced,
-/turf/space,
+/turf/simulated/floor/plating,
 /area/station/command/office/cmo)
 "wgs" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -174135,11 +174131,11 @@ jnP
 aZS
 jnP
 jnP
+jnP
+jnP
+jnP
 gUo
-gUo
-gUo
-gUo
-cAx
+aZS
 cwI
 gNy
 fXf
@@ -174392,11 +174388,11 @@ jnP
 aZS
 jnP
 jnP
-gUo
-gUo
-gUo
-cAx
-cAx
+jnP
+jnP
+jnP
+aZS
+aZS
 cwI
 fSz
 kbN
@@ -174649,10 +174645,10 @@ fjJ
 fjJ
 jnP
 jnP
-gUo
-gUo
-gUo
-cAx
+jnP
+jnP
+jnP
+aZS
 cwI
 cwI
 uXq
