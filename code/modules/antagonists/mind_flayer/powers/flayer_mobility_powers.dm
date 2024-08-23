@@ -5,13 +5,16 @@
 /datum/spell/flayer/computer_recall
 	name = "Traceroute"
 	desc = "Cast once to mark a computer, then cast this next to a different computer to recall yourself back to the first. Alt click to check your current mark."
-	base_cooldown = 5 SECONDS //TODO change this back to 60 seconds when testing is done
+	base_cooldown = 60 SECONDS
+	action_icon_state = "pd_cablehop"
+	upgrade_info = "Halve the time it takes to recharge."
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
 	centcom_cancast = FALSE
 	var/obj/machinery/computer/marked_computer = null
 	stage = 2
-	current_cost = 150
+	base_cost = 150
+	static_upgrade_increase = 25
 
 /datum/spell/flayer/computer_recall/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -62,14 +65,21 @@
 		return
 	to_chat(user, "<span class='notice'>Your current mark is [marked_computer].</span>")
 
+/datum/spell/flayer/computer_recall/on_purchase_upgrade()
+	cooldown_handler.recharge_duration -= 30 SECONDS
+
 /datum/spell/flayer/grapple_arm
 	name = "Integrated Grappling Mechanism"
-	desc = "EXTENDO ARMMMM!"
+	desc = "Shoot out your arm attached to a cable, then drag yourself over to wherever or whoever it hits."
+	upgrade_info = "Reduce the time between grapples by 10 seconds."
+	action_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
+	action_icon_state = "flayer_claw"
 	base_cooldown = 30 SECONDS
 	category = CATEGORY_DESTROYER
 	power_type = FLAYER_PURCHASABLE_POWER
 	stage = 2
-	current_cost = 75
+	max_level = 3
+	base_cost = 75
 
 /obj/item/projectile/tether/flayer
 	name = "Grapple Arm"
@@ -109,3 +119,6 @@
 	tether.fire()
 	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
 	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/item/projectile/tether, make_chain))
+
+/datum/spell/flayer/grapple_arm/on_purchase_upgrade()
+	cooldown_handler.recharge_duration -= 10 SECONDS
