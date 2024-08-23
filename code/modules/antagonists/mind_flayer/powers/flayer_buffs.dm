@@ -48,7 +48,7 @@
 /// A toggle ability, high risk/high reward by making you move and attack faster, but you heat up over time and ignite if you get too hot.
 /datum/spell/flayer/self/overclock
 	name = "Overclock"
-	desc = "WIP"
+	desc = "Put extra strain on your motors to move and attack faster, at the cost of heating up a dangerous amount."
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 15 SECONDS
 	category = CATEGORY_DESTROYER
@@ -57,7 +57,7 @@
 	base_cost = 150
 	static_upgrade_increase = 50
 	upgrade_info = "Improve your heat sinks, making you heat up slower."
-	var/heat_per_tick = 20
+	var/heat_per_tick = 22
 
 /datum/spell/flayer/self/overclock/cast(list/targets, mob/living/user)
 	if(user.has_status_effect(STATUS_EFFECT_OVERCLOCK))

@@ -1020,6 +1020,7 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/overclock
 	var/heat_per_tick = 5
+	var/stacks = 0
 
 /datum/status_effect/overclock/on_creation(mob/living/new_owner, new_heating)
 	if(isnum(new_heating))
@@ -1028,21 +1029,25 @@
 
 
 /datum/status_effect/overclock/on_apply()
-	ADD_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, UNIQUE_TRAIT_SOURCE(src))
 	owner.next_move_modifier -= 0.3 //Same attack speed buff as mephedrone
 	return TRUE
 
 /datum/status_effect/overclock/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_GOTTAGONOTSOFAST, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(owner, TRAIT_GOTTAGOFAST, UNIQUE_TRAIT_SOURCE(src))
 	owner.next_move_modifier += 0.3
 
 /datum/status_effect/overclock/tick()
-	owner.bodytemperature += heat_per_tick
+	var/danger_mode = (stacks >= 20) //After 20 seconds the heat penalty doubles
+	owner.bodytemperature += heat_per_tick * (danger_mode ? 2 : 1)
 	if(owner.bodytemperature >= COMBUSTION_TEMPERATURE)
 		owner.adjust_fire_stacks(5)
 		owner.IgniteMob()
 		to_chat(owner, "<span class = 'userdanger'>Your components can't handle the heat and combust!</span>")
 		qdel(src)
+	stacks += 1
+	if(stacks == 19)
+		to_chat(owner, "<span class='userdanger'>Your components are being dangerously overworked!")
 
 /atom/movable/screen/alert/status_effect/overclock
 	name = "Overclocked"
