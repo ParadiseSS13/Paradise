@@ -98,17 +98,6 @@
 	owner.AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 	REMOVE_TRAIT(owner, TRAIT_NOSLIP, UNIQUE_TRAIT_SOURCE(src))
 
-/datum/mindflayer_passive/new_crit
-	name = "Release Limiters"
-	purchase_text = "We remove our limiters, allowing us to remain active while severely damaged."
-	gain_text = "Advanced urgent protocols engaged."
-	power_type = FLAYER_PURCHASABLE_POWER //Just for testing
-	category = CATEGORY_DESTROYER
-
-/datum/mindflayer_passive/new_crit/on_apply()
-	..()
-	owner.dna.species.dies_at_threshold = FALSE
-
 /datum/mindflayer_passive/badass
 	name = "Badassery"
 	purchase_text = "Make yourself more badass, allowing you to dual wield guns with no penalty, alongside other benefits."
