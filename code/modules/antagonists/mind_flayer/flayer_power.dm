@@ -70,7 +70,7 @@
 	name = "Self-Augment Operations"
 	desc = "Choose how we will upgrade ourselves."
 	action_icon_state = "choose_module"
-	base_cooldown = 2 SECONDS
+	base_cooldown = 0 SECONDS
 	power_type = FLAYER_INNATE_POWER
 	checks_nullification = FALSE
 
@@ -97,10 +97,11 @@
 			var/path = text2path(params["ability_path"])
 			on_purchase(user, path)
 			ui.send_full_update()
+
 /*
 	Takes in a category name and grabs the paths of all the spells/passives specific to that category. Used for TGUI
 */
-/datum/antagonist/mindflayer/proc/get_powers_of_category(var/category)
+/datum/antagonist/mindflayer/proc/get_powers_of_category(category)
 	var/list/list/powers = list()
 	for(var/path in ability_list)
 		if(is_path_spell(path))
