@@ -243,15 +243,17 @@
 	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 50
-	var/obj/item/scope_holder
+	var/obj/item/organ/internal/eyes/optical_sensor/user_eyes
 
 /datum/mindflayer_passive/telescopic_eyes/on_apply()
 	. = ..()
-	scope_holder = new(flayer.owner.current) //TODO make this actually give you a scope lol
-	scope_holder.AddComponent(/datum/component/scope, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
+	user_eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
+	user_eyes.AddComponent(/datum/component/scope, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
+	for(var/datum/action/action in user_eyes.actions)
+		action.Grant(owner)
 
 /datum/mindflayer_passive/telescopic_eyes/on_remove()
-	scope_holder = null
+	qdel(user_eyes.GetComponent(/datum/component/scope))
 
 /datum/mindflayer_passive/ultimate_drain
 	name = "Perfect Symbiosis"
