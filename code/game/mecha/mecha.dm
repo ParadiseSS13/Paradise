@@ -46,7 +46,7 @@
 
 	/// Whether the mech moves in a strafing motion
 	var/strafing = FALSE
-	/// The available modes of strafing
+	/// Controls how the Mech is able to Strafe.
 	var/strafing_flags = MECH_STRAFING_SIDEWAYS
 
 	//inner atmos
