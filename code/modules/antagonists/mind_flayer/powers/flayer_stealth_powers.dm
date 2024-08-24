@@ -140,7 +140,7 @@
 /// After a 5 second channel time
 /datum/spell/flayer/self/override_key
 	name = "Silicon Administrative Access"
-	desc = "After a 7 second delay, delete a silicon's lawset, and replace it with your own."
+	desc = "Charge your hand with a mass of nanites that can hijack the lawsets of cyborgs."
 	action_icon_state = "magnet" // Uhhhhhhhhhhhhhhhhhhhhhhhhhhh
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
@@ -155,7 +155,7 @@
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	name = "Nanite Mass"
-	desc = "Will attempt to convert any silicon you touch into a loyal member of the hive."
+	desc = "Will attempt to convert any cyborg you touch into a loyal member of the hive after a 7 second delay."
 	color = COLOR_BLACK
 	flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
