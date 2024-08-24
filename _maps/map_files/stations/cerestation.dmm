@@ -12850,12 +12850,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -34132,6 +34132,18 @@
 /obj/structure/railing,
 /turf/space,
 /area/space/nearstation)
+"euZ" = (
+/obj/item/destTagger,
+/obj/item/stack/packageWrap,
+/obj/item/book/manual/hydroponics_pod_people,
+/obj/item/book/manual/hydroponics_pod_people,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/botanist,
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreenfull"
+	},
+/area/station/service/hydroponics)
 "evb" = (
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
@@ -64817,13 +64829,14 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/aft/west)
 "noy" = (
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /obj/structure/table,
-/obj/item/destTagger,
-/obj/item/stack/packageWrap,
-/obj/item/book/manual/hydroponics_pod_people,
-/obj/item/book/manual/hydroponics_pod_people,
-/obj/item/book/manual/wiki/hydroponics,
-/obj/item/book/manual/wiki/botanist,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -65397,12 +65410,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/chair/stool,
 /obj/structure/cable/orange{
 	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+	d2 = 4;
+	icon_state = "1-4"
 	},
-/obj/structure/chair/stool,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/port)
 "nxz" = (
@@ -69393,18 +69406,17 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/apmaint)
 "oJY" = (
-/obj/machinery/camera/autoname{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/item/storage/bag/plants/portaseeder,
-/obj/item/storage/bag/plants/portaseeder,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/structure/table,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/wheat,
+/obj/item/seeds/lime,
+/obj/item/seeds/pumpkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -90500,8 +90512,8 @@
 	},
 /area/station/legal/lawoffice)
 "uCO" = (
-/obj/structure/table,
 /obj/machinery/reagentgrinder,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -94117,6 +94129,7 @@
 /obj/item/food/grown/potato,
 /obj/item/food/grown/chili,
 /obj/item/food/grown/wheat,
+/obj/item/seeds/wheat,
 /obj/item/seeds/grape,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
@@ -95119,6 +95132,10 @@
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/toilet)
@@ -102950,6 +102967,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -123501,9 +123519,9 @@ pxi
 mrt
 mrt
 baF
-bld
-unj
+euZ
 ppq
+unj
 hqe
 ojm
 prN
