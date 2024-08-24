@@ -1,6 +1,6 @@
 /*
 * In here is the basetype simplemob and every subtype used for every flayer mob.
-*
+* This is currently unused, waiting for the next subclass addition
 *
 *
 */
@@ -22,6 +22,7 @@
 	unique_pet = TRUE // No you are not naming your killer robot "Fluffy" // 1984
 	del_on_death = TRUE
 	AIStatus = AI_OFF
+	projectiletype = null
+
 	/// This is the reference to our master flayer
 	var/mob/living/carbon/human/flayer
-	projectiletype = null // This stays here so I don't forget what the var is - remove after testing
