@@ -93,9 +93,10 @@
 		send_swarm_message("This brain does not contain the spark that feeds us. Find more suitable prey.")
 		return FALSE
 **/
-	if(brain.damage >= 120)
+	if(brain.damage > brain.max_damage)
 		send_swarm_message("We detect no neural activity to harvest from this brain.")
 		return FALSE
+
 	var/unique_drain_id = H.UID()
 	if(isnull(drained_humans[unique_drain_id]))
 		drained_humans[unique_drain_id] = 0
@@ -109,7 +110,6 @@
 **/
 /datum/antagonist/mindflayer/proc/handle_harvest(mob/living/carbon/human/H)
 	harvesting = H
-	var/drain_total_damage = 0
 	var/obj/item/organ/internal/brain/drained_brain = H.get_int_organ(/obj/item/organ/internal/brain)
 	var/unique_drain_id = H.UID()
 	owner.current.visible_message("<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>", "<span class='sinister'>We begin our harvest on [H].</span>", "<span class='notice'>You hear the hum of electricity.</span>")
@@ -126,7 +126,10 @@
 		H.adjustBrainLoss(damage_to_deal, use_brain_mod = FALSE) //No need to use brain damage modification since we already got it from the previous line
 		adjust_swarms(damage_to_deal)
 		drained_humans[unique_drain_id] += damage_to_deal
-		drain_total_damage += damage_to_deal //TODO, give some sort of effect/max HP loss based on how high this ends up
+		// Lasting effects. Every second of draining requires 4 seconds of healing
+		drained_brain.max_damage -= 0.25 // As much damage as the default drain
+		drained_brain.temporary_damage += 0.25
+
 	send_swarm_message("Our connection severs.")
 	harvesting = null
 

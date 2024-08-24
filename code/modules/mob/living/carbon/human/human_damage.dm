@@ -25,8 +25,8 @@
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
 					amount *= dna.species.brain_mod
-			sponge.damage = clamp(sponge.damage + amount, 0, 120)
-			if(sponge.damage >= 120)
+			sponge.damage = clamp(sponge.damage + amount, 0, sponge.max_damage)
+			if(sponge.damage >= sponge.max_damage)
 				death()
 	if(updating)
 		update_stat("adjustBrainLoss")
