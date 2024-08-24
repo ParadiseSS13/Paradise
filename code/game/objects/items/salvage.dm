@@ -75,7 +75,7 @@
 /// Loot salvage, gained from fighting space simplemobs.
 
 /obj/item/salvage/loot
-	desc = "A tonne of salvage looted from a fallen foe. Would probably be pretty valuable, if you could figure out what the hell it was. Who spawned the base type? Report this on the github."
+	desc = "If you can see this forbidden salvage, report it on GitHub."
 
 /obj/item/salvage/loot/pirate
 	name = "stolen jewellery"
