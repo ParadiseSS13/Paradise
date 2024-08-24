@@ -150,7 +150,7 @@
 	REMOVE_TRAIT(owner, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/mindflayer_passive/regen
-	name = "Regeneration"
+	name = "Replicating Nanites"
 	purchase_text = "Gain a passive repairing effect."
 	upgrade_info = "Heal an extra 1 brute and burn per tick."
 	upgrade_text = "Our repair accelerates."
