@@ -426,12 +426,7 @@
 
 	var/mob/mover = AM
 
-	// todo make this a status effect
-	// the effect should track the deck you're playing from
-	// and remove the ability to play to this specific deck
-
 	// This should hopefully ensure that multiple decks around each other don't overlap
-	// if(!HAS_TRAIT_FROM(mover, TRAIT_PLAYING_CARDS, "deck_[deck_uid]"))
 	register_on_mob(mover)
 
 /obj/effect/abstract/proximity_checker/table/proc/on_move_from_monitor(atom/movable/tracked, atom/old_loc)
@@ -442,14 +437,3 @@
 
 	// otherwise, clean up
 	remove_from_mob(tracked)
-
-// /obj/effect/abstract/proximity_checker/table/Exited(atom/movable/AM, atom/new_loc)
-// 	. = ..()
-// 	if(istable(AM))
-// 		// if a table is exiting I guess it's gonezo
-// 		monitor.create_prox_checkers()
-// 	if(!ismob(AM))
-// 		return
-
-// 	if(!locate(type) in get_turf(new_loc))
-// 		REMOVE_TRAIT(AM, TRAIT_PLAYING_CARDS, "deck_[monitor.UID()]")

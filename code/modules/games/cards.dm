@@ -517,7 +517,7 @@
 
 /obj/item/cardhand/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!istype(target, /obj/item/deck))
+	if(!istype(target, /obj/item/deck) || proximity_flag)
 		return
 
 	var/obj/item/deck/D = target
