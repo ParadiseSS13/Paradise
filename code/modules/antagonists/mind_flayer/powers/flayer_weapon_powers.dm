@@ -83,7 +83,7 @@
 
 /datum/spell/flayer/self/weapon/flak_gun //Addressing the lack of FTL references in this game
 	name = "Pneumatic Flak Gun"
-	desc = "WIP"
+	desc = "Our hand melts away, replaced with a makeshift cannon that automatically loads with shrapnel."
 	action_icon = 'icons/obj/pneumaticCannon.dmi'
 	action_icon_state = "pneumaticCannon"
 	power_type = FLAYER_PURCHASABLE_POWER
