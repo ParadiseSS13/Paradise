@@ -733,7 +733,7 @@
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
-	can_hold = list(/obj/item/melee/rapier)
+	can_hold = list(/obj/item/melee/sabre)
 	layer_over_suit = TRUE
 	large = TRUE
 
@@ -776,15 +776,15 @@
 		var/mob/living/L = loc
 		L.update_inv_belt()
 
-/obj/item/storage/belt/sheath/rapier
-	name = "rapier sheath"
-	desc = "Can hold rapiers."
+/obj/item/storage/belt/sheath/sabre
+	name = "sabre sheath"
+	desc = "Can hold sabres."
 	icon_state = "sheath"
 	item_state = "sheath"
-	can_hold = list(/obj/item/melee/rapier)
+	can_hold = list(/obj/item/melee/sabre)
 
-/obj/item/storage/belt/sheath/rapier/populate_contents()
-	new /obj/item/melee/rapier(src)
+/obj/item/storage/belt/sheath/sabre/populate_contents()
+	new /obj/item/melee/sabre(src)
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/snakesfang
