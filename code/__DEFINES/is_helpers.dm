@@ -50,6 +50,8 @@
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
+#define isairlock(A) (istype(A, /obj/machinery/door))
+
 #define isapc(A) (istype(A, /obj/machinery/power/apc))
 
 #define ismecha(A) (istype(A, /obj/mecha))

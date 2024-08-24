@@ -352,13 +352,13 @@
 
 	user.do_attack_animation(src, no_effect = TRUE)
 	if(public)
-		user.visible_message("<span class='danger'>[user] draws \a [P.name]!</span>", "<span class='danger'>You draw \a [P]!</span>")
+		user.visible_message("<span class='danger'>[user] draws \a [P.name]!</span>", "<span class='danger'>You draw \a [P]!</span>", "<span class='notice'>You hear a card be drawn.</span>")
 		var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(user, P.card_icon)
 		user.vis_contents += draft
 		QDEL_IN(draft, 1 SECONDS)
 		sleep(1 SECONDS)
 	else
-		user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>")
+		user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>", "<span class='notice'>You hear a card be drawn.</span>)
 		to_chat(user, "<span class='notice'>It's \a [P.name].</span>")
 
 // Classic action
@@ -412,9 +412,17 @@
 	H.concealed = TRUE
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
-		user.visible_message("<span class='notice'>[user] deals [dcard] card\s to [user.p_themselves()].</span>")
+		user.visible_message(
+			"<span class='notice'>[user] deals [dcard] card\s to [user.p_themselves()].</span>",
+			"<span class='notice'>You deal [dcard] card\s to yourself.</span>",
+			"<span class='notice'>You hear cards being dealt.</span>"
+		)
 	else
-		user.visible_message("<span class='notice'>[user] deals [dcard] card\s to [target].</span>")
+		user.visible_message(
+			"<span class='notice'>[user] deals [dcard] card\s to [target].</span>",
+			"<span class='notice'>You deal [dcard] card\s to [target].</span>",
+			"<span class='notice'>You hear cards being dealt.</span>"
+		)
 	H.throw_at(get_step(target, target.dir), 3, 1, null)
 
 /obj/item/deck/attack_self(mob/user)
@@ -425,7 +433,11 @@
 		cards = shuffle(cards)
 
 		if(user)
-			user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
+			user.visible_message(
+				"<span class='notice'>[user] shuffles [src].</span>",
+				"<span class='notice'>You shuffle [src].</span>",
+				"<span class='notice'>You hear cards being shuffled.</span>"
+			)
 			playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 		shuffle_cooldown = world.time
 
@@ -435,6 +447,7 @@
 	var/mob/M = usr
 	if(M.incapacitated() || !Adjacent(M))
 		return
+
 	if(!ishuman(M))
 		return
 
@@ -469,7 +482,11 @@
 
 
 /obj/item/pack/attack_self(mob/user as mob)
-	user.visible_message("<span class='notice'>[name] rips open [src]!</span>", "<span class='notice'>You rip open [src]!</span>")
+	user.visible_message(
+		"<span class='notice'>[name] rips open [src]!</span>",
+		"<span class='notice'>You rip open [src]!</span>",
+		"<span class='notice'>You hear the sound of a packet being ripped open.</span>"
+	)
 	var/obj/item/cardhand/H = new(get_turf(user))
 
 	H.cards += cards
@@ -681,7 +698,6 @@
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
 
-/// old-school browser UI for card interations
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
 	for(var/t in cards)
@@ -803,7 +819,12 @@
 
 	if(loc != user) // Don't want people teleporting cards
 		return
-	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [picked_card] from your hand.</span>")
+	user.visible_message(
+		"<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>",
+		"<span class='notice'>You take \the [pickedcard] from your hand.</span>",
+		"<span class='notice'>You hear a card being drawn.</span>"
+	)
+	pickedcard = null
 
 	var/obj/item/cardhand/H = new(get_turf(src))
 	user.put_in_hands(H)
@@ -854,7 +875,11 @@
 		if(length(cards))
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(length(H.cards))
-			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
+			user.visible_message(
+				"<span class='notice'>[user] plays \the [discarding].</span>",
+				"<span class='notice'>You play \the [discarding].</span>",
+				"<span class='notice'>You hear a card being played.</span>"
+			)
 		H.loc = get_step(user, user.dir)
 
 	if(!length(cards))

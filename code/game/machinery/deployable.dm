@@ -422,7 +422,6 @@
 	item_state = "grenade"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 300) //plasma burned up for power or something, plus not that much to reclaim
 
-
 /obj/item/storage/box/syndie_kit/dropwall
 	name = "dropwall generator box"
 
@@ -473,6 +472,33 @@
 	var/obj/machinery/porta_turret/inflatable_turret/turret = new(get_turf(loc))
 	turret.owner_uid = owner_uid
 	qdel(src)
+
+/obj/structure/barricade/foam
+	name = "foam blockage"
+	desc = "This foam blocks the airlock from being opened."
+	icon = 'icons/obj/foam_blobs.dmi'
+	icon_state = "foamed_1"
+	layer = DOOR_HELPER_LAYER
+	// The integrity goes up with 25 per level, with an extra 25 when going from 4 to 5
+	obj_integrity = 25
+	max_integrity = 25
+	/// What level is the foam at?
+	var/foam_level = 1
+
+/obj/structure/barricade/foam/Destroy()
+	for(var/obj/machinery/door/airlock in loc.contents)
+		airlock.foam_level = 0
+	return ..()
+
+/obj/structure/barricade/foam/examine(mob/user)
+	. = ..()
+	. += "It would need [(5 - foam_level)] more blobs of foam to fully block the airlock."
+
+/obj/structure/barricade/foam/CanPass(atom/movable/mover, turf/target)
+	return istype(mover, /obj/item/projectile/c_foam) // Only c_foam blobs hit the airlock underneat/pass through the foam. The rest is hitting the barricade
+
+/obj/structure/barricade/foam/welder_act(mob/user, obj/item/I)
+	return FALSE
 
 #undef SINGLE
 #undef VERTICAL
