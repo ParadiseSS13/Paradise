@@ -139,7 +139,7 @@
 		ui_interact(user)
 
 /obj/item/stack/attackby(obj/item/thing, mob/user, params)
-	if((parent_stack && !istype(thing, merge_type)) || !(parent_stack && thing.type == type))
+	if((!parent_stack && !istype(thing, merge_type)) || (parent_stack && thing.type != type))
 		return ..()
 
 	var/obj/item/stack/material = thing
@@ -215,9 +215,15 @@
 			var/datum/stack_recipe/recipe = locateUID(params["recipe_uid"])
 			var/multiplier = text2num(params["multiplier"])
 			if(!recipe.try_build(user, material, multiplier))
-				return
-			return recipe.do_build(user, material, multiplier)
+				return FALSE
 
+			var/obj/result
+			result = recipe.do_build(user, material, multiplier, result)
+			if(!result)
+				return FALSE
+
+			recipe.post_build(user, material, result)
+			return TRUE
 
 /**
  * Recursively builds the recipes data for the given list of recipes, iterating through each recipe.

@@ -176,6 +176,11 @@
 		. += "<span class='hierophant'>[card_desc]</span>"
 	. += "<span class='hierophant'>Alt-Shift-Click to flip the card over.</span>"
 
+/obj/item/magic_tarot_card/examine_more(mob/user)
+	. = ..()
+	if(!face_down)
+		. += "<span class='hierophant'>[src] [our_tarot.extended_desc]</span>"
+
 /obj/item/magic_tarot_card/attack_self(mob/user)
 	poof()
 	if(has_been_activated)
@@ -275,6 +280,8 @@
 	var/name = "XXII - The Unknown."
 	/// Desc used for the card description of the card
 	var/desc = "Untold answers... wait what? This is a bug, report this as an issue on github!"
+	/// Extended desc for the cards. For what they do
+	var/extended_desc = "asks you to report this as a bug on GitHub!"
 	/// What icon is used for the card?
 	var/card_icon = "the_unknown"
 	/// Are we reversed? Used for the card back.
@@ -292,6 +299,7 @@
 /datum/tarot/the_fool
 	name = "0 - The Fool"
 	desc = "Where journey begins."
+	extended_desc = "returns the affected user to the arrival point of this forsaken journey."
 	card_icon = "the_fool"
 
 /datum/tarot/the_fool/activate(mob/living/target)
@@ -301,6 +309,7 @@
 /datum/tarot/the_magician
 	name = "I - The Magician"
 	desc = "May you never miss your goal."
+	extended_desc = "makes the user feel extraordinarily badass for a couple of minutes."
 	card_icon = "the_magician"
 
 /datum/tarot/the_magician/activate(mob/living/target)
@@ -310,6 +319,7 @@
 /datum/tarot/the_high_priestess
 	name = "II - The High Priestess"
 	desc = "Mother is watching you."
+	extended_desc = "alerts bubblegum to the user, who will strike them down. The user will receive heavy damage and will be immobilized."
 	card_icon = "the_high_priestess"
 
 /datum/tarot/the_high_priestess/activate(mob/living/target)
@@ -345,6 +355,7 @@
 /datum/tarot/the_empress
 	name = "III - The Empress"
 	desc = "May your rage bring power."
+	extended_desc = "gives the user a temporary boost of speed. This includes attack speed."
 	card_icon = "the_empress"
 
 /datum/tarot/the_empress/activate(mob/living/target)
@@ -356,6 +367,7 @@
 /datum/tarot/the_emperor
 	name = "IV - The Emperor"
 	desc = "Challenge me!"
+	extended_desc = "warps the user to where command commonly resides. Be ready for a fight."
 	card_icon = "the_emperor"
 
 /datum/tarot/the_emperor/activate(mob/living/target)
@@ -375,6 +387,7 @@
 /datum/tarot/the_hierophant
 	name = "V - The Hierophant"
 	desc = "Two prayers for the lost."
+	extended_desc = "enchants the user's suit with magic that's strong enough to negate three attacks."
 	card_icon = "the_hierophant"
 
 /datum/tarot/the_hierophant/activate(mob/living/target)
@@ -389,6 +402,7 @@
 /datum/tarot/the_lovers
 	name = "VI - The Lovers"
 	desc = "May you prosper and be in good health."
+	extended_desc = "will restore the overall health of the user."
 	card_icon = "the_lovers"
 
 /datum/tarot/the_lovers/activate(mob/living/target)
@@ -406,6 +420,7 @@
 /datum/tarot/the_chariot
 	name = "VII - The Chariot"
 	desc = "May nothing stand before you."
+	extended_desc = "imbues the user with immense power and speed, rendering them practically immortal for 10 seconds, at the cost of being unable to harm another living thing."
 	card_icon = "the_chariot"
 
 /datum/tarot/the_chariot/activate(mob/living/target)
@@ -415,6 +430,7 @@
 /datum/tarot/justice
 	name = "VIII - Justice"
 	desc = "May your future become balanced."
+	extended_desc = "grants the user a medical first aid kit, a magical key that can open a single door, and 100 credits."
 	card_icon = "justice"
 
 /datum/tarot/justice/activate(mob/living/target)
@@ -427,6 +443,7 @@
 /datum/tarot/the_hermit
 	name = "IX - The Hermit"
 	desc = "May you see what life has to offer."
+	extended_desc = "teleports the user to a random vending machine within the station."
 	card_icon = "the_hermit"
 
 /datum/tarot/the_hermit/activate(mob/living/target)
@@ -446,6 +463,7 @@
 /datum/tarot/wheel_of_fortune
 	name = "X - Wheel of Fortune"
 	desc = "Spin the wheel of destiny."
+	extended_desc = "summons a random vending machine."
 	card_icon = "wheel_of_fortune"
 
 /datum/tarot/wheel_of_fortune/activate(mob/living/target)
@@ -459,6 +477,7 @@
 /datum/tarot/strength
 	name = "XI - Strength"
 	desc = "May your power bring rage."
+	extended_desc = "grants the user strength beyond belief, but renders them unable to handle ranged weapons."
 	card_icon = "strength"
 
 /datum/tarot/strength/activate(mob/living/target)
@@ -468,6 +487,7 @@
 /datum/tarot/the_hanged_man
 	name = "XII - The Hanged Man"
 	desc = "May you find enlightenment."
+	extended_desc = "allows the user to fly for a minute."
 	card_icon = "the_hanged_man"
 
 /datum/tarot/the_hanged_man/activate(mob/living/target)
@@ -479,6 +499,7 @@
 /datum/tarot/death
 	name = "XIII - Death"
 	desc = "Lay waste to all that oppose you."
+	extended_desc = "deals damage to all those the user can see. Aside from themselves, of course."
 	card_icon = "death"
 
 /datum/tarot/death/activate(mob/living/target)
@@ -489,6 +510,7 @@
 /datum/tarot/temperance
 	name = "XIV - Temperance"
 	desc = "May you be pure in heart."
+	extended_desc = "cures all ailments the user has. Also reinvigorates their organs."
 	card_icon = "temperance"
 
 /datum/tarot/temperance/activate(mob/living/target)
@@ -513,6 +535,7 @@
 /datum/tarot/the_devil
 	name = "XV - The Devil"
 	desc = "Revel in the power of darkness."
+	extended_desc = "steals the life-force of everyone around the user."
 	card_icon = "the_devil"
 
 /datum/tarot/the_devil/activate(mob/living/target)
@@ -521,6 +544,7 @@
 /datum/tarot/the_tower
 	name = "XVI - The Tower"
 	desc = "Destruction brings creation."
+	extended_desc = "summons a self-replicating bomb."
 	card_icon = "the_tower"
 
 /datum/tarot/the_tower/activate(mob/living/target)
@@ -531,6 +555,7 @@
 /datum/tarot/the_stars
 	name = "XVII - The Stars"
 	desc = "May you find what you desire."
+	extended_desc = "teleports the user to the station's evidence room, and opens a single locker within."
 	card_icon = "the_stars"
 
 /datum/tarot/the_stars/activate(mob/living/target)
@@ -556,6 +581,7 @@
 /datum/tarot/the_moon
 	name = "XVIII - The Moon"
 	desc = "May you find all you have lost."
+	extended_desc = "teleports the user to a random place of interest, starting with the sector the user is in first."
 	card_icon = "the_moon"
 
 /datum/tarot/the_moon/activate(mob/living/target)
@@ -594,6 +620,7 @@
 /datum/tarot/the_sun
 	name = "XIX - The Sun"
 	desc = "May the light heal and enlighten you."
+	extended_desc = "fully rejuvenates the user back to their peak strength."
 	card_icon = "the_sun"
 
 /datum/tarot/the_sun/activate(mob/living/target)
@@ -602,6 +629,7 @@
 /datum/tarot/judgement
 	name = "XX - Judgement"
 	desc = "Judge lest ye be judged."
+	extended_desc = "alerts the denizens of the afterlife to the user's existence. Prepare to be judged."
 	card_icon = "judgement"
 
 /datum/tarot/judgement/activate(mob/living/target)
@@ -610,6 +638,7 @@
 /datum/tarot/the_world
 	name = "XXI - The World"
 	desc = "Open your eyes and see."
+	extended_desc = "bellows out smoke and grants the user full x-ray vision for two minutes."
 	card_icon = "the_world"
 
 /datum/tarot/the_world/activate(mob/living/target)
@@ -625,6 +654,7 @@
 /datum/tarot/reversed/the_fool
 	name = "0 - The Fool?"
 	desc = "Let go and move on."
+	extended_desc = "removes all items from the user, leaving them completely naked."
 	card_icon = "the_fool?"
 
 /datum/tarot/reversed/the_fool/activate(mob/living/target)
@@ -639,6 +669,7 @@
 /datum/tarot/reversed/the_magician
 	name = "I - The Magician?"
 	desc = "May no harm come to you."
+	extended_desc = "will repulse everything away from the user."
 	card_icon = "the_magician?"
 
 /datum/tarot/reversed/the_magician/activate(mob/living/target)
@@ -672,6 +703,7 @@
 /datum/tarot/reversed/the_high_priestess
 	name = "II - The High Priestess?"
 	desc = "Run."
+	extended_desc = "summons Bubblegum to tear portals open around the user that will grab and damage everyone nearby."
 	card_icon = "the_high_priestess?"
 
 /datum/tarot/reversed/the_high_priestess/activate(mob/living/target)
@@ -681,6 +713,7 @@
 /datum/tarot/reversed/the_empress
 	name = "III - The Empress?"
 	desc = "May your love bring protection."
+	extended_desc = "pacifies everyone in range, except for the user, for 40 seconds."
 	card_icon = "the_empress?"
 
 /datum/tarot/reversed/the_empress/activate(mob/living/target)
@@ -690,6 +723,7 @@
 /datum/tarot/reversed/the_emperor
 	name = "IV - The Emperor?"
 	desc = "May you find a worthy opponent."
+	extended_desc = "teleports the user to a random head of staff."
 	card_icon = "the_emperor?"
 
 /datum/tarot/reversed/the_emperor/activate(mob/living/target)
@@ -709,6 +743,7 @@
 /datum/tarot/reversed/the_hierophant
 	name = "V - The Hierophant?"
 	desc = "Two prayers for the forgotten."
+	extended_desc = "makes the Hierophant attack two random mobs in range."
 	card_icon = "the_hierophant?"
 
 /datum/tarot/reversed/the_hierophant/activate(mob/living/target)
@@ -727,6 +762,7 @@
 /datum/tarot/reversed/the_lovers
 	name = "VI - The Lovers?"
 	desc = "May your heart shatter to pieces."
+	extended_desc = "causes the user of this card to experience true heartbreak - leaving their chest broken and battered."
 	card_icon = "the_lovers?"
 
 /datum/tarot/reversed/the_lovers/activate(mob/living/target)
@@ -744,6 +780,7 @@
 /datum/tarot/reversed/the_chariot
 	name = "VII - The Chariot?"
 	desc = "May nothing walk past you."
+	extended_desc = "will petrify the user for two minutes, rendering them completely indestructible."
 	card_icon = "the_chariot?"
 
 /datum/tarot/reversed/the_chariot/activate(mob/living/target)
@@ -753,6 +790,7 @@
 /datum/tarot/reversed/justice
 	name = "VIII - Justice?"
 	desc = "May your sins come back to torment you."
+	extended_desc = "creates a random orderable crate. This can include crates Supply would otherwise not have access to at the time."
 	card_icon = "justice?"
 
 /datum/tarot/reversed/justice/activate(mob/living/target)
@@ -770,6 +808,7 @@
 /datum/tarot/reversed/the_hermit
 	name = "IX - The Hermit?"
 	desc = "May you see the value of all things in life."
+	extended_desc = "will sell all loose guns, grenades, batons, and armor around the user, transforming them directly into cash."
 	card_icon = "the_hermit?"
 
 /datum/tarot/reversed/the_hermit/activate(mob/living/target) //Someone can improve this in the future (hopefully comment will not be here in 10 years.)
@@ -791,6 +830,7 @@
 /datum/tarot/reversed/wheel_of_fortune
 	name = "X - Wheel of Fortune?"
 	desc = "Throw the dice of fate."
+	extended_desc = "forces the user to roll for a powerful magical artifact. The outcome can be highly positive or highly negative; it is up to fate."
 	card_icon = "wheel_of_fortune?"
 
 /datum/tarot/reversed/wheel_of_fortune/activate(mob/living/target)
@@ -800,6 +840,7 @@
 /datum/tarot/reversed/strength
 	name = "XI - Strength?"
 	desc = "May you break their resolve."
+	extended_desc = "breaks the minds of those around the user, dealing heavy brain damage, and causing two minutes of hallucinations."
 	card_icon = "strength?"
 
 /datum/tarot/reversed/strength/activate(mob/living/target)
@@ -811,6 +852,7 @@
 /datum/tarot/reversed/the_hanged_man
 	name = "XII - The Hanged Man?"
 	desc = "May your greed know no bounds."
+	extended_desc = "forces the user to spin a cursed slot machine."
 	card_icon = "the_hanged_man?"
 
 /datum/tarot/reversed/the_hanged_man/activate(mob/living/target)
@@ -822,6 +864,7 @@
 /datum/tarot/reversed/death
 	name = "XIII - Death?"
 	desc = "May life spring forth from the fallen."
+	extended_desc = "grants the user a soulstone and a construct to freely use on the dead."
 	card_icon = "death?"
 
 /datum/tarot/reversed/death/activate(mob/living/target)
@@ -831,6 +874,7 @@
 /datum/tarot/reversed/temperance
 	name = "XIV - Temperance?"
 	desc = "May your hunger be satiated."
+	extended_desc = "forces the user to eat five pills containing random reagents."
 	card_icon = "temperance?"
 
 /datum/tarot/reversed/temperance/activate(mob/living/target)
@@ -847,6 +891,7 @@
 /datum/tarot/reversed/the_devil
 	name = "XV - The Devil?"
 	desc = "Bask in the light of your mercy."
+	extended_desc = "summons a primed cluster flashbang at the user's feet."
 	card_icon = "the_devil?"
 
 /datum/tarot/reversed/the_devil/activate(mob/living/target)
@@ -856,6 +901,7 @@
 /datum/tarot/reversed/the_tower
 	name = "XVI - The Tower?"
 	desc = "Creation brings destruction."
+	extended_desc = "will create large stone walls that erupt from the ground around the user."
 	card_icon = "the_tower?"
 
 /datum/tarot/reversed/the_tower/activate(mob/living/target)
@@ -871,6 +917,7 @@
 /datum/tarot/reversed/the_stars
 	name = "XVII - The Stars?"
 	desc = "May your loss bring fortune."
+	extended_desc = "will cause a large amount of genetic decomposition to the user, as well as hurting a limb. However, it will reward the user with two additional cards."
 	card_icon = "the_stars?"
 
 /datum/tarot/reversed/the_stars/activate(mob/living/target) //Heavy clone damage hit, but gain 2 cards. Not teathered to the card producer. Could lead to card stacking, but would require the sun to fix easily
@@ -898,6 +945,7 @@
 /datum/tarot/reversed/the_moon
 	name = "XVIII - The Moon?"
 	desc = "May you remember lost memories."
+	extended_desc = "will reveal the memories of everyone in range to the user."
 	card_icon = "the_moon?"
 
 /datum/tarot/reversed/the_moon/activate(mob/living/target)
@@ -907,6 +955,7 @@
 /datum/tarot/reversed/the_sun
 	name = "XIX - The Sun?"
 	desc = "May the darkness swallow all around you."
+	extended_desc = "makes the user emit darkness, freezing anyone nearby. They will also become nearsighted for the duration, however."
 	card_icon = "the_sun?"
 
 /datum/tarot/reversed/the_sun/activate(mob/living/target)
@@ -915,6 +964,7 @@
 /datum/tarot/reversed/judgement
 	name = "XX - Judgement?"
 	desc = "May you redeem those found wanting" //Who wants more, but ghosts for something interesting
+	extended_desc = "nudges the future events of this shift to be more... interesting."
 	card_icon = "judgement?"
 
 /datum/tarot/reversed/judgement/activate(mob/living/target)
@@ -926,6 +976,7 @@
 /datum/tarot/reversed/the_world
 	name = "XXI - The World?"
 	desc = "Step into the abyss."
+	extended_desc = "teleports the user to the mining outpost."
 	card_icon = "the_world?"
 
 /datum/tarot/reversed/the_world/activate(mob/living/target)
