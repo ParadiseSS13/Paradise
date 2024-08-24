@@ -74,12 +74,12 @@
 		force -= faction_bonus_force
 
 /obj/item/melee/energy/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	if(is_a_cleaving_saw)
+		return FALSE
+
 	var/obj/item/clothing/mask/cigarette/cig = ..()
 	if(!cig)
 		return !isnull(cig)
-
-	if(is_a_cleaving_saw)
-		return FALSE
 
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		to_chat(user, "<span class='warning'>You must activate [src] before you can light [cig] with it!</span>")
