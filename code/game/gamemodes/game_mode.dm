@@ -24,7 +24,7 @@
 	var/list/secondary_restricted_jobs = list() // Same as above, but for secondary antagonists
 	var/list/protected_jobs = list()	// Jobs that can't be traitors
 	/// Species that will become mindflayers if they're picked, instead of the regular antagonist
-	var/list/protected_species = list()
+	var/list/species_to_mindflayer = list()
 	var/list/secondary_protected_species = list() // Same as above, but for secondary antagonists
 	var/required_players = 0
 	var/required_enemies = 0
@@ -332,7 +332,7 @@
 		if(player.client.skip_antag || !(allow_offstation_roles || !player.mind?.offstation_role))
 			continue
 
-		if(!(role in player.client.prefs.be_special) || (player.client.prefs.active_character.species in protected_species))
+		if(!(role in player.client.prefs.be_special) || (player.client.prefs.active_character.species in species_to_mindflayer))
 			continue
 
 		player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
