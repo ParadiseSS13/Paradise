@@ -4,6 +4,7 @@
 	name = "Mecha"
 	desc = "Exosuit"
 	icon = 'icons/mecha/mecha.dmi'
+	var/emissive_appearance_icon = 'icons/mecha/mecha_emissive.dmi'
 	density = TRUE //Dense. To raise the heat.
 	opacity = TRUE ///opaque. Menacing.
 	anchored = TRUE //no pulling around.
@@ -156,7 +157,7 @@
 /obj/mecha/update_overlays()
 	. = ..()
 	underlays.Cut()
-	underlays += emissive_appearance(icon, "[icon_state]_lightmask")
+	underlays += emissive_appearance(emissive_appearance_icon, "[icon_state]_lightmask")
 
 ////////////////////////
 ////// Helpers /////////
