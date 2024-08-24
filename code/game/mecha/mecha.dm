@@ -37,8 +37,11 @@
 	var/dna	//dna-locking the mech
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
 	var/datum/effect_system/spark_spread/spark_system = new
-	var/lights = 0
+	var/lights = FALSE
 	var/lights_power = 6
+	var/lights_range = 6
+	var/lights_power_ambient = 0.1
+	var/lights_range_ambient = MINIMUM_USEFUL_LIGHT_RANGE
 	var/frozen = FALSE
 	var/repairing = FALSE
 	var/emp_proof = FALSE //If it is immune to emps
@@ -146,6 +149,14 @@
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
 	qdel(V)
+
+	set_light(lights_range_ambient, lights_power_ambient)
+	update_overlays()
+
+/obj/mecha/update_overlays()
+	. = ..()
+	underlays.Cut()
+	underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 ////////////////////////
 ////// Helpers /////////
@@ -1080,9 +1091,9 @@
 /obj/mecha/proc/toggle_lights(show_message = TRUE)
 	lights = !lights
 	if(lights)
-		set_light(light_range + lights_power)
+		set_light(lights_range, lights_power)
 	else
-		set_light(light_range - lights_power)
+		set_light(lights_range_ambient, lights_power_ambient)
 	if(show_message)
 		occupant_message("Toggled lights [lights ? "on" : "off"].")
 		log_message("Toggled lights [lights ? "on" : "off"].")
@@ -1169,6 +1180,7 @@
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		if(connected_port)
 			H.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
+		update_overlays()
 		return TRUE
 	else
 		return FALSE
@@ -1313,6 +1325,7 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.regenerate_icons() // workaround for 14457
+	update_overlays()
 
 /obj/mecha/force_eject_occupant(mob/target)
 	go_out()
