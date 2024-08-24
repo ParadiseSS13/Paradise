@@ -163,6 +163,10 @@
 	new_deck.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/deck/proc/merge_deck(mob/user, obj/item/deck/other_deck)
+	if(main_deck_id != other_deck.main_deck_id)
+		if(user)
+			to_chat(user, "<span class='warning'>These decks didn't both come from the same original deck, you can't merge them!</span>")
+			return
 	for(var/card in other_deck.cards)
 		cards += card
 		other_deck.cards -= card
@@ -502,18 +506,21 @@
 	icon_state = "empty"
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
-
+	/// If true, the cards will be face down.
 	var/concealed = FALSE
+	/// All of the cards in the deck.
 	var/list/cards = list()
 	/// Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
 	var/direction = NORTH
+	/// The ID of the base deck that we belong to.
+	// This ID can correspond to multiple decks, but those decks will only ever be sub-decks of the original deck this hand's cards came from.
 	var/parent_deck_id = null
 
 /obj/item/cardhand/examine(mob/user)
 	. = ..()
 	if(!concealed && length(cards))
 		. += "<span class='notice'>It contains:</span>"
-		for(var/datum/playingcard/P in cards)
+		for(var/datum/playingcard/P as anything in cards)
 			. += "\t<span class='notice'>the [P.name].</span>"
 
 	if(Adjacent(user))
@@ -531,8 +538,10 @@
 	return length(cards) == 1
 
 /obj/item/cardhand/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	// this is how we handle our ranged attacks.
 	. = ..()
 	if(!istype(target, /obj/item/deck) || proximity_flag)
+		// if we're adjacent to the deck, don't do anything since we'll already be using attackby.
 		return
 
 	var/obj/item/deck/D = target
@@ -579,10 +588,10 @@
 		"<span class='warning'>[M] catches [hand] and adds it to [M.p_their()] hand!</span>",
 		"<span class='danger'>You catch [hand] and add it to your existing hand!</span>"
 	)
-	merge_into(hand)
+	add_cardhand_to_self(hand)
 
 /// Merge the target cardhand into the current cardhand
-/obj/item/cardhand/proc/merge_into(obj/item/cardhand/hand)
+/obj/item/cardhand/proc/add_cardhand_to_self(obj/item/cardhand/hand)
 	if(!parent_deck_id == hand.parent_deck_id)
 		stack_trace("merge_into tried to merge two different parent decks together!")
 		return
@@ -591,7 +600,21 @@
 		cards += card
 		hand.cards -= card
 
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+
 	qdel(hand)
+
+/obj/item/cardhand/proc/transfer_card_to_self(obj/item/cardhand/source_hand, datum/playingcard/card)
+	if(!istype(source_hand) || !(card in source_hand.cards) || (source_hand.parent_deck_id != parent_deck_id))
+		return
+	source_hand.cards -= card
+	cards += card
+
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+	if(!length(source_hand.cards))
+		qdel(source_hand)
+	else
+		source_hand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
 /// Update our card values based on those set on a deck
 /obj/item/cardhand/proc/update_values_from_deck(obj/item/deck/D)
@@ -633,12 +656,20 @@
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	else if(istype(O, /obj/item/cardhand))
 		var/obj/item/cardhand/H = O
+		// if you're attacking a cardhand with one in hand, merge it into our deck.
+		// remember that "we" are the one being attacked here.
 		if(H.parent_deck_id == parent_deck_id)
-			H.concealed = concealed
-			cards.Add(H.cards)
-			H.cards.Cut()
-			qdel(H)
-			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+			if(!Adjacent(user))
+				return
+			var/datum/playingcard/chosen = select_card_radial(user)
+			if(!chosen)
+				return
+			user.visible_message(
+				"<span class='notice'>[user] adds [concealed ? "a card" : chosen.name] to [user.p_their()] hand.</span>",
+				"<span clas='notice'>You add [chosen.name] to your deck.</span>",
+				"<span class='notice'>You hear cards being shuffled together.</span>"
+			)
+			H.transfer_card_to_self(src, chosen)
 			return
 		else
 			to_chat(user, "<span class='notice'>You cannot mix cards from other decks!</span>")
@@ -649,16 +680,44 @@
 	if(length(cards) == 1)
 		turn_hand(user)
 		return
-	// if(user.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || user.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
 	var/card = select_card_radial(user)
 	if(isnull(card))
 		return
-	remove_card(card)
+	remove_card(user, card)
 
-/obj/item/cardhand/AltClick(mob/user)
+/obj/item/cardhand/AltClick(mob/living/carbon/human/user)
 	. = ..()
-	user.set_machine(src)
-	interact(user)
+	if(!istype(user))
+		return
+	var/obj/item/cardhand/active_hand = user.is_in_hands(/obj/item/cardhand)
+	if(istype(active_hand) && active_hand == src)
+		user.set_machine(src)
+		interact(user)
+		return
+	// otherwise, it's somewhere else. We'll try to play a card to that hand.
+	if(!Adjacent(user))
+		return
+
+	if(!istype(active_hand))
+		return
+
+	if(active_hand.parent_deck_id != parent_deck_id)
+		to_chat(user, "<span class='warning'>These cards don't all come from the same deck!</span>")
+		return
+
+
+	var/datum/playingcard/card_to_insert = active_hand.select_card_radial(user)
+	if(!istype(card_to_insert))
+		return
+
+	transfer_card_to_self(active_hand, card_to_insert)
+	user.visible_message(
+		"<span class='notice'>[user] moves [concealed ? "a card" : "[card_to_insert]"] to the other hand.</span>",
+		"<span class='notice'>You move [concealed ? "a card" : "[card_to_insert]"] to the other hand.</span>",
+		"<span class='notice'>You hear a card being drawn, followed by a card being added to a hand.</span>"
+	)
+
+
 
 /obj/item/cardhand/CtrlClick(mob/user)
 	turn_hand(user)
@@ -672,20 +731,51 @@
 	playsound(user, 'sound/items/cardshuffle.ogg', 30, TRUE)
 	user.visible_message(
 		"<span class='notice'>[user] shuffles [user.p_their()] hand.</span>",
-		"<span class='notice'>You shuffle your hand.</span>"
+		"<span class='notice'>You shuffle your hand.</span>",
+		"<span class='notice'>You hear cards shuffling.</span>"
 	)
+
+/// Dragging a card to your hand will let you draw from it without picking it up.
+/obj/item/cardhand/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+	if(over != usr || !isliving(usr) || !Adjacent(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return ..()
+
+	to_chat(usr, "<span class='notice'>Select a card to draw from the hand.</span>")
+	var/datum/playingcard/card_chosen = select_card_radial(usr)
+	if(!card_chosen)
+		return
+
+	remove_card(usr, card_chosen)
+
+/obj/item/cardhand/MouseDrop_T(obj/item/I, mob/user)
+	// dropping our hand onto another
+	if(!istype(I, /obj/item/cardhand))
+		return
+	if(!user.Adjacent(I) || !Adjacent(user))
+		return
+	var/obj/item/cardhand/other_hand = I
+	if(other_hand.parent_deck_id != parent_deck_id)
+		to_chat(user, "<span class='warning'>These cards don't all come from the same deck!</span>")
+		return
+	if(length(other_hand.cards) > 1)
+		var/response = tgui_alert(user, "Are you sure you want to merge [length(other_hand.cards)] cards into your currently held hand?", "Merge cards", list("Yes", "No"))
+		if(response != "Yes" || QDELETED(src) || QDELETED(other_hand) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+			return
+
+	add_cardhand_to_self(other_hand)
+
 
 /// Open a radial menu to select a single card from a hand.
 /obj/item/cardhand/proc/select_card_radial(mob/user)
-	if(!length(cards) || !user)
+	if(!length(cards) || QDELETED(user))
 		return
 	var/list/options = list()
 	for(var/datum/playingcard/P in cards)
 		if(isnull(options[P]))
-			options[P] = image(icon = 'icons/obj/playing_cards.dmi', icon_state = P.card_icon)
+			options[P] = image(icon = 'icons/obj/playing_cards.dmi', icon_state = concealed ? P.card_icon : P.back_icon)
 
 	var/choice = show_radial_menu(user, src, options)
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.stat != CONSCIOUS || isnull(choice))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.stat != CONSCIOUS || isnull(choice) || !(choice in cards))
 		return
 
 	return choice
@@ -694,7 +784,7 @@
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
+	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] [user.p_their()] hand.</span>")
 
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
@@ -719,7 +809,7 @@
 		else
 			if(cardUser.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || cardUser.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
 				var/picked_card = href_list["pick"]
-				remove_card(picked_card)
+				remove_card(cardUser, picked_card)
 		cardUser << browse(null, "window=cardhand")
 
 
@@ -760,18 +850,18 @@
 		return
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/C = target
-		return C.remove_card()
+		return C.remove_card(owner)
 	return ..()
 
 /datum/action/item_action/discard
-	name = "Discard - Place (a) card(s) from your hand in front of you."
+	name = "Discard - Place one or more cards from your hand in front of you."
 	button_overlay_icon_state = "discard"
 	use_itemicon = FALSE
 
 /datum/action/item_action/discard/Trigger(left_click)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/C = target
-		return C.discard()
+		return C.discard(owner)
 	return ..()
 
 // No more datum action here
@@ -796,17 +886,17 @@
 
 
 /// Draw a card from a card hand.
-/obj/item/cardhand/proc/remove_card(datum/playingcard/picked_card)
-	var/mob/living/carbon/user = usr
+/// If a picked card isn't given,
+/obj/item/cardhand/proc/remove_card(mob/living/carbon/user, datum/playingcard/picked_card)
 
-	if(user.incapacitated() || !Adjacent(user))
+	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(!picked_card)
 		var/pickablecards = list()
 		for(var/datum/playingcard/P in cards)
 			pickablecards[P.name] = P
-		var/selected_card = tgui_input_list(usr, "Which card do you want to remove from the hand?", "Remove Card", pickablecards)
+		var/selected_card = tgui_input_list(user, "Which card do you want to remove from the hand?", "Remove Card", pickablecards)
 		picked_card = pickablecards[selected_card]
 		if(!picked_card)
 			return
@@ -814,17 +904,34 @@
 	if(QDELETED(src))
 		return
 
-
-	if(loc != user) // Don't want people teleporting cards
+	if(!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user)) // Don't want people teleporting cards
 		return
-	user.visible_message(
-		"<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>",
-		"<span class='notice'>You take \the [picked_card] from your hand.</span>",
-		"<span class='notice'>You hear a card being drawn.</span>"
-	)
+
+	var/mob/living/carbon/human/human_user = user
+	// let people draw cards from tables with this mechanism, as well as removing from their hand.
+	var/obj/item/cardhand/active_hand = human_user.is_in_hands(/obj/item/cardhand)
+	if(user.l_hand == src || user.r_hand == src)
+		// if you're drawing a card from your left hand, you probably want it in your right.
+		user.visible_message(
+			"<span class='notice'>[user] draws [concealed ? "a card" : "[picked_card]" ] from [user.p_their()] hand.</span>",
+			"<span class='notice'>You take \the [picked_card] from your hand.</span>",
+			"<span class='notice'>You hear a card being drawn.</span>"
+		)
+	else if (istype(active_hand))
+		// you're drawing from a hand the user isn't holding to one that the user is.
+		// try to put that card into our currently held hand.
+		active_hand.transfer_card_to_self(src, picked_card)
+		user.visible_message(
+			"<span class='notice'>[user] draws [concealed ? "a card" : "[picked_card]"] to [user.p_their()].</span>",
+			"<span class='notice'>You draw \the [picked_card] to your hand.</span>",
+			"<span class='notice'>You hear a card being drawn.</span>"
+		)
+		return
+
 
 	var/obj/item/cardhand/H = new(get_turf(src))
-	user.put_in_hands(H)
+	. = H
+
 	H.cards += picked_card
 	cards -= picked_card
 	H.parent_deck_id = parent_deck_id
@@ -836,48 +943,46 @@
 		return
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
-/obj/item/cardhand/proc/discard()
-	var/mob/living/carbon/user = usr
+	user.put_in_hands(H)
 
-	var/maxcards = min(length(cards), 5)
-	var/discards = tgui_input_number(usr, "How many cards do you want to discard? You may discard up to [maxcards] card(s)", "Discard Cards", max_value = maxcards)
-	if(discards > maxcards)
+/obj/item/cardhand/proc/discard(mob/living/carbon/user)
+
+	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	var/discards = tgui_input_number(user, "How many cards do you want to discard?", "Discard Cards", max_value = length(cards))
+
+	if(!istype(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || QDELETED(src))
 		return
 	for(var/i in 1 to discards)
-		var/list/to_discard = list()
-		for(var/datum/playingcard/P in cards)
-			to_discard[P.name] = P
-		var/discarding = tgui_input_list(usr, "Which card do you wish to put down?", "Discard", to_discard)
-
-		if(!discarding)
-			continue
-
-		if(loc != user) // Don't want people teleporting cards
-			return
+		if(!length(cards))
+			break
+		var/datum/playingcard/selected = select_card_radial(user)
+		if(!selected || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || QDELETED(src))
+			break
 
 		if(QDELETED(src))
 			return
 
-		var/datum/playingcard/card = to_discard[discarding]
-		to_discard.Cut()
+		var/obj/item/cardhand/new_hand = remove_card(user, selected)
 
-		var/obj/item/cardhand/H = new type(get_turf(src))
-		H.cards += card
-		cards -= card
-		H.concealed = FALSE
-		H.parent_deck_id = parent_deck_id
-		H.update_values_from_cards(src)
-		H.direction = user.dir
-		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+		new_hand.direction = user.dir
+		new_hand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(length(cards))
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-		if(length(H.cards))
+		if(length(new_hand.cards))
 			user.visible_message(
-				"<span class='notice'>[user] plays \the [discarding].</span>",
-				"<span class='notice'>You play \the [discarding].</span>",
+				"<span class='notice'>[user] plays \the [selected].</span>",
+				"<span class='notice'>You play \the [selected].</span>",
 				"<span class='notice'>You hear a card being played.</span>"
 			)
-		H.loc = get_step(user, user.dir)
+		user.unEquip(new_hand)
+		var/atom/drop_location = get_step(user, user.dir)
+		var/obj/item/cardhand/hand_on_the_table = locate(/obj/item/cardhand) in drop_location
+		if(istype(hand_on_the_table) && parent_deck_id == hand_on_the_table.parent_deck_id)
+			hand_on_the_table.add_cardhand_to_self(new_hand)
+			continue  // get outtie since this qdels the hand
+		new_hand.forceMove(drop_location)
 
 	if(!length(cards))
 		qdel(src)
