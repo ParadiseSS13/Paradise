@@ -28,7 +28,7 @@
 	return ..()
 
 /obj/structure/fusionreactor/ex_act(severity)
-	if(severity < 3)
+	if(severity < EXPLODE_LIGHT)
 		obj_integrity = 0
 		healthcheck()
 

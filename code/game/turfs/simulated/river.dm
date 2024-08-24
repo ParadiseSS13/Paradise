@@ -68,7 +68,7 @@
 		var/cur_dir = get_dir(cur_turf, target_turf)
 		while(cur_turf != target_turf)
 			if(detouring) //randomly snake around a bit
-				if(prob(20))
+				if(prob(21))
 					detouring = 0
 					cur_dir = get_dir(cur_turf, target_turf)
 			else if(prob(20))

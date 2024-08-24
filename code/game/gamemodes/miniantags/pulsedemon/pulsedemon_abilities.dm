@@ -133,6 +133,9 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>No cable found!</span>")
 		return FALSE
+	if(get_dist(O, T) > 15) //Some extra range to account for them possessing machines away from their APC, but blocking demons from using a camera console to zap across the station.
+		to_chat(user, "<span class='warning'>That cable is too far away!</span>")
+		return FALSE
 	playsound(T, 'sound/magic/lightningshock.ogg', 50, TRUE)
 	O.Beam(target, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 1 SECONDS)
 	for(var/turf/working in get_line(O, T))

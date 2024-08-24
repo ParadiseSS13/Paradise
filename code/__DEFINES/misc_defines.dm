@@ -420,7 +420,7 @@
 #define INVESTIGATE_HOTMIC "hotmic"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 58
+#define SQL_VERSION 59
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -600,8 +600,9 @@
 // Request console message priority defines
 
 #define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
-#define RQ_NORMALPRIORITY 1		// RQ_NORMALPRIORITY = normal priority
-#define RQ_HIGHPRIORITY 2		// RQ_HIGHPRIORITY = high priority
+#define RQ_LOWPRIORITY 1		// RQ_LOWPRIORITY = low priority
+#define RQ_NORMALPRIORITY 2		// RQ_NORMALPRIORITY = normal priority
+#define RQ_HIGHPRIORITY 3		// RQ_HIGHPRIORITY = high priority
 
 /**
  * Reading books can help with brain damage!
@@ -624,11 +625,17 @@
 #define ROUND_END_CREW_TRANSFER 2
 #define ROUND_END_FORCED 3
 
-#define TS_INFESTATION_GREEN_SPIDER 1
-#define TS_INFESTATION_PRINCE_SPIDER 2
-#define TS_INFESTATION_WHITE_SPIDER 3
-#define TS_INFESTATION_PRINCESS_SPIDER 4
-#define TS_INFESTATION_QUEEN_SPIDER 5
+// These used to be integer values but they were never used numerically or even
+// stored in SSblackbox using their numeric values, and constantly converting
+// them to the actual terror name was redundant and annoying
+#define TS_INFESTATION_GREEN_SPIDER		"Green Terrors"
+#define TS_INFESTATION_PRINCE_SPIDER	"Prince Terror"
+#define TS_INFESTATION_WHITE_SPIDER		"White Terrors"
+#define TS_INFESTATION_PRINCESS_SPIDER	"Princess Terrors"
+#define TS_INFESTATION_QUEEN_SPIDER		"Queen Terrors"
+
+#define BIOHAZARD_BLOB	"Blob"
+#define BIOHAZARD_XENO	"Xenomorphs"
 
 #define MAX_ALLOWED_TELEPORTS_PER_PROCESS 20
 

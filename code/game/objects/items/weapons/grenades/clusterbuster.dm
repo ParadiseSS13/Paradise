@@ -2,12 +2,16 @@
 //Clusterbang
 ////////////////////
 /obj/item/grenade/clusterbuster
-	desc = "Use of this weapon may constitute a war crime in your area, consult your local captain."
 	name = "clusterbang"
+	desc = "Use of this weapon may constitute a war crime in your area, consult your local captain."
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang"
 	item_state = "flashbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
+
+/obj/item/grenade/clusterbuster/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Upon detonating, this grenade will explode into a shower of bomblets that will all explode individually. Be ready to run away very fast.</span>"
 
 /obj/item/grenade/clusterbuster/prime()
 	update_mob()
@@ -33,8 +37,8 @@
 //Clusterbang segment
 //////////////////////
 /obj/item/grenade/clusterbuster/segment
-	desc = "A smaller segment of a clusterbang. Better run."
-	name = "clusterbang segment"
+	name = "clusterbang bomblet"
+	desc = "A bomblet released by a clusterbang. Better run!"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
@@ -242,9 +246,11 @@
 
 /obj/item/grenade/clusterbuster/mega_bang
 	name = "For when stunlocking is just too short."
+	desc = "Simply owning one of these makes you an active war criminal in all Nian jurisdictions."
 	payload = /obj/item/grenade/clusterbuster
 
 /obj/item/grenade/clusterbuster/mega_syndieminibomb
 	name = "Mega SyndiWrath."
+	desc = "Proving once and for all that the maximum bomb explosion radius is just a suggestion."
 	payload = /obj/item/grenade/clusterbuster/syndieminibomb
 

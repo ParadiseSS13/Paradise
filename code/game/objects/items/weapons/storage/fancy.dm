@@ -149,12 +149,12 @@
 	. = ..()
 	. += image('icons/obj/crayons.dmi',"crayonbox")
 	for(var/obj/item/toy/crayon/crayon in contents)
-		. += image('icons/obj/crayons.dmi',crayon.colourName)
+		. += image('icons/obj/crayons.dmi', crayon.dye_color)
 
 /obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
-		switch(C.colourName)
+		switch(C.dye_color)
 			if("mime")
 				to_chat(usr, "This crayon is too sad to be contained in this box.")
 				return
@@ -369,6 +369,9 @@
 	storage_slots = 10
 	icon_type = "rolling paper"
 	can_hold = list(/obj/item/rollingpaper)
+
+/obj/item/storage/fancy/rollingpapers/update_icon_state()
+	return
 
 /obj/item/storage/fancy/rollingpapers/populate_contents()
 	for(var/I in 1 to storage_slots)
