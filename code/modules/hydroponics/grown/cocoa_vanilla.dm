@@ -75,7 +75,7 @@
 	desc = "A strange fruit, tough leathery skin protects its juicy flesh and large poisonous seed."
 	icon_state = "bungo"
 	trash = /obj/item/food/grown/bungopit
-	tastes = list("bungo" = 2, "tropical fruitiness" = 1)
+	tastes = list("bungo" = 2, "tropical fruitiness" = 1, "an acidic, poisonous tang" = 1)
 	distill_reagent = null
 
 /obj/item/food/grown/bungopit

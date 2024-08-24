@@ -1038,7 +1038,7 @@
 	icon_state = "donut_yellow"
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "bungojuice" = 3)
 	filling_color = "#D2691E"
-	tastes = list("donut" = 1, "tropical sweetness" = 1)
+	tastes = list("donut" = 1, "tropical sweetness" = 1, "an acidic, poisonous tang" = 1)
 	randomized_sprinkles = FALSE
 
 /obj/item/food/donut/bungo/jelly
