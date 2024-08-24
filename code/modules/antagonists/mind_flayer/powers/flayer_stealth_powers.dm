@@ -1,5 +1,5 @@
 /// Hack computer cameras to use them as a secret camera network
-/datum/spell/flayer/surveilance_monitor
+/datum/spell/flayer/surveillance_monitor
 	name = "Camfecting Bug"
 	desc = "Cast on a computer to hack its webcam, then alt-click the spell to access all your hacked cameras."
 	power_type = FLAYER_PURCHASABLE_POWER
@@ -19,23 +19,23 @@
 	/// List of references to the bugs inside the computers that we hacked
 	var/list/active_bugs = list()
 
-/datum/spell/flayer/surveilance_monitor/Destroy(force, ...)
+/datum/spell/flayer/surveillance_monitor/Destroy(force, ...)
 	. = ..()
 	active_bugs = null
 
-/datum/spell/flayer/surveilance_monitor/AltClick(mob/user)
+/datum/spell/flayer/surveillance_monitor/AltClick(mob/user)
 	if(!internal_camera)
 		internal_camera = new /obj/item/camera_bug(user)
 	internal_camera.ui_interact(user)
 
-/datum/spell/flayer/surveilance_monitor/create_new_targeting()
+/datum/spell/flayer/surveillance_monitor/create_new_targeting()
 	var/datum/spell_targeting/click/C = new()
 	C.try_auto_target = FALSE
 	C.allowed_type = /obj/machinery/computer
 	C.range = 6
 	return C
 
-/datum/spell/flayer/surveilance_monitor/cast(list/targets, mob/user)
+/datum/spell/flayer/surveillance_monitor/cast(list/targets, mob/user)
 	if(!internal_camera)
 		internal_camera = new /obj/item/camera_bug(user)
 	if(length(active_bugs) >= maximum_hacked_computers)
@@ -53,7 +53,7 @@
 	flayer.send_swarm_message("Surveilance unit #[internal_camera.connections] deployed.")
 	return TRUE
 
-/datum/spell/flayer/surveilance_monitor/on_purchase_upgrade()
+/datum/spell/flayer/surveillance_monitor/on_purchase_upgrade()
 	maximum_hacked_computers += 6
 
 /datum/spell/flayer/self/voice_synthesizer
