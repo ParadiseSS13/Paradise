@@ -356,7 +356,7 @@
 		QDEL_IN(draft, 1 SECONDS)
 		sleep(1 SECONDS)
 	else
-		user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>", "<span class='notice'>You hear a card be drawn.</span>)
+		user.visible_message("<span class='notice'>[user] draws a card.</span>", "<span class='notice'>You draw a card.</span>", "<span class='notice'>You hear a card be drawn.</span>")
 		to_chat(user, "<span class='notice'>It's \a [P.name].</span>")
 
 // Classic action
@@ -819,10 +819,9 @@
 		return
 	user.visible_message(
 		"<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>",
-		"<span class='notice'>You take \the [pickedcard] from your hand.</span>",
+		"<span class='notice'>You take \the [picked_card] from your hand.</span>",
 		"<span class='notice'>You hear a card being drawn.</span>"
 	)
-	pickedcard = null
 
 	var/obj/item/cardhand/H = new(get_turf(src))
 	user.put_in_hands(H)
