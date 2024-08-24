@@ -525,10 +525,17 @@
 
 	if(Adjacent(user))
 		. += "<span class='notice'><b>Click</b> this in-hand to select a card to draw.</span>"
-		. += "<span class='notice'><b>Ctrl-Click</b> this in-hand to flip it.</span>"
-		. += "<span class='notice'><b>Alt-Click</b> this in-hand to see the legacy interaction menu.</span>"
+		. += "<span class='notice'><b>Ctrl-Click</b> this to flip it.</span>"
+		if(loc == user)
+			. += "<span class='notice'><b>Alt-Click</b> this in-hand to see the legacy interaction menu.</span>"
+		else
+			. += "<span class='notice'><b>Alt-Click</b> this to add a card from your deck to it.</span>"
+
 		. += "<span class='notice'><b>Drag</b> this to its associated deck to return all cards at once to it.</span>"
-		. += "<span class='notice'><b>Enable throw mode</b> to automatically fill matching cards into your hand.</span>"
+		. += "<span class='notice'><b>Enable throw mode</b> to automatically catch cards and add them to your hand.</span>"
+		. += "<span class='notice'><b>Drag-and-Drop</b> this onto another hand to merge the cards together.</span>"
+		if(loc != user)
+			. += "<span class='notice'>You can <b>Drag</b> this to yourself from here to draw cards from it.</span>"
 
 /obj/item/cardhand/examine_more(mob/user)
 	. = ..()
