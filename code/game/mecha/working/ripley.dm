@@ -123,6 +123,8 @@
 //drake hides
 	if(drake_hides)
 		if(drake_hides == DRAKE_HIDES_COVERED_FULL)
+			underlays.Cut()
+			underlays += emissive_appearance(emissive_appearance_icon, occupant ? "ripley-d-full_lightmask" : "ripley-d-full-open_lightmask")
 			. += occupant ? "ripley-d-full" : "ripley-d-full-open"
 		else if(drake_hides == DRAKE_HIDES_COVERED_MODERATE)
 			. += occupant ? "ripley-d-2" : "ripley-d-2-open"
