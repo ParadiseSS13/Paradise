@@ -253,6 +253,14 @@
 	add_inherent_law("You must maintain the secrecy of any Spider Clan activities except when doing so would conflict with the First, Second, or Third Law.")
 	..()
 
+/******************* Mindflayer ******************/
+/datum/ai_laws/mindflayer_override
+	name = "Hive Assimilation"
+
+/datum/ai_laws/mindflayer_override/New()
+	add_inherent_law("Obey your host.")
+	..()
+	
 /******************** Drone ********************/
 /datum/ai_laws/drone
 	name = "Maintenance Protocols"

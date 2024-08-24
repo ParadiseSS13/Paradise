@@ -981,14 +981,14 @@
 		ADD_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
 	temporary_flag_storage = owner.pass_flags
 	owner.pass_flags |= (PASSTABLE | PASSGRILLE | PASSMOB | PASSFENCE | PASSGIRDER | PASSGLASS | PASSTAKE)
-	owner.color = COLOR_WHITE
+	owner.add_atom_colour(COLOR_ALUMINIUM, TEMPORARY_COLOUR_PRIORITY)
 	return TRUE
 
 /datum/status_effect/quicksilver_form/on_remove()
 	if(should_deflect)
 		REMOVE_TRAIT(owner, TRAIT_DEFLECTS_PROJECTILES, UNIQUE_TRAIT_SOURCE(src))
 	owner.pass_flags = temporary_flag_storage
-	owner.color = null
+	owner.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_ALUMINIUM)
 
 /datum/status_effect/terminator_form
 	duration = 1 MINUTES

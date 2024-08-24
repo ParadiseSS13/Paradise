@@ -85,3 +85,6 @@
 
 /datum/spell/flayer/self/terminator_form/cast(list/targets, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_TERMINATOR_FORM)
+
+/datum/spell/flayer/self/terminator_form/on_purchase_upgrade()
+	cooldown_handler.recharge_duration -= 1 MINUTES
