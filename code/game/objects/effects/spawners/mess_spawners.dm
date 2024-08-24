@@ -194,6 +194,9 @@
 	var/mess_count = rand(5, 10)
 	for(var/i in 1 to mess_count)
 		var/area/target_area = findEventArea()
+		if(!target_area)
+			log_debug("Failed to generate themed messes: No valid event areas were found.")
+			return
 		var/list/turfs = get_area_turfs(target_area)
 		while(length(turfs))
 			var/turf/T = pick_n_take(turfs)
