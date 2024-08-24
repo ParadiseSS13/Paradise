@@ -11,7 +11,6 @@
 		return l_hand
 	if(istype(r_hand,typepath))
 		return r_hand
-	return 0
 
 
 /mob/living/carbon/human/proc/has_organ(name)

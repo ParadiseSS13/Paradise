@@ -73,6 +73,8 @@
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/animal_attack(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
+/// On a ranged attack: base of mob/living/carbon/human/RangedAttack (/mob/living/carbon/human)
+#define COMSIG_ATOM_RANGED_ATTACKED "atom_range_attacked"
 ///from base of atom/examine(): (examining_user, examine_list)
 #define COMSIG_PARENT_EXAMINE "atom_examine"
 ///from base of atom/examine_more(): (examining_user, examine_list)

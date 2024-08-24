@@ -64,10 +64,15 @@
 	else
 		main_deck_id = parent_deck_id
 
+	AddComponent(/datum/component/proximity_monitor/table)
+	RegisterSignal(src, COMSIG_ATOM_RANGED_ATTACKED, PROC_REF(on_ranged_attack))
+
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It contains <b>[length(cards) ? length(cards) : "no"]</b> card\s.</span>"
+	if(in_play_range(user) && !Adjacent(user))
+		. += "<span class='boldnotice'>You're in range of this card-hand, and can use it at a distance!</span>"
 	. += "<span class='notice'>Drag [src] to yourself to pick it up.</span>"
 	. += "<span class='notice'><b>Ctrl-Shift-Click</b> [src] to split it.</span>"
 	. += "<span class='notice'>If you draw or return cards with <span class='danger'>harm</span> intent, your plays will be public!</span>"
@@ -95,6 +100,10 @@
 /// Stub, override this to define how a base deck should be filled and built.
 /obj/item/deck/proc/build_deck()
 	return
+
+/obj/item/deck/proc/on_ranged_attack(mob/source, mob/attacker)
+	SIGNAL_HANDLER  // COMSIG_ATOM_RANGED_ATTACKED
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attack_hand), attacker)
 
 /obj/item/deck/attackby(obj/O, mob/user)
 	// clicking is for drawing
@@ -124,18 +133,25 @@
 /obj/item/deck/proc/in_play_range(mob/user)
 	var/turf/user_turf = get_turf(user)
 	var/turf/card_turf = get_turf(src)
-	return get_dist(user_turf, card_turf) <= 2
 
-/obj/item/deck/CtrlShiftClick(mob/user)
+	if(HAS_TRAIT(user, TRAIT_TELEKINESIS))
+		return TRUE
+
+	if(HAS_TRAIT_FROM(user, TRAIT_PLAYING_CARDS, "deck_[main_deck_id]"))
+		return TRUE
+
+	return Adjacent(user)
+
+/obj/item/deck/CtrlShiftClick(mob/living/carbon/human/user)
 	. = ..()
-	if(!Adjacent(user))
+	if(!Adjacent(user) || !istype(user))
 		return
 	if(length(cards) <= 1)
 		to_chat(user, "<span class='notice'>You can't split this deck, it's too small!</span>")
 		return
 
 	var/num_cards = tgui_input_number(user, "How many cards would you like the new split deck to have?", "Split Deck", length(cards) / 2, length(cards), 0)
-	if(isnull(num_cards) || !Adjacent(user))
+	if(isnull(num_cards) || !in_play_range(user))
 		return
 
 	// split it off, with our deck ID.
@@ -183,10 +199,10 @@
 /obj/item/deck/MouseDrop_T(obj/item/I, mob/user)
 	if(!istype(I, /obj/item/cardhand))
 		return
-	if(!Adjacent(user) || !user.Adjacent(I))
+	if(!in_play_range(user) || !user.Adjacent(I))
 		return
 	var/choice = tgui_alert(user, "Where would you like to return your hand to the deck?", "Return Hand", list("Top", "Bottom", "Cancel"))
-	if(!Adjacent(user) || !user.Adjacent(I) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isnull(choice) || choice == "Cancel")
+	if(!in_play_range(user) || !user.Adjacent(I) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isnull(choice) || choice == "Cancel")
 		return
 
 	return_cards(user, I, choice == "Top")
@@ -207,6 +223,9 @@
 	if(!istype(hand))
 		return
 
+	if(!in_play_range(user))
+		return
+
 	if(hand.parent_deck_id != main_deck_id)
 		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
 		return
@@ -217,7 +236,7 @@
 	if(!length(chosen_cards))
 		if(length(hand.cards) > 1)
 			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(hand.cards)] card\s into the [side] of the deck?", "Return Hand to Bottom", list("Yes", "No"))
-			if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			if(confirm != "Yes" || !in_play_range(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return
 		chosen_cards = hand.cards
 
@@ -231,16 +250,24 @@
 		qdel(hand)
 	else
 		hand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	if(length(chosen_cards) == 1 && !hand.concealed)
-		var/datum/playingcard/P = chosen_cards[1]
-		if(user.a_intent == INTENT_HARM)
-			var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(user, P.card_icon)
-			user.vis_contents += draft
-			QDEL_IN(draft, 1 SECONDS)
-			sleep(1 SECONDS)  // todo maybe do away with this sleep
-		user.visible_message("<span class='notice'>[user] places [P] on the [side] of [src].</span>", "<span class='notice'>You place [P] on the [side] of [src].</span>")
+	if(length(chosen_cards) == 1)
+		if(!hand.concealed)
+			// do the attack animation with the single card being played
+			var/datum/playingcard/P = chosen_cards[1]
+			if(user.a_intent == INTENT_HARM)
+				var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(user, P.card_icon)
+				user.vis_contents += draft
+				QDEL_IN(draft, 1 SECONDS)
+				sleep(1 SECONDS)  // todo maybe do away with this sleep
+			user.visible_message("<span class='notice'>[user] places [P] on the [side] of [src].</span>", "<span class='notice'>You place [P] on the [side] of [src].</span>")
+			user.do_attack_animation(src, hand)
+		else
+			// don't attack with the open hand lol
+			user.do_attack_animation(src, no_effect = TRUE)
 	else
 		user.visible_message("<span class='notice'>[user] returns [length(chosen_cards)] card\s to the [side] of [src].</span>", "<span class='notice'>You return [length(chosen_cards)] card\s to the [side] of [src].</span>")
+
+
 
 	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
@@ -299,7 +326,7 @@
 /obj/item/deck/proc/draw_card(mob/user, public = FALSE, draw_from_top = TRUE)
 	var/mob/living/carbon/human/M = user
 
-	if(user.incapacitated() || !Adjacent(user) || !istype(user))
+	if(user.incapacitated() || !in_play_range(user) || !istype(user))
 		return
 
 	if(!length(cards))
@@ -311,7 +338,7 @@
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 		return
 
-	if(isnull(H))
+	if(!H)
 		H = new(get_turf(src))
 		user.put_in_hands(H)
 
@@ -323,6 +350,7 @@
 	H.update_values_from_deck(src)
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
+	user.do_attack_animation(src, no_effect = TRUE)
 	if(public)
 		user.visible_message("<span class='danger'>[user] draws \a [P.name]!</span>", "<span class='danger'>You draw \a [P]!</span>")
 		var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(user, P.card_icon)
@@ -335,7 +363,7 @@
 
 // Classic action
 /obj/item/deck/proc/deal_card(mob/user)
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_play_range(user))
 		return
 
 	if(!length(cards))
@@ -347,7 +375,7 @@
 		players += player
 
 	var/mob/living/M = tgui_input_list(user, "Who do you wish to deal a card to?", "Deal Card", players)
-	if(QDELETED(user) || QDELETED(src) || QDELETED(M) || !Adjacent(user))
+	if(QDELETED(user) || QDELETED(src) || QDELETED(M) || !in_play_range(user))
 		return
 
 	deal_at(usr, M, 1)
@@ -486,6 +514,15 @@
 
 /obj/item/cardhand/proc/single()
 	return length(cards) == 1
+
+/obj/item/cardhand/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!istype(target, /obj/item/deck))
+		return
+
+	var/obj/item/deck/D = target
+	if(D.in_play_range(user))
+		return D.attackby(src, user)
 
 /obj/item/deck/hitby(atom/movable/thrown, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 
