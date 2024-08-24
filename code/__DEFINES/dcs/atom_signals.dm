@@ -189,3 +189,5 @@
 	#define COMPONENT_NO_MOUSEDROP (1<<0)
 ///from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"
+/// On a ranged attack: base of mob/living/carbon/human/RangedAttack (/mob/living/carbon/human)
+#define COMSIG_ATOM_RANGED_ATTACKED "atom_range_attacked"

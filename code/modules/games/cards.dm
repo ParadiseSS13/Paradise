@@ -894,7 +894,7 @@
 /obj/item/cardhand/update_name()
 	. = ..()
 	if(length(cards) > 1)
-		name = "hand of [length(cards)] cards"
+		name = "hand of [length(cards)] card\s"
 	else
 		name = "playing card"
 

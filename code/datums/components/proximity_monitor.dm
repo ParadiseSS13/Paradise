@@ -296,6 +296,8 @@
 	var/max_total_distance
 	/// The UID of the deck
 	var/deck_uid
+	/// Whether the monitors created should be visible. Used for debugging.
+	var/monitors_visible = FALSE
 
 /datum/component/proximity_monitor/table/Initialize(_radius = 1, _always_active = FALSE, _max_table_distance = 5)
 	max_table_distance = _max_table_distance
@@ -308,12 +310,6 @@
 	else
 		deck_uid = parent.UID()
 	refresh()
-
-// /datum/component/proximity_monitor/table/RegisterWithParent()
-// 	. = ..()
-
-// 	// we want our new prox monitors to have the parent UID
-// 	refresh()
 
 /datum/component/proximity_monitor/table/proc/refresh()
 	var/list/tables = list()
@@ -383,14 +379,6 @@
 	create_prox_checkers()
 
 /obj/effect/abstract/proximity_checker/table
-	icon = 'icons/obj/playing_cards.dmi'
-
-	icon_state = "tarot_the_unknown"
-
-	invisibility = INVISIBILITY_MINIMUM
-	layer = MOB_LAYER
-
-
 	/// The UID for the deck, used in the setting and removal of traits
 	var/deck_uid
 
@@ -400,6 +388,12 @@
 	// catch any mobs on our tile
 	for(var/mob/living/L in get_turf(src))
 		register_on_mob(L)
+
+	if(P.monitors_visible)
+		icon = 'icons/obj/playing_cards.dmi'
+		icon_state = "tarot_the_unknown"
+		invisibility = INVISIBILITY_MINIMUM
+		layer = MOB_LAYER
 
 /obj/effect/abstract/proximity_checker/table/Destroy()
 	for(var/mob/living/L in get_turf(src))
