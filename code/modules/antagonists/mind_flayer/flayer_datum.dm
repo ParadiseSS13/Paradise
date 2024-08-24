@@ -21,7 +21,7 @@
 	/// The base brain damage dealt per tick of the drain
 	var/drain_amount = 0.5
 	/// A list of the categories and their associated stages of the power
-	var/list/category_stage = list(CATEGORY_GENERAL = 1, CATEGORY_DESTROYER = 1, CATEGORY_INTRUDER = 1, CATEGORY_SWARMER = 1)
+	var/list/category_stage = list(CATEGORY_GENERAL = 1, CATEGORY_DESTROYER = 1, CATEGORY_INTRUDER = 1)
 	/// If the mindflayer can still pick a stage 4 ability
 	var/can_pick_capstone = TRUE
 
