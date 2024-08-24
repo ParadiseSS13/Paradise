@@ -1,7 +1,7 @@
 /datum/station_goal/secondary/random_bulk_reagent/bar
 	name = "Random Bulk Drink"
 	department = "Bar"
-	abstract = FALSE
+	weight = 9
 
 /datum/station_goal/secondary/random_bulk_reagent/bar/randomize_params()
 	..()

@@ -2,7 +2,7 @@
 	name = "Variety of Food"
 	progress_type = /datum/secondary_goal_progress/variety_food
 	department = "Kitchen"
-	abstract = FALSE
+	weight = 1
 	/// How many different types of food are needed.
 	var/different_types = 10
 	/// How many of each food type are needed.

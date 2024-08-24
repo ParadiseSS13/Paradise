@@ -2,7 +2,7 @@
 	name = "Random Kudzu"
 	department = "Hydroponics"
 	progress_type = /datum/secondary_goal_progress/random_kudzu
-	abstract = FALSE
+	weight = 1
 	var/list/traits = list()
 	var/amount = 5
 

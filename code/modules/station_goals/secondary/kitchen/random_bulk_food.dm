@@ -2,7 +2,7 @@
 	name = "Random Bulk Food"
 	department = "Kitchen"
 	progress_type = /datum/secondary_goal_progress/random_bulk_food
-	abstract = FALSE
+	weight = 8
 	var/obj/item/food/food_type
 	var/amount
 	var/reward
