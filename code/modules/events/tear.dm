@@ -47,6 +47,7 @@
 	if(!target_area)
 		if(false_alarm)
 			target_area = findEventArea()
+			if(isnull(target_area))
 				log_debug("Tried to announce a false-alarm tear without a valid area!")
 				kill()
 		else
