@@ -168,6 +168,23 @@
 		flayer.adjustBruteLoss(-level, robotic = TRUE)
 		flayer.adjustFireLoss(-level, robotic = TRUE)
 
+/datum/mindflayer_passive/fix_components
+	name = "Internal Nanite Application"
+	purchase_text = "Slowly repair damage done to your organs"
+	gain_text = "Administering reparative swarms to internal components."
+	power_type = FLAYER_PURCHASABLE_POWER
+	should_process = TRUE
+	base_cost = 50
+	max_level = 2
+	var/heal_modifier = 0.4 //S Same speed as mito
+
+/datum/mindflayer_passive/fix_components/process()
+	if(!ishuman(owner) || owner.stat == DEAD)
+		return
+	var/mob/living/carbon/human/flayer = owner
+	for(var/obj/item/organ/internal/I in flayer.internal_organs)
+		I.heal_internal_damage(heal_modifier * level, TRUE)
+
 /datum/mindflayer_passive/eye_enhancement
 	name = "Enhanced Optical Sensitivity"
 	purchase_text = "Adjust our optical sensors to see better in the dark."
