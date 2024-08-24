@@ -131,8 +131,6 @@
 	draw_card(user, user.a_intent == INTENT_HARM)
 
 /obj/item/deck/proc/in_play_range(mob/user)
-	var/turf/user_turf = get_turf(user)
-	var/turf/card_turf = get_turf(src)
 
 	if(HAS_TRAIT(user, TRAIT_TELEKINESIS))
 		return TRUE
