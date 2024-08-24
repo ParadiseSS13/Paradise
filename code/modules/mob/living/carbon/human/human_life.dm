@@ -616,15 +616,17 @@
 
 	var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
 
-	if(getBrainLoss() >= 120 || (guaranteed_death_threshold) <= -500)
+	var/obj/item/organ/internal/brain = get_int_organ(/obj/item/organ/internal/brain)
+	if(brain?.damage >= brain.max_damage || (guaranteed_death_threshold) <= -500)
 		death()
 		return
 
-	if(getBrainLoss() >= 100) // braindeath
+	if(brain?.damage >= (brain.max_damage * 10 / 12)) // braindeath
 		dna.species.handle_brain_death(src)
 
 	if(!check_death_method())
 		if(health <= HEALTH_THRESHOLD_DEAD)
+			// No need to get the fraction of the max brain damage here, because for it to matter, they'd probably be dead already
 			var/deathchance = min(99, ((getBrainLoss() / 5) + (health + (getOxyLoss() / -2))) * -0.1)
 			if(prob(deathchance))
 				death()

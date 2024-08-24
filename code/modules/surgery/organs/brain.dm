@@ -20,6 +20,8 @@
 
 	/// If it's a fake brain without a mob assigned that should still be treated like a real brain.
 	var/decoy_brain = FALSE
+	/// Do we have temporary brain max hp reduction?
+	var/temporary_damage = 0
 
 /obj/item/organ/internal/brain/xeno
 	name = "xenomorph brain"
@@ -130,17 +132,34 @@
 		owner.setBrainLoss(120)
 
 /obj/item/organ/internal/brain/on_life()
-	if(decoy_brain || damage < 10)
+	if(decoy_brain)
 		return
-	switch(damage)
-		if(10 to 30)
-			handle_minor_brain_damage()
-		if(31 to 60)
-			handle_moderate_brain_damage()
-		if(61 to 80)
-			handle_severe_brain_damage()
-		if(81 to 100)
-			handle_critical_brain_damage()
+
+	// Values in the comments are for a normal brain with 120 `max_damage`
+	var/minor_threshold = max_damage * 3 / 12 		// 30
+	var/moderate_threshold = max_damage * 6 / 12 	// 60
+	var/severe_threshold = max_damage * 8 / 12 		// 80
+	var/critial_threshold = max_damage * 10 / 12 	// 100
+
+	if(damage < minor_threshold)
+		return
+
+	if(0 < damage && damage < minor_threshold)
+		handle_minor_brain_damage()
+
+	else if(minor_threshold < damage && damage < moderate_threshold)
+		handle_moderate_brain_damage()
+
+	else if(moderate_threshold < damage && damage < severe_threshold)
+		handle_severe_brain_damage()
+
+	else if(severe_threshold < damage && damage < critial_threshold)
+		handle_critical_brain_damage()
+
+	if(temporary_damage) // Heal our max hp limit by one per cycle
+		// We use `clamp()` here because `temporary_damage` can have decimals
+		temporary_damage = clamp(temporary_damage - 0.25, 0, 120)
+		max_damage = clamp(max_damage + 0.25, 0, 120)
 
 /obj/item/organ/internal/brain/proc/handle_minor_brain_damage()
 	if(prob(5))
