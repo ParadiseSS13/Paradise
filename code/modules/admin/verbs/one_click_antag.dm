@@ -31,7 +31,7 @@
 	if(M.stat || !M.mind || M.mind.special_role || M.mind.offstation_role)
 		return FALSE
 	if(temp)
-		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.active_character.species in temp.protected_species))
+		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.active_character.species in temp.species_to_mindflayer))
 			return FALSE
 	if(role) // Don't even bother evaluating if there's no role
 		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && !M.client.skip_antag && (!jobban_isbanned(M, role)))

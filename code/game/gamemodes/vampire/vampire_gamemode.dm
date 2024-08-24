@@ -3,7 +3,7 @@
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
-	protected_species = list("Machine")
+	species_to_mindflayer = list("Machine")
 	required_players = 1 //TODO DEBUG ONLY
 	required_enemies = 1
 	recommended_enemies = 4
@@ -27,7 +27,7 @@
 				break
 			var/datum/mind/vampire = pick_n_take(possible_vampires)
 			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
-			if(vampire.current.client.prefs.active_character.species in protected_species)
+			if(vampire.current.client.prefs.active_character.species in species_to_mindflayer)
 				pre_mindflayers += vampire
 				vampire.special_role = SPECIAL_ROLE_MIND_FLAYER
 				continue
