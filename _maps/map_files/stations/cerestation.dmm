@@ -4199,9 +4199,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
@@ -27177,6 +27174,7 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/spider/stickyweb,
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "ddL" = (
@@ -67048,6 +67046,7 @@
 	pixel_y = 5
 	},
 /obj/structure/spider/stickyweb,
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "nSn" = (
