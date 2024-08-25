@@ -12392,10 +12392,11 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "cpw" = (
-/obj/machinery/atmospherics/trinary/filter{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/trinary/filter{
+	dir = 1;
+	filter_type = -1
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "cpF" = (
@@ -12791,7 +12792,7 @@
 	dwidth = 7;
 	height = 5;
 	id = "sst_home";
-	name = "Near Seraphim SW maints";
+	name = "Near Diagoras SW maints";
 	width = 11
 	},
 /turf/space,
@@ -14740,6 +14741,9 @@
 	name = "Gas Turbine Airlock Control";
 	pixel_x = 5;
 	pixel_y = -23
+	},
+/obj/machinery/light/small{
+	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
@@ -18470,11 +18474,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/medbay2)
-"dzh" = (
-/obj/effect/spawner/window/reinforced/plasma,
-/obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/plating,
-/area/station/engineering/atmos/asteroid_filtering)
 "dzi" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -20599,11 +20598,16 @@
 /area/station/service/chapel)
 "dUF" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=DRM";
-	location = "CHNE"
+	codes_txt = "patrol;next_patrol=Armory_North";
+	location = "Armory_South"
 	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/ne)
+/mob/living/simple_animal/bot/secbot/armsky{
+	auto_patrol = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
+/area/station/security/armory/secure)
 "dUP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -22888,9 +22892,6 @@
 	name = "Toxins filter";
 	on = 1
 	},
-/obj/structure/sign/fire{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "esN" = (
@@ -24969,7 +24970,7 @@
 	},
 /obj/machinery/door_control{
 	desc = "A remote control-switch to lock down the prison wing's blast doors";
-	id = "Prison Cell 3";
+	id = "Prison Perma Cell 3";
 	name = "Cell Lockdown";
 	pixel_y = 31;
 	req_access_txt = "2"
@@ -26339,7 +26340,7 @@
 	},
 /obj/machinery/door_control{
 	desc = "A remote control-switch to lock down the prison wing's blast doors";
-	id = "Prison Cell 1";
+	id = "Prison Perma Cell 1";
 	name = "Cell Lockdown";
 	pixel_y = 31;
 	req_access_txt = "2"
@@ -27451,7 +27452,6 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
-/obj/item/toy/figure/crew/captain,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "fiV" = (
@@ -28856,7 +28856,6 @@
 	name = "processing tint control";
 	pixel_x = -6;
 	pixel_y = 24;
-	range = 4;
 	req_access_txt = "63"
 	},
 /obj/machinery/light_switch{
@@ -30107,10 +30106,6 @@
 /area/station/science/server/coldroom)
 "fHd" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors"
-	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -35250,7 +35245,7 @@
 	pixel_y = 8
 	},
 /obj/machinery/flasher{
-	id = "s";
+	id = "Perma Cell 1";
 	pixel_x = 22
 	},
 /turf/simulated/floor/plasteel{
@@ -35928,7 +35923,8 @@
 /area/station/hallway/secondary/entry)
 "gMd" = (
 /obj/machinery/atmospherics/trinary/filter{
-	dir = 1
+	dir = 1;
+	filter_type = -1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -36600,6 +36596,10 @@
 	pixel_x = 32;
 	pixel_y = -25
 	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=SAH";
+	location = "CHE2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "gTK" = (
@@ -36761,6 +36761,9 @@
 /area/station/medical/reception)
 "gVG" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Theatre_inprogress"
+	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "gVI" = (
@@ -38143,7 +38146,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/dorms/starboard)
+/area/station/hallway/primary/central/ne)
 "hil" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -43577,10 +43580,6 @@
 /area/station/service/clown)
 "iia" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -46825,16 +46824,14 @@
 /turf/simulated/floor/plating,
 /area/station/legal/courtroom)
 "iOe" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	name = "Robotics Lab Shutters";
-	id_tag = "robotics";
-	dir = 2
+/obj/structure/sign/security{
+	pixel_y = 32
 	},
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "RoboSurgery"
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "redcorner"
 	},
-/turf/simulated/floor/plating,
-/area/station/science/robotics)
+/area/station/hallway/primary/starboard)
 "iOp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
@@ -48502,10 +48499,6 @@
 /obj/machinery/door/airlock/glass{
 	name = "Prison";
 	id = "Prison Cell 2"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -51475,6 +51468,10 @@
 	d1 = 1;
 	d2 = 4
 	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Armory_South";
+	location = "Armory_North"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -52996,7 +52993,7 @@
 /area/station/maintenance/apmaint2)
 "jVg" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=CHE";
+	codes_txt = "patrol;next_patrol=CHE2";
 	location = "ESC"
 	},
 /turf/simulated/floor/plasteel{
@@ -54161,7 +54158,7 @@
 	},
 /obj/machinery/door_control{
 	desc = "A remote control-switch to lock down the prison wing's blast doors";
-	id = "Prison Cell 4";
+	id = "Prison Perma Cell 4";
 	name = "Cell Lockdown";
 	pixel_y = 31;
 	req_access_txt = "2"
@@ -54947,6 +54944,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Processing"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "kol" = (
@@ -57843,7 +57843,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on/toxins{
 	name = "Toxins Scrubber";
 	dir = 4;
-	layer = 3
+	layer = 3.5
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
@@ -65435,10 +65435,6 @@
 /area/station/maintenance/security/fore)
 "mqr" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors"
-	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/security/prisonlockers)
@@ -66057,7 +66053,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/dorms/starboard)
+/area/station/hallway/primary/central/ne)
 "mwV" = (
 /obj/machinery/economy/vending/detdrobe,
 /turf/simulated/floor/plasteel{
@@ -68257,10 +68253,8 @@
 	pixel_x = -1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/food/grown/potato/bigpotato,
-/obj/item/cigbutt{
-	pixel_x = -10;
-	pixel_y = 1
+/obj/item/food/grown/potato/bigpotato{
+	pixel_x = -3
 	},
 /obj/item/clothing/glasses/sunglasses{
 	pixel_y = 4
@@ -69810,10 +69804,10 @@
 	},
 /area/station/hallway/spacebridge/security/south)
 "niX" = (
-/obj/structure/closet/secure_closet/brig/temp/cell_1,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_3,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -69855,9 +69849,23 @@
 	},
 /area/station/medical/chemistry)
 "njw" = (
-/obj/structure/table,
-/turf/simulated/wall/r_wall,
-/area/station/security/processing)
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=CHE";
+	location = "CHNE"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/ne)
 "njI" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -69881,7 +69889,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/park)
 "nkc" = (
-/obj/structure/closet/secure_closet/brig/temp/cell_1,
+/obj/structure/closet/secure_closet/brig/temp/cell_4,
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
 "nko" = (
@@ -70265,7 +70273,7 @@
 /area/station/science/toxins/mixing)
 "nnA" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=CHSE";
+	codes_txt = "patrol;next_patrol=ESC";
 	location = "CHE"
 	},
 /turf/simulated/floor/plasteel,
@@ -70978,6 +70986,9 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/forensics,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Detective"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -76664,6 +76675,9 @@
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/all/security/hos,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "HoS"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -77822,7 +77836,7 @@
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
 	id = "whiteship_cyberiad";
-	name = "South West of Seraphim"
+	name = "South West of Diagoras"
 	},
 /turf/space,
 /area/space)
@@ -78326,10 +78340,6 @@
 /area/station/engineering/atmos/asteroid_filtering)
 "oKY" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -78831,7 +78841,7 @@
 /obj/structure/table,
 /obj/item/ashtray/plastic,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/dorms/starboard)
+/area/station/hallway/primary/central/ne)
 "oOD" = (
 /obj/machinery/light{
 	dir = 4
@@ -81875,10 +81885,10 @@
 /turf/simulated/wall,
 /area/station/engineering/break_room)
 "ppW" = (
-/obj/structure/closet/secure_closet/brig/temp/cell_1,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/temp/cell_2,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -83823,10 +83833,6 @@
 	name = "Prison";
 	id = "Prison Cell 3"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -85581,16 +85587,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "qcf" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "sit_arrivals";
+	name = "Diagoras North East";
+	width = 11
 	},
-/obj/machinery/space_heater,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/prisonershuttle)
+/turf/space,
+/area/space)
 "qcg" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -89698,6 +89704,9 @@
 	c_tag = "Central Hallway South";
 	dir = 1
 	},
+/obj/structure/sign/custodian{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "qSw" = (
@@ -90892,10 +90901,6 @@
 	},
 /area/station/engineering/break_room)
 "rcU" = (
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=ESC";
-	location = "SH"
-	},
 /obj/structure/sign/directions/security{
 	dir = 1;
 	pixel_y = 25;
@@ -92117,7 +92122,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/dorms/starboard)
+/area/station/hallway/primary/central/ne)
 "rnD" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -95246,16 +95251,12 @@
 	},
 /area/station/hallway/primary/fore/north)
 "rRc" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 3;
-	height = 5;
-	id = "sit_arrivals";
-	name = "Seraphim North East";
-	width = 11
+/obj/machinery/atmospherics/trinary/filter{
+	dir = 1;
+	filter_type = -1
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/engine,
+/area/station/engineering/engine)
 "rRk" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -99729,7 +99730,7 @@
 	},
 /obj/machinery/door_control{
 	desc = "A remote control-switch to lock down the prison wing's blast doors";
-	id = "Prison Cell 2";
+	id = "Prison Perma Cell 2";
 	name = "Cell Lockdown";
 	pixel_y = 31;
 	req_access_txt = "2"
@@ -100519,10 +100520,6 @@
 /obj/machinery/door/airlock/glass{
 	name = "Prison";
 	id = "Prison Cell 1"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -102639,11 +102636,6 @@
 	name = "Gas Turbine Airlock Control";
 	pixel_x = -8;
 	pixel_y = 24
-	},
-/obj/machinery/camera{
-	c_tag = "Turbine";
-	network = list("SS13","Engineering");
-	dir = 6
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/asteroid_filtering)
@@ -110976,6 +110968,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Processing"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -111150,10 +111145,6 @@
 /obj/machinery/door/airlock/glass{
 	name = "Prison";
 	id = "Prison Cell 4"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Prison Gate";
-	name = "Prison Lockdown Blast Doors"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -114188,7 +114179,8 @@
 /area/station/public/dorms)
 "vrh" = (
 /obj/machinery/atmospherics/trinary/filter{
-	dir = 1
+	dir = 1;
+	filter_type = 2
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
@@ -119766,13 +119758,6 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/machinery/door_control{
-	id = "robotics";
-	name = "Robotics Privacy Shutters";
-	req_access_txt = "29";
-	pixel_y = -24;
-	pixel_x = 25
-	},
 /obj/effect/landmark/start/roboticist,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -125263,6 +125248,13 @@
 	id = "robo";
 	pixel_x = 24;
 	dir = 8
+	},
+/obj/machinery/door_control{
+	id = "robotics";
+	name = "Robotics Privacy Shutters";
+	req_access_txt = "29";
+	pixel_y = 8;
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -137222,11 +137214,11 @@ aZS
 jnP
 jnP
 jnP
-aZS
-aZS
-aZS
-aZS
-aZS
+jnP
+qcf
+jnP
+jnP
+jnP
 jnP
 jnP
 jnP
@@ -139235,7 +139227,7 @@ iag
 ixn
 iNe
 iNe
-vrh
+rRc
 iNe
 cpw
 dgk
@@ -143039,7 +143031,7 @@ tQX
 ftN
 fgE
 tiU
-dzh
+fgE
 poI
 mjs
 mjs
@@ -167029,7 +167021,7 @@ aFq
 bUG
 udf
 nMQ
-iOe
+txV
 dEv
 sfg
 tvp
@@ -167238,7 +167230,7 @@ syn
 soN
 dlV
 soN
-jpn
+soN
 rnA
 hia
 mwQ
@@ -167493,7 +167485,7 @@ soN
 soN
 uLC
 soN
-dlV
+njw
 soN
 soN
 soN
@@ -167543,7 +167535,7 @@ jOu
 wQe
 bls
 nMQ
-iOe
+txV
 hHm
 muK
 pim
@@ -168007,7 +167999,7 @@ bwi
 uBv
 nOk
 oWo
-dUF
+soN
 soN
 aaV
 aUe
@@ -177530,7 +177522,7 @@ ndZ
 uyR
 cIE
 osi
-bvj
+iOe
 uci
 wmc
 ngr
@@ -181333,7 +181325,7 @@ drX
 tsa
 nwi
 oIJ
-qcf
+oIJ
 sup
 hsc
 rLP
@@ -181354,7 +181346,7 @@ fxw
 vYJ
 veh
 sau
-njw
+yld
 xNV
 bXs
 fxV
@@ -182629,7 +182621,7 @@ jnP
 fiv
 gZs
 trj
-trj
+dUF
 trj
 trj
 esU
@@ -185720,7 +185712,7 @@ jnP
 jnP
 jnP
 jnP
-rRc
+jnP
 jnP
 jnP
 jnP
@@ -186292,7 +186284,7 @@ jnP
 jnP
 jnP
 jnP
-aZS
+jnP
 caq
 bXh
 jcy
@@ -187320,7 +187312,7 @@ jnP
 jnP
 jnP
 jnP
-aZS
+jnP
 caq
 mgs
 qdh
@@ -187726,7 +187718,7 @@ jnP
 jnP
 jnP
 jnP
-fHX
+jnP
 jnP
 jnP
 fNb
@@ -189021,7 +189013,7 @@ jnP
 jnP
 jnP
 jnP
-jnP
+fHX
 jnP
 jnP
 jnP
