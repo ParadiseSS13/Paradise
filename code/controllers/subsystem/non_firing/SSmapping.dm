@@ -53,7 +53,8 @@ SUBSYSTEM_DEF(mapping)
 	lavaland_theme = new lavaland_theme_type
 	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
 
-	var/caves_theme_type = pick(subtypesof(/datum/caves_theme))
+	// var/caves_theme_type = pick(subtypesof(/datum/caves_theme))
+	var/caves_theme_type = /datum/caves_theme/deeprock
 	ASSERT(caves_theme_type)
 	caves_theme = new caves_theme_type
 	log_startup_progress("We feel like [initial(caves_theme.name)] today...")

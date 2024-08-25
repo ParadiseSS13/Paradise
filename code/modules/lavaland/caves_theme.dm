@@ -46,16 +46,25 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 			mob_spawn = pickweight(GLOB.caves_default_mob_spawns)
 
 	for(var/thing in urange(mob_scan_range, T))
-		if(!ishostile(thing) && !istype(thing, /obj/structure/spawner))
+		if(!(ishostile(thing) || istype(thing, /obj/structure/spawner) || istype(thing, /obj/effect/landmark/mob_spawner)))
 			continue
-		if(ispath(mob_spawn, /mob/living/simple_animal/hostile/megafauna) && ismegafauna(thing) && get_dist(T, thing) <= megafauna_scan_range)
+		// don't spawn a megafauna if there's already one within view
+		if((ispath(mob_spawn, /mob/living/simple_animal/hostile/megafauna) || ismegafauna(thing)) && (get_dist(T, thing) <= megafauna_scan_range))
 			return
-		// if the random is a standard mob, avoid spawning if there's another one within 12 tiles
-		if(ispath(mob_spawn, /obj/effect/landmark/mob_spawner) || istype(thing, /mob/living/simple_animal/hostile/asteroid))
+		// if the random is a standard mob, avoid spawning if there's another one within the scan range
+		if(ispath(mob_spawn, /obj/effect/landmark/mob_spawner) && istype(thing, /obj/effect/landmark/mob_spawner))
 			return
 		// prevents tendrils spawning in each other's collapse range
-		if((ispath(mob_spawn, /obj/structure/spawner/lavaland) || istype(thing, /obj/structure/spawner/lavaland)) && get_dist(T, thing) <= 2)
+		if((ispath(mob_spawn, /obj/structure/spawner/lavaland) && istype(thing, /obj/structure/spawner/lavaland)) && get_dist(T, thing) <= 3)
 			return
+
+	// there can be only one bubblegum, so don't waste spawns on it
+	if(ispath(mob_spawn, /mob/living/simple_animal/hostile/megafauna/bubblegum))
+		GLOB.megafauna_spawn_list.Remove(mob_spawn)
+
+	// same as above, we do not want multiple of these robots
+	if(ispath(mob_spawn, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
+		GLOB.megafauna_spawn_list.Remove(mob_spawn)
 
 	new mob_spawn(T)
 
@@ -136,14 +145,17 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 			return
 
 	oasis_centroids |= T
+	var/new_scan_range = rand(4, 7)
 	var/tempradius = rand(10, 15)
 	var/probmodifer = 43 * tempradius //Yes this is a magic number, it is a magic number that works well.
 	for(var/turf/NT in circlerangeturfs(T, tempradius))
 		var/distance = (max(get_dist(T, NT), 1)) //Get dist throws -1 if same turf
 		if(safe_replace(NT) && prob(min(probmodifer / distance, 100)))
 			var/turf/changed = NT.ChangeTurf(/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
-			if(prob(5))
-				lavaland_caves_spawn_mob(changed)
+			if(prob(30))
+				lavaland_caves_spawn_mob(changed, new_scan_range, new_scan_range)
+			else if(prob(15))
+				lavaland_caves_spawn_flora(changed)
 
 	if(prob(50))
 		tempradius = round(tempradius / 3)
