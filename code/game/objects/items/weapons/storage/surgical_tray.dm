@@ -18,7 +18,8 @@
 		/obj/item/bonegel,
 		/obj/item/bonesetter,
 		/obj/item/stack/medical/bruise_pack,
-		/obj/item/stack/medical/ointment
+		/obj/item/stack/medical/ointment,
+		/obj/item/surgical_drapes
 	)
 
 /obj/item/storage/surgical_tray/Initialize(mapload)

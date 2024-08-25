@@ -195,7 +195,7 @@
 					if(breach)
 						T.ex_act(dist)
 					else
-						T.ex_act(3)
+						T.ex_act(EXPLODE_LIGHT)
 
 			CHECK_TICK
 
@@ -219,7 +219,7 @@
 
 /proc/secondaryexplosion(turf/epicenter, range)
 	for(var/turf/tile in spiral_range_turfs(range, epicenter))
-		tile.ex_act(2)
+		tile.ex_act(EXPLODE_HEAVY)
 
 /client/proc/check_bomb_impacts()
 	set name = "Check Bomb Impact"
