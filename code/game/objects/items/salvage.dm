@@ -58,7 +58,7 @@
 
 /obj/item/salvage/ruin/carp
 	name = "carp scales"
-	desc = "A collection of scales shed from a corrupted space carp. Their uniquie molecular composition may prove useful to material scientists."
+	desc = "A collection of scales shed from a corrupted space carp. Their unique molecular composition may prove useful to material scientists."
 	icon_state = "dragon_scales"
 	hitsound = sound('sound/effects/hit_on_shattered_glass.ogg', 20)
 	pickup_sound = sound('sound/hallucinations/im_here2.ogg', 10)
