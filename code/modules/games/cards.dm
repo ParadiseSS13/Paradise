@@ -924,7 +924,7 @@
 			"<span class='notice'>You take \the [picked_card] from your hand.</span>",
 			"<span class='notice'>You hear a card being drawn.</span>"
 		)
-	else if (istype(active_hand))
+	else if(istype(active_hand))
 		// you're drawing from a hand the user isn't holding to one that the user is.
 		// try to put that card into our currently held hand.
 		active_hand.transfer_card_to_self(src, picked_card)
