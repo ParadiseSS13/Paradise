@@ -1,6 +1,8 @@
+#define TRAIT_CHANCE_DELTA 25
+
 /obj/effect/spawner/random/maintenance
 	name = "Maintenance loot spawner"
-	spawn_loot_chance = 55
+	spawn_loot_chance = 65
 	spawn_random_offset_max_pixels = 8
 
 /obj/effect/spawner/random/maintenance/Initialize(mapload)
@@ -8,8 +10,10 @@
 	spawn_loot_count = rand(2, 4)
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT))
-		spawn_loot_chance = 30
+		spawn_loot_chance -= TRAIT_CHANCE_DELTA
 	else if(HAS_TRAIT(SSstation, STATION_TRAIT_FILLED_MAINT))
-		spawn_loot_chance = 80
+		spawn_loot_chance += TRAIT_CHANCE_DELTA
 
 	. = ..()
+
+#undef TRAIT_CHANCE_DELTA
