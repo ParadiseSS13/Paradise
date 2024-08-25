@@ -400,7 +400,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	for(var/objective in owner.get_all_objectives())
 		var/datum/objective/O = objective
 		if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
-			can_succeed_if_dead  = FALSE
+			can_succeed_if_dead = FALSE
 			break
 
 	// Give them an escape objective if they don't have one already.
