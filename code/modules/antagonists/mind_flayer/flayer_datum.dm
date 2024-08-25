@@ -268,7 +268,6 @@
 	for(var/datum/spell/flayer/spell in powers)
 		if(to_get.name == spell.name)
 			return spell
-	return null
 /**
 * Checks if a mindflayer has a given passive already
 * * Arguments: to_get - Some datum/mindflayer_passive to check if a mindflayer has
