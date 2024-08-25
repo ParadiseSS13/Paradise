@@ -80,6 +80,7 @@
 	base_cooldown = 5 MINUTES // Base uptime is 20%
 	category = CATEGORY_DESTROYER
 	stage = CAPSTONE_STAGE
+	action_icon = "mutate"
 	base_cost = 250
 	static_upgrade_increase = 50 // Total cost of 900 swarms
 	max_level = 3
