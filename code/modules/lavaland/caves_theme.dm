@@ -55,7 +55,7 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 		if(ispath(mob_spawn, /obj/effect/landmark/mob_spawner) && istype(thing, /obj/effect/landmark/mob_spawner))
 			return
 		// prevents tendrils spawning in each other's collapse range
-		if((ispath(mob_spawn, /obj/structure/spawner/lavaland) && istype(thing, /obj/structure/spawner/lavaland)) && get_dist(T, thing) <= 3)
+		if((ispath(mob_spawn, /obj/structure/spawner/lavaland) && istype(thing, /obj/structure/spawner/lavaland)) && get_dist(T, thing) <= LAVALAND_TENDRIL_COLLAPSE_RANGE)
 			return
 
 	// there can be only one bubblegum, so don't waste spawns on it
@@ -67,6 +67,7 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 		GLOB.megafauna_spawn_list.Remove(mob_spawn)
 
 	new mob_spawn(T)
+	SSblackbox.record_feedback("tally", "lavaland_mob_spawns", 1, "[mob_spawn]")
 
 /proc/lavaland_caves_spawn_flora(turf/T)
 	var/flora_spawn = pickweight(GLOB.caves_default_flora_spawns)
@@ -101,9 +102,9 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 			on_change(T)
 
 /datum/caves_theme/proc/on_change(turf/T)
-	if(prob(3))
+	if(prob(2))
 		lavaland_caves_spawn_flora(T)
-	else if(prob(2))
+	else if(prob(1))
 		lavaland_caves_spawn_mob(T)
 
 /datum/caves_theme/proc/safe_replace(turf/T)
