@@ -183,7 +183,7 @@
 
 //Mind Flayer Flak Cannon
 /obj/item/pneumatic_cannon/flayer
-	name = "Pneumatic Flak Cannon"
+	name = "\improper Pneumatic Flak Cannon"
 	desc = "An arm-mounted cannon that can shoot a concentrated burst of flak."
 	flags = ABSTRACT | NODROP
 	requires_tank = FALSE
