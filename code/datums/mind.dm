@@ -394,12 +394,12 @@
 	. = _memory_edit_header("mind_flayer")
 	var/datum/antagonist/mindflayer/flayer = has_antag_datum(/datum/antagonist/mindflayer)
 	if(flayer)
-		. += "<b><font color='red'>MINDFLAYER</font></b>|<a href='?src=[UID()];mind_flayer=clear'>no</a>"
-		. += " | Usable swarms: <a href='?src=[UID()];mind_flayer=edit_total_swarms'>[flayer.usable_swarms]</a>"
+		. += "<b><font color='red'>MINDFLAYER</font></b>|<a href='byond://?src=[UID()];mind_flayer=clear'>no</a>"
+		. += " | Usable swarms: <a href='byond://?src=[UID()];mind_flayer=edit_total_swarms'>[flayer.usable_swarms]</a>"
 		if(!flayer.has_antag_objectives())
-			. += "<br>Objectives are empty! <a href='?src=[UID()];mind_flayer=autoobjectives'>Randomize!</a>"
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];mind_flayer=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='?src=[UID()];mind_flayer=mind_flayer'>mind_flayer</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];mind_flayer=mind_flayer'>mind_flayer</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_MIND_FLAYER)
 
