@@ -322,6 +322,9 @@
 	if(method == REAGENT_TOUCH)
 		heal_overall_damage(M, volume)
 
+	if(method == REAGENT_INGEST)
+		data = "Ingested" // sin
+
 	return ..()
 
 /datum/reagent/medicine/heal_on_apply/synthflesh
@@ -336,8 +339,9 @@
 
 /datum/reagent/medicine/heal_on_apply/synthflesh/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(data != "Ingested" || volume > 1)
+		update_flags |= M.adjustBruteLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1.25 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply/synthflesh/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = 1)
@@ -377,7 +381,8 @@
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(data != "Ingested" || volume > 1)
+		update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply/styptic_powder/heal_external_limb(obj/item/organ/external/organ, volume)
@@ -411,7 +416,8 @@
 
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(data != "Ingested" || volume > 1)
+		update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/heal_on_apply/silver_sulfadiazine/heal_external_limb(obj/item/organ/external/organ, volume)
