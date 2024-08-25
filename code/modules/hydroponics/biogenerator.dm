@@ -32,10 +32,10 @@
 	var/static/list/acceptable_items = typecacheof(list(
 		/obj/item/seeds,
 		/obj/item/unsorted_seeds,
-		/obj/item/food/snacks/grown,
+		/obj/item/food/grown,
 		/obj/item/grown,
-		/obj/item/food/snacks/grown/ash_flora,
-		/obj/item/food/snacks/honeycomb))
+		/obj/item/food/grown/ash_flora,
+		/obj/item/food/honeycomb))
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
@@ -146,9 +146,9 @@
 			stored_plants += P
 
 		if(length(stored_plants) < max_storable_plants)
-			to_chat(user, "<span class='info'>You empty [PB] into [src].</span>")
+			to_chat(user, "<span class='notice'>You empty [PB] into [src].</span>")
 		else
-			to_chat(user, "<span class='info'>You fill [src] to its capacity.</span>")
+			to_chat(user, "<span class='notice'>You fill [src] to its capacity.</span>")
 
 		SStgui.update_uis(src)
 		return TRUE
@@ -162,7 +162,7 @@
 
 		O.forceMove(src)
 		stored_plants += O
-		to_chat(user, "<span class='info'>You put [O] in [src].</span>")
+		to_chat(user, "<span class='notice'>You put [O] in [src].</span>")
 		SStgui.update_uis(src)
 		return TRUE
 
@@ -180,7 +180,7 @@
 		processing = FALSE
 		update_ui_product_list(user)
 		return TRUE
-	
+
 	to_chat(user, "<span class='warning'>You cannot put [src] in [name]!</span>")
 
 /**

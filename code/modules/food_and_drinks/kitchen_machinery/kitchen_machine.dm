@@ -65,7 +65,7 @@
 					GLOB.cooking_reagents[recipe_type] |= reagent
 			else
 				qdel(recipe)
-		GLOB.cooking_ingredients[recipe_type] |= /obj/item/food/snacks/grown
+		GLOB.cooking_ingredients[recipe_type] |= /obj/item/food/grown
 
 /*******************
 *   Item Adding
@@ -424,7 +424,7 @@
 		amount += reagents.total_volume
 	reagents.clear_reagents()
 	if(amount)
-		var/obj/item/food/snacks/badrecipe/mysteryfood = new(src)
+		var/obj/item/food/badrecipe/mysteryfood = new(src)
 		mysteryfood.reagents.add_reagent("carbon", amount / 2)
 		mysteryfood.reagents.add_reagent("????", amount / 15)
 		mysteryfood.forceMove(get_turf(src))
@@ -565,7 +565,7 @@
 			dispose(ui.user)
 
 /obj/machinery/kitchen_machine/AltClick(mob/user)
-	if(!check_useable(user))
+	if(!Adjacent(user) || !check_useable(user))
 		return
 
 	cook()

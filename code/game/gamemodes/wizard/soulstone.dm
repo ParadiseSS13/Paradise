@@ -116,7 +116,7 @@
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
 		return ..()
 
-	if(M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT)
+	if((M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT) || HAS_MIND_TRAIT(M, TRAIT_XENOBIO_SPAWNED_HUMAN))
 		to_chat(user, "<span class='warning'>This being's soul seems worthless. Not even the stone will absorb it.</span>")
 		return ..()
 
@@ -456,7 +456,7 @@
 			S.mind.store_memory("<b>Serve [user.real_name], your creator.</b>")
 			to_chat(S, "<span class='userdanger'>Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs.</span>")
 	if(forced && user)
-		to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
+		to_chat(user, "<span class='notice'><b>Capture successful!</b>:</span> [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
 	if(!isrobot(M))
 		for(var/obj/item/I in M)
 			M.unEquip(I)

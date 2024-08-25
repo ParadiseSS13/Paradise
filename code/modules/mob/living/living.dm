@@ -297,22 +297,26 @@
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
-	var/last_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
+	last_words = null // In case we kept some from last time
+	var/final_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
 
-	if(isnull(last_words) && cancel_on_no_words)
+	if(isnull(final_words) && cancel_on_no_words)
 		to_chat(src, "<span class='notice'>You decide you aren't quite ready to die.</span>")
 		return
 
 	if(stat == DEAD)
-		// cancel em out if they died while they had the message box up
-		last_words = null
+		return
 
-	if(!isnull(last_words))
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
+		return
+
+	if(!isnull(final_words))
 		create_log(MISC_LOG, "gave their final words, [last_words]")
-		src.last_words = last_words  // sorry
-		whisper(last_words)
+		last_words = final_words
+		whisper(final_words)
 
-	add_attack_logs(src, src, "[src] has [!isnull(last_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
+	add_attack_logs(src, src, "[src] has [!isnull(final_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
 
 	create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
 	adjustOxyLoss(max(health - HEALTH_THRESHOLD_DEAD, 0))
@@ -322,7 +326,8 @@
 		if(health < HEALTH_THRESHOLD_DEAD)
 			break
 		take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
-	if(!isnull(last_words))
+
+	if(!isnull(final_words))
 		addtimer(CALLBACK(src, PROC_REF(death)), 1 SECONDS)
 	else
 		death()
@@ -331,7 +336,6 @@
 
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
-
 
 /mob/living/ex_act(severity)
 	..()
@@ -1002,6 +1006,7 @@
 		return
 	if(SEND_SIGNAL(src, COMSIG_LIVING_TRY_PULL, AM, force) & COMSIG_LIVING_CANCEL_PULL)
 		return FALSE
+
 	// If we're pulling something then drop what we're currently pulling and pull this instead.
 	AM.add_fingerprint(src)
 	if(pulling)
@@ -1086,8 +1091,6 @@
 				GLOB.dead_mob_list += src
 	. = ..()
 	switch(var_name)
-		if("maxHealth")
-			updatehealth()
 		if("resize")
 			update_transform()
 		if("lighting_alpha")
@@ -1095,6 +1098,10 @@
 		if("advanced_bullet_dodge_chance")
 			UnregisterSignal(src, COMSIG_ATOM_PREHIT)
 			RegisterSignal(src, COMSIG_ATOM_PREHIT, PROC_REF(advanced_bullet_dodge))
+		if("maxHealth")
+			updatehealth("var edit")
+		if("resize")
+			update_transform()
 
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()

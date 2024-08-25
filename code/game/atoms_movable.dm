@@ -92,17 +92,28 @@
 	add_overlay(list(em_block))
 
 /atom/movable/Destroy()
+	var/turf/T = loc
 	unbuckle_all_mobs(force = TRUE)
 	QDEL_NULL(em_block)
+
 	. = ..()
+
 	if(loc)
 		loc.handle_atom_del(src)
+
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
+
 	LAZYCLEARLIST(client_mobs_in_contents)
 	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
+
+	if(opacity && istype(T))
+		var/old_has_opaque_atom = T.has_opaque_atom
+		T.recalc_atom_opacity()
+		if(old_has_opaque_atom != T.has_opaque_atom)
+			T.reconsider_lights()
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
@@ -787,6 +798,9 @@
 
 		if(isliving(target))
 			var/mob/living/L = target
+
+			if(L.incorporeal_move)
+				continue
 
 			if(crit_case)
 				damage_to_deal *= crit_damage_factor

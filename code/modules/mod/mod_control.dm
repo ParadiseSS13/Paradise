@@ -253,6 +253,7 @@
 	if(!wearer || old_loc != wearer || loc == wearer)
 		return
 	clean_up()
+	bag?.update_viewers()
 
 /obj/item/mod/control/MouseDrop(atom/over_object)
 	if(iscarbon(usr))
@@ -454,7 +455,7 @@
 	. = ..()
 	if(!active || !wearer)
 		return
-	to_chat(wearer, "<span class='warning'>[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!")
+	to_chat(wearer, "<span class='warning'>[severity > EMP_HEAVY ? "Light" : "Strong"] electromagnetic pulse detected!")
 	if(emp_proof)
 		return
 	selected_module?.on_deactivation(display_message = TRUE)
@@ -775,7 +776,3 @@
 	. = ..()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.extinguish_light(force)
-
-/obj/item/mod/control/Moved(atom/oldloc, dir, forced = FALSE)
-	. = ..()
-	bag?.update_viewers()

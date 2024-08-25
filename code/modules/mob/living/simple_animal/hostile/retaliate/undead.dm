@@ -1,21 +1,3 @@
-// This is important
-/mob/living/attack_ghost(mob/dead/observer/user)
-	if(prob(80)) return ..()
-	var/found = 0
-	for(var/mob/living/simple_animal/hostile/retaliate/R in range(4,src))
-		if(R.faction != "undead" || R == src || prob(50)) continue
-		found = 1
-		R.enemies ^= src
-		if(src in R.enemies)
-			R.visible_message("[R]'s head swivels eerily towards [src].")
-		else
-			R.visible_message("[R] stares at [src] for a minute before turning away.")
-			if(R.target == src)
-				R.target = null
-	if(!found)
-		return ..()
-
-
 /mob/living/simple_animal/hostile/retaliate/ghost
 	icon = 'icons/mob/mob.dmi'
 	name = "ghost"
@@ -51,7 +33,7 @@
 	pressure_resistance = 300
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	faction = list("undead") // did I mention ghost
-	loot = list(/obj/item/food/snacks/ectoplasm)
+	loot = list(/obj/item/food/ectoplasm)
 	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(check_drift = 0)
@@ -93,6 +75,45 @@
 	loot = list(/obj/effect/decal/remains/human)
 	del_on_death = TRUE
 	footstep_type = FOOTSTEP_MOB_SHOE
+
+/mob/living/simple_animal/hostile/retaliate/skeleton/warden
+	name = "skeleton warden"
+	desc = "The remains of a warden."
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "skeleton_warden"
+	icon_living = "skeleton_warden"
+	wander = FALSE
+	loot = list(/obj/effect/decal/cleanable/shreds, /mob/living/simple_animal/hostile/skeleton/angered_warden)
+	maxHealth = 300
+	health = 300
+	melee_damage_lower = 15
+	melee_damage_upper = 15
+	deathmessage = null
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/hostile/retaliate/skeleton/warden/Process_Spacemove(movement_dir)
+	return TRUE
+
+/mob/living/simple_animal/hostile/skeleton/angered_warden
+	name = "angered skeleton warden" //round 2
+	desc = "An angry skeleton."
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "skeleton_warden_alt"
+	icon_living = "skeleton_warden_alt"
+
+	attacktext = "claws"
+	attack_sound = 'sound/hallucinations/growl1.ogg'
+
+	maxHealth = 200
+	health = 200
+	speed = -1
+	melee_damage_lower = 30
+	melee_damage_upper = 30
+	loot = list(/obj/effect/decal/remains/human, /obj/item/clothing/head/warden, /obj/item/card/sec_shuttle_ruin)
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/hostile/skeleton/angered_warden/Process_Spacemove(movement_dir)
+	return TRUE
 
 /mob/living/simple_animal/hostile/retaliate/zombie
 	name = "zombie"

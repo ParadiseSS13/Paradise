@@ -40,7 +40,7 @@
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
 	. += "<span class='notice'>The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.</span>"
 	. += "<span class='notice'>Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.</span>"
-	. += "<span class='info'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
+	. += "<span class='notice'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
@@ -108,10 +108,10 @@
 	..()
 	if(A == beaker)
 		beaker = null
-		updateUsrDialog()
+		SStgui.update_uis(src)
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
+		SStgui.update_uis(src)
 		update_icon()
 
 /obj/machinery/atmospherics/unary/cryo_cell/on_deconstruction()

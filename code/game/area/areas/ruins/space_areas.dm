@@ -28,19 +28,19 @@
 
 // Ruins of "onehalf" ship
 /area/ruin/space/onehalf/hallway
-	name = "Hallway"
+	name = "DK Excavator 453 Hallway"
 	icon_state = "hallC"
 
 /area/ruin/space/onehalf/drone_bay
-	name = "Mining Drone Bay"
+	name = "DK Excavator 453 Mining Drone Bay"
 	icon_state = "engine"
 
 /area/ruin/space/onehalf/dorms_med
-	name = "Crew Quarters"
+	name = "DK Excavator 453 Crew Quarters"
 	icon_state = "Sleep"
 
 /area/ruin/space/onehalf/abandonedbridge
-	name = "Abandoned Bridge"
+	name = "DK Excavator 453 Abandoned Bridge"
 	icon_state = "bridge"
 
 //DJSTATION
@@ -108,11 +108,11 @@
 
 /area/ruin/space/derelict/solar_control
 	name = "\improper Derelict Solar Control"
-	icon_state = "GENsolar"
+	icon_state = "general_solar_control"
 
 /area/ruin/space/derelict/se_solar
-	name = "South East Solars"
-	icon_state = "GENsolar"
+	name = "\improper Derelict South East Solars"
+	icon_state = "general_solars"
 
 /area/ruin/space/derelict/crew_quarters
 	name = "\improper Derelict Crew Quarters"
@@ -187,32 +187,32 @@
 	requires_power = TRUE
 
 /area/ruin/space/powered/casino/docked_ships
-	name = "Shuttle"
+	name = "Dorian Casino Shuttle"
 	requires_power = FALSE
 
 /area/ruin/space/powered/casino/arrivals
-	name = "Arrivals"
+	name = "Dorian Casino Arrivals"
 
 /area/ruin/space/powered/casino/kitchen
-	name = "Dining and Kitchen"
+	name = "Dorian Casino Dining and Kitchen"
 
 /area/ruin/space/powered/casino/floor
-	name = "Casino Floor"
+	name = "Dorian Casino Casino Floor"
 
 /area/ruin/space/powered/casino/hall
-	name = "Main Hall"
+	name = "Dorian Casino Main Hall"
 
 /area/ruin/space/powered/casino/engine
-	name = "Engine Room"
+	name = "Dorian Casino Engine Room"
 
 /area/ruin/space/powered/casino/security
-	name = "Security"
+	name = "Dorian Casino Security"
 
 /area/ruin/space/powered/casino/teleporter
-	name = "Teleporter"
+	name = "Dorian Casino Teleporter"
 
 /area/ruin/space/powered/casino/maints
-	name = "Service Tunnels"
+	name = "Dorian Casino Service Tunnels"
 
 /// telecomms: Alternative telecomms sat
 /area/ruin/space/telecomms
@@ -240,3 +240,14 @@
 /area/ruin/space/telecomms/chamber
 	name = "\improper Telecommunications Central Compartment"
 	icon_state = "ai_chamber"
+
+/area/ruin/space/deepstorage
+	name = "Derelict Facility"
+	apc_starts_off = TRUE
+
+/area/ruin/space/sec_shuttle
+	name = "Abandoned Security Shuttle"
+	apc_starts_off = TRUE
+
+/area/ruin/space/syndicakefactory
+	name = "Syndicake factory"

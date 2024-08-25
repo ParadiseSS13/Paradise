@@ -1798,10 +1798,10 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		H.equip_to_slot_or_del( new /obj/item/food/snacks/cookie(H), SLOT_HUD_LEFT_HAND )
-		if(!(istype(H.l_hand,/obj/item/food/snacks/cookie)))
-			H.equip_to_slot_or_del( new /obj/item/food/snacks/cookie(H), SLOT_HUD_RIGHT_HAND )
-			if(!(istype(H.r_hand,/obj/item/food/snacks/cookie)))
+		H.equip_to_slot_or_del( new /obj/item/food/cookie(H), SLOT_HUD_LEFT_HAND )
+		if(!(istype(H.l_hand,/obj/item/food/cookie)))
+			H.equip_to_slot_or_del( new /obj/item/food/cookie(H), SLOT_HUD_RIGHT_HAND )
+			if(!(istype(H.r_hand,/obj/item/food/cookie)))
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
 				message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(src.owner)].")
 				return
@@ -1829,9 +1829,8 @@
 			to_chat(owner, "Standby. Reload cycle in progress. Gunnery crews ready in five seconds!")
 			return
 
-		GLOB.BSACooldown = 1
-		spawn(50)
-			GLOB.BSACooldown = 0
+		GLOB.BSACooldown = TRUE
+		addtimer(VARSET_CALLBACK(GLOB, BSACooldown, FALSE), 5 SECONDS)
 
 		to_chat(M, "You've been hit by bluespace artillery!")
 		log_admin("[key_name(M)] has been hit by Bluespace Artillery fired by [key_name(owner)]")
@@ -2134,7 +2133,7 @@
 				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
-				var/obj/item/food/snacks/cookie/evilcookie = new /obj/item/food/snacks/cookie
+				var/obj/item/food/cookie/evilcookie = new /obj/item/food/cookie
 				evilcookie.reagents.add_reagent("mutagen", 10)
 				evilcookie.desc = "It has a faint green glow."
 				evilcookie.bitesize = 100
@@ -2143,7 +2142,7 @@
 				H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
 				logmsg = "a mutagen cookie."
 			if("Hellwater Cookie")
-				var/obj/item/food/snacks/cookie/evilcookie = new /obj/item/food/snacks/cookie
+				var/obj/item/food/cookie/evilcookie = new /obj/item/food/cookie
 				evilcookie.reagents.add_reagent("hell_water", 25)
 				evilcookie.desc = "Sulphur-flavored."
 				evilcookie.bitesize = 100
@@ -2208,7 +2207,7 @@
 				logmsg = "nugget"
 			if("Bread")
 				var/mob/living/simple_animal/shade/sword/bread/breadshade = new(H.loc)
-				var/bready = pick(/obj/item/food/snacks/customizable/cook/bread, /obj/item/food/snacks/sliceable/meatbread, /obj/item/food/snacks/sliceable/xenomeatbread, /obj/item/food/snacks/sliceable/spidermeatbread, /obj/item/food/snacks/sliceable/bananabread, /obj/item/food/snacks/sliceable/tofubread, /obj/item/food/snacks/sliceable/bread, /obj/item/food/snacks/sliceable/creamcheesebread, /obj/item/food/snacks/sliceable/banarnarbread, /obj/item/food/snacks/flatbread, /obj/item/food/snacks/baguette)
+				var/bready = pick(/obj/item/food/customizable/cook/bread, /obj/item/food/sliceable/meatbread, /obj/item/food/sliceable/xenomeatbread, /obj/item/food/sliceable/spidermeatbread, /obj/item/food/sliceable/bananabread, /obj/item/food/sliceable/tofubread, /obj/item/food/sliceable/bread, /obj/item/food/sliceable/creamcheesebread, /obj/item/food/sliceable/banarnarbread, /obj/item/food/flatbread, /obj/item/food/baguette)
 				var/obj/item/bread = new bready(get_turf(H))
 				breadshade.forceMove(bread)
 				breadshade.key = H.key

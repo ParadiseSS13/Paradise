@@ -175,7 +175,7 @@
 		stage = WIRED
 		update_icon(UPDATE_ICON_STATE)
 
-	else if(stage == WIRED && istype(I, /obj/item/wrench))
+	else if(stage == WIRED && iswrench(I))
 		to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
 		stage = EMPTY
 		payload_name = null
@@ -221,7 +221,7 @@
 		return TRUE
 
 	else if(stage == READY && !nadeassembly)
-		det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
+		det_time = det_time == 5 SECONDS ? 3 SECONDS : 5 SECONDS	// Toggle between 3 and 5 seconds.
 		to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
 		return TRUE
 

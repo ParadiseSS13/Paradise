@@ -47,6 +47,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(soundloop)
+	suit = null
 	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
@@ -137,7 +138,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	..()
-	display_visor_message("[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!")
+	display_visor_message("[severity > EMP_HEAVY ? "Light" : "Strong"] electromagnetic pulse detected!")
 
 /obj/item/clothing/suit/space/hardsuit
 	name = "hardsuit"
@@ -148,10 +149,8 @@
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 150, FIRE = 50, ACID = 150)
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	siemens_coefficient = 0
-	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
 	actions_types = list(/datum/action/item_action/toggle_helmet)
-	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
-	var/obj/item/tank/jetpack/suit/jetpack = null
+	dyeable = FALSE
 
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 	sprite_sheets = list(
@@ -170,6 +169,10 @@
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
+	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
+	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
+	var/obj/item/tank/jetpack/suit/jetpack = null
+
 /obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
 	. = ..()
 	MakeHelmet()
@@ -179,10 +182,6 @@
 /obj/item/clothing/suit/space/hardsuit/Destroy()
 	QDEL_NULL(helmet)
 	QDEL_NULL(jetpack)
-	return ..()
-
-/obj/item/clothing/head/helmet/space/hardsuit/Destroy()
-	suit = null
 	return ..()
 
 /obj/item/clothing/suit/space/hardsuit/proc/MakeHelmet()
@@ -230,6 +229,8 @@
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	..()
+	if(helmettype && slot != SLOT_HUD_OUTER_SUIT)
+		RemoveHelmet()
 	if(jetpack)
 		if(slot == SLOT_HUD_OUTER_SUIT)
 			for(var/X in jetpack.actions)
@@ -238,6 +239,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/dropped(mob/user)
 	..()
+	RemoveHelmet()
 	if(jetpack)
 		for(var/X in jetpack.actions)
 			var/datum/action/A = X

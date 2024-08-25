@@ -242,8 +242,8 @@
 			data = list("blood_type" = "O-")
 		if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
 			// Apple tastes of apple.
-			if(istype(T, /obj/item/food/snacks/grown))
-				var/obj/item/food/snacks/grown/grown_edible = T
+			if(istype(T, /obj/item/food/grown))
+				var/obj/item/food/grown/grown_edible = T
 				data = grown_edible.tastes.Copy()
 
 		T.reagents.add_reagent(rid, amount, data)
@@ -393,7 +393,7 @@
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>This is \a <span class='name'>[src].</span></span>")
+		to_chat(user, "<span class='notice'>This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, "<span class='notice'>[text]</span>")
@@ -648,7 +648,7 @@
 
 /obj/item/unsorted_seeds/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>This is \a <span class='name'>[src].</span></span>")
+		to_chat(user, "<span class='notice'>This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, "<span class='notice'>[text]</span>")

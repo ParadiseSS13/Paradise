@@ -10,7 +10,7 @@
 	mob_size = MOB_SIZE_SMALL
 	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	butcher_results = list(/obj/item/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/food/meat = 1)
 	minbodytemp = 0
 
 	blood_color = "#b9ae9c"
@@ -83,6 +83,8 @@
 
 	// Mind transfer to new worme.
 	M.transfer_to(adult)
+	// [Caterpillar -> worme -> nian] is from xenobio (or cargo) and does not give vampires usuble blood and cannot be converted by cult.
+	ADD_TRAIT(adult.mind, TRAIT_XENOBIO_SPAWNED_HUMAN, ROUNDSTART_TRAIT)
 
 	// Worme is placed into cacoon.
 	adult.forceMove(C)
@@ -102,7 +104,7 @@
 	qdel(src)
 	return TRUE
 
-/mob/living/simple_animal/nian_caterpillar/proc/consume(obj/item/food/snacks/G)
+/mob/living/simple_animal/nian_caterpillar/proc/consume(obj/item/food/G)
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating food items without evolving.
 		return to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
 	visible_message("<span class='warning'>[src] ravenously consumes [G].</span>", "<span class='notice'>You ravenously devour [G].</span>")

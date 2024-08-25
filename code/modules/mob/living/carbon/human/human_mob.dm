@@ -1281,7 +1281,7 @@
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You can't write on the floor in your current state!</span>")
 		return
-	if(!bloody_hands)
+	if(bloody_hands <= 1)
 		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
 	if(gloves)
@@ -1310,7 +1310,7 @@
 		to_chat(src, "<span class='warning'>There is no space to write on!</span>")
 		return
 
-	var/max_length = bloody_hands * 30 //tweeter style
+	var/max_length = (bloody_hands - 1) * 30 //tweeter style
 
 	var/message = tgui_input_text(src, "Write a message. It cannot be longer than [max_length] characters.", "Blood writing", max_length = max_length)
 	if(origin != loc)
@@ -1318,7 +1318,7 @@
 		return
 	if(message)
 		var/used_blood_amount = round(length(message) / 30, 1)
-		bloody_hands = max(0, bloody_hands - used_blood_amount) //use up some blood
+		bloody_hands = max(1, bloody_hands - used_blood_amount) //use up some blood
 
 		if(length(message) > max_length)
 			message += "-"
@@ -1922,16 +1922,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(dna.species.spec_WakeUp(src))
 		return
 	..()
-
-/**
-  * Helper to get the mobs runechat colour span
-  *
-  * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
-  */
-/mob/living/carbon/human/get_runechat_color()
-	if(client?.prefs.toggles2 & PREFTOGGLE_2_FORCE_WHITE_RUNECHAT)
-		return "#FFFFFF" // Force white if they want it
-	return dna.species.get_species_runechat_color(src)
 
 /mob/living/carbon/human/update_runechat_msg_location()
 	if(ismecha(loc))

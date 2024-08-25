@@ -92,8 +92,8 @@
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
 				return
 
-			if(istype(P, /obj/item/wrench))
-				playsound(src.loc, P.usesound, 75, 1)
+			if(iswrench(P))
+				P.play_tool_sound(src)
 				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
 				deconstruct(TRUE)
 				return
@@ -549,6 +549,13 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
 
+/obj/item/circuitboard/washing_machine
+	board_name = "Washing Machine"
+	icon_state = "generic"
+	build_path = /obj/machinery/washing_machine
+	board_type = "machine"
+	origin_tech = "programming=1"
+
 /obj/item/circuitboard/smartfridge
 	board_name = "Smartfridge"
 	build_path = /obj/machinery/smartfridge
@@ -565,6 +572,7 @@ to destroy them and players will be able to make replacements.
 							"Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
 							"Smart Virus Storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
 							"Drink Showcase" = /obj/machinery/smartfridge/drinks,
+							"Disk Compartmentalizer" = /obj/machinery/smartfridge/disks,
 							"Identification Card Compartmentalizer" = /obj/machinery/smartfridge/id,
 							"Circuit Board Storage" = /obj/machinery/smartfridge/secure/circuits,
 							"AI Laws Storage" = /obj/machinery/smartfridge/secure/circuits/aiupload)
