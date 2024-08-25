@@ -88,11 +88,9 @@
 	if(!brain)
 		send_swarm_message("This entity has no brain to harvest from.")
 		return FALSE
-/** TODO Uncomment this when it won't make testing horrible
-	if(!H.ckey || !H.player_ghosted)
+	if(!H.ckey && !H.player_ghosted)
 		send_swarm_message("This brain does not contain the spark that feeds us. Find more suitable prey.")
 		return FALSE
-**/
 	if(brain.damage > brain.max_damage)
 		send_swarm_message("We detect no neural activity to harvest from this brain.")
 		return FALSE
