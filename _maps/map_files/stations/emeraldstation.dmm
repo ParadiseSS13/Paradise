@@ -13986,6 +13986,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
+/obj/item/toy/figure/crew/dsquad{
+	pixel_x = -11;
+	pixel_y = 15
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28403,9 +28407,6 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/item/toy/figure/crew/cargotech{
-	pixel_y = 20
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -29096,6 +29097,7 @@
 	pixel_x = 10
 	},
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/figure/crew/mime,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "fxn" = (
@@ -43751,6 +43753,16 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/primary)
+"ika" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 4
+	},
+/obj/item/toy/figure/crew/borg{
+	pixel_y = 16;
+	pixel_x = -1
+	},
+/turf/simulated/floor/plating,
+/area/station/aisat/atmos)
 "ike" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_maybe,
@@ -47324,6 +47336,10 @@
 /area/station/maintenance/assembly_line)
 "iSy" = (
 /obj/structure/reagent_dispensers/beerkeg,
+/obj/item/toy/figure/crew/bartender{
+	pixel_x = -3;
+	pixel_y = 12
+	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "iSA" = (
@@ -49412,6 +49428,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/item/toy/figure/crew/explorer,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "jne" = (
@@ -58160,6 +58177,7 @@
 /area/station/command/office/hop)
 "kUJ" = (
 /obj/structure/flora/junglebush,
+/obj/item/toy/figure/crew/geneticist,
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "kUM" = (
@@ -59685,6 +59703,10 @@
 	},
 /obj/item/crowbar/large,
 /obj/machinery/alarm/directional/west,
+/obj/item/toy/figure/crew/roboticist{
+	pixel_y = 14;
+	pixel_x = -10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63930,6 +63952,10 @@
 /area/station/maintenance/dorms/port)
 "mbM" = (
 /obj/machinery/economy/vending/medical,
+/obj/item/toy/figure/crew/md{
+	pixel_y = 18;
+	pixel_x = -7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -67739,6 +67765,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/poolcontroller{
 	pixel_y = 3
+	},
+/obj/item/toy/figure/crew/assistant{
+	pixel_x = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -86227,8 +86256,11 @@
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/delivery/red,
-/obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes,
 /obj/effect/landmark/spawner/rev,
+/obj/item/toy/figure/crew/clown{
+	pixel_y = -1
+	},
+/obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "qib" = (
@@ -111333,6 +111365,10 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/box/bodybags,
 /obj/machinery/firealarm/directional/east,
+/obj/item/toy/figure/crew/secofficer{
+	pixel_x = 8;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -120262,21 +120298,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "wxL" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/storage/box/monkeycubes/stokcubes{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/item/storage/box/monkeycubes/farwacubes{
-	pixel_x = -6
-	},
-/obj/item/storage/box/monkeycubes/wolpincubes,
-/obj/item/storage/box/monkeycubes/neaeracubes,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
-/obj/item/storage/box/monkeycubes/nian_worme_cubes,
+/obj/structure/closet/secure_closet/genetics,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -120553,6 +120576,10 @@
 /area/station/hallway/secondary/entry/west)
 "wBE" = (
 /obj/machinery/economy/vending/dinnerware,
+/obj/item/toy/figure/crew/cargotech{
+	pixel_y = 17;
+	pixel_x = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -121419,6 +121446,17 @@
 	},
 /turf/simulated/floor/engine/airless,
 /area/station/engineering/atmos)
+"wKF" = (
+/obj/machinery/chem_heater,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/toy/figure/crew/chemist{
+	pixel_y = 17;
+	pixel_x = -6
+	},
+/turf/simulated/floor/engine,
+/area/station/medical/chemistry)
 "wKP" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	external_pressure_bound = 0;
@@ -168556,7 +168594,7 @@ fcM
 nrv
 wkt
 hNF
-xjJ
+wKF
 lVY
 eoA
 xCB
@@ -169417,7 +169455,7 @@ qsM
 qsM
 qsM
 juz
-juz
+ika
 juz
 qsM
 qsM
