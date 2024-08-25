@@ -85,7 +85,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 		for(var/mob/living/carbon/human/nct as anything in nct_active)
 			if(!istype(nct.l_ear, /obj/item/radio/headset) && !istype(nct.r_ear, /obj/item/radio/headset)) // If the NCT doesn't have a headset, ignore it.
 				continue
-			to_chat(nct, "<span class='notice'>Incoming priority transmission from Nanotrasen Training Center.  Request information as follows: </span><span class='specialnotice'>Career Trainer, we've received a request from an employee. They're called [trainee.real_name], they're a [trainee.mind.assigned_role]. See if they need any help.</span>")
+			to_chat(nct, "<span class='notice'>Incoming priority transmission from Nanotrasen Training Center. Request information as follows: </span><span class='specialnotice'>Career Trainer, we've received a request from an employee. They're called [trainee.real_name], they're a [trainee.mind.assigned_role]. See if they need any help.</span>")
 			SEND_SOUND(nct, 'sound/effects/headset_message.ogg')
 
 	SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
