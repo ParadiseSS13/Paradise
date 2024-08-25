@@ -66,7 +66,7 @@
 
 /obj/item/salvage/ruin/tablet
 	name = "mysterious tablet"
-	desc = "A old, weathered tablet made of dark stone. Merely looking at it sends chills down your spine."
+	desc = "An old, weathered tablet made of dark stone. Merely looking at it sends chills down your spine."
 	icon_state = "stone_tablet"
 	hitsound = sound('sound/effects/break_stone.ogg', 20)
 	pickup_sound =  sound('sound/hallucinations/im_here2.ogg', 10)
