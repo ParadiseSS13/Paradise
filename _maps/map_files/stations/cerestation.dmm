@@ -20307,11 +20307,8 @@
 "ckQ" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=ArrivalsMiddle";
-	location = "ArrivalsWest2";
-	name = "navigation beacon (Arrivals-West2)"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+	location = "ArrivalsWest";
+	name = "navigation beacon (Arrivals-West)"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -32626,15 +32623,16 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "dTC" = (
+/obj/machinery/hologram/holopad,
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Security";
-	location = "CommandMiddle2";
-	name = "navigation beacon (Command-Middle 2)"
+	codes_txt = "patrol;next_patrol=CargoWest";
+	location = "MedbayWest";
+	name = "navigation beacon (Medbay-West)"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/hallway/primary/fore/north)
+/area/station/hallway/primary/starboard/south)
 "dTI" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=EngineeringMiddle";
@@ -42381,7 +42379,7 @@
 /area/station/command/office/ntrep)
 "heH" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Medbay";
+	codes_txt = "patrol;next_patrol=MedbayWest";
 	location = "ArrivalsMiddle";
 	name = "navigation beacon (Arrivals-Middle)"
 	},
@@ -47864,14 +47862,14 @@
 /area/station/hallway/primary/port/north)
 "iJJ" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=ArrivalsWest2";
-	location = "ArrivalsWest";
-	name = "navigation beacon (Arrivals-West)"
+	codes_txt = "patrol;next_patrol=CommandMiddle";
+	location = "CargoWest";
+	name = "navigation beacon (Cargo-West)"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/hallway/secondary/entry/west)
+/area/station/hallway/primary/fore/east)
 "iJM" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/effect/spawner/random_spawners/grille_maybe,
@@ -91956,6 +91954,19 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical_shop)
+"vQu" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Security";
+	location = "CommandMiddle2";
+	name = "navigation beacon (Command-Middle 2)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/fore/north)
 "vQv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -132979,7 +132990,7 @@ bAK
 mZB
 bEi
 bUO
-ugQ
+vQu
 sGY
 npV
 abW
@@ -136320,7 +136331,7 @@ abW
 abW
 aKp
 dwg
-dTC
+vuY
 qtB
 aKp
 npV
@@ -140540,7 +140551,7 @@ mIS
 vLT
 vaz
 eSb
-dbg
+ckQ
 eWu
 rFJ
 qHn
@@ -141052,10 +141063,10 @@ gge
 vWF
 vWF
 uDW
-iJJ
+dbg
 sFj
 dbg
-ckQ
+eWu
 vjb
 qHn
 rNK
@@ -145869,7 +145880,7 @@ kxJ
 bvt
 was
 bvt
-ljp
+dTC
 xcW
 qcS
 qcS
@@ -148930,7 +148941,7 @@ fmI
 fmI
 fmI
 fmI
-fmI
+iJJ
 fmI
 fmI
 fmI
