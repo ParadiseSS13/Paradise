@@ -998,7 +998,7 @@
 
 /atom/movable/screen/alert/status_effect/terminator_form
 	name = "Terminator form"
-	desc = "Your body can surpass it's limits briefly. You have to repair yourself before it ends however."
+	desc = "Your body can surpass its limits briefly. You have to repair yourself before it ends, however."
 	icon_state = "high"
 
 /datum/status_effect/terminator_form/on_apply()
@@ -1019,18 +1019,21 @@
 	tick_interval = 1 SECONDS
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/overclock
+	/// How much do we heat up per tick?
 	var/heat_per_tick = 5
+	/// How many ticks has the ability been turned on?
 	var/stacks = 0
+	/// How many stacks until we start heating up even more?
+	var/danger_stack_amount = 20
 
 /datum/status_effect/overclock/on_creation(mob/living/new_owner, new_heating)
 	if(isnum(new_heating))
 		heat_per_tick = new_heating
 	..()
 
-
 /datum/status_effect/overclock/on_apply()
 	ADD_TRAIT(owner, TRAIT_GOTTAGOFAST, UNIQUE_TRAIT_SOURCE(src))
-	owner.next_move_modifier -= 0.3 //Same attack speed buff as mephedrone
+	owner.next_move_modifier -= 0.3 // Same attack speed buff as mephedrone
 	return TRUE
 
 /datum/status_effect/overclock/on_remove()
@@ -1038,15 +1041,14 @@
 	owner.next_move_modifier += 0.3
 
 /datum/status_effect/overclock/tick()
-	var/danger_mode = (stacks >= 20) //After 20 seconds the heat penalty doubles
-	owner.bodytemperature += heat_per_tick * (danger_mode ? 2 : 1)
+	owner.bodytemperature += heat_per_tick * ((stacks >= danger_stack_amount) ? 2 : 1) // After 20 seconds the heat penalty doubles
 	if(owner.bodytemperature >= COMBUSTION_TEMPERATURE)
 		owner.adjust_fire_stacks(5)
 		owner.IgniteMob()
-		to_chat(owner, "<span class = 'userdanger'>Your components can't handle the heat and combust!</span>")
+		to_chat(owner, "<span class='userdanger'>Your components can't handle the heat and combust!</span>")
 		qdel(src)
 	stacks += 1
-	if(stacks == 19)
+	if(stacks == danger_stack_amount)
 		to_chat(owner, "<span class='userdanger'>Your components are being dangerously overworked!")
 
 /atom/movable/screen/alert/status_effect/overclock
