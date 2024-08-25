@@ -111,8 +111,8 @@
 	var/obj/item/organ/internal/brain/drained_brain = H.get_int_organ(/obj/item/organ/internal/brain)
 	var/unique_drain_id = H.UID()
 	owner.current.visible_message(
-		"<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>", 
-		"<span class='sinister'>We begin our harvest on [H].</span>", 
+		"<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>",
+		"<span class='sinister'>We begin our harvest on [H].</span>",
 		"<span class='notice'>You hear the hum of electricity.</span>"
 	)
 	if(!do_mob(owner.current, H, time = 2 SECONDS))
@@ -124,7 +124,7 @@
 			harvesting = null
 			return
 		H.Beam(owner.current, icon_state = "drain_life", icon ='icons/effects/effects.dmi', time = DRAIN_TIME, beam_color = COLOR_ASSEMBLY_PURPLE)
-		var/damage_to_deal = (drain_amount * drain_multiplier * H.dna.species.brain_mod) // Change that first fraction for adjusting the balance of how much damage per tick there is
+		var/damage_to_deal = (drain_amount * drain_multiplier * H.dna.species.brain_mod)
 		H.adjustBrainLoss(damage_to_deal, use_brain_mod = FALSE) //No need to use brain damage modification since we already got it from the previous line
 		adjust_swarms(damage_to_deal)
 		drained_humans[unique_drain_id] += damage_to_deal
