@@ -101,65 +101,12 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		forge_basic_objectives(TRUE)
 
 /**
- * Create and assign a full set of randomized human traitor objectives.
- * can_hijack - If you want the 10% chance for the antagonist to be able to roll hijack, only true for traitors
- */
-/datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE)
-	// Hijack objective.
-	if(can_hijack && prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-		add_antag_objective(/datum/objective/hijack)
-		return // Hijack should be their only objective (normally), so return.
-
-	// Will give normal steal/kill/etc. type objectives.
-	for(var/i in 1 to GLOB.configuration.gamemode.traitor_objectives_amount)
-		forge_single_human_objective()
-
-	var/can_succeed_if_dead = TRUE
-	for(var/objective in owner.get_all_objectives())
-		var/datum/objective/O = objective
-		if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
-			can_succeed_if_dead  = FALSE
-			break
-
-	// Give them an escape objective if they don't have one already.
-	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
-		add_antag_objective(/datum/objective/escape)
-
-/**
  * Create and assign a full set of AI traitor objectives.
  */
 /datum/antagonist/traitor/proc/forge_ai_objectives()
 	add_antag_objective(/datum/objective/block)
 	add_antag_objective(/datum/objective/assassinate)
 	add_antag_objective(/datum/objective/survive)
-
-/**
- * Create and assign a single randomized human traitor objective.
- */
-/datum/antagonist/proc/forge_single_human_objective()
-	var/datum/objective/objective_to_add
-
-	if(prob(50))
-		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-			objective_to_add = /datum/objective/destroy
-
-		else if(prob(5))
-			objective_to_add = /datum/objective/debrain
-
-		else if(prob(30))
-			objective_to_add = /datum/objective/maroon
-
-		else if(prob(30))
-			objective_to_add = /datum/objective/assassinateonce
-
-		else
-			objective_to_add = /datum/objective/assassinate
-	else
-		objective_to_add = /datum/objective/steal
-
-	if(delayed_objectives)
-		objective_to_add = new /datum/objective/delayed(objective_to_add)
-	add_antag_objective(objective_to_add)
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
