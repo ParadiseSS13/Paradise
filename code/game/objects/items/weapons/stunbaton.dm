@@ -213,7 +213,7 @@
 		return FALSE
 
 	if(cell.charge < hitcost)
-		to_chat(user, "<span class='waring'>[src] fizzles weakly as it makes contact. It needs more power!</span>")
+		to_chat(user, "<span class='warning'>[src] fizzles weakly as it makes contact. It needs more power!</span>")
 		return FALSE
 
 	cooldown = world.time + initial(cooldown) // tracks the world.time when hitting will be next available.

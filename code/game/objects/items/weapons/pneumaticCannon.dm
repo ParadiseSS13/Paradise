@@ -203,10 +203,10 @@
 /obj/item/pneumatic_cannon/flayer/process()
 	if(!COOLDOWN_FINISHED(src, charge_cooldown))
 		return
-	if(loaded_weight_class >= max_weight_class) //LOOK AT THIS GIANT BLOCK OF COMMENTS ITS IMPORTANT
-		return //									ME AND I BOTH KNOW THAT IF THERE ISN'T A BIG NOTICEABLE THING I MIGHT FORGET
+	if(loaded_weight_class >= max_weight_class)
+		return
 	COOLDOWN_START(src, charge_cooldown, charge_time)
-	var/obj/item/shrapnel/to_load = new /obj/item/shrapnel() //DONT MISS THE TODO
+	var/obj/item/shrapnel/to_load = new /obj/item/shrapnel()
 	load_item(to_load)
 
 /obj/item/pneumatic_cannon/flayer/load_item(obj/item/I)
