@@ -92,7 +92,7 @@
 /obj/item/wall_bug/computer_bug
 	name = "Nanobot"
 	desc = "A small droplet of a shimmering metallic slurry."
-	camera_tag = "Surveilance Unit"
+	camera_tag = "Surveillance Unit"
 	is_sticky = FALSE
 	///Reference to the creator's antag datum
 	var/datum/antagonist/mindflayer/flayer
