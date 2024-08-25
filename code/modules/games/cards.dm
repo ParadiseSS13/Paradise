@@ -779,7 +779,7 @@
 	var/list/options = list()
 	for(var/datum/playingcard/P in cards)
 		if(isnull(options[P]))
-			options[P] = image(icon = 'icons/obj/playing_cards.dmi', icon_state = concealed ? P.card_icon : P.back_icon)
+			options[P] = image(icon = 'icons/obj/playing_cards.dmi', icon_state = !concealed ? P.card_icon : P.back_icon)
 
 	var/choice = show_radial_menu(user, src, options)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.stat != CONSCIOUS || isnull(choice) || !(choice in cards))
