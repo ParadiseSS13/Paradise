@@ -279,7 +279,6 @@
 	for(var/datum/mindflayer_passive/spell in powers)
 		if(to_get.name == spell.name)
 			return spell
-	return null
 /*
 /datum/hud/proc/remove_mindflayer_hud() TODO: make this remove the mindflayer hud
 	static_inventory -= vampire_blood_display
