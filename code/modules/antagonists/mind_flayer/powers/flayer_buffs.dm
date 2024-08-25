@@ -6,6 +6,7 @@
 	power_type = FLAYER_INNATE_POWER
 	checks_nullification = FALSE
 	action_icon_state = "vampire_rejuvinate"
+	upgrade_info = "Increase the amount you heal, decrease time between uses, and increase how long you heal for."
 	max_level = 4
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
