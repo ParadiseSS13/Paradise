@@ -343,7 +343,7 @@
 	force = 10
 	throwforce = 0 // Just in case
 	knockdown_duration = 6 SECONDS
-	knockdown_delay = 1 SECONDS // Can't do 0 as that will never apply knockdown
+	knockdown_delay = 0 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP
 	turned_on = TRUE

@@ -199,7 +199,7 @@
 			return FALSE
 		can_pick_capstone = FALSE
 		send_swarm_message("We evolve to the ultimate being.")
-	if (category_stage[to_add.category] == to_add.stage)
+	if(category_stage[to_add.category] == to_add.stage)
 		category_stage[to_add.category] += 1
 
 	to_add.current_cost = to_add.base_cost
@@ -248,7 +248,7 @@
 			return FALSE
 		can_pick_capstone = FALSE
 		send_swarm_message("We evolve to the ultimate being.")
-	if (category_stage[to_add.category] == to_add.stage)
+	if(category_stage[to_add.category] == to_add.stage)
 		category_stage[to_add.category] += 1
 
 	adjust_swarms(-to_add.current_cost)
