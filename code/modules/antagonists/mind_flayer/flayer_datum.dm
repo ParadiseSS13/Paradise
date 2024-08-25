@@ -273,7 +273,6 @@
 * * Returns: The datum/mindflayer_passive if the mindflayer has the passive already, null otherwise
 */
 /datum/antagonist/mindflayer/proc/has_passive(datum/mindflayer_passive/to_get)
-	log_debug("checking if [src] has [to_get]")
 	for(var/datum/mindflayer_passive/spell in powers)
 		if(to_get.name == spell.name)
 			return spell
