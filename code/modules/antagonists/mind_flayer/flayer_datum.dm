@@ -85,7 +85,7 @@
 		return FALSE
 
 	var/obj/item/organ/internal/brain/brain = H.get_int_organ(/obj/item/organ/internal/brain)
-	if(!brain)
+	if(!istype(brain))
 		send_swarm_message("This entity has no brain to harvest from.")
 		return FALSE
 	if(!H.ckey && !H.player_ghosted)
