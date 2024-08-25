@@ -184,7 +184,7 @@
 //Mind Flayer Flak Cannon
 /obj/item/pneumatic_cannon/flayer
 	name = "Pneumatic Flak Cannon"
-	desc = "An arm-mounted cannon that can shoot concentrated bursts, or a spread shot of flak."
+	desc = "An arm-mounted cannon that can shoot a concentrated burst of flak."
 	flags = ABSTRACT | NODROP
 	requires_tank = FALSE
 	max_weight_class = 6 //Lets you load upto 3 shrapnel at once
