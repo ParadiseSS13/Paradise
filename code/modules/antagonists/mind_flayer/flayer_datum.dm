@@ -35,7 +35,7 @@
 		ability_list += get_passives_of_type(FLAYER_PURCHASABLE_POWER)
 
 /datum/antagonist/mindflayer/Destroy(force, ...)
-	QDEL_NULL(owner.current.hud_used.vampire_blood_display)
+	QDEL_NULL(owner.current?.hud_used?.vampire_blood_display)
 	remove_all_abilities()
 	remove_all_passives()
 	..()
