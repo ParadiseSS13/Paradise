@@ -53,8 +53,8 @@
 
 	// Only log an anomaly if it drops a core. Prevents logging of SM events and Vetus.
 	if(drops_core)
-		message_admins("A [name] has spawned at [impact_area][ADMIN_COORDJMP(impact_area)]")
-		log_admin("A [name] has spawned at [impact_area]")
+		message_admins("\A [name] has spawned at [impact_area][ADMIN_COORDJMP(impact_area)]")
+		log_admin("\A [name] has spawned at [impact_area]")
 
 /obj/effect/anomaly/Destroy()
 	GLOB.poi_list.Remove(src)
@@ -224,8 +224,8 @@
 /obj/effect/anomaly/flux/detonate()
 	if(explosive)
 		explosion(src, 1, 4, 16, 18, FALSE) // Set adminlog to FALSE for custom logging
-		message_admins("A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
-		log_admin("A [name] has detonated at [impact_area]")
+		message_admins("\A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
+		log_admin("\A [name] has detonated at [impact_area]")
 	else
 		new /obj/effect/particle_effect/sparks(loc)
 
@@ -364,8 +364,8 @@
 	if(produces_slime)
 		INVOKE_ASYNC(src, PROC_REF(makepyroslime))
 	if(drops_core)
-		message_admins("A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
-		log_admin("A [name] has detonated at [impact_area]")
+		message_admins("\A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
+		log_admin("\A [name] has detonated at [impact_area]")
 
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)
@@ -454,8 +454,8 @@
 		air.set_sleeping_agent(1000)
 		air.set_carbon_dioxide(1000)
 		T.blind_release_air(air)
-		message_admins("A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
-		log_admin("A [name] has detonated at [impact_area]")
+		message_admins("\A [name] has detonated at [impact_area][ADMIN_COORDJMP(impact_area)]")
+		log_admin("\A [name] has detonated at [impact_area]")
 
 /obj/effect/anomaly/bhole
 	name = "vortex anomaly"
