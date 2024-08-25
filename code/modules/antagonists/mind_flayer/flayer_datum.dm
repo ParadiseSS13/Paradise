@@ -138,8 +138,7 @@
 	var/dat
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/mindflayer_alert.ogg'))
 	dat = "<span class='danger'>You are a mindflayer!</span><br>" // TODO: Add actual description
-	dat += {"To harvest someone, target where the brain of your victim is and use harm intent with an empty hand. Drain intelligence to increase your swarm.
-		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
+	dat += "To harvest someone, target where the brain of your victim is and use harm intent with an empty hand. Drain intelligence to increase your swarm."
 	to_chat(owner.current, dat)
 
 /**
