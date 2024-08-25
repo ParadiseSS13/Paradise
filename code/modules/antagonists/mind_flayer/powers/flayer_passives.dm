@@ -170,7 +170,7 @@
 
 /datum/mindflayer_passive/fix_components
 	name = "Internal Nanite Application"
-	purchase_text = "Slowly repair damage done to your organs"
+	purchase_text = "Slowly repair damage done to your organs."
 	gain_text = "Administering reparative swarms to internal components."
 	power_type = FLAYER_PURCHASABLE_POWER
 	should_process = TRUE
