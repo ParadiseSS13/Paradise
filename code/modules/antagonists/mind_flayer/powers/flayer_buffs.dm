@@ -24,7 +24,7 @@
 
 /datum/spell/flayer/self/quicksilver_form
 	name = "Quicksilver Form"
-	desc = "WIP something about becoming liquid mercury."
+	desc = "Transmute your physical form to be much less solid."
 	action_icon_state = "blink"
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cooldown = 40 SECONDS //25% uptime at base
