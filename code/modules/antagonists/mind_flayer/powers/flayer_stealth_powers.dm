@@ -172,7 +172,7 @@
 		qdel(src)
 		return
 	if(!do_mob(user, borg, conversion_time))
-		to_chat(user, "<span class ='notice'>Your concentration breaks.")
+		to_chat(user, "<span class='notice'>Your concentration breaks.")
 		qdel(src)
 		return
 	sleep(6)
