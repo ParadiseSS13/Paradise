@@ -230,7 +230,7 @@
 	var/datum/mindflayer_passive/existing_passive = has_passive(to_add)
 	if(existing_passive)
 		if(existing_passive.level >= to_add.max_level)
-			send_swarm_message("That function is already at it's strongest.")
+			send_swarm_message("That function is already at its strongest.")
 			return FALSE
 		to_add.current_cost = existing_passive.current_cost
 
