@@ -813,11 +813,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/swarms/New()
 	gen_amount_goal()
-	. = ..()
+	return ..()
 
 /datum/objective/swarms/proc/gen_amount_goal(low = 130, high = 400)
-	target_amount = rand(low,high)
-	target_amount = round(round(target_amount/5)*5)
+	target_amount = round(rand(low, high), 5)
 	update_explanation_text()
 	return target_amount
 
