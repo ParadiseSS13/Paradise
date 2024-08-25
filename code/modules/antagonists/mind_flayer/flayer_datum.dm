@@ -110,7 +110,11 @@
 	harvesting = H
 	var/obj/item/organ/internal/brain/drained_brain = H.get_int_organ(/obj/item/organ/internal/brain)
 	var/unique_drain_id = H.UID()
-	owner.current.visible_message("<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>", "<span class='sinister'>We begin our harvest on [H].</span>", "<span class='notice'>You hear the hum of electricity.</span>")
+	owner.current.visible_message(
+		"<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>", 
+		"<span class='sinister'>We begin our harvest on [H].</span>", 
+		"<span class='notice'>You hear the hum of electricity.</span>"
+	)
 	if(!do_mob(owner.current, H, time = 2 SECONDS))
 		send_swarm_message("Our connection was incomplete.")
 		harvesting = null
