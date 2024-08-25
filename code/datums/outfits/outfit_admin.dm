@@ -1508,7 +1508,7 @@
 		H.mind.AddSpell(S)
 
 /datum/outfit/admin/viper
-	name = "Federation Viper Infiltrator"
+	name = "TSF Viper Infiltrator"
 
 	uniform = /obj/item/clothing/under/solgov/viper
 	back = /obj/item/storage/backpack/satchel
