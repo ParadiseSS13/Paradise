@@ -1,5 +1,5 @@
 /obj/item/clothing/under/solgov
-	name = "\improper Federation marine uniform"
+	name = "\improper TSF marine uniform"
 	desc = "A comfortable and durable combat uniform worn by the forces of the Trans-Solar Marine Corps."
 	icon_state = "solgov"
 	item_state = "ro_suit"
@@ -14,25 +14,25 @@
 		)
 
 /obj/item/clothing/under/solgov/elite
-	name = "\improper Federation MARSOC uniform"
-	desc = "A comfortable and durable combat uniform worn by marines of the Federation's Marine Special Operations Command."
+	name = "\improper MARSOC uniform"
+	desc = "A comfortable and durable combat uniform worn by marines of the Trans-Solar Federation's Marine Special Operations Command."
 	icon_state = "solgovelite"
 	item_color = "solgovelite"
 
 /obj/item/clothing/under/solgov/command
-	name = "\improper Federation officer's uniform"
+	name = "\improper TSF officer's uniform"
 	desc = "A comfortable and durable combat uniform worn by junior officers of the Trans-Solar Marine Corps."
 	icon_state = "solgovc"
 	item_color = "solgovc"
 
 /obj/item/clothing/under/solgov/command/elite
-	name = "\improper Federation MARSOC officer's uniform"
-	desc = "A comfortable and durable combat uniform worn by junior officers of the Federation's Marine Special Operations Command. This one has additional insignia on its shoulders and cuffs."
+	name = "\improper MARSOC officer's uniform"
+	desc = "A comfortable and durable combat uniform worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. This one has additional insignia on its shoulders and cuffs."
 	icon_state = "solgovcelite"
 	item_color = "solgovcelite"
 
 /obj/item/clothing/under/solgov/rep
-	name = "\improper Federation representative's uniform"
+	name = "\improper TSF representative's uniform"
 	desc = "A formal uniform worn by the diplomatic representatives of the Trans-Solar Federation."
 	icon_state = "solgovr"
 	item_color = "solgovr"

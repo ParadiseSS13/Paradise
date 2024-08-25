@@ -725,7 +725,7 @@
 
 
 /datum/outfit/admin/solgov
-	name = "Federation Marine"
+	name = "TSF Marine"
 	uniform = /obj/item/clothing/under/solgov
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	back = /obj/item/storage/backpack/ert/solgov
@@ -778,7 +778,7 @@
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/solgov/lieutenant
-	name = "Federation Lieutenant"
+	name = "TSF Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command
 	head = /obj/item/clothing/head/beret/solgov/command
 	glasses = /obj/item/clothing/glasses/night
@@ -798,7 +798,7 @@
 	is_solgov_lieutenant = TRUE
 
 /datum/outfit/admin/solgov/elite
-	name = "Federation MARSOC Marine"
+	name = "MARSOC Marine"
 	uniform = /obj/item/clothing/under/solgov/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	head = null
@@ -819,7 +819,7 @@
 	)
 
 /datum/outfit/admin/solgov/elite/lieutenant
-	name = "Federation MARSOC Lieutenant"
+	name = "MARSOC Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
 	head = null
@@ -864,7 +864,7 @@
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/trader/sol
-	name = "Federation Trader"
+	name = "Trans-Solar Federation Trader"
 	suit = /obj/item/clothing/suit/jacket/bomber/cargo
 	head = /obj/item/clothing/head/soft/cargo
 

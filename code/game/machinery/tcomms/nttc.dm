@@ -140,7 +140,7 @@
 	/// List of CentComm jobs
 	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Intel Officer", "Medical Officer", "Nanotrasen Navy Captain", "Nanotrasen Navy Representative", "Research Officer", "Supreme Commander", "Thunderdome Overseer")
 	/// List of SolGov Marine jobs
-	var/list/tsf_jobs = list("Federation MARSOC Lieutenant", "Federation MARSOC Marine", "Federation Lieutenant", "Federation Marine", "Federation Representative", "Federation General", "VIP Guest")
+	var/list/tsf_jobs = list("MARSOC Lieutenant", "MARSOC Marine", "TSF Lieutenant", "TSF Marine", "Trans-Solar Federation Representative", "Trans-Solar Federation General", "VIP Guest")
 	// Defined so code compiles and incase someone has a non-standard job
 	var/job_class = "radio"
 	// NOW FOR ACTUAL TOGGLES

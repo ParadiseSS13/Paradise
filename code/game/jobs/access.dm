@@ -388,13 +388,13 @@
 
 /proc/get_all_solgov_jobs()
 	return list(
-		"Sol Trader",
-		"Federation Marine",
-		"Federation Lieutenant",
-		"Federation MARSOC Marine",
-		"Federation MARSOC Lieutenant",
-		"Federation Representative",
-		"Federation General")
+		"Trans-Solar Federation Trader",
+		"TSF Marine",
+		"TSF Lieutenant",
+		"MARSOC Marine",
+		"MARSOC Lieutenant",
+		"Trans-Solar Federation Representative",
+		"Trans-Solar Federation General")
 
 /proc/get_all_soviet_jobs()
 	return list(
