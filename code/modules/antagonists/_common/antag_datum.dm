@@ -397,8 +397,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		forge_single_human_objective()
 
 	var/can_succeed_if_dead = TRUE
-	for(var/objective in owner.get_all_objectives())
-		var/datum/objective/O = objective
+	for(var/datum/objective/O in owner.get_all_objectives())
 		if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
 			can_succeed_if_dead = FALSE
 			break
