@@ -935,7 +935,7 @@
 		duration += extra_duration
 	if(isnum(extra_heal_amount))
 		heal_amount += extra_heal_amount
-	. = ..()
+	return ..()
 
 /datum/status_effect/flayer_rejuv/on_apply()
 	owner.SetWeakened(0)
