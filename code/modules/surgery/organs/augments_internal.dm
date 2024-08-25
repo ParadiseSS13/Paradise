@@ -809,7 +809,7 @@
 	return ..()
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification
-	name = "Nanite Pacifier"
+	name = "\improper Nanite Pacifier"
 	desc = "This implant acts on mindflayer nanobots like smoke does to bees, rendering them significantly more docile."
 	implant_color = COLOR_BLACK
 	origin_tech = "materials=4;programming=5;biotech=5;combat=5;"
