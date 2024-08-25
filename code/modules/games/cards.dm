@@ -155,8 +155,8 @@
 	// split it off, with our deck ID.
 	var/obj/item/deck/new_deck = new src.type(get_turf(src), main_deck_id)
 	QDEL_LIST_CONTENTS(new_deck.cards)
-	new_deck.cards = cards.Copy(1, num_cards)
-	cards.Cut(1, num_cards)
+	new_deck.cards = cards.Copy(1, num_cards + 1)
+	cards.Cut(1, num_cards + 1)
 	user.put_in_any_hand_if_possible(new_deck)
 	user.visible_message("<span class='notice'>[user] splits [src] in two.</span>", "<span class='notice'>You split [src] in two.</span>")
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE|UPDATE_OVERLAYS)
@@ -171,6 +171,7 @@
 		cards += card
 		other_deck.cards -= card
 	qdel(other_deck)
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	if(user)
 		user.visible_message("<span class='notice'>[user] mixes the two decks together.</span>", "<span class='notice'>You merge the two decks together.</span>")
 
@@ -185,7 +186,7 @@
 /obj/item/deck/proc/return_hand_click(mob/living/carbon/human/user, on_top = TRUE)
 	if(!istype(user))
 		return
-	var/obj/item/cardhand/hand = user.is_in_hands(/obj/item/cardhand)
+	var/obj/item/cardhand/hand = user.get_active_card_hand()
 	if(!istype(hand))
 		return
 
@@ -240,7 +241,7 @@
 			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(hand.cards)] card\s into the [side] of the deck?", "Return Hand to Bottom", list("Yes", "No"))
 			if(confirm != "Yes" || !in_play_range(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return
-		chosen_cards = hand.cards
+		chosen_cards = hand.cards.Copy()  // copy the list since we might be deleting the ref
 
 	if(place_on_top)
 		cards = chosen_cards + cards
@@ -325,17 +326,16 @@
  * * public - If true, the drawn card will be displayed to people around the table.
  * * draw_from_top - If true, the card will be drawn from the top of the deck.
  */
-/obj/item/deck/proc/draw_card(mob/user, public = FALSE, draw_from_top = TRUE)
-	var/mob/living/carbon/human/M = user
+/obj/item/deck/proc/draw_card(mob/living/carbon/human/user, public = FALSE, draw_from_top = TRUE)
 
-	if(user.incapacitated() || !in_play_range(user) || !istype(user))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_play_range(user) || !istype(user))
 		return
 
 	if(!length(cards))
 		to_chat(user,"<span class='notice'>There are no cards in the deck.</span>")
 		return
 
-	var/obj/item/cardhand/H = M.is_in_hands(/obj/item/cardhand)
+	var/obj/item/cardhand/H = user.get_active_card_hand()
 	if(H && (H.parent_deck_id != main_deck_id))
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 		return
@@ -448,10 +448,10 @@
 /obj/item/deck/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	var/mob/M = usr
 	if(M.incapacitated() || !Adjacent(M))
-		return
+		return ..()
 
 	if(!ishuman(M))
-		return
+		return ..()
 
 	if(is_screen_atom(over))
 		if(!remove_item_from_storage(get_turf(M)))
@@ -471,6 +471,9 @@
 		if(M.put_in_hands(src))
 			add_fingerprint(M)
 			usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+
+	return ..()
+
 
 /obj/item/pack
 	name = "card pack"
@@ -587,7 +590,7 @@
 	var/mob/living/carbon/human/M = hit_atom
 
 
-	var/obj/item/cardhand/hand = M.is_in_hands(/obj/item/cardhand)
+	var/obj/item/cardhand/hand = M.get_active_card_hand()
 	if(!istype(hand) || !M.in_throw_mode || hand.parent_deck_id != parent_deck_id)
 		return ..()
 
@@ -692,11 +695,18 @@
 		return
 	remove_card(user, card)
 
+/mob/living/carbon/proc/get_active_card_hand()
+	var/obj/item/cardhand/hand = get_active_hand()
+	if(!istype(hand))
+		hand = get_inactive_hand()
+	if(istype(hand))
+		return hand
+
 /obj/item/cardhand/AltClick(mob/living/carbon/human/user)
 	. = ..()
 	if(!istype(user))
 		return
-	var/obj/item/cardhand/active_hand = user.is_in_hands(/obj/item/cardhand)
+	var/obj/item/cardhand/active_hand = user.get_active_card_hand()
 	if(istype(active_hand) && active_hand == src)
 		user.set_machine(src)
 		interact(user)
@@ -744,7 +754,11 @@
 
 /// Dragging a card to your hand will let you draw from it without picking it up.
 /obj/item/cardhand/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
-	if(over != usr || !isliving(usr) || !Adjacent(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!isliving(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+	if(istype(over, /obj/item/deck))
+		return over.MouseDrop_T(src, usr)
+	if(over != usr || !Adjacent(usr))
 		return ..()
 
 	to_chat(usr, "<span class='notice'>Select a card to draw from the hand.</span>")
@@ -795,8 +809,8 @@
 
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
-	for(var/t in cards)
-		dat += "<a href='byond://?src=[UID()];pick=[t]'>The [t]</a><br>"
+	for(var/datum/playingcard/C in cards)
+		dat += "<a href='byond://?src=[UID()];pick=[C.UID()]'>The [C]</a><br>"
 	dat += "Which card will you remove next?<br>"
 	dat += "<a href='byond://?src=[UID()];pick=Turn'>Turn the hand over</a>"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
@@ -815,8 +829,9 @@
 			turn_hand(usr)
 		else
 			if(cardUser.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || cardUser.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
-				var/picked_card = href_list["pick"]
-				remove_card(cardUser, picked_card)
+				var/datum/playingcard/picked_card = locateUID(href_list["pick"])
+				if(istype(picked_card))
+					remove_card(cardUser, picked_card)
 		cardUser << browse(null, "window=cardhand")
 
 
@@ -914,13 +929,12 @@
 	if(!Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user)) // Don't want people teleporting cards
 		return
 
-	var/mob/living/carbon/human/human_user = user
 	// let people draw cards from tables with this mechanism, as well as removing from their hand.
-	var/obj/item/cardhand/active_hand = human_user.is_in_hands(/obj/item/cardhand)
+	var/obj/item/cardhand/active_hand = user.get_active_card_hand()
 	if(user.l_hand == src || user.r_hand == src)
 		// if you're drawing a card from your left hand, you probably want it in your right.
 		user.visible_message(
-			"<span class='notice'>[user] draws [concealed ? "a card" : "[picked_card]" ] from [user.p_their()] hand.</span>",
+			"<span class='notice'>[user] draws [concealed ? "a card" : "[picked_card]"] from [user.p_their()] hand.</span>",
 			"<span class='notice'>You take \the [picked_card] from your hand.</span>",
 			"<span class='notice'>You hear a card being drawn.</span>"
 		)

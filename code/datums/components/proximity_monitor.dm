@@ -396,8 +396,18 @@
 		layer = MOB_LAYER
 
 /obj/effect/abstract/proximity_checker/table/Destroy()
+
+	var/obj/effect/abstract/proximity_checker/table/same_monitor
+	for(var/obj/effect/abstract/proximity_checker/table/mon in get_turf(src))
+		if(mon != src && mon.deck_uid == src)
+			// if we have another monitor on our space that shares our deck,
+			// transfer the signals to it.
+			same_monitor = mon
+
 	for(var/mob/living/L in get_turf(src))
 		remove_from_mob(L)
+		if(!isnull(same_monitor))
+			same_monitor.register_on_mob(L)
 	return ..()
 
 
@@ -425,9 +435,10 @@
 
 /obj/effect/abstract/proximity_checker/table/proc/on_move_from_monitor(atom/movable/tracked, atom/old_loc)
 	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
-	var/obj/effect/abstract/proximity_checker/table/mon = locate(type) in get_turf(tracked)
-	if(istype(mon) && mon.monitor == monitor)
-		return  // keep the signal there if it's from us
+	for(var/obj/effect/abstract/proximity_checker/table/mon in get_turf(tracked))
+		// if we're moving onto a turf that shares our stuff, keep the signals and stuff registered
+		if(mon.deck_uid == deck_uid)
+			return
 
 	// otherwise, clean up
 	remove_from_mob(tracked)
