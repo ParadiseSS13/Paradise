@@ -352,10 +352,12 @@
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/ert/alt/solgov
-	name = "\improper Trans-Solar Federation Marine's bowman headset"
+	name = "\improper Trans-Solar Marine Corps bowman headset"
+	desc = "An ergonomic combat headset used by the TSMC. Protects against loud noises."
 
 /obj/item/radio/headset/ert/alt/solgovviper
-	name = "\improper Trans-Solar Federation Infiltrator's bowman headset"
+	name = "\improper 3rd SOD bowman headset"
+	desc = "A custom-fitted headset used by the commandos of the Federal Army's renowned 3rd Special Operations Detachment, more commonly known as the Vipers."
 
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
@@ -364,7 +366,8 @@
 	instant = TRUE
 
 /obj/item/radio/headset/ert/alt/commander/solgov
-	name = "\improper Trans-Solar Federation Lieutenant's bowman headset"
+	name = "\improper Trans-Solar Marine Corps officer's bowman headset"
+	desc = "An ergonomic combat headset used by the TSMC. This model is equipped with an extra-strength transmitter for barking orders."
 
 /obj/item/radio/headset/centcom
 	name = "centcom officer's bowman headset"

@@ -10,7 +10,7 @@
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
 	blurb = "Humanity, originating from the Sol system, has expanded over five centuries, branching out to forge a variety of governments and powerful corporations. \
-	These range from the militaristic Trans Solar Federation, the Union of Soviet Socialist Planets, and mega corporations like Nanotrasen.<br/><br/> \
+	These range from the militaristic Trans-Solar Federation, the Union of Soviet Socialist Planets, and mega corporations like Nanotrasen.<br/><br/> \
 	With a constant desire to colonize and spread their influence onto other species, they have begun to develop alliances and enemies, \
 	making humans one of the most recognizable and socially diverse species in the sector."
 

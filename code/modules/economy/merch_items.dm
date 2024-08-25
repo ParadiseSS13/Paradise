@@ -238,7 +238,7 @@
 
 /datum/merch_item/flag_solgov
 	name = "SolGov Flag"
-	desc = "The banner of Trans-Solar Federation, allied government."
+	desc = "The banner of Trans-Solar Federation."
 	typepath = /obj/item/flag/solgov
 	cost = 750
 	category = MERCH_CAT_DECORATION

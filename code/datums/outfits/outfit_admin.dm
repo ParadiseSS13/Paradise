@@ -690,7 +690,7 @@
 	)
 
 /datum/outfit/admin/solgov_rep
-	name = "Solar Federation Representative"
+	name = "Federation Representative"
 
 	uniform = /obj/item/clothing/under/solgov/rep
 	back = /obj/item/storage/backpack/satchel
@@ -720,12 +720,12 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_centcom_access(), name, "lifetimeid")
-	I.assignment = "Solar Federation Representative"
+	I.assignment = "Federation Representative"
 	H.sec_hud_set_ID()
 
 
 /datum/outfit/admin/solgov
-	name = "Solar Federation Marine"
+	name = "Federation Marine"
 	uniform = /obj/item/clothing/under/solgov
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	back = /obj/item/storage/backpack/ert/solgov
@@ -778,7 +778,7 @@
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/solgov/lieutenant
-	name = "Solar Federation Lieutenant"
+	name = "Federation Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command
 	head = /obj/item/clothing/head/beret/solgov/command
 	glasses = /obj/item/clothing/glasses/night
@@ -798,7 +798,7 @@
 	is_solgov_lieutenant = TRUE
 
 /datum/outfit/admin/solgov/elite
-	name = "Solar Federation Specops Marine"
+	name = "Federation MARSOC Marine"
 	uniform = /obj/item/clothing/under/solgov/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	head = null
@@ -819,7 +819,7 @@
 	)
 
 /datum/outfit/admin/solgov/elite/lieutenant
-	name = "Solar Federation Specops Lieutenant"
+	name = "Federation MARSOC Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
 	head = null
@@ -864,7 +864,7 @@
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/trader/sol
-	name = "Trans-Solar Federation Trader"
+	name = "Federation Trader"
 	suit = /obj/item/clothing/suit/jacket/bomber/cargo
 	head = /obj/item/clothing/head/soft/cargo
 
@@ -1508,7 +1508,7 @@
 		H.mind.AddSpell(S)
 
 /datum/outfit/admin/viper
-	name = "Solar Federation Viper Infiltrator"
+	name = "Federation Viper Infiltrator"
 
 	uniform = /obj/item/clothing/under/solgov/viper
 	back = /obj/item/storage/backpack/satchel
