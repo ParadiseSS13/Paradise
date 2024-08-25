@@ -87,8 +87,9 @@
 	if(drops_core)
 		aSignal.forceMove(drop_location())
 		aSignal = null
-	// else, anomaly core gets deleted by qdel(src).
+		SSblackbox.record_feedback("nested tally", "anomaly_defused", 1, list([type], [round((death_time - world.time) / 10)]ds time left))
 
+	// Else, anomaly core gets deleted by qdel(src).
 	qdel(src)
 
 /obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
