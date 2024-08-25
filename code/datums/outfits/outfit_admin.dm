@@ -690,7 +690,7 @@
 	)
 
 /datum/outfit/admin/solgov_rep
-	name = "Federation Representative"
+	name = "Trans-Solar Federation Representative"
 
 	uniform = /obj/item/clothing/under/solgov/rep
 	back = /obj/item/storage/backpack/satchel
@@ -720,7 +720,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_centcom_access(), name, "lifetimeid")
-	I.assignment = "Federation Representative"
+	I.assignment = "Trans-Solar Federation Representative"
 	H.sec_hud_set_ID()
 
 
