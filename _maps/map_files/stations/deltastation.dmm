@@ -30798,13 +30798,6 @@
 "bLt" = (
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
-"bLu" = (
-/obj/machinery/computer/med_data{
-	dir = 8
-	},
-/obj/machinery/requests_console/directional/east,
-/turf/simulated/floor/carpet,
-/area/station/security/detective)
 "bLv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57837,15 +57830,11 @@
 	},
 /area/station/science/genetics)
 "drR" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/monkeycubes{
-	pixel_x = -3
-	},
-/obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/closet/secure_closet/genetics,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -63235,6 +63224,13 @@
 	icon_state = "cult"
 	},
 /area/station/service/chapel/office)
+"dUf" = (
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
+/obj/machinery/requests_console/directional/east,
+/turf/simulated/floor/carpet,
+/area/station/security/detective)
 "dUi" = (
 /obj/item/kirbyplants,
 /obj/structure/cable{
@@ -64040,6 +64036,7 @@
 	pixel_y = 10
 	},
 /obj/structure/disposalpipe/segment,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -148510,7 +148507,7 @@ aaa
 bLn
 bHP
 dMA
-bLu
+dUf
 bNu
 nXf
 bLn
