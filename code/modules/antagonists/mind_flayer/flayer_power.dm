@@ -237,7 +237,7 @@
 		to_add.current_cost = existing_passive.current_cost
 
 	if(to_add.current_cost > get_swarms())
-		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarms for this...")
+		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarm\s for this...")
 		return FALSE
 
 	if(category_stage[to_add.category] < to_add.stage)
