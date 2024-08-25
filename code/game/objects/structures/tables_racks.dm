@@ -342,7 +342,6 @@
 			return
 
 
-
 		user.visible_message("<span class='warning'>[user] flips [src]!</span>")
 
 		if(climbable)
