@@ -33,7 +33,7 @@
 	var/turf/start_turf = get_turf(target)
 	var/turf/end_turf = get_turf(marked_computer)
 	if(end_turf.z != start_turf.z)
-		to_chat(user, "<span class='notice'>The connection between [target] and [marked_computer] is too unstable!.</span>")
+		to_chat(user, "<span class='notice'>The connection between [target] and [marked_computer] is too unstable!</span>")
 		return
 	if(!is_teleport_allowed(end_turf.z))
 		return
