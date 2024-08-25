@@ -33,11 +33,13 @@
 /datum/mindflayer_passive/New()
 	. = ..()
 	current_cost = base_cost
-	if(should_process)
+	if(should_process && flayer)
 		START_PROCESSING(SSobj, src)
 
 /datum/mindflayer_passive/Destroy(force, ...)
 	. = ..()
+	if(!flayer)
+		return
 	on_remove()
 	STOP_PROCESSING(SSobj, src)
 

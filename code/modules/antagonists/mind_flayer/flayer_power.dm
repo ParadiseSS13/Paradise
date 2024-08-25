@@ -1,7 +1,7 @@
 // POWERS// OOORAAAH WE HAVE POWERS
 
 /datum/spell/flayer
-	action_background_icon_state = "bg_tech_blue" // TODO: flayer background
+	action_background_icon_state = "bg_tech_blue"
 	desc = "This spell needs a description!"
 	human_req = TRUE
 	clothes_req = FALSE
@@ -34,6 +34,8 @@
 // Behold, a copypaste from changeling, might need some redoing
 
 /datum/spell/flayer/Destroy(force, ...)
+	if(!flayer)
+		return ..()
 	flayer.powers -= src
 	flayer = null
 	return ..()
@@ -171,7 +173,9 @@
 */
 /datum/antagonist/mindflayer/proc/is_path_spell(path)
 	var/spell = new path() //No need to give it an owner since we're just checking the type
-	return isspell(spell)
+	var/return_value = isspell(spell)
+	qdel(spell)
+	return return_value
 
 
 /*Given a spell, checks if a mindflayer is able to afford, and has the prerequisites for that spell.

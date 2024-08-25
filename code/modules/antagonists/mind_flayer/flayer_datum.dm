@@ -180,10 +180,10 @@
 * Adds an ability to a mindflayer if they don't already have it, upgrades it if they do.
 * Arguments:
 * * to_add - The spell datum you want to add to the flayer
-* * set_owner - An optional datum/antagonist/mindflayer if the owner of the new ability needs to be set manually
+* * set_owner - The antagonist datum of the mindflayer you want to add the spell to
 * * upgrade_type - optional argument if you need to communicate a define to the spell in question, mostly useful for branching upgrades
 */
-/datum/antagonist/mindflayer/proc/add_ability(datum/spell/flayer/to_add, set_owner = null, upgrade_type)
+/datum/antagonist/mindflayer/proc/add_ability(datum/spell/flayer/to_add, datum/antagonist/mindflayer/set_owner = null, upgrade_type)
 	if(!to_add)
 		return
 	var/datum/spell/flayer/spell = has_spell(to_add)
@@ -264,7 +264,6 @@
 * * Returns: The datum/spell/mindflayer if the mindflayer has the power already, null otherwise
 */
 /datum/antagonist/mindflayer/proc/has_spell(datum/spell/flayer/to_get) // Still gotta test if this works as expected, but I think it does?
-	log_debug("checking if [src] has [to_get]")
 	for(var/datum/spell/flayer/spell in powers)
 		if(to_get.name == spell.name)
 			return spell
