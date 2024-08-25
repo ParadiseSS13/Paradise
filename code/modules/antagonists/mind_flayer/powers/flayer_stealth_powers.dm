@@ -50,7 +50,7 @@
 	nanobot.name += " - [get_area(target)]"
 	nanobot.link_to_camera(internal_camera)
 	active_bugs += nanobot
-	flayer.send_swarm_message("Surveilance unit #[internal_camera.connections] deployed.")
+	flayer.send_swarm_message("Surveillance unit #[internal_camera.connections] deployed.")
 	return TRUE
 
 /datum/spell/flayer/surveillance_monitor/on_purchase_upgrade()

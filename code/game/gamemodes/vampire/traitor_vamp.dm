@@ -23,22 +23,22 @@
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 	secondary_enemies = CEILING((secondary_enemies_scaling * num_players()), 1)
 
-	if(length(possible_vampires) > 0)
-		for(var/I in possible_vampires)
-			if((length(pre_vampires) + length(pre_mindflayers)) >= secondary_enemies)
-				break
-			var/datum/mind/vampire = pick_n_take(possible_vampires)
-			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
-			if(vampire.current.client.prefs.active_character.species in secondary_protected_species)
-				pre_mindflayers += vampire
-				vampire.special_role = SPECIAL_ROLE_MIND_FLAYER
-				continue
-			pre_vampires += vampire
-			vampire.special_role = SPECIAL_ROLE_VAMPIRE
-		..()
-		return TRUE
-	else
+	if(length(possible_vampires) <= 0)
 		return FALSE
+
+	for(var/I in possible_vampires)
+		if((length(pre_vampires) + length(pre_mindflayers)) >= secondary_enemies)
+			break
+		var/datum/mind/vampire = pick_n_take(possible_vampires)
+		vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+		if(vampire.current.client.prefs.active_character.species in secondary_protected_species)
+			pre_mindflayers += vampire
+			vampire.special_role = SPECIAL_ROLE_MIND_FLAYER
+			continue
+		pre_vampires += vampire
+		vampire.special_role = SPECIAL_ROLE_VAMPIRE
+	..()
+	return TRUE
 
 /datum/game_mode/traitor/vampire/post_setup()
 	for(var/datum/mind/vampire in pre_vampires)

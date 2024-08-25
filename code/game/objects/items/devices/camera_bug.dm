@@ -42,7 +42,7 @@
 
 
 /obj/item/camera_bug/ert
-	name = "ERT Camera Monitor"
+	name = "\improper ERT Camera Monitor"
 	desc = "A small handheld device used by ERT commanders to view camera feeds remotely."
 
 /obj/item/camera_bug/ert/Initialize(mapload)
@@ -90,9 +90,9 @@
 
 ///Created by a mindflayer ability
 /obj/item/wall_bug/computer_bug
-	name = "Nanobot"
+	name = "nanobot"
 	desc = "A small droplet of a shimmering metallic slurry."
-	camera_tag = "Surveilance Unit"
+	camera_tag = "Surveillance Unit"
 	is_sticky = FALSE
 	///Reference to the creator's antag datum
 	var/datum/antagonist/mindflayer/flayer
@@ -104,7 +104,7 @@
 		flayer = flayer_datum
 
 /obj/item/paper/camera_bug
-	name = "Camera Bug Guide"
+	name = "\improper Camera Bug Guide"
 	icon_state = "paper"
 	info = {"<b>Instructions on your new invasive camera utility</b><br>
 	<br>
