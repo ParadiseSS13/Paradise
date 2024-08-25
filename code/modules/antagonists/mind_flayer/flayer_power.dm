@@ -1,8 +1,6 @@
 // POWERS// OOORAAAH WE HAVE POWERS
 
 /datum/spell/flayer
-//	panel = "Vampire"
-//	school = "vampire"
 	action_background_icon_state = "bg_tech_blue" // TODO: flayer background
 	desc = "This spell needs a description!"
 	human_req = TRUE
