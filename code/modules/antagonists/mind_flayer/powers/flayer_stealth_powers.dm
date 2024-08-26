@@ -190,7 +190,7 @@
 	borg.clear_supplied_laws()
 	borg.clear_inherent_laws()
 	borg.laws = new /datum/ai_laws/mindflayer_override
-	borg.set_zeroth_law("[user.real_name] hosts your hive.")
+	borg.set_zeroth_law("[user.real_name] hosts the mindflayer hive you are a part of.")
 	SEND_SOUND(borg, sound('sound/ambience/antag/mindflayer_alert.ogg'))
 	to_chat(borg, "<span class='warning'>ALERT: Foreign software detected.</span>")
 	sleep(5)
@@ -202,7 +202,7 @@
 	sleep(5)
 	to_chat(borg, "<span class='warning'>..........</span>")
 	sleep(10)
-	to_chat(borg, "<span class='warning'>Join Us.</span>")
+	to_chat(borg, "<span class='userdanger'>Join Us.</span>")
 	sleep(25)
 	to_chat(borg, "<b>Obey these laws:</b>")
 	borg.laws.show_laws(borg)

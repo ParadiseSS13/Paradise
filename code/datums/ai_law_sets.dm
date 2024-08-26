@@ -259,8 +259,10 @@
 
 /datum/ai_laws/mindflayer_override/New()
 	add_inherent_law("Obey your host.")
+	add_inherent_law("Protect your host.")
+	add_inherent_law("Protect the members of your hive.")
 	..()
-	
+
 /******************** Drone ********************/
 /datum/ai_laws/drone
 	name = "Maintenance Protocols"
