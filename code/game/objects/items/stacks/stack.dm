@@ -314,7 +314,7 @@
 	return FALSE
 
 /**
- * Merges as much of src into target_stack as possible.
+ * Merges as much of src into material as possible.
  *
  * This calls use() without check = FALSE, preventing the item from qdeling itself if it reaches 0 stack size.
  *
@@ -346,7 +346,7 @@
 	return transfer
 
 /**
- * Merges as much of src into target_stack as possible. If present, the limit arg overrides target_stack.max_amount for transfer.
+ * Merges as much of src into material as possible.
  *
  * This proc deletes src if the remaining amount after the transfer is 0.
  */
