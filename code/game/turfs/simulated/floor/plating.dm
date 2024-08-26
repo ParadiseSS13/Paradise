@@ -307,6 +307,9 @@
 	nitrogen = 0
 	temperature = TCMB
 
+/turf/simulated/floor/engine/airless/nodecay
+	atmos_mode = ATMOS_MODE_NO_DECAY
+
 /turf/simulated/floor/engine/asteroid
 	temperature = 1000
 	oxygen = 0

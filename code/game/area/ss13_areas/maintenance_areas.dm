@@ -249,6 +249,10 @@
 	name = "Dorms Aft Maintenance"
 	icon_state = "dorms_maint_aft"
 
+/area/station/maintenance/dorms/fore
+	name = "Dorms Fore Maintenance"
+	icon_state = "dorms_maint_fore"
+
 /area/station/maintenance/security
 	name = "Security Maintenance"
 	icon_state = "sec_maint"
