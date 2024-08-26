@@ -995,11 +995,7 @@
 	tick_interval = 0
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/terminator_form
-
-/atom/movable/screen/alert/status_effect/terminator_form
-	name = "Terminator form"
-	desc = "Your body can surpass its limits briefly. You have to repair yourself before it ends, however."
-	icon_state = "high"
+	var/mutable_appearance/eye
 
 /datum/status_effect/terminator_form/on_apply()
 	if(owner.status_flags & TERMINATOR_FORM)
@@ -1007,11 +1003,20 @@
 		return FALSE
 	owner.status_flags |= TERMINATOR_FORM
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, UNIQUE_TRAIT_SOURCE(src))
+	var/mutable_appearance/overlay = mutable_appearance('icons/mob/clothing/eyes.dmi', "terminator", ABOVE_MOB_LAYER)
+	owner.add_overlay(overlay)
+	eye = overlay
 	return TRUE
 
 /datum/status_effect/terminator_form/on_remove()
 	owner.status_flags &= ~TERMINATOR_FORM
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, UNIQUE_TRAIT_SOURCE(src))
+	owner.cut_overlay(eye)
+
+/atom/movable/screen/alert/status_effect/terminator_form
+	name = "Terminator form"
+	desc = "Your body can surpass its limits briefly. You have to repair yourself before it ends, however."
+	icon_state = "high"
 
 #define COMBUSTION_TEMPERATURE 500
 /datum/status_effect/overclock
