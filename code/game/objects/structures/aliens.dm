@@ -251,7 +251,7 @@
 	var/silent_removal = FALSE
 
 /obj/structure/alien/weeds/Initialize(mapload, node)
-	..()
+	. = ..()
 	linked_node = node
 	if(isspaceturf(loc))
 		qdel(src)
