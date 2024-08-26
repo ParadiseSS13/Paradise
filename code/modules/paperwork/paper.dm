@@ -562,7 +562,7 @@
 
 /obj/item/paper/maintengine
 	name = "Crumpled Note"
-	info = "Look - Ivan. I dont care about the fact you went behind my back to get the engine crate ordered and approved. I dont care about the fact that you've had trouble getting the engine stable in the past. I dont even care that You're trying to hide somewhere in maintenance with it...<BR> <BR> Just please, for the love of god tell me where it is. I wont report it, I just want to make sure its not going to catastrophically meltdown, or for you to die because of it. Please, just think it over. <BR> <BR> - Chief Engineer Stares-At-The-Crystal"
+	info = "Look - Ivan. I dont care about the fact you went behind my back to get the engine crate ordered and approved. I dont care about the fact that you've had trouble getting the engine stable in the past. I dont even care that you're trying to hide somewhere in maintenance with it...<BR> <BR> Just please, for the love of god tell me where it is. I wont report it, I just want to make sure its not going to catastrophically meltdown, or for you to die because of it. Please, just think it over. <BR> <BR> - Chief Engineer Stares-At-The-Crystal"
 	icon_state = "scrap"
 
 /obj/item/paper/crumpled
