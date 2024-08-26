@@ -165,7 +165,9 @@
 	if(terminal)
 		disconnect_terminal()
 	machine_powernet.powernet_apc = null
-	apc_area.apc -= src
+	if(apc_area)
+		apc_area.apc = null
+		apc_area = null
 	return ..()
 
 
