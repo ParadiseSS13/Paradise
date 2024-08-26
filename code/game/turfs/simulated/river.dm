@@ -67,6 +67,7 @@
 		var/detouring = 0
 		var/cur_dir = get_dir(cur_turf, target_turf)
 		while(cur_turf != target_turf)
+			var/attempts = 100
 			do
 				if(detouring) //randomly snake around a bit
 					if(prob(20))
@@ -81,7 +82,7 @@
 				else
 					cur_dir = get_dir(cur_turf, target_turf)
 			// we may veer off the map entirely, returning a null turf; if so, go back and try again
-			while(get_step(cur_turf, cur_dir) == null)
+			while(get_step(cur_turf, cur_dir) == null && attempts-- > 0)
 
 			cur_turf = get_step(cur_turf, cur_dir)
 			if(isnull(cur_turf))
