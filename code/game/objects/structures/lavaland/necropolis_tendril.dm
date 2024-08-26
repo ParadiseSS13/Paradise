@@ -1,5 +1,3 @@
-#define LAVALAND_TENDRIL_COLLAPSE_RANGE 2
-
 //Necropolis Tendrils, which spawn lavaland monsters and break into a chasm when killed
 /obj/structure/spawner/lavaland
 	name = "necropolis tendril"
