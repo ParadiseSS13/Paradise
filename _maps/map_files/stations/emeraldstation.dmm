@@ -75259,6 +75259,14 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/medbay2)
+"odN" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/checkpoint/secondary)
 "odP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -161157,7 +161165,7 @@ jhE
 gCh
 vjg
 nHw
-pNM
+odN
 pBR
 vRk
 udv
