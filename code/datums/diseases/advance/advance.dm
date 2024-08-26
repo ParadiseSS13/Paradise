@@ -469,7 +469,9 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	var/base_props = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
 
 	for(var/prop in base_props)
-		D.base_properties[prop] = text2num(input(user, "Enter base [prop]", "Base Stats"))
+		var/current_prop = input(user, "Enter base [prop]", "Base Stats", null)
+		if(current_prop)
+			D.base_properties[prop] = text2num(current_prop)
 
 	var/i = VIRUS_SYMPTOM_LIMIT
 
