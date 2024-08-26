@@ -1752,6 +1752,7 @@
 /obj/item/clothing/shoes/sandal/white,
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/orange,
+/obj/item/crowbar/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -23843,6 +23844,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
+"eAQ" = (
+/obj/structure/closet/wardrobe/pjs,
+/obj/item/crowbar/large,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/station/security/permabrig)
 "eAU" = (
 /obj/machinery/economy/vending/chinese,
 /turf/simulated/floor/plasteel{
@@ -32728,6 +32736,7 @@
 	dir = 8
 	},
 /obj/item/reagent_containers/condiment/rice,
+/obj/item/wirecutters,
 /obj/item/reagent_containers/condiment/flour,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -75540,6 +75549,31 @@
 	icon_state = "tranquillite"
 	},
 /area/station/service/mime)
+"oip" = (
+/obj/structure/closet/crate/trashcart{
+	desc = "A heavy, metal laundrycart with wheels.";
+	name = "laundry cart"
+	},
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/under/misc/pj/red,
+/obj/item/clothing/under/misc/pj/red,
+/obj/item/clothing/under/misc/pj/blue,
+/obj/item/clothing/under/misc/pj/blue,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/shoes/sandal/white,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/item/wirecutters,
+/obj/item/clothing/under/color/orange/prison,
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/station/security/permabrig)
 "oiH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -183321,7 +183355,7 @@ uGH
 qSw
 fjJ
 fjJ
-lGv
+eAQ
 aAG
 oaS
 unt
@@ -184094,7 +184128,7 @@ aZS
 fjJ
 oWL
 kwy
-arw
+oip
 eTx
 ivh
 hfE
