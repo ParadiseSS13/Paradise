@@ -27,7 +27,7 @@
 	fluff_name = "NSS Diagoras"
 	technical_name = "EmeraldStation"
 	map_path = "_maps/map_files/stations/emeraldstation.dmm"
-	webmap_url = "https://affectedarc07.blob.core.windows.net/mdb2/images/27286452/29268698805/a/_maps_map_files_stations_emeraldstation/0-added.png"
+	webmap_url = "https://affectedarc07.co.uk/emerald.html"
 
 /datum/map/test_tiny
 	fluff_name = "test_tiny"
