@@ -83,6 +83,7 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/cmd_admin_dress,
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
+	/client/proc/disease_outbreak,
 	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
@@ -730,12 +731,52 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
-	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
+	var/datum/disease/D = null
+	if((input("Would you like to create your own disease?") as null|anything in list("Yes","No")) == "Yes")
+		D = AdminCreateVirus(usr)
+	else
+		D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
+
 	if(!D) return
-	T.ForceContractDisease(new D)
+
+	if(!istype(D, /datum/disease/advance))
+		D = new D
+	T.ForceContractDisease(D)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
+
+/client/proc/disease_outbreak()
+	set category = "Event"
+	set name = "Disease Outbreak"
+	set desc = "Creates a disease and infects a random player with it"
+	var/datum/disease/D = null
+	//var/create = input("Would you like to create your own disease?") in list("Yes","No")
+	if((input("Would you like to create your own disease?") as null|anything in list("Yes","No")) == "Yes")
+		D = AdminCreateVirus(usr)
+	else
+		D = input("Choose a disease for the outbreak", "ACHOO") as null|anything in GLOB.diseases
+	if(!D)
+		return
+
+	if(!istype(D, /datum/disease/advance))
+		D = new D
+
+	for(var/thing in shuffle(GLOB.human_list))
+		var/mob/living/carbon/human/H = thing
+		if(H.stat == DEAD || !is_station_level(H.z))
+			continue
+		if(!H.HasDisease(D))
+			H.ForceContractDisease(D)
+			break
+	if(istype(D, /datum/disease/advance))
+		var/datum/disease/advance/AD = D
+		var/list/name_symptoms = list()
+		for(var/datum/symptom/S in AD.symptoms)
+			name_symptoms += S.name
+		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [AD.name]! It has these symptoms: [english_list(name_symptoms)] and these base stats D.base_properties]")
+	else
+		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [D.name]!")
 
 /client/proc/make_sound(obj/O in view()) // -- TLE
 	set name = "\[Admin\] Make Sound"
@@ -1179,7 +1220,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	message_admins("[key_name_admin(usr)] is visualising interesting atmos turfs. Server may lag.")
 
 	var/list/zlevel_turf_indexes = list()
-	
+
 	var/list/coords = get_interesting_atmos_tiles()
 	if(!length(coords))
 		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")

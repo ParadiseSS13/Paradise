@@ -54,6 +54,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 	// NEW VARS
 
+	/// The base properties of the virus. retained between strains
+	var/list/base_properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
 	/// Can the virus spotaneously evolve?
 	var/evolution_chance = EVOLUTION_CHANCE
 	/// The symptoms of the disease.
@@ -87,6 +89,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 				symptoms += new S.type
 	// Copy cure, evolution ability and strain if we are copying an existing disease
 	if(D)
+		base_properties = D.base_properties
 		stage = D.stage
 		evolution_chance = D.evolution_chance
 		tracker = D.tracker
@@ -118,7 +121,6 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		if(prob(95))
 			Evolve(min, max)
 		else
-			to_chat(world, "devolve")
 			Devolve()
 		//create a new strain even if we didn't gain or lose symptoms
 		if(lastStrain == strain)
@@ -262,7 +264,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(!symptoms || !length(symptoms))
 		CRASH("We did not have any symptoms before generating properties.")
 
-	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
+	var/list/properties = base_properties.Copy()
 
 	for(var/datum/symptom/S in symptoms)
 		if(istype(S, /datum/symptom/viralevolution))
@@ -462,9 +464,15 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	if(!user)
 		return
 
+	var/datum/disease/advance/D = new(0, null)
+
+	var/base_props = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1, "severity" = 0)
+
+	for(var/prop in base_props)
+		D.base_properties[prop] = text2num(input(user, "Enter base [prop]", "Base Stats"))
+
 	var/i = VIRUS_SYMPTOM_LIMIT
 
-	var/datum/disease/advance/D = new(0, null)
 	D.symptoms = list()
 
 	var/list/symptoms = list()
@@ -491,22 +499,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			return
 		D.AssignName(new_name)
 		D.Refresh()
-
-		for(var/datum/disease/advance/AD in GLOB.active_diseases)
-			AD.Refresh()
-
-		for(var/thing in shuffle(GLOB.human_list))
-			var/mob/living/carbon/human/H = thing
-			if(H.stat == DEAD || !is_station_level(H.z))
-				continue
-			if(!H.HasDisease(D))
-				H.ForceContractDisease(D)
-				break
-
-		var/list/name_symptoms = list()
-		for(var/datum/symptom/S in D.symptoms)
-			name_symptoms += S.name
-		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.name]! It has these symptoms: [english_list(name_symptoms)]")
+		return D
 
 
 
