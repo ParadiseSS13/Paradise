@@ -81355,8 +81355,8 @@
 /area/station/maintenance/aft)
 "piK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/mod/construction/broken_core,
 /obj/item/extinguisher,
+/obj/item/mod/construction/broken_core,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "piX" = (
