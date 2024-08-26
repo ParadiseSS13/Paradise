@@ -23,7 +23,11 @@ export const Incursion = (props, context) => {
   if (portaling) {
     return (
       <Dimmer fontsize="256px" backgroundColor="rgba(35,0,0,0.85)">
-        <Blink fontsize="256px" interval={290 + 150 * Math.random()} time={80 + 40 * Math.random()}>
+        <Blink
+          fontsize="256px"
+          interval={Math.random() > 0.25 ? 750 + 400 * Math.random() : 290 + 150 * Math.random()}
+          time={60 + 150 * Math.random()}
+        >
           <Flex mb="30px" fontsize="256px">
             <Flex.Item bold color="red" fontsize="256px" textAlign="center">
               <Icon name="skull" size={14} mb="64px" />
