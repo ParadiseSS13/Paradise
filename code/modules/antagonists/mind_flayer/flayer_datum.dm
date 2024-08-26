@@ -139,7 +139,7 @@
 /datum/antagonist/mindflayer/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/mindflayer_alert.ogg'))
-	messages += "<span class='danger'>You are a mindflayer!</span><br>" // TODO: Add actual description
+	messages += "<span class='danger'>You feel something stirring within your chassis... You are a Mindflayer!!</span><br>" // TODO: Add actual description
 	messages += "To harvest someone, target where the brain of your victim is and use harm intent with an empty hand. Drain intelligence to increase your swarm."
 	return messages
 
