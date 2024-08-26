@@ -422,7 +422,8 @@
 		A.Smoke()
 
 	// This has to be in the end because we're adding mobs to a turf list
-	for(var/I in 1 to rand(3, 5))
+	var/shots = drops_core ? rand(3, 5) : rand(1, 3)
+	for(var/i in 1 to shots)
 		if(length(mob_targets))
 			turf_targets += mob_targets
 		shootAt(pick(turf_targets))
