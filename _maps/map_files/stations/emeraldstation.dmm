@@ -2993,6 +2993,11 @@
 	c_tag = "Central Hallway South East";
 	dir = 6
 	},
+/obj/structure/sign/directions/science{
+	pixel_x = -32;
+	pixel_y = 14;
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "aFw" = (
@@ -57841,6 +57846,17 @@
 	icon_state = "darkgrey"
 	},
 /area/station/security/permabrig)
+"kOk" = (
+/obj/structure/sign/directions/medical{
+	pixel_x = 32;
+	pixel_y = 14;
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/central/se)
 "kOl" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
@@ -168710,7 +168726,7 @@ flR
 vGI
 flR
 eXi
-flR
+kOk
 tjP
 bls
 cmu
