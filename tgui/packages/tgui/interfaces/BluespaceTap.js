@@ -12,6 +12,7 @@ import {
   Dimmer,
   Flex,
   Icon,
+  Blink,
 } from '../components';
 import { Window } from '../layouts';
 import { formatPower } from '../format';
@@ -22,13 +23,15 @@ export const Incursion = (props, context) => {
   if (portaling) {
     return (
       <Dimmer>
-        <Flex mb="30px">
-          <Flex.Item bold color="red" fontsize="31px" textAlign="center">
-            <Icon name="skull" size={8} mb="30px" />
-            <br />
-            E$#OR:& U#KN!WN IN%ERF#R_NCE
-          </Flex.Item>
-        </Flex>
+        <Blink interval={60 + 250 * Math.random()} time={30 + 60 * Math.random()}>
+          <Flex mb="30px">
+            <Flex.Item bold color="red" fontsize="256px" textAlign="center">
+              <Icon name="skull" size={14} mb="64px" />
+              <br />
+              E$#OR:& U#KN!WN IN%ERF#R_NCE
+            </Flex.Item>
+          </Flex>
+        </Blink>
       </Dimmer>
     );
   }
