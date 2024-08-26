@@ -438,13 +438,13 @@
 	description = "A toxin that affects the stamina of a person when injected into the bloodstream."
 	reagent_state = LIQUID
 	color = "#6E2828"
-	data = 13
 	taste_description = "bitterness"
+	var/damage_per_cycle = 13
 
 /datum/reagent/staminatoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustStaminaLoss(REAGENTS_EFFECT_MULTIPLIER * data, FALSE)
-	data = max(data - 1, 3)
+	update_flags |= M.adjustStaminaLoss(damage_per_cycle * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	damage_per_cycle = max(damage_per_cycle - 1, 3)
 	return ..() | update_flags
 
 
