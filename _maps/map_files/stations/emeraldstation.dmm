@@ -1519,6 +1519,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -5555,6 +5556,7 @@
 /obj/machinery/door/airlock/public/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -8206,6 +8208,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
+"bBu" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "bBy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -10129,6 +10138,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"bSb" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
+/area/station/public/dorms)
 "bSe" = (
 /obj/machinery/ai_status_display{
 	pixel_y = -32
@@ -10379,6 +10393,7 @@
 	name = "Crematorium"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/crematorium,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -12614,6 +12629,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Door"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "crQ" = (
@@ -14343,6 +14359,23 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"cJn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/public/dorms)
 "cJo" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/incinerator)
@@ -17454,6 +17487,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
+"dpp" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "dpq" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/cable{
@@ -19328,6 +19368,7 @@
 /area/station/maintenance/apmaint2)
 "dGX" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "dHa" = (
@@ -19836,6 +19877,7 @@
 	dir = 8;
 	id_tag = "dormshop1"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -22158,6 +22200,20 @@
 	icon_state = "browncorner"
 	},
 /area/station/supply/storage)
+"elw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/public/dorms)
 "elA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -26243,6 +26299,11 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/warden)
+"eYM" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/carpet/black,
+/area/station/service/chapel)
 "eYQ" = (
 /obj/effect/landmark/burnturf,
 /obj/machinery/light/small,
@@ -32051,6 +32112,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/chapel_office,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -32195,6 +32257,7 @@
 /area/station/maintenance/apmaint)
 "gch" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -36686,6 +36749,7 @@
 /area/space/nearstation)
 "gUH" = (
 /obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
 "gUN" = (
@@ -40706,6 +40770,7 @@
 /area/station/engineering/atmos/asteroid_core)
 "hEp" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -54432,6 +54497,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/holofloor{
 	icon_state = "cult"
 	},
@@ -58158,6 +58224,7 @@
 /area/station/medical/storage/secondary)
 "kUc" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "kUl" = (
@@ -69542,6 +69609,7 @@
 /obj/machinery/door/airlock/wood{
 	name = "Back Stage Entrance"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "rampbottom"
@@ -69842,6 +69910,7 @@
 /area/station/maintenance/security/fore)
 "nib" = (
 /obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -71536,6 +71605,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
 "nzl" = (
@@ -72954,6 +73024,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -75569,6 +75640,7 @@
 /area/station/security/permabrig)
 "ojF" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -82747,6 +82819,12 @@
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
+"pzs" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "pzv" = (
 /obj/structure/rack,
 /obj/structure/rack,
@@ -88326,6 +88404,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -89126,6 +89205,16 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/primary/central/se)
+"qLM" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "qLO" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -91763,6 +91852,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -92563,6 +92653,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"rqR" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/wood,
+/area/station/public/dorms)
 "rqT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
@@ -93667,6 +93761,7 @@
 	dir = 8;
 	id_tag = "dormshop1"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -95941,6 +96036,7 @@
 /area/station/security/prisonlockers)
 "rWs" = (
 /obj/machinery/door/airlock,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "rWt" = (
@@ -99510,6 +99606,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -102431,6 +102528,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "dormshop2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -105730,6 +105828,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -109712,6 +109811,7 @@
 	id_tag = "dormshop1"
 	},
 /obj/item/food/meatbun,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -111638,6 +111738,13 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
+"uQI" = (
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "uQO" = (
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -120132,6 +120239,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/access/all/service/crematorium,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -122532,6 +122640,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "rampbottom"
@@ -124870,6 +124979,21 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/xenobiology)
+"xrO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/public/dorms)
 "xrP" = (
 /obj/machinery/status_display{
 	pixel_y = 32
@@ -128210,6 +128334,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "yat" = (
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -129384,6 +129509,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "dormshop2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -156813,7 +156939,7 @@ kot
 kot
 qKn
 bsM
-bsM
+eYM
 rdc
 qZS
 njI
@@ -159898,9 +160024,9 @@ hRo
 kIF
 cnI
 usO
-bvA
-qQg
-opF
+pzs
+cJn
+qLM
 pjm
 uof
 rGA
@@ -161435,7 +161561,7 @@ aAt
 dwn
 tVG
 gtu
-gtu
+rqR
 giS
 qQg
 giS
@@ -161949,7 +162075,7 @@ kpy
 dwn
 qrP
 scU
-gtu
+rqR
 giS
 mbN
 giS
@@ -161962,7 +162088,7 @@ giS
 qQg
 tqe
 eUn
-eUn
+dpp
 eUn
 eUn
 eUn
@@ -162206,7 +162332,7 @@ mEq
 rgS
 gtu
 ojd
-bQA
+bSb
 bvA
 mbN
 giS
@@ -162219,7 +162345,7 @@ giS
 oVc
 nuI
 nuI
-nuI
+elw
 nuI
 nuI
 nuI
@@ -162476,7 +162602,7 @@ giS
 mbN
 iAy
 nXh
-nXh
+uQI
 nXh
 nXh
 iuw
@@ -163494,9 +163620,9 @@ eUC
 tnT
 cJB
 qlt
-bvA
-urb
-sRm
+pzs
+xrO
+bBu
 tZO
 cuY
 voR
