@@ -33557,6 +33557,13 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/apmaint)
+"gmY" = (
+/obj/machinery/camera{
+	c_tag = "Central Hallway South East Lounge";
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/hallway/primary/central/se)
 "gmZ" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/coffee{
@@ -34999,11 +35006,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
-"gDx" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/w_to_e,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "gDA" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
 /obj/structure/cable{
@@ -36110,11 +36112,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
-"gNA" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "gNE" = (
 /obj/machinery/message_server,
 /turf/simulated/floor/engine,
@@ -48525,9 +48522,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "jds" = (
@@ -51320,14 +51314,6 @@
 	icon_state = "white"
 	},
 /area/station/command/office/rd)
-"jEH" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "jER" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "coroner"
@@ -59831,6 +59817,12 @@
 	icon_state = "red"
 	},
 /area/station/legal/courtroom)
+"llA" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "llI" = (
 /obj/machinery/door_control{
 	id = "auxiliaryturbinevent";
@@ -64294,6 +64286,7 @@
 /obj/structure/railing,
 /obj/structure/table,
 /obj/item/toy/pet_rock,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -68008,6 +68001,17 @@
 /obj/structure/curtain/open,
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
+"mRr" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "sit_arrivals";
+	name = "Near Diagoras SW maints";
+	width = 11
+	},
+/turf/space,
+/area/space)
 "mRC" = (
 /obj/structure/table,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
@@ -78440,10 +78444,6 @@
 	icon_state = "darkgrey"
 	},
 /area/station/security/range)
-"oKC" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "oKD" = (
 /obj/effect/landmark/start/cargo_technician,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -79142,6 +79142,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "oPU" = (
@@ -84697,14 +84698,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/incinerator)
-"pRy" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "pRO" = (
 /obj/machinery/status_display{
 	pixel_x = 32
@@ -85738,17 +85731,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
-"qcf" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 3;
-	height = 5;
-	id = "sit_arrivals";
-	name = "Diagoras North East";
-	width = 11
-	},
-/turf/space,
-/area/space)
 "qcg" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -90623,6 +90605,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "qZn" = (
@@ -93712,6 +93695,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -95890,6 +95874,9 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
+"rVf" = (
+/turf/space,
+/area/station/maintenance/fsmaint)
 "rVl" = (
 /obj/structure/closet/emcloset,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
@@ -100864,12 +100851,9 @@
 	},
 /area/station/hallway/spacebridge/security/west)
 "sRd" = (
-/obj/machinery/atmospherics/portable/canister/air{
-	filled = 0.1
-	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "sRf" = (
@@ -110320,9 +110304,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "uDl" = (
@@ -117854,6 +117835,7 @@
 	dir = 1
 	},
 /obj/machinery/alarm/directional/east,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "vXr" = (
@@ -137448,11 +137430,11 @@ jnP
 jnP
 jnP
 jnP
-qcf
 jnP
 jnP
 jnP
 jnP
+mRr
 jnP
 jnP
 jnP
@@ -166734,7 +166716,7 @@ eZZ
 tps
 cLr
 noV
-hiP
+gmY
 hvy
 oBS
 dZB
@@ -179802,9 +179784,9 @@ ijF
 xdQ
 eSx
 tLi
-pRy
-gNA
-jEH
+sDq
+scq
+qib
 ohy
 yap
 pgo
@@ -180317,9 +180299,9 @@ ncF
 xdQ
 qKm
 sRd
-fzc
-bPF
-gDx
+llA
+gdv
+gdv
 gdv
 jnP
 jnP
@@ -180575,8 +180557,8 @@ hlH
 qKm
 fzc
 fzc
-oKC
-fzc
+gdv
+rVf
 aZS
 jnP
 jnP
@@ -180831,9 +180813,9 @@ qKm
 kkE
 qKm
 aZS
-fzc
-bPF
-fzc
+rVf
+rVf
+rVf
 aZS
 jnP
 jnP
