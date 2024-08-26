@@ -4408,7 +4408,7 @@
 /obj/structure/closet/cabinet,
 /obj/item/trash/can,
 /obj/item/trash/pistachios,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/clothing/mask/balaclava,
 /turf/simulated/floor/wood,
 /area/mine/laborcamp)
@@ -5213,7 +5213,7 @@
 /area/lavaland/surface/outdoors)
 "te" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredyellowfull"
@@ -5636,7 +5636,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
@@ -8645,7 +8645,7 @@
 "Ow" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
@@ -8917,7 +8917,7 @@
 /area/lavaland/surface/outdoors)
 "Qa" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/stack/marker_beacon/ten,
 /obj/item/book/random,
 /turf/simulated/floor/plating,
@@ -9743,7 +9743,7 @@
 	dir = 8;
 	id = "mining_internal"
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "VN" = (
@@ -10351,7 +10351,7 @@
 /area/lavaland/surface/outdoors)
 "YP" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
