@@ -332,6 +332,7 @@
 		step_in = initial(step_in)
 	var/move_result = 0
 	var/move_type = 0
+	/// extra slowdown to be added from strafing
 	var/step_malus = 0
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		move_result = mechsteprand()
