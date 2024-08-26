@@ -137,11 +137,11 @@
 
 
 /datum/antagonist/mindflayer/greet()
-	var/dat
+	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/mindflayer_alert.ogg'))
-	dat = "<span class='danger'>You are a mindflayer!</span><br>" // TODO: Add actual description
-	dat += "To harvest someone, target where the brain of your victim is and use harm intent with an empty hand. Drain intelligence to increase your swarm."
-	to_chat(owner.current, dat)
+	messages += "<span class='danger'>You are a mindflayer!</span><br>" // TODO: Add actual description
+	messages += "To harvest someone, target where the brain of your victim is and use harm intent with an empty hand. Drain intelligence to increase your swarm."
+	return messages
 
 /**
  * Gets a list of mind flayer spell typepaths based on the passed in `spell_type`. (Thanks for the code SteelSlayer)
