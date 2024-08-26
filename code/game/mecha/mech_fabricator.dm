@@ -86,7 +86,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/mecha_part_fabricator/LateInitialize()
-	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+	for(var/obj/machinery/computer/rnd_network_controller/RNC as anything in GLOB.rnd_network_managers)
 		if(RNC.network_name == autolink_id)
 			network_manager_uid = RNC.UID()
 			RNC.mechfabs += UID()
@@ -348,7 +348,7 @@
 		data["linked"] = FALSE
 
 		var/list/controllers = list()
-		for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+		for(var/obj/machinery/computer/rnd_network_controller/RNC as anything in GLOB.rnd_network_managers)
 			controllers += list(list("addr" = RNC.UID(), "net_id" = RNC.network_name))
 		data["controllers"] = controllers
 
@@ -360,8 +360,8 @@
 	data["curCategory"] = selected_category
 
 	var/list/tech_levels = list()
-	for(var/v in files.known_tech)
-		var/datum/tech/T = files.known_tech[v]
+	for(var/tech_id in files.known_tech)
+		var/datum/tech/T = files.known_tech[tech_id]
 		if(T.level <= 0)
 			continue
 		var/list/this_tech_list = list()
@@ -401,8 +401,8 @@
 	// Current category
 	if(selected_category)
 		var/list/category_designs = list()
-		for(var/v in files.known_designs)
-			var/datum/design/D = files.known_designs[v]
+		for(var/tech_id in files.known_designs)
+			var/datum/design/D = files.known_designs[tech_id]
 			if(!(D.build_type & allowed_design_types) || !(selected_category in D.category) || length(D.reagents_list))
 				continue
 			var/list/design_out = list("id" = D.id, "name" = D.name, "cost" = get_design_cost(D), "time" = get_design_build_time(D))
@@ -433,7 +433,7 @@
 		if("unlink")
 			if(!network_manager_uid)
 				return
-			var/choice = alert(usr, "Are you SURE you want to unlink this fabricator?\nYou wont be able to re-link without the network manager password", "Unlink","Yes","No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this fabricator?\nYou wont be able to re-link without the network manager password", "Unlink","Yes","No")
 			if(choice == "Yes")
 				unlink()
 
@@ -487,8 +487,8 @@
 			process_queue()
 		if("queueall")
 			LAZYINITLIST(build_queue)
-			for(var/v in files.known_designs)
-				var/datum/design/D = files.known_designs[v]
+			for(var/tech_id in files.known_designs)
+				var/datum/design/D = files.known_designs[tech_id]
 				if(!(D.build_type & allowed_design_types) || !(selected_category in D.category) || length(D.reagents_list))
 					continue
 				build_queue += D

@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 	if(network_name)
 		network_name = trim(network_name)
 
-		if(NameCheck(network_name))
+		if(name_check(network_name))
 			var/myuid = UID()
 			stack_trace("[src] at [x],[y],[z] tried to init with a network name of [network_name] when its already in use. Name has been randomised to [myuid]")
 			network_name = myuid
@@ -42,7 +42,14 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 	if(!network_name)
 		network_name = UID()
 
-/obj/machinery/computer/rnd_network_controller/proc/NameCheck(pending_name)
+/**
+  * Name sanity check
+  *
+  * Makes sure the target network name isnt already in use. Returns TRUE or FALSE depending on that criteria.
+  * Arguments:
+  * * pending_name - The name to check
+  */
+/obj/machinery/computer/rnd_network_controller/proc/name_check(pending_name)
 	var/list/all_names = list()
 
 	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
@@ -97,11 +104,11 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 
 
 /obj/machinery/computer/rnd_network_controller/screwdriver_act(mob/user, obj/item/I)
-	var/areyousure = tgui_alert(user, "Disassembling this console will wipe its networks RnD progress from this round. If you are doing this as a non-antag, expect a bollocking.\n\nAre you sure?", "Think for a moment", "Yes", "No")
+	var/areyousure = tgui_alert(user, "Disassembling this console will wipe its network's RnD progress from this round. If you are doing this as a non-antag, expect a bollocking.\n\nAre you sure?", "Think for a moment", "Yes", "No")
 	if(areyousure != "Yes")
 		return TRUE // Dont attack the console, pretend we did something
 
-	. = ..()
+	return ..()
 
 
 /obj/machinery/computer/rnd_network_controller/attack_hand(mob/user)
@@ -193,7 +200,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 			if(length(new_name) == 0)
 				return
 
-			if(NameCheck(new_name))
+			if(name_check(new_name))
 				to_chat(usr, "<span class='warning'>Error, network name <code>[new_name]</code> already in use.</span>")
 				return
 

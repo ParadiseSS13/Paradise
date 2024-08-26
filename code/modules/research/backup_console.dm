@@ -1,8 +1,9 @@
-// R&D backup console - just saves tech levels
+/// R&D backup console - just saves tech levels
 /obj/machinery/computer/rnd_backup
 	name = "rnd backup console"
 	desc = "Can be used to backup an R&D network's research data"
 	icon_screen = "comm_logs" // looks good enough
+	circuit = /obj/item/circuitboard/rnd_backup_console
 	/// ID to autolink to, used in mapload
 	var/autolink_id = null
 	/// UID of the network that we use
@@ -25,6 +26,11 @@
 		if(RNC.network_name == autolink_id)
 			network_manager_uid = RNC.UID()
 			RNC.backupconsoles += UID()
+
+/obj/machinery/computer/rnd_backup/Destroy()
+	unlink()
+	eject_disk()
+	return ..()
 
 
 /obj/machinery/computer/rnd_backup/proc/unlink()
@@ -56,7 +62,6 @@
 
 
 /obj/machinery/computer/rnd_backup/attack_hand(mob/user)
-	. = ..()
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
@@ -126,7 +131,7 @@
 		if("unlink")
 			if(!network_manager_uid)
 				return FALSE
-			var/choice = alert(usr, "Are you SURE you want to unlink this backup console?\nYou wont be able to re-link without the network manager password", "Unlink","Yes","No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this backup console?\nYou wont be able to re-link without the network manager password", "Unlink","Yes","No")
 			if(choice == "Yes")
 				unlink()
 
@@ -151,7 +156,7 @@
 			if(!T)
 				return
 
-			var/choice = alert(usr, "Do you want to import this level to the network (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Import", "Yes", "No")
+			var/choice = tgui_alert(usr, "Do you want to import this level to the network (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Import", "Yes", "No")
 			if(choice != "Yes")
 				return FALSE
 
@@ -175,7 +180,7 @@
 			if(!T)
 				return
 
-			var/choice = alert(usr, "Do you want to export this tech data to the disk (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Export", "Yes", "No")
+			var/choice = tgui_alert(usr, "Do you want to export this tech data to the disk (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Export", "Yes", "No")
 			if(choice != "Yes")
 				return FALSE
 
@@ -194,7 +199,7 @@
 				network_manager_uid = null
 				return FALSE
 
-			var/choice = alert(usr, "Are you SURE you want to import all the data on the disk to the network?", "Data Import", "Yes", "No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to import all the data on the disk to the network?", "Data Import", "Yes", "No")
 			if(choice != "Yes")
 				return FALSE
 
@@ -215,7 +220,7 @@
 				network_manager_uid = null
 				return FALSE
 
-			var/choice = alert(usr, "Are you SURE you want to export all the data on the network to the disk?", "Data Export", "Yes", "No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to export all the data on the network to the disk?", "Data Export", "Yes", "No")
 			if(choice != "Yes")
 				return FALSE
 
@@ -232,7 +237,7 @@
 
 			var/obj/machinery/computer/rnd_network_controller/C = locateUID(params["target_controller"])
 			if(istype(C, /obj/machinery/computer/rnd_network_controller))
-				var/user_pass = input(usr, "Please enter network password", "Password Entry")
+				var/user_pass = tgui_input_text(usr, "Please enter network password", "Password Entry")
 				// Check the password
 				if(user_pass == C.network_password)
 					network_manager_uid = C.UID()
