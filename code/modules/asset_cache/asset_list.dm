@@ -5,17 +5,30 @@
 GLOBAL_LIST_EMPTY(asset_datums)
 
 //get an assetdatum or make a new one
-/proc/get_asset_datum(type)
+//does NOT ensure it's filled, if you want that use get_asset_datum()
+/proc/load_asset_datum(type)
 	return GLOB.asset_datums[type] || new type()
+
+/proc/get_asset_datum(type)
+	var/datum/asset/loaded_asset = GLOB.asset_datums[type] || new type()
+	return loaded_asset.ensure_ready()
 
 /datum/asset
 	var/_abstract = /datum/asset
 	var/cached_serialized_url_mappings
 	var/cached_serialized_url_mappings_transport_type
 
+	/// Whether or not this asset should be loaded in the "early assets" SS
+	var/early = FALSE
+
 /datum/asset/New()
 	GLOB.asset_datums[type] = src
 	register()
+
+/// Stub that allows us to react to something trying to get us
+/// Not useful here, more handy for sprite sheets
+/datum/asset/proc/ensure_ready()
+	return src
 
 /datum/asset/proc/get_url_mappings()
 	return list()
@@ -25,7 +38,6 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/proc/send(client)
 	return
-
 
 /// If you don't need anything complicated.
 /datum/asset/simple
@@ -68,7 +80,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/group/register()
 	for(var/type in children)
-		get_asset_datum(type)
+		load_asset_datum(type)
 
 /datum/asset/group/send(client/C)
 	for(var/type in children)
@@ -369,6 +381,32 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	assets = sorted_assets
 	..()
+
+/// A subtype to generate a JSON file from a list
+/datum/asset/json
+	_abstract = /datum/asset/json
+	/// The filename, will be suffixed with ".json"
+	var/name
+
+/datum/asset/json/send(client)
+	return SSassets.transport.send_assets(client, "[name].json")
+
+/datum/asset/json/get_url_mappings()
+	return list(
+		"[name].json" = SSassets.transport.get_asset_url("[name].json"),
+	)
+
+/datum/asset/json/register()
+	var/filename = "data/[name].json"
+	fdel(filename)
+	text2file(json_encode(generate()), filename)
+	SSassets.transport.register_asset("[name].json", fcopy_rsc(filename))
+	fdel(filename)
+
+/// Returns the data that will be JSON encoded
+/datum/asset/json/proc/generate()
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("generate() not implemented for [type]!")
 
 /*
  * Get a html string that will load a html asset.

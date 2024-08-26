@@ -4,10 +4,10 @@
 /datum/stack_recipe
 	/// Visible title of recipe
 	var/title = "ERROR"
-	/// Cached recipe result base64 image
-	var/image
 	/// Resulting typepath of crafted atom
 	var/result_type
+	/// Generated base64 image. Used only if result has color
+	var/result_image
 	/// Required stack amount to make
 	var/req_amount = 1
 	/// Amount of atoms made
@@ -52,15 +52,14 @@
 	src.window_checks = window_checks
 	src.cult_structure = cult_structure
 
+	// We create base64 image only if item have color. Otherwise use icon_ref for TGUI
 	var/obj/item/result = result_type
-	var/icon/result_icon = icon(result::icon, result::icon_state, SOUTH, 1)
 	var/paint = result::color
-
-	result_icon.Scale(32, 32)
 	if(!isnull(paint) && paint != COLOR_WHITE)
+		var/icon/result_icon = icon(result::icon, result::icon_state, SOUTH, 1)
+		result_icon.Scale(32, 32)
 		result_icon.Blend(paint, ICON_MULTIPLY)
-
-	src.image = "[icon2base64(result_icon)]"
+		src.result_image = "[icon2base64(result_icon)]"
 
 /// Returns TRUE if the recipe can be built, otherwise returns FALSE. This proc is only meant as a series of tests to check if construction is possible; the actual creation of the resulting atom should be handled in do_build()
 /datum/stack_recipe/proc/try_build(mob/user, obj/item/stack/material, multiplier)
