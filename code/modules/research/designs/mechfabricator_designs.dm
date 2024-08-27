@@ -613,7 +613,7 @@
 	build_path = /obj/item/mecha_parts/mecha_equipment/drill
 	materials = list(MAT_METAL=10000)
 	construction_time = 10 SECONDS
-	category = list("Exosuit Equipment")s
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_crusher
 	name = "Exosuit Mining Equipment (Mounted crusher)"
