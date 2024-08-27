@@ -4368,6 +4368,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blackcorner"
@@ -9163,6 +9164,12 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
+"bJv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/wood,
+/area/station/security/permabrig)
 "bJy" = (
 /obj/structure/chair/office/light,
 /obj/effect/landmark/start/chaplain,
@@ -10038,6 +10045,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -20728,6 +20736,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -24042,6 +24051,15 @@
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
+"eCu" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "eCv" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/plating,
@@ -26589,6 +26607,15 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/main)
+"fah" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "fan" = (
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Distribution Loop"
@@ -29952,6 +29979,9 @@
 "fEn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
 	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
@@ -38480,6 +38510,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "hjs" = (
@@ -38899,6 +38930,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "black"
@@ -39017,6 +39051,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "hou" = (
@@ -41065,6 +41100,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blackcorner"
@@ -54358,6 +54394,9 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "kfC" = (
@@ -64656,6 +64695,9 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
 	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
@@ -81907,6 +81949,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "pmL" = (
@@ -96389,6 +96434,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "rWQ" = (
@@ -100972,6 +101018,23 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/atmos/storage)
+"sPo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "sPF" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light_switch{
@@ -105196,6 +105259,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "tCL" = (
@@ -109285,6 +109351,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
 	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
@@ -124606,6 +124675,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -125860,6 +125932,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "black"
@@ -177300,7 +177375,7 @@ xhr
 otB
 sUV
 fEn
-mTh
+bJv
 lKv
 otB
 aZS
@@ -177809,7 +177884,7 @@ sNb
 pYB
 jkq
 jkq
-pYB
+sPo
 xhr
 hRG
 nsF
@@ -178579,8 +178654,8 @@ eTx
 bbR
 pYB
 iKE
-iKE
-pYB
+eCu
+sPo
 rnM
 rnM
 sMk
@@ -182691,8 +182766,8 @@ eTx
 ito
 pYB
 jkq
-jkq
-pYB
+fah
+sPo
 rnM
 rnM
 sMk
@@ -183463,7 +183538,7 @@ huf
 pYB
 iKE
 iKE
-pYB
+sPo
 hpA
 otB
 nsF
