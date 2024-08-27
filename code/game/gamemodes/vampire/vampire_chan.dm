@@ -37,8 +37,8 @@
 	return ..()
 
 /datum/game_mode/vampire/announce()
-	to_chat(world, "<B>The current game mode is - Vampires+Changelings!</B>")
-	to_chat(world, "<B>Some of your co-workers are vampires, and others might not even be your coworkers!</B>")
+	to_chat(world, "<b>The current game mode is - Vampires+Changelings!</b>")
+	to_chat(world, "<b>Some of your co-workers are vampires, and others might not even be your coworkers!</b>")
 
 /datum/game_mode/vampire/changeling/post_setup()
 	for(var/datum/mind/changeling as anything in pre_changelings)
