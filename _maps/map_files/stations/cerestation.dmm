@@ -5228,21 +5228,6 @@
 	icon_state = "bluered"
 	},
 /area/station/hallway/secondary/entry/west)
-"aJX" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/mineral/ancient,
-/area/station/service/library)
 "aKb" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -10788,6 +10773,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/port/north)
+"brP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 10;
+	level = 2
+	},
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/port2)
 "brU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -15838,23 +15831,6 @@
 	dir = 8
 	},
 /area/station/engineering/atmos)
-"bOm" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/rack,
-/obj/item/pickaxe/emergency,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
-/obj/machinery/light/small,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall,
-/area/station/service/chapel)
 "bOo" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
@@ -16878,7 +16854,6 @@
 	dir = 6
 	},
 /obj/structure/closet/firecloset/full,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
@@ -18382,20 +18357,6 @@
 	icon_state = "dark"
 	},
 /area/station/command/bridge)
-"bYZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/port2)
 "bZb" = (
 /obj/machinery/light{
 	dir = 4
@@ -18440,20 +18401,6 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
-"bZA" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
 "bZB" = (
 /obj/structure/closet/toolcloset,
 /obj/machinery/light/small{
@@ -21586,21 +21533,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/port)
-"cwX" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/item/storage/box/bodybags,
-/obj/structure/table,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/port)
 "cxb" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
@@ -27006,7 +26938,7 @@
 /area/station/security/prison/cell_block/A)
 "dcR" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port)
 "dda" = (
@@ -27220,10 +27152,10 @@
 /area/station/engineering/atmos)
 "ddK" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/remains/human,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "ddL" = (
@@ -27641,13 +27573,6 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/prison/cell_block/A)
-"dfz" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/port)
 "dfF" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -28281,24 +28206,6 @@
 	},
 /turf/space,
 /area/station/hallway/spacebridge/cargocom)
-"dkC" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "dkD" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -31988,6 +31895,10 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
+"dLa" = (
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/port)
 "dLb" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -32751,26 +32662,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/north)
-"dTj" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/item/kirbyplants,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/wood,
-/area/station/service/library)
 "dTB" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -32868,35 +32759,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/north)
-"dUG" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "dUM" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable/orange{
@@ -33109,7 +32971,7 @@
 /area/station/maintenance/disposal/south)
 "dXP" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "dXV" = (
@@ -33630,9 +33492,6 @@
 	},
 /area/station/hallway/primary/fore/west)
 "eiE" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -33640,16 +33499,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/decal/cleanable/cobweb,
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
-/obj/structure/disposalpipe/segment/corner,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -34057,6 +33906,7 @@
 /area/station/science/toxins/mixing)
 "epq" = (
 /obj/structure/rack,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/west)
 "epT" = (
@@ -34754,15 +34604,6 @@
 	icon_state = "dark"
 	},
 /area/station/command/teleporter)
-"eAi" = (
-/obj/structure/closet/crate{
-	name = "top secret mime supplies"
-	},
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/service/clown/secret)
 "eAj" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -35588,10 +35429,10 @@
 /area/station/science/toxins/test)
 "eLq" = (
 /obj/structure/table/wood/poker,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "eLs" = (
@@ -35966,6 +35807,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"eQv" = (
+/obj/effect/spawner/random/maintenance,
+/obj/structure/rack,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/mine/unexplored/cere/civilian)
 "eQA" = (
 /obj/machinery/alarm/directional/north,
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
@@ -36578,8 +36426,8 @@
 /area/station/supply/qm)
 "fcp" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/item/pickaxe/emergency,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -36794,18 +36642,7 @@
 	},
 /area/station/hallway/primary/fore/east)
 "fgn" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/space_heater,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port)
 "fgt" = (
@@ -36973,19 +36810,8 @@
 	},
 /area/station/security/warden)
 "fjs" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/closet/firecloset/full,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port2)
 "fjt" = (
@@ -37140,24 +36966,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
 "fmz" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/closet/firecloset/full,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance,
-/obj/structure/disposalpipe/segment/corner{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "fmA" = (
@@ -37380,8 +37189,7 @@
 /area/station/maintenance/apmaint)
 "frd" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/westalt)
 "frg" = (
@@ -37652,20 +37460,6 @@
 	},
 /turf/space,
 /area/space)
-"fuy" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
 "fuB" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -38506,22 +38300,6 @@
 "fIg" = (
 /turf/simulated/wall/r_wall,
 /area/station/hallway/primary/fore/west)
-"fIh" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/spawner/random_spawners/fungus_maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall,
-/area/station/maintenance/port)
 "fIm" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -38808,21 +38586,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"fNf" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/spawner/random_spawners/fungus_maybe,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/emcloset,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall,
-/area/station/maintenance/port2)
 "fNB" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -39905,6 +39668,7 @@
 "gcK" = (
 /obj/structure/table,
 /obj/item/flashlight/lantern,
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -40155,20 +39919,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet/green,
-/area/station/service/library)
-"ghM" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/wardrobe/mixed,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/mineral/ancient,
 /area/station/service/library)
 "ghS" = (
 /obj/structure/flora/grass/jungle,
@@ -41528,9 +41278,6 @@
 	},
 /area/station/science/genetics)
 "gEI" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
 	},
@@ -41544,14 +41291,6 @@
 	color = "#954535"
 	},
 /obj/effect/turf_decal/caution/red,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -42343,35 +42082,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/toxins/mixing)
-"gQE" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
 "gQH" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
 /obj/item/airlock_electronics,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -42715,7 +42429,7 @@
 /obj/item/reagent_containers/drinks/cans/badminbrew,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "gXb" = (
@@ -42952,7 +42666,6 @@
 /area/station/command/office/blueshield)
 "hal" = (
 /obj/structure/closet/firecloset/full,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port2)
 "ham" = (
@@ -44242,7 +43955,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/maintenance/gambling_den)
 "huM" = (
@@ -44333,10 +44046,6 @@
 /obj/item/storage/fancy/cigarettes,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port)
-"hvQ" = (
-/obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/station/maintenance/disposal/west)
 "hvX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -44396,8 +44105,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southwest)
 "hwM" = (
-/obj/structure/girder,
-/obj/structure/grille,
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/west)
 "hwS" = (
@@ -45044,10 +44756,10 @@
 /area/station/public/quantum/security)
 "hGq" = (
 /obj/structure/closet/emcloset,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -45620,7 +45332,7 @@
 "hNA" = (
 /obj/machinery/light/small,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -45810,9 +45522,10 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "hPP" = (
-/obj/structure/table,
-/obj/structure/spider/stickyweb,
 /obj/effect/decal/remains/human,
+/obj/structure/table,
+/obj/effect/spawner/random/maintenance,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "hPS" = (
@@ -46606,24 +46319,10 @@
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "hZL" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable/orange{
 	d2 = 2;
 	icon_state = "0-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/closet,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -47571,23 +47270,8 @@
 	},
 /area/station/hallway/primary/central/west)
 "inI" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/barsign{
 	pixel_y = 32
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table/wood/poker,
-/obj/effect/spawner/random/maintenance,
-/obj/machinery/barsign{
-	pixel_y = 32
-	},
-/obj/effect/landmark/damageturf,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
@@ -47759,21 +47443,6 @@
 /obj/item/pickaxe,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/fpmaint)
-"ipP" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/decal/cleanable/cobweb,
-/obj/structure/closet/wardrobe/black,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
 "ipQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -48689,7 +48358,7 @@
 /area/station/public/locker)
 "iBg" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/westalt)
 "iBx" = (
@@ -49529,36 +49198,6 @@
 	icon_state = "white"
 	},
 /area/station/science/explab/chamber)
-"iOb" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/closet/crate,
-/obj/structure/disposalpipe/segment/corner{
-	dir = 8
-	},
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/port2)
 "iOr" = (
 /obj/structure/chair{
 	dir = 8
@@ -49782,20 +49421,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
-"iRf" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/effect/spawner/random/maintenance,
-/obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall,
-/area/station/service/clown/secret)
 "iRr" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -51408,24 +51033,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/hallway/primary/fore/west)
-"jng" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/atmospherics/portable/canister/air,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/emcloset,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/port2)
 "jnp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -51646,10 +51253,10 @@
 /area/station/maintenance/disposal/east)
 "jpH" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/sign/electricshock{
 	pixel_x = 32
 	},
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "jpP" = (
@@ -53534,20 +53141,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
-"jLZ" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "jMh" = (
 /obj/item/kirbyplants,
 /obj/machinery/requests_console{
@@ -53706,23 +53299,6 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
-"jPs" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/closet/emcloset,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
 "jPu" = (
 /obj/structure/mineral_door/wood{
 	name = "Abandoned Bar"
@@ -55241,6 +54817,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/east)
+"kms" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/fpmaint)
 "kmt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plasteel{
@@ -55660,7 +55243,6 @@
 "ksS" = (
 /obj/structure/table,
 /obj/item/clothing/glasses/meson,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -56147,23 +55729,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/port)
 "kzX" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/emcloset,
-/obj/machinery/light/small,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner";
 	dir = 8
@@ -56534,12 +56103,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
-"kHH" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/port)
 "kHN" = (
 /obj/machinery/door_control{
 	id = "fb1";
@@ -57405,7 +56968,6 @@
 /area/station/maintenance/disposal/southwest)
 "kTF" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -57794,8 +57356,7 @@
 /area/station/maintenance/disposal/east)
 "kZy" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "kZD" = (
@@ -58278,7 +57839,7 @@
 /area/station/maintenance/asmaint)
 "lhK" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "lhM" = (
@@ -59107,6 +58668,14 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/mine/unexplored/cere/engineering)
+"lrW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plating,
+/area/station/maintenance/port)
 "lsh" = (
 /obj/item/wrench,
 /obj/item/stack/sheet/glass/fifty,
@@ -59628,6 +59197,7 @@
 "lzd" = (
 /obj/structure/closet/crate,
 /obj/item/pickaxe,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -59671,7 +59241,7 @@
 	pixel_x = 9;
 	pixel_y = 6
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -60231,8 +59801,8 @@
 /area/station/service/chapel)
 "lIP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/two,
 /obj/structure/table,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "lIS" = (
@@ -62867,9 +62437,6 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
 "mws" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 8;
@@ -62883,15 +62450,6 @@
 	},
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -63863,21 +63421,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/asmaint)
-"mMe" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall,
-/area/station/maintenance/port)
 "mMw" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light/small{
@@ -64793,25 +64336,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
-"mYX" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored/cere/civilian)
 "mZc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -67550,12 +67074,12 @@
 /area/station/hallway/primary/starboard/south)
 "nRY" = (
 /obj/structure/table,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/remains/human,
 /obj/item/poster/random_contraband{
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/structure/spider/stickyweb,
-/obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "nSn" = (
@@ -67664,6 +67188,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/pickaxe/mini,
 /obj/structure/rack,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "nUP" = (
@@ -68082,7 +67607,7 @@
 /area/station/hallway/spacebridge/scidock)
 "ock" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -68155,23 +67680,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
-"odH" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/disposal/southwest)
 "oec" = (
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
@@ -69989,20 +69497,6 @@
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/xenobiology)
-"oEh" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/emcloset,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "oEl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -70353,7 +69847,7 @@
 /area/station/service/hydroponics)
 "oKb" = (
 /obj/structure/closet/emcloset,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "oKi" = (
@@ -70941,22 +70435,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
-"oSb" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/fpmaint)
 "oSt" = (
 /obj/machinery/chem_master/condimaster,
 /turf/simulated/floor/plasteel/freezer,
@@ -74924,7 +74402,6 @@
 	dir = 10
 	},
 /obj/structure/closet/emcloset,
-/obj/effect/spawner/lootdrop/maintenance/three,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -76784,9 +76261,6 @@
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/southwest)
 "qtV" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/table/wood,
 /obj/item/ashtray/glass{
 	pixel_x = 6;
@@ -76797,18 +76271,6 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/crate,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/coin/silver,
-/obj/item/coin/silver,
-/obj/item/pickaxe,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "qtW" = (
@@ -76848,8 +76310,8 @@
 	},
 /area/station/medical/storage/secondary)
 "quf" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
+/obj/structure/rack,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -76866,7 +76328,6 @@
 "quE" = (
 /obj/structure/closet/firecloset/full,
 /obj/item/pickaxe,
-/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "quI" = (
@@ -77177,8 +76638,8 @@
 	dir = 4;
 	pixel_x = 12
 	},
-/obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/mine/unexplored/cere/civilian)
 "qyO" = (
@@ -77888,19 +77349,10 @@
 	},
 /area/station/maintenance/starboard)
 "qJY" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/closet/crate{
 	name = "top secret mime supplies"
 	},
 /obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating,
 /area/station/service/clown/secret)
 "qKt" = (
@@ -80089,10 +79541,10 @@
 /area/station/hallway/secondary/exit)
 "rvE" = (
 /obj/structure/table/wood/poker,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood/nitrogen,
 /area/station/maintenance/abandonedbar)
 "rvL" = (
@@ -81242,7 +80694,7 @@
 /area/station/command/bridge)
 "rMP" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
 "rMT" = (
@@ -81953,19 +81405,8 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/port2)
 "rXh" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port2)
@@ -82355,22 +81796,6 @@
 	icon_state = "neutral"
 	},
 /area/station/public/storage/tools)
-"scf" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet,
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/space,
-/area/space)
 "scq" = (
 /obj/machinery/camera{
 	c_tag = "Disposals";
@@ -84282,7 +83707,8 @@
 /area/station/security/permabrig)
 "sCi" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/mine/unexplored/cere/civilian)
 "sCn" = (
@@ -85288,11 +84714,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
-"sPM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/station/maintenance/port2)
 "sPV" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -85805,7 +85226,6 @@
 /area/station/turret_protected/ai)
 "sYj" = (
 /obj/structure/closet/emcloset,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -87406,7 +86826,7 @@
 /obj/item/pickaxe,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port)
 "tvE" = (
@@ -88170,7 +87590,7 @@
 /area/station/engineering/gravitygenerator)
 "tHA" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "tHB" = (
@@ -88752,20 +88172,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_3)
-"tQX" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/wood,
-/area/station/service/library)
 "tQZ" = (
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/dirt,
@@ -90020,6 +89426,10 @@
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
+"uhz" = (
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/station/maintenance/port)
 "uhB" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -90955,6 +90365,7 @@
 /area/station/hallway/primary/aft/east)
 "uuY" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/mine/unexplored/cere/civilian)
 "uvp" = (
@@ -91269,6 +90680,7 @@
 /area/station/hallway/primary/port/south)
 "uyi" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -91706,6 +91118,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
+"uDh" = (
+/obj/structure/closet/wardrobe/mixed,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/station/maintenance/port)
 "uDw" = (
 /obj/structure/closet/crate,
 /obj/item/pickaxe,
@@ -92740,7 +92157,7 @@
 /area/station/command/office/rd)
 "uSE" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "uSM" = (
@@ -93386,21 +92803,6 @@
 	color = "#4C763A"
 	},
 /area/station/public/quantum/docking)
-"vcI" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/decal/cleanable/blood/splatter,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/table,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/port)
 "vcK" = (
 /obj/machinery/cryopod{
 	dir = 2
@@ -94396,7 +93798,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood,
 /area/station/maintenance/port)
 "vrI" = (
@@ -94545,13 +93947,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/service/mime)
-"vtz" = (
-/obj/structure/closet/emcloset,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/port)
 "vtB" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -95313,8 +94708,9 @@
 "vEI" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/spider/stickyweb,
 /obj/effect/decal/remains/human,
+/obj/effect/spawner/random/maintenance,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "vFa" = (
@@ -97715,30 +97111,9 @@
 	},
 /area/station/hallway/primary/aft/west)
 "wno" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/rack,
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/rack,
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/west)
 "wnt" = (
@@ -97789,6 +97164,7 @@
 /obj/structure/sink{
 	pixel_y = 24
 	},
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "woa" = (
@@ -99379,6 +98755,7 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
 "wHy" = (
@@ -99608,9 +98985,6 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "wKM" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/camera{
 	c_tag = "Service Asteroid Solar Array Exterior";
 	dir = 4;
@@ -99619,14 +98993,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/electricshock{
 	pixel_x = -32
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -100072,6 +99438,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
+"wQC" = (
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/port)
 "wQY" = (
 /turf/simulated/floor/bluegrid{
 	nitrogen = 500;
@@ -100106,6 +99479,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/rack,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "wRF" = (
@@ -101383,7 +100758,7 @@
 /area/station/science/robotics)
 "xlL" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port2)
 "xlS" = (
@@ -101433,9 +100808,8 @@
 	},
 /area/station/hallway/spacebridge/cargocom)
 "xno" = (
-/obj/effect/spawner/random_spawners/dirt_often,
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "xnz" = (
@@ -102304,22 +101678,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/warden)
-"xAe" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/maintenance/port)
 "xAk" = (
 /obj/machinery/light{
 	dir = 1
@@ -102528,18 +101886,8 @@
 	},
 /area/station/engineering/control)
 "xCH" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/effect/spawner/random_spawners/grille_often,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/crate,
+/obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -103216,18 +102564,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "xLN" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/mineral/ancient,
 /area/mine/unexplored/cere/civilian)
 "xLP" = (
@@ -103659,7 +102997,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/southwest)
 "xSf" = (
@@ -103759,22 +103097,11 @@
 	},
 /area/station/maintenance/apmaint)
 "xTG" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/requests_console/directional/south,
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/closet/emcloset,
-/obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -112288,7 +111615,7 @@ pBW
 iGN
 jjW
 mwS
-odH
+oul
 cak
 cak
 bWw
@@ -112728,7 +112055,7 @@ ktd
 rGi
 mfN
 rNK
-scf
+rNK
 rNK
 rNK
 rNK
@@ -113572,10 +112899,10 @@ bXj
 aXn
 aXn
 afH
-ygl
+gCA
 wzC
 crj
-fuy
+aXn
 aXn
 aXn
 aXn
@@ -114059,7 +113386,7 @@ dWe
 kqa
 tsp
 qUT
-uCK
+uDh
 qqG
 uCK
 aXn
@@ -114084,7 +113411,7 @@ bXj
 bXj
 bXj
 aXn
-ipP
+aXn
 wGX
 ygl
 wzC
@@ -114583,7 +113910,7 @@ aXn
 aXn
 aXn
 aXn
-gQE
+aXn
 aXn
 aXn
 bXj
@@ -114600,7 +113927,7 @@ aue
 aue
 eCI
 uED
-gCA
+ygl
 rag
 pXy
 xmz
@@ -115117,7 +114444,7 @@ iXd
 faM
 fFl
 pXy
-bDs
+lrW
 whg
 gUw
 eHn
@@ -115373,7 +114700,7 @@ tIM
 xaR
 aBs
 gUF
-mic
+eyx
 aXn
 aXn
 gcK
@@ -115381,7 +114708,7 @@ aJH
 tZH
 aXn
 aXn
-uCK
+dLa
 uCK
 ogv
 uCK
@@ -115627,7 +114954,7 @@ uCK
 dNr
 liJ
 uCK
-kHH
+eCI
 mvU
 dhf
 lqj
@@ -115639,9 +114966,9 @@ aXn
 aXn
 aXn
 aXn
-uCK
+dLa
 hwS
-vcI
+eTI
 kad
 uCK
 aXn
@@ -115891,7 +115218,7 @@ aXn
 aXn
 cRq
 cRq
-iRf
+bWr
 bWr
 cRq
 aXn
@@ -116137,7 +115464,7 @@ bZg
 nKE
 kjl
 lIE
-bOm
+bUN
 bZg
 cUx
 uCK
@@ -116155,7 +115482,7 @@ aXn
 aXn
 aXn
 aXn
-uCK
+dLa
 ogv
 eCI
 aXn
@@ -116608,7 +115935,7 @@ aXn
 aXn
 aXn
 aXn
-mYX
+aXn
 bNy
 aue
 mYL
@@ -116623,7 +115950,7 @@ eHu
 aXn
 aXn
 aXn
-dfz
+xCH
 eCI
 ltk
 wzC
@@ -116889,7 +116216,7 @@ aXn
 iht
 vrI
 eCI
-mMe
+rho
 wLy
 xaR
 xaR
@@ -116920,7 +116247,7 @@ gmy
 umL
 slQ
 mhA
-eAi
+mhA
 bWr
 aXn
 rLT
@@ -117149,7 +116476,7 @@ aXn
 aXn
 aEe
 rVt
-ghM
+aEe
 lVV
 bUN
 uyC
@@ -117352,7 +116679,7 @@ dDB
 eRT
 ofQ
 oPG
-hvQ
+huF
 gnu
 abW
 cRv
@@ -117404,7 +116731,7 @@ aXn
 aXn
 aEe
 aEe
-aJX
+aEe
 bPY
 aEe
 aEe
@@ -117441,7 +116768,7 @@ aXn
 ddK
 nRY
 rnP
-xAe
+eCI
 eCI
 aue
 sNr
@@ -117885,7 +117212,7 @@ rzL
 rps
 aue
 eCI
-fIh
+lqj
 aXn
 aXn
 aXn
@@ -117939,7 +117266,7 @@ gyb
 qtm
 cMT
 cME
-vtz
+afH
 aXn
 aXn
 utj
@@ -117954,7 +117281,7 @@ aXn
 aXn
 aXn
 aXn
-afH
+wQC
 eCI
 xWL
 pDu
@@ -118395,7 +117722,7 @@ sNr
 aue
 eCI
 aue
-oEh
+jee
 cUx
 aue
 eCI
@@ -118637,7 +117964,7 @@ duh
 mxF
 xyw
 goV
-oSb
+xyw
 jHb
 weG
 pab
@@ -118683,7 +118010,7 @@ xfK
 ybP
 xfK
 xes
-dTj
+xfK
 tpg
 bJA
 oVv
@@ -118894,7 +118221,7 @@ uuj
 uuj
 uuj
 gVK
-jLZ
+duh
 uuj
 cRv
 cRv
@@ -119164,12 +118491,12 @@ rNK
 rNK
 hUU
 aXn
-cwX
+bav
 mON
 occ
 eXl
 gSN
-occ
+uhz
 bav
 eCI
 jAn
@@ -119186,7 +118513,7 @@ oIt
 scc
 ulK
 bkU
-dUG
+taC
 mXc
 fOi
 aue
@@ -120187,7 +119514,7 @@ nxA
 jdc
 abW
 cRv
-rNK
+cRv
 rNK
 rNK
 rNK
@@ -120226,7 +119553,7 @@ aEe
 tAg
 bHZ
 tTE
-tQX
+bHZ
 mKI
 ybP
 aEe
@@ -120442,24 +119769,24 @@ emw
 abW
 nxA
 jdc
+xyw
 abW
 cRv
 rNK
 rNK
 rNK
 rNK
-rNK
 hUU
 hUU
 hUU
 aXn
 aXn
-bZA
+aXn
 aXn
 aXn
 eCI
 pDl
-pXy
+xCH
 aXn
 aXn
 ock
@@ -120700,8 +120027,8 @@ abW
 nxA
 jdc
 guQ
+abW
 cRv
-rNK
 rNK
 rNK
 rNK
@@ -120714,7 +120041,7 @@ aXn
 aXn
 aXn
 mic
-dkC
+bDs
 pDl
 lqj
 aXn
@@ -120954,10 +120281,10 @@ hAA
 etG
 lKg
 abW
-nxA
+kms
 jdc
 xyw
-cRv
+abW
 cRv
 rNK
 rNK
@@ -123086,7 +122413,7 @@ oPR
 fRq
 tlb
 ehr
-jng
+hHb
 aXn
 hUU
 hUU
@@ -123339,7 +122666,7 @@ biB
 bld
 btd
 wnP
-fNf
+tOn
 eQC
 dQZ
 nIF
@@ -126357,7 +125684,7 @@ rNK
 hUU
 hUU
 aXn
-pry
+brP
 cgl
 djz
 aZF
@@ -127190,7 +126517,7 @@ vPJ
 ncn
 ncn
 wYw
-bYZ
+ncn
 ncn
 ncn
 ncn
@@ -127433,7 +126760,7 @@ nxG
 nxG
 eiE
 wph
-iOb
+oZo
 baF
 gGj
 pSC
@@ -127931,7 +127258,7 @@ iVD
 uQG
 wxX
 aXn
-jPs
+aXn
 hGq
 wvM
 tOn
@@ -129193,7 +128520,7 @@ uyi
 rte
 aZF
 rAc
-jNX
+eQv
 aXn
 aXn
 aXn
@@ -129445,7 +128772,7 @@ hUU
 aXn
 aXn
 jxH
-sPM
+dQZ
 aiS
 hNJ
 tOn
