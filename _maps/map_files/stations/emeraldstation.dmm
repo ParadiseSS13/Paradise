@@ -12085,6 +12085,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"cly" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/ne)
 "clF" = (
 /obj/machinery/disposal,
 /obj/structure/sign/deathsposal{
@@ -19840,10 +19845,6 @@
 	icon_state = "darkredcheck"
 	},
 /area/station/security/warden)
-"dKR" = (
-/obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/central/ne)
 "dKU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -21428,6 +21429,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"ecA" = (
+/obj/structure/lattice,
+/obj/machinery/camera{
+	c_tag = "Prison B Showers External";
+	dir = 10;
+	network = list("Prison","SS13")
+	},
+/turf/space,
+/area/space/nearstation)
 "ecC" = (
 /obj/machinery/status_display{
 	pixel_x = -32
@@ -25575,12 +25585,6 @@
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"eRv" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "eRF" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/effect/spawner/airlock/w_to_e,
@@ -44013,6 +44017,12 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/primary)
+"ijV" = (
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "ika" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 4
@@ -46282,11 +46292,6 @@
 	icon_state = "dark"
 	},
 /area/station/supply/qm)
-"iGL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/grille_maybe,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/central/ne)
 "iGM" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -48001,6 +48006,15 @@
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
+"iWn" = (
+/obj/structure/lattice,
+/obj/machinery/camera{
+	c_tag = "Prison A Showers External";
+	dir = 1;
+	network = list("Prison","SS13")
+	},
+/turf/space,
+/area/space/nearstation)
 "iWo" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -51142,6 +51156,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -54307,17 +54322,6 @@
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
-"ker" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/central/ne)
 "kew" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/mug,
@@ -56059,6 +56063,15 @@
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
+"kvZ" = (
+/obj/structure/lattice,
+/obj/machinery/camera{
+	c_tag = "Prison B Botany External";
+	dir = 10;
+	network = list("Prison","SS13")
+	},
+/turf/space,
+/area/space/nearstation)
 "kwa" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -56542,6 +56555,10 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/surgery/primary)
+"kAe" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/ne)
 "kAq" = (
 /obj/structure/closet/fireaxecabinet{
 	pixel_x = -32
@@ -69248,6 +69265,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
+"mZE" = (
+/obj/effect/spawner/random_spawners/grille_maybe,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/ne)
 "mZK" = (
 /obj/structure/chair{
 	dir = 1
@@ -71169,6 +71190,10 @@
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
+"nry" = (
+/obj/item/stack/rods,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/ne)
 "nrA" = (
 /obj/structure/table_frame,
 /turf/simulated/floor/plating,
@@ -75887,6 +75912,12 @@
 	icon_state = "barber"
 	},
 /area/station/security/permabrig)
+"oiG" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "oiH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -87103,10 +87134,6 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/equipmentstorage)
-"qmB" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/ne)
 "qmH" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -99883,17 +99910,6 @@
 	icon_state = "purplefull"
 	},
 /area/station/hallway/primary/starboard/south)
-"sCI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/central/ne)
 "sCQ" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -109301,10 +109317,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"uoW" = (
-/obj/item/stack/rods,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/central/ne)
 "uoX" = (
 /obj/machinery/light_switch{
 	name = "north bump";
@@ -112529,9 +112541,16 @@
 	},
 /area/station/engineering/engine)
 "uTm" = (
-/obj/machinery/alarm/directional/north,
-/turf/simulated/wall,
-/area/station/public/storage/tools/auxiliary)
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/ne)
 "uTp" = (
 /obj/machinery/atmospherics/trinary/mixer{
 	dir = 8;
@@ -112547,12 +112566,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
-"uTv" = (
-/obj/structure/chair/stool/bar{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "uTB" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
@@ -118509,6 +118522,7 @@
 /obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -122624,6 +122638,17 @@
 "wPA" = (
 /turf/simulated/mineral/ancient,
 /area/station/engineering/atmos/asteroid)
+"wPC" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/ne)
 "wPI" = (
 /obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
@@ -157311,7 +157336,7 @@ gwZ
 eSt
 rmx
 goq
-uTm
+eCX
 oRn
 sfU
 cPY
@@ -165247,7 +165272,7 @@ uqq
 hDy
 vKF
 lwY
-eRv
+oiG
 gBS
 cAg
 gBS
@@ -166018,7 +166043,7 @@ lRd
 qgK
 vKF
 eBE
-uTv
+ijV
 gBS
 gBS
 gBS
@@ -168001,8 +168026,8 @@ dIp
 ixq
 syn
 syn
-dKR
-dKR
+kAe
+kAe
 syn
 syn
 syn
@@ -168256,10 +168281,10 @@ tuC
 mJR
 iAa
 sBB
-dKR
+kAe
 oak
-iGL
-uoW
+cly
+nry
 aFl
 gmp
 ora
@@ -168514,8 +168539,8 @@ hCx
 qhj
 ubJ
 qDx
-sCI
-ker
+wPC
+uTm
 fLX
 jzE
 fLX
@@ -168774,8 +168799,8 @@ syn
 luU
 vpk
 gfk
-dKR
-qmB
+kAe
+mZE
 nXu
 brq
 uBv
@@ -169028,7 +169053,7 @@ isn
 teS
 xHj
 syn
-dKR
+kAe
 syn
 syn
 syn
@@ -175411,7 +175436,7 @@ jnP
 jnP
 jnP
 aZS
-aZS
+iWn
 fjJ
 fjJ
 fjJ
@@ -177715,7 +177740,7 @@ jnP
 jnP
 jnP
 jnP
-aZS
+iWn
 fjJ
 teD
 mTb
@@ -183883,7 +183908,7 @@ jnP
 jnP
 jnP
 jnP
-aZS
+kvZ
 fjJ
 lsR
 uGH
@@ -186205,7 +186230,7 @@ jnP
 jnP
 jnP
 jnP
-aZS
+ecA
 fjJ
 fjJ
 fjJ
