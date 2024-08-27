@@ -100702,11 +100702,10 @@
 "sLg" = (
 /obj/structure/table,
 /obj/item/gps/mining,
-/obj/item/gps/mining{
-	pixel_x = 5;
-	gpstag = "QM"
-	},
 /obj/machinery/alarm/directional/east,
+/obj/item/gps/mining{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
