@@ -77173,11 +77173,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/newscaster/security_unit{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -28
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
