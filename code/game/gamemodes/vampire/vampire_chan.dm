@@ -4,7 +4,7 @@
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
 	protected_species = list("Machine")
-	required_players = 1 //Testing, TODO blah balh
+	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
