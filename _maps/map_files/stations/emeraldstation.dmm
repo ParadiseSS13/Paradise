@@ -22821,7 +22821,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/start/cyborg,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39624,6 +39623,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/landmark/start/cyborg,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -49394,6 +49394,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/landmark/start/cyborg,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -51309,6 +51310,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/effect/landmark/start/cyborg,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -59500,7 +59502,6 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/effect/landmark/start/cyborg,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -85761,10 +85762,6 @@
 "pXF" = (
 /turf/simulated/wall,
 /area/station/engineering/solar/fore_starboard)
-"pXG" = (
-/obj/effect/landmark/start/cyborg,
-/turf/simulated/floor/bluegrid,
-/area/station/turret_protected/ai)
 "pXO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -174890,7 +174887,7 @@ kLN
 qmH
 gpu
 vqd
-pXG
+slE
 eVl
 xAV
 kYX
@@ -175404,7 +175401,7 @@ rnD
 lFD
 jIW
 qoP
-pXG
+slE
 sms
 xAV
 xpu
