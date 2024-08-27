@@ -3001,6 +3001,12 @@
 	pixel_y = 14;
 	dir = 4
 	},
+/obj/structure/table,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "aFw" = (
@@ -9285,6 +9291,10 @@
 /area/station/hallway/spacebridge/security/west)
 "bKF" = (
 /obj/structure/chair/sofa/left,
+/obj/machinery/newscaster{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/carpet,
 /area/station/hallway/primary/central/se)
 "bKI" = (
@@ -10008,6 +10018,9 @@
 "bQT" = (
 /obj/structure/table,
 /obj/item/storage/box/mousetraps,
+/obj/structure/reagent_dispensers/spacecleanertank{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "bQW" = (
@@ -12518,6 +12531,7 @@
 /area/station/medical/chemistry)
 "cqp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "cqq" = (
@@ -24010,7 +24024,9 @@
 /turf/simulated/floor/carpet,
 /area/station/public/dorms)
 "eBM" = (
-/obj/machinery/door/airlock/engineering,
+/obj/machinery/door/airlock/engineering{
+	name = "Tool Storage"
+	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/equipment,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
@@ -39254,6 +39270,19 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
+"hqv" = (
+/obj/structure/chair/sofa{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/carpet,
+/area/station/hallway/primary/central/se)
 "hqz" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
@@ -40708,7 +40737,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/airless/nodecay,
 /area/station/science/toxins/mixing)
 "hCD" = (
 /obj/structure/closet/crate,
@@ -49959,7 +49988,7 @@
 /turf/simulated/wall,
 /area/station/turret_protected/ai)
 "jpA" = (
-/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "jqg" = (
@@ -50738,7 +50767,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/airless/nodecay,
 /area/station/science/toxins/mixing)
 "jyh" = (
 /obj/structure/girder,
@@ -54688,7 +54717,7 @@
 /area/station/engineering/engine/supermatter)
 "kix" = (
 /obj/machinery/door/airlock/atmos{
-	name = "Fore-Starboard Atmospherics Maintenance"
+	name = "Brig Atmospherics Maintenance"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
@@ -58260,7 +58289,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/airless/nodecay,
 /area/station/science/toxins/mixing)
 "kSh" = (
 /obj/effect/spawner/window/reinforced,
@@ -80974,7 +81003,7 @@
 	autolink_id = "air_in";
 	dir = 8
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/airless/nodecay,
 /area/station/science/toxins/mixing)
 "pdk" = (
 /turf/simulated/floor/beach/away/water,
@@ -99016,7 +99045,7 @@
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 8
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/airless/nodecay,
 /area/station/science/toxins/mixing)
 "swk" = (
 /obj/effect/spawner/window/reinforced/tinted,
@@ -100704,7 +100733,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/airless/nodecay,
 /area/station/science/toxins/mixing)
 "sLE" = (
 /obj/machinery/power/apc/directional/north,
@@ -102006,6 +102035,10 @@
 	icon_state = "darkbrowncorners"
 	},
 /area/station/supply/qm)
+"sXO" = (
+/obj/item/kirbyplants,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/se)
 "sXP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -102473,7 +102506,7 @@
 "tcz" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /obj/machinery/door/airlock/atmos{
-	name = "Dorms Atmospherics Maintenance"
+	name = "Security Maintenance Atmospherics control"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -106011,11 +106044,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "tJX" = (
-/obj/machinery/atmospherics/trinary/tvalve{
-	dir = 8;
-	name = "Port to Injection"
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
 	},
-/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "tKb" = (
@@ -112067,7 +112098,7 @@
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/airless/nodecay,
 /area/station/science/toxins/mixing)
 "uQi" = (
 /turf/simulated/wall/r_wall,
@@ -115383,7 +115414,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/airless/nodecay,
 /area/station/science/toxins/mixing)
 "vxk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -128814,7 +128845,7 @@
 /area/station/engineering/engine/supermatter)
 "yaN" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/simulated/floor/engine/vacuum,
+/turf/simulated/floor/engine/airless/nodecay,
 /area/station/science/toxins/mixing)
 "yaO" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -166924,7 +166955,7 @@ oBS
 pux
 exS
 qnl
-exS
+hqv
 uqK
 oBS
 oBS
@@ -167956,7 +167987,7 @@ hiP
 hiP
 vFw
 oBS
-jOu
+sXO
 jOu
 wKu
 pfg
