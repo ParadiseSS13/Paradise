@@ -49773,8 +49773,19 @@
 	},
 /area/station/security/permabrig)
 "jnt" = (
-/obj/structure/chair/sofa/bamboo/left,
-/obj/effect/landmark/start/assistant,
+/obj/structure/closet{
+	name = "Swimwear"
+	},
+/obj/item/clothing/under/misc/swimsuit/black,
+/obj/item/clothing/under/misc/swimsuit/black,
+/obj/item/clothing/under/misc/swimsuit/blue,
+/obj/item/clothing/under/misc/swimsuit/blue,
+/obj/item/clothing/under/misc/swimsuit/green,
+/obj/item/clothing/under/misc/swimsuit/green,
+/obj/item/clothing/under/misc/swimsuit/purple,
+/obj/item/clothing/under/misc/swimsuit/purple,
+/obj/item/clothing/under/misc/swimsuit/red,
+/obj/item/clothing/under/misc/swimsuit/red,
 /turf/simulated/floor/beach/away/sand,
 /area/station/public/dorms)
 "jnv" = (
@@ -111940,9 +111951,7 @@
 	},
 /area/station/medical/virology/lab)
 "uOf" = (
-/obj/machinery/power/treadmill{
-	dir = 8
-	},
+/obj/structure/closet/athletic_mixed,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -117091,11 +117100,11 @@
 	},
 /area/station/medical/reception)
 "vMa" = (
-/obj/structure/chair/sofa/bamboo,
 /obj/effect/landmark/start/assistant,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/chair/sofa/bamboo/left,
 /turf/simulated/floor/beach/away/sand,
 /area/station/public/dorms)
 "vMb" = (
@@ -122315,11 +122324,11 @@
 /area/station/legal/courtroom/gallery)
 "wME" = (
 /obj/structure/chair/sofa/bamboo/right,
-/obj/item/clothing/under/misc/swimsuit/red,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/effect/landmark/start/assistant,
 /turf/simulated/floor/beach/away/sand,
 /area/station/public/dorms)
 "wMZ" = (
