@@ -13619,6 +13619,13 @@
 	pixel_x = 3;
 	pixel_y = 5
 	},
+/obj/machinery/door_control{
+	id = "rdlab2";
+	name = "Research and Development Lab Shutters Control";
+	pixel_x = 24;
+	pixel_y = 23;
+	req_access_txt = "47"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
