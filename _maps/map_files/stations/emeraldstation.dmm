@@ -38475,7 +38475,6 @@
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "hjs" = (
-/obj/machinery/computer/shuttle/labor,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -38484,6 +38483,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/computer/supplycomp,
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
@@ -67774,7 +67774,7 @@
 /area/station/medical/sleeper)
 "mMl" = (
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite";
+	control_area = "\improper AI Satellite Antechamber";
 	name = "AI Antechamber Turret Control";
 	pixel_x = -28;
 	req_access_txt = "75"
