@@ -39270,19 +39270,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
-"hqv" = (
-/obj/structure/chair/sofa{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/turf/simulated/floor/carpet,
-/area/station/hallway/primary/central/se)
 "hqz" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
@@ -40112,6 +40099,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
+"hye" = (
+/obj/item/clothing/under/misc/swimsuit/blue,
+/turf/simulated/floor/beach/away/sand,
+/area/station/public/dorms)
 "hyh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -67658,6 +67649,9 @@
 /area/station/maintenance/apmaint2)
 "mKR" = (
 /obj/item/kirbyplants,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/wood,
 /area/station/hallway/primary/central/se)
 "mKT" = (
@@ -85551,6 +85545,10 @@
 	icon_state = "whitebluefull"
 	},
 /area/station/medical/reception)
+"pWN" = (
+/obj/item/kirbyplants,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/se)
 "pWQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -102035,10 +102033,6 @@
 	icon_state = "darkbrowncorners"
 	},
 /area/station/supply/qm)
-"sXO" = (
-/obj/item/kirbyplants,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/se)
 "sXP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -114713,6 +114707,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
+"vpv" = (
+/obj/structure/chair/sofa{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/turf/simulated/floor/carpet,
+/area/station/hallway/primary/central/se)
 "vpL" = (
 /obj/structure/table/glass,
 /obj/item/cartridge/signal/toxins,
@@ -161812,7 +161819,7 @@ vAZ
 vMa
 fyf
 wDw
-fyf
+hye
 ryn
 pdk
 gnp
@@ -166955,7 +166962,7 @@ oBS
 pux
 exS
 qnl
-hqv
+vpv
 uqK
 oBS
 oBS
@@ -167987,7 +167994,7 @@ hiP
 hiP
 vFw
 oBS
-sXO
+pWN
 jOu
 wKu
 pfg
