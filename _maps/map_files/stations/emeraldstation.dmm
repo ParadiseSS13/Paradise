@@ -42047,6 +42047,12 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
+"hQb" = (
+/obj/machinery/economy/vending/autodrobe,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/station/service/theatre)
 "hQm" = (
 /obj/machinery/light{
 	dir = 4
@@ -121605,11 +121611,6 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/security/fore)
-"wEs" = (
-/obj/structure/kitchenspike,
-/obj/item/food/meat,
-/turf/simulated/floor/plating,
-/area/station/maintenance/dorms/port)
 "wEy" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -126811,6 +126812,7 @@
 /area/station/public/vacant_office)
 "xDS" = (
 /obj/structure/kitchenspike,
+/obj/item/food/meat,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -155519,7 +155521,7 @@ nfV
 jGG
 rnT
 arS
-wEs
+arS
 hsV
 eYj
 bCs
@@ -155774,8 +155776,8 @@ biW
 arS
 arS
 kOn
-rnT
-arS
+gvI
+edg
 arS
 iXG
 fMq
@@ -156031,8 +156033,8 @@ gvc
 arS
 unS
 cDt
-gvI
-edg
+eSN
+uUB
 arS
 ggS
 nRs
@@ -156289,7 +156291,7 @@ arS
 lTc
 jPw
 aIR
-uUB
+hQb
 arS
 vIV
 jFh
