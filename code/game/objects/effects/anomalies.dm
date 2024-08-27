@@ -489,7 +489,7 @@
 			O.ex_act(EXPLODE_HEAVY)
 
 /obj/effect/anomaly/bhole/proc/grav(radius = 0, ex_act_force, pull_chance, turf_removal_chance)
-	if(!radius || prob(25)) // Base 25% chance of not damaging any floors or pulling mobs
+	if(radius <= 0 || prob(25)) // Base 25% chance of not damaging any floors or pulling mobs
 		return
 
 	for(var/t in -radius to (radius - 1))
