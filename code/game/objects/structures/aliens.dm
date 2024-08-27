@@ -435,7 +435,7 @@
 
 /obj/structure/alien/weeds/node/Initialize()
 	add_overlay("weednode")
-	. = ..(loc, src)
+	return ..(loc, src)
 
 #undef NODERANGE
 
