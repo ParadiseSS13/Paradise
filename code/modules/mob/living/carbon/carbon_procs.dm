@@ -830,7 +830,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
 				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [breakout_time / 10] seconds and you need to stay still.)</span>")
-	if(!do_after(src, breakout_time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check)))))
+	if(!do_after(src, breakout_time, FALSE, src, allow_moving = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check))), allow_moving_target = TRUE))
 		if(src && buckled)
 			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 	else
@@ -1201,14 +1201,13 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/update_tint()
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/blind)
-		ADD_TRAIT(src, TRAIT_BLIND, "tint")
+		become_blind("tint")
 	else if(tinttotal >= TINT_IMPAIR)
 		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/stretch/impaired, 2)
-		REMOVE_TRAIT(src, TRAIT_BLIND, "tint")
+		cure_blind("tint")
 	else
 		clear_fullscreen("tint", 0)
-		REMOVE_TRAIT(src, TRAIT_BLIND, "tint")
+		cure_blind("tint")
 
 /mob/living/carbon/proc/get_total_tint()
 	. = 0

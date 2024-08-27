@@ -680,7 +680,7 @@
 /obj/structure/sign/poster/contraband/smoke{
 	pixel_x = -32
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -709,7 +709,7 @@
 /obj/structure/sign/cargo{
 	pixel_x = -32
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium";
 	dir = 4
