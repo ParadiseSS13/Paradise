@@ -1,6 +1,7 @@
 import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
 import { Button, LabeledList, Table, Section, Dropdown, Input, BlockQuote, Box, Icon, Stack } from '../components';
+import { VirtualList } from '../components/VirtualList';
 import { Window } from '../layouts';
 
 type Seed = {
@@ -26,7 +27,7 @@ type TTSData = {
 };
 
 const donatorTiers = {
-  0: 'Бесплатные',
+  0: 'Free',
   1: 'Tier I',
   2: 'Tier II',
   3: 'Tier III',
@@ -76,9 +77,9 @@ const getCheckboxGroup = (itemsList, selectedList, setSelected, contentKey = nul
 
 export const TTSSeedsExplorer = () => {
   return (
-    <Window width={600} height={800}>
+    <Window width={1000} height={685}>
       <Window.Content>
-        <Stack fill vertical>
+        <Stack fill>
           <TTSSeedsExplorerContent />
         </Stack>
       </Window.Content>
@@ -91,7 +92,10 @@ export const TTSSeedsExplorerContent = (props, context) => {
 
   const { providers, seeds, selected_seed, phrases, donator_level, character_gender } = data;
 
-  const categories = seeds.map((seed) => seed.category).filter((category, i, a) => a.indexOf(category) === i);
+  const categories = seeds
+    .map((seed) => seed.category)
+    .filter((category, i, a) => a.indexOf(category) === i)
+    .sort((a, b) => a.localeCompare(b));
   const genders = seeds.map((seed) => seed.gender).filter((gender, i, a) => a.indexOf(gender) === i);
   const donatorLevels = seeds
     .map((seed) => seed.required_donator_level)
@@ -115,6 +119,7 @@ export const TTSSeedsExplorerContent = (props, context) => {
   );
   const [selectedPhrase, setSelectedPhrase] = useLocalState(context, 'selectedPhrase', phrases[0]);
   const [searchtext, setSearchtext] = useLocalState(context, 'searchtext', '');
+  const [searchToggle, setSearchToggle] = useLocalState(context, 'searchToggle', false);
 
   let providerCheckboxes = getCheckboxGroup(providers, selectedProviders, setSelectedProviders, 'name');
   let genderesCheckboxes = getCheckboxGroup(genders, selectedGenders, setSelectedGenders);
@@ -125,12 +130,23 @@ export const TTSSeedsExplorerContent = (props, context) => {
     <Dropdown
       options={phrases}
       selected={selectedPhrase.replace(/(.{60})..+/, '$1...')}
-      width="445px"
+      width="100%"
       onSelected={(value) => setSelectedPhrase(value)}
     />
   );
 
-  let searchBar = <Input placeholder="Название..." width="100%" onInput={(e, value) => setSearchtext(value)} />;
+  let searchBar = (
+    <>
+      {searchToggle && <Input placeholder="Название..." width={20} onInput={(e, value) => setSearchtext(value)} />}
+      <Button
+        icon="magnifying-glass"
+        tooltip="Переключить поиск"
+        tooltipPosition="bottom-end"
+        selected={searchToggle}
+        onClick={() => setSearchToggle(!searchToggle)}
+      />
+    </>
+  );
 
   const availableSeeds = seeds
     .sort((a, b) => {
@@ -206,57 +222,64 @@ export const TTSSeedsExplorerContent = (props, context) => {
 
   return (
     <>
-      <Stack.Item height="175px">
-        <Section fill scrollable title="Фильтры">
-          <LabeledList>
-            <LabeledList.Item label="Провайдеры">{providerCheckboxes}</LabeledList.Item>
-            <LabeledList.Item label="Пол">{genderesCheckboxes}</LabeledList.Item>
-            <LabeledList.Item label="Уровень подписки">{donatorLevelsCheckboxes}</LabeledList.Item>
-            <LabeledList.Item label="Фраза">{phrasesSelect}</LabeledList.Item>
-            <LabeledList.Item label="Поиск">{searchBar}</LabeledList.Item>
-          </LabeledList>
-        </Section>
-      </Stack.Item>
-      <Stack.Item height="25%">
-        <Section
-          fill
-          scrollable
-          title="Категории"
-          buttons={
-            <>
-              <Button
-                icon="times"
-                content="Убрать всё"
-                disabled={selectedCategories.length === 0}
-                onClick={() => setSelectedCategories([])}
-              />
-              <Button
-                icon="check"
-                content="Выбрать всё"
-                disabled={selectedCategories.length === categories.length}
-                onClick={() => setSelectedCategories(categories)}
-              />
-            </>
-          }
-        >
-          {categoriesCheckboxes}
-        </Section>
+      <Stack.Item basis="30.5em">
+        <Stack fill vertical>
+          <Stack.Item height="12.5em">
+            <Section fill title="Фильтры">
+              <LabeledList>
+                <LabeledList.Item label="Провайдеры">{providerCheckboxes}</LabeledList.Item>
+                <LabeledList.Item label="Пол">{genderesCheckboxes}</LabeledList.Item>
+                <LabeledList.Item label="Тир">{donatorLevelsCheckboxes}</LabeledList.Item>
+                <LabeledList.Item label="Фраза">{phrasesSelect}</LabeledList.Item>
+              </LabeledList>
+            </Section>
+          </Stack.Item>
+          <Stack.Item grow>
+            <Section
+              fill
+              scrollable
+              title="Категории"
+              buttons={
+                <>
+                  <Button
+                    icon="times"
+                    disabled={selectedCategories.length === 0}
+                    onClick={() => setSelectedCategories([])}
+                  >
+                    Убрать всё
+                  </Button>
+                  <Button
+                    icon="check"
+                    disabled={selectedCategories.length === categories.length}
+                    onClick={() => setSelectedCategories(categories)}
+                  >
+                    Выбрать всё
+                  </Button>
+                </>
+              }
+            >
+              {categoriesCheckboxes}
+            </Section>
+          </Stack.Item>
+          <Stack.Item>
+            <Section>
+              <BlockQuote>
+                <Box fontSize="11px">
+                  {`Для поддержания и развития сообщества в условиях растущих расходов часть голосов пришлось сделать доступными только за материальную поддержку сообщества.`}
+                </Box>
+                <Box mt={1.5} italic color="gray" fontSize="10px">
+                  {`Подробнее об этом можно узнать в нашем Discord-сообществе.`}
+                </Box>
+              </BlockQuote>
+            </Section>
+          </Stack.Item>
+        </Stack>
       </Stack.Item>
       <Stack.Item grow>
-        <Section fill scrollable title={`Голоса (${availableSeeds.length}/${seeds.length})`}>
-          <Table>{seedsRow}</Table>
-        </Section>
-      </Stack.Item>
-      <Stack.Item>
-        <Section>
-          <BlockQuote>
-            <Box>
-              {`Для поддержания и развития сообщества в условиях растущих расходов часть голосов пришлось сделать доступными только за материальную поддержку сообщества.`}
-            </Box>
-            <Box mt={2} italic>
-              {`Подробнее об этом можно узнать в нашем Discord-сообществе.`}
-            </Box>
-          </BlockQuote>
+        <Section fill scrollable title={`Голоса (${availableSeeds.length}/${seeds.length})`} buttons={searchBar}>
+          <Table>
+            <VirtualList>{seedsRow}</VirtualList>
+          </Table>
         </Section>
       </Stack.Item>
     </>
