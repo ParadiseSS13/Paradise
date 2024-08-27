@@ -294,6 +294,19 @@
 /obj/machinery/disposal/deliveryChute/update()
 	return
 
+/obj/machinery/disposal/deliveryChute/CanPass(atom/movable/mover, turf/target, height)
+	// If the mover is a thrownthing passing through space, remove its thrown datum,
+	// ingest it like normal, and mark the chute as not passible.
+	// This prevents the mover from Entering the chute's turf
+	// while also bypassing thrownthing's /finalize, which would
+	// cause damage to the chute.
+	if(mover.throwing && !has_gravity(get_turf(mover)))
+		qdel(mover.throwing)
+		Bumped(mover)
+		return FALSE
+
+	. = ..()
+
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
 	if(isprojectile(AM)	|| isAI(AM) || QDELETED(AM))
 		return
