@@ -597,6 +597,9 @@
 	dir = 8;
 	name = "Security Shield"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/mineral_storage{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "ahL" = (
