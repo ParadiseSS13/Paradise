@@ -93102,6 +93102,7 @@
 "viw" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port2)
 "viJ" = (
@@ -102564,7 +102565,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "xLN" = (
-/obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/mineral/ancient,
 /area/mine/unexplored/cere/civilian)
