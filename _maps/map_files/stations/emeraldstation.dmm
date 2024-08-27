@@ -30346,18 +30346,6 @@
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
-"fHX" = (
-/obj/docking_port/stationary{
-	dheight = 9;
-	dir = 2;
-	dwidth = 5;
-	height = 22;
-	id = "syndicate_ne";
-	name = "northeast of station";
-	width = 18
-	},
-/turf/space,
-/area/space)
 "fHY" = (
 /obj/structure/railing{
 	dir = 8
@@ -109339,6 +109327,18 @@
 	icon_state = "caution"
 	},
 /area/station/public/fitness)
+"uot" = (
+/obj/docking_port/stationary{
+	dheight = 9;
+	dir = 2;
+	dwidth = 5;
+	height = 22;
+	id = "syndicate_ne";
+	name = "Southwest of Station";
+	width = 18
+	},
+/turf/space,
+/area/space)
 "uoD" = (
 /obj/machinery/atmospherics/unary/tank/air,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
@@ -151755,7 +151755,7 @@ jnP
 jnP
 jnP
 jnP
-jnP
+uot
 jnP
 jnP
 jnP
@@ -189863,7 +189863,7 @@ jnP
 jnP
 jnP
 jnP
-fHX
+jnP
 jnP
 jnP
 jnP
