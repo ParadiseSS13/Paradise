@@ -106946,6 +106946,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Interrogation"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/interrogation)
 "tSV" = (
