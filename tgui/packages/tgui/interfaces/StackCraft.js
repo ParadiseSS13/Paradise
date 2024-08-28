@@ -129,8 +129,9 @@ const Multipliers = (props, context) => {
   for (const multiplier of multipliers) {
     if (max_available_multiplier >= multiplier) {
       finalResult.push(
-        <ImageButton.Item
+        <Button
           bold
+          translucent
           fontSize={0.85}
           width={'32px'}
           content={multiplier * recipe.result_amount + 'x'}
@@ -147,7 +148,10 @@ const Multipliers = (props, context) => {
 
   if (multipliers.indexOf(max_available_multiplier) === -1) {
     finalResult.push(
-      <ImageButton.Item
+      <Button
+        bold
+        translucent
+        fontSize={0.85}
         width={'32px'}
         content={max_available_multiplier * recipe.result_amount + 'x'}
         onClick={() =>
@@ -175,6 +179,7 @@ const RecipeListBox = (props, context) => {
           title={title}
           contentStyle={{
             'margin-top': '0',
+            'padding-bottom': '0.5em',
             'background-color': 'rgba(62, 97, 137, 0.15)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             'border-top': 'none',
@@ -206,10 +211,15 @@ const RecipeBox = (props, context) => {
 
   return (
     <ImageButton
-      image={image}
+      fluid
+      base64={image}
+      imageSize={32}
       disabled={!max_possible_multiplier}
-      content={buttonName}
       tooltip={tooltipContent}
+      buttons={
+        max_result_amount > 1 &&
+        max_possible_multiplier > 1 && <Multipliers recipe={recipe} max_possible_multiplier={max_possible_multiplier} />
+      }
       onClick={() =>
         act('make', {
           recipe_uid: uid,
@@ -217,9 +227,7 @@ const RecipeBox = (props, context) => {
         })
       }
     >
-      {max_result_amount > 1 && max_possible_multiplier > 1 && (
-        <Multipliers recipe={recipe} max_possible_multiplier={max_possible_multiplier} />
-      )}
+      {buttonName}
     </ImageButton>
   );
 };
