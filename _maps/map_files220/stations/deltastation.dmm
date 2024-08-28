@@ -50661,13 +50661,14 @@
 /area/station/hallway/primary/aft)
 "eKO" = (
 /obj/structure/table/reinforced,
-/obj/machinery/photocopier/faxmachine/longrange{
-	pixel_y = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Magistrate's Office";
+	pixel_y = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/legal/magistrate)
