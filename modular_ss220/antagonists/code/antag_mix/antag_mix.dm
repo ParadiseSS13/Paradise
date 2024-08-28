@@ -7,6 +7,8 @@
 	var/max_antag_fraction = 1
 	/// How much budget has left
 	var/budget = 0
+	/// Scenarious for choose
+	var/list/datum/antag_scenario/list_scenarios = list()
 	/// List of scenarios chosen on `pre_setup` stage, and which will be applied on `post_setup`
 	var/list/datum/antag_scenario/executed_scenarios = list()
 
@@ -14,10 +16,11 @@
 /datum/game_mode/antag_mix/New()
 	. = ..()
 	apply_configuration()
+	list_scenarios = subtypesof(/datum/antag_scenario)
 
 
 /datum/game_mode/antag_mix/pre_setup()
-	var/list/datum/antag_scenario/possible_scenarios = subtypesof(/datum/antag_scenario)
+	var/list/datum/antag_scenario/possible_scenarios = list_scenarios
 
 	var/list/mob/new_player/ready_players = get_ready_players()
 	var/ready_players_amount = length(ready_players)
@@ -26,6 +29,7 @@
 
 	var/list/datum/antag_scenario/acceptable_scenarios = initialize_acceptable_scenarios(possible_scenarios, ready_players_amount)
 	if(!length(acceptable_scenarios))
+		log_antag_mix("Invalid game mode pre setup antag_mix - acceptable scenarios.")
 		return FALSE
 
 	budget = calculate_budget(ready_players_amount)
@@ -97,7 +101,7 @@
 		if(!length(drafted_scenarios) || (current_antag_fraction >= max_antag_fraction))
 			break
 
-		var/datum/antag_scenario/picked_scenario = pickweight(drafted_scenarios)
+		var/datum/antag_scenario/picked_scenario = length(drafted_scenarios) == 1 ? drafted_scenarios[1] : pickweight(drafted_scenarios)
 		if(picked_scenario.cost > budget_left)
 			drafted_scenarios.Remove(picked_scenario)
 			continue
@@ -114,11 +118,17 @@
 		log_antag_mix("Scenario '[picked_scenario.name]' with: cost '[picked_scenario.cost]', weight '[picked_scenario.weight]' was picked [picked_scenarios[picked_scenario]] times")
 		log_antag_mix("Antagonist fraction is '[current_antag_fraction]'")
 
+		if(picked_scenario.execution_once)
+			drafted_scenarios.Remove(picked_scenario)
+
 	if(!length(picked_scenarios))
 		log_antag_mix("No antag scenarios were picked. Let another game mode roll.")
 		return FALSE
 
 	for(var/picked_scenario in picked_scenarios)
+		log_debug("Antag mix picked scenario: [picked_scenario], spend budget [picked_scenarios[picked_scenario] - 1] times, left budget: [budget_left], players ready: [players_ready_amount]")
+		//var/scaled_times_picked = length(picked_scenarios) > 1 ? picked_scenarios[picked_scenario] - 1 : 1
+		//spend_budget(pre_execute_scenario(picked_scenario, scaled_times_picked, players_ready_amount))
 		spend_budget(pre_execute_scenario(picked_scenario, picked_scenarios[picked_scenario] - 1, players_ready_amount))
 
 	if(budget != budget_left && current_antag_fraction < max_antag_fraction && length(drafted_scenarios))
@@ -134,13 +144,15 @@
 
 /datum/game_mode/antag_mix/proc/pre_execute_scenario(datum/antag_scenario/scenario_to_pre_execute, scaled_times, players_ready_amount)
 	if(!scenario_to_pre_execute)
+		log_antag_mix("Scenario '[scenario_to_pre_execute.name]' can't pre execute.")
 		return 0
 
+	log_antag_mix("Scenario '[scenario_to_pre_execute.name]' params: scaled_times [scaled_times]; players_ready_amount: [players_ready_amount]")
 	scenario_to_pre_execute.trim_candidates()
 
 	scenario_to_pre_execute.scaled_times = scaled_times
 	if(!scenario_to_pre_execute.pre_execute(players_ready_amount))
-		log_antag_mix("Scenario '[scenario_to_pre_execute.name]' failed to pre execute")
+		log_antag_mix("Scenario '[scenario_to_pre_execute.name]' failed to pre execute.")
 		return 0
 
 	executed_scenarios |= scenario_to_pre_execute

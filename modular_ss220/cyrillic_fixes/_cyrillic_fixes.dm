@@ -21,9 +21,11 @@
 
 	Busy letters by radio(eng):
 	c e h i l m n p r s t u w x z
+	vr
 
 	Busy letters by radio(rus):
 	б г д е ё з к р с т у ц ч ш ы ь я Э
+	мк
 
 	Busy symbols by radio:
 	~ , $ _ - + *
@@ -64,6 +66,10 @@
 		":Я" = "Service",		"#Я" = "Service",		"№Я" = "Service",		".Я" = "Service",
 		":З" = "AI Private",	"#З" = "AI Private",	"№З" = "AI Private",	".З" = "AI Private",
 		":Ё" = "cords",			"#Ё" = "cords",			"№Ё" = "cords",			".Ё" = "cords",
+
+	// modular_ss220/antagonists/code/antagonist_radio.dm
+		":МК" = "VoxCom",		"#МК" = "VoxCom",		"№МК" = "VoxCom",		".МК" = "VoxCom",
+		":мк" = "VoxCom",		"#мк" = "VoxCom",		"№мк" = "VoxCom",		".мк" = "VoxCom",
 
 	// Russian symbols no case
 		// None yet.

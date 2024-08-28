@@ -29,6 +29,8 @@
 	var/antag_cap = 1
 	/// How many possible candidates are required for this scenario to be executed
 	var/candidates_required = 1
+	/// Will the scenario be selected repeatedly or only once?
+	var/execution_once = FALSE
 	/// Jobs that can't be chosen for the scenario
 	var/list/restricted_roles = list()
 	/// Jobs that can't be chosen for the scenario if 'GLOB.configuration.gamemode.prevent_mindshield_antags' is TRUE
@@ -40,13 +42,23 @@
 	/// List of players that were drafted to be antagonists of this scenario
 	var/list/datum/mind/assigned = list()
 
+	/// Is the antagonist chosen from the station's crew?
+	var/is_crew_antag = TRUE
+	/// Spawn antagonist at landmark name
+	var/obj/effect/landmark/spawner/landmark_type = /obj/effect/landmark/spawner/xeno
+	/// What species can be used for the antagonist
+	var/list/possible_species = list("Human")
+	/// Recommended species at prefs to increase the chance of getting a role for RP-experienced players
+	var/list/recommended_species_active_pref
+	/// Multiplication modifier that increases the chance of landing by N times
+	var/recommended_species_mod = 0
+
 /datum/antag_scenario/New()
 	if(abstract)
 		stack_trace("Instantiation of abstract antag scenarios is prohibited.")
 		qdel(src)
 
 	apply_configuration()
-
 
 /**
  * Gets configuration params from [GLOB.configuration.antag_mix_gamemode.params_by_scenario],
@@ -101,11 +113,15 @@
 /datum/antag_scenario/proc/pre_execute(population)
 	var/assigned_before = length(assigned)
 	var/calculated_antag_cap = get_total_antag_cap(population)
+	modif_chance_recommended_species()
+
 	for(var/i in 1 to calculated_antag_cap)
 		if(!length(candidates))
+			log_debug("Antag scenario 'candidates' null length")
 			break
 
-		var/mob/new_player/chosen = pick_n_take(candidates)
+		var/mob/new_player/chosen = pickweight(candidates)
+		candidates.Remove(chosen)
 
 		// We will check if something bad happened with candidates here.
 		if(!chosen || !chosen.mind)
@@ -116,7 +132,14 @@
 		var/datum/mind/chosen_mind = chosen.mind
 		assigned |= chosen_mind
 		chosen_mind.special_role = antag_special_role
+		if(!is_crew_antag)
+			chosen_mind.assigned_role = antag_special_role
 		chosen_mind.restricted_roles |= restricted_roles
+
+	var/string_names = ""
+	for(var/mob/new_player/i in assigned)
+		string_names += "[i.name](ckey:[i.ckey]), "
+	log_debug("pre_execute: calculated_antag_cap = [calculated_antag_cap]; assigned_before = [assigned_before]; length(candidates): [length(candidates)]; assigned: [string_names];")
 
 	return length(assigned) - assigned_before > 0
 
@@ -127,7 +150,8 @@
 /datum/antag_scenario/proc/execute()
 	for(var/datum/mind/assignee as anything in assigned)
 		assignee.add_antag_datum(antag_datum)
-
+	if(!is_crew_antag && !try_make_characters(assigned))
+		return FALSE
 	return TRUE
 
 /**
@@ -178,3 +202,68 @@
 
 		if(candidate_mind.assigned_role in restricted_roles)
 			candidates.Remove(candidate)
+
+
+/**
+ * Create a character if the antagonist should not have a body initially.
+*/
+/datum/antag_scenario/proc/try_make_characters(list/datum/mind/assigned)
+	if(!length(assigned))
+		error("Invalid antag scenario - try make characters: Not enough assigned candidates.")
+		return FALSE
+
+	var/list/landmarks = GLOB.raider_spawn.Copy()
+
+	if(!length(landmarks))
+		landmarks = list()
+		for(var/landmark in GLOB.latejoin)
+			landmarks.Add(landmark)
+
+	if(!length(landmarks))
+		error("Invalid antag scenario - try make characters: Not enough landmarks.")
+		return FALSE
+
+	var/list/temp_landmarks = list()
+	for(var/datum/mind/mind in assigned)
+		if(!length(temp_landmarks))
+			temp_landmarks = landmarks.Copy()
+		var/picked_landmark = pick(temp_landmarks)
+		temp_landmarks.Remove(picked_landmark)
+		var/turf/loc_spawn = get_turf(picked_landmark)
+
+		make_character(mind, loc_spawn)
+		equip_character(mind)
+		mind.current.dna.species.after_equip_job(null, mind.current)
+
+	return TRUE
+
+/**
+ * Сreate characters if the antagonist is not from the crew.
+*/
+/datum/antag_scenario/proc/make_character(datum/mind/mind, turf/loc_spawn)
+	var/picked_species = pick(possible_species)
+	var/datum/antagonist/temp_antag_datum = locate(antag_datum) in mind.antag_datums
+	temp_antag_datum.make_body(loc_spawn, mind, TRUE, picked_species, possible_species)
+
+/datum/antag_scenario/proc/equip_character(datum/mind/mind)
+	return TRUE
+/**
+ * Recommended species increase the chance of getting a role for RP-experienced players
+*/
+/datum/antag_scenario/proc/modif_chance_recommended_species()
+	if(!length(candidates))
+		return
+
+	if(!recommended_species_mod)
+		return
+
+	if(!length(recommended_species_active_pref))
+		return
+
+	for(var/mob/new_player/candidate in candidates)
+		var/list/datum/character_save/characters = candidate.client.prefs.character_saves
+		for(var/datum/character_save/character in characters)
+			if(character.species in recommended_species_active_pref)
+				candidates[candidate] = recommended_species_mod
+			else
+				candidates[candidate] = 1

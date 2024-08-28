@@ -1,3 +1,7 @@
+/mob/living/carbon/human/vox/Initialize(mapload)
+	. = ..(mapload, /datum/species/vox)
+	faction |= list("Vox")
+
 /mob/living/carbon/human/nucleation/Initialize(mapload)
 	. = ..(mapload, /datum/species/nucleation)
 

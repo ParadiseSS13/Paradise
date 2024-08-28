@@ -1,5 +1,6 @@
 #include "_maps220.dm"
 
+#include "code/Areas/shuttle.dm"
 #include "code/RandomRuins/gateway/gateway_areas.dm"
 #include "code/RandomRuins/gateway/gateway_turfs.dm"
 #include "code/RandomRuins/lavaland/lavaland_areas.dm"

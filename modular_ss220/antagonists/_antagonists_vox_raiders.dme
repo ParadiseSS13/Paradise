@@ -1,0 +1,62 @@
+//#include "_antagonists.dm"
+
+// Antag Mix
+// #include "code/antag_mix/antag_mix.dm"
+// #include "code/antag_mix/scenarios/antag_scenario.dm"
+// #include "code/antag_mix/scenarios/antag_team_scenario.dm"
+// #include "code/antag_mix/scenarios/minor_scenarios.dm"
+#include "code/antag_mix/scenarios/major_scenarios.dm"
+// #include "code/configuration/antag_mix_configuration.dm"
+// #include "code/mind/memory_edit.dm"
+#include "code/antag_datum.dm"
+#include "code/objectives.dm"
+#include "code/completion.dm"
+
+// Objects
+#include "code/landmarks.dm"
+#include "code/radio.dm"
+#include "code/guns/dartgun_ammo.dm"
+#include "code/guns/dartgun.dm"
+#include "code/guns/spikegun_ammo.dm"
+#include "code/guns/spikegun.dm"
+#include "code/guns/biogun_ammo.dm"
+#include "code/guns/biogun.dm"
+
+// Blood Brothers
+//#include "code/blood_brothers/blood_brothers_datum.dm"
+//#include "code/blood_brothers/blood_brothers_team.dm"
+
+// Vox Raiders
+#include "code/vox_raider/vox_raider_datum.dm"
+#include "code/vox_raider/vox_raider_mode.dm"
+#include "code/vox_raider/vox_raider_team.dm"
+
+// Vox Raiders - Objects
+#include "code/vox_raider/objects/vox_cash.dm"
+#include "code/vox_raider/objects/packs/vox_shop_defines.dm"
+#include "code/vox_raider/objects/vox_shop.dm"
+#include "code/vox_raider/objects/vox_trade_instrument.dm"
+#include "code/vox_raider/objects/vox_trade.dm"
+#include "code/vox_raider/objects/vox_objects.dm"
+#include "code/vox_raider/clothing/vox_backpack.dm"
+#include "code/vox_raider/clothing/vox_clothing.dm"
+#include "code/vox_raider/clothing/vox_gloves.dm"
+#include "code/vox_raider/clothing/vox_outfit.dm"
+#include "code/vox_raider/clothing/vox_shoes.dm"
+#include "code/vox_raider/clothing/vox_suit_armor.dm"
+#include "code/vox_raider/clothing/vox_suit_rig.dm"
+
+// Vox Raiders - Packs
+#include "code/vox_raider/objects/packs/vox_shop_pack.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_bio.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_clothes.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_consumables.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_equipment.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_goods.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_medicine.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_melee.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_merc.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_raider.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_dart.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_spike.dm"
+#include "code/vox_raider/objects/packs/vox_shop_pack_kit.dm"

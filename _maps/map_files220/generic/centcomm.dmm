@@ -27,6 +27,11 @@
 	icon_state = "darkbrown"
 	},
 /area/centcom/ss220/admin3)
+"aaR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "aaU" = (
 /obj/effect/turf_decal/plaque{
 	layer = 3
@@ -88,6 +93,23 @@
 	icon_state = "darkyellowfull"
 	},
 /area/syndicate_mothership/cargo)
+"acb" = (
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/flashlight{
+	pixel_y = 12
+	},
+/obj/item/flashlight{
+	pixel_y = 6
+	},
+/obj/item/flashlight,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "acl" = (
 /obj/structure/urinal{
 	pixel_y = 28
@@ -134,6 +156,10 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
+"acW" = (
+/obj/structure/reagent_dispensers/beerkeg,
+/turf/simulated/floor/plating/asteroid/ancient/airless,
+/area/space/nearstation/centcom)
 "adf" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
@@ -169,6 +195,14 @@
 /obj/machinery/computer/shuttle/sit,
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/control)
+"aeZ" = (
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "aff" = (
 /obj/machinery/computer/card/centcom{
 	dir = 1
@@ -287,6 +321,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"ajq" = (
+/obj/structure/shuttle/engine/huge{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/transparent_floor,
+/area/shuttle/vox)
 "ajH" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/transport)
@@ -359,6 +399,17 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
+"ams" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/trash,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "amP" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood/fancy/oak,
@@ -425,6 +476,13 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/ss220/admin3)
+"aoY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/economy/vending/tool/free{
+	color = "#e67e7e"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "apf" = (
 /obj/structure/table/reinforced{
 	color = "#444444"
@@ -459,6 +517,18 @@
 /obj/effect/turf_decal/woodsiding,
 /turf/simulated/floor/transparent/glass/titanium/plasma,
 /area/centcom/ss220/admin2)
+"apB" = (
+/obj/machinery/airlock_controller/access_controller{
+	ext_door_link_id = "voxeast_door_ext";
+	int_door_link_id = "voxeast_door_int";
+	pixel_x = -24;
+	req_access_txt = "152";
+	ext_button_link_id = "voxeast_btn_ext";
+	int_button_link_id = "voxeast_btn_int"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "apF" = (
 /obj/structure/rack,
 /obj/item/reagent_containers/spray/cleaner{
@@ -606,6 +676,29 @@
 "atu" = (
 /turf/simulated/wall/indestructible/wood,
 /area/ninja/holding)
+"atP" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "atT" = (
 /turf/simulated/floor/plating{
 	icon = 'icons/turf/floors.dmi';
@@ -711,6 +804,14 @@
 /obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
+"awe" = (
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "awj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -850,6 +951,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
+"aAn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "aAs" = (
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 8
@@ -937,6 +1043,19 @@
 /obj/item/autosurgeon/organ/syndicate,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
+"aDo" = (
+/obj/machinery/recharger,
+/obj/structure/table/reinforced{
+	color = "#e67e7e"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ffae00";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "aDC" = (
 /obj/machinery/computer/syndicate_depot/teleporter,
 /turf/simulated/floor/plasteel{
@@ -978,6 +1097,18 @@
 	icon_state = "darkred"
 	},
 /area/syndicate_mothership/elite_squad)
+"aEy" = (
+/obj/structure/chair/brass{
+	color = "#f700ff";
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "aER" = (
 /obj/structure/reagent_dispensers/fueltank/chem/west,
 /turf/simulated/floor/plasteel{
@@ -1177,6 +1308,18 @@
 	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"aKN" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 8;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "aKO" = (
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass/jungle,
@@ -1197,6 +1340,11 @@
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"aLe" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "aLl" = (
 /obj/structure/chair/sofa,
 /turf/simulated/floor/plasteel{
@@ -1342,6 +1490,19 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/ss220/command)
+"aQw" = (
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/briefcase/inflatable,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ffae00";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "aQA" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
@@ -1572,6 +1733,20 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
+"aWr" = (
+/obj/structure/table/tray{
+	color = "#73d1cb"
+	},
+/obj/item/storage/surgical_tray{
+	pixel_y = 8
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "aWC" = (
 /obj/structure/table/wood,
 /obj/item/food/grown/geranium,
@@ -1584,6 +1759,27 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/ss220/medbay)
+"aWK" = (
+/turf/simulated/wall/mineral/plastitanium/nosmooth{
+	icon_state = "plastitanium_wall-0";
+	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	},
+/area/vox_base)
+"aWM" = (
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/item/storage/briefcase/inflatable{
+	pixel_y = 4
+	},
+/obj/item/storage/briefcase/inflatable{
+	pixel_y = -2
+	},
+/obj/item/storage/briefcase/inflatable{
+	pixel_y = -8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "aWR" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/wizrobe/marisa,
@@ -1728,6 +1924,14 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/admin2)
+"aZE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "baa" = (
 /obj/structure/light_fake/small{
 	dir = 1
@@ -1750,6 +1954,20 @@
 /obj/item/stack/sheet/mineral/plasma/fifty,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"bay" = (
+/obj/effect/decal/remains/mouse,
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_y = -1;
+	pixel_x = -9
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "baD" = (
 /obj/structure/railing/cap/reversed{
 	dir = 4
@@ -1854,6 +2072,23 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/jail)
+"bdL" = (
+/obj/machinery/light,
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/grenade/plastic/c4,
+/obj/item/grenade/plastic/c4{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/obj/item/grenade/plastic/c4{
+	pixel_x = 8;
+	pixel_y = -4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "bed" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
@@ -1889,6 +2124,12 @@
 /obj/structure/chair/sofa/bench/left,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
+"bfi" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/airless{
+	icon_state = "asteroidplating"
+	},
+/area/space/nearstation/centcom)
 "bfH" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/effect/spawner/window,
@@ -2194,6 +2435,12 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
+"bml" = (
+/obj/structure/musician/piano{
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation/centcom)
 "bmv" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
@@ -2251,6 +2498,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
+"boe" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/closet/walllocker/firelocker/north,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "bof" = (
 /obj/structure/table/glass/reinforced/titanium{
 	color = "#dbc921";
@@ -2440,6 +2696,19 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/syndicate_mothership/outside)
+"bsv" = (
+/obj/structure/sink/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurplecorners";
+	dir = 1;
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "bsx" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/effect/turf_decal/siding/black{
@@ -2476,6 +2745,25 @@
 /obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/general)
+"btm" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/food/disk{
+	pixel_x = -8
+	},
+/obj/item/trash/disk{
+	pixel_x = 14;
+	pixel_y = 5
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "bts" = (
 /obj/structure/platform/corner{
 	dir = 8;
@@ -2498,6 +2786,16 @@
 "buT" = (
 /turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
+"bvo" = (
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/item/pneumatic_cannon,
+/obj/item/pneumatic_cannon{
+	pixel_x = 10
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "bvE" = (
 /obj/structure/statue/sandstone/assistant{
 	anchored = 1;
@@ -2627,6 +2925,10 @@
 /obj/effect/decal/nanotrasen_logo/n1,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/park)
+"bzY" = (
+/obj/machinery/computer/security/camera_bug,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "bAr" = (
 /obj/structure/railing{
 	dir = 4
@@ -3709,6 +4011,12 @@
 /obj/structure/closet/wardrobe/xenos,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ghost_bar)
+"bYH" = (
+/obj/structure/bed/mattress/dirty,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/vox_base)
 "bYX" = (
 /obj/effect/spawner/window,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -3785,6 +4093,22 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
+"caQ" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/hand_valuer{
+	pixel_x = -6
+	},
+/obj/item/hand_valuer{
+	pixel_x = 4
+	},
+/obj/machinery/recharger,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "caZ" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
@@ -3887,6 +4211,24 @@
 	icon_state = "darkbrown"
 	},
 /area/centcom/ss220/admin3)
+"ceb" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flashlight/lamp/bananalamp{
+	pixel_y = 20;
+	pixel_x = -14
+	},
+/obj/item/pizzabox{
+	icon_state = "pizzabox_open"
+	},
+/obj/item/book/manual/nuclear{
+	pixel_x = 5
+	},
+/obj/item/food/disk{
+	pixel_x = -8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "cex" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -3907,6 +4249,20 @@
 	icon_state = "browncorner"
 	},
 /area/shuttle/escape)
+"cfi" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/lighter/zippo/fluff/duckchan,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
+"cfF" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "cgi" = (
 /obj/docking_port/stationary{
 	dwidth = 1;
@@ -4133,6 +4489,26 @@
 	icon_state = "dark_small"
 	},
 /area/centcom/ss220/admin3)
+"cle" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	hackProof = 1;
+	aiControlDisabled = 1;
+	name = "vox door";
+	req_access_txt = "152";
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
+"clB" = (
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "clI" = (
 /obj/structure/table/glass,
 /obj/item/storage/fancy/donut_box,
@@ -4390,6 +4766,21 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/command)
+"csa" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"csj" = (
+/obj/structure/table/wood/fancy/purple,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "csH" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Badmin's Bar"
@@ -4480,6 +4871,35 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/centcom/ss220/evac)
+"cvb" = (
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/item/harpoon{
+	pixel_y = 5
+	},
+/obj/item/harpoon{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"cvY" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "cwb" = (
 /obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 4;
@@ -4549,6 +4969,18 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/elite_squad)
+"czq" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "czB" = (
 /obj/structure/rack,
 /obj/item/storage/fancy/crayons,
@@ -4556,6 +4988,11 @@
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
+"cAa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "cAh" = (
 /obj/machinery/economy/vending/dinnerware,
 /obj/structure/curtain/black{
@@ -4589,6 +5026,22 @@
 	icon_state = "darkneutralfull"
 	},
 /area/syndicate_mothership/infteam)
+"cBD" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/reagent_containers/syringe/dart/medical/tainted,
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_y = -5;
+	pixel_x = 6
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "cBN" = (
 /obj/docking_port/stationary/transit{
 	dwidth = 1;
@@ -4599,6 +5052,31 @@
 	},
 /turf/space/transit,
 /area/space/centcomm)
+"cBU" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
+"cBW" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/sleeper/upgraded{
+	dir = 2;
+	color = "#73d1cb"
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "cCt" = (
 /obj/structure/platform{
 	dir = 8;
@@ -4641,6 +5119,20 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/bar)
+"cEo" = (
+/obj/machinery/door/window/reinforced/normal{
+	dir = 4;
+	req_access_txt = "152";
+	name = "vox glassdoor"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "cEr" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -4653,6 +5145,13 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
+"cEx" = (
+/obj/machinery/access_button{
+	autolink_id = "voxwest_btn_int";
+	req_one_access_txt = "152"
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/vox)
 "cEC" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -4825,6 +5324,18 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
+"cJQ" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/item/storage/box/legal_loot/amount_5,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "cKt" = (
 /obj/structure/light_fake/spot{
 	dir = 1
@@ -4926,6 +5437,20 @@
 /obj/item/kirbyplants,
 /turf/simulated/floor/wood/parquet,
 /area/centcom/ss220/admin2)
+"cMb" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "cMg" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/paper_bin/nanotrasen{
@@ -5141,6 +5666,23 @@
 	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
+"cUx" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/item/storage/box/legal_loot/amount_5,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/trash/doshik{
+	pixel_y = -14;
+	pixel_x = 7
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "cUy" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 10;
@@ -5154,6 +5696,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"cUQ" = (
+/obj/structure/decorative_structures/metal/statue/metal_angel,
+/turf/simulated/wall/indestructible/fakeglass/brass,
+/area/vox_base)
 "cUU" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -5248,6 +5794,22 @@
 	icon_state = "darkredcornersalt"
 	},
 /area/centcom/ss220/admin3)
+"cYs" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3_side";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "cYE" = (
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 1
@@ -5458,6 +6020,28 @@
 	icon_state = "navybluealt"
 	},
 /area/syndicate_mothership/control)
+"dca" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/plasmareinforced{
+	color = "red"
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0;
+	layer = 2.5
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "dce" = (
 /obj/structure/dresser,
 /obj/structure/light_fake{
@@ -5653,6 +6237,28 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership)
+"dgm" = (
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/structure/table{
+	color = "#73d1cb"
+	},
+/obj/item/storage/firstaid/toxin,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "dgI" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -5767,6 +6373,12 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
+"dkA" = (
+/obj/structure/mopbucket/full,
+/obj/item/mop/advanced,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "dkB" = (
 /obj/structure/table/reinforced{
 	color = "#996633"
@@ -5933,6 +6545,10 @@
 	color = "#f63d3d"
 	},
 /area/syndicate_mothership/elite_squad)
+"dpd" = (
+/obj/structure/window/full/shuttle/survival_pod,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "dpn" = (
 /obj/effect/turf_decal/stripes/red,
 /obj/structure/light_fake,
@@ -6009,6 +6625,25 @@
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
+"dqM" = (
+/obj/structure/closet/crate/freezer{
+	color = "#73d1cb"
+	},
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/closet/walllocker/medlocker/west{
+	color = "#73d1cb"
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "dqP" = (
 /obj/structure/fans/tiny/invisible,
 /obj/structure/light_fake{
@@ -6327,6 +6962,20 @@
 	icon_state = "darkyellowalt"
 	},
 /area/syndicate_mothership/cargo)
+"dzm" = (
+/obj/structure/fluff/drake_statue{
+	pixel_x = 0;
+	color = "yellow";
+	name = "Статуя Великому Ящеру";
+	desc = "Когда-то племена ящеров поклонялись огромному ящеру, вселяющий ужас во всех неугодных. Но некий Русс его сразил. О былом величии Великого Ящера теперь напоминают только такие статуи, которые уже успели растащить коллекционеры-чаелюбы, не оставив ничего аборигенам."
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/vox_base)
+"dzv" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/nitrogen,
+/area/space/nearstation/centcom)
 "dzI" = (
 /obj/structure/table/wood,
 /obj/item/food/sliceable/chocolatecake,
@@ -6468,6 +7117,11 @@
 /obj/item/flag/nt,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/general)
+"dBL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trash,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "dCc" = (
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
 	pixel_x = -3;
@@ -6482,6 +7136,19 @@
 /obj/structure/rack/gunrack,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
+"dCg" = (
+/obj/structure/chair/brass{
+	color = "#f700ff";
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "dCq" = (
 /obj/effect/turf_decal/siding/black{
 	dir = 1
@@ -6596,6 +7263,13 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/ss220/evac)
+"dFd" = (
+/obj/item/flashlight/lamp/green{
+	pixel_x = 5;
+	pixel_y = -5
+	},
+/turf/space,
+/area/space/nearstation/centcom)
 "dFl" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/transport)
@@ -6787,6 +7461,17 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/syndicate_mothership/control)
+"dKo" = (
+/obj/structure/closet/walllocker/firelocker/south,
+/obj/effect/turf_decal/box/red,
+/obj/item/reagent_containers/pill/random_drugs,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "dKp" = (
 /obj/structure/statue/cyberiad/s,
 /obj/effect/turf_decal/woodsiding,
@@ -6917,6 +7602,14 @@
 	icon_state = "barber"
 	},
 /area/shuttle/administration)
+"dOb" = (
+/obj/machinery/economy/vending/suitdispenser/free,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "dOg" = (
 /obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/riveted,
@@ -7036,6 +7729,18 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
+"dRX" = (
+/obj/structure/statue/silver/secborg{
+	icon = 'icons/mob/robots.dmi';
+	icon_state = "Service2";
+	dir = 8;
+	pixel_x = -11;
+	pixel_y = 2;
+	name = "робот-пианист в глубоком космосе";
+	desc = "Статуя робота во фраке сидящего за пианино в открытом космосе. Судя по всему он здесь уже давно. И у него отличный металлический блестящий зад."
+	},
+/turf/space,
+/area/space/nearstation/centcom)
 "dRY" = (
 /obj/structure/statue/cyberiad/e,
 /turf/simulated/floor/grass/jungle,
@@ -7271,6 +7976,28 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"dZt" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0;
+	layer = 2
+	},
+/obj/structure/window/plasmareinforced{
+	color = "purple"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "purple";
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "dZw" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
@@ -7359,6 +8086,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/infteam)
+"ebI" = (
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/tank/jetpack/improvised,
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "ebN" = (
 /obj/machinery/computer/secure_data{
 	dir = 1
@@ -7374,6 +8111,26 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
+"ecx" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/food/disk{
+	pixel_x = -8
+	},
+/obj/item/food/disk{
+	pixel_x = 6
+	},
+/obj/item/trash/disk,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "edj" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "CC_Cargo_Turret";
@@ -7457,6 +8214,23 @@
 "egO" = (
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"ehI" = (
+/obj/machinery/airlock_controller/access_controller{
+	ext_button_link_id = "voxwest_btn_ext";
+	ext_door_link_id = "voxwest_door_ext";
+	int_button_link_id = "voxwest_btn_int";
+	int_door_link_id = "voxwest_door_int";
+	pixel_x = 24;
+	req_access_txt = "152"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "ehR" = (
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/ss220/admin2)
@@ -7743,6 +8517,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
+"eqm" = (
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 4
+	},
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/box/red,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "eqp" = (
 /obj/structure/flora/junglebush/large,
 /turf/simulated/floor/indestructible/grass/no_creep,
@@ -7898,6 +8681,14 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/jail)
+"etm" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "etr" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/dromedaryco{
@@ -7936,6 +8727,14 @@
 	icon_state = "dark_herringbone"
 	},
 /area/centcom/ss220/command)
+"eul" = (
+/obj/machinery/kitchen_machine/grill/upgraded,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurple";
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "eup" = (
 /obj/structure/table/wood,
 /obj/item/grenade/smokebomb{
@@ -8005,6 +8804,14 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
+"ewQ" = (
+/obj/machinery/economy/vending/clothing/free,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "exn" = (
 /obj/structure/sink/directional/west,
 /obj/structure/mirror{
@@ -8136,6 +8943,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin1)
+"eyO" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "ezj" = (
 /obj/machinery/computer/borgupload,
 /turf/simulated/floor/plasteel{
@@ -8380,12 +9191,36 @@
 	icon_state = "neutralcorner"
 	},
 /area/shuttle/escape)
+"eGx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery/white/hollow/right,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "eGy" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
 /area/centcom/ss220/evac)
+"eGz" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "eGK" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "CC_Cargo_Interior_1";
@@ -8659,6 +9494,9 @@
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/admin1)
+"eMr" = (
+/turf/space,
+/area/shuttle/vox)
 "eMy" = (
 /obj/machinery/door/airlock/public{
 	name = "Дормы"
@@ -9145,6 +9983,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"eZY" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "faa" = (
 /obj/structure/table/reinforced,
 /obj/item/stamp/syndicate{
@@ -9377,6 +10224,12 @@
 	icon_state = "dark_herringbone"
 	},
 /area/centcom/ss220/admin2)
+"fer" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/officetoys,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "ffa" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
@@ -9388,6 +10241,30 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/ss220/admin3)
+"ffo" = (
+/obj/structure/curtain/open/shower{
+	anchored = 1
+	},
+/obj/effect/turf_decal/miscellaneous/plumbing{
+	dir = 1
+	},
+/obj/machinery/shower{
+	pixel_y = 20
+	},
+/obj/effect/turf_decal/siding/thinplating/end,
+/obj/machinery/door_control/no_emag/west{
+	id = "vox_shower";
+	name = "Door Bolt Control";
+	normaldoorcontrol = 1;
+	specialfunctions = 4;
+	pixel_x = 28;
+	pixel_y = -5
+	},
+/obj/item/soap/nanotrasen,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/vox_raider,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "ffq" = (
 /obj/structure/light_fake/small{
 	dir = 4
@@ -9488,6 +10365,29 @@
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
+"fhG" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud{
+	pixel_x = -5;
+	pixel_y = 2
+	},
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud{
+	pixel_x = 6
+	},
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "fie" = (
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
@@ -9547,6 +10447,12 @@
 "fjg" = (
 /turf/space/transit/horizontal,
 /area/space/centcomm)
+"fjm" = (
+/turf/simulated/wall/indestructible/fakeglass/brass{
+	color = "#ff00fb";
+	name = "витрина"
+	},
+/area/vox_base)
 "fjx" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/rock/jungle,
@@ -9624,6 +10530,21 @@
 	color = "#f63d3d"
 	},
 /area/syndicate_mothership/elite_squad)
+"flq" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/chair/brass{
+	color = "#f700ff";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "fls" = (
 /obj/structure/chair/sofa/bench/right,
 /turf/simulated/floor/plasteel{
@@ -9637,6 +10558,30 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_elite)
+"fmf" = (
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ffae00";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "fmj" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/delivery/white/hollow,
@@ -9720,6 +10665,24 @@
 "fmJ" = (
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/park)
+"fmN" = (
+/obj/structure/closet/crate/secure/bin{
+	anchored = 1;
+	color = "#00eafa"
+	},
+/obj/effect/turf_decal/box/red,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/jammer{
+	pixel_x = 4
+	},
+/obj/item/food/doshik,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "fmQ" = (
 /obj/structure/light_fake/small{
 	dir = 8
@@ -9821,6 +10784,18 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/command)
+"fpA" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "fpM" = (
 /obj/effect/turf_decal/plaque,
 /obj/structure/marker_beacon/spotlight/yellow,
@@ -10128,6 +11103,14 @@
 /obj/item/book/random,
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/park)
+"fwx" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurple";
+	dir = 1;
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "fwQ" = (
 /obj/structure/closet/crate/internals,
 /obj/item/tank/internals/oxygen/red,
@@ -10154,6 +11137,12 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/cargo)
+"fxi" = (
+/obj/structure/sign/poster/official/fruit_bowl,
+/turf/simulated/wall/indestructible/syndicate{
+	smoothing_flags = 2
+	},
+/area/vox_base)
 "fxn" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/mineral/plastitanium,
@@ -10203,6 +11192,12 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
+"fyy" = (
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/plastic,
+/turf/simulated/floor/plating/nitrogen,
+/area/space/nearstation/centcom)
 "fyC" = (
 /obj/structure/flora/rock/jungle,
 /obj/structure/flora/junglebush,
@@ -10317,6 +11312,12 @@
 /obj/structure/chair/comfy/corp,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin3)
+"fAz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "fAH" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/stripes/line{
@@ -10364,6 +11365,31 @@
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
+"fBP" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/food/doshik_spicy{
+	pixel_x = -3
+	},
+/obj/item/food/doshik{
+	pixel_y = 1;
+	pixel_x = 3
+	},
+/obj/item/food/doshik{
+	pixel_y = -6;
+	pixel_x = 5
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "fBZ" = (
 /obj/machinery/kitchen_machine/grill/upgraded,
 /turf/simulated/floor/plating{
@@ -10460,6 +11486,24 @@
 	},
 /turf/simulated/floor/grass/jungle,
 /area/centcom/ss220/park)
+"fEh" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/grenade/smokebomb,
+/obj/item/grenade/smokebomb{
+	pixel_x = -9
+	},
+/obj/item/grenade/smokebomb{
+	pixel_x = 9
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "fEC" = (
 /obj/machinery/door/window/reinforced/normal{
 	req_access = list(106)
@@ -10573,6 +11617,16 @@
 /obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
+"fJa" = (
+/obj/item/kirbyplants,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "fJl" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -10679,6 +11733,10 @@
 /obj/structure/light_fake/small,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
+"fMG" = (
+/obj/effect/landmark/spawner/vox_raider,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "fMH" = (
 /turf/simulated/floor/beach/away/coastline{
 	dir = 5;
@@ -10920,6 +11978,16 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
+"fSe" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/poster/random_contraband{
+	pixel_x = -26;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trash,
+/turf/simulated/floor/plasteel/dark,
+/area/vox_base)
 "fSO" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -10962,6 +12030,21 @@
 /obj/structure/flora/biolumini/flower,
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
+"fUj" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 26
+	},
+/obj/machinery/sleeper/upgraded{
+	dir = 2;
+	color = "#73d1cb"
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "fUq" = (
 /obj/effect/decal/nanotrasen_logo/n1,
 /turf/simulated/floor/plasteel/dark,
@@ -10984,6 +12067,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate)
+"fVa" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/vox)
+"fVc" = (
+/turf/simulated/wall/mineral/gold,
+/area/vox_base)
 "fVd" = (
 /obj/effect/turf_decal/siding/black{
 	dir = 4
@@ -11002,9 +12091,17 @@
 	},
 /area/syndicate_mothership)
 "fVA" = (
-/obj/effect/mob_spawn/human/corpse/clown/corpse,
+/obj/effect/mob_spawn/human/corpse/clown/corpse{
+	description = "Он почти добрался до монетки"
+	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/space/nearstation/centcom)
+"fVS" = (
+/obj/machinery/economy/vending/tool/free{
+	color = "#e67e7e"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "fVW" = (
 /turf/simulated/floor/beach/away/coastline{
 	water_overlay_image = null
@@ -11043,6 +12140,15 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/transport)
+"fYh" = (
+/obj/structure/chair/brass,
+/obj/item/toy/plushie/voxplushie{
+	desc = "Мини-прималис. Главное в воксе - держать клюв Кирпичом. Игрушка сшитая основателем камневидного базирования в перерыве между рейдами.";
+	name = "Кирпич";
+	color = "#ff78f4"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "fYj" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -11167,6 +12273,9 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
+"gch" = (
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "gcj" = (
 /obj/effect/light_emitter/colored{
 	light_color = "#FFFFF";
@@ -11237,6 +12346,14 @@
 	name = "sand"
 	},
 /area/syndicate_mothership/outside)
+"geI" = (
+/obj/effect/spawner/lootdrop/trash,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "gfa" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -11312,6 +12429,15 @@
 /obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/park)
+"ggv" = (
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "ggQ" = (
 /obj/item/kirbyplants,
 /obj/structure/extinguisher_cabinet/directional/north,
@@ -11546,6 +12672,9 @@
 /obj/effect/landmark/spawner/roundstart_observer,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
+"gqf" = (
+/turf/simulated/wall/indestructible/opsglass/limited_smooth,
+/area/vox_base)
 "gqH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -11597,6 +12726,18 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/ss220/supply)
+"gsV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/arrows/black{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "gsX" = (
 /obj/structure/chair/comfy/corp,
 /obj/effect/turf_decal/tile/neutral/full{
@@ -11604,6 +12745,24 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/admin2)
+"gtr" = (
+/obj/item/reagent_containers/glass/bucket/wooden{
+	pixel_x = 9;
+	pixel_y = -2;
+	name = "сральное ведро";
+	desc = "Омерзительно. Им кто-то недавно пользовался?!"
+	},
+/obj/item/paper/crumpled{
+	pixel_x = -9;
+	pixel_y = 2
+	},
+/obj/item/poster/random_contraband{
+	pixel_x = -26;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
 "gty" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11905,6 +13064,16 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
+"gBF" = (
+/obj/machinery/light,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "gBL" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 9;
@@ -12150,6 +13319,13 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
+"gJa" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurplefull";
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "gJs" = (
 /obj/structure/reagent_dispensers/beerkeg{
 	desc = "Собственность Шерлока Субботина"
@@ -12168,6 +13344,11 @@
 	icon_state = "grimy"
 	},
 /area/trader_station/sol)
+"gJK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/vox_raider,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "gJM" = (
 /obj/effect/turf_decal/arrows/white{
 	color = "#6697cc";
@@ -12257,6 +13438,17 @@
 /obj/effect/spawner/window,
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
+"gLD" = (
+/obj/machinery/sleeper/upgraded{
+	color = "#73d1cb"
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "gLU" = (
 /obj/effect/baseturf_helper{
 	baseturf = /turf/simulated/floor/indestructible
@@ -12341,6 +13533,14 @@
 	icon_state = "navybluealt"
 	},
 /area/syndicate_mothership/control)
+"gNf" = (
+/obj/machinery/economy/vending/cigarette/free,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "gNr" = (
 /obj/machinery/recharger/wallcharger/upgraded{
 	pixel_x = 32
@@ -12535,6 +13735,28 @@
 	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
+"gTQ" = (
+/obj/structure/window/plasmareinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/structure/shuttle/engine/platform{
+	layer = 2.9
+	},
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3"
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0;
+	layer = 2.5
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "gTR" = (
 /obj/machinery/photocopier,
 /obj/structure/light_fake{
@@ -12786,6 +14008,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/ss220/supply)
+"gZh" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
 "gZt" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -13144,6 +14380,27 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/ss220/admin3)
+"hiv" = (
+/obj/structure/table/reinforced{
+	color = "#cc52c0"
+	},
+/obj/effect/spawner/lootdrop/officetoys{
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/item/paper_bin{
+	pixel_x = 10
+	},
+/obj/item/flashlight/pen{
+	pixel_x = 9
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "hiI" = (
 /obj/structure/sign/poster/official/random/west,
 /turf/simulated/floor/plasteel/dark{
@@ -13276,6 +14533,18 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/admin2)
+"hnb" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
 "hnu" = (
 /obj/machinery/cryopod/offstation{
 	icon_state = "sleeper_s";
@@ -13540,6 +14809,18 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership)
+"hsg" = (
+/obj/structure/table{
+	color = "#73d1cb"
+	},
+/obj/effect/spawner/lootdrop/officetoys,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "hsh" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/holding)
@@ -13674,6 +14955,28 @@
 	icon_state = "darkneutralfull"
 	},
 /area/syndicate_mothership)
+"hxK" = (
+/obj/structure/window/plasmareinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/structure/shuttle/engine/platform{
+	layer = 2.9
+	},
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3_side_inv"
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0;
+	layer = 2.5
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "hxM" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/effect/spawner/window,
@@ -13756,6 +15059,25 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/admin2)
+"hyM" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/paper_bin,
+/obj/item/flashlight/pen,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
+"hzk" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 8;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
 "hzD" = (
 /obj/structure/light_fake{
 	dir = 8
@@ -13788,9 +15110,30 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/ss220/medbay)
+"hAS" = (
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "hBd" = (
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
+"hBr" = (
+/obj/item/restraints/handcuffs/cable/pink{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/restraints/handcuffs/cable/pink,
+/obj/item/restraints/handcuffs/cable/pink{
+	pixel_x = 6;
+	pixel_y = -4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
 "hBJ" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel/dark{
@@ -14335,6 +15678,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/court)
+"hNm" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "hNH" = (
 /obj/machinery/porta_turret/syndicate/interior,
 /obj/structure/window/plasmareinforced{
@@ -14848,6 +16198,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"ici" = (
+/obj/structure/decorative_structures/metal/statue/moon,
+/turf/simulated/wall/indestructible/fakeglass/brass,
+/area/vox_base)
 "icv" = (
 /turf/simulated/floor/plasteel/stairs/right{
 	color = "gray";
@@ -14884,6 +16238,46 @@
 	icon_state = "grimy"
 	},
 /area/centcom/ss220/park)
+"ieq" = (
+/obj/item/storage/bag/cash,
+/obj/item/coin/gold{
+	pixel_x = -10;
+	pixel_y = -6
+	},
+/obj/item/coin/gold{
+	pixel_x = -6;
+	pixel_y = -9
+	},
+/obj/item/coin/gold{
+	pixel_x = 8;
+	pixel_y = -5
+	},
+/obj/item/coin/gold{
+	pixel_y = -7
+	},
+/obj/item/coin/gold{
+	pixel_x = 6;
+	pixel_y = -10
+	},
+/obj/item/coin/gold{
+	pixel_x = 12;
+	pixel_y = -9
+	},
+/obj/item/instrument/violin/golden{
+	pixel_y = -31;
+	desc = "Золотая виолончель великого рок-виолончель музыканта. Говорят её до сих пор ищут целыми системами!";
+	name = "золотая рок-виолончель"
+	},
+/obj/item/card/id/representative_ussp{
+	pixel_x = -32;
+	pixel_y = -24
+	},
+/obj/item/card/id/representative_tsf{
+	pixel_x = -32;
+	pixel_y = -38
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/vox_base)
 "ieu" = (
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/general)
@@ -14970,6 +16364,9 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/supply)
+"ifS" = (
+/turf/simulated/floor/indestructible/transparent_floor,
+/area/shuttle/vox)
 "igF" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -14984,6 +16381,18 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/admin3)
+"igT" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/portable/canister/nitrogen,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ffae00";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "ihB" = (
 /obj/structure/chair/sofa/corp/corner{
 	dir = 8
@@ -14995,6 +16404,24 @@
 	icon_state = "darkyellowcornersalt"
 	},
 /area/syndicate_mothership/cargo)
+"iid" = (
+/obj/structure/table{
+	color = "#73d1cb"
+	},
+/obj/item/storage/firstaid/brute{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/storage/firstaid/toxin,
+/obj/item/storage/firstaid/toxin,
+/obj/item/storage/firstaid/toxin,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "iiq" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 4
@@ -15773,6 +17200,26 @@
 	},
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin1)
+"iws" = (
+/obj/structure/closet/crate/trashcart,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/pill/random_drugs,
+/obj/item/stack/vox_cash/c500{
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_y = -1;
+	pixel_x = -9
+	},
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_y = -9;
+	pixel_x = 9
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/space/nearstation/centcom)
 "iwE" = (
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
@@ -16016,6 +17463,24 @@
 	icon_state = "darkbluecornersalt"
 	},
 /area/centcom/ss220/admin1)
+"iID" = (
+/obj/machinery/optable{
+	color = "#73d1cb"
+	},
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 26
+	},
+/obj/item/organ/internal/brain,
+/obj/structure/light_fake/small{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "iIH" = (
 /turf/simulated/floor/carpet/blue,
 /area/centcom/ss220/admin2)
@@ -16026,6 +17491,33 @@
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/ss220/admin2)
+"iIS" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/glasses/welding{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/welding{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/item/clothing/glasses/welding{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ffae00";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "iJa" = (
 /obj/structure/table/reinforced,
 /obj/item/borg/upgrade/selfrepair,
@@ -16166,6 +17658,16 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
+"iLB" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "iLT" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
@@ -16354,6 +17856,18 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
+"iRh" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
 "iRB" = (
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
@@ -16632,6 +18146,19 @@
 	icon_state = "darkyellowalt"
 	},
 /area/syndicate_mothership/cargo)
+"jcq" = (
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
+"jdg" = (
+/obj/structure/closet/abductor,
+/obj/structure/light_fake/spot{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "jdv" = (
 /obj/item/flag/nt{
 	layer = 4
@@ -17015,6 +18542,17 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ghost_bar)
+"jov" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery/white/hollow/left,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "joz" = (
 /obj/structure/bookcase/manuals,
 /obj/item/book/manual/random,
@@ -17080,6 +18618,18 @@
 	},
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
+"jpv" = (
+/obj/machinery/bodyscanner{
+	dir = 4;
+	color = "#73d1cb"
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "jpN" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
@@ -17285,6 +18835,22 @@
 "jvG" = (
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/ss220/admin1)
+"jvH" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0;
+	layer = 2
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "jvO" = (
 /obj/structure/closet/secure_closet/engineering_welding,
 /obj/item/extinguisher/mini,
@@ -17429,11 +18995,29 @@
 	dir = 1
 	},
 /area/syndicate_mothership/jail)
+"jBs" = (
+/obj/structure/closet/coffin,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "jBE" = (
 /obj/structure/light_fake,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/general)
+"jBF" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	hackProof = 1;
+	aiControlDisabled = 1;
+	name = "vox door";
+	req_access_txt = "152";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "jBO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -17450,6 +19034,16 @@
 	icon_state = "darkneutralfull"
 	},
 /area/syndicate_mothership/infteam)
+"jCK" = (
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 1;
+	req_access_txt = "152";
+	name = "vox glassdoor";
+	color = "red"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "jCR" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -17486,6 +19080,15 @@
 	icon_state = "darkbrown"
 	},
 /area/syndicate_mothership/jail)
+"jDZ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ffae00";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "jEd" = (
 /obj/structure/platform{
 	dir = 8;
@@ -17739,6 +19342,18 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
+"jJB" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trash,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "jJQ" = (
 /obj/machinery/economy/vending/toyliberationstation,
 /turf/simulated/floor/carpet/black,
@@ -17927,6 +19542,15 @@
 /obj/item/candle/eternal/wizard,
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
+"jNl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurple";
+	dir = 1;
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "jNn" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/spawner/aroomwarp,
@@ -17986,6 +19610,11 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/bar)
+"jOL" = (
+/obj/item/trash/snack_bowl,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/vox_base)
 "jPg" = (
 /obj/effect/turf_decal/box/white/corners{
 	dir = 1
@@ -18026,6 +19655,16 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/court)
+"jRj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "jRv" = (
 /obj/machinery/economy/vending/chinese/free,
 /turf/simulated/floor/plasteel{
@@ -18050,6 +19689,52 @@
 /obj/item/book/manual/wiki/security_space_law/black,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/court)
+"jTd" = (
+/obj/structure/closet/secure_closet/freezer/kitchen{
+	req_access = null
+	},
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/carrot,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/vulgaris,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/pill/random_drugs,
+/obj/item/reagent_containers/pill/random_drugs,
+/obj/item/reagent_containers/pill/random_drugs,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurplecorners";
+	dir = 8;
+	nitrogen = 103.984
+	},
+/area/vox_base)
+"jTn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
+"jTY" = (
+/obj/structure/chair/brass,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "jUj" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/wood,
@@ -18226,6 +19911,10 @@
 	icon_state = "darkyellowfull"
 	},
 /area/syndicate_mothership/cargo)
+"jZi" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/asteroid/ancient/airless,
+/area/space/nearstation/centcom)
 "jZq" = (
 /obj/structure/table/wood,
 /obj/machinery/door/window/classic/reversed{
@@ -18471,6 +20160,29 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
+"kfT" = (
+/obj/machinery/cell_charger,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/structure/closet/walllocker/firelocker/east,
+/obj/structure/table/reinforced{
+	color = "#e67e7e"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/mineral/sandbags,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ffae00";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "khe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -18500,6 +20212,22 @@
 	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"khX" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/reagent_containers/syringe/dart/medical/tainted,
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_y = -5;
+	pixel_x = 6
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "kin" = (
 /obj/structure/rack,
 /obj/item/camera,
@@ -18534,6 +20262,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_elite)
+"kjd" = (
+/obj/structure/decorative_structures/metal/statue/golden_disk,
+/turf/simulated/wall/indestructible/fakeglass/brass,
+/area/vox_base)
 "kjH" = (
 /obj/structure/table/wood/fancy/black,
 /obj/structure/chair/stool/bar{
@@ -18562,6 +20294,16 @@
 	icon_state = "darkbluealtstrip"
 	},
 /area/syndicate_mothership/elite_squad)
+"kkr" = (
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1;
+	req_access_txt = "152";
+	name = "vox glassdoor";
+	color = "red"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "kkM" = (
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
@@ -18770,6 +20512,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"koY" = (
+/obj/structure/bed/mattress/dirty,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/vox_base)
 "kpq" = (
 /obj/structure/dresser,
 /turf/simulated/floor/carpet/green,
@@ -18796,6 +20543,15 @@
 	icon_state = "showroomfloor"
 	},
 /area/wizard_station)
+"kpY" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "kqe" = (
 /obj/structure/statue/delta/nw,
 /turf/simulated/floor/grass/jungle,
@@ -18924,6 +20680,12 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/ss220/bar)
+"kuG" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/ashtray/glass,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "kuJ" = (
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
@@ -18967,6 +20729,9 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"kvB" = (
+/turf/space,
+/area/space/nearstation/centcom)
 "kvF" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
@@ -19575,6 +21340,21 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/bar)
+"kJj" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/grenade/smokebomb{
+	pixel_x = 5
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "kJF" = (
 /obj/machinery/optable,
 /obj/machinery/light/directional/west,
@@ -19643,6 +21423,14 @@
 /obj/structure/flora/biolumini/lamp,
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
+"kLm" = (
+/obj/machinery/economy/vending/shoedispenser/free,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "kLu" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/waterbottle{
@@ -19776,6 +21564,18 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
+"kOk" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 8;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/effect/spawner/window/shuttle/survival_pod,
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
 "kOy" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -19815,6 +21615,15 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
+"kPP" = (
+/obj/structure/window/full/shuttle/survival_pod,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "kPR" = (
 /obj/structure/bed{
 	dir = 4
@@ -19902,6 +21711,10 @@
 	icon_state = "darkbluecorners"
 	},
 /area/centcom/ss220/bar)
+"kSf" = (
+/obj/structure/decorative_structures/metal/statue/sun,
+/turf/simulated/wall/indestructible/fakeglass/brass,
+/area/vox_base)
 "kSs" = (
 /obj/structure/rack/holorack,
 /obj/item/clothing/shoes/cowboy/white{
@@ -19966,6 +21779,15 @@
 /obj/structure/light_fake,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/trader_station/sol)
+"kTa" = (
+/obj/machinery/vox_shop,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "kTj" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel/stairs/left{
@@ -20084,6 +21906,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"kVc" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/nitrogen,
+/area/space/nearstation/centcom)
 "kVz" = (
 /obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/plasteel/dark,
@@ -20370,6 +22196,15 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/ss220/medbay)
+"lea" = (
+/obj/structure/light_fake/spot{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "lek" = (
 /obj/machinery/icemachine{
 	dir = 4
@@ -20423,6 +22258,21 @@
 	},
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership/control)
+"lfF" = (
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "lfO" = (
 /obj/structure/table/wood,
 /obj/item/card/id/prisoner/random,
@@ -20498,6 +22348,18 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
+"lhZ" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "lid" = (
 /obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/carpet/purple,
@@ -20689,6 +22551,16 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership)
+"lof" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "lol" = (
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredalt"
@@ -20751,6 +22623,16 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/supply)
+"lqb" = (
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "lqf" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -20962,6 +22844,14 @@
 	icon_state = "freezerfloor"
 	},
 /area/syndicate_mothership/elite_squad)
+"ltP" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "ltU" = (
 /obj/item/storage/box/drinkingglasses,
 /obj/structure/sign/poster/contraband/random{
@@ -21292,6 +23182,15 @@
 "lAC" = (
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/syndicate_mothership/outside)
+"lAL" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "lAY" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -21517,6 +23416,11 @@
 /obj/structure/sign/greencross,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
+"lJQ" = (
+/obj/effect/landmark/damageturf,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "lJY" = (
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
@@ -21667,12 +23571,30 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
+"lMC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "lMG" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 4;
 	icon_state = "vault"
 	},
 /area/centcom/ss220/bar)
+"lMK" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/ashtray/glass,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "lMN" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo19"
@@ -21851,6 +23773,16 @@
 	},
 /turf/simulated/floor/beach/away/water/deep,
 /area/centcom/ss220/admin1)
+"lRa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/light_fake/small{
+	dir = 4
+	},
+/obj/machinery/computer/shuttle/vox{
+	dir = 8
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "lRh" = (
 /obj/structure/rack,
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot,
@@ -21976,6 +23908,13 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/assault_pod/nanotrasen)
+"lTC" = (
+/obj/machinery/cryopod/offstation{
+	dir = 4;
+	color = "#73d1cb"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "lTL" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -22068,6 +24007,20 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
+"lWQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trash,
+/obj/structure/closet/crate/secure/bin{
+	anchored = 1;
+	color = "#996633"
+	},
+/obj/item/storage/belt/chameleon,
+/obj/item/clothing/glasses/meson{
+	pixel_x = 5
+	},
+/obj/item/food/doshik_spicy,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "lWU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/black{
@@ -22121,6 +24074,9 @@
 	icon_state = "darkyellowalt"
 	},
 /area/syndicate_mothership/cargo)
+"lXs" = (
+/turf/simulated/wall/indestructible/opsglass,
+/area/vox_base)
 "lXw" = (
 /obj/structure/statue/elwycco{
 	layer = 4;
@@ -22225,6 +24181,14 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership)
+"mci" = (
+/obj/machinery/door/airlock/silver{
+	name = "Уборная";
+	id_tag = "vox_shower";
+	color = "#804482"
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "mcm" = (
 /obj/structure/closet/crate/secure/bin{
 	color = "#36373a";
@@ -22329,6 +24293,31 @@
 /obj/effect/turf_decal/stripes/red/box,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"mfF" = (
+/obj/structure/table/glass{
+	color = "#73d1cb"
+	},
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/reagent_containers/syringe/dart/medical{
+	pixel_x = -5;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/syringe/dart/medical{
+	pixel_x = 2;
+	pixel_y = 7
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "mgd" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/indestructible/riveted,
@@ -22354,6 +24343,18 @@
 /obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
+"mgM" = (
+/obj/item/kirbyplants,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "mgU" = (
 /obj/machinery/door/airlock/centcom{
 	req_access_txt = "101";
@@ -22510,6 +24511,17 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership)
+"mkZ" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "mlh" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -22780,6 +24792,24 @@
 /obj/effect/spawner/lootdrop/trash,
 /turf/simulated/floor/plating,
 /area/centcom/ss220/supply)
+"mqD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "mqM" = (
 /obj/effect/decal/syndie_logo,
 /turf/simulated/floor/mineral/plastitanium,
@@ -22813,6 +24843,22 @@
 	icon_state = "darkred"
 	},
 /area/syndicate_mothership/elite_squad)
+"mrT" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3_side_inv";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "mrZ" = (
 /obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/plasteel/dark{
@@ -22833,6 +24879,15 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/admin1)
+"msA" = (
+/obj/machinery/computer/shuttle/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "msE" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/computer/med_data/laptop,
@@ -22886,6 +24941,20 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/general)
+"mvZ" = (
+/obj/item/reagent_containers/glass/bucket/wooden{
+	pixel_x = 9;
+	pixel_y = -2;
+	name = "сральное ведро";
+	desc = "Омерзительно. Им кто-то недавно пользовался?!"
+	},
+/obj/item/paper/crumpled{
+	pixel_x = -9;
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/vox_base)
 "mwa" = (
 /obj/structure/table/glass,
 /obj/structure/window/reinforced,
@@ -23093,6 +25162,19 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/general)
+"mCM" = (
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/item/harpoon{
+	pixel_y = 5
+	},
+/obj/item/harpoon{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "mDm" = (
 /obj/structure/chair/sofa/corp,
 /turf/simulated/floor/plasteel/dark{
@@ -23133,6 +25215,19 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/command)
+"mER" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/box/alienhandcuffs,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
+"mFq" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
+"mFE" = (
+/obj/machinery/atmospherics/unary/tank/nitrogen,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "mFZ" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/syndicate)
@@ -23395,6 +25490,15 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
+"mNT" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "mNX" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/cable_coil,
@@ -23512,6 +25616,47 @@
 	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership/outside)
+"mRZ" = (
+/obj/docking_port/mobile{
+	dwidth = 13;
+	height = 18;
+	id = "vox_shuttle";
+	name = "scavenger shuttle";
+	width = 19;
+	dir = 2;
+	pixel_y = -5
+	},
+/obj/docking_port/stationary{
+	dwidth = 13;
+	height = 18;
+	id = "vox_shuttle_away";
+	name = "Scavenger Base";
+	width = 19;
+	dir = 2;
+	pixel_y = 11
+	},
+/obj/machinery/door/airlock/hatch{
+	id_tag = "voxwest_door_ext";
+	req_access_txt = "152";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "mSA" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/outpost)
@@ -23606,6 +25751,16 @@
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate)
+"mVH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "mVM" = (
 /obj/structure/light_fake/spot{
 	dir = 8
@@ -23751,6 +25906,13 @@
 	icon_state = "dark"
 	},
 /area/shuttle/syndicate)
+"mZL" = (
+/obj/machinery/light,
+/obj/machinery/economy/vending/tool/free{
+	color = "#e67e7e"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "mZW" = (
 /obj/structure/light_fake/small,
 /obj/structure/table,
@@ -23825,6 +25987,18 @@
 /obj/machinery/status_display/supply_display,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/ss220/supply)
+"nbC" = (
+/obj/structure/table/reinforced/brass,
+/obj/machinery/chem_dispenser/soda/upgraded,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurplecorners";
+	dir = 4;
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "nbL" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/shuttle/escape)
@@ -23836,6 +26010,13 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/trader_station/sol)
+"nbO" = (
+/obj/machinery/access_button{
+	autolink_id = "voxeast_btn_ext";
+	req_access_txt = "152"
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/vox)
 "ncb" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/dark,
@@ -23852,6 +26033,9 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/ss220/bar)
+"ncE" = (
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "ncH" = (
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "burst_r"
@@ -23910,6 +26094,15 @@
 /obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
+"ndQ" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/effect/spawner/lootdrop/trash,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "neF" = (
 /obj/item/gun/rocketlauncher,
 /obj/item/gun/rocketlauncher,
@@ -24060,6 +26253,12 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/ss220/medbay)
+"niw" = (
+/obj/item/restraints/handcuffs,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/mouse,
+/turf/simulated/floor/plasteel/dark,
+/area/vox_base)
 "niG" = (
 /obj/structure/table,
 /obj/item/ashtray/glass,
@@ -24103,6 +26302,20 @@
 	icon_state = "darkneutralfull"
 	},
 /area/syndicate_mothership)
+"nkr" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/syringe/dart/medical/tainted,
+/obj/item/reagent_containers/syringe/dart/medical/tainted,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "nks" = (
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredcornersalt";
@@ -24394,6 +26607,23 @@
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
+"npU" = (
+/obj/item/stack/cable_coil,
+/obj/structure/table{
+	color = "#73d1cb"
+	},
+/obj/item/storage/firstaid/fire{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/storage/firstaid/regular,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "nqg" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 8;
@@ -24448,6 +26678,16 @@
 	icon_state = "darkbluealt"
 	},
 /area/centcom/ss220/bar)
+"nsk" = (
+/obj/structure/lattice,
+/obj/item/card/emag{
+	pixel_y = -54;
+	pixel_x = 31;
+	name = "странный емаг";
+	desc = "Это полностью функционирующий емаг. Его даже можно взять в руки, но он находится будто не здесь..."
+	},
+/turf/space,
+/area/space/nearstation/centcom)
 "nsJ" = (
 /obj/machinery/economy/vending/nta/blue,
 /turf/simulated/floor/plasteel/dark,
@@ -24597,6 +26837,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
+"nxO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "nyb" = (
 /obj/structure/flora/junglebush/large{
 	pixel_y = -8
@@ -24913,6 +27158,14 @@
 /obj/machinery/computer/crew/advanced,
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/admin3)
+"nGR" = (
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "nHq" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark{
@@ -24981,6 +27234,15 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/ss220/admin3)
+"nIz" = (
+/obj/effect/landmark/spawner/vox_raider,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurple";
+	dir = 1;
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "nIC" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 5;
@@ -25037,6 +27299,14 @@
 	icon_state = "navybluealt"
 	},
 /area/syndicate_mothership/control)
+"nLH" = (
+/obj/machinery/cooker/deepfryer/upgraded,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurple";
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "nMa" = (
 /turf/simulated/floor/beach/away/coastline{
 	water_overlay_image = null
@@ -25153,6 +27423,10 @@
 "nNr" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/space/nearstation/centcom)
+"nNs" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "nNB" = (
 /obj/structure/platform/corner{
 	dir = 1;
@@ -25162,6 +27436,20 @@
 	icon_state = "dark_herringbone"
 	},
 /area/centcom/ss220/command)
+"nNK" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	hackProof = 1;
+	aiControlDisabled = 1;
+	name = "vox door";
+	req_access_txt = "152";
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "nNP" = (
 /obj/structure/light_fake/small,
 /turf/simulated/floor/plating{
@@ -25285,6 +27573,40 @@
 /obj/item/bio_chip_implanter,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"nQy" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/lootdrop/trash,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"nQM" = (
+/obj/structure/window/plasmareinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/structure/shuttle/engine/platform{
+	layer = 2.9
+	},
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3_side"
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0;
+	layer = 2.5
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"nQU" = (
+/turf/simulated/mineral/ancient/outer,
+/area/space/centcomm)
 "nRk" = (
 /obj/machinery/kitchen_machine/oven/upgraded,
 /turf/simulated/floor/plating{
@@ -25538,6 +27860,16 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/ss220/admin3)
+"nYD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "nZe" = (
 /obj/structure/chair/sofa/bench/right{
 	cover_color = "#68452a";
@@ -25782,6 +28114,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/ss220/admin2)
+"oiF" = (
+/obj/structure/bed/mattress/dirty,
+/obj/item/restraints/handcuffs,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
 "oiH" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -25978,6 +28316,12 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"opf" = (
+/obj/machinery/cryopod/offstation{
+	color = "#73d1cb"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "opo" = (
 /obj/structure/table/wood,
 /obj/item/book/random,
@@ -26069,6 +28413,18 @@
 "oqS" = (
 /turf/space,
 /area/centcom/ss220/command)
+"oqU" = (
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/item/tank/jetpack/carbondioxide,
+/obj/item/tank/jetpack/carbondioxide,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "orn" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
@@ -26090,6 +28446,23 @@
 	icon_state = "dark"
 	},
 /area/shuttle/syndicate)
+"orO" = (
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/item/harpoon{
+	pixel_y = 5
+	},
+/obj/item/harpoon{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "orV" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Шаттл Нанотрейзен";
@@ -26111,6 +28484,15 @@
 	icon_state = "whitebluefull"
 	},
 /area/centcom/ss220/medbay)
+"oss" = (
+/obj/machinery/vox_trader,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "osy" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/structure/light_fake/small{
@@ -26149,6 +28531,24 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
+"oup" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/grenade/smokebomb{
+	pixel_x = -9
+	},
+/obj/item/grenade/smokebomb,
+/obj/item/grenade/smokebomb{
+	pixel_x = 9
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "ouy" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
@@ -26259,6 +28659,18 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/infteam)
+"owv" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/storage/box/legal_loot/amount_2,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "owz" = (
 /obj/structure/holosign/barrier/engineering,
 /turf/simulated/floor/plating,
@@ -26489,6 +28901,20 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/jail)
+"oDt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/firelocker/north,
+/obj/effect/turf_decal/box/red,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "oDu" = (
 /obj/structure/railing,
 /turf/simulated/floor/indestructible/grass/no_creep,
@@ -26508,6 +28934,25 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
+"oDY" = (
+/obj/machinery/door/airlock/hatch{
+	id_tag = "voxeast_door_int";
+	locked = 1;
+	req_access_txt = "152";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "oEb" = (
 /obj/structure/bookcase{
 	name = "Forbidden Knowledge"
@@ -26535,6 +28980,18 @@
 	},
 /turf/space/transit/horizontal,
 /area/space/centcomm)
+"oFc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/arrows/black{
+	pixel_y = 16
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "oFt" = (
 /obj/structure/railing{
 	dir = 4
@@ -26667,6 +29124,13 @@
 /obj/item/flashlight/lamp/green,
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/park)
+"oHz" = (
+/obj/structure/chair/brass{
+	dir = 8
+	},
+/obj/effect/landmark/spawner/vox_raider,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "oHR" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -26688,6 +29152,11 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"oIh" = (
+/turf/simulated/wall/indestructible/fakeglass/brass{
+	color = "#4b5582"
+	},
+/area/space/nearstation/centcom)
 "oIw" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -26709,6 +29178,17 @@
 	icon_state = "darkbluealt"
 	},
 /area/centcom/ss220/bar)
+"oIZ" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "oJf" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -26737,6 +29217,14 @@
 /obj/item/deck/unum,
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
+"oJG" = (
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "oJS" = (
 /obj/structure/flora/rock/pile/largejungle,
 /turf/simulated/floor/grass/jungle,
@@ -26859,6 +29347,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate)
+"oMl" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "oMN" = (
 /obj/structure/table/glass,
 /obj/item/folder{
@@ -26883,6 +29375,11 @@
 /obj/structure/flora/ausbushes/pointybush,
 /turf/simulated/floor/grass,
 /area/centcom/ss220/evac)
+"oNF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/plating/nitrogen,
+/area/space/nearstation/centcom)
 "oOA" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin/nanotrasen{
@@ -27004,6 +29501,13 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
+"oRm" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "oRq" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo13"
@@ -27117,6 +29621,26 @@
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"oUa" = (
+/obj/machinery/door_control{
+	id = "voxshutters";
+	name = "vox remote shutter control";
+	req_access = list(152);
+	wires = 1;
+	pixel_x = 28;
+	pixel_y = 27
+	},
+/obj/structure/chair/brass{
+	color = "#f700ff";
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "oUn" = (
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/park)
@@ -27161,6 +29685,25 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
+"oWc" = (
+/obj/machinery/door/airlock/hatch{
+	id_tag = "voxeast_door_ext";
+	locked = 1;
+	req_access_txt = "152";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "oWk" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/effect/spawner/lootdrop/CCfood/meat,
@@ -27190,6 +29733,17 @@
 	dir = 8
 	},
 /area/centcom/ss220/admin2)
+"oWx" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/landmark/damageturf,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "oWC" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/effect/spawner/window,
@@ -27215,6 +29769,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"oXw" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "oXz" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
@@ -27232,6 +29795,25 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/ss220/admin3)
+"oXX" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/lusty_xenomorph{
+	pixel_y = 31
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/vox_raider,
+/obj/effect/decal/cleanable/blood/slime,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
+"oXY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/light_fake/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "oYc" = (
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 6
@@ -27369,6 +29951,29 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/admin1)
+"paK" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "paM" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -27504,6 +30109,24 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/general)
+"peV" = (
+/obj/structure/light_fake/small{
+	dir = 8
+	},
+/obj/item/reagent_containers/glass/bucket/wooden{
+	pixel_x = -8;
+	pixel_y = -11;
+	name = "сральное ведро";
+	desc = "Омерзительно. Им кто-то недавно пользовался?!"
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle{
+	pixel_x = 8;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/blood/slime,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/vox_base)
 "peW" = (
 /obj/structure/platform{
 	dir = 1;
@@ -27923,6 +30546,13 @@
 /obj/item/mod/control/pre_equipped/research,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"puH" = (
+/obj/structure/chair/brass{
+	dir = 4
+	},
+/obj/effect/landmark/spawner/vox_raider,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "puM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -27941,6 +30571,23 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
+"pvI" = (
+/obj/item/stack/cable_coil,
+/obj/structure/table{
+	color = "#73d1cb"
+	},
+/obj/item/storage/firstaid/fire{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/storage/firstaid/regular,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "pvL" = (
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
@@ -28011,7 +30658,9 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/ss220/park)
 "pxm" = (
-/obj/item/coin/antagtoken,
+/obj/item/coin/antagtoken{
+	desc = "Он здесь, но так далеко! Эта монетка точно даст мне антага! Но как же до неё добраться из гост-бара?.."
+	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/space/nearstation/centcom)
 "pxu" = (
@@ -28036,6 +30685,17 @@
 	color = "#f63d3d"
 	},
 /area/syndicate_mothership)
+"pyk" = (
+/obj/machinery/computer/operating{
+	color = "#73d1cb"
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "pyA" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel/dark,
@@ -28059,6 +30719,28 @@
 	},
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
+"pzo" = (
+/obj/item/reagent_containers/drinks/cans/beer{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/drinks/cans/beer{
+	pixel_y = 4;
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/drinks/cans/beer{
+	pixel_x = 10;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/drinks/cans/beer{
+	pixel_x = 8
+	},
+/turf/simulated/floor/plating/asteroid/ancient/airless,
+/area/space/nearstation/centcom)
 "pzE" = (
 /obj/effect/turf_decal/box/white/corners{
 	dir = 1
@@ -28127,6 +30809,15 @@
 	},
 /turf/space/transit/horizontal,
 /area/space/centcomm)
+"pBy" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "pBC" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 1
@@ -28144,6 +30835,18 @@
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
+"pCb" = (
+/obj/structure/chair/brass{
+	color = "#f700ff";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "pCf" = (
 /obj/effect/turf_decal/miscellaneous/goldensiding/corner{
 	dir = 5
@@ -28415,7 +31118,9 @@
 	},
 /area/syndicate_mothership/jail)
 "pLx" = (
-/obj/effect/decal/remains/human,
+/obj/effect/decal/remains/human{
+	desc = "Он попросил приоткрыть окошко."
+	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/space/nearstation/centcom)
 "pLC" = (
@@ -28645,6 +31350,13 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
+"pQG" = (
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "pQT" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -29010,6 +31722,17 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"pZI" = (
+/obj/machinery/computer/security/camera_bug{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "pZL" = (
 /obj/structure/closet/crate/trashcart{
 	name = "Специальная доставка с ЦК"
@@ -29121,6 +31844,18 @@
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+"qcX" = (
+/obj/effect/spawner/window/shuttle/survival_pod,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
 "qcZ" = (
 /obj/machinery/computer/crew{
 	dir = 1
@@ -29129,6 +31864,22 @@
 	icon_state = "darkbrown"
 	},
 /area/centcom/ss220/supply)
+"qdh" = (
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/item/tank/jetpack/carbondioxide,
+/obj/item/tank/jetpack/carbondioxide,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "qdr" = (
 /obj/structure/rack,
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar,
@@ -29283,6 +32034,16 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
+"qjV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "qjW" = (
 /obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel/dark{
@@ -29862,6 +32623,31 @@
 "qBQ" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/ss220/park)
+"qBV" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/citrus/lemon,
+/obj/item/food/grown/citrus/lime,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/cherries,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/deus,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurple";
+	dir = 8;
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "qCH" = (
 /obj/machinery/porta_turret/syndicate/pod,
 /turf/simulated/wall/mineral/plastitanium,
@@ -30099,6 +32885,10 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/centcom/ss220/evac)
+"qIh" = (
+/obj/effect/spawner/lootdrop/trash,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "qIv" = (
 /obj/structure/chair/sofa/right,
 /obj/structure/curtain/black{
@@ -30142,6 +32932,12 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/admin3)
+"qJy" = (
+/obj/structure/light_fake/spot{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "qJP" = (
 /obj/structure/holohoop{
 	dir = 8
@@ -30304,6 +33100,14 @@
 	name = "floor"
 	},
 /area/syndicate_mothership/elite_squad)
+"qOt" = (
+/obj/machinery/economy/vending/autodrobe/free,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "qPk" = (
 /obj/docking_port/stationary{
 	area_type = /area/syndicate_mothership;
@@ -30368,6 +33172,11 @@
 /obj/item/food/applepie,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/ss220/supply)
+"qQO" = (
+/turf/simulated/wall/indestructible/syndicate{
+	smoothing_flags = 2
+	},
+/area/vox_base)
 "qRh" = (
 /obj/machinery/conveyor/west{
 	id = "QMLoad2"
@@ -30509,6 +33318,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/ss220/bar)
+"qUo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/access_button{
+	autolink_id = "voxwest_btn_ext";
+	req_one_access_txt = "152";
+	pixel_x = 27;
+	pixel_y = -26
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "qUK" = (
 /obj/machinery/door/airlock/bathroom,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -30528,6 +33347,16 @@
 	icon_state = "brown"
 	},
 /area/centcom/ss220/supply)
+"qVv" = (
+/obj/machinery/atmospherics/portable/canister/nitrogen,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ffae00";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "qVw" = (
 /turf/simulated/floor/carpet/lone,
 /area/centcom/ss220/bar)
@@ -30854,6 +33683,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ninja/outpost)
+"rdL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trash,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "rdO" = (
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 9
@@ -31715,6 +34550,23 @@
 /obj/effect/landmark/spawner/tradergearmajor,
 /turf/simulated/floor/carpet/royalblue,
 /area/shuttle/trade/sol)
+"rvM" = (
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light,
+/obj/item/storage/briefcase/inflatable{
+	pixel_y = 4
+	},
+/obj/item/storage/briefcase/inflatable{
+	pixel_y = -2
+	},
+/obj/item/storage/briefcase/inflatable{
+	pixel_y = -8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "rvV" = (
 /obj/structure/closet/secure_closet/security,
 /obj/item/clothing/suit/armor/bulletproof,
@@ -31800,6 +34652,10 @@
 	icon_state = "darkred"
 	},
 /area/centcom/ss220/supply)
+"rxQ" = (
+/obj/machinery/atmospherics/portable/canister/nitrogen,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "rxS" = (
 /obj/structure/platform{
 	layer = 3.1
@@ -31921,6 +34777,15 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
+"rBQ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "rBX" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 5;
@@ -32130,6 +34995,15 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
+"rJk" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "rJo" = (
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
@@ -32224,6 +35098,22 @@
 /obj/machinery/washing_machine,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
+"rML" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/hand_valuer{
+	pixel_x = -6
+	},
+/obj/item/hand_valuer{
+	pixel_x = 4
+	},
+/obj/machinery/cell_charger,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "rND" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
@@ -32342,6 +35232,27 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/elite_squad)
+"rOK" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/grenade/smokebomb,
+/obj/item/grenade/smokebomb{
+	pixel_x = 9
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "rPb" = (
 /obj/structure/curtain/open/shower/security{
 	pixel_y = -32
@@ -32700,9 +35611,18 @@
 	},
 /turf/simulated/floor/wood/parquet,
 /area/centcom/ss220/admin2)
+"rWl" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trash,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "rWF" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/specops)
+"rWN" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/vox_base)
 "rXd" = (
 /obj/machinery/poolcontroller/invisible,
 /turf/simulated/floor/beach/away/water,
@@ -33046,6 +35966,42 @@
 	icon_state = "dark"
 	},
 /area/centcom/ss220/jail)
+"sgd" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/vox)
+"sgh" = (
+/obj/item/storage/bag/cash,
+/obj/item/coin/antagtoken{
+	pixel_y = -11
+	},
+/obj/item/coin/antagtoken{
+	pixel_y = -4;
+	pixel_x = -8
+	},
+/obj/item/coin/antagtoken{
+	pixel_y = -4;
+	pixel_x = 8
+	},
+/obj/item/clothing/head/lordadmiralhat{
+	pixel_y = 8;
+	name = "адмиральская шляпа";
+	desc = "Шляпа снятая с головы самого адмирала флота НТ. Или ССП? ТСФ? Не важно. Она снята с головы о-о-очень важной шишки."
+	},
+/obj/item/clothing/gloves/ring/gold/blessed{
+	pixel_y = -32;
+	name = "золотое кольцо всевластия";
+	desc = "Кольцо отобранное у группы карликов на Лаваленде. История не важна. Главное - что оно было для них важно и оно блестит!"
+	},
+/obj/item/food/fathersoup{
+	pixel_x = 32;
+	pixel_y = -30;
+	name = "великий суп";
+	desc = "Этот великий суп был приготовлен самим Bat'Ya, ценящийся всеми сословиями. Но даже от одного только взгляда на него - у вас уже слезятся глаза. Ты его не сможешь доесть, даже не пытайся.";
+	antable = 0;
+	bitesize = 0.01
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/vox_base)
 "sgp" = (
 /obj/structure/urinal{
 	pixel_y = 28
@@ -33058,6 +36014,12 @@
 /obj/structure/dresser,
 /turf/simulated/floor/carpet/blue,
 /area/centcom/ss220/park)
+"sgw" = (
+/obj/item/restraints/handcuffs,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/vox_base)
 "sgM" = (
 /obj/structure/light_fake,
 /turf/simulated/floor/mineral/plastitanium,
@@ -33094,6 +36056,14 @@
 	icon_state = "dark"
 	},
 /area/centcom/ss220/jail)
+"shm" = (
+/obj/structure/dresser,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "shq" = (
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "dark_large"
@@ -33441,6 +36411,22 @@
 	icon_state = "black"
 	},
 /area/centcom/ss220/park)
+"sqS" = (
+/obj/structure/sink/directional/south,
+/obj/structure/mirror{
+	pixel_y = -29
+	},
+/obj/structure/light_fake/small{
+	dir = 4
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_x = -11;
+	pixel_y = 4
+	},
+/obj/effect/landmark/damageturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "srn" = (
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
@@ -33640,10 +36626,37 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/ss220/evac)
+"szw" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/trash/snack_bowl,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
 "szK" = (
 /obj/machinery/computer/camera_advanced,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
+"sAK" = (
+/obj/structure/closet/crate/freezer{
+	color = "#73d1cb"
+	},
+/obj/item/organ/internal/heart/vox,
+/obj/item/organ/internal/heart/vox,
+/obj/item/organ/internal/kidneys/vox,
+/obj/item/organ/internal/kidneys/vox,
+/obj/item/organ/internal/liver/vox,
+/obj/item/organ/internal/liver/vox,
+/obj/item/organ/internal/lungs/vox,
+/obj/item/organ/internal/lungs/vox,
+/obj/item/organ/internal/eyes/vox,
+/obj/item/organ/internal/eyes/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "sAM" = (
 /obj/structure/table/wood{
 	color = "#996633"
@@ -33703,6 +36716,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
+"sCG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "sCI" = (
 /obj/machinery/computer/security{
 	dir = 4;
@@ -33840,6 +36862,26 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership)
+"sGe" = (
+/obj/machinery/kitchen_machine/oven/upgraded,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurple";
+	nitrogen = 103.984
+	},
+/area/vox_base)
+"sHc" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/trash,
+/obj/item/reagent_containers/syringe/dart/medical/tainted,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "sHJ" = (
 /obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 4
@@ -34054,6 +37096,15 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/bar)
+"sLa" = (
+/obj/item/kirbyplants,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "sLl" = (
 /obj/structure/chair/sofa/bench/right{
 	cover_color = "#68452a"
@@ -34137,6 +37188,15 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/ss220/admin3)
+"sMV" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "sNl" = (
 /obj/structure/table/wood{
 	color = "#996633"
@@ -34216,6 +37276,13 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/syndicate_mothership/control)
+"sOM" = (
+/obj/machinery/access_button{
+	autolink_id = "voxeast_btn_int";
+	req_one_access_txt = "152"
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/vox)
 "sPa" = (
 /obj/machinery/door/window/brigdoor{
 	color = "red";
@@ -34354,6 +37421,14 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
+"sSw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "sTn" = (
 /obj/machinery/door/window{
 	dir = 8;
@@ -34545,6 +37620,26 @@
 	icon_state = "white"
 	},
 /area/centcom/ss220/medbay)
+"sYY" = (
+/obj/structure/closet/crate/freezer{
+	color = "#73d1cb"
+	},
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/obj/structure/closet/walllocker/medlocker/east{
+	color = "#73d1cb"
+	},
+/obj/structure/light_fake/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/white,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "sYZ" = (
 /turf/simulated/floor/carpet/green,
 /area/centcom/ss220/bar)
@@ -34628,6 +37723,16 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
+"tap" = (
+/obj/machinery/iv_drip,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "tax" = (
 /obj/machinery/porta_turret/centcom/pulse,
 /turf/simulated/floor/plasteel/dark{
@@ -34638,6 +37743,30 @@
 /obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/evac)
+"taL" = (
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/kitchen/knife,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_y = 5
+	},
+/obj/machinery/reagentgrinder{
+	desc = "Used to grind things up into raw materials and liquids.";
+	pixel_y = 5
+	},
+/obj/structure/table/reinforced/brass,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurple";
+	dir = 4;
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "taV" = (
 /obj/structure/light_fake,
 /obj/item/kirbyplants,
@@ -34711,6 +37840,17 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
+"tcm" = (
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/item/storage/box/alienhandcuffs,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "tcq" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/iv_bag/blood/random,
@@ -34769,6 +37909,16 @@
 	water_overlay_image = null
 	},
 /area/syndicate_mothership/outside)
+"tdA" = (
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/landmark/damageturf,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "tdR" = (
 /obj/structure/shuttle/engine/platform{
 	layer = 2.9;
@@ -34841,6 +37991,16 @@
 	color = "#f63d3d"
 	},
 /area/syndicate_mothership/infteam)
+"thl" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "thD" = (
 /obj/structure/table/holotable/wood{
 	color = "#996633"
@@ -35051,6 +38211,24 @@
 	icon_state = "darkneutralfull"
 	},
 /area/syndicate_mothership)
+"tph" = (
+/obj/structure/table/glass{
+	color = "#73d1cb"
+	},
+/obj/item/clothing/glasses/hud/health{
+	pixel_x = 2
+	},
+/obj/item/clothing/glasses/hud/health{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "tpj" = (
 /obj/machinery/computer/shuttle/sst,
 /turf/simulated/floor/carpet,
@@ -35238,6 +38416,20 @@
 	icon_state = "dark_herringbone"
 	},
 /area/centcom/ss220/admin1)
+"ttP" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	hackProof = 1;
+	aiControlDisabled = 1;
+	name = "vox door";
+	req_access_txt = "152"
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "ttZ" = (
 /obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/plasteel/dark,
@@ -35323,6 +38515,16 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/park)
+"twD" = (
+/obj/structure/table/reinforced/brass,
+/obj/machinery/chem_dispenser/beer/upgraded,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurple";
+	dir = 4;
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "twY" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/effect/turf_decal/siding/black{
@@ -35388,6 +38590,13 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/ss220/admin3)
+"tzg" = (
+/obj/structure/light_fake/spot{
+	dir = 1
+	},
+/obj/structure/closet/walllocker/firelocker/north,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "tzm" = (
 /obj/machinery/door_control/no_emag{
 	id = "СС_BD_Shitspawn_Exterior_1";
@@ -35513,12 +38722,28 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_elite)
+"tBp" = (
+/obj/structure/shuttle/engine/huge,
+/turf/simulated/floor/indestructible/transparent_floor,
+/area/shuttle/vox)
 "tBr" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"tBB" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/effect/spawner/window/shuttle/survival_pod,
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
 "tBT" = (
 /obj/structure/rack/holorack,
 /obj/item/storage/box/syndie_kit/chameleon{
@@ -35591,6 +38816,13 @@
 	icon_state = "darkneutralfull"
 	},
 /area/syndicate_mothership)
+"tCy" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "tCJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -35641,6 +38873,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership)
+"tEQ" = (
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "tFj" = (
 /obj/item/flag/syndi,
 /turf/simulated/floor/plasteel{
@@ -35714,6 +38955,9 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/bar)
+"tIm" = (
+/turf/simulated/wall/indestructible/rock,
+/area/space/nearstation/centcom)
 "tIq" = (
 /obj/machinery/door_control/no_emag/south{
 	emagged = 1;
@@ -35937,6 +39181,31 @@
 /obj/item/kirbyplants,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
+"tNJ" = (
+/obj/item/circular_saw,
+/obj/structure/table{
+	color = "#73d1cb"
+	},
+/obj/item/scalpel,
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_y = 10;
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_y = 7;
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_y = 3;
+	pixel_x = 7
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "tOi" = (
 /obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 4
@@ -36091,6 +39360,24 @@
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+"tSO" = (
+/obj/machinery/bodyscanner{
+	dir = 1;
+	color = "#73d1cb"
+	},
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
+"tSQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/light_fake/small,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "tTd" = (
 /obj/structure/curtain/black{
 	pixel_y = -32;
@@ -36128,6 +39415,19 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
+"tUs" = (
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/item/flashlight{
+	pixel_y = 12
+	},
+/obj/item/flashlight{
+	pixel_y = 6
+	},
+/obj/item/flashlight,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "tUK" = (
 /obj/structure/mecha_wreckage/durand/old{
 	icon = 'modular_ss220/objects/icons/mecha.dmi';
@@ -36465,6 +39765,19 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/ss220/jail)
+"ucY" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/item/toy/plushie/voxplushie,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "udq" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -36663,6 +39976,29 @@
 /obj/machinery/ai_status_display,
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
+"ukJ" = (
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ffae00";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
+"ukU" = (
+/obj/machinery/optable{
+	color = "#73d1cb"
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "ulb" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/machinery/door/poddoor/shutters{
@@ -36693,6 +40029,11 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
+"ulE" = (
+/obj/machinery/washing_machine,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "ulG" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/box,
@@ -36995,6 +40336,11 @@
 	icon_state = "darkbluefull"
 	},
 /area/centcom/ss220/bar)
+"usV" = (
+/obj/item/pickaxe,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/nitrogen,
+/area/space/nearstation/centcom)
 "utc" = (
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
@@ -37092,6 +40438,31 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
+"uwQ" = (
+/obj/structure/sink/directional/south{
+	color = "#73d1cb";
+	dir = 2;
+	pixel_y = 23
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
+"uwT" = (
+/obj/structure/shuttle/engine/platform{
+	layer = 2.9
+	},
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
 "uxb" = (
 /obj/machinery/economy/vending/nta/engineer,
 /turf/simulated/floor/plasteel/dark{
@@ -37240,6 +40611,13 @@
 	icon_state = "darkbluealt"
 	},
 /area/centcom/ss220/admin1)
+"uBu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "uBy" = (
 /obj/structure/rack,
 /obj/item/storage/firstaid/ert{
@@ -37322,6 +40700,17 @@
 	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership/cargo)
+"uEp" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "uEs" = (
 /obj/machinery/porta_turret/syndicate/interior,
 /obj/structure/window/plasmareinforced{
@@ -37386,6 +40775,14 @@
 	},
 /turf/simulated/floor/grass/no_creep,
 /area/centcom/ss220/general)
+"uGJ" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/card/id/prisoner/random,
+/obj/item/card/id/prisoner/random,
+/obj/item/card/id/prisoner/random,
+/obj/item/card/id/prisoner/random,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "uGR" = (
 /obj/structure/chair/comfy/red,
 /turf/simulated/floor/carpet/arcade,
@@ -37421,6 +40818,15 @@
 	icon_state = "vault"
 	},
 /area/shuttle/escape)
+"uIw" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/turf/simulated/floor/plasteel/dark/nitrogen,
+/area/vox_base)
 "uIx" = (
 /obj/structure/table/wood,
 /obj/item/grenade/syndieminibomb{
@@ -37454,6 +40860,23 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/wizard_station)
+"uIM" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "uJb" = (
 /obj/structure/curtain/open/shower/security{
 	color = "#222222"
@@ -37578,6 +41001,32 @@
 	color = "#f63d3d"
 	},
 /area/syndicate_mothership/infteam)
+"uMP" = (
+/obj/structure/lattice,
+/obj/machinery/porta_turret/syndicate{
+	faction = "Vox";
+	name = "vox turret";
+	eprojectile = /obj/item/projectile/beam/disabler;
+	projectile = /obj/item/projectile/beam/disabler
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"uMU" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 8;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/structure/closet/walllocker/firelocker/north,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"uNc" = (
+/obj/structure/closet/abductor,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "uNg" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo18"
@@ -37671,6 +41120,15 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/elite_squad)
+"uPr" = (
+/obj/structure/table/reinforced/brass,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/three_course_meal,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurplefull";
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "uPs" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo8"
@@ -37723,6 +41181,22 @@
 	icon_state = "dark_herringbone"
 	},
 /area/centcom/ss220/command)
+"uRe" = (
+/obj/item/reagent_containers/glass/beaker/waterbottle{
+	pixel_x = -10;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
+"uRr" = (
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "uRG" = (
 /obj/structure/table,
 /turf/simulated/floor/carpet/royalblack,
@@ -37736,6 +41210,19 @@
 	icon_state = "dark_herringbone"
 	},
 /area/centcom/ss220/command)
+"uRJ" = (
+/obj/machinery/door/window/reinforced/reversed{
+	dir = 4;
+	req_access_txt = "152";
+	name = "vox glassdoor"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "uRK" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
@@ -37831,6 +41318,16 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/admin2)
+"uVh" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "uVv" = (
 /obj/structure/curtain/black{
 	pixel_x = 32
@@ -37999,6 +41496,31 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/ss220/admin3)
+"uZt" = (
+/obj/machinery/door/airlock/hatch{
+	id_tag = "voxwest_door_int";
+	locked = 1;
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "vaw" = (
 /obj/effect/turf_decal/siding/wood/neutral/corner{
 	dir = 8
@@ -38006,6 +41528,10 @@
 /obj/effect/turf_decal/siding/wood/neutral/corner,
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/admin1)
+"vaH" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "vbb" = (
 /obj/machinery/door/airlock/hatch/syndicate/command{
 	name = "Тюрьма"
@@ -38145,6 +41671,9 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
+"vfg" = (
+/turf/simulated/wall/indestructible/rock,
+/area/vox_base)
 "vfs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -38512,6 +42041,10 @@
 /obj/structure/sign/poster/contraband/syndicate_recruitment,
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
+"vpi" = (
+/obj/effect/spawner/lootdrop/trash,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "vpo" = (
 /turf/space/transit/horizontal{
 	dir = 4
@@ -38722,6 +42255,34 @@
 	icon_state = "darkredcornersalt"
 	},
 /area/syndicate_mothership/jail)
+"vsS" = (
+/obj/structure/closet/cabinet,
+/obj/item/multitool/ai_detect{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/obj/item/multitool/ai_detect{
+	pixel_x = -1
+	},
+/obj/item/screwdriver/nuke,
+/obj/item/clothing/suit/poncho/green,
+/obj/item/clothing/suit/poncho/green,
+/obj/item/clothing/suit/poncho/green,
+/obj/item/clothing/suit/poncho/green,
+/obj/item/clothing/suit/poncho/green,
+/obj/item/clothing/suit/poncho/green,
+/obj/item/clothing/head/sombrero/green,
+/obj/item/clothing/head/sombrero/green,
+/obj/item/clothing/head/sombrero/green,
+/obj/item/clothing/head/sombrero/green,
+/obj/item/clothing/head/sombrero/green,
+/obj/item/clothing/head/sombrero/green,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "vti" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 1
@@ -39361,6 +42922,22 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
+"vHn" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/landmark/damageturf,
+/obj/item/clothing/glasses/meson{
+	pixel_x = 5
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "vHq" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
@@ -39370,6 +42947,15 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
+"vHs" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/toy/plushie/voxplushie,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/item/reagent_containers/pill/random_drugs,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
 "vHw" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 6;
@@ -39506,6 +43092,19 @@
 	icon_state = "brown"
 	},
 /area/centcom/ss220/supply)
+"vMH" = (
+/obj/structure/closet/walllocker/firelocker/north,
+/obj/effect/turf_decal/box/red,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "vML" = (
 /obj/structure/chair/sofa/bench/left,
 /turf/simulated/floor/plasteel{
@@ -39710,6 +43309,14 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"vSp" = (
+/obj/machinery/processor,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurplecorners";
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "vSv" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -39732,6 +43339,16 @@
 	icon_state = "white"
 	},
 /area/ninja/holding)
+"vUt" = (
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "vUB" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/decal/cleanable/dirt,
@@ -39845,6 +43462,12 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
+"vXj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "vXk" = (
 /obj/machinery/light/spot{
 	dir = 4
@@ -39886,6 +43509,11 @@
 /obj/structure/flora/tree/jungle,
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
+"vYv" = (
+/turf/simulated/wall/indestructible/fakeglass/brass{
+	color = "#4b5582"
+	},
+/area/vox_base)
 "vYw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood/neutral{
@@ -39946,6 +43574,21 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/ss220/bar)
+"war" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/computer/operating{
+	dir = 1;
+	color = "#73d1cb"
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "wat" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/plasteel/dark,
@@ -40252,6 +43895,17 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin1)
+"wiT" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "wjg" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/ss220/admin1)
@@ -40262,6 +43916,13 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
+"wjj" = (
+/obj/structure/chair/brass{
+	dir = 1
+	},
+/obj/effect/landmark/spawner/vox_raider,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "wjq" = (
 /obj/structure/sign/flag/nanotrasen{
 	icon = 'icons/obj/lavaland/artefacts.dmi';
@@ -40560,6 +44221,13 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"wrO" = (
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 1
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/vox)
 "wrP" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo18"
@@ -40584,6 +44252,28 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/admin2)
+"wsM" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "wsQ" = (
 /obj/structure/light_fake{
 	dir = 4
@@ -41598,6 +45288,10 @@
 "wOK" = (
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
+"wOL" = (
+/obj/structure/reagent_dispensers/beerkeg/nuke,
+/turf/simulated/floor/plating/asteroid/ancient/airless,
+/area/space/nearstation/centcom)
 "wOX" = (
 /obj/machinery/economy/vending/tool/free,
 /obj/effect/turf_decal/siding/brown{
@@ -41667,6 +45361,17 @@
 /obj/structure/flora/tree/jungle,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
+"wRz" = (
+/obj/structure/table/reinforced{
+	color = "#cc52c0"
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ff78f4";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "wRA" = (
 /obj/structure/light_fake/spot{
 	dir = 8
@@ -42322,6 +46027,14 @@
 	icon_state = "cafeteria"
 	},
 /area/centcom/ss220/supply)
+"xjm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurplefull";
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "xjv" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/syndidonkpockets,
@@ -42350,6 +46063,17 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
+"xjQ" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#fff894";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "xjY" = (
 /obj/structure/light_fake{
 	dir = 1
@@ -42439,6 +46163,9 @@
 /obj/item/dice/d20,
 /turf/simulated/floor/carpet/black,
 /area/trader_station/sol)
+"xlp" = (
+/turf/simulated/floor/mineral/gold/fancy,
+/area/vox_base)
 "xlM" = (
 /obj/machinery/door/airlock/external{
 	aiControlDisabled = 1;
@@ -42455,6 +46182,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/administration)
+"xmO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "xmT" = (
 /obj/effect/turf_decal/siding/black{
 	dir = 4
@@ -42482,6 +46214,13 @@
 	icon_state = "darkred"
 	},
 /area/syndicate_mothership/infteam)
+"xnz" = (
+/obj/machinery/access_button{
+	autolink_id = "voxwest_btn_ext";
+	req_one_access_txt = "152"
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/vox)
 "xnV" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/clothing/mask/muzzle{
@@ -42628,6 +46367,15 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/admin1)
+"xqb" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "xqe" = (
 /obj/effect/turf_decal/box/white,
 /obj/item/ammo_box/magazine/m50,
@@ -42658,6 +46406,23 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin1)
+"xqR" = (
+/obj/machinery/optable{
+	color = "#73d1cb"
+	},
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 26
+	},
+/obj/structure/light_fake/small{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "xqX" = (
 /obj/structure/table/glass,
 /obj/item/clipboard{
@@ -42958,6 +46723,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
+"xzN" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	name = "vox hatch";
+	aiControlDisabled = 1;
+	hackProof = 1
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "xAj" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "SST_outside"
@@ -43017,6 +46795,18 @@
 /obj/structure/light_fake/small,
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/admin2)
+"xCT" = (
+/obj/structure/bed/mattress/dirty,
+/obj/item/reagent_containers/glass/beaker/waterbottle{
+	pixel_x = -10;
+	pixel_y = -3
+	},
+/obj/structure/light_fake/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/vox_base)
 "xCV" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
@@ -43080,6 +46870,15 @@
 	icon_state = "darkbluealt"
 	},
 /area/centcom/ss220/bar)
+"xEf" = (
+/obj/machinery/kitchen_machine/microwave/upgraded,
+/obj/structure/table/reinforced/brass,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurple";
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "xEu" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/effect/spawner/lootdrop/CCfood/meat,
@@ -43136,6 +46935,11 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/ss220/admin3)
+"xFW" = (
+/obj/structure/chair/brass,
+/obj/effect/landmark/spawner/vox_raider,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/vox_base)
 "xGd" = (
 /obj/structure/flora/junglebush/large,
 /turf/simulated/floor/grass/jungle,
@@ -43348,6 +47152,27 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/ss220/admin2)
+"xJQ" = (
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 7
+	},
+/obj/item/storage/toolbox/emergency{
+	pixel_y = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -3
+	},
+/obj/structure/rack{
+	color = "#e67e7e"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#ffae00";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/shuttle/vox)
 "xKy" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/syndie_logo{
@@ -43476,9 +47301,28 @@
 /obj/machinery/computer/security/telescreen/entertainment/directional/north,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"xOJ" = (
+/obj/machinery/economy/vending/hatdispenser/free,
+/turf/simulated/floor/mineral/plastitanium{
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "xOS" = (
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom/ss220/bar)
+"xOV" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	icon_state = "open";
+	id_tag = "voxshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
 "xPo" = (
 /obj/structure/sign/securearea{
 	pixel_y = -32
@@ -43506,6 +47350,33 @@
 /obj/structure/weightmachine/stacklifter,
 /turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
+"xQx" = (
+/obj/structure/closet/secure_closet/freezer/meat/open,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/raw_bacon,
+/obj/item/food/sausage,
+/obj/item/food/sausage,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/catfishmeat,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/rawcutlet,
+/obj/item/food/spaghetti,
+/obj/item/food/spaghetti,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	icon_state = "darkpurple";
+	dir = 8;
+	nitrogen = 103.984
+	},
+/area/vox_base)
 "xRf" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/sunnybush,
@@ -43521,6 +47392,13 @@
 	},
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
+"xRK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/landmark/damageturf,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/plating/nitrogen,
+/area/vox_base)
 "xSw" = (
 /obj/machinery/conveyor/north{
 	id = "SFBQMLoad2"
@@ -43849,6 +47727,14 @@
 	icon_state = "dark_large"
 	},
 /area/centcom/ss220/admin1)
+"xZU" = (
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "xZY" = (
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkpurple";
@@ -43911,6 +47797,18 @@
 	},
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/ss220/admin2)
+"yaX" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 4;
+	color = "#73d1cb"
+	},
+/turf/simulated/floor/mineral/plastitanium{
+	color = "#00ffea";
+	nitrogen = 103.984;
+	oxygen = 0;
+	name = "vox floor"
+	},
+/area/vox_base)
 "ybt" = (
 /turf/simulated/floor/plating,
 /area/centcom/ss220/bar)
@@ -80181,11 +84079,11 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -80436,15 +84334,15 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
+vfg
+oXX
+dkA
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -80693,26 +84591,26 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+qQO
+ulE
+cfF
+jcq
+qQO
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -80950,27 +84848,27 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+qQO
+ffo
+aAn
+sqS
+qQO
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+nNr
+nNr
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -81205,31 +85103,31 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
+tIm
+vfg
+qQO
+mci
+qQO
+qQO
+qQO
+qQO
+qQO
+qQO
+tIm
+tIm
+tIm
+nNr
+jZi
+jZi
+nNr
+tIm
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -81461,34 +85359,34 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+qQO
+qQO
+qQO
+qQO
+qQO
+vaH
+lea
+qQO
+bYH
+peV
+koY
+qQO
+tIm
+tIm
+tIm
+jZi
+sQi
+kvB
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -81717,36 +85615,36 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+qQO
+qQO
+lTC
+lTC
+lTC
+lXs
+mFq
+aZE
+lXs
+jOL
+sgw
+fSe
+qQO
+usV
+tIm
+tIm
+sQi
+kvB
+kvB
+tIm
+kvB
+nNr
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -81974,38 +85872,38 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+qQO
+jdg
+fMG
+mFq
+gJK
+gch
+mFq
+mFq
+qQO
+dpd
+cle
+dpd
+qQO
+dzv
+tIm
+tIm
+kvB
+kvB
+kvB
+kvB
+kvB
+kvB
+nNr
+nNr
+tIm
+nNr
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -82230,40 +86128,40 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
+qQO
+uNc
+mFq
+gJK
+mFq
+mFq
+mFq
+mFq
+qQO
+fAz
+mFq
+vXj
+qQO
+dzv
+dzv
+oIh
+kvB
+kvB
+bml
+dFd
+kvB
+kvB
+kvB
+tIm
+tIm
+nNr
+nNr
+nNr
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -82486,42 +86384,42 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
+tIm
+qQO
+qQO
+opf
+opf
+opf
+lXs
+gch
+mFq
+xqb
+mFq
+mFq
+aLe
+uIw
+kVc
+fyy
+oIh
+kvB
+kvB
+dRX
+kvB
+kvB
+kvB
+sQi
+sQi
+kvB
+kvB
+nNr
+nNr
+nNr
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -82743,43 +86641,43 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+jZi
+jZi
+jZi
+qQO
+qQO
+qQO
+qQO
+qQO
+tzg
+mFq
+qQO
+xmO
+mFq
+tSQ
+qQO
+kVc
+oNF
+oIh
+kvB
+kvB
+kvB
+kvB
+kvB
+sQi
+sQi
+kvB
+kvB
+nNr
+nNr
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -83000,43 +86898,43 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+jZi
+sQi
+sQi
+jZi
+qQO
+uGJ
+fhG
+jBs
+lXs
+mFq
+mFq
+qQO
+dpd
+cle
+dpd
+qQO
+dzv
+tIm
+tIm
+kvB
+kvB
+kvB
+kvB
+tIm
+kvB
+kvB
+nNr
+nNr
+tIm
+tIm
+tIm
+nNr
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -83257,44 +87155,44 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+sQi
+sQi
+kvB
+kvB
+nsk
+lXs
+bzY
+jTY
+gch
+xqb
+mFq
+vaH
+lXs
+niw
+jOL
+koY
+qQO
+dzv
+iws
+tIm
+tIm
+kvB
+kvB
+tIm
+tIm
+sQi
+sQi
+tIm
+tIm
+tIm
+tIm
+nNr
+nNr
+tIm
+nNr
+nNr
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -83508,50 +87406,50 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+sQi
+sQi
+sQi
+sQi
+kvB
+kvB
+fYV
+fYV
+qQO
+mER
+qJy
+gch
+lXs
+mFq
+vaH
+qQO
+xCT
+fSe
+mvZ
+qQO
+oIh
+oIh
+tIm
+sQi
+sQi
+sQi
+tIm
 adJ
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+nNr
+nNr
+nNr
+nNr
+nNr
+nNr
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -83764,6 +87662,32 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+nNr
+kvB
+sQi
+sQi
+sQi
+sQi
+fYV
+fYV
+fYV
+qQO
+qQO
+qQO
+qQO
+qQO
+cMb
+lXs
+qQO
+qQO
+lXs
+qQO
+qQO
+nNr
+nNr
 adJ
 adJ
 adJ
@@ -83777,38 +87701,12 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
+nNr
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -84020,6 +87918,32 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+nNr
+nNr
+sQi
+sQi
+kvB
+kvB
+sQi
+jZi
+fYV
+fYV
+fYV
+fYV
+fYV
+fYV
+rWN
+ltP
+tdA
+rWN
+tIm
+bfi
+bfi
+jZi
+nNr
 adJ
 adJ
 adJ
@@ -84036,36 +87960,10 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -84276,6 +88174,30 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+fYV
+nNr
+jZi
+jZi
+fYV
+fYV
+nNr
+kvB
+sQi
+jZi
+nNr
+nNr
+nNr
+fYV
+fYV
+rWN
+ltP
+lMC
+rWN
+tIm
+jZi
 adJ
 adJ
 adJ
@@ -84296,33 +88218,9 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -84532,6 +88430,30 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+qQO
+qQO
+lXs
+lXs
+qQO
+qQO
+fYV
+nNr
+nNr
+kvB
+sQi
+sQi
+kvB
+kvB
+kvB
+bfi
+lXs
+ltP
+ltP
+lXs
+bfi
 adJ
 adJ
 adJ
@@ -84554,32 +88476,8 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -84789,6 +88687,29 @@ adJ
 adJ
 adJ
 adJ
+fYV
+qQO
+qQO
+qQO
+cUQ
+caQ
+rML
+ici
+qQO
+fYV
+fYV
+nNr
+kvB
+kvB
+sQi
+sQi
+kvB
+sQi
+bfi
+lXs
+etm
+lMC
+lXs
 adJ
 adJ
 adJ
@@ -84810,33 +88731,10 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+bnh
+bnh
+sQi
+tIm
 adJ
 adJ
 adJ
@@ -85046,54 +88944,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+qQO
+cBU
+xjQ
+eGz
+sCG
+nGR
+khX
+qQO
+qQO
+qQO
+lXs
+lXs
+qQO
+qQO
+qQO
+sQi
+jZi
+bIN
+lXs
+pQG
+lMC
+lXs
 adJ
+uMP
+fVa
+fVa
+fVa
+hzk
+fVa
+hzk
+fVa
+fVa
+fVa
+hzk
+hzk
+fVa
+fVa
+fVa
+fVa
+uMP
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+bnh
+bnh
+bnh
+bnh
+jZi
+tIm
 adJ
 adJ
 adJ
@@ -85303,54 +89201,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+qQO
+vMH
+sCG
+sCG
+sCG
+sCG
+btm
+qQO
+tUs
+fVS
+mCM
+mCM
+aoY
+aWM
+qQO
+vfg
+nNr
+vfg
+rWN
+ltP
+ltP
+rWN
+adJ
+adJ
+uwT
+dca
+owv
+cUx
+rOK
+nkr
+cJQ
+hnb
+iIS
+xJQ
+fmf
+ukJ
+hxK
+csa
+ifS
+ifS
 adJ
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+tIm
 adJ
 adJ
 adJ
@@ -85560,54 +89458,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+qQO
+oup
+iLB
+iLB
+pBy
+pBy
+oWx
+qQO
+acb
+ltP
+mCM
+mCM
+geI
+rvM
+qQO
+vfg
+vYv
+vfg
+rWN
+mVH
+pQG
+rWN
+adJ
+adJ
+uwT
+dca
+hAS
+rBQ
+rBQ
+rBQ
+rBQ
+paK
+jDZ
+jDZ
+jDZ
+qVv
+gTQ
+csa
+tBp
+ifS
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+nNr
+tIm
 adJ
 adJ
 adJ
@@ -85817,54 +89715,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+qQO
+qQO
+qQO
+fjm
+jov
+pBy
+pBy
+kPP
+lWQ
+pQG
+ltP
+lMC
+lMC
+aaR
+qQO
+vfg
+xRK
+eqm
+rWN
+lXs
+xzN
+aWK
+fVa
+fVa
+fVa
+sgd
+rBQ
+mkZ
+ucY
+rBQ
+ams
+hnb
+aDo
+kfT
+aQw
+igT
+nQM
+csa
+ifS
+ifS
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+nNr
+tIm
 adJ
 adJ
 adJ
@@ -86074,54 +89972,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fVc
+dzm
+ieq
+fjm
+oss
+gsV
+pBy
+ttP
+ltP
+ltP
+ltP
+ltP
+lMC
+etm
+sMV
+oXY
+nNs
+sSw
+sMV
+nNs
+nNs
+gqf
+xnz
+ggv
+rBQ
+uZt
+rBQ
+rBQ
+rBQ
+rBQ
+kJj
+fVa
+fVa
+fVa
+hzk
+fVa
+fVa
+fVa
+fVa
+uMP
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+bnh
+bnh
+bnh
+jZi
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -86331,54 +90229,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fVc
+xlp
+sgh
+fjm
+kTa
+oFc
+pBy
+ttP
+ltP
+ltP
+ltP
+ltP
+ltP
+pQG
+sMV
+cAa
+nNs
+qIh
+lXs
+cAa
+qUo
+lof
+mRZ
+fpA
+ehI
+cEx
+ams
+jJB
+thl
+rBQ
+cBD
+fVa
+hsg
+dgm
+pvI
+dqM
+jpv
+tNJ
+fVa
+fVa
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+bnh
+bnh
+jZi
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -86588,54 +90486,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+qQO
+qQO
+qQO
+fjm
+eGx
+pBy
+clB
+kPP
+vpi
+lMC
+ltP
+ltP
+ltP
+aaR
+qQO
+vfg
+lJQ
+vfg
+rWN
+nNs
+lRa
+aWK
+fVa
+fVa
+fVa
+fVa
+fVa
+fVa
+xOV
+uIM
+xOV
+fVa
+fUj
+oJG
+oXw
+oXw
+oXw
+oXw
+ukU
+fVa
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -86845,54 +90743,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+qQO
+fEh
+ecx
+fBP
+pBy
+pBy
+wiT
+qQO
+ebI
+ebI
+ltP
+ltP
+ebI
+ebI
+qQO
+vfg
+vYv
+vfg
+rWN
+sMV
+rWN
+aWK
+fVa
+hiv
+dCg
+flq
+pCb
+fVa
+wRz
+awe
+tEQ
+qcX
+cBW
+lhZ
+uRJ
+cEo
+oIZ
+oIZ
+war
+fVa
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -87102,54 +91000,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+qQO
+oDt
+sCG
+rJk
+sCG
+qjV
+uEp
+qQO
+ebI
+ebI
+etm
+ltP
+ebI
+ebI
+qQO
+vfg
+bfi
+jZi
+vfg
+nNs
+vfg
+adJ
+iRh
+mNT
+kpY
+kpY
+kpY
+atP
+kpY
+kpY
+kpY
+mqD
+ncE
+eyO
+dBL
+eyO
+orO
+cvb
+bvo
+fVa
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -87359,54 +91257,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+qQO
+iLB
+vHn
+czq
+qjV
+nGR
+sHc
+qQO
+boe
+ltP
+lMC
+lMC
+ltP
+rdL
+lXs
+bfi
+jZi
+kvB
+vYv
+cAa
+vYv
+adJ
+iRh
+msA
+oUa
+kpY
+kpY
+wsM
+kpY
+kpY
+kpY
+mqD
+eyO
+dBL
+ncE
+eyO
+jCK
+eyO
+ncE
+hnb
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+nNr
+tIm
 adJ
 adJ
 adJ
@@ -87616,54 +91514,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+qQO
+qQO
+qQO
+kjd
+caQ
+rML
+kSf
+qQO
+vUt
+lqb
+pQG
+etm
+lqb
+vUt
+lXs
+bfi
+sQi
+kvB
+vYv
+nNs
+vYv
+adJ
+fVa
+fVa
+pZI
+kpY
+kpY
+fVa
+wRz
+awe
+gBF
+qcX
+lfF
+eyO
+eyO
+dBL
+tcm
+bdL
+mZL
+fVa
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+nNr
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -87873,54 +91771,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+qQO
+qQO
+lXs
+lXs
+qQO
+qQO
+kPP
+kPP
+jBF
+nNK
+kPP
+kPP
+qQO
+tIm
+kvB
+kvB
+vfg
+nNs
+vfg
+adJ
+adJ
+oRm
+dZt
+aEy
+aEy
+fVa
+fVa
+xOV
+fVa
+fVa
+rxQ
+eyO
+eyO
+eyO
+kkr
+eyO
+ncE
+hnb
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -88129,55 +92027,55 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+fYV
+fYV
+jZi
+kvB
+nNr
+tIm
+xOJ
+uRr
+sLa
+clB
+clB
+fJa
+jTn
+qOt
+tIm
+nNr
+qQO
+qQO
+sMV
+qQO
+qQO
+adJ
+uMP
+fVa
+xOV
+xOV
+fVa
+oMl
+oMl
+oRm
+jvH
+mFE
+uBu
+dBL
+ncE
+qdh
+oqU
+oqU
+fVa
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -88386,55 +92284,55 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+jZi
+jZi
+sQi
+sQi
+kvB
+tIm
+dOb
+ltP
+ltP
+clB
+clB
+ltP
+ltP
+ewQ
+tIm
+tIm
+qQO
+iid
+xZU
+npU
+qQO
+adJ
+adJ
+oMl
+oMl
+oMl
+oMl
+oMl
+fVa
+fVa
+fVa
+sgd
+uMU
+aKN
+aKN
+wrO
+kOk
+kOk
+fVa
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -88642,56 +92540,56 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+nNr
+nNr
+kvB
+sQi
+sQi
+bfi
+tIm
+kLm
+ltP
+pBy
+pBy
+pBy
+pBy
+ltP
+shm
+tIm
+tIm
+qQO
+uwQ
+lAL
+sAK
+qQO
+adJ
+adJ
+adJ
+adJ
+oMl
+eMr
+oMl
+nbO
+hNm
+apB
+oDY
+eyO
+eyO
+eyO
+gZh
+szw
+uRe
+fVa
 adJ
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+tIm
 adJ
 adJ
 adJ
@@ -88899,56 +92797,56 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+jZi
+nNr
+qQO
+qQO
+lXs
+lXs
+qQO
+aeZ
+pBy
+pBy
+mFq
+mFq
+pBy
+pBy
+vsS
+tIm
+nNr
+lXs
+pyk
+lAL
+tph
+lXs
+adJ
+adJ
+adJ
+adJ
+oMl
+eMr
+oMl
+oWc
+eyO
+eyO
+sOM
+nQy
+nxO
+dBL
+tBB
+hBr
+gtr
+fVa
 adJ
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -89156,56 +93054,56 @@ adJ
 adJ
 adJ
 adJ
+fYV
+jZi
+sQi
+sQi
+jZi
+qQO
+vSp
+taL
+twD
+nbC
+lMK
+clB
+mFq
+puH
+puH
+mFq
+nYD
+qQO
+tIm
+nNr
+qQO
+iID
+jRj
+aWr
+qQO
+adJ
+adJ
+oMl
+oMl
+fVa
+fVa
+fVa
+fVa
+mFE
+vHs
+fVa
+mrT
+cvY
+cYs
+fVa
+oiF
+fVa
+fVa
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -89415,54 +93313,54 @@ adJ
 adJ
 adJ
 adJ
+sQi
+sQi
+bfi
+lXs
+xEf
+xjm
+xjm
+fwx
+cfi
+clB
+xFW
+rWl
+fer
+wjj
+dKo
+qQO
+nNr
+jZi
+qQO
+tap
+lAL
+tSO
+qQO
 adJ
 adJ
 adJ
 adJ
+oMl
+uMP
+fVa
+fVa
+fVa
+fVa
+fVa
+tCy
+tCy
+tCy
+fVa
+fVa
+fVa
+uMP
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -89672,54 +93570,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+nNr
+bfi
+lXs
+sGe
+xjm
+uPr
+nIz
+csj
+pBy
+fYh
+hyM
+rWl
+wjj
+clB
+lXs
+bfi
+sQi
+qQO
+xqR
+xZU
+aWr
+qQO
 adJ
 adJ
 adJ
 adJ
 adJ
 adJ
+oMl
+uMP
+fVa
+fVa
+fVa
+ifS
+ajq
+ifS
+fVa
+uMP
+oMl
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -89928,6 +93826,33 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+bIN
+lXs
+eul
+gJa
+uPr
+jNl
+ndQ
+pBy
+xFW
+kuG
+ceb
+wjj
+clB
+lXs
+bfi
+sQi
+lXs
+pyk
+lAL
+mfF
+lXs
+bfi
+bnh
+bnh
 adJ
 adJ
 adJ
@@ -89945,38 +93870,11 @@ adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+bnh
+nNr
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -90186,54 +94084,54 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+fxi
+nLH
+xjm
+gJa
+fwx
+csj
+pBy
+mFq
+oHz
+oHz
+mFq
+pBy
+qQO
+vYv
+vYv
+qQO
+yaX
+lAL
+yaX
+qQO
+bfi
+jZi
+bnh
+bnh
+bnh
 adJ
 adJ
 adJ
 adJ
 adJ
+bnh
+adJ
+adJ
+adJ
+bnh
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+bnh
+bnh
+nNr
+acW
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -90443,6 +94341,31 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+qQO
+jTd
+qBV
+xQx
+bsv
+ltP
+pBy
+pBy
+mFq
+gch
+pBy
+pBy
+uVh
+cAa
+nNs
+uVh
+lAL
+lAL
+bay
+lXs
+tIm
+bfi
 adJ
 adJ
 adJ
@@ -90450,47 +94373,22 @@ adJ
 adJ
 adJ
 adJ
+bnh
+bnh
 adJ
 adJ
 adJ
+bnh
+bnh
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+nNr
+nNr
+acW
+acW
+tIm
 adJ
 adJ
 adJ
@@ -90701,53 +94599,53 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+qQO
+qQO
+lXs
+lXs
+qQO
+gNf
+uRr
+sLa
+fmN
+eZY
+mgM
+uRr
+qQO
+vYv
+vYv
+qQO
+gLD
+sYY
+gLD
+qQO
+nNr
+nNr
+nNr
+adJ
+nNr
+nNr
 adJ
 adJ
 adJ
+bnh
+bnh
 adJ
 adJ
 adJ
+bnh
+bnh
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+nNr
+nNr
+nNr
+pzo
+acW
+tIm
 adJ
 adJ
 adJ
@@ -90959,52 +94857,52 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+bfi
+bfi
+bIN
+qQO
+qQO
+qQO
+qQO
+lXs
+lXs
+qQO
+qQO
+qQO
+bfi
+sQi
+qQO
+lXs
+qQO
+lXs
+qQO
+tIm
+nNr
+nNr
+nNr
+nNr
+nNr
+nNr
+nNr
+tIm
+tIm
+bnh
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+bnh
+tIm
+tIm
+tIm
+tIm
+tIm
+acW
+pzo
+wOL
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -91213,55 +95111,55 @@ adJ
 adJ
 adJ
 adJ
+fYV
 adJ
 adJ
 adJ
+sQi
+sQi
+nNr
+nNr
 adJ
 adJ
 adJ
+sQi
+sQi
+sQi
+fYV
+fYV
+fYV
+bfi
+bfi
+sQi
+adJ
+sQi
+sQi
+sQi
+tIm
+tIm
+tIm
+tIm
+nNr
+nNr
+tIm
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -91469,56 +95367,56 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+sQi
+sQi
+sQi
+sQi
+sQi
+kvB
+fYV
+adJ
+fYV
+jZi
+sQi
+sQi
 adJ
 adJ
+fYV
+adJ
+nNr
+jZi
+jZi
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+jZi
+bfi
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+nNr
+nNr
+nNr
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
+tIm
 adJ
 adJ
 adJ
@@ -91726,55 +95624,55 @@ adJ
 adJ
 adJ
 adJ
+fYV
+fYV
+fYV
+fYV
+fYV
+fYV
+fYV
+fYV
+fYV
+fYV
+fYV
+jZi
+sQi
 adJ
 adJ
 adJ
 adJ
 adJ
 adJ
+sQi
+sQi
+adJ
+adJ
+adJ
+nNr
+jZi
+bfi
+nNr
 adJ
 adJ
 adJ
 adJ
+nNr
+nNr
+jZi
+tIm
+tIm
+nNr
+tIm
+tIm
+nNr
+nNr
+nNr
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+nNr
+nNr
+nNr
 adJ
 adJ
 adJ
@@ -91991,46 +95889,46 @@ bQD
 bQD
 bQD
 bQD
+fYV
+fYV
+fYV
+fYV
+jZi
 adJ
 adJ
 adJ
 adJ
 adJ
 adJ
+sQi
+sQi
+adJ
+adJ
+adJ
+adJ
+sQi
+sQi
+sQi
 adJ
 adJ
 adJ
 adJ
 adJ
 adJ
+sQi
+jZi
+tIm
+tIm
+tIm
+nNr
+nNr
 adJ
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
+nNr
 adJ
 adJ
 adJ
@@ -92251,42 +96149,42 @@ bQD
 adJ
 adJ
 adJ
+fYV
+fYV
 adJ
 adJ
 adJ
 adJ
 adJ
 adJ
+sQi
+sQi
+adJ
+adJ
+adJ
+sQi
+sQi
+sQi
+sQi
+sQi
+adJ
+adJ
+adJ
+adJ
+sQi
+sQi
+nNr
+nNr
+nNr
+nNr
+nNr
 adJ
 adJ
 adJ
 adJ
 adJ
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
+nNr
 adJ
 adJ
 adJ
@@ -92515,22 +96413,22 @@ adJ
 adJ
 nNr
 nNr
-nNr
+jZi
+sQi
+sQi
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-nNr
 fYV
-nNr
+fYV
+sQi
+adJ
+jZi
+fYV
+bfi
 fYV
 adJ
-adJ
-nNr
-nNr
+sQi
+jZi
+jZi
 adJ
 adJ
 adJ
@@ -92763,20 +96661,7 @@ lOn
 kKi
 bQD
 adJ
-adJ
-adJ
-adJ
-adJ
-adJ
-nNr
-nNr
-fYV
-fYV
-fYV
-nNr
-adJ
-adJ
-adJ
+nQU
 adJ
 adJ
 adJ
@@ -92785,8 +96670,21 @@ nNr
 nNr
 fYV
 fYV
+fYV
+jZi
+sQi
+sQi
 nNr
-nNr
+fYV
+fYV
+adJ
+adJ
+bfi
+bIN
+fYV
+fYV
+bfi
+jZi
 fYV
 nNr
 adJ
@@ -93020,7 +96918,7 @@ lOn
 kKi
 bQD
 adJ
-adJ
+nQU
 adJ
 adJ
 adJ
@@ -93031,19 +96929,19 @@ fYV
 fYV
 fYV
 fYV
-nNr
+jZi
 adJ
 adJ
 adJ
 adJ
 pLx
 nNr
-nNr
-nNr
-nNr
-nNr
-nNr
-nNr
+bIN
+bIN
+bIN
+bIN
+bIN
+bfi
 nNr
 fYV
 nNr
@@ -93277,6 +97175,19 @@ lOn
 kKi
 bQD
 adJ
+nQU
+nQU
+adJ
+nNr
+nNr
+fYV
+fYV
+fYV
+fYV
+fYV
+fYV
+jZi
+nNr
 adJ
 adJ
 adJ
@@ -93285,21 +97196,8 @@ nNr
 fYV
 fYV
 fYV
-fYV
-fYV
-fYV
-nNr
-nNr
-adJ
-adJ
-adJ
-nNr
-nNr
-fYV
-fYV
-fYV
-nNr
-nNr
+bIN
+bIN
 fYV
 nNr
 fYV
@@ -93534,8 +97432,8 @@ kKi
 kKi
 bQD
 adJ
-adJ
-adJ
+nQU
+nQU
 adJ
 nNr
 nNr
@@ -93791,8 +97689,8 @@ kKi
 kKi
 bQD
 adJ
-adJ
-adJ
+nQU
+nQU
 adJ
 adJ
 nNr
@@ -94048,9 +97946,9 @@ kKi
 kKi
 bQD
 adJ
-adJ
-adJ
-adJ
+nQU
+nQU
+nQU
 adJ
 adJ
 adJ
@@ -94305,7 +98203,7 @@ kKi
 kKi
 bQD
 adJ
-adJ
+nQU
 adJ
 adJ
 adJ

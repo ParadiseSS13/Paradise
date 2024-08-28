@@ -1123,5 +1123,15 @@ tag = "blood_brothers"
 	"Solar Federation General",
 ]
 
+[[antag_mix_gamemode_configuration.antag_scenarios_configuration]]
+tag = "vox_raiders"
+
+[antag_mix_gamemode_configuration.antag_scenarios_configuration.params]
+"required_players" = 45
+"cost" = 45
+"weight" = 1
+"antag_cap" = 4
+"team_size" = 4
+"candidates_required" = 2
 
 ################################################################

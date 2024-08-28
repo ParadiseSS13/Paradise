@@ -21,6 +21,12 @@
 		<a href='byond://?src=[UID()];makeAntag=6'>Make Vampires</a><br>
 		<a href='byond://?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
+	// SS220 ADD - Start
+	dat += {"
+		<a href='byond://?src=[UID()];makeAntag=8'>Make Blood Brothers Team</a><br>
+		<a href='byond://?src=[UID()];makeAntag=9'>Make Vox Raiders</a><br>
+		"}
+	// SS220 ASS - End
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
 

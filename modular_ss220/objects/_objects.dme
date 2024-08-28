@@ -36,6 +36,7 @@
 #include "code/plastic_chair.dm"
 #include "code/platform.dm"
 #include "code/posters.dm"
+#include "code/shuttle.dm"
 #include "code/smartfridge.dm"
 #include "code/tribune.dm"
 #include "code/key.dm"
