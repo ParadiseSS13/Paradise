@@ -4766,6 +4766,7 @@
 	dir = 1
 	},
 /obj/machinery/alarm/directional/north,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "aWA" = (
@@ -13870,6 +13871,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/sign/fire{
+	pixel_y = 32
 	},
 /turf/simulated/floor/engine/asteroid,
 /area/station/engineering/atmos/asteroid_core)
@@ -27665,9 +27669,6 @@
 	name = "custom placement";
 	pixel_x = 24;
 	pixel_y = 32
-	},
-/obj/machinery/power/apc/critical/directional/west{
-	shock_proof = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44942,10 +44943,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/airlock/maintenance{
 	name = "Coldroom Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "ito" = (
@@ -58343,7 +58345,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/sign/wait{
-	pixel_x = 32
+	pixel_x = -32
 	},
 /turf/simulated/floor/engine/airless,
 /area/station/engineering/atmos/asteroid_filtering)
@@ -81524,6 +81526,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/station/aisat/atmos)
 "pfY" = (
@@ -84222,6 +84225,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "pGO" = (
@@ -93933,7 +93937,6 @@
 	},
 /area/station/public/dorms)
 "ryp" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
@@ -106920,12 +106923,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
-"tPj" = (
-/obj/structure/sign/fire{
-	pixel_y = 32
-	},
-/turf/simulated/wall/r_wall,
-/area/station/engineering/atmos/asteroid_filtering)
 "tPw" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -142619,7 +142616,7 @@ qHX
 dYy
 dYy
 qlj
-tPj
+mjs
 cDM
 iSm
 fri
