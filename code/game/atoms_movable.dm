@@ -1126,3 +1126,46 @@
 /atom/movable/proc/scatter_atom(x_offset = 0, y_offset = 0)
 	pixel_x = x_offset + rand(-scatter_distance, scatter_distance)
 	pixel_y = y_offset + rand(-scatter_distance, scatter_distance)
+
+/**
+ * A backwards depth-limited breadth-first-search to see if the target is
+ * logically "in" anything adjacent to us.
+ */
+/atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
+	var/list/direct_access = DirectAccess()
+	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
+
+	var/list/closed = list()
+	var/list/checking = list(ultimate_target)
+
+	while(length(checking) && depth > 0)
+		var/list/next = list()
+		--depth
+
+		for(var/atom/target in checking)  // will filter out nulls
+			if(closed[target] || isarea(target))  // avoid infinity situations
+				continue
+
+			if(isturf(target) || isturf(target.loc) || (target in direct_access)) //Directly accessible atoms
+				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
+					return TRUE
+
+			closed[target] = TRUE
+
+			if(!target.loc)
+				continue
+
+		checking = next
+	return FALSE
+
+/atom/movable/proc/DirectAccess()
+	return list(src, loc)
+
+/mob/DirectAccess(atom/target)
+	return ..() + contents
+
+/mob/living/DirectAccess(atom/target)
+	return ..() + get_all_contents()
+
+/atom/movable/proc/get_default_say_verb()
+	return atom_say_verb
