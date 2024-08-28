@@ -53422,7 +53422,7 @@
 /obj/machinery/button/windowtint/east{
 	id = "surgery2"
 	},
-/obj/structure/closet/crate/freezer/iv_storage,
+/obj/structure/closet/crate/freezer/iv_storage/organ,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -87112,7 +87112,7 @@
 /obj/machinery/button/windowtint/west{
 	id = "surgery1"
 	},
-/obj/structure/closet/crate/freezer/iv_storage,
+/obj/structure/closet/crate/freezer/iv_storage/organ,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
