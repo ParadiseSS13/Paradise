@@ -144,6 +144,33 @@
 				transform: scale(0.9);
 			}
 
+			.logo_and_preview {
+				position: relative;
+				width: 100%;
+			}
+
+			.preview {
+				overflow: hidden;
+				position: absolute;
+				right: 0.75em;
+				bottom: -1.5em;
+				width: 64px;
+				height: 64px;
+				background-color: #252525;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				box-shadow: 0px 0.25em 0.25em 0.1em rgba(0, 0, 0, 0.33);
+				border-radius: 100em;
+				z-index: 1;
+			}
+
+			#preview {
+				-ms-interpolation-mode: nearest-neighbor; /* Remove with 516 */
+				image-rendering: pixelated;
+				width: 64px;
+				height: 64px;
+				transform: translateY(22px) translateX(2px) scale(1.5);
+			}
+
 			.character_info {
 				display: flex;
 				flex-direction: column;

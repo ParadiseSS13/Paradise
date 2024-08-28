@@ -84,3 +84,16 @@
 	if(preference == "changeslot" || (preference == "name" && task == "random") || task == "input")
 		user.client << output(active_character.real_name, "title_browser:update_current_character")
 		return TRUE
+
+/datum/preferences/ShowChoices(mob/user)
+	. = ..()
+	SStitle.set_character_preview(user.client)
+
+/datum/controller/subsystem/atoms/Initialize()
+	. = ..()
+	for(var/player as anything in GLOB.new_player_mobs)
+		var/mob/new_player/lobby_player = player
+		var/client/viewer = lobby_player.client
+		viewer.prefs.active_character.update_preview_icon()
+		viewer << browse_rsc(viewer.prefs.active_character.preview_icon_front, "previewicon.png")
+		SStitle.set_character_preview(viewer)

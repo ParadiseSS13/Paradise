@@ -19,11 +19,7 @@
 	title_images_pool = SStitle.title_images_pool
 
 /datum/controller/subsystem/title/proc/import_html()
-	if(!fexists("config/title_screen.html"))
-		log_debug("Cannot found custom Title Screen HTML in config folder. Using default one.")
-		base_html = file2text(DEFAULT_TITLE_SCREEN_HTML_PATH)
-	else
-		base_html = file2text(TITLE_SCREEN_HTML)
+	base_html = file2text(DEFAULT_TITLE_SCREEN_HTML_PATH)
 
 /**
  * Iterates over all files in `TITLE_SCREENS_LOCATION` and loads all valid title screens to `title_screens` var.
@@ -125,6 +121,12 @@
 		current_title_screen.set_screen_image(desired_image_file)
 
 	show_title_screen_to_all_new_players()
+
+/datum/controller/subsystem/title/proc/set_character_preview(client/viewer)
+	if(viewer.byond_version < 516)
+		viewer << output("", "title_browser:update_preview_515")
+	else
+		viewer << output("", "title_browser:update_preview")
 
 /**
  * Picks title image from `title_images_pool` list. If the list is empty, `DEFAULT_TITLE_HTML` is returned

@@ -36,6 +36,11 @@
 
 	viewer << browse(get_title_html(viewer, viewer.mob), "window=title_browser")
 
+	if(SSatoms.initialized)
+		viewer.prefs.active_character.update_preview_icon()
+		viewer << browse_rsc(viewer.prefs.active_character.preview_icon_front, "previewicon.png")
+		SStitle.set_character_preview(viewer)
+
 /datum/title_screen/proc/hide_from(client/viewer)
 	if(viewer?.mob)
 		winset(viewer, "title_browser", "is-disabled=true;is-visible=false")
@@ -64,10 +69,15 @@
 	html += {"<div class="container_menu">"}
 	html += {"
 		<div class="container_logo">
-		<img class="logo" src="[SSassets.transport.get_asset_url(asset_name = "logo.png")]">
+			<div class="logo_and_preview">
+				<img class="logo" src="[SSassets.transport.get_asset_url(asset_name = "logo.png")]">
+				<div class="preview">
+					<img id="preview" src="" alt="" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAgAB/IsDkAAAAABJRU5ErkJggg=='">
+				</div>
+			</div>
 			<div class="character_info">
-			<span class="character">На смену прибывает...</span>
-			<span class="character" id="character_slot">[viewer.prefs.active_character.real_name]</span>
+				<span class="character">На смену прибывает...</span>
+				<span class="character" id="character_slot">[viewer.prefs.active_character.real_name]</span>
 			</div>
 		</div>
 	"}
@@ -166,6 +176,20 @@
 
 			document.addEventListener('mouseup', reFocus);
 			document.addEventListener('keyup', reFocus);
+
+			/* Update Character Preview image */
+			const charPreview = document.getElementById("preview");
+			function update_preview() {
+				charPreview.src = "previewicon.png";
+			}
+
+			/* Remove with 516. 515 needs an update with timeout */
+			function update_preview_515() {
+				charPreview.src = "";
+				setTimeout(update_preview, 100);
+			}
+
+			update_preview_515()
 		</script>
 		"}
 
