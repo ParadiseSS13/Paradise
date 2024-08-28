@@ -534,7 +534,7 @@
 /datum/tarot/the_tower/activate(mob/living/target)
 	var/obj/item/grenade/clusterbuster/ied/bakoom = new(get_turf(target))
 	var/turf/bombturf = get_turf(target)
-	target.investigate_log("[key_name(target)] has been activated (either thrown at or used) on [target] at [bombturf.x],[bombturf.y],[bombturf.z]", INVESTIGATE_BOMB) //Yes, this is an atom proc. Suffering
+	target.investigate_log("[key_name(target)] has been activated (either thrown at or used) on [target] at [bombturf.x],[bombturf.y],[bombturf.z]", INVESTIGATE_BOMB) // Yes, this is an atom proc. Suffering
 	bakoom.prime()
 
 /// I'm sorry matt, this is very funny.
