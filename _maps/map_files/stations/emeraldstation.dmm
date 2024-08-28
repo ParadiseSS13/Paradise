@@ -44664,6 +44664,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/machinery/crema_switch{
+	pixel_y = 23;
+	pixel_x = 22
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
