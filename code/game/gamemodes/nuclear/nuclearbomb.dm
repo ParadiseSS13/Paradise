@@ -79,8 +79,8 @@ GLOBAL_VAR(bomb_set)
 	if(!training)
 		GLOB.poi_list |= src
 		GLOB.nuke_list |= src
-	core = new /obj/item/nuke_core/plutonium(src)
-	STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
+		core = new /obj/item/nuke_core/plutonium(src)
+		STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
 	update_icon(UPDATE_OVERLAYS)
 	radio = new(src)
 	radio.listening = FALSE
@@ -796,7 +796,6 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/training/Initialize()
 	. = ..()
 	r_code = 11111 //Uuh.. one!
-	qdel(core)
 
 /obj/machinery/nuclearbomb/training/process()
 	if(timing)
