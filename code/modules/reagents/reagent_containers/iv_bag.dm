@@ -41,16 +41,23 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/item/reagent_containers/iv_bag/proc/on_examine(datum/source, mob/examiner, list/examine_list)
+	SIGNAL_HANDLER // COMSIG_PARENT_EXAMINE
+	examine_list += "<span class='notice'>[source.p_they(TRUE)] [source.p_have()] an active IV bag.</span>"
+
 /obj/item/reagent_containers/iv_bag/proc/begin_processing(mob/target)
 	injection_target = target
+	RegisterSignal(injection_target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/proc/end_processing()
+	if(injection_target)
+		UnregisterSignal(injection_target, COMSIG_PARENT_EXAMINE)
 	injection_target = null
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/process()
-	if(!injection_target)
+	if(QDELETED(injection_target))
 		end_processing()
 		return
 
