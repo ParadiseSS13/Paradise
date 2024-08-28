@@ -68,7 +68,7 @@
 /mob/living/simple_animal/hostile/Life(seconds, times_fired)
 	. = ..()
 	if(!.)
-		walk(src, 0)
+		GLOB.move_manager.stop_looping(src)
 		return FALSE
 
 /mob/living/simple_animal/hostile/handle_automated_action()
@@ -274,11 +274,11 @@
 			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time) //But make sure they're not in range for a melee attack and our range attack is off cooldown
 				OpenFire(target)
 		if(!Process_Spacemove()) //Drifting
-			walk(src,0)
+			GLOB.move_manager.stop_looping(src)
 			return 1
 		if(retreat_distance != null) //If we have a retreat distance, check if we need to run from our target
 			if(target_distance <= retreat_distance) //If target's closer than our retreat distance, run
-				walk_away(src,target,retreat_distance,move_to_delay)
+				GLOB.move_manager.move_away(src,target,retreat_distance,move_to_delay, flags = MOVEMENT_LOOP_IGNORE_GLIDE)
 			else
 				Goto(target,move_to_delay,minimum_distance) //Otherwise, get to our minimum distance so we chase them
 		else
@@ -311,7 +311,7 @@
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
-	walk_to(src, target, minimum_distance, delay)
+	GLOB.move_manager.move_to(src, target, minimum_distance, delay, flags = MOVEMENT_LOOP_IGNORE_GLIDE)
 
 /mob/living/simple_animal/hostile/adjustHealth(damage, updating_health = TRUE)
 	. = ..()
@@ -346,7 +346,7 @@
 	target = null
 	approaching_target = FALSE
 	in_melee = FALSE
-	walk(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	LoseAggro()
 
 /// Shortcut proc to allow initiating combat slightly faster than waiting for normal processing.

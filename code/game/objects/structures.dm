@@ -43,7 +43,7 @@
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
-/obj/structure/Move()
+/obj/structure/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
 	var/atom/old = loc
 	if(!..())
 		return FALSE

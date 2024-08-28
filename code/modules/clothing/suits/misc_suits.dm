@@ -308,28 +308,13 @@
 		user.faction -= "carp"
 		to_chat(user, "<span class='cult'>A sudden calm fills the gnashing void of your mind- you're alone now.</span>")
 
-/mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
-	if(..())
-		return TRUE
-
+/mob/living/carbon/human/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(istype(wear_suit, /obj/item/clothing/suit/hooded/carp_costume/dragon))
 		return TRUE
-	//Do we have a working jetpack?
-	var/obj/item/tank/jetpack/thrust
-	if(istype(back, /obj/item/tank/jetpack))
-		thrust = back
-	else if(istype(wear_suit, /obj/item/clothing/suit/space/hardsuit))
-		var/obj/item/clothing/suit/space/hardsuit/C = wear_suit
-		thrust = C.jetpack
-	else if(ismodcontrol(back))
-		var/obj/item/mod/control/C = back
-		thrust = locate(/obj/item/mod/module/jetpack) in C
-	if(thrust)
-		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
-			return TRUE
 	if(dna.species.spec_Process_Spacemove(src))
 		return TRUE
-	return FALSE
+
+	return ..()
 
 /obj/item/clothing/head/hooded/carp_hood/dragon
 	name = "space carp hood"

@@ -130,7 +130,7 @@
 		if(held_item)
 			custom_emote(EMOTE_VISIBLE, "lets go of [held_item]!")
 			drop_held_item()
-		walk(src, 0)
+		GLOB.move_manager.stop_looping(src)
 	return ..()
 
 /mob/living/simple_animal/parrot/get_status_tab_items()
@@ -302,7 +302,7 @@
 //-----WANDERING - This is basically a 'I dont know what to do yet' state
 	else if(parrot_state == PARROT_WANDER)
 		//Stop movement, we'll set it later
-		walk(src, 0)
+		GLOB.move_manager.stop_looping(src)
 		parrot_interest = null
 
 		//Wander around aimlessly. This will help keep the loops from searches down
@@ -341,7 +341,7 @@
 				return
 //-----STEALING
 	else if(parrot_state == (PARROT_SWOOP|PARROT_STEAL))
-		walk(src, 0)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_interest || held_item || length(grabbed_by) || !(parrot_interest in view(src)))
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
@@ -365,12 +365,12 @@
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
-		walk_to(src, path_to_take[2], 0, parrot_speed)
+		GLOB.move_manager.move_to(src, path_to_take[2], 0, parrot_speed)
 		return
 
 //-----RETURNING TO PERCH
 	else if(parrot_state == (PARROT_SWOOP|PARROT_RETURN))
-		walk(src, 0)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_perch || !isturf(parrot_perch.loc)) //Make sure the perch exists and somehow isnt inside of something else.
 			parrot_perch = null
@@ -390,19 +390,20 @@
 			parrot_state = PARROT_WANDER
 			return
 
-		walk_to(src, path_to_take[2], 0, parrot_speed)
+		GLOB.move_manager.move_to(src, path_to_take[2], 0, parrot_speed)
+
 		return
 
 //-----FLEEING
 	else if(parrot_state == (PARROT_SWOOP|PARROT_FLEE))
-		walk(src, 0)
+		GLOB.move_manager.stop_looping(src)
 
 		if(!parrot_interest || !isliving(parrot_interest) || !Adjacent(parrot_interest)) //Sanity
 			parrot_state = PARROT_WANDER
 			parrot_interest = null
 			return
 
-		walk_away(src, parrot_interest, 0, parrot_speed - parrot_been_shot)
+		GLOB.move_manager.move_away(src, parrot_interest, 0, parrot_speed - parrot_been_shot)
 		parrot_been_shot--
 		return
 
@@ -448,11 +449,11 @@
 		//Otherwise, fly towards the mob!
 		else
 			// No AStar here because the parrot is pissed and isn't thinking rationally.
-			walk_to(src, parrot_interest, 1, parrot_speed)
+			GLOB.move_manager.move_to(src, parrot_interest, 1, parrot_speed)
 		return
 //-----STATE MISHAP
 	else //This should not happen. If it does lets reset everything and try again
-		walk(src, 0)
+		GLOB.move_manager.stop_looping(src)
 		parrot_interest = null
 		parrot_perch = null
 		drop_held_item()

@@ -286,7 +286,7 @@
 ////////  MARK: Movement procs
 //////////////////////////////////
 
-/obj/mecha/Process_Spacemove(movement_dir = 0)
+/obj/mecha/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	. = ..()
 	if(.)
 		return TRUE

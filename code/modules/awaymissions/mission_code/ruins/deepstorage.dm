@@ -74,15 +74,15 @@
 		return
 	new /obj/effect/temp_visual/dragon_swoop/bubblegum(T)
 	charging = TRUE
-	walk(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	setDir(dir)
 	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
 	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
 	SLEEP_CHECK_DEATH(delay)
 	var/movespeed = 0.8
-	walk_towards(src, T, movespeed)
+	GLOB.move_manager.home_onto(src, T, movespeed)
 	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
-	walk(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	charging = FALSE
 	loot = list(/obj/effect/decal/cleanable/blood/innards,
 			/obj/effect/decal/cleanable/blood,
@@ -175,7 +175,7 @@
 	if(target)
 		playsound(loc, 'sound/voice/zombie_scream.ogg', 70, TRUE)
 
-/mob/living/simple_animal/hostile/spaceinfected/Move(atom/newloc)
+/mob/living/simple_animal/hostile/spaceinfected/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
 	if(ischasm(newloc)) // as this place filled with chasms, they shouldn't randomly fall in while wandering around
 		return FALSE
 	return ..()
