@@ -5,6 +5,9 @@
 	if(buckled)
 		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
 
+	if(Target)
+		Target = null
+
 	if(!gibbed)
 		if(is_adult)
 			var/mob/living/simple_animal/slime/M = new(loc, colour)

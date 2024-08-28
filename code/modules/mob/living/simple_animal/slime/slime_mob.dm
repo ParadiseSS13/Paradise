@@ -103,9 +103,11 @@
 	add_language("Bubblish")
 
 /mob/living/simple_animal/slime/Destroy()
+	walk_to(src, 0)
 	for(var/A in actions)
 		var/datum/action/AC = A
 		AC.Remove(src)
+		qdel(AC)
 	Target = null
 	return ..()
 
