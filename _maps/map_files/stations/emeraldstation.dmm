@@ -2409,12 +2409,6 @@
 	icon_state = "dark"
 	},
 /area/station/aisat/service)
-"ays" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/engine/asteroid,
-/area/station/engineering/atmos/asteroid_core)
 "ayt" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
@@ -11969,13 +11963,6 @@
 /obj/item/multitool,
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/asteroid_maint)
-"cjy" = (
-/obj/effect/turf_decal/delivery/red,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/engine/asteroid,
-/area/station/engineering/atmos/asteroid_core)
 "cjF" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
@@ -142103,7 +142090,7 @@ mjs
 mjs
 mjs
 wAG
-cjy
+bEG
 rnp
 dir
 wPA
@@ -143130,7 +143117,7 @@ sIn
 qJS
 mjs
 xho
-ays
+rnp
 rnp
 ktM
 wPA
