@@ -48,7 +48,7 @@
 			new /obj/item/organ/internal/body_egg/terror_eggs(L)
 			if(!ckey)
 				LoseTarget()
-				walk_away(src,L,2,1)
+				GLOB.move_manager.move_away(src,L,2,1)
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))

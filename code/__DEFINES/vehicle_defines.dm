@@ -30,10 +30,16 @@
 /// The vehicle being ridden requires pixel offsets for all directions
 #define RIDING_OFFSET_ALL "ALL"
 
+/// Compensating for time dilation
+GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
+
 ///Broken down, here's what this does:
 /// divides the world icon_size (32) by delay divided by ticklag to get the number of pixels something should be moving each tick.
 /// The division result is given a min value of 1 to prevent obscenely slow glide sizes from being set
 /// Then that's multiplied by the global glide size multiplier. 1.25 by default feels pretty close to spot on. This is just to try to get byond to behave.
 /// The whole result is then clamped to within the range above.
 /// Not very readable but it works
-#define DELAY_TO_GLIDE_SIZE(delay) (clamp(((world.icon_size / max((delay) / world.tick_lag, 1))), 1, 32))
+#define DELAY_TO_GLIDE_SIZE(delay) (clamp(((world.icon_size / max((delay) / world.tick_lag, 1)) * GLOB.glide_size_multiplier), MIN_GLIDE_SIZE, MAX_GLIDE_SIZE))
+
+///Similar to DELAY_TO_GLIDE_SIZE, except without the clamping, and it supports piping in an unrelated scalar
+#define MOVEMENT_ADJUSTED_GLIDE_SIZE(delay, movement_disparity) (world.icon_size / ((delay) / world.tick_lag) * movement_disparity * GLOB.glide_size_multiplier)

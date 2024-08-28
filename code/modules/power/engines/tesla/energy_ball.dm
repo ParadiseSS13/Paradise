@@ -133,7 +133,7 @@
 	// MORE POWER
 	movement_beam(move_target, 1 SECONDS)
 	sleep(0.5 SECONDS)
-	walk_towards(src, move_target, 0, 10)
+	GLOB.move_manager.home_onto(src, move_target, 0, 10)
 
 /datum/move_with_corner
 	var/turf/start

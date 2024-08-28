@@ -40,7 +40,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/shade/Process_Spacemove()
+/mob/living/simple_animal/shade/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/shade/holy

@@ -313,7 +313,7 @@
 	if(pass_info.is_movable)
 		. = . || pass_info.pass_flags & PASSTABLE
 
-/obj/structure/m_tray/Process_Spacemove(movement_dir)
+/obj/structure/m_tray/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /*
@@ -584,7 +584,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	connected = null
 	return ..()
 
-/obj/structure/c_tray/Process_Spacemove(movement_dir)
+/obj/structure/c_tray/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 // Crematorium switch

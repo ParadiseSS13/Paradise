@@ -330,7 +330,7 @@
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list() // Explodes, doesn't drop loot.
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/death()
@@ -353,7 +353,7 @@
 				/obj/effect/gibspawner/generic,
 				/obj/effect/gibspawner/generic)
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged
@@ -380,7 +380,7 @@
 				/obj/effect/gibspawner/generic)
 
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib

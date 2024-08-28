@@ -167,7 +167,7 @@
 
 /mob/living/simple_animal/Destroy()
 	/// We need to clear the reference to where we're walking to properly GC
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	QDEL_NULL(pcollar)
 	for(var/datum/action/innate/hide/hide in actions)
 		hide.Remove(src)
@@ -194,7 +194,7 @@
 		return
 
 	/*
-	*  String associated list returns a cached list. 
+	*  String associated list returns a cached list.
 	*  This is like a static list to pass into the element below.
 	*/
 	atmos_requirements = string_assoc_list(atmos_requirements)
@@ -625,7 +625,7 @@
 
 /mob/living/simple_animal/Login()
 	..()
-	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+	GLOB.move_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
 
 /mob/living/simple_animal/proc/npc_safe(mob/user)
 	return FALSE

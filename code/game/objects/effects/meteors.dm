@@ -116,7 +116,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	if(timerid)
 		deltimer(timerid)
 	GLOB.meteor_list -= src
-	walk(src, 0) //this cancels the walk_towards() proc
+	GLOB.move_manager.stop_looping(src) //this cancels the GLOB.move_manager.home_onto() proc
 	return ..()
 
 /obj/effect/meteor/Initialize(mapload, target)
@@ -176,7 +176,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 /obj/effect/meteor/proc/chase_target(atom/chasing, delay = 1)
 	set waitfor = FALSE
 	if(chasing)
-		walk_towards(src, chasing, delay)
+		GLOB.move_manager.home_onto(src, chasing, delay)
 
 /obj/effect/meteor/proc/meteor_effect()
 	if(heavy)
