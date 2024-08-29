@@ -251,7 +251,7 @@
 	var/silent_removal = FALSE
 
 /obj/structure/alien/weeds/Initialize(mapload, node)
-	..()
+	. = ..()
 	linked_node = node
 	if(isspaceturf(loc))
 		qdel(src)
@@ -435,7 +435,7 @@
 
 /obj/structure/alien/weeds/node/Initialize()
 	add_overlay("weednode")
-	..(loc, src)
+	return ..(loc, src)
 
 #undef NODERANGE
 
