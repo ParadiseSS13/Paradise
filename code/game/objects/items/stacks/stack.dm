@@ -163,12 +163,12 @@
 		ui_interact(user)
 
 /obj/item/stack/attackby(obj/item/thing, mob/user, params)
-	if(can_merge(thing, TRUE))
-		var/obj/item/stack/material = thing
-		if(merge(material))
-			to_chat(user, "<span class='notice'>Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s.</span>")
-	else
-		. = ..()
+	if(!can_merge(thing, TRUE))
+		return ..()
+
+	var/obj/item/stack/material = thing
+	if(merge(material))
+		to_chat(user, "<span class='notice'>Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s.</span>")
 
 /obj/item/stack/use(used, check = TRUE)
 	if(check && is_zero_amount(TRUE))
