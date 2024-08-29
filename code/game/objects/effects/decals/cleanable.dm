@@ -87,12 +87,12 @@
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
+	if(should_merge_decal(loc))
+		return INITIALIZE_HINT_QDEL
 	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
 	prepare_huds()
 	jani_hud.add_to_hud(src)
 	jani_hud_set_sign()
-	if(try_merging_decal())
-		return TRUE
 	if(random_icon_states && length(src.random_icon_states) > 0)
 		src.icon_state = pick(src.random_icon_states)
 	if(smoothing_flags)
@@ -108,14 +108,13 @@
 	jani_hud.remove_from_hud(src)
 	return ..()
 
-/obj/effect/decal/cleanable/proc/try_merging_decal(turf/T)
+/obj/effect/decal/cleanable/proc/should_merge_decal(turf/T)
 	if(!T)
 		T = loc
 	if(isturf(T))
 		for(var/obj/effect/decal/cleanable/C in T)
 			if(C != src && C.type == type && !QDELETED(C))
 				if(C.gravity_check && replace_decal(C))
-					qdel(src)
 					return TRUE
 	return FALSE
 
