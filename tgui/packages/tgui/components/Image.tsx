@@ -43,13 +43,16 @@ export class Image extends Component<Props> {
 
   render() {
     const { fixBlur = true, fixErrors = false, objectFit = 'fill', src, ...rest } = this.props;
-    const computedProps = computeBoxProps(rest);
+
     /* Remove -ms-interpolation-mode with Byond 516. -webkit-optimize-contrast is better than pixelated */
-    computedProps.style += `
-        -ms-interpolation-mode: ${fixBlur ? 'nearest-neighbor' : 'auto'};
-        image-rendering: ${fixBlur ? '-webkit-optimize-contrast' : 'auto'};
-        object-fit: ${objectFit};
-      `;
+    const computedProps = computeBoxProps({
+      style: {
+        '-ms-interpolation-mode': `${fixBlur ? 'nearest-neighbor' : 'auto'}`,
+        'image-rendering': `${fixBlur ? '-webkit-optimize-contrast' : 'auto'}`,
+        'object-fit': `${objectFit}`,
+      },
+      ...rest,
+    });
 
     /* Use div instead img if used asset, cause img with class leaves white border on 516 */
     if (computedProps.className) {
