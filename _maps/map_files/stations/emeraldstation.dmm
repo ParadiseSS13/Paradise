@@ -80843,6 +80843,12 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/xenobiology)
+"oZB" = (
+/mob/living/carbon/human/monkey/punpun,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/station/service/bar)
 "oZE" = (
 /obj/structure/chair{
 	dir = 4
@@ -166888,7 +166894,7 @@ opo
 fkw
 dAU
 rKz
-daJ
+oZB
 vMA
 jhz
 msM
