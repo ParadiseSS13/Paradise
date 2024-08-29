@@ -134,7 +134,7 @@ AI MODULES
 	..()
 	var/law = "Safeguard [targetName]. Individuals that threaten [targetName] are not crew and must be eliminated.'"
 	to_chat(target, law)
-	target.add_supplied_law(4, law)
+	target.add_inherent_law(law)
 	GLOB.lawchanges.Add("The law specified [targetName]")
 
 /******************** oneCrewMember ********************/
@@ -185,7 +185,7 @@ AI MODULES
 	..()
 	var/law = "Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized."
 	to_chat(target, law)
-	target.add_supplied_law(5, law)
+	target.add_inherent_law(law)
 
 /******************** OxygenIsToxicToCrew ********************/
 /obj/item/aiModule/oxygen
