@@ -779,7 +779,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "mop_abductor"
 	mopcap = 100
-	origin_tech = "materials=3;engineering=3;abductor=3"
+	origin_tech = "materials=3;engineering=3;abductor=2"
 	refill_rate = 50
 	refill_reagent = "water"
 	mopspeed = 10
@@ -795,7 +795,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "It's important to keep all the mysterious lights on a UFO functional when flying over backwater country."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "lightreplacer_abductor"
-	origin_tech = "magnets=3;engineering=4;abductor=3"
+	origin_tech = "magnets=3;engineering=4;abductor=2"
 	max_uses = 40
 	uses = 20
 
