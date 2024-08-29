@@ -247,11 +247,11 @@
 
 /obj/machinery/light/built/Initialize(mapload)
 	status = LIGHT_EMPTY
-	..()
+	return ..()
 
 /obj/machinery/light/small/built/Initialize(mapload)
 	status = LIGHT_EMPTY
-	..()
+	return ..()
 
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)

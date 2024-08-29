@@ -438,7 +438,7 @@
 	pixel_x = 29;
 	pixel_y = 0
 	},
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "hq" = (
@@ -699,7 +699,7 @@
 /area/space/nearstation)
 "mN" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "mO" = (
@@ -1010,7 +1010,7 @@
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "qO" = (
@@ -2928,7 +2928,7 @@
 /obj/item/stock_parts/micro_laser/high,
 /obj/item/stock_parts/micro_laser/high,
 /obj/item/stock_parts/micro_laser/high,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
