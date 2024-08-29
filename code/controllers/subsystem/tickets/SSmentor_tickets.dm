@@ -79,13 +79,13 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 				continue
 			nct_active += trainer
 		if(!length(nct_active))
-			to_chat(usr,"There are no active NCTs. Autoresponse canceled.") // If we don't, don't solve the ticket and then send feedback.
+			to_chat(usr, "There are no active NCTs. Autoresponse canceled.") // If we don't, don't solve the ticket and then send feedback.
 			return
 		var/mob/living/carbon/human/trainee = get_mob_by_ckey(T.client_ckey)
 		for(var/mob/living/carbon/human/nct as anything in nct_active)
 			if(!istype(nct.l_ear, /obj/item/radio/headset) && !istype(nct.r_ear, /obj/item/radio/headset)) // If the NCT doesn't have a headset, ignore it.
 				continue
-			to_chat(nct, "<span class='notice'>Incoming priority transmission from Nanotrasen Training Center. Request information as follows: </span><span class='specialnotice'>Career Trainer, we've received a request from an employee. They're called [trainee.real_name], they're a [trainee.mind.assigned_role]. See if they need any help.</span>")
+			to_chat(nct, "<span class='notice'>Incoming priority transmission from Nanotrasen Training Center. Request information as follows: </span><span class='specialnotice'>Career Trainer, we've received a request from an employee. [trainee.p_theyre(TRUE)] called [trainee.real_name], [trainee.p_theyre()] a [trainee.mind.assigned_role]. See if [trainee.p_they()] need [trainee.p_s()] any help.</span>")
 			SEND_SOUND(nct, 'sound/effects/headset_message.ogg')
 
 	SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))

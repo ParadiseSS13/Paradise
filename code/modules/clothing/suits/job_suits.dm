@@ -413,7 +413,7 @@
 
 //NT Career Trainer
 /obj/item/clothing/suit/storage/nct
-	name = "nt career trainer's jacket"
+	name = "\improper NT Career Trainer's jacket"
 	desc = "A sharp black coat with beige trim around the cuffs and collar, offering a mix of professionalism and approachability."
 	icon_state = "trainercoat"
 	blood_overlay_type = "coat"

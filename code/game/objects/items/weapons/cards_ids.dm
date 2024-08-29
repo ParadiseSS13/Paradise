@@ -1086,12 +1086,12 @@
 	icon_state = "data"
 
 /obj/item/card/id/nct_data_chip
-	var/registered_user = null
-	var/trainee = null
 	name = "NCT Trainee Access Chip"
 	assignment = "Nanotrasen Career Trainer"
 	desc = "A small electronic access token that allows its user to copy the access of their Trainee. Only accessible by NT Career Trainers!"
 	icon_state = "nct_chip"
+	var/registered_user = null
+	var/trainee = null
 
 /obj/item/card/id/nct_data_chip/examine(mob/user)
 	. = ..()
@@ -1119,7 +1119,7 @@
 		to_chat(user, "<span class='notice'>You do not have access to use this NCT Trainee Access Chip!</span>")
 		return
 	if(istype(O, /obj/item/card/id/ert))
-		to_chat(user, "<span class='warning'>The chip's screen blink red as you attempt scanning this ID.</span>")
+		to_chat(user, "<span class='warning'>The chip's screen blinks red as you attempt scanning this ID.</span>")
 		return
 	to_chat(user, "<span class='notice'>The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access.</span>")
 	access = I.access
