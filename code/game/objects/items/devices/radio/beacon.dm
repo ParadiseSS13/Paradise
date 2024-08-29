@@ -173,6 +173,6 @@
 
 /obj/item/beacon/wormhole_weaver
 	name = "prototype beacon"
-	desc = "A beacon used by a prototype."
+	desc = "A beacon used by a prototype wormhole device."
 	wormhole_weaver = TRUE
 	icon_state = "beacon_wormhole_weaver"
