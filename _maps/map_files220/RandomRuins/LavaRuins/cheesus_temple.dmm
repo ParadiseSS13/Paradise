@@ -183,7 +183,7 @@
 /area/ruin/powered/cheesus)
 "mO" = (
 /obj/structure/table/wood/fancy/orange,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood/fancy/oak,
 /area/ruin/powered/cheesus)
 "nA" = (

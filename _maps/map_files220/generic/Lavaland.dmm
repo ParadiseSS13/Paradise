@@ -7679,7 +7679,7 @@
 /obj/structure/toilet,
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "De" = (
@@ -8751,7 +8751,7 @@
 	dir = 8;
 	id = "mining_internal"
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "JP" = (
@@ -9943,7 +9943,7 @@
 "Rj" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
@@ -10242,7 +10242,7 @@
 	network = list("Labor Camp")
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -11145,7 +11145,7 @@
 /area/lavaland/surface/outdoors/legion)
 "Yf" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/stack/marker_beacon/ten,
 /obj/item/book/random,
 /turf/simulated/floor/plating,

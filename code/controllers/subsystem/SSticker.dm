@@ -824,7 +824,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/count_xenomorps()
 	. = 0
-	for(var/datum/mind/xeno_mind as anything in SSticker.mode.xenos)
+	for(var/datum/mind/xeno_mind in SSticker.mode.xenos)
 		if(xeno_mind.current?.stat == DEAD)
 			continue
 		.++

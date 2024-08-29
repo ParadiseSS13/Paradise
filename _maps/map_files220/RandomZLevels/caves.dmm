@@ -165,7 +165,7 @@
 	opened = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/awaymission/caves)
 "aK" = (
@@ -8346,7 +8346,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/caves/build)
 "Tc" = (
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/rack,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,

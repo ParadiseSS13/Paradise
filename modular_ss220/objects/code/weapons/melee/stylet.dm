@@ -56,6 +56,6 @@
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
 
-/obj/effect/spawner/lootdrop/maintenance/Initialize(mapload)
+/obj/effect/spawner/random/maintenance/Initialize(mapload)
 	loot += list(/obj/item/melee/stylet = 5)
 	return ..()

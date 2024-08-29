@@ -861,7 +861,7 @@
 /obj/structure/closet/crate/medical,
 /obj/item/roller_holder,
 /obj/item/roller_holder,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -1754,7 +1754,7 @@
 "fA" = (
 /obj/effect/turf_decal/box/corners,
 /obj/structure/closet/crate/secure/gear,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate/syndicate1)
 "fC" = (
@@ -2031,7 +2031,7 @@
 "gr" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "gs" = (
@@ -3558,7 +3558,7 @@
 /area/awaymission/space_battle/hallway6)
 "kI" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /mob/living/simple_animal/hostile/mimic/crate{
 	faction = list("syndicate");
 	health = 80;
@@ -3576,7 +3576,7 @@
 /area/awaymission/space_battle/cruiser)
 "kK" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 6
@@ -3764,7 +3764,7 @@
 	icon_opened = "cardboard_open_syndicate";
 	icon_state = "cardboard_syndicate"
 	},
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate/syndicate2)
@@ -4237,7 +4237,7 @@
 "mU" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/cardboard,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "mV" = (
@@ -4656,7 +4656,7 @@
 	icon_opened = "cardboard_open_syndicate";
 	icon_state = "cardboard_syndicate"
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "oj" = (
@@ -4752,7 +4752,7 @@
 /area/awaymission/space_battle/cruiser)
 "ov" = (
 /obj/structure/closet/crate/secure/gear,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate)
 "ow" = (
@@ -7192,7 +7192,7 @@
 "wy" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "wz" = (
@@ -7382,7 +7382,7 @@
 "wW" = (
 /obj/structure/closet/crate/can,
 /obj/item/reagent_containers/patch/styptic,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 6
@@ -8493,7 +8493,7 @@
 /area/awaymission/space_battle/sec_storage)
 "AF" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /mob/living/simple_animal/hostile/mimic/crate{
 	faction = list("syndicate");
 	health = 80;
@@ -9740,7 +9740,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/sec_storage)
 "Ep" = (
@@ -10002,7 +10002,7 @@
 /area/awaymission)
 "EZ" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/directional/south,
 /obj/item/trash/plate,
 /turf/simulated/floor/plasteel{
@@ -10483,7 +10483,7 @@
 	id = "cargodeliverySB"
 	},
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/awaymission/space_battle/sec_storage)
 "GA" = (
@@ -11304,15 +11304,6 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel,
 /area/awaymission/space_battle/hallway8)
-"IT" = (
-/obj/structure/closet/cardboard{
-	icon_closed = "cardboard_syndicate";
-	icon_opened = "cardboard_open_syndicate";
-	icon_state = "cardboard_syndicate"
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/space_battle/syndicate/syndicate5)
 "IU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
@@ -11633,7 +11624,7 @@
 /area/awaymission/space_battle/bridge)
 "JX" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -12127,7 +12118,7 @@
 	health = 80;
 	maxHealth = 80
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "LC" = (
@@ -13669,7 +13660,7 @@
 /area/awaymission/space_battle/syndicate/syndicate2)
 "Qm" = (
 /obj/structure/closet/crate/secure/gear,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/mineral/plastitanium,
 /area/awaymission/space_battle/syndicate)
@@ -14769,7 +14760,7 @@
 /area/awaymission/space_battle/living)
 "TL" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 9
@@ -76600,7 +76591,7 @@ eN
 ks
 UJ
 XH
-IT
+oi
 ks
 eN
 Nu
