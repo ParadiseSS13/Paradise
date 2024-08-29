@@ -78156,11 +78156,11 @@
 /area/station/security/lobby)
 "oCb" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	name = "engine outlet injector";
+	name = "Waste Disposal Outlet";
 	volume_rate = 200
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/station/engineering/atmos)
 "oCf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop{
