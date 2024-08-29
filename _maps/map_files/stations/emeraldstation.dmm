@@ -68887,12 +68887,13 @@
 	layer = 3.5
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/food/grown/potato/bigpotato{
-	pixel_x = -3
-	},
 /obj/item/clothing/glasses/sunglasses{
 	pixel_y = 4;
 	layer = 3.5
+	},
+/obj/item/beach_ball/baseball{
+	pixel_x = 1;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
