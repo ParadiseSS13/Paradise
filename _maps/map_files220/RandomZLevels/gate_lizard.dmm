@@ -3509,7 +3509,7 @@
 /area/awaymission/jungle_planet/outside)
 "eGz" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -5618,7 +5618,7 @@
 	pixel_x = -5;
 	pixel_y = 6
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "hty" = (
@@ -6915,7 +6915,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "iYQ" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "iZo" = (
@@ -10542,7 +10542,7 @@
 "nuz" = (
 /obj/structure/closet,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "nva" = (
@@ -11618,7 +11618,7 @@
 /area/awaymission/jungle_planet/outside/waterfall)
 "oPC" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
@@ -16589,7 +16589,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "uZY" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "val" = (
@@ -18366,7 +18366,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "xeo" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "xeD" = (

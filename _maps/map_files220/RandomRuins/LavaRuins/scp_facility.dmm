@@ -1200,7 +1200,7 @@
 "Yz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/scpfacility)
 "YD" = (

@@ -2058,7 +2058,7 @@
 	dir = 4;
 	pixel_y = 6
 	},
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/awaymission/beach)
 "BK" = (
@@ -3967,7 +3967,7 @@
 /obj/item/storage/toolbox/fluff{
 	color = "cyan"
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/awaymission/beach)

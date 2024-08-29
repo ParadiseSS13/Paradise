@@ -1046,7 +1046,7 @@
 /area/ruin/space/powered/requires_power_space)
 "yV" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
@@ -1520,7 +1520,7 @@
 /area/ruin/space/powered/requires_power_space)
 "Po" = (
 /obj/structure/closet/crate/engineering,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)

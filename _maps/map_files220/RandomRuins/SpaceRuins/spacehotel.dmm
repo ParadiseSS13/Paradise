@@ -156,7 +156,7 @@
 /area/ruin/space/spacehotelv1/guestroom4)
 "bd" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -348,7 +348,7 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "cB" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/small/directional/east,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
@@ -779,12 +779,6 @@
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/engi1)
-"fN" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "fP" = (
@@ -1826,7 +1820,7 @@
 /area/ruin/space/spacehotelv1/restoraunt2)
 "nn" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -2202,7 +2196,7 @@
 /area/ruin/space/spacehotelv1/guestroom1)
 "pM" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -2603,7 +2597,7 @@
 /area/ruin/space/spacehotelv1/restoraunt3)
 "tg" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -2637,7 +2631,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/structure/rack,
 /obj/random/tool,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "tn" = (
@@ -2939,7 +2933,7 @@
 /area/ruin/space/spacehotelv1/guestroom4)
 "vk" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -3173,7 +3167,7 @@
 "wK" = (
 /obj/structure/rack,
 /obj/random/tool,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -5074,7 +5068,7 @@
 /area/ruin/space/spacehotelv1/entryhallway)
 "Kb" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Kh" = (
@@ -6410,7 +6404,7 @@
 /area/ruin/space/spacehotelv1/kitchen)
 "Ud" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/door_control/bolt_control/east{
 	id = "ext_eva_door";
 	pixel_y = 8
@@ -6698,7 +6692,7 @@
 /area/space/nearstation)
 "Wa" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -11562,7 +11556,7 @@ vI
 Op
 uF
 Op
-fN
+bd
 bd
 Op
 Op

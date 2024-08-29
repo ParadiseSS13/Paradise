@@ -1631,7 +1631,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
 "aSV" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/curtain/black{
 	pixel_y = -32;
 	anchored = 1
@@ -5101,7 +5101,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 30
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/light_fake/small{
 	dir = 1
 	},
@@ -7662,7 +7662,7 @@
 	},
 /area/centcom/ss220/admin3)
 "dPy" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood/neutral,
 /turf/simulated/floor/plasteel{
@@ -25722,7 +25722,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/evac)
 "mUc" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/turf_decal/siding/wood/neutral,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -27099,7 +27099,7 @@
 /turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/syndicate_mothership/outside)
 "nGl" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 4
 	},
@@ -27185,7 +27185,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
 "nHx" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
@@ -28142,7 +28142,7 @@
 "oju" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/delivery/white,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34518,7 +34518,7 @@
 "rtJ" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36523,7 +36523,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/jail)
 "suT" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/light_fake/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood/neutral,
@@ -39769,7 +39769,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/trashcart,
 /obj/item/toy/plushie/voxplushie,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#fff894";
@@ -41665,7 +41665,7 @@
 	},
 /area/centcom/ss220/admin3)
 "veZ" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/light_fake/small{
 	dir = 4
 	},
@@ -43021,7 +43021,7 @@
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "vJf" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "vJZ" = (
@@ -43353,7 +43353,7 @@
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45973,7 +45973,7 @@
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "xie" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 8
 	},
@@ -46656,7 +46656,7 @@
 	},
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

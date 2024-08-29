@@ -8655,7 +8655,7 @@
 /area/awaymission/black_mesa/xen/nihilanth_computer)
 "kDf" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)
 "kDs" = (
@@ -8747,11 +8747,6 @@
 	icon_state = "darkbluefull"
 	},
 /area/awaymission/black_mesa/science_internal)
-"kLs" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/simulated/floor/plasteel/smooth,
-/area/awaymission/black_mesa/deep_sci_storage)
 "kLw" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular{
@@ -9684,11 +9679,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/black_mesa/high_security_surgery)
-"lPu" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plasteel/smooth,
-/area/awaymission/black_mesa/deep_sci_storage)
 "lPH" = (
 /obj/structure/railing{
 	dir = 8
@@ -55200,7 +55190,7 @@ pUB
 nXT
 mIc
 pUB
-lPu
+kDf
 mIc
 kbt
 dgN
@@ -55459,7 +55449,7 @@ mIc
 pUB
 axq
 mIc
-kLs
+kDf
 dgN
 cBU
 cBU
@@ -57256,7 +57246,7 @@ dto
 cbz
 mIc
 oTO
-lPu
+kDf
 mIc
 mIc
 dgN
@@ -58027,7 +58017,7 @@ cBU
 dgN
 fDo
 mIc
-lPu
+kDf
 mIc
 mIc
 hqJ
