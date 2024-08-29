@@ -453,6 +453,7 @@
 	id = "jestosterone"
 	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
 	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
+	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "a funny flavour"
 
 /datum/reagent/jestosterone/on_new()
@@ -477,6 +478,7 @@
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	var/is_robot = (SYNTHETIC) > 0
 	if(prob(10))
 		M.emote("giggle")
 	if(!M.mind)
@@ -502,7 +504,10 @@
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
 		if(M.mind.assigned_role == "Mime")
-			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
+			if(!is_robot)
+				update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
+			else
+				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
 	return ..() | update_flags
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
