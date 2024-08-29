@@ -115,8 +115,6 @@
 	plane = initial(plane)
 	update_icon()
 
-/obj/effect/decal/cleanable/blood/should_merge_decal(turf/T)
-	..()
 
 /obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir)
 	if(gravity_check)
