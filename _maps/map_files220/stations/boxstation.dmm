@@ -32380,6 +32380,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sop_science{
+	pixel_x = 7;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32948,16 +32952,8 @@
 	},
 /area/station/medical/medbay2)
 "cAD" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/syringes{
-	pixel_y = 2;
-	pixel_x = -8
-	},
 /obj/machinery/newscaster/directional/south,
-/obj/item/book/manual/wiki/sop_science{
-	pixel_x = 6;
-	pixel_y = 2
-	},
+/obj/structure/closet/secure_closet/geneticist,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -33611,6 +33607,9 @@
 /obj/item/storage/box/disks{
 	pixel_x = -8;
 	pixel_y = 2
+	},
+/obj/item/storage/box/syringes{
+	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
@@ -52247,7 +52246,6 @@
 /area/station/engineering/atmos)
 "fWQ" = (
 /obj/machinery/light/directional/north,
-/obj/item/storage/box/monkeycubes,
 /turf/simulated/floor/plasteel,
 /area/station/science/genetics)
 "fXj" = (
@@ -53531,6 +53529,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -68569,27 +68570,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "lNE" = (
-/obj/item/storage/box/monkeycubes/wolpincubes{
-	pixel_x = 6;
-	pixel_y = 2
-	},
 /obj/machinery/light/directional/south,
-/obj/item/storage/box/monkeycubes/farwacubes{
-	pixel_x = -6;
-	pixel_y = 2
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/structure/table/glass,
-/obj/item/storage/box/monkeycubes/stokcubes{
-	pixel_x = 6;
-	pixel_y = 10
-	},
-/obj/item/storage/box/monkeycubes/neaeracubes{
-	pixel_x = -6;
-	pixel_y = 10
-	},
+/obj/structure/closet/secure_closet/genetics,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -91567,7 +91549,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

@@ -36882,13 +36882,12 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/obj/machinery/disposal,
 /obj/effect/turf_decal/tile/purple,
 /obj/machinery/camera{
 	c_tag = "Medbay Genetics"
 	},
-/obj/structure/disposalpipe/trunk,
 /obj/machinery/alarm/directional/north,
+/obj/structure/closet/secure_closet/geneticist,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -37419,8 +37418,8 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -38227,6 +38226,9 @@
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -71746,12 +71748,7 @@
 	},
 /area/station/medical/chemistry)
 "pUh" = (
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes/stokcubes,
-/obj/item/storage/box/monkeycubes/neaeracubes,
-/obj/structure/table/glass,
-/obj/item/storage/box/monkeycubes/wolpincubes,
-/obj/item/storage/box/monkeycubes/farwacubes,
+/obj/structure/closet/secure_closet/genetics,
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/genetics)
 "pUq" = (
@@ -76506,6 +76503,10 @@
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
+	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

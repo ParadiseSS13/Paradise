@@ -52498,9 +52498,6 @@
 	dir = 8
 	},
 /obj/structure/sink/directional/south,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -54305,12 +54302,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/execution)
-"fSN" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/science/genetics)
 "fSX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -63686,12 +63677,6 @@
 /area/station/public/toilet)
 "iQv" = (
 /obj/machinery/light/directional/south,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70290,20 +70275,16 @@
 /area/station/maintenance/fore)
 "kRr" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/disks{
-	pixel_y = 4;
-	pixel_x = -8
-	},
-/obj/item/storage/box/disks{
-	pixel_y = 4;
-	pixel_x = 8
-	},
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/machinery/camera{
 	c_tag = "Medbay Genetics";
 	network = list("Medbay","SS13")
 	},
 /obj/machinery/light/directional/north,
+/obj/item/storage/box/disks{
+	pixel_y = 4
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -74882,13 +74863,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -78652,6 +78633,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -79860,6 +79844,9 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -82469,6 +82456,7 @@
 /area/station/maintenance/electrical)
 "oCQ" = (
 /obj/effect/landmark/start/geneticist,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -83552,26 +83540,7 @@
 	},
 /area/station/service/bar/atrium)
 "oXd" = (
-/obj/structure/table,
-/obj/item/storage/box/monkeycubes/farwacubes{
-	pixel_x = -6;
-	pixel_y = 2
-	},
-/obj/item/storage/box/monkeycubes/wolpincubes{
-	pixel_x = 6;
-	pixel_y = 2
-	},
-/obj/item/storage/box/monkeycubes/neaeracubes{
-	pixel_x = -6;
-	pixel_y = 10
-	},
-/obj/item/storage/box/monkeycubes/stokcubes{
-	pixel_x = 6;
-	pixel_y = 10
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
+/obj/structure/closet/secure_closet/genetics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -88553,21 +88522,12 @@
 	},
 /area/station/hallway/primary/central/se)
 "qyr" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_y = 4;
-	pixel_x = -8
-	},
-/obj/item/storage/box/syringes{
-	pixel_y = 4;
-	pixel_x = 8
-	},
 /obj/machinery/door_control/shutter/north{
 	desc = "A remote control switch for the medbay foyer.";
 	id = "GeneticsPrivacy";
 	name = "Genetics Privacy Shutter Control"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/closet/secure_closet/geneticist,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -103051,11 +103011,15 @@
 	name = "Primate Pen";
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start/geneticist,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -104830,11 +104794,13 @@
 	},
 /area/station/medical/chemistry)
 "vzf" = (
-/obj/structure/table,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/item/storage/box/monkeycubes,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -152640,7 +152606,7 @@ dfv
 dfv
 dfv
 qyr
-fSN
+dYb
 mpe
 mKK
 lAk
