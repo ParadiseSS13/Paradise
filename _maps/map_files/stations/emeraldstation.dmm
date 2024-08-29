@@ -6604,7 +6604,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "bmS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -28805,7 +28805,7 @@
 /area/station/supply/expedition)
 "frI" = (
 /turf/simulated/wall,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "frO" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -44209,7 +44209,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "ilh" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
@@ -57188,7 +57188,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "kGX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
@@ -60541,7 +60541,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "loL" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -64622,7 +64622,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "mdi" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
@@ -66293,7 +66293,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "msT" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -69262,7 +69262,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "mXw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -71679,7 +71679,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "nuI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -88463,7 +88463,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "qys" = (
 /obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -111295,7 +111295,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "uEY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -117414,7 +117414,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "vLy" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -124282,7 +124282,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "xdw" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -127699,7 +127699,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "xJH" = (
 /obj/machinery/light_switch{
 	dir = 8;
@@ -127712,7 +127712,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "xJP" = (
 /obj/machinery/power/apc/critical/directional/north,
 /obj/structure/cable{
