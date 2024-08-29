@@ -58,7 +58,7 @@
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
 	SEND_SOUND(world, sound('sound/hallucinations/wail.ogg'))
 	SSticker.mode?.cult_team?.narsie_death()
-	..()
+	return ..()
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	user.forceMove(get_turf(src)) //make_new_construct spawns harvesters at observers locations, could be used to get into admin rooms/CC
