@@ -147,7 +147,7 @@
 		if(target.initialize_directions & get_dir(target,src))
 			node = target
 			break
-	build_network()
+	initialize_atmos_network()
 	update_icon()
 
 /obj/machinery/atmospherics/unary/thermomachine/attack_ai(mob/user)
