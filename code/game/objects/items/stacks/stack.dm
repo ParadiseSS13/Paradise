@@ -57,9 +57,8 @@
 				continue
 			if(can_merge(item_stack))
 				INVOKE_ASYNC(src, PROC_REF(merge_without_del), item_stack)
-				// we do not want to qdel during initialization, so we just check whether or not we're a 0 count stack
+				// we do not want to qdel during initialization, so we just check whether or not we're a 0 count stack and let the hint handle deletion
 				if(is_zero_amount(FALSE))
-					log_debug("[text_ref(src)] returning qdel hint")
 					return INITIALIZE_HINT_QDEL
 
 	update_icon(UPDATE_ICON_STATE)
@@ -78,9 +77,6 @@
 
 /obj/item/stack/Crossed(obj/O, oldloc)
 	if(O == src)
-		return
-
-	if(QDELETED(O))
 		return
 
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
@@ -129,8 +125,6 @@
  */
 /obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
 	// We don't only use istype here, since that will match subtypes, and stack things that shouldn't stack
-	if(QDELETED(src) || QDELETED(check))
-		return FALSE
 	if(!istype(check, merge_type) || check.merge_type != merge_type)
 		return FALSE
 	if(is_cyborg) // No merging cyborg stacks into other stacks
@@ -331,7 +325,6 @@
 
 	if(amount < 1)
 		if(delete_if_zero)
-			log_debug("[text_ref(src)] deleting at zero")
 			qdel(src)
 		return TRUE
 	return FALSE
@@ -347,7 +340,6 @@
 	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
 	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
 	if(QDELETED(material))
-		log_debug("[text_ref(src)] is FUCKING QDELETED.")
 		CRASH("Stack merge attempted on qdeleted target stack.")
 	if(QDELETED(src))
 		CRASH("Stack merge attempted on qdeleted source stack.")

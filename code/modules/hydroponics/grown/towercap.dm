@@ -59,10 +59,7 @@
 		if(seed)
 			seed_modifier = round(seed.potency / 25)
 		var/obj/item/stack/plank = new plank_type(user.loc, 1 + seed_modifier)
-		//plank.forceMove((Adjacent(user) ? user.drop_location() : loc))
-		var/old_plank_amount = plank.amount
-		if(plank.amount > old_plank_amount)
-			to_chat(user, "<span class='notice'>You add the newly-formed [plank_name] to the stack. It now contains [plank.amount] [plank_name].</span>")
+		to_chat(user, "<span class='notice'>You add the newly-formed [plank_name] to the stack.</span>")
 		qdel(src)
 
 	if(CheckAccepted(W))
