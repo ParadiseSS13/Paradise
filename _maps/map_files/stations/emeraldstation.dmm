@@ -11407,7 +11407,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/south)
 "cdO" = (
-/obj/machinery/atmospherics/portable/pump,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -11417,6 +11416,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25125,6 +25125,13 @@
 "eMv" = (
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
+"eMG" = (
+/obj/machinery/atmospherics/binary/volume_pump/on{
+	name = "Air to External";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "eMO" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -52050,7 +52057,6 @@
 	},
 /area/station/science/robotics)
 "jHm" = (
-/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -52060,6 +52066,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81186,13 +81193,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "pcK" = (
-/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -92256,7 +92263,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "rhZ" = (
-/obj/machinery/atmospherics/portable/pump,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -92264,6 +92270,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -152174,7 +152181,7 @@ ttI
 mel
 tFw
 tFw
-gDT
+eMG
 mel
 rwK
 hlq
