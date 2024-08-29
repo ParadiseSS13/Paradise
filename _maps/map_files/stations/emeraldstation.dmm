@@ -20736,10 +20736,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft_port)
 "dTr" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "dTJ" = (
@@ -55738,9 +55738,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "kqZ" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
-	},
+/obj/machinery/atmospherics/trinary/mixer/flipped,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -56140,6 +56138,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58165,11 +58166,11 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "kPL" = (
-/obj/machinery/atmospherics/unary/thermomachine/heater,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
@@ -58414,7 +58415,10 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/abandoned_office)
 "kRm" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer,
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -61122,7 +61126,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "ltw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
@@ -63826,13 +63830,6 @@
 	},
 /area/station/medical/storage)
 "lVd" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4;
-	name = "Portable Air Pump Connector"
-	},
-/obj/machinery/atmospherics/portable/canister{
-	anchored = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
 	},
@@ -63987,10 +63984,6 @@
 	icon_state = "darkgrey"
 	},
 /area/station/security/range)
-"lWe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/station/science/toxins/mixing)
 "lWi" = (
 /obj/item/kirbyplants,
 /obj/item/radio/intercom{
@@ -64057,7 +64050,6 @@
 	},
 /area/station/service/kitchen)
 "lWR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
@@ -70827,6 +70819,9 @@
 /obj/machinery/computer/scan_consolenew{
 	dir = 1
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -73184,6 +73179,12 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/atmos/transit)
+"nIf" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/simulated/wall/r_wall,
+/area/station/science/rnd)
 "nIg" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/spawner/random/maintenance,
@@ -81512,10 +81513,10 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "pfo" = (
-/obj/machinery/atmospherics/unary/portables_connector{
+/obj/machinery/requests_console/directional/south,
+/obj/machinery/atmospherics/unary/thermomachine/heater{
 	dir = 8
 	},
-/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
 	},
@@ -88205,13 +88206,13 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "qvE" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
 /obj/machinery/camera{
 	c_tag = "Research Toxins Mixing East";
 	dir = 8;
 	network = list("Research","SS13")
+	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
@@ -88334,11 +88335,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "qxu" = (
-/obj/machinery/atmospherics/trinary/mixer{
-	dir = 8
-	},
 /obj/structure/sign/nosmoking_1{
 	pixel_y = -30
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
@@ -108967,6 +108968,16 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
+"uio" = (
+/obj/machinery/dna_scannernew,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkpurple"
+	},
+/area/station/science/genetics)
 "uiH" = (
 /obj/structure/chair/sofa/corner{
 	dir = 1;
@@ -109810,10 +109821,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/public/dorms)
-"ure" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel,
-/area/station/science/toxins/mixing)
 "urg" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/dirt,
@@ -114406,6 +114413,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room/secondary)
+"vjN" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/atmospherics/portable/canister{
+	anchored = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/science/toxins/mixing)
 "vjP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
@@ -125314,6 +125330,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -127857,6 +127876,9 @@
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -173152,7 +173174,7 @@ frs
 wdX
 jOL
 xKP
-dsS
+nIf
 fMg
 trE
 tkC
@@ -176494,7 +176516,7 @@ iBG
 tgv
 sTG
 xjA
-bNG
+uio
 bHM
 bNG
 sit
@@ -184198,7 +184220,7 @@ kZa
 kFG
 kRm
 kqZ
-qHd
+vjN
 nAH
 tcB
 nAH
@@ -184454,10 +184476,10 @@ vru
 vru
 kFG
 kPL
-rSs
-ure
+epC
+qHd
 lWR
-lWe
+qHd
 ltw
 qFG
 oTJ
