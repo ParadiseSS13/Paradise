@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(movement)
 			loop.status &= ~MOVELOOP_STATUS_QUEUED
 			loop.timer = world.time + loop.delay
 			queue_loop(loop)
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			break
 
 	if(length(processing))
