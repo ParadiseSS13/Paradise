@@ -191,6 +191,114 @@ Will produce the following JSON:
 
 Note how `"sample text"` only appears once. `text` is a set with no duplicates, instead of a list with duplicates. Also take note how the `increment` parameter is not used here. It does nothing to the data, and `1` is used just as the value for consistency.
 
+### Ledger
+
+`ledger` is used for appending entries to a record. It is effectively the same as `tally`, except instead of adding the value to the existing one, it stores the value of each call in a list. This is useful for situations where you have a specific key for which you'd like to store a unique value for each time the key is used in feedback. For example, if the clown puts on multiple comedy shows and you want to record the attendance for each one:
+
+```dm
+SSblackbox.record_feedback("ledger", "tickets_sold_per_show", 15, "general_admission")
+SSblackbox.record_feedback("ledger", "tickets_sold_per_show", 5, "front_row")
+SSblackbox.record_feedback("ledger", "tickets_sold_per_show", 20, "general_admission")
+SSblackbox.record_feedback("ledger", "tickets_sold_per_show", 2, "front_row")
+```
+
+Will produce the following JSON:
+
+```json
+{
+	"data": {
+		"tickets_sold_per_show": {
+			"general_admission": [15, 20],
+			"front_row": [5, 2]
+		}
+	}
+}
+```
+
+Note that items here may be text. Unlike the `text` feedback type, items are added in order and duplicates are permitted.
+
+```dm
+SSblackbox.record_feedback("ledger", "menu_items", "fried eggs", "breakfast")
+SSblackbox.record_feedback("ledger", "menu_items", "coffee", "breakfast")
+SSblackbox.record_feedback("ledger", "menu_items", "hamburgers", "lunch")
+SSblackbox.record_feedback("ledger", "menu_items", "french fries", "lunch")
+```
+
+Will produce the following JSON:
+
+```json
+{
+  "data": {
+    "breakfast": ["fried eggs", "coffee"],
+    "lunch": ["hamburgers", "french fries"]
+  }
+}
+```
+
+### Nested Ledger
+
+`nested ledger` uses the logic of `nested tally`, except instead of adding the value to the last element, it uses the last element as the tracking key for a list of items, appending each one. For example, if you wanted to store individual crew ratings for meals made by different chefs:
+
+```dm
+SSblackbox.record_feedback("nested ledger", "meal_ratings", 5, list("Chef Marceau", "hamburger"))
+SSblackbox.record_feedback("nested ledger", "meal_ratings", 2, list("Chef Marceau", "hamburger"))
+SSblackbox.record_feedback("nested ledger", "meal_ratings", 1, list("Chef Poincare", "hamburger"))
+SSblackbox.record_feedback("nested ledger", "meal_ratings", 3, list("Chef Poincare", "hamburger"))
+```
+
+Will produce the following JSON:
+
+```json
+{
+  "data": {
+    "Chef Marceau": { "hamburger": [5, 2] },
+    "Chef Poincare": { "hamburger": [1, 3] }
+  }
+}
+```
+
+As with `ledger`, text values may be accumulated in this manner.
+
+#### NOTE
+
+The `ledger` and `nested ledger` feedback types should only be used as a last resort. The primary intent of the blackbox system is to track the number of times something has happened. It is extremely rare that one should require the granularity provided by these feedback types accumulating multiple discrete statistics on a single row. They are provided as an escape hatch for unusual situations, and to avoid unnecessary repetition of text in the JSON. For example, if one were tracking the individual center coordinates of each ruin placed, and the same ruin may be placed more than once, use of the `associative` feedback type may result in this implementation:
+
+```dm
+var/coord_string = "[central_turf.x],[central_turf.y],[central_turf.z]"
+SSblackbox.record_feedback("associative", "ruin_placement", 1, list(
+	"map" = map_filename,
+	"coords" = coord_string
+))
+```
+
+returning the following JSON:
+
+```json
+{
+	"data": {
+		"1": { "map": "listeningpost.dmm", "coords": "127,169,5" },
+		"2": { "map": "listeningpost.dmm", "coords": "64,134,4" }
+	}
+}
+```
+
+This creates unnecessary repetition of the map name, as well as the `"map"` and `"coords"` keys. As well, the numeric keys associated with each row are meaningless. Using `ledger` may transform this into:
+
+```dm
+var/coord_string = "[central_turf.x],[central_turf.y],[central_turf.z]"
+SSblackbox.record_feedback("ledger", "ruin_placement", coord_string, map_filename)
+```
+
+returning the following JSON:
+
+```json
+{
+	"data": {
+		"listeningpost.dmm": ["127,169,5", "64,134,4"]
+	}
+}
+```
+
 ## Feedback Versioning
 
 If the logging content (i.e.: What data is logged) for a variable is ever changed, the version needs bumping. This can be done with the `versions` list on the subsystem definition itself. All values default to `1`.
