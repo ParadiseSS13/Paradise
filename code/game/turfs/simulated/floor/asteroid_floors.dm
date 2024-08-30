@@ -170,6 +170,7 @@
 	temperature = 1000
 	oxygen = 0
 	nitrogen = 0
+	carbon_dioxide = 1.2
 	toxins = 10
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/plasma
 	atmos_mode = ATMOS_MODE_NO_DECAY

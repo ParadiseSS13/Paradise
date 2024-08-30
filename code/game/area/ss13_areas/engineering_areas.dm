@@ -33,11 +33,6 @@
 	icon_state = "asteroid_atmos"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
-/area/station/engineering/atmos/asteroid_maint
-	name = "Asteroid"
-	icon_state = "asteroid_maint"
-	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-
 /area/station/engineering/atmos/asteroid_core
 	name = "Asteroid Molten Core"
 	icon_state = "asteroid_core"

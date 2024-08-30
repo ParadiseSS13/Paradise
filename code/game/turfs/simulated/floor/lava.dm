@@ -284,6 +284,7 @@
 	temperature = 1000
 	oxygen = 0
 	nitrogen = 0
+	carbon_dioxide = 1.2
 	toxins = 10
 	light_range = 3
 	light_power = 0.75

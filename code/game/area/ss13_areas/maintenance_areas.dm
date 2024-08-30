@@ -268,3 +268,7 @@
 /area/station/maintenance/security/aft_starboard
 	name = "Security Maintenance Aft Starboard"
 	icon_state = "sec_maint_as"
+
+/area/station/engineering/atmos/asteroid_maint
+	name = "Asteroid Filtering Maintenance"
+	icon_state = "asteroid_maint"

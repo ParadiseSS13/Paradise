@@ -26,6 +26,7 @@
 /datum/milla_safe/plasmageyser/on_run(obj/structures/plasmageyser/tile)
 	var/max_pressure = ONE_ATMOSPHERE * 3
 	var/toxins_modifier = 100
+	var/co2_modifier = 12
 	var/target_temp = 1000
 	var/turf/T = get_turf(tile)
 	var/datum/gas_mixture/environment = get_turf_air(T)
@@ -36,5 +37,6 @@
 	if(environment_pressure >= max_pressure)
 		return
 	add_moles.set_toxins(toxins_modifier)
+	add_moles.set_carbon_dioxide(co2_modifier)
 	add_moles.set_temperature(target_temp)
 	environment.merge(add_moles)
