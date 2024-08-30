@@ -678,6 +678,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/machinery/computer/guestpass{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -83204,9 +83207,6 @@
 /area/station/command/vault)
 "puY" = (
 /obj/structure/filingcabinet/security,
-/obj/machinery/computer/guestpass{
-	pixel_y = 30
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -90087,7 +90087,7 @@
 	name = "requests board";
 	pixel_x = 26;
 	dir = 8;
-	layer = 3.2
+	layer = 3.7
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/supply/mail_sorting{
 	dir = 1
@@ -119430,6 +119430,9 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/glasses/welding,
+/obj/machinery/computer/guestpass{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
