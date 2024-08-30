@@ -476,7 +476,7 @@
 			C.AddElement(/datum/element/waddling)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 
-/datum/reagent/jestosterone/on_mob_life(mob/living/human/carbon/M)
+/datum/reagent/jestosterone/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/is_robot = (SYNTHETIC) > 0
 	if(prob(10))
