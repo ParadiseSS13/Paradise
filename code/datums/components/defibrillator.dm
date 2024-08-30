@@ -183,8 +183,8 @@
 	)
 
 	busy = TRUE
-	var/mob/dead/observer/ghost = target.get_ghost(TRUE)
-	if(ghost?.can_reenter_corpse)
+	var/mob/dead/observer/ghost = target.get_ghost()
+	if(ghost)
 		to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
 		window_flash(ghost.client)
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
