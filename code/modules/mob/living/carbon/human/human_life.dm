@@ -621,7 +621,7 @@
 		death()
 		return
 
-	if(brain?.damage >= (brain.max_damage * 10 / 12)) // braindeath
+	if(brain?.damage >= (brain.max_damage * BRAIN_DAMAGE_RATIO_CRITICAL)) // braindeath
 		dna.species.handle_brain_death(src)
 
 	if(!check_death_method())
