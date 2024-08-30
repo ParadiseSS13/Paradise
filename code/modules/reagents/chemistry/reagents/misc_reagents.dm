@@ -503,11 +503,11 @@
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
 		if(M.mind.assigned_role == "Mime")
-			if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+			if(!(M.dna.species.reagent_tag & PROCESS_SYN)) // Ensures the mob that is processing the reagent is Organic
 				update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
-			else
-				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
-	return ..() | update_flags
+			else // Only activates if the mob that is processing the reagent is Synthetic (IPC)
+				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE) // The ", robotic = TRUE" just means it affects robotic limbs, which an IPC is fully robotic
+	return ..() | update_flags 																	   // Using burn instead of toxin for IPCs since IPCs don't suffer toxin and poison can feel similar to burns
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
