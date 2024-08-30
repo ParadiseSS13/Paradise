@@ -478,7 +478,6 @@
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/is_robot = (SYNTHETIC) > 0
 	if(prob(10))
 		M.emote("giggle")
 	if(!M.mind)
