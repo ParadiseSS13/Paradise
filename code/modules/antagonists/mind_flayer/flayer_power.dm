@@ -96,11 +96,9 @@
 		if("purchase")
 			var/path = text2path(params["ability_path"])
 			on_purchase(user, path)
-			ui.send_full_update()
+			update_static_data()
 
-/*
-	Takes in a category name and grabs the paths of all the spells/passives specific to that category. Used for TGUI
-*/
+// Takes in a category name and grabs the paths of all the spells/passives specific to that category. Used for TGUI
 /datum/antagonist/mindflayer/proc/get_powers_of_category(category)
 	var/list/list/powers = list()
 	for(var/path in ability_list)
@@ -168,21 +166,19 @@
 	var/list/list/static_data = list()
 	static_data["ability_tabs"] = flayer.build_ability_tabs()
 	return static_data
-/*
-* Given a path, return TRUE if the path is a mindflayer spell, or FALSE otherwise. Only used to sort passives from spells.
-*/
+
+// Given a path, return TRUE if the path is a mindflayer spell, or FALSE otherwise. Only used to sort passives from spells.
 /datum/antagonist/mindflayer/proc/is_path_spell(path)
 	var/spell = new path() //No need to give it an owner since we're just checking the type
 	var/return_value = isspell(spell)
 	qdel(spell)
 	return return_value
 
-
-/*Given a spell, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
+/*
+* Given a spell, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
 * If so it adds the ability and increments the category stage if needed, then returns TRUE
 * otherwise, returns FALSE
 */
-
 /datum/antagonist/mindflayer/proc/try_purchase_spell(datum/spell/flayer/to_add)
 	var/datum/spell/flayer/existing_spell = has_spell(to_add)
 	if(existing_spell)
@@ -208,8 +204,10 @@
 	adjust_swarms(-to_add.current_cost)
 	add_ability(to_add, src) //Level gets set to 1 when AddSpell is called later, it also handles the cost
 	return TRUE // The reason we do this is cause we don't have the spell object that will get added to the mindflayer yet
+
 /*
-* Given a spell, checks to see if the mindflayer has all the prerequisites to upgrade a spell. Returns FALSE if the spell was not upgrade, TRUE if it was.
+* Given a spell, checks to see if the mindflayer has all the prerequisites to upgrade a spell.
+* Returns FALSE if the spell was not upgrade, TRUE if it was.
 */
 /datum/antagonist/mindflayer/proc/try_upgrade_spell(datum/spell/flayer/to_upgrade)
 	if(to_upgrade.level >= to_upgrade.max_level)
@@ -224,7 +222,8 @@
 	add_ability(to_upgrade, src)
 	return TRUE
 
-/*Given a passive, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
+/*
+* Given a passive, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
 * If so it adds the ability and increments the category stage if needed, then returns TRUE
 * otherwise, returns FALSE
 */
@@ -258,7 +257,8 @@
 	return TRUE
 
 /*
- * Mindflayer code relies on on_purchase to grant powers and passives. It first splits up whether the path bought was a passive or spell, then checks if the flayer can afford it.
+ * Mindflayer code relies on on_purchase to grant powers and passives.
+ * It first splits up whether the path bought was a passive or spell, then checks if the flayer can afford it.
  * Returns TRUE if an ability was added, FALSE otherwise
  */
 /datum/spell/flayer/proc/on_purchase(mob/user, datum/path)

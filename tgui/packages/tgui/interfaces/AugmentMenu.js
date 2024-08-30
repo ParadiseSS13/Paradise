@@ -1,21 +1,17 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section, LabeledList, Tabs, Icon, Stack, Input } from '../components';
+import { Box, Button, Section, LabeledList, Tabs, Icon, Input } from '../components';
 import { Window } from '../layouts';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
-import { createSearch } from 'common/string';
-/*
- * Abandon all hope ye who enter here whom know what good javascript looks like
- */
+import { createSearch, capitalize } from 'common/string';
+
 export const AugmentMenu = (props, context) => {
   return (
-    <Window width={700} height={700} theme="changeling">
+    <Window width={700} height={700} theme="malfunction">
       <Window.Content>
-        <Stack fill vertical>
+        <Box scrollable>
           <Abilities />
-          <Upgrades // Not sure if I'll be lazy and keep upgrades down here, or move them into a separate tab
-          />
-        </Stack>
+        </Box>
       </Window.Content>
     </Window>
   );
@@ -27,7 +23,7 @@ const Abilities = (props, context) => {
 
   const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', ability_tabs[0]);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [abilities, setAbilities] = useLocalState(context, 'abilities', ability_tabs[0].abilities);
+  const [abilities, setAbilities] = useLocalState(context, 'abilities', selectedTab.abilities);
 
   const selectAbilities = (abilities, searchText = '') => {
     if (!abilities || abilities.length === 0) {
@@ -51,103 +47,111 @@ const Abilities = (props, context) => {
     setAbilities(selectAbilities(ability_tabs.map((ability_entry) => ability_entry.abilities).flat(), value));
   };
 
-  const handleTabChange = (selectedTab) => {
-    setSelectedTab(selectedTab);
-    const abilitiesToDisplay = selectedTab.abilities.filter((ability) => ability.stage <= selectedTab.category_stage);
+  const handleTabChange = (tab) => {
+    setSelectedTab(tab);
+    if (tab.category_name === 'Upgrades') {
+      setSearchText('');
+      return;
+    }
+    const abilitiesToDisplay = tab.abilities.filter((ability) => ability.stage <= tab.category_stage);
     setAbilities(abilitiesToDisplay);
     setSearchText('');
   };
 
   return (
-    <Stack.Item grow>
-      <Section
-        fill
-        scrollable
-        title={'Swarms: ' + usable_swarms}
-        buttons={
-          <Input
-            width="200px"
-            placeholder="Search Abilities"
-            onInput={(e, value) => {
-              handleSearch(value);
-            }}
-            value={searchText}
-          />
-        }
-      >
-        <Tabs>
-          {ability_tabs.map((tab) => (
-            <Tabs.Tab
-              key={tab.category_name}
-              selected={searchText === '' && selectedTab === tab}
-              onClick={() => {
-                handleTabChange(tab);
-              }}
-            >
-              {tab.category_name}
-            </Tabs.Tab>
-          ))}
-        </Tabs>
-        {abilities.map((ability, i) => {
-          return (
-            <Stack.Item p={1} key={i} textAlign="left" grow={1}>
-              <Box>
-                <Stack allign="center">
-                  <Stack.Item mr={8}>{ability.name}</Stack.Item>
-                  {ability.desc}
-                  <Stack.Item textAlign="right">
-                    <Button
-                      content={ability.cost}
-                      icon="minus"
-                      disabled={ability.cost > usable_swarms}
-                      tooltip="Purchase this ability?"
-                      onClick={() => act('purchase', { ability_path: ability.ability_path })} // This should really also update the contents of the tab, but idk how to make buttons do two things at once
-                      textAlign="right"
-                    />
-                  </Stack.Item>
-                </Stack>
+    <Section
+      title={'Swarms: ' + usable_swarms}
+      buttons={
+        <Input
+          width="200px"
+          placeholder="Search Abilities"
+          onInput={(e, value) => {
+            handleSearch(value);
+          }}
+          value={searchText}
+        />
+      }
+    >
+      <Tabs mb={2}>
+        {ability_tabs.map((tab) => (
+          <Tabs.Tab key={tab.category_name} selected={selectedTab === tab} onClick={() => handleTabChange(tab)}>
+            {capitalize(tab.category_name)}
+          </Tabs.Tab>
+        ))}
+        <Tabs.Tab
+          key="upgrades"
+          selected={selectedTab.category_name === 'Upgrades'}
+          onClick={() => handleTabChange({ category_name: 'Upgrades' })}
+        >
+          Upgrades
+        </Tabs.Tab>
+      </Tabs>
+      {selectedTab.category_name === 'Upgrades' ? (
+        <Upgrades />
+      ) : (
+        abilities.map((ability) => (
+          <Box key={ability.name} direction="row" align="left">
+            <Box>
+              <Button
+                height="20px"
+                width="35px"
+                mb={1}
+                mr="1rem"
+                textAlign="center"
+                content={ability.cost}
+                disabled={ability.cost > usable_swarms}
+                tooltip="Purchase this ability?"
+                onClick={() => act('purchase')}
+              />
+              <Box as="span" fontSize="1.4rem">
+                {ability.name}
               </Box>
-            </Stack.Item>
-          );
-        })}
-      </Section>
-    </Stack.Item>
+              <br />
+              <Box as="span" fontSize="1.1rem">
+                {ability.desc}
+              </Box>
+              <hr color="gray" />
+            </Box>
+          </Box>
+        ))
+      )}
+    </Section>
   );
 };
+
 const Upgrades = (props, context) => {
   const { act, data } = useBackend(context);
   const { usable_swarms, known_abilities } = data;
   return (
-    <Stack.Item grow>
-      <Section fill scrollable title="Potential Upgrades">
-        {known_abilities.map((ability, i) => {
-          return (
-            ability.current_level < ability.max_level && ( // Putting this logic expression here means itll only render if this is true
-              <Box key={i}>
-                <Stack>
-                  <Stack.Item bold>{ability.name}</Stack.Item>
-                  <Stack.Item fontSize={1}>{ability.upgrade_text}</Stack.Item>
-                  <Stack.Item>
-                    <Box bold>
-                      Level: {ability.current_level} / {ability.max_level}
-                    </Box>
-                  </Stack.Item>
-                  <Stack.Item>
-                    <Button
-                      content={ability.cost}
-                      icon="minus"
-                      disabled={ability.cost > usable_swarms}
-                      tooltip="Upgrade this ability?"
-                      onClick={() => act('purchase', { ability_path: ability.ability_path })}
-                      textAlign="right"
-                    />
-                  </Stack.Item>
-                </Stack>
+    <Box>
+      {known_abilities.map(
+        (ability, i) =>
+          ability.current_level < ability.max_level && (
+            <Box key={ability.name} direction="row" align="left">
+              <Button
+                height="20px"
+                width="35px"
+                mb={1}
+                mr="1rem"
+                content={ability.cost}
+                disabled={ability.cost > usable_swarms}
+                tooltip="Upgrade this ability?"
+                onClick={() => act('purchase')}
+              />
+              <Box as="span" fontSize="1.4rem">
+                {ability.name}
               </Box>
-            )
-          );
-        })}
-      </Section>
-    </Stack.Item>
+              <br />
+              <Box as="span" fontSize="1.1rem">
+                {ability.upgrade_text}
+              </Box>
+              <Box color="green">
+                Level: {ability.current_level} / {ability.max_level}
+              </Box>
+              <hr color="gray" />
+            </Box>
+          )
+      )}
+    </Box>
   );
 };
