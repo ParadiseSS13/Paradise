@@ -5,6 +5,7 @@
 	icon_state = "mining-charge-2"
 	item_state = "charge_indust"
 	det_time = 5
+	origin_tech = "materials=1"
 	notify_admins = FALSE // no need to make adminlogs on lavaland, while they are "safe" to use
 	/// When TRUE, charges won't detonate on it's own. Used for mining detonator
 	var/timer_off = FALSE
