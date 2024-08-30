@@ -50610,9 +50610,6 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/requests_console/directional/south{
-	pixel_x = 30
-	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "drV" = (
@@ -90054,6 +90051,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"wBd" = (
+/obj/machinery/requests_console/directional/north,
+/turf/simulated/floor/bluegrid,
+/area/station/turret_protected/ai)
 "wBy" = (
 /obj/machinery/light{
 	dir = 4
@@ -131337,7 +131338,7 @@ drf
 drf
 drf
 drf
-dry
+wBd
 drO
 drI
 dry
