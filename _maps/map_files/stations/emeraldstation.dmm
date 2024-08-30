@@ -111504,13 +111504,6 @@
 	icon_state = "blue"
 	},
 /area/station/hallway/primary/fore/north)
-"uHo" = (
-/obj/machinery/photocopier,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbrown"
-	},
-/area/station/supply/qm)
 "uHu" = (
 /obj/structure/closet/wardrobe/mixed,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -149561,7 +149554,7 @@ mHW
 cWe
 olQ
 pSG
-uHo
+nJL
 riQ
 qug
 nJL
