@@ -160,7 +160,7 @@
 	if(W.get_heat())
 		lighter = user.ckey
 		user.create_log(MISC_LOG, "lit a bonfire", src)
-		StartBurning()
+		StartBurning(user)
 
 
 /obj/structure/bonfire/attack_hand(mob/user)
@@ -181,17 +181,19 @@
 /obj/structure/bonfire/proc/CheckOxygen()
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/G = T.get_readonly_air()
-	if(G.oxygen() > 13)
+	if(G.oxygen() > 7)
 		return 1
 	return 0
 
-/obj/structure/bonfire/proc/StartBurning()
+/obj/structure/bonfire/proc/StartBurning(mob/user)
 	if(!burning && CheckOxygen())
 		icon_state = "bonfire_on_fire"
 		burning = 1
 		set_light(6, l_color = "#ED9200")
 		Burn()
 		START_PROCESSING(SSobj, src)
+	if(!CheckOxygen())
+		to_chat(user, "<span class='warning'>You can't seem to ignite [src] in this environment!")
 
 /obj/structure/bonfire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
