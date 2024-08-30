@@ -504,7 +504,7 @@
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
 		if(M.mind.assigned_role == "Mime")
-			if(!is_robot)
+			if(!SYNTHETIC)
 				update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
 			else
 				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
