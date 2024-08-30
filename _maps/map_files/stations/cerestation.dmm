@@ -20302,11 +20302,8 @@
 "ckQ" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=ArrivalsMiddle";
-	location = "ArrivalsWest2";
-	name = "navigation beacon (Arrivals-West2)"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+	location = "ArrivalsWest";
+	name = "navigation beacon (Arrivals-West)"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -22137,9 +22134,7 @@
 	},
 /area/station/science/xenobiology)
 "cAn" = (
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"
@@ -32621,15 +32616,16 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "dTC" = (
+/obj/machinery/hologram/holopad,
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Security";
-	location = "CommandMiddle2";
-	name = "navigation beacon (Command-Middle 2)"
+	codes_txt = "patrol;next_patrol=CargoWest";
+	location = "MedbayWest";
+	name = "navigation beacon (Medbay-West)"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/hallway/primary/fore/north)
+/area/station/hallway/primary/starboard/south)
 "dTI" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=EngineeringMiddle";
@@ -42363,7 +42359,7 @@
 /area/station/command/office/ntrep)
 "heH" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Medbay";
+	codes_txt = "patrol;next_patrol=MedbayWest";
 	location = "ArrivalsMiddle";
 	name = "navigation beacon (Arrivals-Middle)"
 	},
@@ -47841,14 +47837,14 @@
 /area/station/hallway/primary/port/north)
 "iJJ" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=ArrivalsWest2";
-	location = "ArrivalsWest";
-	name = "navigation beacon (Arrivals-West)"
+	codes_txt = "patrol;next_patrol=CommandMiddle";
+	location = "CargoWest";
+	name = "navigation beacon (Cargo-West)"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/hallway/secondary/entry/west)
+/area/station/hallway/primary/fore/east)
 "iJM" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/effect/spawner/random_spawners/grille_maybe,
@@ -51813,10 +51809,7 @@
 /area/station/maintenance/port)
 "jMh" = (
 /obj/item/kirbyplants,
-/obj/machinery/requests_console{
-	department = "Psychiatrist";
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
 "jMr" = (
@@ -66558,14 +66551,10 @@
 	},
 /area/station/service/bar)
 "onW" = (
-/obj/machinery/requests_console{
-	department = "Janitorial";
-	departmentType = 1;
-	pixel_y = 30
-	},
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "ooj" = (
@@ -91898,6 +91887,19 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical_shop)
+"vQu" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Security";
+	location = "CommandMiddle2";
+	name = "navigation beacon (Command-Middle 2)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/fore/north)
 "vQv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -132921,7 +132923,7 @@ bAK
 mZB
 bEi
 bUO
-ugQ
+vQu
 sGY
 npV
 abW
@@ -136262,7 +136264,7 @@ abW
 abW
 aKp
 dwg
-dTC
+vuY
 qtB
 aKp
 npV
@@ -140482,7 +140484,7 @@ mIS
 vLT
 vaz
 eSb
-dbg
+ckQ
 eWu
 rFJ
 qHn
@@ -140994,10 +140996,10 @@ gge
 vWF
 vWF
 uDW
-iJJ
+dbg
 sFj
 dbg
-ckQ
+eWu
 vjb
 qHn
 rNK
@@ -145811,7 +145813,7 @@ kxJ
 bvt
 was
 bvt
-ljp
+dTC
 xcW
 qcS
 qcS
@@ -148872,7 +148874,7 @@ fmI
 fmI
 fmI
 fmI
-fmI
+iJJ
 fmI
 fmI
 fmI

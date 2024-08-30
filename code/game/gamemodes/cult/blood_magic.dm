@@ -388,7 +388,7 @@
 
 /obj/item/melee/blood_magic/Initialize(mapload, spell)
 	. = ..()
-	if(has_source)
+	if(spell && has_source)
 		source = spell
 		uses = source.charges
 		health_cost = source.health_cost

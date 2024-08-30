@@ -59,6 +59,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	name = "recharger"
 	desc = "A charging dock for energy based weaponry. Did it just-"
 	icon_state = "autolathe_trap"
+	board_type = /obj/item/circuitboard/autolathe/trapped
 	//Has someone put an item in the autolathe, breaking the hologram?
 	var/disguise_broken = FALSE
 
