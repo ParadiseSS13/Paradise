@@ -112,8 +112,8 @@
 
 /obj/structure/sign/wait
 	name = "\improper WAIT FOR DECONTAMINATION!"
-	desc = "A warning sign which reads: WAIT! \
-	Before returning from the asteroid internal zone, please wait for the in-built scrubber system to remove all traces of the toxis atmosphere. This will take approximately 20 seconds. \
+	desc = "A warning sign which reads: WAIT! <BR>\
+	Before returning from the asteroid internal zone, please wait for the in-built scrubber system to remove all traces of the toxic atmosphere. This will take approximately 20 seconds.<BR> \
 	Failure to adhere to this safety regulation will result in large plasmafires that will destroy the locking mechanisms."
 	icon_state = "waitsign"
 

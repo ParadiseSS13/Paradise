@@ -451,7 +451,6 @@
 "Ub" = (
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
-/obj/item/malfbroom,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
