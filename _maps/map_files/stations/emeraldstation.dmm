@@ -38806,10 +38806,6 @@
 	id_tag = "conference"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast south";
-	name = "Bridge Blast Doors"
-	},
-/obj/machinery/door/poddoor/preopen{
 	id_tag = "bridge blast entrance";
 	name = "Bridge Blast Doors"
 	},
