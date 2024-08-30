@@ -476,7 +476,7 @@
 			C.AddElement(/datum/element/waddling)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 
-/datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
+/datum/reagent/jestosterone/on_mob_life(mob/living/human/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/is_robot = (SYNTHETIC) > 0
 	if(prob(10))
@@ -484,7 +484,7 @@
 	if(!M.mind)
 		return ..() | update_flags
 	if(M.mind.assigned_role == "Clown")
-		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
+		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(20 SECONDS, 0, 100 SECONDS)
 		M.Druggy(30 SECONDS)
@@ -507,7 +507,7 @@
 			if(!is_robot)
 				update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
 			else
-				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
+				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
 	return ..() | update_flags
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
