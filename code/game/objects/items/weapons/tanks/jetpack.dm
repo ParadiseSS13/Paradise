@@ -95,21 +95,28 @@
 	on = FALSE
 	icon_state = initial(icon_state)
 
-/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user)
-	if(!on)
-		return 0
+/obj/item/tank/jetpack/dropped(mob/user, silent)
+	. = ..()
+	if(on)
+		turn_off(user)
+
+/obj/item/tank/jetpack/proc/allow_thrust(num)
+	if(!ismob(loc))
+		return FALSE
+	var/mob/user = loc
+
 	if((num < 0.005 || air_contents.total_moles() < num))
 		turn_off(user)
-		return 0
+		return FALSE
 
 	var/datum/gas_mixture/removed = air_contents.remove(num)
 	if(removed.total_moles() < 0.005)
 		turn_off(user)
-		return 0
+		return FALSE
 
 	var/turf/T = get_turf(user)
 	T.blind_release_air(removed)
-	return 1
+	return TRUE
 
 /obj/item/tank/jetpack/improvised
 	name = "improvised jetpack"
