@@ -11712,13 +11712,6 @@
 	icon_state = "vault"
 	},
 /area/station/security/evidence)
-"cgp" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/machinery/kitchen_machine/grill,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft)
 "cgq" = (
 /obj/structure/lattice,
 /obj/effect/landmark/spawner/carp,
@@ -15759,10 +15752,6 @@
 	icon_state = "darkbrown"
 	},
 /area/station/supply/qm)
-"cWz" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft)
 "cWD" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -16159,13 +16148,6 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/computer)
-"daV" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/item/storage/box/donkpockets,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft)
 "daX" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -19256,7 +19238,6 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft)
 "dEd" = (
@@ -25639,13 +25620,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
-"eQJ" = (
-/obj/item/food/mint,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
-	},
-/area/station/hallway/primary/aft)
 "eQK" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -32730,7 +32704,6 @@
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft)
 "geh" = (
@@ -57479,11 +57452,6 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/item/reagent_containers/drinks/bottle/cream{
-	pixel_x = 6;
-	pixel_y = -2
-	},
-/obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft)
 "kIU" = (
@@ -59976,7 +59944,6 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitecorner"
@@ -60735,12 +60702,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
-"lpe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/reagentgrinder,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft)
 "lph" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
@@ -65248,10 +65209,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"miH" = (
-/obj/machinery/cooker/deepfryer,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft)
 "miK" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -70497,14 +70454,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/public/sleep)
-"niD" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/item/kitchen/rollingpin,
-/obj/item/food/dough,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft)
 "niO" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -79816,11 +79765,6 @@
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/port)
-"oPI" = (
-/obj/item/eftpos/register,
-/obj/item/wrench,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft)
 "oPP" = (
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Asteroid Plasma Processing"
@@ -95239,10 +95183,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft)
 "rIG" = (
@@ -98770,14 +98710,6 @@
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"snS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft)
 "snW" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -107110,10 +107042,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
-"tOC" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/aft)
 "tOQ" = (
 /obj/machinery/power/treadmill{
 	dir = 8
@@ -163312,10 +163240,10 @@ rxd
 rxd
 obN
 ppu
-oPI
-cgp
-miH
-eQJ
+ppu
+vfQ
+ppu
+oaW
 lif
 fXg
 oaW
@@ -163569,10 +163497,10 @@ ffC
 ffC
 vVy
 nsy
-lpe
+nsy
 rIC
 kIL
-snS
+nsy
 dEa
 sti
 gCR
@@ -163826,11 +163754,11 @@ rxd
 rxd
 obN
 ppu
-cWz
-tOC
+ppu
+ppu
 ged
-daV
-niD
+wQP
+ndW
 asC
 jfp
 ppu
