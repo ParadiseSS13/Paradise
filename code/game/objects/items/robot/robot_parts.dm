@@ -241,6 +241,7 @@
 						M.next_possible_ghost_ping = world.time + 30 SECONDS // Avoid spam
 				else
 					to_chat(user, "<span class='notice'>[M] is completely unresponsive; there's no point.</span>")
+					return
 				to_chat(user, "<span class='warning'>[M] is currently inactive. Try again later.</span>")
 				return
 
