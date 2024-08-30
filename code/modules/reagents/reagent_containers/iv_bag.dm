@@ -47,19 +47,17 @@
 
 /obj/item/reagent_containers/iv_bag/proc/begin_processing(mob/target)
 	injection_target = target
-	ADD_TRAIT(injection_target, TRAIT_HAS_IV_BAG, UID())
 	RegisterSignal(injection_target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/proc/end_processing()
 	if(injection_target)
-		REMOVE_TRAIT(injection_target, TRAIT_HAS_IV_BAG, UID())
 		UnregisterSignal(injection_target, COMSIG_PARENT_EXAMINE)
-		injection_target = null
+	injection_target = null
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/process()
-	if(!injection_target)
+	if(QDELETED(injection_target))
 		end_processing()
 		return
 
@@ -114,9 +112,6 @@
 			end_processing()
 		else // Inserting the needle
 			if(!L.can_inject(user, TRUE))
-				return
-			if(HAS_TRAIT(target, TRAIT_HAS_IV_BAG))
-				to_chat(user, "<span class='warning'>[target] already [target.p_have()] another IV bag inserted into [target.p_them()]!</span>")
 				return
 			if(amount_per_transfer_from_this > 10) // We only want to be able to transfer 1, 5, or 10 units to people. Higher numbers are for transfering to other containers
 				to_chat(user, "<span class='warning'>The IV bag can only be used on someone with a transfer amount of 1, 5 or 10.</span>")
