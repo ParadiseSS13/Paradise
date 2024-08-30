@@ -98,8 +98,8 @@ const MainMenu = (props, context) => {
         <Stack.Item>
           <Button
             fluid
+            translucent
             lineHeight={3}
-            color="translucent"
             content="View Messages"
             icon={newmessagepriority > RQ_NONEW_MESSAGES ? 'envelope-open-text' : 'envelope'}
             onClick={() => act('setScreen', { setScreen: 6 })}
@@ -108,8 +108,8 @@ const MainMenu = (props, context) => {
         <Stack.Item mt={1}>
           <Button
             fluid
+            translucent
             lineHeight={3}
-            color="translucent"
             content="Request Assistance"
             icon="hand-paper"
             onClick={() => act('setScreen', { setScreen: 1 })}
@@ -117,24 +117,24 @@ const MainMenu = (props, context) => {
           <Stack.Item>
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="Request Supplies"
               icon="box"
               onClick={() => act('setScreen', { setScreen: 2 })}
             />
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="Request Secondary Goal"
               icon="clipboard-list"
               onClick={() => act('setScreen', { setScreen: 11 })}
             />
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="Relay Anonymous Information"
               icon="comment"
               onClick={() => act('setScreen', { setScreen: 3 })}
@@ -145,16 +145,16 @@ const MainMenu = (props, context) => {
           <Stack.Item>
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="Print Shipping Label"
               icon="tag"
               onClick={() => act('setScreen', { setScreen: 9 })}
             />
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="View Shipping Logs"
               icon="clipboard-list"
               onClick={() => act('setScreen', { setScreen: 10 })}
@@ -165,8 +165,8 @@ const MainMenu = (props, context) => {
           <Stack.Item mt={1}>
             <Button
               fluid
+              translucent
               lineHeight={3}
-              color="translucent"
               content="Send Station-Wide Announcement"
               icon="bullhorn"
               onClick={() => act('setScreen', { setScreen: 8 })}

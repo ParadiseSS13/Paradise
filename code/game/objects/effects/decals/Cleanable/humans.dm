@@ -48,6 +48,7 @@
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
 		deltimer(dry_timer)
+	QDEL_NULL(weightless_image)
 	return ..()
 
 /obj/effect/decal/cleanable/blood/update_icon()

@@ -52,9 +52,14 @@
 		merge_type = type
 
 	if(merge && !(amount >= max_amount))
-		for(var/obj/item/stack/S in loc)
-			if(S.merge_type == merge_type)
-				merge(S)
+		for(var/obj/item/stack/item_stack in loc)
+			if(item_stack == src)
+				continue
+			if(item_stack.merge_type == merge_type)
+				INVOKE_ASYNC(src, PROC_REF(merge_without_del), item_stack)
+				// we do not want to qdel during initialization, so we just check whether or not we're a 0 count stack
+				if(is_zero_amount(FALSE))
+					return INITIALIZE_HINT_QDEL
 
 	update_icon(UPDATE_ICON_STATE)
 
@@ -147,7 +152,7 @@
 	to_chat(user, "<span class='notice'>Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s.</span>")
 
 /obj/item/stack/use(used, check = TRUE)
-	if(check && zero_amount())
+	if(check && is_zero_amount(TRUE))
 		return FALSE
 
 	if(is_cyborg)
@@ -158,7 +163,7 @@
 
 	amount -= used
 	if(check)
-		zero_amount()
+		is_zero_amount(TRUE)
 
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
@@ -289,9 +294,13 @@
 	use(amount)
 	SStgui.update_uis(src)
 
-// Returns TRUE if the stack amount is zero.
-// Also qdels the stack gracefully if it is.
-/obj/item/stack/proc/zero_amount()
+/**
+ * Returns TRUE if the item stack is the equivalent of a 0 amount item.
+ *
+ * Also deletes the item if delete_if_zero is TRUE and the stack does not have
+ * is_cyborg set to true.
+ */
+/obj/item/stack/proc/is_zero_amount(delete_if_zero = TRUE)
 	if(is_cyborg)
 		return source.amount < cost
 
@@ -299,17 +308,27 @@
 		if(ismob(loc))
 			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
 			L.unEquip(src, TRUE)
-		if(amount < 1)
-			// If you stand on top of a stack, and drop a - different - 0-amount stack on the floor,
-			// the two get merged, so the amount of items in the stack can increase from the 0 that it had before.
-			// Check the amount again, to be sure we're not qdeling healthy stacks.
+		if(delete_if_zero)
 			qdel(src)
 		return TRUE
 	return FALSE
 
-/obj/item/stack/proc/merge(obj/item/stack/material) //Merge src into S, as much as possible
-	if(QDELETED(material) || QDELETED(src) || material == src) //amusingly this can cause a stack to consume itself, let's not allow that.
-		return FALSE
+/**
+ * Merges as much of src into material as possible.
+ *
+ * This calls use() without check = FALSE, preventing the item from qdeling itself if it reaches 0 stack size.
+ *
+ * As a result, this proc can leave behind a 0 amount stack.
+ */
+/obj/item/stack/proc/merge_without_del(obj/item/stack/material)
+	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
+	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
+	if(QDELETED(material))
+		CRASH("Stack merge attempted on qdeleted target stack.")
+	if(QDELETED(src))
+		CRASH("Stack merge attempted on qdeleted source stack.")
+	if(material == src)
+		CRASH("Stack attempted to merge into itself.")
 
 	var/transfer = get_amount()
 	if(material.is_cyborg)
@@ -317,17 +336,23 @@
 	else
 		transfer = min(transfer, material.max_amount - material.amount)
 
-	if(transfer <= 0)
-		return
-
 	if(pulledby)
 		pulledby.start_pulling(material)
 
 	material.copy_evidences(src)
+	use(transfer, FALSE)
 	material.add(transfer)
-	use(transfer)
-	SStgui.update_uis(material)
+
 	return transfer
+
+/**
+ * Merges as much of src into material as possible.
+ *
+ * This proc deletes src if the remaining amount after the transfer is 0.
+ */
+/obj/item/stack/proc/merge(obj/item/stack/material)
+	. = merge_without_del(material)
+	is_zero_amount(TRUE)
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/material)
 	blood_DNA			= material.blood_DNA
