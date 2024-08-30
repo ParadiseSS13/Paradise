@@ -5101,3 +5101,153 @@
 	value = "warcraft_garrosh"
 	category = TTS_CATEGORY_WARCRAFT3
 	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_male_v
+	name = "Cyberpunk_male_v"
+	value = "Cyberpunk_male_v"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_johny
+	name = "Cyberpunk_johny"
+	value = "Cyberpunk_johny"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_takemura
+	name = "Cyberpunk_takemura"
+	value = "Cyberpunk_takemura"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_sobchak
+	name = "Cyberpunk_sobchak"
+	value = "Cyberpunk_sobchak"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_jackie
+	name = "Cyberpunk_jackie"
+	value = "Cyberpunk_jackie"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_kerry
+	name = "Cyberpunk_kerry"
+	value = "Cyberpunk_kerry"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_mitch
+	name = "Cyberpunk_mitch"
+	value = "Cyberpunk_mitch"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_saul
+	name = "Cyberpunk_saul"
+	value = "Cyberpunk_saul"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_haru
+	name = "Cyberpunk_haru"
+	value = "Cyberpunk_haru"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_victor
+	name = "Cyberpunk_victor"
+	value = "Cyberpunk_victor"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_placide
+	name = "Cyberpunk_placide"
+	value = "Cyberpunk_placide"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_dexter
+	name = "Cyberpunk_dexter"
+	value = "Cyberpunk_dexter"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_sebastian
+	name = "Cyberpunk_sebastian"
+	value = "Cyberpunk_sebastian"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_jefferson
+	name = "Cyberpunk_jefferson"
+	value = "Cyberpunk_jefferson"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/cyberpunk_joshua
+	name = "Cyberpunk_joshua"
+	value = "Cyberpunk_joshua"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/tlou_ellie
+	name = "tlou_ellie"
+	value = "tlou_ellie"
+	category = TTS_CATEGORY_TLOU
+	gender = TTS_GENDER_FEMALE
+
+/datum/tts_seed/silero/tlou_joel
+	name = "tlou_joel"
+	value = "tlou_joel"
+	category = TTS_CATEGORY_TLOU
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/tlou_tess
+	name = "tlou_tess"
+	value = "tlou_tess"
+	category = TTS_CATEGORY_TLOU
+	gender = TTS_GENDER_FEMALE
+
+/datum/tts_seed/silero/drg_mission_control
+	name = "Deep_rock_galactic_mission_control"
+	value = "Deep_rock_galactic_mission_control"
+	category = TTS_CATEGORY_DEEP_ROCK_GALACTIC
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/drg_dwarves
+	name = "Deep_rock_galactic_dwarves"
+	value = "Deep_rock_galactic_dwarves"
+	category = TTS_CATEGORY_DEEP_ROCK_GALACTIC
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/aag_inner
+	name = "an_alt_girl_inner"
+	value = "an_alt_girl_inner"
+	category = TTS_CATEGORY_SUNBOY
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/aag_sunboy_s
+	name = "an_alt_girl_sunboy_s"
+	value = "an_alt_girl_sunboy_s"
+	category = TTS_CATEGORY_SUNBOY
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/aag_sunboy_n
+	name = "an_alt_girl_dlc_sunboy_n"
+	value = "an_alt_girl_dlc_sunboy_n"
+	category = TTS_CATEGORY_SUNBOY
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/aag_sunboy_k
+	name = "an_alt_girl_dlc_sunboy_k"
+	value = "an_alt_girl_dlc_sunboy_k"
+	category = TTS_CATEGORY_SUNBOY
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/last_years_snow_narrator
+	name = "last_years_snow_narrator"
+	value = "last_years_snow_narrator"
+	category = TTS_CATEGORY_OTHER
+	gender = TTS_GENDER_MALE
