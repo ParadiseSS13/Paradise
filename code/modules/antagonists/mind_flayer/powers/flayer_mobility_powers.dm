@@ -33,7 +33,7 @@
 	var/turf/start_turf = get_turf(target)
 	var/turf/end_turf = get_turf(marked_computer)
 	if(end_turf.z != start_turf.z)
-		to_chat(user, "<span class='notice'>The connection between [target] and [marked_computer] is too unstable!.</span>")
+		to_chat(user, "<span class='notice'>The connection between [target] and [marked_computer] is too unstable!</span>")
 		return
 	if(!is_teleport_allowed(end_turf.z))
 		return
@@ -74,7 +74,7 @@
 	upgrade_info = "Reduce the time between grapples by 10 seconds."
 	action_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	action_icon_state = "flayer_claw"
-	base_cooldown = 30 SECONDS
+	base_cooldown = 25 SECONDS
 	category = CATEGORY_DESTROYER
 	power_type = FLAYER_PURCHASABLE_POWER
 	stage = 2
@@ -88,14 +88,17 @@
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "flayer_claw"
 	chain_icon_state = "flayer_tether"
-	hitsound = 'sound/effects/hit_punch.ogg'
-	hitsound_wall = 'sound/effects/grillehit.ogg'
 	speed = 3
 	yank_speed = 2
 	var/datum/antagonist/mindflayer/flayer
 
+/obj/item/projectile/tether/flayer/Destroy()
+	. = ..()
+	flayer = null
+
 /obj/item/projectile/tether/flayer/on_hit(atom/target)
 	. = ..()
+	playsound(target, 'sound/items/zip.ogg', 75, TRUE)
 	if(isliving(target))
 		var/mob/user = flayer.owner
 		var/mob/living/creature = target

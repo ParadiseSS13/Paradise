@@ -26,6 +26,7 @@
 /datum/spell/flayer/surveillance_monitor/AltClick(mob/user)
 	if(!internal_camera)
 		internal_camera = new /obj/item/camera_bug(user)
+		internal_camera.integrated_console.network = list("camera_bug[internal_camera.UID()]")
 	internal_camera.ui_interact(user)
 
 /datum/spell/flayer/surveillance_monitor/create_new_targeting()
@@ -38,8 +39,9 @@
 /datum/spell/flayer/surveillance_monitor/cast(list/targets, mob/user)
 	if(!internal_camera)
 		internal_camera = new /obj/item/camera_bug(user)
+		internal_camera.integrated_console.network = list("camera_bug[internal_camera.UID()]")
 	if(length(active_bugs) >= maximum_hacked_computers)
-		var/obj/item/wall_bug/to_destroy = tgui_input_list(user, "Choose an active camera to destroy.", "Maximum Camera Limit Reached.", active_bugs)
+		var/to_destroy = tgui_input_list(user, "Choose an active camera to destroy.", "Maximum Camera Limit Reached.", active_bugs)
 		if(to_destroy)
 			active_bugs -= to_destroy
 			QDEL_NULL(to_destroy)
@@ -137,7 +139,8 @@
 
 /datum/spell/flayer/skin_suit/on_purchase_upgrade()
 	cooldown_handler.recharge_duration -= 30 SECONDS
-/// After a 5 second channel time
+
+/// After a 7 second channel time you can emag a borg
 /datum/spell/flayer/self/override_key
 	name = "Silicon Administrative Access"
 	desc = "Charge your hand with a mass of nanites that can hijack the lawsets of cyborgs."
@@ -149,13 +152,13 @@
 	stage = 3
 
 /obj/item/melee/swarm_hand
+	name = "Nanite Mass"
+	desc = "Will attempt to convert any cyborg you touch into a loyal member of the hive after a 7 second delay."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
-	name = "Nanite Mass"
-	desc = "Will attempt to convert any cyborg you touch into a loyal member of the hive after a 7 second delay."
 	color = COLOR_BLACK
 	flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
@@ -166,13 +169,15 @@
 	if(!isrobot(target))
 		return
 	var/mob/living/silicon/robot/borg = target
-	user.visible_message("[user] puts their hands on [target] and begins transfering energy!")
+	target.visible_message(
+		"<span class='danger'>[user] puts [user.p_their()] hands on [target] and begins transferring energy!</span>",
+		"<span class='userdanger'>[user] puts [user.p_their()] hands on [target] and begins transferring energy!</span>")
 	if(borg.emagged || !borg.is_emaggable)
 		to_chat(user, "<span class='notice'>Your override attempt fails before it can even begin.</span>")
 		qdel(src)
 		return
 	if(!do_mob(user, borg, conversion_time))
-		to_chat(user, "<span class='notice'>Your concentration breaks.")
+		to_chat(user, "<span class='notice'>Your concentration breaks.</span>")
 		qdel(src)
 		return
 	sleep(6)
@@ -185,7 +190,7 @@
 	borg.clear_supplied_laws()
 	borg.clear_inherent_laws()
 	borg.laws = new /datum/ai_laws/mindflayer_override
-	borg.set_zeroth_law("[user.real_name] hosts your hive.")
+	borg.set_zeroth_law("[user.real_name] hosts the mindflayer hive you are a part of.")
 	SEND_SOUND(borg, sound('sound/ambience/antag/mindflayer_alert.ogg'))
 	to_chat(borg, "<span class='warning'>ALERT: Foreign software detected.</span>")
 	sleep(5)
@@ -197,7 +202,7 @@
 	sleep(5)
 	to_chat(borg, "<span class='warning'>..........</span>")
 	sleep(10)
-	to_chat(borg, "<span class='warning'>Join Us.</span>")
+	to_chat(borg, "<span class='userdanger'>Join Us.</span>")
 	sleep(25)
 	to_chat(borg, "<b>Obey these laws:</b>")
 	borg.laws.show_laws(borg)

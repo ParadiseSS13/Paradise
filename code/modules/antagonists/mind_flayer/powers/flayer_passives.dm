@@ -33,11 +33,13 @@
 /datum/mindflayer_passive/New()
 	. = ..()
 	current_cost = base_cost
-	if(should_process)
+	if(should_process && flayer)
 		START_PROCESSING(SSobj, src)
 
 /datum/mindflayer_passive/Destroy(force, ...)
 	. = ..()
+	if(!flayer)
+		return
 	on_remove()
 	STOP_PROCESSING(SSobj, src)
 
@@ -170,7 +172,7 @@
 
 /datum/mindflayer_passive/fix_components
 	name = "Internal Nanite Application"
-	purchase_text = "Slowly repair damage done to your organs"
+	purchase_text = "Slowly repair damage done to your organs."
 	gain_text = "Administering reparative swarms to internal components."
 	power_type = FLAYER_PURCHASABLE_POWER
 	should_process = TRUE

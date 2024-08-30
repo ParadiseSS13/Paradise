@@ -57,7 +57,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/obj/machinery/camera/portable/camera
 	var/index = "REPORT THIS TO CODERS"
+	/// What name shows up on the camera bug list
 	var/camera_tag = "Hidden Camera"
+	/// If it sticks to whatever you throw at it
 	var/is_sticky = TRUE
 
 /obj/item/wall_bug/Initialize(mapload, obj/item/camera_bug/the_bug)
@@ -97,6 +99,10 @@
 	///Reference to the creator's antag datum
 	var/datum/antagonist/mindflayer/flayer
 	COOLDOWN_DECLARE(alert_cooldown)
+
+/obj/item/wall_bug/computer_bug/Destroy()
+	flayer = null
+	. = ..()
 
 /obj/item/wall_bug/computer_bug/link_to_camera(obj/item/camera_bug/camera_bug, datum/antagonist/mindflayer/flayer_datum = null)
 	..()

@@ -1127,7 +1127,7 @@
 				if(!has_antag_datum(/datum/antagonist/mindflayer))
 					add_antag_datum(/datum/antagonist/mindflayer)
 					log_admin("[key_name(usr)] has flayer'd [key_name(current)].")
-					to_chat(current, "<b><font color='red'>Your feel You are a Mind flayer!</font></b>") // TODO: make actual message
+					to_chat(current, "<b><font color='red'>You feel an entity stirring inside your chassis... You are a Mindflayer!</font></b>")
 					message_admins("[key_name(usr)] has flayer'd [key_name(current)].")
 			if("edit_total_swarms")
 				var/new_swarms = input(usr, "Select a new value:", "Modify swarms") as null|num

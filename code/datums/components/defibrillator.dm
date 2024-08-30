@@ -310,7 +310,7 @@
 		target.emote("gasp")
 
 		// Check if the brain has more than a critical amount of brain damage
-		if(sponge.damage >= (sponge.max_damage * 10 / 12))
+		if(sponge.damage >= (sponge.max_damage * BRAIN_DAMAGE_RATIO_CRITICAL))
 			// If you want to treat this with mannitol, it'll have to metabolize while the patient is alive, so it's alright to bring them back up for a minute
 			playsound(get_turf(defib_ref), safety_off_sound, 50, FALSE)
 			user.visible_message("<span class='boldnotice'>[defib_ref] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation.</span>")

@@ -348,6 +348,7 @@
 	flags = ABSTRACT | NODROP
 	turned_on = TRUE
 	cell = /obj/item/stock_parts/cell/flayerprod
+	/// The duration that stunning someone will disable their radio for
 	var/radio_disable_time = 6 SECONDS
 
 /obj/item/melee/baton/flayerprod/update_icon_state()
@@ -394,6 +395,4 @@
 
 /obj/item/melee/baton/flayerprod/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The baton is [round(cell.percent())]% charged.</span>"
-	. += "<span class='notice'>When turned on this item will knockdown anyone it hits after a short delay. While on harm intent, this item will also do some brute damage, even if turned on.</span>"
 	. += "<span class='notice'>This one seems to be able to interfere with radio headsets.</span>"

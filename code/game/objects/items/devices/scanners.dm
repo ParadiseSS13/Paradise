@@ -243,11 +243,11 @@ SLIME SCANNER
 	// Brain.
 	var/obj/item/organ/internal/brain = H.get_int_organ(/obj/item/organ/internal/brain)
 	if(brain)
-		if(brain.damage >= (brain.max_damage * 10 / 12)) // 100
+		if(brain.damage >= (brain.max_damage * BRAIN_DAMAGE_RATIO_CRITICAL)) // 100
 			msgs += "<span class='warning'>Subject is brain dead.</span>"
 		else if(brain.damage >= (brain.max_damage * 6 / 12)) // 60
 			msgs += "<span class='warning'>Severe brain damage detected. Subject likely to have dementia.</span>"
-		else if(brain.damage >= (brain.max_damage * 1 / 12)) // 10
+		else if(brain.damage >= (brain.max_damage * BRAIN_DAMAGE_RATIO_MINOR)) // 10
 			msgs += "<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>"
 	else
 		msgs += "<span class='warning'>Subject has no brain.</span>"

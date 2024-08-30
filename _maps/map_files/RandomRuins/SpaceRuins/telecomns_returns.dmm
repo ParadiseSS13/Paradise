@@ -5,6 +5,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/floodlight,
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
 	nitrogen = 400;
@@ -218,11 +219,6 @@
 "dD" = (
 /obj/structure/closet/crate,
 /obj/item/multitool,
-/obj/machinery/camera{
-	c_tag = "Telecomms Entrance South";
-	dir = 1;
-	network = list("Telecomms")
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "dR" = (
@@ -268,6 +264,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
+"eA" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/foyer)
 "eE" = (
 /obj/machinery/mecha_part_fabricator,
 /turf/simulated/floor/plasteel{
@@ -438,7 +437,7 @@
 	pixel_x = 29;
 	pixel_y = 0
 	},
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "hq" = (
@@ -699,7 +698,7 @@
 /area/space/nearstation)
 "mN" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "mO" = (
@@ -710,7 +709,7 @@
 	pixel_x = 0
 	},
 /obj/structure/grille,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
 "mZ" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -718,6 +717,10 @@
 	locked = 1
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	id = "dvorak";
+	id_tag = "dvorak"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -1010,7 +1013,7 @@
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms)
 "qO" = (
@@ -1211,7 +1214,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
 "tW" = (
-/obj/machinery/r_n_d/server/upgraded,
+/obj/machinery/power/grounding_rod,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault";
@@ -1512,6 +1515,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	id = "dvorak";
+	id_tag = "dvorak"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -1645,17 +1652,6 @@
 /obj/item/clothing/glasses/night,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
-"zg" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Telecomms Power Control";
-	dir = 2;
-	network = list("Telecomms")
-	},
-/turf/simulated/floor/catwalk,
-/area/ruin/space/telecomms/powercontrol)
 "zk" = (
 /obj/structure/lattice,
 /obj/effect/abstract/cheese_trap,
@@ -1962,6 +1958,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
 "Dy" = (
@@ -2345,7 +2342,7 @@
 /area/space/nearstation)
 "Jb" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/indestructible/riveted,
 /area/ruin/space/telecomms/foyer)
 "Jm" = (
 /obj/machinery/computer/sm_monitor{
@@ -2478,6 +2475,9 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomms/chamber)
+"Lk" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/tele)
 "Ln" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2502,6 +2502,17 @@
 /mob/living/silicon/decoy/telecomms,
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
+"LC" = (
+/obj/machinery/doppler_array,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault";
+	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
 	temperature = 80
@@ -2563,6 +2574,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/abstract/bot_trap,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -2745,6 +2757,10 @@
 	req_access_txt = "61"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id = "dvorak";
+	id_tag = "dvorak"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
 "PZ" = (
@@ -2804,6 +2820,12 @@
 "Qx" = (
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
+"Qz" = (
+/obj/machinery/door_control{
+	id = "dvorak"
+	},
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/telecomms/chamber)
 "QN" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2928,7 +2950,7 @@
 /obj/item/stock_parts/micro_laser/high,
 /obj/item/stock_parts/micro_laser/high,
 /obj/item/stock_parts/micro_laser/high,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/random/maintenance,
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
@@ -3106,6 +3128,15 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomms/chamber)
+"Vl" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/catwalk/airless,
+/area/space/nearstation)
 "Vm" = (
 /obj/machinery/light/small,
 /obj/machinery/light_switch{
@@ -3208,9 +3239,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
 	level = 1
-	},
-/obj/item/radio/intercom{
-	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/foyer)
@@ -6389,7 +6417,7 @@ ik
 Sv
 lW
 Ga
-Ga
+Vl
 mh
 Lp
 Lp
@@ -7123,7 +7151,7 @@ yo
 FC
 FC
 SA
-zg
+Bn
 lr
 Qx
 PA
@@ -7210,7 +7238,7 @@ Zu
 EO
 yr
 Xf
-PQ
+Lk
 oG
 PQ
 PQ
@@ -7296,13 +7324,13 @@ bJ
 Tw
 eE
 il
-tW
+LC
 EM
 Zu
 uM
 IL
 uM
-uM
+eA
 yJ
 BZ
 PQ
@@ -7394,7 +7422,7 @@ Zu
 Qa
 nD
 eJ
-uM
+eA
 DV
 Uw
 PQ
@@ -7578,7 +7606,7 @@ Zu
 WO
 nD
 Ri
-uM
+eA
 xv
 Uw
 UF
@@ -7758,11 +7786,11 @@ gG
 pa
 il
 qe
-Zu
+Qz
 Xb
 oz
 Ri
-uM
+eA
 Rt
 Uw
 UF
@@ -7854,7 +7882,7 @@ Zu
 Gt
 GQ
 cj
-uM
+eA
 Yr
 VO
 PQ
@@ -7946,7 +7974,7 @@ Zu
 ao
 nD
 Bf
-uM
+eA
 iE
 AY
 PQ
@@ -8017,11 +8045,11 @@ yo
 Ed
 xa
 ik
-ik
+iD
 ux
-Hr
-Hr
-Hr
+ux
+ux
+ux
 To
 ME
 Zj
@@ -8038,7 +8066,7 @@ Zu
 uM
 yD
 uM
-uM
+eA
 HR
 De
 PQ
@@ -8130,7 +8158,7 @@ Zu
 EO
 yr
 Xf
-PQ
+Lk
 oW
 PQ
 PQ
@@ -8202,12 +8230,12 @@ Dy
 xa
 ik
 ux
-Hr
+ux
 Aj
-Hr
-Hr
-Hr
-Hr
+ux
+ux
+ux
+ux
 Zu
 fq
 EM

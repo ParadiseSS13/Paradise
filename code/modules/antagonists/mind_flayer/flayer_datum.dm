@@ -111,8 +111,8 @@
 	var/obj/item/organ/internal/brain/drained_brain = H.get_int_organ(/obj/item/organ/internal/brain)
 	var/unique_drain_id = H.UID()
 	owner.current.visible_message(
-		"<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>", 
-		"<span class='sinister'>We begin our harvest on [H].</span>", 
+		"<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting!</span>",
+		"<span class='sinister'>We begin our harvest on [H].</span>",
 		"<span class='notice'>You hear the hum of electricity.</span>"
 	)
 	if(!do_mob(owner.current, H, time = 2 SECONDS))
@@ -124,7 +124,7 @@
 			harvesting = null
 			return
 		H.Beam(owner.current, icon_state = "drain_life", icon ='icons/effects/effects.dmi', time = DRAIN_TIME, beam_color = COLOR_ASSEMBLY_PURPLE)
-		var/damage_to_deal = (drain_amount * drain_multiplier * H.dna.species.brain_mod) // Change that first fraction for adjusting the balance of how much damage per tick there is
+		var/damage_to_deal = (drain_amount * drain_multiplier * H.dna.species.brain_mod)
 		H.adjustBrainLoss(damage_to_deal, use_brain_mod = FALSE) //No need to use brain damage modification since we already got it from the previous line
 		adjust_swarms(damage_to_deal)
 		drained_humans[unique_drain_id] += damage_to_deal
@@ -137,11 +137,11 @@
 
 
 /datum/antagonist/mindflayer/greet()
-	var/dat
+	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/mindflayer_alert.ogg'))
-	dat = "<span class='danger'>You are a mindflayer!</span><br>" // TODO: Add actual description
-	dat += "To harvest someone, target where the brain of your victim is and use harm intent with an empty hand. Drain intelligence to increase your swarm."
-	to_chat(owner.current, dat)
+	messages += "<span class='danger'>You feel something stirring within your chassis... You are a Mindflayer!!</span><br>"
+	messages += "To harvest someone, target where the brain of your victim is and use harm intent with an empty hand. Drain intelligence to increase your swarm."
+	return messages
 
 /**
  * Gets a list of mind flayer spell typepaths based on the passed in `spell_type`. (Thanks for the code SteelSlayer)
@@ -180,10 +180,10 @@
 * Adds an ability to a mindflayer if they don't already have it, upgrades it if they do.
 * Arguments:
 * * to_add - The spell datum you want to add to the flayer
-* * set_owner - An optional datum/antagonist/mindflayer if the owner of the new ability needs to be set manually
+* * set_owner - The antagonist datum of the mindflayer you want to add the spell to
 * * upgrade_type - optional argument if you need to communicate a define to the spell in question, mostly useful for branching upgrades
 */
-/datum/antagonist/mindflayer/proc/add_ability(datum/spell/flayer/to_add, set_owner = null, upgrade_type)
+/datum/antagonist/mindflayer/proc/add_ability(datum/spell/flayer/to_add, datum/antagonist/mindflayer/set_owner = null, upgrade_type)
 	if(!to_add)
 		return
 	var/datum/spell/flayer/spell = has_spell(to_add)
@@ -264,18 +264,15 @@
 * * Returns: The datum/spell/mindflayer if the mindflayer has the power already, null otherwise
 */
 /datum/antagonist/mindflayer/proc/has_spell(datum/spell/flayer/to_get) // Still gotta test if this works as expected, but I think it does?
-	log_debug("checking if [src] has [to_get]")
 	for(var/datum/spell/flayer/spell in powers)
 		if(to_get.name == spell.name)
 			return spell
-	return null
 /**
 * Checks if a mindflayer has a given passive already
 * * Arguments: to_get - Some datum/mindflayer_passive to check if a mindflayer has
 * * Returns: The datum/mindflayer_passive if the mindflayer has the passive already, null otherwise
 */
 /datum/antagonist/mindflayer/proc/has_passive(datum/mindflayer_passive/to_get)
-	log_debug("checking if [src] has [to_get]")
 	for(var/datum/mindflayer_passive/spell in powers)
 		if(to_get.name == spell.name)
 			return spell

@@ -7,12 +7,13 @@
 	icon = 'icons/mob/fleshling.dmi'
 	icon_state = "fleshling"
 	icon_living = "fleshling"
+	attack_sound = 'sound/misc/demon_attack1.ogg'
+	death_sound = 'sound/misc/demon_dies.ogg'
 	icon_dead = ""
 	speed = 5
 	move_to_delay = 4
 	ranged = TRUE
 	pixel_x = -16
-	attack_sound = 'sound/misc/demon_attack1.ogg'
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	wander = TRUE
@@ -23,8 +24,6 @@
 	a_intent = INTENT_HARM
 	deathmessage = "collapses into a pile of gibs. From the looks of it this is the deadest it can get... "
 	del_on_death = TRUE
-	death_sound = 'sound/misc/demon_dies.ogg'
-	attack_sound = 'sound/misc/demon_attack1.ogg'
 
 	/// Is the boss charging right now?
 	var/charging = FALSE

@@ -134,27 +134,22 @@
 /obj/item/organ/internal/brain/on_life()
 	if(decoy_brain)
 		return
-
-	// Values in the comments are for a normal brain with 120 `max_damage`
-	var/minor_threshold = max_damage * 3 / 12 		// 30
-	var/moderate_threshold = max_damage * 6 / 12 	// 60
-	var/severe_threshold = max_damage * 8 / 12 		// 80
-	var/critial_threshold = max_damage * 10 / 12 	// 100
-
-	if(damage < minor_threshold)
+	if(ismonkeybasic(owner))
+		return
+	damage /= 12 // Get our damage as a ratio
+	message_admins(damage)
+	if(damage < BRAIN_DAMAGE_RATIO_LIGHT)
 		return
 
-	if(0 < damage && damage < minor_threshold)
-		handle_minor_brain_damage()
-
-	else if(minor_threshold < damage && damage < moderate_threshold)
-		handle_moderate_brain_damage()
-
-	else if(moderate_threshold < damage && damage < severe_threshold)
-		handle_severe_brain_damage()
-
-	else if(severe_threshold < damage && damage < critial_threshold)
-		handle_critical_brain_damage()
+	switch(damage)
+		if(BRAIN_DAMAGE_RATIO_LIGHT to BRAIN_DAMAGE_RATIO_MINOR)
+			handle_minor_brain_damage()
+		if(BRAIN_DAMAGE_RATIO_MINOR to BRAIN_DAMAGE_RATIO_MODERATE)
+			handle_moderate_brain_damage()
+		if(BRAIN_DAMAGE_RATIO_MODERATE to BRAIN_DAMAGE_RATIO_SEVERE)
+			handle_severe_brain_damage()
+		if(BRAIN_DAMAGE_RATIO_SEVERE to BRAIN_DAMAGE_RATIO_CRITICAL)
+			handle_critical_brain_damage()
 
 	if(temporary_damage) // Heal our max hp limit by one per cycle
 		// We use `clamp()` here because `temporary_damage` can have decimals

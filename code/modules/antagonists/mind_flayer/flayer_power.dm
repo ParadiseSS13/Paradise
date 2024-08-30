@@ -1,9 +1,7 @@
 // POWERS// OOORAAAH WE HAVE POWERS
 
 /datum/spell/flayer
-//	panel = "Vampire"
-//	school = "vampire"
-	action_background_icon_state = "bg_tech_blue" // TODO: flayer background
+	action_background_icon_state = "bg_tech_blue"
 	desc = "This spell needs a description!"
 	human_req = TRUE
 	clothes_req = FALSE
@@ -36,6 +34,8 @@
 // Behold, a copypaste from changeling, might need some redoing
 
 /datum/spell/flayer/Destroy(force, ...)
+	if(!flayer)
+		return ..()
 	flayer.powers -= src
 	flayer = null
 	return ..()
@@ -170,7 +170,9 @@
 // Given a path, return TRUE if the path is a mindflayer spell, or FALSE otherwise. Only used to sort passives from spells.
 /datum/antagonist/mindflayer/proc/is_path_spell(path)
 	var/spell = new path() //No need to give it an owner since we're just checking the type
-	return isspell(spell)
+	var/return_value = isspell(spell)
+	qdel(spell)
+	return return_value
 
 /*
 * Given a spell, checks if a mindflayer is able to afford, and has the prerequisites for that spell.
@@ -229,12 +231,12 @@
 	var/datum/mindflayer_passive/existing_passive = has_passive(to_add)
 	if(existing_passive)
 		if(existing_passive.level >= to_add.max_level)
-			send_swarm_message("That function is already at it's strongest.")
+			send_swarm_message("That function is already at its strongest.")
 			return FALSE
 		to_add.current_cost = existing_passive.current_cost
 
 	if(to_add.current_cost > get_swarms())
-		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarms for this...")
+		send_swarm_message("We need [to_add.current_cost - get_swarms()] more swarm\s for this...")
 		return FALSE
 
 	if(category_stage[to_add.category] < to_add.stage)
