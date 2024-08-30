@@ -18,7 +18,7 @@ Examples of bad things to record:
 - Hours spent on the server (We have other means of that)
 - Basically, just think about it and ask yourself "Is this actually useful to base game design around"
 
-Also note that feedback data **must** be anonymous. The only exception here is for data _anyone_ on the server can see, such as round end antagonist reports.
+Also note that feedback data **must** be anonymous. The only exception here is for data *anyone* on the server can see, such as round end antagonist reports.
 
 ## Feedback Data Recording
 
@@ -40,7 +40,7 @@ Will produce the following JSON:
 
 ```json
 {
-	"data": 10
+    "data":10
 }
 ```
 
@@ -59,18 +59,18 @@ Will produce the following JSON:
 
 ```json
 {
-	"data": {
-		"1": {
-			"text": "example",
-			"path": "/obj/item",
-			"number": "4"
-		},
-		"2": {
-			"number": "7",
-			"text": "example",
-			"other text": "sample"
-		}
-	}
+    "data":{
+        "1":{
+            "text":"example",
+            "path":"/obj/item",
+            "number":"4"
+        },
+        "2":{
+            "number":"7",
+            "text":"example",
+            "other text":"sample"
+        }
+    }
 }
 ```
 
@@ -94,22 +94,22 @@ Will produce the following JSON:
 
 ```json
 {
-	"data": {
-		"fruit": {
-			"orange": {
-				"apricot": 4,
-				"orange": 2
-			},
-			"red": {
-				"apple": 10
-			}
-		},
-		"vegetable": {
-			"orange": {
-				"carrot": 1
-			}
-		}
-	}
+    "data":{
+        "fruit":{
+            "orange":{
+                "apricot":4,
+                "orange":2
+            },
+            "red":{
+                "apple":10
+            }
+        },
+        "vegetable":{
+            "orange":{
+                "carrot":1
+            }
+        }
+    }
 }
 ```
 
@@ -125,23 +125,23 @@ Will produce the following JSON:
 
 ```json
 {
-	"data": {
-		"fruit": {
-			"orange": {
-				"apricot": 4,
-				"orange": 2
-			},
-			"red": {
-				"apple": 10
-			},
-			"orange": 3
-		},
-		"vegetable": {
-			"orange": {
-				"carrot": 1
-			}
-		}
-	}
+    "data":{
+        "fruit":{
+            "orange":{
+                "apricot":4,
+                "orange":2
+            },
+            "red":{
+                "apple":10
+            },
+            "orange":3
+        },
+        "vegetable":{
+            "orange":{
+                "carrot":1
+            }
+        }
+    }
 }
 ```
 
@@ -161,10 +161,10 @@ Will produce the following JSON:
 
 ```json
 {
-	"data": {
-		"sample data": 5,
-		"other data": 2
-	}
+    "data":{
+        "sample data":5,
+        "other data":2
+    }
 }
 ```
 
@@ -182,7 +182,10 @@ Will produce the following JSON:
 
 ```json
 {
-	"data": ["sample text", "other text"]
+    "data":[
+        "sample text",
+        "other text"
+    ]
 }
 ```
 
@@ -225,10 +228,10 @@ Will produce the following JSON:
 
 ```json
 {
-	"data": {
-		"breakfast": ["fried eggs", "coffee"],
-		"lunch": ["hamburgers", "french fries"]
-	}
+  "data": {
+    "breakfast": ["fried eggs", "coffee"],
+    "lunch": ["hamburgers", "french fries"]
+  }
 }
 ```
 
@@ -247,10 +250,10 @@ Will produce the following JSON:
 
 ```json
 {
-	"data": {
-		"Chef Marceau": { "hamburger": [5, 2] },
-		"Chef Poincare": { "hamburger": [1, 3] }
-	}
+  "data": {
+    "Chef Marceau": { "hamburger": [5, 2] },
+    "Chef Poincare": { "hamburger": [1, 3] }
+  }
 }
 ```
 
