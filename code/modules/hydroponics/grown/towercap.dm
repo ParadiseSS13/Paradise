@@ -186,14 +186,17 @@
 	return 0
 
 /obj/structure/bonfire/proc/StartBurning(mob/user)
-	if(!burning && CheckOxygen())
-		icon_state = "bonfire_on_fire"
-		burning = 1
-		set_light(6, l_color = "#ED9200")
-		Burn()
-		START_PROCESSING(SSobj, src)
+	if(burning)
+		return
 	if(!CheckOxygen())
 		to_chat(user, "<span class='warning'>You can't seem to ignite [src] in this environment!")
+		return
+
+	icon_state = "bonfire_on_fire"
+	burning = TRUE
+	set_light(6, l_color = "#ED9200")
+	Burn()
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/bonfire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
