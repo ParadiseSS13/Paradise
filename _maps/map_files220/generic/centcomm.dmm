@@ -31537,10 +31537,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "pTs" = (
-/obj/effect/turf_decal/delivery/red,
-/obj/machinery/teleport/hub/upgraded{
-	admin_usage = 1
-	},
+/obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredfull"
 	},
@@ -38151,7 +38148,10 @@
 /area/centcom/ss220/bar)
 "tnM" = (
 /obj/effect/turf_decal/box/white/corners,
-/obj/machinery/teleport/station/upgraded,
+/obj/machinery/teleport/hub/upgraded{
+	admin_usage = 1
+	},
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredfull"
 	},
