@@ -87,8 +87,7 @@
 	if(drops_core)
 		aSignal.forceMove(drop_location())
 		aSignal = null
-		SSblackbox.record_feedback("nested tally", "anomaly_defused", 1, list([type], [round((death_time - world.time) / 10)]ds time left))
-
+		SSblackbox.record_feedback("associative", "anomaly_defused", 1, list("anomaly_type" = type, "time_left_ds" = round((death_time - world.time) / 10)))
 	// Else, anomaly core gets deleted by qdel(src).
 	qdel(src)
 
