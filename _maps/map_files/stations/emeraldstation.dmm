@@ -62380,6 +62380,14 @@
 	icon_state = "blackcorner"
 	},
 /area/station/engineering/control)
+"lEr" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/starboard)
 "lEt" = (
 /obj/structure/rack,
 /obj/item/flashlight/flare/glowstick/random,
@@ -121333,6 +121341,12 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/research)
+"wxg" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/south)
 "wxn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -158497,7 +158511,7 @@ vIV
 bpP
 mRF
 xmm
-rxd
+rsC
 iSc
 jBl
 xmm
@@ -159011,7 +159025,7 @@ vIV
 iJS
 xWs
 xmm
-rsC
+rxd
 iSc
 rxd
 bgI
@@ -159268,7 +159282,7 @@ vIV
 pIG
 llN
 xmm
-rxd
+wxg
 iSc
 teR
 bgI
@@ -167235,7 +167249,7 @@ oBS
 oBS
 geX
 xmm
-rxd
+wxg
 iSc
 shL
 oSD
@@ -174143,7 +174157,7 @@ fBk
 iro
 wgJ
 uci
-rZB
+lEr
 dws
 dws
 dws
