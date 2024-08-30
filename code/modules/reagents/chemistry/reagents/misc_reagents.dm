@@ -503,7 +503,7 @@
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
 		if(M.mind.assigned_role == "Mime")
-			if(!(M.dna.species.reagent_tag & PROCESS_SYN)) // Ensures the mob that is processing the reagent is Organic
+			if(!(M.dna.species.reagent_tag & PROCESS_SYN)) // Ensures the mob that is processing the reagent is Organic to apply toxin damage
 				update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
 			else // Only activates if the mob that is processing the reagent is Synthetic (IPC)
 				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE) // The ", robotic = TRUE" just means it affects robotic limbs, which an IPC is fully robotic
