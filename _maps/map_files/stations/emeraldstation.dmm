@@ -58261,7 +58261,6 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/ez{
 	pixel_x = 4
 	},
-/obj/machinery/light,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -73905,9 +73904,6 @@
 /obj/item/crowbar,
 /obj/item/wrench,
 /obj/item/stack/packageWrap,
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "greenblue"
