@@ -3527,6 +3527,7 @@
 /area/station/aisat/breakroom)
 "aKM" = (
 /obj/structure/closet,
+/obj/item/storage/box,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "aKN" = (
@@ -14506,6 +14507,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/apmaint)
+"cIW" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance,
+/obj/item/storage/box,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "cJa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -41794,6 +41801,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/apmaint)
+"hLa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table_frame,
+/obj/item/storage/box,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "hLb" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
@@ -48555,6 +48568,7 @@
 /area/station/turret_protected/ai)
 "iZQ" = (
 /obj/structure/table,
+/obj/item/storage/box,
 /obj/item/t_scanner,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -58595,6 +58609,7 @@
 /obj/structure/table,
 /obj/item/poster/random_contraband,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
 "kTb" = (
@@ -63757,6 +63772,7 @@
 "lST" = (
 /obj/structure/table,
 /obj/item/paper_bin,
+/obj/item/storage/box,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "lTc" = (
@@ -89814,6 +89830,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -99776,6 +99797,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"sym" = (
+/obj/item/storage/box,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "syn" = (
 /turf/simulated/wall,
 /area/station/hallway/primary/central/ne)
@@ -107379,6 +107404,7 @@
 "tSP" = (
 /obj/structure/rack,
 /obj/item/flashlight/seclite,
+/obj/item/storage/box,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "tSQ" = (
@@ -107926,6 +107952,7 @@
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/item/storage/box,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "tXA" = (
@@ -108477,8 +108504,9 @@
 /area/station/maintenance/fsmaint2)
 "ubY" = (
 /obj/structure/rack,
-/obj/item/toy/crayon/spraycan,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/item/storage/box,
+/obj/item/toy/crayon/spraycan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "uci" = (
@@ -112284,6 +112312,7 @@
 /obj/structure/rack,
 /obj/item/poster/random_contraband,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "uMe" = (
@@ -119953,6 +119982,12 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/medical/break_room)
+"whN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/burnturf,
+/obj/item/storage/box,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "whO" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 4
@@ -120606,6 +120641,7 @@
 /obj/structure/rack,
 /obj/item/melee/baseball_bat,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "woe" = (
@@ -122209,8 +122245,8 @@
 /area/station/security/prison)
 "wGv" = (
 /obj/structure/table,
-/obj/item/flashlight/flare/glowstick/random,
 /obj/machinery/light/small,
+/obj/item/storage/box,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "wGx" = (
@@ -125186,8 +125222,8 @@
 /area/station/maintenance/fsmaint2)
 "xki" = (
 /obj/structure/table,
+/obj/item/storage/box,
 /obj/item/extinguisher/mini,
-/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "xkk" = (
@@ -139388,7 +139424,7 @@ kNt
 ldt
 cfp
 riy
-dGS
+sym
 wGv
 oeh
 ivK
@@ -146040,7 +146076,7 @@ aHQ
 aPv
 vGw
 iUq
-wve
+whN
 wYK
 cPx
 aPv
@@ -169449,7 +169485,7 @@ ksJ
 xrf
 ifF
 aor
-lsT
+hLa
 vKF
 vKF
 vKF
@@ -185618,7 +185654,7 @@ kxv
 uHL
 gWk
 jcy
-yhD
+cIW
 xQf
 xQf
 iNd
