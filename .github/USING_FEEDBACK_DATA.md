@@ -22,7 +22,7 @@ Also note that feedback data **must** be anonymous. The only exception here is f
 
 ## Feedback Data Recording
 
-Feedback data can be recorded in 5 formats. `amount`, `associative`, `nested tally`, `tally` `text`, `ledger`, and `nested ledger`.
+Feedback data can be recorded in 7 formats. `amount`, `associative`, `nested tally`, `tally` `text`, `ledger`, and `nested ledger`.
 
 ### Amount
 
