@@ -42747,6 +42747,12 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
+/obj/machinery/requests_console{
+	department = "Medbay";
+	departmentType = 1;
+	name = "Chemistry Requests Console";
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellow"
 	},
@@ -115470,12 +115476,6 @@
 /area/station/maintenance/port)
 "xJh" = (
 /obj/machinery/smartfridge/secure/chemistry,
-/obj/machinery/requests_console{
-	department = "Medbay";
-	departmentType = 1;
-	name = "Chemistry Requests Console";
-	pixel_y = -30
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellow"
 	},

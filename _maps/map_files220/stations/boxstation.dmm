@@ -22541,6 +22541,13 @@
 	c_tag = "Medbay Chemistry";
 	dir = 4
 	},
+/obj/machinery/requests_console{
+	department = "Medbay";
+	departmentType = 1;
+	name = "Chemistry Requests Console";
+	pixel_x = -30;
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
