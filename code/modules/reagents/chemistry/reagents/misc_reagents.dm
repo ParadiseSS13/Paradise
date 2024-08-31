@@ -532,25 +532,23 @@
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 			ADD_TRAIT(C, TRAIT_MUTE, id)
-			C.AddElement(/datum/element/waddling)
+			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 			ADD_TRAIT(C, TRAIT_MUTE, id)
-			C.AddElement(/datum/element/waddling)
-	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
+			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
 
 /datum/reagent/mimestrogen/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
-		M.emote("giggle")
+		M.emote("giggles silently")
 	if(!M.mind)
 		return ..() | update_flags
 	if(M.mind.assigned_role == "Mime")
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
 	else
 		M.AdjustDizzy(20 SECONDS, 0, 100 SECONDS)
-		M.Druggy(30 SECONDS)
 		if(prob(10))
 			M.EyeBlurry(10 SECONDS)
 		if(prob(6))
@@ -577,8 +575,7 @@
 	..()
 	if(M.mind?.assigned_role != "Mime")
 		REMOVE_TRAIT(M, TRAIT_MUTE, id)
-		M.RemoveElement(/datum/element/waddling)
-	qdel(M.GetComponent(/datum/component/squeak))
+		REMOVE_TRAIT(C, TRAIT_COLORBLIND, id)
 
 /datum/reagent/royal_bee_jelly
 	name = "Royal bee jelly"
