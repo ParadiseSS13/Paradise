@@ -542,7 +542,7 @@
 /datum/reagent/mimestrogen/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
-		M.emote("giggles silently")
+		M.emote("giggle")
 	if(!M.mind)
 		return ..() | update_flags
 	if(M.mind.assigned_role == "Mime")
