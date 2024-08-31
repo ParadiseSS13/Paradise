@@ -405,7 +405,7 @@ function listedturf_fill_row(row, item_index) {
 		// of the last entry.
 		return function (e) {
 			e.preventDefault();
-			clickcatcher = '?src=' + object_info[1];
+			clickcatcher = '?src=' + object_info[4] + ';m5src=' + object_info[1];
 			switch (e.button) {
 				case 1:
 					clickcatcher += ';statpanel_item_click=middle';
