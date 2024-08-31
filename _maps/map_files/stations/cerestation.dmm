@@ -22134,9 +22134,7 @@
 	},
 /area/station/science/xenobiology)
 "cAn" = (
-/obj/machinery/requests_console{
-	pixel_y = 30
-	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"
@@ -51811,10 +51809,7 @@
 /area/station/maintenance/port)
 "jMh" = (
 /obj/item/kirbyplants,
-/obj/machinery/requests_console{
-	department = "Psychiatrist";
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
 "jMr" = (
@@ -66556,14 +66551,10 @@
 	},
 /area/station/service/bar)
 "onW" = (
-/obj/machinery/requests_console{
-	department = "Janitorial";
-	departmentType = 1;
-	pixel_y = 30
-	},
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "ooj" = (
