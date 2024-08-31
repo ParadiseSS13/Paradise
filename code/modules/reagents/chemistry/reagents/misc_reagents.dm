@@ -575,7 +575,7 @@
 	..()
 	if(M.mind?.assigned_role != "Mime")
 		REMOVE_TRAIT(M, TRAIT_MUTE, id)
-		REMOVE_TRAIT(C, TRAIT_COLORBLIND, id)
+		REMOVE_TRAIT(M, TRAIT_COLORBLIND, id)
 
 /datum/reagent/royal_bee_jelly
 	name = "Royal bee jelly"
