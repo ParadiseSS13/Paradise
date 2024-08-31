@@ -531,12 +531,12 @@
 		else if(C.mind.assigned_role == "Clown")
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-			ADD_TRAIT(C, TRAIT_MUTE, id)
+			C.mind.miming=!C.mind.miming
 			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-			ADD_TRAIT(C, TRAIT_MUTE, id)
+			C.mind.miming=!C.mind.miming
 			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
 
 /datum/reagent/mimestrogen/on_mob_life(mob/living/carbon/human/M)
@@ -574,7 +574,7 @@
 /datum/reagent/mimestrogen/on_mob_delete(mob/living/M)
 	..()
 	if(M.mind?.assigned_role != "Mime")
-		REMOVE_TRAIT(M, TRAIT_MUTE, id)
+		M.mind.miming=!M.mind.miming
 		REMOVE_TRAIT(M, TRAIT_COLORBLIND, id)
 
 /datum/reagent/royal_bee_jelly
