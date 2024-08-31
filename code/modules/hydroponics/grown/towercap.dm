@@ -154,7 +154,7 @@
 		R.use(1)
 		can_buckle = TRUE
 		buckle_requires_restraints = TRUE
-		to_chat(user, "<span class='italics'>You add a rod to [src].")
+		to_chat(user, "<span class='italics'>You add a rod to [src].</span>")
 		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
 		underlays += U
 	if(W.get_heat())
@@ -165,7 +165,7 @@
 
 /obj/structure/bonfire/attack_hand(mob/user)
 	if(burning)
-		to_chat(user, "<span class='warning'>You need to extinguish [src] before removing the logs!")
+		to_chat(user, "<span class='warning'>You need to extinguish [src] before removing the logs!</span>")
 		return
 	if(!has_buckled_mobs() && do_after(user, 50, target = src))
 		for(var/I in 1 to 5)
