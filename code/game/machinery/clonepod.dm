@@ -171,11 +171,13 @@
 	for(var/obj/item/stock_parts/SP as anything in component_parts)
 		if(istype(SP, /obj/item/stock_parts/matter_bin)) // Matter bins for storage modifier
 			storage_modifier = round(10 * (SP.rating / 2)) // 5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
+			emp_resistance += SP.rating
 		else if(istype(SP, /obj/item/stock_parts/scanning_module)) //Scanning modules for price modifier (more accurate scans = more efficient)
 			price_modifier = -(SP.rating / 10) + 1.2 // 1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
+			emp_resistance += SP.rating
 		else if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
 			speed_modifier += SP.rating / 2 // 1 at tier 1, 2 at tier 2, et cetera
-		emp_resistance += SP.rating
+			emp_resistance += SP.rating
 	emp_resistance /= 4 // 4 stock parts, this brings us to a value between 1 to 4. Decimals can happen and are fine.
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		if(istype(B))
