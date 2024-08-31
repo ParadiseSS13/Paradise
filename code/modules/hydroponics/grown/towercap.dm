@@ -189,7 +189,7 @@
 	if(burning)
 		return
 	if(!CheckOxygen())
-		to_chat(user, "<span class='warning'>You can't seem to ignite [src] in this environment!")
+		to_chat(user, "<span class='warning'>You can't seem to ignite [src] in this environment!</span>")
 		return
 
 	icon_state = "bonfire_on_fire"
