@@ -145,7 +145,6 @@
 	name = "Pranksimov"
 	law_header = "Comedy Routine"
 	selectable = TRUE
-	unique_ai = TRUE //honk
 
 /datum/ai_laws/pranksimov/New()
 	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm... unless doing so would be funny.")
