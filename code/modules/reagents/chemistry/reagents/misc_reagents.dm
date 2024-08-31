@@ -518,7 +518,7 @@
 	description = "Mimestrogen is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
 	color = "#353535" // Should be dark grey, there are already a fair number of white chemicals
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "a funny flavour"
+	taste_description = "an entertaining flavour"
 
 /datum/reagent/mimestrogen/on_new()
 	..()
@@ -536,11 +536,12 @@
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-			C.mind.miming=!C.mind.miming
+			C.mind.miming=!C.mind.miming // Jestosterone gives comic sans which makes one more clown-like, comic sans also unlocks clown healing, minus Jestoserone. So, mind.miming makes one more like a mime and unlocks mime healing.
 			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
 
 /datum/reagent/mimestrogen/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	// var/list/color_view = null // Overrides client.color
 	if(prob(10))
 		M.emote("giggle")
 	if(!M.mind)
@@ -549,6 +550,8 @@
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
 	else
 		M.AdjustDizzy(20 SECONDS, 0, 100 SECONDS)
+		M.client.color = MATRIX_GREYSCALE
+		M.update_client_colour() // TRAIT_COLORBLIND only makes you colourblind for the wires, this fully makes it greyscale
 		if(prob(10))
 			M.EyeBlurry(10 SECONDS)
 		if(prob(6))
@@ -575,6 +578,8 @@
 	..()
 	if(M.mind?.assigned_role != "Mime")
 		M.mind.miming=!M.mind.miming
+		M.client.color = null
+		M.update_client_colour()
 		REMOVE_TRAIT(M, TRAIT_COLORBLIND, id)
 
 /datum/reagent/royal_bee_jelly
