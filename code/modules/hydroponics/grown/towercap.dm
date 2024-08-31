@@ -131,7 +131,7 @@
 	density = FALSE
 	anchored = TRUE
 	buckle_lying = FALSE
-	var/burning = 0
+	var/burning = FALSE
 	var/lighter // Who lit the fucking thing
 	var/fire_stack_strength = 5
 
