@@ -21038,13 +21038,18 @@
 /obj/item/solar_assembly,
 /obj/item/solar_assembly,
 /obj/item/solar_assembly,
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
 /obj/item/tracker_electronics,
 /obj/item/stack/cable_coil{
 	pixel_x = 3;
 	pixel_y = -4
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50;
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
