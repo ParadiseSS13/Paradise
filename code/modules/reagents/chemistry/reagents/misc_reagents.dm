@@ -512,6 +512,73 @@
 		M.RemoveElement(/datum/element/waddling)
 	qdel(M.GetComponent(/datum/component/squeak))
 
+/datum/reagent/mimestrogen
+	name = "Mimestrogen"
+	id = "mimestrogen"
+	description = "Mimestrogen is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
+	color = "#353535" // Should be dark grey, there are already a fair number of white chemicals
+	process_flags = ORGANIC | SYNTHETIC
+	taste_description = "a funny flavour"
+
+/datum/reagent/mimestrogen/on_new()
+	..()
+	var/mob/living/carbon/C = holder.my_atom
+	if(!istype(C))
+		return
+	if(C.mind)
+		if(C.mind.assigned_role == "Mime")
+			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
+		else if(C.mind.assigned_role == "Clown")
+			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
+			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
+			ADD_TRAIT(C, TRAIT_MUTE, id)
+			C.AddElement(/datum/element/waddling)
+		else
+			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
+			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
+			ADD_TRAIT(C, TRAIT_MUTE, id)
+			C.AddElement(/datum/element/waddling)
+	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
+
+/datum/reagent/mimestrogen/on_mob_life(mob/living/carbon/human/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(10))
+		M.emote("giggle")
+	if(!M.mind)
+		return ..() | update_flags
+	if(M.mind.assigned_role == "Mime")
+		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE)
+	else
+		M.AdjustDizzy(20 SECONDS, 0, 100 SECONDS)
+		M.Druggy(30 SECONDS)
+		if(prob(10))
+			M.EyeBlurry(10 SECONDS)
+		if(prob(6))
+			var/list/mime_message = list("You feel light-headed.",
+			"You can't see straight.",
+			"You feel about as funny as the station mime.",
+			"Muted colours and berets cloud your vision.",
+			"Your funny bone aches.",
+			"What was that?!",
+			"You can hear silence in the distance, somehow.",
+			"You feel like miming.",
+			"Silence permeates your ears.",
+			"...",
+			"You feel like miming a performance.")
+			to_chat(M, "<span class='warning'>[pick(mime_message)]</span>")
+		if(M.mind.assigned_role == "Clown")
+			if(!(M.dna.species.reagent_tag & PROCESS_SYN)) // Ensures the mob that is processing the reagent is Organic to apply toxin damage
+				update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
+			else // Only activates if the mob that is processing the reagent is Synthetic (IPC)
+				update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, robotic = TRUE) // The ", robotic = TRUE" just means it affects robotic limbs, which an IPC is fully robotic
+	return ..() | update_flags 																	   // Using burn instead of toxin for IPCs since IPCs don't suffer toxin and poison can feel similar to burns
+
+/datum/reagent/mimestrogen/on_mob_delete(mob/living/M)
+	..()
+	if(M.mind?.assigned_role != "Mime")
+		REMOVE_TRAIT(M, TRAIT_MUTE, id)
+		M.RemoveElement(/datum/element/waddling)
+	qdel(M.GetComponent(/datum/component/squeak))
 
 /datum/reagent/royal_bee_jelly
 	name = "Royal bee jelly"
