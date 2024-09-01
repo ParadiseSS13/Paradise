@@ -978,6 +978,11 @@ ffmpeg_cpuaffinity = ""
 force_discord_verification = false
 # Respawn delay in minutes before one may respawn as a crew member
 respawn_delay = 20
+# Enable speech filter for players.
+# If enabled, some words will be removed from player's messages.
+enable_speech_filter = false
+# List of ckeys, that bypass speech filter.
+speech_filter_bypass = []
 
 ################################################################
 

@@ -5,7 +5,6 @@
 #include "code/hear.dm"
 #include "code/numbers.dm"
 #include "code/providers/silero.dm"
-#include "code/rust_g_ss220.dm"
 #include "code/seeds/base.dm"
 #include "code/seeds/silero.dm"
 #include "code/sound.dm"

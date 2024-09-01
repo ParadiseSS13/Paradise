@@ -4,6 +4,7 @@
 // #include "example/_example.dme"
 
 // --- MAINTENANCE --- //
+#include "_rust_utils/_rust_utils.dme"
 #include "_components/_components.dme"
 #include "_defines220/_defines220.dme"
 #include "_signals220/_signals220.dme"
@@ -83,6 +84,7 @@
 #include "antagonists/_antagonists_vox_raiders.dme"
 #include "uplink_items/_uplink_items.dme"
 #include "shuttles/_shuttles.dme"
+#include "speech_filter/_speech_filter.dme"
 #include "redis220/_redis220.dme"
 #include "robolimbs/_robolimbs.dme"
 
