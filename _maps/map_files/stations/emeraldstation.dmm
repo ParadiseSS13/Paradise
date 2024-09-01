@@ -169,6 +169,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2446,6 +2447,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16799,7 +16801,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/hologram/holopad,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -18009,6 +18010,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
+"dsO" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/aisat/atmos)
 "dsP" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -39823,6 +39830,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
+"huI" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/telecomms/computer)
 "huP" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/stripes/line{
@@ -41721,6 +41734,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44581,6 +44595,12 @@
 /obj/item/pen/red,
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
+"ioy" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/turret_protected/ai)
 "ioA" = (
 /turf/simulated/wall,
 /area/station/maintenance/assembly_line)
@@ -49540,6 +49560,7 @@
 	dir = 6
 	},
 /obj/effect/landmark/start/cyborg,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58095,6 +58116,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -59929,6 +59951,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -66813,6 +66836,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -77092,6 +77116,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency)
+"oqd" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/aisat/breakroom)
 "oqi" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/alarm/directional/south,
@@ -83510,7 +83540,6 @@
 /area/station/public/dorms)
 "pzv" = (
 /obj/structure/rack,
-/obj/structure/rack,
 /obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/asteroid_maint)
@@ -87710,6 +87739,12 @@
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"qpp" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/warden)
 "qpr" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -104364,6 +104399,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -113538,6 +113574,19 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"uYY" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/turret_protected/ai)
 "uZd" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -115433,6 +115482,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
+"vrW" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/xenobiology)
 "vsi" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
@@ -127698,6 +127753,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
+"xIN" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/bluegrid,
+/area/station/telecomms/computer)
 "xJc" = (
 /obj/structure/chair/sofa/pew{
 	dir = 4
@@ -171992,7 +172051,7 @@ qsM
 qsM
 nkU
 nkU
-nkU
+dsO
 nkU
 qZQ
 dPa
@@ -172269,7 +172328,7 @@ uwx
 sqr
 tEw
 eGH
-aTO
+oqd
 aTO
 uwx
 uwx
@@ -175596,7 +175655,7 @@ dJy
 rjb
 rjb
 emN
-rjb
+uYY
 ndf
 klp
 sxw
@@ -175604,7 +175663,7 @@ bRd
 mVY
 lvC
 pGO
-xAV
+ioy
 vku
 cfc
 cfc
@@ -178951,7 +179010,7 @@ uwx
 sqr
 aTO
 eGH
-aTO
+oqd
 aTO
 uwx
 uwx
@@ -179188,7 +179247,7 @@ und
 und
 ykW
 ykW
-ykW
+huI
 ykW
 cFq
 rMe
@@ -179969,7 +180028,7 @@ und
 qBl
 jvB
 ykW
-jvB
+xIN
 ykW
 daQ
 wqP
@@ -180074,7 +180133,7 @@ avb
 whu
 wqr
 pzX
-pzX
+qpp
 utQ
 pzX
 hjh
@@ -181480,7 +181539,7 @@ uaH
 vzn
 qcK
 qcK
-mzC
+vrW
 hCL
 cap
 abj
