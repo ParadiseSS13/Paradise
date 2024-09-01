@@ -38,8 +38,8 @@
 /datum/weather/rad_storm/telegraph()
 	..()
 	status_alarm(TRUE)
-	pre_maint_all_access = GLOB.maint_all_access
-	if(!GLOB.maint_all_access)
+	pre_maint_all_access = SSmapping.maint_all_access
+	if(!SSmapping.maint_all_access)
 		SSmapping.make_maint_all_access()
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
