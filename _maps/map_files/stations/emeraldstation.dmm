@@ -9311,9 +9311,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
-"bKy" = (
-/turf/simulated/wall,
-/area/station/security/brig)
 "bKz" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -26235,16 +26232,6 @@
 /obj/item/storage/box/bodybags,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
-"eWr" = (
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgreycheck"
-	},
-/area/station/security/main)
 "eWs" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 4
@@ -32657,6 +32644,18 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint2)
+"gdB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/construction)
 "gdF" = (
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
@@ -47710,9 +47709,6 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry)
-"iSa" = (
-/turf/simulated/floor/plating,
-/area/station/security/permabrig)
 "iSc" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -48250,9 +48246,9 @@
 /area/station/maintenance/security/fore)
 "iXn" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
@@ -52769,6 +52765,16 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/aisat/hall)
+"jNR" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreycheck"
+	},
+/area/station/security/main)
 "jOh" = (
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel,
@@ -67480,13 +67486,15 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "mFM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/area/station/service/kitchen)
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreycheck"
+	},
+/area/station/security/main)
 "mFO" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel,
@@ -67627,6 +67635,30 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"mHn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/brig)
 "mHW" = (
 /turf/simulated/wall,
 /area/station/supply/qm)
@@ -73177,6 +73209,9 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/atmos/transit)
+"nIf" = (
+/turf/simulated/wall,
+/area/station/security/brig)
 "nIg" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/spawner/random/maintenance,
@@ -101633,10 +101668,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
 "sRf" = (
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
@@ -101831,30 +101866,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay2)
-"sTt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/brig)
 "sTx" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/aft)
@@ -111291,17 +111302,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "uEb" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "cafeteria"
 	},
-/area/station/public/construction)
+/area/station/service/kitchen)
 "uEk" = (
 /obj/structure/chair{
 	dir = 1
@@ -127220,10 +127227,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_starboard)
-"xDD" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/space,
-/area/station/maintenance/storage)
 "xDE" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating/airless,
@@ -128324,15 +128327,8 @@
 /turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
 "xPi" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgreycheck"
-	},
-/area/station/security/main)
+/turf/simulated/floor/plating,
+/area/station/security/permabrig)
 "xPs" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -144111,7 +144107,7 @@ aZS
 aZS
 aZS
 aZS
-xDD
+vbN
 sZB
 sZB
 oso
@@ -148271,7 +148267,7 @@ tpE
 tpE
 tpE
 tpE
-uEb
+gdB
 tpE
 tpE
 maQ
@@ -161136,7 +161132,7 @@ bgI
 iyW
 mWg
 cSl
-mFM
+uEb
 hek
 hHC
 kPG
@@ -175712,11 +175708,11 @@ bcW
 bcW
 bcW
 txP
-bKy
+nIf
 fZi
-bKy
-bKy
-bKy
+nIf
+nIf
+nIf
 tZY
 lvl
 awt
@@ -175973,7 +175969,7 @@ kbj
 foL
 eDm
 qJf
-bKy
+nIf
 dub
 lvl
 jPg
@@ -176230,7 +176226,7 @@ kbj
 fqk
 xMn
 qJf
-bKy
+nIf
 cUx
 lvl
 ceS
@@ -176485,9 +176481,9 @@ kBW
 sav
 kbj
 cZB
-bKy
-bKy
-bKy
+nIf
+nIf
+nIf
 tXA
 lvl
 kzO
@@ -178017,7 +178013,7 @@ vnL
 vnL
 vnL
 foo
-sTt
+mHn
 wdQ
 kbj
 raW
@@ -178523,8 +178519,8 @@ tau
 hIB
 xpb
 kGu
-xPi
-sRf
+iXn
+mFM
 mTC
 qcW
 dwN
@@ -178780,7 +178776,7 @@ xkw
 nia
 xpb
 blr
-iXn
+jNR
 lLF
 lLF
 lLF
@@ -179037,7 +179033,7 @@ smP
 cuO
 xpb
 aOk
-eWr
+sRf
 gmr
 bPa
 xvs
@@ -180814,7 +180810,7 @@ qvC
 eTx
 eTx
 vVz
-iSa
+xPi
 ksv
 eTx
 fjJ
@@ -181072,7 +181068,7 @@ eTx
 sUW
 kFA
 wiA
-iSa
+xPi
 sgI
 xaE
 dcH
@@ -181327,7 +181323,7 @@ gDq
 gDq
 eTx
 imq
-iSa
+xPi
 oMl
 vJy
 fRy
@@ -181585,7 +181581,7 @@ aZS
 eTx
 lFn
 orr
-iSa
+xPi
 swd
 rXy
 xaE
@@ -181842,7 +181838,7 @@ qSw
 eTx
 eTx
 xxe
-iSa
+xPi
 urT
 eTx
 fjJ
