@@ -83,7 +83,6 @@
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/melee/skateboard/hoverboard/admin = 1 //How do you do, fellow kids?
 	)
 	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
