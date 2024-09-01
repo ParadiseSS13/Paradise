@@ -559,7 +559,7 @@
 			"You can't see straight.",
 			"You feel about as funny as the station mime.",
 			"Muted colours and berets cloud your vision.",
-			"Your funny bone aches.",
+			"Your voice box feels numb.",
 			"What was that?!",
 			"You can hear silence in the distance, somehow.",
 			"You feel like miming.",
