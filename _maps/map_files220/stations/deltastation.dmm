@@ -7535,7 +7535,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "aGx" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -34000,8 +34000,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
+	icon_state = "neutralfull"
 	},
 /area/station/maintenance/port)
 "cGt" = (
@@ -34897,16 +34896,12 @@
 /turf/simulated/floor/wood/oak,
 /area/station/service/cafeteria)
 "cKf" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'BOMB RANGE";
+	name = "BOMB RANGE"
 	},
-/obj/machinery/light/small/directional/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/station/maintenance/port)
+/turf/simulated/wall/r_wall,
+/area/station/science/toxins/test)
 "cKg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -36517,6 +36512,7 @@
 /area/station/science/xenobiology)
 "cQN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -37652,9 +37648,17 @@
 /turf/simulated/wall/r_wall,
 /area/station/science/xenobiology)
 "cVm" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/science/xenobiology)
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "neutral"
+	},
+/area/station/maintenance/port)
 "cVn" = (
 /obj/structure/table/reinforced,
 /obj/item/mmi,
@@ -38919,7 +38923,7 @@
 /area/station/science/rnd)
 "daK" = (
 /obj/structure/marker_beacon/dock_marker/collision,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk/airless,
 /area/station/science/toxins/test)
 "daL" = (
 /obj/machinery/hologram/holopad,
@@ -41173,6 +41177,7 @@
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random/west,
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "dlJ" = (
@@ -42595,10 +42600,22 @@
 /area/station/maintenance/port2)
 "dsp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/girder,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/light/small/directional/south,
+/turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "dsr" = (
 /obj/effect/decal/cleanable/dirt,
@@ -44474,17 +44491,10 @@
 /turf/simulated/floor/plasteel/airless,
 /area/station/science/toxins/test)
 "dCz" = (
-/obj/machinery/camera{
-	c_tag = "Research Toxins Test Chamber East";
-	dir = 4;
-	network = list("Toxins","Research","SS13");
-	invuln = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/airless,
-/area/station/science/toxins/test)
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/station/maintenance/port)
 "dCA" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -44950,7 +44960,7 @@
 /area/station/hallway/primary/fore)
 "dEK" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "dER" = (
 /turf/simulated/wall,
@@ -51131,9 +51141,10 @@
 	},
 /area/station/security/warden)
 "ezh" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall/r_wall,
-/area/station/science/xenobiology)
+/obj/structure/rack,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/port)
 "ezo" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -54057,8 +54068,16 @@
 	},
 /area/station/supply/office)
 "fuJ" = (
-/obj/machinery/space_heater,
-/turf/simulated/floor/plating,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
 /area/station/maintenance/port)
 "fuM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -58005,6 +58024,7 @@
 	dir = 1;
 	network = list("Research","SS13")
 	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -60686,7 +60706,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkpurple"
@@ -64640,6 +64659,7 @@
 	id_tag = "Biohazard_RnD";
 	name = "Biohazard Shutter"
 	},
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "iEL" = (
@@ -83891,8 +83911,7 @@
 	},
 /area/station/hallway/primary/central/east)
 "olO" = (
-/obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
+/obj/machinery/space_heater,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -83966,8 +83985,8 @@
 	},
 /area/station/science/research)
 "omB" = (
-/obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -84750,6 +84769,7 @@
 "ozw" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light/directional/north,
+/obj/structure/sign/poster/official/random/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -86485,7 +86505,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/theatre)
 "pbn" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "pbt" = (
 /obj/structure/chair/office{
@@ -87236,9 +87256,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "plR" = (
-/obj/structure/rack,
+/obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "pmA" = (
@@ -90873,9 +90892,6 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -91043,7 +91059,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
 /area/station/maintenance/port)
 "qul" = (
 /obj/machinery/power/apc/directional/west,
@@ -91853,6 +91872,7 @@
 	dir = 1
 	},
 /obj/machinery/light/directional/south,
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "qFk" = (
@@ -93794,7 +93814,14 @@
 /area/station/engineering/controlroom)
 "rfI" = (
 /obj/item/beacon,
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal/stripes/box,
+/obj/machinery/camera{
+	c_tag = "Research Toxins Test Chamber East";
+	dir = 4;
+	network = list("Toxins","Research","SS13");
+	invuln = 1
+	},
+/turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
 "rfK" = (
 /obj/structure/disposalpipe/segment{
@@ -100806,6 +100833,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "tld" = (
@@ -105245,24 +105273,9 @@
 	},
 /area/station/hallway/primary/fore)
 "uFO" = (
-/obj/machinery/light/small/directional/north,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "neutral"
 	},
 /area/station/maintenance/port)
@@ -125401,11 +125414,11 @@ acF
 abj
 abj
 abj
-dyn
+cKf
 dEK
 dEK
 dEK
-dyn
+cKf
 abj
 abj
 abj
@@ -125917,7 +125930,7 @@ dEK
 dEK
 yfY
 dAH
-dyn
+dAH
 dAH
 dBe
 dEK
@@ -126174,7 +126187,7 @@ dEK
 dEw
 dDP
 dDP
-dCz
+dDP
 dDP
 dDP
 dBG
@@ -126425,7 +126438,7 @@ aaa
 abj
 aaa
 acF
-dyn
+cKf
 dyn
 hvs
 dzv
@@ -126437,7 +126450,7 @@ daK
 dFf
 uLA
 dyn
-dyn
+cKf
 acF
 aaa
 abj
@@ -126688,7 +126701,7 @@ dAH
 dzv
 pbn
 pbn
-pbn
+dyn
 pbn
 pbn
 dFf
@@ -127453,7 +127466,7 @@ aaa
 abj
 aaa
 acF
-dyn
+cKf
 dyn
 qym
 dzv
@@ -127465,7 +127478,7 @@ daK
 dFf
 hMv
 dyn
-dyn
+cKf
 acF
 aaa
 abj
@@ -128485,11 +128498,11 @@ abj
 abj
 dCA
 abj
-dyn
+cKf
 dEK
 pbn
 dEK
-dyn
+cKf
 abj
 abj
 abj
@@ -138993,11 +139006,11 @@ tJc
 tJc
 bSM
 cMS
-cIH
-cIH
+dmq
+dmq
 cJW
-cIH
-cIH
+dmq
+dmq
 iIM
 sVu
 oPR
@@ -139250,11 +139263,11 @@ cJZ
 sOU
 cNe
 ceM
-cIH
+dmq
 cRL
 cTm
 eJb
-ezh
+riO
 cOR
 psZ
 nxO
@@ -139507,11 +139520,11 @@ lCu
 iga
 cOF
 ddC
-cIH
+dmq
 cRM
 cTn
 dWr
-ezh
+riO
 nMR
 ltb
 drn
@@ -139764,11 +139777,11 @@ cKb
 cLO
 cTG
 ceM
-cIH
+dmq
 cOG
 cJT
 cQJ
-ezh
+riO
 drK
 mdx
 cKB
@@ -140016,22 +140029,22 @@ cdh
 bXU
 tJR
 dsr
-ezh
-ezh
-cIH
-cIH
-cIH
-cIH
+riO
+riO
+dmq
+dmq
+dmq
+dmq
 cIH
 hOr
 cIH
-cIH
-cIH
-ezh
-cIH
-cIH
-cIH
-cIH
+dmq
+dmq
+riO
+dmq
+dmq
+dmq
+dmq
 qvS
 qvS
 bDp
@@ -140273,7 +140286,7 @@ cDD
 cEB
 wfC
 dsr
-ezh
+riO
 cIM
 cIM
 cIM
@@ -140288,7 +140301,7 @@ cIH
 qqy
 qqy
 cNi
-cIH
+dmq
 czF
 dhG
 bDp
@@ -140530,7 +140543,7 @@ pdl
 bXU
 egM
 dhG
-ezh
+riO
 nYF
 cKn
 cIM
@@ -140545,7 +140558,7 @@ cOJ
 qqy
 cKq
 cNi
-cIH
+dmq
 cWn
 dhG
 vXM
@@ -140787,7 +140800,7 @@ cDH
 qIe
 seN
 dhG
-cIH
+dmq
 cIM
 cIM
 cLR
@@ -140802,7 +140815,7 @@ qqy
 cNi
 cKq
 dbZ
-cIH
+dmq
 dfS
 dsr
 bDp
@@ -141044,7 +141057,7 @@ cdh
 bXU
 tuP
 drn
-cIH
+dmq
 cIL
 cIL
 cIL
@@ -141059,7 +141072,7 @@ qqy
 qqy
 cKq
 dcd
-cIH
+dmq
 cZm
 dhG
 bDp
@@ -141301,7 +141314,7 @@ cDJ
 bXU
 dkB
 dlM
-cIH
+dmq
 cIM
 cIM
 cIM
@@ -141316,7 +141329,7 @@ qGa
 qqy
 cKq
 qqy
-cIH
+dmq
 cZw
 cZw
 vXM
@@ -141558,7 +141571,7 @@ byr
 lJP
 jSH
 drn
-ezh
+riO
 dmf
 cKq
 cIM
@@ -141573,7 +141586,7 @@ cOJ
 qqy
 cNJ
 qqy
-cIH
+dmq
 aEu
 dkz
 rRS
@@ -141813,9 +141826,9 @@ kpD
 eVs
 jim
 lJP
-uFO
+jSH
 dsr
-ezh
+riO
 cIM
 cIM
 cLR
@@ -141830,7 +141843,7 @@ cIH
 cNi
 qqy
 qqy
-cIH
+dmq
 dkA
 dri
 cYT
@@ -142072,7 +142085,7 @@ rkO
 lJP
 tkY
 dhG
-cIH
+dmq
 cIL
 cIL
 cIL
@@ -142086,8 +142099,8 @@ cIH
 cIH
 cIH
 cIH
-cIH
-cIH
+dmq
+dmq
 tJc
 kFg
 djg
@@ -142329,7 +142342,7 @@ uAY
 lJP
 efk
 dsr
-ezh
+riO
 cIM
 cIM
 cIM
@@ -142343,7 +142356,7 @@ lOB
 cYi
 cIM
 cIM
-cIH
+dmq
 deM
 cMS
 xPG
@@ -142586,7 +142599,7 @@ ohQ
 lJP
 efk
 dsr
-cIH
+dmq
 cKk
 cKn
 cIM
@@ -142600,7 +142613,7 @@ dzQ
 cIM
 cKq
 gKf
-cIH
+dmq
 dmq
 dmq
 dmq
@@ -142842,8 +142855,8 @@ gCT
 vNF
 lJP
 efk
-cXU
-cIH
+uFO
+dmq
 cIM
 cIM
 cLR
@@ -142857,7 +142870,7 @@ cNk
 cIM
 cIM
 cIM
-cIH
+dmq
 abj
 abj
 aaa
@@ -143099,8 +143112,8 @@ upX
 ppP
 lJP
 uNf
-drn
-cIH
+ezh
+dmq
 cIL
 cIL
 cIL
@@ -143114,7 +143127,7 @@ cIL
 cIL
 daD
 cIL
-cIH
+dmq
 abj
 oIJ
 dFm
@@ -143357,7 +143370,7 @@ mpS
 lJP
 fnz
 dlM
-cIH
+dmq
 cIM
 cIM
 cIM
@@ -143371,7 +143384,7 @@ cAZ
 cYi
 cIM
 cIM
-cIH
+dmq
 aaa
 oIJ
 xYj
@@ -143614,7 +143627,7 @@ psB
 lJP
 efk
 dhG
-cIH
+dmq
 cSi
 cKq
 cIM
@@ -143628,7 +143641,7 @@ eau
 cIM
 cKn
 dox
-cIH
+dmq
 aaa
 dFm
 jEZ
@@ -143871,7 +143884,7 @@ iVI
 uwp
 uNf
 dsr
-cIH
+dmq
 cIM
 cIM
 cLR
@@ -143885,7 +143898,7 @@ drA
 cIM
 cIM
 cIM
-cIH
+dmq
 abj
 dFm
 cPe
@@ -144128,7 +144141,7 @@ vWm
 lJP
 gJG
 dhG
-cIH
+dmq
 cIL
 cIL
 cIL
@@ -144142,7 +144155,7 @@ cIL
 cIL
 cIL
 cIL
-cIH
+dmq
 abj
 oIJ
 xJD
@@ -144385,7 +144398,7 @@ kpD
 lJP
 gJG
 drn
-cIH
+dmq
 cIM
 cIM
 cIM
@@ -144399,7 +144412,7 @@ ygz
 cYi
 cIM
 cIM
-cIH
+dmq
 aaa
 dFm
 gNd
@@ -144642,7 +144655,7 @@ lJP
 lJP
 uNf
 dhG
-ezh
+riO
 pRI
 cKn
 cIM
@@ -144656,7 +144669,7 @@ mtx
 cIM
 cKq
 doQ
-cIH
+dmq
 aaa
 oIJ
 kfh
@@ -144893,13 +144906,13 @@ drn
 drn
 drn
 drn
+plR
+dhG
 drn
 drn
-drn
-xoF
 gJG
 cQD
-ezh
+riO
 cIM
 cIM
 cLR
@@ -144913,7 +144926,7 @@ cWs
 cIM
 cIM
 cIM
-cIH
+dmq
 abj
 oIJ
 rSG
@@ -145149,14 +145162,14 @@ xDT
 xKL
 hoj
 glK
-tUs
+fuJ
 glK
 glK
 cDR
 xDT
 eGn
-ezh
-ezh
+riO
+riO
 cIL
 cIL
 cIL
@@ -145168,8 +145181,8 @@ cSb
 cOY
 cIL
 cIL
-cIH
-cIH
+cIL
+cKr
 cKr
 cKr
 dFm
@@ -145412,7 +145425,7 @@ bYj
 drn
 dhG
 xOv
-cIH
+dmq
 cIO
 cIO
 cIO
@@ -145426,7 +145439,7 @@ flG
 gwh
 pGk
 dWv
-cIH
+cKr
 oMh
 tGY
 dnk
@@ -145669,7 +145682,7 @@ bYj
 pvh
 dlM
 huN
-cIH
+dmq
 cIO
 cKp
 rVu
@@ -145683,7 +145696,7 @@ cVf
 cTz
 kmi
 tag
-cIH
+cKr
 kQt
 mod
 mod
@@ -145926,7 +145939,7 @@ bYj
 czF
 drn
 efk
-cIH
+dmq
 cSC
 uoL
 lfz
@@ -145938,9 +145951,9 @@ cQV
 dpM
 cWG
 tjM
-cIH
-cIH
-cIH
+cKr
+cKr
+cKr
 mHK
 mdg
 mdg
@@ -146183,7 +146196,7 @@ bYj
 drn
 drn
 efk
-cIH
+dmq
 cIO
 uoL
 lfz
@@ -146195,7 +146208,7 @@ cyE
 iMO
 cVf
 rKq
-cIH
+cKr
 dmW
 cTr
 hYv
@@ -146440,7 +146453,7 @@ bYj
 drn
 drs
 efk
-ezh
+riO
 cIO
 bQx
 sau
@@ -146452,7 +146465,7 @@ jLf
 vKs
 iev
 uBW
-cIH
+cKr
 cNG
 cMm
 plm
@@ -146696,20 +146709,20 @@ cAV
 bYj
 drn
 dlM
-efk
-cIH
+dsp
+dmq
 cIO
 cIO
 cIO
 cIL
 cOS
 cgZ
-cIH
-cIH
+cKr
+cKr
 cTM
-cVm
-cIH
-cIH
+kjr
+cKr
+cKr
 cND
 cMm
 dau
@@ -146954,13 +146967,13 @@ bYj
 pvh
 dlM
 pIR
-cIH
-ezh
-ezh
-cIH
-cIH
-cIH
-cIH
+dmq
+riO
+riO
+dmq
+dmq
+dmq
+dmq
 cKr
 cTD
 iZl
@@ -147211,8 +147224,8 @@ bYj
 cDV
 cfn
 cGq
+cVm
 cKc
-cKf
 glK
 oTP
 hGR
@@ -147468,8 +147481,8 @@ bYj
 drn
 dlM
 gJG
-dsp
-dhG
+cQD
+dCz
 pvo
 drn
 sVv
@@ -149004,13 +149017,13 @@ rfY
 fdG
 iXl
 bYj
-fuJ
+drn
 olO
 dlM
 omB
 cJO
 efk
-plR
+dhG
 cIS
 iqc
 qSv
