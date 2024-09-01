@@ -1,9 +1,10 @@
 #include "_prime.dm"
 
-#include "code/clothing/under.dm"
 #include "code/anakonda.dm"
 #include "code/cattleprod.dm"
+#include "code/clothing/under.dm"
 #include "code/megafauna.dm"
 #include "code/objects.dm"
 #include "code/outfit.dm"
+#include "code/tts_seeds.dm"
 #include "code/vending.dm"
