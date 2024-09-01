@@ -2781,6 +2781,7 @@
 	dir = 4
 	},
 /obj/machinery/alarm/engine/directional/north,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "aCu" = (
@@ -12722,7 +12723,7 @@
 /obj/machinery/camera{
 	c_tag = "Central Hallway South West"
 	},
-/obj/item/kirbyplants,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "crP" = (
@@ -29626,7 +29627,7 @@
 	},
 /area/station/medical/surgery/primary)
 "fzx" = (
-/obj/item/kirbyplants,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "blackcorner"
 	},
@@ -34777,6 +34778,7 @@
 	dir = 10;
 	network = list("SS13","engine")
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "gxN" = (
@@ -45466,10 +45468,8 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
 "ixE" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -51033,8 +51033,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "jyw" = (
-/obj/item/kirbyplants,
 /obj/machinery/light,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -77687,6 +77687,7 @@
 	c_tag = "Fore Primary Hall";
 	dir = 1
 	},
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -118321,7 +118322,7 @@
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
 "vSk" = (
-/obj/effect/landmark/start/assistant,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "vSl" = (
@@ -122707,6 +122708,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
+"wLd" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start/assistant,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/nw)
 "wLm" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
@@ -128176,11 +128188,11 @@
 	},
 /area/station/medical/storage)
 "xNo" = (
-/obj/item/kirbyplants,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/west)
 "xNx" = (
@@ -155743,7 +155755,7 @@ dZP
 bBz
 aNZ
 dZP
-dZP
+wLd
 dZP
 dZP
 dZP
@@ -162990,7 +163002,7 @@ ucZ
 tzL
 tzL
 tzL
-sdJ
+bgI
 bgI
 wmU
 ixl
