@@ -721,6 +721,10 @@ to destroy them and players will be able to make replacements.
 	icon_state = "engineering"
 	build_path = /obj/machinery/autolathe/syndicate
 
+/obj/item/circuitboard/autolathe/trapped
+	board_name = "Modified Autolathe"
+	build_path = /obj/machinery/autolathe/trapped
+
 /obj/item/circuitboard/protolathe
 	board_name = "Protolathe"
 	icon_state = "science"
