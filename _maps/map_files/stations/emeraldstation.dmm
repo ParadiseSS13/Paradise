@@ -24157,7 +24157,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/equipment,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "eBV" = (
