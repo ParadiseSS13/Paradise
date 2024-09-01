@@ -356,5 +356,44 @@ SUBSYSTEM_DEF(mapping)
 
 	log_world("Ruin loader finished with [budget] left to spend.")
 
+GLOBAL_VAR_INIT(maint_all_access, FALSE)
+GLOBAL_VAR_INIT(station_all_access, FALSE)
+
+/datum/controller/subsystem/mapping/proc/make_maint_all_access()
+	for(var/area/station/maintenance/A in world)
+		for(var/obj/machinery/door/airlock/D in A)
+			D.emergency = TRUE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
+	GLOB.maint_all_access = TRUE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
+
+/datum/controller/subsystem/mapping/proc/revoke_maint_all_access()
+	for(var/area/station/maintenance/A in world)
+		for(var/obj/machinery/door/airlock/D in A)
+			D.emergency = FALSE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
+	GLOB.maint_all_access = FALSE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
+
+/datum/controller/subsystem/mapping/proc/make_station_all_access()
+	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+		if(is_station_level(D.z))
+			D.emergency = TRUE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
+	GLOB.station_all_access = TRUE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
+
+/datum/controller/subsystem/mapping/proc/revoke_station_all_access()
+	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+		if(is_station_level(D.z))
+			D.emergency = FALSE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
+	GLOB.station_all_access = FALSE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))
+
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT
