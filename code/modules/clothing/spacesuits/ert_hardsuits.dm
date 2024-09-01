@@ -26,7 +26,7 @@
 		var/mob/living/carbon/human/wearer = loc.loc	//loc is the hardsuit, so its loc is the wearer
 		if(ishuman(wearer))
 			register_camera(wearer)
-	..()
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self(mob/user)
 	if(camera || !has_camera)
