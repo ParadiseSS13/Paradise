@@ -449,10 +449,7 @@
 "bl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/arrows,
-/obj/machinery/requests_console{
-	department = "Labor Camp";
-	pixel_y = -32
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -542,13 +539,7 @@
 /area/mine/outpost/engineering)
 "bv" = (
 /obj/machinery/newscaster/directional/north,
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Quartermaster's Desk";
-	departmentType = 5;
-	name = "Quartermaster Requests Console";
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /obj/structure/closet/secure_closet/quartermaster/lavaland,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
@@ -1709,12 +1700,7 @@
 "dM" = (
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /obj/effect/decal/cleanable/glass,
-/obj/machinery/requests_console{
-	department = "Mining Outpost";
-	departmentType = 2;
-	name = "Mining Outpost Requests Console";
-	pixel_x = -30
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "dN" = (
@@ -6218,12 +6204,7 @@
 	dir = 1
 	},
 /obj/machinery/light/directional/south,
-/obj/machinery/requests_console{
-	department = "Mining Outpost";
-	departmentType = 2;
-	name = "Mining Outpost Requests Console";
-	pixel_y = -30
-	},
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -7943,12 +7924,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/requests_console{
-	department = "Mining Outpost";
-	departmentType = 2;
-	name = "Mining Outpost Requests Console";
-	pixel_x = 30
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
