@@ -168,17 +168,14 @@
 	if(mob.pulling)
 		prev_pulling_loc = mob.pulling.loc
 
-	if(!(direct & (direct - 1))) // cardinal direction
-		. = mob.SelfMove(n, direct, delay)
-	else // diagonal movements take longer
-		var/diag_delay = delay * SQRT_2
-		. = mob.SelfMove(n, direct, diag_delay)
-		if(mob.loc == n)
-			// only incur the extra delay if the move was *actually* diagonal
-			// There would be a bit of visual jank if we try to walk diagonally next to a wall
-			// and the move ends up being cardinal, rather than diagonal,
-			// but that's better than it being jank on every *successful* diagonal move.
-			delay = diag_delay
+	. = mob.SelfMove(n, direct)
+
+	if(IS_DIR_DIAGONAL(direct) && mob.loc == n)
+		// only incur the extra delay if the move was *actually* diagonal
+		// There would be a bit of visual jank if we try to walk diagonally next to a wall
+		// and the move ends up being cardinal, rather than diagonal,
+		// but that's better than it being jank on every *successful* diagonal move.
+		delay *= SQRT_2
 	move_delay += delay
 
 	if(mob.pulledby)
@@ -330,36 +327,51 @@
 		to_chat(src, "<span class='notice'>You push off of [backup] to propel yourself.</span>")
 	return TRUE
 
+/**
+ * Finds a target near a mob that is viable for pushing off when moving.
+ * Takes the intended movement direction as input, alongside if the context is checking if we're allowed to continue drifting
+ */
 /mob/get_spacemove_backup(moving_direction, continuous_move)
-	for(var/A in orange(1, get_turf(src)))
-		if(isarea(A))
+	for(var/atom/pushover as anything in range(1, get_turf(src)))
+		if(pushover == src)
 			continue
-		else if(isturf(A))
-			var/turf/turf = A
+		if(isarea(pushover))
+			continue
+		if(isturf(pushover))
+			var/turf/turf = pushover
 			if(isspaceturf(turf))
 				continue
 			if(!turf.density && !mob_negates_gravity())
 				continue
-			return A
+			return pushover
 
-		var/atom/movable/AM = A
-		var/pass_allowed = AM.CanPass(src, get_dir(AM, src))
-		if(continuous_move && !pass_allowed)
-			var/datum/move_loop/move/rebound_engine = GLOB.move_manager.processing_on(AM, SSspacedrift)
-			// If you're moving toward it and you're both going the same direction, stop
-			if(moving_direction == get_dir(src, A) && rebound_engine && moving_direction == rebound_engine.direction)
-				continue
-		if(AM == buckled) //Kind of unnecessary but let's just be sure
+		var/atom/movable/rebound = pushover
+		if(rebound == buckled)
 			continue
-		if(!AM.CanPass(src) || AM.density)
-			if(AM.anchored)
-				return AM
-			if(pulling == AM)
+		if(ismob(rebound))
+			var/mob/lover = rebound
+			if(lover.buckled)
 				continue
-			if(get_turf(AM) == get_step(get_turf(src), moving_direction)) // No pushing off objects in front of you, while simultaneously pushing them fowards to go faster in space.
-				continue
-			. = AM
 
+		var/pass_allowed = rebound.CanPass(src, get_dir(rebound, src))
+		if(!rebound.density && pass_allowed)
+			continue
+		//Sometime this tick, this pushed off something. Doesn't count as a valid pushoff target
+		if(rebound.last_pushoff == world.time)
+			continue
+		if(continuous_move && !pass_allowed)
+			var/datum/move_loop/move/rebound_engine = GLOB.move_manager.processing_on(rebound, SSspacedrift)
+			// If you're moving toward it and you're both going the same direction, stop
+			if(moving_direction == get_dir(src, pushover) && rebound_engine && moving_direction == rebound_engine.direction)
+				continue
+		else if(!pass_allowed)
+			if(moving_direction == get_dir(src, pushover)) // Can't push "off" of something that you're walking into
+				continue
+		if(rebound.anchored)
+			return rebound
+		if(pulling == rebound)
+			continue
+		return rebound
 
 /mob/proc/mob_has_gravity(turf/T)
 	return has_gravity(src, T)

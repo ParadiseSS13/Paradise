@@ -32,7 +32,7 @@
 		W.setDir(dir)
 		qdel(src)
 
-/obj/structure/chair/Move(atom/newloc, direct)
+/obj/structure/chair/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	handle_rotation()
 

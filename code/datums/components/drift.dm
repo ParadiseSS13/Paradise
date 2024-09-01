@@ -118,7 +118,6 @@
 	movable_parent.setDir(old_dir)
 	movable_parent.inertia_moving = FALSE
 	if(movable_parent.Process_Spacemove(drifting_loop.direction, continuous_move = TRUE))
-		log_debug("gliding to halt")
 		glide_to_halt(visual_delay)
 		return
 
@@ -132,7 +131,6 @@
 
 /datum/component/drift/proc/handle_move(datum/source, old_loc)
 	SIGNAL_HANDLER
-	log_debug("handling move")
 	// This can happen, because signals once sent cannot be stopped
 	if(QDELETED(src))
 		return
