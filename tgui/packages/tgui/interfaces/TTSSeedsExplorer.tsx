@@ -130,7 +130,7 @@ export const TTSSeedsExplorerContent = (props, context) => {
     <Dropdown
       options={phrases}
       selected={selectedPhrase.replace(/(.{60})..+/, '$1...')}
-      width="100%"
+      width="21.3em"
       onSelected={(value) => setSelectedPhrase(value)}
     />
   );
@@ -222,9 +222,9 @@ export const TTSSeedsExplorerContent = (props, context) => {
 
   return (
     <>
-      <Stack.Item basis="30.5em">
+      <Stack.Item basis="30.25em">
         <Stack fill vertical>
-          <Stack.Item height="12.5em">
+          <Stack.Item>
             <Section fill title="Фильтры">
               <LabeledList>
                 <LabeledList.Item label="Провайдеры">{providerCheckboxes}</LabeledList.Item>
