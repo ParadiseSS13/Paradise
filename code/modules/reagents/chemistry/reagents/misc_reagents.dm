@@ -536,7 +536,7 @@
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-			C.mind.miming=!C.mind.miming // Jestosterone gives comic sans which makes one more clown-like, comic sans also unlocks clown healing, minus Jestoserone. So, mind.miming makes one more like a mime and unlocks mime healing.
+			C.mind.miming=!C.mind.miming // Jestosterone gives comic sans which makes one more clown-like, comic sans also unlocks clown healing, minus Jestoserone. So, mind.miming makes one more like a mime and unlocks mime healing, minus Mimestrogen.
 			ADD_TRAIT(C, TRAIT_COLORBLIND, id)
 
 /datum/reagent/mimestrogen/on_mob_life(mob/living/carbon/human/M)
