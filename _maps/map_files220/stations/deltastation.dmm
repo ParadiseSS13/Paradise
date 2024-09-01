@@ -35793,7 +35793,13 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/machinery/firealarm/directional/west,
+/obj/machinery/requests_console{
+	department = "Robotics";
+	departmentType = 2;
+	name = "Robotics Requests Console";
+	dir = 8;
+	pixel_x = -26
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "cNT" = (
