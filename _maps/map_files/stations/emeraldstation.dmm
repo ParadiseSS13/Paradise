@@ -105515,7 +105515,7 @@
 	dir = 8;
 	icon_state = "whitecorner"
 	},
-/area/station/hallway/primary/aft)
+/area/station/service/kitchen)
 "tzV" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -108579,7 +108579,7 @@
 	dir = 8;
 	icon_state = "whitecorner"
 	},
-/area/station/hallway/primary/aft)
+/area/station/service/kitchen)
 "udf" = (
 /obj/structure/cable{
 	d1 = 4;
