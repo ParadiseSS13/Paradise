@@ -2,10 +2,12 @@
 
 
 /datum/client_login_processor/donator_check/proc/CheckAutoDonatorLevel(client/C)
-	var/list/big_worker = list("Администратор", "Старший Администратор", "Старший Разработчик", "Разработчик", "Бригадир мапперов", "Маппер")
+	var/static/list/ultimate_worker = list("Банда", "Братюня", "Сестрюня", "Главный Администратор", "Старший Администратор")
+
+	var/static/list/big_worker = list("Администратор", "Старший Разработчик", "Разработчик", "Бригадир мапперов", "Маппер", "Администратор СС14")
 
 	if(C.holder)
-		C.donator_level = (C.holder.rank in big_worker) ? BIG_WORKER_TIER : LITTLE_WORKER_TIER
+		C.donator_level = (C.holder.rank in ultimate_worker) ? DONATOR_LEVEL_MAX : (C.holder.rank in big_worker) ? BIG_WORKER_TIER : LITTLE_WORKER_TIER
 		return
 
 	var/is_wl = GLOB.configuration.overflow.reroute_cap == 0.5 ? TRUE : FALSE
@@ -19,7 +21,7 @@
 		return
 
 	while(rank_ckey_read.NextRow())
-		C.donator_level = (rank_ckey_read.item[1] in big_worker) ? BIG_WORKER_TIER : LITTLE_WORKER_TIER
+		C.donator_level = (rank_ckey_read.item[1] in ultimate_worker) ? DONATOR_LEVEL_MAX : (rank_ckey_read.item[1] in big_worker) ? BIG_WORKER_TIER : LITTLE_WORKER_TIER
 
 	qdel(rank_ckey_read)
 
@@ -50,8 +52,7 @@
 			if(BIG_WORKER_TIER)
 				C.donator_level = BIG_WORKER_TTS_LEVEL > donator_level ? C.donator_level : donator_level
 			else
-				C.donator_level = donator_level
-
+				C.donator_level = max(C.donator_level, donator_level)
 
 	C.donor_loadout_points()
 	C.donor_character_slots()
