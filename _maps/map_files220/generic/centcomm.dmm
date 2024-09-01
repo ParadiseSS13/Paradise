@@ -245,7 +245,7 @@
 	pixel_y = 4
 	},
 /obj/structure/table/wood/fancy/black,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 6
 	},
 /turf/simulated/floor/carpet/red,
@@ -347,7 +347,7 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end,
+/obj/effect/turf_decal/siding/wood/cherry/end,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "akc" = (
@@ -487,7 +487,7 @@
 /obj/structure/table/reinforced{
 	color = "#444444"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/red,
@@ -902,7 +902,7 @@
 /obj/structure/chair/sofa/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 10
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -1701,12 +1701,6 @@
 /obj/item/food/frozen/popsicle/orangecream,
 /turf/simulated/floor/plasteel/white,
 /area/centcom/ss220/evac)
-"aVi" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner{
-	dir = 8
-	},
-/turf/simulated/floor/wood/fancy/oak,
-/area/centcom/ss220/admin1)
 "aVm" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2251,7 +2245,7 @@
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "biq" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -2323,7 +2317,7 @@
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "bjD" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -2385,7 +2379,7 @@
 /turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "bkV" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 10
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -2772,13 +2766,13 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/general)
 "buk" = (
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/end{
 	dir = 8
 	},
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "bux" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/green,
@@ -2945,7 +2939,7 @@
 	},
 /area/centcom/ss220/admin3)
 "bAK" = (
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/admin1)
 "bBd" = (
@@ -3103,7 +3097,7 @@
 	},
 /area/centcom/ss220/admin1)
 "bGg" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -3324,7 +3318,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end,
+/obj/effect/turf_decal/siding/wood/end,
 /obj/structure/rack/gunrack{
 	color = "grey"
 	},
@@ -3547,7 +3541,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
 "bRD" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -4455,7 +4449,7 @@
 	},
 /area/centcom/ss220/admin3)
 "ckR" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/green,
@@ -4788,7 +4782,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ghost_bar)
 "csN" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -5214,10 +5208,10 @@
 	name = "Офисы";
 	req_one_access_txt = "101"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 6
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 9
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -5424,10 +5418,10 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/structure/railing{
@@ -5811,10 +5805,10 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/vox)
 "cYE" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "syndFB_teleport1"
 	},
@@ -6283,10 +6277,10 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -6359,10 +6353,10 @@
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Syndicate Base"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
 /turf/simulated/floor/wood/oak,
@@ -6555,7 +6549,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/bar)
 "dpr" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -7227,7 +7221,7 @@
 /area/ghost_bar)
 "dDG" = (
 /obj/machinery/economy/vending/snack/free,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -7664,7 +7658,7 @@
 "dPy" = (
 /obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -7835,10 +7829,10 @@
 	name = "Переход в Отдел Специальных Операций";
 	req_access_txt = "114"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 10
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 5
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -8398,7 +8392,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/command)
 "enr" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 9
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -8539,7 +8533,7 @@
 /area/centcom/ss220/supply)
 "eqK" = (
 /obj/structure/decorative_structures/metal/statue/golden_disk,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 5
 	},
 /turf/simulated/floor/carpet/red,
@@ -9124,8 +9118,8 @@
 /obj/machinery/door/airlock/titanium/glass{
 	req_one_access_txt = "160"
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/birch,
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -9455,7 +9449,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/ss220/park)
 "eJJ" = (
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /obj/structure/railing/cap/reversed{
 	dir = 8
 	},
@@ -9487,7 +9481,7 @@
 	},
 /area/shuttle/administration)
 "eMo" = (
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 1;
 	name = "UNKNOWN"
@@ -9726,7 +9720,7 @@
 "eSA" = (
 /obj/structure/table/glass,
 /obj/item/toy/hampter/deadsquad,
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/cherry/end{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -9832,10 +9826,10 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /obj/structure/railing{
@@ -9946,8 +9940,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "eYi" = (
-/obj/effect/turf_decal/siding/wood/neutral,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry,
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 1
 	},
 /obj/machinery/door/airlock/titanium{
@@ -10283,7 +10277,7 @@
 	},
 /area/syndicate_mothership/jail)
 "ffE" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 6
 	},
 /obj/item/kirbyplants,
@@ -11462,7 +11456,7 @@
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "fDq" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblue,
@@ -11949,7 +11943,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end,
+/obj/effect/turf_decal/siding/wood/end,
 /obj/structure/railing{
 	dir = 8;
 	color = "#36454F"
@@ -11959,7 +11953,7 @@
 "fRY" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/decorations/sticky_decorations/flammable/pot_of_gold,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 1
 	},
 /obj/structure/curtain/black{
@@ -12565,7 +12559,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/ss220/court)
 "gnt" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/cherry/corner{
 	dir = 4
 	},
 /obj/machinery/computer/shuttle/trade/sol{
@@ -13074,6 +13068,12 @@
 	name = "vox floor"
 	},
 /area/shuttle/vox)
+"gBI" = (
+/obj/effect/turf_decal/siding/wood/oak/corner{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/centcom/ss220/admin1)
 "gBL" = (
 /turf/simulated/floor/plasteel/dark{
 	dir = 9;
@@ -13373,7 +13373,7 @@
 	},
 /area/centcom/ss220/admin2)
 "gJX" = (
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/cherry,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/bar)
 "gKg" = (
@@ -13873,7 +13873,7 @@
 /obj/structure/table/reinforced{
 	color = "#444444"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 9
 	},
 /turf/simulated/floor/carpet/red,
@@ -14258,7 +14258,7 @@
 /obj/structure/light_fake/small{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "heP" = (
@@ -14270,7 +14270,7 @@
 /area/centcom/ss220/admin1)
 "heR" = (
 /obj/structure/chair/sofa/left,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -14328,8 +14328,8 @@
 	},
 /area/centcom/ss220/admin3)
 "hgx" = (
-/obj/effect/turf_decal/siding/wood/neutral,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak,
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -14354,10 +14354,10 @@
 	name = "Отдел кадров";
 	req_one_access_txt = "101"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 9
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 6
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -14413,7 +14413,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "hiV" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner,
+/obj/effect/turf_decal/siding/wood/oak/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -14458,10 +14458,10 @@
 	name = "Конференц Зал";
 	req_one_access_txt = "101"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 5
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 10
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -14689,8 +14689,8 @@
 	},
 /area/centcom/ss220/admin1)
 "hqU" = (
-/obj/effect/turf_decal/siding/wood/neutral,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/machinery/newscaster/security_unit{
@@ -14825,7 +14825,7 @@
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/holding)
 "hsv" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 10
 	},
 /turf/simulated/floor/carpet/royalblue,
@@ -15085,7 +15085,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/supply)
 "hAC" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblue,
@@ -15179,7 +15179,7 @@
 	},
 /area/ninja/holding)
 "hCS" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 5
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -15419,7 +15419,7 @@
 	color = "#36373a";
 	anchored = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end,
+/obj/effect/turf_decal/siding/wood/cherry/end,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "hIM" = (
@@ -15485,7 +15485,7 @@
 /obj/structure/table/reinforced{
 	color = "#444444"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 5
 	},
 /turf/simulated/floor/carpet/red,
@@ -15940,7 +15940,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/admin1)
 "hSN" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -16790,7 +16790,7 @@
 	},
 /area/syndicate_mothership)
 "ipu" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 6
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -16813,7 +16813,7 @@
 	},
 /area/centcom/ss220/court)
 "ipZ" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 9
 	},
 /turf/simulated/floor/carpet/royalblue,
@@ -16980,7 +16980,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "itk" = (
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 1;
 	name = "Хранилище Канцелярии"
@@ -17032,7 +17032,7 @@
 /area/shuttle/administration)
 "iuT" = (
 /obj/structure/light_fake/small,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood/parquet/tile,
@@ -17396,7 +17396,7 @@
 /turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "iFp" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood/parquet/tile,
@@ -18169,7 +18169,7 @@
 /area/centcom/ss220/admin1)
 "jdM" = (
 /obj/structure/light_fake/small,
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -18450,7 +18450,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -30
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -18487,10 +18487,10 @@
 	},
 /area/ghost_bar)
 "jnv" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 4
 	},
 /obj/machinery/door/airlock/titanium/glass{
@@ -19141,7 +19141,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/end{
 	dir = 1
 	},
 /obj/structure/rack/gunrack{
@@ -19433,7 +19433,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/court)
 "jLT" = (
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -19762,7 +19762,7 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/cherry/end{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -19877,7 +19877,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "jXy" = (
-/obj/effect/turf_decal/siding/wood/neutral/end,
+/obj/effect/turf_decal/siding/wood/cherry/end,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/bar)
 "jXI" = (
@@ -20277,7 +20277,7 @@
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 10
 	},
 /turf/simulated/floor/carpet/red,
@@ -20305,10 +20305,10 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "kkM" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -20342,7 +20342,7 @@
 	},
 /area/centcom/ss220/evac)
 "klj" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -20687,10 +20687,10 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_base)
 "kuJ" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /obj/machinery/door/airlock/hatch/syndicate/command,
@@ -20700,7 +20700,7 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/cherry/end{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -21112,7 +21112,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_sit)
 "kFg" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -21146,10 +21146,10 @@
 	name = "Переход в Отдел Специальных Операций";
 	req_one_access_txt = "114"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 5
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 10
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -21259,8 +21259,8 @@
 	},
 /area/centcom/ss220/admin3)
 "kHF" = (
-/obj/effect/turf_decal/siding/wood/neutral,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood/parquet/tile,
@@ -21332,10 +21332,10 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate_sit)
 "kJc" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/cherry/corner{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -21954,7 +21954,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "kXO" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner,
+/obj/effect/turf_decal/siding/wood/oak/corner,
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/admin1)
 "kXP" = (
@@ -22373,7 +22373,7 @@
 "liW" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/drinks/trophy/gold_cup,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 1
 	},
 /obj/structure/curtain/black{
@@ -22383,10 +22383,10 @@
 /turf/simulated/floor/carpet/red,
 /area/syndicate_mothership/control)
 "ljl" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -22449,7 +22449,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/end{
 	dir = 1
 	},
 /obj/structure/chair/comfy/corp{
@@ -22470,7 +22470,7 @@
 	},
 /area/syndicate_mothership)
 "lkA" = (
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/end{
 	dir = 4
 	},
 /turf/simulated/floor/wood/parquet/tile,
@@ -22878,7 +22878,7 @@
 /obj/structure/sign/bobross{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "luO" = (
@@ -23312,7 +23312,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "lFy" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner,
+/obj/effect/turf_decal/siding/wood/cherry/corner,
 /obj/structure/table/wood/fancy/orange,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
@@ -23354,7 +23354,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "lGX" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
 /turf/simulated/floor/wood/parquet/tile,
@@ -23384,7 +23384,7 @@
 	},
 /area/trader_station/sol)
 "lIT" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 5
 	},
 /turf/simulated/floor/carpet/green,
@@ -23491,7 +23491,7 @@
 /turf/simulated/floor/engine,
 /area/centcom/ss220/medbay)
 "lLh" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -24092,10 +24092,10 @@
 /obj/machinery/door/airlock/titanium{
 	req_one_access_txt = "160"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/birch{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/birch{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -25188,7 +25188,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "mEk" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -25250,7 +25250,7 @@
 /obj/structure/chair/sofa/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 9
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -25405,7 +25405,7 @@
 	pixel_y = 7
 	},
 /obj/item/stack/sheet/mineral/gold,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 1
 	},
 /obj/structure/curtain/black{
@@ -25480,10 +25480,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ninja/outpost)
 "mNS" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -25699,10 +25699,10 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /obj/item/kirbyplants,
@@ -25723,7 +25723,7 @@
 /area/centcom/ss220/evac)
 "mUc" = (
 /obj/effect/spawner/random/maintenance,
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -25877,7 +25877,7 @@
 	name = "Борщ";
 	pixel_y = 16
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 9
 	},
 /obj/item/stack/spacecash{
@@ -25962,7 +25962,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "nbn" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -26875,7 +26875,7 @@
 	pixel_y = 10
 	},
 /obj/item/clothing/gloves/ring/gold,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 1
 	},
 /obj/structure/curtain/black{
@@ -27100,7 +27100,7 @@
 /area/syndicate_mothership/outside)
 "nGl" = (
 /obj/effect/spawner/random/maintenance,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -27750,7 +27750,7 @@
 /obj/structure/light_fake/spot{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/cherry/end{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -27802,10 +27802,10 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood/parquet/tile,
@@ -27822,8 +27822,8 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "nXd" = (
-/obj/effect/turf_decal/siding/wood/neutral,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/machinery/newscaster/security_unit{
@@ -27993,7 +27993,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end,
+/obj/effect/turf_decal/siding/wood/end,
 /obj/structure/railing{
 	color = "#36454F";
 	dir = 10
@@ -28247,6 +28247,12 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/infteam)
+"olS" = (
+/obj/effect/turf_decal/siding/wood/oak/corner{
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/centcom/ss220/admin1)
 "olV" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -29038,7 +29044,7 @@
 /turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "oGg" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 10
 	},
 /turf/simulated/floor/carpet/green,
@@ -29060,7 +29066,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/centcom/ss220/general)
 "oGz" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblue,
@@ -29431,12 +29437,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
-"oPs" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner{
-	dir = 1
-	},
-/turf/simulated/floor/wood/fancy/oak,
-/area/centcom/ss220/admin1)
 "oPt" = (
 /obj/structure/table/glass/reinforced/titanium,
 /obj/item/soap/deluxe{
@@ -29815,7 +29815,7 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/vox_base)
 "oYc" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 6
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -30244,13 +30244,13 @@
 	},
 /area/centcom/ss220/medbay)
 "pkq" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -30290,10 +30290,10 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "pmc" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -30970,7 +30970,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/end{
 	dir = 1
 	},
 /obj/structure/railing{
@@ -31061,7 +31061,7 @@
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "pKe" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblue,
@@ -32479,10 +32479,10 @@
 	},
 /area/centcom/ss220/admin3)
 "qyb" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
 /obj/machinery/door/airlock/hatch/syndicate/vault{
@@ -32997,10 +32997,10 @@
 	},
 /area/centcom/ss220/admin3)
 "qLd" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 8
 	},
 /obj/machinery/door/airlock/titanium/glass{
@@ -33025,7 +33025,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
 /obj/structure/sign/flag/nanotrasen{
@@ -33687,7 +33687,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_base)
 "rdO" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 9
 	},
 /turf/simulated/floor/carpet/green,
@@ -34119,7 +34119,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/end{
 	dir = 1
 	},
 /obj/structure/railing{
@@ -34291,10 +34291,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "rsJ" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /obj/machinery/door/airlock/hatch/syndicate/command,
@@ -34490,7 +34490,7 @@
 /obj/item/clothing/suit/space/deathsquad/officer/soo_brown,
 /obj/item/clothing/suit/space/deathsquad/officer/soo_brown,
 /obj/item/clothing/suit/space/deathsquad/officer/soo_brown,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
 /obj/item/clothing/mask/holo_cigar,
@@ -34584,7 +34584,7 @@
 	},
 /area/centcom/ss220/admin3)
 "rvX" = (
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/cherry,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -34822,10 +34822,10 @@
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Syndicate Base"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "rDJ" = (
@@ -34980,7 +34980,7 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/centcom/ss220/admin1)
 "rIg" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -35002,7 +35002,7 @@
 	},
 /area/vox_base)
 "rJo" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -35029,10 +35029,10 @@
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Syndicate Base"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /turf/simulated/floor/wood/oak,
@@ -35194,10 +35194,10 @@
 	start_showpiece_type = /obj/item/gun/projectile/revolver/mateba;
 	pixel_y = 7
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood/parquet/tile,
@@ -35389,7 +35389,7 @@
 /obj/structure/sign/nuke{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
 /turf/simulated/floor/wood/parquet/tile,
@@ -35448,7 +35448,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "rTz" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 6
 	},
 /turf/simulated/floor/carpet/green,
@@ -35601,7 +35601,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end,
+/obj/effect/turf_decal/siding/wood/end,
 /obj/structure/railing{
 	color = "#36454F";
 	dir = 4
@@ -36485,10 +36485,10 @@
 	name = "Конференц Зал";
 	req_one_access_txt = "101"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 10
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 5
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -36523,7 +36523,7 @@
 /obj/effect/spawner/random/maintenance,
 /obj/structure/light_fake/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -36880,7 +36880,7 @@
 	},
 /area/vox_base)
 "sHJ" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -37264,7 +37264,7 @@
 /obj/item/documents/syndicate/yellow,
 /obj/item/documents/syndicate/yellow/trapped,
 /obj/item/documents/syndicate,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 1
 	},
 /obj/structure/curtain/black{
@@ -37304,7 +37304,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/end{
 	dir = 1
 	},
 /obj/structure/railing{
@@ -37784,7 +37784,7 @@
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "tbe" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 5
 	},
 /obj/item/kirbyplants,
@@ -37892,7 +37892,7 @@
 /area/shuttle/escape)
 "tdd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -38190,8 +38190,8 @@
 	},
 /area/syndicate_mothership)
 "toU" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner,
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner,
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -38646,7 +38646,7 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end,
+/obj/effect/turf_decal/siding/wood/end,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "tAi" = (
@@ -38668,10 +38668,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin2)
 "tAH" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -38694,10 +38694,10 @@
 	},
 /area/syndicate_mothership/cargo)
 "tAO" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -38802,7 +38802,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
 "tCk" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 10
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -38891,10 +38891,10 @@
 /area/syndicate_mothership/infteam)
 "tFD" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 5
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 10
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -38906,10 +38906,10 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
 "tHa" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /obj/machinery/door/airlock/hatch/syndicate/vault{
@@ -39026,10 +39026,10 @@
 	},
 /area/centcom/ss220/command)
 "tIT" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral/corner,
+/obj/effect/turf_decal/siding/wood/oak/corner,
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/admin1)
 "tIW" = (
@@ -39087,10 +39087,10 @@
 /obj/machinery/door/airlock/titanium/glass{
 	req_one_access_txt = "160"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/birch{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/cherry,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
@@ -39207,10 +39207,10 @@
 	},
 /area/shuttle/vox)
 "tOi" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -39579,7 +39579,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/end{
 	dir = 1
 	},
 /obj/structure/mirror/magic{
@@ -39587,7 +39587,7 @@
 	name = "mirror";
 	pixel_x = 28
 	},
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "tWx" = (
 /obj/machinery/computer/bsa_control/admin,
@@ -39955,7 +39955,7 @@
 	},
 /area/centcom/ss220/court)
 "ujQ" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblue,
@@ -40228,7 +40228,7 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral/end,
+/obj/effect/turf_decal/siding/wood/end,
 /obj/item/kirbyplants,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
@@ -41522,10 +41522,10 @@
 	},
 /area/shuttle/vox)
 "vaw" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood/neutral/corner,
+/obj/effect/turf_decal/siding/wood/oak/corner,
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/admin1)
 "vaH" = (
@@ -41546,7 +41546,7 @@
 	},
 /area/syndicate_mothership/jail)
 "vbh" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 1
 	},
 /obj/structure/railing/cap/normal{
@@ -42334,10 +42334,10 @@
 	owner = "NNC"
 	},
 /obj/item/folder/yellow,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "vud" = (
@@ -42689,10 +42689,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
 "vyE" = (
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/cherry/corner{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -43044,7 +43044,7 @@
 /obj/item/clothing/accessory/medal/gold{
 	pixel_y = 9
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/amaranth{
 	dir = 1
 	},
 /obj/structure/curtain/black{
@@ -43192,7 +43192,7 @@
 /area/syndicate_mothership/cargo)
 "vPu" = (
 /obj/structure/chair,
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/oak,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -43516,7 +43516,7 @@
 /area/vox_base)
 "vYw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -44021,8 +44021,8 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "wlr" = (
-/obj/effect/turf_decal/siding/wood/neutral,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/structure/chair/sofa/corp/right{
@@ -44070,7 +44070,7 @@
 	},
 /area/centcom/ss220/medbay)
 "wmd" = (
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/wood/parquet/tile,
 /area/centcom/ss220/admin2)
 "wmh" = (
@@ -44147,7 +44147,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "woC" = (
-/obj/effect/turf_decal/siding/wood/neutral/end{
+/obj/effect/turf_decal/siding/wood/cherry/end{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -44182,8 +44182,8 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "wqP" = (
-/obj/effect/turf_decal/siding/wood/neutral,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/structure/chair/sofa/corp/left{
@@ -44404,10 +44404,10 @@
 	req_one_access_txt = "160";
 	id_tag = "soltrader_north"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/birch{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/cherry,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
@@ -44834,7 +44834,7 @@
 /area/centcom/ss220/command)
 "wDE" = (
 /obj/machinery/economy/vending/cigarette/free,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -45728,10 +45728,10 @@
 	name = "Переход в Отдел Специальных Операций";
 	req_access_txt = "114"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 5
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 10
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -45902,10 +45902,10 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin3)
 "xfQ" = (
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral/corner{
+/obj/effect/turf_decal/siding/wood/oak/corner{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -45958,13 +45958,13 @@
 /obj/effect/turf_decal/tile/neutral/full{
 	color = "#000000"
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /obj/item/kirbyplants{
 	pixel_y = 5
 	},
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /obj/structure/light_fake/small{
@@ -45974,7 +45974,7 @@
 /area/centcom/ss220/admin2)
 "xie" = (
 /obj/effect/spawner/random/maintenance,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -46571,8 +46571,8 @@
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Syndicate Base"
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/oak,
+/obj/effect/turf_decal/siding/wood/oak{
 	dir = 1
 	},
 /turf/simulated/floor/wood/oak,
@@ -46604,7 +46604,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "xww" = (
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/cherry,
 /turf/simulated/floor/carpet/royalblue,
 /area/shuttle/trade/sol)
 "xwK" = (
@@ -46902,7 +46902,7 @@
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
+/obj/effect/turf_decal/siding/wood/cherry,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/bar)
 "xFs" = (
@@ -48123,8 +48123,8 @@
 	req_one_access_txt = "160";
 	id_tag = "soltrader_south"
 	},
-/obj/effect/turf_decal/siding/wood/neutral,
-/obj/effect/turf_decal/siding/wood/neutral{
+/obj/effect/turf_decal/siding/wood/birch,
+/obj/effect/turf_decal/siding/wood/cherry{
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -55302,8 +55302,8 @@ gLx
 iHi
 enr
 biq
-oPs
-aVi
+olS
+gBI
 biq
 bkV
 iHi
@@ -59661,15 +59661,15 @@ wjg
 biq
 biq
 biq
-oPs
+olS
 utP
-aVi
+gBI
 biq
 biq
 biq
 biq
 biq
-oPs
+olS
 vaw
 tAO
 bnn

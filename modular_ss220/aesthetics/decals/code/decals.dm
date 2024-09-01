@@ -1,3 +1,11 @@
+/datum/component/decal/generate_appearance(_icon, _icon_state, _dir, _layer, _color, _alpha)
+	. = ..()
+	if(!.)
+		return
+	var/atom/master = parent
+	if(master::color && _color)
+		pic.appearance_flags |= RESET_COLOR
+
 #define WOODEN_DECAL_HELPER(path)\
 ##path/end {\
 	icon_state = "siding_wood_end";\
