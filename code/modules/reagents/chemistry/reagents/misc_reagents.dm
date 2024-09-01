@@ -541,7 +541,6 @@
 
 /datum/reagent/mimestrogen/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	// var/list/color_view = null // Overrides client.color
 	if(prob(10))
 		M.emote("giggle")
 	if(!M.mind)
