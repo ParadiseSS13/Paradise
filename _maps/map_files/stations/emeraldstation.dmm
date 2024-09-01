@@ -29626,7 +29626,7 @@
 	},
 /area/station/medical/surgery/primary)
 "fzx" = (
-/obj/machinery/economy/vending/cigarette,
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "blackcorner"
 	},
@@ -30670,6 +30670,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -45468,7 +45469,9 @@
 /area/station/engineering/engine)
 "ixE" = (
 /obj/machinery/firealarm/directional/south,
-/obj/machinery/economy/vending/cigarette,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -51033,7 +51036,9 @@
 /area/station/engineering/atmos/asteroid_filtering)
 "jyw" = (
 /obj/machinery/light,
-/obj/machinery/economy/vending/cigarette,
+/obj/structure/chair{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -75779,7 +75784,7 @@
 	},
 /area/station/science/robotics/chargebay)
 "oef" = (
-/obj/item/kirbyplants,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -85841,11 +85846,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/asteroid_filtering)
 "pVF" = (
-/obj/machinery/economy/vending/cigarette,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/item/kirbyplants,
 /turf/simulated/floor/wood,
 /area/station/legal/courtroom/gallery)
 "pVM" = (
@@ -85898,7 +85903,7 @@
 /obj/structure/sign/pods{
 	pixel_y = 32
 	},
-/obj/machinery/economy/vending/cigarette,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
