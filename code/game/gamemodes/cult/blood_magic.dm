@@ -529,10 +529,10 @@
 	if(QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated() || !actual_selected_rune)
 		return
 
-	if(HAS_TRAIT(user, TRAIT_FLOORED))
-		to_chat(user, "<span class='cultitalic'>You cannot cast this spell while knocked down!</span>")
-		return
-
+	if(user == target)
+		if(!do_after(user, 3 SECONDS, allow_moving = TRUE, allow_moving_target = TRUE, target = teleportee))
+			to_chat(user, "<span class='cultitalic'>Your concentration is interrupted, and the spell fizzles out!</span>")
+			return
 	uses--
 
 	var/turf/origin = get_turf(teleportee)
