@@ -248,3 +248,6 @@
 /area/ruin/space/sec_shuttle
 	name = "Abandoned Security Shuttle"
 	apc_starts_off = TRUE
+
+/area/ruin/space/syndicakefactory
+	name = "Syndicake factory"

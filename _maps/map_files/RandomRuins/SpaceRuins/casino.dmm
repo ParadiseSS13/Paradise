@@ -633,7 +633,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/security)
 "pB" = (

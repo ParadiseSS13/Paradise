@@ -491,7 +491,7 @@
 	name = "janitorial cyborg abductor upgrade"
 	desc = "An experimental upgrade that replaces a janitorial cyborg's tools with the abductor versions."
 	icon_state = "abductor_mod"
-	origin_tech = "biotech=6;materials=6;abductor=3"
+	origin_tech = "biotech=6;materials=6;abductor=2"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/janitor
 	items_to_replace = list(

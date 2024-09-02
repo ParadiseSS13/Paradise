@@ -10,7 +10,6 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	buckle_lying = FALSE
 	can_buckle = TRUE
-	buckle_lying = 0
 	pass_flags = PASSTABLE
 	COOLDOWN_DECLARE(message_cooldown)
 	COOLDOWN_DECLARE(cooldown_vehicle_move)
