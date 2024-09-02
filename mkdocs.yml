@@ -28,11 +28,16 @@ extra:
       link: https://www.patreon.com/ParadiseStation
   generator: false
 
+plugins:
+  - gh-admonitions
+
 markdown_extensions:
+  - admonition
   - attr_list
   - smarty
   - pymdownx.highlight:
       use_pygments: false
+  - pymdownx.details
   - pymdownx.superfences
   - pymdownx.snippets
 
@@ -59,27 +64,25 @@ nav:
   - 'Contributing Guidelines': 'CONTRIBUTING.md'
 
   - 'Contributing':
-    - 'Getting Started': './contributing/getting_started.md'
-    - 'Reviewer Crash Course': './contributing/reviewer.md'
-    - 'Writing Quality PRs': './contributing/quality_prs.md'
+      - 'Getting Started': './contributing/getting_started.md'
+      - 'Reviewer Crash Course': './contributing/reviewer.md'
+      - 'Writing Quality PRs': './contributing/quality_prs.md'
 
   - 'Coding':
-    - 'Coding Quickstart': './coding/quickstart.md'
-    - 'Guide to Testing': './coding/testing_guide.md'
-    - 'Guide to Debugging': './coding/debugging.md'
-    - 'Style Guidelines': './coding/style_guidelines.md'
-    - 'Coding Requirements': './coding/coding_requirements.md'
-    - 'Testing Requirements': './coding/testing_requirements.md'
+      - 'Coding Quickstart': './coding/quickstart.md'
+      - 'Guide to Testing': './coding/testing_guide.md'
+      - 'Guide to Debugging': './coding/debugging.md'
+      - 'Style Guidelines': './coding/style_guidelines.md'
+      - 'Coding Requirements': './coding/coding_requirements.md'
+      - 'Testing Requirements': './coding/testing_requirements.md'
 
   - 'Mapping':
-    - 'Mapping Quickstart': './mapping/quickstart.md'
-    - 'Mapping Requirements': './mapping/requirements.md'
-    - 'Design Guidelines': './mapping/design.md'
-
+      - 'Mapping Quickstart': './mapping/quickstart.md'
+      - 'Mapping Requirements': './mapping/requirements.md'
+      - 'Design Guidelines': './mapping/design.md'
 
   - 'References':
-    - 'Glossary': './references/glossary.md'
-    - 'Autodoc Guide': './references/autodoc.md'
-    - 'Using Feedback Data': './references/feedback_data.md'
-    - 'Tick Order': './references/tick_order.md'
-
+      - 'Glossary': './references/glossary.md'
+      - 'Autodoc Guide': './references/autodoc.md'
+      - 'Using Feedback Data': './references/feedback_data.md'
+      - 'Tick Order': './references/tick_order.md'

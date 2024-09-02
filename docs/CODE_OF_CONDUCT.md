@@ -100,7 +100,7 @@ requirement on a case-by-case basis, as the need arises.
 
 > [!IMPORTANT]
 >
-> ### Currently, changes to the following types of content requires pre-approval:
+> <h3>Currently, changes to the following types of content requires pre-approval:</h3>
 >
 > - **Security content (excluding fixes, code improvement, refactors, sprites, and mapping changes)**
 > - **Antagonist content (excluding fixes, code improvement, refactors, sprites, and mapping changes)**
