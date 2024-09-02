@@ -48,6 +48,7 @@
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
 		deltimer(dry_timer)
+	QDEL_NULL(weightless_image)
 	return ..()
 
 /obj/effect/decal/cleanable/blood/update_icon()
@@ -185,7 +186,10 @@
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()
 		user.bloody_hands += taken
-		user.hand_blood_color = basecolor
+		if(isnull(basecolor))
+			user.hand_blood_color = "#A10808"
+		else
+			user.hand_blood_color = basecolor
 		user.update_inv_gloves()
 		add_verb(user, /mob/living/carbon/human/proc/bloody_doodle)
 

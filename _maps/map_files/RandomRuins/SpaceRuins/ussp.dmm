@@ -1029,7 +1029,7 @@
 /area/ruin/space/derelict/bridge)
 "cG" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /obj/item/trash/can,
 /obj/item/trash/semki,
 /turf/simulated/floor/plasteel{
@@ -1557,7 +1557,7 @@
 /area/ruin/space/derelict/arrival)
 "dT" = (
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/shoes/jackboots,
@@ -3434,7 +3434,7 @@
 /area/ruin/space/derelict/arrival)
 "iA" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/item/paper/crumpled{
 	info = "<i>This note has been crossed out so many times it's hard to make out its contents.</i><br><small>Katerina,<br><br><s>Your eyes are like diamonds,<br>Forged in the very fire of Cygni-A.<br>My heart yearns for you,<br>For your soft beauty<br>Fuckfucknothat'sbad.<br><br>Your voice is like liquid gold,<br>Smothering me in its delicate contours.<br>Never before had I known,<br>The touch,<br>The touch!<br>The touch of an angel's voice</s><br><br>note to self: stick to science, poetry is not my forte.</small>";
 	name = "love poem"
@@ -3561,7 +3561,7 @@
 /area/ruin/space/derelict/arrival)
 "iS" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = -32
 	},
@@ -4822,7 +4822,7 @@
 /area/ruin/space/derelict/arrival)
 "lL" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -4894,7 +4894,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "lV" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/machinery/light/spot{
 	dir = 4
 	},
@@ -4989,7 +4989,7 @@
 "ml" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/grille/broken,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/hallway/primary)
 "mn" = (
@@ -6261,7 +6261,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "pE" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
@@ -7128,7 +7128,7 @@
 /area/ruin/space/derelict/arrival)
 "rJ" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/random/maintenance,
 /obj/item/trash/popcorn,
 /obj/item/trash/semki,
 /obj/item/paper/crumpled{

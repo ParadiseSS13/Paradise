@@ -31,7 +31,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
+	. += "<span class='notice'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
 
 /obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -253,7 +253,7 @@
 /obj/item/organ/internal/cyberimp/arm/janitorial_abductor
 	name = "alien janitorial toolset implant"
 	desc = "A set of alien janitorial tools, designed to be installed on subject's arm."
-	origin_tech = "materials=5;engineering=5;biotech=5;powerstorage=4;abductor=3"
+	origin_tech = "materials=5;engineering=5;biotech=5;powerstorage=4;abductor=2"
 	contents = newlist(/obj/item/mop/advanced/abductor, /obj/item/soap/syndie/abductor, /obj/item/lightreplacer/bluespace/abductor, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter/abductor, /obj/item/reagent_containers/spray/cleaner/safety/abductor)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt_abductor")

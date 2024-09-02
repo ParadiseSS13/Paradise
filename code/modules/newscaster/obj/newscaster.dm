@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 
 /obj/machinery/newscaster/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
+	. += "<span class='notice'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
 
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src

@@ -69,8 +69,8 @@
 
 /obj/machinery/dna_scannernew/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to eject its occupant.</span>"
-	. += "<span class='info'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to eject its occupant.</span>"
+	. += "<span class='notice'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
 
 /obj/machinery/dna_scannernew/Initialize(mapload)
 	. = ..()

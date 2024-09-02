@@ -1051,6 +1051,10 @@
 	attack_verb = list("attacked", "bashed", "smashed", "stoned")
 	hitsound = "swing_hit"
 
+/obj/item/toy/pet_rock/attack_self(mob/user)
+	var/cuddle_verb = pick("admires", "respects", "cherises", "appreciates")
+	user.visible_message("<span class='notice'>[user] [cuddle_verb] [src].</span>")
+
 /obj/item/toy/pet_rock/fred
 	name = "fred"
 	desc = "Fred, the bestest boy pet in the whole wide universe!"
@@ -1193,9 +1197,9 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += "<span class='info'>Use a pen on it to rename it.</span>"
+	. += "<span class='notice'>Use a pen on it to rename it.</span>"
 	. += "Has [fake_bullets] round\s remaining."
-	. += "<span class='info'>Use in hand to empty the gun's ammo reserves.</span>"
+	. += "<span class='notice'>Use in hand to empty the gun's ammo reserves.</span>"
 	. += "[fake_bullets] of those are live rounds."
 	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to spin it's barrel.</span>"
 

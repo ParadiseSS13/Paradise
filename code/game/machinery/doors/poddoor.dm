@@ -50,7 +50,7 @@
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
 /obj/machinery/door/poddoor/ex_act(severity)
-	if(severity == 3)
+	if(severity == EXPLODE_LIGHT)
 		return
 	..()
 

@@ -26,6 +26,8 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	dyeable = FALSE
+
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null
 	var/activating = FALSE

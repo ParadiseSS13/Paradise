@@ -561,8 +561,8 @@
 		to_chat(user, "<span class='notice'>You are already using [src].</span>")
 		return
 
-	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [SSticker.Bible_deity_name].</span>",
-		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name].</span>")
+	user.visible_message("<span class='notice'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [SSticker.Bible_deity_name].</span>",
+		"<span class='notice'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name].</span>")
 
 	praying = TRUE
 	if(do_after(user, 15 SECONDS, target = M))
@@ -614,8 +614,8 @@
 
 	if(!(ghostcall_CD > world.time))
 		ghostcall_CD = world.time + 5 MINUTES
-		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!</span>",
-		"<span class='info'>You kneel and begin a prayer to [SSticker.Bible_deity_name] while drawing a circle!</span>")
+		user.visible_message("<span class='notice'>[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!</span>",
+		"<span class='notice'>You kneel and begin a prayer to [SSticker.Bible_deity_name] while drawing a circle!</span>")
 		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
 	else
 		to_chat(user, "<span class='notice'>You need to wait before using [src] again.</span>")

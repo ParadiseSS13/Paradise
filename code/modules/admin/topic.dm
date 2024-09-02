@@ -1829,9 +1829,8 @@
 			to_chat(owner, "Standby. Reload cycle in progress. Gunnery crews ready in five seconds!")
 			return
 
-		GLOB.BSACooldown = 1
-		spawn(50)
-			GLOB.BSACooldown = 0
+		GLOB.BSACooldown = TRUE
+		addtimer(VARSET_CALLBACK(GLOB, BSACooldown, FALSE), 5 SECONDS)
 
 		to_chat(M, "You've been hit by bluespace artillery!")
 		log_admin("[key_name(M)] has been hit by Bluespace Artillery fired by [key_name(owner)]")

@@ -92,19 +92,23 @@
 	add_overlay(list(em_block))
 
 /atom/movable/Destroy()
+	var/turf/T = loc
 	unbuckle_all_mobs(force = TRUE)
 	QDEL_NULL(em_block)
+
 	. = ..()
+
 	if(loc)
 		loc.handle_atom_del(src)
+
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
+
 	LAZYCLEARLIST(client_mobs_in_contents)
 	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
 
-	var/turf/T = loc
 	if(opacity && istype(T))
 		var/old_has_opaque_atom = T.has_opaque_atom
 		T.recalc_atom_opacity()

@@ -107,7 +107,7 @@
 		location = get_atom_on_turf(src)
 	if(location)
 		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], cause = src)
-		location.ex_act(2, target)
+		location.ex_act(EXPLODE_HEAVY, target)
 	qdel(src)
 
 /obj/item/grenade/plastic/miningcharge/proc/override_safety()

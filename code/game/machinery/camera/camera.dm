@@ -72,6 +72,7 @@
 	kick_out_watchers()
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
+	GLOB.cameranet.removeCamera(src)
 	GLOB.cameranet.cameras -= src
 	var/area/our_area = get_area(src)
 	if(our_area) // We should probably send out the warning alarms if this doesn't exist, because this should always have an area!

@@ -1281,7 +1281,7 @@
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You can't write on the floor in your current state!</span>")
 		return
-	if(!bloody_hands)
+	if(bloody_hands <= 1)
 		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
 	if(gloves)
@@ -1310,7 +1310,7 @@
 		to_chat(src, "<span class='warning'>There is no space to write on!</span>")
 		return
 
-	var/max_length = bloody_hands * 30 //tweeter style
+	var/max_length = (bloody_hands - 1) * 30 //tweeter style
 
 	var/message = tgui_input_text(src, "Write a message. It cannot be longer than [max_length] characters.", "Blood writing", max_length = max_length)
 	if(origin != loc)
@@ -1318,7 +1318,7 @@
 		return
 	if(message)
 		var/used_blood_amount = round(length(message) / 30, 1)
-		bloody_hands = max(0, bloody_hands - used_blood_amount) //use up some blood
+		bloody_hands = max(1, bloody_hands - used_blood_amount) //use up some blood
 
 		if(length(message) > max_length)
 			message += "-"
