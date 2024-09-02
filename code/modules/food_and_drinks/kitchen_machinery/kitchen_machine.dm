@@ -565,7 +565,7 @@
 			dispose(ui.user)
 
 /obj/machinery/kitchen_machine/AltClick(mob/user)
-	if(!check_useable(user))
+	if(!Adjacent(user) || !check_useable(user))
 		return
 
 	cook()

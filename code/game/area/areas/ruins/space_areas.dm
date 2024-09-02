@@ -108,11 +108,11 @@
 
 /area/ruin/space/derelict/solar_control
 	name = "\improper Derelict Solar Control"
-	icon_state = "GENsolar"
+	icon_state = "general_solar_control"
 
 /area/ruin/space/derelict/se_solar
 	name = "\improper Derelict South East Solars"
-	icon_state = "GENsolar"
+	icon_state = "general_solars"
 
 /area/ruin/space/derelict/crew_quarters
 	name = "\improper Derelict Crew Quarters"
@@ -248,3 +248,6 @@
 /area/ruin/space/sec_shuttle
 	name = "Abandoned Security Shuttle"
 	apc_starts_off = TRUE
+
+/area/ruin/space/syndicakefactory
+	name = "Syndicake factory"

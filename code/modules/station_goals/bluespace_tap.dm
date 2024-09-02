@@ -132,7 +132,7 @@
 		/obj/item/storage/pill_bottle/random_meds/labelled = 25,
 		/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 15,
 		/obj/item/dnainjector/telemut = 5,
-		/obj/item/dnainjector/midgit = 5,
+		/obj/item/dnainjector/small_size = 5,
 		/obj/item/dnainjector/morph = 5,
 		/obj/item/dnainjector/regenerate = 5,
 		/mob/living/simple_animal/pet/dog/corgi/ = 5,
