@@ -51,12 +51,12 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
 	ASSERT(lavaland_theme_type)
 	lavaland_theme = new lavaland_theme_type
-	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
+	log_startup_progress("We're in the mood for [lavaland_theme.name] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
 
 	var/caves_theme_type = pick(subtypesof(/datum/caves_theme))
 	ASSERT(caves_theme_type)
 	caves_theme = new caves_theme_type
-	log_startup_progress("We feel like [initial(caves_theme.name)] today...")
+	log_startup_progress("We feel like [caves_theme.name] today...")
 
 	// Load all Z level templates
 	preloadTemplates()
