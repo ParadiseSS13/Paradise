@@ -127,7 +127,10 @@
  */
 /obj/item/clothing/head/radiation
 	name = "radiation hood"
-	icon_state = "rad"
+	icon = 'icons/obj/clothing/head/utility.dmi'
+	icon_state = "radhood"
+	item_state = 'icons/mob/clothing/head/utility.dmi'
+	icon_override = 'icons/mob/clothing/head/utility.dmi'
 	desc = "A hood with radiation protective properties. Label: Made with lead, do not eat insulation"
 	flags = BLOCKHAIR|THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -137,10 +140,14 @@
 	resistance_flags = NONE
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
-		)
+		"Vox" = 'icons/mob/clothing/species/vox/head/utility.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head/utility.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head/utility.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head/utility.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/utility.dmi'
+	)
 
 /obj/item/clothing/suit/radiation
 	name = "radiation suit"
