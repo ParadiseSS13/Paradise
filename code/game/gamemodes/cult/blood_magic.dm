@@ -530,7 +530,7 @@
 		return
 
 	if(user == target)
-		if(!do_after(user, 3 SECONDS, allow_moving = TRUE, allow_moving_target = TRUE, target = teleportee))
+		if(!do_after_once(user, 3 SECONDS, allow_moving = TRUE, allow_moving_target = TRUE, target = teleportee))
 			to_chat(user, "<span class='cultitalic'>Your concentration is interrupted, and the spell fizzles out!</span>")
 			return
 	uses--
