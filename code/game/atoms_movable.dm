@@ -331,45 +331,22 @@
 			// place due to a Crossed, Bumped, etc. call will interrupt
 			// the second half of the diagonal movement, or the second attempt
 			// at a first half if step() fails because we hit something.
-			if (direct & NORTH)
-				if (direct & EAST)
-					if (step(src, NORTH) && moving_diagonally)
-						first_step_dir = NORTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, EAST)
-					else if (moving_diagonally && step(src, EAST))
-						first_step_dir = EAST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, NORTH)
-				else if (direct & WEST)
-					if (step(src, NORTH) && moving_diagonally)
-						first_step_dir = NORTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, WEST)
-					else if (moving_diagonally && step(src, WEST))
-						first_step_dir = WEST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, NORTH)
-			else if (direct & SOUTH)
-				if (direct & EAST)
-					if (step(src, SOUTH) && moving_diagonally)
-						first_step_dir = SOUTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, EAST)
-					else if (moving_diagonally && step(src, EAST))
-						first_step_dir = EAST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, SOUTH)
-				else if (direct & WEST)
-					if (step(src, SOUTH) && moving_diagonally)
-						first_step_dir = SOUTH
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, WEST)
-					else if (moving_diagonally && step(src, WEST))
-						first_step_dir = WEST
-						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, SOUTH)
-			if(moving_diagonally == SECOND_DIAG_STEP)
+			var/direct_NS = direct & (NORTH | SOUTH)
+			var/direct_EW = direct & (EAST | WEST)
+			var/first_step_target = get_step(src, direct_NS)
+			step(src, direct_NS)
+			if(loc == first_step_target)
+				first_step_dir = direct_NS
+				moving_diagonally = SECOND_DIAG_STEP
+				. = step(src, direct_EW)
+			else if(loc == oldloc)
+				first_step_target = get_step(src, direct_EW)
+				step(src, direct_EW)
+				if(loc == first_step_target)
+					first_step_dir = direct_EW
+					moving_diagonally = SECOND_DIAG_STEP
+					. = step(src, direct_NS)
+			if(first_step_dir != 0)
 				if(!. && set_dir_on_move && update_dir)
 					setDir(first_step_dir)
 				else if(!inertia_moving)
