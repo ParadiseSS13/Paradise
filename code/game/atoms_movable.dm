@@ -322,7 +322,7 @@
 		set_glide_size(glide_size_override)
 
 	if(loc != newloc)
-		if (!IS_DIR_DIAGONAL(direct)) //Cardinal move
+		if(!IS_DIR_DIAGONAL(direct)) //Cardinal move
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
