@@ -141,7 +141,7 @@
 
 				num_admins_online++
 
-			else if(check_rights(R_MENTOR|R_MOD, 0, C.mob))
+			else if(check_rights(R_MENTOR|R_MOD|R_DEV_TEAM, 0, C.mob))
 				// Their rank may not have a defined colour, only set colour if so
 				var/rank_colour = client2rankcolour(C)
 				if(rank_colour)
@@ -172,7 +172,7 @@
 						msg += "<b>[C]</b> is a [C.holder.rank]"
 					msg += "\n"
 					num_admins_online++
-			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
+			else if(check_rights(R_MOD|R_MENTOR|R_DEV_TEAM, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
 				var/rank_colour = client2rankcolour(C)
 				if(rank_colour)
 					modmsg += "<font color='[rank_colour]'><b>[C]</b></font> is a [C.holder.rank]"

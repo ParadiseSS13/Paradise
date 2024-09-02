@@ -64,6 +64,7 @@ enable_localhost_autoadmin = true
 # +SPAWN (or +CREATE) = mob transformations, spawning of most atoms including mobs
 # +MOD = Access to low level moderation tools. Not used in Paradise production
 # +MENTOR = Access only to the Question's Ahelp and has little way of metagaming the game.
+# +DEV_TEAM = Access to dev team chat
 # +PROCCALL = Access to call procs on anything. Be careful who you grant this too!
 # +VIEWRUNTIMES = Allows a player to view the runtimes of the server, but not use other debug verbs
 admin_ranks = [
@@ -101,6 +102,9 @@ admin_ranks = [
 	{ name = "Maintainers", rights = [
 		"+EVERYTHING",
 	] },
+	{ name = "Developer", rights = [
+		"+DEV_TEAM",
+	] },
 ]
 # List of people and the admin rank they are assigned to
 admin_assignments = [
@@ -116,7 +120,7 @@ admin_rank_colour_map = [
 	{ name = "Community Manager", colour = "#e91e63" },
 	{ name = "Game Admin", colour = "#238afa" },
 	{ name = "Trial Admin", colour = "#7fb6fc" },
-	{ name = "PR Reviewer", colour = "#c27c0e" },
+	{ name = "Developer", colour = "#c27c0e" },
 	{ name = "Mentor", colour = "#f1c40f" },
 ]
 # Map of common CIDs that should not be banned, plus their reasons
