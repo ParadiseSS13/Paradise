@@ -17,6 +17,8 @@
 	var/no_spin_thrown = FALSE
 	var/mob/pulledby = null
 	var/atom/movable/pulling
+	/// A list containing arguments for Moved().
+	VAR_PRIVATE/tmp/list/active_movement
 	/// Face towards the atom while pulling it
 	var/face_while_pulling = FALSE
 	var/throwforce = 0
@@ -28,6 +30,13 @@
 	///The last time we pushed off something
 	///This is a hack to get around dumb him him me scenarios
 	var/last_pushoff
+
+	/// Whether this atom should have its dir automatically changed when it
+	/// moves. Setting this to FALSE allows for things such as directional windows
+	/// to retain dir on moving without snowflake code all of the place.
+	/// PARA: Doesn't set this currently to maintain current behavior for pulling items around,
+	/// because modifying direction on pull is expected.
+	var/set_dir_on_move = TRUE
 
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/list/client_mobs_in_contents
@@ -66,6 +75,8 @@
 	/// Used for icon smoothing. Won't smooth if it ain't anchored and can be unanchored. Only set to true on windows
 	var/can_be_unanchored = FALSE
 
+	///attempt to resume grab after moving instead of before.
+	var/atom/movable/moving_from_pull
 	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
 	var/datum/movement_packet/move_packet
 
@@ -113,6 +124,10 @@
 	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
+	if(move_packet)
+		if(!QDELETED(move_packet))
+			qdel(move_packet)
+		move_packet = null
 
 	if(opacity && istype(T))
 		var/old_has_opaque_atom = T.has_opaque_atom
@@ -214,7 +229,88 @@
 	loc = new_loc
 	Moved(old_loc, direction, TRUE)
 
+////////////////////////////////////////
+// Here's where we rewrite how byond handles movement except slightly different
+// To be removed on step_ conversion
+// All this work to prevent a second bump
+/atom/movable/Move(atom/newloc, direction, glide_size_override = 0, update_dir = TRUE)
+	. = FALSE
+	if(!newloc || newloc == loc)
+		return
+
+	// A mid-movement... movement... occured, resolve that first.
+	RESOLVE_ACTIVE_MOVEMENT
+
+	if(!direction)
+		direction = get_dir(src, newloc)
+
+	if(set_dir_on_move && dir != direction && update_dir)
+		setDir(direction)
+
+	var/is_multi_tile_object = is_multi_tile_object(src)
+
+	var/list/old_locs
+	if(is_multi_tile_object && isturf(loc))
+		old_locs = locs // locs is a special list, this is effectively the same as .Copy() but with less steps
+		for(var/atom/exiting_loc as anything in old_locs)
+			if(!exiting_loc.Exit(src, direction))
+				return
+	else
+		if(!loc.Exit(src, direction))
+			return
+
+	var/list/new_locs
+	if(is_multi_tile_object && isturf(newloc))
+		new_locs = block(
+			newloc,
+			locate(
+				min(world.maxx, newloc.x + CEILING(bound_width / 32, 1)),
+				min(world.maxy, newloc.y + CEILING(bound_height / 32, 1)),
+				newloc.z
+				)
+		) // If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
+		for(var/atom/entering_loc as anything in new_locs)
+			if(!entering_loc.Enter(src))
+				return
+			if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, entering_loc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
+				return
+	else // Else just try to enter the single destination.
+		if(!newloc.Enter(src))
+			return
+		if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, newloc) & COMPONENT_MOVABLE_BLOCK_PRE_MOVE)
+			return
+
+	// Past this is the point of no return
+	var/atom/oldloc = loc
+	var/area/oldarea = get_area(oldloc)
+	var/area/newarea = get_area(newloc)
+
+	SET_ACTIVE_MOVEMENT(oldloc, direction, FALSE, old_locs)
+	loc = newloc
+
+	. = TRUE
+
+	if(old_locs) // This condition will only be true if it is a multi-tile object.
+		for(var/atom/exited_loc as anything in (old_locs - new_locs))
+			exited_loc.Exited(src, direction)
+	else // Else there's just one loc to be exited.
+		oldloc.Exited(src, direction)
+	if(oldarea != newarea)
+		oldarea.Exited(src, direction)
+
+	if(new_locs) // Same here, only if multi-tile.
+		for(var/atom/entered_loc as anything in (new_locs - old_locs))
+			entered_loc.Entered(src, oldloc, old_locs)
+	else
+		newloc.Entered(src, oldloc, old_locs)
+	if(oldarea != newarea)
+		newarea.Entered(src, oldarea)
+
+	RESOLVE_ACTIVE_MOVEMENT
+
 /atom/movable/Move(atom/newloc, direct = 0, glide_size_override = 0, update_dir = TRUE)
+	var/atom/movable/pullee = pulling
+	var/turf/current_turf = loc
 	if(!loc || !newloc)
 		return FALSE
 	var/atom/oldloc = loc
@@ -226,44 +322,82 @@
 		set_glide_size(glide_size_override)
 
 	if(loc != newloc)
-		if(IS_DIR_CARDINAL(direct))
-			. = ..(newloc, direct) // don't pass up movetime
-			setDir(direct)
+		if (!IS_DIR_DIAGONAL(direct)) //Cardinal move
+			. = ..()
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
-			var/first_step_dir = 0
-			// For each diagonal direction, we try moving NORTH/SOUTH first, and if it fails, we try moving EAST/WEST first.
-			// As long as either succeeds, we try the other.
-			var/direct_NS = direct & (NORTH | SOUTH)
-			var/direct_EW = direct & (EAST | WEST)
-			var/first_step_target = get_step(src, direct_NS)
-			Move(first_step_target, direct_NS)
-			if(loc == first_step_target)
-				first_step_dir = direct_NS
-				moving_diagonally = SECOND_DIAG_STEP
-				. = Move(get_step(src, direct_EW), direct_EW)
-			else if(loc == oldloc)
-				first_step_target = get_step(src, direct_EW)
-				Move(first_step_target, direct_EW)
-				if(loc == first_step_target)
-					first_step_dir = direct_EW
-					moving_diagonally = SECOND_DIAG_STEP
-					. = Move(get_step(src, direct_NS), direct_NS)
-			if(first_step_dir != 0)
-				if(!.)
+			var/first_step_dir
+			// The `&& moving_diagonally` checks are so that a forceMove taking
+			// place due to a Crossed, Bumped, etc. call will interrupt
+			// the second half of the diagonal movement, or the second attempt
+			// at a first half if step() fails because we hit something.
+			if (direct & NORTH)
+				if (direct & EAST)
+					if (step(src, NORTH) && moving_diagonally)
+						first_step_dir = NORTH
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, EAST)
+					else if (moving_diagonally && step(src, EAST))
+						first_step_dir = EAST
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, NORTH)
+				else if (direct & WEST)
+					if (step(src, NORTH) && moving_diagonally)
+						first_step_dir = NORTH
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, WEST)
+					else if (moving_diagonally && step(src, WEST))
+						first_step_dir = WEST
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, NORTH)
+			else if (direct & SOUTH)
+				if (direct & EAST)
+					if (step(src, SOUTH) && moving_diagonally)
+						first_step_dir = SOUTH
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, EAST)
+					else if (moving_diagonally && step(src, EAST))
+						first_step_dir = EAST
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, SOUTH)
+				else if (direct & WEST)
+					if (step(src, SOUTH) && moving_diagonally)
+						first_step_dir = SOUTH
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, WEST)
+					else if (moving_diagonally && step(src, WEST))
+						first_step_dir = WEST
+						moving_diagonally = SECOND_DIAG_STEP
+						. = step(src, SOUTH)
+			if(moving_diagonally == SECOND_DIAG_STEP)
+				if(!. && set_dir_on_move && update_dir)
 					setDir(first_step_dir)
-					Moved(oldloc, first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
+				if(client_mobs_in_contents)
+					update_parallax_contents()
 			moving_diagonally = 0
 			return
 
 	if(!loc || (loc == oldloc && oldloc != newloc))
 		last_move = 0
+
 		return
 
-	if(.)
-		Moved(oldloc, direct)
+	if(. && pulling && pulling == pullee && pulling != moving_from_pull) //we were pulling a thing and didn't lose it during our move.
+		if(pulling.anchored)
+			stop_pulling()
+		else
+			//puller and pullee more than one tile away or in diagonal position and whatever the pullee is pulling isn't already moving from a pull as it'll most likely result in an infinite loop a la ouroborus.
+			if(!pulling.pulling?.moving_from_pull)
+				var/pull_dir = get_dir(pulling, src)
+				var/target_turf = current_turf
+
+				if(target_turf != current_turf || (moving_diagonally != SECOND_DIAG_STEP && IS_DIR_DIAGONAL(pull_dir)) || get_dist(src, pulling) > 1)
+					pulling.move_from_pull(src, target_turf, glide_size)
+
+			// PARA: There was code here for handling multi-z, which isn't relevant to us.
+			check_pulling()
 
 	//glide_size strangely enough can change mid movement animation and update correctly while the animation is playing
 	//This means that if you don't override it late like this, it will just be set back by the movement update that's called when you move turfs.
@@ -276,6 +410,12 @@
 
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, glide_size_override)) //movement failed due to buckled mob
 		. = FALSE
+
+/// Called when src is being moved to a target turf because another movable (puller) is moving around.
+/atom/movable/proc/move_from_pull(atom/movable/puller, turf/target_turf, glide_size_override)
+	moving_from_pull = puller
+	Move(target_turf, get_dir(src, target_turf), glide_size_override)
+	moving_from_pull = null
 
 /**
  * Called after a successful Move(). By this point, we've already moved.
@@ -292,7 +432,7 @@
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
 
-	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc, movement_dir, forced)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc, movement_dir, forced, old_locs, momentum_change)
 
 	var/datum/light_source/L
 	var/thing

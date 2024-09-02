@@ -49,7 +49,7 @@
 #define CONFUSION_MAX					80 SECONDS
 
 
-/client/Move(n, direct)
+/client/Move(new_loc, direct)
 	if(world.time < move_delay)
 		return
 
@@ -61,7 +61,7 @@
 	if(!mob || !mob.loc)
 		return 0
 
-	if(!n || !direct) // why did we never check this before?
+	if(!new_loc || !direct) // why did we never check this before?
 		return FALSE
 
 	if(mob.notransform)
@@ -74,7 +74,7 @@
 		return Move_object(direct)
 
 	if(!isliving(mob))
-		return mob.Move(n, direct)
+		return mob.Move(new_loc, direct)
 
 	if(mob.stat == DEAD)
 		mob.ghostize()
@@ -97,7 +97,7 @@
 		if(istype(mob.loc, /obj/item/aicard))
 			var/obj/O = mob.loc
 			return O.relaymove(mob, direct) // aicards have special relaymove stuff
-		return AIMove(n, direct, mob)
+		return AIMove(new_loc, direct, mob)
 
 
 	if(Process_Grab())
@@ -132,22 +132,28 @@
 				else
 					M.stop_pulling()
 
-
-	var/delay = mob.movement_delay()
-	var/new_glide_size = DELAY_TO_GLIDE_SIZE(delay * ( (NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? sqrt(2) : 1 ) )
-	mob.set_glide_size(new_glide_size)
-	if(old_move_delay + world.tick_lag > world.time)
-		move_delay = old_move_delay
-	else
-		move_delay = world.time
-	mob.last_movement = world.time
-
-	delay = TICKS2DS(-round(-(DS2TICKS(delay)))) //Rounded to the next tick in equivalent ds
-
+	// We are now going to move
+	var/add_delay = mob.movement_delay()
 
 	if(locate(/obj/item/grab, mob))
 		if(!isalienhunter(mob)) // i hate grab code
-			delay += 7
+			add_delay += 7
+
+	var/new_glide_size = DELAY_TO_GLIDE_SIZE(add_delay * ((NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? sqrt(2) : 1))
+	mob.set_glide_size(new_glide_size) // set it now in case of pulled objects
+
+	//If the move was recent, count using old_move_delay
+	//We want fractional behavior and all
+	if(old_move_delay + world.tick_lag > world.time)
+		//Yes this makes smooth movement stutter if add_delay is too fractional
+		//Yes this is better then the alternative
+		move_delay = old_move_delay
+	else
+		move_delay = world.time
+
+	//Basically an optional override for our glide size
+	//Sometimes you want to look like you're moving with a delay you don't actually have yet
+	visual_delay = 0
 
 	if(istype(living_mob))
 		var/newdir = NONE
@@ -160,7 +166,7 @@
 			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
 		if(newdir)
 			direct = newdir
-			n = get_step(mob, direct)
+			new_loc = get_step(mob, direct)
 
 	mob.last_movement_dir = direct
 
@@ -168,15 +174,26 @@
 	if(mob.pulling)
 		prev_pulling_loc = mob.pulling.loc
 
-	. = mob.SelfMove(n, direct)
+	. = ..()
 
-	if(IS_DIR_DIAGONAL(direct) && mob.loc == n)
-		// only incur the extra delay if the move was *actually* diagonal
-		// There would be a bit of visual jank if we try to walk diagonally next to a wall
-		// and the move ends up being cardinal, rather than diagonal,
-		// but that's better than it being jank on every *successful* diagonal move.
-		delay *= SQRT_2
-	move_delay += delay
+	if(mob.loc == new_loc)
+		mob.last_movement = world.time
+		if(IS_DIR_DIAGONAL(direct))
+			// only incur the extra delay if the move was *actually* diagonal
+			// There would be a bit of visual jank if we try to walk diagonally next to a wall
+			// and the move ends up being cardinal, rather than diagonal,
+			// but that's better than it being jank on every *successful* diagonal move.
+			add_delay *= sqrt(2)
+
+	var/after_glide = 0
+	if(visual_delay)
+		after_glide = visual_delay
+	else
+		after_glide = DELAY_TO_GLIDE_SIZE(add_delay)
+
+	mob.set_glide_size(after_glide)
+
+	move_delay += add_delay
 
 	if(mob.pulledby)
 		mob.pulledby.stop_pulling()
@@ -191,9 +208,6 @@
 #undef CONFUSION_HEAVY_COEFFICIENT
 #undef CONFUSION_MAX
 
-
-/mob/proc/SelfMove(turf/n, direct, movetime)
-	return Move(n, direct, movetime)
 
 ///Process_Grab()
 ///Called by client/Move()
@@ -379,35 +393,49 @@
 /mob/proc/mob_negates_gravity()
 	return 0
 
-/mob/proc/Move_Pulled(atom/A)
-	if(HAS_TRAIT(src, TRAIT_CANNOT_PULL) || restrained() || !pulling)
-		return
-	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
+/atom/movable/proc/Move_Pulled(atom/moving_atom)
+	if(!pulling)
+		return FALSE
+	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
 		stop_pulling()
-		return
+		return FALSE
 	if(isliving(pulling))
-		var/mob/living/L = pulling
-		if(L.buckled && L.buckled.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
+		var/mob/living/pulling_mob = pulling
+		if(pulling_mob.buckled && pulling_mob.buckled.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
 			stop_pulling()
-			return
-	if(A == loc && pulling.density)
+			return FALSE
+	if(moving_atom == loc && pulling.density)
+		return FALSE
+	var/move_dir = get_dir(pulling.loc, moving_atom)
+	if(!Process_Spacemove(move_dir))
+		return FALSE
+	pulling.Move(get_step(pulling.loc, move_dir), move_dir, glide_size)
+	return TRUE
+
+/mob/living/Move_Pulled(atom/moving_atom)
+	. = ..()
+	if(!. || !isliving(moving_atom))
 		return
-	if(!Process_Spacemove(get_dir(pulling.loc, A)))
+	if(!Process_Spacemove(get_dir(pulling.loc, moving_atom)))
 		return
 	if(src in pulling.contents)
 		return
-	var/target_turf = get_step(pulling, get_dir(pulling.loc, A))
+	var/target_turf = get_step(pulling, get_dir(pulling.loc, moving_atom))
 	if(get_dist(target_turf, loc) > 1) // Make sure the turf we are trying to pull to is adjacent to the user.
 		return // We do not use Adjacent() here because it checks if there are dense objects in the way, making it impossible to move an object to the side if we're blocked on both sides.
+	var/move_dir = get_dir(pulling.loc, moving_atom)
 	if(ismob(pulling))
 		var/mob/M = pulling
 		var/atom/movable/t = M.pulling
 		M.stop_pulling()
-		. = step(pulling, get_dir(pulling.loc, A)) // we set the return value to step here, if we don't having someone buckled in to a chair and being pulled won't let them be unbuckeled
+
+		// we set the return value to step here, if we don't having someone
+		// buckled in to a chair and being pulled won't let them be unbuckeled
+		. = pulling.Move(get_step(pulling.loc, moving_atom), move_dir, glide_size)
 		if(M)
 			M.start_pulling(t)
 	else
-		. = step(pulling, get_dir(pulling.loc, A))
+		. = pulling.Move(get_step(pulling.loc, moving_atom), move_dir, glide_size)
 
 /mob/proc/update_gravity(has_gravity)
 	return
