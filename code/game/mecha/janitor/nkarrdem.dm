@@ -64,13 +64,15 @@
 // Moving has to clean floors if the buffer is active
 /obj/mecha/janitor/nkarrdem/Move()
 	. = ..()
-	if(floor_buffer)
-		var/turf/tile = loc
-		if(isturf(tile))
-			tile.clean_blood()
-			for(var/obj/effect/E in tile)
-				if(E.is_cleanable())
-					qdel(E)
+	if(!floor_buffer)
+		return
+	var/turf/tile = loc
+	if(!isturf(tile))
+		return
+	tile.clean_blood()
+	for(var/obj/effect/E in tile)
+		if(E.is_cleanable())
+			qdel(E)
 
 /obj/mecha/janitor/nkarrdem/loaded/Initialize(mapload)
 	. = ..()
