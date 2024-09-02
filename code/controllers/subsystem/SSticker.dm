@@ -331,7 +331,7 @@ SUBSYSTEM_DEF(ticker)
 
 	SSdbcore.SetRoundStart()
 	to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
-	SEND_SOUND(world, sound('sound/AI/welcome.ogg'))
+	SEND_SOUND(world, sound(SSmapping.map_datum.welcome_sound))
 
 	if(SSholiday.holidays)
 		to_chat(world, "<span class='darkmblue'>and...</span>")
