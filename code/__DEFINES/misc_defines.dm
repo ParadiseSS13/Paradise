@@ -548,6 +548,9 @@
 /// Send to the mentor Discord webhook
 #define DISCORD_WEBHOOK_MENTOR "MENTOR"
 
+/// Send to the developer Discord webhook
+#define DISCORD_WEBHOOK_DEVELOPER "DEVELOPER"
+
 // Hallucination severities
 #define HALLUCINATE_MINOR 1
 #define HALLUCINATE_MODERATE 2

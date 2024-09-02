@@ -58,13 +58,21 @@
 		return
 
 	msg = emoji_parse(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
+
+	if(!msg)
+		return
+
 	log_devsay(msg, src)
 	var/datum/say/devsay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
 	GLOB.devsays += devsay
 	mob.create_log(OOC_LOG, "DEVSAY: [msg]")
 
-	if(!msg)
-		return
+	if(SSredis.connected)
+		var/list/data = list()
+		data["author"] = usr.ckey
+		data["source"] = GLOB.configuration.system.instance_id
+		data["message"] = html_decode(msg)
+		SSredis.publish("byond.devsay", json_encode(data))
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN|R_MOD|R_DEV_TEAM, 0, C.mob))

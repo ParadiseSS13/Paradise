@@ -214,11 +214,15 @@ mentor_webhook_urls = [
 ]
 # List of all webhook URLs for the admin feed (round alerts, ahelps, etc)
 admin_webhook_urls = ["https://admin.webhook.one", "https://admin.webhook.two"]
+# List of all webhook URLs for the admin feed (devsay relay)
+developer_webhook_urls = ["https://developer.webhook.one", "https://developer.webhook.two"]
 # Role ID for the admin role on the discord. Set to "" to disable.
-# THESE MUST BOTH BE STRINGS. BYOND DOESNT LIKE NUMBERS THIS BIG
+# THESE MUST BE STRINGS. BYOND DOESNT LIKE NUMBERS THIS BIG
 admin_role_id = ""
 # Role ID for the mentor role on the discord. Set to "" to disable.
 mentor_role_id = ""
+# Role ID for the developer role on the discord. Set to "" to disable.
+developer_role_id = ""
 
 # Forward all ahelps to the discord? If disabled, ahelps are only forwarded if admins are AFK/Offline
 forward_all_ahelps = true

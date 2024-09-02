@@ -18,6 +18,8 @@ GLOBAL_DATUM_INIT(discord_manager, /datum/discord_manager, new())
 			webhook_urls = GLOB.configuration.discord.main_webhook_urls
 		if(DISCORD_WEBHOOK_MENTOR)
 			webhook_urls = GLOB.configuration.discord.mentor_webhook_urls
+		if(DISCORD_WEBHOOK_DEVELOPER)
+			webhook_urls = GLOB.configuration.discord.developer_webhook_urls
 
 	var/datum/discord_webhook_payload/dwp = new()
 	dwp.webhook_content = "**\[[GLOB.configuration.system.instance_id]]** [content]"
@@ -36,6 +38,8 @@ GLOBAL_DATUM_INIT(discord_manager, /datum/discord_manager, new())
 			webhook_urls = GLOB.configuration.discord.main_webhook_urls
 		if(DISCORD_WEBHOOK_MENTOR)
 			webhook_urls = GLOB.configuration.discord.mentor_webhook_urls
+		if(DISCORD_WEBHOOK_DEVELOPER)
+			webhook_urls = GLOB.configuration.discord.developer_webhook_urls
 	for(var/url in webhook_urls)
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
