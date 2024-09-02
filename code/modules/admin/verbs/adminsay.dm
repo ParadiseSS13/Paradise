@@ -66,14 +66,6 @@
 	if(!msg)
 		return
 
-	// Do this up here before it gets sent to everyone & emoji'd
-	if(SSredis.connected)
-		var/list/data = list()
-		data["author"] = usr.ckey
-		data["source"] = GLOB.configuration.system.instance_id
-		data["message"] = html_decode(msg)
-		SSredis.publish("byond.devsay", json_encode(data))
-
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN|R_MOD|R_DEV_TEAM, 0, C.mob))
 			var/display_name = key
@@ -85,7 +77,7 @@
 			msg = "<span class='emoji_enabled'>[msg]</span>"
 			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_mentor_say(msg as text)
 	set name = "Msay"
