@@ -5447,7 +5447,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "bav" = (
 /obj/structure/table,
 /obj/item/tank/internals/emergency_oxygen/engi,
@@ -31608,7 +31608,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/screwdriver,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "fRA" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -44412,7 +44412,7 @@
 "imq" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "imB" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel,
@@ -46681,10 +46681,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"iId" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
-/area/station/security/permabrig)
 "iIf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -55956,7 +55952,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "ksB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -57155,7 +57151,7 @@
 "kFA" = (
 /obj/item/mop,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "kFC" = (
 /obj/structure/chair{
 	dir = 1
@@ -62539,7 +62535,7 @@
 /obj/item/clothing/shoes/orange,
 /obj/item/clothing/under/color/orange/prison,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "lFw" = (
 /obj/machinery/camera{
 	c_tag = "Arrivals South East";
@@ -77294,7 +77290,7 @@
 "orr" = (
 /obj/item/vending_refill/coffee,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "orx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -79388,7 +79384,7 @@
 /mob/living/simple_animal/mouse/white,
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "oMq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -97059,7 +97055,7 @@
 /obj/item/soap/deluxe,
 /obj/item/toy/figure/crew/syndie,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "rXG" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
@@ -97937,7 +97933,7 @@
 "sgI" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "sgL" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "med1"
@@ -99516,7 +99512,7 @@
 "swd" = (
 /obj/item/seeds/cherry,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "swe" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 8
@@ -102115,7 +102111,7 @@
 	},
 /obj/item/seeds/bamboo,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "sVb" = (
 /obj/machinery/atmospherics/supermatter_crystal/engine,
 /turf/simulated/floor/engine,
@@ -109956,7 +109952,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "urU" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -117291,7 +117287,7 @@
 "vJy" = (
 /obj/item/beacon,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "vJz" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album{
@@ -118670,7 +118666,7 @@
 	pixel_x = -12
 	},
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "vVE" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
@@ -120049,7 +120045,7 @@
 "wiA" = (
 /obj/item/reagent_containers/glass/bottle/ammonia,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "wiB" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -124223,10 +124219,6 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/security/main)
-"xaE" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall/r_wall,
-/area/station/security/permabrig)
 "xaM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -126596,7 +126588,7 @@
 /obj/structure/closet/emcloset,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/security/fore)
 "xxh" = (
 /obj/structure/table,
 /obj/item/assembly/prox_sensor{
@@ -128408,9 +128400,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/plasma,
 /area/station/engineering/atmos/asteroid_core)
-"xPi" = (
-/turf/simulated/floor/plating,
-/area/station/security/permabrig)
 "xPs" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -180633,11 +180622,11 @@ ePB
 tcF
 rsS
 lLN
-eTx
-eTx
+cwI
+cwI
 bas
-iId
-eTx
+ydT
+cwI
 ght
 hpA
 dSr
@@ -180889,13 +180878,13 @@ lsR
 frX
 rvi
 qvC
-eTx
-eTx
+cwI
+cwI
 vVz
-xPi
+gjn
 ksv
-eTx
-fjJ
+cwI
+cDG
 teD
 iEl
 qvC
@@ -181146,13 +181135,13 @@ aZS
 aZS
 aZS
 aZS
-eTx
+cwI
 sUW
 kFA
 wiA
-xPi
+gjn
 sgI
-xaE
+vJX
 dcH
 viW
 iCF
@@ -181403,13 +181392,13 @@ gDq
 gDq
 gDq
 gDq
-eTx
+cwI
 imq
-xPi
+gjn
 oMl
 vJy
 fRy
-fjJ
+cDG
 jnr
 cCl
 rRk
@@ -181660,13 +181649,13 @@ aZS
 aZS
 aZS
 aZS
-eTx
+cwI
 lFn
 orr
-xPi
+gjn
 swd
 rXy
-xaE
+vJX
 jVX
 chH
 bkn
@@ -181917,13 +181906,13 @@ lsR
 frX
 paI
 qSw
-eTx
-eTx
+cwI
+cwI
 xxe
-xPi
+gjn
 urT
-eTx
-fjJ
+cwI
+cDG
 lsR
 uGH
 qSw
@@ -182175,11 +182164,11 @@ ePB
 tcF
 rsS
 dCa
-eTx
-eTx
+cwI
+cwI
 bas
-iId
-eTx
+ydT
+cwI
 ght
 xhr
 vAU
