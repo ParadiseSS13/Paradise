@@ -120,7 +120,7 @@ admin_rank_colour_map = [
 	{ name = "Community Manager", colour = "#e91e63" },
 	{ name = "Game Admin", colour = "#238afa" },
 	{ name = "Trial Admin", colour = "#7fb6fc" },
-	{ name = "Developer", colour = "#c27c0e" },
+	{ name = "Developer", colour = "#61b413" },
 	{ name = "Mentor", colour = "#f1c40f" },
 ]
 # Map of common CIDs that should not be banned, plus their reasons
