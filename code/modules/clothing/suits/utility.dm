@@ -32,12 +32,19 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/suit/fire/firefighter
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	icon_override = 'icons/mob/clothing/suits/utility.dmi'
 	icon_state = "firesuit"
-	item_state = "firefighter"
-
+	item_state = "firesuit"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suits/utility.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suits/utility.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suits/utility.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suits/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suits/utility.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suits/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi'
+	)
 
 /obj/item/clothing/suit/fire/heavy
 	name = "firesuit"
@@ -47,16 +54,12 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slowdown = 1.5
 
-/obj/item/clothing/suit/fire/atmos
+/obj/item/clothing/suit/fire/firefighter/atmos
 	name = "firesuit"
 	desc = "An expensive firesuit that protects against even the most deadly of station fires. Designed to protect even if the wearer is set aflame."
 	icon_state = "atmos_firesuit"
-	item_state = "firesuit_atmos"
+	item_state = "atmos_firesuit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
 
 /*
  * Bomb protection
@@ -142,8 +145,10 @@
 /obj/item/clothing/suit/radiation
 	name = "radiation suit"
 	desc = "A suit that protects against radiation. Label: Made with lead, do not eat insulation."
-	icon_state = "rad"
-	item_state = "rad_suit"
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	icon_override = 'icons/mob/clothing/suits/utility.dmi'
+	icon_state = "radsuit"
+	item_state = "radsuit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.50
@@ -158,5 +163,11 @@
 	resistance_flags = NONE
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suits/utility.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suits/utility.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suits/utility.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suits/utility.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suits/utility.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suits/utility.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suits/utility.dmi'
+	)
