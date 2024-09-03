@@ -694,7 +694,7 @@
 	)
 
 /datum/outfit/admin/solgov_rep
-	name = "Solar Federation Representative"
+	name = "Trans-Solar Federation Representative"
 
 	uniform = /obj/item/clothing/under/solgov/rep
 	back = /obj/item/storage/backpack/satchel
@@ -724,12 +724,12 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_centcom_access(), name, "lifetimeid")
-	I.assignment = "Solar Federation Representative"
+	I.assignment = "Trans-Solar Federation Representative"
 	H.sec_hud_set_ID()
 
 
 /datum/outfit/admin/solgov
-	name = "Solar Federation Marine"
+	name = "TSF Marine"
 	uniform = /obj/item/clothing/under/solgov
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	back = /obj/item/storage/backpack/ert/solgov
@@ -782,7 +782,7 @@
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/solgov/lieutenant
-	name = "Solar Federation Lieutenant"
+	name = "TSF Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command
 	head = /obj/item/clothing/head/beret/solgov/command
 	glasses = /obj/item/clothing/glasses/night
@@ -802,7 +802,7 @@
 	is_solgov_lieutenant = TRUE
 
 /datum/outfit/admin/solgov/elite
-	name = "Solar Federation Specops Marine"
+	name = "MARSOC Marine"
 	uniform = /obj/item/clothing/under/solgov/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	head = null
@@ -823,7 +823,7 @@
 	)
 
 /datum/outfit/admin/solgov/elite/lieutenant
-	name = "Solar Federation Specops Lieutenant"
+	name = "MARSOC Lieutenant"
 	uniform = /obj/item/clothing/under/solgov/command/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
 	head = null
@@ -1512,7 +1512,7 @@
 		H.mind.AddSpell(S)
 
 /datum/outfit/admin/viper
-	name = "Solar Federation Viper Infiltrator"
+	name = "TSF Viper Infiltrator"
 
 	uniform = /obj/item/clothing/under/solgov/viper
 	back = /obj/item/storage/backpack/satchel

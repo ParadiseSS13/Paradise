@@ -32,21 +32,21 @@
 	/// The status of the terminals powernet that this APC is connected to: not connected, no power, or recieving power
 	var/main_status = APC_EXTERNAL_POWER_NOTCONNECTED
 
-	/// amount of power used in the last cycle for lighting channel
+	/// amount of power used in the last cycle for lighting channel (Watts)
 	var/last_used_lighting = 0
-	/// amount of power used in the last cycle for equipment channel
+	/// amount of power used in the last cycle for equipment channel (Watts)
 	var/last_used_equipment = 0
-	/// amount of power used in the last cycle for environment channel
+	/// amount of power used in the last cycle for environment channel (Watts)
 	var/last_used_environment = 0
-	/// amount of power used in the last cycle in total
+	/// amount of power used in the last cycle in total (Watts)
 	var/last_used_total = 0
 
 	/*** APC Cell Vars ***/
-	/// the cell type stored in this APC
+	/// the cell type stored in this APC. APC uses cell energy capacity (kilojoules)
 	var/obj/item/stock_parts/cell/cell
 	/// the percentage charge the internal battery will start with
 	var/start_charge = 90
-	/// Base cell has 2500 capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty editted APCs
+	/// Base cell has a 2500 kJ capacity. Enter the path of a different cell you want to use. cell determines charge rates, max capacity, ect. These can also be changed with other APC vars, but isn't recommended to minimize the risk of accidental usage of dirty edited APCs
 	var/cell_type = 2500
 
 	/*** APC Status Vars ***/

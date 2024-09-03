@@ -1,46 +1,11 @@
 /*
  * Holds procs designed to change one type of value, into another.
  * Contains:
- *			hex2num & num2hex
  *			file2list
  *			angle2dir
  *			angle2text
  *			worldtime2text
  */
-
-//Returns an integer given a hex input
-/proc/hex2num(hex)
-	if(!(istext(hex)))
-		return
-
-	var/num = 0
-	var/power = 0
-	var/i = null
-	i = length(hex)
-	while(i > 0)
-		var/char = copytext(hex, i, i + 1)
-		switch(char)
-			if("0")
-				pass() // Do nothing
-			if("9", "8", "7", "6", "5", "4", "3", "2", "1")
-				num += text2num(char) * 16 ** power
-			if("a", "A")
-				num += 16 ** power * 10
-			if("b", "B")
-				num += 16 ** power * 11
-			if("c", "C")
-				num += 16 ** power * 12
-			if("d", "D")
-				num += 16 ** power * 13
-			if("e", "E")
-				num += 16 ** power * 14
-			if("f", "F")
-				num += 16 ** power * 15
-			else
-				return
-		power++
-		i--
-	return num
 
 //Returns an integer value for R of R/G/B given a hex color input.
 /proc/color2R(hex)
@@ -187,6 +152,7 @@
 	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
 	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
 	if(rights & R_MAINTAINER)	. += "[seperator]+MAINTAINER"
+	if(rights & R_DEV_TEAM)		. += "[seperator]+DEV_TEAM"
 
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
