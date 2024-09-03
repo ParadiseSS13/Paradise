@@ -32595,7 +32595,6 @@
 /area/station/hallway/secondary/entry/north)
 "dTc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/requests_console/directional/east,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
