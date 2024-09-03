@@ -72,3 +72,8 @@
 	name = DSAY_CHANNEL
 	keys = list("F10")
 	required_rights = R_ADMIN
+
+/datum/keybinding/client/communication/devsay
+	name = DEV_CHANNEL
+	keys = list("F2")
+	required_rights = R_DEV_TEAM | R_ADMIN

@@ -437,7 +437,8 @@
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/m556/arg
-	name = "\improper ARG magazine (5.56mm)"
+	name = "\improper M26 assault rifle magazine (5.56mm)"
+	desc = "A Standardized Equipment model magazine for the M26 assault rifle."
 	icon_state = "arg"
 
 /obj/item/ammo_box/magazine/ak814
