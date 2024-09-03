@@ -56,6 +56,28 @@
 	attack_verb = list("burnt")
 	tool_behaviour = TOOL_CAUTERY
 
+/obj/item/cautery/attack(mob/living/target, mob/living/user)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/cautery/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] against [cig], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [cig], heating it until it lights.</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] against [cig] for [target], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [cig] for [target], heating it until it lights.</span>"
+		)
+	cig.light(user, target)
+	return TRUE
+
 /obj/item/cautery/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
@@ -145,6 +167,28 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+
+/obj/item/scalpel/laser/attack(mob/living/carbon/target, mob/living/user)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/scalpel/laser/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] against [cig], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [cig], heating it until it lights.</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] presses [src] against [cig] for [target], heating it until it lights.</span>",
+			"<span class='notice'>You press [src] against [cig] for [target], heating it until it lights.</span>"
+		)
+	cig.light(user, target)
+	return TRUE
 
 /// lasers also count as catuarys
 /obj/item/scalpel/laser/laser1

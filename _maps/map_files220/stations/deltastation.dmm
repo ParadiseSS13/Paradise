@@ -18847,9 +18847,6 @@
 	pixel_x = 28;
 	pixel_y = 5
 	},
-/obj/machinery/requests_console/directional/east{
-	pixel_y = 30
-	},
 /obj/item/radio/intercom/custom{
 	pixel_y = 5;
 	pixel_x = -28
@@ -35730,13 +35727,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/machinery/requests_console{
-	department = "Robotics";
-	departmentType = 2;
-	name = "Robotics Requests Console";
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "cNT" = (
@@ -75659,6 +75650,10 @@
 	icon_state = "white"
 	},
 /area/station/medical/sleeper)
+"lRl" = (
+/obj/machinery/requests_console/directional/south,
+/turf/simulated/floor/plasteel/dark,
+/area/station/turret_protected/ai)
 "lRD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -123912,7 +123907,7 @@ btd
 bvC
 bwJ
 byd
-bBf
+lRl
 btd
 btd
 bIk

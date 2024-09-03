@@ -42579,10 +42579,6 @@
 	},
 /obj/item/restraints/handcuffs,
 /obj/item/radio/off,
-/obj/machinery/requests_console/directional/east{
-	department = "Security";
-	departmentType = 5
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"

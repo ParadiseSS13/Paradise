@@ -189,7 +189,7 @@
 		flip()
 	if(our_tarot)
 		user.drop_item()
-		pre_activate(user)
+		pre_activate(user, user)
 		return
 	qdel(src)
 
@@ -206,7 +206,7 @@
 	if(has_been_activated)
 		return
 	if(isliving(hit_atom) && our_tarot)
-		pre_activate(hit_atom)
+		pre_activate(hit_atom, locateUID(throwingdatum.thrower_uid))
 		return
 	qdel(src)
 
@@ -231,13 +231,15 @@
 	new /obj/effect/temp_visual/revenant(get_turf(src))
 	qdel(src)
 
-/obj/item/magic_tarot_card/proc/pre_activate(mob/user)
+/obj/item/magic_tarot_card/proc/pre_activate(mob/user, atom/movable/thrower)
 	has_been_activated = TRUE
 	forceMove(user)
 	var/obj/effect/temp_visual/tarot_preview/draft = new /obj/effect/temp_visual/tarot_preview(user, our_tarot.card_icon)
 	user.vis_contents += draft
 	user.visible_message("<span class='hierophant'>[user] holds up [src]!</span>")
 	addtimer(CALLBACK(our_tarot, TYPE_PROC_REF(/datum/tarot, activate), user), 0.5 SECONDS)
+	if(ismob(thrower) && our_tarot)
+		add_attack_logs(thrower, user, "[thrower] has activated [our_tarot.name] on [user]", ATKLOG_FEW)
 	QDEL_IN(src, 0.6 SECONDS)
 
 /obj/effect/temp_visual/tarot_preview
@@ -531,6 +533,8 @@
 
 /datum/tarot/the_tower/activate(mob/living/target)
 	var/obj/item/grenade/clusterbuster/ied/bakoom = new(get_turf(target))
+	var/turf/bombturf = get_turf(target)
+	target.investigate_log("[key_name(target)] has been activated (either thrown at or used) on [target] at [bombturf.x],[bombturf.y],[bombturf.z]", INVESTIGATE_BOMB) // Yes, this is an atom proc. Suffering
 	bakoom.prime()
 
 /// I'm sorry matt, this is very funny.
