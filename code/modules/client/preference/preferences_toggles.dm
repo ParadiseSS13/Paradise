@@ -114,7 +114,7 @@
 	preftoggle_bitflag = SOUND_MENTORHELP
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
-	rights_required = R_MENTOR
+	rights_required = R_MENTOR | R_ADMIN
 	enable_message = "You will now hear a sound when mentorhelp is sent."
 	disable_message = "You will no longer hear a sound when mentorhelp is sent."
 	blackbox_message = "Toggle Mentor Bwoinks"
