@@ -7617,9 +7617,6 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/rd)
 "bvy" = (
-/obj/structure/chair/sofa/pew/left{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -7634,9 +7631,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
 "bvz" = (
 /obj/machinery/camera{
@@ -7940,6 +7935,28 @@
 /obj/item/book/manual/wiki/security_space_law,
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/cell_block)
+"byt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/chair/sofa/pew/right{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/chapel)
 "byv" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -26508,8 +26525,8 @@
 /area/station/security/warden)
 "eYM" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/carpet/black,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/station/service/chapel)
 "eYQ" = (
 /obj/effect/landmark/burnturf,
@@ -35231,8 +35248,7 @@
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "chapel"
+	icon_state = "dark"
 	},
 /area/station/service/chapel)
 "gDq" = (
@@ -37037,9 +37053,9 @@
 /turf/space,
 /area/space/nearstation)
 "gUH" = (
-/obj/machinery/door/airlock/multi_tile/glass,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
 "gUN" = (
@@ -51742,6 +51758,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/science/rd,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "rd"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -58267,6 +58286,12 @@
 /obj/item/pen,
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"kPV" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/carpet/black,
+/area/station/service/chapel)
 "kQc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -62157,9 +62182,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/range)
 "lBu" = (
-/obj/structure/chair/sofa/pew/right{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -62171,9 +62193,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/assistant,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/chair/sofa/pew/left{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -66293,6 +66317,16 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/ai_monitored/storage/eva)
+"msz" = (
+/obj/item/kirbyplants,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/station/service/chapel)
 "msM" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel/grimy,
@@ -71382,6 +71416,7 @@
 /obj/machinery/camera{
 	c_tag = "Atmospherics North-East"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "nrl" = (
@@ -81424,6 +81459,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/structure/flora/tree/palm{
+	pixel_x = 0
+	},
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
 "pdF" = (
@@ -89856,9 +89894,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
 "qKM" = (
 /obj/effect/decal/cleanable/glass,
@@ -108231,6 +108267,16 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft2)
+"uaj" = (
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/station/public/dorms)
 "uar" = (
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel,
@@ -114180,7 +114226,6 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/obj/structure/flora/tree/palm,
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
 "vfZ" = (
@@ -115782,7 +115827,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "chapel"
 	},
 /area/station/service/chapel)
 "vuW" = (
@@ -121311,7 +121356,7 @@
 	},
 /area/station/hallway/primary/starboard)
 "wvW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
@@ -127173,14 +127218,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
-"xCL" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/service/chapel)
 "xCR" = (
 /obj/machinery/light{
 	dir = 1
@@ -150846,7 +150883,7 @@ tEg
 tEg
 tEg
 uLr
-sGV
+tJJ
 uUD
 sGV
 vNK
@@ -157538,7 +157575,7 @@ xaT
 vIv
 xaT
 qdC
-xCL
+uJr
 uJr
 kht
 bvA
@@ -158057,7 +158094,7 @@ bsM
 eYM
 rdc
 qZS
-njI
+uaj
 arS
 arS
 duY
@@ -158300,21 +158337,21 @@ nmP
 bvh
 tyb
 gDm
-rIB
-fOH
-fOH
+uJr
+xaT
+aBS
 xaT
 bvy
 eUg
-jEi
 xaT
-knF
+xaT
+xaT
 qKL
-uJr
-kht
+xaT
+kPV
 bvA
 qQg
-sRm
+njI
 vAZ
 haF
 vSl
@@ -158556,20 +158593,20 @@ heQ
 nmP
 rux
 tyb
-kLJ
-lIs
-xaT
-xaT
+mac
+rIB
+fOH
+fOH
 xaT
 lBu
 xaT
-vIv
+jEi
 xaT
-vIv
+knF
 uJr
-nXW
-tyb
-pCS
+uJr
+kht
+bvA
 qQg
 tqe
 eUn
@@ -158813,18 +158850,18 @@ heQ
 nmP
 bvh
 tyb
-nqj
+msz
+lIs
+xaT
+xaT
+xaT
+byt
 uJr
+vIv
 uJr
-mac
-rIB
-iPA
-mac
-rIB
+vIv
 uJr
-mac
-rIB
-lcf
+nXW
 tyb
 bvA
 njj
@@ -159073,14 +159110,14 @@ tyb
 cfy
 uJr
 uJr
-kLJ
-lIs
+mac
+rIB
 iPA
-kLJ
-lIs
+mac
+rIB
 uJr
-kLJ
-lIs
+mac
+rIB
 uJr
 tyb
 vzw
@@ -159331,14 +159368,14 @@ whH
 csp
 xbo
 iiU
-uJr
+lIs
 iPA
-uJr
-uJr
+kLJ
+lIs
 wFI
-uJr
+kLJ
 vuS
-uJr
+lcf
 tyb
 bvA
 qQg
