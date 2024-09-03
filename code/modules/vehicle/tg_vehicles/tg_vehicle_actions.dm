@@ -239,7 +239,11 @@
 	var/old_v_pass = vehicle.pass_flags
 	rider.pass_flags |= PASSTABLE | PASSFENCE
 	vehicle.pass_flags |= PASSTABLE | PASSFENCE
-
+	for(var/mob/living/buckled_mob as anything in vehicle.buckled_mobs) //In the event the board doesn't move, we need to refresh the pixel_y
+		if(buckled_mob.get_num_legs() > 0)
+			buckled_mob.pixel_y = 5
+		else
+			buckled_mob.pixel_y = -4
 	rider.Move(landing_turf, vehicle_target.dir)
 	rider.pass_flags = old_pass
 	vehicle.pass_flags = old_v_pass

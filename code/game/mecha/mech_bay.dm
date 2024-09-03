@@ -90,11 +90,6 @@
 		MC += C.rating
 	max_charge = MC * 25
 
-/obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-	return ..()
-
 /obj/machinery/mech_bay_recharge_port/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
 		return TRUE

@@ -1,5 +1,6 @@
 /obj/item/grenade/flashbang
 	name = "flashbang"
+	desc = "A less-than-lethal grenade designed for crowd control. Blinds all unprotected targets in range and disrupts their balance, sending them falling to the floor."
 	icon_state = "flashbang"
 	item_state = "flashbang"
 	belt_icon = "flashbang"
@@ -7,8 +8,10 @@
 	light_power = 10
 	light_color = LIGHT_COLOR_WHITE
 
-	var/light_time = 0.2 SECONDS // The duration the area is illuminated
-	var/range = 7 // The range in tiles of the flashbang
+	/// The duration the area is illuminated.
+	var/light_time = 0.2 SECONDS
+	/// The range in tiles of the flashbang.
+	var/range = 7
 
 /obj/item/grenade/flashbang/prime()
 	update_mob()
@@ -26,6 +29,20 @@
 		// Stunning & damaging mechanic
 		bang(T, src, range)
 	qdel(src)
+
+/obj/item/grenade/flashbang/screwdriver_act(mob/living/user, obj/item/I)
+	switch(det_time)
+		if(0.1 SECONDS)
+			det_time = 3 SECONDS
+			to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
+		if(3 SECONDS)
+			det_time = 5 SECONDS
+			to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
+		if(5 SECONDS)
+			det_time = 0.1 SECONDS
+			to_chat(user, "<span class='notice'>You set [src] for instant detonation.</span>")
+	add_fingerprint(user)
+	return TRUE
 
 /**
   * Creates a flashing effect that blinds and deafens mobs within range

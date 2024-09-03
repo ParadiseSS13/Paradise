@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 //Liver Toxins list
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))
 
-//General chem blacklist. This is for the really good stuff that we just want to restrict from things like bees and smoke
+//General chem blacklist. This is for the really good stuff that we just want to restrict from things like bees and odysseus syringe gun duping
 GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_initro",
 							"sodium_thiopental", "ketamine",
 							"adminordrazine", "nanites", "hell_water",

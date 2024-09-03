@@ -62,6 +62,16 @@ GLOBAL_LIST(contractors)
  */
 #define PULSEDEMON_SOURCE_DRAIN_INVALID (-1)
 
+/**
+ * Objectives
+ */
+#define THEFT_FLAG_SPECIAL 1 // Unused, maybe someone will use it some day, I'll leave it here for the children
+#define THEFT_FLAG_UNIQUE 2
+
+/**
+ * IS_ANTAG defines
+ */
 #define IS_CHANGELING(mob) (isliving(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/changeling))
 
 #define IS_MINDSLAVE(mob) (ishuman(mob) && mob?:mind?:has_antag_datum(/datum/antagonist/mindslave, FALSE))
+

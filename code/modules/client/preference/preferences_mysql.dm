@@ -14,22 +14,24 @@
 		toggles = text2num(query.item[7])
 		toggles2 = text2num(query.item[8])
 		sound = text2num(query.item[9])
-		volume_mixer = deserialize_volume_mixer(query.item[10])
-		lastchangelog = query.item[11]
-		exp = query.item[12]
-		clientfps = text2num(query.item[13])
-		atklog = text2num(query.item[14])
-		fuid = text2num(query.item[15])
-		parallax = text2num(query.item[16])
-		_2fa_status = query.item[17]
-		screentip_mode = query.item[18]
-		screentip_color = query.item[19]
-		ghost_darkness_level = query.item[20]
-		colourblind_mode = query.item[21]
-		keybindings = init_keybindings(raw = query.item[22])
-		server_region = query.item[23]
-		raw_muted_admins = query.item[24]
-		viewrange = query.item[25]
+		light = text2num(query.item[10])
+		glowlevel = query.item[11]
+		volume_mixer = deserialize_volume_mixer(query.item[12])
+		lastchangelog = query.item[13]
+		exp = query.item[14]
+		clientfps = text2num(query.item[15])
+		atklog = text2num(query.item[16])
+		fuid = text2num(query.item[17])
+		parallax = text2num(query.item[18])
+		_2fa_status = query.item[19]
+		screentip_mode = query.item[20]
+		screentip_color = query.item[21]
+		ghost_darkness_level = query.item[22]
+		colourblind_mode = query.item[23]
+		keybindings = init_keybindings(raw = query.item[24])
+		server_region = query.item[25]
+		raw_muted_admins = query.item[26]
+		viewrange = query.item[27]
 
 	lastchangelog_2 = lastchangelog // Clone please
 
@@ -88,6 +90,8 @@
 		toggles_2=:toggles2,
 		atklog=:atklog,
 		sound=:sound,
+		light=:light,
+		glowlevel=:glowlevel,
 		volume_mixer=:volume_mixer,
 		lastchangelog=:lastchangelog,
 		clientfps=:clientfps,
@@ -114,6 +118,8 @@
 			"toggles2" = num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1)),
 			"atklog" = atklog,
 			"sound" = sound,
+			"light" = light,
+			"glowlevel" = glowlevel,
 			"volume_mixer" = serialize_volume_mixer(volume_mixer),
 			"lastchangelog" = lastchangelog,
 			"clientfps" = clientfps,

@@ -24,6 +24,18 @@
 /area/ruin/powered/greed
 	icon_state = "yellow"
 
+/area/ruin/powered/envy
+	icon_state = "yellow"
+
+/area/ruin/powered/sloth
+	icon_state = "yellow"
+
+/area/ruin/powered/fountain_hall
+	icon_state = "yellow"
+
+/area/ruin/powered/pizza_party
+	icon_state = "yellow"
+
 /area/ruin/unpowered/hierophant
 	name = "Hierophant's Arena"
 	icon_state = "yellow"

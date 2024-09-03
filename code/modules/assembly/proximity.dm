@@ -91,7 +91,7 @@
 		holder.update_icon()
 
 /obj/item/assembly/prox_sensor/Move()
-	..()
+	. = ..()
 	sense()
 
 /obj/item/assembly/prox_sensor/holder_movement()

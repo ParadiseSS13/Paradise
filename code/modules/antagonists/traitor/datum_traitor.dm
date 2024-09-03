@@ -59,8 +59,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		slaved.leave_serv_hud(owner)
 		owner.som = null
 
-	// Need to bring this functionality back to TGchat
-	// owner.current.client?.chatOutput?.clear_syndicate_codes()
 	// Try removing their uplink, check PDA
 	var/mob/M = owner.current
 	var/obj/item/uplink_holder = locate(/obj/item/pda) in M.contents
@@ -138,19 +136,29 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  * Create and assign a single randomized human traitor objective.
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
+	var/datum/objective/objective_to_add
+
 	if(prob(50))
 		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-			add_antag_objective(/datum/objective/destroy)
+			objective_to_add = /datum/objective/destroy
+
 		else if(prob(5))
-			add_antag_objective(/datum/objective/debrain)
+			objective_to_add = /datum/objective/debrain
+
 		else if(prob(30))
-			add_antag_objective(/datum/objective/maroon)
+			objective_to_add = /datum/objective/maroon
+
 		else if(prob(30))
-			add_antag_objective(/datum/objective/assassinateonce)
+			objective_to_add = /datum/objective/assassinateonce
+
 		else
-			add_antag_objective(/datum/objective/assassinate)
+			objective_to_add = /datum/objective/assassinate
 	else
-		add_antag_objective(/datum/objective/steal)
+		objective_to_add = /datum/objective/steal
+
+	if(delayed_objectives)
+		objective_to_add = new /datum/objective/delayed(objective_to_add)
+	add_antag_objective(objective_to_add)
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
@@ -177,8 +185,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 /datum/antagonist/traitor/proc/give_codewords()
 	if(!owner.current)
 		return
-	// Need to bring this functionality back to TGchat
-	// var/mob/traitor_mob = owner.current
 
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
@@ -193,8 +199,6 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
-	// Need to bring this functionality back to TGchat
-	// traitor_mob.client.chatOutput?.notify_syndicate_codes()
 	return messages
 
 /**
@@ -273,3 +277,14 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 /datum/antagonist/traitor/custom_blurb()
 	return "[GLOB.current_date_string], [station_time_timestamp()]\n[station_name()], [get_area_name(owner.current, TRUE)]\nBEGIN_MISSION"
+
+/datum/antagonist/traitor/proc/reveal_delayed_objectives()
+	for(var/datum/objective/delayed/delayed_obj in objective_holder.objectives)
+		delayed_obj.reveal_objective()
+
+	if(!owner?.current)
+		return
+	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+	var/list/messages = owner.prepare_announce_objectives()
+	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
+	delayed_objectives = FALSE

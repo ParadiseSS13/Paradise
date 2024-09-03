@@ -66,7 +66,7 @@
 	can_hold = list(
 		/obj/item/fish,
 		/obj/item/fish_eggs,
-		/obj/item/food/snacks/shrimp,
+		/obj/item/food/shrimp,
 	)
 	resistance_flags = FLAMMABLE
 
@@ -74,7 +74,7 @@
 //				Fish Items					//
 //////////////////////////////////////////////
 
-/obj/item/food/snacks/shrimp
+/obj/item/food/shrimp
 	name = "shrimp"
 	desc = "A single raw shrimp."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -82,12 +82,12 @@
 	filling_color = "#FF1C1C"
 	bitesize = 1
 
-/obj/item/food/snacks/shrimp/Initialize(mapload)
+/obj/item/food/shrimp/Initialize(mapload)
 	. = ..()
 	desc = pick("Anyway, like I was sayin', shrimp is the fruit of the sea.", "You can barbecue it, boil it, broil it, bake it, saute it.")
 	reagents.add_reagent("protein", 1)
 
-/obj/item/food/snacks/feederfish
+/obj/item/food/feederfish
 	name = "feeder fish"
 	desc = "A tiny feeder fish. Sure doesn't look very filling..."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -95,7 +95,7 @@
 	filling_color = "#FF1C1C"
 	bitesize = 1
 
-/obj/item/food/snacks/feederfish/Initialize(mapload)
+/obj/item/food/feederfish/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent("protein", 1)
 
@@ -170,8 +170,8 @@
 /obj/item/fish/catfish/attackby(obj/item/O, mob/user as mob)
 	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/food/snacks/catfishmeat(get_turf(src))
-		new /obj/item/food/snacks/catfishmeat(get_turf(src))
+		new /obj/item/food/catfishmeat(get_turf(src))
+		new /obj/item/food/catfishmeat(get_turf(src))
 		qdel(src)
 		return
 	..()
@@ -189,8 +189,8 @@
 /obj/item/fish/salmon/attackby(obj/item/O, mob/user as mob)
 	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/food/snacks/salmonmeat(get_turf(src))
-		new /obj/item/food/snacks/salmonmeat(get_turf(src))
+		new /obj/item/food/salmonmeat(get_turf(src))
+		new /obj/item/food/salmonmeat(get_turf(src))
 		qdel(src)
 		return
 	..()
@@ -205,7 +205,7 @@
 /obj/item/fish/babycarp/attackby(obj/item/O, mob/user as mob)
 	if(O.sharp)
 		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/food/snacks/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
+		new /obj/item/food/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
 		qdel(src)
 		return
 	..()

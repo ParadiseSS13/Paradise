@@ -27,8 +27,10 @@
 				SEND_SOUND(M, sound('sound/effects/clingscream.ogg'))
 
 		if(issilicon(M))
+			var/mob/living/silicon/robot/R = M
+			R.disable_component("actuator", 7 SECONDS)
 			SEND_SOUND(M, sound('sound/weapons/flash.ogg'))
-			M.Weaken(rand(10 SECONDS, 20 SECONDS))
+			R.flash_eyes(2, affect_silicon = TRUE) //80 Stamina damage
 
 	for(var/obj/machinery/light/L in range(4, user))
 		L.on = TRUE

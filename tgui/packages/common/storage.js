@@ -6,8 +6,9 @@
  * @license MIT
  */
 
-export const IMPL_HUB_STORAGE = 0;
-export const IMPL_INDEXED_DB = 1;
+export const IMPL_MEMORY = 0;
+export const IMPL_HUB_STORAGE = 1;
+export const IMPL_INDEXED_DB = 2;
 
 const INDEXED_DB_VERSION = 1;
 const INDEXED_DB_NAME = 'para-tgui';
@@ -33,27 +34,50 @@ const testIndexedDb = testGeneric(() => (
   && (window.IDBTransaction || window.msIDBTransaction)
 ));
 
+class MemoryBackend {
+  constructor() {
+    this.impl = IMPL_MEMORY;
+    this.store = {};
+  }
+
+  async get(key) {
+    return this.store[key];
+  }
+
+  async set(key, value) {
+    this.store[key] = value;
+  }
+
+  async remove(key) {
+    this.store[key] = undefined;
+  }
+
+  async clear() {
+    this.store = {};
+  }
+}
+
 class HubStorageBackend {
   constructor() {
     this.impl = IMPL_HUB_STORAGE;
   }
 
-  get(key) {
-    const value = window.hubStorage.getItem('paradise-' + key);
+  async get(key) {
+    const value = await window.hubStorage.getItem('paradise-' + key);
     if (typeof value === 'string') {
       return JSON.parse(value);
     }
   }
 
-  set(key, value) {
+  async set(key, value) {
     window.hubStorage.setItem('paradise-' + key, JSON.stringify(value));
   }
 
-  remove(key) {
+  async remove(key) {
     window.hubStorage.removeItem('paradise-' + key);
   }
 
-  clear() {
+  async clear() {
     window.hubStorage.clear();
   }
 }
@@ -80,7 +104,7 @@ class IndexedDbBackend {
     });
   }
 
-  getStore(mode) {
+  async getStore(mode) {
     // prettier-ignore
     return this.dbPromise.then((db) => db
       .transaction(INDEXED_DB_STORE_NAME, mode)
@@ -97,13 +121,6 @@ class IndexedDbBackend {
   }
 
   async set(key, value) {
-    // The reason we don't _save_ null is because IE 10 does
-    // not support saving the `null` type in IndexedDB. How
-    // ironic, given the bug below!
-    // See: https://github.com/mozilla/localForage/issues/161
-    if (value === null) {
-      value = undefined;
-    }
     // NOTE: We deliberately make this operation transactionless
     const store = await this.getStore(READ_WRITE);
     store.put(value, key);
@@ -129,18 +146,19 @@ class IndexedDbBackend {
 class StorageProxy {
   constructor() {
     this.backendPromise = (async () => {
-      if (Byond.TRIDENT) {
-        // fuckin IE users, TODO: Remove with 516
-        if (testIndexedDb()) {
-          try {
-            const backend = new IndexedDbBackend();
-            await backend.dbPromise;
-            return backend;
-          } catch {}
-        }
-      } else if (testHubStorage()) {
+      if (!Byond.TRIDENT && testHubStorage()) {
         return new HubStorageBackend();
       }
+      // TODO: Remove with 516
+      if (testIndexedDb()) {
+        try {
+          const backend = new IndexedDbBackend();
+          await backend.dbPromise;
+          return backend;
+        } catch {}
+      }
+      console.warn('No supported storage backend found. Using in-memory storage.');
+      return new MemoryBackend();
     })();
   }
 

@@ -8,7 +8,8 @@
 	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"search.exclude": {
 		"**/.yarn": true,
-		"**/.pnp.*": true
+		"**/.pnp.*": true,
+		"tgui/public/**/*": true
 	},
 	"eslint.format.enable": true,
 	"eslint.rules.customizations": [

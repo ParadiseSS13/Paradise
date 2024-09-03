@@ -92,7 +92,7 @@
 	AddComponent(/datum/component/spooky)
 
 /obj/item/instrument/trumpet/spectral/attack(mob/living/carbon/C, mob/user)
-	playsound(src, 'sound/instruments/trombone/En4.mid', 100, 1, -1)
+	playsound(src, 'sound/instruments/trombone/En4.mid', 100, TRUE, -1)
 	..()
 
 /obj/item/instrument/saxophone
@@ -115,7 +115,7 @@
 	AddComponent(/datum/component/spooky)
 
 /obj/item/instrument/saxophone/spectral/attack(mob/living/carbon/C, mob/user)
-	playsound(src, 'sound/instruments/saxophone/En4.mid', 100,1,-1)
+	playsound(src, 'sound/instruments/saxophone/En4.mid', 100, TRUE,-1)
 	..()
 
 /obj/item/instrument/trombone
@@ -148,7 +148,7 @@
 	attack_verb = list("Wahed", "Waahed", "Waaahed", "Honked")
 
 /obj/item/instrument/trombone/sad/attack(mob/living/carbon/C, mob/user)
-	playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
+	playsound(loc, 'sound/misc/sadtrombone.ogg', 50, TRUE, -1)
 	..()
 
 /obj/item/instrument/recorder

@@ -282,7 +282,7 @@
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180)))
 				if(occupant)
-					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
+					to_chat(occupant, "<span class='notice'>You push off of [backup] to propel yourself.</span>")
 		return TRUE
 
 /obj/mecha/relaymove(mob/user, direction)
@@ -409,7 +409,7 @@
 			breakthrough = TRUE
 
 		else if(istype(obstacle, /obj/structure/reagent_dispensers/fueltank))
-			obstacle.ex_act(1)
+			obstacle.ex_act(EXPLODE_DEVASTATE)
 
 		else if(isliving(obstacle))
 			var/mob/living/L = obstacle
@@ -421,7 +421,7 @@
 				L.buckled = 0
 			L.Weaken(10 SECONDS)
 			L.apply_effect(STUTTER, 10 SECONDS)
-			playsound(src, pick(hit_sound), 50, 0, 0)
+			playsound(src, pick(hit_sound), 50, FALSE, 0)
 			breakthrough = TRUE
 
 		else
@@ -555,7 +555,7 @@
 /obj/mecha/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
+	playsound(loc, 'sound/weapons/tap.ogg', 40, TRUE, -1)
 	user.visible_message("<span class='notice'>[user] hits [name]. Nothing happens</span>", "<span class='notice'>You hit [name] with no visible effect.</span>")
 	log_message("Attack by hand/paw. Attacker - [user].")
 
@@ -820,7 +820,7 @@
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && pilot_is_mmi()))
+	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && occupant))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -831,11 +831,17 @@
 	else if(state == MECHA_OPEN_HATCH)
 		state = MECHA_BOLTS_UP
 		to_chat(user, "You close the hatch to the power unit")
+	else if(ishuman(occupant))
+		user.visible_message("<span class='notice'>[user] begins levering out the driver from the [src].</span>", "<span class='notice'>You begin to lever out the driver from the [src].</span>")
+		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
+			user.visible_message("<span class='notice'>[user] pries the driver out of the [src]!</span>", "<span class='notice'>You finish removing the driver from the [src]!</span>")
+			go_out()
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
 		user.visible_message("<span class='notice'>[user] begins levering out the MMI from [src].</span>", "<span class='notice'>You begin to lever out the MMI from [src].</span>")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 80, volume = I.tool_volume) && pilot_is_mmi())
+		if(I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) && pilot_is_mmi())
 			user.visible_message("<span class='notice'>[user] pries the MMI out of [src]!</span>", "<span class='notice'>You finish removing the MMI from [src]!</span>")
 			go_out()
 
@@ -1316,6 +1322,18 @@
 
 /obj/mecha/force_eject_occupant(mob/target)
 	go_out()
+
+// Called when a shuttle lands on top of the mech. Prevents the mech from just dropping the pilot unharmed inside the shuttle when destroyed.
+/obj/mecha/proc/get_out_and_die()
+	var/mob/living/pilot = occupant
+	pilot.visible_message(
+		"<span class='warning'>[src] is hit by a hyperspace ripple!</span>",
+		"<span class='userdanger'>You feel an immense crushing pressure as the space around you ripples.</span>"
+	)
+	go_out(TRUE)
+	if(iscarbon(pilot))
+		pilot.gib()
+	qdel(src)
 
 /////////////////////////
 ////// MARK: Access stuff

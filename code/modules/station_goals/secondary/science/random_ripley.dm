@@ -38,7 +38,7 @@
 
 
 /datum/secondary_goal_progress/random_ripley
-	var/obj/item/food/snacks/food_type
+	var/obj/item/food/food_type
 	var/list/modules
 	var/sent = FALSE
 

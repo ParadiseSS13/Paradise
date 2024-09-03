@@ -255,7 +255,7 @@
 	layer = 2.0
 	var/obj/structure/morgue/connected = null
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 	max_integrity = 350
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
@@ -308,11 +308,10 @@
 
 	return FALSE
 
-/obj/structure/m_tray/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/m_tray/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSTABLE)
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSTABLE
 
 /obj/structure/m_tray/Process_Spacemove(movement_dir)
 	return TRUE
@@ -552,7 +551,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	layer = 2.0
 	var/obj/structure/crematorium/connected = null
 	anchored = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW | PASSTAKE
 
 /obj/structure/c_tray/attack_hand(mob/user as mob)
 	if(connected)

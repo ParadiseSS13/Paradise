@@ -44,12 +44,8 @@
 		. += "<span class='notice'>The status display reads: Power generation at <b>[input_power_multiplier*100]%</b>.<br>Shock interval at <b>[zap_cooldown*0.1]</b> seconds.</span>"
 
 /obj/machinery/power/tesla_coil/attackby(obj/item/W, mob/user, params)
-	if(exchange_parts(user, W))
-		return
-
-	else if(istype(W, /obj/item/assembly/signaler) && panel_open)
+	if(istype(W, /obj/item/assembly/signaler) && panel_open)
 		wires.Interact(user)
-
 	else
 		return ..()
 

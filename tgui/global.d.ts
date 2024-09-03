@@ -26,6 +26,7 @@ namespace JSX {
     marquee: any;
     blink: any;
   }
+  Element
 }
 
 type TguiMessage = {

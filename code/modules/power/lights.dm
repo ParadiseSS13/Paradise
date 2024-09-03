@@ -167,6 +167,8 @@
 	desc = "Industrial-grade light fixture for brightening up dark corners of the station."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube1"
+	glow_icon_state = "tube"
+	exposure_icon_state = "cone"
 	anchored = TRUE
 	layer = 5
 	max_integrity = 100
@@ -179,10 +181,6 @@
 	var/on = FALSE
 	/// Is the light currently turning on?
 	var/turning_on = FALSE
-	/// If the light state has changed since the last 'update()', also update the power requirements
-	var/light_state = FALSE
-	/// How much power does it use?
-	var/static_power_used = 0
 	/// Light range (Also used in power calculation)
 	var/brightness_range = 8
 	/// Light intensity
@@ -233,6 +231,8 @@
 	icon_state = "bulb1"
 	desc = "A compact and cheap light fixture, perfect for keeping maintenance tunnels appropriately spooky."
 	fitting = "bulb"
+	glow_icon_state = "bulb"
+	exposure_icon_state = "circle"
 	base_state = "bulb"
 	brightness_range = 4
 	brightness_color = "#a0a080"
@@ -247,11 +247,11 @@
 
 /obj/machinery/light/built/Initialize(mapload)
 	status = LIGHT_EMPTY
-	..()
+	return ..()
 
 /obj/machinery/light/small/built/Initialize(mapload)
 	status = LIGHT_EMPTY
-	..()
+	return ..()
 
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
@@ -367,17 +367,10 @@
 	else if(!turned_off())
 		set_emergency_lights()
 	else // Turning off
-		change_power_mode(IDLE_POWER_USE)
+		change_power_mode(NO_POWER_USE)
 		set_light(0)
 	update_icon()
-	active_power_consumption = (brightness_range * 10)
-	if(on != light_state) // Light was turned on/off, so update the power usage
-		light_state = on
-		if(on)
-			static_power_used = brightness_range * 20 //20W per unit of luminosity
-			add_static_power(PW_CHANNEL_LIGHTING, static_power_used)
-		else
-			remove_static_power(PW_CHANNEL_LIGHTING, static_power_used)
+	update_active_power_consumption(PW_CHANNEL_LIGHTING, brightness_range * 10)
 
 
 /**
@@ -821,9 +814,11 @@
 // explode the light
 
 /obj/machinery/light/proc/explode()
-	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
-	sleep(2)
+	addtimer(CALLBACK(src, PROC_REF(actually_explode)), 2)
+
+/obj/machinery/light/proc/actually_explode()
+	var/turf/T = get_turf(loc)
 	explosion(T, 0, 0, 2, 2)
 	qdel(src)
 
@@ -887,6 +882,7 @@
 	base_state = "ltube"
 	item_state = "c_tube"
 	brightness_range = 8
+	brightness_color = "#ffffff"
 
 /obj/item/light/tube/large
 	w_class = WEIGHT_CLASS_SMALL
@@ -986,7 +982,7 @@
 		update()
 
 /obj/item/light/suicide_act(mob/living/carbon/human/user)
-	user.visible_message("<span class=suicide>[user] touches [src], burning [user.p_their()] hands off!</span>", "<span class=suicide>You touch [src], burning your hands off!</span>")
+	user.visible_message("<span class='suicide'>[user] touches [src], burning [user.p_their()] hands off!</span>", "<span class='suicide'>You touch [src], burning your hands off!</span>")
 
 	for(var/oname in list("l_hand", "r_hand"))
 		var/obj/item/organ/external/limb = user.get_organ(oname)

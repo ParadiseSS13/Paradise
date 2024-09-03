@@ -296,7 +296,6 @@
 
 			var/datum/robot_component/cell_component = O.components["power cell"]
 			cell_component.install(chest.cell)
-			chest.cell.forceMove(O)
 			chest.cell = null
 
 			M.forceMove(O) //Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.

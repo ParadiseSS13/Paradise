@@ -344,7 +344,10 @@
 /obj/effect/hallucination/stunprodding/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/turf/T = pick(RANGE_TURFS(15, target))
+	var/list/possible_turfs = RANGE_TURFS(15, target)
+	if(!length(possible_turfs))
+		return INITIALIZE_HINT_QDEL
+	var/turf/T = pick(possible_turfs)
 	target.playsound_local(T, 'sound/weapons/egloves.ogg', 25, TRUE)
 	target.playsound_local(T, get_sfx("bodyfall"), 25, TRUE)
 	target.playsound_local(T, "sparks", 50, TRUE)
@@ -366,7 +369,10 @@
 /obj/effect/hallucination/energy_sword/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/turf/T = pick(RANGE_TURFS(15, target))
+	var/list/possible_turfs = RANGE_TURFS(15, target)
+	if(!length(possible_turfs))
+		return INITIALIZE_HINT_QDEL
+	var/turf/T = pick(possible_turfs)
 	forceMove(T)
 	target.playsound_local(T, 'sound/weapons/saberon.ogg', 20, TRUE)
 
@@ -398,7 +404,10 @@
 /obj/effect/hallucination/gunfire/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
-	var/turf/T = pick(RANGE_TURFS(15, target))
+	var/list/possible_turfs = RANGE_TURFS(15, target)
+	if(!length(possible_turfs))
+		return INITIALIZE_HINT_QDEL
+	var/turf/T = pick(possible_turfs)
 	forceMove(T)
 
 	var/gun_sound = pick('sound/weapons/gunshots/gunshot_pistol.ogg', 'sound/weapons/gunshots/gunshot_strong.ogg')

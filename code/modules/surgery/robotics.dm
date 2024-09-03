@@ -130,8 +130,8 @@
 /datum/surgery_step/robotics/external/unscrew_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] has opened the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You have opened the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] has opened the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>You have opened the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_SYNTHETIC_LOOSENED
@@ -140,8 +140,8 @@
 /datum/surgery_step/robotics/external/unscrew_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s [tool.name] slips, failing to unscrew [target]'s [affected.name].</span>",
-		"<span class='warning'> Your [tool] slips, failing to unscrew [target]'s [affected.name].</span>",
+		"<span class='warning'>[user]'s [tool.name] slips, failing to unscrew [target]'s [affected.name].</span>",
+		"<span class='warning'>Your [tool] slips, failing to unscrew [target]'s [affected.name].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
@@ -168,8 +168,8 @@
 /datum/surgery_step/robotics/external/open_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] opens the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You open the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] opens the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>You open the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_SYNTHETIC_OPEN
@@ -178,8 +178,8 @@
 /datum/surgery_step/robotics/external/open_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s [tool.name] slips, failing to open the hatch on [target]'s [affected.name].</span>",
-		"<span class='warning'> Your [tool] slips, failing to open the hatch on [target]'s [affected.name].</span>",
+		"<span class='warning'>[user]'s [tool.name] slips, failing to open the hatch on [target]'s [affected.name].</span>",
+		"<span class='warning'>Your [tool] slips, failing to open the hatch on [target]'s [affected.name].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
@@ -206,8 +206,8 @@
 /datum/surgery_step/robotics/external/close_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	tool.play_tool_sound(target)
@@ -217,8 +217,8 @@
 /datum/surgery_step/robotics/external/close_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
-		"<span class='warning'> Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
+		"<span class='warning'>[user]'s [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
+		"<span class='warning'>Your [tool.name] slips, failing to close the hatch on [target]'s [affected.name].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_RETRY
 
@@ -269,8 +269,8 @@
 /datum/surgery_step/robotics/external/repair/burn/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] finishes splicing cable into [target]'s [affected.name].</span>",
-		"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>",
+		"<span class='notice'>[user] finishes splicing cable into [target]'s [affected.name].</span>",
+		"<span class='notice'>You finishes splicing new cable into [target]'s [affected.name].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.heal_damage(0, rand(30, 50), 1, 1)
@@ -282,8 +282,8 @@
 /datum/surgery_step/robotics/external/repair/burn/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user] causes a short circuit in [target]'s [affected.name]!</span>",
-		"<span class='warning'> You cause a short circuit in [target]'s [affected.name]!</span>",
+		"<span class='warning'>[user] causes a short circuit in [target]'s [affected.name]!</span>",
+		"<span class='warning'>You cause a short circuit in [target]'s [affected.name]!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(rand(5, 10), BURN, affected)
@@ -315,8 +315,8 @@
 /datum/surgery_step/robotics/external/repair/brute/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You finish patching damage to [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>You finish patching damage to [target]'s [affected.name] with \the [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.heal_damage(rand(30, 50), 0, 1, 1)
@@ -393,8 +393,8 @@
 		if(I && I.damage)
 			if(I.is_robotic())
 				user.visible_message(
-					"<span class='notice'> [user] repairs [target]'s [I.name] with [tool].</span>",
-					"<span class='notice'> You repair [target]'s [I.name] with [tool].</span>",
+					"<span class='notice'>[user] repairs [target]'s [I.name] with [tool].</span>",
+					"<span class='notice'>You repair [target]'s [I.name] with [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 				)
 				I.damage = 0
@@ -405,8 +405,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!</span>",
-		"<span class='warning'> Your hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>[user]'s hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!</span>",
+		"<span class='warning'>Your hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT)
 
 	target.adjustToxLoss(5)
@@ -440,11 +440,11 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(I.damage > (I.max_damage * 0.75))
-		to_chat(user, "<span class='notice'> \The [I] is in no state to be transplanted.</span>")
+		to_chat(user, "<span class='notice'>[I] is in no state to be transplanted.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(target.get_int_organ(I))
-		to_chat(user, "<span class='warning'> \The [target] already has [I].</span>")
+		to_chat(user, "<span class='warning'>[target] already has [I].</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
@@ -465,16 +465,16 @@
 	user.drop_item()
 	I.insert(target)
 	user.visible_message(
-		"<span class='notice'> [user] has reattached [target]'s [I].</span>",
-		"<span class='notice'> You have reattached [target]'s [I].</span>",
+		"<span class='notice'>[user] has reattached [target]'s [I].</span>",
+		"<span class='notice'>You have reattached [target]'s [I].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, disconnecting \the [tool].</span>",
-		"<span class='warning'> Your hand slips, disconnecting \the [tool].</span>",
+		"<span class='warning'>[user]'s hand slips, disconnecting [tool].</span>",
+		"<span class='warning'>Your hand slips, disconnecting [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
@@ -526,8 +526,8 @@
 		return SURGERY_STEP_CONTINUE
 
 	user.visible_message(
-		"<span class='notice'> [user] has decoupled [target]'s [I] with \the [tool].</span>",
-		"<span class='notice'> You have decoupled [target]'s [I] with \the [tool].</span>",
+		"<span class='notice'>[user] has decoupled [target]'s [I] with [tool].</span>",
+		"<span class='notice'>You have decoupled [target]'s [I] with [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -544,8 +544,8 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/extract/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips, disconnecting \the [tool].</span>",
-		"<span class='warning'> Your hand slips, disconnecting \the [tool].</span>",
+		"<span class='warning'>[user]'s hand slips, disconnecting [tool].</span>",
+		"<span class='warning'>Your hand slips, disconnecting [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -558,7 +558,7 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(target_zone != BODY_ZONE_CHEST)
-		to_chat(user, "<span class='notice'> You must target the chest cavity.</span>")
+		to_chat(user, "<span class='notice'>You must target the chest cavity.</span>")
 
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -577,6 +577,10 @@
 
 	if(!affected.is_robotic())
 		to_chat(user, "<span class='danger'>You cannot install a computer brain into a meat enclosure.</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(!ismachineperson(target))
+		to_chat(user, "<span class='danger'>[tool] cannot be installed into an organic body, as it is not designed to operate the complex biological systems of one!</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(!target.dna.species)
@@ -601,8 +605,8 @@
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] has installed \the [tool] into [target]'s [affected.name].</span>",
-		"<span class='notice'> You have installed \the [tool] into [target]'s [affected.name].</span>",
+		"<span class='notice'>[user] has installed [tool] into [target]'s [affected.name].</span>",
+		"<span class='notice'>You have installed [tool] into [target]'s [affected.name].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -614,8 +618,8 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips!</span>",
-		"<span class='warning'> Your hand slips!</span>",
+		"<span class='warning'>[user]'s hand slips!</span>",
+		"<span class='warning'>Your hand slips!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
@@ -632,8 +636,8 @@
 /datum/surgery_step/robotics/external/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] starts to decouple [target]'s [affected.name] with \the [tool].",
-		"You start to decouple [target]'s [affected.name] with \the [tool].",
+		"[user] starts to decouple [target]'s [affected.name] with [tool].",
+		"You start to decouple [target]'s [affected.name] with [tool].",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -643,8 +647,8 @@
 /datum/surgery_step/robotics/external/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='notice'> [user] has decoupled [target]'s [affected.name] with \the [tool].</span>",
-		"<span class='notice'> You have decoupled [target]'s [affected.name] with \the [tool].</span>",
+		"<span class='notice'>[user] has decoupled [target]'s [affected.name] with [tool].</span>",
+		"<span class='notice'>You have decoupled [target]'s [affected.name] with [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -660,8 +664,8 @@
 /datum/surgery_step/robotics/external/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips!</span>",
-		"<span class='warning'> Your hand slips!</span>",
+		"<span class='warning'>[user]'s hand slips!</span>",
+		"<span class='warning'>Your hand slips!</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
@@ -694,8 +698,8 @@
 	target.updatehealth()
 	target.UpdateDamageIcon()
 	user.visible_message(
-		"<span class='notice'> [user] reprograms the appearance of [target]'s [affected.name] with [tool].</span>",
-		"<span class='notice'> You reprogram the appearance of [target]'s [affected.name] with [tool].</span>",
+		"<span class='notice'>[user] reprograms the appearance of [target]'s [affected.name] with [tool].</span>",
+		"<span class='notice'>You reprogram the appearance of [target]'s [affected.name] with [tool].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_CLOSED
@@ -704,8 +708,8 @@
 /datum/surgery_step/robotics/external/customize_appearance/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"<span class='warning'> [user]'s [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>",
-		"<span class='warning'> Your [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>",
+		"<span class='warning'>[user]'s [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>",
+		"<span class='warning'>Your [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>",
 		chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_RETRY
 

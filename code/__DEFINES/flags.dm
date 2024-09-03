@@ -138,6 +138,7 @@
 #define PASSFENCE		(1<<6)
 #define PASSDOOR		(1<<7)
 #define PASSGIRDER		(1<<8)
+#define PASSTAKE    	(1<<9)
 
 //turf-only flags
 #define BLESSED_TILE	(1<<0)

@@ -315,7 +315,7 @@
 
 /mob/living/simple_animal/hostile/adjustHealth(damage, updating_health = TRUE)
 	. = ..()
-	if(!ckey && !stat && search_objects < 3 && damage > 0)//Not unconscious, and we don't ignore mobs
+	if(!ckey && stat == CONSCIOUS && search_objects < 3 && damage > 0)//Not unconscious, and we don't ignore mobs
 		if(search_objects)//Turn off item searching and ignore whatever item we were looking at, we're more concerned with fight or flight
 			target = null
 			LoseSearchObjects()
@@ -334,7 +334,7 @@
 /mob/living/simple_animal/hostile/proc/Aggro()
 	vision_range = aggro_vision_range
 	if(target && length(emote_taunt) && prob(taunt_chance))
-		custom_emote(EMOTE_VISIBLE, "[pick(emote_taunt)] at [target].")
+		emote("me", EMOTE_VISIBLE, "[pick(emote_taunt)] at [target].")
 		taunt_chance = max(taunt_chance-7,2)
 
 /mob/living/simple_animal/hostile/proc/LoseAggro()

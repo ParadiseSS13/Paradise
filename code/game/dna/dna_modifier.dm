@@ -69,8 +69,8 @@
 
 /obj/machinery/dna_scannernew/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You can <b>Alt-Click</b> [src] to eject its occupant.</span>"
-	. += "<span class='info'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to eject its occupant.</span>"
+	. += "<span class='notice'>You can <b>Click-drag</b> someone to [src] to put them in.</span>"
 
 /obj/machinery/dna_scannernew/Initialize(mapload)
 	. = ..()
@@ -111,8 +111,8 @@
 	return FALSE
 
 /obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.stat)
-		return
+	if(user.incapacitated())
+		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
 /obj/machinery/dna_scannernew/AltClick(mob/user)
@@ -138,10 +138,16 @@
 			M.forceMove(get_turf(src))
 
 /obj/machinery/dna_scannernew/update_icon_state()
-	if(occupant)
-		icon_state = "scanner_occupied"
-	else
+	if(panel_open)
+		icon_state = "scanner_[occupant ? "" : "open_"]maintenance"
+		return
+	if(stat & NOPOWER)
+		icon_state = "scanner"
+		return
+	if(!occupant)
 		icon_state = "scanner_open"
+		return
+	icon_state = "scanner_occupied"
 
 /obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user)
 	if(!istype(O))
@@ -185,9 +191,7 @@
 	return TRUE
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-	else if(istype(I, /obj/item/reagent_containers/glass))
+	if(istype(I, /obj/item/reagent_containers/glass))
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
@@ -201,26 +205,33 @@
 		I.forceMove(src)
 		user.visible_message("[user] adds \a [I] to \the [src]!", "You add \a [I] to \the [src]!")
 		return
+
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(!ismob(G.affecting))
 			return
+
 		if(occupant)
 			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
 			return
+
 		if(G.affecting.abiotic())
 			to_chat(user, "<span class='boldnotice'>Subject may not hold anything in their hands.</span>")
 			return
+
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[G] will not fit into [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
 			return
+
 		if(panel_open)
 			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
+
 		put_in(G.affecting)
 		add_fingerprint(user)
 		qdel(G)
 		return
+
 	return ..()
 
 /obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
@@ -241,11 +252,6 @@
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE
-
-/obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.incapacitated())
-		return FALSE //maybe they should be able to get out with cuffs, but whatever
-	go_out()
 
 /obj/machinery/dna_scannernew/proc/put_in(mob/M)
 	M.forceMove(src)
@@ -279,7 +285,6 @@
 	..()
 	if(A == occupant)
 		occupant = null
-		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 

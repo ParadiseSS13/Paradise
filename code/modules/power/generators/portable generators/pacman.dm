@@ -198,15 +198,13 @@
 		if(amount < 1)
 			to_chat(user, "<span class='notice'>[src] is full!</span>")
 			return
+
 		to_chat(user, "<span class='notice'>You add [amount] sheet\s to [src].</span>")
 		sheets += amount
 		addstack.use(amount)
 		SStgui.update_uis(src)
 		return
-	if(!active)
-		if(istype(O, /obj/item/storage/part_replacer) && panel_open)
-			exchange_parts(user, O)
-		return
+
 	return ..()
 
 /obj/machinery/power/port_gen/pacman/crowbar_act(mob/living/user, obj/item/I)

@@ -35,11 +35,6 @@
 		E += C.rating
 	efficiency = E
 
-/obj/machinery/telepad/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-	return ..()
-
 /obj/machinery/telepad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, "pad-idle-o", "pad-idle", I)
@@ -108,6 +103,6 @@
 	if(user)
 		to_chat(user, "<span class = 'caution'> Locked In</span>")
 		new /obj/machinery/telepad_cargo(user.loc)
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		qdel(src)
 	return

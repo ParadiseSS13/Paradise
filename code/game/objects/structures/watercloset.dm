@@ -655,6 +655,9 @@
 	..()
 	icon_state = "puddle"
 
+/obj/structure/sink/kitchen/old
+	name = "old sink"
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made."
 
 //////////////////////////////////
 //		Bathroom Fixture Items	//

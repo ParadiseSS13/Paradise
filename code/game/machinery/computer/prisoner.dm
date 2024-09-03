@@ -42,11 +42,6 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user)
-	if(ui_login_attackby(O, user))
-		return
-	return ..()
-
 /obj/machinery/computer/prisoner/proc/check_implant(obj/item/bio_chip/I)
 	var/turf/implant_location = get_turf(I)
 	if(!implant_location || implant_location.z != z)

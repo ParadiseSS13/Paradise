@@ -22,7 +22,7 @@
 
 /obj/item/book/granter/spell/summon_cheese/recoil(mob/living/user)
 	to_chat(user, "<span class='warning'>[src] turns into a wedge of cheese!</span>")
-	var/obj/item/food/snacks/cheesewedge/presliced/book_cheese = new
+	var/obj/item/food/cheesewedge/presliced/book_cheese = new
 	user.drop_item()
 	user.put_in_hands(book_cheese)
 	qdel(src)
@@ -35,7 +35,7 @@
 	overlay = null
 	action_icon_state = "cheese_wedge"
 	action_background_icon_state = "bg_spell"
-	summon_type = list(/obj/item/food/snacks/cheesewedge/presliced)
+	summon_type = list(/obj/item/food/cheesewedge/presliced)
 	summon_amt = 9
 	aoe_range = 1
 	summon_ignore_prev_spawn_points = TRUE

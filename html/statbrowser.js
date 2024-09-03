@@ -405,7 +405,7 @@ function listedturf_fill_row(row, item_index) {
 		// of the last entry.
 		return function (e) {
 			e.preventDefault();
-			clickcatcher = '?src=' + object_info[1];
+			clickcatcher = '?src=' + object_info[4] + ';m5src=' + object_info[1];
 			switch (e.button) {
 				case 1:
 					clickcatcher += ';statpanel_item_click=middle';
@@ -685,18 +685,23 @@ function draw_verbs(cat) {
 function set_theme(which) {
 	if (which == 'light') {
 		document.body.className = '';
+		document.documentElement.className = 'light';
 		set_style_sheet('chat_panel_white');
 	} else if (which == 'dark') {
 		document.body.className = 'dark';
+		document.documentElement.className = 'dark';
 		set_style_sheet('chat_panel');
 	} else if (which == 'ntos') {
 		document.body.className = 'ntos';
+		document.documentElement.className = 'ntos';
 		set_style_sheet('chat_panel_ntos');
 	} else if (which == 'paradise') {
 		document.body.className = 'paradise';
+		document.documentElement.className = 'paradise';
 		set_style_sheet('chat_panel_paradise');
 	} else if (which == 'syndicate') {
 		document.body.className = 'syndicate';
+		document.documentElement.className = 'syndicate';
 		set_style_sheet('chat_panel_syndicate');
 	}
 }

@@ -664,7 +664,6 @@
 	cost = 55
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
-	can_discount = FALSE
 	hijack_only = FALSE
 
 /datum/uplink_item/explosives/emp_bomb/nuke
@@ -676,11 +675,10 @@
 
 /datum/uplink_item/explosives/atmosfiregrenades/nuke
 	reference = "NAPG"
-	hijack_only = FALSE
 	cost = 60
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
-	can_discount = FALSE
+	hijack_only = TRUE
 
 /datum/uplink_item/stealthy_tools/chameleon/nuke
 	reference = "NCHAM"

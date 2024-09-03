@@ -136,8 +136,3 @@
 	if(cham_proj)
 		cham_proj.disrupt(src)
 	..()
-
-/mob/living/silicon/robot/syndicate/saboteur/attackby()
-	if(cham_proj)
-		cham_proj.disrupt(src)
-	..()

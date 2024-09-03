@@ -240,7 +240,7 @@ Difficulty: Hard
 	. = ..()
 	var/newcolor = rgb(241, 137, 172)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
-	beam_it_up()
+	addtimer(CALLBACK(src, PROC_REF(beam_it_up)), 0)
 
 /obj/effect/vetus_laser/ex_act(severity)
 	return
@@ -487,7 +487,7 @@ Difficulty: Hard
 	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
 	walk(src, 0)
-	playsound(src,'sound/machines/alarm.ogg',100,0,5)
+	playsound(src,'sound/machines/alarm.ogg', 100, FALSE, 5)
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
@@ -600,8 +600,8 @@ Difficulty: Hard
 			if(mode == VORTEX)
 				var/turf/T = get_turf(src)
 				for(var/atom/A in T)
-					A.ex_act(3) //Body is immune to explosions of this strength.
-				T.ex_act(3)
+					A.ex_act(EXPLODE_LIGHT) //Body is immune to explosions of this strength.
+				T.ex_act(EXPLODE_LIGHT)
 			if(mode == CRYO)
 				var/turf/simulated/S = get_turf(src)
 				S.MakeSlippery(TURF_WET_ICE, enraged ? rand(25, 35 SECONDS) : rand(10, 20 SECONDS))

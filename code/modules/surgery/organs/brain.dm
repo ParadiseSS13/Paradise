@@ -206,10 +206,6 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
 
-/obj/item/organ/internal/brain/Destroy() //copypasted from MMIs.
-	QDEL_NULL(brainmob)
-	return ..()
-
 /obj/item/organ/internal/brain/cluwne
 
 /obj/item/organ/internal/brain/cluwne/insert(mob/living/target, special = 0, make_cluwne = 1)

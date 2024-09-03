@@ -82,23 +82,34 @@
 				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/wrench))
-			if(!anchored && !isinspace())
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] tightens \the [src]'s casters.", \
-					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				anchored = TRUE
-			else if(anchored)
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] loosens \the [src]'s casters.", \
-					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				anchored = FALSE
 	else
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
+
+/obj/structure/engineeringcart/tool_act(mob/living/user, obj/item/I, tool_type)
+	if(I.is_robot_module())
+		to_chat(user, "<span class='warning'>You cannot interface your modules [src]!</span>")
+		return FALSE
+	return ..()
+
+/obj/structure/engineeringcart/wrench_act(mob/living/user, obj/item/I)
+	if(!anchored && !isinspace())
+		I.play_tool_sound(src, I.tool_volume)
+		user.visible_message(
+			"[user] tightens [src]'s casters.",
+			"<span class='notice'>You have tightened [src]'s casters.</span>",
+			"You hear ratchet."
+		)
+		anchored = TRUE
+	else if(anchored)
+		I.play_tool_sound(src, I.tool_volume)
+		user.visible_message(
+			"[user] loosens [src]'s casters.",
+			"<span class='notice'> You have loosened [src]'s casters.</span>",
+			"You hear ratchet."
+		)
+		anchored = FALSE
+
+	return TRUE
 
 /obj/structure/engineeringcart/attack_hand(mob/user)
 	var/list/engicart_items = list()

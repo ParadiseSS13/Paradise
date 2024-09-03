@@ -147,11 +147,6 @@
 	removed.set_temperature(min((removed.temperature() * heat_capacity + server.heating_power) / heat_capacity, 1000))
 	env.merge(removed)
 
-/obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(exchange_parts(user, O))
-		return TRUE
-	return ..()
-
 /obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
 	if(!panel_open)
 		return

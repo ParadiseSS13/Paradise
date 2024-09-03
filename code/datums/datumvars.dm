@@ -42,6 +42,16 @@
 
 /client/vv_edit_var(var_name, var_value) //called whenever a var is edited
 	switch(var_name)
+		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
+		// But guess what, if I have the ability to overengineer something, I am going to do it
+		if("tos_consent")
+			return FALSE
+		// Dont fuck with this
+		if("cui_entries")
+			return FALSE
+		// or this
+		if("jbh")
+			return FALSE
 		if("vars")
 			return FALSE
 		if("var_edited")
@@ -456,6 +466,8 @@
 </html>
 	"}
 
+	if(istype(D, /datum))
+		log_admin("[key_name(usr)] opened VV for [D] ([D.UID()])")
 	usr << browse(html, "window=variables[refid];size=475x650")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
@@ -463,11 +475,12 @@
 	var/header
 	if(DA)
 		if(islist(DA))
+			var/list/debug_list = DA
 			var/index = name
 			if(value)
-				name = DA[name] // name is really the index until this line
+				name = debug_list[name] // name is really the index until this line
 			else
-				value = DA[name]
+				value = debug_list[name]
 			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;listedit=\ref[DA];index=[index]'>E</a>) (<a href='byond://?_src_=vars;listchange=\ref[DA];index=[index]'>C</a>) (<a href='byond://?_src_=vars;listremove=\ref[DA];index=[index]'>-</a>) "
 		else
 			header = "<li style='backgroundColor:white'>(<a href='byond://?_src_=vars;datumedit=[DA.UID()];varnameedit=[name]'>E</a>) (<a href='byond://?_src_=vars;datumchange=[DA.UID()];varnamechange=[name]'>C</a>) (<a href='byond://?_src_=vars;datummass=[DA.UID()];varnamemass=[name]'>M</a>) "

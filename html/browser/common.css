@@ -9,7 +9,8 @@ body {
 
 hr {
 	background-color: #40628a;
-	height: 1px;
+	height: 2px;
+	border: 0;
 }
 
 a,
@@ -335,7 +336,8 @@ div.notice {
 	clear: both;
 }
 .charPreview {
-	-ms-interpolation-mode: nearest-neighbor;
+	-ms-interpolation-mode: nearest-neighbor; /* Remove with Byond 516 */
+	image-rendering: pixelated;
 	width: 64px;
 	height: 64px;
 }

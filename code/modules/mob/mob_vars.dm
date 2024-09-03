@@ -7,7 +7,8 @@
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
+	/// Is this mob alive, unconscious or dead?
+	var/stat = CONSCIOUS // TODO: Move to /mob/living
 
 	/// The zone this mob is currently targeting
 	var/zone_selected = null

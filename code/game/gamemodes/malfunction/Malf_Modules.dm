@@ -506,7 +506,7 @@
 	user.playsound_local(user, 'sound/misc/interference.ogg', 50, FALSE, use_reverb = FALSE)
 	adjust_uses(-1, user)
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(src, PROC_REF(animate_machine), target), 5 SECONDS) //kabeep!
+	addtimer(CALLBACK(src, PROC_REF(animate_machine), target, user), 5 SECONDS) //kabeep!
 	to_chat(user, "<span class='danger'>Sending override signal...</span>")
 	return TRUE
 

@@ -321,3 +321,13 @@ GLOBAL_LIST_INIT(master_filter_info, list(
 /atom/proc/ray_filter_helper(_priority = 1, _size = 40, _color = "#FFFFFF", _factor = 6, _density = 20, _y = 0)
 	add_filter(name = "ray", priority = _priority, params = list(type = "rays", size = _size, color = _color , factor = _factor, density = _density, y = _y))
 
+/proc/bloom_filter(threshold, size, offset, alpha)
+	. = list("type" = "bloom")
+	if(!isnull(threshold))
+		.["threshold"] = threshold
+	if(!isnull(size))
+		.["size"] = size
+	if(!isnull(offset))
+		.["offset"] = offset
+	if(!isnull(alpha))
+		.["alpha"] = alpha

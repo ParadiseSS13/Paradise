@@ -2,14 +2,14 @@
 //		Misc		//
 //////////////////////
 
-/obj/item/food/snacks/friedbanana
+/obj/item/food/friedbanana
 	name = "fried banana"
 	desc = "Goreng Pisang, also known as fried bananas."
 	icon_state = "friedbanana"
 	list_reagents = list("sugar" = 5, "nutriment" = 8, "cornoil" = 4)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/ricepudding
+/obj/item/food/ricepudding
 	name = "rice pudding"
 	desc = "Where's the Jam!"
 	icon_state = "rpudding"
@@ -19,7 +19,7 @@
 	tastes = list("rice" = 1, "sweetness" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/spacylibertyduff
+/obj/item/food/spacylibertyduff
 	name = "spacy liberty duff"
 	desc = "Jello gelatin, from Alfred Hubbard's cookbook."
 	icon_state = "spacylibertyduff"
@@ -30,7 +30,7 @@
 	tastes = list("jelly" = 1, "mushroom" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/amanitajelly
+/obj/item/food/amanitajelly
 	name = "amanita jelly"
 	desc = "Looks curiously toxic."
 	icon_state = "amanitajelly"
@@ -41,7 +41,7 @@
 	tastes = list("jelly" = 1, "mushroom" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/candiedapple
+/obj/item/food/candiedapple
 	name = "candied apple"
 	desc = "An apple coated in sugary sweetness."
 	icon_state = "candiedapple"
@@ -51,7 +51,7 @@
 	tastes = list("apple" = 2, "sweetness" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/snacks/mint
+/obj/item/food/mint
 	name = "mint"
 	desc = "it is only wafer thin."
 	icon_state = "mint"

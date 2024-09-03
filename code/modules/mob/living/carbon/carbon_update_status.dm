@@ -24,14 +24,14 @@
 
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()
-	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= HEALTH_THRESHOLD_CRIT && !stat)
+	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= HEALTH_THRESHOLD_CRIT && stat == CONSCIOUS)
 		enter_stamcrit()
 	else if(stam_paralyzed)
 		SEND_SIGNAL(src, COMSIG_CARBON_EXIT_STAMINACRIT)
 		stam_paralyzed = FALSE
-		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "stam_crit") // make defines later
-		REMOVE_TRAIT(src, TRAIT_FLOORED, "stam_crit")
-		REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, "stam_crit")
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, STAM_CRIT)
+		REMOVE_TRAIT(src, TRAIT_FLOORED, STAM_CRIT)
+		REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, STAM_CRIT)
 
 /mob/living/carbon/can_hear()
 	. = FALSE

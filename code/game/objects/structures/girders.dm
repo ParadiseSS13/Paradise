@@ -419,11 +419,10 @@
 		else
 			return 0
 
-/obj/structure/girder/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/girder/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	. = !density
-	if(ismovable(caller))
-		var/atom/movable/mover = caller
-		. = . || mover.checkpass(PASSGRILLE)
+	if(pass_info.is_movable)
+		. = . || pass_info.pass_flags & PASSGRILLE
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

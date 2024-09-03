@@ -137,13 +137,13 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/obj/structure/window/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
-		return 1
+		return TRUE
 	if((dir == FULLTILE_WINDOW_DIR) || (dir & to_dir) || fulltile)
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 /obj/structure/window/attack_tk(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)

@@ -63,7 +63,7 @@
 			if(user.drop_item())
 				I.forceMove(src)
 				scan = I
-				updateUsrDialog()
+				SStgui.update_uis(src)
 		else
 			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
 		return

@@ -12,9 +12,14 @@
 
 /datum/pipeline/Destroy()
 	SSair.pipenets -= src
+	var/datum/gas_mixture/ghost = null
 	if(air && air.volume)
-		temporarily_store_air()
+		ghost = air
+		air = null
 	for(var/obj/machinery/atmospherics/pipe/P in members)
+		if(QDELETED(P))
+			continue
+		P.ghost_pipeline = ghost
 		P.parent = null
 	for(var/obj/machinery/atmospherics/A in other_atmosmch)
 		A.nullifyPipenet(src)
@@ -28,13 +33,14 @@
 
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
 	var/volume = 0
+	var/list/ghost_pipelines = list()
 	if(istype(base, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/E = base
 		volume = E.volume
 		members += E
-		if(E.air_temporary)
-			air = E.air_temporary
-			E.air_temporary = null
+		if(E.ghost_pipeline)
+			ghost_pipelines[E.ghost_pipeline] = E.volume
+			E.ghost_pipeline = null
 	else
 		addMachineryMember(base)
 	if(!air)
@@ -59,14 +65,25 @@
 							volume += item.volume
 							item.parent = src
 
-							if(item.air_temporary)
-								air.merge(item.air_temporary)
-								item.air_temporary = null
+							if(item.ghost_pipeline)
+								if(!ghost_pipelines[item.ghost_pipeline])
+									ghost_pipelines[item.ghost_pipeline] = item.volume
+								else
+									ghost_pipelines[item.ghost_pipeline] += item.volume
+								item.ghost_pipeline = null
 					else
 						P.setPipenet(src, borderline)
 						addMachineryMember(P)
 
 			possible_expansions -= borderline
+
+	for(var/datum/gas_mixture/ghost in ghost_pipelines)
+		var/collected_ghost_volume = ghost_pipelines[ghost]
+		var/collected_fraction = collected_ghost_volume / ghost.volume
+
+		var/datum/gas_mixture/ghost_copy = new()
+		ghost_copy.copy_from(ghost)
+		air.merge(ghost_copy.remove_ratio(collected_fraction))
 
 	air.volume = volume
 
@@ -113,22 +130,6 @@
 
 /obj/machinery/atmospherics/pipe/addMember(obj/machinery/atmospherics/A)
 	parent.addMember(A, src)
-
-/datum/pipeline/proc/temporarily_store_air()
-	//Update individual gas_mixtures by volume ratio
-
-	for(var/obj/machinery/atmospherics/pipe/member in members)
-		member.air_temporary = new
-		member.air_temporary.volume = member.volume
-
-		member.air_temporary.set_oxygen(air.oxygen() * member.volume / air.volume)
-		member.air_temporary.set_nitrogen(air.nitrogen() * member.volume / air.volume)
-		member.air_temporary.set_toxins(air.toxins() * member.volume / air.volume)
-		member.air_temporary.set_carbon_dioxide(air.carbon_dioxide() * member.volume / air.volume)
-		member.air_temporary.set_sleeping_agent(air.sleeping_agent() * member.volume / air.volume)
-		member.air_temporary.set_agent_b(air.agent_b() * member.volume / air.volume)
-
-		member.air_temporary.set_temperature(air.temperature())
 
 /datum/pipeline/proc/temperature_interact(turf/target, share_volume, thermal_conductivity)
 	var/datum/milla_safe/pipeline_temperature_interact/milla = new()

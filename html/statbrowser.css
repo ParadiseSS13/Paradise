@@ -1,3 +1,13 @@
+.light:root {
+	--scrollbar-base: #f2f2f2;
+	--scrollbar-thumb: #a7a7a7;
+}
+
+html,
+body {
+	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-base);
+}
+
 /* Light theme */
 body {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -190,6 +200,11 @@ img {
 }
 
 /* Dark Theme */
+.dark:root {
+	--scrollbar-base: #181818;
+	--scrollbar-thumb: #363636;
+}
+
 body.dark {
 	background-color: #131313;
 	color: #b2c4dd;
@@ -236,6 +251,11 @@ body.dark {
 }
 
 /* NTOS theme */
+.ntos:root {
+	--scrollbar-base: #141d26;
+	--scrollbar-thumb: #2a3b4f;
+}
+
 body.ntos {
 	background-color: #121922;
 	color: #b2c4dd;
@@ -280,6 +300,11 @@ body.ntos {
 }
 
 /* Paradise theme */
+.paradise:root {
+	--scrollbar-base: #680b29;
+	--scrollbar-thumb: #cb1551;
+}
+
 body.paradise {
 	background-color: #400125;
 	color: #dec5bd;
@@ -324,6 +349,11 @@ body.paradise {
 }
 
 /* Syndicate theme */
+.syndicate:root {
+	--scrollbar-base: #3a0202;
+	--scrollbar-thumb: #770303;
+}
+
 body.syndicate {
 	background-color: #2b0101;
 	color: #debdbd;

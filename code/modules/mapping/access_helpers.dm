@@ -1,10 +1,13 @@
 /obj/effect/mapping_helpers/airlock/access
-	layer = DOOR_HELPER_LAYER
+	layer = SPLASHSCREEN_PLANE + 0.1 // Above even airlock spawners
 	icon_state = "access_helper"
 	var/access
 
 // These are mutually exclusive; can't have req_any and req_all
 /obj/effect/mapping_helpers/airlock/access/any/payload(obj/machinery/door/airlock/airlock)
+	if(is_type_in_list(airlock, blacklist))
+		return
+
 	if(airlock.req_access_txt == "0")
 		// Overwrite if there is no access set, otherwise add onto existing access
 		if(airlock.req_one_access_txt == "0")
@@ -15,6 +18,9 @@
 		log_world("[src] at [AREACOORD(src)] tried to set req_one_access, but req_access was already set!")
 
 /obj/effect/mapping_helpers/airlock/access/all/payload(obj/machinery/door/airlock/airlock)
+	if(is_type_in_list(airlock, blacklist))
+		return
+
 	if(airlock.req_one_access_txt == "0")
 		if(airlock.req_access_txt == "0")
 			airlock.req_access_txt = "[access]"

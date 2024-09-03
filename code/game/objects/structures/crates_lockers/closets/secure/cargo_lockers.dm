@@ -43,6 +43,8 @@
 	new /obj/item/organ/internal/eyes/cybernetic/meson(src)
 	new /obj/item/storage/bag/garment/quartermaster(src)
 	new /obj/item/clothing/accessory/medal/supply(src)
+	new /obj/item/clothing/accessory/medal/supply(src)
+	new /obj/item/clothing/suit/pimpcoat/tan(src)
 	new /obj/item/rcs(src)
 	new /obj/item/destTagger(src)
 	new /obj/item/reagent_containers/drinks/mug/qm(src)

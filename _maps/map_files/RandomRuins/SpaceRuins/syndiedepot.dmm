@@ -53,7 +53,7 @@
 	},
 /area/syndicate_depot/outer)
 "al" = (
-/obj/item/food/snacks/monstermeat/spiderleg,
+/obj/item/food/monstermeat/spiderleg,
 /obj/structure/spider,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -614,7 +614,7 @@
 /area/syndicate_depot/core)
 "bO" = (
 /obj/structure/table,
-/obj/item/food/snacks/syndicake,
+/obj/item/food/syndicake,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -379,6 +379,20 @@
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
 
+/obj/effect/mob_spawn/human/corpse/skeleton/security_officer
+	outfit = /datum/outfit/job/officer
+	id_access = "Assistant" //no brig access for explorers
+
+/obj/effect/mob_spawn/human/corpse/skeleton/prisoner
+	uniform = /obj/item/clothing/under/color/orange/prison
+	shoes = /obj/item/clothing/shoes/orange
+
+/obj/effect/mob_spawn/human/corpse/skeleton/prisoner/equip(mob/living/carbon/human/prisoner) //put cuffs on the corpse
+	. = ..()
+	var/obj/item/restraints/handcuffs/cuffs = new(prisoner)
+	prisoner.handcuffed = cuffs
+	prisoner.update_handcuffed()
+
 //////////Corpses, they can be used for "decoration" purpose.//////////
 
 //Default Abductor corpse.

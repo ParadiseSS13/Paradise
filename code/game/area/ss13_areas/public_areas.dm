@@ -197,6 +197,10 @@
 	name = "\improper Vacant Office"
 	icon_state = "vacantoffice"
 
+/area/station/public/storefront
+	name = "\improper Storefront"
+	icon_state = "vacantoffice"
+
 //Storage
 /area/station/public/storage
 	sound_environment = SOUND_AREA_STANDARD_STATION

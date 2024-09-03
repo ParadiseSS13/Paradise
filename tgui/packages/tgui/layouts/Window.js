@@ -136,7 +136,7 @@ const TitleBar = (props, context) => {
           className="TitleBar__close TitleBar__clickable"
           // IE8: Synthetic onClick event doesn't work on IE8.
           // IE8: Use a plain character instead of a unicode symbol.
-          // eslint-disable-next-line react/no-unknown-property
+
           onclick={onClose}
         >
           ×

@@ -27,7 +27,7 @@
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
-		/obj/item/food/snacks/donut,
+		/obj/item/food/donut,
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
 		/obj/item/holosign_creator/detective,

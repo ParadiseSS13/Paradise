@@ -243,11 +243,10 @@ const AirlockTypeList = (props, context) => {
       {doors_filtered.map((entry, i) => (
         <Stack key={i} mb={0.5}>
           <Stack.Item grow>
-            <Button.Checkbox
+            <Button
               fluid
-              icon={null}
-              color="translucent"
-              checked={door_type === entry.type}
+              translucent
+              selected={door_type === entry.type}
               content={
                 <>
                   <img

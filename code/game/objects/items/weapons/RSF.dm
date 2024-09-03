@@ -27,10 +27,10 @@
 							"Pen" = /obj/item/pen,
 							"Dice Pack" = /obj/item/storage/bag/dice,
 							"Cigarette" = /obj/item/clothing/mask/cigarette,
-							"Newdles" = /obj/item/food/snacks/chinese/newdles,
-							"Donut" = /obj/item/food/snacks/donut,
+							"Newdles" = /obj/item/food/chinese/newdles,
+							"Donut" = /obj/item/food/donut,
 							"Chicken Soup" = /obj/item/reagent_containers/drinks/chicken_soup,
-							"Tofu Burger" = /obj/item/food/snacks/burger/tofu)
+							"Tofu Burger" = /obj/item/food/burger/tofu)
 	var/static/list/rsf_icons = list("Drinking Glass" = image(icon = 'icons/obj/drinks.dmi', icon_state = "glass_empty"),
 							"Paper" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper"),
 							"Pen" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"),

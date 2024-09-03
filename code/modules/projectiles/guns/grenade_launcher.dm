@@ -52,6 +52,6 @@
 	log_game("[key_name(user)] fired a grenade ([F.name]) from a grenade launcher ([name]).")
 	F.active = TRUE
 	F.icon_state = initial(icon_state) + "_active"
-	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 	spawn(15)
 		F.prime()

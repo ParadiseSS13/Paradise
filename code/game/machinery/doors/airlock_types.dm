@@ -380,6 +380,22 @@
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
 	return
 
+/// This door is used in the malf AI telecomms ruin. This door starts early access, and will try to crush someone to death who enters it's turf like how an AI door crushes.
+/obj/machinery/door/airlock/hatch/syndicate/command/trapped
+	emergency = TRUE
+	hackProof = TRUE
+	aiControlDisabled = AICONTROLDISABLED_ON
+	safe = FALSE
+	normal_integrity = 100 // going to get boosted by security level anyway
+
+/obj/machinery/door/airlock/hatch/syndicate/command/trapped/process()
+	if(locate(/mob/living) in get_turf(src))
+		unlock(TRUE)
+		if(density)
+			open()
+		else
+			close()
+
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
 	req_access_txt = "151"
@@ -527,7 +543,7 @@
 			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
 			SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
 			L.KnockDown(4 SECONDS)
-			L.throw_at(throwtarget, 5, 1,src)
+			L.throw_at(throwtarget, 5, 1)
 		return FALSE
 
 /obj/machinery/door/airlock/cult/screwdriver_act(mob/user, obj/item/I)

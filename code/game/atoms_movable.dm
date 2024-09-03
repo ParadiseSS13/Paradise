@@ -92,17 +92,28 @@
 	add_overlay(list(em_block))
 
 /atom/movable/Destroy()
+	var/turf/T = loc
 	unbuckle_all_mobs(force = TRUE)
 	QDEL_NULL(em_block)
+
 	. = ..()
+
 	if(loc)
 		loc.handle_atom_del(src)
+
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
+
 	LAZYCLEARLIST(client_mobs_in_contents)
 	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
+
+	if(opacity && istype(T))
+		var/old_has_opaque_atom = T.has_opaque_atom
+		T.recalc_atom_opacity()
+		if(old_has_opaque_atom != T.has_opaque_atom)
+			T.reconsider_lights()
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
@@ -529,9 +540,10 @@
 	return FALSE
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(mover in buckled_mobs)
+	// This condition is copied from atom to avoid an extra parent call, because this is a very hot proc.
+	if(!density || !height)
 		return TRUE
-	return ..()
+	return LAZYIN(buckled_mobs, mover)
 
 /atom/movable/proc/get_spacemove_backup()
 	var/atom/movable/dense_object_backup
@@ -786,6 +798,9 @@
 
 		if(isliving(target))
 			var/mob/living/L = target
+
+			if(L.incorporeal_move)
+				continue
 
 			if(crit_case)
 				damage_to_deal *= crit_damage_factor

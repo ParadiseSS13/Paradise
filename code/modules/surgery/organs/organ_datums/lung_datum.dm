@@ -308,7 +308,7 @@
 			linked_organ.owner.AdjustLoseBreath(10 SECONDS)
 
 
-/datum/organ/lungs/on_prepare_eat(obj/item/food/snacks/organ/snorgan)
+/datum/organ/lungs/on_prepare_eat(obj/item/food/organ/snorgan)
 	snorgan.reagents.add_reagent("salbutamol", 5)
 
 

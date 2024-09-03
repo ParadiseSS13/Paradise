@@ -23,6 +23,8 @@
 	noz = make_noz()
 
 /obj/item/watertank/Destroy()
+	if(on)
+		remove_noz()
 	QDEL_NULL(noz)
 	return ..()
 
@@ -68,12 +70,6 @@
 		var/mob/M = noz.loc
 		M.unEquip(noz, 1)
 	return
-
-/obj/item/watertank/Destroy()
-	if(on)
-		remove_noz()
-		QDEL_NULL(noz)
-	return ..()
 
 /obj/item/watertank/attack_hand(mob/user)
 	if(loc == user)
@@ -314,7 +310,7 @@
 			if(metal_synthesis_cooldown >= 5)
 				to_chat(user, "<span class='notice'>Metal foam mix is still being synthesized.</span>")
 				return
-			var/obj/effect/particle_effect/foam/F = new /obj/effect/particle_effect/foam(get_turf(target), TRUE)
+			var/obj/effect/particle_effect/foam/metal/F = new /obj/effect/particle_effect/foam/metal(get_turf(target), TRUE)
 			F.spread_amount = 0
 			metal_synthesis_cooldown++
 			addtimer(CALLBACK(src, PROC_REF(metal_cooldown)), 10 SECONDS)

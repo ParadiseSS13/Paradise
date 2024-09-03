@@ -32,6 +32,11 @@
 	LAZYINITLIST(buckled_mobs)
 	return ..()
 
+/obj/structure/guillotine/Destroy()
+	if(has_buckled_mobs())
+		unbuckle_all_mobs()
+	return ..()
+
 /obj/structure/guillotine/examine(mob/user)
 	. = ..()
 

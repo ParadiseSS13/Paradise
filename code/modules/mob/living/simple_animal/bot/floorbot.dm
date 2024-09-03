@@ -235,9 +235,9 @@
 		if(!length(path)) // No path, need a new one
 			if(!isturf(target))
 				var/turf/TL = get_turf(target)
-				path = get_path_to(src, TL, 30, id = access_card, simulated_only = 0)
+				path = get_path_to(src, TL, 30, access = access_card.access, simulated_only = 0)
 			else
-				path = get_path_to(src, target, 30, id = access_card, simulated_only = 0)
+				path = get_path_to(src, target, 30, access = access_card.access, simulated_only = 0)
 
 			if(!bot_move(target))
 				add_to_ignore(target)

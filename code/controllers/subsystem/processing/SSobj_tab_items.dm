@@ -5,7 +5,7 @@ PROCESSING_SUBSYSTEM_DEF(obj_tab_items)
 	wait = 0.1 SECONDS
 
 // I know this is mostly copypasta, but I want to change the processing logic
-// Sorry bestie :(
+// Sorry bestie :( // my name is AA and I am putting a ) here to make the bracket pairs right
 /datum/controller/subsystem/processing/obj_tab_items/fire(resumed = FALSE)
 	if(!resumed)
 		currentrun = processing.Copy()

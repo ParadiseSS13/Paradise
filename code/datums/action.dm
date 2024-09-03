@@ -96,9 +96,6 @@
 	Trigger()
 	return FALSE
 
-/datum/action/proc/override_location() // Override to set coordinates manually
-	return
-
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE

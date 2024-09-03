@@ -231,7 +231,6 @@
 	equipment = _equipment
 	button_overlay_icon = equipment.icon
 	button_overlay_icon_state = equipment.icon_state
-	. = ..()
 	name = "Switch module to [equipment.name]"
 	return ..()
 

@@ -18,6 +18,13 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	amount = 0
 	gravity_check = ALWAYS_IN_GRAVITY
 
+/// Subtype of tracks used for decorating maps.
+/obj/effect/decal/cleanable/blood/tracks/mapped
+	desc = "Your instincts say you shouldn't be following these."
+	drydesc = "Your instincts say you shouldn't be following these."
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "tracks"
+
 //BLOODY FOOTPRINTS
 /obj/effect/decal/cleanable/blood/footprints
 	icon = 'icons/effects/fluidtracks.dmi'

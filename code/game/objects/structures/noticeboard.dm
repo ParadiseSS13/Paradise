@@ -85,7 +85,7 @@
 			if(usr.stat || usr.restrained())
 				return
 			var/obj/item/paper/paper = locate(params["paper"])
-			if(!paper && paper.loc != src)
+			if(!istype(paper) || paper.loc != src)
 				return
 			var/obj/item/held_item = usr.get_active_hand()
 			if(is_pen(held_item))

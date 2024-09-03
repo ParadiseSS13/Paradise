@@ -60,8 +60,7 @@
  */
 /datum/objective_holder/proc/replace_objective(datum/objective/old_objective, datum/objective/new_objective)
 	new_objective = add_objective(new_objective, add_to_list = FALSE)
-	new_objective.owner = old_objective.owner
-	new_objective.team = old_objective.team
+
 	// Replace where the old objective was, with the new one
 	objectives.Insert(objectives.Find(old_objective), new_objective)
 	remove_objective(old_objective)
@@ -106,7 +105,7 @@
 /datum/objective_holder/proc/handle_objective(datum/objective/Objective)
 	for(var/loop in 1 to 5)
 		Objective.find_target(assigned_targets)
-		if(Objective.found_target()) // handles normal objectives, and steal objectives
+		if(Objective.found_target()) // Handles normal objectives, and steal objectives
 			return
 
 	// We failed to find any target. Oh well...

@@ -349,7 +349,7 @@
 	},
 /obj/structure/rack,
 /obj/item/melee/baton/cattleprod,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -539,7 +539,7 @@
 /area/ruin/space/unpowered)
 "bn" = (
 /obj/structure/table/reinforced,
-/obj/item/food/snacks/carrotfries,
+/obj/item/food/carrotfries,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

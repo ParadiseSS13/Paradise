@@ -982,7 +982,7 @@
 			if("changeling")
 				if(!IS_CHANGELING(current))
 					add_antag_datum(/datum/antagonist/changeling)
-					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... we are a changeling!</span>")
+					to_chat(current, "<span class='biggerdanger'>Your powers have awoken. A flash of memory returns to us... We are a changeling!</span>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
@@ -1110,7 +1110,7 @@
 					SSticker.mode.update_synd_icons_removed(src)
 					special_role = null
 					objective_holder.clear(/datum/objective/nuclear)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT></span>")
+					to_chat(current, "<span class='warning'><font size='3'><b>You have been brainwashed! You are no longer a Syndicate operative!</b></font></span>")
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
 			if("nuclear")
@@ -1145,7 +1145,7 @@
 				qdel(H.w_uniform)
 
 				if(!SSticker.mode.equip_syndicate(current))
-					to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
+					to_chat(usr, "<span class='warning'>Equipping a Syndicate failed!</span>")
 					return
 				SSticker.mode.update_syndicate_id(current.mind, length(SSticker.mode.syndicates) == 1)
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a nuclear operative")
@@ -1458,7 +1458,7 @@
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
 					return
 				make_Abductor()
-				log_admin("[key_name(usr)] turned [current] into abductor.")
+				log_admin("[key_name(usr)] turned [current] into an abductor.")
 				SSticker.mode.update_abductor_icons_added(src)
 				current.create_log(MISC_LOG, "[current] was made into an abductor by [key_name_admin(usr)]")
 			if("equip")
@@ -1522,7 +1522,7 @@
 				if(has_antag_datum(/datum/antagonist/traitor))
 					var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
 					if(!T.give_uplink())
-						to_chat(usr, "<span class='warning'>Equipping a syndicate failed!</span>")
+						to_chat(usr, "<span class='warning'>Equipping a Syndicate failed!</span>")
 						return
 				log_admin("[key_name(usr)] has given [key_name(current)] an uplink")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
@@ -1540,29 +1540,30 @@
  * Create and/or add the `datum_type_or_instance` antag datum to the src mind.
  *
  * Arguments:
- * * datum_type - an antag datum typepath or instance
+ * * antag_datum - an antag datum typepath or instance. If it's a typepath, it will create a new antag datum
  * * datum/team/team - the antag team that the src mind should join, if any
  */
-/datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team = null)
-	var/datum/antagonist/A
+/datum/mind/proc/add_antag_datum(datum_type_or_instance, datum/team/team)
+	var/datum/antagonist/antag_datum
 	if(!ispath(datum_type_or_instance))
-		A = datum_type_or_instance
-		if(!istype(A))
+		antag_datum = datum_type_or_instance
+		if(!istype(antag_datum))
 			return
 	else
-		A = new datum_type_or_instance()
-	if(!A.can_be_owned(src))
-		qdel(A)
+		antag_datum = new datum_type_or_instance()
+
+	if(!antag_datum.can_be_owned(src))
+		qdel(antag_datum)
 		return
-	A.owner = src
-	LAZYADD(antag_datums, A)
-	A.create_team(team)
-	var/datum/team/antag_team = A.get_team()
+	antag_datum.owner = src
+	LAZYADD(antag_datums, antag_datum)
+	antag_datum.create_team(team)
+	var/datum/team/antag_team = antag_datum.get_team()
 	if(antag_team)
 		antag_team.add_member(src)
-	ASSERT(A.owner && A.owner.current)
-	A.on_gain()
-	return A
+	ASSERT(antag_datum.owner && antag_datum.owner.current)
+	antag_datum.on_gain()
+	return antag_datum
 
 /**
  * Remove the specified `datum_type` antag datum from the src mind.

@@ -116,3 +116,114 @@
 			floor_dir = dir
 
 	return TRUE
+
+
+
+
+// Floor painter
+
+/datum/painter/decal
+	module_name = "decal painter"
+	module_state = "floor_painter"
+
+	var/decal_icon
+	var/decal_state = "/obj/effect/turf_decal/stripes/box"
+	var/decal_dir = SOUTH
+
+	//TODO: Make blacklist
+	var/static/list/decal_blacklist = typecacheof(list(/obj/effect/turf_decal/raven, /obj/effect/turf_decal/weather, /obj/effect/turf_decal/stripes/asteroid))
+
+	// This is a double-list. First entry is the type key, second is the direction, with the final value being the b64 of the icon
+	var/static/list/lookup_cache_decals = list()
+
+/datum/painter/decal/New(obj/item/painter/parent_painter)
+	. = ..()
+	if(!length(lookup_cache_decals))
+		for(var/I in typesof(/obj/effect/turf_decal))
+			if(I in decal_blacklist)
+				continue
+			var/obj/effect/turf_decal/decal = I
+			if(!(decal in lookup_cache_decals))
+				lookup_cache_decals += decal.icon_state
+				lookup_cache_decals["[decal]"] = list(decal)
+
+			for(var/dir in GLOB.alldirs)
+				var/icon/decal_icon = icon(decal.icon, decal.icon_state, dir)
+				// These indexes have to be strings otherwise it treats it as a list index not a map lookup index
+				lookup_cache_decals["[decal]"] += "[dir]"
+				lookup_cache_decals["[decal]"]["[dir]"] = icon2base64(decal_icon)
+
+/datum/painter/decal/paint_atom(atom/target, mob/user)
+	var/typepath = lookup_cache_decals["[decal_state]"][1]
+	var/obj/effect/turf_decal/new_decal = new typepath(target, decal_dir)
+	return TRUE
+
+/datum/painter/decal/pick_color(mob/user)
+	if(!user)
+		return
+	ui_interact(user)
+
+/datum/painter/decal/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/datum/painter/decal/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "FloorPainter", module_name)
+		// Disable automatic updates, because:
+		// 1) we are the only user of the item, and don't expect to observe external changes
+		// 2) generating and sending the icon each tick is a bit expensive, and creates small but noticeable lag
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+/datum/painter/decal/ui_data(mob/user)
+	var/list/data = list()
+	var/list/decal_names = list()
+	for(var/I in typesof(/obj/effect/turf_decal))
+		if(I in decal_blacklist)
+			continue
+		var/obj/effect/turf_decal/decal = I
+		decal_names += "[decal]"//.icon_state
+	data["availableStyles"] = decal_names
+	data["selectedStyle"] = decal_state
+	data["selectedDir"] = dir2text(decal_dir)
+
+	data["directionsPreview"] = list()
+	for(var/dir in GLOB.alldirs)
+		data["directionsPreview"][dir2text(dir)] = lookup_cache_decals[decal_state]["[dir]"]
+
+	return data
+
+
+/datum/painter/decal/ui_static_data(mob/user)
+	var/list/data = list()
+	data["allStylesPreview"] = list()
+	var/list/decal_names = list()
+	for(var/I in typesof(/obj/effect/turf_decal))
+		if(I in decal_blacklist)
+			continue
+		var/obj/effect/turf_decal/decal = I
+		decal_names += decal.icon_state
+	for(var/style in typesof(/obj/effect/turf_decal))
+		data["allStylesPreview"]["[style]"] = lookup_cache_decals["[style]"]["[SOUTH]"]
+
+	return data
+
+/datum/painter/decal/ui_act(action, params)
+	if(..())
+		return
+
+	if(action == "select_style")
+		var/new_style = params["style"]
+		if(lookup_cache_decals.Find(new_style) != 0)
+			decal_state = new_style
+
+	if(action == "cycle_style")
+		var/apple = "a"
+
+	if(action == "select_direction")
+		var/dir = text2dir(params["direction"])
+		if(dir != 0)
+			decal_dir = dir
+
+	return TRUE

@@ -67,7 +67,7 @@
 /obj/item/trash/plate{
 	pixel_x = -10
 	},
-/obj/item/food/snacks/burger/ghost,
+/obj/item/food/burger/ghost,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "o" = (

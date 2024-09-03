@@ -10,7 +10,6 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	buckle_lying = FALSE
 	can_buckle = TRUE
-	buckle_lying = 0
 	pass_flags = PASSTABLE
 	COOLDOWN_DECLARE(message_cooldown)
 	COOLDOWN_DECLARE(cooldown_vehicle_move)
@@ -185,12 +184,6 @@
 		var/dir_to_move = get_dir(trailer.loc, old_loc)
 		step(trailer, dir_to_move)
 
-/obj/tgvehicle/generate_action_type(actiontype)
-	var/datum/action/vehicle/A = ..()
-	. = A
-	if(istype(A))
-		A.vehicle_ridden_target = src
-
 /obj/tgvehicle/post_unbuckle_mob(mob/living/M)
 	remove_occupant(M)
 	return ..()
@@ -233,7 +226,6 @@
 /obj/tgvehicle/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!force && occupant_amount() >= max_occupants)
 		return FALSE
-
 	return ..()
 
 /obj/tgvehicle/zap_act(power, zap_flags)

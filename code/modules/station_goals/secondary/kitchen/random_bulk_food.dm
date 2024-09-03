@@ -3,14 +3,14 @@
 	department = "Kitchen"
 	progress_type = /datum/secondary_goal_progress/random_bulk_food
 	abstract = FALSE
-	var/obj/item/food/snacks/food_type
+	var/obj/item/food/food_type
 	var/amount
 	var/reward
 
 /datum/station_goal/secondary/random_bulk_food/randomize_params()
 	var/list/valid_food = list()
-	for(var/S in subtypesof(/obj/item/food/snacks))
-		var/obj/item/food/snacks/candidate = S
+	for(var/S in subtypesof(/obj/item/food))
+		var/obj/item/food/candidate = S
 		if(initial(candidate.goal_difficulty) == FOOD_GOAL_SKIP)
 			continue
 		if(initial(candidate.goal_difficulty) == FOOD_GOAL_EXCESSIVE)
@@ -18,7 +18,7 @@
 		valid_food += candidate
 
 	if(!valid_food)
-		food_type = /obj/item/food/snacks/cheesewedge
+		food_type = /obj/item/food/cheesewedge
 		amount = 50
 		return
 
@@ -39,7 +39,7 @@
 
 
 /datum/secondary_goal_progress/random_bulk_food
-	var/obj/item/food/snacks/food_type
+	var/obj/item/food/food_type
 	var/needed
 	var/sent = 0
 	var/sent_this_shipment = 0

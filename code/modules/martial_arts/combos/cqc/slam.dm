@@ -9,7 +9,7 @@
 		return MARTIAL_COMBO_FAIL
 	target.visible_message("<span class='warning'>[user] slams [target] into the ground!</span>", \
 						"<span class='userdanger'>[user] slams you into the ground!</span>")
-	playsound(get_turf(user), 'sound/weapons/slam.ogg', 40, 1, -1)
+	playsound(get_turf(user), 'sound/weapons/slam.ogg', 40, TRUE, -1)
 	target.apply_damage(50, STAMINA)
 	target.KnockDown(7 SECONDS)
 	target.SetConfused(12 SECONDS)

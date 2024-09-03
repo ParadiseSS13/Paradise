@@ -223,7 +223,7 @@ CONTENTS:
 		if(isradio(I))
 			var/obj/item/radio/R = I
 			R.listening = FALSE // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
-			R.emp_act(1)
+			R.emp_act(EMP_HEAVY)
 
 /obj/item/gun/energy/alien
 	name = "alien pistol"
@@ -288,9 +288,6 @@ CONTENTS:
 	if(!isabductor(user))
 		return
 
-	if(isrobot(target))
-		..()
-		return
 
 	if(!isliving(target))
 		return
@@ -298,6 +295,10 @@ CONTENTS:
 	var/mob/living/L = target
 
 	user.do_attack_animation(L)
+
+	if(isrobot(L))
+		L.apply_damage(120, STAMINA) //Force a reboot instantly
+		return
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
@@ -332,7 +333,7 @@ CONTENTS:
 
 	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
 							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
-	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
 	add_attack_logs(user, L, "Stunned with [src]")
 
@@ -340,7 +341,7 @@ CONTENTS:
 	if(L.IsStunned() || L.IsSleeping())
 		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
-		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		L.Sleeping(120 SECONDS)
 		add_attack_logs(user, L, "Put to sleep with [src]")
 	else
@@ -354,7 +355,7 @@ CONTENTS:
 		return
 	var/mob/living/carbon/C = L
 	if(!C.handcuffed)
-		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
+		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
 		if(do_mob(user, C, 30))
@@ -778,7 +779,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "mop_abductor"
 	mopcap = 100
-	origin_tech = "materials=3;engineering=3;abductor=3"
+	origin_tech = "materials=3;engineering=3;abductor=2"
 	refill_rate = 50
 	refill_reagent = "water"
 	mopspeed = 10
@@ -794,7 +795,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "It's important to keep all the mysterious lights on a UFO functional when flying over backwater country."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "lightreplacer_abductor"
-	origin_tech = "magnets=3;engineering=4;abductor=3"
+	origin_tech = "magnets=3;engineering=4;abductor=2"
 	max_uses = 40
 	uses = 20
 
@@ -868,27 +869,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-/obj/structure/table_frame/abductor/try_make_table(obj/item/stack/stack, mob/user)
-	if(!istype(stack, /obj/item/stack/sheet/mineral/abductor) && !istype(stack, /obj/item/stack/sheet/mineral/silver))
-		return FALSE
-
-	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
-		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
-		return TRUE
-
-	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
-
-	if(!(do_after(user, 50, target = src) && stack.use(1)))
-		return TRUE
-
-	if(istype(stack, /obj/item/stack/sheet/mineral/abductor)) //if it's not this then it's silver, so no need for an else afterwards
-		make_new_table(stack.table_type)
-		return TRUE
-
-	new /obj/machinery/optable/abductor(loc)
-	qdel(src)
-	return TRUE
+	restrict_table_types = list(/obj/item/stack/sheet/mineral/silver = /obj/machinery/optable/abductor, /obj/item/stack/sheet/mineral/abductor = /obj/item/stack/sheet/mineral/abductor::table_type)
 
 /obj/structure/table/abductor
 	name = "alien table"

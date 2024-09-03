@@ -43,6 +43,12 @@
 	flag = ENERGY
 	temperature = 50
 
+/obj/item/projectile/temp/basilisk/on_hit(atom/target, blocked)
+	..()
+	if(isrobot(target))
+		var/mob/living/silicon/robot/cyborg = target
+		cyborg.apply_damage(35, STAMINA)
+
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)
 	if(..()) //we have a target
 		if(isliving(target) && !target.Adjacent(targets_from) && ranged_cooldown <= world.time)//No more being shot at point blank or spammed with RNG beams

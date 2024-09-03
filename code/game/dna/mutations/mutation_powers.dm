@@ -509,7 +509,7 @@
 		if(user.restrained())//Why being pulled while cuffed prevents you from moving
 			for(var/mob/living/M in range(user, 1))
 				if(M.pulling == user)
-					if(!M.restrained() && M.stat == 0 && !(M.mobility_flags & MOBILITY_STAND) && user.Adjacent(M))
+					if(!M.restrained() && M.stat == CONSCIOUS && !(M.mobility_flags & MOBILITY_STAND) && user.Adjacent(M))
 						failure = TRUE
 					else
 						M.stop_pulling()
@@ -685,7 +685,7 @@
 			to_chat(user, "<span class='warning'>You can't see into [M.name]'s mind at all!</span>")
 			return
 
-		if(M.stat == 2)
+		if(M.stat == DEAD)
 			to_chat(user, "<span class='warning'>[M.name] is dead and cannot have [M.p_their()] mind read.</span>")
 			return
 		if(M.health < 0)

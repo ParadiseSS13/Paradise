@@ -16,5 +16,5 @@
 /datum/martial_combo/plasma_fist/tornado_sweep/proc/do_tornado_effect(mob/living/carbon/human/user)
 	for(var/i in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
 		user.dir = i
-		playsound(user.loc, 'sound/weapons/punch1.ogg', 15, 1, -1)
+		playsound(user.loc, 'sound/weapons/punch1.ogg', 15, TRUE, -1)
 		sleep(1)
