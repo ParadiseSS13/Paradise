@@ -44,7 +44,7 @@
 
 #define R_MAXPERMISSION (1<<18) // This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
-#define R_HOST			((1<<19)-1) // 18 bit bitmask, update me if we ever add more admin permissions. Sum of all permissions to allow easy setting.
+#define R_HOST			(~0) // Sum of all permissions to allow easy setting.
 
 
 #define ADMIN_QUE(user,display) "<a href='byond://?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
