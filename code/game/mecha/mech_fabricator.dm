@@ -91,7 +91,7 @@
 			network_manager_uid = RNC.UID()
 			RNC.mechfabs += UID()
 
-/obj/machinery/mecha_part_fabricator/proc/getfiles()
+/obj/machinery/mecha_part_fabricator/proc/get_files()
 	if(!network_manager_uid)
 		return null
 
@@ -196,7 +196,7 @@
 /obj/machinery/mecha_part_fabricator/proc/build_design(datum/design/D)
 	. = FALSE
 
-	var/datum/research/files = getfiles()
+	var/datum/research/files = get_files()
 	if(!files)
 		atom_say("Error - No research network linked.")
 		return
@@ -343,7 +343,7 @@
 /obj/machinery/mecha_part_fabricator/ui_data(mob/user)
 	var/list/data = list()
 
-	var/datum/research/files = getfiles()
+	var/datum/research/files = get_files()
 	if(!files)
 		data["linked"] = FALSE
 
@@ -458,7 +458,7 @@
 			return TRUE
 
 
-	var/datum/research/files = getfiles()
+	var/datum/research/files = get_files()
 	if(!files)
 		to_chat(usr, "<span class='danger'>Error - No research network linked.</span>")
 		return

@@ -2,7 +2,7 @@
 // They will serve a purpose once the R&D rework is done
 
 /obj/machinery/r_n_d/server
-	name = "R&D Server"
+	name = "\improper R&D Server"
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "RD-server-off"
 	/// ID to autolink to, used in mapload
@@ -106,7 +106,7 @@
 		if("unlink")
 			if(!network_manager_uid)
 				return
-			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this server?\nYou wont be able to re-link without the network password", "Unlink","Yes","No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this server?\nYou won't be able to re-link without the network password", "Unlink", list("Yes", "No"))
 			if(choice == "Yes")
 				// To the person who asks "Why not call unlink() here"
 				// Well, all it does is null the network manager UID and update the ui

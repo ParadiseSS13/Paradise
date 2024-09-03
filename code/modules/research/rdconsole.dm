@@ -96,7 +96,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
 
-/obj/machinery/computer/rdconsole/proc/getfiles()
+/obj/machinery/computer/rdconsole/proc/get_files()
 	if(!network_manager_uid)
 		return null
 
@@ -231,7 +231,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/update_from_disk()
 	clear_wait_message()
-	var/datum/research/files = getfiles()
+	var/datum/research/files = get_files()
 	if(!files)
 		return
 	if(d_disk && d_disk.blueprint)
@@ -259,7 +259,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		return
 
-	var/datum/research/files = getfiles()
+	var/datum/research/files = get_files()
 	if(!files)
 		return
 
@@ -300,7 +300,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!linked_destroy || !temp_tech)
 		return
 
-	var/datum/research/files = getfiles()
+	var/datum/research/files = get_files()
 	if(!files)
 		return
 
@@ -339,7 +339,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(usr, "<span class='danger'>No linked device detected.</span>")
 		return
 
-	var/datum/research/files = getfiles()
+	var/datum/research/files = get_files()
 	if(!files)
 		return
 
@@ -460,7 +460,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("unlink")
 			if(!network_manager_uid)
 				return
-			var/choice = alert(usr, "Are you SURE you want to unlink this console?\nYou wont be able to re-link without the network manager password", "Unlink","Yes","No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this console?\nYou won't be able to re-link without the network manager password", "Unlink", list("Yes", "No"))
 			if(choice == "Yes")
 				unlink()
 
@@ -487,7 +487,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return TRUE
 
 	// Now we do a files check
-	var/datum/research/files = getfiles()
+	var/datum/research/files = get_files()
 	if(!files)
 		to_chat(usr, "<span class='danger'>Error - No research network linked.</span>")
 		return
@@ -822,7 +822,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/ui_data(mob/user)
 	var/list/data = list()
 
-	var/datum/research/files = getfiles()
+	var/datum/research/files = get_files()
 	// If we have no linked files, dont even process anything else, just get a link up
 	if(!files)
 		data["linked"] = FALSE

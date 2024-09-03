@@ -1,7 +1,7 @@
 /// R&D backup console - just saves tech levels
 /obj/machinery/computer/rnd_backup
-	name = "rnd backup console"
-	desc = "Can be used to backup an R&D network's research data"
+	name = "R&D backup console"
+	desc = "Can be used to backup an R&D network's research data."
 	icon_screen = "comm_logs" // looks good enough
 	circuit = /obj/item/circuitboard/rnd_backup_console
 	/// ID to autolink to, used in mapload
@@ -131,7 +131,7 @@
 		if("unlink")
 			if(!network_manager_uid)
 				return FALSE
-			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this backup console?\nYou wont be able to re-link without the network manager password", "Unlink","Yes","No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this backup console?\nYou won't be able to re-link without the network manager password", "Unlink", list("Yes", "No"))
 			if(choice == "Yes")
 				unlink()
 

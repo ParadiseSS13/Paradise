@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 
 
 /obj/machinery/computer/rnd_network_controller/screwdriver_act(mob/user, obj/item/I)
-	var/areyousure = tgui_alert(user, "Disassembling this console will wipe its network's RnD progress from this round. If you are doing this as a non-antag, expect a bollocking.\n\nAre you sure?", "Think for a moment", "Yes", "No")
+	var/areyousure = tgui_alert(user, "Disassembling this console will wipe its network's RnD progress from this round. If you are doing this as a non-antag, expect a bollocking.\n\nAre you sure?", "Think for a moment", list("Yes", "No"))
 	if(areyousure != "Yes")
 		return TRUE // Dont attack the console, pretend we did something
 
@@ -212,7 +212,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 			var/datum/design/D = locateUID(design_uid)
 
 			// If null design, ignore
-			if(!istype(D, /datum/design))
+			if(!istype(D))
 				return
 
 			// If not one of our designs, disallow
@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 						message_admins("[key_name_admin(usr)] attempted a href exploit with [src]")
 						return
 
-					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
+					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", list("Yes", "No"))
 					if(choice != "Yes" || !Adjacent(usr))
 						return
 
@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 						message_admins("[key_name_admin(usr)] attempted a href exploit with [src]")
 						return
 
-					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
+					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", list("Yes", "No"))
 					if(choice != "Yes" || !Adjacent(usr))
 						return
 
@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 						message_admins("[key_name_admin(usr)] attempted a href exploit with [src]")
 						return
 
-					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
+					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", list("Yes", "No"))
 					if(choice != "Yes" || !Adjacent(usr))
 						return
 
@@ -307,7 +307,7 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 						message_admins("[key_name_admin(usr)] attempted a href exploit with [src]")
 						return
 
-					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
+					var/choice = tgui_alert(usr, "Are you SURE you want to unlink this device?", "Unlink", list("Yes", "No"))
 					if(choice != "Yes" || !Adjacent(usr))
 						return
 

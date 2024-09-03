@@ -379,12 +379,12 @@
 	build_path = /obj/machinery/computer/mecha
 
 /obj/item/circuitboard/rnd_network_controller
-	board_name = "RnD Network Controller"
+	board_name = "R&D Network Controller"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/rnd_network_controller
 
 /obj/item/circuitboard/rnd_backup_console
-	board_name = "RnD Backup Console"
+	board_name = "R&D Backup Console"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/rnd_backup
 

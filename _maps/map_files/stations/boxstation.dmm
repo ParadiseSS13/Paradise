@@ -34993,7 +34993,6 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -36852,7 +36851,6 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/south,
-/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -88389,6 +88387,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery/white/hollow,
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
