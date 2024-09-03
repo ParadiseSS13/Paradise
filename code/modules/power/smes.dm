@@ -1,6 +1,7 @@
 #define SMESMAXCHARGELEVEL 200000
 #define SMESMAXOUTPUT 200000
-#define SMESRATE 0.05			// rate of internal charge to external power
+/// Conversion ratio between a Watt-tick and SMES capacity units (should be the same as power cells)
+#define SMESRATE GLOB.CELLRATE
 
 /obj/machinery/power/smes
 	name = "power storage unit"
@@ -8,17 +9,17 @@
 	icon_state = "smes"
 	density = TRUE
 
-	/// Maximum charge of the SMES
-	var/capacity = 5e6
+	/// Maximum amount of energy the SMES can store (kilojoules)
+	var/capacity = 0.2e6
 	/// Current charge level
 	var/charge = 0
 	/// Set TRUE if SMES attempting to charge, FALSE if not
 	var/input_attempt = TRUE
 	/// Set TRUE if SMES is inputting, FALSE if not
 	var/inputting = TRUE
-	/// Amount of power the SMES attempts to charge by
+	/// How much power the SMES will draw from the grid to recharge itself (Watts)
 	var/input_level = 50000
-	/// Maximum input level
+	/// Maximum input level (Watts)
 	var/input_level_max = 200000
 	/// Charge amount available from input last tick
 	var/input_available = 0
@@ -26,9 +27,9 @@
 	var/output_attempt = TRUE
 	/// TRUE = actually outputting, FALSE = not outputting
 	var/outputting = TRUE
-	/// Amount of power the SMES attempts to output
+	/// Amount of power the SMES attempts to output (Watts)
 	var/output_level = 50000
-	/// Cap on output_level
+	/// Cap on output_level (Watts)
 	var/output_level_max = 200000
 	/// Amount of power actually outputted. may be less than output_level if the powernet returns excess power
 	var/output_used = 0
@@ -87,7 +88,7 @@
 	output_level_max = 200000 * IO
 	for(var/obj/item/stock_parts/cell/PC in component_parts)
 		C += PC.maxcharge
-	capacity = C / (15000) * 1e6
+	capacity = C * 1e3 / 375
 
 /obj/machinery/power/smes/update_overlays()
 	. = ..()
@@ -448,7 +449,7 @@
 	..()
 
 /obj/machinery/power/smes/engineering
-	charge = 2e6 // Engineering starts with some charge for singulo
+	charge = 0.08e6 // Engineering starts with some charge for singulo
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"

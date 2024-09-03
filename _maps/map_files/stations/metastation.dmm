@@ -42537,10 +42537,6 @@
 	},
 /obj/item/restraints/handcuffs,
 /obj/item/radio/off,
-/obj/machinery/requests_console/directional/east{
-	department = "Security";
-	departmentType = 5
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -70514,13 +70510,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"oHh" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/station/service/janitor)
 "oHu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/tile/bar,
@@ -83566,19 +83555,6 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
-"ufr" = (
-/obj/machinery/requests_console/directional/west,
-/obj/machinery/camera{
-	c_tag = "Custodial Closet";
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/janitor,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/service/janitor)
 "uft" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
@@ -127367,7 +127343,7 @@ dAH
 eTo
 vrM
 agh
-ufr
+tub
 bmQ
 bhq
 rXl

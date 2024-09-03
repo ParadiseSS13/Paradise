@@ -31350,13 +31350,6 @@
 	icon_state = "blue"
 	},
 /area/station/hallway/primary/central/sw)
-"bYZ" = (
-/obj/machinery/economy/vending/traindrobe,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkgreen"
-	},
-/area/station/procedure/trainer_office)
 "bZa" = (
 /obj/machinery/teleport/station,
 /turf/simulated/floor/plating,
@@ -40854,13 +40847,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/misc_lab)
-"cHx" = (
-/obj/item/flag/nt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkgreen"
-	},
-/area/station/procedure/trainer_office)
 "cHy" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -50666,9 +50652,6 @@
 	dir = 4;
 	name = "west bump";
 	pixel_x = -28
-	},
-/obj/machinery/requests_console/directional/south{
-	pixel_x = 30
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
@@ -90206,6 +90189,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"wBd" = (
+/obj/machinery/requests_console/directional/north,
+/turf/simulated/floor/bluegrid,
+/area/station/turret_protected/ai)
 "wBy" = (
 /obj/machinery/light{
 	dir = 4
@@ -131500,7 +131487,7 @@ drf
 drf
 drf
 drf
-dry
+wBd
 drO
 drI
 dry

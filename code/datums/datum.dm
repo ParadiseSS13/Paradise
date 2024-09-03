@@ -8,6 +8,8 @@
 	var/list/list/datum/callback/signal_procs
 	var/var_edited = FALSE //Warranty void if seal is broken
 	var/tmp/unique_datum_id = null
+	/// MD5'd version of the UID. Used for instances where we dont want to make clients aware of UIDs.
+	VAR_PRIVATE/tmp/md5_unique_datum_id = null // using VAR_PRIVATE means it cant be accessed outside of the MD5_UID() proc
 
 	/// Used by SSprocessing
 	var/isprocessing = FALSE
