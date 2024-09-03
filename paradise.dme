@@ -2700,6 +2700,7 @@
 #include "code\modules\redis\redis_callback.dm"
 #include "code\modules\redis\redis_message.dm"
 #include "code\modules\redis\callbacks\asay_callback.dm"
+#include "code\modules\redis\callbacks\dev_callback.dm"
 #include "code\modules\redis\callbacks\msay_callback.dm"
 #include "code\modules\redis\callbacks\server_messages_callback.dm"
 #include "code\modules\research\circuitprinter.dm"
