@@ -3135,7 +3135,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "aGq" = (
@@ -7177,7 +7177,8 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	dir = 1;
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "brI" = (
@@ -10236,7 +10237,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "bRS" = (
@@ -17302,7 +17303,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "dlV" = (
@@ -17931,7 +17932,7 @@
 /area/station/maintenance/abandonedbar)
 "drX" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/security/prison)
 "dsi" = (
@@ -19027,7 +19028,7 @@
 /obj/structure/table,
 /obj/item/storage/box/bodybags,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/security/prison)
 "dCu" = (
@@ -24799,7 +24800,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	dir = 1;
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "eHX" = (
@@ -25290,7 +25292,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "eNt" = (
@@ -26654,7 +26656,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "eZF" = (
@@ -39797,7 +39799,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "huf" = (
@@ -42251,7 +42253,7 @@
 "hRl" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/security/prison)
 "hRo" = (
@@ -54731,7 +54733,7 @@
 	c_tag = "Brig Perma Hall East"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "kgk" = (
@@ -54882,7 +54884,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "khZ" = (
@@ -55801,7 +55803,7 @@
 	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "kqT" = (
@@ -59590,7 +59592,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "lee" = (
@@ -68870,7 +68872,7 @@
 	},
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "mTC" = (
@@ -68948,7 +68950,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "mTU" = (
@@ -69045,6 +69047,13 @@
 	icon_state = "red"
 	},
 /area/station/legal/courtroom)
+"mUA" = (
+/obj/machinery/shower{
+	pixel_y = 20
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/storage)
 "mUI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -74352,7 +74361,8 @@
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	dir = 1;
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "nRs" = (
@@ -76302,7 +76312,8 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	dir = 1;
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "oiZ" = (
@@ -76556,7 +76567,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "okO" = (
@@ -78787,7 +78798,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	dir = 1;
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "oHj" = (
@@ -79228,7 +79240,7 @@
 	},
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "oLl" = (
@@ -80238,7 +80250,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/security/prison)
 "oTX" = (
@@ -81458,9 +81470,6 @@
 /obj/structure/flora/junglebush,
 /obj/structure/window/reinforced{
 	dir = 8
-	},
-/obj/structure/flora/tree/palm{
-	pixel_x = 0
 	},
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
@@ -84230,7 +84239,8 @@
 "pFz" = (
 /obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	dir = 1;
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "pFL" = (
@@ -87880,7 +87890,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "qqA" = (
@@ -92618,7 +92628,7 @@
 	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "riQ" = (
@@ -92838,6 +92848,12 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
+"rkB" = (
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/engine)
 "rkF" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -94437,7 +94453,7 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/security/prison)
 "rAm" = (
@@ -100801,7 +100817,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "sGV" = (
@@ -103414,6 +103430,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/public/shops)
+"tfV" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkredcorners"
+	},
+/area/station/security/prison)
 "tfW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -116804,7 +116826,7 @@
 	},
 /area/station/security/processing)
 "vEK" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -122154,7 +122176,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/security/prison)
 "wFI" = (
@@ -122235,7 +122257,8 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	dir = 1;
+	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
 "wGv" = (
@@ -123282,7 +123305,7 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/security/prison)
 "wQm" = (
@@ -126958,6 +126981,10 @@
 /area/station/engineering/atmos)
 "xzW" = (
 /obj/structure/sink/puddle,
+/obj/structure/flora/tree/palm{
+	pixel_x = 16;
+	pixel_y = 3
+	},
 /obj/item/fish_eggs/catfish,
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
@@ -143941,7 +143968,7 @@ sZB
 sZB
 sZB
 qGz
-fcb
+mUA
 wHT
 orn
 orn
@@ -144466,7 +144493,7 @@ jnP
 jnP
 orn
 lJb
-pHq
+rkB
 pHq
 pHq
 qmT
@@ -179108,7 +179135,7 @@ xnS
 vHR
 fjJ
 mTP
-drX
+tfV
 hEM
 sAG
 rjZ
@@ -179365,7 +179392,7 @@ nFO
 taP
 tsy
 led
-drX
+tfV
 bDs
 sAG
 nDt
@@ -179622,7 +179649,7 @@ gFD
 kGI
 fjJ
 eZE
-drX
+tfV
 sxU
 sAG
 sAG
@@ -179879,7 +179906,7 @@ eTx
 eTx
 fjJ
 kqR
-drX
+tfV
 xic
 snD
 bYD
@@ -180393,7 +180420,7 @@ fOx
 vKI
 ttC
 qqz
-drX
+tfV
 vdU
 rRs
 jZa
@@ -180650,7 +180677,7 @@ kQR
 rIG
 fjJ
 oLd
-drX
+tfV
 sxU
 sxU
 sxU
@@ -180907,7 +180934,7 @@ fjJ
 fjJ
 fjJ
 dlP
-drX
+tfV
 wQl
 rAh
 sxU
@@ -181935,7 +181962,7 @@ fjJ
 fjJ
 fjJ
 mTp
-drX
+tfV
 oTT
 dCr
 sxU
@@ -182192,7 +182219,7 @@ xnS
 vHR
 fjJ
 okN
-drX
+tfV
 tsa
 tsa
 tsa
@@ -182706,7 +182733,7 @@ oJI
 ilG
 fjJ
 eNs
-drX
+tfV
 tsa
 nwi
 oIJ
@@ -183220,7 +183247,7 @@ gWn
 vHR
 fjJ
 kgh
-drX
+tfV
 tsa
 ffa
 dGH
@@ -183734,7 +183761,7 @@ kQR
 dDM
 fjJ
 mTP
-drX
+tfV
 tsa
 tEa
 dGH
