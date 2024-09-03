@@ -64,9 +64,10 @@ enable_localhost_autoadmin = true
 # +SPAWN (or +CREATE) = mob transformations, spawning of most atoms including mobs
 # +MOD = Access to low level moderation tools. Not used in Paradise production
 # +MENTOR = Access only to the Question's Ahelp and has little way of metagaming the game.
-# +DEV_TEAM = Access to dev team chat
 # +PROCCALL = Access to call procs on anything. Be careful who you grant this too!
 # +VIEWRUNTIMES = Allows a player to view the runtimes of the server, but not use other debug verbs
+# +MAINTAINER = Access to super dangerous debug verbs that can break an entire round. Use sparingly.
+# +DEV_TEAM = Access to dev team chat
 admin_ranks = [
 	# Format: {name = "My Rank", rights = ["+LIST", "+OF", "+RIGHTS"]}
 	{ name = "Mentor", rights = [
