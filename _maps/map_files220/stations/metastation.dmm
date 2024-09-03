@@ -1401,10 +1401,6 @@
 /area/station/maintenance/fore)
 "alZ" = (
 /obj/structure/closet/secure_closet/security,
-/obj/machinery/requests_console/directional/east{
-	department = "Security";
-	departmentType = 5
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -43536,10 +43532,7 @@
 	},
 /obj/item/restraints/handcuffs,
 /obj/item/radio/off,
-/obj/machinery/requests_console/directional/east{
-	department = "Security";
-	departmentType = 5
-	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
