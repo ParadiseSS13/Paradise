@@ -2651,6 +2651,8 @@
 /area/station/science/xenobiology)
 "aAM" = (
 /obj/machinery/constructable_frame/machine_frame,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -60628,9 +60630,6 @@
 	},
 /area/station/engineering/engine)
 "loU" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker,
 /obj/machinery/camera{
 	c_tag = "Research Research and Development Lab";
 	dir = 10;
@@ -60639,6 +60638,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -97417,13 +97417,11 @@
 	},
 /area/station/engineering/break_room/secondary)
 "sbl" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -108676,6 +108674,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -144957,8 +144957,8 @@ lBp
 wDW
 wDW
 orn
-tdl
 dWQ
+tdl
 sIf
 sIf
 oQf
