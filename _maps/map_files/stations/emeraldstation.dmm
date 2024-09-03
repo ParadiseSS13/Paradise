@@ -65232,10 +65232,8 @@
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/station/engineering/atmos/asteroid)
 "mja" = (
-/obj/structure/morgue{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/morgue,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "mjf" = (
@@ -71377,9 +71375,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint)
 "nqZ" = (
-/obj/structure/morgue{
-	dir = 8
-	},
+/obj/structure/morgue,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "nrc" = (
