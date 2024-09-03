@@ -1,3 +1,6 @@
+/// Minimum required mole value of oxygen to ignite a bonfire.
+#define MIN_OXY_IGNITE 7
+
 /obj/item/seeds/tower
 	name = "pack of tower-cap mycelium"
 	desc = "This mycelium grows into tower-cap mushrooms."
@@ -181,7 +184,7 @@
 /obj/structure/bonfire/proc/CheckOxygen()
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/G = T.get_readonly_air()
-	if(G.oxygen() > 7)
+	if(G.oxygen() > MIN_OXY_IGNITE)
 		return 1
 	return 0
 
@@ -243,3 +246,5 @@
 /obj/structure/bonfire/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
 	if(..())
 		buckled_mob.pixel_y -= 13
+
+#undef MIN_OXY_IGNITE
