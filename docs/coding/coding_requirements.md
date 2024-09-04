@@ -211,7 +211,7 @@ for addressing all forms of pronouns. This is useful in a number of ways;
 
 - BYOND's `\his` macro can be unpredictable on what object it references. Take
   this example: `"[user] waves \his [user.weapon] around, hitting \his
-opponents!"`. This will end up referencing the user's gender in the first
+  opponents!"`. This will end up referencing the user's gender in the first
   occurrence, but what about the second? It'll actually print the gender set on
   the weapon he's carrying, which is unintended - and there's no way around
   this.
@@ -510,7 +510,7 @@ do not simply omit the `SIGNAL_HANDLER`. Instead, call the sleeping code with
 ### Use of operators
 
 - Bitwise ANDs (`&`) should be written as `bitfield & bitflag` NEVER `bitflag &
-bitfield`. Both are valid, but the latter is confusing and nonstandard.
+  bitfield`. Both are valid, but the latter is confusing and nonstandard.
 - Associated lists declarations must have their key value quoted if it's a string.
 
 ```dm
@@ -817,11 +817,10 @@ example.) Why is this special?
 
 With `.` being everpresent in every proc, can we use it as a temporary variable?
 Of course we can! However, the `.` operator cannot replace a typecasted variable
-
 - it can hold data any other var in DM can, it just can't be accessed as one,
-  although the `.` operator is compatible with a few operators that look weird but
-  work perfectly fine, such as: `.++` for incrementing `.'s` value, or `.[1]` for
-  accessing the first element of `.`, provided that it's a list.
+although the `.` operator is compatible with a few operators that look weird but
+work perfectly fine, such as: `.++` for incrementing `.'s` value, or `.[1]` for
+accessing the first element of `.`, provided that it's a list.
 
 ### Globals versus static
 
