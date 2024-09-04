@@ -110,3 +110,8 @@
  ---------------------------------------------------------------------*/
 
 // #include "crit_rework/_crit_rework.dme"
+
+// --- TESTING --- //
+#ifdef UNIT_TESTS
+#include "unit_tests/_unit_tests.dme"
+#endif

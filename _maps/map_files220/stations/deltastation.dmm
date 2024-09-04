@@ -36506,7 +36506,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "cRd" = (
 /obj/item/kirbyplants,
 /obj/effect/turf_decal/stripes/corner{
@@ -37410,7 +37410,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "cUH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -37533,7 +37533,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "cVd" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/delivery/hollow,
@@ -39161,7 +39161,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dcm" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -39293,7 +39293,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dcT" = (
 /obj/structure/chair/wood,
 /turf/simulated/floor/wood/oak,
@@ -44910,7 +44910,7 @@
 	dir = 9;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dEU" = (
 /obj/structure/table/reinforced,
 /obj/item/radio/intercom/directional/north,
@@ -44926,7 +44926,7 @@
 	dir = 1;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dEV" = (
 /obj/machinery/camera{
 	c_tag = "Command Departure Checkpoint"
@@ -44935,7 +44935,7 @@
 	dir = 1;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dEW" = (
 /obj/machinery/firealarm/directional/east,
 /obj/structure/closet/secure_closet,
@@ -44945,7 +44945,7 @@
 	dir = 5;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dEX" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -44965,7 +44965,7 @@
 	dir = 1;
 	icon_state = "escape"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dFa" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -44980,7 +44980,7 @@
 	id_tag = "ShuttleKPP"
 	},
 /turf/simulated/floor/plating,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dFb" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -44994,7 +44994,7 @@
 /obj/machinery/alarm/directional/north,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dFc" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -45052,7 +45052,7 @@
 	dir = 8;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dFv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -45060,7 +45060,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dFw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -45106,7 +45106,7 @@
 	dir = 4;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dFy" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
@@ -45223,7 +45223,7 @@
 	dir = 8;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dGl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -45234,7 +45234,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dGn" = (
 /obj/structure/sink/directional/east,
 /obj/machinery/light_switch/south,
@@ -45276,7 +45276,7 @@
 	dir = 8;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dGS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -45290,7 +45290,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dGU" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -45298,7 +45298,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dHk" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
@@ -45416,7 +45416,7 @@
 	dir = 10;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dHQ" = (
 /obj/structure/filingcabinet/security,
 /obj/machinery/newscaster/directional/east,
@@ -45424,7 +45424,7 @@
 	dir = 6;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dHR" = (
 /obj/effect/turf_decal/delivery/partial{
 	dir = 1
@@ -45453,7 +45453,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dHZ" = (
 /obj/structure/chair/sofa/corner{
 	dir = 4
@@ -45594,7 +45594,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bluefull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dIJ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -45606,7 +45606,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dIK" = (
 /obj/structure/sign/directions/engineering{
 	dir = 1;
@@ -45619,7 +45619,7 @@
 	pixel_y = -8
 	},
 /turf/simulated/wall,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dIL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/newspaper{
@@ -45656,7 +45656,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/wall,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dIO" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -46714,7 +46714,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dPv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -48321,7 +48321,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dVy" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
@@ -48596,12 +48596,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dWL" = (
 /obj/item/kirbyplants,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dWP" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -48632,7 +48632,7 @@
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "dXk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -53263,7 +53263,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "fjd" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "court"
@@ -55108,7 +55108,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "escape"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "fOs" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -61990,7 +61990,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "hQJ" = (
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -62102,7 +62102,7 @@
 "hTr" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "hTB" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -63251,7 +63251,7 @@
 /area/station/public/arcade)
 "ilJ" = (
 /turf/simulated/wall,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "ilO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -76408,7 +76408,7 @@
 	dir = 1;
 	icon_state = "escape"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "mfW" = (
 /obj/vehicle/janicart{
 	dir = 1
@@ -78121,7 +78121,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "mJn" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -82229,7 +82229,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bluefull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "nNB" = (
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp{
@@ -88433,7 +88433,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "pFd" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp{
@@ -89104,7 +89104,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "pOZ" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/dark,
@@ -96365,7 +96365,7 @@
 	id_tag = "ShuttleKPP"
 	},
 /turf/simulated/floor/plating,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "rXZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/nightshifted/south,
@@ -100560,7 +100560,7 @@
 	dir = 4;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "tjl" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -100755,7 +100755,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "tls" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "atmostanks_vent"
@@ -101694,7 +101694,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "tAl" = (
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -109193,7 +109193,7 @@
 	dir = 4;
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "vPO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -111320,7 +111320,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
 	},
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "wyC" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/green/hollow,
@@ -115997,7 +115997,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel,
-/area/station/bridge/checkpoint/south)
+/area/station/command/bridge/checkpoint/south)
 "xPS" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8

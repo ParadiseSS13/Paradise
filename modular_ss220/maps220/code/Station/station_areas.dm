@@ -1,63 +1,167 @@
 /* Station */
 /area/station/security/checkpoint/south
 	name = "Южный Контрольно-Пропускной Пункт Службы Безопасности"
+	request_console_name = "Security"
 
 /area/station/security/podpilot
 	name = "Гараж Под-пилота Службы Безопасности"
 	icon_state = "security"
+	request_console_name = "Security"
 
-/area/station/bridge/checkpoint
+/area/station/security/interrogation/observation
+	name = "Просматриваемая Допросная"
+	request_console_name = "Security"
+
+/area/station/security/processing
+	request_console_name = "Security"
+
+/area/mine/laborcamp
+	request_console_name = "Labor Camp"
+
+/area/mine/laborcamp/security
+	request_console_name = "Security"
+
+/area/station/command/bridge
+	request_console_name = "Bridge"
+
+/area/station/command/bridge/checkpoint
 	name = "Контрольно-Пропускной Пункт Командования"
 
-/area/station/bridge/checkpoint/north
+/area/station/command/bridge/checkpoint/north
 	name = "Северный Контрольно-Пропускной Пункт Командования"
 
-/area/station/bridge/checkpoint/south
+/area/station/command/bridge/checkpoint/south
 	name = "Южный Контрольно-Пропускной Пункт Командования"
+
+/area/station/telecomms
+	request_console_name = "Bridge"
 
 /area/station/engineering/hallway
 	name = "Коридор Инженерного Отдела"
 	icon_state = "engine_hallway"
+	request_console_name = "Engineering"
 
+/area/station/engineering/control
+	request_console_name = "Engineering"
+
+/area/station/engineering/controlroom
+	request_console_name = "Engineering"
+	
 /area/station/engineering/dronefabricator
 	name = "Комната Изготовления Дронов"
 	icon_state = "engi"
+	request_console_name = "Engineering"
 
 /area/station/engineering/emergency
 	name = "Аварийные Запасы Инженерного Отдела"
 	icon_state = "emergencystorage"
+	request_console_name = "Engineering"
+
+/area/station/engineering/atmos
+	request_console_name = "Atmospherics"
 
 /area/station/engineering/supermatter_room
 	name = "Комната Суперматерии"
 	icon_state = "engi"
+	request_console_name = "Atmospherics"
 
 /area/station/engineering/utility
 	name = "Инженерная Подсобка"
 	icon_state = "engimaint"
+	request_console_name = "Engineering"
 
 /area/station/engineering/mechanic
 	name = "Гараж Под Механика"
 	icon_state = "engi"
+	request_console_name = "Engineering"
 
 /area/station/engineering/atmos/storage
 	name = "Хранилище Атмосферного Отдела"
 	icon_state = "atmos"
+	request_console_name = "Atmospherics"
 
 /area/station/supply/abandoned_boxroom
 	name = "Заброшенное Складское Помещение"
 	icon_state = "cargobay"
+	request_console_name = "Cargo Bay"
 
 /area/station/supply/expedition/gate
 	name = "Гейт"
+	request_console_name = "Expedition"
+
+/area/station/supply/storage
+	request_console_name = "Cargo Bay"
+
+/area/station/medical/sleeper
+	request_console_name = "Medbay"
+
+/area/station/medical/virology
+	request_console_name = "Virology"
+
+/area/station/medical/chemistry
+	request_console_name = "Chemistry"
+
+/area/station/medical/paramedic
+	request_console_name = "Paramedic"
+
+/area/station/medical/morgue
+	request_console_name = "Morgue"
 
 /area/station/public/pool
 	name = "Бассейн"
 	icon_state = "dorms"
+	request_console_name = "Crew Quarters"
 
 /area/station/public/vacant_store
 	name = "Вакантный Магазин"
 	icon = 'modular_ss220/maps220/icons/areas.dmi'
 	icon_state = "vacantstore"
+	request_console_name = "Crew Quarters"
+
+/area/station/public/sleep_male
+	name = "Мужские Дормитории"
+	icon_state = "Sleep"
+	request_console_name = "Crew Quarters"
+
+/area/station/public/sleep_female
+	name = "Женские Дормитории"
+	icon_state = "Sleep"
+	request_console_name = "Crew Quarters"
+
+/area/station/public/toilet/male
+	name = "Мужские Туалеты"
+	request_console_name = "Crew Quarters"
+
+/area/station/public/toilet/female
+	name = "Женские Туалеты"
+	request_console_name = "Crew Quarters"
+
+/area/station/service/bar/atrium
+	name = "Атриум"
+	icon_state = "bar"
+	request_console_name = "Crew Quarters"
+
+/area/station/public/vacant_office/secondary
+	request_console_name = "Crew Quarters"
+
+/area/station/service/chapel/bedroom
+	name = "Каюта Священника"
+	icon_state = "chapeloffice"
+	request_console_name = "Chapel"
+
+/area/station/service/chapel/study
+	name = "Рабочий Кабинет Священника"
+	icon_state = "chapeloffice"
+	request_console_name = "Chapel"
+
+/area/station/service/bar
+	request_console_name = "Bar"
+
+/area/station/service/kitchen
+	request_console_name = "Kitchen"
+
+/area/station/service/hydroponics
+	request_console_name = "Hydroponics"
 
 /area/station/maintenance/dormitory_maintenance
 	name = "Технические Тоннели Дормиториев"
@@ -78,37 +182,6 @@
 /area/station/hallway/secondary/exit/maintenance
 	name = "Заброшенный Коридор Эвакуационного Шаттла"
 	icon_state = "escape"
-
-/area/station/public/sleep_male
-	name = "Мужские Дормитории"
-	icon_state = "Sleep"
-
-/area/station/public/sleep_female
-	name = "Женские Дормитории"
-	icon_state = "Sleep"
-
-/area/station/public/toilet/male
-	name = "Мужские Туалеты"
-
-/area/station/public/toilet/female
-	name = "Женские Туалеты"
-
-/area/station/security/interrogation/observation
-	name = "Просматриваемая Допросная"
-
-/area/station/service/bar/atrium
-	name = "Атриум"
-	icon_state = "bar"
-
-/area/station/public/vacant_office/secondary
-
-/area/station/service/chapel/bedroom
-	name = "Каюта Священника"
-	icon_state = "chapeloffice"
-
-/area/station/service/chapel/study
-	name = "Рабочий Кабинет Священника"
-	icon_state = "chapeloffice"
 
 /* CentCom */
 /area/centcom/ss220
