@@ -2,9 +2,11 @@
 
 ## Important
 
-The Paradise GitHub is not exempt from Paradise Station community and server
-rules, especially rules 0, 1, and 4. An inability to abide by the rules on the
+The Paradise GitHub is not exempt from [Paradise Station community and server rules][rules],
+especially rules 0, 1, and 4. An inability to abide by the rules on the
 GitHub will result in disciplinary action up to, or including, a repository ban.
+
+[rules]: https://www.paradisestation.org/rules/
 
 ## General Expectations
 
