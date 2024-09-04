@@ -22,21 +22,23 @@
 	var/obj/item/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
 	if(!target_type)
 		return FALSE
+	var/obj/item/target_obj = new target_type
 	// update icons
-	icon = initial(target_type.icon)
-	icon_state = initial(target_type.icon_state)
-	item_state = initial(target_type.item_state)
-	sprite_sheets = initial(target_type.sprite_sheets)
+	icon = initial(target_obj.icon)
+	icon_state = initial(target_obj.icon_state)
+	item_state = initial(target_obj.item_state)
+	sprite_sheets = target_obj.sprite_sheets
 
 	// update inhand sprites
-	lefthand_file = initial(target_type.lefthand_file)
-	righthand_file = initial(target_type.righthand_file)
-	inhand_x_dimension = initial(target_type.inhand_x_dimension)
-	inhand_y_dimension = initial(target_type.inhand_y_dimension)
+	lefthand_file = initial(target_obj.lefthand_file)
+	righthand_file = initial(target_obj.righthand_file)
+	inhand_x_dimension = initial(target_obj.inhand_x_dimension)
+	inhand_y_dimension = initial(target_obj.inhand_y_dimension)
 
 	// update the name/description
-	name = initial(target_type.name)
+	name = initial(target_obj.name)
 	desc += "\nThe colors look a little dodgy."
+	qdel(target_obj)
 	update_appearance(ALL)
 	return target_type
 

@@ -173,32 +173,34 @@
 	id = "banana"
 	description = "The raw essence of a banana."
 	color = "#F6F834"
+	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "banana"
 	drink_name = "Glass of banana juice"
 	drink_desc = "The raw essence of a banana. HONK"
 	taste_description = "banana juice"
 
-/datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/banana/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/nothing
 	name = "Nothing"
 	id = "nothing"
 	description = "Absolutely nothing."
+	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "nothing"
 	drink_name = "Nothing"
 	drink_desc = "Absolutely nothing."
 	taste_description = "nothing... how?"
 
-/datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && M.mind && M.mind.miming)
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/potato_juice
@@ -401,16 +403,17 @@
 	id = "bananahonk"
 	description = "A drink from Clown Heaven."
 	color = "#664300" // rgb: 102, 67, 0
+	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "bananahonkglass"
 	drink_name = "Banana Honk"
 	drink_desc = "A drink from Banana Heaven."
 	taste_description = "HONK"
 
-/datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/silencer
@@ -418,16 +421,17 @@
 	id = "silencer"
 	description = "A drink from Mime Heaven."
 	color = "#664300" // rgb: 102, 67, 0
+	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "silencerglass"
 	drink_name = "Silencer"
 	drink_desc = "A drink from mime Heaven."
 	taste_description = "mphhhh"
 
-/datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/M)
+/datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && (M.job in list("Mime")))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/chocolatepudding
