@@ -176,12 +176,17 @@
 
 	if(iscarbon(M)) // This is where damage done by slime feeding is done.
 		var/mob/living/carbon/C = M
-		if(!(C.dna.species.reagent_tag & PROCESS_SYN)) // Ensure slimes deal organic type damage to organics.
+		var/mob/living/carbon/human/D = M // I don't want to accidentally break feeding on Xenos or something.
+		if(C.dna) // Ensures there is DNA for the Synthetic check
+			if(C.dna.species.reagent_tag & PROCESS_SYN)
+				D.adjustBrainLoss(rand(2, 4)) // The IPC equivalent of Clone damage would be Brain damage.
+				D.adjustFireLoss(rand(1, 2), robotic = TRUE) // Poison can make you numb and feel on fire, also IPCs can't take Toxin damage.
+			else // Ensure slimes deal organic type damage to organics.
+				C.adjustCloneLoss(rand(2, 4))
+				C.adjustToxLoss(rand(1, 2))
+		else
 			C.adjustCloneLoss(rand(2, 4))
 			C.adjustToxLoss(rand(1, 2))
-		else
-			C.adjustBrainLoss(rand(2, 4),  robotic = TRUE) // The IPC equivalent of Clone damage would be Brain damage.
-			C.adjustFireLoss(rand(1, 2), robotic = TRUE) // Poison can make you numb and feel on fire, also IPCs can't take Toxin damage.
 
 		if(prob(10) && C.client)
 			to_chat(C, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
