@@ -466,6 +466,8 @@
 </html>
 	"}
 
+	if(istype(D, /datum))
+		log_admin("[key_name(usr)] opened VV for [D] ([D.UID()])")
 	usr << browse(html, "window=variables[refid];size=475x650")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
