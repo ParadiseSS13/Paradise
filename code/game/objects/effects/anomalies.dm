@@ -98,6 +98,7 @@
 	icon_state = "shield2"
 	density = FALSE
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
+	layer = OBJ_LAYER //QOL. Only mobs such as dead players will be above the anomaly.
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
