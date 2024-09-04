@@ -15875,11 +15875,6 @@
 /area/station/hallway/secondary/entry)
 "cXt" = (
 /obj/machinery/computer/rdconsole/robotics,
-/obj/machinery/camera{
-	c_tag = "Research Robotics Lab North";
-	dir = 6;
-	network = list("Research","SS13")
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -23222,6 +23217,13 @@
 	icon_state = "whitegreenfull"
 	},
 /area/station/medical/virology)
+"esS" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
+/area/station/science/robotics)
 "esU" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -38089,6 +38091,20 @@
 	icon_state = "barber"
 	},
 /area/station/service/barber)
+"hdJ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/south)
 "hdK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -45264,7 +45280,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/machinery/firealarm/directional/north,
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -56354,6 +56370,18 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
+"kwn" = (
+/obj/machinery/door_control{
+	id = "robotics_surgery";
+	name = "Robotics Privacy Shutters";
+	req_access_txt = "29";
+	pixel_y = 24;
+	pixel_x = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/station/science/robotics)
 "kwq" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay Staff Entrance"
@@ -60692,13 +60720,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/fore)
 "loX" = (
-/obj/effect/mapping_helpers/airlock/polarized{
-	id = "RoboSurgery"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/science/robotics,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research/glass{
-	name = "Robotics Surgery"
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "robotics_surgery";
+	name = "Robotics Surgery Center"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -92571,7 +92596,6 @@
 	},
 /area/station/medical/morgue)
 "riA" = (
-/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -97475,6 +97499,11 @@
 	pixel_y = 28
 	},
 /obj/structure/filingcabinet,
+/obj/machinery/camera{
+	c_tag = "Research Robotics Lab North";
+	dir = 6;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -108739,12 +108768,6 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "udT" = (
-/obj/machinery/constructable_frame/machine_frame,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -115014,6 +115037,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "vnf" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -116869,6 +116895,20 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
+"vFe" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/starboard/south)
 "vFj" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/disposalpipe/segment/corner{
@@ -123680,6 +123720,9 @@
 	pixel_y = -3
 	},
 /obj/item/stack/cable_coil,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -128795,6 +128838,13 @@
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
+"xTw" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	dir = 4
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/asteroid_filtering)
 "xTA" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/item/broken_bottle,
@@ -142889,7 +142939,7 @@ sLC
 vQv
 cTR
 vQv
-wwj
+xTw
 nDM
 nZq
 fOg
@@ -168438,7 +168488,7 @@ aFq
 bUG
 udf
 nMQ
-txV
+xxQ
 dEv
 sfg
 tvp
@@ -168696,7 +168746,7 @@ jOu
 wKu
 pfg
 loX
-hHm
+kwn
 hHm
 nUL
 uSZ
@@ -169209,7 +169259,7 @@ nST
 nST
 qdK
 cmu
-ieD
+txV
 ivq
 hHm
 fAE
@@ -170749,9 +170799,9 @@ gur
 rNU
 xCB
 oFi
-xgn
-sxu
-ieD
+hdJ
+woi
+vaq
 udT
 mrn
 efL
@@ -171263,11 +171313,11 @@ qpN
 ncS
 xCB
 iWE
-glQ
-woi
+vFe
+sxu
 ieD
 aWA
-vnf
+esS
 vnf
 wsw
 xxh
@@ -171523,8 +171573,8 @@ vol
 glQ
 eEt
 ieD
+ieD
 izU
-vaq
 tJr
 nxD
 ieD
