@@ -2,12 +2,8 @@ name: Deploy Devdocs
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - master
+    paths:
+      - 'docs/**'
 
 jobs:
   build_and_deploy:
@@ -28,3 +24,4 @@ jobs:
           action: 'upload'
           app_location: 'site'
           skip_app_build: true
+          skip_api_build: true
