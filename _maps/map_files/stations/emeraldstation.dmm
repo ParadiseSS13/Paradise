@@ -29457,6 +29457,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/effect/landmark/start/clown,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "fxy" = (
@@ -49424,6 +49425,7 @@
 /area/station/aisat/hall)
 "jiB" = (
 /obj/structure/chair/comfy/brown,
+/obj/effect/landmark/start/magistrate,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
