@@ -55,8 +55,19 @@ GLOBAL_LIST_EMPTY(flame_effects)
 			continue
 
 	var/turf/location = get_turf(src)
-	if(location)
-		location.hotspot_expose(temperature, 500)
+	if(!location)
+		return
+	var/datum/gas_mixture/air = location.private_unsafe_get_air()
+	if(!air)
+		return FALSE
+	var/datum/milla_safe/fire_heat_air/milla = new()
+	milla.invoke_async(src, location)
+
+/datum/milla_safe/fire_heat_air
+
+/datum/milla_safe/fire_heat_air/on_run(obj/effect/fire/fire, turf/T)
+	var/datum/gas_mixture/env = get_turf_air(T)
+	env.set_temperature(fire.temperature)
 
 /obj/effect/fire/water_act(volume, temperature, source, method)
 	. = ..()
