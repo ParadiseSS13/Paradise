@@ -60,7 +60,7 @@
 // #define PREFTOGGLE_2_EMOTE_BUBBLE				(1<<8) // 256 - Defunct as of 2024-01-29
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
 #define PREFTOGGLE_2_REVERB_DISABLE					(1<<9) // 512
-#define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT			(1<<10) // 1024
+// #define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT		(1<<10) // 1024 Defunct as of 2024-08-03 with runechat color preferences
 // #define PREFTOGGLE_2_SIMPLE_STAT_PANEL			(1<<11) // 2048 Defunct as of 2024-02-14 with browser stat panels
 #define PREFTOGGLE_2_SEE_ITEM_OUTLINES 				(1<<12) // 4096
 #define PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS  			(1<<13) // 8192
@@ -75,7 +75,7 @@
 #define PREFTOGGLE_2_LARGE_INPUT_BUTTONS			(1<<22) // 4194304
 #define PREFTOGGLE_2_BIG_STRIP_MENU					(1<<23) // 8388608
 
-#define TOGGLES_2_TOTAL 							16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL 							16776191 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_THOUGHT_BUBBLE|PREFTOGGLE_2_DANCE_DISCO|PREFTOGGLE_2_MOD_ACTIVATION_METHOD|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS)
 

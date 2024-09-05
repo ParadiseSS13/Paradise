@@ -178,7 +178,7 @@
 	name = "\improper Crew Reawakening Report"
 
 /obj/item/paper/fluff/ruins/oldstation/report/Initialize()
-	..()
+	. = ..()
 	init_current_date_string()
 	info = "Artificial Program's report to surviving crewmembers.<br><br>Crew were placed into cryostasis 10 March, 2445.<br><br>Crew were awoken from cryostasis [GLOB.current_date_string].<br><br> \
 	<b>SIGNIFICANT EVENTS OF NOTE</b><br>1: The primary radiation detectors were taken offline after [GLOB.game_year - 2445] years due to power failure, secondary radiation detectors showed no residual \
@@ -346,9 +346,9 @@
 	anchored = locked
 
 	if(anchored)
-		to_chat(user, "<span class='info'>The crate reanchors itself to the ground.</span>")
+		to_chat(user, "<span class='notice'>The crate reanchors itself to the ground.</span>")
 	else
-		to_chat(user, "<span class='info'>The crate unanchors itself from the ground.</span>")
+		to_chat(user, "<span class='notice'>The crate unanchors itself from the ground.</span>")
 
 /obj/structure/closet/crate/secure/oldstation/emag_act(mob/user)
 	// var/can_be_emaged works in mysterious ways so screw it

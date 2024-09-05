@@ -1,7 +1,3 @@
-> [!IMPORTANT]
-> We are currently in a period of focus on "Quality releases", this means no new balance or feature PRs are permitted without prior approval.</br>
-> [For more info, see the following discord post on our public discord](https://discord.com/channels/145533722026967040/499000353312735233/1256632472196878337)
-
 <a href="#"><img src=".github/assets/paradise.png" alt="Paradise Station"></a>
 
 ## <p align="center">Welcome to the main repository for the Paradise Station version of [Space Station 13](https://spacestation13.com/).</p>
@@ -60,7 +56,7 @@
 > [!TIP]
 > Want to contribute for the first time but unsure where to start?<br>
 > Join our Discord and check out the [#coding_chat](https://discord.com/channels/145533722026967040/145700319819464704) channel for helpful links and advice!<br>
-> Alternatively, have a look at our community maintained [Guide to Contributing](https://paradisestation.org/wiki/index.php?title=Guide_to_Contributing)
+> Alternatively, have a look at our community maintained [Getting Started Guide](./docs/contributing/getting_started.md)
 
 # Useful Documents and Links
 
@@ -68,15 +64,15 @@
 
 This reference site by the creators of BYOND details information on the DM language, the syntax used, functionality of native procs, and a lot more. This is always useful to have on hand when contributing.
 
-- ### [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
+- ### [Autodocumentation Guide](./docs/references/autodoc.md)
 
 This guide shows you how to leave code comments that comply with "autodocumentation", a system designed to make everyone's lives easier when reading or reviewing code!
 
-- ### [Code of Conduct](./CODE_OF_CONDUCT.md)
+- ### [Code of Conduct](./docs/CODE_OF_CONDUCT.md)
 
 All contributors are expected to read our Code of Conduct before they take part in our community.
 
-- ### [Contribution Guide](.github/CONTRIBUTING.md)
+- ### [Contribution Guide](./docs/CONTRIBUTING.md)
 
 Not sure how to take part and contribute? This guide gives an overview of how to make comments, pull requests, and open issues.
 

@@ -654,14 +654,15 @@
 	var/mob/living/carbon/dreamer = owner
 
 	if(dreamer.mind?.has_antag_datum(/datum/antagonist/vampire))
-		if(istype(dreamer.loc, /obj/structure/closet/coffin))
-			dreamer.adjustBruteLoss(-1, FALSE)
-			dreamer.adjustFireLoss(-1, FALSE)
-			dreamer.adjustToxLoss(-1)
-			dreamer.adjustOxyLoss(-1)
-			dreamer.adjustCloneLoss(-0.5)
-			if(dreamer.HasDisease(/datum/disease/critical/heart_failure) && prob(25))
-				for(var/datum/disease/critical/heart_failure/HF in dreamer.viruses)
+		var/mob/living/carbon/human/V = owner
+		if(istype(V.loc, /obj/structure/closet/coffin))
+			V.adjustBruteLoss(-1)
+			V.adjustFireLoss(-1)
+			V.adjustToxLoss(-1)
+			V.adjustOxyLoss(-1)
+			V.adjustCloneLoss(-0.5)
+			if(V.HasDisease(/datum/disease/critical/heart_failure) && prob(25))
+				for(var/datum/disease/critical/heart_failure/HF in V.viruses)
 					HF.cure()
 	dreamer.handle_dreams()
 	dreamer.adjustStaminaLoss(-10)

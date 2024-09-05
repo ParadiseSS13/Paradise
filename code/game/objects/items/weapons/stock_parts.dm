@@ -53,8 +53,8 @@
 	if(get_dist(src, M) <= (user.client.maxview() + 2))
 		if(M.component_parts)
 			M.exchange_parts(user, src)
-		if(works_from_distance)
-			user.Beam(M, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+			if(works_from_distance)
+				user.Beam(M, icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
 	else
 		message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console (attempted range exploit).")
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)

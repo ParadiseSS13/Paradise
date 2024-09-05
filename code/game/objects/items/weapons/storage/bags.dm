@@ -96,13 +96,6 @@
 
 /obj/item/storage/bag/trash/cyborg
 
-/obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.mybag = src
-	J.put_in_cart(src, user)
-
-/obj/item/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return
-
 /obj/item/storage/bag/trash/bluespace
 	name = "trash bag of holding"
 	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
@@ -114,9 +107,6 @@
 	flags_2 = NO_MAT_REDEMPTION_2
 
 /obj/item/storage/bag/trash/bluespace/cyborg
-
-/obj/item/storage/bag/trash/bluespace/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return
 
 ////////////////////////////////////////
 // MARK:	Plastic bag

@@ -23,6 +23,8 @@
 	icon_state = "chieff"
 	item_color = "chieff"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	dyeable = TRUE
+	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician
 	desc = "It's a jumpsuit worn by atmospheric technicians."

@@ -57,12 +57,12 @@
 
 /obj/item/desk_bell/proc/on_signal()
 	SIGNAL_HANDLER  // COMSIG_ASSEMBLY_PULSED
-	INVOKE_ASYNC(src, PROC_REF(try_ring))
+	INVOKE_ASYNC(src, PROC_REF(try_ring), null, TRUE)
 
-/obj/item/desk_bell/proc/try_ring(mob/user)
+/obj/item/desk_bell/proc/try_ring(mob/user, from_signaler = FALSE)
 	if(ring_cooldown > world.time || !anchored)
 		return TRUE
-	if(!ring_bell(user) && user)
+	if(!ring_bell(user, from_signaler) && user)
 		to_chat(user, "<span class='notice'>[src] is silent. Some idiot broke it.</span>")
 	ring_cooldown = world.time + ring_cooldown_length
 	return TRUE
@@ -132,6 +132,7 @@
 			return TRUE
 		to_chat(user, "<span class='notice'>You remove [attached_signaler].</span>")
 		user.put_in_hands(attached_signaler)
+		UnregisterSignal(attached_signaler, COMSIG_ASSEMBLY_PULSED)
 		attached_signaler = null
 
 /// Check if the clapper breaks, and if it does, break it
@@ -143,14 +144,14 @@
 		broken_ringer = TRUE
 
 /// Ring the bell
-/obj/item/desk_bell/proc/ring_bell(mob/living/user)
+/obj/item/desk_bell/proc/ring_bell(mob/living/user, from_signaler = FALSE)
 	if(broken_ringer)
 		return FALSE
 	check_clapper(user)
 	// The lack of varying is intentional. The only variance occurs on the strike the bell breaks.
 	playsound(src, ring_sound, 70, vary = broken_ringer, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	flick("desk_bell_ring", src)
-	if(attached_signaler)
+	if(attached_signaler && !from_signaler)
 		attached_signaler.signal()
 	times_rang++
 	return TRUE

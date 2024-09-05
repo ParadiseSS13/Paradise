@@ -341,6 +341,31 @@
 	new /obj/item/stack/sheet/metal/fifty(src)
 	new /obj/item/stack/cable_coil(src)
 
+/obj/item/storage/box/large/glowstick/emergency
+	name = "emergency glowstick box"
+	desc = "A large box filled to the brim with cheap emergency glowsticks."
+
+/obj/item/storage/box/large/glowstick/emergency/populate_contents()
+	for(var/i in 1 to 15)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
+
+/obj/item/storage/box/glowstick/premium
+	name = "premium glowstick box"
+	desc = "A box filled with high-quality military surplus glowsticks."
+
+/obj/item/storage/box/glowstick/premium/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/flashlight/flare/glowstick(src)
+
+/obj/item/storage/box/flares
+	name = "emergency flare box"
+	desc = "A box full of magnesium signal flares."
+
+/obj/item/storage/box/flares/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/flashlight/flare(src)
+
+
 //////////////////
 /* Monkey Boxes */
 //////////////////

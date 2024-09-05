@@ -59,6 +59,7 @@
 		hair_gradient_colour,
 		hair_gradient_alpha,
 		custom_emotes,
+		runechat_color,
 		physique,
 		height,
 		cyborg_brain_type,

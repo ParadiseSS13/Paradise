@@ -38,7 +38,7 @@
 /mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	. = ..()
 	if(prob(50))
-		loot += /obj/item/salvage/loot/syndicate
+		loot |= /obj/item/salvage/loot/syndicate
 
 /mob/living/simple_animal/hostile/syndicate/Aggro()
 	. = ..()

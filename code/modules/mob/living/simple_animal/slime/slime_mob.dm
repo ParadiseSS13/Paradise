@@ -103,9 +103,11 @@
 	add_language("Bubblish")
 
 /mob/living/simple_animal/slime/Destroy()
+	walk_to(src, 0)
 	for(var/A in actions)
 		var/datum/action/AC = A
 		AC.Remove(src)
+		qdel(AC)
 	Target = null
 	return ..()
 
@@ -390,7 +392,7 @@
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>This is [bicon(src)] \a <EM>[src]</EM>!"
+	. += "<span class='notice'>This is [bicon(src)] \a <EM>[src]</EM>!"
 	if(stat == DEAD)
 		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
 	else

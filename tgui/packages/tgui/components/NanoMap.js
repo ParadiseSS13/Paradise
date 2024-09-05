@@ -64,7 +64,6 @@ export class NanoMap extends Component {
         } else {
           state.dragging = true;
         }
-        props.onOffsetChange?.(e, state);
         return state;
       });
       pauseEvent(e);
@@ -78,6 +77,7 @@ export class NanoMap extends Component {
       });
       document.removeEventListener('mousemove', this.handleDragMove);
       document.removeEventListener('mouseup', this.handleDragEnd);
+      props.onOffsetChange?.(e, this.state);
       pauseEvent(e);
     };
 

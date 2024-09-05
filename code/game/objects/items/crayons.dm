@@ -20,7 +20,8 @@
 	var/list/letters = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
 	var/uses = 30 //0 for unlimited uses
 	var/instant = 0
-	var/colourName = "red" //for updateIcon purposes
+	/// What color will this crayon dye clothes, cables, etc? used for for updateIcon purposes on other objs
+	var/dye_color = DYE_RED
 	var/dat
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
@@ -116,12 +117,12 @@
 			temp = "letter"
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
-		to_chat(user, "<span class='info'>You start drawing a [temp] on the [target.name].</span>")
+		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name].</span>")
 		busy = TRUE
 		if(instant || do_after(user, 50 * toolspeed, target = target))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
-			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")
+			to_chat(user, "<span class='notice'>You finish drawing [temp].</span>")
 
 			if(preset_message_index > 0)
 				preset_message_index++
@@ -167,37 +168,37 @@
 	name = "red crayon"
 	icon_state = "crayonred"
 	colour = COLOR_RED
-	colourName = "red"
+	dye_color = DYE_RED
 
 /obj/item/toy/crayon/orange
 	name = "orange crayon"
 	icon_state = "crayonorange"
 	colour = COLOR_ORANGE
-	colourName = "orange"
+	dye_color = DYE_ORANGE
 
 /obj/item/toy/crayon/yellow
 	name = "yellow crayon"
 	icon_state = "crayonyellow"
 	colour = COLOR_YELLOW
-	colourName = "yellow"
+	dye_color = DYE_YELLOW
 
 /obj/item/toy/crayon/green
 	name = "green crayon"
 	icon_state = "crayongreen"
 	colour = COLOR_GREEN
-	colourName = "green"
+	dye_color = DYE_GREEN
 
 /obj/item/toy/crayon/blue
 	name = "blue crayon"
 	icon_state = "crayonblue"
 	colour = COLOR_BLUE
-	colourName = "blue"
+	dye_color = DYE_BLUE
 
 /obj/item/toy/crayon/purple
 	name = "purple crayon"
 	icon_state = "crayonpurple"
 	colour = COLOR_PURPLE
-	colourName = "purple"
+	dye_color = DYE_PURPLE
 
 /obj/item/toy/crayon/random/New()
 	icon_state = pick("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple")
@@ -205,40 +206,40 @@
 		if("crayonred")
 			name = "red crayon"
 			colour = COLOR_RED
-			colourName = "red"
+			dye_color = DYE_RED
 		if("crayonorange")
 			name = "orange crayon"
 			colour = COLOR_ORANGE
-			colourName = "orange"
+			dye_color = DYE_ORANGE
 		if("crayonyellow")
 			name = "yellow crayon"
 			colour = COLOR_YELLOW
-			colourName = "yellow"
+			dye_color = DYE_YELLOW
 		if("crayongreen")
 			name = "green crayon"
-			colour =COLOR_GREEN
-			colourName = "green"
+			colour = COLOR_GREEN
+			dye_color = DYE_GREEN
 		if("crayonblue")
 			name = "blue crayon"
 			colour = COLOR_BLUE
-			colourName = "blue"
+			dye_color = DYE_BLUE
 		if("crayonpurple")
 			name = "purple crayon"
 			colour = COLOR_PURPLE
-			colourName = "purple"
+			dye_color = DYE_PURPLE
 	..()
 
 /obj/item/toy/crayon/black
 	name = "black crayon"
 	icon_state = "crayonblack"
 	colour = "#000000"
-	colourName = "black"
+	dye_color = DYE_BLACK
 
 /obj/item/toy/crayon/white
 	name = "white crayon"
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"
-	colourName = "white"
+	dye_color = DYE_WHITE
 
 /obj/item/toy/crayon/white/chalk
 	name = "detective's chalk"
@@ -251,7 +252,7 @@
 	desc = "A very sad-looking crayon."
 	icon_state = "crayonmime"
 	colour = "#FFFFFF"
-	colourName = "mime"
+	dye_color = DYE_MIME
 	uses = 0
 
 /obj/item/toy/crayon/mime/attack_self(mob/living/user as mob)
@@ -277,7 +278,7 @@
 	name = "rainbow crayon"
 	icon_state = "crayonrainbow"
 	colour = "#FFF000"
-	colourName = "rainbow"
+	dye_color = DYE_RAINBOW
 	uses = 0
 
 /obj/item/toy/crayon/rainbow/attack_self(mob/living/user as mob)
@@ -308,6 +309,7 @@
 	var/capped = TRUE
 	instant = TRUE
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
+	dye_color = null // not technically a crayon, so we're not gonna have it dye stuff in the laundry machine
 
 /obj/item/toy/crayon/spraycan/New()
 	..()

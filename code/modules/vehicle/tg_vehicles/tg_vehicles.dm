@@ -10,7 +10,6 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	buckle_lying = FALSE
 	can_buckle = TRUE
-	buckle_lying = 0
 	pass_flags = PASSTABLE
 	COOLDOWN_DECLARE(message_cooldown)
 	COOLDOWN_DECLARE(cooldown_vehicle_move)
@@ -227,7 +226,6 @@
 /obj/tgvehicle/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!force && occupant_amount() >= max_occupants)
 		return FALSE
-
 	return ..()
 
 /obj/tgvehicle/zap_act(power, zap_flags)

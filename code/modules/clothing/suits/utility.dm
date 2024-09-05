@@ -103,6 +103,7 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = NONE
+	dyeable = FALSE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'

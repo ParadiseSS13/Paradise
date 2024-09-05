@@ -142,6 +142,7 @@ SUBSYSTEM_DEF(statpanels)
 	var/list/to_make = obj_window.atoms_to_imagify
 	var/list/turf_items = list()
 	var/i = 0
+	var/client_uid = load_from.UID()
 	for(var/atom/turf_item as anything in obj_window.atoms_to_show)
 		// Limit what we send to the client's rendered section.
 		i++
@@ -154,8 +155,13 @@ SUBSYSTEM_DEF(statpanels)
 		if(existing_image == OBJ_IMAGE_LOADING)
 			continue
 		// We already have it. Success!
+
+		// Store the cache the MD5'd UID for safety reasons
+		var/obj_m5_uid = turf_item.MD5_UID()
+		load_from.m5_uid_cache[obj_m5_uid] = turf_item.unique_datum_id
+
 		if(existing_image)
-			turf_items["[i]"] = list("[turf_item.name]", turf_item.UID(), SSassets.transport.get_asset_url(existing_image), existing_image)
+			turf_items["[i]"] = list("[turf_item.name]", obj_m5_uid, SSassets.transport.get_asset_url(existing_image), existing_image, client_uid)
 			continue
 		// Now, we're gonna queue image generation out of those refs
 		to_make += turf_item

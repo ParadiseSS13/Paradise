@@ -54,7 +54,7 @@
 	var/mob/living/carbon/receiver = locateUID(receiver_UID)
 	var/mob/living/carbon/giver = attached_effect.owner
 	var/obj/item/I = locateUID(item_UID)
-	to_chat(giver, "<span class='info'>You decide against giving [I] to [receiver].</span>")
+	to_chat(giver, "<span class='notice'>You decide against giving [I] to [receiver].</span>")
 	to_chat(receiver, "<span class='warning'>[giver] seems to have given up on giving you [I].</span>")
 	receiver.clear_alert("take item [item_UID]") // This cancels *everything* related to the giving/item offering.
 
@@ -71,7 +71,7 @@
 /datum/click_intercept/give/New(client/C)
 	..()
 	holder.mouse_pointer_icon = 'icons/mouse_icons/give_item.dmi'
-	to_chat(holder, "<span class='info'>You can now left click on someone to give them your held item.</span>")
+	to_chat(holder, "<span class='notice'>You can now left click on someone to give them your held item.</span>")
 	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
 	RegisterSignal(holder.mob, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), PROC_REF(signal_qdel))
 
@@ -79,7 +79,7 @@
 /datum/click_intercept/give/Destroy(force = FALSE, ...)
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
 	if(!item_offered)
-		to_chat(holder.mob, "<span class='info'>You're no longer trying to give someone your held item.</span>")
+		to_chat(holder.mob, "<span class='notice'>You're no longer trying to give someone your held item.</span>")
 	return ..()
 
 
@@ -101,7 +101,7 @@
 	// Otherwise, throwing a new "take item" alert would override any current one also named "take item".
 	receiver.throw_alert("take item [I.UID()]", /atom/movable/screen/alert/take_item, alert_args = list(user, receiver, I))
 	item_offered = TRUE // TRUE so we don't give them the default chat message in Destroy.
-	to_chat(user, "<span class='info'>You offer [I] to [receiver].</span>")
+	to_chat(user, "<span class='notice'>You offer [I] to [receiver].</span>")
 	qdel(src)
 
 

@@ -334,15 +334,15 @@
 	disable_message = "You will no longer get reverb on some in game sounds."
 	blackbox_message = "Toggle reverb"
 
-/datum/preference_toggle/toggle_white_runechat
-	name = "Toggle Runechat Colour Forcing"
-	description = "Forces your runechat color to white"
-	preftoggle_bitflag = PREFTOGGLE_2_FORCE_WHITE_RUNECHAT
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "Your runechat messages are forced to be white."
-	disable_message = "Your runechat messages are no longer forced to be white."
-	blackbox_message = "Toggle runechat color"
+// /datum/preference_toggle/toggle_white_runechat
+// 	name = "Toggle Runechat Colour Forcing"
+// 	description = "Forces your runechat color to white"
+// 	preftoggle_bitflag = PREFTOGGLE_2_FORCE_WHITE_RUNECHAT
+// 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+// 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+// 	enable_message = "Your runechat messages are forced to be white."
+// 	disable_message = "Your runechat messages are no longer forced to be white."
+// 	blackbox_message = "Toggle runechat color"
 
 /datum/preference_toggle/toggle_simple_stat_panel
 	name = "Toggle item outlines"

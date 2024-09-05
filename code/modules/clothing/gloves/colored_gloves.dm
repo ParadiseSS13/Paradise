@@ -8,8 +8,9 @@
 	item_state = "ygloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
-	item_color="yellow"
+	item_color = "yellow"
 	resistance_flags = NONE
+	dyeable = TRUE
 
 /obj/item/clothing/gloves/color/yellow/fake
 	siemens_coefficient = 1
@@ -55,13 +56,6 @@
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
 		)
-
-
-/obj/item/clothing/gloves/color/black/hos
-	item_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
-
-/obj/item/clothing/gloves/color/black/ce
-	item_color = "chief"			//Exists for washing machines. Is not different from black gloves in any way.
 
 /obj/item/clothing/gloves/color/black/thief
 	pickpocket = 1
@@ -144,13 +138,7 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "gray"
 	item_state = "graygloves"
-	item_color="grey"
-
-/obj/item/clothing/gloves/color/grey/rd
-	item_color = "director"			//Exists for washing machines. Is not different from gray gloves in any way.
-
-/obj/item/clothing/gloves/color/grey/hop
-	item_color = "hop"				//Exists for washing machines. Is not different from gray gloves in any way.
+	item_color = "grey"
 
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
@@ -166,9 +154,6 @@
 	item_state = "browngloves"
 	item_color="brown"
 
-/obj/item/clothing/gloves/color/brown/cargo
-	item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
-
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
 	desc = "Cheap sterile gloves made from latex."
@@ -176,7 +161,7 @@
 	item_state = "lgloves"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
-	item_color="white"
+	item_color = "white"
 	transfer_prints = TRUE
 	resistance_flags = NONE
 
@@ -200,9 +185,6 @@
 		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
 		)
-
-/obj/item/clothing/gloves/color/white/redcoat
-	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
 
 
 /obj/item/clothing/gloves/color/captain
@@ -232,3 +214,4 @@
 	icon_state = "furglovesico"
 	item_state = "furgloves"
 	transfer_prints = TRUE
+	dyeable = FALSE
