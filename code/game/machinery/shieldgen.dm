@@ -542,7 +542,7 @@
 	return
 
 
-/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/shieldwall/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return prob(20)
 	else
@@ -557,7 +557,7 @@
 	desc = "A strange energy shield."
 	icon_state = "shield-red"
 
-/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, border_dir)
 	if(isliving(mover))
 		var/mob/living/M = mover
 		if("syndicate" in M.faction)

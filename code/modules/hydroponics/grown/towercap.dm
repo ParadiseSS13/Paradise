@@ -133,6 +133,10 @@
 	var/lighter // Who lit the fucking thing
 	var/fire_stack_strength = 5
 
+/obj/structure/bonfire/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
 /obj/structure/bonfire/dense
 	density = TRUE
 
@@ -199,11 +203,11 @@
 	..()
 	StartBurning()
 
-/obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
+/obj/structure/bonfire/proc/on_movable_cross(datum/source, atom/movable/crossed)
 	if(burning)
 		Burn()
-		if(ishuman(AM))
-			var/mob/living/carbon/human/H = AM
+		if(ishuman(crossed))
+			var/mob/living/carbon/human/H = crossed
 			add_attack_logs(src, H, "Burned by a bonfire (Lit by [lighter])", ATKLOG_ALMOSTALL)
 
 /obj/structure/bonfire/proc/Burn()

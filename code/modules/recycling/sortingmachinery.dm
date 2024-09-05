@@ -294,7 +294,7 @@
 /obj/machinery/disposal/deliveryChute/update()
 	return
 
-/obj/machinery/disposal/deliveryChute/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/disposal/deliveryChute/CanPass(atom/movable/mover, border_dir)
 	// If the mover is a thrownthing passing through space, remove its thrown datum,
 	// ingest it like normal, and mark the chute as not passible.
 	// This prevents the mover from Entering the chute's turf

@@ -67,10 +67,6 @@
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
 	Attach(M)
 
-/obj/item/clothing/mask/facehugger/Crossed(atom/target, oldloc)
-	HasProximity(target)
-	return
-
 /obj/item/clothing/mask/facehugger/on_found(mob/finder)
 	if(stat != DEAD)
 		return HasProximity(finder)

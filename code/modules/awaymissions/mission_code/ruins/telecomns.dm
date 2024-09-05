@@ -20,9 +20,12 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/effect/abstract/bot_trap
 	name = "evil bot trap to make explorers hate you"
 
-/obj/effect/abstract/bot_trap/Crossed(atom/movable/AM, oldloc)
+/obj/effect/abstract/bot_trap/Initialize(mapload)
 	. = ..()
-	if(isrobot(AM) || ishuman(AM))
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
+/obj/effect/abstract/bot_trap/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(isrobot(crossed) || ishuman(crossed))
 		var/turf/T = get_turf(src)
 		for(var/mob/living/simple_animal/bot/B in GLOB.telecomms_bots)
 			B.call_bot(null, T, FALSE)
@@ -32,9 +35,12 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/effect/abstract/loot_trap
 	name = "table surrounding loot trap"
 
-/obj/effect/abstract/loot_trap/Crossed(atom/movable/AM, oldloc)
+/obj/effect/abstract/loot_trap/Initialize(mapload)
 	. = ..()
-	if(isrobot(AM) || ishuman(AM))
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
+/obj/effect/abstract/loot_trap/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(isrobot(crossed) || ishuman(crossed))
 		var/turf/T = get_turf(src)
 		for(var/obj/structure/telecomms_doomsday_device/DD in GLOB.telecomms_doomsday_device)
 			DD.thief = TRUE
@@ -47,9 +53,12 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/effect/abstract/cheese_trap
 	name = "cheese preventer"
 
-/obj/effect/abstract/cheese_trap/Crossed(atom/movable/AM, oldloc)
+/obj/effect/abstract/cheese_trap/Initialize(mapload)
 	. = ..()
-	if(isrobot(AM) || ishuman(AM))
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
+/obj/effect/abstract/cheese_trap/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(isrobot(crossed) || ishuman(crossed))
 		for(var/obj/structure/telecomms_doomsday_device/DD in GLOB.telecomms_doomsday_device)
 			if(DD.thief)
 				DD.start_the_party(TRUE)

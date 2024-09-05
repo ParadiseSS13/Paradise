@@ -13,6 +13,13 @@
 	var/obj/item/assembly/a_left = null
 	var/obj/item/assembly/a_right = null
 
+/obj/item/assembly_holder/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/assembly_holder/IsAssemblyHolder()
 	return TRUE
 
@@ -83,11 +90,12 @@
 		a_right.HasProximity(AM)
 
 
-/obj/item/assembly_holder/Crossed(atom/movable/AM, oldloc)
+// TODO: All these assemblies passing the crossed args around needs to be cleaned up with signals
+/obj/item/assembly_holder/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(a_left)
-		a_left.Crossed(AM, oldloc)
+		a_left.on_movable_cross(entered)
 	if(a_right)
-		a_right.Crossed(AM, oldloc)
+		a_right.on_movable_cross(entered)
 
 /obj/item/assembly_holder/on_found(mob/finder)
 	if(a_left)

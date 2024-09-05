@@ -7,13 +7,17 @@
 	var/triggered = FALSE
 	var/faction = "syndicate"
 
+/obj/effect/mine/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_cross))
+
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
 
-/obj/effect/mine/Crossed(AM as mob|obj, oldloc)
-	if(!isliving(AM))
+/obj/effect/mine/proc/on_cross(atom/movable/crossed)
+	if(!isliving(crossed))
 		return
-	var/mob/living/M = AM
+	var/mob/living/M = crossed
 	if(faction && (faction in M.faction))
 		return
 	if(M.flying)

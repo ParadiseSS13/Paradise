@@ -268,6 +268,10 @@
 /obj/effect/abstract/proximity_checker/Initialize(mapload, datum/component/proximity_monitor/P)
 	. = ..()
 	monitor = P
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/abstract/proximity_checker/Destroy()
 	monitor.proximity_checkers -= src
@@ -276,13 +280,9 @@
 
 /**
  * Called when something crossed over the proximity_checker. Notifies the `hasprox_receiver` it has proximity with something.
- *
- * Arguments:
- * * atom/movable/AM - the atom crossing the proximity checker
- * * oldloc - the location `AM` used to be at
  */
-/obj/effect/abstract/proximity_checker/Crossed(atom/movable/AM, oldloc)
-	set waitfor = FALSE
-	. = ..()
-	if(active && AM != monitor.hasprox_receiver && !(AM in monitor.nested_receiver_locs))
-		monitor.hasprox_receiver.HasProximity(AM)
+/obj/effect/abstract/proximity_checker/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
+	if(active && entered != monitor.hasprox_receiver && !(entered in monitor.nested_receiver_locs))
+		monitor.hasprox_receiver.HasProximity(entered)

@@ -341,7 +341,4 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 /obj/effect/gateway/Bumped(atom/movable/AM)
 	return
 
-/obj/effect/gateway/Crossed(atom/movable/AM, oldloc)
-	return
-
 #undef CULT_STRUCTURE_COOLDOWN

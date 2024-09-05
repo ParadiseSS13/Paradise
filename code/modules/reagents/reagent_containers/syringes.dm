@@ -22,6 +22,11 @@
 		mode = SYRINGE_INJECT
 		update_icon()
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
 
@@ -181,7 +186,10 @@
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
-/obj/item/reagent_containers/syringe/Crossed(mob/living/carbon/human/H, oldloc)
+/obj/item/reagent_containers/syringe/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
+	var/mob/living/carbon/human/H = entered
 	if(!istype(H) || !H.reagents || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || ismachineperson(H))
 		return
 

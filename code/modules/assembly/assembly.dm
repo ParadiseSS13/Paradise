@@ -24,6 +24,9 @@
 	var/wires = ASSEMBLY_WIRE_RECEIVE | ASSEMBLY_WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
 
+/obj/item/assembly/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
 /// Called when the holder is moved
 /obj/item/assembly/proc/holder_movement()
@@ -31,6 +34,9 @@
 
 /// Called when attack_self is called
 /obj/item/assembly/interact(mob/user)
+	return
+
+/obj/item/assembly/proc/on_movable_cross(datum/source, atom/movable/crossed)
 	return
 
 /// Called to constantly step down the countdown/cooldown

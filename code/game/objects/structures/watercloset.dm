@@ -307,6 +307,10 @@
 				pixel_y = -5
 				layer = FLY_LAYER
 
+/obj/machinery/shower/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
 	var/obj/effect/mist/mist = locate() in loc
@@ -401,10 +405,9 @@
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
 		qdel(mist)
 
-/obj/machinery/shower/Crossed(atom/movable/AM)
-	..()
+/obj/machinery/shower/proc/on_movable_cross(datum/source, atom/movable/crossed)
 	if(on)
-		wash(AM)
+		wash(crossed)
 
 /obj/machinery/shower/proc/convertHeat()
 	switch(current_temperature)

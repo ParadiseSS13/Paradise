@@ -14,6 +14,8 @@
 		if(prob(50))
 			icon_state = "tar3"
 
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
 /obj/effect/decal/cleanable/tar/Destroy()
 	if(target)
 		target.slowdown -= 10
@@ -27,9 +29,9 @@
 	if(!issimulatedturf(target))  // We remove slowdown in Destroy(), so we run this check after adding the slowdown.
 		qdel(src)
 
-/obj/effect/decal/cleanable/tar/Crossed(atom/movable/movable_atom)
-	if(isliving(movable_atom))
-		var/mob/living/L = movable_atom
+/obj/effect/decal/cleanable/tar/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(isliving(crossed))
+		var/mob/living/L = crossed
 		playsound(L, 'sound/effects/attackblob.ogg', 50, TRUE)
 		to_chat(L, "<span class='userdanger'>[src] sticks to you!</span>")
 

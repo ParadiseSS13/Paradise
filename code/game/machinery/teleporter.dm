@@ -370,6 +370,7 @@
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_entered))
 
 /obj/machinery/teleport/hub/upgraded/Initialize(mapload)
 	. = ..()
@@ -386,6 +387,7 @@
 	if(power_station)
 		power_station.teleporter_hub = null
 		power_station = null
+	UnregisterSignal(COMSIG_MOVABLE_CROSS)
 	return ..()
 
 /obj/machinery/teleport/hub/RefreshParts()
@@ -406,13 +408,13 @@
 			break
 	return power_station
 
-/obj/machinery/teleport/hub/Crossed(atom/movable/AM, oldloc)
+/obj/machinery/teleport/hub/proc/on_entered(atom/source, atom/movable/entered, turf/old_loc)
 	if(!is_teleport_allowed(z) && !admin_usage)
-		if(ismob(AM))
-			to_chat(AM, "You can't use this here.")
+		if(ismob(entered))
+			to_chat(entered, "You can't use this here.")
 		return
-	if(power_station && power_station.engaged && !panel_open && !blockAI(AM) && !iseffect(AM))
-		if(!teleport(AM) && isliving(AM)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
+	if(power_station && power_station.engaged && !panel_open && !blockAI(entered) && !iseffect(entered))
+		if(!teleport(entered) && isliving(entered)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			power_station.toggle() // turn off the portal.
@@ -487,6 +489,7 @@
 
 /obj/machinery/teleport/perma/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_entered))
 	update_lighting()
 
 /obj/machinery/teleport/perma/process()
@@ -501,15 +504,15 @@
 	tele_delay = max(A, 0)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/teleport/perma/Crossed(atom/movable/AM, oldloc)
+/obj/machinery/teleport/perma/proc/on_entered(atom/source, atom/movable/entered, turf/old_loc)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!is_teleport_allowed(z))
-		to_chat(AM, "You can't use this here.")
+		to_chat(entered, "You can't use this here.")
 		return
 
-	if(target && !recalibrating && !panel_open && !blockAI(AM) && (teleports_this_cycle <= MAX_ALLOWED_TELEPORTS_PER_PROCESS))
-		do_teleport(AM, target)
+	if(target && !recalibrating && !panel_open && !blockAI(entered) && (teleports_this_cycle <= MAX_ALLOWED_TELEPORTS_PER_PROCESS))
+		do_teleport(entered, target)
 		use_power(5000)
 		teleports_this_cycle++
 		if(tele_delay)
@@ -517,6 +520,10 @@
 			update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 			update_lighting()
 			addtimer(CALLBACK(src, PROC_REF(CrossedCallback)), tele_delay)
+
+/obj/machinery/teleport/perma/Destroy()
+	. = ..()
+	UnregisterSignal(COMSIG_MOVABLE_CROSS)
 
 /obj/machinery/teleport/perma/proc/CrossedCallback()
 	recalibrating = FALSE

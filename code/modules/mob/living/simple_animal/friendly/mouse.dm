@@ -85,6 +85,10 @@
 	icon_resting = "mouse_[mouse_color]_sleep"
 	update_appearance(UPDATE_DESC)
 
+/mob/living/simple_animal/mouse/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
 /mob/living/simple_animal/mouse/update_desc()
 	. = ..()
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
@@ -101,12 +105,11 @@
 		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
 	return
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
+/mob/living/simple_animal/mouse/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(ishuman(crossed))
 		if(stat == CONSCIOUS)
-			var/mob/M = AM
+			var/mob/M = crossed
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-	..()
 
 /mob/living/simple_animal/mouse/proc/toast()
 	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)

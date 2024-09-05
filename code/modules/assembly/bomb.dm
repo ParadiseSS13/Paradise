@@ -12,6 +12,13 @@
 	var/obj/item/tank/bombtank = null //the second part of the bomb is a plasma tank
 	origin_tech = "materials=1;engineering=1"
 
+/obj/item/onetankbomb/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/onetankbomb/examine(mob/user)
 	. = ..()
 	. += bombtank.examine(user)
@@ -74,9 +81,9 @@
 	if(bombassembly)
 		bombassembly.HasProximity(AM)
 
-/obj/item/onetankbomb/Crossed(atom/movable/AM, oldloc) //for mousetraps
+/obj/item/onetankbomb/proc/on_atom_entered(datum/source, atom/movable/entered) //for mousetraps
 	if(bombassembly)
-		bombassembly.Crossed(AM, oldloc)
+		bombassembly.on_atom_entered(source, entered)
 
 /obj/item/onetankbomb/on_found(mob/finder) //for mousetraps
 	if(bombassembly)

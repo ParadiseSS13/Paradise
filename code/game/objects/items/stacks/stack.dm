@@ -61,6 +61,10 @@
 				if(is_zero_amount(FALSE))
 					return INITIALIZE_HINT_QDEL
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/update_icon_state()
@@ -75,17 +79,18 @@
 
 	icon_state = "[initial(icon_state)]_[state]"
 
-/obj/item/stack/Crossed(obj/O, oldloc)
-	if(O == src)
+/obj/item/stack/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+
+	// Edge case. This signal will also be sent when src has entered the turf. Don't want to merge with ourselves.
+	if(entered == src)
 		return
 
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
 		return
 
-	if(!O.throwing && can_merge(O))
-		INVOKE_ASYNC(src, PROC_REF(merge), O)
-
-	..()
+	if(!entered.throwing && can_merge(entered))
+		INVOKE_ASYNC(src, PROC_REF(merge), entered)
 
 /obj/item/stack/hitby(atom/movable/hitting, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(can_merge(hitting, inhand = TRUE))

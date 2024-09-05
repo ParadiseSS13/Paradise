@@ -167,7 +167,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	MA.plane = GAME_PLANE
 	. = MA
 
-/mob/dead/CanPass(atom/movable/mover, turf/target)
+/mob/dead/CanPass(atom/movable/mover, border_dir)
 	return 1
 
 

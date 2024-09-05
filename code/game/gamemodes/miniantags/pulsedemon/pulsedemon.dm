@@ -134,8 +134,8 @@
 	flags_2 |= RAD_NO_CONTAMINATE_2
 
 	// don't step on me
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(try_cross_shock))
-	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(try_cross_shock))
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS_OVER, PROC_REF(on_movable_cross_over))
 
 	// drop demon onto ground if its loc is a non-turf and gets deleted
 	RegisterSignal(src, COMSIG_PARENT_PREQDELETED, PROC_REF(deleted_handler))
@@ -641,8 +641,15 @@
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
 	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs.</span>")
 
-/mob/living/simple_animal/demon/pulse_demon/proc/try_cross_shock(src, atom/A)
-	SIGNAL_HANDLER
+/mob/living/simple_animal/demon/pulse_demon/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_CROSS
+	try_cross_shock(crossed)
+
+/mob/living/simple_animal/demon/pulse_demon/proc/on_movable_cross_over(datum/source, atom/movable/crossed)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_CROSS_OVER
+	try_cross_shock(crossed)
+
+/mob/living/simple_animal/demon/pulse_demon/proc/try_cross_shock(atom/movable/A)
 	if(!isliving(A) || is_under_tile())
 		return
 	var/mob/living/L = A
@@ -763,7 +770,7 @@
 /mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target)
+/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE

@@ -20,22 +20,24 @@
 	. = ..()
 	if(anchored)
 		connect_to_network()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+	RegisterSignal(src, COMSIG_MOVABLE_UNCROSS, PROC_REF(on_movable_uncross))
 
 /obj/machinery/power/treadmill/update_icon_state()
 	icon_state = speed ? "conveyor-1" : "conveyor0"
 
-/obj/machinery/power/treadmill/Crossed(mob/living/M, oldloc)
-	if(anchored && !M.anchored)
-		if(!istype(M) || M.dir != dir)
-			throw_off(M)
+/obj/machinery/power/treadmill/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	var/mob/living/living_crossed = crossed
+	if(anchored && !living_crossed.anchored)
+		if(!istype(living_crossed) || living_crossed.dir != dir)
+			throw_off(living_crossed)
 		else
-			mobs_running[M] = M.last_movement
-	. = ..()
+			mobs_running[living_crossed] = living_crossed.last_movement
 
-/obj/machinery/power/treadmill/Uncrossed(mob/living/M)
-	if(anchored && istype(M))
-		mobs_running -= M
-	. = ..()
+/obj/machinery/power/treadmill/proc/on_movable_uncross(atom/movable/crossed)
+	var/mob/living/living_crossed = crossed
+	if(anchored && istype(living_crossed))
+		mobs_running -= living_crossed
 
 /obj/machinery/power/treadmill/proc/throw_off(atom/movable/A)
 	// if 2fast, throw the person, otherwise they just slide off, if there's reasonable speed at all

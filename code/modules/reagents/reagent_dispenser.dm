@@ -104,6 +104,13 @@
 	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = 1
 
+/obj/structure/reagent_dispensers/fueltank/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/structure/reagent_dispensers/fueltank/Destroy()
 	QDEL_NULL(rig)
 	return ..()
@@ -209,9 +216,9 @@
 	if(rig)
 		rig.HasProximity(AM)
 
-/obj/structure/reagent_dispensers/fueltank/Crossed(atom/movable/AM, oldloc)
+/obj/structure/reagent_dispensers/fueltank/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(rig)
-		rig.Crossed(AM, oldloc)
+		rig.on_atom_entered(source, entered)
 
 /obj/structure/reagent_dispensers/fueltank/hear_talk(mob/living/M, list/message_pieces)
 	if(rig)

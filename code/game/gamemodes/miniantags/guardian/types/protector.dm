@@ -125,7 +125,7 @@
 	color = linked_guardian.name_color
 	shield_orientation = left_or_right
 
-/obj/effect/guardianshield/CanPass(atom/movable/mover, turf/target)
+/obj/effect/guardianshield/CanPass(atom/movable/mover, border_dir)
 	if(mover == linked_guardian)
 		return TRUE
 	return FALSE

@@ -521,15 +521,18 @@
 	var/angle_to_singulo
 	var/distance_to_singulo
 
+/obj/effect/abstract/proximity_checker/singulo/Initialize(mapload, datum/component/proximity_monitor/P)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
+
 /obj/effect/abstract/proximity_checker/singulo/proc/calibrate()
 	angle_to_singulo = ATAN2(monitor.hasprox_receiver.y - y, monitor.hasprox_receiver.x - x)
 	distance_to_singulo = get_dist(monitor.hasprox_receiver, src)
 
-/obj/effect/abstract/proximity_checker/singulo/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(!isprojectile(AM))
+/obj/effect/abstract/proximity_checker/singulo/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(!isprojectile(crossed))
 		return
-	var/obj/item/projectile/P = AM
+	var/obj/item/projectile/P = crossed
 	var/distance = distance_to_singulo
 	var/projectile_angle = P.Angle
 	var/angle_to_projectile = angle_to_singulo

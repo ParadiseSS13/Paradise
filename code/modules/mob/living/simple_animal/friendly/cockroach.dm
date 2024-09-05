@@ -28,18 +28,19 @@
 /mob/living/simple_animal/cockroach/Initialize(mapload) //Lizards are a great way to deal with cockroaches
 	. = ..()
 	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug")
+	RegisterSignal(src, COMSIG_MOVABLE_CROSS, PROC_REF(on_movable_cross))
 
-/mob/living/simple_animal/cockroach/Crossed(atom/movable/AM, oldloc)
-	if(isliving(AM))
-		var/mob/living/A = AM
+/mob/living/simple_animal/cockroach/proc/on_movable_cross(datum/source, atom/movable/crossed)
+	if(isliving(crossed))
+		var/mob/living/A = crossed
 		if(A.mob_size > MOB_SIZE_SMALL)
 			if(prob(squish_chance))
 				A.visible_message("<span class='notice'>\The [A] squashed \the [name].</span>", "<span class='notice'>You squashed \the [name].</span>")
 				death()
 			else
 				visible_message("<span class='notice'>\The [name] avoids getting crushed.</span>")
-	else if(isstructure(AM))
-		visible_message("<span class='notice'>As \the [AM] moved over \the [name], it was crushed.</span>")
+	else if(isstructure(crossed))
+		visible_message("<span class='notice'>As \the [crossed] moved over \the [name], it was crushed.</span>")
 		death()
 
 /mob/living/simple_animal/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.

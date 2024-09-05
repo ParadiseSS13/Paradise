@@ -58,7 +58,7 @@
 	icon_state = "straight_cut3"
 	hole_size = LARGE_HOLE
 
-/obj/structure/fence/CanPass(atom/movable/mover, turf/target)
+/obj/structure/fence/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSFENCE))
 		return TRUE
 	if(isprojectile(mover))

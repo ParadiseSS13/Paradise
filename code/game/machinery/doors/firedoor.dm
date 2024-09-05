@@ -290,7 +290,7 @@
 		F.update_icon()
 	qdel(src)
 
-/obj/machinery/door/firedoor/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/firedoor/CanPass(atom/movable/mover, border_dir)
 	if(..())
 		return TRUE
 	if(isliving(mover) && !locked)
@@ -303,26 +303,37 @@
 	flags = ON_BORDER
 	can_crush = FALSE
 
+/obj/machinery/door/firedoor/border_only/Initialize(mapload)
+	. = ..()
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
 	opacity = TRUE
 	density = TRUE
 
-/obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
+	if(border_dir == dir) //Make sure looking at appropriate border
 		return !density
 	else
 		return 1
 
-/obj/machinery/door/firedoor/border_only/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return TRUE
+/obj/machinery/door/firedoor/border_only/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXIT
+
+	if(istype(leaving) && leaving.checkpass(PASSGLASS))
+		return
+
+	if(direction == dir && density)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/machinery/door/firedoor/border_only/CanAtmosPass(direction)
 	if(direction == dir)

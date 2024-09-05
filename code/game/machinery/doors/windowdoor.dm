@@ -40,6 +40,12 @@
 		return
 	name = new_name
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_atom_exit),
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/machinery/door/window/Destroy()
 	density = FALSE
 	if(obj_integrity == 0)
@@ -140,14 +146,14 @@
 
 	return mob_dir & unres_sides
 
-/obj/machinery/door/window/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/window/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return TRUE
 	if(isliving(mover))
 		var/mob/living/living_mover = mover
 		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
 			return TRUE
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
+	if(border_dir == dir) //Make sure looking at appropriate border
 		return !density
 	if(istype(mover, /obj/structure/window))
 		var/obj/structure/window/W = mover
@@ -172,17 +178,17 @@
 /obj/machinery/door/window/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return !density || (dir != to_dir) || (check_access_list(pass_info.access) && hasPower())
 
-/obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return TRUE
-	if(isliving(mover))
-		var/mob/living/living_mover = mover
+/obj/machinery/door/window/proc/on_atom_exit(datum/source, atom/movable/leaving, direction)
+	if(istype(leaving) && leaving.checkpass(PASSGLASS))
+		return
+
+	if(isliving(leaving))
+		var/mob/living/living_mover = leaving
 		if(HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))
-			return TRUE
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+			return
+
+	if(direction == dir && density)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/machinery/door/window/open(forced=0)
 	if(operating) //doors can still open when emag-disabled
