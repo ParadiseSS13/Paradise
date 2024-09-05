@@ -345,12 +345,15 @@
 //////////////////////////////
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"
-	desc = "Arrrr matey."
+	desc = "Broken, but once repaired version of original energy sword. Because of his cheap price and effectiveness higly spread among all space pirates. Arrrr matey!"
 	force_on = 20
+	embedded_impact_pain_multiplier = 2 //this is not uplink sword and common to find. No need PvP bonuses.
+	armour_penetration_percentage = 0
+	armour_penetration_flat = 10
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
 	light_color = LIGHT_COLOR_RED
-	origin_tech = "combat=3;magnets=4;syndicate=2"
+	origin_tech = "combat=3;magnets=4"
 
 //////////////////////////////
 // MARK: HARDLIGHT BLADE

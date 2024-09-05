@@ -284,6 +284,17 @@
 		/obj/item/mod/module/jetpack/advanced,
 	)
 
+/obj/item/mod/control/pre_equipped/traitor_elite/empty // special version for Syndicate Quartermaster in supply depot.
+	theme = /datum/mod_theme/elite
+	applied_cell = /obj/item/stock_parts/cell/super
+	applied_modules = list( // this doesnt even have jetpack, so you need to apply modules from your MODsuit if you want fly out wearing it.
+		/obj/item/mod/module/storage,
+		/obj/item/mod/module/flashlight,
+	)
+	default_pins = list(
+		/obj/item/mod/module/armor_booster,
+	)
+
 /obj/item/mod/control/pre_equipped/traitor_elite/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/mask/gas/syndicate(bag)

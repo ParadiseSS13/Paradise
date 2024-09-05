@@ -273,14 +273,19 @@
 		projectilesound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory
-	name = "Syndicate Quartermaster"
+	name = "Syndicate Quartermaster" // the REAL boss
 	icon_state = "syndicate_stormtrooper_sword"
 	icon_living = "syndicate_stormtrooper_sword"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	maxHealth = 200
-	health = 200
-	melee_block_chance = 40
+	melee_damage_lower = 30 // REAL energy sword!
+	melee_damage_upper = 30
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 10
+	melee_block_chance = 40 // he know how to use REAL energy sword! not perfectly tho.
+	ranged_block_chance = 40
+	maxHealth = 500 // Real Elite MODsuit human EHP concidering anti-bullet/melee protection!
+	health = 500
 	alert_on_shield_breach = TRUE
 	death_sound = 'sound/mecha/mechmove03.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatequartermaster, /obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
@@ -288,7 +293,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
 	. = ..()
 	if(prob(50))
-		// 50% chance of switching to extremely dangerous ranged variant
+		// 50% chance of switching to even more dangerous ranged variant
 		melee_damage_lower = 10
 		melee_damage_upper = 10
 		attacktext = "punches"
