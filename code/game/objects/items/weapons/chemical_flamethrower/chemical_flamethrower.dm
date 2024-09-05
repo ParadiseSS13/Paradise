@@ -187,9 +187,7 @@
 		if(!difference)
 			break
 
-	if(difference)
-		return FALSE
-	return TRUE
+	return !difference
 
 /obj/item/chemical_flamethrower/extended
 	name = "extended capacity chemical flamethrower"
