@@ -503,8 +503,8 @@
 // timed process
 // charge the gas reservoir and perform flush if ready
 /obj/machinery/disposal/process()
-	change_power_mode(NO_POWER_USE)
 	if(stat & BROKEN)			// nothing can happen if broken
+		change_power_mode(NO_POWER_USE)
 		return
 
 	flush_count++
@@ -523,20 +523,17 @@
 	if(stat & NOPOWER)			// won't charge if no power
 		return
 
-	change_power_mode(IDLE_POWER_USE)
-
 	if(mode != DISPOSALS_RECHARGING)		// if off or ready, no need to charge
 		return
 
-	// otherwise charge
-	change_power_mode(ACTIVE_POWER_USE)
+	change_power_mode(IDLE_POWER_USE) // only start using power when we're sucking in air
 
 	var/datum/milla_safe/disposal_suck_air/milla = new()
 	milla.invoke_async(src)
 
 // perform a flush
 /obj/machinery/disposal/proc/flush()
-
+	change_power_mode(ACTIVE_POWER_USE)
 	flushing = 1
 	flick("[icon_state]-flush", src)
 
@@ -571,6 +568,9 @@
 	flush = 0
 	if(mode == DISPOSALS_CHARGED)	// if was ready,
 		mode = DISPOSALS_RECHARGING	// switch to charging
+		change_power_mode(IDLE_POWER_USE)
+	else
+		change_power_mode(NO_POWER_USE)
 	update()
 	return
 

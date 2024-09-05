@@ -140,6 +140,9 @@
 		set_light(0)
 
 /obj/item/dualsaber/attack(mob/target, mob/living/user)
+	if(cigarette_lighter_act(user, target))
+		return
+
 	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally drop it!</span>")
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -152,6 +155,33 @@
 		return
 	if((HAS_TRAIT(src, TRAIT_WIELDED)) && prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+
+/obj/item/dualsaber/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			"<span class='danger'>[user] flips through the air and spins [src] wildly! It brushes against [user.p_their()] [cig] and sets it alight!</span>",
+			"<span class='notice'>You flip through the air and twist [src] so it brushes against [cig], lighting it with the blade.</span>",
+			"<span class='danger'>You hear an energy blade slashing something!</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='danger'>[user] flips through the air and slashes at [user] with [src]! The blade barely misses, brushing against [user.p_their()] [cig] and setting it alight!</span>",
+			"<span class='notice'>You flip through the air and slash [src] at [cig], lighting it for [target].</span>",
+			"<span class='danger'>You hear an energy blade slashing something!</span>"
+		)
+	user.do_attack_animation(target)
+	playsound(user.loc, hitsound, 50, TRUE)
+	cig.light(user, target)
+	INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+	return TRUE
 
 /obj/item/dualsaber/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
@@ -722,12 +752,12 @@
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
 			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
-				Z.ex_act(2)
+				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
-				Z.ex_act(2)
+				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 
@@ -808,6 +838,8 @@
 	icon_state = "pyro"
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
+	dyeable = FALSE
+
 	var/on_cooldown = FALSE
 	var/obj/item/assembly/signaler/anomaly/pyro/core
 	var/next_spark_time

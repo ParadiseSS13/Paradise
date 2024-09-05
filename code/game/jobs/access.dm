@@ -97,7 +97,7 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("Special Operations Officer")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Solar Federation General")
+		if("Trans-Solar Federation General")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Representative")
 			return get_all_centcom_access() + get_all_accesses()
@@ -388,13 +388,13 @@
 
 /proc/get_all_solgov_jobs()
 	return list(
-		"Sol Trader",
-		"Solar Federation Marine",
-		"Solar Federation Lieutenant",
-		"Solar Federation Specops Marine",
-		"Solar Federation Specops Lieutenant",
-		"Solar Federation Representative",
-		"Solar Federation General")
+		"Trans-Solar Federation Trader",
+		"TSF Marine",
+		"TSF Lieutenant",
+		"MARSOC Marine",
+		"MARSOC Lieutenant",
+		"Trans-Solar Federation Representative",
+		"Trans-Solar Federation General")
 
 /proc/get_all_soviet_jobs()
 	return list(

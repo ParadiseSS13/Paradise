@@ -409,7 +409,7 @@
 			breakthrough = TRUE
 
 		else if(istype(obstacle, /obj/structure/reagent_dispensers/fueltank))
-			obstacle.ex_act(1)
+			obstacle.ex_act(EXPLODE_DEVASTATE)
 
 		else if(isliving(obstacle))
 			var/mob/living/L = obstacle

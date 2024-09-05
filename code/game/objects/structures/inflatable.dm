@@ -34,7 +34,7 @@
 	. += "<span class='notice'><b>Alt-Click</b> to deflate [src].</span>"
 
 /obj/structure/inflatable/Initialize(location)
-	..()
+	. = ..()
 	recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/Destroy()

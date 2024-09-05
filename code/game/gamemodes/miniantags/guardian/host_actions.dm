@@ -5,7 +5,7 @@
  */
 /datum/action/guardian
 	name = "Generic guardian host action"
-	button_background_icon = 'icons/mob/guardian.dmi'
+	button_overlay_icon = 'icons/mob/guardian.dmi'
 	button_overlay_icon_state = "base"
 	var/mob/living/simple_animal/hostile/guardian/guardian
 

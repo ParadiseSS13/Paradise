@@ -79,6 +79,7 @@
 	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	dyeable = FALSE
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	species_restricted = list("Vox")
 	sprite_sheets = list(

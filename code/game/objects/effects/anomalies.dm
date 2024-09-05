@@ -462,14 +462,20 @@
 	icon_state = "bhole3"
 	desc = "That's a nice station you have there. It'd be a shame if something happened to it."
 	aSignal = /obj/item/assembly/signaler/anomaly/vortex
+	/// The timer that will give us an extra proccall of ripping the floors up
+	var/timer
 
 /obj/effect/anomaly/bhole/anomalyEffect()
 	..()
 	if(!isturf(loc)) //blackhole cannot be contained inside anything. Weird stuff might happen
 		qdel(src)
 		return
+	rip_and_tear()
+	// We queue up another `rip_and_tear` in a second, effectively making it tick once per second without having to switch this anomaly to another SS
+	timer = addtimer(CALLBACK(src, PROC_REF(rip_and_tear)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_DELETE_ME)
 
-	grav(rand(0, 3), rand(2, 3), 100, 30)
+/obj/effect/anomaly/bhole/proc/rip_and_tear()
+	grav(rand(1, 4), rand(2, 3), 100, 30)
 
 	//Throwing stuff around!
 	for(var/obj/O in range(3, src))
@@ -482,12 +488,15 @@
 		else
 			O.ex_act(EXPLODE_HEAVY)
 
-/obj/effect/anomaly/bhole/proc/grav(r, ex_act_force, pull_chance, turf_removal_chance)
-	for(var/t = -r, t < r, t++)
-		affect_coord(x + t, y - r, ex_act_force, pull_chance, turf_removal_chance)
-		affect_coord(x - t, y + r, ex_act_force, pull_chance, turf_removal_chance)
-		affect_coord(x + r, y + t, ex_act_force, pull_chance, turf_removal_chance)
-		affect_coord(x - r, y - t, ex_act_force, pull_chance, turf_removal_chance)
+/obj/effect/anomaly/bhole/proc/grav(radius = 0, ex_act_force, pull_chance, turf_removal_chance)
+	if(radius <= 0 || prob(25)) // Base 25% chance of not damaging any floors or pulling mobs
+		return
+
+	for(var/t in -radius to (radius - 1))
+		affect_coord(x + t, y - radius, ex_act_force, pull_chance, turf_removal_chance)
+		affect_coord(x - t, y + radius, ex_act_force, pull_chance, turf_removal_chance)
+		affect_coord(x + radius, y + t, ex_act_force, pull_chance, turf_removal_chance)
+		affect_coord(x - radius, y - t, ex_act_force, pull_chance, turf_removal_chance)
 
 /obj/effect/anomaly/bhole/proc/affect_coord(x, y, ex_act_force, pull_chance, turf_removal_chance)
 	//Get turf at coordinate

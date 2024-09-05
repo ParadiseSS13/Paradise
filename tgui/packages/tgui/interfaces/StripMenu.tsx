@@ -423,21 +423,25 @@ export const StripMenu = (props, context) => {
     }
   }
 
+  const get_button_transparency = (item) => {
+    if (item?.cantstrip) {
+      return false;
+    }
+    if (item?.interacting) {
+      return false;
+    }
+    return true;
+  };
+
   const get_button_color = (item) => {
-    if (!item) {
-      return 'translucent';
-    }
-    if (item.cantstrip) {
-      return 'transparent';
-    }
-    if (item.interacting) {
+    if (item?.interacting) {
       return 'average';
     }
-    return 'translucent';
+    return null;
   };
 
   const disable_background_hover = (item) => {
-    if (item && item.cantstrip) {
+    if (item?.cantstrip) {
       return 'transparent';
     }
     return 'none';
@@ -546,6 +550,7 @@ export const StripMenu = (props, context) => {
                             });
                           }}
                           fluid
+                          translucent={get_button_transparency(item)}
                           color={get_button_color(item)}
                           tooltip={tooltip}
                           style={{

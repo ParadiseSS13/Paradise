@@ -129,25 +129,43 @@
 	name = "Gambling Den"
 	icon_state = "yellow"
 
-/area/station/maintenance/auxsolarport
-	name = "\improper Fore Port Solar Maintenance"
-	icon_state = "FPctrl"
+// Solars
 
-/area/station/maintenance/starboardsolar
+/area/station/maintenance/solar_maintenance
+	name = "\improper Solar Maintenance"
+	icon_state = "general_solar_control"
+
+/area/station/maintenance/solar_maintenance/fore
+	name = "\improper Fore Solar Maintenance"
+	icon_state = "fore_solar_control"
+
+/area/station/maintenance/solar_maintenance/fore_starboard
+	name = "\improper Fore-Starboard Solar Maintenance"
+	icon_state = "fore_starboard_solar_control"
+
+/area/station/maintenance/solar_maintenance/fore_port
+	name = "\improper Fore-Port Solar Maintenance"
+	icon_state = "fore_port_solar_control"
+
+/area/station/maintenance/solar_maintenance/aft
+	name = "\improper Aft Solar Maintenance"
+	icon_state = "aft_solar_control"
+
+/area/station/maintenance/solar_maintenance/aft_starboard
+	name = "\improper Aft-Starboard Solar Maintenance"
+	icon_state = "aft_starboard_solar_control"
+
+/area/station/maintenance/solar_maintenance/aft_port
+	name = "\improper Aft-Port Solar Maintenance"
+	icon_state = "aft_port_solar_control"
+
+/area/station/maintenance/solar_maintenance/starboard
 	name = "\improper Starboard Solar Maintenance"
-	icon_state = "ASctrl"
+	icon_state = "starboard_solar_control"
 
-/area/station/maintenance/starboardsolar/aft
-	name = "\improper Aft Starboard Solar Maintenance"
-	icon_state = "ASctrl"
-
-/area/station/maintenance/portsolar
-	name = "\improper Aft Port Solar Maintenance"
-	icon_state = "APctrl"
-
-/area/station/maintenance/auxsolarstarboard
-	name = "\improper Fore Starboard Solar Maintenance"
-	icon_state = "FSctrl"
+/area/station/maintenance/solar_maintenance/port
+	name = "\improper Port Solar Maintenance"
+	icon_state = "port_solar_control"
 
 /// Derelict Assembly Line
 /area/station/maintenance/assembly_line

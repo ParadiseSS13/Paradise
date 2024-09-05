@@ -1,5 +1,9 @@
-GLOBAL_VAR_INIT(BSACooldown, 0)
-GLOBAL_VAR_INIT(nologevent, 0)
+/// Is admin BSA (damage a user) currently on cooldown?
+GLOBAL_VAR_INIT(BSACooldown, FALSE)
+/// Are we in a no-log event (EORG, highlander, etc)?
+GLOBAL_VAR_INIT(nologevent, FALSE)
+/// Are explosions currently disabled for EORG?
+GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 ////////////////////////////////
 /proc/message_admins(msg)
