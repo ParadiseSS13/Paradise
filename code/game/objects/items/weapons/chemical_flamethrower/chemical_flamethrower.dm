@@ -126,9 +126,9 @@
 	if(user.get_active_hand() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)
-			var/turflist = get_line(user, target_turf)
+			var/turf_list = get_line(user, target_turf)
 			add_attack_logs(user, target, "Chemical Flamethrowered at [target.x], [target.y], [target.z]")
-			INVOKE_ASYNC(src, PROC_REF(flame_turf), turflist, user)
+			INVOKE_ASYNC(src, PROC_REF(flame_turf), turf_list, user)
 
 /obj/item/chemical_flamethrower/proc/flame_turf(list/turflist = list(), mob/user)
 	if(!length(turflist))
