@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'docs/**'
+      - 'mkdocs.yml'
 
 jobs:
   build_and_deploy:
