@@ -80,7 +80,7 @@
 	if(!user.unEquip(I))
 		return
 
-	to_chat(user, "You put [I] in [src]")
+	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	canisters += I
 	I.forceMove(src)
 	update_canister_stats()
