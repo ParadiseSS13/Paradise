@@ -155,7 +155,8 @@
 	if(prob(30) && stat == CONSCIOUS)
 		adjustBruteLoss(-1)
 
-/mob/living/simple_animal/slime/proc/handle_feeding() // This is where slime feeding is actually done.
+// This is where slime feeding is handled.
+/mob/living/simple_animal/slime/proc/handle_feeding()
 	if(!ismob(buckled))
 		return
 	var/mob/M = buckled
@@ -174,7 +175,8 @@
 		Feedstop()
 		return
 
-	if(iscarbon(M)) // This is where damage done by slime feeding is done.
+// This is where damage dealt by slime feeding is handled.
+	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		var/mob/living/carbon/human/D = M // I don't want to accidentally break feeding on Xenos or something.
 		if(C.dna) // Ensures there is DNA for the Synthetic check
