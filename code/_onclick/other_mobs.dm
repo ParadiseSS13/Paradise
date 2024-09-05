@@ -41,6 +41,8 @@
 
 /mob/living/carbon/human/RangedAttack(atom/A, params)
 	. = ..()
+	if(.)
+		return
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		if(istype(G) && G.Touch(A, 0)) // for magic gloves
@@ -55,9 +57,6 @@
 
 	if(isturf(A) && get_dist(src, A) <= 1)
 		Move_Pulled(A)
-
-	SEND_SIGNAL(A, COMSIG_ATOM_RANGED_ATTACKED, src)
-
 /*
 	Animals & All Unspecified
 */

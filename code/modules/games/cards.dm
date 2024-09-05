@@ -73,15 +73,18 @@
 	. += "<span class='notice'>It contains <b>[length(cards) ? length(cards) : "no"]</b> card\s.</span>"
 	if(in_play_range(user) && !Adjacent(user))
 		. += "<span class='boldnotice'>You're in range of this card-hand, and can use it at a distance!</span>"
+	else
+		. += "<span class='notice'>You're too far away from this deck to play from it.</span>"
+	. += ""
 	. += "<span class='notice'>Drag [src] to yourself to pick it up.</span>"
-	. += "<span class='notice'><b>Ctrl-Shift-Click</b> [src] to split it.</span>"
-	. += "<span class='notice'>If you draw or return cards with <span class='danger'>harm</span> intent, your plays will be public!</span>"
 	. += "<span class='notice'>Examine this again to see some shortcuts for interacting with it.</span>"
 
 /obj/item/deck/examine_more(mob/user)
 	. = ..()
 	. += "<span class='notice'><b>Click</b> to draw a card.</span>"
 	. += "<span class='notice'><b>Alt-Click</b> to place a card.</span>"
+	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to split [src].</span>"
+	. += "<span class='notice'>If you draw or return cards with <span class='danger'>harm</span> intent, your plays will be public!</span>"
 	. += "<span class='notice'>With cards in your active hand...</span>"
 	. += "\t<span class='notice'><b>Ctrl-Click</b> with cards to place them at the bottom of the deck.</span>"
 	. += ""
@@ -101,9 +104,12 @@
 /obj/item/deck/proc/build_deck()
 	return
 
-/obj/item/deck/proc/on_ranged_attack(mob/source, mob/attacker)
+/obj/item/deck/proc/on_ranged_attack(mob/source, mob/living/carbon/human/attacker)
 	SIGNAL_HANDLER  // COMSIG_ATOM_RANGED_ATTACKED
+	if(!istype(attacker))
+		return
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attack_hand), attacker)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/item/deck/attackby(obj/O, mob/user)
 	// clicking is for drawing
@@ -194,8 +200,8 @@
 		// we need to put this into a new list, otherwise things get funky if they reference both the hand list and this other list
 		return_cards(user, hand, on_top, hand.cards.Copy())
 		return
-	var/selected_card = hand.select_card_radial(user)
-	if(isnull(selected_card))
+	var/datum/playingcard/selected_card = hand.select_card_radial(user)
+	if(QDELETED(selected_card))
 		return
 	return_cards(user, hand, on_top, list(selected_card))
 
@@ -788,15 +794,15 @@
 
 /// Open a radial menu to select a single card from a hand.
 /obj/item/cardhand/proc/select_card_radial(mob/user)
-	if(!length(cards) || QDELETED(user))
+	if(!length(cards) || QDELETED(user) || !Adjacent(user))
 		return
 	var/list/options = list()
 	for(var/datum/playingcard/P in cards)
 		if(isnull(options[P]))
 			options[P] = image(icon = 'icons/obj/playing_cards.dmi', icon_state = !concealed ? P.card_icon : P.back_icon)
 
-	var/choice = show_radial_menu(user, src, options)
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.stat != CONSCIOUS || isnull(choice) || !(choice in cards))
+	var/datum/playingcard/choice = show_radial_menu(user, src, options)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.stat != CONSCIOUS || QDELETED(choice) || !(choice in cards) || !Adjacent(user))
 		return
 
 	return choice
@@ -830,7 +836,7 @@
 		else
 			if(cardUser.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || cardUser.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
 				var/datum/playingcard/picked_card = locateUID(href_list["pick"])
-				if(istype(picked_card))
+				if(istype(picked_card) && Adjacent(cardUser) && (picked_card in cards) && !QDELETED(src))
 					remove_card(cardUser, picked_card)
 		cardUser << browse(null, "window=cardhand")
 

@@ -322,7 +322,7 @@
 /datum/component/proximity_monitor/table/proc/crawl_along(turf/current_turf, list/visited_tables = list(), list/prox_mon_spots = list(), distance_from_start)
 	var/obj/structure/current_table = locate(/obj/structure/table) in current_turf
 
-	if(!current_table)
+	if(QDELETED(current_table))
 		// if there's no table here, we're still adjacent to a table, so this is a spot you could play from
 		prox_mon_spots |= current_turf
 		return
@@ -342,9 +342,12 @@
 		var/turf/next_turf = get_step(current_table, direction)
 		if(get_dist_euclidian(get_turf(parent), next_turf) > max_total_distance)
 			continue
-		crawl_along(next_turf, visited_tables, prox_mon_spots, distance_from_start + 1)
+		.(next_turf, visited_tables, prox_mon_spots, distance_from_start + 1)
 
 /datum/component/proximity_monitor/table/create_prox_checkers()
+	update_prox_checkers(FALSE)
+
+/datum/component/proximity_monitor/table/proc/update_prox_checkers(clear_existing = TRUE)
 	var/list/tables = list()
 	var/list/prox_mon_spots = list()
 	if(length(proximity_checkers))
@@ -368,7 +371,7 @@
 		RegisterSignal(table, COMSIG_PARENT_QDELETING, PROC_REF(on_table_qdel), TRUE)
 
 /datum/component/proximity_monitor/table/on_receiver_move(datum/source, atom/old_loc, dir)
-	create_prox_checkers()
+	update_prox_checkers()
 
 /datum/component/proximity_monitor/table/RegisterWithParent()
 	if(ismovable(hasprox_receiver))
@@ -376,7 +379,7 @@
 
 /datum/component/proximity_monitor/table/proc/on_table_qdel()
 	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETED
-	create_prox_checkers()
+	update_prox_checkers()
 
 /obj/effect/abstract/proximity_checker/table
 	/// The UID for the deck, used in the setting and removal of traits
