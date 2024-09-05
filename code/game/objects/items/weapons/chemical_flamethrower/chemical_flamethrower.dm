@@ -250,7 +250,8 @@
 	var/has_enough_reagents = reagents.total_volume >= required_volume
 
 	if(!first_time_silent)
-		visible_message("<span class='notice'>[src] removes all reagents except for [current_reagent_id]. \
+		audible_message("<span class='notice'>[src]'s speaker beeps: \
+						All reagents are removed except for [current_reagent_id]. \
 						The reservoir has [reagents.total_volume] out of [required_volume] units. \
 						Reagent effects are [has_enough_reagents ? "in effect" : "not active"].</span>")
 	first_time_silent = FALSE
