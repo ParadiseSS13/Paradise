@@ -2,9 +2,9 @@
 	name = "chemical flamethrower"
 	desc = "I love the smell of napalm in the morning."
 	icon = 'icons/obj/chemical_flamethrower.dmi'
-	icon_state = "chem_flamethrower"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	icon_state = "chem_flame"
+	lefthand_file = 'icons/mob/inhands/flamethrower_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/flamethrower_righthand.dmi'
 	flags = CONDUCT
 	force = 5
 	throwforce = 10
@@ -37,13 +37,21 @@
 	if(should_start_with_canisters && !length(canisters))
 		canisters += new /obj/item/chemical_canister
 	update_canister_stats()
+	update_icon_state()
 
 /obj/item/chemical_flamethrower/Destroy()
 	QDEL_LIST_CONTENTS(canisters)
 	return ..()
 
 /obj/item/chemical_flamethrower/update_icon_state()
-	icon_state = "chem_flamethrower[max_canisters == 2 ? "_2" : ""][syndicate ? "_s" : ""]"
+	icon_state = "chem_flame[max_canisters == 2 ? "_2" : ""][syndicate ? "_s" : ""]"
+
+/obj/item/chemical_flamethrower/update_overlays()
+	. = ..()
+	var/iterator = 1
+	for(var/obj/item/chemical_canister as anything in canisters)
+		. += mutable_appearance('icons/obj/chemical_flamethrower.dmi', "[chemical_canister.icon_state]_[iterator]")
+		iterator++
 
 /obj/item/chemical_flamethrower/attack_self(mob/user)
 	. = ..()
@@ -58,6 +66,7 @@
 	canister_to_remove.forceMove(get_turf(src))
 	user.put_in_hands(canister_to_remove)
 	canisters -= canister_to_remove
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/chemical_flamethrower/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -71,6 +80,7 @@
 	if(!user.unEquip(I))
 		return
 
+	to_chat(user, "You put [I] in [src]")
 	canisters += I
 	I.forceMove(src)
 	update_canister_stats()
@@ -97,6 +107,7 @@
 	canister_burn_temp = round(burn_temp / how_many_canisters, 1)
 	canister_burn_duration = round(burn_duration / how_many_canisters, 1)
 	canister_fire_applications = round(fire_applications / how_many_canisters, 1)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/chemical_flamethrower/afterattack(atom/target, mob/user, flag)
 	. = ..()
@@ -199,8 +210,8 @@
 /obj/item/chemical_canister
 	name = "chemical canister"
 	desc = "A simple canister of fuel. Does not accept any pyrotechnics except for welding fuel."
-	icon = 'icons/obj/tank.dmi'
-	icon_state = "oxygen"
+	icon = 'icons/obj/chemical_flamethrower.dmi'
+	icon_state = "normal"
 	container_type = OPENCONTAINER
 	/// How much ammo do we have? Empty at 0.
 	var/ammo = 100
@@ -218,6 +229,8 @@
 	var/required_volume = 10
 	/// Do we have a locked in reagent type?
 	var/has_filled_reagent = FALSE
+	/// Are we silent on the first change of reagents?
+	var/first_time_silent = FALSE // The reason for this is so we can have canisters that spawn with reagents but don't announce it on `Initialize()`
 
 /obj/item/chemical_canister/Initialize(mapload)
 	. = ..()
@@ -236,9 +249,12 @@
 	current_reagent_id = reagents.get_master_reagent_id()
 	reagents.isolate_reagent(current_reagent_id)
 	var/has_enough_reagents = reagents.total_volume >= required_volume
-	visible_message("<span class='notice'>[src] removes all reagents except for [current_reagent_id]. \
-					The reservoir has [reagents.total_volume] out of [required_volume] units. \
-					Reagent effects are [has_enough_reagents ? "in effect" : "not active"].</span>")
+
+	if(!first_time_silent)
+		visible_message("<span class='notice'>[src] removes all reagents except for [current_reagent_id]. \
+						The reservoir has [reagents.total_volume] out of [required_volume] units. \
+						Reagent effects are [has_enough_reagents ? "in effect" : "not active"].</span>")
+	first_time_silent = FALSE
 
 	if(has_enough_reagents)
 		var/datum/reagent/reagent_to_burn = reagents.reagent_list[1]
@@ -250,11 +266,14 @@
 /obj/item/chemical_canister/extended
 	name = "extended capacity chemical canister"
 	desc = "An extended version of the original design. Does not accept any pyrotechnics except for welding fuel."
+	icon_state = "extended"
 	ammo = 200
 	required_volume = 20 // Bigger canister? More reagents needed.
 
 /obj/item/chemical_canister/extended/nuclear
+	icon_state = "pyro"
 	accepted_chemicals = list("napalm")
+	first_time_silent = TRUE
 
 /obj/item/chemical_canister/extended/nuclear/Initialize(mapload)
 	..()
@@ -263,5 +282,6 @@
 /obj/item/chemical_canister/pyrotechnics
 	name = "extended capacity chemical canister"
 	desc = "A specialized canister designed to accept certain pyrotechnics."
+	icon_state = "pyro"
 	ammo = 150
 	accepted_chemicals = list("phlogiston", "phlogiston_dust", "napalm", "fuel", "thermite", "clf3", "plasma")
