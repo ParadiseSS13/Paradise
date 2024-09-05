@@ -81,7 +81,7 @@
 	if(!user.unEquip(I))
 		return
 
-	to_chat(user, "You put [I] in [src]")
+	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	canisters += I
 	I.forceMove(src)
 	update_canister_stats()
@@ -188,9 +188,7 @@
 		if(!difference)
 			break
 
-	if(difference)
-		return FALSE
-	return TRUE
+	return !difference
 
 /obj/item/chemical_flamethrower/extended
 	name = "extended capacity chemical flamethrower"
