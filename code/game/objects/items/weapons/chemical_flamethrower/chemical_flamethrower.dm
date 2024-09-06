@@ -235,6 +235,10 @@
 	. = ..()
 	create_reagents(50)
 
+/obj/item/chemical_canister/examine(mob/user)
+	. = ..()
+	. += "[src] has [ammo] units left!"
+
 /obj/item/chemical_canister/on_reagent_change()
 	if(has_filled_reagent && ammo != 0)
 		audible_message("<span class='notice'>[src]'s speaker beeps: no new chemicals are accepted!</span>")
@@ -263,6 +267,7 @@
 		fire_applications = reagent_to_burn.fire_stack_applications
 		ammo = initial(ammo)
 		has_filled_reagent = TRUE
+		reagents.clear_reagents()
 
 /obj/item/chemical_canister/extended
 	name = "extended capacity chemical canister"
