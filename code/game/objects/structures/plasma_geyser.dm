@@ -28,15 +28,19 @@
 	var/toxins_modifier = 100
 	var/co2_modifier = 12
 	var/target_temp = 1000
+	var/pressure_modifier
 	var/turf/T = get_turf(tile)
 	var/datum/gas_mixture/environment = get_turf_air(T)
 	var/datum/gas_mixture/add_moles = new()
 	var/environment_pressure = environment.return_pressure()
 
-	// adds gas and agent B to the environment if below max_pressure
+	// Reduces geyser effectiveness when above max_pressure
 	if(environment_pressure >= max_pressure)
-		return
-	add_moles.set_toxins(toxins_modifier)
-	add_moles.set_carbon_dioxide(co2_modifier)
+		pressure_modifier = 0.1
+	else
+		pressure_modifier = 1
+
+	add_moles.set_toxins(toxins_modifier * pressure_modifier)
+	add_moles.set_carbon_dioxide(co2_modifier * pressure_modifier)
 	add_moles.set_temperature(target_temp)
 	environment.merge(add_moles)
