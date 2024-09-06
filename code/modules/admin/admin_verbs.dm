@@ -51,6 +51,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/library_manager,
 	/client/proc/view_asays,
 	/client/proc/view_msays,
+	/client/proc/view_devsays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -1179,7 +1180,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	message_admins("[key_name_admin(usr)] is visualising interesting atmos turfs. Server may lag.")
 
 	var/list/zlevel_turf_indexes = list()
-	
+
 	var/list/coords = get_interesting_atmos_tiles()
 	if(!length(coords))
 		to_chat(mob, "<span class='notice'>There are no interesting turfs. How interesting!</span>")
