@@ -539,9 +539,9 @@
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
-/atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
+/atom/movable/CanPass(atom/movable/mover, turf/target)
 	// This condition is copied from atom to avoid an extra parent call, because this is a very hot proc.
-	if(!density || !height)
+	if(!density)
 		return TRUE
 	return LAZYIN(buckled_mobs, mover)
 
