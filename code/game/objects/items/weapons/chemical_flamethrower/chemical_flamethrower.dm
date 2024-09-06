@@ -211,7 +211,7 @@
 	desc = "A simple canister of fuel. Does not accept any pyrotechnics except for welding fuel."
 	icon = 'icons/obj/chemical_flamethrower.dmi'
 	icon_state = "normal"
-	container_type = OPENCONTAINER
+	container_type = REFILLABLE
 	/// How much ammo do we have? Empty at 0.
 	var/ammo = 100
 	/// Which reagent IDs do we accept
