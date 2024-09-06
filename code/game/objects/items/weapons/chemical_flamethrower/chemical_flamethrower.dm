@@ -230,6 +230,8 @@
 	var/has_filled_reagent = FALSE
 	/// Are we silent on the first change of reagents?
 	var/first_time_silent = FALSE // The reason for this is so we can have canisters that spawn with reagents but don't announce it on `Initialize()`
+	/// What chemical do we have? This will be the chemical ID, so a string
+	var/stored_chemical
 
 /obj/item/chemical_canister/Initialize(mapload)
 	. = ..()
@@ -238,6 +240,8 @@
 /obj/item/chemical_canister/examine(mob/user)
 	. = ..()
 	. += "[src] has [ammo] units left!"
+	if(stored_chemical && ammo != 0)
+		. += "[src] is currently filled with [stored_chemical]"
 
 /obj/item/chemical_canister/on_reagent_change()
 	if(has_filled_reagent && ammo != 0)
@@ -250,6 +254,7 @@
 		return
 
 	current_reagent_id = reagents.get_master_reagent_id()
+	stored_chemical = current_reagent_id
 	reagents.isolate_reagent(current_reagent_id)
 	var/has_enough_reagents = reagents.total_volume >= required_volume
 
