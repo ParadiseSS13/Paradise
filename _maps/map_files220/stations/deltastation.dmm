@@ -14563,11 +14563,11 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/lawoffice)
 "bkb" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
 /area/station/public/vacant_office/secondary)
 "bkd" = (
@@ -31691,7 +31691,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/polarized,
 /turf/simulated/floor/wood/oak,
 /area/station/public/vacant_office/secondary)
 "cxd" = (
@@ -57469,7 +57469,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/polarized,
 /turf/simulated/floor/carpet,
 /area/station/public/vacant_office/secondary)
 "gzd" = (
@@ -80168,7 +80168,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/polarized,
 /turf/simulated/floor/wood/oak,
 /area/station/public/vacant_office/secondary)
 "nnZ" = (
@@ -83428,11 +83428,11 @@
 	},
 /area/station/hallway/secondary/exit/maintenance)
 "oeY" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
 /area/station/public/vacant_office/secondary)
 "oeZ" = (
@@ -88711,11 +88711,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "pJv" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
 /area/station/public/vacant_office/secondary)
 "pJw" = (
@@ -96156,9 +96156,13 @@
 /area/station/maintenance/medmaint)
 "rUS" = (
 /obj/machinery/door_control/bolt_control/north{
-	id = "pub_room"
+	id = "pub_room";
+	pixel_x = 6
 	},
 /obj/machinery/light/directional/north,
+/obj/machinery/button/windowtint/north{
+	pixel_x = -6
+	},
 /turf/simulated/floor/carpet,
 /area/station/public/vacant_office/secondary)
 "rVa" = (
@@ -108280,8 +108284,8 @@
 /turf/simulated/floor/engine,
 /area/station/science/toxins/mixing)
 "vBU" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
 /area/station/public/vacant_office/secondary)
 "vBV" = (
@@ -109427,7 +109431,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/access/any/command/general,
+/obj/effect/mapping_helpers/airlock/polarized,
 /turf/simulated/floor/carpet,
 /area/station/public/vacant_office/secondary)
 "vTJ" = (
@@ -111922,7 +111926,6 @@
 	},
 /area/station/hallway/primary/central/north)
 "wHF" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -111937,6 +111940,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
 /area/station/public/vacant_office/secondary)
 "wHH" = (
