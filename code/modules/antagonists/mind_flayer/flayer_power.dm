@@ -96,7 +96,7 @@
 		if("purchase")
 			var/path = text2path(params["ability_path"])
 			on_purchase(user, path)
-			update_static_data()
+			update_static_data(user, ui)
 
 // Takes in a category name and grabs the paths of all the spells/passives specific to that category. Used for TGUI
 /datum/antagonist/mindflayer/proc/get_powers_of_category(category)
