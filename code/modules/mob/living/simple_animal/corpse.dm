@@ -37,7 +37,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	l_ear = /obj/item/radio/headset
 	mask = /obj/item/clothing/mask/gas/syndicate
-	back = /obj/item/mod/control/pre_equipped/traitor
+	back = /obj/item/mod/control/pre_equipped/traitor/empty
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id
 

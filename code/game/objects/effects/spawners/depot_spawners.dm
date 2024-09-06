@@ -94,7 +94,7 @@
 	name = "rare loot"
 	// Basic stealth, utility and environmental gear.
 	result = list(/datum/nothing = 27,
-		/obj/item/mod/control/pre_equipped/traitor = 1,
+		/obj/item/mod/control/pre_equipped/traitor/empty = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/storage/backpack/duffel/syndie/med/surgery = 1,
 		/obj/item/clothing/shoes/chameleon/noslip = 1,
