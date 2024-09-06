@@ -101,7 +101,7 @@ const Abilities = (props, context) => {
                 content={ability.cost}
                 disabled={ability.cost > usable_swarms}
                 tooltip="Purchase this ability?"
-                onClick={() => act('purchase')}
+                onClick={() => act('purchase', {ability_path: ability.ability_path})}
               />
               <Box as="span" fontSize="1.4rem">
                 {ability.name}
@@ -136,7 +136,7 @@ const Upgrades = (props, context) => {
                 content={ability.cost}
                 disabled={ability.cost > usable_swarms}
                 tooltip="Upgrade this ability?"
-                onClick={() => act('purchase')}
+                onClick={() => act('purchase', {ability_path: ability.ability_path})}
               />
               <Box as="span" fontSize="1.4rem">
                 {ability.name}
