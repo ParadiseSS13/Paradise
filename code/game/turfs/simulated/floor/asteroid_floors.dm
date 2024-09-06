@@ -58,6 +58,15 @@
 		if(1)
 			getDug()
 
+/turf/simulated/floor/plating/asteroid/proc/attempt_ore_pickup(obj/item/storage/bag/ore/S, mob/user)
+	if(!istype(S))
+		return
+
+	if(S.pickup_all_on_tile)
+		for(var/obj/item/stack/ore/O in contents)
+			O.attackby(S, user)
+			return
+
 /turf/simulated/floor/plating/asteroid/attackby(obj/item/I, mob/user, params)
 	//note that this proc does not call ..()
 	if(!I|| !user)
@@ -82,11 +91,7 @@
 			return TRUE
 
 	else if(istype(I, /obj/item/storage/bag/ore))
-		var/obj/item/storage/bag/ore/S = I
-		if(S.pickup_all_on_tile)
-			for(var/obj/item/stack/ore/O in contents)
-				O.attackby(I, user)
-				return
+		attempt_ore_pickup(I, user)
 
 	else if(istype(I, /obj/item/stack/tile))
 		var/obj/item/stack/tile/Z = I
