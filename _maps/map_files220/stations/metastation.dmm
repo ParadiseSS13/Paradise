@@ -4521,16 +4521,11 @@
 	pixel_y = 4
 	},
 /obj/machinery/alarm/directional/east,
-/obj/structure/sign/double/map/right{
-	desc = "A framed picture of the station. Clockwise from security in red at the top, you see engineering in yellow, science in purple, escape in checkered red-and-white, medbay in green, arrivals in checkered red-and-blue, and then cargo in brown.";
-	icon_state = "map-right-MS";
-	pixel_y = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "azB" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -13637,7 +13632,7 @@
 "bec" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/r_wall,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "bed" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -33095,7 +33090,7 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "cnH" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 4
@@ -33181,7 +33176,7 @@
 	dir = 4;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "cnV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/east,
@@ -36332,7 +36327,7 @@
 	dir = 4;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "czU" = (
 /obj/machinery/light/small/directional/north,
 /obj/structure/sign/vacuum/external{
@@ -39121,7 +39116,7 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "cJB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -39616,7 +39611,7 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "cLB" = (
 /obj/machinery/computer/rdconsole/experiment{
 	dir = 8
@@ -40232,7 +40227,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "cNZ" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/blue/hollow,
@@ -40637,22 +40632,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "cPL" = (
-/obj/structure/sign/double/map/left{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-left-MS";
-	pixel_y = 32
-	},
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/secondary/exit)
 "cPM" = (
-/obj/structure/sign/double/map/right{
-	desc = "A framed picture of the station. Clockwise from security in red at the top, you see engineering in yellow, science in purple, escape in checkered red-and-white, medbay in green, arrivals in checkered red-and-blue, and then cargo in brown.";
-	icon_state = "map-right-MS";
-	pixel_y = 32
-	},
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
@@ -40857,8 +40842,13 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "cQJ" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/disposal)
@@ -40912,16 +40902,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "cQU" = (
-/obj/structure/sign/double/map/left{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-left-MS";
-	pixel_y = 32
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "cQW" = (
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/solar_maintenance/aft_starboard)
@@ -41116,7 +41106,7 @@
 	dir = 9;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "cRQ" = (
 /turf/simulated/wall,
 /area/station/science/toxins/launch)
@@ -41757,7 +41747,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "cUE" = (
 /obj/machinery/light/directional/south,
 /obj/machinery/disposal,
@@ -41883,7 +41873,7 @@
 "cVi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "cVj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -42912,7 +42902,7 @@
 	dir = 6;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "dad" = (
 /obj/structure/table/glass,
 /obj/item/folder/white{
@@ -43537,7 +43527,7 @@
 	dir = 4;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "ddW" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 28
@@ -43546,7 +43536,7 @@
 	dir = 1;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "ddX" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
@@ -44237,7 +44227,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "diT" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -44888,7 +44878,7 @@
 	},
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "dAN" = (
 /obj/structure/chair{
 	dir = 8
@@ -45662,7 +45652,7 @@
 	dir = 10;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "dWq" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
@@ -47789,7 +47779,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "eUz" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -52115,7 +52105,7 @@
 	},
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "gVr" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
@@ -52429,7 +52419,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "hdk" = (
 /obj/structure/disposaloutlet{
 	name = "Prisoner Delivery"
@@ -55159,7 +55149,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "ims" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
@@ -58837,7 +58827,7 @@
 /area/station/maintenance/fore)
 "jYM" = (
 /turf/simulated/wall/r_wall,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "jYS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -58910,6 +58900,17 @@
 "kbN" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/execution)
+"kbP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/sign/double/map/right{
+	desc = "A framed picture of the station. Clockwise from security in red at the top, you see engineering in yellow, science in purple, escape in checkered red-and-white, medbay in green, arrivals in checkered red-and-blue, and then cargo in brown.";
+	icon_state = "map-right-MS";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "kcb" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -61485,7 +61486,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "lhu" = (
 /obj/machinery/door/firedoor,
 /obj/structure/sign/barber{
@@ -64319,8 +64320,13 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "mvP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -65804,7 +65810,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "ncG" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -67666,7 +67672,7 @@
 	dir = 4;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "nVg" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -70358,7 +70364,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "pri" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -72169,7 +72175,7 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "qgs" = (
 /obj/structure/chair{
 	dir = 1
@@ -72183,7 +72189,7 @@
 	dir = 6;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "qgw" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
@@ -74123,7 +74129,7 @@
 "ret" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "reP" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/binary/pump,
@@ -79659,6 +79665,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
+"tLX" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "emergency_home";
+	locked = 1
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/turf/simulated/floor/plasteel,
+/area/station/security/checkpoint/south)
 "tMb" = (
 /obj/machinery/status_display/directional/east,
 /obj/machinery/light/directional/east,
@@ -79847,7 +79863,7 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "tRT" = (
 /obj/machinery/economy/arcade/claw,
 /obj/effect/decal/cleanable/dirt,
@@ -81979,7 +81995,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "uVF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research,
@@ -84575,6 +84591,17 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/paramedic)
+"wmy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/sign/double/map/left{
+	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
+	icon_state = "map-left-MS";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/exit)
 "wmS" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -84987,7 +85014,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "wxO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -86001,7 +86028,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "xaA" = (
 /obj/machinery/firealarm/directional/west,
 /obj/structure/cable/yellow{
@@ -86808,7 +86835,7 @@
 	dir = 8;
 	icon_state = "red"
 	},
-/area/station/hallway/secondary/exit)
+/area/station/security/checkpoint/south)
 "xtP" = (
 /obj/item/kirbyplants/plant21,
 /obj/structure/sign/botany{
@@ -114116,7 +114143,7 @@ bZU
 cXK
 cTD
 bZU
-cQM
+wmy
 mky
 cRt
 cVc
@@ -114373,7 +114400,7 @@ bZU
 cXK
 cQo
 bZU
-cQM
+kbP
 cTg
 cSk
 gnZ
@@ -116698,7 +116725,7 @@ cUC
 jYM
 bec
 jYM
-tkm
+tLX
 jYM
 aaa
 aaa
