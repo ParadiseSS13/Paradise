@@ -498,12 +498,10 @@
 		return
 	if(!chassis.occupant)
 		return
-	if(chassis.Adjacent(target))
-		if(ismob(target))
-			internal_crusher.attack(target, chassis.occupant)
-		internal_crusher.afterattack(target, chassis.occupant, TRUE, null)
-	else
-		internal_crusher.afterattack(target, chassis.occupant, FALSE, null)
+	var/proximate = chassis.Adjacent(target)
+	if(ismob(target))
+		internal_crusher.attack(target, chassis.occupant)
+	internal_crusher.afterattack(target, chassis.occupant, proximate, null)
 
 #undef MECH_RCD_MODE_DECONSTRUCT
 #undef MECH_RCD_MODE_WALL_OR_FLOOR
