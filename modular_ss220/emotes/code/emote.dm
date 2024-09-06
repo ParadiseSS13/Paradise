@@ -416,3 +416,15 @@
 	volume = 30
 	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
 	sound = 'modular_ss220/emotes/audio/wbark.ogg'
+
+/datum/emote/living/carbon/human/ururu
+	key = "ururu"
+	key_third_person = "ururu"
+	message = "урчит."
+	message_param = "урчит на %t."
+	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	vary = TRUE
+	sound = 'modular_ss220/emotes/audio/vulpkanin/purr.ogg'
+	volume = 50
+	muzzled_noises = list("слабо")

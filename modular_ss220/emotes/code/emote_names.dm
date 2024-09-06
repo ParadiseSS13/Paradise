@@ -370,6 +370,9 @@
 /datum/emote/living/carbon/human/wbark
 	name = EMOTE_HUMAN_WBARK
 
+/datum/emote/living/carbon/human/ururu
+	name = EMOTE_HUMAN_RUMBLE
+
 /// Emote Silicon
 
 /datum/emote/living/silicon/scream

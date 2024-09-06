@@ -94,6 +94,11 @@
 	set category = "Эмоции"
 	emote("wbark", intentional = TRUE)
 
+/mob/living/carbon/human/proc/emote_ururu()
+	set name = "▷ " + EMOTE_HUMAN_RUMBLE + " "
+	set category = "Эмоции"
+	emote("ururu", intentional = TRUE)
+
 /// Action Emotes ///
 /mob/living/carbon/human/verb/emote_collapse()
 	set name = "○ " + EMOTE_COLLAPSE + " "
