@@ -136,12 +136,11 @@
 		return
 	if(ismonkeybasic(owner))
 		return
-	damage /= 12 // Get our damage as a ratio
-	message_admins(damage)
-	if(damage < BRAIN_DAMAGE_RATIO_LIGHT)
+	var/ratio = damage / max_damage // Get our damage as a percentage of max HP
+	if(ratio < BRAIN_DAMAGE_RATIO_LIGHT)
 		return
 
-	switch(damage)
+	switch(ratio)
 		if(BRAIN_DAMAGE_RATIO_LIGHT to BRAIN_DAMAGE_RATIO_MINOR)
 			handle_minor_brain_damage()
 		if(BRAIN_DAMAGE_RATIO_MINOR to BRAIN_DAMAGE_RATIO_MODERATE)
