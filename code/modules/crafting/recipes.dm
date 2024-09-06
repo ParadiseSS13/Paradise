@@ -303,6 +303,10 @@
 	reqs = list(/obj/item/chemical_flamethrower = 1,
 			/obj/item/stack/cable_coil = 5,
 			/obj/item/weaponcrafting/gunkit/chemical_flamethrower = 1)
+	time = 10 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/ed209
 	name = "ED209"
