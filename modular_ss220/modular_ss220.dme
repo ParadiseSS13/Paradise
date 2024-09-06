@@ -24,7 +24,7 @@
 #include "barsigns/_barsigns.dme"
 #include "clothing/_clothing.dme"
 #include "devices/_devices.dme"
-#include "food/_food.dme"
+#include "food_and_drinks/_food_and_drinks.dme"
 #include "gateway/_gateway.dme"
 #include "hydroponics/hydroponics.dme"
 #include "objects/_objects.dme"

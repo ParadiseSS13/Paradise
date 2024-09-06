@@ -37,7 +37,7 @@
 	alcohol_perc = 0.45
 	dizzy_adj = 1
 	drink_icon = "sambukaglass"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Glass of Sambuka"
 	drink_desc = "Flying into space, many thought that they had grasped fate."
 	taste_description = "twirly fire"
@@ -49,7 +49,7 @@
 	color = "#746463"
 	alcohol_perc = 0.5
 	drink_icon = "innocent_erp"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Innocent ERP"
 	drink_desc = "Remember that big brother sees everything."
 	taste_description = "loss of flirtatiousness"
@@ -69,7 +69,7 @@
 	color = "#C18A7B"
 	alcohol_perc = 0.5
 	drink_icon = "soundhand"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Саундхэнд"
 	drink_desc = "Коктейль из нескольких алкогольных напитков с запахом ягод и легким слоем перца на стакане."
 	taste_description = "дребезжащие в ритме металлические струны."
@@ -95,7 +95,7 @@
 	alcohol_perc = 0.4
 	dizzy_adj = 6 SECONDS
 	drink_icon = "jagermeisterglass"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Стакан Егермейстра"
 	drink_desc = "Пьяный охотник прилетел из глубокого космоса и, похоже, нашел жертву."
 	taste_description = "радость охоты"
@@ -107,7 +107,7 @@
 	color = "#16c9ff"
 	alcohol_perc = 0.35
 	drink_icon = "bluecuracaoglass"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Стакан Блю Кюрасао"
 	drink_desc = "Предохранитель готов, синева уже загорелась."
 	taste_description = "взрывная синева"
@@ -120,7 +120,7 @@
 	alcohol_perc = 0.45
 	dizzy_adj = 4 SECONDS
 	drink_icon = "bitterglass"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Стакан Биттера"
 	drink_desc = "Не путайте размеры этикеток, потому что я ничего менять не буду."
 	taste_description = "вакуумная горечь"
@@ -141,7 +141,7 @@
 	color = "#252521"
 	alcohol_perc = 0.45
 	drink_icon = "black_blood"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Черная Кровь"
 	drink_desc = "Нужно пить быстрее, пока оно не начало сворачиваться."
 	taste_description = "кровавая тьма"
@@ -166,7 +166,7 @@
 	color = "#a5702b"
 	alcohol_perc = 0.5
 	drink_icon = "pegu_club"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Клуб Пегу"
 	drink_desc = "Это похоже на то, как группа джентльменов колонизирует ваш язык."
 	taste_description = "грузовой канал"
@@ -186,7 +186,7 @@
 	color = "#6b0059"
 	alcohol_perc = 1.4 ////Heal burn
 	drink_icon = "alcomender"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Алкомендер"
 	drink_desc = "Стакан в форме мендера, любимец врачей."
 	taste_description = "забавное лекарство"
@@ -218,7 +218,7 @@
 	color = "#6b0059"
 	alcohol_perc = 1.2 ////Ethanol and Hooch
 	drink_icon = "amnesia"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Звездная амнезия"
 	drink_desc = "Это просто бутылка медицинского спирта?"
 	taste_description = "диско амнезия"
@@ -238,7 +238,7 @@
 	color = "#c41414"
 	alcohol_perc = 0.6
 	drink_icon = "johnny"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Silverhand"
 	drink_desc = "Wake the heck up, samurai. We have a station to burn."
 	taste_description = "superstar fading"
@@ -258,7 +258,7 @@
 	color = "#6b4017"
 	alcohol_perc = 0.6
 	drink_icon = "oldfashion"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Old Fashion"
 	drink_desc = "Ходят слухи, что этот коктейль самый старый, но, однако, это совсем другая история."
 	taste_description = "старые времена"
@@ -279,7 +279,7 @@
 	alcohol_perc = 0.7
 	process_flags = SYNTHETIC
 	drink_icon = "teslasingylo"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "God Of Power"
 	drink_desc = "Настоящий ужас для СМЕСов и АПЦ. Не перегружайте их."
 	taste_description = "благословление электричества"
@@ -307,7 +307,7 @@
 	color = "#754609"
 	alcohol_perc = 0.4
 	drink_icon = "brandy_crusta"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Брэнди Круста"
 	drink_desc = "Сахарная корочка может оказаться совсем не сладкой."
 	taste_description = "солено-сладкий"
@@ -327,7 +327,7 @@
 	color = "#4218a3"
 	alcohol_perc = 0.5
 	drink_icon = "telegol"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Телеголь"
 	drink_desc = "Многие до сих пор ломают голову над вопросом об этом коктейле. В любом случае, оно все еще существует... Или нет."
 	taste_description = "четвертое измерение"
@@ -347,7 +347,7 @@
 	color = "#c45d09"
 	alcohol_perc = 0.5
 	drink_icon = "horse_neck"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Лошадиная Шея"
 	drink_desc = "Будьте осторожны с вашими подковами."
 	taste_description = "лошадиная сила"
@@ -372,7 +372,7 @@
 	color = "#8d0000"
 	alcohol_perc = 0.45
 	drink_icon = "vampiro"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Вампиро"
 	drink_desc = "Ничего общего с вампирами не имеет, кроме цвета."
 	taste_description = "истощение"
@@ -398,7 +398,7 @@
 	color = "#5a3e0b"
 	alcohol_perc = 0.4
 	drink_icon = "inabox"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Коробка"
 	drink_desc = "Это... Просто коробка?"
 	taste_description = "стелс"
@@ -419,7 +419,7 @@
 	process_flags = SYNTHETIC
 	alcohol_perc = 0.6
 	drink_icon = "irishempbomb"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Ирладская ЕМП Бомба"
 	drink_desc = "Ммм, на вкус как выключение..."
 	taste_description = "электромагнитный импульс"
@@ -440,7 +440,7 @@
 	alcohol_perc = 0.55
 	process_flags = SYNTHETIC
 	drink_icon = "codelibre"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Code Libre"
 	drink_desc = "Por Code libre!"
 	taste_description = "освобождение кода"
@@ -465,7 +465,7 @@
 	color = "#54dd1e"
 	alcohol_perc = 0.6
 	drink_icon = "green_fairy"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Зеленая Фея"
 	drink_desc = "Какой-то ненормальный зеленый цвет."
 	taste_description = "вера в фей"
@@ -490,7 +490,7 @@
 	color = "#e2a600"
 	alcohol_perc = 0.5
 	drink_icon = "trans_siberian_express"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Транс-Сибирский Экспресс"
 	drink_desc = "От Владивостока до белой горячки за один день."
 	taste_description = "ужасная инфраструктура"
@@ -511,7 +511,7 @@
 	dizzy_adj = 20 SECONDS
 	alcohol_perc = 1.5
 	drink_icon = "rainbow_sky"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Радужное Небо"
 	drink_desc = "Напиток, переливающийся всеми цветами радуги с нотками галактики."
 	taste_description = "радуга"
@@ -541,7 +541,7 @@
 	process_flags = SYNTHETIC
 	alcohol_perc = 1.5
 	drink_icon = "restart"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Перезагрузка"
 	drink_desc = "Иногда нужно просто начать заново."
 	taste_description = "перезагрузка системы"
@@ -556,14 +556,14 @@
 			if(prob(5))
 				to_chat(M, span_notice("Rebooting.."))
 		if(14)
-			playsound(get_turf(M),'modular_ss220/food/sound/restart-shutdown.ogg', 200, 1)
+			playsound(get_turf(M),'modular_ss220/food_and_drinks/sound/restart-shutdown.ogg', 200, 1)
 		if(15 to 23)
 			M.Weaken(10 SECONDS)
 			update_flags |= M.adjustBruteLoss(-0.3, FALSE, robotic = TRUE)
 			update_flags |= M.adjustFireLoss(-0.3, FALSE, robotic = TRUE)
 			M.SetSleeping(20 SECONDS)
 		if(24)
-			playsound(get_turf(M), 'modular_ss220/food/sound/restart-wakeup.ogg', 200, 1)
+			playsound(get_turf(M), 'modular_ss220/food_and_drinks/sound/restart-wakeup.ogg', 200, 1)
 		if(25)
 			M.SetStunned(0)
 			M.SetWeakened(0)
@@ -595,7 +595,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	alcohol_perc = 0.2
 	drink_icon = "alco_kvass"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Стакан алкогольного кваса"
 	drink_desc = "Освежающий горьковато-сладкий напиток прямиком из СССП"
 	taste_description = "квас"
@@ -607,7 +607,7 @@
 	color = "#574113"
 	adj_sleepy = -4 SECONDS
 	drink_icon = "kvass"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_name = "Стакан безалкогольного кваса"
 	drink_desc = "Квас без алкоголя. Освежает, но по вкусу как-то... блекло?"
 	harmless = FALSE
@@ -630,7 +630,7 @@
 	dizzy_adj = 4 SECONDS
 	taste_description = "bloody"
 	drink_icon = "narsour"
-	drinking_glass_icon = 'modular_ss220/food/icons/drinks.dmi'
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	drink_desc = "Новый хит-коктейль, вдохновлённый пивоварнями фирмы \"THE ARM\", что заставит вас выкрикивать Fuu ma'jin без остановки!"
 	drink_name = "Nar'Sour"
 
@@ -668,7 +668,7 @@
 	name = "Квас"
 	desc = "Банка кваса. На этикетке написано \"Сделано в СССП\""
 	icon_state = "kvass_can"
-	icon = 'modular_ss220/food/icons/drinks.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
 	list_reagents = list("kvass" = 50)
 
 /obj/machinery/chem_dispenser/soda/Initialize(mapload)
@@ -687,3 +687,108 @@
 	products += list(/obj/item/reagent_containers/drinks/cans/kvass = 10)
 	prices += list(/obj/item/reagent_containers/drinks/cans/kvass = 50)
 	return ..()
+
+// MARK: Vulpix Milk
+/obj/item/reagent_containers/drinks/bottle/vulpix_milk
+	desc = "Упаковка молочного коктейля с милой мордочкой лиса."
+	icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	is_glass = FALSE
+
+/obj/item/reagent_containers/drinks/bottle/vulpix_milk/smash(mob/living/target, mob/living/user, ranged = FALSE)
+	return
+
+// Berry Milk
+/obj/item/reagent_containers/drinks/bottle/vulpix_milk/berry
+	name = "Red Fox's Strawberry Milk"
+	icon_state = "MV_milk_strawberry"
+	list_reagents = list("vulpix_milk_berry" = 50)
+
+/datum/reagent/consumable/drink/vulpix_milk_berry
+	name = "Red Fox's Strawberry Milk"
+	id = "vulpix_milk_berry"
+	description = "Клубничное молоко."
+	color = "#CE5643"
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_icon = "MV_milkshake_straw"
+	drink_name = "Strawberry Milkshake"
+	drink_desc = "Клубничный молочный коктейль ярко-красного цвета, вкус детства!"
+	harmless = FALSE
+	taste_description = "клубничное молоко"
+
+/datum/chemical_reaction/vulpix_milk_berry
+	name = "Red Fox's Strawberry Milk"
+	id = "vulpix_milk_berry"
+	result = "vulpix_milk_berry"
+	required_reagents = list("milk" = 4, "berryjuice" = 1)
+	result_amount = 5
+
+// Banana Milk
+/obj/item/reagent_containers/drinks/bottle/vulpix_milk/banana
+	name = "Red Fox's Banana Milk"
+	icon_state = "MV_milk_banana"
+	list_reagents = list("vulpix_milk_banana" = 50)
+
+/datum/reagent/consumable/drink/vulpix_milk_banana
+	name = "Red Fox's Banana Milk"
+	id = "vulpix_milk_banana"
+	description = "Банановое молоко."
+	color = "#CEE03A"
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_icon = "MV_milkshake_banana"
+	drink_name = "Banana Milkshake"
+	drink_desc = "Банановый молочный коктейль, вкус вашего детства, если вы, конечно, клоун."
+	harmless = FALSE
+	taste_description = "банановое молоко"
+
+/datum/chemical_reaction/vulpix_milk_banana
+	name = "Red Fox's Banana Milk"
+	id = "vulpix_milk_banana"
+	result = "vulpix_milk_banana"
+	required_reagents = list("milk" = 4, "banana" = 1)
+	result_amount = 5
+
+// Chocolate Milk
+/obj/item/reagent_containers/drinks/bottle/vulpix_milk/choco
+	name = "Red Fox's Chocolate Milk"
+	icon_state = "MV_milk_choco"
+	list_reagents = list("vulpix_milk_choco" = 50)
+
+/datum/reagent/consumable/drink/vulpix_milk_choco
+	name = "Red Fox's Chocolate Milk"
+	id = "vulpix_milk_choco"
+	description = "Шоколадное молоко."
+	color = "#434333"
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_icon = "MV_milkshake_choco"
+	drink_name = "Chocolate Milkshake"
+	drink_desc = "Шоколадный молочный коктейль, вкус детства!"
+	harmless = FALSE
+	taste_description = "шоколадное молоко"
+
+/datum/chemical_reaction/vulpix_milk_choco
+	name = "Red Fox's Chocolate Milk"
+	id = "vulpix_milk_choco"
+	result = "vulpix_milk_choco"
+	required_reagents = list("milk" = 4, "chocolate" = 1)
+	result_amount = 5
+
+// MARK: Vulpix Beer
+/obj/item/reagent_containers/drinks/cans/vulpbeer
+	name = "MacVulpBeer Citrus"
+	desc = "Баночка пробуждающего аппетит и дешевого цитрусового пива от МакВульпикс."
+	icon_state = "vulpbeer_can"
+	icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	list_reagents = list("vulpbeer" = 50)
+
+/datum/reagent/consumable/ethanol/vulpbeer
+	name = "MacVulpBeer Citrus"
+	id = "vulpbeer"
+	description = "Обычное пиво с добавлением цитрусовых."
+	color = "#b86a21"
+	nutriment_factor = 1 * REAGENTS_METABOLISM
+	alcohol_perc = 0.15
+	drink_icon = "vulpbeer"
+	drinking_glass_icon = 'modular_ss220/food_and_drinks/icons/drinks.dmi'
+	drink_name = "Citrus Beer"
+	drink_desc = "Обычное пиво оранжевого оттенка, пахнет апельсинами."
+	taste_description = "кисленькое пиво"

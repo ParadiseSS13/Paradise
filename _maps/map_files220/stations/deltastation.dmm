@@ -102270,6 +102270,7 @@
 	dir = 1
 	},
 /obj/machinery/alarm/directional/west,
+/obj/machinery/economy/vending/vulpix,
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/locker)
 "tIF" = (

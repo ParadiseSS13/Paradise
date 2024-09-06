@@ -4397,7 +4397,7 @@
 /area/awaymission/black_mesa/xen/freeman_hallway)
 "frM" = (
 /obj/structure/table,
-/obj/item/food/doshik_spicy,
+/obj/item/food/fancy/doshik_spicy,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
@@ -7495,7 +7495,7 @@
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "jka" = (
 /obj/structure/closet/crate/wooden/wooden_crate,
-/obj/item/food/doshik_spicy,
+/obj/item/food/fancy/doshik_spicy,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)
 "jkk" = (
@@ -9738,7 +9738,7 @@
 /area/awaymission/black_mesa/science_labs)
 "lTy" = (
 /obj/structure/table,
-/obj/item/food/doshik,
+/obj/item/food/fancy/doshik,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/lost_camp)
@@ -13268,7 +13268,7 @@
 /area/awaymission/black_mesa/hecu_zone_camp)
 "qeH" = (
 /obj/structure/table,
-/obj/item/food/doshik_spicy,
+/obj/item/food/fancy/doshik_spicy,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/black_mesa/xen/acid_lake_building)
 "qfg" = (
@@ -13916,7 +13916,7 @@
 /area/awaymission/black_mesa/entrance_large_office)
 "qPE" = (
 /obj/structure/closet/crate/wooden/wooden_crate,
-/obj/item/food/doshik,
+/obj/item/food/fancy/doshik,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/deep_sci_storage)
 "qPF" = (

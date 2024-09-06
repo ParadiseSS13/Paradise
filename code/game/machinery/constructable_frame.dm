@@ -300,7 +300,7 @@ to destroy them and players will be able to make replacements.
 	set_type(choice)
 
 /obj/item/circuitboard/vendor/proc/set_type(type)
-	var/static/list/buildable_vendors = station_vendors + unique_vendors
+	var/static/list/buildable_vendors = station_vendors + unique_vendors + ss220_vendors // SS220 ADDITION - ss220_vendors
 	var/obj/machinery/economy/vending/typepath = buildable_vendors[type]
 	build_path = typepath
 	board_name = "[type] Vendor"

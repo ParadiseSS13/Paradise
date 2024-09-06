@@ -10669,7 +10669,7 @@
 /obj/item/jammer{
 	pixel_x = 4
 	},
-/obj/item/food/doshik,
+/obj/item/food/fancy/doshik,
 /turf/simulated/floor/mineral/plastitanium{
 	color = "#ff78f4";
 	nitrogen = 103.984;
@@ -11366,14 +11366,14 @@
 /obj/effect/spawner/lootdrop/trash,
 /obj/effect/spawner/lootdrop/trash,
 /obj/effect/spawner/lootdrop/trash,
-/obj/item/food/doshik_spicy{
+/obj/item/food/fancy/doshik_spicy{
 	pixel_x = -3
 	},
-/obj/item/food/doshik{
+/obj/item/food/fancy/doshik{
 	pixel_y = 1;
 	pixel_x = 3
 	},
-/obj/item/food/doshik{
+/obj/item/food/fancy/doshik{
 	pixel_y = -6;
 	pixel_x = 5
 	},
@@ -24018,7 +24018,7 @@
 /obj/item/clothing/glasses/meson{
 	pixel_x = 5
 	},
-/obj/item/food/doshik_spicy,
+/obj/item/food/fancy/doshik_spicy,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_base)
 "lWU" = (

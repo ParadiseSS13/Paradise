@@ -1,13 +1,13 @@
 /obj/item/nails
 	name = "гвозди"
 	desc = "Хорошие гвозди, жаль бесполезные."
-	icon = 'modular_ss220/food/icons/food.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/food.dmi'
 	icon_state = "nails"
 
 /obj/item/food/nails
 	name = "жаренные гвозди"
 	desc = "Жаренных гвоздей не хочешь, не?"
-	icon = 'modular_ss220/food/icons/food.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/food.dmi'
 	icon_state = "nails_fried"
 	trash = /obj/item/trash/plate
 	bitesize = 3

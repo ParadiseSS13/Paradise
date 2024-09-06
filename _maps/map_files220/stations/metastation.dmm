@@ -49585,6 +49585,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
+"fJF" = (
+/obj/machinery/economy/vending/vulpix,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkneutralfull"
+	},
+/area/station/public/fitness)
 "fKW" = (
 /obj/item/kirbyplants/plant16,
 /obj/structure/cable/yellow{
@@ -126114,7 +126120,7 @@ ahH
 agi
 agG
 afb
-aio
+fJF
 ajp
 akn
 akh

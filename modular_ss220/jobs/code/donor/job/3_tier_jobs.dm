@@ -337,8 +337,8 @@
 	backpack_contents = list(
 		/obj/item/reagent_containers/drinks/bottle/vodka = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_random = 2,
-		/obj/item/food/doshik = 3,
-		/obj/item/food/doshik_spicy = 3,
+		/obj/item/food/fancy/doshik = 3,
+		/obj/item/food/fancy/doshik_spicy = 3,
 		/obj/item/clothing/suit/mantle/old = 1,
 		/obj/item/clothing/head/flatcap = 1,
 		/obj/item/clothing/suit/browntrenchcoat = 1,

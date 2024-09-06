@@ -74,7 +74,7 @@
 /obj/item/food/cucumberslice
 	name = "ломтик огурца"
 	desc = "Нарезанный огурец, неожиданно, правда?"
-	icon = 'modular_ss220/food/icons/food.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/food.dmi'
 	icon_state = "cucumberslice"
 	filling_color = "#00DB00"
 	bitesize = 6
@@ -85,7 +85,7 @@
 /obj/item/reagent_containers/condiment/tomato_sauce
 	name = "томатный соус"
 	desc = "Отец всех соусов. Помидоры, немного специй и ничего лишнего."
-	icon = 'modular_ss220/food/icons/containers.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/containers.dmi'
 	icon_state = "tomato_sauce"
 	list_reagents = list("tomato_sauce" = 50)
 	possible_states = list()
@@ -101,7 +101,7 @@
 /obj/item/reagent_containers/condiment/diablo_sauce
 	name = "соус 'Диабло'"
 	desc = "Старинный жгучий соус, рецепт которого практически не изменился с момента его создания."
-	icon = 'modular_ss220/food/icons/containers.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/containers.dmi'
 	icon_state = "diablo_sauce"
 	list_reagents = list("diablo_sauce" = 30, "capsaicin" = 20)
 	possible_states = list()
@@ -117,7 +117,7 @@
 /obj/item/reagent_containers/condiment/cheese_sauce
 	name = "сырный соус"
 	desc = "Сыр, сливки и молоко... максимальная концентрация белка!"
-	icon = 'modular_ss220/food/icons/containers.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/containers.dmi'
 	icon_state = "cheese_sauce"
 	list_reagents = list("cheese_sauce" = 50)
 	possible_states = list()
@@ -133,7 +133,7 @@
 /obj/item/reagent_containers/condiment/mushroom_sauce
 	name = "грибной соус"
 	desc = "Сливочный соус с грибами, имеет довольно резкий запах."
-	icon = 'modular_ss220/food/icons/containers.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/containers.dmi'
 	icon_state = "mushroom_sauce"
 	list_reagents = list("mushroom_sauce" = 50)
 	possible_states = list()
@@ -149,7 +149,7 @@
 /obj/item/reagent_containers/condiment/garlic_sauce
 	name = "чесночный соус"
 	desc = "Сильный соус с чесноком, его запах бьет в нос. Некоторые члены экипажа, вероятно, будут шипеть на вас и уходить."
-	icon = 'modular_ss220/food/icons/containers.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/containers.dmi'
 	icon_state = "garlic_sauce"
 	list_reagents = list("garlic_sauce" = 50)
 	possible_states = list()
@@ -165,7 +165,7 @@
 /obj/item/reagent_containers/condiment/custard
 	name = "заварной крем"
 	desc = "Мягкий и сладкий крем, используемый в кондитерском производстве."
-	icon = 'modular_ss220/food/icons/containers.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/containers.dmi'
 	icon_state = "custard"
 	list_reagents = list("custard" = 50)
 	possible_states = list()
@@ -179,8 +179,8 @@
 /obj/item/reagent_containers/condiment/herbs
 	name = "приправа"
 	desc = "Смесь различных трав. Идеально подходит для пиццы!"
-	icon = 'modular_ss220/food/icons/containers.dmi'
-	icon = 'modular_ss220/food/icons/containers.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/containers.dmi'
+	icon = 'modular_ss220/food_and_drinks/icons/containers.dmi'
 	icon_state = "herbs"
 	list_reagents = list("herbsmix" = 50)
 	possible_states = list()

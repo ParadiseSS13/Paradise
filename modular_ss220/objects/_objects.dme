@@ -21,6 +21,10 @@
 #include "code/weapons/ranged/revolvers.dm"
 #include "code/weapons/ranged/sslr.dm"
 
+// Plushies
+#include "code/plushies/hampters.dm"
+#include "code/plushies/macvulpix.dm"
+
 // Miscellaneous
 #include "code/beach_umbrella.dm"
 #include "code/big_bed.dm"
@@ -28,7 +32,6 @@
 #include "code/closets.dm"
 #include "code/coffin.dm"
 #include "code/computer.dm"
-#include "code/hampters.dm"
 #include "code/mattress.dm"
 #include "code/miscellaneous.dm"
 #include "code/officetoys.dm"

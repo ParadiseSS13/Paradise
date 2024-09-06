@@ -2,3 +2,4 @@
 
 #include "code/vending.dm"
 #include "code/vending_items.dm"
+#include "code/vending_food.dm"
