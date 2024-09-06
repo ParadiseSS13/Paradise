@@ -199,7 +199,7 @@
 	if(skater.incapacitated() || !Adjacent(skater))
 		return
 	if(cursed)
-		to_chat(skater, "<span class='danger'>Some magic burns your hands whenever you go to pick it up!</span>")
+		to_chat(skater, "<span class='danger'>Some magic burns your hands whenever you go to pick [src] up!</span>")
 		return
 	if(has_buckled_mobs())
 		to_chat(skater, "<span class='warning'>You can't lift this up when somebody's on it.</span>")
