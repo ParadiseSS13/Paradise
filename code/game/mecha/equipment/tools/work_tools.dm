@@ -463,7 +463,7 @@
 	energy_drain = 3000
 	harmful = TRUE
 	range = MECHA_MELEE | MECHA_RANGED
-	var/obj/item/kinetic_crusher/mecha/internal_crusher = new
+	var/obj/item/kinetic_crusher/mecha/internal_crusher
 
 /obj/item/kinetic_crusher/mecha
 	force = 15
@@ -472,6 +472,11 @@
 	detonation_damage = 90
 	backstab_bonus = 50
 
+/obj/item/kinetic_crusher/mecha/get_turf_for_projectile(atom/user)
+	if(ismecha(user.loc) && isturf(user.loc?.loc))
+		return user.loc.loc
+	return null
+
 /obj/item/kinetic_crusher/mecha/Initialize(mapload)
 	. = ..()
 	var/datum/component/unwanted = GetComponent(/datum/component/parry)
@@ -479,6 +484,14 @@
 	unwanted = GetComponent(/datum/component/two_handed)
 	unwanted?.RemoveComponent()
 	ADD_TRAIT(src, TRAIT_WIELDED, "mech[UID()]")
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/Initialize(mapload)
+	. = ..()
+	internal_crusher = new(src)
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/Destroy()
+	QDEL_NULL(internal_crusher)
+	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/mech_crusher/action(atom/target)
 	if(!action_checks(target))
