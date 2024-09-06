@@ -165,7 +165,6 @@
 		user.create_log(MISC_LOG, "lit a bonfire", src)
 		StartBurning(user)
 
-
 /obj/structure/bonfire/attack_hand(mob/user)
 	if(burning)
 		to_chat(user, "<span class='warning'>You need to extinguish [src] before removing the logs!</span>")
