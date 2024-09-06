@@ -238,7 +238,8 @@
 	can_buckle = FALSE
 	addtimer(CALLBACK(src, PROC_REF(remove_rider)), 5 SECONDS)
 	curse_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
-	
+	curse_overlay.pixel_y -= 10
+
 	add_overlay(curse_overlay)
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/proc/remove_rider()
