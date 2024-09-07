@@ -5,8 +5,8 @@ necessary to get started making contributions to Paradise Station.
 
 ## Required Reading
 
-All contributors are expected to read and abide by the Paradise Station [Code of
-Conduct](./CODE_OF_CONDUCT.md) and [Contribution Guidelines](./CONTRIBUTING.md).
+All contributors are expected to read and abide by the Paradise Station [Code of Conduct](./CODE_OF_CONDUCT.md) and
+[Contribution Guidelines](./CONTRIBUTING.md).
 
 ## New Contributors
 
