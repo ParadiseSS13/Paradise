@@ -19,8 +19,8 @@
 		hide_role = TRUE
 
 /datum/buildmode_mode/offer/handle_click(mob/user, params, atom/A)
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
+	var/list/modifiers = params2list(params)
+	var/left_click = LAZYACCESS(modifiers, LEFT_CLICK)
 	var/selected_atom
 
 	if(left_click && ismob(A) && !isobserver(A))
