@@ -62,7 +62,7 @@
 		for(var/area in GLOB.alarm_manager.alarms[class])
 			for(var/thing in GLOB.alarm_manager.alarms[class][area][3])
 				var/atom/A = locateUID(thing)
-				if((get_area(A)).type in areas)
+				if(A && ((get_area(A)).type in areas))
 					data["alarms"][class] += area
 
 	return data

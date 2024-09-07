@@ -384,7 +384,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	for(var/shaken in GLOB.mob_list)
 		var/mob/M = shaken
 		var/turf/their_turf = get_turf(M)
-		if( their_turf && ((get_area(their_turf)).type in typesof(parent_area_type)))
+		if(their_turf && ((get_area(their_turf)).type in typesof(parent_area_type)))
 			M.update_gravity(M.mob_has_gravity())
 			if(M.client)
 				shake_camera(M, 15, 1)
