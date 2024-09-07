@@ -169,9 +169,11 @@
 		minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
 	else
 		minhours = hours
-	if (!hide_role)
+	if(isnull(hide_role))
 		if(alert("Do you want to show the antag status?","Show antag status","Yes","No") == "Yes")
 			question += ", [M.mind?.special_role ? M.mind?.special_role : "No special role"]"
+	else if(!hide_role)
+		question += ", [M.mind?.special_role ? M.mind?.special_role : "No special role"]"
 	message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = M)
 	var/mob/dead/observer/theghost = null
