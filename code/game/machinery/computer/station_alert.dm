@@ -7,11 +7,27 @@
 	light_color = LIGHT_COLOR_CYAN
 	circuit = /obj/item/circuitboard/stationalert_engineering
 	var/list/alarms_listend_for = list("Fire", "Atmosphere", "Power")
+	var/parent_area_type = null
+	var/list/areas = list()
 
 /obj/machinery/computer/station_alert/Initialize(mapload)
 	. = ..()
 	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
 	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
+	parent_area_type = (get_area(src)).type
+
+	if(parent_area_type in subtypesof(/area/ruin))
+		// figure out which ruin we are on
+		while(type2parent(type2parent(parent_area_type)) != /area/ruin)
+			parent_area_type = type2parent(parent_area_type)
+
+	else if(parent_area_type in subtypesof(/area/station))
+		parent_area_type = /area/station
+	else
+		parent_area_type = null
+
+	if(parent_area_type)
+		areas = typesof(parent_area_type)
 
 
 /obj/machinery/computer/station_alert/attack_ai(mob/user)
@@ -46,7 +62,7 @@
 		for(var/area in GLOB.alarm_manager.alarms[class])
 			for(var/thing in GLOB.alarm_manager.alarms[class][area][3])
 				var/atom/A = locateUID(thing)
-				if(atoms_share_level(A, src))
+				if((get_area(A)).type in areas)
 					data["alarms"][class] += area
 
 	return data
