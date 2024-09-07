@@ -158,16 +158,24 @@
 		return U.sensor_mode
 	return SUIT_SENSOR_OFF
 
-/proc/offer_control(mob/M)
-	to_chat(M, "Control of your mob has been offered to dead players.")
+/proc/offer_control(mob/M, hours, hide_role)
+	if(HAS_TRAIT(M, TRAIT_BEING_OFFERED))
+		return
+	var/minhours
+	ADD_TRAIT(M, TRAIT_BEING_OFFERED, "build_mode")
 	log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
-	var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
-	message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
 	var/question = "Do you want to play as [M.real_name ? M.real_name : M.name][M.job ? " ([M.job])" : ""]"
-	if(alert("Do you want to show the antag status?","Show antag status","Yes","No") == "Yes")
-		question += ", [M.mind?.special_role ? M.mind?.special_role : "No special role"]"
+	if (!hours)
+		minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
+	else
+		minhours = hours
+	if (!hide_role)
+		if(alert("Do you want to show the antag status?","Show antag status","Yes","No") == "Yes")
+			question += ", [M.mind?.special_role ? M.mind?.special_role : "No special role"]"
+	message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = M)
 	var/mob/dead/observer/theghost = null
+	REMOVE_TRAIT(M, TRAIT_BEING_OFFERED, "build_mode")
 
 	if(length(candidates))
 		if(QDELETED(M))
@@ -178,6 +186,7 @@
 		M.ghostize()
 		M.key = theghost.key
 		dust_if_respawnable(theghost)
+
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
 		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
