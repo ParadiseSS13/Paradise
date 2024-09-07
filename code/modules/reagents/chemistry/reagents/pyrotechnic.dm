@@ -6,6 +6,8 @@
 	color = "#FFAF00"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "burning"
+	burn_temperature = T0C + 500
+	burn_duration = 20 SECONDS
 	var/temp_fire = 4000
 	var/temp_deviance = 1000
 	var/size_divisor = 40
@@ -43,6 +45,7 @@
 	temp_deviance = 500
 	size_divisor = 80
 	mob_burning = 3 // 15
+	burn_temperature = T0C + 700
 
 /datum/reagent/napalm
 	name = "Napalm"
@@ -52,6 +55,9 @@
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#C86432"
 	taste_description = "burning"
+	burn_temperature = T0C + 500
+	burn_duration = 40 SECONDS
+	fire_stack_applications = 4 // BURN BABY BURN
 
 /datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 100)
@@ -91,6 +97,9 @@
 	drink_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
 	taste_description = "mistakes"
 	process_flags = ORGANIC | SYNTHETIC
+	burn_temperature = T0C + 400
+	burn_duration = 15 SECONDS // Barely better than default
+
 	var/max_radius = 7
 	var/min_radius = 0
 	var/volume_radius_modifier = -0.15
@@ -139,7 +148,7 @@
 		T.create_reagents(50)
 	T.reagents.add_reagent("fuel", volume)
 
-/datum/reagent/fuel/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
+/datum/reagent/fuel/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume) // Splashing people with welding fuel to make them easy to ignite!
 	if(method == REAGENT_TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
@@ -152,6 +161,8 @@
 	color = "#7A2B94"
 	taste_description = "corporate assets going to waste"
 	taste_mult = 1.5
+	burn_temperature = T0C + 400
+	burn_duration = 20 SECONDS
 
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
@@ -185,6 +196,8 @@
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "rust"
+	burn_temperature = T0C + 1500 // hahahahHAHAHAHAH LET IT BURN
+	burn_duration = 5 SECONDS // Not for long though
 
 /datum/reagent/thermite/reaction_mob(mob/living/M, method= REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -237,6 +250,9 @@
 	metabolization_rate = 4
 	process_flags = ORGANIC | SYNTHETIC
 	taste_mult = 0
+	burn_temperature = T0C + 700
+	burn_duration = 15 SECONDS
+	fire_stack_applications = 3
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
 	if(M.on_fire)

@@ -245,4 +245,8 @@
 // Gives you the percent of two inputs
 #define PERCENT_OF(val1, val2) (val1 * (val2 / 100))
 
+///Returns an integer given a hex input, supports negative values "-ff". Skips preceding invalid characters.
+#define hex2num(X) text2num(X, 16)
+
+/// Returns the hex value of a decimal number. len == length of returned string.
 #define num2hex(X, len) uppertext(num2text(X, len, 16))
