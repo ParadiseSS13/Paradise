@@ -1,5 +1,5 @@
 // Speeds up the offering process and optionally allows the admin to set up playtime requirement and "Show role" only once.
-// Default settings are 20h time requirement, and show antag role.
+// Default setting is 20H like the default recommendation for offering from drop down menu.
 /datum/buildmode_mode/offer
 	key = "offer"
 	var/hours = 20
