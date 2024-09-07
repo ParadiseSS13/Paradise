@@ -13,7 +13,7 @@
 
 /datum/buildmode_mode/offer/change_settings(mob/user)
 	hours = input(user, "Playtime required", "Input", 20) as num|null
-	if(alert("Do you want to show the mob's special role?", null, "Yes", "No") == "Yes" )
+	if(alert("Do you want to show the mob's special role?", null, "Yes", "No") == "Yes")
 		hide_role = FALSE
 	else
 		hide_role = TRUE
@@ -23,7 +23,7 @@
 	var/left_click = pa.Find("left")
 	var/selected_atom
 
-	if (left_click && ismob(A) && !isobserver(A))
+	if(left_click && ismob(A) && !isobserver(A))
 		selected_atom = A
 		offer_control(selected_atom, hours, hide_role)
 
