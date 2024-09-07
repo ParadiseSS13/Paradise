@@ -524,6 +524,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		parent_area_type = null
 
 	atmos_control.parent_area_type = parent_area_type
+	atmos_control.z = z
 
 /obj/machinery/computer/atmoscontrol/Destroy()
 	QDEL_NULL(atmos_control)

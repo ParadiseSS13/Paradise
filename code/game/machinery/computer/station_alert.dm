@@ -18,7 +18,7 @@
 
 	if(parent_area_type in subtypesof(/area/ruin))
 		// figure out which ruin we are on
-		while(!(type2parent(parent_area_type) in /area/ruin))
+		while(!(type2parent(parent_area_type) in GLOB.ruin_prototypes))
 			parent_area_type = type2parent(parent_area_type)
 
 	else if(parent_area_type in subtypesof(/area/station))
@@ -62,7 +62,7 @@
 		for(var/area in GLOB.alarm_manager.alarms[class])
 			for(var/thing in GLOB.alarm_manager.alarms[class][area][3])
 				var/atom/A = locateUID(thing)
-				if(A && ((get_area(A)).type in areas))
+				if(A && ((get_area(A)).type in areas) && A.z == z)
 					data["alarms"][class] += area
 
 	return data
