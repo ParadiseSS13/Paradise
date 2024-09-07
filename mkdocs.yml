@@ -30,6 +30,7 @@ extra:
 
 plugins:
   - gh-admonitions
+  - search
 
 markdown_extensions:
   - admonition

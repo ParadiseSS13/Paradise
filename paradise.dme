@@ -1229,6 +1229,8 @@
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_traitor.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chip_uplink.dm"
 #include "code\game\objects\items\weapons\bio_chips\bio_chipper.dm"
+#include "code\game\objects\items\weapons\chemical_flamethrower\chemical_flamethrower.dm"
+#include "code\game\objects\items\weapons\chemical_flamethrower\fire_effect.dm"
 #include "code\game\objects\items\weapons\grenades\atmosgrenade.dm"
 #include "code\game\objects\items\weapons\grenades\bananade.dm"
 #include "code\game\objects\items\weapons\grenades\chem_grenade.dm"
