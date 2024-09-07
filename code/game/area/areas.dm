@@ -98,7 +98,12 @@
 	var/request_console_name
 	/// Whether request consoles in this area can send announcements.
 	var/request_console_announces = FALSE
-
+	/// Fire alarm camera network
+	var/fire_cam_network = "Fire Alarms Debug"
+	/// Power alarm camera network
+	var/power_cam_network = "Power Alarms Debug"
+	/// Atmosphere alarm camera network
+	var/atmos_cam_network = "Atmosphere Alarms Debug"
 	/*
 	Lighting Vars
 	*/
@@ -235,11 +240,11 @@
 		return
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
-		if(!QDELETED(C) && is_station_level(C.z))
+		if(!QDELETED(C))
 			if(state)
-				C.network -= "Power Alarms"
+				C.network -= power_cam_network
 			else
-				C.network |= "Power Alarms"
+				C.network |= power_cam_network
 
 	if(state)
 		GLOB.alarm_manager.cancel_alarm("Power", src, source)
@@ -257,8 +262,8 @@
 
 			for(var/thing in cameras)
 				var/obj/machinery/camera/C = locateUID(thing)
-				if(!QDELETED(C) && is_station_level(C.z))
-					C.network |= "Atmosphere Alarms"
+				if(!QDELETED(C))
+					C.network |= atmos_cam_network
 
 
 			GLOB.alarm_manager.trigger_alarm("Atmosphere", src, cameras, source)
@@ -266,8 +271,8 @@
 		else if(atmosalm == ATMOS_ALARM_DANGER)
 			for(var/thing in cameras)
 				var/obj/machinery/camera/C = locateUID(thing)
-				if(!QDELETED(C) && is_station_level(C.z))
-					C.network -= "Atmosphere Alarms"
+				if(!QDELETED(C))
+					C.network -= atmos_cam_network
 
 			GLOB.alarm_manager.cancel_alarm("Atmosphere", src, source)
 
@@ -329,8 +334,8 @@
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
-		if(!QDELETED(C) && is_station_level(C.z))
-			C.network |= "Fire Alarms"
+		if(!QDELETED(C))
+			C.network |= fire_cam_network
 
 	GLOB.alarm_manager.trigger_alarm("Fire", src, cameras, source)
 
@@ -355,8 +360,8 @@
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
-		if(!QDELETED(C) && is_station_level(C.z))
-			C.network -= "Fire Alarms"
+		if(!QDELETED(C))
+			C.network -= fire_cam_network
 
 	GLOB.alarm_manager.cancel_alarm("Fire", src, source)
 
