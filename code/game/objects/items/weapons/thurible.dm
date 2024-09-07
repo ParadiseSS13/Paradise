@@ -65,7 +65,7 @@
 	if(!corrupted)
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R == "unholywater")
+			if(R.id == "unholywater")
 				corrupted = TRUE
 				to_chat(loc, "<span class='warning'>[src] is corrupted by an unholy substance!</span>")
 				return
