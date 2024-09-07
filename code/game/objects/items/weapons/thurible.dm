@@ -3,7 +3,6 @@
 	name = "thurible"
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "godstaff-blue"
-	slot_flags = SLOT_FLAG_BELT
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
