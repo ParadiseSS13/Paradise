@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 	if(parent_area_type in subtypesof(/area/ruin))
 		// figure out which ruin we are on
-		while(type2parent(type2parent(parent_area_type)) != /area/ruin)
+		while(!(type2parent(parent_area_type) in GLOB.ruin_prototypes))
 			parent_area_type = type2parent(parent_area_type)
 
 	else if(parent_area_type in subtypesof(/area/station))
@@ -312,7 +312,8 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 			message_admins("The gravity generator was brought online. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 			for(var/area/A in world)
 				if(A.type in areas)
-					A.gravitychange(TRUE, A)
+					if(A.z == z)
+						A.gravitychange(TRUE, A)
 
 	else if(generators_in_area() == 1) // Turned off, and there is only one gravity generator on the Z level
 		alert = TRUE
@@ -320,7 +321,8 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		message_admins("The gravity generator was brought offline with no backup generator. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 		for(var/area/A in world)
 			if(A.type in areas)
-				A.gravitychange(FALSE, A)
+				if(A.z == z)
+					A.gravitychange(FALSE, A)
 	update_icon()
 	update_gen_list()
 	if(alert)
@@ -384,7 +386,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	for(var/shaken in GLOB.mob_list)
 		var/mob/M = shaken
 		var/turf/their_turf = get_turf(M)
-		if(their_turf && ((get_area(their_turf)).type in typesof(parent_area_type)))
+		if(their_turf && ((get_area(their_turf)).type in typesof(parent_area_type)) && (M.z == z))
 			M.update_gravity(M.mob_has_gravity())
 			if(M.client)
 				shake_camera(M, 15, 1)

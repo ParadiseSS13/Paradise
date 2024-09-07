@@ -7,6 +7,7 @@
 	light_color = LIGHT_COLOR_CYAN
 	// List of alarms and their state in areas. This is sent to TGUI
 	var/list/alarm_cache
+	var/parent_area_type = null
 
 /obj/machinery/computer/atmos_alert/Initialize(mapload)
 	. = ..()
@@ -14,13 +15,26 @@
 	alarm_cache["minor"] = list()
 	alarm_cache["priority"] = list()
 
+	parent_area_type = (get_area(src)).type
+
+	if(parent_area_type in subtypesof(/area/ruin))
+		// figure out which ruin we are on
+		while(!(type2parent(parent_area_type) in GLOB.ruin_prototypes))
+			parent_area_type = type2parent(parent_area_type)
+
+	else if(parent_area_type in subtypesof(/area/station))
+		parent_area_type = /area/station
+	else
+		parent_area_type = null
+
+
 /obj/machinery/computer/atmos_alert/process()
 	// This is relatively cheap because the areas list is pretty small
 	for(var/area/A as anything in GLOB.all_areas)
 		if(!A.master_air_alarm)
 			continue // No alarm
-		if(A.master_air_alarm.z != z)
-			continue // Not on our z-level
+		if(A in typesof(parent_area_type) && A.master_air_alarm.z != z)
+			continue // Not an area we monitor, or outside our z-level
 		if(!A.master_air_alarm.report_danger_level)
 			continue
 

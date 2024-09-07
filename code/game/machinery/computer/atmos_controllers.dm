@@ -516,7 +516,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	if(parent_area_type in subtypesof(/area/ruin))
 		// figure out which ruin we are on
-		while(type2parent(type2parent(parent_area_type)) != /area/ruin)
+		while(!(type2parent(parent_area_type) in GLOB.ruin_prototypes))
 			parent_area_type = type2parent(parent_area_type)
 	else if(parent_area_type in subtypesof(/area/station))
 		parent_area_type = /area/station
