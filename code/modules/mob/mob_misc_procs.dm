@@ -188,7 +188,6 @@
 		M.ghostize()
 		M.key = theghost.key
 		dust_if_respawnable(theghost)
-
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
 		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
