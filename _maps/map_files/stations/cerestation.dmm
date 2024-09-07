@@ -2327,8 +2327,8 @@
 	},
 /area/station/security/permabrig)
 "aoE" = (
-/obj/structure/table,
 /obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
 "aoF" = (
@@ -15371,7 +15371,6 @@
 	},
 /area/station/science/genetics)
 "bLf" = (
-/obj/structure/rack,
 /obj/item/gun/projectile/shotgun/riot{
 	pixel_x = -3;
 	pixel_y = 3
@@ -15381,16 +15380,10 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
 /obj/machinery/camera{
 	c_tag = "Brig Secure Armory"
 	},
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -15455,6 +15448,9 @@
 /obj/item/storage/box/rubbershot{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -19030,9 +19026,6 @@
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -19040,7 +19033,6 @@
 	},
 /area/station/security/armory/secure)
 "ccO" = (
-/obj/structure/rack,
 /obj/item/gun/energy/disabler{
 	pixel_x = -3;
 	pixel_y = 3
@@ -19054,6 +19046,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -19716,7 +19709,6 @@
 	},
 /area/station/security/warden)
 "cgG" = (
-/obj/structure/rack,
 /obj/item/storage/box/seccarts{
 	pixel_x = 3;
 	pixel_y = 2
@@ -19731,17 +19723,16 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
-/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/shelf/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "cgL" = (
-/obj/structure/rack,
 /obj/item/gun/energy/laser{
 	pixel_x = -3;
 	pixel_y = 3
@@ -19751,20 +19742,13 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/station/security/armory/secure)
 "cgR" = (
-/obj/structure/rack,
 /obj/item/gun/energy/gun{
 	pixel_x = -3;
 	pixel_y = 3
@@ -19777,10 +19761,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
+/obj/structure/gunrack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -33813,11 +33794,11 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
 /obj/structure/window/basic{
 	dir = 8
 	},
+/obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "eot" = (
@@ -36244,9 +36225,9 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/smes)
 "fcE" = (
-/obj/structure/table,
 /obj/item/stack/packageWrap,
 /obj/item/destTagger,
+/obj/structure/shelf/command,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -43943,11 +43924,11 @@
 	pixel_x = 8;
 	pixel_y = 2
 	},
-/obj/structure/table/glass,
 /obj/item/radio/intercom{
 	pixel_y = 28;
 	name = "custom placement"
 	},
+/obj/structure/shelf/medbay,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -44131,8 +44112,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "hIo" = (
@@ -45264,12 +45245,12 @@
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/blueshield)
 "hZk" = (
-/obj/structure/rack,
 /obj/item/storage/belt/utility,
 /obj/item/storage/belt/utility,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
+/obj/structure/shelf/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -50725,8 +50706,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "jyk" = (
-/obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
+/obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "jyx" = (
@@ -66350,7 +66331,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "olh" = (
-/obj/structure/table,
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/storage/bag/plants,
@@ -66358,6 +66338,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/shelf/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -83879,12 +83860,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/table,
 /obj/item/stack/packageWrap,
 /obj/item/destTagger{
 	pixel_x = 4;
 	pixel_y = 3
 	},
+/obj/structure/shelf/science,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -95586,7 +95567,6 @@
 	},
 /area/station/public/fitness)
 "wOh" = (
-/obj/structure/table,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -95599,6 +95579,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/structure/shelf/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},

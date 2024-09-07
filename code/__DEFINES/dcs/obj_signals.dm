@@ -61,3 +61,13 @@
 
 ///from base of /obj/effect/decal/cleanable/blood/gibs/streak(): (list/directions, list/diseases)
 #define COMSIG_GIBS_STREAK "gibs_streak"
+
+/// from /datum/component/shelved/UnregisterFromParent(): (parent_uid)
+#define COMSIG_SHELF_ITEM_REMOVED "shelf_item_removed"
+/// from /datum/component/shelver/add_item(): (obj/item/to_add, placement_idx, list/position_details)
+#define COMSIG_SHELF_ITEM_ADDED "shelf_item_added"
+/// from Initialize on objects implementing /datum/component/shelved
+#define COMSIG_SHELF_ADDED_ON_MAPLOAD "shelf_added_on_mapload"
+/// from /datum/component/shelver/shelf_items()
+#define COMSIG_SHELF_ATTEMPT_PICKUP "shelf_attempt_pickup"
+	#define SHELF_PICKUP_FAILURE (1 << 0)

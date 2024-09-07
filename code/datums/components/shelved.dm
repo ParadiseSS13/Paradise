@@ -1,0 +1,241 @@
+/datum/component/shelver
+	var/list/placement_zones = list()
+	var/list/used_places = list()
+	var/list/allowed_types = list()
+	var/default_scale = 0.70
+	var/default_rotation = 0
+	var/random_pickup_locations
+
+/datum/component/shelver/Initialize(list/allowed_types_ = null, random_pickup_locations_ = FALSE)
+	if(!isstructure(parent))
+		return COMPONENT_INCOMPATIBLE
+	used_places.len = length(placement_zones)
+	if(length(allowed_types_))
+		allowed_types += allowed_types_
+	random_pickup_locations = random_pickup_locations_
+
+/datum/component/shelver/RegisterWithParent()
+	RegisterSignal(parent, COMSIG_SHELF_ATTEMPT_PICKUP, PROC_REF(on_shelf_attempt_pickup))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(parent, COMSIG_SHELF_ITEM_REMOVED, PROC_REF(on_shelf_item_removed))
+	RegisterSignal(parent, COMSIG_SHELF_ADDED_ON_MAPLOAD, PROC_REF(prepare_autoshelf))
+
+/datum/component/shelver/proc/prepare_autoshelf()
+	// See /obj/structure/closet/Initialize for explanation of
+	// addtimer use here
+	addtimer(CALLBACK(src, PROC_REF(shelf_items)), 0)
+
+/datum/component/shelver/proc/shelf_items()
+	var/obj/structure/structure = parent
+
+	var/list/nearby_empty_tiles = list()
+	for(var/turf/turf_in_view in view(2, get_turf(structure)))
+		if(!isfloorturf(turf_in_view))
+			continue
+		for(var/turf/potential_blockage as anything in get_line(get_turf(structure), turf_in_view))
+			if(!is_blocked_turf(potential_blockage, exclude_mobs = TRUE, excluded_objs = list(parent)))
+				nearby_empty_tiles += turf_in_view
+
+	var/itemcount = 1
+	for(var/obj/item/I in structure.loc)
+		if(I.density || I.anchored || I == structure)
+			continue
+		if(itemcount > 6)
+			// If we can't fit it on the shelf, toss it somewhere nearby
+			if(length(nearby_empty_tiles))
+				var/turf/T = pick(nearby_empty_tiles)
+				I.pixel_x = 0
+				I.pixel_y = 0
+				I.forceMove(T)
+		if(!SEND_SIGNAL(structure, COMSIG_SHELF_ATTEMPT_PICKUP, I))
+			itemcount++
+
+/datum/component/shelver/proc/on_shelf_attempt_pickup(datum/source, obj/item/to_add)
+	SIGNAL_HANDLER // COMSIG_SHELF_ATTEMPT_PICKUP
+
+	if(!istype(to_add))
+		return SHELF_PICKUP_FAILURE
+
+	var/free_slot = get_free_slot()
+	if(!free_slot)
+		return SHELF_PICKUP_FAILURE
+
+	var/coords = placement_zones[free_slot]
+	var/position_details = placement_zones[coords]
+	add_item(to_add, free_slot, position_details)
+
+/datum/component/shelver/proc/get_free_slot()
+	var/list/free_slots = list()
+	for(var/i in 1 to length(used_places))
+		if(!used_places[i])
+			free_slots += i
+
+	if(!length(free_slots))
+		return
+
+	if(random_pickup_locations)
+		return pick(free_slots)
+
+	return free_slots[1]
+
+/datum/component/shelver/proc/on_shelf_item_removed(datum/source, uid)
+	SIGNAL_HANDLER // COMSIG_SHELF_ITEM_REMOVED
+
+	for(var/i in 1 to length(used_places))
+		if(used_places[i] == uid)
+			used_places[i] = null
+
+			var/obj/O = parent
+			if(istype(O))
+				O.update_icon(ALL)
+
+/datum/component/shelver/proc/on_attackby(datum/source, obj/item/attacker, mob/user, params)
+	SIGNAL_HANDLER // COMSIG_PARENT_ATTACKBY
+
+	if(isrobot(user))
+		return COMPONENT_NO_AFTERATTACK
+	if(attacker.flags & ABSTRACT)
+		return COMPONENT_NO_AFTERATTACK
+	if(user.a_intent == INTENT_HARM)
+		return
+
+	if(length(allowed_types) && !(attacker.type in allowed_types))
+		to_chat(usr, "<span class='notice'>[attacker] won't fit on the shelf!</span>")
+		return COMPONENT_NO_AFTERATTACK
+
+	var/list/PL = params2list(params)
+	var/icon_x = text2num(PL["icon-x"])
+	var/icon_y = text2num(PL["icon-y"])
+
+	var/i = 0
+	for(var/coords in placement_zones)
+		i++
+		if(icon_x >= coords[1] && icon_x <= coords[3] && icon_y >= coords[2] && icon_y <= coords[4])
+			if(used_places[i])
+				to_chat(usr, "<span class='notice'>There's already something there on [parent].</span>")
+				return COMPONENT_NO_AFTERATTACK
+
+			var/position_details = placement_zones[coords]
+			if(user.drop_item())
+				add_item(attacker, i, position_details)
+				to_chat(usr, "<span class='notice'>You place [attacker] on [parent].</span>")
+				return COMPONENT_NO_AFTERATTACK
+
+/datum/component/shelver/proc/add_item(obj/item/to_add, placement_idx, list/position_details)
+	if(!istype(to_add))
+		return
+	to_add.forceMove(get_turf(parent))
+	to_add.AddComponent(/datum/component/shelved, parent)
+	to_add.pixel_x = position_details["x"]
+	to_add.pixel_y = position_details["y"]
+	to_add.appearance_flags |= PIXEL_SCALE
+	if("layer" in position_details)
+		to_add.layer = position_details["layer"]
+	used_places[placement_idx] = to_add.UID()
+	var/obj/O = parent
+	if(istype(O))
+		O.update_icon(ALL)
+
+	if(default_scale)
+		to_add.transform *= default_scale
+	if(default_rotation)
+		to_add.transform = turn(to_add.transform, default_rotation)
+
+	SEND_SIGNAL(to_add, COMSIG_SHELF_ITEM_ADDED, default_scale)
+
+/datum/component/shelver/basic_shelf
+	placement_zones = list(
+		// Bottom Shelf
+		list(1,  1, 10, 16) = list("x" = -9, "y" = -5, "layer" = BELOW_OBJ_LAYER),
+		list(11, 1, 20, 16) = list("x" = 0, "y" = -5, "layer" = BELOW_OBJ_LAYER),
+		list(21, 1, 32, 16) = list("x" = 9, "y" = -5, "layer" = BELOW_OBJ_LAYER),
+
+		// Top Shelf
+		list(1,  17, 10, 32) = list("x" = -9, "y" = 9),
+		list(11, 17, 20, 32) = list("x" = 0, "y" = 9),
+		list(21, 17, 32, 32) = list("x" = 9, "y" = 9),
+	)
+
+/datum/component/shelver/gun_rack
+	placement_zones = list(
+		list(1,  1, 10, 32) = list("x" = -8, "y" = -1),
+		list(11, 1, 20, 32) = list("x" = 0, "y" = -1),
+		list(21, 1, 32, 32) = list("x" = 8, "y" = -1),
+	)
+	default_scale = 0.80
+	default_rotation = -90
+
+/datum/component/shelved
+	var/shelf_uid
+	var/matrix/original_transform
+	var/original_layer
+	var/original_appearance_flags
+
+/datum/component/shelved/Initialize(atom/shelf)
+	if(!isobj(parent))
+		return COMPONENT_INCOMPATIBLE
+	var/obj/O = parent
+
+	shelf_uid = shelf.UID()
+	original_transform = O.transform
+	original_layer = O.layer
+	original_appearance_flags = O.appearance_flags
+
+/datum/component/shelved/RegisterWithParent()
+	. = ..()
+	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(on_item_pickup))
+	var/obj/shelf = locateUID(shelf_uid)
+	if(shelf)
+		RegisterSignal(shelf, COMSIG_MOVABLE_SHOVE_IMPACT, PROC_REF(on_movable_shove_impact))
+		RegisterSignal(shelf, COMSIG_ATOM_HITBY, PROC_REF(on_atom_hitby))
+		RegisterSignal(shelf, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_shelf_deconstruct))
+
+/datum/component/shelved/proc/on_shelf_deconstruct()
+	SIGNAL_HANDLER // COMSIG_OBJ_DECONSTRUCT
+	qdel(src)
+
+/datum/component/shelved/proc/on_item_pickup(obj/item/I, mob/user)
+	SIGNAL_HANDLER // COMSIG_ITEM_PICKUP
+	qdel(src)
+
+/datum/component/shelved/UnregisterFromParent()
+	. = ..()
+	var/obj/O = parent
+	O.transform = original_transform
+	O.layer = original_layer
+	O.appearance_flags = original_appearance_flags
+	O.pixel_x = 0
+	O.pixel_y = 0
+
+	var/obj/shelf = locateUID(shelf_uid)
+	if(shelf)
+		UnregisterSignal(shelf, COMSIG_MOVABLE_SHOVE_IMPACT)
+		UnregisterSignal(shelf, COMSIG_ATOM_HITBY)
+
+	SEND_SIGNAL(shelf, COMSIG_SHELF_ITEM_REMOVED, parent.UID())
+
+/datum/component/shelved/proc/scatter()
+	var/list/clear_turfs = list()
+	var/obj/O = parent
+	for(var/turf/T in orange(1, get_turf(O)))
+		if(isfloorturf(T) && T != get_turf(O))
+			clear_turfs |= T
+
+	if(length(clear_turfs))
+		var/obj/shelf = locateUID(shelf_uid)
+		var/shelf_name = shelf ? "flies off [shelf]" : "falls down"
+		O.loc.visible_message("<span class='notice'>[O] [shelf_name]!</span>")
+		O.throw_at(pick(clear_turfs), 2, 3)
+		qdel(src)
+
+/datum/component/shelved/proc/on_movable_shove_impact(datum/source, atom/movable/target)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_SHOVE_IMPACT
+	if(prob(50))
+		scatter()
+
+/datum/component/shelved/proc/on_atom_hitby(datum/source, mob/living/carbon/human/hitby)
+	SIGNAL_HANDLER // COMSIG_ATOM_HITBY
+	if(!istype(hitby))
+		return
+	if(prob(50))
+		scatter()
