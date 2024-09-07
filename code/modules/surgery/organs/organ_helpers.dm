@@ -87,11 +87,6 @@
 		if(affecting.body_part == ARM_LEFT)
 			.++
 
-//sometimes we want to ignore that we don't have the required amount of arms.
-/mob/proc/get_arm_ignore()
-	return FALSE
-
-
 /mob/proc/get_num_legs()
 	return 2
 
