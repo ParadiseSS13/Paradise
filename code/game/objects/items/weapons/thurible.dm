@@ -3,6 +3,7 @@
 	name = "thurible"
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "godstaff-blue"
+	item_state = "godstaff-blue"
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -33,10 +34,6 @@
 	. = ..()
 	. += "<span class='notice'>[src] can hold up to [reagents.maximum_volume] units.</span>"
 	. += "<span class='notice'>Contains [reagents.total_volume] units of various reagents.</span>"
-
-/obj/item/thurible/emag_act(mob/user)
-	. = ..()
-	corrupted = TRUE
 
 /obj/item/thurible/process()
 	swing()
