@@ -244,7 +244,7 @@
 	// Also splashes everything in target turf with reagents and applies other trait effects (teleporting, etc) to the target by on_squash.
 	// For code, see grown.dm
 	name = "Liquid Contents"
-	examine_line = "<span class='info'>It has a lot of liquid contents inside.</span>"
+	examine_line = "<span class='notice'>It has a lot of liquid contents inside.</span>"
 	origin_tech = list("biotech" = 5)
 	dangerous = TRUE
 
@@ -253,7 +253,7 @@
 	// Applies other trait effects (teleporting, etc) to the target by on_slip.
 	name = "Slippery Skin"
 	rate = 0.1
-	examine_line = "<span class='info'>It has a very slippery skin.</span>"
+	examine_line = "<span class='notice'>It has a very slippery skin.</span>"
 	dangerous = TRUE
 
 /datum/plant_gene/trait/slip/on_new(obj/item/food/grown/G)
@@ -315,7 +315,7 @@
 	// Adds 1 + potency*rate light range and potency*(rate + 0.01) light_power to products.
 	name = "Bioluminescence"
 	rate = 0.03
-	examine_line = "<span class='info'>It emits a soft glow.</span>"
+	examine_line = "<span class='notice'>It emits a soft glow.</span>"
 	trait_id = "glow"
 	var/glow_color = "#C3E381"
 

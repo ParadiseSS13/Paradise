@@ -20,8 +20,9 @@ LINEN BINS
 	item_color = "white"
 	resistance_flags = FLAMMABLE
 	slot_flags = SLOT_FLAG_BACK
-
 	dog_fashion = /datum/dog_fashion/head/ghost
+	dyeing_key = DYE_REGISTRY_BEDSHEET
+
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5

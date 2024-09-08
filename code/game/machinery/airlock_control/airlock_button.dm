@@ -7,7 +7,8 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	desc = "Controls an airlock controller, requesting the doors open on this side."
 	layer = ABOVE_WINDOW_LAYER
 	anchored = TRUE
-	power_state = PW_CHANNEL_ENVIRONMENT
+	power_channel = PW_CHANNEL_ENVIRONMENT
+	power_state = IDLE_POWER_USE
 	/// Id to be used by the controller to grab us on spawn
 	var/autolink_id
 	/// UID of the airlock controller that owns us

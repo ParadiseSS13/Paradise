@@ -133,7 +133,7 @@
 
 /obj/effect/ebeam/deadly/Crossed(atom/A, oldloc)
 	..()
-	A.ex_act(1)
+	A.ex_act(EXPLODE_DEVASTATE)
 
 /obj/effect/ebeam/vetus/Destroy()
 	for(var/mob/living/M in get_turf(src))

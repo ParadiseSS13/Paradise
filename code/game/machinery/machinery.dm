@@ -13,14 +13,16 @@
 
 	/// How is this machine currently passively consuming power?
 	var/power_state = IDLE_POWER_USE
-	/// How much power does this machine consume when it is idling
+	/// How much power does this machine consume when it is idling. This should not be set manually, use the helper procs!
 	var/idle_power_consumption = 0
-	/// How much power does this machine consume when it is in use
+	/// How much power does this machine consume when it is in use. This should not be set manually, use the helper procs!
 	var/active_power_consumption = 0
 	/// The power channel this machine uses, idle/passive power consumption will pull from this channel and machine won't work if power channel has no power
 	var/power_channel = PW_CHANNEL_EQUIPMENT
 	/// The powernet this machine is connected to
 	var/datum/local_powernet/machine_powernet = null
+	/// Has power been initialized on this machine? Set in Initialize(), prevents all power updates to the local powernet until this is TRUE to avoid weird numbers.
+	var/power_initialized = FALSE
 
 	/// how badly will it shock you?
 	var/siemens_strength = 0.7
@@ -45,9 +47,10 @@
 		machine_powernet.register_machine(src)
 		switch(power_state)
 			if(IDLE_POWER_USE)
-				add_static_power(power_channel, idle_power_consumption)
+				_add_static_power(power_channel, idle_power_consumption)
 			if(ACTIVE_POWER_USE)
-				add_static_power(power_channel, active_power_consumption)
+				_add_static_power(power_channel, active_power_consumption)
+		power_initialized = TRUE
 
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
@@ -102,17 +105,21 @@
 
 // use active power from the local powernet
 /obj/machinery/proc/use_power(amount, channel)
-	if(!has_power())
+	if(!has_power() || !power_initialized)
 		return FALSE
 	if(!channel)
 		channel = power_channel
 	return machine_powernet.use_active_power(channel, amount)
 
-/obj/machinery/proc/add_static_power(channel, amount)
-	machine_powernet.adjust_static_power(channel, amount)
+/// Helper proc to positively adjust static power tracking on the machine's powernet, not meant for general use!
+/obj/machinery/proc/_add_static_power(channel, amount)
+	PRIVATE_PROC(TRUE)
+	machine_powernet?.adjust_static_power(channel, amount)
 
-/obj/machinery/proc/remove_static_power(channel, amount)
-	machine_powernet.adjust_static_power(channel, -amount)
+/// Helper proc to negatively adjust static power tracking on the machine's powernet, not meant for general use!
+/obj/machinery/proc/_remove_static_power(channel, amount)
+	PRIVATE_PROC(TRUE)
+	machine_powernet?.adjust_static_power(channel, -amount)
 
 /*
 	* # power_change()
@@ -143,26 +150,34 @@
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
 	if(isnull(use_type) || use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
 		return
+	if(!power_initialized)
+		return FALSE // we set static power values in Initialize(), do not update static consumption until after initialization or you will get weird values on powernet
 	switch(power_state)
 		if(IDLE_POWER_USE)
-			remove_static_power(power_channel, idle_power_consumption)
+			_remove_static_power(power_channel, idle_power_consumption)
 		if(ACTIVE_POWER_USE)
-			remove_static_power(power_channel, active_power_consumption)
+			_remove_static_power(power_channel, active_power_consumption)
 
 	switch(use_type)
 		if(IDLE_POWER_USE)
-			add_static_power(power_channel, idle_power_consumption)
+			_add_static_power(power_channel, idle_power_consumption)
 		if(ACTIVE_POWER_USE)
-			add_static_power(power_channel, active_power_consumption)
+			_add_static_power(power_channel, active_power_consumption)
 
 	power_state = use_type
 
+/// Safely changes the static power on the local powernet based on an adjustment in idle power
 /obj/machinery/proc/update_idle_power_consumption(channel = power_channel, amount)
+	if(!power_initialized)
+		return FALSE // we set static power values in Initialize(), do not update static consumption until after initialization or you will get weird values on powernet
 	if(power_state == IDLE_POWER_USE)
 		machine_powernet.adjust_static_power(power_channel, amount - idle_power_consumption)
 	idle_power_consumption = amount
 
+/// Safely changes the static power on the local powernet based on an adjustment in active power
 /obj/machinery/proc/update_active_power_consumption(channel = power_channel, amount)
+	if(!power_initialized)
+		return FALSE // we set static power values in Initialize(), do not update static consumption until after initialization or you will get weird values on powernet
 	if(power_state == ACTIVE_POWER_USE)
 		machine_powernet.adjust_static_power(power_channel, amount - active_power_consumption)
 	active_power_consumption = amount
