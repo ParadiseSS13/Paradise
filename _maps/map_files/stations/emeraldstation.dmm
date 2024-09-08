@@ -127549,6 +127549,10 @@
 	name = "Research and Development Lab Shutters";
 	id_tag = "rdlab2"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard";
+	name = "Biohazard Shutter"
+	},
 /turf/simulated/floor/plating,
 /area/station/science/rnd)
 "xFn" = (
