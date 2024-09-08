@@ -23,13 +23,13 @@
 
 /datum/milla_safe/plasmageyser
 
-/datum/milla_safe/plasmageyser/on_run(obj/structures/plasmageyser/tile)
+/datum/milla_safe/plasmageyser/on_run(obj/structures/plasmageyser/geyser)
 	var/max_pressure = ONE_ATMOSPHERE * 3
 	var/toxins_modifier = 100
 	var/co2_modifier = 12
 	var/target_temp = 1000
 	var/pressure_modifier
-	var/turf/T = get_turf(tile)
+	var/turf/T = get_turf(geyser)
 	var/datum/gas_mixture/environment = get_turf_air(T)
 	var/datum/gas_mixture/add_moles = new()
 	var/environment_pressure = environment.return_pressure()
