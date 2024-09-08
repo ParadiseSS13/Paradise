@@ -27,9 +27,9 @@ SUBSYSTEM_DEF(research)
 
 /datum/rnd_backup
 	/// Name of last network
-	var/last_name = null
+	var/last_name
 	/// Timestamp of last backup
-	var/last_timestamp = null
+	var/last_timestamp
 	/// List of levels
 	var/list/levels = list()
 
