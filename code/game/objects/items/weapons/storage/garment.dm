@@ -222,7 +222,7 @@
 	new /obj/item/clothing/suit/armor/vest/warden(src)
 	new /obj/item/clothing/head/warden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
-	new /obj/item/clothing/head/beret/sec/warden(src)
+	new /obj/item/clothing/head/beret/warden(src)
 	new /obj/item/clothing/under/rank/security/warden(src)
 	new /obj/item/clothing/under/rank/security/formal/warden(src)
 	new /obj/item/clothing/under/rank/security/warden/corporate(src)

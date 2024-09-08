@@ -101,11 +101,11 @@
 	H.mind.offstation_role = TRUE
 
 /datum/job/ntspecops/solgovspecops
-	title = "Solar Federation General"
+	title = "Trans-Solar Federation General"
 	outfit = /datum/outfit/job/ntspecops/solgovspecops
 
 /datum/outfit/job/ntspecops/solgovspecops
-	name = "Solar Federation General"
+	name = "Trans-Solar Federation General"
 	uniform = /obj/item/clothing/under/rank/centcom/captain/solgov
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/solgov
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
