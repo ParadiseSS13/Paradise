@@ -17,6 +17,8 @@
 	var/list/items_to_add = list()
 	/// A list of replacement items will need to be placed into a cyborg module's `special_rechargable` list after this upgrade is installed.
 	var/list/special_rechargables = list()
+	/// Allow the same upgrade to be installed multiple times, FALSE by default
+	var/allow_duplicate = FALSE
 
 /**
  * Called when someone clicks on a borg with an upgrade in their hand.
@@ -43,8 +45,12 @@
 		to_chat(usr, "<span class='warning'>[src] will not function on a deceased cyborg.</span>")
 		return
 	if(module_type && !istype(R.module, module_type))
-		to_chat(R, "<span class='warning'>Upgrade mounting error!  No suitable hardpoint detected!</span>")
+		to_chat(R, "<span class='warning'>Upgrade mounting error! No suitable hardpoint detected!</span>")
 		to_chat(usr, "<span class='warning'>There's no mounting point for the module!</span>")
+		return
+	var/obj/item/borg/upgrade/u = locate(type) in R
+	if(u && !allow_duplicate)
+		to_chat(usr, "<span class='notice'>This unit already has [src] installed!</span>")
 		return
 	return TRUE
 
@@ -150,10 +156,6 @@
 	origin_tech = "engineering=4;powerstorage=4"
 
 /obj/item/borg/upgrade/thrusters/do_install(mob/living/silicon/robot/R)
-	if(R.ionpulse)
-		to_chat(usr, "<span class='notice'>This unit already has ion thrusters installed!</span>")
-		return
-
 	R.ionpulse = TRUE
 	return TRUE
 
@@ -170,11 +172,6 @@
 	var/mob/living/silicon/robot/cyborg
 
 /obj/item/borg/upgrade/selfrepair/do_install(mob/living/silicon/robot/R)
-	var/obj/item/borg/upgrade/selfrepair/U = locate() in R
-	if(U)
-		to_chat(usr, "<span class='warning'>This unit is already equipped with a self-repair module.</span>")
-		return
-
 	cyborg = R
 	icon_state = "selfrepair_off"
 	var/datum/action/A = new /datum/action/item_action/toggle(src)
@@ -259,11 +256,6 @@
 	origin_tech = "engineering=4;materials=5;programming=4"
 
 /obj/item/borg/upgrade/vtec/do_install(mob/living/silicon/robot/R)
-	for(var/obj/item/borg/upgrade/vtec/U in R.contents)
-		to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
-		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
-		return
-
 	R.slowdown_cap = 3.5
 	return TRUE
 
@@ -376,10 +368,6 @@
 	var/mob/living/silicon/robot/cyborg
 
 /obj/item/borg/upgrade/floorbuffer/do_install(mob/living/silicon/robot/R)
-	for(var/obj/item/borg/upgrade/floorbuffer/U in R)
-		to_chat(R, "<span class='notice'>A floor buffer unit is already installed!</span>")
-		to_chat(usr, "<span class='notice'>There's no room for another floor buffer unit!</span>")
-		return
 	cyborg = R
 	var/datum/action/A = new /datum/action/item_action/floor_buffer(src)
 	A.Grant(R)

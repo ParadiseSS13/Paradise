@@ -291,12 +291,14 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 	usesound = 'sound/items/screwdriver.ogg'
+	allow_duplicate = TRUE
 	var/denied_type = null
 	var/maximum_of_type = 1
 	var/cost = 30
 	var/modifier = 1 //For use in any mod kit that has numerical modifiers
 	var/minebot_upgrade = TRUE
 	var/minebot_exclusive = FALSE
+
 
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
