@@ -279,7 +279,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	smoothing_flags = NONE
 
 /turf/simulated/wall/indestructible/titanium/tileblend
-	fixed_underlay = list("icon"='icons/turf/floors.dmi', "icon_state"="darkredfull")
+	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "darkredfull")
 
 /turf/simulated/wall/indestructible/titanium/soviet
 	name = "\improper USSP wall"
