@@ -8442,7 +8442,6 @@
 	},
 /area/station/security/warden)
 "bCx" = (
-/obj/machinery/r_n_d/server/core,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
@@ -15863,7 +15862,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "cXt" = (
-/obj/machinery/computer/rdconsole/robotics,
+/obj/machinery/computer/rdconsole/core,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -22063,7 +22062,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "eiD" = (
-/obj/machinery/r_n_d/server/robotics,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
@@ -30390,6 +30388,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -46297,10 +46296,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "iET" = (
 /turf/simulated/floor/plating,
@@ -62656,7 +62652,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "blue"
+	icon_state = "purplecorner"
 	},
 /area/station/command/bridge)
 "lFR" = (
@@ -70437,6 +70433,8 @@
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
+/obj/item/restraints/handcuffs,
+/obj/item/flash,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blue"
@@ -77623,12 +77621,15 @@
 /area/station/command/office/ce)
 "otW" = (
 /obj/structure/table/reinforced,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/requests_console/directional/west,
+/obj/item/storage/box/PDAs{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/box/ids,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -80317,7 +80318,6 @@
 	},
 /obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "blue"
 	},
 /area/station/command/bridge)
@@ -82580,6 +82580,7 @@
 /obj/item/folder{
 	pixel_x = -4
 	},
+/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -83893,11 +83894,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "pCt" = (
-/obj/machinery/computer/rdservercontrol,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/machinery/computer/rnd_network_controller/station,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -93276,19 +93277,17 @@
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
 "rnI" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/PDAs{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/storage/box/ids,
 /obj/machinery/ai_status_display{
 	pixel_x = 32;
 	step_size = 0
 	},
+/obj/machinery/computer/rnd_backup/station{
+	dir = 8
+	},
+/obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "blue"
+	icon_state = "purple"
 	},
 /area/station/command/bridge)
 "rnM" = (
@@ -93680,6 +93679,10 @@
 /obj/structure/table/reinforced,
 /obj/item/gavelblock,
 /obj/item/gavelhammer,
+/obj/item/taperecorder{
+	pixel_x = -15;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -108763,7 +108766,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "blue"
+	icon_state = "purple"
 	},
 /area/station/command/bridge)
 "udv" = (
@@ -121871,6 +121874,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
