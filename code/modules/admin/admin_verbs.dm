@@ -66,7 +66,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/start_vote,
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist,
-	/client/proc/debugstatpanel
+	/client/proc/debugstatpanel,
+	/client/proc/create_rnd_restore_disk
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -1228,4 +1229,35 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	vis.set_content(ui_dat.Join(""))
 	vis.open(FALSE)
+
+
+/client/proc/create_rnd_restore_disk()
+	set name = "Create RnD Backup Restore Disk"
+	set category = "Event" // Im putting this in event because the name is long and will offset everything
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/list/targets = list()
+
+	for(var/rnc_uid in SSresearch.backups)
+		var/datum/rnd_backup/B = SSresearch.backups[rnc_uid]
+
+		targets["[B.last_name] - [B.last_timestamp]"] = rnc_uid
+
+	var/choice = input(src, "Select a backup to restore", "RnD Backup Restore") as null|anything in targets
+	if(!choice || !(choice in targets))
+		return
+
+	var/actual_target = targets[choice]
+	if(!(actual_target in SSresearch.backups))
+		return
+
+	var/datum/rnd_backup/B = SSresearch.backups[actual_target]
+	var/confirmation = alert("Are you sure you want to restore this RnD backup? The disk will spawn below your character.", "Are you sure?", "Yes", "No")
+
+	if(confirmation != "Yes")
+		return
+
+	B.to_backup_disk(get_turf(usr))
 
