@@ -15,7 +15,7 @@
 									"sal_acid", "cryoxadone", "sugar", "hydrocodone", "mitocholide", "rezadone", "menthol",
 									"mutadone", "sanguine_reagent", "iron", "ephedrine", "heparin", "corazone", "sodiumchloride",
 									"lavaland_extract", "synaptizine", "bicaridine", "kelotane", "water", "holywater", "lsd", "thc", "happiness",
-									"cbd", "space_drugs", "nicotine") // List of chemicals considered safe for the thurible
+									"cbd", "space_drugs", "nicotine", "jestosterone", "nothing") // List of chemicals considered safe for the thurible
 	var/swing_reagents_consumed = 2 // 25 Swings until out of reagents
 
 /obj/item/thurible/Initialize(mapload)
