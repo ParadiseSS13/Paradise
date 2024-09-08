@@ -66181,6 +66181,9 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
+/obj/item/reagent_containers/glass/bottle/reagent/formaldehyde{
+	pixel_x = -15
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71493,6 +71496,7 @@
 	pixel_y = 24;
 	req_access_txt = "33"
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteyellowcorner"
@@ -87677,6 +87681,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
 "qnD" = (
+/obj/structure/sink{
+	pixel_y = 22
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteyellow"
