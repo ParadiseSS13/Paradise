@@ -192,17 +192,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "acB" = (
-/obj/machinery/computer/prisoner{
-	dir = 4;
-	req_access = null;
-	req_access_txt = "2"
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/requests_console/directional/north,
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 8;
 	icon_state = "darkred"
 	},
 /area/station/security/warden)
@@ -6327,6 +6319,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -13432,15 +13425,22 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "cyg" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/vehicle/secway,
+/obj/item/key/security,
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/machinery/camera{
+	c_tag = "Warden's Office";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	dir = 8;
+	icon_state = "darkred"
 	},
-/area/station/security/storage)
+/area/station/security/warden)
 "cyl" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/iv_bag/blood/random,
@@ -20857,6 +20857,11 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/service/library)
+"dVo" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredcheck"
+	},
+/area/station/security/storage)
 "dVs" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
@@ -29209,6 +29214,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -30095,6 +30101,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "fEp" = (
@@ -33950,6 +33957,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36920,10 +36928,17 @@
 	},
 /area/station/turret_protected/ai)
 "gTu" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcheck"
+/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/area/station/security/storage)
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/station/security/warden)
 "gTx" = (
 /obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/turf_decal/stripes/line{
@@ -39249,7 +39264,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -41423,25 +41437,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "hGZ" = (
-/obj/structure/table/reinforced,
-/obj/item/radio{
-	pixel_y = 6
-	},
-/obj/item/radio{
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/obj/item/radio{
-	pixel_x = -6;
-	pixel_y = 4
-	},
-/obj/item/radio,
-/obj/machinery/camera{
-	c_tag = "Brig Security Equipment Lockers";
-	dir = 1
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkredcheck"
+	icon_state = "darkgrey"
 	},
 /area/station/security/storage)
 "hHh" = (
@@ -52456,6 +52458,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -54311,6 +54314,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -54667,6 +54671,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "kfC" = (
@@ -55667,22 +55672,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "kpq" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/spray/pepper{
-	pixel_x = -4;
-	pixel_y = -4
-	},
-/obj/item/reagent_containers/spray/pepper{
-	pixel_y = -4
-	},
-/obj/item/reagent_containers/spray/pepper{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/item/clothing/glasses/sunglasses{
-	pixel_x = 11;
-	pixel_y = 9
-	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
 	},
@@ -69997,12 +69987,6 @@
 /obj/effect/landmark/start/psychiatrist,
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
-"ndQ" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/station/security/warden)
 "ndW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -74492,7 +74476,13 @@
 /area/station/aisat/hall)
 "nSu" = (
 /obj/structure/chair/stool,
-/obj/machinery/alarm/directional/west,
+/obj/machinery/camera{
+	c_tag = "Security Equipment Storage West";
+	dir = 4
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -75115,9 +75105,17 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "nYy" = (
-/obj/machinery/photocopier,
+/obj/machinery/computer/prisoner{
+	dir = 4;
+	req_access = null;
+	req_access_txt = "2"
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 9;
 	icon_state = "darkred"
 	},
 /area/station/security/warden)
@@ -83079,18 +83077,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"psW" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/station/security/warden)
 "ptq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -84564,22 +84550,18 @@
 	},
 /area/station/hallway/primary/starboard)
 "pHP" = (
-/obj/vehicle/secway,
-/obj/item/key/security,
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
-/obj/machinery/camera{
-	c_tag = "Warden's Office";
-	dir = 4
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/station/security/warden)
+/turf/simulated/floor/plating,
+/area/station/security/storage)
 "pHR" = (
 /obj/machinery/light/small,
 /obj/item/radio/intercom{
@@ -87835,11 +87817,26 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "qpp" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/spray/pepper{
+	pixel_x = -4;
+	pixel_y = -4
 	},
-/area/station/security/warden)
+/obj/item/reagent_containers/spray/pepper{
+	pixel_y = -4
+	},
+/obj/item/reagent_containers/spray/pepper{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/clothing/glasses/sunglasses{
+	pixel_x = 11;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredcheck"
+	},
+/area/station/security/storage)
 "qpr" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -91726,6 +91723,9 @@
 /obj/item/assembly/timer{
 	pixel_x = 1;
 	pixel_y = -2
+	},
+/obj/machinery/camera{
+	c_tag = "Warden's Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcheck"
@@ -105334,18 +105334,11 @@
 	},
 /area/station/public/shops)
 "twc" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
 	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/station/security/storage)
+/area/station/security/warden)
 "twf" = (
 /obj/structure/transit_tube,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -120693,6 +120686,24 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
+"wnZ" = (
+/obj/structure/table/reinforced,
+/obj/item/radio{
+	pixel_y = 6
+	},
+/obj/item/radio{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/radio{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/radio,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredcheck"
+	},
+/area/station/security/storage)
 "wob" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
@@ -177679,7 +177690,7 @@ uge
 eJL
 wjj
 tUS
-cyg
+hGZ
 msT
 bks
 dpx
@@ -177935,9 +177946,9 @@ kWw
 nUZ
 kop
 kbj
-hGZ
+wnZ
 mlC
-gTu
+dVo
 vkp
 dpx
 bzL
@@ -178194,8 +178205,8 @@ wdQ
 kbj
 raW
 mlC
-gTu
-kpq
+dVo
+qpp
 dpx
 qcF
 gap
@@ -178448,10 +178459,10 @@ och
 kWw
 nUZ
 dis
-twc
+pHP
 hhz
 wFl
-gTu
+kpq
 kMm
 dpx
 qQa
@@ -178707,8 +178718,8 @@ blo
 dis
 wjj
 dKM
-gTu
-gTu
+dVo
+dVo
 gRP
 dpx
 dpx
@@ -179220,11 +179231,11 @@ gKf
 buG
 aUl
 xcQ
-acB
-kdH
-psW
 nYy
-pHP
+kdH
+gTu
+acB
+cyg
 dpx
 dpx
 cMD
@@ -179734,7 +179745,7 @@ xhJ
 oUo
 eJL
 hUy
-ndQ
+twc
 lZB
 cev
 pzX
@@ -180250,7 +180261,7 @@ avb
 whu
 wqr
 pzX
-qpp
+pzX
 utQ
 pzX
 hjh
