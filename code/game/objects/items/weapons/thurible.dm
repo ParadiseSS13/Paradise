@@ -2,8 +2,10 @@
 	desc = "A religious artifact used to burn and spread incense when swung from the attached chain."
 	name = "thurible"
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
-	icon_state = "godstaff-blue"
-	item_state = "godstaff-blue"
+	lefthand_file = 'icons/mob/inhands/religion_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/religion_righthand.dmi'
+	icon_state = "thurible"
+	item_state = "thurible"
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -111,8 +113,8 @@
 	lit = TRUE
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
-	icon_state = "godstaff-red"
-	item_state = "godstaff-red"
+	icon_state = "thurible-lit"
+	item_state = "thurible-lit"
 	set_light(2, 0.25, "#E38F46")
 	START_PROCESSING(SSobj, src)
 	update_icon()
@@ -120,8 +122,8 @@
 
 /obj/item/thurible/proc/put_out()
 	lit = FALSE
-	icon_state = "godstaff-blue"
-	item_state = "godstaff-blue"
+	icon_state = "thurible"
+	item_state = "thurible"
 	set_light(0)
 	update_icon()
 	STOP_PROCESSING(SSobj, src)
