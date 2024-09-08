@@ -85672,12 +85672,10 @@
 	},
 /area/station/service/chapel/office)
 "pTg" = (
-/obj/machinery/mecha_part_fabricator{
-	output_dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -106660,12 +106658,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "tKc" = (
-/obj/machinery/mecha_part_fabricator{
-	output_dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkpurple"
