@@ -1,5 +1,6 @@
 site_name: Paradise Contributor Documentation
 site_url: https://devdocs.paradisestation.org
+site_description: Paradise Contributor Documentation
 
 theme:
   name: material
