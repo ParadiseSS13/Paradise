@@ -433,7 +433,7 @@
 		if("unlink")
 			if(!network_manager_uid)
 				return
-			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this fabricator?\nYou wont be able to re-link without the network manager password", "Unlink","Yes","No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this fabricator?\nYou wont be able to re-link without the network manager password", "Unlink", list("Yes", "No"))
 			if(choice == "Yes")
 				unlink()
 
