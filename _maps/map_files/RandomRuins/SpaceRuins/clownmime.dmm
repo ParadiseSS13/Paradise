@@ -19,6 +19,11 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
+"cz" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/space/clown_mime_ruin)
 "cB" = (
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/landmark/burnturf,
@@ -747,7 +752,7 @@
 /area/ruin/space/clown_mime_ruin)
 "Pt" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "QS" = (
@@ -1349,7 +1354,7 @@ qh
 qh
 qh
 qh
-sZ
+cz
 qJ
 wb
 sZ
@@ -1360,7 +1365,7 @@ gS
 sZ
 wb
 qE
-sZ
+cz
 qh
 qh
 qh
@@ -1377,7 +1382,7 @@ qh
 qh
 qh
 qh
-sZ
+cz
 ri
 IR
 sZ
@@ -1388,7 +1393,7 @@ Cs
 sZ
 me
 qE
-sZ
+cz
 qh
 qh
 qh
