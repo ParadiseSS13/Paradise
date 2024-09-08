@@ -294,7 +294,7 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = tgui_input_list(user, "Choose a new brand", "Select an Item", station_vendors)
+	var/choice = tgui_input_list(user, "Choose a new brand", "Select an Item", station_vendors + ss220_vendors) // SS220 ADDITION - ss220_vendors
 	if(!choice)
 		return
 	set_type(choice)

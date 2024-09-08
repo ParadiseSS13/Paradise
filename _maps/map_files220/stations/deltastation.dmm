@@ -73221,7 +73221,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "liC" = (
-/obj/machinery/economy/vending/snack,
+/obj/machinery/economy/vending/vulpix,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -102270,7 +102270,7 @@
 	dir = 1
 	},
 /obj/machinery/alarm/directional/west,
-/obj/machinery/economy/vending/vulpix,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/locker)
 "tIF" = (

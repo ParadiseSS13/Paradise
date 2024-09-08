@@ -12686,7 +12686,7 @@
 /turf/simulated/wall,
 /area/station/public/locker)
 "bbB" = (
-/obj/machinery/economy/vending/snack,
+/obj/machinery/economy/vending/vulpix,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},
@@ -49586,7 +49586,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "fJF" = (
-/obj/machinery/economy/vending/vulpix,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkneutralfull"
 	},

@@ -17657,7 +17657,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "bnB" = (
-/obj/machinery/economy/vending/cola,
+/obj/machinery/economy/vending/vulpix,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
@@ -48003,7 +48003,7 @@
 /area/station/medical/reception)
 "ewV" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/economy/vending/vulpix,
+/obj/machinery/economy/vending/snack,
 /obj/structure/sign/poster/random/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
