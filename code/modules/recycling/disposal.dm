@@ -128,7 +128,7 @@
 		return
 
 	if(user.a_intent != INTENT_HELP)
-		return
+		return ..()
 
 	src.add_fingerprint(user)
 
