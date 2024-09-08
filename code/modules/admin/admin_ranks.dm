@@ -33,6 +33,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 				if("spawn","create")			rights |= R_SPAWN
 				if("mod")						rights |= R_MOD
 				if("mentor")					rights |= R_MENTOR
+				if("developer")					rights |= R_DEV_TEAM
 				if("proccall")					rights |= R_PROCCALL
 				if("viewruntimes")				rights |= R_VIEWRUNTIMES
 				if("maintainer")				rights |= R_MAINTAINER
