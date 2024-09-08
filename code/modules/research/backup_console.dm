@@ -156,7 +156,7 @@
 			if(!T)
 				return
 
-			var/choice = tgui_alert(usr, "Do you want to import this level to the network (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Import", "Yes", "No")
+			var/choice = tgui_alert(usr, "Do you want to import this level to the network (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Import", list("Yes", "No"))
 			if(choice != "Yes")
 				return FALSE
 
@@ -180,7 +180,7 @@
 			if(!T)
 				return
 
-			var/choice = tgui_alert(usr, "Do you want to export this tech data to the disk (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Export", "Yes", "No")
+			var/choice = tgui_alert(usr, "Do you want to export this tech data to the disk (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Export", list("Yes", "No"))
 			if(choice != "Yes")
 				return FALSE
 
@@ -199,7 +199,7 @@
 				network_manager_uid = null
 				return FALSE
 
-			var/choice = tgui_alert(usr, "Are you SURE you want to import all the data on the disk to the network?", "Data Import", "Yes", "No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to import all the data on the disk to the network?", "Data Import", list("Yes", "No"))
 			if(choice != "Yes")
 				return FALSE
 
@@ -220,7 +220,7 @@
 				network_manager_uid = null
 				return FALSE
 
-			var/choice = tgui_alert(usr, "Are you SURE you want to export all the data on the network to the disk?", "Data Export", "Yes", "No")
+			var/choice = tgui_alert(usr, "Are you SURE you want to export all the data on the network to the disk?", "Data Export", list("Yes", "No"))
 			if(choice != "Yes")
 				return FALSE
 
