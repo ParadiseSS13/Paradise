@@ -532,6 +532,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				modify.rank = t1
 				modify.assignment = t1
 			regenerate_id_name()
+			modify.RebuildHTML()
 			return
 		if("demote")
 			if(modify.assignment == "Demoted")
@@ -561,7 +562,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.access = access
 			modify.assignment = "Demoted"
 			modify.icon_state = "id"
+			modify.rank = "Assistant"
 			regenerate_id_name()
+			modify.RebuildHTML()
 			return
 		if("terminate")
 			if(!has_idchange_access()) // because captain/HOP can use this even on dept consoles
@@ -585,7 +588,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				job.current_positions--
 			modify.assignment = "Terminated"
 			modify.access = list()
+			modify.rank = "Terminated"
 			regenerate_id_name()
+			modify.RebuildHTML()
 			return
 		if("make_job_available") // MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
 			var/edit_job_target = params["job"]

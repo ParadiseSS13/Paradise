@@ -92,19 +92,23 @@
 	add_overlay(list(em_block))
 
 /atom/movable/Destroy()
+	var/turf/T = loc
 	unbuckle_all_mobs(force = TRUE)
 	QDEL_NULL(em_block)
+
 	. = ..()
+
 	if(loc)
 		loc.handle_atom_del(src)
+
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
+
 	LAZYCLEARLIST(client_mobs_in_contents)
 	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
 
-	var/turf/T = loc
 	if(opacity && istype(T))
 		var/old_has_opaque_atom = T.has_opaque_atom
 		T.recalc_atom_opacity()
@@ -768,7 +772,7 @@
 
 	var/has_tried_to_move = FALSE
 
-	if(is_blocked_turf(target_turf, TRUE, excluded_objs=list(src)))
+	if(is_blocked_turf(target_turf, TRUE, excluded_objs = list(src)))
 		has_tried_to_move = TRUE
 		if(!Move(target_turf, crush_dir))
 			// we'll try to move, and if we didn't end up going anywhere, then we do nothing.

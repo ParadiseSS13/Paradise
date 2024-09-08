@@ -226,6 +226,22 @@
 			attack_verb = list("burnt", "singed")
 		START_PROCESSING(SSobj, src)
 
+/obj/item/flashlight/flare/used
+
+/obj/item/flashlight/flare/used/Initialize()
+	. = ..()
+	// fuel gets set on New which is annoying so these can't just be vars
+	fuel = 0
+	on = 0
+	update_icon()
+
+/obj/item/flashlight/flare/glowstick/used/Initialize()
+	. = ..()
+	// fuel gets set on New which is annoying so these can't just be vars
+	fuel = 0
+	on = 0
+	update_icon()
+
 /obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(isdrone(user) && !fuel)
 		C.stored_comms["metal"] += 1

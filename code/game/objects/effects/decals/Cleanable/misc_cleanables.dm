@@ -185,7 +185,8 @@
 	if(gravity_check)
 		return
 	var/turf/T = get_turf(A)
-	if(try_merging_decal(T))
+	if(should_merge_decal(T))
+		qdel(src)
 		return
 	if(loc != T)
 		forceMove(T)
