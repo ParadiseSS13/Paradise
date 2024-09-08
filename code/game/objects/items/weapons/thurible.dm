@@ -76,9 +76,9 @@
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
 			if(ismob(loc))
-				to_chat(loc, "<span class='warning'>[src] banishes an unholy substance!</span>")
+				to_chat(loc, "<span class='warning'>[src] banishes a dangerous substance!</span>")
 			else
-				visible_message("<span class='warning'>[src] banishes an unholy substance!</span>")
+				visible_message("<span class='warning'>[src] banishes a dangerous substance!</span>")
 
 /obj/item/thurible/proc/light(mob/living/user)
 	if(lit)
