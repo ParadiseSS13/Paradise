@@ -284,9 +284,8 @@
 
 // loot spawners
 
-/obj/effect/spawner/lootdrop/deepstorage_reward
+/obj/effect/spawner/random/deepstorage_reward
 	name = "warehouse fashion reward"
-	lootcount = 1
 	loot = list(
 			/obj/item/storage/box/syndie_kit/chameleon,
 			/obj/item/clothing/suit/pimpcoat,
@@ -294,7 +293,7 @@
 			/obj/item/clothing/glasses/sunglasses/yeah
 	)
 
-/obj/effect/spawner/lootdrop/deepstorage_reward/main
+/obj/effect/spawner/random/deepstorage_reward/main
 	name = "warehouse main reward"
 	loot = list(
 			/obj/item/storage/belt/champion/wrestling,
