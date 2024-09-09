@@ -22,7 +22,7 @@
 #pragma InvalidRange error
 #pragma InvalidSetStatement error
 #pragma InvalidOverride error
-#pragma InvalidIndexOperation error
+#pragma InvalidIndexOperation warning
 #pragma DanglingVarType error
 #pragma MissingInterpolatedExpression error
 #pragma AmbiguousResourcePath error
@@ -45,5 +45,5 @@
 #pragma EmptyProc error
 #pragma UnsafeClientAccess disabled
 #pragma AssignmentInConditional error
-#pragma PickWeightedSyntax error
+#pragma PickWeightedSyntax disabled
 #pragma AmbiguousInOrder error
