@@ -265,7 +265,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the Nanotrasen Supreme Court"
+	supervisors = "Central Command"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = TRUE
