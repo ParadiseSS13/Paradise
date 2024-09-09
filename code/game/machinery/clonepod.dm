@@ -655,7 +655,7 @@
 		qdel(clone)
 		reset_cloning()
 
-	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 0)
+	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, FALSE)
 	update_icon()
 
 
