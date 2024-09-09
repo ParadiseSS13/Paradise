@@ -114959,6 +114959,10 @@
 	pixel_y = 3
 	},
 /obj/item/circuitboard/message_monitor,
+/obj/item/circuitboard/rnd_backup_console{
+	pixel_y = -3;
+	pixel_x = 3
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "vmm" = (
