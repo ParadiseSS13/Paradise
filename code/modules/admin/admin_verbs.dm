@@ -43,6 +43,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
+	/client/proc/cmd_dev_say,
 	/datum/admins/proc/show_player_notes,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/update_mob_sprite,
