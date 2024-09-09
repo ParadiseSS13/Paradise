@@ -36,6 +36,11 @@
 
 	var/max_height = length(new_filler_map)
 	var/max_width = length(new_filler_map[1]) //it should have the same length on every row
+	for(var/i in 1 to length(new_filler_map))
+		var/length = length(new_filler_map[i])
+		if(length != max_width)
+			stack_trace("A multitile component was passed a list wich did not have the same length every row. Atom parent is: [parent]")
+			return COMPONENT_INCOMPATIBLE
 
 	var/current_height = 0
 	var/current_width = 0
@@ -51,4 +56,4 @@
 
 /datum/component/multitile/Destroy(force, silent)
 	QDEL_LIST_CONTENTS(all_fillers)
-	. = ..()
+	return ..()
