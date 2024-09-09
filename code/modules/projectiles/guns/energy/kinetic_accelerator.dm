@@ -299,7 +299,6 @@
 	var/minebot_upgrade = TRUE
 	var/minebot_exclusive = FALSE
 
-
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
