@@ -261,7 +261,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /client/proc/add_admin_verbs()
 	if(holder)
 		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES AND/OR DEV, then give them the default admin verbs
-		if(holder.rights > 0 && (holder.rights & ~(R_VIEWRUNTIMES|R_DEV_TEAM)))
+		if(holder.rights && (holder.rights & ~(R_VIEWRUNTIMES|R_DEV_TEAM)))
 			add_verb(src, GLOB.admin_verbs_default)
 		if(holder.rights & R_BUILDMODE)
 			add_verb(src, /client/proc/togglebuildmodeself)
