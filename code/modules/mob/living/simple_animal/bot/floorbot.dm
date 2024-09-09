@@ -420,7 +420,6 @@
 		. += "floorbot_[on ? "on" : "off"]"
 		. += "floorbot_[amount > 0 ? "metal" : ""]"
 
-
 /mob/living/simple_animal/bot/floorbot/explode()
 	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
