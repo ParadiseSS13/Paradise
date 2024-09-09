@@ -34,3 +34,4 @@ hide_invisible = [
 
 [map_renderer.render_passes]
 smart-cables = false
+gravity-gen = false
