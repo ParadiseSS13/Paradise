@@ -4678,7 +4678,8 @@
 "Cn" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/deepstorage_reward/main,
+/obj/effect/spawner/random/deepstorage_reward,
+/obj/effect/spawner/random/deepstorage_reward,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -6017,8 +6018,7 @@
 "MR" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/spawner/lootdrop/deepstorage_reward,
-/obj/effect/spawner/lootdrop/deepstorage_reward,
+/obj/effect/spawner/random/deepstorage_reward/main,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
