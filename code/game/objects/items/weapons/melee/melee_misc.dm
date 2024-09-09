@@ -34,7 +34,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration_percentage = 75
 	sharp = TRUE
-	origin_tech = "combat=5"
+	origin_tech = null
 	attack_verb = list("lunged at", "stabbed")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
