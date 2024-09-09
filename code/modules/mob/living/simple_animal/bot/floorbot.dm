@@ -412,11 +412,14 @@
 
 /mob/living/simple_animal/bot/floorbot/update_overlays()
 	. = ..()
+	if(toolbox_color)
+		. += "[toolbox_color]floorbot"
 	if(mode == BOT_REPAIRING || mode == BOT_EAT_TILE || mode == BOT_MAKE_TILE)
 		. += "floorbot_work"
 	else
 		. += "floorbot_[on ? "on" : "off"]"
 		. += "floorbot_[amount > 0 ? "metal" : ""]"
+
 
 /mob/living/simple_animal/bot/floorbot/explode()
 	on = FALSE
