@@ -120,7 +120,7 @@
 			line += "<b>[C]</b> is a [C.holder.rank]"
 
 		if(holder) // Only for those with perms see the extra bit
-			if(C.holder.fakekey || check_rights(R_ADMIN, FALSE))
+			if(C.holder.fakekey && check_rights(R_ADMIN, FALSE))
 				line += " <i>(as [C.holder.fakekey])</i>"
 
 			if(isobserver(C.mob))
