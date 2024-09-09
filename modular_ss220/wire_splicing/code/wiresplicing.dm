@@ -5,20 +5,18 @@
 	name = "wiring splicing spawner"
 	icon = 'modular_ss220/wire_splicing/icons/structures_spawners.dmi'
 	icon_state = "wire_splicing"
+	/// From 0 to 100
+	var/spawn_probability = 100
 
 /obj/effect/spawner/wire_splicing/Initialize()
 	. = ..()
-	new /obj/structure/wire_splicing(get_turf(src))
+	if(prob(spawn_probability))
+		new /obj/structure/wire_splicing(get_turf(src))
 	return INITIALIZE_HINT_QDEL
 
-// 70% chance to be nothing
 /obj/effect/spawner/wire_splicing/thirty
 	name = "wiring splicing spawner 30%"
-
-/obj/effect/spawner/wire_splicing/thirty/Initialize(mapload)
-	. = ..()
-	if(prob(70))
-		return INITIALIZE_HINT_QDEL
+	spawn_probability = 30
 
 /obj/structure/wire_splicing
 	name = "wire splicing"
