@@ -212,6 +212,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/supply/mail_sorting,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/supply/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "acO" = (
@@ -18497,13 +18498,6 @@
 	icon_state = "darkgreycheck"
 	},
 /area/station/security/main)
-"dwT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "dwY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -38613,8 +38607,8 @@
 "hiH" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/machinery/light/small{
-	dir = 1
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -61942,10 +61936,6 @@
 	id_tag = "Engineering";
 	name = "Engineering Security Doors"
 	},
-/obj/item/circuitboard/rnd_network_controller{
-	pixel_x = -5;
-	pixel_y = 5
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81016,12 +81006,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
-"oZi" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
-/turf/simulated/wall,
-/area/station/maintenance/starboard)
 "oZm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -82646,10 +82630,10 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "poI" = (
@@ -99893,7 +99877,7 @@
 /area/station/service/library)
 "syk" = (
 /obj/item/grown/bananapeel/mimanapeel{
-	layer = 2
+	layer = 1.99
 	},
 /obj/structure/falsewall{
 	desc = "A huge chunk of metal used to separate rooms. Nothing odd here, sir.";
@@ -128370,6 +128354,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
 "xNV" = (
@@ -177779,7 +177764,7 @@ tVw
 dGc
 qFP
 nGt
-dwT
+bpH
 bpH
 bpp
 loN
@@ -178036,7 +178021,7 @@ mXw
 fIk
 mXw
 jcy
-oZi
+caq
 pov
 nXe
 loN
