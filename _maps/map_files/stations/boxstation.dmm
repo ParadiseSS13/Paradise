@@ -68671,7 +68671,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "lSr" = (
-/obj/machinery/gravity_generator/main/station,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -91423,6 +91422,7 @@
 /area/station/command/office/rd)
 "xjh" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/gravity_generator/main/station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
