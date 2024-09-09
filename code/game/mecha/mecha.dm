@@ -41,7 +41,7 @@
 	var/lights = FALSE
 	var/lights_power = 6
 	var/lights_range = 6
-	var/lights_power_ambient = 0.1
+	var/lights_power_ambient = LIGHTING_MINIMUM_POWER
 	var/lights_range_ambient = MINIMUM_USEFUL_LIGHT_RANGE
 	var/frozen = FALSE
 	var/repairing = FALSE
