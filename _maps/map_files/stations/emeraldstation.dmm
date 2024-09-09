@@ -5062,6 +5062,10 @@
 	dir = 8;
 	layer = 2.9
 	},
+/obj/item/circuitboard/rnd_network_controller{
+	pixel_x = -5;
+	pixel_y = 5
+	},
 /obj/item/circuitboard/robotics{
 	pixel_x = -1;
 	pixel_y = 1
@@ -11249,6 +11253,9 @@
 /area/station/maintenance/fsmaint2)
 "cbG" = (
 /obj/structure/closet/secure_closet/medical2,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -19865,6 +19872,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/analyzer,
+/obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/engine/asteroid,
 /area/station/engineering/atmos/asteroid_core)
 "dKc" = (
@@ -45787,13 +45795,11 @@
 	},
 /area/station/service/theatre)
 "izU" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "robo"
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	name = "Robotics Lab Shutters";
 	id_tag = "robotics"
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/science/robotics)
 "izW" = (
@@ -47832,6 +47838,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "iSs" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -60731,6 +60739,7 @@
 	id_tag = "robotics_surgery";
 	name = "Robotics Surgery Center"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -61932,6 +61941,10 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
 	name = "Engineering Security Doors"
+	},
+/obj/item/circuitboard/rnd_network_controller{
+	pixel_x = -5;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -72093,6 +72106,7 @@
 	dir = 8
 	},
 /obj/item/paper_bin,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "nxI" = (
@@ -79977,6 +79991,10 @@
 	},
 /area/station/hallway/primary/fore)
 "oQU" = (
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -87098,7 +87116,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "qhc" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery/hollow/left,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -97548,10 +97566,6 @@
 	},
 /area/station/engineering/break_room/secondary)
 "sbl" = (
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /obj/structure/filingcabinet,
 /obj/machinery/camera{
 	c_tag = "Research Robotics Lab North";
@@ -100450,6 +100464,7 @@
 /obj/structure/sign/poster/official/state_laws{
 	pixel_y = -32
 	},
+/obj/effect/turf_decal/delivery/hollow/left,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -105303,6 +105318,12 @@
 "tvp" = (
 /obj/structure/table,
 /obj/item/storage/surgical_tray,
+/obj/machinery/button/windowtint{
+	dir = 4;
+	id = "RoboSurgery";
+	pixel_x = -24;
+	range = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -105502,12 +105523,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
-"txV" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "RoboSurgery"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/robotics)
 "txZ" = (
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/regular,
@@ -106564,16 +106579,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/engine)
-"tJr" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	name = "Robotics Lab Shutters";
-	id_tag = "robotics"
-	},
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "robo"
-	},
-/turf/simulated/floor/plating,
-/area/station/science/robotics)
 "tJz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -108513,9 +108518,6 @@
 	},
 /area/station/service/bar)
 "ubx" = (
-/obj/machinery/door/airlock/research/glass{
-	name = "Robotics Surgery"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -108524,8 +108526,8 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/polarized{
-	id = "RoboSurgery"
+/obj/machinery/door/airlock/research{
+	name = "Surgery Room"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -113802,14 +113804,11 @@
 	},
 /area/station/service/kitchen)
 "vaq" = (
-/obj/machinery/door/airlock/research/glass{
-	name = "Robotics"
-	},
-/obj/effect/mapping_helpers/airlock/polarized{
-	id = "robo"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research{
+	name = "Robotics"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -118667,12 +118666,6 @@
 	pixel_x = -9;
 	pixel_y = 11
 	},
-/obj/machinery/button/windowtint{
-	dir = 4;
-	id = "RoboSurgery";
-	pixel_x = -24;
-	range = 8
-	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -120813,6 +120806,9 @@
 /area/station/hallway/primary/central/se)
 "woM" = (
 /obj/structure/closet/secure_closet/medical2,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -169033,7 +169029,7 @@ jOu
 wQe
 bls
 nMQ
-txV
+ieD
 hHm
 muK
 pim
@@ -169290,7 +169286,7 @@ nST
 nST
 qdK
 cmu
-txV
+ieD
 ivq
 hHm
 fAE
@@ -169549,7 +169545,7 @@ bls
 cmu
 ieD
 ieD
-txV
+ieD
 ubx
 ieD
 xxQ
@@ -171606,7 +171602,7 @@ eEt
 ieD
 ieD
 izU
-tJr
+izU
 nxD
 ieD
 aOG
