@@ -19,6 +19,8 @@
 	var/list/special_rechargables = list()
 	/// Allow the same upgrade to be installed multiple times, FALSE by default
 	var/allow_duplicate = FALSE
+	/// Delete the module after installing it. For deleting upgrades that might be install multiple times like the rename/reset upgrades.
+	var/delete_after_install = FALSE
 
 /**
  * Called when someone clicks on a borg with an upgrade in their hand.
@@ -26,12 +28,19 @@
  * Arguments:
  * * R - the cyborg that was clicked on with an upgrade.
  */
-/obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/proc/action(mob/user, mob/living/silicon/robot/R)
 	if(!pre_install_checks(R))
 		return
 	if(!do_install(R))
 		return
 	after_install(R)
+	if(!user.drop_item())
+		to_chat(user, "<span class='notice'>\The [src] is stuck to your hand, you cannot install it in [R]</span>")
+		return
+	if(delete_after_install)
+		qdel(src)
+	else
+		forceMove(R)
 	return TRUE
 
 /**
@@ -95,6 +104,7 @@
 	desc = "Used to reset a cyborg's module. Destroys any other upgrades applied to the cyborg."
 	icon_state = "cyborg_upgrade1"
 	require_module = TRUE
+	delete_after_install = TRUE
 
 /obj/item/borg/upgrade/reset/do_install(mob/living/silicon/robot/R)
 	R.reset_module()
@@ -107,6 +117,7 @@
 	name = "cyborg reclassification board"
 	desc = "Used to rename a cyborg."
 	icon_state = "cyborg_upgrade1"
+	delete_after_install = TRUE
 	var/heldname = "default name"
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
@@ -131,6 +142,7 @@
 	name = "cyborg emergency reboot module"
 	desc = "Used to force a reboot of a disabled-but-repaired cyborg, bringing it back online."
 	icon_state = "cyborg_upgrade1"
+	delete_after_install = TRUE
 
 /obj/item/borg/upgrade/restart/do_install(mob/living/silicon/robot/R)
 	if(R.health < 0)
