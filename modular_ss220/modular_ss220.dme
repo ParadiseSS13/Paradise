@@ -40,6 +40,7 @@
 
 // --- MISC --- //
 #include "administration/_administration.dme"
+#include "autolathe_tgui/_autolathe_tgui.dme"
 #include "preferences/_preferences.dme"
 #include "aesthetics_sounds/_aesthetics_sounds.dme"
 #include "agent_id_tgui/_agent_id_tgui.dme"
