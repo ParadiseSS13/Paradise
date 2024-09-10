@@ -14,13 +14,13 @@
 	name = "WLLY mega mop"
 	desc = "An upsized advanced mop, designed for use in exosuits."
 	icon_state = "mecha_mop"
-	equip_cooldown = 15
+	equip_cooldown = 1.5 SECONDS
 	energy_drain = 1
 	range = MECHA_MELEE | MECHA_RANGED
 	/// When the mopping sound was last played.
 	var/mop_sound_cooldown
 	/// How fast does this mop?
-	var/mop_speed = 20
+	var/mop_speed = 2 SECONDS
 	/// Toggle for refilling itself
 	var/refill_enabled = TRUE
 	/// Rate per process() tick mop refills itself
@@ -113,7 +113,7 @@
 	name = "NT-12 illuminator"
 	desc = "A modified light replacer fit for an exosuit that zaps lights into place."
 	icon_state = "mecha_light_replacer"
-	equip_cooldown = 15
+	equip_cooldown = 1.5 SECONDS
 	energy_drain = 100
 	range = MECHA_MELEE | 15
 
@@ -154,7 +154,7 @@
 	name = "JS-33 super spray"
 	desc = "A spray bottle, upscaled for an exosuit. Capable of mass sanitation."
 	icon_state = "mecha_spray"
-	equip_cooldown = 15
+	equip_cooldown = 1.5 SECONDS
 	energy_drain = 200
 	range = MECHA_MELEE | MECHA_RANGED
 	/// Toggle for refilling itself
@@ -254,7 +254,7 @@
 	desc = "Bluespace technology integrated with an oversized garbage bag and heavy duty magnets allows this device to pick up all manner of litter. \
 	The complex technology prevents users from directly looking inside the bag."
 	icon_state = "mecha_trash_magnet"
-	equip_cooldown = 15
+	equip_cooldown = 1.5 SECONDS
 	energy_drain = 5
 	range = MECHA_MELEE | MECHA_RANGED
 	/// Toggle for filling the bag (true) or emptying (false)
