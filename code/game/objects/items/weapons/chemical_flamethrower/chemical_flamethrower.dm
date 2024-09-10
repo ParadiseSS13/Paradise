@@ -239,7 +239,7 @@
 
 /obj/item/chemical_canister/examine(mob/user)
 	. = ..()
-	. += "[src] has [ammo] units left!"
+	. += "[src] has [ammo] out of [initial(ammo)] units left!"
 	if(stored_chemical && ammo != 0)
 		. += "[src] is currently filled with [stored_chemical]"
 
