@@ -30,6 +30,38 @@
 	. += "<span class='notice'>Use it on targets to summon thunderbolts from the sky.</span>"
 	. += "<span class='notice'>The thunderbolts are boosted if in an area with weather effects.</span>"
 
+/obj/item/storm_staff/attack(mob/living/target, mob/living/user)
+	if(cigarette_lighter_act(user, target))
+		return TRUE
+
+	return ..()
+
+/obj/item/storm_staff/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!thunder_charges)
+		to_chat(user, "<span class='warning'>[src] needs to recharge!</span>")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			"<span class='warning'>[user] holds [src] up to [user.p_their()] [cig.name] and shoots a tiny bolt of lightning that sets it alight!</span>",
+			"<span class='warning'>You hold [src] up to [cig] and shoot a tiny bolt of lightning that sets it alight!</span>",
+			"<span class='danger'>A thundercrack fills the air!</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='warning'>[user] points [src] at [target] and shoots a tiny bolt of lightning that sets [target.p_their()] [cig.name] alight!</span>",
+			"<span class='warning'>You point [src] at [target] and shoot a tiny bolt of lightning that sets [target.p_their()] [cig.name] alight!</span>",
+			"<span class='danger'>A thundercrack fills the air!</span>"
+		)
+	cig.light(user, target)
+	playsound(target, 'sound/magic/lightningbolt.ogg', 50, TRUE)
+	thunder_charges--
+	return TRUE
+
 /obj/item/storm_staff/attack_self(mob/user)
 	var/area/user_area = get_area(user)
 	var/turf/user_turf = get_turf(user)
@@ -48,9 +80,11 @@
 			if(A.stage == WEATHER_WIND_DOWN_STAGE)
 				to_chat(user, "<span class='warning'>The storm is already ending! It would be a waste to use the staff now.</span>")
 				return
-			user.visible_message("<span class='warning'>[user] holds [src] skywards as an orange beam travels into the sky!</span>", \
-			"<span class='notice'>You hold [src] skyward, dispelling the storm!</span>")
-			playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
+			user.visible_message(
+				"<span class='warning'>[user] holds [src] skywards as an orange beam travels into the sky!</span>",
+				"<span class='notice'>You hold [src] skyward, dispelling the storm!</span>"
+			)
+			playsound(user, 'sound/magic/staff_change.ogg', 200, FALSE)
 			A.wind_down()
 			var/old_color = user.color
 			user.color = list(340/255, 240/255, 0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)
@@ -59,6 +93,13 @@
 			animate(user, color = old_color, transform = old_transform, time = 1 SECONDS)
 
 /obj/item/storm_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	// This early return stops the staff from shooting lightning at someone when being used as a lighter.
+	if(iscarbon(target))
+		var/mob/living/carbon/cig_haver = target
+		var/mask_item = cig_haver.get_item_by_slot(SLOT_HUD_WEAR_MASK)		
+		if(istype(mask_item, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
+			return
+
 	. = ..()
 	if(!thunder_charges)
 		to_chat(user, "<span class='warning'>The staff needs to recharge.</span>")
@@ -120,7 +161,10 @@
 		for(var/obj/hit_thing in T)
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
-	target.visible_message("<span class='danger'>A thunderbolt strikes [target]!</span>")
+	target.visible_message(
+		"<span class='danger'>A thunderbolt strikes [target]!</span>",
+		"<span class='danger'>A thundercrack fills the air!</span>"
+	)
 	explosion(target, -1, -1, light_impact_range = (boosted ? 1 : 0), flame_range = (boosted ? 2 : 1), silent = TRUE)
 
 

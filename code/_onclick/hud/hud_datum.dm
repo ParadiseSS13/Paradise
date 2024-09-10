@@ -134,6 +134,7 @@
 	mymob.throw_icon = null
 	mymob.healths = null
 	mymob.healthdoll = null
+	mymob.staminas = null
 	mymob.pullin = null
 	mymob.nutrition_display = null
 

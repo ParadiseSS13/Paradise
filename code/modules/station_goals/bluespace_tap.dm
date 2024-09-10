@@ -174,9 +174,6 @@
 		/obj/item/food/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
-#define kW *1000
-#define MW kW *1000
-#define GW MW *1000
 #define BASE_ENERGY_CONVERSION 4e-6
 #define BASE_POINTS 2
 
@@ -205,8 +202,8 @@
 	luminosity = 1
 
 	/// Correspond to power required for a mining level, first entry for level 1, etc.
-	var/list/power_needs = list(1 kW, 2 kW, 5 kW, 10 kW, 15 kW,
-								25 kW, 50 kW, 100 kW, 250 kW, 500 kW,
+	var/list/power_needs = list(1 KW, 2 KW, 5 KW, 10 KW, 15 KW,
+								25 KW, 50 KW, 100 KW, 250 KW, 500 KW,
 								1 MW, 2 MW, 5 MW, 10 MW, 15 MW,
 								20 MW, 25 MW, 30 MW, 40 MW, 50 MW,
 								60 MW, 70 MW, 80 MW, 90 MW, 100 MW)
@@ -583,8 +580,5 @@
 	<p><small>Device highly experimental. Not for sale. Do not operate near small children or vital NT assets. Do not tamper with machine. In case of existential dread, stop machine immediately. \
 	Please document any and all extradimensional incursions. In case of imminent death, please leave said documentation in plain sight for clean-up teams to recover.</small></p>"
 
-#undef kW
-#undef MW
-#undef GW
 #undef BASE_ENERGY_CONVERSION
 #undef BASE_POINTS

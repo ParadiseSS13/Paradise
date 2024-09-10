@@ -288,6 +288,8 @@
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
+#define is_developer(user) (check_rights(R_DEV_TEAM, 0, (user)) != 0)
+
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
 
 // Locations
