@@ -345,7 +345,7 @@
 //////////////////////////////
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"
-	desc = "The Syndicate used to selling defective energy swords to suspicious persons, expecting nothing. But the technology was repaired with duct tape, and now this is the main weapon of space pirates. Arr, matey!"
+	desc = "A crude copy of syndicate technology. Favored among space pirates for its small form factor while inactive. Arrrr, matey!"
 	force_on = 20
 	throwforce_on = 5 // No PvP shenanigans, this is main weapon in PvE explorer gameplay and can be obtained very easy
 	embed_chance = 45
