@@ -36,6 +36,9 @@
 			if(istype(I))
 				results += "\a [I.name]"
 
+	if(!length(results))
+		return
+
 	var/joined_results = english_list(results)
 	examine_list += "<span class='notice'>It currently holds: [joined_results].</span>"
 
