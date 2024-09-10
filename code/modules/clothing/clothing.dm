@@ -199,7 +199,6 @@
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi', //We read you loud and skree-er.
 		"Kidan" = 'icons/mob/clothing/species/kidan/ears.dmi'
 		)
-	var/cover_both_ears =
 
 /obj/item/clothing/ears/attack_hand(mob/user)
 	if(!user)
