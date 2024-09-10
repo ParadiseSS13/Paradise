@@ -100,7 +100,7 @@
 		return
 
 	if(length(allowed_types) && !(attacker.type in allowed_types))
-		to_chat(usr, "<span class='notice'>[attacker] won't fit on the shelf!</span>")
+		to_chat(user, "<span class='notice'>[attacker] won't fit on [parent]!</span>")
 		return COMPONENT_NO_AFTERATTACK
 
 	var/list/PL = params2list(params)
