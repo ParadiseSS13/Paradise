@@ -256,8 +256,8 @@
 	if(length(clear_turfs))
 		var/obj/shelf = locateUID(shelf_uid)
 		if(!isobj(shelf))
+			// not sure what else we can do here to clean up after ourselves
 			CRASH("received non-obj shelf with UID [shelf_uid]")
-			return // not sure what else we can do here to clean up after ourselves
 
 		var/shelf_name = shelf ? "flies off [shelf]" : "falls down"
 		O.visible_message("<span class='notice'>[O] [shelf_name]!</span>")
