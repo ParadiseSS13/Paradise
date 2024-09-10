@@ -7,6 +7,8 @@
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
+	/// If this gamemode should spawn less vampires than a usual vampire round, as a percentage of how many you want relative to the regular amount
+	var/vampire_penalty = 0
 
 	///list of minds of soon to be vampires
 	var/list/datum/mind/pre_vampires = list()
@@ -22,7 +24,7 @@
 
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 
-	var/vampire_amount = 1 + round(num_players() / 10)
+	var/vampire_amount = 1 + (round(num_players() / 10) * (1 - vampire_penalty))
 
 	if(length(possible_vampires))
 		for(var/i in 1 to vampire_amount)

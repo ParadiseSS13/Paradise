@@ -19398,9 +19398,7 @@
 	},
 /area/station/command/bridge)
 "bub" = (
-/obj/structure/filingcabinet/chestdrawer{
-	pixel_y = 3
-	},
+/obj/machinery/computer/rnd_backup/station,
 /obj/machinery/alarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -19418,6 +19416,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -19878,9 +19877,6 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bvr" = (
-/obj/structure/chair/office/dark{
-	dir = 1
-	},
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/camera{
 	c_tag = "Bridge - Starboard";
@@ -21705,6 +21701,9 @@
 /area/station/command/office/hop)
 "bAb" = (
 /obj/machinery/light_switch/south,
+/obj/structure/filingcabinet/chestdrawer{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -52460,7 +52459,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "hdR" = (
-/obj/machinery/r_n_d/server/robotics,
+/obj/machinery/r_n_d/server/station,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
@@ -53880,7 +53879,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "hGS" = (
-/obj/machinery/computer/rdservercontrol{
+/obj/machinery/computer/rnd_network_controller/station{
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -67988,7 +67987,7 @@
 	},
 /area/station/legal/magistrate)
 "oco" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole/core{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72706,7 +72705,7 @@
 	},
 /area/station/aisat)
 "qub" = (
-/obj/machinery/r_n_d/server/core,
+/obj/machinery/r_n_d/server/station,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
@@ -82206,6 +82205,9 @@
 /area/station/security/permabrig)
 "uYQ" = (
 /obj/machinery/light_switch/south,
+/obj/structure/filingcabinet/chestdrawer{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -114600,7 +114602,7 @@ aBV
 aIb
 bkW
 btY
-boE
+boD
 boE
 btQ
 bAj
@@ -117684,7 +117686,7 @@ aEt
 aIH
 bkW
 bum
-boE
+boD
 boE
 sLs
 bAj

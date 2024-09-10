@@ -266,7 +266,7 @@ antag_account_age_restrictions = false
 # Gamemode probabilities map for if you are using secret or random
 gamemode_probabilities = [
 	{ gamemode = "abduction", probability = 0 },
-	{ gamemode = "changeling", probability = 3 },
+	{ gamemode = "changeling", probability = 0 },
 	{ gamemode = "cult", probability = 3 },
 	{ gamemode = "extend-a-traitormongous", probability = 2 }, # Autotraitor
 	{ gamemode = "extended", probability = 3 },
@@ -276,6 +276,7 @@ gamemode_probabilities = [
 	{ gamemode = "traitor", probability = 2 },
 	{ gamemode = "traitorchan", probability = 3 },
 	{ gamemode = "traitorvamp", probability = 3 },
+	{ gamemode = "vampchan", probability = 3},
 	{ gamemode = "vampire", probability = 3 },
 	{ gamemode = "wizard", probability = 2 },
 	{ gamemode = "trifecta", probability = 3 },

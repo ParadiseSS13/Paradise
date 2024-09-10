@@ -36117,7 +36117,7 @@
 	},
 /area/station/science/lobby)
 "cPr" = (
-/obj/machinery/r_n_d/server/core,
+/obj/machinery/r_n_d/server/station,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/bluegrid/telecomms/server,
@@ -41872,7 +41872,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "dpQ" = (
-/obj/machinery/computer/rdservercontrol{
+/obj/machinery/computer/rnd_network_controller/station{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -43542,7 +43542,7 @@
 	},
 /area/station/science/robotics)
 "dws" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole/core{
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery/hollow,
@@ -70233,7 +70233,7 @@
 	dir = 1;
 	network = list("SS13","Research")
 	},
-/obj/machinery/r_n_d/server/robotics,
+/obj/machinery/r_n_d/server/station,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
@@ -91760,6 +91760,10 @@
 	},
 /obj/machinery/light/directional/south,
 /obj/item/radio/intercom/directional/south,
+/obj/machinery/computer/rnd_backup/station{
+	dir = 8
+	},
+/obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "qFk" = (

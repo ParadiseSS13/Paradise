@@ -24070,7 +24070,7 @@
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "bRp" = (
-/obj/machinery/computer/rdconsole/robotics{
+/obj/machinery/computer/rdconsole/core{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -56780,9 +56780,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/machinery/computer/security{
+/obj/machinery/computer/rnd_backup/station{
 	dir = 1
 	},
+/obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/chamber)
 "hyx" = (
@@ -90946,7 +90947,7 @@
 	},
 /area/station/engineering/atmos)
 "tIl" = (
-/obj/machinery/computer/rdservercontrol{
+/obj/machinery/computer/rnd_network_controller/station{
 	dir = 4
 	},
 /obj/machinery/light_switch/south,
@@ -95512,16 +95513,6 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/primary/central/south)
-"vns" = (
-/obj/machinery/r_n_d/server/robotics,
-/obj/effect/turf_decal/delivery/white/hollow,
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
-/area/station/science/server/coldroom)
 "vnM" = (
 /obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/plasteel{
@@ -96725,7 +96716,7 @@
 	},
 /area/station/medical/sleeper)
 "vIO" = (
-/obj/machinery/r_n_d/server/core,
+/obj/machinery/r_n_d/server/station,
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -149794,7 +149785,7 @@ ten
 mMB
 vwC
 cbd
-vns
+vIO
 ukV
 crR
 vIO

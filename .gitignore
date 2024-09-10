@@ -75,6 +75,9 @@ $RECYCLE.BIN
 # Rust output.
 /milla/target/*
 
+# mkdocs output.
+site
+
 # SS220 EDIT
 sound/tts_cache/*
 config/lobby_music/sounds/*
