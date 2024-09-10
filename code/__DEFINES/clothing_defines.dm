@@ -1,26 +1,26 @@
 #define ITEM_SLOT_BACK 			(1<<0) // back
 #define ITEM_SLOT_MASK 			(1<<1) // mask
 #define ITEM_SLOT_HANDCUFFED 	(1<<2) // handcuffs
-#define ITEM_SLOT_LEFT_HAND 		(1<<3) // l_hand
+#define ITEM_SLOT_LEFT_HAND 	(1<<3) // l_hand
 #define ITEM_SLOT_RIGHT_HAND 	(1<<4) // r_hand
-#define ITEM_SLOT_BOTH_HANDS		(ITEM_SLOT_LEFT_HAND | ITEM_SLOT_RIGHT_HAND)
+#define ITEM_SLOT_BOTH_HANDS	(ITEM_SLOT_LEFT_HAND | ITEM_SLOT_RIGHT_HAND)
 #define ITEM_SLOT_BELT 			(1<<5) // belt
 #define ITEM_SLOT_ID 			(1<<6) // id
 #define ITEM_SLOT_LEFT_EAR 		(1<<7) // l_ear
-#define ITEM_SLOT_RIGHT_EAR 		(1<<8) // r_ear
+#define ITEM_SLOT_RIGHT_EAR 	(1<<8) // r_ear
 #define ITEM_SLOT_BOTH_EARS		(ITEM_SLOT_LEFT_EAR | ITEM_SLOT_RIGHT_EAR)
 #define ITEM_SLOT_EYES 			(1<<9) // eyes
 #define ITEM_SLOT_GLOVES 		(1<<10) // gloves
 #define ITEM_SLOT_HEAD 			(1<<11) // head
 #define ITEM_SLOT_FEET 			(1<<12) // shoes
-#define ITEM_SLOT_OCLOTHING 		(1<<13) // wear_suit
+#define ITEM_SLOT_OCLOTHING 	(1<<13) // wear_suit
 #define ITEM_SLOT_ICLOTHING	 	(1<<14) // w_uniform
 #define ITEM_SLOT_LEFT_POCKET 	(1<<15) // l_store
 #define ITEM_SLOT_RIGHT_POCKET 	(1<<16) // r_store
 #define ITEM_SLOT_BOTH_POCKETS	(ITEM_SLOT_LEFT_POCKET | ITEM_SLOT_RIGHT_POCKET)
 #define ITEM_SLOT_SUIT_STORE 	(1<<17) // suit_storage
 #define ITEM_SLOT_IN_BACKPACK 	(1<<18) // this just puts stuff a backpack if you have one
-#define ITEM_SLOT_LEGCUFFED 		(1<<19) // legcuffs
+#define ITEM_SLOT_LEGCUFFED 	(1<<19) // legcuffs
 #define ITEM_SLOT_PDA 			(1<<20) // pda
 #define ITEM_SLOT_TIE 			(1<<21) // CHAP-TODO: Figure out what the fuck these actually do
 #define ITEM_SLOT_COLLAR 		(1<<22) // CHAP-TODO: Figure out what the fuck these actually do
