@@ -459,7 +459,7 @@
 	name = "exosuit crusher"
 	desc = "A mech mounted crusher. For crushing bigger things."
 	icon_state = "mecha_crusher"
-	equip_cooldown = 12
+	equip_cooldown = 1.2 SECONDS
 	energy_drain = 3000
 	harmful = TRUE
 	range = MECHA_MELEE | MECHA_RANGED
