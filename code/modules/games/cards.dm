@@ -678,7 +678,7 @@
 			if(!Adjacent(user))
 				return
 			var/datum/playingcard/chosen = select_card_radial(user)
-			if(!chosen)
+			if(QDELETED(chosen))
 				return
 			user.visible_message(
 				"<span class='notice'>[user] adds [concealed ? "a card" : chosen.name] to [user.p_their()] hand.</span>",
@@ -696,8 +696,8 @@
 	if(length(cards) == 1)
 		turn_hand(user)
 		return
-	var/card = select_card_radial(user)
-	if(isnull(card))
+	var/datum/playingcard/card = select_card_radial(user)
+	if(QDELETED(card))
 		return
 	remove_card(user, card)
 
@@ -730,7 +730,7 @@
 
 
 	var/datum/playingcard/card_to_insert = active_hand.select_card_radial(user)
-	if(!istype(card_to_insert))
+	if(QDELETED(card_to_insert))
 		return
 
 	transfer_card_to_self(active_hand, card_to_insert)
@@ -769,7 +769,7 @@
 
 	to_chat(usr, "<span class='notice'>Select a card to draw from the hand.</span>")
 	var/datum/playingcard/card_chosen = select_card_radial(usr)
-	if(!card_chosen)
+	if(QDELETED(card_chosen))
 		return
 
 	remove_card(usr, card_chosen)
