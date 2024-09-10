@@ -80,7 +80,7 @@
 				return
 			buckled_mob.throw_alert("ghost_nest", /atom/movable/screen/alert/ghost)
 			to_chat(buckled_mob, "<span class='ghostalert'>You may now ghost by clicking on the ghost prompt on your screen. You will be alerted when you're removed from the nest.</span>")
-			if (tgui_alert (buckled_mob, "You may now ghost and keep respawnability, you will be notified if you leave the nest, would you like to do so?", "Ghosting", list("Yes", "No")) != "Yes")
+			if(tgui_alert (buckled_mob, "You may now ghost and keep respawnability, you will be notified if you leave the nest, would you like to do so?", "Ghosting", list("Yes", "No")) != "Yes")
 				return
 			buckled_mob.ghostize(TRUE)
 
