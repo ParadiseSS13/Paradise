@@ -19,7 +19,7 @@
 	var/list/special_rechargables = list()
 	/// Allow the same upgrade to be installed multiple times, FALSE by default
 	var/allow_duplicate = FALSE
-	/// Delete the module after installing it. For deleting upgrades that might be install multiple times like the rename/reset upgrades.
+	/// Delete the module after installing it. For deleting upgrades that might be installed multiple times, like the rename/reset upgrades.
 	var/delete_after_install = FALSE
 
 /**
