@@ -468,7 +468,7 @@
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater3x3_side_inv"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/cruiser)
 "br" = (
 /turf/simulated/floor/plasteel{
@@ -1471,7 +1471,7 @@
 /obj/machinery/atmospherics/binary/circulator{
 	icon_state = "circ8-off"
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless,
 /area/awaymission/space_battle/cruiser)
 "eN" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
@@ -2680,7 +2680,7 @@
 	icon_state = "heater3x3_side";
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/cruiser)
 "ii" = (
 /obj/machinery/constructable_frame,
@@ -2877,7 +2877,7 @@
 	icon_state = "heater3x3"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/cruiser)
 "iL" = (
 /turf/simulated/floor/plasteel/airless{
@@ -3495,12 +3495,6 @@
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
-"kz" = (
-/obj/structure/shuttle/engine/huge{
-	dir = 4
-	},
-/turf/space,
-/area/awaymission/space_battle/syndicate/syndicate6)
 "kA" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -4133,7 +4127,7 @@
 /obj/machinery/atmospherics/binary/circulator{
 	icon_state = "circ4-off"
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless,
 /area/awaymission/space_battle/cruiser)
 "mz" = (
 /obj/item/robotanalyzer,
@@ -4748,7 +4742,7 @@
 /obj/machinery/atmospherics/binary/circulator{
 	icon_state = "circ8-off"
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless,
 /area/awaymission/space_battle/cruiser)
 "ov" = (
 /obj/structure/closet/crate/secure/gear,
@@ -5148,11 +5142,11 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
 "pO" = (
-/obj/structure/shuttle/engine/large{
+/obj/structure/shuttle/engine/huge{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/space_battle/syndicate/syndicate1)
+/area/awaymission/space_battle/cruiser)
 "pP" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
@@ -5167,6 +5161,9 @@
 	},
 /obj/structure/window/plasmareinforced{
 	color = "red"
+	},
+/obj/structure/shuttle/engine/huge{
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/syndicate/syndicate2)
@@ -5386,11 +5383,14 @@
 	},
 /area/awaymission/space_battle/engineering)
 "qI" = (
+/obj/structure/window/plasmareinforced{
+	color = "red"
+	},
 /obj/structure/shuttle/engine/huge{
 	dir = 1
 	},
-/turf/simulated/wall/indestructible/whiteshuttle,
-/area/awaymission/space_battle/cruiser)
+/turf/simulated/floor/plating/airless,
+/area/awaymission/space_battle/syndicate/syndicate1)
 "qJ" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
@@ -6631,7 +6631,7 @@
 	icon_state = "heater3x3_side_inv";
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/cruiser)
 "uI" = (
 /obj/effect/decal/syndie_logo{
@@ -6640,11 +6640,15 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate1)
 "uJ" = (
+/obj/structure/window/plasmareinforced{
+	color = "red";
+	dir = 8
+	},
 /obj/structure/shuttle/engine/huge{
-	dir = 1
+	dir = 4
 	},
 /turf/space,
-/area/awaymission/space_battle/syndicate/syndicate2)
+/area/awaymission/space_battle/syndicate/syndicate6)
 "uK" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -7044,6 +7048,9 @@
 /obj/structure/window/plasmareinforced{
 	color = "red";
 	dir = 8
+	},
+/obj/structure/shuttle/engine/huge{
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/syndicate/syndicate1)
@@ -8882,9 +8889,16 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/space_battle/engineering)
 "BM" = (
-/obj/structure/shuttle/engine/huge,
-/turf/simulated/wall/indestructible/whiteshuttle,
-/area/awaymission/space_battle/cruiser)
+/obj/structure/window/plasmareinforced{
+	color = "red";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/huge{
+	dir = 4;
+	layer = 2
+	},
+/turf/space,
+/area/awaymission/space_battle/syndicate/syndicate6)
 "BN" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate2)
@@ -11366,10 +11380,13 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "Je" = (
+/obj/structure/window/plasmareinforced{
+	color = "red"
+	},
 /obj/structure/shuttle/engine/huge{
 	dir = 1
 	},
-/turf/space,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/syndicate)
 "Jf" = (
 /turf/simulated/floor/grass/no_creep,
@@ -11398,6 +11415,9 @@
 /obj/structure/window/plasmareinforced{
 	color = "red";
 	dir = 8
+	},
+/obj/structure/shuttle/engine/huge{
+	dir = 4
 	},
 /turf/space,
 /area/awaymission/space_battle/syndicate/syndicate6)
@@ -11808,7 +11828,7 @@
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater3x3_side"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/cruiser)
 "KH" = (
 /obj/effect/landmark/damageturf,
@@ -12196,12 +12216,6 @@
 "LM" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate)
-"LN" = (
-/obj/structure/shuttle/engine/huge{
-	dir = 1
-	},
-/turf/space,
-/area/awaymission/space_battle/syndicate/syndicate1)
 "LP" = (
 /obj/item/chair{
 	dir = 4
@@ -12500,7 +12514,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/cruiser)
 "MG" = (
 /obj/machinery/constructable_frame{
@@ -13593,7 +13607,7 @@
 /obj/machinery/atmospherics/binary/circulator{
 	icon_state = "circ4-off"
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless,
 /area/awaymission/space_battle/cruiser)
 "PY" = (
 /obj/machinery/power/treadmill{
@@ -13958,12 +13972,9 @@
 	},
 /area/awaymission/space_battle/hallway10)
 "Rf" = (
-/obj/structure/shuttle/engine/huge{
-	dir = 4;
-	layer = 2
-	},
-/turf/space,
-/area/awaymission/space_battle/syndicate/syndicate6)
+/obj/structure/shuttle/engine/huge,
+/turf/simulated/floor/plating/airless,
+/area/awaymission/space_battle/cruiser)
 "Rg" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -32383,9 +32394,9 @@ bI
 YM
 Pa
 Eb
+uJ
 Eb
-Eb
-Eb
+BM
 Eb
 Jj
 YM
@@ -32639,11 +32650,11 @@ YM
 bI
 YM
 Tp
-kz
 Tp
-Rf
 Tp
-kz
+Tp
+Tp
+Tp
 Tp
 YM
 bI
@@ -34351,8 +34362,8 @@ yG
 yG
 yG
 yG
-uF
-pO
+go
+VW
 uF
 ps
 yG
@@ -34609,7 +34620,7 @@ yG
 yG
 yG
 go
-eb
+lQ
 uF
 uF
 uF
@@ -35635,7 +35646,7 @@ yG
 yG
 yG
 go
-LN
+go
 JF
 uF
 gv
@@ -38206,7 +38217,7 @@ yG
 yG
 go
 go
-JF
+qI
 uF
 gv
 gF
@@ -38462,7 +38473,7 @@ yG
 yG
 yG
 go
-LN
+go
 JF
 uF
 gv
@@ -48722,7 +48733,7 @@ yG
 yG
 aV
 aV
-Zr
+Je
 QL
 Ee
 LM
@@ -48978,7 +48989,7 @@ yG
 yG
 yG
 aV
-Je
+aV
 Zr
 QL
 LM
@@ -49834,9 +49845,9 @@ yG
 yG
 yG
 yG
-yG
-VC
-Ui
+VE
+VE
+pO
 uG
 MQ
 VC
@@ -49871,9 +49882,9 @@ Qi
 VC
 RN
 bq
-Ui
-VC
-ki
+VE
+VE
+Rf
 yG
 yG
 yG
@@ -50007,7 +50018,7 @@ yG
 yG
 aV
 aV
-Zr
+Je
 QL
 QL
 QL
@@ -50091,9 +50102,9 @@ yG
 yG
 yG
 yG
-yG
-qI
-Ui
+VE
+VE
+VE
 MF
 UU
 VC
@@ -50128,9 +50139,9 @@ iN
 VC
 dA
 iK
-Ui
-BM
-ki
+VE
+VE
+VE
 yG
 yG
 yG
@@ -50263,7 +50274,7 @@ yG
 yG
 yG
 aV
-Je
+aV
 Zr
 QL
 AL
@@ -50348,9 +50359,9 @@ yG
 yG
 yG
 yG
-yG
-VC
-Ui
+VE
+VE
+VE
 ih
 MQ
 VC
@@ -50385,9 +50396,9 @@ Qi
 cf
 RN
 KF
-Ui
-VC
-ki
+VE
+VE
+VE
 yG
 yG
 yG
@@ -51292,7 +51303,7 @@ yG
 yG
 aV
 aV
-Zr
+Je
 QL
 LM
 Mx
@@ -51548,7 +51559,7 @@ yG
 yG
 yG
 aV
-Je
+aV
 Zr
 QL
 Ee
@@ -52575,9 +52586,9 @@ yG
 yG
 yG
 yG
-yG
 aV
-Zr
+aV
+Je
 QL
 LM
 LM
@@ -52832,8 +52843,8 @@ yG
 yG
 yG
 yG
-yG
-Je
+aV
+aV
 Zr
 QL
 LM
@@ -53089,7 +53100,7 @@ yG
 yG
 yG
 yG
-yG
+aV
 aV
 Zr
 QL
@@ -63894,7 +63905,7 @@ yG
 yG
 yG
 Pv
-uJ
+Pv
 QX
 gK
 BN
@@ -65438,7 +65449,7 @@ yG
 yG
 yG
 Pv
-uJ
+Pv
 QX
 Ks
 gu
@@ -66209,7 +66220,7 @@ yG
 yG
 yG
 Pv
-uJ
+Pv
 QX
 Ks
 Ql
@@ -67749,7 +67760,7 @@ yG
 yG
 yG
 Pv
-uJ
+Pv
 QX
 gK
 BN
