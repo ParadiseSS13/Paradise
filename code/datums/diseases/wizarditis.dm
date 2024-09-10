@@ -18,8 +18,7 @@
 	. = ..()
 
 	var/list/magic_fashion_slot_IDs = list(
-		ITEM_SLOT_RIGHT_HAND,
-		ITEM_SLOT_LEFT_HAND,
+		ITEM_SLOT_BOTH_HANDS,
 		ITEM_SLOT_HEAD,
 		ITEM_SLOT_OCLOTHING,
 		ITEM_SLOT_FEET

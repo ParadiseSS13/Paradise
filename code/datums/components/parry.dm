@@ -67,7 +67,7 @@
 
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
-	if(slot in list(ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND))
+	if(slot & ITEM_SLOT_BOTH_HANDS)
 		RegisterSignal(user, COMSIG_HUMAN_PARRY, PROC_REF(start_parry))
 	else
 		UnregisterSignal(user, COMSIG_HUMAN_PARRY)

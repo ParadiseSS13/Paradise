@@ -48,7 +48,7 @@
 	icon_state = item_state = "headphones[on]"
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)
-	if(slot == ITEM_SLOT_LEFT_EAR || slot == ITEM_SLOT_RIGHT_EAR)
+	if(slot & ITEM_SLOT_BOTH_EARS)
 		return TRUE
 
 /**

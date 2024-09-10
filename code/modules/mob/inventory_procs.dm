@@ -332,11 +332,11 @@
 	if(looking_for == back)
 		return ITEM_SLOT_BACK
 
-	// if(looking_for == l_hand)
-	// 	return ITEM_SLOT_LEFT_HAND
+	if(looking_for == l_hand)
+		return ITEM_SLOT_LEFT_HAND
 
-	// if(looking_for == r_hand)
-	// 	return ITEM_SLOT_RIGHT_HAND
+	if(looking_for == r_hand)
+		return ITEM_SLOT_RIGHT_HAND
 
 	return null
 

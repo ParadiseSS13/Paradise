@@ -126,7 +126,7 @@
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER  // COMSIG_ITEM_EQUIPPED
 
-	if(require_twohands && (slot == ITEM_SLOT_LEFT_HAND || slot == ITEM_SLOT_RIGHT_HAND)) // force equip the item
+	if(require_twohands && (slot & ITEM_SLOT_BOTH_HANDS)) // force equip the item
 		INVOKE_ASYNC(src, PROC_REF(wield), user)
 	if(!user.is_holding(parent) && wielded && !require_twohands)
 		INVOKE_ASYNC(src, PROC_REF(unwield), user)

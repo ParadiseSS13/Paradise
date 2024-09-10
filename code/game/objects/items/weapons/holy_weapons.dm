@@ -631,7 +631,7 @@
 
 /obj/item/nullrod/rosary/bread/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(ishuman(user) && (slot == ITEM_SLOT_LEFT_HAND || slot == ITEM_SLOT_RIGHT_HAND))
+	if(ishuman(user) && (slot & ITEM_SLOT_BOTH_HANDS))
 		START_PROCESSING(SSobj, src)
 	else
 		STOP_PROCESSING(SSobj, src)

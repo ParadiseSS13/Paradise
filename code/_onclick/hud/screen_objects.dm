@@ -403,7 +403,7 @@
 	if(!user || user != usr)
 		return
 
-	if(!hud?.mymob || !slot_id || slot_id == ITEM_SLOT_LEFT_HAND || slot_id == ITEM_SLOT_RIGHT_HAND)
+	if(!hud?.mymob || !slot_id || (slot_id & ITEM_SLOT_BOTH_HANDS))
 		return
 
 	var/obj/item/holding = user.get_active_hand()

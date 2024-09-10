@@ -344,11 +344,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			break
 	return openslot
 
-#define CANNOT_EQUIP 	0
-#define CAN_EQUIP 		1
-#define CANNOT_DROP 	2
-
-
 /obj/item/proc/mob_check_equip(M as mob, slot, disable_warning = 0)
 	if(!M) return 0
 	if(!slot) return 0
