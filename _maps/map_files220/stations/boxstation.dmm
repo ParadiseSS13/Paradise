@@ -22718,7 +22718,7 @@
 "bLi" = (
 /obj/machinery/gravity_generator/main/station,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 8;
 	icon_state = "vault"
 	},
 /area/station/engineering/gravitygenerator)
@@ -142358,7 +142358,7 @@ bFC
 pua
 bHB
 bHz
-bLi
+bHD
 rnK
 bFC
 aab
@@ -142615,7 +142615,7 @@ bFC
 bSk
 bHz
 bFE
-bHz
+bLi
 cRr
 bFC
 aaa
