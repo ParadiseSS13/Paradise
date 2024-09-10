@@ -735,15 +735,15 @@
 		if(SLOT_HUD_RIGHT_HAND)
 			return !H.r_hand && !H.incapacitated()
 		if(SLOT_HUD_MASK)
-			return !H.wear_mask && (I.slot_flags & SLOT_FLAG_MASK)
+			return !H.wear_mask && (I.slot_flags & SLOT_HUD_MASK)
 		if(SLOT_HUD_BACK)
-			return !H.back && (I.slot_flags & SLOT_FLAG_BACK)
+			return !H.back && (I.slot_flags & SLOT_HUD_BACK)
 		if(SLOT_HUD_OCLOTHING)
-			return !H.wear_suit && (I.slot_flags & SLOT_FLAG_OCLOTHING)
+			return !H.wear_suit && (I.slot_flags & SLOT_HUD_OCLOTHING)
 		if(SLOT_HUD_GLOVES)
-			return !H.gloves && (I.slot_flags & SLOT_FLAG_GLOVES)
+			return !H.gloves && (I.slot_flags & SLOT_HUD_GLOVES)
 		if(SLOT_HUD_FEET)
-			return !H.shoes && (I.slot_flags & SLOT_FLAG_FEET)
+			return !H.shoes && (I.slot_flags & SLOT_HUD_FEET)
 		if(SLOT_HUD_BELT)
 			if(H.belt)
 				return FALSE
@@ -753,20 +753,20 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_FLAG_BELT))
+			if(!(I.slot_flags & SLOT_HUD_BELT))
 				return
 			return TRUE
 		if(SLOT_HUD_EYES)
-			return !H.glasses && (I.slot_flags & SLOT_FLAG_EYES)
+			return !H.glasses && (I.slot_flags & SLOT_HUD_EYES)
 		if(SLOT_HUD_HEAD)
-			return !H.head && (I.slot_flags & SLOT_FLAG_HEAD)
+			return !H.head && (I.slot_flags & SLOT_HUD_HEAD)
 		if(SLOT_HUD_LEFT_EAR)
-			return !H.l_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.r_ear)
+			return !H.l_ear && (I.slot_flags & SLOT_HUD_LEFT_EAR) && !((I.slot_flags & SLOT_HUD_RIGHT_EAR) && H.r_ear)
 		if(SLOT_HUD_RIGHT_EAR)
-			return !H.r_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.l_ear)
+			return !H.r_ear && (I.slot_flags & SLOT_HUD_RIGHT_EAR) && !((I.slot_flags & SLOT_HUD_LEFT_EAR) && H.l_ear)
 		if(SLOT_HUD_ICLOTHING)
-			return !H.w_uniform && (I.slot_flags & SLOT_FLAG_ICLOTHING)
-		if(SLOT_HUD_WEAR_ID)
+			return !H.w_uniform && (I.slot_flags & SLOT_HUD_ICLOTHING)
+		if(SLOT_HUD_ID)
 			if(H.wear_id)
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
@@ -775,7 +775,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_FLAG_ID))
+			if(!(I.slot_flags & SLOT_HUD_ID))
 				return FALSE
 			return TRUE
 		if(SLOT_HUD_PDA)
@@ -787,7 +787,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_FLAG_PDA))
+			if(!(I.slot_flags & SLOT_HUD_PDA))
 				return FALSE
 			return TRUE
 		if(SLOT_HUD_LEFT_POCKET)
@@ -801,7 +801,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET))
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_HUD_BOTH_POCKETS))
 				return TRUE
 		if(SLOT_HUD_RIGHT_POCKET)
 			if(I.flags & NODROP)
@@ -814,7 +814,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET))
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_HUD_BOTH_POCKETS))
 				return TRUE
 			return FALSE
 		if(SLOT_HUD_SUIT_STORE)
@@ -865,7 +865,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_FLAG_TIE))
+			if(!(I.slot_flags & SLOT_HUD_TIE))
 				return FALSE
 			return TRUE
 

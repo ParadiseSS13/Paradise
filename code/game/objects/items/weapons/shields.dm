@@ -21,7 +21,7 @@
 	name = "riot shield"
 	desc = "A shield adept at blocking blunt objects from connecting with the torso of the shield wielder."
 	icon_state = "riot"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = SLOT_HUD_BACK
 	force = 10
 	throwforce = 5
 	throw_speed = 2
@@ -163,7 +163,7 @@
 		throwforce = 5
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
-		slot_flags = SLOT_FLAG_BACK
+		slot_flags = SLOT_HUD_BACK
 		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
 	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
 	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)

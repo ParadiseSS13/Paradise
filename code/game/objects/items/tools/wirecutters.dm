@@ -5,7 +5,7 @@
 	icon_state = "cutters"
 	belt_icon = "wirecutters_red"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	force = 6
 	throw_speed = 3
 	throw_range = 7

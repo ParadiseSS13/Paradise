@@ -6,7 +6,7 @@
 	var/base_icon = "stunbaton"
 	item_state = null
 	belt_icon = "stunbaton"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=2"
@@ -301,7 +301,7 @@
 	knockdown_duration = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 	hitcost = 2000
-	slot_flags = SLOT_FLAG_BACK | SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BACK | SLOT_HUD_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	var/obj/item/assembly/igniter/sparkler = null
 

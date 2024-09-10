@@ -18,7 +18,7 @@
 	desc = "Somehow, it's in two places at once."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = SLOT_HUD_BACK
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/item/storage/backpack/shared/bag
 

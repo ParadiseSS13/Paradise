@@ -1966,34 +1966,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(CHANNEL_BOSS_MUSIC)
 			return "Boss Music"
 
-/proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
-	switch(input_slot_flags)
-		if(SLOT_FLAG_OCLOTHING)
-			return SLOT_HUD_OCLOTHING
-		if(SLOT_FLAG_ICLOTHING)
-			return SLOT_HUD_ICLOTHING
-		if(SLOT_FLAG_GLOVES)
-			return SLOT_HUD_GLOVES
-		if(SLOT_FLAG_EYES)
-			return SLOT_HUD_EYES
-		if(SLOT_FLAG_MASK)
-			return SLOT_HUD_MASK
-		if(SLOT_FLAG_HEAD)
-			return SLOT_HUD_HEAD
-		if(SLOT_FLAG_FEET)
-			return SLOT_HUD_FEET
-		if(SLOT_FLAG_ID)
-			return SLOT_HUD_WEAR_ID
-		if(SLOT_FLAG_BELT)
-			return SLOT_HUD_BELT
-		if(SLOT_FLAG_BACK)
-			return SLOT_HUD_BACK
-		if(SLOT_FLAG_PDA)
-			return SLOT_HUD_PDA
-		if(SLOT_FLAG_TIE)
-			return SLOT_HUD_TIE
-
-
 /**
   * HTTP Get (Powered by RUSTG)
   *

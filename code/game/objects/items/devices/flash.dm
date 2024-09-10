@@ -228,7 +228,7 @@
 	icon_state = "camera"
 	item_state = "electropack" //spelling, a coders worst enemy. This part gave me trouble for a while.
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	can_overcharge = FALSE
 	var/flash_max_charges = 5
 	var/flash_cur_charges = 5

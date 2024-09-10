@@ -647,7 +647,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_wear_id()
 	remove_overlay(ID_LAYER)
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_WEAR_ID]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_ID]
 		if(inv)
 			inv.update_icon()
 

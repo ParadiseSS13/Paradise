@@ -21,7 +21,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigoff"
 	throw_speed = 0.5
 	item_state = "cigoff"
-	slot_flags = SLOT_FLAG_MASK
+	slot_flags = SLOT_HUD_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null

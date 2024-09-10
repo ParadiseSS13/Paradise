@@ -88,7 +88,7 @@
 
 /obj/item/clothing/equipped(mob/user, slot)
 	. = ..()
-	if(slot_bitfield_to_slot(slot_flags) == slot) //Was equipped to a valid slot for this item? CHAP-TODO: Purge SLOT_HUD from the face of this planet and make everything use SLOT_FLAG
+	if(slot_flags & slot) //Was equipped to a valid slot for this item? CHAP-TODO: Purge SLOT_HUD from the face of this planet and make everything use SLOT_FLAG
 		for(var/trait in clothing_traits)
 			ADD_CLOTHING_TRAIT(user, trait)
 
@@ -193,12 +193,13 @@
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 2
-	slot_flags = SLOT_FLAG_EARS
+	slot_flags = SLOT_HUD_BOTH_EARS
 	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi', //We read you loud and skree-er.
 		"Kidan" = 'icons/mob/clothing/species/kidan/ears.dmi'
 		)
+	var/cover_both_ears =
 
 /obj/item/clothing/ears/attack_hand(mob/user)
 	if(!user)
@@ -217,7 +218,7 @@
 		return
 
 	var/obj/item/clothing/ears/O
-	if(slot_flags & SLOT_FLAG_TWOEARS)
+	if(slot_flags & SLOT_HUD_BOTH_EARS)
 		O = (H.l_ear == src ? H.r_ear : H.l_ear)
 		user.unEquip(O)
 		if(!istype(src, /obj/item/clothing/ears/offear))
@@ -241,7 +242,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
-	slot_flags = SLOT_FLAG_EARS | SLOT_FLAG_TWOEARS
+	slot_flags = SLOT_HUD_BOTH_EARS
 
 /obj/item/clothing/ears/offear/New(obj/O)
 	. = ..()
@@ -259,7 +260,7 @@
 	icon = 'icons/obj/clothing/glasses.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
-	slot_flags = SLOT_FLAG_EYES
+	slot_flags = SLOT_HUD_EYES
 	materials = list(MAT_GLASS = 250)
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
@@ -311,7 +312,7 @@
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
-	slot_flags = SLOT_FLAG_GLOVES
+	slot_flags = SLOT_HUD_GLOVES
 	attack_verb = list("challenged")
 	strip_delay = 2 SECONDS
 	put_on_delay = 4 SECONDS
@@ -440,7 +441,7 @@
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_override = 'icons/mob/clothing/head.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = SLOT_HUD_HEAD
 	var/HUDType = null
 
 	var/vision_flags = 0
@@ -458,7 +459,7 @@
 	name = "mask"
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_FLAG_MASK
+	slot_flags = SLOT_HUD_MASK
 	strip_delay = 4 SECONDS
 	put_on_delay = 4 SECONDS
 	dyeable = FALSE
@@ -489,9 +490,9 @@
 			if(initial(flags_cover) & MASKCOVERSMOUTH) //If the mask covers the mouth when it's down and can be adjusted yet lost that trait when it was adjusted, make it cover the mouth again.
 				flags_cover |= MASKCOVERSMOUTH
 		if(H.head == src)
-			if(isnull(user.get_item_by_slot(slot_bitfield_to_slot(slot_flags))))
+			if(isnull(user.get_item_by_slot(slot_flags)))
 				user.unEquip(src)
-				user.equip_to_slot(src, slot_bitfield_to_slot(slot_flags))
+				user.equip_to_slot(src, slot_flags)
 			else if(flags_inv == HIDEFACE) //Means that only things like bandanas and balaclavas will be affected since they obscure the identity of the wearer.
 				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 					user.unEquip(src)
@@ -516,9 +517,9 @@
 		if(flags & AIRTIGHT) //If the mask was airtight, it won't be anymore since you just pushed it off your face.
 			flags &= ~AIRTIGHT
 		if(user.wear_mask == src)
-			if(isnull(user.get_item_by_slot(slot_bitfield_to_slot(slot_flags))))
+			if(isnull(user.get_item_by_slot(slot_flags)))
 				user.unEquip(src)
-				user.equip_to_slot(src, slot_bitfield_to_slot(slot_flags))
+				user.equip_to_slot(src, slot_flags)
 			else if(initial(flags_inv) == HIDEFACE) //Means that you won't have to take off and put back on simple things like breath masks which, realistically, can just be pulled down off your face.
 				if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 					user.unEquip(src)
@@ -546,7 +547,7 @@
 	gender = PLURAL //Carn: for grammatically correct text-parsing
 
 	body_parts_covered = FEET
-	slot_flags = SLOT_FLAG_FEET
+	slot_flags = SLOT_HUD_FEET
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_SHOES
 
@@ -661,7 +662,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-	slot_flags = SLOT_FLAG_OCLOTHING
+	slot_flags = SLOT_HUD_OCLOTHING
 	dyeable = FALSE
 
 	var/fire_resist = T0C + 100
@@ -865,7 +866,7 @@
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
-	slot_flags = SLOT_FLAG_ICLOTHING
+	slot_flags = SLOT_HUD_ICLOTHING
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'

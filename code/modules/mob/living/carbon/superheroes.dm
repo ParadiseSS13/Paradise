@@ -52,7 +52,7 @@
 	W.SetOwnerInfo(H)
 	W.UpdateName()
 	W.flags |= NODROP
-	H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+	H.equip_to_slot_or_del(W, SLOT_HUD_ID)
 	H.regenerate_icons()
 
 	to_chat(H, desc)
@@ -235,5 +235,5 @@
 	W.flags |= NODROP
 	W.SetOwnerInfo(target)
 	W.UpdateName()
-	target.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+	target.equip_to_slot_or_del(W, SLOT_HUD_ID)
 	target.regenerate_icons()

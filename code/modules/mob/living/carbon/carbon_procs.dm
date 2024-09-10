@@ -770,16 +770,16 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/get_slot_by_item(obj/item/looking_for)
 	if(looking_for == back)
-		return SLOT_FLAG_BACK
+		return SLOT_HUD_BACK
 
 	// if(back && (looking_for in back))
 	// 	return SLOT_HUD_BACKPACK
 
 	if(looking_for == wear_mask)
-		return SLOT_FLAG_MASK
+		return SLOT_HUD_MASK
 
 	if(looking_for == head)
-		return SLOT_FLAG_HEAD
+		return SLOT_HUD_HEAD
 
 	return ..()
 

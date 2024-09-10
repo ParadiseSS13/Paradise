@@ -150,7 +150,7 @@
 	force = 5
 	sharp = FALSE
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
@@ -1555,7 +1555,7 @@
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
 	item_color = "fethasnecklace"
-	slot_flags = SLOT_FLAG_MASK | SLOT_FLAG_TIE
+	slot_flags = SLOT_HUD_MASK | SLOT_HUD_TIE
 
 /// HugoLuman: Dan Martinez
 /obj/item/bedsheet/fluff/hugosheet
@@ -1689,7 +1689,7 @@
 	icon_state = "panzermedal"
 	item_state = "panzermedal"
 	item_color = "panzermedal"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = SLOT_HUD_TIE
 
 /// Sagrotter: Xann Zxiax
 /obj/item/clothing/accessory/medal/fluff/XannZxiax
@@ -1699,7 +1699,7 @@
 	icon_state = "Xann_necklace"
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
-	slot_flags = SLOT_FLAG_TIE
+	slot_flags = SLOT_HUD_TIE
 
 /// Rb303: Isthel Eisenwald
 /obj/item/clothing/accessory/rbscarf

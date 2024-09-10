@@ -161,7 +161,7 @@
 	var/obj/target = A
 	if(is_type_in_list(target, no_wrap))
 		return
-	
+
 	if(istype(target, /obj/item/stack/packageWrap) && user.a_intent != INTENT_HARM)
 		return
 
@@ -247,7 +247,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "electronic"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	///Value of the tag
 	var/currTag = 1
 	//The whole system for the sort_type var is determined based on the order of this list,

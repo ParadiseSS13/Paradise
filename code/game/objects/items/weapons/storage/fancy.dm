@@ -101,7 +101,7 @@
 	item_state = "candlebox5"
 	storage_slots = 5
 	throwforce = 2
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 
 /obj/item/storage/fancy/candle_box/full
 	icon_state = "candlebox5"
@@ -177,7 +177,7 @@
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
@@ -216,7 +216,7 @@
 	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 2
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	storage_slots = 6
 	max_combined_w_class = 6
 	can_hold = list(/obj/item/clothing/mask/cigarette,

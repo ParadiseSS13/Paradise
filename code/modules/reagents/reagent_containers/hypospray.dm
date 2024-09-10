@@ -13,7 +13,7 @@
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	/// If TRUE, the hypospray can inject through most hardsuits/modsuits.
 	var/can_pierce_hardsuits = FALSE
 	/// If TRUE, the hypospray isn't blocked by suits with TRAIT_HYPOSPRAY_IMMUNE.
@@ -292,10 +292,10 @@
 	name = "\improper Anti-Plague Sequence Omega autoinjector"
 	desc = "A small autoinjector containing 15 units of Anti-Plague Sequence Omega.  Cures all cases of the Necrotizing Plague. Also heals dead limbs."
 	list_reagents = list("zombiecure4" = 15)
-	
+
 /obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen
 	name = "suspicious medipen"
-	desc = "A cheap-looking medipen containing what seems to be a mix of nearly every medicine stored in the recently raided Nanotrasen warehouse." 
+	desc = "A cheap-looking medipen containing what seems to be a mix of nearly every medicine stored in the recently raided Nanotrasen warehouse."
 	icon_state = "hyperpen"
 	amount_per_transfer_from_this = 37
 	volume = 37

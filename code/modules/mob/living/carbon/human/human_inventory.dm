@@ -34,7 +34,7 @@
 			return has_organ("r_hand")
 		if(SLOT_HUD_BELT)
 			return has_organ("chest")
-		if(SLOT_HUD_WEAR_ID)
+		if(SLOT_HUD_ID)
 			// the only relevant check for this is the uniform check
 			return TRUE
 		if(SLOT_HUD_PDA)
@@ -192,6 +192,11 @@
 			if(observe.client)
 				observe.client.screen -= I
 
+	I.forceMove(src)
+	I.equipped(src, slot, initial)
+	I.layer = ABOVE_HUD_LAYER
+	I.plane = ABOVE_HUD_PLANE
+
 	switch(slot)
 		if(SLOT_HUD_BACK)
 			back = I
@@ -221,7 +226,7 @@
 		if(SLOT_HUD_BELT)
 			belt = I
 			update_inv_belt()
-		if(SLOT_HUD_WEAR_ID)
+		if(SLOT_HUD_ID)
 			wear_id = I
 			if(length(hud_list))
 				sec_hud_set_ID()
@@ -231,21 +236,21 @@
 			update_inv_wear_pda()
 		if(SLOT_HUD_LEFT_EAR)
 			l_ear = I
-			if(l_ear.slot_flags & SLOT_FLAG_TWOEARS)
-				var/obj/item/clothing/ears/offear/O = new(I)
-				O.forceMove(src)
-				r_ear = O
-				O.layer = ABOVE_HUD_LAYER
-				O.plane = ABOVE_HUD_PLANE
+			// if(l_ear.slot_flags & SLOT_HUD_LEFT_EAR) CHAP-TODO: ACTUALLY FIX OFFEARS OR REMOVE THEM COMPLETELY
+			// 	var/obj/item/clothing/ears/offear/O = new(I)
+			// 	O.forceMove(src)
+			// 	r_ear = O
+			// 	O.layer = ABOVE_HUD_LAYER
+			// 	O.plane = ABOVE_HUD_PLANE
 			update_inv_ears()
 		if(SLOT_HUD_RIGHT_EAR)
 			r_ear = I
-			if(r_ear.slot_flags & SLOT_FLAG_TWOEARS)
-				var/obj/item/clothing/ears/offear/O = new(I)
-				O.forceMove(src)
-				l_ear = O
-				O.layer = ABOVE_HUD_LAYER
-				O.plane = ABOVE_HUD_PLANE
+			// if(r_ear.slot_flags & SLOT_HUD_RIGHT_EAR)
+			// 	var/obj/item/clothing/ears/offear/O = new(I)
+			// 	O.forceMove(src)
+			// 	l_ear = O
+			// 	O.layer = ABOVE_HUD_LAYER
+			// 	O.plane = ABOVE_HUD_PLANE
 			update_inv_ears()
 		if(SLOT_HUD_EYES)
 			glasses = I
@@ -311,11 +316,6 @@
 
 			I.screen_loc = null
 
-	I.forceMove(src)
-	I.equipped(src, slot, initial)
-	I.layer = ABOVE_HUD_LAYER
-	I.plane = ABOVE_HUD_PLANE
-
 /mob/living/carbon/human/put_in_hands(obj/item/I)
 	if(!I)
 		return FALSE
@@ -348,7 +348,7 @@
 			return r_hand
 		if(SLOT_HUD_BELT)
 			return belt
-		if(SLOT_HUD_WEAR_ID)
+		if(SLOT_HUD_ID)
 			return wear_id
 		if(SLOT_HUD_PDA)
 			return wear_pda
@@ -378,43 +378,43 @@
 
 /mob/living/carbon/human/get_slot_by_item(obj/item/looking_for)
 	if(looking_for == belt)
-		return SLOT_FLAG_BELT
+		return SLOT_HUD_BELT
 
 	if(looking_for == wear_id)
-		return SLOT_FLAG_ID
+		return SLOT_HUD_ID
 
 	if(looking_for == l_ear)
-		return SLOT_FLAG_TWOEARS
+		return SLOT_HUD_LEFT_EAR
 
 	if(looking_for == r_ear)
-		return SLOT_FLAG_TWOEARS
+		return SLOT_HUD_RIGHT_EAR
 
 	if(looking_for == glasses)
-		return SLOT_FLAG_EYES
+		return SLOT_HUD_EYES
 
 	if(looking_for == gloves)
-		return SLOT_FLAG_GLOVES
+		return SLOT_HUD_GLOVES
 
 	if(looking_for == head)
-		return SLOT_FLAG_HEAD
+		return SLOT_HUD_HEAD
 
 	if(looking_for == shoes)
-		return SLOT_FLAG_FEET
+		return SLOT_HUD_FEET
 
 	if(looking_for == wear_suit)
-		return SLOT_FLAG_OCLOTHING
+		return SLOT_HUD_OCLOTHING
 
 	if(looking_for == w_uniform)
-		return SLOT_FLAG_ICLOTHING
+		return SLOT_HUD_ICLOTHING
 
 	if(looking_for == r_store)
-		return SLOT_FLAG_POCKET
+		return SLOT_HUD_BOTH_POCKETS
 
 	if(looking_for == l_store)
-		return SLOT_FLAG_POCKET
+		return SLOT_HUD_BOTH_POCKETS
 
 	// if(looking_for == s_store)
-	// 	return SLOT_FLAG_SUIT_STORE
+	// 	return SLOT_HUD_SUIT_STORE
 
 	return ..()
 

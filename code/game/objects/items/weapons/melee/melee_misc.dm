@@ -10,7 +10,7 @@
 	icon_state = "chain"
 	item_state = "chain"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL

@@ -191,6 +191,6 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		W.access += get_syndicate_access("Syndicate Operative")
 	W.name = "[real_name]'s ID Card ([W.assignment])"
 	W.registered_name = real_name
-	equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+	equip_to_slot_or_del(W, SLOT_HUD_ID)
 
 	return 1

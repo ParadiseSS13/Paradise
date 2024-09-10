@@ -24,7 +24,7 @@
 	allow_quick_empty = TRUE
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 
 ////////////////////////////////////////
 // MARK:	Trash bag
@@ -117,7 +117,7 @@
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
-	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_HEAD|SLOT_HUD_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -161,7 +161,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
+	slot_flags = SLOT_HUD_BELT | SLOT_HUD_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
@@ -473,7 +473,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
+	slot_flags = SLOT_HUD_BELT | SLOT_HUD_BOTH_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 15
 	max_combined_w_class = 60

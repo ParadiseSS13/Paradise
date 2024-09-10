@@ -277,7 +277,7 @@
 		S.handle_item_insertion(src, M)
 		return TRUE
 
-	S = M.get_item_by_slot(SLOT_HUD_WEAR_ID)
+	S = M.get_item_by_slot(SLOT_HUD_ID)
 	if(istype(S) && S.can_be_inserted(src, TRUE))		//else we put in a wallet
 		S.handle_item_insertion(src, M)
 		return TRUE
@@ -327,16 +327,16 @@
 
 /mob/proc/get_slot_by_item(obj/item/looking_for)
 	if(looking_for == wear_mask)
-		return SLOT_FLAG_MASK
+		return SLOT_HUD_MASK
 
 	if(looking_for == back)
-		return SLOT_FLAG_BACK
+		return SLOT_HUD_BACK
 
 	// if(looking_for == l_hand)
-	// 	return SLOT_FLAG_LEFT_HAND
+	// 	return SLOT_HUD_LEFT_HAND
 
 	// if(looking_for == r_hand)
-	// 	return SLOT_FLAG_RIGHT_HAND
+	// 	return SLOT_HUD_RIGHT_HAND
 
 	return null
 

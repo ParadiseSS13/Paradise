@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 		equip_item(H, /obj/item/clothing/shoes/black, SLOT_HUD_FEET)
 	equip_item(H, /obj/item/stack/spacecash/c1000, SLOT_HUD_LEFT_POCKET)
 
-	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, SLOT_HUD_WEAR_ID)
+	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, SLOT_HUD_ID)
 	our_id.assignment = assignedrole
 	our_id.registered_name = H.real_name
 	our_id.sex = capitalize(H.gender)

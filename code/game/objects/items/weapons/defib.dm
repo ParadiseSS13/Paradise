@@ -6,7 +6,7 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibunit"
 	item_state = "defibunit"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = SLOT_HUD_BACK
 	force = 5
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
@@ -206,7 +206,7 @@
 	item_state = "defibcompact"
 	sprite_sheets = null //Because Vox had the belt defibrillator sprites in back.dm
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	origin_tech = "biotech=5"
 
@@ -246,7 +246,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Objective item, better not have it destroyed.
 	heart_attack_probability = 10
 	/// To prevent spam from the emagging message on the advanced defibrillator.
-	var/next_emp_message 
+	var/next_emp_message
 
 /obj/item/defibrillator/compact/advanced/examine(mob/user)
 	. = ..()

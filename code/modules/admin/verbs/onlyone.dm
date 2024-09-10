@@ -44,7 +44,7 @@
 		W.access += get_all_centcom_access()
 		W.assignment = "Highlander"
 		W.registered_name = H.real_name
-		H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+		H.equip_to_slot_or_del(W, SLOT_HUD_ID)
 		H.dna.species.after_equip_job(null, H)
 		H.regenerate_icons()
 
@@ -79,7 +79,7 @@
 		messages.Add(H.mind.prepare_announce_objectives(FALSE))
 		to_chat(H, chat_box_red(messages.Join("<br>")))
 
-		var/obj/item/slot_item_ID = H.get_item_by_slot(SLOT_HUD_WEAR_ID)
+		var/obj/item/slot_item_ID = H.get_item_by_slot(SLOT_HUD_ID)
 		qdel(slot_item_ID)
 		var/obj/item/slot_item_hand = H.get_item_by_slot(SLOT_HUD_RIGHT_HAND)
 		H.unEquip(slot_item_hand)
@@ -94,7 +94,7 @@
 		W.assignment = "Multiverse Summoner"
 		W.registered_name = H.real_name
 		W.update_label(H.real_name)
-		H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+		H.equip_to_slot_or_del(W, SLOT_HUD_ID)
 
 		H.update_icons()
 

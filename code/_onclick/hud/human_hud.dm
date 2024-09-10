@@ -173,7 +173,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "id"
 	inv_box.screen_loc = ui_id
-	inv_box.slot_id = SLOT_HUD_WEAR_ID
+	inv_box.slot_id = SLOT_HUD_ID
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box

@@ -6,7 +6,7 @@
 	item_state = "signaler"
 	origin_tech = "bluespace=1"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL

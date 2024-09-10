@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	item_state = "energy_katana"
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	force = 20
 	throwforce = 10
 	sharp = TRUE
@@ -599,7 +599,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	var/obj/item/card/id/W = new /obj/item/card/id
 	if(duplicate_self)
-		var/duplicated_access = usr.get_item_by_slot(SLOT_HUD_WEAR_ID)
+		var/duplicated_access = usr.get_item_by_slot(SLOT_HUD_ID)
 		if(duplicated_access && istype(duplicated_access, /obj/item/card/id))
 			var/obj/item/card/id/duplicated_id = duplicated_access
 			W.access = duplicated_id.access
@@ -614,7 +614,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	W.registered_name = M.real_name
 	W.update_label(M.real_name)
 	W.SetOwnerInfo(M)
-	M.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
+	M.equip_to_slot_or_del(W, SLOT_HUD_ID)
 
 	if(isvox(M))
 		M.dna.species.after_equip_job(null, M) //Nitrogen tanks

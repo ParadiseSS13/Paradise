@@ -6,7 +6,7 @@
 	name = "banhammer"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "toyhammer"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
@@ -32,7 +32,7 @@
 	icon_state = "sord"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	force = 2
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -54,7 +54,7 @@
 	item_state = "claymore"
 	flags = CONDUCT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = SLOT_HUD_BELT
 	force = 40
 	throwforce = 10
 	sharp = TRUE
@@ -86,7 +86,7 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	slot_flags = SLOT_HUD_BELT | SLOT_HUD_BACK
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 40
 	throwforce = 10

@@ -231,8 +231,8 @@
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
 		w_class = WEIGHT_CLASS_NORMAL
 		item_state = "gun"//phil235 is it different with different skin?
-		slot_flags &= ~SLOT_FLAG_BACK	//you can't sling it on your back
-		slot_flags |= SLOT_FLAG_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
+		slot_flags &= ~SLOT_HUD_BACK	//you can't sling it on your back
+		slot_flags |= SLOT_HUD_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		sawn_state = SAWN_OFF
 		update_appearance()
 		return 1

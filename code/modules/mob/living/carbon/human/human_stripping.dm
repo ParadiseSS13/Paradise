@@ -106,7 +106,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/id
 	key = STRIPPABLE_ITEM_ID
-	item_slot = SLOT_HUD_WEAR_ID
+	item_slot = SLOT_HUD_ID
 
 /datum/strippable_item/mob_item_slot/pda
 	key = STRIPPABLE_ITEM_PDA

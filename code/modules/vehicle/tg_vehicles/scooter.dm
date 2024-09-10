@@ -314,7 +314,7 @@
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = SLOT_HUD_BACK
 	attack_verb = list("smacks", "whacks", "slams", "smashes")
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/tgvehicle/scooter/skateboard

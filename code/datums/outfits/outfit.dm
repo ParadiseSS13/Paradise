@@ -92,7 +92,7 @@
 	if(glasses)
 		equip_item(H, glasses, SLOT_HUD_EYES)
 	if(id)
-		equip_item(H, id, SLOT_HUD_WEAR_ID)
+		equip_item(H, id, SLOT_HUD_ID)
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
