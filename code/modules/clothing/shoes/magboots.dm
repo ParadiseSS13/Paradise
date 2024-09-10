@@ -8,7 +8,7 @@
 	strip_delay = 7 SECONDS
 	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
-
+	no_slip = FALSE
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -50,6 +50,9 @@
 	if(multiple_icons)
 		icon_state = "[magboot_state][magpulse]"
 	if(!forced)
+		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
+	user.update_inv_shoes()	//so our mob-overlays update
+	user.update_gravity(user.mob_has_gravity())
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtons()
