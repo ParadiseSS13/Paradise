@@ -466,8 +466,8 @@
 	var/obj/item/kinetic_crusher/mecha/internal_crusher
 
 /obj/item/kinetic_crusher/mecha
-	force = 15
-	force_wielded = 30
+	/// Since this one doesn't have the two_handed component it will always use the value in force
+	force = 30
 	armour_penetration_flat = 15
 	detonation_damage = 90
 	backstab_bonus = 50
@@ -483,6 +483,7 @@
 	unwanted?.RemoveComponent()
 	unwanted = GetComponent(/datum/component/two_handed)
 	unwanted?.RemoveComponent()
+	/// This is only for the sake of internal checks in the crusher itself.
 	ADD_TRAIT(src, TRAIT_WIELDED, "mech[UID()]")
 
 /obj/item/mecha_parts/mecha_equipment/mech_crusher/Initialize(mapload)
