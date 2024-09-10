@@ -4706,6 +4706,7 @@
 /area/station/medical/virology)
 "aVB" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/gravity_generator/main/station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -4826,10 +4827,6 @@
 	icon_state = "yellow"
 	},
 /area/station/command/office/ce)
-"aWT" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/supply/expedition)
 "aWU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -122961,11 +122958,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/ne)
 "wMn" = (
-/obj/machinery/door/airlock/mining{
-	name = "Expedition Headquarters"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/expedition,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Expedition Headquarters"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "wMr" = (
@@ -123401,7 +123398,6 @@
 /turf/simulated/floor/grass,
 /area/station/public/park)
 "wQL" = (
-/obj/machinery/gravity_generator/main/station,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -157187,7 +157183,7 @@ nlH
 fJq
 lJN
 iLS
-aWT
+vwR
 hnc
 hpR
 hpR
@@ -157701,7 +157697,7 @@ xmm
 dZB
 dgc
 fuv
-aWT
+vwR
 bel
 rgt
 mXl
