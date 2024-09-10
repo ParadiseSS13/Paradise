@@ -24,7 +24,7 @@
 
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot != SLOT_HUD_SHOES || !ishuman(user))
+	if(slot != ITEM_SLOT_FEET || !ishuman(user))
 		return
 	check_mag_pulse()
 
