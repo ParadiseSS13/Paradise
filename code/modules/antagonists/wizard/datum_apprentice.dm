@@ -50,7 +50,7 @@
 			ADD_TRAIT(new_wiz, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 			ADD_TRAIT(new_wiz, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 			new_wiz.mind.AddSpell(new /datum/spell/ethereal_jaunt(null))
-			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(new_wiz), ITEM_SLOT_FEET)
+			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(new_wiz), ITEM_SLOT_SHOES)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(new_wiz), ITEM_SLOT_OCLOTHING)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(new_wiz), ITEM_SLOT_HEAD)
 			messages += "<b>Your service has not gone unrewarded. Under the tutelage of [my_teacher.real_name], you've acquired proficiency in the fundamentals of Firebending, enabling you to cast spells like Fireball, Sacred Flame, and Ethereal Jaunt.</b>"
@@ -59,7 +59,7 @@
 			new_wiz.mind.AddSpell(new /datum/spell/area_teleport/teleport(null))
 			new_wiz.mind.AddSpell(new /datum/spell/turf_teleport/blink(null))
 			new_wiz.mind.AddSpell(new /datum/spell/ethereal_jaunt(null))
-			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(new_wiz), ITEM_SLOT_FEET)
+			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(new_wiz), ITEM_SLOT_SHOES)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(new_wiz), ITEM_SLOT_OCLOTHING)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(new_wiz), ITEM_SLOT_HEAD)
 			messages += "<b>Your service has not gone unrewarded. While studying under [my_teacher.real_name], you mastered reality-bending mobility spells, allowing you to cast Teleport, Blink, and Ethereal Jaunt.</b>"
@@ -70,7 +70,7 @@
 			S.teacher = my_teacher.mind
 			new_wiz.mind.AddSpell(S)
 			new_wiz.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(new_wiz), ITEM_SLOT_RIGHT_HAND)
-			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal/marisa(new_wiz), ITEM_SLOT_FEET)
+			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal/marisa(new_wiz), ITEM_SLOT_SHOES)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/marisa(new_wiz), ITEM_SLOT_OCLOTHING)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/marisa(new_wiz), ITEM_SLOT_HEAD)
 			messages += "<b>Your service has not gone unrewarded. Under the guidance of [my_teacher.real_name], you've acquired life-saving survival spells. You can now cast Charge and Knock, and possess the ability to teleport back to your mentor.</b>"
@@ -80,7 +80,7 @@
 			new_wiz.mind.AddSpell(new /datum/spell/aoe/knock(null))
 			new_wiz.mind.AddSpell(new /datum/spell/fireball/toolbox(null))
 			new_wiz.mind.AddSpell(new /datum/spell/disguise_self(null))
-			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(new_wiz), ITEM_SLOT_FEET)
+			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(new_wiz), ITEM_SLOT_SHOES)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(new_wiz), ITEM_SLOT_MASK)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(new_wiz), ITEM_SLOT_GLOVES)
 			new_wiz.equip_to_slot_or_del(new /obj/item/storage/belt/utility/full(new_wiz), ITEM_SLOT_BELT)
@@ -90,7 +90,7 @@
 			new_wiz.mind.AddSpell(new /datum/spell/ethereal_jaunt(null))
 			new_wiz.mind.AddSpell(new /datum/spell/summonitem(null))
 			new_wiz.equip_to_slot_or_del(new /obj/item/gun/magic/staff/slipping(new_wiz), ITEM_SLOT_RIGHT_HAND)
-			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/magical/nodrop(new_wiz), ITEM_SLOT_FEET)
+			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/magical/nodrop(new_wiz), ITEM_SLOT_SHOES)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/clown(new_wiz), ITEM_SLOT_OCLOTHING)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/clown(new_wiz), ITEM_SLOT_HEAD)
 			new_wiz.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clownwiz(new_wiz), ITEM_SLOT_MASK)

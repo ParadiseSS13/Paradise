@@ -785,7 +785,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(L_FOOT_BLOOD_LAYER)
 	remove_overlay(R_FOOT_BLOOD_LAYER)
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_FEET) + 1]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_SHOES) + 1]
 		if(inv)
 			inv.update_icon()
 
@@ -1012,7 +1012,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
 		update_hud_wear_mask(wear_mask)
-		if(!(ITEM_SLOT_MASK in check_obscured_slots()))
+		if(!(ITEM_SLOT_MASK & check_obscured_slots()))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
 			if(!istype(head_organ))
 				return // Nothing to update here

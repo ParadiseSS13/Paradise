@@ -25,7 +25,7 @@
 /datum/gear/racial/footwraps
 	display_name = "Cloth footwraps"
 	path = /obj/item/clothing/shoes/footwraps
-	slot = ITEM_SLOT_FEET
+	slot = ITEM_SLOT_SHOES
 
 /datum/gear/racial/handwraps
 	display_name = "Cloth handwraps"

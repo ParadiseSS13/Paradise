@@ -12,7 +12,7 @@
 #define ITEM_SLOT_EYES 			(1<<9) // eyes
 #define ITEM_SLOT_GLOVES 		(1<<10) // gloves
 #define ITEM_SLOT_HEAD 			(1<<11) // head
-#define ITEM_SLOT_FEET 			(1<<12) // shoes
+#define ITEM_SLOT_SHOES 			(1<<12) // shoes
 #define ITEM_SLOT_OCLOTHING 	(1<<13) // wear_suit
 #define ITEM_SLOT_ICLOTHING	 	(1<<14) // w_uniform
 #define ITEM_SLOT_LEFT_POCKET 	(1<<15) // l_store

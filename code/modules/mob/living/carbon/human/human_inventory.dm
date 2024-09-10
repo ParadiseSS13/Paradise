@@ -49,7 +49,7 @@
 			return has_organ("l_hand") && has_organ("r_hand")
 		if(ITEM_SLOT_HEAD)
 			return has_organ("head")
-		if(ITEM_SLOT_FEET)
+		if(ITEM_SLOT_SHOES)
 			return has_organ("r_foot") && has_organ("l_foot")
 		if(ITEM_SLOT_OCLOTHING)
 			return has_organ("chest")
@@ -279,7 +279,7 @@
 					update_sight()
 			// this calls update_inv_head() on its own
 			head_update(I)
-		if(ITEM_SLOT_FEET)
+		if(ITEM_SLOT_SHOES)
 			shoes = I
 			update_inv_shoes()
 		if(ITEM_SLOT_OCLOTHING)
@@ -362,7 +362,7 @@
 			return gloves
 		if(ITEM_SLOT_HEAD)
 			return head
-		if(ITEM_SLOT_FEET)
+		if(ITEM_SLOT_SHOES)
 			return shoes
 		if(ITEM_SLOT_OCLOTHING)
 			return wear_suit
@@ -399,7 +399,7 @@
 		return ITEM_SLOT_HEAD
 
 	if(looking_for == shoes)
-		return ITEM_SLOT_FEET
+		return ITEM_SLOT_SHOES
 
 	if(looking_for == wear_suit)
 		return ITEM_SLOT_OCLOTHING

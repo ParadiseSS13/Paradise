@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/feet
 	key = STRIPPABLE_ITEM_FEET
-	item_slot = ITEM_SLOT_FEET
+	item_slot = ITEM_SLOT_SHOES
 
 /datum/strippable_item/mob_item_slot/suit_storage
 	key = STRIPPABLE_ITEM_SUIT_STORAGE

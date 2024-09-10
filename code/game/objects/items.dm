@@ -867,7 +867,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		owner.update_inv_wear_mask()
 	if(flags & ITEM_SLOT_HEAD)
 		owner.update_inv_head()
-	if(flags & ITEM_SLOT_FEET)
+	if(flags & ITEM_SLOT_SHOES)
 		owner.update_inv_shoes()
 	if(flags & ITEM_SLOT_ID)
 		owner.update_inv_wear_id()

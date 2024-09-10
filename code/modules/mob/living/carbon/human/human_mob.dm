@@ -852,8 +852,15 @@
 			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
+///
+/**
+ * Gets the obscured ITEM_SLOTs on a human
+ *
+ * Returns: 
+ * * A bitfield containing the ITEM_SLOTS bitflags that are obscured.
+ */
 /mob/living/carbon/human/proc/check_obscured_slots()
-	var/list/obscured = list() // CHAP-TODO: Make this a bitfield maybe?
+	var/obscured // CHAP-TODO: Make this a bitfield maybe?
 
 	if(wear_suit)
 		if(wear_suit.flags_inv & HIDEGLOVES)
@@ -861,7 +868,7 @@
 		if(wear_suit.flags_inv & HIDEJUMPSUIT)
 			obscured |= ITEM_SLOT_ICLOTHING
 		if(wear_suit.flags_inv & HIDESHOES)
-			obscured |= ITEM_SLOT_FEET
+			obscured |= ITEM_SLOT_SHOES
 
 	if(head)
 		if(head.flags_inv & HIDEMASK)
@@ -872,10 +879,10 @@
 			obscured |= ITEM_SLOT_RIGHT_EAR
 			obscured |= ITEM_SLOT_LEFT_EAR
 
-	if(length(obscured) > 0)
+	if(obscured)
 		return obscured
 	else
-		return null
+		return NONE
 
 /mob/living/carbon/human/proc/check_has_mouth()
 	// Todo, check stomach organ when implemented.
@@ -885,9 +892,9 @@
 	return TRUE
 
 /mob/living/carbon/human/proc/get_visible_gender()
-	var/list/obscured = check_obscured_slots()
+	var/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
-	if((ITEM_SLOT_ICLOTHING in obscured) && skipface)
+	if((ITEM_SLOT_ICLOTHING & obscured) && skipface)
 		return PLURAL
 	return gender
 
@@ -1115,7 +1122,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_FEET, ITEM_SLOT_GLOVES, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND)
+	var/list/thing_to_check = list(ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_SHOES, ITEM_SLOT_GLOVES, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)

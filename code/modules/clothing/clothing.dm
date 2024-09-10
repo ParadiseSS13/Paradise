@@ -497,7 +497,7 @@
 	gender = PLURAL //Carn: for grammatically correct text-parsing
 
 	body_parts_covered = FEET
-	slot_flags = ITEM_SLOT_FEET
+	slot_flags = ITEM_SLOT_SHOES
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_SHOES
 

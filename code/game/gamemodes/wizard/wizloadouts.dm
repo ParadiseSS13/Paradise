@@ -62,7 +62,7 @@
 
 /datum/spell/lichdom/gunslinger/equip_lich(mob/living/carbon/human/H)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), ITEM_SLOT_OCLOTHING)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), ITEM_SLOT_FEET)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), ITEM_SLOT_SHOES)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), ITEM_SLOT_GLOVES)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), ITEM_SLOT_ICLOTHING)
 

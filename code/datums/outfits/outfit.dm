@@ -80,7 +80,7 @@
 	if(gloves)
 		equip_item(H, gloves, ITEM_SLOT_GLOVES)
 	if(shoes)
-		equip_item(H, shoes, ITEM_SLOT_FEET)
+		equip_item(H, shoes, ITEM_SLOT_SHOES)
 	if(head)
 		equip_item(H, head, ITEM_SLOT_HEAD)
 	if(mask)

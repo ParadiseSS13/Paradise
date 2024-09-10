@@ -21,7 +21,7 @@
 		ITEM_SLOT_BOTH_HANDS,
 		ITEM_SLOT_HEAD,
 		ITEM_SLOT_OCLOTHING,
-		ITEM_SLOT_FEET
+		ITEM_SLOT_SHOES
 	)
 	var/list/magic_fashion_items = list(
 		/obj/item/staff,

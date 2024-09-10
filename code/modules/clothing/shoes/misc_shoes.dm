@@ -103,7 +103,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
 	. = ..()
-	if(slot == ITEM_SLOT_FEET && enabled_waddle)
+	if(slot == ITEM_SLOT_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
@@ -154,7 +154,7 @@
 	var/recharging_time = 0
 
 /obj/item/clothing/shoes/clown_shoes/slippers/item_action_slot_check(slot, mob/user)
-	if(slot == ITEM_SLOT_FEET)
+	if(slot == ITEM_SLOT_SHOES)
 		return TRUE
 
 /obj/item/clothing/shoes/clown_shoes/slippers/proc/slide_one(mob/living/user, progress, prev_dir , prev_flags)
@@ -460,7 +460,7 @@
 	var/recharging_time = 0 //time until next dash
 
 /obj/item/clothing/shoes/bhop/item_action_slot_check(slot)
-	if(slot == ITEM_SLOT_FEET)
+	if(slot == ITEM_SLOT_SHOES)
 		return TRUE
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)

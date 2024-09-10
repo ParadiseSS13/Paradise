@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	if(!H.w_uniform)
 		equip_item(H, /obj/item/clothing/under/color/random, ITEM_SLOT_ICLOTHING)
 	if(!H.shoes)
-		equip_item(H, /obj/item/clothing/shoes/black, ITEM_SLOT_FEET)
+		equip_item(H, /obj/item/clothing/shoes/black, ITEM_SLOT_SHOES)
 	equip_item(H, /obj/item/stack/spacecash/c1000, ITEM_SLOT_LEFT_POCKET)
 
 	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, ITEM_SLOT_ID)

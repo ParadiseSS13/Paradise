@@ -742,8 +742,8 @@
 			return !H.wear_suit && (I.slot_flags & ITEM_SLOT_OCLOTHING)
 		if(ITEM_SLOT_GLOVES)
 			return !H.gloves && (I.slot_flags & ITEM_SLOT_GLOVES)
-		if(ITEM_SLOT_FEET)
-			return !H.shoes && (I.slot_flags & ITEM_SLOT_FEET)
+		if(ITEM_SLOT_SHOES)
+			return !H.shoes && (I.slot_flags & ITEM_SLOT_SHOES)
 		if(ITEM_SLOT_BELT)
 			if(H.belt)
 				return FALSE

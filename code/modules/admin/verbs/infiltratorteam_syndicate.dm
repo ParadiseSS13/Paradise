@@ -171,7 +171,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	equip_or_collect(new /obj/item/pda(src), ITEM_SLOT_IN_BACKPACK)
 
 	// Other gear
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), ITEM_SLOT_FEET)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), ITEM_SLOT_SHOES)
 
 	var/obj/item/card/id/syndicate/W = new(src)
 	if(flag_mgmt)

@@ -310,7 +310,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		ITEM_SLOT_OCLOTHING,\
 		ITEM_SLOT_MASK,\
 		ITEM_SLOT_HEAD,\
-		ITEM_SLOT_FEET,\
+		ITEM_SLOT_SHOES,\
 		ITEM_SLOT_GLOVES,\
 		ITEM_SLOT_LEFT_EAR,\
 		ITEM_SLOT_RIGHT_EAR,\
@@ -393,8 +393,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(ITEM_SLOT_FEET)
-				if(!(slot_flags & ITEM_SLOT_FEET))
+			if(ITEM_SLOT_SHOES)
+				if(!(slot_flags & ITEM_SLOT_SHOES))
 					return 0
 				if(H.shoes)
 					if(!(H.shoes.flags & NODROP))

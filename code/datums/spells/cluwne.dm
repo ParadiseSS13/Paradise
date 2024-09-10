@@ -44,7 +44,7 @@
 	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, ITEM_SLOT_ICLOTHING, TRUE, TRUE)
 	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, ITEM_SLOT_GLOVES, TRUE, TRUE)
 	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, ITEM_SLOT_MASK, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, ITEM_SLOT_FEET, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, ITEM_SLOT_SHOES, TRUE, TRUE)
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
 	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
@@ -86,4 +86,4 @@
 		qdel(G)
 
 	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/procedure/iaa/formal/black, ITEM_SLOT_ICLOTHING, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, ITEM_SLOT_FEET, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, ITEM_SLOT_SHOES, TRUE, TRUE)
