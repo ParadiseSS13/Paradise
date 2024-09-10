@@ -2,12 +2,6 @@
 //
 // Consists of light fixtures (/obj/machinery/light) and light tube/bulb items (/obj/item/light)
 
-// status values shared between lighting fixtures and items
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
-
 #define LIGHT_ON_DELAY_LOWER 1 SECONDS
 #define LIGHT_ON_DELAY_UPPER 3 SECONDS
 
@@ -1007,9 +1001,5 @@
 
 #undef MAXIMUM_SAFE_BACKUP_CHARGE
 #undef EMERGENCY_LIGHT_POWER_USE
-#undef LIGHT_OK
-#undef LIGHT_EMPTY
-#undef LIGHT_BROKEN
-#undef LIGHT_BURNED
 #undef LIGHT_ON_DELAY_LOWER
 #undef LIGHT_ON_DELAY_UPPER

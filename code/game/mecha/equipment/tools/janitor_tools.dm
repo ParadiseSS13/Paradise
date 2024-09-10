@@ -103,12 +103,6 @@
 #undef MOP_SOUND_CD
 
 // Light Replacer
-
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
-
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer
 	name = "NT-12 illuminator"
 	desc = "A modified light replacer fit for an exosuit that zaps lights into place."
@@ -131,23 +125,14 @@
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/proc/ReplaceLight(obj/machinery/light/target)
 	if(target.status != LIGHT_OK)
 		to_chat(chassis.occupant, "<span class='notice'>You replace the light [target.fitting] with [src].</span>")
-		var/obj/item/light/replacement = target.light_type
 		target.status = LIGHT_OK
 		target.switchcount = 0
 		target.rigged = emagged
-		target.brightness_range = initial(replacement.brightness_range)
-		target.brightness_power = initial(replacement.brightness_power)
-		target.brightness_color = initial(replacement.brightness_color)
 		target.on = target.has_power()
 		target.update(TRUE, TRUE, FALSE)
 	else
 		to_chat(chassis.occupant, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
 		return
-
-#undef LIGHT_OK
-#undef LIGHT_EMPTY
-#undef LIGHT_BROKEN
-#undef LIGHT_BURNED
 
 // Mecha spray
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray
