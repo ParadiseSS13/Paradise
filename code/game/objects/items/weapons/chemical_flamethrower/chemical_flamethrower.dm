@@ -181,6 +181,7 @@
 		if(canister.ammo - difference <= 0)
 			difference -= canister.ammo
 			canister.ammo = 0
+			canister.has_filled_reagent = FALSE // We're empty now!
 		else
 			canister.ammo -= difference
 			difference = 0
@@ -244,6 +245,10 @@
 		. += "[src] is currently filled with [stored_chemical]"
 
 /obj/item/chemical_canister/on_reagent_change()
+	if(!length(reagents.reagent_list))
+		// Nothing to check. Has to be here because we call `clear_reagents` at the end of this proc.
+		return
+
 	if(has_filled_reagent && ammo != 0)
 		audible_message("<span class='notice'>[src]'s speaker beeps: no new chemicals are accepted!</span>")
 		return
@@ -260,9 +265,8 @@
 
 	if(!first_time_silent)
 		audible_message("<span class='notice'>[src]'s speaker beeps: \
-						All reagents are removed except for [current_reagent_id]. \
 						The reservoir has [reagents.total_volume] out of [required_volume] units. \
-						Reagent effects are [has_enough_reagents ? "in effect" : "not active"].</span>")
+						Reagents are [has_enough_reagents ? "in effect" : "not active"].</span>")
 	first_time_silent = FALSE
 
 	if(has_enough_reagents)
@@ -282,6 +286,8 @@
 	required_volume = 20 // Bigger canister? More reagents needed.
 
 /obj/item/chemical_canister/extended/nuclear
+	name = "\improper Syndicate chemical canister"
+	desc = "A canister pre-filled with napalm to bring a fiery death to capitalism."
 	icon_state = "pyro"
 	accepted_chemicals = list("napalm")
 	first_time_silent = TRUE
