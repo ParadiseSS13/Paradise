@@ -132,7 +132,7 @@
 		/obj/item/storage/pill_bottle/random_meds/labelled = 25,
 		/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 15,
 		/obj/item/dnainjector/telemut = 5,
-		/obj/item/dnainjector/midgit = 5,
+		/obj/item/dnainjector/small_size = 5,
 		/obj/item/dnainjector/morph = 5,
 		/obj/item/dnainjector/regenerate = 5,
 		/mob/living/simple_animal/pet/dog/corgi/ = 5,
@@ -174,9 +174,6 @@
 		/obj/item/food/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
-#define kW *1000
-#define MW kW *1000
-#define GW MW *1000
 #define BASE_ENERGY_CONVERSION 4e-6
 #define BASE_POINTS 2
 
@@ -197,16 +194,14 @@
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -32
-	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
-	var/list/obj/structure/fillers = list()
 	power_state = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
 
 	/// Correspond to power required for a mining level, first entry for level 1, etc.
-	var/list/power_needs = list(1 kW, 2 kW, 5 kW, 10 kW, 15 kW,
-								25 kW, 50 kW, 100 kW, 250 kW, 500 kW,
+	var/list/power_needs = list(1 KW, 2 KW, 5 KW, 10 KW, 15 KW,
+								25 KW, 50 KW, 100 KW, 250 KW, 500 KW,
 								1 MW, 2 MW, 5 MW, 10 MW, 15 MW,
 								20 MW, 25 MW, 30 MW, 40 MW, 50 MW,
 								60 MW, 70 MW, 80 MW, 90 MW, 100 MW)
@@ -229,7 +224,6 @@
 	var/total_points = 0
 	/// How much power the machine needs per processing tick at the current level.
 	var/actual_power_usage = 0
-
 
 	// Tweak these and active_power_consumption to balance power generation
 
@@ -254,23 +248,19 @@
 
 /obj/machinery/power/bluespace_tap/Initialize(mapload)
 	. = ..()
-	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
-	//TODO: Replace this,bsa and gravgen with some big machinery datum
-	var/list/occupied = list()
-	for(var/direct in list(NORTH, NORTHEAST, NORTHWEST, EAST, WEST, SOUTHEAST, SOUTHWEST))
-		occupied += get_step(src, direct)
-
-	for(var/T in occupied)
-		var/obj/structure/filler/F = new(T)
-		F.parent = src
-		fillers += F
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/machine/bluespace_tap(null)
-	for(var/i = 1 to 5)	//five of each
-		component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
-		component_parts += new /obj/item/stack/ore/bluespace_crystal(null)
+	component_parts += new /obj/item/circuitboard/machine/bluespace_tap()
+	for(var/i in 1 to 5)	//five of each
+		component_parts += new /obj/item/stock_parts/capacitor/quadratic()
+		component_parts += new /obj/item/stack/ore/bluespace_crystal()
 	if(!powernet)
 		connect_to_network()
+
+	AddComponent(/datum/component/multitile, 1, list(
+		list(1, 1,		   1),
+		list(1, MACH_CENTER, 1),
+		list(1, 0,		   1),
+	))
 
 /obj/machinery/power/bluespace_tap/update_icon_state()
 	. = ..()
@@ -304,7 +294,6 @@
 		. += "screen"
 		if(light)
 			underlays += emissive_appearance(icon, "light_mask")
-
 
 /obj/machinery/power/bluespace_tap/proc/get_icon_state_number()
 	switch(input_level)
@@ -340,10 +329,6 @@
 	. = ..()
 	if(.)
 		update_icon()
-
-/obj/machinery/power/bluespace_tap/Destroy()
-	QDEL_LIST_CONTENTS(fillers)
-	return ..()
 
 /**
   * Increases the desired mining level
@@ -583,8 +568,5 @@
 	<p><small>Device highly experimental. Not for sale. Do not operate near small children or vital NT assets. Do not tamper with machine. In case of existential dread, stop machine immediately. \
 	Please document any and all extradimensional incursions. In case of imminent death, please leave said documentation in plain sight for clean-up teams to recover.</small></p>"
 
-#undef kW
-#undef MW
-#undef GW
 #undef BASE_ENERGY_CONVERSION
 #undef BASE_POINTS

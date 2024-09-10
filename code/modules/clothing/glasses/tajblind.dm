@@ -61,7 +61,7 @@
 	item_state = "tajblind_engi"
 
 /obj/item/clothing/glasses/hud/tajblind/meson/Initialize()
-	..()
+	. = ..()
 	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/meson/equipped(mob/user, slot, initial)
@@ -87,7 +87,7 @@
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/glasses/hud/tajblind/sci/Initialize()
-	..()
+	. = ..()
 	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/sci/item_action_slot_check(slot)
@@ -102,7 +102,7 @@
 	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
 /obj/item/clothing/glasses/hud/tajblind/med/Initialize()
-	..()
+	. = ..()
 	desc += "<br><span class='notice'>It has a health HUD integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/sec
@@ -113,7 +113,7 @@
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 /obj/item/clothing/glasses/hud/tajblind/sec/Initialize()
-	..()
+	. = ..()
 	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded
@@ -122,7 +122,7 @@
 	tint = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/Initialize()
-	..()
+	. = ..()
 	desc += "<br><span class='notice'>It has an in-built flash protection.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson
@@ -131,7 +131,7 @@
 	item_state = "tajblind_engi"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/Initialize()
-	..()
+	. = ..()
 	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/equipped(mob/user, slot, initial)
@@ -158,7 +158,7 @@
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci/Initialize()
-	..()
+	. = ..()
 	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci/item_action_slot_check(slot)
@@ -173,7 +173,7 @@
 	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/med/Initialize()
-	..()
+	. = ..()
 	desc += "<br><span class='notice'>It has a health HUD integrated into it.</span>"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec
@@ -185,7 +185,7 @@
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec/Initialize()
-	..()
+	. = ..()
 	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
 
 #undef MODE_OFF

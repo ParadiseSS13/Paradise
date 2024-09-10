@@ -442,7 +442,7 @@
 /area/ruin/space/moonbase19)
 "bh" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
@@ -527,7 +527,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "bv" = (
@@ -615,7 +615,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -678,7 +678,7 @@
 /area/ruin/space/moonbase19)
 "bU" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -1043,7 +1043,7 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "dg" = (
@@ -1329,7 +1329,7 @@
 /area/ruin/space/moonbase19)
 "eb" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -2165,7 +2165,7 @@
 "gX" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -3083,7 +3083,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "jy" = (
@@ -3316,7 +3316,7 @@
 /area/ruin/space/moonbase19)
 "kf" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -3783,7 +3783,7 @@
 /area/ruin/space/moonbase19)
 "mb" = (
 /obj/structure/closet/cabinet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "md" = (
@@ -4416,7 +4416,7 @@
 	},
 /obj/structure/rack,
 /obj/structure/window/basic,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "ot" = (
@@ -4509,7 +4509,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "oM" = (
@@ -4753,7 +4753,7 @@
 "pL" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "pN" = (
@@ -6485,7 +6485,7 @@
 /area/ruin/space/moonbase19)
 "xw" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "xz" = (
@@ -6864,7 +6864,7 @@
 "yZ" = (
 /obj/structure/closet/cabinet,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "zh" = (
@@ -7084,7 +7084,7 @@
 "zW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Aa" = (
@@ -7698,7 +7698,7 @@
 "CH" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "CI" = (
@@ -7893,7 +7893,7 @@
 /area/ruin/space/moonbase19)
 "Dw" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -7962,7 +7962,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "DO" = (
@@ -8370,7 +8370,7 @@
 /area/ruin/space/moonbase19)
 "FC" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 10
@@ -8424,7 +8424,7 @@
 /area/ruin/space/moonbase19)
 "FT" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitecorner"
@@ -8877,7 +8877,7 @@
 /area/ruin/space/moonbase19)
 "HV" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
@@ -10248,7 +10248,7 @@
 /area/ruin/space/moonbase19)
 "Of" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Og" = (
@@ -10839,7 +10839,7 @@
 /obj/structure/sign/pods{
 	pixel_y = 32
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "QG" = (
@@ -11045,7 +11045,7 @@
 /area/ruin/space/moonbase19)
 "Rv" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -11858,7 +11858,7 @@
 "Vo" = (
 /obj/structure/closet/crate/can,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "escape"
@@ -12160,7 +12160,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "WH" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
@@ -12502,7 +12502,7 @@
 /area/ruin/space/moonbase19)
 "XX" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -12830,7 +12830,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Zp" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random/maintenance,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 10;

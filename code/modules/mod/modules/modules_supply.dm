@@ -497,6 +497,11 @@
 	light_color = LIGHT_COLOR_ORANGE
 	ammo_type = /obj/structure/mining_bomb
 
+/obj/item/projectile/bullet/reusable/mining_bomb/handle_drop()
+	if(!dropped)
+		new ammo_type(loc, firer)
+		dropped = TRUE
+
 /obj/structure/mining_bomb
 	name = "mining bomb"
 	desc = "A bomb. Why are you staring at this?"
