@@ -1,10 +1,17 @@
 /datum/component/shelver
+	/// A list whose keys are a 4-tuple of (left, bottom, right, top) bounding boxes to position details.
+	/// Position details include "x" and "y" as pixel offsets, and "layer" as appearance layer for a placed object.
 	var/list/placement_zones = list()
+	/// A list of slots, one per placement zone. Either empty, or containing the UID of the object in that place.
 	var/list/used_places = list()
+	/// A list of types which are are valid to place on this shelf.
 	var/list/allowed_types = list()
+	/// The default scale transformation for objects placed on the shelf.
 	var/default_scale = 0.70
+	/// The default rotation transformation for objects placed on the shelf.
 	var/default_rotation = 0
-	var/random_pickup_locations
+	/// Whether objects auto-shelved by the component are placed in random order on the shelf.
+	var/random_pickup_locations = FALSE
 
 /datum/component/shelver/Initialize(list/allowed_types_ = null, random_pickup_locations_ = FALSE)
 	if(!isstructure(parent))
@@ -47,7 +54,7 @@
 				I.pixel_x = 0
 				I.pixel_y = 0
 				I.forceMove(T)
-		if(!SEND_SIGNAL(structure, COMSIG_SHELF_ATTEMPT_PICKUP, I))
+		if(!(SEND_SIGNAL(structure, COMSIG_SHELF_ATTEMPT_PICKUP, I) & SHELF_PICKUP_FAILURE))
 			itemcount++
 
 /datum/component/shelver/proc/on_shelf_attempt_pickup(datum/source, obj/item/to_add)
@@ -87,7 +94,7 @@
 
 			var/obj/O = parent
 			if(istype(O))
-				O.update_icon(ALL)
+				O.update_appearance(UPDATE_ICON)
 
 /datum/component/shelver/proc/on_attackby(datum/source, obj/item/attacker, mob/user, params)
 	SIGNAL_HANDLER // COMSIG_PARENT_ATTACKBY
@@ -121,6 +128,14 @@
 				to_chat(usr, "<span class='notice'>You place [attacker] on [parent].</span>")
 				return COMPONENT_NO_AFTERATTACK
 
+/**
+ * Add an item to the shelf.
+ *
+ * Arguments:
+ * * to_add - The item to add. Adding will fail if not an `/obj/item`.
+ * * placement_idx - The slot on the shelf to add the item to.
+ * * position_details - A list containing the "x" and "y" pixel offsets of the position, and the "layer" the object will be set to, if applicable.
+ */
 /datum/component/shelver/proc/add_item(obj/item/to_add, placement_idx, list/position_details)
 	if(!istype(to_add))
 		return
@@ -134,7 +149,7 @@
 	used_places[placement_idx] = to_add.UID()
 	var/obj/O = parent
 	if(istype(O))
-		O.update_icon(ALL)
+		O.update_appearance(UPDATE_ICON)
 
 	if(default_scale)
 		to_add.transform *= default_scale
@@ -165,10 +180,15 @@
 	default_scale = 0.80
 	default_rotation = -90
 
+/// A component for items stored on shelves, propagated by [/datum/component/shelver] components.
 /datum/component/shelved
+	/// The UID of the object acting as the shelf
 	var/shelf_uid
+	/// A copy of the shelved object's original transform, to restore after removing from the shelf.
 	var/matrix/original_transform
+	/// A copy of the shelved object's original layer, to restore after removing from the shelf.
 	var/original_layer
+	/// A copy of the shelved object's original appearance flags, to restore after removing from the shelf.
 	var/original_appearance_flags
 
 /datum/component/shelved/Initialize(atom/shelf)
@@ -208,7 +228,7 @@
 	O.pixel_y = 0
 
 	var/obj/shelf = locateUID(shelf_uid)
-	if(shelf)
+	if(istype(shelf))
 		UnregisterSignal(shelf, COMSIG_MOVABLE_SHOVE_IMPACT)
 		UnregisterSignal(shelf, COMSIG_ATOM_HITBY)
 
@@ -223,8 +243,12 @@
 
 	if(length(clear_turfs))
 		var/obj/shelf = locateUID(shelf_uid)
+		if(!isobj(shelf))
+			CRASH("received non-obj shelf with UID [shelf_uid]")
+			return // not sure what else we can do here to clean up after ourselves
+
 		var/shelf_name = shelf ? "flies off [shelf]" : "falls down"
-		O.loc.visible_message("<span class='notice'>[O] [shelf_name]!</span>")
+		O.visible_message("<span class='notice'>[O] [shelf_name]!</span>")
 		O.throw_at(pick(clear_turfs), 2, 3)
 		qdel(src)
 

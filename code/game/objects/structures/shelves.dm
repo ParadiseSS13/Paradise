@@ -10,7 +10,9 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	anchored = TRUE
 	pass_flags_self = PASSTAKE
 	max_integrity = 80
+	/// The suffix of the icon state used for the shelf. Indexed into `GLOB.shelf_colors`.
 	var/shelf_style = "basic"
+	/// The current overlay of the top shelf. Used for interleaving objects and shelf layers for the illusion of depth.
 	var/image/shelf_overlay
 	COOLDOWN_DECLARE(spraypaint_cd)
 
@@ -56,12 +58,10 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	// and dealing with this overlay shit
 	shelf_overlay = mutable_appearance('icons/obj/structures/shelves.dmi', "shelf_[shelf_style]-top")
 	shelf_overlay.layer = LOW_ITEM_LAYER
-	update_icon()
+	update_appearance(UPDATE_OVERLAYS)
 
-/obj/structure/shelf/update_icon()
-	cut_overlays()
-	add_overlay(shelf_overlay)
-	..(ALL)
+/obj/structure/shelf/update_overlays()
+	return list(shelf_overlay)
 
 /obj/structure/shelf/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
