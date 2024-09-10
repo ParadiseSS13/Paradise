@@ -980,8 +980,7 @@
 	},
 /area/holodeck/source_thunderdomecourt)
 "ou" = (
-/obj/machinery/computer/rdservercontrol{
-	badmin = 1;
+/obj/machinery/computer/rnd_network_controller/station{
 	name = "Master R&amp;D Server Controller";
 	dir = 1
 	},
@@ -3031,10 +3030,6 @@
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/toy/tommygun,
 /turf/simulated/floor/carpet/arcade,
-/area/admin)
-"Sy" = (
-/obj/machinery/r_n_d/server/centcom,
-/turf/simulated/floor/wood/oak,
 /area/admin)
 "SA" = (
 /obj/structure/mineral_door/wood,
@@ -13107,7 +13102,7 @@ dn
 yM
 Up
 Up
-Sy
+UO
 Mj
 Xa
 cQ
