@@ -859,15 +859,15 @@
 		if(wear_suit.flags_inv & HIDEGLOVES)
 			obscured |= SLOT_HUD_GLOVES
 		if(wear_suit.flags_inv & HIDEJUMPSUIT)
-			obscured |= SLOT_HUD_JUMPSUIT
+			obscured |= SLOT_HUD_ICLOTHING
 		if(wear_suit.flags_inv & HIDESHOES)
-			obscured |= SLOT_HUD_SHOES
+			obscured |= SLOT_HUD_FEET
 
 	if(head)
 		if(head.flags_inv & HIDEMASK)
-			obscured |= SLOT_HUD_WEAR_MASK
+			obscured |= SLOT_HUD_MASK
 		if(head.flags_inv & HIDEEYES)
-			obscured |= SLOT_HUD_GLASSES
+			obscured |= SLOT_HUD_EYES
 		if(head.flags_inv & HIDEEARS)
 			obscured |= SLOT_HUD_RIGHT_EAR
 			obscured |= SLOT_HUD_LEFT_EAR
@@ -887,7 +887,7 @@
 /mob/living/carbon/human/proc/get_visible_gender()
 	var/list/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
-	if((SLOT_HUD_JUMPSUIT in obscured) && skipface)
+	if((SLOT_HUD_ICLOTHING in obscured) && skipface)
 		return PLURAL
 	return gender
 
@@ -1115,7 +1115,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_HEAD, SLOT_HUD_SHOES, SLOT_HUD_GLOVES, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_GLASSES, SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND)
+	var/list/thing_to_check = list(SLOT_HUD_MASK, SLOT_HUD_HEAD, SLOT_HUD_FEET, SLOT_HUD_GLOVES, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_EYES, SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)
@@ -1851,16 +1851,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	// #1: Jumpsuit
 	// #2: Outer suit
 	// #3+: Everything else
-	if(islist(equip_list[SLOT_HUD_JUMPSUIT]))
-		var/obj/item/clothing/C = list_to_object(equip_list[SLOT_HUD_JUMPSUIT], T)
-		equip_to_slot_if_possible(C, SLOT_HUD_JUMPSUIT)
+	if(islist(equip_list[SLOT_HUD_ICLOTHING]))
+		var/obj/item/clothing/C = list_to_object(equip_list[SLOT_HUD_ICLOTHING], T)
+		equip_to_slot_if_possible(C, SLOT_HUD_ICLOTHING)
 
-	if(islist(equip_list[SLOT_HUD_OUTER_SUIT]))
-		var/obj/item/clothing/C = list_to_object(equip_list[SLOT_HUD_OUTER_SUIT], T)
-		equip_to_slot_if_possible(C, SLOT_HUD_OUTER_SUIT)
+	if(islist(equip_list[SLOT_HUD_OCLOTHING]))
+		var/obj/item/clothing/C = list_to_object(equip_list[SLOT_HUD_OCLOTHING], T)
+		equip_to_slot_if_possible(C, SLOT_HUD_OCLOTHING)
 
 	for(var/i = 1, i < SLOT_HUD_AMOUNT, i++)
-		if(i == SLOT_HUD_JUMPSUIT || i == SLOT_HUD_OUTER_SUIT)
+		if(i == SLOT_HUD_ICLOTHING || i == SLOT_HUD_OCLOTHING)
 			continue
 		if(islist(equip_list[i]))
 			var/obj/item/clothing/C = list_to_object(equip_list[i], T)

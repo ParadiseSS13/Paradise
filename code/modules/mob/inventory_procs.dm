@@ -315,7 +315,7 @@
 
 /mob/proc/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(SLOT_HUD_WEAR_MASK)
+		if(SLOT_HUD_MASK)
 			return wear_mask
 		if(SLOT_HUD_BACK)
 			return back
@@ -323,6 +323,21 @@
 			return l_hand
 		if(SLOT_HUD_RIGHT_HAND)
 			return r_hand
+	return null
+
+/mob/proc/get_slot_by_item(obj/item/looking_for)
+	if(looking_for == wear_mask)
+		return SLOT_FLAG_MASK
+
+	if(looking_for == back)
+		return SLOT_FLAG_BACK
+
+	// if(looking_for == l_hand)
+	// 	return SLOT_FLAG_LEFT_HAND
+
+	// if(looking_for == r_hand)
+	// 	return SLOT_FLAG_RIGHT_HAND
+
 	return null
 
 //search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it.

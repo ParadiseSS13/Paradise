@@ -734,15 +734,15 @@
 			return !H.l_hand && !H.incapacitated()
 		if(SLOT_HUD_RIGHT_HAND)
 			return !H.r_hand && !H.incapacitated()
-		if(SLOT_HUD_WEAR_MASK)
+		if(SLOT_HUD_MASK)
 			return !H.wear_mask && (I.slot_flags & SLOT_FLAG_MASK)
 		if(SLOT_HUD_BACK)
 			return !H.back && (I.slot_flags & SLOT_FLAG_BACK)
-		if(SLOT_HUD_OUTER_SUIT)
+		if(SLOT_HUD_OCLOTHING)
 			return !H.wear_suit && (I.slot_flags & SLOT_FLAG_OCLOTHING)
 		if(SLOT_HUD_GLOVES)
 			return !H.gloves && (I.slot_flags & SLOT_FLAG_GLOVES)
-		if(SLOT_HUD_SHOES)
+		if(SLOT_HUD_FEET)
 			return !H.shoes && (I.slot_flags & SLOT_FLAG_FEET)
 		if(SLOT_HUD_BELT)
 			if(H.belt)
@@ -756,7 +756,7 @@
 			if(!(I.slot_flags & SLOT_FLAG_BELT))
 				return
 			return TRUE
-		if(SLOT_HUD_GLASSES)
+		if(SLOT_HUD_EYES)
 			return !H.glasses && (I.slot_flags & SLOT_FLAG_EYES)
 		if(SLOT_HUD_HEAD)
 			return !H.head && (I.slot_flags & SLOT_FLAG_HEAD)
@@ -764,7 +764,7 @@
 			return !H.l_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.r_ear)
 		if(SLOT_HUD_RIGHT_EAR)
 			return !H.r_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.l_ear)
-		if(SLOT_HUD_JUMPSUIT)
+		if(SLOT_HUD_ICLOTHING)
 			return !H.w_uniform && (I.slot_flags & SLOT_FLAG_ICLOTHING)
 		if(SLOT_HUD_WEAR_ID)
 			if(H.wear_id)
@@ -778,7 +778,7 @@
 			if(!(I.slot_flags & SLOT_FLAG_ID))
 				return FALSE
 			return TRUE
-		if(SLOT_HUD_WEAR_PDA)
+		if(SLOT_HUD_PDA)
 			if(H.wear_pda)
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
@@ -790,7 +790,7 @@
 			if(!(I.slot_flags & SLOT_FLAG_PDA))
 				return FALSE
 			return TRUE
-		if(SLOT_HUD_LEFT_STORE)
+		if(SLOT_HUD_LEFT_POCKET)
 			if(I.flags & NODROP) //Pockets aren't visible, so you can't move NODROP items into them.
 				return FALSE
 			if(H.l_store)
@@ -803,7 +803,7 @@
 				return FALSE
 			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET))
 				return TRUE
-		if(SLOT_HUD_RIGHT_STORE)
+		if(SLOT_HUD_RIGHT_POCKET)
 			if(I.flags & NODROP)
 				return FALSE
 			if(H.r_store)

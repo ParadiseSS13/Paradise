@@ -21,8 +21,8 @@
 		SLOT_HUD_RIGHT_HAND,
 		SLOT_HUD_LEFT_HAND,
 		SLOT_HUD_HEAD,
-		SLOT_HUD_OUTER_SUIT,
-		SLOT_HUD_SHOES
+		SLOT_HUD_OCLOTHING,
+		SLOT_HUD_FEET
 	)
 	var/list/magic_fashion_items = list(
 		/obj/item/staff,

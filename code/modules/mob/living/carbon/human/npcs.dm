@@ -13,7 +13,7 @@
 	. = ..()
 	name = "Pun Pun"
 	real_name = name
-	equip_to_slot(new /obj/item/clothing/under/punpun(src), SLOT_HUD_JUMPSUIT)
+	equip_to_slot(new /obj/item/clothing/under/punpun(src), SLOT_HUD_ICLOTHING)
 
 /mob/living/carbon/human/monkey/teeny/Initialize(mapload)
 	. = ..()

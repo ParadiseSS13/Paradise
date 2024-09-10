@@ -162,6 +162,37 @@
 #define SLOT_FLAG_PDA		(1<<13)
 #define SLOT_FLAG_TIE		(1<<14)
 
+
+
+
+#define SLOT_HUD_BACK 			(1<<0)
+#define SLOT_HUD_MASK 			(1<<1)
+#define SLOT_HUD_HANDCUFFED 	(1<<2)
+#define SLOT_HUD_LEFT_HAND 		(1<<3) // l_hand
+#define SLOT_HUD_RIGHT_HAND 	(1<<4) // r_hand
+#define SLOT_HUD_HANDS			(SLOT_HUD_LEFT_PHAND | SLOT_HUD_RIGHT_HAND)
+#define SLOT_HUD_BELT 			(1<<5)
+#define SLOT_HUD_WEAR_ID 		(1<<6)
+#define SLOT_HUD_LEFT_EAR 		(1<<7) // l_ear
+#define SLOT_HUD_RIGHT_EAR 		(1<<8) // r_ear
+#define SLOT_HUD_EARS			(SLOT_HUD_LEFT_EAR | SLOT_HUD_RIGHT_EAR)
+#define SLOT_HUD_EYES 			(1<<9)
+#define SLOT_HUD_GLOVES 		(1<<10)
+#define SLOT_HUD_HEAD 			(1<<11)
+#define SLOT_HUD_FEET 			(1<<12)
+#define SLOT_HUD_OCLOTHING 		(1<<13) // wear_suit
+#define SLOT_HUD_ICLOTHING	 	(1<<14) // w_uniform
+#define SLOT_HUD_LEFT_POCKET 	(1<<15) // l_store
+#define SLOT_HUD_RIGHT_POCKET 	(1<<16) // r_store
+#define SLOT_HUD_POCKETS		(SLOT_HUD_LEFT_POCKET | SLOT_HUD_RIGHT_POCKET)
+#define SLOT_HUD_SUIT_STORE 	(1<<17)
+#define SLOT_HUD_IN_BACKPACK 	(1<<18) // this just puts stuff a backpack if you have one
+#define SLOT_HUD_LEGCUFFED 		(1<<19)
+#define SLOT_HUD_PDA 			(1<<20)
+#define SLOT_HUD_TIE 			(1<<21)
+#define SLOT_HUD_COLLAR 		(1<<22)
+#define SLOT_HUD_AMOUNT 		(1<<23)
+
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1
 #define AFFECT_ORGANIC_ORGAN	2

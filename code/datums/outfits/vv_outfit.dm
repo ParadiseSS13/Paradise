@@ -11,37 +11,37 @@
 
 /datum/outfit/varedit/proc/set_equipment_by_slot(slot, item_path)
 	switch(slot)
-		if(SLOT_HUD_JUMPSUIT)
+		if(SLOT_HUD_ICLOTHING)
 			uniform = item_path
 		if(SLOT_HUD_BACK)
 			back = item_path
-		if(SLOT_HUD_OUTER_SUIT)
+		if(SLOT_HUD_OCLOTHING)
 			suit = item_path
 		if(SLOT_HUD_BELT)
 			belt = item_path
 		if(SLOT_HUD_GLOVES)
 			gloves = item_path
-		if(SLOT_HUD_SHOES)
+		if(SLOT_HUD_FEET)
 			shoes = item_path
 		if(SLOT_HUD_HEAD)
 			head = item_path
-		if(SLOT_HUD_WEAR_MASK)
+		if(SLOT_HUD_MASK)
 			mask = item_path
 		if(SLOT_HUD_LEFT_EAR)
 			l_ear = item_path
 		if(SLOT_HUD_RIGHT_EAR)
 			r_ear = item_path
-		if(SLOT_HUD_GLASSES)
+		if(SLOT_HUD_EYES)
 			glasses = item_path
 		if(SLOT_HUD_WEAR_ID)
 			id = item_path
-		if(SLOT_HUD_WEAR_PDA)
+		if(SLOT_HUD_PDA)
 			pda = item_path
 		if(SLOT_HUD_SUIT_STORE)
 			suit_store = item_path
-		if(SLOT_HUD_LEFT_STORE)
+		if(SLOT_HUD_LEFT_POCKET)
 			l_pocket = item_path
-		if(SLOT_HUD_RIGHT_STORE)
+		if(SLOT_HUD_RIGHT_POCKET)
 			r_pocket = item_path
 
 
@@ -70,7 +70,7 @@
 
 	// Copy equipment
 	var/list/result = list()
-	var/list/slots_to_check = list(SLOT_HUD_JUMPSUIT, SLOT_HUD_BACK, SLOT_HUD_OUTER_SUIT, SLOT_HUD_BELT, SLOT_HUD_GLOVES, SLOT_HUD_SHOES, SLOT_HUD_HEAD, SLOT_HUD_WEAR_MASK, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_GLASSES, SLOT_HUD_WEAR_ID, SLOT_HUD_WEAR_PDA, SLOT_HUD_SUIT_STORE, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE)
+	var/list/slots_to_check = list(SLOT_HUD_ICLOTHING, SLOT_HUD_BACK, SLOT_HUD_OCLOTHING, SLOT_HUD_BELT, SLOT_HUD_GLOVES, SLOT_HUD_FEET, SLOT_HUD_HEAD, SLOT_HUD_MASK, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_EYES, SLOT_HUD_WEAR_ID, SLOT_HUD_PDA, SLOT_HUD_SUIT_STORE, SLOT_HUD_LEFT_POCKET, SLOT_HUD_RIGHT_POCKET)
 	for(var/s in slots_to_check)
 		var/obj/item/I = get_item_by_slot(s)
 		var/vedits = collect_vv(I)
@@ -129,7 +129,7 @@
 		O.cybernetic_implants |= aug.type
 
 	// Copy accessories
-	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(SLOT_HUD_JUMPSUIT)
+	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(SLOT_HUD_ICLOTHING)
 	if(uniform_slot)
 		O.accessories = list()
 		for(var/obj/item/clothing/accessory/A in uniform_slot.accessories)

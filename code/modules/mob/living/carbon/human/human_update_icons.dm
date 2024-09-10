@@ -573,7 +573,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_w_uniform()
 	remove_overlay(UNIFORM_LAYER)
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_JUMPSUIT]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_ICLOTHING]
 		if(inv)
 			inv.update_icon()
 
@@ -707,7 +707,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(OVER_MASK_LAYER)
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_GLASSES]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_EYES]
 		if(inv)
 			inv.update_icon()
 
@@ -785,7 +785,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(L_FOOT_BLOOD_LAYER)
 	remove_overlay(R_FOOT_BLOOD_LAYER)
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_SHOES]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_FEET]
 		if(inv)
 			inv.update_icon()
 
@@ -929,7 +929,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OCLOTHING]
 		if(inv)
 			inv.update_icon()
 
@@ -972,11 +972,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv
 
-		inv = hud_used.inv_slots[SLOT_HUD_LEFT_STORE]
+		inv = hud_used.inv_slots[SLOT_HUD_LEFT_POCKET]
 		if(inv)
 			inv.update_icon()
 
-		inv = hud_used.inv_slots[SLOT_HUD_RIGHT_STORE]
+		inv = hud_used.inv_slots[SLOT_HUD_RIGHT_POCKET]
 		if(inv)
 			inv.update_icon()
 
@@ -996,7 +996,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_wear_pda()
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_WEAR_PDA]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_PDA]
 		if(inv)
 			inv.update_icon()
 
@@ -1007,12 +1007,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	..()
 	remove_overlay(FACEMASK_LAYER)
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_WEAR_MASK]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_MASK]
 		if(inv)
 			inv.update_icon()
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
 		update_hud_wear_mask(wear_mask)
-		if(!(SLOT_HUD_WEAR_MASK in check_obscured_slots()))
+		if(!(SLOT_HUD_MASK in check_obscured_slots()))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
 			if(!istype(head_organ))
 				return // Nothing to update here

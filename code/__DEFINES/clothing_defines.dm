@@ -12,30 +12,7 @@
 
 // Slot defines for var/list/inv_slots, some of these dont really show up on the HUD,
 // but still function like it in other ways. I know thats weird, and I hate it too.
-#define SLOT_HUD_BACK 1
-#define SLOT_HUD_WEAR_MASK 2
-#define SLOT_HUD_HANDCUFFED 3
-#define SLOT_HUD_LEFT_HAND 4 // l_hand
-#define SLOT_HUD_RIGHT_HAND 5 // r_hand
-#define SLOT_HUD_BELT 6
-#define SLOT_HUD_WEAR_ID 7
-#define SLOT_HUD_LEFT_EAR 8 // l_ear
-#define SLOT_HUD_GLASSES 9
-#define SLOT_HUD_GLOVES 10
-#define SLOT_HUD_HEAD 11
-#define SLOT_HUD_SHOES 12
-#define SLOT_HUD_OUTER_SUIT 13 // wear_suit
-#define SLOT_HUD_JUMPSUIT 14 // w_uniform
-#define SLOT_HUD_LEFT_STORE 15 // l_store
-#define SLOT_HUD_RIGHT_STORE 16 // r_store
-#define SLOT_HUD_SUIT_STORE 17
-#define SLOT_HUD_IN_BACKPACK 18 // this just puts stuff a backpack if you have one
-#define SLOT_HUD_LEGCUFFED 19
-#define SLOT_HUD_RIGHT_EAR 20 // r_ear
-#define SLOT_HUD_WEAR_PDA 21
-#define SLOT_HUD_TIE 22
-#define SLOT_HUD_COLLAR 23
-#define SLOT_HUD_AMOUNT 23
+//CHAP-TODO:
 
 // Boolean defines for hands
 #define HAND_BOOL_RIGHT 0
@@ -104,3 +81,8 @@
 #define MUZZLE_MUTE_NONE 0 // Does not mute you.
 #define MUZZLE_MUTE_MUFFLE 1 // Muffles everything you say "MHHPHHMMM!!!
 #define MUZZLE_MUTE_ALL 2 // Completely mutes you.
+
+/// Wrapper for adding clothing based traits
+#define ADD_CLOTHING_TRAIT(mob, trait) ADD_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID(src)]")
+/// Wrapper for removing clothing based traits
+#define REMOVE_CLOTHING_TRAIT(mob, trait) REMOVE_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID(src)]")

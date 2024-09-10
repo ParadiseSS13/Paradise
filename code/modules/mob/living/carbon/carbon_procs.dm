@@ -754,9 +754,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	switch(slot_id)
 		if(SLOT_HUD_BACK)
 			return back
-		if(SLOT_HUD_WEAR_MASK)
+		if(SLOT_HUD_MASK)
 			return wear_mask
-		if(SLOT_HUD_OUTER_SUIT)
+		if(SLOT_HUD_OCLOTHING)
 			return wear_suit
 		if(SLOT_HUD_LEFT_HAND)
 			return l_hand
@@ -767,6 +767,21 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(SLOT_HUD_LEGCUFFED)
 			return legcuffed
 	return null
+
+/mob/living/carbon/get_slot_by_item(obj/item/looking_for)
+	if(looking_for == back)
+		return SLOT_FLAG_BACK
+
+	// if(back && (looking_for in back))
+	// 	return SLOT_HUD_BACKPACK
+
+	if(looking_for == wear_mask)
+		return SLOT_FLAG_MASK
+
+	if(looking_for == head)
+		return SLOT_FLAG_HEAD
+
+	return ..()
 
 //generates realistic-ish pulse output based on preset levels
 /mob/living/carbon/proc/get_pulse()

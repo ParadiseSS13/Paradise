@@ -113,7 +113,7 @@
 	inv_box = new /atom/movable/screen/inventory()
 	inv_box.name = "i_clothing"
 	inv_box.icon = ui_style
-	inv_box.slot_id = SLOT_HUD_JUMPSUIT
+	inv_box.slot_id = SLOT_HUD_ICLOTHING
 	inv_box.icon_state = "uniform"
 	inv_box.screen_loc = ui_iclothing
 	inv_box.color = ui_color
@@ -123,7 +123,7 @@
 	inv_box = new /atom/movable/screen/inventory()
 	inv_box.name = "o_clothing"
 	inv_box.icon = ui_style
-	inv_box.slot_id = SLOT_HUD_OUTER_SUIT
+	inv_box.slot_id = SLOT_HUD_OCLOTHING
 	inv_box.icon_state = "suit"
 	inv_box.screen_loc = ui_oclothing
 	inv_box.color = ui_color
@@ -183,7 +183,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pda"
 	inv_box.screen_loc = ui_pda
-	inv_box.slot_id = SLOT_HUD_WEAR_PDA
+	inv_box.slot_id = SLOT_HUD_PDA
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -193,7 +193,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "mask"
 	inv_box.screen_loc = ui_mask
-	inv_box.slot_id = SLOT_HUD_WEAR_MASK
+	inv_box.slot_id = SLOT_HUD_MASK
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -213,7 +213,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_storage1
-	inv_box.slot_id = SLOT_HUD_LEFT_STORE
+	inv_box.slot_id = SLOT_HUD_LEFT_POCKET
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -223,7 +223,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_storage2
-	inv_box.slot_id = SLOT_HUD_RIGHT_STORE
+	inv_box.slot_id = SLOT_HUD_RIGHT_POCKET
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -274,7 +274,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "glasses"
 	inv_box.screen_loc = ui_glasses
-	inv_box.slot_id = SLOT_HUD_GLASSES
+	inv_box.slot_id = SLOT_HUD_EYES
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -314,7 +314,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "shoes"
 	inv_box.screen_loc = ui_shoes
-	inv_box.slot_id = SLOT_HUD_SHOES
+	inv_box.slot_id = SLOT_HUD_FEET
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box

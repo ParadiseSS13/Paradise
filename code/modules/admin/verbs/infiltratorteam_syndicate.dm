@@ -143,7 +143,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	// Storage items
 	equip_to_slot_or_del(new /obj/item/storage/backpack(src), SLOT_HUD_BACK)
 	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), SLOT_HUD_JUMPSUIT)
+	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), SLOT_HUD_ICLOTHING)
 	if(!flag_mgmt)
 		equip_to_slot_or_del(new /obj/item/flashlight(src), SLOT_HUD_IN_BACKPACK)
 		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), SLOT_HUD_BELT)
@@ -171,7 +171,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	equip_or_collect(new /obj/item/pda(src), SLOT_HUD_IN_BACKPACK)
 
 	// Other gear
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), SLOT_HUD_SHOES)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), SLOT_HUD_FEET)
 
 	var/obj/item/card/id/syndicate/W = new(src)
 	if(flag_mgmt)

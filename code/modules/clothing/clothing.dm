@@ -28,7 +28,8 @@
 	var/visor_flags_inv = NONE		//same as visor_flags, but for flags_inv
 	var/visor_flags_cover = NONE	//for cover flags
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW //what to toggle when toggled with weldingvisortoggle()
-
+	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
+	var/list/clothing_traits
 	var/can_toggle = FALSE
 	var/toggle_message = null
 	var/alt_toggle_message = null
@@ -85,6 +86,53 @@
 			return TRUE
 	return FALSE
 
+/obj/item/clothing/equipped(mob/user, slot)
+	. = ..()
+	if(slot_bitfield_to_slot(slot_flags) == slot) //Was equipped to a valid slot for this item? CHAP-TODO: Purge SLOT_HUD from the face of this planet and make everything use SLOT_FLAG
+		for(var/trait in clothing_traits)
+			ADD_CLOTHING_TRAIT(user, trait)
+
+
+
+/obj/item/clothing/dropped(mob/user)
+	. = ..()
+	for(var/trait in clothing_traits)
+		REMOVE_CLOTHING_TRAIT(user, trait)
+
+/**
+ * Inserts a trait (or multiple traits) into the clothing traits list
+ *
+ * If worn, then we will also give the wearer the trait as if equipped
+ *
+ * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
+ */
+/obj/item/clothing/proc/attach_clothing_traits(trait_or_traits)
+	if(!islist(trait_or_traits))
+		trait_or_traits = list(trait_or_traits)
+
+	LAZYOR(clothing_traits, trait_or_traits)
+	var/mob/wearer = loc
+	if(istype(wearer) && (wearer.get_slot_by_item(src) & slot_flags))
+		for(var/new_trait in trait_or_traits)
+			ADD_CLOTHING_TRAIT(wearer, new_trait)
+
+/**
+ * Removes a trait (or multiple traits) from the clothing traits list
+ *
+ * If worn, then we will also remove the trait from the wearer as if unequipped
+ *
+ * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
+ */
+/obj/item/clothing/proc/detach_clothing_traits(trait_or_traits)
+	if(!islist(trait_or_traits))
+		trait_or_traits = list(trait_or_traits)
+
+	LAZYREMOVE(clothing_traits, trait_or_traits)
+	var/mob/wearer = loc
+	if(istype(wearer))
+		for(var/new_trait in trait_or_traits)
+			REMOVE_CLOTHING_TRAIT(wearer, new_trait)
+
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE)
 
@@ -93,7 +141,7 @@
 		return FALSE
 
 	// Skip species restriction checks on non-equipment slots
-	if(slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, SLOT_HUD_IN_BACKPACK, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE))
+	if(slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, SLOT_HUD_IN_BACKPACK, SLOT_HUD_LEFT_POCKET, SLOT_HUD_RIGHT_POCKET))
 		return TRUE
 
 	if(species_restricted && ishuman(M))
@@ -513,31 +561,12 @@
 	var/chained = FALSE
 	var/can_cut_open = FALSE
 	var/cut_open = FALSE
-	var/no_slip = FALSE
 	var/knife_slot = FALSE
 	var/obj/item/kitchen/knife/combat/hidden_blade
 
 
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
-
-
-
-/obj/item/clothing/shoes/equipped(mob/user, slot)
-	. = ..()
-	if(!no_slip || slot != SLOT_HUD_SHOES)
-		return
-	ADD_TRAIT(user, TRAIT_NOSLIP, UID())
-
-/obj/item/clothing/shoes/dropped(mob/user)
-	..()
-	if(!no_slip)
-		return
-	var/mob/living/carbon/human/H = user
-	if(!user)
-		return
-	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
-		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
@@ -732,7 +761,7 @@
 
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
-	if(ishuman(user) && hide_tail_by_species && slot == SLOT_HUD_OUTER_SUIT)
+	if(ishuman(user) && hide_tail_by_species && slot == SLOT_HUD_OCLOTHING)
 		if("modsuit" in hide_tail_by_species)
 			return
 		if(user.dna.species.sprite_sheet_name in hide_tail_by_species)
@@ -878,7 +907,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_JUMPSUIT) == src)
+	if(H.get_item_by_slot(SLOT_HUD_ICLOTHING) == src)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_unequip()
 
@@ -886,7 +915,7 @@
 	..()
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_JUMPSUIT)
+	if(slot == SLOT_HUD_ICLOTHING)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_equip()
 
@@ -995,7 +1024,7 @@
 	if(copytext(item_color,-2) != "_d")
 		basecolor = item_color
 
-	if(user.get_item_by_slot(SLOT_HUD_JUMPSUIT) != src)
+	if(user.get_item_by_slot(SLOT_HUD_ICLOTHING) != src)
 		to_chat(user, "<span class='notice'>You must wear the uniform to adjust it!</span>")
 
 	else

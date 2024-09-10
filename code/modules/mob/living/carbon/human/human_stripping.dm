@@ -26,11 +26,11 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/eyes
 	key = STRIPPABLE_ITEM_EYES
-	item_slot = SLOT_HUD_GLASSES
+	item_slot = SLOT_HUD_EYES
 
 /datum/strippable_item/mob_item_slot/jumpsuit
 	key = STRIPPABLE_ITEM_JUMPSUIT
-	item_slot = SLOT_HUD_JUMPSUIT
+	item_slot = SLOT_HUD_ICLOTHING
 
 /datum/strippable_item/mob_item_slot/jumpsuit/get_alternate_actions(atom/source, mob/user)
 	var/list/multiple_options = list()
@@ -82,7 +82,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/suit
 	key = STRIPPABLE_ITEM_SUIT
-	item_slot = SLOT_HUD_OUTER_SUIT
+	item_slot = SLOT_HUD_OCLOTHING
 
 /datum/strippable_item/mob_item_slot/gloves
 	key = STRIPPABLE_ITEM_GLOVES
@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/feet
 	key = STRIPPABLE_ITEM_FEET
-	item_slot = SLOT_HUD_SHOES
+	item_slot = SLOT_HUD_FEET
 
 /datum/strippable_item/mob_item_slot/suit_storage
 	key = STRIPPABLE_ITEM_SUIT_STORAGE
@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/pda
 	key = STRIPPABLE_ITEM_PDA
-	item_slot = SLOT_HUD_WEAR_PDA
+	item_slot = SLOT_HUD_PDA
 
 /datum/strippable_item/mob_item_slot/pda/get_obscuring(atom/source)
 	return isnull(get_item(source)) \
@@ -168,12 +168,12 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/pocket/left
 	key = STRIPPABLE_ITEM_LPOCKET
-	item_slot = SLOT_HUD_LEFT_STORE
+	item_slot = SLOT_HUD_LEFT_POCKET
 	pocket_side = "left"
 
 /datum/strippable_item/mob_item_slot/pocket/right
 	key = STRIPPABLE_ITEM_RPOCKET
-	item_slot = SLOT_HUD_RIGHT_STORE
+	item_slot = SLOT_HUD_RIGHT_POCKET
 	pocket_side = "right"
 
 /proc/get_strippable_alternate_action_internals(obj/item/item, atom/source)

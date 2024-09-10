@@ -41,21 +41,21 @@
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
-	if(slot != SLOT_HUD_JUMPSUIT)
+	if(slot != SLOT_HUD_ICLOTHING)
 		return
 	if(!user.ventcrawler)
 		user.ventcrawler = VENTCRAWLER_ALWAYS
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/dropped(mob/living/carbon/human/user)
 	. = ..()
-	if(user.get_item_by_slot(SLOT_HUD_JUMPSUIT) != src)
+	if(user.get_item_by_slot(SLOT_HUD_ICLOTHING) != src)
 		return
 	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling)) // This is such a snowflaky check
 		user.ventcrawler = VENTCRAWLER_NONE
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/proc/check_clothing(mob/user as mob)
 	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(SLOT_HUD_BACK,SLOT_HUD_HANDCUFFED,SLOT_HUD_LEGCUFFED,SLOT_HUD_LEFT_HAND,SLOT_HUD_RIGHT_HAND,SLOT_HUD_BELT,SLOT_HUD_HEAD,SLOT_HUD_OUTER_SUIT)
+	var/list/slot_must_be_empty = list(SLOT_HUD_BACK,SLOT_HUD_HANDCUFFED,SLOT_HUD_LEGCUFFED,SLOT_HUD_LEFT_HAND,SLOT_HUD_RIGHT_HAND,SLOT_HUD_BELT,SLOT_HUD_HEAD,SLOT_HUD_OCLOTHING)
 	for(var/slot_id in slot_must_be_empty)
 		if(user.get_item_by_slot(slot_id))
 			to_chat(user,"<span class='warning'>You can't fit inside while wearing \the [user.get_item_by_slot(slot_id)].</span>")

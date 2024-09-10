@@ -57,10 +57,10 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 		else
 			H.equip_or_collect(G.spawn_item(null, save_to_load.loadout_gear[G.display_name]))
 	if(!H.w_uniform)
-		equip_item(H, /obj/item/clothing/under/color/random, SLOT_HUD_JUMPSUIT)
+		equip_item(H, /obj/item/clothing/under/color/random, SLOT_HUD_ICLOTHING)
 	if(!H.shoes)
-		equip_item(H, /obj/item/clothing/shoes/black, SLOT_HUD_SHOES)
-	equip_item(H, /obj/item/stack/spacecash/c1000, SLOT_HUD_LEFT_STORE)
+		equip_item(H, /obj/item/clothing/shoes/black, SLOT_HUD_FEET)
+	equip_item(H, /obj/item/stack/spacecash/c1000, SLOT_HUD_LEFT_POCKET)
 
 	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, SLOT_HUD_WEAR_ID)
 	our_id.assignment = assignedrole

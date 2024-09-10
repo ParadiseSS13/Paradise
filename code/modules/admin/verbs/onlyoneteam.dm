@@ -25,12 +25,12 @@
 
 		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), SLOT_HUD_LEFT_EAR)
 		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball_team(H), SLOT_HUD_RIGHT_HAND)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), SLOT_HUD_SHOES)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), SLOT_HUD_FEET)
 
 		if(!team_toggle)
 			GLOB.team_alpha += H
 
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), SLOT_HUD_JUMPSUIT)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), SLOT_HUD_ICLOTHING)
 			var/obj/item/card/id/W = new(H)
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"
@@ -43,7 +43,7 @@
 		else
 			GLOB.team_bravo += H
 
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), SLOT_HUD_JUMPSUIT)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), SLOT_HUD_ICLOTHING)
 			var/obj/item/card/id/W = new(H)
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"

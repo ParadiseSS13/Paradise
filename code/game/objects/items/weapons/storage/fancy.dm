@@ -245,7 +245,7 @@
 			var/obj/item/I = contents[num]
 			if(istype(I, /obj/item/clothing/mask/cigarette))
 				var/obj/item/clothing/mask/cigarette/C = I
-				user.equip_to_slot_if_possible(C, SLOT_HUD_WEAR_MASK)
+				user.equip_to_slot_if_possible(C, SLOT_HUD_MASK)
 				to_chat(user, "<span class='notice'>You take \a [C.name] out of the pack.</span>")
 				update_icon()
 				got_cig = 1

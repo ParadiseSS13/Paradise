@@ -129,8 +129,8 @@ RESTRICT_TYPE(/datum/antagonist/cultist)
 	var/mob/living/carbon/human/H = owner.current
 	var/list/slots = list(
 		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE
+		"left pocket" = SLOT_HUD_LEFT_POCKET,
+		"right pocket" = SLOT_HUD_RIGHT_POCKET
 	)
 
 	var/where = H.equip_in_one_of_slots(new item_path(H), slots)

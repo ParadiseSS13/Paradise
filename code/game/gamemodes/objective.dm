@@ -623,8 +623,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/obj/item/item_to_give = new item_path
 	var/static/list/slots = list(
 		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE,
+		"left pocket" = SLOT_HUD_LEFT_POCKET,
+		"right pocket" = SLOT_HUD_RIGHT_POCKET,
 		"left hand" = SLOT_HUD_LEFT_HAND,
 		"right hand" = SLOT_HUD_RIGHT_HAND,
 	)

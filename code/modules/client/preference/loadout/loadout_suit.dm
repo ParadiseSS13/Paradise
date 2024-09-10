@@ -13,7 +13,7 @@
 
 /datum/gear/suit
 	main_typepath = /datum/gear/suit
-	slot = SLOT_HUD_OUTER_SUIT
+	slot = SLOT_HUD_OCLOTHING
 	sort_category = "External Wear"
 
 //WINTER COATS

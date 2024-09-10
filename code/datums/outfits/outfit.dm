@@ -70,9 +70,9 @@
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
-		equip_item(H, uniform, SLOT_HUD_JUMPSUIT)
+		equip_item(H, uniform, SLOT_HUD_ICLOTHING)
 	if(suit)
-		equip_item(H, suit, SLOT_HUD_OUTER_SUIT)
+		equip_item(H, suit, SLOT_HUD_OCLOTHING)
 	if(back)
 		equip_item(H, back, SLOT_HUD_BACK)
 	if(belt)
@@ -80,17 +80,17 @@
 	if(gloves)
 		equip_item(H, gloves, SLOT_HUD_GLOVES)
 	if(shoes)
-		equip_item(H, shoes, SLOT_HUD_SHOES)
+		equip_item(H, shoes, SLOT_HUD_FEET)
 	if(head)
 		equip_item(H, head, SLOT_HUD_HEAD)
 	if(mask)
-		equip_item(H, mask, SLOT_HUD_WEAR_MASK)
+		equip_item(H, mask, SLOT_HUD_MASK)
 	if(l_ear)
 		equip_item(H, l_ear, SLOT_HUD_LEFT_EAR)
 	if(r_ear)
 		equip_item(H, r_ear, SLOT_HUD_RIGHT_EAR)
 	if(glasses)
-		equip_item(H, glasses, SLOT_HUD_GLASSES)
+		equip_item(H, glasses, SLOT_HUD_EYES)
 	if(id)
 		equip_item(H, id, SLOT_HUD_WEAR_ID)
 
@@ -110,7 +110,7 @@
 		H.put_in_r_hand(new r_hand(H))
 
 	if(pda)
-		equip_item(H, pda, SLOT_HUD_WEAR_PDA)
+		equip_item(H, pda, SLOT_HUD_PDA)
 
 	if(uniform)
 		for(var/path in accessories)
@@ -120,9 +120,9 @@
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)
-			equip_item(H, l_pocket, SLOT_HUD_LEFT_STORE)
+			equip_item(H, l_pocket, SLOT_HUD_LEFT_POCKET)
 		if(r_pocket)
-			equip_item(H, r_pocket, SLOT_HUD_RIGHT_STORE)
+			equip_item(H, r_pocket, SLOT_HUD_RIGHT_POCKET)
 
 		if(box)
 			if(!backpack_contents)

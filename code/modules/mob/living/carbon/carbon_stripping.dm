@@ -16,7 +16,7 @@
 
 /datum/strippable_item/mob_item_slot/mask
 	key = STRIPPABLE_ITEM_MASK
-	item_slot = SLOT_HUD_WEAR_MASK
+	item_slot = SLOT_HUD_MASK
 
 /datum/strippable_item/mob_item_slot/mask/get_body_action(atom/source, mob/user)
 	if(!ishuman(source))

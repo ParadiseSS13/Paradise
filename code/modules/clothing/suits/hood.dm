@@ -29,11 +29,11 @@
 	ToggleHood()
 
 /obj/item/clothing/suit/hooded/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_HUD_OUTER_SUIT)
+	if(slot == SLOT_HUD_OCLOTHING)
 		return 1
 
 /obj/item/clothing/suit/hooded/equipped(mob/user, slot)
-	if(slot != SLOT_HUD_OUTER_SUIT)
+	if(slot != SLOT_HUD_OCLOTHING)
 		RemoveHood()
 	..()
 

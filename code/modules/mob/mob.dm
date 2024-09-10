@@ -304,22 +304,22 @@
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		SLOT_HUD_BACK,\
-		SLOT_HUD_WEAR_PDA,\
+		SLOT_HUD_PDA,\
 		SLOT_HUD_WEAR_ID,\
-		SLOT_HUD_JUMPSUIT,\
-		SLOT_HUD_OUTER_SUIT,\
-		SLOT_HUD_WEAR_MASK,\
+		SLOT_HUD_ICLOTHING,\
+		SLOT_HUD_OCLOTHING,\
+		SLOT_HUD_MASK,\
 		SLOT_HUD_HEAD,\
-		SLOT_HUD_SHOES,\
+		SLOT_HUD_FEET,\
 		SLOT_HUD_GLOVES,\
 		SLOT_HUD_LEFT_EAR,\
 		SLOT_HUD_RIGHT_EAR,\
-		SLOT_HUD_GLASSES,\
+		SLOT_HUD_EYES,\
 		SLOT_HUD_BELT,\
 		SLOT_HUD_SUIT_STORE,\
 		SLOT_HUD_TIE,\
-		SLOT_HUD_LEFT_STORE,\
-		SLOT_HUD_RIGHT_STORE\
+		SLOT_HUD_LEFT_POCKET,\
+		SLOT_HUD_RIGHT_POCKET\
 	))
 
 //puts the item "W" into an appropriate slot in a human's inventory
@@ -344,6 +344,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			break
 	return openslot
 
+#define CANNOT_EQUIP 	0
+#define CAN_EQUIP 		1
+#define CANNOT_DROP 	2
+
+
 /obj/item/proc/mob_check_equip(M as mob, slot, disable_warning = 0)
 	if(!M) return 0
 	if(!slot) return 0
@@ -360,7 +365,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				if(H.r_hand)
 					return 0
 				return 1
-			if(SLOT_HUD_WEAR_MASK)
+			if(SLOT_HUD_MASK)
 				if(!(slot_flags & SLOT_FLAG_MASK))
 					return 0
 				if(H.wear_mask)
@@ -375,7 +380,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_OUTER_SUIT)
+			if(SLOT_HUD_OCLOTHING)
 				if(!(slot_flags & SLOT_FLAG_OCLOTHING))
 					return 0
 				if(H.wear_suit)
@@ -393,7 +398,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_SHOES)
+			if(SLOT_HUD_FEET)
 				if(!(slot_flags & SLOT_FLAG_FEET))
 					return 0
 				if(H.shoes)
@@ -415,7 +420,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_GLASSES)
+			if(SLOT_HUD_EYES)
 				if(!(slot_flags & SLOT_FLAG_EYES))
 					return 0
 				if(H.glasses)
@@ -451,7 +456,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_JUMPSUIT)
+			if(SLOT_HUD_ICLOTHING)
 				if(!(slot_flags & SLOT_FLAG_ICLOTHING))
 					return 0
 				if(H.w_uniform)
@@ -473,7 +478,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(SLOT_HUD_LEFT_STORE)
+			if(SLOT_HUD_LEFT_POCKET)
 				if(H.l_store)
 					return 0
 				if(!H.w_uniform)
@@ -482,7 +487,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET))
 					return 1
-			if(SLOT_HUD_RIGHT_STORE)
+			if(SLOT_HUD_RIGHT_POCKET)
 				if(H.r_store)
 					return 0
 				if(!H.w_uniform)

@@ -1562,7 +1562,7 @@
 	H.update_dna()
 
 	H.wear_mask.adjustmask(H) // push it back on the head
-	equip_item(H, /obj/item/clothing/mask/cigarette/cigar, SLOT_HUD_WEAR_MASK) // get them their cigar
+	equip_item(H, /obj/item/clothing/mask/cigarette/cigar, SLOT_HUD_MASK) // get them their cigar
 	if(istype(H.glasses, /obj/item/clothing/glasses)) // this is gonna be always true
 		var/obj/item/clothing/glasses/glassass = H.glasses
 		glassass.over_mask = TRUE
