@@ -251,3 +251,6 @@
 
 /area/ruin/space/syndicakefactory
 	name = "Syndicake factory"
+
+/area/ruin/space/clown_mime_ruin
+	name = "\improper Derelict Transport Vessel"

@@ -134,11 +134,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	density = TRUE
 	anchored = TRUE
 	invisibility = 101
-	var/obj/machinery/parent
-
-/obj/structure/filler/Destroy()
-	parent = null
-	return ..()
 
 /obj/structure/filler/ex_act()
 	return
@@ -166,22 +161,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	var/completed = FALSE
 	var/static/list/power_lottery = list()
 
-	var/list/obj/structure/fillers = list()
-
 /obj/machinery/dna_vault/Initialize(mapload)
 	. = ..()
-	//TODO: Replace this,bsa and gravgen with some big machinery datum
-	var/list/occupied = list()
-	for(var/direct in list(EAST,WEST,SOUTHEAST,SOUTHWEST))
-		occupied += get_step(src,direct)
-	occupied += locate(x+1,y-2,z)
-	occupied += locate(x-1,y-2,z)
-
-	for(var/T in occupied)
-		var/obj/structure/filler/F = new(T)
-		F.parent = src
-		fillers += F
-
 	if(SSticker.mode)
 		for(var/datum/station_goal/dna_vault/G in SSticker.mode.station_goals)
 			animals_max = G.animal_count
@@ -189,6 +170,13 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			dna_max = G.human_count
 			break
 
+	AddComponent(/datum/component/multitile, 2, list(
+		list(0, 0,		 0,	   0, 0),
+		list(0, 0,		 0,	   0, 0),
+		list(0, 1, MACH_CENTER, 1, 0),
+		list(0, 1,		 0,	   1, 0),
+		list(0, 1,		 0,	   1, 0)
+	))
 /obj/machinery/dna_vault/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "vaultoff"
@@ -199,11 +187,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
-
-
-/obj/machinery/dna_vault/Destroy()
-	QDEL_LIST_CONTENTS(fillers)
-	return ..()
 
 /obj/machinery/dna_vault/attack_ghost(mob/user)
 	if(stat & (BROKEN|MAINT))

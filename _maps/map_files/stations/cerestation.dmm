@@ -42,10 +42,10 @@
 	},
 /area/station/hallway/primary/port/east)
 "aar" = (
-/obj/machinery/r_n_d/server/core,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/plasteel/dark/telecomms{
 	icon_state = "bcircuit"
 	},
@@ -32154,6 +32154,10 @@
 	},
 /area/station/hallway/primary/fore/west)
 "dNS" = (
+/obj/machinery/computer/rnd_backup/station{
+	dir = 8
+	},
+/obj/item/disk/rnd_backup_disk,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowcorners"
 	},
@@ -32595,7 +32599,6 @@
 /area/station/hallway/secondary/entry/north)
 "dTc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/requests_console/directional/east,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -58815,10 +58818,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/mecha_part_fabricator,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "lRJ" = (
@@ -62966,10 +62969,10 @@
 	},
 /area/station/hallway/primary/aft/west)
 "nfq" = (
-/obj/machinery/r_n_d/server/robotics,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
+/obj/machinery/r_n_d/server/station,
 /turf/simulated/floor/plasteel/dark/telecomms{
 	icon_state = "bcircuit"
 	},
@@ -64173,7 +64176,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "nzI" = (
@@ -78619,7 +78622,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "rYW" = (
-/obj/machinery/computer/rdservercontrol{
+/obj/machinery/computer/rnd_network_controller/station{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark/telecomms,
@@ -88534,11 +88537,11 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "uRn" = (
-/obj/machinery/computer/rdconsole/robotics,
 /obj/machinery/camera{
 	c_tag = "Robotics North";
 	network = list("SS13","RD")
 	},
+/obj/machinery/computer/rdconsole/core,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -144579,7 +144582,7 @@ aXn
 gzv
 tHv
 tHv
-bII
+tHv
 xpg
 kBo
 vPy
@@ -144836,7 +144839,7 @@ aXn
 gzv
 tHv
 tHv
-tHv
+bII
 pnV
 aWx
 sJs

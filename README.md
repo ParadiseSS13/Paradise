@@ -1,6 +1,6 @@
 <a href="#"><img src=".github/assets/paradise.png" alt="Paradise Station"></a>
 
-##	<p align="center">Добро пожаловать в репозиторий Paradise WyccStation SS220 по игре [Space Station 13](https://spacestation13.com/).</p>
+## <p align="center">Добро пожаловать в репозиторий Paradise WyccStation SS220 по игре [Space Station 13](https://spacestation13.com/).</p>
 
 <p align="center">
 	<a href="https://github.com/ss220club/Paradise-SS220/actions?query=workflow%3ACI"><img src="https://github.com/ss220club/Paradise-SS220/workflows/CI/badge.svg" alt="CI"></a>
@@ -50,15 +50,15 @@
 
 Этот справочный сайт от создателей BYOND содержит подробную информацию о языке DM, используемом синтаксисе, функциональности нативных процедур (proc) и многом другом. Это всегда полезно иметь под рукой, когда вы вносите свой вклад.
 
-- ### [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
+- ### [Autodocumentation Guide](./docs/references/autodoc.md)
 
 Это руководство покажет вам, как оставлять комментарии к коду, соответствующие "автодокументации" - системе, призванной облегчить всем жизнь при чтении и ревью кода!
 
-- ### [Code of Conduct](./CODE_OF_CONDUCT.md)
+- ### [Code of Conduct](./docs/CODE_OF_CONDUCT.md)
 
 Все участники должны ознакомиться с нашим "Кодексом поведения", прежде чем принимать участие в жизни нашего сообщества.
 
-- ### [Contribution Guide](.github/CONTRIBUTING.md)
+- ### [Contribution Guide](./docs/CONTRIBUTING.md)
 
 Не знаете, как принять участие и внести свой вклад? В этом руководстве дается обзор того, как делать комментарии, открывать Pull Requests и Issues.
 
