@@ -24,8 +24,7 @@
 #define ITEM_SLOT_PDA 			(1<<20) // pda
 #define ITEM_SLOT_TIE 			(1<<21) // CHAP-TODO: Figure out what the fuck these actually do
 #define ITEM_SLOT_COLLAR 		(1<<22) // CHAP-TODO: Figure out what the fuck these actually do
-#define ITEM_SLOT_AMOUNT_FLAG	(1<<ITEM_SLOT_AMOUNT)
-#define ITEM_SLOT_AMOUNT 		22 // IF YOU ADD ANY NEW CLOTHING SLOTS, MAKE SURE TO UPDATE THIS TO THE AMOUNT OF SLOTS.
+#define ITEM_SLOT_AMOUNT 		(1<<22) // IF YOU ADD ANY NEW CLOTHING SLOTS, MAKE SURE TO UPDATE THIS TO THE AMOUNT OF SLOTS.
 
 //Bit flags for the flags_inv variable, which determine when a piece of clothing hides another. IE a helmet hiding glasses.
 #define HIDEGLOVES		(1<<0)	//APPLIES ONLY TO THE EXTERIOR SUIT!!
