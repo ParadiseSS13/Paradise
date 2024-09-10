@@ -7959,7 +7959,7 @@
 /obj/machinery/door_control/no_emag/east{
 	id = "CC_Armory";
 	name = "Оружейная";
-	req_one_access_txt = "114"
+	req_one_access_txt = "110"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
@@ -10740,7 +10740,7 @@
 	color = "#80ff80";
 	id = "CC_Armory_Green";
 	name = "Оружейная - Уровень 1";
-	req_one_access_txt = "114"
+	req_one_access_txt = "110"
 	},
 /turf/simulated/floor/plasteel/dark{
 	dir = 5;
@@ -22421,19 +22421,17 @@
 "ljX" = (
 /obj/structure/rack/gunrack,
 /obj/item/gun/energy/disabler{
-	pixel_y = 10
+	pixel_x = -6
 	},
 /obj/item/gun/energy/disabler{
-	pixel_y = 6
+	pixel_x = -3
+	},
+/obj/item/gun/energy/disabler,
+/obj/item/gun/energy/disabler{
+	pixel_x = 3
 	},
 /obj/item/gun/energy/disabler{
-	pixel_y = 2
-	},
-/obj/item/gun/energy/disabler{
-	pixel_y = -2
-	},
-/obj/item/gun/energy/disabler{
-	pixel_y = -6
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkgreen"
@@ -27853,7 +27851,7 @@
 /obj/machinery/door_control/no_emag/north{
 	name = "Pod Door Control";
 	id = "ert_shuttle_door";
-	req_one_access_txt = "109"
+	req_one_access_txt = "110"
 	},
 /turf/simulated/floor/plasteel/dark{
 	dir = 9;
@@ -43668,7 +43666,7 @@
 /obj/machinery/door_control/no_emag/south{
 	name = "Pod Door Control";
 	id = "ert_shuttle_door";
-	req_one_access_txt = "109"
+	req_one_access_txt = "110"
 	},
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluealtstrip"
