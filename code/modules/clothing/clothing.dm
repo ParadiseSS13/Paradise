@@ -512,6 +512,7 @@
 	var/chained = FALSE
 	var/can_cut_open = FALSE
 	var/cut_open = FALSE
+	var/no_slip = FALSE
 	var/knife_slot = FALSE
 	var/obj/item/kitchen/knife/combat/hidden_blade
 
