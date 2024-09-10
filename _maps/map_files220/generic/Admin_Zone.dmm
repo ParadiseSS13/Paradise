@@ -980,9 +980,8 @@
 	},
 /area/holodeck/source_thunderdomecourt)
 "ou" = (
-/obj/machinery/computer/rnd_network_controller/station{
-	name = "Master R&amp;D Server Controller";
-	dir = 1
+/obj/machinery/computer/card/centcom{
+	dir = 8
 	},
 /turf/simulated/floor/wood/oak,
 /area/admin)
@@ -1500,12 +1499,6 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
-"wZ" = (
-/obj/machinery/computer/card/centcom{
-	dir = 1
-	},
-/turf/simulated/floor/wood/oak,
-/area/admin)
 "xe" = (
 /obj/structure/table/wood,
 /obj/item/dnainjector/antiblind,
@@ -1757,7 +1750,7 @@
 "AW" = (
 /obj/machinery/computer/account_database{
 	name = "Admin Accounts Database";
-	dir = 1
+	dir = 8
 	},
 /turf/simulated/floor/wood/oak,
 /area/admin)
@@ -12335,7 +12328,7 @@ UO
 UO
 UO
 UO
-ou
+cQ
 Up
 yX
 UO
@@ -12592,7 +12585,7 @@ UO
 UO
 UO
 UO
-wZ
+Ky
 Up
 MF
 UO
@@ -12849,7 +12842,7 @@ UO
 UO
 UO
 UO
-AW
+UO
 Up
 Fi
 UO
@@ -13105,8 +13098,8 @@ Up
 UO
 Mj
 Xa
-cQ
-Ky
+ou
+AW
 Up
 SK
 Py
