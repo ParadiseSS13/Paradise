@@ -50,7 +50,6 @@
 	if(multiple_icons)
 		icon_state = "[magboot_state][magpulse]"
 	if(!forced)
-	@@ -55,16 +53,6 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtons()
