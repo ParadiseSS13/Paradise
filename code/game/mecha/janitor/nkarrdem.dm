@@ -6,6 +6,7 @@
 	step_in = 3
 	max_temperature = 10000
 	max_integrity = 110
+	max_equip = 4
 	wreckage = /obj/structure/mecha_wreckage/nkarrdem
 	internal_damage_threshold = 35
 	deflect_chance = 15
