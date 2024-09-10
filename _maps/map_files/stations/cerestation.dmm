@@ -26558,25 +26558,21 @@
 /area/station/maintenance/apmaint)
 "cWI" = (
 /obj/structure/reflector/single{
-	dir = 4;
-	anchored = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
 "cWK" = (
-/obj/structure/reflector/box{
-	anchored = 1
-	},
+/obj/structure/reflector/box,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
 "cWO" = (
 /obj/structure/reflector/single{
-	dir = 1;
-	anchored = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

@@ -54610,7 +54610,6 @@
 /area/station/maintenance/apmaint)
 "fdg" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -68254,7 +68253,6 @@
 /area/station/aisat/service)
 "lKP" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -73967,9 +73965,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "oBR" = (
-/obj/structure/reflector/double{
-	anchored = 1
-	},
+/obj/structure/reflector/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -77728,7 +77724,6 @@
 /area/station/maintenance/aft)
 "qpq" = (
 /obj/structure/reflector/box{
-	anchored = 1;
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{

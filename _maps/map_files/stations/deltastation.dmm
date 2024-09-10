@@ -4293,15 +4293,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "aud" = (
-/obj/structure/reflector/box{
-	anchored = 1
-	},
+/obj/structure/reflector/box,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "aue" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -80649,9 +80646,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "nvp" = (
-/obj/structure/reflector/double{
-	anchored = 1
-	},
+/obj/structure/reflector/double,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/controlroom)
 "nvr" = (
