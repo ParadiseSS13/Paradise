@@ -35,9 +35,9 @@
 /mob/living/carbon/proc/update_hands_hud()
 	if(!hud_used)
 		return
-	var/atom/movable/screen/inventory/R = hud_used.inv_slots[ITEM_SLOT_RIGHT_HAND]
+	var/atom/movable/screen/inventory/R = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_RIGHT_HAND) + 1]
 	R?.update_icon()
-	var/atom/movable/screen/inventory/L = hud_used.inv_slots[ITEM_SLOT_LEFT_HAND]
+	var/atom/movable/screen/inventory/L = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_LEFT_HAND) + 1]
 	L?.update_icon()
 
 /mob/living/carbon/update_inv_r_hand(ignore_cuffs)
@@ -66,8 +66,8 @@
 		update_hud_wear_mask(wear_mask)
 
 /mob/living/carbon/update_inv_back()
-	if(client && hud_used && hud_used.inv_slots[ITEM_SLOT_BACK])
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[ITEM_SLOT_BACK]
+	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1])
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1]
 		inv.update_icon()
 
 	if(back)
