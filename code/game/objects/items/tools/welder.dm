@@ -153,19 +153,31 @@
 		return
 	remove_fuel(0.5)
 
-/obj/item/weldingtool/attack(mob/living/carbon/M, mob/living/carbon/user)
-	// For lighting other people's cigarettes.
-	var/obj/item/clothing/mask/cigarette/cig = M?.wear_mask
-	if(!istype(cig) || user.zone_selected != "mouth" || !tool_enabled)
+/obj/item/weldingtool/attack(mob/living/target, mob/living/user)
+	if(!cigarette_lighter_act(user, target))
 		return ..()
 
-	if(M == user)
-		cig.attackby(src, user)
-		return
+/obj/item/weldingtool/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
 
-	cig.light("<span class='notice'>[user] holds out [src] out for [M], and casually lights [cig]. What a badass.</span>")
-	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-	M.update_inv_wear_mask()
+	if(!tool_enabled)
+		to_chat(user, "<span class='warning'>You need to activate [src] before you can light anything with it!</span>")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			"<span class='notice'>[user] casually lights [cig] with [src], what a badass.</span>",
+			"<span class='notice'>You light [cig] with [src].</span>"
+		)
+	else
+		user.visible_message(
+			"<span class='notice'>[user] holds out [src] out for [target], and casually lights [cig]. What a badass.</span>",
+			"<span class='notice'>You light [cig] for [target] with [src].</span>"
+		)
+	cig.light(user, target)
+	return TRUE
 
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
 	target.add_overlay(GLOB.welding_sparks)

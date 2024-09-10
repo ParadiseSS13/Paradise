@@ -33,6 +33,7 @@ export const MESSAGE_TYPE_MENTORPM = 'mentorpm';
 export const MESSAGE_TYPE_COMBAT = 'combat';
 export const MESSAGE_TYPE_ADMINCHAT = 'adminchat';
 export const MESSAGE_TYPE_MENTORCHAT = 'mentorchat';
+export const MESSAGE_TYPE_DEVCHAT = 'devchat';
 export const MESSAGE_TYPE_EVENTCHAT = 'eventchat';
 export const MESSAGE_TYPE_ADMINLOG = 'adminlog';
 export const MESSAGE_TYPE_ATTACKLOG = 'attacklog';
@@ -122,6 +123,13 @@ export const MESSAGE_TYPES = [
     name: 'Mentor Chat',
     description: 'MSAY messages',
     selector: '.mentor_channel',
+    admin: true,
+  },
+  {
+    type: MESSAGE_TYPE_DEVCHAT,
+    name: 'Developer Chat',
+    description: 'DEVSAY messages',
+    selector: '.dev_channel',
     admin: true,
   },
   {

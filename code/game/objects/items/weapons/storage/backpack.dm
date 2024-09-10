@@ -937,8 +937,8 @@
 
 //Solgov
 /obj/item/storage/backpack/ert/solgov
-	name = "\improper TSF marine backpack"
-	desc = "A spacious backpack with lots of pockets, worn by marines of the Trans-Solar Federation."
+	name = "\improper TSF marine rucksack"
+	desc = "A spacious rucksack covered in pouches and pockets, worn by marines of the Trans-Solar Federation."
 	icon_state = "ert_solgov"
 
 /obj/item/storage/backpack/ert/deathsquad

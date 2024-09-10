@@ -362,12 +362,8 @@
 	desc = "Swipe a Scientist level ID or higher to reconfigure."
 	icon_state = "science"
 	build_path = /obj/machinery/computer/rdconsole/core
-	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics console
-	var/list/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Public")
-
-/obj/item/circuitboard/rdconsole/robotics
-	board_name = "RD Console - Robotics"
-	build_path = /obj/machinery/computer/rdconsole/robotics
+	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building
+	var/list/access_types = list("R&D Core", "E.X.P.E.R.I-MENTOR", "Public")
 
 /obj/item/circuitboard/rdconsole/experiment
 	board_name = "RD Console - E.X.P.E.R.I-MENTOR"
@@ -382,10 +378,15 @@
 	icon_state = "science"
 	build_path = /obj/machinery/computer/mecha
 
-/obj/item/circuitboard/rdservercontrol
-	board_name = "RD Server Control"
+/obj/item/circuitboard/rnd_network_controller
+	board_name = "R&D Network Controller"
 	icon_state = "science"
-	build_path = /obj/machinery/computer/rdservercontrol
+	build_path = /obj/machinery/computer/rnd_network_controller
+
+/obj/item/circuitboard/rnd_backup_console
+	board_name = "R&D Backup Console"
+	icon_state = "science"
+	build_path = /obj/machinery/computer/rnd_backup
 
 /obj/item/circuitboard/crew
 	board_name = "Crew Monitoring Computer"
@@ -539,9 +540,6 @@
 				if("R&D Core")
 					board_name = "RD Console"
 					build_path = /obj/machinery/computer/rdconsole/core
-				if("Robotics")
-					board_name = "RD Console - Robotics"
-					build_path = /obj/machinery/computer/rdconsole/robotics
 				if("E.X.P.E.R.I-MENTOR")
 					board_name = "RD Console - E.X.P.E.R.I-MENTOR"
 					build_path = /obj/machinery/computer/rdconsole/experiment
