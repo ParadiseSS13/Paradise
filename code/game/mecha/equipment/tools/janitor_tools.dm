@@ -18,7 +18,7 @@
 	energy_drain = 1
 	range = MECHA_MELEE | MECHA_RANGED
 	/// When the mopping sound was last played.
-	var/mop_sound_cooldown
+	COOLDOWN_DECLARE(mop_sound_cooldown)
 	/// How fast does this mop?
 	var/mop_speed = 2 SECONDS
 	/// Toggle for refilling itself
@@ -54,9 +54,9 @@
 		if(get_dist(chassis, target) > 2)
 			return
 		if(reagents.total_volume > 0)
-			if(world.time > mop_sound_cooldown)
+			if(COOLDOWN_FINISHED(src, mop_sound_cooldown))
 				playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
-				mop_sound_cooldown = world.time + MOP_SOUND_CD
+				COOLDOWN_START(src, mop_sound_cooldown, MOP_SOUND_CD)
 			// 3x3 mopping area
 			var/turf/target_turf = get_turf(target)
 			if(!istype(target_turf) || iswallturf(target_turf))
