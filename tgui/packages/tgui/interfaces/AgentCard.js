@@ -214,7 +214,7 @@ export const AgentCardInfo = (props, context) => {
 
 export const AgentCardAppearances = (props, context) => {
   const { act, data } = useBackend(context);
-  const [selectedAppearance, setSelectedAppearance] = useSharedState(context, 'selectedAppearance', 'null');
+  const [selectedAppearance, setSelectedAppearance] = useSharedState(context, 'selectedAppearance', '');
   const { appearances } = data;
 
   return (
@@ -223,10 +223,9 @@ export const AgentCardAppearances = (props, context) => {
         {Object.entries(appearances).map(([name, image]) => (
           <ImageButton
             m={0.5}
-            vertical
             key={name}
-            image={image}
-            imageSize="64px"
+            base64={image}
+            imageSize={58}
             selected={selectedAppearance === name}
             onClick={() => {
               setSelectedAppearance(name);
