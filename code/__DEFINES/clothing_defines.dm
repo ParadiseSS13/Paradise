@@ -3,7 +3,7 @@
 #define ITEM_SLOT_HANDCUFFED 	(1<<2) // handcuffs
 #define ITEM_SLOT_LEFT_HAND 		(1<<3) // l_hand
 #define ITEM_SLOT_RIGHT_HAND 	(1<<4) // r_hand
-#define ITEM_SLOT_BOTH_HANDS		(ITEM_SLOT_LEFT_PHAND | ITEM_SLOT_RIGHT_HAND)
+#define ITEM_SLOT_BOTH_HANDS		(ITEM_SLOT_LEFT_HAND | ITEM_SLOT_RIGHT_HAND)
 #define ITEM_SLOT_BELT 			(1<<5) // belt
 #define ITEM_SLOT_ID 			(1<<6) // id
 #define ITEM_SLOT_LEFT_EAR 		(1<<7) // l_ear

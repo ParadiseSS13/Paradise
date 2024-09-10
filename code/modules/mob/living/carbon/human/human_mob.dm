@@ -853,7 +853,7 @@
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
 /mob/living/carbon/human/proc/check_obscured_slots()
-	var/list/obscured = list()
+	var/list/obscured = list() // CHAP-TODO: Make this a bitfield maybe?
 
 	if(wear_suit)
 		if(wear_suit.flags_inv & HIDEGLOVES)
