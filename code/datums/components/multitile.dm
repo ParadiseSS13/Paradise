@@ -40,6 +40,8 @@
 		var/length = length(new_filler_map[i])
 		if(length != max_width)
 			stack_trace("A multitile component was passed a list wich did not have the same length every row. Atom parent is: [parent]")
+			var/obj/machinery/machine = parent
+			machine.deconstruct()
 			return COMPONENT_INCOMPATIBLE
 
 	var/current_height = 0
