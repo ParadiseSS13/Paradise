@@ -129,7 +129,6 @@
 	if(!istype(O, /obj/item/cardhand))
 		return ..()
 	var/obj/item/cardhand/H = O
-	// lewtodo: parent deck ID needs to work in a way that allows for merging cards
 	if(H.parent_deck_id != main_deck_id)
 		to_chat(user, "<span class='warning'>You can't mix cards from different decks!</span>")
 		return
@@ -267,7 +266,7 @@
 				var/obj/effect/temp_visual/card_preview/draft = new /obj/effect/temp_visual/card_preview(user, P.card_icon)
 				user.vis_contents += draft
 				QDEL_IN(draft, 1 SECONDS)
-				sleep(1 SECONDS)  // todo maybe do away with this sleep
+				sleep(1 SECONDS)
 			user.visible_message("<span class='notice'>[user] places [P] on the [side] of [src].</span>", "<span class='notice'>You place [P] on the [side] of [src].</span>")
 			user.do_attack_animation(src, hand)
 		else
