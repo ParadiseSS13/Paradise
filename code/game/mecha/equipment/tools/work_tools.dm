@@ -459,7 +459,7 @@
 	name = "exosuit crusher"
 	desc = "A mech mounted crusher. For crushing bigger things."
 	icon_state = "mecha_crusher"
-	equip_cooldown = 15
+	equip_cooldown = 8
 	energy_drain = 3000
 	harmful = TRUE
 	range = MECHA_MELEE | MECHA_RANGED
@@ -498,9 +498,10 @@
 		return
 	if(!chassis.occupant)
 		return
+	chassis.occupant.changeNext_click(equip_cooldown)
 	var/proximate = chassis.Adjacent(target)
-	if(ismob(target))
-		internal_crusher.attack(target, chassis.occupant)
+	if(proximate)
+		target.attackby(internal_crusher, chassis.occupant)
 	internal_crusher.afterattack(target, chassis.occupant, proximate, null)
 
 #undef MECH_RCD_MODE_DECONSTRUCT
