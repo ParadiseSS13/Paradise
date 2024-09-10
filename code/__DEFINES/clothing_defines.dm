@@ -1,3 +1,4 @@
+//Item inventory slots bitmasks
 #define ITEM_SLOT_BACK 			(1<<0) // back
 #define ITEM_SLOT_MASK 			(1<<1) // mask
 #define ITEM_SLOT_HANDCUFFED 	(1<<2) // handcuffs
