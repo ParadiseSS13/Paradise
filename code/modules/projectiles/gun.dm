@@ -5,7 +5,7 @@
 	icon_state = "revolver_bright"
 	item_state = "gun"
 	flags =  CONDUCT
-	slot_flags = SLOT_HUD_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5

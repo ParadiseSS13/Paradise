@@ -857,20 +857,20 @@
 
 	if(wear_suit)
 		if(wear_suit.flags_inv & HIDEGLOVES)
-			obscured |= SLOT_HUD_GLOVES
+			obscured |= ITEM_SLOT_GLOVES
 		if(wear_suit.flags_inv & HIDEJUMPSUIT)
-			obscured |= SLOT_HUD_ICLOTHING
+			obscured |= ITEM_SLOT_ICLOTHING
 		if(wear_suit.flags_inv & HIDESHOES)
-			obscured |= SLOT_HUD_FEET
+			obscured |= ITEM_SLOT_FEET
 
 	if(head)
 		if(head.flags_inv & HIDEMASK)
-			obscured |= SLOT_HUD_MASK
+			obscured |= ITEM_SLOT_MASK
 		if(head.flags_inv & HIDEEYES)
-			obscured |= SLOT_HUD_EYES
+			obscured |= ITEM_SLOT_EYES
 		if(head.flags_inv & HIDEEARS)
-			obscured |= SLOT_HUD_RIGHT_EAR
-			obscured |= SLOT_HUD_LEFT_EAR
+			obscured |= ITEM_SLOT_RIGHT_EAR
+			obscured |= ITEM_SLOT_LEFT_EAR
 
 	if(length(obscured) > 0)
 		return obscured
@@ -887,7 +887,7 @@
 /mob/living/carbon/human/proc/get_visible_gender()
 	var/list/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
-	if((SLOT_HUD_ICLOTHING in obscured) && skipface)
+	if((ITEM_SLOT_ICLOTHING in obscured) && skipface)
 		return PLURAL
 	return gender
 
@@ -1115,7 +1115,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(SLOT_HUD_MASK, SLOT_HUD_HEAD, SLOT_HUD_FEET, SLOT_HUD_GLOVES, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_EYES, SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND)
+	var/list/thing_to_check = list(ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_FEET, ITEM_SLOT_GLOVES, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)
@@ -1791,8 +1791,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		organs_list[O.name] = O.serialize()
 
 	// Equipment
-	equip_list.len = SLOT_HUD_AMOUNT
-	for(var/i = 1, i < SLOT_HUD_AMOUNT, i++)
+	equip_list.len = ITEM_SLOT_AMOUNT
+	for(var/i = 1, i < ITEM_SLOT_AMOUNT, i++)
 		var/obj/item/thing = get_item_by_slot(i)
 		if(thing != null)
 			equip_list[i] = thing.serialize()
@@ -1851,16 +1851,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	// #1: Jumpsuit
 	// #2: Outer suit
 	// #3+: Everything else
-	if(islist(equip_list[SLOT_HUD_ICLOTHING]))
-		var/obj/item/clothing/C = list_to_object(equip_list[SLOT_HUD_ICLOTHING], T)
-		equip_to_slot_if_possible(C, SLOT_HUD_ICLOTHING)
+	if(islist(equip_list[ITEM_SLOT_ICLOTHING]))
+		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_ICLOTHING], T)
+		equip_to_slot_if_possible(C, ITEM_SLOT_ICLOTHING)
 
-	if(islist(equip_list[SLOT_HUD_OCLOTHING]))
-		var/obj/item/clothing/C = list_to_object(equip_list[SLOT_HUD_OCLOTHING], T)
-		equip_to_slot_if_possible(C, SLOT_HUD_OCLOTHING)
+	if(islist(equip_list[ITEM_SLOT_OCLOTHING]))
+		var/obj/item/clothing/C = list_to_object(equip_list[ITEM_SLOT_OCLOTHING], T)
+		equip_to_slot_if_possible(C, ITEM_SLOT_OCLOTHING)
 
-	for(var/i = 1, i < SLOT_HUD_AMOUNT, i++)
-		if(i == SLOT_HUD_ICLOTHING || i == SLOT_HUD_OCLOTHING)
+	for(var/i = 1, i < ITEM_SLOT_AMOUNT, i++)
+		if(i == ITEM_SLOT_ICLOTHING || i == ITEM_SLOT_OCLOTHING)
 			continue
 		if(islist(equip_list[i]))
 			var/obj/item/clothing/C = list_to_object(equip_list[i], T)

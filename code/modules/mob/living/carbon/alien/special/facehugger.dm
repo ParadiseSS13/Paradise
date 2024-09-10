@@ -138,7 +138,7 @@
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot_if_possible(src, SLOT_HUD_MASK, FALSE, TRUE)
+		target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, FALSE, TRUE)
 		if(!sterile)
 			M.KnockDown(impregnation_time + 2 SECONDS)
 			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.

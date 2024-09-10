@@ -112,7 +112,7 @@
 			V.tilt(rider, from_combat = TRUE)
 			return
 		rider.throw_at(throw_target, 3, 2)
-		var/head_slot = rider.get_item_by_slot(SLOT_HUD_HEAD)
+		var/head_slot = rider.get_item_by_slot(ITEM_SLOT_HEAD)
 		if(!head_slot || !(istype(head_slot, /obj/item/clothing/head/helmet) || istype(head_slot, /obj/item/clothing/head/hardhat)))
 			rider.adjustBrainLoss(5)
 			rider.updatehealth()
@@ -314,7 +314,7 @@
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_HUD_BACK
+	slot_flags = ITEM_SLOT_BACK
 	attack_verb = list("smacks", "whacks", "slams", "smashes")
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/tgvehicle/scooter/skateboard

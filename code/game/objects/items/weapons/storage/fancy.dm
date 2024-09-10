@@ -101,7 +101,7 @@
 	item_state = "candlebox5"
 	storage_slots = 5
 	throwforce = 2
-	slot_flags = SLOT_HUD_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/storage/fancy/candle_box/full
 	icon_state = "candlebox5"
@@ -177,7 +177,7 @@
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_HUD_BELT
+	slot_flags = ITEM_SLOT_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
@@ -216,7 +216,7 @@
 	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 2
-	slot_flags = SLOT_HUD_BELT
+	slot_flags = ITEM_SLOT_BELT
 	storage_slots = 6
 	max_combined_w_class = 6
 	can_hold = list(/obj/item/clothing/mask/cigarette,
@@ -245,7 +245,7 @@
 			var/obj/item/I = contents[num]
 			if(istype(I, /obj/item/clothing/mask/cigarette))
 				var/obj/item/clothing/mask/cigarette/C = I
-				user.equip_to_slot_if_possible(C, SLOT_HUD_MASK)
+				user.equip_to_slot_if_possible(C, ITEM_SLOT_MASK)
 				to_chat(user, "<span class='notice'>You take \a [C.name] out of the pack.</span>")
 				update_icon()
 				got_cig = 1

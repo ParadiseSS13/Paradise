@@ -1,30 +1,30 @@
-#define SLOT_HUD_BACK 			(1<<0) // back
-#define SLOT_HUD_MASK 			(1<<1) // mask
-#define SLOT_HUD_HANDCUFFED 	(1<<2) // handcuffs
-#define SLOT_HUD_LEFT_HAND 		(1<<3) // l_hand
-#define SLOT_HUD_RIGHT_HAND 	(1<<4) // r_hand
-#define SLOT_HUD_BOTH_HANDS		(SLOT_HUD_LEFT_PHAND | SLOT_HUD_RIGHT_HAND)
-#define SLOT_HUD_BELT 			(1<<5) // belt
-#define SLOT_HUD_ID 			(1<<6) // id
-#define SLOT_HUD_LEFT_EAR 		(1<<7) // l_ear
-#define SLOT_HUD_RIGHT_EAR 		(1<<8) // r_ear
-#define SLOT_HUD_BOTH_EARS		(SLOT_HUD_LEFT_EAR | SLOT_HUD_RIGHT_EAR)
-#define SLOT_HUD_EYES 			(1<<9) // eyes
-#define SLOT_HUD_GLOVES 		(1<<10) // gloves
-#define SLOT_HUD_HEAD 			(1<<11) // head
-#define SLOT_HUD_FEET 			(1<<12) // shoes
-#define SLOT_HUD_OCLOTHING 		(1<<13) // wear_suit
-#define SLOT_HUD_ICLOTHING	 	(1<<14) // w_uniform
-#define SLOT_HUD_LEFT_POCKET 	(1<<15) // l_store
-#define SLOT_HUD_RIGHT_POCKET 	(1<<16) // r_store
-#define SLOT_HUD_BOTH_POCKETS	(SLOT_HUD_LEFT_POCKET | SLOT_HUD_RIGHT_POCKET)
-#define SLOT_HUD_SUIT_STORE 	(1<<17) // suit_storage
-#define SLOT_HUD_IN_BACKPACK 	(1<<18) // this just puts stuff a backpack if you have one
-#define SLOT_HUD_LEGCUFFED 		(1<<19) // legcuffs
-#define SLOT_HUD_PDA 			(1<<20) // pda
-#define SLOT_HUD_TIE 			(1<<21) // CHAP-TODO: Figure out what the fuck these actually do
-#define SLOT_HUD_COLLAR 		(1<<22) // CHAP-TODO: Figure out what the fuck these actually do
-#define SLOT_HUD_AMOUNT 		(1<<22) // IF YOU ADD ANY NEW CLOTHING SLOTS, MAKE SURE TO UPDATE THIS TO THE AMOUNT OF SLOTS.
+#define ITEM_SLOT_BACK 			(1<<0) // back
+#define ITEM_SLOT_MASK 			(1<<1) // mask
+#define ITEM_SLOT_HANDCUFFED 	(1<<2) // handcuffs
+#define ITEM_SLOT_LEFT_HAND 		(1<<3) // l_hand
+#define ITEM_SLOT_RIGHT_HAND 	(1<<4) // r_hand
+#define ITEM_SLOT_BOTH_HANDS		(ITEM_SLOT_LEFT_PHAND | ITEM_SLOT_RIGHT_HAND)
+#define ITEM_SLOT_BELT 			(1<<5) // belt
+#define ITEM_SLOT_ID 			(1<<6) // id
+#define ITEM_SLOT_LEFT_EAR 		(1<<7) // l_ear
+#define ITEM_SLOT_RIGHT_EAR 		(1<<8) // r_ear
+#define ITEM_SLOT_BOTH_EARS		(ITEM_SLOT_LEFT_EAR | ITEM_SLOT_RIGHT_EAR)
+#define ITEM_SLOT_EYES 			(1<<9) // eyes
+#define ITEM_SLOT_GLOVES 		(1<<10) // gloves
+#define ITEM_SLOT_HEAD 			(1<<11) // head
+#define ITEM_SLOT_FEET 			(1<<12) // shoes
+#define ITEM_SLOT_OCLOTHING 		(1<<13) // wear_suit
+#define ITEM_SLOT_ICLOTHING	 	(1<<14) // w_uniform
+#define ITEM_SLOT_LEFT_POCKET 	(1<<15) // l_store
+#define ITEM_SLOT_RIGHT_POCKET 	(1<<16) // r_store
+#define ITEM_SLOT_BOTH_POCKETS	(ITEM_SLOT_LEFT_POCKET | ITEM_SLOT_RIGHT_POCKET)
+#define ITEM_SLOT_SUIT_STORE 	(1<<17) // suit_storage
+#define ITEM_SLOT_IN_BACKPACK 	(1<<18) // this just puts stuff a backpack if you have one
+#define ITEM_SLOT_LEGCUFFED 		(1<<19) // legcuffs
+#define ITEM_SLOT_PDA 			(1<<20) // pda
+#define ITEM_SLOT_TIE 			(1<<21) // CHAP-TODO: Figure out what the fuck these actually do
+#define ITEM_SLOT_COLLAR 		(1<<22) // CHAP-TODO: Figure out what the fuck these actually do
+#define ITEM_SLOT_AMOUNT 		(1<<22) // IF YOU ADD ANY NEW CLOTHING SLOTS, MAKE SURE TO UPDATE THIS TO THE AMOUNT OF SLOTS.
 
 //Bit flags for the flags_inv variable, which determine when a piece of clothing hides another. IE a helmet hiding glasses.
 #define HIDEGLOVES		(1<<0)	//APPLIES ONLY TO THE EXTERIOR SUIT!!

@@ -88,7 +88,7 @@
 
 /obj/item/clothing/equipped(mob/user, slot)
 	. = ..()
-	if(slot_flags & slot) //Was equipped to a valid slot for this item? CHAP-TODO: Purge SLOT_HUD from the face of this planet and make everything use SLOT_FLAG
+	if(slot_flags & slot) //Was equipped to a valid slot for this item? CHAP-TODO: Purge ITEM_SLOT from the face of this planet and make everything use SLOT_FLAG
 		for(var/trait in clothing_traits)
 			ADD_CLOTHING_TRAIT(user, trait)
 
@@ -141,7 +141,7 @@
 		return FALSE
 
 	// Skip species restriction checks on non-equipment slots
-	if(slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, SLOT_HUD_IN_BACKPACK, SLOT_HUD_LEFT_POCKET, SLOT_HUD_RIGHT_POCKET))
+	if(slot in list(ITEM_SLOT_RIGHT_HAND, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_IN_BACKPACK, ITEM_SLOT_LEFT_POCKET, ITEM_SLOT_RIGHT_POCKET))
 		return TRUE
 
 	if(species_restricted && ishuman(M))
@@ -193,7 +193,7 @@
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 2
-	slot_flags = SLOT_HUD_BOTH_EARS
+	slot_flags = ITEM_SLOT_BOTH_EARS
 	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi', //We read you loud and skree-er.
@@ -217,7 +217,7 @@
 		return
 
 	var/obj/item/clothing/ears/O
-	if(slot_flags & SLOT_HUD_BOTH_EARS)
+	if(slot_flags & ITEM_SLOT_BOTH_EARS)
 		O = (H.l_ear == src ? H.r_ear : H.l_ear)
 		user.unEquip(O)
 		if(!istype(src, /obj/item/clothing/ears/offear))
@@ -241,7 +241,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
-	slot_flags = SLOT_HUD_BOTH_EARS
+	slot_flags = ITEM_SLOT_BOTH_EARS
 
 /obj/item/clothing/ears/offear/New(obj/O)
 	. = ..()
@@ -259,7 +259,7 @@
 	icon = 'icons/obj/clothing/glasses.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
-	slot_flags = SLOT_HUD_EYES
+	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
@@ -311,7 +311,7 @@
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
-	slot_flags = SLOT_HUD_GLOVES
+	slot_flags = ITEM_SLOT_GLOVES
 	attack_verb = list("challenged")
 	strip_delay = 2 SECONDS
 	put_on_delay = 4 SECONDS
@@ -440,7 +440,7 @@
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_override = 'icons/mob/clothing/head.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_HUD_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	var/HUDType = null
 
 	var/vision_flags = 0
@@ -458,7 +458,7 @@
 	name = "mask"
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_HUD_MASK
+	slot_flags = ITEM_SLOT_MASK
 	strip_delay = 4 SECONDS
 	put_on_delay = 4 SECONDS
 	dyeable = FALSE
@@ -546,7 +546,7 @@
 	gender = PLURAL //Carn: for grammatically correct text-parsing
 
 	body_parts_covered = FEET
-	slot_flags = SLOT_HUD_FEET
+	slot_flags = ITEM_SLOT_FEET
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_SHOES
 
@@ -661,7 +661,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-	slot_flags = SLOT_HUD_OCLOTHING
+	slot_flags = ITEM_SLOT_OCLOTHING
 	dyeable = FALSE
 
 	var/fire_resist = T0C + 100
@@ -761,7 +761,7 @@
 
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
-	if(ishuman(user) && hide_tail_by_species && slot == SLOT_HUD_OCLOTHING)
+	if(ishuman(user) && hide_tail_by_species && slot == ITEM_SLOT_OCLOTHING)
 		if("modsuit" in hide_tail_by_species)
 			return
 		if(user.dna.species.sprite_sheet_name in hide_tail_by_species)
@@ -865,7 +865,7 @@
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
-	slot_flags = SLOT_HUD_ICLOTHING
+	slot_flags = ITEM_SLOT_ICLOTHING
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
@@ -907,7 +907,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HUD_ICLOTHING) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_ICLOTHING) == src)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_unequip()
 
@@ -915,7 +915,7 @@
 	..()
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_ICLOTHING)
+	if(slot == ITEM_SLOT_ICLOTHING)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_equip()
 
@@ -1024,7 +1024,7 @@
 	if(copytext(item_color,-2) != "_d")
 		basecolor = item_color
 
-	if(user.get_item_by_slot(SLOT_HUD_ICLOTHING) != src)
+	if(user.get_item_by_slot(ITEM_SLOT_ICLOTHING) != src)
 		to_chat(user, "<span class='notice'>You must wear the uniform to adjust it!</span>")
 
 	else

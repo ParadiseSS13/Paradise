@@ -1247,7 +1247,7 @@
 	if(istype(C))
 		C.name = "ancient robes"
 		C.hood.name = "ancient hood"
-		H.equip_to_slot_or_del(C, SLOT_HUD_IN_BACKPACK)
+		H.equip_to_slot_or_del(C, ITEM_SLOT_IN_BACKPACK)
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
@@ -1562,7 +1562,7 @@
 	H.update_dna()
 
 	H.wear_mask.adjustmask(H) // push it back on the head
-	equip_item(H, /obj/item/clothing/mask/cigarette/cigar, SLOT_HUD_MASK) // get them their cigar
+	equip_item(H, /obj/item/clothing/mask/cigarette/cigar, ITEM_SLOT_MASK) // get them their cigar
 	if(istype(H.glasses, /obj/item/clothing/glasses)) // this is gonna be always true
 		var/obj/item/clothing/glasses/glassass = H.glasses
 		glassass.over_mask = TRUE

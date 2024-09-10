@@ -2,7 +2,7 @@
 #define NONE 0
 
 //FLAGS BITMASK
-#define STOPSPRESSUREDMAGE		(1<<0)		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_HUD_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
+#define STOPSPRESSUREDMAGE		(1<<0)		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & ITEM_SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					(1<<1)		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define NOBLUDGEON  			(1<<2)		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
 #define AIRTIGHT				(1<<3)		// mask allows internals
@@ -147,21 +147,21 @@
 
 // CHAP-TODO: Remove all these
 // //ITEM INVENTORY SLOT BITMASKS
-// #define SLOT_HUD_OCLOTHING	(1<<0)
-// #define SLOT_HUD_ICLOTHING	(1<<1)
-// #define SLOT_HUD_GLOVES	(1<<2)
-// #define SLOT_HUD_EYES		(1<<3)
-// #define SLOT_HUD_BOTH_EARS		(1<<4)
-// #define SLOT_HUD_MASK		(1<<5)
-// #define SLOT_HUD_HEAD		(1<<6)
-// #define SLOT_HUD_FEET		(1<<7)
-// #define SLOT_HUD_ID		(1<<8)
-// #define SLOT_HUD_BELT		(1<<9)
-// #define SLOT_HUD_BACK		(1<<10)
-// #define SLOT_HUD_BOTH_POCKETS 	(1<<11)	//this is to allow items with a w_class of 3 or 4 to fit in pockets.
-// #define SLOT_HUD_BOTH_EARS	(1<<12)
-// #define SLOT_HUD_PDA		(1<<13)
-// #define SLOT_HUD_TIE		(1<<14)
+// #define ITEM_SLOT_OCLOTHING	(1<<0)
+// #define ITEM_SLOT_ICLOTHING	(1<<1)
+// #define ITEM_SLOT_GLOVES	(1<<2)
+// #define ITEM_SLOT_EYES		(1<<3)
+// #define ITEM_SLOT_BOTH_EARS		(1<<4)
+// #define ITEM_SLOT_MASK		(1<<5)
+// #define ITEM_SLOT_HEAD		(1<<6)
+// #define ITEM_SLOT_FEET		(1<<7)
+// #define ITEM_SLOT_ID		(1<<8)
+// #define ITEM_SLOT_BELT		(1<<9)
+// #define ITEM_SLOT_BACK		(1<<10)
+// #define ITEM_SLOT_BOTH_POCKETS 	(1<<11)	//this is to allow items with a w_class of 3 or 4 to fit in pockets.
+// #define ITEM_SLOT_BOTH_EARS	(1<<12)
+// #define ITEM_SLOT_PDA		(1<<13)
+// #define ITEM_SLOT_TIE		(1<<14)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1

@@ -3,7 +3,7 @@
 	name = "holder"
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
-	slot_flags = SLOT_HUD_HEAD|SLOT_HUD_BOTH_EARS
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BOTH_EARS
 
 /obj/item/holder/New()
 	..()
@@ -98,7 +98,7 @@
 	name = "nian caterpillar"
 	desc = "It's a tiny little itty bitty critter."
 	icon_state = "mothroach"
-	slot_flags = SLOT_HUD_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 
 /obj/item/holder/drone/emagged
 	name = "maintenance drone"

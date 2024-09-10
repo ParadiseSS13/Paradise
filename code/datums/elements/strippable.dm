@@ -181,7 +181,7 @@
 
 /// A preset for equipping items onto mob slots
 /datum/strippable_item/mob_item_slot
-	/// The SLOT_HUD_* to equip to.
+	/// The ITEM_SLOT_* to equip to.
 	var/item_slot
 
 /datum/strippable_item/mob_item_slot/get_item(atom/source)

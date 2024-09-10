@@ -150,7 +150,7 @@
 	force = 5
 	sharp = FALSE
 	flags = CONDUCT
-	slot_flags = SLOT_HUD_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
@@ -1555,7 +1555,7 @@
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
 	item_color = "fethasnecklace"
-	slot_flags = SLOT_HUD_MASK | SLOT_HUD_TIE
+	slot_flags = ITEM_SLOT_MASK | ITEM_SLOT_TIE
 
 /// HugoLuman: Dan Martinez
 /obj/item/bedsheet/fluff/hugosheet
@@ -1613,7 +1613,7 @@
 		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
 		if(P == H.head)
 			H.unEquip(P, TRUE, TRUE)
-			H.equip_to_slot(F, SLOT_HUD_HEAD, TRUE)
+			H.equip_to_slot(F, ITEM_SLOT_HEAD, TRUE)
 			H.update_inv_head()
 		qdel(P)
 
@@ -1689,7 +1689,7 @@
 	icon_state = "panzermedal"
 	item_state = "panzermedal"
 	item_color = "panzermedal"
-	slot_flags = SLOT_HUD_TIE
+	slot_flags = ITEM_SLOT_TIE
 
 /// Sagrotter: Xann Zxiax
 /obj/item/clothing/accessory/medal/fluff/XannZxiax
@@ -1699,7 +1699,7 @@
 	icon_state = "Xann_necklace"
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
-	slot_flags = SLOT_HUD_TIE
+	slot_flags = ITEM_SLOT_TIE
 
 /// Rb303: Isthel Eisenwald
 /obj/item/clothing/accessory/rbscarf

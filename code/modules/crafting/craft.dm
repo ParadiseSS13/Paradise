@@ -83,7 +83,7 @@
 				if(AM.flags_2 & HOLOGRAM_2)
 					continue
 				. += AM
-	for(var/slot in list(SLOT_HUD_RIGHT_POCKET, SLOT_HUD_LEFT_POCKET))
+	for(var/slot in list(ITEM_SLOT_RIGHT_POCKET, ITEM_SLOT_LEFT_POCKET))
 		. += user.get_item_by_slot(slot)
 
 

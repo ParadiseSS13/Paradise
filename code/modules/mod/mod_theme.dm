@@ -20,7 +20,7 @@
 	/// Default skin of the MOD.
 	var/default_skin = "standard"
 	/// The slot this mod theme fits on
-	var/slot_flags = SLOT_HUD_BACK
+	var/slot_flags = ITEM_SLOT_BACK
 	/// Armor shared across the MOD parts.
 	var/obj/item/mod/armor/armor_type_1 = /obj/item/mod/armor/mod_theme
 	/// the actual armor object placed in a datum as I am tired and I just want this to work

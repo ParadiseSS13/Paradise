@@ -16,7 +16,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
 	flags = CONDUCT
-	slot_flags = SLOT_HUD_PDA | SLOT_HUD_BELT
+	slot_flags = ITEM_SLOT_PDA | ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	throw_speed = 4
@@ -275,7 +275,7 @@
 ///////////////////////
 /obj/item/pinpointer/nukeop
 	var/obj/docking_port/mobile/home = null
-	slot_flags = SLOT_HUD_BELT | SLOT_HUD_PDA
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_PDA
 	syndicate = TRUE
 	modes = list(MODE_DISK, MODE_NUKE)
 

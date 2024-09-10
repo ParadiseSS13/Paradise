@@ -81,12 +81,12 @@
 		soundloop.stop(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		return 1
 
 /obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/user, slot)
 	..()
-	if(slot != SLOT_HUD_HEAD)
+	if(slot != ITEM_SLOT_HEAD)
 		if(suit)
 			suit.RemoveHelmet()
 			soundloop.stop(user)
@@ -201,7 +201,7 @@
 		if(jetpack)
 			to_chat(user, "<span class='warning'>[src] already has a jetpack installed.</span>")
 			return
-		if(src == user.get_item_by_slot(SLOT_HUD_OCLOTHING)) //Make sure the player is not wearing the suit before applying the upgrade.
+		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING)) //Make sure the player is not wearing the suit before applying the upgrade.
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
 
@@ -219,7 +219,7 @@
 	if(!jetpack)
 		to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
 		return
-	if(src == user.get_item_by_slot(SLOT_HUD_OCLOTHING))
+	if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING))
 		to_chat(user, "<span class='warning'>You cannot remove the jetpack from [src] while wearing it.</span>")
 		return
 	jetpack.turn_off(user)
@@ -229,10 +229,10 @@
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	..()
-	if(helmettype && slot != SLOT_HUD_OCLOTHING)
+	if(helmettype && slot != ITEM_SLOT_OCLOTHING)
 		RemoveHelmet()
 	if(jetpack)
-		if(slot == SLOT_HUD_OCLOTHING)
+		if(slot == ITEM_SLOT_OCLOTHING)
 			for(var/X in jetpack.actions)
 				var/datum/action/A = X
 				A.Grant(user)
@@ -246,7 +246,7 @@
 			A.Remove(user)
 
 /obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_OCLOTHING) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
+	if(slot == ITEM_SLOT_OCLOTHING) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return 1
 
 /obj/item/clothing/suit/space/hardsuit/on_mob_move(dir, mob/mob)

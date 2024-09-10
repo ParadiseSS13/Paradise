@@ -17,7 +17,7 @@
 	var/used = FALSE // only one form of shackles removed per use
 
 	if(user.handcuffed)
-		var/obj/O = user.get_item_by_slot(SLOT_HUD_HANDCUFFED)
+		var/obj/O = user.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		if(!istype(O))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
@@ -26,7 +26,7 @@
 		used = TRUE
 
 	if(user.legcuffed)
-		var/obj/O = user.get_item_by_slot(SLOT_HUD_LEGCUFFED)
+		var/obj/O = user.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		if(!istype(O))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
@@ -35,7 +35,7 @@
 		used = TRUE
 
 	if(user.wear_suit && user.wear_suit.breakouttime && !used)
-		var/obj/item/clothing/suit/S = user.get_item_by_slot(SLOT_HUD_OCLOTHING)
+		var/obj/item/clothing/suit/S = user.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 		if(!istype(S))
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid across the front of [user.p_their()] [S.name]!</span>", \

@@ -206,7 +206,7 @@
 	icon_state = "hope"
 	item_state = "hope"
 	item_color = "hope"
-	slot_flags = SLOT_HUD_TIE
+	slot_flags = ITEM_SLOT_TIE
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF
 
