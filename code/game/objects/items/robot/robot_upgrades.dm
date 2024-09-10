@@ -49,17 +49,17 @@
  * Arguments:
  * * R - the cyborg that was clicked on with an upgrade.
  */
-/obj/item/borg/upgrade/proc/pre_install_checks(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/proc/pre_install_checks(mob/user, mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
-		to_chat(usr, "<span class='warning'>[src] will not function on a deceased cyborg.</span>")
+		to_chat(user, "<span class='warning'>[src] will not function on a deceased cyborg.</span>")
 		return
 	if(module_type && !istype(R.module, module_type))
 		to_chat(R, "<span class='warning'>Upgrade mounting error! No suitable hardpoint detected!</span>")
-		to_chat(usr, "<span class='warning'>There's no mounting point for the module!</span>")
+		to_chat(user, "<span class='warning'>There's no mounting point for the module!</span>")
 		return
 	var/obj/item/borg/upgrade/u = locate(type) in R
 	if(u && !allow_duplicate)
-		to_chat(usr, "<span class='notice'>This unit already has [src] installed!</span>")
+		to_chat(user, "<span class='notice'>This unit already has [src] installed!</span>")
 		return
 	return TRUE
 
