@@ -21998,7 +21998,7 @@
 	},
 /area/station/service/hydroponics)
 "bpW" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/food/chef,
 /turf/simulated/floor/plating,
 /area/station/service/hydroponics)
 "bpX" = (

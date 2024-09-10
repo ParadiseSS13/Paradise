@@ -41339,10 +41339,7 @@
 	},
 /area/station/command/vault)
 "gNy" = (
-/obj/machinery/smartfridge/secure{
-	name = "\improper Kitchen Delivery SmartFridge";
-	req_one_access_txt = "28;35"
-	},
+/obj/machinery/smartfridge/food/chef,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"

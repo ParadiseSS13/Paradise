@@ -89199,7 +89199,7 @@
 /turf/space,
 /area/space/nearstation)
 "wPS" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/food/chef,
 /obj/machinery/door/window/classic/normal{
 	name = "Anti-Theft Shield";
 	dir = 1
