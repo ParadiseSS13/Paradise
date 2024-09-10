@@ -99,7 +99,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/mob/living/carbon/M = target
 		if(istype(M) && user.zone_selected == "mouth" && !M.wear_mask && user.a_intent == INTENT_HELP)
 			user.unEquip(src, TRUE)
-			M.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK)
+			M.equip_to_slot_if_possible(src, ITEM_SLOT_MASK)
 			if(target != user)
 				user.visible_message(
 					"<span class='notice'>[user] slips \a [name] into the mouth of [M].</span>",

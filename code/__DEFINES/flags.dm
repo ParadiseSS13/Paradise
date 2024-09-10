@@ -145,24 +145,6 @@
 #define NO_LAVA_GEN	    (1<<1) //Blocks lava rivers being generated on the turf
 #define NO_RUINS     	(1<<2)
 
-// CHAP-TODO: Remove all these
-// //ITEM INVENTORY SLOT BITMASKS
-// #define ITEM_SLOT_OCLOTHING	(1<<0)
-// #define ITEM_SLOT_ICLOTHING	(1<<1)
-// #define ITEM_SLOT_GLOVES	(1<<2)
-// #define ITEM_SLOT_EYES		(1<<3)
-// #define ITEM_SLOT_BOTH_EARS		(1<<4)
-// #define ITEM_SLOT_MASK		(1<<5)
-// #define ITEM_SLOT_HEAD		(1<<6)
-// #define ITEM_SLOT_FEET		(1<<7)
-// #define ITEM_SLOT_ID		(1<<8)
-// #define ITEM_SLOT_BELT		(1<<9)
-// #define ITEM_SLOT_BACK		(1<<10)
-// #define ITEM_SLOT_BOTH_POCKETS 	(1<<11)	//this is to allow items with a w_class of 3 or 4 to fit in pockets.
-// #define ITEM_SLOT_BOTH_EARS	(1<<12)
-// #define ITEM_SLOT_PDA		(1<<13)
-// #define ITEM_SLOT_TIE		(1<<14)
-
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1
 #define AFFECT_ORGANIC_ORGAN	2
