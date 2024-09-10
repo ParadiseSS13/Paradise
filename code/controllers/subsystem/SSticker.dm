@@ -350,7 +350,8 @@ SUBSYSTEM_DEF(ticker)
 		if(N.client)
 			N.new_player_panel_proc()
 
-	SSnightshift.check_nightshift(TRUE)
+	if(GLOB.configuration.general.enable_night_shifts)
+		SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
 	// Run map tests first in case unit tests futz with map state
