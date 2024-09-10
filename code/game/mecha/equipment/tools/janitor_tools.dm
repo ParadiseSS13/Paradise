@@ -304,7 +304,7 @@
 		)
 		for(var/obj/item/i in cargo)
 			i.forceMove(target)
-			cargo -= i
+			cargo.Cut()
 		return
 	var/turf/target_turf
 	if(iswallturf(target))
@@ -329,7 +329,7 @@
 	else // Dumping
 		for(var/obj/item/i in cargo)
 			i.forceMove(target_turf)
-			cargo -= i
+			cargo.Cut()
 		to_chat(chassis.occupant, "<span class='notice'>You dump everything out of [src].</span>")
 	update_equip_info()
 
