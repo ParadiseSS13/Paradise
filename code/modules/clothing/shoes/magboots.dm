@@ -16,7 +16,6 @@
 	var/magpulse_name = "mag-pulse traction system"
 	///If a pair of magboots has different icons for being on or off
 	var/multiple_icons = TRUE
-	var/list/active_traits = list(TRAIT_NOSLIP)
 
 /obj/item/clothing/shoes/magboots/water_act(volume, temperature, source, method)
 	. = ..()
@@ -25,13 +24,15 @@
 
 /obj/item/clothing/shoes/magboots/equipped(mob/user, slot, initial)
 	. = ..()
-	if(magpulse)
-		attach_clothing_traits(active_traits)
+	if(slot != SLOT_HUD_SHOES || !ishuman(user))
+		return
+	check_mag_pulse()
 
 /obj/item/clothing/shoes/magboots/dropped(mob/user, silent)
 	. = ..()
-	if(magpulse)
-		detach_clothing_traits(active_traits)
+	if(!ishuman(user))
+		return
+	check_mag_pulse()
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
 	toggle_magpulse(user, forced)
@@ -39,20 +40,30 @@
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
 	magpulse = !magpulse
 	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
-		attach_clothing_traits(active_traits)
-		slowdown = slowdown_active
-	else
-		detach_clothing_traits(active_traits)
+		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_passive
+	else
+		ADD_TRAIT(user, TRAIT_NOSLIP, UID())
+		slowdown = slowdown_active
+	magpulse = !magpulse
+	no_slip = !no_slip
 	if(multiple_icons)
 		icon_state = "[magboot_state][magpulse]"
 	if(!forced)
-		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
-	user.update_inv_shoes()	//so our mob-overlays update
-	user.update_gravity(user.mob_has_gravity())
+	@@ -55,16 +53,6 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtons()
+	check_mag_pulse(user)
+
+/obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user)
+	if(!user)
+		return
+	if(magpulse)
+		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		return
+	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
+		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()

@@ -28,8 +28,6 @@
 	var/visor_flags_inv = NONE		//same as visor_flags, but for flags_inv
 	var/visor_flags_cover = NONE	//for cover flags
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW //what to toggle when toggled with weldingvisortoggle()
-	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
-	var/list/clothing_traits
 	var/can_toggle = FALSE
 	var/toggle_message = null
 	var/alt_toggle_message = null
@@ -85,53 +83,6 @@
 		if(!user.incapacitated())
 			return TRUE
 	return FALSE
-
-/obj/item/clothing/equipped(mob/user, slot)
-	. = ..()
-	if(slot_flags & slot) //Was equipped to a valid slot for this item? CHAP-TODO: Purge ITEM_SLOT from the face of this planet and make everything use SLOT_FLAG
-		for(var/trait in clothing_traits)
-			ADD_CLOTHING_TRAIT(user, trait)
-
-
-
-/obj/item/clothing/dropped(mob/user)
-	. = ..()
-	for(var/trait in clothing_traits)
-		REMOVE_CLOTHING_TRAIT(user, trait)
-
-/**
- * Inserts a trait (or multiple traits) into the clothing traits list
- *
- * If worn, then we will also give the wearer the trait as if equipped
- *
- * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
- */
-/obj/item/clothing/proc/attach_clothing_traits(trait_or_traits)
-	if(!islist(trait_or_traits))
-		trait_or_traits = list(trait_or_traits)
-
-	LAZYOR(clothing_traits, trait_or_traits)
-	var/mob/wearer = loc
-	if(istype(wearer) && (wearer.get_slot_by_item(src) & slot_flags))
-		for(var/new_trait in trait_or_traits)
-			ADD_CLOTHING_TRAIT(wearer, new_trait)
-
-/**
- * Removes a trait (or multiple traits) from the clothing traits list
- *
- * If worn, then we will also remove the trait from the wearer as if unequipped
- *
- * This is so you can add clothing traits without worrying about needing to equip or unequip them to gain effects
- */
-/obj/item/clothing/proc/detach_clothing_traits(trait_or_traits)
-	if(!islist(trait_or_traits))
-		trait_or_traits = list(trait_or_traits)
-
-	LAZYREMOVE(clothing_traits, trait_or_traits)
-	var/mob/wearer = loc
-	if(istype(wearer))
-		for(var/new_trait in trait_or_traits)
-			REMOVE_CLOTHING_TRAIT(wearer, new_trait)
 
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(mob/M, slot, disable_warning = FALSE)
