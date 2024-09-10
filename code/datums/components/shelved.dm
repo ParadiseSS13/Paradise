@@ -26,6 +26,18 @@
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
 	RegisterSignal(parent, COMSIG_SHELF_ITEM_REMOVED, PROC_REF(on_shelf_item_removed))
 	RegisterSignal(parent, COMSIG_SHELF_ADDED_ON_MAPLOAD, PROC_REF(prepare_autoshelf))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+
+/datum/component/shelver/proc/on_examine(datum/source, mob/user, list/examine_list)
+	var/list/results = list()
+	for(var/uid in used_places)
+		if(uid)
+			var/obj/item/I = locateUID(uid)
+			if(istype(I))
+				results += "\a [I.name]"
+
+	var/joined_results = english_list(results)
+	examine_list += "<span class='notice'>It currently holds: [joined_results].</span>"
 
 /datum/component/shelver/proc/prepare_autoshelf()
 	// See /obj/structure/closet/Initialize for explanation of
