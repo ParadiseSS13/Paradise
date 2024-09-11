@@ -416,6 +416,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 			megafauna_spawn_list.Remove(randumb)
 
 		new randumb(T)
+		SSblackbox.record_feedback("tally", "lavaland_mob_spawns", 1, "[randumb]")
 
 #undef SPAWN_MEGAFAUNA
 #undef SPAWN_BUBBLEGUM

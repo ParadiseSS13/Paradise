@@ -610,7 +610,7 @@
 		H.vent_gas(loc)
 		qdel(H)
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target)
 	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
 		if(isprojectile(I))
@@ -634,7 +634,7 @@
 		return
 
 	else
-		return ..(mover, target, height)
+		return ..()
 
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
