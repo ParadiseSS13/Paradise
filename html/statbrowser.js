@@ -476,10 +476,8 @@ var suppress_next_scroll_message = false;
  * padding row at the top of the table to keep them in the right spot.
  */
 function listedturf_scrolled() {
-	let top_edge = document.documentElement.scrollTop;
-	let height = document.documentElement.clientHeight;
-	let bottom_edge = top_edge + height;
-	let total = document.documentElement.scrollHeight;
+	let top_edge = statcontentdiv.scrollTop;
+	let height = statcontentdiv.clientHeight;
 	let table = document.getElementById('listedturf_table');
 	let padding = document.getElementById('listedturf_padding');
 
@@ -553,7 +551,7 @@ function draw_listedturf() {
 
 	statcontentdiv.textContent = '';
 	turf_rows = {};
-	window.onscroll = function () {
+	statcontentdiv.onscroll = function () {
 		listedturf_scrolled();
 	};
 
