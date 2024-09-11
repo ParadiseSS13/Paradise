@@ -197,7 +197,7 @@
 // NT Career Trainer
 /obj/item/clothing/head/drilltrainer
 	name = "trainer campaign hat"
-	desc = "A wide-brimmed campaign hat with a drill sergeant feel, worn by Career Trainers to project knowledge and guide new employees with classic style"
+	desc = "A wide-brimmed campaign hat with a drill sergeant feel, worn by Career Trainers to project knowledge and guide new employees with classic style."
 	icon_state = "trainercampaign"
 	item_state = "trainercampaign"
 

@@ -1087,9 +1087,9 @@
 
 /obj/item/card/id/nct_data_chip
 	name = "NCT Trainee Access Chip"
-	assignment = "Nanotrasen Career Trainer"
 	desc = "A small electronic access token that allows its user to copy the access of their Trainee. Only accessible by NT Career Trainers!"
 	icon_state = "nct_chip"
+	assignment = "Nanotrasen Career Trainer"
 	var/registered_user = null
 	var/trainee = null
 
