@@ -398,33 +398,36 @@
 	key_third_person = "bark"
 	message = "гавкает."
 	message_param = "гавкает на %t."
+	sound = 'modular_ss220/emotes/audio/bark.ogg'
+	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
 	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
 	vary = TRUE
+	cooldown = 10 SECONDS
 	volume = 30
-	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
-	sound = 'modular_ss220/emotes/audio/bark.ogg'
 
 /datum/emote/living/carbon/human/wbark
 	key = "wbark"
 	key_third_person = "wbark"
 	message = "дважды гавкает."
 	message_param = "дважды гавкает на %t."
+	sound = 'modular_ss220/emotes/audio/wbark.ogg'
+	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
 	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
 	vary = TRUE
+	cooldown = 10 SECONDS
 	volume = 30
-	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
-	sound = 'modular_ss220/emotes/audio/wbark.ogg'
 
 /datum/emote/living/carbon/human/ururu
 	key = "ururu"
 	key_third_person = "ururu"
 	message = "урчит."
 	message_param = "урчит на %t."
+	sound = 'modular_ss220/emotes/audio/vulpkanin/purr.ogg'
 	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 	vary = TRUE
-	sound = 'modular_ss220/emotes/audio/vulpkanin/purr.ogg'
+	cooldown = 10 SECONDS
 	volume = 50
 	muzzled_noises = list("слабо")
