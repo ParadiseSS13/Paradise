@@ -147,7 +147,7 @@
 /obj/machinery/door/get_superconductivity(direction)
 	if(density)
 		if(heat_proof)
-			return 0
+			return ZERO_HEAT_TRANSFER_COEFFICIENT
 		return superconductivity
 	return ..()
 
