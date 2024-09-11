@@ -2426,7 +2426,8 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_int";
-	locked = 1
+	locked = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
@@ -6566,7 +6567,8 @@
 /area/station/engineering/controlroom)
 "aCZ" = (
 /obj/machinery/door/airlock/atmos/glass{
-	heat_proof = 1
+	heat_proof = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door_control/bolt_control/west{
@@ -30101,12 +30103,12 @@
 	},
 /area/station/hallway/secondary/bridge)
 "cpZ" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "cqb" = (
@@ -38004,11 +38006,11 @@
 	},
 /area/station/science/misc_lab)
 "cWD" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "cWE" = (
@@ -65754,7 +65756,9 @@
 	icon_state = "2-4"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
-/obj/machinery/door/airlock/research/glass,
+/obj/machinery/door/airlock/research/glass{
+	superconductivity = 0
+	},
 /turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "iYd" = (
@@ -77480,7 +77484,8 @@
 /obj/machinery/door/airlock/atmos/glass{
 	heat_proof = 1;
 	id_tag = "smint";
-	locked = 1
+	locked = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
@@ -109316,7 +109321,8 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_ext";
-	locked = 1
+	locked = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{

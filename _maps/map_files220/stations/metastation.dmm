@@ -36007,7 +36007,7 @@
 	},
 /area/station/service/chapel)
 "cyP" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/server)
 "cyR" = (
@@ -36856,7 +36856,9 @@
 /area/station/science/misc_lab)
 "cBS" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command/glass,
+/obj/machinery/door/airlock/command/glass{
+	superconductivity = 0
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 1
@@ -44332,7 +44334,8 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_ext";
-	locked = 1
+	locked = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/airlock_controller/access_controller{
@@ -51029,7 +51032,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/engineering/glass{
-	heat_proof = 1
+	heat_proof = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
@@ -61224,7 +61228,8 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_int";
-	locked = 1
+	locked = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
@@ -69881,7 +69886,8 @@
 /area/station/maintenance/xenobio_south)
 "peF" = (
 /obj/machinery/door/airlock/engineering/glass{
-	heat_proof = 1
+	heat_proof = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
@@ -74320,7 +74326,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "riX" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "rjj" = (
@@ -83419,7 +83425,9 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/door/airlock/research/glass,
+/obj/machinery/door/airlock/research/glass{
+	superconductivity = 0
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/door/poddoor/preopen{

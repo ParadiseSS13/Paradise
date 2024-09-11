@@ -29480,7 +29480,7 @@
 	},
 /area/station/medical/sleeper)
 "cny" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "cnA" = (
@@ -30681,17 +30681,6 @@
 /area/station/science/server/coldroom)
 "csH" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 4;
-	name = "Server Exterior Door"
-	},
-/obj/machinery/door/window/reinforced/normal{
-	dir = 8;
-	name = "Server Interior Door"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -30701,6 +30690,17 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	name = "Server Interior Door"
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 4;
+	name = "Server Exterior Door"
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -46191,7 +46191,8 @@
 /area/station/medical/cryo)
 "dPA" = (
 /obj/machinery/door/airlock/engineering/glass{
-	heat_proof = 1
+	heat_proof = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
@@ -48274,12 +48275,12 @@
 	},
 /area/station/security/interrogation)
 "eBF" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio1";
 	name = "Chamber 1 Containment Blast Doors"
 	},
 /obj/structure/cable,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "eBX" = (
@@ -66483,10 +66484,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "lcZ" = (
-/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 8
 	},
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/server/coldroom)
 "ldc" = (
@@ -78032,7 +78033,8 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_int";
-	locked = 1
+	locked = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
@@ -99984,7 +99986,8 @@
 /area/station/maintenance/fpmaint)
 "wQQ" = (
 /obj/machinery/door/airlock/engineering/glass{
-	heat_proof = 1
+	heat_proof = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
@@ -101275,7 +101278,8 @@
 	autoclose = 0;
 	heat_proof = 1;
 	id_tag = "turbine_door_ext";
-	locked = 1
+	locked = 1;
+	superconductivity = 0
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/airlock_controller/access_controller{
