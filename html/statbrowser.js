@@ -43,7 +43,6 @@ var imageRetryLimit = 50;
 var menu = document.getElementById('menu');
 var statcontentdiv = document.getElementById('statcontent');
 var split_admin_tabs = false;
-let fontSize = parseFloat(window.getComputedStyle(document.body).fontSize);
 
 // Any BYOND commands that could result in the client's focus changing go through this
 // to ensure that when we relinquish our focus, we don't do it after the result of
@@ -479,8 +478,9 @@ var suppress_next_scroll_message = false;
  * padding row at the top of the table to keep them in the right spot.
  */
 function listedturf_scrolled() {
-	let top_edge = statcontentdiv.scrollTop;
-	let height = statcontentdiv.clientHeight;
+	let fontSize = parseFloat(window.getComputedStyle(document.body).fontSize);
+	let top_edge = statcontentdiv.scrollTop / fontSize;
+	let height = statcontentdiv.clientHeight / fontSize;
 	let table = document.getElementById('listedturf_table');
 	let padding = document.getElementById('listedturf_padding');
 
@@ -496,14 +496,8 @@ function listedturf_scrolled() {
 		return;
 	}
 
-	let desired_min_row = Math.min(
-		turf_size,
-		Math.max(0, Math.floor(top_edge / (turf_row_outer_height * fontSize)) - 0.75 * fontSize)
-	);
-	let desired_max_row = Math.min(
-		turf_size,
-		desired_min_row + Math.ceil(height / (turf_row_outer_height * fontSize)) + 1.75 * fontSize
-	);
+	let desired_min_row = Math.min(turf_size, Math.max(0, Math.floor(top_edge / turf_row_outer_height - 0.75)));
+	let desired_max_row = Math.min(turf_size, desired_min_row + Math.ceil(height / turf_row_outer_height + 1.75));
 	padding.style.height = desired_min_row * turf_row_outer_height + 'em';
 	if (desired_min_row == turf_rows.min_row && desired_max_row == turf_rows.max_row) {
 		listedturf_fill_all();
