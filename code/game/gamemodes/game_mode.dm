@@ -40,6 +40,7 @@
 	var/list/blob_overminds = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
+	var/list/secondary_goal_grab_bags = null // Once initialized, contains an associative list of department_name -> list(secondary_goal_type). When a goal is requested, a type will be pulled out of the department's grab bag. When the bag is empty, it will be refilled from the list of all goals in that department, with the amount of each set to the type's weight, max 10.
 	var/list/datum/station_goal/secondary/secondary_goals = list() // A list of all secondary goals issued
 
 	/// Each item in this list can only be rolled once on average.
