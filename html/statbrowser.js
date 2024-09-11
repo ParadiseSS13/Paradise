@@ -29,8 +29,8 @@ var href_token = null;
 var verb_tabs = [];
 var verbs = [['', '']]; // list with a list inside
 var permanent_tabs = []; // tabs that won't be cleared by wipes
-var turf_row_inner_height = 33;
-var turf_row_outer_height = 35;
+var turf_row_inner_height = 2.75;
+var turf_row_outer_height = 3;
 var turf_rows = {};
 var turf_incomplete_rows = {};
 var turf_size = 0;
@@ -43,6 +43,7 @@ var imageRetryLimit = 50;
 var menu = document.getElementById('menu');
 var statcontentdiv = document.getElementById('statcontent');
 var split_admin_tabs = false;
+let fontSize = parseFloat(window.getComputedStyle(document.body).fontSize);
 
 // Any BYOND commands that could result in the client's focus changing go through this
 // to ensure that when we relinquish our focus, we don't do it after the result of
@@ -374,7 +375,7 @@ function draw_mc() {
 
 function listedturf_add_row(table, table_index, true_index) {
 	let row = table.insertRow(table_index);
-	row.style.height = turf_row_inner_height + 'px';
+	row.style.height = turf_row_inner_height + 'em';
 	row.style.padding = '0px';
 	row.style.margin = '0px';
 	turf_rows[true_index] = row;
@@ -388,7 +389,7 @@ function listedturf_fill_row(row, item_index) {
 	}
 
 	let cell = document.createElement('td');
-	cell.style.height = turf_row_inner_height + 'px';
+	cell.style.height = turf_row_inner_height + 'em';
 	cell.style.padding = '0px';
 	cell.style.margin = '0px';
 	row.appendChild(cell);
@@ -431,6 +432,8 @@ function listedturf_fill_row(row, item_index) {
 	img.id = object_info[1];
 	img.src = object_info[2];
 	img.style.verticalAlign = 'middle';
+	img.style.width = turf_row_inner_height + 'em';
+	img.style.height = turf_row_inner_height + 'em';
 	img.onerror = (function (object_info) {
 		return function () {
 			let delay = imageRetryDelay;
@@ -493,9 +496,15 @@ function listedturf_scrolled() {
 		return;
 	}
 
-	let desired_min_row = Math.min(turf_size, Math.max(0, Math.floor(top_edge / turf_row_outer_height) - 10));
-	let desired_max_row = Math.min(turf_size, desired_min_row + Math.ceil(height / turf_row_outer_height) + 21);
-	padding.style.height = desired_min_row * turf_row_outer_height + 'px';
+	let desired_min_row = Math.min(
+		turf_size,
+		Math.max(0, Math.floor(top_edge / (turf_row_outer_height * fontSize)) - 0.75 * fontSize)
+	);
+	let desired_max_row = Math.min(
+		turf_size,
+		desired_min_row + Math.ceil(height / (turf_row_outer_height * fontSize)) + 1.75 * fontSize
+	);
+	padding.style.height = desired_min_row * turf_row_outer_height + 'em';
 	if (desired_min_row == turf_rows.min_row && desired_max_row == turf_rows.max_row) {
 		listedturf_fill_all();
 		suppress_next_scroll_message = false;
@@ -516,7 +525,7 @@ function listedturf_scrolled() {
 	}
 	turf_rows.min_row = desired_min_row;
 
-	padding.style.height = turf_rows.min_row * turf_row_outer_height + 'px';
+	padding.style.height = turf_rows.min_row * turf_row_outer_height + 'em';
 
 	if (desired_max_row < turf_rows.max_row) {
 		for (let i = Math.max(desired_max_row, turf_rows.min_row); i < turf_rows.max_row; i++) {
@@ -543,7 +552,7 @@ function listedturf_scrolled() {
 function draw_listedturf() {
 	if (document.getElementById('listedturf_div')) {
 		let div = document.getElementById('listedturf_div');
-		div.style.height = turf_row_outer_height * turf_size + 'px';
+		div.style.height = turf_row_outer_height * turf_size + 'em';
 		suppress_next_scroll_message = true;
 		listedturf_scrolled();
 		return;
@@ -557,7 +566,7 @@ function draw_listedturf() {
 
 	let div = document.createElement('div');
 	div.id = 'listedturf_div';
-	div.style.height = turf_row_outer_height * turf_size + 'px';
+	div.style.height = turf_row_outer_height * turf_size + 'em';
 	document.getElementById('statcontent').appendChild(div);
 
 	let table = document.createElement('table');
