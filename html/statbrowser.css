@@ -7,13 +7,16 @@
 }
 
 body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+	box-sizing: border-box;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	font-size: 12px;
 	margin: 0 !important;
 	padding: 0 !important;
-	overflow: hidden;
 	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-base);
-	box-sizing: border-box;
 }
 
 a {
@@ -45,12 +48,6 @@ table {
 *:before,
 *:after {
 	box-sizing: inherit;
-}
-
-.stat-container {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
 }
 
 #menu {
