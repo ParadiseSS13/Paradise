@@ -1,4 +1,4 @@
-//Uncategorized mobs
+// MARK: Uncategorized
 
 /mob/living/silicon/ai/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/glados, TTS_TRAIT_ROBOTIZE)
@@ -30,8 +30,7 @@
 /mob/living/automatedannouncer/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/glados, TTS_TRAIT_ROBOTIZE)
 
-// Friendly
-
+// MARK: Friendly
 /mob/living/simple_animal/frog/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/pantheon)
 
@@ -95,7 +94,7 @@
 /mob/living/simple_animal/turtle/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/ladyvashj)
 
-// Hostile
+// MARK: Hostile
 /mob/living/simple_animal/hostile/poison_snake/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/ladyvashj)
 
@@ -116,3 +115,9 @@
 
 /mob/living/simple_animal/hostile/blackmesa/xen/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/vort)
+
+/mob/living/simple_animal/hostile/construct/add_tts_component()
+	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/kelthuzad)
+
+/mob/living/simple_animal/hostile/construct/armoured/add_tts_component()
+	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/anubarak)
