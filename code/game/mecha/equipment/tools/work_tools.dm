@@ -455,6 +455,54 @@
 	last_piece = NC
 	return TRUE
 
+/obj/item/mecha_parts/mecha_equipment/mech_crusher
+	name = "exosuit crusher"
+	desc = "A mech mounted crusher. For crushing bigger things."
+	icon_state = "mecha_crusher"
+	equip_cooldown = 15
+	energy_drain = 3000
+	harmful = TRUE
+	range = MECHA_MELEE | MECHA_RANGED
+	var/obj/item/kinetic_crusher/mecha/internal_crusher
+
+/obj/item/kinetic_crusher/mecha
+	force = 15
+	force_wielded = 30
+	armour_penetration_flat = 15
+	detonation_damage = 90
+	backstab_bonus = 50
+
+/obj/item/kinetic_crusher/mecha/get_turf_for_projectile(atom/user)
+	if(ismecha(user.loc) && isturf(user.loc?.loc))
+		return user.loc.loc
+	return null
+
+/obj/item/kinetic_crusher/mecha/Initialize(mapload)
+	. = ..()
+	var/datum/component/unwanted = GetComponent(/datum/component/parry)
+	unwanted?.RemoveComponent()
+	unwanted = GetComponent(/datum/component/two_handed)
+	unwanted?.RemoveComponent()
+	ADD_TRAIT(src, TRAIT_WIELDED, "mech[UID()]")
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/Initialize(mapload)
+	. = ..()
+	internal_crusher = new(src)
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/Destroy()
+	QDEL_NULL(internal_crusher)
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/mech_crusher/action(atom/target)
+	if(!action_checks(target))
+		return
+	if(!chassis.occupant)
+		return
+	var/proximate = chassis.Adjacent(target)
+	if(ismob(target))
+		internal_crusher.attack(target, chassis.occupant)
+	internal_crusher.afterattack(target, chassis.occupant, proximate, null)
+
 #undef MECH_RCD_MODE_DECONSTRUCT
 #undef MECH_RCD_MODE_WALL_OR_FLOOR
 #undef MECH_RCD_MODE_AIRLOCK
