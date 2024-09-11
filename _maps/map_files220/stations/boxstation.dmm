@@ -23901,6 +23901,10 @@
 /area/station/hallway/primary/central/sw)
 "bQj" = (
 /obj/machinery/light/small/directional/west,
+/obj/machinery/camera{
+	c_tag = "Bridge South";
+	dir = 4
+	},
 /turf/simulated/floor/transparent/glass,
 /area/station/command/bridge)
 "bQq" = (
@@ -38008,10 +38012,6 @@
 	dir = 8;
 	name = "Mix to Filter"
 	},
-/obj/machinery/camera{
-	c_tag = "Engineering Atmospherics Control Room";
-	network = list("SS13","Engineering")
-	},
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = 28
 	},
@@ -45511,6 +45511,11 @@
 /area/station/maintenance/fpmaint)
 "dEc" = (
 /obj/machinery/light/directional/north,
+/obj/machinery/camera{
+	c_tag = "Engineering Atmospherics Control Room - East";
+	network = list("SS13","Engineering");
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -82295,6 +82300,11 @@
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "Engineering Atmospherics Control Room - West";
+	network = list("SS13","Engineering");
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -100048,6 +100058,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/camera{
+	c_tag = "Turbine";
+	network = list("SS13","Engineering");
+	dir = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
