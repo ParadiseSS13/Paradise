@@ -192,7 +192,13 @@
 	QDEL_NULL(P)
 	activate_rpd()
 
-/// Automatically wrenches down an atmos device/pipe if the user has a wrench equipped in their off-hand (or in an inactive module slot as a robot).
+/**
+* Automatically wrenches down an atmos device/pipe if the user has a wrench equipped in their off-hand (or in an inactive module slot as a robot).
+* Arguments:
+* * user - the user of the RPD.
+* * target - the pipe/device/tube being placed by the RPD.
+* * tool_type - the tool behavour required for the target to be wrenched down (some devices have a different requirement than `TOOL_WRENCH`).
+*/
 /obj/item/rpd/proc/automatic_wrench_down(mob/living/user, obj/item/target, tool_type = TOOL_WRENCH)
 	var/obj/item/off_hand_item = user.get_inactive_hand()
 	if(isrobot(user))
