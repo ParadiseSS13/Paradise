@@ -63,25 +63,25 @@ function createStatusTab(name) {
 	if (!verb_tabs.includes(name) && !permanent_tabs.includes(name)) {
 		return;
 	}
-	var B = document.createElement('DIV');
-	var BT = document.createElement('DIV');
-	B.onclick = function () {
+	var button = document.createElement('DIV');
+	var button_text = document.createElement('DIV');
+	button.onclick = function () {
 		tab_change(name);
 		this.blur();
 		statcontentdiv.focus();
 	};
-	B.id = name;
-	B.className = 'button';
-	BT.textContent = name;
-	BT.className = 'button-text';
+	button.id = name;
+	button.className = 'button';
+	button_text.textContent = name;
+	button_text.className = 'button-text';
 	//ORDERING ALPHABETICALLY
-	B.style.order = name.charCodeAt(0);
+	button.style.order = name.charCodeAt(0);
 	if (name == 'Status' || name == 'MC') {
-		B.style.order = name == 'Status' ? 1 : 2;
+		button.style.order = name == 'Status' ? 1 : 2;
 	}
 	//END ORDERING
-	B.appendChild(BT);
-	menu.appendChild(B);
+	button.appendChild(button_text);
+	menu.appendChild(button);
 	SendTabToByond(name);
 }
 
