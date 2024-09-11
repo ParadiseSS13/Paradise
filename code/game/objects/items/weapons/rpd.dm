@@ -114,8 +114,7 @@
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
-	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(P, user.get_inactive_hand())))
-		P.wrench_act(user, user.get_inactive_hand())
+	automatic_wrench_down(user, P)
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
@@ -127,8 +126,7 @@
 	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION_RIGHT) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
 		P.flip()
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
-	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(P, user.get_inactive_hand())))
-		P.attackby(user.get_inactive_hand(), user)
+	automatic_wrench_down(user, P)
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_transit_tube(mob/user, turf/dest)
@@ -144,8 +142,7 @@
 			S.dir = iconrotation ? iconrotation : user.dir
 
 			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
-			if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(S, user.get_inactive_hand())))
-				S.wrench_act(user, user.get_inactive_hand())
+			automatic_wrench_down(user, S)
 			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
@@ -194,6 +191,21 @@
 	to_chat(user, "<span class='notice'>[src] sucks up [P].</span>")
 	QDEL_NULL(P)
 	activate_rpd()
+
+/// Automatically wrenches down an atmos device/pipe if the user has a wrench equipped in their off-hand (or in an inactive module slot as a robot).
+/obj/item/rpd/proc/automatic_wrench_down(mob/living/user, obj/item/target)
+	var/obj/item/off_hand_item = user.get_inactive_hand()
+	if(isrobot(user))
+		for(var/obj/item/robot_module_item in user.get_all_slots())
+			if(robot_module_item.tool_behaviour == TOOL_WRENCH)
+				off_hand_item = robot_module_item
+				break
+
+	if(!off_hand_item || off_hand_item.tool_behaviour != TOOL_WRENCH)
+		return
+
+	if(user.can_reach(target, off_hand_item))
+		target.wrench_act(user, off_hand_item)
 
 // TGUI stuff
 
