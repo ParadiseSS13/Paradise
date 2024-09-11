@@ -77,18 +77,18 @@
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/food/sliceable/cheesewheel(location)
 
-/datum/chemical_reaction/curdcheese
-	name = "Churd Cheese"
-	id = "curdcheese"
+/datum/chemical_reaction/cheese_curds
+	name = "Cheese Curds"
+	id = "cheese_curds"
 	result = null
 	required_reagents = list("milk" = 15, "vinegar" = 5, "cream" = 5)
 	result_amount = 1
 	min_temp = T0C + 80
 
-/datum/chemical_reaction/curdcheese/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/cheese_curds/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
-		new /obj/item/food/curdcheese(location)
+		new /obj/item/food/cheese_curds(location)
 
 /datum/chemical_reaction/yoghurt
 	name = "Yoghurt"

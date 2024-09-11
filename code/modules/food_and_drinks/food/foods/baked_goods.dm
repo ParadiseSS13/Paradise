@@ -422,7 +422,7 @@
 	goal_difficulty = FOOD_GOAL_EASY
 
 /obj/item/food/sliceable/slime_cake
-	name = "Slime cake"
+	name = "slime cake"
 	desc = "A cake made of slimes. Probably not electrified."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "slime_cake"
@@ -885,13 +885,13 @@
 	icon_state = "jelly_green"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/donut/apple/jelly/cherryjelly
+/obj/item/food/donut/apple/jelly/cherry
 	name = "jelly apple donut"
 	desc = "Goes great with a shot of cinnamon schnapps."
 	icon_state = "jelly_green"
 	extra_reagent = "cherryjelly"
 
-/obj/item/food/donut/apple/jelly/slimejelly
+/obj/item/food/donut/apple/jelly/slime
 	name = "jelly apple donut"
 	desc = "Goes great with a shot of cinnamon schnapps."
 	icon_state = "jelly_green"
@@ -912,13 +912,13 @@
 	icon_state = "jelly_pink"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/donut/pink/jelly/cherryjelly
+/obj/item/food/donut/pink/jelly/cherry
 	name = "jelly pink donut"
 	desc = "Goes great with a soy latte."
 	icon_state = "jelly_pink"
 	extra_reagent = "cherryjelly"
 
-/obj/item/food/donut/pink/jelly/slimejelly
+/obj/item/food/donut/pink/jelly/slime
 	name = "jelly pink donut"
 	desc = "Goes great with a soy latte."
 	icon_state = "jelly_pink"
@@ -939,13 +939,13 @@
 	icon_state = "jelly_blue"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/donut/blumpkin/jelly/cherryjelly
+/obj/item/food/donut/blumpkin/jelly/cherry
 	name = "jelly blumpkin donut"
 	desc = "Goes great with a mug of soothing drunken blumpkin."
 	icon_state = "jelly_blue"
 	extra_reagent = "cherryjelly"
 
-/obj/item/food/donut/blumpkin/jelly/slimejelly
+/obj/item/food/donut/blumpkin/jelly/slime
 	name = "jelly blumpkin donut"
 	desc = "Goes great with a mug of soothing drunken blumpkin."
 	icon_state = "jelly_blue"
@@ -953,7 +953,7 @@
 
 /obj/item/food/donut/caramel
 	name = "caramel donut"
-	desc = "Goes great with a mug of hot coco."
+	desc = "Goes great with a mug of hot cocoa."
 	icon_state = "donut_beige"
 	list_reagents = list("nutriment" = 3, "sugar" = 2)
 	filling_color = "#D2691E"
@@ -962,19 +962,19 @@
 
 /obj/item/food/donut/caramel/jelly
 	name = "jelly caramel donut"
-	desc = "Goes great with a mug of hot coco."
+	desc = "Goes great with a mug of hot cocoa."
 	icon_state = "jelly_beige"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/donut/caramel/jelly/cherryjelly
+/obj/item/food/donut/caramel/jelly/cherry
 	name = "jelly caramel donut"
-	desc = "Goes great with a mug of hot coco."
+	desc = "Goes great with a mug of hot cocoa."
 	icon_state = "jelly_beige"
 	extra_reagent = "cherryjelly"
 
-/obj/item/food/donut/caramel/jelly/slimejelly
+/obj/item/food/donut/caramel/jelly/slime
 	name = "jelly caramel donut"
-	desc = "Goes great with a mug of hot coco."
+	desc = "Goes great with a mug of hot cocoa."
 	icon_state = "jelly_beige"
 	extra_reagent = "slimejelly"
 
@@ -993,13 +993,13 @@
 	icon_state = "jelly_choc"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/donut/chocolate/jelly/cherryjelly
+/obj/item/food/donut/chocolate/jelly/cherry
 	name = "jelly chocolate donut"
 	desc = "Goes great with a glass of warm milk."
 	icon_state = "jelly_choc"
 	extra_reagent = "cherryjelly"
 
-/obj/item/food/donut/chocolate/jelly/slimejelly
+/obj/item/food/donut/chocolate/jelly/slime
 	name = "jelly chocolate donut"
 	desc = "Goes great with a glass of warm milk."
 	icon_state = "jelly_choc"
@@ -1020,13 +1020,13 @@
 	icon_state = "jelly_olive"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/donut/matcha/jelly/cherryjelly
+/obj/item/food/donut/matcha/jelly/cherry
 	name = "jelly matcha donut"
 	desc = "Goes great with a cup of tea."
 	icon_state = "jelly_olive"
 	extra_reagent = "cherryjelly"
 
-/obj/item/food/donut/matcha/jelly/slimejelly
+/obj/item/food/donut/matcha/jelly/slime
 	name = "jelly matcha donut"
 	desc = "Goes great with a cup of tea."
 	icon_state = "jelly_olive"
@@ -1047,13 +1047,13 @@
 	icon_state = "jelly_yellow"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/donut/bungo/jelly/cherryjelly
+/obj/item/food/donut/bungo/jelly/cherry
 	name = "jelly bungo donut"
 	desc = "Goes great with a mason jar of hippie's delight."
 	icon_state = "jelly_yellow"
 	extra_reagent = "cherryjelly"
 
-/obj/item/food/donut/bungo/jelly/slimejelly
+/obj/item/food/donut/bungo/jelly/slime
 	name = "jelly bungo donut"
 	desc = "Goes great with a mason jar of hippie's delight."
 	icon_state = "jelly_yellow"
@@ -1074,13 +1074,13 @@
 	icon_state = "jelly_purple"
 	extra_reagent = "berryjuice"
 
-/obj/item/food/donut/spaceman/jelly/cherryjelly
+/obj/item/food/donut/spaceman/jelly/cherry
 	name = "jelly spaceman's donut"
 	desc = "Goes great with a cold beaker of malk."
 	icon_state = "jelly_purple"
 	extra_reagent = "cherryjelly"
 
-/obj/item/food/donut/spaceman/jelly/slimejelly
+/obj/item/food/donut/spaceman/jelly/slime
 	name = "jelly spaceman's donut"
 	desc = "Goes great with a cold beaker of malk."
 	icon_state = "jelly_purple"
@@ -1092,7 +1092,7 @@
 	icon_state = "donut_meat"
 	list_reagents = list("nutriment" = 3, "protein" = 3, "ketchup" = 3)
 	filling_color = "#D2691E"
-	tastes = list("meat" = 1)
+	tastes = list("meat" = 1, "ketchup" = 1)
 	randomized_sprinkles = FALSE
 
 
@@ -1167,7 +1167,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/booberry_muffin
-	name = "booberrymuffin"
+	name = "booberry muffin"
 	desc = "My stomach is a graveyard! No living being can quench my bloodthirst!"
 	icon = 'icons/obj/food/breakfast.dmi'
 	alpha = 125
@@ -1280,11 +1280,11 @@
 	tastes = list("cake" = 3, "bluecherry" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/honeybun
+/obj/item/food/honey_bun
 	name = "honey bun"
 	desc = "A sticky pastry bun glazed with honey."
 	icon = 'icons/obj/food/bakedgoods.dmi'
-	icon_state = "honeybun"
+	icon_state = "honey_bun"
 	filling_color = "#d88e06"
 	list_reagents = list("nutriment" = 6, "honey" = 6)
 	tastes = list("pastry" = 1, "sweetness" = 1)
@@ -1292,7 +1292,7 @@
 
 /obj/item/food/cannoli
 	name = "cannoli"
-	desc = "A sicilian treat that makes you into a wise guy."
+	desc = "A Sicilian treat that turns you into a wise guy."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "cannoli"
 	filling_color = "#d88e06"
@@ -1334,7 +1334,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/dulce_de_batata_slice
-	name = "dulcedebatata slice"
+	name = "dulce de batata slice"
 	desc = "Tasty blue, like my favourite crayon!"
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "dulce_de_batata_slice"
@@ -1343,7 +1343,7 @@
 	tastes = list("jelly" = 1, "sweet potato" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
-/obj/item/food/cheeseballs
+/obj/item/food/cheese_balls
 	name = "\improper ælorölen" //ælo = cheese, rölen = balls
 	desc = "Ælorölen (cheese balls) are a traditional mothic dessert, made of soft cheese, powdered sugar and flour, rolled into balls, battered and then deep fried. They're often served with either chocolate sauce or honey, or sometimes both!"
 	icon = 'icons/obj/food/bakedgoods.dmi'

@@ -61,7 +61,6 @@
 	maturation = 4
 	yield = 3
 	production = 7
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = null
 	reagents_add = list("enzyme"= 0.1, "nutriment" = 0.1, "bungojuice" = 0.1)
 	growthstages = 4

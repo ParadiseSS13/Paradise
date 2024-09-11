@@ -679,10 +679,10 @@
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/item/food/weirdcheesewedge(T)
 
-/datum/reagent/consumable/curdcheese
+/datum/reagent/consumable/cheese_curds
 	name = "Cheese Curds"
-	id = "curd_cheese"
-	description = "Some mushed up Cheese Curds. You're not quite sure why you did this."
+	id = "cheese_curds"
+	description = "Some mushed up cheese curds. You're not quite sure why you did this."
 	reagent_state = SOLID
 	color = "#FFFF00"
 	taste_description = "salty cheese"

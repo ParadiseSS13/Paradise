@@ -362,12 +362,12 @@
 	)
 	result = /obj/item/food/chocolate_cornet
 
-/datum/recipe/oven/honeybun
+/datum/recipe/oven/honey_bun
 	reagents = list("milk" = 5, "sugar" = 5, "honey" = 5)
 	items = list(
 		/obj/item/food/cookiedough
 	)
-	result = /obj/item/food/honeybun
+	result = /obj/item/food/honey_bun
 
 /datum/recipe/oven/cannoli
 	reagents = list("milk" = 1, "sugar" = 3)

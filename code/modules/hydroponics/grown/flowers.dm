@@ -73,7 +73,6 @@
 	icon_grow = "spacemanstrumpet-grow"
 	icon_dead = "spacemanstrumpet-dead"
 	mutatelist = null
-	genes = list()
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
 
 /obj/item/food/grown/trumpet

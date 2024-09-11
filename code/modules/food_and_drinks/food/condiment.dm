@@ -229,10 +229,10 @@
 	possible_states = list()
 
 /obj/item/reagent_containers/condiment/yoghurt
-	name = "yoghurt"
+	name = "yoghurt tub"
 	desc = "Some yoghurt, produced by bacterial fermentation of milk. Yum."
 	icon_state = "yoghurt"
-	list_reagents = list("mayonnaise" = 50)
+	list_reagents = list("yoghurt" = 50)
 	possible_states = list()
 
 /obj/item/reagent_containers/condiment/cherryjelly

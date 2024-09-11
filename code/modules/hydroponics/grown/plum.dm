@@ -21,6 +21,5 @@
 	desc = "A poet's favorite fruit. Noice."
 	icon_state = "plum"
 	filling_color = "#F6CB0B"
-	bitesize = 100
+	bitesize = 4
 	tastes = list("plum" = 1)
-	distill_reagent = null
