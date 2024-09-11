@@ -361,6 +361,8 @@
 		return 0 SECONDS // sure
 	if(!issimple_animal(flipper))
 		return 0 SECONDS
+	if(istype(flipper, /mob/living/simple_animal/revenant))
+		return 0 SECONDS  // funny ghost table
 	switch(flipper.mob_size)
 		if(MOB_SIZE_TINY)
 			return 30 SECONDS  // you can do it but you gotta *really* work for it
