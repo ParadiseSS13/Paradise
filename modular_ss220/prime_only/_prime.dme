@@ -8,3 +8,5 @@
 #include "code/outfit.dm"
 #include "code/tts_seeds.dm"
 #include "code/vending.dm"
+#include "code/crematorium.dm"
+#include "code/shuttle_gib.dm"
