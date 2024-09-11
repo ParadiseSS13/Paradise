@@ -429,7 +429,7 @@
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Mime")))
+	if(ishuman(M) && M.mind && M.mind.miming)
 		update_flags |= M.adjustBruteLoss(-1, FALSE, robotic = TRUE)
 		update_flags |= M.adjustFireLoss(-1, FALSE, robotic = TRUE)
 	return ..() | update_flags

@@ -59,13 +59,13 @@
 		"Nanotrasen Navy Representative" = "dsquadradio",
 		"Research Officer" = "dsquadradio",
 		"Special Operations Officer" = "dsquadradio",
-		"Sol Trader" = "dsquadradio",
-		"Solar Federation General" = "dsquadradio",
-		"Solar Federation Representative" = "dsquadradio",
-		"Solar Federation Specops Lieutenant" = "dsquadradio",
-		"Solar Federation Specops Marine" = "dsquadradio",
-		"Solar Federation Lieutenant" = "dsquadradio",
-		"Solar Federation Marine" = "dsquadradio",
+		"Trans-Solar Federation Trader" = "dsquadradio",
+		"Trans-Solar Federation General" = "dsquadradio",
+		"Trans-Solar Federation Representative" = "dsquadradio",
+		"MARSOC Lieutenant" = "dsquadradio",
+		"MARSOC Marine" = "dsquadradio",
+		"TSF Lieutenant" = "dsquadradio",
+		"TSF Marine" = "dsquadradio",
 		"Supreme Commander" = "dsquadradio",
 		"Thunderdome Overseer" = "dsquadradio",
 		"VIP Guest" = "dsquadradio",
@@ -140,7 +140,7 @@
 	/// List of CentComm jobs
 	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Intel Officer", "Medical Officer", "Nanotrasen Navy Captain", "Nanotrasen Navy Representative", "Research Officer", "Supreme Commander", "Thunderdome Overseer")
 	/// List of SolGov Marine jobs
-	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Lieutenant", "Solar Federation Marine", "Solar Federation Representative", "Solar Federation General", "VIP Guest")
+	var/list/tsf_jobs = list("MARSOC Lieutenant", "MARSOC Marine", "TSF Lieutenant", "TSF Marine", "Trans-Solar Federation Representative", "Trans-Solar Federation General", "VIP Guest")
 	// Defined so code compiles and incase someone has a non-standard job
 	var/job_class = "radio"
 	// NOW FOR ACTUAL TOGGLES
