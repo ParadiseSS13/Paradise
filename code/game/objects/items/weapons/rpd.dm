@@ -142,7 +142,6 @@
 			S.dir = iconrotation ? iconrotation : user.dir
 
 			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
-			automatic_wrench_down(user, S)
 			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
