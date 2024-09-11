@@ -3379,7 +3379,7 @@
 			if(T == /datum/station_goal/secondary)
 				continue
 			var/datum/station_goal/secondary/SG = T
-			if(initial(SG.abstract))
+			if(initial(SG.weight) < 1)
 				type_choices -= SG
 		var/picked = pick_closest_path(FALSE, make_types_fancy(type_choices), skip_filter = TRUE)
 		if(!picked)
