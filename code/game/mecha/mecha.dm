@@ -4,7 +4,7 @@
 	name = "Mecha"
 	desc = "Exosuit"
 	icon = 'icons/mecha/mecha.dmi'
-	var/emissive_appearance_icon = 'icons/mecha/mecha_emissive.dmi'
+
 	density = TRUE //Dense. To raise the heat.
 	opacity = TRUE ///opaque. Menacing.
 	anchored = TRUE //no pulling around.
@@ -84,6 +84,9 @@
 	var/starting_voice = /obj/item/mecha_modkit/voice
 	var/activated = FALSE
 	var/power_warned = FALSE
+
+	/// DMI containing greyscale emissive overlays, responsible for what parts of the mech glow in the dark
+	var/emissive_appearance_icon = 'icons/mecha/mecha_emissive.dmi'
 
 	var/destruction_sleep_duration = 2 SECONDS //Time that mech pilot is put to sleep for if mech is destroyed
 
