@@ -145,11 +145,11 @@
 	return !density
 
 /obj/machinery/door/get_superconductivity(direction)
-	if(density)
-		if(heat_proof)
-			return ZERO_HEAT_TRANSFER_COEFFICIENT
-		return superconductivity
-	return ..()
+	if(!density)
+		return ..()
+	if(heat_proof)
+		return ZERO_HEAT_TRANSFER_COEFFICIENT
+	return superconductivity
 
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating)
