@@ -85664,7 +85664,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/mecha_part_fabricator/station,
+/obj/machinery/mecha_part_fabricator/station{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -106635,7 +106637,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/mecha_part_fabricator/station,
+/obj/machinery/mecha_part_fabricator/station{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkpurple"
