@@ -432,7 +432,7 @@
 		for(var/turf/possible_floor in view(get_turf(src), (drops_core ? 2 : 1)))
 			if(isfloorturf(possible_floor))
 				var/turf/simulated/floor/nearby_floor = possible_floor
-				nearby_floor.MakeSlippery((drops_core? TURF_WET_PERMAFROST : TURF_WET_ICE), (drops_core? null : rand(10, 20 SECONDS)))
+				nearby_floor.MakeSlippery((drops_core ? TURF_WET_PERMAFROST : TURF_WET_ICE), (drops_core ? null : rand(10, 20 SECONDS)))
 
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
