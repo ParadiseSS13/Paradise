@@ -96,15 +96,12 @@
 	base_cost = 80
 	stage = 3
 	max_level = 3
-	var/datum/reagents/smoke_reagents = null
 	var/smoke_effects_spawned = 10
 
 /datum/spell/flayer/self/vent_smog/cast(list/targets, mob/living/user)
-	smoke_reagents = new /datum/reagents(smoke_effects_spawned * 4)
-	smoke_reagents.add_reagent("toxin", smoke_effects_spawned * 2, null)
-	var/datum/effect_system/smoke_spread/bad/smoke = new()
+	var/datum/effect_system/smoke_spread/steam/smoke = new()
 	user.smoke_delay = TRUE //Gives the user a second to get out before the steam affects them too
-	smoke.set_up(smoke_effects_spawned, FALSE, user, null, smoke_reagents)
+	smoke.set_up(smoke_effects_spawned, FALSE, user, null)
 	smoke.start()
 
 /datum/spell/flayer/self/vent_smog/on_purchase_upgrade()
