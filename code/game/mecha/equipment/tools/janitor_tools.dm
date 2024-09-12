@@ -61,8 +61,11 @@
 			var/turf/target_turf = get_turf(target)
 			if(!istype(target_turf) || iswallturf(target_turf))
 				return
-			for(var/turf/current_target_turf in view(1, target))
-				INVOKE_ASYNC(current_target_turf, TYPE_PROC_REF(/atom, cleaning_act), chassis.occupant, src, mop_speed, "mop", ".")
+			chassis.occupant.visible_message("<span class='warning'>[chassis] begins to mop \the [target_turf] with \the [src].</span>", "<span class='warning'>You begin to mop \the [target_turf] with \the [src].</span>")
+			if(do_after(chassis.occupant, mop_speed, target = target))
+				for(var/turf/current_target_turf in view(1, target))
+					current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
+				to_chat(user, "<span class='notice'>You mop \the [target].</span>")
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/post_clean(atom/target, mob/user)
 	var/turf/T = get_turf(target)
