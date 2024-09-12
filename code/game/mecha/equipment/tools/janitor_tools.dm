@@ -65,7 +65,7 @@
 			if(do_after(chassis.occupant, mop_speed, target = target))
 				for(var/turf/current_target_turf in view(1, target))
 					current_target_turf.cleaning_act(chassis.occupant, src, mop_speed, "mop", ".", skip_do_after = TRUE)
-				to_chat(user, "<span class='notice'>You mop \the [target].</span>")
+				to_chat(chassis.occupant, "<span class='notice'>You mop \the [target].</span>")
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/post_clean(atom/target, mob/user)
 	var/turf/T = get_turf(target)
