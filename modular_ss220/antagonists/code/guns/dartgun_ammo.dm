@@ -202,7 +202,7 @@
 /obj/item/reagent_containers/syringe/dart/medical/stabilizing
 	name = "stabilizing medical dart"
 	desc = "Медицинский дротик для стабилизации пациента."
-	list_reagents = list("epinephrine" = 5, "salineglucosevirusfood" = 5, "weak_omnizine" = 5)
+	list_reagents = list("epinephrine" = 5, "salglu_solution" = 5, "weak_omnizine" = 5)
 
 // 3 уровень (1 час)
 /obj/item/reagent_containers/syringe/dart/medical/advanced
@@ -214,4 +214,4 @@
 /obj/item/reagent_containers/syringe/dart/medical/combat
 	name = "combat medical dart"
 	desc = "передовой дротик с эксперементальными стимулянтами."
-	list_reagents = list("combatlube" = 5, "surge_plus" = 5, "syndicate_nanites" = 5)
+	list_reagents = list("surge_plus" = 5, "syndicate_nanites" = 5)

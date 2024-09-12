@@ -282,6 +282,28 @@
 	name = "Syndicate Cargo"
 	icon_state = "syndie-cargo"
 
+/* Skyrat Ghostbar */
+/area/ghost_bar/outdoor
+	name = "Ghost Bar - Outdoor"
+	icon_state = "away"
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/jungle1.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/jungle2.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/jungle3.ogg')
+
+/area/ghost_bar/outdoor/beach
+	name = "Ghost Bar - Beach"
+	icon_state = "beach"
+	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/river.ogg', 'sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg')
+
+/area/ghost_bar/indoor
+	name = "Ghost Bar - Indoor"
+	icon_state = "observatory"
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+
+/area/ghost_bar/indoor/cave
+	name = "Ghost Bar - Cave"
+	icon_state = "cave"
+	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/cave_ambient2.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/cave_ambient3.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/cave_waterdrops.ogg')
+
 /* Misc */
 /area/holodeck
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
