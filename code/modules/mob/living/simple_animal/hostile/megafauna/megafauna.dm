@@ -161,7 +161,7 @@
 		addtimer(VARSET_CALLBACK(C, density, TRUE), 2 SECONDS) // Needed to make them path. I hate it.
 
 /mob/living/simple_animal/hostile/megafauna/proc/hoverboard_deactivation(source, target)
-	SIGNAL_HANDLER //COMSIG_HOSTILE_FOUND_TARGET
+	SIGNAL_HANDLER // COMSIG_HOSTILE_FOUND_TARGET
 	if(!isliving(target))
 		return
 	var/mob/living/L = target
@@ -170,7 +170,7 @@
 	if(!istype(L.buckled, /obj/tgvehicle/scooter/skateboard/hoverboard))
 		return
 	var/obj/tgvehicle/scooter/skateboard/hoverboard/cursed_board = L.buckled
-	// Not a visable message, as walls or such may be in the way
+	// Not a visible message, as walls or such may be in the way
 	to_chat(L, "<span class='userdanger'><b>You hear a loud roar in the distance, and the lights on [cursed_board] begin to spark dangerously, as the board rumbles heavily!</b></span>")
 	playsound(get_turf(src), 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
 	cursed_board.necropolis_curse()
