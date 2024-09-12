@@ -88,7 +88,7 @@ GLOBAL_LIST_EMPTY(flame_effects)
 		to_chat(entered, "<span class='warning'>[src] burns you!</span>")
 		return
 
-	if(isitem(AM))
+	if(isitem(entered))
 		var/obj/item/item_to_burn = entered
 		item_to_burn.fire_act(null, temperature)
 
