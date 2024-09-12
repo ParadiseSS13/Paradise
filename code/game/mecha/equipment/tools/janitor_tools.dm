@@ -98,7 +98,6 @@
 		else
 			STOP_PROCESSING(SSobj, src)
 		update_equip_info()
-		return
 
 #undef MOP_SOUND_CD
 
@@ -170,6 +169,8 @@
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/action(atom/target)
 	if(reagents.total_volume < 15) // Needs at least enough reagents to apply the full spray
+		chassis.occupant.visible_message("<span class='danger'>*click*</span>")
+		playsound(src, 'sound/weapons/empty.ogg', 100, 1)
 		return
 	var/direction = get_dir(chassis, target)
 	var/turf/T = get_turf(target)
@@ -228,7 +229,6 @@
 		else
 			STOP_PROCESSING(SSobj, src)
 		update_equip_info()
-		return
 
 // Garbage Magnet
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet
