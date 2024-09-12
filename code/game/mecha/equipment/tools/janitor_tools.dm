@@ -162,7 +162,7 @@
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/emag_act(mob/user)
 	. = ..()
 	emagged = TRUE
-	to_chat(user, "<span class='notice'>You short out the automatic watering system on [src].</span>")
+	to_chat(user, "<span class='warning'>You short out the automatic watering system on [src].</span>")
 	reagents.clear_reagents()
 	refill_reagent = "lube"
 	refill_cost = 50
