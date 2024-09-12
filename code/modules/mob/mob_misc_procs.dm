@@ -162,7 +162,7 @@
 	if(HAS_TRAIT(M, TRAIT_BEING_OFFERED))
 		return
 	var/minhours
-	ADD_TRAIT(M, TRAIT_BEING_OFFERED, "build_mode")
+	ADD_TRAIT(M, TRAIT_BEING_OFFERED, "admin_offer")
 	log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
 	var/question = "Do you want to play as [M.real_name ? M.real_name : M.name][M.job ? " ([M.job])" : ""]"
 	if(!hours)
@@ -177,7 +177,7 @@
 	message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = M)
 	var/mob/dead/observer/theghost = null
-	REMOVE_TRAIT(M, TRAIT_BEING_OFFERED, "build_mode")
+	REMOVE_TRAIT(M, TRAIT_BEING_OFFERED, "admin_offer")
 
 	if(length(candidates))
 		if(QDELETED(M))
