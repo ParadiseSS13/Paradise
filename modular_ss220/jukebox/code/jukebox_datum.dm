@@ -9,6 +9,8 @@
 /// The mob is out of range of the jukebox
 #define MUTE_RANGE (1<<2)
 
+#define COMSIG_ENTER_AREA "enter_area"
+
 /**
  * ## Jukebox datum
  *
@@ -430,6 +432,8 @@
 #undef MUTE_DEAF
 #undef MUTE_PREF
 #undef MUTE_RANGE
+
+#undef COMSIG_ENTER_AREA
 
 // Default track supplied for testing and also because it's a banger
 /datum/track/default

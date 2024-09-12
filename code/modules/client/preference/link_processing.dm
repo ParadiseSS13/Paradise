@@ -1073,6 +1073,9 @@
 				if("hear_midis")
 					sound ^= SOUND_MIDI
 
+				if("mute_end_of_round")
+					sound ^= SOUND_MUTE_END_OF_ROUND
+
 				if("lobby_music")
 					sound ^= SOUND_LOBBY
 					if((sound & SOUND_LOBBY) && user.client)

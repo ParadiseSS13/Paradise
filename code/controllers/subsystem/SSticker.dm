@@ -353,7 +353,8 @@ SUBSYSTEM_DEF(ticker)
 			SStitle.show_title_screen_to(N.client) // New Title Screen
 			// SS220 EDIT END
 
-	SSnightshift.check_nightshift(TRUE)
+	if(GLOB.configuration.general.enable_night_shifts)
+		SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
 	// Run map tests first in case unit tests futz with map state
@@ -749,10 +750,14 @@ SUBSYSTEM_DEF(ticker)
 	if(end_string)
 		end_state = end_string
 
-	// Play a haha funny noise
+	// Play a haha funny noise for those who want to hear it :)
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
-	SEND_SOUND(world, sound(round_end_sound))
+
+	for(var/mob/M in GLOB.player_list)
+		if(!(M.client.prefs.sound & SOUND_MUTE_END_OF_ROUND))
+			SEND_SOUND(M, round_end_sound)
+
 	sleep(sound_length)
 
 	world.Reboot()
