@@ -642,10 +642,8 @@
 		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
 		patient_mind.transfer_to(clone)
 		clone.grab_ghost()
-		var/message
-		message += "<b>Agony blazes across your consciousness as your body is torn apart.</b><br>"
-		message += "<i>Is this what dying is like? Yes it is.</i>"
-		to_chat(clone, "<span class='warning'>[message]</span>")
+		to_chat(clone, "<span class='warning'><b>Agony blazes across your consciousness as your body is torn apart.</b>\
+		<br><i>Is this what dying is like? Yes it is.</i></span>")
 		SEND_SOUND(clone, sound('sound/hallucinations/veryfar_noise.ogg', 0, TRUE, 50))
 		sleep(40)
 		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
