@@ -853,7 +853,7 @@
 					if(length(B.contents) < B.storage_slots && I.w_class <= B.max_w_class)
 						return TRUE
 			return FALSE
-		if(ITEM_SLOT_TIE)
+		if(ITEM_SLOT_ACCESSORY)
 			if(!istype(I, /obj/item/clothing/accessory))
 				return FALSE
 			var/obj/item/clothing/under/uniform = H.w_uniform
@@ -865,7 +865,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
 				return FALSE
-			if(!(I.slot_flags & ITEM_SLOT_TIE))
+			if(!(I.slot_flags & ITEM_SLOT_ACCESSORY))
 				return FALSE
 			return TRUE
 

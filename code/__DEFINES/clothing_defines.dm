@@ -13,7 +13,7 @@
 #define ITEM_SLOT_EYES 			(1<<9) // eyes
 #define ITEM_SLOT_GLOVES 		(1<<10) // gloves
 #define ITEM_SLOT_HEAD 			(1<<11) // head
-#define ITEM_SLOT_SHOES 			(1<<12) // shoes
+#define ITEM_SLOT_SHOES 		(1<<12) // shoes
 #define ITEM_SLOT_OCLOTHING 	(1<<13) // wear_suit
 #define ITEM_SLOT_ICLOTHING	 	(1<<14) // w_uniform
 #define ITEM_SLOT_LEFT_POCKET 	(1<<15) // l_store
@@ -23,8 +23,8 @@
 #define ITEM_SLOT_IN_BACKPACK 	(1<<18) // this just puts stuff a backpack if you have one
 #define ITEM_SLOT_LEGCUFFED 	(1<<19) // legcuffs
 #define ITEM_SLOT_PDA 			(1<<20) // pda
-#define ITEM_SLOT_TIE 			(1<<21) // CHAP-TODO: Figure out what the fuck these actually do
-#define ITEM_SLOT_COLLAR 		(1<<22) // CHAP-TODO: Figure out what the fuck these actually do
+#define ITEM_SLOT_ACCESSORY 	(1<<21) // accessories
+#define ITEM_SLOT_COLLAR 		(1<<22) // pet collar
 #define ITEM_SLOT_AMOUNT_FLAG	(1<<ITEM_SLOT_AMOUNT)
 #define ITEM_SLOT_AMOUNT 		22 // IF YOU ADD ANY NEW CLOTHING SLOTS, MAKE SURE TO UPDATE THIS TO THE AMOUNT OF SLOTS.
 

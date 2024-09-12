@@ -1555,7 +1555,7 @@
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
 	item_color = "fethasnecklace"
-	slot_flags = ITEM_SLOT_MASK | ITEM_SLOT_TIE
+	slot_flags = ITEM_SLOT_MASK | ITEM_SLOT_ACCESSORY
 
 /// HugoLuman: Dan Martinez
 /obj/item/bedsheet/fluff/hugosheet
@@ -1689,7 +1689,7 @@
 	icon_state = "panzermedal"
 	item_state = "panzermedal"
 	item_color = "panzermedal"
-	slot_flags = ITEM_SLOT_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 
 /// Sagrotter: Xann Zxiax
 /obj/item/clothing/accessory/medal/fluff/XannZxiax
@@ -1699,7 +1699,7 @@
 	icon_state = "Xann_necklace"
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
-	slot_flags = ITEM_SLOT_TIE
+	slot_flags = ITEM_SLOT_ACCESSORY
 
 /// Rb303: Isthel Eisenwald
 /obj/item/clothing/accessory/rbscarf

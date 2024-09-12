@@ -63,7 +63,7 @@
 			return has_organ("chest")
 		if(ITEM_SLOT_IN_BACKPACK)
 			return TRUE
-		if(ITEM_SLOT_TIE)
+		if(ITEM_SLOT_ACCESSORY)
 			return TRUE
 
 /mob/living/carbon/human/unEquip(obj/item/I, force, silent = FALSE)
@@ -308,7 +308,7 @@
 					I.forceMove(C.bag)
 			else
 				I.forceMove(back)
-		if(ITEM_SLOT_TIE)
+		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = src.w_uniform
 			uniform.attackby(I, src)
 		else
