@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(input)
 				LAZYADD(to_cull, C)
 			else
 				continue // they fell asleep on their keyboard or w/e, let them
-		C.key_loop()
+		INVOKE_ASYNC(C, TYPE_PROC_REF(/datum, key_loop))
 
 	if(to_cull)
 		processing -= to_cull
