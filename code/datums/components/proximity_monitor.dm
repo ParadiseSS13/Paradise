@@ -327,13 +327,11 @@
 		prox_mon_spots |= current_turf
 		return
 
-
 	if(current_table in visited_tables)
 		return
 
 	visited_tables |= current_table
 	prox_mon_spots |= current_turf
-
 
 	if(distance_from_start + 1 > max_table_distance)
 		return

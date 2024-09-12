@@ -275,9 +275,9 @@
 		return TRUE
 	if(SEND_SIGNAL(A, COMSIG_ATOM_RANGED_ATTACKED, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
+
 /*
 	Restrained ClickOn
-
 	Used when you are handcuffed and click things.
 	Not currently used by anything but could easily be.
 */

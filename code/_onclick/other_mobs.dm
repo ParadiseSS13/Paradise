@@ -48,7 +48,6 @@
 		if(istype(G) && G.Touch(A, 0)) // for magic gloves
 			return
 
-
 	if(HAS_TRAIT(src, TRAIT_LASEREYES) && a_intent == INTENT_HARM)
 		LaserEyes(A)
 
