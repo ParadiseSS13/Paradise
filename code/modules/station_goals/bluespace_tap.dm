@@ -286,18 +286,18 @@
 
 /obj/machinery/power/bluespace_tap/proc/get_icon_state_number()
 	switch(mining_power)
-		if(0)
-			return 0
 		if(50 KW to 3 MW)
 			return 1
-		if(4 MW to 8 MW)
+		if(3 MW to 8 MW)
 			return 2
-		if(9 MW to 11 MW)
+		if(8 MW to 11 MW)
 			return 3
-		if(12 MW to 15 MW)
+		if(11 MW to 15 MW)
 			return 4
-		if(16 MW to INFINITY)
+		if(15 MW to INFINITY)
 			return 5
+		else
+			return 0
 
 /obj/machinery/power/bluespace_tap/power_change()
 	. = ..()
@@ -353,12 +353,14 @@
 	// If stabilizers have priority they will always consume enough power to stabilize the BSH, limiting mining
 	// emagging disables stabilizers
 	if(stabilizer_priority)
+		// stabilizer power is what we need to stabilize the current mining level, but no more than half the available power.
 		stabilizer_power = clamp(desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW), 0, mining_power / 2) * (stabilizers && !emagged)
 	else
+		// stabilizer power is however much power we have left, but no more than we need to stabilize our desired mining power.
 		stabilizer_power = clamp(mining_power - desired_mining_power, 0, desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW)) * (stabilizers && !emagged)
 
 	// Actual mining power is what the desired mining power we set, unless we don't have enough power to satisfty that.
-	mining_power = min(desired_mining_power , mining_power - stabilizer_power)
+	mining_power = min(desired_mining_power, mining_power - stabilizer_power)
 
 	consume_direct_power(mining_power + stabilizer_power)
 
@@ -527,3 +529,4 @@
 
 #undef POINTS_PER_W
 #undef BASE_POINTS
+ER_W
