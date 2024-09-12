@@ -51,7 +51,7 @@
 	. += ""
 	. += "Whilst not intended to actually be used in combat, the ceremonial blades issued by Nanotrasen are in-fact quite functional, \
 	able to both inflict grievous wounds on aggressors that get too close, whilst also elegantly parrying their blows (assuming the wielder is skilled with the blade). \
-	The sharp edge is adept at hacking unarmoured targets, whilst the rigid tip is also quite effective at at defeating even modern body armour with thrusting attacks, as modern armour is generally designed to defeat ballistic and laser weapons rather than swords..."
+	The sharp edge is adept at hacking unarmored targets, whilst the rigid tip is also quite effective at at defeating even modern body armor with thrusting attacks, as modern armor is generally designed to defeat ballistic and laser weapons rather than swords..."
 
 /obj/item/melee/sabre/Initialize(mapload)
 	. = ..()
