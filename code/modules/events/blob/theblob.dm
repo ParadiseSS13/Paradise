@@ -49,9 +49,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 		return FALSE
 	return ..()
 
-/obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/blob/CanPass(atom/movable/mover, turf/target)
 	return istype(mover) && mover.checkpass(PASSBLOB)
 
 /obj/structure/blob/CanAtmosPass(direction)
