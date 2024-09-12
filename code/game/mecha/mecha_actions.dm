@@ -264,10 +264,10 @@
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
 	if(chassis.strafing)
-		chassis.occupant_message("You toggle off \the [chassis]'s strafing mode")
+		chassis.occupant_message("You disable [chassis]'s strafing mode.")
 		chassis.strafing = FALSE
 	else
-		chassis.occupant_message("You toggle on \the [chassis]'s strafing mode")
+		chassis.occupant_message("You enable [chassis]'s strafing mode.")
 		chassis.strafing = TRUE
 	button_overlay_icon_state = "[initial(button_overlay_icon_state)]_[chassis.strafing ? "on" : "off"]"
 	UpdateButtons()
