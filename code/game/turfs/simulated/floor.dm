@@ -37,12 +37,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	else
 		icon_regular_floor = icon_state
 
-//turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0)
-//	if((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
-//		if(!( locate(/obj/machinery/mass_driver, src)))
-//			return 0
-//	return ..()
-
 /turf/simulated/floor/ex_act(severity)
 	if(is_shielded())
 		return

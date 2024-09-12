@@ -15738,6 +15738,8 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
+/obj/item/circuitboard/rnd_backup_console,
+/obj/item/circuitboard/rnd_network_controller,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

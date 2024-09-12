@@ -119,6 +119,16 @@
 	disable_message = "You will no longer hear a sound when mentorhelp is sent."
 	blackbox_message = "Toggle Mentor Bwoinks"
 
+/datum/preference_toggle/toggle_prayer_sound
+	name = "Prayer sound"
+	description = "Toggle hearing a notification when prayers are received"
+	preftoggle_bitflag = SOUND_PRAYERNOTIFY
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	enable_message = "You will now hear a sound when prayers are made."
+	disable_message = "You will no longer hear a sound when prayers are made."
+	blackbox_message = "Toggle Prayer Sound"
+
 /datum/preference_toggle/toggle_deadchat_visibility
 	name = "Toggle Deadchat visibility"
 	description = "Toggles Dchat's visibility"
@@ -171,6 +181,16 @@
 	. = ..()
 	if(user.prefs.sound & ~SOUND_LOBBY)
 		usr.stop_sound_channel(CHANNEL_ADMIN)
+
+/datum/preference_toggle/toggle_end_of_round_sound
+	name = "Toggle Mute End of Round Sound"
+	description = "Toggles muting the end of round sound"
+	preftoggle_bitflag = SOUND_MUTE_END_OF_ROUND
+	preftoggle_toggle = PREFTOGGLE_SOUND
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You have muted the end of round sound."
+	disable_message = "You have unmuted the end of round sound."
+	blackbox_message = "Toggle End of Round Sound"
 
 /datum/preference_toggle/toggle_ooc
 	name = "Toggle OOC chat"

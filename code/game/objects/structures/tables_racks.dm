@@ -126,9 +126,7 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
-/obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/table/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover,/obj/item/projectile))
 		return (check_cover(mover,target))
 	if(ismob(mover))
@@ -901,9 +899,7 @@
 	. = ..()
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
-/obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
+/obj/structure/rack/CanPass(atom/movable/mover, turf/target)
 	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
 	if(istype(mover))
