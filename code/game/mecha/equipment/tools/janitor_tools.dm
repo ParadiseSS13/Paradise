@@ -8,10 +8,10 @@
 
 // Mop
 
-#define MOP_SOUND_CD 2 SECONDS // How many seconds before the mopping sound triggers again
+#define MOP_SOUND_CD 2 SECONDS //! How many seconds before the mopping sound triggers again
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop
-	name = "WLLY mega mop"
+	name = "\improper WLLY mega mop"
 	desc = "An upsized advanced mop, designed for use in exosuits."
 	icon_state = "mecha_mop"
 	equip_cooldown = 1.5 SECONDS
@@ -30,16 +30,16 @@
 	/// What reagent to refill with
 	var/refill_reagent = "water"
 
-/obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/New()
+/obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/Initialize(mapload)
+	. = ..()
 	create_reagents(1000)
 	reagents.add_reagent("water", 1000)
 	START_PROCESSING(SSobj, src)
-	..()
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/emag_act(mob/user)
 	. = ..()
 	emagged = TRUE
-	to_chat(user, "<span class='notice'>You short out the automatic watering system on [src].</span>")
+	to_chat(user, "<span class='warning'>You short out the automatic watering system on [src].</span>")
 	reagents.clear_reagents()
 	refill_reagent = "lube"
 	refill_cost = 50
@@ -86,11 +86,11 @@
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[src.reagents.total_volume]\]"
+		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[reagents.total_volume]\]"
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_mop/Topic(href,href_list)
 	..()
-	var/datum/topic_input/afilter = new (href,href_list)
+	var/datum/topic_input/afilter = new (href, href_list)
 	if(afilter.get("toggle_mode"))
 		refill_enabled = !refill_enabled
 		if(refill_enabled)
@@ -104,7 +104,7 @@
 
 // Light Replacer
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer
-	name = "NT-12 illuminator"
+	name = "\improper NT-12 illuminator"
 	desc = "A modified light replacer fit for an exosuit that zaps lights into place."
 	icon_state = "mecha_light_replacer"
 	equip_cooldown = 1.5 SECONDS
@@ -124,7 +124,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/janitor/light_replacer/proc/ReplaceLight(obj/machinery/light/target)
 	if(target.status != LIGHT_OK)
-		to_chat(chassis.occupant, "<span class='notice'>You replace the light [target.fitting] with [src].</span>")
+		to_chat(chassis.occupant, "<span class='notice'>You replace [target.fitting] with [src].</span>")
 		target.status = LIGHT_OK
 		target.switchcount = 0
 		target.rigged = emagged
@@ -136,7 +136,7 @@
 
 // Mecha spray
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray
-	name = "JS-33 super spray"
+	name = "\improper JS-33 super spray"
 	desc = "A spray bottle, upscaled for an exosuit. Capable of mass sanitation."
 	icon_state = "mecha_spray"
 	equip_cooldown = 1.5 SECONDS
@@ -153,11 +153,11 @@
 	/// The range of tiles the sprayer will reach.
 	var/spray_range = 4
 
-/obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/New()
+/obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 	reagents.add_reagent("cleaner", 100)
 	START_PROCESSING(SSobj, src)
-	..()
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/emag_act(mob/user)
 	. = ..()
@@ -187,14 +187,14 @@
 	R.my_atom = spray
 	reagents.trans_to(spray, 5)
 	spray.icon += mix_color_from_reagents(spray.reagents.reagent_list)
-	for(var/b=0, b<4, b++)
+	for(var/B in 1 to 4)
+		if(QDELETED(spray))
+			return
 		if(spray.reagents.total_volume == 0)
 			qdel(spray)
 			return
-		if(!spray)
-			return
 		step_towards(spray, target)
-		if(!spray)
+		if(QDELETED(spray))
 			return
 		var/turf/spray_turf = get_turf(spray)
 		spray.reagents.reaction(spray_turf)
@@ -216,7 +216,7 @@
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[src.reagents.total_volume]\]"
+		return "[output] \[<a href='byond://?src=[UID()];toggle_mode=1'>Refill [refill_enabled? "Enabled" : "Disabled"]</a>\] \[[reagents.total_volume]\]"
 
 /obj/item/mecha_parts/mecha_equipment/janitor/mega_spray/Topic(href,href_list)
 	..()
@@ -232,7 +232,7 @@
 
 // Garbage Magnet
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet
-	name = "WA1E Garbage Magnet"
+	name = "\improper WA1E Garbage Magnet"
 	desc = "Bluespace technology integrated with an oversized garbage bag and heavy duty magnets allows this device to pick up all manner of litter. \
 	The complex technology prevents users from directly looking inside the bag."
 	icon_state = "mecha_trash_magnet"
@@ -255,9 +255,10 @@
 	var/cant_hold = list(/obj/item/disk/nuclear, /obj/item/grown/bananapeel/traitorpeel, /obj/item/storage/bag)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/deconstruct()
-	for(var/obj/item/i in cargo)
-		i.forceMove(src.loc)
-		cargo -= i
+	var/turf/T = get_turf(src)
+	for(var/obj/item/I in cargo)
+		I.forceMove(T)
+		cargo.Cut()
 	qdel(src)
 
 /obj/item/mecha_parts/mecha_equipment/janitor/garbage_magnet/get_equip_info()
@@ -284,8 +285,8 @@
 			"<span class='notice'>You empty [src] into disposal unit.</span>",
 			"<span class='notice'>You hear someone emptying something into a disposal unit.</span>"
 		)
-		for(var/obj/item/i in cargo)
-			i.forceMove(target)
+		for(var/obj/item/I in cargo)
+			I.forceMove(target)
 			cargo.Cut()
 		return
 	var/turf/target_turf
@@ -298,19 +299,19 @@
 	if(bagging) // If picking up
 		if(extended) // If extended reach
 			for(var/turf/current_target_turf in view(1, target_turf))
-				for(var/obj/item/i in current_target_turf.contents)
-					if(can_be_inserted(i))
-						cargo += i
-						i.forceMove(chassis)
+				for(var/obj/item/I in current_target_turf.contents)
+					if(can_be_inserted(I))
+						cargo += I
+						I.forceMove(chassis)
 		else // Single turf
-			for(var/obj/item/i in target_turf.contents)
-				if(can_be_inserted(i))
-					cargo += i
-					i.forceMove(chassis)
+			for(var/obj/item/I in target_turf.contents)
+				if(can_be_inserted(I))
+					cargo += I
+					I.forceMove(chassis)
 		to_chat(chassis.occupant, "<span class='notice'>You pick up all the items with [src]. Cargo compartment capacity: [cargo_max_weight - length(cargo)]</span>")
 	else // Dumping
-		for(var/obj/item/i in cargo)
-			i.forceMove(target_turf)
+		for(var/obj/item/I in cargo)
+			I.forceMove(target_turf)
 			cargo.Cut()
 		to_chat(chassis.occupant, "<span class='notice'>You dump everything out of [src].</span>")
 	update_equip_info()

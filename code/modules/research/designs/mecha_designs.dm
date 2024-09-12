@@ -27,7 +27,7 @@
 	name = "Exosuit Board (\"Odysseus\" Central Control module)"
 	desc = "Allows for the construction of a \"Odysseus\" Central Control module."
 	id = "odysseus_main"
-	req_tech = list("programming" = 3,"biotech" = 3, "engineering" = 3)
+	req_tech = list("programming" = 3, "biotech" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/odysseus/main
@@ -37,7 +37,7 @@
 	name = "Exosuit Board (\"Odysseus\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Odysseus\" Peripheral Control module."
 	id = "odysseus_peri"
-	req_tech = list("programming" = 3,"biotech" = 3, "engineering" = 3)
+	req_tech = list("programming" = 3, "biotech" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/odysseus/peripherals
@@ -48,7 +48,7 @@
 	name = "Exosuit Board (\"Nkarrdem\" Central Control module)"
 	desc = "Allows for the construction of a \"Nkarrdem\" Central Control module."
 	id = "nkarrdem_main"
-	req_tech = list("programming" = 3,"biotech" = 3, "engineering" = 3)
+	req_tech = list("programming" = 3, "biotech" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/odysseus/main
@@ -58,7 +58,7 @@
 	name = "Exosuit Board (\"Nkarrdem\" Peripherals Control module)"
 	desc = "Allows for the construction of a \"Nkarrdem\" Peripheral Control module."
 	id = "nkarrdem_peri"
-	req_tech = list("programming" = 3,"biotech" = 3, "engineering" = 3)
+	req_tech = list("programming" = 3, "biotech" = 3, "engineering" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mecha/odysseus/peripherals

@@ -12,7 +12,8 @@
 	deflect_chance = 15
 	step_energy_drain = 6
 	normal_step_energy_drain = 6
-	var/builtin_hud_user = 0
+	/// Is the janihud on?
+	var/builtin_hud_user = FALSE
 
 /obj/mecha/janitor/nkarrdem/examine_more(mob/user)
 	..()
@@ -31,7 +32,7 @@
 		else
 			var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
 			jani_hud.add_hud_to(H)
-			builtin_hud_user = 1
+			builtin_hud_user = TRUE
 
 /obj/mecha/janitor/nkarrdem/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	. = ..()
@@ -39,20 +40,20 @@
 		if(occupant.client)
 			var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
 			jani_hud.add_hud_to(occupant)
-			builtin_hud_user = 1
+			builtin_hud_user = TRUE
 
 /obj/mecha/janitor/nkarrdem/go_out()
 	if(ishuman(occupant) && builtin_hud_user)
 		var/mob/living/carbon/human/H = occupant
 		var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
 		jani_hud.remove_hud_from(H)
-		builtin_hud_user = 0
+		builtin_hud_user = FALSE
 	else if((isbrain(occupant) || pilot_is_mmi()) && builtin_hud_user)
 		var/mob/living/brain/H = occupant
 		var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
 		jani_hud.remove_hud_from(H)
-		builtin_hud_user = 0
-	. = ..()
+		builtin_hud_user = FALSE
+	return ..()
 
 /obj/mecha/janitor/nkarrdem/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
@@ -67,7 +68,7 @@
 	. = ..()
 	if(!floor_buffer)
 		return
-	var/turf/tile = loc
+	var/turf/tile = get_turf(src)
 	if(!isturf(tile))
 		return
 	tile.clean_blood()
