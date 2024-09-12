@@ -1213,17 +1213,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
-"tW" = (
-/obj/machinery/power/grounding_rod,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault";
-	name = "Mainframe floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/ruin/space/telecomms/chamber)
 "tY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -1897,6 +1886,17 @@
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
+"CG" = (
+/obj/machinery/power/grounding_rod,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault";
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
 "CI" = (
 /obj/structure/displaycase/dvoraks_treat,
 /turf/simulated/floor/plasteel{
@@ -2507,17 +2507,6 @@
 	temperature = 80
 	},
 /area/ruin/space/telecomms/chamber)
-"LC" = (
-/obj/machinery/doppler_array,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault";
-	name = "Mainframe floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/ruin/space/telecomms/chamber)
 "LK" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -3057,6 +3046,17 @@
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/space/nearstation)
+"TT" = (
+/obj/machinery/doppler_array,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault";
+	name = "Mainframe floor";
+	nitrogen = 400;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/telecomms/chamber)
 "TU" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -7232,7 +7232,7 @@ bJ
 Sr
 cz
 il
-tW
+CG
 EM
 Zu
 EO
@@ -7324,7 +7324,7 @@ bJ
 Tw
 eE
 il
-LC
+TT
 EM
 Zu
 uM
