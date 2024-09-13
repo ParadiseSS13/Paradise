@@ -108,23 +108,23 @@
 
 	// Plasma explodes when exposed to fire.
 	if(reagents.get_reagent_amount("plasma"))
-		var/datum/effect_system/reagents_explosion/e = new()
-		e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
-		e.start()
+		var/datum/effect_system/reagents_explosion/E = new()
+		E.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
+		E.start()
 		return
 
 	// Fuel explodes, too, but much less violently.
 	if(reagents.get_reagent_amount("fuel"))
-		var/datum/effect_system/reagents_explosion/e = new()
-		e.set_up(round(reagents.get_reagent_amount("fuel") / 5, 1), get_turf(src), 0, 0)
-		e.start()
+		var/datum/effect_system/reagents_explosion/E = new()
+		E.set_up(round(reagents.get_reagent_amount("fuel") / 5, 1), get_turf(src), 0, 0)
+		E.start()
 		return
 
 	// And black powder... but more violently.
 	if(reagents.get_reagent_amount("blackpowder"))
-		var/datum/effect_system/reagents_explosion/e = new()
-		e.set_up(round(reagents.get_reagent_amount("blackpowder") / 2, 1), get_turf(src), 0, 0)
-		e.start()
+		var/datum/effect_system/reagents_explosion/E = new()
+		E.set_up(round(reagents.get_reagent_amount("blackpowder") / 2, 1), get_turf(src), 0, 0)
+		E.start()
 		return
 
 	lit = TRUE
