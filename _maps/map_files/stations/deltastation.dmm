@@ -45053,7 +45053,6 @@
 	c_tag = "Expedition";
 	dir = 8
 	},
-/obj/machinery/door/window/reinforced,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -45063,6 +45062,9 @@
 	dir = 10
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer,
+/obj/machinery/door/window/reinforced/normal{
+	name = "NCT"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgreen"

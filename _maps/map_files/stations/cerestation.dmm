@@ -51080,6 +51080,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/nanotrasen_career_trainer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -54765,7 +54766,6 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "kie" = (
-/obj/machinery/door/window/reinforced,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer,
 /obj/effect/turf_decal/woodsiding{
 	dir = 6
@@ -54778,6 +54778,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/window/reinforced/normal{
+	name = "NCT"
+	},
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "kiq" = (

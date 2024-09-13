@@ -18113,8 +18113,10 @@
 	pixel_x = 24;
 	dir = 8
 	},
-/obj/machinery/door/window/reinforced,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer,
+/obj/machinery/door/window/reinforced/normal{
+	name = "NCT"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgreen"

@@ -14380,13 +14380,15 @@
 	},
 /area/station/public/dorms)
 "aUH" = (
-/obj/machinery/door/window/reinforced,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/procedure/trainer,
+/obj/machinery/door/window/reinforced/normal{
+	name = "NCT"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgreen"
@@ -24330,6 +24332,9 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
+"bxK" = (
+/turf/space,
+/area/station/ai_monitored/storage/eva)
 "bxL" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start/botanist,
@@ -120055,7 +120060,7 @@ bbL
 bdy
 bgN
 bhU
-aSC
+bxK
 cJA
 daf
 fCa
