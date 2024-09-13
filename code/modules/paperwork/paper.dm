@@ -552,6 +552,19 @@
 	name = "paper- 'Standard Operating Procedure'"
 	info = "Alert Levels:<BR>\nBlue- Emergency<BR>\n\t1. Caused by fire<BR>\n\t2. Caused by manual interaction<BR>\n\tAction:<BR>\n\t\tClose all fire doors. These can only be opened by reseting the alarm<BR>\nRed- Ejection/Self Destruct<BR>\n\t1. Caused by module operating computer.<BR>\n\tAction:<BR>\n\t\tAfter the specified time the module will eject completely.<BR>\n<BR>\nEngine Maintenance Instructions:<BR>\n\tShut off ignition systems:<BR>\n\tActivate internal power<BR>\n\tActivate orbital balance matrix<BR>\n\tRemove volatile liquids from area<BR>\n\tWear a fire suit<BR>\n<BR>\n\tAfter<BR>\n\t\tDecontaminate<BR>\n\t\tVisit medical examiner<BR>\n<BR>\nToxin Laboratory Procedure:<BR>\n\tWear a gas mask regardless<BR>\n\tGet an oxygen tank.<BR>\n\tActivate internal atmosphere<BR>\n<BR>\n\tAfter<BR>\n\t\tDecontaminate<BR>\n\t\tVisit medical examiner<BR>\n<BR>\nDisaster Procedure:<BR>\n\tFire:<BR>\n\t\tActivate sector fire alarm.<BR>\n\t\tMove to a safe area.<BR>\n\t\tGet a fire suit<BR>\n\t\tAfter:<BR>\n\t\t\tAssess Damage<BR>\n\t\t\tRepair damages<BR>\n\t\t\tIf needed, Evacuate<BR>\n\tMeteor Shower:<BR>\n\t\tActivate fire alarm<BR>\n\t\tMove to the back of ship<BR>\n\t\tAfter<BR>\n\t\t\tRepair damage<BR>\n\t\t\tIf needed, Evacuate<BR>\n\tAccidental Reentry:<BR>\n\t\tActivate fire alarms in front of ship.<BR>\n\t\tMove volatile matter to a fire proof area!<BR>\n\t\tGet a fire suit.<BR>\n\t\tStay secure until an emergency ship arrives.<BR>\n<BR>\n\t\tIf ship does not arrive-<BR>\n\t\t\tEvacuate to a nearby safe area!"
 
+/obj/item/paper/dnd
+	name = "paper- 'Character Sheet'"
+	info = "<large><center><B>DnD Character Sheet Page 1 </large></center></B><BR> <BR> Race: <field> <BR> Alignment: <field> <BR> Background:<field> <BR> Class: <field> <BR> <BR> <BR> <large><center>Stats </large></center> <BR> STR:<field> <BR> DEX:<field> <BR> CON:<field> <BR> INT:<field> <BR> WIS:<field> <BR> CHR:<field> <BR> <center>Saving Throws</center> <BR> STR:<field> <BR> DEX:<field> <BR> CON:<field> <BR> INT:<field> <BR> WIS:<field> <BR> CHR:<field> <BR> <center>SKILLS</center> <BR> Acrobatics<i>DEX</i><field> <BR> Animal Handling<i>WIS</i><field> <BR> Arcana<i>INT</i><field> <BR> Athletics<i>STR</i><field> <BR> Deception<i>CHR</i><field> <BR> History<i>INT</i><field> <BR> Insight<i>WIS</i><field> <BR> Intimidation<i>CHR</i><field> <BR> Investigation<i>INT</i><field> <BR> Medicine<i>WIS</i><field> <BR> Nature<i>INT</i><field> <BR> Perception<i>WIS</i><field> <BR> Performance<i>CHR</i><field> <BR> Persuasion<i>CHR</i><field> <BR> Religion<i>INT</i><field> <BR> Sleight of Hand<i>DEX</i><field> <BR> Stealth<i>DEX</i><field> <BR> Survival<i>WIS</i><field><large><center><B>DnD Character Sheet Page 2 </large></center></B> <BR> <BR> <large><center>Combat Stats</large></center> <BR> Armor Class:<field> <BR> Intiative:<field> <BR> Speed:<field> <BR> <BR> <large><center>Attacks and Spells</large></center><large><center><B>DnD Character Sheet Page 3 </large></center></B> <BR> <BR> <center><B>HP </center></B> <BR> Current HP: <field> <BR> Temporary HP: <field><large><center><B>DnD Character Sheet Page 4</large></center></B> <BR> <BR> <large><center>Equipment</large></center> <BR> Gold: <field> <BR> Worn Equipment:<field> <BR> Inventory:<field>"
+
+/obj/item/paper/stalker
+	name = "Stalker Note"
+	info = "<i>The note looks rather worn, and covered in lipstick kiss marks</i> <BR> <BR> Oh Ian, so close, and yet so very far away. How cruel to keep you locked away in that little room. Confined, caged, ENSLAVED to that monster! You deserve to be free! FREE! I would treat you right, give you all the treats yout want. But that damned slavedriver refuses to give you up. Instead of ME! your RIGHTFUL CARETAKER! You'll be mine one day. Ill make you happy. Just wait a little longer, sweetie..."
+
+/obj/item/paper/maintengine
+	name = "Crumpled Note"
+	info = "Look - Ivan. I dont care about the fact you went behind my back to get the engine crate ordered and approved. I dont care about the fact that you've had trouble getting the engine stable in the past. I dont even care that you're trying to hide somewhere in maintenance with it...<BR> <BR> Just please, for the love of god tell me where it is. I wont report it, I just want to make sure its not going to catastrophically meltdown, or for you to die because of it. Please, just think it over. <BR> <BR> - Chief Engineer Stares-At-The-Crystal"
+	icon_state = "scrap"
+
 /obj/item/paper/crumpled
 	name = "paper scrap"
 	icon_state = "scrap"
@@ -656,6 +669,24 @@
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
 
+/obj/item/paper/nanotrasen/confessional
+	name = "Confession agreement"
+	info =  "<center><b>Confessional agreement form</b></center><HR> \
+		I hereby plead guilty to all of the listed charges below. I have been read all of my rights in accordance to space law and I am aware that I may decline to sign this form to proceed with normal court procedures.<br> \
+		By signing this form I waive my rights to a court hearing in return for reduced sentencing. I will be charged in accordance to the listed charges below, and waive my right to later appeal.<br> \
+		My charges are listed as below: <hr> \
+		502: Murder of the Kerikya the Research Director<br> \
+		407: Theft of a highly destructive experimental science prototype weapon<br> \
+		400: Releasing of toxic plasmagas into the primary hallway<br> \
+		308: Tresspass into the Research Directors office<br> \
+		305: Arming and inciting crew to resist security efforts to pacify the area.<br> \
+		304: Possession of a stun baton and Energy weapon assembly kits<br> \
+		302: Utilizing stun batons and energy wepaons on security personnel<br> \
+		203: Distribution of Methamphetamine and Pump-up to crew<br> \
+		105: Refusing to put on pants<hr> \
+		Projected Sentence: 5 life sentences<br> \
+		Accused Signature: <i> Fuck you im not signing shit</i>"
+
 /obj/item/paper/nuclear_guide_operating
 	name = "nuclear guide : 'Operating the Nuclear Device'"
 	info = "<b>ARMING THE NUCLEAR DEVICE</b><hr /> \
@@ -717,6 +748,11 @@
 /obj/item/paper/syndicate_druglab/delivery
 	name = "paper - 'Delivery Note'"
 	info = "<i>Hey sweetie! The boss wants you to have some friends. I couldn't get you a real suit, but I found this in a cosplay shop! The bees surely won't see through your IMPECCABLE disguise!<br><br>xoxo,<br>george ♥</i><br><br>- What the fuck. I'm airlocking him tomorrow."
+
+/obj/item/paper/atmos_asteroid
+	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
+	name = "Lava Field Observations"
+	info = "<center>Asteroid Core Observation Log 306</center><hr><br><i>We took some additional samples of the deep layers of the molten core of the asteroid. Undetermined trace elements were able to be identified in the solution. Its possible this is how the plasma remains so stable at these temperatures. None of our current filter methods have been able to properly extract it as of yet, but we're certain a breakthrough is on the horizon. We did it before, we can do it again.</i>"
 
 /obj/item/paper/zombie_cure
 	name = "paper - 'Research on Zombies'"
