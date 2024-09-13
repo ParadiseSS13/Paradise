@@ -15,36 +15,27 @@
 	alarm_cache["minor"] = list()
 	alarm_cache["priority"] = list()
 
-	parent_area_type = (get_area(src)).type
+	var/area/machine_area = get_area(src)
 
-	if(parent_area_type in subtypesof(/area/ruin))
-		// figure out which ruin we are on
-		while(!(type2parent(parent_area_type) in GLOB.ruin_prototypes))
-			parent_area_type = type2parent(parent_area_type)
-
-	else if(parent_area_type in subtypesof(/area/station))
-		parent_area_type = /area/station
-	else
-		parent_area_type = null
-
+	parent_area_type = machine_area.get_top_parent_type()
 
 /obj/machinery/computer/atmos_alert/process()
 	// This is relatively cheap because the areas list is pretty small
-	for(var/obj/machinery/alarm/AirAlarm as anything in GLOB.air_alarms)
-		if(!((get_area(AirAlarm)).type in typesof(parent_area_type)) || AirAlarm.z != z)
+	for(var/obj/machinery/alarm/airAlarm as anything in GLOB.air_alarms)
+		if(!((get_area(airAlarm)).type in typesof(parent_area_type)) || airAlarm.z != z)
 			continue // Not an area we monitor, or outside our z-level
-		if(!AirAlarm.report_danger_level)
+		if(!airAlarm.report_danger_level)
 			continue
-		switch(AirAlarm.alarm_area.atmosalm)
+		switch(airAlarm.alarm_area.atmosalm)
 			if(ATMOS_ALARM_DANGER)
-				alarm_cache["priority"] |= AirAlarm.alarm_area.name
-				alarm_cache["minor"] -= AirAlarm.alarm_area.name
+				alarm_cache["priority"] |= airAlarm.alarm_area.name
+				alarm_cache["minor"] -= airAlarm.alarm_area.name
 			if(ATMOS_ALARM_WARNING)
-				alarm_cache["priority"] -= AirAlarm.alarm_area.name
-				alarm_cache["minor"] |= AirAlarm.alarm_area.name
+				alarm_cache["priority"] -= airAlarm.alarm_area.name
+				alarm_cache["minor"] |= airAlarm.alarm_area.name
 			else
-				alarm_cache["priority"] -= AirAlarm.alarm_area.name
-				alarm_cache["minor"] -= AirAlarm.alarm_area.name
+				alarm_cache["priority"] -= airAlarm.alarm_area.name
+				alarm_cache["minor"] -= airAlarm.alarm_area.name
 
 	update_icon()
 

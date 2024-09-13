@@ -512,16 +512,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	. = ..()
 	atmos_control = new(src)
 
-	parent_area_type = (get_area(src)).type
+	var/area/machine_area = get_area(src)
 
-	if(parent_area_type in subtypesof(/area/ruin))
-		// figure out which ruin we are on
-		while(!(type2parent(parent_area_type) in GLOB.ruin_prototypes))
-			parent_area_type = type2parent(parent_area_type)
-	else if(parent_area_type in subtypesof(/area/station))
-		parent_area_type = /area/station
-	else
-		parent_area_type = null
+	parent_area_type = machine_area.get_top_parent_type()
 
 	atmos_control.parent_area_type = parent_area_type
 	atmos_control.z = z

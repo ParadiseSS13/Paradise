@@ -551,3 +551,18 @@
 
 /area/drop_location()
 	CRASH("Bad op: area/drop_location() called")
+
+/// Returns highest area type in the hirarchy of a given ruin or /area/station if it is given a station area.
+/// For an example the top parent of area/ruin/space/bar/backroom is area/ruin/space/bar
+/area/proc/get_top_parent_type()
+	var/top_parent_type = type
+
+	if(parent_type in subtypesof(/area/ruin))
+		// figure out which ruin we are on
+		while(!(type2parent(top_parent_type) in GLOB.ruin_prototypes))
+			top_parent_type = type2parent(top_parent_type)
+	else if(parent_type in subtypesof(/area/station))
+		top_parent_type = /area/station
+	else
+		top_parent_type = null
+	return top_parent_type

@@ -64,17 +64,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		list(0, 0,		   0),
 	))
 
-	parent_area_type = (get_area(src)).type
+	var/area/machine_area = get_area(src)
 
-	if(parent_area_type in subtypesof(/area/ruin))
-		// figure out which ruin we are on
-		while(!(type2parent(parent_area_type) in GLOB.ruin_prototypes))
-			parent_area_type = type2parent(parent_area_type)
-
-	else if(parent_area_type in subtypesof(/area/station))
-		parent_area_type = /area/station
-	else
-		parent_area_type = null
+	parent_area_type = machine_area.get_top_parent_type()
 
 	if(parent_area_type)
 		areas = typesof(parent_area_type)
@@ -291,18 +283,16 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 			investigate_log("was brought online and is now producing gravity for this level.", "gravity")
 			message_admins("The gravity generator was brought online. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 			for(var/area/A in world)
-				if(A.type in areas)
-					if(A.z == z)
-						A.gravitychange(TRUE, A)
+				if((A.type in areas) && A.z == z)
+					A.gravitychange(TRUE, A)
 
 	else if(generators_in_area() == 1) // Turned off, and there is only one gravity generator on the Z level
 		alert = TRUE
 		investigate_log("was brought offline and there is now no gravity for this level.", "gravity")
 		message_admins("The gravity generator was brought offline with no backup generator. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[src_area.name]</a>)")
 		for(var/area/A in world)
-			if(A.type in areas)
-				if(A.z == z)
-					A.gravitychange(FALSE, A)
+			if((A.type in areas) && A.z == z)
+				A.gravitychange(FALSE, A)
 	update_icon()
 	update_gen_list()
 	if(alert)

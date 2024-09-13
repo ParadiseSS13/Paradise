@@ -34,9 +34,9 @@
 	// default value means main station atmos control
 	if(parent_area_type)
 		alarms_on_net = list()
-		for(var/obj/machinery/alarm/Alarm in GLOB.air_alarms)
-			if(Alarm.alarm_area.type in typesof(parent_area_type))
-				alarms_on_net |= Alarm
+		for(var/obj/machinery/alarm/airAlarm in GLOB.air_alarms)
+			if(airAlarm.alarm_area.type in typesof(parent_area_type))
+				alarms_on_net |= airAlarm
 
 	var/list/data = list()
 	data["alarms"] = GLOB.air_alarm_repository.air_alarm_data(alarms_on_net, target_z = z)
