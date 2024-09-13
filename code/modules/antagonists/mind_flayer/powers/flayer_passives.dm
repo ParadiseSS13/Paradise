@@ -33,7 +33,7 @@
 /datum/mindflayer_passive/New()
 	. = ..()
 	current_cost = base_cost
-	if(should_process && flayer)
+	if(should_process)
 		START_PROCESSING(SSobj, src)
 
 /datum/mindflayer_passive/Destroy(force, ...)
@@ -49,7 +49,6 @@
 	flayer.send_swarm_message(level ? upgrade_text : gain_text) //This will only be false when level = 0, when first bought
 	level++
 	current_cost = base_cost * (level + 1)
-	log_debug("[src] purchased at level [level], max level is [max_level]")
 	return TRUE
 
 /datum/mindflayer_passive/proc/on_remove()
@@ -155,7 +154,7 @@
 	name = "Replicating Nanites"
 	purchase_text = "Gain a passive repairing effect."
 	upgrade_info = "Heal an extra 1 brute and burn per tick."
-	upgrade_text = "Our repair accelerates."
+	upgrade_text = "Our repair quickens."
 	gain_text = "Diverting resources to repairing chassis."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
@@ -174,6 +173,7 @@
 	name = "Internal Nanite Application"
 	purchase_text = "Slowly repair damage done to your organs."
 	gain_text = "Administering reparative swarms to internal components."
+	upgrade_text = "Our repair quickens."
 	power_type = FLAYER_PURCHASABLE_POWER
 	should_process = TRUE
 	base_cost = 50
