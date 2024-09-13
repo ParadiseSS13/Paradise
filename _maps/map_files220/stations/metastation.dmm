@@ -55801,12 +55801,12 @@
 	},
 /area/station/medical/medbay)
 "iAO" = (
-/obj/machinery/mecha_part_fabricator{
-	output_dir = 4
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/machinery/mecha_part_fabricator/station{
+	output_dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)

@@ -42342,8 +42342,8 @@
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "drE" = (
-/obj/machinery/mecha_part_fabricator,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/mecha_part_fabricator/station,
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/robotics)
 "drF" = (
