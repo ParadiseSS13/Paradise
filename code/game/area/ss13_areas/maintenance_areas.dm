@@ -49,6 +49,10 @@
 	name = "Central Maintenance"
 	icon_state = "maintcentral"
 
+/area/station/maintenance/maintcentral2
+	name = "Central Maintenance Secondary"
+	icon_state = "maintcentral"
+
 /area/station/maintenance/fore
 	name = "Fore Maintenance"
 	icon_state = "fmaint"
@@ -173,6 +177,11 @@
 	icon_state = "ass_line"
 	apc_starts_off = TRUE
 
+/area/station/maintenance/abandoned_office
+	name = "\improper Abandoned Office"
+	icon_state = "abandoned_office"
+	apc_starts_off = TRUE
+
 /area/station/maintenance/abandoned_garden
 	name = "\improper Abandoned Garden"
 	icon_state = "hydro"
@@ -221,3 +230,45 @@
 
 /area/station/maintenance/disposal/external/north
 	name = "Northern External Waste Belt"
+
+// Emerald Station
+
+/area/station/maintenance/dorms
+	name = "Dorms Maintenance"
+	icon_state = "dorms_maint"
+
+/area/station/maintenance/dorms/port
+	name = "Dorms Port Maintenance"
+	icon_state = "dorms_maint_port"
+
+/area/station/maintenance/dorms/starboard
+	name = "Dorms Starboard Maintenance"
+	icon_state = "dorms_maint_starboard"
+
+/area/station/maintenance/dorms/aft
+	name = "Dorms Aft Maintenance"
+	icon_state = "dorms_maint_aft"
+
+/area/station/maintenance/dorms/fore
+	name = "Dorms Fore Maintenance"
+	icon_state = "dorms_maint_fore"
+
+/area/station/maintenance/security
+	name = "Security Maintenance"
+	icon_state = "sec_maint"
+
+/area/station/maintenance/security/fore
+	name = "Security Maintenance Fore"
+	icon_state = "sec_maint_fore"
+
+/area/station/maintenance/security/aft_port
+	name = "Security Maintenance Aft Port"
+	icon_state = "sec_maint_ap"
+
+/area/station/maintenance/security/aft_starboard
+	name = "Security Maintenance Aft Starboard"
+	icon_state = "sec_maint_as"
+
+/area/station/engineering/atmos/asteroid_maint
+	name = "Asteroid Filtering Maintenance"
+	icon_state = "asteroid_maint"
