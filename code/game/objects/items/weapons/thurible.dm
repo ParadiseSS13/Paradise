@@ -10,22 +10,25 @@
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = CONDUCT
-	var/corrupted = FALSE // Whether or not the thurible can be loaded with harmful chems
-	var/lit = FALSE // Has the thurible been ignited?
+	/// Whether or not the thurible can be loaded with harmful chems
+	var/corrupted = FALSE
+	/// Has the thurible been ignited?
+	var/lit = FALSE
+	/// List of chemicals considered safe for the thurible
 	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "salbutamol", "omnizine",
 									"weak_omnizine", "godblood", "potass_iodide", "oculine", "mannitol", "spaceacillin", "salglu_solution",
 									"sal_acid", "cryoxadone", "sugar", "hydrocodone", "mitocholide", "rezadone", "menthol",
 									"mutadone", "sanguine_reagent", "iron", "ephedrine", "heparin", "corazone", "sodiumchloride",
 									"lavaland_extract", "synaptizine", "bicaridine", "kelotane", "water", "holywater", "lsd", "thc", "happiness",
-									"cbd", "space_drugs", "nicotine", "jestosterone", "nothing") // List of chemicals considered safe for the thurible
-	var/swing_reagents_consumed = 2 // 25 Swings until out of reagents
+									"cbd", "space_drugs", "nicotine", "jestosterone", "nothing")
+	/// How many reagents are consumed with each swing?
+	var/swing_reagents_consumed = 2
 
 /obj/item/thurible/Initialize(mapload)
 	. = ..()
 	create_reagents(50)
 	container_type = REFILLABLE
 	reagents.set_reacting(FALSE)
-
 
 /obj/item/thurible/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -40,16 +43,29 @@
 /obj/item/thurible/process()
 	swing()
 
+/obj/item/thurible/update_appearance()
+	if(lit)
+		icon_state = "thurible-lit"
+		item_state = "thurible-lit"
+	else
+		icon_state = "thurible"
+		item_state = "thurible"
+	if(in_inventory)
+		for(var/mob/M in view(0, get_turf(src.loc)))
+			M.update_inv_l_hand()
+			M.update_inv_r_hand()
+	return ..()
+
 /obj/item/thurible/attackby(obj/item/fire_source, mob/user, params)
 	. = ..()
 	if(fire_source.get_heat())
 		user.visible_message("<span class='notice'>[user] lights [src] with [fire_source].</span>", "<span class='notice'>You light [src] with [fire_source].</span>", "<span class='warning'>You hear a low whoosh.</span>")
-		light()
+		light(user)
 
 /obj/item/thurible/attack_self(mob/user)
 	if(lit)
 		to_chat(user, "<span class='warning'>You extinguish \the [src].</span>")
-		put_out()
+		put_out(user)
 	return ..()
 
 /obj/item/thurible/can_enter_storage(obj/item/storage/S, mob/user)
@@ -59,7 +75,7 @@
 	return TRUE
 
 /obj/item/thurible/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
+	. = ..()
 	light()
 
 /obj/item/thurible/on_reagent_change()
@@ -80,7 +96,8 @@
 			else
 				visible_message("<span class='warning'>[src] banishes a dangerous substance!</span>")
 
-/obj/item/thurible/proc/light(mob/living/user)
+/// Lights the thurible and starts processing reagents
+/obj/item/thurible/proc/light(mob/user)
 	if(lit)
 		to_chat(user, "<span class='warning'>The [src] is already lit!</span>")
 		return
@@ -113,24 +130,21 @@
 	lit = TRUE
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
-	icon_state = "thurible-lit"
-	item_state = "thurible-lit"
-	set_light(2, 0.25, "#E38F46")
 	START_PROCESSING(SSobj, src)
-	update_icon()
+	set_light(2, 0.3, "#E38F46")
+	update_appearance()
 	return TRUE
 
-/obj/item/thurible/proc/put_out()
+/// Extinguishes the thurible and stops processing
+/obj/item/thurible/proc/put_out(mob/user)
 	lit = FALSE
-	icon_state = "thurible"
-	item_state = "thurible"
-	set_light(0)
-	update_icon()
 	STOP_PROCESSING(SSobj, src)
+	set_light(0)
+	update_appearance()
 	return TRUE
 
+/// Spreads reagents in a 3x3 area centered on the thurible
 /obj/item/thurible/proc/swing()
-	// 3x3 area, centered on the thurible
 	var/obj/released_reagents = new
 	released_reagents.create_reagents(2)
 	reagents.trans_to(released_reagents, swing_reagents_consumed)
@@ -153,4 +167,3 @@
 
 	if(!reagents.total_volume)
 		put_out()
-
