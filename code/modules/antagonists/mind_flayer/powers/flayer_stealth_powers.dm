@@ -85,10 +85,10 @@
 	flayer.send_swarm_message("Use this power again to return to your original voice.")
 	return TRUE
 
-/datum/spell/flayer/self/vent_smog
-	name = "Vent Smog"
-	desc = "Vent the excess smog from our internals, disorienting and poisoning attackers."
-	upgrade_info = "5 extra plumes of steam and 5 less seconds between exhalations."
+/datum/spell/flayer/self/dump_coolant
+	name = "Heat Sink"
+	desc = "Vent the used coolant from our internals to disorient and scald attackers."
+	upgrade_info = "5 extra plumes of steam and 5 less seconds between casts."
 	action_icon_state = "smoke"
 	power_type = FLAYER_PURCHASABLE_POWER
 	category = CATEGORY_INTRUDER
