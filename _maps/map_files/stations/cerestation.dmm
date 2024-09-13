@@ -64654,6 +64654,8 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
+/obj/item/circuitboard/rnd_backup_console,
+/obj/item/circuitboard/rnd_network_controller,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -148502,7 +148504,7 @@ aXn
 gzv
 tHv
 tHv
-bII
+tHv
 xpg
 kBo
 vPy
@@ -148759,7 +148761,7 @@ aXn
 gzv
 tHv
 tHv
-tHv
+bII
 pnV
 aWx
 sJs

@@ -43,6 +43,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
+	/client/proc/cmd_dev_say,
 	/datum/admins/proc/show_player_notes,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/update_mob_sprite,
@@ -259,8 +260,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/add_admin_verbs()
 	if(holder)
-		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
-		if(holder.rights != R_VIEWRUNTIMES)
+		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES AND/OR DEV, then give them the default admin verbs
+		if(holder.rights & ~(R_VIEWRUNTIMES|R_DEV_TEAM))
 			add_verb(src, GLOB.admin_verbs_default)
 		if(holder.rights & R_BUILDMODE)
 			add_verb(src, /client/proc/togglebuildmodeself)
@@ -303,6 +304,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			add_verb(src, GLOB.view_runtimes_verbs)
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
+		if(holder.rights & R_DEV_TEAM)
+			add_verb(src, /client/proc/cmd_dev_say)
 		if(is_connecting_from_localhost())
 			add_verb(src, /client/proc/export_current_character)
 
@@ -317,6 +320,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		/client/proc/togglebuildmodeself,
 		/client/proc/stealth,
 		/client/proc/readmin,
+		/client/proc/cmd_dev_say,
 		/client/proc/export_current_character,
 		GLOB.admin_verbs_default,
 		GLOB.admin_verbs_admin,
