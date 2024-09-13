@@ -236,7 +236,7 @@
 /obj/tgvehicle/scooter/skateboard/hoverboard/proc/necropolis_curse()
 	cursed = TRUE
 	can_buckle = FALSE
-	addtimer(CALLBACK(src, PROC_REF(remove_rider)), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(remove_rider)), 5 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
 	curse_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
 	curse_overlay.pixel_y -= 10
 
@@ -247,7 +247,7 @@
 	if(has_buckled_mobs())
 		var/mob/living/carbon/skaterboy = buckled_mobs[1]
 		unbuckle_mob(skaterboy)
-	addtimer(CALLBACK(src, PROC_REF(clear_curse)), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(clear_curse)), 30 SECONDS,TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
 
 /obj/tgvehicle/scooter/skateboard/hoverboard/proc/clear_curse()
 	can_buckle = TRUE
