@@ -290,7 +290,7 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/glasses/chameleon
-	name = "Optical Meson Scanner"
+	name = "optical meson scanner"
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
 	icon_state = "meson"
 	item_state = "meson"

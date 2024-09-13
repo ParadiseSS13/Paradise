@@ -62,8 +62,8 @@
 		dump_contents()
 	return ..()
 
-/obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0 || wall_mounted)
+/obj/structure/closet/CanPass(atom/movable/mover, turf/target)
+	if(wall_mounted)
 		return TRUE
 	return (!density)
 

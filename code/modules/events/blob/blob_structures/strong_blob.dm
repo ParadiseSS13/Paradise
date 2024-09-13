@@ -49,9 +49,8 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/structure/blob/shield/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSBLOB))	return 1
-	return 0
+/obj/structure/blob/shield/CanPass(atom/movable/mover, turf/target)
+	return istype(mover) && mover.checkpass(PASSBLOB)
 
 /obj/structure/blob/shield/reflective
 	name = "reflective blob"
