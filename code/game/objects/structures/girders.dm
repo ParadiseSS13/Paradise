@@ -406,9 +406,7 @@
 		refundMetal(metalUsed)
 		qdel(src)
 
-/obj/structure/girder/CanPass(atom/movable/mover, turf/target, height=0)
-	if(!height)
-		return TRUE
+/obj/structure/girder/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSGIRDER))
 		return TRUE
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
