@@ -66,7 +66,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	var/obj/item/stack/sheet/new_glass = new welded_type(user.loc)
+	new welded_type(user.loc)
 	to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack.</span>")
 	qdel(src)
 
