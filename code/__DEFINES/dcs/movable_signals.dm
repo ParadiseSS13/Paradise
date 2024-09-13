@@ -4,9 +4,6 @@
  * All signals send the source datum of the signal as the first argument
  */
 
-///from base of atom/movable/Moved(): (/atom)
-#define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"
-	#define COMPONENT_MOVABLE_BLOCK_PRE_MOVE (1<<0)
 ///from base of atom/movable/Moved(): (/atom, dir)
 #define COMSIG_MOVABLE_MOVED "movable_moved"
 ///from base of atom/movable/Cross(): (/atom/movable)
@@ -38,22 +35,12 @@
 ///from /obj/vehicle/proc/driver_move, caught by the riding component to check and execute the driver trying to drive the vehicle
 #define COMSIG_RIDDEN_DRIVER_MOVE "driver_move"
 	#define COMPONENT_DRIVER_BLOCK_MOVE (1<<0)
-///from base of atom/movable/throw_at(): (list/args)
-#define COMSIG_MOVABLE_PRE_THROW "movable_pre_throw"
-	#define COMPONENT_CANCEL_THROW (1<<0)
 ///from base of atom/movable/throw_at(): (datum/thrownthing, spin)
 #define COMSIG_MOVABLE_POST_THROW "movable_post_throw"
 ///from base of datum/thrownthing/finalize(): (obj/thrown_object, datum/thrownthing) used for when a throw is finished
 #define COMSIG_MOVABLE_THROW_LANDED "movable_throw_landed"
 ///from base of atom/movable/onTransitZ(): (old_z, new_z)
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit"
-///called when the movable is placed in an unaccessible area, used for stationloving: ()
-#define COMSIG_MOVABLE_SECLUDED_LOCATION "movable_secluded"
-///from base of atom/movable/Hear(): (proc args list(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode))
-#define COMSIG_MOVABLE_HEAR "movable_hear"
-	#define HEARING_MESSAGE 1
-	#define HEARING_SPEAKER 2
-	#define HEARING_RAW_MESSAGE 4
 
 /// Called just before something gets untilted
 #define COMSIG_MOVABLE_TRY_UNTILT "movable_try_untilt"

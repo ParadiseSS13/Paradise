@@ -125,9 +125,7 @@
 	lifetime = 16 SECONDS_TO_LIFE_CYCLES
 	causes_coughing = TRUE
 
-/obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target, height = 0)
-	if(!height)
-		return TRUE
+/obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /obj/item/projectile/beam))
 		var/obj/item/projectile/beam/B = mover
 		B.damage = (B.damage / 2)
