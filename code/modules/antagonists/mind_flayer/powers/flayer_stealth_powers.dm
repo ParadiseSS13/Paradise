@@ -85,7 +85,7 @@
 	flayer.send_swarm_message("Use this power again to return to your original voice.")
 	return TRUE
 
-/datum/spell/flayer/self/dump_coolant
+/datum/spell/flayer/self/heat_sink
 	name = "Heat Sink"
 	desc = "Vent the used coolant from our internals to disorient and scald attackers."
 	upgrade_info = "5 extra plumes of steam and 5 less seconds between casts."
@@ -98,13 +98,13 @@
 	max_level = 3
 	var/smoke_effects_spawned = 10
 
-/datum/spell/flayer/self/vent_smog/cast(list/targets, mob/living/user)
+/datum/spell/flayer/self/heat_sink/cast(list/targets, mob/living/user)
 	var/datum/effect_system/smoke_spread/steam/smoke = new()
 	user.smoke_delay = TRUE //Gives the user a second to get out before the steam affects them too
 	smoke.set_up(smoke_effects_spawned, FALSE, user, null)
 	smoke.start()
 
-/datum/spell/flayer/self/vent_smog/on_purchase_upgrade()
+/datum/spell/flayer/self/heat_sink/on_purchase_upgrade()
 	cooldown_handler.recharge_duration -= 5 SECONDS
 	smoke_effects_spawned += 5
 
