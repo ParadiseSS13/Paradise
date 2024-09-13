@@ -110,6 +110,14 @@
 	desc = "A warning sign which reads 'SECURE AREA'"
 	icon_state = "securearea"
 
+/obj/structure/sign/wait
+	name = "\improper WAIT FOR DECONTAMINATION!"
+	desc = "A warning sign which reads: WAIT! <BR>\
+	Before returning from the asteroid internal zone, please wait for the in-built scrubber system to remove all traces of the toxic atmosphere. This will take approximately 20 seconds.<BR> \
+	Failure to adhere to this safety regulation will result in large plasmafires that will destroy the locking mechanisms."
+	icon_state = "waitsign"
+	resistance_flags = FIRE_PROOF
+
 /obj/structure/sign/monkey_paint
 	name = "Mr. Deempisi portrait"
 	desc = "Under the painting a plaque reads: 'While the meat grinder may not have spared you, fear not. Not one part of you has gone to waste...You were delicious."

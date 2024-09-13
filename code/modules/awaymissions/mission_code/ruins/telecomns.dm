@@ -495,6 +495,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 			soundblock = "kerberos"
 		if("NSS Farragus")
 			soundblock = "farragus"
+		if("NSS Diagoras")
+			soundblock = "diagoras"
 	if(!soundblock)
 		things_to_say = list("Either you are using the tiny test map, or someone has made a new station and it got merged!", "If this is the case, you'll want to issue report this if a new map is merged", "Lines 2 and 3 here are always the same, only the first line will need a new generation")
 

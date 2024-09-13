@@ -70,10 +70,10 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	var/list/commando_ghosts = list()
 	if(alert("Would you like to custom pick your Deathsquad?", null, "Yes", "No") == "Yes")
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
-		commando_ghosts = pollCandidatesWithVeto(src, usr, commando_number, "Join the DeathSquad?", null, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
+		commando_ghosts = pollCandidatesWithVeto(src, usr, commando_number, "Join the DeathSquad?", null, 21, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 	else
 		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
-		commando_ghosts = SSghost_spawns.poll_candidates("Join the Deathsquad?", null, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
+		commando_ghosts = SSghost_spawns.poll_candidates("Join the Deathsquad?", null, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 		if(length(commando_ghosts) > commando_number)
 			commando_ghosts.Cut(commando_number + 1) //cuts the ghost candidates down to the amount requested
 	if(!length(commando_ghosts))

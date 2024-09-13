@@ -23,6 +23,12 @@
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/paradise/cerestation/"
 	min_players_random = 60
 
+/datum/map/emeraldstation
+	fluff_name = "NSS Diagoras"
+	technical_name = "EmeraldStation"
+	map_path = "_maps/map_files/stations/emeraldstation.dmm"
+	webmap_url = "https://affectedarc07.co.uk/emerald.html"
+
 /datum/map/test_tiny
 	fluff_name = "test_tiny"
 	technical_name = "test_tiny"
