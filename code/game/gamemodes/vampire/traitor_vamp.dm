@@ -9,7 +9,7 @@
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
-	secondary_protected_species = list("Machine")
+	species_to_mindflayer = list("Machine")
 
 /datum/game_mode/traitor/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Vampire!</B>")
@@ -31,7 +31,7 @@
 			break
 		var/datum/mind/vampire = pick_n_take(possible_vampires)
 		vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
-		if(vampire.current.client.prefs.active_character.species in secondary_protected_species)
+		if(vampire.current.client.prefs.active_character.species in species_to_mindflayer)
 			pre_mindflayers += vampire
 			vampire.special_role = SPECIAL_ROLE_MIND_FLAYER
 			continue

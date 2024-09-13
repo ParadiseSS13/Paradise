@@ -8,7 +8,7 @@
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
-	secondary_protected_species = list("Machine")
+	species_to_mindflayer = list("Machine")
 
 /datum/game_mode/traitor/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Changeling!</B>")
@@ -30,7 +30,7 @@
 			break
 		var/datum/mind/changeling = pick_n_take(possible_changelings)
 		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
-		if(changeling.current.client.prefs.active_character.species in secondary_protected_species)
+		if(changeling.current.client.prefs.active_character.species in species_to_mindflayer)
 			pre_mindflayers += changeling
 			changeling.special_role = SPECIAL_ROLE_MIND_FLAYER
 			continue

@@ -25,7 +25,6 @@
 	var/list/protected_jobs = list()	// Jobs that can't be traitors
 	/// Species that will become mindflayers if they're picked, instead of the regular antagonist
 	var/list/species_to_mindflayer = list()
-	var/list/secondary_protected_species = list() // Same as above, but for secondary antagonists
 	var/required_players = 0
 	var/required_enemies = 0
 	var/recommended_enemies = 0

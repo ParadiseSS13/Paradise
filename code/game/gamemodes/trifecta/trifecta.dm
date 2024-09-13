@@ -12,7 +12,7 @@
 	required_players = 25
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
-	secondary_protected_species = list("Machine")
+	species_to_mindflayer = list("Machine")
 	var/vampire_restricted_jobs = list("Chaplain")
 	var/amount_vamp = 1
 	var/amount_cling = 1
@@ -38,7 +38,7 @@
 		if(length(pre_vampires) >= amount_vamp)
 			break
 		vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs + vampire_restricted_jobs)
-		if(vampire.current.client.prefs.active_character.species in secondary_protected_species)
+		if(vampire.current.client.prefs.active_character.species in species_to_mindflayer)
 			pre_mindflayers += vampire
 			amount_vamp -= 1 //It's basically the same thing as incrementing pre_vampires
 			vampire.special_role = SPECIAL_ROLE_MIND_FLAYER
@@ -58,7 +58,7 @@
 		if(changeling.special_role == SPECIAL_ROLE_VAMPIRE || changeling.special_role == SPECIAL_ROLE_MIND_FLAYER)
 			continue
 		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
-		if(changeling.current.client.prefs.active_character.species in secondary_protected_species)
+		if(changeling.current.client.prefs.active_character.species in species_to_mindflayer)
 			pre_mindflayers += changeling
 			amount_cling -= 1
 			changeling.special_role = SPECIAL_ROLE_MIND_FLAYER
