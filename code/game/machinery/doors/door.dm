@@ -133,7 +133,7 @@
 
 	update_bounds()
 
-/obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/machinery/door/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover))
 		if(mover.checkpass(PASSDOOR) && !locked)
 			return TRUE

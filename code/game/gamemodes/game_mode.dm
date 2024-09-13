@@ -40,6 +40,7 @@
 	var/list/blob_overminds = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
+	var/list/secondary_goal_grab_bags = null // Once initialized, contains an associative list of department_name -> list(secondary_goal_type). When a goal is requested, a type will be pulled out of the department's grab bag. When the bag is empty, it will be refilled from the list of all goals in that department, with the amount of each set to the type's weight, max 10.
 	var/list/datum/station_goal/secondary/secondary_goals = list() // A list of all secondary goals issued
 
 	/// Each item in this list can only be rolled once on average.
@@ -282,10 +283,10 @@
 				candidates += player.mind
 				players -= player
 
-	// Remove candidates who want to be antagonist but have a job that precludes it
+	// Remove candidates who want to be antagonist but have a job (or other antag datum) that precludes it
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
-			if(player.assigned_role in restricted_jobs)
+			if((player.assigned_role in restricted_jobs) || player.special_role)
 				candidates -= player
 
 
@@ -311,9 +312,9 @@
 	// Shuffle the players list so that it becomes ping-independent.
 	players = shuffle(players)
 
-	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
+	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species, and those who are already antagonists
 	for(var/mob/living/carbon/human/player in players)
-		if(player.client.skip_antag || !(allow_offstation_roles || !player.mind?.offstation_role))
+		if(player.client.skip_antag || !(allow_offstation_roles || !player.mind?.offstation_role) || player.mind?.special_role)
 			continue
 
 		if(!(role in player.client.prefs.be_special) || (player.client.prefs.active_character.species in protected_species))

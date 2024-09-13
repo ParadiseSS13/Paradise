@@ -294,9 +294,7 @@
 	connected = null
 	return ..()
 
-/obj/structure/m_tray/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
-		return TRUE
+/obj/structure/m_tray/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover))
 		if(mover.checkpass(PASSTABLE))
 			return TRUE
