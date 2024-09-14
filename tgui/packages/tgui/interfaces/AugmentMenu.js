@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section, LabeledList, Tabs, Icon, Input } from '../components';
+import { Box, Button, Section, Tabs, Input } from '../components';
 import { Window } from '../layouts';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
@@ -19,7 +19,7 @@ export const AugmentMenu = (props, context) => {
 
 const Abilities = (props, context) => {
   const { act, data } = useBackend(context);
-  const { usable_swarms, ability_tabs, known_abilities } = data;
+  const { usable_swarms, ability_tabs } = data;
 
   const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', ability_tabs[0]);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
@@ -58,6 +58,18 @@ const Abilities = (props, context) => {
     setSearchText('');
   };
 
+  const handlePurchase = (ability) => {
+    const result = act('purchase', { ability_path: ability.ability_path });
+
+    // Check if result is a Promise
+    if (result && typeof result.then === 'function') {
+      result.then(() => {
+        // Refresh abilities after purchase
+        handleTabChange(selectedTab);
+      });
+    }
+  };
+
   return (
     <Section
       title={'Swarms: ' + usable_swarms}
@@ -65,9 +77,7 @@ const Abilities = (props, context) => {
         <Input
           width="200px"
           placeholder="Search Abilities"
-          onInput={(e, value) => {
-            handleSearch(value);
-          }}
+          onInput={(e, value) => handleSearch(value)}
           value={searchText}
         />
       }
@@ -101,7 +111,7 @@ const Abilities = (props, context) => {
                 content={ability.cost}
                 disabled={ability.cost > usable_swarms}
                 tooltip="Purchase this ability?"
-                onClick={() => act('purchase', { ability_path: ability.ability_path })}
+                onClick={() => handlePurchase(ability)}
               />
               <Box as="span" fontSize="1.4rem">
                 {ability.name}
@@ -122,6 +132,7 @@ const Abilities = (props, context) => {
 const Upgrades = (props, context) => {
   const { act, data } = useBackend(context);
   const { usable_swarms, known_abilities } = data;
+
   return (
     <Box>
       {known_abilities.map(
