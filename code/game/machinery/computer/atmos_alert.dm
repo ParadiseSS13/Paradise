@@ -21,21 +21,21 @@
 
 /obj/machinery/computer/atmos_alert/process()
 	// This is relatively cheap because the areas list is pretty small
-	for(var/obj/machinery/alarm/airAlarm as anything in GLOB.air_alarms)
-		if(!((get_area(airAlarm)).type in typesof(parent_area_type)) || airAlarm.z != z)
+	for(var/obj/machinery/alarm/air_alarm as anything in GLOB.air_alarms)
+		if(!((get_area(air_alarm)).type in typesof(parent_area_type)) || air_alarm.z != z)
 			continue // Not an area we monitor, or outside our z-level
-		if(!airAlarm.report_danger_level)
+		if(!air_alarm.report_danger_level)
 			continue
-		switch(airAlarm.alarm_area.atmosalm)
+		switch(air_alarm.alarm_area.atmosalm)
 			if(ATMOS_ALARM_DANGER)
-				alarm_cache["priority"] |= airAlarm.alarm_area.name
-				alarm_cache["minor"] -= airAlarm.alarm_area.name
+				alarm_cache["priority"] |= air_alarm.alarm_area.name
+				alarm_cache["minor"] -= air_alarm.alarm_area.name
 			if(ATMOS_ALARM_WARNING)
-				alarm_cache["priority"] -= airAlarm.alarm_area.name
-				alarm_cache["minor"] |= airAlarm.alarm_area.name
+				alarm_cache["priority"] -= air_alarm.alarm_area.name
+				alarm_cache["minor"] |= air_alarm.alarm_area.name
 			else
-				alarm_cache["priority"] -= airAlarm.alarm_area.name
-				alarm_cache["minor"] -= airAlarm.alarm_area.name
+				alarm_cache["priority"] -= air_alarm.alarm_area.name
+				alarm_cache["minor"] -= air_alarm.alarm_area.name
 
 	update_icon()
 
