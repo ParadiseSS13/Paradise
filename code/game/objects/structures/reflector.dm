@@ -11,6 +11,10 @@
 	var/obj/item/stack/sheet/build_stack_type
 	var/build_stack_amount
 
+/obj/structure/reflector/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		anchored = TRUE
 
 /obj/structure/reflector/bullet_act(obj/item/projectile/P)
 	var/turf/reflector_turf = get_turf(src)

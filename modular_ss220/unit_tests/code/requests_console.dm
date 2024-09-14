@@ -1,4 +1,4 @@
-#define ENGI_AREAS list("Atmospherics", "Engineering", "Chief Engineer's Desk", "Engineering Control Room", "Tech Storage")
+#define ENGI_AREAS list("Atmospherics", "Engineering", "Chief Engineer's Desk", "Engineering Control Room", "Tech Storage", "Construction Area")
 #define SEC_AREAS list("Warden", "Security", "Detective", "Head of Security's Desk", "Prisoner Processing", "Internal Affairs Office", "Magistrate", "Courtroom")
 #define SERVICE_AREAS list("Bar", "Kitchen", "Chapel", "Library", "Hydroponics", "Janitorial", "Arrival Shuttle", "Crew Quarters")
 #define MED_AREAS list("Virology", "Chief Medical Officer's Desk", "Medbay", "Psychiatrist", "Chemistry", "Paramedic", "Morgue")

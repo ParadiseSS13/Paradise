@@ -15687,12 +15687,17 @@
 "bjv" = (
 /obj/structure/rack,
 /obj/item/circuitboard/robotics{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/circuitboard/mecha_control{
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/circuitboard/mecha_control{
-	pixel_x = 1;
-	pixel_y = -1
+/obj/item/circuitboard/rnd_backup_console,
+/obj/item/circuitboard/rnd_network_controller{
+	pixel_x = 2;
+	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

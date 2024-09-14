@@ -41,6 +41,12 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/clown_text_span_class = "boldnotice"
 	/// The url page name for this antagonist, appended to the end of the wiki url in the form of: [GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name]
 	var/wiki_page_name
+	/// The organization, if any, this antag is associated with
+	var/datum/antag_org/organization
+	/// If set to TRUE, the antag will be notified they are targeted by another antagonist this round.
+	var/targeted_by_antag = FALSE
+	/// The message displayed to the antag if targeted_by_antag is set to TRUE
+	var/targeted_by_antag_message = "You can't shake the feeling someone's been stalking you. You might be an assassin's next target."
 
 	//Blurb stuff
 	/// Intro Blurbs text colour
@@ -171,6 +177,13 @@ GLOBAL_LIST_EMPTY(antagonists)
 	return L
 
 /**
+ * Selects and set the organization this antag is associated with.
+ * Base proc, override as needed
+ */
+/datum/antagonist/proc/select_organization()
+	return
+
+/**
  * Adds this datum's antag hud to `antag_mob`.
  *
  * Arguments:
@@ -247,6 +260,12 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(ispath(objective_to_add))
 		objective_to_add = new objective_to_add()
 
+	// Roll to see if we target a specific department or random one
+	if(organization && prob(organization.focus))
+		if(organization.targeted_departments)
+			objective_to_add.target_department = pick(organization.targeted_departments)
+			objective_to_add.steal_list = organization.theft_targets
+
 	if(objective_to_add.owner)
 		stack_trace("[objective_to_add], [objective_to_add.type] was assigned as an objective to [owner] (mind), but already had an owner: [objective_to_add.owner] (mind). Overriding.")
 	objective_to_add.owner = owner
@@ -289,6 +308,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/on_gain()
 	owner.special_role = special_role
 	add_owner_to_gamemode()
+	select_organization()
 	if(give_objectives)
 		give_objectives()
 	var/list/messages = list()
@@ -356,6 +376,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	. = messages
 	if(owner && owner.current)
 		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
+		if(organization && organization.intro_desc)
+			messages.Add("<span class='boldnotice'>[organization.intro_desc]</span>")
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"

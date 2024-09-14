@@ -87,6 +87,8 @@
 	var/price_modifier = 1.1
 	/// Our storage modifier, which is used in calculating organ and biomass storage.
 	var/storage_modifier = 1
+	/// How resistant the cloner is to being emp'd. Equal to the average level of all the stock parts
+	var/emp_resistance = 1
 
 	/// The cloner's biomass count.
 	var/biomass = 0
@@ -164,15 +166,19 @@
 	. += "<span class='notice'>[desc_flavor]</span>"
 
 /obj/machinery/clonepod/RefreshParts()
-	speed_modifier = 0 //Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
+	speed_modifier = 0 // Since we have multiple manipulators, which affect this modifier, we reset here so we can just use += later
+	emp_resistance = 0
 	for(var/obj/item/stock_parts/SP as anything in component_parts)
-		if(istype(SP, /obj/item/stock_parts/matter_bin/)) // Matter bins for storage modifier
+		if(istype(SP, /obj/item/stock_parts/matter_bin)) // Matter bins for storage modifier
 			storage_modifier = round(10 * (SP.rating / 2)) // 5 at tier 1, 10 at tier 2, 15 at tier 3, 20 at tier 4
+			emp_resistance += SP.rating
 		else if(istype(SP, /obj/item/stock_parts/scanning_module)) //Scanning modules for price modifier (more accurate scans = more efficient)
 			price_modifier = -(SP.rating / 10) + 1.2 // 1.1 at tier 1, 1 at tier 2, 0.9 at tier 3, 0.8 at tier 4
+			emp_resistance += SP.rating
 		else if(istype(SP, /obj/item/stock_parts/manipulator)) //Manipulators for speed modifier
 			speed_modifier += SP.rating / 2 // 1 at tier 1, 2 at tier 2, et cetera
-
+			emp_resistance += SP.rating
+	emp_resistance /= 4 // 4 stock parts, this brings us to a value between 1 to 4. Decimals can happen and are fine.
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		if(istype(B))
 			reagents.maximum_volume = B.volume //The default cloning pod has a large beaker in it, so 100u.
@@ -623,13 +629,34 @@
 
 /obj/machinery/clonepod/emag_act(user)
 	. = ..()
-	eject_clone(TRUE)
+	malfunction()
 	return TRUE
 
 /obj/machinery/clonepod/emp_act(severity)
-	if(prob(50))
-		eject_clone(TRUE)
+	if(prob(100 / (severity * emp_resistance)))
+		malfunction()
 	return ..()
+
+/obj/machinery/clonepod/proc/malfunction()
+	if(clone)
+		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
+		if(istype(patient_mind, /datum/mind))
+			patient_mind.transfer_to(clone)
+			clone.grab_ghost()
+			to_chat(clone, "<span class='warning'><b>Agony blazes across your consciousness as your body is torn apart.</b>\
+			<br><i>Is this what dying is like? Yes it is.</i></span>")
+			SEND_SOUND(clone, sound('sound/hallucinations/veryfar_noise.ogg', 0, TRUE, 50))
+		sleep(40)
+		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
+		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
+		new /obj/effect/gibspawner/generic(get_turf(src), clone.dna)
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
+		qdel(clone)
+		reset_cloning()
+
+	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, FALSE)
+	update_icon()
+
 
 //TGUI
 /obj/machinery/clonepod/ui_interact(mob/user, datum/tgui/ui = null)

@@ -127,6 +127,9 @@
 	if(stat & BROKEN || !user || I.flags & ABSTRACT)
 		return
 
+	if(user.a_intent != INTENT_HELP)
+		return ..()
+
 	src.add_fingerprint(user)
 
 	if(istype(I, /obj/item/melee/energy/blade))

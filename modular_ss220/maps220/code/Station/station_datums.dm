@@ -18,3 +18,6 @@
 
 /datum/map/cerestation
 	voteable = FALSE
+
+/datum/map/emeraldstation
+	voteable = FALSE
