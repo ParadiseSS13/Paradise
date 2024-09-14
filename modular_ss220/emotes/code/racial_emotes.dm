@@ -122,7 +122,7 @@
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_wag
 	H.verbs |= /mob/living/carbon/human/proc/emote_swag
-	H.verbs |= /mob/living/carbon/human/proc/emote_unathi_hiss
+	H.verbs |= /mob/living/carbon/human/proc/emote_hiss
 	H.verbs |= /mob/living/carbon/human/proc/emote_roar
 	H.verbs |= /mob/living/carbon/human/proc/emote_threat
 	H.verbs |= /mob/living/carbon/human/proc/emote_whip
@@ -133,7 +133,7 @@
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_wag
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
-	H.verbs -= /mob/living/carbon/human/proc/emote_unathi_hiss
+	H.verbs -= /mob/living/carbon/human/proc/emote_hiss
 	H.verbs -= /mob/living/carbon/human/proc/emote_roar
 	H.verbs -= /mob/living/carbon/human/proc/emote_threat
 	H.verbs -= /mob/living/carbon/human/proc/emote_whip
