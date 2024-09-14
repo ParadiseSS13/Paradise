@@ -12,6 +12,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
 	wiki_page_name = "Traitor"
+	targeted_by_antag_message = "Our intelligence suggests that you are likely to be the target of a rival member of the Syndicate. \
+		Remain vigilant, they know who you are and what you can do."
 	/// Should the traitor get codewords?
 	var/give_codewords = TRUE
 	/// Should we give the traitor their uplink?
@@ -80,6 +82,14 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 
 	return ..()
 
+/datum/antagonist/traitor/select_organization()
+	var/chaos = pickweight(list(ORG_CHAOS_HUNTER = ORG_PROB_HUNTER, ORG_CHAOS_MILD = ORG_PROB_MILD, ORG_CHAOS_AVERAGE = ORG_PROB_AVERAGE, ORG_CHAOS_HIJACK = ORG_PROB_HIJACK))
+	for(var/org_type in shuffle(subtypesof(/datum/antag_org/syndicate)))
+		var/datum/antag_org/org = org_type
+		if(initial(org.chaos_level) == chaos)
+			organization = new org_type(src)
+			return
+
 /datum/antagonist/traitor/add_owner_to_gamemode()
 	SSticker.mode.traitors |= owner
 
@@ -104,23 +114,31 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  * Create and assign a full set of randomized human traitor objectives.
  */
 /datum/antagonist/traitor/proc/forge_human_objectives()
-	// Hijack objective.
-	if(prob(2) && !(locate(/datum/objective/hijack) in owner.get_all_objectives())) // SS220 EDIT prob(10 -> 2)
-		add_antag_objective(/datum/objective/hijack)
-		return // Hijack should be their only objective (normally), so return.
+	var/iteration = 1
+	var/can_succeed_if_dead = TRUE
+	// If our org has forced objectives, give them to us guaranteed.
+	if(organization && length(organization.forced_objectives))
+		for(var/forced_objectives in organization.forced_objectives)
+			var/datum/objective/forced_obj = forced_objectives
+			if(!ispath(forced_obj, /datum/objective/hijack) && delayed_objectives) // Hijackers know their objective immediately
+				forced_obj = new /datum/objective/delayed(forced_obj)
+			add_antag_objective(forced_obj)
+			iteration++
 
-	// Will give normal steal/kill/etc. type objectives.
-	for(var/i in 1 to GLOB.configuration.gamemode.traitor_objectives_amount)
+	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
+		return //Hijackers only get hijack.
+
+	// Will give objectives from our org or random objectives.
+	for(var/i in iteration to GLOB.configuration.gamemode.traitor_objectives_amount)
 		forge_single_human_objective()
 
-	var/can_succeed_if_dead = TRUE
 	for(var/objective in owner.get_all_objectives())
 		var/datum/objective/O = objective
-		if(!O.martyr_compatible) // Check if our current objectives can co-exist with martyr.
+		if(!O.martyr_compatible) // Check if we need to stay alive in order to accomplish our objectives (Steal item, etc)
 			can_succeed_if_dead  = FALSE
 			break
 
-	// Give them an escape objective if they don't have one already.
+	// Give them an escape objective if they don't have one. 20 percent chance not to have escape if we can greentext without staying alive.
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
 		add_antag_objective(/datum/objective/escape)
 
@@ -138,23 +156,27 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 /datum/antagonist/traitor/proc/forge_single_human_objective()
 	var/datum/objective/objective_to_add
 
-	if(prob(50))
-		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-			objective_to_add = /datum/objective/destroy
-
-		else if(prob(5))
-			objective_to_add = /datum/objective/debrain
-
-		else if(prob(30))
-			objective_to_add = /datum/objective/maroon
-
-		else if(prob(30))
-			objective_to_add = /datum/objective/assassinateonce
-
-		else
-			objective_to_add = /datum/objective/assassinate
+	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
+	if(organization && length(organization.objectives) && prob(organization.focus))
+		objective_to_add = pick(organization.objectives)
 	else
-		objective_to_add = /datum/objective/steal
+		if(prob(50))
+			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
+				objective_to_add = /datum/objective/destroy
+
+			else if(prob(5))
+				objective_to_add = /datum/objective/debrain
+
+			else if(prob(30))
+				objective_to_add = /datum/objective/maroon
+
+			else if(prob(30))
+				objective_to_add = /datum/objective/assassinateonce
+
+			else
+				objective_to_add = /datum/objective/assassinate
+		else
+			objective_to_add = /datum/objective/steal
 
 	if(delayed_objectives)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
@@ -165,6 +187,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
  */
 /datum/antagonist/traitor/finalize_antag()
 	var/list/messages = list()
+	if(organization)
+		antag_memory += "<b>Organization</b>: [organization.name]<br>"
 	if(give_codewords)
 		messages.Add(give_codewords())
 	if(isAI(owner.current))
@@ -285,6 +309,8 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	if(!owner?.current)
 		return
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+	if(targeted_by_antag || prob(ORG_PROB_PARANOIA)) // Low chance of fake 'You are targeted' notification
+		to_chat(owner.current, "<span class='userdanger'>[targeted_by_antag_message]</span>")
 	var/list/messages = owner.prepare_announce_objectives()
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	delayed_objectives = FALSE
