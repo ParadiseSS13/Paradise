@@ -58975,6 +58975,20 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/public/vacant_office)
+"lwZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 1
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/port2)
 "lxe" = (
 /obj/structure/table/reinforced,
 /obj/item/transfer_valve{
@@ -102291,6 +102305,14 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
+"xGy" = (
+/obj/structure/disposalpipe/junction/y{
+	dir = 4
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/maintenance/port2)
 "xGA" = (
 /obj/machinery/door/airlock/atmos/glass{
 	autoclose = 0;
@@ -126611,7 +126633,7 @@ xbi
 huq
 huq
 huq
-huq
+xGy
 uNO
 czl
 baF
@@ -126868,7 +126890,7 @@ qoK
 nxG
 nxG
 nxG
-eiE
+lwZ
 wph
 oZo
 baF
