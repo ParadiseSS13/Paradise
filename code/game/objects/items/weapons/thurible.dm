@@ -157,11 +157,7 @@
 	released_reagents.create_reagents(2)
 	reagents.trans_to(released_reagents, swing_reagents_consumed)
 	var/list/mobs_to_smoke = list()
-	var/list/smoked_atoms = list()
 	for(var/atom/A in view(1, get_turf(src)))
-		if(A in smoked_atoms)
-			continue
-		smoked_atoms += A
 		released_reagents.reagents.reaction(A)
 		if(iscarbon(A))
 			var/mob/living/carbon/C = A
