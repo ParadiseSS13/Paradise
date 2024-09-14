@@ -215,10 +215,9 @@
 	loc = new_loc
 	Moved(old_loc, direction, TRUE)
 
-////////////////////////////////////////
-// Here's where we rewrite how byond handles movement except slightly different
-// To be removed on step_ conversion
-// All this work to prevent a second bump
+/// Here's where we rewrite how byond handles movement except slightly different.
+/// To be removed on step_ conversion.
+/// All this work to prevent a second bump.
 /atom/movable/Move(atom/newloc, direction, glide_size_override = 0, update_dir = TRUE)
 	. = FALSE
 	if(!newloc || newloc == loc)
