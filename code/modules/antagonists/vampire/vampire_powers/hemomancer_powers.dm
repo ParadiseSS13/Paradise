@@ -98,7 +98,7 @@
 				blood_drain_amount *= 1.5
 				blood_absorbed_amount *= 1.5
 				force *= 1.5 // 15 force
-				heal_boost = 2 //This *might* let you survive xeno disarms. Maybe.
+				heal_boost = 2 // This *might* let you survive xeno disarms. Maybe.
 				damtype = BURN
 				hitsound = 'sound/weapons/sear.ogg'
 				color = list(0.5,1,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1, 0,0,0,0)
