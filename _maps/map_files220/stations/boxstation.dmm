@@ -30698,11 +30698,13 @@
 	},
 /obj/machinery/door/window/reinforced/normal{
 	dir = 8;
-	name = "Server Interior Door"
+	name = "Server Interior Door";
+	superconductivity = 0
 	},
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4;
-	name = "Server Exterior Door"
+	name = "Server Exterior Door";
+	superconductivity = 0
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -99493,7 +99495,8 @@
 "wIr" = (
 /obj/machinery/door/window/classic/reversed{
 	dir = 1;
-	name = "Kill Chamber"
+	name = "Kill Chamber";
+	superconductivity = 0
 	},
 /obj/effect/turf_decal/stripes,
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -103137,7 +103140,8 @@
 /area/station/maintenance/fsmaint)
 "xUX" = (
 /obj/machinery/door/window/classic/reversed{
-	name = "Kill Chamber"
+	name = "Kill Chamber";
+	superconductivity = 0
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio1";
