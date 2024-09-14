@@ -17189,10 +17189,13 @@
 "bvW" = (
 /obj/structure/rack,
 /obj/item/circuitboard/robotics{
-	pixel_x = -3;
-	pixel_y = 3
+	pixel_x = -4;
+	pixel_y = 4
 	},
-/obj/item/circuitboard/mecha_control,
+/obj/item/circuitboard/mecha_control{
+	pixel_x = -2;
+	pixel_y = 2
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -17200,6 +17203,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/item/circuitboard/rnd_backup_console,
+/obj/item/circuitboard/rnd_network_controller{
+	pixel_x = 2;
+	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
