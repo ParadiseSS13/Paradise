@@ -9543,7 +9543,6 @@
 /area/station/engineering/engine/supermatter)
 "aSp" = (
 /obj/structure/reflector/box{
-	anchored = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -57270,7 +57269,6 @@
 /area/station/service/clown)
 "jbk" = (
 /obj/structure/reflector/double{
-	anchored = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -66848,7 +66846,6 @@
 /area/station/legal/courtroom/gallery)
 "mZJ" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -84819,7 +84816,6 @@
 /area/station/medical/chemistry)
 "uLE" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 1
 	},
 /turf/simulated/floor/plating,

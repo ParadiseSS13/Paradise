@@ -4299,7 +4299,6 @@
 /area/station/engineering/controlroom)
 "aue" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -30795,6 +30794,13 @@
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "bLt" = (
+/turf/simulated/floor/carpet,
+/area/station/security/detective)
+"bLu" = (
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
+/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "bLv" = (
@@ -63248,13 +63254,6 @@
 	icon_state = "cult"
 	},
 /area/station/service/chapel/office)
-"dUf" = (
-/obj/machinery/computer/med_data{
-	dir = 8
-	},
-/obj/machinery/requests_console/directional/east,
-/turf/simulated/floor/carpet,
-/area/station/security/detective)
 "dUi" = (
 /obj/item/kirbyplants,
 /obj/structure/cable{
@@ -148671,7 +148670,7 @@ aaa
 bLn
 bHP
 dMA
-dUf
+bLu
 bNu
 nXf
 bLn
