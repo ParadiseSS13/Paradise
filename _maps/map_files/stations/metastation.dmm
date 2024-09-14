@@ -9555,7 +9555,6 @@
 /area/station/engineering/engine/supermatter)
 "aSp" = (
 /obj/structure/reflector/box{
-	anchored = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -15738,6 +15737,8 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
+/obj/item/circuitboard/rnd_backup_console,
+/obj/item/circuitboard/rnd_network_controller,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -57290,7 +57291,6 @@
 /area/station/service/clown)
 "jbk" = (
 /obj/structure/reflector/double{
-	anchored = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -66840,7 +66840,6 @@
 /area/station/legal/courtroom/gallery)
 "mZJ" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -84731,7 +84730,6 @@
 /area/station/medical/chemistry)
 "uLE" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 1
 	},
 /turf/simulated/floor/plating,
