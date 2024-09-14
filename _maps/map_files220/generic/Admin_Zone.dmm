@@ -578,6 +578,10 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/shuttle/trade/sol)
+"cm" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/wood,
+/area/ghost_bar/indoor)
 "cn" = (
 /obj/structure/chair/stool/bar{
 	dir = 1
@@ -66301,7 +66305,7 @@ WZ
 Uy
 BZ
 BZ
-BZ
+cm
 ol
 kc
 bv
@@ -79906,7 +79910,7 @@ BZ
 Uy
 BZ
 BZ
-BZ
+cm
 ol
 kH
 kH
