@@ -1,6 +1,6 @@
 /obj/item/thurible
-	desc = "A religious artifact used to burn and spread incense when swung from the attached chain."
 	name = "thurible"
+	desc = "A religious artifact used to burn and spread incense when swung from the attached chain."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	lefthand_file = 'icons/mob/inhands/religion_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/religion_righthand.dmi'
@@ -52,19 +52,24 @@
 		item_state = "thurible"
 	if(in_inventory)
 		for(var/mob/M in view(0, get_turf(src.loc)))
-			M.update_inv_l_hand()
-			M.update_inv_r_hand()
+			if(M.r_hand == src || M.l_hand == src)
+				M.update_inv_l_hand()
+				M.update_inv_r_hand()
 	return ..()
 
 /obj/item/thurible/attackby(obj/item/fire_source, mob/user, params)
 	. = ..()
 	if(fire_source.get_heat())
-		user.visible_message("<span class='notice'>[user] lights [src] with [fire_source].</span>", "<span class='notice'>You light [src] with [fire_source].</span>", "<span class='warning'>You hear a low whoosh.</span>")
+		user.visible_message(
+			"<span class='notice'>[user] lights [src] with [fire_source].</span>",
+			"<span class='notice'>You light [src] with [fire_source].</span>",
+			"<span class='warning'>You hear a low whoosh.</span>"
+		)
 		light(user)
 
 /obj/item/thurible/attack_self(mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>You extinguish \the [src].</span>")
+		to_chat(user, "<span class='warning'>You extinguish [src].</span>")
 		put_out(user)
 	return ..()
 
@@ -82,28 +87,31 @@
 	. = ..()
 	if(!corrupted)
 		var/found_forbidden_reagent = FALSE
-		for(var/datum/reagent/R in reagents.reagent_list)
+		for(var/datum/reagent/R as anything in reagents.reagent_list)
 			if(R.id == "unholywater")
 				corrupted = TRUE
-				to_chat(loc, "<span class='warning'>[src] is corrupted by an unholy substance!</span>")
+				visible_message(
+					"<span class='notice'>You corrupt [src] with unholy water!</span>",
+					"<span class='warning'>You hear a strange gurgling.</span>"
+				)
 				return
 			if(!safe_chem_list.Find(R.id))
 				reagents.del_reagent(R.id)
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
-			if(ismob(loc))
-				to_chat(loc, "<span class='warning'>[src] banishes a dangerous substance!</span>")
-			else
-				visible_message("<span class='warning'>[src] banishes a dangerous substance!</span>")
+			visible_message(
+					"<span class='notice'>[src] banishes an unholy substance!</span>",
+					"<span class='warning'>You hear a strange fizzing.</span>"
+				)
 
 /// Lights the thurible and starts processing reagents
 /obj/item/thurible/proc/light(mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>The [src] is already lit!</span>")
+		to_chat(user, "<span class='warning'>[src] is already lit!</span>")
 		return
 
 	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>The [src] is out of fuel!</span>")
+		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
 		return
 
 	// Plasma explodes when exposed to fire.
@@ -150,7 +158,7 @@
 	reagents.trans_to(released_reagents, swing_reagents_consumed)
 	var/list/mobs_to_smoke = list()
 	var/list/smoked_atoms = list()
-	for(var/atom/A in view(1, get_turf(src.loc)))
+	for(var/atom/A in view(1, get_turf(src)))
 		if(A in smoked_atoms)
 			continue
 		smoked_atoms += A
