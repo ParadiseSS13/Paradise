@@ -54,7 +54,8 @@ components to process the interactions we care about.
 
 ## Signal Handlers
 
-There are several signal handlers used to replicate the native BYOND atom crossover/entry behavior:
+There are several signal handlers used to replicate the native BYOND atom
+crossover/entry behavior:
 
 - [`COMSIG_MOVABLE_PRE_MOVE`][pre_move] is sent when trying to determine if an
   atom can enter a new turf. Any subscribed handler can return
@@ -117,6 +118,10 @@ Note that the list of connections is `static` so that a new element instance isn
 created for every new beartrap.
 
 ## Summary
+
+The procs `/atom/movable/Cross`, `/atom/movable/Crossed`,
+`/atom/movable/Uncross`, and `/atom/movable/Uncrossed`, should not be used for
+new code.
 
 If you care about every time a movable attempts to overlap you, listen to
 `COMSIG_MOVABLE_PRE_MOVE`, and return `COMPONENT_MOVABLE_BLOCK_PRE_MOVE` to
