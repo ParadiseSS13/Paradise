@@ -125,7 +125,8 @@ SUBSYSTEM_DEF(tts220)
 		"кпп" = "Кэ Пэ Пэ",
 		"ик" = "И Ка",
 		"sslr" = "Эс Эс Эл Эр",
-		"сслр" = "Эс Эс Эл Эр"
+		"сслр" = "Эс Эс Эл Эр",
+		"бкп" = "Бэ Ка Пэ"
 	)
 
 	var/static/list/tts_job_replacements = list(
