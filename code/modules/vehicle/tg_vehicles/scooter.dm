@@ -238,7 +238,7 @@
 	can_buckle = FALSE
 	addtimer(CALLBACK(src, PROC_REF(remove_rider)), 5 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE|TIMER_DELETE_ME)
 	curse_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "cult-mark", ABOVE_MOB_LAYER)
-	curse_overlay.pixel_y -= 10
+	curse_overlay.pixel_y = -10
 
 	add_overlay(curse_overlay)
 
