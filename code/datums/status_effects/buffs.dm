@@ -730,8 +730,8 @@
 			owner.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
 			return
 	if(owner.stat != DEAD)
-		owner.adjustBruteLoss(-3)
-		owner.adjustFireLoss(-3)
+		owner.adjustBruteLoss(-3, robotic = TRUE)
+		owner.adjustFireLoss(-3, robotic = TRUE)
 		owner.adjustStaminaLoss(-25)
 
 /datum/status_effect/drill_payback/on_remove()
