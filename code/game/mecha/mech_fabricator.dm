@@ -197,7 +197,6 @@
 /obj/machinery/mecha_part_fabricator/proc/build_design(datum/design/D)
 	. = FALSE
 
-	var/turf_to_print_on = get_step(src, output_dir)
 	var/datum/research/files = get_files()
 	if(!files)
 		atom_say("Error - No research network linked.")
@@ -214,6 +213,8 @@
 	if(stat & NOPOWER)
 		atom_say("Error: Insufficient power!")
 		return
+
+	var/turf_to_print_on = get_step(src, output_dir)
 	if(iswallturf(turf_to_print_on))
 		atom_say("Error: Output blocked by a wall!")
 		return
