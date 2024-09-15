@@ -26,7 +26,7 @@
 	. = ..()
 	if(slot != SLOT_HUD_SHOES || !ishuman(user))
 		return
-	check_mag_pulse()
+	check_mag_pulse_equipping(user)
 
 /obj/item/clothing/shoes/magboots/dropped(mob/user, silent)
 	. = ..()
@@ -57,7 +57,30 @@
 		A.UpdateButtons()
 	check_mag_pulse(user)
 
+/obj/item/clothing/shoes/magboots/dropped(mob/user)
+	..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
+		if(magpulse)
+			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
+			attack_self(user, TRUE)
+
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user)
+	if(!user)
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(SLOT_HUD_SHOES) != src)
+		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		return
+	if(magpulse)
+		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		return
+	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
+		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+
+/obj/item/clothing/shoes/magboots/proc/check_mag_pulse_equipping(mob/user)
 	if(!user)
 		return
 	if(magpulse)
