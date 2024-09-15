@@ -55,7 +55,8 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 /obj/machinery/conveyor/attackby(obj/item/I, mob/user)
 	if(stat & BROKEN)
 		return ..()
-	else if(istype(I, /obj/item/conveyor_switch_construct))
+
+	if(istype(I, /obj/item/conveyor_switch_construct))
 		var/obj/item/conveyor_switch_construct/S = I
 		if(S.id == id)
 			return ..()
@@ -64,11 +65,14 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 				CS.conveyors -= src
 		id = S.id
 		to_chat(user, "<span class='notice'>You link [I] with [src].</span>")
-	else if(user.a_intent != INTENT_HARM)
+		return
+
+	if(user.a_intent == INTENT_HELP)
 		if(user.drop_item())
 			I.forceMove(loc)
-	else
-		return ..()
+		return
+
+	return ..()
 
 
 /obj/machinery/conveyor/crowbar_act(mob/user, obj/item/I)

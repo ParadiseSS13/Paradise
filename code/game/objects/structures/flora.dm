@@ -45,7 +45,6 @@
 /obj/structure/flora/tree/palm/Initialize(mapload)
 	. = ..()
 	icon_state = pick("palm1","palm2")
-	pixel_x = 0
 
 /obj/structure/flora/tree/jungle
 	name = "tree"

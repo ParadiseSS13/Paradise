@@ -161,7 +161,7 @@
 	var/obj/target = A
 	if(is_type_in_list(target, no_wrap))
 		return
-	
+
 	if(istype(target, /obj/item/stack/packageWrap) && user.a_intent != INTENT_HARM)
 		return
 
@@ -294,7 +294,7 @@
 /obj/machinery/disposal/deliveryChute/update()
 	return
 
-/obj/machinery/disposal/deliveryChute/CanPass(atom/movable/mover, turf/target, height)
+/obj/machinery/disposal/deliveryChute/CanPass(atom/movable/mover, turf/target)
 	// If the mover is a thrownthing passing through space, remove its thrown datum,
 	// ingest it like normal, and mark the chute as not passible.
 	// This prevents the mover from Entering the chute's turf
