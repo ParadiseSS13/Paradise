@@ -722,7 +722,7 @@
 	owner.clear_fullscreen("payback")
 	owner.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/stretch/payback, 1)
 
-/datum/status_effect/drill_payback/tick() //They are not staying down. This will be a fight.
+/datum/status_effect/drill_payback/tick(mob/living/carbon/human/H) //They are not staying down. This will be a fight.
 	if(!drilled_successfully && (get_dist(owner, drilled) >= 9)) //We don't want someone drilling the safe at arivals then raiding bridge with the buff
 		to_chat(owner, "<span class='userdanger'>Get back to the safe, they are going to get the drill!</span>")
 		times_warned++
@@ -730,8 +730,8 @@
 			owner.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
 			return
 	if(owner.stat != DEAD)
-		owner.adjustBruteLoss(-3, robotic = TRUE)
-		owner.adjustFireLoss(-3, robotic = TRUE)
+		H.adjustBruteLoss(-3, robotic = TRUE)
+		H.adjustFireLoss(-3, robotic = TRUE)
 		owner.adjustStaminaLoss(-25)
 
 /datum/status_effect/drill_payback/on_remove()
