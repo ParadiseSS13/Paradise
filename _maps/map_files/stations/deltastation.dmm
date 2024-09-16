@@ -4299,7 +4299,6 @@
 /area/station/engineering/controlroom)
 "aue" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -24545,6 +24544,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/item/circuitboard/rnd_backup_console,
+/obj/item/circuitboard/rnd_network_controller,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
 "bvX" = (
@@ -28050,7 +28051,7 @@
 "bEG" = (
 /obj/machinery/gravity_generator/main/station,
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 8;
 	icon_state = "vault"
 	},
 /area/station/engineering/gravitygenerator)
@@ -119468,7 +119469,7 @@ bwN
 bzE
 bBi
 bBj
-bEG
+bBi
 bGB
 bwN
 abj
@@ -119725,7 +119726,7 @@ bwN
 bzE
 bBj
 bDc
-bBj
+bEG
 bzE
 bwN
 abj

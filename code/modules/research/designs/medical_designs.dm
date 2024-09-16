@@ -63,7 +63,7 @@
 	category = list("Medical")
 
 /datum/design/holostretcher
-	name = "Holo Strecher"
+	name = "Holo Stretcher"
 	desc = "A hardlight projector for transporting patients."
 	id = "holo_stretcher"
 	req_tech = list("magnets" = 5, "powerstorage" = 4)
