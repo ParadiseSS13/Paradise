@@ -34,7 +34,7 @@
 
 ':guitar: Инструменты':
   - changed-files:
-      - any-glob-to-any-file: ['.gihub/**', 'tools/**', '.vscode/**', '.bin/**']
+      - any-glob-to-any-file: ['.github/**', 'tools/**', '.vscode/**', '.bin/**']
 
 ':floppy_disk: Изменение конфига':
   - changed-files:
@@ -54,7 +54,7 @@
           - any-glob-to-any-file: ['code/**', 'icons/**', 'sounds/**', '_maps/map_files/**', 'tgui/**']
           - any-glob-to-any-file: [modular_ss220/**]
       - base-branch: 'master'
-      - head-branch: '!merge-upstream'
+      - head-branch: '^(?!merge-upstream$).*'
 
 ':finnadie: НЕ МОДУЛЬНО':
   - all:
@@ -62,7 +62,7 @@
           - any-glob-to-any-file: ['code/**', 'icons/**', 'sounds/**', '_maps/map_files/**']
           - all-globs-to-all-files: '!modular_ss220/**'
       - base-branch: 'master'
-      - head-branch: '!merge-upstream'
+      - head-branch: '^(?!merge-upstream$).*'
 
 ':pray: Слияние с восходящим потоком':
   - all:
