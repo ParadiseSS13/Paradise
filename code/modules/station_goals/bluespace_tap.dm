@@ -354,10 +354,19 @@
 	// emagging disables stabilizers
 	if(stabilizer_priority)
 		// stabilizer power is what we need to stabilize the current mining level, but no more than half the available power.
-		stabilizer_power = clamp(desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW), 0, mining_power / 2) * (stabilizers && !emagged)
+		stabilizer_power = \
+		clamp(\
+		desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW), \
+		 0, \
+		 mining_power / 2) \
+		 * (stabilizers && !emagged)
 	else
 		// stabilizer power is however much power we have left, but no more than we need to stabilize our desired mining power.
-		stabilizer_power = clamp(mining_power - desired_mining_power, 0, desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW)) * (stabilizers && !emagged)
+		stabilizer_power = \
+		clamp(mining_power - desired_mining_power, \
+		0, \
+		desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW)) \
+		* (stabilizers && !emagged)
 
 	// Actual mining power is what the desired mining power we set, unless we don't have enough power to satisfty that.
 	mining_power = min(desired_mining_power, mining_power - stabilizer_power)
