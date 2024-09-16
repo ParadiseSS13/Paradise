@@ -16,7 +16,8 @@
 	name = "emergency closet"
 	desc = "It's a storage unit for emergency breathmasks and o2 tanks."
 	icon_state = "emergency"
-	open_door_sprite = "emergency_door"
+	opened_door_sprite = "emergency"
+	closed_door_sprite = "emergency"
 
 /obj/structure/closet/emcloset/anchored
 	anchored = TRUE
@@ -60,7 +61,8 @@
 	name = "fire-safety closet"
 	desc = "It's a storage unit for fire-fighting supplies."
 	icon_state = "fire"
-	open_door_sprite = "fire_door"
+	opened_door_sprite = "fire"
+	closed_door_sprite = "fire"
 
 /obj/structure/closet/firecloset/populate_contents()
 	new /obj/item/extinguisher(src)
@@ -84,9 +86,9 @@
 /obj/structure/closet/toolcloset
 	name = "tool closet"
 	desc = "It's a storage unit for tools."
-	icon_state = "eng_tool"
-	open_door_sprite = "eng_door"
-	icon_opened = "eng_open"
+	icon_state = "eng"
+	opened_door_sprite = "eng"
+	closed_door_sprite = "eng_tool"
 
 /obj/structure/closet/toolcloset/populate_contents()
 	if(prob(40))
@@ -127,9 +129,9 @@
 /obj/structure/closet/radiation
 	name = "radiation suit closet"
 	desc = "It's a storage unit for rad-protective suits."
-	icon_state = "eng_rad"
-	open_door_sprite = "eng_door"
-	icon_opened = "eng_open"
+	icon_state = "eng"
+	opened_door_sprite = "eng"
+	closed_door_sprite = "eng_rad"
 
 /obj/structure/closet/radiation/populate_contents()
 	new /obj/item/geiger_counter(src)
@@ -143,7 +145,8 @@
 	name = "\improper EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
 	icon_state = "bomb"
-	open_door_sprite = "bomb_door"
+	opened_door_sprite = "bomb"
+	closed_door_sprite = "bomb"
 
 /obj/structure/closet/bombcloset/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit( src )
@@ -156,7 +159,8 @@
 	name = "\improper EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
 	icon_state = "bomb"
-	open_door_sprite = "bomb_door"
+	opened_door_sprite = "bomb"
+	closed_door_sprite = "bomb"
 
 /obj/structure/closet/bombclosetsecurity/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit/security( src )

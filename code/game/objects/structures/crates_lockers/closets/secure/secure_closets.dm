@@ -3,7 +3,8 @@
 	desc = "It's an immobile card-locked storage unit."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure"
-	open_door_sprite = "secure_door"
+	opened_door_sprite = "secure"
+	closed_door_sprite = "secure"
 	opened = FALSE
 	locked = TRUE
 	can_be_emaged = TRUE
@@ -17,14 +18,6 @@
 	if(locked)
 		return FALSE
 	return ..()
-
-/obj/structure/closet/secure_closet/close()
-	if(..())
-		if(broken)
-			update_icon()
-		return TRUE
-	else
-		return FALSE
 
 /obj/structure/closet/secure_closet/emp_act(severity)
 	for(var/obj/O in src)
@@ -82,20 +75,6 @@
 		togglelock(user)
 	else
 		toggle(user)
-
-/obj/structure/closet/secure_closet/update_overlays() //Putting the welded stuff in update_overlays() so it's easy to overwrite for special cases (Fridges, cabinets, and whatnot)
-	cut_overlays()
-	if(opened)
-		add_overlay(open_door_sprite)
-		return
-	if(welded)
-		add_overlay("welded")
-	if(broken)
-		return
-	if(locked)
-		add_overlay("locked")
-	else
-		add_overlay("unlocked")
 
 /obj/structure/closet/secure_closet/container_resist(mob/living/L)
 	var/breakout_time = 2 MINUTES

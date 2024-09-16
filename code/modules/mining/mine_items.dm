@@ -22,8 +22,9 @@
 
 /obj/structure/closet/wardrobe/miner
 	name = "mining wardrobe"
-	icon_state = "mixed"
-	icon_closed = "mixed"
+	icon_state = "generic"
+	opened_door_sprite = "generic"
+	closed_door_sprite = "mixed"
 
 /obj/structure/closet/wardrobe/miner/populate_contents()
 	new /obj/item/storage/backpack/duffel(src)
@@ -46,7 +47,8 @@
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
 	icon_state = "mining"
-	open_door_sprite = "mining_door"
+	opened_door_sprite = "mining"
+	closed_door_sprite = "mining"
 	req_access = list(ACCESS_MINING)
 
 /obj/structure/closet/secure_closet/miner/populate_contents()

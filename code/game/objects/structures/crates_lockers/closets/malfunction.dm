@@ -2,7 +2,8 @@
 /obj/structure/closet/malf/suits
 	desc = "It's a storage unit for operational gear."
 	icon_state = "syndicate"
-	open_door_sprite = "syndicate_door"
+	opened_door_sprite = "syndicate"
+	closed_door_sprite = "syndicate"
 
 /obj/structure/closet/malf/suits/populate_contents()
 	new /obj/item/tank/jetpack/void(src)
