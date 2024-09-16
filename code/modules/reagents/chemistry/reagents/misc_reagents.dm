@@ -766,7 +766,8 @@
 	description = "An incredibly dangerous set of nanites engineered by Syndicate Janitors which devour everything they touch."
 
 /datum/reagent/admin_cleaner/all/reaction_obj(obj/O, volume)
-	qdel(O)
+	if(!iseffect(O))
+		qdel(O)
 
 /datum/reagent/admin_cleaner/all/reaction_mob(mob/living/M, method, volume, show_message)
 	. = ..()
