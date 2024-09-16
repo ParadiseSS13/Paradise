@@ -1765,7 +1765,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return cell.is_powered() || externally_powered
 
 /mob/living/silicon/robot/can_be_flashed(intensity, override_blindness_check)
-	return eye_protection
+	return !eye_protection
 
 /mob/living/silicon/robot/can_remote_apc_interface(obj/machinery/power/apc/ourapc)
 	if(ourapc.hacked_by_ruin_AI || ourapc.aidisabled)
