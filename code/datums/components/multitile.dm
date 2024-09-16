@@ -47,33 +47,33 @@
 	var/distance_from_center_x = (max_max_width - 1) / 2
 	var/distance_from_center_y = (max_height - 1) / 2
 
-	if(owner.x + offset_x + distance_from_center_x > world.maxx || owner.x + offset_x - distance_from_center_x < 1)
+	if(owner.x - offset_x + distance_from_center_x > world.maxx || owner.x + offset_x - distance_from_center_x < 1)
 		var/obj/machinery/machine = parent
 		machine.deconstruct()
 		return COMPONENT_INCOMPATIBLE
 
-	if(owner.y + offset_y + distance_from_center_y > world.maxy || owner.y + offset_y - distance_from_center_y < 1)
+	if(owner.y + offset_y + distance_from_center_y > world.maxy || owner.y - offset_y - distance_from_center_y < 1)
 		var/obj/machinery/machine = parent
 		machine.deconstruct()
 		return COMPONENT_INCOMPATIBLE
 
 	var/current_height = 0
-	var/current_width = 0
+	var/current_width = 1
 	var/tile_index = 1
 	var/padding = (max_max_width - max_width) / 2
 
 	for(var/turf/filler_turf as anything in block( \
-	owner.x + offset_x - distance_from_center_x, owner.y + offset_y - distance_from_center_y, owner.z, \
-	owner.x + offset_x + distance_from_center_x, owner.y + offset_y + distance_from_center_y, owner.z, \
+	owner.x - offset_x - distance_from_center_x, owner.y + offset_y - distance_from_center_y, owner.z, \
+	owner.x - offset_x + distance_from_center_x, owner.y + offset_y + distance_from_center_y, owner.z, \
 	))
 		//Last check is for filler row lists of length 1.
-		if(!padding || ((tile_index % max_max_width) in (padding + 1) to (max_width - padding)) || (tile_index % max_max_width) == (padding + 1))
-			if((new_filler_map[max_height - current_height][max_width - current_width] % 2) != 0) // Because the `block()` proc always works from the bottom left to the top right, we have to loop through our nested lists in reverse
+		if(!padding || ((tile_index % max_max_width) in (padding + 1) to (max_max_width - padding)) || (tile_index % max_max_width) == (padding + 1))
+			if(new_filler_map[max_height - current_height][current_width] == 1) // Because the `block()` proc always works from the bottom left to the top right, we have to loop through our list in reverse
 				var/obj/structure/filler/new_filler = new(filler_turf)
 				all_fillers += new_filler
 			current_width += 1
-			if(current_width == max_width)
-				current_width = 0
+			if(current_width == (max_width + 1))
+				current_width = 1
 		tile_index++
 		if(tile_index % max_max_width == 1)
 			current_height += 1
@@ -81,6 +81,7 @@
 				break
 			max_width = length(new_filler_map[max_height - current_height])
 			padding = (max_max_width - max_width) / 2
+			current_width = 1
 
 /datum/component/multitile/Destroy(force, silent)
 	QDEL_LIST_CONTENTS(all_fillers)
