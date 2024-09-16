@@ -757,7 +757,7 @@
 	description = "A bottle of strange nanites that instantly devour items, while curiously leaving everything else untouched."
 
 /datum/reagent/admin_cleaner/item/reaction_obj(obj/O, volume)
-	if(isitem(O))
+	if(isitem(O) && !istype(O, /obj/item/grenade/clusterbuster/segment))
 		qdel(O)
 
 /datum/reagent/admin_cleaner/all
@@ -766,6 +766,10 @@
 	description = "An incredibly dangerous set of nanites engineered by Syndicate Janitors which devour everything they touch."
 
 /datum/reagent/admin_cleaner/all/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/item/grenade/clusterbuster/segment))
+		// don't clear clusterbang segments
+		// I'm allowed to make this hack because this is admin only anyway
+		return
 	if(!iseffect(O))
 		qdel(O)
 
