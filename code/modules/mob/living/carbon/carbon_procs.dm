@@ -535,6 +535,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(!istype(starting_machine) || !starting_machine.returnPipenet(target_move) || !starting_machine.can_see_pipes())
 		return
 	var/datum/pipeline/pipeline = starting_machine.returnPipenet(target_move)
+	pipeline.crawlers += src
+	our_pipeline = pipeline
 	var/list/totalMembers = list()
 	totalMembers |= pipeline.members
 	totalMembers |= pipeline.other_atmosmch
@@ -547,6 +549,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/proc/remove_ventcrawl()
 	if(client)
+		our_pipeline.crawlers -= src
+		our_pipeline = null
 		for(var/image/current_image in pipes_shown)
 			client.images -= current_image
 		client.eye = src

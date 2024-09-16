@@ -7,6 +7,8 @@
 
 	var/update = TRUE
 
+	var/list/crawlers = list()
+
 /datum/pipeline/New()
 	SSair.pipenets += src
 
