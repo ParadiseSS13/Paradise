@@ -763,7 +763,7 @@
 /mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target, height)
+/mob/living/simple_animal/demon/pulse_demon/CanPass(atom/movable/mover, turf/target)
 	. = ..()
 	if(istype(mover, /obj/item/projectile/ion))
 		return FALSE

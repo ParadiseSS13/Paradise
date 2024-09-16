@@ -372,6 +372,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
+	if(!(stat & BROKEN) || syndicate) // No disasembling active turrets or syndicate ones
+		return
 	to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
 	if(!I.use_tool(src, user, 2 SECONDS, 0, 50))
 		return FALSE

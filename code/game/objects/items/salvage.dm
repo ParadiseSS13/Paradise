@@ -29,12 +29,12 @@
 
 /obj/item/salvage/ruin/russian
 	name = "armaments cache"
-	desc = "A crate of old disused Belastrav ballistic firearms clearly long past their usability. This crate would make good scrap metal for shuttle construction."
+	desc = "A crate of old disused Belastrav ballistic firearms that have been weathered into uselessness. They still may be of value to collectors, however."
 	icon_state = "weapon_crate"
 
 /obj/item/salvage/ruin/brick
 	name = "mysterious brick"
-	desc = "A peculier brick formed out of what appears to be plastic. This would make a fantastic collector's item."
+	desc = "A peculiar brick formed out of what appears to be plastic. This would make a fantastic collector's item."
 	icon_state = "lego_brick"
 	hitsound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
@@ -46,7 +46,7 @@
 
 /obj/item/salvage/ruin/nanotrasen
 	name = "lost research notes"
-	desc = "A collection of research notes penned by old Nanotrasen scientists from decades past, technology lost in time- until you found them. It is a mystery what technology Central Command will push if they could just get their hands on these notes."
+	desc = "A collection of research notes penned by old Nanotrasen scientists from decades past, technology lost in time- until you found them. While quite dated, they may contain insights missed by today's researchers."
 	icon_state = "research_doc"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
@@ -58,7 +58,7 @@
 
 /obj/item/salvage/ruin/carp
 	name = "carp scales"
-	desc = "A collection of scales shed from a corrupted space carp. Their culinary potential could mean untold riches for Nanotrasen."
+	desc = "A collection of scales shed from a corrupted space carp. Their unique molecular composition may prove useful to material scientists."
 	icon_state = "dragon_scales"
 	hitsound = sound('sound/effects/hit_on_shattered_glass.ogg', 20)
 	pickup_sound = sound('sound/hallucinations/im_here2.ogg', 10)
@@ -66,7 +66,7 @@
 
 /obj/item/salvage/ruin/tablet
 	name = "mysterious tablet"
-	desc = "A mysterious and old stone tablet. When you read the text on it, you start getting chills."
+	desc = "An old, weathered tablet made of dark stone. Merely looking at it sends chills down your spine."
 	icon_state = "stone_tablet"
 	hitsound = sound('sound/effects/break_stone.ogg', 20)
 	pickup_sound =  sound('sound/hallucinations/im_here2.ogg', 10)
@@ -75,7 +75,7 @@
 /// Loot salvage, gained from fighting space simplemobs.
 
 /obj/item/salvage/loot
-	desc = "A tonne of salvage looted from a fallen foe. Who spawned the base type? Report this on the github."
+	desc = "If you can see this forbidden salvage, report it on GitHub."
 
 /obj/item/salvage/loot/pirate
 	name = "stolen jewellery"
@@ -86,8 +86,8 @@
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 
 /obj/item/salvage/loot/russian
-	name = "siosp manual"
-	desc = "A small manual, written in Neo-Russkyia, detailing the manifesto of Malfoy Ames, father of The Cygni Rebellion. Central Command may wish to share this with their allies in the Trans-Solar Federation."
+	name = "\improper Cygni manifesto"
+	desc = "A small book, written in Neo-Russkyia, detailing the manifesto of Malfoy Ames, father of The Cygni Rebellion. Banned in Federation space, it may fetch a decent price on the black market."
 	icon_state = "ussp_manual"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
@@ -95,7 +95,7 @@
 
 /obj/item/salvage/loot/syndicate
 	name = "syndicate intel"
-	desc = "A folder detailing Syndicate plans to infiltrate and sabotage operations in the Epsilon Eridani sector. Central Command may find use of this to aid them in counter-intelligence."
+	desc = "A folder detailing Syndicate plans to infiltrate and sabotage operations in the Epsilon Eridani system. This sort of intelligence treasure will be highly valued by Company counterintelligence."
 	icon_state = "syndie_doc"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'

@@ -4,31 +4,28 @@
  * All signals send the source datum of the signal as the first argument
  */
 
-///from /obj/machinery/obj_break(damage_flag): (damage_flag)
-#define COMSIG_MACHINERY_BROKEN "machinery_broken"
-///from base power_change() when power is lost
-#define COMSIG_MACHINERY_POWER_LOST "machinery_power_lost"
-///from base power_change() when power is restored
-#define COMSIG_MACHINERY_POWER_RESTORED "machinery_power_restored"
-
 
 // /obj/machinery/camera
 
+/// called on cameras after activation: (mob/user, display_message)
 #define COMSIG_CAMERA_ON "camera_on"
+/// called on cameras after deactivation: (mob/user, display_message, emped)
 #define COMSIG_CAMERA_OFF "camera_off"
+/// called on cameras when moved, such as ones inside helmets: (turf/prev_turf)
 #define COMSIG_CAMERA_MOVED "camera_moved"
 
 
 // /obj/machinery/door
 
+/// called on doors when opened: ()
 #define COMSIG_DOOR_OPEN "door_open"
+/// called on doors when closed: ()
 #define COMSIG_DOOR_CLOSE "door_close"
 
 
 // /obj/machinery/door/airlock
 
+/// called on airlocks when opened: ()
 #define COMSIG_AIRLOCK_OPEN "airlock_open"
+/// called on airlocks when closed: ()
 #define COMSIG_AIRLOCK_CLOSE "airlock_close"
-
-/// ingame button pressed (/obj/machinery/button/button)
-#define COMSIG_GLOB_BUTTON_PRESSED "!button_pressed"

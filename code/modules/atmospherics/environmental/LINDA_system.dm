@@ -18,10 +18,10 @@
 /atom/movable/proc/CanAtmosPass()
 	return TRUE
 
-/atom/proc/CanPass(atom/movable/mover, turf/target, height=1.5)
-	return (!density || !height)
+/atom/proc/CanPass(atom/movable/mover, turf/target)
+	return !density
 
-/turf/CanPass(atom/movable/mover, turf/target, height=1.5)
+/turf/CanPass(atom/movable/mover, turf/target)
 	if(!target) return 0
 
 	if(istype(mover)) // turf/Enter(...) will perform more advanced checks
@@ -32,10 +32,10 @@
 			return 0
 
 		for(var/obj/obstacle in src)
-			if(!obstacle.CanPass(mover, target, height))
+			if(!obstacle.CanPass(mover, target))
 				return 0
 		for(var/obj/obstacle in target)
-			if(!obstacle.CanPass(mover, src, height))
+			if(!obstacle.CanPass(mover, src))
 				return 0
 
 		return 1

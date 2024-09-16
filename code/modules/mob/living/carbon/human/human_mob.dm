@@ -1608,12 +1608,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 #undef CPR_CHEST_COMPRESSION_RESTORATION
 #undef CPR_BREATHS_RESTORATION
 
-/mob/living/carbon/human/canBeHandcuffed()
-	if(get_num_arms() >= 2)
-		return TRUE
-	else
-		return FALSE
-
 /mob/living/carbon/human/has_mutated_organs()
 	for(var/obj/item/organ/external/E in bodyparts)
 		if(E.status & ORGAN_MUTATED)

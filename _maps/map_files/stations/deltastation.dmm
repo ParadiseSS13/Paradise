@@ -4299,7 +4299,6 @@
 /area/station/engineering/controlroom)
 "aue" = (
 /obj/structure/reflector/single{
-	anchored = 1;
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -24545,6 +24544,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/item/circuitboard/rnd_backup_console,
+/obj/item/circuitboard/rnd_network_controller,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
 "bvX" = (

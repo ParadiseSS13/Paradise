@@ -270,6 +270,26 @@
 	atmos_mode = ATMOS_MODE_SEALED
 	atmos_environment = null
 
+// special turf for the asteroid core on EmeraldStation
+/turf/simulated/floor/lava/plasma/fuming
+	name = "liquid plasma"
+	desc = "A swirling pit of liquid plasma. It bubbles ominously."
+	icon = 'icons/turf/floors/liquidplasma.dmi'
+	icon_state = "liquidplasma-255"
+	base_icon_state = "liquidplasma"
+	baseturf = /turf/simulated/floor/lava/plasma/fuming
+	atmos_mode = ATMOS_MODE_NO_DECAY
+
+	// Hot Ass Plasma lava
+	temperature = 1000
+	oxygen = 0
+	nitrogen = 0
+	carbon_dioxide = 1.2
+	toxins = 10
+	light_range = 3
+	light_power = 0.75
+	light_color = LIGHT_COLOR_PINK
+
 /turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD //Lateload is needed, otherwise atmos does not setup right on the turf roundstart, leading it to be vacume. This is bad.
