@@ -105,7 +105,7 @@
 #define STAGE_SIX 11 //From supermatter shard
 
 /// A define for the center of the coordinate map of big machinery
-#define MACH_CENTER 0
+#define MACH_CENTER 2
 
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
