@@ -1,6 +1,6 @@
+use crate::logging;
 use crate::milla::constants::*;
 use crate::milla::conversion;
-use crate::milla::logging;
 use crate::milla::model::*;
 use crate::milla::statics::*;
 use crate::milla::tick;

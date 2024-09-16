@@ -1,6 +1,7 @@
 // DM API for Rust extension modules
 // Current modules:
 // - MILLA, an asynchronous replacement for BYOND atmos
+// - Mapmanip, a parse-time DMM file reader and modifier
 
 // Default automatic library detection.
 // Look for it in the build location first, then in `.`, then in standard places.
@@ -10,27 +11,27 @@
 /proc/__detect_rustlib()
 	if(world.system_type == UNIX)
 #ifdef CIBUILDING
-		// CI override, use libparust_ci.so if possible.
-		if(fexists("./tools/ci/libparust_ci.so"))
-			return __rustlib = "tools/ci/libparust_ci.so"
+		// CI override, use librustlibs_ci.so if possible.
+		if(fexists("./tools/ci/librustlibs_ci.so"))
+			return __rustlib = "tools/ci/librustlibs_ci.so"
 #endif
 		// First check if it's built in the usual place.
-		if(fexists("./rust/target/i686-unknown-linux-gnu/release/libparust.so"))
-			return __rustlib = "./rust/target/i686-unknown-linux-gnu/release/libparust.so"
+		if(fexists("./rust/target/i686-unknown-linux-gnu/release/librustlibs.so"))
+			return __rustlib = "./rust/target/i686-unknown-linux-gnu/release/librustlibs.so"
 		// Then check in the current directory.
-		if(fexists("./libparust.so"))
-			return __rustlib = "./libparust.so"
+		if(fexists("./librustlibs.so"))
+			return __rustlib = "./librustlibs.so"
 		// And elsewhere.
-		return __rustlib = "libparust.so"
+		return __rustlib = "librustlibs.so"
 	else
 		// First check if it's built in the usual place.
-		if(fexists("./rust/target/i686-pc-windows-msvc/release/parust.dll"))
-			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/parust.dll"
+		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"))
+			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"
 		// Then check in the current directory.
-		if(fexists("./parust.dll"))
-			return __rustlib = "./parust.dll"
+		if(fexists("./rustlibs.dll"))
+			return __rustlib = "./rustlibs.dll"
 		// And elsewhere.
-		return __rustlib = "parust.dll"
+		return __rustlib = "rustlibs.dll"
 
 #define RUSTLIB (__rustlib || __detect_rustlib())
 
@@ -81,6 +82,9 @@
 
 /proc/create_environment(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
 	return RUSTLIB_CALL(milla_create_environment, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
+
+/proc/mapmanip_read_dmm(mapname)
+	return RUSTLIB_CALL(mapmanip_read_dmm_file, mapname)
 
 #undef RUSTLIB
 #undef RUSTLIB_CALL

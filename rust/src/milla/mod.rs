@@ -9,7 +9,6 @@
 mod api;
 mod constants;
 mod conversion;
-mod logging;
 mod model;
 mod simulate;
 mod statics;

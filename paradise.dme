@@ -1014,6 +1014,7 @@
 #include "code\game\objects\effects\effect_system\effects_smoke.dm"
 #include "code\game\objects\effects\effect_system\effects_sparks.dm"
 #include "code\game\objects\effects\effect_system\effects_water.dm"
+#include "code\game\objects\effects\map_effects\mapmanip.dm"
 #include "code\game\objects\effects\spawners\airlock_spawner.dm"
 #include "code\game\objects\effects\spawners\bombspawner.dm"
 #include "code\game\objects\effects\spawners\decorative_spawners.dm"

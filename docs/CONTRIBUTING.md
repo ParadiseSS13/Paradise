@@ -135,13 +135,15 @@ All PRs which modify maps are expected to follow all of our
 ## Modifying Rust Code
 
 Some parts of Paradise are written in [Rust][] for performance or reliability
-reasons. The Rust parts of our codebase are compiled into a single library,
+reasons:
+
+- Our atmos engine, MILLA, is in the `rust/src/milla/` directory.
+- The `mapmanip` library, an Aurora Station module used for automating DMM
+  modification, is in the `rust/src/mapmanip` library.
+
+The Rust parts of our codebase are compiled into a single library,
 separate from the rest of the code. If you're on Windows, you get a pre-built
 copy by default. If you're on Linux, you built one already to run the server.
-
-### MILLA
-
-Our atmos engine, MILLA, is in the `rust/src/milla/` directory.
 
 If you make changes to the Rust library, you'll want to rebuild. This will be
 very similar to [rust-g][]. The only difference is that you run `cargo` from the
@@ -151,8 +153,8 @@ hurt).
 The server will automatically detect that you have a local build, and use that
 over the default Windows one.
 
-When you're ready to make a PR, please DO NOT modify `parust.dll` or
-`tools/ci/libparust_ci.so`. Leave "Allow edits and access to secrets by
+When you're ready to make a PR, please DO NOT modify `rustlibs.dll` or
+`tools/ci/librustlibs_ci.so`. Leave "Allow edits and access to secrets by
 maintainers" enabled, and post a comment on your PR saying `!build_rust`. A bot
 will automatically build them for you and update your branch.
 
