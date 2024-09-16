@@ -74,6 +74,53 @@
 	else
 		return TRUE
 
+/obj/item/flamethrower/attack(mob/living/target, mob/living/user)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!lit)
+		to_chat(user, "<span class='warning'>You need to ignite [src] before you can use it as a lighter!</span>")
+		return TRUE
+
+	// Pulling this off 'safely' requires years of experience, a true badass, or blind luck!
+	if(HAS_TRAIT(user, TRAIT_BADASS) || (user.mind.assigned_role in list("Station Engineer", "Chief Engineer", "Life Support Specialist")) || prob(50))
+		if(user == target)
+			user.visible_message(
+				"<span class='warning'>[user] confidently lifts up [src] and releases a big puff of flame at [user.p_their()] [cig] to light it, like some kind of psychopath!</span>",
+				"<span class='notice'>You lift up [src] and lightly pull the trigger, lighting [cig].</span>",
+				"<span class='warning'>You hear a brief burst of flame!</span>"
+			)
+		else
+			user.visible_message(
+				"<span class='warning'>[user] confidently lifts up [src] and releases a big puff of flame at [target], lighting [target.p_their()] [cig.name], like some kind of psychopath!</span>",
+				"<span class='notice'>You lift up [src] and point it at [target], lightly pullling the trigger to light [target.p_their()] [cig.name] with a big puff of flame.</span>",
+				"<span class='warning'>You hear a brief burst of flame!</span>"
+		)
+	else
+		// You set them on fire, but at least the cigarette got lit...
+		if(target == user)
+			user.visible_message(
+				"<span class='danger'>[user] carelessly lifts up [src] and releases a large burst of flame at [user.p_their()] [cig] to light it, accidentally setting [user.p_themselves()] ablaze in the process!</span>",
+				"<span class='userdanger'>You lift up [src] and squeeze the trigger to light [cig]. Unfortunately, you squeeze a little too hard and release a large burst of flame that sets you ablaze!</span>",
+				"<span class='danger'>You hear a plume of fire and something igniting!</span>"
+			)
+		else
+			user.visible_message(
+				"<span class='danger'>[user] carelessly lifts up [src] and releases a large burst of flame at [target] to light [target.p_their()] [cig.name], accidentally setting [target.p_them()] ablaze!</span>",
+				"<span class='danger'>You lift up [src] up and point it at [target], squeezing the trigger to light [target.p_their()] [cig.name]. \
+				Unfortunately, your squeeze a little too hard and release large burst of flame that sets [target.p_them()] ablaze!</span>",
+				"<span class='danger'>You hear a plume of fire and something igniting!</span>"
+			)
+		target.adjust_fire_stacks(2)
+		target.IgniteMob()
+	cig.light(user, target)
+	return TRUE
+
 /obj/item/flamethrower/afterattack(atom/target, mob/user, flag)
 	. = ..()
 	if(flag)

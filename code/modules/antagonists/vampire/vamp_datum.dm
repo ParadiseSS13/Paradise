@@ -226,11 +226,11 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		if(T.density)
 			return
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
-		to_chat(owner.current, "<span class='warning'>The starlight saps your strength!</span>")
+		to_chat(owner.current, "<span class='biggerdanger'>The starlight saps your strength, you should get out of the starlight!</span>")
 		subtract_usable_blood(10)
 		vamp_burn(10)
 	else		//You're in trouble, get out of the sun NOW
-		to_chat(owner.current, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
+		to_chat(owner.current, "<span class='biggerdanger'>Your body is turning to ash, get out of the starlight NOW!</span>")
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
 		if(owner.current.cloneloss >= 100)

@@ -517,10 +517,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "oG" = (
-/obj/structure/closet{
-	icon_state = "atmos_wardrobe";
-	name = "atmospherics wardrobe"
-	},
+/obj/structure/closet/wardrobe/atmospherics_yellow/empty,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
@@ -570,11 +567,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "pX" = (
-/obj/structure/closet{
-	icon_state = "eng_secure";
-	open_door_sprite = "eng_secure_door";
-	name = "engineer's locker"
-	},
+/obj/structure/closet/secure_closet/engineering_personal/empty,
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "qu" = (
@@ -903,11 +896,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/obj/structure/closet{
-	icon_state = "fire";
-	name = "fire-safety closet";
-	desc = "It's a storage unit for fire-fighting supplies."
-	},
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot";
 	dir = 1
@@ -1436,13 +1425,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "Yz" = (
-/obj/structure/closet{
-	icon_state = "emergency";
-	open_door_sprite = "emergency_door";
-	name = "emergency closet";
-	desc = "It's a storage unit for emergency breathmasks and o2 tanks.";
-	opened = 1
-	},
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot";
 	dir = 1
