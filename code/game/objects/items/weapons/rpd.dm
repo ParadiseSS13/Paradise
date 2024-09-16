@@ -39,6 +39,7 @@
 	var/ranged = FALSE
 	var/primary_sound = 'sound/machines/click.ogg'
 	var/alt_sound = null
+	var/auto_wrench_toggle = TRUE
 
 	//Lists of things
 	var/list/mainmenu = list(
@@ -114,8 +115,7 @@
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
-	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(P, user.get_inactive_hand())))
-		P.wrench_act(user, user.get_inactive_hand())
+	automatic_wrench_down(user, P)
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
@@ -127,8 +127,7 @@
 	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION_RIGHT) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
 		P.flip()
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
-	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(P, user.get_inactive_hand())))
-		P.attackby(user.get_inactive_hand(), user)
+	automatic_wrench_down(user, P)
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_transit_tube(mob/user, turf/dest)
@@ -144,8 +143,7 @@
 			S.dir = iconrotation ? iconrotation : user.dir
 
 			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
-			if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(S, user.get_inactive_hand())))
-				S.wrench_act(user, user.get_inactive_hand())
+			automatic_wrench_down(user, S)
 			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
@@ -195,6 +193,18 @@
 	QDEL_NULL(P)
 	activate_rpd()
 
+/**
+* Automatically wrenches down an atmos device/pipe if the auto_wrench_toggle is TRUE.
+* Arguments:
+* * user - the user of the RPD.
+* * target - the pipe/device/tube being placed by the RPD.
+*/
+/obj/item/rpd/proc/automatic_wrench_down(mob/living/user, obj/item/target)
+	if(auto_wrench_toggle)
+		if(mode != RPD_TRANSIT_MODE)
+			target.wrench_act(user, src)
+		target.screwdriver_act(user, src)
+
 // TGUI stuff
 
 /obj/item/rpd/attack_self(mob/user)
@@ -228,6 +238,7 @@
 	data["whatdpipe"] = whatdpipe
 	data["whatpipe"] = whatpipe
 	data["whatttube"] = whatttube
+	data["auto_wrench_toggle"] = auto_wrench_toggle
 	return data
 
 /obj/item/rpd/ui_act(action, list/params)
@@ -249,6 +260,8 @@
 			pipe_category = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("mode")
 			mode = isnum(params[action]) ? params[action] : text2num(params[action])
+		if("auto_wrench_toggle")
+			auto_wrench_toggle = !auto_wrench_toggle
 
 //RPD radial menu
 /obj/item/rpd/proc/check_menu(mob/living/user)
