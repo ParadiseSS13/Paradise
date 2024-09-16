@@ -345,6 +345,7 @@
 	bot_assembly.treatment_fire = treatment_fire
 	bot_assembly.treatment_tox = treatment_tox
 	bot_assembly.treatment_virus = treatment_virus
+	bot_assembly.robot_arm = robot_arm
 
 	qdel(I)
 	user.put_in_hands(bot_assembly)
@@ -657,6 +658,7 @@
 		return
 
 	var/obj/item/honkbot_arm_assembly/bot_assembly = new /obj/item/honkbot_arm_assembly
+	bot_assembly.robot_arm = robot_arm
 	qdel(W)
 	user.put_in_hands(bot_assembly)
 	to_chat(user, "<span class='notice'>You add the robot arm to the honkbot.</span>")
