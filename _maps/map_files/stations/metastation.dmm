@@ -41741,7 +41741,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/item/target/alien,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/indestructible/airless,
 /area/station/science/toxins/test)
 "cZc" = (
 /obj/structure/cable,

@@ -59,14 +59,7 @@
 		. += "You can feel a bright spark of life in this one!"
 		return
 	if(brainmob?.mind)
-		var/foundghost = FALSE
-		for(var/mob/dead/observer/G in GLOB.player_list)
-			if(G.mind == brainmob.mind)
-				foundghost = TRUE
-				if(!G.can_reenter_corpse)
-					foundghost = FALSE
-				break
-		if(foundghost)
+		if(brainmob.get_ghost())
 			. += "You can feel the small spark of life still left in this one."
 			return
 
