@@ -1,7 +1,7 @@
 #DOCS
 #https://docs.github.com/en/github-ae@latest/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#configuring-the-template-chooser
 #
-blank_issues_enabled: false
+blank_issues_enabled: true
 contact_links:
   - name: Feature Request
     url: https://discord.com/channels/1097181193939730453/1181261198096875670
