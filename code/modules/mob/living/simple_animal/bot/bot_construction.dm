@@ -617,16 +617,16 @@
 			if(!user.unEquip(I))
 				return
 			toy_step++
-			to_chat(user, "<span class='notice'>You add a toy sword to [src]!.</span>")
+			to_chat(user, "<span class='notice'>You add a toy sword to [src]!</span>")
 			qdel(I)
 
 		else if((istype(I, /obj/item/toy/sword)) && (build_step > 0))
-			to_chat(user, "<span class='warning'>You already added an energy sword to [src]!You cannot mix and match different kinds of swords, it would be inefficient.")
+			to_chat(user, "<span class='warning'>You already added an energy sword to [src]! You cannot mix and match different kinds of swords, it would be inefficient.</span>")
 
 		else if((istype(I, /obj/item/toy/sword)) && (toy_step == 3))
 			if(!user.unEquip(I))
 				return
-			to_chat(user, "<span class='notice'>You complete Genewul Giftskee!.</span>")
+			to_chat(user, "<span class='notice'>You complete Genewul Giftskee!</span>")
 			new /mob/living/simple_animal/bot/secbot/griefsky/toy(get_turf(src))
 			qdel(I)
 			qdel(src)
