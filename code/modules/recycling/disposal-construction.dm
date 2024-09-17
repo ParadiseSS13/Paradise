@@ -140,22 +140,27 @@
 /obj/structure/disposalconstruct/wrench_act(mob/living/user, obj/item/I)
 	var/ispipe = is_pipe()
 	var/nicetype = get_nice_name()
-	if(anchored)
-		anchored = FALSE
-		if(ispipe)
-			level = 2
-			density = FALSE
-		else
-			density = TRUE
-		to_chat(user, "You detach the [nicetype] from the underfloor.")
-	else
-		anchored = TRUE
-		if(ispipe)
-			level = 1 // We don't want disposal bins to disappear under the floors
-			density = FALSE
-		else
-			density = TRUE // We don't want disposal bins or outlets to go density 0
-		to_chat(user, "You attach the [nicetype] to the underfloor.")
+	var/turf/T = get_turf(src)
+
+	if(T.intact)
+		to_chat(user, "You can only attach the [nicetype] if the floor plating is removed.")
+		return
+	
+	if(ispipe)
+		anchored = !anchored
+		level = anchored ? 1 : 2
+		I.play_tool_sound(src, I.tool_volume)
+		to_chat(user, anchored ? "You attach the [nicetype] to the underfloor." : "You detach the [nicetype] from the underfloor.")
+		return
+	
+	var/obj/structure/disposalpipe/trunk/CT = locate() in T //For disposal bins, chutes, outlets.
+	if(!CT)
+		to_chat(user, "The [nicetype] requires a constructed trunk in order to be anchored.")
+		return
+	anchored = !anchored
+	density = anchored
+	to_chat(user, anchored ? "You attach the [nicetype] to the trunk." : "You detach the [nicetype] from the trunk.")
+
 	I.play_tool_sound(src, I.tool_volume)
 	update()
 	return TRUE
@@ -186,20 +191,10 @@
 /obj/structure/disposalconstruct/attackby(obj/item/I, mob/user, params)
 	var/nicetype = get_nice_name()
 	var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
+	var/turf/T = get_turf(src)
 	add_fingerprint(user)
 
-
-	var/turf/T = src.loc
-	if(T.intact)
-		to_chat(user, "You can only attach the [nicetype] if the floor plating is removed.")
-		return
-
-	if(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)) // Disposal or outlet
-		var/obj/structure/disposalpipe/trunk/CP = locate() in T
-		if(!CP) // There's no trunk
-			to_chat(user, "The [nicetype] requires a trunk underneath it in order to work.")
-			return
-	else
+	if(ispipe)
 		for(var/obj/structure/disposalpipe/CP in T)
 			if(CP)
 				update()
